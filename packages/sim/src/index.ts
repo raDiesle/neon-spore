@@ -37,6 +37,7 @@ export type {
 export {
   bodyCenterCol,
   bulletShown,
+  CAIRN_COLS,
   clampSpanCol,
   colSpan,
   fallTilesPerBeat,

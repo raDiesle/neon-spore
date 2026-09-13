@@ -236,6 +236,8 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "clingFreed":
     case "clingBlast":
     case "weightCrushed":
+    case "cairnPulled":
+    case "cairnShed":
       return handedBurst(e, l);
 
     default:

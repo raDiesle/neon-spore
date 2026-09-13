@@ -134,7 +134,7 @@ The `BOUND` stamp is not a label anyone maintains: the test reads `bind.ts`,
 `bind-creatures.ts`, `bind-carom.ts`, `bind-coil.ts`, `bind-crawler.ts`,
 `bind-fence.ts`,
 `bind-veil.ts`, `bind-volley.ts`,
-`bind-fleet.ts`, `bind-choir.ts`, `bind-beatbox.ts`, `bind-breach.ts`, `bind-gum.ts`, `bind-cling.ts`, `bind-mirror.ts`, `bind-lookups.ts`, `mixer.ts` and
+`bind-fleet.ts`, `bind-choir.ts`, `bind-beatbox.ts`, `bind-breach.ts`, `bind-gum.ts`, `bind-cling.ts`, `bind-handed.ts`, `bind-mirror.ts`, `bind-lookups.ts`, `mixer.ts` and
 `mixer-boss.ts`, `mixer-pulse.ts` and fails if a sound claims to
 be wired and is not, or is
 played and claims to be spare. A handful of bound

@@ -29,6 +29,11 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   if (!boss) return null;
   if (boss.kind === "mirror") return { ...boss, rounds: boss.rounds.map((r) => [...r]) };
   if (boss.kind === "warden") return { ...boss };
+  // THE CAIRN is a fixture dead centre as well, and its two lanes are the
+  // pile's own edges rather than authored columns — `installCairn` reads them
+  // off `cols`, so a narrower field moves both and the entry says nothing
+  // about either.
+  if (boss.kind === "cairn") return { ...boss };
   // THE VANE hangs dead centre off the top edge, so it has no authored column
   // to remap either.
   if (boss.kind === "vane") return { ...boss };

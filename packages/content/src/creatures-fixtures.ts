@@ -1,7 +1,7 @@
 import type { CreatureDef } from "./creatures.js";
 
 /**
- * **The three bodies a wave never sends**, and the half of `CREATURES` that
+ * **The four bodies a wave never sends**, and the half of `CREATURES` that
  * describes fixtures rather than arrivals.
  *
  * Cut out of `creatures-table.ts` when THE CRAWLER took that file past its
@@ -15,7 +15,8 @@ import type { CreatureDef } from "./creatures.js";
  *
  * That is also why this file does not grow the way the others do: the
  * bestiary gains arrivals, and a boss's *body* is one row here against a whole
- * file of rules in `packages/sim`.
+ * file of rules in `packages/sim`. THE CAIRN is the fourth and it grew it by
+ * exactly one row, which is the claim made good.
  *
  * `creatures-table.ts` names each of the three one by one rather than
  * spreading this object, so the bestiary still reads in the order it has
@@ -38,6 +39,26 @@ export const FIXTURE_CREATURES = {
     blurb:
       "A ring five columns wide with a hole you can see the field through, and it never moves. The hole slides; the core stands in it for two beats after every line you pull free, and only a shot of the rim's own colour, in the hole's own column, takes a plate.",
   },
+  cairn: {
+    kind: "cairn",
+    // **The shield alone, and it is the only fixture in this table that does
+    // not want the cannon.** Nothing fired reaches the pile and nothing fired
+    // reaches what comes out of it either — a rock is a rock — so what a wave
+    // carrying one has to be able to answer is the dome, and only the dome. A
+    // boss whose every answer is a rock is a boss played entirely on player
+    // 2's strip, and the panel has to say so.
+    controls: ["guard"],
+    // No colour, and none ever authored: a colour is what the cannon has to
+    // match and no bolt reaches this body at all (`shot-reach.ts`).
+    color: null,
+    // Nobody's strip. It is installed where it stands rather than arriving
+    // from above, and the pile is the whole of the announcement — the tether's
+    // argument, one boss on.
+    installed: true,
+    radar: "none",
+    blurb:
+      "Seven of the field's own rocks stacked four, two and one, held in one outline five columns wide, standing still. No shot reaches it and the shield has nothing to turn. Either of you takes hold of the pile and carries the thumb sideways: one rock comes out of that side and falls down that lane as an ordinary rock, to be warded like any other. Every answer you give it is a rock in the air, so the whole fight is how many the other one can be under at once — and a pile left alone for eight beats lets one go itself, into a column only the pilot is shown.",
+  },
   tether: {
     kind: "tether",
     // The first `special`: answered by neither cannon nor shield. A hand is
@@ -55,4 +76,4 @@ export const FIXTURE_CREATURES = {
     blurb:
       "A rope lowered out of the middle of THE WARDEN's rim, with a handle on the end of it. Cannot be shot and cannot be warded, and it never falls — the pilot takes the handle and pulls it aside, and the hatch over the eye opens as far as the rope is taut.",
   },
-} satisfies Record<"queen" | "warden" | "tether", CreatureDef>;
+} satisfies Record<"queen" | "warden" | "cairn" | "tether", CreatureDef>;

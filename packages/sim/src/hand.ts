@@ -47,6 +47,13 @@ import { isMeteorKind } from "./kinds.js";
  * pilot. That is now what the general rule says about every living body, so
  * the special case dissolved into it rather than being deleted.
  *
+ * **THE CAIRN is the fourth, and it is the only one that is worth nothing
+ * while the finger is still.** A brake, an aim and a press are all paid for by
+ * a thumb resting on a body; a `"pull"` is paid for by carrying it — the
+ * displacement `grip-push.ts` already measures, spent a column at a time — and
+ * what it earns is a unit dragged out of the pile rather than a lane for the
+ * thing under the thumb. Either seat, for the brake's reason.
+ *
  * **THE WEIGHT is the third thing, and it is the first that needs the other
  * seat.** A brake is worth something with one hand and twice as much with two;
  * an aim is one seat's and the other seat has none. A `"press"` is worth
@@ -55,7 +62,7 @@ import { isMeteorKind } from "./kinds.js";
  * whether the other has arrived. That is the creature: the gesture is ordinary
  * and the only way to make it land is to say when (`weight.ts`).
  */
-export type HandMeans = "brake" | "aim" | "press";
+export type HandMeans = "brake" | "aim" | "press" | "pull";
 
 /** What one seat's hand on this kind would be, or null for a press that is
  * refused. `isGrippable` first, which is the kinds that refuse a hand for
@@ -68,5 +75,14 @@ export function handMeans(kind: CreatureKind, player: 1 | 2): HandMeans | null {
   // hands the aim to the pilot would otherwise refuse the navigator the one
   // hand this creature cannot be beaten without.
   if (kind === "weight") return "press";
+  // **THE CAIRN is the fourth, and it is the carry rather than the hold.**
+  // Either seat, for the brake's reason — the field belongs to both — and it
+  // is worth nothing at all while the finger stands still: what spends it is
+  // the sideways travel `grip-push.ts` already measures, and what it buys is a
+  // rock out of the pile rather than a lane for the body under the thumb. A
+  // `"brake"` here would have been the tether's defect on the one body in the
+  // game that cannot be answered any other way — a hand dragging at a fall
+  // that does not exist, while the pile stood whole (`cairn.ts`).
+  if (kind === "cairn") return "pull";
   return player === 1 ? "aim" : null;
 }

@@ -1,5 +1,6 @@
 import { clampQueenCol, initialDropSide } from "./boss.js";
 import { openWave } from "./briefing.js";
+import { installCairn } from "./cairn.js";
 import { midCol } from "./config.js";
 import { NO_CRANK } from "./crank.js";
 import type { WardenEntry } from "./entries.js";
@@ -134,6 +135,11 @@ export function startWave(
     // standing on the grid, so there is nothing of it for the fall loop, the
     // hull or a hand to find (docs/spec/transfers-bosses.md).
     world.boss = installVane(world, boss);
+  } else if (boss?.kind === "cairn") {
+    // A creature and a row, like the Warden and unlike the six above it: the
+    // pile is a body standing on the grid, wide enough to have lanes of its
+    // own, and a hand has to be able to find it (`cairn.ts`).
+    world.boss = installCairn(world, boss);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

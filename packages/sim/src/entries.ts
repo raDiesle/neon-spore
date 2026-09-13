@@ -210,13 +210,14 @@ export interface PodEntry {
 }
 
 // **What a wave authors when it wants a boss** is `boss-entries.ts` next door,
-// cut out when THE CRAWLER's two fields took this file over its limit: nine
+// cut out when THE CRAWLER's two fields took this file over its limit: eleven
 // shapes, the union of them, and `bossFillsWave`. Re-exported here so nothing
 // that already reached for one through this file had to move.
 export {
   BOSS_KINDS,
   type BossEntry,
   bossFillsWave,
+  type CairnEntry,
   type FleetEntry,
   type GaugeEntry,
   type MazeEntry,

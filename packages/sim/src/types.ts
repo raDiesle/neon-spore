@@ -42,6 +42,7 @@ export { POD_KINDS, type Pod, type PodKind } from "./pod-types.js";
 // and re-exported here so nothing reaching for `spanOf` through it had to move.
 export {
   bodyCenterCol,
+  CAIRN_COLS,
   clampSpanCol,
   colSpan,
   occupiesCol,

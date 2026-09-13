@@ -26,6 +26,12 @@ export function serializeBoss(boss: BossEntry): string {
     const plates = boss.plates === undefined ? "" : `, plates: ${boss.plates}`;
     return `{ kind: "warden"${plates} }`;
   }
+  // THE CAIRN authors one number and no column: the pile stands dead centre
+  // wherever the field's edges are (`installCairn`).
+  if (boss.kind === "cairn") {
+    const units = boss.units === undefined ? "" : `, units: ${boss.units}`;
+    return `{ kind: "cairn"${units} }`;
+  }
   if (boss.kind === "vane") {
     const pins = boss.pins === undefined ? "" : `, pins: ${boss.pins}`;
     return `{ kind: "vane"${pins} }`;

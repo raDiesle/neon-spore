@@ -64,7 +64,7 @@ table in a document cannot be wrong in a way a compiler notices.
 | Category | Answered by | Members today |
 |---|---|---|
 | `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum`, `countdown`, `leech` |
-| `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet` |
+| `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `weight` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
@@ -129,6 +129,15 @@ what the pair has to say is *which balloon*. A weight brightens under your own
 thumb and on nothing your partner is shown, so there is nothing to read and
 nothing to infer — and the only thing that gets two thumbs onto one body at once
 is one of you counting it out loud (`sim/weight.ts`).
+
+**THE CAIRN is the first boss the table sorts as `shield`, and that is the
+whole of what it is.** Nothing fired reaches the pile and nothing fired is
+stopped by it — a bolt goes up one of its five columns and past it, which the
+pair finds out with their first shot — so the group its wave owes is `guard`
+and only `guard`. Every other boss in this bestiary is `mixed`: the queen and
+the ring both want a colour said and a shot placed. This one wants a lane said
+and a dome moved, seven times over, and the seven rocks it comes apart into are
+the game's own two-tile stones (`sim/cairn.ts`).
 
 It stays a different axis from `radar`: what a body tells a radar strip is
 not what a player does about it, so a kind unusual there still lands in

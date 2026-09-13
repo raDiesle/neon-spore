@@ -156,6 +156,11 @@ const DUTY_WORD = {
   // thing, whole instruction both, since standing still is the mistake.
   limpet: { p1: "SAY MOVE", p2: "KEEP MOVING" },
   leech: { p1: "KEEP MOVING", p2: "SAY MOVE" },
+  // THE CAIRN: one seat holds a number nobody else has, and the other holds
+  // the only thing that answers it. The pull itself is either seat's and needs
+  // no word — a hand is on the pile or it is not — so what the dials carry is
+  // the sentence the fight is actually lost for want of.
+  cairn: { p1: "SAY THE LANE", p2: "BE THERE" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

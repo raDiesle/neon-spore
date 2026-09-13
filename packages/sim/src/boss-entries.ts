@@ -6,14 +6,14 @@ import type { MirrorStep } from "./simon.js";
 import type { SnakeRound } from "./snake.js";
 
 /**
- * **What a wave authors when it wants a boss** — nine shapes, the union of
+ * **What a wave authors when it wants a boss** — eleven shapes, the union of
  * them, and the two questions anything asks about that union.
  *
  * Cut out of `entries.ts` when THE CRAWLER's two fields took that file over
  * its 250-line limit, and the seam is the one that file was always going to be
  * cut along: next door is what a wave hands the field a *body* on, and this is
- * what it hands the field a whole *encounter* on. Nine of these against two of
- * those, and the nine are the half that grows — every round in
+ * what it hands the field a whole *encounter* on. Eleven of these against two
+ * of those, and the eleven are the half that grows — every round in
  * `docs/spec/bosses.md` still to come is one more interface here.
  *
  * `entries.ts` re-exports every name below, so nothing that already reaches
@@ -52,6 +52,25 @@ export interface MirrorEntry {
 export interface WardenEntry {
   kind: "warden";
   plates?: number;
+}
+
+/**
+ * What a wave authors when it wants THE CAIRN. No column: the pile stands dead
+ * centre at `cairnRow`, and one placed off centre would have a long side and a
+ * short one — so the two lanes a pull offers would be a different distance
+ * from the shield's home depending on which way the hand went, which is the
+ * one thing the choice must not be.
+ *
+ * Only how many rocks are stacked, which is how long the fight is — the
+ * Warden's `plates` arrived at from the other end. There the number is damage
+ * the ring can take; here it is the number of rocks the pair will have to ward
+ * before it is over, and the two are the same sentence because the units *are*
+ * the health: every one that leaves the pile leaves as a body the field still
+ * has to answer.
+ */
+export interface CairnEntry {
+  kind: "cairn";
+  units?: number;
 }
 
 /**
@@ -161,6 +180,7 @@ export type BossEntry =
   | QueenEntry
   | MirrorEntry
   | WardenEntry
+  | CairnEntry
   | VaneEntry
   | MazeEntry
   | GaugeEntry
@@ -201,4 +221,9 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "snake",
   "pinball",
   "pulse",
+  // **Appended, never inserted.** This list is what `bossHashParts` tags a boss
+  // with, so its order is a wire value exactly as `CREATURE_KINDS`' is: a name
+  // slipped into the middle would renumber every boss after it, and a replay
+  // recorded on yesterday's build would fingerprint as a different world.
+  "cairn",
 ];

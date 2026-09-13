@@ -2020,3 +2020,30 @@ Bottleneck: **friction** — the mechanic itself was one function; what cost the
 afternoon was that an idea leaving `docs/spec/ideas.md` is read by the shape
 sheet, the director's backlog and two test suites, and none of them says so where
 the bullet is.
+
+## 2026-09-13 · the-cairn — a boss taken apart by hand, into the rocks it is made of
+
+THE CAIRN off `docs/spec/transfers-bosses.md`, built as the boss that page
+argues for rather than as an arrival taken out of it: seven of the field's own
+two-tile rocks in one outline five columns wide, standing still, and nothing
+either control does reaches it — a bolt goes up one of its lanes and **past** it.
+A grip carried sideways drags one unit out of the side the finger went and it
+falls as a plain rock, so the boss comes apart into the game the pair already
+knows and the whole fight is rate: every answer is a rock the navigator has to be
+under. The page's one open question — what stops a pair pulling nothing and
+waiting — is answered without the descending pile it feared: a stack that has
+stood `cairnShedBeats` lets one go itself into a column the rng drew, announced
+on **player 1's screen alone**, so a pull is *you choose an edge* and a wait is
+*the pile chooses the middle*. Wave 68 in act eight. About 140 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the two design pages, `boss.ts`/`boss-state.ts`/`wave-start.ts` for how a boss is installed, `grip.ts`, `hand.ts` and `grip-push.ts` for the gesture that was already there, `span.ts` and `meteor.ts` for what size a rock actually is, and THE WEIGHT's whole diff as the pattern for a body two hands answer |
+| writing | 70 | `sim/cairn.ts` and its state, the boss entry, the install, the shed clock, `render/cairn.ts` and `cairn-settle.ts`, the wave and its guide, rows in eleven tables the compiler named one at a time, 17 tests across sim and render, and the four spec pages |
+| looking | 0 | nothing looked at — a cloud session cannot, and it is named below |
+| friction | 20 | the design page asks for units at the size the game draws a rock **and** for a pile wider than the Warden, and the two do not both fit: seven two-tile rocks come to five tiles across, so the span came out at five and the courses at four, two and one. Finding that out cost three goes at the arithmetic before the rule that had to win was obvious. Then `isBossBody` turned out to answer two questions — *does not fall* and *takes no hand* — and this is the first body that is one and not the other |
+| landing | 20 | `creature-kinds.ts`, `boss-state.ts` and `ship-notes.ts` each a row over the 250-line limit, two of them fixed by cuts `packages/content` had already drawn; a guide line seven characters too long; a bolt test whose window was so long the pile shed a rock in the middle of it |
+
+Bottleneck: **writing** — the rules are one file and the fight is one sentence,
+but a new `CreatureKind` is a row in eleven tables and a new boss is a row in
+six more, and the compiler names them one at a time.

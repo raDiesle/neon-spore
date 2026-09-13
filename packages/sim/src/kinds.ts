@@ -166,16 +166,21 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
 
 /**
  * A boss that stands where it was installed. The queen holds her row until
- * petals make her descend, the Warden never moves at all — so neither is
- * carried by the beat's fall loop, and neither can be gripped: a hand on
- * something that was never falling drags at nothing while showing every sign
- * of working.
+ * petals make her descend, the Warden never moves at all, and THE CAIRN's pile
+ * never moves either — so none of the three is carried by the beat's fall
+ * loop, and `beat.ts` names them here rather than one by one.
  *
- * One function for both questions because they are one question. `beat.ts`
- * and `isGrippable` call it; nothing may name the two kinds a second time.
+ * **It used to answer a second question and no longer does.** A hand was
+ * refused on every body in this list, for a reason that was true of all two of
+ * them: a brake on something that was never falling drags at nothing while
+ * showing every sign of working. THE CAIRN is the body that took the two
+ * questions apart — it stands as still as the ring and it is answered by a
+ * hand and by nothing else, because the hand is not a brake there but a
+ * **pull** (`hand.ts`). So `isGrippable` makes its own refusal now, with this
+ * one named out of it, and `grippable.ts` carries the argument.
  */
 export function isBossBody(kind: CreatureKind): boolean {
-  return kind === "queen" || kind === "warden";
+  return kind === "queen" || kind === "warden" || kind === "cairn";
 }
 
 // **Whether a hand may be put on a body** — `isGrippable` and the kinds

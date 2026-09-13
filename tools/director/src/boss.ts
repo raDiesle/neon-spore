@@ -1,4 +1,5 @@
 import { AUTHORED_COL_MAX, CREATURES } from "@neon-spore/content";
+import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { numberField, placementNote, renderVane, renderWarden } from "./boss-cycles.js";
 import { renderFleetEditor } from "./fleet-editor.js";
 import { renderMazeEditor } from "./maze-editor.js";
@@ -144,6 +145,22 @@ export function bindBossPanel(
     // whole difficulty is `config-gauge.ts`, which is the SHIP card's, not
     // this panel's.
     if (boss.kind === "gauge") return;
+    // THE CAIRN has one thing to author and it is the length of the fight:
+    // how many rocks are stacked. No column — the pile is a fixture dead
+    // centre, like the ring and the arm.
+    if (boss.kind === "cairn") {
+      const stack = document.createElement("div");
+      stack.className = "boss-fields";
+      stack.append(
+        numberField("rocks in the pile", 2, 12, boss.units ?? DEFAULT_CONFIG.cairnUnits, (v) => {
+          boss.units = v;
+          store.dirty = true;
+          onEdit();
+        }),
+      );
+      panel.appendChild(stack);
+      return;
+    }
 
     const fields = document.createElement("div");
     fields.className = "boss-fields";

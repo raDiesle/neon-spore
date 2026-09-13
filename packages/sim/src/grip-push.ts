@@ -1,6 +1,7 @@
+import { pullFromCairn } from "./cairn.js";
 import { hullRow } from "./config.js";
 import { gripsCreature } from "./grip.js";
-import { handMeans } from "./hand.js";
+import { type HandMeans, handMeans } from "./hand.js";
 import { clampSpanCol, spanOf } from "./span.js";
 import { bodyCenterCol, type Command, type Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -58,6 +59,11 @@ export interface GripPush {
   cols: number;
 }
 
+/** What a hand carried sideways may be spending. Two of the four things a hand
+ * can mean, named once: a press is answered by standing still and an aim by
+ * the trigger, and neither has a column to earn. */
+const CARRIED: readonly (HandMeans | null)[] = ["brake", "pull"];
+
 /** This seat's hand, or null while it is carrying nothing. Read through this
  * rather than by name, the way `gripsCreature` is asked which field is whose. */
 export function gripPushOf(world: World, player: 1 | 2): GripPush | null {
@@ -89,7 +95,12 @@ export function gripPushHeard(world: World, player: 1 | 2, command: Command): vo
     command.on && command.id !== undefined && gripsCreature(world, player, command.id)
       ? world.creatures.find((c) => c.id === command.id)
       : undefined;
-  if (!held || handMeans(held.kind, player) !== "brake") {
+  // A brake or a pull: the two things a carried hand can be spending. A brake
+  // moves the body it is on a column and a pull takes a unit out of a pile,
+  // and `carryGrips` below is where the one gesture forks into the two
+  // (`hand.ts`). An aim is neither — a finger swept across a slick reports a
+  // displacement nothing spends.
+  if (!held || !CARRIED.includes(handMeans(held.kind, player))) {
     clearGripPush(world, player);
     return;
   }
@@ -114,6 +125,12 @@ export function gripPushHeard(world: World, player: 1 | 2, command: Command): vo
  * every body it stepped, so the step is drawn as a glide rather than a jump.
  */
 export function carryGrips(world: World): void {
+  // A pile answers the carry by *losing* a unit, and the unit is a new body on
+  // the field — so the pull is collected here and run below rather than in the
+  // loop. `world.creatures` is being walked; a rock pushed into it mid-walk
+  // would be visited by this same pass, and a body that arrived after the hand
+  // did is not a body any hand is on.
+  const pulls: { body: Creature; dir: -1 | 1; paid: readonly (1 | 2)[] }[] = [];
   for (const c of world.creatures) {
     // **A body standing on the ship's row has arrived and does not move
     // again** — `resolveHull` is about to break the hull with it, and what it
@@ -123,6 +140,17 @@ export function carryGrips(world: World): void {
     const dir = carryDir(world, c);
     if (dir === 0) continue;
     if (!carryIsReady(world, c)) continue;
+    // **THE CAIRN is carried and does not move.** The same gesture, the same
+    // one-column-then-a-beat-of-quiet, and the same hands charged for it — what
+    // the column buys is a rock dragged out of the pile on the side the finger
+    // went, rather than a lane for the body under it (`cairn.ts`). The pause is
+    // stamped here with everything else that spends one, so a pile cannot be
+    // emptied by one thumb sweeping back and forth on a single beat.
+    if (c.kind === "cairn") {
+      c.pushBeat = world.beat;
+      pulls.push({ body: c, dir, paid: spend(world, c, dir) });
+      continue;
+    }
     const to = clampSpanCol(c.col + dir, world.cfg.cols, spanOf(c));
     // Against the wall: the hand spends nothing and the pause is not started,
     // so a thumb pressed on into the edge of the field is simply a thumb held
@@ -132,6 +160,7 @@ export function carryGrips(world: World): void {
     c.pushBeat = world.beat;
     say(world, c, dir, spend(world, c, dir));
   }
+  for (const p of pulls) pullFromCairn(world, p.body, p.dir, p.paid);
 }
 
 /** Which way the hands on this body are pulling: one column, or none.

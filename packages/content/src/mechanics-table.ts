@@ -114,6 +114,7 @@ export const MECHANICS = {
   // the bestiary walks it, so a group spread in one place would reorder them.
   queen: BOSS_MECHANICS.queen,
   warden: BOSS_MECHANICS.warden,
+  cairn: BOSS_MECHANICS.cairn,
   tether: BOSS_MECHANICS.tether,
   mirror: BOSS_MECHANICS.mirror,
   maze: BOSS_MECHANICS.maze,

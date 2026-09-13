@@ -148,6 +148,23 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   "balloon",
 ];
 
+/**
+ * **THE CAIRN is the one boss body a hand is not refused on**, and it is the
+ * whole of the fight rather than an exception to a rule.
+ *
+ * Every other body standing where it was installed refuses a hand because a
+ * hand is a brake and a thing that does not fall has no rate for a brake to
+ * scale. A pile has none either — and a hand on one is not a brake. It is a
+ * **pull**: carried sideways it drags a unit out of the stack, and what comes
+ * away is an ordinary rock falling in an ordinary lane (`cairn.ts`). Nothing
+ * else touches this boss at all, so a refusal here would be a boss with no
+ * answer.
+ *
+ * Named here rather than in `isBossBody` next door, because that function is
+ * also what keeps the beat's fall loop off a fixture, and a pile that started
+ * falling would be a different creature.
+ */
 export function isGrippable(kind: CreatureKind): boolean {
+  if (kind === "cairn") return true;
   return !isBossBody(kind) && !UNGRIPPABLE.includes(kind);
 }

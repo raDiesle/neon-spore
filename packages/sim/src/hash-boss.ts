@@ -86,6 +86,17 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.pullAnchorX);
     push(boss.pullAnchorY);
   }
+  if (boss !== null && boss.kind === "cairn") {
+    push(boss.creatureId);
+    // Rocks left in the pile, which is the fight's whole length — two devices
+    // that disagree here draw a different body and end the wave a rock apart.
+    push(boss.units);
+    // And the clock over it. `leftBeat` decides which beat the pile sheds on
+    // and `settleCol` which lane it sheds into, so a disagreement about either
+    // is a rock falling down a column one phone never saw it in.
+    push(boss.leftBeat);
+    push(boss.settleCol);
+  }
   if (boss !== null && boss.kind === "vane") {
     push(boss.pins);
     push(boss.spentOpening);

@@ -66,6 +66,13 @@ export function firstAlong(
     // hand from each seat at the same instant (`weight.ts`). A shot up its lane
     // goes past it to whatever is above, the way one does through a gum.
     if (c.kind === "weight") continue;
+    // Nor THE CAIRN, and it is the oldest rule in the game wearing a boss: a
+    // rock cannot be shot, and this body is seven of them. A bolt fired up one
+    // of its seven lanes goes past it to whatever is above, the way one does
+    // through a gum — so the cannon is not merely useless against the pile, it
+    // is not even stopped by it, and the pair finds that out with their first
+    // shot. What answers it is a hand carried sideways (`cairn.ts`).
+    if (c.kind === "cairn") continue;
     // THE FENCE stops a bolt in every column it is still **shut** in, and in
     // none of the ones it is open in: a hole is a hole, so a shot fired up a
     // way through reaches whatever is above it rather than dying on a gap the

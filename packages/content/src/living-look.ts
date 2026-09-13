@@ -139,6 +139,11 @@ const LIVING_LOOK = {
   veer: null,
   queen: null,
   warden: null,
+  // THE CAIRN, and the third boss here for the other two's reason: it is seven
+  // faceted rocks drawn from `world.boss`, and one radius sampled all the way
+  // round draws that as a lumpy boulder with no seams in it — which is the
+  // whole of what there is to count (`render/cairn.ts`).
+  cairn: null,
   tether: null,
   // THE CRAWLER's links are the third body drawn by a path of its own rather
   // than by a radial contour, and THE LID's case exactly: a segment of a worm

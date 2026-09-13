@@ -1277,3 +1277,48 @@ column cannot be turned straight past, and narrow enough that a lit mouth reads
 as standing on the column. `mazeDragBreakMilli` is how far the hand has to carry
 on past a click before it breaks: the detent's hysteresis, so a thumb jittering
 on the handle does not undo a click the pair had just agreed on.
+
+## 11.11 THE CAIRN — the boss you take apart with your hands
+
+**Nothing either control does reaches it.** The pile is seven of the field's own
+two-tile rocks stacked four, two and one, held in one outline five columns wide,
+standing at `cairnRow` and never moving. A bolt fired up one of its columns goes
+*past* it to whatever is above — not turned aside, not absorbed, simply not
+stopped — and the shield has nothing to say to a thing that is not falling. That
+is not a new rule invented for a boss. It is the oldest rule the game has, taught
+in its first act, wearing a body: **a rock cannot be shot.**
+
+**It is dismantled by a hand, and the hand is one the pair already owns.** A grip
+held on the pile and carried sideways drags one unit out of the side the finger
+went — the ordinary grip, the ordinary `gripPushMilli` of travel, the ordinary
+beat of quiet on the body afterwards (`docs/spec/assists.md` 6.4, `grip-push.ts`).
+`handMeans` calls it a `"pull"`, the fourth thing a hand can be and the only one
+worth nothing while the finger is still. What comes away is a plain `meteor`
+falling a tile a beat in a lane like any other, so **the boss comes apart into
+the game the pair already knows**, and every answer they give it is a rock the
+navigator now has to be under.
+
+**The fight is rate, and the question is the other seat's.** The pile does not
+care how many rocks are already in the air. A pair who empty it in four beats
+have four rocks and one dome, so what has to be said out loud is *how much can
+you take right now* — which is the one thing no other boss here asks. Pull left
+and the rock leaves the pile's left pair of columns; pull right and it leaves the
+right. Two lanes, four columns apart, and the choice is the pair's.
+
+**Waiting is a choice and the pile makes it.** A stack that has stood
+`cairnShedBeats` without losing a unit lets one go itself, into a column the
+seeded rng drew — and **that column is drawn on player 1's screen and on nothing
+player 2 is shown**. The seat that can see where the next rock is coming from is
+the seat with no shield, so the second sentence of this fight is a number said
+across the voice delay, which is THE GHOST's ask arriving in a boss. Announced a
+full eight beats ahead, fixed and learnable, as 11.1 requires of every boss here.
+A pair who have learnt the creature never see the clock run out, because a pull
+resets it — which is the other half of what the mark teaches.
+
+The whole of it is three numbers in `config-boss.ts`. `cairnRow` is where the
+pile stands, the Warden's row and for the Warden's reason: a rock let go from
+there is twelve beats from the hull, which is a sentence said, heard and acted
+on. `cairnUnits` is how many rocks are stacked, which is the length of the fight
+because every one of them is a body the field still has to answer. `cairnShedBeats`
+is the patience, and it is the fight's whole difficulty — shorten it and a pair
+who stop to clear the air are handed a lane they did not choose.

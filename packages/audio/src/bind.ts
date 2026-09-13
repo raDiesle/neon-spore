@@ -25,6 +25,7 @@ import type { Cue } from "./bind-cue.js";
 import { fenceCue } from "./bind-fence.js";
 import { fleetCue } from "./bind-fleet.js";
 import { gumCue } from "./bind-gum.js";
+import { handedCue } from "./bind-handed.js";
 import { POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { mirrorCue } from "./bind-mirror.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
@@ -211,17 +212,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "clingFreed":
     case "clingBlast":
       return clingCue(e, cols);
-    // THE WEIGHT giving, and the one sound in the catalogue that was written
-    // for this and filed spare: two grabs doubled and briefly in tune
-    // (`sounds/grip.ts`). Placed by column and row like any body, because it is
-    // also the only confirmation either player gets that the other one's thumb
-    // was ever down.
+    // The three a hand answers, in `bind-handed.ts` — about a thumb, not a shot.
     case "weightCrushed":
-      return {
-        id: "ship.gripBoth",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
+    case "cairnPulled":
+    case "cairnShed":
+      return handedCue(e, cols, rows);
     case "caromBounce":
     case "caromCrack":
     case "caromEject":

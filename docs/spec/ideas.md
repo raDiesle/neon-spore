@@ -339,7 +339,13 @@ pilot's screen alone — and the boss-sized body it was drawn for was never need
   across seven columns with a row of plates under it; the live plate reaches
   down.* Slot: The Kernel (100). Unworked out: the choice must be legible a
   cycle ahead, or it is merely mean
-- **THE CAIRN** — a pile of the field's own rocks that cannot be shot: you
+- **THE CAIRN** — *built* (13 September 2026), and the one on this list that
+  shipped as the boss it was written as rather than as an arrival: a pile of
+  seven two-tile rocks five columns wide, taken apart by a hand carried
+  sideways, with the pile letting one go itself into a lane only the pilot is
+  shown if it is left alone. See [transfers-bosses](transfers-bosses.md) for
+  what moved on the way. The draft, as it stood: a pile of the field's own
+  rocks that cannot be shot: you
   take it apart by hand. A thumb dragged across one unit pulls it out of the
   pile, and once loose it falls as an ordinary rock to be warded like any
   other. The fight is rate — pull two and you have two rocks and one shield —

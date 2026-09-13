@@ -9,6 +9,7 @@
  * and the one of the three with no dependencies at all.
  */
 
+import type { FixtureKind } from "./creature-kinds-fixtures.js";
 import type { HandedKind } from "./creature-kinds-handed.js";
 import type { ManyKind } from "./creature-kinds-many.js";
 
@@ -21,9 +22,11 @@ export type CreatureKind =
   | "meteorFaster"
   | "meteorFastest"
   | "torch"
-  | "queen"
-  | "warden"
-  | "tether"
+  // **The four a wave never sends**: three bosses standing where `startWave`
+  // put them and the line one of them lowers. `creature-kinds-fixtures.ts`
+  // next door, cut out for `creature-kinds-many.ts`' reason and along the seam
+  // `packages/content`'s own `creatures-fixtures.ts` drew first.
+  | FixtureKind
   /** A slick or a bulb on player 1's screen and a lure on player 2's: `wears`
    * is which body, `resolveLure` what a shot costs, `lureIsSpent` when it
    * goes. One truth here; the disguise belongs to render/ alone. */

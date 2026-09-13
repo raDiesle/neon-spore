@@ -215,6 +215,14 @@ export const INGEST_SILENT = [
   // purpose. A body that threw pieces outward would be a body that exploded,
   // and the two hands did the opposite of that.
   "weightCrushed",
+  // THE CAIRN losing a unit, either way. Nothing here outlives the frame
+  // either, and for a plainer reason than the weight's: what leaves the pile
+  // **is still on the field**. It is a rock now, with a column and a row of its
+  // own, drawn every frame by the same code that draws every other rock — so a
+  // transient remembering it would be the same stone painted twice. The burst
+  // next door is the dust off the seam and the whole of the transient.
+  "cairnPulled",
+  "cairnShed",
 ] as const satisfies readonly SimEvent["type"][];
 
 /** One of the above, as a type — what the guard narrows the union by. */

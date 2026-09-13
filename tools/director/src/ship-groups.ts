@@ -24,6 +24,7 @@ import type { BossEntry } from "@neon-spore/sim";
  * reaches for one through that file had to move.
  */
 export type GroupName =
+  | "THE CAIRN — a pile of rocks taken apart by hand"
   | "AIM — colour and column"
   | "GUARD — the shared defence"
   | "MAW — taking a pod in"
@@ -123,6 +124,7 @@ export const GROUP_ORDER: GroupName[] = [
   "MIRROR",
   "MAZE",
   "QUEEN",
+  "THE CAIRN — a pile of rocks taken apart by hand",
   "THE FLEET — a chart only one of you can read",
   "PLUMBING — not a dial a person turns",
 ];
@@ -141,6 +143,7 @@ export { GROUP_NOTE } from "./ship-notes.js";
  */
 export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "WARDEN",
+  "THE CAIRN — a pile of rocks taken apart by hand",
   "VANE",
   "MIRROR",
   "MAZE",
@@ -166,6 +169,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   pulse: "THE PULSE — the same song on two screens",
   queen: "QUEEN",
   warden: "WARDEN",
+  cairn: "THE CAIRN — a pile of rocks taken apart by hand",
   mirror: "MIRROR",
   vane: "VANE",
   maze: "MAZE",

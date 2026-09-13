@@ -1,3 +1,4 @@
+import type { CairnState } from "./cairn.js";
 import type { FleetShip } from "./fleet-board.js";
 import type { GaugeState } from "./gauge.js";
 import type { MazeState } from "./maze-round.js";
@@ -206,12 +207,17 @@ export interface FleetState {
  *
  * `GaugeState` is in here and its fields are in `gauge.ts` rather than beside
  * the other four, for the reason the maze's and the mirror's are in theirs:
- * one file owns a fight's state and nothing else writes it.
+ * one file owns a fight's state and nothing else writes it. `CairnState` is
+ * the newest to be kept that way, and it is the first that left this file
+ * rather than never arriving in it — THE CAIRN's four integers took the file
+ * over its 250-line limit, and the rule it broke against was one this page
+ * already states.
  */
 export type BossState =
   | QueenState
   | MirrorState
   | WardenState
+  | CairnState
   | VaneState
   | MazeState
   | GaugeState

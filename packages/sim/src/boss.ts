@@ -1,4 +1,5 @@
 import type { QueenState } from "./boss-state.js";
+import { stepCairn } from "./cairn.js";
 import { hullRow, type SimConfig } from "./config.js";
 import { stepFleet } from "./fleet.js";
 import { stepMaze } from "./maze-round.js";
@@ -87,6 +88,15 @@ export function stepBoss(world: World): void {
   }
   if (boss.kind === "vane") {
     stepVane(world, boss);
+    return;
+  }
+  // THE CAIRN has exactly one thing on the beat, and it is the clock the pile
+  // keeps on the pair: a stack that has stood `cairnShedBeats` lets a rock go
+  // by itself. The hand that takes one apart answers on the tick, with the
+  // other carries (`grip-push.ts`) — a gesture lands when the finger has
+  // travelled, and only the clock belongs to the beat (`cairn.ts`).
+  if (boss.kind === "cairn") {
+    stepCairn(world, boss);
     return;
   }
   if (boss.kind === "maze") {

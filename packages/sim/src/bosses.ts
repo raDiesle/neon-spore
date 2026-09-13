@@ -17,9 +17,11 @@ export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "
 export type { BossState, FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 // The six rounds are next door and re-exported whole (`bosses-round.ts`).
 export * from "./bosses-round.js";
+export { type CairnState, cairnState, cairnWaited } from "./cairn.js";
 export {
   BOSS_KINDS,
   bossFillsWave,
+  type CairnEntry,
   type FleetEntry,
   type GaugeEntry,
   type PinballEntry,

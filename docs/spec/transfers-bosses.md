@@ -59,7 +59,7 @@ already the right picture for it.
 | A multi-part body that comes apart and re-forms | **THE CHOIR**, drawn as a `cluster` that now genuinely parts | nothing — the drawing caught up while this was being written |
 | Armour that visibly sheds, phase by phase | the Warden's plates, the Queen's petals — built | nothing |
 | A weak point that opens where your shield is *not* | nothing does this | **THE TITHE**, now with a body |
-| A body assembled from the level's own hazards | nothing does this | **THE CAIRN**, now with a body |
+| A body assembled from the level's own hazards | **THE CAIRN** — built, and it comes apart into the field's own rocks | nothing |
 
 The third row is the best thing either game has at this scale and it is the one
 this design has never used. Its shield holds one column; every boss so far has
@@ -316,6 +316,39 @@ and whether the third demand should be the cannon at all, or the maw.
 
 ### THE CAIRN — a boss built out of the field's own rocks
 
+> **Built, on 13 September 2026, and it is the boss below rather than an
+> arrival taken out of it.** The owner asked for the idea by name. Nothing
+> either control does reaches the pile; a grip carried sideways — the ordinary
+> gesture, the ordinary `gripPushMilli` of travel and the ordinary beat of
+> quiet after it — drags one unit out of the side the finger went, and it falls
+> as a plain two-tile rock. `cairn.ts` is the rule, `CairnState` the whole of
+> the state, `render/cairn.ts` the picture.
+>
+> **The open question has an answer and it is not THE WEIGHT.** *What stops a
+> pair pulling nothing and waiting* was the thing this page could not settle,
+> and the guess written under it — *probably the pile itself descends* — was
+> rejected for the reason the page gives: a descending pile is THE WEIGHT
+> again. What shipped instead leaves the pile exactly where it stands and takes
+> away the **choice**: a stack that has stood `cairnShedBeats` lets a rock go
+> by itself, into a column the seeded rng drew, and that column is announced on
+> **player 1's screen alone** for the whole eight beats it is counting. So a
+> pull is *you choose an edge* and a wait is *the pile chooses the middle*, and
+> the second sentence the pair has to say is a number — THE GHOST's ask, in a
+> boss.
+>
+> **Two figures moved, and the same rule moved both.** The page asks for seven
+> units at the size the game already draws a rock, and warns against boss-sized
+> lumps that shrink on the way out. The game's largest rock is the two-tile one
+> (`RockSize`), and seven of those come to a little over five tiles across — so
+> the pile is **five columns wide, not a shade wider than the Warden**, and the
+> courses are **four, two and one** rather than three, three and one, because
+> four across the base is what fills five columns. The card on the shape sheet
+> still draws the original stack; it is a picture of the idea and the field is
+> the thing that has to hold rocks the pair can name.
+>
+> **What did not ship**: a rehearsal. Its guide is prose, and the scene that
+> would *show* a pull rather than describe one is queued.
+
 **The shape.** Drawn, as `pile` — the form this page asked for, below. Seven
 angular units held in one outline: the first boss drawn with facets rather than
 lobes, and the first that is a *pile* rather than a body, with the seams
@@ -345,11 +378,12 @@ once and you have two rocks and one shield. **How much your partner can absorb
 right now**, which is a question neither of the other three asks, and the one
 Lovers in a Dangerous Spacetime asks constantly.
 
-**Slot:** it wants The Heart (60), and so does THE WEIGHT. They are the same
-pillar — hands, and the price of a hand — and both should not be built.
-**Unworked out:** what stops a pair pulling nothing and waiting; probably the
-pile itself descends, which makes it THE WEIGHT again, and that is the argument
-they have to have before either is drawn.
+**Slot:** The Heart (60), and it holds it — the owner settled the argument with
+THE WEIGHT by asking for this one. **Unworked out** was *what stops a pair
+pulling nothing and waiting*, and the note above says what shipped: the pile
+sheds on a clock into a lane one seat alone can see. The guess written here,
+that the pile descends, was not taken; a pile that sinks is THE WEIGHT again,
+exactly as this paragraph feared.
 
 ## The shapes, slot by slot
 
@@ -363,7 +397,7 @@ three have a draft offered to them, and four have a name and nothing else.
 | The Conductor (30) | **built**, as THE VANE — the arm on its drawn bearing | `vane` | `TOLL` |
 | The Choir (40) | draft — three bodies in one film, parting and merging | `cluster` | `SHIVER` |
 | The Warden (50) | **built** — the ring you see the field through | `ring` | `TURN` |
-| The Heart (60) | two drafts for one slot — a sac hung heavy (THE WEIGHT), a pile of seven rocks (THE CAIRN) | `sac`, `pile` | `HEAVE`, `SHIVER` |
+| The Heart (60) | **built**, as THE CAIRN — seven rocks in one outline, taken apart by hand | `pile` | `SHIVER` |
 | The Mother (70) | nothing; she is a rule about the previous act, not a body yet | — | — |
 | The Codex (80) | draft — a slab whose rim scrolls a key | `glyphed` | `SWELL` |
 | The Echoes (90) | **built**, if it is given the slot — THE MIRROR, your own hull flipped | `drawHull` | own |
@@ -378,10 +412,11 @@ and it can only be spent once — a second body with a window in it is a repeat,
 not a surprise, and `ringClearance` says how narrow the margin was even the
 first time. **The Kernel is no longer empty**, which leaves the finale as the
 only slot at the end of the run with no picture at all — still the opposite of
-where drawing effort has gone, but one slot rather than two. And **The Heart
-now has two bodies competing for it**, which is the argument this page said
-THE WEIGHT and THE CAIRN would have to have; both are drawn now, so it can be
-had by looking rather than by imagining.
+where drawing effort has gone, but one slot rather than two. And **The Heart's argument has been had**: this page said THE WEIGHT and THE
+CAIRN would have to compete for the slot, both were drawn, and the owner
+settled it by asking for the pile. THE CAIRN holds The Heart; THE WEIGHT ships
+as an arrival in act eight and its boss draft is still on this page, unbuilt.
+A draft that becomes a body without a new drawing has now happened twice.
 
 ## The machinery, now that the cluster parts
 

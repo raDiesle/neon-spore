@@ -47,12 +47,12 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // have always held, so key order is untouched — the director reads its brush
   // strip off it. See that file for why the family is not the material.
   ...HAZARD_CREATURES,
-  // The three bodies a wave never *sends* — the two bosses and the rope one of
+  // The four bodies a wave never *sends* — three bosses and the rope one of
   // them lowers — live next door in `creatures-fixtures.ts`, named one by one
-  // rather than spread so this table still reads in the order the bestiary has
-  // always had it. See that file for why the fixtures are the half that moved.
+  // rather than spread so this table still reads in the bestiary's own order.
   queen: FIXTURE_CREATURES.queen,
   warden: FIXTURE_CREATURES.warden,
+  cairn: FIXTURE_CREATURES.cairn,
   // The four bodies drawn as something else live next door, in
   // `creatures-worn.ts` — named one by one rather than spread, so this table
   // still reads in the order the bestiary has always had it. See that file for
@@ -79,8 +79,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // The second, and the sharpest split in the game: the seat that is shown one
   // coming is never the seat that can see where it went. `creatures-split.ts`.
   wisp: SPLIT_CREATURES.wisp,
-  // The third fixture, and the only `special` that is not a body something
-  // else brought onto the field with it.
+  // The last fixture, and the only `special` nothing else brought with it.
   tether: FIXTURE_CREATURES.tether,
   // The third, and the only body one of the two never sees at all. Next door
   // in `creatures-split.ts`, with the dart and the wisp.

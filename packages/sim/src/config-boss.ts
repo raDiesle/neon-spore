@@ -31,6 +31,41 @@ export interface BossConfig {
   wardenRow: number;
   /** Beats between one tether and the next. One cycle is one whole encounter in miniature. */
   wardenCycleBeats: number;
+  /**
+   * The row THE CAIRN's pile stands on. The Warden's, and for the Warden's
+   * reason: a rock let go of here falls at a tile a beat, so it is twelve
+   * beats — a little over seven seconds — from the pile to the hull, which is
+   * a whole sentence said, heard across the voice delay and acted on. Any
+   * lower and the pull itself would be the emergency it is supposed to create.
+   */
+  cairnRow: number;
+  /**
+   * Rocks in the pile when a wave does not say. **Seven**, which is the number
+   * the shape was drawn at: four, two and one, so the courses line up and
+   * the eye can count them without being told (`docs/spec/transfers-bosses.md`).
+   * It is also the length of the fight — every unit is a body the pair has to
+   * ward — and seven at the shed clock below is a little under a minute if
+   * they do nothing at all, which is about as long as a boss in this game ever
+   * lasts.
+   */
+  cairnUnits: number;
+  /**
+   * Beats the pile will stand whole before it lets a rock go by itself.
+   *
+   * **This is the answer to the one question the design page left open** — what
+   * stops a pair pulling nothing and waiting. Nothing stops them, and it costs
+   * them the lane: a pile that sheds on its own drops into a column the rng
+   * drew, announced on player 1's screen the whole time it is counting, rather
+   * than into one of the two edges a hand would have chosen.
+   *
+   * Eight beats, which is five seconds at 96 BPM. Long enough that the column
+   * is said out loud, heard and answered — the four-second floor every spoken
+   * exchange in this game is held to (`.claude/skills/new-creature`, step 4) —
+   * and short enough that standing still is never the plan. Two thirds of the
+   * twelve beats a rock takes to fall, so a pair who only ever wait have the
+   * next rock on them before the last one has landed.
+   */
+  cairnShedBeats: number;
   /** Rows below the rim the line's handle hangs. It is lowered once and then
    * hangs there: nothing about this line falls, and nothing about it can hurt
    * the ship (docs/spec/bosses.md 11.4). Far enough down that the rope reads as
@@ -136,6 +171,9 @@ export const BOSS_DEFAULTS: BossConfig = {
   queenEggGrowShare: 0.5,
   wardenRow: 2,
   wardenCycleBeats: 12,
+  cairnRow: 2,
+  cairnUnits: 7,
+  cairnShedBeats: 8,
   wardenHangRows: 5,
   wardenTautMilli: 7000,
   wardenPlates: 5,

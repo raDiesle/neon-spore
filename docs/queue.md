@@ -184,6 +184,47 @@ remap as a wave's. `.claude/skills/new-tutorial` has the rules the owner has
 already corrected twice; `bun test packages/content` and the guide-page tests
 prove it.
 
+## THE CAIRN's guide is prose, and the gesture it asks for has never been shown
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/waves/act-8.ts`, `packages/content/src/scene-types.ts`
+
+The wave that introduces THE CAIRN carries a three-line prose guide and no
+`scene`, the way THE WEIGHT's does and for the same reason — the rehearsal was
+the half that did not fit in the lane. It is worse here in one specific way: the
+answer to this boss is *a hand carried sideways*, a gesture the game has taught
+only on a falling rock, and prose has to say "drag a thumb across it" where a
+rehearsal could show a thumb moving and a rock coming away.
+
+What a rehearsal would show, in three pages: the pile with a ghost thumb resting
+on it and nothing happening, because a still finger is worth nothing here; the
+thumb carried right, and one rock leaving the right of the pile; the same rock
+falling and a dome sliding under it, which is the sentence the whole fight is
+about. No new machinery — `scenes.ts` holds the choreography and `scene-drag.ts`
+already animates a carried hand for THE PUSH. `.claude/skills/new-tutorial` has
+the rules the owner has already corrected twice; `bun test packages/content` and
+the guide-page tests prove it.
+
+## The shape sheet's CAIRN card and the field's pile are stacked differently
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `tools/shape-sheet/src/forms/pile.ts`, `tools/shape-sheet/src/drafts/collected.ts`, `packages/render/src/cairn.ts`
+
+The card draws seven units three, three and one — `courses()` in `pile.ts`
+derives that from the count — and the field draws them four, two and one,
+because four across the base is what fills the five columns the pile stands in
+(`CAIRN_COLS`, and `span.ts` says why the span came out at five). So the picture
+the owner judged the silhouette from is not the silhouette the game draws, which
+is exactly what the shape sheet exists to prevent.
+
+Two ways to close it and they cost about the same. Either `courses()` takes the
+arrangement as an option and `collected.ts` passes `[4, 2, 1]`, which makes the
+card the field's own stack; or `render/cairn.ts` reads its courses from a shared
+table the card also reads, which is the stronger version and needs a home for
+the table — `packages/content` is where the other shared geometry lives.
+`bun run shapes:report` and `packages/render/test/cairn-frame.test.ts` prove
+whichever is done.
+
 ## Unverified at 0defb8b3: THE WEIGHT watched at tempo: the private mark under one…
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt

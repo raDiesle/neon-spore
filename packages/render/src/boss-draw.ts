@@ -1,4 +1,6 @@
 import { wardenPullMilli, wardenTether } from "@neon-spore/sim";
+import { cairnBody, drawCairn } from "./cairn.js";
+import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
 import type { Effects } from "./effects.js";
 import { chartOf, drawFleetChart } from "./fleet-chart.js";
 import { drawFleetHulls } from "./fleet-hulls.js";
@@ -76,6 +78,19 @@ export function drawBoss(
     // A rope that snapped back no longer exists in the world, so its leaving is
     // the one part of this boss the picture has to remember for itself.
     effects.warden.draw(ctx, l, world.cfg, anchor);
+    return;
+  }
+
+  if (boss.kind === "cairn") {
+    const body = cairnBody(world, boss);
+    if (!body) return; // The last unit came away; there is no pile left.
+    drawCairn(ctx, l, body, boss, view.time);
+    // And, on one screen of the two, the lane the pile is about to drop one
+    // into. After the pile, because it stands on the stone that is going and
+    // has to be read over it (`cairn-settle.ts`).
+    if (showsCairnSettle(l)) {
+      drawCairnSettle(ctx, l, world, boss, body, view.beatPhase, view.time);
+    }
     return;
   }
 

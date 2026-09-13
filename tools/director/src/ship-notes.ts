@@ -233,6 +233,7 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "comes down the same lane again. Three wards, and the shell bursts in " +
     "mid-air over a body the cannon has to take. See volley.ts.",
   WARDEN: "The ring boss's own clocks, plates and worth.",
+  "THE CAIRN — a pile of rocks taken apart by hand": "Its row, its rocks, and its patience.",
   VANE: "The arm boss's own pins and worth.",
   MIRROR: "The boss that throws a Simon sequence back, and its own worth.",
   QUEEN: "The petal boss's own row, regrowth and worth.",

@@ -202,6 +202,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/guide-steps.ts` | A guide the pair turns the pages of, one seat at a time |
 | `packages/sim/src/gum.ts` | **THE GUM**: a sticky mass that falls straight down one lane, cannot be shot, is not stopped by the shield |
 | `packages/sim/src/carom.ts` | THE CAROM: a slick or a bulb sealed inside a hurtling rock crust |
+| `packages/sim/src/cairn.ts` | THE CAIRN: a pile of seven rocks nothing fired reaches, taken apart by a hand carried sideways, and the clock that drops one itself into a lane only player 1 is shown |
 | `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
 | `packages/sim/src/impact.ts` | **How heavy one body lands when it reaches the hull**, for everything the shield was never offered — the weight picks the sound, and a hit costs the wave whatever hit |
 | `packages/sim/src/creature-state.ts` | **The state one kind carries and no other does.** Every field here is optional |
@@ -236,7 +237,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/strand-shape.ts` | THE STRAND's shape, as arithmetic |
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
 | `packages/sim/src/throb.ts` | the throb's clockwise turn, which half a shot met, and what it costs |
-| `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — nine shapes, the union of them |
+| `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — eleven shapes, the union of them |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
 | `packages/sim/src/crawler-round.ts` |  |
@@ -281,6 +282,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bullet-hit-lure.ts` | What a shot does when it meets THE LURE |
 | `packages/sim/src/creature-kinds-many.ts` | the five kinds that are more than one body, answered a part at a time |
 | `packages/sim/src/creature-kinds-handed.ts` | **The two bodies answered by a hand from each seat at once** |
+| `packages/sim/src/creature-kinds-fixtures.ts` | The four bodies a wave never sends: the queen, the ring, the line it lowers and the pile, installed where they stand rather than queued |
 | `packages/sim/src/creature-state-heading.ts` | the four kinds that carry a direction, and the beats attached to it |
 | `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
@@ -995,6 +997,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
+| `packages/render/src/cairn-settle.ts` | The lane THE CAIRN is about to drop a rock into, drawn on player 1's screen and on nothing player 2 is shown |
+| `packages/render/src/cairn.ts` | THE CAIRN, drawn: the field's own two-tile rocks stacked in courses, clipped to one silhouette so the seams between them stay countable |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 | `packages/render/src/surface-clear.ts` | **Wiping an overlay whatever transform is on it** — a `clearRect` under a ratio below one misses the right edge |
@@ -1056,6 +1060,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-gum.ts` | THE GUM's four, in a file of their own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
+| `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 
 ### apps/game
 

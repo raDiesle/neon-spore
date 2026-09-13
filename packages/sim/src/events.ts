@@ -34,6 +34,24 @@ export type SimEvent =
    * the same instant (`sim/weight.ts`).
    */
   | { type: "weightCrushed"; col: number; row: number }
+  /**
+   * A hand carried across THE CAIRN took a unit out of the pile, on the side
+   * the finger went. `player` is the seat charged the column, and there is one
+   * of these per hand that paid — two thumbs pulling the same way both earned
+   * it, and `carry` next door already settles that question the same way.
+   *
+   * Its own event rather than `carry`: nothing moved a lane. What happened is
+   * that a body stopped being part of a boss, and the rock standing in that
+   * column a tick later is the same stone the pair has been looking at
+   * (`sim/cairn.ts`).
+   */
+  | { type: "cairnPulled"; player: 1 | 2; col: number; row: number }
+  /**
+   * The pile ran out of patience and let one go itself, into the column it had
+   * been announcing on player 1's screen. No `player`: this is the one thing in
+   * the fight neither of them did, which is the whole of what it says.
+   */
+  | { type: "cairnShed"; col: number; row: number }
   /** `lance` is true when the shot left a full lobe — see `lance.ts`. */
   | { type: "fire"; col: number; color: Color; lance: boolean }
   /** The lobe came full: from this moment the next shot out of it is a lance. */

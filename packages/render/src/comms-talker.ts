@@ -204,4 +204,12 @@ export const TALKER = {
   // siren is not saying *one of you can see this* but *neither of you can, so
   // one of you has to count*.
   weight: "both",
+  // THE CAIRN: `"p1"`, and it is the queen's row arrived at from the other
+  // side. Both screens draw the whole pile — there is nothing hidden about a
+  // stack of rocks — but the column it is *about to drop one into* is on the
+  // pilot's screen alone, and the pilot holds no dome. So the seat that can
+  // see where the next rock is coming from is the seat that cannot be there,
+  // and what the siren asks for is a number said out loud, which is THE
+  // GHOST's sentence in a boss's body.
+  cairn: "p1",
 } as const satisfies Record<CreatureKind, Talker | null>;

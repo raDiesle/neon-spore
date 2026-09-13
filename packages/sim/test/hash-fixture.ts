@@ -162,6 +162,7 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   queen: { kind: "queen", col: 3, petals: 6 },
   mirror: { kind: "mirror", rounds: [["fireRed", "guard"], ["cannonLeft"]] },
   warden: { kind: "warden", plates: 4 },
+  cairn: { kind: "cairn", units: 5 },
   vane: { kind: "vane", pins: 3 },
   maze: { kind: "maze", rounds: [WHEEL] },
   gauge: { kind: "gauge" },

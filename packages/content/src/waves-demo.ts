@@ -98,6 +98,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   fence: { wave: "theFence" },
   queen: { wave: "bulbQueen" },
   warden: { wave: "theWarden" },
+  cairn: { wave: "theCairn" },
   tether: { wave: "theWarden" },
   mirror: { wave: "theMirror" },
   maze: { wave: "theMaze" },

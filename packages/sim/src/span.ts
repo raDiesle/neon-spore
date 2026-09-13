@@ -28,6 +28,25 @@ import type { Creature } from "./types.js";
 export const WARDEN_COLS = 5;
 
 /**
+ * Columns THE CAIRN's pile covers. Odd, for the Warden's reason — a body dead
+ * centre has to have a whole column at its middle rather than a rounding.
+ *
+ * **Five, and the design page asked for a shade wider than the Warden.** It is
+ * the one figure that came back narrower than the drawing, and the thing that
+ * narrowed it is the rule that page cares about more: *a unit is a rock at the
+ * size the game already draws one*, not a boss-sized lump that shrinks on the
+ * way out (`docs/spec/transfers-bosses.md`). The game's largest rock is the
+ * two-tile one (`RockSize`), and seven of those stacked four, two and one come
+ * to a little over five tiles across — so the pile is five columns wide or the
+ * rocks are not rocks. The picture was kept and the number moved.
+ *
+ * It is still the lane spread of the fight: a rock let go of comes out of the
+ * pile's left pair of columns or its right pair, four columns apart, so the
+ * dome's walk from one to the other is what the pair is negotiating.
+ */
+export const CAIRN_COLS = 5;
+
+/**
  * How wide a rock arrives, in tiles. Two is a rock that fills a 2x2 square —
  * the same geometry the torch has always had, offered to the plain tiers as an
  * authored choice rather than as a sixth kind.
@@ -53,6 +72,11 @@ export type RockSize = 1 | 2;
  */
 export function colSpan(kind: CreatureKind): number {
   if (kind === "warden") return WARDEN_COLS;
+  // THE CAIRN is five as well, and unlike the ring's five it is a solid block
+  // of columns in the plainest sense: a rock stands in every one of them, which
+  // is what makes a hand carried across the pile a thing that has somewhere to
+  // come out (`cairn.ts`).
+  if (kind === "cairn") return CAIRN_COLS;
   // THE SHELL's width and its number of pieces are the same number, and
   // `shell.ts` owns it: every column of the body carries exactly one piece, so
   // a width set here and a count set there could disagree and leave a column

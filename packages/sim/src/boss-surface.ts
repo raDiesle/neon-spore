@@ -15,6 +15,9 @@
 export {
   BOSS_KINDS,
   bossFillsWave,
+  type CairnState,
+  cairnState,
+  cairnWaited,
   FLEET_LEN_MAX,
   FLEET_LEN_MIN,
   FLEET_SHIPS_MAX,

@@ -26,7 +26,9 @@ export function handedBurst(
         | "clingShake"
         | "clingFreed"
         | "clingBlast"
-        | "weightCrushed";
+        | "weightCrushed"
+        | "cairnPulled"
+        | "cairnShed";
     }
   >,
   l: Layout,
@@ -66,6 +68,20 @@ export function handedBurst(
     // read as something that burst rather than something that gave.
     case "weightCrushed":
       return at(l, e.col, e.row, 12, PALETTE.rock);
+    // A unit out of THE CAIRN, rock grey for the weight's reason — it carries
+    // no colour and nothing about it was destroyed. **Small**: eight, and
+    // fewer than the weight's dozen, because nothing here gave at all. A rock
+    // came loose from a pile of rocks, and the dust off a seam is the whole of
+    // what a pair should see — a shower would say the boss had been hurt, and
+    // the only thing that has happened is that the field now has one more rock
+    // in it (`sim/cairn.ts`).
+    case "cairnPulled":
+      return at(l, e.col, e.row, 8, PALETTE.rock);
+    // The one the pile let go of itself, and the only difference is that it is
+    // louder. Nobody chose this rock, so it is the one moment in the fight that
+    // has to be noticed without a thumb on it.
+    case "cairnShed":
+      return at(l, e.col, e.row, 14, PALETTE.rock);
   }
 }
 
