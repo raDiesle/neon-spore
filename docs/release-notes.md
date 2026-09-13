@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 37e9e6c6 — A crossing rock is announced on THE WELL, in the seam, on its row's circle
+
+The well bent the warning strip into a ring outside the rim and skipped every blip carrying a cross, so a rock coming over a side wall warned the pilot about nothing. The flat mark answers the two questions such a rock has instead of a column — the row and the side — with its height and the wall it is pushed against; on the circle a row is a radius and the two walls are the two edges of the seam at twelve, so the mark sits on that radius with its head just past the wall beside one o'clock (walking clockwise) or eleven (anticlockwise) and its tail back across the seam. Where it enters is asked of `rockEntryCol`, the spawn's own rule.
+
 ## 2026-09-13 · bdfae43b — THE WELL draws every transient that was placed when its event arrived
 
 The well's pass drew one member of Effects — the kill burst from the burst table — and skipped the rest, so a body reaching the hull on the well broke through with no flash, and a rock in a future well wave would land with no impact. Now every transient placed at a pixel when its event arrives goes through one `put`: `wellFromFlat` when the well is up, the pixel itself on the flat field. That covers the burst table, a breach's and a deflection's bursts through `ingestBreach`'s own `burst`, the baked kill sprite and a swallowed pod's implosion, and `drawWellBodies` draws the sparks and the sprites in the flat pass's own order.
