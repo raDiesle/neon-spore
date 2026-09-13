@@ -364,6 +364,7 @@ what the rest of this file holds.
 ## Unverified at cc5f5c5b: THE CAIRN watched at tempo: whether the seams between t…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-cc5f5c5b-the-cairn-watched-at-temp
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bestiary.md`, `docs/spec/bosses.md`, `docs/spec/ideas.md`, `docs/spec/transfers-bosses.md`, `docs/time-log.md`
 
 *THE CAIRN: a boss you take apart by hand, into the rocks it is made of* landed from a session that could not look at it. The commit touched 52 more files. What went unchecked:
