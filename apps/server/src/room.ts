@@ -1,5 +1,6 @@
 import {
   type ClientMessage,
+  type Difficulty,
   decodeClient,
   NAME_PARAM,
   nameFromWire,
@@ -7,11 +8,11 @@ import {
   type ServerMessage,
 } from "@neon-spore/net";
 import { refuseUpgrade } from "./room-open.js";
-import { pressStart, tellReady } from "./room-start.js";
-import { endStaleRun, keepBest, readBest } from "./room-tally.js";
+import { pressStart } from "./room-start.js";
+import { endStaleRun, keepBest, keepLevel, readBest, readLevel } from "./room-tally.js";
+import { announceGone, greetSeats, type RoomFacts } from "./room-tell.js";
 import {
   hangUp,
-  namesOf,
   nameTag,
   occupiedSeats,
   playerOfSocket,
@@ -59,6 +60,10 @@ export class Room {
   private best: Tally = NOTHING_YET;
   /** When this room last heard anything at all, for `runIsOver`. */
   private heard = 0;
+  /** The tempo this pair plays at, kept the way `best` is and never read: two
+   * phones at two tempi never reach the same tick, so the pair's one answer
+   * lives here (`packages/sim/src/difficulty.ts`, `room-tally.ts`). */
+  private level: Difficulty | null = null;
 
   constructor(ctx: DurableObjectState, env: RoomEnv) {
     this.ctx = ctx;
@@ -72,6 +77,7 @@ export class Room {
       this.code = (await ctx.storage.get<string>("code")) ?? "";
       this.startMs = (await ctx.storage.get<number>("startMs")) ?? 0;
       this.best = await readBest(ctx.storage);
+      this.level = await readLevel(ctx.storage);
       this.heard = (await ctx.storage.get<number>("heard")) ?? 0;
     });
   }
@@ -112,7 +118,7 @@ export class Room {
     const name = nameFromWire(new URL(request.url).searchParams.get(NAME_PARAM));
     this.ctx.acceptWebSocket(server, [seatTag(player), nameTag(name)]);
     stamp(server);
-    await this.greet(server, player);
+    this.greet(server, player);
     return new Response(null, { status: 101, webSocket: client });
   }
 
@@ -164,6 +170,12 @@ export class Room {
       case "ready":
         void this.press(me.player);
         return;
+      case "level":
+        // Stored and handed back, the way `stats` is; one that is not a level
+        // never arrives at all (`protocol-decode.ts`).
+        this.level = message.level;
+        void keepLevel(this.ctx.storage, message.level);
+        return;
       case "stats":
         // Stored and never opened, the way a `Command` is relayed and never
         // opened. The further seat's whole, because the clock and the retries
@@ -181,9 +193,8 @@ export class Room {
       this.gate,
       player,
       {
-        code: this.code,
+        ...this.facts(),
         seats: this.seats(),
-        best: worthSaying(this.best) ? this.best : null,
         persist: (at) => this.ctx.storage.put("startMs", at),
       },
       START_LEAD_MS,
@@ -191,41 +202,30 @@ export class Room {
     if (startMs !== 0) this.startMs = startMs;
   }
 
-  /** Tell a new arrival who it is. Nothing is stamped by an arrival any more:
-   * beat zero waits on two presses, which is the whole of `start-gate.ts`. */
-  private async greet(socket: WebSocket, player: PlayerId): Promise<void> {
-    const seats = this.seats();
-    const peers = seats.length;
-    for (const seat of seats) {
-      send(seat.socket, {
-        t: "welcome",
-        player: seat.socket === socket ? player : seat.player,
-        room: this.code,
-        startMs: this.startMs,
-        peers,
-        names: namesOf(seats),
-        best: worthSaying(this.best) ? this.best : null,
-      });
-    }
-    if (peers >= 2) tellReady(this.gate, seats);
+  /** Who it is, to the arrival and to whoever was already here (`room-tell.ts`). */
+  private greet(socket: WebSocket, player: PlayerId): void {
+    greetSeats(this.seats(), socket, player, this.facts(), this.gate);
   }
 
+  /** A seat has gone: the others are told, and its press goes with it. The run
+   * ending with it is this object's own decision (`start-gate.ts`). */
   private announce(gone: WebSocket): void {
     const left = this.seats().filter((s) => s.socket !== gone);
-    // A seat that leaves takes its press with it: the one still here must not
-    // be one thumb away from starting a game with nobody in the other chair.
-    const goneSeat = this.playerOf(gone);
-    if (goneSeat) this.gate.drop(goneSeat);
-    // A room below two seats has no run in it any more, so beat zero goes with
-    // the seat — see `emptiedRoom` in `start-gate.ts` for what happens without it.
     if (emptiedRoom(left.length, this.startMs)) {
       this.startMs = 0;
       void this.ctx.storage.put("startMs", 0);
     }
-    for (const seat of left) {
-      send(seat.socket, { t: "peers", peers: left.length, names: namesOf(left) });
-    }
-    if (left.length > 0) tellReady(this.gate, left);
+    announceGone(left, this.playerOf(gone), this.gate);
+  }
+
+  /** The four things a welcome is made of, gathered where they are kept. */
+  private facts(): RoomFacts {
+    return {
+      code: this.code,
+      startMs: this.startMs,
+      best: worthSaying(this.best) ? this.best : null,
+      level: this.level,
+    };
   }
 
   private relay(from: Seat, message: ServerMessage): void {

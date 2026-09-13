@@ -205,43 +205,6 @@ stay in `packages/net/src/nickname.ts`, where both ends read them. The
 server's tests are `bun test apps/server`; the sign-in round trip against a
 real provider is unverified from a cloud session.
 
-## A new game is started at a difficulty — Easy, Medium or Hard
-
-- **Found:** 2026-09-13, queue-lanes — asked for by the owner
-- **Taken:** 2026-09-13, claude/queue-a-new-game-is-started-at-a-difficulty-easy-mediu
-- **Files:** `packages/sim/src/config.ts`, `packages/sim/src/config-derived.ts`, `apps/game/src/progress.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `packages/net/src/protocol.ts`, `apps/server/src/room-start.ts`
-- **Where:** cloud
-- **Asks:** Is difficulty the tempo alone, or the tempo plus the hull's hits — and is today's speed Medium or Hard?
-
-The owner wants **three difficulties, Easy, Medium and Hard**, chosen when a
-new game is created and shown on the PLAY page. A pair may change it later,
-but changing it **warns that the whole wave state resets** and the run starts
-again from the first wave. His own suggestion for what it changes is one
-thing: **the falling speed of everything**; and he puts today's speed at
-Medium or Hard.
-
-Everything falls a tile a beat, so falling speed *is* the tempo: `bpm` in
-`SimConfig`, with `tickHz` chosen so a beat is a whole number of ticks. Easy,
-Medium and Hard as three `bpm` values is one field on the config and nothing
-in the rules. The options the answer picks between:
-
-- *Tempo alone*, the owner's suggestion — three tempi, today's being Medium
-  (so Hard is faster than anything shipped) or Hard (so today's speed is the
-  ceiling and Easy and Medium are slower). The guard and intake windows are
-  in milliseconds, so a faster beat also tightens them relative to the beat,
-  which is the right direction.
-- *Tempo plus the hull*: `maxHoles`/`maxScars`, the hits a ship takes before
-  the wave is lost — Easy takes one more, Hard one fewer. Two knobs, still no
-  rule change, and the one that makes Hard *hurt* rather than merely hurry.
-- Not recommended: a per-creature speed table or a change to the guides —
-  every wave is authored to the beat and would need re-timing.
-
-The chosen level is part of the run: it goes in `progress.ts` beside
-`furthest`, is sent by the room in `start` so both phones play the same
-`bpm`, and is part of the world's config hash so a pair at different levels
-desyncs at tick 0 rather than a minute later. `bun test packages/sim`
-already plays every wave from a seed; run it at the three tempi.
-
 ## THE HANDOVER's guide is prose, and the thing it teaches is a picture
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

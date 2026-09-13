@@ -1,3 +1,4 @@
+import type { Difficulty } from "@neon-spore/sim";
 import type { RunMark } from "./protocol.js";
 
 /**
@@ -83,6 +84,15 @@ export interface LinkStatus {
    */
   best: RunMark | null;
   /**
+   * The difficulty this room plays at, or null before the room has said.
+   *
+   * On the status rather than read from a message, because two screens want it
+   * for two different reasons: the menu's own row says which of the three the
+   * pair is on, and beat zero takes the tempo from it so both devices play the
+   * same beat (`sim/difficulty.ts`, `apps/game/src/main.ts`).
+   */
+  level: Difficulty | null;
+  /**
    * The lag this device is currently carrying between a touch and the tick it
    * lands on — `InputDelay` in milliseconds, 0 when playing alone. It is the
    * one number that says how the link *feels* rather than how it measures, so
@@ -144,6 +154,7 @@ export const SOLO_STATUS: LinkStatus = {
   readyThere: false,
   names: ["", ""],
   best: null,
+  level: null,
   delayMs: 0,
   delayTicks: 0,
   stalledMs: 0,

@@ -112,6 +112,12 @@ export function playEntries(a: EntryActions): MenuEntry[] {
       run: () => a.carryOn(),
     },
     {
+      key: "level",
+      label: "DIFFICULTY",
+      desc: "How fast everything falls. Three settings, and changing it starts the run again.",
+      run: () => a.show("level"),
+    },
+    {
       key: "rejoin",
       label: "REJOIN",
       desc: "Back into the room you two share. No code to read out.",
@@ -125,6 +131,45 @@ export function playEntries(a: EntryActions): MenuEntry[] {
         a.close();
         a.openRoom();
       },
+    },
+  ];
+}
+
+/**
+ * **The three difficulties**, on a page of their own behind the PLAY page's own
+ * row (`sim/difficulty.ts`).
+ *
+ * One thing changes between them and it is the tempo: everything on this field
+ * falls a tile a beat, so the falling speed the owner asked to move *is* the
+ * beat. Medium is the game as it has always been, which is why it is the middle
+ * row and the one a device that has never chosen is already on.
+ *
+ * **None of them acts on the first press.** Changing the level takes the run
+ * back to the first wave — a wave cleared at one tempo was not cleared at
+ * another — so each row asks in place first, the way LEAVE ROOM does and
+ * through the same two-step (`menu.ts`, `confirm.ts`). Their `run` is empty
+ * for exactly that reason: the press is answered by the question in front of
+ * it, and nothing here may reach the action.
+ */
+export function levelEntries(): MenuEntry[] {
+  return [
+    {
+      key: "easy",
+      label: "EASY",
+      desc: "A fifth slower than the game as it ships. More time between the beat and the answer.",
+      run: () => {},
+    },
+    {
+      key: "medium",
+      label: "MEDIUM",
+      desc: "The game as it has always been played, and what every wave was authored against.",
+      run: () => {},
+    },
+    {
+      key: "hard",
+      label: "HARD",
+      desc: "A quarter faster. The same waves, with a quarter less of everything to answer them in.",
+      run: () => {},
     },
   ];
 }

@@ -1,3 +1,4 @@
+import { isDifficulty } from "@neon-spore/sim";
 import { decodeCommands, isTick, isUint32 } from "./command-codec.js";
 import { nameFromWire } from "./nickname.js";
 import type { ClientMessage, PlayerId, RefusalCode, RunMark, ServerMessage } from "./protocol.js";
@@ -45,6 +46,12 @@ export function decodeClient(raw: string): ClientMessage | null {
       return isTick(m.wave) && isTick(m.seconds) && isTick(m.retries)
         ? { t: "stats", wave: m.wave, seconds: m.seconds, retries: m.retries }
         : null;
+    // Refused outright when it is not one of the three, rather than clamped to
+    // the default: a level is a *tempo*, and a room told to play at something
+    // it cannot read must go on playing what it had rather than quietly move
+    // one phone's beat (`sim/difficulty.ts`).
+    case "level":
+      return isDifficulty(m.level) ? { t: "level", level: m.level } : null;
     default:
       return null;
   }
@@ -86,6 +93,7 @@ export function decodeServer(raw: string): ServerMessage | null {
             peers: Number(m.peers) || 0,
             names: namesFromWire(m.names),
             best: bestFromWire(m.best),
+            level: isDifficulty(m.level) ? m.level : null,
           }
         : null;
     case "peers":

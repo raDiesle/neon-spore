@@ -321,6 +321,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
+| `packages/sim/src/difficulty.ts` | **EASY, MEDIUM and HARD**, and the one number they move: the tempo, which on this field is the falling speed of everything |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
@@ -1175,6 +1176,7 @@ place — the generator keeps whatever is there.
 | `apps/server/src/names.ts` | The name registry: one Durable Object holding every claimed name |
 | `apps/server/src/room-open.ts` | Everything that must be true before a socket is worth accepting, in the order it is worth being false in |
 | `apps/server/src/room-tally.ts` | The tally's storage half, and giving up on a run nobody is playing |
+| `apps/server/src/room-tell.ts` | **What the room tells its seats** when somebody arrives or leaves: the welcome, and the count after a seat goes |
 | `apps/server/src/tally.ts` | What a pair got to, kept by the room they share: the further wave, then fewer retries, then less time |
 
 ### tools

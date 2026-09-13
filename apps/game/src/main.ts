@@ -3,6 +3,8 @@ import { Canvas2DRenderer } from "@neon-spore/render";
 import {
   createWorld,
   DEFAULT_CONFIG,
+  DIFFICULTY_BPM,
+  type Difficulty,
   PAIR_ON,
   beatPhase as phaseOfBeat,
   resetClock,
@@ -18,6 +20,7 @@ import { InputBuffer } from "./input.js";
 import { interpolationRequested } from "./interpolate.js";
 import { bindIntro } from "./intro.js";
 import { menuIdleHz } from "./menu-idle.js";
+import { atLevel, readProgress, updateProgress } from "./progress.js";
 import { bindRasterBurst, bindRasterClasp } from "./raster.js";
 import { createRunState } from "./run-state.js";
 import { bindShell } from "./shell.js";
@@ -48,7 +51,11 @@ if (!canvas) throw new Error("canvas #stage missing");
 // window the mouth's own sequence needs to read in (`cannon-maw.ts`). Shorten
 // it on the director's TUNING → PAIR slider rather than here. Off in
 // `DEFAULT_CONFIG` so every replay keeps its timing exact.
+// And the tempo this device last played at, which is the whole of a difficulty
+// (`sim/difficulty.ts`). Medium for a device that has never chosen, which is
+// `DEFAULT_CONFIG.bpm` and therefore no change at all.
 const cfg = { ...DEFAULT_CONFIG, ...PAIR_ON, shotChargeBeats: 0.5 };
+cfg.bpm = DIFFICULTY_BPM[readProgress().level];
 const world = createWorld(cfg, 0, buildQueue(0, cfg.cols), buildPods(0, cfg.cols));
 const renderer = new Canvas2DRenderer(canvas);
 // The same context the renderer draws through: a second `getContext` on one
@@ -141,7 +148,21 @@ const link = bindShell({
   setSeat: (role) => view.set(role),
   openTuning: () => testPanel.open(),
   openDemo: (id) => openDemonstration(id, cfg, jumpToWave),
-  onStart: (_player, wave) => startTogether(wave),
+  // Beat zero: the room's wave *and* the room's tempo, so the two phones are
+  // playing the same game at the same speed (`sim/difficulty.ts`).
+  onStart: (_player, wave, level) => {
+    playAt(level);
+    startTogether(wave);
+  },
+  level: () => readProgress().level,
+  // Off the wire, the same three things in the same order — and the first wave,
+  // because a wave cleared at one tempo was not cleared at another. The row
+  // that reaches this asked before it did (`menu-entries.ts`).
+  setLevel: (level) => {
+    playAt(level);
+    updateProgress((p) => atLevel(p, level));
+    startTogether(0);
+  },
   intro,
 });
 
@@ -169,6 +190,19 @@ bindSplashTrail({ onField: () => !run.held("menu") });
 function startTogether(wave: number): void {
   resetClock(world, 0);
   jumpToWave(wave);
+}
+
+/**
+ * The tempo the run is played at, which is the whole of a difficulty.
+ *
+ * Written onto the config the world already holds rather than into a second
+ * one: `SimConfig` is read live by everything in the simulation, so a new `bpm`
+ * takes effect on the next tick — which is why every caller of this restarts
+ * the run in the same breath. A beat that changed under a wave already falling
+ * would leave the arrivals timed against a beat that no longer exists.
+ */
+function playAt(level: Difficulty): void {
+  cfg.bpm = DIFFICULTY_BPM[level];
 }
 
 /**

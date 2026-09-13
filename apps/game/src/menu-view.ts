@@ -41,6 +41,8 @@ export interface MenuHandlers {
   entries: MenuEntry[];
   /** The rows behind PLAY, where the two of you meet — see `menu-entries.ts`. */
   play: MenuEntry[];
+  /** The three difficulties, on their own page behind PLAY's DIFFICULTY row. */
+  levels: MenuEntry[];
   /** The rig's own rows, on the page behind the spore — see `menu-entries.ts`. */
   testing: MenuEntry[];
   /** One row per mechanic — see `demo-menu.ts`. */
@@ -114,10 +116,12 @@ export function buildMenu(h: MenuHandlers): MenuDom {
 
   const rootPage = el("div", "page on");
   const playPage = el("div", "page");
+  const levelPage = el("div", "page");
   const testingPage = el("div", "page");
   const pages: Record<MenuPage, HTMLElement> = {
     root: rootPage,
     play: playPage,
+    level: levelPage,
     testing: testingPage,
     // Both jump lists are opened from TESTING now, so both go back to it.
     waves: buildWaves((p) => show(p), h.onWave, "testing"),
@@ -160,6 +164,21 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   );
   drawEntries(h.play, playPage);
 
+  // Back to PLAY and not to the front page: a page reached one floor down must
+  // not put the reader two floors up (`menu-parts.ts`).
+  levelPage.append(
+    backButton((p) => show(p), "play"),
+    el("h2", undefined, "DIFFICULTY"),
+  );
+  drawEntries(h.levels, levelPage);
+  levelPage.append(
+    el(
+      "p",
+      "foot",
+      "Only the speed changes: everything falls a tile a beat, so the setting is the beat. Changing it starts the run again from the first wave.",
+    ),
+  );
+
   testingPage.append(
     backButton((p) => show(p)),
     el("h2", undefined, "TESTING"),
@@ -196,6 +215,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   inner.append(
     pages.root,
     pages.play,
+    pages.level,
     pages.testing,
     pages.waves,
     pages.demos,

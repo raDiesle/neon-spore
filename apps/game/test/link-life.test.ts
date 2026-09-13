@@ -82,6 +82,7 @@ function running() {
     startMs: START_MS,
     names: ["", ""],
     best: null,
+    level: null,
   });
   // Three samples is what `ClockSync` wants before it believes an offset. The
   // server answers instantly at `START_MS`, so the offset is `START_MS` and
@@ -104,6 +105,7 @@ describe("getting to beat zero", () => {
       startMs: 0,
       names: ["", ""],
       best: null,
+      level: null,
     });
     expect(h.state()).toBe("waiting");
   });
@@ -134,6 +136,7 @@ describe("the wave beat zero lands on", () => {
       startMs: START_MS,
       names: ["", ""],
       best: { wave: 12, seconds: 400, retries: 3 },
+      level: null,
     });
     for (let i = 0; i < 3; i++) h.wire.say({ t: "pong", c1: 0, s1: START_MS, s2: START_MS });
     h.link.frame(16);
@@ -155,6 +158,7 @@ describe("a welcome that stamps a different beat zero", () => {
       startMs: START_MS + 5000,
       names: ["", ""],
       best: null,
+      level: null,
     });
     // The frame is what tells the two apart. A run that was ended has to count
     // down to the new stamp; one that was not simply reports itself live, and
@@ -173,6 +177,7 @@ describe("a welcome that stamps a different beat zero", () => {
       startMs: START_MS + 5000,
       names: ["", ""],
       best: null,
+      level: null,
     });
     h.link.frame(16);
     expect(h.starts).toEqual([1]);
@@ -186,6 +191,7 @@ describe("a welcome that stamps a different beat zero", () => {
       startMs: START_MS,
       names: ["", ""],
       best: null,
+      level: null,
     });
     h.link.frame(16);
     expect(h.starts).toEqual([1, 1]);
@@ -204,6 +210,7 @@ describe("a welcome that stamps a different beat zero", () => {
       startMs: START_MS,
       names: ["", ""],
       best: null,
+      level: null,
     });
     h.link.frame(16);
     expect(h.state()).toBe("live");
@@ -228,6 +235,7 @@ describe("a seat that empties", () => {
       startMs: START_MS,
       names: ["", ""],
       best: null,
+      level: null,
     });
     h.wire.say({ t: "peers", peers: 1, names: ["", ""] });
     // Nothing has started, so nobody has been dropped out of anything: the

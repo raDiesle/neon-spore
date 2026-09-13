@@ -323,6 +323,34 @@ describe("a room hands out two seats", () => {
     two.close();
   });
 
+  test("keeps the difficulty the pair chose, and hands it back on the welcome", async () => {
+    // A level is a tempo, and two phones at two tempi never reach the same
+    // tick — so the pair's one answer lives in the room, stored and handed
+    // back the way `stats` is (`apps/server/src/room.ts`).
+    const one = await phone("ADEF");
+    await one.settle("welcome");
+    expect(of(one.said, "welcome").at(-1)?.level).toBeNull();
+
+    one.send({ t: "level", level: "hard" });
+    await one.caughtUp();
+    const two = await phone("ADEF");
+    await two.settle("welcome");
+    expect(of(two.said, "welcome").at(-1)?.level).toBe("hard");
+
+    // And one that is not a level at all never reaches the room: it is refused
+    // on the way in, so what the pair chose still stands on the next welcome —
+    // which is the one beat zero sends (`protocol-decode.ts`).
+    two.send({ t: "level", level: "brutal" });
+    await two.caughtUp();
+    one.send({ t: "ready" });
+    await one.settle("ready", (r) => r.players.includes(1));
+    two.send({ t: "ready" });
+    await two.settle("welcome", (w) => w.startMs > 0);
+    expect(of(two.said, "welcome").at(-1)?.level).toBe("hard");
+    one.close();
+    two.close();
+  });
+
   test("a press from one phone alone starts nothing at all", async () => {
     const one = await phone("AAEE");
     await one.settle("welcome");

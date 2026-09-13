@@ -1,7 +1,8 @@
-import type { LinkState, LinkStatus, PlayerId, RunMark, ServerMessage } from "@neon-spore/net";
+import type { Difficulty, LinkState, LinkStatus, RunMark, ServerMessage } from "@neon-spore/net";
+import { DEFAULT_DIFFICULTY } from "@neon-spore/sim";
 import { createRoomClock } from "./link-clock.js";
 import { reclaimingSeat, stateAfterRefusal, turnedAway, worthReaching } from "./link-refusal.js";
-import { report } from "./link-report.js";
+import { NOTHING_SAID, type RoomSaid, report } from "./link-report.js";
 import { createRun, type Run } from "./link-run.js";
 import { openRoomSocket, type RoomSocket } from "./link-socket.js";
 import type { Link, LinkOptions } from "./link-types.js";
@@ -40,12 +41,9 @@ export function createLink(o: LinkOptions): Link {
    */
   let startedAt = 0;
   let peers = 0;
-  /** The seats the room says have pressed START. Cleared with the room. */
-  let readySeats: PlayerId[] = [];
-  /** What the two people are called, by seat, as the room last said. */
-  let names: [string, string] = ["", ""];
-  /** What this pair got to last time, as the room last said. */
-  let best: RunMark | null = null;
+  /** Everything the room has told this device, and nothing else: who has
+   * pressed, the two names, the pair's mark and the tempo (`link-report.ts`). */
+  let said: RoomSaid = { ...NOTHING_SAID };
 
   const run: Run = createRun({
     cfg: o.cfg,
@@ -55,7 +53,7 @@ export function createLink(o: LinkOptions): Link {
   });
 
   const status = (): LinkStatus =>
-    report({ state, room, player, peers, readySeats, names, best, clock, run, socket, startMs });
+    report({ state, room, player, peers, said, clock, run, socket, startMs });
 
   const settle = (next: LinkState): void => {
     if (state === next) return;
@@ -74,9 +72,7 @@ export function createLink(o: LinkOptions): Link {
     startMs = 0;
     startedAt = 0;
     peers = 0;
-    readySeats = [];
-    names = ["", ""];
-    best = null;
+    said = { ...NOTHING_SAID };
     player = 0;
     room = "";
     clock.reset();
@@ -112,7 +108,6 @@ export function createLink(o: LinkOptions): Link {
     switch (message.t) {
       case "welcome":
         player = message.player;
-        names = message.names;
         room = message.room;
         peers = message.peers;
         startMs = message.startMs;
@@ -121,7 +116,7 @@ export function createLink(o: LinkOptions): Link {
         // down here — so the room screen's line about the last time these two
         // played has always read as if they never had, and beat zero had no
         // wave to land on but the first.
-        best = message.best;
+        said = { ...said, names: message.names, best: message.best, level: message.level };
         socket?.rearm();
         // A beat zero that is not this run's is the room saying the run is over
         // and the next starts here, which is what a rejoin looks like from this
@@ -129,16 +124,16 @@ export function createLink(o: LinkOptions): Link {
         // ticks: not lag, but two games with one fingerprint check between them.
         if (run.started && startMs !== startedAt) run.end();
         // A stamp is a new run, and the presses that bought it are spent.
-        if (startMs !== 0) readySeats = [];
+        if (startMs !== 0) said = { ...said, readySeats: [] };
         settle(peers >= 2 ? (clock.ready ? "countdown" : "syncing") : "waiting");
         return;
       case "ready":
-        readySeats = message.players;
+        said = { ...said, readySeats: message.players };
         o.onStatus(status());
         return;
       case "peers":
         peers = message.peers;
-        names = message.names;
+        said = { ...said, names: message.names };
         // Before beat zero the room is simply not full yet. After it, an empty
         // seat ends the run: a lockstep that waits for nobody waits for ever.
         if (peers < 2) settle(run.started ? "lost" : "waiting");
@@ -202,7 +197,7 @@ export function createLink(o: LinkOptions): Link {
     // The wave the room says the pair got to, and 0 for a room with no mark on
     // it. Read here rather than by the caller because the room is what decides
     // it and this is where the room's word arrives (`link-types.ts`).
-    if (player !== 0) o.onStart(player, best?.wave ?? 0);
+    if (player !== 0) o.onStart(player, said.best?.wave ?? 0, said.level ?? DEFAULT_DIFFICULTY);
     run.begin(player);
     if (player !== 0) settle("live");
   };
@@ -224,10 +219,26 @@ export function createLink(o: LinkOptions): Link {
   /** A press, not a start: the room decides what two of them are worth. */
   const ready = (): void => socket?.send({ t: "ready" });
 
+  /** The difficulty the pair has chosen, up to the room, which hands it back to
+   * both phones — so the one that chose and the one that did not take their
+   * tempo from the same answer (`sim/difficulty.ts`). */
+  const setLevel = (next: Difficulty): void => socket?.send({ t: "level", level: next });
+
   /** How far this device has got, for the room to keep. Stored, never read. */
   const tally = (mark: RunMark): void => {
     socket?.send({ t: "stats", ...mark });
   };
 
-  return { join, leave, ready, tally, mayTick, drain: run.drain, checkpoint, frame, status };
+  return {
+    join,
+    leave,
+    ready,
+    setLevel,
+    tally,
+    mayTick,
+    drain: run.drain,
+    checkpoint,
+    frame,
+    status,
+  };
 }

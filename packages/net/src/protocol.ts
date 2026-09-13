@@ -1,4 +1,4 @@
-import type { Command } from "@neon-spore/sim";
+import type { Command, Difficulty } from "@neon-spore/sim";
 
 /**
  * Every message that crosses the wire, in one file, so the Durable Object and
@@ -95,7 +95,18 @@ export type ClientMessage =
    * thing lockstep exists to avoid. It is handed back on `welcome` so the room
    * screen can say one line to a pair who come back.
    */
-  | ({ t: "stats" } & RunMark);
+  | ({ t: "stats" } & RunMark)
+  /**
+   * The difficulty this pair is playing at (`sim/difficulty.ts`).
+   *
+   * Sent when one of them chooses it, and stored by the room the way `stats`
+   * is: never read, handed back on `welcome`. It has to be the room's copy
+   * rather than each device's, because the level is a tempo and two phones at
+   * two tempi are two games — they would not even reach the same tick. The room
+   * is therefore where the disagreement is settled, and beat zero is when both
+   * take what it says.
+   */
+  | { t: "level"; level: Difficulty };
 
 export type ServerMessage =
   | {
@@ -124,6 +135,12 @@ export type ServerMessage =
        * been played in. Stored by the room and never read by it.
        */
       best: RunMark | null;
+      /**
+       * The difficulty this room plays at, as one of the two phones last said.
+       * `null` for a room nobody has chosen in, which both devices read as the
+       * default — the game as it has always been (`sim/difficulty.ts`).
+       */
+      level: Difficulty | null;
     }
   /** Someone joined or left. Two is a game; one is a wait. */
   | { t: "peers"; peers: number; names: [string, string] }

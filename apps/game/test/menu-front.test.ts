@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import type { LinkStatus } from "@neon-spore/net";
 import {
   type EntryActions,
+  levelEntries,
   menuEntries,
   playEntries,
   testingEntries,
@@ -37,6 +38,7 @@ const labels = (list: { label: string }[]): string[] => list.map((e) => e.label)
 
 const front = menuEntries(actions);
 const play = playEntries(actions);
+const levels = levelEntries();
 const rig = testingEntries(actions);
 
 describe("the front page", () => {
@@ -59,30 +61,67 @@ describe("the front page", () => {
 });
 
 describe("the page behind PLAY", () => {
-  it("is where the two of you meet: CONTINUE, REJOIN and the room's code", () => {
-    expect(labels(play)).toEqual(["CONTINUE", "REJOIN", "OPEN A ROOM"]);
+  it("is where the two of you meet: CONTINUE, the difficulty, REJOIN and the code", () => {
+    expect(labels(play)).toEqual(["CONTINUE", "DIFFICULTY", "REJOIN", "OPEN A ROOM"]);
   });
 
   it("shares no key with either other list, so `setEntry` names one row", () => {
-    const all = [...keys(front), ...keys(play), ...keys(rig)];
+    const all = [...keys(front), ...keys(play), ...keys(levels), ...keys(rig)];
     expect(new Set(all).size).toBe(all.length);
   });
 });
 
+describe("the three difficulties", () => {
+  it("are the three the simulation has, in the order they get harder", () => {
+    expect(keys(levels)).toEqual(["easy", "medium", "hard"]);
+  });
+
+  it("act on nothing by themselves: the question in front of them does", () => {
+    // Changing the level takes the run back to the first wave, so each row is
+    // behind the two-step LEAVE ROOM is behind (`menu.ts`, `confirm.ts`).
+    const ran: string[] = [];
+    for (const row of levels) row.run();
+    expect(ran).toEqual([]);
+    expect(menu).toContain('bindTwoStep(row, "START AGAIN"');
+  });
+
+  it("say which one the run is on, and what it means", () => {
+    const r = recorder();
+    paintLink({
+      dom: r.dom,
+      link: status({ level: "hard" }),
+      pairRoom: "",
+      opened: false,
+      wave: 0,
+    });
+    expect(r.label.get("hard")).toBe("HARD · ON");
+    expect(r.label.get("easy")).toBe("EASY");
+    expect(r.desc.get("level")).toContain("Hard");
+    expect(r.desc.get("level")).toContain("starts the run again");
+  });
+});
+
 /** A stand-in for the page: what `paintLink` said about each row, by key. */
-function recorder(): { dom: MenuDom; on: Map<string, boolean>; desc: Map<string, string> } {
+function recorder(): {
+  dom: MenuDom;
+  on: Map<string, boolean>;
+  desc: Map<string, string>;
+  label: Map<string, string>;
+} {
   const on = new Map<string, boolean>();
   const desc = new Map<string, string>();
+  const label = new Map<string, string>();
   const dom = {
-    setEntry: (key: string, next: { desc?: string; on?: boolean }) => {
+    setEntry: (key: string, next: { desc?: string; on?: boolean; label?: string }) => {
       if (next.on !== undefined) on.set(key, next.on);
       if (next.desc !== undefined) desc.set(key, next.desc);
+      if (next.label !== undefined) label.set(key, next.label);
     },
     setProgress: () => {},
     lockSeats: () => {},
     paintNames: () => {},
   } as unknown as MenuDom;
-  return { dom, on, desc };
+  return { dom, on, desc, label };
 }
 
 const status = (over: Partial<LinkStatus>): LinkStatus =>

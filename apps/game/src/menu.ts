@@ -1,8 +1,15 @@
 import type { MechanicId } from "@neon-spore/content";
 import type { LinkStatus } from "@neon-spore/net";
+import { DIFFICULTIES } from "@neon-spore/sim";
 import { bindTwoStep, type TwoStep } from "./confirm.js";
 import type { MainMenu, MenuBindings } from "./menu-bindings.js";
-import { type EntryActions, menuEntries, playEntries, testingEntries } from "./menu-entries.js";
+import {
+  type EntryActions,
+  levelEntries,
+  menuEntries,
+  playEntries,
+  testingEntries,
+} from "./menu-entries.js";
 import { inRoom as linkIsRoom, paintLink as paintPage } from "./menu-link.js";
 import type { MenuPage } from "./menu-parts.js";
 import { buildMenu } from "./menu-view.js";
@@ -60,6 +67,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
 
   const close = (): void => {
     leaveStep?.cancel();
+    for (const step of levelSteps) step.cancel();
     dom.root.classList.remove("on");
     document.body.classList.remove("menu-open");
     if (chip) chip.textContent = "☰";
@@ -148,6 +156,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
   const dom = buildMenu({
     entries: menuEntries(actions),
     play: playEntries(actions),
+    levels: levelEntries(),
     testing: testingEntries(actions),
     openIntro: actions.openIntro,
     demos: b.demos,
@@ -180,6 +189,24 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
       b.leaveRoom();
       dom.show("root");
     });
+  }
+
+  /**
+   * The three difficulties, each behind the question LEAVE ROOM is behind:
+   * changing the level takes the run back to the first wave (`progress.ts`), so
+   * a row that acted on one press would be a wave count lost to a thumb landing
+   * while the page was still arriving.
+   */
+  const levelSteps: TwoStep[] = [];
+  for (const level of DIFFICULTIES) {
+    const row = dom.entryRoot(level);
+    if (!row) continue;
+    levelSteps.push(
+      bindTwoStep(row, "START AGAIN", () => {
+        if (level !== b.level()) b.setLevel(level);
+        dom.show("play");
+      }),
+    );
   }
 
   /**

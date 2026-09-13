@@ -1,7 +1,7 @@
 import type { MechanicId } from "@neon-spore/content";
 import type { PlayerId } from "@neon-spore/net";
 import type { ViewRole } from "@neon-spore/render";
-import type { SimConfig, World } from "@neon-spore/sim";
+import type { Difficulty, SimConfig, World } from "@neon-spore/sim";
 import { type DemoRow, demoRows } from "./demo-menu.js";
 import { bindHoldCard } from "./hold.js";
 import { bindInstall, type Installer } from "./install.js";
@@ -47,7 +47,11 @@ export interface ShellParts {
    * Beat zero. Called after every sheet has been put away and every hold on
    * the world has been let go, so what it does is only the run itself.
    */
-  onStart: (player: PlayerId, wave: number) => void;
+  onStart: (player: PlayerId, wave: number, level: Difficulty) => void;
+  /** The difficulty this device last played at, and the way to change it —
+   * the run starts again at the first wave when it does (`main.ts`). */
+  level: () => Difficulty;
+  setLevel: (level: Difficulty) => void;
   /**
    * The six pages that say what this game is (`intro.ts`). The shell decides
    * *when*: on a device that has never seen them they are the front door, and
@@ -81,7 +85,7 @@ export function bindShell(p: ShellParts): Link {
     cfg: p.cfg,
     world: p.world,
     buffer: p.buffer,
-    onStart: (player, wave) => {
+    onStart: (player, wave, level) => {
       // The room hands out the seat, so the view follows it rather than
       // whatever this device was last left on.
       p.setSeat(player === 1 ? "p1" : "p2");
@@ -90,7 +94,7 @@ export function bindShell(p: ShellParts): Link {
       menu?.close();
       joinScreen?.open(false);
       p.run.release();
-      p.onStart(player, wave);
+      p.onStart(player, wave, level);
     },
     onStatus: (status) => {
       joinScreen?.update(status);
@@ -178,6 +182,15 @@ export function bindShell(p: ShellParts): Link {
         canInstall: () => installer?.available() ?? false,
       },
       openTuning: p.openTuning,
+      // The room's level where there is a room, and this device's where there
+      // is not. Setting it tells the room — which hands it back to both phones
+      // on the next welcome — and starts the run again here
+      // (`packages/sim/src/difficulty.ts`, `main.ts`).
+      level: () => link.status().level ?? p.level(),
+      setLevel: (level) => {
+        link.setLevel(level);
+        p.setLevel(level);
+      },
       openIntro: (back) => p.intro.open(back),
       demos,
       openDemo: p.openDemo,

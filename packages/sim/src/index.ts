@@ -15,6 +15,7 @@
  */
 
 export * from "./boss-surface.js";
+export * from "./difficulty.js";
 export * from "./fault-surface.js";
 export * from "./index-bodies.js";
 export * from "./index-creatures.js";

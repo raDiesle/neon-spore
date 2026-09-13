@@ -1,4 +1,5 @@
 import type { LinkStatus } from "@neon-spore/net";
+import { DIFFICULTIES, type Difficulty } from "@neon-spore/sim";
 import { roomLine } from "./join-words.js";
 import type { MenuDom } from "./menu-view.js";
 import { readPartners } from "./pairing.js";
@@ -51,6 +52,14 @@ function continueLine(link: LinkStatus | null, opened: boolean, wave: number): s
   return "Both of you press it, and the wave starts on the two phones together.";
 }
 
+/** The DIFFICULTY row's own sentence, by level: what this one *is*, before the
+ * warning every one of them carries. */
+const LEVEL_WORD: Record<Difficulty, string> = {
+  easy: "Easy — a fifth slower than the game as it ships.",
+  medium: "Medium — the game as it has always been played.",
+  hard: "Hard — a quarter faster, on the same waves.",
+};
+
 export interface LinkPaint {
   dom: MenuDom;
   /** The link as it last reported itself, or null before there was one. */
@@ -98,6 +107,16 @@ export function paintLink({ dom, link, pairRoom, opened, wave }: LinkPaint): voi
     on: !room && pairRoom !== "",
     desc: `Back into the room you and ${partner} share. No code to read out.`,
   });
+  // **The difficulty, and which of the three is on.** The room's answer where
+  // there is a room — a level is a tempo and the pair plays one — and this
+  // device's where there is not. The row that opens the page says it, and the
+  // page's own three rows carry the mark, because a page of three settings with
+  // nothing saying which one you are on is three settings you have to guess at.
+  const level = link?.level ?? far.level;
+  dom.setEntry("level", { desc: `${LEVEL_WORD[level]} Changing it starts the run again.` });
+  for (const one of DIFFICULTIES) {
+    dom.setEntry(one, { label: one === level ? `${one.toUpperCase()} · ON` : one.toUpperCase() });
+  }
   dom.setEntry("leave", { on: room });
   // Who is sitting in each seat, on the cards. Blank for a seat the room has
   // not filled or a player who has given no name, which is what the cards said

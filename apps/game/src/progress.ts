@@ -1,3 +1,4 @@
+import { DEFAULT_DIFFICULTY, type Difficulty, isDifficulty } from "@neon-spore/sim";
 import { runMarkText } from "./tally.js";
 
 /**
@@ -28,10 +29,24 @@ export interface Progress {
   lastSeconds: number;
   /** The last run's retries when it was last seen. */
   lastRetries: number;
+  /**
+   * The difficulty this device last played at (`sim/difficulty.ts`).
+   *
+   * Here rather than in `settings.ts` because it is a fact about the *run*: the
+   * tempo a wave was reached at is what makes `furthest` mean anything, and the
+   * two are read together on the page that offers to carry on. A device that
+   * has never chosen plays Medium, which is the game as it has always been.
+   */
+  level: Difficulty;
 }
 
 /** A device that has never played. Every field zero, and no line to draw. */
-export const NOTHING_YET: Progress = { furthest: 0, lastSeconds: 0, lastRetries: 0 };
+export const NOTHING_YET: Progress = {
+  furthest: 0,
+  lastSeconds: 0,
+  lastRetries: 0,
+  level: DEFAULT_DIFFICULTY,
+};
 
 /** Whether there is anything worth showing a returning player. */
 export function hasProgress(p: Progress): boolean {
@@ -46,6 +61,21 @@ export function hasProgress(p: Progress): boolean {
 export function reached(p: Progress, wave: number): Progress {
   if (!Number.isFinite(wave) || wave <= p.furthest) return p;
   return { ...p, furthest: Math.floor(wave) };
+}
+
+/**
+ * The record after a difficulty is chosen, and **the run starts again**.
+ *
+ * Changing the level is not a setting a run carries on through: every wave is
+ * authored to the beat, so a pair who speed the game up mid-run are playing
+ * waves they cleared at a tempo they never cleared them at, and `furthest`
+ * would be a claim about a game nobody played. So the wave count goes back to
+ * the first — which is what the page that offers the change warns about before
+ * it asks for it (`menu-entries.ts`).
+ */
+export function atLevel(p: Progress, level: Difficulty): Progress {
+  if (level === p.level) return p;
+  return { ...NOTHING_YET, level };
 }
 
 /** The record after a run is seen on its clock. The last one wins, quick or slow. */
@@ -76,6 +106,10 @@ export function parseProgress(raw: string | null): Progress {
       furthest: whole(read.furthest),
       lastSeconds: whole(read.lastSeconds),
       lastRetries: whole(read.lastRetries),
+      // A stored level from a build that did not have them, or a hand-edit, is
+      // the default rather than a refusal — the same direction everything else
+      // in this parser is forgiving in.
+      level: isDifficulty(read.level) ? read.level : DEFAULT_DIFFICULTY,
     };
   } catch {
     return NOTHING_YET;

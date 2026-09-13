@@ -2570,3 +2570,25 @@ the limit and lost its raisin to `strand-raisin.ts`. About 90 min.
 Bottleneck: **writing** — a signature that thirty files call, each with a
 `cfg` in hand and no world, so the world had to be carried down through the
 callers first.
+
+## 2026-09-13 — scheduler-tests-two-devices-klxkyt — three difficulties, and the one number they move
+
+Queue item, the owner's, with his answer to its `Asks:` — the tempo alone, and
+today's game is Medium. Easy is 80, Medium is 96 and Hard is 120, all three
+whole numbers of ticks to the beat. The level is stored beside the device's
+progress, chosen on a page behind PLAY's DIFFICULTY row, sent to the room and
+handed back on every welcome so both phones take their beat from one answer,
+and changing it takes the run back to the first wave behind the same question
+LEAVE ROOM is behind. About 60 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `config.ts` for the tick rate the tempo has to divide, `progress.ts` for what a device already remembers, and the wire from `protocol.ts` through the room to `link.ts` for where a pair's one answer can live |
+| writing | 35 | `sim/difficulty.ts`, the level on the wire and in the room, the level on the link's status and at beat zero, the page and its three rows behind two-steps, the row that says which is on, and 14 tests across the sim, the app and the real Durable Object |
+| looking | 0 | none — a cloud session cannot see a menu page, which is what most of this is |
+| friction | 10 | `apps/server` depends on `@neon-spore/net` and deliberately not on the rules, so the type came out through net; and a test that opened a third phone on one room hung, because a room refuses a third socket |
+| landing | 5 | `check:fast`, the commit, `bun run land` |
+
+Bottleneck: **writing** — three tempi is a one-line table and everything else is
+the path a chosen level takes: storage, wire, room, status, beat zero, and the
+one place it may be applied, which is a run that is starting anyway.

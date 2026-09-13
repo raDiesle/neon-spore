@@ -79,6 +79,7 @@ describe("a room that says it is full", () => {
       peers: 1,
       names: ["", ""],
       best: null,
+      level: null,
     });
     expect(link.status().player).toBe(2);
 
@@ -103,6 +104,7 @@ describe("a room that says it is full", () => {
       peers: 1,
       names: ["", ""],
       best: null,
+      level: null,
     });
     wire.say(FULL);
     expect(link.status().state).toBe("full");
@@ -124,6 +126,7 @@ describe("a room that says it is full", () => {
       peers: 1,
       names: ["", ""],
       best: null,
+      level: null,
     });
     wire.say({ t: "error", why: "protocol version 1 expected", code: "protocol" });
     expect(link.status().state).toBe("lost");

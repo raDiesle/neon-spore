@@ -1,6 +1,7 @@
 import type { MechanicId } from "@neon-spore/content";
 import type { LinkStatus } from "@neon-spore/net";
 import type { ViewRole } from "@neon-spore/render";
+import type { Difficulty } from "@neon-spore/sim";
 import type { DemoRow } from "./demo-menu.js";
 import type { MenuPage } from "./menu-parts.js";
 import type { SettingsHooks } from "./menu-settings.js";
@@ -35,6 +36,17 @@ export interface MenuBindings {
   /** Hang up: back to one device, both seats, and the menu. */
   leaveRoom: () => void;
   openTuning: () => void;
+  /**
+   * The difficulty the run is on, and the way to change it
+   * (`packages/sim/src/difficulty.ts`).
+   *
+   * The room's answer where there is a room and this device's where there is
+   * not: a level is a tempo, and two phones at two tempi are two games. Setting
+   * it takes the run back to the first wave, which is what the two-step in
+   * front of the row asks about before it reaches here.
+   */
+  level: () => Difficulty;
+  setLevel: (level: Difficulty) => void;
   /**
    * This seat is ready — the room's own START, sent by CONTINUE when there is a
    * room and nothing has been played in it yet. The room starts both devices

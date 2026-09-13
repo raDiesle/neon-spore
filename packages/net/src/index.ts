@@ -1,3 +1,8 @@
+// The one name this package re-exports from the simulation, and it is on the
+// wire: a `welcome` carries the difficulty the pair plays at, and `apps/server`
+// — which depends on `@neon-spore/net` and deliberately not on the rules — has
+// to be able to name the thing it is storing and handing back.
+export { type Difficulty, isDifficulty } from "@neon-spore/sim";
 export { type ClockSample, ClockSync } from "./clock.js";
 export { decodeCommands, MAX_COMMANDS_PER_FRAME } from "./command-codec.js";
 export { InputDelay, type InputDelayOptions } from "./delay.js";

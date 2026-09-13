@@ -1,3 +1,4 @@
+import { type Difficulty, isDifficulty } from "@neon-spore/net";
 import { bestOf, NOTHING_YET, runIsOver, type Tally } from "./tally.js";
 
 /**
@@ -9,6 +10,26 @@ import { bestOf, NOTHING_YET, runIsOver, type Tally } from "./tally.js";
  * has no Cloudflare Workers types, so a test that wants the rule could not
  * reach it while the rule imported storage.
  */
+
+/**
+ * The difficulty this pair plays at, as the room last heard it, and the way it
+ * is written down. Here beside the tally because it is the same kind of thing —
+ * something the room keeps, hands back on a welcome, and never reads — and
+ * because this is the file allowed to touch storage (`isDifficulty` is the
+ * wire's own check, one package down).
+ */
+export async function readLevel(storage: DurableObjectStorage): Promise<Difficulty | null> {
+  const held = await storage.get<string>("level");
+  return isDifficulty(held) ? held : null;
+}
+
+export async function keepLevel(
+  storage: DurableObjectStorage,
+  level: Difficulty,
+): Promise<Difficulty> {
+  await storage.put("level", level);
+  return level;
+}
 
 /** What this pair got to, as the room last heard it. */
 export async function readBest(storage: DurableObjectStorage): Promise<Tally> {

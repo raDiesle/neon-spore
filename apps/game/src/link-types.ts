@@ -1,4 +1,4 @@
-import type { LinkStatus, PlayerId, RunMark } from "@neon-spore/net";
+import type { Difficulty, LinkStatus, PlayerId, RunMark } from "@neon-spore/net";
 import type { SimConfig, TimedCommand, World } from "@neon-spore/sim";
 import type { RoomSocket, RoomSocketHandlers } from "./link-socket.js";
 import type { CommandSource } from "./relay.js";
@@ -28,7 +28,7 @@ export interface LinkOptions {
    * remember is two people playing two different games. 0 for a room that has
    * never been played in, which is the first wave.
    */
-  onStart: (player: PlayerId, wave: number) => void;
+  onStart: (player: PlayerId, wave: number, level: Difficulty) => void;
   onStatus: (status: LinkStatus) => void;
   /**
    * The clock this link measures itself against. `performance.now()` by
@@ -42,6 +42,8 @@ export interface LinkOptions {
 }
 
 export interface Link {
+  /** The difficulty the pair has chosen, up to the room (`link.ts`). */
+  setLevel: (level: Difficulty) => void;
   /** Join a room. Leaves any room already held. */
   join(room: string): void;
   leave(): void;
