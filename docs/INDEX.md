@@ -1083,6 +1083,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-gum.ts`'s pattern |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
+| `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-gum.ts` | THE GUM's four, in a file of their own on `bind-balloon.ts`'s pattern |
@@ -1617,6 +1618,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/guide-film.ts` | **Driving a rehearsal**, which is a clock of its own and not the world's |
 | `tools/director/src/ship-fields-round.ts` | The rounds' own dials, sorted into their cards |
 | `tools/director/src/sound-link-pulse.ts` | Why none of THE PULSE's twelve sounds has a picture |
+| `tools/director/src/sound-link-none.ts` | The sounds that are wired up and have nothing to draw, with the reason |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |

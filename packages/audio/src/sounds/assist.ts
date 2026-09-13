@@ -5,6 +5,11 @@
  * to is that an assist is *heard by both*, and heard differently at each end —
  * `assist.handOver` and `assist.takeOver` are the same event panned opposite
  * ways, so neither player has to be told which side of it they are on.
+ *
+ * Those two are spent: THE HANDOVER, the fault that trades the two panels for
+ * a window, is the control-crossing-the-pair they were written for, and the
+ * mixer plays them on the beat of the trade and the beat it comes back
+ * (`mixer-handover.ts`). The rest still waits on the assists.
  */
 
 import { after, air, chime, glint, soft, sub } from "../grain.js";
@@ -39,8 +44,8 @@ export const ASSIST_SOUNDS: SoundDef[] = [
     id: "assist.handOver",
     family: "assist",
     blurb: "A control moving from one player to the other: a tone crossing the stereo field.",
-    status: "spare",
-    use: "An assist that lends a control across the pair.",
+    status: "bound",
+    use: "THE HANDOVER trading the panels — the beat both screens change (`mixer-handover.ts`). Written for an assist that lends a control across the pair, which is what the fault does to both at once.",
     level: 0.32,
     layers: [
       { source: "sine", freq: 4400, gain: 0.3, attack: 0.03, hold: 0.1, release: 0.3, pan: -0.8 },
@@ -59,8 +64,8 @@ export const ASSIST_SOUNDS: SoundDef[] = [
     id: "assist.takeOver",
     family: "assist",
     blurb: "The other end of the same move, from the receiving side.",
-    status: "spare",
-    use: "The partner's device, for the same hand-over.",
+    status: "bound",
+    use: "THE HANDOVER's panels coming back, quieter than the trade — the same crossing the other way, and a relief rather than a loss (`mixer-handover.ts`).",
     level: 0.32,
     layers: [
       { source: "sine", freq: 5280, gain: 0.3, attack: 0.03, hold: 0.1, release: 0.3, pan: 0.8 },

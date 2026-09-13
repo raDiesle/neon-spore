@@ -28,6 +28,7 @@ import { sound } from "./catalogue.js";
 import { Engine } from "./engine.js";
 import { blankMemory } from "./memory.js";
 import { soundBoss } from "./mixer-boss.js";
+import { soundHandover } from "./mixer-handover.js";
 import { soundPulse } from "./mixer-pulse.js";
 
 /** The hull is in trouble below a quarter of it, in thousandths. */
@@ -174,6 +175,9 @@ export class Mixer {
     // THE PULSE is the one round that makes a sound on a schedule rather than
     // because something happened — the chart is the song (`mixer-pulse.ts`).
     soundPulse(world, first, this.mem, (id, pan) => this.play(id, pan));
+    // THE HANDOVER trades the panels on a beat and nothing in the world moves
+    // for it, so the trade is a difference and not an event (`mixer-handover.ts`).
+    soundHandover(world, first, this.mem, (id, pan, gain) => this.play(id, pan, undefined, gain));
     this.soundWave(world, first);
   }
 

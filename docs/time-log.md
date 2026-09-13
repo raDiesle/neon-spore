@@ -2638,3 +2638,26 @@ About 20 min.
 
 Bottleneck: **friction** — the trunk, not the task: two rebases of `main` for
 a ten-minute change.
+
+## 2026-09-13 · claude/queue-the-handover-makes-no-sound — THE HANDOVER, heard
+
+`mixer-handover.ts` hears the trade the way the cannon's column is heard: a
+`handedOver` edge between two frames, out of `Memory`, so the simulation still
+emits nothing for the fault. Two sounds already in the catalogue and written
+for exactly this — `assist.handOver`, a tone crossing the stereo field, on the
+beat the panels change screens; `assist.takeOver`, the same crossing back, at
+six tenths, on the beat they return — go from spare to bound, and the SOUND
+sheet, the wiring list and the spare count follow. `NO_SUBJECT` moved to
+`sound-link-none.ts` when the two reasons put `sound-link.ts` over its length.
+About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `docs/spec/audio.md`, `mixer.ts`, `mixer-pulse.ts`, the spare half of the catalogue for a sound already written for a control changing hands |
+| writing | 10 | the mixer file, the memory field, the two catalogue entries, four mixer tests, the document's three figures |
+| looking | 0 | none — a sound is proved by the id the mixer reached for, and nobody here has speakers |
+| friction | 5 | a shell heredoc that would not run; the two excuses put `sound-link.ts` over 250 lines, so the list moved out |
+| landing | 5 | format, index, check:fast, the queue entry, the commit |
+
+Bottleneck: **reading** — finding that the catalogue already held the sound
+took longer than binding it, and was worth it: nothing new was written.

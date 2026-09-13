@@ -40,6 +40,9 @@ export interface Memory {
   pulsePhase: string;
   guardArmed: boolean;
   intakeOpen: boolean;
+  /** Whether THE HANDOVER had the panels traded on the previous frame
+   * (`mixer-handover.ts`). */
+  handedOver: boolean;
   over: boolean;
 }
 
@@ -65,6 +68,7 @@ export function blankMemory(): Memory {
     pulsePhase: "",
     guardArmed: false,
     intakeOpen: false,
+    handedOver: false,
     over: false,
   };
 }

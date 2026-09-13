@@ -347,3 +347,61 @@ describe("a wave running out", () => {
     expect(ids()).toEqual(["hull.dead"]);
   });
 });
+
+describe("THE HANDOVER", () => {
+  /** A wave carrying the fault, stood at the given beat of it. The fault's
+   * beat is set rather than stepped to: what is under test is the edge the
+   * mixer hears, and `packages/sim/test/handover.test.ts` owns the count. */
+  function handed(waveBeat: number): World {
+    const w = world();
+    startWave(w, 0, [], [], null, false, 0, { kind: "handover" });
+    w.waveBeat = waveBeat;
+    return w;
+  }
+  const at = DEFAULT_CONFIG.handoverAtBeat;
+  const hold = DEFAULT_CONFIG.handoverHoldBeats;
+
+  it("is heard on the beat the panels change screens, once", () => {
+    const { mixer, played, ids } = recorder();
+    const w = handed(at); // the last beat with the pair's own hands
+    mixer.frame(w, []);
+    played.length = 0;
+
+    w.waveBeat = at + 1;
+    w.tick++;
+    mixer.frame(w, []);
+    w.waveBeat = at + 2;
+    w.tick++;
+    mixer.frame(w, []);
+    expect(ids()).toEqual(["assist.handOver"]);
+  });
+
+  it("is heard coming back, quieter, and as a different sound", () => {
+    const { mixer, played } = recorder();
+    const w = handed(at + hold); // the last beat away
+    mixer.frame(w, []);
+    played.length = 0;
+
+    w.waveBeat = at + hold + 1;
+    w.tick++;
+    mixer.frame(w, []);
+    expect(played).toEqual([{ id: "assist.takeOver", gain: 0.6 }]);
+  });
+
+  it("says nothing on a first frame that is already inside the window", () => {
+    const { mixer, ids } = recorder();
+    mixer.frame(handed(at + 2), []);
+    expect(ids()).toEqual([]);
+  });
+
+  it("says nothing on a wave without the fault", () => {
+    const { mixer, ids } = recorder();
+    const w = world();
+    startWave(w, 0, [], []);
+    mixer.frame(w, []);
+    w.waveBeat = at + 1;
+    w.tick++;
+    mixer.frame(w, []);
+    expect(ids()).toEqual([]);
+  });
+});

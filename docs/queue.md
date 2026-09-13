@@ -227,28 +227,6 @@ rehearsal with no new machinery at all — the renderer seats a film's frames
 exactly the way it seats a wave's. `.claude/skills/new-tutorial` has the rules;
 `bun test packages/content` and the guide-page tests prove it.
 
-## THE HANDOVER makes no sound
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-the-handover-makes-no-sound
-- **Files:** `packages/audio/src/catalogue.ts`, `packages/render/src/handover-look.ts`, `docs/spec/audio.md`
-
-The loudest moment the fault has — both panels changing screens on one beat — is
-drawn and never heard. Every other fault is a thing that *acts* and is heard
-doing it (a shot fired by nobody, a dome coming up unasked); this one changes
-what is in front of the pair and the mixer says nothing, so a pair looking at the
-field at that moment has only the plate's flash to tell them.
-
-There is no total map forcing a cue for it, which is why nothing failed. What to
-do: one cue on the beat of the trade and one on the beat it comes back, quieter —
-they are the same event twice and should not be the same sound, since one of them
-is a relief. The trade is a `handedOver` edge, which nothing emits as a
-`SimEvent` today: either the mixer reads the clock the way the plate does
-(`handoverLeft`, `handoverWarning`), which keeps the simulation untouched and is
-what this fault has done everywhere else, or the fault starts emitting an event
-and stops being free. Read `docs/spec/audio.md` before choosing; the first is
-almost certainly right.
-
 ## Should THE HANDOVER trade once a wave, or keep trading?
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

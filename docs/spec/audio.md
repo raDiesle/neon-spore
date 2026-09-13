@@ -99,7 +99,7 @@ grain changes the game's voice and should be rare; adding a sound is not.
 | `ui` | menu, room, banner, balance sheet | 2 of 17 |
 | `ambient` | the room; never a foreground sound | 0 of 8 |
 | `creature` | the bestiary, built and unbuilt | 13 of 38 |
-| `assist` · `signal` | the couplings and the assists | 7 of 21 |
+| `assist` · `signal` | the couplings and the assists | 9 of 21 |
 | `swarm` · `motion` · `ruin` | the field, and things ending | 2 of 20 |
 | `music` | the instruments a theme is played on, and not in `CATALOGUE` at all — section 8 | — |
 
@@ -110,7 +110,7 @@ in a noisy room throws away.
 
 ## 5 · Built and unspent
 
-111 of the 219 are `spare`: finished, tested, and nothing plays them. That is
+109 of the 219 are `spare`: finished, tested, and nothing plays them. That is
 deliberate. A creature that is still a name in `bestiary.md` is easier to argue
 about once you can hear what it would sound like, and several idea-store entries stand or fall on exactly that — the
 countdown creature is three pips and a hole where the fourth should be, and
@@ -135,7 +135,7 @@ The `BOUND` stamp is not a label anyone maintains: the test reads `bind.ts`,
 `bind-fence.ts`,
 `bind-veil.ts`, `bind-volley.ts`,
 `bind-fleet.ts`, `bind-choir.ts`, `bind-beatbox.ts`, `bind-breach.ts`, `bind-gum.ts`, `bind-cling.ts`, `bind-handed.ts`, `bind-mirror.ts`, `bind-lookups.ts`, `mixer.ts` and
-`mixer-boss.ts`, `mixer-pulse.ts` and fails if a sound claims to
+`mixer-boss.ts`, `mixer-pulse.ts`, `mixer-handover.ts` and fails if a sound claims to
 be wired and is not, or is
 played and claims to be spare. A handful of bound
 sounds have no subject to draw — the beat, a hole punched in whatever was hit, a
@@ -154,7 +154,9 @@ read this; nothing writes back."*
 - `mixer.ts` also watches what the simulation does **not** report, because it
   is state rather than an event: the cannon arriving in a column, the guard
   window closing on nothing, the queen's armour opening, the hull passing a
-  quarter. That remembered frame is cleared on a restart, for the same reason
+  quarter, THE HANDOVER's panels changing screens and coming back
+  (`mixer-handover.ts` — the fault emits nothing, on purpose, and every reader
+  of it asks `sim/handover.ts` the same question). That remembered frame is cleared on a restart, for the same reason
   `Effects.reset()` exists — `world.tick` is not monotonic.
 - `engine.ts` is the only file with an `AudioContext` in it, and makes no
   decisions.
