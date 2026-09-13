@@ -268,7 +268,6 @@ what the rest of this file holds.
 ## Unverified at 091f7df2: The two people's names on a phone: whether a name at th…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-091f7df2-the-two-peoples-names-on
 - **Files:** `apps/game/src/menu-link.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-view.ts`, `apps/game/test/menu-front.test.ts`, `docs/queue.md`, `docs/time-log.md`, `packages/net/src/nickname.ts`, `packages/net/test/nickname.test.ts`
 
 *The two people's names, in the three places the game wrote P1 and P2* landed from a session that could not look at it. The commit touched 11 more files. What went unchecked:
