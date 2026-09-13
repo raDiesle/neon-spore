@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 2e4f2acf — The ship trades the panels too: HANDOVER · HULL adopted, the cairn pile refused
+
+The owner's two answers from the VERSUS page on 13 September 2026, applied with the tool. **`handover:notice` takes `hull`**: two lobes rise out of the hull a column and a half either side of the middle and hand one height back and forth, `a` and `1 − a` of one lift with `a` going round once every four beats, so there is an instant each turn when they are equal and neither owns it. They stand for the length of the window and no longer — up over the two warning beats, turning while the panels are away, down over the last beat of the hold — painted from the seat's own skin, so the navigator's ship trades in amber. The plate is drawn first and unchanged: this went under what was already there rather than replacing it. The exemption is the first one: a look the owner asked for by name.
+
 ## 2026-09-13 · 6ed059a1 — A retry is counted when RETRY WAVE is pressed, not on the hit that asks for it
 
 The lost screen's own frame read `0:09 · 1 RETRY` in the corner and `WAVE 1 · TRY 1` in its title at once — a retry nobody had taken, beside a QUIT button — and a pair that quit was recorded on the room with one retry they never took. The count now goes up in `startWave`, on the tick a failed wave opens again, beside the try it becomes; `failWave` marks the tick and says so, and no more.

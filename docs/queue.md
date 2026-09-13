@@ -285,3 +285,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 2e4f2acf: HANDOVER · HULL watched at tempo: whether the two lobes…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `packages/render/src/handover-hull.ts`, `packages/render/src/handover-look.ts`, `tools/director/src/versus-pose.ts`, `tools/versus/DECIDED.md`, `tools/versus/candidates/cairn-pile/banked/index.ts`
+
+*The ship trades the panels too: HANDOVER · HULL adopted, the cairn pile refused* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
+
+- HANDOVER · HULL watched at tempo: whether the two lobes trading height read as the ship handing the panels over, or as one signal too many over a band that has already changed colour
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
