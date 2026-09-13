@@ -1,6 +1,7 @@
 import { type CreatureKind, fallTilesPerBeat } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCY } from "./layout.js";
+import { drawRockBody, wearsRockLook } from "./meteor.js";
 import { PALETTE } from "./palette.js";
 import {
   currentX,
@@ -10,6 +11,7 @@ import {
   stickStart,
   travelled,
 } from "./rock-drift.js";
+import type { Impact } from "./rock-impact-state.js";
 import { drawTorchRock, drawTorchTail, rockRadius, torchRotation } from "./torch.js";
 
 /**
@@ -26,43 +28,6 @@ import { drawTorchRock, drawTorchTail, rockRadius, torchRotation } from "./torch
  * anyone reads the crater: a rock lodged in the skin with a trail still
  * hanging off it reads as still falling, and there is no falling left to do. */
 const TAIL_LIFE = 0.15;
-
-interface Impact {
-  kind: CreatureKind;
-  /** Sinks in and drifts off once it arrives (a miss), or simply fires
-   * `onArrive` and is gone (a deflect, which bounces by its own animation,
-   * `DeflectFx`, and must not also embed here). */
-  embed: boolean;
-  /** Screen x at impact — fixed; the drift is computed fresh from it every
-   * frame (`currentX`), never accumulated, so there is no running velocity
-   * state to jump when the acceleration curve changes phase. */
-  x0: number;
-  /** Screen y the replayed last fall step starts from — the sim's own
-   * `fromRow` the beat the miss happened, the exact row render/ last drew
-   * this creature at; never below where it would rest in the skin, because
-   * the field pass never draws a rock lower than that (`rock-landing.ts`).
-   * Settled on the first `draw` frame, where the skin's height is known. */
-  y0: number;
-  /** px/s — the same speed every earlier beat of the fall had. */
-  fallSpeed: number;
-  r: number;
-  dir: -1 | 1;
-  rotation0: number;
-  /** Clock reading at impact — a stuck rock holds this still shape rather than visibly wobbling. */
-  spawnTime: number;
-  /**
-   * How long the replay takes: `y0` down to the hull's real skin over
-   * `fallSpeed`. 0 until the first `draw` frame, because the skin's height is
-   * only known there — speed is fixed, duration is whatever it takes.
-   */
-  fallLife: number;
-  t: number;
-  /** Fires once, the frame the replay reaches the hull's skin. */
-  onArrive: (x: number, y: number) => void;
-  arrived: boolean;
-  /** Whether it drags the torch's streak from the top of the field. */
-  tail: boolean;
-}
 
 /**
  * The last, biggest step of a rock's fall, replayed at the speed every
@@ -105,11 +70,15 @@ export class RockImpactFx {
     /** False for a torch that did not fall here but was thrown
      * (`coil-flight.ts`): its streak is that transient's to draw. */
     tail = true,
+    seed = 0,
+    holes = 0,
   ): void {
     const mid = l.gridLeft + l.gridWidth / 2;
     const fallTiles = fallTilesPerBeat(kind);
     this.impacts.push({
       kind,
+      seed,
+      holes,
       embed,
       x0: x,
       y0: tileCY(l, fromRow),
@@ -211,14 +180,19 @@ export class RockImpactFx {
       // skin" contact rather than a rock merely floating in front of it.
       if (!falling && !floating) halo(ctx, x, surfaceY, im.r * 1.1, PALETTE.ember, 0.22);
 
+      const clock = falling || floating ? time : im.spawnTime;
+      // A plain rock is the same rock it was on the field — `drawRockBody`,
+      // by its own seed and craters, spinning as it spun — so nothing changes
+      // about it at the hull but where it is. The torch keeps its own draw and
+      // its ember ring, which no other tier carries (`drawTorchRock`).
+      if (wearsRockLook(im.kind)) {
+        drawRockBody(ctx, x, y, im.r, clock, im.seed, im.holes);
+        continue;
+      }
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(rotation);
-      // The ember ring only for the one rock that carries a flame. Every tier
-      // shares this body, and a grey meteor that grew an orange outline for
-      // the last moments of its fall was this call handing the torch's ring
-      // to all of them (`drawTorchRock`).
-      drawTorchRock(ctx, im.r, falling || floating ? time : im.spawnTime, im.kind === "torch");
+      drawTorchRock(ctx, im.r, clock, im.kind === "torch");
       ctx.restore();
     }
   }

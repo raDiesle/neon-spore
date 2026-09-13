@@ -88,6 +88,8 @@ export function breachUnscarred(
     span: 1,
     kind,
     fromRow,
+    seed: 0,
+    holes: 0,
     color,
     beat: world.beat,
   });
@@ -117,6 +119,8 @@ export function damageSpan(world: World, c: Creature, weight: BreachWeight): voi
     span,
     kind: c.kind,
     fromRow: c.fromRow,
+    seed: c.id,
+    holes: c.holes,
     color: c.color,
     beat: world.beat,
   });

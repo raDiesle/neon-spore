@@ -63,6 +63,8 @@ export function wardTurns(world: World, c: Creature, guardRow: number): boolean 
     span: spanOf(c),
     kind: c.kind,
     fromRow: c.fromRow,
+    seed: c.id,
+    holes: c.holes,
   });
   return false;
 }

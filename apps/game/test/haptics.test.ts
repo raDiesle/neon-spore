@@ -20,6 +20,8 @@ const breach: SimEvent = {
   kind: "meteor",
   color: null,
   fromRow: 4,
+  seed: 0,
+  holes: 0,
   beat: 12,
 };
 const reject: SimEvent = { type: "reject", col: 2, row: 5 };
@@ -44,7 +46,7 @@ describe("what earns a buzz", () => {
       { type: "waveStart", wave: 2 },
       { type: "destroy", col: 1, row: 2, color: "red", kind: "slick" },
       { type: "hole", col: 1, row: 2 },
-      { type: "deflect", col: 1, span: 1, kind: "meteor", fromRow: 3 },
+      { type: "deflect", col: 1, span: 1, kind: "meteor", fromRow: 3, seed: 0, holes: 0 },
       { type: "podTaken", col: 1, kind: "ward" },
       { type: "podLost", col: 1 },
     ];

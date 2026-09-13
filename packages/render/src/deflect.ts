@@ -1,11 +1,11 @@
-import { crystalPath, METEOR } from "@neon-spore/content";
 import type { CreatureKind } from "@neon-spore/sim";
 import { hash01 } from "./backdrop.js";
 import { DEFLECT_LOOK } from "./deflect-look.js";
+import { drawBouncedStone } from "./deflect-stone.js";
 import { halo } from "./glow.js";
+import { drawRockBody, wearsRockLook } from "./meteor.js";
 import { PALETTE } from "./palette.js";
 import { rockTileRadius } from "./torch.js";
-import { drawEmberRing } from "./torch-ember.js";
 
 interface Particle {
   x: number;
@@ -29,6 +29,13 @@ interface Particle {
    * falling left to do (`rock-impact.ts`), so without the ring a turned torch
    * is a grey stone nobody can name. */
   ember: boolean;
+  /** A plain rock keeps the look it fell in — `drawRockBody` by its own seed
+   * and craters, the torch alone drawn the old way with its ring. */
+  look: boolean;
+  seed: number;
+  holes: number;
+  /** Seconds since the bounce: the clock the rock's own spin runs on. */
+  age: number;
 }
 interface Shock {
   x: number;
@@ -94,8 +101,9 @@ export class DeflectFx {
    * body is the same size and keeps its whole footprint inside the columns it
    * occupied.
    *
-   * `kind` is that creature's kind, and the only thing it decides is the
-   * torch's ember ring — see `Particle.ember`.
+   * `kind` is that creature's kind: the torch's ember ring (`Particle.ember`)
+   * or, for every other rock, the look it fell in, painted by `drawRockBody`
+   * from `seed` and `holes` — the owner saw a blaze turn grey at the shield.
    *
    * Both the crystal and the ring open with a short press-and-release before
    * the crystal's ordinary flight and the ring's ordinary growth begin — see
@@ -103,7 +111,15 @@ export class DeflectFx {
    * the shield and the shield giving like rubber, not as a reversal on one
    * tick.
    */
-  spawn(x: number, y: number, tile: number, span = 1, kind?: CreatureKind): void {
+  spawn(
+    x: number,
+    y: number,
+    tile: number,
+    span = 1,
+    kind?: CreatureKind,
+    seed = 0,
+    holes = 0,
+  ): void {
     const sy = y;
     const shockR = tile * DEFLECT_LOOK.ringSpanFrac * span;
     this.particles.push({
@@ -118,6 +134,10 @@ export class DeflectFx {
       pressT: 0,
       pressDepth: tile * DEFLECT_LOOK.pressDepthFrac,
       ember: kind === "torch",
+      look: kind !== undefined && wearsRockLook(kind),
+      seed,
+      holes,
+      age: 0,
     });
     this.shocks.push({
       x,
@@ -146,6 +166,7 @@ export class DeflectFx {
         d.spin += d.vs * dt;
       }
       d.life -= dt;
+      d.age += dt;
       if (d.life <= 0 || d.y < -60) this.particles.splice(i, 1);
     }
     for (let i = this.shocks.length - 1; i >= 0; i--) {
@@ -180,22 +201,13 @@ export class DeflectFx {
       if (pt > 0) ctx.scale(1 + pt * squash, 1 - pt * squash);
       ctx.globalAlpha = Math.min(1, d.life / 0.5);
       ctx.rotate(d.spin);
-      // The flame first, under the stone, exactly as `drawTorchRock` lays it:
-      // a ring just outside the outline rather than a glow over it, so the
-      // rock's own contour is still the edge the eye reads.
-      if (d.ember) drawEmberRing(ctx, d.r, 0);
-      const path = new Path2D(
-        crystalPath(0, 0, d.r, d.r, METEOR.sides, METEOR.depth, METEOR.wobble, 0, METEOR.seed),
-      );
-      const rg = ctx.createLinearGradient(-d.r, -d.r, d.r, d.r);
-      rg.addColorStop(0, "#9DA3B0");
-      rg.addColorStop(0.55, "#6B707E");
-      rg.addColorStop(1, PALETTE.rockDark);
-      ctx.fillStyle = rg;
-      ctx.fill(path);
-      ctx.strokeStyle = PALETTE.shieldRim;
-      ctx.lineWidth = 1.8;
-      ctx.stroke(path);
+      if (d.look) {
+        drawRockBody(ctx, 0, 0, d.r, d.age, d.seed, d.holes);
+        ctx.globalAlpha = 1;
+        ctx.restore();
+        continue;
+      }
+      drawBouncedStone(ctx, d.r, d.ember);
       ctx.globalAlpha = 1;
       ctx.restore();
     }

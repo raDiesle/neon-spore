@@ -560,6 +560,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/dart-path.ts` | Where a dart is going, drawn for the seat that is allowed to know: two dotted legs and a hollow body standing |
 | `packages/render/src/dart.ts` | Everything about a dart that is a picture rather than a rule: the lean that says where it is going, the jet |
 | `packages/render/src/deflect-look.ts` | How a catch reads, as a record rather than as numbers typed into the draw call |
+| `packages/render/src/deflect-stone.ts` | The torch, bounced: the grey stone and its ember ring |
 | `packages/render/src/deflect.ts` | Seconds into the press-and-release that opens every bounce (capped at `DEFLECT_LOOK.pressLife`); ordinary |
 | `packages/render/src/depth.ts` | THE FIELD HAS A NEAR EDGE AND A FAR ONE |
 | `packages/render/src/debris.ts` | The pieces a broken body left, still in the air |
@@ -602,6 +603,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/raster-probe.ts` | Two tiny images whose only job is to be decoded |
 | `packages/render/src/ready-circles.ts` | The ready gate a guide ends on: two circles, filling, and the wave waits until both say READY |
 | `packages/render/src/rock-impact.ts` | How long a missed rock sits sunk into the hull before it starts to drift off |
+| `packages/render/src/rock-impact-state.ts` | One rock on its way into, or off, the hull — the record `rock-impact.ts` keeps per impact |
 | `packages/render/src/scars.ts` | A breach stays, and it stays *in the skin* |
 | `packages/render/src/sheen.ts` | The light inside the membrane, and the film on top of it |
 | `packages/render/src/shell-draw.ts` | THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`) has no shape for |

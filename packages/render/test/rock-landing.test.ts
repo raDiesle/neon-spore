@@ -62,7 +62,9 @@ describe("a rock's landing beat", () => {
     fx.update(1 / 60, L);
     fx.draw(ctx as unknown as CanvasRenderingContext2D, L, 1 / 60, skin);
     expect(arrivals).toBe(1);
-    expect(ys).toHaveLength(1);
+    // The first `translate` places the rock; the rest are its own look's,
+    // relative to it (`drawRockBody`).
+    expect(ys.length).toBeGreaterThan(0);
     expect(ys[0]).toBeCloseTo(rest, 5);
   });
 

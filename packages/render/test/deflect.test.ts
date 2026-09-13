@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { DeflectFx } from "../src/deflect.js";
 import { DEFLECT_LOOK } from "../src/deflect-look.js";
+import { drawRockBody } from "../src/meteor.js";
 import { PALETTE } from "../src/palette.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -171,10 +172,30 @@ describe("a bounced rock keeps its own size", () => {
     expect(rockRadiusDrawn(fx)).toBeCloseTo(TILE * 0.4, 5);
   });
 
-  it("draws a two-tile rock twice as wide, not shrunk to a plain meteor", () => {
+  it("draws a two-tile rock in the look it fell in, at its own width", () => {
+    // The owner's second report on the same bounce: *when meteor is reflected,
+    // it must have same visual as when it was falling down — right now it
+    // switches to old simple grey graphic.* The field draws a rock by its own
+    // seed (`meteorLookFor`), and so does the bounce now: the proof is that
+    // the bounce's ops are `drawRockBody`'s, at the rock's own radius, seed
+    // and pits, and not a gradient of greys.
     const fx = new DeflectFx();
-    fx.spawn(200, 1130, TILE, 2, "meteor");
-    expect(rockRadiusDrawn(fx)).toBeCloseTo(TILE * 0.8, 5);
+    fx.spawn(200, 1130, TILE, 2, "meteor", 5, 2);
+    const { ctx } = stubCanvas();
+    ctx.log = [];
+    fx.draw(ctx as unknown as CanvasRenderingContext2D);
+    const bounced = ctx.log
+      .filter((e) => !e.startsWith("translate(") && !e.startsWith("drawImage("))
+      .join("\n");
+
+    const ref = stubCanvas().ctx;
+    ref.log = [];
+    drawRockBody(ref as unknown as CanvasRenderingContext2D, 0, 0, TILE * 0.8, 0, 5, 2);
+    const fell = ref.log
+      .filter((e) => !e.startsWith("translate(") && !e.startsWith("drawImage("))
+      .join("\n");
+    expect(fell.length).toBeGreaterThan(0);
+    expect(bounced).toContain(fell);
   });
 
   it("keeps the torch two tiles wide and still wearing its ember ring", () => {
@@ -188,12 +209,14 @@ describe("a bounced rock keeps its own size", () => {
     expect(ctx.log.some((entry) => entry === `set strokeStyle=${PALETTE.ember}`)).toBe(true);
   });
 
-  it("leaves a plain rock without one — the flame belongs to the torch alone", () => {
+  it("leaves a plain rock without the ring — that flame belongs to the torch alone", () => {
+    // The ring is a stroke at `1.14 r` (`torch-ember.ts`); a plain rock's own
+    // look may glow ember, but never draws a contour outside its own.
     const fx = new DeflectFx();
-    fx.spawn(200, 1130, TILE, 2, "meteor");
+    fx.spawn(200, 1130, TILE, 2, "meteor", 1, 0);
     const { ctx } = stubCanvas();
     ctx.log = [];
     fx.draw(ctx as unknown as CanvasRenderingContext2D);
-    expect(ctx.log.some((entry) => entry === `set strokeStyle=${PALETTE.ember}`)).toBe(false);
+    expect(ctx.log.some((entry) => entry === `set globalAlpha=${0.4}`)).toBe(false);
   });
 });

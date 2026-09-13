@@ -65,6 +65,8 @@ describe("events with nothing to burst", () => {
         span: 1,
         kind: "meteor",
         fromRow: 0,
+        seed: 0,
+        holes: 0,
         color: null,
         beat: 0,
       },

@@ -109,6 +109,8 @@ export function ingestBreach(
     true,
     arrive,
     parts.tail ?? true,
+    e.seed,
+    e.holes,
   );
 }
 
@@ -125,12 +127,27 @@ export function ingestDeflect(
   parts: BreachParts & { deflectFx: DeflectFx; onDeflect: () => void },
 ): void {
   const x = tileCX(l, e.col);
-  parts.rockImpactFx.spawn(x, l, time, beatSeconds, e.kind, e.span, e.fromRow, false, (ax, ay) => {
-    // The kind as well as the span: both halves of "it is still the same
-    // rock" — the width it was drawn at all the way down, and the torch's
-    // ember ring (`deflect.ts`).
-    parts.deflectFx.spawn(ax, ay, l.tile, e.span, e.kind);
+  const bounce = (ax: number, ay: number): void => {
+    // The kind, the span, the seed and the craters: every half of "it is
+    // still the same rock" — the width it was drawn at all the way down, the
+    // torch's ember ring, and the look the pair watched fall (`deflect.ts`).
+    parts.deflectFx.spawn(ax, ay, l.tile, e.span, e.kind, e.seed, e.holes);
     parts.burst(ax, ay, 26 * e.span, PALETTE.shieldRim);
     parts.onDeflect();
-  });
+  };
+  const { kind, span, fromRow, seed, holes } = e;
+  parts.rockImpactFx.spawn(
+    x,
+    l,
+    time,
+    beatSeconds,
+    kind,
+    span,
+    fromRow,
+    false,
+    bounce,
+    true,
+    seed,
+    holes,
+  );
 }

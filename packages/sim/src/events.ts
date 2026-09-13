@@ -89,7 +89,20 @@ export type SimEvent =
     }
   | { type: "hole"; col: number; row: number }
   | { type: "reject"; col: number; row: number }
-  | { type: "deflect"; col: number; span: number; kind: Creature["kind"]; fromRow: number }
+  /**
+   * A rock turned at the shield. `seed` is the creature's id and `holes` its
+   * craters — the two numbers `drawRockBody` paints a rock from — so the
+   * bounce wears the look the pair watched fall (`render/deflect.ts`).
+   */
+  | {
+      type: "deflect";
+      col: number;
+      span: number;
+      kind: Creature["kind"];
+      fromRow: number;
+      seed: number;
+      holes: number;
+    }
   /** A hand took hold. Only the moment it lands — the hold itself is state,
    * not an event, and render/ reads it off the world every frame. */
   | { type: "grip"; player: 1 | 2; col: number; row: number }
@@ -117,6 +130,10 @@ export type SimEvent =
       span: number;
       kind: Creature["kind"];
       fromRow: number;
+      /** The body's id and craters, as on `deflect`; 0 and 0 when no body
+       * fell — a round that breaks the hull with nothing on the field. */
+      seed: number;
+      holes: number;
       /**
        * The colour of the body that broke through, so the burst can be thrown
        * in it (`effects-breach.ts`). null for everything colourless — a rock,

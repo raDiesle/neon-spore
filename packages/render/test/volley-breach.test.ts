@@ -38,6 +38,8 @@ function breachOf(kind: Scar["kind"]): Extract<SimEvent, { type: "breach" }> {
     span: 1,
     beat: 3,
     fromRow: CFG.rows - 3,
+    seed: 0,
+    holes: 0,
     color: null,
     weight: "heavy",
   };

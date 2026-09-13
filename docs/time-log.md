@@ -2140,3 +2140,23 @@ the veil still names — runs it again from the top. About 35 min.
 
 Bottleneck: **looking** — getting a director that serves *this* tree in front
 of the browser pane took as long as writing the feature.
+
+## 2026-09-13 · meteor-reflected — a deflected rock keeps the look it fell in
+
+The bounce off the shield, and the replayed last step of a fall, drew a grey
+stone from before the rocks had looks; the field had been drawing that same
+rock as a blaze, a comet or a smoulder by its own id. The deflect and breach
+events now carry the body's seed and pits, and both effects draw it with
+`drawRockBody` — the torch alone keeps its grey stone and ember ring. About
+20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `deflect.ts`, `rock-impact.ts` and `effects-breach.ts` for where the grey came from; `meteor-looks.ts` for how the field picks a look |
+| writing | 10 | seed and holes on the two events and their three emitters, the two effects, the split of `deflect-stone.ts` and `rock-impact-state.ts` that kept both under 250 lines, four stale tests rewritten to prove the bounce's ops are `drawRockBody`'s |
+| looking | 5 | THE ROCK photographed at three ticks with a guard press, the bounced rock seen orange and faceted under DEFLECTED |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `bun run land` |
+
+Bottleneck: **writing** — two files that were already on the line had to be
+split before the fix would fit.

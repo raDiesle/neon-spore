@@ -1,5 +1,5 @@
 import { crystalPath, METEOR } from "@neon-spore/content";
-import { type Creature, spanOf } from "@neon-spore/sim";
+import { type Creature, type CreatureKind, isMeteorKind, spanOf } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { keyAxis, type MeteorLook } from "./meteor-look.js";
@@ -28,6 +28,17 @@ export function drawMeteor(
   const spin = (c.id % 13) * 0.48;
   const wobble = Math.sin(time * 1.1 + spin) * l.tile * 0.06;
   drawRockBody(ctx, x + wobble, y, rockRadius(l, spanOf(c)), time, c.id, c.holes);
+}
+
+/**
+ * Whether a body of this kind is drawn by `drawMeteor` on the field — every
+ * rock but the torch, which has a flame and a draw of its own (`torch.ts`).
+ * The fall replay and the bounce ask this so that what leaves the field is
+ * painted by the same hand that painted it coming down: a blaze that turned
+ * into a plain grey stone at the shield was the owner's own report.
+ */
+export function wearsRockLook(kind: CreatureKind): boolean {
+  return isMeteorKind(kind) && kind !== "torch";
 }
 
 /**

@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { computeLayout, tileCY } from "../src/layout.js";
+import { drawRockBody } from "../src/meteor.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { rockRadius } from "../src/torch.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
@@ -94,11 +95,17 @@ describe("RockImpactFx deflect arrival target", () => {
     });
 
     const skinAt = () => L.hullY;
+    // The rock's own look translates again for its smoke and fire; the
+    // frame's first `translate` is the one that places the rock, and the
+    // last frame that placed one is the frame to read.
+    const placedYs: number[] = [];
     let t = 0;
     for (let i = 0; i < 400; i++) {
       t += BEAT_SECONDS / 100;
       fx.update(BEAT_SECONDS / 100, L);
+      const before = translateYs.length;
       fx.draw(ctx as unknown as CanvasRenderingContext2D, L, t, skinAt);
+      if (translateYs.length > before) placedYs.push(translateYs[before] as number);
     }
 
     // The point handed to the bounce is already the shield's row — a `tile`
@@ -110,8 +117,8 @@ describe("RockImpactFx deflect arrival target", () => {
     // is left over on the last one is a fraction of how far it moves in a
     // frame, and that scales with the tile. Written as a constant, it went red
     // the day the test view's band gave the field a bigger tile back.
-    expect(translateYs.length).toBeGreaterThan(0);
-    const lastY = translateYs[translateYs.length - 1] as number;
+    expect(placedYs.length).toBeGreaterThan(0);
+    const lastY = placedYs[placedYs.length - 1] as number;
     expect(Math.abs(lastY - (L.hullY - L.tile))).toBeLessThan(L.tile * 0.12);
   });
 
@@ -162,20 +169,33 @@ describe("RockImpactFx deflect arrival target", () => {
  * radial gradient, so the count is still the presence of the flame and nothing
  * else, and it survives the flame being repainted again.
  */
-describe("the fire in a replayed fall", () => {
-  const replay = (kind: "meteor" | "torch"): number => {
+describe("the look of a replayed fall", () => {
+  const replay = (kind: "meteor" | "torch"): string[] => {
     const fx = new RockImpactFx();
     const { ctx } = stubCanvas();
-    fx.spawn(200, L, 0, BEAT_SECONDS, kind, 1, CFG.rows - 3, true, () => {});
+    ctx.log = [];
+    fx.spawn(200, L, 0, BEAT_SECONDS, kind, 1, CFG.rows - 3, false, () => {}, false, 7, 3);
     fx.draw(ctx as unknown as CanvasRenderingContext2D, L, 0, () => L.hullY);
-    return ctx.tally.get("createRadialGradient") ?? 0;
+    return ctx.log;
   };
+  // Everything but where it is: the look is placed by a `translate` and its
+  // cached halo by a `drawImage`, and those two are the only ops that differ
+  // between a rock at the hull and the same rock drawn at the origin.
+  const placesNothing = (e: string): boolean =>
+    !e.startsWith("translate(") && !e.startsWith("drawImage(");
+  const ops = (log: string[]): string => log.filter(placesNothing).join("\n");
 
-  it("is not drawn around a plain meteor, which never has one on the field", () => {
-    expect(replay("meteor")).toBe(0);
+  it("is the plain rock's own — seed, pits and all — not a stone of greys", () => {
+    // The replay is the last frames of the fall the field was drawing; the
+    // owner saw it switch to *old simple grey graphic* the moment the sim let
+    // go of the body. So it draws by `drawRockBody` with the body's seed.
+    const ref = stubCanvas().ctx;
+    ref.log = [];
+    drawRockBody(ref as unknown as CanvasRenderingContext2D, 0, 0, rockRadius(L, 1), 0, 7, 3);
+    expect(ops(replay("meteor"))).toContain(ops(ref.log));
   });
 
-  it("is still drawn around the torch, whose flame it is", () => {
-    expect(replay("torch")).toBeGreaterThan(0);
+  it("is still the torch's fire around the torch", () => {
+    expect(replay("torch").some((e) => e.startsWith("createRadialGradient("))).toBe(true);
   });
 });

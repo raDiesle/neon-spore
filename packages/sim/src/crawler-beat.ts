@@ -137,6 +137,8 @@ function wardLink(world: World, crawlerId: number): void {
     span: 1,
     kind: hit.kind,
     fromRow: hit.fromRow,
+    seed: hit.id,
+    holes: hit.holes,
   });
   removeCreature(world, hit.id);
   alignCrawler(world, crawlerId);
