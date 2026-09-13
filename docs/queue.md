@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The HUD says `1 RETRY` on a lost wave before anybody has pressed RETRY WAVE
 
 - **Found:** 2026-09-13, claude/handover-window
+- **Taken:** 2026-09-13, claude/queue-the-hud-says-1-retry-on-a-lost-wave-before-anybo
 - **Files:** `packages/sim/src/wave-fail.ts`, `packages/sim/src/wave-start.ts`, `packages/render/src/lost-screen.ts`, `packages/render/src/hud.ts`, `packages/sim/test/rules.test.ts`
 
 `failWave` counts `world.retries` up on the tick the wave is lost, so the
