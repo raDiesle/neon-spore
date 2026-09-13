@@ -289,6 +289,7 @@ what the rest of this file holds.
 ## VERSUS decided: adopt `handover:notice` / `hull`, drop every `cairn:pile`
 
 - **Found:** 2026-09-13, claude/siren-centre — the owner's decision in chat, for a cloud session
+- **Taken:** 2026-09-13, claude/queue-versus-decided-adopt-handover-notice-hull-drop-e
 - **Files:** `tools/versus/candidates/handover-notice/hull/index.ts`, `tools/versus/candidates/handover-notice/hull/paint.ts`, `tools/versus/candidates/cairn-pile/banked/index.ts`, `tools/versus/candidates/cairn-pile/still/index.ts`, `tools/versus/DECIDED.md`, `packages/render/src/handover-look.ts`
 
 The owner looked at the VERSUS page on 13 September 2026 and said which
