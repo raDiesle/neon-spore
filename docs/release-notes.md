@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 6c5d3854 — The siren's chips stand clear of the ☰, and a long name clear of its glyph
+
+Two phones with twelve-character names in one room showed the right chip's last letters and its ear under the corner button, and the seat's own ring on top of it; a pad of ten pixels had put the whole P2 pill inside that box before there were names to lengthen it. The cluster now hangs off the button's left edge instead of the screen's, and the torch and magnet alarms that share the edge move with it. A long name's last letter also touched the speech and ear glyphs by a pixel and a half; the glyph has three more of air. P1 and P2 still measure thirty-four pixels, so a solo screen does not move.
+
 ## 2026-09-13 · ebc7bca6 — Two phones that part can now press CONTINUE: the room screen no longer stands over it
 
 The parting was driven for real — a local wrangler, two browser contexts in one room, one reaching into its own world — and the first thing the two phones found was that they could not press the one button that mends a parted run. The room screen opens itself on any link fault, a parting included, and it sits over the menu; so both phones showed the old "The two worlds parted at tick N. This is a bug, not a lag spike" beside a START that could not be pressed, with the menu's CONTINUE underneath. A fix to something wrong: the room screen no longer opens on a parting (`join.ts`), the parting edge closes it before the menu comes up (`shell.ts`), and when it is up anyway it says where to press (`join-words.ts`). With that, both press CONTINUE and both open WAVE 4 — the wave the room kept — at tick 0, in step.
