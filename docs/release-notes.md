@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 6b873c8d — A lost wave stops on a friendly screen: RETRY WAVE or QUIT
+
+A hit still fails the wave, but after the pause the field no longer reopens by itself: a screen over the greyed field, with the breach still where it was seen, says WAVE 1 · TRY 1, WAVE LOST, one line for the two of you, and two buttons — RETRY WAVE and QUIT. Either phone's press answers for both, first one wins. RETRY opens the same wave again; QUIT ends the run on both phones, the room stays open, and the menu comes up on PLAY saying who pressed it. Nothing happens by itself any more.
+
 ## 2026-09-13 · caaf6cac — The map's rows carry their own verbs, and the map follows the beat playing
 
 Four things the owner asked for, all of them about writing a wave while it runs. The map now follows the marked beat and keeps the next four rows on screen with it, moving in steps rather than by the beat and standing aside the moment a hand scrolls — an author reading beat 20 while beat 8 plays is not interrupted until the transport leaves the screen. BRUSH sticks to the top of its column instead of going up with the map, so a stroke in the lower half of a long wave no longer costs a scroll to the palette and a scroll back. A row under the pointer draws a line in the gap above it and in the gap below, each opening a beat where it is drawn, and a trash at the row's right end that takes the row out; a tile clicked open keeps all three, so the hand can leave the map and come back to them. The `+` and `−` glyphs in the beat-number column go: they were where every editor puts them and where nobody found them.
