@@ -2188,3 +2188,24 @@ it was allowed to live took the whole input path. The thing that decided it:
 `lockstep.press` refuses a press attributed to the peer, so the wire's two
 identities cannot trade — only the panel can, and the simulation never learns
 that anything happened.
+
+## 2026-09-13 · queue-the-weights-guide — THE WEIGHT's rehearsal
+
+Queue item: the wave that introduces THE WEIGHT carried three lines of prose
+and no `scene`, for a lesson that is a negative. Four pages now: each seat's
+thumb alone on the sac and nothing giving, both on one beat and the calipers
+closing, and a second sac left alone reaching the hull. On the way, `bun run
+frames --opening guide` turned out to run two film ticks per count — the
+frozen `paint` wrapper dropped `dt` — which is fixed in its own commit. About
+30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry, `new-tutorial`, THE BALLOON's and THE MAGNET's films, `weight.ts`, the page-position test |
+| writing | 5 | `scenes/the-weight.ts`, the wiring in `scenes.ts` and `act-8.ts` |
+| looking | 10 | a probe printing the film tick by tick to place the pages; the pilot's page and the crush photographed |
+| friction | 10 | every guide capture came back past the moment asked for, until `freezeClocks` in `tools/frames/page.ts` was found dropping the frame's `dt` |
+| landing | 5 | `check:fast`, `bun run index`, the commits, `bun run land --keep` |
+
+Bottleneck: **friction** — a camera that photographed twice the tick it was
+asked for cost as long as authoring the film.

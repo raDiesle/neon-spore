@@ -49,6 +49,7 @@ import { THE_VEIL } from "./scenes/the-veil.js";
 import { THE_VOLLEY } from "./scenes/the-volley.js";
 import { THE_WARD } from "./scenes/the-ward.js";
 import { THE_WARDEN } from "./scenes/the-warden.js";
+import { THE_WEIGHT } from "./scenes/the-weight.js";
 import { THE_WISP } from "./scenes/the-wisp.js";
 import { TWO_ROCKS } from "./scenes/two-rocks.js";
 
@@ -125,7 +126,8 @@ export type SceneId =
   | "theCrossing"
   | "thePulse"
   | "theBalloon"
-  | "theBeatbox";
+  | "theBeatbox"
+  | "theWeight";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -180,6 +182,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   thePulse: THE_PULSE,
   theBalloon: THE_BALLOON,
   theBeatbox: THE_BEATBOX,
+  theWeight: THE_WEIGHT,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

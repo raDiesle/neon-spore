@@ -155,6 +155,7 @@ export const WAVES_ACT_8: Wave[] = [
       both: "A heavy sac, coming down a lane a beat. No shot reaches it and the shield goes straight through, so if it lands the wave is lost. It gives to one thing only: a hand from each of you, on the body itself, at the same moment. Press it on your own and it brightens under your thumb — on your screen, and on nothing the other one can see. So a thumb held alone and two thumbs held together look identical from where you are sitting.",
       p1: 'You call it. Pick the beat out loud — "on the three" — and put your thumb down on it. Your thumb is off the strip while it is down, so call one you can afford.',
       p2: "Do not count. Land on the beat they called, not on the one you were about to say, and keep your thumb there until it gives. Yours is the hand that is also the shield, so what they are spending is your dome.",
+      scene: "theWeight",
     },
     entries: [
       { beat: 0, col: 3, kind: "weight", color: null },
