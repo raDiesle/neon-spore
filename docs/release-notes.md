@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · b5356072 — Three difficulties, and the one number they move
+
+The owner asked for Easy, Medium and Hard, chosen when a new game is started, and said what they should change: the falling speed of everything. On this field that is not a per-creature number and must not become one — everything falls a tile a beat, so the falling speed *is* the beat, and a level is one `bpm`. He put today's game at Medium, so Medium is 96 and nothing anybody has already played moves underneath them; Easy is 80 and Hard is 120.
+
 ## 2026-09-13 · ef46834c — The marks drawn around a body stand on THE WELL where the body is drawn
 
 `creatureCenter` and `creatureRadius` took no world and answered for the flat field on every screen, so on the pilot's well the hand's ring, the lock's corners and its line, a clasp coming apart and a rind's shed skin were placed at the tile's flat centre — in the empty middle, or nowhere at all, since the well pass drew none of them. Both take the world now and ask `wellShown` first; the touch layer, which is handed a field and never a world, keeps the flat answer under its own name (`flatCenter`, `flatRadius`, `creatureAt` in `creature-under.ts`). `drawWellBodies` draws the grips, the lock marks and `bodies.drawOnBodies` after the bodies, in the flat pass's order, and the lock's line on the well is radial — from the cannon lobe straight to the body (`wellLockLink`) — instead of the flat pass's two-segment bracket. A fix to something wrong rather than unlovely, which is the third exemption.
