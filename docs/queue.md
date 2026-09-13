@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A player signs in with Google or by an email link, and the menu says who
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Taken:** 2026-09-13, claude/queue-a-player-signs-in-with-google-or-by-an-email-lin
 - **Files:** `apps/game/src/nickname.ts`, `apps/game/src/join-name.ts`, `apps/game/src/menu-settings.ts`, `apps/server/src/names.ts`, `apps/server/src/index.ts`, `packages/net/src/nickname.ts`, `packages/net/src/protocol.ts`
 - **Decided:** 2026-09-13, by the owner — Firebase Auth, Google and an email link now, Apple later; anonymous first, and a sign-in attached later is what makes the name recoverable. The Worker verifies Firebase's ID token itself; the Firebase project's config is the owner's to paste in.
 
