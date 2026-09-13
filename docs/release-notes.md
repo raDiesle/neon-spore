@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 9e1c5a70 — THE WELL: the field turned inside out, and nothing else changed
+
+The owner asked for the idea on `docs/spec/ideas.md` by name, as a boss wave, and it shipped as the projection that page describes rather than as a fight built around one. The hull goes to the centre, the far row becomes a rim, and the columns are spread round the middle as the sectors of a clock — bodies fall inward down their hours, the cannon rides the hull ring as its hand, the shield stands outside it as an arc. On the field the game ships that is eleven columns and one sector over, so **column four is four o'clock** and the pair needs no vocabulary it did not already own; the numerals drawn round the rim are the columns' own numbers, so a narrower field is a wider clock and the picture is never wrong. The look is exempt as one the owner asked for by name.
+
 ## 2026-09-13 · cc5f5c5b — THE CAIRN: a boss you take apart by hand, into the rocks it is made of
 
 The owner asked for the idea on `docs/spec/transfers-bosses.md` by name, and it shipped as the boss that page argues for rather than as an arrival taken out of it: seven of the field's own two-tile rocks in one outline five columns wide, standing at `cairnRow` and never moving. **Nothing either control does reaches it.** A bolt fired up one of its five lanes goes *past* it to whatever is above — not turned aside, not absorbed, simply not stopped — and the shield has nothing to say to a thing that is not falling. That is not a rule invented for a boss; it is the oldest rule the game has, taught in its first act, wearing a body: a rock cannot be shot. The look is exempt as one the owner asked for by name.

@@ -373,3 +373,18 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 9e1c5a70: THE WELL watched at tempo: whether eleven lanes read as…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `apps/game/src/field-input.ts`, `apps/game/src/input-bindings.ts`, `apps/game/src/input.ts`, `docs/INDEX.md`, `docs/decisions.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/ideas.md`
+
+*THE WELL: the field turned inside out, and nothing else changed* landed from a session that could not look at it. The commit touched 45 more files. What went unchecked:
+
+- THE WELL watched at tempo: whether eleven lanes read as countable at a glance, whether a body arriving at the rim is still nameable, and whether the seam above the ship reads as a wall rather than as a gap in a dial
+- bun run perf on THE WELL: the wave went in with --unmeasured, and its clock face, its rings and its turned bodies are a draw path nothing has ever measured
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
