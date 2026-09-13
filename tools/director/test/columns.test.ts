@@ -1,6 +1,6 @@
 import { describe, expect, it, test } from "bun:test";
 import { clampWidth, MIN_WIDTH, parseWidth, widthKey } from "../src/column-width.js";
-import { decideOpen, forcedClosedFromUrl, storageKey } from "../src/columns.js";
+import { decideOpen, forcedClosedFromUrl, OPEN_TRACKS, storageKey } from "../src/columns.js";
 
 /**
  * A COLUMN COLLAPSES AS ONE UNIT, NOT THE HEADING INSIDE IT.
@@ -154,5 +154,34 @@ describe("a dragged column width", () => {
       Bun.fileURLToPath(new URL("../src/main.ts", import.meta.url)),
     ).text();
     expect(src).toMatch(/^initColumnResize\(\);/m);
+  });
+});
+
+/**
+ * THE FOUR OPEN TRACKS ARE WRITTEN TWICE, AND THIS HOLDS THEM EQUAL.
+ *
+ * `director-columns.css` lays a fresh page out; `relayout()` rewrites the
+ * same property inline from `OPEN_TRACKS` on every collapse and drag. A
+ * track changed in one file is a column one width until somebody clicks a
+ * head and another afterwards — nothing failed on it, and widening the map
+ * from 560 to 600 meant editing both by hand. The same shape as
+ * `map-width.test.ts`: the stylesheet is read, and the number in the code
+ * has to be the number in it.
+ */
+describe("main's open tracks", () => {
+  /** A track list split where the spaces are, but never inside `minmax(…)`. */
+  const tracks = (list: string): string[] => list.trim().split(/\s+(?![^(]*\))/);
+
+  it("are the same four in columns.ts and in director-columns.css, in DOM order", async () => {
+    const css = await Bun.file(
+      Bun.fileURLToPath(new URL("../src/director-columns.css", import.meta.url)),
+    ).text();
+    const rule = /^main \{[^}]*?grid-template-columns:\s*([^;]+);/m.exec(css);
+    expect(rule).not.toBeNull();
+    const ids = [...html.matchAll(/data-column="([a-z]+)"/g)].map((m) => m[1] as string);
+    expect(ids).toEqual(["waves", "editor", "game", "map"]);
+    expect(tracks((rule as RegExpExecArray)[1] as string)).toEqual(
+      ids.map((id) => OPEN_TRACKS[id] ?? "missing"),
+    );
   });
 });

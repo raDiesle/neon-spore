@@ -86,13 +86,16 @@ export function decideOpen(id: string, forced: Forced, stored: boolean | null): 
 
 /** One `<main> > section>`'s own track, open and collapsed. */
 const COLLAPSED_TRACK = "36px";
-/** Kept in step with index.html's own `main { grid-template-columns }` by
- * hand — this module rewrites that property wholesale, so a value here that
- * disagrees with the stylesheet silently wins over it. They drifted once
- * already: the game column was an `fr` here long after the CSS had capped it
- * at 460px, so every load handed the leftover space to the preview canvas,
- * which cannot use it, instead of to the map. */
-const OPEN_TRACKS: Readonly<Record<string, string>> = {
+/** The same four tracks as `director-columns.css`'s own
+ * `main { grid-template-columns }`, and they have to stay identical — this
+ * module rewrites that property wholesale on every collapse and every drag,
+ * so a value here that disagrees with the stylesheet is a column that is one
+ * width on a fresh page and another after the first click on a head. They
+ * drifted once already: the game column was an `fr` here long after the CSS
+ * had capped it at 460px, so every load handed the leftover space to the
+ * preview canvas, which cannot use it, instead of to the map. Exported for
+ * `test/columns.test.ts`, which reads the stylesheet and holds the two equal. */
+export const OPEN_TRACKS: Readonly<Record<string, string>> = {
   waves: "210px",
   editor: "minmax(340px, 1.1fr)",
   game: "minmax(320px, 460px)",

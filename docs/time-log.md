@@ -2998,3 +2998,23 @@ plate. Queued. About 25 min.
 
 Bottleneck: **looking** — the first strip had to be thrown away before the
 right flag was read.
+
+## 2026-09-13 · claude/column-tracks-test — the director's four open tracks held equal in code and stylesheet
+
+The queued test: `OPEN_TRACKS` in `columns.ts` and `main { grid-template-columns }`
+in `director-columns.css` are the same four tracks in two files, and nothing
+failed when they drifted. Now `columns.test.ts` reads the stylesheet, splits
+the tracks outside `minmax(…)`, and holds them equal to the code's in the
+markup's own DOM order; the constant is exported for it. Tried against a
+stylesheet put back to 560: fails. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the two copies, `columns.test.ts`'s markup block, `map-width.test.ts` for the shape |
+| writing | 5 | the export, the test, the comment that named index.html for a rule that lives in the stylesheet |
+| looking | 0 | — a test, nothing drawn |
+| friction | 0 | — |
+| landing | 0 | `check:fast`, the commit, folded into writing |
+
+Bottleneck: **reading** — finding where the rule actually lives (the comment
+said index.html; it is `director-columns.css`).
