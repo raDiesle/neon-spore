@@ -227,6 +227,7 @@ plate's box.
 ## Unverified at caaf6cac: The map on a phone: with no hover, a row's insert lines…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-caaf6cac-the-map-on-a-phone-with-n
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `tools/director/src/columns.ts`, `tools/director/src/director-brush.css`, `tools/director/src/director-columns.css`, `tools/director/src/director-map.css`, `tools/director/src/grid-follow.ts`
 
 *The map's rows carry their own verbs, and the map follows the beat playing* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
