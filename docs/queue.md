@@ -208,6 +208,7 @@ real provider is unverified from a cloud session.
 ## THE HANDOVER's guide is prose, and the thing it teaches is a picture
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-the-handovers-guide-is-prose-and-the-thing-it-te
 - **Files:** `packages/content/src/scenes.ts`, `packages/content/src/waves/act-8.ts`, `packages/content/src/scene-types.ts`
 
 The wave that introduces THE HANDOVER carries a three-line prose guide and no
