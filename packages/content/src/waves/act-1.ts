@@ -36,7 +36,16 @@ export const WAVES_ACT_1: Wave[] = [
       p2: "Yours is the shield itself, and the two colours. Press red — nothing leaves the hull until you do.",
       scene: "firstStep",
     },
-    entries: [{ beat: 0, col: 2, color: "red" }],
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 4, col: 3, color: "red" },
+      { beat: 7, col: 4, color: "red" },
+      { beat: 10, col: 6, color: "red" },
+      { beat: 12, col: 5, color: "red" },
+      { beat: 16, col: 3, color: "red" },
+      { beat: 21, col: 0, color: "red" },
+      { beat: 27, col: 6, color: "red" },
+    ],
     controls: "standard1",
   },
   {
