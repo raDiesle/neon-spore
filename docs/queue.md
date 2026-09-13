@@ -223,6 +223,7 @@ what the rest of this file holds.
 ## Unverified at cb36a290: The menu's front page seen on a phone: whether four row…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-cb36a290-the-menus-front-page-seen
 - **Files:** `apps/game/src/join-words.ts`, `apps/game/src/menu-door.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-parts.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.ts`
 
 *The menu's front page is four rows, and the rig is behind the spore* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
