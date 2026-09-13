@@ -215,9 +215,13 @@ async function freezeClocks(page: Page): Promise<boolean> {
     let now = 0;
     performance.now = () => now;
     const painted = ns.paint.bind(ns);
-    ns.paint = () => {
+    // The frame's `dt` goes through. A rehearsal is run off it — one film tick
+    // per `paint(1 / tickHz)` (`guide-film.ts`) — and the wrapper used to drop
+    // it, so every count of a guide capture was a sixtieth of a second and two
+    // film ticks, and `--ticks 80` on a page photographed its tick 160.
+    ns.paint = (dt?: number) => {
       now += step;
-      painted();
+      painted(dt);
     };
     return true;
   }, 1000 / 60);
