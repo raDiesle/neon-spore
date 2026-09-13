@@ -15,7 +15,7 @@ main > section.brush-col {
    column instead of pushing the palette off the left edge. */
 main > section.brush-col > .column-body {
   display: grid;
-  grid-template-columns: max-content minmax(262px, 1fr);
+  grid-template-columns: max-content minmax(var(--map-w), 1fr);
   gap: 12px;
   align-items: start;
 }
@@ -44,12 +44,34 @@ main > section.brush-col > .column-body {
 /* #gridNote must not force #mapCol wider than the grid — a block child
    with no width cap contributes its own unwrapped line length to the
    auto-sizing pass, which is exactly the leftover-space bug this column
-   exists to avoid. The grid's width is fixed, not tuned: it is always
-   AUTHORED_COLS (7) columns of 32px plus the 24px beat-label column and
-   2px gaps between all eight (grid.ts sets gridTemplateColumns from the
-   same constant) — 24 + 7*32 + 7*2 = 262px, whatever `cfg.cols` is. */
+   exists to avoid. The grid's width is fixed, not tuned, whatever
+   `cfg.cols` is: `--map-w` is that width, and its arithmetic is written
+   out where it is defined, at the top of director-map.css. */
 #gridNote {
-  max-width: 262px;
+  max-width: var(--map-w);
+}
+
+/* BRUSH STAYS PUT WHILE THE MAP SCROLLS.
+
+   The two sit in one scrolling column, so a wave long enough to scroll took
+   the palette off the top of the screen with it and every stroke in the
+   lower half of a map cost a scroll up for the brush and a scroll back. The
+   palette sticks to the top of the column instead and the map goes by beside
+   it. `align-items: start` on the row above is what leaves it the room to
+   stick in; the cap is the window less the header, so a palette taller than
+   the screen scrolls inside itself rather than off the bottom of it.
+
+   Desktop only: below 700px the column is the whole screen and one section
+   shows at a time (director-phone.css), so there is nothing to stay beside. */
+@media (min-width: 701px) {
+  #brushCol {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    max-height: calc(100vh - 58px);
+    overflow-y: auto;
+    z-index: 1;
+  }
 }
 /* subcols.ts: BRUSH and MAP each close on their own, independent of the
    whole-column collapse above. Same visual language as .column-toggle

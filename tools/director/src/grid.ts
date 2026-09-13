@@ -2,9 +2,12 @@ import { AUTHORED_COLS, mapCol, type Wave } from "@neon-spore/content";
 import type { SimConfig } from "@neon-spore/sim";
 import type { Brush } from "./brushes.js";
 import { fillCell } from "./grid-cell-art.js";
+import { bindFollow } from "./grid-follow.js";
 import { bindCellGestures, watchStrokeEnd } from "./grid-gestures.js";
+import { CELL_PX, GAP_PX, gridTemplateColumns } from "./grid-metrics.js";
 import { bindGridNote } from "./grid-note.js";
-import { BEAT_LABEL_PX, beatLabel, bindRowVerbs } from "./grid-rows.js";
+import { bindRowActs } from "./grid-row-acts.js";
+import { beatLabel, bindRowVerbs } from "./grid-rows.js";
 import type { Held } from "./held.js";
 import type { Cell, Selection } from "./selection.js";
 import {
@@ -26,9 +29,10 @@ import {
  * express, and the remap would silently move it.
  *
  * What a cell *draws* is `grid-cell-art.ts`, what a hand *does* to one is
- * `grid-gestures.ts`, what a beat's label does is `grid-rows.ts`, and what
- * sits under the map is `grid-note.ts`; this file is the map itself — the
- * columns and the beats.
+ * `grid-gestures.ts`, what a beat's label does is `grid-rows.ts`, what a row
+ * can be done to is `grid-row-acts.ts`, how the map keeps up with the beat
+ * playing is `grid-follow.ts`, and what sits under the map is `grid-note.ts`;
+ * this file is the map itself — the columns and the beats.
  */
 export interface GridPanel {
   render(): void;
@@ -88,9 +92,14 @@ export function bindGrid(
     store.dirty = true;
     onEdit();
   };
-  // The two verbs on a beat label — a row opened, a row taken out — with
-  // their asking: `grid-rows.ts`.
+  // A row opened, a row taken out, and the asking a removal does first:
+  // `grid-rows.ts`.
   const rows = bindRowVerbs(store, selection, onEdit);
+  // A line between two rows, and a trash at the end of one (`grid-row-acts.ts`).
+  const acts = grid ? bindRowActs(grid, rows, selection) : null;
+  // How much map after the beat playing has to stay on screen: four rows, the
+  // ones an author edits while the wave runs (`grid-follow.ts`).
+  const follow = grid ? bindFollow(grid, () => 4 * (CELL_PX + GAP_PX)) : null;
 
   // Bound on the window rather than on a cell: the selection outlives the
   // element that made it — a re-render replaces every button in the grid — so
@@ -115,7 +124,7 @@ export function bindGrid(
     // places rather than points and a drag paints a stroke — and the cursor is
     // the only place that can be said without a label (`director-map.css`).
     grid.classList.toggle("armed", held.brush() !== null);
-    grid.style.gridTemplateColumns = `${BEAT_LABEL_PX}px repeat(${AUTHORED_COLS}, 32px)`;
+    grid.style.gridTemplateColumns = gridTemplateColumns();
     grid.appendChild(label("head", ""));
     for (let c = 0; c < AUTHORED_COLS; c++) {
       const mapped = mapCol(c, cfg().cols);
@@ -128,11 +137,19 @@ export function bindGrid(
       head.appendChild(maps);
       grid.appendChild(head);
     }
+    // The ninth track's own head, empty. Without it the first beat label is
+    // auto-placed into the head row rather than under it.
+    grid.appendChild(label("head", ""));
 
-    for (let b = 0; b < beatCount(wave); b++) {
-      grid.appendChild(beatLabel(b, rows, onSeek));
+    const beats = beatCount(wave);
+    for (let b = 0; b < beats; b++) {
+      grid.appendChild(beatLabel(b, onSeek));
       for (let c = 0; c < AUTHORED_COLS; c++) grid.appendChild(cell(wave, b, c));
+      if (acts) grid.appendChild(acts.del(b));
     }
+    // Last, so a rail is drawn over the row it belongs to rather than under
+    // it — each one names its own row, so the order here is only paint order.
+    if (acts) for (let b = 0; b < beats; b++) grid.appendChild(acts.rail(b));
     mark(markedBeat);
   };
 
@@ -162,6 +179,22 @@ export function bindGrid(
     return button;
   };
 
+  /**
+   * Ring the selected cell. Its own pass rather than a re-render: selecting a
+   * cell is the commonest thing that happens to the map, and rebuilding every
+   * button in it to move one ring dropped the stroke a pointer was in the
+   * middle of. Until this existed nothing moved the ring at all between
+   * edits — the class was only ever written by a render.
+   */
+  const ring = (): void => {
+    if (!grid) return;
+    for (const el of grid.querySelectorAll(".cell.sel")) el.classList.remove("sel");
+    const at = selection.at();
+    if (!at) return;
+    grid.querySelector(`.cell[data-beat="${at.beat}"][data-col="${at.col}"]`)?.classList.add("sel");
+  };
+  selection.watch(ring);
+
   const mark = (beat: number): void => {
     markedBeat = beat;
     if (!grid) return;
@@ -171,6 +204,7 @@ export function bindGrid(
     for (const el of grid.querySelectorAll(`[data-beat="${beat}"]`)) {
       el.classList.add("now");
     }
+    follow?.to(grid.querySelector<HTMLElement>(`.beat[data-beat="${beat}"]`));
   };
 
   const render = (): void => {

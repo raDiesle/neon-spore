@@ -96,7 +96,10 @@ const OPEN_TRACKS: Readonly<Record<string, string>> = {
   waves: "210px",
   editor: "minmax(340px, 1.1fr)",
   game: "minmax(320px, 460px)",
-  map: "minmax(560px, 1.6fr)",
+  // 600, not 560: the palette is 250 wide and the map is `--map-w` (302)
+  // plus the gap and the column's own padding, and at 560 the strip of row
+  // buttons on the map's right was the part that fell off.
+  map: "minmax(600px, 1.6fr)",
 };
 
 /**

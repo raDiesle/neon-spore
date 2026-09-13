@@ -3,9 +3,23 @@
  * selected cell and the pod list under it.
  */
 
+/* What the map comes to across: the beat numbers, the seven authored columns,
+   the strip of row buttons, and the eight gaps between the nine tracks —
+   40 + 7*32 + 22 + 8*2. `grid-metrics.ts` builds exactly those tracks and
+   `test/map-width.test.ts` checks this number against it, because everything
+   stacked above and below the map is capped at it and a stale cap is a column
+   that is quietly wider than its own grid. */
+:root {
+  --map-w: 302px;
+}
+
 #grid {
   display: inline-grid;
   gap: 2px;
+  /* The rails that overlay a row are absolutely positioned into their own
+     grid area (`grid-row-acts.ts`), which needs this to be the thing they
+     are positioned against. */
+  position: relative;
 }
 #grid .head {
   color: var(--dim);
@@ -21,14 +35,16 @@
   color: #4b4177;
   font-size: 0.75rem;
 }
+/* No width here: the track is `BEAT_LABEL_PX` wide (`grid-metrics.ts`), and
+   a second copy of that number in this file was wrong the first time the
+   track changed. The number sits at the right of it, so the `+` badge on a
+   rail has the left of it to itself. */
 #grid .beat {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 1px;
-  width: 56px;
 }
-#grid .beat button {
+#grid .beat .seek {
   color: var(--dim);
   font-size: 0.8rem;
   border: 0;
@@ -36,8 +52,6 @@
   padding: 0;
   cursor: pointer;
   line-height: 1;
-}
-#grid .beat .seek {
   width: 22px;
   text-align: center;
 }
@@ -47,29 +61,91 @@
 #grid .beat.now .seek {
   color: var(--gold);
 }
-/* The row glyphs: kept for hover so the numbers read as a column. `+` opens a
- * beat at this row, `−` takes it out (`grid.ts`). */
-#grid .beat .rows {
-  display: flex;
-  gap: 1px;
-  visibility: hidden;
+
+/* THE ROW VERBS, ON THE ROW ITSELF (`grid-row-acts.ts`).
+
+   A rail covers one row and carries the two insert lines. It takes no
+   pointer at all: a strip across a row that did would swallow the top three
+   pixels of every cell under it. Only the `+` badge does, and it sits out in
+   the beat-number column where there is nothing to swallow. */
+#grid .rowrail {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
 }
-#grid .beat:hover .rows {
+#grid .rowrail .ins {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 14px;
+  display: none;
+  align-items: center;
+  gap: 3px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  pointer-events: none;
+}
+/* One row wears them at a time: the row under the pointer, or the row of the
+   cell that is open for editing. */
+#grid .rowrail.hot .ins {
+  display: flex;
+}
+/* Centred on the 2px gap between two rows, which is where the new row lands. */
+#grid .rowrail .ins.above {
+  top: -7px;
+}
+#grid .rowrail .ins.below {
+  bottom: -7px;
+}
+#grid .rowrail .ins .dot {
+  pointer-events: auto;
+  cursor: pointer;
+  flex: 0 0 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--cyan);
+  background: var(--bg);
+  color: var(--cyan);
+  font-size: 0.75rem;
+  line-height: 12px;
+  text-align: center;
+  opacity: 0.65;
+}
+#grid .rowrail .ins .line {
+  flex: 1;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--cyan);
+  opacity: 0.3;
+}
+/* The whole line lights when the badge is under the pointer — the badge is
+   what is pressed, the line is what it means. */
+#grid .rowrail .ins:hover .dot {
+  opacity: 1;
+  background: var(--cyan);
+  color: var(--bg);
+}
+#grid .rowrail .ins:hover .line {
+  opacity: 0.95;
+}
+/* And the trash, at the other end of the same row, on the same hover. */
+#grid .rowdel {
+  visibility: hidden;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.7;
+}
+#grid .rowdel.hot {
   visibility: visible;
 }
-#grid .beat .rows button {
-  width: 14px;
-  height: 18px;
-  border-radius: 3px;
-  font-size: 0.95rem;
-  color: var(--dim);
-}
-#grid .beat .rows button:hover {
-  color: var(--ink);
-  background: #1a1333;
-}
-#grid .beat .rows .del:hover {
-  color: #f08a8a;
+#grid .rowdel:hover {
+  opacity: 1;
+  filter: drop-shadow(0 0 4px rgba(255, 84, 112, 0.8));
 }
 #grid .cell {
   width: 32px;
@@ -196,7 +272,7 @@
    separated it from the map are on its bottom edge rather than its top. */
 #cellPanel {
   margin-bottom: 12px;
-  max-width: 262px;
+  max-width: var(--map-w);
   border-bottom: 1px solid var(--line-soft);
   padding-bottom: 10px;
 }

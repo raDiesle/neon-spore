@@ -1613,7 +1613,10 @@ place — the generator keeps whatever is there.
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
-| `tools/director/src/grid-rows.ts` | The map's beat labels: the number seeks, and on hover `+` opens a beat at that row and `−` takes it out, every later row shifting with it |
+| `tools/director/src/grid-rows.ts` | The map's beat labels — a number that seeks — and the two row edits behind them, a beat opened and a beat taken out, with the asking a removal does first |
+| `tools/director/src/grid-row-acts.ts` | The row verbs as things you can see: a line between two rows that opens a beat where it is drawn, and a trash at the row's right end, both worn by the row under the pointer or the row of the cell being edited |
+| `tools/director/src/grid-follow.ts` | The map follows the beat that is playing, keeping the next few rows on screen too, in steps rather than by the beat — and stands aside as soon as a hand scrolls |
+| `tools/director/src/grid-metrics.ts` | The map's own arithmetic: the width of a cell, of the beat numbers, of the strip of row buttons, and what the nine tracks add up to |
 | `tools/director/src/held.ts` | **What the author is carrying**: the brush that is armed, and — while a drag is in the air |
 | `tools/director/src/brush-hints.ts` | SHOW DESCRIPTIONS: whether each brush in the palette carries its sentence |
 | `tools/director/src/scene-marks.ts` | The marks: everything a scene draws that is not a body |

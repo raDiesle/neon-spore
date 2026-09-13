@@ -2848,3 +2848,22 @@ matching project id and the row was watched come alive. About 15 min.
 
 Bottleneck: **looking** — the popup opens only from a person's click, so the
 round trip stops at the chooser for me.
+
+## 2026-09-13 · claude/scheduler-tests-two-devices-klxkyt — the row verbs on the row, and the map following the beat
+
+Four asks from the owner in one prompt: the map should follow the beat that is
+playing with the rows after it still on screen, BRUSH should stay put while the
+map scrolls under it, a row should offer a line between rows to insert at and a
+trash to remove it on hover, and a tile clicked open should keep both. About
+35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `grid.ts`, `grid-rows.ts`, `grid-gestures.ts`, `selection.ts`, the map and brush stylesheets, `columns.ts` |
+| writing | 10 | `grid-follow.ts`, `grid-row-acts.ts`, `grid-metrics.ts`, the ring pass in `grid.ts`, two tests, the CSS |
+| looking | 5 | three headless runs over the real director — the hover, the selected row, the sticky palette, the follow at tempo |
+| friction | 5 | a rail with an `auto` grid-row end stretched to the bottom of the map and its lower line drew under the last beat; the map column's 560px minimum then clipped the new trash strip |
+| landing | 5 | `bun run index`, `check:fast`, the commit |
+
+Bottleneck: **looking** — every one of the four asks is a thing you have to see,
+and none of them can be read off a unit test.

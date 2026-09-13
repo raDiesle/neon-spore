@@ -292,3 +292,23 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `main`'s four column tracks are written out twice, and nothing checks they agree
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `tools/director/src/columns.ts`, `tools/director/src/director-columns.css`, `tools/director/test/columns.test.ts`
+
+`OPEN_TRACKS` in `columns.ts` and `main { grid-template-columns: … }` in
+`director-columns.css` are the same four track definitions, in two files, and
+they have to stay identical: the stylesheet is what a fresh page lays out with
+and `relayout()` rewrites the inline copy on every collapse and every drag. So
+a track changed in one place is a column that is one width until somebody
+collapses something and another width afterwards — which is a bug nothing
+fails on and nobody sees until they happen to click a column head.
+
+Widening the map track from 560 to 600 needed both edited by hand today, and
+the comment saying why lives in only one of them. `columns.ts` already holds
+the ids and `columns.test.ts` already reads the real markup for them, so the
+fix is the same shape as `test/map-width.test.ts` next door: parse the four
+tracks out of the stylesheet and expect them to equal the `OPEN_TRACKS` values
+in DOM order. One test, no code moved.

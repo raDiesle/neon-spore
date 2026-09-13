@@ -2,23 +2,18 @@ import type { Selection } from "./selection.js";
 import { currentWave, insertBeat, onBeat, removeBeat, type Store } from "./state.js";
 
 /**
- * The beat labels down the left of the map, and the two verbs they carry.
+ * The beat labels down the left of the map, and the two verbs a row carries.
  *
- * A label was a number that seeks. It is still that, and on hover it grows
- * two glyphs: `+` opens an empty beat at this row and moves every later row a
- * beat later; `−` takes this row out and moves every later row a beat
- * earlier. The owner asked for both on 13 September 2026, having been making
- * room in the middle of a wave by dragging every later cell down one at a
- * time. The edits themselves are `paint.ts`'s (`insertBeat`, `removeBeat`);
- * this is the DOM and the asking.
+ * A label is a number that seeks, and nothing else. It grew a `+` and a `−`
+ * on hover for a while — the owner asked for both on 13 September 2026,
+ * having been making room in the middle of a wave by dragging every later
+ * cell down one at a time — and then never found them, because two glyphs the
+ * width of a digit inside a column of digits do not read as buttons. The
+ * verbs are the line between the rows and the trash at the end of one now
+ * (`grid-row-acts.ts`); what is left here is the asking and the edit.
  *
- * Kept for hover (`director-map.css`) so the column of numbers stays a column
- * of numbers, and a `div` rather than a button because a button may not hold
- * buttons — `data-beat` stays on the label so `mark` lights it with its row.
+ * The edits themselves are `paint.ts`'s (`insertBeat`, `removeBeat`).
  */
-
-/** The label column: room for the number and, on hover, the two glyphs. */
-export const BEAT_LABEL_PX = 56;
 
 export interface RowVerbs {
   insertRow(beat: number): void;
@@ -62,33 +57,20 @@ export function bindRowVerbs(store: Store, selection: Selection, onEdit: () => v
   return { insertRow, removeRow };
 }
 
-/** One beat's label: the glyphs, then the number that seeks. */
-export function beatLabel(b: number, verbs: RowVerbs, onSeek: (beat: number) => void): HTMLElement {
+/** One beat's label: the number, which seeks. A `div` rather than a button
+ * because the rail drawn over the row puts a button in it, and a button may
+ * not hold buttons — `data-beat` stays here so `mark` lights the number with
+ * its own row, and so the rail knows which row the pointer is on. */
+export function beatLabel(b: number, onSeek: (beat: number) => void): HTMLElement {
   const label = document.createElement("div");
   label.className = "beat";
   label.dataset.beat = String(b);
-  const rows = document.createElement("span");
-  rows.className = "rows";
-  rows.appendChild(
-    glyph("ins", "+", `Add an empty beat here. Beat ${b} and every row below move down one.`, () =>
-      verbs.insertRow(b),
-    ),
-  );
-  rows.appendChild(
-    glyph("del", "−", `Remove beat ${b}. Every row below moves up one.`, () => verbs.removeRow(b)),
-  );
-  label.appendChild(rows);
-  label.appendChild(glyph("seek", String(b), `Go to beat ${b}`, () => onSeek(b)));
+  const seek = document.createElement("button");
+  seek.type = "button";
+  seek.className = "seek";
+  seek.textContent = String(b);
+  seek.title = `Go to beat ${b}`;
+  seek.addEventListener("click", () => onSeek(b));
+  label.appendChild(seek);
   return label;
-}
-
-/** One small button on a beat label; `title` is what a hover says, in plain words. */
-function glyph(cls: string, text: string, title: string, onClick: () => void): HTMLElement {
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = cls;
-  button.textContent = text;
-  button.title = title;
-  button.addEventListener("click", onClick);
-  return button;
 }
