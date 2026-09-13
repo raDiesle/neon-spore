@@ -1094,7 +1094,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
 | `apps/game/src/relay.ts` | the socket, and only the socket |
 | `apps/game/src/join.ts` | the room screen and the network indicator, which are one thing |
-| `apps/game/src/menu.ts` | the main menu, which is the front door, and the `?play` flag past it |
+| `apps/game/src/menu.ts` | the main menu, which is the front door: four rows, the link, the seat and the two-step in front of LEAVE ROOM |
 | `apps/game/src/menu-view.ts` | the shell, the root page's entries, and the seat as three cards |
 | `apps/game/src/briefing.ts` | the thumb on a wave's guide |
 | `apps/game/src/demo-menu.ts` | the DEMOS page: one row per mechanic, read out of `DEMONSTRATIONS` |
@@ -1120,7 +1120,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/confirm.ts` | A button that hangs up on somebody else, and asks once before it does |
 | `apps/game/src/link-clock.ts` | The room's wall clock: the only part of the game that asks what time it is |
 | `apps/game/src/progress.ts` | How far this device has got, kept on this device |
-| `apps/game/src/menu-entries.ts` | The rows on the menu's two lists of entries, in the order they are read |
+| `apps/game/src/menu-entries.ts` | The rows on the menu's three lists — the front page, the PLAY page and the rig — in the order they are read |
 | `apps/game/src/haptics.ts` | A buzz for the two things a player must not miss |
 | `apps/game/src/settings.ts` | The things a player turns on and off, kept on their own device |
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
@@ -1143,6 +1143,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/perf-page.ts` | The readout `?perf=1` puts on the screen |
 | `apps/game/src/perf-sweep.ts` | The performance sweep, run **inside the page**, on the device the game is for |
 | `apps/game/src/menu-idle.ts` | `?menuidle=<hz>` — how often the field is repainted while the main menu is up |
+| `apps/game/src/menu-door.ts` | Whether a URL opens on the menu or goes straight to the field |
 | `apps/game/src/keys-grip.ts` | what the desk rig's grip key takes hold of, and how it carries it |
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |

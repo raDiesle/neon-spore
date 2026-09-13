@@ -64,9 +64,25 @@ export function buildDemos(
  * cannon, shield, guard, maw, pod, column — because the pair has to be able to
  * repeat them to each other across a voice delay.
  */
-export function buildHowTo(show: (page: MenuPage) => void): HTMLElement {
+export function buildHowTo(show: (page: MenuPage) => void, openIntro: () => void): HTMLElement {
   const page = el("div", "page");
   page.append(backButton(show), el("h2", undefined, "HOW TO PLAY"));
+  // WHAT THIS IS, at the top of this page rather than on the front one. The six
+  // pages and this one answer the same question at two lengths, and the front
+  // page is four rows now (`menu-view.ts`); they still show themselves once on
+  // a device that has never seen them (`intro.ts`).
+  const what = el("button", "entry");
+  what.type = "button";
+  what.append(
+    el("span", "label", "WHAT THIS IS"),
+    el(
+      "span",
+      "desc",
+      "Six pages on what the two of you are about to do. Shown once, on a new device.",
+    ),
+  );
+  what.addEventListener("click", openIntro);
+  page.append(what);
   page.append(
     el(
       "p",

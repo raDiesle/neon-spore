@@ -7,7 +7,7 @@ import { progressLine, readProgress } from "./progress.js";
 /**
  * WHAT A LINK CHANGES ON THE FRONT PAGE.
  *
- * Eight entries, the progress line and the seat lock all say something
+ * The entries, the progress line and the seat lock all say something
  * different once this device is sharing a room, and `bindMainMenu` was the
  * only thing that knew which — a page's worth of `setEntry` calls inside a
  * closure over five other concerns. It is the part of that file with no state
@@ -37,25 +37,36 @@ export interface LinkPaint {
    * handed in rather than read here so the caller keeps the one definition.
    */
   pairRoom: string;
-  /** Whether anything has been played yet, which decides RESUME versus PLAY. */
+  /** Whether anything has been played yet — which of CONTINUE's three answers
+   * this press is, and therefore what its line says. */
   opened: boolean;
-  /** The wave the field is on, for the RESUME line. */
+  /** The wave the field is on, for CONTINUE's line while one is open. */
   wave: number;
 }
 
 /** Cheap, so it is redone rather than diffed. */
 export function paintLink({ dom, link, pairRoom, opened, wave }: LinkPaint): void {
   const room = inRoom(link);
-  dom.setEntry("resume", { on: opened, desc: `Back to wave ${wave + 1}.` });
-  dom.setEntry("play", { on: !room });
-  // How far this device has got: the line under the title, and the entry that
-  // goes back there. Both off for a device that has never played, and in a
-  // room, where the wave is the pair's rather than this device's.
+  dom.setEntry("single", { on: !room });
+  // How far this device has got, under the title. Off in a room, where the wave
+  // is the pair's rather than this device's, and off for a device that has
+  // never played.
   const far = readProgress();
   dom.setProgress(room ? "" : progressLine(far));
+  // **CONTINUE is offered only while both phones are in the room**, which is the
+  // owner's rule and is about what a press can honestly do: the wave belongs to
+  // two devices, so one of them starting it alone is two people playing two
+  // different games. Until then the room's own line says who is missing, and a
+  // device on its own reaches the field through the room or through the rig.
+  //
+  // Its sentence is which of CONTINUE's three answers this press will be
+  // (`menu.ts`): back to a field that is already running, the room's START, or —
+  // off the wire, where the row is not drawn — the furthest wave reached here.
   dom.setEntry("continue", {
-    on: !room && far.furthest > 0,
-    desc: `From wave ${far.furthest + 1}, where this device got to.`,
+    on: room && (link?.peers ?? 0) >= 2,
+    desc: opened
+      ? `Back to wave ${wave + 1}.`
+      : "Both of you press it, and the wave starts on the two phones together.",
   });
   // The way back in, once there is somebody to go back to. Off in a room,
   // where the pair is already together, and off before the first meeting,

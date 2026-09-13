@@ -334,46 +334,6 @@ presses it alone waits, and the hold card (`hold.ts`) says for what.
 `bun run relay:check` (`.claude/skills/net-change`), which a cloud session
 cannot run and says so as unverified.
 
-## The menu's front page is PLAY, one CONTINUE, and no TESTING row
-
-- **Found:** 2026-09-13, queue-lanes — asked for by the owner
-- **Taken:** 2026-09-13, claude/queue-the-menus-front-page-is-play-one-continue-and-no
-- **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/intro.ts`, `apps/game/src/testing.ts`
-- **Where:** cloud
-
-Six changes to the menu, all the owner's, and all in one lane because each
-moves a row the others move too.
-
-1. **One row, not RESUME and CONTINUE.** Today RESUME hands back a field
-   that is already running under the menu (`a.resume`) and CONTINUE starts a
-   fresh run at the furthest wave this device has saved
-   (`readProgress().furthest`). The owner expects one. Keep **CONTINUE**: when
-   a field is open under the menu it goes back to it, otherwise it starts
-   from the furthest wave; its description line says which (`paintLink`
-   already writes both sentences).
-2. **CONTINUE is offered only while both players are connected** in a room —
-   `peers === 2` in the link report — and is off the page otherwise, with the
-   room's own line saying who is missing. In a one-device (TESTING) run it is
-   not offered at all: TESTING starts over or jumps, and never continues.
-3. **TWO DEVICES becomes PLAY**, and the **seat cards** (`menu-seats.ts`) and
-   **CONTINUE** move onto the PLAY page, so the front page is PLAY, HOW TO
-   PLAY, SETTINGS and — while there is a room — LEAVE ROOM.
-4. **WHAT THIS IS moves into HOW TO PLAY**: the six intro pages are reached
-   from a row at the top of the HOW TO PLAY page rather than from the front,
-   and still show themselves once on the first visit (`intro.ts`).
-5. **The TESTING row goes**, and the testing page opens by **pressing the
-   spore above NEON SPORE three times** (`sporeSvg()` in `menu-view.ts`),
-   within a couple of seconds; a fourth press does nothing new. Nothing on the
-   page says so — it is the rig, and the owner knows where it is.
-6. The keys `paintLink` addresses (`resume`, `continue`, `room`, `what`,
-   `testing`) are renamed with the rows so `setEntry` keeps working, and
-   `menu-view.ts`'s two-list seam (front page / rig) now reads front page /
-   PLAY page / rig.
-
-Every string the menu draws is in `menu-entries.ts` and `menu-pages.ts`; the
-app's menu tests and `bun run check` prove the wiring. What a cloud session
-cannot do is see the page — say so, unverified, and a local one looks.
-
 ## The menu is hard to read: a colour scheme with contrast, and a face from a CDN
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner

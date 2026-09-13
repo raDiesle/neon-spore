@@ -148,6 +148,10 @@ export function bindShell(p: ShellParts): Link {
         link.join(room);
       },
       leaveRoom: () => link.leave(),
+      // CONTINUE in a room is the room's own START, sent through the same door
+      // the room screen's button uses — the only press on one phone that may
+      // begin a wave on two (`menu.ts`, `link.ts`).
+      ready: () => link.ready(),
       settings: {
         setSound: p.setSound,
         // The animations are CSS, so the switch is a class. `data-motion` and

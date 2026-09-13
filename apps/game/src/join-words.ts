@@ -75,7 +75,7 @@ export function seatWord(status: LinkStatus, seat: 1 | 2): string {
   return status.names[seat - 1] || "HERE";
 }
 
-/** What the TWO DEVICES entry says, which is the whole room in one line. */
+/** What the room's own row on the PLAY page says, the whole room in one line. */
 export function roomLine(status: LinkStatus): string {
   switch (status.state) {
     case "solo":

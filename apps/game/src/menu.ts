@@ -3,44 +3,32 @@ import type { LinkStatus } from "@neon-spore/net";
 import type { ViewRole } from "@neon-spore/render";
 import { bindTwoStep, type TwoStep } from "./confirm.js";
 import type { DemoRow } from "./demo-menu.js";
-import { type EntryActions, menuEntries, testingEntries } from "./menu-entries.js";
+import { type EntryActions, menuEntries, playEntries, testingEntries } from "./menu-entries.js";
 import { inRoom as linkIsRoom, paintLink as paintPage } from "./menu-link.js";
 import type { SettingsHooks } from "./menu-settings.js";
 import { buildMenu } from "./menu-view.js";
 import { readName } from "./nickname.js";
 import { readPartners, roomForPair } from "./pairing.js";
+import { readProgress } from "./progress.js";
 import type { RunState } from "./run-state.js";
 
 /**
- * The main menu, and the way in.
+ * The main menu, and the way in: the pages, the link, the seat and the two-step
+ * in front of LEAVE ROOM. Whether a URL lands here at all is one question with
+ * no DOM in it and lives next door (`menu-door.ts`), re-exported so nothing that
+ * asked this file for it had to move.
  *
- * It used to be behind `?menu`, because a tester opens the game a hundred
- * times a day to look at one wave and a title screen in front of that is a tap
- * nobody asked for. That reasoning still holds — it is just no longer the
- * majority case. Somebody who opens the address is a player, and a player who
- * lands straight on a field with no seat, no room and no way to reach either
- * has been dropped into the middle of a game.
- *
- * So the default is inverted and the escape hatch is kept: `?play` goes
- * straight to the field with no menu bound at all, which is what
- * `tools/frames` drives and what a tester opening one wave wants. Everything
- * else — the plain address, the director's `/game?menu=1` link, a room link —
- * lands here.
+ * **The front page is four rows** (`menu-entries.ts`): PLAY, HOW TO PLAY,
+ * SETTINGS and, while there is a room, LEAVE ROOM. The rig is behind the spore,
+ * and the two of you meet behind PLAY.
  */
-const PLAY_PARAM = "play";
-
-/** Pure, so the rule that decides the front door can be tested. */
-export function opensOnMenu(url: string): boolean {
-  const parsed = new URL(url, "http://game.invalid/");
-  if (parsed.searchParams.has(PLAY_PARAM)) return false;
-  return parsed.hash.replace(/^#/, "") !== PLAY_PARAM;
-}
+export { opensOnMenu } from "./menu-door.js";
 
 export interface MenuBindings {
   jumpToWave: (wave: number) => void;
   /** The four holds. The menu owns exactly one of them, and only when solo. */
   run: RunState;
-  /** The wave the field is on, for the RESUME line. */
+  /** The wave the field is on, for CONTINUE's line while one is open. */
   wave: () => number;
   /** The seat the view switch is on, and the way to move it. */
   seat: () => ViewRole;
@@ -51,6 +39,13 @@ export interface MenuBindings {
   /** Hang up: back to one device, both seats, and the menu. */
   leaveRoom: () => void;
   openTuning: () => void;
+  /**
+   * This seat is ready — the room's own START, sent by CONTINUE when there is a
+   * room and nothing has been played in it yet. The room starts both devices
+   * once the other seat says so too (`link.ts`), which is the only way a press
+   * on one phone may begin a wave on two.
+   */
+  ready: () => void;
   /** Show the six pages that say what this game is, and put the menu back
    * afterwards. */
   openIntro: (back: () => void) => void;
@@ -74,7 +69,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
   /** The way in and the way out: one control, because on a phone it is one act. */
   const chip = document.getElementById("menuChip");
   const isOpen = (): boolean => dom.root.classList.contains("on");
-  /** Whether anything has been played yet, which decides RESUME versus PLAY. */
+  /** Whether anything has been played yet, which decides what CONTINUE means. */
   let opened = false;
   let link: LinkStatus | null = null;
 
@@ -129,12 +124,30 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     close();
   };
 
-  // Both lists are handed the same actions: which page a row is drawn on is
-  // `menu-entries.ts`'s decision, and nothing here has to know it.
+  // All three lists are handed the same actions: which page a row is drawn on
+  // is `menu-entries.ts`'s decision, and nothing here has to know it.
   const actions: EntryActions = {
-    resume: () => {
-      b.run.hold("hand", false);
-      close();
+    /**
+     * CONTINUE, and the three things it can mean. A field open under the menu is
+     * the commonest case in a room — a room is where the menu does *not* stop
+     * the world — and the answer is to get out of the way. With nothing played
+     * yet the press is the room's own START, so the two devices begin together:
+     * a press that started a wave on one of them would be two people playing two
+     * different games. Off the wire, where the row is not drawn at all
+     * (`menu-link.ts`), it is the furthest wave this device has reached.
+     */
+    carryOn: () => {
+      if (opened) {
+        b.run.hold("hand", false);
+        close();
+        return;
+      }
+      if (inRoom()) {
+        b.ready();
+        close();
+        return;
+      }
+      play(readProgress().furthest);
     },
     play,
     close,
@@ -159,7 +172,9 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
 
   const dom = buildMenu({
     entries: menuEntries(actions),
+    play: playEntries(actions),
     testing: testingEntries(actions),
+    openIntro: actions.openIntro,
     demos: b.demos,
     onWave: play,
     onDemo: playDemo,

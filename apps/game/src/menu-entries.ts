@@ -1,10 +1,9 @@
 import { WAVES } from "@neon-spore/content";
 import type { MenuPage } from "./menu-parts.js";
 import type { MenuEntry } from "./menu-view.js";
-import { readProgress } from "./progress.js";
 
 /**
- * The rows on the menu's two lists of entries, in the order they are read.
+ * The rows on the menu's three lists of entries, in the order they are read.
  *
  * A list rather than a screen: `menu-view.ts` draws whatever it is handed, and
  * `menu.ts` decides which of these apply right now (`setEntry`), holds the
@@ -17,19 +16,34 @@ import { readProgress } from "./progress.js";
  * one off the page rather than this list being rebuilt, so a key that exists
  * stays addressable.
  *
- * **There are two lists, and the seam is who the row is for.** The front page
- * is the game: come back to it, carry on, meet the other phone, learn what
- * this is, set it up. `testingEntries` is the rig — one person at a desk with
- * both seats, jumping at a wave or a mechanic, moving the sliders while it
- * runs — and it lives one press away behind TESTING rather than beside
- * CONTINUE, where it was four of the eleven things a player read first. The
- * keys are the same argument taken further: they are a preference of the
- * device rather than a way in, so CONTROLS is reached from SETTINGS.
+ * **There are three lists, and the seam is who the row is for.** The front page
+ * is four rows and a decision: play, learn what this is, set it up, and — while
+ * there is a room — hang up. `playEntries` is the page behind PLAY, where the
+ * two of you actually meet: the room, the seat cards and CONTINUE.
+ * `testingEntries` is the rig — one person at a desk with both seats, jumping at
+ * a wave or a mechanic, moving the sliders while it runs — and it has no row at
+ * all now: it is reached by pressing the spore over the wordmark three times
+ * (`menu-view.ts`), because it is not a way into the game and a player who found
+ * it there read four of the eleven things on the front page before the one they
+ * wanted. The keys are the same argument taken further: they are a preference of
+ * the device rather than a way in, so CONTROLS is reached from SETTINGS.
+ *
+ * **No key is on two lists**, which is what lets `setEntry` name a row without
+ * saying which page it is drawn on. The rig's first row is `single` for that
+ * reason: `play` is the front page's own row now.
  */
 
 export interface EntryActions {
-  /** Hand the field back without starting anything. */
-  resume: () => void;
+  /**
+   * CONTINUE, which is one row and three answers (`menu.ts`): back to the field
+   * when one is open under the menu, the room's own START when there is a room
+   * and nothing has been played yet, and otherwise a fresh run at the furthest
+   * wave this device has reached. The owner asked for one row where there were
+   * two — RESUME and CONTINUE are the same sentence to the person holding the
+   * phone — so which of the three it is, is said in the row's description and
+   * decided where the menu already knows.
+   */
+  carryOn: () => void;
   /** Start at a wave: a fresh run, with the menu closed behind it. */
   play: (wave: number) => void;
   close: () => void;
@@ -48,49 +62,16 @@ export interface EntryActions {
 export function menuEntries(a: EntryActions): MenuEntry[] {
   return [
     {
-      key: "resume",
-      label: "RESUME",
-      desc: "Back to the field.",
-      run: () => a.resume(),
-    },
-    {
-      key: "continue",
-      label: "CONTINUE",
-      desc: "From the furthest wave this device has reached.",
-      run: () => a.play(readProgress().furthest),
-    },
-    {
-      key: "rejoin",
-      label: "REJOIN",
-      desc: "Back into the room you two share. No code to read out.",
-      run: () => a.rejoin(),
-    },
-    {
-      key: "room",
-      label: "TWO DEVICES",
-      desc: "Open a room and read the code out, or type in the one you were told.",
-      run: () => {
-        a.close();
-        a.openRoom();
-      },
-    },
-    {
-      key: "what",
-      label: "WHAT THIS IS",
-      desc: "Six pages on what the two of you are about to do. Shown once, on the first visit.",
-      run: () => a.openIntro(),
+      key: "play",
+      label: "PLAY",
+      desc: "Two devices, one seat each: the room, your seat, and the way back in.",
+      run: () => a.show("play"),
     },
     {
       key: "how",
       label: "HOW TO PLAY",
       desc: "The two seats, and the one rule that is the whole game.",
       run: () => a.show("how"),
-    },
-    {
-      key: "testing",
-      label: "TESTING",
-      desc: "One device, both seats: start over, jump at a wave or a mechanic, move the sliders.",
-      run: () => a.show("testing"),
     },
     {
       key: "settings",
@@ -110,21 +91,60 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
 }
 
 /**
- * The rows behind TESTING: everything one person at a desk reaches for.
+ * The rows behind PLAY: the three doors into a game with two people in it.
+ *
+ * CONTINUE is first because it is the one press a pair who have played before
+ * will want, and it is off the page until both phones are in the room
+ * (`menu-link.ts`) — a row that starts a wave on one device of two is a row
+ * that starts two different games. REJOIN is the way back to the partner this
+ * device played with last, and the room row is the four-character code, which
+ * is what a first meeting still needs.
+ *
+ * The seat cards are drawn under these three by `menu-view.ts` rather than
+ * listed here: they are a control and not a row.
+ */
+export function playEntries(a: EntryActions): MenuEntry[] {
+  return [
+    {
+      key: "continue",
+      label: "CONTINUE",
+      desc: "From the furthest wave this device has reached.",
+      run: () => a.carryOn(),
+    },
+    {
+      key: "rejoin",
+      label: "REJOIN",
+      desc: "Back into the room you two share. No code to read out.",
+      run: () => a.rejoin(),
+    },
+    {
+      key: "room",
+      label: "OPEN A ROOM",
+      desc: "Open a room and read the code out, or type in the one you were told.",
+      run: () => {
+        a.close();
+        a.openRoom();
+      },
+    },
+  ];
+}
+
+/**
+ * The rows behind the spore: everything one person at a desk reaches for.
  *
  * Named by what they do rather than by what they are — SINGLE PLAYER says
  * both seats are on this device, and the two lists say they are jumps rather
  * than a campaign — because the words WAVES and DEMOS were only legible to
  * somebody who already knew how the game is authored.
  *
- * The keys are the same `key` strings as before, so `paintLink` in `menu.ts`
- * goes on taking SINGLE PLAYER off the page while there is a room, which is
- * exactly as true here as it was on the front page.
+ * `paintLink` takes SINGLE PLAYER off the page while there is a room, which is
+ * exactly as true here as it was on the front page — under `single` now, since
+ * `play` is the front page's own row.
  */
 export function testingEntries(a: EntryActions): MenuEntry[] {
   return [
     {
-      key: "play",
+      key: "single",
       label: "SINGLE PLAYER",
       desc: "Start over at the first wave, both seats on this device.",
       run: () => a.play(0),

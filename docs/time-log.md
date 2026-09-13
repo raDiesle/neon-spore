@@ -2248,3 +2248,28 @@ the shapes into `index-shapes.ts`. About 25 min.
 
 Bottleneck: **friction** — a barrel at its limit turned a one-line export
 into a split by subject.
+
+## 2026-09-13 — scheduler-tests-two-devices-klxkyt — the menu's front page is four rows
+
+Queue item, the owner's, six changes to the menu in one lane because each moves
+a row the others move too. The front page is PLAY, HOW TO PLAY, SETTINGS and —
+while there is a room — LEAVE ROOM. RESUME and CONTINUE are one row that means
+all three things it can mean; CONTINUE is offered only while both phones are in
+the room, and with nothing played yet it is the room's own START, so a press on
+one phone cannot begin a wave on one of two. The seat cards and the room's code
+moved onto the PLAY page, WHAT THIS IS moved to the top of HOW TO PLAY, and the
+rig lost its row: three presses on the spore over the wordmark open it. About
+55 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the six menu files and the two that answer them (`shell.ts`, `link.ts`), and then `lockstep`'s ready handshake, because the honest question under item 2 is what a CONTINUE in a room is *allowed* to do |
+| writing | 25 | the three lists and their keys, the PLAY page, the spore's counter, `paintLink`'s new rules, `menu-door.ts` to get `menu.ts` back under 250 lines, and 14 tests that drive the real lists rather than reading them |
+| looking | 0 | none — a cloud session cannot see the page, which is what this item's own note says |
+| friction | 5 | `menu.ts` was at 264 lines after the edit and had to be split before anything would build |
+| landing | 10 | `check:fast`, the commit, `bun run land` |
+
+Bottleneck: **writing** — the six changes are one shape, so they land together or
+not at all, and the keys are what hold the whole thing up: a row is addressed by
+`setEntry` from a file that does not know which page it is drawn on, so moving a
+row between pages is a rename everywhere or it is nothing.
