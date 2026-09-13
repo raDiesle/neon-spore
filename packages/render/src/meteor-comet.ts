@@ -7,6 +7,7 @@ import { keyAxis } from "./meteor-look.js";
 import { PALETTE } from "./palette.js";
 import { chip, pieces, puff, rockPhase, thread } from "./rock-wake.js";
 import { flame, tongue } from "./rock-wake-fire.js";
+import { WHOLE, type Window } from "./rock-window.js";
 
 /**
  * The paint COMET is made of: a rusted iron stone with a long plume of fire
@@ -15,7 +16,9 @@ import { flame, tongue } from "./rock-wake-fire.js";
  *
  * Everything is drawn from `r`, `time` and the key axis; nothing caches a
  * frame. The bow and the five dimples are fixed by `r` alone and are held
- * between frames (`heldGradient`), which changes no pixel.
+ * between frames (`heldGradient`), which changes no pixel. `w` is where the
+ * plume may show, and every mark of it asks before it is built
+ * (`rock-window.ts`).
  */
 
 /** Rusted iron: a red-brown that is nobody's ammunition — `red` is the bolt
@@ -39,21 +42,37 @@ const REACH = 3.2;
 /** The plume: one long tapered flame standing off the top of the stone, with
  * tongues moving inside it and chips of the stone tumbling up it. Screen
  * frame, behind the rock. */
-export function plume(ctx: CanvasRenderingContext2D, r: number, turn: number, time: number) {
+export function plume(
+  ctx: CanvasRenderingContext2D,
+  r: number,
+  turn: number,
+  time: number,
+  w: Window = WHOLE,
+) {
   const ph = rockPhase(turn, time);
   ctx.save();
   ctx.rotate(-turn);
   // Threads of smoke the chips leave, drawn first so the fire is over them.
   pieces(4, time, ph, REACH + 0.8, 0.35, (p) => {
-    thread(ctx, p.x * r, p.y * r, r * (0.08 + p.seed * 0.06), 0.6 * (1 - p.age), "#A89E98");
+    thread(ctx, p.x * r, p.y * r, r * (0.08 + p.seed * 0.06), 0.6 * (1 - p.age), "#A89E98", w);
   });
   // The plume's body: three boiling flames stacked on the stone's crown, the
   // tallest reaching the tip, swaying a little with time so it reads as
   // flame and not as a painted cone.
   const sway = Math.sin(time * 1.7 + ph * 6.28) * r * 0.25;
-  flame(ctx, sway * 0.3, -r * 0.2, r * 1.05, r * (1.2 + REACH), time, 5 + ph, 0.6);
-  flame(ctx, -r * 0.3 + sway * 0.5, -r * 0.1, r * 0.7, r * (0.4 + REACH), time * 1.2, 13 + ph, 0.8);
-  flame(ctx, r * 0.3 + sway * 0.7, -r * 0.1, r * 0.65, r * REACH, time * 1.35, 21 + ph, 0.8);
+  flame(ctx, sway * 0.3, -r * 0.2, r * 1.05, r * (1.2 + REACH), time, 5 + ph, 0.6, w);
+  flame(
+    ctx,
+    -r * 0.3 + sway * 0.5,
+    -r * 0.1,
+    r * 0.7,
+    r * (0.4 + REACH),
+    time * 1.2,
+    13 + ph,
+    0.8,
+    w,
+  );
+  flame(ctx, r * 0.3 + sway * 0.7, -r * 0.1, r * 0.65, r * REACH, time * 1.35, 21 + ph, 0.8, w);
   // Tongues rising inside the plume, each one born at the stone and gone at
   // the tip — the flame's own motion, upward.
   for (let i = 0; i < 7; i++) {
@@ -71,16 +90,17 @@ export function plume(ctx: CanvasRenderingContext2D, r: number, turn: number, ti
       -Math.PI * 0.5,
       0.85 * (1 - life),
       bend,
+      w,
     );
   }
   // Chips of the stone tumbling up the plume, dark against the fire.
   pieces(4, time, ph, REACH + 0.8, 0.35, (p) => {
     const size = r * (0.1 + p.seed * 0.09);
-    chip(ctx, p.x * r, p.y * r, size, p.spin, IRON, IRON_DARK);
+    chip(ctx, p.x * r, p.y * r, size, p.spin, IRON, IRON_DARK, w);
     // Its hot side, toward the stone it just left.
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
-    puff(ctx, p.x * r, p.y * r + size * 0.6, size * 1.6, 0.5 * (1 - p.age), PALETTE.ember);
+    puff(ctx, p.x * r, p.y * r + size * 0.6, size * 1.6, 0.5 * (1 - p.age), PALETTE.ember, w);
     ctx.restore();
   });
   ctx.restore();

@@ -38,10 +38,10 @@ import { charcoal, redPit, smoke } from "./meteor-smoulder.js";
 
 const BLAZE_LOOK: MeteorLook = {
   ...STONE_LOOK,
-  body(ctx, path, r, turn, time) {
-    fireBehind(ctx, r, turn, time);
+  body(ctx, path, r, turn, time, within) {
+    fireBehind(ctx, r, turn, time, within);
     scorched(ctx, path, r, turn);
-    fireInFront(ctx, r, turn, time);
+    fireInFront(ctx, r, turn, time, within);
   },
   pit(ctx, hx, hy, pr) {
     hotPit(ctx, hx, hy, pr);
@@ -50,8 +50,8 @@ const BLAZE_LOOK: MeteorLook = {
 
 const COMET_LOOK: MeteorLook = {
   ...STONE_LOOK,
-  body(ctx, path, r, turn, time) {
-    plume(ctx, r, turn, time);
+  body(ctx, path, r, turn, time, within) {
+    plume(ctx, r, turn, time, within);
     iron(ctx, path, r, turn);
   },
   pit(ctx, hx, hy, pr) {
@@ -61,8 +61,8 @@ const COMET_LOOK: MeteorLook = {
 
 const SMOULDER_LOOK: MeteorLook = {
   ...STONE_LOOK,
-  body(ctx, path, r, turn, time) {
-    smoke(ctx, r, turn, time);
+  body(ctx, path, r, turn, time, within) {
+    smoke(ctx, r, turn, time, within);
     charcoal(ctx, path, r, turn, time);
   },
   pit(ctx, hx, hy, pr) {

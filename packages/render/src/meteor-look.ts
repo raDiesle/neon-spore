@@ -2,6 +2,7 @@ import { KEY, LIGHT_HALF } from "@neon-spore/content";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import { PALETTE, STROKE } from "./palette.js";
+import type { Window } from "./rock-window.js";
 
 /**
  * WHAT A ROCK IS MADE OF, as a record rather than as the body of one function.
@@ -19,9 +20,18 @@ export interface MeteorLook {
    * The stone, in the rock's own rotated frame, centred on the origin.
    * `turn` is the rotation the frame already carries, so the key light can be
    * asked for the direction it is coming from rather than one glued to the
-   * rock.
+   * rock. `within` is where the rock's fire may show, in the rock-centred
+   * screen frame, when a clip round it lets only part of it through — THE
+   * CAIRN's pile — and the whole screen when left out (`rock-window.ts`).
    */
-  body(ctx: CanvasRenderingContext2D, path: Path2D, r: number, turn: number, time: number): void;
+  body(
+    ctx: CanvasRenderingContext2D,
+    path: Path2D,
+    r: number,
+    turn: number,
+    time: number,
+    within?: Window,
+  ): void;
   /**
    * One shot's hole, in the same frame. `dx`/`dy` is the key axis with the
    * rock's own rotation already taken back out — handed in rather than

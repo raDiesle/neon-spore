@@ -2,6 +2,7 @@ import { blobRadiusMul, type Point } from "@neon-spore/content";
 import { heldGradient } from "./gradient-held.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
+import { WHOLE, type Window } from "./rock-window.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -15,6 +16,10 @@ import { splinePath } from "./spline.js";
  * from the foot to the crown with stops set by `heat`, none of which moves, so
  * it is held (`heldGradient`); the contour is what boils, and that is built
  * every frame.
+ *
+ * Both take a `Window` last and ask it before building anything, for
+ * `wake.ts`'s reason: under THE CAIRN's clip most of a fire shows nowhere
+ * (`rock-window.ts`).
  */
 
 /**
@@ -32,8 +37,12 @@ export function tongue(
   angle: number,
   heat: number,
   bend = 0,
+  w: Window = WHOLE,
 ): void {
   if (len <= 0 || wide <= 0 || heat <= 0) return;
+  // Everything the drop reaches lies within its length, its bend and its
+  // round end of the bright end, whichever way it is turned.
+  if (!w.shows(x, y, len + wide + Math.abs(bend))) return;
   ctx.save();
   ctx.translate(x, y);
   ctx.rotate(angle);
@@ -73,6 +82,10 @@ function drop(
   ctx.fill();
 }
 
+/** The most `blobRadiusMul` can stretch a flame's contour, at the depth and
+ * wobble below: (1 + 0.2)(1 + 0.16)(1 + 0.096)(1 + 0.064)(1.02), rounded up. */
+const BOIL = 1.7;
+
 /**
  * A body of flame: a boiling contour, `w` wide at its foot and `h` tall,
  * standing on `(x, y)` and narrowing as it rises — bright at its foot and gone
@@ -89,10 +102,14 @@ export function flame(
   time: number,
   seed: number,
   heat: number,
+  win: Window = WHOLE,
 ): void {
   if (w <= 0 || h <= 0 || heat <= 0) return;
-  const N = 24;
   const cy = y - h * 0.5;
+  // The contour is the ellipse `w` by `h` round `(x, cy)`, boiled out by at
+  // most `BOIL` of itself — `blobRadiusMul`'s four factors at their peaks.
+  if (!win.shows(x, cy, BOIL * Math.hypot(w, h * 0.5))) return;
+  const N = 24;
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;

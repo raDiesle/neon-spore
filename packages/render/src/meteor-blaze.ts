@@ -7,6 +7,7 @@ import { keyAxis } from "./meteor-look.js";
 import { PALETTE } from "./palette.js";
 import { chip, pieces, puff, rockPhase, thread } from "./rock-wake.js";
 import { flame, tongue } from "./rock-wake-fire.js";
+import { WHOLE, type Window } from "./rock-window.js";
 
 /**
  * The paint BLAZE is made of: a scorched stone inside a torch's fireball.
@@ -21,6 +22,10 @@ import { flame, tongue } from "./rock-wake-fire.js";
  * radius through `heldGradient` and reused, which changes no pixel: the same
  * stops at the same places. The gradients that move — the tongues' along their
  * bend, the stone's along the key axis — are built every frame as before.
+ *
+ * **`w` is where the fire may show** — the whole screen for a rock on the
+ * field, THE CAIRN's outline for a stone in the pile — and every mark asks it
+ * before it is built (`rock-window.ts`).
  */
 
 /** Scorched basalt: near-black with a warm cast, so the fire's light on it
@@ -39,7 +44,13 @@ const CRATERS: readonly (readonly [number, number, number])[] = [
 /** The ball of fire the rock sits in, the flames rising off it and the pieces
  * coming away up the wake — behind the stone, in the screen's frame, so all
  * of it goes up. */
-export function fireBehind(ctx: CanvasRenderingContext2D, r: number, turn: number, time: number) {
+export function fireBehind(
+  ctx: CanvasRenderingContext2D,
+  r: number,
+  turn: number,
+  time: number,
+  w: Window = WHOLE,
+) {
   const ph = rockPhase(turn, time);
   ctx.save();
   ctx.rotate(-turn);
@@ -51,6 +62,8 @@ export function fireBehind(ctx: CanvasRenderingContext2D, r: number, turn: numbe
       p.y * r - r * 0.5,
       r * (0.3 + p.age * 0.6),
       0.5 * (1 - p.age) * Math.min(1, p.age * 4),
+      undefined,
+      w,
     );
   });
   // The ball, as the torch has it: one round bloom of heat round the stone.
@@ -70,26 +83,26 @@ export function fireBehind(ctx: CanvasRenderingContext2D, r: number, turn: numbe
   ctx.restore();
   // The mass of the fire: three boiling bodies of flame standing on the
   // stone's shoulders and its crown, the tallest twice the rock's height.
-  flame(ctx, 0, -r * 0.1, r * 1.25, r * 3.2, time, 3 + ph, 0.8);
-  flame(ctx, -r * 0.55, r * 0.2, r * 0.8, r * 2.2, time * 1.3, 11 + ph, 0.85);
-  flame(ctx, r * 0.5, r * 0.2, r * 0.75, r * 2.5, time * 1.15, 19 + ph, 0.85);
+  flame(ctx, 0, -r * 0.1, r * 1.25, r * 3.2, time, 3 + ph, 0.8, w);
+  flame(ctx, -r * 0.55, r * 0.2, r * 0.8, r * 2.2, time * 1.3, 11 + ph, 0.85, w);
+  flame(ctx, r * 0.5, r * 0.2, r * 0.75, r * 2.5, time * 1.15, 19 + ph, 0.85, w);
   // Tongues licking out of it, all rising, each one bending on its own beat.
   for (let i = 0; i < 8; i++) {
     const x = (i / 7 - 0.5) * r * 1.7;
     const flick = 0.6 + 0.4 * Math.sin(time * 8 + i * 1.9 + ph * 6);
     const len = r * (1.2 + 1.1 * flick) * (1 - Math.abs(i - 3.5) * 0.14);
     const bend = Math.sin(time * 3.1 + i * 2.6) * r * 0.5;
-    tongue(ctx, x, -r * 0.4, len, r * 0.2, -Math.PI * 0.5, 0.9 * flick, bend);
+    tongue(ctx, x, -r * 0.4, len, r * 0.2, -Math.PI * 0.5, 0.9 * flick, bend, w);
   }
   // Glowing pieces of the stone coming away up the wake, each trailing its
   // own small smoke, cooling from white to ember to dark as it rises.
   pieces(6, time, ph, 2.4, 0.5, (p) => {
     const hot = 1 - p.age;
     const size = r * (0.1 + p.seed * 0.1) * (1 - p.age * 0.3);
-    thread(ctx, p.x * r, p.y * r, size, 0.7 * hot, "#A29AA8");
+    thread(ctx, p.x * r, p.y * r, size, 0.7 * hot, "#A29AA8", w);
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
-    puff(ctx, p.x * r, p.y * r, size * 2.6, 0.8 * hot, PALETTE.ember);
+    puff(ctx, p.x * r, p.y * r, size * 2.6, 0.8 * hot, PALETTE.ember, w);
     ctx.restore();
     chip(
       ctx,
@@ -99,6 +112,7 @@ export function fireBehind(ctx: CanvasRenderingContext2D, r: number, turn: numbe
       p.spin,
       hot > 0.6 ? PALETTE.emberRim : hot > 0.25 ? PALETTE.ember : BASALT_LIT,
       BASALT_DARK,
+      w,
     );
   });
   ctx.restore();
@@ -164,7 +178,13 @@ function crater(
 
 /** The near tongues, licking up over the sides and the bottom of the stone,
  * and a thin veil of heat over the whole thing. Screen frame. */
-export function fireInFront(ctx: CanvasRenderingContext2D, r: number, turn: number, time: number) {
+export function fireInFront(
+  ctx: CanvasRenderingContext2D,
+  r: number,
+  turn: number,
+  time: number,
+  w: Window = WHOLE,
+) {
   const ph = rockPhase(turn, time);
   ctx.save();
   ctx.rotate(-turn);
@@ -176,7 +196,7 @@ export function fireInFront(ctx: CanvasRenderingContext2D, r: number, turn: numb
     const x = Math.cos(at) * r * 0.85;
     const y = Math.sin(at) * r * 0.85;
     const up = -Math.PI * 0.5 + (x / r) * 0.7;
-    tongue(ctx, x, y, len, r * 0.16, up, 0.8 * flick, -(x / r) * r * 0.3);
+    tongue(ctx, x, y, len, r * 0.16, up, 0.8 * flick, -(x / r) * r * 0.3, w);
   }
   ctx.globalCompositeOperation = "lighter";
   ctx.fillStyle = heldGradient(`blaze-veil@${r}`, () => {

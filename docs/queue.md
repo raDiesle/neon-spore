@@ -296,28 +296,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE CAIRN's pile draws the whole of each stone's fire and clips most of it away
-
-- **Found:** 2026-09-13, claude/queue-the-cairn-paints-at-two-and-a-half-times-the-run
-- **Taken:** 2026-09-13, claude/queue-the-cairns-pile-draws-the-whole-of-each-stones-f
-- **Files:** `packages/render/src/cairn.ts`, `packages/render/src/rock-wake.ts`, `packages/render/src/rock-wake-fire.ts`, `packages/render/src/meteor-blaze.ts`, `packages/render/src/meteor-comet.ts`, `packages/render/src/meteor-smoulder.ts`, `packages/render/test/wave-budget.test.ts`
-
-What the held gradients left. `drawCairn` clips to `pilePath` — the union of
-the standing stones' 7-gons — and then calls `drawRockBody` per unit, and each
-call draws its look's whole fire: the plume behind the stone, the ball, the
-tongues, the smoke. For every stone but the apex nearly all of that lies under
-the stones above it or outside the clip altogether — the apex stone's plume
-alone is about nine parts in ten above the pile's bounding box — and the pile
-alone still costs about 1,600 canvas ops a frame (`fill` 398 on p1 frame 0 in
-`wave-budget.test.ts`, the highest in the game). Pass the clip's bounding box
-down to the fire and skip every primitive whose own extent lies wholly outside
-it: a plume's puff, a tongue, a flame body, before its path is built. That is
-an *identical* change in the render-perf skill's sense — a primitive that was
-entirely clipped drew nothing — so prove it by the ordered canvas log: the
-diff must be only removed calls, and the picture the same. Nothing keyed on
-`time` may be cached to do it; the pile's *look* frozen per `units` is a look
-question and is with the owner, not here.
-
 ## Unverified at 93caa4e4: The menu's new palette and face seen on a phone: whethe…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

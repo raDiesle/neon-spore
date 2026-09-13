@@ -1,5 +1,6 @@
 import { hash01 } from "./backdrop.js";
 import { rgba } from "./hex.js";
+import { WHOLE, type Window } from "./rock-window.js";
 
 /**
  * WHAT A BURNING ROCK LEAVES BEHIND IT — the marks the three `creature:meteor`
@@ -22,6 +23,11 @@ import { rgba } from "./hex.js";
  * Nothing here caches a frame — a candidate lives inside two renderers
  * stepping one world, and a module-level cache would be state shared between
  * the two sides of the pair.
+ *
+ * **Every mark takes a `Window` last** and asks it, with the circle that
+ * contains the mark, before it builds a gradient or a path: under THE CAIRN's
+ * clip most of a stone's fire lies where nothing shows (`rock-window.ts`).
+ * `WHOLE` — the default, and every rock on the field — answers yes to all.
  */
 
 /** A rock's own phase, taken back out of `turn`: `drawRockBody` spins the
@@ -43,8 +49,9 @@ export function puff(
   r: number,
   alpha: number,
   tone = "#6B6C74",
+  w: Window = WHOLE,
 ): void {
-  if (r <= 0 || alpha <= 0) return;
+  if (r <= 0 || alpha <= 0 || !w.shows(x, y, r)) return;
   const g = ctx.createRadialGradient(x, y, 0, x, y, r);
   g.addColorStop(0, rgba(tone, alpha));
   g.addColorStop(0.55, rgba(tone, alpha * 0.55));
@@ -66,8 +73,10 @@ export function chip(
   angle: number,
   fill: string,
   stroke: string,
+  w: Window = WHOLE,
 ): void {
-  if (r <= 0) return;
+  // The stroke's half-width reaches past the chip's own points.
+  if (r <= 0 || !w.shows(x, y, r + Math.max(0.6, r * 0.25))) return;
   const R = [1, 0.7, 0.95, 0.6, 0.85];
   ctx.save();
   ctx.translate(x, y);
@@ -138,6 +147,7 @@ export function thread(
   size: number,
   alpha: number,
   tone = "#7A7480",
+  w: Window = WHOLE,
 ): void {
   for (let k = 0; k < 3; k++) {
     const t = (k + 1) / 3;
@@ -148,6 +158,7 @@ export function thread(
       size * (0.9 + t),
       alpha * (1 - t * 0.6),
       tone,
+      w,
     );
   }
 }

@@ -2697,3 +2697,19 @@ About 50 min.
 
 Bottleneck: **writing** — the handle had to answer where the grab circle is in
 screen pixels, which meant an inverse of `pointOnStage` that did not exist.
+
+## 2026-09-13 · claude/queue-the-cairns-pile-draws-the-whole-of-each-stones-f — the pile's fire asks the clip first
+
+About 40 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `cairn-pile.ts`, the three looks, `rock-wake.ts` and `rock-wake-fire.ts`, the render-perf skill, `blobRadiusMul` for the flame's bound |
+| writing | 15 | `rock-window.ts`, a `Window` last on every mark and through the three looks, `drawRockBody` and the pile; the proof test; the four budget rows |
+| looking | 5 | the ordered log before and after, 36,782 lines to 26,648, checked as a subsequence and for every kept draw's context state |
+| friction | 5 | a scratch test outside `packages/` could not resolve the workspace; the boundary case in the window test |
+| landing | 5 | format, index, check:fast, the queue entry, the commit |
+
+Bottleneck: **writing** — a trailing parameter on five marks is small, but it
+had to reach every call site in three looks without one being missed, and the
+log diff is what says none was.

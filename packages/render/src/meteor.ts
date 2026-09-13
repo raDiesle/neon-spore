@@ -4,6 +4,7 @@ import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { keyAxis, type MeteorLook } from "./meteor-look.js";
 import { meteorLookFor } from "./meteor-looks.js";
+import { WHOLE, type Window } from "./rock-window.js";
 import { rockRadius } from "./torch.js";
 
 /**
@@ -56,6 +57,11 @@ export function wearsRockLook(kind: CreatureKind): boolean {
  * PINBALL hands in the grey `STONE_LOOK`: its obstacles are meant to be the
  * boring thing on the table, by the owner's own instruction, and a burning
  * rock is not boring (`pinball-piece.ts`).
+ *
+ * `within` is where the fire may show when a clip round the rock lets only
+ * part of it through — THE CAIRN's pile, and nothing else so far — so the
+ * marks that could not show are never built (`rock-window.ts`). In the
+ * rock-centred screen frame; the whole screen when left out.
  */
 export function drawRockBody(
   ctx: CanvasRenderingContext2D,
@@ -66,6 +72,7 @@ export function drawRockBody(
   seed: number,
   holes: number,
   look: MeteorLook = meteorLookFor(seed),
+  within: Window = WHOLE,
 ): void {
   const d = crystalPath(
     0,
@@ -89,7 +96,7 @@ export function drawRockBody(
   // the one part of a rock that has to read as *not* part of it.
   ctx.save();
   ctx.rotate(turn);
-  look.body(ctx, path, r, turn, time);
+  look.body(ctx, path, r, turn, time, within);
   const { dx, dy } = keyAxis(turn);
   for (let k = 0; k < holes; k++) {
     const a = ((k * 2.399) % (Math.PI * 2)) + (seed % 5) * 0.4;

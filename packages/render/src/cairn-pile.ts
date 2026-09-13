@@ -4,6 +4,7 @@ import type { Layout } from "./layout.js";
 import { drawRockBody } from "./meteor.js";
 import { meteorLookFor } from "./meteor-looks.js";
 import { PALETTE } from "./palette.js";
+import { seenFrom } from "./rock-window.js";
 
 /**
  * THE CAIRN's pile as the game draws it: seven live fires under one clip.
@@ -32,6 +33,12 @@ import { PALETTE } from "./palette.js";
  * first perf run of the wave pointed at: seven whole fires a frame, most of
  * each under the stones above it. Whether the pile should instead be a
  * picture taken once is a look, and it is asked in VERSUS rather than here.
+ *
+ * **What the clip would throw away is not built.** Each stone's fire is told
+ * where the outline is — the circles round the seven stones, which contain
+ * their facets — and a mark that could not reach it is skipped before its
+ * gradient or its path exists (`rock-window.ts`). A stone's plume rises
+ * three radii above it, and for the apex nearly all of that is sky.
  */
 export function livePile(
   ctx: CanvasRenderingContext2D,
@@ -47,7 +54,8 @@ export function livePile(
   ctx.save();
   ctx.clip(path);
   for (const u of stack) {
-    drawRockBody(ctx, u.x, u.y, u.r, time, body.id * 31 + u.slot, 0, look);
+    const seed = body.id * 31 + u.slot;
+    drawRockBody(ctx, u.x, u.y, u.r, time, seed, 0, look, seenFrom(stack, u.x, u.y));
   }
   // Inside the clip, so the silhouette's stroke keeps its inner half and the
   // pile does not grow a rim half a line wider than the shape it is.

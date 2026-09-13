@@ -6,6 +6,7 @@ import { keyAxis } from "./meteor-look.js";
 import { PALETTE } from "./palette.js";
 import { chip, pieces, puff, rockPhase } from "./rock-wake.js";
 import { tongue } from "./rock-wake-fire.js";
+import { WHOLE, type Window } from "./rock-window.js";
 
 /**
  * The paint SMOULDER is made of: a black stone burning only where it meets
@@ -14,7 +15,8 @@ import { tongue } from "./rock-wake-fire.js";
  * Everything is drawn from `r`, `time` and the key axis; nothing caches a
  * frame. The glow under the smoke and the three craters' bowls are fixed by
  * `r` alone and are held between frames (`heldGradient`), which changes no
- * pixel.
+ * pixel. `w` is where the smoke may show, and every puff and flake asks it
+ * before it is built (`rock-window.ts`).
  */
 
 /** Charcoal: the rock is black, and everything lighter on it is heat. */
@@ -38,7 +40,13 @@ const CRATERS: readonly (readonly [number, number, number])[] = [
 /** The smoke: a thick, dark, rolling column up the wake, with flakes of ash
  * coming off the stone and tumbling up through it, and a rare ember among
  * them. Screen frame, behind the rock. */
-export function smoke(ctx: CanvasRenderingContext2D, r: number, turn: number, time: number) {
+export function smoke(
+  ctx: CanvasRenderingContext2D,
+  r: number,
+  turn: number,
+  time: number,
+  w: Window = WHOLE,
+) {
   const ph = rockPhase(turn, time);
   ctx.save();
   ctx.rotate(-turn);
@@ -50,11 +58,12 @@ export function smoke(ctx: CanvasRenderingContext2D, r: number, turn: number, ti
     // Densest a little way up, where the puffs have swelled and not yet
     // thinned; lit by the stone for the first part of the climb.
     const dense = Math.min(1, p.age * 5) * (1 - p.age * p.age);
-    puff(ctx, p.x * r * 0.7, p.y * r + r * 0.3, r * grow, 0.5 * dense, SMOKE);
+    puff(ctx, p.x * r * 0.7, p.y * r + r * 0.3, r * grow, 0.5 * dense, SMOKE, w);
     if (p.age < 0.35) {
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
-      puff(ctx, p.x * r * 0.7, p.y * r + r * 0.3, r * grow * 0.8, 0.35 * (1 - p.age / 0.35), GLOW);
+      const lit = 0.35 * (1 - p.age / 0.35);
+      puff(ctx, p.x * r * 0.7, p.y * r + r * 0.3, r * grow * 0.8, lit, GLOW, w);
       ctx.restore();
     }
   });
@@ -76,10 +85,10 @@ export function smoke(ctx: CanvasRenderingContext2D, r: number, turn: number, ti
     const size = r * (0.11 + p.seed * 0.11) * (1 - p.age * 0.2);
     const ember = p.seed > 0.75 && p.age < 0.6;
     if (ember) {
-      puff(ctx, p.x * r, p.y * r - size * 2.5, size * 1.8, 0.4 * (1 - p.age), "#6A6470");
+      puff(ctx, p.x * r, p.y * r - size * 2.5, size * 1.8, 0.4 * (1 - p.age), "#6A6470", w);
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
-      puff(ctx, p.x * r, p.y * r, size * 2.6, 0.8 * (1 - p.age), PALETTE.ember);
+      puff(ctx, p.x * r, p.y * r, size * 2.6, 0.8 * (1 - p.age), PALETTE.ember, w);
       ctx.restore();
     }
     chip(
@@ -90,6 +99,7 @@ export function smoke(ctx: CanvasRenderingContext2D, r: number, turn: number, ti
       p.spin,
       ember ? PALETTE.ember : ASH,
       ember ? PALETTE.emberRim : CHAR,
+      w,
     );
   });
   ctx.restore();
