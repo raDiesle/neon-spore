@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · ef46834c — The marks drawn around a body stand on THE WELL where the body is drawn
+
+`creatureCenter` and `creatureRadius` took no world and answered for the flat field on every screen, so on the pilot's well the hand's ring, the lock's corners and its line, a clasp coming apart and a rind's shed skin were placed at the tile's flat centre — in the empty middle, or nowhere at all, since the well pass drew none of them. Both take the world now and ask `wellShown` first; the touch layer, which is handed a field and never a world, keeps the flat answer under its own name (`flatCenter`, `flatRadius`, `creatureAt` in `creature-under.ts`). `drawWellBodies` draws the grips, the lock marks and `bodies.drawOnBodies` after the bodies, in the flat pass's order, and the lock's line on the well is radial — from the cannon lobe straight to the body (`wellLockLink`) — instead of the flat pass's two-segment bracket. A fix to something wrong rather than unlovely, which is the third exemption.
+
 ## 2026-09-13 · c3bf3546 — THE CAIRN's pile is a record, and two frozen piles stand beside it in VERSUS
 
 The pile's picture is `CAIRN_LOOK.pile` now (`cairn-look.ts`), filled by the shipped seven live fires under one clip (`cairn-pile.ts`) over geometry that moved to `cairn-units.ts`; the tell and the hand read that file. Nothing the game draws changed — the split is a refactor, and the look is offered, not replaced: `cairn:pile` opens with two answers. STILL is the same seven burning rocks painted once at one instant and blitted after; BANKED is grey stone painted once with the heat left live in the seams — an ember glow inside the outline and the seams breathing in the ember's colour. The pair is judged on `CAIRN · THE PILE` (`poses-cairn.ts`), the boss standing whole, cropped seven tiles wide on its middle stone.
