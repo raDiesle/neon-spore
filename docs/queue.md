@@ -208,6 +208,7 @@ shield at a period the wave does not name.
 ## Unverified at 47007bd2: THE HANDOVER's rehearsal watched at tempo: whether the…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-47007bd2-the-handovers-rehearsal-w
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bestiary.md`, `docs/time-log.md`, `packages/content/src/scenes.ts`, `packages/content/src/scenes/the-handover.ts`, `packages/content/src/waves/act-8.ts`, `packages/render/src/guide-scene.ts`
 
 *THE HANDOVER's guide is a rehearsal, and a film's page is a device* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
