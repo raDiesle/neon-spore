@@ -231,6 +231,7 @@ exactly the way it seats a wave's. `.claude/skills/new-tutorial` has the rules;
 ## HULL · TRADED answers THE HANDOVER a second way and is not in VERSUS
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-hull-traded-answers-the-handover-a-second-way-an
 - **Files:** `tools/shape-sheet/src/drafts/ship.ts`, `tools/versus/candidates/`, `packages/render/src/handover-look.ts`
 
 The shape sheet carries `HULL · TRADED` — two lobes on the ship's own membrane
