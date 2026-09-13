@@ -159,8 +159,22 @@ and let the body carry the options it picks between:
 Why the short label is what fits today, and what each of the three costs.
 ```
 
+`- **Where:** cloud` or `- **Where:** local` reserves an entry for one kind of
+session, and it is the owner's line rather than the finder's. He asked for it
+on 13 September 2026, the day a local session re-watched four waves a cloud
+session had built: some work can only be done on a machine with a screen and a
+real frame budget — a wave watched at tempo, a `bun run perf` — and some he
+wants handed to a cloud session on purpose, from his phone, so the session on
+his own machine stays free. The listing marks such an entry `CLOUD ONLY` or
+`LOCAL ONLY`, `bun run queue next` passes over one kept for the other kind,
+and `next <n>` or `take <n>` naming it is refused with the reason. A session
+knows which kind it is by `CLAUDE_CODE_REMOTE`, the signal the web image sets
+(`tools/queue/where.ts`). Without the line an entry is anybody's, which is
+still what nearly every entry is.
+
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
-session could not act on; `tools/queue/test/taken.test.ts` holds the claim.
+session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
+`tools/queue/test/where.test.ts` holds the reservation.
 
 ## THE WEIGHT's guide is prose, and its lesson is a negative
 
@@ -350,3 +364,187 @@ by `.claude/skills/render-perf`: measure the pile alone with the stub's tally,
 then bake the standing stack once per `units` into an offscreen sprite and
 redraw the fire only — or cheapen the per-stone fire — and prove both halves
 with a number. Give it a row in `wave-budget.test.ts` while there.
+
+## Two phones that reconnect on different waves restart the same wave together
+
+- **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Files:** `apps/game/src/link-run.ts`, `apps/game/src/link.ts`, `apps/game/src/hold.ts`, `apps/game/src/main.ts`, `apps/game/src/menu-link.ts`, `packages/net/src/protocol.ts`, `apps/server/src/room-start.ts`, `packages/net/src/desync.ts`
+- **Where:** cloud
+
+The owner played a two-device game, a phone dropped its socket and came back,
+and afterwards the two phones were on **different waves** — one of them in a
+wave's guide, the other on the field — with nothing on either screen saying
+so. `HashLedger` (`desync.ts`) reports the first tick the worlds parted, and
+`join-words.ts` turns it into "The two worlds parted at tick N. This is a
+bug", which is true and is not an answer for two people holding phones.
+
+What the game should do instead, in the owner's words: **detect that it is
+out of sync, open the PLAY menu on both phones** (the menu the item below
+renames from TWO DEVICES), and when **both press CONTINUE**, restart together
+on **the same wave, with that wave's guide** if it has one. The wave to
+restart on is a decision the room has to make once for both — the *furthest*
+the pair reached, as the room's `RunMark` already records it (`best.wave` in
+`welcome`), is the obvious candidate; carry it in the `start` the room sends
+so `startTogether` in `main.ts` jumps to it rather than to 0. The desync
+signal itself is already there (`desyncTick` on the run); the ledger's
+`pending` state after a reconnect and a `welcome` that arrives mid-wave are
+the two cases to test. CONTINUE is only offered while both phones are
+connected (`peers === 2`) — see the menu item below — so a phone that
+presses it alone waits, and the hold card (`hold.ts`) says for what.
+
+`packages/net` has the scheduler's unit tests; the room end is
+`bun run relay:check` (`.claude/skills/net-change`), which a cloud session
+cannot run and says so as unverified.
+
+## The menu's front page is PLAY, one CONTINUE, and no TESTING row
+
+- **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/intro.ts`, `apps/game/src/testing.ts`
+- **Where:** cloud
+
+Six changes to the menu, all the owner's, and all in one lane because each
+moves a row the others move too.
+
+1. **One row, not RESUME and CONTINUE.** Today RESUME hands back a field
+   that is already running under the menu (`a.resume`) and CONTINUE starts a
+   fresh run at the furthest wave this device has saved
+   (`readProgress().furthest`). The owner expects one. Keep **CONTINUE**: when
+   a field is open under the menu it goes back to it, otherwise it starts
+   from the furthest wave; its description line says which (`paintLink`
+   already writes both sentences).
+2. **CONTINUE is offered only while both players are connected** in a room —
+   `peers === 2` in the link report — and is off the page otherwise, with the
+   room's own line saying who is missing. In a one-device (TESTING) run it is
+   not offered at all: TESTING starts over or jumps, and never continues.
+3. **TWO DEVICES becomes PLAY**, and the **seat cards** (`menu-seats.ts`) and
+   **CONTINUE** move onto the PLAY page, so the front page is PLAY, HOW TO
+   PLAY, SETTINGS and — while there is a room — LEAVE ROOM.
+4. **WHAT THIS IS moves into HOW TO PLAY**: the six intro pages are reached
+   from a row at the top of the HOW TO PLAY page rather than from the front,
+   and still show themselves once on the first visit (`intro.ts`).
+5. **The TESTING row goes**, and the testing page opens by **pressing the
+   spore above NEON SPORE three times** (`sporeSvg()` in `menu-view.ts`),
+   within a couple of seconds; a fourth press does nothing new. Nothing on the
+   page says so — it is the rig, and the owner knows where it is.
+6. The keys `paintLink` addresses (`resume`, `continue`, `room`, `what`,
+   `testing`) are renamed with the rows so `setEntry` keeps working, and
+   `menu-view.ts`'s two-list seam (front page / rig) now reads front page /
+   PLAY page / rig.
+
+Every string the menu draws is in `menu-entries.ts` and `menu-pages.ts`; the
+app's menu tests and `bun run check` prove the wiring. What a cloud session
+cannot do is see the page — say so, unverified, and a local one looks.
+
+## The menu is hard to read: a colour scheme with contrast, and a face from a CDN
+
+- **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Files:** `apps/game/src/menu.css`, `apps/game/src/game.css`, `apps/game/index.html`, `apps/game/src/menu-view.ts`
+- **Where:** cloud
+
+The owner finds the menu's text hard to read on a phone — the purples on
+purple in `menu.css` (`#6f639f` on the dark ground, `#4b4177` for a
+description) are well under the contrast a body of text needs. He asks for
+**a good colour scheme, Material Design named as the example**, and **a
+better font from a public CDN**.
+
+Do it as a set of named custom properties at the top of `menu.css` — ink,
+paper, muted, accent, warning — with the pairs checked against WCAG AA (4.5:1
+for text, 3:1 for the large labels), and one face loaded with a `<link>` in
+`index.html` (Google Fonts is the public CDN the app can reach; pick a
+geometric sans with a real fallback stack, and keep the title's own glow
+treatment). The field's HUD (`game.css`) keeps its palette: this is the
+menu, and the pages behind it. It is a look the owner asked for by name, so
+it lands rather than going to VERSUS; a cloud session cannot see it and says
+so, and the local session that verifies it sends one PNG of the front page.
+
+## A player signs in with Google or by an email link, and the menu says who
+
+- **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Files:** `apps/game/src/nickname.ts`, `apps/game/src/join-name.ts`, `apps/game/src/menu-settings.ts`, `apps/server/src/names.ts`, `apps/server/src/index.ts`, `packages/net/src/nickname.ts`, `packages/net/src/protocol.ts`
+- **Where:** cloud
+- **Asks:** Google sign-in, an email link, or both — and which Google Cloud project's client id and which mail sender does the Worker get?
+
+Today a device claims a nickname at the registry (`names.ts`) and is handed a
+**recovery code**, shown once, for getting the name back on a new browser.
+The owner wants that replaced by a sign-in: **OAuth (Google is his example)
+combined with a freely chosen nickname**, or **an email address that is sent
+a link** which signs this browser in as that nickname. Whichever it is, the
+sign-in and the nickname are **remembered** so the next opening of the app
+is already signed in, and the PLAY page (the renamed TWO DEVICES page) shows
+**"logged in as <nickname>"** at its top.
+
+What the answer picks between. *Google only*: one OAuth client id, the
+Worker verifies the id token and binds its `sub` to the nickname — the least
+code and no mail to send, and a player without a Google account cannot play
+across devices. *Email link only*: the Worker needs a sender (Cloudflare
+Email Routing does not send; a Resend or MailChannels key does) and a signed,
+expiring token in the link — more moving parts, no third party at the door.
+*Both*: the two above behind one "who are you" screen. Either way the
+registry keeps `TOKEN_KEY`'s job — a browser known to the registry — and the
+recovery code goes, along with its page in settings. The nickname's rules
+stay in `packages/net/src/nickname.ts`, where both ends read them. The
+server's tests are `bun test apps/server`; the sign-in round trip against a
+real provider is unverified from a cloud session.
+
+## The game says the players' nicknames where it now says Player 1 and Player 2
+
+- **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Files:** `packages/net/src/nickname.ts`, `packages/render/src/siren-seats.ts`, `packages/render/src/grip.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/view.ts`, `packages/content/src/scenes.ts`
+- **Where:** cloud
+
+On the field, in the guides and on the menu's seat cards the two seats are
+called **P1 / P2** or **Player 1 / Player 2** (`siren-seats.ts` draws the
+letters, `grip.ts` writes "P2 PULLS", the guides' pages say "Player 1 holds
+…"). The owner wants the **nicknames** there instead, everywhere a person
+reads a seat's name in play — and to make that safe, the nickname's alphabet
+and length **limited** so a name never breaks a label: the field's labels are
+drawn in a fixed box at a fixed size, and a guide page has a line's width.
+
+The rules live in one place already — `packages/net/src/nickname.ts`,
+`isName`/`normalizeName` — so tighten them there (letters, digits, space and
+a hyphen; a length the widest label can carry, which `siren-seats.ts` and
+`grip.ts` decide, measured with the stub's `measureText`), and thread the
+names through: the room already sends both in `welcome.names`, the renderer
+gets them on the `View` it is handed each frame, and the guides take a
+`{p1, p2}` pair at page-build time rather than a literal. Where a name is
+absent (a one-device run, a seat not yet filled) the old words stay. The
+`docs/` prose and the director's sheets keep saying Player 1 and Player 2:
+they are about the seats, not the people. Frame tests (`grip-frame.test.ts`,
+the siren's) and the guide-page tests prove the substitution; a name at the
+length limit is one of the cases.
+
+## A new game is started at a difficulty — Easy, Medium or Hard
+
+- **Found:** 2026-09-13, queue-lanes — asked for by the owner
+- **Files:** `packages/sim/src/config.ts`, `packages/sim/src/config-derived.ts`, `apps/game/src/progress.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `packages/net/src/protocol.ts`, `apps/server/src/room-start.ts`
+- **Where:** cloud
+- **Asks:** Is difficulty the tempo alone, or the tempo plus the hull's hits — and is today's speed Medium or Hard?
+
+The owner wants **three difficulties, Easy, Medium and Hard**, chosen when a
+new game is created and shown on the PLAY page. A pair may change it later,
+but changing it **warns that the whole wave state resets** and the run starts
+again from the first wave. His own suggestion for what it changes is one
+thing: **the falling speed of everything**; and he puts today's speed at
+Medium or Hard.
+
+Everything falls a tile a beat, so falling speed *is* the tempo: `bpm` in
+`SimConfig`, with `tickHz` chosen so a beat is a whole number of ticks. Easy,
+Medium and Hard as three `bpm` values is one field on the config and nothing
+in the rules. The options the answer picks between:
+
+- *Tempo alone*, the owner's suggestion — three tempi, today's being Medium
+  (so Hard is faster than anything shipped) or Hard (so today's speed is the
+  ceiling and Easy and Medium are slower). The guard and intake windows are
+  in milliseconds, so a faster beat also tightens them relative to the beat,
+  which is the right direction.
+- *Tempo plus the hull*: `maxHoles`/`maxScars`, the hits a ship takes before
+  the wave is lost — Easy takes one more, Hard one fewer. Two knobs, still no
+  rule change, and the one that makes Hard *hurt* rather than merely hurry.
+- Not recommended: a per-creature speed table or a change to the guides —
+  every wave is authored to the beat and would need re-timing.
+
+The chosen level is part of the run: it goes in `progress.ts` beside
+`furthest`, is sent by the room in `start` so both phones play the same
+`bpm`, and is part of the world's config hash so a pair at different levels
+desyncs at tick 0 rather than a minute later. `bun test packages/sim`
+already plays every wave from a seed; run it at the three tempi.

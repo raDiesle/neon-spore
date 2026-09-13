@@ -20,6 +20,9 @@
 
 export type Source = "queue" | "parked";
 
+/** Which kind of session may take an item. */
+export type Where = "cloud" | "local" | "anywhere";
+
 export type Item = {
   readonly source: Source;
   readonly title: string;
@@ -48,6 +51,14 @@ export type Item = {
    * fifth of them on saying what a field says once.
    */
   readonly asks: string;
+  /**
+   * The `Where:` line — `cloud` or `local` when only that kind of session may
+   * take the item, `anywhere` when the line is absent. The owner's line, from
+   * 13 September 2026: some work needs a screen and a real frame budget, and
+   * some he wants handed to a cloud session on purpose so the session on his
+   * own machine stays free. `where.ts` says how `next` and `take` honour it.
+   */
+  readonly where: Where;
   /** Everything under the heading, comments and blank edges removed. */
   readonly body: string;
 };
@@ -58,6 +69,7 @@ export const FOUND = /^-\s+\*\*Found:\*\*\s+(\d{4}-\d{2}-\d{2}\b.*)$/;
 export const TAKEN = /^-\s+\*\*Taken:\*\*\s+(\S.*)$/;
 export const FILES = /^-\s+\*\*Files:\*\*\s+(\S.*)$/;
 const ASKS = /^-\s+\*\*Asks:\*\*\s+(\S.*)$/;
+const WHERE = /^-\s+\*\*Where:\*\*\s+(\S.*)$/;
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}/;
 
 /**
@@ -100,6 +112,16 @@ function fieldOf(body: string, re: RegExp): string {
   return "";
 }
 
+/**
+ * A `Where:` value as the kind it names. Anything else reads as `anywhere` and
+ * is reported by `problemsIn`, so a misspelt reservation is a listed problem
+ * rather than an item quietly offered to the session it was kept from.
+ */
+function whereOf(value: string): Where {
+  const word = value.trim().toLowerCase();
+  return word === "cloud" || word === "local" ? word : "anywhere";
+}
+
 /** Splits a `Files:` value — a comma-separated list, backticks optional. */
 export function splitFiles(value: string): string[] {
   return value
@@ -125,6 +147,7 @@ export function parseItems(md: string, source: Source): Item[] {
       taken: fieldOf(text, TAKEN),
       files: splitFiles(fieldOf(text, FILES)),
       asks: fieldOf(text, ASKS),
+      where: whereOf(fieldOf(text, WHERE)),
       body: text,
     });
   };
@@ -173,6 +196,10 @@ export function problemsIn(items: readonly Item[]): string[] {
     // read it, agree, and still not know what was wanted from them.
     if (item.asks && !item.asks.includes("?")) {
       problems.push(`${where} — the Asks: line is not a question`);
+    }
+    const reserved = fieldOf(item.body, WHERE);
+    if (reserved && item.where === "anywhere") {
+      problems.push(`${where} — Where: is ${JSON.stringify(reserved)}; it is "cloud" or "local"`);
     }
   }
   return problems;

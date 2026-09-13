@@ -2098,3 +2098,27 @@ Bottleneck: **looking** — a wave the cloud built has to be *seen*, at each
 seat, in the state where the defect would show, and the only way to that state
 is to drive the game there frame by frame; the fixes themselves were an hour
 of the four.
+
+## 2026-09-13 · queue-lanes — an entry reserved for a cloud or a local session, and six of them written for the cloud
+
+The owner wants to hand work to a cloud session from his phone and keep some
+for a machine with a screen, so the queue learns a `Where:` line: `cloud` or
+`local`, marked in the listing, passed over by `next` and refused by name to
+`take` when the session is the other kind — known by `CLAUDE_CODE_REMOTE`,
+the signal the web image already sets. Then six entries for the cloud, all
+his: two phones that reconnect on different waves, the menu's front page
+(PLAY, one CONTINUE, TESTING behind three presses on the spore), a readable
+colour scheme and face, a sign-in in place of the recovery code, nicknames
+where the game says Player 1 and 2, and a difficulty. About 45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `queue.ts`, `run.ts`, `claim.ts` for the shape a field takes; `session-start.ts` for how a cloud session is known; then `menu-entries.ts`, `menu-link.ts`, `nickname.ts`, `names.ts`, `desync.ts`, `protocol.ts` and `config.ts`, so that each entry names real files and the right knob (falling speed is `bpm`) |
+| writing | 20 | `where.ts`, the field on `Item`, the three places in `run.ts`, seven tests, the queue's preamble and `cloud-session.md`, and the six entries |
+| looking | 0 | nothing drawn |
+| friction | 5 | a heredoc longer than the shell would take, twice; `queue.ts` two lines over the limit; two titles over 80 characters |
+| landing | 5 | `check:fast`, the commit, `bun run land` |
+
+Bottleneck: **reading for the entries** — an entry a cold session can act on
+has to name the files and the seam, and each of the six is in a different
+corner of the app; the tool change itself was twenty minutes.

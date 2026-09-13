@@ -8,6 +8,9 @@
  * `bun run queue release <n|title>` — give a handed-out item back.
  * `bun run queue done <n|title>` — take an entry out once it has landed.
  *
+ * An entry may be reserved for one kind of session — `- **Where:** cloud` or
+ * `local` — and `where.ts` says how `next` and `take` honour that.
+ *
  * The queue is a file rather than a chat message because the next session
  * clones `origin` and sees nothing else. Claiming an item does two things, and
  * `claim.ts` says why it takes both: it creates the item's branch, which is the
@@ -40,6 +43,7 @@ import {
   trunkView,
 } from "./repo.js";
 import { staleLine, staleness } from "./stale.js";
+import { fits, refuseUnlessFits, reservedTag, sessionKind } from "./where.js";
 
 function load(): Item[] {
   const queue = parseItems(readFileSync(PATHS.queue, "utf8"), "queue");
@@ -70,6 +74,7 @@ function mine(item: Item, how: How, verb: string): void {
 const [command, arg] = process.argv.slice(2);
 const items = load();
 const known = refs();
+const kind = sessionKind();
 
 if (!command || command === "list") {
   if (items.length === 0) {
@@ -83,7 +88,7 @@ if (!command || command === "list") {
       // The owner reads this list to find what is waiting on *them*, so the
       // mark goes on the title line rather than under it — a question three
       // lines down is a question found by whoever was already reading.
-      const tag = `${item.asks ? " — ASKS THE OWNER" : ""}${parked}`;
+      const tag = `${item.asks ? " — ASKS THE OWNER" : ""}${reservedTag(item)}${parked}`;
       console.log(`${String(i + 1).padStart(2)}. ${item.title}${tag}`);
       console.log(`    ${item.found}`);
       console.log(`    ${item.files.join(", ")}`);
@@ -94,8 +99,13 @@ if (!command || command === "list") {
       const stale = staleLine(staleness(item, trunk), trunkRef());
       if (stale) console.log(`    ${stale}`);
     }
-    const free = unclaimed(items, known).length;
-    console.log(`\n${items.length} in the queue, ${free} free, ${items.length - free} taken.`);
+    const free = unclaimed(items, known);
+    // Said as two numbers when they differ, so a session reading "3 free" in a
+    // sandbox does not go looking for the two it cannot have.
+    const here = free.filter((i) => fits(i, kind)).length;
+    const elsewhere = here === free.length ? "" : ` (${here} of them for a ${kind} session)`;
+    const taken = items.length - free.length;
+    console.log(`\n${items.length} in the queue, ${free.length} free${elsewhere}, ${taken} taken.`);
     console.log("`bun run queue next` hands the first free one to a session of its own,");
     console.log("`bun run queue take <n>` marks one ongoing without opening a lane.");
   }
@@ -108,16 +118,19 @@ if (!command || command === "list") {
   for (const line of statusLines(statusOf(items, known))) console.log(line);
 } else if (command === "next") {
   const free = unclaimed(items, known);
-  const item = arg ? pick(items, arg) : free[0];
+  const item = arg ? pick(items, arg) : free.find((i) => fits(i, kind));
   if (!item) {
     console.log(
       items.length === 0
         ? "The queue is empty. Nothing is waiting."
-        : "Every item is taken. `bun run queue` says who is on each.",
+        : free.length === 0
+          ? "Every item is taken. `bun run queue` says who is on each."
+          : `Every free item is reserved for the other kind of session (this is a ${kind} one).`,
     );
   } else {
     const held = claimOn(item, known);
     if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
+    refuseUnlessFits(item, kind);
     const branch = claim(item);
     console.log(
       `\n${promptFor(item, branch, staleLine(staleness(item, trunkView()), trunkRef()))}`,
@@ -128,6 +141,7 @@ if (!command || command === "list") {
   const item = pick(items, arg);
   const held = claimOn(item, known);
   if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
+  refuseUnlessFits(item, kind);
   console.log(`Ongoing: ${item.title} (${claim(item)})`);
   console.log("`bun run queue done` when it is out of the file; that drops the claim.");
 } else if (command === "release") {

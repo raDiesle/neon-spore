@@ -133,6 +133,14 @@ and reported the item ongoing anyway, which was a claim only this clone could
 see. The lane's `queue done` then removes an entry the trunk has since marked,
 and the landing's rebase resolves that on its own (`tools/land/queue-merge.ts`).
 
+**And the queue knows this is a cloud session.** `CLAUDE_CODE_REMOTE` is set
+on the web image, and `bun run queue` reads it: an entry the owner marked
+`- **Where:** local` — a wave to watch at tempo, a frame to measure — is
+listed `LOCAL ONLY`, passed over by `next`, and refused by name to `take`;
+one marked `Where: cloud` is kept for a session like this one, and a local
+session is refused it the same way. Most entries carry no line and are
+anybody's (`tools/queue/where.ts`).
+
 **A technical finding goes in `docs/queue.md`, not in the report.** A refactor
 the session stepped around, a slow path, a missing test, a document that no
 longer describes the code: one `##` section, in the same commit, and then it is
