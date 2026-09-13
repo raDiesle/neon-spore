@@ -299,6 +299,7 @@ what the rest of this file holds.
 ## THE CAIRN's pile draws the whole of each stone's fire and clips most of it away
 
 - **Found:** 2026-09-13, claude/queue-the-cairn-paints-at-two-and-a-half-times-the-run
+- **Taken:** 2026-09-13, claude/queue-the-cairns-pile-draws-the-whole-of-each-stones-f
 - **Files:** `packages/render/src/cairn.ts`, `packages/render/src/rock-wake.ts`, `packages/render/src/rock-wake-fire.ts`, `packages/render/src/meteor-blaze.ts`, `packages/render/src/meteor-comet.ts`, `packages/render/src/meteor-smoulder.ts`, `packages/render/test/wave-budget.test.ts`
 
 What the held gradients left. `drawCairn` clips to `pilePath` — the union of
