@@ -253,6 +253,7 @@ what the rest of this file holds.
 ## Unverified at 93caa4e4: The menu's new palette and face seen on a phone: whethe…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-93caa4e4-the-menus-new-palette-and
 - **Files:** `apps/game/index.html`, `apps/game/src/menu.css`, `apps/game/test/menu-contrast.test.ts`, `docs/queue.md`, `docs/time-log.md`
 
 *The menu's colours are named, measured, and set in a face that is not Courier* landed from a session that could not look at it. What went unchecked:
