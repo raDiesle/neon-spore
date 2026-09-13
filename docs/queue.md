@@ -294,6 +294,7 @@ already plays every wave from a seed; run it at the three tempi.
 ## The map editor inserts a beat row and removes one, shifting the rows after it
 
 - **Found:** 2026-09-13, director-repeat — asked for by the owner
+- **Taken:** 2026-09-13, claude/queue-the-map-editor-inserts-a-beat-row-and-removes-on
 - **Files:** `tools/director/src/grid.ts`, `tools/director/src/paint.ts`, `tools/director/src/query.ts`, `tools/director/src/director-map.css`
 
 The MAP section draws a wave as beats down and the seven authored columns
