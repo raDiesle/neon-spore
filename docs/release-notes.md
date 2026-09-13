@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 9bda6a84 — A director save marks the perf baseline, and the lockstep test owns its waves
+
+On 13 September 2026 a save from the wave editor turned FIRST STEP's one body into eight and landed `main` red twice over — a baseline row for a wave that no longer sent what it was weighed on, and a lockstep test whose press script was written by hand against the one body. Neither will happen again: the save runs `bun run perf --unmeasured` in a fresh process between the write and the commit and commits `tools/perf/baseline.json` with the act files that moved it (`waves-baseline.ts`; `DIRECTOR_NO_COMMIT` turns both off), and `two-devices-wave.test.ts` plays two small waves of its own through `queueFromWave` — what it proves is two devices crossing a wave boundary in step, which needs a known body and a known clear, not the wave the owner edits most.
+
 ## 2026-09-13 · 52be613f — A burning rock holds the gradients that never move
 
 THE CAIRN stands seven fires in one pile every frame, and each was building its fixed gradients again: a BLAZE's ball and veil, a COMET's bow and dimples, a SMOULDER's under-glow and craters, a flame's ramp — gradients whose every argument is the rock's radius and a constant. `gradient-held.ts` builds each once and hands it back after, and THE CAIRN's frame builds 269 gradients instead of 330. Identical: the ordered canvas log differs only in removed createLinearGradient/createRadialGradient calls, and nothing in the picture moves. Nothing keyed on `time` goes through it. THE CAIRN gets its row in `wave-budget.test.ts`.
