@@ -1,5 +1,5 @@
 import type { ControlSet } from "@neon-spore/content";
-import { hitSlab, type Layout, slabFor, slabPanel, type ViewRole } from "@neon-spore/render";
+import { hitSlab, type Layout, slabFor, slabPanel } from "@neon-spore/render";
 import { type Command, snakeHolds, type World } from "@neon-spore/sim";
 import type { StagePoint } from "./stage-point.js";
 
@@ -31,9 +31,10 @@ export interface StageSnake {
    * this replaced and the miss they caused.
    */
   at: StagePoint["at"];
-  /** Read fresh: the panel is resizable and the role switches under it. */
+  /** Read fresh: the panel is resizable and the role switches under it. The
+   * seat is `layout().role`, already seated by `stage.ts` — `stage-gauge.ts`
+   * says why there is no `role` of its own here. */
   layout: () => Layout;
-  role: () => ViewRole;
   /** The live world, for `snakeHolds` — `rebuild` swaps the object. */
   world: () => World;
   /** The panel this wave is played on — see `ViewState.controls` for why it is stated. */
@@ -52,19 +53,12 @@ const SLABS: readonly {
   { id: "snakeMaw", player: 1, command: { kind: "snakeMaw" } },
 ];
 
-export function bindStageSnake({
-  canvas,
-  at,
-  layout,
-  role,
-  world,
-  controls,
-  push,
-}: StageSnake): void {
+export function bindStageSnake({ canvas, at, layout, world, controls, push }: StageSnake): void {
   canvas.addEventListener("pointerdown", (e) => {
     if (!snakeHolds(world())) return;
     const { x, y } = at(e);
-    const slabs = slabPanel(layout(), controls(), role());
+    const l = layout();
+    const slabs = slabPanel(l, controls(), l.role);
     for (const entry of SLABS) {
       const slab = slabFor(slabs, entry.id);
       if (slab && hitSlab(slab, x, y)) {

@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet, WAVES } from "@neon-spore/content";
-import { computeLayout, slabFor, slabPanel } from "@neon-spore/render";
+import { computeLayout, handedLayout, slabFor, slabPanel } from "@neon-spore/render";
 import { type Command, createWorld, DEFAULT_CONFIG, startWave } from "@neon-spore/sim";
 import { bindStageGauge } from "../src/stage-gauge.js";
 
@@ -61,11 +61,18 @@ const SET = controlSet("gauge");
  */
 const WAVE = WAVES.findIndex((w) => w.boss?.kind === "gauge");
 
-function armed(role: "test" | "p1" | "p2") {
+function armed(role: "test" | "p1" | "p2", traded = false) {
   const cfg = DEFAULT_CONFIG;
   const world = createWorld(cfg, 10);
-  startWave(world, WAVE, [], [], { kind: "gauge" });
-  const layout = computeLayout(VIEWPORT, cfg, role);
+  // THE HANDOVER on the same wave as the round — no shipped wave carries both,
+  // which is why the director is the one place this can be looked at. The
+  // fault's beat is set rather than stepped to: a round holds its own clock,
+  // and what is under test is which seat a press is answered on, not the
+  // simulation's count (`packages/sim/test/handover.test.ts` has that).
+  startWave(world, WAVE, [], [], { kind: "gauge" }, false, 0, traded ? { kind: "handover" } : null);
+  if (traded) world.waveBeat = cfg.handoverAtBeat + 2;
+  // Seated the way `stage.ts` hands it in: the other seat's while traded.
+  const layout = handedLayout(computeLayout(VIEWPORT, cfg, role), world);
   const sent: { player: 1 | 2; command: Command }[] = [];
   const stub = stubCanvas(VIEWPORT.width, VIEWPORT.height);
   bindStageGauge({
@@ -75,12 +82,11 @@ function armed(role: "test" | "p1" | "p2") {
     // here. `stage-point.test.ts` is where the conversion itself is checked.
     at: (e) => ({ x: e.clientX, y: e.clientY }),
     layout: () => layout,
-    role: () => role,
     world: () => world,
     controls: () => SET,
     push: (player, command) => sent.push({ player, command }),
   });
-  return { stub, sent, slabs: slabPanel(layout, SET, role), world };
+  return { stub, sent, slabs: slabPanel(layout, SET, layout.role), world };
 }
 
 /** A press in the middle of a slab, in the canvas's own coordinates. */
@@ -134,6 +140,17 @@ describe("the director answers a round's own controls", () => {
     expect(slabFor(p2, "gaugeRight")).toBeNull();
   });
 
+  // THE HANDOVER trades the panels, and the frame draws the other seat's
+  // slabs on this screen (`render/handover.ts`). The listener answered the
+  // role bar's own seat until 13 September 2026 — so on the pilot's screen it
+  // was still looking for the valve where the frame was drawing the call.
+  test("while the panels are traded, a seat answers the slabs the frame draws", () => {
+    const { stub, sent, slabs } = armed("p1", true);
+    expect(slabFor(slabs, "gaugeLeft")).toBeNull(); // the pilot's own slabs are away
+    press(stub, slabFor(slabs, "gaugeCall")!);
+    expect(sent).toEqual([{ player: 2, command: { kind: "call" } }]);
+  });
+
   test("a press outside every slab says nothing", () => {
     const { stub, sent } = armed("test");
     stub.fire("pointerdown", { pointerId: 1, clientX: 2, clientY: 2 });
@@ -155,7 +172,6 @@ describe("the director answers a round's own controls", () => {
       // here. `stage-point.test.ts` is where the conversion itself is checked.
       at: (e) => ({ x: e.clientX, y: e.clientY }),
       layout: () => layout,
-      role: () => "test",
       world: () => world,
       controls: () => SET,
       push: (player, command) => sent.push({ player, command }),

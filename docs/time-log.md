@@ -2616,3 +2616,25 @@ gap. About 45 min.
 
 Bottleneck: **looking** — the frames tool has no flag for `view.hand`, so the
 one picture the lane owed took a preview, a browser pane and a scratch script.
+
+## 2026-09-13 · claude/queue-the-directors-stage-speaks-for-its-role-bar-whil — a round's slabs answer the seated role
+
+`StageGauge` and `StageSnake` have no `role` of their own any more: the slabs
+are placed with `layout().role`, and the layout `stage.ts` hands in is already
+seated by `handedLayout`, so while THE HANDOVER has the panels traded a press
+on the director's canvas is answered where the frame draws the button. The
+briefing gate's `speaksFor` and `pointerSeat` stay on the role bar — those are
+who is pressing, not which panel. One test stands a gauge round on a traded
+handover wave and presses the call where the pilot's screen now draws it.
+About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `render/handover.ts`'s line between panel and identity, the two listeners, the gauge test |
+| writing | 10 | the two interfaces, `stage.ts`, the traded case in `stage-gauge.test.ts` |
+| looking | 0 | none — a hit test is proved by the command it sends |
+| friction | 5 | a two-line comment put `stage.ts` over the 250-line limit; the trunk had diverged from `origin/main` twice before the lane opened, once mid-turn |
+| landing | 5 | format, check:fast, the queue entry, the commit |
+
+Bottleneck: **friction** — the trunk, not the task: two rebases of `main` for
+a ten-minute change.

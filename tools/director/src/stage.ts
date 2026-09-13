@@ -67,8 +67,7 @@ export function bindStage(
   bindStageRounds({
     canvas,
     at,
-    layout: () => handedLayout(layout(), world), // seated: THE HANDOVER trades the panels.
-    role: () => role,
+    layout: () => handedLayout(layout(), world), // seated: slabs answer where the frame draws them.
     world: () => world,
     controls: currentControlSet,
     push: (player, command) => keys.push(player, command),

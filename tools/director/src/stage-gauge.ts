@@ -1,5 +1,5 @@
 import type { ControlSet } from "@neon-spore/content";
-import { hitSlab, type Layout, slabFor, slabPanel, type ViewRole } from "@neon-spore/render";
+import { hitSlab, type Layout, slabFor, slabPanel } from "@neon-spore/render";
 import type { Command } from "@neon-spore/sim";
 import { gaugeHolds, type World } from "@neon-spore/sim";
 import type { StagePoint } from "./stage-point.js";
@@ -39,10 +39,15 @@ export interface StageGauge {
    * this replaced and the miss they caused.
    */
   at: StagePoint["at"];
-  /** Read fresh: the panel is resizable and the role switches under it. */
+  /**
+   * Read fresh: the panel is resizable and the role switches under it. The
+   * seat the slabs are laid out for is `layout().role` and nothing else — the
+   * layout `stage.ts` hands in is already seated (`handedLayout`), so while
+   * THE HANDOVER has the panels traded the buttons are answered where the
+   * frame draws them. A `role` of its own here was the role bar's, and a round
+   * on a wave carrying that fault answered slabs the frame was not drawing.
+   */
   layout: () => Layout;
-  /** Which screen this is, so a seat sees the slabs its own seat is given. */
-  role: () => ViewRole;
   /** The live world, for `gaugeHolds` — `rebuild` swaps the object. */
   world: () => World;
   /**
@@ -55,19 +60,14 @@ export interface StageGauge {
   push: (player: 1 | 2, command: Command) => void;
 }
 
-export function bindStageGauge({
-  canvas,
-  at,
-  layout,
-  role,
-  world,
-  controls,
-  push,
-}: StageGauge): void {
+export function bindStageGauge({ canvas, at, layout, world, controls, push }: StageGauge): void {
   /** Which way each held pointer is pushing the valve. */
   const turning = new Map<number, -1 | 1>();
 
-  const panel = () => slabPanel(layout(), controls(), role());
+  const panel = () => {
+    const l = layout();
+    return slabPanel(l, controls(), l.role);
+  };
 
   const release = (id: number): void => {
     const dir = turning.get(id);

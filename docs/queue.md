@@ -227,29 +227,6 @@ rehearsal with no new machinery at all — the renderer seats a film's frames
 exactly the way it seats a wave's. `.claude/skills/new-tutorial` has the rules;
 `bun test packages/content` and the guide-page tests prove it.
 
-## The director's stage speaks for its role bar while the panels are traded
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-the-directors-stage-speaks-for-its-role-bar-whil
-- **Files:** `tools/director/src/stage.ts`, `tools/director/src/stage-touch.ts`, `tools/director/src/stage-rounds.ts`
-
-The stage draws a handover wave correctly — the renderer seats every frame
-itself — and its band is answered correctly too, because `stage.ts` hands both
-hit tests a seated layout. Two things below that still read the role bar
-directly: `pointerSeat(role)` fills `Field.seat`, which is right and should stay
-(a hand on the field is signed by the device, `sim/handover.ts`), and
-`speaksFor` and `bindStageRounds`' `role` are the ones that are wrong — a round's
-slabs are laid out for the untraded seat while the frame draws the other one, so
-a boss round on a wave carrying this fault answers buttons where it is not
-drawing them.
-
-No shipped wave carries both a round and a fault, which is why this is an entry
-and not a defect in the game. What to do: give `bindStageRounds` and the parts of
-`stage-touch.ts` that pick a *panel* the seated role (`handedRole` is exported
-from `@neon-spore/render`), and leave the parts that pick an *identity* — the
-briefing gate's `speaksFor`, `pointerSeat` — on the role bar's own seat. The
-line between the two is written out at the top of `packages/render/src/handover.ts`.
-
 ## THE HANDOVER makes no sound
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
