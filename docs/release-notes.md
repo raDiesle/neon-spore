@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 5f699373 — Four waves the cloud landed are now watched, and THE CAIRN's frame cost is queued
+
+The four `Unverified at` queue items for THE WEIGHT, THE CODEX, THE CAIRN and THE WELL are done — each wave watched at tempo on a real machine, two of them fixed in the commits before this one. The perf figure the cloud could not take was taken three times and flagged three times, so nothing was saved; what held across all three runs, THE CAIRN painting at two and a half times the run's median, is a queue item of its own. Time-log entry for the lane.
+
+## 2026-09-13 · 2b2ac6d8 — A hand on THE CAIRN is drawn over the pile, and says PULL
+
+Watched at tempo, a thumb carried across the pile showed nothing until the unit came out: the field's grip pass runs before the boss is drawn, so the hand's ring and word sat under seven rocks — and the word, had it shown, was "YOU AIM", the one verb for a hand that moves nothing, over the one body the cannon cannot reach. The pile's hand is now drawn by the boss pass after the stack (`cairn-hand.ts`), with the ordinary ring closed round every stone still standing, and a pull is labelled PULL like the brake it spends the same travel as. A fix to something wrong, not unlovely.
+
+## 2026-09-13 · ac417dbb — A hand on THE WEIGHT is no longer drawn on the partner's screen
+
+Watched at tempo, the one split this creature is built on was given away: `drawGrips` draws a ring and a label for whichever seat is looking, so a pilot's thumb on the sac showed on the navigator's phone as a dashed ring and "P1 AIMS" — the partner's hand, which `weight.ts` exists to keep out of sight, and under a verb the sac does not even answer to. A press is now the one hand that loop leaves alone; the private mark and the calipers are `drawWeightPress`'s, seat by seat. A fix to something wrong, not unlovely.
+
 ## 2026-09-13 · 9e1c5a70 — THE WELL: the field turned inside out, and nothing else changed
 
 The owner asked for the idea on `docs/spec/ideas.md` by name, as a boss wave, and it shipped as the projection that page describes rather than as a fight built around one. The hull goes to the centre, the far row becomes a rim, and the columns are spread round the middle as the sectors of a clock — bodies fall inward down their hours, the cannon rides the hull ring as its hand, the shield stands outside it as an arc. On the field the game ships that is eleven columns and one sector over, so **column four is four o'clock** and the pair needs no vocabulary it did not already own; the numerals drawn round the rim are the columns' own numbers, so a narrower field is a wider clock and the picture is never wrong. The look is exempt as one the owner asked for by name.
