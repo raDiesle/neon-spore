@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE WELL's screen answers no finger on the field
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-the-wells-screen-answers-no-finger-on-the-field
 - **Files:** `packages/render/src/touch.ts`, `packages/render/src/touch-ship.ts`, `packages/render/src/creature-place.ts`, `packages/render/src/touch-field.ts`
 
 `touchDown` returns null above the band whenever `Field.well` is set. Every hit
