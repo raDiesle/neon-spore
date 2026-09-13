@@ -1,9 +1,11 @@
 import {
   bodyCenterCol,
   bulletShown,
+  type Creature,
   hullRow,
   isBossBody,
   recoilTurn,
+  type SimConfig,
   type World,
 } from "@neon-spore/sim";
 import { bodyDraw } from "./creature-body.js";
@@ -52,6 +54,25 @@ import { drawWellFace } from "./well-face.js";
  * otherwise be placed *outside* its own clock. */
 const ABOVE_RIM = 0;
 
+/**
+ * Where a body stands on the well and the row it stands at — **the one
+ * spelling of the well's placement.** `drawWellBodies` draws by it, a caption
+ * finds its subject by it (`caption-anchor.ts`) and a finger on the picture is
+ * answered by it (`touch-well.ts`): a second spelling in any of the three is a
+ * ring or a grab beside the shape instead of on it. The row is clamped the way
+ * the flat field never needs — nothing is drawn past the hub or above the rim.
+ */
+export function wellBodyAt(
+  l: Layout,
+  cfg: SimConfig,
+  c: Creature,
+  glide: number,
+): { x: number; y: number; row: number } {
+  const row = Math.min(hullRow(cfg), Math.max(ABOVE_RIM, drawnRow(c, glide)));
+  const at = wellPlace(l, bodyCenterCol(c, drawnCol(c, glide)), row);
+  return { x: at.x, y: at.y, row };
+}
+
 /** The board: the backdrop, the face, and what is about to come over the rim. */
 export function drawWellBack(
   ctx: CanvasRenderingContext2D,
@@ -87,15 +108,13 @@ export function drawWellBodies(
   effects: Effects,
 ): void {
   const beats = world.beat + view.beatPhase;
-  const deepest = hullRow(world.cfg);
   for (const c of byDepth(world.creatures, view.beatPhase)) {
     if (isBossBody(c.kind) || c.kind === "tether") continue;
     if (c.kind === "gyre" || c.kind === "crawler" || c.kind === "fence") continue;
     const glide = glidePhase(world.cfg, world.beat, c, view.beatPhase);
-    const row = Math.min(deepest, Math.max(ABOVE_RIM, drawnRow(c, glide)));
     const col = drawnCol(c, glide);
-    const at = wellPlace(l, bodyCenterCol(c, col), row);
-    const k = WELL_BODY * depthScale(world.cfg, l, row);
+    const at = wellBodyAt(l, world.cfg, c, glide);
+    const k = WELL_BODY * depthScale(world.cfg, l, at.row);
     ctx.save();
     ctx.translate(at.x, at.y);
     ctx.rotate(wellFall(l, col));
@@ -111,7 +130,7 @@ export function drawWellBodies(
       time: view.time,
       beats,
       beatPhase: view.beatPhase,
-      near: nearness(l, row),
+      near: nearness(l, at.row),
       blocked: effects.blocked,
       turn: recoilTurn(c, view.beatPhase),
     });

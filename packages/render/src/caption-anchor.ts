@@ -10,6 +10,8 @@ import { queenMarksBox } from "./queen-figure.js";
 import { radarBlips } from "./radar-blip.js";
 import { slabFor, slabPanel } from "./slabs.js";
 import { shipCircle } from "./touch-ship.js";
+import { WELL_BODY, wellShown } from "./well.js";
+import { wellBodyAt } from "./well-draw.js";
 
 /**
  * Where a caption's subject is on the screen — the half of a page's words that
@@ -74,22 +76,14 @@ export function anchorPoint(
     // between rows, and `creatureCenter` is the one place that glide is
     // written down — a ring placed from the tile alone lands a whole row
     // behind the shape it is meant to be around.
-    const glide = glidePhase(world.cfg, world.beat, top, beatPhase);
-    const at = creatureCenter(l, top, glide);
-    return { x: at.x, y: at.y, r: creatureRadius(l, top, glide, world.cfg) + 6, clear: CLEAR };
+    return bodyRing(l, world, top, glidePhase(world.cfg, world.beat, top, beatPhase));
   }
   if (anchor.at === "held") {
     // Whatever a hand is on. Either seat's: the page names which of them is
     // holding it, and a body with two hands on it is one body either way.
     for (const c of world.creatures) {
       if (!gripCount(world, c.id)) continue;
-      const at = creatureCenter(l, c, beatPhase);
-      return {
-        x: at.x,
-        y: at.y,
-        r: creatureRadius(l, c, beatPhase, world.cfg) + 6,
-        clear: CLEAR,
-      };
+      return bodyRing(l, world, c, beatPhase);
     }
     return null;
   }
@@ -174,6 +168,23 @@ export function anchorPoint(
   // up. `drawHud` owns where it is; this asks it rather than knowing.
   const line = runLineBox(l);
   return { x: line.x + line.w / 2, y: line.y + line.h / 2, r: 12, clear: CLEAR };
+}
+
+/**
+ * A ring round a body, wherever this screen draws it. On the flat field that
+ * is `creatureCenter`; on THE WELL's screen the same body is at its hour on
+ * the row's circle, at `WELL_BODY` of its size (`well-draw.ts`), and a ring
+ * placed from the flat centre would stand in the empty middle of the picture
+ * — which is what THE WELL's film points at when it says *four o'clock*.
+ */
+function bodyRing(l: Layout, world: World, c: Creature, glide: number): AnchorPoint {
+  const r = creatureRadius(l, c, glide, world.cfg);
+  if (wellShown(l, world)) {
+    const at = wellBodyAt(l, world.cfg, c, glide);
+    return { x: at.x, y: at.y, r: r * WELL_BODY + 6, clear: CLEAR };
+  }
+  const at = creatureCenter(l, c, glide);
+  return { x: at.x, y: at.y, r: r + 6, clear: CLEAR };
 }
 
 /**

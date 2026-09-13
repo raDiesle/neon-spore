@@ -207,6 +207,7 @@ export const WAVES_ACT_8: Wave[] = [
       both: "The same field, drawn two ways. On one screen it is turned inside out: the ship in the middle, the far row a rim around it, and the eleven columns spread round it as the eleven hours of a clock — column four is four o'clock, and the numbers are written on it. Nothing falls differently and nothing fires differently. Only one of you is looking at it.",
       p1: "Yours is the clock and your cannon is its hand. The gap above the ship is where the field's two walls meet: the hand cannot cross it, so eleven and one o'clock are the two ends of your rail, not neighbours.",
       p2: "Yours is the flat field and the only dome. Call the column early — they hear an hour and it is your own number. Rows are rings on their screen and crowd together, so how near a thing is, is yours to say.",
+      scene: "theWell",
     },
     entries: [
       { beat: 0, col: 3, color: "red" },

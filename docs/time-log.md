@@ -2359,3 +2359,27 @@ question underneath it is not: *what may one phone's press do to two worlds*.
 The answer was already in the room — two presses and only two presses stamp a
 beat zero — so the work was letting that rule run a second time rather than
 writing a new one.
+
+## 2026-09-13 · claude/queue-the-wells-guide-is-prose-and-the-picture-it-desc — THE WELL's rehearsal shows the fold
+
+Four pages and one body: the navigator's flat field with a red body coming
+down the fourth column, then the pilot's clock with the same body at four
+o'clock — the seat switch is the fold, because the film lays each page out
+for the seat it shows and the well is only drawn on the pilot's — then the
+navigator's shot down the same lane, then the seam, the cannon carried from
+one o'clock to eleven the long way round. The caption's `body` anchor placed
+its ring from the flat field, so on the pilot's page it would have stood in
+the empty middle; the well's body placement is now one call, `wellBodyAt`,
+shared by the drawing, the finger and the caption. About 45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the tutorial skill, THE CAIRN's film, `caption-anchor.ts`, `guide-film.ts`'s per-seat layout |
+| writing | 15 | `the-well.ts`, `wellBodyAt`, the anchor's well branch, two tests |
+| looking | 5 | page two through `bun run frames --opening guide --guide-page 1`: the ring on the body at four o'clock |
+| friction | 10 | the fall rate (a row every two beats, not one), the hit-needs-a-page rule, a caption a character long, `startWave` taking an index |
+| landing | 5 | `check:fast`, `bun run index`, the commit |
+
+Bottleneck: **friction** — timing a film against the real fall: the page
+boundaries were laid out for a row a beat and had to be doubled once the probe
+showed where the body actually was.

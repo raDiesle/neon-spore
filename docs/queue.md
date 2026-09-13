@@ -176,25 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## THE WELL's guide is prose, and the picture it describes has never been shown
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-the-wells-guide-is-prose-and-the-picture-it-desc
-- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/waves/act-8.ts`, `packages/content/src/scene-types.ts`
-
-The third wave in a row to land with a three-line prose guide and no `scene`
-(THE WEIGHT's and THE CAIRN's are above). It is the worst of the three to leave
-as prose, because what has to be understood is a *picture* — the pilot has to
-read "the field, turned inside out" and believe it before the first body falls,
-and a rehearsal could simply show the flat field folding into the clock.
-
-Two pages would do it: the field as both seats know it with a body falling down
-column four, then the same field drawn round with the same body at four o'clock
-and the seam standing above the ship. No new machinery if the scene can hold two
-still pictures side by side; `.claude/skills/new-tutorial` has the rules the
-owner has already corrected twice, and `bun test packages/content` proves the
-pages.
-
 ## Should THE WELL's seam cost travel?
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

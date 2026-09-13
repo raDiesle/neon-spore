@@ -1,21 +1,14 @@
 import type { Point } from "@neon-spore/content";
-import { bodyCenterCol, type Creature, handMeans, hullRow, isBossBody } from "@neon-spore/sim";
+import { type Creature, handMeans, isBossBody } from "@neon-spore/sim";
 import { creatureRadius } from "./creature-place.js";
-import { drawnCol, drawnRow, glidePhase } from "./depth.js";
+import { glidePhase } from "./depth.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import type { Field } from "./touch-field.js";
 import { TAP_TILES } from "./touch-hand.js";
 import type { Touch } from "./touch-hold.js";
 import { CANNON_R, navigator, pilot, SHIELD_R } from "./touch-ship.js";
-import {
-  WELL_BODY,
-  wellAngle,
-  wellAt,
-  wellCenter,
-  wellHub,
-  wellPlace,
-  wellSectorAngle,
-} from "./well.js";
+import { WELL_BODY, wellAngle, wellAt, wellCenter, wellHub, wellSectorAngle } from "./well.js";
+import { wellBodyAt } from "./well-draw.js";
 
 /**
  * THE WELL's screen as a control: the same two questions `touch.ts` asks of
@@ -34,7 +27,7 @@ import {
  *
  * **Nothing here decides gameplay, and nothing here is a second projection.**
  * Where a lobe is comes off `wellAngle` and `wellHub`, where a body is off
- * `wellPlace` with the same glide `well-draw.ts` places it by; what a column
+ * `wellBodyAt`, the call `well-draw.ts` places it by; what a column
  * is under a finger is the hour under it. A second spelling of any of those
  * is how a grab comes to land a lane from the thing it was aimed at.
  *
@@ -161,12 +154,11 @@ function wellShipUnder(l: Layout, x: number, y: number, field: Field): Touch | n
 
 /**
  * The body under **this seat's** finger on the well, or null — `creatureAt`
- * with the well's own placement: the lane's angle, the row's radius, the
- * glide `drawWellBodies` draws it by, and its footprint at `WELL_BODY` of the
- * flat one. The kinds skipped are the ones that pass skips, for its reasons.
+ * with the well's own placement (`wellBodyAt`, the call `drawWellBodies`
+ * draws by) and its footprint at `WELL_BODY` of the flat one. The kinds
+ * skipped are the ones that pass skips, for its reasons.
  */
 export function wellCreatureAt(l: Layout, field: Field, x: number, y: number): Creature | null {
-  const deepest = hullRow(field.cfg);
   let best: Creature | null = null;
   let bestDist = Number.POSITIVE_INFINITY;
   for (const c of field.creatures) {
@@ -174,8 +166,7 @@ export function wellCreatureAt(l: Layout, field: Field, x: number, y: number): C
     if (c.kind === "gyre" || c.kind === "crawler" || c.kind === "fence") continue;
     if (handMeans(c.kind, field.seat) === null) continue;
     const glide = glidePhase(field.cfg, field.beat, c, field.beatPhase);
-    const row = Math.min(deepest, Math.max(0, drawnRow(c, glide)));
-    const at = wellPlace(l, bodyCenterCol(c, drawnCol(c, glide)), row);
+    const at = wellBodyAt(l, field.cfg, c, glide);
     const reach = creatureRadius(l, c, field.beatPhase, field.cfg) * WELL_BODY * 1.6;
     const d = Math.hypot(x - at.x, y - at.y);
     if (d > reach || d >= bestDist) continue;

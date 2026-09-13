@@ -418,6 +418,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-magnet.ts` | THE MAGNET's rehearsal: the column the body is in is the one place a shot cannot come from |
 | `packages/content/src/scenes/the-warden.ts` | THE WARDEN's rehearsal: he holds the door open and she has to be quick enough to shoot through it |
 | `packages/content/src/scenes/the-weight.ts` | THE WEIGHT's rehearsal: a thumb held alone looks exactly like two thumbs held together |
+| `packages/content/src/scenes/the-well.ts` | THE WELL's rehearsal: the same field, drawn two ways, and the seam |
 | `packages/content/src/creatures-bare.ts` | The three bodies with **nothing laid over them at all**: a slick or a bulb drawn small, drawn large |
 | `packages/content/src/mechanics-rocks.ts` | The six rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took that file past its 250-line… |
 | `packages/content/src/scenes/the-carom.ts` | THE CAROM's rehearsal: a shape, then an order |
