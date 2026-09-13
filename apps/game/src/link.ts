@@ -116,6 +116,12 @@ export function createLink(o: LinkOptions): Link {
         room = message.room;
         peers = message.peers;
         startMs = message.startMs;
+        // **What the pair got to, kept by the room.** It was declared, cleared
+        // with the room and reported to every screen, and never once written
+        // down here — so the room screen's line about the last time these two
+        // played has always read as if they never had, and beat zero had no
+        // wave to land on but the first.
+        best = message.best;
         socket?.rearm();
         // A beat zero that is not this run's is the room saying the run is over
         // and the next starts here, which is what a rejoin looks like from this
@@ -193,7 +199,10 @@ export function createLink(o: LinkOptions): Link {
    */
   const begin = (): void => {
     startedAt = startMs;
-    if (player !== 0) o.onStart(player);
+    // The wave the room says the pair got to, and 0 for a room with no mark on
+    // it. Read here rather than by the caller because the room is what decides
+    // it and this is where the room's word arrives (`link-types.ts`).
+    if (player !== 0) o.onStart(player, best?.wave ?? 0);
     run.begin(player);
     if (player !== 0) settle("live");
   };

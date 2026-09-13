@@ -141,7 +141,7 @@ const link = bindShell({
   setSeat: (role) => view.set(role),
   openTuning: () => testPanel.open(),
   openDemo: (id) => openDemonstration(id, cfg, jumpToWave),
-  onStart: () => startTogether(),
+  onStart: (_player, wave) => startTogether(wave),
   intro,
 });
 
@@ -159,10 +159,16 @@ bindSplashTrail({ onField: () => !run.held("menu") });
  * Beat zero. Both devices land here within a few milliseconds of each other,
  * and from here the tick counter is the only clock either reads — which is why
  * the clock goes back to zero and not merely the run.
+ *
+ * **On the wave the room names**, which is the furthest the pair has reached
+ * rather than the first (`link-types.ts`). It is the same number on both
+ * phones because it arrived on the same message, and it opens on that wave's
+ * guide if it has one, because `jumpToWave` is the door a wave is chosen
+ * through everywhere else (`waves.ts`).
  */
-function startTogether(): void {
+function startTogether(wave: number): void {
   resetClock(world, 0);
-  jumpToWave(0);
+  jumpToWave(wave);
 }
 
 /**

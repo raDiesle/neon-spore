@@ -182,7 +182,6 @@ export class Room {
       player,
       {
         code: this.code,
-        startMs: this.startMs,
         seats: this.seats(),
         best: worthSaying(this.best) ? this.best : null,
         persist: (at) => this.ctx.storage.put("startMs", at),

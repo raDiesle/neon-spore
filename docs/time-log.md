@@ -2335,3 +2335,27 @@ finger as the hour under it, the seam at twelve as a wall. `touch.ts` and
 Bottleneck: **writing** — the file limit: the well's answers were a fourth
 file's worth on top of two files already full, and both had to be split before
 the new one fitted.
+
+## 2026-09-13 — scheduler-tests-two-devices-klxkyt — two phones that parted start again together
+
+Queue item, the owner's, from a two-device game where a phone dropped its
+socket and came back and the two of them were afterwards on different waves
+with nothing on either screen saying so. Now a parted run brings the menu up on
+the PLAY page on both phones, CONTINUE stops meaning *back to the field* and
+starts meaning *the room's START*, and two presses stamp a fresh beat zero — on
+the wave the room says the pair reached, with that wave's guide if it has one.
+About 70 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `link.ts` and `link-run.ts` for where a parting is noticed, `room-start.ts` and `start-gate.ts` for what a press is worth, `desync.ts` for whether a reconnect can report a false one, and `waves.ts` for what already opens a guide |
+| writing | 30 | the wave on `onStart`, the room's mark actually being kept, the restart in `pressStart`, the menu opening on the parting's edge, CONTINUE's three lines, `menu-bindings.ts` to get `menu.ts` back under 250, and six tests across the app and the real Durable Object |
+| looking | 0 | none — a cloud session cannot open two phones, which is what this item's own note says |
+| friction | 10 | a room code with a B in it is not a room code (the alphabet drops every lookalike), which read as a hung test and took the shared relay down with it; and a wait counted off one phone's message tally applied to the other's |
+| landing | 10 | `check:fast`, the commit, `bun run land` |
+
+Bottleneck: **reading** — the change is small in every file it touches and the
+question underneath it is not: *what may one phone's press do to two worlds*.
+The answer was already in the room — two presses and only two presses stamp a
+beat zero — so the work was letting that rule run a second time rather than
+writing a new one.

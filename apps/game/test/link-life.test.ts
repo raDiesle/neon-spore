@@ -49,18 +49,23 @@ function joined() {
   const wire = fakeSocket();
   const seen: LinkStatus[] = [];
   const starts: number[] = [];
+  /** The wave each beat zero named, in the order they arrived. */
+  const waves: number[] = [];
   const link = createLink({
     cfg: DEFAULT_CONFIG,
     world: createWorld(DEFAULT_CONFIG, 1),
     buffer: { drain: () => [] },
-    onStart: (player) => starts.push(player),
+    onStart: (player, wave) => {
+      starts.push(player);
+      waves.push(wave);
+    },
     onStatus: (status) => seen.push(status),
     // Stopped, so beat zero arrives only when the room's stamp is behind it.
     now: () => 0,
     openSocket: wire.open,
   });
   link.join("ACDE");
-  return { link, wire, seen, starts, state: () => link.status().state };
+  return { link, wire, seen, starts, waves, state: () => link.status().state };
 }
 
 /**
@@ -107,6 +112,32 @@ describe("getting to beat zero", () => {
     const h = running();
     expect(h.state()).toBe("live");
     expect(h.starts).toEqual([1]);
+  });
+});
+
+describe("the wave beat zero lands on", () => {
+  test("is the first one for a room that has never been played in", () => {
+    expect(running().waves).toEqual([0]);
+  });
+
+  test("is the furthest the pair reached, as the room kept it", () => {
+    // Not this device's own progress: a phone that dropped out early holds a
+    // lower figure, and two devices each starting from what they remember is
+    // two people playing two different games. The room hands the pair's mark
+    // back on every welcome (`RunMark`), and this is where it is read.
+    const h = joined();
+    h.wire.say({
+      t: "welcome",
+      player: 1,
+      room: "ACDE",
+      peers: 2,
+      startMs: START_MS,
+      names: ["", ""],
+      best: { wave: 12, seconds: 400, retries: 3 },
+    });
+    for (let i = 0; i < 3; i++) h.wire.say({ t: "pong", c1: 0, s1: START_MS, s2: START_MS });
+    h.link.frame(16);
+    expect(h.waves).toEqual([12]);
   });
 });
 

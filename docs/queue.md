@@ -240,38 +240,6 @@ then bake the standing stack once per `units` into an offscreen sprite and
 redraw the fire only — or cheapen the per-stone fire — and prove both halves
 with a number. Give it a row in `wave-budget.test.ts` while there.
 
-## Two phones that reconnect on different waves restart the same wave together
-
-- **Found:** 2026-09-13, queue-lanes — asked for by the owner
-- **Taken:** 2026-09-13, claude/queue-two-phones-that-reconnect-on-different-waves-res
-- **Files:** `apps/game/src/link-run.ts`, `apps/game/src/link.ts`, `apps/game/src/hold.ts`, `apps/game/src/main.ts`, `apps/game/src/menu-link.ts`, `packages/net/src/protocol.ts`, `apps/server/src/room-start.ts`, `packages/net/src/desync.ts`
-- **Where:** cloud
-
-The owner played a two-device game, a phone dropped its socket and came back,
-and afterwards the two phones were on **different waves** — one of them in a
-wave's guide, the other on the field — with nothing on either screen saying
-so. `HashLedger` (`desync.ts`) reports the first tick the worlds parted, and
-`join-words.ts` turns it into "The two worlds parted at tick N. This is a
-bug", which is true and is not an answer for two people holding phones.
-
-What the game should do instead, in the owner's words: **detect that it is
-out of sync, open the PLAY menu on both phones** (the menu the item below
-renames from TWO DEVICES), and when **both press CONTINUE**, restart together
-on **the same wave, with that wave's guide** if it has one. The wave to
-restart on is a decision the room has to make once for both — the *furthest*
-the pair reached, as the room's `RunMark` already records it (`best.wave` in
-`welcome`), is the obvious candidate; carry it in the `start` the room sends
-so `startTogether` in `main.ts` jumps to it rather than to 0. The desync
-signal itself is already there (`desyncTick` on the run); the ledger's
-`pending` state after a reconnect and a `welcome` that arrives mid-wave are
-the two cases to test. CONTINUE is only offered while both phones are
-connected (`peers === 2`) — see the menu item below — so a phone that
-presses it alone waits, and the hold card (`hold.ts`) says for what.
-
-`packages/net` has the scheduler's unit tests; the room end is
-`bun run relay:check` (`.claude/skills/net-change`), which a cloud session
-cannot run and says so as unverified.
-
 ## The menu is hard to read: a colour scheme with contrast, and a face from a CDN
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner

@@ -47,7 +47,7 @@ export interface ShellParts {
    * Beat zero. Called after every sheet has been put away and every hold on
    * the world has been let go, so what it does is only the run itself.
    */
-  onStart: (player: PlayerId) => void;
+  onStart: (player: PlayerId, wave: number) => void;
   /**
    * The six pages that say what this game is (`intro.ts`). The shell decides
    * *when*: on a device that has never seen them they are the front door, and
@@ -74,12 +74,14 @@ export function bindShell(p: ShellParts): Link {
   /** The home-screen offer, once the browser has made one. See `install.ts`. */
   let installer: Installer | null = null;
   let menu: MainMenu | null = null;
+  /** Whether the last status said the run had parted — see `onStatus`. */
+  let parted = false;
 
   const link = createLink({
     cfg: p.cfg,
     world: p.world,
     buffer: p.buffer,
-    onStart: (player) => {
+    onStart: (player, wave) => {
       // The room hands out the seat, so the view follows it rather than
       // whatever this device was last left on.
       p.setSeat(player === 1 ? "p1" : "p2");
@@ -88,12 +90,23 @@ export function bindShell(p: ShellParts): Link {
       menu?.close();
       joinScreen?.open(false);
       p.run.release();
-      p.onStart(player);
+      p.onStart(player, wave);
     },
     onStatus: (status) => {
       joinScreen?.update(status);
       menu?.update(status);
       hold.update(status);
+      // **The two worlds have parted.** Nothing either phone is looking at is
+      // the game the other one is playing, so the field is not worth drawing
+      // over any more: the menu comes up on the PLAY page, where CONTINUE is,
+      // and the pair start again together the moment both of them press it
+      // (`menu.ts`, `link-run.ts`). It happens on both phones because both
+      // exchange fingerprints and both notice.
+      //
+      // On the *edge* and not on the state, so a menu the player then closed to
+      // look at the field does not come straight back up under their thumb.
+      if (status.state === "desync" && parted !== true) menu?.open("play");
+      parted = status.state === "desync";
     },
   });
 

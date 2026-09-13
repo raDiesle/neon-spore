@@ -281,6 +281,48 @@ describe("a room hands out two seats", () => {
     two.close();
   });
 
+  test("two more presses restart a run that is already stamped", async () => {
+    // The answer to two phones whose worlds have parted: both press CONTINUE,
+    // and the room stamps a *second* beat zero over the first. It used to
+    // refuse a press outright once a run existed, which left a pair that had
+    // gone out of step with nothing to do but leave the room
+    // (`apps/server/src/room-start.ts`).
+    const one = await phone("ADDA");
+    await one.settle("welcome");
+    const two = await phone("ADDA");
+    await two.settle("welcome");
+    await one.settle("welcome", (w) => w.peers === 2);
+
+    one.send({ t: "ready" });
+    await one.settle("ready", (r) => r.players.includes(1));
+    two.send({ t: "ready" });
+    await one.settle("welcome", (w) => w.startMs > 0);
+    const first = of(one.said, "welcome").at(-1)?.startMs ?? 0;
+    expect(first).toBeGreaterThan(0);
+
+    // And again, on a room that is now mid-run. Counted rather than compared:
+    // a Worker's `Date.now()` only moves at I/O, so a second stamp taken in the
+    // same breath as the first is allowed to carry the same number — what is
+    // being tested is that the room stamps *again* and tells both phones,
+    // not that a clock ticked between the two.
+    // Each phone's own count: the two of them have not been told the same
+    // number of welcomes — the second to arrive missed the first one's.
+    const hadOne = of(one.said, "welcome").length;
+    const hadTwo = of(two.said, "welcome").length;
+    one.send({ t: "ready" });
+    await one.settle("ready", (r) => r.players.includes(1));
+    two.send({ t: "ready" });
+    await one.settle("welcome", () => of(one.said, "welcome").length > hadOne);
+    await two.settle("welcome", () => of(two.said, "welcome").length > hadTwo);
+    // Both phones are told the same one, which is the whole point: a restart
+    // either of them picked for itself is two games again.
+    const second = of(one.said, "welcome").at(-1)?.startMs ?? 0;
+    expect(second).toBeGreaterThan(0);
+    expect(of(two.said, "welcome").at(-1)?.startMs).toBe(second);
+    one.close();
+    two.close();
+  });
+
   test("a press from one phone alone starts nothing at all", async () => {
     const one = await phone("AAEE");
     await one.settle("welcome");

@@ -114,6 +114,59 @@ describe("CONTINUE", () => {
     paintLink({ dom: r.dom, link: status({}), pairRoom: "", opened: true, wave: 6 });
     expect(r.desc.get("continue")).toBe("Back to wave 7.");
   });
+
+  it("says what this phone is waiting for once it has pressed", () => {
+    // The press is half of a start, so the menu stays up and the row is what
+    // says so — there is nothing else on either screen that could.
+    const r = recorder();
+    paintLink({
+      dom: r.dom,
+      link: status({ readyHere: true, readyThere: false }),
+      pairRoom: "",
+      opened: false,
+      wave: 0,
+    });
+    expect(r.desc.get("continue")).toContain("Waiting for the other phone");
+  });
+
+  it("is the way out of a parted run, and says so instead", () => {
+    // The one case where a field is open under the menu and going back to it is
+    // worth nothing: the world on the other phone is no longer this one
+    // (`link-run.ts`'s fingerprints). Both press it and the room stamps a fresh
+    // beat zero on the wave the pair got to.
+    const r = recorder();
+    paintLink({
+      dom: r.dom,
+      link: status({ state: "desync" }),
+      pairRoom: "",
+      opened: true,
+      wave: 6,
+    });
+    expect(r.on.get("continue")).toBe(true);
+    expect(r.desc.get("continue")).toContain("out of step");
+    expect(r.desc.get("continue")).toContain("Both press it");
+  });
+});
+
+const shell = await Bun.file(Bun.fileURLToPath(new URL("../src/shell.ts", import.meta.url))).text();
+const menu = await Bun.file(Bun.fileURLToPath(new URL("../src/menu.ts", import.meta.url))).text();
+
+describe("what a parted run does to the two phones", () => {
+  it("brings the menu up on the PLAY page, on the edge and not on the state", () => {
+    // Both phones notice, because both exchange fingerprints — and it fires
+    // once, so a menu the player closed to look at the field does not come
+    // straight back up under their thumb.
+    expect(shell).toContain('status.state === "desync" && parted !== true');
+    expect(shell).toContain('menu?.open("play")');
+  });
+
+  it("makes CONTINUE the room's START rather than the way back to the field", () => {
+    expect(menu).toContain('link?.state === "desync"');
+    expect(menu).toContain("if (opened && !broken())");
+    expect(menu).toContain("b.ready()");
+    // And leaves the menu up on that press: half a start is not a start.
+    expect(menu).toContain("b.ready();\n        paintLink();");
+  });
 });
 
 /**

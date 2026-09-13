@@ -27,6 +27,30 @@ export function inRoom(link: LinkStatus | null): boolean {
   return link !== null && link.state !== "solo";
 }
 
+/**
+ * CONTINUE's own sentence, which is the row saying which of its three answers
+ * this press will be (`menu.ts`).
+ *
+ * The parted run comes first and not last: it is the one case where a field is
+ * open under the menu and going back to it is worth nothing, because the world
+ * on the other phone is no longer this one. The pair is told what happened in
+ * the words the rest of the game uses for it — *out of step* — and what the two
+ * of them have to do about it, which is press the same thing at the same time.
+ */
+function continueLine(link: LinkStatus | null, opened: boolean, wave: number): string {
+  // Pressed here and not yet there: the row is the only thing on either screen
+  // that can say what this phone is waiting for, which is why the press leaves
+  // the menu up (`menu.ts`).
+  if (link?.readyHere && !link.readyThere) {
+    return "Waiting for the other phone. The wave starts the moment they press it too.";
+  }
+  if (link?.state === "desync") {
+    return "The two phones have gone out of step. Both press it, and the wave starts again together.";
+  }
+  if (opened) return `Back to wave ${wave + 1}.`;
+  return "Both of you press it, and the wave starts on the two phones together.";
+}
+
 export interface LinkPaint {
   dom: MenuDom;
   /** The link as it last reported itself, or null before there was one. */
@@ -64,9 +88,7 @@ export function paintLink({ dom, link, pairRoom, opened, wave }: LinkPaint): voi
   // off the wire, where the row is not drawn — the furthest wave reached here.
   dom.setEntry("continue", {
     on: room && (link?.peers ?? 0) >= 2,
-    desc: opened
-      ? `Back to wave ${wave + 1}.`
-      : "Both of you press it, and the wave starts on the two phones together.",
+    desc: continueLine(link, opened, wave),
   });
   // The way back in, once there is somebody to go back to. Off in a room,
   // where the pair is already together, and off before the first meeting,

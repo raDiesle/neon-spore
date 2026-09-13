@@ -22,8 +22,6 @@ export function tellReady(gate: StartGate, seats: Seat[]): void {
 /** What `pressStart` needs of the room, so the gate need not know the rest. */
 export interface StartRoom {
   code: string;
-  /** Beat zero as it stands: non-zero means a run is already stamped. */
-  startMs: number;
   seats: Seat[];
   /** What this pair got to, handed back untouched. See `tally.ts`. */
   best: RunMark | null;
@@ -36,8 +34,22 @@ export interface StartRoom {
  *
  * Answers the room's new beat zero, or 0 when this press did not complete the
  * pair — the caller keeps its own field, because the room is what owns it.
- * A press is refused outright once a run is stamped: one arriving mid-game
- * would otherwise restart the game under two people playing it.
+ *
+ * **A run already stamped is restarted rather than protected**, and that is a
+ * change of 13 September 2026. A single press used to be refused outright once
+ * beat zero existed, on the ground that one arriving mid-game would restart the
+ * game under two people playing it — but the gate has never been able to start
+ * anything on one press, and two presses from two seats are not an accident,
+ * they are the pair agreeing. What made the old refusal wrong is the case it
+ * left with no answer at all: two phones whose worlds have parted
+ * (`packages/net`'s fingerprints) are each holding a game the other is not
+ * playing, and the only way out was for somebody to leave the room. Now both
+ * press CONTINUE and the room stamps a fresh beat zero, with `best` on the
+ * welcome so the two of them come back on the same wave.
+ *
+ * The guard against a stray thumb is on the phone rather than here: CONTINUE is
+ * drawn only while both seats are connected, and it sends this only when the
+ * run has parted or has not started (`apps/game/src/menu.ts`).
  */
 export async function pressStart(
   gate: StartGate,
@@ -45,7 +57,7 @@ export async function pressStart(
   room: StartRoom,
   leadMs: number,
 ): Promise<number> {
-  if (room.startMs !== 0 || gate.has(player)) return 0;
+  if (gate.has(player)) return 0;
   if (!gate.press(player, room.seats.length)) {
     tellReady(gate, room.seats);
     return 0;

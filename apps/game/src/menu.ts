@@ -1,17 +1,16 @@
 import type { MechanicId } from "@neon-spore/content";
 import type { LinkStatus } from "@neon-spore/net";
-import type { ViewRole } from "@neon-spore/render";
 import { bindTwoStep, type TwoStep } from "./confirm.js";
-import type { DemoRow } from "./demo-menu.js";
+import type { MainMenu, MenuBindings } from "./menu-bindings.js";
 import { type EntryActions, menuEntries, playEntries, testingEntries } from "./menu-entries.js";
 import { inRoom as linkIsRoom, paintLink as paintPage } from "./menu-link.js";
-import type { SettingsHooks } from "./menu-settings.js";
+import type { MenuPage } from "./menu-parts.js";
 import { buildMenu } from "./menu-view.js";
 import { readName } from "./nickname.js";
 import { readPartners, roomForPair } from "./pairing.js";
 import { readProgress } from "./progress.js";
-import type { RunState } from "./run-state.js";
 
+export type { MainMenu, MenuBindings } from "./menu-bindings.js";
 /**
  * The main menu, and the way in: the pages, the link, the seat and the two-step
  * in front of LEAVE ROOM. Whether a URL lands here at all is one question with
@@ -23,47 +22,6 @@ import type { RunState } from "./run-state.js";
  * and the two of you meet behind PLAY.
  */
 export { opensOnMenu } from "./menu-door.js";
-
-export interface MenuBindings {
-  jumpToWave: (wave: number) => void;
-  /** The four holds. The menu owns exactly one of them, and only when solo. */
-  run: RunState;
-  /** The wave the field is on, for CONTINUE's line while one is open. */
-  wave: () => number;
-  /** The seat the view switch is on, and the way to move it. */
-  seat: () => ViewRole;
-  setSeat: (role: ViewRole) => void;
-  openRoom: () => void;
-  /** Join a room by code, with the room screen showing it. */
-  joinRoom: (room: string) => void;
-  /** Hang up: back to one device, both seats, and the menu. */
-  leaveRoom: () => void;
-  openTuning: () => void;
-  /**
-   * This seat is ready — the room's own START, sent by CONTINUE when there is a
-   * room and nothing has been played in it yet. The room starts both devices
-   * once the other seat says so too (`link.ts`), which is the only way a press
-   * on one phone may begin a wave on two.
-   */
-  ready: () => void;
-  /** Show the six pages that say what this game is, and put the menu back
-   * afterwards. */
-  openIntro: (back: () => void) => void;
-  /** What the settings page needs of the rest of the app — see `menu-settings.ts`. */
-  settings: SettingsHooks;
-  /** One row per mechanic — see `demo-menu.ts`. */
-  demos: DemoRow[];
-  /** Switches the run to the demonstration's config and opens its wave. */
-  openDemo: (id: MechanicId) => void;
-}
-
-export interface MainMenu {
-  open: () => void;
-  close: () => void;
-  isOpen: () => boolean;
-  /** The link changed. The room line, the LEAVE entry and the seat lock follow it. */
-  update: (status: LinkStatus) => void;
-}
 
 export function bindMainMenu(b: MenuBindings): MainMenu {
   /** The way in and the way out: one control, because on a phone it is one act. */
@@ -85,6 +43,15 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
   const inRoom = (): boolean => linkIsRoom(link);
 
   /**
+   * Whether the run in this room is no longer trustworthy: the two worlds have
+   * parted and neither phone is playing the other's game any more
+   * (`link-run.ts`'s fingerprints). It is what turns CONTINUE from *back to the
+   * field* into *start again, together* — going back to a field that has forked
+   * is going back to nothing.
+   */
+  const broken = (): boolean => link?.state === "desync";
+
+  /**
    * LEAVE ROOM's question, once the page it sits on exists. Held here because
    * every way off this page puts it away again: a question that outlives the
    * screen it was asked on is a yes waiting to be pressed by accident.
@@ -99,8 +66,8 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     dom.animate(false);
     b.run.hold("menu", false);
   };
-  const open = (): void => {
-    dom.show("root");
+  const open = (page: MenuPage = "root"): void => {
+    dom.show(page);
     dom.paintSeat(b.seat());
     paintLink();
     dom.root.classList.add("on");
@@ -137,16 +104,24 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
      * (`menu-link.ts`), it is the furthest wave this device has reached.
      */
     carryOn: () => {
-      if (opened) {
+      if (opened && !broken()) {
         b.run.hold("hand", false);
         close();
         return;
       }
       if (inRoom()) {
+        // **The menu stays up.** This press is half of a start: the room needs
+        // the other seat's too, and a phone that closed the menu on its own
+        // press would be sitting in front of a field that is not running with
+        // nothing saying what it is waiting for. The row itself says it
+        // (`menu-link.ts`), and beat zero is what takes the menu away
+        // (`shell.ts`), on both phones at once.
         b.ready();
-        close();
+        paintLink();
         return;
       }
+      // A parted run off the wire cannot happen — there is no second world to
+      // part from — so what is left here is the ordinary solo press.
       play(readProgress().furthest);
     },
     play,

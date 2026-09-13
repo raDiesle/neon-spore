@@ -1146,6 +1146,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/perf-sweep.ts` | The performance sweep, run **inside the page**, on the device the game is for |
 | `apps/game/src/menu-idle.ts` | `?menuidle=<hz>` — how often the field is repainted while the main menu is up |
 | `apps/game/src/menu-door.ts` | Whether a URL opens on the menu or goes straight to the field |
+| `apps/game/src/menu-bindings.ts` | **What the menu is handed, and what it hands back** — the shape, away from the knot that reads one |
 | `apps/game/src/keys-grip.ts` | what the desk rig's grip key takes hold of, and how it carries it |
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |

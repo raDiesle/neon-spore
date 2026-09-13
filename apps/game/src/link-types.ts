@@ -17,8 +17,18 @@ export interface LinkOptions {
   cfg: SimConfig;
   world: World;
   buffer: CommandSource;
-  /** Beat zero. The run starts over here, on both devices, at the same moment. */
-  onStart: (player: PlayerId) => void;
+  /**
+   * Beat zero. The run starts over here, on both devices, at the same moment —
+   * and on the same **wave**, which is the second argument and is the room's
+   * decision rather than either device's.
+   *
+   * It is the furthest the *pair* reached, as the room has been keeping it
+   * (`RunMark`, handed back on `welcome`): a phone that dropped out early holds
+   * a lower figure of its own, and two devices each starting from what they
+   * remember is two people playing two different games. 0 for a room that has
+   * never been played in, which is the first wave.
+   */
+  onStart: (player: PlayerId, wave: number) => void;
   onStatus: (status: LinkStatus) => void;
   /**
    * The clock this link measures itself against. `performance.now()` by
