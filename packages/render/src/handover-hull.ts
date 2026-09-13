@@ -1,20 +1,13 @@
-import { bumpAdd } from "../../../../../packages/content/src/hull-shape.js";
-import { smoothstep } from "../../../../../packages/render/src/ease.js";
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import {
-  drawHandoverNotice,
-  type HandoverView,
-} from "../../../../../packages/render/src/handover-look.js";
-import type { SurfaceY } from "../../../../../packages/render/src/hull-frame.js";
-import { type Layout, tileCX } from "../../../../../packages/render/src/layout.js";
-import { STROKE } from "../../../../../packages/render/src/palette.js";
-import { seatSkin } from "../../../../../packages/render/src/seat-skin.js";
-import {
-  handedOver,
-  handoverLeft,
-  handoverWarning,
-} from "../../../../../packages/sim/src/handover.js";
-import type { World } from "../../../../../packages/sim/src/world.js";
+import { bumpAdd } from "@neon-spore/content";
+import type { World } from "@neon-spore/sim";
+import { handedOver, handoverLeft, handoverWarning } from "@neon-spore/sim";
+import { smoothstep } from "./ease.js";
+import { strokeGlow } from "./glow.js";
+import { drawHandoverNotice, type HandoverView } from "./handover-look.js";
+import type { SurfaceY } from "./hull-frame.js";
+import { type Layout, tileCX } from "./layout.js";
+import { STROKE } from "./palette.js";
+import { seatSkin } from "./seat-skin.js";
 
 /**
  * HULL — the shape-sheet's `HULL · TRADED`, standing on the real ship.
@@ -29,10 +22,12 @@ import type { World } from "../../../../../packages/sim/src/world.js";
  * hold — and they are painted from the seat's own `HullSkin`, so on the
  * navigator's phone they are amber the way the rest of that ship is.
  *
- * The plate is drawn first, exactly as shipped. The question this slot asks is
- * not *plate or hull*; it is whether the ship saying it too makes the trade
- * something the pair sees coming, or one signal too many over a band that has
- * already changed colour under them.
+ * The plate is drawn first, exactly as shipped: this replaced nothing, it went
+ * *under* what was already there. The slot asked whether the ship saying it
+ * too makes the trade something the pair sees coming or one signal too many
+ * over a band that has already changed colour under them, and the owner
+ * answered it on 13 September 2026 — an exchange is a thing the ship can do
+ * rather than a thing a plate can only say (`tools/versus/DECIDED.md`).
  */
 
 /** How high the taller lobe stands, in tiles, and how far each is from the middle. */

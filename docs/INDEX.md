@@ -999,6 +999,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-under.ts` | The creature under this seat's finger on the flat field — the touch layer's hit test, by the flat placement |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
 | `packages/render/src/handover-look.ts` | **THE HANDOVER's announcement**: the plate on the lip of the band that counts the trade down and counts the panels back, in the same words on both screens |
+| `packages/render/src/handover-hull.ts` | THE HANDOVER on the ship itself: two lobes on the hull handing one height back and forth for the length of the window, under the shipped plate |
 | `packages/render/src/handover.ts` | **Which seat this device is playing** — its own, or the other one's while THE HANDOVER has the panels traded. One function, called by the renderer on a frame and by the host on the layout a finger is tested against |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/crystal.ts` | THE CRYSTAL: a craft three tiles wide with an electric field round it — the order its parts go on in |

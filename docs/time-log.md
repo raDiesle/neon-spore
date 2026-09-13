@@ -3102,3 +3102,22 @@ most of it the sweep.
 
 Bottleneck: **writing** — a number thirty-one tests used as a flag, swept
 with one script rather than by hand.
+
+## 2026-09-13 · claude/scheduler-tests-two-devices-klxkyt — the two VERSUS slots the owner had already decided
+
+Queue item, written for a cloud session: the owner's answers from the VERSUS
+page on 13 September 2026 — `handover:notice` takes `hull`, `cairn:pile` takes
+nothing. Both applied with `bun run versus`, never by hand, so the record and
+the registry moved with the code. The hull's two lobes are on the real ship
+now, under the shipped plate, for the length of the window. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, the two candidates' own arguments, `DECIDED.md`'s shape |
+| writing | 5 | two `versus` commands, and the adopted file's closing paragraph rewritten from a question into the answer it now is |
+| looking | 5 | `bun run frames` at tick 825 of THE HANDOVER, the pilot's screen, cropped to the hull |
+| friction | 0 | — |
+| landing | 5 | the render, versus and director tests, `queue done`, the commit |
+
+Bottleneck: none worth the name — the tool did the work, which is the whole
+argument for having it.

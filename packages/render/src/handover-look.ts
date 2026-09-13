@@ -1,5 +1,6 @@
 import { handedOver, handoverLeft, handoverWarning, type World } from "@neon-spore/sim";
 import { halo } from "./glow.js";
+import { tradedHull } from "./handover-hull.js";
 import { rgba } from "./hex.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
@@ -115,4 +116,4 @@ export function drawHandoverNotice(
  */
 export const HANDOVER_LOOK: {
   announce: (ctx: CanvasRenderingContext2D, l: Layout, world: World, view: HandoverView) => void;
-} = { announce: drawHandoverNotice };
+} = { announce: tradedHull };

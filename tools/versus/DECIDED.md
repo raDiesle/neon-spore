@@ -878,3 +878,30 @@ The other answers offered were `dial` and `fuse`; they went with the slot,
 and stand on the SHAPES page's LIBRARY as `render/countdown-dial.ts` and
 `render/countdown-fuse.ts`, beside the notches IRIS replaced, for other
 timing enemies.
+
+## `handover:notice` / `hull` — taken, 2026-09-13
+
+The owner chose it on the VERSUS page on 13 September 2026: an exchange is a
+thing the ship does rather than a thing a plate only says — the two lobes hand
+one height back and forth for the length of the window, with the shipped plate
+kept over them.
+
+the shipped plate, and under it two lobes on the hull handing one height back
+and forth for the length of the window — the shape-sheet's HULL · TRADED on
+the real ship
+
+`HANDOVER_LOOK.announce` is `tradedHull`, moved from
+`tools/versus/candidates/handover-notice/hull/paint.ts` to
+`packages/render/src/handover-hull.ts`.
+
+It was the only answer offered.
+
+## `cairn:pile` — nothing taken, 2026-09-13
+
+The owner looked at both on 13 September 2026 and kept what the game draws:
+the pile has to be seven ordinary rocks while it is stacked, and a grey stack
+that turns to fire as it comes apart reads as one thing becoming another
+rather than as one thing made of seven — banked and still both lose the same
+argument.
+
+The other answers offered were `banked` and `still`; they went with the slot.
