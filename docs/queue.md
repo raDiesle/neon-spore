@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE CAIRN paints at two and a half times the run's median
 
 - **Found:** 2026-09-13, watch-cloud-waves
+- **Taken:** 2026-09-13, claude/queue-the-cairn-paints-at-two-and-a-half-times-the-run
 - **Files:** `packages/render/src/cairn.ts`, `packages/render/src/meteor.ts`, `packages/render/src/meteor-blaze.ts`, `packages/render/test/wave-budget.test.ts`
 
 The first measurement of the four waves the cloud session landed, taken three
