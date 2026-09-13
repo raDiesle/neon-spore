@@ -648,6 +648,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/wave-intro.ts` | The first of the two states a wave opens in: its number, `TRY n` on a retry, its name and its sentence |
 | `packages/render/src/wrap-text.ts` | Greedy wrap against the measured width |
 | `packages/render/src/gradient-slot.ts` | A cache slot for one gradient that depends only on layout — never on time or an eased value |
+| `packages/render/src/gradient-held.ts` | `heldGradient`: a gradient whose every argument is a radius and a constant, built once and reused — never one keyed on `time` |
 | `packages/render/src/never.ts` | The one way this repository closes a `switch` — a `default` that only type-checks once `x` has narrowed to |
 | `packages/render/src/effects-ingest.ts` | Everything `ingestOne` needs to act on a single event, gathered rather than passed one field at a time — the |
 | `packages/render/src/touch-lobe.ts` | What pressing a lobe says |

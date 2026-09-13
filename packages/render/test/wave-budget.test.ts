@@ -478,6 +478,73 @@ const SCENES: readonly Scene[] = [
       ],
     },
   },
+  {
+    id: "theCairn",
+    name: "THE CAIRN",
+    // Five stones in the pile and two rocks falling: seven fires at once, each
+    // a full BLAZE, COMET or SMOULDER under the pile's clip, which is where
+    // the gradient rows come from.
+    why: "seven burning rocks, five of them standing in one pile",
+    // The gradients whose every argument is `r` and a constant — a BLAZE's
+    // ball and veil, a COMET's bow and dimples, a SMOULDER's under-glow and
+    // craters, a flame's ramp — are built once and held (`gradient-held.ts`,
+    // 13 September 2026): the two gradient rows fell by a fifth and nothing
+    // else in the row moved, nor anything in the picture.
+    rows: {
+      p1: [
+        {
+          fillRect: 60,
+          stroke: 177,
+          fill: 398,
+          clip: 14,
+          save: 206,
+          drawImage: 49,
+          createLinearGradient: 150,
+          createRadialGradient: 154,
+          "new Path2D": 70,
+          fillText: 4,
+        },
+        {
+          fillRect: 60,
+          stroke: 179,
+          fill: 397,
+          clip: 14,
+          save: 205,
+          drawImage: 49,
+          createLinearGradient: 137,
+          createRadialGradient: 132,
+          "new Path2D": 45,
+          fillText: 4,
+        },
+      ],
+      p2: [
+        {
+          fillRect: 59,
+          stroke: 180,
+          fill: 405,
+          clip: 14,
+          save: 207,
+          drawImage: 48,
+          createLinearGradient: 149,
+          createRadialGradient: 154,
+          "new Path2D": 68,
+          fillText: 4,
+        },
+        {
+          fillRect: 59,
+          stroke: 182,
+          fill: 404,
+          clip: 14,
+          save: 206,
+          drawImage: 48,
+          createLinearGradient: 136,
+          createRadialGradient: 132,
+          "new Path2D": 45,
+          fillText: 4,
+        },
+      ],
+    },
+  },
 ];
 
 describe("the dearest frames' op counts", () => {

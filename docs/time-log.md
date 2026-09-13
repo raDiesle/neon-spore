@@ -2401,3 +2401,28 @@ code. About 5 min.
 | landing | 0 | `queue done`, the commit |
 
 Bottleneck: **none** — the answer was already in hand.
+
+## 2026-09-13 · claude/queue-the-cairn-paints-at-two-and-a-half-times-the-run — a burning rock holds the gradients that never move
+
+The render-perf lane on THE CAIRN. The pile was measured alone with the stub's
+tally, which showed where the frame goes: seven full fires under one clip,
+about 1,600 ops for the pile and a third of the run's gradients built fresh
+each frame for arguments that never change. The identical half — gradients
+whose every argument is `r` and a constant, held between frames — landed with
+a `wave-budget.test.ts` row pinning it; the structural half is a look
+question (the pile frozen per `units`) and went to the owner, and the exact
+cull of clipped primitives is queued. Two log-comparison tests had to start
+cold once a second draw at one radius logged fewer gradient builds than the
+first. About 60 min across the break.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `cairn.ts`, the three looks, `rock-wake-fire.ts`, the render-perf skill |
+| writing | 20 | `gradient-held.ts`, the four callers, the budget row, the queue entry |
+| looking | 10 | the tally before and after, the ordered log diff |
+| friction | 15 | a Python heredoc that ate its own backslashes; two tests comparing a warm draw to a cold one |
+| landing | 5 | format, check:fast, index, the commit |
+
+Bottleneck: **friction** — the log-comparison tests were written before any
+gradient outlived a frame, and finding why a warm second draw differed took
+longer than the fix.

@@ -176,29 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## THE CAIRN paints at two and a half times the run's median
-
-- **Found:** 2026-09-13, watch-cloud-waves
-- **Taken:** 2026-09-13, claude/queue-the-cairn-paints-at-two-and-a-half-times-the-run
-- **Files:** `packages/render/src/cairn.ts`, `packages/render/src/meteor.ts`, `packages/render/src/meteor-blaze.ts`, `packages/render/test/wave-budget.test.ts`
-
-The first measurement of the four waves the cloud session landed, taken three
-times on 13 September with `bun run perf --wave 66,67,68,69`: THE WEIGHT, THE
-CODEX and THE WELL sit at or under the run's median, and **THE CAIRN paints at
-11–12 ms typical, 13–15 ms at the ninetieth percentile — 2.5× the median and
-up to 90% of a 60 Hz frame** on the owner's Windows machine, with the game's
-dearest waves at 6.4–7.1 ms in the last full sweep. Every run was flagged (THE
-WALL moved against the baseline of 9 September, so no absolute figure was
-saved and the four rows stay unmeasured); the *share* held across all three.
-
-The pile is seven `drawRockBody` calls under one clip every frame, each with
-its look's fire (`meteor-blaze.ts`: a plume behind and a fire in front, per
-stone), for a body that never moves and changes only when a unit leaves. Do it
-by `.claude/skills/render-perf`: measure the pile alone with the stub's tally,
-then bake the standing stack once per `units` into an offscreen sprite and
-redraw the fire only — or cheapen the per-stone fire — and prove both halves
-with a number. Give it a row in `wave-budget.test.ts` while there.
-
 ## The menu is hard to read: a colour scheme with contrast, and a face from a CDN
 
 - **Found:** 2026-09-13, queue-lanes — asked for by the owner
@@ -574,3 +551,24 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE CAIRN's pile draws the whole of each stone's fire and clips most of it away
+
+- **Found:** 2026-09-13, claude/queue-the-cairn-paints-at-two-and-a-half-times-the-run
+- **Files:** `packages/render/src/cairn.ts`, `packages/render/src/rock-wake.ts`, `packages/render/src/rock-wake-fire.ts`, `packages/render/src/meteor-blaze.ts`, `packages/render/src/meteor-comet.ts`, `packages/render/src/meteor-smoulder.ts`, `packages/render/test/wave-budget.test.ts`
+
+What the held gradients left. `drawCairn` clips to `pilePath` — the union of
+the standing stones' 7-gons — and then calls `drawRockBody` per unit, and each
+call draws its look's whole fire: the plume behind the stone, the ball, the
+tongues, the smoke. For every stone but the apex nearly all of that lies under
+the stones above it or outside the clip altogether — the apex stone's plume
+alone is about nine parts in ten above the pile's bounding box — and the pile
+alone still costs about 1,600 canvas ops a frame (`fill` 398 on p1 frame 0 in
+`wave-budget.test.ts`, the highest in the game). Pass the clip's bounding box
+down to the fire and skip every primitive whose own extent lies wholly outside
+it: a plume's puff, a tongue, a flame body, before its path is built. That is
+an *identical* change in the render-perf skill's sense — a primitive that was
+entirely clipped drew nothing — so prove it by the ordered canvas log: the
+diff must be only removed calls, and the picture the same. Nothing keyed on
+`time` may be cached to do it; the pile's *look* frozen per `units` is a look
+question and is with the owner, not here.

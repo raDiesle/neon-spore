@@ -1,5 +1,6 @@
 import { beforeAll, describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
+import { clearBakedCaches } from "../src/baked.js";
 import { computeLayout, tileCY } from "../src/layout.js";
 import { drawRockBody } from "../src/meteor.js";
 import { RockImpactFx } from "../src/rock-impact.js";
@@ -174,6 +175,10 @@ describe("the look of a replayed fall", () => {
     const fx = new RockImpactFx();
     const { ctx } = stubCanvas();
     ctx.log = [];
+    // Cold, like the reference below: a rock holds the gradients that never
+    // move (`gradient-held.ts`), and two draws at one radius would otherwise
+    // log different `createRadialGradient` lines.
+    clearBakedCaches();
     fx.spawn(200, L, 0, BEAT_SECONDS, kind, 1, CFG.rows - 3, false, () => {}, false, 7, 3);
     fx.draw(ctx as unknown as CanvasRenderingContext2D, L, 0, () => L.hullY);
     return ctx.log;
@@ -191,6 +196,7 @@ describe("the look of a replayed fall", () => {
     // go of the body. So it draws by `drawRockBody` with the body's seed.
     const ref = stubCanvas().ctx;
     ref.log = [];
+    clearBakedCaches();
     drawRockBody(ref as unknown as CanvasRenderingContext2D, 0, 0, rockRadius(L, 1), 0, 7, 3);
     expect(ops(replay("meteor"))).toContain(ops(ref.log));
   });

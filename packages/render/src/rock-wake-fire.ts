@@ -1,4 +1,5 @@
 import { blobRadiusMul, type Point } from "@neon-spore/content";
+import { heldGradient } from "./gradient-held.js";
 import { rgba } from "./hex.js";
 import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
@@ -10,7 +11,10 @@ import { splinePath } from "./spline.js";
  * is smoke and stone, drawn over the field.
  *
  * Both marks are drawn from their arguments and `time` alone; nothing caches a
- * frame, for the reason `wake.ts` gives.
+ * frame, for the reason `wake.ts` gives — except a flame's *ramp*, which runs
+ * from the foot to the crown with stops set by `heat`, none of which moves, so
+ * it is held (`heldGradient`); the contour is what boils, and that is built
+ * every frame.
  */
 
 /**
@@ -103,12 +107,16 @@ export function flame(
   const path = splinePath(pts, true);
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
-  const g = ctx.createLinearGradient(0, y, 0, y - h);
-  g.addColorStop(0, rgba(PALETTE.emberRim, 0.55 * heat));
-  g.addColorStop(0.2, rgba(PALETTE.ember, 0.7 * heat));
-  g.addColorStop(0.6, rgba(PALETTE.ember, 0.22 * heat));
-  g.addColorStop(1, rgba(PALETTE.ember, 0));
-  ctx.fillStyle = g;
+  // Callers pass a handful of fixed multiples of a rock's radius for all
+  // three, so the held set stays a handful.
+  ctx.fillStyle = heldGradient(`flame@${y}|${h}|${heat}`, () => {
+    const g = ctx.createLinearGradient(0, y, 0, y - h);
+    g.addColorStop(0, rgba(PALETTE.emberRim, 0.55 * heat));
+    g.addColorStop(0.2, rgba(PALETTE.ember, 0.7 * heat));
+    g.addColorStop(0.6, rgba(PALETTE.ember, 0.22 * heat));
+    g.addColorStop(1, rgba(PALETTE.ember, 0));
+    return g;
+  });
   ctx.fill(path);
   ctx.restore();
 }

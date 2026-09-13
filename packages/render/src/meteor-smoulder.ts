@@ -1,4 +1,5 @@
 import { LIGHT_HALF } from "@neon-spore/content";
+import { heldGradient } from "./gradient-held.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import { keyAxis } from "./meteor-look.js";
@@ -11,7 +12,9 @@ import { tongue } from "./rock-wake-fire.js";
  * the air, under a thick column of dark smoke with ash coming off it.
  *
  * Everything is drawn from `r`, `time` and the key axis; nothing caches a
- * frame.
+ * frame. The glow under the smoke and the three craters' bowls are fixed by
+ * `r` alone and are held between frames (`heldGradient`), which changes no
+ * pixel.
  */
 
 /** Charcoal: the rock is black, and everything lighter on it is heat. */
@@ -57,10 +60,12 @@ export function smoke(ctx: CanvasRenderingContext2D, r: number, turn: number, ti
   });
   // The glow the stone throws up into its own smoke, just behind it.
   ctx.globalCompositeOperation = "lighter";
-  const under = ctx.createRadialGradient(0, -r * 0.6, 0, 0, -r * 0.6, r * 1.3);
-  under.addColorStop(0, rgba(GLOW, 0.35));
-  under.addColorStop(1, rgba(GLOW, 0));
-  ctx.fillStyle = under;
+  ctx.fillStyle = heldGradient(`smoulder-under@${r}`, () => {
+    const under = ctx.createRadialGradient(0, -r * 0.6, 0, 0, -r * 0.6, r * 1.3);
+    under.addColorStop(0, rgba(GLOW, 0.35));
+    under.addColorStop(1, rgba(GLOW, 0));
+    return under;
+  });
   ctx.beginPath();
   ctx.arc(0, -r * 0.6, r * 1.3, 0, Math.PI * 2);
   ctx.fill();
@@ -111,7 +116,15 @@ export function charcoal(
   ctx.clip(path);
   litRound(ctx, 0, 0, r, LIGHT_HALF.rock, turn);
   for (const [a, d, s] of CRATERS) {
-    crater(ctx, Math.cos(a) * r * d, Math.sin(a) * r * d, r * s, dx, dy);
+    crater(
+      ctx,
+      Math.cos(a) * r * d,
+      Math.sin(a) * r * d,
+      r * s,
+      dx,
+      dy,
+      `smoulder-crater@${r}:${a}`,
+    );
   }
   // The heat, in the screen frame so it stays on the bottom: a deep red bloom
   // over the lower half of the stone, hottest at the edge, and a white-hot
@@ -159,19 +172,26 @@ function crater(
   rad: number,
   dx: number,
   dy: number,
+  key: string,
 ): void {
-  const g = ctx.createRadialGradient(x, y, 0, x, y, rad);
-  g.addColorStop(0, rgba(CHAR_DARK, 0.95));
-  g.addColorStop(0.6, rgba(CHAR_DARK, 0.6));
-  g.addColorStop(1, rgba(CHAR_DARK, 0));
-  ctx.fillStyle = g;
+  // In the rock's own frame, so the bowl and its floor are `r` and a constant
+  // and both gradients are held; the lip turns with the light.
+  ctx.fillStyle = heldGradient(key, () => {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, rad);
+    g.addColorStop(0, rgba(CHAR_DARK, 0.95));
+    g.addColorStop(0.6, rgba(CHAR_DARK, 0.6));
+    g.addColorStop(1, rgba(CHAR_DARK, 0));
+    return g;
+  });
   ctx.beginPath();
   ctx.arc(x, y, rad, 0, Math.PI * 2);
   ctx.fill();
-  const floor = ctx.createRadialGradient(x, y, 0, x, y, rad * 0.5);
-  floor.addColorStop(0, rgba(GLOW, 0.45));
-  floor.addColorStop(1, rgba(GLOW, 0));
-  ctx.fillStyle = floor;
+  ctx.fillStyle = heldGradient(`${key}:floor`, () => {
+    const floor = ctx.createRadialGradient(x, y, 0, x, y, rad * 0.5);
+    floor.addColorStop(0, rgba(GLOW, 0.45));
+    floor.addColorStop(1, rgba(GLOW, 0));
+    return floor;
+  });
   ctx.beginPath();
   ctx.arc(x, y, rad * 0.5, 0, Math.PI * 2);
   ctx.fill();

@@ -1,5 +1,6 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { strokeGlow } from "./glow.js";
+import { heldGradient } from "./gradient-held.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import { keyAxis } from "./meteor-look.js";
@@ -13,7 +14,8 @@ import { flame, tongue } from "./rock-wake-fire.js";
  * inside the plume.
  *
  * Everything is drawn from `r`, `time` and the key axis; nothing caches a
- * frame.
+ * frame. The bow and the five dimples are fixed by `r` alone and are held
+ * between frames (`heldGradient`), which changes no pixel.
  */
 
 /** Rusted iron: a red-brown that is nobody's ammunition — `red` is the bolt
@@ -98,18 +100,20 @@ export function iron(ctx: CanvasRenderingContext2D, path: Path2D, r: number, tur
   ctx.clip(path);
   litRound(ctx, 0, 0, r, LIGHT_HALF.rock, turn);
   for (const [a, d, s] of DIMPLES) {
-    dimple(ctx, Math.cos(a) * r * d, Math.sin(a) * r * d, r * s, dx, dy);
+    dimple(ctx, Math.cos(a) * r * d, Math.sin(a) * r * d, r * s, dx, dy, `comet-dimple@${r}:${a}`);
   }
   // The bow: the underside is white-hot where it meets the air. Screen frame
   // inside the clip, so it stays on the bottom whatever the stone is doing.
   ctx.rotate(-turn);
   ctx.globalCompositeOperation = "lighter";
-  const bow = ctx.createLinearGradient(0, r * 1.05, 0, r * 0.1);
-  bow.addColorStop(0, rgba(PALETTE.emberRim, 1));
-  bow.addColorStop(0.25, rgba(PALETTE.ember, 0.8));
-  bow.addColorStop(0.6, rgba(PALETTE.ember, 0.25));
-  bow.addColorStop(1, rgba(PALETTE.ember, 0));
-  ctx.fillStyle = bow;
+  ctx.fillStyle = heldGradient(`comet-bow@${r}`, () => {
+    const bow = ctx.createLinearGradient(0, r * 1.05, 0, r * 0.1);
+    bow.addColorStop(0, rgba(PALETTE.emberRim, 1));
+    bow.addColorStop(0.25, rgba(PALETTE.ember, 0.8));
+    bow.addColorStop(0.6, rgba(PALETTE.ember, 0.25));
+    bow.addColorStop(1, rgba(PALETTE.ember, 0));
+    return bow;
+  });
   ctx.fillRect(-r * 1.3, -r * 1.3, r * 2.6, r * 2.6);
   ctx.restore();
   // A dark edge, and a warm rim on it.
@@ -128,12 +132,17 @@ function dimple(
   rad: number,
   dx: number,
   dy: number,
+  key: string,
 ): void {
-  const g = ctx.createRadialGradient(x, y, 0, x, y, rad);
-  g.addColorStop(0, rgba(IRON_DARK, 0.7));
-  g.addColorStop(0.75, rgba(IRON_DARK, 0.3));
-  g.addColorStop(1, rgba(IRON_DARK, 0));
-  ctx.fillStyle = g;
+  // In the rock's own frame, so the bowl's place and size are `r` and a
+  // constant; only the lip turns with the light.
+  ctx.fillStyle = heldGradient(key, () => {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, rad);
+    g.addColorStop(0, rgba(IRON_DARK, 0.7));
+    g.addColorStop(0.75, rgba(IRON_DARK, 0.3));
+    g.addColorStop(1, rgba(IRON_DARK, 0));
+    return g;
+  });
   ctx.beginPath();
   ctx.arc(x, y, rad, 0, Math.PI * 2);
   ctx.fill();

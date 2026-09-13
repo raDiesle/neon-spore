@@ -1,5 +1,6 @@
 import { LIGHT_HALF } from "@neon-spore/content";
 import { strokeGlow } from "./glow.js";
+import { heldGradient } from "./gradient-held.js";
 import { rgba } from "./hex.js";
 import { litRound } from "./key-light.js";
 import { keyAxis } from "./meteor-look.js";
@@ -14,6 +15,12 @@ import { flame, tongue } from "./rock-wake-fire.js";
  * the far tongues, the stone, the near tongues over it — because that is the
  * fire the owner pointed at. Everything is drawn from `r`, `time` and the key
  * axis; nothing caches a frame.
+ *
+ * **What is held between frames is a gradient whose every argument is `r` and
+ * a constant** — the ball, the veil and the four born craters — built once per
+ * radius through `heldGradient` and reused, which changes no pixel: the same
+ * stops at the same places. The gradients that move — the tongues' along their
+ * bend, the stone's along the key axis — are built every frame as before.
  */
 
 /** Scorched basalt: near-black with a warm cast, so the fire's light on it
@@ -49,12 +56,14 @@ export function fireBehind(ctx: CanvasRenderingContext2D, r: number, turn: numbe
   // The ball, as the torch has it: one round bloom of heat round the stone.
   ctx.save();
   ctx.globalCompositeOperation = "lighter";
-  const ball = ctx.createRadialGradient(0, 0, r * 0.4, 0, 0, r * 1.7);
-  ball.addColorStop(0, rgba(PALETTE.emberRim, 0.7));
-  ball.addColorStop(0.4, rgba(PALETTE.ember, 0.6));
-  ball.addColorStop(0.75, rgba(PALETTE.ember, 0.18));
-  ball.addColorStop(1, rgba(PALETTE.ember, 0));
-  ctx.fillStyle = ball;
+  ctx.fillStyle = heldGradient(`blaze-ball@${r}`, () => {
+    const ball = ctx.createRadialGradient(0, 0, r * 0.4, 0, 0, r * 1.7);
+    ball.addColorStop(0, rgba(PALETTE.emberRim, 0.7));
+    ball.addColorStop(0.4, rgba(PALETTE.ember, 0.6));
+    ball.addColorStop(0.75, rgba(PALETTE.ember, 0.18));
+    ball.addColorStop(1, rgba(PALETTE.ember, 0));
+    return ball;
+  });
   ctx.beginPath();
   ctx.arc(0, 0, r * 1.7, 0, Math.PI * 2);
   ctx.fill();
@@ -111,7 +120,7 @@ export function scorched(ctx: CanvasRenderingContext2D, path: Path2D, r: number,
   // than the pits a shot leaves, so a rock that has been shot reads as a
   // cratered rock with fresh holes in it rather than as a different rock.
   for (const [a, d, s] of CRATERS) {
-    crater(ctx, Math.cos(a) * r * d, Math.sin(a) * r * d, r * s, dx, dy);
+    crater(ctx, Math.cos(a) * r * d, Math.sin(a) * r * d, r * s, dx, dy, `blaze-crater@${r}:${a}`);
   }
   ctx.restore();
   // A dark edge, then the fire's light on the rim of it.
@@ -130,12 +139,18 @@ function crater(
   rad: number,
   dx: number,
   dy: number,
+  key: string,
 ): void {
-  const g = ctx.createRadialGradient(x, y, 0, x, y, rad);
-  g.addColorStop(0, rgba(BASALT_DARK, 0.9));
-  g.addColorStop(0.7, rgba(BASALT_DARK, 0.55));
-  g.addColorStop(1, rgba(BASALT_DARK, 0));
-  ctx.fillStyle = g;
+  // The bowl sits in the rock's own frame, so its place and size are `r` and
+  // a constant and the gradient is the same one every frame; the lip turns
+  // with the light and is stroked fresh.
+  ctx.fillStyle = heldGradient(key, () => {
+    const g = ctx.createRadialGradient(x, y, 0, x, y, rad);
+    g.addColorStop(0, rgba(BASALT_DARK, 0.9));
+    g.addColorStop(0.7, rgba(BASALT_DARK, 0.55));
+    g.addColorStop(1, rgba(BASALT_DARK, 0));
+    return g;
+  });
   ctx.beginPath();
   ctx.arc(x, y, rad, 0, Math.PI * 2);
   ctx.fill();
@@ -164,11 +179,13 @@ export function fireInFront(ctx: CanvasRenderingContext2D, r: number, turn: numb
     tongue(ctx, x, y, len, r * 0.16, up, 0.8 * flick, -(x / r) * r * 0.3);
   }
   ctx.globalCompositeOperation = "lighter";
-  const veil = ctx.createRadialGradient(0, r * 0.4, 0, 0, 0, r * 1.15);
-  veil.addColorStop(0, rgba(PALETTE.emberRim, 0.22));
-  veil.addColorStop(0.7, rgba(PALETTE.ember, 0.12));
-  veil.addColorStop(1, rgba(PALETTE.ember, 0));
-  ctx.fillStyle = veil;
+  ctx.fillStyle = heldGradient(`blaze-veil@${r}`, () => {
+    const veil = ctx.createRadialGradient(0, r * 0.4, 0, 0, 0, r * 1.15);
+    veil.addColorStop(0, rgba(PALETTE.emberRim, 0.22));
+    veil.addColorStop(0.7, rgba(PALETTE.ember, 0.12));
+    veil.addColorStop(1, rgba(PALETTE.ember, 0));
+    return veil;
+  });
   ctx.beginPath();
   ctx.arc(0, 0, r * 1.15, 0, Math.PI * 2);
   ctx.fill();

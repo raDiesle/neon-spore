@@ -1,4 +1,5 @@
 import { beforeAll, describe, expect, it } from "bun:test";
+import { clearBakedCaches } from "../src/baked.js";
 import { DeflectFx } from "../src/deflect.js";
 import { DEFLECT_LOOK } from "../src/deflect-look.js";
 import { drawRockBody } from "../src/meteor.js";
@@ -179,10 +180,14 @@ describe("a bounced rock keeps its own size", () => {
     // seed (`meteorLookFor`), and so does the bounce now: the proof is that
     // the bounce's ops are `drawRockBody`'s, at the rock's own radius, seed
     // and pits, and not a gradient of greys.
+    // Each draw starts cold: a rock holds the gradients that never move
+    // (`gradient-held.ts`), and the second of two draws at one radius would
+    // otherwise log fewer `createRadialGradient` lines than the first.
     const fx = new DeflectFx();
     fx.spawn(200, 1130, TILE, 2, "meteor", 5, 2);
     const { ctx } = stubCanvas();
     ctx.log = [];
+    clearBakedCaches();
     fx.draw(ctx as unknown as CanvasRenderingContext2D);
     const bounced = ctx.log
       .filter((e) => !e.startsWith("translate(") && !e.startsWith("drawImage("))
@@ -190,6 +195,7 @@ describe("a bounced rock keeps its own size", () => {
 
     const ref = stubCanvas().ctx;
     ref.log = [];
+    clearBakedCaches();
     drawRockBody(ref as unknown as CanvasRenderingContext2D, 0, 0, TILE * 0.8, 0, 5, 2);
     const fell = ref.log
       .filter((e) => !e.startsWith("translate(") && !e.startsWith("drawImage("))
