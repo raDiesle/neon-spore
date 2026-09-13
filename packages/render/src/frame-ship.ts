@@ -8,6 +8,7 @@ import { faultBeamEnds } from "./fault-beam-ends.js";
 import { drawFaultBeam } from "./fault-emitter.js";
 import { drawFenceArcs } from "./fence-arc.js";
 import type { GuideStage } from "./guide-scene.js";
+import { drawHandoverNotice } from "./handover-look.js";
 import { drawControlHover } from "./hover.js";
 import { drawHud, drawOverlay } from "./hud.js";
 import { drawHull, type HullMood, hullSkinY, type LobePositions, surfaceSampler } from "./hull.js";
@@ -169,6 +170,11 @@ export function drawOverlays(
   // Over the finished band, from the emitter at the top of the field down to
   // the button the fault has taken on this screen (`fault-emitter.ts`).
   drawFaultBeams(ctx, l, world, view);
+  // And over both, on the band's own lip: how many beats until THE HANDOVER
+  // trades the two panels, and how many until it gives them back. The band under
+  // it has already changed hands by then — this is the only part of the fault
+  // that says *when* (`handover-look.ts`).
+  drawHandoverNotice(ctx, l, world, view.beatPhase);
   // Over the finished band: whichever control a desk's mouse is resting on.
   drawControlHover(ctx, l, view);
   drawOverlay(ctx, l, view);

@@ -47,6 +47,7 @@ export function bindControls({
   inStage,
   isOver,
   player,
+  handed,
   cfg,
   maze,
   controls,
@@ -66,6 +67,15 @@ export function bindControls({
 }: Bindings): Controls {
   /** Which finger is doing what. What each one *means* is `touch.ts`'s. */
   const holding = new Map<number, Hold>();
+  /**
+   * **Who a press is from: this device, always.** `touch.ts` signs a press with
+   * the half of the band it landed on, and THE HANDOVER trades which half this
+   * screen is drawing — so while the panels are away that signature is the other
+   * player's, and a lockstep refuses a press attributed to the peer
+   * (`Bindings.handed`). A hand on the *field* is already signed with this seat
+   * and passes through unchanged.
+   */
+  const from = (t: { player: 1 | 2 }): 1 | 2 => (handed() ? player() : t.player);
   const hand = new ShipHandWatch();
   /** A desk has a hover and a phone does not. Undefined until a mouse moves. */
   let pointer: { x: number; y: number } | undefined;
@@ -103,7 +113,7 @@ export function bindControls({
     // Null for the one press that takes hold of something and says nothing
     // yet: player 2's thumb landing on the muzzle, which is decided on the
     // lift (`render/touch-ship.ts`).
-    if (t.command) buffer.push(t.player, t.command);
+    if (t.command) buffer.push(from(t), t.command);
   };
 
   /**
@@ -123,7 +133,7 @@ export function bindControls({
       // No point to report, so a half-finished swipe fires nothing — see
       // `touchUp`. Losing the window is not a shot the player took.
       const t = touchUp(layout(), hold, field());
-      if (t?.command) buffer.push(t.player, t.command);
+      if (t?.command) buffer.push(from(t), t.command);
     }
     hand.clear();
     pointer = undefined;
@@ -167,7 +177,7 @@ export function bindControls({
     if (!hold) return hover(e, p);
     hand.down(layout(), hold, p.x, p.y);
     const t = touchMove(layout(), hold, p.x, p.y);
-    if (t?.command) buffer.push(t.player, t.command);
+    if (t?.command) buffer.push(from(t), t.command);
   });
   const up = (e: PointerEvent): void => {
     const hold = holding.get(e.pointerId);
@@ -175,7 +185,7 @@ export function bindControls({
     holding.delete(e.pointerId);
     hand.clear();
     const t = touchUp(layout(), hold, field(), inStage(e) ?? undefined);
-    if (t?.command) buffer.push(t.player, t.command);
+    if (t?.command) buffer.push(from(t), t.command);
   };
   canvas.addEventListener("pointerup", up);
   canvas.addEventListener("pointercancel", up);

@@ -577,6 +577,17 @@ export const COPIES: Copy[] = [
     pattern: /Math\.round\(\s*(?:\w+\.)*cfg\.malfunctionEveryBeats/,
   },
   {
+    // THE HANDOVER's window: the beat the two panels change screens, the beats
+    // they stay changed and the beats of warning before it, each clamped to one.
+    // Three readers outside the simulation want it — the renderer seats a frame,
+    // the host seats the layout a finger is tested against, and a plate counts it
+    // down — and a window worked out again in any of them is a phone drawing one
+    // panel and answering the other, or warning about a trade that has happened.
+    call: "handedOver",
+    owner: "packages/sim/src/handover.ts",
+    pattern: /Math\.round\(\s*(?:\w+\.)*cfg\.handover/,
+  },
+  {
     // The rest between two of SNAKE's shots. The panel greyed the trigger by
     // its own copy of the comparison the controls refuse the press by.
     call: "snakeResting",

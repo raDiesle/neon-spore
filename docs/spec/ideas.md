@@ -618,17 +618,23 @@ pilot's screen alone — and the boss-sized body it was drawn for was never need
   replace a sentence, knowing only that their hands are full changes which
   sentence you say. If it gives away too much it belongs in
   [assists](assists.md) with a price on it, like sharing sight
-- **Handover** — the two control sets trade owners in the middle of a wave.
-  Roles are picked before a run and kept, with a separate best run per split as
-  the incentive to swap ([roles](roles.md)); this makes the swap something that
-  happens *inside* a wave, announced by the ship rather than agreed beforehand.
-  Everything each player has learned about their own half becomes something they
-  have to say out loud to somebody who is now holding it. Unworked out: whether
-  radar ownership travels with the controls, and it almost certainly must, since
-  the whole point of the split is that the one who knows is not the one who acts
-  ([systems](systems.md) 5.2); whether a shield move already queued survives the
-  handover; whether it reads as exciting rather than as simply losing the wave,
-  which is a question a prototype answers and a paragraph does not
+- ~~**Handover**~~ — **built**, as the fifth malfunction, on 13 September 2026:
+  THE HANDOVER, wave 70 of act eight ([bestiary](bestiary.md) under THE
+  MALFUNCTION). Nine beats in, the two panels change screens for eight beats and
+  then come home, counted down and counted back on both phones. Its three open
+  questions were answered by building it. **Radar ownership travels**, and it was
+  not a decision in the end but a consequence: every per-seat fact in this game
+  hangs off which seat a frame was drawn for, so swapping that one value moves
+  the buttons, the radar, the codex shimmer, the queen's two hints and the hull's
+  own colour together — it is the same screen. **A queued shield move survives**,
+  because nothing in the simulation moves at all: the fault is a clock render/ and
+  the host read off the wave's beat, and `handover.test.ts` plays the wave twice
+  with and without it and gets the same world tick by tick. **Whether it reads as
+  exciting** is still a question a prototype answers and a paragraph does not —
+  it has not been watched at tempo. One thing the paragraph did not foresee: the
+  panel trades, the two *people* do not, because the wire's identities are fixed
+  and the simulation gives a hand on the field to whoever sent it — so a handover
+  wave is answered by the band and never by a thumb on a body
 
 ### Weapons
 

@@ -1,6 +1,6 @@
 /**
- * THE MALFUNCTION's numbers: how often a broken control acts by itself, and how
- * long THE CODEX holds a key.
+ * THE MALFUNCTION's numbers: how often a broken control acts by itself, how
+ * long THE CODEX holds a key, and when THE HANDOVER trades the two panels.
  *
  * Its own file, the way every mechanic with numbers of its own has one. The
  * seam is the same one `config-fence.ts` and `config-recoil.ts` were cut
@@ -40,9 +40,44 @@ export interface MalfunctionConfig {
    * say to the other; 2500 ms is not.
    */
   codexHoldBeats: number;
+  /**
+   * The beat of the wave THE HANDOVER trades the two panels on.
+   *
+   * Nine, which is two bars played with your own hands and then the downbeat of
+   * the third. Both halves of that matter. A fault that traded on the first beat
+   * would be a wave played entirely in the other seat, which is not a handover,
+   * it is a seat swap with extra steps — the pair has to have something to lose
+   * before it is taken. And it lands on a beat they are already saying out loud,
+   * which is the same argument every number in this file makes.
+   */
+  handoverAtBeat: number;
+  /**
+   * Beats the panels stay traded before they come back.
+   *
+   * Eight — two bars, and the number that decides whether the fault is a
+   * stumble or a passage. Shorter and the honest answer is to take both hands
+   * off the glass and wait it out, which is a fault nobody has to talk through;
+   * at two bars something is arriving while they are in the wrong seat and the
+   * only way through it is the other person's voice.
+   */
+  handoverHoldBeats: number;
+  /**
+   * Beats of warning before the trade, counted down on both screens.
+   *
+   * Two, which is one sentence — *you take the dome* — and that is the whole
+   * size of it: long enough to arrange two pairs of hands, too short to plan the
+   * wave around. It is on both screens deliberately. A warning only one of them
+   * could see would make the trade a thing that happens *to* the other one, and
+   * there is nothing to say about a surprise (`docs/spec/latency.md` is the
+   * other reason: a call has to have left a mouth before the beat it is about).
+   */
+  handoverWarnBeats: number;
 }
 
 export const MALFUNCTION_DEFAULTS: MalfunctionConfig = {
   malfunctionEveryBeats: 1,
   codexHoldBeats: 4,
+  handoverAtBeat: 9,
+  handoverHoldBeats: 8,
+  handoverWarnBeats: 2,
 };

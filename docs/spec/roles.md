@@ -123,6 +123,16 @@ which player's commands (`apps/game/src/link.ts`, `view.ts`), the trade cannot
 happen mid-run — flipping the routing under a live lockstep would desync it. It
 happens the way beat zero does: at a fresh start the room stamps for both.
 
+**THE HANDOVER is not this, and the difference is exact.** The fifth malfunction
+trades the two *panels* between the two screens for a window in the middle of a
+wave ([bestiary](bestiary.md) under THE MALFUNCTION): each phone draws and
+answers the other seat's half, and the seats themselves do not move. Nothing on
+the wire changes — the room's tags, the lockstep's two identities and which
+device a command is *sent* by are all exactly what they were, which is why it can
+happen mid-run where this cannot. What is described below is the other thing: the
+two people trading seats for good, which does flip the routing and therefore
+cannot happen while a run is live.
+
 Unworked out: whether a swap re-stamps beat zero and restarts the wave, or is
 only offered at the menu between runs — the second is the safer of the two and
 probably the answer; whether the per-role high scores follow the person or the

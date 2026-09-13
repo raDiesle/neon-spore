@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: thirty-five drafts, three claimed and three set free so far.** A draft is a picture
+> **Status: thirty-four drafts, three claimed and four set free so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content`, or
 > into `packages/render` where what was drawn is a mechanism rather than a
@@ -120,6 +120,16 @@ things in.
 
 None of the four carries an own-motion, which is a rule and not an omission. The
 hull is fixed; everything these cards do happens in the contour.
+
+**One of the four is free now, because its idea was built.** *Handover* shipped on
+13 September 2026 as THE HANDOVER, the fifth malfunction ([bestiary](spec/bestiary.md)
+under THE MALFUNCTION), and what announces it is not a mark on the hull: it is a
+plate on the lip of the band counting the trade down, over a band that comes up
+in the other seat's colours with the other seat's buttons in it. So HULL · TRADED
+is no longer a picture offered to an idea — it is a second answer to a question
+the game has already answered on the screen, which makes it VERSUS's business
+rather than this page's ([looks.md](looks.md)). It is `free` until somebody
+carries it across, and `docs/queue.md` holds that entry.
 
 **Ten of the twelve interludes need no new art, and drawing the other two is how
 that was found out.** [interludes.md](spec/interludes.md) fixes the material as

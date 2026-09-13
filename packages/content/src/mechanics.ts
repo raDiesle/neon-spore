@@ -7,7 +7,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { MECHANICS } from "./mechanics-table.js";
-import { FAULT_MECHANIC } from "./mechanics-wave.js";
+import { FAULT_MECHANIC, type WaveMechanicId } from "./mechanics-wave.js";
 import { AUTHORED_COLS, bossFromWave, podsFromWave, queueFromWave } from "./queue.js";
 import type { Wave } from "./wave-types.js";
 import { WAVES } from "./waves.js";
@@ -63,16 +63,11 @@ export type RunMechanicId = "briefing" | "windup" | "lance" | "grip" | "lock";
  * is not a run switch either — a wave carries one or does not, exactly the way
  * a wave carries a boss.
  *
- * **Three ids for one `Malfunction`**, which is a decision and not a leak of
- * the union's shape. A mechanic is *a rule the pair has to learn*, and these
- * are three: the colours off the navigator and a gun that will not stop; the
- * trigger off the pilot and a plate that comes up unasked; the steering off
- * the pilot and a trigger on a cannon nobody steers. A pair who has played
- * one has learnt almost nothing about the others, and a single row would
- * say the game introduces this once — `test/waves.test.ts` would then hold
- * that the second wave to carry one must *not* explain itself.
+ * **One id per fault**, and the list is next door with the rows it names: a fifth
+ * fault took the union past one line, and the type and the table it has to agree
+ * with were in two files reading each other (`mechanics-wave.ts`).
  */
-export type WaveMechanicId = "cannonFault" | "shieldFault" | "steerFault" | "codexFault";
+export type { WaveMechanicId } from "./mechanics-wave.js";
 
 /**
  * A mechanic a wave turns on **by a field on an arrival rather than by its

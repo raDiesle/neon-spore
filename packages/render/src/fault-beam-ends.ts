@@ -1,4 +1,4 @@
-import { malfunctionColor, midCol, type World } from "@neon-spore/sim";
+import { handedOver, handoverWarning, malfunctionColor, midCol, type World } from "@neon-spore/sim";
 import type { BeamEnd } from "./fault-emitter.js";
 import { type Layout, showsCodex, tileCX } from "./layout.js";
 
@@ -38,6 +38,25 @@ export function faultBeamEnds(
     const strip = lobe("cannon");
     if (strip) out.push(strip);
     out.push({ x: tileCX(l, world.cannonCol), y: l.hullY, r: l.tile * 0.4 });
+  } else if (m.kind === "handover") {
+    // **The whole band, and not one control on it.** Every other fault takes a
+    // button or a strip, so its beam lands on that button; this one has both
+    // panels, and a beam standing on one lobe of a panel that has changed hands
+    // would say the wrong thing about which. So it lands on the band twice, once
+    // either side of the middle — one end for each seat's half — from the
+    // warning's first beat: threads while the trade is still coming, and two
+    // beams once the panels are away (`drawFaultBeam`'s `dim`, `handover.ts`).
+    //
+    // Two rather than one because one is a *vertical* beam: the emitter hangs in
+    // the middle column and the band's middle is directly under it, so a single
+    // end drew a bar down the centre of the field with the bodies behind it.
+    const away = handedOver(world);
+    if (away || handoverWarning(world) > 0) {
+      const y = l.bandTop + l.bandHeight / 2;
+      for (const share of [0.3, 0.7]) {
+        out.push({ x: l.width * share, y, r: l.tile * 0.5, dim: !away });
+      }
+    }
   } else if (m.kind === "codex") {
     // **Nothing on a panel**, which is the one beam here that lands on no
     // control: the two buttons the fault acts on are the navigator's, and the

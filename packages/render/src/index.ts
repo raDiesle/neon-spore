@@ -49,6 +49,11 @@ export { drawGaugeRound } from "./gauge-round.js";
 export { halo, haloSprite, strokeGlow } from "./glow.js";
 export { gripLabel } from "./grip.js";
 export { drawGuideNav, NAV_H, navButtons, navHit, onNavBar } from "./guide-nav.js";
+// THE HANDOVER, for the host that has to answer a finger the way the frame is
+// drawn: the renderer seats itself as a frame arrives, and `apps/game` seats the
+// layout its hit test runs against. One function, so the panel a thumb lands on
+// is the panel the eye is looking at (`handover.ts`).
+export { handedLayout, handedRole } from "./handover.js";
 export { signedHash, sinHash } from "./hash.js";
 export { mixHex, rgba } from "./hex.js";
 export { runLineBox } from "./hud.js";

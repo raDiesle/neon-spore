@@ -2,7 +2,8 @@ import type { CatalogueEntry } from "../catalogue.js";
 import { COLUMN, held, lips, membrane, traded, welt } from "./membrane.js";
 
 /**
- * Four marks on the ship's own skin, for the four ideas that had none.
+ * Four marks on the ship's own skin, for the four ideas that had none — three
+ * of them still ideas, and the fourth built since (`HULL · TRADED`, below).
  *
  * The asset catalogue named the gap and half-named the reason: what was left
  * undrawn was *The breach*, *The Patch*, *The Other Hand* and *Handover*, and
@@ -74,10 +75,9 @@ export const SHIP_DRAFTS: CatalogueEntry[] = [
       lift: traded(8, COLUMN * 1.5, 5),
       gap: 0,
     }),
-    status: "draft",
+    status: "free",
     slot: "ship",
-    suggests: "Handover",
     owner:
-      "the swap has to be announced by the ship rather than agreed beforehand, and an exchange is the one thing a single mark cannot say: it takes two, and they have to cross. Three columns apart, complementary heights, five seconds a cycle — so there is a moment when they are equal and nobody owns anything, which is either the clearest instant on the card or the one that ruins it",
+      "the swap has to be announced by the ship rather than agreed beforehand, and an exchange is the one thing a single mark cannot say: it takes two, and they have to cross. Three columns apart, complementary heights, five seconds a cycle — so there is a moment when they are equal and nobody owns anything, which is either the clearest instant on the card or the one that ruins it. **The idea it was drawn at was built on 13 September 2026** as THE HANDOVER, the fifth malfunction, and it is not what shipped: the announcement is a plate on the lip of the band counting the trade down and counting the panels back, over a band that comes up in the other seat's colours with the other seat's buttons in it. So this is no longer a shape offered to a concept — it is a second answer to a question the game has already answered on the screen, which is VERSUS's business and not this page's (`docs/looks.md`). Free until somebody carries it there; `docs/queue.md` has the entry",
   },
 ];

@@ -5,6 +5,7 @@ import type { ClaspFrames } from "./clasp-frames.js";
 import { drawStuckClingers } from "./cling.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip, wellShown } from "./frame-passes.js";
 import { drawStuckGums } from "./gum.js";
+import { handedView } from "./handover.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import { computeLayout, computeStage, type Layout, type Stage, tileCX } from "./layout.js";
 import { RenderState } from "./render-state.js";
@@ -93,7 +94,8 @@ export class Canvas2DRenderer implements Renderer {
     );
   }
 
-  draw(view: ViewState): void {
+  draw(seen: ViewState): void {
+    const view = handedView(seen); // THE HANDOVER: the seat this device is playing (`handover.ts`).
     const { ctx } = this;
     const { world } = view;
     // The stage depends on the band, and the band on the role: sized per frame, like the layout.

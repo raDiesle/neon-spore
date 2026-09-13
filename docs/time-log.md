@@ -2160,3 +2160,31 @@ events now carry the body's seed and pits, and both effects draw it with
 
 Bottleneck: **writing** — two files that were already on the line had to be
 split before the fix would fit.
+
+## 2026-09-13 — scheduler-tests-two-devices-klxkyt — THE HANDOVER, the fifth malfunction
+
+The owner asked for a control-set malfunction that swaps the two players'
+controls at a set beat and gives them back at a set beat. `docs/spec/ideas.md`
+already held it as **Handover**, unbuilt over three questions, and all three are
+answered by building it: the radar travels with the controls (it is the same
+screen), a queued shield move survives (nothing in the simulation moves at all),
+and whether it reads as exciting is still a question for a prototype. Nine beats
+in, the two panels change screens; eight beats later they come home; both phones
+are counted down to it and counted back out of it. The substitution is one
+function called twice — the renderer seats a frame, the host seats the layout a
+finger is tested against — and every per-seat fact in the game travels with it.
+Wave 70 in act eight. About 90 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `malfunction.ts` and the four faults already there, `codex.ts` for the shape of a fault that takes nothing, then the whole input path — `touch.ts`, `input.ts`, `lockstep.ts` — to find out what "swap the controls" can honestly mean on a wire, which is where the line between a *panel* and an *identity* came from |
+| writing | 35 | `sim/handover.ts`, `render/handover.ts` and `handover-look.ts`, the beam's own branch, three config numbers, the wave and its guide, rows in six tables the compiler named one at a time, 22 tests across sim and render, the bestiary's section, and four queue entries |
+| looking | 10 | three `bun run frames` of the pilot's screen; the first said the beam was a bar down the middle column with the bodies behind it, so the fault lands on the band twice now, once for each seat's half |
+| friction | 10 | four files sitting on the 250-line ceiling before the edit (`canvas2d.ts`, `mechanics.ts`, `stage.ts`, `act-8.ts`); `window` is a banned word in `packages/sim` and the window function had to be called something else; and a comment written beside the wave was deleted by the director's own serializer, which regenerates every act file below the array |
+| landing | 15 | the full check, the commit, and `bun run land` |
+
+Bottleneck: **reading** — the mechanic is thirty lines and finding out *where*
+it was allowed to live took the whole input path. The thing that decided it:
+`lockstep.press` refuses a press attributed to the peer, so the wire's two
+identities cannot trade — only the panel can, and the simulation never learns
+that anything happened.

@@ -1,5 +1,10 @@
 import type { Wave } from "@neon-spore/content";
-import { MALFUNCTION_COLORS, type Malfunction, type MalfunctionColor } from "@neon-spore/sim";
+import {
+  MALFUNCTION_COLORS,
+  type Malfunction,
+  type MalfunctionColor,
+  type MalfunctionKind,
+} from "@neon-spore/sim";
 
 /**
  * The MALFUNCTION section `rail.ts` shows under the control set: which of the
@@ -21,6 +26,12 @@ import { MALFUNCTION_COLORS, type Malfunction, type MalfunctionColor } from "@ne
  * than drawn and disabled. A dome that arms itself carries no ammunition, and
  * a greyed-out RED beside one would read as a colour it happens to be at —
  * `cell-config.ts` makes the same argument about a shell having no speed.
+ *
+ * **Every kind is offered.** It named three while the simulation had four: THE
+ * CODEX shipped without a row here, so the only way to put one on a wave was to
+ * write the field by hand in `waves/act-8.ts` — an editor that cannot reach a
+ * rule the game has. The note is a total map over `MalfunctionKind` now, so a
+ * sixth fault is a build error in this file rather than a kind nobody can pick.
  */
 
 export interface FaultFields {
@@ -36,7 +47,28 @@ const CHOICES = [
   ["cannon", "CANNON — the gun fires itself, player 2 loses both colours"],
   ["shield", "SHIELD — the dome arms itself, player 1 loses the trigger"],
   ["steer", "STEER — the cannon walks itself, player 1 loses the strip"],
+  ["codex", "CODEX — the two colours do each other's job and nothing says so"],
+  ["handover", "HANDOVER — the two panels change screens for a window mid-wave"],
 ] as const;
+
+/**
+ * The one sentence an author has to hold in their head while composing the
+ * arrivals: for the three faults that take something, which seat still has a
+ * strip to aim with and therefore which body the wave can be *about*; for the
+ * two that take nothing, what the pair is left having to say.
+ */
+const NOTE: Record<MalfunctionKind, string> = {
+  cannon:
+    "Player 2 loses both colours and gets nothing back; player 1 still has a strip and has to point the fault somewhere harmless.",
+  shield:
+    "Player 1 loses the trigger and gets nothing back; player 2 still has a strip and has to park the dome somewhere harmless.",
+  steer:
+    "Player 1 loses the cannon strip and gets nothing back; the cannon walks a column a beat, wall to wall, and player 2 fires from wherever it is.",
+  codex:
+    "Both seats keep every button. While the key is over, a bolt fired red kills what cyan kills — and the bands that say which way round it is are drawn on the pilot's screen alone.",
+  handover:
+    "Both seats keep every button, and the two panels change screens: `handoverAtBeat` beats in, for `handoverHoldBeats`, each phone draws and answers the other seat's half. Nobody changes seats on the wire, so a wave with a hand on the field — a grip, a pull, a tap — is the wrong wave for it.",
+};
 
 const COLOUR_LABEL: Record<MalfunctionColor, string> = {
   red: "RED — every shot",
@@ -79,30 +111,18 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
   host.replaceChildren(kind.row, colour.row, note);
 
   const read = (): Malfunction | undefined => {
-    if (kind.field.value === "cannon") {
-      return { kind: "cannon", color: colour.field.value as MalfunctionColor };
-    }
-    if (kind.field.value === "shield") return { kind: "shield" };
-    return kind.field.value === "steer" ? { kind: "steer" } : undefined;
+    const k = kind.field.value;
+    if (k === "cannon") return { kind: "cannon", color: colour.field.value as MalfunctionColor };
+    if (k === "shield" || k === "steer" || k === "codex" || k === "handover") return { kind: k };
+    return undefined;
   };
 
   const paint = (fault: Malfunction | undefined): void => {
-    const cannon = fault?.kind === "cannon";
-    colour.row.hidden = !cannon;
+    colour.row.hidden = fault?.kind !== "cannon";
     note.textContent =
       fault === undefined
         ? "This wave is played straight: both seats have every button their panel carries."
-        : fault.kind === "steer"
-          ? // The steer fault is the one that takes a strip rather than buttons:
-            // the cannon walks a column a beat, wall to wall, and the wave is
-            // about firing on the beat it passes under a body.
-            "Player 1 loses the cannon strip and gets nothing back; the cannon walks a column a beat, wall to wall, and player 2 fires from wherever it is."
-          : // The one sentence an author actually has to hold in their head while
-            // composing the arrivals: which seat still has a strip to aim with,
-            // and therefore which body the wave can be *about*.
-            `Player ${fault.kind === "cannon" ? 2 : 1} loses their buttons and gets nothing back; player ${
-              fault.kind === "cannon" ? 1 : 2
-            } still has a strip and has to point the fault somewhere harmless.`;
+        : NOTE[fault.kind];
   };
 
   const fire = (): void => {

@@ -35,6 +35,19 @@ export interface Bindings {
    * strips below can be told apart by where they are, and this cannot.
    */
   player: () => 1 | 2;
+  /**
+   * Whether THE HANDOVER has the two panels traded this beat
+   * (`sim/handover.ts`).
+   *
+   * The band is answered against the seat the *frame* was drawn for, which is
+   * the other one while the fault holds — so a press on it comes back signed as
+   * the other player, and this is what says to sign it as this device instead.
+   * The two identities on the wire never trade and must not: the simulation
+   * gives a grip, a balloon's pull or a tap on a box to whoever sent it, and a
+   * lockstep refuses a press attributed to the peer outright
+   * (`packages/net/src/lockstep.ts`).
+   */
+  handed: () => boolean;
   /** The numbers the hit test needs: a tether's row, a drum's width. */
   cfg: SimConfig;
   /**

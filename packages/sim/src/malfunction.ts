@@ -62,8 +62,16 @@ import type { World } from "./world.js";
  * who can see the key cannot fire and the one who fires cannot see it. It turns
  * over every `codexHoldBeats`, so the key is a thing to keep calling rather than
  * a fact to learn once — `alternating`'s argument, one fault along.
+ *
+ * **`handover` is the fifth and it breaks nothing either.** All four controls go
+ * on working; what the fault moves is *which screen each pair of them is on*,
+ * for a window in the middle of the wave and then back. It is the first fault
+ * that ends before the wave does and the first with no seat of its own — both
+ * phones are in the other seat at once — and the whole of it is a clock the two
+ * hosts read: `handover.ts` has the argument, and nothing here acts on a beat
+ * for it.
  */
-export const MALFUNCTION_KINDS = ["cannon", "shield", "steer", "codex"] as const;
+export const MALFUNCTION_KINDS = ["cannon", "shield", "steer", "codex", "handover"] as const;
 export type MalfunctionKind = (typeof MALFUNCTION_KINDS)[number];
 
 /**
@@ -88,7 +96,8 @@ export type Malfunction =
   | { kind: "cannon"; color: MalfunctionColor }
   | { kind: "shield" }
   | { kind: "steer" }
-  | { kind: "codex" };
+  | { kind: "codex" }
+  | { kind: "handover" };
 
 /**
  * Whether this press falls into a control the fault has taken over.
@@ -111,9 +120,10 @@ export function faultSwallows(world: World, c: Command): boolean {
   // The strip, the swipe on the hull and the wire are all one door to the
   // cannon's column, and under THE CHOKE that door is shut.
   if (m.kind === "steer") return c.kind === "cannonCol";
-  // THE CODEX swallows nothing at all, and that is the fault: every button
-  // works, answers the thumb, and does the other one's job (`codex.ts`).
-  if (m.kind === "codex") return false;
+  // The last two swallow nothing at all, and in both that is the fault: every
+  // button works and answers the thumb, and what has changed is what it means
+  // (`codex.ts`) or whose screen it is on (`handover.ts`).
+  if (m.kind === "codex" || m.kind === "handover") return false;
   return c.kind === "guard";
 }
 
@@ -209,10 +219,11 @@ export function malfunctionColor(world: World, m: Malfunction): Color {
 export function stepMalfunction(world: World): void {
   const m = world.malfunction;
   if (m === null) return;
-  // THE CODEX acts on no beat of its own: what it does happens at the moment a
-  // bolt meets a body, and whether it is doing it is a function of the wave's
-  // beat rather than state anybody steps (`codexSwapped`).
-  if (m.kind === "codex") return;
+  // The last two act on no beat of their own. THE CODEX does what it does at the
+  // moment a bolt meets a body, and THE HANDOVER does it in render/ and in a
+  // host; whether either is doing it is a function of the wave's beat rather
+  // than state anybody steps (`codexSwapped`, `handedOver`).
+  if (m.kind === "codex" || m.kind === "handover") return;
   if (m.kind === "steer") {
     const from = world.cannonCol;
     world.cannonCol = clampCol(world.cfg, steerCol(world.cfg.cols, steerSteps(world)));

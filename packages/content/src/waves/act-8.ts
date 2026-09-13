@@ -97,6 +97,32 @@ import type { Wave } from "../wave-types.js";
  * a wave that opened clear would let the pair fire a whole bar of ordinary shots
  * and meet the swap with a body halfway down the field.
  *
+ * **THE HANDOVER** is the fifth wave here and the fifth fault, and the first of
+ * them that ends before the wave does (`sim/handover.ts`). Nine beats in, the two
+ * panels change screens: the pilot's phone comes up as the navigator's and the
+ * navigator's as the pilot's, in the other seat's colours, with the other seat's
+ * hidden reads on it. Eight beats later they come home. Nothing is taken away and
+ * nothing is added — what moves is whose screen each control is on, which is the
+ * fault `ideas.md` called Handover and left unbuilt over one question: whether
+ * the radar travels with the controls. It does. It is the same screen.
+ *
+ * The arrivals are authored around that window rather than through it. Two bodies
+ * and a rock go in before the trade, so the pair has its own hands on something
+ * first and something to lose; the rock is timed to *land* inside the window, and
+ * a rock is the one answer in this game that needs both seats at once — the plate
+ * in the column and the dome up on the beat — so it is asked of two people each
+ * holding the other's half of it. Two more arrive inside the window with a colour
+ * to get right, and the last two after it, because a pair whose hands have just
+ * been given back has to find them again.
+ *
+ * **Its bodies are answered by the band and never by a hand on the glass**, and
+ * that is the mechanic putting a constraint on the wave rather than a preference.
+ * A grip, a balloon's two pulls and a tap on a box are attributed by the
+ * simulation to the player who *sent* them, and the wire's two identities do not
+ * trade — only the panel does (`render/handover.ts`). So this is slicks, bulbs
+ * and a rock; a crawler or a cairn on it would be a hand the screen says is the
+ * other seat's and the ship says is yours.
+ *
  * The prose about a wave lives **here, above the array**, and not beside the
  * entry it is about: `tools/director/src/serialize.ts` regenerates everything
  * from `export const WAVES_ACT_8` down every time somebody saves a wave in the
@@ -190,5 +216,25 @@ export const WAVES_ACT_8: Wave[] = [
       { beat: 58, col: 3, color: "cyan" },
     ],
     boss: { kind: "well" },
+  },
+  {
+    id: "theHandover",
+    name: "THE HANDOVER",
+    sentence: "The one where your thumb lands on their button.",
+    guide: {
+      both: "Nine beats in, your two panels change screens: yours comes up in their colours with their buttons on it, and theirs comes up as yours. Every button still works and none of them is the one you have been pressing all game. The lip of the band counts you down to it and counts you back out of it — eight beats, and then your own hands come home.",
+      p1: "Until the count runs out the cannon and the guard are yours. After it you are holding their plate and their two colours, and the rock is still falling — so say where the cannon was going while it is still your strip.",
+      p2: "Until the count runs out the plate and the two colours are yours. After it you have their strip and their guard, and you have never armed a dome — so make them call the beat, and put the cannon where they ask.",
+    },
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 2, col: 5, kind: "meteor", color: null },
+      { beat: 6, col: 1, color: "cyan" },
+      { beat: 10, col: 4, color: "red" },
+      { beat: 12, col: 2, color: "cyan" },
+      { beat: 18, col: 6, color: "red" },
+      { beat: 24, col: 0, color: "cyan" },
+    ],
+    malfunction: { kind: "handover" },
   },
 ];

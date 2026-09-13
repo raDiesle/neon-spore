@@ -47,6 +47,16 @@ information type ("which" vs "where") the German original proposed — see
 kind)` in the same file is what `packages/render/src/field.ts`'s `drawRadar`
 calls to decide whether a given screen shows an arrival at all.
 
+**The whole table can change hands for a window**, and one fault does it: THE
+HANDOVER trades the two panels between the two screens nine beats into its wave
+and gives them back eight beats later ([bestiary](bestiary.md) under THE
+MALFUNCTION). It is not a row here — nothing in this table is split differently
+while it runs — it is the *column headings* swapping over, because every entry
+above is answered by asking which seat a frame was drawn for, and the fault
+changes that one value (`packages/render/src/handover.ts`). What does not move is
+who the two people are: the wire's identities are fixed for the run, so a
+borrowed panel is still pressed as the device that holds it.
+
 **Built:** the mark row, as THE LANCE (`primeChargeMilli`, drawn by
 `packages/render/src/lance.ts`). It is the one row of this table that is
 deliberately *not* split: the player who has to hold the fill and the player

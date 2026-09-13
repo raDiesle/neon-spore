@@ -1,5 +1,5 @@
 import { controlSet } from "@neon-spore/content";
-import { Canvas2DRenderer, showsWell, type ViewRole } from "@neon-spore/render";
+import { Canvas2DRenderer, handedLayout, showsWell, type ViewRole } from "@neon-spore/render";
 import {
   beatPhase,
   createWorld,
@@ -67,7 +67,7 @@ export function bindStage(
   bindStageRounds({
     canvas,
     at,
-    layout,
+    layout: () => handedLayout(layout(), world), // seated: THE HANDOVER trades the panels.
     role: () => role,
     world: () => world,
     controls: currentControlSet,
@@ -76,7 +76,7 @@ export function bindStage(
   const touch = bindStageTouch({
     canvas,
     at,
-    layout,
+    layout: () => handedLayout(layout(), world), // answered where it is drawn.
     field: () => ({
       creatures: world.creatures,
       // The ship answers a finger where it is drawn, so the hit test needs

@@ -43,6 +43,14 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   // on it (`sim/malfunction.ts`), the way the two before it fire on
   // `malfunctionEveryBeats`.
   chokeSweepBeats: "THE MALFUNCTION — a control that acts by itself",
+  // THE HANDOVER's three: the beat the two panels change screens, how long they
+  // stay changed, and how many beats of warning both phones count down first
+  // (`sim/handover.ts`). The group's name is the one thing here that is not quite
+  // true of them — nothing acts by itself under this fault, it moves — and they
+  // belong beside the other faults' numbers all the same.
+  handoverAtBeat: "THE MALFUNCTION — a control that acts by itself",
+  handoverHoldBeats: "THE MALFUNCTION — a control that acts by itself",
+  handoverWarnBeats: "THE MALFUNCTION — a control that acts by itself",
   readyHoldMs: "OPENING — the introduction, the guide and the ready gate",
   intakeWindowMs: "MAW — taking a pod in",
   podFallTilesPerBeat: "POD — shot loose, then caught",

@@ -45,6 +45,10 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // A rock is what asks the plate to stand somewhere, and a plate that has
   // to meet one and be gone on the next beat is the limpet's lesson.
   "THE LIMPET": ["meteor"],
+  // The one answer in this game that needs both seats at the same moment — the
+  // plate in the column and the dome up on the beat — which is the whole of what
+  // the traded panels break. One rock, timed to land inside the window.
+  "THE HANDOVER": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

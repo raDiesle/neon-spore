@@ -601,3 +601,120 @@ grid from the wave, and `beatCount` grows with the last beat. Tests beside
 `paint`'s prove the shift and that the beat-0 row can be added before but
 not removed. Whether the buttons read on the map is a browser question for a
 local session.
+
+## THE HANDOVER's guide is prose, and the thing it teaches is a picture
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/waves/act-8.ts`, `packages/content/src/scene-types.ts`
+
+The wave that introduces THE HANDOVER carries a three-line prose guide and no
+`scene`, the way THE WEIGHT's and THE CAIRN's do. It is worse here than for
+either of them, because what the fault does is **change the picture**: three
+sentences have to assert that the band the pair is looking at will become the
+other one, when a rehearsal could simply let it happen while they watch.
+
+What a rehearsal would show, in three pages: the seat's own band, named, with a
+ghost thumb on the control it has been using all game; the plate on the lip of
+the band counting down and the beam reaching for the panel; and the same screen
+after the trade, in the other seat's colours, with the ghost thumb landing on
+the button that is no longer there. `scenes.ts` holds the choreography and the
+scene carries its own `malfunction` already (`scene-script.ts`), so a scene
+naming this fault and stepping past `handoverAtBeat` trades inside the
+rehearsal with no new machinery at all — the renderer seats a film's frames
+exactly the way it seats a wave's. `.claude/skills/new-tutorial` has the rules;
+`bun test packages/content` and the guide-page tests prove it.
+
+## The director's stage speaks for its role bar while the panels are traded
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `tools/director/src/stage.ts`, `tools/director/src/stage-touch.ts`, `tools/director/src/stage-rounds.ts`
+
+The stage draws a handover wave correctly — the renderer seats every frame
+itself — and its band is answered correctly too, because `stage.ts` hands both
+hit tests a seated layout. Two things below that still read the role bar
+directly: `pointerSeat(role)` fills `Field.seat`, which is right and should stay
+(a hand on the field is signed by the device, `sim/handover.ts`), and
+`speaksFor` and `bindStageRounds`' `role` are the ones that are wrong — a round's
+slabs are laid out for the untraded seat while the frame draws the other one, so
+a boss round on a wave carrying this fault answers buttons where it is not
+drawing them.
+
+No shipped wave carries both a round and a fault, which is why this is an entry
+and not a defect in the game. What to do: give `bindStageRounds` and the parts of
+`stage-touch.ts` that pick a *panel* the seated role (`handedRole` is exported
+from `@neon-spore/render`), and leave the parts that pick an *identity* — the
+briefing gate's `speaksFor`, `pointerSeat` — on the role bar's own seat. The
+line between the two is written out at the top of `packages/render/src/handover.ts`.
+
+## THE HANDOVER makes no sound
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/audio/src/catalogue.ts`, `packages/render/src/handover-look.ts`, `docs/spec/audio.md`
+
+The loudest moment the fault has — both panels changing screens on one beat — is
+drawn and never heard. Every other fault is a thing that *acts* and is heard
+doing it (a shot fired by nobody, a dome coming up unasked); this one changes
+what is in front of the pair and the mixer says nothing, so a pair looking at the
+field at that moment has only the plate's flash to tell them.
+
+There is no total map forcing a cue for it, which is why nothing failed. What to
+do: one cue on the beat of the trade and one on the beat it comes back, quieter —
+they are the same event twice and should not be the same sound, since one of them
+is a relief. The trade is a `handedOver` edge, which nothing emits as a
+`SimEvent` today: either the mixer reads the clock the way the plate does
+(`handoverLeft`, `handoverWarning`), which keeps the simulation untouched and is
+what this fault has done everywhere else, or the fault starts emitting an event
+and stops being free. Read `docs/spec/audio.md` before choosing; the first is
+almost certainly right.
+
+## Should THE HANDOVER trade once a wave, or keep trading?
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/sim/src/handover.ts`, `packages/sim/src/config-malfunction.ts`, `packages/content/src/waves/act-8.ts`
+- **Asks:** Should the panels trade once a wave, or keep trading on a cycle like THE CODEX's key?
+
+Built as **one window**: the panels change screens at `handoverAtBeat`, come back
+`handoverHoldBeats` later, and that is the whole of the fault. It is the reading
+of *swap, then back* the wave was asked for, and it makes the trade an event —
+counted down to, lived through, and over.
+
+The alternative is THE CODEX's shape, which is the other fault that takes nothing
+away: its key turns over every four beats all wave, deliberately, so that the
+pair has to *keep* calling it rather than learn one fact. A handover that kept
+trading would be that argument applied here — the pair never settles into either
+seat, and every arrival lands on whoever happens to be holding the thing that
+answers it.
+
+Three answers this picks between. **One window** is what is built: one number for
+the beat, one for the length, and the wave is authored around it (`act-8.ts`
+opens with two bodies in their own hands so the trade costs them something).
+**A cycle** is `handedOver` becoming `Math.floor(faultStep / hold) % 2`, one line,
+plus a third number and a wave authored evenly rather than around a moment; it
+also makes the countdown plate permanent furniture, which is a look nobody has
+seen. **Both, authored per wave** is the largest: `Malfunction` gains a field the
+way a cannon fault carries its colour, and the director's picker gains a row —
+worth it only if two waves would genuinely want different answers.
+
+## HULL · TRADED answers THE HANDOVER a second way and is not in VERSUS
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `tools/shape-sheet/src/drafts/ship.ts`, `tools/versus/candidates/`, `packages/render/src/handover-look.ts`
+
+The shape sheet carries `HULL · TRADED` — two lobes on the ship's own membrane
+exchanging what they carry, three columns apart, complementary heights, five
+seconds a cycle — drawn at the Handover idea while it was still an idea. The
+idea shipped on 13 September 2026 and the announcement that shipped with it is a
+plate on the lip of the band plus the band itself coming up in the other seat's
+colours, so the drawn pair of lobes is now an *alternative* to something the game
+draws rather than a picture offered to a concept.
+
+It was left `free` in the sheet in the lane that built the fault, because a draft
+that names a built concept orphans the sheet's join (`concept-art.test.ts`) and
+because carrying it across is not a rename: a VERSUS candidate patches a record
+and is judged against the shipped look in a pair of shots
+(`docs/versus.md`, `tools/versus/candidates/`). What to carry: the `traded`
+membrane feature is already written (`tools/shape-sheet/src/drafts/membrane.ts`),
+so the candidate is that motion applied to the hull for the length of the window,
+against today's plate. Worth doing because the two are not exclusive — a mark on
+the ship says *which columns* changed hands and a plate says *when*, and the
+shot is what shows whether the pair of them is one signal too many.

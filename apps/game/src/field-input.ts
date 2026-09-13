@@ -1,6 +1,12 @@
 import { controlSetForWave } from "@neon-spore/content";
-import { type Layout, showsWell, type ViewRole } from "@neon-spore/render";
-import { briefingHolds, guideHolds, mazeRound, type World } from "@neon-spore/sim";
+import {
+  handedLayout,
+  handedRole,
+  type Layout,
+  showsWell,
+  type ViewRole,
+} from "@neon-spore/render";
+import { briefingHolds, guideHolds, handedOver, mazeRound, type World } from "@neon-spore/sim";
 import { type BriefingBinding, bindBriefing } from "./briefing.js";
 import { bindControls, type Controls, type InputBuffer } from "./input.js";
 import { bindRounds } from "./rounds.js";
@@ -45,7 +51,16 @@ export interface FieldInput extends Controls {
 }
 
 export function bindFieldInput(o: FieldInputOptions): FieldInput {
-  const { canvas, buffer, world, run, layout, inStage, role, beatPhase } = o;
+  const { canvas, buffer, world, run, inStage, beatPhase } = o;
+  /**
+   * **The seat the frame was drawn for**, which THE HANDOVER trades for a window
+   * in the middle of a wave (`render/handover.ts`). A control is never drawn in
+   * one place and answered in another, so every hit test in this knot runs
+   * against the same role the renderer seated itself with — the band, the
+   * guide's pages and a round's own buttons all follow from these two.
+   */
+  const role = (): ViewRole => handedRole(o.role(), world);
+  const layout = (): Layout => handedLayout(o.layout(), world);
   const controls = bindControls({
     canvas,
     buffer,
@@ -54,7 +69,13 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     isOver: () => world.over,
     // The seat decides whose hand a finger on the field is. `test` is both
     // halves on one screen, so it grips as player 1 and G grips as player 2.
-    player: () => (role() === "p2" ? 2 : 1),
+    //
+    // **This device's own seat and not the traded one**, unlike everything else
+    // here: a hand on the field is signed on the wire, and the simulation gives
+    // a grip to the player who sent it. THE HANDOVER moves panels between
+    // screens and moves nobody between seats (`sim/handover.ts`).
+    player: () => (o.role() === "p2" ? 2 : 1),
+    handed: () => handedOver(world),
     cfg: world.cfg,
     // THE MAZE's string is answered on the field like any other handle, so the
     // hit test has to know whether a wheel is up (`render/touch.ts`).

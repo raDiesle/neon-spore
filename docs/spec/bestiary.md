@@ -499,7 +499,9 @@ and the dome on the navigator's for a shield fault; RED and CYAN on the
 navigator's and the muzzle on the pilot's for a cannon fault, the beam in the
 colour of the next shot and flashing on each one; the cannon strip's node and
 the muzzle on the pilot's for a steer fault and the muzzle alone on the
-navigator's. It stands in no column and
+navigator's; the middle of the band for a handover, wide, because what that
+fault has hold of is the whole panel and not a button on it. It stands in no
+column and
 cannot be shot — a target that ended the fault would be the brake put back
 (`packages/render/src/fault-emitter.ts`).
 
@@ -510,7 +512,7 @@ navigator shown a lantern over the field would press the other colour and the
 wave would have no question in it. The indication is still there and the cause is
 still visible — to the one player who can do nothing with it except say so.
 
-Four of them, and they are four mechanics rather than one because a pair
+Five of them, and they are five mechanics rather than one because a pair
 who has played one has learnt nothing about the others:
 
 - **A cannon fault** fires up player 1's column on every beat. RED and CYAN go
@@ -549,6 +551,35 @@ who has played one has learnt nothing about the others:
   every time it changes. It answers the question `ideas.md` left open when this
   was a boss: a swap holds four beats, and it is announced by the shimmer and by
   a partner and by nothing else.
+- **A handover fault** — THE HANDOVER (wave 70, act 8) — takes no control away
+  either, and is the only fault that **ends before the wave does**. Nine beats in
+  (`handoverAtBeat`) the two panels change screens: the pilot's phone draws and
+  answers the navigator's half, in the navigator's colours, with the navigator's
+  hull and the navigator's hidden reads on it, and the navigator's phone draws the
+  pilot's. Eight beats later (`handoverHoldBeats`) they come home. Both screens
+  are counted down to it and counted back out of it on the lip of the band
+  (`handoverWarnBeats`, two), because a warning only one of them could read would
+  make the trade a thing that happens *to* the other one.
+
+  **Nothing in the simulation moves for it.** There is no state, nothing in the
+  hash and no command swallowed: a panel is drawn by render/ and answered by a
+  host, so the whole fault is a clock those two read off the wave's own beat
+  (`packages/sim/src/handover.ts`), and the substitution is one function called
+  twice — the renderer seats a frame, the host seats the layout a finger is tested
+  against (`packages/render/src/handover.ts`). Every per-seat fact in the game
+  hangs off the seat a frame was drawn for, so the radar, the codex shimmer, the
+  queen's two hints and the seat's own colour all travel with the buttons without
+  a line each. That answers the question `ideas.md` left open: the radar goes with
+  the controls, because it is the same screen.
+
+  **What does not travel is who the two people are.** The wire's two identities
+  are fixed for the run, and the simulation attributes the handful of commands
+  that need a *hand* — a grip, a balloon's two pulls, a tap on a box — to the
+  player who sent them, so a borrowed panel is still pressed as this device
+  (`apps/game/src/input.ts`). The buttons and the reads change screens; the two
+  people do not change places. It follows that a handover wave is a wave of
+  bodies answered by the band: a hand on the glass would be a hand the screen
+  says is the other seat's and the ship says is yours.
 
 **In the two firing faults the broken half is never the half that moves**,
 and that is their whole design. The seat that still has a strip has to *aim
@@ -567,7 +598,11 @@ it knows has to leave its mouth. On THE JAM that is the colour the gun has
 loaded and which columns are lures; on THE TWITCH it is which dome the charge is
 travelling to; on THE CHOKE it is the column the cannon will be under on the
 next beat. The other seat holds the only thing that can act on any of it,
-and a fault runs from the first beat of the wave to the last.
+and a fault runs from the first beat of the wave to the last — with THE HANDOVER
+the one exception, and it is not the brake coming back. A window nobody can
+start, stop, spend or save is the ship's own clock, not a button: the pair is
+told when it is coming and what it has to have said by then, which is the
+opposite of being handed a pause to buy.
 
 **The rule is enforced in the simulation, not on the panel.** A lobe is not the
 only way into a `fire` or a `guard` — a swipe on the hull is a second, a
@@ -575,10 +610,14 @@ rehearsal's ghost thumb a third and the wire a fourth — so a broken control is
 swallowed above the switch in `applyCommand`. render/ draws the button dead and
 tearing; it does not decide anything.
 
-Its one number is `malfunctionEveryBeats` in
-`packages/sim/src/config-malfunction.ts`, the beats between two automatic
-actions of a broken control — one, so the fault does exactly what the metronome
-does and the pair already knows when the next one is coming.
+Its numbers are all in `packages/sim/src/config-malfunction.ts`, and all in
+beats: `malfunctionEveryBeats`, the beats between two automatic actions of a
+broken control — one, so the fault does exactly what the metronome does and the
+pair already knows when the next one is coming; `codexHoldBeats`, four, a bar;
+and THE HANDOVER's three, `handoverAtBeat` (nine — two bars played with your own
+hands first, and a downbeat they are already counting), `handoverHoldBeats`
+(eight — shorter and the honest answer is to take both hands off the glass and
+wait it out) and `handoverWarnBeats` (two — one sentence, *you take the dome*).
 
 ## Each body's own numbers
 

@@ -289,6 +289,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
 | `packages/sim/src/fence-crack.ts` |  |
 | `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
+| `packages/sim/src/handover.ts` | **THE HANDOVER's clock, and nothing else**: when the two panels change screens, how long they stay changed, and how many beats of warning first — no state, nothing hashed, no command swallowed |
 | `packages/sim/src/coil-state.ts` | **What a coil is right now**: which way it is going, whether it is still wearing its dome |
 | `packages/sim/src/config-rock-cross.ts` | **A crossing rock's two numbers**: how far along its row it goes each beat |
 | `packages/sim/src/rock-cross.ts` | **A rock authored to cross the field instead of holding its lane** |
@@ -979,6 +980,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-body-rock.ts` | The three rock body draws: the plain tiers, the torch, and the coil drawn as the burning torch it will become |
 | `packages/render/src/creature-body-living.ts` | The ordinary living body, on its own so the kinds that wear it can reach it without reaching the table |
 | `packages/render/src/handle-place.ts` | **Where a handle is standing**, as against where a finger may grab it |
+| `packages/render/src/handover-look.ts` | **THE HANDOVER's announcement**: the plate on the lip of the band that counts the trade down and counts the panels back, in the same words on both screens |
+| `packages/render/src/handover.ts` | **Which seat this device is playing** — its own, or the other one's while THE HANDOVER has the panels traded. One function, called by the renderer on a frame and by the host on the layout a finger is tested against |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/crystal.ts` | THE CRYSTAL: a craft three tiles wide with an electric field round it — the order its parts go on in |
 | `packages/render/src/crystal-craft.ts` | THE CRYSTAL's craft: the `SHELL` saucer, the red and cyan engine pods and the canopy over the middle |
