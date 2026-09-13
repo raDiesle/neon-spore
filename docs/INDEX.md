@@ -261,6 +261,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION puts on `@neon-spore/sim`'s surface, written out |
+| `packages/sim/src/fault-clock.ts` | The beat a fault is on and how often it acts — the one clock every malfunction reads and none of them keeps |
 | `packages/sim/src/malfunction.ts` | THE MALFUNCTION: a wave in which one of the two seats does not have its control any more — the control has it |
 | `packages/sim/src/magnet.ts` | THE MAGNET: the first body in this game that cannot be answered from the column it is standing in |
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
@@ -295,6 +296,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/rock-cross.ts` | **A rock authored to cross the field instead of holding its lane** |
 | `packages/sim/src/choir-gesture.ts` | **The hand on THE CHOIR**, which is the half of that creature nothing else in this game has |
 | `packages/sim/src/choir.ts` | THE CHOIR: three dots in one membrane, and the first body in this game that **no button can reach** |
+| `packages/sim/src/choke.ts` | THE CHOKE: the cannon strip dead and the cannon walking wall to wall by itself, a column every few beats, for the whole wave |
 | `packages/sim/src/config-choir.ts` | THE CHOIR's numbers: how far a hand has to carry an arrow, how long the pair has between the two of them |
 | `packages/sim/src/config-choke.ts` | THE CHOKE's one number: how many beats the steer fault takes per column of the cannon's walk |
 | `packages/sim/src/events-choir.ts` | **THE CHOIR's three**: an arrow out, both in, and the window gone |
@@ -482,6 +484,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/silhouettes-gum.ts` | **THE GUM in the air: THE WEIGHT's sac**, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-weight.ts` | **THE WEIGHT: the slumped sac**, the louder of the two hanging drafts, taken off the shape sheet whole |
 | `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
+| `packages/content/src/waves/act-9.ts` | Act nine: THE LEAK, the fault that takes the hold rather than a button, on the figure THE LANCE was taught on |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
 | `packages/content/src/creatures-joined.ts` | The body that is **two bodies in one shell** |

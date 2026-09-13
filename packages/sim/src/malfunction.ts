@@ -1,7 +1,7 @@
 import { fire } from "./bullets.js";
-import { clampCol } from "./config-derived.js";
+import { stepChoke } from "./choke.js";
+import { faultEvery, faultFiresThisBeat, faultStep } from "./fault-clock.js";
 import { armShield } from "./hull-guard.js";
-import { spillPrime } from "./lance.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -50,6 +50,8 @@ import type { World } from "./world.js";
  * cannon and was tapped off; the owner made it a fault on 12 September 2026
  * — the same kind of thing as the other two, authored on the wave, with the
  * emitter as its cause and no brush — and, like them, it runs the whole wave.
+ * Its arithmetic is `choke.ts`, which is the only fault here with enough of it
+ * to be worth a file.
  *
  * **`codex` is the fourth and it breaks none of them.** Every fault above takes
  * a control away: the button is on the panel, the pair can see it, and it
@@ -70,8 +72,24 @@ import type { World } from "./world.js";
  * phones are in the other seat at once — and the whole of it is a clock the two
  * hosts read: `handover.ts` has the argument, and nothing here acts on a beat
  * for it.
+ *
+ * **`leak` is the sixth, and it takes away a *gesture* rather than a control.**
+ * THE LEAK: the cannon lobe will not hold a charge. Both colours answer the
+ * thumb and a tap is the bolt it always was; what is gone is the **hold** — the
+ * lobe fills nothing, so no lance comes and a column of one colour has to be
+ * taken a body at a time (`lance.ts`). It is the first fault that leaves every
+ * button on the panel working and still costs the pair a weapon, and the pair
+ * find out from the emitter's beam standing on both colours rather than from a
+ * button drawn dead: there is nothing dead to draw.
  */
-export const MALFUNCTION_KINDS = ["cannon", "shield", "steer", "codex", "handover"] as const;
+export const MALFUNCTION_KINDS = [
+  "cannon",
+  "shield",
+  "steer",
+  "codex",
+  "handover",
+  "leak",
+] as const;
 export type MalfunctionKind = (typeof MALFUNCTION_KINDS)[number];
 
 /**
@@ -97,6 +115,7 @@ export type Malfunction =
   | { kind: "shield" }
   | { kind: "steer" }
   | { kind: "codex" }
+  | { kind: "leak" }
   /**
    * THE HANDOVER, and the one fault an author writes numbers on — the owner's
    * answer of 13 September 2026, asked whether the panels trade once or keep
@@ -128,75 +147,14 @@ export function faultSwallows(world: World, c: Command): boolean {
   // The strip, the swipe on the hull and the wire are all one door to the
   // cannon's column, and under THE CHOKE that door is shut.
   if (m.kind === "steer") return c.kind === "cannonCol";
-  // The last two swallow nothing at all, and in both that is the fault: every
-  // button works and answers the thumb, and what has changed is what it means
-  // (`codex.ts`) or whose screen it is on (`handover.ts`).
-  if (m.kind === "codex" || m.kind === "handover") return false;
+  // The last three swallow nothing at all, and in all three that is the fault:
+  // every button works and answers the thumb, and what has changed is what it
+  // means (`codex.ts`), whose screen it is on (`handover.ts`), or what holding
+  // one down is worth (`lance.ts`). THE LEAK in particular must not swallow
+  // `prime`: the press is what the lift's ordinary bolt is owed from, and a
+  // fault that ate it would take the trigger away rather than the beam.
+  if (m.kind === "codex" || m.kind === "handover" || m.kind === "leak") return false;
   return c.kind === "guard";
-}
-
-/**
- * How many steps the steered cannon has taken by this beat: none until the
- * wave's second beat, then one every `chokeSweepBeats`.
- */
-function steerSteps(world: World): number {
-  const every = Math.max(1, Math.round(world.cfg.chokeSweepBeats));
-  return Math.floor(faultStep(world) / every);
-}
-
-/**
- * **Where the steered cannon stands after `steps` steps**, and no state
- * behind it. `startWave` puts the cannon in the middle of every wave, and
- * from there the walk is a triangle wave: right to the wall, back to the
- * other, and again — a function of the wave's beat, so nothing is added to
- * the world or the hash. Away from the nearer wall first is what the middle
- * gives for free: the first thing the pair sees is the cannon leaving.
- */
-export function steerCol(cols: number, steps: number): number {
-  const last = cols - 1;
-  const period = Math.max(1, last * 2);
-  const x = (Math.floor(last / 2) + steps) % period;
-  return x <= last ? x : period - x;
-}
-
-/** Which way the steered cannon steps next, `1` toward the right wall. */
-export function steerHeading(world: World): -1 | 1 {
-  const cols = world.cfg.cols;
-  const steps = steerSteps(world);
-  return steerCol(cols, steps + 1) >= steerCol(cols, steps) ? 1 : -1;
-}
-
-/** Whether this wave's fault is THE CHOKE — the strip dead, the cannon walking. */
-export function steered(world: World): boolean {
-  return world.malfunction?.kind === "steer";
-}
-
-/**
- * How many beats into the wave a fault is, counted from the first one it acts
- * on rather than from zero.
- *
- * `onBeat` moves `waveBeat` before the fault reads it, so the first beat a
- * wave has is 1 and never 0 — and a sequence counted from 0 would open on the
- * *second* member of itself, which for an alternating cannon means the first
- * shot of the wave is cyan for no reason anybody could name. One subtraction,
- * in one place, read by both of the two things that need it.
- */
-export function faultStep(world: World): number {
-  return Math.max(0, world.waveBeat - 1);
-}
-
-/** How many beats apart the runaway cannon's shots are. Never below one. */
-function faultEvery(world: World): number {
-  return Math.max(1, Math.round(world.cfg.malfunctionEveryBeats));
-}
-
-/**
- * Whether the runaway cannon or shield fires on the current beat. The emitter
- * that draws the shot asks the same question as the step that fires it, and
- * had its own copy of the answer until 12 September 2026.
- */
-export function faultFiresThisBeat(world: World): boolean {
-  return faultStep(world) % faultEvery(world) === 0;
 }
 
 /**
@@ -227,16 +185,14 @@ export function malfunctionColor(world: World, m: Malfunction): Color {
 export function stepMalfunction(world: World): void {
   const m = world.malfunction;
   if (m === null) return;
-  // The last two act on no beat of their own. THE CODEX does what it does at the
-  // moment a bolt meets a body, and THE HANDOVER does it in render/ and in a
-  // host; whether either is doing it is a function of the wave's beat rather
-  // than state anybody steps (`codexSwapped`, `handedOver`).
-  if (m.kind === "codex" || m.kind === "handover") return;
+  // The last three act on no beat of their own. THE CODEX does what it does at
+  // the moment a bolt meets a body, THE HANDOVER does it in render/ and in a
+  // host, and THE LEAK does it at the moment a thumb asks how full the lobe is;
+  // whether any of them is doing it is a function of the wave rather than of
+  // state anybody steps (`codexSwapped`, `handedOver`, `lanceLeaks`).
+  if (m.kind === "codex" || m.kind === "handover" || m.kind === "leak") return;
   if (m.kind === "steer") {
-    const from = world.cannonCol;
-    world.cannonCol = clampCol(world.cfg, steerCol(world.cfg.cols, steerSteps(world)));
-    if (from !== world.cannonCol && spillPrime(world))
-      world.events.push({ type: "lanceSpilled", col: from });
+    stepChoke(world);
     return;
   }
   if (!faultFiresThisBeat(world)) return;

@@ -57,6 +57,17 @@ export function faultBeamEnds(
         out.push({ x: l.width * share, y, r: l.tile * 0.5, dim: !away });
       }
     }
+  } else if (m.kind === "leak") {
+    // **Both colours, neither of them dim.** The cannon fault's two ends say
+    // *this is the one loading*, one lit and one dark; this fault has taken the
+    // same thing from both of them and there is no order to it, so both stand
+    // at full. Nothing on the field and nothing on the muzzle: the lobe is
+    // where the hold goes, and the hold is the whole of what was taken
+    // (`sim/lance.ts`).
+    for (const id of ["fireRed", "fireCyan"]) {
+      const c = lobe(id);
+      if (c) out.push(c);
+    }
   } else if (m.kind === "codex") {
     // **Nothing on a panel**, which is the one beam here that lands on no
     // control: the two buttons the fault acts on are the navigator's, and the

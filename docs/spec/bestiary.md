@@ -512,7 +512,7 @@ navigator shown a lantern over the field would press the other colour and the
 wave would have no question in it. The indication is still there and the cause is
 still visible — to the one player who can do nothing with it except say so.
 
-Five of them, and they are five mechanics rather than one because a pair
+Six of them, and they are six mechanics rather than one because a pair
 who has played one has learnt nothing about the others:
 
 - **A cannon fault** fires up player 1's column on every beat. RED and CYAN go
@@ -605,6 +605,30 @@ who has played one has learnt nothing about the others:
   people do not change places. It follows that a handover wave is a wave of
   bodies answered by the band: a hand on the glass would be a hand the screen
   says is the other seat's and the ship says is yours.
+
+- **A leak fault** — THE LEAK (wave 71, act 9) — takes no control either, and
+  it is the only one that takes a **gesture**. The cannon lobe will not hold a
+  charge: a thumb held on a colour fills nothing however long it stays down, so
+  no lance comes and the column has to be taken a body at a time
+  (`lanceLeaks`, `packages/sim/src/lance.ts`). Everything else is untouched —
+  both colours answer the thumb, a tap is the bolt it has always been, the lift
+  after a long hold still fires the bolt it owes, and nothing on either panel is
+  drawn dead, because nothing is. What says the fault is there is the emitter's
+  beam standing on **both** colour lobes for the whole wave — not one lit and one
+  dim, as a cannon fault draws them, because this one has taken the same thing
+  from both — and the ring round the held button staying empty
+  (`render/fault-beam-ends.ts`, `lanceFillFor`). It is authored on the wave and
+  carries no numbers: there is nothing to time, the lobe is open from the first
+  beat to the last.
+
+  **The wave is written against the figure the lance was taught on.** THE LANCE
+  opens on three of a colour standing in one column, which is one shot and three
+  beats of a still cannon; THE LEAK opens on the same column, to the beat, and it
+  is three shots. Quoting the teaching wave is the whole design — a new figure
+  would have made it a wave about a new problem rather than a wave about a
+  missing answer — and what it costs the pair is the crossing: six ordinary shots
+  at opposite walls is a question about *which wall first* that a lance made
+  cheap.
 
 **In the two firing faults the broken half is never the half that moves**,
 and that is their whole design. The seat that still has a strip has to *aim

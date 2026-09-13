@@ -3018,3 +3018,25 @@ stylesheet put back to 560: fails. About 10 min.
 
 Bottleneck: **reading** — finding where the rule actually lives (the comment
 said index.html; it is `director-columns.css`).
+
+## 2026-09-13 · claude/scheduler-tests-two-devices-klxkyt — THE LEAK, the fault that takes the hold
+
+The owner asked for a modifier on the standard control set where holding a
+cannon button fires no beam, introduced by a guide and a wave of its own, and
+asked whether the game already had one. It did not: five faults, and every one
+of them takes a *control*. THE LEAK is the sixth and the first to take a
+**gesture** — the lobe fills nothing all wave, every tap still fires — with a
+wave in a new act nine written on the figure THE LANCE was taught on. About
+70 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `lance.ts`, `malfunction.ts`, `commands.ts`, `control-fault.ts`, the mechanics tables, `fault-beam-ends.ts`, the new-wave and new-tutorial skills |
+| writing | 25 | the kind, the two lines in `lance.ts` that are the whole mechanic, the wave and its argument, the mechanic row, the director's picker, the beam ends, six tests, the bestiary and briefings sections |
+| looking | 0 | nothing drawn that a picture would settle — the fault's whole face is a beam that already exists, aimed at two lobes that already exist |
+| friction | 15 | `malfunction.ts` went over 250 lines and had to be split twice over (`choke.ts`, `fault-clock.ts`) before anything could land; the browser tests then sat on their whole budget because the built page cannot reach Google from here, which cost two dead `check:fast` runs before it was understood and is queued |
+| landing | 10 | the index, the spec counts, `check`, the commit |
+
+Bottleneck: **friction** — none of it was about the mechanic. Half was a file
+that was already full, and half was a sandbox that cannot reach the fonts the
+sign-in brought in.

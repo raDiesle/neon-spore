@@ -45,15 +45,17 @@ export function controlBroken(id: ControlId, m: Malfunction | null | undefined):
   if (m.kind === "cannon") return id === "fireRed" || id === "fireCyan";
   if (m.kind === "steer") return id === "cannon";
   if (m.kind === "shield") return id === "guard";
-  // **The last two break nothing, and this used to say they broke the guard.**
+  // **The last three break nothing, and this used to say they broke the guard.**
   // A chain ending in `return id === "guard"` was right while the shield fault
   // was the only kind left, and it drew a torn, bleeding GUARD on every CODEX
   // wave — a button that works, answers the thumb and is the pilot's only
   // defence, painted as the one thing it is not. `faultSwallows` swallows
   // neither fault's presses (`sim/malfunction.ts`), and this is that answer
-  // said where the button is drawn: THE CODEX changes what a colour means and
-  // THE HANDOVER changes whose screen a panel is on, and neither takes a
-  // control away from anybody.
+  // said where the button is drawn: THE CODEX changes what a colour means, THE
+  // HANDOVER changes whose screen a panel is on, and THE LEAK changes what
+  // holding one down is worth — none of the three takes a control away from
+  // anybody, and the lobe THE LEAK acts on is the one it would be maddest to
+  // draw dead, because every tap on it still fires.
   return false;
 }
 

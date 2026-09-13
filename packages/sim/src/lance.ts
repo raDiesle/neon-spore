@@ -41,12 +41,31 @@ import { MILLI, type World } from "./world.js";
  * 1's: neither of them can do this alone, which is the same sentence the
  * lance always said with the halves swapped.
  *
+ * **THE LEAK is the one wave where none of this happens.** The fault holds the
+ * cannon lobe open, so the fill is nothing however long the thumb stays down
+ * and no lance ever comes (`malfunction.ts`). It is read here rather than
+ * enforced at the door: the press still starts a hold and the lift still fires
+ * the bolt it owes, because a fault that swallowed the press would have taken
+ * the trigger away rather than the beam, and every seat would find the panel
+ * dead instead of the weapon gone.
+ *
  * **Sliding never eats the shot.** The fill resets, the *hold* does not — a
  * lift after the cannon moved still fires the ordinary shot the thumb was
  * always owed. That is the one thing that would have made the hold unplayable:
  * player 1 slides constantly, and a trigger whose shots quietly vanished when
  * he did would be a broken trigger rather than a coupling.
  */
+
+/**
+ * **THE LEAK: the lobe will not hold a charge this wave** (`malfunction.ts`).
+ * Everything about the fill is read through this — the number the panel draws
+ * a ring from, the shaft in the column, and whether the thing ever goes off —
+ * so the fault is one fact asked in one place rather than a rule re-derived at
+ * each of them.
+ */
+export function lanceLeaks(world: World): boolean {
+  return world.malfunction?.kind === "leak";
+}
 
 /**
  * A thumb on a colour, and how long it has been there.
@@ -130,6 +149,7 @@ export function primeColor(world: World): Color | null {
 export function primeChargeMilli(world: World): number {
   const held = world.prime;
   if (held === null || held.spent) return 0;
+  if (lanceLeaks(world)) return 0;
   const have = world.tick - held.tick;
   return Math.max(0, Math.min(MILLI, Math.round((have * MILLI) / primeTicks(world.cfg))));
 }
@@ -138,6 +158,7 @@ export function primeChargeMilli(world: World): number {
 export function lanceReady(world: World): boolean {
   const held = world.prime;
   if (held === null || held.spent) return false;
+  if (lanceLeaks(world)) return false;
   return world.tick - held.tick >= primeTicks(world.cfg);
 }
 

@@ -42,6 +42,7 @@ export { type BreachWeight, guardArmed, ticksSinceGuard } from "./hull.js";
 export {
   beamTicks,
   type LanceBeam,
+  lanceLeaks,
   lanceReady,
   type Prime,
   primeChargeMilli,

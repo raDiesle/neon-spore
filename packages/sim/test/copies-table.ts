@@ -573,7 +573,7 @@ export const COPIES: Copy[] = [
     // author who moved the count's origin would have moved the shot and not
     // the flash.
     call: "faultFiresThisBeat",
-    owner: "packages/sim/src/malfunction.ts",
+    owner: "packages/sim/src/fault-clock.ts",
     pattern: /Math\.round\(\s*(?:\w+\.)*cfg\.malfunctionEveryBeats/,
   },
   {

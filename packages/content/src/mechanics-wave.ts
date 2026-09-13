@@ -1,7 +1,7 @@
 import type { MalfunctionKind } from "@neon-spore/sim";
 
 /**
- * **The five mechanics a wave turns on without putting a body on the field**,
+ * **The six mechanics a wave turns on without putting a body on the field**,
  * and the whole of `reach: "wave"`: a control that has stopped answering the
  * seat that owns it.
  *
@@ -12,10 +12,13 @@ import type { MalfunctionKind } from "@neon-spore/sim";
  * without one in the middle of it.
  *
  * **One row per `Malfunction`**, and `mechanics.ts` argues that at length: they
- * are five rules, each with its own first wave and its own guide. THE CODEX is
+ * are six rules, each with its own first wave and its own guide. THE CODEX is
  * the odd one and it earns the row twice over — it takes no control away at all,
  * and it is the only fault the seat it acts on is not shown. THE HANDOVER takes
- * none either and is the only one that *ends* before the wave does.
+ * none either and is the only one that *ends* before the wave does. THE LEAK
+ * takes none either and is the only one that takes away a **gesture**: every
+ * lobe answers the thumb and a tap is the bolt it always was, and the hold that
+ * fills the lobe is worth nothing all wave.
  *
  * `as const` rather than a type annotation, for `RUN_MECHANICS`' reason:
  * `MECHANICS` next door is `as const satisfies` and `WaveKind` is read back out
@@ -23,7 +26,7 @@ import type { MalfunctionKind } from "@neon-spore/sim";
  */
 
 /**
- * The five ids, **declared beside the rows they name** rather than in
+ * The six ids, **declared beside the rows they name** rather than in
  * `mechanics.ts`, which re-exports it. The union and the table below have to
  * agree exactly, and a fifth fault is what made that worth moving: they were in
  * two files importing each other to say so.
@@ -33,12 +36,15 @@ export type WaveMechanicId =
   | "shieldFault"
   | "steerFault"
   | "codexFault"
-  | "handoverFault";
+  | "handoverFault"
+  | "leakFault";
 
 /**
  * Which row a fault is, by kind — a table rather than a chain now that there are
- * five of them, and `satisfies` makes a sixth fault a build error here instead of
- * one that quietly reads as a steer.
+ * six of them, and `satisfies` makes a seventh fault a build error here instead
+ * of one that quietly reads as a steer. It earned that on the sixth: THE LEAK
+ * was written in the simulation first and this line is where the compiler asked
+ * for the rest of it.
  */
 export const FAULT_MECHANIC = {
   cannon: "cannonFault",
@@ -46,6 +52,7 @@ export const FAULT_MECHANIC = {
   steer: "steerFault",
   codex: "codexFault",
   handover: "handoverFault",
+  leak: "leakFault",
 } as const satisfies Record<MalfunctionKind, WaveMechanicId>;
 
 export const WAVE_MECHANICS = {
@@ -63,6 +70,10 @@ export const WAVE_MECHANICS = {
   },
   codexFault: {
     what: "A thing hanging from the top of the field has the *key*: the air over the field travels in slow bands, and while it does, the two colours have each other's job. A bolt fired red kills what cyan kills and cyan kills what red kills — and nothing about the shot says so. The bolt that leaves the muzzle is the colour that was pressed, it sounds like that colour, and the lobe lights like that colour, so the navigator finds out by watching a body refuse a colour that should have taken it. Only the pilot can see the bands, and the key turns over every codexHoldBeats — so the pilot has to keep saying which way round it is, to a partner who is already mid-shot, and the shot that lands is the one fired on the reading that was still true when the thumb went down.",
+    reach: "wave",
+  },
+  leakFault: {
+    what: "A thing hanging from the top of the field has the cannon lobe open, and its beam stands on both colours for the whole wave: the lobe fills nothing. Every button answers the thumb and a tap is the bolt it always was — what is gone is the hold, so no lance comes, and three of one colour standing in one column is three shots rather than one. It is the only fault that takes a gesture rather than a control, and there is nothing on either panel drawn dead to say so: what says it is the beam on the two lobes, and the ring round the button that stays empty under a thumb that will not come up.",
     reach: "wave",
   },
   handoverFault: {

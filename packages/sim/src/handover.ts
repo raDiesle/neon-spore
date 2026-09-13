@@ -1,4 +1,4 @@
-import { faultStep } from "./malfunction.js";
+import { faultStep } from "./fault-clock.js";
 import type { World } from "./world.js";
 
 /**

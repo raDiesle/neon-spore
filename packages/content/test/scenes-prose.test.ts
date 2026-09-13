@@ -3,7 +3,7 @@ import { WAVES } from "../src/index.js";
 import { SCENES } from "../src/scenes.js";
 
 /**
- * **The five guides that are still prose, and the count of the ones that are
+ * **The six guides that are still prose, and the count of the ones that are
  * not.**
  *
  * `docs/spec/briefings.md` said *one rehearsal exists* and *FIRST STEP has the
@@ -21,7 +21,7 @@ import { SCENES } from "../src/scenes.js";
  */
 
 /** The guided waves whose opening is the three strings and the two circles. */
-const STILL_PROSE = ["THE COUNT", "THE CHOKE", "THE LIMPET", "THE LEECH", "THE CODEX"];
+const STILL_PROSE = ["THE COUNT", "THE CHOKE", "THE LIMPET", "THE LEECH", "THE CODEX", "THE LEAK"];
 
 const guided = WAVES.filter((w) => w.guide);
 
@@ -44,11 +44,11 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   });
 
   it("counts the guided waves the opening section names", () => {
-    // "sixty-one of the seventy waves today" — the one figure in §1 that goes
-    // stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says sixty-one of seventy";
-    expect(guided.length, fix).toBe(61);
-    expect(WAVES.length, fix).toBe(70);
+    // "sixty-two of the seventy-one waves today" — the one figure in §1 that
+    // goes stale the same way, and it went stale at sixteen of twenty-six.
+    const fix = "update §1 of docs/spec/briefings.md, which says sixty-two of seventy-one";
+    expect(guided.length, fix).toBe(62);
+    expect(WAVES.length, fix).toBe(71);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

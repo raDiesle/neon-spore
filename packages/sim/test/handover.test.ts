@@ -187,10 +187,20 @@ describe("the fault itself", () => {
     }
   });
 
-  it("is the last kind on the wire, because the hash pushes its index", () => {
+  it("keeps its place on the wire, because the hash pushes its index", () => {
     // `hash.ts` pushes `MALFUNCTION_KINDS.indexOf(kind)`, so the list is
     // append-only: inserting a kind would renumber every replay before it.
-    expect(MALFUNCTION_KINDS[MALFUNCTION_KINDS.length - 1]).toBe("handover");
+    // Written against the last kind there was and failed on the next one that
+    // was appended correctly, which is the opposite of what it is for — so it
+    // names the five that were here instead, in their order, and a sixth or a
+    // seventh on the end is free.
+    expect([...MALFUNCTION_KINDS].slice(0, 5)).toEqual([
+      "cannon",
+      "shield",
+      "steer",
+      "codex",
+      "handover",
+    ]);
   });
 
   it("leaves the simulation identical to the same wave played without it", () => {

@@ -238,3 +238,46 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## The browser tests hang out their whole budget where Google cannot be reached
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `tools/frames/capture.ts`, `tools/frames/test/opening.test.ts`, `apps/game/index.html`, `apps/game/src/sign-in.ts`
+
+Since the sign-in landed, loading the built game in a headless Chrome reaches
+out to Google — `fonts.googleapis.com`, `accounts.google.com` and
+`www.google.com`, 37 connections in one run of `tools/frames/test/opening.test.ts`
+alone. A cloud session runs behind an egress proxy that refuses them, and the
+page never settles: every case spends its whole `STARVED_MS` (120 seconds) and
+`bun run check` goes from about a minute to many. It is not a failure anybody
+reads as one, either — the run simply sits there, which is the worst shape a
+slow test can have.
+
+Confirmed on a clean `main` with nothing of this lane's on it, so it is the
+environment meeting the new page rather than any one change. The fix is
+probably one line in the capture harness — `page.route` refusing every request
+whose host is not the preview's own, which is also the honest thing for a test
+about *this* checkout's frames — or the fonts served from the bundle. Whoever
+takes it should check whether `bun run frames` and `bun run perf` pay the same
+tax on a machine with ordinary egress but no network at all.
+
+## THE LEAK's guide is prose, and what it has to show cannot be asserted
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/scenes/the-lance.ts`, `packages/content/src/waves/act-9.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
+
+THE LEAK ships with the three strings and the two circles, which is the sixth
+guide to do so (`docs/spec/briefings.md` §3.2). Prose can say *the lobe fills
+nothing*; what a pair has to see is the ring round the button **not closing**
+under a thumb that stays down, and then the same thumb lifting and a bolt going
+out — the two halves that make it a lost weapon rather than a lost trigger.
+That is a rehearsal, and it is a short one: one column of three, one held
+thumb that never fills, one lift that fires.
+
+The film is a new file in `packages/content/src/scenes/`, named for the wave
+the way every other one is, pointed at from the wave's guide and added to
+`SCENES`. Follow `scenes/the-lance.ts`, which films
+the gesture this one takes away — the two are worth reading side by side, and a film that quotes
+its shape will teach the absence faster than one written from nothing. Adding
+it means taking THE LEAK out of `STILL_PROSE` and moving §3.2's two counts,
+both of which the test names in its failure.

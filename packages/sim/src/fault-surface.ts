@@ -11,6 +11,8 @@
  * second copy of the rule.
  */
 
+export { steerCol, steered, steerHeading } from "./choke.js";
+export { faultFiresThisBeat } from "./fault-clock.js";
 // THE HANDOVER's clock. Three names rather than one because the picture needs
 // all three: whether the panels are traded now, how many beats of warning are
 // left before they are, and how many until they come back. Nothing outside reads
@@ -18,14 +20,10 @@
 // done in one place (`handover.ts`, `test/copies-table.ts`).
 export { handedOver, handoverLeft, handoverWarning } from "./handover.js";
 export {
-  faultFiresThisBeat,
   MALFUNCTION_COLORS,
   MALFUNCTION_KINDS,
   type Malfunction,
   type MalfunctionColor,
   type MalfunctionKind,
   malfunctionColor,
-  steerCol,
-  steered,
-  steerHeading,
 } from "./malfunction.js";

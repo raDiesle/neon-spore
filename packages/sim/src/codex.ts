@@ -1,5 +1,5 @@
+import { faultStep } from "./fault-clock.js";
 import { otherColor } from "./kinds.js";
-import { faultStep } from "./malfunction.js";
 import type { Color } from "./types.js";
 import type { World } from "./world.js";
 
