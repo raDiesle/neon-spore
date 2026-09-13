@@ -381,3 +381,17 @@ colour): either expose `hand.down(layout(), hold, x, y)` on
 pointer event from the tool with the capture stubbed. Prove it with a run of
 `bun run frames . --wave 0 --hand cannon` whose log diff against the same run
 without the flag is the ring's own calls, in `tools/frames/test/`.
+
+## Unverified at a3703115: THE HANDOVER on a wave that names its own window, and o…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `docs/queue.md`, `docs/spec/bestiary.md`, `docs/time-log.md`, `packages/content/src/waves/act-8.ts`, `packages/sim/src/handover.ts`, `packages/sim/src/malfunction.ts`, `packages/sim/test/handover.test.ts`, `tools/director/src/fault-fields.ts`
+
+*THE HANDOVER's window is the wave's to name, and it may repeat* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
+
+- THE HANDOVER on a wave that names its own window, and one that keeps trading: whether a cycle reads as a fault or as noise, and whether the countdown plate is right as permanent furniture
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

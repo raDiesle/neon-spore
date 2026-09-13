@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · a3703115 — THE HANDOVER's window is the wave's to name, and it may repeat
+
+The owner's answer to the question this lane filed with the fault: both shapes, defined for one wave, over a period of beat rows. So the fault's arm carries three optional numbers — `at`, the beat the first trade happens on; `beats`, how long it holds; `every`, the period after which it happens again — and a wave that names none of them plays the game's own figures, once, exactly as before.
+
 ## 2026-09-13 · f4059b77 — THE HANDOVER is heard on the beat it trades and the beat it comes back
 
 The loudest moment the fault has — both panels changing screens on one beat — was drawn and never heard: the mixer had nothing for it because the trade is a `handedOver` edge and the simulation emits no event for it, on purpose. `mixer-handover.ts` hears it the way the cannon's column is heard, by comparing this frame's answer to the last one's out of `Memory`, so the fault stays free of the simulation everywhere. The two sounds were already in the catalogue, written for a control lent across the pair before this fault existed: `assist.handOver`, a tone crossing the stereo field, on the beat of the trade, and `assist.takeOver`, the same crossing back, quieter, on the beat the panels return — a relief rather than a loss, and not the same sound twice. Both go from spare to bound; the SOUND sheet excuses them a picture, since what changes is a whole band and the sheet's cards are bodies. `NO_SUBJECT` moved to `sound-link-none.ts` when those two reasons put `sound-link.ts` over its length. A fix to something wrong rather than unlovely: the control is answered where nothing said it.
