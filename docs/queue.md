@@ -176,27 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## The shape sheet's CAIRN card and the field's pile are stacked differently
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-the-shape-sheets-cairn-card-and-the-fields-pile
-- **Files:** `tools/shape-sheet/src/forms/pile.ts`, `tools/shape-sheet/src/drafts/collected.ts`, `packages/render/src/cairn.ts`
-
-The card draws seven units three, three and one — `courses()` in `pile.ts`
-derives that from the count — and the field draws them four, two and one,
-because four across the base is what fills the five columns the pile stands in
-(`CAIRN_COLS`, and `span.ts` says why the span came out at five). So the picture
-the owner judged the silhouette from is not the silhouette the game draws, which
-is exactly what the shape sheet exists to prevent.
-
-Two ways to close it and they cost about the same. Either `courses()` takes the
-arrangement as an option and `collected.ts` passes `[4, 2, 1]`, which makes the
-card the field's own stack; or `render/cairn.ts` reads its courses from a shared
-table the card also reads, which is the stronger version and needs a home for
-the table — `packages/content` is where the other shared geometry lives.
-`bun run shapes:report` and `packages/render/test/cairn-frame.test.ts` prove
-whichever is done.
-
 ## THE WELL draws none of the field's transients but a kill's burst
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

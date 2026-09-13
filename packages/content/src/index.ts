@@ -1,19 +1,9 @@
-export {
-  BALLOON_PARTS,
-  type BalloonNode,
-  balloonNodes,
-  balloonThreadPath,
-  balloonVeinPath,
-} from "./balloon-parts.js";
-export { BALLOON, balloonKnot, balloonOutline, balloonPath } from "./balloon-shape.js";
-export { walkedSilhouette } from "./body-form.js";
-export {
-  type ClubbedRim,
-  clubbedPoints,
-  livingPath,
-  livingPoints,
-  rimCount,
-} from "./body-path.js";
+/**
+ * **`@neon-spore/content`'s whole surface**: the rules, waves, scenes and
+ * controls named here, and every shape through `index-shapes.ts`, which
+ * carries the argument for being a file of its own.
+ */
+
 export {
   type ControlPress,
   controlHeld,
@@ -47,15 +37,6 @@ export {
   type PanelForm,
 } from "./controls.js";
 export {
-  CRAWLER,
-  CRAWLER_PULSE,
-  type CrawlerSilhouette,
-  crawlerOutline,
-  crawlerPath,
-  crawlerPoints,
-  PULSE_STEPS,
-} from "./crawler-shape.js";
-export {
   authorsBodyColor,
   type ControlGroup,
   CREATURES,
@@ -68,20 +49,7 @@ export {
   radarOwner,
   showsRadar,
 } from "./creatures.js";
-export {
-  GHOST,
-  type GhostSilhouette,
-  ghostOutline,
-  ghostPath,
-  ghostPoints,
-} from "./ghost-shape.js";
-export {
-  type Bump,
-  bumpAdd,
-  hullAngleAtX,
-  hullPointAtX,
-  hullRadiusMul,
-} from "./hull-shape.js";
+export * from "./index-shapes.js";
 export {
   INTRO_PAGE_COUNT,
   INTRO_PAGES,
@@ -96,12 +64,10 @@ export {
   deskStepSeats,
   keyLabel,
 } from "./keys-desk.js";
-export { LID, type LidSilhouette, lidOutline, lidPath } from "./lid-shape.js";
 export { KEY, LIGHT_HALF, type LightHalf } from "./light.js";
 // Which kinds are bodies and what each looks like: contour and own-motion, one row.
 export { hasOwnBody, livingBodyKinds, livingSilhouette } from "./living-look.js";
 export { type LongAxis, longAxis, poseOn } from "./long-axis.js";
-export { MAGNET_SHAPE, type MagnetShape, magnetOutline } from "./magnet-shape.js";
 export { MAZE_ROUNDS } from "./maze-rounds.js";
 export {
   MECHANIC_IDS,
@@ -116,9 +82,6 @@ export {
   unreachedMechanics,
   type WaveKind,
 } from "./mechanics.js";
-// The metaball trace SYMBIOSIS, the Colony and THE CHOIR share (`metaball.ts`).
-export { type Bounds, type Field, isoLoops, perimeter, resample } from "./metaball.js";
-export { resampleAll } from "./metaball-spread.js";
 export {
   BANK,
   type Beats,
@@ -160,7 +123,6 @@ export {
   podsFromWave,
   queueFromWave,
 } from "./queue.js";
-export { type RootedOpts, rootedContour } from "./rooted.js";
 export { actCol, sceneCommands, sceneScript } from "./scene-script.js";
 export {
   type GuideScene,
@@ -186,51 +148,7 @@ export {
   openSmoothPath,
   type Point,
 } from "./shapes.js";
-export {
-  BULB,
-  beatboxArms,
-  CANNON_LOBE,
-  CHOIR,
-  COUNTDOWN,
-  type CreatureSilhouette,
-  type CrystalSilhouette,
-  HULL,
-  type HullSilhouette,
-  type LobeShape,
-  MAW,
-  METEOR,
-  POD,
-  QUEEN_SHELL,
-  SHELL,
-  SHIELD_LOBE,
-  SLICK,
-  THROB,
-  TORCH,
-} from "./silhouettes.js";
-export { LEECH, LIMPET } from "./silhouettes-cling.js";
-export { GUM, SAC_SKIN, type SacSkin, sacPoints } from "./silhouettes-gum.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
-export { type StuddedOpts, studdedContour } from "./studded.js";
-export type { Pin } from "./surface.js";
-export { type Facet, facet, LAT_LIMIT, limbX, pin, surfaceDim, surfaceLit } from "./surface.js";
-// THE VEER's rider, as figures and as loops — one description of the clown.
-export {
-  type ClownArc,
-  type ClownDisc,
-  type ClownFigure,
-  type ClownSilhouette,
-  clownFigure,
-  clownLoops,
-  VEER_CLOWN,
-} from "./veer-clown-shape.js";
-export {
-  type RingSilhouette,
-  WARDEN_OPENING,
-  WARDEN_PUPIL_OPEN,
-  WARDEN_RING,
-  type WardenOpening,
-  wardenOpening,
-} from "./warden-shape.js";
 export { freshWaveId } from "./wave-types.js";
 export {
   guideSteps,

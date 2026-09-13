@@ -1,3 +1,4 @@
+import { CAIRN_BITE_ACROSS, CAIRN_BITE_UP, CAIRN_COURSES } from "@neon-spore/content";
 import { CAIRN_COLS, type CairnState, type Creature, type World } from "@neon-spore/sim";
 import { signedHash } from "./hash.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
@@ -36,25 +37,15 @@ import { rockRadius } from "./torch.js";
  */
 
 /**
- * The pile, course by course, bottom first: four across the base, two in the
- * valleys above them, one on top.
- *
- * **Bottom first is also the order they leave in.** `units` is drawn as the
- * first `units` entries of this list, so a pile losing rocks loses the apex,
- * then the middle course, then the base — which is the one order that leaves
- * a pile looking like a pile the whole way down. The alternative, restacking
- * the remainder into fresh courses on every pull, moves every rock on the
- * field at the moment the pair is trying to read one lane.
+ * The courses and the seam depths are `content/cairn-shape.ts`'s, read here and
+ * by the shape sheet's card alike — so the picture the owner judges the
+ * silhouette from is the stack the field draws. Bottom first, which is also
+ * the order the units leave in: the first `units` of the stack are drawn, so a
+ * shrinking pile loses its apex and keeps its base.
  */
-const COURSES: readonly number[] = [4, 2, 1];
-
-/** How far two neighbours are driven into each other, as a share of the reach
- * they would need to just touch — sideways and upward. The seam is the whole
- * shape: at nothing the pile falls apart and much past a fifth the rocks
- * swallow each other and it draws one lumpy boulder. `tools/shape-sheet`'s
- * `pile` form is where the two were tuned by eye. */
-const BITE_ACROSS = 0.16;
-const BITE_UP = 0.2;
+const COURSES = CAIRN_COURSES;
+const BITE_ACROSS = CAIRN_BITE_ACROSS;
+const BITE_UP = CAIRN_BITE_UP;
 
 /** Facets on a rock, which is `METEOR.sides` — named here only because the
  * inradius is what the spacing is written in, and a seven-sided rock reaches

@@ -2229,3 +2229,22 @@ the hull. About 15 min.
 
 Bottleneck: **reading** — finding that a film's carry is always the pilot's
 took the one probe run that showed the pile ignoring the hand.
+
+## 2026-09-13 · queue-the-shape-sheets-cairn-card — the CAIRN card takes the field's stack
+
+One stack table for THE CAIRN, in `content/cairn-shape.ts`, read by
+`render/cairn.ts` and the shape sheet's `pile()` alike: four stones on the
+ground, two, one. The barrel it was exported through was already at its
+250-line limit, so the content barrel was split by subject like the sim's,
+the shapes into `index-shapes.ts`. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `cairn.ts`'s courses, `pile.ts`'s own, `collected.ts`'s PULLED card |
+| writing | 5 | `cairn-shape.ts`, the two callers, the PULLED unit pulled right |
+| looking | 5 | `shapes:still all "THE CAIRN"`, rasterised and cropped — four, two, one |
+| friction | 5 | `content/src/index.ts` one line over the limit; a long-axis count moved with the card |
+| landing | 5 | `check:fast`, `bun run index`, the commit, `bun run land --keep` |
+
+Bottleneck: **friction** — a barrel at its limit turned a one-line export
+into a split by subject.

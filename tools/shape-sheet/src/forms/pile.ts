@@ -1,4 +1,4 @@
-import type { Point } from "@neon-spore/content";
+import { CAIRN_BITE_ACROSS, CAIRN_BITE_UP, cairnCourses, type Point } from "@neon-spore/content";
 import { sinHash } from "@neon-spore/render";
 import { linePath, type Subject } from "../contour.js";
 import { isoLoops, resampleAll } from "../iso.js";
@@ -41,42 +41,19 @@ interface Unit {
 const FACET_POINTS = 192;
 
 /**
- * The widest course at the bottom and one on top — the arrangement that reads
- * as *stacked* rather than as a heap, which is the whole job of the shape.
- *
- * Seven comes out three, three and one, so the courses line up vertically and
- * a unit's neighbour above is directly above it. That is worth having: it
- * makes the vertical spacing a distance between two known units rather than a
- * diagonal between whichever two happen to be nearest.
+ * The courses are the field's own — `cairnCourses` in `content/cairn-shape.ts`,
+ * which `render/cairn.ts` reads too — so seven come out four, two and one
+ * with the base as wide as the five columns the pile stands in. This form used
+ * to derive three, three and one from the count, and the owner judged a
+ * silhouette the game never drew. So are the seam depths: how far two
+ * neighbours are driven into each other is the whole shape, and it was tuned
+ * by eye on this card.
  */
-function courses(units: number): number[] {
-  const rows: number[] = [];
-  let left = units;
-  let width = Math.max(2, Math.round(units / 2.4));
-  while (left > 0) {
-    const n = Math.min(width, left);
-    rows.push(n);
-    left -= n;
-    if (left < width) width = left;
-  }
-  return rows;
-}
-
-/**
- * How far two neighbouring units are driven into each other, as a fraction of
- * the reach they would need in order to just touch. It is the seam depth, and
- * the seam is the whole shape: at zero the pile falls apart, and much past a
- * fifth the rocks swallow each other and it draws one lumpy boulder — which is
- * what the first two attempts here did.
- *
- * Sideways is where the counting happens, so it is bitten less than the
- * courses are. Nothing else in this form is a matter of taste; these two are.
- */
-const BITE_ACROSS = 0.16;
-const BITE_UP = 0.2;
+const BITE_ACROSS = CAIRN_BITE_ACROSS;
+const BITE_UP = CAIRN_BITE_UP;
 
 function unitsAt(o: PileOpts, t: number): Unit[] {
-  const rows = courses(o.units);
+  const rows = cairnCourses(o.units);
   const inner = (r: number) => r * Math.cos(Math.PI / o.sides);
   const radii: number[] = [];
   for (let i = 0; i < o.units; i++) {

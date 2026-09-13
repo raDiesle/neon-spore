@@ -35,9 +35,9 @@ const TITHE = { rx: 124, ry: 30, plates: 7, drop: 9, dwell: 3.5 };
  * it is stacked from have to be ordinary rocks before anything is pulled, not
  * boss-sized lumps that shrink on the way out.
  *
- * `courses` stacks seven of them three, three and one, which lands at roughly
- * 240 by 210 — a shade wider than it is tall, so it reads as a cairn rather
- * than a wall, and a shade bigger than the Warden, which is where a boss
+ * `cairnCourses` stacks seven of them four, two and one — the field's own
+ * stack, four across the base to fill the five columns it stands in — which
+ * lands wider than it is tall, so it reads as a cairn rather than a wall, and a shade bigger than the Warden, which is where a boss
  * built out of seven of anything ends up.
  */
 const CAIRN = { units: 7, radius: 46, sides: 7, seed: 4.0 };
@@ -103,7 +103,7 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
   {
     subject: pile("THE CAIRN · PULLED", "one unit dragged clear — now it is only a rock", {
       ...CAIRN,
-      pull: { unit: 3, dx: -3.1, dy: 0.25 },
+      pull: { unit: 3, dx: 3.1, dy: 0.25 },
     }),
     motion: LURCH,
     status: "draft",

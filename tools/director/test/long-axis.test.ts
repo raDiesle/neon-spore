@@ -110,8 +110,13 @@ describe("the catalogue's long axes", () => {
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
     // gap in it rather than beads on a string (`content/crawler-shape.ts`).
-    expect(count("x")).toBe(42);
-    expect(count(null)).toBe(67);
+    // 43 wide and 66 round from 13 September 2026, when THE CAIRN's card took
+    // the field's own stack (`content/cairn-shape.ts`): four stones on the
+    // ground, two, one — a base of four is wider than the three it had, and
+    // the card crossed from round to wide with it, as the pile it is judged
+    // against always was.
+    expect(count("x")).toBe(43);
+    expect(count(null)).toBe(66);
     // THE VEER is the thirteenth tall card and the only one made tall by
     // something *on* a body rather than by the body: the stone under it is
     // round, and the rider's hat carries the box half as far again above it.

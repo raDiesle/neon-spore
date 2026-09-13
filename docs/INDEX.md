@@ -409,6 +409,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-fleet.ts` | THE FLEET's rehearsal: the only one who can see the ships is the one who cannot move the sights |
 | `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN SIX PAGES |
+| `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
 | `packages/content/src/scenes/the-lance.ts` | THE LANCE's rehearsal: one shot instead of three |
 | `packages/content/src/scenes/pinball.ts` | PINBALL's rehearsal: the thing you fire from is the thing you have to catch it with |
 | `packages/content/src/scenes/the-gauge.ts` | THE GAUGE's rehearsal: neither of them has more than half a dial |
@@ -482,6 +483,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
 | `packages/content/src/creatures-joined.ts` | The body that is **two bodies in one shell** |
 | `packages/content/src/creatures-cling.ts` | **THE LIMPET and THE LEECH — the bodies that take a control and go off if it stands still.** Next door to… |
+| `packages/content/src/cairn-shape.ts` | THE CAIRN's stack: how seven rocks are arranged, in one place |
 | `packages/content/src/mechanics-handed.ts` | The keys of the table below, checked against the roster |
 | `packages/content/src/queue-boss.ts` | A wave's boss, remapped onto the field the pair is actually playing |
 | `packages/content/src/motions-event.ts` | The two motions that are events rather than idles |
