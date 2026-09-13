@@ -2122,3 +2122,21 @@ where the game says Player 1 and 2, and a difficulty. About 70 min.
 Bottleneck: **friction** — a trunk that went red under the lane by a
 commit no check had seen; the tool change itself was twenty minutes and the
 six entries another twenty.
+
+## 2026-09-13 · director-repeat — a cleared wave on the stage stops and asks REPEAT WAVE?
+
+The director's stage used to rebuild the wave the instant it cleared, so the
+author never saw it clear. Now it pauses under a grey veil that says REPEAT
+WAVE?, and a click anywhere on the screen — or P, which the PAUSED line under
+the veil still names — runs it again from the top. About 35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `stage.ts` for `needWave` and the transport, `stage-afterrun.ts` for the injected shape a stage helper takes and its test |
+| writing | 10 | `stage-repeat.ts`, the veil in `index.html` and `director-field.css`, the wiring and two trims that kept `stage.ts` on its line, five tests |
+| looking | 10 | the director launched by absolute path in this tree, the wave cleared by hand through `neonSporeDirector`, the veil seen up over the stage and answered by a click and by P |
+| friction | 5 | `.claude/launch.json` started the *main* checkout's director, as `working-with-claude.md` says it will; `bun run dev` is refused to a session by the guard, so the server was `tools/director/server.ts` by absolute path |
+| landing | 5 | `check:fast`, the commit, `bun run land` |
+
+Bottleneck: **looking** — getting a director that serves *this* tree in front
+of the browser pane took as long as writing the feature.

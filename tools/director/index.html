@@ -149,6 +149,12 @@
       <section class="stage-col" data-view="game" data-column="game" data-column-title="GAME">
         <div id="stageWrap">
           <div id="stageBox"><canvas id="stage"></canvas></div>
+          <!-- Up when the wave has cleared: the stage pauses under it, and a
+               click anywhere runs the wave again (stage-repeat.ts). -->
+          <div id="repeatWave" hidden>
+            <strong>REPEAT WAVE?</strong>
+            <span>The wave is finished. Click anywhere to run it again.</span>
+          </div>
           <div class="transport">
             <button type="button" id="play">⏸</button>
             <button type="button" id="restart">↺ WAVE</button>

@@ -573,3 +573,30 @@ wave with a known body and a known clear, not the wave the owner edits most
 — give it two small waves of its own through `queueFromWave` (the director's
 unsaved-wave path) and keep the name assertions only as a comment about why.
 `bun test packages/net tools/perf tools/director` proves both.
+
+## The map editor inserts a beat row and removes one, shifting the rows after it
+
+- **Found:** 2026-09-13, director-repeat — asked for by the owner
+- **Files:** `tools/director/src/grid.ts`, `tools/director/src/paint.ts`, `tools/director/src/query.ts`, `tools/director/src/director-map.css`
+
+The MAP section draws a wave as beats down and the seven authored columns
+across, and the only way to make room for a beat in the middle of a wave is
+to move every later cell down one by hand, one drag at a time. The owner
+wants **an add button beside each beat row** that inserts an empty beat
+there and **shifts every row after it one beat later**, and — asked for
+again the same day — **a remove button** that takes a beat row out and
+shifts every row after it one beat earlier.
+
+Both are one edit on the wave's data, in `paint.ts` beside `paint`/`eraseAt`
+where every other edit of a wave lives: `insertBeat(wave, beat)` adds one to
+the `beat` of every entry, pod and boss cue at or after it; `removeBeat(wave,
+beat)` drops what is on that beat and subtracts one from everything after —
+and a remove of a row with anything on it asks first, since the editor has
+no undo. The buttons
+belong on the beat label (`beatLabel` in `grid.ts`, which today only seeks),
+two small glyphs that appear on hover so the column of numbers stays a column
+of numbers, styled in `director-map.css`; `render()` already rebuilds the
+grid from the wave, and `beatCount` grows with the last beat. Tests beside
+`paint`'s prove the shift and that the beat-0 row can be added before but
+not removed. Whether the buttons read on the map is a browser question for a
+local session.

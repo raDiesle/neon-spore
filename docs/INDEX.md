@@ -1359,6 +1359,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-handle.ts` | The handle headless checks drive the stage through |
 | `tools/director/src/stage-loop.ts` | The stage's clock: a fixed-timestep loop of its own rather than the game's |
 | `tools/director/src/stage-rounds.ts` | Every round that is not the field, bound to the director's canvas at once |
+| `tools/director/src/stage-repeat.ts` | A cleared wave stops and asks, rather than starting itself again |
 | `tools/director/src/stage-snake.ts` | SNAKE'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
 | `tools/director/src/stage-transport.ts` | The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches |
 | `tools/director/src/state.ts` | The edits and the questions moved out when this file went over the line limit |

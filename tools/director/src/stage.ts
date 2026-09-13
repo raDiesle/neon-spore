@@ -17,6 +17,7 @@ import { exposeStageHandle } from "./stage-handle.js";
 import { runStageLoopWhileSeen } from "./stage-loop.js";
 import type { StagePanel } from "./stage-panel.js";
 import { stageGeometry } from "./stage-point.js";
+import { bindStageRepeat } from "./stage-repeat.js";
 import { bindStageRounds } from "./stage-rounds.js";
 import { bindStageTouch, pointerSeat } from "./stage-touch.js";
 import { bindStageTrail } from "./stage-trail.js";
@@ -114,16 +115,14 @@ export function bindStage(
     lastBeat = 0;
     onBeat(0);
     afterRun.paint(); // a fresh world is never over
+    repeat.hide();
   };
 
-  /**
-   * A cleared wave restarts instead of advancing. The game answers `needWave`
-   * with the next wave; here the next wave is the one being edited, because
-   * watching it again is the entire loop the editor exists for.
-   */
+  // A cleared wave stops and asks REPEAT WAVE? rather than advancing — the
+  // next wave here is the one being edited (`stage-repeat.ts`).
   const handle = (events: readonly SimEvent[]): void => {
     for (const e of events) {
-      if (e.type === "needWave") rebuild();
+      if (e.type === "needWave") repeat.ask();
     }
   };
 
@@ -173,16 +172,23 @@ export function bindStage(
   const paintPlay = (): void => {
     if (playBtn) playBtn.textContent = running ? "⏸" : "▶";
   };
+  const setRunning = (r: boolean): void => {
+    running = r;
+  };
   const afterRun = bindStageAfterRun({
     canvas,
     world: () => world,
     rebuild,
-    setRunning: (r) => (running = r),
+    setRunning,
     paintPlay,
   });
+  const veil = document.getElementById("repeatWave");
+  if (!veil) throw new Error("#repeatWave missing");
+  const repeat = bindStageRepeat({ veil, doc: document, rebuild, setRunning, paintPlay });
   bindStageTransport({
     rebuild,
     onPlayToggle: () => {
+      if (repeat.asking()) return repeat.answer(); // P is yes, while it asks
       running = !running;
       paintPlay();
     },
@@ -240,9 +246,5 @@ export function bindStage(
   };
 }
 
-/**
- * The contract is `stage-panel.ts` next door, cut out when this file went over
- * its ceiling. Re-exported because every panel that touches the stage reached
- * for the type through here, and a split is not a reason to make them move.
- */
+/** The contract is `stage-panel.ts`; re-exported because every panel reaches for it here. */
 export type { StagePanel } from "./stage-panel.js";

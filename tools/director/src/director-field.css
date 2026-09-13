@@ -9,6 +9,7 @@
    `align-items: center` centers `.transport`, which is narrower than
    the column; `#stageBox` overrides it with its own `width: 100%`. */
 #stageWrap {
+  position: relative; /* the REPEAT WAVE? veil is placed against it */
   flex: 1 1 0;
   min-height: 0;
   width: 100%;
@@ -16,6 +17,36 @@
   flex-direction: column;
   gap: 6px;
   align-items: center;
+}
+/* REPEAT WAVE?: a grey veil over the stage and its transport once the wave
+   has cleared. Grey rather than the shell's ink so the finished picture is
+   still readable under it; the click that answers it is heard on `document`
+   (`stage-repeat.ts`), so the veil itself needs no listener. */
+#repeatWave {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(120, 120, 130, 0.55);
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 8px;
+}
+#repeatWave[hidden] {
+  display: none;
+}
+#repeatWave strong {
+  font-size: 1.6rem;
+  letter-spacing: 0.08em;
+}
+#repeatWave span {
+  font-size: 0.85rem;
+  opacity: 0.9;
 }
 /* The canvas would otherwise size itself from its own width attribute, which
    the renderer sets from its measured width — a loop that settles at zero. */
