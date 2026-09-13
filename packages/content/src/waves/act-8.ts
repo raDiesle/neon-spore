@@ -79,6 +79,24 @@ import type { Wave } from "../wave-types.js";
  * `ControlGroup` (`creatures-handed.ts`), and the slick in the middle step
  * wants the cannon.
  *
+ * **THE CODEX** is the third, and the first fault in the game the seat it acts
+ * on cannot see. Ordinary bodies and nothing else — eight slicks and bulbs, no
+ * rock, no special kind — because the wave is about *which button*, and any body
+ * with an answer of its own would give the pair something else to talk about.
+ *
+ * The arrivals are in pairs and the pairs straddle the turn: the key holds for
+ * four beats, so a pair arriving on 14 and 16 is one body under one reading and
+ * the next under the other. Beats 24 and 26 are two *different* colours across a
+ * turn, which is where a pair who learned "always press the other one" finds out
+ * that the fault is not a relabelling — it is a thing that keeps changing, and
+ * the only reading that counts is the one that was true when the thumb went
+ * down.
+ *
+ * It opens **swapped** (`codexSwapped`), so the very first shot of the wave is
+ * the one that lies. That is the owner's kind of opening rather than an accident:
+ * a wave that opened clear would let the pair fire a whole bar of ordinary shots
+ * and meet the swap with a body halfway down the field.
+ *
  * The prose about a wave lives **here, above the array**, and not beside the
  * entry it is about: `tools/director/src/serialize.ts` regenerates everything
  * from `export const WAVES_ACT_8` down every time somebody saves a wave in the
@@ -119,5 +137,26 @@ export const WAVES_ACT_8: Wave[] = [
       { beat: 30, col: 1, kind: "weight", color: null },
       { beat: 32, col: 6, kind: "weight", color: null },
     ],
+  },
+  {
+    id: "theCodex",
+    name: "THE CODEX",
+    sentence: "The one where the button you pressed is not the shot you fired.",
+    guide: {
+      both: "Something over the field has the key to the two colours, and while it holds one the two have each other's job: a red bolt kills what cyan kills, and cyan kills what red kills. Nothing about the shot says so — the bolt is the colour that was pressed and sounds like it. The key turns over every four beats, all wave.",
+      p1: "Only you can see it: the air over the field travels in slow bands while the colours are swapped and goes still when they are not. Say which it is, and say it again every time it turns — they cannot see it.",
+      p2: "Both your buttons work and one of them is lying. Fire the colour they say, not the colour of the body — and a body that refuses a colour that should have taken it means the key turned as your thumb came down.",
+    },
+    entries: [
+      { beat: 0, col: 2, color: "red" },
+      { beat: 6, col: 4, color: "cyan" },
+      { beat: 14, col: 1, color: "red" },
+      { beat: 16, col: 5, color: "red" },
+      { beat: 24, col: 3, color: "cyan" },
+      { beat: 26, col: 0, color: "red" },
+      { beat: 34, col: 6, color: "cyan" },
+      { beat: 36, col: 2, color: "cyan" },
+    ],
+    malfunction: { kind: "codex" },
   },
 ];

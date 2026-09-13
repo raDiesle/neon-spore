@@ -187,9 +187,9 @@ prove it.
 ## Unverified at 0defb8b3: THE WEIGHT watched at tempo: the private mark under one…
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt
-- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bestiary.md`, `docs/spec/ideas.md`, `docs/spec/transfers-bosses.md`, `docs/time-log.md`, `packages/audio/src/bind.ts`, and 46 more
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bestiary.md`, `docs/spec/ideas.md`, `docs/spec/transfers-bosses.md`, `docs/time-log.md`, `packages/audio/src/bind.ts`
 
-*THE WEIGHT: a body two thumbs crush, and neither thumb can see the other* landed from a session that could not look at it. What went unchecked:
+*THE WEIGHT: a body two thumbs crush, and neither thumb can see the other* landed from a session that could not look at it. The commit touched 46 more files. What went unchecked:
 
 - THE WEIGHT watched at tempo: the private mark under one thumb, the calipers closing under two, and whether wave 66's three steps read as a lesson
 - bun run perf --wave "THE WEIGHT" — the wave landed with an unmeasured baseline row

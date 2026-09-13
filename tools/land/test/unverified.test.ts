@@ -66,9 +66,17 @@ describe("what a landing could not check", () => {
     expect(renderUnverified(long)).toContain("x".repeat(200));
   });
 
-  it("caps the file list and counts the rest", () => {
+  it("caps the file list to paths alone, and counts the rest in the body", () => {
+    // The count used to ride on the end of the `Files:` line, where `splitFiles`
+    // read "and 4 more" as a path and `staleness` then marked every truncated
+    // entry stale from the moment it was written (`doc-drift.test.ts` found it).
     const many = Array.from({ length: 12 }, (_, i) => `packages/sim/src/f${i}.ts`);
-    expect(filesLine(many)).toContain("and 4 more");
+    const line = filesLine(many);
+    expect(line).not.toContain("more");
+    for (const part of line.replace("- **Files:** ", "").split(", ")) {
+      expect(part).toMatch(/^`packages\/sim\/src\/f\d+\.ts`$/);
+    }
+    expect(renderUnverified({ ...LANDING, files: many })).toContain("4 more files");
     expect(filesLine([])).toBe("- **Files:** the commits named above");
   });
 

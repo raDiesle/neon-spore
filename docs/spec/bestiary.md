@@ -494,7 +494,14 @@ navigator's. It stands in no column and
 cannot be shot — a target that ended the fault would be the brake put back
 (`packages/render/src/fault-emitter.ts`).
 
-Three of them, and they are three mechanics rather than one because a pair
+**THE CODEX is the one exception to the paragraph above, and it is deliberate.**
+Its emitter and its beam are drawn on the **pilot's** screen and on nothing the
+navigator sees, because the fault is a secret kept from the seat it acts on: a
+navigator shown a lantern over the field would press the other colour and the
+wave would have no question in it. The indication is still there and the cause is
+still visible — to the one player who can do nothing with it except say so.
+
+Four of them, and they are four mechanics rather than one because a pair
 who has played one has learnt nothing about the others:
 
 - **A cannon fault** fires up player 1's column on every beat. RED and CYAN go
@@ -516,6 +523,23 @@ who has played one has learnt nothing about the others:
   the pilot's alone, and the same loops round the strip's node
   (`render/choke-hull.ts`, `render/choke-strip.ts`).
   It was a body first — see `ideas.md` under Mechanics for the tap-off.
+- **A codex fault** — THE CODEX (wave 67, act 8) — takes no control at all.
+  Both colours stay on player 2's panel and answer the thumb; what changes is
+  **what they mean**. While the key is turned over, a bolt fired red kills what
+  cyan kills and cyan kills what red kills, and nothing about the shot says so:
+  the bolt that leaves the muzzle is the colour that was pressed, it sounds like
+  that colour, and the lobe lights like that colour
+  (`Bullet.shown` against `Bullet.color`, swapped once at the muzzle in
+  `packages/sim/src/bullets.ts` so that every comparison downstream — a body's
+  colour, a fence's crack, a throb's half, a boss's rim — is right without
+  knowing the fault exists). The key turns over every `codexHoldBeats`, four by
+  default, and while it is over the air across the field travels in slow bands on
+  the pilot's screen (`packages/render/src/codex.ts`). So the one who can read
+  the key cannot fire and the one who fires cannot read it, and what the pilot
+  has to say is not a column or a colour but *which way round it is* — again,
+  every time it changes. It answers the question `ideas.md` left open when this
+  was a boss: a swap holds four beats, and it is announced by the shimmer and by
+  a partner and by nothing else.
 
 **In the two firing faults the broken half is never the half that moves**,
 and that is their whole design. The seat that still has a strip has to *aim

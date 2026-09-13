@@ -21,6 +21,19 @@
 export type ViewRole = "p1" | "p2" | "test";
 
 export const showsCannon = (role: ViewRole): boolean => role !== "p2";
+/**
+ * *Whether the key is turned over* — THE CODEX's shimmer across the field and
+ * the emitter's beam standing in it.
+ *
+ * **The pilot's, and the first entry in this list that hides a fault from the
+ * seat the fault acts on.** Every other split here keeps a fact about the
+ * *field* from one player. This one keeps a fact about the navigator's own two
+ * buttons from the navigator: they work, they answer the thumb, and while the
+ * key is over they do each other's job. A navigator who could see the shimmer
+ * would simply press the other colour and there would be nothing to say
+ * (`sim/codex.ts`).
+ */
+export const showsCodex = (role: ViewRole): boolean => role !== "p2";
 export const showsShield = (role: ViewRole): boolean => role !== "p1";
 /**
  * *Where* — which side the queen's next rock drops from, and which of her two

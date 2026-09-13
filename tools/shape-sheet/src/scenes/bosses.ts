@@ -106,17 +106,16 @@ export const BOSS_SCENES: Scene[] = [
       { kind: "line", row: 10, note: "the line, back above it" },
     ],
   },
-  {
-    suggests: "THE CODEX",
-    role: "p2",
-    claim:
-      "the key is legible only on its own skin, so the skin has to be legible: a slab across seven columns with the glyph band travelling, drawn on the seat that holds the two colours it rewrites",
-    bodies: [{ shape: "THE CODEX", col: 2, row: 2, span: 7 }],
-    spawns: [
-      { what: "red", col: 3, row: 7 },
-      { what: "cyan", col: 7, row: 7 },
-    ],
-  },
+  // **THE CODEX's scene is gone, and the mechanic is the reason.** It asked
+  // whether a key could be read off a travelling glyph band at boss size, drawn
+  // on the seat that holds the two colours. The owner asked for the idea as a
+  // **fault on a wave** instead, and that shipped on 13 September 2026: the two
+  // colours swapped for the navigator, and what says so is the air over the field
+  // going wrong on the *pilot's* screen — no skin, no band, no key written
+  // anywhere (`packages/sim/src/codex.ts`). So the scene is a picture of a field
+  // this game will not have. The **card** is still drawn and still `free` in
+  // `drafts/bosses.ts`: if a codex body is ever wanted, the question it was
+  // drawn to answer is untouched rather than settled.
   {
     suggests: "THE CONDUCTOR, bending the tempo",
     role: "p1",

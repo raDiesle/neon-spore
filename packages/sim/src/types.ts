@@ -5,6 +5,9 @@ export type Color = "red" | "cyan";
 // file over its limit, and re-exported so nothing reaching for one had to
 // move. `bullet-types.ts` says why the bullet is the half that moved.
 export type { Bullet } from "./bullet-types.js";
+// What a shot is **drawn** as, against what it kills. The two differ on exactly
+// one wave in the game (`codex.ts`), and the picture must read this one.
+export { bulletShown } from "./bullet-types.js";
 // What a press *is* — the one thing in this file that was never a shape a
 // world is made of. It lives in `command-types.ts` now and is re-exported
 // here, the way `creature-kinds.ts` and `kinds.ts` already are, so nothing

@@ -4,6 +4,7 @@ import { drawBoss } from "./boss-draw.js";
 import { drawBullets } from "./bullets.js";
 import { drawChoirArrows } from "./choir-arrows.js";
 import { drawChoirPrompt } from "./choir-prompt.js";
+import { drawCodexShimmer } from "./codex.js";
 import { drawCrawlers } from "./crawler.js";
 import { drawCreatures } from "./creatures.js";
 import { drawDartGuides } from "./dart-path.js";
@@ -99,6 +100,10 @@ export function drawBodies(
   // fault has taken (`fault-emitter.ts`). A body falling down the middle
   // column crosses in front of it.
   drawFaultEmitter(ctx, l, world, view.time);
+  // THE CODEX's shimmer, over the field's own light and under the bodies: the
+  // air between the pilot and the field, on the pilot's screen and on nothing
+  // the navigator is shown (`codex.ts`).
+  drawCodexShimmer(ctx, l, world, view.time);
   // The wind between every wheel and the mouth, under everything: it is the
   // one picture in the pass that must never cross in front of a colour, and
   // it reaches from the middle of the field down to the hull (`gyre-wind.ts`).

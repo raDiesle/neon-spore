@@ -1993,3 +1993,30 @@ pair pressing separately and losing the wave to it. About 150 min.
 Bottleneck: **friction** — three of the files a creature has to touch were at
 the line limit to the row, so adding a body meant choosing two seams that had
 nothing to do with the creature.
+
+## 2026-09-13 · the-codex — a fault that takes nothing away and changes what everything means
+
+THE CODEX off `docs/spec/ideas.md`, built as the owner asked for it: a **fault on
+a wave** rather than the boss that page imagined. While its key is turned over a
+bolt fired red kills what cyan kills, and nothing about the shot says so — the
+bolt that leaves the muzzle is the colour the thumb pressed, it sounds like that
+colour, and the lobe lights like that colour. What says the key is over is the air
+across the field travelling in slow bands, on the **pilot's** screen and on
+nothing the navigator sees, so the seat that can read the key cannot fire and the
+seat that fires cannot read it. The key turns over every `codexHoldBeats` — four,
+a bar — so it is a thing one of them keeps calling rather than a sentence said
+once. Wave 67 in act eight is eight ordinary bodies in pairs that straddle the
+turn, and it opens swapped. About 120 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `malfunction.ts` and the three faults already there, `fault-emitter.ts` and `fault-beam-ends.ts` for how a fault's cause is drawn, `view-role.ts` for the split, and every colour comparison in the simulation — twelve of them — to find out where a swap belongs |
+| writing | 55 | `sim/codex.ts` and `render/codex.ts`, `Bullet.shown`, the swap at the muzzle, the fault's row and its wave, the spec note in the bestiary, 17 tests across sim and render |
+| looking | 0 | nothing looked at — a cloud session cannot, and it is named below |
+| friction | 25 | the swap wanted twelve edits and got one: `Bullet.shown` against `Bullet.color` moved it to the muzzle, where every comparison downstream is right by construction. Then taking THE CODEX off the ideas list broke five things that read the backlog off the spec — a shape-sheet draft offered to it, a field scene drawn at it, the catalogue's draft count, and two director tests — each of which had a precedent to follow (The Mother's `free`, THE CHOIR's cut bullet) and had to be found |
+| landing | 25 | `midCol` re-derived and caught by `copies-table.ts`, a guide line 34 characters too long, `mechanics.ts` one line over its limit, `perf --unmeasured` — and then the full check found a real defect in `bun run land` itself: `filesLine` hung ", and 46 more" on the end of an unverified entry's `Files:` line, which `splitFiles` reads as a path, so every truncated entry it had ever written was marked **stale** in `bun run queue` from the moment it was written. The count is in the body now, and the entry already on the trunk is repaired |
+
+Bottleneck: **friction** — the mechanic itself was one function; what cost the
+afternoon was that an idea leaving `docs/spec/ideas.md` is read by the shape
+sheet, the director's backlog and two test suites, and none of them says so where
+the bullet is.

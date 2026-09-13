@@ -8,7 +8,7 @@ import {
 import { halo, strokeGlow } from "./glow.js";
 import { sinHash } from "./hash.js";
 import { rgba } from "./hex.js";
-import type { Layout } from "./layout.js";
+import { type Layout, showsCodex } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
@@ -69,6 +69,12 @@ export function drawFaultEmitter(
 ): void {
   const m = world.malfunction;
   if (m === null) return;
+  // **THE CODEX's cause is the pilot's to see.** Every other fault hangs here on
+  // both screens, because the beam is the announcement and both of them are
+  // meant to have it. This one is a secret kept from the seat it acts on, and a
+  // lantern over the field would be the announcement it must not make
+  // (`codex.ts`, `view-role.ts`).
+  if (m.kind === "codex" && !showsCodex(l.role)) return;
   const e = emitterAt(l);
   const v = vesicleAt(l);
   ctx.save();

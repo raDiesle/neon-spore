@@ -50,8 +50,20 @@ import type { World } from "./world.js";
  * cannon and was tapped off; the owner made it a fault on 12 September 2026
  * — the same kind of thing as the other two, authored on the wave, with the
  * emitter as its cause and no brush — and, like them, it runs the whole wave.
+ *
+ * **`codex` is the fourth and it breaks none of them.** Every fault above takes
+ * a control away: the button is on the panel, the pair can see it, and it
+ * answers nobody. THE CODEX leaves both colours working and changes **what they
+ * mean** — a bolt fired red kills what cyan kills and the other way round — and
+ * it is the first fault that is *not announced to the seat it acts on*. The
+ * navigator presses red, a red bolt leaves the muzzle, and a cyan body comes
+ * apart. What says so is a shimmer across the field and the emitter's beam, and
+ * both are drawn on the **pilot's** screen only (`render/codex.ts`), so the one
+ * who can see the key cannot fire and the one who fires cannot see it. It turns
+ * over every `codexHoldBeats`, so the key is a thing to keep calling rather than
+ * a fact to learn once — `alternating`'s argument, one fault along.
  */
-export const MALFUNCTION_KINDS = ["cannon", "shield", "steer"] as const;
+export const MALFUNCTION_KINDS = ["cannon", "shield", "steer", "codex"] as const;
 export type MalfunctionKind = (typeof MALFUNCTION_KINDS)[number];
 
 /**
@@ -75,7 +87,8 @@ export type MalfunctionColor = (typeof MALFUNCTION_COLORS)[number];
 export type Malfunction =
   | { kind: "cannon"; color: MalfunctionColor }
   | { kind: "shield" }
-  | { kind: "steer" };
+  | { kind: "steer" }
+  | { kind: "codex" };
 
 /**
  * Whether this press falls into a control the fault has taken over.
@@ -98,6 +111,9 @@ export function faultSwallows(world: World, c: Command): boolean {
   // The strip, the swipe on the hull and the wire are all one door to the
   // cannon's column, and under THE CHOKE that door is shut.
   if (m.kind === "steer") return c.kind === "cannonCol";
+  // THE CODEX swallows nothing at all, and that is the fault: every button
+  // works, answers the thumb, and does the other one's job (`codex.ts`).
+  if (m.kind === "codex") return false;
   return c.kind === "guard";
 }
 
@@ -147,7 +163,7 @@ export function steered(world: World): boolean {
  * shot of the wave is cyan for no reason anybody could name. One subtraction,
  * in one place, read by both of the two things that need it.
  */
-function faultStep(world: World): number {
+export function faultStep(world: World): number {
   return Math.max(0, world.waveBeat - 1);
 }
 
@@ -193,6 +209,10 @@ export function malfunctionColor(world: World, m: Malfunction): Color {
 export function stepMalfunction(world: World): void {
   const m = world.malfunction;
   if (m === null) return;
+  // THE CODEX acts on no beat of its own: what it does happens at the moment a
+  // bolt meets a body, and whether it is doing it is a function of the wave's
+  // beat rather than state anybody steps (`codexSwapped`).
+  if (m.kind === "codex") return;
   if (m.kind === "steer") {
     const from = world.cannonCol;
     world.cannonCol = clampCol(world.cfg, steerCol(world.cfg.cols, steerSteps(world)));

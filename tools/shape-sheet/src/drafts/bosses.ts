@@ -61,11 +61,21 @@ export const BOSS_DRAFTS: CatalogueEntry[] = [
   {
     subject: glyphed("THE CODEX", "a slab whose rim scrolls a key", 96, 54, 13, 1.4),
     motion: SWELL,
-    status: "draft",
+    // Free, not draft, since 13 September 2026: the owner asked for THE CODEX as
+    // a **fault on a wave** rather than as an encounter, and that shipped — the
+    // two colours swapped for the navigator, the shimmer that says so on the
+    // pilot's screen alone (`sim/codex.ts`). So the mechanic is built and the
+    // *idea* left `ideas.md`'s list with it, which leaves this card with nothing
+    // to be offered to. It is still the shape drawn for a codex **body**, and
+    // that body is still wanted if anybody wants it — a picture waiting for a
+    // boss, which is what `free` means. What the shipped fault does *not* do is
+    // write the key anywhere: it is the air that is wrong, so the question this
+    // card was drawn to answer — can a key be read off a travelling rim at boss
+    // size — is untouched rather than settled.
+    status: "free",
     slot: "boss",
-    suggests: "THE CODEX",
     owner:
-      "it rewrites what a colour means and the current key is legible only on its own skin, which only the other player can read — so the key is cut into the silhouette and travels, and a player reading it aloud is the fight",
+      "nothing wears it: drawn for THE CODEX while it was an encounter — it rewrites what a colour means and the current key is legible only on its own skin, which only the other player can read, so the key is cut into the silhouette and travels, and a player reading it aloud is the fight. The fault that shipped instead writes no key at all",
   },
   {
     subject: arm("THE CONDUCTOR", "an arm, not a body — it sweeps the top of the field", 150, 0.9),

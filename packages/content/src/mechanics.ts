@@ -7,6 +7,7 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import { MECHANICS } from "./mechanics-table.js";
+import { FAULT_MECHANIC } from "./mechanics-wave.js";
 import { AUTHORED_COLS, bossFromWave, podsFromWave, queueFromWave } from "./queue.js";
 import type { Wave } from "./wave-types.js";
 import { WAVES } from "./waves.js";
@@ -71,7 +72,7 @@ export type RunMechanicId = "briefing" | "windup" | "lance" | "grip" | "lock";
  * say the game introduces this once — `test/waves.test.ts` would then hold
  * that the second wave to carry one must *not* explain itself.
  */
-export type WaveMechanicId = "cannonFault" | "shieldFault" | "steerFault";
+export type WaveMechanicId = "cannonFault" | "shieldFault" | "steerFault" | "codexFault";
 
 /**
  * A mechanic a wave turns on **by a field on an arrival rather than by its
@@ -196,8 +197,7 @@ export function mechanicOn(cfg: SimConfig, id: MechanicId): boolean {
  * given to it is the authored one, since nothing here asks *where*.
  */
 export function faultMechanic(m: Malfunction): WaveMechanicId {
-  if (m.kind === "cannon") return "cannonFault";
-  return m.kind === "shield" ? "shieldFault" : "steerFault";
+  return FAULT_MECHANIC[m.kind];
 }
 
 export function mechanicsInWave(wave: Wave): Set<MechanicId> {

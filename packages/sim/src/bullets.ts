@@ -1,4 +1,5 @@
 import { resolve } from "./bullet-hit.js";
+import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
@@ -45,19 +46,29 @@ export function fire(world: World, color: Color): void {
  * (`shot-charge.ts`).
  */
 function launch(world: World, color: Color): void {
+  // **The one place a colour is swapped**, and the reason THE CODEX is a fault
+  // rather than a sweep: everything downstream compares `color`, so the fence's
+  // crack, a throb's half, a crystal's join and a boss's rim are all correct
+  // without knowing the fault exists. `shown` carries what the thumb pressed, so
+  // the bolt that leaves the muzzle is the colour the navigator asked for and
+  // the secret is kept (`codex.ts`).
+  const means = shotMeans(world, color);
   world.bullets.push({
     id: world.nextId++,
     col: world.cannonCol,
     row: hullRow(world.cfg) - 1,
     subMilli: 0,
-    color,
+    color: means,
     lance: false,
     // Straight up and dead centre of the column, always. A shot is not aimed
     // when it is fired — it is aimed every tick it is in the air, by whatever
     // player 1's hand is on at the time (`lock.ts`).
     driftMilli: 0,
     aimMilli: 0,
+    ...(means === color ? {} : { shown: color }),
   });
+  // The colour the thumb pressed, never the one it means: this is what the
+  // muzzle flashes and what the ear gets, and both belong to the press.
   world.events.push({ type: "fire", col: world.cannonCol, color, lance: false });
 }
 

@@ -307,11 +307,16 @@ filed rightly, and there is no second list to change.
 
 ### Bosses
 
-Four encounters, each naming the slot in [bosses](bosses.md) it would fit.
+Three encounters, each naming the slot in [bosses](bosses.md) it would fit.
 Cut to what each asks of the pair on 12 September 2026, at the owner's ask;
 what a hand does is the point of every one, and the pictures drawn at them
 are on the director's SHAPES tab, not here. THE VANE left this list because it
-is built ([bosses](bosses.md) 11.5).
+is built ([bosses](bosses.md) 11.5), and **THE CODEX left it on 13 September
+2026** for the same reason and by a different road: the owner asked for it as a
+*fault on a wave* rather than as an encounter, so what shipped is a malfunction —
+the two colours swapped for the navigator, the shimmer that says so on the
+pilot's screen alone — and the boss-sized body it was drawn for was never needed
+([bestiary](bestiary.md), THE MALFUNCTION).
 
 - **THE WEIGHT** — *a creature of this name is built* (12 September 2026): a sac
   that sinks a lane a beat and gives to a hand from each seat held together, with
@@ -326,11 +331,6 @@ is built ([bosses](bosses.md) 11.5).
   bright toward whichever thumb holds it.* Slot: The Heart (60). Unworked out:
   whether the pair *lets* it fall past the line or *drags* it there — a drag
   is a gesture the game does not have yet
-- **THE CODEX** — it swaps what red and cyan do for one seat without saying
-  so, and the current key is written on its own skin, legible only to the
-  *other* seat. So the one who fires cannot read what a colour means and the
-  one who can read it cannot fire. Slot: The Codex (80). Unworked out: how
-  long a swap holds and whether it is announced by anything but a partner
 - **THE TITHE** — it always takes something and the pair chooses what. Each
   cycle: two rocks in two columns on one beat, one shield, and one plate lit
   in a third column wanting the cannon on that same beat. Two hands, three

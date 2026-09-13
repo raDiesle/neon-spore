@@ -97,12 +97,30 @@ export function titleFor(sha: string, items: readonly string[]): string {
   return `${head}${tail}`;
 }
 
-/** `- **Files:**` — the paths, capped, with a count standing in for the rest. */
+/**
+ * `- **Files:**` — the paths, capped, and **nothing but paths**.
+ *
+ * The count of what was left out used to ride on the end of this line as ", and
+ * 46 more", and that was a small lie with two readers. `splitFiles` in
+ * `tools/queue/queue.ts` splits this line on commas and strips the backticks, so
+ * the phrase arrived at `staleness` as a path called *and 46 more* — which is
+ * not on the trunk, so every truncated entry this file wrote was marked **stale**
+ * in `bun run queue` from the moment it was written, and a session reading the
+ * listing was told to re-read files that had not moved.
+ * `tools/test/doc-drift.test.ts` is what found it: it holds every `Files:` path
+ * in the queue to being a file the tree has. The count is in the body now, where
+ * prose is prose.
+ */
 export function filesLine(files: readonly string[]): string {
   const shown = files.slice(0, FILES_SHOWN).map((f) => `\`${f}\``);
-  const rest = files.length - shown.length;
   if (shown.length === 0) return "- **Files:** the commits named above";
-  return `- **Files:** ${shown.join(", ")}${rest > 0 ? `, and ${rest} more` : ""}`;
+  return `- **Files:** ${shown.join(", ")}`;
+}
+
+/** How the body says what the capped list left out, or "" when it left nothing. */
+export function restLine(files: readonly string[]): string {
+  const rest = files.length - Math.min(files.length, FILES_SHOWN);
+  return rest === 0 ? "" : ` The commit touched ${rest} more file${rest === 1 ? "" : "s"}.`;
 }
 
 /** One entry, as it appears in `docs/queue.md`. */
@@ -118,7 +136,7 @@ export function renderUnverified(u: Unverified): string {
     `- **Found:** ${u.date}, ${u.branch}`,
     filesLine(u.files),
     "",
-    `${landed} from a session that could not look at it. What went unchecked:`,
+    `${landed} from a session that could not look at it.${restLine(u.files)} What went unchecked:`,
     "",
     list,
     "",

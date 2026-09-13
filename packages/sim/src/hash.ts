@@ -191,6 +191,12 @@ export function hashWorld(world: World): number {
     // other. The charge's colour was already hashed above; this is the same
     // shot one tick later.
     push(b.color === "red" ? 1 : 2);
+    // And what it is *drawn* as, which is not the same question. THE CODEX
+    // makes a bolt mean the other colour and look like the one that was
+    // pressed, so two devices that disagree about `shown` draw two different
+    // screens over one world — and one of the two players is reading a key off
+    // the one that is wrong. 0 for the ordinary shot, where the two agree.
+    push(b.shown === undefined ? 0 : b.shown === "red" ? 1 : 2);
     push(b.lance ? 1 : 0);
     // Where it is across its column and which way it is going. Both are the
     // steering THE LOCK does (`lock.ts`), and neither is decoration: the drift

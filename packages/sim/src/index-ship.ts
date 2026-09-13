@@ -13,6 +13,10 @@
  * a panel need in order to draw what is already true.
  */
 
+// THE CODEX: whether this wave has one and whether its key is turned over right
+// now. The picture asks, because the shimmer and the beam are drawn off it — on
+// the pilot's screen and on nothing the navigator sees (`codex.ts`).
+export { codexed, codexSwapped, shotMeans } from "./codex.js";
 export {
   crankBites,
   crankTurnedMilli,

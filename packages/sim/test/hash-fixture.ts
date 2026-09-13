@@ -115,6 +115,8 @@ const bullet = (): Required<Bullet> => ({
   subMilli: 500,
   color: "cyan",
   lance: true,
+  // THE CODEX: what the bolt is drawn as, against what it kills.
+  shown: "red",
   driftMilli: -180,
   aimMilli: 420,
 });

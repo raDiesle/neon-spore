@@ -325,6 +325,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
+| `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
@@ -904,6 +905,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/countdown-dial.ts` | DIAL — a kept look for THE COUNT, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/countdown-fuse.ts` | FUSE — a kept look for THE COUNT, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/countdown-iris.ts` | IRIS — what THE COUNT wears: a socket and core on both screens, blades over it on the pilot's, a hole on zero |
+| `packages/render/src/codex.ts` | **THE CODEX, seen: the air over the field going wrong.** While the key is turned over |
 | `packages/render/src/fence-bolt.ts` | **One line of current between the wall and the dome.** Cut out of `fence-arc.ts` when the warning skull took… |
 | `packages/render/src/fence-crack.ts` | **The breaking point in a wall, on the screen that is shown it.** A gap is a hole the dome is steered into; a… |
 | `packages/render/src/fence-exit.ts` | **A wall leaving the ship it did not touch.** A fence that finds the dome standing in one of its ways through… |

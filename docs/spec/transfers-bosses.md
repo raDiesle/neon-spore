@@ -87,11 +87,17 @@ second and third boss and it leaves a whole question unasked.
   at several times the size. A mechanic that hangs on visible separation is
   safer as an encounter than as a kind, which is an argument for building this
   one before Symbiosis.
-- **THE CODEX** — Spaceteam's labelled dials grown into a body, and the only
-  one of the three whose open question can be answered today: can a *key* be
-  read off a rim of travelling notches at boss size, or does `glyphed` only
-  ever read as texture? That is a `bun run shapes` question, an hour's work,
-  and it decides whether the encounter exists.
+- **THE CODEX** — *built, and not as a boss.* The owner asked on 13 September
+  2026 for the idea as a **fault on a wave**, and that is what shipped: the two
+  colours swapped for the navigator with nothing on that screen to say so, the
+  shimmer that says it on the pilot's, and a key that turns over every four
+  beats (`sim/codex.ts`, and [bestiary](bestiary.md) under THE MALFUNCTION). The
+  open question this entry carried — can a *key* be read off a rim of travelling
+  notches at boss size, or does `glyphed` only ever read as texture? — is
+  therefore **moot rather than answered**: the shipped fault writes the key
+  nowhere at all. It is the air over the field that is wrong, and what the pilot
+  reads is a state and not a legend. If a codex *body* is ever wanted, that
+  question is still open and still an hour with `bun run shapes`.
 
 ## Collected
 

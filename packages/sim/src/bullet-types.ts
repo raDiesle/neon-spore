@@ -22,7 +22,25 @@ export interface Bullet {
   row: number;
   /** Progress towards the next tile, 0..999. Interpolation only. */
   subMilli: number;
+  /**
+   * **What it kills**, which is not always what it looks like. Every comparison
+   * in the simulation reads this one — a body's colour, a fence's crack, a
+   * throb's half, a boss's rim — so THE CODEX swaps it once at the muzzle and
+   * every one of them is right by construction (`codex.ts`).
+   */
   color: Color;
+  /**
+   * **What it is drawn and heard as**, when that is not what it kills, and
+   * absent on every ordinary shot.
+   *
+   * The one field THE CODEX needs, and the reason the fault is a swap at the
+   * muzzle rather than at twelve comparisons. The navigator pressed a colour and
+   * must see that colour leave the muzzle — that is the whole of the secret — so
+   * the picture reads this and the rules read `color`. Read it through
+   * `bulletShown`, never by name: absent means *they are the same*, which is
+   * what a shot on a wave with no fault on it is.
+   */
+  shown?: Color;
   /**
    * True for a shot that left a full lobe — THE LANCE. It travels at
    * `lanceTilesPerBeat` instead of `bulletTilesPerBeat` and passes through
@@ -56,4 +74,12 @@ export interface Bullet {
    * else (`magnet.ts`).
    */
   aimMilli: number;
+}
+
+/**
+ * The colour this shot is **drawn and heard** as: what the thumb pressed, which
+ * is what it kills on every wave but one (`codex.ts`).
+ */
+export function bulletShown(b: Pick<Bullet, "color" | "shown">): Color {
+  return b.shown ?? b.color;
 }

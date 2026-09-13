@@ -36,6 +36,7 @@ export type {
 } from "./types.js";
 export {
   bodyCenterCol,
+  bulletShown,
   clampSpanCol,
   colSpan,
   fallTilesPerBeat,

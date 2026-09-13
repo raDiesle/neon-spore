@@ -135,7 +135,19 @@ describe("buildBacklog", () => {
 
     // A boss idea sits with the act order rather than among the creatures:
     // it is a whole encounter waiting for a slot, not a thing that falls.
-    expect(names(backlog.bosses)).toContain("THE CODEX");
+    expect(names(backlog.bosses)).toContain("THE TITHE");
+    expect(names(backlog.mechanics)).not.toContain("THE TITHE");
+
+    // THE CODEX is off the page as of 13 September 2026, and it left the way
+    // THE CHOIR below did with one difference: THE CHOIR became a *creature*
+    // where the bullet had imagined a boss, and this became a **fault on a
+    // wave**. The owner asked for it that way, so what is built is the two
+    // colours swapped for the navigator with nothing on that screen to say so
+    // and the air going wrong on the pilot's (`sim/codex.ts`), and the bullet
+    // went with the mechanic rather than staying to describe a body nobody is
+    // going to build. The card drawn for that body is still on the shapes page,
+    // set free (`shape-sheet/src/drafts/bosses.ts`).
+    expect(names(backlog.bosses)).not.toContain("THE CODEX");
     expect(names(backlog.mechanics)).not.toContain("THE CODEX");
 
     // THE CHOIR is off the page entirely, and it left the way THE GAUGE and

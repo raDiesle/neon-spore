@@ -1,4 +1,4 @@
-import type { Bullet } from "@neon-spore/sim";
+import { type Bullet, bulletShown } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -79,7 +79,11 @@ export function drawBullets(
     // that column on the tick it lights (`lance.ts`), so there is nothing for
     // a second look to be about here.
     const look = SHOT_LOOK;
-    const hex = b.color === "red" ? PALETTE.red : PALETTE.cyan;
+    // `bulletShown`, never `b.color`: under THE CODEX a bolt kills what the
+    // other colour kills and is drawn as the one the thumb pressed, which is the
+    // whole of how the fault stays a secret from the seat that fired it
+    // (`sim/codex.ts`).
+    const hex = bulletShown(b) === "red" ? PALETTE.red : PALETTE.cyan;
     const frac = b.subMilli / 1000;
     const row = b.row - frac;
     const col = b.col + b.driftMilli / 1000;

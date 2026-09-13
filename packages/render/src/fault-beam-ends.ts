@@ -1,6 +1,6 @@
-import { malfunctionColor, type World } from "@neon-spore/sim";
+import { malfunctionColor, midCol, type World } from "@neon-spore/sim";
 import type { BeamEnd } from "./fault-emitter.js";
-import { type Layout, tileCX } from "./layout.js";
+import { type Layout, showsCodex, tileCX } from "./layout.js";
 
 /**
  * **Where the fault's beam lands on this screen**, from what the fault has
@@ -38,6 +38,15 @@ export function faultBeamEnds(
     const strip = lobe("cannon");
     if (strip) out.push(strip);
     out.push({ x: tileCX(l, world.cannonCol), y: l.hullY, r: l.tile * 0.4 });
+  } else if (m.kind === "codex") {
+    // **Nothing on a panel**, which is the one beam here that lands on no
+    // control: the two buttons the fault acts on are the navigator's, and the
+    // navigator is the seat this is kept from. So it stands in the field, in the
+    // air it has gone wrong in — and only where that air is drawn at all
+    // (`codex.ts`).
+    if (showsCodex(l.role)) {
+      out.push({ x: tileCX(l, midCol(world.cfg)), y: l.gridTop + l.tile, r: l.tile });
+    }
   } else {
     const loading = malfunctionColor(world, m) === "red" ? "fireRed" : "fireCyan";
     for (const id of ["fireRed", "fireCyan"]) {
