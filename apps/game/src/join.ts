@@ -163,8 +163,10 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     if (!changed && screen?.style.display !== "block") return;
     paint();
     // A fault is the one thing that opens the screen by itself: the game has
-    // stopped and the words for why are only in here.
-    if (changed && linkIsFault(status.state)) open(true);
+    // stopped and the words for why are only in here. **Except a parting**, whose
+    // door is the menu's CONTINUE (`shell.ts`): opened here too, this screen
+    // stood over that menu, a dead START on top of the press that mends it.
+    if (changed && linkIsFault(status.state) && status.state !== "desync") open(true);
   };
 
   update(last);

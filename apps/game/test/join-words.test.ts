@@ -2,6 +2,9 @@ import { describe, expect, test } from "bun:test";
 import { type LinkState, type LinkStatus, SOLO_STATUS } from "@neon-spore/net";
 import { chipText, explain, lastTimeLine, roomLine } from "../src/join-words.js";
 
+const join = await Bun.file(Bun.fileURLToPath(new URL("../src/join.ts", import.meta.url))).text();
+const shell = await Bun.file(Bun.fileURLToPath(new URL("../src/shell.ts", import.meta.url))).text();
+
 /**
  * The sentences the network wears, and the one pair of them that must never read
  * alike.
@@ -97,6 +100,17 @@ describe("a parting", () => {
     for (const over of [{ brokenPromises: 2 }, { desyncTick: 60 }]) {
       expect(explain(at({ ...inRoom, state: "desync", ...over }))).toContain("not a lag spike");
     }
+  });
+
+  test("names the way out, which is the menu's CONTINUE and not this screen's START", () => {
+    // The first two phones driven through a parting found this screen standing
+    // over the menu with a START that could not be pressed. It no longer opens
+    // itself on a parting (`join.ts`), and when it is up it says where to press.
+    for (const over of [{ brokenPromises: 2 }, { desyncTick: 60 }]) {
+      expect(explain(at({ ...inRoom, state: "desync", ...over }))).toContain("CONTINUE");
+    }
+    expect(join).toContain('linkIsFault(status.state) && status.state !== "desync"');
+    expect(shell).toContain('joinScreen?.open(false);\n        menu?.open("play")');
   });
 });
 

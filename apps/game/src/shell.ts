@@ -110,7 +110,13 @@ export function bindShell(p: ShellParts): Link {
       //
       // On the *edge* and not on the state, so a menu the player then closed to
       // look at the field does not come straight back up under their thumb.
-      if (status.state === "desync" && parted !== true) menu?.open("play");
+      // The room screen goes down first: it sits over the menu, and a pair
+      // who had it up would be looking at a START that cannot be pressed with
+      // the press that can under it.
+      if (status.state === "desync" && parted !== true) {
+        joinScreen?.open(false);
+        menu?.open("play");
+      }
       parted = status.state === "desync";
     },
   });

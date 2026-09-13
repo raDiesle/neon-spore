@@ -2902,3 +2902,21 @@ with `bun run frames .`. About 20 min.
 
 Bottleneck: **looking** — the panels coming home cannot be photographed
 headless, because a wave nobody answers is lost before the window closes.
+
+## 2026-09-13 · claude/parting-verified — two phones part and find their way back, on a wrangler and in two browsers
+
+The cloud session's unverified entry, run for real: the four relay checks
+against a local wrangler, then two browser contexts in one room, one of them
+reaching into its own world. The parting found a defect the fingerprints could
+not — the room screen stood over the menu's CONTINUE — fixed here. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `.claude/skills/net-change`, `dev.ts`, `link.ts`, `join.ts`, `shell.ts`, the menu's entries and the room screen's ids |
+| writing | 5 | the two-phone script; `join.ts` no longer opening on a parting, `shell.ts` closing it, `join-words.ts` naming CONTINUE, the test |
+| looking | 5 | `relay:check` plain, `--split`, `--full`, `--rejoin`, all in step; then the parting on two phones: menu on PLAY, one press waiting, the second press putting both on WAVE 4 at tick 0 |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the queue, the commit |
+
+Bottleneck: **looking** — the first two phones through a parting could not
+press CONTINUE at all, which no unit test and no relay check could have seen.
