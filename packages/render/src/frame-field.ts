@@ -31,6 +31,8 @@ import { drawShipAir } from "./ship-air.js";
 import { drawStrands } from "./strand.js";
 import { drawVeerMarks } from "./veer-marks.js";
 import { drawVeilMarks } from "./veil-marks.js";
+import { wellShown } from "./well.js";
+import { drawWellBack, drawWellBodies } from "./well-draw.js";
 
 /**
  * **The two passes that are about the field**: the empty board, and the bodies
@@ -60,6 +62,16 @@ export function drawFieldBack(
   flash: number,
   grid: number,
 ): void {
+  // **THE WELL takes both of these passes whole**, on the one screen it is
+  // drawn on: the board is a clock face rather than a lattice and every body
+  // on it stands somewhere else, so there is nothing here to draw *and* nothing
+  // below that would be in the right place (`well-draw.ts`). It returns from
+  // inside the pass rather than being branched on by `canvas2d.ts`, so the
+  // frame's order, the pose's easing, the band and the HUD are untouched.
+  if (wellShown(l, world)) {
+    drawWellBack(ctx, l, world, view, flash);
+    return;
+  }
   // No flat fill here: drawBackground's radial gradient is opaque over the
   // same rect, so a fill under it never reaches the screen (canvas2d.ts's
   // own viewport fill covers the letterbox this pass does not reach).
@@ -94,6 +106,10 @@ export function drawBodies(
    * beat and then dropped to the hole beneath. */
   skinY?: SurfaceY,
 ): void {
+  if (wellShown(l, world)) {
+    drawWellBodies(ctx, l, world, view, effects);
+    return;
+  }
   // Under the creatures: the mark is on the column, not on anything in it.
   drawLanceMark(ctx, l, world);
   // And under them too, hanging from the top edge: what has the control a

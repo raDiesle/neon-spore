@@ -110,6 +110,25 @@ export function rowLabel(row: number): string {
 }
 
 /**
+ * The number a column is called out loud, 1 at the left wall.
+ *
+ * `rowLabel`'s argument sideways, and it is here beside it so that the two
+ * halves of "people count from one" are one decision rather than two. The pair
+ * has said "column four" since the first act and nothing drew it until THE
+ * WELL, whose clock face carries a number per lane (`well-face.ts`) — and a
+ * picture that wrote `3` over the lane both of them call four would be worse
+ * than no number at all.
+ *
+ * Not `colLabel` above, which is the *lattice's* naming and answers a different
+ * question: letters across and numbers down is what a pair needs when a body
+ * has to be named by tile, and there is exactly one wave of that (THE WISP).
+ * Everywhere else a column is a number, and this is that number.
+ */
+export function colNumber(col: number): string {
+  return String(col + 1);
+}
+
+/**
  * The lattice, the crossings and the two axes, at `shown` opacity.
  *
  * `flash` is the beat, 1 on it and decayed to 0 before the next — the same

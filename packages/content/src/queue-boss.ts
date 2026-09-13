@@ -49,6 +49,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // straight through the middle of. So a chart passes through untouched, and
   // `FleetShip` is where that is argued.
   if (boss.kind === "fleet") return { ...boss, ships: boss.ships.map((s) => ({ ...s })) };
+  // THE WELL has no authored anything: it is a projection of whatever field
+  // the pair is playing on, so a narrower one simply makes wider sectors
+  // (`render/src/well.ts`).
+  if (boss.kind === "well") return { ...boss };
   // SNAKE has an arena instead of a field, and it is the same size whatever
   // the field would have been — so there is nothing here to remap either.
   if (boss.kind === "snake") return { ...boss, rounds: boss.rounds.map((r) => ({ ...r })) };

@@ -43,6 +43,8 @@ export interface Bindings {
    * wheel's string is drawn and answers nothing.
    */
   maze: () => MazeState | null;
+  /** Whether this screen is drawn as THE WELL (`render/src/well.ts`). */
+  well: () => boolean;
   /**
    * THE WARDEN, if it is the boss running. Read fresh and stated rather than
    * defaulted, for the same reason `maze` is: without it the handle on its rope

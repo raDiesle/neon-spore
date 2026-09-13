@@ -6,14 +6,14 @@ import type { MirrorStep } from "./simon.js";
 import type { SnakeRound } from "./snake.js";
 
 /**
- * **What a wave authors when it wants a boss** — eleven shapes, the union of
+ * **What a wave authors when it wants a boss** — twelve shapes, the union of
  * them, and the two questions anything asks about that union.
  *
  * Cut out of `entries.ts` when THE CRAWLER's two fields took that file over
  * its 250-line limit, and the seam is the one that file was always going to be
  * cut along: next door is what a wave hands the field a *body* on, and this is
- * what it hands the field a whole *encounter* on. Eleven of these against two
- * of those, and the eleven are the half that grows — every round in
+ * what it hands the field a whole *encounter* on. Twelve of these against two
+ * of those, and the twelve are the half that grows — every round in
  * `docs/spec/bosses.md` still to come is one more interface here.
  *
  * `entries.ts` re-exports every name below, so nothing that already reaches
@@ -175,6 +175,20 @@ export interface PulseEntry {
   stages: PulseStage[];
 }
 
+/**
+ * What a wave authors when it wants THE WELL, which is nothing at all — THE
+ * GAUGE's entry arrived at from the opposite end.
+ *
+ * No column, no health and no rounds, for the reason there is no state either:
+ * the whole boss is a **projection**, and a projection has nothing to place and
+ * nothing to tune. The wave under it is the wave its author wrote, which is the
+ * one thing a well entry cannot say (`bossFillsWave` answers it for every
+ * caller). `packages/sim/src/well.ts` is the argument.
+ */
+export interface WellEntry {
+  kind: "well";
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -187,7 +201,8 @@ export type BossEntry =
   | FleetEntry
   | SnakeEntry
   | PinballEntry
-  | PulseEntry;
+  | PulseEntry
+  | WellEntry;
 
 /**
  * Whether this boss *is* the wave, or only bends what the wave sends.
@@ -199,9 +214,13 @@ export type BossEntry =
  * empty field. So the director's guard against a creature brush on a boss wave
  * asks this rather than `wave.boss !== undefined`, and there is one place the
  * answer lives.
+ *
+ * THE WELL is the second of those and the plainest: it is a projection, so it
+ * spawns nothing, and a well with no arrivals is the field redrawn with nothing
+ * standing in it (`well.ts`).
  */
 export function bossFillsWave(kind: BossEntry["kind"]): boolean {
-  return kind !== "vane";
+  return kind !== "vane" && kind !== "well";
 }
 
 /**
@@ -226,4 +245,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   // slipped into the middle would renumber every boss after it, and a replay
   // recorded on yesterday's build would fingerprint as a different world.
   "cairn",
+  "well",
 ];

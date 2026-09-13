@@ -3,7 +3,7 @@ import { drawTakeover } from "./canvas2d-takeover.js";
 import { drawChokeCoils } from "./choke-hull.js";
 import type { ClaspFrames } from "./clasp-frames.js";
 import { drawStuckClingers } from "./cling.js";
-import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
+import { drawBodies, drawFieldBack, drawOverlays, drawShip, wellShown } from "./frame-passes.js";
 import { drawStuckGums } from "./gum.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import { computeLayout, computeStage, type Layout, type Stage, tileCX } from "./layout.js";
@@ -153,6 +153,7 @@ export class Canvas2DRenderer implements Renderer {
         return c ? c.id : 0;
       },
       world.cfg,
+      wellShown(l, world),
     );
     this.held.effects.update(view.dt, l);
     // The one transient this renderer holds outside `Effects`: it is drawn

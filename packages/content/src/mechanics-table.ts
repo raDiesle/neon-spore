@@ -122,6 +122,10 @@ export const MECHANICS = {
     what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
     reach: "spawn",
   },
+  well: {
+    what: "The field is drawn inside out on the pilot's screen: the ship at the centre, the far row a rim around it, and the eleven columns spread round it as the eleven hours of a clock — so column four is four o'clock and nobody has to learn a word. Nothing else changes. The picture keeps one thing back: the two walls of the field meet at twelve, so the two lanes that look like neighbours are the two ends of the field — one hour of movement on the clock is the whole width of the rail under it.",
+    reach: "spawn",
+  },
   purge: {
     what: "A pod hangs where it was left; shooting it loose is only half of getting it, and a pod not taken is the wave lost. Taking this one in clears the field of everything that is falling.",
     reach: "spawn",

@@ -716,13 +716,13 @@ no-travel rule relaxed.
   one takes a call from one seat and a press from the other; cutting the wrong
   one re-tangles the rest. Unworked out: whether strands may cross at all,
   since a truly unreadable tangle is decided by eyesight
-- **THE WELL** — the field turned inside out: the hull at the centre, bodies
-  falling inward from a rim, eleven columns become a clock face. Nothing in
-  the simulation changes, only the projection — and the sentence: "column
-  four" becomes "four o'clock". It fails the first test of a round (the field
-  is not gone, it is redrawn), so its real home may be the modifier waves 8–9
-  of an act. Unworked out: which of the two it is; whether both phones flip
-  or only one
+- ~~**THE WELL**~~ — **built**, as a boss wave, on 13 September 2026. Its two
+  open questions were answered by building it: it is a boss rather than a
+  modifier wave, and **one phone flips**, the pilot's, because a well on both
+  is a skin on the field with nothing for the pair to say. The design is
+  [bosses 11.12](bosses.md#1112-the-well--the-field-turned-inside-out-on-one-phone)
+  and the projection is `packages/render/src/well.ts`. It leaves this list the
+  way THE CODEX did: an idea that has been made is no longer an idea
 - **THE FUSE** — five valves on one bomb, and the evidence is on the wrong
   phone. Only the pilot can hold a valve down; only the navigator can read the
   needle that answers while it is held. Held through one beat and released,

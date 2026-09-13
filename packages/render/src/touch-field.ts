@@ -94,4 +94,19 @@ export interface Field {
    * about.
    */
   malfunction: Malfunction | null;
+  /**
+   * Whether **this screen** is drawn as THE WELL — the field turned inside out
+   * (`render/src/well.ts`). It is a boolean rather than a state because the
+   * boss has none: what a hit test needs to know is only that the picture in
+   * front of this finger is not the one every circle in `touch.ts` is cut out
+   * of.
+   *
+   * **Required and stated rather than defaulted**, for the reason every field
+   * above it is, and with the sharpest version of it: a caller that quietly
+   * meant `false` would answer the hull's two lobes at the bottom of a screen
+   * that draws them at the middle, and a body in the column it would have
+   * stood in on a flat field. A control answered where it is not drawn is the
+   * one thing `touch.ts` exists to prevent.
+   */
+  well: boolean;
 }

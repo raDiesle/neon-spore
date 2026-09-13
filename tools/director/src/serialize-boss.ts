@@ -46,6 +46,9 @@ export function serializeBoss(boss: BossEntry): string {
   // THE GAUGE authors nothing at all — the wave names it and everything else
   // about it is tuning (`config-gauge.ts`).
   if (boss.kind === "gauge") return '{ kind: "gauge" }';
+  // THE WELL the same, and for less: it authors nothing because it *is*
+  // nothing but a projection (`sim/well.ts`).
+  if (boss.kind === "well") return '{ kind: "well" }';
   // THE FLEET is the one boss whose whole content is a placement, so it is the
   // one the editor has to be able to write back. One ship per line, in the
   // order they were authored, because a chart is read down the page and a

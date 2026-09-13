@@ -298,8 +298,11 @@ What the rule is for is keeping the field a place where two people talk about
 **columns** — everything there has one, and "column four, on the three" is a
 complete instruction because of it. None of that reasoning reaches a round with
 no columns, and it does not start reaching one because the round is now spelled
-`boss:` in the wave list. THE CLAW, THE BELT and THE WELL are not asking for a
-relaxation and never were; they are outside the sentence.
+`boss:` in the wave list. THE CLAW, THE BELT and THE WELL were not asking for a
+relaxation and never were; the first two are outside the sentence. THE WELL is
+built ([bosses 11.12](bosses.md#1112-the-well--the-field-turned-inside-out-on-one-phone))
+and turned out to be *inside* it: it redraws the field rather than taking it
+away, nothing on it travels, and the pair still names columns — as hours.
 
 THE GAUGE still went first, and for a better reason than caution: it is the
 smallest, so the shape it dragged in was the visible part of the work.

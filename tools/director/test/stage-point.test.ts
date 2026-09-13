@@ -144,6 +144,7 @@ describe("the stage's pointer conversion", () => {
         warden: null,
         controls: controlSet(undefined),
         malfunction: null,
+        well: false,
       }),
       push: (player, command) => sent.push({ player, command }),
       world: () => world,

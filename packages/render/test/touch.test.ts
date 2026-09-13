@@ -54,6 +54,7 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
     warden: null,
     controls,
     malfunction: null,
+    well: false,
   };
 }
 

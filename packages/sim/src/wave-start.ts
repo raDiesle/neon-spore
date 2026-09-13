@@ -19,6 +19,7 @@ import { WARDEN_COLS } from "./types.js";
 import { installVane } from "./vane.js";
 import { NO_TETHER } from "./warden-cycle.js";
 import { NOT_FAILED } from "./wave-fail.js";
+import { installWell } from "./well.js";
 import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
 
 /**
@@ -135,6 +136,12 @@ export function startWave(
     // standing on the grid, so there is nothing of it for the fall loop, the
     // hull or a hand to find (docs/spec/transfers-bosses.md).
     world.boss = installVane(world, boss);
+  } else if (boss?.kind === "well") {
+    // Less than any of them: no creature, no row, no state and no rule. THE
+    // WELL is a projection — the field drawn inside out on one screen of the
+    // two — so there is nothing of it anywhere but the picture, and the wave
+    // under it runs exactly as its author wrote it (`well.ts`).
+    world.boss = installWell(world);
   } else if (boss?.kind === "cairn") {
     // A creature and a row, like the Warden and unlike the six above it: the
     // pile is a body standing on the grid, wide enough to have lanes of its

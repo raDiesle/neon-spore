@@ -7,6 +7,7 @@ import type { PulseState } from "./pulse.js";
 import type { MirrorState } from "./simon.js";
 import type { SnakeState } from "./snake.js";
 import type { Color } from "./types.js";
+import type { WellState } from "./well.js";
 
 /**
  * Everything the Bulb Queen encounter remembers between beats. It lives in
@@ -205,6 +206,12 @@ export interface FleetState {
  * `tellColor` off a mirror and get `undefined` at runtime with a clean type
  * check behind it.
  *
+ * `WellState` is the one member with no fields at all, and it is in `well.ts`
+ * for `CairnState`'s reason with nothing left over: a fight's state lives
+ * beside its rules, and THE WELL's rules are that nothing about the simulation
+ * changes. The tag earns its place in the union because `bossHashParts` pushes
+ * it and two devices have to agree which picture they are drawing.
+ *
  * `GaugeState` is in here and its fields are in `gauge.ts` rather than beside
  * the other four, for the reason the maze's and the mirror's are in theirs:
  * one file owns a fight's state and nothing else writes it. `CairnState` is
@@ -224,4 +231,5 @@ export type BossState =
   | FleetState
   | SnakeState
   | PinballState
-  | PulseState;
+  | PulseState
+  | WellState;

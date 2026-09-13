@@ -225,6 +225,110 @@ the table — `packages/content` is where the other shared geometry lives.
 `bun run shapes:report` and `packages/render/test/cairn-frame.test.ts` prove
 whichever is done.
 
+## THE WELL draws none of the field's transients but a kill's burst
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/render/src/well-draw.ts`, `packages/render/src/effects.ts`, `packages/render/src/effects-frame.ts`, `packages/render/src/creature-place.ts`
+
+The well replaces the field's two passes, so everything `Effects` draws is
+skipped on that screen except `sparks`, which is ingested through
+`wellFromFlat` and drawn by hand at the end of `drawWellBodies`. A crater, a
+scar, a body's afterglow, a grip's ring, THE CRAWLER's goo and the rest are
+simply absent there. A well wave of living bodies produces none of them, which
+is why the wave was authored out of slicks and bulbs — but the next well wave
+somebody writes with a rock in it gets a landing with no impact.
+
+Two halves, and `wellFromFlat` is the tool for the first: every transient whose
+position is a pixel computed at ingest (`burstFor`'s table, `crawler.splash`,
+`spriteBursts`) can be mapped with one call each, the way the burst already is.
+The second half is the ones drawn *around a creature the world still holds* —
+`bodies.drawOnBodies`, the grip ring, `lock-mark.ts` — which all ask
+`creatureCenter`, and that function takes no world and cannot know the well is
+up. The honest fix there is for `creatureCenter` to take the projection rather
+than assume it, which is a signature change across about thirty call sites and
+wants a lane of its own. `packages/render/test/well-frame.test.ts` is where the
+proof goes.
+
+## A crossing rock has no blip on THE WELL's rim
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/render/src/well-draw.ts`, `packages/render/src/radar-blip.ts`
+
+`drawWellArrivals` bends the warning strip into a ring outside the rim and skips
+every blip carrying a `cross`: a rock that comes over a side wall has no column
+at all, and the flat picture for one is drawn *inside* the field, against the
+wall it will come over, pointing the way it will fly (`radar-blip.ts` says why).
+The circle has no wall and no equivalent yet, so a well wave with a crossing
+rock in it warns the pilot about nothing.
+
+What it probably wants is the mark placed on the rim at the *row* it will hold —
+which in the well is a radius rather than a height — pointing along the ring
+rather than across the field. That is a picture decision rather than a
+mechanical one, so it wants an eye on it; `bun run frames . --wave "THE WELL"`
+is how to look.
+
+## THE WELL's screen answers no finger on the field
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/render/src/touch.ts`, `packages/render/src/touch-ship.ts`, `packages/render/src/creature-place.ts`, `packages/render/src/touch-field.ts`
+
+`touchDown` returns null above the band whenever `Field.well` is set. Every hit
+test under that line is a circle cut out of the flat field — the hull's two
+lobes along the bottom, a body in its column — and on the well's screen the hull
+is a ring at the middle and the bodies are round it, so answering any of them
+would be answering a control where it is not drawn, which is the one thing that
+file exists to prevent. The rails and the buttons are untouched, so nothing is
+unreachable, and a well wave of living bodies takes no hand at all
+(`handMeans`) — but the refusal is wider than it has to be.
+
+What it needs is the polar version of two circles: `cannonGrab`/`shieldGrab` at
+`wellPlace(l, col, hullRow)` instead of on the hull line, and `creatureAt`
+measuring from `wellPlace` rather than `creatureCenter`. The drag is the part
+worth thinking about — carrying a thumb *around* a ring is not the same gesture
+as carrying it across a strip, and the seam is a wall the drag has to refuse to
+cross. `packages/render/test/touch.test.ts` holds the shape of the proof.
+
+## THE WELL's guide is prose, and the picture it describes has never been shown
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/waves/act-8.ts`, `packages/content/src/scene-types.ts`
+
+The third wave in a row to land with a three-line prose guide and no `scene`
+(THE WEIGHT's and THE CAIRN's are above). It is the worst of the three to leave
+as prose, because what has to be understood is a *picture* — the pilot has to
+read "the field, turned inside out" and believe it before the first body falls,
+and a rehearsal could simply show the flat field folding into the clock.
+
+Two pages would do it: the field as both seats know it with a body falling down
+column four, then the same field drawn round with the same body at four o'clock
+and the seam standing above the ship. No new machinery if the scene can hold two
+still pictures side by side; `.claude/skills/new-tutorial` has the rules the
+owner has already corrected twice, and `bun test packages/content` proves the
+pages.
+
+## Should THE WELL's seam cost travel?
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `packages/sim/src/commands.ts`, `packages/sim/src/config-boss.ts`, `packages/render/src/well.ts`
+- **Asks:** Should the cannon be limited to a few columns a beat while THE WELL is installed, so that the seam costs travel as well as reading?
+
+THE WELL is built as a pure projection: nothing in the simulation changes
+(`bosses 11.12`). That leaves the seam — the sector above the ship where the
+field's two walls meet — costing the pair a **thumb and a glance** and nothing
+else, because `cannonCol` names a column outright and the cannon is there on the
+next tick. Eleven o'clock and one o'clock look like neighbours and are the two
+ends of the rail, which is a thing to learn once; it is not a thing the fight
+keeps charging for.
+
+Three answers, and they are different games. **Leave it** — the boss is a
+picture and is honest about it, and the wave is carried by the ordinary bodies
+under it. **A step limit under this boss only**: a `wellStepCols` in
+`config-boss.ts` clamping how far `cannonCol` may move in one beat, so crossing
+the field takes beats and the seam is a real distance; it is a rule that exists
+on one wave, which this game has so far refused to do. **A step limit
+everywhere**, which is a change to the whole control scheme and would want its
+own argument — the rail is the one control that has never had a speed.
+
 ## Unverified at 0defb8b3: THE WEIGHT watched at tempo: the private mark under one…
 
 - **Found:** 2026-09-12, claude/scheduler-tests-two-devices-klxkyt

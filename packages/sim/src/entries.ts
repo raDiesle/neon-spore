@@ -228,4 +228,5 @@ export {
   type SnakeEntry,
   type VaneEntry,
   type WardenEntry,
+  type WellEntry,
 } from "./boss-entries.js";

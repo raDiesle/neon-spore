@@ -145,6 +145,11 @@ export function bindBossPanel(
     // whole difficulty is `config-gauge.ts`, which is the SHIP card's, not
     // this panel's.
     if (boss.kind === "gauge") return;
+    // THE WELL has nothing to author either, and nothing in the SHIP card
+    // behind it: the projection's figures are render's own constants, because
+    // the only thing a dial could move is how the picture reads and that is
+    // what VERSUS is for (`render/src/well.ts`).
+    if (boss.kind === "well") return;
     // THE CAIRN has one thing to author and it is the length of the fight:
     // how many rocks are stacked. No column — the pile is a fixture dead
     // centre, like the ring and the arm.

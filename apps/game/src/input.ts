@@ -58,6 +58,7 @@ export function bindControls({
   opening,
   beatPhase,
   beat,
+  well,
   guideHolds,
   onPauseToggle,
   onWaveStep,
@@ -83,6 +84,9 @@ export function bindControls({
     // drawn dead — the same argument `controls` makes one line up
     // (`content/src/control-fault.ts`).
     malfunction: malfunction(),
+    // The well is the one of these that depends on the seat as well as on the
+    // world: the clock is drawn on one screen of the two (`render/well.ts`).
+    well: well(),
   });
 
   const down = (id: number, x: number, y: number): void => {

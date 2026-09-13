@@ -1,4 +1,5 @@
 import type { GroupName } from "./ship-groups.js";
+import { BOSS_NOTES } from "./ship-notes-boss.js";
 import { HOLD_NOTES } from "./ship-notes-hold.js";
 import { ROUND_NOTES } from "./ship-notes-round.js";
 
@@ -19,6 +20,11 @@ import { ROUND_NOTES } from "./ship-notes-round.js";
  * the union next door and left without a paragraph here is a compile error,
  * exactly as a `SimConfig` field left out of `FIELD_GROUP` is — the same guard
  * one step along the same chain.
+ *
+ * **The bosses are next door too**, in `ship-notes-boss.ts`: THE WELL's note
+ * took this file past the ceiling it had been sitting on, and a fight installed
+ * above the grid is not a dial on the grid — the cut `mechanics-bosses.ts` makes
+ * in `packages/content` for the same reason.
  *
  * **The rounds are next door**, in `ship-notes-round.ts`, spread in below —
  * the seam `ship-fields-round.ts` already cut for exactly the same growth and
@@ -232,19 +238,11 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "up the field instead of off it and takes a plate of shell with it, and it " +
     "comes down the same lane again. Three wards, and the shell bursts in " +
     "mid-air over a body the cannon has to take. See volley.ts.",
-  WARDEN: "The ring boss's own clocks, plates and worth.",
-  "THE CAIRN — a pile of rocks taken apart by hand": "Its row, its rocks, and its patience.",
-  VANE: "The arm boss's own pins and worth.",
-  MIRROR: "The boss that throws a Simon sequence back, and its own worth.",
-  QUEEN: "The petal boss's own row, regrowth and worth.",
   "PLUMBING — not a dial a person turns":
     "Real numbers — a lockstep buffer, a hit-test tolerance, a screen share — " +
     "but not something a person watching a wave decides by. Shown so nothing " +
     "in SimConfig is silently absent, not because it wants a slider.",
-  MAZE:
-    "A wheel of rings behind the ship, with ways in round its rim. Player 1 turns " +
-    "it and clicks a way in onto a column; player 2 fires. Both screens see the " +
-    "same light — the wheel is authored in packages/content/src/maze-rounds.ts.",
+  ...BOSS_NOTES,
   ...HOLD_NOTES,
   ...ROUND_NOTES,
 };

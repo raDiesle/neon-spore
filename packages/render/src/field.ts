@@ -1,4 +1,4 @@
-import { isMeteorKind, type World } from "@neon-spore/sim";
+import type { World } from "@neon-spore/sim";
 import { drawBackdrop } from "./backdrop-look.js";
 import { needsComms } from "./comms.js";
 import { drawEyeGlyph } from "./comms-glyphs.js";
@@ -7,7 +7,7 @@ import { gradientSlot, slotGradient } from "./gradient-slot.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawRadarLureMark } from "./lure-alarm.js";
 import { PALETTE } from "./palette.js";
-import { radarBlips } from "./radar-blip.js";
+import { blipColor, radarBlips } from "./radar-blip.js";
 import { drawRadarVeilMark } from "./veil-marks.js";
 
 /**
@@ -139,20 +139,9 @@ export function drawRadar(ctx: CanvasRenderingContext2D, l: Layout, world: World
   // caption points at a blip and had to ask the same four questions.
   for (const blip of radarBlips(l, world)) {
     const { entry: q, x, y, s, span, alpha: a, inBeats, cross } = blip;
-    // A veil borrows no colour, and this is the one place it could have. Its
-    // queue entry carries none — the body inside is rolled when it enters the
-    // field — so the ternary below would have fallen through to cyan and made
-    // the strip announce a colour that is right half the time. `PALETTE.dim`
-    // is this game's "nothing to say about this", and `drawRadarVeilMark`
-    // puts the target lock on top of it.
-    const hex =
-      q.kind === "veil"
-        ? PALETTE.dim
-        : isMeteorKind(q.kind)
-          ? PALETTE.rock
-          : q.color === "red"
-            ? PALETTE.red
-            : PALETTE.cyan;
+    // The veil's exception included, and `well-draw.ts` asks the same question
+    // of the same function (`blipColor`).
+    const hex = blipColor(q);
 
     if (cross !== undefined) {
       // A body that comes over a side wall rather than down a column, and the

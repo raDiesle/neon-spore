@@ -181,6 +181,7 @@ const FIELD: Field = {
   warden: null,
   controls: controlSetForWave(0),
   malfunction: null,
+  well: false,
 };
 
 /**

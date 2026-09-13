@@ -29,6 +29,7 @@ export {
   type SnakeEntry,
   type VaneEntry,
   type WardenEntry,
+  type WellEntry,
 } from "./entries.js";
 export {
   fleetAfloat,
@@ -156,3 +157,4 @@ export {
   wardenPullMilli,
   wardenTether,
 } from "./warden-rope.js";
+export { installWell, type WellState } from "./well.js";

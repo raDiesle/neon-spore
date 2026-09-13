@@ -544,8 +544,18 @@ round was reached — it was about there being no columns in it. A boss wave wit
 no grid, no hull drawn and its own picture is exactly as free of the column
 vocabulary as an interlude was. A claw on a rail, a belt that carries things
 sideways or a well the creatures fall into is not a violation of anything: THE
-CLAW, THE BELT and THE WELL are three of the eleven rounds still to build, and
+CLAW, THE BELT and THE WELL were three of the eleven rounds still to build, and
 all three were blocked on this sentence rather than on any rule of their own.
+
+**THE WELL was built on 13 September 2026 and turned out not to need the
+exemption at all** ([bosses 11.12](spec/bosses.md#1112-the-well--the-field-turned-inside-out-on-one-phone)).
+It is the field redrawn rather than a round with no columns: nothing the players
+control travels on it, every lane still has a number, and the number is the one
+the pair has always said — "column four" and "four o'clock" are the same lane.
+That does not weaken the reading above, which is about the rounds that *do* take
+the grid away; it is worth recording because the entry named this one as an
+example of something outside the sentence, and the built thing is inside it and
+obeys it.
 
 The reading has to be stated rather than assumed precisely because the rounds
 are bosses now. A boss wave looks, from `waves.ts`, like every other wave — so

@@ -43,6 +43,7 @@ function field(seat: 1 | 2, controls: ControlSet = STANDARD, cols?: [number, num
     warden: null,
     controls,
     malfunction: null,
+    well: false,
   };
 }
 

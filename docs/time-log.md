@@ -2047,3 +2047,30 @@ on **player 1's screen alone**, so a pull is *you choose an edge* and a wait is
 Bottleneck: **writing** — the rules are one file and the fight is one sentence,
 but a new `CreatureKind` is a row in eleven tables and a new boss is a row in
 six more, and the compiler names them one at a time.
+
+## 2026-09-13 — well-boss — THE WELL: the field turned inside out, on one phone
+
+The owner asked for the idea on `docs/spec/ideas.md` by name, as a boss wave.
+Both of the questions that page left open were answered by building it: it is a
+boss rather than a modifier wave, and **one phone flips** — the pilot's, because
+a well on both screens is a skin on the field with nothing for the pair to say.
+Nothing in the simulation changes: `WellState` is a tag, there is no `stepWell`,
+and a test plays the same wave twice from one seed, with and without the boss,
+and compares the two worlds tick by tick. What changes is `packages/render`,
+where five new files draw the columns as the hours of a clock, the rows as rings
+closing on the ship, and the seam above it where the field's two walls meet.
+Wave 69 in act eight. About 65 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the idea and the two pages that argue about it, `boss-entries.ts`/`boss-state.ts`/`wave-start.ts` for how a boss is installed, then the whole of the frame — `canvas2d.ts`, `frame-field.ts`, `frame-ship.ts`, `creature-place.ts`, `effects.ts` — because the question this boss asks is *where is a body drawn*, and the answer turned out to be `tileCX`/`tileCY` in 76 files |
+| writing | 25 | `render/well.ts` and its three draw files, `sim/well.ts`, the wave and its guide, rows in nine tables the compiler named one at a time, 17 tests across sim and render, `bosses.md` 11.12, and five queue entries |
+| looking | 5 | three `bun run frames` of the pilot's screen and one of the navigator's; the first said the lanes were invisible against the rings and the second that a body arriving sat on top of its own numeral |
+| friction | 5 | `packages/sim` may not import `packages/content`, so the sim test authors its own queue; `effects.ts` and `ship-notes.ts` were both on the 250-line ceiling, and the second needed a cut (`ship-notes-boss.ts`) before a two-line note would fit |
+| landing | 15 | the full check, the commit, and `bun run land` |
+
+Bottleneck: **reading** — the projection itself is forty lines of trigonometry,
+and finding out how much of the frame it could honestly replace meant reading
+the whole field pass first. The thing that made it affordable was that a body
+draw already takes an `x` and a `y` (`creature-body.ts`), so every silhouette in
+the game came round the clock for nothing.

@@ -1,6 +1,7 @@
 import { showsRadar } from "@neon-spore/content";
 import {
   bodyCenterCol,
+  isMeteorKind,
   type RockCross,
   rockCrossRowFor,
   rockEntryCol,
@@ -10,6 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type Layout, tileCX, tileCY } from "./layout.js";
+import { PALETTE } from "./palette.js";
 
 /**
  * Which arrivals this screen's warning strip is carrying, and where each one
@@ -99,4 +101,25 @@ export function radarBlips(l: Layout, world: World): RadarBlip[] {
     });
   }
   return out;
+}
+
+/**
+ * The colour an arrival is announced in.
+ *
+ * **A veil borrows no colour, and this is the one place it could have.** Its
+ * queue entry carries none — the body inside is rolled when it enters the
+ * field — so a plain red/cyan ternary would make the strip announce a colour
+ * that is right half the time. `PALETTE.dim` is this game's "nothing to say
+ * about this", and whatever draws the blip puts the target lock on top of it.
+ *
+ * It is a function rather than four lines at the draw site because there are
+ * two draw sites now: the strip along the top of the flat field (`field.ts`)
+ * and the ring outside THE WELL's rim (`well-draw.ts`), which is the same
+ * warning bent into a circle. Two copies of the veil's exception is how one of
+ * them comes to announce a colour the other does not.
+ */
+export function blipColor(entry: SpawnEntry): string {
+  if (entry.kind === "veil") return PALETTE.dim;
+  if (isMeteorKind(entry.kind)) return PALETTE.rock;
+  return entry.color === "red" ? PALETTE.red : PALETTE.cyan;
 }

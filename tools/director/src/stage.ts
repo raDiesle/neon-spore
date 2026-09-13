@@ -1,5 +1,5 @@
 import { controlSet } from "@neon-spore/content";
-import { Canvas2DRenderer, type ViewRole } from "@neon-spore/render";
+import { Canvas2DRenderer, showsWell, type ViewRole } from "@neon-spore/render";
 import {
   beatPhase,
   createWorld,
@@ -90,6 +90,7 @@ export function bindStage(
       warden: world.boss?.kind === "warden" ? world.boss : null,
       controls: currentControlSet(),
       malfunction: world.malfunction,
+      well: world.boss?.kind === "well" && showsWell(role),
     }),
     push: keys.push,
     world: () => world,

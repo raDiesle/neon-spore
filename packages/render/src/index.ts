@@ -164,6 +164,21 @@ export { roll } from "./warden-roll.js";
 export { drawWardenSurface, type WardenSurfaceDraw } from "./warden-surface.js";
 export { whorl } from "./warden-whorl.js";
 export { INTRO_SECONDS } from "./wave-intro.js";
+// THE WELL's projection, for the two hosts that have to answer a finger the way
+// it is drawn: the game and the director's stage both ask `showsWell` to fill
+// `Field.well` (`well.ts`, `touch.ts`).
+export {
+  showsWell,
+  wellAngle,
+  wellAt,
+  wellCenter,
+  wellHub,
+  wellPlace,
+  wellRadius,
+  wellRim,
+  wellSectors,
+  wellShown,
+} from "./well.js";
 // THE WISP whole, and its fringe record, so the SHAPES page's LIBRARY can
 // draw the real jellyfish wearing each fringe the owner kept
 // (`tools/director/src/library`). Drawing only — the jump is read off a beat

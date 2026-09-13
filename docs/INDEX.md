@@ -215,6 +215,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/volley.ts` | THE VOLLEY: a rock coming in on a diagonal with a body sealed inside it |
 | `packages/sim/src/ward.ts` | **What the shield does with a body it turns**, which used to be one answer and is now two |
 | `packages/sim/src/weight.ts` |  |
+| `packages/sim/src/well.ts` | THE WELL: the boss that is only a projection — a tag, an install, and no rule at all |
 | `packages/sim/src/colour-armour.ts` | What a shot of the wrong colour leaves behind on an ordinary body: a window in which nothing at all reaches it |
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
 | `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
@@ -237,7 +238,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/strand-shape.ts` | THE STRAND's shape, as arithmetic |
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
 | `packages/sim/src/throb.ts` | the throb's clockwise turn, which half a shot met, and what it costs |
-| `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — eleven shapes, the union of them |
+| `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — twelve shapes, the union of them |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
 | `packages/sim/src/crawler-round.ts` |  |
@@ -808,6 +809,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/warden-roll.ts` | ROLL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/warden-whorl.ts` | WHORL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/weight.ts` | **THE WEIGHT under a thumb, and the one thing on this field a player is shown that their partner is not.**… |
+| `packages/render/src/well-draw.ts` | THE WELL's board and the bodies on it, in place of the flat field's two field passes |
+| `packages/render/src/well-face.ts` | THE WELL's clock face: the bowl, the lanes, the rings and the seam — the empty board, in the round |
+| `packages/render/src/well-ship.ts` | THE WELL's ship: the hull as a ring at the middle of the clock |
+| `packages/render/src/well.ts` | THE WELL's projection: columns to hours, rows to radii, and the seam the two walls meet at |
 | `packages/render/src/queen-drop.ts` | NEXT TO FALL: the flank the queen's next torch comes off, said on player 2's screen and nowhere else |
 | `packages/render/src/queen-figure.ts` | Where the parts of the queen sit on her, and where the screen puts them |
 | `packages/render/src/queen-facet.ts` | FACET — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS page's LIBRARY |
@@ -1595,6 +1600,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |
+| `tools/director/src/ship-notes-boss.ts` | The paragraph under each **boss's** card — the ones played on the field |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
 | `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |
 | `tools/style-guide/src/form.ts` | the drawn panels: the stroke build-up, the size ladder down to 11 px, and the five living silhouettes |

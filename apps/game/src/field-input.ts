@@ -1,5 +1,5 @@
 import { controlSetForWave } from "@neon-spore/content";
-import type { Layout, ViewRole } from "@neon-spore/render";
+import { type Layout, showsWell, type ViewRole } from "@neon-spore/render";
 import { briefingHolds, guideHolds, mazeRound, type World } from "@neon-spore/sim";
 import { type BriefingBinding, bindBriefing } from "./briefing.js";
 import { bindControls, type Controls, type InputBuffer } from "./input.js";
@@ -66,6 +66,11 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     // Which panel is up follows from the wave (`content/control-sets.ts`).
     controls: () => controlSetForWave(world.wave),
     malfunction: () => world.malfunction,
+    // And whether this screen is drawn as THE WELL, which is a fact about the
+    // boss *and* about the seat: the clock is the pilot's picture and the
+    // navigator keeps the flat field, so the same world answers this
+    // differently on the two phones (`render/src/well.ts`).
+    well: () => world.boss?.kind === "well" && showsWell(role()),
     creatures: () => world.creatures,
     // The ship answers a finger where it is drawn, not only on the strips below.
     cannonCol: () => world.cannonCol,

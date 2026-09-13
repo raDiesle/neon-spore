@@ -2,8 +2,8 @@
 
 > **Status: the act order names only what is built.** The Bulb Queen, THE
 > VANE (in the slot once called The Conductor), THE CHOIR, The Warden and
-> THE MIRROR are in the game, and so are THE FLEET, THE GAUGE, SNAKE, PINBALL and THE
-> PULSE, none of which is on the list below. The seven names that once held
+> THE MIRROR are in the game, and so are THE FLEET, THE GAUGE, SNAKE, PINBALL, THE
+> PULSE, THE CAIRN and THE WELL, none of which is on the list below. The seven names that once held
 > the empty slots — Strand Nest, The Conductor, The Heart, The Mother, The
 > Codex, The Echoes, The Kernel, The Vessel — and THE TELL, built and taken
 > out again, left the
@@ -1322,3 +1322,62 @@ on. `cairnUnits` is how many rocks are stacked, which is the length of the fight
 because every one of them is a body the field still has to answer. `cairnShedBeats`
 is the patience, and it is the fight's whole difficulty — shorten it and a pair
 who stop to clear the air are handed a lane they did not choose.
+
+## 11.12 THE WELL — the field turned inside out, on one phone
+
+> The one where the lane beside it is the other end of the field.
+
+**It changes nothing.** No body, no health, no rounds, no state, no rule: the
+wave under it falls exactly as its author wrote it, the cannon slides, the
+shield covers, a bolt climbs, and two devices fingerprint the same world down
+to the tag that says which picture each is drawing (`packages/sim/src/well.ts`,
+`well.test.ts`). THE VANE was the first boss that attacked nobody and it still
+decided where an arrival landed; this one does not even do that. It is the
+whole of what `docs/spec/ideas.md` asked for and nothing besides.
+
+**What it does is redraw the field in the round.** The hull goes to the centre,
+the far row becomes a rim, and the columns are spread round the middle as the
+sectors of a clock — bodies fall inward down their hours, the cannon rides the
+hull ring as the hand, the shield stands outside it as an arc. On the field
+the game ships that is eleven columns and one sector over, so the numbers land
+where a clock's hours are and **column four is four o'clock**; the numerals
+drawn round the rim are the columns' own numbers, so a narrower field is a
+wider clock and the picture is never wrong.
+
+**Only one phone flips, and that is the whole design.** Flipped on both, the
+well is a skin: the pair says the same word about the same lane and the round is
+the wave it already was. Flipped on one, the pair holds two pictures of one
+field — the pilot's clock and the navigator's rows — which is this game's own
+control scheme pointed at its board. The pilot gets the clock because the cannon
+is its hand; the navigator keeps the flat field because they hold the only dome
+and the question a dome answers is *how near is it*, which a ring of rows
+answers badly and a row answers exactly.
+
+**The seam is at twelve.** The field has two walls; rolled into a circle they
+meet, so the sector straight above the ship carries no column, the hull ring is
+open across it, and the two lanes either side of it are the field's two ends.
+What that costs is **reading and reaching, not travel**: `cannonCol` names a
+column and the cannon is there on the next tick, so nothing in the simulation
+charges for crossing the field. What charges is the thumb and the eye — one
+hour of movement over the top of the picture is the whole width of the rail
+under it, and the picture offers a direction the control has not got, which is
+*round*. The rail never lies, and the answer is the hour said plainly rather
+than a lane described as next to another one. **Whether the seam should cost
+travel as well is an open question** in `docs/queue.md`: it would be a change to
+the simulation, and this boss is deliberately not one.
+
+**Its figures are render's, not `SimConfig`'s.** The rim, the hub, the ring the
+numbers stand on and the bend that gives the near rows most of the radius are
+constants in `packages/render/src/well.ts`, for the reason `maze-relief.ts`
+gives about its own: the only thing one of them can change is how the picture
+reads, and a second answer to that is a VERSUS candidate rather than a slider.
+The bend is the one worth stating — fifteen rows will not fit round a phone at
+an even pitch, so the rows near the ship take four fifths of the radius and the
+far ones crowd against the rim, which is the field's own depth cue arrived at
+from the other side.
+
+**What it does not draw yet**, each one queued: the transients other than a
+kill's burst, a crossing rock's blip, and the two hit tests that would let the
+ship's lobes and a body be taken hold of where they are drawn. Until those land
+the pilot's field answers no finger at all on a well wave and the rails do
+everything, which is what `touch-ship.ts` has always said they can.

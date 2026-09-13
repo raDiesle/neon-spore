@@ -36,6 +36,14 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
   // Above the band is the field, and the field answers both players: a finger
   // held on something falling drags at it (`grip` in sim/grip.ts).
   if (y < l.bandTop) {
+    // **Nothing on the field answers a finger while the well is up.** Every hit
+    // test below is a circle cut out of the flat field — the hull's two lobes
+    // along the bottom, a body in its column — and on this screen the hull is a
+    // ring at the middle and the bodies are round it, so each one would be
+    // answered somewhere it is not drawn. The two rails reach both lobes and
+    // nothing else in a well wave takes a hand at all (`well.ts`); placing
+    // these in the circle is in `docs/queue.md`.
+    if (field.well) return null;
     // Asked first, because a handle hangs over the field the creatures fall
     // through and a hand on it is not a hand on whatever is behind it
     // (`handles.ts`).

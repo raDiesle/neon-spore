@@ -73,6 +73,7 @@ export type GroupName =
   | "MAZE"
   | "QUEEN"
   | "THE FLEET — a chart only one of you can read"
+  | "THE WELL — the field drawn inside out on one screen"
   | "PLUMBING — not a dial a person turns";
 
 /** Display order. Read top to bottom the way the old, shorter list did. */
@@ -126,6 +127,7 @@ export const GROUP_ORDER: GroupName[] = [
   "QUEEN",
   "THE CAIRN — a pile of rocks taken apart by hand",
   "THE FLEET — a chart only one of you can read",
+  "THE WELL — the field drawn inside out on one screen",
   "PLUMBING — not a dial a person turns",
 ];
 // The paragraph under each heading is `ship-notes.ts` next door — the half of
@@ -142,6 +144,7 @@ export { GROUP_NOTE } from "./ship-notes.js";
  * escape hatch the brief asks for is this default, not a separate view.
  */
 export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
+  "THE WELL — the field drawn inside out on one screen",
   "WARDEN",
   "THE CAIRN — a pile of rocks taken apart by hand",
   "VANE",
@@ -176,4 +179,9 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   gauge: "THE GAUGE — a round with no field in it",
   fleet: "THE FLEET — a chart only one of you can read",
   snake: "SNAKE — a round the ship is the body of",
+  // The one group with no dial in it, and deliberately: everything about THE
+  // WELL is the shape of a picture, and a number that changed how a picture
+  // reads belongs in a VERSUS candidate rather than on a slider
+  // (`render/src/well.ts`, `docs/versus.md`). The card says so.
+  well: "THE WELL — the field drawn inside out on one screen",
 };

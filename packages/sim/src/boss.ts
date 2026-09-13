@@ -117,6 +117,11 @@ export function stepBoss(world: World): void {
   // rather than to do anything.
   if (boss.kind === "gauge" || boss.kind === "snake" || boss.kind === "pinball") return;
   if (boss.kind === "pulse") return;
+  // And THE WELL never does anything here at all, on any clock: it is the
+  // field drawn inside out and the field's own rules are the whole of its
+  // behaviour, so a beat of it is a beat of the wave its author wrote
+  // (`well.ts`).
+  if (boss.kind === "well") return;
   if (boss.scratch.length === 0) boss.scratch = [0, 1];
 
   const queen = world.creatures.find((c) => c.id === boss.creatureId);

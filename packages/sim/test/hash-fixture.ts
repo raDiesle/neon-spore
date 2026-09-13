@@ -166,6 +166,9 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   vane: { kind: "vane", pins: 3 },
   maze: { kind: "maze", rounds: [WHEEL] },
   gauge: { kind: "gauge" },
+  // THE WELL authors nothing and keeps nothing: the tag is the only number it
+  // contributes to the fingerprint (`well.ts`).
+  well: { kind: "well" },
   // Two ships, one lying each way, neither touching the other and both well
   // inside a chart eleven columns by ten. `fleetFault` is what says that is a
   // fleet at all, and `fleet.test.ts` asks it of this one.

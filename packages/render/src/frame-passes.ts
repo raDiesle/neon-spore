@@ -17,3 +17,8 @@
 
 export { drawBodies, drawFieldBack } from "./frame-field.js";
 export { drawOverlays, drawShip, type OverlayState } from "./frame-ship.js";
+// And the one question that takes two of the four away: THE WELL replaces the
+// field's back and its bodies on the screen it is drawn on, and the renderer
+// has to ask the same question the passes do to place the bursts it ingests
+// (`well.ts`).
+export { wellShown } from "./well.js";

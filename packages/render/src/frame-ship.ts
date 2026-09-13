@@ -25,6 +25,8 @@ import { drawShipHand } from "./ship-hand.js";
 import { drawCommsSiren } from "./siren.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
 import { showsCannon, showsShield } from "./view-role.js";
+import { wellShown } from "./well.js";
+import { drawWellShip } from "./well-ship.js";
 
 /**
  * **The two passes that are about the ship**: the hull with its controls, and
@@ -54,6 +56,17 @@ export function drawShip(
   // the ship in another.
   f: HullFrame = frame(l, view.time, mood, at),
 ): void {
+  // **THE WELL's hull is a ring at the middle of its clock**, so this pass is
+  // its own on the screen the well is drawn on — and everything below it is
+  // about a membrane stretched across the bottom of a flat field: an arm out of
+  // the cannon, a worm on the plating, a wall earthing through the dome. None
+  // of them can be placed in the circle yet and none of them is in a well wave
+  // (`well-ship.ts`). `drawOverlays` is untouched: the band, the HUD and the
+  // wave's opening are the same on both screens.
+  if (wellShown(l, world)) {
+    drawWellShip(ctx, l, view, mood, at);
+    return;
+  }
   // Whether the swelling player 1 slides is a **hand** rather than a gun. It
   // is the panel's answer and not the world's — an arm at home looks like no
   // arm at all — and it is asked once here for the two passes that need it:

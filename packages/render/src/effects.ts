@@ -28,6 +28,7 @@ import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
 import { VolleyShardsFx } from "./volley-shards.js";
 import { WardenFx } from "./warden-fx.js";
+import { wellFromFlat } from "./well.js";
 
 /**
  * Everything transient. Effects own their own state, are fed only by
@@ -176,6 +177,9 @@ export class Effects {
     time: number,
     creatureIdAt: (col: number, row: number) => number,
     cfg: SimConfig,
+    /** Whether this screen is THE WELL: the bursts are the one thing here
+     * placed off a flat field, so the one thing told (`wellFromFlat`). */
+    well = false,
   ): void {
     // Derived, not passed: `cfg` arrived for `claspBreakBeats`, and a second
     // parameter saying the same number is how two clocks start.
@@ -189,7 +193,8 @@ export class Effects {
     this.volleyShards.ingest(events, l, cfg);
     for (const e of events) {
       const spark = burstFor(e, l);
-      if (spark) this.sparks.burst(spark.x, spark.y, breakSparks(e, spark.n), spark.hex);
+      const put = spark && well ? wellFromFlat(l, spark.x, spark.y) : spark;
+      if (spark && put) this.sparks.burst(put.x, put.y, breakSparks(e, spark.n), spark.hex);
 
       // Everything past the burst table: `effects-ingest.ts`'s `ingestOne`,
       // split out on this file's own line count. Its switch is exhaustive
