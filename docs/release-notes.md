@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · 52be613f — A burning rock holds the gradients that never move
+
+THE CAIRN stands seven fires in one pile every frame, and each was building its fixed gradients again: a BLAZE's ball and veil, a COMET's bow and dimples, a SMOULDER's under-glow and craters, a flame's ramp — gradients whose every argument is the rock's radius and a constant. `gradient-held.ts` builds each once and hands it back after, and THE CAIRN's frame builds 269 gradients instead of 330. Identical: the ordered canvas log differs only in removed createLinearGradient/createRadialGradient calls, and nothing in the picture moves. Nothing keyed on `time` goes through it. THE CAIRN gets its row in `wave-budget.test.ts`.
+
 ## 2026-09-13 · 07d1480f — THE WELL's seam does not cost travel, and the spec says so
 
 The queue asked whether the cannon should be limited to a few columns a beat under THE WELL, so that the seam costs travel as well as reading. The owner's answer is to leave it: a step limit under one boss is a rule that exists on one wave, and the boss is deliberately a picture and not a change to the simulation. The item is closed and `docs/spec/bosses.md`, which pointed at it as an open question, records the decision instead. No code changes.
