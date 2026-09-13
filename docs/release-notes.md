@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · cb36a290 — The menu's front page is four rows, and the rig is behind the spore
+
+Six changes the owner asked for, in one lane because each moves a row the others move too. The front page is PLAY, HOW TO PLAY, SETTINGS and — while there is a room — LEAVE ROOM. Behind PLAY is where the two of you meet: CONTINUE, REJOIN, the room's four-character code, and the seat cards, which were the front page's biggest block of text and are part of meeting rather than something to do while standing in the hall.
+
 ## 2026-09-13 · 8f9aa053 — THE CAIRN's card and the field's pile share one stack
 
 The shape sheet's CAIRN card stacked seven rocks its own way and the field stacked them another, so the silhouette the owner judged was not the one the game draws. `content/cairn-shape.ts` now holds the one table — four stones on the ground, two, one, and the bites between courses — and both `render/cairn.ts` and the sheet's `pile()` read it. The PULLED card drags the rightmost base stone right, where it now is.
