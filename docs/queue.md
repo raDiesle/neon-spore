@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Unverified at a3703115: THE HANDOVER on a wave that names its own window, and o…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-13, claude/queue-unverified-at-a3703115-the-handover-on-a-wave-th
 - **Files:** `docs/queue.md`, `docs/spec/bestiary.md`, `docs/time-log.md`, `packages/content/src/waves/act-8.ts`, `packages/sim/src/handover.ts`, `packages/sim/src/malfunction.ts`, `packages/sim/test/handover.test.ts`, `tools/director/src/fault-fields.ts`
 
 *THE HANDOVER's window is the wave's to name, and it may repeat* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
