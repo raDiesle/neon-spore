@@ -2774,3 +2774,22 @@ anything. About 20 min.
 Bottleneck: **writing** — the rewrite was five minutes and the test was the
 point: the five waves still on prose are named in one place now, and a film
 written for one of them fails here rather than leaving the sentence wrong.
+## 2026-09-13 · claude/queue-unverified-at-c988cd97-nothing-drawn-changed-the — §3.2 of the briefings spec, read
+
+Unverified item: the rewritten rehearsals section of `docs/spec/briefings.md`
+read by an eye. It reads — the status block, §1's count and §3.2 agree with
+each other and with the five waves the test names — so the entry comes out.
+The lane also takes the finished `HULL · TRADED` entry out of the queue a
+second time: another session's rebase had resolved `docs/queue.md` by keeping
+its own copy, which put the item back. About 5 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the diff of `c988cd97` on `briefings.md`, the counts against each other |
+| writing | 0 | — |
+| looking | 0 | — |
+| friction | 0 | — |
+| landing | 5 | the two queue removals, the commit |
+
+Bottleneck: **landing** — two queue removals and a commit for five minutes of
+reading, and one of the removals is a landing somebody else's rebase undid.

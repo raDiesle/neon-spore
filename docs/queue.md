@@ -205,31 +205,6 @@ stay in `packages/net/src/nickname.ts`, where both ends read them. The
 server's tests are `bun test apps/server`; the sign-in round trip against a
 real provider is unverified from a cloud session.
 
-## HULL · TRADED answers THE HANDOVER a second way and is not in VERSUS
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-hull-traded-answers-the-handover-a-second-way-an
-- **Files:** `tools/shape-sheet/src/drafts/ship.ts`, `tools/versus/candidates/`, `packages/render/src/handover-look.ts`
-
-The shape sheet carries `HULL · TRADED` — two lobes on the ship's own membrane
-exchanging what they carry, three columns apart, complementary heights, five
-seconds a cycle — drawn at the Handover idea while it was still an idea. The
-idea shipped on 13 September 2026 and the announcement that shipped with it is a
-plate on the lip of the band plus the band itself coming up in the other seat's
-colours, so the drawn pair of lobes is now an *alternative* to something the game
-draws rather than a picture offered to a concept.
-
-It was left `free` in the sheet in the lane that built the fault, because a draft
-that names a built concept orphans the sheet's join (`concept-art.test.ts`) and
-because carrying it across is not a rename: a VERSUS candidate patches a record
-and is judged against the shipped look in a pair of shots
-(`docs/versus.md`, `tools/versus/candidates/`). What to carry: the `traded`
-membrane feature is already written (`tools/shape-sheet/src/drafts/membrane.ts`),
-so the candidate is that motion applied to the hull for the length of the window,
-against today's plate. Worth doing because the two are not exclusive — a mark on
-the ship says *which columns* changed hands and a plate says *when*, and the
-shot is what shows whether the pair of them is one signal too many.
-
 ## Unverified at dcf8328c: THE HANDOVER watched at tempo: whether two beats of war…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
@@ -338,21 +313,6 @@ what the rest of this file holds.
 *THE HANDOVER's guide is a rehearsal, and a film's page is a device* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
 
 - THE HANDOVER's rehearsal watched at tempo: whether the trade reads as the panels changing screens rather than as the film moving to the other player, and whether four pages is enough before the wave
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at c988cd97: nothing drawn changed; the rewritten section read by an…
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-13, claude/queue-unverified-at-c988cd97-nothing-drawn-changed-the
-- **Files:** `docs/queue.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/test/scenes-prose.test.ts`
-
-*The briefings spec counts its own rehearsals, in a test* landed from a session that could not look at it. What went unchecked:
-
-- nothing drawn changed; the rewritten section read by an eye
 
 Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
