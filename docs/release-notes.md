@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-13 · f91ad6ab — Two phones that have parted start again together, on the wave the room kept
+
+The owner played a two-device game, a phone dropped its socket and came back, and afterwards the two of them were on different waves — one in a guide, the other on the field — with nothing on either screen saying so. The fingerprints knew: `HashLedger` reports the first tick the two worlds parted, and all that was ever done with it was a line reading "The two worlds parted at tick N. This is a bug", which is true and is not an answer for two people holding phones.
+
 ## 2026-09-13 · 0b79e104 — THE WELL's screen answers a finger on the ship and on a body
 
 While THE WELL was up, every press on the field was answered against the flat picture: a thumb on the cannon drawn on the hull ring took nothing, a thumb on an empty patch where a body's flat column would have been took hold of the body. `touch-well.ts` asks the flat field's two questions of the circle instead — the cannon and the dome as grab circles at their hour on the ring, a body at `wellPlace` with the same glide `drawWellBodies` places it by, the column under a finger as the hour under it. A hand taken on the well carries the cannon round the ring hour by hour, a grip round the ring steps its body a column per sector, and the seam at twelve is a wall: a finger in it sends nothing, and eleven and one are the two ends of the rail, not neighbours. The rails and the buttons are untouched and still reach everything; this is the second way to the same controls, for a thumb already up on the picture.

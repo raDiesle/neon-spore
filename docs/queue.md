@@ -600,3 +600,18 @@ called at the end of `drawWellShip`'s pass, and prove it in
 `wellCannonGrab`'s centre when `hand.held === "cannon"`, none when the hand is
 empty. A fix to something wrong rather than unlovely: the control is
 answered where nothing shows it.
+
+## Unverified at f91ad6ab: Two phones actually parting and finding their way back:…
+
+- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Files:** `apps/game/src/link-types.ts`, `apps/game/src/link.ts`, `apps/game/src/main.ts`, `apps/game/src/menu-bindings.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu.ts`, `apps/game/src/shell.ts`, `apps/game/test/link-life.test.ts`
+
+*Two phones that have parted start again together, on the wave the room kept* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
+
+- Two phones actually parting and finding their way back: the parting has to be provoked, and a cloud session cannot hold two handsets — what is proven is the room in miniflare and the wiring in the app
+- bun run relay:check against a running wrangler: the room's restart is covered by apps/server/test/room.test.ts and by nothing else
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
