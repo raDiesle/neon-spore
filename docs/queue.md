@@ -598,3 +598,52 @@ overruling: **a body a shot cannot answer still stops the shot.** So:
 The frame test draws each of the five taking a shot. A wave watched at
 tempo checks that a bolt fired up a lane under a gum, a leech, a limpet, a
 weight and a cairn is seen to stop on it and never to reach the body above.
+
+## THE LEAK is a rung of the standard ladder, not a malfunction
+
+- **Found:** 2026-09-14, claude/gum-swipe
+- **Files:** `packages/content/src/control-sets-table.ts`, `packages/content/src/control-sets.ts`, `packages/content/src/control-sets-waves.ts`, `packages/content/src/waves/act-9.ts`, `packages/content/src/waves/*.ts`, `packages/content/src/mechanics-wave.ts`, `packages/content/src/wave-types.ts`, `packages/sim/src/malfunction.ts`, `packages/sim/src/lance.ts`, `packages/sim/src/wave-start.ts`, `packages/sim/src/world.ts`, `packages/sim/src/hash.ts`, `packages/render/src/fault-beam-ends.ts`, `packages/render/src/lance.ts`, `tools/director/src/fault-fields.ts`, `packages/content/test/waves.test.ts`, `docs/spec/systems.md`
+- **Asks:** Is the beamless full panel STANDARD 5 (the ladder has four rungs today, so it is the next one) or STANDARD 6 (a fifth rung sits between the plate and the maw, and what does it add)?
+
+The owner's instruction, 14 September 2026, mid-turn, and it belongs beside
+*A malfunction is a pencil on the map* above: **`leak` is not a malfunction
+but a modifier of STANDARD.** In his words: standard 1–5 have no beam shot; a
+new STANDARD 6 has the maw and everything else *except* the lance; and
+STANDARD itself has everything, the lance included. So the hold that fills
+the cannon lobe becomes a thing a rung of the ladder holds back, the way the
+ladder already holds back a button (`ControlSet.reduces`), and stops being a
+fault an emitter hangs over one wave.
+
+What that is in the tree:
+
+1. **A set says whether the hold fills anything.** The lance is not a
+   `Control` — it rides the two colour buttons as a hold
+   (`control-sets-table.ts`'s preamble) — so `reduces` cannot hold it back by
+   name. One field on `ControlSet`, `lance: false` on every numbered rung and
+   absent (true) on `default`, read by the same three questions the ladder
+   already answers. The new rung is the full panel with that one field, and
+   `firstOnPanel` gives the first wave played on it a guide as it does every
+   rung (`control-sets-waves.ts`, `waves.test.ts`'s panel test).
+2. **The sim is told, the way it is told the fault today.** `startWave` takes
+   the fact beside `malfunction` — the host reads it off
+   `controlSetForWave(wave)` where it already reads the panel
+   (`apps/game/src/field-input.ts`) — into one `World` field, in `hashWorld`;
+   `lanceLeaks(world)` (`lance.ts`) reads that field instead of
+   `world.malfunction?.kind === "leak"`, and nothing else in `sim` changes: the
+   fill, the ring and the shaft are already asked through it.
+3. **`leak` leaves `MALFUNCTION_KINDS`** — `malfunction.ts`, the director's
+   fault brush and its note (`fault-fields.ts`), the emitter's both-colour
+   beam (`fault-beam-ends.ts`), and `mechanics-wave.ts`'s `leakFault` row —
+   and THE LEAK (`waves/act-9.ts`) is pinned to the new rung with its guide
+   rewritten: no thing hangs over the field any more, the wave is simply
+   played on a panel whose hold fills nothing, and its sentence still holds.
+4. **Every wave between the ladder's top and THE LANCE** (`waves/act-3b.ts`,
+   where the hold is introduced) plays on the default panel today and so has
+   the lance before it is taught; each is pinned to the new rung, and every
+   wave after THE LANCE that should stay beamless is the owner's call wave by
+   wave — the entry lands with the ones before THE LANCE moved and the rest
+   untouched.
+
+Prove it with `bun run check`: the panel tests in `packages/content/test`,
+`lance.test.ts` in `sim` on a world started with the field off, and the
+director opened on THE LEAK showing the rung on its panel row and no fault.
