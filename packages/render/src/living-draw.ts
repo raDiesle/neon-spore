@@ -1,22 +1,15 @@
 import type { CreatureSilhouette } from "@neon-spore/content";
-import { livingMotion, livingPoints, livingSilhouette, poseClock } from "@neon-spore/content";
-import {
-  type Creature,
-  otherColor,
-  type SimConfig,
-  THROB_TURN_MILLI,
-  throbTurnMilli,
-  wornKind,
-} from "@neon-spore/sim";
+import { livingPoints, livingSilhouette } from "@neon-spore/content";
+import { type Creature, otherColor, type SimConfig, wornKind } from "@neon-spore/sim";
 import { clipInside } from "./body-inset.js";
 import { drawDetails, drawOwnLight } from "./creature-detail.js";
 import { contourClock, livingBodyMul, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio, turnedTrio, type Wash } from "./creature-tint.js";
-import { dartFlip, dartLean } from "./dart.js";
 import { hazed } from "./depth.js";
 import { drawEchoSeam, echoStrain } from "./echo.js";
 import { mixHex } from "./hex.js";
 import type { Layout } from "./layout.js";
+import { livingPose } from "./living-pose.js";
 import { LIVING_SKIN } from "./living-skin.js";
 import { drawLureVent, lureHolePath, lureVented } from "./lure-hole.js";
 import { PALETTE } from "./palette.js";
@@ -29,7 +22,10 @@ import { THROB_LOOK } from "./throb-look.js";
  * read on: `drawCreatures` next door is *routing* — which of the six draw
  * paths a kind takes, and whether this screen may see it at all — and this is
  * the one path that draws a blob. The two halves change for different reasons,
- * and only this one has anything to say about a contour.
+ * and only this one has anything to say about a contour. Where the body sits
+ * and which way it faces is `living-pose.ts`, cut out when this file reached
+ * the limit itself: that is the part that grows a paragraph per body with a
+ * turn of its own, and the draw only reads the answer.
  */
 export function drawLiving(
   ctx: CanvasRenderingContext2D,
@@ -128,30 +124,11 @@ export function drawLiving(
   const r = livingRadius(l.tile, livingBodyMul(c) * swell);
   const scale = livingScale(shape, r);
 
-  // The sway itself is data, in `content/own-motion.ts`, so the shape tools
-  // can animate a creature the way the game does instead of re-typing it.
-  // Offsets come back in tiles, which is the only form that survives a
-  // different screen.
-  const pose = livingMotion(look).poseAt(poseClock(c.id, beats));
-  const ox = pose.dx * l.tile;
-  const oy = pose.dy * l.tile;
-  const { sx, sy } = pose;
-  // The dart's lean, on top of its own-motion rather than inside it: POISE is
-  // a pure function of the beat like every other motion and cannot know which
-  // way this body is pointing, and the direction is the whole creature. Zero
-  // for everything else, so nothing but a dart is turned by a line of this.
-  // The Throb's whole tell, and the one rotation in the game that is a rule
-  // rather than a lean: the body turns clockwise the whole way down, and which
-  // half is pointing at the cannon is what a shot meets. `throbTurnMilli` is
-  // the same expression `throbStruck` resolves against, handed the same
-  // continuous beat, so the seam the pair is watching and the seam the bullet
-  // finds are one number (`sim/throb.ts`).
-  const spin = look === "throb" ? (throbTurnMilli(cfg, beats) / THROB_TURN_MILLI) * Math.PI * 2 : 0;
-  const rot = pose.rot + spin + (look === "dart" ? dartLean(c, beatPhase) : 0);
-  // And which way round it is drawn. 1 for every other body — a contour with
-  // no point on it does not care — and the whole of how a dart's nose leads in
-  // both directions (`dartFlip`).
-  const flip = look === "dart" ? dartFlip(c) : 1;
+  // Where the body sits and which way it faces — the own-motion offsets and
+  // squash, the throb's spin, the dart's lean and flip — asked once
+  // (`living-pose.ts`) and read three times below. `spin` comes back on its
+  // own as well as inside `rot`, because the throb's far half turns by it.
+  const { ox, oy, sx, sy, rot, flip, spin } = livingPose(look, c, cfg, beats, beatPhase, l.tile);
 
   // Not `blobPath`: a throb's rim wears clubs and the walk that draws them is
   // the silhouette's business, not this file's (`livingPoints`, content).

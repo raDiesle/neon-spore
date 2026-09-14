@@ -3804,3 +3804,24 @@ lines. About 10 min.
 | landing | 5 | `check:fast`, `bun run index`, `queue done`, the commit, `bun run land --keep` |
 
 Bottleneck: landing — the fast check and the land are longer than the cut.
+
+## 2026-09-14 · claude/queue-living-draw-ts-is-on-the-line-and-the-pose-is-the — `living-draw.ts` is on the line, and the pose is the part that grows per kind
+
+`drawLiving` was at 250, one function, and the lines that grow are the ones
+that ask `look` a question about a turn. Where the body sits and which way it
+faces — the own-motion's offsets and squash, the throb's spin, the dart's lean
+and flip — is `livingPose` in `living-pose.ts` now, the three paragraphs
+moved whole, and the draw reads the answer. The proof was the ordered canvas
+op log of seven waves on both seats, 480 frames each, before and after:
+identical hashes. The draw is 224 lines. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the whole function, to find the one question asked once and read three times |
+| writing | 5 | `living-pose.ts` and its header, the six-line read in the draw, the INDEX row |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 5 | the op log twice, `check:fast`, `bun run index`, `queue done`, the commit, `bun run land --keep` |
+
+Bottleneck: landing — the op log over seven waves and the fast check are
+most of the wall time.
