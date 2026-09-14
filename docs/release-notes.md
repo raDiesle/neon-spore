@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 0fee847d — The director's save token stops making `waves-api.ts` a binary file
+
+`wavesToken` joins the act files' texts with a NUL between length and text, and the NUL was in the source as the byte itself — two of them, since 2 September. Git therefore classed the file as binary: every `diff --stat` since has shown it as `Bin`, `git show` printed no hunk for it, `grep` skipped it, and a rebase conflict in it could not have been resolved by hand. The two bytes are the `\0` escape now, the same string, so the token is unchanged and `wave-save.test.ts` holds it as before.
+
 ## 2026-09-14 · 981b3306 — The board file joins the save token it was said to be in
 
 `waves-acts.ts` said of `pinball-rounds.ts` that it is "read into the token and written on a save exactly like an act, so a board changed underneath refuses", and commit e14019fe's message said the same. `wavesToken` hashed `ACT_FILES` and nothing else, and had since that commit: a board edited on disk while a director page was open was overwritten without a word by the page's next save — the last-write-wins loss the token exists to stop. The board file is in the hash now, both comments say what is true, and a case in `wave-save.test.ts` changes the copy's board file after the token is taken and expects the save refused with nothing written. Closes the queue item of the same name.
