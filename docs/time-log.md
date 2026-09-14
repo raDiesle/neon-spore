@@ -3846,3 +3846,24 @@ accepted example per kind, every rejection — is the proof, green unchanged.
 | landing | 5 |
 
 Bottleneck: writing.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `serialize.ts` is at the limit and grows a line per `WaveEntry` field
+
+The wave serializer was 249 lines and its own note says every new field on
+`WaveEntry` is a line in `serializeEntry` in the same commit, so the next one
+would have put it over. The boss had already been cut out along the
+simulation's seam; the arrival and the pod went the same way, `serializeEntry`
+and `serializePod` with their paragraphs moved whole into
+`serialize-entry.ts`, and `serializeWave` calls them. No friction: one Python
+edit, the formatter, and the round-trip test against the real act files green
+unchanged is the proof.
+
+| where | minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: landing.

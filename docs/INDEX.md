@@ -1596,6 +1596,7 @@ place — the generator keeps whatever is there.
 | `tools/perf/sweep-timing.ts` | The numbers a paint is sampled with, and the statistics taken off the sample |
 | `tools/director/src/fault-fields.ts` | The MALFUNCTION section `rail.ts` shows under the control set |
 | `tools/director/src/serialize-boss.ts` | **A wave's boss, written back out**, and the nine shapes it can take |
+| `tools/director/src/serialize-entry.ts` | one arrival and one pod of a wave, written back out — every optional field only when it is there, so a saved wave never loses one |
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
 | `tools/shape-sheet/src/veer-subject.ts` | **THE VEER**: the meteor with its rider on it, the one card made of a shape already on the sheet plus something over the top |
 | `tools/shape-sheet/src/rock-subjects.ts` | Everything on this sheet that is faceted rather than grown: the builder that draws a crystal |
