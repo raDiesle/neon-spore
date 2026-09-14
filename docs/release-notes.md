@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · ed060dd6 — The roster's spec readers and `isBuilt` move to `roster-parse.ts`
+
+`tools/director/src/roster.ts` was 248 lines, and three things in it grow: `isBuilt`, which gains a clause each time the simulation ships something in neither table it reads, and the two readers of the bestiary table and the act order's paragraph, which gain a rule each time the spec writes a slot a new way. All three, with their paragraphs, are a sibling now; `roster.ts` keeps the `Planned` and `Roster` types, the prose attachment and `parseRoster`, and `backlog-ideas.ts` takes `isBuilt` from the sibling. `parseRoster` over the real spec files is byte-identical before and after. A refactor, not a look.
+
 ## 2026-09-14 · 6c0bd9d8 — What is laid over a body moves out of the creature pass into `creature-over.ts`
 
 `packages/render/src/creatures.ts` was 248 lines. The exclusive body draw became a table (`creature-body.ts`) the day a plain `if` severed the chain; what was still growing was the run of `if`s after it, one per creature that wears something over a body — the veil's cloud, the veer's rider, the carom's crust, the chute, the volley's shell, the recoil's cage, the coil's dome, the clasp's shield — and the next covering would have put the file over. Those eight and their paragraphs are `drawOverBody` in a sibling now, called inside the perspective transform where they were. The canvas op log of 480 frames of the eight waves on both seats is identical before and after. A refactor, not a look.
