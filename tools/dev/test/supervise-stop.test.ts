@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { fileURLToPath } from "node:url";
 
 /**
  * A supervisor that is told to stop takes its child with it.
@@ -16,8 +17,10 @@ import { describe, expect, it } from "bun:test";
  * because a terminal signals the whole foreground group.
  */
 
-const SUPERVISOR = new URL("../supervise.ts", import.meta.url).pathname;
-const ROOT = new URL("../../../", import.meta.url).pathname;
+// `fileURLToPath`, not `.pathname`: on Windows the latter is `/C:/…`, which is
+// no directory to spawn in.
+const SUPERVISOR = fileURLToPath(new URL("../supervise.ts", import.meta.url));
+const ROOT = fileURLToPath(new URL("../../../", import.meta.url));
 /** The child prints its own pid and then does nothing for a long time. */
 const CHILD = "console.log('child ' + process.pid); setInterval(() => {}, 60_000);";
 
@@ -50,7 +53,10 @@ async function pidOfChild(stdout: ReadableStream<Uint8Array>): Promise<number> {
 
 describe("supervise.ts", () => {
   it("is gone, and so is its child, once it has been asked to stop", async () => {
-    const supervisor = Bun.spawn(["bun", SUPERVISOR, "bun", "-e", CHILD], {
+    // The running bun by its path: a bare "bun" is ENOENT to `uv_spawn` on
+    // Windows, where the executable is `bun.exe`.
+    const bun = process.execPath;
+    const supervisor = Bun.spawn([bun, SUPERVISOR, bun, "-e", CHILD], {
       cwd: ROOT,
       // The watcher restarts the child whenever the git directory moves, which
       // a test running beside a commit cannot rule out.
