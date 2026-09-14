@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE LEAK's guide is prose, and what it has to show cannot be asserted
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-14, claude/queue-the-leaks-guide-is-prose-and-what-it-has-to-show
 - **Files:** `packages/content/src/scenes.ts`, `packages/content/src/scenes/the-lance.ts`, `packages/content/src/waves/act-9.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
 
 THE LEAK ships with the three strings and the two circles, which is the sixth
