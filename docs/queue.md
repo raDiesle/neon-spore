@@ -411,3 +411,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at ff67ba6f: A real phone's SETTINGS with no CONTROLS row on it, and…
+
+- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Files:** `apps/game/src/at-a-desk.ts`, `apps/game/src/key-hint.ts`, `apps/game/src/menu-controls.ts`, `apps/game/src/menu-settings.ts`, `apps/game/src/trail.ts`, `apps/game/test/at-a-desk.test.ts`, `apps/game/test/controls-page.test.ts`, `apps/game/test/input-pc.test.ts`
+
+*CONTROLS is a desk door, and stops teaching the keys that are the rig* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
+
+- A real phone's SETTINGS with no CONTROLS row on it, and the CONTROLS page still reachable at a desk — headless Chromium at 390 px is a fine pointer, so no capture in this session could show either
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

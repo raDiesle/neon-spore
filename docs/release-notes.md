@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · ff67ba6f — CONTROLS is a desk door, and stops teaching the keys that are the rig
+
+The owner asked for both on 14 September 2026 — the first exemption under *A look is offered, never replaced*.
+
 ## 2026-09-14 · 2c528788 — `bun run shot --serve` starts the director it photographs, and stops it again
 
 It took a `--port` and expected somebody to already be serving on one. Nobody in a sandbox can be: CLAUDE.md forbids starting a server with a backgrounded shell command, and `.claude/launch.json` is a person at a desk pressing a button. So every lane that changed the director — which is where every look is decided — wrote the same throwaway to take one picture, the lane before this one included.
