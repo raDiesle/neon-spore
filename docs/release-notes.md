@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 0adcb270 — The heart's pulse leaves the drawing for a file of its own
+
+`maze-heart.ts` was at the limit: the numbers THE MAZE's heart runs on — which blood the round is on, the double thump, the tempo from whole to hurt, the beats a wound lasts — and then the drawing of its veins, muscle, chamber and wound. The numbers now live in `maze-pulse.ts`, with the arithmetic that turned a `MazeState` and a beat into `time`, `struck` and `squeeze` folded into one `heartPulse` the drawing reads; `maze-draw.ts`, `maze-drips.ts` and `maze-stage.ts`, which want the blood alone, point at the new file. THE MAZE's canvas op log from both seats over 480 frames is identical before and after. A refactor, not a look.
+
 ## 2026-09-14 · f34c8f43 — The siren's dial leaves the instrument for a file of its own
 
 `siren.ts` was at the limit: the instrument's placement, its two chips and its duty word, then ninety lines of dial — housing, ticks, breathing ring, side bars and turning core. The dial now lives in `siren-dial.ts` beside `siren-seats.ts`, exporting `drawDial`, its radius as `DIAL_R` and the tick colour the duty word shares; `halo`, `mixHex` and `PALETTE` moved with it. The canvas op log of THE HAND, THE LURE, THE VEIL and THE FENCE, 480 frames from each seat, is identical before and after. A refactor, not a look.
