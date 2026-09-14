@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `veer-clown-shape.ts` is at the limit: the figure is not the shape
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-veer-clown-shape-ts-is-at-the-limit-the-figure-i
 - **Files:** `packages/content/src/veer-clown-shape.ts`, `packages/content/src/index-shapes.ts`
 
 The file is 250 lines: the four `Clown*` interfaces and the `VEER_CLOWN`
