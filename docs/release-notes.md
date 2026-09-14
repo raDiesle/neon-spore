@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 49255779 — THE VANE's arm in columns leaves the cycle for a file of its own
+
+`vane-cycle.ts` was at the limit and held two subjects: the cycle in beats and the arm laid over a field. The five functions that take a `SimConfig` and answer in columns — `vanePivotCol`, `vaneReach`, `vaneTipCol`, `vaneFold`, `vaneWeakCol` — now live in `vane-arm.ts`, importing the cycle back. `bosses.ts` re-exports from both files, so every importer through the barrel and the package index is untouched; `vane.ts` imports the three it uses from the new file. The `hashWorld` fingerprint of every shipped wave 60 beats in is identical before and after. A refactor, not a look.
+
 ## 2026-09-14 · 87ba9d59 — The pose kit's command builders move to `pose-commands.ts`
 
 `tools/director/src/pose-kit.ts` was 249 lines: the apparatus that puts a world into one named state, and after it the commands spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — which gain a builder for every verb a new pose has to press. The builders and their paragraphs are a sibling now, and the kit re-exports them, so the thirty-four files that import the kit are untouched and a pose still imports from one place. The typecheck and the four pose suites are green unchanged. A refactor, not a look.
