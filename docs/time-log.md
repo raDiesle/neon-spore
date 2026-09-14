@@ -3740,3 +3740,24 @@ table is 196 lines. About 15 min.
 
 Bottleneck: writing — the header, which has to say the one reason all nine
 share without repeating the nine reasons each row keeps.
+
+## 2026-09-14 · claude/queue-effects-spark-ts-is-on-the-line-and-eight-of-its — `effects-spark.ts` is on the line, and eight of its cases are one family
+
+`burstFor` was at 250, an exhaustive switch that grows a case per event, and
+eight of its cases argued their colour against each other: a covering coming
+off a body that is still there. Those eight and their comments are
+`effects-spark-worn.ts` now, cut the way `effects-spark-handed.ts` was —
+the labels stay in `burstFor` so `assertNever` still names every event. The
+proof was `burstFor` itself, called on the eight events in both colours before
+and after: byte-identical. The switch is 213 lines. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the switch, `effects-spark-handed.ts`, the eight events' shapes |
+| writing | 5 | the cut, the new file's header, one comment sent next door, the INDEX row |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, `bun run index`, `queue done`, the commit, `bun run land --keep` |
+
+Bottleneck: writing — the header's one sentence for why these eight are a
+family, which the eight comments already said between them.

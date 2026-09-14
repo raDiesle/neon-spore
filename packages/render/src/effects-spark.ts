@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { handedBurst } from "./effects-spark-handed.js";
 import { isSilent } from "./effects-spark-silent.js";
+import { wornBurst } from "./effects-spark-worn.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
 import { PALETTE } from "./palette.js";
@@ -22,6 +23,12 @@ import { PALETTE } from "./palette.js";
  * silently stopped existing. So it is a `default` that only compiles if `e`
  * has narrowed to `never`: add a case to `SimEvent` and forget a line here,
  * and `assertNever` stops type-checking instead of quietly drawing nothing.
+ *
+ * Two families are next door and their cases are still named here, so the
+ * `default` counts them: the bodies answered by hands alone
+ * (`effects-spark-handed.ts`) and the coverings that come off a body that is
+ * still there (`effects-spark-worn.ts`). Each was cut when this file reached
+ * its limit; the next cut is whichever family the next event joins.
  */
 export interface Burst {
   x: number;
@@ -87,35 +94,16 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "lureHit":
     case "strandSwell":
       return at(l, e.col, e.row, 26, e.color === "red" ? PALETTE.red : PALETTE.cyan);
-    // A piece coming off THE SHELL: an ordinary burst in the armour's own
-    // material colour. The raw edge it leaves behind is not drawn here —
-    // that outlives the burst and is redrawn fresh every frame straight off
-    // `Creature.shell`, in `shell-draw.ts`, which needs no state of its own.
+    // The coverings coming off a body that is still there: `effects-spark-worn.ts`.
     case "shellBreak":
-      return at(l, e.col, e.row, 8, PALETTE.ember);
-    // The last piece: the body's colour exists from this event onward and
-    // never before it (`shell-round.ts`'s `bareTheCore`) — the biggest burst
-    // this file throws for anything short of a boss going down, because this
-    // is the one moment the pair has no way to have seen coming.
     case "shellBare":
-      return at(l, e.col, e.row, 20, e.color === "red" ? PALETTE.red : PALETTE.cyan);
-    // A clasp opened by the ward. The shield came apart, so the burst is the
-    // shield's own colour and not the body's — the body did not break, it was
-    // uncovered, and it is standing there in its colour a frame later for
-    // anyone who needs reminding which trigger to load. Sized between a
-    // shell piece and a bare core: bigger than chipping something, smaller
-    // than the reveal `shellBare` is, because nothing was revealed here that
-    // was not already visible through the shield the whole way down.
     case "claspBreak":
-      return at(l, e.col, e.row, 14, PALETTE.claspShield);
-
-    // THE COIL's dome, and `claspBreak`'s burst word for word: it is the same
-    // shell coming off, so it is the same colour and the same size, whichever
-    // of the two opened it. Nothing was revealed — a rock was visible through
-    // the dome the whole way across — and the lane has not closed either,
-    // which is why this is deliberately not a `destroy`'s worth of anything.
     case "coilBreak":
-      return at(l, e.col, e.row, 14, PALETTE.claspShield);
+    case "caromCrack":
+    case "crystalSplit":
+    case "volleyReturn":
+    case "volleyHatch":
+      return wornBurst(e, l);
 
     // A layer off THE RIND, and a bead shrivelling on THE STRAND: the body's
     // own colour, because the shot landed and the pair should feel that it did
@@ -137,32 +125,6 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     // Thrown at the tile it was struck in, for the jet's reason.
     case "recoilBounce":
       return at(l, e.col, e.row, 10, PALETTE.ember);
-
-    // A carom's crust coming apart, in the **rock's** colour and not the
-    // body's — `recoilBounce`'s argument from the other side. The body is
-    // gone and the picture must not say the *column* is: a rock still stands
-    // in the lane and somebody has to ward it. So the particles are the
-    // shell's, as many as a `shellBare` gets — a covering coming off. And THE
-    // CRYSTAL's join breaking: the same shell's colour, on the middle tile.
-    case "caromCrack":
-    case "crystalSplit":
-      return at(l, e.col, e.row, 20, PALETTE.rock);
-
-    // A plate off THE VOLLEY, in the **shield's** colour rather than the
-    // shell's — `caromCrack`'s argument from the third side: the shell is off
-    // and the lane has not closed, and the one thing worth saying is which
-    // control did the work. So the sparks are the dome's, thrown where the
-    // body met it — a few, because the shell's own material is real pieces
-    // now (`volley-shards.ts`) and squares over fragments is two effects.
-    case "volleyReturn":
-      return at(l, e.col, e.row, 6, PALETTE.shieldRim);
-
-    // And the shell itself, coming apart in mid-air: a handful of the rock's
-    // colour under the fragments `volley-shards.ts` throws. Not the ordinary
-    // colours: nothing died, and a red or cyan shower is what this game pays
-    // for a lane closing.
-    case "volleyHatch":
-      return at(l, e.col, e.row, 6, PALETTE.rock);
 
     // A wrong colour into a cloud. Grey, and fewer particles than a `reject`:
     // the shot did not bounce off anything, it went in and the weather shut
@@ -195,11 +157,12 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
       return at(l, e.col, e.row, 7, PALETTE.rock);
 
     // THE CHOIR's film finishing, and the colour arriving with it.
-    // `claspBreak`'s burst word for word and for its reason — a covering
-    // leaving a body that goes on falling — except that this one is thrown in
-    // the colour the body has *just* acquired. Nothing was uncovered: the
-    // colour did not exist a frame ago, and this is the moment the pair
-    // finally learn which trigger to load, so the burst is what tells them.
+    // `claspBreak`'s burst (`effects-spark-worn.ts`) word for word and for its
+    // reason — a covering leaving a body that goes on falling — except that
+    // this one is thrown in the colour the body has *just* acquired. Nothing
+    // was uncovered: the colour did not exist a frame ago, and this is the
+    // moment the pair finally learn which trigger to load, so the burst is
+    // what tells them.
     //
     // The **start** of the closing throws nothing, and deliberately: the whole
     // screen is shaking on that beat (`choir-quake.ts`), and particles under

@@ -873,6 +873,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
+| `packages/render/src/effects-spark-worn.ts` | The bursts for a covering coming off a body that is still there (shell, clasp, coil, carom, crystal, volley), each colour argued against the others |
 | `packages/render/src/maze-fall.ts` | THE MAZE coming apart, which is what a dead end looks like |
 | `packages/render/src/maze-stage.ts` | How far through THE MAZE the pair is: one cell per stage, top right where the hull bar was |
 | `packages/render/src/lure-blast.ts` | A LURE GOING UP, AND THE WHOLE SCREEN WITH IT |
