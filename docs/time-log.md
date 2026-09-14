@@ -3950,3 +3950,21 @@ four pose suites, ninety-three green unchanged. No friction.
 | landing | 5 |
 
 Bottleneck: landing.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `vane-cycle.ts` is at the limit: the arm's columns are a second subject
+
+`vane-cycle.ts` held the cycle in beats and the arm in columns, and only the
+second half read a `SimConfig`. The five column functions moved to
+`vane-arm.ts`, which imports the cycle back; `bosses.ts` re-exports from both
+so nothing beyond it and `vane.ts` changed. Proof was the per-wave `hashWorld`
+fingerprint of every shipped wave 60 beats in, identical before and after.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: landing — the check and the land run longer than the cut did.

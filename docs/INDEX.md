@@ -146,6 +146,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/shot-charge.ts` | the shot is laid, not fired |
 | `packages/sim/src/step.ts` | advance exactly one tick |
 | `packages/sim/src/vane-cycle.ts` | THE VANE's cycle, as arithmetic |
+| `packages/sim/src/vane-arm.ts` | THE VANE's arm laid over a field — the tip's column, the fold, the split's column — the five that take a `SimConfig` |
 | `packages/sim/src/vane.ts` | THE VANE's whole choreography: the boss that bends the field instead of the beat |
 | `packages/sim/src/veil.ts` | THE VEIL: a thundercloud with a body inside it, the first creature hidden from player 2 |
 | `packages/sim/src/warden-cycle.ts` | THE WARDEN's cycle, as arithmetic |

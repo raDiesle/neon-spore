@@ -122,6 +122,7 @@ export {
   mirrorListenBeats,
 } from "./simon.js";
 export { vaneOpen } from "./vane.js";
+export { vaneFold, vanePivotCol, vaneReach, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
 export {
   VANE_CYCLE,
   VANE_CYCLE_BEATS,
@@ -131,16 +132,11 @@ export {
   vaneColor,
   vaneCycle,
   vaneCycleBeat,
-  vaneFold,
   vaneOpening,
   vanePhase,
-  vanePivotCol,
-  vaneReach,
   vaneReachMilli,
   vaneStageIndex,
   vaneStageStart,
-  vaneTipCol,
-  vaneWeakCol,
 } from "./vane-cycle.js";
 export {
   NO_TETHER,

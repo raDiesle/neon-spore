@@ -2,7 +2,8 @@ import { metColor, missedColor } from "./balance.js";
 import type { VaneState } from "./boss-state.js";
 import type { VaneEntry } from "./entries.js";
 import { type Bullet, spanOf } from "./types.js";
-import { vaneColor, vaneFold, vaneOpening, vaneTipCol, vaneWeakCol } from "./vane-cycle.js";
+import { vaneFold, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
+import { vaneColor, vaneOpening } from "./vane-cycle.js";
 import type { World } from "./world.js";
 
 /**
@@ -26,8 +27,8 @@ import type { World } from "./world.js";
  * space, and hands them the only thing that works: a column named against the
  * arm rather than against the grid.
  *
- * `docs/spec/transfers-bosses.md` is the design and `vane-cycle.ts` is the
- * clock; this is only what moves.
+ * `docs/spec/transfers-bosses.md` is the design, `vane-cycle.ts` is the
+ * clock and `vane-arm.ts` is the fold in columns; this is only what moves.
  */
 
 /** THE VANE takes the field as a mechanism hung off the top edge, not as a body. */
