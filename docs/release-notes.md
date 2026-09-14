@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 543dfb63 — `gyre-wheel.ts`: finding the wheels is not drawing one
+
+`gyre.ts` stood at 249 lines doing two things. `gyres`, `gyreRadiusPx` and `drawGyres` ask a world which wheels are on the field and what each is carrying, and loop. `drawWheel`, `membrane` and `band` draw one: the ripple outside every body, the two rim bands through the six drawn centres, the spokes bowing against the turn, the organelle in the middle.
+
 ## 2026-09-14 · 6d2e68b1 — `scene-overlay.ts`: drawing a scene is not placing it
 
 `scene-art.ts` stood at 249 lines answering two questions. Where does each body of a draft stand — the fit, the scale a draft is drawn at, the half-height a label has to clear, one `Placed` per body, and none of it touching a drawing context. And what does a frame of them look like — the own-motion applied exactly as `render/creatures.ts` applies it, the ghost's thin dashed line, the glow, the label under it.
