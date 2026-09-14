@@ -3677,3 +3677,25 @@ the magnet's row follows it. The table is 184 lines. About 20 min.
 Bottleneck: writing — the header, which has to say what the family *is* in
 the game's words so the next creature answered by a hand and a trigger knows
 it belongs here.
+
+## 2026-09-14 · claude/queue-canvas2d-ts-is-on-the-line-and-grows-a-call-per — `canvas2d.ts` is on the line and grows a call per body that sticks to the ship
+
+The renderer's `draw` was at 250 and its last four landings had each added
+one call to the same run over the finished ship — the fence's burn, the
+gums, the choke's coils, the clingers. That run is `drawOnShip` in
+`frame-on-ship.ts` now, the fifth pass, through the `frame-passes.ts`
+barrel. Proved with the stub canvas's ordered call log: every wave carrying
+a gum, a choke, a limpet, a leech or a fence, both seats, 480 ticks — five
+waves, ten logs of 260–334 thousand calls, hashed identical before and
+after. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `canvas2d.ts`, `frame-passes.ts`, `frame-ship.ts`, `frame-harness.ts`, `canvas-stub.ts` |
+| writing | 10 | `frame-on-ship.ts`, the renderer's call and imports, the barrel's header, the op-log probe, the INDEX row |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 5 | `check:fast` (the render shard is 40 s), `bun run index`, `queue done`, the commit, `bun run land --keep` |
+
+Bottleneck: landing — two check runs of forty seconds each, which is the
+render suite's own cost and not this lane's.

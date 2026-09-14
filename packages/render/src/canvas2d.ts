@@ -1,13 +1,17 @@
 import { guardArmed, mawOpen, ticksPerBeat, wispOnField } from "@neon-spore/sim";
 import { drawTakeover } from "./canvas2d-takeover.js";
-import { drawChokeCoils } from "./choke-hull.js";
 import type { ClaspFrames } from "./clasp-frames.js";
-import { drawStuckClingers } from "./cling.js";
-import { drawBodies, drawFieldBack, drawOverlays, drawShip, wellShown } from "./frame-passes.js";
-import { drawStuckGums } from "./gum.js";
+import {
+  drawBodies,
+  drawFieldBack,
+  drawOnShip,
+  drawOverlays,
+  drawShip,
+  wellShown,
+} from "./frame-passes.js";
 import { handedView } from "./handover.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
-import { computeLayout, computeStage, type Layout, type Stage, tileCX } from "./layout.js";
+import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
 import { RenderState } from "./render-state.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import type { SpriteBursts } from "./sprite-burst.js";
@@ -203,21 +207,9 @@ export class Canvas2DRenderer implements Renderer {
     this.held.fenceShards.draw(ctx, l);
 
     drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
-    // Over the finished ship: the shield's line burnt out where a wall earthed
-    // through the dome, and the hull still conducting from it. Both sit *on*
-    // the rim `drawHull` has just lit, so neither can go down with the field
-    // pass (`fence-strike.ts`).
-    this.held.fenceStrike.draw(ctx, l, at, surfaceY, view.time);
-    // And every gum stuck to the ship, on the same membrane and over the same
-    // finished hull: its drips hang down the plating, which the ship pass
-    // would otherwise cover (`gum.ts`).
-    drawStuckGums(ctx, l, world, surfaceY, view.time);
-    // And THE CHOKE's grip on the cannon, on the eased cannon the ship pass
-    // drew, while the steer fault has it (`choke-hull.ts`).
-    drawChokeCoils(ctx, l, world, hull.cannonX, surfaceY, view.time);
-    // And THE LIMPET on the plate and THE LEECH on the cannon (`cling.ts`).
-    const shieldX = tileCX(l, at.shield[0]?.col ?? world.shieldCol);
-    drawStuckClingers(ctx, l, world, hull.cannonX, shieldX, surfaceY, view.beatPhase, view.time);
+    // Over the finished ship, what is stuck to it: the fence's burn, the
+    // gums, the choke's coils, the clingers (`frame-on-ship.ts`).
+    drawOnShip(ctx, l, world, view, this.held.fenceStrike, hull, at, surfaceY);
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
       open: isOpen,
