@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 3ad48663 — The blanking pass leaves `perf` and gets a name of its own
+
+Bringing `tools/perf/baseline.json` up to the waves the game ships is `bun run baseline:blank` now, not `bun run perf --unmeasured`. The operation is unchanged — `fillUnmeasured`, a pure function over a JSON file — but the name was doing real damage. A cloud session may never type `bun run perf`, in any form, and that rule exists because a measuring run is killed on a cloud runner at 400 and 580 seconds and returns a number about the runner rather than about the game. None of that describes this pass: it opens no browser, takes no reading, and can only blank a row whose wave no longer sends what the row was measured on, which means the figures already describe a wave that does not exist. Reaching it only through a command spelled `perf` left a session that changed a wave with a failing check and nothing it was allowed to run.
+
 ## 2026-09-14 · 763994ac — The baseline tolerates a wave it has never seen
 
 `tools/perf/test/baseline.test.ts` required one row per wave the game ships, so a session that added a wave landed red until somebody ran perf to fill the row — and a cloud session is told not to run perf in any form. A wave written from a phone had no route to a green check at all. The owner picked, between the two ways out the queue entry named, the one that takes the rule out rather than the one that has `bun run land` write the rows itself: a landing that edits a perf artefact is a landing doing perf's job under another name, and it would have had to run before the check rather than beside the release note, since the check is what goes red.
