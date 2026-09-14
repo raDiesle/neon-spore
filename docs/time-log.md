@@ -3189,3 +3189,25 @@ rule is taken out. About 20 min.
 Bottleneck: reading — the plate's rectangle had to become reachable from a
 test that cannot hold the rehearsal's own world, which is what turned one
 exported box into two functions.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — MAP is one column on a phone
+
+Queue item: below 700px the BRUSH/MAP section is the whole screen and it kept
+the desktop's two tracks, so on a 375px viewport the palette took its fixed
+250px and the map got the ~110px left — the cell panel, the note and the row's
+trash all sat off the right edge. Two rules inside the phone block: one track
+for the body, `width: auto` for the palette. Measured with playwright at 375px
+either side of the change: `250px 302px` with the panel running to x=574, and
+one `354px` track with it ending at 312. `phone-map.test.ts` reads both rules
+out of the phone block and holds the desktop's own two alongside. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `director-phone.css`, `director-brush.css`, `stylesheet-order.test.ts` |
+| writing | 5 | the two rules and their paragraph, three test cases |
+| looking | 10 | a probe that starts the director and drives a 375px page; measured before and after, and the shot |
+| friction | 0 | none; two probe runs went to the menu overlay before the view was set directly |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: looking — the change is two CSS lines and the only way to know it
+was the right two was a browser at the width, which cost a throwaway harness.

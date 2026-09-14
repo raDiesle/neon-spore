@@ -176,26 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## The director's MAP view on a phone keeps the desktop two-column frame
-
-- **Found:** 2026-09-13, claude/map-on-a-phone
-- **Taken:** 2026-09-14, claude/queue-the-directors-map-view-on-a-phone-keeps-the-desk
-- **Files:** `tools/director/src/director-phone.css`, `tools/director/src/director-brush.css`, `tools/director/test/stylesheet-order.test.ts`
-
-Seen on a 375-px viewport with playwright (`hasTouch`, `isMobile`) on 13
-September 2026: the MAP view shows `section.brush-col` whole, and its
-`.column-body` is still the desktop grid `max-content minmax(var(--map-w),
-1fr)` with `#brushCol` at its fixed 250 px — so the map gets the ~110 px
-that are left, two columns of cells show, and the cell panel, the note and
-the row's trash sit off the right edge behind `#mapCol`'s own scroll. The
-row verbs themselves are right (the tapped row alone wears the insert lines
-and the trash, and the palette is `position: static`). Inside the
-`@media (max-width: 700px)` block of `director-phone.css`, give
-`main > section.brush-col > .column-body` one track and `#brushCol` `width:
-auto`, so the palette stands above the map at the phone's full width and
-`#mapCol` scrolls sideways only for the grid. Add a test beside
-`stylesheet-order.test.ts` that reads the phone block and finds both rules.
-
 ## The built game reaches Google under test, and the frame tests take five minutes
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

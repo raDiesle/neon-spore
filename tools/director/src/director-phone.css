@@ -82,6 +82,29 @@
   main[data-view="map"] > section.brush-col[data-view="map"] {
     display: flex;
   }
+  /* MAP IS ONE COLUMN ON A PHONE, NOT TWO.
+
+     BRUSH and MAP share a section, and on a desktop its body is two
+     tracks — the palette at a fixed 250px, the grid taking the rest
+     (director-brush.css). Below the breakpoint that section is the
+     whole screen, and 250px of it is the palette: on a 375px viewport
+     the map got the ~110px left over, two columns of cells showed, and
+     the cell panel, the note and the row's trash sat off the right edge
+     behind #mapCol's own sideways scroll. Seen with playwright on 13
+     September 2026.
+
+     So one track, and a palette as wide as the screen rather than as
+     wide as a desktop column. The two stack — brushes above the map —
+     and #mapCol keeps the sideways scroll it already had, which is now
+     for the grid alone. Both rules tie on specificity with the ones
+     they replace, and this sheet is imported last
+     (stylesheet-order.test.ts). */
+  main > section.brush-col > .column-body {
+    grid-template-columns: 1fr;
+  }
+  #brushCol {
+    width: auto;
+  }
   /* A column never collapses on a phone — one section already fills
      the screen, and columns.ts skips the relayout that would
      otherwise fight this block's own grid-template-columns. */
