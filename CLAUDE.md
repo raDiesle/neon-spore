@@ -210,10 +210,12 @@ a local address (`?pwa=1` is for testing the install itself).
 **A performance run happens once a week, or when the owner asks for one — a
 lane never owes one**, not for a new shape, not for a new animation, and **a
 cloud session never runs `bun run perf` at all, in any form** — the owner, 13
-September 2026; that includes `--unmeasured`, which measures nothing. **A wave
-with no baseline row is not a red check** — the baseline tolerates a wave it
-has never seen, and the next sweep weighs it. Do not list a run as a step
-before landing, an unverified item or a queue entry. The per-lane measurement is the op-count budget tests
+September 2026, and no flag is an exception. **The baseline is not what makes a
+lane run one.** A wave with no row is not a red check — the baseline tolerates
+one it has never seen — and a row gone stale under a wave you changed is fixed
+by `bun run baseline:blank`, which any session may run: it opens no browser and
+measures nothing. Do not list a run as a step before landing, an unverified
+item or a queue entry. The per-lane measurement is the op-count budget tests
 (`packages/render/test/*-budget.test.ts`): a legitimate change that raises a
 row is remeasured and moved, with a sentence saying why. When a
 run is asked for, measure the waves the new things appear in:

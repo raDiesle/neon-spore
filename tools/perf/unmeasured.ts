@@ -60,7 +60,7 @@ export function unmeasuredRow(index: number): WaveCost {
 /**
  * Every wave the baseline has no row for, given one, and every row whose wave
  * no longer sends what it sent when the row was measured, blanked to one —
- * `bun run perf --unmeasured`, which opens no browser and measures nothing.
+ * `bun run baseline:blank`, which opens no browser and measures nothing.
  *
  * **The second is the half that still has to exist.** A row records what the
  * wave sent when it was weighed (`arrivalsOf`), and `baseline.test.ts` fails a

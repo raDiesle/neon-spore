@@ -13,11 +13,13 @@
  * found the trunk red with a failure that was nobody's lane.
  *
  * The step that puts it right is mechanical and measures nothing:
- * `bun run perf --unmeasured` (`tools/perf/unmeasured.ts`) blanks every row
- * whose wave changed under it and adds one for every wave that has none. The
- * blanking is the half that matters here, and it is what the save does now,
- * between the write and the commit, so the baseline lands in the same commit
- * as the act files that moved it.
+ * `bun run baseline:blank` (`tools/perf/blank.ts`) blanks every row whose wave
+ * changed under it and adds one for every wave that has none. The blanking is
+ * the half that matters here, and it is what the save does now, between the
+ * write and the commit, so the baseline lands in the same commit as the act
+ * files that moved it. It was `perf --unmeasured` until 14 September 2026 and
+ * moved out under a name that says what it does, so a session forbidden the
+ * perf command can still reach it.
  *
  * **In a process of its own**, not by importing `fillUnmeasured`: it reads
  * `WAVES` from `@neon-spore/content`, and in the director's own process that
@@ -53,7 +55,7 @@ const spawnBun: Runner = async (args, cwd) => {
 };
 
 /** The command, as one place holds it and the test reads it. */
-export const MARK_ARGS = ["tools/perf/run.ts", "--unmeasured"] as const;
+export const MARK_ARGS = ["tools/perf/blank.ts"] as const;
 
 /**
  * Bring the baseline up to the act files on disk. Returns what went wrong, or
@@ -63,6 +65,6 @@ export const MARK_ARGS = ["tools/perf/run.ts", "--unmeasured"] as const;
 export async function markBaseline(root: string, run: Runner = spawnBun): Promise<string | null> {
   if (process.env.DIRECTOR_NO_COMMIT) return null;
   const done = await run(MARK_ARGS, root);
-  if (done.code !== 0) return done.err.trim() || done.out.trim() || "perf --unmeasured failed";
+  if (done.code !== 0) return done.err.trim() || done.out.trim() || "baseline:blank failed";
   return null;
 }

@@ -36,7 +36,14 @@ bun run perf                      # every wave — what a baseline is taken from
 bun run perf --throttle 6         # at low-end-mobile speed instead of mid-tier
 bun run perf --save               # write a full sweep back as the new baseline
 bun run perf --wave 46 --save     # merge that one wave into the baseline
-bun run perf --unmeasured         # a row for every unweighed wave, a blank for every row its wave changed under; measures nothing
+```
+
+Bringing the baseline up to today's waves is **not** one of these, since 14
+September 2026 — it opens no browser and measures nothing, so it is a command
+of its own and not a flag on this one:
+
+```
+bun run baseline:blank            # a row for every unweighed wave, a blank for every row its wave changed under
 ```
 
 **Not in a cloud session.** A narrow run that takes about 25 seconds on the
@@ -51,10 +58,16 @@ enough to be killed by its own timeout is not that number
 **And not `--unmeasured` either, as of 13 September 2026.** The owner's words
 were *do never run perf tests in Claude cloud*, said after a cloud session
 reported running `bun run perf --unmeasured` to get a new wave its baseline
-row. So the rule is now the whole command and not the measuring half of it: a
-cloud session does not type `bun run perf`, with any flag, for any reason. What
-a cloud session that adds a wave does instead is the section below, settled on
-14 September 2026.
+row. So the rule is the whole command and not the measuring half of it: a cloud
+session does not type `bun run perf`, with any flag, for any reason.
+
+**Which is why the blanking left `perf` on 14 September 2026.** Closing the
+command closed the only route to a legitimate, browserless repair of the
+baseline, and a cloud session that changed a wave was left with a red check and
+nothing it was allowed to type. `bun run baseline:blank` is that operation under
+a name that says what it does (`tools/perf/blank.ts`). The rule above is
+unchanged and easier to keep: a cloud session never types `perf`, and nothing it
+legitimately needs is spelled that way any more.
 
 ## A wave nobody has weighed has no row, and that is allowed
 
@@ -91,18 +104,20 @@ for the other way out, and the three tests under *a wave the baseline has no
 row for* are the answer to it.
 
 **An explicit unmeasured row is still a thing you can write**, and
-`bun run perf --unmeasured` still writes one — it opens no browser and measures
-nothing. It is no longer how a lane gets to green, because nothing now demands
-the row; it is how a *local* session says out loud that a wave is owed a figure.
-Its other half is still load-bearing, below.
+`bun run baseline:blank` still writes one. It is no longer how a lane gets to
+green, because nothing now demands the row; it is how a session says out loud
+that a wave is owed a figure. Its other half is still load-bearing, below.
 
 **A wave that changed under its row is a different case, and still fails.** A
 row records what the wave sent when it was weighed, and the test fails a row
 whose wave sends something else now — a figure for a wave that no longer
 exists. That is a row saying something untrue, where a missing row says nothing
 at all, which is why the tolerance above does not reach it. Re-measuring is the
-perf run a lane never owes, so `bun run perf --unmeasured` blanks such a row to
-unmeasured (it says so, wave by wave), and the next sweep fills it in. On 12
+perf run a lane never owes, so `bun run baseline:blank` blanks such a row to
+unmeasured (it says so, wave by wave), and the next sweep fills it in. **Any
+session may run it, a cloud one included** — that is the whole point of its
+having a name of its own, and it is what makes this case survivable from a
+phone. On 12
 September 2026 a content lane trimmed twenty-eight guided waves in one commit;
 that was the first time. **A save in the wave editor runs it itself**, between
 the write and the commit, and commits the baseline with the act files

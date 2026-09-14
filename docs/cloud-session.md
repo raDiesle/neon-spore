@@ -71,10 +71,17 @@ A lane that adds a **wave** needs no extra step. `baseline.test.ts` wanted a
 row per wave until 14 September 2026 and would have sent such a lane to the run
 it has just been told to skip; the owner took that rule out instead, so a wave
 with no baseline row passes the check and the next sweep weighs it. Say in the
-report that the wave went in unweighed. What is *not* covered is a lane that
-**changes** an existing wave's arrivals: its row is now stale rather than
-missing, the check still fails it, and the way out is a perf run this session
-may not take. `docs/performance.md` has the whole of it.
+report that the wave went in unweighed.
+
+A lane that **changes** an existing wave's arrivals has one step, and it is not
+a perf run. Its row is stale rather than missing — it says what the wave sent
+*before* — and the check still fails that, rightly, because a stale row says
+something untrue where an absent one says nothing. `bun run baseline:blank`
+blanks it. **That command is allowed here**: it opens no browser, measures
+nothing, and can only blank a row whose figures already describe a wave that
+does not exist. It was `perf --unmeasured` until 14 September 2026, which is
+why it reads as forbidden in anything written before then.
+`docs/performance.md` has the whole of it.
 
 **It cannot verify everything, and has to say which parts — in the report.**
 The sandbox has no wrangler, no `bun run delegate`, and no network access it

@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — the blanking pass leaves `perf`
+
+The queue item this lane's own predecessor wrote, and the owner left the choice
+of the three ways out to the lane. Picked the second: `fillUnmeasured`'s writing
+half moved from `bun run perf --unmeasured` to `bun run baseline:blank`
+(`tools/perf/blank.ts`), because the rule that closed it to cloud sessions is
+about a measuring run that never finishes honestly on a runner, and this
+operation opens no browser, takes no reading, and can only blank a row whose
+figures already describe a wave that does not exist. The flag is gone rather
+than kept beside it — leaving it reachable under a name spelled `perf` is what
+made the item — and typing the old thing now prints where it went before any
+browser starts. The director's `MARK_ARGS` moved with it, under a new test that
+the script it names is a file that exists. About 45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the item's three options, `perf/run.ts`'s flag branch, `waves-baseline.ts`'s spawn, every live mention of the old flag |
+| writing | 20 | `blank.ts`, the redirect stub, the script entry, the existence guard, and six documents |
+| looking | 0 | nothing drawn |
+| friction | 5 | biome caught an `import type` and a long line the first check:fast; `bun run index` wanted a line written for the new file by hand |
+| landing | 10 | `check:fast` twice, `bun run index`, the commit, `land` |
+
+The bottleneck was the documents, not the code: the move itself is one file and
+one script entry, and six places across `docs/` and `CLAUDE.md` asserted the old
+command — three of which had been written earlier the same day by the lane
+before this one.
+
 ## 2026-09-14 — queue-tasks — the baseline tolerates a wave it has never seen
 
 Queue item that asked the owner a question, so the turn began by putting it to

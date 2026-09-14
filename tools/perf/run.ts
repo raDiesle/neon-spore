@@ -7,7 +7,6 @@ import { DRIFT_MIN_WAVES } from "./noise.js";
 import { renumber } from "./renumber.js";
 import { printComparison, printRun, printSummary } from "./say.js";
 import { assemble } from "./shape.js";
-import { fillUnmeasured } from "./unmeasured.js";
 import { wavesAsked, withReferences } from "./waves.js";
 
 /**
@@ -28,8 +27,12 @@ import { wavesAsked, withReferences } from "./waves.js";
  *   bun run perf --throttle 6         at low-end-mobile speed instead
  *   bun run perf --save               write a full sweep back as the new baseline
  *   bun run perf --wave X --save      merge that one wave into the baseline
- *   bun run perf --unmeasured         give every unweighed wave a row, blank every row whose
- *                                     wave changed under it, and measure nothing
+ *
+ * **Bringing the baseline up to today's waves is not here.** It was
+ * `--unmeasured` until 14 September 2026 and is `bun run baseline:blank` now
+ * (`blank.ts`): it opens no browser and measures nothing, so putting it behind
+ * a command a cloud session may not type was the only thing stopping such a
+ * session from fixing a row it had just made stale.
  *
  * **The narrow run is the ordinary one.** A lane that adds a creature measures
  * the waves that creature appears in; the whole game is swept when a baseline is
@@ -91,31 +94,13 @@ async function readBaseline(): Promise<Run | null> {
   return (await file.exists()) ? ((await file.json()) as Run) : null;
 }
 
-// **The one mode that opens no browser and measures nothing**, and it is here
-// before the preview starts for exactly that reason: it is what a session that
-// cannot run perf at all reaches for (`unmeasured.ts`).
+// The flag this used to carry, answered rather than ignored: it moved out to a
+// command of its own on 14 September 2026 (`blank.ts`), and a session typing the
+// old thing is told where it went instead of starting a browser it did not want.
 if (process.argv.includes("--unmeasured")) {
-  const before = await readBaseline();
-  if (!before) {
-    console.log(
-      "✗ there is no baseline to add rows to — take the sweep first: bun run perf --save",
-    );
-    process.exit(1);
-  }
-  const { run: written, added, blanked } = fillUnmeasured(before);
-  if (added.length === 0 && blanked.length === 0) {
-    console.log("the baseline has a row for every wave as it is — nothing to mark");
-    process.exit(0);
-  }
-  await Bun.write(
-    BASELINE,
-    `${JSON.stringify(written, null, 2)}
-`,
-  );
-  const marked = [...added, ...blanked.map((b) => `${b} (changed under its row)`)];
-  console.log(`marked unmeasured in tools/perf/baseline.json: ${marked.join(", ")}`);
-  console.log("  say so in the report, and name bun run perf in what could not be verified");
-  process.exit(0);
+  console.log("✗ --unmeasured moved out of perf on 14 September 2026: bun run baseline:blank");
+  console.log("  it opens no browser and measures nothing, which is why it is not spelled perf");
+  process.exit(1);
 }
 
 const preview = await startPreview(root);

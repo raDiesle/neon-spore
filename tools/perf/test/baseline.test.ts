@@ -164,7 +164,7 @@ describe("the checked-in baseline", () => {
 describe("a row nobody has measured", () => {
   const saved = baseline as Run;
 
-  it("gives every wave a row, which is what --unmeasured is asked for", () => {
+  it("gives every wave a row, which is what baseline:blank is asked for", () => {
     const short = { ...saved, waves: saved.waves.slice(0, -1) };
     const { run, added } = fillUnmeasured(short);
     expect(added).toHaveLength(1);
