@@ -236,3 +236,17 @@ gives — *forget everything this device knows about the person holding it* — 
 it means the next person meets the game's front door, which is what the door is
 for. If the owner wants it kept, that is a line in `forgetThisDevice`'s doc
 saying so and an entry in the test's expected list, not an absence.
+
+## Unverified at c1eec7c0: BACK INTO THE GAME pressed against a live relay: whethe…
+
+- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Files:** `apps/game/src/last-room.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-rejoin.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.css`, `apps/game/src/menu.ts`, `apps/game/src/settings.ts`, `apps/game/src/shell.ts`
+
+*BACK INTO THE GAME: the way back into the room a reload lost* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
+
+- BACK INTO THE GAME pressed against a live relay: whether a second phone still sitting in the room takes the rejoining one back into the same run, and what the room screen says when the room has emptied
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

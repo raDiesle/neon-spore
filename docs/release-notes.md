@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · c1eec7c0 — BACK INTO THE GAME: the way back into the room a reload lost
+
+Two people are playing. One of them reloads — a dropped tab, a phone that slept, a thumb on the address bar — and lands on the front page with a socket that no longer exists. The other phone has lost nothing: it is still in the room with the field up, waiting. Until now the reloaded phone had four rows to read, and the only way back was REJOIN a floor down behind PLAY, which works only if the two of them have played together before and both gave names. A reload is neither a first meeting nor a second one, and it should ask nothing of either of them.
+
 ## 2026-09-14 · 3f917a9b — `bun run imports`: dropping a stranded name without deleting its statement
 
 biome offers only an unsafe fix for an unused import, and that fix deletes the statement together with the doc comment above it — which is why `tools/hooks/guard.ts` blocks `--write --unsafe`, and why a file split leaves names in the lists either side of the move for somebody to take out by hand. This is the narrow half of that fix: a specifier comes out of a list, the statement and its comment stay, and a statement whose every name is unused is printed rather than deleted.
