@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `versus-pair.ts` is at the limit: `advance` is the step, not the pair
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-versus-pair-ts-is-at-the-limit-advance-is-the-st
 - **Files:** `tools/director/src/versus-pair.ts`, `tools/director/src/versus-seat.ts`, `tools/director/test/versus-cadence.test.ts`, `tools/director/test/versus-crop-follow.test.ts`, `tools/director/test/versus-hand.test.ts`, `tools/director/test/versus-loop.test.ts`
 
 The file is 250 lines and `advance` — one tick of a pose's world, rebuilding
