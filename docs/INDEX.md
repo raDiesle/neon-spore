@@ -1407,6 +1407,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/skins/parts.ts` | The passes more than one skin draws |
 | `tools/director/src/skins/pore.ts` | PORE — a frog's skin: bumps scattered without a lattice, dense in places and sparse in others |
 | `tools/director/src/skins/scale.ts` | SCALE — many small, soft plates, laid in offset rows around the body's own centre and shrinking toward the rim |
+| `tools/director/src/skins/scatter.ts` | **Dart-throwing inside a contour** — blue noise, placed against a density field the caller supplies |
 | `tools/director/src/skins/seed.ts` | Determinism, for skins |
 | `tools/director/src/skins/setae.ts` | SETAE — a girdle of short bristles round the body, pinned by longitude and carried round as it turns |
 | `tools/director/src/skins/sucker.ts` | SUCKER — an octopus arm: concentric rings, largest along a spine and falling off to either side |

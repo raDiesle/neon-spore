@@ -176,18 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `skins/pore.ts` is at the limit: the Poisson scatter is not a pore
-
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-skins-pore-ts-is-at-the-limit-the-poisson-scatte
-- **Files:** `tools/director/src/skins/pore.ts`, `tools/director/src/skins/sucker.ts`
-
-The file is 250 lines and opens with `ScatterPoint`, `ScatterOptions` and
-`poissonScatter` (lines 27 to 87), a blue-noise scatter inside a contour that
-`sucker.ts` already imports for its own field. Move the three into
-`scatter.ts`; `pore.ts` and `sucker.ts` import from there. The pore field,
-hotspots, bump paint and the two `PORE` skins stay. Proof: `bun run check:fast`.
-
 ## `skins/light.ts` is at the limit: the axis is one subject, the passes another
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4

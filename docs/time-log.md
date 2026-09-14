@@ -4233,3 +4233,23 @@ re-point. 250 lines becomes 230 and 36. About 10 min.
 
 Bottleneck: writing — `step` stayed behind in the import list and only the
 linter noticed, which is the one thing a move of this shape leaves.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `skins/scatter.ts`: the dart-throwing out of PORE
+
+Queue item, the third of eleven. `pore.ts` opened with `ScatterPoint`,
+`ScatterOptions` and `poissonScatter` — blue noise inside a contour, which
+`sucker.ts` imported from it, so one skin read as being built out of another.
+The engine is `scatter.ts` now and both skins import it; the field, the
+hotspots, the bump paint and the two `PORE` skins stay. 250 lines becomes 192
+and 73. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `pore.ts`'s first ninety lines, `sucker.ts`'s import |
+| writing | 5 | the move, the new file's header, two imports, two doc lines that named the old home |
+| looking | 0 | nothing visible moved — the same darts in the same order |
+| friction | 0 | none |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: reading — `BumpPaint` sits between the two halves of the cut and
+belongs to the skin, so the move is not one contiguous span.

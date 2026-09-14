@@ -1,6 +1,7 @@
 import { contactPass, KEY, rimLightPass, specularPass, terminatorPass } from "./light.js";
 import { lift, type Mounted, mount, spin, stops } from "./mounted.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
+import { poissonScatter, type ScatterPoint } from "./scatter.js";
 import { streamFor } from "./seed.js";
 import { turnAngle } from "./turn.js";
 import { type Skin, type SkinContext, SVG } from "./types.js";
@@ -11,11 +12,12 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  *
  * The whole difference from SCALE and CARAPACE is the absence of a grid, and a
  * jittered grid is what you get if you are not careful. So there are no rows
- * here: `poissonScatter` below throws darts inside the body's own disc and
- * rejects one landing too close to a bump already placed, the way real pores
- * crowd in one spot and thin out in another. `SUCKER` in `./sucker.js` reuses
- * this exact engine with a different density field — a line, not a handful of
- * points — which is the one thing meant to keep the two skins apart.
+ * here: `poissonScatter` (`./scatter.js`) throws darts inside the body's own
+ * disc and rejects one landing too close to a bump already placed, the way
+ * real pores crowd in one spot and thin out in another. `SUCKER` in
+ * `./sucker.js` throws the same darts against a different density field — a
+ * line, not a handful of points — which is the one thing meant to keep the two
+ * skins apart, and why the engine is neither skin's.
  *
  * Each bump is a filled circle plus, only when `ctx.lit`, a bright disc offset
  * toward `KEY` and a dark one away from it, both painting from a gradient
@@ -23,67 +25,8 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * highlights cost two `<defs>` entries and not one each.
  */
 
-/** One placed dart: a body-relative position and its own radius. */
-export interface ScatterPoint {
-  readonly x: number;
-  readonly y: number;
-  readonly r: number;
-}
-
 /** What a bump's highlight and shadow paint from, or `null` under no light. */
 type BumpPaint = { hi: string; sh: string } | null;
-
-export interface ScatterOptions {
-  /** How many darts to land, and a hard cap on candidates drawn so that a
-   * dense band cannot spin forever. */
-  readonly target: number;
-  readonly attempts: number;
-  /** Sample disc radius, as a multiple of `reach` — `clipGroup` trims it. */
-  readonly cover: number;
-  readonly rMin: number;
-  readonly rMax: number;
-  /** Minimum centre-to-centre gap, as a multiple of a dart's own radius, at
-   * closeness 1 and closeness 0 — the two ends of the density field. */
-  readonly spacingDense: number;
-  readonly spacingSparse: number;
-  /** A candidate below this closeness is discarded outright, before spacing is
-   * even checked — the way a region stays genuinely bare. */
-  readonly minCloseness: number;
-  /** 0 (bare) .. 1 (densest) at a body-relative point. The only thing that
-   * tells two scatters apart is what this function measures against. */
-  closeness(x: number, y: number): number;
-  /** Optional multiplier on the radius pick, driven by closeness. */
-  sizeBias?(closeness: number): number;
-}
-
-/** Dart-throwing, not a jittered lattice: a candidate is a uniformly-random
- * point in the disc (`sqrt(rand())` for area, so it isn't centre-heavy),
- * rejected if the local density field says so or if it lands too near a dart
- * already kept. Runs once in `build()`, like every other skin's lattice. */
-export function poissonScatter(
-  rand: () => number,
-  reach: number,
-  opts: ScatterOptions,
-): ScatterPoint[] {
-  const placed: ScatterPoint[] = [];
-  const bias = opts.sizeBias ?? (() => 1);
-  let tries = 0;
-  while (placed.length < opts.target && tries < opts.attempts) {
-    tries++;
-    const a = rand() * Math.PI * 2;
-    const rr = Math.sqrt(rand()) * reach * opts.cover;
-    const x = Math.cos(a) * rr;
-    const y = Math.sin(a) * rr;
-    const c = opts.closeness(x, y);
-    if (c < opts.minCloseness) continue;
-    const r = reach * (opts.rMin + rand() * (opts.rMax - opts.rMin)) * bias(c);
-    const spacing = r * (opts.spacingSparse - (opts.spacingSparse - opts.spacingDense) * c);
-    const clash = placed.some((p) => Math.hypot(p.x - x, p.y - y) < spacing);
-    if (clash) continue;
-    placed.push({ x, y, r });
-  }
-  return placed;
-}
 
 const TARGET = 420;
 const ATTEMPTS = TARGET * 60;

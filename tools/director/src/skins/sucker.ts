@@ -1,7 +1,7 @@
 import { contactPass, rimLightPass, specularPass, terminatorPass } from "./light.js";
 import { lift, type Mounted, mount, spin } from "./mounted.js";
 import { auraPass, clipGroup, fillPass, rimPass } from "./parts.js";
-import { poissonScatter, type ScatterPoint } from "./pore.js";
+import { poissonScatter, type ScatterPoint } from "./scatter.js";
 import { streamFor } from "./seed.js";
 import { turnAngle } from "./turn.js";
 import { type Skin, type SkinContext, SVG } from "./types.js";
@@ -10,7 +10,7 @@ import { type Skin, type SkinContext, SVG } from "./types.js";
  * SUCKER — an octopus arm: concentric rings, largest along a spine and
  * falling off to either side.
  *
- * The scatter is `pore.ts`'s `poissonScatter`, unchanged — same dart-throwing,
+ * The scatter is `scatter.ts`'s `poissonScatter`, unchanged — same dart-throwing,
  * same rejection against a dart already kept, so a lone reader of this file
  * cannot mistake the difference from PORE for a different algorithm. The
  * difference is the density field handed in: PORE's is a handful of seeded
