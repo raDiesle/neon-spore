@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 8886c724 — The clubbed walk leaves the router that sends a body to it
+
+`body-path.ts` stood at its limit and was two things: fifty lines that ask a silhouette what it is — a carried contour, a walked rim, a sampled blob — and two hundred that walk a rim of balls on stalks. The walk is `body-path-clubbed.ts` now, with `ClubbedRim` and the four numbers it is sampled at; the router imports it and says a walk is a file of its own. The sheet's card, `docs/asset-catalogue.md` and the copies table name the new file. Every contour is the same to the byte. A refactor, not a look.
+
 ## 2026-09-14 · fe29f1f5 — The coverings that come off a body are one family of the burst table
 
 `burstFor` in `effects-spark.ts` stood at its limit for the second time — it grows a case per event — and eight of its cases said the same thing about themselves: a covering coming off a body that is still there, THE SHELL's plating, THE CLASP's shield, THE COIL's dome, THE CAROM's crust, THE CRYSTAL's join, THE VOLLEY's plates, each colour argued against the others. They are `effects-spark-worn.ts` now, cut the way the handed bodies were: the eight labels stay in the switch, so `assertNever` still names every event. The bursts are the same to the byte. A refactor, not a look.
