@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { commonGitDir, HERE_FILE, hereRoot, writeHere } from "../here.js";
@@ -10,9 +10,14 @@ const repoRoot = Bun.fileURLToPath(new URL("../../../", import.meta.url));
  * A main checkout and one worktree of it, the way git lays them out: the
  * worktree's `.git` is a file naming its own git directory under the main
  * one, and that directory's `commondir` points back up.
+ *
+ * `realpathSync` because the last case spawns a child and reads its own
+ * `process.cwd()` back out: on macOS `tmpdir()` answers `/var/folders/…`, the
+ * child stands in the `/private/var/folders/…` that symlink points at, and
+ * the two are the same directory without being the same string.
  */
 function fakeRepo(): { main: string; wt: string } {
-  const base = mkdtempSync(join(tmpdir(), "ns-here-")).replaceAll("\\", "/");
+  const base = realpathSync(mkdtempSync(join(tmpdir(), "ns-here-"))).replaceAll("\\", "/");
   const main = `${base}/main`;
   const wt = `${base}/wt`;
   mkdirSync(`${main}/.git/worktrees/wt`, { recursive: true });

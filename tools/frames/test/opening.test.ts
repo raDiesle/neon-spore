@@ -70,6 +70,12 @@ describe("captureFrames past a wave's opening", () => {
     browser = await launchBrowser();
   }, STARVED_MS);
 
+  // `STARVED_MS` here as well as on `beforeAll`, and for the same reason said
+  // about the other end: closing a browser, stopping a preview and sweeping
+  // the scratch is four pieces of teardown on a machine running eight shards,
+  // and bun's default for a hook is five seconds. Without it the file failed
+  // as an unnamed case with a timed-out hook and no mention of what it was
+  // waiting for — every case green above it.
   afterAll(async () => {
     if (browser) await closeBrowser(browser);
     if (stop) await stop();
@@ -78,7 +84,7 @@ describe("captureFrames past a wave's opening", () => {
     // reaching here — the pictures are throwaway, but the directories are not
     // throwing themselves away.
     await sweepScratch();
-  });
+  }, STARVED_MS);
 
   it(
     "gets past the wave's own opening and writes a picture of the field",

@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
-import { mkdir, mkdtemp, rm, utimes, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, realpath, rm, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import { idleDays } from "../idle.js";
@@ -19,7 +19,10 @@ import { isDirty, removeWorktree } from "../worktree.js";
  *
  * `mkdtemp` plus real files, the pattern `tools/test/tree-moves.test.ts`
  * already uses. Nothing here assumes a separator or a case: the paths are
- * whatever the machine hands back, which is the point on Windows.
+ * whatever the machine hands back, which is the point on Windows — and
+ * `realpath` on the way in, which is the point on macOS, where `tmpdir()`
+ * answers `/var/folders/…` and every path git prints back is the
+ * `/private/var/folders/…` that symlink points at.
  */
 
 let root = "";
@@ -39,7 +42,7 @@ async function capture(args: string[]): Promise<string> {
 }
 
 beforeAll(async () => {
-  root = await mkdtemp(join(tmpdir(), "ns-land-"));
+  root = await realpath(await mkdtemp(join(tmpdir(), "ns-land-")));
   await run(["init", "-b", "main", "--quiet"], root);
   await run(["config", "user.email", "test@example.com"], root);
   await run(["config", "user.name", "Test"], root);
