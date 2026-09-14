@@ -127,21 +127,6 @@ export function wispOnSpawn(world: World, col: number): { wispNext: number } {
   return { wispNext: tileIndex(world.cfg, wispHopTo(world, { col, row: 0 })) };
 }
 
-/**
- * The tile a wisp is going to next, as a tile index, or `undefined` on a body
- * that has not rolled one yet.
- *
- * A packed index and not a column and a row, for the reason every other pair
- * of numbers in `Creature` is not packed: this one is *rolled* rather than
- * moved to. `wispHopTo` already works in index space — one draw over the field
- * minus the tile it stands on — so storing what came off the stream, rather
- * than a decomposition of it, means the fingerprint hashes the roll itself and
- * `wispTileAt` is the one place it is ever taken apart.
- */
-export function wispNextIndex(c: Creature): number | undefined {
-  return c.wispNext;
-}
-
 /** A tile index back into a column and a row. The one place `wispNext` is
  * decomposed, so a site that wanted the tile cannot invent a second division. */
 export function wispTileAt(cfg: SimConfig, index: number): { col: number; row: number } {

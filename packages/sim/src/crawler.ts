@@ -168,11 +168,6 @@ export function crawlerLinks(world: World, crawlerId: number): Creature[] {
     .sort((a, b) => linkOrder(a) - linkOrder(b));
 }
 
-/** The head of this worm, or null once the whole of it has gone. */
-export function crawlerHead(world: World, crawlerId: number): Creature | null {
-  return crawlerLinks(world, crawlerId)[0] ?? null;
-}
-
 /**
  * Whether this link is one of the two ends — the head with the mouth in it, or
  * the hooked tail.

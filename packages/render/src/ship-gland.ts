@@ -4,7 +4,6 @@ import { organBed, organGloss, organLife } from "./gland-organ.js";
 import { ribs, wetChamber, wetHull } from "./gland-wet.js";
 import type { SheenPass } from "./hull-sheen.js";
 import type { LobeDraw } from "./lobe-look.js";
-import type { PanelPlan } from "./panel-plan.js";
 import type { SeatSkin } from "./seat-skin.js";
 import type { NerveDraw } from "./ship-nerves.js";
 
@@ -19,21 +18,11 @@ import type { NerveDraw } from "./ship-nerves.js";
  * slow breath (`organ.ts`); and the floor of the panel is PLASM's big bubbles.
  */
 
-/** Out at the thumbs, the rail a little lower than shipped so the spine runs
- * through the body's middle — EMBEDDED's arrangement, kept. */
-export const CORNERS: PanelPlan["solo"] = [
-  { centre: 0.5, maxPitch: 0.58, share: 1 },
-  { centre: 0.5, maxPitch: 0.58, share: 1 },
-];
-export const CORNERS_TEST: PanelPlan["test"] = [
-  { centre: 0.24, maxPitch: 0.26, share: 0.48 },
-  { centre: 0.74, maxPitch: 0.26, share: 0.48 },
-];
-export const ROWS: Pick<PanelPlan, "lobeRow" | "cannonRow" | "shieldRow"> = {
-  cannonRow: [0.3, 0.22],
-  shieldRow: [0.3, 0.5],
-  lobeRow: [0.74, 0.8],
-};
+// The arrangement — buttons out at the thumbs, the rail a little lower than
+// before so the spine runs through the body's middle — is `PANEL_PLAN` in
+// `panel-plan.ts`, and only there. This file carried a second copy of those
+// numbers from the day it was taken in, imported by nothing, until 14
+// September 2026.
 
 const RIBS = ribs(7, 4);
 const ORGAN = { veins: 5, reach: 2.3, swell: 0.75, lobes: 4, depth: 0.07 };

@@ -45,7 +45,6 @@ const TINT: Record<PulseLane, MarkTint> = {
   pod: { hex: PALETTE.pod, rim: PALETTE.podRim, dark: PALETTE.podDark },
 };
 
-export const pulseLaneTint = (lane: PulseLane): MarkTint => TINT[lane];
 export const pulseLaneColor = (lane: PulseLane): string => TINT[lane].hex;
 export const pulseLaneRim = (lane: PulseLane): string => TINT[lane].rim;
 

@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-items — a second `PANEL_PLAN` and three dead exports gone
+
+The queue was empty, so the tree was scanned for exports referenced from no
+other file — a short script over every `.ts` under `packages`, `apps` and
+`tools`, tests included — and the five hits that were used nowhere at all
+were read in place. Three were plain dead code (`crawlerHead`,
+`wispNextIndex`, `pulseLaneTint`); one was a second copy of the panel's
+arrangement in `ship-gland.ts`, left from the day GLAND was taken in by hand
+and drawn by nothing; the fifth, `isMount`, turned out to have two
+hand-written twins and became its own queue item. Both were queued in this
+tree and the first was drained. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the scan, `git grep` for each name, `f1104684` for where the copy came from |
+| writing | 5 | four deletions and one comment |
+| looking | 0 | nothing drawn changed |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land` |
+
+The bottleneck was the reading: telling a dead export from one exported on
+purpose for its type takes a look at each, and there were three hundred of
+the second kind for five of the first.
+
 ## 2026-09-14 — queue-items — HANDOVER · HULL watched over one exchange
 
 The second unverified entry: whether the two lobes trading height on the hull

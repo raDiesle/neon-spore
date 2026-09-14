@@ -175,3 +175,16 @@ still what nearly every entry is.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
+
+## `isMount` is written out by hand in two files
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `packages/sim/src/gyre.ts`, `packages/sim/src/beat.ts`, `packages/sim/src/creature-rules.ts`, `packages/sim/test/copies-table.ts`
+
+`gyre.ts` exports `isMount` with a paragraph on why the kind is the whole of
+the test, and nothing calls it: `beat.ts` skips a mount with
+`c.kind === "mount"` and `creature-rules.ts` routes one to `gyreBecomes` the
+same way. Call `isMount` in both, and add the row to `COPIES` in
+`copies-table.ts` — owner `gyre.ts`, pattern `\bkind\s*===\s*"mount"` — the
+way `isMeteorKind` already has one, so the third copy fails
+`copies.test.ts` instead of review.
