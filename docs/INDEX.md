@@ -1612,6 +1612,7 @@ place — the generator keeps whatever is there.
 | `tools/queue/git.ts` | The queue's git: one runner, and the one piece of plumbing that writes a commit onto a branch nothing has… |
 | `tools/queue/stale.ts` | Whether an entry has gone stale: written before something landed on the files it names |
 | `tools/queue/where.ts` | Which kind of session is running the queue, and which items it may take |
+| `tools/queue/problems.ts` | What makes an entry one a cold session could act on, and the refusal when it is not |
 | `tools/frames/press-plan.ts` | when each `--press` is sent, and the tick that must run after it |
 | `tools/perf/renumber.ts` | a merged baseline put back on today's wave numbers |
 | `tools/perf/held.ts` | WHAT A MEASUREMENT PRESSES, AND ON WHICH WAVE |

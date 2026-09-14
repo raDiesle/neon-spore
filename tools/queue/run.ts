@@ -30,7 +30,8 @@ import {
   unclaimed,
 } from "./claim.js";
 import { clearTaken, removeItem } from "./edit.js";
-import { type How, type Item, match, order, parseItems, pick, problemsIn } from "./queue.js";
+import { problemsIn, refuseUnlessWhole } from "./problems.js";
+import { type How, type Item, match, order, parseItems, pick } from "./queue.js";
 import {
   claim,
   drop,
@@ -131,6 +132,7 @@ if (!command || command === "list") {
     const held = claimOn(item, known);
     if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
     refuseUnlessFits(item, kind);
+    refuseUnlessWhole(item);
     const branch = claim(item);
     console.log(
       `\n${promptFor(item, branch, staleLine(staleness(item, trunkView()), trunkRef()))}`,
@@ -142,6 +144,7 @@ if (!command || command === "list") {
   const held = claimOn(item, known);
   if (held) throw new Error(`${JSON.stringify(item.title)} is already taken — ${held}`);
   refuseUnlessFits(item, kind);
+  refuseUnlessWhole(item);
   console.log(`Ongoing: ${item.title} (${claim(item)})`);
   console.log("`bun run queue done` when it is out of the file; that drops the claim.");
 } else if (command === "release") {

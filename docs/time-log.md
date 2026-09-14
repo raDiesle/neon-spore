@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-items — `next` and `take` refuse the entry the format test would
+
+The fourth item this sitting queued for itself. `bun run queue` had listed an
+87-character title under *Entries a cold session could not act on* and then
+`take` claimed it without a word; the first `check:fast` after that failed on
+the test that parses `docs/queue.md`, and the entry could not be retitled —
+`done` and the `Taken:` line match by title. The per-entry checks are now
+`problemsWith`, in a `problems.ts` of their own because `queue.ts` went past
+250 lines carrying them, and `refuseUnlessWhole` says every problem before a
+branch is made; `problemsIn` keeps only the duplicate-title check, which is
+between two entries. Three cases beside the old ones. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | the lane's own finding |
+| writing | 5 | `problemsWith`, the refusal, three cases, the split |
+| looking | 0 | — |
+| friction | 5 | the shell tool eating backslashes out of a heredoc, twice; the file-size test |
+| landing | 5 | `check:fast` three times, `index`, the commit, `land` |
+
+The bottleneck was the shell tool: a heredoc with an escaped newline in it
+arrives with a real one, and the file has to be repaired with an editor.
+
 ## 2026-09-14 — queue-items — the port reader gets a test, and the test finds two holes
 
 The lane before this one made `bun run frames` print the build's stderr when

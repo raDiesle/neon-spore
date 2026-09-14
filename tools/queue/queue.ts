@@ -69,8 +69,7 @@ export const FOUND = /^-\s+\*\*Found:\*\*\s+(\d{4}-\d{2}-\d{2}\b.*)$/;
 export const TAKEN = /^-\s+\*\*Taken:\*\*\s+(\S.*)$/;
 export const FILES = /^-\s+\*\*Files:\*\*\s+(\S.*)$/;
 const ASKS = /^-\s+\*\*Asks:\*\*\s+(\S.*)$/;
-const WHERE = /^-\s+\*\*Where:\*\*\s+(\S.*)$/;
-const ISO_DATE = /^\d{4}-\d{2}-\d{2}/;
+export const WHERE = /^-\s+\*\*Where:\*\*\s+(\S.*)$/;
 
 /**
  * Both files carry their own instructions — in an HTML comment, and in a fenced
@@ -104,7 +103,7 @@ function stripProse(md: string, source: Source): string {
   return stripped;
 }
 
-function fieldOf(body: string, re: RegExp): string {
+export function fieldOf(body: string, re: RegExp): string {
   for (const line of body.split("\n")) {
     const m = re.exec(line.trim());
     if (m?.[1] !== undefined) return m[1];
@@ -164,45 +163,6 @@ export function parseItems(md: string, source: Source): Item[] {
   }
   flush();
   return items;
-}
-
-/**
- * What is wrong with an entry, in the words a session would need to fix it.
- * Empty means the entry can be handed to somebody who has read nothing else.
- */
-export function problemsIn(items: readonly Item[]): string[] {
-  const problems: string[] = [];
-  const seen = new Set<string>();
-  for (const item of items) {
-    const where = `${item.source}: "${item.title}"`;
-    if (seen.has(item.title)) problems.push(`${where} — a second entry has this title`);
-    seen.add(item.title);
-    if (item.title.length > 80) problems.push(`${where} — title over 80 characters`);
-    if (!ISO_DATE.test(item.found)) {
-      problems.push(`${where} — no "- **Found:** YYYY-MM-DD, <branch>" line`);
-    }
-    if (item.files.length === 0) {
-      problems.push(`${where} — no "- **Files:** <paths>" line`);
-    }
-    const prose = item.body
-      .split("\n")
-      .filter((l) => l.trim() && !l.trim().startsWith("- **"))
-      .join("");
-    if (!prose.trim()) problems.push(`${where} — nothing but fields; say what to change and why`);
-    // An `Asks:` line is a question somebody has to be able to answer in a
-    // sentence, which means the body has to have laid the choice out. Prose is
-    // already required above; what this adds is that the question is a
-    // question — an `Asks:` reading like a task is an entry whose owner will
-    // read it, agree, and still not know what was wanted from them.
-    if (item.asks && !item.asks.includes("?")) {
-      problems.push(`${where} — the Asks: line is not a question`);
-    }
-    const reserved = fieldOf(item.body, WHERE);
-    if (reserved && item.where === "anywhere") {
-      problems.push(`${where} — Where: is ${JSON.stringify(reserved)}; it is "cloud" or "local"`);
-    }
-  }
-  return problems;
 }
 
 /**

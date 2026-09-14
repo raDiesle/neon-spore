@@ -11,7 +11,8 @@ import {
   unclaimed,
 } from "../claim.js";
 import { removeItem } from "../edit.js";
-import { match, order, parseItems, pick, problemsIn } from "../queue.js";
+import { problemsIn, refuseUnlessWhole } from "../problems.js";
+import { match, order, parseItems, pick } from "../queue.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 
@@ -113,6 +114,26 @@ describe("problemsIn", () => {
 
   it("catches two entries with the same title, which `done` could not tell apart", () => {
     expect(problemsIn(parseItems(`${ENTRY}\n${ENTRY}`, "queue"))[0]).toContain("second entry");
+  });
+});
+
+describe("refuseUnlessWhole", () => {
+  it("hands out an entry that has no problem", () => {
+    expect(() => refuseUnlessWhole(parseItems(ENTRY, "queue")[0]!)).not.toThrow();
+  });
+
+  it("refuses an entry the format test would fail on, naming what is wrong", () => {
+    // An 87-character title was claimed on 14 September 2026 and could not be
+    // retitled afterwards: `done` and the `Taken:` line match by title.
+    const md = ENTRY.replace(/^## .*$/m, `## ${"a".repeat(87)}`);
+    expect(() => refuseUnlessWhole(parseItems(md, "queue")[0]!)).toThrow(
+      /fix it first:\n {2}- .*title over 80 characters/,
+    );
+  });
+
+  it("names every problem, not only the first", () => {
+    const md = ENTRY.replace(/- \*\*Found:\*\*.*\n/, "").replace(/- \*\*Files:\*\*.*\n/, "");
+    expect(() => refuseUnlessWhole(parseItems(md, "queue")[0]!)).toThrow(/Found[\s\S]*Files/);
   });
 });
 

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { parseItems, problemsIn } from "../queue.js";
+import { problemsIn } from "../problems.js";
+import { parseItems } from "../queue.js";
 import { fits, refuseUnlessFits, reservedTag, sessionKind } from "../where.js";
 
 const ANYONES = `## Split the wave editor's cell panel

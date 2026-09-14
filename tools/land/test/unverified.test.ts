@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { parseItems, problemsIn } from "../../queue/queue.js";
+import { problemsIn } from "../../queue/problems.js";
+import { parseItems } from "../../queue/queue.js";
 import {
   appendEntry,
   filesLine,
