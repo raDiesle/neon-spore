@@ -176,22 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `veer-clown-shape.ts` is at the limit: the figure is not the shape
-
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-veer-clown-shape-ts-is-at-the-limit-the-figure-i
-- **Files:** `packages/content/src/veer-clown-shape.ts`, `packages/content/src/index-shapes.ts`
-
-The file is 250 lines: the four `Clown*` interfaces and the `VEER_CLOWN`
-record are the shape; `clownFigure` and `clownLoops` (lines 167 to 250) are
-the geometry that places it at a centre and a size. Move the two functions
-into `veer-clown-figure.ts`, importing the interfaces back, and add the new
-file's exports to the barrel in `index-shapes.ts` beside the existing
-`veer-clown-shape.js` block — `render/veer-clown.ts`, `render/veer-look.ts`
-and `shape-sheet/veer-subject.ts` import through `@neon-spore/content` and
-do not move. Proof: `bun run check:fast`; the shape sheet's veer subject is
-drawn in `tools/shape-sheet/test`.
-
 ## `ready-page.ts` is at the limit: the words on the page are a second subject
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4

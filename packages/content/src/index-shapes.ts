@@ -81,13 +81,14 @@ export { type StuddedOpts, studdedContour } from "./studded.js";
 export type { Pin } from "./surface.js";
 export { type Facet, facet, LAT_LIMIT, limbX, pin, surfaceDim, surfaceLit } from "./surface.js";
 // THE VEER's rider, as figures and as loops — one description of the clown.
+// The shape is one file and the arithmetic that places it on a rock is
+// another; both come through here, so a caller sees one clown.
+export { clownFigure, clownLoops } from "./veer-clown-figure.js";
 export {
   type ClownArc,
   type ClownDisc,
   type ClownFigure,
   type ClownSilhouette,
-  clownFigure,
-  clownLoops,
   VEER_CLOWN,
 } from "./veer-clown-shape.js";
 export {

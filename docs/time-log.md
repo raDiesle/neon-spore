@@ -4275,3 +4275,25 @@ About 10 min.
 Bottleneck: writing — `keyAxis` reads `KEY` and `BODY`, so leaving `KEY` in
 `light.ts` as the entry's wording suggests would have made the two files
 import each other; a re-export keeps the name where the skins look for it.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `veer-clown-figure.ts`: placing the rider is not describing it
+
+Queue item, the fifth of eleven. `veer-clown-shape.ts` held both the clown's
+*shape* — four interfaces and one record of multipliers, every number a
+fraction of a head or a rock — and the arithmetic that puts it on a rock of a
+given centre and radius. The two are argued over by different people: the shape
+by an eye, the placing by a caller. `clownFigure` and `clownLoops` are their
+own file and the barrel re-exports both, so `render/veer-clown.ts`,
+`render/veer-look.ts` and the shape sheet's subject import exactly what they
+did. 250 lines becomes 156 and 108. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, the file's tail, the barrel block, who imports the two names |
+| writing | 5 | the move, the new file's header, the barrel's second export line |
+| looking | 0 | nothing visible moved — a file split |
+| friction | 0 | none |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: reading — the cut is clean, and the work was checking that nothing
+outside `packages/content` reaches past the barrel for either name.

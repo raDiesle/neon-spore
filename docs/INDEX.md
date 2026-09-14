@@ -459,6 +459,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-7.ts` | Act seven, and it opens on the first body in this game that cannot be answered from the column it is standing in |
 | `packages/content/src/magnet-shape.ts` | THE MAGNET's contour, as numbers rather than as drawing |
 | `packages/content/src/veer-clown-shape.ts` | **THE VEER's rider, as geometry**: where every disc of the clown sits on the rock, and the loops it comes to |
+| `packages/content/src/veer-clown-figure.ts` | THE VEER's rider **placed**: where every disc of the clown falls on a rock of a given centre and radius |
 | `packages/content/src/scenes/the-claw.ts` | THE CLAW's rehearsal: one of you has every button and none of the map |
 | `packages/content/src/control-sets-waves.ts` | The three questions a **wave** asks about a panel |
 | `packages/content/src/scene-step-types.ts` | a page of a rehearsal, and the thing its words point at |
