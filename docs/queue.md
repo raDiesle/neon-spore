@@ -175,3 +175,149 @@ still what nearly every entry is.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
+
+## `versus-seat.ts` is at the limit: the probe's clock is a second subject
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `tools/director/src/versus-seat.ts`, `tools/director/test/versus-seat.test.ts`
+
+The file is 250 lines: sixty of header on why the two seats are compared by
+difference, then the probe's clock — `SAMPLE_EVERY`, `SAMPLES`,
+`MAX_SAMPLES`, `ProbeSchedule` and `probeSchedule`, lines 71 to 124 — and only
+then the seat decision itself (`diffSequence`, `SeatPlan`, `seatPlan`,
+`seats`). Move the clock into `versus-probe.ts` with its doc comment;
+`versus-seat.ts` imports `probeSchedule` from there and the test re-points its
+import. `PROBE_PHONE` stays, `diffSequence` is what reads it. Proof:
+`bun run check:fast`, `versus-seat.test.ts` among it.
+
+## `versus-pair.ts` is at the limit: `advance` is the step, not the pair
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `tools/director/src/versus-pair.ts`, `tools/director/src/versus-seat.ts`, `tools/director/test/versus-cadence.test.ts`, `tools/director/test/versus-crop-follow.test.ts`, `tools/director/test/versus-hand.test.ts`, `tools/director/test/versus-loop.test.ts`
+
+The file is 250 lines and `advance` — one tick of a pose's world, rebuilding
+on `needWave` unless the pose has a cadence — is imported by four tests and by
+`versus-seat.ts`, none of which want a `Pair`. Move `StepResult` and `advance`
+(lines 61 to 82, with the doc that says why a rebuilt world's own events are
+kept) into `versus-advance.ts`; `versus-pair.ts` and `versus-seat.ts` import
+it from there and the four tests re-point. Proof: `bun run check:fast`.
+
+## `skins/pore.ts` is at the limit: the Poisson scatter is not a pore
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `tools/director/src/skins/pore.ts`, `tools/director/src/skins/sucker.ts`
+
+The file is 250 lines and opens with `ScatterPoint`, `ScatterOptions` and
+`poissonScatter` (lines 27 to 87), a blue-noise scatter inside a contour that
+`sucker.ts` already imports for its own field. Move the three into
+`scatter.ts`; `pore.ts` and `sucker.ts` import from there. The pore field,
+hotspots, bump paint and the two `PORE` skins stay. Proof: `bun run check:fast`.
+
+## `skins/light.ts` is at the limit: the axis is one subject, the passes another
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `tools/director/src/skins/light.ts`
+
+The file is 249 lines. Eleven skins import the passes — `terminatorPass`,
+`contactPass`, `specularPass`, `rimLightPass` — from it, so the passes stay
+put. What moves is what they are built on: the `U_*` stops along the key axis
+(`BODY`, `FOCUS`, `SPAN` and the four derived from them), the six colour
+names, `Stop`, `addStops`, `keyAxis`, `bodyFill`, `bodyStroke` and
+`insideBody`, lines 34 to 142, into `light-axis.ts`, exported; `light.ts`
+imports what the passes and `LIGHT` use. `KEY` stays exported from
+`light.ts`, where the skins find it. Proof: `bun run check:fast`.
+
+## `veer-clown-shape.ts` is at the limit: the figure is not the shape
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `packages/content/src/veer-clown-shape.ts`, `packages/content/src/index-shapes.ts`
+
+The file is 250 lines: the four `Clown*` interfaces and the `VEER_CLOWN`
+record are the shape; `clownFigure` and `clownLoops` (lines 167 to 250) are
+the geometry that places it at a centre and a size. Move the two functions
+into `veer-clown-figure.ts`, importing the interfaces back, and add the new
+file's exports to the barrel in `index-shapes.ts` beside the existing
+`veer-clown-shape.js` block — `render/veer-clown.ts`, `render/veer-look.ts`
+and `shape-sheet/veer-subject.ts` import through `@neon-spore/content` and
+do not move. Proof: `bun run check:fast`; the shape sheet's veer subject is
+drawn in `tools/shape-sheet/test`.
+
+## `ready-page.ts` is at the limit: the words on the page are a second subject
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `packages/render/src/ready-page.ts`
+
+The file is 249 lines: the page's measure (`readyCircles`, the `*Y` helpers)
+and `drawReadyPage` are one subject; `label`, `ask`, `WaitingState` and
+`waiting` (lines 186 to 249) — the sentence over the circles and the loud
+one-line WAITING — are the other. Move the four into `ready-words.ts` with
+the `ASK_SUB` and `LABEL_GAP` constants they read, exported;
+`drawReadyPage` imports `ask`, `label` and `waiting` back. Proof:
+`bun run check:fast` — `frame.test.ts` and `guide-nav.test.ts` draw the page.
+
+## `sound-page.ts` is at the limit: a row is not the page
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `tools/director/src/sound-page.ts`
+
+The file is 249 lines. `line`, `round`, `recipe` and `row` (lines 35 to 114)
+build one sound's row — the recipe as its numbers, the PLAY button, the
+status — and `renderPage`, `renderAll`, `bindSoundPage` and `buildTabs` are
+the page around them. Move the four into `sound-row.ts`, `row` exported and
+taking the `Engine` it plays through as an argument rather than reading the
+module-level one; `sound-page.ts` imports `row`. Proof: `bun run check:fast`;
+`tools/director/test` holds the page's tests.
+
+## `scene-art.ts` is at the limit: the overlay is drawn beside the placing
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `tools/director/src/scene-art.ts`, `tools/director/src/scene-panel.ts`
+
+The file is 249 lines: `Placed`, `bodyScale`, `drawnHalfHeight` and
+`placeBodies` decide where a scene's bodies stand; `drawOverlay` and `label`
+(lines 180 to 248) draw one frame of them with the own-motion applied as
+`render/creatures.ts` applies it. Move the two into `scene-overlay.ts`,
+importing `Placed` and `TINT` (export it) back; `scene-panel.ts` imports
+`drawOverlay` from there, and the `drawMarks` re-export on the last line goes
+with it or stays — either way `scene-panel.ts` is the one importer. Proof:
+`bun run check:fast`, `scene-label.test.ts` among it.
+
+## `gyre.ts` is at the limit: the wheel's drawing is a second subject
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `packages/render/src/gyre.ts`
+
+The file is 249 lines: `gyres`, `gyreRadiusPx` and `drawGyres` find the
+wheels and loop over them; `drawWheel`, `membrane` and `band` (lines 116 to
+249) with the `RIM_SPLIT`, `MEMBRANE`, `RIPPLE`, `MEMBRANE_POINTS`,
+`SPOKE_BOW` and `CORE` constants above them draw one. Move the drawing into
+`gyre-wheel.ts`, `drawWheel` exported; `drawGyres` imports it. Proof:
+`bun run check:fast` — `frame.test.ts` draws THE GYRE — and the op-log hash
+of `runFrames(peakWorld("theGyre"), role, 480)` per seat, unchanged before
+and after (`tools/probe`).
+
+## `perf/compare.ts` is at the limit: the run's shape is not the comparison
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `tools/perf/compare.ts`
+
+The file is 249 lines and `WaveCost`, `Run` and `WaveDelta` (lines 32 to 168)
+are two thirds of it — the record a run writes and the row a comparison hands
+back — while `compareRuns` and `noVerdict` are the comparison. Move the three
+interfaces into `run-types.ts` and re-export them from `compare.ts`
+(`export type { Run, WaveCost, WaveDelta } from "./run-types.js";`) so the ten
+files that import them from `compare.js` do not move. Proof:
+`bun run check:fast`, `tools/perf/test` among it.
+
+## `skins/vein-pulse.ts` is at the limit: growing the tree is not lighting it
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `tools/director/src/skins/vein-pulse.ts`
+
+The file is 250 lines: `Segment`, `SURFACES`, `grown`, `strand` and
+`proudGroup` (lines 57 to 172, less `Lit`) grow the filaments and stroke them;
+`Layer`, `UNDER`, `PROUD`, `layer`, `pulse` and the `VEIN_PULSE` skin light
+them beat by beat. Move the growing into `vein-pulse-tree.ts`, exported;
+`vein-pulse.ts` imports `grown`, `strand` and `proudGroup` and keeps `Lit`,
+which only `layer` and `pulse` read. Proof: `bun run check:fast`;
+`tools/director/test/skin-still.test.ts` mounts every skin.

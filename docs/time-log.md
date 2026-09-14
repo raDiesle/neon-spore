@@ -4170,3 +4170,26 @@ move. `menu-entries.ts` imports the shape from the new file. 250 → 219 and 58.
 Bottleneck: the slice script's line assertions were checked *after* the first
 file was written, so a one-line miscount left the tree half cut and the file
 had to be restored from git before the second run.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — Eleven files at the limit, queued for a cloud session
+
+The queue was empty and the owner asked for what a cloud session could take
+over. Every source file at 249 or 250 lines was outlined — its top-level
+declarations and its importers — and the eleven with a seam a cold session
+can cut without a decision were written up, each naming the block by its
+lines, the sibling it goes to, which importers move and which stay behind a
+re-export, and the test that proves it. `stage.ts`, `contour-ruler.ts`,
+`segmented.ts` and `land/run.ts` are one function each and were left alone.
+
+| Where | Minutes |
+|---|---|
+| reading | 15 |
+| writing | 10 |
+| looking | 0 |
+| friction | 5 |
+| landing | 5 |
+
+Bottleneck: the eleven entries would not go through a bash heredoc — the
+shell stopped on an apostrophe inside it — and were written to a scratch file
+and appended from there; and `Files:` may only name files already on `main`,
+or the queue marks the entry stale, so each new sibling is named in the body.
