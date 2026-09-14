@@ -176,21 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `skins/light.ts` is at the limit: the axis is one subject, the passes another
-
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-skins-light-ts-is-at-the-limit-the-axis-is-one-s
-- **Files:** `tools/director/src/skins/light.ts`
-
-The file is 249 lines. Eleven skins import the passes — `terminatorPass`,
-`contactPass`, `specularPass`, `rimLightPass` — from it, so the passes stay
-put. What moves is what they are built on: the `U_*` stops along the key axis
-(`BODY`, `FOCUS`, `SPAN` and the four derived from them), the six colour
-names, `Stop`, `addStops`, `keyAxis`, `bodyFill`, `bodyStroke` and
-`insideBody`, lines 34 to 142, into `light-axis.ts`, exported; `light.ts`
-imports what the passes and `LIGHT` use. `KEY` stays exported from
-`light.ts`, where the skins find it. Proof: `bun run check:fast`.
-
 ## `veer-clown-shape.ts` is at the limit: the figure is not the shape
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4

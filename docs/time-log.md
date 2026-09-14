@@ -4253,3 +4253,25 @@ and 73. About 10 min.
 
 Bottleneck: reading — `BumpPaint` sits between the two halves of the cut and
 belongs to the skin, so the move is not one contiguous span.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `skins/light-axis.ts`: the axis out of the passes
+
+Queue item, the fourth of eleven. `light.ts`'s own header names the seam —
+*one direction, four constructs, one line that hangs them on a body*: the four
+constructs are what eleven skins import and they stay, and everything they are
+built out of moves. `KEY` is defined with the axis and re-exported from
+`light.ts`, because fourteen skins import that name from there and a definition
+left behind would have been a cycle. 249 lines becomes 156 and 135.
+About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `light.ts` whole, which names the four passes actually use, who imports `KEY` |
+| writing | 5 | the move, the new file's header, nineteen exports, one re-export |
+| looking | 0 | nothing visible moved — a file split |
+| friction | 0 | none |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: writing — `keyAxis` reads `KEY` and `BODY`, so leaving `KEY` in
+`light.ts` as the entry's wording suggests would have made the two files
+import each other; a re-export keeps the name where the skins look for it.

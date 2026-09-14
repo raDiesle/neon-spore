@@ -1399,6 +1399,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/skins/core.ts` | MEMBRANE with a value gradient under it, falling outward to the card's own dark rather than to the rim colour |
 | `tools/director/src/skins/crater.ts` | TURN's machinery over a meteorite: a pitted landscape, rims catching the key light and floors in shadow |
 | `tools/director/src/skins/light.ts` | The key light: one direction, four constructs, one line that hangs them on a body |
+| `tools/director/src/skins/light-axis.ts` | **The key light's axis**: where the light is, the stops along it |
 | `tools/director/src/skins/line.ts` | The outline, and nothing else |
 | `tools/director/src/skins/membrane.ts` | A dark fill and the game's own layered aura |
 | `tools/director/src/skins/mounted.ts` | The projection every turning skin shares, in one place |
