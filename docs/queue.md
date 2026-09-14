@@ -275,6 +275,7 @@ sending one PNG of the shared ready step.
 ## A tutorial says it is one: the plate is loud, the field is plainly not live
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Taken:** 2026-09-14, claude/queue-a-tutorial-says-it-is-one-the-plate-is-loud-the
 - **Files:** `packages/render/src/guide-switch.ts`, `packages/render/src/guide-plate.ts`, `packages/render/src/guide-play.ts`, `packages/render/src/guide-nav.ts`, `apps/game/src/briefing.ts`, `apps/game/src/field-input.ts`, `packages/render/test/guide-plate-room.test.ts`, `packages/render/test/guide-nav.test.ts`, `packages/render/test/frame.test.ts`, `.claude/skills/new-tutorial/SKILL.md`
 - **Where:** local
 
