@@ -4,7 +4,7 @@ import type { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { RockImpactFx } from "./rock-impact.js";
-import { rockRadius } from "./torch.js";
+import { rockRadius } from "./rock-size.js";
 
 /**
  * What a breach looks like — the one event whose answer is not a burst at a

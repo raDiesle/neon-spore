@@ -3,7 +3,8 @@ import { halo } from "./glow.js";
 import { type Layout, showsQueenHint, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawDropHint } from "./queen-drop.js";
-import { drawTorchRock, torchRadius, torchRotation } from "./torch.js";
+import { torchRadius, torchRotation } from "./rock-size.js";
+import { drawTorchRock } from "./torch.js";
 
 /** Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch. */
 const EGG_FLOOR = 0.02;

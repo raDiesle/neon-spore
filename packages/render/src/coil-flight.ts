@@ -1,7 +1,8 @@
 import { type Creature, type SimEvent, spanOf } from "@neon-spore/sim";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { drawTorchTail, rockRadius } from "./torch.js";
+import { rockRadius } from "./rock-size.js";
+import { drawTorchTail } from "./torch.js";
 
 /**
  * The rock out of THE COIL's dome, thrown from the dome's tile to the ship.

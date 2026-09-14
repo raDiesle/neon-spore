@@ -5,7 +5,7 @@ import { drawBouncedStone } from "./deflect-stone.js";
 import { halo } from "./glow.js";
 import { drawRockBody, wearsRockLook } from "./meteor.js";
 import { PALETTE } from "./palette.js";
-import { rockTileRadius } from "./torch.js";
+import { rockTileRadius } from "./rock-size.js";
 
 interface Particle {
   x: number;

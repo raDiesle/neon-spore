@@ -6,7 +6,7 @@ import { halo } from "./glow.js";
 import { sinHash } from "./hash.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { rockRadius } from "./torch.js";
+import { rockRadius } from "./rock-size.js";
 
 /**
  * THE CAROM's crust: a meteor with a window cut in it, and the streak it drags

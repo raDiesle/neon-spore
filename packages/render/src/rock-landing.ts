@@ -1,7 +1,7 @@
 import { type Creature, isWardable, spanOf } from "@neon-spore/sim";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCY } from "./layout.js";
-import { rockRadius } from "./torch.js";
+import { rockRadius } from "./rock-size.js";
 
 /**
  * **Where a rock's last glide ends: half-sunk in the ship's skin, not on the

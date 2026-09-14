@@ -4,8 +4,8 @@ import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { keyAxis, type MeteorLook } from "./meteor-look.js";
 import { meteorLookFor } from "./meteor-looks.js";
+import { rockRadius } from "./rock-size.js";
 import { WHOLE, type Window } from "./rock-window.js";
-import { rockRadius } from "./torch.js";
 
 /**
  * The rock. Angular facets rather than a contour, because it does not live —

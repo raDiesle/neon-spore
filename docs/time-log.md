@@ -4026,3 +4026,23 @@ identical before and after.
 | landing | 5 |
 
 Bottleneck: landing — a render change reaches every frame test, and `check:fast` runs the lot.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `torch.ts` is at the limit: a rock's size is a second subject
+
+The torch's picture opened with four measurements — how big a rock is and
+which way it faces — that eleven of its nineteen importers took without
+wanting a drawing. They moved to `rock-size.ts`, and seventeen import lines
+were re-pointed by a script that split each into a size half and a drawing
+half; the package index exports `torchRadius` from the new file. Proof was
+the canvas op log of five rock waves, 480 frames from each seat, hashed
+identical before and after.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: landing — the render suite again; the cut itself was one slice and one regex.

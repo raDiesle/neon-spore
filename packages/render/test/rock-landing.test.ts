@@ -3,7 +3,7 @@ import { type Creature, DEFAULT_CONFIG, hullRow } from "@neon-spore/sim";
 import { computeLayout, tileCY } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { rockLandingY } from "../src/rock-landing.js";
-import { rockRadius } from "../src/torch.js";
+import { rockRadius } from "../src/rock-size.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**

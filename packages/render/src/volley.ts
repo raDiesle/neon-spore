@@ -10,7 +10,7 @@ import { halo } from "./glow.js";
 import { sinHash } from "./hash.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { rockRadius } from "./torch.js";
+import { rockRadius } from "./rock-size.js";
 import { VOLLEY_LOOK, type VolleyShell } from "./volley-look.js";
 
 /**

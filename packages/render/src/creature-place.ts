@@ -11,7 +11,7 @@ import {
 import { beatboxBodyMul } from "./beatbox.js";
 import { depthScale, drawnCol, drawnRow } from "./depth.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { rockRadius } from "./torch.js";
+import { rockRadius } from "./rock-size.js";
 import { WELL_BODY, wellShown } from "./well.js";
 import { wellBodyAt } from "./well-body.js";
 

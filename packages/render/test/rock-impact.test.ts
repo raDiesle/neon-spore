@@ -4,7 +4,7 @@ import { clearBakedCaches } from "../src/baked.js";
 import { computeLayout, tileCY } from "../src/layout.js";
 import { drawRockBody } from "../src/meteor.js";
 import { RockImpactFx } from "../src/rock-impact.js";
-import { rockRadius } from "../src/torch.js";
+import { rockRadius } from "../src/rock-size.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**

@@ -113,6 +113,10 @@ export { RIND_LOOK, type RindLook, type RindShed, rindWears } from "./rind-look.
 export { pod } from "./rind-pod.js";
 export { drawShed } from "./rind-skin.js";
 export { slough } from "./rind-slough.js";
+// The torch's own rock, so a tool drafting what *holds* one can draw the real
+// thing rather than a stand-in (`tools/director/src/holders`). Drawing only —
+// it takes a radius and a time and reads no world.
+export { torchRadius } from "./rock-size.js";
 export { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
 export { P1_SKIN, P2_SKIN, type SeatSkin, seatSkin } from "./seat-skin.js";
 export { type Fracture, type Shard, shatter } from "./shatter.js";
@@ -135,10 +139,7 @@ export {
   type TetherLookName,
   useTetherLook,
 } from "./tether-looks.js";
-// The torch's own rock, so a tool drafting what *holds* one can draw the real
-// thing rather than a stand-in (`tools/director/src/holders`). Drawing only —
-// it takes a radius and a time and reads no world.
-export { drawTorchRock, torchRadius } from "./torch.js";
+export { drawTorchRock } from "./torch.js";
 export { type Field, type Hold, type Touch, touchDown, touchMove, touchUp } from "./touch.js";
 export {
   cannonGrab,

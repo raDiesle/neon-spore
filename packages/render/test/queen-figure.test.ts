@@ -3,7 +3,7 @@ import { crystalRadiusMul, METEOR, QUEEN_SHELL } from "@neon-spore/content";
 import { DEFAULT_CONFIG, QUEEN_FLANK_TILES } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
 import { QUEEN_FIGURE } from "../src/queen.js";
-import { torchRadius } from "../src/torch.js";
+import { torchRadius } from "../src/rock-size.js";
 
 /**
  * The queen's figure is not decoration: the whole of her rock mechanic rests

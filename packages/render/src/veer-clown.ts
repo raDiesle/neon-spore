@@ -2,7 +2,7 @@ import { clownFigure, VEER_CLOWN } from "@neon-spore/content";
 import { type Creature, type SimConfig, spanOf, veerRowsToChange } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import type { Layout } from "./layout.js";
-import { rockRadius } from "./torch.js";
+import { rockRadius } from "./rock-size.js";
 import { VEER_LOOK } from "./veer-look.js";
 
 /**

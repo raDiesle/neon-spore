@@ -4,7 +4,7 @@ import { type Crater, type CraterShape, centreY, cutY } from "./crater-geom.js";
 import { CRATER_LOOK } from "./crater-look.js";
 import type { HullSkin } from "./hull.js";
 import { type Layout, tileCX } from "./layout.js";
-import { rockRadius, torchRotation } from "./torch.js";
+import { rockRadius, torchRotation } from "./rock-size.js";
 
 /**
  * A rock's own mark: not the whole rock's silhouette, only the sliver of it

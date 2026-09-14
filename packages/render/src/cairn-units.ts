@@ -2,7 +2,7 @@ import { CAIRN_BITE_ACROSS, CAIRN_BITE_UP, CAIRN_COURSES } from "@neon-spore/con
 import { CAIRN_COLS, type Creature } from "@neon-spore/sim";
 import { signedHash } from "./hash.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
-import { rockRadius } from "./torch.js";
+import { rockRadius } from "./rock-size.js";
 
 /**
  * Where THE CAIRN's stones stand, and the outline they make together.

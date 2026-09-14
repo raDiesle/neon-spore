@@ -3,8 +3,8 @@ import { creatureCenter } from "./creature-place.js";
 import { drawDartArrow } from "./dart.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { rockRadius } from "./rock-size.js";
 import { drawTargetLock } from "./target-lock.js";
-import { rockRadius } from "./torch.js";
 
 /**
  * THE VEER's two half-pictures: the arrow over the rider on player 1's screen,

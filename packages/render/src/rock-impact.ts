@@ -12,7 +12,8 @@ import {
   travelled,
 } from "./rock-drift.js";
 import type { Impact } from "./rock-impact-state.js";
-import { drawTorchRock, drawTorchTail, rockRadius, torchRotation } from "./torch.js";
+import { rockRadius, torchRotation } from "./rock-size.js";
+import { drawTorchRock, drawTorchTail } from "./torch.js";
 
 /**
  * **The last step of a rock's fall, and what becomes of the rock after it.**

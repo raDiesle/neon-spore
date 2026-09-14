@@ -770,6 +770,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/rock-wake-fire.ts` | What burns behind a rock: `tongue` and `flame`, the two fire shapes the three meteor looks are built from |
 | `packages/render/src/rock-wake.ts` | What a burning rock leaves behind it — puffs of smoke, chips, threads and the phase that keeps them on the rock — shared by the three meteor looks |
 | `packages/render/src/rock-window.ts` | THE PART OF THE SCREEN A ROCK'S FIRE CAN REACH |
+| `packages/render/src/rock-size.ts` | how big a rock is on screen and which way it faces — `rockRadius`, `torchRadius`, `torchRotation` — four numbers and nothing drawn |
 | `packages/render/src/ship-marks.ts` | The marks round the cup: what letting go of this swelling would do |
 | `packages/render/src/touch-hand.ts` | What a hand on the ship should be *shown* as — the cup that says which swelling is under the finger |
 | `packages/render/src/guide-prose.ts` | A guide with no rehearsal, read a page at a time on the game's own screen |
