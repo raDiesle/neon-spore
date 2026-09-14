@@ -176,20 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `perf/compare.ts` is at the limit: the run's shape is not the comparison
-
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-perf-compare-ts-is-at-the-limit-the-runs-shape-i
-- **Files:** `tools/perf/compare.ts`
-
-The file is 249 lines and `WaveCost`, `Run` and `WaveDelta` (lines 32 to 168)
-are two thirds of it — the record a run writes and the row a comparison hands
-back — while `compareRuns` and `noVerdict` are the comparison. Move the three
-interfaces into `run-types.ts` and re-export them from `compare.ts`
-(`export type { Run, WaveCost, WaveDelta } from "./run-types.js";`) so the ten
-files that import them from `compare.js` do not move. Proof:
-`bun run check:fast`, `tools/perf/test` among it.
-
 ## `skins/vein-pulse.ts` is at the limit: growing the tree is not lighting it
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4

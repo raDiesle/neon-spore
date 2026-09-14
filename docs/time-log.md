@@ -4388,3 +4388,22 @@ Proved unchanged the way the entry asked: the op log of
 
 Bottleneck: friction and looking together — a render move has to be proved
 byte-identical, and the import cleanup after it cannot be automated here.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `perf/run-types.ts`: a run's record, apart from the verdict
+
+Queue item, the tenth of eleven. Two thirds of `compare.ts` was the shape of a
+run rather than the comparison of two — `WaveCost`, `Run`, `WaveDelta`, each
+field carrying the argument for its own existence. They are `run-types.ts` now
+and `compare.ts` re-exports all three, so the ten files that ask it for them
+ask it still. 249 lines becomes 146 and 125. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, the three interfaces and where the comparison's own doc begins |
+| writing | 5 | the move, the new file's header, the re-export line |
+| looking | 0 | nothing visible moved — a file split |
+| friction | 0 | none; the first of these eleven that stranded no import |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: reading — the cut is between an interface and a doc paragraph that
+belongs to the function under it, which is one line further down than it looks.
