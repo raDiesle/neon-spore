@@ -208,6 +208,7 @@ what the rest of this file holds.
 ## A cloud session that adds a wave cannot make the baseline test pass
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-14, claude/queue-a-cloud-session-that-adds-a-wave-cannot-make-the
 - **Files:** `tools/perf/test/baseline.test.ts`, `tools/perf/unmeasured.ts`, `tools/land/run.ts`, `docs/performance.md`, `CLAUDE.md`
 - **Asks:** should `bun run land` write the unmeasured rows itself, or should the baseline test stop requiring a row for a wave it has never seen?
 
