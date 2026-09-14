@@ -4,6 +4,7 @@ import type { DemoRow } from "./demo-menu.js";
 import { buildControls } from "./menu-controls.js";
 import { buildDemos, buildHowTo, buildWaves } from "./menu-pages.js";
 import { backButton, el, type MenuPage, sporeSvg } from "./menu-parts.js";
+import { entryRows, type MenuEntry } from "./menu-rows.js";
 import { buildSeats } from "./menu-seats.js";
 import { buildSettings, type SettingsHooks } from "./menu-settings.js";
 import { whoLine } from "./menu-who.js";
@@ -28,15 +29,9 @@ import { whoLine } from "./menu-who.js";
  * it is not a way into the game, and the one person who wants it knows where it
  * is. A fourth press does nothing new, because the count is cleared the moment
  * the page opens.
+ *
+ * The rows an entry list is drawn as are `menu-rows.ts`.
  */
-
-export interface MenuEntry {
-  /** How `setEntry` names it afterwards. Stable, and not the label. */
-  key: string;
-  label: string;
-  desc: string;
-  run: () => void;
-}
 
 export interface MenuHandlers {
   entries: MenuEntry[];
@@ -136,35 +131,15 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     scroll.scrollTop = 0;
   };
 
-  // One map over all three lists: a key is a key wherever its row is drawn, so
-  // `setEntry("continue", …)` goes on reaching CONTINUE after it moved behind
-  // PLAY. No key is on two lists, and `menu-entries.ts` is where that is kept
-  // true — the rig's first row is `single` because `play` is the front page's.
-  const entries = new Map<string, { root: HTMLElement; label: HTMLElement; desc: HTMLElement }>();
-  const drawEntries = (list: MenuEntry[], page: HTMLElement): void => {
-    list.forEach((entry, i) => {
-      const button = el("button", "entry");
-      button.type = "button";
-      button.style.setProperty("--i", String(i));
-      const mark = el("span", "mark", "▸");
-      // Decoration. Without this it is read out in front of the entry's name.
-      mark.ariaHidden = "true";
-      const label = el("span", "label", entry.label);
-      const desc = el("span", "desc", entry.desc);
-      button.append(mark, label, desc);
-      button.addEventListener("click", entry.run);
-      page.append(button);
-      entries.set(entry.key, { root: button, label, desc });
-    });
-  };
-  drawEntries(h.entries, rootPage);
+  const rows = entryRows();
+  rows.draw(h.entries, rootPage);
 
   playPage.append(
     backButton((p) => show(p)),
     el("h2", undefined, "PLAY"),
     whoLine(),
   );
-  drawEntries(h.play, playPage);
+  rows.draw(h.play, playPage);
 
   // Back to PLAY and not to the front page: a page reached one floor down must
   // not put the reader two floors up (`menu-parts.ts`).
@@ -172,7 +147,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     backButton((p) => show(p), "play"),
     el("h2", undefined, "DIFFICULTY"),
   );
-  drawEntries(h.levels, levelPage);
+  rows.draw(h.levels, levelPage);
   levelPage.append(
     el(
       "p",
@@ -185,7 +160,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     backButton((p) => show(p)),
     el("h2", undefined, "TESTING"),
   );
-  drawEntries(h.testing, testingPage);
+  rows.draw(h.testing, testingPage);
   testingPage.append(
     el(
       "p",
@@ -233,14 +208,8 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     paintSeat,
     lockSeats,
     paintNames,
-    setEntry: (key, next) => {
-      const found = entries.get(key);
-      if (!found) return;
-      if (next.label !== undefined) found.label.textContent = next.label;
-      if (next.desc !== undefined) found.desc.textContent = next.desc;
-      if (next.on !== undefined) found.root.classList.toggle("off", !next.on);
-    },
-    entryRoot: (key) => entries.get(key)?.root,
+    setEntry: rows.set,
+    entryRoot: rows.root,
     setProgress: (line) => {
       progress.textContent = line;
       progress.hidden = line === "";

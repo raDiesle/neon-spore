@@ -1,6 +1,6 @@
 import { WAVES } from "@neon-spore/content";
 import type { MenuPage } from "./menu-parts.js";
-import type { MenuEntry } from "./menu-view.js";
+import type { MenuEntry } from "./menu-rows.js";
 
 /**
  * The rows on the menu's three lists of entries, in the order they are read.

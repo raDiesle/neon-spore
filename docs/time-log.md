@@ -4150,3 +4150,23 @@ new file now; the first still reads `menu.ts` for CONTINUE.
 | landing | 5 |
 
 Bottleneck: friction — two tests grep the source of `menu.ts` and had to be found by running them, not by the typecheck.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `menu-view.ts` is at the limit: the rows are a second subject
+
+The `MenuEntry` shape, the one map over all three lists, `drawEntries` and the
+`setEntry`/`entryRoot` pair went into `menu-rows.ts` as `entryRows()`;
+`menu-view.ts` draws each page through `rows.draw` and hands `rows.set` and
+`rows.root` out on `MenuDom` unchanged, so `menu.ts` and the tests did not
+move. `menu-entries.ts` imports the shape from the new file. 250 → 219 and 58.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 5 |
+| landing | 5 |
+
+Bottleneck: the slice script's line assertions were checked *after* the first
+file was written, so a one-line miscount left the tree half cut and the file
+had to be restored from git before the second run.
