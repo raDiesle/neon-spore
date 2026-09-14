@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 95bde997 — The menu's rows are drawn in a file of their own
+
+`menu-view.ts` was at the limit and carried two subjects: the menu's pages and, in the middle, the rows an entry list is drawn as. The `MenuEntry` shape, the map over all three lists, `drawEntries` and the `setEntry` / `entryRoot` pair now live in `menu-rows.ts` as `entryRows()`, handing back `draw`, `set` and `root`; `menu-view.ts` draws each page through it and exposes the same `MenuDom` as before, so `menu.ts` and the tests are untouched. `menu-entries.ts` imports the shape from the new file.
+
 ## 2026-09-14 · 3e8ce7e3 — The menu's questions are bound in a file of their own
 
 `menu.ts` was at the limit: one closure that opens and closes the menu, wires CONTINUE and the entry actions, and in the middle of it binds the four two-step questions — LEAVE ROOM's and the three difficulties' — with the reasons each asks first and the two moments every question is put away again. The binding now lives in `menu-steps.ts` as one `bindMenuSteps(dom, b)` that hands back `cancel` and `cancelLeave`; `close` and `paintLink` call those. `menu-front.test.ts` and `confirm.test.ts`, which read `menu.ts`'s source for its two-steps, read the new file instead. A refactor, not a look.
