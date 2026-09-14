@@ -4366,3 +4366,25 @@ needed. 249 lines becomes 176 and 93. About 15 min.
 
 Bottleneck: friction — the same one-group-per-run linting the sound row cost,
 and this move stranded six names across three packages.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `gyre-wheel.ts`: finding the wheels is not drawing one
+
+Queue item, the ninth of eleven. `gyre.ts` found the wheels on the field and
+looped over them — a question about a world — and then drew one, which is a
+question about six constants and a context. The drawing is `gyre-wheel.ts` now
+and the six shares-of-the-reach go with it, since nothing else reads them.
+Proved unchanged the way the entry asked: the op log of
+`runFrames(peakWorld("theGyre"), role, 480)` is byte-identical either side —
+378 579 calls hashing `3ad8368583005f5a` on p1 and 381 244 hashing
+`a4d37db09178fa38` on p2. 249 lines becomes 86 and 181. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `gyre.ts`'s declarations, `frame-harness.ts`'s `runFrames` and the stub's op log |
+| writing | 5 | the move, the new file's header, both import blocks rewritten by hand |
+| looking | 5 | the op-log hash taken before the move and again after it, two seats each |
+| friction | 5 | `biome --write --unsafe` is blocked by a hook, rightly — it deletes a comment with the import under it — so the stranded imports go by hand |
+| landing | 5 | `check:fast` at two and a half minutes, the commit, `bun run land --keep` |
+
+Bottleneck: friction and looking together — a render move has to be proved
+byte-identical, and the import cleanup after it cannot be automated here.

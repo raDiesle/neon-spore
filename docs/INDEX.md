@@ -698,6 +698,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/snake-panel.ts` | Around the arena: what this screen is told, the clock, the buttons |
 | `packages/render/src/snake-shot.ts` | The shot: the one thing in this round both screens see the same way |
 | `packages/render/src/gyre-wind.ts` | you are drawing the pull between the ship and a wheel — the wind that says the maw is worth spending |
+| `packages/render/src/gyre-wheel.ts` | **One wheel, drawn**: the membrane around it, the two rim bands through the six bodies |
 | `packages/render/src/gyre.ts` | you are drawing the wheel under THE GYRE's six bodies — membrane, rim, bowed spokes and the organelle they meet at, behind everything they carry |
 | `packages/render/src/target-lock.ts` | THE TARGET LOCK: the one marking in this game that means *an instrument has picked this body out, and it |
 | `packages/render/src/wisp-body.ts` | you are drawing the wisp's bell — its contour, its spectrum fill, its core, and how the jump squashes it |

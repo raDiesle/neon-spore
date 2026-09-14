@@ -176,21 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `gyre.ts` is at the limit: the wheel's drawing is a second subject
-
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-gyre-ts-is-at-the-limit-the-wheels-drawing-is-a
-- **Files:** `packages/render/src/gyre.ts`
-
-The file is 249 lines: `gyres`, `gyreRadiusPx` and `drawGyres` find the
-wheels and loop over them; `drawWheel`, `membrane` and `band` (lines 116 to
-249) with the `RIM_SPLIT`, `MEMBRANE`, `RIPPLE`, `MEMBRANE_POINTS`,
-`SPOKE_BOW` and `CORE` constants above them draw one. Move the drawing into
-`gyre-wheel.ts`, `drawWheel` exported; `drawGyres` imports it. Proof:
-`bun run check:fast` — `frame.test.ts` draws THE GYRE — and the op-log hash
-of `runFrames(peakWorld("theGyre"), role, 480)` per seat, unchanged before
-and after (`tools/probe`).
-
 ## `perf/compare.ts` is at the limit: the run's shape is not the comparison
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
