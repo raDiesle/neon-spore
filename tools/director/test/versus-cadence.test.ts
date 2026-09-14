@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { cadenceElapsed, EVENT_CADENCE_SECONDS } from "../src/pose-kit.js";
 import { MECHANIC_POSES } from "../src/poses-mechanics.js";
-import { advance } from "../src/versus-pair.js";
+import { advance } from "../src/versus-advance.js";
 
 /**
  * The owner could not see a candidate's whole difference because it lives in

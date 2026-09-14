@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { lidOpenMilli, rindLayersLeft } from "@neon-spore/sim";
 import { LAYER_POSES } from "../src/poses-layers.js";
-import { advance } from "../src/versus-pair.js";
+import { advance } from "../src/versus-advance.js";
 
 /**
  * `Pose.hand` — a hand kept on the world after it is built.

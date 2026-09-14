@@ -3,8 +3,8 @@ import { beatPhase } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
 import type { Pose } from "./pose-kit.js";
+import { advance } from "./versus-advance.js";
 import { bandTopPx, signature, touchedShare } from "./versus-diff.js";
-import { advance } from "./versus-pair.js";
 import { probeSchedule } from "./versus-probe.js";
 
 /**

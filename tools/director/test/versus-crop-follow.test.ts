@@ -13,8 +13,8 @@ import { poseCropRect } from "../src/pose-art.js";
 import type { Pose } from "../src/pose-kit.js";
 import { SURFACE_POSES } from "../src/poses-surface.js";
 import { VERSUS_POSES } from "../src/poses-versus.js";
+import { advance } from "../src/versus-advance.js";
 import { CropWindow } from "../src/versus-crop.js";
-import { advance } from "../src/versus-pair.js";
 import { poseForSlot } from "../src/versus-pose.js";
 
 /**

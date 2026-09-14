@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { MECHANIC_POSES } from "../src/poses-mechanics.js";
-import { advance } from "../src/versus-pair.js";
+import { advance } from "../src/versus-advance.js";
 
 /**
  * The confirmed half of "THE ALTERNATIVES PAGE SHOWS EVERYTHING AT ONCE" — the owner's guess that the shot and the ward "do not

@@ -4213,3 +4213,23 @@ test re-points. 250 lines becomes 207 and 59. About 10 min.
 
 Bottleneck: reading — the cut was named in the entry, and the whole cost was
 reading enough of the file to be sure nothing else crossed it.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `versus-advance.ts`: the step out of the pair
+
+Queue item, the second of eleven files at the limit. `versus-pair.ts` is a pair
+of phones — two canvases, a crop window, BLINK, a settle hash, a freeze — and
+`advance`, one tick of a pose's world, was inside it while four tests and the
+seat probe imported it wanting no pair at all. It is `versus-advance.ts` now,
+with the doc that says why a rebuilt world keeps its own events; five importers
+re-point. 250 lines becomes 230 and 36. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `versus-pair.ts`'s head, the five importers |
+| writing | 5 | the move, the new file's header, five imports, one now-unused `step` |
+| looking | 0 | nothing visible moved — a file split |
+| friction | 0 | none |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: writing — `step` stayed behind in the import list and only the
+linter noticed, which is the one thing a move of this shape leaves.

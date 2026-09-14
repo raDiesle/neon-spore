@@ -176,19 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `versus-pair.ts` is at the limit: `advance` is the step, not the pair
-
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-versus-pair-ts-is-at-the-limit-advance-is-the-st
-- **Files:** `tools/director/src/versus-pair.ts`, `tools/director/src/versus-seat.ts`, `tools/director/test/versus-cadence.test.ts`, `tools/director/test/versus-crop-follow.test.ts`, `tools/director/test/versus-hand.test.ts`, `tools/director/test/versus-loop.test.ts`
-
-The file is 250 lines and `advance` — one tick of a pose's world, rebuilding
-on `needWave` unless the pose has a cadence — is imported by four tests and by
-`versus-seat.ts`, none of which want a `Pair`. Move `StepResult` and `advance`
-(lines 61 to 82, with the doc that says why a rebuilt world's own events are
-kept) into `versus-advance.ts`; `versus-pair.ts` and `versus-seat.ts` import
-it from there and the four tests re-point. Proof: `bun run check:fast`.
-
 ## `skins/pore.ts` is at the limit: the Poisson scatter is not a pore
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4

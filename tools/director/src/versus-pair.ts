@@ -1,9 +1,10 @@
 import type { ViewRole, ViewState } from "@neon-spore/render";
-import { beatPhase, type SimEvent, step, type World } from "@neon-spore/sim";
+import { beatPhase, type SimEvent, type World } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { type Applied, apply, restore, type Variant } from "../../versus/variant.js";
 import { cadenceElapsed, type Pose } from "./pose-kit.js";
 import { runStageLoop } from "./stage-loop.js";
+import { advance } from "./versus-advance.js";
 import { type CropSide, CropWindow, makeCropSide } from "./versus-crop.js";
 import { hashCanvas } from "./versus-hash.js";
 import { FREEZE_STRIDE, Freeze } from "./versus-pair-freeze.js";
@@ -57,27 +58,6 @@ export interface PairHooks {
   onSettled(identical: boolean): void;
   /** Which side BLINK shows, so a corner tag can name it. */
   onBlink(side: "left" | "right"): void;
-}
-
-/**
- * One tick, rebuilding on `needWave` rather than discarding what the fresh
- * world carries. `pose-kit.ts`'s `runUntil` returns on the exact tick its
- * named state arrives, so a rebuilt world's own `events` already holds the
- * `fire` or `deflect` that moment produced — a shield candidate's shockwave
- * is drawn from that event alone, since the rock it caught left no scar and
- * no lasting body. Handing back `[]` here on every rebuild, as this file used
- * to, is why that shockwave never played (`test/versus-loop.test.ts`). `pose`
- * matters only with `cadenceSeconds` set: `needWave` is then left to `startPair`,
- * and its `hand` says what a pose's hand does this tick (`Pose.hand`).
- */
-type StepResult = { world: World; events: SimEvent[] };
-export function advance(world: World, build: () => World, pose?: Pose): StepResult {
-  step(world, pose?.hand ? pose.hand(world) : []);
-  if (pose?.cadenceSeconds === undefined && world.events.some((e) => e.type === "needWave")) {
-    const rebuilt = build();
-    return { world: rebuilt, events: [...rebuilt.events] };
-  }
-  return { world, events: [...world.events] };
 }
 
 export interface PairOptions {

@@ -1630,6 +1630,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-hold.ts` | The two bodies that hold a control and **go off if it stands still** — THE LIMPET on the plate |
 | `tools/director/src/poses-handover.ts` | the state `handover:notice` is judged on — the pilot's screen a beat before THE HANDOVER warns, replayed once a window |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
+| `tools/director/src/versus-advance.ts` | **One tick of a pose's world**, and the one thing four tests and the seat probe want out of `versus-pair.ts`… |
 | `tools/director/src/versus-one.ts` | One candidate, alone, on a page of its own — the live half of VERSUS |
 | `tools/director/src/versus-open.ts` | Where a look opens, and how a page links to it |
 | `tools/director/src/versus-tab.ts` | The VERSUS tab: every look offered beside what the field already draws, never in place of it |
