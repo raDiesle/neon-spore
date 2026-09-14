@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The director loses GUIDES, SPEC and DEMOS; TUNING gets a topbar button
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Taken:** 2026-09-14, claude/queue-the-director-loses-guides-spec-and-demos-tuning
 - **Files:** `tools/director/index.html`, `tools/director/src/documentation-rooms.ts`, `tools/director/src/states-page.ts`, `tools/director/src/guide-sheet.ts`, `tools/director/src/guide-page.ts`, `tools/director/src/guide-gallery.ts`, `tools/director/src/guide-waves.ts`, `tools/director/src/guide-order.ts`, `tools/director/src/spec.ts`, `tools/director/src/docs-api.ts`, `tools/director/src/demo-panel.ts`, `tools/director/src/ship.ts`, `tools/director/src/tuning.ts`, `tools/director/src/main.ts`, `tools/director/test/guide-gallery.test.ts`, `tools/director/test/guide-waves.test.ts`, `tools/director/test/demo-panel.test.ts`, `tools/director/test/sheet.test.ts`
 
 The owner asked for this on 14 September 2026. It is the director, not the
