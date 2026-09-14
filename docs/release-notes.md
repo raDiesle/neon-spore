@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · f5562464 — Queue CONTROLS as a desk-only page that lists only the two seats' own keys
+
+The owner asked that the menu's CONTROLS page appear only on a desktop with a mouse and a keyboard, and that it teach only player 1's and player 2's standard controls — nothing of the rig's or the director's keys. The entry names the pointer: fine signal the app already uses, the KEYS table rows that go, and the three cases in controls-page.test.ts that turn over.
+
 ## 2026-09-14 · 2f3c0ce4 — Queue three of the owner's asks: the menu's front, the director's rooms, and PLAY as partners
 
 HOW TO PLAY leaves the front page and the tagline says talking is the key to the co-op game. The director loses GUIDES, SPEC and DEMOS, TUNING gets a topbar button of its own with SHIP's dials folded onto it, and WORDINGS is DOCUMENTATION's first and default tab. PLAY becomes a list of partners to continue with — name and wave — over NEW GAME, with difficulty set on creation or behind a gear on the partner's row, no seat and no BOTH on that page, and the room screen as steps: JOIN or CREATE, the name, the code, then one shared ready step where the creator picks seat and level and both hold the guides' circle. SEND LINK and WHAT THIS IS go, and the wait for a partner is measured before its timer is raised.
