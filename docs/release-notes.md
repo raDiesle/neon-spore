@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · a739d97a — `bun run format` stops sorting imports, and the sort becomes its own command
+
+A sort is a move, and a doc comment written above an import does not move with the statement. Two commented imports and one `biome check --write` leave the first comment over a blank line attached to nothing and the second reading as if it had been written about somebody else's import — the same harm `tools/hooks/guard.ts` blocks `--unsafe` for, arriving through the command the guard sends a session to instead, silently, inside a lane, where nobody reads the diff.
+
 ## 2026-09-14 · c1eec7c0 — BACK INTO THE GAME: the way back into the room a reload lost
 
 Two people are playing. One of them reloads — a dropped tab, a phone that slept, a thumb on the address bar — and lands on the front page with a socket that no longer exists. The other phone has lost nothing: it is still in the room with the field up, waiting. Until now the reloaded phone had four rows to read, and the only way back was REJOIN a floor down behind PLAY, which works only if the two of them have played together before and both gave names. A reload is neither a first meeting nor a second one, and it should ask nothing of either of them.
