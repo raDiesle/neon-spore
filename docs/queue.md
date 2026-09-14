@@ -367,3 +367,44 @@ ROOM, and under them three seat cards PILOT / NAVIGATOR / BOTH
 holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
+
+## CONTROLS is offered only at a desk, and lists only the two seats' own keys
+
+- **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Files:** `apps/game/src/menu-controls.ts`, `apps/game/src/menu-settings.ts`, `apps/game/src/key-hint.ts`, `packages/content/src/keys-desk.ts`, `apps/game/test/controls-page.test.ts`
+
+The owner asked for this on 14 September 2026 — the first exemption under *A
+look is offered, never replaced*; say so in the commit.
+
+CONTROLS is a row on SETTINGS (`controlsRow`, `menu-settings.ts:105`) that
+opens `buildControls` (`menu-controls.ts`): the phone's shapes (`PHONE`),
+one block per `CONTROL_SETS` panel with both seats and each control's desk
+key (`deskLabel`), then AT A DESK with a `KEYS` table of what no panel owns
+— G and , / . for the grip, W's two-in-one, SPACE / F / G for the guide's
+hold, the arrows for the previous and next wave, P, ESC. Two changes:
+
+1. **The row appears only on a desktop with a mouse and a keyboard.** The
+   signal the app already uses for that is `matchMedia("(pointer: fine)")`
+   (`key-hint.ts:23`, `trail.ts:64`); put the test in one exported function
+   the three share (`key-hint.ts` is the natural home, or a new file of its
+   own beside it) and have `controlsRow` return nothing without
+   it. A phone's SETTINGS then has no CONTROLS row at all; the `keys` page
+   stays reachable only through it.
+2. **The page lists only the standard controls for player 1 and player 2.**
+   That is the per-panel blocks with their seat keys, read off
+   `CONTROL_SETS` and `deskKeys`, and the phone section can stay as it is.
+   Everything that is the rig or the director talking to a run goes: the
+   AT A DESK lead paragraph's *one person playing both seats*, and from
+   `KEYS` the grip (G, , / .), W, SPACE / F / G, the wave arrows and P.
+   `keys-desk.ts:43` already draws exactly this line — *what is not here is
+   not a control* — so the page follows the registry's own rule. ESC opening
+   the menu is one line worth keeping. The keys themselves keep working
+   (`keys.ts`); only the page stops teaching them.
+
+`controls-page.test.ts` holds *is reached from SETTINGS*, *describes the
+controls that are on no panel* and *still carries the keys, for the one
+person playing both seats* — the last two are rewritten to their opposite,
+and a new case holds that `controlsRow` is absent where `pointer: fine` is
+false. `input-pc.test.ts:51` only greps `key-hint.ts` for the media query,
+so there is no stub to copy: pass the signal into `controlsRow` as a boolean
+and test the row both ways. Prove with `bun run check`.
