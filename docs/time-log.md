@@ -3582,3 +3582,26 @@ with a NUL in it turned the case red before it was removed. About 15 min.
 Bottleneck: reading — finding *when* the byte arrived took a Python one-liner
 per revision, because the shell's own `grep` cannot be handed a NUL to look
 for.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `opening.test.ts` stops reading the port its own way
+
+Found by `bun run test:profile`, opened to see why the file was the slowest
+in the suite: its `beforeAll` spawned `preview:once` and read the port off
+stdout with the loop `serve.ts` had replaced that same morning — the regex
+that matches an address cut short, the deadline checked between reads, no
+stderr on an early exit. The block is `startPreview(root)` now, and `stop`
+is the returned one, which waits for the port to go quiet rather than
+returning on `kill()`. The file's own fourteen cases, against a real build,
+prove it. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the profile, `opening.test.ts`'s setup, `serve.ts` and `exec.ts` for what to call |
+| writing | 5 | the queue entry, eight lines in place of twenty-two |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 5 | `check:fast` with the browser file in it, the commit, `bun run land --keep` |
+
+Bottleneck: landing — `check:fast` reaches the one file in the repository
+that builds the game and drives a browser, so it took thirty-four seconds
+where the previous lane's took seven.

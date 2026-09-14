@@ -6,6 +6,7 @@ import { type CaptureResult, captureFrames, closeBrowser, launchBrowser } from "
 import { clearOpening } from "../opening.js";
 import { pictureDiff, pictureDigest } from "../pixels.js";
 import { scratchDir, sweepScratch } from "../scratch.js";
+import { root, startPreview } from "../serve.js";
 
 /**
  * The gap this landing closes: `bun run check` stayed green the whole time
@@ -53,40 +54,25 @@ import { scratchDir, sweepScratch } from "../scratch.js";
 const STARVED_MS = 120_000;
 describe("captureFrames past a wave's opening", () => {
   let baseUrl: string;
-  let stop: () => void;
+  let stop: () => Promise<void>;
   let scratchOut: string;
   let browser: Browser;
 
   beforeAll(async () => {
-    const proc = Bun.spawn(["bun", "run", "--cwd", "apps/game", "preview:once"], {
-      cwd: join(import.meta.dir, "../../.."),
-      env: { ...process.env, PREVIEW_HOST: "127.0.0.1" },
-      stdout: "pipe",
-      stderr: "pipe",
-    });
-    const reader = proc.stdout.getReader();
-    const decoder = new TextDecoder();
-    let buffered = "";
-    const deadline = Date.now() + 30_000;
-    let url: string | null = null;
-    while (!url) {
-      if (Date.now() > deadline) throw new Error("preview:once never printed its port");
-      const { value, done } = await reader.read();
-      if (done) throw new Error("preview:once exited before printing its port");
-      buffered += decoder.decode(value, { stream: true });
-      const found = buffered.match(/preview \(built\) on (http:\/\/[^\s]+)/);
-      if (found?.[1]) url = found[1];
-    }
-    reader.releaseLock();
-    baseUrl = url;
-    stop = () => proc.kill();
+    // `startPreview` reads the port off the server's own stdout, and it is
+    // the one reader: this file carried a copy of that loop until 14 September
+    // 2026, with the regex `serve.ts` had already found could match an address
+    // cut short at `:4` of `:41733`.
+    const preview = await startPreview(root);
+    baseUrl = preview.url;
+    stop = preview.stop;
     scratchOut = await scratchDir("opening-test-");
     browser = await launchBrowser();
   }, STARVED_MS);
 
   afterAll(async () => {
     if (browser) await closeBrowser(browser);
-    stop?.();
+    if (stop) await stop();
     if (scratchOut) await rm(scratchOut, { recursive: true, force: true }).catch(() => {});
     // And whatever an earlier run of this file left when it was killed before
     // reaching here — the pictures are throwaway, but the directories are not
