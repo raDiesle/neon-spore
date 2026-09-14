@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `skins/vein-pulse.ts` is at the limit: growing the tree is not lighting it
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-skins-vein-pulse-ts-is-at-the-limit-growing-the
 - **Files:** `tools/director/src/skins/vein-pulse.ts`
 
 The file is 250 lines: `Segment`, `SURFACES`, `grown`, `strand` and
