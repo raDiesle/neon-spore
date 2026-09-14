@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 61824b7a — THE LID, THE MAGNET and THE CHOIR are one family: held with one hand, shot with the other
+
+`creatures-table.ts` stood one row under its limit with every creature adding a row, and `creatures-handed.ts`'s header had already named the cut: the bodies that need a hand *and* a trigger. Those three rows are `creatures-held.ts` now, named in the table where they stood so the key order — which the director's brush strip reads — is unchanged. The table is 184 lines. A refactor, not a look.
+
 ## 2026-09-14 · 5ea471ee — `spawn.ts` steps back from its limit so the next creature can enter
 
 The per-kind spread of fields a body arrives with — the dart's aim, the veil's contents, the fence's gaps, the balloon's heading — is `kindFieldsOnSpawn` in `spawn-fields.ts`, in the order it always evaluated, so the rolls come off `world.rng` where they did before; the three arrivals that bring bodies with them (gyre, strand, crawler) are `companionsOnSpawn` in `spawn-companions.ts`. `spawn.ts` keeps the arrival itself and is 123 lines instead of 250. A fingerprint of all 71 shipped waves at 60 beats is identical before and after. A refactor, not a look.
