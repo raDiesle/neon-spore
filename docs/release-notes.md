@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 64e08722 — Where a living body sits and which way it faces is asked once, in its own file
+
+`drawLiving` stood at its limit, and the lines it grows are the ones that ask a kind about a turn — the throb's spin, the dart's lean and flip, each with its paragraph. The pose is `living-pose.ts` now: the own-motion's offsets and squash and the rotations on top of them, answered once and read three times by the draw. Seven waves' frames on both seats are the same to the op. A refactor, not a look.
+
 ## 2026-09-14 · 3b85264e — One moment of a rehearsal is a file of its own, the way a page of it already was
 
 `scene-types.ts` was at its limit for the second time, and the half that had grown since the first cut was `SceneAct` — a field for every gesture the film learned to show. It is `scene-act-types.ts` now and re-exported beside `SceneStep`, so the six films kept their import and the file that holds them is a page. Types only; nothing runs differently. A refactor, not a look.
