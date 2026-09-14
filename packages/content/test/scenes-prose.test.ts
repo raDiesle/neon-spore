@@ -3,7 +3,7 @@ import { WAVES } from "../src/index.js";
 import { SCENES } from "../src/scenes.js";
 
 /**
- * **The six guides that are still prose, and the count of the ones that are
+ * **The five guides that are still prose, and the count of the ones that are
  * not.**
  *
  * `docs/spec/briefings.md` said *one rehearsal exists* and *FIRST STEP has the
@@ -21,7 +21,7 @@ import { SCENES } from "../src/scenes.js";
  */
 
 /** The guided waves whose opening is the three strings and the two circles. */
-const STILL_PROSE = ["THE COUNT", "THE CHOKE", "THE LIMPET", "THE LEECH", "THE CODEX", "THE LEAK"];
+const STILL_PROSE = ["THE COUNT", "THE CHOKE", "THE LIMPET", "THE LEECH", "THE CODEX"];
 
 const guided = WAVES.filter((w) => w.guide);
 
@@ -35,9 +35,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts fifty-six films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts fifty-seven films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Fifty-six, which is the number in the section. A film with no wave
+    // Fifty-seven, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);

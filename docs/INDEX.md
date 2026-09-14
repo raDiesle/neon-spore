@@ -418,6 +418,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/pinball.ts` | PINBALL's rehearsal: the thing you fire from is the thing you have to catch it with |
 | `packages/content/src/scenes/the-gauge.ts` | THE GAUGE's rehearsal: neither of them has more than half a dial |
 | `packages/content/src/scenes/the-lid.ts` | THE LID's rehearsal: doing your half first is the same as not doing it |
+| `packages/content/src/scenes/the-leak.ts` | THE LEAK's rehearsal: the thumb stays down and the ring never closes |
 | `packages/content/src/scenes/the-maze.ts` | THE MAZE's rehearsal: he turns the wheel and she fires, and neither can do the other half |
 | `packages/content/src/scenes/the-magnet.ts` | THE MAGNET's rehearsal: the column the body is in is the one place a shot cannot come from |
 | `packages/content/src/scenes/the-warden.ts` | THE WARDEN's rehearsal: he holds the door open and she has to be quick enough to shoot through it |

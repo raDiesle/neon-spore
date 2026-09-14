@@ -176,27 +176,25 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## THE LEAK's guide is prose, and what it has to show cannot be asserted
+## `check:fast`'s closing line says a shard is red without naming the case
 
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-14, claude/queue-the-leaks-guide-is-prose-and-what-it-has-to-show
-- **Files:** `packages/content/src/scenes.ts`, `packages/content/src/scenes/the-lance.ts`, `packages/content/src/waves/act-9.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
+- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Files:** `tools/check/shard.ts`, `tools/check/test/shards.test.ts`
 
-THE LEAK ships with the three strings and the two circles, which is the sixth
-guide to do so (`docs/spec/briefings.md` §3.2). Prose can say *the lobe fills
-nothing*; what a pair has to see is the ring round the button **not closing**
-under a thumb that stays down, and then the same thumb lifting and a bolt going
-out — the two halves that make it a lost weapon rather than a lost trigger.
-That is a rehearsal, and it is a short one: one column of three, one held
-thumb that never fills, one lift that fires.
+One run of `bun run check:fast` on 14 September 2026 ended
+`1668 pass, 1 fail, 0 skipped — 116 files across 2 shards in 7.2s wall; 1 shard
+red`, and three runs after it were `1669 pass, 0 fail` with nothing changed in
+between. The flake is not the finding — an unreproduced red is a thing to note
+and let go. What is worth fixing is that the run could not be *read*: the
+closing line counts the failures and says which shard was red, and the failing
+case's name is only inside that shard's own block, which on a full run is
+hundreds of lines above the last thing printed. The shard that was still on
+screen said `0 fail`, which reads as a contradiction.
 
-The film is a new file in `packages/content/src/scenes/`, named for the wave
-the way every other one is, pointed at from the wave's guide and added to
-`SCENES`. Follow `scenes/the-lance.ts`, which films
-the gesture this one takes away — the two are worth reading side by side, and a film that quotes
-its shape will teach the absence faster than one written from nothing. Adding
-it means taking THE LEAK out of `STILL_PROSE` and moving §3.2's two counts,
-both of which the test names in its failure.
+So the summary should carry the first failing case — file and test name, one
+line — beside the counts it already prints. A red run is read from the bottom,
+because that is where a reader's eye is when the command returns, and a red
+that has to be hunted for is a red that gets run again instead.
 
 ## Unverified at 6ecebe84: THE LEAK watched at tempo: whether a pair can cross the…
 

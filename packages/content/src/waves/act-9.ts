@@ -57,6 +57,7 @@ export const WAVES_ACT_9: Wave[] = [
       both: "Something over the field is holding the cannon lobe open, and its beam is on both colours all wave. Every button still works and every tap still fires. What is gone is the hold: the lobe fills nothing, so there is no beam of your own and a column of three is three shots.",
       p1: "Nothing is dead on your strip, and standing still buys you nothing this wave — there is no lobe to fill. Call the next column while they are still firing at this one: the crossing is what costs here, not the shots.",
       p2: "Tap. Holding a colour fills nothing and the body is still falling while your thumb is down, so take them one at a time and let go between. Three of a colour is three presses now.",
+      scene: "theLeak",
     },
     entries: [
       { beat: 0, col: 2, color: "cyan" },

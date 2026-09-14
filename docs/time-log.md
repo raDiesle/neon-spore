@@ -3237,3 +3237,29 @@ case in `opening.test.ts` is that the list is empty. About 45 min.
 
 Bottleneck: looking — the answer the entry asked for was a number, and the
 only way to it was running the five-minute file again on each side.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — THE LEAK gets a rehearsal, and it is asserted
+
+Queue item: the wave shipped with the three strings, and what it has to show is
+two pictures a sentence turns into one — a ring that does not close under a
+thumb that is not moving, then that same thumb lifting with an ordinary bolt
+going out. `scenes/the-leak.ts` quotes THE LANCE's film: the same three cyan in
+column two, the same slide under them, the same first page in the same words.
+The hold runs five beats where `lancePrimeBeats` is three, so the page stands
+past the moment a lance would have come and nothing happens. The new case in
+`scene-films.test.ts` holds both halves — the fill never leaves nought under
+the hold, a body is taken after the lift and before the taps, and all three go
+by the end; with the fault taken off the film it reads 994 instead of 0.
+§3.2's two counts and `STILL_PROSE` move with it. About 45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the new-tutorial skill, `the-lance.ts`, `the-jam.ts`, `scene-types.ts`, `scene-script.ts`, `lance.ts`, the four scene tests |
+| writing | 10 | the film, the registration, the wave's `scene`, the assertion, the two counts |
+| looking | 15 | three pages photographed on both seats, and a strip across the lift |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: reading — a film is forty lines and the rules it has to satisfy are
+in six files, and the one that decided the timing (a lift fires the shot the
+press owes) is a paragraph in `lance.ts` rather than anything a test says.

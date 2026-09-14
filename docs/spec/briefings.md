@@ -7,7 +7,7 @@
 > beside the things they explain. It ends on the ready gate. *Then* the wave's
 > number, name and sentence, plain text on the field, which passes on a timer.
 > Then the wave. A wave with no guide opens straight on its introduction.
-> §3.2 says which six are still prose and why the count is a test rather than
+> §3.2 says which five are still prose and why the count is a test rather than
 > a sentence anybody has to remember.
 >
 > **Three decisions below have been overturned on the way in**, and the
@@ -290,7 +290,7 @@ before a room is even joined.
   says what a slick *is*, where a guide says what this pair does next.
 - Purity applies unchanged — it is content, so no clock, no randomness, no DOM.
 
-### 3.2 The rehearsals — all but six of them
+### 3.2 The rehearsals — all but five of them
 
 A guide that names a `scene` does not draw a panel of prose at all. It plays a
 **rehearsal**: the game's own screen at full size, one device at a time. FIRST
@@ -300,10 +300,10 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are fifty-six of them now**, one per guided wave bar six, and each is
+**There are fifty-seven of them now**, one per guided wave bar five, and each is
 authored in `packages/content/src/scenes/` as a page of choreography rather than
-a page of prose. The six that are still the three strings and the two circles
-are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE CODEX and THE LEAK** —
+a page of prose. The five that are still the three strings and the two circles
+are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH and THE CODEX** —
 and that list is held by `test/scenes-prose.test.ts` rather than by this
 paragraph, so a film written for one of them fails a test here instead of
 leaving a sentence quietly wrong, which is what happened to the line this one

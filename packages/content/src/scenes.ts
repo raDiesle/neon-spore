@@ -31,6 +31,7 @@ import { THE_HAND } from "./scenes/the-hand.js";
 import { THE_HANDOVER } from "./scenes/the-handover.js";
 import { THE_JAM } from "./scenes/the-jam.js";
 import { THE_LANCE } from "./scenes/the-lance.js";
+import { THE_LEAK } from "./scenes/the-leak.js";
 import { THE_LID } from "./scenes/the-lid.js";
 import { THE_LURE } from "./scenes/the-lure.js";
 import { THE_MAGNET } from "./scenes/the-magnet.js";
@@ -106,6 +107,7 @@ export type SceneId =
   | "theFleet"
   | "snake"
   | "theLance"
+  | "theLeak"
   | "theGauge"
   | "pinball"
   | "theLid"
@@ -164,6 +166,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theFleet: THE_FLEET,
   snake: SNAKE,
   theLance: THE_LANCE,
+  theLeak: THE_LEAK,
   theGauge: THE_GAUGE,
   pinball: PINBALL,
   theLid: THE_LID,
