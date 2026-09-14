@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 3e8ce7e3 — The menu's questions are bound in a file of their own
+
+`menu.ts` was at the limit: one closure that opens and closes the menu, wires CONTINUE and the entry actions, and in the middle of it binds the four two-step questions — LEAVE ROOM's and the three difficulties' — with the reasons each asks first and the two moments every question is put away again. The binding now lives in `menu-steps.ts` as one `bindMenuSteps(dom, b)` that hands back `cancel` and `cancelLeave`; `close` and `paintLink` call those. `menu-front.test.ts` and `confirm.test.ts`, which read `menu.ts`'s source for its two-steps, read the new file instead. A refactor, not a look.
+
 ## 2026-09-14 · 70cfba48 — The ship's mood leaves the hull's geometry for a file of its own
 
 `hull-frame.ts` was at the limit: the hull's shape for one frame — `frame`, the surface and skin samplers, its clock and span — and, before any of it, sixty lines of `HullMood` and `LobePositions`, what the membrane is doing this frame and where its lobes stand. The two interfaces now live in `hull-mood.ts` and come back through a type re-export, so the forty files that import one of them from `hull-frame.ts` are untouched. A type-only move: the typecheck is the proof, and THE HAND's canvas op log from both seats is identical before and after. A refactor, not a look.
