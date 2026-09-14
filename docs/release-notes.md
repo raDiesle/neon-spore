@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 6fa7589b — The front page is checked, and the tagline wraps on a 360 px phone
+
+`Unverified at b7c3055e` named three things about the landing that took HOW TO PLAY off the front page. Two hold and one does not.
+
 ## 2026-09-14 · 07a15b9a — The CONTROLS landing is checked: a phone has no such row, a desk does
 
 `Unverified at ff67ba6f` said that a phone's SETTINGS with no CONTROLS row on it had not been seen, and it named its own reason: headless Chromium at 390 px reports `pointer: fine`, so a capture of the page showed the desk's own form under a picture that read as a phone. The landing before this one took that reason away — `menu-shot` opens a touch context now — so this is the entry opened on a machine that can.
