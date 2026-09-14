@@ -22,6 +22,42 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — versus:shot drives the lifted startDirector
+
+`Unverified at 2c528788` said the second caller of the lifted `startDirector`
+could not be proved, because no VERSUS slot is open in this tree and so nothing
+could be photographed. Every step of that caller is proved except the last one,
+and the last one is not what the lifting put at risk.
+
+The run: `versus:shot` starts a director on a port of the OS's choosing, reads
+the port off the supervisor's line, hands it to `bun run shot --port` with the
+candidate's query string, and `shot` opens `/versus.html?slot=…&name=…` off it.
+The page is served and renders — its no-slot state, which `versus-page.ts`
+calls *a correct state and not a broken one*, and which has no `.versus-stage`
+in it, so the shot ends on `no element matches .versus-stage`. The one step
+never taken is the camera against a real candidate, which is the page's
+content rather than the plumbing under it, and which the next lane to open a
+slot takes for free.
+
+The entry is out because the run is what found the leak the landing before this
+one fixed — a director that outlived its own stop — which is a better answer
+than the picture would have been.
+
+A candidate was not invented to take that picture. A VERSUS slot is a look put
+to the owner to choose between, and one written as a test fixture is a thing he
+then has to judge.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `versus-shot.ts`, `director-serve.ts`, and what the versus page does with a slot that is not there |
+| writing | 0 | none — no code needed changing for this one |
+| looking | 10 | the run, and the process tree after it |
+| friction | 0 | none |
+| landing | 10 | `check:fast`, the commit, `land` |
+
+The bottleneck was reading: establishing that the missing step belonged to the
+page and not to the lifting took longer than running the tool did.
+
 ## 2026-09-14 — queue-tasks — a stopped director went on serving, and said nothing
 
 Found by running `bun run versus:shot` to check the entry above it, and then
