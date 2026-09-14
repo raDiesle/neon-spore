@@ -208,6 +208,7 @@ what the rest of this file holds.
 ## A cloud session that *changes* a wave still cannot make the baseline test pass
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-a-cloud-session-that-changes-a-wave-still-cannot
 - **Files:** `tools/perf/test/baseline.test.ts`, `tools/perf/unmeasured.ts`, `docs/performance.md`, `docs/cloud-session.md`
 
 The owner's answer of 14 September 2026 closed the *missing row* case: a wave
