@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 92e4cca3 — `skins/light-axis.ts`: the axis out of the passes
+
+`light.ts` stood at 249 lines and its own header names the seam: *one direction, four constructs, one line that hangs them on a body*. The four constructs — `terminatorPass`, `contactPass`, `specularPass`, `rimLightPass` — are what eleven skins import, so they stay. What moves is everything they are built out of and no skin has ever asked for: the stops along the key axis (`BODY`, `FOCUS`, `SPAN` and the four derived from them, with the paragraph arguing 2.4 R as a margin rather than a threshold), the six colour names and why the hue split is literals rather than a rotation, `Stop`, `addStops`, `keyAxis`, and the three one-liners that hang a paint on a body.
+
 ## 2026-09-14 · 4296da94 — `skins/scatter.ts`: the dart-throwing out of PORE
 
 `pore.ts` stood at 250 lines and opened with sixty of them that are not a pore: `ScatterPoint`, `ScatterOptions` and `poissonScatter` — blue noise inside a contour, placed against whatever density field the caller measures. `sucker.ts` imported it from there, so one skin read as being built out of another when in fact both stand on the engine under them.
