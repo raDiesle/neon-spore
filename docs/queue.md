@@ -555,3 +555,46 @@ Prove it with `bun run check`, a test beside `rail-list.test.ts` that presses
 each arrow through the fake DOM and reads `store.index` and the disabled
 state at both ends, and one PNG of the director's WAVE column head with the
 arrows.
+
+## A shot never goes through a body: what it cannot break, it hits and marks
+
+- **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Files:** `packages/sim/src/shot-reach.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/gum.ts`, `packages/sim/src/cling.ts`, `packages/sim/src/weight.ts`, `packages/sim/src/cairn.ts`, `packages/sim/src/gyre.ts`, `packages/sim/src/balloon.ts`, `packages/sim/src/magnet.ts`, `packages/sim/src/events.ts`, `packages/render/src/effects-spark.ts`, `packages/render/src/effects-spark-handed.ts`, `packages/render/src/magnet-bounce.ts`, `packages/render/src/deflect.ts`, `packages/render/src/crater-look.ts`, `packages/render/src/crater-geom.ts`, `packages/content/src/mechanics.ts`, `docs/spec/graphics.md`
+- **Where:** local
+
+The owner's rule, 14 September 2026, mid-turn: *shots with the cannon,
+generally speaking, should never go through enemies, but should hit with no
+effect if the body cannot be destroyed with the cannon's colour. Reflect, like
+the magnet, or mark it, like the meteor, or something else — whatever is
+suitable. Shots should not go through the gum, the leech, the limpet.*
+
+`shot-reach.ts` is the one place a shot's reach is decided, and today it
+`continue`s past five kinds by name — THE GYRE's hub, THE GUM, THE LIMPET and
+THE LEECH, THE WEIGHT, THE CAIRN — each with a paragraph saying a bolt goes
+past it *to whatever is above*. That paragraph is the thing he is
+overruling: **a body a shot cannot answer still stops the shot.** So:
+
+1. **In `sim`, the skips go.** Every creature in a column stops the sweep at
+   its box; `resolve` in `bullet-hit.ts` gets a branch per kind that says
+   *hit, no effect*, the way a rock already does — `holes` and a `hole`
+   event for a body a crater suits, a `deflect` event for one a bounce suits,
+   `balloonStruck`'s shape for the rest. One rule, called: a shot that meets
+   a body it cannot break is spent on it. THE GYRE's hub is the exception to
+   argue in the entry's own commit — the tile at the middle of a wheel is
+   empty and a wall there is five columns wide — and if it stays a pass-
+   through the comment says it is the *only* one and why.
+2. **In `render`, each refused hit is drawn as what it is**, per body: THE
+   GUM and the two clingers deflect the bolt the way the plate under a
+   magnet does (`magnet-bounce.ts`, `deflect.ts` — the same look, called),
+   THE CAIRN takes a crater like the rocks it is made of (`crater-look.ts`),
+   THE WEIGHT whatever reads best of the two, decided by drawing both in
+   `frame.test.ts` and keeping one. Nothing invented: every mark is one the
+   game already draws for a refused shot.
+3. **`docs/spec/graphics.md`'s rule for a rock** — *the shot leaves a crater
+   and nothing else, the rule made visible* — is widened to every body a shot
+   cannot break, and `mechanics.ts`'s sentence for each of the five says the
+   shot stops on it rather than passes it.
+
+The frame test draws each of the five taking a shot. A wave watched at
+tempo checks that a bolt fired up a lane under a gum, a leech, a limpet, a
+weight and a cairn is seen to stop on it and never to reach the body above.
