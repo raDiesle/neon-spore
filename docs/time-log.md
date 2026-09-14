@@ -3910,3 +3910,24 @@ before and after, and `isBuilt` on seven names the same. No friction.
 | landing | 5 |
 
 Bottleneck: landing.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `room.ts` is at the limit and grows a case per client message
+
+The Durable Object was 249 lines and its `route` switch gains a case with
+every message the client learns to send. It went the way three siblings
+already had: the switch and its comments are `routeClient` in
+`room-route.ts`, handed the four things a message can make the room do —
+relay, press, keep a level, keep a tally — as closures, so the sibling
+reads no private field. `room.test.ts` drives ping, ready, level and stats
+through a room and is the proof, green unchanged. No friction beyond
+merging two imports of one file the formatter leaves apart.
+
+| where | minutes |
+|---|---|
+| reading | 5 |
+| writing | 10 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: writing.

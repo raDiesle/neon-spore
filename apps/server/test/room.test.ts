@@ -326,7 +326,7 @@ describe("a room hands out two seats", () => {
   test("keeps the difficulty the pair chose, and hands it back on the welcome", async () => {
     // A level is a tempo, and two phones at two tempi never reach the same
     // tick — so the pair's one answer lives in the room, stored and handed
-    // back the way `stats` is (`apps/server/src/room.ts`).
+    // back the way `stats` is (`apps/server/src/room-route.ts`).
     const one = await phone("ADEF");
     await one.settle("welcome");
     expect(of(one.said, "welcome").at(-1)?.level).toBeNull();

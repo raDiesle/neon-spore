@@ -8,6 +8,7 @@ import {
   type ServerMessage,
 } from "@neon-spore/net";
 import { refuseUpgrade } from "./room-open.js";
+import { routeClient } from "./room-route.js";
 import { pressStart } from "./room-start.js";
 import { endStaleRun, keepBest, keepLevel, readBest, readLevel } from "./room-tally.js";
 import { announceGone, greetSeats, type RoomFacts } from "./room-tell.js";
@@ -24,7 +25,7 @@ import {
   stamp,
 } from "./seat.js";
 import { emptiedRoom, StartGate } from "./start-gate.js";
-import { NOTHING_YET, RUN_OVER_MS, type Tally, tallyFromWire, worthSaying } from "./tally.js";
+import { NOTHING_YET, RUN_OVER_MS, type Tally, worthSaying } from "./tally.js";
 
 /**
  * Milliseconds between the **second press** and beat zero — only the short
@@ -150,41 +151,20 @@ export class Room {
     this.announce(socket);
   }
 
+  /** What each message makes the room do — the switch is `room-route.ts`. */
   private route(me: Seat, message: ClientMessage, socket: WebSocket): void {
-    switch (message.t) {
-      case "ping": {
-        // Two server timestamps, so the client can take this object's own
-        // handling time back out of the round trip.
-        const s1 = Date.now();
-        send(socket, { t: "pong", c1: message.c1, s1, s2: Date.now() });
-        return;
-      }
-      // The three that are simply passed on, with the seat the socket holds
-      // stamped on. Spread rather than rebuilt field by field: the room never
-      // looks inside a `Command` and has no business naming the fields of one.
-      case "input":
-      case "confirm":
-      case "hash":
-        this.relay(me, { ...message, player: me.player });
-        return;
-      case "ready":
-        void this.press(me.player);
-        return;
-      case "level":
-        // Stored and handed back, the way `stats` is; one that is not a level
-        // never arrives at all (`protocol-decode.ts`).
-        this.level = message.level;
-        void keepLevel(this.ctx.storage, message.level);
-        return;
-      case "stats":
-        // Stored and never opened, the way a `Command` is relayed and never
-        // opened. The further seat's whole, because the clock and the retries
-        // are read at the wave (`tally.ts`).
-        void keepBest(this.ctx.storage, this.best, tallyFromWire(message)).then((next) => {
+    routeClient(me, message, socket, {
+      relay: (m) => this.relay(me, m),
+      press: () => void this.press(me.player),
+      level: (level) => {
+        this.level = level;
+        void keepLevel(this.ctx.storage, level);
+      },
+      stats: (tally) =>
+        void keepBest(this.ctx.storage, this.best, tally).then((next) => {
           this.best = next;
-        });
-        return;
-    }
+        }),
+    });
   }
 
   /** A seat pressed START. `start-gate.ts` decides what that is worth. */

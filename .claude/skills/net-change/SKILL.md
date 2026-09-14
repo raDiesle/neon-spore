@@ -19,7 +19,7 @@ a network bug.
 | `packages/net/src/lockstep.ts` | the scheduler and the promise |
 | `packages/net/src/status.ts` | what the network indicator may say, and nothing else may |
 | `apps/game/src/link.ts` | the client: the wall clock and the socket, and nothing below holds either |
-| `apps/server/src/room.ts` | the Durable Object: seats, beat zero, relay, clock sync |
+| `apps/server/src/room.ts` | the Durable Object: seats, beat zero, relay, clock sync; what each client message makes it do is `room-route.ts` |
 
 A new message type touches the first and the last two, always. A new `Command`
 variant touches `packages/sim/src/command-types.ts` **and**

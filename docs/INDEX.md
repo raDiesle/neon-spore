@@ -1206,6 +1206,7 @@ place — the generator keeps whatever is there.
 | `apps/server/src/room-open.ts` | Everything that must be true before a socket is worth accepting, in the order it is worth being false in |
 | `apps/server/src/room-tally.ts` | The tally's storage half, and giving up on a run nobody is playing |
 | `apps/server/src/room-tell.ts` | **What the room tells its seats** when somebody arrives or leaves: the welcome, and the count after a seat goes |
+| `apps/server/src/room-route.ts` | what the room does with each message a seat sends — answer a ping, relay an input, take a press, keep a level or a tally — the one switch that grows per message |
 | `apps/server/src/tally.ts` | What a pair got to, kept by the room they share: the further wave, then fewer retries, then less time |
 
 ### tools
