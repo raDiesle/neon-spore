@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · ca5702f7 — versus:shot drives the lifted startDirector, and that run found the leak
+
+`Unverified at 2c528788` said the second caller of the lifted `startDirector` could not be proved: no VERSUS slot is open in this tree, so nothing could be photographed. Every step of that caller is proved now except the last one, and the last one is not what the lifting put at risk.
+
 ## 2026-09-14 · 42ad5046 — A stopped director is actually stopped, in both places it was not
 
 `bun run shot --serve` and `bun run versus:shot` start a director, take their picture and stop it. The stop returned and the director went on serving: it was reparented to init and held the port `stop()` had just reported free, until its own idle exit two and a half minutes later. Nothing said so. Found by running `versus:shot` to check an unverified entry, and then asking `ps` whether the thing had gone.
