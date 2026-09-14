@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run menu-shot` is a phone-sized desk, not a phone
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-bun-run-menu-shot-is-a-phone-sized-desk-not-a-ph
 - **Files:** `tools/frames/menu-shot.ts`, `tools/frames/test/menu-trail.test.ts`, `apps/game/src/at-a-desk.ts`, `docs/commands.md`
 
 It opens a 390x844 viewport, which is the right *size*, and a plain desktop
