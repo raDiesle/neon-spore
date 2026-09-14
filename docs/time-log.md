@@ -4483,3 +4483,29 @@ link starts reaching it. About 60 min.
 Bottleneck: writing — the button is twenty lines and the decisions around it
 are the work: how long an offer is worth making, what it may honestly claim
 about the other phone, and which leaves tear it up.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `format` stops sorting, and the sort gets a name
+
+The queue's own item, reproduced first: two imports with a doc comment each,
+one `biome check --write`, and the first comment stands over a blank line
+while the second reads as if it were written about the other import. That is
+the harm `guard.ts` blocks `--unsafe` for, arriving through the command the
+guard sends a session to instead. `format` is now
+`--assist-enabled=false`, which keeps the formatter and the safe lint fixes
+and drops only the move; `bun run imports:sort` is the sort, on purpose, with
+a diff to read. `bun run lint` is unchanged, so the order is still enforced on
+`main` — it just asks rather than rewrites. Three tests run the script strings
+themselves, outside the repository, so they answer for the flags. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, `package.json`, `biome.json`, `imports/run.ts`, `guard.ts`'s advice |
+| writing | 5 | two script lines, the commands doc, three cases |
+| looking | 0 | nothing drawn |
+| friction | 5 | a scratch reproduction outside the tree pulled its own biome and sorted nothing; `queue done 1` refuses a position |
+| landing | 5 | `check:fast`, the commit |
+
+Bottleneck: reading — the entry names three fixes and the one it recommends
+reads two ways, and only one of them changes anything. A `format` that chains
+the sort behind the formatter is still a silent sort; the fix had to be that
+`format` stops sorting at all.

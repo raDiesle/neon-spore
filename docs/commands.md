@@ -32,7 +32,9 @@ bun run test:determinism
 bun run test:profile   # which test files carry the minutes — docs/performance.md
 bun run typecheck      # tsc, then the server's own
 bun run lint           # biome, warnings are errors
-bun run format         # biome, writing — the safe fixes only, never --unsafe
+bun run format         # biome, writing — the safe fixes only, never --unsafe, and
+                       # never the import sort: a sort is a move, and the doc
+                       # comment written above an import does not move with it
 bun run imports        # drop the names a file split stranded in an import list:
                        # biome offers only an unsafe fix for those, which deletes
                        # a statement together with the doc comment above it, so
@@ -40,6 +42,12 @@ bun run imports        # drop the names a file split stranded in an import list:
                        # list, and a statement that would go entirely is printed
                        # for somebody to read (tools/imports/, and a path or two
                        # narrows it from the whole repository)
+bun run imports:sort   # the sort, as a step of its own — the assist `lint` asks
+                       # for when it says "Sort these imports". Read what it
+                       # writes before committing it: a doc comment stays where
+                       # it was while the statement under it moves away, so one
+                       # can be left over a blank line or over somebody else's
+                       # import
 bun run check:fast     # typecheck + lint + the tests a lane's diff can reach — before a commit
 bun run check          # the same with every test; what `land` runs, minutes long
 bun run scope          # which test directories a diff can have moved (tools/hooks/scope.ts)

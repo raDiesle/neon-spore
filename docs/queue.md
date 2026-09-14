@@ -176,42 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `bun run format` sorts imports, and a sort moves a comment off its statement
-
-- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-14, claude/queue-bun-run-format-sorts-imports-and-a-sort-moves-a
-- **Files:** `package.json`, `biome.json`, `docs/commands.md`
-
-`bun run format` is `biome check --write`, and `check` runs the
-organize-imports assist as well as the formatter. Sorting is a *move*, and a
-doc comment written above an import does not move with it. Measured on this
-file:
-
-```
-/** The tick counter is the only clock the simulation has. */
-import { zebra } from "./z.ts";
-/** Kept for the hull decision of 3 September. */
-import { alpha } from "./a.ts";
-```
-
-After one `biome check --write`, the first comment sits above a blank line
-attached to nothing, and the second reads as if it were written about
-`alpha`. That is the same harm `tools/hooks/guard.ts` blocks `--unsafe` for,
-arriving through the command the guard tells a session to run instead.
-
-It only bites while a file is unsorted, which is to say inside a lane, between
-adding an import and the next format — never on `main`, because `bun run lint`
-refuses an unsorted file. So the blast radius is one session's own edit, and
-the reason to fix it is that the session will not notice.
-
-Three ways: `format` becomes `biome format --write` plus an explicit
-`biome check --write --only=source/organizeImports` so the sort is a named
-step; or the assist is turned off in `biome.json` and the import order stops
-being enforced at all; or it stays and `docs/commands.md` says out loud that
-a comment above an import is not safe from `format`. The first keeps both
-properties and costs one line. `tools/imports/run.ts` already formats with
-`biome format --write` for exactly this reason and has the comment saying why.
-
 ## CLEAR THIS DEVICE leaves the intro flag behind, and the test cannot see it
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
