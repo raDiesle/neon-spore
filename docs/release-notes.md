@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 461385b8 — The room's message switch moves to `room-route.ts`
+
+`apps/server/src/room.ts` was 249 lines, and `route` is a switch over `ClientMessage["t"]` that gains a case with every message the client learns to send — `level` and `stats` were the last two. It goes the way `room-open.ts`, `room-tell.ts` and `room-start.ts` already went: the switch and its comments are `routeClient` in a sibling, handed the four things a message can make the room do — relay, press, keep a level, keep a tally — as closures, so it reads no private field. `room.test.ts`, which drives ping, ready, level and stats through a room, is green unchanged. A refactor, not a look.
+
 ## 2026-09-14 · ed060dd6 — The roster's spec readers and `isBuilt` move to `roster-parse.ts`
 
 `tools/director/src/roster.ts` was 248 lines, and three things in it grow: `isBuilt`, which gains a clause each time the simulation ships something in neither table it reads, and the two readers of the bestiary table and the act order's paragraph, which gain a rule each time the spec writes a slot a new way. All three, with their paragraphs, are a sibling now; `roster.ts` keeps the `Planned` and `Roster` types, the prose attachment and `parseRoster`, and `backlog-ideas.ts` takes `isBuilt` from the sibling. `parseRoster` over the real spec files is byte-identical before and after. A refactor, not a look.
