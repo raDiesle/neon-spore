@@ -1043,6 +1043,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |
 | `packages/render/src/hull-barrel.ts` | THE SHIP LIT BY ITS OWN NORMAL, instead of by a straight ramp across its box |
+| `packages/render/src/hull-mood.ts` | what the ship is doing this frame — `HullMood`, the eased state of its membrane, and `LobePositions`, where its lobes stand — re-exported from `hull-frame.ts` |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |

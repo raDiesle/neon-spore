@@ -8,17 +8,19 @@ import {
   type Point,
   SHIELD_LOBE,
 } from "@neon-spore/content";
-import type { EggFlare } from "./egg-skin.js";
+import type { HullMood, LobePositions } from "./hull-mood.js";
 import { type Layout, tileCX } from "./layout.js";
 import { lobe } from "./lobe.js";
-import type { ShieldSegment } from "./shield.js";
+
+export type { HullMood, LobePositions } from "./hull-mood.js";
 
 /**
  * The hull's shape for one frame — split out of `hull.ts` so the geometry
  * model (this file) and the drawing that reads it (`hull.ts`) can each stay
  * under the line limit, and so a caller elsewhere in render/ that only needs
  * a point on the surface (`hullSkinY`, today's one example) does not have to
- * pull in canvas drawing code to get it.
+ * pull in canvas drawing code to get it. What the ship is *doing* — its mood
+ * and where its lobes stand — is `hull-mood.ts`, re-exported from here.
  */
 
 /**
@@ -43,69 +45,6 @@ export interface HullFrame {
   /** Screen x of the cannon, needed again for the muzzle. */
   cannonX: number;
   t: number;
-}
-
-/**
- * Where the lobes are, in columns. Fractional: the world moves them a whole
- * column at a time and render/ carries the eye across — `Glide` for the
- * cannon, a chain of them for the shield (`ShieldBody`).
- */
-export interface LobePositions {
-  cannon: number;
-  /** The shield's body, head first. Each segment is its own bump. */
-  shield: readonly ShieldSegment[];
-}
-
-/**
- * The ship's transient state, all of it eased and none of it in the world.
- * One object rather than four arguments, because every one of them is the
- * same kind of thing: how the membrane is behaving this frame.
- */
-export interface HullMood {
-  /** 0..1 towards the shield held open. */
-  armed: number;
-  /**
-   * 0..1 while a clasp is standing in the shield's own column: the ship's
-   * half of the link, drawn as arcs off the shield's rim (`resonantLook` in
-   * `shield-spark.ts`).
-   *
-   * It sits beside `armed` and is a different question. `armed` is *this
-   * player pressed the trigger*; this is *there is something up the field
-   * that your shield can open*, which is true whether or not anybody has
-   * pressed anything, and is the only prompt either player gets that the two
-   * of them are lined up on the same column.
-   */
-  resonance?: number;
-  /** 0..1 towards the cannon lobe turned inside out — the maw. */
-  intake: number;
-  /** 0..1 while the skin around the maw comes apart over a pod. */
-  chew: number;
-  /** 0..1 the light that goes through the ship once the pod is inside. */
-  charge: number;
-  /**
-   * The laying phase, 0 → 2 (`cannon-maw.ts`'s `LayState`, which defines it).
-   *
-   * Its first half — 0..1, towards the shot that has been pressed leaving the
-   * muzzle — is the one field here that is *not* eased and not this package's
-   * invention: the world fixes the tick the shot goes, to the tick, on both
-   * devices, so easing it would put the two cannons out of step with each
-   * other. Its second half, 1..2, is the opposite kind of thing and is here
-   * only because there was nowhere else to put it: the world stops saying
-   * anything the moment the shot leaves, so the mouth's follow-through is the
-   * renderer's, out of `Effects`. Absent on a ship with no trigger of its own
-   * — THE MIRROR's copy performs shots rather than firing them.
-   */
-  lay?: number;
-  /**
-   * The release burn — how hot the cannon's mouth is still glowing, and in
-   * which ammunition colour (`egg-skin.ts`'s `EggFlare`).
-   *
-   * It is a separate field rather than part of `lay` because it is a separate
-   * clock: the body goes slack over six tenths of a beat and the colour has to
-   * stay legible for longer than that. Absent on a ship that has not fired,
-   * and on THE MIRROR's copy, which performs shots rather than firing them.
-   */
-  layFlare?: EggFlare;
 }
 
 /**

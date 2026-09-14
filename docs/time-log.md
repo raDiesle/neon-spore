@@ -4110,3 +4110,23 @@ had to leave the tree before `check:fast` because the purity test reads
 | landing | 5 |
 
 Bottleneck: friction — a sibling written over a file that already had the name; `test -e` before the write from now on.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `hull-frame.ts` is at the limit: the mood is a second subject
+
+The hull's geometry for one frame shared a file with sixty lines of what the
+ship is doing — `HullMood` and `LobePositions`, two interfaces whose
+documentation is most of their length. They moved to `hull-mood.ts` and come
+back through a type re-export, so the forty files that import one of them
+from `hull-frame.ts` are untouched. A type-only move: the typecheck is the
+proof, and THE HAND's canvas op log from both seats over 480 frames is
+identical before and after for form.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: landing — the render suite; the slice was off by the length of one doc block until the edges were read off `grep -n` rather than counted.
