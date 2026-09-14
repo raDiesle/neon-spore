@@ -175,3 +175,47 @@ still what nearly every entry is.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
+
+## The intro is one scene of two phones and a shout, not six pages and a stepper
+
+- **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Files:** `packages/content/src/intro.ts`, `packages/render/src/intro-page.ts`, `packages/render/test/intro.test.ts`, `packages/render/test/intro-flash.test.ts`, `apps/game/src/intro.ts`, `apps/game/test/intro.test.ts`, `apps/game/src/settings.ts`
+
+The owner asked for this by name on 14 September 2026, which is the first
+exemption under *A look is offered, never replaced* — say so in the commit.
+
+Today the intro is six pages (`INTRO_PAGES`: two, voice, field, panel, boss,
+run), each a title, a one-liner, a starburst tag and a figure, drawn on the
+canvas by `drawIntroPage` with a nav bar `introHit` answers as `skip`, `back`,
+`next` or `page`. Replace it with **one scene and no stepper**: no pages, no
+BACK, no NEXT, no page count — one animation that plays through and one press
+(or its own end) that closes it.
+
+The scene explains one thing only: **two phones, one game, and the players
+talk.** Two people, each holding a phone; the phones show different screens;
+the controls are shared between them. One person shouts across, friendly, at
+the other; the other listens and then moves a control on their own phone to
+match. Two beats of that, in the game's own words: **"SHOOT NOW"** — the
+listener presses fire — and **"MOVE THE SHIELD"** — the listener slides the
+shield. That is the whole pitch; the field, the panel, the bosses and the
+endless run come out (a wave's guide teaches a wave, `HOW TO PLAY` is the
+reference — `content/intro.ts`'s own preamble already says the intro is neither).
+Keep it on the canvas in the game's parts, as now: the `twoScreens` and
+`voice` figures in `intro-page.ts` are the starting material, and the shout
+can be the existing speech-bubble treatment rather than a new shape (check
+`packages/content/src/silhouettes*.ts` before drawing anything new).
+
+Once shown, the device does not show it again before the menu. That rule is
+already there — `INTRO_KEY` / `INTRO_VERSION` and `opensIntro` in
+`apps/game/src/intro.ts`, cleared with the other device keys by
+`forgetThisDevice` in `settings.ts` — so keep it and **bump `INTRO_VERSION`**
+so a device that saw the six pages sees the new scene once. The menu's and the
+room screen's *open on demand* stays.
+
+What has to change with it: `INTRO_PAGE_COUNT` and `IntroPage` go or shrink to
+the one scene; `introHit` stops answering `back`/`next`/`page`; the `turn`
+logic in `apps/game/src/intro.ts` goes; the three intro tests are rewritten to
+the one scene (the flash test loses its subject); `settings.ts`'s comment says
+"six opening pages" and is reworded. A frame of the scene is drawn in
+`packages/render/test/frame.test.ts` like everything else drawn. Prove it with
+`bun run check`, and send one PNG of the scene mid-shout.

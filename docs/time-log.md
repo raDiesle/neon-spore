@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queued-items — the intro's rewrite, queued from the owner's sentence
+
+No code. The owner said what the intro should become — one scene, no
+stepper, two phones and a shout, remembered once per device — and the lane
+wrote it as a queue entry a cold session can act on: which of the seven files
+it reaches, that the once-per-device memory already exists and only its
+version needs bumping, and that the six-page content and its nav go. About
+10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `intro.ts` in game, content and render; `settings.ts`; the queue's format |
+| writing | 5 | the entry, and its title once more under eighty characters |
+| looking | 0 | nothing drawn |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land` |
+
+The bottleneck was none: the entry's title was over the parser's length once,
+and `bun run queue` said so.
+
 ## 2026-09-14 — queued-items — a bun below the pin is named at the door
 
 The queue's one item, found by the lane before this one on this same machine:
