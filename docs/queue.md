@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## CLEAR THIS DEVICE leaves the intro flag behind, and the test cannot see it
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-clear-this-device-leaves-the-intro-flag-behind-a
 - **Files:** `apps/game/src/settings.ts`, `apps/game/test/settings.test.ts`, `apps/game/src/intro.ts`
 
 `neon-spore.intro` is written by `intro.ts` when the six opening pages are
