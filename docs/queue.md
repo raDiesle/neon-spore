@@ -219,3 +219,151 @@ the one scene (the flash test loses its subject); `settings.ts`'s comment says
 "six opening pages" and is reworded. A frame of the scene is drawn in
 `packages/render/test/frame.test.ts` like everything else drawn. Prove it with
 `bun run check`, and send one PNG of the scene mid-shout.
+
+## HOW TO PLAY leaves the front page, and the tagline says talking is the key
+
+- **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu.css`, `apps/game/test/menu-front.test.ts`, `apps/game/test/how-to-play.test.ts`, `apps/game/test/menu.test.ts`
+
+Asked for by the owner on 14 September 2026 — the first exemption under *A
+look is offered, never replaced*; say so in the commit.
+
+Two changes to the front of the menu:
+
+1. **The HOW TO PLAY row and its page go.** `menuEntries` in
+   `menu-entries.ts` lists it second; `menu-pages.ts` builds the page
+   (`h2 "HOW TO PLAY"`, the two paragraphs, the seat cards between them —
+   `menu.css` around line 745 styles it); `menu-view.ts` opens the intro from
+   its top (`menu-view.ts:52`). Remove the row, the page, the `how` member of
+   `MenuPage`, its CSS, and the `menu.ts` doc comment that says *the front
+   page is four rows*. The intro's own *open on demand* from the menu has to
+   survive — put it wherever the front page still has a place for it, or on
+   SETTINGS, rather than dropping it with the page. CONTROLS
+   (`menu-controls.ts`) is reached from SETTINGS and is not this.
+
+2. **The tagline** under the title (`menu-view.ts:122`) reads
+   `TWO PEOPLE · TWO DEVICES · TALKING IS THE CONTROL SCHEME`. The owner wants
+   the last part to read something like *talking is the key to success in this
+   co-op game* — his words; keep the set-in-caps, middle-dot form the line has
+   (`TWO PEOPLE · TWO DEVICES · TALKING IS THE KEY TO WINNING` or as close to
+   his sentence as fits one line on a phone). `menu-front.test.ts` holds the
+   four rows in order and that WHAT THIS IS sits at the top of HOW TO PLAY;
+   `how-to-play.test.ts` holds the page's copy and goes with the page. Update
+   the first rather than loosening it.
+
+## The director loses GUIDES, SPEC and DEMOS; TUNING gets a topbar button
+
+- **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Files:** `tools/director/index.html`, `tools/director/src/documentation-rooms.ts`, `tools/director/src/states-page.ts`, `tools/director/src/guide-sheet.ts`, `tools/director/src/guide-page.ts`, `tools/director/src/guide-gallery.ts`, `tools/director/src/guide-waves.ts`, `tools/director/src/guide-order.ts`, `tools/director/src/spec.ts`, `tools/director/src/docs-api.ts`, `tools/director/src/demo-panel.ts`, `tools/director/src/ship.ts`, `tools/director/src/tuning.ts`, `tools/director/src/main.ts`, `tools/director/test/guide-gallery.test.ts`, `tools/director/test/guide-waves.test.ts`, `tools/director/test/demo-panel.test.ts`, `tools/director/test/sheet.test.ts`
+
+The owner asked for this on 14 September 2026. It is the director, not the
+game, so it is not a look and lands as usual.
+
+DOCUMENTATION (`#states`, `states-page.ts`) has nine tabs today, in this
+order: STATES, CONTROLS, SHIP, STYLE, WORDINGS, DEMOS, TUNING, GUIDES, SPEC
+(`index.html` ~line 297). What he wants:
+
+- **GUIDES goes.** `bindGuidesTab` in `documentation-rooms.ts`, the
+  `#mech-guides` page, `guide-sheet.ts`, `guide-page.ts`, `guide-gallery.ts`
+  and its test. `guide-waves.ts` and `guide-order.ts` are only reached from
+  those — check with `grep -rl` before deleting; `wave-opening.ts` is
+  imported by `main.ts` and stays.
+- **SPEC goes.** `bindSpecTab`, `#mech-spec`, `spec.ts`. `docs-api.ts`
+  (`DOC_ROUTES`, `readSpecFiles`) is what serves `docs/spec/` to it from
+  `server.ts` and `build.ts`; if nothing else reads those routes after SPEC is
+  gone, they go too, and `build-imports.test.ts` names the file.
+- **DEMOS goes.** `#mech-demos`, `demo-panel.ts`, `bindDemoPanel` in
+  `main.ts` and the `refreshAll` note beside it, `demo-panel.test.ts`. If a
+  demo is reachable by URL (`?sheet=states&inner=demos`) that route goes with
+  it.
+- **TUNING moves out of DOCUMENTATION to the topbar**: a `menu-item` button of
+  its own beside ▣ DOCUMENTATION and ♪ SOUND (`index.html` ~line 48; nine
+  buttons today, and `mobile-menu.ts` makes them the phone's menu). It is the
+  one page that changes the run rather than describing it, which is the
+  reason the HTML comment above `#mech-tuning` already gives for it not
+  belonging under a heading that means *reference*. `mountSheet` in
+  `session.ts` is how a topbar sheet opens; the pair panel, presets and
+  sliders (`tuning.ts`, `main.ts`) move whole.
+- **SHIP merges into that TUNING page.** `renderShipSheet` (`ship.ts`) paints
+  the ship's own dials — AIM, GUARD, HULL, THE BEAT, the same on every wave —
+  read off `SimConfig`; the sliders are tunables of the same `SimConfig`.
+  Put them on one page in a sensible order: the sliders first (they act),
+  then the ship's cards as the reference for the numbers being moved, with a
+  card's fields next to the slider that moves them where one does. The WAVE
+  tab's own SHIP card (`renderShip`) is not this and stays.
+- **WORDINGS is the first tab and the default** of what is left of
+  DOCUMENTATION: STATES, CONTROLS, STYLE, WORDINGS become WORDINGS, STATES,
+  CONTROLS, STYLE, with `class="on"` and `renderStates`'s *default tab*
+  wiring in `states-page.ts` following it (STATES rendered lazily on its own
+  click, the way the other rooms already are).
+
+`sheet.test.ts` and `stylesheet-order.test.ts` know the sheets and the tab
+bars; `docs/commands.md` and any `docs/` page that names the GUIDES or SPEC
+tab are updated. Prove it with `bun run check` and one PNG of the new TUNING
+sheet.
+
+## PLAY is a list of partners to continue with, and the room is a step-by-step
+
+- **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-rejoin.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu.ts`, `apps/game/src/pairing.ts`, `apps/game/src/progress.ts`, `apps/game/src/join.ts`, `apps/game/src/join-words.ts`, `apps/game/src/join-link.ts`, `apps/game/src/join-name.ts`, `apps/game/index.html`, `apps/game/src/link.ts`, `apps/server/src/seat.ts`, `apps/game/test/menu.test.ts`, `apps/game/test/pairing.test.ts`, `apps/game/test/join-words.test.ts`
+
+The owner asked for this on 14 September 2026 — the first exemption under *A
+look is offered, never replaced*; say so in the commit. It is one workflow but
+several green pieces; land each as it goes green rather than holding the
+branch (`docs/git-and-landing.md`). Seat choice reaching the other phone
+touches the wire: `.claude/skills/net-change` before that piece.
+
+**Behind PLAY, today** (`playEntries`): CONTINUE, DIFFICULTY, REJOIN, OPEN A
+ROOM, and under them three seat cards PILOT / NAVIGATOR / BOTH
+(`menu-seats.ts`). **What he wants:**
+
+1. **The PLAY page is first a list of the people this device has played
+   with**, one row each, *Continue game with David · wave 7*. `pairing.ts`
+   keeps `PARTNERS_KEPT` partner names under `neon-spore.pairs` and nothing
+   else; `progress.ts` keeps one `furthest` for the device. The wave number
+   needs the progress kept **per partner** — extend what `pairing.ts` stores
+   to `{ name, furthest, level }` with `parsePartners` reading the old list
+   of strings as furthest 0 — and REJOIN (`menu-rejoin.ts`, `roomForPair`)
+   is what the row does. Under the list, one row **NEW GAME** (was OPEN A
+   ROOM; `menu-entries.ts:128`). CONTINUE and DIFFICULTY leave this page.
+2. **Difficulty is chosen when creating a new game**, on the room screen (see
+   5), and for an existing partner behind a **gear icon on the right end of
+   that partner's row** — a second press target in the same button, opening
+   the three-level list (`levelEntries`) for that pair. The level already
+   travels on the wire (`protocol.ts` `t: "level"`).
+3. **No seat on the PLAY page.** The seat cards (`menu-seats.ts`) leave it;
+   **BOTH is not offered** to a pair at all — one device with both seats stays
+   the rig's business behind TESTING, where `testingEntries` already says
+   *both seats on this device*.
+4. **The TWO DEVICES / room screen becomes steps** (`index.html` `#joinScreen`,
+   `join.ts`). Remove SEND LINK (`#joinShare`, `shareRoom` in `join-link.ts`)
+   and WHAT THIS IS (`#joinWhat`) — both, everywhere on this screen. Then:
+   - **Step 1**: two buttons only, **JOIN** or **CREATE**.
+   - **Step 2**: the nickname (`#joinName`, `join-name.ts`), asked once the
+     choice is made, skipped when the device already has one.
+   - **Step 3, creator**: the code, large, and one sentence: *be on a voice
+     call and read this out*. **Step 3, joiner**: the code field
+     (`#joinEnter`) and *type in the code you were told*.
+   - **Step 4**: waiting for the other phone; then, **on the same screen for
+     both**, the room's state: both names, and the creator picks **the seat**
+     and **the difficulty** there — the joiner sees the choice made and takes
+     the other seat — and each says READY with **the circle hold the guides
+     use** (`briefing.ts`, `render/ready-circles.ts`), not a START button
+     (`#joinStart`, `startButton` in `join-words.ts`). Who holds which seat is
+     today the server's arrival order (`seat.ts`, `link.ts:202`); the
+     creator's pick has to reach the other phone, which is one new message or
+     a swap — the net-change skill's files move together.
+   - The joiner's pages mirror it: JOIN → name → code → the same shared step 4.
+5. **The wait for the other player gives up too soon.** Find which timer it
+   is before changing one: `SEAT_SILENT_MS` (10 s, `apps/server/src/seat.ts`)
+   evicts a seat whose pings stop, which is what a creator's phone does when
+   its screen locks while they read the code out; `HOLD_AFTER_MS` (1.2 s,
+   `hold.ts`) raises the *gone quiet* card. Reproduce with two browsers
+   against a wrangler (`bun run relay:check` has the setup), name the number
+   that fired, and raise it for the waiting-for-a-partner state only, with a
+   sentence in the constant's comment saying why.
+
+`menu.test.ts` and `menu-front.test.ts` read the rows; `pairing.test.ts`
+holds the store's shape; `join-words.test.ts` holds every sentence on the
+room screen. Prove with `bun run check`, and for step 4 the two-browser run,
+sending one PNG of the shared ready step.

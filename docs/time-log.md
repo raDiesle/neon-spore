@@ -22,25 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
-## 2026-09-14 — queued-items — the intro's rewrite, queued from the owner's sentence
+## 2026-09-14 — queued-items — four of the owner's asks, queued for cold sessions
 
-No code. The owner said what the intro should become — one scene, no
-stepper, two phones and a shout, remembered once per device — and the lane
-wrote it as a queue entry a cold session can act on: which of the seven files
-it reaches, that the once-per-device memory already exists and only its
-version needs bumping, and that the six-page content and its nav go. About
-10 min.
+No code. The owner said, in two messages, what four things should become —
+the intro as one scene, HOW TO PLAY gone and the tagline reworded, three
+director rooms gone and TUNING on the topbar with SHIP folded in, and PLAY as
+a list of partners in front of a step-by-step room screen — and the lane
+wrote each as a queue entry a cold session can act on: the files it reaches,
+what already exists (the intro's once-per-device memory, the level on the
+wire) and what does not (progress kept per partner, a seat pick that
+crosses to the other phone, which timer gives the wait up). About 30 min
+across the two.
 
 | activity | minutes | what it was |
 |---|---|---|
-| reading | 5 | `intro.ts` in game, content and render; `settings.ts`; the queue's format |
-| writing | 5 | the entry, and its title once more under eighty characters |
+| reading | 15 | the intro's three files, the menu's rows and pages, the room screen and its timers, the director's nine tabs and who imports each |
+| writing | 10 | four entries, one retitled under eighty characters |
 | looking | 0 | nothing drawn |
 | friction | 0 | — |
-| landing | 5 | `check:fast`, the commit, `land` |
+| landing | 5 | `check:fast`, two commits, `land` twice |
 
-The bottleneck was none: the entry's title was over the parser's length once,
-and `bun run queue` said so.
+The bottleneck was reading: naming the files a removal drags with it in the
+director took a grep per file, and the room screen's timeout has two
+candidates the entry had to name rather than one.
 
 ## 2026-09-14 — queued-items — a bun below the pin is named at the door
 
