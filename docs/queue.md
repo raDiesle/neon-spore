@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Unverified at 6ecebe84: THE LEAK watched at tempo: whether a pair can cross the…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-14, claude/queue-unverified-at-6ecebe84-the-leak-watched-at-tempo
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bestiary.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/control-fault.ts`, `packages/content/src/mechanics-wave.ts`, `packages/content/src/waves-demo.ts`
 
 *THE LEAK: the fault that takes the hold, not a button* landed from a session that could not look at it. The commit touched 18 more files. What went unchecked:
