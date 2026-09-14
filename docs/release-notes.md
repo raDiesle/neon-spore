@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · e51c69f6 — Queue a first-visit screen after the intro: the nickname, and an optional sign-in to restore it
+
+The owner asked that a device be asked for its nickname the first time, straight after the intro animation, with an optional Google or email sign-in under it to get a name back. Both halves exist — the room screen's name field and SETTINGS' sign-in row — so the entry is about when they are met, and hangs the screen off Intro.open(after).
+
 ## 2026-09-14 · 3dd4b34b — Queue, for a local session, the tutorial announcing itself: loud plate, a field plainly not live, a welcome page
 
 The owner asked that a guide make plain the picture is not live and the bar is the only way on, that the TUTORIAL corner plate be far more prominent — it was made smaller two days ago at his own asking, so loud without covering — and that the very first tutorial a device meets open with a welcome page showing how the stepper works, once per device. Every part is judged by an eye at tempo, so the entry carries his LOCAL line.
