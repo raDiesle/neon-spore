@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · dea395b8 — The supervisor's stop test spawns bun by its path, and finds its files without a leading slash
+
+A bare "bun" is ENOENT to uv_spawn on Windows, where the executable is bun.exe, and a file URL's pathname is /C:/… there — no directory to spawn in. The test that proves a stopped director is stopped (42ad5046) failed on every Windows checkout for both reasons. It reads process.execPath and fileURLToPath now, the way tools/hooks' tests already do.
+
+## 2026-09-14 · 8ff8535e — Queue the owner's rule that a shot never goes through a body it cannot break
+
+Asked for on 14 September 2026: the five kinds shot-reach.ts lets a bolt pass — the gum, the leech, the limpet, the weight, the cairn — stop it instead, drawn as a deflection or a crater the game already draws.
+
+## 2026-09-14 · ebeb130e — Queue two arrows at the top of the director's WAVE column, opening the previous and next wave
+
+Asked for by the owner on 14 September 2026: reading waves in order is a press per row in the list today; the arrows step store.index through the whole list from the editor's own column, with the ends disabled rather than wrapping.
+
+## 2026-09-14 · 675e46ae — Queue THE BALLOON's four changes: a torn burst, a torch at the top, no sinking, entry at a wall
+
+The owner's four sentences of 14 September 2026, for a local session only: the burst becomes the skin coming apart in pieces; a balloon reaching the top turns into a torch and drops at once instead of billing the hull; no balloon or split half ever goes downwards; and it enters from a side wall one or two tiles above the shield, glides to a random column around the middle and rises from there in the climb it has.
+
 ## 2026-09-14 · e365bbb2 — Queue THE LIMPET beside THE LEECH, and name the shipped bodies both entries move
 
 THE LIMPET is THE LEECH's entry with the shield's plate in place of the cannon, player one telling player two, and the same beats, deflection, timer and glow — asked for by the owner on 14 September 2026. THE LEECH's entry now names `sim/cling.ts`, where both ship today as creatures, as what the malfunction brush takes over.
