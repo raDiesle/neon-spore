@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 6d2e68b1 — `scene-overlay.ts`: drawing a scene is not placing it
+
+`scene-art.ts` stood at 249 lines answering two questions. Where does each body of a draft stand — the fit, the scale a draft is drawn at, the half-height a label has to clear, one `Placed` per body, and none of it touching a drawing context. And what does a frame of them look like — the own-motion applied exactly as `render/creatures.ts` applies it, the ghost's thin dashed line, the glow, the label under it.
+
 ## 2026-09-14 · 27728824 — `sound-row.ts`: one sound is not the catalogue
 
 `sound-page.ts` stood at 249 lines and built two things. The sheet — which family is showing, which status filter is on, the tabs across the top, the legend, what a rebuild costs — and one sound's row inside it: its picture, the PLAY button, what it is for, what it costs the conversation, its recipe as numbers and its plot.
