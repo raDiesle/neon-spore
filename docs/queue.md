@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## No safe way to drop the names a file split strands in an import list
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-no-safe-way-to-drop-the-names-a-file-split-stran
 - **Files:** `tools/hooks/guard.ts`, `package.json`, `docs/commands.md`
 
 Eleven files were split to get under the 250-line limit in one sitting, and on
