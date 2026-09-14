@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 24dc7f32 — `perf/run-types.ts`: a run's record, apart from the verdict
+
+Two thirds of `compare.ts`'s 249 lines were not a comparison. `WaveCost`, `Run` and `WaveDelta` are the record a run writes and the row a comparison hands back, and every field of them carries the argument for its own existence — why a row is matched on `Wave.id` rather than on a number that moves when a wave is inserted earlier in the campaign, what a `typical` is the typical of, what an unmeasured row means. What is left is the only place in the tool that decides what *worse* means: the verdict taken on a wave's share of its own run's median rather than on its milliseconds, and the floor each wave has to clear.
+
 ## 2026-09-14 · 543dfb63 — `gyre-wheel.ts`: finding the wheels is not drawing one
 
 `gyre.ts` stood at 249 lines doing two things. `gyres`, `gyreRadiusPx` and `drawGyres` ask a world which wheels are on the field and what each is carrying, and loop. `drawWheel`, `membrane` and `band` draw one: the ripple outside every body, the two rim bands through the six drawn centres, the spokes bowing against the turn, the organelle in the middle.
