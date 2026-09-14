@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 408167f6 — HANDOVER · HULL watched over one exchange: the ship breathes the trade
+
+The second unverified entry a cloud session left comes out of the queue. Eight real frames of THE HANDOVER on the navigator's seat across one turn of the four-beat exchange, and one of the pilot's: the right lobe stands, the two meet a beat later, the left stands a beat after that, under a tile high beside the countdown plate. It reads as the ship handing the panels over rather than as one signal too many, and on the pilot's phone it is amber with the rest of that ship. Nothing changed in code; the queue is empty.
+
 ## 2026-09-14 · 4dddf378 — THE LEAK watched: a pair crosses to the far wall with fourteen beats to spare
 
 The first unverified entry a cloud session left comes out of the queue. A probe with a scripted pair — a pilot arriving late, a navigator tapping slowly — takes all sixteen bodies even six beats late and two beats between taps, because a body falls a row a beat over fifteen rows and the far column has fourteen from its first body to its landing; a real strip of frames at the second figure shows the three red standing in column eight with the cannon still at three, which is the crossing the entry asked about. The frame-cost half of the entry is not owed: a lane never runs `perf`.
