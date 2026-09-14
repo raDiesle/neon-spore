@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 089c4e06 — The hull's skins leave its drawing for a file of their own
+
+`hull.ts` was at the limit and held the drawing of one membrane beside the colours a ship is painted in. `HullSkin`, `OWN_SKIN` and `MIRROR_SKIN` now live in `hull-skin.ts`; `hull.ts` re-exports them the way it already re-exports `hull-frame.ts`'s, so the sixteen files that take a skin from `./hull.js` are untouched, and it drops the `PALETTE` import only the skins used. The canvas op log of THE ROCK, THE MIRROR and THE WELL, 480 frames from each seat, is identical before and after. A refactor, not a look.
+
 ## 2026-09-14 · 9d4fcebb — A room's code and link leave the join screen for a file of their own
 
 `join.ts` was at the limit: the room screen, and after it four helpers about the code itself — `freshCode`, `roomRequested`, `roomLink`, `shareRoom`. The four now live in `join-link.ts`, the file `join-link.test.ts` was already named for; the screen imports the three it uses back, and `shell.ts` and the test take `roomRequested` from the new file. The test is green and nothing about the screen's binding moved. A refactor, not a look.
