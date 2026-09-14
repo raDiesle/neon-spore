@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-items — the port reader gets a test, and the test finds two holes
+
+The lane before this one made `bun run frames` print the build's stderr when
+`preview:once` died without a port, and nothing tested it: the loop lived
+inside the function that spawns the real server. Lifted into `previewUrlFrom`,
+given two streams, and tested with streams made from strings. The second case
+written — a URL split across chunks — failed at once: the pattern took
+`http://127.0.0.1:4` as the whole address when the pipe handed over a chunk
+ending there, so the address now has to be followed by the ` — pid` the
+server prints after it. And the thirty-second deadline was checked only
+between reads, so a build printing nothing held `read()` open for as long
+as it liked; the read is raced against the clock now, and the sixth case
+holds it. One real frame taken through the changed reader. About 25 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `serve.ts`, `preview.ts`'s own line, `page-said.test.ts` for the idiom |
+| writing | 10 | the lift, the race, the pattern, six cases |
+| looking | 5 | one `frames` run against the real server |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land` |
+
+The bottleneck was nothing in particular; the test paid for itself on its
+second case.
+
 ## 2026-09-14 — queue-items — `isMount` is called where it was written out
 
 The second item the dead-export scan queued: `gyre.ts` exported `isMount`

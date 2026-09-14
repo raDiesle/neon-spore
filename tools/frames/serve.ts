@@ -31,29 +31,7 @@ export async function startPreview(
     stderr: "pipe",
   });
 
-  const reader = proc.stdout.getReader();
-  const decoder = new TextDecoder();
-  let buffered = "";
-  const deadline = Date.now() + 30_000;
-  let url: string | null = null;
-  while (!url) {
-    if (Date.now() > deadline) throw new Error("preview:once never printed its port");
-    const { value, done } = await reader.read();
-    // The build's own words, not just the fact that it stopped. A worktree
-    // without its `bun install` fails in `apps/game`'s build with a line naming
-    // the package it cannot resolve, and that line was on a stderr nobody read:
-    // the session saw "exited before printing its port" and had to run
-    // `preview:once` by hand to find out why.
-    if (done) {
-      const said = (await new Response(proc.stderr).text()).trim();
-      const tail = said.split("\n").slice(-12).join("\n");
-      throw new Error(`preview:once exited before printing its port${tail ? `:\n${tail}` : ""}`);
-    }
-    buffered += decoder.decode(value, { stream: true });
-    const found = buffered.match(/preview \(built\) on (http:\/\/[^\s]+)/);
-    if (found?.[1]) url = found[1];
-  }
-  reader.releaseLock();
+  const url = await previewUrlFrom(proc.stdout, proc.stderr);
 
   return {
     url,
@@ -63,6 +41,73 @@ export async function startPreview(
       await waitUntilQuiet(url);
     },
   };
+}
+
+/** How long the server is given to print its port before this stops waiting
+ * for it: a build of `apps/game` and the serve behind it, on a busy machine. */
+const PORT_MS = 30_000;
+/** How many of stderr's last lines an early exit carries in its message. */
+const TAIL_LINES = 12;
+
+/**
+ * The server's URL off its stdout, or the reason it never printed one.
+ *
+ * Its own function, and given the two streams rather than the process, so
+ * `serve.test.ts` can feed it a stdout made from a string: what it is
+ * guarding is a sentence, and the sentence was wrong for a day. A worktree
+ * without its `bun install` fails in `apps/game`'s build with a line naming
+ * the package it cannot resolve, and that line was on a stderr nobody read —
+ * the session saw *exited before printing its port* and had to run
+ * `preview:once` by hand to find out why. So an early close reads stderr and
+ * puts its last lines after the sentence.
+ */
+export async function previewUrlFrom(
+  stdout: ReadableStream<Uint8Array>,
+  stderr: ReadableStream<Uint8Array>,
+  patienceMs = PORT_MS,
+): Promise<string> {
+  const reader = stdout.getReader();
+  const decoder = new TextDecoder();
+  let buffered = "";
+  const deadline = Date.now() + patienceMs;
+  try {
+    while (true) {
+      // The deadline is raced against the read, not checked between reads: a
+      // build that prints nothing at all would otherwise hold `read()` open
+      // for as long as it liked, and the thirty seconds meant nothing.
+      const { value, done } = await within(reader.read(), deadline, "never printed its port");
+      if (done) {
+        const said = (await new Response(stderr).text()).trim();
+        const tail = said.split("\n").slice(-TAIL_LINES).join("\n");
+        throw new Error(`preview:once exited before printing its port${tail ? `:\n${tail}` : ""}`);
+      }
+      buffered += decoder.decode(value, { stream: true });
+      // The URL has to be followed by something — the ` — pid` the server
+      // prints after it, or the line's end. A pipe hands over what it has, and
+      // a chunk ending at `:4` of `:41733` matched the old pattern whole; every
+      // fetch after that went to a port nobody was on.
+      const found = buffered.match(/preview \(built\) on (http:\/\/\S+)\s/);
+      if (found?.[1]) return found[1];
+    }
+  } finally {
+    reader.releaseLock();
+  }
+}
+
+/** `p`, or a throw saying `preview:once <what>` once the clock passes `deadline`. */
+async function within<T>(p: Promise<T>, deadline: number, what: string): Promise<T> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const late = new Promise<never>((_, reject) => {
+    timer = setTimeout(
+      () => reject(new Error(`preview:once ${what}`)),
+      Math.max(0, deadline - Date.now()),
+    );
+  });
+  try {
+    return await Promise.race([p, late]);
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 /** How long a stopped preview is given to stop answering before this gives up
