@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 97cc5f6a — `bun run frames --fault`: a fault at numbers no wave carries
+
+Photographing THE HANDOVER's cycle meant a scratch script that set `world.malfunction = { kind: "handover", at, beats, every }` on the page by hand after `openStage`, because no wave in the tree repeats the trade and the tool had no way to say so. The picture was real and nobody could take it twice. `--fault` is that line as a flag.
+
 ## 2026-09-13 · 040c8a4e — A cloud session never runs `bun run perf`, in any form
 
 The owner, 13 September 2026: *do never run perf tests in Claude cloud*. The rule was already that a cloud session takes no measurement — a narrow run that costs 25 seconds on his machine was killed twice on a runner — but `bun run perf --unmeasured` had been carved out of it on 9 September, because it opens no browser, measures nothing, and is how a session that adds a wave gets the baseline row `tools/perf/test/baseline.test.ts` requires. THE LEAK's row was got that way this evening, which is what prompted this. So the rule is now the whole command, with any flag, for any reason, and CLAUDE.md says so in the words he used.
