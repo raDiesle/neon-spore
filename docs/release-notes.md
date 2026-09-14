@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 36d0b54f — `ship-gland.ts` loses its second copy of the panel plan, and three exports nobody called go with it
+
+When GLAND was taken into the game by hand, its `paint.ts` became `ship-gland.ts` and the plan numbers it carried — `CORNERS`, `CORNERS_TEST`, `ROWS` — were copied into `PANEL_PLAN` rather than pointed at. The three stayed exported and imported by nothing, so the panel's arrangement was written out twice with only one copy drawn; the file now says in one comment that the arrangement is `PANEL_PLAN`'s and only there. Three more exports the same scan found referenced from nowhere, tests included, are deleted: `crawlerHead` in `crawler.ts`, `wispNextIndex` in `wisp.ts` (its one would-be reader already takes `c.wispNext` straight to `wispTileAt`, as the field's own doc says to) and `pulseLaneTint` in `pulse-shape.ts`. Nothing drawn changes.
+
 ## 2026-09-14 · 408167f6 — HANDOVER · HULL watched over one exchange: the ship breathes the trade
 
 The second unverified entry a cloud session left comes out of the queue. Eight real frames of THE HANDOVER on the navigator's seat across one turn of the four-beat exchange, and one of the pilot's: the right lobe stands, the two meet a beat later, the left stands a beat after that, under a tile high beside the countdown plate. It reads as the ship handing the panels over rather than as one signal too many, and on the pilot's phone it is amber with the rest of that ship. Nothing changed in code; the queue is empty.
