@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `skins/pore.ts` is at the limit: the Poisson scatter is not a pore
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-skins-pore-ts-is-at-the-limit-the-poisson-scatte
 - **Files:** `tools/director/src/skins/pore.ts`, `tools/director/src/skins/sucker.ts`
 
 The file is 250 lines and opens with `ScatterPoint`, `ScatterOptions` and
