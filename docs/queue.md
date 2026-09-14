@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run frames` cannot photograph a fault with numbers the wave does not carry
 
 - **Found:** 2026-09-13, claude/handover-window
+- **Taken:** 2026-09-14, claude/queue-bun-run-frames-cannot-photograph-a-fault-with-nu
 - **Files:** `tools/frames/flags.ts`, `tools/frames/spec.ts`, `tools/frames/page.ts`, `tools/frames/test/flags.test.ts`
 
 Verifying THE HANDOVER with a cycle meant a scratch script that set
