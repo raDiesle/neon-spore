@@ -35,9 +35,12 @@ export function keyOf(w: WaveCost): string {
 /**
  * Whether this row carries a measurement at all.
  *
- * A wave the game ships but nobody has weighed gets a row so that
- * `baseline.test.ts`'s one-row-per-wave rule is satisfied, and that row's
- * figures are zeroes standing in for numbers nobody took (`unmeasured.ts`).
+ * A wave the game ships but nobody has weighed may carry a row saying exactly
+ * that, its figures zeroes standing in for numbers nobody took
+ * (`unmeasured.ts`). Since 14 September 2026 it may equally have no row at all
+ * — `baseline.test.ts` stopped requiring one per wave — and the two say the
+ * same thing by different means.
+ *
  * Every statistic in this file asks this before reading one: a zero counted
  * into a median drags it toward the cheap end, and every wave's share is taken
  * against that median, so one unweighed row would move the verdict on all

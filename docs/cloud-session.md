@@ -67,11 +67,14 @@ the game, and waiting for one costs a turn. So a lane that adds a shape or an
 animation in a cloud session lands it unmeasured and names `bun run perf` in
 its unverified list, for the machine that can take the number properly.
 
-A lane that adds a **wave** has one more step, because `baseline.test.ts` wants
-a row per wave and would otherwise send it to the run it has just been told to
-skip. `bun run perf --unmeasured` writes that row without opening a browser and
-without measuring anything; commit it, and say in the report that the wave went
-in unweighed. `docs/performance.md` has the whole of it.
+A lane that adds a **wave** needs no extra step. `baseline.test.ts` wanted a
+row per wave until 14 September 2026 and would have sent such a lane to the run
+it has just been told to skip; the owner took that rule out instead, so a wave
+with no baseline row passes the check and the next sweep weighs it. Say in the
+report that the wave went in unweighed. What is *not* covered is a lane that
+**changes** an existing wave's arrivals: its row is now stale rather than
+missing, the check still fails it, and the way out is a perf run this session
+may not take. `docs/performance.md` has the whole of it.
 
 **It cannot verify everything, and has to say which parts — in the report.**
 The sandbox has no wrangler, no `bun run delegate`, and no network access it

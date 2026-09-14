@@ -52,37 +52,56 @@ enough to be killed by its own timeout is not that number
 were *do never run perf tests in Claude cloud*, said after a cloud session
 reported running `bun run perf --unmeasured` to get a new wave its baseline
 row. So the rule is now the whole command and not the measuring half of it: a
-cloud session does not type `bun run perf`, with any flag, for any reason. The
-section below was written against the older reading and is left standing
-because the collision it describes is real and is now unresolved — what a cloud
-session that adds a wave does instead is an open question in `docs/queue.md`,
-with the two ways out named.
+cloud session does not type `bun run perf`, with any flag, for any reason. What
+a cloud session that adds a wave does instead is the section below, settled on
+14 September 2026.
 
-## A wave nobody has weighed still gets a row
+## A wave nobody has weighed has no row, and that is allowed
 
-`tools/perf/test/baseline.test.ts` requires one row per wave the game ships,
-and that rule is what stops the baseline comparing today against a game that no
-longer exists. It collides with the paragraph above: a session that **adds** a
-wave adds a row the test requires, and running perf to fill it is the one thing
-a cloud session is told not to do.
+`tools/perf/test/baseline.test.ts` used to require one row per wave the game
+ships. That rule collided with the paragraph above: a session that **adds** a
+wave adds a row the test demands, and filling it means running perf, which is
+the one thing a cloud session is told not to do. Between 9 and 13 September
+2026 the way through was `bun run perf --unmeasured`; closing the command to
+cloud sessions entirely closed that door too, and a wave written from a phone
+had no way to a green check at all.
 
-The owner settled it on 9 September 2026 — **the test tolerates a row marked
-unmeasured**, and the rule above is unchanged. So:
+The owner settled it on 14 September 2026, choosing between the two ways out
+named in `docs/queue.md`: **the test stops requiring a row for a wave it has
+never seen.** The alternative — `bun run land` writing the rows itself — was
+refused; a landing that edits a perf artefact is a landing doing perf's job
+under another name, and it would have had to run *before* the check rather than
+beside the release note, since the check is what goes red.
 
-```
-bun run perf --unmeasured
-```
+So a session that adds a wave writes no baseline row, commits, and
+`bun run check` passes. The wave is weighed by the next sweep on a machine
+somebody is holding.
 
-opens no browser and measures nothing. It gives every wave the baseline has no
-row for a row saying exactly that, in play order and on today's numbers
-(`renumber`, so an inserted wave does not leave the file one out). The session
-commits it, `bun run check` passes, and the report names `bun run perf` in what
-it could not verify.
+**What the old rule was protecting is kept.** A row that names a wave the game
+no longer has, or one whose number or name has moved under it, is still a row
+comparing today against a game that no longer exists, and still fails. The
+rows are matched to waves by `id` now rather than by their place in the array
+— which is what lets the file be missing one without every row after the gap
+reading as the wrong wave.
 
-**A wave that changed under its row is the same case.** A row records what the
-wave sent when it was weighed, and the test fails a row whose wave sends
-something else now — a figure for a wave that no longer exists. Re-measuring it
-is the perf run a lane never owes, so the same command blanks such a row to
+**And the gap is not silent.** `compareRuns` has no `before` for a wave the
+baseline never saw, so the run prints it as `new` — "here is this wave's first
+figure" — and the next `--save` writes it down. That was the one real argument
+for the other way out, and the three tests under *a wave the baseline has no
+row for* are the answer to it.
+
+**An explicit unmeasured row is still a thing you can write**, and
+`bun run perf --unmeasured` still writes one — it opens no browser and measures
+nothing. It is no longer how a lane gets to green, because nothing now demands
+the row; it is how a *local* session says out loud that a wave is owed a figure.
+Its other half is still load-bearing, below.
+
+**A wave that changed under its row is a different case, and still fails.** A
+row records what the wave sent when it was weighed, and the test fails a row
+whose wave sends something else now — a figure for a wave that no longer
+exists. That is a row saying something untrue, where a missing row says nothing
+at all, which is why the tolerance above does not reach it. Re-measuring is the
+perf run a lane never owes, so `bun run perf --unmeasured` blanks such a row to
 unmeasured (it says so, wave by wave), and the next sweep fills it in. On 12
 September 2026 a content lane trimmed twenty-eight guided waves in one commit;
 that was the first time. **A save in the wave editor runs it itself**, between

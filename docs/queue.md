@@ -205,37 +205,41 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A cloud session that adds a wave cannot make the baseline test pass
+## A cloud session that *changes* a wave still cannot make the baseline test pass
 
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-14, claude/queue-a-cloud-session-that-adds-a-wave-cannot-make-the
-- **Files:** `tools/perf/test/baseline.test.ts`, `tools/perf/unmeasured.ts`, `tools/land/run.ts`, `docs/performance.md`, `CLAUDE.md`
-- **Asks:** should `bun run land` write the unmeasured rows itself, or should the baseline test stop requiring a row for a wave it has never seen?
+- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Files:** `tools/perf/test/baseline.test.ts`, `tools/perf/unmeasured.ts`, `docs/performance.md`, `docs/cloud-session.md`
 
-`tools/perf/test/baseline.test.ts` requires one row per wave the game ships, so
-a session that **adds** a wave lands red until the baseline has a row for it.
-The answer since 9 September 2026 was `bun run perf --unmeasured`, which opens
-no browser and measures nothing. On 13 September the owner said *do never run
-perf tests in Claude cloud*, and that closes the door a cloud session was using:
-THE LEAK's row was got that way, and the next wave written from a phone has no
-way to a green check at all.
+The owner's answer of 14 September 2026 closed the *missing row* case: a wave
+the baseline has never seen no longer fails the check. The neighbouring case is
+still open, and it was never the one asked about.
 
-Both ways out are small and neither is obviously right, which is why this asks
-rather than does.
+A lane that **changes an existing wave's arrivals** — adding a figure to a
+wave, trimming a guided one, a save in the wave editor — leaves a row that says
+what the wave sent *before*. `baseline.test.ts`'s *measured the arrivals each
+wave sends today* fails it, and rightly: a stale row says something untrue,
+where an absent row says nothing, which is exactly why the new tolerance stops
+short of it. The way out is `bun run perf --unmeasured`, which blanks the row,
+and a cloud session may not type `bun run perf` with any flag for any reason.
+So content work from a phone that edits a wave rather than adding one lands red
+with no route to green.
 
-**`land` writes them.** It already writes the release note and the unverified
-entries between the check and the fast-forward; `fillUnmeasured` is a pure
-function over the baseline and would sit beside them. The wave gets its row
-without anybody typing `perf`, and the rule stays a rule about the *command*.
-Against it: the baseline is a perf artefact, and a landing that edits one is a
-landing doing perf's job under another name.
+Three ways out, and this is decided work in named files once one is picked:
 
-**The test tolerates a gap.** `baseline.test.ts` stops failing on a wave the
-file has never seen — an unweighed wave is exactly what a missing row means —
-and the next real sweep fills it in as it already fills in a blanked one.
-Against it: the one-row-per-wave rule is what stops the baseline comparing
-today against a game that no longer exists, and a silent gap is weaker than a
-row that says UNMEASURED out loud.
+- **Blank on read.** The test treats a row whose arrivals no longer match as
+  unmeasured instead of failing — the same tolerance, one step further. Cheapest,
+  and it loses the thing the check was written for: THE FENCE's stale figures
+  went unnoticed for a day in September.
+- **A writer that is not perf.** Move `fillUnmeasured`'s blanking half behind a
+  command of its own — `bun run baseline:blank`, say — so it is reachable without
+  the word `perf` in it. The rule is about the measuring command; this half opens
+  no browser and measures nothing. The owner's words were *do never run perf tests
+  in Claude cloud*, and whether a renamed entry point honours that or dodges it is
+  his call.
+- **The director already does it.** `tools/director/src/waves-baseline.ts` runs
+  the blanking on every save. A cloud session has no director, but the same
+  mechanical step could hang off the content tests rather off a command anybody
+  types.
 
-Whichever it is, `docs/performance.md`'s *A wave nobody has weighed still gets
-a row* section and the CLAUDE.md line above it are rewritten with it.
+Nothing here is urgent until a cloud session edits a wave; it is written down
+because the next one that does will spend the turn rediscovering it.

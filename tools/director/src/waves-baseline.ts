@@ -1,10 +1,12 @@
 /**
  * A save keeps the perf baseline honest.
  *
- * `tools/perf/baseline.json` holds one row per wave, and each row records what
- * the wave *sent* when it was weighed; `tools/perf/test/baseline.test.ts`
- * fails a row whose wave sends something else now, because its figures are
- * for a wave that no longer exists. A save in the wave editor is exactly that
+ * Each row of `tools/perf/baseline.json` records what the wave *sent* when it
+ * was weighed; `tools/perf/test/baseline.test.ts` fails a row whose wave sends
+ * something else now, because its figures are for a wave that no longer
+ * exists. (A wave with no row at all is fine since 14 September 2026 — an
+ * absent row says nothing, where a stale one says something untrue. This is
+ * the second kind.) A save in the wave editor is exactly that
  * change — on 13 September 2026 the owner turned FIRST STEP's one body into
  * eight, the save committed straight onto `main` (`waves-commit.ts` runs no
  * check, by design: a save must not fail), and the next lane's `bun run land`
@@ -12,10 +14,10 @@
  *
  * The step that puts it right is mechanical and measures nothing:
  * `bun run perf --unmeasured` (`tools/perf/unmeasured.ts`) blanks every row
- * whose wave changed under it and adds one for every wave that has none. It
- * is what a session that cannot run perf is told to do, and it is what the
- * save does now, between the write and the commit, so the baseline lands in
- * the same commit as the act files that moved it.
+ * whose wave changed under it and adds one for every wave that has none. The
+ * blanking is the half that matters here, and it is what the save does now,
+ * between the write and the commit, so the baseline lands in the same commit
+ * as the act files that moved it.
  *
  * **In a process of its own**, not by importing `fillUnmeasured`: it reads
  * `WAVES` from `@neon-spore/content`, and in the director's own process that

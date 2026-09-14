@@ -8,20 +8,24 @@ import { isUnmeasured, keyOf } from "./shape.js";
 /**
  * A BASELINE ROW FOR A WAVE NOBODY HAS MEASURED.
  *
- * **What it is for.** `baseline.test.ts` requires one row per wave the game
- * ships, and that rule is what keeps the baseline from comparing today against
- * a game that no longer exists. A session that adds a wave therefore cannot
- * pass `bun run check` without running perf — and running perf is what
- * `CLAUDE.md` tells a cloud session not to do, because it never finishes
- * honestly there: a narrow run that takes 25 seconds on the owner's machine
- * was killed twice on a cloud runner, at 400 and at 580 seconds, with nothing
- * printed either time (`docs/performance.md`).
+ * **What it is for, and what it stopped being for.** `baseline.test.ts` used to
+ * require one row per wave the game ships, so a session that added a wave
+ * could not pass `bun run check` without running perf — which `CLAUDE.md` tells
+ * a cloud session not to do, because it never finishes honestly there: a narrow
+ * run that takes 25 seconds on the owner's machine was killed twice on a cloud
+ * runner, at 400 and at 580 seconds, with nothing printed either time
+ * (`docs/performance.md`). The row below was the way through that, settled on 9
+ * September 2026.
  *
- * The owner settled the collision on 9 September 2026: **the test tolerates a
- * row marked unmeasured.** So a wave with no measurement gets a row saying
- * exactly that, the check passes, the session names `bun run perf` in its
- * unverified list, and the next full sweep on a machine somebody is holding
- * fills the figures in and the marker goes.
+ * On 14 September 2026 the owner took the rule out instead: **the test no
+ * longer requires a row for a wave it has never seen**, so nothing forces this
+ * row and a lane that adds a wave simply lands. What is left here is still
+ * worth having, in two halves. The row is how a *local* session says out loud
+ * that a wave is owed a figure, rather than leaving a silence somebody has to
+ * notice. And `fillUnmeasured`'s other half is load-bearing still: a row whose
+ * wave no longer sends what it was measured on says something *untrue*, which
+ * is a different thing from saying nothing, and `baseline.test.ts` fails it.
+ * Blanking such a row is the only way out of that failure short of a perf run.
  *
  * **Why a flag and not figures of `null`.** Both were on the table. `null`
  * would put `number | null` through `shapeOf`, `medianMs`, `machineScale`,
@@ -58,14 +62,20 @@ export function unmeasuredRow(index: number): WaveCost {
  * no longer sends what it sent when the row was measured, blanked to one —
  * `bun run perf --unmeasured`, which opens no browser and measures nothing.
  *
- * The second is the same case as the first. A row records what the wave sent
- * when it was weighed (`arrivalsOf`), and `baseline.test.ts` fails a row
- * whose wave sends something else now: its figures are for a wave that no
- * longer exists. Re-measuring it is a perf run, and a lane never owes one
- * (`CLAUDE.md`) — on 12 September 2026 a content lane trimmed twenty-eight
- * guided waves in one commit, and the choice was twelve minutes of narrow
- * runs or this. So the row says nobody has weighed *this* wave yet, which is
- * the truth, and the next sweep fills it in as it fills in a new one.
+ * **The second is the half that still has to exist.** A row records what the
+ * wave sent when it was weighed (`arrivalsOf`), and `baseline.test.ts` fails a
+ * row whose wave sends something else now: its figures are for a wave that no
+ * longer exists. That is not the case the tolerance of 14 September 2026
+ * covers — a stale row says something untrue, where an absent row says nothing
+ * — so the check still rejects it and this is still the way out. Re-measuring
+ * is a perf run, and a lane never owes one (`CLAUDE.md`) — on 12 September
+ * 2026 a content lane trimmed twenty-eight guided waves in one commit, and the
+ * choice was twelve minutes of narrow runs or this. So the row says nobody has
+ * weighed *this* wave yet, which is the truth, and the next sweep fills it in.
+ *
+ * The first half, adding a row for a wave with none, no longer answers a
+ * failing check — nothing demands the row. It stays because a local session
+ * may still want the file to say a figure is owed out loud.
  *
  * It is here rather than left as a hand-edit of `baseline.json` because the
  * hand-edit is the one that goes wrong: inserting a wave moves the number of

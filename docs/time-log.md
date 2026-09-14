@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — the baseline tolerates a wave it has never seen
+
+Queue item that asked the owner a question, so the turn began by putting it to
+him: should `bun run land` write the unmeasured rows, or should the baseline
+test stop requiring a row for a wave it has never seen? He picked the second.
+`baseline.test.ts` now matches rows to waves by `id` rather than by their place
+in the array — which is what lets the file be missing one without every row
+after the gap reading as the wrong wave — and three new tests say the gap is
+tolerated, reported as `new`, and moves nobody else's verdict. The prose that
+asserted the old rule was in six places. Found on the way: the *stale row* case
+is still closed to a cloud session, and is queued. About 50 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the queue entry, `baseline.test.ts`, `unmeasured.ts`, `shape.ts`, `compare.ts`, `land/run.ts`, the new-wave skill |
+| writing | 20 | the id lookup, three tests, and six sites of prose — `performance.md`, `cloud-session.md`, `CLAUDE.md`, two code comments, the new queue entry |
+| looking | 0 | nothing drawn |
+| friction | 5 | the first gap test dropped the baseline's last row, which is THE LEAK's unmeasured one, so it read `unmeasured` before it could read the absence |
+| landing | 5 | `bun test tools/perf tools/director`, the typecheck, `check:fast` |
+
+The bottleneck was reading: the decision itself was one sentence, but knowing
+which of the two options was honest meant tracing how `land` orders its check
+against its writes, and that is what turned up the wrinkle the queue entry had
+wrong.
+
 ## 2026-09-12 — relay-dev-kill — stopping `dev.ts` stops the wrangler under it
 
 Queue item from the lane before: killing `apps/server/dev.ts` left wrangler

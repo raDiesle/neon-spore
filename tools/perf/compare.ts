@@ -98,8 +98,8 @@ export interface WaveCost {
    */
   mergedFrom?: { measuredAt: string; commit: string; scale: number };
   /**
-   * On a row for a wave **nobody has measured**: it satisfies the
-   * one-row-per-wave rule and claims nothing else (`unmeasured.ts`). No median
+   * On a row for a wave **nobody has measured**: it says a figure is owed and
+   * claims nothing else (`unmeasured.ts`). No median
    * counts it and no comparison takes a verdict on it, so the figures above are
    * placeholders nothing reads — this flag is asked first everywhere.
    */
