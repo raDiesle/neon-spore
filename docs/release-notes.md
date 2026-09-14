@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 9d4fcebb — A room's code and link leave the join screen for a file of their own
+
+`join.ts` was at the limit: the room screen, and after it four helpers about the code itself — `freshCode`, `roomRequested`, `roomLink`, `shareRoom`. The four now live in `join-link.ts`, the file `join-link.test.ts` was already named for; the screen imports the three it uses back, and `shell.ts` and the test take `roomRequested` from the new file. The test is green and nothing about the screen's binding moved. A refactor, not a look.
+
 ## 2026-09-14 · 84776336 — What THE MAZE remembers leaves the round for a file of its own
 
 `maze-round.ts` was at the limit and held two subjects: the state the boss carries between ticks and the round that moves it. `MazeState` — a paragraph per field — with `installMaze`, `mazeCurrent` and `enterMazePhase`, the fresh copy and the wipe a phase performs, now live in `maze-state.ts`. The round, the controls, the verdict, the hash, the boss union, the wave start and two test files import the state from there; `bosses.ts` re-exports from both files so the package index is unchanged. The `hashWorld` fingerprint of every shipped wave 60 beats in is identical before and after. A refactor, not a look.
