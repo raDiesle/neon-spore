@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · b6a5c3ac — A bun below the pin is named at the door, by the session-start hook and by the landing
+
+`.bun-version` says 1.4.2; a machine on 1.3.8 cannot read `bun.lock`, and nothing said so until the landing died in its frozen install after the rebase, naming neither the pin nor what to do. The comparison and the two commands through now live in `tools/hooks/bun-pin.ts`, read twice: the session-start hook says them at the first line of any session on such a bun, on stdout, and `bun run land` refuses on them before anything moves. A `--sweep` installs nothing and passes.
+
 ## 2026-09-14 · 77e1004b — Three tests that could not pass on a Mac: a temp path through /private, and a teardown with no budget
 
 `bun run land` runs the whole suite and refused this lane's landing on three failures that have nothing to do with it, all of them the machine rather than the tree — which is the worst shape a red check can take, because the lane that hits it has to prove that before it may do anything else.
