@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 3cb4dafd — `versus-advance.ts`: the step out of the pair
+
+`versus-pair.ts` stood at 250 lines, and `advance` — one tick of a pose's world, rebuilding on `needWave` unless the pose carries a cadence — was inside it while five callers wanted it without wanting a `Pair`: `versus-seat.ts` steps a world to sample it and builds no pair at all, and `versus-cadence`, `versus-crop-follow`, `versus-hand` and `versus-loop` each test the step alone.
+
 ## 2026-09-14 · 3604b0bb — `versus-probe.ts`: the probe's clock out of the seat decision
 
 `versus-seat.ts` stood at 250 lines and carried two subjects. Sixty of them argue why two seats are compared by the *difference* a patch makes rather than by their raw frames, and why the field and the band are judged differently; then the probe's clock — `SAMPLE_EVERY`, `SAMPLES`, `MAX_SAMPLES`, `ProbeSchedule` and `probeSchedule` — and only after all of it the decision itself.
