@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-items — `isMount` is called where it was written out
+
+The second item the dead-export scan queued: `gyre.ts` exported `isMount`
+with a paragraph on why the kind is the whole of the test, and both places
+that needed it — the beat's fall loop and `wornKind` — tested `c.kind` by
+hand instead. Both call it now, and `COPIES` has the row, so a third copy
+fails `copies.test.ts`. The row's first pattern caught `kinds.ts`'s per-kind
+fall table, which tests a bare `kind` beside `"gyre"` and `"wisp"` and is the
+table describing every kind rather than this rule again; the pattern is a
+body's `c.kind` now, which is the shape both copies had. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | found in the item before |
+| writing | 5 | two calls, one import, one row and its comment |
+| looking | 0 | nothing drawn changed |
+| friction | 0 | — |
+| landing | 5 | the edit hook's own run of the table, `check:fast`, the commit, `land` |
+
+The bottleneck was the table's pattern, which had to say which of the two
+shapes of the same words is the rule.
+
 ## 2026-09-14 — queue-items — a second `PANEL_PLAN` and three dead exports gone
 
 The queue was empty, so the tree was scanned for exports referenced from no

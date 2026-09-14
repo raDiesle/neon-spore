@@ -94,6 +94,22 @@ export const COPIES: Copy[] = [
     strip: false,
   },
   {
+    // `gyre.ts` had carried `isMount`, with a paragraph on why the kind is the
+    // whole of the test, since the wheel was built — and `beat.ts` skipped a
+    // mount by hand and `creature-rules.ts` routed one to `gyreBecomes` by
+    // hand, so the function was called by nothing. Found 14 September 2026 by
+    // a scan for exports referenced from nowhere.
+    //
+    // The shape is a *body's* kind, `c.kind`, which is what both copies were:
+    // `isMount` takes a creature. `kinds.ts` tests a bare `kind` against the
+    // same word in its per-kind fall table, next to `"gyre"` and `"wisp"`, and
+    // that is the table describing every kind, not this rule written again.
+    call: "isMount",
+    owner: "packages/sim/src/gyre.ts",
+    pattern: /\bc\s*\.\s*kind\s*===\s*"mount"/,
+    strip: false,
+  },
+  {
     call: "radarOwner",
     owner: "packages/content/src/creatures.ts",
     pattern: /controls\s*\.\s*includes\s*\(\s*"guard"\s*\)\s*\?\s*"p1"\s*:\s*"p2"/,

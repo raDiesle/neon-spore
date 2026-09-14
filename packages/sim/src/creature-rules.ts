@@ -4,6 +4,7 @@ import { claspBecomes } from "./clasp.js";
 import type { SimConfig } from "./config.js";
 import { hullRow } from "./config.js";
 import { echoBecomes } from "./echo.js";
+import { isMount } from "./gyre.js";
 import { gyreBecomes } from "./gyre-rim.js";
 import { recoilBecomes } from "./recoil.js";
 import { rindBecomes } from "./rind.js";
@@ -97,7 +98,7 @@ export function wornKind(c: Creature): CreatureKind {
   // what it looks like — and because that word has to be the *same* word it is
   // for a body in a lane, or the alternation around the rim is a new
   // vocabulary rather than the one they already say out loud.
-  if (c.kind === "mount") return gyreBecomes(c);
+  if (isMount(c)) return gyreBecomes(c);
   // A carom is the slick or the bulb sealed inside its crust, with the crust
   // laid over the top by render/ — the clasp's arrangement, and its argument
   // one step further on: what the pair has to read through the shell is the

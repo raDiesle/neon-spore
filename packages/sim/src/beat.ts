@@ -6,7 +6,7 @@ import { stepCrawlers } from "./crawler-beat.js";
 import { splitEchoes } from "./echo-split.js";
 import { grippedFallTiles } from "./grip.js";
 import { carryGrips } from "./grip-push.js";
-import { breakSpentGyres } from "./gyre.js";
+import { breakSpentGyres, isMount } from "./gyre.js";
 import { resolveHull } from "./hull.js";
 import { removeSpentLures } from "./lure-exit.js";
 import { steppedInsteadOfFalling } from "./own-step.js";
@@ -90,7 +90,7 @@ export function onBeat(world: World): void {
     // bodies that teleport once a beat instead of turning are a wheel that
     // jumps rather than a wheel that moves. Stepping it again would carry it
     // twice as well: once around the rim and once straight down.
-    if (c.kind === "mount") continue;
+    if (isMount(c)) continue;
     // And a link of a worm, skipped **before** the two lines below for the
     // mount's reason exactly: `stepCrawlers` has already written its `col` and
     // both `from` fields, so a link falling through here would have where it
