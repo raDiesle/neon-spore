@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 1869f1ef — The nine bodies a radial contour cannot describe are one family of the living table
+
+`living-look.ts` stood at its limit for the second time, growing a row per creature, and nine of its `null` rows said the same thing about themselves: a shape drawn by a path of its own — THE GHOST, THE GYRE, THE LID, THE CRAWLER, THE FENCE, THE MAGNET, THE COIL, THE CHOIR, THE CRYSTAL — routed away before the living pass. They are `living-look-stroked.ts` now, spread into the table where the ghost's row stood; `livingBodyKinds()` reads the same ten names in the same order. A refactor, not a look.
+
 ## 2026-09-14 · 413d4e22 — The two questions about the bosses leave the file the bosses grow in
 
 `boss-entries.ts` stood one boss under its limit, and its own header said the interfaces are the half that grows. `bossFillsWave` and `BOSS_KINDS` — the questions asked about the union, not shapes in it — are `boss-kinds.ts` now, re-exported through `entries.ts` as the shapes are, so nothing that reached for them moved. The re-export's comment counted eleven shapes; there are twelve. A refactor, not a look.
