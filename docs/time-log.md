@@ -3719,3 +3719,24 @@ comment said "eleven shapes"; there are twelve. About 15 min.
 
 Bottleneck: friction — the title limit is the right rule, and a session
 should count before it writes.
+
+## 2026-09-14 · claude/queue-living-look-ts-is-on-the-line-and-nine-of-its-rows — `living-look.ts` is on the line, and nine of its rows are one family
+
+The table was at 250 for the second time — it grows a row per creature —
+and nine of its `null` rows were saying the same sentence: a shape one
+radius cannot describe, drawn by a path of its own and routed away before
+the living pass. Those nine, with their comments, are `living-look-stroked.ts`
+now, spread into the table where the ghost's row stood. Every one is `null`,
+so `livingBodyKinds()` printed before and after is the same ten names. The
+table is 196 lines. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the table, `living-look-handed.ts`, the shape sheet's use of `livingBodyKinds` |
+| writing | 5 | `living-look-stroked.ts` and its header, the spread and its comment, three ordinals in moved comments, the INDEX row |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, `bun run index`, `queue done`, the commit, `bun run land --keep` |
+
+Bottleneck: writing — the header, which has to say the one reason all nine
+share without repeating the nine reasons each row keeps.
