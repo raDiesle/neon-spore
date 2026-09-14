@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 135fa115 — CLEAR THIS DEVICE takes the intro flag, and the sweep that missed it is a glob
+
+`neon-spore.intro` is written when the six opening pages are closed and it was not in `DEVICE_KEYS`, so the button that forgets what this device knows about the person holding it left behind the one fact deciding what the next person sees: a phone handed on opened on the menu rather than on the front door. It is cleared now, and `forgetThisDevice`'s doc says why — a key held back would need a line there, not an absence.
+
 ## 2026-09-14 · a739d97a — `bun run format` stops sorting imports, and the sort becomes its own command
 
 A sort is a move, and a doc comment written above an import does not move with the statement. Two commented imports and one `biome check --write` leave the first comment over a blank line attached to nothing and the second reading as if it had been written about somebody else's import — the same harm `tools/hooks/guard.ts` blocks `--unsafe` for, arriving through the command the guard sends a session to instead, silently, inside a lane, where nobody reads the diff.
