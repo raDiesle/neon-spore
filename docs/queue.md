@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Unverified at 2e4f2acf: HANDOVER · HULL watched at tempo: whether the two lobes…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-14, claude/queue-unverified-at-2e4f2acf-handover-hull-watched-at
 - **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `packages/render/src/handover-hull.ts`, `packages/render/src/handover-look.ts`, `tools/director/src/versus-pose.ts`, `tools/versus/DECIDED.md`, `tools/versus/candidates/registry.ts`
 
 *The ship trades the panels too: HANDOVER · HULL adopted, the cairn pile refused* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
