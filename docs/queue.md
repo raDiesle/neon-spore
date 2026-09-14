@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The save token skips the pinball file a save writes
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-the-save-token-skips-the-pinball-file-a-save-wri
 - **Files:** `tools/director/src/waves-api.ts`, `tools/director/src/waves-acts.ts`, `tools/director/test/wave-save.test.ts`
 
 `waves-acts.ts` says of `pinball-rounds.ts` that "it is read into the token
