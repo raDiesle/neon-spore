@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 3668b62e — `isMount` is called from the beat and from `wornKind`, and a third copy fails the table
+
+`gyre.ts` exported `isMount` with a paragraph on why the kind is the whole of the test, and nothing called it: `beat.ts` skipped a mount with `c.kind === "mount"` and `creature-rules.ts` routed one to `gyreBecomes` the same way. Both call it now, and `COPIES` in `copies-table.ts` carries the row — owner `gyre.ts`, the shape a body's `c.kind` — so the next hand-written copy fails `copies.test.ts` instead of review. The bare-`kind` test in `kinds.ts`'s fall table is the table describing every kind, not this rule, and the pattern leaves it alone on purpose. Nothing the simulation does changes.
+
 ## 2026-09-14 · 36d0b54f — `ship-gland.ts` loses its second copy of the panel plan, and three exports nobody called go with it
 
 When GLAND was taken into the game by hand, its `paint.ts` became `ship-gland.ts` and the plan numbers it carried — `CORNERS`, `CORNERS_TEST`, `ROWS` — were copied into `PANEL_PLAN` rather than pointed at. The three stayed exported and imported by nothing, so the panel's arrangement was written out twice with only one copy drawn; the file now says in one comment that the arrangement is `PANEL_PLAN`'s and only there. Three more exports the same scan found referenced from nowhere, tests included, are deleted: `crawlerHead` in `crawler.ts`, `wispNextIndex` in `wisp.ts` (its one would-be reader already takes `c.wispNext` straight to `wispTileAt`, as the field's own doc says to) and `pulseLaneTint` in `pulse-shape.ts`. Nothing drawn changes.
