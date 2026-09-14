@@ -3559,3 +3559,26 @@ tools/check/test/zz-scratch.test.ts:4 — a group > fails on purpose`. About
 Bottleneck: writing — the shape of the report had to be got from a real one
 rather than guessed, and the regex has to find the case a `<failure>` hangs
 under without parsing the document.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `waves-api.ts` stops being a binary file to git
+
+Found after the previous landing, when `git diff --stat` listed the file as
+`Bin 7520 -> 8075 bytes`. `wavesToken` separates length from text with a NUL,
+and the NUL was in the source as the byte itself since 2 September — so git
+classed the file as binary, every diff of it printed no hunk and `grep`
+skipped it. The two bytes are the escape now, the hash is the same, and
+`limits.test.ts` scans every `.ts` under the three code trees and every `.md`
+under `docs/` for a control byte other than tab, LF and CR; a probe file
+with a NUL in it turned the case red before it was removed. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the file's history to date the byte, `limits.test.ts` for a walker to reuse |
+| writing | 5 | the queue entry, the two-byte replacement, one `describe` with one case |
+| looking | 0 | none |
+| friction | 0 | a heredoc turned the escape back into the byte once; written through Python's `chr(92)` |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: reading — finding *when* the byte arrived took a Python one-liner
+per revision, because the shell's own `grep` cannot be handed a NUL to look
+for.

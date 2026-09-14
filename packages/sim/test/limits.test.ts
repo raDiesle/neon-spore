@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { dirname, join, relative } from "node:path";
+import { dirname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Glob } from "bun";
 
@@ -62,6 +62,11 @@ function sourceFiles(): string[] {
     );
 }
 
+/** The markdown beside the code: read by tools (`tools/queue`), so held to the same bytes. */
+function docFiles(): string[] {
+  return [...new Glob("docs/**/*.md").scanSync(ROOT)].map((f) => join(ROOT, f));
+}
+
 /**
  * Lines as `wc -l` and every editor count them: a trailing newline ends the
  * last line, it does not begin an empty one.
@@ -105,4 +110,26 @@ describe("file size limits", () => {
       );
     }
   });
+});
+
+/**
+ * A source file is text, to git as much as to a reader. `waves-api.ts` carried
+ * two raw NUL bytes for twelve days — the separator in `wavesToken`, typed as
+ * the byte rather than the escape — and git classed the file as binary for
+ * all of them: every `diff --stat` said `Bin`, `git show` printed no hunk,
+ * `grep` skipped it, and a rebase conflict in it could not have been resolved
+ * by hand. No check said a word, because a line count is blind to what the
+ * line holds. Found 14 September 2026.
+ */
+describe("source files are text", () => {
+  const files = [...sourceFiles(), ...docFiles()];
+
+  it("has no control byte but tab, LF and CR in any of them", async () => {
+    for (const file of files) {
+      const bytes = new Uint8Array(await Bun.file(file).arrayBuffer());
+      const at = bytes.findIndex((b) => b < 0x20 && b !== 0x09 && b !== 0x0a && b !== 0x0d);
+      const rel = relative(ROOT, file).replaceAll(sep, "/");
+      expect(at, `${rel} has byte 0x${bytes[at]?.toString(16)} at offset ${at}`).toBe(-1);
+    }
+  }, 30_000);
 });
