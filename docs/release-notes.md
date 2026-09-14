@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 3dd4b34b — Queue, for a local session, the tutorial announcing itself: loud plate, a field plainly not live, a welcome page
+
+The owner asked that a guide make plain the picture is not live and the bar is the only way on, that the TUTORIAL corner plate be far more prominent — it was made smaller two days ago at his own asking, so loud without covering — and that the very first tutorial a device meets open with a welcome page showing how the stepper works, once per device. Every part is judged by an eye at tempo, so the entry carries his LOCAL line.
+
 ## 2026-09-14 · f5562464 — Queue CONTROLS as a desk-only page that lists only the two seats' own keys
 
 The owner asked that the menu's CONTROLS page appear only on a desktop with a mouse and a keyboard, and that it teach only player 1's and player 2's standard controls — nothing of the rig's or the director's keys. The entry names the pointer: fine signal the app already uses, the KEYS table rows that go, and the three cases in controls-page.test.ts that turn over.
