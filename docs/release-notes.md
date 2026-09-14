@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 9b31919f — The director's save test writes a copy of the act files, never the tree
+
+`tools/check/shard.ts` deals the suite into eight processes on the premise its preamble states — every writer takes a `mkdtemp` of its own — and one file did not. `wave-save.test.ts` saved into the checked-in act files under `packages/content/src/waves/`, and `Bun.write` truncates each before it fills it; on 14 September 2026 `waves-memo.test.ts`, in another shard, hashed them between two of those writes, saw a token that had moved, and read the barrel a second time — red under `check:fast`, green alone. Any shard importing `@neon-spore/content` in that window would have read half an act.
+
 ## 2026-09-14 · b70dc018 — `queue next` and `take` refuse an entry the format test would fail on
 
 `bun run queue` listed what was wrong with an entry under *Entries a cold session could not act on*, and then `take` and `next` handed that same entry out without a word. On 14 September 2026 an 87-character title was claimed that way; the first `check:fast` after it failed on `queue.test.ts`'s parse of `docs/queue.md`, and the entry could not be retitled — `done` and the `Taken:` line match by title. The per-entry checks are now `problemsWith` in `tools/queue/problems.ts`, and `refuseUnlessWhole` names every problem before a branch is made; `problemsIn` keeps the duplicate-title check, which is between two entries. `queue.ts` had gone past 250 lines carrying them, so the checks have a file of their own, and `docs/INDEX.md` has its line.
