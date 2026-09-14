@@ -324,6 +324,12 @@
     border-color 0.16s,
     transform 0.16s;
 }
+/* `display: grid` beats the browser's own `[hidden]` — the same rule
+   `.setting` needs below — so without this the button drew on every device
+   that had never been in a room, with nothing where the code goes. */
+#menu .rejoin[hidden] {
+  display: none;
+}
 #menu .rejoin .code {
   font-size: 27px;
   letter-spacing: 0.34em;

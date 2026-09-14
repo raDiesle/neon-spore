@@ -22,6 +22,34 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queued-items — the way back in, watched against a live relay
+
+The queue's one item: BACK INTO THE GAME had landed from a session that could
+not press it. Two browsers against a local wrangler, a room opened, both seats
+on the field, one of them reloaded — the button takes it back to the same room
+with the same seat and the same partner named, and both press START back onto
+the field together; with the room emptied it lands on the room screen's
+ordinary WAITING line, which is what `last-room.ts` promised it would. The
+watching found one thing wrong, on every device rather than a rejoining one:
+`#menu .rejoin` sets `display: grid`, which beats the browser's own
+`[hidden]`, so the button drew on a phone that had never been in a room, with
+nothing where the code goes. One rule fixes it and `menu-hidden.test.ts` asks
+the same question of every class the menu toggles. About 35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `last-room.ts`, `menu-rejoin.ts`, `menu-link.ts`, `shell.ts` |
+| writing | 5 | the one CSS rule and the test that reads the sheet back |
+| looking | 5 | two browsers through a room, a reload, a rejoin, an emptied room |
+| friction | 10 | the relay would not start before a build; the pane dropped both tabs; a bun below the pin |
+| landing | 10 | `check:fast`, the commit, a second bun, `land` |
+
+The bottleneck was this machine's bun: 1.3.8 against `.bun-version`'s 1.4.2,
+which cannot read `bun.lock` at all. Nothing said so — `bun install` ignored
+the lockfile and rewrote it, `check:fast` was green on 2533 tests — until
+`bun run land` stopped after the rebase on a frozen install, naming neither
+the pin nor the fix. It is queued.
+
 ## 2026-09-14 — queue-tasks — a command for the import names a split strands
 
 The queue's own item: biome offers only an unsafe fix for an unused import,
@@ -412,7 +440,7 @@ text. Forty-five went mechanically to `splinePath` (a balanced-paren rewrite,
 one script), the odd ones by hand — the warden's two loops on one path, the
 shell's sealed piece, the queen's mark outline returning a path and its
 points — and a test now refuses a new text caller outside a one-file allow
-list. About 20 min.
+list. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -536,7 +564,7 @@ the bosses' in `bosses.md` (with a short section for THE MAZE, which had
 none), the rounds' in `interludes.md`, the creatures' in `bestiary.md` under a
 new heading, the shot box and the pod's in `systems.md`, depth in
 `graphics.md`. The allowlist is empty and deleted, and the test now simply
-fails on any `SimConfig` field no document names. About 20 min.
+fails on any `SimConfig` field no document names. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -631,7 +659,7 @@ emitter hanging from the top of the field from the first frame, and a beam
 from it to what the fault has taken on each screen — steady on the held
 trigger, flashing in the next shot's colour on the runaway gun. The guides
 and the mechanic rows name it; the cannon row also stops describing the
-brake that came out on 6 September. About 20 min.
+brake that came out on 6 September. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -672,7 +700,7 @@ The last piece of the owner's rule. `World.score`, the fifty-one places that
 paid it and the `score*` prices come out; the balance sheet leads with the
 clock, then the retries and the waves; the intro says `TRY n` on a retry;
 the room and the menu remember a run as *wave · time · retries*
-(`RunMark`, protocol 2, the tally taken whole). About 20 min.
+(`RunMark`, protocol 2, the tally taken whole). About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -1225,7 +1253,7 @@ padded.
 The owner asked whether the page was gone; it was not — an earlier lane had
 only retired its idea rows. Now it is: the tab and its sheet leave the
 director, the creature ideas read on MECHANICS in a group of their own, each
-beside the draft drawn for it, which was already on GRAPHICS. About 20 min.
+beside the draft drawn for it, which was already on GRAPHICS. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -1324,7 +1352,7 @@ The queue's `versus:shot` item: a page that throws while loading used to
 photograph as *no element matches — is the tab right?*, and with `--freeze`
 as a ten-minute wait. `shot.ts` now listens to the page from the moment it
 opens and prints what it said above that line, and a throw cuts the wait to
-five seconds. A browser test with a page that throws. About 20 min.
+five seconds. A browser test with a page that throws. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -1908,7 +1936,7 @@ Bottleneck: **none** to speak of — a short lane.
 `CLAUDE.md` cut from 21.3 KB to 13.3 KB, a paragraph's headroom from its
 ceiling, after the owner asked how to spend fewer tokens: the justifications
 went back to the docs that already held them, the rarely-run scripts to a new
-`docs/commands.md`, and the ceiling came down to 16 KB. About 20 min.
+`docs/commands.md`, and the ceiling came down to 16 KB. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -2925,7 +2953,7 @@ on the director's canvas is answered where the frame draws the button. The
 briefing gate's `speaksFor` and `pointerSeat` stay on the role bar — those are
 who is pressing, not which panel. One test stands a gauge round on a traded
 handover wave and presses the call where the pilot's screen now draws it.
-About 20 min.
+About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -3060,7 +3088,7 @@ the only one* with fifty-six films in the tree. The status block and §3.2 say
 what is true — all but five guided waves open on a film — and the numbers in
 them are held by `scenes-prose.test.ts` rather than by a sentence nobody has a
 reason to open, which is the rule this repository already plays by for a copy of
-anything. About 20 min.
+anything. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -3102,7 +3130,7 @@ already seen: three rows on the front door, three behind PLAY with the SURE?
 question under HARD, Space Grotesk on the wordmark and monospace on the rows,
 all on one screen with room under them. The pictures went to the owner; the
 entries come out. The names item was released rather than closed — the chip
-only carries a name once a room knows two, which is two devices. About 20 min.
+only carries a name once a room knows two, which is two devices. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -3189,7 +3217,7 @@ every look at the screen was a scripted browser with its clocks frozen.
 
 The unverified entry from the cloud session, opened on a machine with a
 screen: the warning, the trade and the window photographed from both seats
-with `bun run frames .`. About 20 min.
+with `bun run frames .`. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -3207,7 +3235,7 @@ headless, because a wave nobody answers is lost before the window closes.
 The cloud session's unverified entry, run for real: the four relay checks
 against a local wrangler, then two browser contexts in one room, one of them
 reaching into its own world. The parting found a defect the fingerprints could
-not — the room screen stood over the menu's CONTINUE — fixed here. About 20 min.
+not — the room screen stood over the menu's CONTINUE — fixed here. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -3452,7 +3480,7 @@ wave leaves to the config, and the other three kinds bare — parsed in
 `fault.ts` and written where `startWave` leaves a wave's own, straight after
 `jumpToWave`. Checked against the built game: at tick 420 of THE HANDOVER the
 plain frame is untraded and `--fault handover:4,3,6` reads THEIR PANEL — BACK
-IN 3. About 20 min.
+IN 3. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -3475,7 +3503,7 @@ rectangle `drawHandoverNotice` fills — and fills that one rather than a second
 copy — and `guide-caption.ts` treats a box that would cover it the way it
 already treats one that would cross the banner: under the ring instead. The
 new case in `guide-plate-room.test.ts` names the caption and the page when the
-rule is taken out. About 20 min.
+rule is taken out. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -3498,7 +3526,7 @@ trash all sat off the right edge. Two rules inside the phone block: one track
 for the body, `width: auto` for the palette. Measured with playwright at 375px
 either side of the change: `250px 302px` with the panel running to x=574, and
 one `354px` track with it ending at 312. `phone-map.test.ts` reads both rules
-out of the phone block and holds the desktop's own two alongside. About 20 min.
+out of the phone block and holds the desktop's own two alongside. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -3691,7 +3719,7 @@ CHOIR are `creatures-held.ts` now, named in the table where they stood so the
 key order — the director's brush strip — is byte-identical, checked by
 printing `Object.keys(CREATURES)` before and after. The handed header's
 sentence describes a file that exists; the one comment in `render/` that named
-the magnet's row follows it. The table is 184 lines. About 20 min.
+the magnet's row follows it. The table is 184 lines. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -3714,7 +3742,7 @@ gums, the choke's coils, the clingers. That run is `drawOnShip` in
 barrel. Proved with the stub canvas's ordered call log: every wave carrying
 a gum, a choke, a limpet, a leech or a fence, both seats, 480 ticks — five
 waves, ten logs of 260–334 thousand calls, hashed identical before and
-after. About 20 min.
+after. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -3800,7 +3828,7 @@ says a walk is a file of its own, and the two importers, the sheet's card and
 was allowed inside the owner and had to become an `also` with its sentence.
 The proof was `livingPoints` of the ten own-bodied kinds at four times, plus
 one `clubbedPoints` on a rim the sheet might draw, hashed before and after:
-identical. About 20 min.
+identical. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -4403,7 +4431,7 @@ and the six shares-of-the-reach go with it, since nothing else reads them.
 Proved unchanged the way the entry asked: the op log of
 `runFrames(peakWorld("theGyre"), role, 480)` is byte-identical either side —
 378 579 calls hashing `3ad8368583005f5a` on p1 and 381 244 hashing
-`a4d37db09178fa38` on p2. 249 lines becomes 86 and 181. About 20 min.
+`a4d37db09178fa38` on p2. 249 lines becomes 86 and 181. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|
@@ -4521,7 +4549,7 @@ the same failure mode as the list of keys it is checking. It is
 `neon-spore.intro` fell straight out of it — taken out and put back to watch
 both cases fail with the key named. The key itself is cleared, which is the
 reading the button's own sentence gives: the next person to hold the phone
-meets the front door rather than the menu. About 20 min.
+meets the front door rather than the menu. About 35 min.
 
 | activity | minutes | what it was |
 |---|---|---|

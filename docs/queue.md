@@ -176,17 +176,32 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## Unverified at c1eec7c0: BACK INTO THE GAME pressed against a live relay: whethe…
+## A bun below the pin gets a green check and a landing that dies on the lockfile
 
-- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-14, claude/queue-unverified-at-c1eec7c0-back-into-the-game-presse
-- **Files:** `apps/game/src/last-room.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-rejoin.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.css`, `apps/game/src/menu.ts`, `apps/game/src/settings.ts`, `apps/game/src/shell.ts`
+- **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Files:** `tools/land/run.ts`, `tools/hooks/session-start.ts`, `tools/test/bun-version.test.ts`
 
-*BACK INTO THE GAME: the way back into the room a reload lost* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
+`.bun-version` says 1.4.2 and this machine's bun is 1.3.8, which cannot read
+`bun.lock` at all — `lockfileVersion: 2` is a version it does not know. Nothing
+says so until the landing: `bun install` works by ignoring the lockfile and
+rewriting it, `bun run check:fast` is green on every one of 2533 tests, and
+`bun run land` gets through the rebase and stops with *Unknown lockfile
+version* and *lockfile had changes, but lockfile is frozen*, naming neither
+`.bun-version` nor 1.4.2 nor what to do. That is the exact trap
+`session-start.ts` was written against, and its first line says it is a no-op
+outside `$CLAUDE_CODE_REMOTE` — so the web image is protected from it and the
+owner's own machine is not.
 
-- BACK INTO THE GAME pressed against a live relay: whether a second phone still sitting in the room takes the rejoining one back into the same run, and what the room screen says when the room has emptied
+The way through, which cost this lane its landing minutes and is worth writing
+down rather than rediscovering: `npm install bun@1.4.2 --prefix <dir>`, then
+`PATH=<dir>/node_modules/.bin:$PATH bun run land`. The frozen install then
+passes and leaves the tree clean.
 
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
+Two places could say it and they are not exclusive. `tools/land/run.ts`
+already reads the install's stderr and prints it: comparing the running bun
+against `.bun-version` *before* the install and refusing with the npm line
+above is the half that bites where the failure is. The session-start hook
+saying one line on any platform when the running bun is below the pin is the
+cheaper half and comes fifteen minutes earlier. `bun-version.test.ts` holds
+the four declarations in step and deliberately does not fail on the bun you
+are running; that stays true either way — this is a message, not a check.
