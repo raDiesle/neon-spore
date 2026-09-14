@@ -9,6 +9,16 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 7e41eda0 — The queue title for the heredoc finding stays under eighty characters
+
+## 2026-09-14 · 09fdf8fb — THE GUM is swiped out of the field by either hand, and splashes across the ship when it lands
+
+A gum falls straight down its lane, no shot touches it and the shield does not stop it — and now either player's thumb on the falling drop, carried a tile to the left or to the right, flings it out level along its row until the wall has it. A thumb that only rests on it does nothing. A drop that reaches the ship hits the hull at once, with no scar, and splashes across the whole ship like water — a smear where it landed and ripples running out to both walls, in its own venom. The gum no longer sticks to the ship, shuts the cannon or waits for player 2's swipe from under the cannon; that mechanic is on the NOT BUILT YET page with the tree it lives in.
+
+## 2026-09-14 · eca00118 — Queue the owner's rule that THE LEAK is a rung of the standard ladder, not a malfunction
+
+The owner asked mid-turn on 14 September 2026: the hold that fills the cannon lobe is held back by the numbered STANDARDs like a button is, a new top rung has the maw and everything except the lance, and STANDARD itself has it all — so the `leak` fault, its emitter and its director brush go. Queued with the question of the new rung's number, beside the entry that makes every malfunction a pencil on the map.
+
 ## 2026-09-14 · dea395b8 — The supervisor's stop test spawns bun by its path, and finds its files without a leading slash
 
 A bare "bun" is ENOENT to uv_spawn on Windows, where the executable is bun.exe, and a file URL's pathname is /C:/… there — no directory to spawn in. The test that proves a stopped director is stopped (42ad5046) failed on every Windows checkout for both reasons. It reads process.execPath and fileURLToPath now, the way tools/hooks' tests already do.
