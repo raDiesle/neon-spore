@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 413d4e22 — The two questions about the bosses leave the file the bosses grow in
+
+`boss-entries.ts` stood one boss under its limit, and its own header said the interfaces are the half that grows. `bossFillsWave` and `BOSS_KINDS` — the questions asked about the union, not shapes in it — are `boss-kinds.ts` now, re-exported through `entries.ts` as the shapes are, so nothing that reached for them moved. The re-export's comment counted eleven shapes; there are twelve. A refactor, not a look.
+
 ## 2026-09-14 · 5fa21485 — What sticks to the finished ship is the fifth pass of a frame
 
 `Canvas2DRenderer.draw` stood at its limit and its last four landings had each added one call to the same run between the ship and the overlays — THE FENCE's burn, THE GUM, THE CHOKE's coils, THE LIMPET and THE LEECH. That run is `drawOnShip` in `frame-on-ship.ts`, exported through the `frame-passes.ts` barrel, so the next body that sticks to the ship is a line there and not in the renderer. The stub canvas's ordered call log over every wave that reaches one of these is byte-identical before and after, on both seats. A refactor, not a look.
