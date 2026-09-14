@@ -1,11 +1,8 @@
-import { isBossBody, recoilTurn, veilArmourPhase, type World, wispOnField } from "@neon-spore/sim";
+import { isBossBody, recoilTurn, type World, wispOnField } from "@neon-spore/sim";
 import { drawBalloonHandles } from "./balloon-handles.js";
-import { drawCaromCrust } from "./carom.js";
-import { drawChute } from "./chute.js";
-import { claspResonance, drawClaspShield } from "./clasp.js";
-import { coilCharge, drawCoilDome, showsCoilCharge } from "./coil.js";
 import type { CoilFlightFx } from "./coil-flight.js";
 import { bodyDraw } from "./creature-body.js";
+import { drawOverBody } from "./creature-over.js";
 import { centerAt, creatureCenter } from "./creature-place.js";
 import { DART_LOOK } from "./dart-look.js";
 import { byDepth, depthScale, drawnRow, glidePhase, nearness } from "./depth.js";
@@ -13,12 +10,8 @@ import { mountPlace } from "./gyre-place.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawLidCords } from "./lid-string.js";
-import { drawRecoilCage } from "./recoil.js";
 import type { RecoilLeapFx } from "./recoil-leap.js";
 import { rockLandingY } from "./rock-landing.js";
-import { drawVeerClown } from "./veer-clown.js";
-import { drawVeilCloud, showsVeilCore } from "./veil.js";
-import { drawVolleyShell } from "./volley.js";
 import { drawWeightPress } from "./weight.js";
 import { showsWisp } from "./wisp.js";
 import { drawWispGround } from "./wisp-ground.js";
@@ -162,73 +155,10 @@ export function drawCreatures(
       turn,
       tailFrom: flown?.from,
     });
-    // The weather over that body, on both screens and identical on both — the
-    // clasp's arrangement below, one creature earlier in the pass.
-    if (c.kind === "veil") {
-      const seen = showsVeilCore(l);
-      const open = veilArmourPhase(world, c);
-      drawVeilCloud(ctx, l, world.cfg, c, x, y, time, beats, near, open, seen);
-    }
-    // And THE CAROM's crust, on the same terms and for the same reason: it is
-    // a shell around a body rather than a substitute for one, so `wornKind`
-    // has already drawn the slick or the bulb burning inside it. Both screens
-    // get the whole of it — nothing about a carom is split — so there is no
-    // gate, only a draw of its own. Nothing is drawn for the rock it becomes:
-    // by then `c.kind` is `meteor` and `drawMeteor` far above has it.
-    // THE VEER's rider, over the stone `drawMeteor` put down and outside the
-    // frame that stone spins in: a face that rolled with the rock would be a
-    // face carved into it (`veer-clown.ts`). Down here with the other things
-    // laid *over* a body rather than beside the rock draw itself, which is the
-    // seam `creature-body.ts` now holds: the exclusive choice is a table, and
-    // everything here is an addition to whatever that table drew.
-    if (c.kind === "veer") drawVeerClown(ctx, l, world.cfg, c, x, y, time, beatPhase);
-    if (c.kind === "carom") drawCaromCrust(ctx, l, world.cfg, c, x, y, time, beatPhase, near);
-    // And the body that came out of one: the same living draw above, with a
-    // column of fire under it while it is still climbing and a canopy over it
-    // once it has turned round (`chute.ts`). Both screens get the whole of it,
-    // so there is no gate — only a draw of its own.
-    if (c.kind === "chute") drawChute(ctx, l, world, c, x, y, time, beatPhase, near);
-    // And THE VOLLEY's shell, on exactly the same terms: plating around a body
-    // rather than a substitute for one, so `wornKind` has already drawn the
-    // slick or the bulb sealed inside it. Both screens get the whole of it —
-    // nothing about a volley is split — so there is no gate. Nothing is drawn
-    // once the last plate goes: by then `c.kind` is the body's own and
-    // `drawLiving` above has it (`volley.ts`).
-    if (c.kind === "volley") drawVolleyShell(ctx, l, world.cfg, c, x, y, time, beatPhase, near);
-    // And THE RECOIL's cage, on the same terms and for the same reason: it is
-    // a frame around a body rather than a substitute for one, so `wornKind`
-    // has already drawn the slick or the bulb inside it in whichever colour
-    // this bounce left it. Both screens get the whole of it — nothing about a
-    // recoil is split — so there is no gate. The last argument is the turn the
-    // body took, because the cage is lit in the body's colour (`recoil.ts`).
-    if (c.kind === "recoil") drawRecoilCage(ctx, l, world, c, x, y, time, near, turn);
-    // The clasp's shield goes on *after* the body, because it is a membrane
-    // around one and not a substitute for one — `wornKind` has already drawn
-    // the slick or the bulb inside, in its own colour, which is what player 2
-    // has to be able to read through it (`clasp.ts`).
-    // And THE COIL's, on exactly the same terms one creature along: a membrane
-    // around a **rock** rather than around a body, so `drawMeteor` has already
-    // put the thing inside it down. What is different is the charge — how far
-    // the bolt from the last dome to fail has come — and that is passed as
-    // zero on player 2's screen, because which dome opens next is the one fact
-    // this creature keeps from the seat that can move the plate (`coil.ts`).
-    if (c.kind === "coil") {
-      const charge = showsCoilCharge(l) ? coilCharge(world.cfg, world, c, beatPhase) : 0;
-      drawCoilDome(ctx, l, world, c, x, y, time, near, charge, claspImage);
-    }
-    if (c.kind === "clasp") {
-      drawClaspShield(
-        ctx,
-        l,
-        world.cfg,
-        x,
-        y,
-        time,
-        near,
-        claspResonance(world.shieldCol, c.col),
-        claspImage,
-      );
-    }
+    // Everything laid *over* that body — the veil's cloud, the carom's crust,
+    // the coil's dome, the clasp's shield — is `creature-over.ts`: one `if` per
+    // covering, each an addition to what the table drew, inside this transform.
+    drawOverBody(ctx, l, world, c, x, y, time, beats, beatPhase, near, turn, claspImage);
     ctx.restore();
   }
   // The cords, after every body: flat, outside the perspective transform, and

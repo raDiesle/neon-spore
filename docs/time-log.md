@@ -3867,3 +3867,25 @@ unchanged is the proof.
 | landing | 5 |
 
 Bottleneck: landing.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `creatures.ts` is at the limit and grows an `if` per covering over a body
+
+The creature pass was 248 lines. The exclusive body draw had already become
+a table; what was still growing was the run of `if`s after it, one per
+creature that wears something over a body — cloud, rider, crust, canopy,
+shell, cage, dome, membrane — so those eight and their paragraphs moved whole
+into `creature-over.ts` as one `drawOverBody`, called inside the perspective
+transform where they were. The proof was the canvas op log of 480 frames of
+the eight waves on both seats, sha1 identical before and after; the only
+friction was one sentence that pointed "far above" at a draw now in another
+file, reworded, and two sim imports the formatter would not merge.
+
+| where | minutes |
+|---|---|
+| reading | 5 |
+| writing | 10 |
+| looking | 5 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: writing.
