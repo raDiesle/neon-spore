@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 3b85264e — One moment of a rehearsal is a file of its own, the way a page of it already was
+
+`scene-types.ts` was at its limit for the second time, and the half that had grown since the first cut was `SceneAct` — a field for every gesture the film learned to show. It is `scene-act-types.ts` now and re-exported beside `SceneStep`, so the six films kept their import and the file that holds them is a page. Types only; nothing runs differently. A refactor, not a look.
+
 ## 2026-09-14 · 8886c724 — The clubbed walk leaves the router that sends a body to it
 
 `body-path.ts` stood at its limit and was two things: fifty lines that ask a silhouette what it is — a carried contour, a walked rim, a sampled blob — and two hundred that walk a rim of balls on stalks. The walk is `body-path-clubbed.ts` now, with `ClubbedRim` and the four numbers it is sampled at; the router imports it and says a walk is a file of its own. The sheet's card, `docs/asset-catalogue.md` and the copies table name the new file. Every contour is the same to the byte. A refactor, not a look.
