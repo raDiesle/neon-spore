@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `isMount` is written out by hand in two files
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-ismount-is-written-out-by-hand-in-two-files
 - **Files:** `packages/sim/src/gyre.ts`, `packages/sim/src/beat.ts`, `packages/sim/src/creature-rules.ts`, `packages/sim/test/copies-table.ts`
 
 `gyre.ts` exports `isMount` with a paragraph on why the kind is the whole of
