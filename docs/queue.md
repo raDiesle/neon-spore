@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run shot` cannot start the director it photographs
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-bun-run-shot-cannot-start-the-director-it-photog
 - **Files:** `tools/frames/shot.ts`, `tools/frames/versus-shot.ts`, `tools/frames/serve.ts`, `tools/frames/shot-usage.ts`, `tools/frames/test/`, `docs/commands.md`
 
 `bun run shot` takes `--port` and expects somebody to already be serving on it.
