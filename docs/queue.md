@@ -176,16 +176,28 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `skins/vein-pulse.ts` is at the limit: growing the tree is not lighting it
+## No safe way to drop the names a file split strands in an import list
 
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-skins-vein-pulse-ts-is-at-the-limit-growing-the
-- **Files:** `tools/director/src/skins/vein-pulse.ts`
+- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Files:** `tools/hooks/guard.ts`, `package.json`, `docs/commands.md`
 
-The file is 250 lines: `Segment`, `SURFACES`, `grown`, `strand` and
-`proudGroup` (lines 57 to 172, less `Lit`) grow the filaments and stroke them;
-`Layer`, `UNDER`, `PROUD`, `layer`, `pulse` and the `VEIN_PULSE` skin light
-them beat by beat. Move the growing into `vein-pulse-tree.ts`, exported;
-`vein-pulse.ts` imports `grown`, `strand` and `proudGroup` and keeps `Lit`,
-which only `layer` and `pulse` read. Proof: `bun run check:fast`;
-`tools/director/test/skin-still.test.ts` mounts every skin.
+Eleven files were split to get under the 250-line limit in one sitting, and on
+five of them the same minutes went the same way: a move strands names in the
+import lists either side of it, `bun run format` does not touch them because
+biome offers only an *unsafe* fix for it, and `tools/hooks/guard.ts` blocks
+`--write --unsafe` — rightly, because that fix deletes an unused import
+together with the doc comment above it, and in this repository the comment
+above an import is often the only place a decision is written down.
+
+What is missing is the narrow half of that fix. Dropping an unused **specifier**
+from a list — `step` out of `import { beatPhase, step, type World }` — touches
+no comment at all: the comment is attached to the statement and the statement
+survives. Only the case where the *whole statement* would go is the one the
+guard is protecting, and there a person should look.
+
+So: a script that drops unused specifiers, refuses to delete a statement, and
+prints the ones it left for somebody to read. `bun run format` can call it, or
+it can be its own command with a line in `docs/commands.md`; the guard stays
+exactly as it is, because it is about the other case. The test is a file with
+a move's leftovers in it: afterwards `bun run lint` is green and every comment
+is still there.

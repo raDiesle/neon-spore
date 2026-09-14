@@ -1418,6 +1418,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/skins/turn.ts` | The first skin that turned |
 | `tools/director/src/skins/types.ts` | What a skin is, and what it is told |
 | `tools/director/src/skins/vein-pulse.ts` | VEIN again, with the strands breaking the surface and a pulse running out along them |
+| `tools/director/src/skins/vein-pulse-tree.ts` | **VEIN PULSE's tree**: the branching filaments grown once |
 | `tools/director/src/skins/vein.ts` | CORE with filaments under the skin, clipped to the body |
 | `tools/director/src/skins/veil.ts` | The body stays a hole, and the **membrane around it** is what has thickness |
 | `tools/director/src/skins/wind.ts` | WIND — the same turning body, but the phase varies along it |

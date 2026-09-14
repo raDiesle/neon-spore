@@ -4407,3 +4407,29 @@ ask it still. 249 lines becomes 146 and 125. About 10 min.
 
 Bottleneck: reading — the cut is between an interface and a doc paragraph that
 belongs to the function under it, which is one line further down than it looks.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `vein-pulse-tree.ts`: growing the filaments is not lighting them
+
+Queue item, the last of eleven. `vein-pulse.ts` grew the branching tree once in
+`build()` — a walk deliberately the same shape as `vein.ts`'s, because the two
+skins are on the page to be compared — and then lit it on every frame, a front
+travelling out along arc length. The growing is `vein-pulse-tree.ts` now; `Lit`
+stays, since only `layer` and `pulse` read it. 250 lines becomes 148 and 122.
+About 15 min.
+
+Queued on the way out: five of these eleven spent the same minutes rebuilding
+import lists a move had stranded, because biome's only fix for an unused import
+is the unsafe one the guard blocks — and blocks rightly, since it eats the
+comment above the import.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, the file's constants and types block, where `Lit` is read |
+| writing | 5 | the move, the new file's header, three import lists rebuilt from real code use |
+| looking | 0 | `skin-still.test.ts` mounts every skin; nothing visible moved |
+| friction | 5 | the same stranded imports as the others, and a regex that matched a name inside a comment |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: friction — deciding which names an import list still needs has to
+be done against the code with the comments stripped, which is exactly the
+script the queue entry above asks for.
