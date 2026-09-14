@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `gyre.ts` is at the limit: the wheel's drawing is a second subject
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-gyre-ts-is-at-the-limit-the-wheels-drawing-is-a
 - **Files:** `packages/render/src/gyre.ts`
 
 The file is 249 lines: `gyres`, `gyreRadiusPx` and `drawGyres` find the
