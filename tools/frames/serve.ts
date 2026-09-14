@@ -39,7 +39,16 @@ export async function startPreview(
   while (!url) {
     if (Date.now() > deadline) throw new Error("preview:once never printed its port");
     const { value, done } = await reader.read();
-    if (done) throw new Error("preview:once exited before printing its port");
+    // The build's own words, not just the fact that it stopped. A worktree
+    // without its `bun install` fails in `apps/game`'s build with a line naming
+    // the package it cannot resolve, and that line was on a stderr nobody read:
+    // the session saw "exited before printing its port" and had to run
+    // `preview:once` by hand to find out why.
+    if (done) {
+      const said = (await new Response(proc.stderr).text()).trim();
+      const tail = said.split("\n").slice(-12).join("\n");
+      throw new Error(`preview:once exited before printing its port${tail ? `:\n${tail}` : ""}`);
+    }
     buffered += decoder.decode(value, { stream: true });
     const found = buffered.match(/preview \(built\) on (http:\/\/[^\s]+)/);
     if (found?.[1]) url = found[1];

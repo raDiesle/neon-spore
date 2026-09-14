@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-items — THE LEAK watched, and the picture it needed
+
+The first of the two unverified entries a cloud session left: whether a pair
+can cross the field on THE LEAK and take three bodies at the far wall before
+they land, with no lance. Answered two ways. A probe (`tools/probe/scratch`,
+not kept) played the wave with a scripted pair whose pilot arrives late and
+whose navigator taps slowly: a body falls a row a beat over fifteen rows, so
+the far column has about fourteen beats from its first body to its landing,
+and a pilot six beats late with a navigator tapping every two beats still
+takes all sixteen. Then a real strip of frames at the second figure, the three
+red standing in column eight with the cannon still at column three — the
+crossing the entry asked about. The frame-cost half of the entry is not owed:
+a lane never runs `perf`, and the baseline tolerates a row it has never seen.
+The one thing fixed: `bun run frames` in a worktree without its `bun install`
+died with "preview:once exited before printing its port" and nothing else,
+and the build's own "Could not resolve @firebase/app" was on a stderr nobody
+read; `startPreview` now puts that stderr's tail in the error. About 45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `act-9.ts`, the fault's row, `commands.ts` for what a cannon move costs (nothing — the column is a jump), the probe rig |
+| writing | 10 | two probes, the stderr line in `tools/frames/serve.ts` |
+| looking | 10 | the frames strip at beat 12, the p1 seat |
+| friction | 5 | `frames` failed twice before `bun install` in this worktree explained it |
+| landing | 5 | `check:fast`, the commit, `land` |
+
+The bottleneck was the tool hiding the reason it stopped: the answer to the
+entry took a ten-line probe, and the picture took three runs.
+
 ## 2026-09-14 — queue-tasks — the stale mark stops firing on the trunk's ledgers
 
 Found while confirming the queue held nothing a cloud session could work: both
