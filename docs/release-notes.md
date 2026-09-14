@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · b7c3055e — HOW TO PLAY leaves the front page, and the tagline is the owner's own sentence
+
+The owner asked for both by name on 14 September 2026 — the first exemption under *A look is offered, never replaced*. The front page is three rows now: PLAY, SETTINGS, and LEAVE ROOM while there is a room. HOW TO PLAY's page went with its row — two paragraphs, two seat cards and a boxed rule that described in prose what the intro scene shows, and a page nobody can reach is a page that drifts. WHAT THIS IS, which sat at the top of it, is a row on SETTINGS above CONTROLS, so the only thing in the game that answers *what is this* did not leave with the page that pointed at it.
+
 ## 2026-09-14 · 7693db1b — The intro is one scene of two phones and a shout, not six pages and a stepper
 
 The owner asked for this by name on 14 September 2026 — the first exemption under *A look is offered, never replaced*. Six pages with a BACK, a NEXT and a page count are gone; what a pair meets first is one animation that plays through, and one press anywhere — or its own end — closes it.
