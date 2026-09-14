@@ -478,3 +478,50 @@ differ only in which column is read, and a malfunction written twice would be
 two places for that rule to drift. Proved the same way, with the limpet's
 own frame in `frame.test.ts` at the moment it sticks and one PNG of the
 plate under it.
+
+## THE BALLOON enters at a wall, never sinks, and is a torch at the top
+
+- **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Files:** `packages/sim/src/balloon.ts`, `packages/sim/src/balloon-rub.ts`, `packages/sim/src/balloon-clock.ts`, `packages/sim/src/spawn.ts`, `packages/sim/src/spawn-fields.ts`, `packages/sim/src/entries.ts`, `packages/sim/src/config-balloon.ts`, `packages/sim/src/coil.ts`, `packages/sim/src/events-balloon.ts`, `packages/sim/src/hash-creature-late.ts`, `packages/render/src/balloon.ts`, `packages/render/src/balloon-alive.ts`, `packages/render/src/effects-spark-handed.ts`, `packages/render/src/sprite-burst.ts`, `packages/content/src/balloon-shape.ts`, `packages/content/src/balloon-parts.ts`, `tools/director/src/brush-cards.ts`
+- **Where:** local
+
+The owner asked for it on 14 September 2026, mid-turn, for a local session
+only — never a cloud one — as four sentences about the one body that does not
+come down. Each is a look or a rule he asked for by name, so it lands on the
+field and the commit says so.
+
+1. **The burst is a balloon coming apart.** Today `balloonBurst` and
+   `balloonPop` are a 26px spark in the pod's amber
+   (`effects-spark-handed.ts`). He wants it *realistic, like a balloon
+   becoming many pieces blowing up*: the skin torn into shreds that fly out
+   and fall, built from the balloon's own contour (`content/balloon-shape.ts`,
+   `balloon-parts.ts`) and the shapes page, not invented — a baked strip in
+   `sprite-burst.ts` if the pieces are too many to draw live, and either way
+   drawn again in `frame.test.ts` at its loudest frame.
+2. **At the top it is a torch, at once.** `stepBalloon` reaching row 0 calls
+   `burstBalloon`, which charges the hull with `breachUnscarred`. Instead the
+   body **turns into a `torch` there and drops immediately** — the handoff
+   `coil.ts` already makes when a dome opens (a torch at thirteen rows a beat),
+   called rather than written again — so the top of the field stops being a
+   silent bill and starts being a body the pair has to answer. The hull damage
+   at the top goes; what a torch does when it lands is what it always does.
+3. **A balloon never goes downwards.** `balloonSinks` and the sinking half of a
+   split (`balloon-rub.ts`, the vertical split whose lower half goes to the
+   ship's row) go: both halves of a split rise. `hashWorld` loses the field;
+   `hash-creature-late.ts` says so.
+4. **It does not start at the hull.** `balloonEntryRow` puts it one row above
+   the ship, out of nothing. Instead it **enters from the left or right wall,
+   one or two tiles above the shield** (a `SimConfig` field for the rows, the
+   `Rng` for which of the two and which wall), announced by an arrow at that
+   wall the way every sideways arrival is; it **glides in to somewhere around
+   the middle**, the column drawn from the `Rng` inside a middle band named in
+   config, and from there **rises slowly in the climb it already has**
+   (`balloonClimbs`, the carom at the walls). The swell (`balloonSwellBeats`)
+   happens on the glide or at its end, whichever reads better at tempo. The
+   director's balloon card and `entries.ts`'s `rise` follow.
+
+Prove it with `bun run check`, every wave that carries a balloon (`grep
+balloon packages/content/src/waves`) watched at tempo for the entry, the
+glide and a split, one frame of the burst and one of the torch leaving the
+top in `frame.test.ts`, and two PNGs: the burst mid-flight and the torch on
+its first row down.
