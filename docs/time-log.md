@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — `bun run shot --serve` starts the director it photographs
+
+The finding the last lane wrote. `bun run shot` took a `--port` and expected
+somebody to already be serving on it, which nobody in a sandbox can be —
+CLAUDE.md forbids backgrounding a server and `.claude/launch.json` is a person
+at a desk. The piece that starts one was written and correct and private to
+`versus-shot.ts`, with a paragraph on why each line of it is what it is; it is
+`director-serve.ts` now, and `--serve` starts one, uses its port and stops it.
+
+The flag had nowhere to go: `shot.ts` was on the 250-line ceiling, the same
+wall that produced `shot-state.ts` the last time. The seam left was reading the
+command line against taking the picture, so `shot-flags.ts` is the flags and
+their arguments, and `shot.ts` is 146 lines of browser.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `versus-shot.ts`'s spawn and the three faults its comment records, `shot.ts`'s flag block, what `flags.ts` next door already is |
+| writing | 30 | the lifted module, `--serve`, the flag block moved into a reader with a typed result, eight cases for it and the startup line |
+| looking | 5 | one shot of the director's TUNING sheet through `--serve`, which is the whole proof |
+| friction | 0 | — |
+| landing | 15 | `check:fast`, the commit, `land` |
+
+The bottleneck was writing, and most of it was the split rather than the
+feature: the flag itself is four lines, and the ceiling it hit cost half an
+hour. That is the right trade and it is worth saying which half was which.
+
 ## 2026-09-14 — queue-tasks — the director loses three rooms and TUNING gets a door
 
 DOCUMENTATION is four rooms and every one of them is reference: WORDINGS

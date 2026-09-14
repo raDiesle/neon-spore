@@ -1464,7 +1464,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/opening.ts` | Getting a wave's own opening out of the way, so a capture can start on the field |
 | `tools/frames/run.ts` | `bun run frames <sha> --wave N` — a before-and-after picture for a landing |
 | `tools/frames/serve.ts` | Getting one *revision* of this game running, so a frame can be taken off it: a scratch worktree, an install |
-| `tools/frames/shot.ts` | `bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab SHAPES] [--wait 2500] [--hold Control]`… |
+| `tools/frames/shot.ts` | `bun run shot <#selector> <out.png> [--serve] [--open "≡ RELEASE NOTES"] [--tab GRAPHICS]` — one element of the running director |
 | `tools/frames/spec.ts` | What a capture is asked for, and what it finds in the page when it gets there |
 | `tools/frames/svg.ts` | `bun run png <in.svg> <out.png>` — turn a sheet into something a phone shows |
 | `tools/hooks/guard.ts` | The PreToolUse guard: a handful of Bash commands that are wrong in this repo specifically |
@@ -1719,6 +1719,7 @@ place — the generator keeps whatever is there.
 | `tools/shape-sheet/src/depth-cues.ts` | the numbers for motion: drawn aspect, the period count on width and sway, how far a cycle is from mirroring itself, and whether anything is revealed |
 | `tools/frames/crank.ts` | A turn of THE CLAW's crank, expanded from one `--press` into the stream of bearings that winds rope |
 | `tools/frames/drive.ts` | The three verbs a capture drives the page with, and the rule each of them carries |
+| `tools/frames/director-serve.ts` | GETTING A DIRECTOR RUNNING SO A PICTURE CAN BE TAKEN OFF IT |
 | `tools/frames/flags.ts` | Every `--hold` on the command line rather than the first, and the one tick line the ticked ones join |
 | `tools/frames/fault.ts` | `--fault <kind>[:<numbers>]` — the wave's fault, written on the world from outside it |
 | `tools/frames/page-handle.ts` | The handle `window.neonSpore` installs, as this tool sees it — every field, and the build that added it |
@@ -1728,6 +1729,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/report.ts` | What a finished capture prints, including the `world.tick` each frame was actually taken at |
 | `tools/frames/shot-usage.ts` | What `bun run shot` prints when it is called with nothing to photograph |
 | `tools/frames/shot-state.ts` | Getting the page into the state that is worth photographing |
+| `tools/frames/shot-flags.ts` | READING `bun run shot`'s COMMAND LINE — every flag it takes |
 | `tools/frames/tall.ts` | An element taller than the window, photographed whole rather than black below the fold |
 | `tools/frames/versus-shot.ts` | `bun run versus:shot` — one PNG of one VERSUS candidate |
 | `tools/frames/versus-element.ts` | What `versus:shot --at` is measured against: the window the pose cuts, not the stage |

@@ -2,7 +2,7 @@
 
 /**
  * `bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab GRAPHICS]
- * [--inner SPEC] [--wait 2500] [--hold Control] [--select ".versus-rate=0.25"]` —
+ * [--inner WORDINGS] [--serve] [--wait 2500] [--select ".versus-rate=0.25"]` —
  * photograph one element of the running director.
  *
  * CLAUDE.md's *Showing the owner something* says to send a PNG and never a
@@ -15,6 +15,10 @@
  * The GLOW lane hand-rolled this same throwaway four times before it was
  * written down; the HITS lane wanted it a fifth. That is the definition of
  * friction paid again on everything that follows, so it is a tool now.
+ *
+ * **It wants a director on `--port`, or starts one itself with `--serve`.**
+ * The second is what a session with no way to leave a server running needs
+ * (`director-serve.ts`); the first is the cheap path when one is already up.
  *
  * It borrows the headless Chrome `capture.ts` already finds, for the reason
  * `svg.ts` gives: one more browser to open a page we can already open would be
@@ -32,131 +36,24 @@
  */
 
 import { closeBrowser, launchBrowser } from "./capture.js";
-import { clipFor, onDocument, parseAt } from "./crop.js";
+import { clipFor, onDocument } from "./crop.js";
+import { startDirector } from "./director-serve.js";
 import { elementOr, listen, waitUntil } from "./page-said.js";
+import { readShotFlags } from "./shot-flags.js";
 import { reachState, Unreachable } from "./shot-state.js";
-import { usage } from "./shot-usage.js";
 import { TALLEST, withHeightFor } from "./tall.js";
 
-const args = process.argv.slice(2);
-const flag = (name: string): string | undefined => {
-  const i = args.indexOf(`--${name}`);
-  return i >= 0 ? args[i + 1] : undefined;
-};
-const positional = args.filter((a, i) => !a.startsWith("--") && !args[i - 1]?.startsWith("--"));
-const [selector, out] = positional;
+const { selector, out, reach, settle, until, serve, port, path, viewport, scale, at } =
+  readShotFlags(process.argv.slice(2));
+const { width: vw, height: vh } = viewport;
 
-if (!selector || !out) usage();
-
-const tab = flag("tab");
-/**
- * A tab *inside* the sheet `--open` just opened. `--tab` presses NOT BUILT
- * YET's own strip and nothing else, so every other sheet's rooms — SPEC,
- * GUIDES, CONTROLS, the three inside CONTROLS — were unreachable and each
- * wanted a hand-rolled Playwright script again. That is the friction this
- * whole file was written to stop, so it is a flag.
- */
-const inner = flag("inner");
-// A state only a held key reveals cannot be photographed by pressing buttons:
-// the palette says what Ctrl-click would do only while Ctrl is down
-// (`tools/director/src/palette.ts`). One flag rather than a second script.
-const hold = flag("hold");
-/**
- * A CSS selector pressed before the shot. `--open`, `--tab` and `--inner`
- * reach a sheet by the label on its button, and nothing reached a panel that
- * only exists once something on the *map* is selected: the rows under a cell
- * are built from the arrival in it, so THE FENCE's GAPS and CRACKS chips
- * could not be photographed at all. That is the friction this file was
- * written to end, said again about a different panel, so it is a flag rather
- * than a fifth throwaway script.
- *
- * A selector and not a label, because a cell carries a picture rather than a
- * word — `.cell:nth-of-type(4)` is the only handle a map square has.
- */
-const click = flag("click");
-/**
- * Which of the matches `--click` presses, counting from 1. A map is a grid of
- * identical squares and the only thing that tells two of them apart is their
- * order, so a selector alone reaches the first fence on a wave and no other.
- * Default 1, which is what a selector on its own has always meant.
- */
-const nth = Number(flag("nth") ?? 1);
-const open = flag("open");
-const settle = Number(flag("wait") ?? 2500);
-/**
- * `--until <selector>`: wait for something on the page to *say* it is ready
- * before the timed settle starts. A page that reaches its state on its own
- * clock — a VERSUS pair running tick by tick to a `--freeze` — cannot be
- * waited for by guessing a number of milliseconds; the guess was short every
- * time the page had more to do first, and the picture was of the wrong
- * moment with nothing to say so.
- */
-const until = flag("until");
-const port = flag("port") ?? "4174";
-/**
- * The viewport. The director is a desk tool and 1240x900 is what it is judged
- * at, but `--port` already points this at anything the tree serves — and the
- * game is a portrait phone. A picture of a phone screen taken 1240 px wide is
- * a picture of a layout nobody will ever see.
- */
-const [vw, vh] = (flag("size") ?? "1240x900").split("x").map(Number);
-/**
- * What to ask that port for. The director is one page and has always been the
- * bare origin, but `--port` points this at anything the tree serves — and the
- * game keeps its field behind `?play=1`, so a shot of it without this is a
- * picture of the main menu.
- */
-const path = flag("path") ?? "";
-/**
- * `--at x,y,w,h`, a rectangle inside the element, in its own CSS pixels.
- *
- * The element is the unit this tool photographs, and some of them are not the
- * size of the thing being judged: the map's `#grid` is twenty-five beats tall
- * and a change to what one *cell* draws arrives as a stamp somewhere in four
- * thousand pixels of empty board. `bun run frames` has had this flag since the
- * eyelid lane could not see its own work; the same argument applies here, and
- * the parser is `crop.ts`'s rather than a second copy of it.
- */
-const at = flag("at") === undefined ? null : parseAt(flag("at") as string);
-/**
- * `--type "#waveFilter=boss"`, a field to fill before the shot.
- *
- * A page that only *has* a state once somebody has typed into it cannot be
- * photographed by pressing buttons — the wave list under a filter
- * (`tools/director/src/rail-filter.ts`) is the first, and it is the same
- * argument `--hold` already makes about a state only a held key reveals.
- * `fill` rather than `press`, because what the page listens for is `input`.
- */
-const typed = flag("type");
-/**
- * `--select ".versus-rate=0.25"`, a picker to turn before the shot.
- *
- * `--type` is `locator.fill` and throws on a `<select>`, so a state that only a
- * dropdown reaches was out of reach entirely. VERSUS's own rate picker is the
- * one that paid for this: at 0.25× a thrust that burns for one beat of a
- * two-second replay stretches past the whole window, so every frame carries it
- * — and finding one frame that did had cost about thirty-five shots ranked by
- * PNG file size.
- */
-const select = flag("select");
-/**
- * `--scale 6`, the device scale factor, default 2.
- *
- * `--at` clips a rectangle out of the frame and the magnification is only
- * ever this number — so a crop the size of a creature came back as a body
- * ninety pixels wide, which is not a picture a session can correct a look
- * from. The ghost interior lane took five shots at 2x before finding that the
- * flag it wanted did not exist. A creature is judged at 26 px on a phone and
- * at six times that on a desk, and both are the same frame at a different
- * scale factor; the browser paints it, and nothing is stretched.
- */
-const scale = Number(flag("scale") ?? 2);
-const url = `http://localhost:${port}${path}`;
+const director = serve ? await startDirector() : null;
+const url = `http://localhost:${director?.port ?? port}${path}`;
 
 const browser = await launchBrowser();
 try {
   const page = await browser.newPage({
-    viewport: { width: vw || 1240, height: vh || 900 },
+    viewport: { width: vw, height: vh },
     deviceScaleFactor: scale,
   });
   // Listened to before it is opened, so what a page throws while loading is
@@ -167,7 +64,7 @@ try {
 
   let target: ReturnType<typeof page.locator>;
   try {
-    await reachState(page, { open, tab, inner, click, nth, type: typed, select, hold });
+    await reachState(page, reach);
     if (until) await waitUntil(page, until, said);
     await page.waitForTimeout(settle);
     target = await elementOr(page, selector, said);
@@ -203,9 +100,9 @@ try {
     const first = await target.first().boundingBox();
     if (!first) throw new Error(`${selector} has no box to crop out of`);
     const needed = Math.ceil(first.y + at.y + at.height) + 40;
-    const grown = needed > (vh || 900) ? Math.min(needed, TALLEST) : null;
+    const grown = needed > vh ? Math.min(needed, TALLEST) : null;
     if (grown !== null) {
-      await page.setViewportSize({ width: vw || 1240, height: grown });
+      await page.setViewportSize({ width: vw, height: grown });
       await page.evaluate(() => window.scrollTo(0, 0));
       await page.waitForTimeout(600);
     }
@@ -224,12 +121,12 @@ try {
         `clip ${at.x},${at.y},${at.width},${at.height} of ${selector} at ${Math.round(box.width)}x${Math.round(box.height)}`,
       );
     } finally {
-      if (grown !== null) await page.setViewportSize({ width: vw || 1240, height: vh || 900 });
+      if (grown !== null) await page.setViewportSize({ width: vw, height: vh });
     }
   } else {
     // The whole of it, however tall: an element past the fold is painted black
     // below the window unless the window is grown to fit it first (`tall.ts`).
-    await withHeightFor(page, target.first(), vw || 1240, vh || 900, async () => {
+    await withHeightFor(page, target.first(), vw, vh, async () => {
       // The page's camera clipped to the element's box, not the element's own
       // `screenshot`: that one first waits for the element to be *stable* —
       // the same box on two consecutive animation frames — and a VERSUS pair
@@ -245,4 +142,5 @@ try {
   console.log(`wrote ${out}`);
 } finally {
   await closeBrowser(browser);
+  await director?.stop();
 }

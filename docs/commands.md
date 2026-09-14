@@ -82,6 +82,7 @@ bun run index          # regenerate the file map in docs/INDEX.md
 ```
 bun run frames <sha>   # PNG frames of the game at a sha — tools/frames/
 bun run shot <#sel> <out.png>          # one element of the running director
+                       #   --serve starts one of its own and stops it; --port uses one that is up
 bun run menu-shot <out.png>            # a page of the game's menu — starts its own preview
                        #   --page "SETTINGS > CONTROLS" is the words a thumb would press
 bun run versus:shot <slot> <name>      # one PNG of one VERSUS candidate

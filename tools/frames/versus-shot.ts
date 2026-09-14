@@ -29,6 +29,7 @@
  * session write what it meant to.
  */
 
+import { startDirector } from "./director-serve.js";
 import { root, run } from "./exec.js";
 import { elementFor } from "./versus-element.js";
 
@@ -112,52 +113,8 @@ const query = new URLSearchParams({ slot, name });
 if (freeze !== undefined) query.set("freeze", freeze);
 if (only !== undefined) query.set("only", only);
 
-/**
- * The director, on a port of the OS's choosing, read off its own startup line.
- *
- * `dev:once` rather than `dev` for the reason `CLAUDE.md` gives about every
- * server here: this must not retire a director somebody is looking at, and it
- * must not answer from one either. The port is read rather than derived —
- * `--pin` settles it and prints it, and it is also written down for
- * `bun run port` while this runs (`tools/running.ts`).
- *
- * `Bun.spawn`, the way `serve.ts` starts a preview, and not `node:child_process`
- * through a shell. On Windows the shell was the only thing `kill()` reached:
- * the director it had started lived on, holding this process's stdout pipe,
- * until its own idle exit a hundred and fifty seconds later
- * (`tools/director/server.ts`) — so every shot took two and a half minutes
- * after its picture was written, and the lane that filed the scale hang had
- * read that wait as part of the hang. `Bun.spawn`'s kill takes the tree.
- */
-async function startDirector(): Promise<{ port: string; stop: () => Promise<void> }> {
-  const proc = Bun.spawn(["bun", "run", "dev:once"], {
-    cwd: root,
-    env: { ...process.env, DIRECTOR_HOST: "127.0.0.1" },
-    stdout: "pipe",
-    stderr: "pipe",
-  });
-  const reader = proc.stdout.getReader();
-  const decoder = new TextDecoder();
-  const deadline = Date.now() + 60_000;
-  let buffered = "";
-  let port: string | null = null;
-  while (!port) {
-    if (Date.now() > deadline) throw new Error("the director never printed its port");
-    const { value, done } = await reader.read();
-    if (done) throw new Error(`the director exited:\n${buffered.trim()}`);
-    buffered += decoder.decode(value, { stream: true });
-    port = buffered.match(/http:\/\/localhost:(\d+)/)?.[1] ?? null;
-  }
-  reader.releaseLock();
-  return {
-    port,
-    stop: async () => {
-      proc.kill();
-      await proc.exited;
-    },
-  };
-}
-
+// The director, on a port of the OS's choosing, read off its own startup line
+// — `director-serve.ts`, which is also what `bun run shot --serve` uses.
 const director = await startDirector();
 try {
   const args = [

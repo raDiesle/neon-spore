@@ -176,39 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `bun run shot` cannot start the director it photographs
-
-- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-14, claude/queue-bun-run-shot-cannot-start-the-director-it-photog
-- **Files:** `tools/frames/shot.ts`, `tools/frames/versus-shot.ts`, `tools/frames/serve.ts`, `tools/frames/shot-usage.ts`, `tools/frames/test/`, `docs/commands.md`
-
-`bun run shot` takes `--port` and expects somebody to already be serving on it.
-Nobody in a cloud session can be: CLAUDE.md forbids starting a server with a
-backgrounded shell command, and `.claude/launch.json` is a person at a desk
-pressing a button. So every lane that changes the director — which is where
-every look is decided — writes the same throwaway to get one picture.
-
-**The piece is already written and is private to one script.**
-`versus-shot.ts` carries a `startDirector()` that spawns `bun run dev:once`,
-reads the port off its own startup line, and kills the process tree on the way
-out, with a paragraph of comment saying why each of those is what it is
-(`Bun.spawn` and not a shell, because on Windows `kill()` reached only the
-shell and left a director holding stdout for two and a half minutes). It then
-shells out to `bun run shot --port`. That is exactly the tool this wants, one
-export away from being one.
-
-What to do: lift `startDirector` into a file of its own beside `serve.ts` —
-which already does the same job for the game's preview and is the obvious
-neighbour — and give `shot.ts` a `--serve` flag that starts one, uses its port
-and stops it, the way `menu-shot.ts` already does for the preview.
-`versus-shot.ts` then imports the same function instead of holding the only
-copy. Nothing about the flags, the crop or the settle changes.
-
-The friction is measurable rather than guessed: this lane wrote the throwaway
-to take the one PNG its queue entry asked for, and the lane before it wrote a
-different one for the game's menu — which became `bun run menu-shot` for the
-same reason.
-
 ## PLAY is a list of partners to continue with, and the room is a step-by-step
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8

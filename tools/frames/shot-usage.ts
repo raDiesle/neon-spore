@@ -8,11 +8,11 @@
  */
 export function usage(): never {
   console.error(
-    'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab GRAPHICS] [--wait 2500]',
+    'usage: bun run shot <#selector> <out.png> [--open "≡ RELEASE NOTES"] [--tab GRAPHICS] [--serve]',
   );
   console.error('       --click is a CSS selector pressed first, e.g. ".cell:has(img)"');
   console.error("       --nth is which of its matches to press, counting from 1");
-  console.error('       --inner is a tab inside the sheet --open just opened, e.g. "SPEC"');
+  console.error('       --inner is a tab inside the sheet --open just opened, e.g. "WORDINGS"');
   console.error('       --path is what the port is asked for, e.g. "/?play=1" — the field itself');
   console.error("       --size is a viewport, e.g. 390x844 — a phone, for something a phone shows");
   console.error("       --open is a header button to press first, for a sheet that starts hidden");
@@ -24,5 +24,6 @@ export function usage(): never {
   console.error('       --select turns a <select> first, e.g. ".versus-rate=0.25"');
   console.error("       --wait is milliseconds to settle before the shot, for an animation");
   console.error("       --hold is a modifier key held down for the shot, e.g. Control");
+  console.error("       --serve starts a director of its own and stops it, instead of --port");
   process.exit(1);
 }
