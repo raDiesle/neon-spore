@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · f987af86 — The preview's port is read by a function with a test, which found the address could be cut short and the deadline never fire
+
+`startPreview` in `tools/frames/serve.ts` read `preview (built) on http://…` off the server's stdout inside the function that spawns it, so the stderr tail it prints on an early exit — the line that says a worktree is missing its `bun install` — was tested by nothing. The loop is `previewUrlFrom(stdout, stderr)` now, and `serve.test.ts` feeds it streams made from strings: a port in one chunk, a port split across chunks, an early close carrying stderr's last twelve lines, an empty stderr adding nothing, a long stderr cut to twelve, and a server that prints nothing.
+
 ## 2026-09-14 · 3668b62e — `isMount` is called from the beat and from `wornKind`, and a third copy fails the table
 
 `gyre.ts` exported `isMount` with a paragraph on why the kind is the whole of the test, and nothing called it: `beat.ts` skipped a mount with `c.kind === "mount"` and `creature-rules.ts` routed one to `gyreBecomes` the same way. Both call it now, and `COPIES` in `copies-table.ts` carries the row — owner `gyre.ts`, the shape a body's `c.kind` — so the next hand-written copy fails `copies.test.ts` instead of review. The bare-`kind` test in `kinds.ts`'s fall table is the table describing every kind, not this rule, and the pattern leaves it alone on purpose. Nothing the simulation does changes.
