@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · e9c29b4b — The director loses GUIDES, SPEC and DEMOS, and TUNING gets a door of its own
+
+The owner asked for this on 14 September 2026. It is the director rather than the game, so it is not a look and lands as usual.
+
 ## 2026-09-14 · ae48dbd4 — A tool that photographs a page of the game's menu
 
 Three tools took a picture and none of them could take this one: `bun run frames` drives the field and photographs `#stage`, `bun run shot` photographs an element of the director, `bun run png` rasterises an SVG on disk. The menu is markup over the game's own canvas, so a lane that changed a row, a page or the tagline had nothing to point at — and the lane that queued this wrote the throwaway twice in one sitting, which is the count that turned `shot.ts` from a habit into a tool.
