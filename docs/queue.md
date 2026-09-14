@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run format` sorts imports, and a sort moves a comment off its statement
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-bun-run-format-sorts-imports-and-a-sort-moves-a
 - **Files:** `package.json`, `biome.json`, `docs/commands.md`
 
 `bun run format` is `biome check --write`, and `check` runs the
