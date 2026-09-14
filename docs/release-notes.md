@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 87ba9d59 — The pose kit's command builders move to `pose-commands.ts`
+
+`tools/director/src/pose-kit.ts` was 249 lines: the apparatus that puts a world into one named state, and after it the commands spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — which gain a builder for every verb a new pose has to press. The builders and their paragraphs are a sibling now, and the kit re-exports them, so the thirty-four files that import the kit are untouched and a pose still imports from one place. The typecheck and the four pose suites are green unchanged. A refactor, not a look.
+
 ## 2026-09-14 · 461385b8 — The room's message switch moves to `room-route.ts`
 
 `apps/server/src/room.ts` was 249 lines, and `route` is a switch over `ClientMessage["t"]` that gains a case with every message the client learns to send — `level` and `stats` were the last two. It goes the way `room-open.ts`, `room-tell.ts` and `room-start.ts` already went: the switch and its comments are `routeClient` in a sibling, handed the four things a message can make the room do — relay, press, keep a level, keep a tally — as closures, so it reads no private field. `room.test.ts`, which drives ping, ready, level and stats through a room, is green unchanged. A refactor, not a look.
