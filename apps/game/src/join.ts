@@ -4,10 +4,10 @@ import {
   linkIsFault,
   normalizeRoomCode,
   ROOM_CODE_LENGTH,
-  roomCodeFromBytes,
   SOLO_STATUS,
 } from "@neon-spore/net";
 import { bindTwoStep } from "./confirm.js";
+import { freshCode, roomRequested, shareRoom } from "./join-link.js";
 import { bindNameField } from "./join-name.js";
 import { chipText, explain, lastTimeLine, seatWord, startButton } from "./join-words.js";
 import { rememberFrom } from "./pairing.js";
@@ -51,6 +51,9 @@ export interface JoinScreen {
  * it opens: nobody reads "SOLO" as "press here for two devices". The way to
  * two devices is the menu now, and the chip comes back the moment there is a
  * room for it to be about.
+ *
+ * The code itself — drawn fresh, read off a link, written into one and handed
+ * to the other phone — is `join-link.ts`; this is the screen around it.
  */
 export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const chip = document.getElementById("linkChip") as HTMLButtonElement | null;
@@ -191,60 +194,4 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   };
 
   return { update, open, invite };
-}
-
-/** Four characters of real randomness. The browser's, never the simulation's. */
-function freshCode(): string {
-  const bytes = new Uint8Array(ROOM_CODE_LENGTH);
-  crypto.getRandomValues(bytes);
-  return roomCodeFromBytes(bytes);
-}
-
-/**
- * The room a link was opened on, or "" for none. Pure, so the rule can be
- * tested the way `opensOnMenu` is.
- *
- * A code is still the way in and a link is only a way to deliver one, so this
- * accepts nothing a person could not have typed: the code goes through
- * `normalizeRoomCode` and is refused unless it is a whole one, which keeps a
- * mistyped or truncated address out of a room rather than into a wrong one.
- */
-export function roomRequested(url: string): string {
-  const given = new URL(url, "http://game.invalid/").searchParams.get(ROOM_PARAM);
-  if (!given) return "";
-  const code = normalizeRoomCode(given);
-  return isRoomCode(code) ? code : "";
-}
-
-const ROOM_PARAM = "room";
-
-/** The address that opens this room, for a message the other phone can tap. */
-export function roomLink(room: string): string {
-  const url = new URL(location.href);
-  url.hash = "";
-  url.search = "";
-  url.searchParams.set(ROOM_PARAM, room);
-  return url.href;
-}
-
-/**
- * Hand the room to the other phone by whatever the handset has. The share
- * sheet where there is one — that is the Android path and the one that
- * matters — the clipboard where there is not, and the plain address where
- * neither is allowed, because a code that cannot be copied can still be read.
- */
-async function shareRoom(room: string): Promise<string> {
-  const url = roomLink(room);
-  try {
-    if (navigator.share) {
-      await navigator.share({ title: "Neon Spore", text: `Room ${room}`, url });
-      return `Sent. Room ${room}.`;
-    }
-    await navigator.clipboard.writeText(url);
-    return `Link copied. Room ${room}.`;
-  } catch {
-    // A share sheet the player dismissed, or a clipboard the browser refused.
-    // Neither is a failure worth a red word: the address is right there.
-    return url;
-  }
 }

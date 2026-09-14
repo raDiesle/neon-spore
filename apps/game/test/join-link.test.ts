@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { roomRequested } from "../src/join.js";
+import { roomRequested } from "../src/join-link.js";
 
 /**
  * A link that carries a room is how the second phone gets in when the two

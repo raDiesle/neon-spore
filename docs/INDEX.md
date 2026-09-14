@@ -1161,6 +1161,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/settings.ts` | The things a player turns on and off, kept on their own device |
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
 | `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
+| `apps/game/src/join-link.ts` | a room's code and the four things that happen to one on a phone — drawn fresh, read off a link, written into one, handed to the other phone |
 | `apps/game/src/nickname.ts` | This device's player name: asked once, kept here, carried into every room |
 | `apps/game/src/origin.ts` | Where the server lives, for both things that talk to it |
 | `apps/game/src/pairing.ts` | The way *back* into a room, for two people who have played before |

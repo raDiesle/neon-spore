@@ -3987,3 +3987,22 @@ shipped wave 60 beats in, identical before and after.
 | landing | 5 |
 
 Bottleneck: writing — nine import lines to re-point, each asserted before it was replaced.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `join.ts` is at the limit: the code and the link are a second subject
+
+The room screen carried four helpers about the code itself — drawn fresh,
+read off a link, written into one, handed to the other phone — after the one
+function that binds the chip and the sheet. They moved to `join-link.ts`, the
+file `join-link.test.ts` was already named for; the screen, the shell and the
+test import from there. Proof was that test and the typecheck: the screen is
+a DOM binding with no headless test, and nothing about it moved.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: landing — `check:fast` reaches the whole of `apps/game` from a change to its shell.
