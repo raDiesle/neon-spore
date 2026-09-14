@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `check:fast`'s closing line says a shard is red without naming the case
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-check-fast-s-closing-line-says-a-shard-is-red-wi
 - **Files:** `tools/check/shard.ts`, `tools/check/test/shards.test.ts`
 
 One run of `bun run check:fast` on 14 September 2026 ended
