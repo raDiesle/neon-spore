@@ -4193,3 +4193,23 @@ Bottleneck: the eleven entries would not go through a bash heredoc — the
 shell stopped on an apostrophe inside it — and were written to a scratch file
 and appended from there; and `Files:` may only name files already on `main`,
 or the queue marks the entry stale, so each new sibling is named in the body.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `versus-probe.ts`: the probe's clock out of the seat decision
+
+Queue item, one of eleven files at the 250-line limit with its cut named.
+`versus-seat.ts` held sixty lines of argument about comparing two seats by
+difference, then the probe's clock — `SAMPLE_EVERY`, `SAMPLES`, `MAX_SAMPLES`,
+`ProbeSchedule`, `probeSchedule` — and only then the decision itself. The clock
+is `versus-probe.ts` now, with its own doc; the seat file imports it and the
+test re-points. 250 lines becomes 207 and 59. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `versus-seat.ts` whole, who imports `probeSchedule` |
+| writing | 5 | the move, the new file's header, one import re-pointed |
+| looking | 0 | nothing visible moved — a file split |
+| friction | 0 | none |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: reading — the cut was named in the entry, and the whole cost was
+reading enough of the file to be sure nothing else crossed it.

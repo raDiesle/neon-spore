@@ -1446,6 +1446,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/versus-pair.ts` | One phone pair, one world, one frame — the engine half of the ALTERNATIVES sheet |
 | `tools/director/src/versus-pair-freeze.ts` | Stopping a VERSUS pair on a moment somebody chose |
 | `tools/director/src/versus-pose.ts` | Which pose puts a slot's own animation on screen |
+| `tools/director/src/versus-probe.ts` | **The probe's own clock**: how far apart its samples stand, how many it takes |
 | `tools/director/src/versus-seat.ts` | Whether a candidate needs the other seat drawn beside it — decided once, honestly, rather than guessed |
 | `tools/director/src/versus-shot.ts` | The two query parameters that make a VERSUS pair photographable |
 | `tools/director/src/wave-opening.ts` | What the wave being edited puts in front of a pair before it starts |

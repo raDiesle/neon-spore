@@ -176,21 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `versus-seat.ts` is at the limit: the probe's clock is a second subject
-
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-versus-seat-ts-is-at-the-limit-the-probes-clock
-- **Files:** `tools/director/src/versus-seat.ts`, `tools/director/test/versus-seat.test.ts`
-
-The file is 250 lines: sixty of header on why the two seats are compared by
-difference, then the probe's clock — `SAMPLE_EVERY`, `SAMPLES`,
-`MAX_SAMPLES`, `ProbeSchedule` and `probeSchedule`, lines 71 to 124 — and only
-then the seat decision itself (`diffSequence`, `SeatPlan`, `seatPlan`,
-`seats`). Move the clock into `versus-probe.ts` with its doc comment;
-`versus-seat.ts` imports `probeSchedule` from there and the test re-points its
-import. `PROBE_PHONE` stays, `diffSequence` is what reads it. Proof:
-`bun run check:fast`, `versus-seat.test.ts` among it.
-
 ## `versus-pair.ts` is at the limit: `advance` is the step, not the pair
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4

@@ -9,7 +9,7 @@ import {
   touchFootprintHash,
 } from "../src/versus-diff.js";
 import { poseForSlot } from "../src/versus-pose.js";
-import { probeSchedule } from "../src/versus-seat.js";
+import { probeSchedule } from "../src/versus-probe.js";
 
 /**
  * `versus-seat.ts`'s pure arithmetic, exercised without a canvas — `bun

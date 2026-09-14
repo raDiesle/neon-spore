@@ -5,6 +5,7 @@ import { apply, restore, type Variant } from "../../versus/variant.js";
 import type { Pose } from "./pose-kit.js";
 import { bandTopPx, signature, touchedShare } from "./versus-diff.js";
 import { advance } from "./versus-pair.js";
+import { probeSchedule } from "./versus-probe.js";
 
 /**
  * Whether a candidate needs the other seat drawn beside it — decided once,
@@ -67,50 +68,6 @@ import { advance } from "./versus-pair.js";
  * does not change while the page is open.
  */
 const PROBE_PHONE = { width: 380, height: 820 } as const;
-/** How many ticks apart each sample is, and how many samples are taken —
- * `SAMPLES * SAMPLE_EVERY` ticks is comfortably past one `waveRestBeats`
- * rebuild at the default tempo, so a transient tied to the pose's opening
- * moment is not the only thing this ever looks at. The floor: a pose with a
- * cadence of its own stretches both (`probeSchedule`). */
-const SAMPLE_EVERY = 6;
-const SAMPLES = 24;
-/** The most samples a long pose is allowed to cost. Two seats, two renders
- * and a `getImageData` each, at page open: past this the row is slow to
- * appear, so a long cadence widens the stride rather than the count. */
-const MAX_SAMPLES = 48;
-
-/** The probe's own clock: ticks between samples, how many, and how much
- * time each sample tells the renderer has passed. */
-export interface ProbeSchedule {
-  readonly every: number;
-  readonly samples: number;
-  /** Seconds per sample — `every / tickHz`, never a frame of the wall clock. */
-  readonly dt: number;
-}
-
-/**
- * **The renderer is told the time the simulation actually advanced, and the
- * probe runs for at least one loop of the pose.** Until 10 September 2026 it
- * handed every sample `dt: 1 / 60` while stepping six ticks between them, so
- * effects aged six times slower than the world they were drawn over. A look
- * *revealed* by an effect — a crater, hidden by `RockImpactFx.coversCrater`
- * until the rock has lain in it and rolled off — never appeared inside the
- * 144 ticks sampled, and `ship:crater` was reported as moving nothing on
- * either seat: one screen, and *under the floor* printed beneath a candidate
- * that repaints a hull's worth of pixels.
- *
- * So `dt` is `every / tickHz`, and a pose that carries `cadenceSeconds` is
- * sampled across the whole of it, with the stride widened rather than the
- * count grown once `MAX_SAMPLES` would be passed. A pose with no cadence keeps
- * the old span exactly.
- */
-export function probeSchedule(pose: Pose, tickHz: number): ProbeSchedule {
-  const span = Math.max(SAMPLES * SAMPLE_EVERY, Math.ceil((pose.cadenceSeconds ?? 0) * tickHz));
-  const every = Math.max(SAMPLE_EVERY, Math.ceil(span / MAX_SAMPLES));
-  const samples = Math.ceil(span / every);
-  return { every, samples, dt: every / tickHz };
-}
-
 /**
  * What one seat has to say about a candidate: the sequence of differences it
  * draws, and whether it drew any at all.
