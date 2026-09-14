@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 01e75ff4 — The guard refuses a heredoc body the Bash tool would rewrite
+
+The Bash tool halves every doubled backslash in a heredoc body before the shell reads it, quoted delimiter or not — a JavaScript string, a Python bytes literal or a regex written that way came out with half its escapes, and eight time-log entries since 3 September paid the same forty minutes finding out. `tools/hooks/heredoc.ts` reads each body with `shell-words.ts`'s own delimiter scanners, now exported, and refuses one carrying two backslashes with the two ways that work: the Write or Edit tool, or Python with `chr(92)`. Bash only; a single backslash, a herestring and a PowerShell here-string are left alone.
+
 ## 2026-09-14 · be01ac0f — The opening test takes its preview from `startPreview` rather than a loop of its own
 
 f987af86 moved the port-reading loop into `previewUrlFrom` and fixed two things in it — an address regex that matched a chunk cut short at `:4` of `:41733`, and a deadline that was never raced against the read — but `opening.test.ts` still spawned `preview:once` itself with the loop as it was. It calls `startPreview(root)` now, and its `stop` is the returned one, which waits for the port to stop answering rather than returning on `kill()`.
