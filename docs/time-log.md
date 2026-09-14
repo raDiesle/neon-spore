@@ -4086,3 +4086,27 @@ identical before and after.
 | landing | 5 |
 
 Bottleneck: landing — the render suite; the slice was one line long once and the assertion caught it before anything was written.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `volley-shards.ts` is at the limit: the cutting is a second subject
+
+The shell's cutting — the `Piece` shape, the arc-sector cutter, the centring,
+three cuts a sector and the rind's depth, the speed, lift and spin a piece
+leaves with — shared a file with the flight and drawing of what was cut. It
+moved to `volley-pieces.ts` as one `cutShell` the effect's `ingest` calls
+with the sector it worked out. Proof was a scratch that ingests two wards and
+two hatches and draws forty frames into the stub canvas, its op log hashed
+identical before and after. The first name chosen for the sibling,
+`volley-cut.ts`, was already a file — the inside of the ball — and the write
+went over it before the typecheck said so; restored from git, and the scratch
+had to leave the tree before `check:fast` because the purity test reads
+`tools/probe/scratch/` too.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 10 |
+| looking | 0 |
+| friction | 5 |
+| landing | 5 |
+
+Bottleneck: friction — a sibling written over a file that already had the name; `test -e` before the write from now on.
