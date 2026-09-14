@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-items — HANDOVER · HULL watched over one exchange
+
+The second unverified entry: whether the two lobes trading height on the hull
+read as the ship handing the panels over, or as one signal too many over a
+band that has already changed colour. Eight real frames of THE HANDOVER on
+the navigator's seat, thirty-eight ticks apart from the first beat of the
+hold — one turn of the four-beat exchange — and the hull band of four of them
+magnified; one frame of the pilot's seat at the same beat for the skin. The
+right lobe stands, the two meet at one height a beat later, the left stands a
+beat after that, and the whole thing is under a tile high beside the
+countdown plate: it reads as the ship breathing the trade rather than as a
+fourth voice, and on the pilot's phone it is amber with the rest of that ship.
+Nothing changed in code. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `handover-hull.ts`, THE HANDOVER's `at` and `beats`, the frames tool's `--fault` and `--stride` |
+| writing | 0 | nothing |
+| looking | 10 | two `frames` runs, five crops |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land` |
+
+The bottleneck was the looking, which is what the entry was.
+
 ## 2026-09-14 — queue-items — THE LEAK watched, and the picture it needed
 
 The first of the two unverified entries a cloud session left: whether a pair
