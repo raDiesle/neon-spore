@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 42ad5046 — A stopped director is actually stopped, in both places it was not
+
+`bun run shot --serve` and `bun run versus:shot` start a director, take their picture and stop it. The stop returned and the director went on serving: it was reparented to init and held the port `stop()` had just reported free, until its own idle exit two and a half minutes later. Nothing said so. Found by running `versus:shot` to check an unverified entry, and then asking `ps` whether the thing had gone.
+
 ## 2026-09-14 · 6fa7589b — The front page is checked, and the tagline wraps on a 360 px phone
 
 `Unverified at b7c3055e` named three things about the landing that took HOW TO PLAY off the front page. Two hold and one does not.
