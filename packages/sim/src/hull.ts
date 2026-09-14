@@ -2,7 +2,6 @@ import { markMoment } from "./balance.js";
 import { clingLands, isClingKind } from "./cling.js";
 import { hullRow } from "./config.js";
 import { fenceIsOpen } from "./fence.js";
-import { gumLands } from "./gum.js";
 import { breachHull, breachUnscarred, damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
 import { impactWeight } from "./impact.js";
@@ -61,21 +60,11 @@ export function resolveHull(world: World): void {
       continue;
     }
 
-    // **THE GUM never breaks the hull and never leaves this loop.** It comes
-    // down like everything else and, on the beat it is drawn standing on the
-    // ship, it sticks — `gumLands` says so once — and it stays a survivor
-    // until a hand flings it (`gum.ts`). Before the ward's question, because
-    // the shield has nothing to say to it and the fence's branch above is the
-    // shape of that: a body with an answer of its own.
-    if (c.kind === "gum") {
-      if (c.row >= shipRow) gumLands(world, c, shipRow);
-      survivors.push(c);
-      continue;
-    }
-    // And THE LIMPET and THE LEECH, on the gum's terms exactly: neither
-    // breaks the hull, the shield has nothing to say to either, and on the
-    // beat one is drawn standing on the ship it takes its control
-    // (`cling.ts`).
+    // **THE LIMPET and THE LEECH never break the hull and never leave this
+    // loop.** Neither breaks the hull, the shield has nothing to say to
+    // either, and on the beat one is drawn standing on the ship it takes its
+    // control (`cling.ts`). Before the ward's question, because the fence's
+    // branch above is the shape of that: a body with an answer of its own.
     if (isClingKind(c.kind)) {
       if (c.row >= shipRow) clingLands(world, c, shipRow);
       survivors.push(c);
@@ -143,7 +132,17 @@ export function resolveHull(world: World): void {
       // for the ones that did not: a charging ghost, head first, and a carom
       // nobody cracked open, which is a rock the shield was never offered.
       // One question, asked once (`impact.ts`).
-      breachHull(world, c.col, c.kind, c.fromRow, impactWeight(world.cfg, c), c.color);
+      //
+      // **THE GUM breaks it without a scar**, THE FENCE's arrangement: what a
+      // gum landing looks like is the thing splashing over the plating, not
+      // a crack in it, and a crack is what a `Scar` draws (`gum.ts`). The
+      // gates above are the ordinary ones, so it is resolved on the beat it
+      // is drawn standing on the hull like everything else.
+      if (c.kind === "gum") {
+        breachUnscarred(world, c.col, c.kind, c.fromRow, impactWeight(world.cfg, c));
+      } else {
+        breachHull(world, c.col, c.kind, c.fromRow, impactWeight(world.cfg, c), c.color);
+      }
     }
   }
   world.creatures = survivors;

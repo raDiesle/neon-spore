@@ -85,7 +85,6 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "choirRight":
     case "balloonLeft":
     case "balloonRight":
-    case "gum":
       return target;
     default:
       return assertNever(target);
@@ -260,7 +259,8 @@ describe("FIELD_CONTROLS against what touch.ts actually sends", () => {
   test("the push is a second gesture on the grip, and is described as one", () => {
     // The grip's own pair, and the cannon's argument one control over: the
     // press slows a fall and the move takes a lane, and a check counting hold
-    // kinds would have seen only the first.
+    // kinds would have seen only the first. THE GUM is the third since 14
+    // September 2026: the same hold carried a swipe's worth flings the drop.
     const hold: Hold = { kind: "grip", id: 4, player: 1, originX: 120 };
     const carried = touchMove(LAYOUT, hold, 240, 300);
     expect(carried?.command).toEqual({
@@ -270,7 +270,7 @@ describe("FIELD_CONTROLS against what touch.ts actually sends", () => {
       fromMilli: Math.round((120 * 1000) / LAYOUT.tile),
       id: 4,
     });
-    expect(FIELD_CONTROLS.filter((c) => c.holdKind === "grip").length).toBe(2);
+    expect(FIELD_CONTROLS.filter((c) => c.holdKind === "grip").length).toBe(3);
   });
 
   test("the maw tap is a second gesture on the cannon, and is described as one", () => {

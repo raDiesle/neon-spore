@@ -5,6 +5,7 @@ import { FenceShards } from "./fence-shards.js";
 import { FenceStrike } from "./fence-strike.js";
 import { FieldPose } from "./field-pose.js";
 import { GuideStage } from "./guide-scene.js";
+import { GumSplash } from "./gum-splash.js";
 import { LanceFlash } from "./lance-flash.js";
 import type { Layout } from "./layout.js";
 import { LureBlastFx } from "./lure-blast.js";
@@ -60,6 +61,12 @@ export class RenderState {
    * not theirs to draw.
    */
   readonly fenceStrike = new FenceStrike();
+  /**
+   * A gum landing on the ship: the smear where it hit and the whole hull
+   * rippling from it (`gum-splash.ts`). Here for the strike's reason — it is
+   * drawn over the lit rim, and it rides the same `breach` event.
+   */
+  readonly gumSplash = new GumSplash();
   /**
    * And the pieces of wall a bolt knocks out of one (`fence-shards.ts`). Held
    * here rather than in `Effects` for that file's line count alone — these are
@@ -148,6 +155,8 @@ export class RenderState {
     this.lureBlast.update(dt);
     this.fenceStrike.ingest(events);
     this.fenceStrike.update(dt);
+    this.gumSplash.ingest(events);
+    this.gumSplash.update(dt);
     this.fenceShards.ingest(events, l);
     this.fenceShards.update(dt, l);
     this.lanceFlash.ingest(events);
@@ -175,6 +184,7 @@ export class RenderState {
     this.pose.reset();
     this.lureBlast.clear();
     this.fenceStrike.clear();
+    this.gumSplash.clear();
     this.fenceShards.clear();
     this.lanceFlash.clear();
   }

@@ -41,11 +41,11 @@ export const HANDED_MECHANICS = {
     waveNames: true,
   },
   gum: {
-    what: "A sticky mass that falls straight down one lane, at a slick's pace. No shot touches it and the shield does not stop it: it lands on the ship and sticks, and from that beat the cannon cannot fire from any column it covers — the trigger clicks and nothing comes out. It stays until it is swiped off, and the swipe is player 2's, on the body itself, and it only counts while player 1 is holding the cannon under it. Toward the nearer side wall it comes off; away from that wall it spreads a lane wider instead, and the hand has to lift before it can try again. The one who can move the cannon cannot swipe, and the one who can swipe cannot move the cannon.",
+    what: "A sticky mass that falls straight down one lane, at a slick's pace. No shot touches it and the shield does not stop it. Either seat answers it, in the air: a thumb on the drop and a swipe to the left or to the right, and it flies out of the field along the row it was on, a few columns a beat, gone at the wall. A thumb that rests on it does nothing — it goes on falling under the finger — and a swipe on the ship's row is too late. One that reaches the ship hits the hull at once, with no scar to show for it, and splashes across the whole surface of the ship like water.",
     reach: "spawn",
     // A wave names this kind and never a colour, the balloon's arrangement:
     // nothing fired reaches it. What a wave authors is where it comes down,
-    // which is the lane the cannon is about to lose.
+    // which is the lane one of the pair has to reach.
     waveNames: true,
   },
   // THE LIMPET and THE LEECH ride along here: bodies on the ship answered

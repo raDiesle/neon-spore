@@ -53,10 +53,9 @@ export function firstAlong(
     // hub that stopped bolts would put a wall across five columns of the
     // field with no body anywhere in it.
     if (c.kind === "gyre") continue;
-    // Nor THE GUM, in the air or on the ship: nothing fired reaches it, and a
-    // bolt fired up a lane it is falling down goes past it to whatever is
-    // above. On the ship it stops the shot *before* it exists instead
-    // (`gumOverCannon`, in `firePress`), which is the block the pair hears.
+    // Nor THE GUM, falling or flung: nothing fired reaches it, and a bolt
+    // fired up a lane it is falling down goes past it to whatever is above.
+    // A hand is the only answer to it (`gum.ts`).
     if (c.kind === "gum") continue;
     // Nor THE LIMPET or THE LEECH: nothing fired reaches either, in the air
     // or on its control (`cling.ts`).

@@ -69,6 +69,15 @@ export function ingestBreach(
     parts.burst(tileCX(l, e.col), l.hullY, 22, PALETTE.arc);
     return;
   }
+  // **THE GUM is the second**, and the other way round: it breaks the hull
+  // and still leaves no scar, because what a drop does to plating is a
+  // wetting rather than a crack. The burst is thrown in its own venom, and
+  // the splash — the smear and the ripples across the whole ship — is
+  // `gum-splash.ts`, fed from `RenderState` for the fence's reason.
+  if (e.kind === "gum") {
+    parts.burst(tileCX(l, e.col + (e.span - 1) / 2), l.hullY, 18 * e.span, PALETTE.venom);
+    return;
+  }
   // `isWardable` rather than `isMeteorKind`: THE VOLLEY is a rock the shield
   // answers, and a shell nobody warded arrives as the rock it looks like — the
   // fall replay and the crack that waits for it, not a burst at the hull.

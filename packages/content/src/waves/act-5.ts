@@ -199,11 +199,12 @@ export const WAVES_ACT_5: Wave[] = [
   {
     id: "theGum",
     name: "THE GUM",
-    sentence: "The one where the cannon has to be parked under the thing that shuts it.",
+    sentence:
+      "The one where the thing nothing can stop has to be flicked out of the field by hand.",
     guide: {
-      both: "A sticky mass falling straight down one lane. No shot touches it and the shield does not stop it: it lands on the ship and sticks, and the cannon cannot fire from any column it covers until it is gone. Getting it off takes both of you — the cannon parked under it, and a swipe toward the nearer side wall. Swiped the wrong way it spreads a lane wider.",
-      p1: "You cannot swipe it. Park the cannon under the gum and leave it there until player 2 has flung it — say which lane it is in, and which side wall is nearer. Your radar shows it coming down.",
-      p2: "You cannot move the cannon. Once it is parked under the gum, put a thumb on the gum and swipe it toward the nearer side wall. It does not budge without the cannon under it, and the wrong way spreads it a lane wider.",
+      both: "A sticky mass falling straight down one lane. No shot touches it and the shield does not stop it. Either of you can take it: a thumb on the drop and a swipe to the left or the right, and it flies out of the field along its row. A thumb that only rests on it does nothing. One that reaches the ship hits the hull at once and splashes across the whole of it.",
+      p1: "Say who is taking it — a thumb on the drop is a thumb off your strip. Swipe it in the air, either way; on the ship's row it is too late.",
+      p2: "Your radar shows it coming down. Say the lane, and say who is taking it — a thumb on the drop is a thumb off your strip. Swipe it in the air, either way; on the ship's row it is too late.",
       scene: "theGum",
     },
     entries: [

@@ -156,10 +156,7 @@ const SAMPLES: Record<string, SimEvent> = {
   balloonSplit: { type: "balloonSplit", col: 3, row: 5 },
   balloonPop: { type: "balloonPop", col: 3, row: 5 },
   balloonBurst: { type: "balloonBurst", col: 3, row: 0 },
-  gumStick: { type: "gumStick", col: 2, row: 11, span: 1 },
-  gumBlock: { type: "gumBlock", col: 2 },
   gumFlung: { type: "gumFlung", col: 2, row: 11, span: 1, dir: -1 },
-  gumSpread: { type: "gumSpread", col: 1, row: 11, span: 2 },
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
   veilTorn: { type: "veilTorn", col: 3, row: 4, color: "cyan", kind: "bulb" },
@@ -264,6 +261,22 @@ describe("bindings", () => {
     const body = { ...rock, weight: "light", kind: "slick" } as const;
     expect(cueFor(rock, 7, 12)?.id).toBe("hull.breachHeavy");
     expect(cueFor(body, 7, 12)?.id).toBe("hull.breachLight");
+  });
+
+  it("voices a gum's landing as the splash, in place of the tear", () => {
+    const gum = {
+      type: "breach",
+      col: 3,
+      weight: "light",
+      span: 1,
+      kind: "gum",
+      fromRow: 10,
+      seed: 0,
+      holes: 0,
+      color: null,
+      beat: 1,
+    } as const;
+    expect(cueFor(gum, 7, 12)?.id).toBe("creature.gumStick");
   });
 
   it("gives each of THE MIRROR's steps its own sound", () => {
@@ -374,14 +387,11 @@ const FENCE_IDS: Record<string, string> = {
 };
 
 /**
- * And THE GUM's four, bound in `bind-gum.ts`, on the same terms. Two of them
- * are the same sound on purpose — spreading is more of it taking hold.
+ * And THE GUM's one, bound in `bind-gum.ts`, on the same terms. Its landing
+ * is a `breach` and is tested with the breaches below.
  */
 const GUM_IDS: Record<string, string> = {
-  gumStick: "creature.gumStick",
-  gumBlock: "ship.fireBlocked",
   gumFlung: "impact.deflect",
-  gumSpread: "creature.gumStick",
 };
 
 describe("what one body did", () => {

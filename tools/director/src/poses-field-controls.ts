@@ -1,7 +1,7 @@
 import {
   createWorld,
   DEFAULT_CONFIG,
-  gumIsStuck,
+  gumIsFlung,
   type SpawnEntry,
   startWave,
   type TimedCommand,
@@ -10,10 +10,12 @@ import {
 import {
   firstOfKind,
   fresh,
+  hold,
   type Pose,
   type PoseGroup,
   pullCord,
   run,
+  runUntil,
   POSE_TPB as TPB,
   until,
 } from "./pose-kit.js";
@@ -26,7 +28,7 @@ import {
  * control*. Most rows could point at a pose that already existed — the grip,
  * the cannon at rest, the shield armed, the lid's eye open — and four could
  * not: nothing in the gallery had a rope held taut, a balloon with both hands
- * on it, a gum actually stuck to the ship, or the ready circles of a guide.
+ * on it, a gum in flight off a swipe, or the ready circles of a guide.
  * These are those four. `field-controls-page.ts` names them by their
  * `name`, and `field-control-poses.test.ts` checks every name it uses is here
  * or in another group.
@@ -39,11 +41,11 @@ import {
 const COL = 5;
 
 /** A hand on the field, on one seat. `fromMilli` is sideways; a balloon's
- * handle is carried sideways and nothing else. */
+ * handle is carried sideways and nothing else, and so is a held gum. */
 const drag = (
   tick: number,
   player: 1 | 2,
-  target: "balloonLeft" | "balloonRight",
+  target: "balloonLeft" | "balloonRight" | "gripBody",
   id: number,
   fromMilli: number,
 ): TimedCommand => ({
@@ -100,17 +102,27 @@ const BALLOON_HELD: Pose = {
   },
 };
 
-const GUM_STUCK: Pose = {
-  name: "GUM · STUCK ON THE SHIP",
-  note: "A gum that fell straight down the cannon's own lane and stuck where it landed. The cannon is under it and fires nothing; this is the frame player 2 swipes it in. Player 2's screen.",
-  lookAt: "the smear on the hull over the cannon — that is what the thumb lands on",
-  crop: "ship",
+const GUM_FLUNG: Pose = {
+  name: "GUM · FLUNG OUT OF THE FIELD",
+  note: "A gum halfway down its lane, taken by a thumb and swiped to the right: it has left the lane and is flying out level along its row, its drops trailing behind it. Either seat can do this; player 2's screen, the seat whose radar showed it coming down.",
+  lookAt:
+    "the drop to the right of the lane it was falling down, leaning the way it is going, with its trail behind it — that lean is the swipe",
+  crop: "field",
   role: "p2",
   build: () => {
     const entry: SpawnEntry = { beat: 0, col: COL, kind: "gum", color: null };
     const w = fresh([entry]);
-    until(w, "a gum stuck to the ship", (x) => x.creatures.some(gumIsStuck));
-    run(w, TPB);
+    run(w, TPB * 4);
+    const gum = w.creatures.find((c) => c.kind === "gum");
+    if (!gum) throw new Error("no gum on the field");
+    // A swipe's worth is `gumSwipeMilli` of cumulative travel; walked there
+    // over half a beat rather than in one jump, which is what a thumb does.
+    const cmds: TimedCommand[] = [hold(w.tick, 2, gum.id)];
+    const reach = w.cfg.gumSwipeMilli + 100;
+    for (let i = 1; i <= 12; i++)
+      cmds.push(drag(w.tick + i * 3, 2, "gripBody", gum.id, Math.round((i / 12) * reach)));
+    runUntil(w, "a gum in flight", cmds, (x) => x.creatures.some(gumIsFlung));
+    run(w, Math.round(TPB / 2));
     return w;
   },
 };
@@ -140,5 +152,5 @@ const GUIDE_HOLD: Pose = {
 export const FIELD_CONTROL_GROUP: PoseGroup = {
   title: "ON THE FIELD",
   note: "the moment a control touched on the field itself is answered in — controls.md, and the CONTROLS tab's ON THE FIELD page",
-  poses: [TETHER_TAUT, BALLOON_HELD, GUM_STUCK, GUIDE_HOLD],
+  poses: [TETHER_TAUT, BALLOON_HELD, GUM_FLUNG, GUIDE_HOLD],
 };

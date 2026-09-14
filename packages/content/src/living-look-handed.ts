@@ -21,8 +21,8 @@ import { WEIGHT } from "./silhouettes-weight.js";
  *   contour is one radius sampled all the way round, so two hands stretching it
  *   apart would come out as a body growing evenly. `render/balloon.ts` draws it
  *   off the pulls themselves.
- * - **THE GUM is `null` because it is two pictures**, a sac in the air and a
- *   smear on the plating, and `render/gum.ts` draws both.
+ * - **THE GUM is `null` because it is two pictures**, a sac in the air and the
+ *   same sac stretched into a flight sideways, and `render/gum.ts` draws both.
  * - **THE WEIGHT has a contour**, because the hands do nothing to its shape until
  *   the tick it gives: what a thumb changes is how brightly it is drawn and on
  *   whose screen (`render/weight.ts`), and the pressure that closes on it is an

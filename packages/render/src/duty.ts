@@ -149,9 +149,10 @@ const DUTY_WORD = {
   weight: { p1: "CALL THE BEAT", p2: "PRESS ON THEIRS" },
   // Silent in `TALKER`, so no word here either.
   crystal: null,
-  // The halves of the gesture, by seat: the cannon parked under it, and the
-  // swipe toward the wall. Which wall is the picture's to say (`gum.ts`).
-  gum: { p1: "PARK UNDER", p2: "SWIPE" },
+  // Either seat's, either way, and one thumb is enough — so the same word on
+  // both dials, and the one thing worth saying is who is taking it, since a
+  // thumb on the field is a thumb off the strip (`gum.ts`).
+  gum: { p1: "SWIPE IT AWAY", p2: "SWIPE IT AWAY" },
   // The seat with the fuse says the word; the seat with the control does the
   // thing, whole instruction both, since standing still is the mistake.
   limpet: { p1: "SAY MOVE", p2: "KEEP MOVING" },

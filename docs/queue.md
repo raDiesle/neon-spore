@@ -647,3 +647,34 @@ What that is in the tree:
 Prove it with `bun run check`: the panel tests in `packages/content/test`,
 `lance.test.ts` in `sim` on a world started with the field off, and the
 director opened on THE LEAK showing the rung on its panel row and no fault.
+
+## The Bash tool refuses a long quoted heredoc: an edit script goes in by the Write tool
+
+- **Found:** 2026-09-14, claude/gum-swipe
+- **Files:** `.claude/skills/lane/SKILL.md`, `docs/working-with-claude.md`
+- **Where:** local
+
+A command that failed and was worked around. THE GUM's director pass was one
+Python edit script of about 190 lines, sent through the Bash tool as
+`cat > director.py <<'PY' ... PY` the way every shorter one has been. The
+tool answered *unexpected EOF while looking for matching `''* before a line
+of it ran — the shell inside the tool had lost the quote pairing somewhere
+in the script's own `'''` triple-quoted blocks — and the same script written
+to the scratchpad with the Write tool and run by path went through
+unchanged. A shorter script with the same quoting had gone through the
+heredoc a minute earlier, so the size of the block is the trigger, not its
+contents: the tool reads the heredoc before the shell does, and at some
+length its reading disagrees with the shell's.
+
+`.claude/skills/lane/SKILL.md` already carries one rule of this kind — a
+commit message with a dash or a quote goes through `git commit -F <file>`,
+because `-m "$(cat <<'EOF' ...)"` hangs the tool — and this belongs on the
+sentence after it: **an edit script longer than a screen is written to the
+scratchpad with the Write tool and run by path, never sent through a
+heredoc**, with what the failure looks like, so the next lane recognises it
+on sight instead of retrying with the quotes changed. A paragraph in
+`docs/working-with-claude.md`'s *who answered?* section says why — the
+message names the shell, and the shell was never given the script.
+
+Prove it with `bun run check` (the skill and the document are read by
+nothing that runs) and by reading the two edits once.

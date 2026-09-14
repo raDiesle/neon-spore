@@ -71,21 +71,21 @@ export const HANDED_CREATURES: Record<HandedKind, CreatureDef> = {
   },
   gum: {
     kind: "gum",
-    // `aim`, and it is the cannon this asks for rather than a shot: nothing
-    // fired reaches it, but a swipe counts only while the cannon is standing
-    // under it (`sim/gum.ts`), so a wave with one on it must show the rail
-    // player 1 parks the cannon on. The swipe itself is a gesture on the body
-    // and no panel's, the balloon's arrangement — which is why it is in this
-    // family and not among the bodies the cannon answers.
-    controls: ["aim"],
+    // **Neither control**, THE WEIGHT's reason: it is answered by a hand on
+    // the body itself, either seat's, and no panel has anything to say to it
+    // (`sim/gum.ts`). It asked for `aim` until 14 September 2026, when a
+    // swipe counted only with the cannon parked under it; that went with the
+    // sticking.
+    controls: [],
     // No colour, and none authored: no bolt reaches it in any colour, and a
     // colour here would be a promise the field refuses.
     color: null,
-    // Player 1's strip: the seat that has to park the cannon under it is the
-    // seat that cannot swipe, so the pair has to talk — where it is coming
-    // down, and then which way it goes.
-    radar: "p1",
+    // The navigator's strip, like every other living body that comes down. It
+    // hides nothing — both seats watch the same drop fall and either can swipe
+    // it — so the warning is worth what it is worth for a slick: the seconds
+    // to say who is taking it.
+    radar: "p2",
     blurb:
-      "A sticky mass that falls straight down one lane. No shot touches it and the shield does not stop it; it lands on the ship and sticks there, and the cannon cannot fire from any column it covers until it is gone. Player 1 parks the cannon under it and leaves it there; player 2 swipes it toward the nearer wall and it comes off. Swiped away from that wall it spreads a lane wider instead, and the hand has to lift before it can try again.",
+      "A sticky mass that falls straight down one lane. No shot touches it and the shield does not stop it. Either of you can take it: a thumb on the drop and a swipe to the left or to the right flings it out of the field along its row and out of the wall. A thumb that only rests on it does nothing, and a drop that is not swiped before it reaches the ship hits the hull at once and splashes across the whole of it.",
   },
 };

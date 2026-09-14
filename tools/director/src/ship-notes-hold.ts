@@ -2,26 +2,26 @@ import type { GroupName } from "./ship-groups.js";
 
 /**
  * The paragraph under each card for a **body that has a control of the
- * ship's** — THE GUM on the plating and the two clingers, THE LIMPET on
- * the plate and THE LEECH on the cannon.
+ * ship's** — THE GUM, which a hand has to take before it reaches the ship,
+ * and the two clingers, THE LIMPET on the plate and THE LEECH on the cannon.
  *
  * Split out of `ship-notes.ts` when the clingers' two took that file past
  * its 250-line limit, along the seam `ship-notes-round.ts` cut before it and
  * for the same reason. These three are one family: a body no shot touches,
- * that the shield does not stop, that goes to a control on landing and stays
- * until the *other* seat's gesture gets it off — the seam is the family.
+ * that the shield does not stop, and that a hand on the ship's controls or
+ * on the field itself has to answer — the seam is the family.
  *
  * Spread into `GROUP_NOTE` rather than read beside it, so the totality guard
  * still holds: a card added to `GroupName` and left without a paragraph in
  * any of the three files is the same compile error it always was.
  */
 export const HOLD_NOTES = {
-  "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon":
-    "It falls straight down its lane like a slick, no shot touches it and the shield does not stop it, and it " +
-    "sticks to the ship where it lands. While it is stuck the cannon fires nothing from under it. It moves only " +
-    "while the cannon is parked in one of its columns: then player 2 swipes it gumSwipeMilli toward the nearer " +
-    "side wall and it comes off for scoreGumFlung. A swipe toward the far wall spreads it gumSpreadCols wider " +
-    "instead, once per hold. See gum.ts.",
+  "THE GUM — a drop either hand swipes out of the field":
+    "It falls straight down its lane like a slick, no shot touches it and the shield does not stop it. Either " +
+    "player can put a thumb on it while it falls: resting there does nothing, and carrying the finger " +
+    "gumSwipeMilli to the left or to the right flings it out of the field level along its row, gumFlingCols a " +
+    "beat, gone at the wall. A gum that reaches the ship hits it at once, with no scar, and splashes across the " +
+    "whole hull. See gum.ts.",
   "THE LIMPET — a body on the plate that goes off if the plate stands still":
     "It falls straight down its lane like a slick, no shot touches it and the shield does not stop it, and " +
     "when it lands it goes to the plate wherever the plate is. Every beat the plate is found in the column " +

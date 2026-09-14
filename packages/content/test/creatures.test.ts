@@ -49,7 +49,9 @@ describe("categoryOf", () => {
     // THE WEIGHT is the sixth and the second a wave places: neither control
     // reaches it either, and what does is a hand from each seat on the body
     // itself — which is not a `ControlGroup` for the balloon's reason exactly.
-    expect(special).toEqual(["tether", "mount", "chute", "beatbox", "balloon", "weight"]);
+    // THE GUM is the seventh, since 14 September 2026: a hand from either seat
+    // flings it, and no panel has anything to say to it.
+    expect(special).toEqual(["tether", "mount", "chute", "beatbox", "balloon", "gum", "weight"]);
   });
 });
 

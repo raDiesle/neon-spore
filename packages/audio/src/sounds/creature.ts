@@ -92,7 +92,7 @@ export const CREATURE_SOUNDS: SoundDef[] = [
     family: "creature",
     blurb: "Something adhesive taking hold and not letting go.",
     status: "bound",
-    use: "THE GUM taking hold of the ship, and again lower when a wrong-way swipe spreads it.",
+    use: "THE GUM hitting the hull and splashing across it — its `breach`, in place of the tear.",
     level: 0.3,
     layers: [
       noise(800, { type: "lowpass", freq: 900, toFreq: 160, q: 1.8 }, 0.02, 0.3, 0.5),

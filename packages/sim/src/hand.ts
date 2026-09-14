@@ -52,7 +52,9 @@ import { isMeteorKind } from "./kinds.js";
  * a thumb resting on a body; a `"pull"` is paid for by carrying it — the
  * displacement `grip-push.ts` already measures, spent a column at a time — and
  * what it earns is a unit dragged out of the pile rather than a lane for the
- * thing under the thumb. Either seat, for the brake's reason.
+ * thing under the thumb. Either seat, for the brake's reason. **THE GUM is a
+ * pull too**, and the one it earns is the flick that sends it off the field
+ * (`gum.ts`).
  *
  * **THE WEIGHT is the third thing, and it is the first that needs the other
  * seat.** A brake is worth something with one hand and twice as much with two;
@@ -84,5 +86,13 @@ export function handMeans(kind: CreatureKind, player: 1 | 2): HandMeans | null {
   // game that cannot be answered any other way — a hand dragging at a fall
   // that does not exist, while the pile stood whole (`cairn.ts`).
   if (kind === "cairn") return "pull";
+  // **THE GUM is the fifth, and it is the cairn's answer said about the body
+  // itself.** Either seat; nothing while the thumb rests on it — the gum goes
+  // on falling under the finger, un-braked — and the carry is spent once, on
+  // flinging it out along its row the way the hand went (`gum.ts`). A
+  // `"brake"` would let a thumb hold one over the field for as long as it
+  // liked, and an `"aim"` would be a hand steering shots into the one body
+  // on the field a shot goes straight through.
+  if (kind === "gum") return "pull";
   return player === 1 ? "aim" : null;
 }

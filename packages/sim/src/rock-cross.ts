@@ -143,6 +143,10 @@ export function rockEntryCol(cols: number, span: number, dir: RockCross): number
 /**
  * One beat of a crossing rock, in place of the fall every other rock takes.
  *
+ * **And of a swiped gum**, which is the second body given this path rather
+ * than a kind of its own: a hand flings it out along its row and it leaves
+ * by the wall the way a rock does (`gum.ts`). Only the stride differs.
+ *
  * The body is allowed to step **past** the wall before it is taken off, so the
  * last thing drawn of it is the body sliding out of the field rather than
  * blinking out on the edge column. `advancePods` does exactly this for a pod
@@ -150,7 +154,14 @@ export function rockEntryCol(cols: number, span: number, dir: RockCross): number
  */
 export function stepRockAcross(world: World, c: Creature): void {
   const cfg = world.cfg;
-  c.col += rockHeading(c) * cfg.rockCrossCols;
+  c.col += rockHeading(c) * crossStride(cfg, c);
   const span = spanOf(c);
   if (c.col > cfg.cols || c.col + span < 0) removeCreature(world, c.id);
+}
+
+/** Columns a body on this path covers a beat. A rock's stride, or the gum's
+ * own: a rock is walking its row and a gum has been thrown out of one
+ * (`config-gum.ts`). */
+function crossStride(cfg: SimConfig, c: Creature): number {
+  return c.kind === "gum" ? cfg.gumFlingCols : cfg.rockCrossCols;
 }

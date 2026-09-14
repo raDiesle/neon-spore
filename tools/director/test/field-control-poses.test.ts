@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { gumIsStuck, readyFraction, wardenTether } from "@neon-spore/sim";
+import { gumIsFlung, readyFraction, wardenTether } from "@neon-spore/sim";
 import { FIELD_CONTROLS } from "../src/field-controls-page.js";
 import { poseNamed } from "../src/poses.js";
 import { FIELD_CONTROL_GROUP } from "../src/poses-field-controls.js";
@@ -40,11 +40,12 @@ describe("ON THE FIELD rows and their pictures", () => {
     expect(b?.balloonPullP2).toBe(w.cfg.balloonTautMilli);
   });
 
-  test("the gum is stuck in the cannon's column", () => {
-    const w = poseNamed("GUM · STUCK ON THE SHIP").build();
-    const gum = w.creatures.find(gumIsStuck);
+  test("the gum is in flight to the right, off the lane it fell down", () => {
+    const w = poseNamed("GUM · FLUNG OUT OF THE FIELD").build();
+    const gum = w.creatures.find(gumIsFlung);
     expect(gum).toBeDefined();
-    expect(gum?.col).toBe(w.cannonCol);
+    expect(gum?.rockDir).toBe(1);
+    expect(gum?.col).toBeGreaterThan(5);
   });
 
   test("one ready circle is part full and the other empty", () => {

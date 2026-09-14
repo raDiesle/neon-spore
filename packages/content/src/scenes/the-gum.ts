@@ -1,48 +1,53 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * THE GUM's rehearsal: it sticks, the cannon is parked under it, and a swipe
- * toward the near wall takes it off.
+ * THE GUM's rehearsal: a thumb on it, a flick sideways, and it is gone —
+ * and, on a second drop nobody touches, what it does to the ship.
  *
- * What the pair has to learn is that the seats are the wrong way round for
- * once — the one with the cannon cannot swipe, the one who can swipe has no
- * cannon — and that a gum does not budge until the cannon is under it. Both
- * read off the picture: the cannon slides under the gum on one page and the
- * gum comes off on the next, and nothing happened to it in between.
+ * What the pair has to learn is that this one is nobody's control and either
+ * seat's hand: a swipe on the drop itself, left or right, and it flies out
+ * of the field along its row. Both read off the picture: a thumb resting on
+ * the first drop through most of a page while it goes on falling under the
+ * finger (THE CAIRN's opening, for THE CAIRN's reason — a still thumb moves
+ * nothing), then the same thumb carried right and the drop leaving by the
+ * right wall. The second drop comes down with no hand on it and lands, and
+ * the last page is the splash across the ship, which is the wave's sentence.
  *
- * **One gum and nothing else**, for THE CRYSTAL's reason: the wave sends
- * three with plain bodies behind them, and the film is about the swipe.
+ * **One gum at a time**, for THE CRYSTAL's reason: the wave sends three with
+ * plain bodies between them, and the film is about the swipe and the price.
+ * The second is authored to arrive once the first is off the field, so no
+ * page has two drops on it and the eye is never asked which one.
  *
- * 120 to the minute, so the whole fall fits a film: a gum comes down at a
- * slick's pace and the ship's row is fifteen beats away. The wrong swipe is
- * shown before the right one, because the wrong one has a price and a film
- * that only shows the answer leaves the price to be found on the wave. The ghost hand is
- * player 2's, at the gum, for the drag act's seat (`scene-drag.ts`), and the
- * swipe goes **left** because authored column 1 lands nearer the left wall.
+ * 120 to the minute, so both falls fit a film. The carry is authored on the
+ * hold that is already running, THE HAND's arrangement, and `dir` rather
+ * than a distance: how far a swipe is is `cfg.gripPushMilli`'s twin
+ * (`sim/config-gum.ts`), read off the config by `scene-drag.ts`. The ghost
+ * hand is the pilot's because `dragSeat` reads every carry as the pilot's;
+ * the caption says the other seat could have done the same.
  */
 export const THE_GUM: GuideScene = {
-  ticks: 1900,
+  ticks: 2040,
   bpm: 120,
   seed: 1,
-  entries: [{ beat: 0, col: 1, kind: "gum", color: null }],
+  entries: [
+    { beat: 0, col: 1, kind: "gum", color: null },
+    { beat: 15, col: 5, kind: "gum", color: null },
+  ],
   acts: [
-    { tick: 1150, control: "cannon", col: 1, atBody: true },
-    // The wrong way first, so the price is on the screen before the answer:
-    // the smear gets a lane wider, the hand lifts, and the same hand goes the
-    // other way and it comes off.
-    { tick: 1340, drag: "gum", col: 1, dir: 1, by: 1400, until: 1480 },
-    { tick: 1600, drag: "gum", col: 1, dir: -1, by: 1660, until: 1740 },
+    // Half a beat after the page opens, so the page points at what is held.
+    { tick: 450, grip: 1, col: 1, until: 720 },
+    // The same hand, still down, carried right: the flick.
+    { tick: 600, drag: "gripBody", dir: 1, by: 660, until: 720 },
   ],
   steps: [
+    // Seven beats of fall, so the drop is around the middle of the screen
+    // when the page comes to rest.
     { tick: 0, seat: 1, text: "NO SHOT TOUCHES IT", anchor: { at: "body" } },
-    { tick: 960, seat: 1, text: "IT STICKS TO THE SHIP", anchor: { at: "body" } },
-    {
-      tick: 1140,
-      seat: 1,
-      text: "PARK THE CANNON UNDER IT",
-      anchor: { at: "control", control: "cannon" },
-    },
-    { tick: 1320, seat: 2, text: "WRONG WAY SPREADS IT", anchor: { at: "body" } },
-    { tick: 1560, seat: 2, text: "SWIPE TO THE NEAR WALL", anchor: { at: "body" } },
+    { tick: 420, seat: 2, text: "A STILL THUMB MOVES NOTHING", anchor: { at: "held" } },
+    { tick: 660, seat: 1, text: "EITHER OF YOU · SWIPE IT OUT", anchor: { at: "held" } },
+    { tick: 900, seat: 2, text: "NOBODY TAKES THIS ONE", anchor: { at: "body" } },
+    // Fourteen beats after it appeared it is standing on the hull, and a beat
+    // later the ship has taken it; the splash runs out over the page.
+    { tick: 1740, seat: 1, text: "IT SPLASHES ACROSS THE SHIP", anchor: { at: "retries" } },
   ],
 };

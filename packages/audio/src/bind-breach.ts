@@ -13,8 +13,15 @@ import { type Cue, panForCol } from "./bind.js";
  * low tear with the room shaking after it* — had never been heard in the
  * running game. The event carries the weight itself now
  * (`sim/hull-damage.ts`), and there is no unit to get wrong.
+ *
+ * **THE GUM is the one kind with a voice of its own**, because what it does
+ * to the plating is not a tear: it lands all at once and splashes across the
+ * whole ship (`sim/gum.ts`, `render/gum-splash.ts`), and the sound written
+ * for it taking hold — "something adhesive taking hold and not letting go" —
+ * is the sound of that. It is heard instead of the tear, not beside it.
  */
 export function breachCue(e: Extract<SimEvent, { type: "breach" }>, cols: number): Cue {
+  if (e.kind === "gum") return { id: "creature.gumStick", pan: panForCol(e.col, cols) };
   return {
     id: e.weight === "heavy" ? "hull.breachHeavy" : "hull.breachLight",
     pan: panForCol(e.col, cols),

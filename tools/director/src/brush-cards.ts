@@ -169,7 +169,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   crystal: "shield under the middle, then shoot it — it breaks in two",
   coil: "crosses right to left; opening one costs the rock it leaves",
   balloon: "rises from the ship; both of you pull a handle at once",
-  gum: "sticks to the ship; cannon under it, then p2 swipes it off",
+  gum: "no shot, no shield; a hand swipes it out, or it splashes",
   weight: "no shot, no shield — both of you press it at once",
   limpet: "takes the plate; goes off if it stands still — p2 moves it",
   leech: "takes the cannon; goes off if it stands still — p1 moves it",

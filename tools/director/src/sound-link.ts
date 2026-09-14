@@ -113,8 +113,9 @@ const BY_ID: Record<string, Subject> = {
   // (`render/crystal.ts`) — and the slick is the half the wave opens on the
   // left, where a shot at the wrong tile most often lands.
   "creature.crystalFacet": shape("SLICK"),
-  // THE GUM taking hold. The card is the body in the air — the sac — because
-  // the smear it becomes on the ship is drawn off the world and has no still.
+  // THE GUM hitting the ship and splashing across it. The card is the body in
+  // the air — the sac — because the splash is drawn off the world and has no
+  // still.
   "creature.gumStick": shape("GUM"),
   // The dock is the clingers' now (`audio/bind-cling.ts`): the leech, since
   // it is the one on the cannon, which is what the sound was written for.

@@ -421,6 +421,32 @@ pilot's screen alone — and the boss-sized body it was drawn for was never need
   silhouette. It belongs, if
   anywhere, on a *later* fault wave, where a pair that has learnt to live
   with a fault is offered one they can fight
+- **THE GUM that sticks to the ship** — for three days a gum that reached
+  the ship did not break it: it stuck where it landed, a flat smear across
+  the plating with drips off it, and shut the cannon in its columns — fire
+  pressed under it was the one refusal the sim reported (`gumBlock`,
+  `ship.fireBlocked`). Getting it off was a gesture split between the seats:
+  it moved only while player 1 had the cannon parked in one of its columns,
+  and then player 2 swiped the smear itself `gumSwipeMilli` toward the
+  **nearer** side wall and it came off for `scoreGumFlung`; toward the far
+  wall it spread `gumSpreadCols` wider instead, once per hold, and with no
+  cannon under it it did not budge — which was how player 2 read where the
+  cannon was without being told. Taken out on 14 September 2026 at the
+  owner's word — *it must be swiped away by any of the two players to the
+  left or right side away; the mechanic on the ship, that it must stay on the
+  cannon and then be swiped, is removed; when it hits the hull it damages the
+  ship immediately and splashes across the surface like water* — so a gum is
+  answered in the air now by either seat, and a landing is a `breach` with a
+  splash and no scar (`sim/gum.ts`, `render/gum-splash.ts`). What is parked
+  here is the **split gesture**: a body on the ship that one seat has to
+  position for and the other has to swipe, where the swipe's failure tells
+  the swiper where the other control is. To restore: the tree at `eca00118`
+  holds all of it — `gumIsStuck`, `gumUnder`, `gumSwipe` and the `gumStick`,
+  `gumBlock`, `gumSpread` events in the sim, the `"gum"` drag target, the
+  render's `gum-handle.ts` and `drawStuckGums`, and the director's `GUM ·
+  STUCK ON THE SHIP` pose. It belongs, if anywhere, on a second gum wave,
+  after the pair has learnt the swipe in the air: the same body, and a
+  landing that is no longer the end of it
 - **The crystal's dive** — a wrong shot at THE CRYSTAL (wave 43) costs the
   pair a row: the body dives `crystalDiveRows` toward the ship, so fourteen
   beats becomes thirteen with every guess. Built and shipped on 11 September

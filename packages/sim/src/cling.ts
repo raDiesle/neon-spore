@@ -26,12 +26,12 @@ import type { World } from "./world.js";
  * creature: a count the moving seat cannot read for itself.
  *
  * **They cannot be evaded.** The lane they fall in does not matter — each
- * goes to its control wherever the control is, THE GUM's arrangement — and
- * there is no column to stand in, only the standing itself to give up.
+ * goes to its control wherever the control is — and there is no column to
+ * stand in, only the standing itself to give up.
  *
  * Both fall by the ordinary fall, land by the ordinary clamp (`beat.ts`),
- * and `resolveHull` hands them here instead of to the breach, THE GUM's
- * arrangement exactly. One module and two kinds, because the difference
+ * and `resolveHull` hands them here instead of to the breach. One module
+ * and two kinds, because the difference
  * between them is which column is read, and one file saying so twice would
  * be two places for the rule to drift apart.
  */

@@ -1,36 +1,20 @@
 /**
- * **Everything THE GUM does**, as events: it sticks, it refuses a shot, it is
- * flung off, or it spreads. Its own file on `events-crystal.ts`' terms — one
+ * **Everything THE GUM does that the field does not already say**, as events:
+ * it is swiped and flies. Its own file on `events-crystal.ts`' terms — one
  * arrival taken apart rather than incidents that share a creature — and one
  * arm of `CreatureEvent`, so every consumer still switches over the whole
  * list.
+ *
+ * Its arrival at the ship is not here: a gum that gets there breaks the hull
+ * through `breachUnscarred` and is the ordinary `breach` event carrying the
+ * gum's own kind, the way THE FENCE's is (`hull-damage.ts`) — which is what
+ * the splash across the ship is drawn from (`render/gum-splash.ts`).
  */
 export type GumEvent =
   /**
-   * A gum came to rest on the ship. Pushed on the beat it is drawn standing
-   * on the hull — the beat after the one it arrived on, which is the beat
-   * every other body breaks the hull on — and never again for the same body.
-   * `col` is its leftmost column and `span` how many it covers.
+   * A hand carried a falling gum a swipe's worth and sent it flying. `dir` is
+   * which way it went, `col` and `row` where it was when the hand let it fly,
+   * `span` how wide it is. Once per gum: on the path there is no second
+   * swipe to make.
    */
-  | { type: "gumStick"; col: number; row: number; span: number }
-  /**
-   * Player 2 pressed fire with the cannon standing under a stuck gum, and no
-   * shot came out. `col` is the cannon's column. Once per press: the block is
-   * the whole cost of the thing, and the pair has to hear each refused shot
-   * to learn that the lane is shut rather than the trigger broken.
-   */
-  | { type: "gumBlock"; col: number }
-  /**
-   * Swiped off the ship toward the nearer wall, with the cannon under it, and
-   * gone. `dir` is which way it went. `col` and `span` are the columns it
-   * covered, which are the lanes the cannon has just got back.
-   */
-  | { type: "gumFlung"; col: number; row: number; span: number; dir: -1 | 1 }
-  /**
-   * Swiped the **wrong** way — away from the nearer wall — and spread
-   * `gumSpreadCols` wider toward the side it was pushed. `col` and `span` are
-   * what it covers **now**. The hand that did it has to lift before it can
-   * swipe again, so a pair pushing on in the wrong direction does not spread
-   * it across the whole ship in one gesture.
-   */
-  | { type: "gumSpread"; col: number; row: number; span: number };
+  { type: "gumFlung"; col: number; row: number; span: number; dir: -1 | 1 };

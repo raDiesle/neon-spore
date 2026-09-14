@@ -1,6 +1,8 @@
 import { pullFromCairn } from "./cairn.js";
 import { hullRow } from "./config.js";
 import { gripsCreature } from "./grip.js";
+import { carryDir, spend } from "./grip-push-dir.js";
+import { gumIsFlung, gumSwiped } from "./gum.js";
 import { type HandMeans, handMeans } from "./hand.js";
 import { clampSpanCol, spanOf } from "./span.js";
 import { bodyCenterCol, type Command, type Creature } from "./types.js";
@@ -18,7 +20,9 @@ import type { World } from "./world.js";
  * that dragged its subject a lane would be the pilot moving the field with the
  * hand that is supposed to be picking a target out of it. `handMeans` is asked
  * the moment the carry is heard, so a finger swept across a slick reports a
- * displacement nothing spends.
+ * displacement nothing spends. The two pulls — THE CAIRN and THE GUM — are
+ * the same carry spent on something other than a lane: a rock out of the
+ * pile, a gum flung off the field (`carryGrips`).
  *
  * **It is the grip's gesture and not a new control.** Nothing new is drawn,
  * nothing new is pressed, and the price is the one the grip already charges —
@@ -139,7 +143,7 @@ export function carryGrips(world: World): void {
     if (c.row >= hullRow(world.cfg)) continue;
     const dir = carryDir(world, c);
     if (dir === 0) continue;
-    if (!carryIsReady(world, c)) continue;
+    if (c.kind !== "gum" && !carryIsReady(world, c)) continue;
     // **THE CAIRN is carried and does not move.** The same gesture, the same
     // one-column-then-a-beat-of-quiet, and the same hands charged for it — what
     // the column buys is a rock dragged out of the pile on the side the finger
@@ -149,6 +153,18 @@ export function carryGrips(world: World): void {
     if (c.kind === "cairn") {
       c.pushBeat = world.beat;
       pulls.push({ body: c, dir, paid: spend(world, c, dir) });
+      continue;
+    }
+    // **THE GUM is carried once and flies.** The same gesture again, and the
+    // column it earns is the flick: the body is put on the crossing path the
+    // way the hand went and takes its first stride now (`gum.ts`). One already
+    // flying is past being swiped — the hand that sent it may still be on it,
+    // and a second column earned in the air is nothing. No pause is asked
+    // (`carryIsReady`): there is no second carry to hold it back from.
+    if (c.kind === "gum") {
+      if (gumIsFlung(c)) continue;
+      spend(world, c, dir);
+      gumSwiped(world, c, dir);
       continue;
     }
     const to = clampSpanCol(c.col + dir, world.cfg.cols, spanOf(c));
@@ -161,43 +177,6 @@ export function carryGrips(world: World): void {
     say(world, c, dir, spend(world, c, dir));
   }
   for (const p of pulls) pullFromCairn(world, p.body, p.dir, p.paid);
-}
-
-/** Which way the hands on this body are pulling: one column, or none.
- *
- * Two hands pulling opposite ways cancel, and the body holds — the one place
- * in the game where the two seats can work against each other, and it resolves
- * the only way it honestly can. Neither spends a column for it, so whoever
- * lets go first sends it. */
-function carryDir(world: World, c: Creature): -1 | 0 | 1 {
-  return Math.sign(handDir(world, 1, c) + handDir(world, 2, c)) as -1 | 0 | 1;
-}
-
-/** Which way one seat's hand has earned a column, out of how far it has come
- * and how much of that it has already spent. */
-function handDir(world: World, player: 1 | 2, c: Creature): -1 | 0 | 1 {
-  if (!gripsCreature(world, player, c.id)) return 0;
-  const push = gripPushOf(world, player);
-  if (push === null) return 0;
-  // `Math.trunc` and not a floor: a hand is as far from where it grabbed in
-  // one direction as in the other, and a floor would earn a column half a tile
-  // sooner going left than going right.
-  const earned = Math.trunc(push.milli / world.cfg.gripPushMilli);
-  return Math.sign(earned - push.cols) as -1 | 0 | 1;
-}
-
-/** The column is spent by every hand that asked for it, and by no hand that
- * asked for the other one or for nothing. */
-function spend(world: World, c: Creature, dir: -1 | 1): (1 | 2)[] {
-  const paid: (1 | 2)[] = [];
-  for (const player of [1, 2] as const) {
-    if (handDir(world, player, c) !== dir) continue;
-    const push = gripPushOf(world, player);
-    if (push === null) continue;
-    push.cols += dir;
-    paid.push(player);
-  }
-  return paid;
 }
 
 /**

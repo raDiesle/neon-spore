@@ -206,10 +206,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "balloonPop":
     case "balloonBurst":
       return balloonCue(e, cols, rows);
-    case "gumStick":
-    case "gumBlock":
     case "gumFlung":
-    case "gumSpread":
       return gumCue(e, cols, rows);
     case "clingGrip":
     case "clingShake":

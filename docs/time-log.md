@@ -4956,3 +4956,29 @@ it, and in the preview the page is once per visit — the first frame under
 `?wave=1` used it up before the guide was jumped to, and the second visit had
 to land on the guide's first page from the door. The picture was finally taken
 by a throwaway playwright script against the running preview.
+
+## 2026-09-14 · claude/gum-swipe — THE GUM is swiped out of the field, and splashes when it lands
+
+The owner's task. The gum stops sticking to the ship: either seat's thumb on
+the falling drop, carried `gumSwipeMilli` to the left or to the right, flings
+it out level along its row on the rock's crossing path, and a drop that
+reaches the hull is a scarless `breach` — the hull takes it at once and a
+splash runs across the whole ship in its venom (`gum-splash.ts`). The old
+mechanic — the smear on the plating, the cannon under it, player 2's swipe
+toward the nearer wall — is on the NOT BUILT YET page with the tree it lives
+in. Sim, net, render, audio, content, the wave's rehearsal, the director's
+poses and notes, the specs. About 90 min, split around THE LEAK's queue entry.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `sim/gum.ts` and its render, the grip and drag path, the rock's crossing, THE FENCE's strike and `breachUnscarred`, the rehearsal's scene |
+| writing | 45 | the sim and its tests, the `gripBody` drag through net, `gum-splash.ts` and the flight look, the audio binding, the scene, the director's pose and notes, the four specs, the ideas entry |
+| looking | 10 | the rehearsal's timing through a probe, the splash frame through the preview |
+| friction | 15 | the heredoc the Bash tool refused, a gesture name outside the director's union, a brush note over sixty characters, two counts in `audio.md`, the act file's biome wrap |
+| landing | 10 | `check:fast` twice, `bun run index`, the commit, the landing |
+
+Bottleneck: the width of it. One mechanic touches a sim file, a render file,
+an audio binding, a scene, a wave, a director pose, three notes and four specs,
+and each of those has a test that names the old words — most of the friction
+was finding the next place the sticking was still described after the code had
+stopped doing it.

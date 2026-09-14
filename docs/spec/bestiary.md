@@ -63,10 +63,10 @@ table in a document cannot be wrong in a way a compiler notices.
 
 | Category | Answered by | Members today |
 |---|---|---|
-| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `gum`, `countdown`, `leech` |
+| `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `countdown`, `leech` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal` |
-| `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `weight` |
+| `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `gum`, `weight` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 
 `special` was reserved and empty for a long time on the reasoning that nothing
@@ -158,7 +158,7 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Bulb** | round, many fine lobes, rotating ring of light; pumps — always cyan | mark + colour |
 | **Strand** | chain of segments on one thread, alternating red and cyan | eaten from its ends inward — and only one of you is shown which end is next |
 | **Crystal** | a red slick and a cyan bulb joined at a thin middle, armoured all round — an hourglass on its side, three tiles wide, crossing on the carom's diagonal | the shield under the middle and the shot in the join's colour on the same beat; then it is two plain bodies |
-| **Gum** | THE WEIGHT's sac in the palette's venom green, falling straight down one lane; a flat smear across the plating with drips off it once it has landed | it cannot be shot and the shield does not stop it; it sticks to the ship and shuts the cannon in its columns until player 2 swipes it toward the nearer wall — which only works while player 1 has the cannon parked under it. The wrong way spreads it a lane wider |
+| **Gum** | THE WEIGHT's sac in the palette's venom green, falling straight down one lane; the same sac stretched into a level flight with its drops trailing behind it once a hand has swiped it | it cannot be shot and the shield does not stop it; either player's thumb on the drop, carried to the left or to the right, flings it out of the field along its row. A thumb that only rests on it does nothing, and one that reaches the ship hits the hull at once — no scar — and splashes across the whole of it like water |
 | **Throb** | six clubs on a small core, red down one side and cyan down the other, turning clockwise | colour *and* timing in one call |
 | **Lure** | a slick or a bulb that only the navigator can see through | do *not* hit it (costs the hull) |
 | **Countdown** | the COUNTDOWN draft's disc — as near a plain circle as the roster has — with a socket and a bright core on both screens; on the pilot's, blades of the body closed over the core, one per beat left, the last sliding back through its beat, and on zero a hole to shoot into under a halo; on the navigator's an eye that never blinks (IRIS, 12 September 2026) | hit only while the count is at zero, in its colour; a shot on any other beat is a hit on the hull like a lure's — the wave is lost — and the body stays. The pilot counts down out loud, the navigator fires on the word — THE COUNT (act 3) teaches it |
@@ -286,8 +286,11 @@ through is shooting its 5–7 segments in alternating colours.
 
 > The strand and the gum depended on evasion, which no longer exists. (The pod
 > did too; it was re-designed rather than dropped — see above.) The gum's
-> replacement is built: it shuts the cannon where it lands, and the pair gets
-> it back by parking under it and swiping — wave THE GUM, `packages/content/src/waves/act-5.ts`.
+> replacement is built: a drop nothing stops that either hand has to swipe out
+> of the field before it splashes on the ship — wave THE GUM,
+> `packages/content/src/waves/act-5.ts`. For a day it stuck to the ship and shut
+> the cannon instead; that version is on the NOT BUILT YET page
+> ([ideas](ideas.md#mechanics)).
 
 > The strand's whole point — greying out a control group — survives if it greys
 > out `guard` instead, but that has to be re-designed rather than renamed.

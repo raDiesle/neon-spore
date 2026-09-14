@@ -39,16 +39,6 @@ export function heldHashParts(c: Creature): number[] {
   // than at its own, so two devices that disagree here disagree about the beat
   // it reaches the hull — the beat the shield has to answer on.
   out.push(c.dropped === true ? 1 : 0);
-  // THE GUM's three. Whether it is on the ship decides whether the cannon
-  // fires from its columns, so two devices that disagree have one of them
-  // shooting through a lane the other has shut. The pull is the lid's pair
-  // again — signed, and a grab reports zero, so absent needs a number of its
-  // own — and whether this grab is spent decides whether the next message
-  // spreads it a lane further (`gum.ts`).
-  out.push(c.gumStuck === true ? 1 : 0);
-  out.push(c.gumPull === undefined ? 0 : 1);
-  out.push(c.gumPull ?? 0);
-  out.push(c.gumSpent === true ? 1 : 0);
   // The clingers' four (`cling.ts`): whether one has its control, how far
   // its fuse has run, how many moves are against it, and the column the next
   // beat is judged against. `-1` where absent, a value none of them takes.

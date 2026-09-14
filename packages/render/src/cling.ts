@@ -29,7 +29,7 @@ import { PALETTE, STROKE } from "./palette.js";
  * off the shape sheet with its nine hooklets drawn round the rim, all curled
  * the same way; THE LEECH is CALTROP, four needles on a round body
  * (`content/silhouettes-cling.ts`). On the ship each is drawn *on* the thing
- * it has — the gum's rule — the limpet squatting on the plate with its hooks
+ * it has — the limpet squatting on the plate with its hooks
  * turned down into the plating, the leech on the cannon's swelling with its
  * needles driven in. In the air both fall by `drawLivingBody`, in the
  * malfunction's arc-blue laid over the body as a wash, since they are what

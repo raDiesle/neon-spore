@@ -210,9 +210,10 @@ export class Canvas2DRenderer implements Renderer {
     this.held.fenceShards.draw(ctx, l);
 
     drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
-    // Over the finished ship, what is stuck to it: the fence's burn, the
-    // gums, the choke's coils, the clingers (`frame-on-ship.ts`).
-    drawOnShip(ctx, l, world, view, this.held.fenceStrike, hull, at, surfaceY);
+    // Over the finished ship, what is stuck to it: the fence's burn, a gum's
+    // splash, the choke's coils, the clingers (`frame-on-ship.ts`).
+    const held = this.held;
+    drawOnShip(ctx, l, world, view, held.fenceStrike, held.gumSplash, hull, at, surfaceY);
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
       open: isOpen,

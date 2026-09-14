@@ -111,10 +111,4 @@ export {
   crystalMiddleCol,
   crystalUnder,
 } from "./crystal.js";
-export {
-  gumFlingDir,
-  gumIsHeld,
-  gumIsStuck,
-  gumOverCannon,
-  gumPull,
-} from "./gum.js";
+export { gumIsFlung, gumSwiped } from "./gum.js";

@@ -372,8 +372,8 @@ export class StubContext {
   rotate(...a: number[]): void {
     nums("rotate", a);
   }
-  /** The general one, which a shear has to go through: THE GUM's smear leans
-   * with the swipe (`gum.ts`), and nothing else in render/ reaches for it. */
+  /** The general one, which a shear has to go through: a flung gum leans
+   * into its flight (`gum.ts`), and nothing else in render/ reaches for it. */
   transform(...a: number[]): void {
     nums("transform", a);
   }

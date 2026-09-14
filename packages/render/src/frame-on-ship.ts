@@ -2,7 +2,7 @@ import type { World } from "@neon-spore/sim";
 import { drawChokeCoils } from "./choke-hull.js";
 import { drawStuckClingers } from "./cling.js";
 import type { FenceStrike } from "./fence-strike.js";
-import { drawStuckGums } from "./gum.js";
+import type { GumSplash } from "./gum-splash.js";
 import type { HullFrame, LobePositions, SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import type { ViewState } from "./renderer.js";
@@ -14,11 +14,11 @@ import type { ViewState } from "./renderer.js";
  * down with the field, and why none of them is the ship's own business.
  *
  * Every call here is one `Canvas2DRenderer.draw` used to make directly, and
- * each was one landing: THE FENCE's strike, THE GUM, THE CHOKE, THE LIMPET
- * and THE LEECH, four calls in a row that had taken that file to its limit.
- * The order is the picture — a gum's drips hang over the fence's burn, a
- * coil sits over both — so a body that sticks to the ship next is added at
- * the end, not slipped in between.
+ * each was one landing: THE FENCE's strike, THE GUM's splash, THE CHOKE, THE
+ * LIMPET and THE LEECH, four calls in a row that had taken that file to its
+ * limit. The order is the picture — a gum's splash runs over the fence's
+ * burn, a coil sits over both — so a body that sticks to the ship next is
+ * added at the end, not slipped in between.
  *
  * The split moves lines, not behaviour: the stub canvas's ordered call log
  * over every wave that reaches one of these was byte-identical before and
@@ -30,6 +30,7 @@ export function drawOnShip(
   world: World,
   view: ViewState,
   strike: FenceStrike,
+  splash: GumSplash,
   hull: HullFrame,
   at: LobePositions,
   surfaceY: SurfaceY,
@@ -38,10 +39,10 @@ export function drawOnShip(
   // the hull still conducting from it. Both sit *on* the rim `drawHull` has
   // just lit, so neither can go down with the field pass (`fence-strike.ts`).
   strike.draw(ctx, l, at, surfaceY, view.time);
-  // And every gum stuck to the ship, on the same membrane and over the same
-  // finished hull: its drips hang down the plating, which the ship pass
-  // would otherwise cover (`gum.ts`).
-  drawStuckGums(ctx, l, world, surfaceY, view.time);
+  // And a gum splashing across the ship, on the same membrane and over the
+  // same finished hull: the smear where it landed and the ripples running
+  // out from it (`gum-splash.ts`).
+  splash.draw(ctx, l, surfaceY, view.time);
   // And THE CHOKE's grip on the cannon, on the eased cannon the ship pass
   // drew, while the steer fault has it (`choke-hull.ts`).
   drawChokeCoils(ctx, l, world, hull.cannonX, surfaceY, view.time);

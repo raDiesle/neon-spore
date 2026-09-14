@@ -1,37 +1,38 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, hullRow, ticksPerBeat } from "../src/config.js";
-import { gumFlingDir, gumIsStuck } from "../src/gum.js";
+import { gumIsFlung } from "../src/gum.js";
 import { hashWorld } from "../src/hash.js";
 import type { Creature, TimedCommand } from "../src/types.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
- * THE GUM, and the two things about it that are new to this simulation.
+ * THE GUM: a body the field's ordinary answers do nothing to, swiped away in
+ * the air by a hand — either seat's, either way — or splashed across the
+ * ship.
  *
- * The first is an arrival that does not **end** at the ship. Everything else
- * that reaches the hull either breaks it or is turned away by the guard; a
- * gum sticks, and from that beat on it is a fact about the ship rather than a
- * body on the field — the cannon under it fires nothing.
- *
- * The second is an answer made of the seats **reversed**. THE BALLOON asks for
- * two hands at once; this asks for one hand where the other seat's control is
- * standing. Player 1 parks the cannon and cannot swipe, player 2 swipes and
- * cannot park, and a swipe with no cannon under it moves nothing at all. The
- * wrong way is charged a lane, once per grab.
+ * What these pin is what a phone cannot show. That a bolt goes through it;
+ * that a thumb resting on it is worth nothing and it keeps falling under the
+ * finger; that a carry from either seat, either way, flings it level along
+ * its row and out through the wall, on the crossing rock's own path; that one
+ * standing on the ship's row is past swiping; and that one which reaches the
+ * hull breaks it without a scar — the splash is the picture and the crack is
+ * not part of it.
  */
 
 const CFG = DEFAULT_CONFIG;
 const TPB = ticksPerBeat(CFG);
 const SHIP = hullRow(CFG);
-/** Comfortably past `gumSwipeMilli`. */
+/** Comfortably past `gumSwipeMilli`, in tiles of the grip's own measure. */
 const FAR = CFG.gumSwipeMilli + 300;
 
 const gum = (col: number): SpawnEntry => ({ beat: 0, col, kind: "gum", color: null });
 
 /** A gum authored at beat 0 lands on beat 1 at row 0 and falls a row a beat,
  * so it stands on the ship's row on beat `SHIP + 1` and is *seen* there — and
- * sticks — on the beat after (`gumLands` reads `fromRow`). */
-const STUCK_BY = TPB * (SHIP + 3);
+ * resolved — on the beat after. */
+const LANDED_BY = TPB * (SHIP + 3);
+/** A tick on which it is mid-field, a few rows above the ship. */
+const MID = TPB * 3 + 2;
 
 const aim = (tick: number, col: number): TimedCommand => ({
   tick,
@@ -43,19 +44,22 @@ const fire = (tick: number): TimedCommand => ({
   player: 2,
   command: { kind: "fire", color: "red" },
 });
-const swipe = (tick: number, milli: number, id: number, player: 1 | 2 = 2): TimedCommand[] => [
-  { tick, player, command: { kind: "drag", target: "gum", on: true, fromMilli: 0, id } },
-  {
-    tick: tick + 1,
-    player,
-    command: { kind: "drag", target: "gum", on: true, fromMilli: milli, id },
-  },
-];
-const lift = (tick: number, id: number): TimedCommand => ({
+const grip = (tick: number, id: number, player: 1 | 2 = 2): TimedCommand => ({
   tick,
-  player: 2,
-  command: { kind: "drag", target: "gum", on: false, fromMilli: 0, id },
+  player,
+  command: { kind: "grip", id },
 });
+/** A hand that has come `milli` from where it grabbed — the cumulative
+ * distance a device reports, never an increment (`grip-push.ts`). */
+const carry = (tick: number, id: number, milli: number, player: 1 | 2 = 2): TimedCommand => ({
+  tick,
+  player,
+  command: { kind: "drag", target: "gripBody", on: true, fromMilli: milli, id },
+});
+const swipe = (tick: number, id: number, milli: number, player: 1 | 2 = 2): TimedCommand[] => [
+  grip(tick, id, player),
+  carry(tick + 1, id, milli, player),
+];
 
 interface Run {
   world: World;
@@ -80,117 +84,101 @@ const only = (world: World): Creature => {
 };
 
 /** The id a first arrival gets, read off a run rather than assumed. */
-const idOf = (col: number): number => only(play([gum(col)], STUCK_BY).world).id;
+const idOf = (col: number): number => only(play([gum(col)], MID).world).id;
+/** The beat after `tick`, when a carry heard on `tick` is answered. */
+const nextBeat = (tick: number): number => (Math.floor(tick / TPB) + 1) * TPB;
 
-describe("a body that sticks", () => {
-  it("falls straight down its lane and sticks to the ship once, saying so once", () => {
-    const { world, events } = play([gum(2)], STUCK_BY + TPB * 3);
-    const c = only(world);
-    expect(gumIsStuck(c)).toBe(true);
+describe("a body nothing but a hand answers", () => {
+  it("falls straight down its lane", () => {
+    const c = only(play([gum(2)], MID).world);
     expect(c.col).toBe(2);
-    expect(c.row).toBe(SHIP);
-    expect(events.filter((e) => e.type === "gumStick")).toHaveLength(1);
-    expect(events.some((e) => e.type === "breach")).toBe(false);
-    expect(world.retries).toBe(0);
-  });
-
-  it("is not stuck before the beat it is seen standing on the hull", () => {
-    const { world } = play([gum(2)], TPB * (SHIP + 1) + 1);
-    expect(gumIsStuck(only(world))).toBe(false);
+    expect(c.row).toBe(2);
+    expect(gumIsFlung(c)).toBe(false);
   });
 
   it("lets a bolt pass through it in the air", () => {
-    // A red bolt up the lane it is falling in, on a beat it is mid-field:
-    // the bolt keeps going and the gum keeps falling.
-    const t = TPB * 4 + 2;
-    const { world, events } = play([gum(2)], t + 2, [aim(t, 2), fire(t)]);
+    const { world, events } = play([gum(2)], MID + 2, [aim(MID, 2), fire(MID)]);
     expect(world.bullets).toHaveLength(1);
     expect(events.some((e) => e.type === "destroy")).toBe(false);
     expect(world.creatures).toHaveLength(1);
   });
 
-  it("refuses the shot from under it, and says so, and fires from beside it", () => {
-    const t = STUCK_BY + 2;
-    const under = play([gum(2)], t + 2, [aim(t, 2), fire(t)]);
-    expect(under.world.bullets).toHaveLength(0);
-    expect(under.events.filter((e) => e.type === "gumBlock")).toHaveLength(1);
-    const beside = play([gum(2)], t + 2, [aim(t, 3), fire(t)]);
-    expect(beside.world.bullets).toHaveLength(1);
-    expect(beside.events.some((e) => e.type === "gumBlock")).toBe(false);
+  it("splashes across the hull when it reaches the ship, and breaks it without a scar", () => {
+    const { world, events } = play([gum(2)], LANDED_BY);
+    expect(world.creatures).toHaveLength(0);
+    const hit = events.filter((e) => e.type === "breach");
+    expect(hit).toHaveLength(1);
+    expect(hit[0]).toMatchObject({ kind: "gum", col: 2 });
+    expect(world.scars).toHaveLength(0);
+    expect(events.some((e) => e.type === "gumFlung")).toBe(false);
   });
 });
 
 describe("the swipe", () => {
   const ID = idOf(2);
-  /** Column 2 of eleven is nearer the left wall. */
-  const AWAY = gumFlingDir(CFG.cols, { col: 2, span: 1 } as Creature);
-  const t = STUCK_BY + 2;
 
-  it("goes toward the nearer wall", () => {
-    expect(AWAY).toBe(-1);
-    expect(gumFlingDir(CFG.cols, { col: 8, span: 1 } as Creature)).toBe(1);
+  it("does nothing while the thumb only rests on it, and the gum keeps falling", () => {
+    const held = play([gum(2)], nextBeat(MID) + 1, [grip(MID, ID)]);
+    const idle = play([gum(2)], nextBeat(MID) + 1);
+    expect(gumIsFlung(only(held.world))).toBe(false);
+    expect(only(held.world).row).toBe(only(idle.world).row);
+    expect(held.events.some((e) => e.type === "gumFlung")).toBe(false);
   });
 
-  it("moves nothing while the cannon is not under it", () => {
-    const { world, events } = play([gum(2)], t + 4, [aim(t, 6), ...swipe(t + 1, AWAY * FAR, ID)]);
+  it("flings it the way the hand went, level along its row, on the beat the carry is earned", () => {
+    const at = nextBeat(MID + 1);
+    const { world, events } = play([gum(2)], at + 1, [...swipe(MID, ID, FAR)]);
     const c = only(world);
-    expect(gumIsStuck(c)).toBe(true);
-    expect(c.gumPull).toBe(0);
-    expect(events.some((e) => e.type === "gumFlung" || e.type === "gumSpread")).toBe(false);
+    expect(gumIsFlung(c)).toBe(true);
+    expect(c.rockDir).toBe(1);
+    expect(c.rockRow).toBe(c.row);
+    expect(c.col).toBe(2 + CFG.gumFlingCols);
+    const flung = events.filter((e) => e.type === "gumFlung");
+    expect(flung).toHaveLength(1);
+    expect(flung[0]).toMatchObject({ dir: 1, col: 2 });
   });
 
-  it("flings it off the ship toward the nearer wall, for the score", () => {
-    const { world, events } = play([gum(2)], t + 4, [aim(t, 2), ...swipe(t + 1, AWAY * FAR, ID)]);
+  it("goes the other way for a hand carried the other way", () => {
+    const at = nextBeat(MID + 1);
+    const c = only(play([gum(8)], at + 1, [...swipe(MID, idOf(8), -FAR)]).world);
+    expect(c.rockDir).toBe(-1);
+    expect(c.col).toBe(8 - CFG.gumFlingCols);
+  });
+
+  it("is either seat's", () => {
+    const at = nextBeat(MID + 1);
+    const c = only(play([gum(2)], at + 1, [...swipe(MID, ID, FAR, 1)]).world);
+    expect(gumIsFlung(c)).toBe(true);
+  });
+
+  it("leaves the field at the wall and never reaches the ship", () => {
+    const row = only(play([gum(2)], nextBeat(MID + 1) + 1, [...swipe(MID, ID, FAR)]).world).row;
+    const { world, events } = play([gum(2)], LANDED_BY + TPB * 3, [...swipe(MID, ID, FAR)]);
     expect(world.creatures).toHaveLength(0);
-    const flung = events.find((e) => e.type === "gumFlung");
-    expect(flung).toMatchObject({ dir: AWAY, col: 2 });
+    expect(events.some((e) => e.type === "breach")).toBe(false);
+    expect(world.retries).toBe(0);
+    expect(row).toBeLessThan(SHIP);
   });
 
-  it("spreads it a lane wider the wrong way, once per grab", () => {
-    const wrong = -AWAY * FAR;
-    const { world, events } = play([gum(2)], t + 8, [
-      aim(t, 2),
-      ...swipe(t + 1, wrong, ID),
-      // Carried further still on the same grab: nothing more happens.
-      {
-        tick: t + 3,
-        player: 2,
-        command: { kind: "drag", target: "gum", on: true, fromMilli: wrong * 2, id: ID },
-      },
-    ]);
-    const c = only(world);
-    expect(c.span).toBe(1 + CFG.gumSpreadCols);
-    // Pushed rightward, it grows to the right: the left edge stays.
-    expect(c.col).toBe(2);
-    expect(events.filter((e) => e.type === "gumSpread")).toHaveLength(1);
-  });
-
-  it("may be tried again after the hand lifts, and the cannon still under it flings it", () => {
-    const wrong = -AWAY * FAR;
-    const { world } = play([gum(2)], t + 10, [
-      aim(t, 2),
-      ...swipe(t + 1, wrong, ID),
-      lift(t + 3, ID),
-      ...swipe(t + 4, AWAY * FAR, ID),
-    ]);
+  it("is refused once it stands on the ship's row", () => {
+    const t = TPB * (SHIP + 1) + 1;
+    const { world, events } = play([gum(2)], LANDED_BY, [...swipe(t, ID, FAR)]);
     expect(world.creatures).toHaveLength(0);
+    expect(events.some((e) => e.type === "gumFlung")).toBe(false);
+    expect(events.filter((e) => e.type === "breach")).toHaveLength(1);
   });
 
-  it("is player 2's and nobody else's", () => {
-    const { world } = play([gum(2)], t + 4, [aim(t, 2), ...swipe(t + 1, AWAY * FAR, ID, 1)]);
-    expect(gumIsStuck(only(world))).toBe(true);
-  });
-
-  it("is in the hash while it is held", () => {
-    const grabbed = play([gum(2)], t + 3, [aim(t, 2), ...swipe(t + 1, 200, ID)]).world;
-    const idle = play([gum(2)], t + 3, [aim(t, 2)]).world;
-    expect(hashWorld(grabbed)).not.toBe(hashWorld(idle));
+  it("is in the hash once flung", () => {
+    const at = nextBeat(MID + 1);
+    const flung = play([gum(2)], at + 1, [...swipe(MID, ID, FAR)]).world;
+    const idle = play([gum(2)], at + 1).world;
+    expect(hashWorld(flung)).not.toBe(hashWorld(idle));
   });
 
   it("replays the same", () => {
-    const inputs = [aim(t, 2), ...swipe(t + 1, -AWAY * FAR, ID), lift(t + 3, ID)];
-    const a = play([gum(2)], t + 6, inputs).world;
-    const b = play([gum(2)], t + 6, inputs).world;
+    const inputs = [...swipe(MID, ID, FAR)];
+    const a = play([gum(2)], LANDED_BY, inputs).world;
+    const b = play([gum(2)], LANDED_BY, inputs).world;
     expect(hashWorld(a)).toBe(hashWorld(b));
   });
 });

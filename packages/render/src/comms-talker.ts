@@ -188,18 +188,17 @@ export const TALKER = {
   // what the pair has to do is put four thumbs in one lane on one beat, which
   // a siren cannot help with.
   crystal: null,
-  // THE GUM: the balloon's "both" for the balloon's reason — each seat holds
-  // half a gesture, the cannon under it and the swipe across it, and neither
-  // half is anything on its own.
-  gum: "both",
+  // THE GUM: both screens draw the whole of it and either hand answers it,
+  // the same way — nothing is withheld, and nothing has to be said.
+  gum: null,
   // The seat without the control is the one shown the fuse, and *move* is
   // the whole of what it has to say (`cling-fuse.ts`).
   limpet: "p1",
   leech: "p2",
   // THE WEIGHT: `"both"`, and it is the row this value was waiting for. The
-  // balloon and the gum are "both" because each seat holds half a gesture and
-  // neither half is anything alone — true here too, and with nothing at all on
-  // either screen to read it off. A balloon draws both its pulls on both
+  // balloon is "both" because each seat holds half a gesture and neither half
+  // is anything alone — true here too, and with nothing at all on either
+  // screen to read it off. A balloon draws both its pulls on both
   // phones; a weight brightens under your own thumb and nowhere else, so the
   // siren is not saying *one of you can see this* but *neither of you can, so
   // one of you has to count*.

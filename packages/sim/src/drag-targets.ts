@@ -28,8 +28,7 @@ export type DragTarget =
   | "choirRight"
   | "balloonLeft"
   | "balloonRight"
-  | "crank"
-  | "gum";
+  | "crank";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -66,12 +65,11 @@ export type DragTarget =
  */
 
 /**
- * `gum` is the tenth, and the second that is **player 2's** after
- * `balloonRight` — and the first handle that is the whole body rather than a
- * thing hanging off it: a stuck gum is swiped where it sits on the ship
- * (`gum.ts`). It carries `id` for THE LID's reason, a wave may drop several,
- * and its `fromMilli` is a distance across the hull, signed the way the field
- * is: toward the nearer wall flings it and away from that wall spreads it.
+ * **There used to be a `gum` target**, the tenth, player 2's, and the first
+ * handle that was the whole body: a gum stuck to the ship was swiped where it
+ * sat. The owner took the sticking out on 14 September 2026 — a gum is
+ * swiped in the air now, and that is `gripBody` below, the carry every hand
+ * on the field already reports (`gum.ts`).
  */
 
 /**

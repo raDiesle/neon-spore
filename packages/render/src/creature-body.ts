@@ -167,8 +167,8 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // THE VOLLEY: nothing under a whole shell, and a smaller ball of the body's
   // colour once a ward has opened it; the shell goes over it (`volley-core.ts`).
   ["volley", drawVolleyCore],
-  // A sac in the air and nothing at all once it is stuck: the smear is drawn
-  // over the ship by `drawStuckGums`, from `canvas2d.ts` (`gum.ts`).
+  // A sac in the air, and once flung the same drop stretched into its flight
+  // (`gum.ts`); what it does to the ship is `gum-splash.ts`.
   ["gum", drawGumBody],
   // THE LIMPET and THE LEECH, the same again: the body falling here, and
   // on its control over the ship by `drawStuckClingers` (`cling.ts`).

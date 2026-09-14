@@ -83,14 +83,13 @@ export type ManyKind =
    */
   | "crystal"
   /**
-   * A sticky mass that falls straight down one lane, cannot be shot, is not
-   * stopped by the shield and does not break the hull: it **sticks to it**,
-   * and the cannon cannot fire from any column it covers until it is swiped
-   * off — by player 2, toward the nearer wall, while player 1 holds the
-   * cannon under it. Swiped the wrong way it spreads a lane wider, which is
-   * why it is here among the bodies answered a column at a time. `gum.ts`
-   * holds the whole of it; `Creature.gumStuck`, `gumPull` and `gumSpent` are
-   * the whole of its state.
+   * A sticky mass that falls straight down one lane, cannot be shot and is
+   * not stopped by the shield: it has to be **swiped away in the air**, by
+   * either seat, to the left or to the right, and it flies out of the field
+   * along its row. One that reaches the ship splashes across the hull and
+   * breaks it. Here among the bodies answered a column at a time because the
+   * column is what the pair watches it come down in. `gum.ts` holds the
+   * whole of it; `Creature.rockDir` and `rockRow` are its state once flung.
    */
   | "gum"
   /**

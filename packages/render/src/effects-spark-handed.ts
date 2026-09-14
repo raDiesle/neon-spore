@@ -19,9 +19,7 @@ export function handedBurst(
       type:
         | "balloonSplit"
         | "balloonBurst"
-        | "gumStick"
         | "gumFlung"
-        | "gumBlock"
         | "clingGrip"
         | "clingShake"
         | "clingFreed"
@@ -41,14 +39,10 @@ export function handedBurst(
     // the ship, `sim/balloon.ts`).
     case "balloonBurst":
       return at(l, e.col, e.row, 26, PALETTE.pod);
-    // THE GUM in its own material: landing, flung, and at the muzzle for each
-    // shot it refused. Everything between is read off the world (`gum.ts`).
-    case "gumStick":
-      return at(l, e.col, e.row, 14, PALETTE.venom);
+    // THE GUM in its own material, flung: the flick itself, thrown where the
+    // hand caught it. Its landing is a `breach` (`effects-breach.ts`).
     case "gumFlung":
       return at(l, e.col, e.row, 24, PALETTE.venom);
-    case "gumBlock":
-      return { x: tileCX(l, e.col), y: l.hullY, n: 6, hex: PALETTE.venom };
     // THE LIMPET and THE LEECH, in the malfunction's blue: the grab where it
     // landed, a move shaking sparks off it, letting go — and the blast, which
     // is the breach's own burst made louder in the fire's colour, because the

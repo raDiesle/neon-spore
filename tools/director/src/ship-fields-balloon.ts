@@ -23,10 +23,10 @@ export const BALLOON_FIELDS = {
   balloonTautMilli: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonHoldBeats: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonHandleMilli: "THE BALLOON — a body that goes up, opened by two hands at once",
-  // THE GUM's three ride along here rather than in a fourth file: the same
-  // seam, a creature with a handle on it that player 2 works.
-  gumSwipeMilli: "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon",
-  gumSpreadCols: "THE GUM — a mass stuck to the ship, swiped off by the seat without the cannon",
+  // THE GUM's two ride along here rather than in a fourth file: the same
+  // seam, a creature a hand on the field works.
+  gumSwipeMilli: "THE GUM — a drop either hand swipes out of the field",
+  gumFlingCols: "THE GUM — a drop either hand swipes out of the field",
   // And the clingers' four: a body on a control, shaken off by moving it.
   limpetStillBeats: "THE LIMPET — a body on the plate that goes off if the plate stands still",
   limpetShakeMoves: "THE LIMPET — a body on the plate that goes off if the plate stands still",

@@ -160,7 +160,7 @@ describe("the frames", () => {
 describe("the siren", () => {
   it("asks both seats to speak, because neither can see the other's thumb", () => {
     // `TALKER` says "both" for this body (`comms-talker.ts`), the value the
-    // balloon and the gum already use — and here it means the sharper thing:
+    // balloon already uses — and here it means the sharper thing:
     // not *one of you can see this*, but *neither of you can*.
     expect(commsCall(held([]))).toEqual({ p1: true, p2: true });
   });
