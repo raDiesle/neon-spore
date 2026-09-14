@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 8cc1543e — The wave serializer's arrival and pod move to `serialize-entry.ts`
+
+`tools/director/src/serialize.ts` was 249 lines, and its own note says a new field on `WaveEntry` is a line in `serializeEntry` in the same commit, so the next one would have put it past the limit. The boss was already cut out along the simulation's seam (`serialize-boss.ts`); the arrival and the pod follow: `serializeEntry` and `serializePod`, with the paragraphs about the fields a save once lost (`wears`, `gaps`), are a sibling now and `serializeWave` calls them. The round-trip test against the real act files is green unchanged. A refactor, not a look.
+
 ## 2026-09-14 · 0f8e5ce3 — The command decoder's field checks move to `command-fields.ts`
 
 `command-codec.ts` was 248 lines and takes one `case` per kind the simulation learns, so the next boss verb would have put it past the limit. The switch is the file's one job and stays whole; the seventy lines of field predicates above it (`isColor`, `isDragTarget`, `isSnakeTurn`, `isPulseLane`, `isPull`, `isNonNegInt`, `isTick`, `isUint32`, `isBool`, `isStep`, `optional`) and the two lists they read are a sibling now, with the colour-set paragraph that argues why `COLORS` is spelled in `net`. `protocol-decode.ts` takes `isTick` and `isUint32` from the sibling; the codec's test, one accepted example per kind and the rejections, is green unchanged. A refactor, not a look.
