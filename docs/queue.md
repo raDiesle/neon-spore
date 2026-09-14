@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A bun below the pin gets a green check and a landing that dies on the lockfile
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Taken:** 2026-09-14, claude/queue-a-bun-below-the-pin-gets-a-green-check-and-a-lan
 - **Files:** `tools/land/run.ts`, `tools/hooks/session-start.ts`, `tools/test/bun-version.test.ts`
 
 `.bun-version` says 1.4.2 and this machine's bun is 1.3.8, which cannot read
