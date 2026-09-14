@@ -209,24 +209,25 @@ export interface PodEntry {
   speed?: number;
 }
 
-// **What a wave authors when it wants a boss** is `boss-entries.ts` next door,
-// cut out when THE CRAWLER's two fields took this file over its limit: eleven
-// shapes, the union of them, and `bossFillsWave`. Re-exported here so nothing
-// that already reached for one through this file had to move.
-export {
-  BOSS_KINDS,
-  type BossEntry,
-  bossFillsWave,
-  type CairnEntry,
-  type FleetEntry,
-  type GaugeEntry,
-  type MazeEntry,
-  type MirrorEntry,
-  type PinballEntry,
-  type PulseEntry,
-  type QueenEntry,
-  type SnakeEntry,
-  type VaneEntry,
-  type WardenEntry,
-  type WellEntry,
+export type {
+  BossEntry,
+  CairnEntry,
+  FleetEntry,
+  GaugeEntry,
+  MazeEntry,
+  MirrorEntry,
+  PinballEntry,
+  PulseEntry,
+  QueenEntry,
+  SnakeEntry,
+  VaneEntry,
+  WardenEntry,
+  WellEntry,
 } from "./boss-entries.js";
+// **What a wave authors when it wants a boss** is `boss-entries.ts` next door,
+// cut out when THE CRAWLER's two fields took this file over its limit: twelve
+// shapes and the union of them — and the two questions asked about that
+// union are `boss-kinds.ts`, cut out when the twelve reached the same limit.
+// Re-exported here so nothing that already reached for one through this file
+// had to move.
+export { BOSS_KINDS, bossFillsWave } from "./boss-kinds.js";

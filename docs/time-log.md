@@ -3699,3 +3699,23 @@ after. About 20 min.
 
 Bottleneck: landing — two check runs of forty seconds each, which is the
 render suite's own cost and not this lane's.
+
+## 2026-09-14 · claude/queue-boss-entries-ts-is-one-boss-from-its-limit-the-t — `boss-entries.ts` is one boss from its limit; the two questions are not shapes
+
+The file was at 249 with a header saying every boss still to come is one
+more interface in it. The fifty lines that are not interfaces —
+`bossFillsWave` and `BOSS_KINDS`, the wire value with its own rule about
+order — are `boss-kinds.ts` now, re-exported through `entries.ts` beside the
+shapes, which is the one door everything already used. The re-export's
+comment said "eleven shapes"; there are twelve. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `boss-entries.ts`, the re-export block in `entries.ts`, who imports what |
+| writing | 5 | `boss-kinds.ts`, the two headers, the re-export, the INDEX row |
+| looking | 0 | none |
+| friction | 5 | `queue take` refused the title at 81 characters; shortened and retaken |
+| landing | 5 | `check:fast`, `bun run index`, `queue done`, the commit, `bun run land --keep` |
+
+Bottleneck: friction — the title limit is the right rule, and a session
+should count before it writes.
