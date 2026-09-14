@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · b2160f6a — `ready-words.ts`: the sentences off the ready page's measure
+
+`ready-page.ts` stood at 249 lines holding two subjects that are argued over by different means. One is the page's *measure*: `readyCircles` and the `*Y` helpers place the column from the layout alone, so a circle does not sit differently in every wave according to how long its sentence is. The other is what is written in those rows — what a circle is called, the question over them, and the one line saying who is still reading — and every line of it is an instruction the owner gave about how much to say.
+
 ## 2026-09-14 · 295f16ed — `veer-clown-figure.ts`: placing the rider is not describing it
 
 `veer-clown-shape.ts` stood at 250 lines holding two things. The four `Clown*` interfaces and the `VEER_CLOWN` record are the *shape*: multipliers, every number a fraction of a head or a rock, describing a clown at no size and in no place. `clownFigure` and `clownLoops` are the arithmetic that gives it one — where each disc falls on a rock of a given centre and radius, how far the hat whips over under a brace, and the closed loops the whole of it comes to.
