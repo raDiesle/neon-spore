@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 27728824 — `sound-row.ts`: one sound is not the catalogue
+
+`sound-page.ts` stood at 249 lines and built two things. The sheet — which family is showing, which status filter is on, the tabs across the top, the legend, what a rebuild costs — and one sound's row inside it: its picture, the PLAY button, what it is for, what it costs the conversation, its recipe as numbers and its plot.
+
 ## 2026-09-14 · b2160f6a — `ready-words.ts`: the sentences off the ready page's measure
 
 `ready-page.ts` stood at 249 lines holding two subjects that are argued over by different means. One is the page's *measure*: `readyCircles` and the `*Y` helpers place the column from the layout alone, so a circle does not sit differently in every wave according to how long its sentence is. The other is what is written in those rows — what a circle is called, the question over them, and the one line saying who is still reading — and every line of it is an instruction the owner gave about how much to say.
