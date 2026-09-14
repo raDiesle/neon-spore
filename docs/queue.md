@@ -407,14 +407,19 @@ narrows to it.
 ## THE LEECH: a malfunction harpooned onto the cannon, kept off by moving it
 
 - **Found:** 2026-09-14, claude/queue-backlog-604107
-- **Files:** `packages/sim/src/malfunction.ts`, `packages/sim/src/config-malfunction.ts`, `packages/sim/src/fault-clock.ts`, `packages/sim/src/magnet.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/events.ts`, `packages/sim/src/hash.ts`, `packages/content/src/mechanics.ts`, `packages/render/src/malfunction-look.ts`, `packages/render/src/fault-emitter.ts`, `packages/render/src/siren.ts`, `packages/render/src/siren-seats.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/codex.ts`, `packages/render/src/magnet-bounce.ts`, `packages/render/src/deflect.ts`, `packages/render/src/hull-mood.ts`, `packages/render/src/cannon-maw.ts`, `tools/director/src/brushes.ts`, `tools/director/src/fault-fields.ts`
+- **Files:** `packages/sim/src/cling.ts`, `packages/sim/src/config-cling.ts`, `packages/sim/src/events-cling.ts`, `packages/render/src/cling.ts`, `packages/render/src/cling-fuse.ts`, `packages/content/src/creatures-cling.ts`, `packages/sim/src/malfunction.ts`, `packages/sim/src/config-malfunction.ts`, `packages/sim/src/fault-clock.ts`, `packages/sim/src/magnet.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/events.ts`, `packages/sim/src/hash.ts`, `packages/content/src/mechanics.ts`, `packages/render/src/malfunction-look.ts`, `packages/render/src/fault-emitter.ts`, `packages/render/src/siren.ts`, `packages/render/src/siren-seats.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/codex.ts`, `packages/render/src/magnet-bounce.ts`, `packages/render/src/deflect.ts`, `packages/render/src/hull-mood.ts`, `packages/render/src/cannon-maw.ts`, `tools/director/src/brushes.ts`, `tools/director/src/fault-fields.ts`
 - **Where:** local
 
 The owner asked for it on 14 September 2026, mid-turn, by name — so it is a
 look he asked for and not one to offer — and it is one more kind under the
 malfunction brush the entry above this one makes, so it comes after that
 entry lands and is placed on the map the same way (`{ kind: "leech", at,
-beats }`). Its words, in the order he said them:
+beats }`). THE LEECH ships today as a *creature* — `sim/cling.ts`, one lane, a
+fuse counted in beats, drawn in `render/cling.ts` — and this entry moves that
+body under the malfunction brush and gives it the behaviour below; what the
+creature had that the malfunction drops (the fall down a lane, `limpetShakeMoves`)
+goes on the NOT BUILT YET → MECHANICS page rather than being deleted. Its
+words, in the order he said them:
 
 1. **It is a malfunction**, the same alien at the top middle as the other
    kinds (`fault-emitter.ts`, `malfunction-look.ts`), and it fires the leech
@@ -446,3 +451,30 @@ Prove it with `bun run check`, a wave carrying a placed leech drawn in
 shot deflects off it, and the frame the round is lost; the director's brush
 and fields under `tools/director/test`; and one PNG of the cannon under the
 leech with the square, the code and MOVE CANNON! on it.
+
+## THE LIMPET: THE LEECH's entry again, for the shield instead of the cannon
+
+- **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Files:** `packages/sim/src/cling.ts`, `packages/sim/src/config-cling.ts`, `packages/sim/src/events-cling.ts`, `packages/sim/src/malfunction.ts`, `packages/sim/src/config-malfunction.ts`, `packages/render/src/cling.ts`, `packages/render/src/cling-fuse.ts`, `packages/render/src/malfunction-look.ts`, `packages/render/src/siren.ts`, `packages/render/src/siren-seats.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/magnet-bounce.ts`, `packages/render/src/hull-mood.ts`, `packages/content/src/creatures-cling.ts`, `tools/director/src/brushes.ts`, `tools/director/src/fault-fields.ts`
+- **Where:** local
+
+The owner added it on 14 September 2026, in one sentence: *the same described
+applies to the limpet, just that here the shield must move and not the
+cannon; all other requirements and behaviours should be the same as for the
+leech.* So everything in THE LEECH's six points holds here with the control
+swapped: a malfunction kind `limpet` under the same brush, the same alien at
+the top middle, harpooned onto the **shield's plate**, the siren with **MOVE
+SHIELD!** under it on **player one's** screen (player one is the seat that
+has to tell player two), the code and the radar square on the plate with MOVE
+SHIELD! above, the round lost when the plate has not moved for the same one
+and a half beats (the same `SimConfig` field, not a second literal), the
+shot deflected off it with the magnet's look, the timer above and the reel
+back to the alien when it runs out, and the plate turning the dangerous
+colour whose glow restarts on every move — painted from player two's own
+`HullSkin`, so it is amber and never purple.
+
+Done in the same lane as THE LEECH, because `cling.ts` already says the two
+differ only in which column is read, and a malfunction written twice would be
+two places for that rule to drift. Proved the same way, with the limpet's
+own frame in `frame.test.ts` at the moment it sticks and one PNG of the
+plate under it.
