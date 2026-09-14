@@ -51,10 +51,15 @@ export {
 } from "./creatures.js";
 export * from "./index-shapes.js";
 export {
-  INTRO_PAGE_COUNT,
-  INTRO_PAGES,
-  type IntroFigure,
-  type IntroPage,
+  INTRO_ANSWER,
+  INTRO_BEATS,
+  INTRO_CROSS,
+  INTRO_FLASH,
+  INTRO_LINE,
+  INTRO_SCENE_SECONDS,
+  INTRO_TITLE,
+  type IntroAnswer,
+  type IntroBeat,
 } from "./intro.js";
 export {
   type DeskKey,

@@ -137,8 +137,8 @@ export const DEVICE_KEYS = [
  *
  * `neon-spore.intro` goes with them, which is the reading the button's own
  * sentence gives: the next person to hold the phone meets the game's front
- * door rather than the menu, and the front door is what the six opening pages
- * are for. A key kept back would need a line here saying why, not an absence.
+ * door rather than the menu, and the front door is the opening scene. A key
+ * kept back would need a line here saying why, not an absence.
  */
 export function forgetThisDevice(): void {
   for (const key of DEVICE_KEYS) {

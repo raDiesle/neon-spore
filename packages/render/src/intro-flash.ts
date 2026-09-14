@@ -1,4 +1,4 @@
-import { blobPoints, type IntroFigure } from "@neon-spore/content";
+import { blobPoints } from "@neon-spore/content";
 import { smoothstep } from "./ease.js";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
@@ -20,13 +20,12 @@ import { splinePath } from "./spline.js";
  * does instead is put the claim on something that is plainly a sign — angled,
  * filled bright, dark ink on colour — and let the sign do the shouting so the
  * sentence underneath can stay a sentence. The words are still
- * `packages/content/src/intro.ts`; nothing about what a page claims is decided
- * here.
+ * `packages/content/src/intro.ts`; nothing the intro claims is decided here.
  *
- * Its own file beside `intro-page.ts`, which lays a page out and would be over
- * the 250-line limit with these in it. The seam is real: next door is *where
- * everything on a page goes*, and this is the three pieces that are there to
- * be seen from across a room.
+ * Its own file beside `intro-scene.ts`, which lays the screen out and would be
+ * over the 250-line limit with these in it. The seam is real: next door is
+ * *where everything goes*, and this is the three pieces that are there to be
+ * seen from across a room.
  */
 
 /** How long one trip forward and back takes, in seconds. */
@@ -44,7 +43,7 @@ const TILT = -0.15;
  * evenly in and out reads as a zoom nobody asked for.
  *
  * `phase` is turns, not seconds. Handing one element 0 and the next 0.5 is what
- * makes the page look like two planes rather than one picture breathing.
+ * makes the screen look like two planes rather than one picture breathing.
  */
 export function surge(age: number, phase = 0): number {
   const t = age / SURGE_SECONDS + phase;
@@ -52,11 +51,11 @@ export function surge(age: number, phase = 0): number {
 }
 
 /**
- * Draw something nearer or further than the page it is on.
+ * Draw something nearer or further than the screen it is on.
  *
  * A scale about the element's own centre, which is what a lens does: nothing
- * on this page has a z coordinate and nothing needs one. The callback draws in
- * page coordinates exactly as it would without this — that is the point of
+ * in this scene has a z coordinate and nothing needs one. The callback draws in
+ * screen coordinates exactly as it would without this — that is the point of
  * doing it to the transform rather than to every radius inside.
  */
 export function towards(
@@ -75,26 +74,19 @@ export function towards(
 }
 
 /**
- * A page's own colour, and the one thing on the page that is not violet.
+ * The one colour in the intro that is not the background, and it is the game's
+ * own violet.
  *
- * Six pages, six hues, so that turning one is a visible change of subject
- * rather than the same screen with different words on it. Every one is a
- * colour the game already has, and none of them is one of the four greens the
- * palette reserves (`palette.ts`): a green tag over a menu is the one flash a
- * player would read as *this went right*.
+ * Six pages used to take six hues, one each, so that turning a page was a
+ * visible change of subject. There is one scene now and one subject, so a
+ * second hue would be a claim that something had changed when nothing had.
+ * Violet is the hull's colour and the first thing the pair will be holding.
+ *
+ * It is also not one of the four greens the palette reserves (`palette.ts`): a
+ * green flash over a menu is the one thing a player reads as *this went
+ * right*, and the front door has nothing to be right about yet.
  */
-const ACCENT: Record<IntroFigure, { hex: string; rim: string }> = {
-  twoScreens: { hex: PALETTE.hull, rim: PALETTE.hullRim },
-  voice: { hex: PALETTE.shield, rim: PALETTE.shieldRim },
-  columns: { hex: PALETTE.red, rim: PALETTE.redRim },
-  panel: { hex: PALETTE.pod, rim: PALETTE.podRim },
-  boss: { hex: PALETTE.ember, rim: PALETTE.emberRim },
-  run: { hex: PALETTE.wisp, rim: PALETTE.wispRim },
-};
-
-export function accentFor(figure: IntroFigure): { hex: string; rim: string } {
-  return ACCENT[figure];
-}
+export const INTRO_ACCENT = { hex: PALETTE.hull, rim: PALETTE.hullRim } as const;
 
 /**
  * The lit slab a headline stands on.
@@ -137,7 +129,7 @@ export function headline(
 /**
  * The price tag: a starburst with the claim printed across it.
  *
- * The same `blobPath` everything else on the page is made of, given eleven
+ * The same `blobPath` everything else in the scene is made of, given eleven
  * lobes and a deep one — a supermarket flash is a blob with spikes, and this
  * one is wet. It is the only thing in the intro filled with a bright colour
  * rather than outlined in one, which is what makes it the first thing an eye
@@ -145,7 +137,7 @@ export function headline(
  * is printed.
  *
  * The text is sized to fit rather than wrapped: a tag with two lines on it is a
- * notice. `r` is the tag's radius in page coordinates and nothing here scales —
+ * notice. `r` is the tag's radius in screen coordinates and nothing here scales —
  * a caller that wants this nearer wraps it in `towards`, which keeps the halo's
  * radius (and therefore its cached sprite) fixed.
  */
@@ -162,7 +154,7 @@ export function flashTag(
   ctx.translate(cx, cy);
   ctx.rotate(TILT);
   halo(ctx, 0, 0, r * 2, accent.hex, 0.55);
-  // Faster than the page's own clock and on a beat of its own: a sign that
+  // Faster than the scene's own clock and on a beat of its own: a sign that
   // ticks is a sign somebody is standing behind.
   const beat = 1 + 0.05 * Math.sin(age * 4.6);
   const burst = splinePath(
@@ -194,7 +186,7 @@ export function flashTag(
  * How the tag arrives: nothing, then a stamp that overshoots and settles.
  *
  * It lands after the title rather than with it, because a sign that is already
- * there when the page opens is part of the furniture — the whole of what makes
+ * there when the scene opens is part of the furniture — the whole of what makes
  * one work is that it appears.
  */
 export function stamp(age: number): number {
@@ -210,10 +202,13 @@ export function stamp(age: number): number {
  * The tag, put where a sticker goes: the corner of the picture, half out of
  * it, on a plane of its own.
  *
- * Centred over the figure it covered the thing the page was arguing, which is
- * the one place a sign must not be. Its trip is half a turn behind the
- * picture's, so when one is at the glass the other is at the back — that
- * counter-motion is the whole of why the corner reads as having a depth.
+ * The bottom left corner, and both halves of that are the scene's doing: the
+ * two people are along the top of the picture, so a sign up there covers the
+ * one being shouted at, and the two controls that answer a shout are at the
+ * bottom right, so a sign there covers the answer. What is left is the corner
+ * of the phone that is only holding a field. Centred it would cover the lot. Its trip is half a turn behind the picture's, so when one
+ * is at the glass the other is at the back — that counter-motion is the whole
+ * of why the corner reads as having a depth.
  */
 export function stickTag(
   ctx: CanvasRenderingContext2D,
@@ -224,9 +219,9 @@ export function stickTag(
 ): void {
   const landed = stamp(age);
   if (landed <= 0.01) return;
-  const r = Math.min(box.w * 0.115, box.h * 0.15);
-  const x = box.x + box.w * 0.87;
-  const y = box.y + r * 0.5;
+  const r = Math.min(box.w * 0.115, box.h * 0.12);
+  const x = box.x + box.w * 0.16;
+  const y = box.y + box.h - r * 0.7;
   towards(ctx, x, y, landed * (0.88 + 0.26 * surge(age, 0.5)), () =>
     flashTag(ctx, x, y, r, text, accent, age),
   );

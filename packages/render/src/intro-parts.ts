@@ -2,12 +2,11 @@ import { blobPoints } from "@neon-spore/content";
 import { halo, strokeGlow } from "./glow.js";
 import { mixHex } from "./hex.js";
 import { drawNavFeeder } from "./nav-feeder.js";
-import { PALETTE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
 /**
- * The parts the intro's six pictures are built out of: a plate, a blob, a
- * hull, a drip.
+ * The parts the intro's picture is built out of: a plate, a blob, a hull, a
+ * drip.
  *
  * They are the game's own idiom rather than a menu's — a dark fill, a neon rim
  * with `strokeGlow` behind it, a contour that wobbles because `blobPath` is
@@ -18,7 +17,7 @@ import { splinePath } from "./spline.js";
  *
  * Deliberately not the field's own drawing code. `hull.ts` draws a hull for a
  * world at a layout; this draws the *idea* of one, inside a box, at whatever
- * size a page has room for. Sharing the first with the second would mean
+ * size the scene has room for. Sharing the first with the second would mean
  * handing a menu screen a `World` it has no business holding.
  */
 
@@ -56,7 +55,7 @@ export function plate(
  * One body of the kind that falls down a column: a lobed contour that wobbles,
  * lit from inside.
  *
- * `t` is the page's own clock, handed straight to `blobPath`, which is what
+ * `t` is the scene's own clock, handed straight to `blobPath`, which is what
  * makes it *fluid* rather than a circle — the same argument `living-draw.ts`
  * makes on the field, where every body is drawn this way.
  */
@@ -72,7 +71,7 @@ export function body(
   halo(ctx, cx, cy, r * 2.2, hex, 0.45);
   const path = splinePath(blobPoints(cx, cy, r, r * 0.88, 3, 0.1, 0.06, t, seed, 30), true);
   // Deep rather than dark: an outline with nothing but the background inside
-  // it reads as a hole cut in the page, and this is meant to look like
+  // it reads as a hole cut in the screen, and this is meant to look like
   // something wet standing on it.
   ctx.fillStyle = mixHex(hex, "#0B0718", 0.72);
   ctx.fill(path);
@@ -99,7 +98,10 @@ export function hull(
   const arc = new Path2D();
   arc.moveTo(b.x, y + b.h * 0.05);
   arc.quadraticCurveTo(b.x + b.w / 2, y - b.h * 0.06, b.x + b.w, y + b.h * 0.05);
-  strokeGlow(ctx, arc, PALETTE.hull, Math.max(1.5, b.h * 0.022), 1);
+  // The seat's colour, not the palette's violet. They are the same hex for
+  // player one, which is why a hard-coded one went unnoticed until the intro
+  // drew player two's phone and gave an amber ship a violet hull.
+  strokeGlow(ctx, arc, hex, Math.max(1.5, b.h * 0.022), 1);
   const r = b.h * 0.07;
   const cx = b.x + b.w * lobeAt;
   halo(ctx, cx, y - r * 0.5, r * 2.4, hex, 0.5);
@@ -115,7 +117,7 @@ export function hull(
 /**
  * A run of goo hanging off an edge, the same one the guide's bar drips
  * (`nav-button.ts`). Reached for rather than copied: a second drip that
- * swelled on a different clock would be the one thing on the page that looked
+ * swelled on a different clock would be the one thing in the scene that looked
  * like it came from somewhere else.
  */
 export function drip(

@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — the intro becomes one scene and loses its stepper
+
+The queue's first item, in a cloud session. Six pages with a BACK, a NEXT and
+a page count became one animation: two people, two phones, `SHOOT NOW` and a
+finger on fire, `MOVE THE SHIELD` and a shield sliding, and a press anywhere —
+or the scene running out — closes it. Four pages' worth of figures (the field,
+the panel, the boss, the endless run) went with the stepper, `intro-figure.ts`
+and `intro-page.ts` with them, and what is left is five small files: the words,
+the picture's one clock, the two phones, the two controls and the people.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the six pages and their three tests, the host's turn logic, what `accentFor` and `stickTag` were for, the silhouette registry before drawing a person |
+| writing | 55 | the scene, the shout, the two screens, the two controls, the player, and three tests rewritten to one scene |
+| looking | 35 | four rounds of preview-and-shoot: the phones clipped by the picture's own scale, a void between a head and the phone under it, a panel that read as a phone inside a phone, a tag over the listener and then over the answer |
+| friction | 5 | the preview gives its port up after ten idle minutes and had to be restarted mid-shoot; the file map needed four rows written and four stale ones corrected by hand |
+| landing | 20 | `check:fast` twice, the full `check`, the commit |
+
+The bottleneck was looking: nothing about a composition of two phones, two
+heads and a bubble crossing between them can be decided without a frame, and
+each frame costs a build, a browser and a wait.
+
 ## 2026-09-14 — queued-items — seven of the owner's asks, queued for cold sessions
 
 No code. The owner said, in two messages, what four things should become —

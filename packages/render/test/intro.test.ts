@@ -1,26 +1,32 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { INTRO_PAGES } from "@neon-spore/content";
+import { INTRO_BEATS, INTRO_CROSS, INTRO_SCENE_SECONDS } from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { drawGuideNav, navButtons } from "../src/guide-nav.js";
-import { drawIntroPage, introHit, skipBox } from "../src/intro-page.js";
+import { drawIntroPair, introPlay } from "../src/intro-pair.js";
+import { drawIntroScene, introOver, playBox } from "../src/intro-scene.js";
+import { answered, shoutNow } from "../src/intro-shout.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 /**
- * The six pages a pair meets before they have chosen anything, through the
+ * The one scene a pair meets before they have chosen anything, through the
  * canvas that refuses what a real one refuses.
  *
  * It is the same rule `briefing.test.ts` holds a wave's opening to, and for a
  * stronger reason: this is the *first* screen, so a colour the browser cannot
  * parse here is a game that never starts for somebody who has just been sent
- * a link. Every page, every role, at several ages — the figures breathe, so a
- * single frame would prove almost nothing.
+ * a link. The scene plays through rather than being paged through, so it is
+ * sampled the whole way across at a step finer than any of its own moments —
+ * a single frame would prove almost nothing about a picture that is moving the
+ * entire time it is up.
+ *
+ * What it holds beyond *the canvas took it* is the sentence the scene is
+ * saying: one of them speaks, and only then does the other one move. An answer
+ * that begins before its shout has crossed is a pair who are not talking to
+ * each other, which is the one thing this screen exists to claim.
  */
 
 const CFG = DEFAULT_CONFIG;
 const ROLES: ViewRole[] = ["p1", "p2", "test"];
-/** Zero, mid-entrance, and long settled: the three shapes a page's clock takes. */
-const AGES = [0, 0.3, 1.4, 9];
 
 beforeAll(installCanvasGlobals);
 
@@ -28,30 +34,36 @@ function layoutAt(width: number, height: number, role: ViewRole = "p1") {
   return computeLayout({ width, height, dpr: 2 }, CFG, role);
 }
 
+/** Every tenth of a second of it, and a little past the end. */
+function everyMoment(): number[] {
+  const ages: number[] = [];
+  for (let age = 0; age <= INTRO_SCENE_SECONDS + 1.5; age += 0.1) ages.push(age);
+  return ages;
+}
+
 describe("the intro on the stage", () => {
-  it("draws every page in every role", () => {
+  it("draws the whole scene in every role", () => {
     const { ctx } = stubCanvas();
     for (const role of ROLES) {
       const l = layoutAt(900, 1600, role);
-      for (let page = 0; page < INTRO_PAGES.length; page++) {
-        for (const age of AGES) {
-          drawIntroPage(ctx as unknown as CanvasRenderingContext2D, l, page, age);
-        }
+      for (const age of everyMoment()) {
+        drawIntroScene(ctx as unknown as CanvasRenderingContext2D, l, age);
       }
     }
+    expect(ctx.calls).toBeGreaterThan(1000);
   });
 
   it("draws on a screen narrow enough that a word does not fit", () => {
     const { ctx } = stubCanvas();
     const l = layoutAt(240, 480);
-    for (let page = 0; page < INTRO_PAGES.length; page++) {
-      drawIntroPage(ctx as unknown as CanvasRenderingContext2D, l, page, 1);
+    for (const age of everyMoment()) {
+      drawIntroScene(ctx as unknown as CanvasRenderingContext2D, l, age);
     }
   });
 
   it("draws on a window with no room in it at all", () => {
     // Two ways the box for the picture goes negative. A window too short: the
-    // title and the nav bar alone fill it — a desktop browser at the
+    // banner and the caption alone fill it — a desktop browser at the
     // director's `/game` door, a phone caught mid-rotation. And a canvas that
     // has not been laid out, which is 0 by 0 and still gets frames while its
     // tab is hidden. `plate` turned either into a negative corner radius,
@@ -67,74 +79,119 @@ describe("the intro on the stage", () => {
       [20, 1600],
     ] as const) {
       const l = layoutAt(width, height);
-      for (let page = 0; page < INTRO_PAGES.length; page++) {
-        drawIntroPage(ctx as unknown as CanvasRenderingContext2D, l, page, 1);
+      for (const age of [0, 1.8, 3, 6, 9]) {
+        drawIntroPair(
+          ctx as unknown as CanvasRenderingContext2D,
+          { x: 14, y: 40, w: Math.max(0, width - 28), h: Math.max(0, height - 200) },
+          age,
+        );
+        drawIntroScene(ctx as unknown as CanvasRenderingContext2D, l, age);
       }
     }
   });
 
-  it("draws with a pointer resting on each of its own controls", () => {
-    // A desk lights what a mouse is over, and the lit path is a second set of
-    // colours that a phone never reaches (`guide-nav.ts`).
+  it("draws with a pointer resting on the one corner that answers one", () => {
+    // A desk lights what a mouse is over, and the lit path is a second colour
+    // a phone never reaches.
     const { ctx } = stubCanvas();
     const l = layoutAt(900, 1600);
-    const b = navButtons(l);
-    const s = skipBox(l);
-    const spots = [
-      { x: b.next.x + b.next.w / 2, y: b.next.y + b.next.h / 2 },
-      { x: b.back.x + b.back.w / 2, y: b.back.y + b.back.h / 2 },
-      { x: s.x + s.w / 2, y: s.y + s.h / 2 },
-    ];
-    for (const pointer of spots) {
-      drawIntroPage(ctx as unknown as CanvasRenderingContext2D, l, 2, 1, pointer);
+    const b = playBox(l);
+    for (const age of [0.2, 4, 9.9]) {
+      drawIntroScene(ctx as unknown as CanvasRenderingContext2D, l, age, {
+        x: b.x + b.w / 2,
+        y: b.y + b.h / 2,
+      });
     }
   });
 
-  it("survives a page number past either end rather than drawing nothing", () => {
-    // The host owns the page and a host is a place a mistake can happen; a
-    // blank screen with a live bar under it is the worst way to find out.
+  it("goes on drawing past its own end rather than blanking", () => {
+    // The host closes it on `introOver`, and a host is a place a mistake can
+    // happen: a tab that was hidden through the whole scene comes back with a
+    // large `age` and one more frame to paint before it closes.
     const { ctx } = stubCanvas();
     const l = layoutAt(900, 1600);
     const before = ctx.calls;
-    drawIntroPage(ctx as unknown as CanvasRenderingContext2D, l, -3, 1);
-    drawIntroPage(ctx as unknown as CanvasRenderingContext2D, l, INTRO_PAGES.length + 3, 1);
+    drawIntroScene(ctx as unknown as CanvasRenderingContext2D, l, INTRO_SCENE_SECONDS * 4);
     expect(ctx.calls).toBeGreaterThan(before);
+  });
+
+  it("leaves no transform open, at any moment of the scene", () => {
+    // The picture, the tag and every line of type are drawn through a scale,
+    // and the field is drawn under the intro and goes on being drawn after it
+    // closes. One unbalanced `save` and the rest of the game is played at the
+    // size of whichever frame dropped it.
+    const { ctx } = stubCanvas();
+    const l = layoutAt(900, 1600);
+    for (const age of everyMoment()) {
+      ctx.tally.clear();
+      drawIntroScene(ctx as unknown as CanvasRenderingContext2D, l, age);
+      expect(ctx.tally.get("save") ?? 0, `at ${age.toFixed(1)}s`).toBe(
+        ctx.tally.get("restore") ?? 0,
+      );
+    }
+  });
+
+  it("clips the picture, so the near end of the trip stays in its window", () => {
+    // Without the clip a figure at the top of its cycle lands on the banner
+    // above it, which is the difference between depth and a zoom.
+    const { ctx } = stubCanvas();
+    const l = layoutAt(900, 1600);
+    ctx.tally.clear();
+    drawIntroScene(ctx as unknown as CanvasRenderingContext2D, l, 1.7);
+    expect(ctx.tally.get("clip") ?? 0).toBeGreaterThan(0);
   });
 });
 
-describe("where a press on the intro lands", () => {
-  const l = layoutAt(900, 1600);
-
-  it("answers NEXT and BACK where the bar draws them", () => {
-    const b = navButtons(l);
-    expect(introHit(l, b.next.x + b.next.w / 2, b.next.y + b.next.h / 2)).toBe("next");
-    expect(introHit(l, b.back.x + b.back.w / 2, b.back.y + b.back.h / 2)).toBe("back");
+describe("the sentence the scene is saying", () => {
+  it("has nobody talking before the first shout", () => {
+    expect(shoutNow(0)).toBeNull();
+    expect(shoutNow(INTRO_BEATS[0]?.at ?? 0)).not.toBeNull();
   });
 
-  it("answers the corner word where it is drawn", () => {
-    const s = skipBox(l);
-    expect(introHit(l, s.x + s.w / 2, s.y + s.h / 2)).toBe("skip");
+  it("never has two of them shouting at once", () => {
+    // One bubble in the air. Two is a room with four people in it.
+    for (let age = 0; age < INTRO_SCENE_SECONDS; age += 0.02) {
+      const said = shoutNow(age);
+      if (!said) continue;
+      const others = INTRO_BEATS.filter((b) => b.id !== said.beat.id);
+      for (const other of others) {
+        const overlapping = age >= other.at && age < other.at + INTRO_CROSS;
+        expect(overlapping, `${other.id} at ${age.toFixed(2)}`).toBe(false);
+      }
+    }
   });
 
-  it("treats the page itself as a tap forward, and the bar's gaps as nothing", () => {
-    expect(introHit(l, l.width / 2, l.height * 0.5)).toBe("page");
-    // Between two buttons on the bar: a thumb that missed NEXT was aiming at
-    // it, and turning the page anyway is the one answer it must not get.
-    const b = navButtons(l);
-    const between = (b.back.x + b.back.w + b.replay.x) / 2;
-    expect(introHit(l, between, b.back.y + b.back.h / 2)).toBeNull();
+  it("moves no control until the word about it has landed", () => {
+    // The whole claim of the screen: one of them acts *because* the other
+    // spoke. An answer that starts early is a pair who did not need to talk.
+    for (const beat of INTRO_BEATS) {
+      expect(answered(beat.at, beat), beat.id).toBe(0);
+      expect(answered(beat.at + INTRO_CROSS - 0.01, beat), beat.id).toBe(0);
+      expect(answered(beat.at + INTRO_CROSS + 0.2, beat), beat.id).toBeGreaterThan(0);
+    }
   });
 
-  it("is answered by the same bar the guide draws, not a second copy of one", () => {
-    // If these ever disagree the intro answers a button it did not draw, which
-    // is the fault `render/stage-point.ts` exists to stop one floor down.
-    const { ctx } = stubCanvas();
-    drawGuideNav(ctx as unknown as CanvasRenderingContext2D, l, {
-      page: 1,
-      pages: INTRO_PAGES.length,
-      age: 1,
-    });
-    const b = navButtons(l);
-    expect(introHit(l, b.next.x + 1, b.next.y + 1)).toBe("next");
+  it("keeps every part of the picture inside the range it is read as", () => {
+    // All four are used as a position along something or as an alpha, and an
+    // alpha outside 0..1 is what the strict canvas refuses outright.
+    for (let age = 0; age < INTRO_SCENE_SECONDS + 4; age += 0.02) {
+      for (const [name, v] of Object.entries(introPlay(age))) {
+        expect(v, `${name} at ${age.toFixed(2)}`).toBeGreaterThanOrEqual(0);
+        expect(v, `${name} at ${age.toFixed(2)}`).toBeLessThanOrEqual(1);
+      }
+    }
+  });
+
+  it("ends only once both answers have been given", () => {
+    const last = INTRO_BEATS[INTRO_BEATS.length - 1];
+    expect(last).toBeDefined();
+    expect(introOver(INTRO_SCENE_SECONDS - 0.01)).toBe(false);
+    expect(introOver(INTRO_SCENE_SECONDS)).toBe(true);
+    for (const beat of INTRO_BEATS) {
+      expect(answered(INTRO_SCENE_SECONDS, beat), beat.id).toBe(1);
+    }
+    // And with a moment left over: the picture worth ending on is the pair
+    // standing there having just played a round together.
+    expect(introPlay(INTRO_SCENE_SECONDS - 0.9).shielded).toBe(1);
   });
 });

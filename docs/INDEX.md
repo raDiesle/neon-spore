@@ -418,7 +418,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/snake.ts` | SNAKE's rehearsal: the ship is the body, and the one who can see it cannot steer it |
 | `packages/content/src/scenes/the-fleet.ts` | THE FLEET's rehearsal: the only one who can see the ships is the one who cannot move the sights |
 | `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
-| `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN SIX PAGES |
+| `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN ONE SCENE |
 | `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
 | `packages/content/src/scenes/the-lance.ts` | THE LANCE's rehearsal: one shot instead of three |
 | `packages/content/src/scenes/pinball.ts` | PINBALL's rehearsal: the thing you fire from is the thing you have to catch it with |
@@ -797,10 +797,12 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gum.ts` | THE GUM, drawn in its two states: a heavy drop coming down a lane |
 | `packages/render/src/baked.ts` | Every cache in render/ that holds baked work between frames, in one place that can empty them all |
 | `packages/render/src/stage-point.ts` | WHERE A POINTER ON THE CANVAS ACTUALLY LANDS |
-| `packages/render/src/intro-figure.ts` | THE SIX PICTURES ON THE INTRO'S PAGES |
-| `packages/render/src/intro-page.ts` | WHAT THIS GAME IS, ON THE GAME'S OWN SCREEN |
-| `packages/render/src/intro-parts.ts` | The parts the intro's six pictures are built out of: a plate, a body, a hull |
-| `packages/render/src/intro-screens.ts` | The two pictures that are about the *pair* rather than about the field |
+| `packages/render/src/intro-parts.ts` | The parts the intro's picture is built out of: a plate, a body, a hull |
+| `packages/render/src/intro-pair.ts` | THE PICTURE THE WHOLE INTRO IS: two people, two phones, and a word crossing between them |
+| `packages/render/src/intro-player.ts` | ONE OF THE TWO PEOPLE IN THE SCENE |
+| `packages/render/src/intro-screens.ts` | THE TWO SCREENS, AND WHY THEY ARE NOT THE SAME SCREEN |
+| `packages/render/src/intro-scene.ts` | WHAT THIS GAME IS, ON THE GAME'S OWN SCREEN: one scene, and no stepper |
+| `packages/render/src/intro-shout.ts` | THE WORD CROSSING THE ROOM, which is the one thing the intro is about |
 | `packages/render/src/render-state.ts` | EVERYTHING A RENDERER HOLDS BETWEEN ONE FRAME AND THE NEXT |
 | `packages/render/src/carom.ts` | THE CAROM's crust: a meteor with a window cut in it, and the streak it drags |
 | `packages/render/src/chute.ts` | THE CHUTE, drawn: the thrust that throws a body out of a cracked carom |
@@ -880,6 +882,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/recoil-globe.ts` | GLOBE — THE RECOIL's cage as the game draws it since 11 September 2026 |
 | `packages/render/src/recoil-moons.ts` | MOONS — a kept look for THE RECOIL's cage, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/intro-flash.ts` | THE LOUD HALF OF THE INTRO: a headline on a lit slab, a price-tag flash |
+| `packages/render/src/intro-controls.ts` | THE TWO CONTROLS A SHOUT ASKS FOR, and the thumb landing on them |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
@@ -1186,7 +1189,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-sign-in.ts` | The settings row that makes a name survive the phone |
 | `apps/game/src/menu-steps.ts` | the questions the menu asks in place — LEAVE ROOM's and the one in front of each difficulty — and the two moments they are put away again |
 | `apps/game/src/keys-guide.ts` | What a key means while a wave's guide is up, at a desk |
-| `apps/game/src/intro.ts` | THE SIX PAGES A PAIR SEES BEFORE THEY HAVE CHOSEN ANYTHING |
+| `apps/game/src/intro.ts` | THE ONE SCENE A PAIR SEES BEFORE THEY HAVE CHOSEN ANYTHING |
 | `apps/game/src/frame.ts` | WHAT HAPPENS EVERY TICK, AND WHAT HAPPENS EVERY FRAME |
 | `apps/game/src/interpolate.ts` | the picture drawn between ticks rather than on them, behind `?interpolate=1` |
 | `apps/game/src/perf-page.ts` | The readout `?perf=1` puts on the screen |

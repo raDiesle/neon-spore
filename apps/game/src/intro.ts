@@ -1,31 +1,35 @@
-import { INTRO_PAGE_COUNT } from "@neon-spore/content";
-import { drawIntroPage, introHit, type Layout } from "@neon-spore/render";
+import { drawIntroScene, introOver, type Layout } from "@neon-spore/render";
 
 /**
- * THE SIX PAGES A PAIR SEES BEFORE THEY HAVE CHOSEN ANYTHING.
+ * THE ONE SCENE A PAIR SEES BEFORE THEY HAVE CHOSEN ANYTHING.
  *
  * Once, on the first visit, and again whenever somebody asks for it — from the
  * menu, or from the room screen, where the person who has just been sent a
  * link is standing. The owner asked for it by name: *a cinematic like tutorial
- * when entering the game first, explaining the core concept of the game.*
+ * when entering the game first, explaining the core concept of the game* — and
+ * then, on 14 September 2026, for the six pages and their stepper to go and
+ * leave one scene that plays through: two phones, one game, and the players
+ * talking to each other.
  *
- * It is drawn on the game's own canvas (`render/intro-page.ts`) and the
+ * So there is nothing here to operate. It runs, and it ends — on a press
+ * anywhere, or on its own, whichever comes first.
+ *
+ * It is drawn on the game's own canvas (`render/intro-scene.ts`) and the
  * presses are taken by a transparent sheet over it. That is the one thing this
  * file exists to arrange, and it is not a detail: the field's own listener,
  * the guide's and three rounds' all sit on the same canvas, and a press meant
- * for NEXT that also slid the cannon would be a bug nobody could see. A sheet
- * on top means none of them ever hears it, whatever order they were bound in.
- *
- * The world goes on running behind the pages, which is why the veil they are
- * drawn over is translucent: what somebody reads *about* is moving underneath
- * while they read it.
+ * to close the scene that also slid the cannon would be a bug nobody could
+ * see. A sheet on top means none of them ever hears it, whatever order they
+ * were bound in.
  */
 
 /** Where the browser keeps whether this device has seen it. */
 export const INTRO_KEY = "neon-spore.intro";
-/** What is written there. A version rather than a flag: the day the pages are
- * rewritten enough to be worth showing again, this is how they say so. */
-export const INTRO_VERSION = "1";
+/** What is written there. A version rather than a flag: the day the intro is
+ * rewritten enough to be worth showing again, this is how it says so — and on
+ * 14 September 2026 it was, so a device that saw the six pages meets the scene
+ * once. */
+export const INTRO_VERSION = "2";
 
 /**
  * Whether the intro opens on its own, given what storage remembers.
@@ -59,13 +63,13 @@ export interface IntroBinding {
   /** A pointer event in the coordinates the renderer drew in (`viewport.ts`). */
   inStage: (e: { clientX: number; clientY: number }) => { x: number; y: number } | null;
   /**
-   * Paints the pages where the frame underneath them was painted.
+   * Paints the scene where the frame underneath it was painted.
    *
    * Not `ctx` directly: the renderer draws inside the stage — a phone-shaped
    * rectangle cut out of a canvas the size of the window — and hands the
-   * canvas back at the window's origin. Painting straight onto it put the six
-   * pages against the left edge of a desktop window with the field showing to
-   * their right, while SKIP and NEXT went on answering presses a stage offset
+   * canvas back at the window's origin. Painting straight onto it put the
+   * intro against the left edge of a desktop window with the field showing to
+   * its right, and the corner that says PLAY answering presses a stage offset
    * away, over that field. `viewport.ts` owns the offset and applies it here.
    */
   onStage: (
@@ -80,21 +84,21 @@ export interface IntroBinding {
 export interface Intro {
   isOpen: () => boolean;
   /**
-   * Show it from the top. `after` is what the screen goes back to when it
+   * Play it from the top. `after` is what the screen goes back to when it
    * closes — the menu, the room screen, or nothing at all — and it is handed
    * in per opening rather than fixed here, because the intro is reached from
    * three places and each of them is somewhere different to be put back.
    */
   open: (after?: () => void) => void;
   close: () => void;
-  /** Drawn over the frame that has just been painted, every frame it is up. */
+  /** Drawn over the frame that has just been painted, every frame it is up —
+   * and the frame it runs out on is the frame it closes. */
   over: (ctx: CanvasRenderingContext2D, dt: number) => void;
 }
 
 export function bindIntro(b: IntroBinding): Intro {
   let open = false;
-  let page = 0;
-  /** Seconds the page that is up has been up. The type lands on this. */
+  /** Seconds the scene has been playing. Everything in it reads this. */
   let age = 0;
   /** Where a mouse is resting, so a button under it lights. A phone sets none. */
   let pointer: { x: number; y: number } | undefined;
@@ -111,18 +115,6 @@ export function bindIntro(b: IntroBinding): Intro {
     b.hold(on);
   };
 
-  const turn = (to: number): void => {
-    if (to >= INTRO_PAGE_COUNT) {
-      // Past the last page is the way out: NEXT on the sixth is PLAY.
-      close();
-      return;
-    }
-    page = Math.max(0, to);
-    // The clock restarts, so paging back replays the drop rather than arriving
-    // with the words already settled — a wave's opening does the same.
-    age = 0;
-  };
-
   function close(): void {
     if (!open) return;
     show(false);
@@ -132,20 +124,18 @@ export function bindIntro(b: IntroBinding): Intro {
       // A browser that refuses to remember shows it again next time, which is
       // a worse first minute than it should be and not a reason to fail here.
     }
-    const back = after;
+    const resume = after;
     after = undefined;
-    back?.();
+    resume?.();
   }
 
   b.sheet?.addEventListener("pointerdown", (e) => {
     if (!open) return;
     e.preventDefault();
-    const p = b.inStage(e);
-    if (!p) return;
-    const hit = introHit(b.layout(), p.x, p.y);
-    if (hit === "skip") close();
-    else if (hit === "back") turn(page - 1);
-    else if (hit === "next" || hit === "page") turn(page + 1);
+    // Anywhere. There is one press in this screen and the corner that says
+    // PLAY is where somebody looking for it looks, not where it has to land —
+    // a scene with a hit box on it is a scene somebody can miss.
+    close();
   });
   b.sheet?.addEventListener("pointermove", (e) => {
     if (!open || e.pointerType !== "mouse") return;
@@ -159,7 +149,6 @@ export function bindIntro(b: IntroBinding): Intro {
     isOpen: () => open,
     open: (goBackTo) => {
       if (!b.sheet) return;
-      page = 0;
       age = 0;
       pointer = undefined;
       after = goBackTo;
@@ -170,8 +159,11 @@ export function bindIntro(b: IntroBinding): Intro {
       if (!open) return;
       age += dt;
       b.onStage(ctx, (c, l) => {
-        drawIntroPage(c, l, page, age, pointer);
+        drawIntroScene(c, l, age, pointer);
       });
+      // And it ends itself. Nobody has to press anything to get into a game
+      // they have already been sent a link to.
+      if (introOver(age)) close();
     },
   };
 }
