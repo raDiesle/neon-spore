@@ -84,14 +84,9 @@ export {
   mazeReadBeats,
 } from "./maze-clock.js";
 export { mazeRound } from "./maze-controls.js";
-export {
-  installMaze,
-  type MazeState,
-  mazeCurrent,
-  mazeHeartColor,
-  mazeHeartShot,
-} from "./maze-round.js";
+export { mazeHeartColor, mazeHeartShot } from "./maze-round.js";
 export { mazeEntrances, mazeSolveRoute, mazeWheel } from "./maze-solve.js";
+export { installMaze, type MazeState, mazeCurrent } from "./maze-state.js";
 export { MAZE_REASONS, type MazeVerdictReason } from "./maze-verdict.js";
 export {
   type MazeEntrance,

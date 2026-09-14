@@ -9,7 +9,7 @@ import { installGauge } from "./gauge-round.js";
 import { clearGrips } from "./grip.js";
 import { endPrime } from "./lance.js";
 import type { Malfunction } from "./malfunction.js";
-import { installMaze } from "./maze-round.js";
+import { installMaze } from "./maze-state.js";
 import { installMirror } from "./mirror.js";
 import { installPinball } from "./pinball-round.js";
 import { installPulse } from "./pulse-round.js";

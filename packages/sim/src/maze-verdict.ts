@@ -1,6 +1,7 @@
 import { breachHull } from "./hull.js";
 import { mazeBottomCol } from "./maze.js";
-import { enterMazePhase, type MazeState, mazeHeartColor } from "./maze-round.js";
+import { mazeHeartColor } from "./maze-round.js";
+import { enterMazePhase, type MazeState } from "./maze-state.js";
 import { type CreatureKind, livingKindForColor } from "./types.js";
 import { MILLI, type World } from "./world.js";
 

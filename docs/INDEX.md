@@ -221,6 +221,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/well.ts` | THE WELL: the boss that is only a projection — a tag, an install, and no rule at all |
 | `packages/sim/src/colour-armour.ts` | What a shot of the wrong colour leaves behind on an ordinary body: a window in which nothing at all reaches it |
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
+| `packages/sim/src/maze-state.ts` | what THE MAZE remembers between ticks — `MazeState`, a paragraph per field — and the two ways it is set: fresh for a wave, wiped for a phase |
 | `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/maze-verdict.ts` | How an attempt on THE MAZE ends, and what it costs |
 | `packages/sim/src/hull-guard.ts` | **The shield's own arithmetic**: where it stands, how long its window is open |

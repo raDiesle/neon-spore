@@ -1,5 +1,5 @@
 import { mazeClickAngle, mazeEntranceCol, mazeWrap } from "./maze.js";
-import { enterMazePhase, type MazeState, mazeCurrent } from "./maze-round.js";
+import { enterMazePhase, type MazeState, mazeCurrent } from "./maze-state.js";
 import type { MazeWheel } from "./maze-wheel.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";

@@ -2,8 +2,8 @@ import { expect, test } from "bun:test";
 import { hashWorld } from "../src/hash.js";
 import { step } from "../src/index.js";
 import { mazeEntranceCol, mazeEntranceX, mazeWrap } from "../src/maze.js";
-import { mazeCurrent } from "../src/maze-round.js";
 import { mazeWheel } from "../src/maze-solve.js";
+import { mazeCurrent } from "../src/maze-state.js";
 import { mazeArc, mazeFault, mazeSweep } from "../src/maze-wheel.js";
 import {
   CFG,

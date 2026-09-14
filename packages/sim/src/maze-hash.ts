@@ -1,5 +1,5 @@
 import { MAZE_PHASES } from "./maze.js";
-import type { MazeState } from "./maze-round.js";
+import type { MazeState } from "./maze-state.js";
 import { MAZE_REASONS } from "./maze-verdict.js";
 
 /**

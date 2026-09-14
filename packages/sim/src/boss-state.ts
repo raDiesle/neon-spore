@@ -1,7 +1,7 @@
 import type { CairnState } from "./cairn.js";
 import type { FleetShip } from "./fleet-board.js";
 import type { GaugeState } from "./gauge.js";
-import type { MazeState } from "./maze-round.js";
+import type { MazeState } from "./maze-state.js";
 import type { PinballState } from "./pinball.js";
 import type { PulseState } from "./pulse.js";
 import type { MirrorState } from "./simon.js";

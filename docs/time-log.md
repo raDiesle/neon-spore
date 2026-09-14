@@ -3968,3 +3968,22 @@ fingerprint of every shipped wave 60 beats in, identical before and after.
 | landing | 5 |
 
 Bottleneck: landing — the check and the land run longer than the cut did.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `maze-round.ts` is at the limit: what THE MAZE remembers is a second subject
+
+The round held the state — `MazeState` with a paragraph per field, the fresh
+install and the wipe a phase performs — beside the fight. The state moved to
+`maze-state.ts`; the round, the controls, the verdict, the hash, the boss
+union, the wave start and two test files import it from there, and the barrel
+re-exports from both. Proof was the per-wave `hashWorld` fingerprint of every
+shipped wave 60 beats in, identical before and after.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: writing — nine import lines to re-point, each asserted before it was replaced.
