@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `versus-seat.ts` is at the limit: the probe's clock is a second subject
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-versus-seat-ts-is-at-the-limit-the-probes-clock
 - **Files:** `tools/director/src/versus-seat.ts`, `tools/director/test/versus-seat.test.ts`
 
 The file is 250 lines: sixty of header on why the two seats are compared by
