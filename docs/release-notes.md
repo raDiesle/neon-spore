@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · b70dc018 — `queue next` and `take` refuse an entry the format test would fail on
+
+`bun run queue` listed what was wrong with an entry under *Entries a cold session could not act on*, and then `take` and `next` handed that same entry out without a word. On 14 September 2026 an 87-character title was claimed that way; the first `check:fast` after it failed on `queue.test.ts`'s parse of `docs/queue.md`, and the entry could not be retitled — `done` and the `Taken:` line match by title. The per-entry checks are now `problemsWith` in `tools/queue/problems.ts`, and `refuseUnlessWhole` names every problem before a branch is made; `problemsIn` keeps the duplicate-title check, which is between two entries. `queue.ts` had gone past 250 lines carrying them, so the checks have a file of their own, and `docs/INDEX.md` has its line.
+
 ## 2026-09-14 · f987af86 — The preview's port is read by a function with a test, which found the address could be cut short and the deadline never fire
 
 `startPreview` in `tools/frames/serve.ts` read `preview (built) on http://…` off the server's stdout inside the function that spawns it, so the stderr tail it prints on an early exit — the line that says a worktree is missing its `bun install` — was tested by nothing. The loop is `previewUrlFrom(stdout, stderr)` now, and `serve.test.ts` feeds it streams made from strings: a port in one chunk, a port split across chunks, an early close carrying stderr's last twelve lines, an empty stderr adding nothing, a long stderr cut to twelve, and a server that prints nothing.
