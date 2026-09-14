@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 8ff100f0 — Queue the intro's rewrite: one scene of two phones and a shout, no stepper
+
+The owner asked for the intro to become a single animation with no pages and no NEXT: two phones, one co-op game, one player shouting "SHOOT NOW" and "MOVE THE SHIELD" across, the other listening and moving that control. Seen once, a device does not show it again before the menu — a rule the intro already has, so the entry says to bump INTRO_VERSION rather than add one. The entry names the seven files the six pages, their nav and their tests live in.
+
 ## 2026-09-14 · b6a5c3ac — A bun below the pin is named at the door, by the session-start hook and by the landing
 
 `.bun-version` says 1.4.2; a machine on 1.3.8 cannot read `bun.lock`, and nothing said so until the landing died in its frozen install after the rebase, naming neither the pin nor what to do. The comparison and the two commands through now live in `tools/hooks/bun-pin.ts`, read twice: the session-start hook says them at the first line of any session on such a bun, on stdout, and `bun run land` refuses on them before anything moves. A `--sweep` installs nothing and passes.
