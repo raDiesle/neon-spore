@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · ae48dbd4 — A tool that photographs a page of the game's menu
+
+Three tools took a picture and none of them could take this one: `bun run frames` drives the field and photographs `#stage`, `bun run shot` photographs an element of the director, `bun run png` rasterises an SVG on disk. The menu is markup over the game's own canvas, so a lane that changed a row, a page or the tagline had nothing to point at — and the lane that queued this wrote the throwaway twice in one sitting, which is the count that turned `shot.ts` from a habit into a tool.
+
 ## 2026-09-14 · b7c3055e — HOW TO PLAY leaves the front page, and the tagline is the owner's own sentence
 
 The owner asked for both by name on 14 September 2026 — the first exemption under *A look is offered, never replaced*. The front page is three rows now: PLAY, SETTINGS, and LEAVE ROOM while there is a room. HOW TO PLAY's page went with its row — two paragraphs, two seat cards and a boxed rule that described in prose what the intro scene shows, and a page nobody can reach is a page that drifts. WHAT THIS IS, which sat at the top of it, is a row on SETTINGS above CONTROLS, so the only thing in the game that answers *what is this* did not leave with the page that pointed at it.
