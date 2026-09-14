@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 5fa21485 — What sticks to the finished ship is the fifth pass of a frame
+
+`Canvas2DRenderer.draw` stood at its limit and its last four landings had each added one call to the same run between the ship and the overlays — THE FENCE's burn, THE GUM, THE CHOKE's coils, THE LIMPET and THE LEECH. That run is `drawOnShip` in `frame-on-ship.ts`, exported through the `frame-passes.ts` barrel, so the next body that sticks to the ship is a line there and not in the renderer. The stub canvas's ordered call log over every wave that reaches one of these is byte-identical before and after, on both seats. A refactor, not a look.
+
 ## 2026-09-14 · 61824b7a — THE LID, THE MAGNET and THE CHOIR are one family: held with one hand, shot with the other
 
 `creatures-table.ts` stood one row under its limit with every creature adding a row, and `creatures-handed.ts`'s header had already named the cut: the bodies that need a hand *and* a trigger. Those three rows are `creatures-held.ts` now, named in the table where they stood so the key order — which the director's brush strip reads — is unchanged. The table is 184 lines. A refactor, not a look.
