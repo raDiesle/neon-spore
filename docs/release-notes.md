@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 77e1004b — Three tests that could not pass on a Mac: a temp path through /private, and a teardown with no budget
+
+`bun run land` runs the whole suite and refused this lane's landing on three failures that have nothing to do with it, all of them the machine rather than the tree — which is the worst shape a red check can take, because the lane that hits it has to prove that before it may do anything else.
+
+## 2026-09-14 · f6a8ee69 — BACK INTO THE GAME goes back into the room, and stops drawing where there is none
+
+The queue held one unverified item: BACK INTO THE GAME had landed from a session that could not press it. Pressed now against a live wrangler, with two browsers in one room, it does what it said. The room screen comes up on the code, the seat is the one this phone had, the partner is named in the other card, and both presses of START put the pair back on the field together. With the room emptied it lands on the room screen's ordinary waiting line — *Room QREY. Say it out loud, or send the link* — which is the answer `last-room.ts` promised, since nothing on a phone with no socket can know whether the other one is still there.
+
 ## 2026-09-14 · 135fa115 — CLEAR THIS DEVICE takes the intro flag, and the sweep that missed it is a glob
 
 `neon-spore.intro` is written when the six opening pages are closed and it was not in `DEVICE_KEYS`, so the button that forgets what this device knows about the person holding it left behind the one fact deciding what the next person sees: a phone handed on opened on the menu rather than on the front door. It is cleared now, and `forgetThisDevice`'s doc says why — a key held back would need a line there, not an absence.
