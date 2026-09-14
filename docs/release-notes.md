@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 6c0bd9d8 — What is laid over a body moves out of the creature pass into `creature-over.ts`
+
+`packages/render/src/creatures.ts` was 248 lines. The exclusive body draw became a table (`creature-body.ts`) the day a plain `if` severed the chain; what was still growing was the run of `if`s after it, one per creature that wears something over a body — the veil's cloud, the veer's rider, the carom's crust, the chute, the volley's shell, the recoil's cage, the coil's dome, the clasp's shield — and the next covering would have put the file over. Those eight and their paragraphs are `drawOverBody` in a sibling now, called inside the perspective transform where they were. The canvas op log of 480 frames of the eight waves on both seats is identical before and after. A refactor, not a look.
+
 ## 2026-09-14 · 8cc1543e — The wave serializer's arrival and pod move to `serialize-entry.ts`
 
 `tools/director/src/serialize.ts` was 249 lines, and its own note says a new field on `WaveEntry` is a line in `serializeEntry` in the same commit, so the next one would have put it past the limit. The boss was already cut out along the simulation's seam (`serialize-boss.ts`); the arrival and the pod follow: `serializeEntry` and `serializePod`, with the paragraphs about the fields a save once lost (`wears`, `gaps`), are a sibling now and `serializeWave` calls them. The round-trip test against the real act files is green unchanged. A refactor, not a look.
