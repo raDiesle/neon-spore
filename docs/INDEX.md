@@ -1785,5 +1785,9 @@ place — the generator keeps whatever is there.
 | `tools/director/src/library/rind-stage.ts` | The game's own rind, losing its layers on a card, each one drawn coming off by a shed of the caller's choosing |
 | `tools/director/src/library/countdown-assets.ts` | THE COUNT's four counts — how a body says how many beats are left, on the one screen that is shown it |
 | `tools/director/src/library/countdown-stage.ts` | The game's own count, drawn on a card wearing a look of the caller's choosing |
+| `tools/imports/classify.ts` | Which of a file's characters are code rather than a comment or a string |
+| `tools/imports/imports.ts` | Dropping the names a file split strands in an import list, and refusing to delete a statement |
+| `tools/imports/run.ts` | `bun run imports` — drop the names a file split stranded in an import list |
+| `tools/imports/scan.ts` | Where a file's import statements are: which names each one binds, and what text binds them |
 
 <!-- index:code:end -->

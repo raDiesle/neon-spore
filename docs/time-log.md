@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — a command for the import names a split strands
+
+The queue's own item: biome offers only an unsafe fix for an unused import,
+the guard blocks it because that fix takes the doc comment above a statement
+with it, and the narrow half — a specifier out of a list, the statement
+standing — was missing. `bun run imports` is that half. biome picks the files
+and has the last word; `tools/imports/` decides where to cut, and a name is
+kept unless it is written nowhere outside a comment, so a use in a string, a
+type position or a template hole all keep it. A statement whose every name is
+unused is printed, never deleted. Proved on `packages/sim/src/hash.ts` with
+two names stranded by hand: the command put the file back byte for byte.
+About 75 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `guard.ts`, biome's reporters and what its ranges mean |
+| writing | 30 | the scanner, the cut, the command, nine tests |
+| looking | 0 | nothing drawn |
+| friction | 20 | biome's ranges, typescript 7's missing parser, `check --write` |
+| landing | 10 | the 250-line split, `check:fast`, the commit, `land` |
+
+The bottleneck was biome's own diagnostics: a run of unused specifiers is
+reported as one range that spans the *used* names between them, so the
+linter's output could not say which names to cut and the decision had to be
+made from the file itself — with `--only=correctness/noUndeclaredVariables`
+afterwards as the only check biome can still give.
+
 ## 2026-09-14 — queue-items — the board file joins the save token it was said to be in
 
 Found while reading the save for the item before: `waves-acts.ts` said the

@@ -176,29 +176,37 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## No safe way to drop the names a file split strands in an import list
+## `bun run format` sorts imports, and a sort moves a comment off its statement
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-14, claude/queue-no-safe-way-to-drop-the-names-a-file-split-stran
-- **Files:** `tools/hooks/guard.ts`, `package.json`, `docs/commands.md`
+- **Files:** `package.json`, `biome.json`, `docs/commands.md`
 
-Eleven files were split to get under the 250-line limit in one sitting, and on
-five of them the same minutes went the same way: a move strands names in the
-import lists either side of it, `bun run format` does not touch them because
-biome offers only an *unsafe* fix for it, and `tools/hooks/guard.ts` blocks
-`--write --unsafe` — rightly, because that fix deletes an unused import
-together with the doc comment above it, and in this repository the comment
-above an import is often the only place a decision is written down.
+`bun run format` is `biome check --write`, and `check` runs the
+organize-imports assist as well as the formatter. Sorting is a *move*, and a
+doc comment written above an import does not move with it. Measured on this
+file:
 
-What is missing is the narrow half of that fix. Dropping an unused **specifier**
-from a list — `step` out of `import { beatPhase, step, type World }` — touches
-no comment at all: the comment is attached to the statement and the statement
-survives. Only the case where the *whole statement* would go is the one the
-guard is protecting, and there a person should look.
+```
+/** The tick counter is the only clock the simulation has. */
+import { zebra } from "./z.ts";
+/** Kept for the hull decision of 3 September. */
+import { alpha } from "./a.ts";
+```
 
-So: a script that drops unused specifiers, refuses to delete a statement, and
-prints the ones it left for somebody to read. `bun run format` can call it, or
-it can be its own command with a line in `docs/commands.md`; the guard stays
-exactly as it is, because it is about the other case. The test is a file with
-a move's leftovers in it: afterwards `bun run lint` is green and every comment
-is still there.
+After one `biome check --write`, the first comment sits above a blank line
+attached to nothing, and the second reads as if it were written about
+`alpha`. That is the same harm `tools/hooks/guard.ts` blocks `--unsafe` for,
+arriving through the command the guard tells a session to run instead.
+
+It only bites while a file is unsorted, which is to say inside a lane, between
+adding an import and the next format — never on `main`, because `bun run lint`
+refuses an unsorted file. So the blast radius is one session's own edit, and
+the reason to fix it is that the session will not notice.
+
+Three ways: `format` becomes `biome format --write` plus an explicit
+`biome check --write --only=source/organizeImports` so the sort is a named
+step; or the assist is turned off in `biome.json` and the import order stops
+being enforced at all; or it stays and `docs/commands.md` says out loud that
+a comment above an import is not safe from `format`. The first keeps both
+properties and costs one line. `tools/imports/run.ts` already formats with
+`biome format --write` for exactly this reason and has the comment saying why.

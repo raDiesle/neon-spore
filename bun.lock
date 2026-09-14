@@ -120,6 +120,10 @@
         "playwright-core": "^1.62.1",
       },
     },
+    "tools/imports": {
+      "name": "@neon-spore/imports",
+      "version": "0.0.0",
+    },
     "tools/index": {
       "name": "@neon-spore/index",
       "version": "0.0.0",
@@ -380,6 +384,8 @@
     "@neon-spore/hooks": ["@neon-spore/hooks@workspace:tools/hooks"],
 
     "@neon-spore/icons": ["@neon-spore/icons@workspace:tools/icons"],
+
+    "@neon-spore/imports": ["@neon-spore/imports@workspace:tools/imports"],
 
     "@neon-spore/index": ["@neon-spore/index@workspace:tools/index"],
 

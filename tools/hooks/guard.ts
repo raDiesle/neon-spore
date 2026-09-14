@@ -65,8 +65,12 @@ const REFUSALS = {
   },
   unsafeFormat: {
     blocked: "biome's --unsafe fixes delete an unused import together with the comment above it.",
-    instead:
-      "Run 'bun run format', the safe half. If a rule offers only an unsafe fix, apply it by hand to the one file and check its header survived.",
+    instead: [
+      "Run 'bun run format', the safe half. For the unused import a file split",
+      "strands in a list, 'bun run imports' takes the specifier out and leaves",
+      "the statement and its comment standing; a statement that would go",
+      "entirely it prints instead, and there a person should look.",
+    ].join("\n"),
   },
   workerModel: {
     blocked: "this would run the worker on an Anthropic model through OpenRouter.",

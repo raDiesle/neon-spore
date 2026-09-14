@@ -32,7 +32,14 @@ bun run test:determinism
 bun run test:profile   # which test files carry the minutes — docs/performance.md
 bun run typecheck      # tsc, then the server's own
 bun run lint           # biome, warnings are errors
-bun run format         # biome, writing
+bun run format         # biome, writing — the safe fixes only, never --unsafe
+bun run imports        # drop the names a file split stranded in an import list:
+                       # biome offers only an unsafe fix for those, which deletes
+                       # a statement together with the doc comment above it, so
+                       # this does the narrow half — a specifier comes out of a
+                       # list, and a statement that would go entirely is printed
+                       # for somebody to read (tools/imports/, and a path or two
+                       # narrows it from the whole repository)
 bun run check:fast     # typecheck + lint + the tests a lane's diff can reach — before a commit
 bun run check          # the same with every test; what `land` runs, minutes long
 bun run scope          # which test directories a diff can have moved (tools/hooks/scope.ts)
