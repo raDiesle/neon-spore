@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 3604b0bb — `versus-probe.ts`: the probe's clock out of the seat decision
+
+`versus-seat.ts` stood at 250 lines and carried two subjects. Sixty of them argue why two seats are compared by the *difference* a patch makes rather than by their raw frames, and why the field and the band are judged differently; then the probe's clock — `SAMPLE_EVERY`, `SAMPLES`, `MAX_SAMPLES`, `ProbeSchedule` and `probeSchedule` — and only after all of it the decision itself.
+
 ## 2026-09-14 · b32a51cb — Eleven files at the limit are queued, each with its cut named
 
 The queue was empty. Every source file at 249 or 250 lines was outlined and the eleven with a seam that needs no decision are now entries a cloud session can drain alone: the block by its lines, the sibling it moves to, which importers follow and which stay behind a re-export, and the test that proves it — `versus-seat`, `versus-pair`, `skins/pore`, `skins/light`, `veer-clown-shape`, `ready-page`, `sound-page`, `scene-art`, `gyre`, `perf/compare` and `skins/vein-pulse`. The four that are one function each are left as they are.
