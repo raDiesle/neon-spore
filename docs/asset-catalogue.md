@@ -10,7 +10,7 @@
 rim whose bearing is legible at forty pixels — the creature turns, and a ball
 cannot show that it is turning — and `clubbed` was the only thing in this
 catalogue that says *ball on a stalk*. So the walk moved to
-`packages/content/src/body-path.ts` and `forms/clubbed.ts` is a card over it,
+`packages/content/src/body-path-clubbed.ts` and `forms/clubbed.ts` is a card over it,
 while THE POMMEL, the boss-sized body it was written for, stays free. That is
 the same transaction with the units taken apart: what a creature spent was the
 construction, and the tuning it was drawn at is still on the shelf.

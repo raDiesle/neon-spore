@@ -3761,3 +3761,27 @@ and after: byte-identical. The switch is 213 lines. About 15 min.
 
 Bottleneck: writing — the header's one sentence for why these eight are a
 family, which the eight comments already said between them.
+
+## 2026-09-14 · claude/queue-body-path-ts-is-on-the-line-and-the-clubbed-walk — `body-path.ts` is on the line, and the clubbed walk is four fifths of it
+
+The router for a living body's contour was at 250, and two hundred of the
+lines were one walk — the clubbed rim, its four sample constants and its
+jitter. The walk is `body-path-clubbed.ts` now, the router is 65 lines and
+says a walk is a file of its own, and the two importers, the sheet's card and
+`docs/asset-catalogue.md` point at the new file. The one surprise was
+`copies.test.ts`: the walk reads the body's radius under each club, which
+was allowed inside the owner and had to become an `also` with its sentence.
+The proof was `livingPoints` of the ten own-bodied kinds at four times, plus
+one `clubbedPoints` on a rim the sheet might draw, hashed before and after:
+identical. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the router, the walk, `index-shapes.ts`, who names `body-path.ts` |
+| writing | 10 | the cut, two headers, three re-pointed mentions, the copies row and its reflowed comment, the INDEX row |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 5 | `check:fast` twice, `bun run index`, `queue done`, the commit, `bun run land --keep` |
+
+Bottleneck: writing — the copies-table comment, which had to say why the walk
+is an `also` and not an exemption, in the paragraph's own register.

@@ -22,13 +22,8 @@ export {
 } from "./balloon-parts.js";
 export { BALLOON, balloonKnot, balloonOutline, balloonPath } from "./balloon-shape.js";
 export { walkedSilhouette } from "./body-form.js";
-export {
-  type ClubbedRim,
-  clubbedPoints,
-  livingPath,
-  livingPoints,
-  rimCount,
-} from "./body-path.js";
+export { livingPath, livingPoints, rimCount } from "./body-path.js";
+export { type ClubbedRim, clubbedPoints } from "./body-path-clubbed.js";
 export { CAIRN_BITE_ACROSS, CAIRN_BITE_UP, CAIRN_COURSES, cairnCourses } from "./cairn-shape.js";
 export {
   CRAWLER,

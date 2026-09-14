@@ -10,7 +10,7 @@ import type { Subject } from "../contour.js";
  * A body wearing balls on stalks: a thin neck out of the rim, ending in a cap
  * wider than the neck that carries it.
  *
- * **The walk itself is in `packages/content/src/body-path.ts` now**, and this
+ * **The walk itself is in `packages/content/src/body-path-clubbed.ts` now**, and this
  * is a card over it. It moved the day THE THROB claimed the form — the
  * transaction `docs/asset-catalogue.md` describes, where a shape stops being a
  * picture looking for a behaviour and its parameters become content. What that

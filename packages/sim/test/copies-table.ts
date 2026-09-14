@@ -443,22 +443,28 @@ export const COPIES: Copy[] = [
     // preview, a rind shedding, a veil tearing — are exactly where a player
     // checks a body's name.
     //
-    // Three files keep the arithmetic, and each is an `also` rather than an
-    // exemption: each owns a rule made of the same pieces. `wisp-body.ts`'s
-    // bell is a *reshaped* contour — 1.06 wide, 0.76 tall and lifted off its
-    // hem — and that proportion is a fact about a body with a hem, which
-    // `livingPath` has nowhere to put and must not learn. `strand-bead.ts`
-    // squashes the same way about the axis a bead rolls on and draws it at a
-    // point on a thread rather than at the origin, which is the same case
-    // twice over. And the VERSUS candidate is a *frozen* copy of a shipped
-    // look, kept whole on purpose (`docs/versus.md`): a candidate refactored
-    // to call the thing it is being judged against is no longer an
+    // Four files keep the arithmetic, and each is an `also` rather than an
+    // exemption: each owns a rule made of the same pieces. `body-path-clubbed.ts`
+    // is the walk `livingPath` routes a clubbed rim to, and it reads the body's
+    // radius under each club — it was inside the owner until the router split.
+    // `wisp-body.ts`'s bell is a *reshaped* contour — 1.06 wide, 0.76 tall and
+    // lifted off its hem — and that proportion is a fact about a body with a
+    // hem, which `livingPath` has nowhere to put and must not learn.
+    // `strand-bead.ts` squashes the same way about the axis a bead rolls on
+    // and draws it at a point on a thread rather than at the origin, which is
+    // the same case twice over. And the VERSUS candidate is a *frozen* copy of
+    // a shipped look, kept whole on purpose (`docs/versus.md`): a candidate
+    // refactored to call the thing it is being judged against is no longer an
     // alternative to it.
     call: "livingPath",
     owner: "packages/content/src/body-path.ts",
     pattern: /shape\.lobes,\s*shape\.depth/,
     strip: true,
-    also: ["packages/render/src/wisp-body.ts", "packages/render/src/strand-bead.ts"],
+    also: [
+      "packages/content/src/body-path-clubbed.ts",
+      "packages/render/src/wisp-body.ts",
+      "packages/render/src/strand-bead.ts",
+    ],
   },
   {
     // How far round a Throb has turned — which is the same question as whether

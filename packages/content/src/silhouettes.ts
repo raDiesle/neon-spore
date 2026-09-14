@@ -1,4 +1,4 @@
-import type { ClubbedRim } from "./body-path.js";
+import type { ClubbedRim } from "./body-path-clubbed.js";
 import type { Point } from "./shapes.js";
 
 /**
