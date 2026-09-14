@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 2f3c0ce4 — Queue three of the owner's asks: the menu's front, the director's rooms, and PLAY as partners
+
+HOW TO PLAY leaves the front page and the tagline says talking is the key to the co-op game. The director loses GUIDES, SPEC and DEMOS, TUNING gets a topbar button of its own with SHIP's dials folded onto it, and WORDINGS is DOCUMENTATION's first and default tab. PLAY becomes a list of partners to continue with — name and wave — over NEW GAME, with difficulty set on creation or behind a gear on the partner's row, no seat and no BOTH on that page, and the room screen as steps: JOIN or CREATE, the name, the code, then one shared ready step where the creator picks seat and level and both hold the guides' circle. SEND LINK and WHAT THIS IS go, and the wait for a partner is measured before its timer is raised.
+
 ## 2026-09-14 · 8ff100f0 — Queue the intro's rewrite: one scene of two phones and a shout, no stepper
 
 The owner asked for the intro to become a single animation with no pages and no NEXT: two phones, one co-op game, one player shouting "SHOOT NOW" and "MOVE THE SHIELD" across, the other listening and moving that control. Seen once, a device does not show it again before the menu — a rule the intro already has, so the entry says to bump INTRO_VERSION rather than add one. The entry names the seven files the six pages, their nav and their tests live in.
