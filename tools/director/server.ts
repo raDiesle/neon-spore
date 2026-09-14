@@ -3,7 +3,7 @@ import { claimPort, treeKey } from "../ports.js";
 import { SERVERS } from "../servers.js";
 import indexHtml from "./index.html";
 import { backlogState } from "./src/backlog-api.js";
-import { DOC_ROUTES, readSpecFiles } from "./src/docs-api.js";
+import { DOC_ROUTES } from "./src/docs-api.js";
 import { notesState } from "./src/notes-api.js";
 import { saveWaves, wavesState } from "./src/waves-api.js";
 import versusHtml from "./versus.html";
@@ -210,20 +210,10 @@ const server = Bun.serve({
       ]),
     ),
 
-    /**
-     * Every spec file, verbatim. The roster and concept endpoints parse the
-     * design into entries, and a parse is a choice about what to keep — the
-     * naming rules, the categories, the rejected names and the ceiling are
-     * none of them an entry. This is the catch-all that makes "what does the
-     * spec say" answerable in the editor rather than in a text editor beside
-     * it: the directory is read, so a new file appears here without being
-     * added to a list.
-     */
-    "/api/spec": {
-      GET: withIdle(async () =>
-        Response.json({ files: await readSpecFiles() }, { headers: noCache }),
-      ),
-    },
+    // `/api/spec` served every file in `docs/spec/` verbatim, for the sheet's
+    // own SPEC room. The owner took that room off on 14 September 2026 and
+    // nothing else ever fetched the route, so it went with the page rather
+    // than staying as a reader with no reader.
   },
   fetch() {
     return new Response("not found", { status: 404, headers: noCache });

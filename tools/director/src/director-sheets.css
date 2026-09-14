@@ -8,19 +8,29 @@
 /* GAME MECHANICS. Same full-screen shell as the other sheets, and now
    the same tab-over-one-body shape #backlog uses — #statesTabs plays
    the part #backlogTabs does, #statesBody the part #backlogBody does.
-   Folded in from four other doors, to save four topbar buttons. */
-#states {
+   Folded in from four other doors, to save four topbar buttons.
+
+   TUNING rides the same shell, sharing the selectors rather than
+   copying them: it left this sheet for a topbar door of its own on
+   14 September 2026 — it changes the run rather than describing it —
+   and nothing about the *frame* changed with it. It has no tab bar,
+   so #tuningBody stands where #statesBody does with #statesTabs
+   simply absent above it. */
+#states,
+#tuning {
   display: none;
   position: fixed;
   inset: 0;
   z-index: 20;
   background: var(--bg);
 }
-#states.on {
+#states.on,
+#tuning.on {
   display: flex;
   flex-direction: column;
 }
-#states > header {
+#states > header,
+#tuning > header {
   display: flex;
   align-items: baseline;
   gap: 12px;
@@ -28,12 +38,14 @@
   padding: 12px 20px;
   border-bottom: 1px solid var(--line);
 }
-#states .title {
+#states .title,
+#tuning .title {
   color: var(--gold);
   letter-spacing: 4px;
   font-size: 1.1rem;
 }
-#states .sub {
+#states .sub,
+#tuning .sub {
   color: var(--dim);
   font-size: 0.875rem;
   max-width: 720px;
@@ -44,6 +56,12 @@
 #states > header a.linkbtn {
   margin-left: auto;
 }
+/* #tuning carries no MAIN MENU link, so its CLOSE takes the push the
+   link takes over there — every sheet's close sits at the end of the
+   row, whatever is in front of it. */
+#tuning > header button {
+  margin-left: auto;
+}
 #statesTabs {
   display: flex;
   flex-wrap: wrap;
@@ -51,7 +69,8 @@
   flex: 0 0 auto;
   padding: 10px 20px 0;
 }
-#statesBody {
+#statesBody,
+#tuningBody {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
@@ -60,7 +79,17 @@
 #statesBody section {
   margin-bottom: 26px;
 }
-#statesBody .note {
+#tuningBody h2 {
+  color: var(--gold);
+  letter-spacing: 3px;
+  font-size: 0.9rem;
+  margin: 26px 0 8px;
+}
+#tuningBody h2:first-child {
+  margin-top: 0;
+}
+#statesBody .note,
+#tuningBody .note {
   color: var(--dim);
   font-size: 0.875rem;
   margin: 0 0 10px;

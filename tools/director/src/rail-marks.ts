@@ -48,24 +48,13 @@ export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] 
    * file had been written and the page reloaded.
    *
    * No `title` — a tooltip here is what the owner rejected — and no second
-   * copy of the guide's own text, which already sits under SENTENCE. This is
-   * a glance-level flag and a shortcut into DOCUMENTATION's GUIDES tab.
-   *
-   * A span, not a nested button: a button inside a button is invalid markup,
-   * and the click needs its own stop or it would also re-select the row. Two
-   * clicks, because the sheet must open before its own bar has a GUIDES button.
+   * copy of the guide's own text, which already sits under SENTENCE. It is a
+   * glance-level flag and nothing else: it was a shortcut into DOCUMENTATION's
+   * GUIDES tab until the owner took that room off the sheet on 14 September
+   * 2026, and a mark that opens a page that is not there is worse than a mark
+   * that only marks.
    */
-  if (wave.guide) {
-    const m = mark("card-mark", "✎ ");
-    m.addEventListener("click", (e) => {
-      e.stopPropagation();
-      document.getElementById("statesOpen")?.dispatchEvent(new MouseEvent("click"));
-      document
-        .querySelector('#statesTabs button[data-tab="guides"]')
-        ?.dispatchEvent(new MouseEvent("click"));
-    });
-    out.push(m);
-  }
+  if (wave.guide) out.push(mark("card-mark", "✎ "));
   return out;
 }
 

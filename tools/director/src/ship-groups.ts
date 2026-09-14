@@ -1,7 +1,7 @@
 import type { BossEntry } from "@neon-spore/sim";
 
 /**
- * The cards the SHIP tab is divided into: their names, the order they are read
+ * The cards the ship's dials are divided into: their names, the order they are read
  * in, and the paragraph under each heading that says what the group *is*.
  *
  * Split out of `ship-fields.ts` when THE VEIL took that file past its 250-line

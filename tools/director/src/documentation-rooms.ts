@@ -1,6 +1,5 @@
 import { bindControlSetsTab } from "./controlsets-page.js";
-import { bindGuidesTab } from "./guide-sheet.js";
-import { bindSpecTab } from "./spec.js";
+import { bindStatesTab } from "./states-page.js";
 import { bindStyleTab } from "./style-page.js";
 import { bindWordingsTab } from "./wordings-page.js";
 
@@ -13,12 +12,17 @@ import { bindWordingsTab } from "./wordings-page.js";
  * the URL's inner tab as a real click, and a room bound after it restores to
  * a blank page — CONTROLS was, and did. `main.ts` used to list the five calls
  * itself; the list moved here when WORDINGS took that file over its length
- * limit, and one call is also one fewer place for the sixth room to be added
+ * limit, and one call is also one fewer place for the next room to be added
  * in the wrong order.
+ *
+ * STATES joined this list on 14 September 2026, when WORDINGS became the
+ * sheet's first tab and its default: the room that opens with the sheet is
+ * drawn by `bindStates`'s own `onOpen`, and every other one is drawn here.
+ * GUIDES and SPEC were two of the five and are gone — the owner took both
+ * rooms off the sheet the same day.
  */
 export function bindDocumentationRooms(): void {
-  bindGuidesTab();
-  bindSpecTab();
+  bindStatesTab();
   bindStyleTab();
   bindWordingsTab();
   bindControlSetsTab();

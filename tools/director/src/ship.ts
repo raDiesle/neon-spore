@@ -26,12 +26,13 @@ import {
  * belong beside the one wave being edited. `renderShip` paints the WAVE tab's
  * SHIP card with only what the current wave actually contains — its boss, if
  * it has one, THE GAUGE included, since that is a boss now — and
- * `renderShipSheet` paints DOCUMENTATION's SHIP tab with the ship's own
- * dials, the same on every wave. `renderShipSheet` needs no lazy render or
- * open/close wiring of its own: `main.ts` already calls it every time `cfg`
- * changes (tuning, the pair panel, a demo), so `#shipSheetBody` stays current
- * whether or not that tab is the one on screen, which is why it needs no
- * sheet of its own.
+ * `renderShipSheet` paints the ship's own dials, the same on every wave —
+ * under TUNING's sliders since 14 September 2026, and DOCUMENTATION's SHIP tab
+ * before that. They moved because they are the same `SimConfig` those sliders
+ * write, so they read as what the numbers being moved currently are. It needs
+ * no lazy render or open/close wiring of its own: `main.ts` already calls it
+ * every time `cfg` changes, so `#shipSheetBody` stays current whether or not
+ * the sheet is open.
  */
 
 interface Capability {
@@ -122,7 +123,7 @@ export function renderShip(cfg: SimConfig, wave: Wave | undefined): void {
   for (const group of groups) caps.appendChild(capEl(capability(cfg, group)));
 }
 
-/** DOCUMENTATION's SHIP tab: the ship's own dials, the same on every wave, all of them reachable. */
+/** TUNING's own THE SHIP section: the ship's dials, the same on every wave, all of them reachable. */
 export function renderShipSheet(cfg: SimConfig): void {
   const body = document.getElementById("shipSheetBody");
   if (!body) return;

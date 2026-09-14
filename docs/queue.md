@@ -176,57 +176,37 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## The director loses GUIDES, SPEC and DEMOS; TUNING gets a topbar button
+## `bun run shot` cannot start the director it photographs
 
-- **Found:** 2026-09-14, claude/queued-items-cbcbd8
-- **Taken:** 2026-09-14, claude/queue-the-director-loses-guides-spec-and-demos-tuning
-- **Files:** `tools/director/index.html`, `tools/director/src/documentation-rooms.ts`, `tools/director/src/states-page.ts`, `tools/director/src/guide-sheet.ts`, `tools/director/src/guide-page.ts`, `tools/director/src/guide-gallery.ts`, `tools/director/src/guide-waves.ts`, `tools/director/src/guide-order.ts`, `tools/director/src/spec.ts`, `tools/director/src/docs-api.ts`, `tools/director/src/demo-panel.ts`, `tools/director/src/ship.ts`, `tools/director/src/tuning.ts`, `tools/director/src/main.ts`, `tools/director/test/guide-gallery.test.ts`, `tools/director/test/guide-waves.test.ts`, `tools/director/test/demo-panel.test.ts`, `tools/director/test/sheet.test.ts`
+- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Files:** `tools/frames/shot.ts`, `tools/frames/versus-shot.ts`, `tools/frames/serve.ts`, `tools/frames/shot-usage.ts`, `tools/frames/test/`, `docs/commands.md`
 
-The owner asked for this on 14 September 2026. It is the director, not the
-game, so it is not a look and lands as usual.
+`bun run shot` takes `--port` and expects somebody to already be serving on it.
+Nobody in a cloud session can be: CLAUDE.md forbids starting a server with a
+backgrounded shell command, and `.claude/launch.json` is a person at a desk
+pressing a button. So every lane that changes the director — which is where
+every look is decided — writes the same throwaway to get one picture.
 
-DOCUMENTATION (`#states`, `states-page.ts`) has nine tabs today, in this
-order: STATES, CONTROLS, SHIP, STYLE, WORDINGS, DEMOS, TUNING, GUIDES, SPEC
-(`index.html` ~line 297). What he wants:
+**The piece is already written and is private to one script.**
+`versus-shot.ts` carries a `startDirector()` that spawns `bun run dev:once`,
+reads the port off its own startup line, and kills the process tree on the way
+out, with a paragraph of comment saying why each of those is what it is
+(`Bun.spawn` and not a shell, because on Windows `kill()` reached only the
+shell and left a director holding stdout for two and a half minutes). It then
+shells out to `bun run shot --port`. That is exactly the tool this wants, one
+export away from being one.
 
-- **GUIDES goes.** `bindGuidesTab` in `documentation-rooms.ts`, the
-  `#mech-guides` page, `guide-sheet.ts`, `guide-page.ts`, `guide-gallery.ts`
-  and its test. `guide-waves.ts` and `guide-order.ts` are only reached from
-  those — check with `grep -rl` before deleting; `wave-opening.ts` is
-  imported by `main.ts` and stays.
-- **SPEC goes.** `bindSpecTab`, `#mech-spec`, `spec.ts`. `docs-api.ts`
-  (`DOC_ROUTES`, `readSpecFiles`) is what serves `docs/spec/` to it from
-  `server.ts` and `build.ts`; if nothing else reads those routes after SPEC is
-  gone, they go too, and `build-imports.test.ts` names the file.
-- **DEMOS goes.** `#mech-demos`, `demo-panel.ts`, `bindDemoPanel` in
-  `main.ts` and the `refreshAll` note beside it, `demo-panel.test.ts`. If a
-  demo is reachable by URL (`?sheet=states&inner=demos`) that route goes with
-  it.
-- **TUNING moves out of DOCUMENTATION to the topbar**: a `menu-item` button of
-  its own beside ▣ DOCUMENTATION and ♪ SOUND (`index.html` ~line 48; nine
-  buttons today, and `mobile-menu.ts` makes them the phone's menu). It is the
-  one page that changes the run rather than describing it, which is the
-  reason the HTML comment above `#mech-tuning` already gives for it not
-  belonging under a heading that means *reference*. `mountSheet` in
-  `session.ts` is how a topbar sheet opens; the pair panel, presets and
-  sliders (`tuning.ts`, `main.ts`) move whole.
-- **SHIP merges into that TUNING page.** `renderShipSheet` (`ship.ts`) paints
-  the ship's own dials — AIM, GUARD, HULL, THE BEAT, the same on every wave —
-  read off `SimConfig`; the sliders are tunables of the same `SimConfig`.
-  Put them on one page in a sensible order: the sliders first (they act),
-  then the ship's cards as the reference for the numbers being moved, with a
-  card's fields next to the slider that moves them where one does. The WAVE
-  tab's own SHIP card (`renderShip`) is not this and stays.
-- **WORDINGS is the first tab and the default** of what is left of
-  DOCUMENTATION: STATES, CONTROLS, STYLE, WORDINGS become WORDINGS, STATES,
-  CONTROLS, STYLE, with `class="on"` and `renderStates`'s *default tab*
-  wiring in `states-page.ts` following it (STATES rendered lazily on its own
-  click, the way the other rooms already are).
+What to do: lift `startDirector` into a file of its own beside `serve.ts` —
+which already does the same job for the game's preview and is the obvious
+neighbour — and give `shot.ts` a `--serve` flag that starts one, uses its port
+and stops it, the way `menu-shot.ts` already does for the preview.
+`versus-shot.ts` then imports the same function instead of holding the only
+copy. Nothing about the flags, the crop or the settle changes.
 
-`sheet.test.ts` and `stylesheet-order.test.ts` know the sheets and the tab
-bars; `docs/commands.md` and any `docs/` page that names the GUIDES or SPEC
-tab are updated. Prove it with `bun run check` and one PNG of the new TUNING
-sheet.
+The friction is measurable rather than guessed: this lane wrote the throwaway
+to take the one PNG its queue entry asked for, and the lane before it wrote a
+different one for the game's menu — which became `bun run menu-shot` for the
+same reason.
 
 ## PLAY is a list of partners to continue with, and the room is a step-by-step
 

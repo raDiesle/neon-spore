@@ -1,4 +1,5 @@
 import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
+import { mountSheet } from "./session.js";
 
 /**
  * The numbers a wave is judged against, movable while it plays.
@@ -10,6 +11,17 @@ import { DEFAULT_CONFIG, type SimConfig } from "@neon-spore/sim";
  *
  * The named presets answer decision #10, which wanted a second guard window
  * comparable side by side instead of edited into the source.
+ *
+ * **It is a topbar sheet of its own** (`#tuning`), and has been since the owner
+ * asked for that on 14 September 2026. It was the wave panel's second tab, then
+ * a tab of DOCUMENTATION — where the markup carried a note apologising for a
+ * live control sitting under a heading meaning *reference*. A thing that
+ * changes the run is not a thing that describes it, and the fix for a note
+ * explaining an exception is to stop making the exception. The ship's own
+ * dials came with it (`ship.ts`'s `renderShipSheet`, into `#shipSheetBody`
+ * below the sliders): they are the same `SimConfig` these sliders move, so
+ * they are the reference for the numbers being moved rather than a room of
+ * their own a floor away.
  */
 type NumericKey = {
   [K in keyof SimConfig]: SimConfig[K] extends number ? K : never;
@@ -63,6 +75,7 @@ const BUILT_IN: { name: string; preset: Preset }[] = [
 const STORE_KEY = "neon-spore.director.presets";
 
 export function bindTuning(cfg: SimConfig, onChange: () => void): void {
+  mountTuningSheet();
   const rows = document.getElementById("sliders");
   const bar = document.getElementById("presets");
   const inputs = new Map<NumericKey, HTMLInputElement>();
@@ -135,6 +148,23 @@ export function bindTuning(cfg: SimConfig, onChange: () => void): void {
   };
 
   renderPresets();
+}
+
+/**
+ * The topbar door: open, close, Escape and the URL's `?sheet=tuning`, through
+ * the same `mountSheet` every other overlay uses (`session.ts`).
+ *
+ * No `onOpen`. The sliders, the presets, the pair panel and the ship's cards
+ * are all built or repainted by `main.ts` whenever `cfg` changes, whether or
+ * not this sheet is on screen — so there is nothing left to draw lazily, and a
+ * sheet whose contents are already current is one that opens instantly.
+ */
+function mountTuningSheet(): void {
+  const sheet = document.getElementById("tuning");
+  const open = document.getElementById("tuningOpen");
+  const close = document.getElementById("tuningClose");
+  if (!sheet || !open || !close) return;
+  mountSheet({ name: "tuning", sheet, open, close });
 }
 
 /**

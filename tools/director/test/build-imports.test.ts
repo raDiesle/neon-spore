@@ -33,9 +33,8 @@ describe("nothing but a server imports the server", () => {
     for (const line of docs.match(/^\s*import .*$/gm) ?? []) {
       expect(line).not.toMatch(SERVER_IMPORT);
     }
-    const { DOC_ROUTES, readBorrowedText, readSpecFiles } = await import("../src/docs-api.js");
+    const { DOC_ROUTES, readBorrowedText } = await import("../src/docs-api.js");
     expect((await readBorrowedText()).length).toBeGreaterThan(0);
-    expect((await readSpecFiles()).length).toBeGreaterThan(0);
     // Every whole-document route, not the one this test happens to name: the
     // table is what `build.ts` bakes from, so a route pointing at a file that
     // is no longer there is a build that writes an empty page.

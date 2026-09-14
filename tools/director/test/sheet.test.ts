@@ -45,20 +45,59 @@ describe("the backlog sheet", () => {
   });
 });
 
+const docTabs = (): string[] => {
+  const bar = html.indexOf('id="statesTabs"');
+  return matches(html.slice(bar, html.indexOf("</div>", bar)), /data-tab="([^"]+)"/g);
+};
+
 /**
- * The same disagreement, on the other full-screen sheet. DOCUMENTATION grew a
- * SPEC tab off this one, and a tab whose page is missing fails exactly as
- * quietly there: `bindTabs` switches to `mech-<tab>`, finds nothing, and the
- * sheet goes blank. Derived rather than listed, for the reason above.
+ * The same disagreement, on the other full-screen sheet. A tab whose page is
+ * missing fails exactly as quietly there: `bindTabs` switches to `mech-<tab>`,
+ * finds nothing, and the sheet goes blank. Derived rather than listed, for the
+ * reason above.
  */
 describe("the documentation sheet", () => {
   it("gives every tab a page to switch to", () => {
-    const bar = html.indexOf('id="statesTabs"');
-    const tabs = matches(html.slice(bar, html.indexOf("</div>", bar)), /data-tab="([^"]+)"/g);
-
-    expect(tabs).toContain("spec");
+    const tabs = docTabs();
+    // A run that found no tabs at all would otherwise pass the loop below.
+    expect(tabs).toContain("wordings");
     for (const tab of tabs) {
       expect(html).toMatch(new RegExp(`class="sheetpage[^"]*" id="mech-${tab}"`));
+    }
+  });
+
+  /**
+   * **The tab that starts `on` and the page that starts `on` have to be the
+   * same one**, which is a disagreement no runtime code would ever complain
+   * about: `bindTabs` only acts on a click, so a sheet whose bar highlights
+   * WORDINGS while STATES' page carries the `on` class opens showing one room
+   * under the other room's name until somebody clicks something. There are two
+   * `class="on"` in two places, and the day the owner asked for WORDINGS to
+   * lead — 14 September 2026 — one of them was easy to forget.
+   */
+  it("starts on the same room its bar says it is on", () => {
+    const first = docTabs()[0];
+    expect(html).toMatch(new RegExp(`data-tab="${first}" class="on"`));
+    expect(html).toMatch(new RegExp(`class="sheetpage on" id="mech-${first}"`));
+    expect(matches(html, /class="sheetpage on" id="(mech-[^"]+)"/g)).toHaveLength(1);
+  });
+
+  /**
+   * TUNING left this sheet for a topbar door of its own, because it is the one
+   * page that changes the run rather than describing it. A sheet `mountSheet`
+   * cannot find is a button that does nothing: it returns silently on a missing
+   * element, the same way every other wiring here fails.
+   */
+  it("keeps nothing live under a heading that means reference", () => {
+    expect(docTabs()).not.toContain("tuning");
+    for (const id of ["tuning", "tuningOpen", "tuningClose"]) {
+      expect(html).toContain(`id="${id}"`);
+    }
+    // The sliders, the presets and the ship's dials, all inside that sheet
+    // rather than left behind in this one.
+    const body = html.slice(html.indexOf('<div id="tuningBody">'), html.indexOf('id="soundboard"'));
+    for (const id of ["sliders", "presets", "shipSheetBody"]) {
+      expect(body).toContain(`id="${id}"`);
     }
   });
 });

@@ -159,52 +159,6 @@
   margin: 6px 0 0;
 }
 
-/* DEMOS. A tab of GAME MECHANICS now, not its own sheet — the shell
-   above already gives it the scroll and the padding; this is only what
-   its own rows need. A mechanic whose named wave has gone missing
-   turns its row the same red an orphan gets, since both are a registry
-   claiming something the catalogue no longer has. */
-#demosBody {
-  max-width: 700px;
-}
-.demo {
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 8px 10px;
-  margin: 0 0 12px;
-}
-.demo.broken {
-  border-color: var(--red);
-}
-.demo-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.demo-head .mark {
-  color: var(--gold);
-}
-.demo.broken .demo-head .mark {
-  color: var(--red);
-}
-.demo-head .id {
-  flex: 1 1 auto;
-  letter-spacing: 2px;
-  font-size: 1rem;
-  color: var(--ink);
-}
-.demo .wave {
-  color: var(--dim);
-  font-size: 0.875rem;
-  margin: 6px 0 0;
-}
-.demo .what {
-  font-size: 0.95rem;
-  margin: 4px 0 0;
-}
-.demo.broken .what {
-  color: var(--red);
-}
 .orphan .fix {
   color: var(--cyan);
   font-size: 0.875rem;

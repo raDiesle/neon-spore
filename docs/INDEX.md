@@ -1307,7 +1307,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/columns.ts` | Every top-level column in the director's `<main>` can be put away as one unit |
 | `tools/director/src/concept-art.ts` | The picture beside a planned concept |
 | `tools/director/src/controlsets-page.ts` | CONTROLS: every registered panel, drawn, plus the things the pair touches on the field itself |
-| `tools/director/src/demo-panel.ts` | DEMOS — one wave and one set of switches per mechanic, opened in one click |
 | `tools/director/src/docs-api.ts` | The GET routes that only read a document off disk — `docs/borrowed.md` and the spec directory |
 | `tools/director/src/documentation-rooms.ts` | DOCUMENTATION's lazy rooms, bound in one place |
 | `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
@@ -1323,11 +1322,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/glows/trail.ts` | A luminous tail that lingers behind the body as it moves |
 | `tools/director/src/glows/types.ts` | What a glow is, and what it is told |
 | `tools/director/src/guide-fields.ts` | The GUIDE section `rail.ts` shows directly under SENTENCE: the three lines a wave's guide is made of |
-| `tools/director/src/guide-gallery.ts` | Every guide in the game, drawn in both roles side by side |
-| `tools/director/src/guide-order.ts` | How one wave opens, drawn in order: the introduction, then its guide |
-| `tools/director/src/guide-page.ts` | The two review pictures a finished guide is put to, appended under DOCUMENTATION's GUIDES list |
-| `tools/director/src/guide-sheet.ts` | GUIDES: every wave that carries a guide, in the order a pair plays them |
-| `tools/director/src/guide-waves.ts` | Which waves carry a guide, and a world posed at the moment one opens |
 | `tools/director/src/hits/dim.ts` | The body simply goes dark for a beat |
 | `tools/director/src/hits/flash.ts` | One bright frame, then gone |
 | `tools/director/src/hits/ring.ts` | A circle leaving the body and fading — the shockwave |
@@ -1396,7 +1390,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/shapes-trigger.ts` | The page's hit clock: when the next one lands, and where in it we are |
 | `tools/director/src/shapes-widgets.ts` | The two things every control row is built out of: a button, and a named group around a row of them |
 | `tools/director/src/ship-fields.ts` | Every `SimConfig` field, sorted into the card that explains it to a person standing at the ship |
-| `tools/director/src/ship-groups.ts` | The cards the SHIP tab is divided into: their names, the order they are read in |
+| `tools/director/src/ship-groups.ts` | The cards the ship's dials are divided into: their names, the order they are read in |
 | `tools/director/src/shipped.ts` | The two things the *build* decides about the director, rather than the session running it |
 | `tools/director/src/silhouette.ts` | Case-insensitive: callers pass a creature's spec name, not a SUBJECTS key |
 | `tools/director/src/skin-still.ts` | One card, drawn at one moment, as a string |
@@ -1430,7 +1424,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/skins/wind.ts` | WIND — the same turning body, but the phase varies along it |
 | `tools/director/src/skins/wrinkle.ts` | WRINKLE — meridians of fold that come up across the body on the beat and smooth away again |
 | `tools/director/src/snake-editor.ts` | SNAKE's arena, edited on the grid the pair will play it on |
-| `tools/director/src/spec.ts` | The SPEC tab of DOCUMENTATION: every file in `docs/spec/` verbatim, one expander each |
 | `tools/director/src/stage-afterrun.ts` | The after-run screen honours its own instruction |
 | `tools/director/src/stage-gauge.ts` | A ROUND THAT IS NOT THE FIELD ANSWERS A MOUSE |
 | `tools/director/src/stage-handle.ts` | The handle headless checks drive the stage through |
@@ -1440,7 +1433,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-snake.ts` | SNAKE'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
 | `tools/director/src/stage-transport.ts` | The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches |
 | `tools/director/src/state.ts` | The edits and the questions moved out when this file went over the line limit |
-| `tools/director/src/states-page.ts` | DOCUMENTATION: the topbar's reference doors — STATES, CONTROL SETS, SHIP, DEMOS, GUIDES and SPEC |
+| `tools/director/src/states-page.ts` | DOCUMENTATION: the four reference rooms in one full-screen sheet, and the sheet's own wiring |
 | `tools/director/src/subcols.ts` | A finer-grained collapse than `columns.ts`'s whole-section one |
 | `tools/director/src/svg-dom.ts` | The smallest document a skin can be built into, outside a browser |
 | `tools/director/src/tabs.ts` | Buttons carrying `data-tab`, pages with the matching `<prefix><name>` id |

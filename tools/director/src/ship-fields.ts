@@ -9,7 +9,7 @@ import type { SimConfig } from "@neon-spore/sim";
  * TypeScript requires every key of `SimConfig` to appear here, so a field
  * added to the interface and left out of this object is a compile error
  * rather than a mechanic that landed and stayed invisible. `ship.ts` reads
- * this to build the SHIP tab; `packages/sim/src/briefing.ts`'s closed list
+ * this to build TUNING's ship cards; `packages/sim/src/briefing.ts`'s closed list
  * over creature kinds is the same idea against a union instead of an object.
  */
 

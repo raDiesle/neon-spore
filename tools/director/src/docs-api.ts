@@ -1,7 +1,10 @@
 /**
- * The GET routes that only read a document off disk — `docs/borrowed.md` and
- * the spec directory — split out of `server.ts` the same way `backlog-api.ts`
- * and `notes-api.ts` were, and for a sharper reason than tidiness.
+ * The GET routes that only read a document off disk — the two studies of
+ * games that are not this one — split out of `server.ts` the same way
+ * `backlog-api.ts` and `notes-api.ts` were, and for a sharper reason than
+ * tidiness. `docs/spec/` was read here too, whole, for the sheet's own SPEC
+ * room; the owner took that room off on 14 September 2026 and the reader went
+ * with the page it was the only reader for.
  *
  * `build.ts` bakes these same answers into `dist/api/`, so it needs the
  * readers. It used to import them from `server.ts`, and importing that file
@@ -15,10 +18,6 @@
  * it. Nothing outside a server may import `server.ts`.
  */
 
-import { readdir } from "node:fs/promises";
-import { join } from "node:path";
-
-const specDir = new URL("../../../docs/spec/", import.meta.url);
 const borrowedFile = new URL("../../../docs/borrowed.md", import.meta.url);
 const partyGamesFile = new URL("../../../docs/party-games.md", import.meta.url);
 
@@ -62,12 +61,3 @@ export const DOC_ROUTES: Record<string, () => Promise<string>> = {
   "/api/borrowed": readBorrowedText,
   "/api/party-games": readPartyGamesText,
 };
-
-/** Every spec file, verbatim. */
-export async function readSpecFiles(): Promise<{ name: string; text: string }[]> {
-  const dir = Bun.fileURLToPath(specDir);
-  const names = (await readdir(dir)).filter((n) => n.endsWith(".md")).sort();
-  return await Promise.all(
-    names.map(async (name) => ({ name, text: await Bun.file(join(dir, name)).text() })),
-  );
-}

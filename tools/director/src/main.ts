@@ -7,7 +7,6 @@ import { jumpWaveIndex } from "./brush-wave.js";
 import { bindCellPanel, type CellPanel } from "./cell-panel.js";
 import { initColumnResize } from "./column-resize.js";
 import { initColumns } from "./columns.js";
-import { bindDemoPanel } from "./demo-panel.js";
 import { bindDocumentationRooms } from "./documentation-rooms.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { makeHeld } from "./held.js";
@@ -31,7 +30,7 @@ import {
   refuse,
   type Store,
 } from "./state.js";
-import { bindStates, closeMechanicsSheet } from "./states-page.js";
+import { bindStates } from "./states-page.js";
 import { initSubcols } from "./subcols.js";
 import { bindExpanders, bindTabs } from "./tabs.js";
 import { bindTuning } from "./tuning.js";
@@ -120,28 +119,17 @@ bindTuning(cfg, () => {
   renderShipSheet(cfg);
   stage.rebuild();
 });
-// The pair's own switches plus the cannon's wind-up — see `pair-panel.ts`.
-const pair = bindPairPanel(cfg, () => {
+// The pair's own switches plus the cannon's wind-up — see `pair-panel.ts`. Its
+// `render` was for DEMOS, which flipped `cfg` from outside this file; nothing
+// does that now that the room is gone, so the panel paints itself and nobody
+// has to ask it to.
+bindPairPanel(cfg, () => {
   renderShip(cfg, currentWave(store));
   renderShipSheet(cfg);
   stage.rebuild();
 });
 renderShip(cfg, currentWave(store));
 renderShipSheet(cfg);
-// One wave and one set of switches per mechanic — see `demo-panel.ts`.
-// `refreshAll` is what every other jump to a wave runs through; `pair.render`
-// and `renderShip` follow because a demo flips `cfg` from outside their files.
-bindDemoPanel(
-  store,
-  cfg,
-  () => {
-    refreshAll();
-    pair.render();
-    renderShip(cfg, currentWave(store));
-    renderShipSheet(cfg);
-  },
-  closeMechanicsSheet,
-);
 // DOCUMENTATION's lazy rooms, all bound before `bindStates` below — see
 // `documentation-rooms.ts` for why the order matters.
 bindDocumentationRooms();

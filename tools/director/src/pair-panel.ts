@@ -27,12 +27,12 @@ import type { SimConfig } from "@neon-spore/sim";
  * belongs to that slider now, not to this panel.
  *
  * One instance, global, the same as `bindTuning` — `cfg` is the run the stage
- * is playing, not a property of one panel, and there is exactly one stage.
- * `render()` exists because this is no longer the only writer of `cfg`'s
- * switch: `demo-panel.ts` sets it too, straight from `DEMONSTRATIONS`, and a
- * button painted once at `bindPairPanel` time would go on showing whatever it
- * opened with. `main.ts` calls it after every demo, the same way it already
- * calls `renderShip`.
+ * is playing, not a property of one panel, and there is exactly one stage. It
+ * returned a `render()` while it was not the only writer of `cfg`'s switch:
+ * DEMOS set it too, straight from `DEMONSTRATIONS`, and a button painted once
+ * at `bindPairPanel` time would have gone on showing whatever it opened with.
+ * The owner took DEMOS off the director on 14 September 2026 and this is the
+ * only writer again, so the repaint went with its one caller.
  *
  * `#briefToggle` (a plain `<button>` in `index.html`'s `.transport`) is bound
  * directly rather than through a checkbox row, because the owner asked for it
@@ -45,11 +45,7 @@ import type { SimConfig } from "@neon-spore/sim";
  * through the one that is up right now and puts it away. Merging them would
  * mean turning briefings on had no way to get the first card off the stage.
  */
-export interface PairPanel {
-  render(): void;
-}
-
-export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
+export function bindPairPanel(cfg: SimConfig, onChange: () => void): void {
   const briefButton = document.getElementById("briefToggle");
 
   briefButton?.classList.toggle("on", cfg.briefings);
@@ -58,12 +54,4 @@ export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
     briefButton.classList.toggle("on", cfg.briefings);
     onChange();
   });
-
-  return {
-    render: () => {
-      // `demo-panel.ts` sets `cfg.briefings` from outside this file, the same
-      // reason `render()` exists at all — see the class doc above.
-      briefButton?.classList.toggle("on", cfg.briefings);
-    },
-  };
 }

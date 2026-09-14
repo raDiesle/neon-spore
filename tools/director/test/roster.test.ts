@@ -115,7 +115,7 @@ wrapped like the spec wraps them.
 **The torch is a rock**, and no row in this table — so it belongs to nobody,
 and neither does what follows it.
 
-Loose prose, of the kind the SPEC tab exists for.
+Loose prose, of the kind that belongs to the file rather than to an entry.
 
 ## 10.2 Newly accepted
 

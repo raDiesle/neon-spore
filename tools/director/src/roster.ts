@@ -60,7 +60,7 @@ export interface Roster {
  *
  * A lead that names nothing in this table (the torch's, which is a rock and
  * not one of the thirteen) ends the run rather than sticking to the row
- * before it. Loose prose belongs to the file, and the SPEC tab has the file.
+ * before it. Loose prose belongs to the file, and the file is in `docs/spec/`.
  */
 function attachDetails(bestiary: string, headingEnd: string, rows: Planned[]): void {
   let owner: Planned | undefined;

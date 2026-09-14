@@ -176,7 +176,13 @@ function glossarySection(): HTMLElement {
 
 let drawn = false;
 
-function renderWordings(): void {
+/**
+ * Drawn on the first click of its own tab — and, since 14 September 2026, on
+ * the sheet opening at all: WORDINGS is DOCUMENTATION's first tab and its
+ * default, so `bindStates`'s `onOpen` calls this the way it used to call
+ * `renderStates`. Guarded, so the two paths cannot draw it twice.
+ */
+export function renderWordings(): void {
   if (drawn) return;
   const body = document.getElementById("wordingsBody");
   if (!body) return;

@@ -180,21 +180,6 @@
   max-width: 700px;
 }
 
-/* CARDS: every briefing card, grouped by the wave that first raises it
-   — the documented half of what NOT BUILT YET's own CARDS tab now
-   calls a proposal (`guide-page.ts`). A tab of GAME MECHANICS now
-   (`#mech-guides`, in `#statesBody`) rather than a sheet of its own —
-   one fewer topbar button. `.scenes`/`.scene`/`.note` are the same
-   classes the backlog's own scene frames already use, so a wave's
-   group of cards needs only its own heading style. */
-.card-wave-head {
-  color: var(--cyan);
-  font-size: 0.875rem;
-  letter-spacing: 2px;
-  margin: 0 0 8px;
-  font-weight: 400;
-}
-
 /* BULB QUEEN VARIANTS: the torch-only holder drafts and the whole-body
    drafts below them, each a canvas on the page's own beat. A row
    rather than the backlog's column, because the whole question is a

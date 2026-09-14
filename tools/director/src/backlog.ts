@@ -7,7 +7,7 @@
  * question the page exists to answer: *what is there left to build, and what
  * could it be made of.* So a creature idea sits with the creatures whether it
  * was written in `bestiary.md` or in `ideas.md`, and anything the simulation
- * already has is not here at all — see the brush palette and the SHIP tab.
+ * already has is not here at all — see the brush palette and TUNING's ship cards.
  *
  * Nothing is classified twice. Which section an idea belongs to is a `###`
  * heading in `docs/spec/ideas.md`, so moving one is an edit to the spec.

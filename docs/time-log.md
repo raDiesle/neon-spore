@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — the director loses three rooms and TUNING gets a door
+
+DOCUMENTATION is four rooms and every one of them is reference: WORDINGS
+leading, then STATES, CONTROLS, STYLE. GUIDES, SPEC and DEMOS are gone with
+their ten files, their `/api/spec` route and its reader, and the dead CSS
+underneath them. TUNING left for a topbar button of its own and took the
+ship's dials with it — they are the same `SimConfig` its sliders write, so
+they read under the sliders as what the numbers being moved currently are.
+The markup above `#mech-tuning` had carried a note apologising for a live
+control sitting under a heading meaning *reference*; the fix for a note
+explaining an exception is to stop making the exception.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the sheet's markup and its nine tabs, who imports each guide file and whether `guide-waves`/`guide-order` are reached from anywhere else, what `DOC_ROUTES` actually holds (the two studies, not the spec), `mountSheet`, and the lazy-room ordering rule |
+| writing | 45 | five pages cut out of the markup, the new sheet built from two of them, ten files deleted, the route and its reader, the rooms rewired with STATES made lazy and WORDINGS eager, the CSS shell shared rather than copied, three cases in `sheet.test.ts` |
+| looking | 20 | the new TUNING sheet and the reopened DOCUMENTATION, which is how the empty `#pairPanel` was found — a div with nothing in it under a heading, for as long as the section had existed |
+| friction | 10 | nothing can photograph the director without a server somebody else started, and the piece that starts one is private to `versus-shot.ts`; a throwaway copy of it took the two pictures — queued |
+| landing | 20 | `check:fast`, the full `check`, the commit |
+
+The bottleneck was writing, and the reason is worth naming: a removal is only
+as small as the number of files that mention the thing removed, and eight of
+the fifteen edits here were a doc comment or an index row saying *the SHIP tab*
+about something that is no longer a tab.
+
 ## 2026-09-14 — queue-tasks — a tool that photographs a page of the menu
 
 The finding the last lane wrote, done in the same sitting because the three

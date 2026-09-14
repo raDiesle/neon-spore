@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
 import { buildDateToday } from "../build-stamp.js";
 import { backlogState } from "./src/backlog-api.js";
-import { DOC_ROUTES, readSpecFiles } from "./src/docs-api.js";
+import { DOC_ROUTES } from "./src/docs-api.js";
 import { notesState } from "./src/notes-api.js";
 
 /**
@@ -87,7 +87,6 @@ await Promise.all([
   ...Object.entries(DOC_ROUTES).map(async ([path, read]) =>
     bake(path.slice(1), JSON.stringify({ text: await read() })),
   ),
-  bake("api/spec", JSON.stringify({ files: await readSpecFiles() })),
   bake(
     "__director",
     JSON.stringify({
