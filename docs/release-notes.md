@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 4e3bd336 — THE LEAK gets a rehearsal: the ring that does not close, and the lift that fires
+
+The wave shipped with the three strings, which is the sixth guide to do so. Prose can say *the lobe fills nothing*, and what a pair has to see is two pictures a sentence turns into one: a ring that does not close under a thumb that is not moving, and then that same thumb lifting with an ordinary bolt going out. Read as one, that is a dead trigger. Watched in that order, it is a lost weapon on a panel where every button still works, which is the wave.
+
 ## 2026-09-14 · 7cda16b6 — A capture reaches the preview and nobody else: the frame tests go 280s to 31s
 
 The queue entry left an open question — whether the built game's refused connections to Google were any of `test/opening.test.ts`'s four minutes forty, or whether the file simply costs that on this machine. Measured on both sides, three times: 280 s as it stood, 55 s with the requests refused at the browser, 31 s with the menu's face out of the bundle as well. Nearly all of it, and the two preconnects were worth about as much again as the stylesheet they were for.
