@@ -115,7 +115,10 @@ describe("a button that hangs up on somebody else", () => {
 });
 
 const join = await Bun.file(Bun.fileURLToPath(new URL("../src/join.ts", import.meta.url))).text();
-const menu = await Bun.file(Bun.fileURLToPath(new URL("../src/menu.ts", import.meta.url))).text();
+// The menu's questions are bound beside it (`menu-steps.ts`), not in `menu.ts`.
+const menu = await Bun.file(
+  Bun.fileURLToPath(new URL("../src/menu-steps.ts", import.meta.url)),
+).text();
 const hold = await Bun.file(Bun.fileURLToPath(new URL("../src/hold.ts", import.meta.url))).text();
 
 describe("both doors a player presses while the game is fine", () => {

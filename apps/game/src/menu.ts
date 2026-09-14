@@ -1,7 +1,5 @@
 import type { MechanicId } from "@neon-spore/content";
 import type { LinkStatus } from "@neon-spore/net";
-import { DIFFICULTIES } from "@neon-spore/sim";
-import { bindTwoStep, type TwoStep } from "./confirm.js";
 import type { MainMenu, MenuBindings } from "./menu-bindings.js";
 import {
   type EntryActions,
@@ -12,6 +10,7 @@ import {
 } from "./menu-entries.js";
 import { inRoom as linkIsRoom, paintLink as paintPage } from "./menu-link.js";
 import type { MenuPage } from "./menu-parts.js";
+import { bindMenuSteps } from "./menu-steps.js";
 import { buildMenu } from "./menu-view.js";
 import { readName } from "./nickname.js";
 import { readPartners, roomForPair } from "./pairing.js";
@@ -20,9 +19,9 @@ import { readProgress } from "./progress.js";
 export type { MainMenu, MenuBindings } from "./menu-bindings.js";
 /**
  * The main menu, and the way in: the pages, the link, the seat and the two-step
- * in front of LEAVE ROOM. Whether a URL lands here at all is one question with
- * no DOM in it and lives next door (`menu-door.ts`), re-exported so nothing that
- * asked this file for it had to move.
+ * in front of LEAVE ROOM (`menu-steps.ts`). Whether a URL lands here at all is
+ * one question with no DOM in it and lives next door (`menu-door.ts`),
+ * re-exported so nothing that asked this file for it had to move.
  *
  * **The front page is four rows** (`menu-entries.ts`): PLAY, HOW TO PLAY,
  * SETTINGS and, while there is a room, LEAVE ROOM. The rig is behind the spore,
@@ -58,16 +57,8 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
    */
   const broken = (): boolean => link?.state === "desync";
 
-  /**
-   * LEAVE ROOM's question, once the page it sits on exists. Held here because
-   * every way off this page puts it away again: a question that outlives the
-   * screen it was asked on is a yes waiting to be pressed by accident.
-   */
-  let leaveStep: TwoStep | undefined;
-
   const close = (): void => {
-    leaveStep?.cancel();
-    for (const step of levelSteps) step.cancel();
+    steps.cancel();
     dom.root.classList.remove("on");
     document.body.classList.remove("menu-open");
     if (chip) chip.textContent = "☰";
@@ -169,9 +160,6 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     },
   });
 
-  // LEAVE ROOM drops the other player's game, so it asks in place first. Both
-  // doors to it get the same two-step; the hold card's own LEAVE ROOM does
-  // not, because that one answers a line that is already broken.
   /**
    * The room this device shares with the partner it played with last, or ""
    * when there is nobody to share one with yet. Derived rather than stored —
@@ -183,31 +171,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     return mine && theirs ? roomForPair(mine, theirs) : "";
   };
 
-  const leaveEntry = dom.entryRoot("leave");
-  if (leaveEntry) {
-    leaveStep = bindTwoStep(leaveEntry, "LEAVE", () => {
-      b.leaveRoom();
-      dom.show("root");
-    });
-  }
-
-  /**
-   * The three difficulties, each behind the question LEAVE ROOM is behind:
-   * changing the level takes the run back to the first wave (`progress.ts`), so
-   * a row that acted on one press would be a wave count lost to a thumb landing
-   * while the page was still arriving.
-   */
-  const levelSteps: TwoStep[] = [];
-  for (const level of DIFFICULTIES) {
-    const row = dom.entryRoot(level);
-    if (!row) continue;
-    levelSteps.push(
-      bindTwoStep(row, "START AGAIN", () => {
-        if (level !== b.level()) b.setLevel(level);
-        dom.show("play");
-      }),
-    );
-  }
+  const steps = bindMenuSteps(dom, b);
 
   /**
    * The page, repainted for whatever the link now says (`menu-link.ts`). The
@@ -217,7 +181,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
    */
   const paintLink = (): void => {
     paintPage({ dom, link, pairRoom: pairRoom(), opened, wave: b.wave() });
-    if (!inRoom()) leaveStep?.cancel();
+    if (!inRoom()) steps.cancelLeave();
   };
 
   document.body.classList.add("has-menu");

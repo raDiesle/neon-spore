@@ -1180,6 +1180,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-link.ts` | what a link changes on the front page: eight entries, the progress line, the seat lock |
 | `apps/game/src/menu-seats.ts` | the seat, as three cards with the job written on each, and the lock a room puts on them |
 | `apps/game/src/menu-sign-in.ts` | The settings row that makes a name survive the phone |
+| `apps/game/src/menu-steps.ts` | the questions the menu asks in place — LEAVE ROOM's and the one in front of each difficulty — and the two moments they are put away again |
 | `apps/game/src/keys-guide.ts` | What a key means while a wave's guide is up, at a desk |
 | `apps/game/src/intro.ts` | THE SIX PAGES A PAIR SEES BEFORE THEY HAVE CHOSEN ANYTHING |
 | `apps/game/src/frame.ts` | WHAT HAPPENS EVERY TICK, AND WHAT HAPPENS EVERY FRAME |

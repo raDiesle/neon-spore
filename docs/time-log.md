@@ -4130,3 +4130,23 @@ identical before and after for form.
 | landing | 5 |
 
 Bottleneck: landing — the render suite; the slice was off by the length of one doc block until the edges were read off `grep -n` rather than counted.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `menu.ts` is at the limit: the questions it asks in place are a second subject
+
+The menu's closure bound the four two-step questions — LEAVE ROOM's and the
+three difficulties' — in the middle of opening, closing and wiring CONTINUE.
+The binding moved to `menu-steps.ts` as one `bindMenuSteps(dom, b)` handing
+back `cancel` and `cancelLeave`, which `close` and `paintLink` call. Two
+tests read `menu.ts`'s source for the two-steps — `menu-front.test.ts` for
+START AGAIN and `confirm.test.ts` for the menu asking at all — and read the
+new file now; the first still reads `menu.ts` for CONTINUE.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 5 |
+| landing | 5 |
+
+Bottleneck: friction — two tests grep the source of `menu.ts` and had to be found by running them, not by the typecheck.

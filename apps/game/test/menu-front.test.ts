@@ -78,11 +78,11 @@ describe("the three difficulties", () => {
 
   it("act on nothing by themselves: the question in front of them does", () => {
     // Changing the level takes the run back to the first wave, so each row is
-    // behind the two-step LEAVE ROOM is behind (`menu.ts`, `confirm.ts`).
+    // behind the two-step LEAVE ROOM is behind (`menu-steps.ts`, `confirm.ts`).
     const ran: string[] = [];
     for (const row of levels) row.run();
     expect(ran).toEqual([]);
-    expect(menu).toContain('bindTwoStep(row, "START AGAIN"');
+    expect(steps).toContain('bindTwoStep(row, "START AGAIN"');
   });
 
   it("say which one the run is on, and what it means", () => {
@@ -190,6 +190,9 @@ describe("CONTINUE", () => {
 
 const shell = await Bun.file(Bun.fileURLToPath(new URL("../src/shell.ts", import.meta.url))).text();
 const menu = await Bun.file(Bun.fileURLToPath(new URL("../src/menu.ts", import.meta.url))).text();
+const steps = await Bun.file(
+  Bun.fileURLToPath(new URL("../src/menu-steps.ts", import.meta.url)),
+).text();
 
 describe("what a parted run does to the two phones", () => {
   it("brings the menu up on the PLAY page, on the edge and not on the state", () => {
