@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 5ea471ee — `spawn.ts` steps back from its limit so the next creature can enter
+
+The per-kind spread of fields a body arrives with — the dart's aim, the veil's contents, the fence's gaps, the balloon's heading — is `kindFieldsOnSpawn` in `spawn-fields.ts`, in the order it always evaluated, so the rolls come off `world.rng` where they did before; the three arrivals that bring bodies with them (gyre, strand, crawler) are `companionsOnSpawn` in `spawn-companions.ts`. `spawn.ts` keeps the arrival itself and is 123 lines instead of 250. A fingerprint of all 71 shipped waves at 60 beats is identical before and after. A refactor, not a look.
+
 ## 2026-09-14 · 01e75ff4 — The guard refuses a heredoc body the Bash tool would rewrite
 
 The Bash tool halves every doubled backslash in a heredoc body before the shell reads it, quoted delimiter or not — a JavaScript string, a Python bytes literal or a regex written that way came out with half its escapes, and eight time-log entries since 3 September paid the same forty minutes finding out. `tools/hooks/heredoc.ts` reads each body with `shell-words.ts`'s own delimiter scanners, now exported, and refuses one carrying two backslashes with the two ways that work: the Write or Edit tool, or Python with `chr(92)`. Bash only; a single backslash, a herestring and a PowerShell here-string are left alone.
