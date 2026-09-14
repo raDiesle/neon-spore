@@ -176,36 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `bun run menu-shot` is a phone-sized desk, not a phone
-
-- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-14, claude/queue-bun-run-menu-shot-is-a-phone-sized-desk-not-a-ph
-- **Files:** `tools/frames/menu-shot.ts`, `tools/frames/test/menu-trail.test.ts`, `apps/game/src/at-a-desk.ts`, `docs/commands.md`
-
-It opens a 390x844 viewport, which is the right *size*, and a plain desktop
-context, which is the wrong *pointer*: headless Chromium reports
-`pointer: fine` and `hover: hover` whatever the window is. So anything the app
-decides by `atADesk()` — the menu's CONTROLS row, the keyboard hint, the splash
-trail — photographs in its desk form under a picture that reads as a phone.
-
-Found the day the CONTROLS row became desk-only (14 September 2026): the
-capture showed the row a phone will not have, and there was no way to take the
-picture that would have proved it. The unit tests held the behaviour; the tool
-could not show it.
-
-The fix is two options on the context — `hasTouch: true` and `isMobile: true`,
-which is what makes Chromium answer `pointer: coarse` — and the question is
-which way round the default goes. **It should be the phone**: this tool exists
-to photograph the game's menu, the menu is portrait mobile web, and a desk is
-the exception. So default to touch and add `--desk` for the case where the desk
-form is the thing being judged, with one line in the usage and one in
-`docs/commands.md`.
-
-Worth checking while there: `isMobile` also turns on a mobile viewport meta
-behaviour, so compare one before-and-after of the same page to be sure nothing
-about the layout moves — if it does, `hasTouch` alone may be the whole of what
-is wanted.
-
 ## PLAY is a list of partners to continue with, and the room is a step-by-step
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8

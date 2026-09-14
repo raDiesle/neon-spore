@@ -22,6 +22,40 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — `bun run menu-shot` opens a phone, not a phone-sized desk
+
+The finding the CONTROLS lane wrote an hour earlier, and the one it could not
+work around: the tool opened a 390x844 viewport, which is the right size, in a
+plain desktop context, which is the wrong pointer. Headless Chromium answers
+`pointer: fine` and `hover: hover` at any width, so everything the app decides
+by `atADesk()` photographed in its desk form under a picture that read as a
+phone.
+
+Two options on the context — `hasTouch` and `isMobile` — and the question the
+entry left open was which way round the default goes. The phone, because that
+is what the menu is: `--desk` is the exception's flag. The decision is
+`menu-device.ts` rather than two words inline, for the reason the test says —
+the failure has no symptom, so the only thing that would have caught it is a
+row quietly present in a picture taken to prove it absent.
+
+The entry asked for one before-and-after of the same page, in case `isMobile`'s
+viewport-meta behaviour moved the layout. It moves nothing here: `innerWidth`,
+`innerHeight`, `devicePixelRatio` and `#menu`'s box are identical in both
+contexts, and every SETTINGS row keeps its x and its size. The only difference
+is the CONTROLS row, which is the behaviour under test.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, the tool, `at-a-desk.ts` and its test, and how `shot-flags.ts` splits reading a command line from using it |
+| writing | 15 | `menu-device.ts` and its five cases, the flag, the usage line, the line that now says which device the picture is of |
+| looking | 15 | SETTINGS as both, and then a probe that asked the page the two media queries and read back every row's box, because two PNGs of a breathing spore cannot be diffed |
+| friction | 0 | none — the browser came up first time and the preview was already built |
+| landing | 10 | `check:fast`, the commit, `land` |
+
+The bottleneck was looking, and it was the right place for it: the whole entry
+is about a picture that lied, so the proof had to be geometry read off the page
+rather than a second picture to squint at.
+
 ## 2026-09-14 — queue-tasks — CONTROLS is a desk door, and stops teaching the rig
 
 The owner's fourth ask of the day. SETTINGS offers CONTROLS only where there is

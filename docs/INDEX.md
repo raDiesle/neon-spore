@@ -1736,6 +1736,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/versus-element.ts` | What `versus:shot --at` is measured against: the window the pose cuts, not the stage |
 | `tools/frames/menu-shot.ts` | `bun run menu-shot <out.png> [--page "SETTINGS > CONTROLS"]` — a page of the game's menu, off a preview it starts itself |
 | `tools/frames/menu-trail.ts` | WHICH PAGE OF THE MENU A PICTURE IS OF, read off one flag |
+| `tools/frames/menu-device.ts` | WHAT KIND OF DEVICE THE MENU IS PHOTOGRAPHED AS — a thumb by default, a mouse only when asked |
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |

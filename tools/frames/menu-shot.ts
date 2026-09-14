@@ -2,8 +2,8 @@
 
 /**
  * `bun run menu-shot <out.png> [--page "SETTINGS > CONTROLS"] [--size 390x844]
- * [--scale 2] [--wait 600] [--port 4173] [--element "#menu"]` — photograph a
- * page of the **game's menu**.
+ * [--scale 2] [--wait 600] [--port 4173] [--element "#menu"] [--desk]` —
+ * photograph a page of the **game's menu**.
  *
  * Three tools took a picture and none of them could take this one. `bun run
  * frames <sha>` drives the field through `window.neonSpore` and photographs
@@ -28,6 +28,11 @@
  * that went stale would put the scene back and the failure would look like a
  * broken selector.
  *
+ * **And as a phone rather than as a desk.** A viewport is a size; the pointer
+ * is a separate pair of context options, and without them headless Chromium
+ * reports a mouse at any width. `menu-device.ts` carries that decision and the
+ * argument for which way round its default goes.
+ *
  * It waits for `#menu.on` and not for `#menu`: the element is in the document
  * from the first paint and hidden until the menu opens.
  */
@@ -35,6 +40,7 @@
 import { INTRO_KEY, INTRO_VERSION } from "../../apps/game/src/intro.js";
 import { closeBrowser, launchBrowser } from "./browser.js";
 import { root } from "./exec.js";
+import { menuDevice } from "./menu-device.js";
 import { noSuchButton, parseTrail } from "./menu-trail.js";
 import { startPreview } from "./serve.js";
 
@@ -72,6 +78,8 @@ const settle = Number(flag("wait") ?? 600);
 /** What is photographed. `#menu` is the whole of it; a caller judging one row
  * can say `.entry`, `.seat-card` or anything else the page carries. */
 const element = flag("element") ?? "#menu";
+/** A thumb or a mouse — `menu-device.ts` has the argument. */
+const device = menuDevice(args);
 const port = flag("port");
 
 const preview = port
@@ -82,6 +90,7 @@ try {
   const context = await browser.newContext({
     viewport: { width: vw || 390, height: vh || 844 },
     deviceScaleFactor: scale,
+    ...device,
   });
   // Before the first navigation, so the bundle reads it on the way up rather
   // than after the scene has already started.
@@ -119,7 +128,10 @@ try {
     process.exit(4);
   }
   await target.first().screenshot({ path: out });
-  console.log(`wrote ${out} — ${flag("page") ?? "the front page"}, ${vw}x${vh} at ${scale}x`);
+  const asWhat = device.hasTouch ? "a phone" : "a desk";
+  console.log(
+    `wrote ${out} — ${flag("page") ?? "the front page"}, ${vw}x${vh} at ${scale}x, as ${asWhat}`,
+  );
 } finally {
   await closeBrowser(browser);
   await preview.stop();
@@ -175,6 +187,7 @@ function usage(): never {
   console.error("       --scale is the device scale factor, default 2");
   console.error("       --wait is milliseconds to settle before the shot, default 600");
   console.error("       --element is what is photographed inside it, default #menu");
+  console.error("       --desk photographs it as a mouse and a keyboard; the default is a thumb");
   console.error("       --port attaches to a preview already running instead of starting one");
   process.exit(1);
 }

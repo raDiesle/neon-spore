@@ -85,6 +85,7 @@ bun run shot <#sel> <out.png>          # one element of the running director
                        #   --serve starts one of its own and stops it; --port uses one that is up
 bun run menu-shot <out.png>            # a page of the game's menu — starts its own preview
                        #   --page "SETTINGS > CONTROLS" is the words a thumb would press
+                       #   photographs as a phone; --desk for the rows only a mouse is offered
 bun run versus:shot <slot> <name>      # one PNG of one VERSUS candidate
 bun run png <in.svg> <out.png>         # rasterise a sheet
 bun run crop           # a rectangle of a PNG already taken, magnified — tools/frames/picture.ts
