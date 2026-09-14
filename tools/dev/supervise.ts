@@ -141,10 +141,46 @@ if (gitDir === undefined) {
   });
 }
 
+/**
+ * **A signal has to take the child with it, and it did not.**
+ *
+ * This was `child.kill(); process.exit(0)`, and the second line ran before the
+ * kernel had delivered the first. The supervisor went, the server it was
+ * supervising did not: it was reparented to init and went on holding its port
+ * until its own idle exit two and a half minutes later. Nothing said so —
+ * `stop()` had returned, so every caller believed the port was free.
+ *
+ * It is the two tools that start a server of their own that pay for it
+ * (`tools/frames/director-serve.ts`): `bun run shot --serve` and
+ * `bun run versus:shot` both kill one process and wait for it, which is the
+ * only honest thing to do from outside. A person's Ctrl-C never showed it,
+ * because a terminal signals the whole foreground group and the server is in
+ * it — so the case that leaked is exactly the case nobody was watching.
+ *
+ * So: send the signal, and leave when the child has actually gone. A child
+ * that will not go is taken after `GOODBYE_MS` rather than waited on forever,
+ * because a supervisor that outlives its own stop is the same fault the other
+ * way round.
+ */
+const GOODBYE_MS = 2000;
+
+/** Set once a signal has started the goodbye, so a second Ctrl-C is not a
+ * second one landing on a child that is already on its way out. */
+let leaving = false;
+
 for (const signal of ["SIGINT", "SIGTERM"] as const) {
   process.on(signal, () => {
+    if (leaving) return;
+    leaving = true;
+    // Not a restart: if the loop below wins the race to the child's exit, it
+    // should let this process end rather than spawn a replacement.
+    restarting = false;
     child.kill();
-    process.exit(0);
+    const taken = setTimeout(() => child.kill("SIGKILL"), GOODBYE_MS);
+    void child.exited.then(() => {
+      clearTimeout(taken);
+      process.exit(0);
+    });
   });
 }
 

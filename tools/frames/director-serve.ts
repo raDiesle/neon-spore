@@ -28,8 +28,17 @@ import { root } from "./exec.js";
  * on, holding the caller's stdout pipe, until its own idle exit a hundred and
  * fifty seconds later (`tools/director/server.ts`) — so every shot took two and
  * a half minutes after its picture was written, and the lane that filed the
- * scale hang had read that wait as part of the hang. `Bun.spawn`'s kill takes
- * the tree.
+ * scale hang had read that wait as part of the hang.
+ *
+ * **`stop()` reaches one process, and the rest is other people keeping their
+ * word.** This line used to read *`Bun.spawn`'s kill takes the tree*, which is
+ * not a thing a kill does: it signals `bun run dev:once`, which passes it to
+ * the supervisor, which takes the server down and only then leaves. Two of
+ * those three links were broken on 14 September 2026 and the same director was
+ * still answering after every `--serve` shot and every `versus:shot` — on the
+ * port this had just reported free, until its own idle exit. Nothing said so,
+ * which is what a sentence like the old one costs. `tools/running.ts` and
+ * `tools/dev/supervise.ts` carry the two halves and a test each.
  *
  * **`DIRECTOR_HOST=127.0.0.1`**, which is what a sandbox needs to bind at all
  * (`docs/cloud-session.md`).

@@ -20,6 +20,20 @@
  * on — which is the failure this exists to end, arriving from the other side.
  * Asking the operating system whether that process is still there costs
  * nothing and cannot be stale.
+ *
+ * **Which is why announcing does not handle signals, and used to.** It caught
+ * SIGINT and SIGTERM to remove its file on the way out — and a listener on a
+ * signal turns off the death that signal would otherwise be, so it had to
+ * `process.exit(0)` itself. That exit ran first and took the process with it,
+ * before any handler registered later could do anything: the supervisor's
+ * `bun run dev:once` announces a pinned port and then arranges to take its
+ * server down with it, and the arrangement never ran once. The server was
+ * reparented to init and went on holding the port `stop()` had just reported
+ * free (`tools/dev/supervise.ts`).
+ *
+ * Tidying a file is not worth owning the process's death. A killed server
+ * leaves its file, `alive()` above reads it as nothing, and that is the case
+ * this module was built around from the first line.
  */
 
 import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -43,12 +57,6 @@ export function announce(root: string, env: string, port: number): void {
   writeFileSync(file, JSON.stringify({ port, pid: process.pid }));
   const forget = () => rmSync(file, { force: true });
   process.on("exit", forget);
-  for (const signal of ["SIGINT", "SIGTERM"] as const) {
-    process.on(signal, () => {
-      forget();
-      process.exit(0);
-    });
-  }
 }
 
 /** Whether a pid is still a process. Never throws — an unknown answer is "no". */

@@ -22,6 +22,41 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — a stopped director went on serving, and said nothing
+
+Found by running `bun run versus:shot` to check the entry above it, and then
+asking `ps` whether the director had gone. It had not: `stop()` had returned,
+the port still answered 200, and the server was reparented to init and holding
+it until its own idle exit two and a half minutes later. Every `--serve` shot
+and every `versus:shot` in this repository has been doing that.
+
+Two faults in a row, and each hid the other. `tools/running.ts` caught SIGINT
+and SIGTERM to tidy its own file, which — because a listener on a signal turns
+off the death that signal would be — had to `process.exit(0)`; registered
+first, it exited first, so the supervisor's handler never ran at all.
+`supervise.ts`'s handler was `child.kill(); process.exit(0)`, which leaves
+before the kernel has delivered the kill, so it would not have worked either.
+Both proved separately: the supervisor's own test fails on the old code with no
+`announce` in play, and the pinned path leaked with the supervisor already
+fixed.
+
+`director-serve.ts` said *`Bun.spawn`'s kill takes the tree*, which is not a
+thing a kill does and is the sentence that made this invisible for as long as
+it lasted. It now says which three links pass the signal on and that two of
+them were broken.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the supervisor, `running.ts`, and `director-serve.ts`'s account of what its stop does |
+| writing | 15 | the two fixes, two tests, and the corrected comment |
+| looking | 25 | five process-tree experiments: `bun --hot` under a bare signal, the supervisor under one, the pinned path, the `bun run` path, and the whole tool again at the end |
+| friction | 5 | a `pkill` pattern that matched the shell running it, and one lint rule about a placeholder inside a plain string |
+| landing | 10 | `check:fast`, the commit, `land` |
+
+The bottleneck was looking, and there was no way round it: every step of this
+is a fact about processes that only `ps` can answer, and the first four
+experiments each ruled out a link that turned out to be innocent.
+
 ## 2026-09-14 — queue-tasks — the front page checked, and the tagline does wrap
 
 `Unverified at b7c3055e` named three things. Two hold. The front page is PLAY
