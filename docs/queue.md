@@ -525,3 +525,33 @@ balloon packages/content/src/waves`) watched at tempo for the entry, the
 glide and a split, one frame of the burst and one of the torch leaving the
 top in `frame.test.ts`, and two PNGs: the burst mid-flight and the torch on
 its first row down.
+
+## Two arrows at the top of the WAVE column open the previous and the next wave
+
+- **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Files:** `tools/director/index.html`, `tools/director/src/rail.ts`, `tools/director/src/keys.ts`, `tools/director/src/state.ts`, `tools/director/test/rail-list.test.ts`, `tools/director/test/keys.test.ts`
+- **Where:** local
+
+The owner asked for it on 14 September 2026, mid-turn: *on the wave details
+right to the wave list, I want arrows at the top to navigate to the next or
+previous row to open.* Opening a wave today is one press on its row in the
+WAVES column; reading through the waves in order is a press per wave, back in
+the list each time, with the editor's own column scrolled to wherever it was.
+
+So the WAVE column (`data-column="editor"`, the `#tabs` bar with its one
+WAVE button) gets **two arrows at its top, ‹ and ›**, that open the wave
+before and the wave after the one open — `store.index ∓ 1`, then the same
+`onSelect()` a row press makes in `rail.ts`, so the list, the map and the
+stage follow exactly as they do for a press. The first wave's ‹ and the last
+wave's › are disabled rather than wrapping; each arrow's title says which
+wave it opens by number and name. They step through the **whole list, not
+the filtered one** — a filter narrows what is shown, and the row it lands on
+is kept visible in the list by the rule already there. If `keys.ts` has no
+key for this yet, the same two go on `[` and `]` in the same commit (one
+place decides the step; the arrows and the keys both call it). No new
+element look: the arrows are buttons in the bar the tab already stands in.
+
+Prove it with `bun run check`, a test beside `rail-list.test.ts` that presses
+each arrow through the fake DOM and reads `store.index` and the disabled
+state at both ends, and one PNG of the director's WAVE column head with the
+arrows.
