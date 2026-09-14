@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 4296da94 — `skins/scatter.ts`: the dart-throwing out of PORE
+
+`pore.ts` stood at 250 lines and opened with sixty of them that are not a pore: `ScatterPoint`, `ScatterOptions` and `poissonScatter` — blue noise inside a contour, placed against whatever density field the caller measures. `sucker.ts` imported it from there, so one skin read as being built out of another when in fact both stand on the engine under them.
+
 ## 2026-09-14 · 3cb4dafd — `versus-advance.ts`: the step out of the pair
 
 `versus-pair.ts` stood at 250 lines, and `advance` — one tick of a pose's world, rebuilding on `needWave` unless the pose carries a cadence — was inside it while five callers wanted it without wanting a `Pair`: `versus-seat.ts` steps a world to sample it and builds no pair at all, and `versus-cadence`, `versus-crop-follow`, `versus-hand` and `versus-loop` each test the step alone.
