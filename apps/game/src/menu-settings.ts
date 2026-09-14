@@ -1,13 +1,15 @@
 import { BUILD_STAMP } from "../../../tools/build-stamp.js";
-import { canVibrate } from "./haptics.js";
 import { backButton, el, type MenuPage } from "./menu-parts.js";
 import { signInRow } from "./menu-sign-in.js";
+import { TOGGLES, toggleRow } from "./menu-toggles.js";
 import { claimName, readName, writeName } from "./nickname.js";
-import { forgetThisDevice, readSettings, type Settings, updateSettings } from "./settings.js";
+import { forgetThisDevice } from "./settings.js";
 import { signOut } from "./sign-in.js";
 
 /**
- * The one durable place for "things about me".
+ * The one durable place for "things about me": the order of the page, and
+ * every row on it that is not a switch — the switches themselves are
+ * `menu-toggles.ts`.
  *
  * The room screen asks for a name once and never again; changing it lives
  * here, beside the switches, because that is where a person looks for it, and
@@ -16,13 +18,24 @@ import { signOut } from "./sign-in.js";
  * device knows, which is what a phone handed to somebody else needs and the
  * only way back out of a stored name.
  *
- * Everything here is a *preference*. Nothing on this page may change what the
- * simulation does: two devices in a room would then disagree about the world
- * over something one of them tapped.
+ * Most of it is a *preference*; the two rows at the top — WHAT THIS IS and
+ * CONTROLS — are pages a person asks for once, put here for the same reason.
+ * **Nothing on this page may change what the simulation does**: two devices in
+ * a room would then disagree about the world over something one of them
+ * tapped.
  */
 
 /** What the page needs of the rest of the app, so it needs nothing else. */
 export interface SettingsHooks {
+  /**
+   * Play the intro scene again, with the menu going away behind it and coming
+   * back when it ends (`intro.ts`, and the wrapper in `menu.ts` that is both
+   * halves of that). It is here because HOW TO PLAY, which used to carry it,
+   * left the front page on 14 September 2026 — and the scene is the only thing
+   * in the game that answers *what is this*, so it may not leave with the page
+   * that pointed at it.
+   */
+  openIntro: () => void;
   /** Turn the mixer's mute on or off. It already had one; only `M` reached it. */
   setSound: (on: boolean) => void;
   /** Motion is a body class, because the animations are CSS. */
@@ -33,52 +46,11 @@ export interface SettingsHooks {
   canInstall?: () => boolean;
 }
 
-interface ToggleRow {
-  key: keyof Settings;
-  label: string;
-  /** What it means when it is on, in one line. */
-  on: string;
-  /** What it means when it is off. */
-  off: string;
-  /** Whether this device can offer it at all. */
-  available?: () => boolean;
-  apply: (hooks: SettingsHooks, value: boolean) => void;
-}
-
-const TOGGLES: ToggleRow[] = [
-  {
-    key: "sound",
-    label: "SOUND",
-    on: "The mixer is playing.",
-    off: "Silent. The wave still says everything it says on screen.",
-    apply: (hooks, value) => hooks.setSound(value),
-  },
-  {
-    key: "motion",
-    label: "MOTION",
-    on: "The menu animates.",
-    off: "Still. Nothing on the menu moves on its own.",
-    apply: (hooks, value) => hooks.setMotion(value),
-  },
-  {
-    key: "haptics",
-    label: "BUZZ",
-    // The two events, named, because a toggle whose effect is a surprise is a
-    // toggle people leave alone. See `haptics.ts`.
-    on: "A short buzz for a shot in the wrong colour, a long one for the hull.",
-    off: "The phone stays still.",
-    // Absent on desktop and on iOS: a switch that turns nothing on is worse
-    // than no switch.
-    available: canVibrate,
-    apply: () => {},
-  },
-];
-
 export function buildSettings(show: (page: MenuPage) => void, hooks: SettingsHooks): HTMLElement {
   const page = el("div", "page");
   page.append(backButton(show), el("h2", undefined, "SETTINGS"));
 
-  page.append(controlsRow(show));
+  page.append(whatThisIsRow(hooks), controlsRow(show));
   for (const row of TOGGLES) {
     if (row.available && !row.available()) continue;
     page.append(toggleRow(row, hooks));
@@ -92,6 +64,30 @@ export function buildSettings(show: (page: MenuPage) => void, hooks: SettingsHoo
   // before the menu was drawn. See `tools/build-stamp.ts`.
   page.append(el("p", "foot", `Build ${BUILD_STAMP}`));
   return page;
+}
+
+/**
+ * The way back to the intro scene, which used to sit at the top of HOW TO PLAY.
+ *
+ * The same argument CONTROLS is here on, one floor further: a person who wants
+ * to be told what this game is asks for it once and then never again, and a
+ * row that is read once does not belong on the page somebody presses to start
+ * playing. A row rather than a switch, for the reason the next one gives.
+ */
+function whatThisIsRow(hooks: SettingsHooks): HTMLElement {
+  const block = el("div", "setting");
+  const button = el("button", "switch", "WHAT THIS IS");
+  button.type = "button";
+  button.addEventListener("click", () => hooks.openIntro());
+  block.append(
+    button,
+    el(
+      "span",
+      "s",
+      "The scene a new device opens on: two phones, one game, and the two of you talking.",
+    ),
+  );
+  return block;
 }
 
 /**
@@ -111,31 +107,6 @@ function controlsRow(show: (page: MenuPage) => void): HTMLElement {
     button,
     el("span", "s", "What a thumb does, every panel in the game, and the keys at a desk."),
   );
-  return block;
-}
-
-function toggleRow(row: ToggleRow, hooks: SettingsHooks): HTMLElement {
-  const block = el("div", "setting");
-  const button = el("button", "switch");
-  button.type = "button";
-  const what = el("span", "s");
-
-  const paint = (): void => {
-    const value = readSettings()[row.key];
-    button.textContent = `${row.label}  ${value ? "ON" : "OFF"}`;
-    button.classList.toggle("on", value);
-    what.textContent = value ? row.on : row.off;
-  };
-
-  button.addEventListener("click", () => {
-    const next = !readSettings()[row.key];
-    updateSettings((held) => ({ ...held, [row.key]: next }));
-    row.apply(hooks, next);
-    paint();
-  });
-
-  paint();
-  block.append(button, what);
   return block;
 }
 

@@ -18,7 +18,7 @@ import { CONTROL_SETS, CONTROLS } from "@neon-spore/content";
  * and that the registry is what a reader would then be shown.
  *
  * There is no DOM in this runner, so this reads the source, the way
- * `how-to-play.test.ts` does.
+ * `input-pc.test.ts` does.
  */
 
 const src = await Bun.file(

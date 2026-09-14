@@ -1142,7 +1142,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
 | `apps/game/src/relay.ts` | the socket, and only the socket |
 | `apps/game/src/join.ts` | the room screen and the network indicator, which are one thing |
-| `apps/game/src/menu.ts` | the main menu, which is the front door: four rows, the link, the seat and the two-step in front of LEAVE ROOM |
+| `apps/game/src/menu.ts` | the main menu, which is the front door: three rows, the link, the seat and the two-step in front of LEAVE ROOM |
 | `apps/game/src/menu-view.ts` | the shell, the root page's entries, and the seat as three cards |
 | `apps/game/src/briefing.ts` | the thumb on a wave's guide |
 | `apps/game/src/demo-menu.ts` | the DEMOS page: one row per mechanic, read out of `DEMONSTRATIONS` |
@@ -1159,7 +1159,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/hold.ts` | the card that comes up when the line goes bad, with a clock on it |
 | `apps/game/src/join-words.ts` | the words the network wears — the chip's, the room screen's, the seat pills' |
 | `apps/game/src/link-report.ts` | what the screen is told about the link, gathered in one place |
-| `apps/game/src/menu-pages.ts` | the menu's two jump lists, and the page a pair reads first |
+| `apps/game/src/menu-pages.ts` | the menu's two jump lists |
 | `apps/game/src/menu-parts.ts` | the pieces every menu page is made of, and the wordmark's spore |
 | `apps/game/src/run-state.ts` | whether the world ticks, and which of the four holds is on it |
 | `apps/game/src/shell.ts` | everything around the field: menu, room screen, bad-line card, and the link |
@@ -1200,6 +1200,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-who.ts` | The line at the top of the PLAY page saying who this phone is |
 | `apps/game/src/menu-rows.ts` | the rows an entry list is drawn as, and the map that finds one again by key — beside `menu-view.ts` |
 | `apps/game/src/menu-rejoin.ts` | **The way straight back into the room this device was just in**, at the top of the front page |
+| `apps/game/src/menu-toggles.ts` | SETTINGS' switches: the three things about this device a person may turn on and off |
 | `apps/game/src/keys-grip.ts` | what the desk rig's grip key takes hold of, and how it carries it |
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |

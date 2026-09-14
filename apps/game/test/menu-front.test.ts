@@ -11,14 +11,17 @@ import { paintLink } from "../src/menu-link.js";
 import type { MenuDom } from "../src/menu-view.js";
 
 /**
- * **The front page is four rows**, and what is behind each of them.
+ * **The front page is three rows**, and what is behind each of them.
  *
- * The owner asked for the menu to stop being a list of everything: PLAY, HOW TO
- * PLAY, SETTINGS and — while there is a room — LEAVE ROOM, with the two of you
- * meeting behind PLAY and the rig behind three presses on the spore. Every row
- * is a pure function of the actions it is handed, so this drives the real lists
- * rather than reading the file; the one thing that needs a page is `paintLink`,
- * and a recorder standing in for `MenuDom` is enough to hold it to its rules.
+ * The owner asked for the menu to stop being a list of everything: PLAY,
+ * SETTINGS and — while there is a room — LEAVE ROOM, with the two of you
+ * meeting behind PLAY and the rig behind three presses on the spore. HOW TO
+ * PLAY stood second until 14 September 2026, when he took it off as well: the
+ * intro scene says what its prose said, and the way to ask for that scene again
+ * is a row on SETTINGS. Every row is a pure function of the actions it is
+ * handed, so this drives the real lists rather than reading the file; the one
+ * thing that needs a page is `paintLink`, and a recorder standing in for
+ * `MenuDom` is enough to hold it to its rules.
  */
 
 const actions: EntryActions = {
@@ -30,7 +33,6 @@ const actions: EntryActions = {
   rejoin: () => {},
   openTuning: () => {},
   demoCount: 7,
-  openIntro: () => {},
 };
 
 const keys = (list: { key: string }[]): string[] => list.map((e) => e.key);
@@ -42,8 +44,14 @@ const levels = levelEntries();
 const rig = testingEntries(actions);
 
 describe("the front page", () => {
-  it("is PLAY, HOW TO PLAY, SETTINGS and LEAVE ROOM, in that order", () => {
-    expect(labels(front)).toEqual(["PLAY", "HOW TO PLAY", "SETTINGS", "LEAVE ROOM"]);
+  it("is PLAY, SETTINGS and LEAVE ROOM, in that order", () => {
+    expect(labels(front)).toEqual(["PLAY", "SETTINGS", "LEAVE ROOM"]);
+  });
+
+  it("carries no HOW TO PLAY row, and the menu has no such page left", () => {
+    expect(labels(front)).not.toContain("HOW TO PLAY");
+    expect(parts).not.toContain('"how"');
+    expect(pages).not.toContain("buildHowTo");
   });
 
   it("carries no TESTING row: the rig is behind the spore", () => {
@@ -55,8 +63,16 @@ describe("the front page", () => {
     for (const list of [front, play, rig]) expect(keys(list)).not.toContain("resume");
   });
 
-  it("carries no WHAT THIS IS row: the six pages are read from HOW TO PLAY", () => {
+  it("carries no WHAT THIS IS row: the intro is asked for from SETTINGS", () => {
     expect(labels(front)).not.toContain("WHAT THIS IS");
+  });
+
+  it("says talking is the key rather than naming a control scheme", () => {
+    // The owner's wording, 14 September 2026. Set in caps and divided by middle
+    // dots, which is the shape the line has always had — and short enough that
+    // a 390 px phone reads it in one line, which the old one never was.
+    expect(view).toContain('"TWO PEOPLE · TWO DEVICES · TALKING IS THE KEY"');
+    expect(view).not.toContain("TALKING IS THE CONTROL SCHEME");
   });
 });
 
@@ -240,6 +256,12 @@ const view = await Bun.file(
 const pages = await Bun.file(
   Bun.fileURLToPath(new URL("../src/menu-pages.ts", import.meta.url)),
 ).text();
+const parts = await Bun.file(
+  Bun.fileURLToPath(new URL("../src/menu-parts.ts", import.meta.url)),
+).text();
+const settings = await Bun.file(
+  Bun.fileURLToPath(new URL("../src/menu-settings.ts", import.meta.url)),
+).text();
 
 describe("the two doors that are not rows", () => {
   it("opens the rig by pressing the spore, and only after three presses", () => {
@@ -253,10 +275,9 @@ describe("the two doors that are not rows", () => {
     expect(view).not.toContain("rootPage.append(seatBlock)");
   });
 
-  it("puts WHAT THIS IS at the top of HOW TO PLAY", () => {
-    const howTo = pages.slice(pages.indexOf("export function buildHowTo"));
-    expect(howTo).toContain("WHAT THIS IS");
-    expect(howTo).toContain("openIntro");
+  it("puts WHAT THIS IS on SETTINGS, which is the only way left to ask for the intro", () => {
+    expect(settings).toContain("WHAT THIS IS");
+    expect(settings).toContain("hooks.openIntro()");
   });
 });
 

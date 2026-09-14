@@ -17,9 +17,12 @@ import type { MenuEntry } from "./menu-rows.js";
  * stays addressable.
  *
  * **There are three lists, and the seam is who the row is for.** The front page
- * is four rows and a decision: play, learn what this is, set it up, and — while
- * there is a room — hang up. `playEntries` is the page behind PLAY, where the
- * two of you actually meet: the room, the seat cards and CONTINUE.
+ * is three rows and a decision: play, set it up, and — while there is a room —
+ * hang up. HOW TO PLAY was the fourth until the owner took it off on 14
+ * September 2026: what it described, the intro now shows, and the way to ask
+ * for that again is a row on SETTINGS (`menu-settings.ts`). `playEntries` is
+ * the page behind PLAY, where the two of you actually meet: the room, the seat
+ * cards and CONTINUE.
  * `testingEntries` is the rig — one person at a desk with both seats, jumping at
  * a wave or a mechanic, moving the sliders while it runs — and it has no row at
  * all now: it is reached by pressing the spore over the wordmark three times
@@ -54,9 +57,6 @@ export interface EntryActions {
   openTuning: () => void;
   /** How many demonstration rows there are, for the DEMOS line. */
   demoCount: number;
-  /** The six pages that say what this game is, again on purpose. The menu
-   * closes behind them and comes back when they are done (`intro.ts`). */
-  openIntro: () => void;
 }
 
 export function menuEntries(a: EntryActions): MenuEntry[] {
@@ -66,12 +66,6 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
       label: "PLAY",
       desc: "Two devices, one seat each: the room, your seat, and the way back in.",
       run: () => a.show("play"),
-    },
-    {
-      key: "how",
-      label: "HOW TO PLAY",
-      desc: "The two seats, and the one rule that is the whole game.",
-      run: () => a.show("how"),
     },
     {
       key: "settings",

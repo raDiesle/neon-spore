@@ -54,11 +54,16 @@ export interface MenuBindings {
    * on one phone may begin a wave on two.
    */
   ready: () => void;
-  /** Show the six pages that say what this game is, and put the menu back
+  /** Play the scene that says what this game is, and put the menu back
    * afterwards. */
   openIntro: (back: () => void) => void;
-  /** What the settings page needs of the rest of the app — see `menu-settings.ts`. */
-  settings: SettingsHooks;
+  /**
+   * What the settings page needs of the rest of the app — see
+   * `menu-settings.ts`. All of it but the intro, which the page reaches
+   * through the same `openIntro` above: closing the menu behind it and opening
+   * it again afterwards is `menu.ts`'s to arrange, not the shell's.
+   */
+  settings: Omit<SettingsHooks, "openIntro">;
   /** One row per mechanic — see `demo-menu.ts`. */
   demos: DemoRow[];
   /** Switches the run to the demonstration's config and opens its wave. */

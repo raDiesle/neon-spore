@@ -20,7 +20,6 @@ export type MenuPage =
   | "waves"
   | "demos"
   | "keys"
-  | "how"
   | "settings";
 
 export function el<K extends keyof HTMLElementTagNameMap>(

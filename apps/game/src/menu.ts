@@ -24,9 +24,11 @@ export type { MainMenu, MenuBindings } from "./menu-bindings.js";
  * one question with no DOM in it and lives next door (`menu-door.ts`),
  * re-exported so nothing that asked this file for it had to move.
  *
- * **The front page is four rows** (`menu-entries.ts`): PLAY, HOW TO PLAY,
- * SETTINGS and, while there is a room, LEAVE ROOM. The rig is behind the spore,
- * and the two of you meet behind PLAY.
+ * **The front page is three rows** (`menu-entries.ts`): PLAY, SETTINGS and,
+ * while there is a room, LEAVE ROOM. The rig is behind the spore, and the two
+ * of you meet behind PLAY. HOW TO PLAY was the fourth until the owner took it
+ * off on 14 September 2026; the intro scene it pointed at is a row on SETTINGS
+ * now (`menu-settings.ts`).
  */
 export { opensOnMenu } from "./menu-door.js";
 
@@ -136,13 +138,16 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     },
     openTuning: b.openTuning,
     demoCount: b.demos.length,
-    // The menu goes away behind it and comes back when it is done: the intro
-    // is drawn on the canvas, and the menu is markup over the canvas
-    // (`intro.ts`).
-    openIntro: () => {
-      close();
-      b.openIntro(() => open());
-    },
+  };
+
+  // The menu goes away behind it and comes back when it is done: the intro is
+  // drawn on the canvas, and the menu is markup over the canvas (`intro.ts`).
+  // Asked for from SETTINGS' own WHAT THIS IS row now that HOW TO PLAY is gone,
+  // so it is handed over with the rest of that page's hooks rather than as a
+  // row's action.
+  const openIntro = (): void => {
+    close();
+    b.openIntro(() => open());
   };
 
   const dom = buildMenu({
@@ -150,11 +155,10 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     play: playEntries(actions),
     levels: levelEntries(),
     testing: testingEntries(actions),
-    openIntro: actions.openIntro,
     demos: b.demos,
     onWave: play,
     onDemo: playDemo,
-    settings: b.settings,
+    settings: { ...b.settings, openIntro },
     // The top button (`menu-rejoin.ts`). It goes through the same door REJOIN
     // goes through — the room screen opens on it, because the pair still have
     // to press START — and the room screen is where a room that has emptied in

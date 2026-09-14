@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — HOW TO PLAY leaves the menu and the tagline is his
+
+The queue's second item, in the same cloud session. The front page is three
+rows now — PLAY, SETTINGS, and LEAVE ROOM while there is a room — and HOW TO
+PLAY's page went with its row: two paragraphs, two seat cards and a boxed rule
+that described in prose what the intro scene shows. WHAT THIS IS, which sat at
+the top of that page, is a row on SETTINGS above CONTROLS, so the only thing in
+the game that answers *what is this* did not leave with the page pointing at
+it. The tagline is the owner's own sentence cut to what fits: the line it
+replaces was 417 px against a 354 px box and had wrapped on every phone since
+it was written; this one is 325 px and reads in one line.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the queue entry, the four menu files it names, the two tests, what `.lead`, `.job` and `.rule` are used by elsewhere, and how `openIntro` reaches the page from the shell |
+| writing | 30 | the row and page removed, WHAT THIS IS rebuilt on SETTINGS, `openIntro` moved into `SettingsHooks`, the switches split into `menu-toggles.ts`, `menu-front.test.ts` turned over |
+| looking | 20 | a throwaway to open the preview and photograph `#menu`, twice: the front page, then the tagline measured against its box, then SETTINGS |
+| friction | 10 | there is no tool that photographs the game's menu, so both throwaways were hand-rolled — queued; and the split was found by the line-limit test rather than before it |
+| landing | 30 | `check:fast` three times — one red on formatting, one red on the 256-line file — then `land`'s full check red on three drift tests `check:fast` never reaches: a new file's path in a queue entry, and an INDEX row still saying *four rows* |
+
+The bottleneck was looking: the one thing a queue entry cannot tell you is
+whether the sentence it asks for fits, and finding out cost a build, a browser
+and a script that does not exist yet. Landing came second, and for a reason
+worth naming: the three tests that held this lane up all read `docs/`, which
+this lane changed, and none of them is in what `check:fast` runs.
+
 ## 2026-09-14 — queue-tasks — the intro becomes one scene and loses its stepper
 
 The queue's first item, in a cloud session. Six pages with a BACK, a NEXT and

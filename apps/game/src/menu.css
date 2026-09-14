@@ -742,55 +742,15 @@ body[data-motion="off"] #menu .entry {
   color: var(--ink-faint);
 }
 
-/* HOW TO PLAY: two paragraphs and the two seats between them. The seats are
-   laid out like the front page's cards without being them — those are a
-   choice to make, these are a description of one already made. */
+/* A paragraph on a page meant to be read rather than pressed: CONTROLS' four
+   leads today. It carried HOW TO PLAY's two as well until that page left the
+   menu on 14 September 2026, taking `.job` and `.rule` with it. */
 #menu .page .lead {
   margin: 18px 0;
   font-size: 12px;
   line-height: 1.75;
   letter-spacing: 0.04em;
   color: var(--ink-soft);
-}
-#menu .job {
-  display: grid;
-  grid-template-columns: 44px 1fr;
-  gap: 2px 12px;
-  align-items: baseline;
-  margin: 12px 0;
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-}
-#menu .job .tag {
-  grid-row: 1 / span 2;
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  color: var(--ink-faint);
-}
-#menu .job .name {
-  font-size: 13px;
-  letter-spacing: 0.16em;
-  color: var(--ink-key);
-}
-#menu .job .s {
-  font-size: 11px;
-  line-height: 1.7;
-  color: var(--ink-soft);
-}
-
-/* The sentence HOW TO PLAY exists to say. Brighter than the prose above it and
-   boxed on its own, because a footnote is what it must not look like. */
-#menu .page .rule {
-  margin: 22px 0 8px;
-  padding: 14px 16px;
-  border: 1px solid var(--accent-line);
-  border-radius: 10px;
-  background: rgba(34, 214, 231, 0.06);
-  font-size: 12px;
-  line-height: 1.75;
-  letter-spacing: 0.04em;
-  color: var(--accent-soft);
 }
 
 /* CONTROLS: one block per panel, both seats in it. The blocks are read rather

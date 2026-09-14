@@ -176,37 +176,47 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## HOW TO PLAY leaves the front page, and the tagline says talking is the key
+## Nothing photographs the game's menu, so every menu lane hand-rolls one
 
-- **Found:** 2026-09-14, claude/queued-items-cbcbd8
-- **Taken:** 2026-09-14, claude/queue-how-to-play-leaves-the-front-page-and-the-taglin
-- **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu.css`, `apps/game/test/menu-front.test.ts`, `apps/game/test/how-to-play.test.ts`, `apps/game/test/menu.test.ts`
+- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Files:** `tools/frames/shot.ts`, `tools/frames/shot-state.ts`, `tools/frames/serve.ts`, `tools/frames/browser.ts`, `tools/frames/test/`, `docs/commands.md`, `package.json`
 
-Asked for by the owner on 14 September 2026 — the first exemption under *A
-look is offered, never replaced*; say so in the commit.
+Three tools take a picture and none of them can take this one: `bun run frames
+<sha>` drives the field through `window.neonSpore` and photographs `#stage`,
+`bun run shot` photographs an element of the **director**, and `bun run png`
+rasterises an SVG on disk. The menu is markup over the game's canvas on the
+game's own origin, so a lane that changes a row, a page or the tagline has
+nothing to point at.
 
-Two changes to the front of the menu:
+This lane wrote the throwaway twice in one sitting — once to see the front page
+and once to measure the tagline against its box — which is the same count that
+turned `shot.ts` from a habit into a tool, and its own comment says so.
 
-1. **The HOW TO PLAY row and its page go.** `menuEntries` in
-   `menu-entries.ts` lists it second; `menu-pages.ts` builds the page
-   (`h2 "HOW TO PLAY"`, the two paragraphs, the seat cards between them —
-   `menu.css` around line 745 styles it); `menu-view.ts` opens the intro from
-   its top (`menu-view.ts:52`). Remove the row, the page, the `how` member of
-   `MenuPage`, its CSS, and the `menu.ts` doc comment that says *the front
-   page is four rows*. The intro's own *open on demand* from the menu has to
-   survive — put it wherever the front page still has a place for it, or on
-   SETTINGS, rather than dropping it with the page. CONTROLS
-   (`menu-controls.ts`) is reached from SETTINGS and is not this.
+What it needs is small, and every piece of it already exists:
+`startPreview(root)` in `serve.ts` builds and serves *this* tree on a free port
+and reads the port off the server's own stdout; `launchBrowser` in
+`browser.ts` opens the Chrome that `closeBrowser` actually waits for. What has
+to be written is the standing:
 
-2. **The tagline** under the title (`menu-view.ts:122`) reads
-   `TWO PEOPLE · TWO DEVICES · TALKING IS THE CONTROL SCHEME`. The owner wants
-   the last part to read something like *talking is the key to success in this
-   co-op game* — his words; keep the set-in-caps, middle-dot form the line has
-   (`TWO PEOPLE · TWO DEVICES · TALKING IS THE KEY TO WINNING` or as close to
-   his sentence as fits one line on a phone). `menu-front.test.ts` holds the
-   four rows in order and that WHAT THIS IS sits at the top of HOW TO PLAY;
-   `how-to-play.test.ts` holds the page's copy and goes with the page. Update
-   the first rather than loosening it.
+- A phone viewport (390×844) at `deviceScaleFactor: 2`, the way `shot.ts`
+  argues for.
+- `localStorage['neon-spore.intro'] = INTRO_VERSION` through
+  `context.addInitScript` **before** the first navigation, or the intro scene
+  plays over the menu and the capture times out on a hidden `#menu`. Read the
+  version from `apps/game/src/intro.ts` rather than typing `"2"` here.
+- Wait for `#menu.on` and not for `#menu`: the element is in the document from
+  the first paint and hidden until the menu opens.
+- A page to stand on — `--page SETTINGS`, `--page PLAY` — by clicking the row
+  whose `.entry .label` reads that, and `--page keys` or another `MenuPage` for
+  a page no row reaches. `shot-state.ts` is the pattern for reaching a state
+  and for the `Unreachable` error when it cannot.
+- `--room ACDE` would be worth having for the rows that only exist in a room
+  (LEAVE ROOM, CONTINUE), but it is not needed for a first version.
+
+Call the new file `menu-shot.ts` and take the same care `shot.ts` takes about
+where it lives — beside it in `tools/frames`, because `playwright-core` is a
+dependency of that package and a script at the repository root cannot resolve
+it.
 
 ## The director loses GUIDES, SPEC and DEMOS; TUNING gets a topbar button
 

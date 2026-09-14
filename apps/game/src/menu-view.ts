@@ -2,7 +2,7 @@ import type { MechanicId } from "@neon-spore/content";
 import type { ViewRole } from "@neon-spore/render";
 import type { DemoRow } from "./demo-menu.js";
 import { buildControls } from "./menu-controls.js";
-import { buildDemos, buildHowTo, buildWaves } from "./menu-pages.js";
+import { buildDemos, buildWaves } from "./menu-pages.js";
 import { backButton, el, type MenuPage, sporeSvg } from "./menu-parts.js";
 import { rejoinButton } from "./menu-rejoin.js";
 import { entryRows, type MenuEntry } from "./menu-rows.js";
@@ -19,11 +19,13 @@ import { whoLine } from "./menu-who.js";
  * I at this table, and is the other phone here — and the seat is a card with
  * the job written on it rather than two letters in a row of three.
  *
- * **The front page is four rows**, on the owner's instruction: PLAY, HOW TO
- * PLAY, SETTINGS and — while there is a room — LEAVE ROOM. Everything that used
- * to stand beside them is one press down. PLAY is where two people meet, and it
- * carries the seat cards, because choosing a seat is part of meeting rather
- * than something to do while standing in the hall.
+ * **The front page is three rows**, on the owner's instruction: PLAY, SETTINGS
+ * and — while there is a room — LEAVE ROOM. Everything that used to stand
+ * beside them is one press down. PLAY is where two people meet, and it carries
+ * the seat cards, because choosing a seat is part of meeting rather than
+ * something to do while standing in the hall. HOW TO PLAY was the fourth until
+ * 14 September 2026, when he took it off: the intro scene says what it said,
+ * and asking for that scene again is a row on SETTINGS.
  *
  * **The rig has no row at all.** It is opened by pressing the spore over the
  * wordmark three times inside `RIG_TAPS_MS`, and nothing on the page says so:
@@ -49,8 +51,6 @@ export interface MenuHandlers {
   /** A demonstration was picked out of the list. */
   onDemo: (id: MechanicId) => void;
   onSeat: (role: ViewRole) => void;
-  /** The six pages, opened from the top of HOW TO PLAY (`intro.ts`). */
-  openIntro: () => void;
   /** What the settings page needs of the rest of the app. */
   settings: SettingsHooks;
   /** The top button was pressed: back into the room it names (`setRejoin`). */
@@ -78,7 +78,7 @@ export interface MenuDom {
    *
    * Not a row, and that is the whole of it. A player who reloaded mid-wave is
    * looking for one thing, the other phone is already waiting for them, and the
-   * four rows under this are a list to read. `last-room.ts` says what is
+   * rows under this are a list to read. `last-room.ts` says what is
    * remembered and for how long.
    */
   setRejoin: (room: string) => void;
@@ -119,7 +119,12 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   inner.append(
     spore.svg,
     title,
-    el("p", "tag", "TWO PEOPLE · TWO DEVICES · TALKING IS THE CONTROL SCHEME"),
+    // The owner's own sentence — *talking is the key to success in this co-op
+    // game* — cut to what fits (14 September 2026). The line it replaces was
+    // 417 px against a 354 px box on a 390 px phone and had wrapped since the
+    // day it was written; this one is 325 px and is the first version of it a
+    // phone reads in one line.
+    el("p", "tag", "TWO PEOPLE · TWO DEVICES · TALKING IS THE KEY"),
     progress,
   );
 
@@ -136,7 +141,6 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     waves: buildWaves((p) => show(p), h.onWave, "testing"),
     demos: buildDemos((p) => show(p), h.demos, h.onDemo, "testing"),
     keys: buildControls((p) => show(p), "settings"),
-    how: buildHowTo((p) => show(p), h.openIntro),
     settings: buildSettings((p) => show(p), h.settings),
   };
   const show = (page: MenuPage): void => {
@@ -144,7 +148,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     scroll.scrollTop = 0;
   };
 
-  // Above the four rows and looking nothing like them (`menu-rejoin.ts`).
+  // Above the rows and looking nothing like them (`menu-rejoin.ts`).
   const rejoin = rejoinButton(h.onRejoin);
   rootPage.append(rejoin.node);
 
@@ -214,7 +218,6 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     pages.waves,
     pages.demos,
     pages.keys,
-    pages.how,
     pages.settings,
   );
   document.body.append(root);
