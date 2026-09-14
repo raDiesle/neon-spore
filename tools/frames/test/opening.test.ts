@@ -472,4 +472,33 @@ describe("captureFrames past a wave's opening", () => {
     },
     STARVED_MS,
   );
+
+  /**
+   * **And it asks the preview for everything and nobody else for anything.**
+   *
+   * Since the sign-in landed, the built game's first load reached
+   * `fonts.googleapis.com` for the menu's face and `accounts.google.com` and
+   * `www.google.com` for Firebase Auth — 37 refused connections in one run of
+   * this file behind the egress proxy a cloud session runs under. None of it
+   * failed a case; what it cost was the file's own clock, and a picture whose
+   * fetches depend on a network is a picture `run.ts`'s `identical:` guard
+   * cannot honestly say *nothing changed* about.
+   *
+   * `offline.ts` refuses every host but the preview's at the browser and keeps
+   * what asked, so this is the list rather than a count: a failure here names
+   * the URL and therefore the line that has to change.
+   */
+  it(
+    "asks the preview for everything and no third party for anything",
+    async () => {
+      const { offOrigin } = await captureFrames(
+        baseUrl,
+        { wave: 0, ticks: 60 },
+        join(scratchOut, "offline"),
+        browser,
+      );
+      expect(offOrigin).toEqual([]);
+    },
+    STARVED_MS,
+  );
 });

@@ -29,23 +29,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Neon Spore" />
     <!--
-      The menu's face, from the one public CDN this app reaches. Two
-      preconnects, because the sheet and the font files are on different hosts
-      and the handshake for the second is otherwise paid after the first has
-      been read. `display=swap` so the words are up from the first frame and the
-      face arrives under them; the stack in `menu.css` is what a phone with no
-      network gets, and it is a real stack rather than a courtesy.
-
-      An absolute URL, so the bundler has nothing local to follow, hash or
-      rewrite — unlike the three links `build.ts` adds, which name files it
-      copied itself.
+      The menu's face used to be three lines here — two preconnects and a
+      stylesheet from Google Fonts. It is in the bundle now, as an `@font-face`
+      at the top of `menu.css` pointing at a woff2 under `src/fonts/`, and the
+      head is shorter by exactly what this app no longer asks a third party for.
+      That file says why; `tools/frames/offline.ts` is what found it.
     -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
-    />
     <link rel="stylesheet" href="./src/menu.css" />
     <link rel="stylesheet" href="./src/game.css" />
   </head>

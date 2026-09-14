@@ -8,6 +8,44 @@
  * largest single piece of chrome in the app and index.html was already close
  * to the size a file in this repository is allowed to reach. */
 
+/* **THE FACE, OUT OF THE BUNDLE.**
+ *
+ * It came from Google Fonts — two preconnects and a stylesheet link in
+ * `index.html` — until 14 September 2026, and what that cost was not the
+ * kilobytes. Every load of the built game asked a third party for the menu's
+ * face, which made the app's first frame depend on a host it does not own; and
+ * under `tools/frames` it made a picture of this checkout a picture of this
+ * checkout *plus a network*, which is not something `run.ts`'s `identical:`
+ * guard can honestly say nothing changed about. The frame tests' own clock said
+ * the rest: 280 seconds for `test/opening.test.ts` with the request going out
+ * behind an egress proxy, 55 with it refused (`tools/frames/offline.ts`).
+ *
+ * One file, because Space Grotesk is a **variable** font and Google serves the
+ * same woff2 for 400, 500 and 700 — so `font-weight: 400 700` here is the whole
+ * of the three weights the link used to ask for, at 22 kB. The latin subset
+ * alone, which is the whole of this repository (CLAUDE.md: everything is in
+ * English), with the same `unicode-range` Google declares for it so a character
+ * outside it still falls through to the stack below rather than being drawn
+ * from a file that has not got it.
+ *
+ * The `url()` is relative and the bundler follows it, hashes the file and
+ * rewrites the reference — the ordinary path, and the reason the fonts are
+ * under `src/` rather than in `public/`, which is for files a phone asks for by
+ * the exact name a manifest gave them (`index.html`).
+ *
+ * Space Grotesk is under the SIL Open Font License 1.1; `fonts/OFL.txt` is the
+ * copy that travels with it. */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("./fonts/space-grotesk-latin.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304,
+    U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 /* THE MENU'S COLOURS, NAMED — and every one of them measured.
  *
  * The owner reads this on a phone and asked for a scheme with contrast, naming
@@ -53,15 +91,15 @@
   --line-quiet: #1f1943;
   --plate: #0e0a22;
   --accent-line: #2f7f8f;
-  /* **The face, and the stack under it.** The owner asked for a better font
-     from a public CDN; Google Fonts is the one this app can reach, and the
-     `<link>` is in `index.html` beside the two stylesheets. Space Grotesk is a
-     geometric sans with the technical cut this game is drawn in, and it reads
-     at ten pixels in capitals, which is what most of this page is.
-     The stack under it is real and not a courtesy: the sheet is fetched over
-     the network, a phone on a train may not get it, and the page must not fall
-     back to Times. `font-display: swap` is the query string's, so the words are
-     on the screen from the first frame either way.
+  /* **The face, and the stack under it.** The owner asked for a better font;
+     Space Grotesk is a geometric sans with the technical cut this game is drawn
+     in, and it reads at ten pixels in capitals, which is what most of this page
+     is. It is served out of the bundle now rather than from Google — the
+     `@font-face` at the top of this file says why.
+     The stack under it stays real and not a courtesy: a woff2 is still a second
+     request, a phone on a train may lose it, and the page must not fall back to
+     Times. `font-display: swap` is on the face, so the words are on the screen
+     from the first frame either way.
      The field keeps Courier (`game.css`): the HUD is monospaced on purpose,
      and the two are not the same surface. */
   font-family:

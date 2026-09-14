@@ -176,29 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## The built game reaches Google under test, and the frame tests take five minutes
-
-- **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
-- **Taken:** 2026-09-14, claude/queue-the-built-game-reaches-google-under-test-and-the
-- **Files:** `tools/frames/capture.ts`, `tools/frames/test/opening.test.ts`, `apps/game/index.html`, `apps/game/src/sign-in.ts`
-
-Since the sign-in landed, loading the built game in a headless Chrome reaches
-out to Google — `fonts.googleapis.com`, `accounts.google.com` and
-`www.google.com`, 37 refused connections in one run of
-`tools/frames/test/opening.test.ts` alone, behind the egress proxy a cloud
-session runs under. The file passes: thirteen cases, four minutes forty on this
-machine, and `bun run check` is green at about six minutes all told. So this is
-not a failure and not a hang — **the first version of this entry said it was
-both, on a run cut short at a hundred seconds, and that was wrong.**
-
-What is left is worth doing anyway, and it is cheap: a test about *this*
-checkout's frames should not put a single request on the network. One
-`page.route` in the capture harness, refusing every host but the preview's own,
-and the fonts served out of the bundle. Whoever takes it can settle the open
-question with a number rather than a guess — whether those refused connections
-are any of the four minutes forty, or whether the file simply costs that much
-here. Measure it before and after the route.
-
 ## THE LEAK's guide is prose, and what it has to show cannot be asserted
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt

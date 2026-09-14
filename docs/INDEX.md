@@ -1554,6 +1554,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/crop-png.ts` | you have a screenshot and want to look closer — `bun run crop` cuts a rectangle out and magnifies it by whole pixels |
 | `tools/frames/wave.ts` | Which wave `--wave` names, answered against the right commit's own list |
 | `tools/frames/opening-hold.ts` | Standing *in* a wave's opening, rather than getting past it |
+| `tools/frames/offline.ts` | **A capture reaches the preview and nothing else.** Since the sign-in landed |
 | `tools/land/queue-guard.ts` | A landing must not put back a queue entry another lane took out |
 | `tools/land/queue-merge.ts` | Merging `docs/queue.md` when a lane and the trunk both wrote to it |
 | `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo, in Claude Code on the web |

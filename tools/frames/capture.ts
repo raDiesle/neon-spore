@@ -64,6 +64,17 @@ export interface CaptureResult {
    * was taken, so every frame after it is the same one (`guide-film.ts`).
    * `undefined` on anything but `--opening guide`. */
   heldPage?: boolean;
+  /**
+   * Every off-origin URL the page asked for on its way to these frames, and
+   * was refused (`offline.ts`).
+   *
+   * Empty is the answer a capture of this checkout should give. It is carried
+   * out rather than merely counted because the useful form of the failure
+   * names the host: a test that says *37* sends its reader back to the browser,
+   * and one that says `https://fonts.googleapis.com/css2?family=…` names the
+   * line in `index.html` that has to change.
+   */
+  offOrigin: string[];
 }
 
 /** Half a second at 60Hz: THE LID's plates are fully parted by then and THE
@@ -91,7 +102,7 @@ export async function captureFrames(
   const browser = shared ?? (await launchBrowser());
   let opened: Page | null = null;
   try {
-    const { page, errors: pageErrors } = await openStage(browser, baseUrl, spec);
+    const { page, errors: pageErrors, offOrigin } = await openStage(browser, baseUrl, spec);
     opened = page;
 
     // What one of this capture's counts is worth. On a guide it is one painted
@@ -214,7 +225,7 @@ export async function captureFrames(
       paths.push(path);
       if (!paintDriven) atTick.push(await tick());
     }
-    return { paths, whole, atTick, heldPage };
+    return { paths, whole, atTick, heldPage, offOrigin: offOrigin.asked };
   } finally {
     // A lent browser is the caller's to close; the tab this capture opened in
     // it is not, and a file that leaked one per capture would be back where it

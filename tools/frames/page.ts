@@ -1,5 +1,6 @@
 import type { Browser, Page } from "playwright-core";
 import { installFault } from "./fault.js";
+import { type OffOrigin, refuseOffOrigin } from "./offline.js";
 import { clearOpening } from "./opening.js";
 import { turnGuide } from "./opening-hold.js";
 import type { FrameSpec } from "./spec.js";
@@ -34,6 +35,9 @@ const SEAT_KEY = "neon-spore.view";
 export interface Stage {
   page: Page;
   errors: string[];
+  /** Every off-origin URL the page asked for and was refused (`offline.ts`).
+   * A capture of this checkout should end with none. */
+  offOrigin: OffOrigin;
 }
 
 /**
@@ -57,6 +61,11 @@ export async function openStage(
   });
   const pageErrors: string[] = [];
   page.on("pageerror", (err) => pageErrors.push(String(err)));
+
+  // Before the first navigation, because the first navigation is when the
+  // built page asks Google for the menu's face: a frame of this checkout may
+  // not depend on a third party being up (`offline.ts`).
+  const offOrigin = await refuseOffOrigin(page, baseUrl);
 
   // Before the bundle runs, not after: the view switch reads its seat once
   // on startup and the layout is computed from it, so a seat set afterwards
@@ -182,7 +191,7 @@ export async function openStage(
     });
   }
 
-  return { page, errors: pageErrors };
+  return { page, errors: pageErrors, offOrigin };
 }
 
 /**

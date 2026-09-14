@@ -81,21 +81,50 @@ describe("the menu's palette", () => {
   });
 });
 
+/**
+ * The face is the bundle's, and this is what it used to be.
+ *
+ * Until 14 September 2026 `index.html` carried two preconnects and a
+ * stylesheet link to Google Fonts, and this described that: the CDN the app
+ * reaches, the `display=swap` on the query string. What it cost was a first
+ * frame that depended on a host the owner does not own, and — under
+ * `tools/frames` — a picture of this checkout that was a picture of this
+ * checkout plus a network. Now the woff2 is in `src/fonts/` and the bundler
+ * inlines it (`tools/frames/offline.ts` has the numbers).
+ *
+ * So the assertions turn over: the head must name no third party at all, and
+ * the swap moves from a query string to the face's own `font-display`.
+ */
 describe("the face", () => {
   const page = Bun.file(Bun.fileURLToPath(new URL("../index.html", import.meta.url)));
 
-  it("is asked for from the one public CDN this app reaches", async () => {
+  it("asks no third party for anything", async () => {
     const html = await page.text();
-    expect(html).toContain("https://fonts.googleapis.com/css2?family=Space+Grotesk");
-    // Swapped, not blocked: the words are on the screen from the first frame
-    // and the face arrives under them.
-    expect(html).toContain("display=swap");
-    expect(html).toContain(
-      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />',
-    );
+    // In a comment saying what it used to be, but never in a tag.
+    expect(html).not.toMatch(/<link[^>]*fonts\.(googleapis|gstatic)\.com/);
   });
 
-  it("has a real stack under it, for a phone that never gets the sheet", () => {
+  it("is declared here, out of the bundle, and still swapped in", () => {
+    const face = css.slice(css.indexOf("@font-face"), css.indexOf("}", css.indexOf("@font-face")));
+    expect(face, "no @font-face for the menu's own face").toContain('font-family: "Space Grotesk"');
+    // Swapped, not blocked: the words are on the screen from the first frame
+    // and the face arrives under them.
+    expect(face).toContain("font-display: swap");
+    // Relative, so the bundler follows and hashes it — an absolute URL would be
+    // a second host again, and a rooted one breaks a build served off a path.
+    expect(face).toMatch(/src:\s*url\("\.\/fonts\/[^"]+\.woff2"\)/);
+  });
+
+  it("carries the one file three weights need, because the face is variable", () => {
+    const face = css.slice(css.indexOf("@font-face"), css.indexOf("}", css.indexOf("@font-face")));
+    expect(face).toContain("font-weight: 400 700");
+    const url = /url\("\.\/(fonts\/[^"]+)"\)/.exec(face)?.[1] as string;
+    expect(
+      Bun.file(Bun.fileURLToPath(new URL(`../src/${url}`, import.meta.url))).size,
+    ).toBeGreaterThan(1000);
+  });
+
+  it("has a real stack under it, for a phone that loses the file", () => {
     const stack = /font-family:\s*\n?\s*"Space Grotesk",([^;]*);/.exec(css)?.[1] ?? "";
     expect(stack).toContain("system-ui");
     expect(stack).toContain("sans-serif");

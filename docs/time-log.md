@@ -3211,3 +3211,29 @@ out of the phone block and holds the desktop's own two alongside. About 20 min.
 
 Bottleneck: looking — the change is two CSS lines and the only way to know it
 was the right two was a browser at the width, which cost a throwaway harness.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — a capture reaches the preview and nobody else
+
+Queue item, and it carried an open question: whether the built game's refused
+connections to Google were any of `test/opening.test.ts`'s four minutes forty,
+or whether the file simply costs that here. Measured, three times on this
+machine: **280 s** as it stood, **55 s** with `offline.ts` refusing every host
+but the preview's at the browser, **31 s** with the menu's face out of the
+bundle as well. So it was nearly all of it, and the two preconnects were worth
+as much again as the stylesheet they were for.
+
+Space Grotesk is a variable font, so Google's three weights are one 22 kB
+woff2; under `src/fonts/` the bundler inlines it and the page makes no second
+request at all. `captureFrames` carries out the list of what asked, and the new
+case in `opening.test.ts` is that the list is empty. About 45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `capture.ts`, `page.ts`, `browser.ts`, `index.html`, `menu.css`, `build.ts` |
+| writing | 10 | `offline.ts`, the result field, the new case, the `@font-face`, the turned-over face tests |
+| looking | 25 | three timed runs of the file at five minutes, one minute and half of one, plus a probe printing what a capture asks off-origin |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: looking — the answer the entry asked for was a number, and the
+only way to it was running the five-minute file again on each side.
