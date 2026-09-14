@@ -4046,3 +4046,22 @@ identical before and after.
 | landing | 5 |
 
 Bottleneck: landing — the render suite again; the cut itself was one slice and one regex.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `siren.ts` is at the limit: the dial is a second subject
+
+The siren's placement, its two chips and its duty word shared a file with
+ninety lines of dial. The dial moved to `siren-dial.ts` beside
+`siren-seats.ts`, exporting `drawDial`, its radius as `DIAL_R` and the tick
+colour the duty word borrows; `halo`, `mixHex` and `PALETTE` went with it.
+Proof was the canvas op log of four waves that light the siren, 480 frames
+from each seat, hashed identical before and after.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: landing — the render suite; the rename of `R` to `DIAL_R` was one regex, checked against the diff for prose it might have touched.
