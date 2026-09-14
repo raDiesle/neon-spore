@@ -1,7 +1,7 @@
 import { mazeRound, midCol, type World } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { mazeScatter } from "./maze-blood.js";
-import { mazeHeartBlood } from "./maze-heart.js";
+import { mazeHeartBlood } from "./maze-pulse.js";
 import {
   drawSpillDrop,
   mazeSpillAge,

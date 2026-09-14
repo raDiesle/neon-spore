@@ -971,6 +971,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-spill.ts` | What a shot the heart refuses throws back, and how far it gets |
 | `packages/render/src/maze-look.ts` | the one record a candidate MAZE patches — the drum standing still |
 | `packages/render/src/maze-relief.ts` | THE MAZE's drum given depth: a floor under every corridor, and a wall that stands on it |
+| `packages/render/src/maze-pulse.ts` | the numbers THE MAZE's heart runs on — which blood the round is on, the double thump, the tempo from whole to hurt, how long a wound lasts — beside `maze-heart.ts` |
 | `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |
 | `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |
 | `packages/render/src/pulse-meter.ts` | The one meter, the tally under it, and the verdict |

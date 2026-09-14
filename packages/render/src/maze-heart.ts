@@ -1,9 +1,10 @@
 import { blobPoints } from "@neon-spore/content";
-import { type MazeState, mazeHeartColor } from "@neon-spore/sim";
+import type { MazeState } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
 import { drawMazeBlood } from "./maze-blood.js";
+import { heartPulse, mazeHeartBlood, thump } from "./maze-pulse.js";
 import { drawMazeClock, type MazeSkin, mazeClockRun } from "./maze-timer.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
 /**
@@ -30,7 +31,8 @@ import { splinePath } from "./spline.js";
  * That is the boss's condition told in the one way a body tells it. Everything
  * runs off `world.beat` and the frame's phase and stores nothing, so a restart
  * leaves none of it behind (`Effects.reset()` has nothing of this to clear)
- * and both phones thump together without either of them being told to.
+ * and both phones thump together without either of them being told to. The
+ * numbers themselves — blood, thump, tempo, wound — are `maze-pulse.ts`.
  *
  * **A hit is meant to be unmissable.** The muscle is thrown open, a ring of
  * light leaves it, and blood goes out across the floor of the room and stays
@@ -69,51 +71,6 @@ const VEINS = 6;
 const REST = 0.57;
 const SWELL = 0.3;
 
-/**
- * The two colours it alternates between, in round order: a slick's red, then a
- * bulb's cyan. Named against the creatures rather than against the palette
- * keys, because that is what the owner asked for and what a player would say.
- */
-const BLOODS: readonly [{ tint: string; rim: string }, { tint: string; rim: string }] = [
-  { tint: PALETTE.red, rim: PALETTE.redRim },
-  { tint: PALETTE.cyan, rim: PALETTE.cyanRim },
-];
-
-/**
- * Which blood this round runs on. Which colour that *is* is `sim`'s rule, not
- * this file's: it decides whether a shot arriving in the middle counts, and a
- * second copy of it here is how a heart comes to be drawn one colour and to
- * accept the other.
- */
-export function mazeHeartBlood(round: number): { tint: string; rim: string } {
-  return mazeHeartColor(round) === "red" ? BLOODS[0]! : BLOODS[1]!;
-}
-
-/**
- * The double thump, 0 at rest and 1 at the top of a squeeze.
- *
- * Two squeezes a beat, the second smaller and close behind the first, then a
- * long fall to nothing — lub, dub, wait. The wait is most of the beat and is
- * what stops it reading as a pulsing light: a heart is mostly still.
- */
-function thump(phase: number): number {
-  const p = phase - Math.floor(phase);
-  const hit = (at: number, width: number, height: number) => {
-    const d = (p - at) / width;
-    return d < 0 || d > 1 ? 0 : height * Math.sin(d * Math.PI) ** 2;
-  };
-  return Math.min(1, hit(0, 0.17, 1) + hit(0.22, 0.13, 0.55));
-}
-
-/** Thumps a beat at full health, and at none. The owner asked for it to start
- * much slower than it did and to beat more as it is hurt; these are the two
- * ends of that. */
-const SLOWEST = 0.34;
-const FASTEST = 1.15;
-
-/** Beats a hit's own burst lasts — the flare, the recoil and the throw. */
-const WOUND = 1.6;
-
 /** The muscle's contour as the numbers it is made of. One place for them, so
  * the skin and the clock drawn round it can never be two different bodies. */
 function skinOf(body: number, t: number): MazeSkin {
@@ -140,16 +97,7 @@ export function drawMazeHeart(
   beatPhase: number,
 ): void {
   const { tint, rim } = mazeHeartBlood(m.round);
-  const hurt = Math.max(0, Math.min(1, 1 - m.hullMilli / 100_000));
-  // Slow when it is whole, racing when it is not. A rate rather than a
-  // schedule, so nothing has to be stored between beats to know where it is.
-  const time = (beat + beatPhase) * (SLOWEST + (FASTEST - SLOWEST) * hurt);
-  // A hit throws the muscle open on top of whatever it was doing.
-  const struck =
-    m.phase === "verdict" && m.verdict === 1
-      ? Math.max(0, 1 - (beat - m.phaseBeat + beatPhase) / WOUND)
-      : 0;
-  const squeeze = Math.min(1, thump(time) + struck * 0.9);
+  const { time, struck, squeeze } = heartPulse(m, beat, beatPhase);
   const body = r * REST * (1 + SWELL * squeeze) * (1 + 0.28 * struck);
 
   drawMazeBlood(ctx, cx, cy, r, m, (round) => mazeHeartBlood(round).tint, beat, beatPhase);

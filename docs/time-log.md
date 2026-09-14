@@ -4065,3 +4065,24 @@ from each seat, hashed identical before and after.
 | landing | 5 |
 
 Bottleneck: landing — the render suite; the rename of `R` to `DIAL_R` was one regex, checked against the diff for prose it might have touched.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `maze-heart.ts` is at the limit: the pulse is a second subject
+
+The heart's numbers — which blood the round is on, the double thump, the
+tempo from whole to hurt, the beats a wound lasts — shared a file with the
+drawing of its veins, muscle, chamber and wound. They moved to
+`maze-pulse.ts`, with the arithmetic that turned a `MazeState` and a beat
+into `time`, `struck` and `squeeze` folded into one `heartPulse` the drawing
+reads; the three files that wanted the blood alone point at the new file.
+Proof was THE MAZE's canvas op log from both seats over 480 frames, hashed
+identical before and after.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: landing — the render suite; the slice was one line long once and the assertion caught it before anything was written.

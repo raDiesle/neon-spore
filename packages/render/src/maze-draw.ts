@@ -2,8 +2,9 @@ import { type MazeState, mazeCircleMilli, mazeCurrent, type SimConfig } from "@n
 import type { Layout, ViewRole } from "./layout.js";
 import { drawMazeDoors } from "./maze-door.js";
 import { mazeCrash, mazeFall } from "./maze-fall.js";
-import { drawMazeHeart, mazeHeartBlood } from "./maze-heart.js";
+import { drawMazeHeart } from "./maze-heart.js";
 import { MAZE_LOOK } from "./maze-look.js";
+import { mazeHeartBlood } from "./maze-pulse.js";
 import { drawMazeShot } from "./maze-shot.js";
 import { drawMazeSpill, mazeSpillAge } from "./maze-spill.js";
 import { drawMazeStages } from "./maze-stage.js";

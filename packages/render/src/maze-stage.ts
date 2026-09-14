@@ -1,7 +1,7 @@
 import type { MazeState } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { mazeHeartBlood } from "./maze-heart.js";
+import { mazeHeartBlood } from "./maze-pulse.js";
 import { PALETTE } from "./palette.js";
 
 /**
