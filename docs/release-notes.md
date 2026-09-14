@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 84776336 — What THE MAZE remembers leaves the round for a file of its own
+
+`maze-round.ts` was at the limit and held two subjects: the state the boss carries between ticks and the round that moves it. `MazeState` — a paragraph per field — with `installMaze`, `mazeCurrent` and `enterMazePhase`, the fresh copy and the wipe a phase performs, now live in `maze-state.ts`. The round, the controls, the verdict, the hash, the boss union, the wave start and two test files import the state from there; `bosses.ts` re-exports from both files so the package index is unchanged. The `hashWorld` fingerprint of every shipped wave 60 beats in is identical before and after. A refactor, not a look.
+
 ## 2026-09-14 · 49255779 — THE VANE's arm in columns leaves the cycle for a file of its own
 
 `vane-cycle.ts` was at the limit and held two subjects: the cycle in beats and the arm laid over a field. The five functions that take a `SimConfig` and answer in columns — `vanePivotCol`, `vaneReach`, `vaneTipCol`, `vaneFold`, `vaneWeakCol` — now live in `vane-arm.ts`, importing the cycle back. `bosses.ts` re-exports from both files, so every importer through the barrel and the package index is untouched; `vane.ts` imports the three it uses from the new file. The `hashWorld` fingerprint of every shipped wave 60 beats in is identical before and after. A refactor, not a look.
