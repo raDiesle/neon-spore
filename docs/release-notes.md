@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 0f8e5ce3 — The command decoder's field checks move to `command-fields.ts`
+
+`command-codec.ts` was 248 lines and takes one `case` per kind the simulation learns, so the next boss verb would have put it past the limit. The switch is the file's one job and stays whole; the seventy lines of field predicates above it (`isColor`, `isDragTarget`, `isSnakeTurn`, `isPulseLane`, `isPull`, `isNonNegInt`, `isTick`, `isUint32`, `isBool`, `isStep`, `optional`) and the two lists they read are a sibling now, with the colour-set paragraph that argues why `COLORS` is spelled in `net`. `protocol-decode.ts` takes `isTick` and `isUint32` from the sibling; the codec's test, one accepted example per kind and the rejections, is green unchanged. A refactor, not a look.
+
 ## 2026-09-14 · 64e08722 — Where a living body sits and which way it faces is asked once, in its own file
 
 `drawLiving` stood at its limit, and the lines it grows are the ones that ask a kind about a turn — the throb's spin, the dart's lean and flip, each with its paragraph. The pose is `living-pose.ts` now: the own-motion's offsets and squash and the rotations on top of them, answered once and read three times by the draw. Seven waves' frames on both seats are the same to the op. A refactor, not a look.
