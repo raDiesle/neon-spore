@@ -1,7 +1,8 @@
 import type { Scene } from "@neon-spore/shape-sheet";
 import { inline } from "./markdown.js";
 import { type Framed, frameWorld, onCard, PHONE } from "./pose-art.js";
-import { drawMarks, drawOverlay, type Placed, placeBodies } from "./scene-art.js";
+import { type Placed, placeBodies } from "./scene-art.js";
+import { drawMarks, drawOverlay } from "./scene-overlay.js";
 import { sceneWorld } from "./scene-world.js";
 
 /**

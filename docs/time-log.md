@@ -4344,3 +4344,25 @@ and 107. About 15 min.
 
 Bottleneck: friction — biome reports one unused-import group per run, so a
 move that strands four names costs four runs rather than one.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `scene-overlay.ts`: drawing a scene is not placing it
+
+Queue item, the eighth of eleven. `scene-art.ts` decided *where* a draft's
+bodies stand — the fit, the scale, the half-height a label clears, one `Placed`
+each, none of it touching a context — and then drew them. The drawing is
+`scene-overlay.ts` now, and the `drawMarks` re-export goes with it, so
+`scene-panel.ts` asks one file for the placing and one for the picture. `TINT`
+stays where a colour is decided: by the time a body reaches the overlay it
+carries one, so the entry's suggestion to export it turned out not to be
+needed. 249 lines becomes 176 and 93. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, the file's head and tail, who imports `drawOverlay` and `drawMarks` |
+| writing | 5 | the move, the new file's header, `scene-panel.ts`'s two import lines |
+| looking | 0 | nothing visible moved — `scene-label.test.ts` holds the placing |
+| friction | 5 | four rounds of the linter for stranded imports, one group per run |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: friction — the same one-group-per-run linting the sound row cost,
+and this move stranded six names across three packages.

@@ -176,21 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `scene-art.ts` is at the limit: the overlay is drawn beside the placing
-
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-scene-art-ts-is-at-the-limit-the-overlay-is-draw
-- **Files:** `tools/director/src/scene-art.ts`, `tools/director/src/scene-panel.ts`
-
-The file is 249 lines: `Placed`, `bodyScale`, `drawnHalfHeight` and
-`placeBodies` decide where a scene's bodies stand; `drawOverlay` and `label`
-(lines 180 to 248) draw one frame of them with the own-motion applied as
-`render/creatures.ts` applies it. Move the two into `scene-overlay.ts`,
-importing `Placed` and `TINT` (export it) back; `scene-panel.ts` imports
-`drawOverlay` from there, and the `drawMarks` re-export on the last line goes
-with it or stays — either way `scene-panel.ts` is the one importer. Proof:
-`bun run check:fast`, `scene-label.test.ts` among it.
-
 ## `gyre.ts` is at the limit: the wheel's drawing is a second subject
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
