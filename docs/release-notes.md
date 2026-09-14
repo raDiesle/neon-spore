@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 70cfba48 — The ship's mood leaves the hull's geometry for a file of its own
+
+`hull-frame.ts` was at the limit: the hull's shape for one frame — `frame`, the surface and skin samplers, its clock and span — and, before any of it, sixty lines of `HullMood` and `LobePositions`, what the membrane is doing this frame and where its lobes stand. The two interfaces now live in `hull-mood.ts` and come back through a type re-export, so the forty files that import one of them from `hull-frame.ts` are untouched. A type-only move: the typecheck is the proof, and THE HAND's canvas op log from both seats is identical before and after. A refactor, not a look.
+
 ## 2026-09-14 · 1df2cdfe — The volley's shell is cut in a file of its own
 
 `volley-shards.ts` was at the limit: how THE VOLLEY's shell is cut into pieces — the `Piece` shape, the arc-sector cutter, the centring, three cuts a sector and the rind's depth, the speed, lift and spin a piece leaves with — and then the flight and drawing of what was cut. The cutting now lives in `volley-pieces.ts` as one `cutShell` the effect's `ingest` calls with the sector it worked out, the radius, the tile and the stream. A scratch that ingests two wards and two hatches and draws forty frames into the stub canvas hashes to the same op log before and after. A refactor, not a look.
