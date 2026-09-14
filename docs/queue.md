@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Unverified at c1eec7c0: BACK INTO THE GAME pressed against a live relay: whethe…
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-unverified-at-c1eec7c0-back-into-the-game-presse
 - **Files:** `apps/game/src/last-room.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-rejoin.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.css`, `apps/game/src/menu.ts`, `apps/game/src/settings.ts`, `apps/game/src/shell.ts`
 
 *BACK INTO THE GAME: the way back into the room a reload lost* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
