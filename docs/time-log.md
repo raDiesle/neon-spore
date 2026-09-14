@@ -3785,3 +3785,22 @@ identical. About 20 min.
 
 Bottleneck: writing — the copies-table comment, which had to say why the walk
 is an `also` and not an exemption, in the paragraph's own register.
+
+## 2026-09-14 · claude/queue-scene-types-ts-is-on-the-line-again-and-sceneact — `scene-types.ts` is on the line again, and `SceneAct` is where it grows
+
+The file's own closing comment said how it was cut the first time, and the
+act had grown a gesture at a time since. `SceneAct` and its comment are
+`scene-act-types.ts` now, re-exported beside the step so the six films kept
+their import; the two files that read the act alone read it from its file.
+Types only — `tsc` and the scenes test are the whole proof. The file is 87
+lines. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the two interfaces, the step's header, who imports the file |
+| writing | 5 | the cut, two headers, the closing comment, the INDEX row |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, `bun run index`, `queue done`, the commit, `bun run land --keep` |
+
+Bottleneck: landing — the fast check and the land are longer than the cut.

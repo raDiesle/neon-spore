@@ -2,8 +2,8 @@ import type { Command, SceneCommand, SceneScript, SimConfig } from "@neon-spore/
 import { controlHold, controlPress, controlTurns } from "./control-command.js";
 import { type ControlId, control } from "./controls.js";
 import { bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
+import type { SceneAct } from "./scene-act-types.js";
 import { crankCommands, dragCommands } from "./scene-drag.js";
-import type { SceneAct } from "./scene-types.js";
 import { guideScene, type SceneId } from "./scenes.js";
 
 /**

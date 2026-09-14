@@ -6,8 +6,8 @@ import {
   type SimConfig,
   windPerTickMilli,
 } from "@neon-spore/sim";
+import type { SceneAct } from "./scene-act-types.js";
 import { actCol } from "./scene-script.js";
-import type { SceneAct } from "./scene-types.js";
 
 /**
  * **A hand carrying a handle**, turned into the stream of `drag` messages a
