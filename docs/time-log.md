@@ -3631,3 +3631,26 @@ Bottleneck: friction — counting backslashes across four layers (the tool,
 the shell, the JavaScript string and the test's own template) is exactly
 what the rule exists to stop, and it cost this lane the same twenty minutes
 it charges everyone else.
+
+## 2026-09-14 · claude/queue-spawn-ts-sits-on-the-line-and-the-next-creature — `spawn.ts` sits on the line and the next creature cannot enter
+
+The file stood at exactly 250 lines with a header saying it grows a spread
+line per creature. The per-kind spread (`dartOnSpawn` … `balloonOnSpawn`) is
+`kindFieldsOnSpawn` in `spawn-fields.ts`, in the same order — the five rolls
+come off `world.rng` where they always did — and the three arrivals that are
+more than one body are `companionsOnSpawn` in `spawn-companions.ts`. The
+rock-cross comment that had come away from its spread is back on it.
+`spawn.ts` is 123 lines. Proved by a fingerprint of all 71 shipped waves at
+60 beats before and after, identical, and `bun test packages/sim`. About 25
+min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `spawn.ts`, `creature-types.ts`, `shell.ts`, the fingerprint probe |
+| writing | 10 | the two new files, the header and imports of `spawn.ts`, the two INDEX rows |
+| looking | 0 | none |
+| friction | 5 | `across` typed `number` where `rock-cross.ts` wants `CrossDir`; one tsc round |
+| landing | 5 | `check:fast`, `bun run index`, `queue done`, the commit, `bun run land --keep` |
+
+Bottleneck: writing — a mechanical carve, and the only cost was moving the
+comments with the lines they explain so neither file reads as a fragment.

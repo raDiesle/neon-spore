@@ -178,6 +178,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/gyre.ts` | you touch the wheel itself — how it turns, what the maw does to it, how it carries its six bodies and when it breaks |
 | `packages/sim/src/span.ts` | you need how wide a body is or which columns it covers — `spanOf`, `occupiesCol` and the clamps, cut out of `kinds.ts` |
 | `packages/sim/src/spawn.ts` | you are giving a new creature a field it is born with — one queue entry becoming a body, and the only place one does |
+| `packages/sim/src/spawn-companions.ts` | a creature is meant to bring bodies with it — the gyre's rim, the strand's beads, the crawler's links, built off the body just pushed |
+| `packages/sim/src/spawn-fields.ts` | you are giving a new creature a field it is born with — the per-kind spread, in the order the rolls come off `world.rng` |
 | `packages/sim/src/config-gyre.ts` | you are retuning the wheel — how fast the rim turns, how much the maw takes off it, how far the diamond sinks |
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
 | `packages/sim/src/hash-creature.ts` | you added a field to `Creature` and have to put it in the fingerprint |

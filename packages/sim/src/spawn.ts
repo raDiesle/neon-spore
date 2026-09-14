@@ -1,26 +1,9 @@
-import { balloonEntryRow, balloonOnSpawn } from "./balloon.js";
-import { beatboxOnSpawn } from "./beatbox.js";
-import { caromOnSpawn } from "./carom.js";
-import { coilOnSpawn } from "./coil-state.js";
-import { countdownOnSpawn } from "./countdown.js";
-import { growCrawler } from "./crawler-round.js";
-import { crystalOnSpawn } from "./crystal.js";
-import { dartOnSpawn } from "./dart.js";
-import { echoOnSpawn } from "./echo.js";
-import { fenceOnSpawn } from "./fence.js";
-import { fenceCracksOnSpawn } from "./fence-crack.js";
-import { ghostOnSpawn } from "./ghost.js";
-import { gyreOnSpawn, mountsFor } from "./gyre.js";
-import { recoilOnSpawn } from "./recoil.js";
-import { rindOnSpawn } from "./rind.js";
-import { rockCrossOnSpawn, rockCrossRowFor, rockEntryCol, rockMayCross } from "./rock-cross.js";
+import { balloonEntryRow } from "./balloon.js";
+import { rockCrossRowFor, rockEntryCol, rockMayCross } from "./rock-cross.js";
 import { shellOnSpawn } from "./shell.js";
-import { stringStrand } from "./strand-spawn.js";
+import { companionsOnSpawn } from "./spawn-companions.js";
+import { kindFieldsOnSpawn } from "./spawn-fields.js";
 import { clampSpanCol, colSpan, fallTilesPerBeat, spawnSpan } from "./types.js";
-import { veerOnSpawn } from "./veer.js";
-import { veilOnSpawn } from "./veil.js";
-import { volleyOnSpawn } from "./volley.js";
-import { wispOnSpawn } from "./wisp.js";
 import type { World } from "./world.js";
 
 /**
@@ -33,10 +16,13 @@ import type { World } from "./world.js";
  * standing — they fall, they step, they divide, they reach the hull — and this
  * is the single place a body comes into existence at all.
  *
- * That is also why it grows and the other half does not. Every creature added
+ * That is also why it grew and the other half did not. Every creature added
  * to the bestiary since THE LURE has wanted a field of its own on the beat it
- * enters, and each is one spread line here — a list, in a file that is a
- * list, rather than more lines inside a loop that is a rule.
+ * enters, and each was one spread line here until the file stood on its limit
+ * with the next creature unable to enter. The list of what one kind brings and
+ * no other does is `spawn-fields.ts` now, and the three arrivals that are more
+ * than one body are `spawn-companions.ts`; what stays here is the arrival
+ * itself — the place, the glide in, the fields every body has.
  */
 
 /**
@@ -125,126 +111,13 @@ export function spawnArrivals(world: World): void {
       // there is no instant at which anything — render included — could have
       // shown the pair something they were not meant to know yet.
       shell: shellOnSpawn(entry.kind),
-      // A dart arrives already aiming, and already knowing the move after
-      // that: it enters on a float beat, so the arrow and the previewed path
-      // are over it on player 2's screen for the whole of the glide in. Both
-      // sides are rolled here, from the world's own stream, which is why
-      // `rng.state` being in `hashWorld` already covers them.
-      ...(entry.kind === "dart" ? dartOnSpawn(world, col) : {}),
-      // Which body is inside a veil, rolled rather than authored — the one
-      // creature in the game whose contents nobody may compose against. It
-      // overrides `color` above on purpose: a wave that named one would be
-      // fixing the thing docs/spec/structure.md 7.3 puts on the random side
-      // of its own table. Same stream, same argument about `rng.state`.
-      ...(entry.kind === "veil" ? veilOnSpawn(world) : {}),
-      // Where THE WISP is going after its first hop, rolled here for the
-      // dart's reason two lines up: the square has to be on the navigator's
-      // screen from the frame the body is, or the longest dwell of this
-      // creature's life is the one with nothing to say (`wispOnSpawn`).
-      ...(entry.kind === "wisp" ? wispOnSpawn(world, col) : {}),
-      // Which way a crossing ghost sets off, and a lap count at zero. Absent
-      // for a ghost the wave authored `"down"`, and the absence *is* the
-      // path — `ghostCrosses` reads it, and a falling ghost carries no field
-      // at all, so every wave written before crossing existed is byte-for-byte
-      // the same world.
-      ...(entry.path === "across" ? ghostOnSpawn(world.cfg.cols, col) : {}),
-      // How many divisions this arrival has ahead of it, absent on every other
-      // kind — a wave written before THE ECHO is the same world.
-      ...(entry.kind === "echo" ? echoOnSpawn(world.cfg, world.beat) : {}),
-      // How many layers this arrival has to shed, absent on every other kind —
-      // a wave written before THE RIND is the same world.
-      ...(entry.kind === "rind" ? rindOnSpawn(world.cfg) : {}),
-      // How many bounces this arrival has, absent on every other kind — a wave
-      // written before THE RECOIL is the same world.
-      ...(entry.kind === "recoil" ? recoilOnSpawn(world.cfg) : {}),
-      // A wheel arrives upright and with no age on it (`gyre.ts`).
-      ...(entry.kind === "gyre" ? gyreOnSpawn() : {}),
-      // Where THE COUNT's rim starts in its period, rolled for the veil's
-      // reason: a phase read off the arrival is one the navigator could keep.
-      ...(entry.kind === "countdown" ? countdownOnSpawn(world) : {}),
-      // Which columns a wall is open in, as the mask everything downstream
-      // reads, and absent on every other kind. Authored rather than rolled and
-      // remapped onto the real field before it got here (`queueFromWave`), so
-      // both devices are handed the same way through — and the way through is
-      // the one thing in this creature the pair has to say out loud.
-      ...(entry.kind === "fence" ? { fenceGaps: fenceOnSpawn(world.cfg, entry.gaps) } : {}),
-      // And where it is cracked, which is the other half of the same arrival:
-      // the columns a bolt opens and the colour each of them wants. Authored
-      // and remapped exactly as the gaps are, so both devices are handed the
-      // same breaking points — and a crack is the one thing about this wall
-      // the pair has to say *two* words about (`fence-crack.ts`).
-      ...(entry.kind === "fence"
-        ? fenceCracksOnSpawn(world.cfg, entry.cracksRed, entry.cracksCyan)
-        : {}),
-      // Which way THE CAROM sets off — and THE CRYSTAL, on the same terms —
-      // absent on every other kind, so a body that never crosses carries no
-      // field and every earlier wave is byte-for-byte the same world. Derived
-      // from the column and the field's width rather than rolled: both screens
-      // see the heading from the first frame (`caromOnSpawn`, `crystalOnSpawn`).
-      ...(entry.kind === "carom" ? caromOnSpawn(world.cfg, col, span) : {}),
-      ...(entry.kind === "crystal" ? crystalOnSpawn(world.cfg, col, span) : {}),
-      // Which way THE COIL sets off, absent on every other kind — a wave
-      // written before this creature is the same world. Always left, which is
-      // what "it comes in at the right wall" means once the wave has put it in
-      // a column: nothing is rolled or read off the field's width
-      // (`coilOnSpawn`). The charge it may one day be sent is not here — an
-      // arrival is never already chained.
-      ...(entry.kind === "coil" ? coilOnSpawn() : {}),
-      // Every plate of shell on, and absent on every other kind — so a body
-      // the shield simply removes carries no field at all and every wave
-      // written before THE VOLLEY is byte-for-byte the same world. It is the
-      // whole of what a volley arrives with: it falls like a rock from here,
-      // and a rock needs no state to do that (`volleyOnSpawn`).
-      ...(entry.kind === "volley" ? volleyOnSpawn(world.cfg) : {}),
-      // Which side THE VEER's first change of lane takes, rolled here for the
-      // dart's reason far above: the arrow has to be over the rider from the
-      // frame the rock is on the field, or the three rows before the first
-      // change have nothing for the pilot to say. Absent on every other kind.
-      ...(entry.kind === "veer" ? veerOnSpawn(world, col) : {}),
-      // Which way a rock crosses the field, and the row it crosses along —
-      // absent on a rock that falls, so every wave written before crossing
-      // existed is byte-for-byte the same world. `rockMayCross` is asked here
-      // rather than trusted from the wave: a route on a body that already
-      // moves by a rule of its own would be a body stepped twice in one beat
-      // (`own-step.ts`), and a stale entry must not be able to buy one.
-      // How many beats this box asks for, absent on every other kind. Authored,
-      // never rolled — the count is the sentence the pilot has to say
-      // (`beatboxOnSpawn`). The tally and its beat are not here — never part
-      // way through a run.
-      ...(entry.kind === "beatbox" ? beatboxOnSpawn(world.cfg, entry.beats) : {}),
-      ...(across === undefined ? {} : rockCrossOnSpawn(across, row)),
-      // How many times THE BALLOON still splits, the beat it started swelling,
-      // its heading and its speed — absent on every other kind. The heading is
-      // derived rather than rolled, for `caromOnSpawn`'s reason.
-      ...(rises ? balloonOnSpawn(world.cfg, world.beat, col, span, entry.rise) : {}),
+      // And whatever this one kind of body arrives with and no other kind
+      // does — its rolls, its masks, its heading (`spawn-fields.ts`).
+      ...kindFieldsOnSpawn(world, entry, { col, row, span, across, rises }),
     });
-    // A gyre is the one arrival that brings bodies with it: six on its rim,
-    // alternating, built from the hub that was just pushed so that they are
-    // already in their rim positions on the frame it enters. Nothing else in
-    // the game spawns more than the entry named, which is why this is the one
-    // place a queue entry becomes more than one creature.
-    if (entry.kind === "gyre") {
-      const hub = world.creatures[world.creatures.length - 1]!;
-      world.creatures.push(...mountsFor(world, hub));
-    }
-    // And a strand is the second, on the same terms with one difference: the
-    // entry itself *is* one of the bodies. It becomes the leftmost bead of the
-    // thread and `stringStrand` hangs the rest to its right — settling that
-    // first bead's own colour and place in the order on the way, because both
-    // follow from a roll that cannot be taken until the count is known.
-    if (entry.kind === "strand") {
-      const first = world.creatures[world.creatures.length - 1]!;
-      world.creatures.push(...stringStrand(world, first, entry.beads));
-    }
-    // And a crawler is the third, on the strand's terms: the entry itself is
-    // the **head** and `growCrawler` hangs the segments and the tail out
-    // behind it, settling the head's own wall, row and heading on the way.
-    // Every link but the head starts off the field, so the worm feeds itself
-    // onto the ship a link at a time whatever length the wave asked for.
-    if (entry.kind === "crawler") {
-      const head = world.creatures[world.creatures.length - 1]!;
-      world.creatures.push(...growCrawler(world, head, entry.segments, entry.side));
-    }
+    // A gyre brings its rim, a strand its beads, a crawler its links — the
+    // three arrivals that are more than one body (`spawn-companions.ts`).
+    world.creatures.push(...companionsOnSpawn(world, entry));
     world.spawned += 1;
   }
 }
