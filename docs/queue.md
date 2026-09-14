@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `perf/compare.ts` is at the limit: the run's shape is not the comparison
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-perf-compare-ts-is-at-the-limit-the-runs-shape-i
 - **Files:** `tools/perf/compare.ts`
 
 The file is 249 lines and `WaveCost`, `Run` and `WaveDelta` (lines 32 to 168)
