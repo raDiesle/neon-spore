@@ -4322,3 +4322,25 @@ About 15 min.
 Bottleneck: landing — this is the first of the eleven whose diff reaches
 `packages/render`, so `check:fast` draws every frame rather than 90 files of
 tools.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `sound-row.ts`: one sound is not the catalogue
+
+Queue item, the seventh of eleven. `sound-page.ts` built both the sheet — which
+family is showing, the status filter, the tabs, the legend — and one sound's
+row inside it. The row is `sound-row.ts` now and takes the `Engine` it plays
+through as an argument rather than reading the module-level one, which is what
+kept it next door in the first place. `line` is exported with it: the page
+prints its own three notes the same way, and leaving a three-line DOM helper on
+the page would have had the row importing the page back. 249 lines becomes 168
+and 107. About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `sound-page.ts` whole, where `engine` and `line` are read |
+| writing | 5 | the move, the new file's header, the engine argument, `line` exported |
+| looking | 0 | nothing visible moved — a file split |
+| friction | 5 | four rounds of the linter for imports the move left behind, one name at a time |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: friction — biome reports one unused-import group per run, so a
+move that strands four names costs four runs rather than one.

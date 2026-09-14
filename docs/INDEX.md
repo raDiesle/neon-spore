@@ -1675,6 +1675,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/ship-fields-round.ts` | The rounds' own dials, sorted into their cards |
 | `tools/director/src/sound-link-pulse.ts` | Why none of THE PULSE's twelve sounds has a picture |
 | `tools/director/src/sound-link-none.ts` | The sounds that are wired up and have nothing to draw, with the reason |
+| `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |
 | `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |

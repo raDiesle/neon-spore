@@ -12,105 +12,15 @@
  * or is played and claims to be spare.
  */
 
-import {
-  byFamily,
-  CATALOGUE,
-  Engine,
-  families,
-  judgeBand,
-  planSound,
-  type SoundDef,
-  THEMES,
-} from "@neon-spore/audio";
+import { byFamily, CATALOGUE, Engine, families, type SoundDef, THEMES } from "@neon-spore/audio";
 import { bindMusicPage } from "./music-page.js";
 import { mountSheet } from "./session.js";
-import { subjectArt } from "./sound-art.js";
-import { NO_SUBJECT, subjectFor, triggerFor } from "./sound-link.js";
-import { plotLegend, plotSound } from "./sound-plot.js";
+import { plotLegend } from "./sound-plot.js";
+import { line, row } from "./sound-row.js";
 import { bindTabs } from "./tabs.js";
 
 const engine = new Engine({ volume: 0.8 });
 let status: "all" | "bound" | "spare" = "all";
-
-function line(cls: string, text: string): HTMLParagraphElement {
-  const p = document.createElement("p");
-  p.className = cls;
-  p.textContent = text;
-  return p;
-}
-
-/** `soft()` multiplies a gain, so a layer's own number can arrive as 0.0559999. */
-const round = (n: number): string => String(Math.round(n * 1000) / 1000);
-
-/** The recipe as the numbers that make it — the whole sound is this line. */
-function recipe(def: SoundDef): string {
-  return def.layers
-    .map((l) => {
-      const to = l.toFreq && l.toFreq !== l.freq ? `→${Math.round(l.toFreq)}` : "";
-      const bits = [`${l.source} ${Math.round(l.freq)}${to}Hz`, `g${round(l.gain)}`];
-      if (l.filter) bits.push(`${l.filter.type} ${Math.round(l.filter.freq)}`);
-      if (l.ring) bits.push(`ring ${Math.round(l.ring.freq)}`);
-      if (l.wobble) bits.push(`wob ${l.wobble.rate}`);
-      if (l.repeat) bits.push(`×${l.repeat.times}`);
-      return bits.join(" ");
-    })
-    .join("   ·   ");
-}
-
-function row(def: SoundDef): HTMLElement {
-  const bound = def.status === "bound";
-  const el = document.createElement("div");
-  el.className = bound ? "sound is-built" : "sound";
-
-  el.appendChild(subjectArt(subjectFor(def), bound, NO_SUBJECT[def.id]));
-
-  const body = document.createElement("div");
-  body.className = "sound-body";
-
-  const head = document.createElement("div");
-  head.className = "head";
-  const play = document.createElement("button");
-  play.type = "button";
-  play.className = "playbtn";
-  play.textContent = "▶";
-  play.title = "play";
-  play.addEventListener("click", () => {
-    engine.unlock();
-    engine.play(def);
-  });
-  head.appendChild(play);
-  const name = document.createElement("span");
-  name.className = "name";
-  name.textContent = def.id;
-  head.appendChild(name);
-  const stamp = document.createElement("span");
-  stamp.className = "stamp";
-  stamp.textContent = bound ? "BOUND" : "SPARE";
-  head.appendChild(stamp);
-  body.appendChild(head);
-
-  body.appendChild(line("note", def.blurb));
-  body.appendChild(line("use", triggerFor(def)));
-  if (def.pierce) body.appendChild(line("pierce", `COVERS A VOICE — ${def.pierce}`));
-
-  const plan = planSound(def);
-  const band = judgeBand(def, plan);
-  body.appendChild(
-    line(
-      "kind",
-      `${plan.duration.toFixed(2)}s · ${plan.voices.length} voices · costs the conversation ${band.seconds.toFixed(3)}s`,
-    ),
-  );
-
-  const code = document.createElement("code");
-  code.className = "recipe";
-  code.textContent = recipe(def);
-  body.appendChild(code);
-
-  el.appendChild(body);
-  el.appendChild(plotSound(plan));
-  return el;
-}
 
 function shown(family: string): SoundDef[] {
   const list = family === "all" ? [...CATALOGUE] : byFamily(family as SoundDef["family"]);
@@ -162,7 +72,7 @@ function renderPage(family: string): void {
     page.appendChild(line("note", "Nothing in this family with that filter on."));
     return;
   }
-  for (const def of list) page.appendChild(row(def));
+  for (const def of list) page.appendChild(row(def, engine));
 }
 
 /**

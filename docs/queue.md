@@ -176,20 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `sound-page.ts` is at the limit: a row is not the page
-
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-sound-page-ts-is-at-the-limit-a-row-is-not-the-p
-- **Files:** `tools/director/src/sound-page.ts`
-
-The file is 249 lines. `line`, `round`, `recipe` and `row` (lines 35 to 114)
-build one sound's row — the recipe as its numbers, the PLAY button, the
-status — and `renderPage`, `renderAll`, `bindSoundPage` and `buildTabs` are
-the page around them. Move the four into `sound-row.ts`, `row` exported and
-taking the `Engine` it plays through as an argument rather than reading the
-module-level one; `sound-page.ts` imports `row`. Proof: `bun run check:fast`;
-`tools/director/test` holds the page's tests.
-
 ## `scene-art.ts` is at the limit: the overlay is drawn beside the placing
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
