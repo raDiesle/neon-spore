@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 07a15b9a — The CONTROLS landing is checked: a phone has no such row, a desk does
+
+`Unverified at ff67ba6f` said that a phone's SETTINGS with no CONTROLS row on it had not been seen, and it named its own reason: headless Chromium at 390 px reports `pointer: fine`, so a capture of the page showed the desk's own form under a picture that read as a phone. The landing before this one took that reason away — `menu-shot` opens a touch context now — so this is the entry opened on a machine that can.
+
 ## 2026-09-14 · f6898d94 — `bun run menu-shot` photographs a phone, not a phone-sized desk
 
 The tool opened a 390x844 viewport, which is the right size, in a plain desktop context, which is the wrong pointer. Headless Chromium answers `pointer: fine` and `hover: hover` however narrow the window is, so everything the app decides by `atADesk()` — the menu's CONTROLS row, the keyboard hint over the field, the splash trail — photographed in its desk form under a picture that read as a phone. The lane that made CONTROLS desk-only found it the same day: the capture showed the row a phone will not have, and there was no way to take the picture that would have proved it. The unit tests held the behaviour; the tool could not show it.
