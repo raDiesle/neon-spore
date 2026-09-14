@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `skins/light.ts` is at the limit: the axis is one subject, the passes another
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-skins-light-ts-is-at-the-limit-the-axis-is-one-s
 - **Files:** `tools/director/src/skins/light.ts`
 
 The file is 249 lines. Eleven skins import the passes — `terminatorPass`,
