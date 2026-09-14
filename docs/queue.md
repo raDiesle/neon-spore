@@ -387,6 +387,7 @@ what the rest of this file holds.
 ## Unverified at ff67ba6f: A real phone's SETTINGS with no CONTROLS row on it, and…
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-unverified-at-ff67ba6f-a-real-phones-settings-wi
 - **Files:** `apps/game/src/at-a-desk.ts`, `apps/game/src/key-hint.ts`, `apps/game/src/menu-controls.ts`, `apps/game/src/menu-settings.ts`, `apps/game/src/trail.ts`, `apps/game/test/at-a-desk.test.ts`, `apps/game/test/controls-page.test.ts`, `apps/game/test/input-pc.test.ts`
 
 *CONTROLS is a desk door, and stops teaching the keys that are the rig* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
