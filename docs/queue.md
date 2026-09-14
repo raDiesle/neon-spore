@@ -210,3 +210,29 @@ being enforced at all; or it stays and `docs/commands.md` says out loud that
 a comment above an import is not safe from `format`. The first keeps both
 properties and costs one line. `tools/imports/run.ts` already formats with
 `biome format --write` for exactly this reason and has the comment saying why.
+
+## CLEAR THIS DEVICE leaves the intro flag behind, and the test cannot see it
+
+- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Files:** `apps/game/src/settings.ts`, `apps/game/test/settings.test.ts`, `apps/game/src/intro.ts`
+
+`neon-spore.intro` is written by `intro.ts` when the six opening pages are
+closed, and it is not in `DEVICE_KEYS`. So the button that says it forgets
+everything this device knows about the person holding it leaves behind the one
+fact that decides what they see first: a phone handed to somebody else opens on
+the menu rather than on the front door.
+
+**The test that exists for exactly this cannot catch it**, which is the half
+worth fixing first. `settings.test.ts` sweeps a *named list* of source files for
+`"neon-spore.…"` strings — `nickname`, `pairing`, `progress`, `settings`,
+`sign-in`, `view`, and now `last-room` — and `intro.ts` was never on it. A list
+of files to sweep has the same failure mode as the list of keys it is checking:
+somebody adds one and does not add it twice. Sweep `apps/game/src/*.ts` instead,
+which is a glob rather than a list and cannot go stale, and the key falls out of
+it.
+
+Then decide the key itself. Clearing it is the reading the button's own sentence
+gives — *forget everything this device knows about the person holding it* — and
+it means the next person meets the game's front door, which is what the door is
+for. If the owner wants it kept, that is a line in `forgetThisDevice`'s doc
+saying so and an entry in the test's expected list, not an absence.

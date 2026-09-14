@@ -1,5 +1,6 @@
 import type { MechanicId } from "@neon-spore/content";
 import type { LinkStatus } from "@neon-spore/net";
+import { heldRoom } from "./last-room.js";
 import type { MainMenu, MenuBindings } from "./menu-bindings.js";
 import {
   type EntryActions,
@@ -154,6 +155,14 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     onWave: play,
     onDemo: playDemo,
     settings: b.settings,
+    // The top button (`menu-rejoin.ts`). It goes through the same door REJOIN
+    // goes through — the room screen opens on it, because the pair still have
+    // to press START — and the room screen is where a room that has emptied in
+    // the meantime says so.
+    onRejoin: (room) => {
+      close();
+      b.joinRoom(room);
+    },
     onSeat: (role) => {
       b.setSeat(role);
       dom.paintSeat(role);
@@ -180,7 +189,16 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
    * row is the entry's sibling rather than its child.
    */
   const paintLink = (): void => {
-    paintPage({ dom, link, pairRoom: pairRoom(), opened, wave: b.wave() });
+    paintPage({
+      dom,
+      link,
+      pairRoom: pairRoom(),
+      // `Date.now` and not a frame clock: this is how long ago a person was in
+      // a room, which the simulation's tick counter says nothing about.
+      held: heldRoom(Date.now()),
+      opened,
+      wave: b.wave(),
+    });
     if (!inRoom()) steps.cancelLeave();
   };
 

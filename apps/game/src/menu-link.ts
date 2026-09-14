@@ -71,6 +71,13 @@ export interface LinkPaint {
    * handed in rather than read here so the caller keeps the one definition.
    */
   pairRoom: string;
+  /**
+   * The room this device was standing in a moment ago, or "" — `last-room.ts`,
+   * handed in for `pairRoom`'s reason. It is a different question from the one
+   * above: that is *who you play with*, this is *where you just were*, and the
+   * second is the one a reload is about.
+   */
+  held: string;
   /** Whether anything has been played yet — which of CONTINUE's three answers
    * this press is, and therefore what its line says. */
   opened: boolean;
@@ -79,7 +86,7 @@ export interface LinkPaint {
 }
 
 /** Cheap, so it is redone rather than diffed. */
-export function paintLink({ dom, link, pairRoom, opened, wave }: LinkPaint): void {
+export function paintLink({ dom, link, pairRoom, held, opened, wave }: LinkPaint): void {
   const room = inRoom(link);
   dom.setEntry("single", { on: !room });
   // How far this device has got, under the title. Off in a room, where the wave
@@ -111,6 +118,12 @@ export function paintLink({ dom, link, pairRoom, opened, wave }: LinkPaint): voi
     on: !room && pairRoom !== "",
     desc: `Back into the room you and ${partner} share. No code to read out.`,
   });
+  // **And the way back into the room this device was just in**, at the top of
+  // the front page rather than a floor down behind PLAY (`menu-rejoin.ts`).
+  // Off in a room, where there is nothing to go back to; on without a partner
+  // and without a name, because a reload is not a meeting and asks nothing of
+  // either of them.
+  dom.setRejoin(room ? "" : held);
   // **The difficulty, and which of the three is on.** The room's answer where
   // there is a room — a level is a tempo and the pair plays one — and this
   // device's where there is not. The row that opens the page says it, and the

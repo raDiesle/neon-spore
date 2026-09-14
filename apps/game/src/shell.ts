@@ -8,6 +8,7 @@ import { bindInstall, type Installer } from "./install.js";
 import { type Intro, opensIntro, readIntroSeen } from "./intro.js";
 import { bindJoinScreen, type JoinScreen } from "./join.js";
 import { roomRequested } from "./join-link.js";
+import { forgetRoom, rememberRoom } from "./last-room.js";
 import { createLink, type Link } from "./link.js";
 import { bindMainMenu, type MainMenu, opensOnMenu } from "./menu.js";
 import { onQuit } from "./quit.js";
@@ -99,6 +100,18 @@ export function bindShell(p: ShellParts): Link {
       p.onStart(player, wave, level);
     },
     onStatus: (status) => {
+      // **Where this device was, written down on every status the room sends.**
+      // A phone that reloads loses the socket and the seat and keeps nothing
+      // else; the other phone loses nothing and goes on waiting in the room.
+      // The stamp is *when this device was last in it* rather than when it
+      // arrived, so a pair an hour into a session still gets the offer back
+      // (`last-room.ts`, and the button it feeds in `menu-rejoin.ts`).
+      //
+      // `Date.now` and not the tick counter: this is wall-clock time between
+      // two page loads, which the simulation's clock says nothing about.
+      if (status.state !== "solo" && status.room !== "") {
+        rememberRoom(status.room, Date.now());
+      }
       joinScreen?.update(status);
       menu?.update(status);
       hold.update(status);
@@ -127,10 +140,22 @@ export function bindShell(p: ShellParts): Link {
   // room's line saying whose press it was (`quit.ts`, `menu-link.ts`).
   onQuit(() => menu?.open("play"));
 
-  const hold = bindHoldCard({ leave: () => link.leave() });
+  /**
+   * Somebody said they were done, so there is nothing to offer them back into.
+   * All three leaves go through here — the card that comes up when the other
+   * phone goes quiet, the room screen's own, and the menu's LEAVE ROOM — because
+   * a device that kept the room after a deliberate leave would put BACK INTO
+   * THE GAME in front of the person who had just pressed the way out of it.
+   */
+  const leaveRoom = (): void => {
+    forgetRoom();
+    link.leave();
+  };
+
+  const hold = bindHoldCard({ leave: leaveRoom });
   joinScreen = bindJoinScreen({
     join: (room) => link.join(room),
-    leave: () => link.leave(),
+    leave: leaveRoom,
     ready: () => link.ready(),
     back: () => menu?.open(),
   });
@@ -177,7 +202,7 @@ export function bindShell(p: ShellParts): Link {
         joinScreen?.open(true);
         link.join(room);
       },
-      leaveRoom: () => link.leave(),
+      leaveRoom,
       // CONTINUE in a room is the room's own START, sent through the same door
       // the room screen's button uses — the only press on one phone that may
       // begin a wave on two (`menu.ts`, `link.ts`).

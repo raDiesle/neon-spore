@@ -4,6 +4,7 @@ import type { DemoRow } from "./demo-menu.js";
 import { buildControls } from "./menu-controls.js";
 import { buildDemos, buildHowTo, buildWaves } from "./menu-pages.js";
 import { backButton, el, type MenuPage, sporeSvg } from "./menu-parts.js";
+import { rejoinButton } from "./menu-rejoin.js";
 import { entryRows, type MenuEntry } from "./menu-rows.js";
 import { buildSeats } from "./menu-seats.js";
 import { buildSettings, type SettingsHooks } from "./menu-settings.js";
@@ -52,6 +53,8 @@ export interface MenuHandlers {
   openIntro: () => void;
   /** What the settings page needs of the rest of the app. */
   settings: SettingsHooks;
+  /** The top button was pressed: back into the room it names (`setRejoin`). */
+  onRejoin: (room: string) => void;
 }
 
 export interface MenuDom {
@@ -69,6 +72,16 @@ export interface MenuDom {
   paintNames: (names: readonly [string, string]) => void;
   /** Re-label an entry, or take it off the page. Named by `key`. */
   setEntry: (key: string, next: { label?: string; desc?: string; on?: boolean }) => void;
+  /**
+   * **The way straight back into the room this device was just in**, at the top
+   * of the front page. An empty code takes it off.
+   *
+   * Not a row, and that is the whole of it. A player who reloaded mid-wave is
+   * looking for one thing, the other phone is already waiting for them, and the
+   * four rows under this are a list to read. `last-room.ts` says what is
+   * remembered and for how long.
+   */
+  setRejoin: (room: string) => void;
   /**
    * The button an entry is, for the one caller that needs to put something in
    * front of it rather than beside it — LEAVE ROOM asks before it hangs up on
@@ -130,6 +143,10 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     for (const [name, node] of Object.entries(pages)) node.classList.toggle("on", name === page);
     scroll.scrollTop = 0;
   };
+
+  // Above the four rows and looking nothing like them (`menu-rejoin.ts`).
+  const rejoin = rejoinButton(h.onRejoin);
+  rootPage.append(rejoin.node);
 
   const rows = entryRows();
   rows.draw(h.entries, rootPage);
@@ -210,6 +227,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     paintNames,
     setEntry: rows.set,
     entryRoot: rows.root,
+    setRejoin: rejoin.set,
     setProgress: (line) => {
       progress.textContent = line;
       progress.hidden = line === "";

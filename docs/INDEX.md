@@ -1169,6 +1169,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/haptics.ts` | A buzz for the two things a player must not miss |
 | `apps/game/src/settings.ts` | The things a player turns on and off, kept on their own device |
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
+| `apps/game/src/last-room.ts` | **The room this device was in a moment ago.** A phone that reloads loses everything about the room it was… |
 | `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
 | `apps/game/src/join-link.ts` | a room's code and the four things that happen to one on a phone — drawn fresh, read off a link, written into one, handed to the other phone |
 | `apps/game/src/nickname.ts` | This device's player name: asked once, kept here, carried into every room |
@@ -1195,6 +1196,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-bindings.ts` | **What the menu is handed, and what it hands back** — the shape, away from the knot that reads one |
 | `apps/game/src/menu-who.ts` | The line at the top of the PLAY page saying who this phone is |
 | `apps/game/src/menu-rows.ts` | the rows an entry list is drawn as, and the map that finds one again by key — beside `menu-view.ts` |
+| `apps/game/src/menu-rejoin.ts` | **The way straight back into the room this device was just in**, at the top of the front page |
 | `apps/game/src/keys-grip.ts` | what the desk rig's grip key takes hold of, and how it carries it |
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |

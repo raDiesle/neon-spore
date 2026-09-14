@@ -289,6 +289,68 @@
 /* `backwards`, never `both`: a filled-forwards animation keeps its own
    `transform` on the element for good, and the hover nudge below would then
    never move anything. */
+/* BACK INTO THE GAME: the top button, and the one thing on this page that is
+   not a row.
+
+   The owner asked for it that way — *some special visualized top button to
+   rejoin ongoing game* — and the case is somebody who reloaded while the other
+   phone stayed in the room, waiting. A row in a list of four is a thing to read
+   past; this is meant to be the thing the eye lands on, so it is the accent's
+   own colour rather than the rows' warm, it is full width, and the code is set
+   at the size the room screen sets one at.
+
+   The edge breathes, which is the only animation on this page that means
+   something: it is the game still running on the other phone, and it stops
+   where every other one stops (`prefers-reduced-motion`, and the settings
+   switch). */
+#menu .rejoin {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  margin: 0 0 18px;
+  padding: 14px 13px;
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid var(--accent-line);
+  border-radius: 11px;
+  background: linear-gradient(100deg, rgba(47, 224, 240, 0.17), rgba(10, 7, 26, 0) 72%);
+  color: var(--accent);
+  font:
+    13px / 1 "Courier New",
+    monospace;
+  letter-spacing: 0.2em;
+  animation: rejoin-live 2.4s ease-in-out infinite;
+  transition:
+    border-color 0.16s,
+    transform 0.16s;
+}
+#menu .rejoin .code {
+  font-size: 27px;
+  letter-spacing: 0.34em;
+  color: var(--ink);
+}
+#menu .rejoin .why {
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+#menu .rejoin:hover,
+#menu .rejoin:focus-visible {
+  outline: none;
+  transform: translateX(4px);
+  border-color: var(--accent);
+}
+@keyframes rejoin-live {
+  0%,
+  100% {
+    border-color: var(--accent-line);
+  }
+  50% {
+    border-color: var(--accent);
+  }
+}
+
 #menu .entry {
   display: grid;
   grid-template-columns: 16px 1fr;
@@ -586,6 +648,7 @@ body.menu-open .key-hint {
   body:not([data-motion="on"]) #menu h1::before,
   body:not([data-motion="on"]) #menu h1::after,
   body:not([data-motion="on"]) #menu .page.on,
+  body:not([data-motion="on"]) #menu .rejoin,
   body:not([data-motion="on"]) #menu .entry {
     animation: none;
   }
@@ -600,6 +663,7 @@ body[data-motion="off"] #menu .sky::after,
 body[data-motion="off"] #menu h1::before,
 body[data-motion="off"] #menu h1::after,
 body[data-motion="off"] #menu .page.on,
+body[data-motion="off"] #menu .rejoin,
 body[data-motion="off"] #menu .entry {
   animation: none;
 }

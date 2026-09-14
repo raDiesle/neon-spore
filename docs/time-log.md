@@ -4460,3 +4460,26 @@ comment above the import.
 Bottleneck: friction — deciding which names an import list still needs has to
 be done against the code with the comments stripped, which is exactly the
 script the queue entry above asks for.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — BACK INTO THE GAME: a reload is not a meeting
+
+The owner's task: two people are playing, one of them reloads, the other phone
+is still in the room waiting, and the menu had no way back that did not ask
+something of both of them. `last-room.ts` remembers the code on every status the
+room sends and forgets it on every deliberate leave; `menu-rejoin.ts` is the top
+button, in the accent's colour with the code at the room screen's own size,
+above the four rows. Photographed on the built game with a room remembered a
+minute ago, and pressed: the menu closes, the room screen opens on ACDE and the
+link starts reaching it. About 60 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `menu.ts`, `menu-link.ts`, `menu-view.ts`, `pairing.ts`, `shell.ts`, `link.ts`, how the tests stand in for a DOM |
+| writing | 20 | `last-room.ts`, `menu-rejoin.ts`, the paint, the shell's one leave door, the CSS, sixteen cases |
+| looking | 15 | a probe that opens the built game with a room in storage, shoots the menu and presses the button |
+| friction | 5 | the probe waited on a menu that was behind the six intro pages; the key that gates them is the finding below |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: writing — the button is twenty lines and the decisions around it
+are the work: how long an offer is worth making, what it may honestly claim
+about the other phone, and which leaves tear it up.

@@ -91,6 +91,7 @@ describe("the three difficulties", () => {
       dom: r.dom,
       link: status({ level: "hard" }),
       pairRoom: "",
+      held: "",
       opened: false,
       wave: 0,
     });
@@ -107,11 +108,18 @@ function recorder(): {
   on: Map<string, boolean>;
   desc: Map<string, string>;
   label: Map<string, string>;
+  /** The last room the top button was painted with — "" is off the page, and
+   * the sentinel is a paint that never happened. */
+  rejoin: () => string;
 } {
   const on = new Map<string, boolean>();
   const desc = new Map<string, string>();
   const label = new Map<string, string>();
+  let rejoin = "\u0000";
   const dom = {
+    setRejoin: (room: string) => {
+      rejoin = room;
+    },
     setEntry: (key: string, next: { desc?: string; on?: boolean; label?: string }) => {
       if (next.on !== undefined) on.set(key, next.on);
       if (next.desc !== undefined) desc.set(key, next.desc);
@@ -121,7 +129,7 @@ function recorder(): {
     lockSeats: () => {},
     paintNames: () => {},
   } as unknown as MenuDom;
-  return { dom, on, desc, label };
+  return { dom, on, desc, label, rejoin: () => rejoin };
 }
 
 const status = (over: Partial<LinkStatus>): LinkStatus =>
@@ -130,7 +138,7 @@ const status = (over: Partial<LinkStatus>): LinkStatus =>
 describe("CONTINUE", () => {
   it("is off the page with no room at all", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairRoom: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairRoom: "", held: "", opened: false, wave: 0 });
     expect(r.on.get("continue")).toBe(false);
   });
 
@@ -138,20 +146,27 @@ describe("CONTINUE", () => {
     // The room's own head count, not a guess from the state: one phone in a
     // room is a pair that cannot start anything together (`LinkStatus.peers`).
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({ peers: 1 }), pairRoom: "", opened: false, wave: 0 });
+    paintLink({
+      dom: r.dom,
+      link: status({ peers: 1 }),
+      pairRoom: "",
+      held: "",
+      opened: false,
+      wave: 0,
+    });
     expect(r.on.get("continue")).toBe(false);
   });
 
   it("is offered once both phones are in the room", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairRoom: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: status({}), pairRoom: "", held: "", opened: false, wave: 0 });
     expect(r.on.get("continue")).toBe(true);
     expect(r.desc.get("continue")).toContain("Both of you press it");
   });
 
   it("says it is the way back when a field is already open under the menu", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairRoom: "", opened: true, wave: 6 });
+    paintLink({ dom: r.dom, link: status({}), pairRoom: "", held: "", opened: true, wave: 6 });
     expect(r.desc.get("continue")).toBe("Back to wave 7.");
   });
 
@@ -163,6 +178,7 @@ describe("CONTINUE", () => {
       dom: r.dom,
       link: status({ readyHere: true, readyThere: false }),
       pairRoom: "",
+      held: "",
       opened: false,
       wave: 0,
     });
@@ -179,6 +195,7 @@ describe("CONTINUE", () => {
       dom: r.dom,
       link: status({ state: "desync" }),
       pairRoom: "",
+      held: "",
       opened: true,
       wave: 6,
     });
@@ -247,7 +264,51 @@ describe("SINGLE PLAYER", () => {
   it("is the rig's row and is off while there is a room", () => {
     expect(keys(rig)[0]).toBe("single");
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairRoom: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: status({}), pairRoom: "", held: "", opened: false, wave: 0 });
     expect(r.on.get("single")).toBe(false);
+  });
+});
+
+/**
+ * **BACK INTO THE GAME**, the one thing on the front page that is not a row.
+ *
+ * Two people are playing, one of them reloads, and the other phone loses
+ * nothing — it is still in the room with the field up, waiting. Until this
+ * existed the reloaded phone landed on four rows, and the only way back was
+ * REJOIN a floor down behind PLAY, which needs both of them to have played
+ * together before and both to have given names. A reload is neither a first
+ * meeting nor a second one, and it should ask nothing of either of them.
+ */
+describe("the top button", () => {
+  it("offers the room this device was just in, with no partner and no name", () => {
+    const r = recorder();
+    paintLink({ dom: r.dom, link: null, pairRoom: "", held: "ACDE", opened: false, wave: 0 });
+    expect(r.rejoin()).toBe("ACDE");
+    // And REJOIN, which is the other question, is still off without a partner.
+    expect(r.on.get("rejoin")).toBe(false);
+  });
+
+  it("is off the page with nothing to go back to", () => {
+    const r = recorder();
+    paintLink({ dom: r.dom, link: null, pairRoom: "", held: "", opened: false, wave: 0 });
+    expect(r.rejoin()).toBe("");
+  });
+
+  it("is off the page in a room, where there is nothing to go back to", () => {
+    // The commonest way to be looking at this page is with the field running
+    // underneath it, and a button offering the room you are in is a button
+    // that says the game is somewhere else.
+    const r = recorder();
+    paintLink({ dom: r.dom, link: status({}), pairRoom: "", held: "ACDE", opened: false, wave: 0 });
+    expect(r.rejoin()).toBe("");
+  });
+
+  it("is offered beside REJOIN rather than instead of it", () => {
+    // They answer different questions — where you just were, and who you play
+    // with — and a pair who reload mid-session are owed both.
+    const r = recorder();
+    paintLink({ dom: r.dom, link: null, pairRoom: "WXY3", held: "ACDE", opened: false, wave: 0 });
+    expect(r.rejoin()).toBe("ACDE");
+    expect(r.on.get("rejoin")).toBe(true);
   });
 });

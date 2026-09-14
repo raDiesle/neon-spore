@@ -53,6 +53,7 @@ describe("what CLEAR THIS DEVICE forgets", () => {
       "neon-spore.name",
       "neon-spore.pairs",
       "neon-spore.progress",
+      "neon-spore.room",
       "neon-spore.settings",
       "neon-spore.token",
       "neon-spore.view",
@@ -65,7 +66,7 @@ describe("what CLEAR THIS DEVICE forgets", () => {
 });
 
 const sources = await Promise.all(
-  ["nickname", "pairing", "progress", "settings", "sign-in", "view"].map((name) =>
+  ["last-room", "nickname", "pairing", "progress", "settings", "sign-in", "view"].map((name) =>
     Bun.file(Bun.fileURLToPath(new URL(`../src/${name}.ts`, import.meta.url))).text(),
   ),
 );
@@ -84,6 +85,6 @@ describe("every key this game stores", () => {
       expect(DEVICE_KEYS as readonly string[], `${key} is stored but never cleared`).toContain(key);
     }
     // And the sweep really found them, rather than finding nothing and passing.
-    expect(found.size).toBeGreaterThanOrEqual(6);
+    expect(found.size).toBeGreaterThanOrEqual(7);
   });
 });
