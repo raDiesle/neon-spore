@@ -7,6 +7,7 @@
  * imports the route file, so the two read one way round.
  */
 
+import { join } from "node:path";
 import type { Wave } from "@neon-spore/content";
 import type { PinballRound } from "@neon-spore/sim";
 import { countWaveArray, serializeWaveArray } from "./serialize.js";
@@ -27,6 +28,25 @@ export interface ActFile {
   file: URL;
   rel: string;
   exportName: string;
+}
+
+/**
+ * The files a save reads and writes, and the tree Biome runs in.
+ *
+ * One object with the real tree as its default, rather than three module
+ * constants, because the save test hands in a copy. `tools/check/shard.ts`
+ * runs the suite as eight processes on the premise that every writer takes a
+ * `mkdtemp` of its own, and until 14 September 2026 this was the one writer
+ * that did not: `wave-save.test.ts` saved into the checked-in act files, and
+ * `waves-memo.test.ts` in another shard hashed them between two of the
+ * writes, saw a token that had moved, and read the barrel a second time.
+ */
+export interface WaveFiles {
+  /** What every `rel` is relative to, and Biome's working directory. */
+  readonly root: string;
+  readonly acts: readonly ActFile[];
+  /** PINBALL's board file, written beside the acts when the list holds a pinball wave. */
+  readonly boards: { readonly file: URL; readonly rel: string };
 }
 
 /**
@@ -108,6 +128,15 @@ export const ACT_FILES: readonly ActFile[] = [
   },
 ];
 
+/** The checkout this director is running in — what a save writes unless told otherwise. */
+export const REAL_FILES: WaveFiles = {
+  root: repoRootPath,
+  acts: ACT_FILES,
+  boards: { file: pinballFile, rel: pinballRel },
+};
+
+const BIOME = join(repoRootPath, "node_modules", "@biomejs", "biome", "bin", "biome");
+
 /**
  * Write the array back across the act files, then let Biome have the
  * last word on formatting. The serializer already aims at Biome's output —
@@ -122,11 +151,12 @@ export interface Written {
   rels: string[];
 }
 
-export async function writeWaves(waves: Wave[]): Promise<Written> {
+export async function writeWaves(waves: Wave[], files: WaveFiles = REAL_FILES): Promise<Written> {
   let offset = 0;
-  for (let i = 0; i < ACT_FILES.length; i++) {
-    const act = ACT_FILES[i]!;
-    const isLast = i === ACT_FILES.length - 1;
+  const acts = files.acts;
+  for (let i = 0; i < acts.length; i++) {
+    const act = acts[i]!;
+    const isLast = i === acts.length - 1;
     // Counted in the source rather than imported: the file is read a line
     // later anyway, and importing it once per act per save was the other half
     // of the module leak `lastRead` above describes.
@@ -141,9 +171,12 @@ export async function writeWaves(waves: Wave[]): Promise<Written> {
     await Bun.write(act.file, next);
   }
 
-  const rels = [...ACT_FILES.map((act) => act.rel), ...(await writeBoards(waves))];
-  const proc = Bun.spawn([process.execPath, "x", "biome", "check", "--write", ...rels], {
-    cwd: repoRootPath,
+  const rels = [...acts.map((act) => act.rel), ...(await writeBoards(waves, files))];
+  // The repository's own Biome by path, not `bun x biome`: run from a tree
+  // that has no `node_modules`, the latter resolves the package from the
+  // network first — ten seconds, on the day this was measured.
+  const proc = Bun.spawn([process.execPath, BIOME, "check", "--write", ...rels], {
+    cwd: files.root,
     stdout: "pipe",
     stderr: "pipe",
   });
@@ -163,7 +196,7 @@ export async function writeWaves(waves: Wave[]): Promise<Written> {
  * second pinball wave wants a second list, and that is an authoring decision
  * rather than something a save should make on its own.
  */
-async function writeBoards(waves: readonly Wave[]): Promise<string[]> {
+async function writeBoards(waves: readonly Wave[], files: WaveFiles): Promise<string[]> {
   const owners = waves.filter((w) => w.boss?.kind === "pinball");
   if (owners.length === 0) return [];
   if (owners.length > 1) {
@@ -173,7 +206,7 @@ async function writeBoards(waves: readonly Wave[]): Promise<string[]> {
   const boss = owners[0]?.boss;
   if (boss === undefined || boss.kind !== "pinball") return [];
   const rounds: readonly PinballRound[] = boss.rounds;
-  const source = await Bun.file(pinballFile).text();
-  await Bun.write(pinballFile, serializePinballRounds(source, rounds));
-  return [pinballRel];
+  const source = await Bun.file(files.boards.file).text();
+  await Bun.write(files.boards.file, serializePinballRounds(source, rounds));
+  return [files.boards.rel];
 }

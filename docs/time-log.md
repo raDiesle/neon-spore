@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-items — the save test writes a copy of the act files, not the tree
+
+Found by a red shard: `waves-memo.test.ts`'s "unchanged act files are read
+once" failed under `check:fast` and passed alone, three runs out of four.
+`wave-save.test.ts` was saving into the checked-in act files, and a shard
+beside it hashed them between two of the writes. `shard.ts`'s premise — every
+writer takes a `mkdtemp` of its own — now holds: `wavesToken`, `writeWaves`
+and `saveWaves` take the set of files they work on, with the real tree as
+the default, and the test copies the acts and the board file into a temp
+tree with the repository's `biome.json`. Biome is spawned by path from the
+repository's `node_modules` — `bun x biome` in a tree without one downloads
+the package, ten seconds. A last case holds the real files' mtimes still
+across a save. About 30 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the memo, the save, `shard.ts`'s premise, the token's history |
+| writing | 10 | `WaveFiles`, the threading, the copied tree, seven cases |
+| looking | 0 | — |
+| friction | 5 | `bun x biome` from a temp tree downloading the package |
+| landing | 5 | `check:fast`, the commit, `land` |
+
+The bottleneck was reading: whether the race was the memo's or the save's
+took the history of both files to settle.
+
 ## 2026-09-14 — queue-items — `next` and `take` refuse the entry the format test would
 
 The fourth item this sitting queued for itself. `bun run queue` had listed an

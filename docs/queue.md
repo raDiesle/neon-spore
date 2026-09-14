@@ -175,3 +175,20 @@ still what nearly every entry is.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
+
+## The save token skips the pinball file a save writes
+
+- **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Files:** `tools/director/src/waves-api.ts`, `tools/director/src/waves-acts.ts`, `tools/director/test/wave-save.test.ts`
+
+`waves-acts.ts` says of `pinball-rounds.ts` that "it is read into the token
+and written on a save exactly like an act, so a board changed underneath
+refuses", and commit e14019fe's message says the same. `wavesToken` hashes
+`ACT_FILES` and nothing else, and has since that commit: a board edited on
+disk while a director page is open is overwritten without a word by the
+page's next save, which is the last-write-wins loss the token exists to stop.
+`wavesToken`'s own comment still says "the three act files" of ten. Put the
+board file in the list the token hashes — the same list the item above hands
+`saveWaves` — fix both comments, and hold it with a case in
+`wave-save.test.ts`: a board file changed after the token was taken makes the
+save answer 409 and write nothing.
