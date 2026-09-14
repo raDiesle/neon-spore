@@ -1,3 +1,5 @@
+import { atADesk } from "./at-a-desk.js";
+
 /**
  * A player who sits down at a PC has no panel to read the keys off. The game
  * draws the same phone-shaped field it always has, and there is no room on it
@@ -8,10 +10,9 @@
  * So this is a toast, not a panel: it names the keys once, over the field,
  * pointer-events off so it is never in the way of a click underneath it, and
  * gets out of its own way — on the first key pressed, or on a timer if none
- * ever is. It is shown only where a mouse is the input, gated on `pointer:
- * fine` — the same signal that tells a fine pointer from a finger everywhere
- * else in CSS — so the same code that drives a phone never puts a paragraph
- * of desk-only keys over someone's thumb.
+ * ever is. It is shown only where a mouse is the input (`at-a-desk.ts`, which
+ * is `pointer: fine` asked in one place) so the same code that drives a phone
+ * never puts a paragraph of desk-only keys over someone's thumb.
  *
  * Its own file rather than a tail on `input.ts`: it is DOM decoration with no
  * part in the control scheme, and `input.ts` is already the file that carries
@@ -20,9 +21,7 @@
  * Nothing here replaces a shipped look: nothing today draws this at all.
  */
 export function showKeyHint(canvas: HTMLCanvasElement): void {
-  if (typeof window.matchMedia !== "function" || !window.matchMedia("(pointer: fine)").matches) {
-    return;
-  }
+  if (!atADesk()) return;
   const hint = document.createElement("div");
   // A class as well as the inline styles, so `menu.css` can put it away while
   // a sheet is over the field — see below.

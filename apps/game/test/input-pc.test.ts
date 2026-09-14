@@ -48,7 +48,10 @@ describe("telling a PC player the keys exist", () => {
   });
 
   it("only where the pointer is a mouse, never on a touch-only phone", () => {
-    expect(hintSource).toMatch(/matchMedia\("\(pointer: fine\)"\)\.matches/);
+    // The query itself lives in `at-a-desk.ts` now — three callers asked it and
+    // three copies is three chances to spell it wrong, which `at-a-desk.test.ts`
+    // holds instead. What this holds is that the hint is behind it.
+    expect(hintSource).toContain("if (!atADesk()) return;");
   });
 
   it("never blocks a click meant for the field underneath it", () => {

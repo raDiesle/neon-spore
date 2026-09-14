@@ -1,4 +1,5 @@
 import { BUILD_STAMP } from "../../../tools/build-stamp.js";
+import { atADesk } from "./at-a-desk.js";
 import { backButton, el, type MenuPage } from "./menu-parts.js";
 import { signInRow } from "./menu-sign-in.js";
 import { TOGGLES, toggleRow } from "./menu-toggles.js";
@@ -18,8 +19,9 @@ import { signOut } from "./sign-in.js";
  * device knows, which is what a phone handed to somebody else needs and the
  * only way back out of a stored name.
  *
- * Most of it is a *preference*; the two rows at the top — WHAT THIS IS and
- * CONTROLS — are pages a person asks for once, put here for the same reason.
+ * Most of it is a *preference*; the two rows at the top — WHAT THIS IS, and
+ * CONTROLS where there is a keyboard to describe — are pages a person asks for
+ * once, put here for the same reason.
  * **Nothing on this page may change what the simulation does**: two devices in
  * a room would then disagree about the world over something one of them
  * tapped.
@@ -50,7 +52,12 @@ export function buildSettings(show: (page: MenuPage) => void, hooks: SettingsHoo
   const page = el("div", "page");
   page.append(backButton(show), el("h2", undefined, "SETTINGS"));
 
-  page.append(whatThisIsRow(hooks), controlsRow(show));
+  page.append(whatThisIsRow(hooks));
+  // CONTROLS teaches keys, and a phone has none. Asked here rather than inside
+  // the row so the page simply does not carry it — a row present and hidden is
+  // a row somebody finds with a screen reader (`at-a-desk.ts`).
+  const controls = controlsRow(show, atADesk());
+  if (controls) page.append(controls);
   for (const row of TOGGLES) {
     if (row.available && !row.available()) continue;
     page.append(toggleRow(row, hooks));
@@ -91,22 +98,28 @@ function whatThisIsRow(hooks: SettingsHooks): HTMLElement {
 }
 
 /**
- * The way to CONTROLS, which used to be a row on the front page.
+ * The way to CONTROLS, which used to be a row on the front page — **and only
+ * at a desk**.
  *
- * It is here because it is a thing about *this device* — which buttons this
- * phone puts under a thumb, and which keys a desk answers — and that is the
+ * It is here because it is a thing about *this device*, and that is the
  * question people bring to a settings page. It is not a preference and so it
  * is not a switch: a row that opens a page, in the place a person looks.
+ *
+ * `atDesk` false means no row and no way to the page at all, which the owner
+ * asked for on 14 September 2026. What that page has left to teach is the
+ * keyboard — which key each panel's buttons are on, and the one key that is on
+ * no panel — and a phone has no keyboard: it had the shapes a thumb meets and
+ * every panel's own sentences, which is the same reading the band itself gives
+ * a thumb holding it. Passed in rather than asked for here, so the decision
+ * has one home and this function has none of it.
  */
-function controlsRow(show: (page: MenuPage) => void): HTMLElement {
+export function controlsRow(show: (page: MenuPage) => void, atDesk: boolean): HTMLElement | null {
+  if (!atDesk) return null;
   const block = el("div", "setting");
   const button = el("button", "switch", "CONTROLS");
   button.type = "button";
   button.addEventListener("click", () => show("keys"));
-  block.append(
-    button,
-    el("span", "s", "What a thumb does, every panel in the game, and the keys at a desk."),
-  );
+  block.append(button, el("span", "s", "Which key each of this wave's buttons is on, both seats."));
   return block;
 }
 

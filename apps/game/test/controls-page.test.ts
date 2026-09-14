@@ -1,8 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import { CONTROL_SETS, CONTROLS } from "@neon-spore/content";
+import { controlsRow } from "../src/menu-settings.js";
 
 /**
- * CONTROLS, and the two ways it goes wrong.
+ * CONTROLS, and the three ways it goes wrong.
  *
  * The first is drift: it used to be a table of eleven keyboard keys, which is
  * the control scheme almost nobody plays — the game is portrait mobile web and
@@ -17,6 +18,14 @@ import { CONTROL_SETS, CONTROLS } from "@neon-spore/content";
  * round changed. So what is asserted is that the page *reads* the registry —
  * and that the registry is what a reader would then be shown.
  *
+ * The third arrived with the owner's ask of 14 September 2026: **the rig
+ * creeping back onto a page read by people playing.** `keys-desk.ts` already
+ * draws the line — *what is not here is not a control* — and the keys this page
+ * used to list past it were the host talking to a run: the grip, W's two seats
+ * in one press, the guide's hold, the wave arrows, pause. They keep working;
+ * the page stops teaching them, and the row that opens it is not offered where
+ * there is no keyboard at all.
+ *
  * There is no DOM in this runner, so this reads the source, the way
  * `input-pc.test.ts` does.
  */
@@ -30,11 +39,30 @@ const settings = await Bun.file(
 const entries = await Bun.file(
   Bun.fileURLToPath(new URL("../src/menu-entries.ts", import.meta.url)),
 ).text();
+const menuView = await Bun.file(
+  Bun.fileURLToPath(new URL("../src/menu-view.ts", import.meta.url)),
+).text();
 
 describe("the controls page", () => {
   it("is reached from SETTINGS, and no longer from the front page", () => {
     expect(settings).toContain('show("keys")');
     expect(entries).not.toContain('a.show("keys")');
+  });
+
+  /**
+   * A phone has no keyboard, and what is left of this page to teach is which
+   * key each button is on. So the row is absent rather than present and inert:
+   * a row that opens a page about keys, on a device with none, is a row that
+   * costs a reader the press to find that out.
+   */
+  it("is not offered at all where the pointer is a thumb", () => {
+    expect(controlsRow(() => {}, false)).toBeNull();
+    // And the page is reachable through nothing else, so a phone cannot land
+    // on it by another door.
+    expect(settings).toContain("atADesk()");
+    for (const source of [entries, menuView]) {
+      expect(source).not.toContain('"keys"');
+    }
   });
 
   it("puts the phone before the desk", () => {
@@ -79,10 +107,24 @@ describe("the controls page", () => {
     }
   });
 
-  it("still carries the keys, for the one person playing both seats", () => {
-    for (const key of ["ESC", "SPACE"]) {
-      expect(src, `the desk's table never says "${key}"`).toContain(key);
+  /**
+   * The rig's keys, named one at a time, because each of them is a thing
+   * somebody could reasonably think belongs on a page called CONTROLS — and
+   * each of them is the host talking to a run rather than a seat talking to a
+   * ship (`content/src/keys-desk.ts`).
+   */
+  it("teaches no key that is the rig rather than a seat", () => {
+    const desk = src.slice(src.indexOf("const KEYS"));
+    for (const key of ["SPACE", '", / ."', '"W"', '"P"', "← / →"]) {
+      expect(desk, `the desk's table still says ${key}`).not.toContain(key);
     }
+    // ESC stays: closing what you are reading is not a rig key.
+    expect(desk).toContain("ESC");
+  });
+
+  it("does not call the desk the rig, now that two people play at one", () => {
+    expect(src).not.toContain("One person playing both seats");
+    expect(src).not.toContain("the rig, not the game");
   });
 
   it("reads a control's key off the table the keyboard reads", () => {

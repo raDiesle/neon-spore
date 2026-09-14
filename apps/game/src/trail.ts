@@ -1,4 +1,5 @@
 import { clearSurface, FIELD_TRAIL_SCALE, SplashTrail } from "@neon-spore/render";
+import { atADesk } from "./at-a-desk.js";
 
 /**
  * The mouse's own canvas.
@@ -51,17 +52,17 @@ export interface SplashTrailParts {
 /**
  * Bind the trail, or do nothing at all.
  *
- * Nothing is created on a phone: `pointer: fine` is the same signal the key
- * hint is gated on (`key-hint.ts`), and it is the difference between a mouse
- * and a thumb everywhere else in this app too. A desk that has asked for less
+ * Nothing is created on a phone: `atADesk` is the same question the key hint
+ * and the menu's CONTROLS row ask (`at-a-desk.ts`), which is `pointer: fine`
+ * — the difference between a mouse and a thumb everywhere else in this app
+ * too. A desk that has asked for less
  * motion is also left alone — the trail is decoration by definition, and it is
  * the first thing that should go when someone has said they do not want things
  * moving at them.
  */
 export function bindSplashTrail(p: SplashTrailParts): SplashTrailBinding {
   const nothing = { stop: () => {} };
-  if (typeof window.matchMedia !== "function") return nothing;
-  if (!window.matchMedia("(pointer: fine)").matches) return nothing;
+  if (!atADesk()) return nothing;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return nothing;
 
   const canvas = document.createElement("canvas");

@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — CONTROLS is a desk door, and stops teaching the rig
+
+The owner's fourth ask of the day. SETTINGS offers CONTROLS only where there is
+a mouse and a keyboard, and the page has stopped teaching the keys that are the
+rig talking to a run rather than a seat talking to a ship — the grip and its
+carries, W's two seats in one press, the guide's hold, the wave arrows, pause.
+`keys-desk.ts` already drew that line for itself; the page follows it now. Every
+one of those keys still works. ESC stays, because closing what you are reading
+is not a rig key.
+
+`pointer: fine` was asked in two places with two copies of the query and two
+guards; it is `at-a-desk.ts` and one function, which is what made a third caller
+worth having rather than a third copy.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, the page and its seven cases, where `pointer: fine` is already asked, and what `keys-desk.ts` means by *what is not here is not a control* |
+| writing | 30 | the shared question and its five cases, the row gated and returning null, the desk section rewritten, three cases in `controls-page.test.ts` turned over and one added |
+| looking | 10 | one shot of SETTINGS, which is where the tool's own fault showed: headless Chromium at 390 px is a phone-sized desk, so the row a phone will not have is in the picture — queued |
+| friction | 5 | that, and the runner having no `window` for a function whose whole job is to ask one — stood up in the test rather than stubbed around |
+| landing | 15 | `check:fast`, the commit, `land` |
+
+The bottleneck was writing, but the thing worth noting is the looking: the
+picture could not prove the change, and the tests could. A lane that had gone
+by the picture alone would have concluded the row was still there.
+
 ## 2026-09-14 — queue-tasks — `bun run shot --serve` starts the director it photographs
 
 The finding the last lane wrote. `bun run shot` took a `--port` and expected

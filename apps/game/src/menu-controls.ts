@@ -19,6 +19,13 @@ import { backButton, el, type MenuPage } from "./menu-parts.js";
  * keys are the rig for one person testing both halves. So the phone comes
  * first and at length, and the desk is the last section on the page.
  *
+ * **And the page is only offered at a desk now** (`menu-settings.ts`,
+ * `at-a-desk.ts`): the owner asked for that on 14 September 2026, along with
+ * the rig's own keys coming off it. What is left of the desk section is the
+ * two seats' standard controls — which key each panel's buttons are on, read
+ * off `deskKeys` — and ESC. The phone's half stays whole, because a desk
+ * player is still being told what a strip and a lobe *are*.
+ *
  * **The panels are read off `CONTROL_SETS`, never typed out here.** A control
  * set is the whole panel for one wave and sets do not compose
  * (`packages/content/src/control-sets.ts`), so the only honest way to say what
@@ -73,27 +80,24 @@ const PHONE: [string, string][] = [
 
 /**
  * The keys that are **nobody's button**, which is the only list this page can
- * type out.
+ * type out — and, since 14 September 2026, the only one of those it *should*.
  *
  * Every other key belongs to a *slot* on the panel rather than to a control
  * (`content/src/keys-desk.ts`), so what A or I or Q does is a question about
  * the wave in front of you — and the answer is printed against each panel
  * above, off the same table the keyboard reads. A second copy here would be
  * one more list to keep in step with eleven rounds still to come.
+ *
+ * **What used to be here was the rig rather than the game.** G and `,` / `.`
+ * for the grip, W's two seats in one press, SPACE / F / G for the guide's
+ * hold, the wave arrows and P are what `keys-desk.ts` means by *what is not
+ * here is not a control*: the host talking to a run, not a seat talking to a
+ * ship. They are one person testing both halves, and this page is read by two
+ * people playing. Every one of them still works (`keys.ts`); the page has
+ * stopped teaching them. ESC stays because the way back to this menu is not a
+ * rig key — it is how a player at a desk closes what they are reading.
  */
 const KEYS: [string, string][] = [
-  ["G", "Hold the nearest creature — the grip, as the other player."],
-  [", / .", "Carry the held creature a column left or right. Nothing without G held."],
-  [
-    "W",
-    "Fire red and guard in one press, on a panel that has both. Not a button: a shortcut for one person playing two seats.",
-  ],
-  ["SPACE", "Hold the wave's guide down, both seats at once. F and G hold one seat each."],
-  [
-    "← / →",
-    "The previous and the next wave — except on a panel that walks something across the field, where they are its.",
-  ],
-  ["P", "Pause."],
   ["ESC", "This menu. It pauses the game while it is up, when you are playing alone."],
 ];
 
@@ -134,7 +138,7 @@ export function buildControls(show: (page: MenuPage) => void, back: MenuPage): H
     el(
       "p",
       "lead",
-      "One person playing both seats on a keyboard — the rig, not the game. A key belongs to a place on the panel and not to a control, so the same key is the guard on one wave and the arm on the next: A and D carry player 1's sideways thing and J and L player 2's, I and S are player 1's buttons, Q and E are player 2's, and the arrows are whatever a panel walks across the field. Each panel above says which is which. What is left is the handful below, which no panel owns.",
+      "The same two seats, one at each end of a keyboard. A key belongs to a place on the panel and not to a control, so the same key is the guard on one wave and the arm on the next: A and D carry player 1's sideways thing and J and L player 2's, I and S are player 1's buttons, Q and E are player 2's. Each panel above says which is which. One key belongs to no panel.",
     ),
   );
   const table = el("table", "keys");
