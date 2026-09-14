@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · e365bbb2 — Queue THE LIMPET beside THE LEECH, and name the shipped bodies both entries move
+
+THE LIMPET is THE LEECH's entry with the shield's plate in place of the cannon, player one telling player two, and the same beats, deflection, timer and glow — asked for by the owner on 14 September 2026. THE LEECH's entry now names `sim/cling.ts`, where both ship today as creatures, as what the malfunction brush takes over.
+
 ## 2026-09-14 · 5d2959e3 — Mark "A tutorial says it is one: the plate is loud, the field is plainly not live" done
 
 ## 2026-09-14 · de898a43 — A tutorial says it is one: the band across the top, the bar that flashes, the welcome before the first
