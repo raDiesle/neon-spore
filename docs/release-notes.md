@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · f34c8f43 — The siren's dial leaves the instrument for a file of its own
+
+`siren.ts` was at the limit: the instrument's placement, its two chips and its duty word, then ninety lines of dial — housing, ticks, breathing ring, side bars and turning core. The dial now lives in `siren-dial.ts` beside `siren-seats.ts`, exporting `drawDial`, its radius as `DIAL_R` and the tick colour the duty word shares; `halo`, `mixHex` and `PALETTE` moved with it. The canvas op log of THE HAND, THE LURE, THE VEIL and THE FENCE, 480 frames from each seat, is identical before and after. A refactor, not a look.
+
 ## 2026-09-14 · e375b541 — A rock's size leaves the torch's picture for a file of its own
 
 `torch.ts` was at the limit and opened with four measurements — `torchRadius`, `rockRadius`, `rockTileRadius`, `torchRotation` — before any of its drawing, and eleven of its nineteen importers wanted only those. They now live in `rock-size.ts`; every importer takes them from there, the package index exports `torchRadius` from the new file, and a crater, a dent, a bounce or a cairn no longer loads the torch's whole picture to size itself. The canvas op log of THE ROCK, THE VOLLEY, THE VEER, THE COIL and THE CAIRN, 480 frames from each seat, is identical before and after. A refactor, not a look.
