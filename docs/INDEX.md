@@ -1061,6 +1061,7 @@ place — the generator keeps whatever is there.
 | `packages/net/src/status.ts` | what the network indicator may say, and nothing else may |
 | `packages/net/src/room-code.ts` | the four characters two people read to each other |
 | `packages/net/src/command-codec.ts` | Every `Command` variant, checked field by field, before it ever reaches a `Lockstep` or a simulation tick |
+| `packages/net/src/command-fields.ts` | the shape of every field a `Command` can carry on the wire — a colour, a column, a tick, a signed pull — one predicate each, for the decoder to ask for by name |
 | `packages/net/src/delay.ts` | How far ahead of the screen a press is scheduled — chosen from the link that is actually there, rather than |
 | `packages/net/src/nickname.ts` | A player's name: what the other phone calls them |
 | `packages/net/src/protocol-decode.ts` | The distrusting half of the wire |

@@ -15,7 +15,7 @@ a network bug.
 | File | Owns |
 |---|---|
 | `packages/net/src/protocol.ts` | every message on the wire, and how to distrust one |
-| `packages/net/src/command-codec.ts` | validating a `Command` that arrived from outside |
+| `packages/net/src/command-codec.ts` | validating a `Command` that arrived from outside; its field checks are `command-fields.ts` |
 | `packages/net/src/lockstep.ts` | the scheduler and the promise |
 | `packages/net/src/status.ts` | what the network indicator may say, and nothing else may |
 | `apps/game/src/link.ts` | the client: the wall clock and the socket, and nothing below holds either |

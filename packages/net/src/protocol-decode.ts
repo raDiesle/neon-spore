@@ -1,5 +1,6 @@
 import { isDifficulty } from "@neon-spore/sim";
-import { decodeCommands, isTick, isUint32 } from "./command-codec.js";
+import { decodeCommands } from "./command-codec.js";
+import { isTick, isUint32 } from "./command-fields.js";
 import { nameFromWire } from "./nickname.js";
 import type { ClientMessage, PlayerId, RefusalCode, RunMark, ServerMessage } from "./protocol.js";
 

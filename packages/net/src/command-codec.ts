@@ -1,10 +1,15 @@
+import type { Command } from "@neon-spore/sim";
 import {
-  type Color,
-  type Command,
-  type DragTarget,
-  PULSE_LANES,
-  SNAKE_TURNS,
-} from "@neon-spore/sim";
+  isBool,
+  isColor,
+  isDragTarget,
+  isNonNegInt,
+  isPull,
+  isPulseLane,
+  isSnakeTurn,
+  isStep,
+  optional,
+} from "./command-fields.js";
 
 /**
  * Every `Command` variant, checked field by field, before it ever reaches a
@@ -14,76 +19,10 @@ import {
  * world. This is the one place that stops it, so a bad peer produces a
  * dropped packet here rather than a desync three layers down.
  *
- * The colour set is spelled out here rather than imported, because
- * `packages/sim` does not export one — this is the one place `net` spells
- * it, and `packages/sim/test/purity.test.ts`'s COPIES table is where a
- * second copy elsewhere would be caught.
+ * The shape of each field — a colour, a column, a pull — is `command-fields.ts`;
+ * this file is the switch that asks for them by name, and nothing else, so a
+ * kind the simulation learns is one `case` here and no more.
  */
-const COLORS = ["red", "cyan"] as const;
-// biome-ignore format: one line a row of the sim's DragTarget union, kept flat so the file stays under its limit
-const DRAG_TARGETS: readonly DragTarget[] = [
-  "mazeString", "wardenTether", "lidString", "gripBody", "choirLeft", "choirRight",
-  "balloonLeft", "balloonRight", "gum", "crank",
-];
-
-const isColor = (x: unknown): x is Color =>
-  typeof x === "string" && (COLORS as readonly string[]).includes(x);
-
-const isDragTarget = (x: unknown): x is DragTarget =>
-  typeof x === "string" && (DRAG_TARGETS as readonly string[]).includes(x);
-
-/**
- * SNAKE's two, imported rather than spelled out — the opposite of `COLORS`
- * above, and only because the simulation publishes this one. A second copy
- * here would be a list that could fall behind the round it steers.
- */
-type SnakeTurn = (typeof SNAKE_TURNS)[number];
-type PulseLane = (typeof PULSE_LANES)[number];
-
-const isSnakeTurn = (x: unknown): x is SnakeTurn =>
-  typeof x === "string" && (SNAKE_TURNS as readonly string[]).includes(x);
-
-const isPulseLane = (x: unknown): x is PulseLane =>
-  typeof x === "string" && (PULSE_LANES as readonly string[]).includes(x);
-
-/**
- * How far a hand has carried a handle, in thousandths of a tile. Signed, and
- * that is the whole reason it is not `isNonNegInt`: a drag reports a
- * displacement from where the finger grabbed, so half of every pull is
- * negative. Bounded by a magnitude a screen cannot exceed — a hundred tiles is
- * far wider than any phone — so a peer sending a number meant to overflow
- * arithmetic three layers down is rejected here, which is `isTick`'s argument
- * pointed at the other half of the number line.
- */
-const isPull = (x: unknown): x is number =>
-  typeof x === "number" && Number.isInteger(x) && Math.abs(x) <= 100_000;
-
-/** A finite whole number, never negative — a column or an id. */
-const isNonNegInt = (x: unknown): x is number =>
-  typeof x === "number" && Number.isInteger(x) && x >= 0;
-
-/**
- * Capped at 2**31: comfortably past any tick this game will ever reach, and
- * low enough that a peer sending a tick meant to overflow arithmetic
- * downstream (a `Date.now()`-shaped number, or a deliberately huge one) is
- * rejected here instead of doing whatever that overflow does three layers
- * down.
- */
-const TICK_MAX = 2 ** 31;
-export const isTick = (x: unknown): x is number => isNonNegInt(x) && x < TICK_MAX;
-
-/** A 32-bit unsigned value — the shape `hashWorld` produces. */
-export const isUint32 = (x: unknown): x is number =>
-  typeof x === "number" && Number.isInteger(x) && x >= 0 && x <= 0xffffffff;
-
-const isBool = (x: unknown): x is boolean => typeof x === "boolean";
-
-/** One square of movement, either way, or none. THE FLEET's `aim` is two. */
-const isStep = (x: unknown): x is -1 | 0 | 1 => x === -1 || x === 0 || x === 1;
-
-/** An optional field: either absent, or present and of the right shape. */
-const optional = <T>(x: unknown, check: (v: unknown) => v is T): boolean =>
-  x === undefined || check(x);
 
 /**
  * One command, checked against its `kind`. An object carrying extra keys the

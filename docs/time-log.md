@@ -3825,3 +3825,24 @@ identical hashes. The draw is 224 lines. About 15 min.
 
 Bottleneck: landing — the op log over seven waves and the fast check are
 most of the wall time.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `command-codec.ts` is at the limit and grows a case per `Command` kind
+
+The decoder was 248 lines with a switch that takes one `case` per kind the
+simulation learns, so the next boss verb would have put it over. The switch is
+the file's one job and stayed whole; the seventy lines of field checks above
+it moved to `command-fields.ts`, the colour-set paragraph with them, and
+`protocol-decode.ts` takes `isTick` and `isUint32` from the sibling. The only
+friction was my own split putting the decoder's doc comment on the wrong side
+of the cut, found by the formatter on the first pass. The codec's test — one
+accepted example per kind, every rejection — is the proof, green unchanged.
+
+| where | minutes |
+|---|---|
+| reading | 5 |
+| writing | 10 |
+| looking | 0 |
+| friction | 5 |
+| landing | 5 |
+
+Bottleneck: writing.
