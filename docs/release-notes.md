@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 5d2959e3 — Mark "A tutorial says it is one: the plate is loud, the field is plainly not live" done
+
+## 2026-09-14 · de898a43 — A tutorial says it is one: the band across the top, the bar that flashes, the welcome before the first
+
+A page of film is now plainly not the live game. The plate is a band across the whole top of the screen with a rim in the seat's colour round the picture, and it still flares when the seat switches. A press on the picture is answered by the bar flashing — the bar is the only way on, and the field says so instead of ignoring the thumb. And a device's very first tutorial opens under a welcome page: WELCOME, LET'S START WITH THE TUTORIAL, the three buttons named over themselves, the picture waiting on its first frame until the page is pressed away — once per device, remembered under `neon-spore.welcome` and cleared with the rest by CLEAR THIS DEVICE. This is a look the owner asked for by name, the first exemption under *A look is offered, never replaced*.
+
 ## 2026-09-14 · ca5702f7 — versus:shot drives the lifted startDirector, and that run found the leak
 
 `Unverified at 2c528788` said the second caller of the lifted `startDirector` could not be proved: no VERSUS slot is open in this tree, so nothing could be photographed. Every step of that caller is proved now except the last one, and the last one is not what the lifting put at risk.
