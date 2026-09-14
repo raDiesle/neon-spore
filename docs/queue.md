@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The director's MAP view on a phone keeps the desktop two-column frame
 
 - **Found:** 2026-09-13, claude/map-on-a-phone
+- **Taken:** 2026-09-14, claude/queue-the-directors-map-view-on-a-phone-keeps-the-desk
 - **Files:** `tools/director/src/director-phone.css`, `tools/director/src/director-brush.css`, `tools/director/test/stylesheet-order.test.ts`
 
 Seen on a 375-px viewport with playwright (`hasTouch`, `isMobile`) on 13
