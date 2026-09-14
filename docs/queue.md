@@ -176,20 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `ready-page.ts` is at the limit: the words on the page are a second subject
-
-- **Found:** 2026-09-14, claude/queue-items-8b11f4
-- **Taken:** 2026-09-14, claude/queue-ready-page-ts-is-at-the-limit-the-words-on-the-p
-- **Files:** `packages/render/src/ready-page.ts`
-
-The file is 249 lines: the page's measure (`readyCircles`, the `*Y` helpers)
-and `drawReadyPage` are one subject; `label`, `ask`, `WaitingState` and
-`waiting` (lines 186 to 249) — the sentence over the circles and the loud
-one-line WAITING — are the other. Move the four into `ready-words.ts` with
-the `ASK_SUB` and `LABEL_GAP` constants they read, exported;
-`drawReadyPage` imports `ask`, `label` and `waiting` back. Proof:
-`bun run check:fast` — `frame.test.ts` and `guide-nav.test.ts` draw the page.
-
 ## `sound-page.ts` is at the limit: a row is not the page
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4

@@ -767,6 +767,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/guide-plate.ts` | The body under the tutorial's corner plate: the panel's button recipe stretched to a plate, split from `guide-switch.ts` |
 | `packages/render/src/opening-fx.ts` | The two things a wave's opening remembers between frames: how long the page that is up has been up |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
+| `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
 | `packages/render/src/rock-landing.ts` | Where a rock's last glide ends: half-sunk in the skin, where the crater is, not under the membrane at the hull row's centre |
 | `packages/render/src/rock-wake-fire.ts` | What burns behind a rock: `tongue` and `flame`, the two fire shapes the three meteor looks are built from |

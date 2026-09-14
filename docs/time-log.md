@@ -4297,3 +4297,28 @@ did. 250 lines becomes 156 and 108. About 10 min.
 
 Bottleneck: reading — the cut is clean, and the work was checking that nothing
 outside `packages/content` reaches past the barrel for either name.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `ready-words.ts`: the sentences off the ready page's measure
+
+Queue item, the sixth of eleven. `ready-page.ts` held the page's *measure* —
+where the column's rows fall, given nothing but a layout, so a circle does not
+move with the length of a wave's sentence — and the words written in them:
+`label`, `ask`, `waiting` and their state. The measure is argued over in
+pixels, the words in sentences, and every line of the second half is an
+instruction the owner gave about how much to say. `ASK_SUB` and `LABEL_GAP` go
+with the words, whose own heights they are, and the measure imports them back.
+`ask` drew HOLD ANYWHERE at a literal 18 beside a constant that is 18; beside
+each other now, it reads the constant. 249 lines becomes 178 and 100.
+About 15 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, the file's head and tail, where the two constants are read |
+| writing | 5 | the move, the new file's header, the imports, one literal turned back into its constant |
+| looking | 0 | nothing visible moved — `frame.test.ts` and `guide-nav.test.ts` draw the page |
+| friction | 0 | none |
+| landing | 5 | `check:fast` at two and a half minutes, the commit, `bun run land --keep` |
+
+Bottleneck: landing — this is the first of the eleven whose diff reaches
+`packages/render`, so `check:fast` draws every frame rather than 90 files of
+tools.
