@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · be01ac0f — The opening test takes its preview from `startPreview` rather than a loop of its own
+
+f987af86 moved the port-reading loop into `previewUrlFrom` and fixed two things in it — an address regex that matched a chunk cut short at `:4` of `:41733`, and a deadline that was never raced against the read — but `opening.test.ts` still spawned `preview:once` itself with the loop as it was. It calls `startPreview(root)` now, and its `stop` is the returned one, which waits for the port to stop answering rather than returning on `kill()`.
+
 ## 2026-09-14 · 0fee847d — The director's save token stops making `waves-api.ts` a binary file
 
 `wavesToken` joins the act files' texts with a NUL between length and text, and the NUL was in the source as the byte itself — two of them, since 2 September. Git therefore classed the file as binary: every `diff --stat` since has shown it as `Bin`, `git show` printed no hunk for it, `grep` skipped it, and a rebase conflict in it could not have been resolved by hand. The two bytes are the `\0` escape now, the same string, so the token is unchanged and `wave-save.test.ts` holds it as before.
