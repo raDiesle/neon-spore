@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Nothing photographs the game's menu, so every menu lane hand-rolls one
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-nothing-photographs-the-games-menu-so-every-menu
 - **Files:** `tools/frames/shot.ts`, `tools/frames/shot-state.ts`, `tools/frames/serve.ts`, `tools/frames/browser.ts`, `tools/frames/test/`, `docs/commands.md`, `package.json`
 
 Three tools take a picture and none of them can take this one: `bun run frames
