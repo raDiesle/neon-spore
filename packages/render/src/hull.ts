@@ -14,23 +14,26 @@ import {
 } from "./hull-frame.js";
 import { HULL_LIGHT } from "./hull-light.js";
 import { HULL_SHEEN } from "./hull-sheen.js";
+import { type HullSkin, OWN_SKIN } from "./hull-skin.js";
 import type { Layout } from "./layout.js";
 import { drawCharge, drawChew, drawInhale } from "./maw.js";
 import { drawMuzzle } from "./muzzle.js";
-import { PALETTE, STROKE } from "./palette.js";
+import { STROKE } from "./palette.js";
 import { drawScars } from "./scars.js";
 import { drawShieldRim } from "./shield.js";
 import { splinePath, splineSkirt } from "./spline.js";
 
 export type { HullMood, LobePositions, SurfaceY } from "./hull-frame.js";
 export { hullSkinY, surfaceSampler } from "./hull-frame.js";
+export { type HullSkin, MIRROR_SKIN, OWN_SKIN } from "./hull-skin.js";
 
 /**
  * The ship, from `legacy/style-guide.html`. One membrane, not a collection of
  * parts: the cannon and the shield are local swellings of the same contour
  * (`bumpAdd`), so nothing sits *on* the hull — the hull grows where a player
  * puts something. The shape of that membrane, frame by frame, is
- * `hull-frame.ts`; this file only draws it.
+ * `hull-frame.ts`, and the colours it is painted in are `hull-skin.ts`; this
+ * file only draws it.
  *
  * The contour is an ellipse far wider than the screen; only the arc around its
  * apex is in view, which is what keeps the surface almost flat and lets the
@@ -40,46 +43,6 @@ export { hullSkinY, surfaceSampler } from "./hull-frame.js";
  */
 /** How far past the field edges to sample, so the contour never ends in view. */
 const MARGIN = 0.12;
-
-/**
- * The colours one ship is painted in. Everything else about a hull — its
- * contour, its lobes, its sheen, the way damage hangs off it — is the same for
- * every ship there will ever be, so the only thing THE MIRROR needs in order
- * to be an exact copy of the player's ship is a second one of these.
- */
-export interface HullSkin {
-  /** The body, dark where it is thick and bright at the skin, top to bottom. */
-  body: readonly [string, string, string, string];
-  /** The outline, and what its glow is made of. */
-  rim: string;
-  /** How strong the rim glows, 0..1; absent is full. The ship's own is always
-   * full — it has no points to dim with — and THE MIRROR's fades with its. */
-  rimAlpha?: number;
-  /** The bright edge on the muzzle. */
-  edge: string;
-  /** Inside the muzzle. */
-  muzzle: string;
-}
-
-/** The player's ship: purple membrane, pale rim. The style guide, as a skin. */
-export const OWN_SKIN: HullSkin = {
-  body: ["#B268F0", "#6C2AAE", "#33105E", "#150632"],
-  rim: PALETTE.hull,
-  edge: PALETTE.hullRim,
-  muzzle: PALETTE.redDark,
-};
-
-/**
- * THE MIRROR: the same ship with the light gone out of it. Blood where the
- * player has violet, bone where the player has white — near enough to read as
- * a copy at a glance, wrong enough to read as a copy of the wrong thing.
- */
-export const MIRROR_SKIN: HullSkin = {
-  body: ["#FF4A63", "#8E0F2E", "#3A0413", "#120106"],
-  rim: "#FF2E52",
-  edge: "#FFD9DE",
-  muzzle: "#120106",
-};
 
 function pointsAcross(f: HullFrame, l: Layout, steps: number) {
   const from = l.gridLeft - MARGIN * l.gridWidth;

@@ -4006,3 +4006,23 @@ a DOM binding with no headless test, and nothing about it moved.
 | landing | 5 |
 
 Bottleneck: landing — `check:fast` reaches the whole of `apps/game` from a change to its shell.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `hull.ts` is at the limit: the skin is a second subject
+
+The hull's drawing carried the palette it is painted in — `HullSkin`, the
+player's own and THE MIRROR's. The three moved to `hull-skin.ts`, and
+`hull.ts` re-exports them beside `hull-frame.ts`'s, so the sixteen files that
+take a skin from `./hull.js` are untouched. One line slice was off by one and
+tripped its own assertion before it wrote anything. Proof was the canvas op
+log of THE ROCK, THE MIRROR and THE WELL, 480 frames from each seat, hashed
+identical before and after.
+
+| Where | Minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: landing — a render change reaches every frame test, and `check:fast` runs the lot.
