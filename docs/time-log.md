@@ -3654,3 +3654,26 @@ min.
 
 Bottleneck: writing — a mechanical carve, and the only cost was moving the
 comments with the lines they explain so neither file reads as a fragment.
+
+## 2026-09-14 · claude/queue-creatures-table-ts-is-one-creature-from-its-limi — `creatures-table.ts` is one creature from its limit, and the next cut is named
+
+The table was at 249 with eight landings in its history, each a row, and
+`creatures-handed.ts`'s header had already said where the next cut was: THE
+LID and THE MAGNET, "each needing a hand *and* a trigger". Those two and THE
+CHOIR are `creatures-held.ts` now, named in the table where they stood so the
+key order — the director's brush strip — is byte-identical, checked by
+printing `Object.keys(CREATURES)` before and after. The handed header's
+sentence describes a file that exists; the one comment in `render/` that named
+the magnet's row follows it. The table is 184 lines. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the table, `creatures-handed.ts`, `creatures-cling.ts`, the tests that walk the keys |
+| writing | 10 | `creatures-held.ts` and its header, the three named rows, the two comment fixes, the INDEX row |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 5 | `check:fast` (the full content shard is 40 s), `bun run index`, `queue done`, the commit, `bun run land --keep` |
+
+Bottleneck: writing — the header, which has to say what the family *is* in
+the game's words so the next creature answered by a hand and a trigger knows
+it belongs here.

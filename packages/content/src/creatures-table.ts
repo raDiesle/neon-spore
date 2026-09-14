@@ -6,6 +6,7 @@ import { CLING_CREATURES } from "./creatures-cling.js";
 import { FIXTURE_CREATURES } from "./creatures-fixtures.js";
 import { HANDED_CREATURES } from "./creatures-handed.js";
 import { HAZARD_CREATURES } from "./creatures-hazards.js";
+import { HELD_CREATURES } from "./creatures-held.js";
 import { JOINED_CREATURES } from "./creatures-joined.js";
 import { SPLIT_CREATURES } from "./creatures-split.js";
 import { WORN_CREATURES } from "./creatures-worn.js";
@@ -118,30 +119,9 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "A wheel with six bodies bolted round its rim, alternating red and cyan, turning as it comes. It falls to the middle of the field and then walks a diamond there, faster and faster, sinking a row each lap until the bottom of it grinds along the ship. Open the maw and the wheel slows, wherever the cannon happens to be standing.",
   },
-  lid: {
-    kind: "lid",
-    // The cannon alone, and the panel a wave with one on it shows. The cord is
-    // not a control group: `ControlGroup` is aim and guard, the two things a
-    // wave may be missing, and a handle on the field is neither — it is drawn
-    // where the body is, the way THE WARDEN's rope and THE MAZE's string are,
-    // and no strip has to appear for it.
-    controls: ["aim"],
-    // No colour of its own: a wave authors one per arrival, the way it does
-    // for a clasp. The colour is the *lens's* — what player 2 has to load
-    // before the plates part — and it is visible on both screens the whole way
-    // down, out of the seam between the plates. What the armour buys here is
-    // not surprise, it is timing.
-    color: null,
-    authorsColor: true,
-    // Player 2's strip, like every other aim target. Deliberately not player
-    // 1's, for all that the cord is player 1's hand: the pilot already has the
-    // body itself to look at from the moment it enters, and a strip announcing
-    // one to the seat that cannot fire would be a warning aimed away from the
-    // trigger that answers it.
-    radar: "p2",
-    blurb:
-      "An armoured eye with a cord hanging off it. The two plates over the lens part from the middle outwards for exactly as long as the pilot keeps the cord pulled aside, and only while they stand fully apart does the lens's own colour land — so the pull and the shot are one moment in two hands.",
-  },
+  // THE LID: a cord in one hand, the trigger in the other — the first of the
+  // three bodies held and shot at once, next door in `creatures-held.ts`.
+  lid: HELD_CREATURES.lid,
   // The six on that rim, and the sixth worn body — an ordinary slick or bulb
   // with a wheel under it. Next door with the other five for their reason: it
   // is drawn as the body its colour names, and `wornKind` resolves it.
@@ -165,55 +145,10 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   // rind and the mount for their reason — what makes a bead a bead is where it
   // is on the line and which one is lit, and neither is a costume.
   strand: BARE_CREATURES.strand,
-  magnet: {
-    kind: "magnet",
-    // **Aim only, and that is the whole creature stated as a control group.**
-    // A magnet is ended by the cannon and by nothing else — the shield does not
-    // turn it, chip it or slow it — so a panel that could ward and not fire is a
-    // panel this body cannot be answered on. It is deliberately *not*
-    // `["aim", "guard"]`: the second half of the answer is a **hand**, and a
-    // hand is not a control group (`test/waves.test.ts` reads this against the
-    // panel).
-    controls: ["aim"],
-    // Authored, the way a clasp's and a dart's are — and it says more here
-    // than anywhere else, because one authored colour is *both* poles: the
-    // left one is what a wave writes and the right one is its opposite
-    // (`magnetPoleColor`). So an author picks which way round the body stands,
-    // and the pair reads the answer off the picture.
-    color: null,
-    // **The pilot's strip**, and the first arrival on it that is not a rock.
-    // The rule is the split itself: the seat that is warned is the seat that
-    // has to leave a column and put a thumb on the body, and the seat that
-    // holds both triggers is told nothing — so the pilot has to say which side
-    // they are coming in on before the colour means anything at all.
-    radar: "p1",
-    blurb:
-      "A horseshoe on two poles, one red and one cyan, with an armoured plate slung under it on a staff. A shot up its own column meets the plate and is reflected straight back down. The only bolt that reaches a pole is one arriving sideways — so player 1 stands the cannon *off* the column and holds the body, and the shot climbs, turns level with it and comes in across. The side it arrives from is the pole it meets, and the pole it meets is the trigger that kills it.",
-  },
-  choir: {
-    kind: "choir",
-    // **Aim only, and the whole creature is stated by what is *not* here.**
-    // A membrane is opened by a gesture that is not on either panel — the
-    // device shaken, or two arrows carried off the edges of the field — and a
-    // gesture is not a `ControlGroup`. What the wave's panel must be able to
-    // answer is the body that comes out, which is a slick or a bulb, which is
-    // the cannon. THE MAGNET's row makes the same argument about a hand.
-    controls: ["aim"],
-    // No colour of its own while it is two bodies: the membrane is grey and
-    // nothing about it says which trigger will be right. The colour arrives
-    // *with the merge*, from the wave, which is the one entry in this table
-    // where `authorsColor` describes a colour the pair cannot see yet.
-    color: null,
-    authorsColor: true,
-    // **The pilot's strip**, and the rule crossing the controls once more
-    // rather than an exception to it: the seat warned is the seat that has to
-    // put both hands on the glass, and the seat holding both triggers is told
-    // nothing until the body is a body. Whichever way round they work it out,
-    // somebody has to say when the shaking starts.
-    radar: "p1",
-    blurb:
-      "Two grey balls standing apart in one lane, and no shot reaches either of them. Shake the phone twice — or carry the two arrows at the edges of the field outward, one and then the other — inside two beats, and they glow, draw together over a beat, and become a single slick or bulb. The colour bleeds in as they close and is only whole when they are one; until then there is nothing to shoot. Miss the window and it sings, and the hull pays for the chord.",
-  },
+  // THE MAGNET and THE CHOIR: the second and third bodies held and shot at
+  // once — a hand on the body, the device shaken — with the lid next door.
+  magnet: HELD_CREATURES.magnet,
+  choir: HELD_CREATURES.choir,
   // THE BEATBOX, and the one row this table names alone rather than spreads:
   // `creatures-beatbox.ts`, cut out when it took this file over its 250-line
   // limit. See that file for why it neither wears nor is bare.

@@ -16,7 +16,7 @@ import { SIREN_PAD } from "./siren-seats.js";
  * and the pilot is the one who has to say it.
  *
  * **Which is why the line is on the pilot's screen alone.** A magnet is on
- * player 1's radar (`radar: "p1"` in `creatures-table.ts`), so player 2 is not
+ * player 1's radar (`radar: "p1"` in `creatures-held.ts`), so player 2 is not
  * warned about one at all until it is on the field. Drawing the same words on
  * both would hand the navigator a column they cannot use and take the sentence
  * out of the pilot's mouth, which is the whole of the creature.

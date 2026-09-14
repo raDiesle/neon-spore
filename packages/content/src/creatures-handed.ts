@@ -15,9 +15,9 @@ import type { CreatureDef } from "./creatures.js";
  *
  * A file of its own rather than four more rows in `creatures-table.ts`, which
  * was at its 250-line limit — and the family is the one with somewhere to go:
- * THE LID and THE MAGNET are already half here, each needing a hand *and* a
- * trigger, and a second body answered by hands and nothing else has a place to
- * land rather than a table to overflow.
+ * a second body answered by hands and nothing else has a place to land rather
+ * than a table to overflow. THE LID and THE MAGNET, each needing a hand *and*
+ * a trigger, were half here and are now next door in `creatures-held.ts`.
  */
 export type HandedKind = Extract<CreatureKind, "balloon" | "gum" | "weight">;
 
@@ -25,7 +25,7 @@ export const HANDED_CREATURES: Record<HandedKind, CreatureDef> = {
   balloon: {
     kind: "balloon",
     // **Neither control, and it is the first row in the bestiary to say so.**
-    // THE CHOIR's row in `creatures-table.ts` argues that a gesture is not a `ControlGroup` and
+    // THE CHOIR's row in `creatures-held.ts` argues that a gesture is not a `ControlGroup` and
     // then names `aim` anyway, because a membrane becomes a body the cannon
     // has to finish. Nothing finishes a balloon but the two hands on it, so
     // there is no group a wave's panel has to be able to answer — which is

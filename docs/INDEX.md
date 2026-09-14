@@ -490,6 +490,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-9.ts` | Act nine: THE LEAK, the fault that takes the hold rather than a button, on the figure THE LANCE was taught on |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
 | `packages/content/src/creatures-handed.ts` | **The bodies answered by hands alone**, and today there is one of them |
+| `packages/content/src/creatures-held.ts` | a creature needs a hand on it *and* the trigger — the lid, the magnet and the choir, and why each still names `aim` |
 | `packages/content/src/creatures-joined.ts` | The body that is **two bodies in one shell** |
 | `packages/content/src/creatures-cling.ts` | **THE LIMPET and THE LEECH — the bodies that take a control and go off if it stands still.** Next door to… |
 | `packages/content/src/cairn-shape.ts` | THE CAIRN's stack: how seven rocks are arranged, in one place |
