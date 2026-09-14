@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `sound-page.ts` is at the limit: a row is not the page
 
 - **Found:** 2026-09-14, claude/queue-items-8b11f4
+- **Taken:** 2026-09-14, claude/queue-sound-page-ts-is-at-the-limit-a-row-is-not-the-p
 - **Files:** `tools/director/src/sound-page.ts`
 
 The file is 249 lines. `line`, `round`, `recipe` and `row` (lines 35 to 114)
