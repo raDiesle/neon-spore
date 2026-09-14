@@ -408,3 +408,58 @@ and a new case holds that `controlsRow` is absent where `pointer: fine` is
 false. `input-pc.test.ts:51` only greps `key-hint.ts` for the media query,
 so there is no stub to copy: pass the signal into `controlsRow` as a boolean
 and test the row both ways. Prove with `bun run check`.
+
+## A tutorial says it is one: the plate is loud, the field is plainly not live
+
+- **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Files:** `packages/render/src/guide-switch.ts`, `packages/render/src/guide-plate.ts`, `packages/render/src/guide-play.ts`, `packages/render/src/guide-nav.ts`, `apps/game/src/briefing.ts`, `apps/game/src/field-input.ts`, `packages/render/test/guide-plate-room.test.ts`, `packages/render/test/guide-nav.test.ts`, `packages/render/test/frame.test.ts`, `.claude/skills/new-tutorial/SKILL.md`
+- **Where:** local
+
+The owner asked for this on 14 September 2026 — the first exemption under *A
+look is offered, never replaced*; say so in the commit. **Local only**, his
+line: every part of it is judged by an eye on a phone-sized frame, watched at
+tempo. Read `.claude/skills/new-tutorial` first; three of its rules are the
+ones this touches, and they are corrections he has already made.
+
+Three things, in the order they meet a player:
+
+1. **When a guide is up it must be plain that the picture is not live** —
+   that a finger on the field does nothing and the bar is the only way on.
+   Today the rehearsal is the real field at full size (the skill's first
+   rule: *no card over it*), so the only things saying *this is a tutorial*
+   are the small corner plate and the nav bar's slab. `briefing.ts:105`
+   already drops every press on a film page; what is missing is the picture
+   saying so. Options, in the skill's own terms — nothing may become a panel
+   or a scrim over a shrunken picture: dim or desaturate the band's own
+   controls while the page plays, since they are the thing a thumb reaches
+   for; a lit rim the whole frame inside, in the seat's colour, that the nav
+   bar's slab already has; a press on the field answered with a short flash
+   at the nav bar rather than silence. Pick one, or two that agree.
+2. **The corner plate must be much more prominent.** It is `TUTORIAL` over
+   `PLAYER n · SCREEN` at 12 px / 8 px, top left (`guide-switch.ts:68`,
+   `BANNER_TOP`), and it was made *smaller* two days ago at his own asking
+   because it stood over the body being explained — the comment above
+   `TITLE_FONT` quotes him. So not bigger over the field: loud without
+   covering. Options: a band the full width of the screen above the HUD's
+   rows rather than a lobe in the corner; the same plate at the same size in
+   a colour and a pulse nothing else in the frame has; or the plate's body
+   stretched across the top with the film's picture starting under it
+   (`ViewState.clearTop` already tells a round's header where the plate
+   ends — `guide-plate-room.test.ts` holds that no word goes under it).
+   Whatever it becomes still flares on a seat switch.
+3. **Before the very first tutorial, a welcome page**: *welcome — let's
+   start with the tutorial; this is how the stepper works*, showing BACK,
+   REPLAY and NEXT and that the field waits. Once per device, so it is the
+   app's business and not the sim's (the sim cannot know a device):
+   `apps/game/src/intro.ts` is the pattern — a key in `localStorage`, a
+   version, `opensIntro`, presses taken by a sheet so nothing under it
+   hears them — and `settings.ts`'s `DEVICE_KEYS` gets the new key so
+   *forget this device* clears it. It opens over the first page of the first
+   guide a device meets, whichever wave that is, and one press closes it.
+   Drawn on the canvas in the game's parts, in `packages/render`.
+
+Every frame this changes is drawn again in `frame.test.ts`; the op-count
+budgets in `packages/render/test/*-budget.test.ts` are remeasured if a row
+moves, with a sentence saying why. Prove with `bun run check` and the guide
+watched at tempo on a phone-sized preview; send one PNG of a film page with
+the new plate, and one of the welcome page.
