@@ -359,6 +359,7 @@ what the rest of this file holds.
 ## Unverified at b7c3055e: The three-row front page and SETTINGS' WHAT THIS IS row…
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-unverified-at-b7c3055e-the-three-row-front-page
 - **Files:** `apps/game/src/menu-bindings.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-parts.ts`, `apps/game/src/menu-settings.ts`, `apps/game/src/menu-toggles.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.css`
 
 *HOW TO PLAY leaves the front page, and the tagline is the owner's own sentence* landed from a session that could not look at it. The commit touched 6 more files. What went unchecked:
