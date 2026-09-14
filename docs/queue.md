@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE HANDOVER's fourth rehearsal page captions over the plate on the lip
 
 - **Found:** 2026-09-13, claude/handover-guide
+- **Taken:** 2026-09-14, claude/queue-the-handovers-fourth-rehearsal-page-captions-ove
 - **Files:** `packages/render/src/guide-caption.ts`, `packages/render/src/caption-anchor.ts`, `packages/render/src/handover-look.ts`, `packages/render/test/guide-plate-room.test.ts`
 
 The film's fourth page anchors its caption on the cannon strip, and a strip
