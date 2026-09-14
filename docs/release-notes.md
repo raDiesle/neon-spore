@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · bc015343 — A red run says what failed, under the counts
+
+`bun run check:fast` ended `1668 pass, 1 fail, 0 skipped — 116 files across 2 shards in 7.2s wall; 1 shard red` with nothing under it. The failing case's name was inside its shard's own block, hundreds of lines above the last thing printed, and the block still on screen was the *green* shard saying `0 failed` — which reads as a contradiction. Three runs after it were green and the flake itself is nothing; what was worth fixing is that the run could not be read.
+
 ## 2026-09-14 · 4e3bd336 — THE LEAK gets a rehearsal: the ring that does not close, and the lift that fires
 
 The wave shipped with the three strings, which is the sixth guide to do so. Prose can say *the lobe fills nothing*, and what a pair has to see is two pictures a sentence turns into one: a ring that does not close under a thumb that is not moving, and then that same thumb lifting with an ordinary bolt going out. Read as one, that is a dead trigger. Watched in that order, it is a lost weapon on a panel where every button still works, which is the wave.
