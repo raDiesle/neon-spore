@@ -245,6 +245,7 @@ sending one PNG of the shared ready step.
 ## CONTROLS is offered only at a desk, and lists only the two seats' own keys
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Taken:** 2026-09-14, claude/queue-controls-is-offered-only-at-a-desk-and-lists-onl
 - **Files:** `apps/game/src/menu-controls.ts`, `apps/game/src/menu-settings.ts`, `apps/game/src/key-hint.ts`, `packages/content/src/keys-desk.ts`, `apps/game/test/controls-page.test.ts`
 
 The owner asked for this on 14 September 2026 — the first exemption under *A
