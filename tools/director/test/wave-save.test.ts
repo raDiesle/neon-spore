@@ -148,6 +148,26 @@ test("a save whose token is stale is refused, and writes nothing", async () => {
   expect(await actTexts(copy)).toEqual(before);
 });
 
+test("a board file changed under the page is refused like an act", async () => {
+  // `waves-acts.ts` said the board file was "read into the token" from the
+  // day a save began writing it, and it was not: a board edited on disk while
+  // a page was open went under that page's next save. The token hashes it now.
+  const token = await wavesToken(copy);
+  const boards = Bun.file(copy.boards.file);
+  const was = await boards.text();
+  try {
+    await Bun.write(boards, `${was}// a board edited on disk, after the page loaded\n`);
+    const before = await actTexts(copy);
+
+    const res = await saveWaves(put({ waves: await readWaves(), token }), copy);
+
+    expect(res.status).toBe(409);
+    expect(await actTexts(copy)).toEqual(before);
+  } finally {
+    await Bun.write(boards, was);
+  }
+});
+
 test("a save with no token at all is refused the same way", async () => {
   const before = await actTexts(copy);
   const res = await saveWaves(put({ waves: await readWaves() }), copy);

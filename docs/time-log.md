@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-items — the board file joins the save token it was said to be in
+
+Found while reading the save for the item before: `waves-acts.ts` said the
+pinball board file was "read into the token and written on a save exactly
+like an act", commit e14019fe's message said the same, and `wavesToken`
+hashed the acts and nothing else — a board edited on disk under an open page
+went under that page's next save. The board file is hashed now, both
+comments say what is true, and a case in `wave-save.test.ts` changes the
+copy's board file after the token is taken and expects the 409. The case
+was run once against the old token to see it fail. About 10 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | read with the item before |
+| writing | 5 | one line in the hash, two comments, one case |
+| looking | 0 | — |
+| friction | 5 | a `git checkout --` meant for a probe took the real edit with it |
+| landing | 5 | `check:fast`, the commit, `land` |
+
+The bottleneck was my own probe: reverting a file to prove the case bites
+reverted the change under test as well, and it had to be made twice.
+
 ## 2026-09-14 — queue-items — the save test writes a copy of the act files, not the tree
 
 Found by a red shard: `waves-memo.test.ts`'s "unchanged act files are read

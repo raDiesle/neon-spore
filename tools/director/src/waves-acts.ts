@@ -17,9 +17,11 @@ export const repoRootPath = Bun.fileURLToPath(new URL("../../../", import.meta.u
 
 /**
  * PINBALL's boards, which are the one piece of authored boss content that does
- * not live in an act file (`serialize-pinball.ts` says why). It is read into
- * the token and written on a save exactly like an act, so a board painted in
- * the editor lands somewhere and a board changed underneath refuses.
+ * not live in an act file (`serialize-pinball.ts` says why). It is hashed
+ * into the token (`wavesToken`) and written on a save exactly like an act, so
+ * a board painted in the editor lands somewhere and a board changed
+ * underneath refuses — the first half of that sentence was untrue until
+ * 14 September 2026, and `wave-save.test.ts` holds it now.
  */
 const pinballFile = new URL("../../../packages/content/src/pinball-rounds.ts", import.meta.url);
 const pinballRel = "packages/content/src/pinball-rounds.ts";
