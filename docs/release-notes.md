@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 981b3306 — The board file joins the save token it was said to be in
+
+`waves-acts.ts` said of `pinball-rounds.ts` that it is "read into the token and written on a save exactly like an act, so a board changed underneath refuses", and commit e14019fe's message said the same. `wavesToken` hashed `ACT_FILES` and nothing else, and had since that commit: a board edited on disk while a director page was open was overwritten without a word by the page's next save — the last-write-wins loss the token exists to stop. The board file is in the hash now, both comments say what is true, and a case in `wave-save.test.ts` changes the copy's board file after the token is taken and expects the save refused with nothing written. Closes the queue item of the same name.
+
 ## 2026-09-14 · 9b31919f — The director's save test writes a copy of the act files, never the tree
 
 `tools/check/shard.ts` deals the suite into eight processes on the premise its preamble states — every writer takes a `mkdtemp` of its own — and one file did not. `wave-save.test.ts` saved into the checked-in act files under `packages/content/src/waves/`, and `Bun.write` truncates each before it fills it; on 14 September 2026 `waves-memo.test.ts`, in another shard, hashed them between two of those writes, saw a token that had moved, and read the barrel a second time — red under `check:fast`, green alone. Any shard importing `@neon-spore/content` in that window would have read half an act.
