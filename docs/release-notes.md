@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 7cda16b6 — A capture reaches the preview and nobody else: the frame tests go 280s to 31s
+
+The queue entry left an open question — whether the built game's refused connections to Google were any of `test/opening.test.ts`'s four minutes forty, or whether the file simply costs that on this machine. Measured on both sides, three times: 280 s as it stood, 55 s with the requests refused at the browser, 31 s with the menu's face out of the bundle as well. Nearly all of it, and the two preconnects were worth about as much again as the stylesheet they were for.
+
 ## 2026-09-14 · 35cd5be3 — The director's MAP view is one column on a phone
 
 BRUSH and MAP share a section, and below 700px that section is the whole screen — but its body kept the desktop's two tracks, the palette at a fixed 250px and the grid taking what was left. On a 375px viewport what was left was about 110px: two columns of cells showed, and the cell panel, the note and the row's trash sat off the right edge behind #mapCol's own sideways scroll.
