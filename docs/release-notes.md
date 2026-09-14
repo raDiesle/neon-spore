@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 7693db1b — The intro is one scene of two phones and a shout, not six pages and a stepper
+
+The owner asked for this by name on 14 September 2026 — the first exemption under *A look is offered, never replaced*. Six pages with a BACK, a NEXT and a page count are gone; what a pair meets first is one animation that plays through, and one press anywhere — or its own end — closes it.
+
 ## 2026-09-14 · e51c69f6 — Queue a first-visit screen after the intro: the nickname, and an optional sign-in to restore it
 
 The owner asked that a device be asked for its nickname the first time, straight after the intro animation, with an optional Google or email sign-in under it to get a name back. Both halves exist — the room screen's name field and SETTINGS' sign-in row — so the entry is about when they are met, and hangs the screen off Intro.open(after).

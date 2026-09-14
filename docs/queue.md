@@ -463,3 +463,17 @@ place to change things. `apps/server/test/names.test.ts` holds the registry's cl
 the screen opens once and only with no name stored, the way `intro.test.ts`
 holds `opensIntro`. Prove with `bun run check` and send one PNG of the
 screen.
+
+## Unverified at 7693db1b: The opening scene watched at tempo on a phone: the shou…
+
+- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Files:** `apps/game/src/intro.ts`, `apps/game/src/settings.ts`, `apps/game/test/intro.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `packages/content/src/index.ts`, `packages/content/src/intro.ts`
+
+*The intro is one scene of two phones and a shout, not six pages and a stepper* landed from a session that could not look at it. The commit touched 11 more files. What went unchecked:
+
+- The opening scene watched at tempo on a phone: the shout crossing, the press landing and the shield sliding were corrected off two headless stills, and nobody has seen the scene move.
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
