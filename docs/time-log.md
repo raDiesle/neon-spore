@@ -22,6 +22,36 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — the CONTROLS landing checked, with the tool that could not
+
+No code. `Unverified at ff67ba6f` said a real phone's SETTINGS with no CONTROLS
+row on it had not been seen, and named the reason: headless Chromium at 390 px
+is a fine pointer, so no capture could show it. The lane before this one took
+that reason away, so this is the entry opened on a machine that can.
+
+All three callers of `atADesk()` asked in both contexts, off the preview. As a
+thumb: no CONTROLS row on SETTINGS, no splash trail, no keyboard hint over the
+field. As a mouse: the row, the page behind it reading *the game is played on a
+phone held upright, with a thumb*, the trail and the hint. Both directions, so
+the row is gated rather than gone.
+
+It is an emulated coarse pointer and not a handset — the same media query in
+the same engine, which is what `atADesk()` reads and all it reads. The entry
+went out rather than being narrowed, because the thing it said could not be
+shown can be shown now, and the two callers it did not name were checked while
+the browser was up.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, and which marker each of the three callers leaves in the document |
+| writing | 5 | the probe that asks all three in both contexts |
+| looking | 10 | the run, and one capture of the phone's SETTINGS for the owner |
+| friction | 0 | none |
+| landing | 10 | `check:fast`, the commit, `land` |
+
+The bottleneck was looking, which is the entry's whole subject: it existed
+because looking was impossible, and it closed in ten minutes once it was not.
+
 ## 2026-09-14 — queue-tasks — `bun run menu-shot` opens a phone, not a phone-sized desk
 
 The finding the CONTROLS lane wrote an hour earlier, and the one it could not
