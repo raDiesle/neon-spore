@@ -176,26 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## THE HANDOVER's fourth rehearsal page captions over the plate on the lip
-
-- **Found:** 2026-09-13, claude/handover-guide
-- **Taken:** 2026-09-14, claude/queue-the-handovers-fourth-rehearsal-page-captions-ove
-- **Files:** `packages/render/src/guide-caption.ts`, `packages/render/src/caption-anchor.ts`, `packages/render/src/handover-look.ts`, `packages/render/test/guide-plate-room.test.ts`
-
-The film's fourth page anchors its caption on the cannon strip, and a strip
-anchor stands the box `CLEAR_STRIP` (4 px) above its ring — which on this
-wave is exactly where `drawHandoverNotice` has put THEIR PANEL — BACK IN N.
-Photographed on 13 September 2026 with `bun run frames . --wave "THE
-HANDOVER" --opening guide --guide-page 3 --ticks 120 --seat p1`: the caption
-covers all of the plate but its first two letters. Two texts in one place is
-the defect `guide-plate-room.test.ts` already guards for the round header
-and the corner plate. The fix is the caption's own floor rule: export the
-plate's box from `handover-look.ts` (the rectangle `drawHandoverNotice`
-fills), and in `guide-caption.ts` treat a box that would overlap it the way
-one that would cross the banner is treated — put it below the ring instead.
-Extend `guide-plate-room.test.ts` with THE HANDOVER's fourth page against the
-plate's box.
-
 ## The director's MAP view on a phone keeps the desktop two-column frame
 
 - **Found:** 2026-09-13, claude/map-on-a-phone

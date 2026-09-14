@@ -3165,3 +3165,27 @@ IN 3. About 20 min.
 
 Bottleneck: reading — the fault is a union with a different grammar per arm,
 and each arm's numbers had to be found in the file that clamps them.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — THE HANDOVER's caption goes under its ring, not over the plate
+
+Queue item: the rehearsal's fourth page drew PLAYER 2 MOVES THE CANNON over
+THEIR PANEL — BACK IN 3, covering all of it but the first two letters, because
+a caption anchored on a strip stands four pixels above its ring and on this
+wave that is the lip the plate sits on. `handover-look.ts` now exports the
+rectangle `drawHandoverNotice` fills — and fills that one rather than a second
+copy — and `guide-caption.ts` treats a box that would cover it the way it
+already treats one that would cross the banner: under the ring instead. The
+new case in `guide-plate-room.test.ts` names the caption and the page when the
+rule is taken out. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `guide-caption.ts`, `caption-anchor.ts`, `handover-look.ts`, `guide-scene.ts`, the canvas stub's text boxes |
+| writing | 5 | `plateBoxAround`, the second floor, the test's two cases |
+| looking | 5 | the page photographed before and after — both texts legible in the second |
+| friction | 0 | none |
+| landing | 5 | the render suite, `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: reading — the plate's rectangle had to become reachable from a
+test that cannot hold the rehearsal's own world, which is what turned one
+exported box into two functions.

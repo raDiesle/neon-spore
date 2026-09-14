@@ -38,6 +38,61 @@ const FONT = '600 13px "Courier New",monospace';
 const PAD_X = 10;
 const HEIGHT = 20;
 
+/**
+ * **The rectangle the plate fills, or null when there is nothing to say.**
+ *
+ * Exported because a second thing draws in that place and could not know it
+ * was there. A rehearsal's caption anchored on the cannon strip stands
+ * `CLEAR_STRIP` above its ring, which on this wave is exactly the lip of the
+ * band — photographed on 13 September 2026 with `bun run frames . --wave "THE
+ * HANDOVER" --opening guide --guide-page 3`, where PLAYER 2 MOVES THE CANNON
+ * covered all of THEIR PANEL — BACK IN 3 but its first two letters. Two texts
+ * in one place is the defect `guide-plate-room.test.ts` already guards for
+ * between the round header and the corner plate, and the answer is the same:
+ * whoever arrives second asks where the first one is (`guide-caption.ts`).
+ *
+ * It takes the context because the plate is as wide as its own words, and the
+ * font is this file's. `drawHandoverNotice` fills exactly this rectangle, so
+ * there is one answer rather than two that drift.
+ */
+export function handoverPlateBox(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+): PlateBox | null {
+  const text = handoverWords(l, world);
+  return text === null ? null : plateBoxAround(ctx, l, text);
+}
+
+export interface PlateBox {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+/**
+ * The plate that would be drawn around these words.
+ *
+ * Taking the text rather than the world so a test can ask about the words it
+ * watched a frame draw. A rehearsal's world belongs to the play and nothing
+ * outside it has a handle on one (`guide-scene.ts`), so the alternative was a
+ * test that re-derived the padding and the height from copies of two constants
+ * in this file — which is the thing `purity.test.ts`'s `COPIES` table exists
+ * to stop.
+ *
+ * The font is restored by name rather than through `save`/`restore`: a caller
+ * measuring its own type either side of this one should get its own width
+ * back.
+ */
+export function plateBoxAround(ctx: CanvasRenderingContext2D, l: Layout, text: string): PlateBox {
+  const font = ctx.font;
+  ctx.font = FONT;
+  const half = ctx.measureText(text).width / 2 + PAD_X;
+  ctx.font = font;
+  return { x: l.width / 2 - half, y: l.bandTop - HEIGHT / 2, w: half * 2, h: HEIGHT };
+}
+
 /** What the plate says on this screen, or null when there is nothing to say. */
 export function handoverWords(l: Layout, world: World): string | null {
   const left = handoverLeft(world);
@@ -77,19 +132,23 @@ export function drawHandoverNotice(
 ): void {
   const text = handoverWords(l, world);
   if (text === null) return;
+  // The same rectangle a caption is told to keep off, rather than a second
+  // copy of the arithmetic that could drift from it.
+  const box = handoverPlateBox(ctx, l, world);
+  if (box === null) return;
   const beat = Math.max(0, 1 - view.beatPhase * 2);
   ctx.save();
   ctx.font = FONT;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const half = ctx.measureText(text).width / 2 + PAD_X;
+  const half = box.w / 2;
   const x = l.width / 2;
   const y = l.bandTop;
   // A dark plate first, so the band's own lobes and the field's stars both stop
   // at its edge — type laid straight over either is type nobody can read, which
   // is `text-drop.ts`'s rule said about a line that is standing still.
   ctx.beginPath();
-  ctx.roundRect(x - half, y - HEIGHT / 2, half * 2, HEIGHT, 6);
+  ctx.roundRect(box.x, box.y, box.w, box.h, 6);
   ctx.fillStyle = rgba("#05040B", 0.88);
   ctx.fill();
   ctx.strokeStyle = rgba(PALETTE.arc, 0.55 + 0.45 * beat);

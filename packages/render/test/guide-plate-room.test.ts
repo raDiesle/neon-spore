@@ -9,8 +9,10 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { drawWaveOpening } from "../src/briefing.js";
+import { filmLayout } from "../src/guide-film.js";
 import { GuideStage } from "../src/guide-scene.js";
 import { BANNER_H, BANNER_TOP } from "../src/guide-switch.js";
+import { plateBoxAround } from "../src/handover-look.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { OpeningFx } from "../src/opening-fx.js";
 import { installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
@@ -94,6 +96,74 @@ describe("the tutorial plate and a round's header", () => {
           guideStepHeard(world, 2, false);
         }
       }
+    }, 60_000);
+  }
+});
+
+/**
+ * THE HANDOVER's countdown plate and the caption of the page over it.
+ *
+ * The fault's plate sits on the lip of the band, and a caption anchored on a
+ * strip stands `CLEAR_STRIP` — four pixels — above its ring, which on this
+ * wave is the same lip. So the fourth page of the rehearsal drew PLAYER 2
+ * MOVES THE CANNON straight over THEIR PANEL — BACK IN 3, covering all of it
+ * but the first two letters (photographed 13 September 2026 with
+ * `bun run frames . --wave "THE HANDOVER" --opening guide --guide-page 3`).
+ *
+ * The same defect as the one above and the same check: every word a page
+ * draws, against the rectangle the plate fills. The plate's own words are
+ * allowed in it and nothing else is — the caption goes under its ring instead,
+ * which is what a caption that would cross the banner already does.
+ */
+const PLATE_SAYS = /^THEIR PANEL|^PANELS TRADE/;
+
+describe("THE HANDOVER's plate and a rehearsal's caption", () => {
+  const wave = WAVES.findIndex((w) => w.name === "THE HANDOVER");
+
+  for (const role of ROLES) {
+    it(`share no room on any page of the rehearsal, for ${role}`, () => {
+      expect(wave, "no wave named THE HANDOVER").toBeGreaterThanOrEqual(0);
+      const { ctx } = stubCanvas();
+      const stage = computeLayout(PHONE, CFG, role);
+      // The film's own rectangle, which is what the plate is centred in — the
+      // page is drawn phone-shaped inside the stage (`guide-film.ts`). Either
+      // seat answers: the two differ in role alone, and the plate is the same
+      // width and on the same lip on both.
+      const { l } = filmLayout(stage, CFG, 1);
+      const world = guided(wave);
+      const play = new GuideStage();
+      let seen = 0;
+      for (let page = 0; page < guidePages(world); page++) {
+        for (let f = 0; f < 90; f++) play.update(world, 1 / 60, role);
+        ctx.texts = [];
+        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, stage, world, {
+          role,
+          scene: play,
+          time: 1.5,
+          fx: new OpeningFx(),
+        });
+        const said = ctx.texts.find((t) => PLATE_SAYS.test(t.text));
+        if (said) {
+          seen++;
+          const box = plateBoxAround(ctx as unknown as CanvasRenderingContext2D, l, said.text);
+          const over = ctx.texts.filter(
+            (t) =>
+              !PLATE_SAYS.test(t.text) &&
+              t.x < box.x + box.w &&
+              t.x + t.w > box.x &&
+              t.y < box.y + box.h &&
+              t.y + t.h > box.y,
+          );
+          expect(
+            over.map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
+            `page ${page + 1}: words over the countdown plate`,
+          ).toEqual([]);
+        }
+        ctx.texts = undefined;
+        guideStepHeard(world, 1, false);
+        guideStepHeard(world, 2, false);
+      }
+      expect(seen, "no page of the rehearsal drew the plate at all").toBeGreaterThan(0);
     }, 60_000);
   }
 });

@@ -2,6 +2,7 @@ import type { ControlSet, SceneStep } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { anchorPoint } from "./caption-anchor.js";
 import { BANNER_H, BANNER_TOP } from "./guide-switch.js";
+import { handoverPlateBox } from "./handover-look.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { type SeatNames, withNames } from "./seat-name.js";
@@ -80,16 +81,30 @@ export function drawCaption(
   let w = 0;
   for (const line of lines) w = Math.max(w, ctx.measureText(line).width);
   w += PAD * 2;
+  const x = Math.max(8, Math.min(Math.max(8, l.width - w - 8), point.x - w / 2));
   // Above its subject when there is room above, below it when there is not:
   // the one thing a caption may never do is sit off the top of the screen. The
   // floor is the banner rather than the edge, because the banner is the other
   // thing that has to stay readable (`guide-switch.ts`).
   const floor = BANNER_TOP + BANNER_H + 8;
-  const below = point.y - point.r - point.clear - h < floor;
-  const y = below
-    ? Math.max(floor, point.y + point.r + point.clear)
-    : point.y - point.r - point.clear - h;
-  const x = Math.max(8, Math.min(Math.max(8, l.width - w - 8), point.x - w / 2));
+  const above = point.y - point.r - point.clear - h;
+  // **And THE HANDOVER's plate is a second floor**, for the same reason and in
+  // the other direction. A caption anchored on a strip stands `CLEAR_STRIP`
+  // above its ring, which on that wave is exactly the lip of the band the
+  // plate sits on — so the page that says PLAYER 2 MOVES THE CANNON covered
+  // all of THEIR PANEL — BACK IN 3 but its first two letters. A caption can go
+  // under its ring and the plate cannot go anywhere: the countdown is the
+  // fault's only answer to *when*, and it is on the band because the band is
+  // what is changing hands (`handover-look.ts`).
+  const plate = handoverPlateBox(ctx, l, world);
+  const covered =
+    plate !== null &&
+    x < plate.x + plate.w &&
+    x + w > plate.x &&
+    above < plate.y + plate.h &&
+    above + h > plate.y;
+  const below = above < floor || covered;
+  const y = below ? Math.max(floor, point.y + point.r + point.clear) : above;
 
   ctx.globalAlpha = k;
   ctx.fillStyle = "rgba(9,7,20,.96)";
