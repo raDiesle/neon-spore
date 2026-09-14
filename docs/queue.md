@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The built game reaches Google under test, and the frame tests take five minutes
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
+- **Taken:** 2026-09-14, claude/queue-the-built-game-reaches-google-under-test-and-the
 - **Files:** `tools/frames/capture.ts`, `tools/frames/test/opening.test.ts`, `apps/game/index.html`, `apps/game/src/sign-in.ts`
 
 Since the sign-in landed, loading the built game in a headless Chrome reaches
