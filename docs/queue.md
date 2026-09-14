@@ -409,3 +409,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 2c528788: bun run versus:shot through the lifted startDirector —…
+
+- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Files:** `docs/INDEX.md`, `docs/commands.md`, `docs/queue.md`, `docs/time-log.md`, `tools/frames/director-serve.ts`, `tools/frames/shot-flags.ts`, `tools/frames/shot-usage.ts`, `tools/frames/shot.ts`
+
+*`bun run shot --serve` starts the director it photographs, and stops it again* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
+
+- bun run versus:shot through the lifted startDirector — no VERSUS slot is open in this tree, so nothing could be photographed to prove the other caller still works
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
