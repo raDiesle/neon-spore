@@ -3263,3 +3263,27 @@ by the end; with the fault taken off the film it reads 994 instead of 0.
 Bottleneck: reading — a film is forty lines and the rules it has to satisfy are
 in six files, and the one that decided the timing (a lift fires the shot the
 press owes) is a paragraph in `lance.ts` rather than anything a test says.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — a red run says what failed, under the counts
+
+The entry this lane wrote two commits earlier, drained in the same sitting. A
+run of `bun run check:fast` ended `1668 pass, 1 fail … 1 shard red` with
+nothing under it: the failing case's name was inside its shard's own block,
+hundreds of lines above the last thing printed, and the block still on screen
+was the green shard saying `0 failed`. `firstFailure` reads the case out of the
+merged junit report — file, line, and the `describe` over it — and `shard.ts`
+prints it under the counts. Proved on a deliberately red shard: `first failure:
+tools/check/test/zz-scratch.test.ts:4 — a group > fails on purpose`. About
+20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `shard.ts`'s summary, `shards.ts`'s tally and merge, a junit report with a real failure in it |
+| writing | 10 | `firstFailure`, the printed line, two fixtures and four cases |
+| looking | 5 | a scratch failing test dropped into a shard and the closing lines read |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: writing — the shape of the report had to be got from a real one
+rather than guessed, and the regex has to find the case a `<failure>` hangs
+under without parsing the document.

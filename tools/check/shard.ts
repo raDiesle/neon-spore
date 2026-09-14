@@ -37,7 +37,15 @@
 import { readdirSync, statSync } from "node:fs";
 import { cpus, tmpdir } from "node:os";
 import { join, relative } from "node:path";
-import { mergeJunit, partition, selected, tallyOf, type Weighed, weigh } from "./shards.js";
+import {
+  firstFailure,
+  mergeJunit,
+  partition,
+  selected,
+  tallyOf,
+  type Weighed,
+  weigh,
+} from "./shards.js";
 
 const ROOT = join(import.meta.dirname, "..", "..");
 
@@ -126,6 +134,15 @@ console.log(
     `${files.length} files across ${bins.length} shards in ${wall}s wall, ${total.seconds.toFixed(1)}s of test` +
     (failed > 0 ? `; ${failed} shard${failed === 1 ? "" : "s"} red` : ""),
 );
+// **And what failed, under the counts.** A red run is read from the bottom,
+// and until 14 September 2026 the bottom said only how many — the case's name
+// was in its shard's own block, hundreds of lines up (`firstFailure`).
+const first = firstFailure(merged);
+if (first) {
+  const where = first.file ? `${first.file}${first.line ? `:${first.line}` : ""} — ` : "";
+  const more = total.failures > 1 ? ` (+${total.failures - 1} more)` : "";
+  console.log(`  first failure: ${where}${first.name}${more}`);
+}
 if (junit) await Bun.write(junit, merged);
 for (let i = 0; i < bins.length; i++)
   await Bun.file(reportOf(i))

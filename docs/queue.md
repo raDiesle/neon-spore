@@ -176,27 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `check:fast`'s closing line says a shard is red without naming the case
-
-- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-14, claude/queue-check-fast-s-closing-line-says-a-shard-is-red-wi
-- **Files:** `tools/check/shard.ts`, `tools/check/test/shards.test.ts`
-
-One run of `bun run check:fast` on 14 September 2026 ended
-`1668 pass, 1 fail, 0 skipped — 116 files across 2 shards in 7.2s wall; 1 shard
-red`, and three runs after it were `1669 pass, 0 fail` with nothing changed in
-between. The flake is not the finding — an unreproduced red is a thing to note
-and let go. What is worth fixing is that the run could not be *read*: the
-closing line counts the failures and says which shard was red, and the failing
-case's name is only inside that shard's own block, which on a full run is
-hundreds of lines above the last thing printed. The shard that was still on
-screen said `0 fail`, which reads as a contradiction.
-
-So the summary should carry the first failing case — file and test name, one
-line — beside the counts it already prints. A red run is read from the bottom,
-because that is where a reader's eye is when the command returns, and a red
-that has to be hunted for is a red that gets run again instead.
-
 ## Unverified at 6ecebe84: THE LEAK watched at tempo: whether a pair can cross the…
 
 - **Found:** 2026-09-13, claude/scheduler-tests-two-devices-klxkyt
