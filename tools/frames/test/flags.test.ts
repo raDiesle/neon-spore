@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { crankPresses } from "../crank.js";
+import { parseFault } from "../fault.js";
 import { collectHolds, parseFrameSpec, tickLine } from "../flags.js";
 import { parseHoldFlag } from "../hold.js";
 import { parsePress } from "../press.js";
@@ -207,5 +208,71 @@ describe("parseFrameSpec", () => {
     expect(spec.at).toEqual({ x: 120, y: 400, width: 150, height: 150 });
     expect(spec.zoom).toBe(3);
     expect(spec.raster).toBe(true);
+  });
+
+  it("puts a fault on a wave that carries none, and leaves one off otherwise", () => {
+    const plain = parseFrameSpec(["<sha>", "--wave", "1"], waves).spec;
+    expect(plain.fault).toBeUndefined();
+    const { spec } = parseFrameSpec(["<sha>", "--wave", "1", "--fault", "handover:4,3,6"], waves);
+    expect(spec.fault?.malfunction).toEqual({ kind: "handover", at: 4, beats: 3, every: 6 });
+  });
+});
+
+/**
+ * The flag THE HANDOVER's cycle needed. Verifying it meant a scratch script
+ * that wrote `world.malfunction` by hand, because no wave in the tree repeats
+ * the trade — so what is checked here is that each kind gets the grammar its
+ * own arm of the union has, and that a number a kind has no field for is
+ * refused rather than dropped.
+ */
+describe("parseFault", () => {
+  it("takes the director's three boxes in order, and each of them alone", () => {
+    expect(parseFault("handover:4,3,6")?.malfunction).toEqual({
+      kind: "handover",
+      at: 4,
+      beats: 3,
+      every: 6,
+    });
+    expect(parseFault("handover:4")?.malfunction).toEqual({ kind: "handover", at: 4 });
+    // Bare is the wave's own window: all three fall back to the config.
+    expect(parseFault("handover")?.malfunction).toEqual({ kind: "handover" });
+  });
+
+  it("refuses a fourth number, and one that is not a whole number of beats", () => {
+    expect(() => parseFault("handover:4,3,6,9")).toThrow(/handover takes 3/);
+    expect(() => parseFault("handover:soon")).toThrow(/whole number of beats/);
+    expect(() => parseFault("handover:-1")).toThrow(/whole number of beats/);
+  });
+
+  it("will not pick a runaway cannon's ammunition for you", () => {
+    expect(() => parseFault("cannon")).toThrow(/one of red, cyan, alternating/);
+    expect(() => parseFault("cannon:green")).toThrow(/one of red, cyan, alternating/);
+    expect(parseFault("cannon:alternating")?.malfunction).toEqual({
+      kind: "cannon",
+      color: "alternating",
+    });
+  });
+
+  it("names the fault clock for the two faults that read it off the config", () => {
+    expect(parseFault("cannon:red,2")).toEqual({
+      malfunction: { kind: "cannon", color: "red" },
+      everyBeats: 2,
+    });
+    expect(parseFault("shield:3")).toEqual({ malfunction: { kind: "shield" }, everyBeats: 3 });
+    // Nothing written unless the flag asked: a capture that names no period is
+    // the shipped clock.
+    expect(parseFault("shield")).toEqual({ malfunction: { kind: "shield" } });
+  });
+
+  it("refuses numbers on a fault that has no field for them", () => {
+    expect(() => parseFault("codex:4")).toThrow(/codex carries no numbers/);
+    expect(() => parseFault("leak:1,2")).toThrow(/leak carries no numbers/);
+    expect(parseFault("steer")?.malfunction).toEqual({ kind: "steer" });
+  });
+
+  it("refuses a fault the simulation has never heard of, and reads nothing as nothing", () => {
+    expect(() => parseFault("wobble")).toThrow(/one of cannon, shield, steer, codex/);
+    expect(() => parseFault("")).toThrow(/one of cannon, shield, steer, codex/);
+    expect(parseFault(undefined)).toBeUndefined();
   });
 });

@@ -1,4 +1,5 @@
 import type { Browser, Page } from "playwright-core";
+import { installFault } from "./fault.js";
 import { clearOpening } from "./opening.js";
 import { turnGuide } from "./opening-hold.js";
 import type { FrameSpec } from "./spec.js";
@@ -116,6 +117,10 @@ export async function openStage(
     if (!ns) throw new Error("window.neonSpore missing after load");
     ns.jumpToWave(wave);
   }, spec.wave);
+
+  // Straight after the jump and before the opening lets go, which is where
+  // `startWave` left the wave's own (`installFault`).
+  if (spec.fault) await installFault(page, spec.fault);
 
   // Straight after the jump and before the opening lets go: the round is the
   // *fight's* state rather than the wave's, so standing it up early means the

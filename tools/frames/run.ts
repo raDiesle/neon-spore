@@ -36,6 +36,8 @@
  *   bun run frames <sha> --wave 21 --settle 8 --frames 6 --stride 0   a burst, as a strip
  *   bun run frames <sha> --wave 21 --at 120,400,150,150 --zoom 3   one body, close up
  *   bun run frames <sha> --wave 19 --boss-round 3   a later sheet of THE MAZE
+ *   bun run frames . --wave "THE HANDOVER" --fault handover:4,3,6   a fault no wave names
+ *   bun run frames . --wave 3 --fault cannon:alternating,2   a runaway cannon, twice as slow
  *   bun run frames <sha> --wave 2 --opening guide|intro --frames 8 --stride 6   its opening
  *   bun run frames <sha> --wave 7 --opening guide --guide-page 3   a later page of a rehearsal
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
@@ -53,6 +55,15 @@
  * frame clock rather than stepped by the world's, and the page is rewound to
  * its first tick before the strip because a page plays once and then holds on
  * its last frame. A strip taken from past that says `held:` (`guide-film.ts`).
+ *
+ * `--fault <kind>[:<numbers>]` puts a fault on the wave whether or not the wave
+ * carries one — `handover:<at>,<beats>,<every>` is the director's three boxes in
+ * that order, `cannon:<colour>[,<every>]` and `shield[:<every>]` name the fault
+ * clock a wave leaves to the config, and the other three take no numbers. It is
+ * written where `startWave` leaves a wave's own, so the opening reads it. Until
+ * it existed, a fault at figures no wave names — THE HANDOVER *repeating* — took
+ * a scratch script to photograph, and nobody could take the picture twice
+ * (`fault.ts`).
  *
  * `--settle N` paints N frames **without stepping the world**, before each
  * picture: the two clocks are separate, so anything living in painted seconds

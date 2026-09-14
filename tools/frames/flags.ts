@@ -1,4 +1,5 @@
 import { parseAt } from "./crop.js";
+import { parseFault } from "./fault.js";
 import { parseHand } from "./hand.js";
 import { parseHoldFlag } from "./hold.js";
 import { parseOpening } from "./opening.js";
@@ -146,6 +147,10 @@ export function parseFrameSpec(
     ...(argv.includes("--boss-round") ? { bossRound: flag("boss-round", 0) } : {}),
     press,
     opening: parseOpening(after("opening")),
+    // A fault the wave need not carry, written on the world where `startWave`
+    // would have left it. Undefined is every capture this tool has ever taken:
+    // the wave's own fault, or none (`fault.ts`).
+    fault: parseFault(after("fault")),
     // Undefined rather than 0, so `--opening guide` on a film of one page is
     // not refused for a flag nobody wrote.
     ...(argv.includes("--guide-page") ? { guidePage: flag("guide-page", 0) } : {}),

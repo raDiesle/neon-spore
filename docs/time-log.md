@@ -3142,3 +3142,26 @@ trunk red on the next check; that is fixed at the source with a test. About
 
 Bottleneck: **writing** — most of it was the queued question, which has to name
 both options well enough that the answer is one word.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — `bun run frames --fault`, a fault at numbers no wave names
+
+Queue item: THE HANDOVER's cycle could only be photographed by a scratch
+script that wrote `world.malfunction` on the page by hand. `--fault` is now a
+flag — `handover:<at>,<beats>,<every>` the director's three boxes in order,
+`cannon:<colour>[,<every>]` and `shield[:<every>]` naming the fault clock a
+wave leaves to the config, and the other three kinds bare — parsed in
+`fault.ts` and written where `startWave` leaves a wave's own, straight after
+`jumpToWave`. Checked against the built game: at tick 420 of THE HANDOVER the
+plain frame is untraded and `--fault handover:4,3,6` reads THEIR PANEL — BACK
+IN 3. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `flags.ts`, `spec.ts`, `page.ts`, `malfunction.ts`, `handover.ts`, `config-malfunction.ts` |
+| writing | 5 | `fault.ts`, the wiring through four files, six test cases, the usage block |
+| looking | 5 | three real captures — the cycle, the plain frame beside it, and the trade read off the plate |
+| friction | 0 | none; `queue done 1` refusing a position rather than a title is the tool working |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: reading — the fault is a union with a different grammar per arm,
+and each arm's numbers had to be found in the file that clamps them.

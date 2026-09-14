@@ -10,6 +10,7 @@
  */
 
 import type { Crop } from "./crop.js";
+import type { FaultSpec } from "./fault.js";
 import type { OpeningStop } from "./opening.js";
 
 export interface FrameSpec {
@@ -194,6 +195,18 @@ export interface FrameSpec {
    * back as six copies of whatever the page ended on.
    */
   opening?: OpeningStop;
+  /**
+   * A fault on this wave, whether or not the wave carries one.
+   *
+   * The one thing about the field a capture could not say. A fault is authored
+   * on a `Wave` and installed by `startWave`, so a fault the tree has written
+   * on no wave — THE HANDOVER trading more than once, a runaway cannon on a
+   * quiet wave, a shield arming at a period nothing names — could only be
+   * photographed by a scratch script that wrote `world.malfunction` itself.
+   * Written straight after `jumpToWave` and before the opening lets go, which
+   * is where `startWave` left it (`fault.ts`, and `page.ts` for the install).
+   */
+  fault?: FaultSpec;
 }
 
 /**

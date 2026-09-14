@@ -44,13 +44,26 @@ declare global {
         boss?: unknown;
         /** The simulation's own clock, which `--settle` must not move. */
         tick: number;
+        /**
+         * The wave's fault, or null. Written rather than read: `--fault` puts
+         * one on a wave that carries none (`fault.ts`). Optional because a
+         * build from before the field existed has no such key, and `--fault`
+         * says so by name rather than writing a property nothing reads.
+         */
+        malfunction?: unknown;
         /** The beat counter, which a tap waits for: it is **not** `tick /
          * ticksPerBeat`, because a wave's opening advances one and not the
          * other (`capture.ts`'s `toBeat`, and `docs/queue.md`). */
         beat: number;
         /** A rehearsal's ticks are counted in it. Optional for the usual
          * reason: a caller falls back to the shipped 120 rather than failing. */
-        cfg?: { tickHz: number };
+        cfg?: {
+          tickHz: number;
+          /** Beats between two automatic actions of a broken control, which is
+           * where a runaway cannon's and a self-arming shield's period lives
+           * (`sim/config-malfunction.ts`). Written by `--fault`. */
+          malfunctionEveryBeats?: number;
+        };
       };
       jumpToWave(wave: number): void;
       dismissBriefing(): void;

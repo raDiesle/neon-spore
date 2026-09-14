@@ -176,21 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `bun run frames` cannot photograph a fault with numbers the wave does not carry
-
-- **Found:** 2026-09-13, claude/handover-window
-- **Taken:** 2026-09-14, claude/queue-bun-run-frames-cannot-photograph-a-fault-with-nu
-- **Files:** `tools/frames/flags.ts`, `tools/frames/spec.ts`, `tools/frames/page.ts`, `tools/frames/test/flags.test.ts`
-
-Verifying THE HANDOVER with a cycle meant a scratch script that set
-`world.malfunction = { kind: "handover", at, beats, every }` on the page by
-hand after `openStage`, because no wave in the tree repeats and the tool has
-no way to say so. A `--fault "handover:4,3,6"` flag (kind, then `at`, `beats`,
-`every` in that order, the director's three boxes) set on the world straight
-after `jumpToWave` and before the opening clears would make the picture a
-one-line command anybody can rerun. The same flag covers a runaway cannon or
-shield at a period the wave does not name.
-
 ## THE HANDOVER's fourth rehearsal page captions over the plate on the lip
 
 - **Found:** 2026-09-13, claude/handover-guide
