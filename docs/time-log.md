@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — the front page checked, and the tagline does wrap
+
+`Unverified at b7c3055e` named three things. Two hold. The front page is PLAY
+and SETTINGS, with LEAVE ROOM the third only while there is a room, which is
+what `menu-view.ts` says it should be. WHAT THIS IS opens the scene, takes the
+menu down while it plays and puts it back — on the front page rather than on
+SETTINGS, which is `menu.ts:150` handing `open()` in as the way back, and is
+the right end for a row a person presses once.
+
+The third does not. The tagline is one line at 390 px and at 375 px and two
+lines at 360 px and below — every Galaxy and every Pixel — against a comment
+saying it is *the first version of it a phone reads in one line*. Measured at
+six widths, then each way out of it measured too, because the fix is the
+owner's sentence and his letter-spacing: an entry that only said *it wraps*
+would have handed him the same afternoon back. Queued with the four options
+and what each clears.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, the tagline's own comment, and where `openIntro` is handed its way back |
+| writing | 10 | two probes, and the queue entry with its table |
+| looking | 15 | six widths, then eight variants at two of them |
+| friction | 0 | none |
+| landing | 10 | `check:fast`, the commit, `land` |
+
+The bottleneck was looking, and it bought the thing worth having: the wrap took
+one run to find and the other seven runs are what turn it into a question the
+owner can answer in a word.
+
 ## 2026-09-14 — queue-tasks — the CONTROLS landing checked, with the tool that could not
 
 No code. `Unverified at ff67ba6f` said a real phone's SETTINGS with no CONTROLS
