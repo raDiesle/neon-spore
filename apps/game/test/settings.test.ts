@@ -50,6 +50,7 @@ describe("what CLEAR THIS DEVICE forgets", () => {
     // and not added here is data a player asked to be rid of and still has.
     expect([...DEVICE_KEYS].sort()).toEqual([
       "neon-spore.email",
+      "neon-spore.intro",
       "neon-spore.name",
       "neon-spore.pairs",
       "neon-spore.progress",
@@ -65,19 +66,32 @@ describe("what CLEAR THIS DEVICE forgets", () => {
   });
 });
 
+/**
+ * Every source the app has, found rather than listed.
+ *
+ * It was a list of seven names until 14 September 2026, and `intro.ts` was
+ * never on it — so the key deciding what the next person to hold the phone
+ * sees was stored and never cleared, and the test written to catch exactly
+ * that could not see the file it was in. A list of files to sweep has the
+ * same failure mode as the list of keys it is checking: somebody adds one
+ * and does not add it twice. A glob cannot go stale.
+ */
+const dir = Bun.fileURLToPath(new URL("../src", import.meta.url));
 const sources = await Promise.all(
-  ["last-room", "nickname", "pairing", "progress", "settings", "sign-in", "view"].map((name) =>
-    Bun.file(Bun.fileURLToPath(new URL(`../src/${name}.ts`, import.meta.url))).text(),
-  ),
+  [...new Bun.Glob("*.ts").scanSync({ cwd: dir })]
+    .sort()
+    .map((name) => Bun.file(`${dir}/${name}`).text()),
 );
 
 describe("every key this game stores", () => {
   it("is one CLEAR THIS DEVICE knows about", () => {
     // The failure this catches: somebody adds a `localStorage` key, and the
-    // button that promises to forget everything quietly does not.
+    // button that promises to forget everything quietly does not. The closing
+    // quote is part of the pattern on purpose — `sign-in-config.ts` carries
+    // "neon-spore.firebaseapp.com", which is a host and not a key.
     const found = new Set<string>();
     for (const source of sources) {
-      for (const match of source.matchAll(/"(neon-spore\.[a-z]+)"/g)) {
+      for (const match of source.matchAll(/"(neon-spore\.[a-z][a-z-]*)"/g)) {
         if (match[1]) found.add(match[1]);
       }
     }
@@ -85,6 +99,6 @@ describe("every key this game stores", () => {
       expect(DEVICE_KEYS as readonly string[], `${key} is stored but never cleared`).toContain(key);
     }
     // And the sweep really found them, rather than finding nothing and passing.
-    expect(found.size).toBeGreaterThanOrEqual(7);
+    expect(found.size).toBeGreaterThanOrEqual(DEVICE_KEYS.length);
   });
 });

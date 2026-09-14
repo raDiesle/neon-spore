@@ -124,6 +124,7 @@ export const DEVICE_KEYS = [
   "neon-spore.progress",
   "neon-spore.room",
   "neon-spore.view",
+  "neon-spore.intro",
 ] as const;
 
 /**
@@ -133,6 +134,11 @@ export const DEVICE_KEYS = [
  * only way back out of a stored name. It clears these keys and nothing else:
  * the server-side claim on the name is deliberately left standing — logging
  * in again is what takes it back — and the button says so in one line.
+ *
+ * `neon-spore.intro` goes with them, which is the reading the button's own
+ * sentence gives: the next person to hold the phone meets the game's front
+ * door rather than the menu, and the front door is what the six opening pages
+ * are for. A key kept back would need a line here saying why, not an absence.
  */
 export function forgetThisDevice(): void {
   for (const key of DEVICE_KEYS) {

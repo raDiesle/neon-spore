@@ -4509,3 +4509,30 @@ Bottleneck: reading — the entry names three fixes and the one it recommends
 reads two ways, and only one of them changes anything. A `format` that chains
 the sort behind the formatter is still a silent sort; the fix had to be that
 `format` stops sorting at all.
+
+## 2026-09-14 · claude/queue-tasks-kkqozz — CLEAR THIS DEVICE takes the intro flag, and the sweep stops being a list
+
+The queue's own item, and the half worth fixing first was the test: it swept a
+*named list* of seven source files for `"neon-spore.…"` strings, `intro.ts` was
+never on it, and so the one test written to catch a stored key nobody clears
+could not see the file the uncleared key was in. A list of files to sweep has
+the same failure mode as the list of keys it is checking. It is
+`new Bun.Glob("*.ts")` over `apps/game/src` now, which cannot go stale, and
+`neon-spore.intro` fell straight out of it — taken out and put back to watch
+both cases fail with the key named. The key itself is cleared, which is the
+reading the button's own sentence gives: the next person to hold the phone
+meets the front door rather than the menu. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `settings.ts`, `intro.ts`, `menu-settings.ts`'s handler, every `neon-spore.` literal in the tree |
+| writing | 5 | the glob, the widened pattern, the key, two doc paragraphs |
+| looking | 0 | nothing drawn |
+| friction | 5 | `git checkout` to undo a one-line sed took the file's real edits with it |
+| landing | 5 | `check:fast`, the commit |
+
+Bottleneck: none worth the name — the entry had done the reading. The one trap
+was the sweep's own pattern: `sign-in-config.ts` carries
+`"neon-spore.firebaseapp.com"`, a host and not a key, and it is the closing
+quote in the pattern that keeps it out. Widening the pattern for a hyphenated
+key had to keep that.
