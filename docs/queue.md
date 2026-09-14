@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## HOW TO PLAY leaves the front page, and the tagline says talking is the key
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Taken:** 2026-09-14, claude/queue-how-to-play-leaves-the-front-page-and-the-taglin
 - **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu.css`, `apps/game/test/menu-front.test.ts`, `apps/game/test/how-to-play.test.ts`, `apps/game/test/menu.test.ts`
 
 Asked for by the owner on 14 September 2026 — the first exemption under *A
