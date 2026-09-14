@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 3f917a9b — `bun run imports`: dropping a stranded name without deleting its statement
+
+biome offers only an unsafe fix for an unused import, and that fix deletes the statement together with the doc comment above it — which is why `tools/hooks/guard.ts` blocks `--write --unsafe`, and why a file split leaves names in the lists either side of the move for somebody to take out by hand. This is the narrow half of that fix: a specifier comes out of a list, the statement and its comment stay, and a statement whose every name is unused is printed rather than deleted.
+
 ## 2026-09-14 · c65cb726 — `vein-pulse-tree.ts`: growing the filaments is not lighting them
 
 `vein-pulse.ts` stood at 250 lines doing two things on two clocks. Growing the branching tree happens once, in `build()`, off a seeded stream, and the walk is deliberately the same shape as `vein.ts`'s — the two skins are on the page to be compared, and a different tree would answer a question nobody asked. Lighting it happens on every frame: a front travelling out along arc length, with a lead ahead of it and a tail behind.
