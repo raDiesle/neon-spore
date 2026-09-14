@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { gitIn } from "../git.js";
 import { parseItems } from "../queue.js";
-import { existsIn, foundDate, staleLine, staleness, type Trunk } from "../stale.js";
+import { existsIn, foundDate, staleLine, staleness, substantive, type Trunk } from "../stale.js";
 
 /**
  * The staleness mark, against a repository of its own.
@@ -46,6 +46,27 @@ The file it names is not there any more.
 - **Files:** \`test/*-budget.test.ts\`
 
 A pattern is a real name too.
+
+## Ledgers: names its own file and the trunk's bookkeeping beside it
+
+- **Found:** 2026-09-12, claude/some-lane
+- **Files:** \`src/hash.ts\`, \`docs/queue.md\`, \`docs/time-log.md\`
+
+Its own file has not moved; the ledgers have, as they do every landing.
+
+## Ledgers only: names nothing but bookkeeping
+
+- **Found:** 2026-09-12, claude/some-lane
+- **Files:** \`docs/time-log.md\`
+
+There is nothing else to judge this one on.
+
+## Both: a real file moved, and the ledgers moved later still
+
+- **Found:** 2026-09-10, claude/some-lane
+- **Files:** \`src/step.ts\`, \`docs/time-log.md\`
+
+The commit worth naming is the one that touched the code.
 `;
 
 let root = "";
@@ -75,6 +96,9 @@ beforeAll(async () => {
   git("config", "user.name", "Test");
   await mkdir(join(root, "src"));
   await mkdir(join(root, "test"));
+  await mkdir(join(root, "docs"));
+  await writeFile(join(root, "docs", "time-log.md"), "one\n");
+  await writeFile(join(root, "docs", "queue.md"), "one\n");
   await writeFile(join(root, "src", "step.ts"), "one\n");
   await writeFile(join(root, "src", "hash.ts"), "one\n");
   await writeFile(join(root, "test", "frame-budget.test.ts"), "one\n");
@@ -83,6 +107,13 @@ beforeAll(async () => {
   await writeFile(join(root, "src", "step.ts"), "two\n");
   git("add", "src/step.ts");
   commitOn("2026-09-11", "Split the step");
+  // The landing every lane makes: a time-log row and a queue claim, and nothing
+  // else. It is last and it is newest, so an entry naming a ledger would be
+  // marked against *this* if bookkeeping counted.
+  await writeFile(join(root, "docs", "time-log.md"), "two\n");
+  await writeFile(join(root, "docs", "queue.md"), "two\n");
+  git("add", "docs");
+  commitOn("2026-09-13", "Release notes for one landing");
 });
 
 afterAll(async () => {
@@ -98,7 +129,7 @@ function trunk(): Trunk {
 
 describe("an entry's staleness against the trunk", () => {
   const items = parseItems(QUEUE, "queue");
-  const [fresh, newer, gone, glob] = items;
+  const [fresh, newer, gone, glob, ledgers, ledgersOnly, both] = items;
 
   it("reads the day off the Found: line", () => {
     expect(foundDate({ found: "2026-09-10, claude/some-lane" })).toBe("2026-09-10");
@@ -117,7 +148,9 @@ describe("an entry's staleness against the trunk", () => {
     if (s.kind !== "newer") return;
     expect(s.newer.subject).toBe("Split the step");
     expect(s.newer.date).toBe("2026-09-11");
-    expect(s.newer.sha).toBe(git("rev-parse", "--short", "main"));
+    // The commit that touched the code, which is no longer main's head: the
+    // fixture lands a ledger-only commit after it.
+    expect(s.newer.sha).toBe(git("log", "-1", "--format=%h", "main", "--", "src/step.ts").trim());
     expect(staleLine(s)).toContain("stale — a file it names changed after it: ");
     expect(staleLine(s)).toContain("Split the step (2026-09-11)");
   });
@@ -128,6 +161,48 @@ describe("an entry's staleness against the trunk", () => {
     expect(staleLine(s, "main")).toBe(
       "stale — src/old-name.ts is not on main; re-read before working it",
     );
+  });
+
+  /**
+   * **The bookkeeping does not make an entry stale.** `docs/time-log.md` is
+   * written by every landing because `CLAUDE.md` requires a row, `docs/queue.md`
+   * by every claim and every `queue done`. Both entries left in the real queue
+   * on 14 September 2026 were marked against a commit that had touched neither
+   * their code nor their spec — only those two files — and an entry that is
+   * stale from the next landing onward, forever, is one nobody can read
+   * anything off.
+   */
+  it("does not mark an entry because the trunk's ledgers moved under it", () => {
+    const s = staleness(ledgers!, trunk());
+    expect(s.kind, "src/hash.ts has not moved since the entry").toBe("fresh");
+    expect(staleLine(s)).toBeUndefined();
+  });
+
+  it("still names the commit that touched the code, not the ledger commit after it", () => {
+    const s = staleness(both!, trunk());
+    expect(s.kind).toBe("newer");
+    if (s.kind !== "newer") return;
+    expect(s.newer.subject).toBe("Split the step");
+    expect(s.newer.date).toBe("2026-09-11");
+  });
+
+  /** An entry whose whole subject *is* a ledger has nothing else to be judged
+   * on, so it is judged on that — over-warning there is the cheap way to be
+   * wrong, and never warning at all is the expensive one. */
+  it("falls back to the ledgers for an entry that names nothing else", () => {
+    const s = staleness(ledgersOnly!, trunk());
+    expect(s.kind).toBe("newer");
+    if (s.kind !== "newer") return;
+    expect(s.newer.subject).toBe("Release notes for one landing");
+  });
+
+  it("takes the bookkeeping out, and leaves it when it is all there is", () => {
+    expect(substantive(["src/step.ts", "docs/queue.md", "docs/time-log.md"])).toEqual([
+      "src/step.ts",
+    ]);
+    expect(substantive(["./docs/INDEX.md", "src/step.ts"])).toEqual(["src/step.ts"]);
+    expect(substantive(["docs/queue.md"])).toEqual(["docs/queue.md"]);
+    expect(substantive(["docs/spec/bestiary.md"])).toEqual(["docs/spec/bestiary.md"]);
   });
 
   it("reads a pattern, a directory and a file as names", () => {

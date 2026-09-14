@@ -16,6 +16,17 @@
  * found it, and that commit usually touches the very files it names, so a
  * same-day commit is the entry's own landing rather than something that came
  * after. The comparison is therefore strictly later.
+ *
+ * **And the trunk's own bookkeeping does not count** (`BOOKKEEPING`). Every
+ * landing writes `docs/time-log.md` because `CLAUDE.md` requires one, every
+ * claim and every `queue done` writes `docs/queue.md`, and `bun run land`
+ * writes `docs/release-notes.md` — so an entry naming any of them was stale
+ * from the next landing onward, permanently, however untouched its real
+ * subject was. On 14 September 2026 both entries left in the queue were marked
+ * against a commit that changed none of their code: it had written a time-log
+ * row and a queue claim, and nothing else they named. A warning that fires on
+ * every entry forever says nothing about any of them, which is the one thing
+ * this mark exists to avoid.
  */
 
 import type { Ran } from "./git.js";
@@ -41,6 +52,36 @@ export interface Trunk {
   readonly tree: readonly string[];
   /** `git log -1 --format=%h%x09%cs%x09%s <trunk> -- <paths>`, or what it printed. */
   readonly log: (paths: readonly string[]) => Ran;
+}
+
+/**
+ * The files a landing writes by rule rather than by intent, which therefore
+ * say nothing about whether an entry's own subject has moved.
+ *
+ * `docs/INDEX.md` is here for a different reason from the rest: it is
+ * generated, and it changes whenever any file anywhere is added or renamed. A
+ * rename that matters to an entry is already caught, and caught better, by the
+ * `gone` check below, which names the missing file instead of pointing at a
+ * commit.
+ */
+export const BOOKKEEPING: readonly string[] = [
+  "docs/queue.md",
+  "docs/parked.md",
+  "docs/time-log.md",
+  "docs/release-notes.md",
+  "docs/INDEX.md",
+];
+
+/**
+ * The entry's files with the bookkeeping taken out — **unless that leaves
+ * nothing**, in which case the entry really is about one of those files and
+ * they are all it has to be judged on. Over-warning on an entry about
+ * `docs/queue.md` itself is the cheap direction to be wrong in; never warning
+ * on anything is the expensive one.
+ */
+export function substantive(files: readonly string[]): readonly string[] {
+  const kept = files.filter((f) => !BOOKKEEPING.includes(f.replace(/^[.][/]/, "")));
+  return kept.length > 0 ? kept : files;
 }
 
 /** The `Found:` line's date, or "" when the entry has none a machine can read. */
@@ -94,9 +135,11 @@ export function parseLog(out: string): Newer | null {
 export function staleness(item: Item, trunk: Trunk): Staleness {
   const since = foundDate(item);
   if (!since || item.files.length === 0) return { kind: "fresh" };
+  // Every file it names, bookkeeping included: a named file that is not on the
+  // trunk has moved whatever kind of file it is, and that is worth saying.
   const gone = item.files.find((f) => !existsIn(trunk.tree, f));
   if (gone !== undefined) return { kind: "gone", file: gone };
-  const r = trunk.log(item.files);
+  const r = trunk.log(substantive(item.files));
   const newer = r.ok ? parseLog(r.out) : null;
   if (newer && newer.date > since) return { kind: "newer", newer };
   return { kind: "fresh" };

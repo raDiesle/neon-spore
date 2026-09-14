@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — the stale mark stops firing on the trunk's ledgers
+
+Found while confirming the queue held nothing a cloud session could work: both
+remaining entries were marked stale against a commit of this session's own that
+had touched none of their code. `staleness` asked git for the newest commit on
+*every* file an entry names, and both name `docs/queue.md`, `docs/time-log.md`
+and `docs/INDEX.md` — files every landing writes by rule, a time-log row being
+required of each lane and a queue claim of each. So an entry naming one was
+stale from the next landing onward, permanently. `BOOKKEEPING` now takes those
+out before the log is asked, unless they are all an entry has, in which case
+they are what it is judged on. The marks on the two live entries did not go
+away — both are genuinely stale — but they now name the commit that touched the
+wave and the handover rather than one that wrote a release note. About 35 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `stale.ts`, the two entries' `Files:` lines, and the git log that proved the flagged commit touched none of their subject |
+| writing | 15 | `BOOKKEEPING`, `substantive`, four fixture entries, a ledger-only commit in the fixture repo, four tests |
+| looking | 0 | nothing drawn |
+| friction | 5 | the fixture's new commit moved `main`'s head, so an existing assertion comparing against `rev-parse main` had to name the code commit instead; biome reflowed an import |
+| landing | 5 | the two new tests run against a reverted `stale.ts` to prove they fail, `check:fast`, the commit, `land` |
+
+The bottleneck was proof rather than code: the fix is two small functions, and
+the work was showing the tests go red without it and that the marks left on the
+real queue are true ones.
+
 ## 2026-09-14 — queue-tasks — the blanking pass leaves `perf`
 
 The queue item this lane's own predecessor wrote, and the owner left the choice
