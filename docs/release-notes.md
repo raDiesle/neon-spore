@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 49a84ba4 — The stale mark stops firing on the trunk's own bookkeeping
+
+`staleness` asked git for the newest trunk commit on every file an entry's `Files:` line names, and that included the ledgers every landing writes by rule: `docs/time-log.md`, which `CLAUDE.md` requires a row in from each lane, `docs/queue.md`, which each claim and each `queue done` rewrites, `docs/release-notes.md`, which `bun run land` appends to, and the generated `docs/INDEX.md`. So an entry naming any of them was stale from the next landing onward, permanently, however untouched its real subject was — and a warning that fires on every entry forever says nothing about any of them, which is the one thing this mark exists to avoid.
+
 ## 2026-09-14 · 3ad48663 — The blanking pass leaves `perf` and gets a name of its own
 
 Bringing `tools/perf/baseline.json` up to the waves the game ships is `bun run baseline:blank` now, not `bun run perf --unmeasured`. The operation is unchanged — `fillUnmeasured`, a pure function over a JSON file — but the name was doing real damage. A cloud session may never type `bun run perf`, in any form, and that rule exists because a measuring run is killed on a cloud runner at 400 and 580 seconds and returns a number about the runner rather than about the game. None of that describes this pass: it opens no browser, takes no reading, and can only blank a row whose wave no longer sends what the row was measured on, which means the figures already describe a wave that does not exist. Reaching it only through a command spelled `perf` left a session that changed a wave with a failing check and nothing it was allowed to run.
