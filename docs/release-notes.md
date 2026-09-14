@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · b32a51cb — Eleven files at the limit are queued, each with its cut named
+
+The queue was empty. Every source file at 249 or 250 lines was outlined and the eleven with a seam that needs no decision are now entries a cloud session can drain alone: the block by its lines, the sibling it moves to, which importers follow and which stay behind a re-export, and the test that proves it — `versus-seat`, `versus-pair`, `skins/pore`, `skins/light`, `veer-clown-shape`, `ready-page`, `sound-page`, `scene-art`, `gyre`, `perf/compare` and `skins/vein-pulse`. The four that are one function each are left as they are.
+
 ## 2026-09-14 · 95bde997 — The menu's rows are drawn in a file of their own
 
 `menu-view.ts` was at the limit and carried two subjects: the menu's pages and, in the middle, the rows an entry list is drawn as. The `MenuEntry` shape, the map over all three lists, `drawEntries` and the `setEntry` / `entryRoot` pair now live in `menu-rows.ts` as `entryRows()`, handing back `draw`, `set` and `root`; `menu-view.ts` draws each page through it and exposes the same `MenuDom` as before, so `menu.ts` and the tests are untouched. `menu-entries.ts` imports the shape from the new file.
