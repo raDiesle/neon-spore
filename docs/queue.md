@@ -359,6 +359,7 @@ what the rest of this file holds.
 ## Unverified at 2c528788: bun run versus:shot through the lifted startDirector —…
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-14, claude/queue-unverified-at-2c528788-bun-run-versus-shot-throu
 - **Files:** `docs/INDEX.md`, `docs/commands.md`, `docs/queue.md`, `docs/time-log.md`, `tools/frames/director-serve.ts`, `tools/frames/shot-flags.ts`, `tools/frames/shot-usage.ts`, `tools/frames/shot.ts`
 
 *`bun run shot --serve` starts the director it photographs, and stops it again* landed from a session that could not look at it. The commit touched 2 more files. What went unchecked:
