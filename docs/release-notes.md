@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 35cd5be3 — The director's MAP view is one column on a phone
+
+BRUSH and MAP share a section, and below 700px that section is the whole screen — but its body kept the desktop's two tracks, the palette at a fixed 250px and the grid taking what was left. On a 375px viewport what was left was about 110px: two columns of cells showed, and the cell panel, the note and the row's trash sat off the right edge behind #mapCol's own sideways scroll.
+
 ## 2026-09-14 · b1b6c6c2 — THE HANDOVER's caption goes under its ring, not over the countdown plate
 
 The fourth page of the rehearsal drew PLAYER 2 MOVES THE CANNON straight over THEIR PANEL — BACK IN 3, covering all of it but the first two letters. Photographed with `bun run frames . --wave "THE HANDOVER" --opening guide --guide-page 3 --ticks 120 --seat p1`. Neither half was wrong on its own: a caption anchored on a strip stands four pixels above its ring, because the strip is the bottom edge of the ship's own picture and the owner asked for the box to stop covering the hull; and the plate is on the lip of the band because the band is the thing changing hands. On this one wave those are the same four pixels.
