@@ -3889,3 +3889,24 @@ file, reworded, and two sim imports the formatter would not merge.
 | landing | 5 |
 
 Bottleneck: writing.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `roster.ts` is at the limit and grows a line per kind of thing that ships
+
+The director's roster was 248 lines, and the parts that grow were three:
+`isBuilt`, a clause per thing that ships outside both tables it reads, and
+the two readers of the bestiary table and the act order's paragraph, a rule
+per new way the spec writes a slot. All three moved whole into
+`roster-parse.ts`; `roster.ts` keeps the types, the prose attachment and
+`parseRoster`, and `backlog-ideas.ts` takes `isBuilt` from the sibling. The
+proof was `parseRoster` over the real spec files as JSON, sha1 identical
+before and after, and `isBuilt` on seven names the same. No friction.
+
+| where | minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: landing.

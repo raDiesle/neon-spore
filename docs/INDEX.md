@@ -1224,6 +1224,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss.ts` | the boss panel: which boss the wave carries, and its knobs |
 | `tools/director/src/simon-editor.ts` | THE MIRROR's rounds, edited as lists of controls |
 | `tools/director/src/roster.ts` | the unbuilt bestiary and the bosses, parsed out of the spec |
+| `tools/director/src/roster-parse.ts` | the bestiary table and the act order's paragraph, read into rows, and `isBuilt` — whether the simulation has a name the spec argues about |
 | `tools/director/src/sound-page.ts` | THE SOUND CATALOGUE sheet: every sound, playable, bound or unspent |
 | `tools/director/src/sound-link.ts` | what a sound is attached to, and the five that are attached to nothing |
 | `tools/director/src/sound-art.ts` | that subject drawn — a contour or a control glyph, never an invented icon |

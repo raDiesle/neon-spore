@@ -1,6 +1,6 @@
 import type { BacklogEntry, BacklogGroup } from "./backlog.js";
 import type { ConceptSheet, Idea } from "./concepts.js";
-import { isBuilt } from "./roster.js";
+import { isBuilt } from "./roster-parse.js";
 
 /**
  * The "accepted in principle, not worked out" half of the backlog — split out
