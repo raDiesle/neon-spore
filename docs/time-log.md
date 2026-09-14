@@ -22,27 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
-## 2026-09-14 — queued-items — six of the owner's asks, queued for cold sessions
+## 2026-09-14 — queued-items — seven of the owner's asks, queued for cold sessions
 
 No code. The owner said, in two messages, what four things should become —
 the intro as one scene, HOW TO PLAY gone and the tagline reworded, three
 director rooms gone and TUNING on the topbar with SHIP folded in, and PLAY as
 a list of partners in front of a step-by-step room screen, CONTROLS only at
 a desk and only the two seats' keys, the tutorial announcing itself (local
-only) — and the lane
+only), a name and an optional sign-in straight after the intro — and the lane
 wrote each as a queue entry a cold session can act on: the files it reaches,
 what already exists (the intro's once-per-device memory, the level on the
 wire) and what does not (progress kept per partner, a seat pick that
-crosses to the other phone, which timer gives the wait up). About 45 min
-across the four.
+crosses to the other phone, which timer gives the wait up). About 50 min
+across the five.
 
 | activity | minutes | what it was |
 |---|---|---|
-| reading | 15 | the intro's three files, the menu's rows and pages, the room screen and its timers, the director's nine tabs and who imports each, the CONTROLS page and its test, the guide's plate and nav and the tutorial skill |
-| writing | 20 | six entries, one retitled under eighty characters |
+| reading | 15 | the intro's three files, the menu's rows and pages, the room screen and its timers, the director's nine tabs and who imports each, the CONTROLS page and its test, the guide's plate and nav and the tutorial skill, the name and sign-in files |
+| writing | 25 | seven entries, one retitled under eighty characters |
 | looking | 0 | nothing drawn |
 | friction | 0 | — |
-| landing | 5 | `check:fast`, four commits, `land` four times — once refused by doc-drift for a file named as an option |
+| landing | 5 | `check:fast`, five commits, `land` five times — once refused by doc-drift for a file named as an option |
 
 The bottleneck was reading: naming the files a removal drags with it in the
 director took a grep per file, and the room screen's timeout has two

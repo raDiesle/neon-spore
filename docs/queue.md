@@ -463,3 +463,47 @@ budgets in `packages/render/test/*-budget.test.ts` are remeasured if a row
 moves, with a sentence saying why. Prove with `bun run check` and the guide
 watched at tempo on a phone-sized preview; send one PNG of a film page with
 the new plate, and one of the welcome page.
+
+## After the intro, a first visit asks for a name and offers a sign-in
+
+- **Found:** 2026-09-14, claude/queued-items-cbcbd8
+- **Files:** `apps/game/src/shell.ts`, `apps/game/src/intro.ts`, `apps/game/src/join-name.ts`, `apps/game/src/nickname.ts`, `apps/game/src/menu-sign-in.ts`, `apps/game/src/sign-in.ts`, `apps/game/src/menu-who.ts`, `apps/game/index.html`, `apps/game/test/intro.test.ts`, `apps/server/test/names.test.ts`
+
+The owner asked for this on 14 September 2026 — the first exemption under *A
+look is offered, never replaced*; say so in the commit. It follows the intro
+entry above in order: the screen it adds opens where the intro closes, so land
+that one first, or build this against `Intro.open(after)` as it is today.
+
+**Today:** a device with no name is asked for one on the room screen, the
+first time it gets there (`join-name.ts`, `nickname.ts` — *asked once*).
+Signing in — Google's popup or an email link, Firebase Auth in the browser
+(`sign-in.ts`), verified by the Worker (`apps/server/src/sign-in.ts`) — is a
+row under YOUR NAME on SETTINGS (`menu-sign-in.ts`), and `syncName` is what
+brings a signed-in person's name onto a new phone. So both halves exist; what
+is wrong is *when* they are met: a first-timer sees neither until they are
+already opening a room, and the sign-in is on a page nobody opens on the way
+to play.
+
+**What he wants:** on the first visit, **right after the intro animation
+closes**, one screen that asks for a nickname — the same field, the same
+`claimName` and the same wording `join-name.ts` uses, so a name still means
+one thing — and, **under it and optional**, *already played? log in to get
+your name back*: the Google button and the email field `signInRow` already
+builds, followed by `syncName` when it succeeds, which fills the field with
+the restored name. One button on, which needs a name; a device that has one
+never sees the screen. `shell.ts:243` is where the intro opens on the first
+visit (`opensIntro(readIntroSeen(), true)`) and `Intro.open(after)` is the
+hook: `after` becomes this screen, and this screen's own `after` is the menu.
+Whether it is drawn on the canvas as the intro is or as a DOM sheet like the
+room screen is the lane's call; the sign-in buttons are DOM (a popup and an
+input), which argues for the sheet. `signInConfigured()` false — a build
+with no Firebase project — hides the optional half and leaves the name.
+
+Once this stands, the room screen's own name step (`#joinName`, and step 2 of
+the PLAY entry above) is reached only by a device that skipped it — keep it as
+the fallback rather than removing it. `menu-who.ts`'s *logged in as* line and
+SETTINGS' rows stay as they are: this adds a first meeting, not a second
+place to change things. `apps/server/test/names.test.ts` holds the registry's claim; add the rule that
+the screen opens once and only with no name stored, the way `intro.test.ts`
+holds `opensIntro`. Prove with `bun run check` and send one PNG of the
+screen.
