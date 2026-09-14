@@ -1,0 +1,58 @@
+import { describe, expect, it } from "bun:test";
+import { noSuchButton, parseTrail, RIG_LABEL } from "../menu-trail.js";
+
+/**
+ * The half of `bun run menu-shot` that needs no browser: which presses a
+ * `--page` flag means, and what it says when one of them finds nothing.
+ */
+
+describe("parseTrail", () => {
+  it("reads no flag as the front page, which is no presses", () => {
+    expect(parseTrail(undefined)).toEqual([]);
+  });
+
+  it("reads one label as one press", () => {
+    expect(parseTrail("SETTINGS")).toEqual([{ kind: "press", label: "SETTINGS" }]);
+  });
+
+  it("reads a trail in the order a thumb would say it", () => {
+    expect(parseTrail("SETTINGS > CONTROLS")).toEqual([
+      { kind: "press", label: "SETTINGS" },
+      { kind: "press", label: "CONTROLS" },
+    ]);
+  });
+
+  it("ignores the spaces and the empty steps a person types", () => {
+    expect(parseTrail("  PLAY  >>  DIFFICULTY ")).toEqual([
+      { kind: "press", label: "PLAY" },
+      { kind: "press", label: "DIFFICULTY" },
+    ]);
+  });
+
+  /** The rig has no row: three presses on the spore are the whole door. */
+  it("reads TESTING as the spore, whatever case it is typed in", () => {
+    expect(parseTrail(RIG_LABEL)).toEqual([{ kind: "spore" }]);
+    expect(parseTrail("testing")).toEqual([{ kind: "spore" }]);
+  });
+
+  /** Refused rather than treated as the front page: a flag that says nothing
+   * is a caller who meant something, and a picture of the wrong page proves
+   * the wrong thing convincingly. */
+  it("refuses a flag that names no page", () => {
+    expect(() => parseTrail(" > ")).toThrow(/no page named/);
+    expect(() => parseTrail("")).toThrow(/no page named/);
+  });
+});
+
+describe("noSuchButton", () => {
+  it("names what the open page does offer, because that is what the caller cannot see", () => {
+    const said = noSuchButton("CONTROLS", ["WHAT THIS IS", "SOUND ON"]);
+    expect(said).toContain('"CONTROLS"');
+    expect(said).toContain("WHAT THIS IS");
+    expect(said).toContain("SOUND ON");
+  });
+
+  it("says so when the page offers nothing at all", () => {
+    expect(noSuchButton("PLAY", [])).toContain("nothing on it can be pressed");
+  });
+});

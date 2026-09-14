@@ -176,49 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## Nothing photographs the game's menu, so every menu lane hand-rolls one
-
-- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-14, claude/queue-nothing-photographs-the-games-menu-so-every-menu
-- **Files:** `tools/frames/shot.ts`, `tools/frames/shot-state.ts`, `tools/frames/serve.ts`, `tools/frames/browser.ts`, `tools/frames/test/`, `docs/commands.md`, `package.json`
-
-Three tools take a picture and none of them can take this one: `bun run frames
-<sha>` drives the field through `window.neonSpore` and photographs `#stage`,
-`bun run shot` photographs an element of the **director**, and `bun run png`
-rasterises an SVG on disk. The menu is markup over the game's canvas on the
-game's own origin, so a lane that changes a row, a page or the tagline has
-nothing to point at.
-
-This lane wrote the throwaway twice in one sitting — once to see the front page
-and once to measure the tagline against its box — which is the same count that
-turned `shot.ts` from a habit into a tool, and its own comment says so.
-
-What it needs is small, and every piece of it already exists:
-`startPreview(root)` in `serve.ts` builds and serves *this* tree on a free port
-and reads the port off the server's own stdout; `launchBrowser` in
-`browser.ts` opens the Chrome that `closeBrowser` actually waits for. What has
-to be written is the standing:
-
-- A phone viewport (390×844) at `deviceScaleFactor: 2`, the way `shot.ts`
-  argues for.
-- `localStorage['neon-spore.intro'] = INTRO_VERSION` through
-  `context.addInitScript` **before** the first navigation, or the intro scene
-  plays over the menu and the capture times out on a hidden `#menu`. Read the
-  version from `apps/game/src/intro.ts` rather than typing `"2"` here.
-- Wait for `#menu.on` and not for `#menu`: the element is in the document from
-  the first paint and hidden until the menu opens.
-- A page to stand on — `--page SETTINGS`, `--page PLAY` — by clicking the row
-  whose `.entry .label` reads that, and `--page keys` or another `MenuPage` for
-  a page no row reaches. `shot-state.ts` is the pattern for reaching a state
-  and for the `Unreachable` error when it cannot.
-- `--room ACDE` would be worth having for the rows that only exist in a room
-  (LEAVE ROOM, CONTINUE), but it is not needed for a first version.
-
-Call the new file `menu-shot.ts` and take the same care `shot.ts` takes about
-where it lives — beside it in `tools/frames`, because `playwright-core` is a
-dependency of that package and a script at the repository root cannot resolve
-it.
-
 ## The director loses GUIDES, SPEC and DEMOS; TUNING gets a topbar button
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8

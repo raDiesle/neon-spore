@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queue-tasks — a tool that photographs a page of the menu
+
+The finding the last lane wrote, done in the same sitting because the three
+items left behind it all move rows on that menu. `bun run menu-shot <out.png>
+--page "SETTINGS > CONTROLS"` starts its own preview, arrives as a device that
+has already met the intro, waits for `#menu.on`, presses its way down and
+photographs `#menu`. Two things made it a tool rather than a flag on
+`bun run shot`: that one wants a server somebody else started, which a session
+forbidden to background one cannot give it, and the intro stamp has to be
+written before the first navigation or the capture times out on a hidden
+element with nothing saying why.
+
+`--page` is the words a thumb would press, in order, because a `MenuPage` name
+is a thing only the source knows — and a trail that has gone stale fails by
+listing what *is* on the page, which is the one thing the caller cannot see.
+`TESTING` is the three presses on the spore, the one page no button reaches.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `shot.ts`'s flags and what it assumes about a server, `serve.ts`'s `startPreview`, `browser.ts`'s launch and its profile argument, how `frames` suppresses the field's own opening |
+| writing | 25 | the script, the trail parser beside it, eight cases for the parser, the command line in `docs/commands.md` and two rows in the file map |
+| looking | 15 | four runs against the real menu: the front page, the keys two floors down, the rig behind the spore, and one deliberate miss to read the failure |
+| friction | 5 | the first match took a row's whole `textContent` — marker, label and description run together with no space — so every trail past the front page failed on a name nobody would type |
+| landing | 10 | `check:fast`, the commit, `land` |
+
+The bottleneck was writing, which is the shape a tool lane should have: the
+thing it replaces was two throwaways, and the only part that needed a browser
+to settle was which string a button answers to.
+
 ## 2026-09-14 — queue-tasks — HOW TO PLAY leaves the menu and the tagline is his
 
 The queue's second item, in the same cloud session. The front page is three
