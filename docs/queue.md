@@ -648,7 +648,7 @@ Prove it with `bun run check`: the panel tests in `packages/content/test`,
 `lance.test.ts` in `sim` on a world started with the field off, and the
 director opened on THE LEAK showing the rung on its panel row and no fault.
 
-## The Bash tool refuses a long quoted heredoc: an edit script goes in by the Write tool
+## The Bash tool refuses a long quoted heredoc: a long edit script goes in by path
 
 - **Found:** 2026-09-14, claude/gum-swipe
 - **Files:** `.claude/skills/lane/SKILL.md`, `docs/working-with-claude.md`
