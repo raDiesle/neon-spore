@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · 763994ac — The baseline tolerates a wave it has never seen
+
+`tools/perf/test/baseline.test.ts` required one row per wave the game ships, so a session that added a wave landed red until somebody ran perf to fill the row — and a cloud session is told not to run perf in any form. A wave written from a phone had no route to a green check at all. The owner picked, between the two ways out the queue entry named, the one that takes the rule out rather than the one that has `bun run land` write the rows itself: a landing that edits a perf artefact is a landing doing perf's job under another name, and it would have had to run before the check rather than beside the release note, since the check is what goes red.
+
 ## 2026-09-14 · bc015343 — A red run says what failed, under the counts
 
 `bun run check:fast` ended `1668 pass, 1 fail, 0 skipped — 116 files across 2 shards in 7.2s wall; 1 shard red` with nothing under it. The failing case's name was inside its shard's own block, hundreds of lines above the last thing printed, and the block still on screen was the *green* shard saying `0 failed` — which reads as a contradiction. Three runs after it were green and the flake itself is nothing; what was worth fixing is that the run could not be read.
