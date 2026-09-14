@@ -1,12 +1,13 @@
 import { describe, expect, it } from "bun:test";
-import { needsUpgrade, WANTED } from "../session-start.ts";
+import { belowPin, needsUpgrade, PIN_DIR, WANTED } from "../bun-pin.ts";
 
 /**
  * The one decision the session-start hook makes that is not a side effect: is
  * the image's bun older than the version this repo needs. The fetch, the copy
  * and the PATH export are all downstream of this returning true, and getting it
  * backwards would either pin bun on every session for nothing or never pin it
- * at all — so it is the half worth holding.
+ * at all — so it is the half worth holding. It lives in `bun-pin.ts` now,
+ * where the landing reads it too.
  */
 describe("needsUpgrade", () => {
   it("is true for the version the web image shipped, against what we want", () => {
@@ -30,5 +31,28 @@ describe("needsUpgrade", () => {
 
   it("reads a pre-release as its release version", () => {
     expect(needsUpgrade("1.4.2-canary.1", "1.4.2")).toBe(false);
+  });
+});
+
+/**
+ * What a session on a bun below the pin is told. The failure this holds is a
+ * message that names the symptom and not the way through: the 14 September
+ * 2026 lane had *Unknown lockfile version* in front of it and still had to
+ * find `.bun-version`, the number and the npm line by itself.
+ */
+describe("belowPin", () => {
+  it("says nothing when the running bun is the pin or newer", () => {
+    expect(belowPin(WANTED, WANTED)).toBeNull();
+    expect(belowPin("9.0.0", WANTED)).toBeNull();
+  });
+
+  it("names both versions, the file, and the two commands through", () => {
+    const said = belowPin("1.3.8", "1.4.2")!;
+    expect(said).not.toBeNull();
+    const text = said.join("\n");
+    expect(text).toContain("bun 1.3.8 is below the 1.4.2");
+    expect(text).toContain(".bun-version");
+    expect(text).toContain(`npm install bun@1.4.2 --prefix ${PIN_DIR}`);
+    expect(text).toContain(`PATH=${PIN_DIR}/node_modules/.bin:$PATH bun run land`);
   });
 });

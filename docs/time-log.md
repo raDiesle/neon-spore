@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-14 — queued-items — a bun below the pin is named at the door
+
+The queue's one item, found by the lane before this one on this same machine:
+bun 1.3.8 against a pin of 1.4.2, green through 2533 tests and dead in the
+landing's frozen install with a message naming neither. The comparison and
+the two commands through now live in `tools/hooks/bun-pin.ts`, read twice: the
+session-start hook says them at the first line of any session on such a bun,
+on stdout so the session reads them, and `bun run land` refuses on them
+before anything moves. The hook's importable parts moved out from under its
+`await main()`, behind `import.meta.main`, so a test importing `WANTED` no
+longer runs the hook. About 20 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `run.ts`, `session-start.ts`, the two tests, the wiring |
+| writing | 10 | `bun-pin.ts`, the hook, the refusal, two tests, `cloud-session.md` |
+| looking | 0 | nothing drawn |
+| friction | 0 | `queue done 1` wanted the title in words — as it should |
+| landing | 5 | `check:fast`, the commit, the second bun the refusal now names, `land` |
+
+The bottleneck was none this time; the lane's own subject — the second bun —
+is what its landing needs, and the refusal it wrote is the line that says so.
+
 ## 2026-09-14 — queued-items — the way back in, watched against a live relay
 
 The queue's one item: BACK INTO THE GAME had landed from a session that could

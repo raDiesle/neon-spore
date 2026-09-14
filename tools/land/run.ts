@@ -62,6 +62,7 @@ import { replay } from "./replay.js";
 import { badge, describe } from "./say.js";
 import { readState } from "./state.js";
 import { sweep } from "./sweep.js";
+import { installFrozen, oldBunRefusal } from "./toolchain.js";
 
 const root = Bun.fileURLToPath(new URL("../../", import.meta.url));
 const argv = process.argv.slice(2);
@@ -91,6 +92,14 @@ if (!decided.go) {
 // narrowed by the guard above, and that narrowing does not reach inside a
 // function declared beside it.
 const going: Landing = decided;
+// Asked before anything moves, not diagnosed after the rebase: a bun below the
+// pin cannot read `bun.lock`, and the frozen install below is where that used
+// to come out, nameless (`toolchain.ts`).
+const oldBun = oldBunRefusal(Bun.version, going.sweepOnly);
+if (oldBun !== null) {
+  for (const line of oldBun) console.log(line);
+  process.exit(1);
+}
 for (const line of describe(state, going)) console.log(line);
 if (dryRun) process.exit(0);
 
@@ -139,28 +148,12 @@ async function moveTrunk(): Promise<Landed[]> {
     }
   }
 
-  // A replay can bring a workspace package the lane never had — `tools/orphans`
-  // arrived that way — and `node_modules` is then stale between the rebase and
-  // the check. What the check reports is `Cannot find module '@neon-spore/…'` in
-  // a file the lane never opened, which reads as a rebase disaster and is
-  // thirteen milliseconds of work. Cheap, idempotent, and it runs after the
-  // replay rather than before it, which is the whole point.
-  //
-  // `--frozen-lockfile` because a silent lockfile drift here is a landing
-  // problem, not a `bun run check` problem — the check would report it as a
-  // mysterious dependency failure with no mention of the lockfile at all.
-  const install = Bun.spawn(["bun", "install", "--frozen-lockfile"], {
-    cwd: root,
-    stdout: "ignore",
-    stderr: "pipe",
-  });
-  const [installErr, installCode] = await Promise.all([
-    new Response(install.stderr).text(),
-    install.exited,
-  ]);
-  if (installCode !== 0) {
+  // The install a replay can leave stale, frozen so a lockfile drift is the
+  // landing's to report (`toolchain.ts`).
+  const installErr = await installFrozen(root);
+  if (installErr !== null) {
     console.log(`✗ bun install --frozen-lockfile failed after the rebase; ${TRUNK} was not moved`);
-    console.log(installErr.trim());
+    console.log(installErr);
     process.exit(1);
   }
 

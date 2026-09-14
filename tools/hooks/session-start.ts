@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 /**
- * Pin bun to a version new enough for this repo, in Claude Code on the web.
+ * Pin bun to a version new enough for this repo on the web, and name a bun below the pin anywhere.
  *
  * The web image ships whatever bun it was built with, and on 5 September 2026
  * that was 1.3.11 — a version that cannot read this repo's `bun.lock`
@@ -18,14 +18,18 @@
  * the rest of the session through `$CLAUDE_ENV_FILE`. The image's bun is left
  * in place; nothing is overwritten.
  *
- * A no-op outside the web env (`$CLAUDE_CODE_REMOTE`), on anything but
- * linux-x64 (the only image this repo runs on there), and once bun is already
- * new enough — so a resume or a newer image costs one version comparison and
- * stops. `test/session-start.test.ts` holds the comparison.
+ * **Everywhere else it only speaks.** The fetch is a no-op outside the web env
+ * (`$CLAUDE_CODE_REMOTE`) and on anything but linux-x64, because a local
+ * checkout brought its own bun and nothing here should replace it — but a
+ * local bun below the pin walks into the same trap, fifteen minutes later and
+ * with no name on it (`bun-pin.ts`). So a session on such a bun is told at its
+ * first line, on stdout, which is what the harness reads into the session's
+ * context: what is running, what is pinned, and the two commands through.
+ * `bun run land` refuses on the same comparison, which is the half that bites
+ * where the failure is; this is the half that comes first.
  *
- * **What it pins is `.bun-version` and not a number of its own** — see `WANTED`
- * below, which used to be a literal one minor ahead of the file and could not
- * be re-derived by anybody who found the two disagreeing.
+ * Once bun is already new enough it costs one version comparison and stops.
+ * `test/session-start.test.ts` holds the comparison.
  */
 
 import { spawn } from "node:child_process";
@@ -37,59 +41,7 @@ import {
   mkdirSync,
   readFileSync,
 } from "node:fs";
-
-/**
- * The bun this repo is pinned to, **read out of `.bun-version`** rather than
- * written here.
- *
- * It used to be a literal, `1.4.2`, while `.bun-version` said `1.4.0`, and the
- * two had no way of noticing each other. The owner settled which on 9 September
- * 2026 — **1.4.2** — and the file was raised to meet the hook rather than the
- * hook lowered to meet the file: a pin says which toolchain this repository is
- * developed on, not the oldest one that still passes.
- *
- * So this is derived and there is no second number to raise. `.bun-version` is
- * the one file to edit; `package.json`, the workflow and now this all read it,
- * and `tools/test/bun-version.test.ts` holds every reader in step.
- *
- * **A checkout this cannot read is a no-op, not a crash.** `0.0.0` is older
- * than any bun there has ever been, so `needsUpgrade` returns false, the hook
- * stops and the session keeps the bun it has — which is the right answer when
- * the thing that says what to pin is missing.
- */
-export const WANTED = pinnedBun();
-
-function pinnedBun(): string {
-  try {
-    const at = new URL("../../.bun-version", import.meta.url);
-    const said = readFileSync(at, "utf8").trim();
-    return /^\d+\.\d+\.\d+$/.test(said) ? said : "0.0.0";
-  } catch {
-    return "0.0.0";
-  }
-}
-
-/**
- * Whether `current` is older than `wanted`, by numeric version parts. A
- * pre-release suffix (`1.4.2-canary`) is treated as its release — the hook only
- * needs "is the image's bun too old", and a canary of the wanted version is
- * not.
- */
-export function needsUpgrade(current: string, wanted: string): boolean {
-  const parts = (v: string): number[] =>
-    v
-      .split("-")[0]!
-      .split(".")
-      .map((n) => Number.parseInt(n, 10) || 0);
-  const c = parts(current);
-  const w = parts(wanted);
-  for (let i = 0; i < Math.max(c.length, w.length); i++) {
-    const a = c[i] ?? 0;
-    const b = w[i] ?? 0;
-    if (a !== b) return a < b;
-  }
-  return false;
-}
+import { belowPin, needsUpgrade, WANTED } from "./bun-pin.js";
 
 /** The version a bun binary reports, or `null` if it will not run here. */
 function versionOf(binary: string): string | null {
@@ -132,16 +84,27 @@ function exportPath(envFile: string, dir: string): void {
   appendFileSync(envFile, `${line}\n`);
 }
 
+/**
+ * Whether this session is one the hook may fetch a bun for: the web image,
+ * on the one platform `@oven/bun-linux-x64` runs on, with an env file to put
+ * it on PATH through. Anything else keeps the bun it already has rather than
+ * a binary that will not start or a PATH nobody reads.
+ */
+function mayPin(): string | null {
+  if (process.env.CLAUDE_CODE_REMOTE !== "true") return null;
+  if (process.platform !== "linux" || process.arch !== "x64") return null;
+  return process.env.CLAUDE_ENV_FILE ?? null;
+}
+
 async function main(): Promise<void> {
-  // The web image is the only place with a bun this repo did not choose; a
-  // local checkout brought its own.
-  if (process.env.CLAUDE_CODE_REMOTE !== "true") return;
-  // `@oven/bun-linux-x64` is the glibc build the web image runs; anything else
-  // keeps the bun it already has rather than a binary that will not start.
-  if (process.platform !== "linux" || process.arch !== "x64") return;
-  const envFile = process.env.CLAUDE_ENV_FILE;
-  if (!envFile) return;
-  if (!needsUpgrade(Bun.version, WANTED)) return;
+  const said = belowPin(Bun.version, WANTED);
+  if (said === null) return;
+
+  const envFile = mayPin();
+  if (envFile === null) {
+    process.stdout.write(`session-start: ${said.join("\n")}\n`);
+    return;
+  }
 
   const dir = `${process.env.HOME ?? "/root"}/.cache/neon-spore-bun`;
   mkdirSync(dir, { recursive: true });
@@ -165,4 +128,6 @@ async function main(): Promise<void> {
   }
 }
 
-await main();
+// Guarded so that importing this file runs nothing: the importable parts live
+// in `bun-pin.ts`, and this file is only the side effect.
+if (import.meta.main) await main();

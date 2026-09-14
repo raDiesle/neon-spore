@@ -175,34 +175,3 @@ still what nearly every entry is.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
-
-## A bun below the pin gets a green check and a landing that dies on the lockfile
-
-- **Found:** 2026-09-14, claude/queued-items-cbcbd8
-- **Taken:** 2026-09-14, claude/queue-a-bun-below-the-pin-gets-a-green-check-and-a-lan
-- **Files:** `tools/land/run.ts`, `tools/hooks/session-start.ts`, `tools/test/bun-version.test.ts`
-
-`.bun-version` says 1.4.2 and this machine's bun is 1.3.8, which cannot read
-`bun.lock` at all — `lockfileVersion: 2` is a version it does not know. Nothing
-says so until the landing: `bun install` works by ignoring the lockfile and
-rewriting it, `bun run check:fast` is green on every one of 2533 tests, and
-`bun run land` gets through the rebase and stops with *Unknown lockfile
-version* and *lockfile had changes, but lockfile is frozen*, naming neither
-`.bun-version` nor 1.4.2 nor what to do. That is the exact trap
-`session-start.ts` was written against, and its first line says it is a no-op
-outside `$CLAUDE_CODE_REMOTE` — so the web image is protected from it and the
-owner's own machine is not.
-
-The way through, which cost this lane its landing minutes and is worth writing
-down rather than rediscovering: `npm install bun@1.4.2 --prefix <dir>`, then
-`PATH=<dir>/node_modules/.bin:$PATH bun run land`. The frozen install then
-passes and leaves the tree clean.
-
-Two places could say it and they are not exclusive. `tools/land/run.ts`
-already reads the install's stderr and prints it: comparing the running bun
-against `.bun-version` *before* the install and refusing with the npm line
-above is the half that bites where the failure is. The session-start hook
-saying one line on any platform when the running bun is below the pin is the
-cheaper half and comes fifteen minutes earlier. `bun-version.test.ts` holds
-the four declarations in step and deliberately does not fail on the bun you
-are running; that stays true either way — this is a message, not a check.

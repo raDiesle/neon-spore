@@ -1592,7 +1592,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/offline.ts` | **A capture reaches the preview and nothing else.** Since the sign-in landed |
 | `tools/land/queue-guard.ts` | A landing must not put back a queue entry another lane took out |
 | `tools/land/queue-merge.ts` | Merging `docs/queue.md` when a lane and the trunk both wrote to it |
-| `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo, in Claude Code on the web |
+| `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo on the web, and name a bun below the pin anywhere |
 | `tools/director/src/brush-poses-echo.ts` | THE ECHO's specimen, split out of `brush-poses.ts` when THE CAROM took that file over its 250-line limit |
 | `tools/land/state.ts` | the facts a landing is decided from, read off git — `run.ts` moves refs, `land.ts` decides |
 | `tools/land/shallow.ts` | A shallow clone, which is what a cloud session lands from |
@@ -1604,6 +1604,7 @@ place — the generator keeps whatever is there.
 | `tools/running.ts` | Where a server that took an OS-assigned port writes the number down |
 | `tools/land/race.ts` | Whether some other lane landed while this one was in `bun run check` |
 | `tools/land/unverified.ts` | what a landing could not check, turned into a queue entry a later session drains |
+| `tools/land/toolchain.ts` | Where a landing meets the bun it runs on rather than the tree it lands: the pin's refusal and the frozen install |
 | `tools/director/src/cell-config-gaps.ts` | THE GRATE's row under the map: one chip per column, lit where the wall is open |
 | `tools/perf/compare.ts` | What a performance run *is*, and what two of them say when held side by side |
 | `tools/perf/measure.ts` | One performance run, taken off a real browser driving the real bundle |
@@ -1716,6 +1717,7 @@ place — the generator keeps whatever is there.
 | `tools/hooks/after-depth-edit.ts` | a depth claim is the drawing mistake that looks like a success — names the projection to call and the cues to check |
 | `tools/hooks/after-compact.ts` | What a session is told the moment its conversation has been compacted |
 | `tools/hooks/heredoc.ts` | The guard's one rule about a heredoc body: a doubled backslash the Bash tool would halve is refused, with the two ways that work |
+| `tools/hooks/bun-pin.ts` | The bun this repository is pinned to, read off `.bun-version`, and what to say to a session running an older one |
 | `tools/shape-sheet/src/cues.ts` | `bun run shapes:cues` — the motion half of `report.ts`, with a placed surface as its last row |
 | `tools/shape-sheet/src/depth-cues.ts` | the numbers for motion: drawn aspect, the period count on width and sway, how far a cycle is from mirroring itself, and whether anything is revealed |
 | `tools/frames/crank.ts` | A turn of THE CLAW's crank, expanded from one `--press` into the stream of bearings that winds rope |

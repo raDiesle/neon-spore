@@ -203,6 +203,23 @@ Reach for that when the second line appeared, and not otherwise. A session that
 installs a second Bun over a working pin is spending a minute to arrive where it
 already was.
 
+**On the owner's own machine the hook fetches nothing and only speaks.** A
+local checkout brought its own Bun and nothing here replaces it — but a local
+Bun below the pin walks into the same trap with a longer fuse: `bun install`
+ignores a lockfile it cannot read and rewrites it, `bun run check:fast` is
+green on every test, and `bun run land` dies in the frozen install after the
+rebase, naming neither `.bun-version` nor the number. On 14 September 2026 a
+lane on a 1.3.8 lost its landing minutes to exactly that. So the comparison
+and the advice live in `tools/hooks/bun-pin.ts`, read by both: the hook says
+one line at the start of any session whose Bun is below the pin, on stdout so
+the session reads it, and `bun run land` refuses on the same comparison
+before anything moves, with the two commands through:
+
+```
+npm install bun@1.4.2 --prefix ~/.cache/neon-spore-bun
+PATH=~/.cache/neon-spore-bun/node_modules/.bin:$PATH bun run land
+```
+
 **One version, and it is `.bun-version`.** That file is what the repository is
 tested against; `package.json` names it as its package manager, CI installs from
 it, the hook pins to it, and `tools/test/bun-version.test.ts` holds all four in
