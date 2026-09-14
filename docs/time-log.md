@@ -3931,3 +3931,22 @@ merging two imports of one file the formatter leaves apart.
 | landing | 5 |
 
 Bottleneck: writing.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — `pose-kit.ts` is at the limit and grows a builder per verb a pose needs
+
+The pose kit was 249 lines: the apparatus that puts a world into a named
+state, and after it the commands spelled short, which gain a builder for
+every verb a new pose presses. The builders and their paragraphs moved whole
+into `pose-commands.ts` and the kit re-exports them, so the thirty-four
+files that import the kit are untouched. The proof was the typecheck and the
+four pose suites, ninety-three green unchanged. No friction.
+
+| where | minutes |
+|---|---|
+| reading | 5 |
+| writing | 5 |
+| looking | 0 |
+| friction | 0 |
+| landing | 5 |
+
+Bottleneck: landing.
