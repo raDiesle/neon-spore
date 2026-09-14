@@ -125,6 +125,7 @@ export const DEVICE_KEYS = [
   "neon-spore.room",
   "neon-spore.view",
   "neon-spore.intro",
+  "neon-spore.welcome",
 ] as const;
 
 /**

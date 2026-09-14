@@ -58,6 +58,7 @@ describe("what CLEAR THIS DEVICE forgets", () => {
       "neon-spore.settings",
       "neon-spore.token",
       "neon-spore.view",
+      "neon-spore.welcome",
     ]);
   });
 

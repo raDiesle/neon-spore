@@ -116,15 +116,18 @@ canvas {
    are painted on the canvas below it, and this is only what a thumb lands on.
    Above the chips so none of them is reachable while it is up — SKIP in the
    corner is the way out — and below the menu, which replaces it rather than
-   sharing the screen with it. */
-#introTap {
+   sharing the screen with it. The welcome before a device's first tutorial
+   is the same sheet in every respect (`src/welcome.ts`). */
+#introTap,
+#welcomeTap {
   position: fixed;
   inset: 0;
   z-index: 19;
   display: none;
   touch-action: none;
 }
-#introTap.on {
+#introTap.on,
+#welcomeTap.on {
   display: block;
 }
 /* Every piece of chrome steps aside while the intro is up. It is the first

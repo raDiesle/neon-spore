@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
 import { bindAudio } from "./audio.js";
+import { bindCanvasSheets } from "./canvas-sheets.js";
 import { openDemonstration } from "./demo-menu.js";
 import { bindFieldInput } from "./field-input.js";
 import { startFrames } from "./frame.js";
@@ -18,7 +19,6 @@ import { bindTesting } from "./handle.js";
 import { bindHaptics } from "./haptics.js";
 import { InputBuffer } from "./input.js";
 import { interpolationRequested } from "./interpolate.js";
-import { bindIntro } from "./intro.js";
 import { menuIdleHz } from "./menu-idle.js";
 import { atLevel, readProgress, updateProgress } from "./progress.js";
 import { bindRasterBurst, bindRasterClasp } from "./raster.js";
@@ -90,21 +90,17 @@ const jumpToWave = progression.jumpToWave;
 const run = createRunState();
 
 /**
- * The six pages that say what this game is, over the top of the frame.
- *
- * Bound here rather than in `shell.ts` because it needs the two things only
- * this file has — the canvas's own context and the frame that has just been
- * painted — and because a build opened with `?play=1` has no shell at all and
- * still has to be able to not show it.
+ * The intro's six pages and the welcome before a device's first tutorial,
+ * both painted on this canvas over the frame (`canvas-sheets.ts`).
  */
-const intro = bindIntro({
-  sheet: document.getElementById("introTap"),
+const { intro, welcome } = bindCanvasSheets({
   layout,
   inStage,
   onStage,
-  // The same hold the menu takes: somebody reading page two is not somebody
-  // who wants a wave arriving underneath them (`run-state.ts`).
-  hold: (on) => run.hold("menu", on),
+  world,
+  run,
+  role: () => view.role(),
+  url: location.href,
 });
 
 // `hand` is the ring round the swelling this phone's finger has hold of and
@@ -122,6 +118,7 @@ const input = bindFieldInput({
   beatPhase,
   jumpToWave,
   replayGuide: () => renderer.replayGuide(),
+  nudgeGuide: () => renderer.nudgeGuide(),
 });
 const { tick: tickKeys, hand, pointer } = input;
 
@@ -218,6 +215,7 @@ const frames = startFrames({
   audio,
   haptics,
   intro,
+  welcome,
   role: () => view.role(),
   beatPhase,
   // `?interpolate=1` — offered rather than the shipped default

@@ -4931,3 +4931,28 @@ was the sweep's own pattern: `sign-in-config.ts` carries
 `"neon-spore.firebaseapp.com"`, a host and not a key, and it is the closing
 quote in the pattern that keeps it out. Widening the pattern for a hyphenated
 key had to keep that.
+
+## 2026-09-14 · claude/queue-backlog-604107 — A tutorial says it is one: the band, the flash, the welcome
+
+The owner's item, three parts. The plate became a full-width band across the
+top with a rim in the seat's colour round the picture, a press on a film page
+answers with the bar flashing (`GuideStage.nudge`, a renderer hook the app
+calls from `briefing.ts`), and a device's first tutorial opens under a
+welcome page drawn on the canvas — intro's arrangement, on the guide's first
+page instead of the menu, held on its first frame under it. Every frame is
+drawn again in `guide-frame.test.ts`, on four sizes, at the loudest moment
+and at rest. About 40 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, the plate and nav files, `intro.ts`'s sheet, `frame.ts`'s clock, the frames tool's drive |
+| writing | 15 | the band and rim, the nudge path through renderer → app, `welcome.ts`, `guide-welcome.ts`, `canvas-sheets.ts`, `nav-slab.ts`, the tests, the skill |
+| looking | 10 | a film page through `bun run frames`, then the welcome through the preview — twice, because the first visit had spent its once |
+| friction | 5 | `guide-nav.ts` over 250 lines, LF written into CRLF files, a queue title over 80 characters |
+| landing | 5 | `check:fast`, the commit |
+
+Bottleneck: photographing the welcome. `bun run frames` has no way to ask for
+it, and in the preview the page is once per visit — the first frame under
+`?wave=1` used it up before the guide was jumped to, and the second visit had
+to land on the guide's first page from the door. The picture was finally taken
+by a throwaway playwright script against the running preview.

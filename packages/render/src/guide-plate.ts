@@ -38,21 +38,25 @@ export function drawPlate(
   const cy = box.y + box.h / 2;
   const r = box.h / 2;
 
+  // A band across the whole screen is lit at rest and blooms on a switch: the
+  // seat's colour fills its top half rather than tinting it, because the band
+  // is the one thing on a film page that has to be read as *not the game*
+  // from across a room (`guide-switch.ts`).
   if (flash > 0) halo(ctx, cx, cy, box.w * 0.8, hex, 0.5 * flash);
   ctx.save();
   ctx.translate(cx, cy);
   ctx.scale(box.w / box.h, 1);
   drawLobeSocket(ctx, 0, 0, r, l.dpr, undefined, false);
   const body = ctx.createLinearGradient(0, -r, 0, r);
-  body.addColorStop(0, tint(hex, 0.24 + 0.4 * flash));
-  body.addColorStop(0.55, tint(hex, 0.1 + 0.24 * flash));
+  body.addColorStop(0, tint(hex, 0.5 + 0.4 * flash));
+  body.addColorStop(0.55, tint(hex, 0.24 + 0.3 * flash));
   body.addColorStop(1, "rgba(8,5,20,.96)");
   ctx.fillStyle = body;
   const path = navBlob(box.h, box.h);
   ctx.fill(path);
   ctx.strokeStyle = hex;
-  ctx.lineWidth = 1.6 + 1.6 * flash;
-  ctx.globalAlpha = 0.55 + 0.45 * flash;
+  ctx.lineWidth = 2 + 1.6 * flash;
+  ctx.globalAlpha = 0.85 + 0.15 * flash;
   ctx.stroke(path);
   ctx.globalAlpha = 1;
   drawLobeGloss(ctx, 0, 0, r, l.dpr);

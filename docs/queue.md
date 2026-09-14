@@ -411,3 +411,94 @@ holding, which is the one thing a two-device game should not do.
 Not done here because it is a look on the front page, and the sentence is the
 owner's own. Whichever he picks is one line of CSS or one string, plus the
 quoted copy in `menu-front.test.ts`.
+## A malfunction is a pencil on the map, with a beat it starts and one it ends
+
+- **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Files:** `packages/sim/src/malfunction.ts`, `packages/sim/src/world.ts`, `packages/sim/src/wave-start.ts`, `packages/sim/src/handover.ts`, `packages/sim/src/hash.ts`, `packages/content/src/wave-types.ts`, `packages/content/src/waves/*.ts`, `packages/content/src/mechanics.ts`, `tools/director/src/brushes.ts`, `tools/director/src/rail.ts`, `tools/director/src/rail-marks.ts`, `tools/director/src/rail-filter.ts`, `tools/director/src/fault-fields.ts`, `tools/director/src/serialize.ts`, `tools/director/src/stage-world.ts`
+- **Where:** local
+
+The owner asked for this on 14 September 2026, mid-turn, in three sentences.
+It is director work with a change to the wave's shape under it, so it lands as
+one lane in two commits — the shape first, the director on top — and the
+director's authoring is updated in the same pass as the content
+(`director-sync-on-content-changes`).
+
+1. **Every malfunction is a pencil placed on the map, not a field on the
+   wave.** Today `Wave.malfunction` is one fault for the whole wave, read once
+   at `startWave` into `world.malfunction`, and only THE HANDOVER carries
+   numbers (`at`, `beats`, `every`). His line: *all malfunctions are not
+   attached to the wave, but a pencil to be placed on the map, so I can define
+   when it enters the wave (what beat row) and when it ends.* So a fault
+   becomes an entry on a beat row like a creature is — `{ kind, at, beats }`,
+   any of the six kinds, more than one per wave, on the map beside the
+   creatures — and the wave-wide field goes. In `sim` that means the fault is
+   *active* for a window of beats (`handover.ts` already has the window; the
+   other five need one), `faultSwallows` and `stepMalfunction` read the
+   window, and `hashWorld` still covers whatever state the window adds. In
+   `content` every wave that carries a fault today (`grep malfunction
+   packages/content/src/waves`) is rewritten as a placed entry with the same
+   effect — THE HANDOVER's `at`/`beats`/`every` become the entry's own rows —
+   and `mechanicsInWave` finds the fault the new way. The director gets one
+   brush per fault kind on the palette (`brushes.ts`), the fault's fields
+   (`fault-fields.ts`) move under the map to the placed entry like a rock's
+   speed does, and `serialize.ts` writes the entry the way the waves are
+   written.
+2. **An icon beside a wave that carries any malfunction**, in the rail, as
+   one more span in `rail-marks.ts` — the file says a fourth mark is one more
+   block there. Its title names the kinds.
+3. **A compact filter of the wave list by its symbols.** The rail's marks are
+   boss, panel, guide and (now) malfunction; he wants to narrow the list to
+   waves carrying any of a chosen set — *either or is enough*, so the chosen
+   symbols are ORed with each other, and ANDed with whatever is typed. The
+   WAVES column is 210px and `rail-filter.ts` explains why it has one text
+   field and nothing beside it, so the compact form is the marks themselves
+   made pressable in a single row above or inside the field — press ♛ and the
+   list is the boss waves; press ⎈ too and it is both. Nothing stored.
+
+Prove it with `bun run check`, the director's own tests under
+`tools/director/test`, and the director opened on a wave with a placed fault
+— the map shows the pencil on its rows, the rail shows the icon, the filter
+narrows to it.
+
+## THE LEECH: a malfunction harpooned onto the cannon, kept off by moving it
+
+- **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Files:** `packages/sim/src/malfunction.ts`, `packages/sim/src/config-malfunction.ts`, `packages/sim/src/fault-clock.ts`, `packages/sim/src/magnet.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/events.ts`, `packages/sim/src/hash.ts`, `packages/content/src/mechanics.ts`, `packages/render/src/malfunction-look.ts`, `packages/render/src/fault-emitter.ts`, `packages/render/src/siren.ts`, `packages/render/src/siren-seats.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/codex.ts`, `packages/render/src/magnet-bounce.ts`, `packages/render/src/deflect.ts`, `packages/render/src/hull-mood.ts`, `packages/render/src/cannon-maw.ts`, `tools/director/src/brushes.ts`, `tools/director/src/fault-fields.ts`
+- **Where:** local
+
+The owner asked for it on 14 September 2026, mid-turn, by name — so it is a
+look he asked for and not one to offer — and it is one more kind under the
+malfunction brush the entry above this one makes, so it comes after that
+entry lands and is placed on the map the same way (`{ kind: "leech", at,
+beats }`). Its words, in the order he said them:
+
+1. **It is a malfunction**, the same alien at the top middle as the other
+   kinds (`fault-emitter.ts`, `malfunction-look.ts`), and it fires the leech
+   *very fast, like a harpoon*, at the cannon, where it sticks. The siren
+   sounds and shows as it always does (`siren.ts`); under the siren it says
+   **MOVE CANNON!** — player two's screen, because player two is the one who
+   has to tell player one to keep the cannon moving.
+2. **On the cannon it is marked the way a codex is**: its code written above
+   it (`codex.ts`), the radar square round it (`radar-blip.ts`,
+   `caption-anchor.ts`), and MOVE CANNON! above the square.
+3. **The cannon must keep moving.** A cannon that has not moved for one and a
+   half beats (`SimConfig`, named, not a literal) loses the round: the leech
+   damages the cannon and the hull — drawn on the part hit *and* across the
+   hull in the leech's colour, the way every ship damage is drawn.
+4. **It is invulnerable, and visibly so.** A shot at it does not go through:
+   it is deflected the way the plate under a magnet turns a shot away
+   (`magnet-bounce.ts`, `deflect.ts`, `sim/magnet.ts`), with that look.
+5. **A timer above it says how long it stays.** When the timer runs out it is
+   *reeled in like a fishing line* back to the alien — the leech leaves, the
+   effect ends, the malfunction is over.
+6. **The cannon turns a dangerous colour while it is stuck**: each time the
+   move-timer restarts after a move, the cannon's glow starts from the
+   beginning and grows toward a colour that says *about to explode*; a move
+   resets the glow to the start (`hull-mood.ts`, `cannon-maw.ts`; painted from
+   the seat's own `HullSkin`, never `PALETTE`).
+
+Prove it with `bun run check`, a wave carrying a placed leech drawn in
+`packages/render/test/frame.test.ts` at the moment it sticks, the moment a
+shot deflects off it, and the frame the round is lost; the director's brush
+and fields under `tools/director/test`; and one PNG of the cannon under the
+leech with the square, the code and MOVE CANNON! on it.

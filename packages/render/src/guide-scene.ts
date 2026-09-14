@@ -61,6 +61,8 @@ const FLASH_TICKS = 40;
 export class GuideStage {
   private readonly seats: readonly [SeatView, SeatView] = [new SeatView(), new SeatView()];
   private readonly play = new ScenePlay();
+  /** When the picture was last pressed, on the play's own clock, or null. */
+  private nudgedAt: number | null = null;
 
   /** Whether there is a rehearsal up — the field behind it is not drawn. */
   get active(): boolean {
@@ -105,8 +107,19 @@ export class GuideStage {
     return this.play.finished;
   }
 
+  /**
+   * The pair pressed the picture rather than the bar. Nothing on the page
+   * answers that, so the bar says where the answer is (`guide-nav.ts`,
+   * `NUDGE_S`). Kept on the play's clock, so a page that is rebuilt — and
+   * starts that clock again — drops it with everything else.
+   */
+  nudge(): void {
+    this.nudgedAt = this.play.shown;
+  }
+
   private resetSeats(): void {
     for (const s of this.seats) s.reset();
+    this.nudgedAt = null;
   }
 
   /**
@@ -185,6 +198,7 @@ export class GuideStage {
       replay: true,
       age: this.play.shown,
       pointer: view.pointer,
+      nudge: this.nudgedAt === null ? undefined : this.play.shown - this.nudgedAt,
     });
   }
 

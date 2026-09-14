@@ -2,6 +2,7 @@ import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { drawNavButton } from "./nav-button.js";
 import { drawNavFeeder } from "./nav-feeder.js";
+import { slab } from "./nav-slab.js";
 import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
 
@@ -48,7 +49,7 @@ import { seatSkin } from "./seat-skin.js";
  * 118 until 12 September 2026, when the owner asked for it shorter. */
 export const NAV_H = 86;
 /** How far the bar's shadow reaches up over the game it is lying on. */
-const LIFT = 16;
+export const LIFT = 16;
 /** How wide one of the three is, at most, and how tall. */
 const BTN_W = 96;
 const BTN_H = 46;
@@ -57,6 +58,18 @@ const EDGE = 12;
  * under it. */
 const DOTS_Y = 17;
 const FOOT = 11;
+/**
+ * Seconds the bar stays lit after a press on the picture.
+ *
+ * **A press on a film page is answered, and the answer is this bar.** The
+ * picture is the real screen at full size, so a thumb that has not read the
+ * plate presses the cannon and nothing happens — which is the one thing in
+ * the game that behaves like a broken control. The owner, 14 September 2026:
+ * *it must be plain the picture is not live and the bar is the only way on.*
+ * So the press is dropped where it lands (`apps/game/src/briefing.ts`) and
+ * the slab's rim and NEXT flash for a moment, saying *here, not there*.
+ */
+export const NUDGE_S = 0.6;
 
 export interface NavBox {
   x: number;
@@ -118,6 +131,9 @@ export interface NavState {
   age?: number;
   /** Where a mouse is resting, in stage coordinates. Absent on a phone. */
   pointer?: { x: number; y: number };
+  /** Seconds since a press on the picture rather than on the bar, or absent:
+   * the bar flashes for `NUDGE_S` after one. */
+  nudge?: number;
 }
 
 /**
@@ -131,7 +147,8 @@ export function drawGuideNav(ctx: CanvasRenderingContext2D, l: Layout, s: NavSta
   // finite on purpose: everything breathing here is a sine of this number
   // (`opening-fx.ts`).
   const age = s.age ?? 0;
-  slab(ctx, l, b.bar, age);
+  const nudge = s.nudge === undefined ? 0 : Math.max(0, 1 - s.nudge / NUDGE_S);
+  slab(ctx, l, b.bar, age, nudge);
 
   const canBack = (s.back ?? true) && s.page > 0;
   const last = s.page >= s.pages - 1;
@@ -176,45 +193,11 @@ export function drawGuideNav(ctx: CanvasRenderingContext2D, l: Layout, s: NavSta
     sign: "next",
     live: !last,
     hex: hues[2],
-    glow: last || !s.played ? 0 : 0.55 + 0.45 * Math.abs(Math.sin(age * 2.4)),
+    glow: last ? 0 : Math.max(nudge, s.played ? 0.55 + 0.45 * Math.abs(Math.sin(age * 2.4)) : 0),
     hover: over(b.next),
   });
 
   dots(ctx, s, l.width / 2, b.bar.y + DOTS_Y);
-}
-
-/**
- * The slab itself: a shadow cast up onto the game, a ground that is not the
- * panel's colour, and a lit rim along the top edge. All three are saying the
- * same thing — this is lying on the phone, not built into it.
- */
-function slab(ctx: CanvasRenderingContext2D, l: Layout, bar: NavBox, age: number): void {
-  const cast = ctx.createLinearGradient(0, bar.y - LIFT, 0, bar.y);
-  cast.addColorStop(0, "rgba(0,0,0,0)");
-  cast.addColorStop(1, "rgba(0,0,0,.62)");
-  ctx.fillStyle = cast;
-  ctx.fillRect(0, bar.y - LIFT, l.width, LIFT);
-
-  // Cold slate, where the panel above it is warm violet tissue. The two are
-  // not variations on one colour: the whole point of the slab is that a glance
-  // tells you it is not part of the ship.
-  const ground = ctx.createLinearGradient(0, bar.y, 0, bar.y + bar.h);
-  ground.addColorStop(0, "#1B2140");
-  ground.addColorStop(0.16, "#0B0E22");
-  ground.addColorStop(1, "#05070F");
-  ctx.fillStyle = ground;
-  ctx.fillRect(bar.x, bar.y, bar.w, bar.h);
-
-  // A pale rim, breathing, with its own light on the game above it. Pale and
-  // not pink: every lit edge in this game belongs to something the ship grew,
-  // and this one is the one edge that belongs to the tool laid over it.
-  halo(ctx, l.width / 2, bar.y, l.width * 0.55, PALETTE.text, 0.07 + 0.03 * Math.sin(age * 1.6));
-  ctx.fillStyle = PALETTE.text;
-  ctx.globalAlpha = 0.5;
-  ctx.fillRect(0, bar.y, l.width, 2);
-  ctx.globalAlpha = 0.14;
-  ctx.fillRect(0, bar.y + 3, l.width, 1);
-  ctx.globalAlpha = 1;
 }
 
 /**

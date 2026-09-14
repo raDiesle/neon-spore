@@ -46,28 +46,49 @@ the ship and a box at full clearance covers the hull:
 
 A step owns a `seat`. When the seat changes the picture **slides** — a cut
 between two screens that look alike reads as a screen that changed by itself —
-a lit seam travels with the join, and the corner plate **flares** in the
+a lit seam travels with the join, and the plate and the rim **flare** in the
 arriving seat's colour:
 
 > *When it is switching from player 1 screen text top left to player 2 and the
 > other way around, make some effect to indicate it changes.*
 
-### The corner plate is always there and never fades
+### The plate is a band across the top, always there, and it never fades
 
 > *Do not fade in or fade out "Player 2 screen". Show it immediately and keep
 > it showing all the time. Maybe top left?*
 
-One plate, top left: `TUTORIAL` over `PLAYER n · SCREEN`, the second line the
-prominent one. Nothing else. The line saying whether it was the phone in your
-own hand was cut — *"one of the two screens" we can remove*.
+It began top left; since 14 September 2026 it is **one band the width of the
+screen**, on the row under the HUD's top row: `TUTORIAL` over `PLAYER n ·
+SCREEN`, the body in the seat's colour, the second line the prominent one.
+Nothing else. The line saying whether it was the phone in your own hand was
+cut — *"one of the two screens" we can remove*.
 
-A boss round's own header makes room for it rather than the other way round:
-the film says where the plate ends (`ViewState.clearTop`) and the round's
-name, its rows and whatever hangs off them drop under it as one block
+**A tutorial has to say so, loudly.** A page of film is the real screen at
+full size, so the pair press the picture and nothing happens. Three things
+together say *this is not live, the bar is the way on*, and a new tutorial
+gets all three for free (`render/src/guide-switch.ts`, `guide-nav.ts`,
+`guide-welcome.ts`):
+
+- **the band and a rim** in the seat's colour round the whole picture, top to
+  bar, both flaring on a seat switch;
+- **the bar answers a press on the picture** — a short flash on the slab and
+  on NEXT (`GuideStage.nudge`, `NUDGE_S`), wired from `briefing.ts` through
+  `Renderer.nudgeGuide`;
+- **a welcome page before a device's first tutorial**, once per device
+  (`apps/game/src/welcome.ts`, key `neon-spore.welcome`), naming BACK, PLAY
+  AGAIN and NEXT over the buttons and saying the picture waits. It is drawn
+  on the first page of whichever guide the device meets first, so nothing a
+  new tutorial does can be behind it; keep its first page a *film* page, not
+  a gate.
+
+A boss round's own header makes room for the band rather than the other way
+round: the film says where it ends (`ViewState.clearTop`, `BANNER_H`) and the
+round's name, its rows and whatever hangs off them drop under it as one block
 (`render/src/round-header.ts`). PINBALL, whose board hangs from the ceiling,
 has no room to drop into and shortens its film's table by a row instead
 (`GuideScene.pinballRows`). `render/test/guide-plate-room.test.ts` holds that
-no word of any boss rehearsal is drawn under the plate.
+no word of any boss rehearsal is drawn in the band, edge to edge, and
+`render/test/guide-frame.test.ts` draws the band, the flash and the welcome.
 
 ### Every page belongs to a seat — with exactly one exception
 

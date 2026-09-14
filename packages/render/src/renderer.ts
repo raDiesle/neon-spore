@@ -147,4 +147,9 @@ export interface Renderer {
    * nothing to replay.
    */
   replayGuide?(): void;
+  /**
+   * A press on the rehearsal's picture, which no page answers: the bar flashes
+   * to say it is the way on (`guide-nav.ts`). Optional for the same reason.
+   */
+  nudgeGuide?(): void;
 }

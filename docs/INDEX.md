@@ -784,6 +784,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/seat-skin.ts` | WHICH SHIP THIS IS: player one's violet, player two's amber |
 | `packages/render/src/nav-button.ts` | One button on a guide's bar, and the contour every one of them is cut from |
 | `packages/render/src/nav-feeder.ts` | What feeds a button from the bar's own membrane |
+| `packages/render/src/nav-slab.ts` | The slab the guide's bar stands on |
 | `packages/render/src/seat-name.ts` | What to call a seat on a screen a person is reading |
 | `packages/render/src/seam-line.ts` | WHERE THE MEMBRANE MAY SWING — the numbers, and nothing that draws |
 | `packages/render/src/hover.ts` | WHAT A MOUSE IS RESTING ON, LIT |
@@ -793,6 +794,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |
+| `packages/render/src/guide-welcome.ts` | The page before a device's first tutorial: what the stepper is |
 | `packages/render/src/gum-handle.ts` | THE GUM as a handle: the one thing on this field a hand takes hold of that is the whole body rather than a… |
 | `packages/render/src/gum.ts` | THE GUM, drawn in its two states: a heavy drop coming down a lane |
 | `packages/render/src/baked.ts` | Every cache in render/ that holds baked work between frames, in one place that can empty them all |
@@ -988,6 +990,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-shape.ts` | What falls down each of THE PULSE's four lanes, and what colour it is |
 | `packages/render/src/pulse-shape.ts` | What an arrow in THE PULSE is made of: its hue, its heading and its contour |
 | `packages/render/src/lance-flash.ts` | The whole screen going white, then the ammunition colour, then nothing |
+| `packages/render/src/label-box.ts` | The box a guide writes in: a solid ground, a two-pixel edge in the pod's colour, sixteen-point Courier |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
 | `packages/render/src/body-inset.ts` | what is inside a living body is clipped to the body drawn a sixth smaller, so an interior borrowed from one contour never crosses another's rim |
@@ -1131,6 +1134,7 @@ place — the generator keeps whatever is there.
 |---|---|
 | `apps/game/src/main.ts` | wiring: world, renderer, input, loop |
 | `apps/game/src/waves.ts` | the two ways a wave starts, and the banner that names it |
+| `apps/game/src/welcome.ts` | the page before a device's first tutorial: once per device, pressed away, the film held on its first frame under it |
 | `apps/game/src/audio.ts` | the mixer wired to the loop: unlock on a gesture, clear on a restart, M to mute |
 | `apps/game/src/at-a-desk.ts` | **Whether the person holding this is at a desk**, asked in one place |
 | `apps/game/src/loop.ts` | fixed timestep; the only place wall-clock time exists |
@@ -1167,6 +1171,7 @@ place — the generator keeps whatever is there.
 | `apps/game/build.ts` | What `bun build ./index.html --outdir=dist --minify --sourcemap` used to be, as a script |
 | `apps/game/preview.ts` | Which checkout this one serves |
 | `apps/game/src/confirm.ts` | A button that hangs up on somebody else, and asks once before it does |
+| `apps/game/src/canvas-sheets.ts` | The two pages drawn on the game's own canvas over a frame |
 | `apps/game/src/link-clock.ts` | The room's wall clock: the only part of the game that asks what time it is |
 | `apps/game/src/progress.ts` | How far this device has got, kept on this device |
 | `apps/game/src/menu-entries.ts` | The rows on the menu's three lists — the front page, the PLAY page and the rig — in the order they are read |

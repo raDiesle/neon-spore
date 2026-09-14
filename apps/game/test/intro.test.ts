@@ -47,8 +47,8 @@ describe("whether the intro is the front door", () => {
 
 describe("the way it is wired", () => {
   it("takes the same hold the menu takes, so nothing is played behind it", () => {
-    expect(readFileSync(new URL("../src/main.ts", import.meta.url), "utf8")).toMatch(
-      /hold: \(on\) => run\.hold\("menu", on\)/,
+    expect(readFileSync(new URL("../src/canvas-sheets.ts", import.meta.url), "utf8")).toMatch(
+      /hold: \(on\) => p\.run\.hold\("menu", on\)/,
     );
   });
 

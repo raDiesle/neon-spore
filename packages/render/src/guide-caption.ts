@@ -3,6 +3,7 @@ import type { World } from "@neon-spore/sim";
 import { anchorPoint } from "./caption-anchor.js";
 import { BANNER_H, BANNER_TOP } from "./guide-switch.js";
 import { handoverPlateBox } from "./handover-look.js";
+import { drawLabelGround, drawLabelLines, LABEL_FONT, LABEL_PAD, labelSize } from "./label-box.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { type SeatNames, withNames } from "./seat-name.js";
@@ -30,15 +31,12 @@ import { wrapText } from "./wrap-text.js";
  * over a field with a blob falling through it, and the instruction was that the
  * text has to be more visible. So: bigger type, a solid ground under it, a
  * two-pixel edge in the subject's own colour, and it wraps rather than being
- * pushed off the side of a narrow screen.
+ * pushed off the side of a narrow screen. The box itself is `label-box.ts`,
+ * which the welcome page's labels share.
  */
 
 /** Ticks the caption takes to fade in, so a step arrives rather than blinks. */
 const FADE_TICKS = 10;
-const PAD = 13;
-/** One line's height, and the type it is set in. */
-const LINE = 21;
-const FONT = '700 16px "Courier New",monospace';
 
 export function drawCaption(
   ctx: CanvasRenderingContext2D,
@@ -73,14 +71,11 @@ export function drawCaption(
     ctx.stroke();
   }
 
-  ctx.font = FONT;
+  ctx.font = LABEL_FONT;
   // Wrapped rather than clamped: a caption wider than the screen used to be
   // shoved sideways until it was no longer beside the thing it was about.
-  const lines = wrapText(ctx, withNames(step.text, names), l.width - 24 - PAD * 2);
-  const h = lines.length * LINE + 12;
-  let w = 0;
-  for (const line of lines) w = Math.max(w, ctx.measureText(line).width);
-  w += PAD * 2;
+  const lines = wrapText(ctx, withNames(step.text, names), l.width - 24 - LABEL_PAD * 2);
+  const { w, h } = labelSize(ctx, lines);
   const x = Math.max(8, Math.min(Math.max(8, l.width - w - 8), point.x - w / 2));
   // Above its subject when there is room above, below it when there is not:
   // the one thing a caption may never do is sit off the top of the screen. The
@@ -107,11 +102,8 @@ export function drawCaption(
   const y = below ? Math.max(floor, point.y + point.r + point.clear) : above;
 
   ctx.globalAlpha = k;
-  ctx.fillStyle = "rgba(9,7,20,.96)";
-  ctx.fillRect(x, y, w, h);
-  ctx.strokeStyle = PALETTE.pod;
-  ctx.lineWidth = 2;
-  ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
+  const box = { x, y, w, h };
+  drawLabelGround(ctx, box);
 
   // A short leader, so a label pushed sideways to stay on screen still says
   // which thing it belongs to.
@@ -120,12 +112,6 @@ export function drawCaption(
   ctx.lineTo(point.x, below ? point.y + point.r + 2 : point.y - point.r - 2);
   ctx.stroke();
 
-  ctx.fillStyle = PALETTE.text;
-  ctx.textAlign = "center";
-  ctx.font = FONT;
-  lines.forEach((line, i) => {
-    ctx.fillText(line, x + w / 2, y + 22 + i * LINE);
-  });
-  ctx.textAlign = "left";
+  drawLabelLines(ctx, box, lines);
   ctx.globalAlpha = 1;
 }

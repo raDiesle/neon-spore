@@ -118,6 +118,11 @@ export class RenderState {
     this.guide.replay();
   }
 
+  /** A press on a guide's picture, which the bar answers (`guide-scene.ts`). */
+  nudgeGuide(): void {
+    this.guide.nudge();
+  }
+
   /** Whether the rehearsal's page has played out and is standing on its last
    * frame — the one state a camera has to know and an eye can see for itself. */
   get guideFinished(): boolean {

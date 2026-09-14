@@ -39,6 +39,9 @@ export interface BriefingOptions {
    * than sent to both seats (`render/guide-play.ts`).
    */
   replay: () => void;
+  /** A press on the picture of a film page, which the bar answers with a flash
+   * rather than the page with anything (`render/guide-nav.ts`). */
+  nudge: () => void;
 }
 
 /**
@@ -79,6 +82,7 @@ export function bindBriefing({
   inStage,
   role,
   replay,
+  nudge,
 }: BriefingOptions): BriefingBinding {
   const seat = (): 1 | 2 => (role() === "p2" ? 2 : 1);
   const hold = (on: boolean): void => {
@@ -103,9 +107,14 @@ export function bindBriefing({
       else turn(nav === "back");
       return;
     }
-    // Everything else on a page of film does nothing. The gate is the one page
+    if (onNavBar(l, p.y)) return;
+    // Everything else on a page of film does nothing to the page — the picture
+    // is not live, and the bar flashes to say so. The gate is the one page
     // with something to hold, and there the whole page holds it.
-    if (!onReadyPage(world, seat()) || onNavBar(l, p.y)) return;
+    if (!onReadyPage(world, seat())) {
+      nudge();
+      return;
+    }
     down = true;
     hold(true);
   });

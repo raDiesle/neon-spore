@@ -48,6 +48,8 @@ export interface FieldInputOptions {
   /** The guide, played again from its first page — the renderer owns the
    * playback, so this file only says when. */
   replayGuide: () => void;
+  /** A press on the guide's picture, which the bar answers (`briefing.ts`). */
+  nudgeGuide: () => void;
 }
 
 /** The keyboard's per-tick call and the two things a frame reads off a
@@ -138,6 +140,7 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     inStage,
     role,
     replay: o.replayGuide,
+    nudge: o.nudgeGuide,
   });
   // Every round that is not the field brings its own buttons, on its own
   // listener — neither player's band is the answer (`rounds.ts`).

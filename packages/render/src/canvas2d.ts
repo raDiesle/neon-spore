@@ -71,6 +71,9 @@ export class Canvas2DRenderer implements Renderer {
   replayGuide(): void {
     this.held.replayGuide();
   }
+  nudgeGuide(): void {
+    this.held.nudgeGuide();
+  }
   get guideFinished(): boolean {
     return this.held.guideFinished;
   }

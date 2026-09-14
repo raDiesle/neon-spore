@@ -9,6 +9,7 @@ import { startLoop } from "./loop.js";
 import { createMenuIdle } from "./menu-idle.js";
 import type { RunState } from "./run-state.js";
 import { runMark, throttledTally } from "./tally.js";
+import type { Welcome } from "./welcome.js";
 
 /**
  * WHAT HAPPENS EVERY TICK, AND WHAT HAPPENS EVERY FRAME.
@@ -40,6 +41,8 @@ export interface FrameParts {
   audio: GameAudio;
   haptics: { frame: (events: readonly SimEvent[]) => void };
   intro: Intro;
+  /** The page before a device's first tutorial (`welcome.ts`). */
+  welcome: Welcome;
   /** The seat this screen is showing, and where it is in the beat. */
   role: () => Parameters<Canvas2DRenderer["draw"]>[0]["role"];
   beatPhase: () => number;
@@ -114,7 +117,10 @@ export function startFrames(p: FrameParts): Frames {
       // (a shimmer, a wobble) is allowed to differ between them because it
       // touches nothing about the simulation.
       time: performance.now() / 1000,
-      dt,
+      // No time at all while the welcome is up: the first page of film stands
+      // on its first frame until the page explaining the stepper is pressed
+      // away, and the film's clock is the one thing that reads `dt`.
+      dt: p.welcome.isOpen() ? 0 : dt,
       events: frameEvents,
       running: p.run.running(),
       hand: p.hand.current,
@@ -128,6 +134,9 @@ export function startFrames(p: FrameParts): Frames {
     });
     // Over the frame rather than instead of it: the field goes on moving behind
     // the intro's pages, which is why they are drawn on this canvas at all.
+    // The welcome first, so the intro — which the menu opens over anything —
+    // stays on top of it.
+    p.welcome.over(p.ctx, dt);
     p.intro.over(p.ctx, dt);
     frameEvents = [];
   };
