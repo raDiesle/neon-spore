@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-14 · e375b541 — A rock's size leaves the torch's picture for a file of its own
+
+`torch.ts` was at the limit and opened with four measurements — `torchRadius`, `rockRadius`, `rockTileRadius`, `torchRotation` — before any of its drawing, and eleven of its nineteen importers wanted only those. They now live in `rock-size.ts`; every importer takes them from there, the package index exports `torchRadius` from the new file, and a crater, a dent, a bounce or a cairn no longer loads the torch's whole picture to size itself. The canvas op log of THE ROCK, THE VOLLEY, THE VEER, THE COIL and THE CAIRN, 480 frames from each seat, is identical before and after. A refactor, not a look.
+
 ## 2026-09-14 · 089c4e06 — The hull's skins leave its drawing for a file of their own
 
 `hull.ts` was at the limit and held the drawing of one membrane beside the colours a ship is painted in. `HullSkin`, `OWN_SKIN` and `MIRROR_SKIN` now live in `hull-skin.ts`; `hull.ts` re-exports them the way it already re-exports `hull-frame.ts`'s, so the sixteen files that take a skin from `./hull.js` are untouched, and it drops the `PALETTE` import only the skins used. The canvas op log of THE ROCK, THE MIRROR and THE WELL, 480 frames from each seat, is identical before and after. A refactor, not a look.
