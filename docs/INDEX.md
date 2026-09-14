@@ -1675,6 +1675,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/press-command.ts` | What one `--press` actually sends, once the line has been taken apart |
 | `tools/hooks/after-depth-edit.ts` | a depth claim is the drawing mistake that looks like a success — names the projection to call and the cues to check |
 | `tools/hooks/after-compact.ts` | What a session is told the moment its conversation has been compacted |
+| `tools/hooks/heredoc.ts` | The guard's one rule about a heredoc body: a doubled backslash the Bash tool would halve is refused, with the two ways that work |
 | `tools/shape-sheet/src/cues.ts` | `bun run shapes:cues` — the motion half of `report.ts`, with a placed surface as its last row |
 | `tools/shape-sheet/src/depth-cues.ts` | the numbers for motion: drawn aspect, the period count on width and sway, how far a cycle is from mirroring itself, and whether anything is revealed |
 | `tools/frames/crank.ts` | A turn of THE CLAW's crank, expanded from one `--press` into the stream of bearings that winds rope |

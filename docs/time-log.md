@@ -3605,3 +3605,29 @@ prove it. About 10 min.
 Bottleneck: landing — `check:fast` reaches the one file in the repository
 that builds the game and drives a browser, so it took thirty-four seconds
 where the previous lane's took seven.
+
+## 2026-09-14 · claude/queue-items-8b11f4 — the guard refuses a heredoc body the Bash tool would rewrite
+
+Found by reading eight of this file's own entries: the same forty minutes,
+paid a session at a time, on a doubled backslash in a heredoc body reaching
+the shell as one. The queue item was written from a probe with the tool
+itself, and the rule is `tools/hooks/heredoc.ts` — the bodies read with
+`shell-words.ts`'s own `heredocDelimiter` and `heredocEnd`, now exported, a
+refusal that names the Write or Edit tool and Python's `chr(92)`, wired into
+`refusalFor` for bash only. Proved twice: nine test cases, and the hook
+itself blocking a `cat <<'EOF'` carrying two backslashes while letting one
+through — and then blocking this very entry, whose friction row quotes two.
+About 40 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `guard.ts`, `shell-words.ts`, the test helpers |
+| writing | 10 | `heredoc.ts`, its test file, the case in `guard.test.ts`, the INDEX row |
+| looking | 0 | none |
+| friction | 20 | the rule's own subject: `"\\"` in the source was one backslash in JavaScript, so the first version refused every single one — and refused the Python heredoc meant to fix it; a payload dump through `guard.ts` and the Edit tool found it |
+| landing | 5 | `check:fast` twice, `bun run index`, the commit, `bun run land --keep` |
+
+Bottleneck: friction — counting backslashes across four layers (the tool,
+the shell, the JavaScript string and the test's own template) is exactly
+what the rule exists to stop, and it cost this lane the same twenty minutes
+it charges everyone else.

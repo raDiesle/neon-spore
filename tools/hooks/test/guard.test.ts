@@ -197,6 +197,19 @@ describe("guard", () => {
     expect(psRefusal('git commit -m "he said `"git add -A`" once"')).toBeNull();
   });
 
+  /**
+   * The Bash tool halves a doubled backslash in a heredoc body before the
+   * shell reads it (`heredoc.ts`). The refusal is bash's alone: the PowerShell
+   * tool hands a here-string over as typed, and a herestring has no body.
+   */
+  it("refuses a bash heredoc body the tool would rewrite, and nothing like it", () => {
+    const body = "const re = /^\\\\d{4}-\\\\d{2}/;";
+    expect(refusal(`cat <<'EOF' > a.ts\n${body}\nEOF`)?.blocked).toContain("halves it");
+    expect(refusal("cat <<'EOF' > a.ts\nconst s = '\\d';\nEOF")).toBeNull();
+    expect(refusal("cat <<< '\\\\d'")).toBeNull();
+    expect(psRefusal(`Set-Content a.ts @'\n${body}\n'@`)).toBeNull();
+  });
+
   /** A here-string body is data, the way a heredoc body is. Its terminator sits at column zero. */
   it("allows a refused command quoted inside a here-string", () => {
     const command = ["git commit -m @'", "git add -A", "git push origin main", "'@"].join("\n");

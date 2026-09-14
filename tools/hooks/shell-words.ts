@@ -54,7 +54,7 @@ const DELIMITER_END = new Set([" ", "\t", "\n", ";", "&", "|", "<", ">"]);
 const EMPTY: ReadonlySet<string> = new Set<string>();
 
 /** The word a heredoc body ends on, and where the word stops. `<<<` is a herestring, whose word is data rather than a body. */
-function heredocDelimiter(line: string, at: number): { delim: string; next: number } | null {
+export function heredocDelimiter(line: string, at: number): { delim: string; next: number } | null {
   let i = at + 2;
   if (line[i] === "<") return null;
   if (line[i] === "-") i++;
@@ -74,7 +74,7 @@ function heredocDelimiter(line: string, at: number): { delim: string; next: numb
 }
 
 /** The index of the newline that closes a heredoc body, or the end of the line. */
-function heredocEnd(line: string, from: number, delim: string): number {
+export function heredocEnd(line: string, from: number, delim: string): number {
   let i = from;
   while (i < line.length) {
     const newline = line.indexOf("\n", i);

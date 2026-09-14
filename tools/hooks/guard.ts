@@ -30,6 +30,7 @@
 
 import { realpathSync } from "node:fs";
 import path from "node:path";
+import { heredocRefusal } from "./heredoc.ts";
 import { commandsIn, type Dialect } from "./shell-words.ts";
 
 /** Why the command was refused, and what to do instead. */
@@ -212,6 +213,12 @@ export function refusalFor(
   cwd: string = process.cwd(),
   dialect: Dialect = "posix",
 ): Refusal | null {
+  // The one rule about a body rather than an argument, and bash only: the
+  // PowerShell tool hands its here-strings over untouched (`heredoc.ts`).
+  if (dialect === "posix") {
+    const halved = heredocRefusal(line);
+    if (halved) return halved;
+  }
   for (const args of commandsIn(line, dialect)) {
     const refusal = commandRefusal(args, cwd);
     if (refusal) return refusal;
