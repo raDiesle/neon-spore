@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · fe31f51a — `queue release` asks the trunk which claims it holds, not its own copy
+
+A claim made where no worktree holds `main` — every cloud session — is written onto the ref, with the working tree deliberately left alone. `release` then asked that working copy whether the item was marked, found no line there, and left the trunk's line standing: the branch went, the mark stayed, and `bun run queue status` reported an item as taken by a branch that no longer existed. It happened on this repository an hour ago and cost an extra commit to undo by hand.
+
 ## 2026-09-15 · 244ccb37 — The PLAY item reads as free again, and the trap that re-marked it is queued
 
 `bun run queue release` takes the `Taken:` line off `main` directly, and the lane that released this item was holding its own copy of `docs/queue.md` — so the landing rebased over the release and put the line back. The claim branch is gone, the line is now gone too, and `queue status` says the item is free.
