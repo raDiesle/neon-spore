@@ -722,6 +722,7 @@ Prove with `bun test apps/server` and `bun run relay:check:all`.
 ## A pure test pulls a server `src` file into the root typecheck, without its types
 
 - **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
+- **Taken:** 2026-09-15, claude/queue-a-pure-test-pulls-a-server-src-file-into-the-roo
 - **Files:** `tsconfig.json`, `apps/server/tsconfig.json`, `apps/server/test/room-seat.test.ts`, `apps/server/src/room-seat.ts`
 
 The root `tsconfig.json` excludes `apps/server/src` and includes
