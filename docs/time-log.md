@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — `room.ts` keeps the sockets and nothing else
+
+The queue's *`room.ts` is at the line limit again, and `route`'s acts are the
+piece to move*. The file was at exactly 250 after two trims. The five acts it
+handed the switch split in two along the line the file itself is drawn on: the
+two about sockets stayed, the three about what the room remembers went to
+`room-acts.ts`, and the six remembered facts went with their writes to
+`room-memory.ts`. 197 lines.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `room.ts` whole, and the two siblings whose docblocks say why a thing was taken out of it before |
+| writing | 35 | the memory class, the three acts, and `room.ts` around them |
+| looking | 0 | nothing is drawn |
+| friction | 0 | — |
+| landing | 15 | `bun test apps/server`, `relay:check:all`, `bun run index`, `check:fast`, the commit |
+
+The bottleneck was choosing the seam rather than cutting it. The entry offered
+handing the acts the room behind an interface, and two files in the package
+already say in their own docblocks why that is not done here — a function given
+a copy of what it needs cannot change the field beside it. What the acts
+actually needed was somewhere for the fields to live that was not the room, and
+once the memory existed the acts were nine lines with nothing left to decide.
+
 ## 2026-09-15 — queued-tasks — the server package is typechecked once, by itself
 
 The queue's *A pure test pulls a server `src` file into the root typecheck,

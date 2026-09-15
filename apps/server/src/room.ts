@@ -1,24 +1,15 @@
 import {
   type ClientMessage,
-  type Difficulty,
   decodeClient,
   type PlayerId,
   type ServerMessage,
 } from "@neon-spore/net";
+import { roomActs } from "./room-acts.js";
+import { RoomMemory } from "./room-memory.js";
 import { refuseUpgrade } from "./room-open.js";
 import { routeClient } from "./room-route.js";
-import { seatSwap } from "./room-seat.js";
 import { pressStart } from "./room-start.js";
-import {
-  endStaleRun,
-  keepBest,
-  keepLevel,
-  keepSwapped,
-  readBest,
-  readLevel,
-  readSwapped,
-} from "./room-tally.js";
-import { announceGone, greetSeats, type RoomFacts, tellSeats } from "./room-tell.js";
+import { announceGone, greetSeats, type RoomFacts } from "./room-tell.js";
 import {
   arrivalTags,
   hangUp,
@@ -31,7 +22,7 @@ import {
   stamp,
 } from "./seat.js";
 import { emptiedRoom, StartGate } from "./start-gate.js";
-import { NOTHING_YET, RUN_OVER_MS, type Tally, worthSaying } from "./tally.js";
+import { RUN_OVER_MS, worthSaying } from "./tally.js";
 
 /**
  * Milliseconds between the **second press** and beat zero — only the short
@@ -54,25 +45,19 @@ interface RoomEnv {
  * It never looks inside a `Command` and holds no copy of the world. A server
  * that understood the game would be a second implementation of the rules, and
  * the reason for lockstep is that there is exactly one.
+ *
+ * What it *is* is sockets: who is in the room, which seat each holds, what
+ * reaches whom. What it knows between two of them is `room-memory.ts`, and
+ * the three things a message does to that memory are `room-acts.ts`.
  */
 export class Room {
   private readonly ctx: DurableObjectState;
   private readonly silentMs: number;
-  private code = "";
-  private startMs = 0;
+  private readonly runOverMs: number;
   /** The two presses between a full room and beat zero. See `start-gate.ts`. */
   private readonly gate = new StartGate();
-  private readonly runOverMs: number;
-  /** What this pair got to. Stored, handed back, never read. See `tally.ts`. */
-  private best: Tally = NOTHING_YET;
-  /** When this room last heard anything at all, for `runIsOver`. */
-  private heard = 0;
-  /** The tempo this pair plays at, kept the way `best` is and never read: two
-   * phones at two tempi never reach the same tick, so the pair's one answer
-   * lives here (`packages/sim/src/difficulty.ts`, `room-tally.ts`). */
-  private level: Difficulty | null = null;
-  /** Whether the pair swapped seats: the one bit a tag cannot hold (`seat.ts`). */
-  private swapped = false;
+  /** Everything that outlives hibernation, with its writes. `room-memory.ts`. */
+  private readonly mem: RoomMemory;
 
   constructor(ctx: DurableObjectState, env: RoomEnv) {
     this.ctx = ctx;
@@ -80,53 +65,31 @@ export class Room {
     this.silentMs = Number.isFinite(given) && given > 0 ? given : SEAT_SILENT_MS;
     const over = Number(env?.RUN_OVER_MS);
     this.runOverMs = Number.isFinite(over) && over > 0 ? over : RUN_OVER_MS;
-    // Hibernation drops everything held in memory, so the two facts that must
-    // outlive it are read back the moment the object is built again.
-    ctx.blockConcurrencyWhile(async () => {
-      this.code = (await ctx.storage.get<string>("code")) ?? "";
-      this.startMs = (await ctx.storage.get<number>("startMs")) ?? 0;
-      this.best = await readBest(ctx.storage);
-      this.level = await readLevel(ctx.storage);
-      this.swapped = await readSwapped(ctx.storage);
-      this.heard = (await ctx.storage.get<number>("heard")) ?? 0;
-    });
+    this.mem = new RoomMemory(ctx.storage);
+    // Hibernation drops everything held in memory, so what must outlive it is
+    // read back the moment the object is built again.
+    ctx.blockConcurrencyWhile(() => this.mem.load());
   }
 
   async fetch(request: Request): Promise<Response> {
     const code = new URL(request.url).searchParams.get("code") ?? "";
     // A run nobody has been playing is over before this phone is seated (see
     // `runIsOver`), so the arrival gets a fresh beat zero.
-    const ended = await endStaleRun(
-      this.ctx.storage,
-      Date.now() - this.heard,
-      this.runOverMs,
-      this.seats().length,
-      this.startMs,
-    );
-    if (ended) {
-      this.startMs = 0;
-      this.gate.clear();
-    }
+    if (await this.mem.endStale(this.runOverMs, this.seats().length)) this.gate.clear();
 
     const seats = this.seats();
     const refused = refuseUpgrade(request, code, seats.length);
     if (refused) return refused;
-    if (this.code !== code) {
-      this.code = code;
-      await this.ctx.storage.put("code", code);
-    }
+    await this.mem.setCode(code);
 
     const pair = new WebSocketPair();
     const client = pair[0];
     const server = pair[1];
     // An empty room starts over: a swap is the pair's, and this is a new pair.
-    if (seats.length === 0 && this.swapped) {
-      this.swapped = false;
-      await keepSwapped(this.ctx.storage, false);
-    }
+    if (seats.length === 0 && this.mem.swapped) await this.mem.setSwapped(false);
     // Everything about the arrival is a tag: hibernation wakes this object
     // holding nothing but sockets (`seat.ts`).
-    const { player, tags } = arrivalTags(seats, this.swapped, request.url);
+    const { player, tags } = arrivalTags(seats, this.mem.swapped, request.url);
     this.ctx.acceptWebSocket(server, tags);
     stamp(server);
     this.greet(server, player);
@@ -141,10 +104,7 @@ export class Room {
     // Anything at all is proof the seat is still there. The ping every 700 ms
     // is what makes that a heartbeat rather than a hope.
     stamp(socket);
-    // The room's own clock for `runIsOver`: a socket's `lastSeen` goes with it
-    // when it is evicted, and what is measured is the silence after the last.
-    this.heard = Date.now();
-    void this.ctx.storage.put("heard", this.heard);
+    void this.mem.heardNow();
     this.route(me, message, socket);
   }
 
@@ -161,46 +121,35 @@ export class Room {
     this.announce(socket);
   }
 
-  /** What each message makes the room do — the switch is `room-route.ts`. */
+  /**
+   * What each message makes the room do — the switch is `room-route.ts`. The
+   * two acts that are about sockets are the room's own; the three that are
+   * about what it remembers are `room-acts.ts`.
+   */
   private route(me: Seat, message: ClientMessage, socket: WebSocket): void {
     routeClient(me, message, socket, {
       relay: (m) => this.relay(me, m),
       press: () => void this.press(me.player),
-      level: (level) => {
-        this.level = level;
-        void keepLevel(this.ctx.storage, level);
-        // The other phone reads the tempo off its welcome, so it gets one.
-        tellSeats(this.seats(), this.facts(), this.gate);
-      },
-      seat: (seat) => {
-        const swapped = seatSwap(me, seat, this.startMs, this.swapped);
-        if (swapped === null) return;
-        this.swapped = swapped;
-        void keepSwapped(this.ctx.storage, swapped);
-        // A press was for a seat that is now somebody else's.
-        this.gate.clear();
-        tellSeats(this.seats(), this.facts(), this.gate);
-      },
-      stats: (tally) =>
-        void keepBest(this.ctx.storage, this.best, tally).then((next) => {
-          this.best = next;
-        }),
+      ...roomActs(me, this.mem, {
+        gate: this.gate,
+        seats: () => this.seats(),
+        facts: () => this.facts(),
+      }),
     });
   }
 
   /** A seat pressed START. `start-gate.ts` decides what that is worth. */
   private async press(player: PlayerId): Promise<void> {
-    const startMs = await pressStart(
+    await pressStart(
       this.gate,
       player,
       {
         ...this.facts(),
         seats: this.seats(),
-        persist: (at) => this.ctx.storage.put("startMs", at),
+        persist: (at) => this.mem.setStartMs(at),
       },
       START_LEAD_MS,
     );
-    if (startMs !== 0) this.startMs = startMs;
   }
 
   /** Who it is, to the arrival and to whoever was already here (`room-tell.ts`). */
@@ -212,20 +161,18 @@ export class Room {
    * ending with it is this object's own decision (`start-gate.ts`). */
   private announce(gone: WebSocket): void {
     const left = this.seats().filter((s) => s.socket !== gone);
-    if (emptiedRoom(left.length, this.startMs)) {
-      this.startMs = 0;
-      void this.ctx.storage.put("startMs", 0);
-    }
+    if (emptiedRoom(left.length, this.mem.startMs)) void this.mem.setStartMs(0);
     announceGone(left, this.playerOf(gone), this.gate);
   }
 
   /** The four things a welcome is made of, gathered where they are kept. */
   private facts(): RoomFacts {
+    const best = this.mem.best;
     return {
-      code: this.code,
-      startMs: this.startMs,
-      best: worthSaying(this.best) ? this.best : null,
-      level: this.level,
+      code: this.mem.code,
+      startMs: this.mem.startMs,
+      best: worthSaying(best) ? best : null,
+      level: this.mem.level,
     };
   }
 
@@ -237,14 +184,14 @@ export class Room {
 
   /** The seats that are actually occupied — see `occupiedSeats`. */
   private seats(): Seat[] {
-    return occupiedSeats(this.ctx, this.silentMs, this.swapped);
+    return occupiedSeats(this.ctx, this.silentMs, this.mem.swapped);
   }
 
   private seatOf(socket: WebSocket): Seat | null {
-    return seatOfSocket(this.ctx, socket, this.swapped);
+    return seatOfSocket(this.ctx, socket, this.mem.swapped);
   }
 
   private playerOf(socket: WebSocket): PlayerId | null {
-    return playerOfSocket(this.ctx, socket, this.swapped);
+    return playerOfSocket(this.ctx, socket, this.mem.swapped);
   }
 }

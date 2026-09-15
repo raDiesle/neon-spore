@@ -705,21 +705,6 @@ on both, the jump on the creator, and a line saying what the creator's row now
 reads, with a throw when the other name is not at `n`. `room-phones.ts` gets
 the fresh-tab verb. A case in `room-shot.test.ts` for the flag's parsing.
 
-## `room.ts` is at the line limit again, and `route`'s acts are the piece to move
-
-- **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
-- **Taken:** 2026-09-15, claude/queue-room-ts-is-at-the-line-limit-again-and-route-s-a
-- **Files:** `apps/server/src/room.ts`, `apps/server/src/room-route.ts`, `apps/server/src/room-seat.ts`
-
-Landing the seat swap put `room.ts` at exactly 250 lines after two trims —
-the arrival's tags went to `seat.ts` (`arrivalTags`) and the re-greet was
-inlined at both call sites. The next line the file needs is a split. The
-natural cut is the object literal in `Room.route` — five acts, each two to
-nine lines, each reading and writing the room's fields — into a `RoomActs`
-made by a function in `room-route.ts` (which already owns the switch that
-calls them) or a `room-acts.ts` that takes the room's state as an interface.
-Prove with `bun test apps/server` and `bun run relay:check:all`.
-
 ## A game's tempo is fixed once it is made; NEW GAME is the way to another
 
 - **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
