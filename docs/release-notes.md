@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 06a806c4 — A wave arrow paints the wave it opens, and what was the WAVE button is the wave's own number
+
+The owner, mid-turn on 15 September 2026: stepping with the new arrows leaves the wave page blank until WAVE is pressed, and why is there a WAVE button at all — put the number of the wave there instead.
+
 ## 2026-09-15 · d4743f72 — The director's field is not cut off any more, and RUN is a column of its own
 
 The owner, mid-turn on 15 September 2026, having just moved to another monitor: the first and the last column of the game screen are cut off, put the buttons that were under GAME into a strip between WAVE and GAME, add a difficulty picker, and move MAIN MENU out of DOCUMENTATION.
