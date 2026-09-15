@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · b506fb4d — The URL stops naming a tab the editor has not got
+
+`#tabs` held four — WAVE, SHIP, TUNING, BALANCE — and lost them one at a time as each moved to a sheet or a column of its own. The last went this morning, when the owner asked for the wave's own number in its place. What was left was the whole apparatus for remembering *which* tab, wired to nothing: `KNOWN_TABS`, `Tab`, `DEFAULT_TAB` and `Place.tab`; `bindPlace`'s loop over `button[data-tab]`, which matched no button; the `initialTab` it handed back, which nobody clicked. And every URL the tool wrote still carried `?tab=wave`, a parameter naming a thing that does not exist.
+
 ## 2026-09-15 · ab1fefae — THE VOLLEY wears the ward's own band, and a warded body turns clear of the ship
 
 The owner, mid-turn on 15 September 2026: put a graphic like the hull's shield around the volley so it is clear the shield can bounce it, and the bounce happens too late — when the shield is over the cannon the body goes inside the cannon's visuals before it turns.
