@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · ff5291df — `room.ts` keeps the sockets; what it remembers and what that does are siblings
+
+The file was at exactly 250 lines after two trims, and the next line it needed was a split. The five acts it handed `routeClient` divide along the line the file is already drawn on: relaying a message and taking a press are done to the seats and stay, and a tempo, a seat and a tally are done to what the room remembers and go to `room-acts.ts`. The six facts that must outlive hibernation went with them, each beside the write that keeps it, as `RoomMemory` in `room-memory.ts` — so a field set without its `storage.put` is now one file to look at rather than six places to get right. `room.ts` is 197 lines and imports nothing about storage.
+
+## 2026-09-15 · 1b5bb6cb — Two split rationales stop citing a typecheck that no longer works that way
+
+`room-tally.ts` and `room-start.ts` each said they were split off a pure rule partly because the root typecheck took this package's tests without workerd's globals, so a test could reach a `src` file only while that file imported none of them. That stopped being true one commit ago. Both docblocks now stand on the reason that survives — a rule held to a table of cases must not reach for storage or a socket — and name where the new arrangement is written down.
+
 ## 2026-09-15 · 03c1421c — The server package is typechecked once, by itself, with its own globals
 
 The root `tsconfig.json` excluded `apps/server/src` and included `apps/server/test`, so a test that imported a `src` file pulled it into a program where `DurableObjectState`, `WebSocketPair` and `serializeAttachment` do not exist: `room-seat.test.ts` importing `room-seat.ts` put eight errors on `seat.ts` while `apps/server`'s own typecheck was green. The root now excludes the whole package and `apps/server/tsconfig.json` takes `src`, `test` and `dev.ts` with both type sets, so a test may reach any file in the package and nobody has to obey a rule that was never written down. `apps/server/test/seat.test.ts` is that test: six cases over the tag half of `seat.ts` — which chair an arrival is tagged with, what the swap does to it, the name clamp, the seat order of the names, the host's seat — imported straight from the worker file.
