@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 35c4fb35 — The director paints the pencil: a fault brush, a mark in the rail, and the four marks made pressable
+
+The second half of the owner's instruction of 14 September 2026, on top of the shape that landed with it: a fault is a thing you pick up in the palette and lay on a beat row, the list says which waves carry one, and the list can be narrowed to them.
+
+## 2026-09-15 · dbf9fea9 — A malfunction is a pencil placed on the map, with the beat it enters on and the beats it holds
+
+The owner's instruction of 14 September 2026: *all malfunctions are not attached to the wave, but a pencil to be placed on the map, so I can define when it enters the wave (what beat row) and when it ends.* This is the shape of that; the director's brush, the rail's icon and the filter follow on top of it.
+
 ## 2026-09-15 · b506fb4d — The URL stops naming a tab the editor has not got
 
 `#tabs` held four — WAVE, SHIP, TUNING, BALANCE — and lost them one at a time as each moved to a sheet or a column of its own. The last went this morning, when the owner asked for the wave's own number in its place. What was left was the whole apparatus for remembering *which* tab, wired to nothing: `KNOWN_TABS`, `Tab`, `DEFAULT_TAB` and `Place.tab`; `bindPlace`'s loop over `button[data-tab]`, which matched no button; the `initialTab` it handed back, which nobody clicked. And every URL the tool wrote still carried `?tab=wave`, a parameter naming a thing that does not exist.
