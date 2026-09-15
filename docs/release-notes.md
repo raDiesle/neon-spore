@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 244ccb37 — The PLAY item reads as free again, and the trap that re-marked it is queued
+
+`bun run queue release` takes the `Taken:` line off `main` directly, and the lane that released this item was holding its own copy of `docs/queue.md` — so the landing rebased over the release and put the line back. The claim branch is gone, the line is now gone too, and `queue status` says the item is free.
+
 ## 2026-09-15 · bc3a3b7d — The PLAY page is a list of the people this device has played with
 
 The owner asked for it on 14 September 2026, which is the first exemption under "a look is offered, never replaced": a look he asked for by name. The page was CONTINUE, DIFFICULTY, REJOIN and OPEN A ROOM. It is now one row per partner — CONTINUE GAME WITH DAVID - WAVE 7 — with NEW GAME under them. REJOIN is gone: it was one row for the most recent partner, which is what this list is four of.
