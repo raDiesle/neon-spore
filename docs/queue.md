@@ -179,7 +179,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A rebase puts back a `Taken:` line that `queue release` has just removed
 
 - **Found:** 2026-09-15, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-15, claude/queue-a-rebase-puts-back-a-taken-line-that-queue-relea
 - **Files:** `tools/queue/claim.ts`, `tools/queue/run.ts`, `tools/queue/test/taken.test.ts`, `docs/queue.md`
 
 A command that failed and was worked around. `bun run queue take` and
