@@ -726,6 +726,7 @@ what the rest of this file holds.
 ## Unverified at a2d84afd: Two phones in one room stepping through the new room sc…
 
 - **Found:** 2026-09-15, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-15, claude/queue-unverified-at-a2d84afd-two-phones-in-one-room-st
 - **Files:** `apps/game/index.html`, `apps/game/src/game.css`, `apps/game/src/join-link.ts`, `apps/game/src/join-name.ts`, `apps/game/src/join-step-view.ts`, `apps/game/src/join-steps.ts`, `apps/game/src/join.ts`, `apps/game/src/shell.ts`
 
 *The room screen is four steps, and a step asks one thing* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
