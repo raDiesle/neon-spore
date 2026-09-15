@@ -1,6 +1,12 @@
 import { describe, expect, it } from "bun:test";
 import { partnerRow } from "../../../apps/game/src/menu-link.js";
-import { CREATOR_TRAIL, JOINER_COMMIT, JOINER_TRAIL, partnerTrail } from "../room-shot.js";
+import {
+  CREATOR_TRAIL,
+  JOINER_COMMIT,
+  JOINER_TRAIL,
+  partnerTrail,
+  thenWave,
+} from "../room-shot.js";
 
 /**
  * **The two walks, against the buttons that are really on the screen.**
@@ -47,5 +53,20 @@ describe("the trails room-shot presses", () => {
       "PLAY",
       partnerRow({ name: "ben", furthest: 0, level: "medium" }),
     ]);
+  });
+});
+
+describe("--then-wave", () => {
+  it("is the wave a person reads, so the row it checks says the number asked for", () => {
+    // The world counts waves from 0 and a row says one more (`partnerRow`).
+    // `--partners "David:7"` already decided which of the two a flag means.
+    expect(thenWave(["out", "--then-wave", "3"])).toBe(3);
+    expect(thenWave(["out"])).toBeNull();
+  });
+
+  it("refuses a wave that is not one, rather than jumping to NaN", () => {
+    expect(() => thenWave(["out", "--then-wave", "soon"])).toThrow(/a wave is 1 or more/);
+    expect(() => thenWave(["out", "--then-wave", "0"])).toThrow(/a wave is 1 or more/);
+    expect(() => thenWave(["out", "--then-wave"])).toThrow(/a wave is 1 or more/);
   });
 });

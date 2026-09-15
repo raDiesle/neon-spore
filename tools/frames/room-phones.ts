@@ -1,4 +1,6 @@
 import type { Browser, Page } from "playwright-core";
+import { PAIRS_KEY } from "../../apps/game/src/pairing.js";
+import type { Partner } from "../../apps/game/src/partners.js";
 import type { MenuDevice } from "./menu-device.js";
 import { press } from "./menu-press.js";
 import { arrivalStamps, type Played } from "./menu-stamps.js";
@@ -90,6 +92,58 @@ export async function holdReady(page: Page): Promise<void> {
   await page.waitForTimeout(600);
   await page.mouse.up();
   await page.waitForTimeout(300);
+}
+
+/**
+ * Wait until this phone is playing: `window.neonSpore` is installed with the
+ * first frame, and its `world` is the run itself (`apps/game/src/handle.ts`).
+ *
+ * The wait, rather than a pause, because beat zero is the *pair's*: the second
+ * READY is what stamps it and the answer comes back off the relay.
+ */
+export async function onTheField(page: Page): Promise<void> {
+  await page.waitForFunction(
+    () => (window as unknown as { neonSpore?: { world?: unknown } }).neonSpore?.world !== undefined,
+    undefined,
+    { timeout: 30_000 },
+  );
+}
+
+/**
+ * Put this phone on a wave, in `world.wave`'s own numbering from 0.
+ *
+ * The handle's own verb, which opens the wave the way the game opens one — so
+ * what is written down afterwards is what a pair who played there would have
+ * written down (`apps/game/src/waves.ts` `jumpToWave`, `reachedWith`).
+ */
+export async function jumpToWave(page: Page, wave: number): Promise<void> {
+  await page.evaluate((w: number) => {
+    (window as unknown as { neonSpore: { jumpToWave(n: number): void } }).neonSpore.jumpToWave(w);
+  }, wave);
+}
+
+/** Who this phone remembers having played with, as it has them down. */
+export async function partnersOn(page: Page): Promise<Partner[]> {
+  const held = await page.evaluate((key: string) => localStorage.getItem(key), PAIRS_KEY);
+  const parsed: unknown = JSON.parse(held ?? "[]");
+  return Array.isArray(parsed) ? (parsed as Partner[]) : [];
+}
+
+/**
+ * A second tab of this phone's own context, on the menu.
+ *
+ * **A tab and not a reload**, and that is the whole reason this verb exists:
+ * `openPhone` seeds the storage through `addInitScript`, which is the *page's*
+ * and runs again on every navigation that page makes — so a reload puts the
+ * partners back as the camera arrived with them and throws away what the run
+ * just wrote. A new page of the same context shares the storage and carries no
+ * init script, which is a phone put down and picked up again.
+ */
+export async function freshTab(page: Page, url: string): Promise<Page> {
+  const next = await page.context().newPage();
+  await next.goto(url, { waitUntil: "load" });
+  await next.waitForSelector("#menu.on", { timeout: 30_000 });
+  return next;
 }
 
 /** Press each label in turn on whichever page is up, and fail loudly on the

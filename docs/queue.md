@@ -688,24 +688,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `room-shot` stops at THE ROOM: the wave against the other seat has no rig
-
-- **Found:** 2026-09-15, claude/queued-tasks-f45f36
-- **Taken:** 2026-09-15, claude/queue-room-shot-stops-at-the-room-the-wave-against-the
-- **Files:** `tools/frames/room-shot.ts`, `tools/frames/room-phones.ts`, `tools/frames/test/room-shot.test.ts`, `docs/commands.md`
-
-`room-shot` walks two phones to THE ROOM and stops. The other half of the entry
-it closed — both press START, one phone reaches a wave, and its partner record
-says `furthest` for the person in the other seat — was proved by a throwaway
-probe (`tools/probe/scratch/pair-wave.ts`, git-ignored): press START on both,
-wait for `neonSpore.world` on both, `neonSpore.jumpToWave(2)` on one, read
-`neon-spore.pairs` on it, open a fresh tab of the same context (a reload
-re-runs `openPhone`'s init script and re-seeds the list) and read the PLAY
-rows. Add it as `--then-wave <n>` to `room-shot`: after the seat check, START
-on both, the jump on the creator, and a line saying what the creator's row now
-reads, with a throw when the other name is not at `n`. `room-phones.ts` gets
-the fresh-tab verb. A case in `room-shot.test.ts` for the flag's parsing.
-
 ## A game's tempo is fixed once it is made; NEW GAME is the way to another
 
 - **Found:** 2026-09-15, claude/queued-tasks-2-f45f36

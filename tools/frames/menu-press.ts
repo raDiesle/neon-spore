@@ -69,3 +69,18 @@ export async function press(page: Page, label: string): Promise<string[] | null>
     }
   }, label);
 }
+
+/**
+ * A word no button can be called, so that `press` finds none of them.
+ *
+ * `shownOn` is the whole reason it exists: the rule for *which page is open*
+ * is subtle enough that a second copy of it would be the thing that goes
+ * stale, and `press` already answers "what is on the page" — it is what comes
+ * back when nothing matched.
+ */
+const NO_BUTTON = "\u0000";
+
+/** Every button a person could press on the open page, in order, pressed none. */
+export async function shownOn(page: Page): Promise<string[]> {
+  return (await press(page, NO_BUTTON)) ?? [];
+}

@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — `room-shot --then-wave` carries both phones past the room
+
+The queue's *`room-shot` stops at THE ROOM: the wave against the other seat
+has no rig*. The walk three sessions wrote as a throwaway is a flag: both
+phones hold READY, the creator jumps to the wave, and its PLAY page — read
+out of a second tab of the same context — says the partner's row at that wave.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the entry, the tool, `room-phones.ts`, and the two numberings a wave has between `jumpToWave`, `reachedWith` and `partnerRow` |
+| writing | 30 | four phone verbs, the flag and its parse, the walk, two cases |
+| looking | 10 | one full run with a wrangler, a preview and two phones |
+| friction | 5 | `bun run format` leaves the import sort alone on purpose and `lint` still asks for it — `bun run imports:sort` is the command, and it is in `docs/commands.md` where it was not looked for |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was which number a wave is. `jumpToWave` counts from 0 with
+`world.wave`, a partner's record keeps that same 0, and the row a person reads
+says one more — so a flag can be right in three ways and wrong for the reader.
+`menu-stamps.ts` had already settled it for `--partners`, in a comment written
+by somebody who had made the mistake: a flag takes the number on the screen.
+
 ## 2026-09-15 — queued-tasks — `room.ts` keeps the sockets and nothing else
 
 The queue's *`room.ts` is at the line limit again, and `route`'s acts are the
