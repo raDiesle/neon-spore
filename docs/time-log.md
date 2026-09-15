@@ -5975,3 +5975,21 @@ order, the boss ideas cut, and the BOSSES page taken off once it lands.
 The bottleneck was reading: knowing that a suck is already a shipped
 control, and which files feed the tab he wants gone, is what makes the entry
 one a cold session can drain.
+
+## 2026-09-15 — bosses-splice-wave — seven more entries for the queue
+
+The MECHANICS page cut to four ideas, and the four written up as work with
+the owner's answers: destruction in VERSUS, the Mine, Moulting his way, the
+Husk his way; then THE WEIGHT's duty words and a contents menu for the long
+director pages.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | what the MECHANICS page draws and hides, the three ideas' text, how pods, the wisp, the lure and the duty word work |
+| writing | 20 | seven entries, with the seven answers he gave through the question tool |
+| looking | 0 | nothing drawn |
+| friction | 10 | a heredoc the shell refused, worked around through a file; two titles over eighty characters |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was reading: each of the four ideas had to be checked against
+what already ships before its entry could name the shipped path it rides.

@@ -447,3 +447,188 @@ what only fed this tab goes with it. The remaining `### Rounds` ideas stay in
 Prove each landing with `bun run check`; the first also with the wave
 watched at tempo on both seats through a right feed, a wrong feed and a
 round's count running out, and one PNG of a number mid-straw.
+
+## The MECHANICS page keeps four ideas and loses the rest of its four groups
+
+- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Files:** `tools/director/src/backlog.ts`, `tools/director/src/backlog-page.ts`, `tools/director/index.html`, `docs/spec/ideas.md`, `docs/spec/systems.md`, `docs/spec/couplings.md`, `docs/spec/assists.md`
+
+The owner asked, 15 September 2026, whether NOT BUILT YET → MECHANICS
+documents what is not built or also what is done. The answer is *both*:
+`fromConcepts` in `backlog.ts` hides a section whose heading claims **built**
+and shows every **partly built** one, so COUPLINGS, ASSIST FORMS and SYSTEMS
+each carry things half in the game. The built halves are already readable
+under DOCUMENTATION → SPEC, which is where he wants them read.
+
+So cut the page down to the four ideas that have queue entries of their own
+below — **Destruction and damage** (SYSTEMS 5.6), **Mine**, **Moulting** and
+**Husk** (CREATURE IDEAS) — and remove everything else from **CREATURE
+IDEAS**, **SYSTEMS**, **ASSIST FORMS** and **COUPLINGS**: the COUPLINGS and
+ASSIST FORMS groups go entirely (their `fromConcepts` calls and whatever in
+`index.html` frames them), SYSTEMS is filtered to 5.6, CREATURE IDEAS to
+those three. The text stays where it is in `docs/spec/`; only the page stops
+drawing it. MECHANIC IDEAS, CONTROL IDEAS, WEAPON IDEAS and DEFERRED were
+not named and stay. When one of the four lands, its lane removes it here.
+
+Prove it with `bun run check` and the director's MECHANICS tab opened once.
+
+## Destruction and damage: the three unbuilt pieces, offered in VERSUS
+
+- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Files:** `packages/render/src/shatter.ts`, `packages/render/src/shatter-fall.ts`, `packages/render/src/debris.ts`, `packages/render/src/craters.ts`, `packages/render/src/effects-break.ts`, `tools/versus/candidates/registry.ts`, `tools/versus/README.md`, `docs/spec/systems.md`, `docs/decisions.md`
+
+The owner took the *Destruction and damage* idea (`systems.md` 5.6) on
+15 September 2026 and asked for its missing pieces as VERSUS candidates:
+**polygon clipping, splinters, debris**. That page still says all three are
+not built and the algorithm is "chosen but unimplemented", which is stale —
+`shatter.ts` cuts a contour into pieces that tile it exactly, `shatter-fall.ts`
+throws one and `debris.ts` owns the live ones — so the lane is (1) build, in
+`tools/versus/candidates/`, one slot per piece against what the field draws
+today, and (2) rewrite 5.6's *Built / Not built* to what is true.
+
+The three, as the design words them: **a hit cuts a real piece out of the
+creature** — the body keeps falling with the notch missing, the broken edge
+glowing briefly; **three to six splinters** fly off that edge; **a destroyed
+creature leaves drifting debris**, within the design's limits of ~40
+splinters and 12 pieces of debris at once. Use the fracture engine and the
+break bench (`.claude/skills/destruction`), never a new particle system, and
+draw each candidate on a body that is being hit. Decided by the owner in
+chat, one slot at a time, as `docs/versus.md` says.
+
+Prove it with `bun run check` and one PNG per candidate at its loudest frame.
+
+## The Mine is an enemy, with its seeing seat set on the brush
+
+- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Files:** `packages/sim/src/wisp.ts`, `packages/sim/src/beatbox.ts`, `packages/sim/src/command-types.ts`, `packages/sim/src/config.ts`, `packages/content/src/creatures.ts`, `packages/render/src/coord-grid.ts`, `packages/render/test/frame.test.ts`, `tools/director/src/brush-cards.ts`, `tools/shape-sheet/src/drafts/mine.ts`, `docs/spec/ideas.md`, `docs/spec/bestiary.md`
+
+The Mine — `ideas.md`, Creatures, designed 12 September 2026 — becomes a
+creature, asked for by the owner on 15 September. `.claude/skills/new-creature`
+is the procedure. The design there stands: a body that appears on a tile
+and never moves; one seat sees it and the other, looking at an empty tile,
+taps it with the field thumb (`command-types.ts` `tap`, the one THE BEATBOX
+uses); a tap on one of the four neighbouring tiles is a hull hit in its
+colour; a tap farther away takes a beat off the fuse; the fuse is six beats
+(a `SimConfig` field), shown on both screens, and going off is a hull hit
+and the body gone. Rows two to twelve, never the hull row, never beside
+another mine.
+
+Decided on 15 September through the question tool:
+
+- **The exact tap kills it outright**, with a kill look of its own.
+- **No marks around it** — the seeing seat infers the four tiles from the
+  body; the shape (CALTROP's four points, `drafts/mine.ts`) says it. CALTROP
+  was lent to THE LEECH (`silhouettes-cling.ts`) and that creature is only a
+  pencil now, so the shape is free; check before taking it.
+- **Each mine runs its own fuse** from the beat it appeared.
+- **Which seat sees it is a brush setting**, not a rule: a field on the
+  entry the director's brush card edits (`brush-cards.ts`), so a wave can
+  give the sight to player 1 and the blind tap to player 2 or the other way
+  round. Today's wisp fixes that in code (`wisp.ts`); the mine must not.
+- **The lettered grid comes on for both seats** while a mine is on the field,
+  exactly as `coord-grid.ts` does for a wisp.
+
+Never on a wave with THE BEATBOX — a director guard, since both read the
+same tap. Drawn again in `frame.test.ts` on both seats. Its row goes into
+`bestiary.md` and its entry leaves `ideas.md` when it lands.
+
+Prove it with `bun run check`, a replay test in the creature's own file, and
+the wave watched at tempo through a right tap, a neighbour tap and a fuse
+running out.
+
+## Moulting, his way: meteor and pod by turns, and player 2 sees what is next
+
+- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Files:** `packages/sim/src/pods.ts`, `packages/sim/src/pod-types.ts`, `packages/sim/src/wave-fail.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/config.ts`, `packages/content/src/creatures.ts`, `packages/render/src/pods.ts`, `packages/render/src/craters.ts`, `packages/render/test/frame.test.ts`, `tools/director/src/brush-cards.ts`, `docs/spec/ideas.md`, `docs/spec/bestiary.md`
+
+The owner redesigned *Moulting* (`ideas.md`, Creatures) on 15 September 2026
+and asked for it built this way, which replaces the shell-and-soft-body
+design there. A falling body that **changes form every five beats** (a
+`SimConfig` field), alternating between **the meteor** and **a pod** — purge
+or ward, **authored per wave** like every pod, never drawn at random.
+**Both seats see its current form; player 2 (the navigator) also sees the
+next one**, drawn as a small ghost of the coming form beside the body. The
+call is the timing: "pod in two beats — open".
+
+**Nothing kills it.** In meteor form a shot craters it as `bullet-hit.ts`
+craters the meteor (`holes`, `maxHoles`); in pod form a shot is wasted. What
+it *is* on the beat it reaches the ship decides: as a meteor it is shielded
+or it is a hull hit, as the meteor is; as a pod it must be sucked into the
+maw, and one that is not is a hit **and the wave is lost** — the shipped pod
+rule in `wave-fail.ts`, nothing new. It sinks the last stretch toward the
+cannon's column the way a freed pod does, so the catch is the same catch.
+
+Build it through `.claude/skills/new-creature` on the shipped movement and
+resolution paths — the meteor's fall and craters, the pod's catch — with no
+physics of its own. The two looks are the two the game already draws, and
+the moult between them is a morph of the two contours, blended vertex by
+vertex, as the Bulb Queen's mark does. A brush in the director with the pod
+kind on it. Drawn again in `frame.test.ts` on both seats, mid-moult.
+
+Prove it with `bun run check`, a replay test, and the wave watched at tempo
+through a shielded meteor, a caught pod and a missed one.
+
+## The Husk, his way: a fake pod player 2 sees through, deflating when refused
+
+- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Files:** `packages/sim/src/pods.ts`, `packages/sim/src/pod-types.ts`, `packages/sim/src/wave-fail.ts`, `packages/sim/src/bullet-hit-lure.ts`, `packages/content/src/wave-types.ts`, `packages/render/src/pods.ts`, `packages/render/test/frame.test.ts`, `packages/audio/src/catalogue.ts`, `tools/director/src/brush-cards.ts`, `docs/spec/ideas.md`
+
+The owner redesigned the *Husk* (`ideas.md`, Creatures) on 15 September
+2026: it is a lure among pods. A third `PodKind` in `pod-types.ts` that
+**hangs at a column and row like a pod and looks like one** — purge or ward
+on player 1's screen, taut, its core beating. **Player 2 (the navigator)
+sees that it is a fake** — the lie is drawn on that seat only, the way
+`bullet-hit-lure.ts` gives the lure's truth to one seat — and has to stop
+it being taken: say so before it is shot loose, or have the maw kept shut
+when it arrives.
+
+- **Freed like a pod** — a shot knocks it loose and it sinks to the maw.
+- **Sucked in, the wave is lost**, as it is for a lure that is hit.
+- **Refused — the maw shut when it reaches the ship — it goes the way of a
+  balloon let go**: it does not break on the skin, it shrinks and shrinks,
+  flying about the hull as the air leaves it, with a funny sound in the
+  catalogue (`packages/audio/src/catalogue.ts`), and is gone. No damage.
+- Never shot loose, it hangs; it never holds the wave open (`beat.ts`
+  counts real pods only) and never blocks its end.
+
+The deflation is the destruction skill's business (`.claude/skills/destruction`)
+and the balloon's own fall is the nearest shipped motion — reuse it. Authored
+on the wave's `pods` list (`wave-types.ts` `PodEntry`) with the kind it
+pretends to be, and a brush in the director. Drawn again in `frame.test.ts`
+on both seats and mid-deflation.
+
+Prove it with `bun run check`, a replay test, and the wave watched at tempo
+through a husk sucked and a husk refused.
+
+## THE WEIGHT's duty words say both touch at the same time
+
+- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Files:** `packages/render/src/duty.ts`, `packages/render/test/frame.test.ts`
+
+THE WEIGHT is in the game — `sim/weight.ts`, the brush, and the wave
+`THE WEIGHT` in `packages/content/src/waves/act-8.ts` — but the owner read
+the words the siren writes under itself and found they do not say the
+mechanic. `duty.ts` gives it `p1: "CALL THE BEAT"`, `p2: "PRESS ON THEIRS"`;
+neither says that it takes **both hands at the same moment**. He suggests
+*both to touch at the same time*, on 15 September 2026 — so one line for
+both seats, in that sense, in the duty word's own register (short, upper
+case, the width the siren has). A look asked for by name; it lands. Check
+the frame the word appears in, in `frame.test.ts`, and re-read it.
+
+Prove it with `bun run check` and one PNG of the siren lit with the word.
+
+## A contents menu on the long director pages, each heading a jump
+
+- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Files:** `tools/director/index.html`, `tools/director/src/tabs.ts`, `tools/director/src/backlog-page.ts`, `tools/director/src/whole-doc.ts`, `tools/director/src/documentation-rooms.ts`
+
+The owner, 15 September 2026: on the bigger pages — NOT BUILT YET and
+DOCUMENTATION are the two he named — a **contents menu** that lists what
+the page contains, and a click on an item jumps to it on the page. Built
+from the headings the page already draws (each `BacklogGroup`'s title, each
+`##` of a document under DOCUMENTATION) rather than a second list kept by
+hand, so it cannot go stale; one component, mounted on any sheet page past a
+screen or two tall, in the shipped panel look, wired the way `tabs.ts` wires
+a tab. Plain words on it, and it says where on the page the item is.
+
+Prove it with `bun run check` and one PNG of the menu open on MECHANICS.
