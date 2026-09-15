@@ -708,6 +708,7 @@ the fresh-tab verb. A case in `room-shot.test.ts` for the flag's parsing.
 ## `room.ts` is at the line limit again, and `route`'s acts are the piece to move
 
 - **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
+- **Taken:** 2026-09-15, claude/queue-room-ts-is-at-the-line-limit-again-and-route-s-a
 - **Files:** `apps/server/src/room.ts`, `apps/server/src/room-route.ts`, `apps/server/src/room-seat.ts`
 
 Landing the seat swap put `room.ts` at exactly 250 lines after two trims —
