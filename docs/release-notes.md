@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 86edd8a8 — `room-shot --via partners`: two phones in by the other's row, and the wave written against the other seat
+
+The last unverified entry from the PLAY-as-partners landing, opened against a real Durable Object, and both halves hold. Two phones each remembering the other press CONTINUE GAME WITH and land in one room — LUY4 on both, under THE ROOM, pills YOU/BEN and ADA/YOU — so `roomForPair` derives the same code apart. Both press START, the wave opens on both, and the creator jumped to wave 3 writes BEN at `furthest: 2`; a fresh tab of that phone says CONTINUE GAME WITH BEN · WAVE 3. The first walk is `room-shot --via partners`; the second was a throwaway probe, and a rig for it is queued.
+
 ## 2026-09-15 · 597596af — `room-shot`: two phones through the room screen, and the two entries it closes
 
 Two `Unverified` entries wanted two phones in one room, and both are now answered by running them against a real Durable Object rather than against a socket a test speaks through.
