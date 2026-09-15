@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — THE LEECH and THE LIMPET, the simulation half
+
+The queue's two entries for the clingers, which ask for the bodies to move under
+the malfunction brush the lane before this one built. The rule landed; the
+picture did not, and both entries stay open with what is left in `docs/parked.md`.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `cling.ts`, the siren's own word table, and the six points the owner wrote |
+| writing | 55 | `harpoon.ts`, the two kinds, four world fields, and seven cases |
+| looking | 0 | — nothing drawn yet |
+| friction | 30 | twenty-five red tests from one cause, and two edges the first draft got wrong |
+| landing | 15 | `bun run index`, `check:fast`, the parked note, the commit |
+
+The bottleneck was friction and it was all one mistake made twice: the same two
+bodies arrive two ways now, and the first draft let both steppers act on both.
+The creature's fuse ran under the fault's count, a fault reeled in a body a wave
+had spawned, and a spent placement fired a fresh one the next tick. An id on the
+world saying *which body this fault fired* settled all three, and it is the thing
+I should have written first — the moment a second way to make something exists,
+the question *whose is this one* has an answer that has to be stored.
+
 ## 2026-09-15 — queued-tasks — a malfunction is a pencil on the map
 
 The queue's *A malfunction is a pencil on the map, with a beat it starts and one

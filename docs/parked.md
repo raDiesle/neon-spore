@@ -55,3 +55,51 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
+
+## THE LEECH and THE LIMPET are malfunctions in the simulation and nowhere else
+
+- **Found:** 2026-09-15, claude/queued-tasks-51d8f9
+- **Files:** `packages/sim/src/harpoon.ts`, `packages/sim/src/cling.ts`, `packages/content/src/creatures-cling.ts`, `packages/content/src/waves/act-9.ts`, `packages/render/src/cling.ts`, `packages/render/src/cling-fuse.ts`, `packages/render/src/duty.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/codex.ts`, `packages/render/src/hull-mood.ts`, `packages/render/src/fault-emitter.ts`, `tools/director/src/brushes.ts`, `docs/spec/bestiary.md`
+
+The queue's two entries for these creatures, half done. **The simulation half
+has landed and is proved** (`harpoon.ts`, `test/harpoon.test.ts`): both are
+`MalfunctionKind`s placed on the map, the fault fires the body onto its control
+already stuck, watches the control every *tick* against
+`cfg.harpoonStillBeats` (1.5, one field for both, the owner's own
+instruction), loses the round when it stands still, and reels the body in when
+the placement runs out. A placement is one harpoon and stays spent once it has
+gone off. The same two bodies still arrive as creatures too, and the two
+steppers ignore each other by id.
+
+**What is left is the picture, and none of it is started.** Points 1, 2, 4 and
+6 of the owner's list:
+
+- the harpoon **fired** from the emitter and the **reel** back to it when the
+  placement ends (`fault-emitter.ts`; the events `clingGrip` and `clingFreed`
+  are already pushed at both moments);
+- **MOVE CANNON!** / **MOVE SHIELD!** under the siren, on the seat *without*
+  the control — `duty.ts`'s table is keyed by `CreatureKind` and needs a
+  branch that reads the faults in force;
+- the **code above the body** the way a codex is written (`codex.ts`) and the
+  **radar square** round it (`radar-blip.ts`), with the word above the square;
+- the **timer** above it, which is the placement's own remaining beats;
+- the control's **glow growing toward a dangerous colour**, off
+  `harpoonDangerMilli`, restarting on every move — from the seat's own
+  `HullSkin` and never `PALETTE` (`hull-mood.ts`, `cannon-maw.ts`).
+
+**And two decisions nobody has taken.** First, whether the creature half goes
+at all: the entries say the body *moves* under the malfunction brush, which
+would mean `installed: true` on both kinds, no palette brush, waves 57 and 58
+placing the fault, and the fall and `limpetShakeMoves` written up under NOT
+BUILT YET. Nothing here has done that, and the game still plays both waves the
+old way — so the two arrivals coexist, which is a coherent state to stop in but
+not the one the entry asks for.
+
+Second, **the entry's point 4 has no implementation as written.** *It is
+invulnerable, and visibly so — a shot at it does not go through; it is
+deflected the way the plate under a magnet turns a shot away.* Both bodies sit
+on the hull, under the muzzle, and bolts travel upward: no shot in this game
+can reach either of them. Either a bolt fired from a cannon carrying a leech is
+turned back off it — which makes the cannon dead and contradicts the rest of
+the entry — or the harpoon **line** from the emitter is what a crossing bolt
+bounces off. Ask before building either.

@@ -191,7 +191,7 @@ export function mechanicOn(cfg: SimConfig, id: MechanicId): boolean {
  * those rules here would be a second reading that drifts. The column count
  * given to it is the authored one, since nothing here asks *where*.
  */
-export function faultMechanic(m: { kind: MalfunctionKind }): WaveMechanicId {
+export function faultMechanic(m: { kind: MalfunctionKind }): MechanicId {
   return FAULT_MECHANIC[m.kind];
 }
 

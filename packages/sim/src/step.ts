@@ -14,6 +14,7 @@ import { crankHeard } from "./crank.js";
 import { fleetHeard } from "./fleet.js";
 import { dropLostGrips } from "./grip.js";
 import { gripPushHeard } from "./grip-push.js";
+import { stepHarpoons } from "./harpoon.js";
 import { stepBeam } from "./lance.js";
 import { releaseLance } from "./lance-burn.js";
 import { lidHeard, stepLidPulls } from "./lid.js";
@@ -164,6 +165,12 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     // both of these doors to a thumb (`malfunction.ts`).
     stepMalfunction(world);
   }
+  // **The two harpoons, on the tick and not on the beat**, which is the whole
+  // of why they are here rather than inside `stepMalfunction` above: a control
+  // that has not moved for a beat and a half has to be judged between beats,
+  // and a rule that only looked on the beat would hand the pair two whole
+  // beats of grace on a count of one and a half (`harpoon.ts`).
+  stepHarpoons(world);
   // **Every soundbox whose run has stopped, judged on the tick rather than on
   // the beat.** A run that skipped a beat is over the moment that beat's
   // window shuts, a fifth of a second past the boundary, and the owner's

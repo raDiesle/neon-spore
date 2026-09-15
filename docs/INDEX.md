@@ -299,6 +299,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/fence-crack.ts` |  |
 | `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
 | `packages/sim/src/handover.ts` | **THE HANDOVER's clock, and nothing else**: when the two panels change screens, how long they stay changed, and how many beats of warning first — no state, nothing hashed, no command swallowed |
+| `packages/sim/src/harpoon.ts` | **THE LEECH and THE LIMPET as malfunctions** |
 | `packages/sim/src/coil-state.ts` | **What a coil is right now**: which way it is going, whether it is still wearing its dome |
 | `packages/sim/src/config-rock-cross.ts` | **A crossing rock's two numbers**: how far along its row it goes each beat |
 | `packages/sim/src/rock-cross.ts` | **A rock authored to cross the field instead of holding its lane** |

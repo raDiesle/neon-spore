@@ -28,6 +28,7 @@ export const BALLOON_FIELDS = {
   gumSwipeMilli: "THE GUM — a drop either hand swipes out of the field",
   gumFlingCols: "THE GUM — a drop either hand swipes out of the field",
   // And the clingers' four: a body on a control, shaken off by moving it.
+  harpoonStillBeats: "THE LIMPET — a body on the plate that goes off if the plate stands still",
   limpetStillBeats: "THE LIMPET — a body on the plate that goes off if the plate stands still",
   limpetShakeMoves: "THE LIMPET — a body on the plate that goes off if the plate stands still",
   leechStillBeats: "THE LEECH — a body on the cannon that goes off if the cannon stands still",

@@ -166,6 +166,18 @@ directly, `"suck"`, after what taking one in is called throughout the sim
 | **Leech** | CALTROP in the same arc-blue, four needles off a round body, falling straight down one lane; on the cannon's swelling with the needles driven in once it has landed | THE LIMPET's twin on the cannon: the fuse runs `leechStillBeats` beats while the cannon stands in one column, a beat in a new column puts it back, `leechShakeMoves` of those and it comes off, and at the end of the fuse a heavy hit on the hull at the cannon's column. Only player 2, who has no cannon, is shown the fuse |
 | **Pod** | capsule with a blinking core | power-up |
 
+**THE LIMPET and THE LEECH arrive twice over**, and the two rows above describe
+the older half. As creatures they fall down a lane and are answered by moving
+the control enough times to shake them off. As **malfunctions** — the owner's
+ask of 14 September 2026, `harpoon.ts` — the same two bodies are *fired* at the
+same two controls from the emitter at the top of the field, on a beat row a
+pencil is laid across, and neither can be shaken off at all: the count is
+`harpoonStillBeats`, a beat and a half rather than five, and the only two ways
+it ends are the control standing still (the round is lost) or the placement
+running out, at which point the line is reeled in and the body goes home with
+it. The seat without the control is the one that can see the count, on both
+halves; the word is *move*.
+
 Built: slick, bulb, meteor, lure, throb, dart, veil, strand, torch, crystal, gum, countdown, limpet, leech.
 
 The thirteenth was **Glyph** — a pattern across its skin, looked up in a

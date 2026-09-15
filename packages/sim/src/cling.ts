@@ -120,6 +120,12 @@ export function clingLands(world: World, c: Creature, shipRow: number): void {
 export function stepClingers(world: World): void {
   for (const c of [...world.creatures]) {
     if (!isClingKind(c.kind) || c.clingStuck !== true) continue;
+    // **Not one a fault fired.** The same two bodies arrive twice over since 15
+    // September 2026 — down a lane as a creature, and harpooned from the
+    // emitter as a malfunction — and the second kind is watched every tick on
+    // a count of its own, with no fuse and no shake (`harpoon.ts`). Both
+    // steppers on one body was fourteen tests' worth of wrong answer.
+    if (c.id === world.leechHarpoonId || c.id === world.limpetHarpoonId) continue;
     const kind = c.kind;
     const at = clingControlCol(world, kind);
     const moved = at !== (c.clingLastCol ?? at);

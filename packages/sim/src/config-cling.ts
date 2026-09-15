@@ -28,9 +28,24 @@ export interface ClingConfig {
   leechStillBeats: number;
   /** THE LEECH's shake, on the cannon: the limpet's. */
   leechShakeMoves: number;
+
+  /**
+   * **Beats a control may stand still with a harpoon on it before the round is
+   * lost** — the cannon under a leech, the plate under a limpet, one number for
+   * both because the owner asked for exactly that: *the same `SimConfig` field,
+   * not a second literal*.
+   *
+   * One and a half, which is his own figure and is much shorter than the five
+   * beats the creature's fuse was. That is the point of it: the creature was a
+   * thing to notice and answer, and this is a thing to *keep* answering — at a
+   * beat and a half the pair never stops sliding, and the seat that can see the
+   * count spends the wave saying so.
+   */
+  harpoonStillBeats: number;
 }
 
 export const CLING_DEFAULTS: ClingConfig = {
+  harpoonStillBeats: 1.5,
   limpetStillBeats: 5,
   limpetShakeMoves: 8,
   leechStillBeats: 5,

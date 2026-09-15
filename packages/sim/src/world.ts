@@ -68,6 +68,28 @@ export interface World extends ShipState {
   faults: PlacedFault[];
 
   /**
+   * Ticks the cannon has stood still with a leech on it, and the plate with a
+   * limpet — nought while neither is there and nought again on every move.
+   *
+   * Two fields rather than a record, for `guardTick`'s reason: the world's own
+   * counters are numbers with names, and a map keyed by a union is a second
+   * thing to keep in step with that union. Ticks and not beats because the
+   * count is a beat and a half (`harpoon.ts`).
+   */
+  leechStillTicks: number;
+  limpetStillTicks: number;
+
+  /**
+   * The id of the body each harpoon fault has out, or `NO_HARPOON`.
+   *
+   * By id, because the same two bodies still arrive as creatures on the waves
+   * that spawn them: a fault that reeled in whatever it found of the right
+   * kind would take away one a wave had placed (`harpoon.ts`).
+   */
+  leechHarpoonId: number;
+  limpetHarpoonId: number;
+
+  /**
    * Whether **holding** a colour fills the cannon lobe on this wave's panel.
    *
    * The panel's fact, not the wave's, and the sim is told it the way it is
@@ -141,6 +163,10 @@ export function createWorld(
     nextId: 1,
     ...newShipState(cfg),
     faults: [],
+    leechStillTicks: 0,
+    limpetStillTicks: 0,
+    leechHarpoonId: 0,
+    limpetHarpoonId: 0,
     hasLance: true,
     creatures: [],
     bullets: [],

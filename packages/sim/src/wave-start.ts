@@ -97,6 +97,12 @@ export function startWave(
   world.faults = faults;
   // And the panel's hold, read through `lanceLeaks` everywhere (`lance.ts`).
   world.hasLance = hasLance;
+  // And nothing standing still yet: a count carried across a wave would open
+  // the next one already half-way to a round lost (`harpoon.ts`).
+  world.leechStillTicks = 0;
+  world.limpetStillTicks = 0;
+  world.leechHarpoonId = 0;
+  world.limpetHarpoonId = 0;
   // The arm home and empty. A wave that inherited one halfway up a column
   // would open with a hand reaching for something the last wave had.
   world.reachDir = 0;

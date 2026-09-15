@@ -2,6 +2,7 @@ import { fire } from "./bullets.js";
 import { stepChoke } from "./choke.js";
 import { faultEvery, faultFiresThisBeat, faultStepIn } from "./fault-clock.js";
 import { faultsNow, type PlacedFault } from "./fault-placed.js";
+import { isHarpoonKind } from "./harpoon.js";
 import { armShield } from "./hull-guard.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
@@ -86,7 +87,21 @@ import type { World } from "./world.js";
  * nothing had taught. Nothing in this file acts on it any more and `lance.ts`
  * reads one field of the world.
  */
-export const MALFUNCTION_KINDS = ["cannon", "shield", "steer", "codex", "handover"] as const;
+export const MALFUNCTION_KINDS = [
+  "cannon",
+  "shield",
+  "steer",
+  "codex",
+  "handover",
+  // **THE LEECH and THE LIMPET**, and they are the first two faults that put a
+  // *body* on the field. Everything above takes a control away or changes what
+  // it means; these two fire something at one and leave it there, and the
+  // answer is neither to aim the fault somewhere harmless nor to press
+  // differently but to **keep the control moving** (`harpoon.ts`). The owner
+  // asked for both by name on 14 September 2026.
+  "leech",
+  "limpet",
+] as const;
 export type MalfunctionKind = (typeof MALFUNCTION_KINDS)[number];
 
 /**
@@ -112,6 +127,8 @@ export type Malfunction =
   | { kind: "shield" }
   | { kind: "steer" }
   | { kind: "codex" }
+  | { kind: "leech" }
+  | { kind: "limpet" }
   /**
    * THE HANDOVER. It used to be the one fault an author wrote numbers on —
    * `at`, `beats` and `every`, because it was the only one that had ever
@@ -150,10 +167,12 @@ function eats(m: Malfunction, c: Command): boolean {
   // The strip, the swipe on the hull and the wire are all one door to the
   // cannon's column, and under THE CHOKE that door is shut.
   if (m.kind === "steer") return c.kind === "cannonCol";
-  // The last two swallow nothing at all, and in both that is the fault: every
-  // button works and answers the thumb, and what has changed is what it means
-  // (`codex.ts`) or whose screen it is on (`handover.ts`).
-  if (m.kind === "codex" || m.kind === "handover") return false;
+  // The last four swallow nothing at all, and in all four that is the fault:
+  // every button works and answers the thumb, and what has changed is what it
+  // means (`codex.ts`), whose screen it is on (`handover.ts`), or what standing
+  // still now costs (`harpoon.ts`). THE LEECH and THE LIMPET must not swallow
+  // the strip in particular: moving it is the whole answer to them.
+  if (m.kind === "codex" || m.kind === "handover" || isHarpoonKind(m.kind)) return false;
   return c.kind === "guard";
 }
 
@@ -191,11 +210,12 @@ export function stepMalfunction(world: World): void {
 
 /** One fault in force, on the beat. */
 function actOn(world: World, m: PlacedFault): void {
-  // The last two act on no beat of their own. THE CODEX does what it does at
-  // the moment a bolt meets a body and THE HANDOVER does it in render/ and in
-  // a host; whether either is doing it is a function of the wave rather than of
-  // state anybody steps (`codexSwapped`, `handedOver`).
-  if (m.kind === "codex" || m.kind === "handover") return;
+  // The last four act on no beat of their own. THE CODEX does what it does at
+  // the moment a bolt meets a body, THE HANDOVER does it in render/ and in a
+  // host, and the two harpoons are watched every *tick* rather than every beat
+  // — a count of a beat and a half cannot be judged on the beat
+  // (`stepHarpoons`).
+  if (m.kind === "codex" || m.kind === "handover" || isHarpoonKind(m.kind)) return;
   if (m.kind === "steer") {
     stepChoke(world);
     return;

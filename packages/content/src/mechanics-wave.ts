@@ -1,4 +1,5 @@
 import type { MalfunctionKind } from "@neon-spore/sim";
+import type { MechanicId } from "./mechanics.js";
 
 /**
  * **The six mechanics a wave turns on without putting a body on the field**,
@@ -45,10 +46,17 @@ export type WaveMechanicId =
 
 /**
  * Which row a fault is, by kind — a table rather than a chain, and `satisfies`
- * makes a sixth fault a build error here instead of one that quietly reads as a
- * steer. It earned that twice: THE LEAK was written in the simulation first and
- * this line is where the compiler asked for the rest of it, and it is where the
- * compiler asked again when the owner took THE LEAK back off the list.
+ * makes a new fault a build error here instead of one that quietly reads as a
+ * steer. It has earned that three times now: THE LEAK was written in the
+ * simulation first and this line is where the compiler asked for the rest of
+ * it, it asked again when the owner took THE LEAK back off the list, and it
+ * asked a third time when THE LEECH and THE LIMPET joined.
+ *
+ * **Those two point at a creature's row rather than a fault's**, and that is
+ * the whole of what moving them under the malfunction brush means: the body is
+ * the same body and the bestiary already says what it is
+ * (`creatures-cling.ts`). What changed is how it arrives, which is not a thing
+ * a mechanic row describes.
  */
 export const FAULT_MECHANIC = {
   cannon: "cannonFault",
@@ -56,7 +64,9 @@ export const FAULT_MECHANIC = {
   steer: "steerFault",
   codex: "codexFault",
   handover: "handoverFault",
-} as const satisfies Record<MalfunctionKind, WaveMechanicId>;
+  leech: "leech",
+  limpet: "limpet",
+} as const satisfies Record<MalfunctionKind, MechanicId>;
 
 export const WAVE_MECHANICS = {
   cannonFault: {

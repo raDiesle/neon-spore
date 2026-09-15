@@ -107,6 +107,13 @@ export function hashWorld(world: World): number {
   // and hashed like it: two devices that disagree about it disagree about
   // whether a column burns (`lance.ts`).
   push(world.hasLance ? 1 : 0);
+  // And how still each control has stood under a harpoon. Two devices that
+  // disagree about it are two devices one beat apart on losing the round
+  // (`harpoon.ts`).
+  push(world.leechStillTicks);
+  push(world.limpetStillTicks);
+  push(world.leechHarpoonId);
+  push(world.limpetHarpoonId);
   // The shot that has been pressed and has not left yet. In for the reason a
   // bullet is: two devices that disagree about whether a shot exists have
   // desynced, and a charge is a shot that exists everywhere except on the

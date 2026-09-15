@@ -2,6 +2,7 @@ import type { Wave, WaveFault } from "@neon-spore/content";
 import {
   DEFAULT_CONFIG,
   MALFUNCTION_COLORS,
+  MALFUNCTION_KINDS,
   type MalfunctionColor,
   type MalfunctionKind,
 } from "@neon-spore/sim";
@@ -55,6 +56,8 @@ const CHOICES = [
   ["steer", "STEER — the cannon walks itself, player 1 loses the strip"],
   ["codex", "CODEX — the two colours do each other's job and nothing says so"],
   ["handover", "HANDOVER — the two panels change screens for a window mid-wave"],
+  ["leech", "LEECH — a body on the cannon; keep the cannon moving or lose the round"],
+  ["limpet", "LIMPET — a body on the plate; keep the shield moving or lose the round"],
 ] as const;
 
 /**
@@ -80,6 +83,10 @@ const NOTE: Record<MalfunctionKind, string> = {
     "Both seats keep every button. While the key is over, a bolt fired red kills what cyan kills — and the bands that say which way round it is are drawn on the pilot's screen alone.",
   handover:
     "Both seats keep every button, and the two panels change screens: each phone draws and answers the other seat's half for the window below. Leave the three boxes empty and it plays the game's own numbers. Nobody changes seats on the wire, so a wave with a hand on the field — a grip, a pull, a tap — is the wrong wave for it.",
+  leech:
+    "A body is fired at the cannon and sticks there for as long as the pencil is long. Both seats keep every button; what is gone is standing still. A cannon that has not moved for harpoonStillBeats loses the round, and player 2 — who can see the count and cannot move it — is the one who has to keep saying so.",
+  limpet:
+    "The leech's wave with the seats swapped: the body is fired at the plate, the shield is what has to keep moving, and player 1 is the seat that can see the count and cannot move it.",
 };
 
 /**
@@ -158,9 +165,7 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
     // `leak` was here until 15 September 2026 and is a panel now, so it is
     // picked on the wave's control-set row rather than brushed on as a
     // fault: STANDARD 5 (`content/control-sets-table.ts`).
-    if (k !== "cannon" && k !== "shield" && k !== "steer" && k !== "codex" && k !== "handover") {
-      return undefined;
-    }
+    if (!(MALFUNCTION_KINDS as readonly string[]).includes(k)) return undefined;
     // An empty box is not a zero: it is the wave saying nothing, so the first
     // beat and the end of the wave stand (`content/wave-faults.ts`).
     //
@@ -174,7 +179,7 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
     const beats =
       whole(window[1]?.field.value ?? "") ?? (fresh ? DEFAULT_CONFIG.handoverHoldBeats : undefined);
     return {
-      kind: k,
+      kind: k as MalfunctionKind,
       ...(k === "cannon" ? { color: colour.field.value as MalfunctionColor } : {}),
       ...(at === undefined ? {} : { at }),
       ...(beats === undefined ? {} : { beats }),
