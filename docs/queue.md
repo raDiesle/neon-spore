@@ -534,6 +534,7 @@ weight and a cairn is seen to stop on it and never to reach the body above.
 ## THE LEAK is a rung of the standard ladder, not a malfunction
 
 - **Found:** 2026-09-14, claude/gum-swipe
+- **Taken:** 2026-09-15, claude/queue-the-leak-is-a-rung-of-the-standard-ladder-not-a
 - **Files:** `packages/content/src/control-sets-table.ts`, `packages/content/src/control-sets.ts`, `packages/content/src/control-sets-waves.ts`, `packages/content/src/waves/act-9.ts`, `packages/content/src/waves/*.ts`, `packages/content/src/mechanics-wave.ts`, `packages/content/src/wave-types.ts`, `packages/sim/src/malfunction.ts`, `packages/sim/src/lance.ts`, `packages/sim/src/wave-start.ts`, `packages/sim/src/world.ts`, `packages/sim/src/hash.ts`, `packages/render/src/fault-beam-ends.ts`, `packages/render/src/lance.ts`, `tools/director/src/fault-fields.ts`, `packages/content/test/waves.test.ts`, `docs/spec/systems.md`
 - **Asks:** Is the beamless full panel STANDARD 5 (the ladder has four rungs today, so it is the next one) or STANDARD 6 (a fifth rung sits between the plate and the maw, and what does it add)?
 
