@@ -94,6 +94,9 @@ bun run menu-shot <out.png>            # a page of the game's menu — starts it
 bun run versus:shot <slot> <name>      # one PNG of one VERSUS candidate
 bun run png <in.svg> <out.png>         # rasterise a sheet
 bun run crop           # a rectangle of a PNG already taken, magnified — tools/frames/picture.ts
+bun run sheet <prefix> <out.png>       # a strip of frames as one picture, so motion can be seen
+                       #   `<prefix>-00.png`, `-01.png`… ; --cols 8 --cell 240 --every 800
+                       #   --band 0.35,0.72 windows a slice of each frame instead of shrinking it
 bun run probe          # run a scratch script against a live world — tools/probe/
 ```
 

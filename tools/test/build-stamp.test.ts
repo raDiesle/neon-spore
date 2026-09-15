@@ -37,8 +37,16 @@ const ALLOWED = new Set([
  * offenders — the same allowed files over and over, from a path `ALLOWED`
  * cannot match because it is relative to the outer root. In a fresh clone
  * there are no worktrees, which is why the hole was invisible.
+ *
+ * **`.wrangler` is here because something else is writing it while this runs.**
+ * `bun run check` deals its tests across twelve shards, and the relay's own
+ * shard has a wrangler up bundling the worker into a `.wrangler/tmp` of its own;
+ * this scan walked into one of those directories and then read a file the
+ * bundler had already deleted, which came back as `ENOENT` on a path nobody
+ * wrote and a red check on a lane that had touched none of it. A generated
+ * directory is not a source tree, whoever happens to own it at the time.
  */
-const SKIP = new Set([".claude", "node_modules", "dist", ".git", "legacy", "assets"]);
+const SKIP = new Set([".claude", ".wrangler", "node_modules", "dist", ".git", "legacy", "assets"]);
 
 function sources(dir: string, found: string[] = []): string[] {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {

@@ -50,6 +50,7 @@
     "png": "bun run tools/frames/svg.ts",
     "icons": "bun run tools/icons/run.ts",
     "shot": "bun run tools/frames/shot.ts",
+    "sheet": "bun run tools/frames/sheet.ts",
     "menu-shot": "bun run tools/frames/menu-shot.ts",
     "room-shot": "bun run tools/frames/room-shot.ts",
     "crop": "bun run tools/frames/crop-png.ts",

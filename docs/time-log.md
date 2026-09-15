@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — `bun run sheet`, a strip of frames as one picture
+
+The queue's *A strip of frames has no contact sheet*, which this lane filed
+three hours earlier after writing the throwaway twice. A grid in a page,
+photographed: a window onto a band of each frame rather than the whole of it
+shrunk, every frame inlined as a data URL, and the caption off `--every`.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `crop.ts`, which is the same idea for one picture and the shape to follow |
+| writing | 30 | the command and nine cases |
+| looking | 5 | one sheet of the frames already on disk |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, `bun run index`, the commit |
+
+The bottleneck was nothing: the throwaway had already been written twice and
+debugged both times, so what was left was naming the flags and holding the two
+mistakes in cases. Which is the argument for the queue — the expensive half of
+this was paid by the lane that met the problem, and the entry carried it.
+
 ## 2026-09-15 — queued-tasks — the intro is about the two of you, and it is slower
 
 The owner, mid-turn, twice: the scene should be about a co-op game with shared

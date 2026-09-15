@@ -636,35 +636,6 @@ Prove it with `bun run check`: the panel tests in `packages/content/test`,
 `lance.test.ts` in `sim` on a world started with the field off, and the
 director opened on THE LEAK showing the rung on its panel row and no fault.
 
-## A strip of frames has no contact sheet: a scene is watched one frame at a time
-
-- **Found:** 2026-09-15, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-15, claude/queue-a-strip-of-frames-has-no-contact-sheet-a-scene-i
-- **Files:** `tools/frames/crop.ts`, `tools/frames/crop-png.ts`, `tools/frames/`, `tools/frames/test/`, `docs/commands.md`, `package.json`
-- **Where:** local
-
-Verifying the opening scene meant photographing a phone every 800 ms for
-twelve seconds and then looking at the sixteen pictures. A session looks at a
-picture by reading it, one at a time, and sixteen of a 780×1688 phone is most
-of what a turn can afford — so the answer was a throwaway that laid them out in
-one page and photographed that: a grid, each cell a fixed window onto its
-frame, so a band of the picture (two heads and a speech bubble; two phone
-screens) is what fills the sheet rather than the whole phone shrunk to a
-thumbnail. One picture, sixteen moments, and the motion is plain.
-
-That belongs beside `bun run crop`, which is the same idea for one picture:
-**`bun run sheet <prefix> <out.png> [--cols 8] [--cell 240] [--band 0.35,0.72]
-[--every 800]`**, over `<prefix>-00.png`, `-01.png` and so on — a `sheet.ts`
-beside `crop.ts`, with a case beside `crop.test.ts` for its flags. The band is the
-part worth seeing and the caption is the millisecond each frame was taken at,
-which the throwaway got wrong by assuming its own interval rather than being
-told it. Two things to be careful of, both met while writing it: a page made
-with `setContent` has no origin, so a `file://` image in it loads as a broken
-icon and every frame has to go in as a data URL; and a cell that scales the
-whole frame down is unreadable, which is what the window is for.
-
-Prove it with `bun run check` and one sheet of frames already on disk.
-
 ## The client half of a sign-in has no rig, so no check ever signs anybody in
 
 - **Found:** 2026-09-15, claude/queued-tasks-51d8f9
