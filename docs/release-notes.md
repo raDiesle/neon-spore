@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 1e870e05 — THE BALLOON comes in at a wall, never goes downwards, and is a torch at the top
+
+Three of the four things the owner asked for on 14 September 2026, each of them a rule or a look he named, so they land on the field. A balloon used to appear out of nothing one row above the ship, and it now enters at the left or right wall one or two rows above the shield and glides to somewhere around the middle before it starts to climb; the top of the field used to be a silent bill on the hull and is now a handoff, the body turning into a torch and dropping at once; and the sinking half of a split is gone, so both halves rise and a split is two bodies to answer rather than one to answer and one to survive.
+
 ## 2026-09-15 · 3a22041b — What THE BALLOON's lane learned before it was thrown away, and one question closed
 
 Two notes, no code.
