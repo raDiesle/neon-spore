@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 40492653 — The seat the host picks reaches the other phone: a `seat` message, one swap bit, and `host` on the welcome
+
+The wire half of the room screen's step 4 (the owner's ask of 14 September, first exemption: a look asked for by name — though nothing drawn changes in this piece). The phone that opened the room is its host, as a third socket tag; a `seat` message from it before beat zero turns one persisted swap bit that every seat lookup reads through, because a socket's tags cannot change (`seat.ts` `seatTag`, `room-seat.ts`); from the other phone, or after the stamp, it is ignored. The welcome carries `host` and is re-sent to both phones on a swap and on a tempo pick, so the joiner sees the choice made. The client gains `Link.pickSeat` and `LinkStatus.host`.
+
 ## 2026-09-15 · 86edd8a8 — `room-shot --via partners`: two phones in by the other's row, and the wave written against the other seat
 
 The last unverified entry from the PLAY-as-partners landing, opened against a real Durable Object, and both halves hold. Two phones each remembering the other press CONTINUE GAME WITH and land in one room — LUY4 on both, under THE ROOM, pills YOU/BEN and ADA/YOU — so `roomForPair` derives the same code apart. Both press START, the wave opens on both, and the creator jumped to wave 3 writes BEN at `furthest: 2`; a fresh tab of that phone says CONTINUE GAME WITH BEN · WAVE 3. The first walk is `room-shot --via partners`; the second was a throwaway probe, and a rig for it is queued.
