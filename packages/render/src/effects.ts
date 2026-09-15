@@ -14,6 +14,7 @@ import { drawAll, ingestAll, resetAll, updateAll } from "./effects-frame.js";
 import { ShipMoods } from "./effects-ship.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GhostTrail } from "./ghost-trail.js";
+import { HarpoonLineFx } from "./harpoon-line.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
@@ -74,6 +75,13 @@ export class Effects {
    * the dome went. Public for the leap's reason: `drawCreatures` asks it
    * where the torch is drawn (`coil-flight.ts`). */
   readonly coilFlight = new CoilFlightFx();
+  /**
+   * The line a harpoon fault is fired down and reeled back up
+   * (`harpoon-line.ts`). Public and drawn by the field pass rather than here:
+   * it belongs with the lantern it comes out of, which is under the bodies,
+   * and it needs the world to say where the body it is attached to is drawn.
+   */
+  readonly harpoonLine = new HarpoonLineFx();
   /** THE VOLLEY's shell in pieces (`volley-shards.ts`). */
   readonly volleyShards = new VolleyShardsFx();
   /** THE CRAWLER's three: a burst ring's goo, the swept lane, the burrow's

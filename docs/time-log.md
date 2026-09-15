@@ -5861,3 +5861,23 @@ They were `MalfunctionKind`s with no pencil, which is a fault nobody could place
 The bottleneck was reading, and it was mostly good news: the note table, the
 `at`/`beats` boxes and the emitter's beams already covered these two kinds, so
 the only thing missing was the button.
+
+## 2026-09-15 — queued-tasks — the line a harpoon is fired down
+
+The parked entry's point 1, and the general form the owner restated on 15
+September about every fault at once: *it should look like that blue enemy is
+triggering or shooting it.*
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `fault-emitter.ts`, `coil-flight.ts` as the pattern for a transient, where the field pass draws the lantern |
+| writing | 35 | `harpoon-line.ts`, four wirings into `Effects`, five cases |
+| looking | 0 | — still owed a picture; the pass is proved by op counts |
+| friction | 15 | `frame-field.ts` went sixteen lines over its ceiling, and a `save`/`restore` on every quiet frame put THE CAIRN over its op budget |
+| landing | 10 | `bun run index`, `imports:sort`, the commit |
+
+The bottleneck was friction and it was the budget test doing its job: an
+unconditional `save`/`restore` in a pass most waves never use is exactly the
+cost that test exists to notice, and the fix — return before it when nothing is
+out and nothing is held — is better code than the version that passed by being
+remeasured.

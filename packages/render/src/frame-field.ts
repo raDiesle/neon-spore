@@ -116,6 +116,10 @@ export function drawBodies(
   // fault has taken (`fault-emitter.ts`). A body falling down the middle
   // column crosses in front of it.
   drawFaultEmitter(ctx, l, world, view.time);
+  // And the line out of it: what a harpoon fault fired at a control, and what
+  // it reels back when the pencil runs out. Straight after the lantern,
+  // because it comes out of it (`harpoon-line.ts`).
+  effects.harpoonLine.draw(ctx, l, world, view.time, view.beatPhase);
   // THE CODEX's shimmer, over the field's own light and under the bodies: the
   // air between the pilot and the field, on the pilot's screen and on nothing
   // the navigator is shown (`codex.ts`).

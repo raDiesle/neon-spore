@@ -35,7 +35,13 @@ export { handedOver, handoverLeft, handoverWarning } from "./handover.js";
 // the picture cannot work out for itself: how near the round is to being lost
 // is a count of ticks against a config field, and the owner asked for a glow
 // that grows toward it and starts again on every move (`harpoon.ts`).
-export { HARPOON_KINDS, type HarpoonKind, harpoonDangerMilli } from "./harpoon.js";
+export {
+  HARPOON_KINDS,
+  type HarpoonKind,
+  harpoonBody,
+  harpoonDangerMilli,
+  isHarpoonKind,
+} from "./harpoon.js";
 export {
   MALFUNCTION_COLORS,
   MALFUNCTION_KINDS,

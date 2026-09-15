@@ -65,6 +65,7 @@ export function ingestAll(
   fx.bodies.ingest(events, l, cfg, spb, time);
   fx.recoilLeap.ingest(events, spb);
   fx.coilFlight.ingest(events, l, spb);
+  fx.harpoonLine.ingest(events, l);
   fx.volleyShards.ingest(events, l, cfg);
   for (const e of events) {
     const spark = burstFor(e, l);
@@ -116,6 +117,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.bodies.update(dt);
   e.recoilLeap.update(dt);
   e.coilFlight.update(dt);
+  e.harpoonLine.update(dt);
   e.volleyShards.update(dt);
   e.crawler.update(dt);
   e.spriteBursts.update(dt);
@@ -171,6 +173,7 @@ export function resetAll(e: Effects): void {
   e.bodies.clear();
   e.recoilLeap.clear();
   e.coilFlight.clear();
+  e.harpoonLine.reset();
   e.volleyShards.clear();
   e.crawler.clear();
   e.spriteBursts.clear();

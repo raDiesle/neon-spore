@@ -55,8 +55,17 @@ export function emitterAt(l: Layout): { x: number; y: number; r: number } {
   return { x: l.gridLeft + l.gridWidth / 2, y: l.gridTop + l.tile * 0.3, r: l.tile * 0.5 };
 }
 
-/** The lit vesicle, low on the body — where the beam starts. */
-function vesicleAt(l: Layout): { x: number; y: number; r: number } {
+/**
+ * The lit vesicle, low on the body — where the beam starts, and where a
+ * harpoon's line is paid out from (`harpoon-line.ts`).
+ *
+ * Exported for that second caller and for its reason: the owner asked on 15
+ * September 2026 that every fault *look like that blue enemy is triggering or
+ * shooting it*, so a second file drawing a thing that comes out of this body
+ * has to start it at the same point this one's beams do, or the lantern would
+ * have two mouths.
+ */
+export function vesicleAt(l: Layout): { x: number; y: number; r: number } {
   const e = emitterAt(l);
   return { x: e.x, y: e.y + e.r * 0.72, r: e.r * 0.3 };
 }

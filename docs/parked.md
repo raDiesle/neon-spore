@@ -74,9 +74,12 @@ steppers ignore each other by id.
 **What is left is the picture.** Points 1, 2, 4 and 6 of the owner's list, one
 of them now landed:
 
-- the harpoon **fired** from the emitter and the **reel** back to it when the
-  placement ends (`fault-emitter.ts`; the events `clingGrip` and `clingFreed`
-  are already pushed at both moments);
+- ~~the harpoon **fired** from the emitter and the **reel** back to it when the
+  placement ends~~ — **done, 15 September 2026** (`render/harpoon-line.ts`).
+  A cable from the lantern's vesicle to the body, read off the world every
+  frame so a restart cannot leave one behind, with a bead running down it from
+  the lantern's end; the flight out is a sixth of a second and the reel home is
+  a third. A wave with no such fault costs nothing, not even a `save`;
 - ~~**MOVE CANNON!** / **MOVE SHIELD!** under the siren, on the seat *without*
   the control~~ — **done, 15 September 2026** (`render/duty-harpoon.ts`). The
   branch reads `faultOn` rather than the field, and it *replaces* the table's

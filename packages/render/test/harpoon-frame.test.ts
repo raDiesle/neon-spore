@@ -1,11 +1,19 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { createWorld, startWave, step, TO_THE_END, ticksPerBeat } from "@neon-spore/sim";
+import {
+  createWorld,
+  startWave,
+  step,
+  TO_THE_END,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import {
   dangerColor,
   dangerGlow,
   drawHarpoonDanger,
   harpoonDanger,
 } from "../src/harpoon-danger.js";
+import { HarpoonLineFx } from "../src/harpoon-line.js";
 import { frame } from "../src/hull-frame.js";
 import type { ViewRole } from "../src/layout.js";
 import { computeLayout } from "../src/layout.js";
@@ -164,5 +172,53 @@ describe("the same heat through a canvas that refuses what a real one does", () 
       P2_SKIN.hull,
     );
     expect(ctx.tally.get("drawImage")).toBe(shield.length);
+  });
+});
+
+describe("the line the lantern fires it down", () => {
+  /** The pass on its own, over a world the caller hands it. */
+  function drawn(world: World, fx: HarpoonLineFx) {
+    const { ctx } = stubCanvas();
+    const l = computeLayout(VIEWPORT, CFG, "p1");
+    fx.draw(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0);
+    return ctx;
+  }
+
+  it("costs a quiet wave nothing at all, not even a save", () => {
+    // Every frame of every wave that carries no such fault runs this, and the
+    // `save`/`restore` pair alone put THE CAIRN over its op budget the first
+    // time this was written (`wave-budget.test.ts`).
+    const ctx = drawn(quiet(), new HarpoonLineFx());
+    expect(ctx.calls).toBe(0);
+    expect(ctx.tally.get("save") ?? 0).toBe(0);
+  });
+
+  it("runs a cable from the lantern to a body on a control", () => {
+    const world = stuck("leech", TPB + 2);
+    expect(drawn(world, new HarpoonLineFx()).calls).toBeGreaterThan(0);
+  });
+
+  it("draws the flight out and stops when it has landed", () => {
+    const world = stuck("leech", 0);
+    const fx = new HarpoonLineFx();
+    const l = computeLayout(VIEWPORT, CFG, "p1");
+    // The grip the fault pushes on the beat the pencil starts.
+    fx.ingest([{ type: "clingGrip", id: 1, kind: "leech", col: 3, row: 11, from: 3 }], l);
+    expect(drawn(world, fx).calls).toBeGreaterThan(0);
+    // A sixth of a second later it is over, and what is left is the cable the
+    // world itself says is there — so a stepped-out world draws nothing.
+    fx.update(1);
+    expect(drawn(quiet(), fx).calls).toBe(0);
+  });
+
+  it("forgets every line on a restart", () => {
+    // `restart.test.ts`'s rule, said here because a reel left running across a
+    // wave boundary is a line to a body the new run has not fired.
+    const fx = new HarpoonLineFx();
+    const l = computeLayout(VIEWPORT, CFG, "p1");
+    fx.ingest([{ type: "clingFreed", kind: "limpet", col: 4, row: 11 }], l);
+    expect(drawn(quiet(), fx).calls).toBeGreaterThan(0);
+    fx.reset();
+    expect(drawn(quiet(), fx).calls).toBe(0);
   });
 });
