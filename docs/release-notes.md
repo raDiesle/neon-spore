@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · a4698ee9 — What the PLAY page's list could not be checked for is queued
+
+A cloud session photographed the rows and could not press one: `rejoinWith` resolving a row to the room the pair share, and `reachedWith` writing a wave against whoever is in the other seat, both want two phones in a room. They are an ordinary `Unverified at bc3a3b7d` entry now, for a machine that can.
+
 ## 2026-09-15 · fe31f51a — `queue release` asks the trunk which claims it holds, not its own copy
 
 A claim made where no worktree holds `main` — every cloud session — is written onto the ref, with the working tree deliberately left alone. `release` then asked that working copy whether the item was marked, found no line there, and left the trunk's line standing: the branch went, the mark stayed, and `bun run queue status` reported an item as taken by a branch that no longer existed. It happened on this repository an hour ago and cost an extra commit to undo by hand.
