@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { WAVES } from "@neon-spore/content";
 import { bindRail } from "../src/rail.js";
+import { waveNowText } from "../src/rail-steps.js";
 import type { Store } from "../src/state.js";
 import { type FakeDom, FakeEl, installDom } from "./fake-dom.js";
 
@@ -22,23 +23,31 @@ import { type FakeDom, FakeEl, installDom } from "./fake-dom.js";
 function page(index: number): {
   prev: FakeEl;
   next: FakeEl;
+  now: FakeEl;
   store: Store;
   selects: () => number;
   dom: FakeDom;
 } {
   const prev = new FakeEl();
   const next = new FakeEl();
+  const now = new FakeEl();
   const dom = installDom({
-    ids: { waveList: new FakeEl(), wavePrev: prev, waveNext: next },
+    ids: { waveList: new FakeEl(), wavePrev: prev, waveNext: next, waveNow: now },
   });
   const store: Store = { waves: WAVES.map((w) => ({ ...w })), index, dirty: false };
   let count = 0;
-  bindRail(
+  // `onSelect` is `refreshAll` in the real page, and `rail.render()` is one of
+  // the things it calls (`main.ts`) — the arrows step the store and everything
+  // beside them is repainted by that one callback, never by the step itself.
+  const rail = bindRail(
     store,
-    () => count++,
+    () => {
+      count++;
+      rail.render();
+    },
     () => {},
   );
-  return { prev, next, store, selects: () => count, dom };
+  return { prev, next, now, store, selects: () => count, dom };
 }
 
 const LAST = WAVES.length - 1;
@@ -117,5 +126,36 @@ describe("[ and ]", () => {
     } finally {
       dom.restore();
     }
+  });
+});
+
+/**
+ * **What stands between the arrows**, which is where a button marked WAVE was
+ * until the owner had it replaced on 15 September 2026. It was the last tab of
+ * a bar that had four, and with one tab left a press could only put back the
+ * page it was already on — so the place a press had nothing to do is the place
+ * that says which wave this is.
+ */
+describe("the wave between the arrows", () => {
+  test("is the number a person counts to, out of how many there are", () => {
+    const { store } = page(0);
+    expect(waveNowText(store)).toBe(`01 / ${WAVES.length}`);
+    store.index = 6;
+    expect(waveNowText(store)).toBe(`07 / ${WAVES.length}`);
+    store.index = LAST;
+    expect(waveNowText(store)).toBe(`${LAST + 1} / ${WAVES.length}`);
+  });
+
+  test("follows the arrows without anything else being pressed", () => {
+    // The owner's own report: stepping to the next wave left the editor blank
+    // until WAVE was pressed again, because `bindTabs` was wired to every
+    // button in the bar and an arrow carries no `data-tab` (`tabs.ts`). The
+    // number is drawn by the same `render` the arrows' own titles are, so it
+    // is the cheapest proof that a step repaints the panel it belongs to.
+    const { next, now, store } = page(0);
+    expect(now.textContent).toBe(`01 / ${WAVES.length}`);
+    next.click();
+    expect(store.index).toBe(1);
+    expect(now.textContent).toBe(`02 / ${WAVES.length}`);
   });
 });

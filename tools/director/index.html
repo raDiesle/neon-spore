@@ -113,9 +113,17 @@
           <!-- Reading through the waves in order used to be a press per wave,
                back in the list each time. These open the row before and after
                the one open, through the same `onSelect` a row press makes
-               (`rail.ts`); `[` and `]` are the same two without the mouse. -->
+               (`rail.ts`); `[` and `]` are the same two without the mouse.
+
+               **Between them is where the wave is**, which the owner asked for
+               on 15 September 2026, and there used to be a button marked WAVE
+               there. It was the last tab of a bar that had four, and with one
+               tab left a tab is not a choice — pressing it could only put back
+               the page it was already on. So the place a press had nothing to
+               do is the place that now says which wave this is and how many
+               there are (`rail-steps.ts`). -->
           <button type="button" id="wavePrev">‹</button>
-          <button type="button" data-tab="wave" class="on">WAVE</button>
+          <span id="waveNow"></span>
           <button type="button" id="waveNext">›</button>
         </div>
         <!-- Ordered by when a pair meets the thing: the card that opens the

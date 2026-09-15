@@ -7,8 +7,20 @@
 #tabs {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 4px;
   margin-bottom: 10px;
+}
+/* Which wave this is, between the two arrows that step it — where the WAVE tab
+   stood until 15 September 2026 (`rail-steps.ts`). The gold is the rail's own
+   number colour, so the figure here and the row it names read as one thing;
+   the tabular figures keep the arrows still while the number changes width. */
+#waveNow {
+  color: var(--gold);
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+  padding: 0 8px;
 }
 .tabpage {
   display: none;

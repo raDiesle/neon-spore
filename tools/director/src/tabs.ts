@@ -5,11 +5,20 @@
  * bars now — the authoring rail and the backlog sheet — and a bar that
  * switched *every* `.tabpage` on the document would close the rail behind it
  * every time the sheet changed tab.
+ *
+ * **`button[data-tab]` and not `button`**, which is the whole of a bug the
+ * owner found on 15 September 2026: the wave arrows live in `#tabs` beside
+ * the tabs, so every press of one ran this with `dataset.tab` undefined,
+ * looked for a page called `tab-undefined`, found none, and turned the open
+ * page off. Stepping to the next wave left the editor blank until the tab was
+ * pressed again. A bar is allowed to hold something that is not a tab.
  */
 export function bindTabs(bar: string, pageClass = "tabpage", prefix = "tab-"): void {
-  for (const tab of document.querySelectorAll<HTMLElement>(`${bar} button`)) {
+  for (const tab of document.querySelectorAll<HTMLElement>(`${bar} button[data-tab]`)) {
     tab.addEventListener("click", () => {
-      for (const other of document.querySelectorAll(`${bar} button`)) {
+      // The marking is the tabs' too: `on` on an arrow would draw it as the
+      // open page, and taking `on` off one would fight whatever else marks it.
+      for (const other of document.querySelectorAll(`${bar} button[data-tab]`)) {
         other.classList.toggle("on", other === tab);
       }
       for (const page of document.querySelectorAll(`.${pageClass}`)) {

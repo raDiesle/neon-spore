@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — the wave arrows paint what they open
+
+The owner, mid-turn: the arrows leave the wave page blank until WAVE is pressed,
+and why is there a WAVE button at all — put the wave's number there instead.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `tabs.ts`, `place.ts` and `session.ts`, to find what the bar still owes the URL |
+| writing | 20 | one selector, the number and its rule, two cases, one queue entry |
+| looking | 10 | four steps and a step back, driven in a browser, and one shot of the bar |
+| friction | 0 | — |
+| landing | 10 | `main.ts` came back over 250 lines; `check:fast`, the commit |
+
+The bottleneck was nothing, and the bug was four characters: `bindTabs` was wired
+to every button in `#tabs`, and the arrows live in `#tabs`. A press ran the tab
+switcher with no tab name, so it looked for a page called `tab-undefined`, found
+none, and turned the open one off — which is a whole-panel failure produced by a
+selector that was right on the day it was written and stopped being right when
+something that is not a tab joined the bar.
+
 ## 2026-09-15 — queued-tasks — the field is not cut off, and RUN is a column
 
 The owner, mid-turn, on a monitor he had just switched to: the first and last

@@ -236,8 +236,10 @@ function paintStatus(): void {
 const io = bindWaveIo({ store, setStatus, repaint: paintStatus, refresh: refreshAll });
 saveButton?.addEventListener("click", () => void io.save());
 
+// `#tabs` holds no tab any more, only the arrows and the wave's own number
+// (`index.html`, `rail-steps.ts`) — so there is no `?tab=` button left to click
+// at startup, and `#tab-wave` keeps the `on` the markup gives it.
 bindTabs("#tabs");
-document.querySelector<HTMLButtonElement>(`#tabs button[data-tab="${place.initialTab}"]`)?.click();
 bindBacklog();
 bindNotes();
 bindStates();

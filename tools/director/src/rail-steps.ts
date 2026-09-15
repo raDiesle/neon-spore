@@ -2,8 +2,8 @@ import { type Store, waveStep } from "./state.js";
 import { isTyping } from "./typing.js";
 
 /**
- * **The two arrows over the WAVE column**, and the two keys that are the same
- * step without the mouse.
+ * **The two arrows over the WAVE column, and the wave they stand either side
+ * of**, plus the two keys that are the same step without the mouse.
  *
  * The owner asked for them on 14 September 2026: reading through the waves in
  * order was a press on a row, a trip back to the list, and a press on the next
@@ -20,11 +20,19 @@ export interface WaveSteps {
   render(): void;
 }
 
+/** What stands between the two arrows: which wave this is, out of how many.
+ * Both numbers as a person counts them, from 1, the way the rail's own rows
+ * are numbered. */
+export function waveNowText(store: Store): string {
+  return `${String(store.index + 1).padStart(2, "0")} / ${store.waves.length}`;
+}
+
 export function bindWaveSteps(store: Store, onSelect: () => void): WaveSteps {
   const arrows: [HTMLButtonElement | null, number][] = [
     [document.getElementById("wavePrev") as HTMLButtonElement | null, -1],
     [document.getElementById("waveNext") as HTMLButtonElement | null, 1],
   ];
+  const now = document.getElementById("waveNow");
 
   /** Open the wave a step away, exactly as a press on its row would. */
   const step = (delta: number): void => {
@@ -52,6 +60,7 @@ export function bindWaveSteps(store: Store, onSelect: () => void): WaveSteps {
      * the reader's place in it.
      */
     render(): void {
+      if (now) now.textContent = waveNowText(store);
       for (const [btn, delta] of arrows) {
         if (!btn) continue;
         const to = waveStep(store, delta);
