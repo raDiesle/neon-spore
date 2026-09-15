@@ -397,7 +397,6 @@ plate under it.
 ## THE BALLOON enters at a wall, never sinks, and is a torch at the top
 
 - **Found:** 2026-09-14, claude/queue-backlog-604107
-- **Taken:** 2026-09-15, claude/queue-the-balloon-enters-at-a-wall-never-sinks-and-is
 - **Files:** `packages/sim/src/balloon.ts`, `packages/sim/src/balloon-rub.ts`, `packages/sim/src/balloon-clock.ts`, `packages/sim/src/spawn.ts`, `packages/sim/src/spawn-fields.ts`, `packages/sim/src/entries.ts`, `packages/sim/src/config-balloon.ts`, `packages/sim/src/coil.ts`, `packages/sim/src/events-balloon.ts`, `packages/sim/src/hash-creature-late.ts`, `packages/render/src/balloon.ts`, `packages/render/src/balloon-alive.ts`, `packages/render/src/effects-spark-handed.ts`, `packages/render/src/sprite-burst.ts`, `packages/content/src/balloon-shape.ts`, `packages/content/src/balloon-parts.ts`, `tools/director/src/brush-cards.ts`
 - **Where:** local
 
