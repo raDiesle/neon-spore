@@ -29,8 +29,11 @@ export function explain(status: LinkStatus): string {
       return "One device, both seats. Open a room to play it as it is meant to be played — one of you on each phone.";
     case "connecting":
       return "Reaching the room…";
+    // Out loud and nothing else: SEND LINK left this screen when it became
+    // steps (`join-steps.ts`), and a sentence offering it was sending people
+    // to look for a button that is not there.
     case "waiting":
-      return `Room ${status.room}. Say it out loud, or send the link — the other phone types it in.`;
+      return `Room ${status.room}. Say it out loud — the other phone types it in.`;
     case "syncing":
       return "Both here. Agreeing on the beat.";
     case "ready":

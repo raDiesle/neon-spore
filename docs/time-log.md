@@ -5310,3 +5310,25 @@ About 60 min.
 
 Bottleneck: looking — every question here costs a wrangler start and a build,
 and the only way to shorten it was to stop writing the rig again.
+
+## 2026-09-15 · claude/queued-tasks-f45f36 — the partner's row, and the wave written against the other seat
+
+The last `Unverified` entry from the PLAY-as-partners landing, opened against a
+real Durable Object. Two phones each remembering the other press CONTINUE GAME
+WITH and land in one room — LUY4 on both, THE ROOM, YOU/BEN and ADA/YOU — so
+`roomForPair` derives the same code apart. Both press START, the wave opens on
+both, and one phone jumped to wave 3 writes BEN at `furthest: 2`; a fresh tab
+of that phone says CONTINUE GAME WITH BEN · WAVE 3. `room-shot --via partners`
+is the first walk; the second was a throwaway probe. About 60 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `pairing.ts`, `partners.ts`, `menu-link.ts`, `room-shot.ts` and the two files under it |
+| writing | 10 | `room-phones.ts` out of `room-shot.ts`, the `--via partners` walk, the probe, two cases |
+| looking | 10 | the walk once green, the probe three times, three PNGs |
+| friction | 20 | wrangler would not start in a fresh worktree without `apps/game/dist`, and `room-shot` did not exit after its last line — four runs killed by hand before the orphaned preview was found holding the pipe; both fixed |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: friction — a run that ends and does not exit looks exactly like
+a run that has hung, and each look cost a wrangler start; the answer was one
+`ps`, and it took four runs to think of it.

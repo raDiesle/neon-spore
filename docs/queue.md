@@ -176,25 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## Unverified at bc3a3b7d: A partner's row pressed, and a wave written against a…
-
-- **Found:** 2026-09-15, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-15, claude/queue-unverified-at-bc3a3b7d-a-partners-row-pressed-an
-- **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/pairing.ts`, `apps/game/src/partners.ts`, `apps/game/src/waves.ts`
-
-*The PLAY page is a list of the people this device has played with* landed from
-a session that could not put two phones in a room. The page itself was
-photographed — `bun run menu-shot out.png --page PLAY --partners "David:7"` — so
-what the rows say is seen. What went unchecked:
-
-- A partner's row pressed, and the two phones landing in the same room: `rejoinWith` reads the index off the list it was drawn from and `roomForPair` derives the code, and neither has been pressed in a browser (apps/game/src/menu.ts, apps/game/src/menu-entries.ts)
-- A wave written against the person in the other seat: `reachedWith` takes the partner from the last status the room screen painted, and nothing has run a two-device wave to see the row afterwards say a number it did not say before (apps/game/src/pairing.ts, apps/game/src/waves.ts)
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## PLAY is a list of partners to continue with, and the room is a step-by-step
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8
@@ -708,3 +689,20 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `room-shot` stops at THE ROOM: the wave against the other seat has no rig
+
+- **Found:** 2026-09-15, claude/queued-tasks-f45f36
+- **Files:** `tools/frames/room-shot.ts`, `tools/frames/room-phones.ts`, `tools/frames/test/room-shot.test.ts`, `docs/commands.md`
+
+`room-shot` walks two phones to THE ROOM and stops. The other half of the entry
+it closed — both press START, one phone reaches a wave, and its partner record
+says `furthest` for the person in the other seat — was proved by a throwaway
+probe (`tools/probe/scratch/pair-wave.ts`, git-ignored): press START on both,
+wait for `neonSpore.world` on both, `neonSpore.jumpToWave(2)` on one, read
+`neon-spore.pairs` on it, open a fresh tab of the same context (a reload
+re-runs `openPhone`'s init script and re-seeds the list) and read the PLAY
+rows. Add it as `--then-wave <n>` to `room-shot`: after the seat check, START
+on both, the jump on the creator, and a line saying what the creator's row now
+reads, with a throw when the other name is not at `n`. `room-phones.ts` gets
+the fresh-tab verb. A case in `room-shot.test.ts` for the flag's parsing.

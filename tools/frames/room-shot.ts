@@ -1,7 +1,7 @@
 #!/usr/bin/env bun
 
 /**
- * `bun run room-shot <out-prefix> [--size 390x844] [--scale 2] [--names "ADA,BEN"]`
+ * `bun run room-shot <out-prefix> [--size 390x844] [--scale 2] [--names "ADA,BEN"] [--via partners]`
  * — two phones through the four-step room screen, against a real relay.
  *
  * **The one picture nothing could take.** `bun run menu-shot` drives one
@@ -18,6 +18,12 @@
  * before — past the intro, each with a name — because the first meeting is a
  * different screen and `menu-shot --first-visit` is what photographs it.
  *
+ * **`--via partners` is the other way in.** Each phone arrives remembering the
+ * other and presses that person's row on the PLAY page instead of walking NEW
+ * GAME: no code is read out, because the room is derived from the two names
+ * (`pairing.ts` `roomForPair`) — and whether two devices deriving it apart
+ * land in *one* room is exactly the thing no single phone can ask.
+ *
  * What it prints is the walk: the code the creator was given, the heading each
  * phone is under at each stop, and whether the creator's page turned when the
  * joiner arrived. What it writes is a PNG per phone at the end.
@@ -26,10 +32,8 @@
 import { closeBrowser, launchBrowser } from "./browser.js";
 import { root } from "./exec.js";
 import { menuDevice } from "./menu-device.js";
-import { press } from "./menu-press.js";
-import { arrivalStamps } from "./menu-stamps.js";
-import { noSuchButton } from "./menu-trail.js";
 import { startRelay } from "./relay-up.js";
+import { looking, openPhone, type PhoneShape, walk } from "./room-phones.js";
 import { startPreview } from "./serve.js";
 
 /**
@@ -43,13 +47,12 @@ export const CREATOR_TRAIL = ["PLAY", "NEW GAME", "CREATE"] as const;
 export const JOINER_TRAIL = ["PLAY", "NEW GAME", "JOIN"] as const;
 /** The button under the code field. Named here so a rename fails loudly. */
 export const JOINER_COMMIT = "ENTER THE ROOM";
-
-/** What a phone is looking at: the step's heading, and the code if it has one. */
-export interface Looking {
-  head: string;
-  code: string;
-  state: string;
-}
+/** A partner's row on the PLAY page, as `menu-link.ts` `partnerRow` spells it
+ * for somebody met and not yet played with. */
+export const partnerTrail = (other: string): string[] => [
+  "PLAY",
+  `CONTINUE GAME WITH ${other.toUpperCase()}`,
+];
 
 if (import.meta.main) {
   const args = process.argv.slice(2);
@@ -59,87 +62,84 @@ if (import.meta.main) {
   };
   const out = args.find((a, i) => !a.startsWith("--") && !args[i - 1]?.startsWith("--"));
   if (!out) {
-    console.error('usage: bun run room-shot <out-prefix> [--size 390x844] [--names "ADA,BEN"]');
+    console.error(
+      'usage: bun run room-shot <out-prefix> [--size 390x844] [--names "ADA,BEN"] [--via partners]',
+    );
     process.exit(1);
   }
-  const [creatorName, joinerName] = (flag("names") ?? "ADA,BEN").split(",");
+  const [creatorName = "ADA", joinerName = "BEN"] = (flag("names") ?? "ADA,BEN").split(",");
   const [vw, vh] = (flag("size") ?? "390x844").split("x").map(Number);
-  const device = menuDevice(args);
+  const shape: PhoneShape = {
+    width: vw ?? 390,
+    height: vh ?? 844,
+    scale: Number(flag("scale") ?? 2),
+    device: menuDevice(args),
+  };
+  const viaPartners = flag("via") === "partners";
 
   const relay = await startRelay(root);
   const preview = await startPreview(root);
   const browser = await launchBrowser();
   try {
-    const phone = async (who: string) => {
-      const ctx = await browser.newContext({
-        viewport: { width: vw ?? 390, height: vh ?? 844 },
-        deviceScaleFactor: Number(flag("scale") ?? 2),
-        ...device,
-      });
-      const page = await ctx.newPage();
-      await page.addInitScript(
-        ([pairs, name]: [[string, string][], string]) => {
-          try {
-            for (const [key, value] of pairs) localStorage.setItem(key, value);
-            localStorage.setItem("neon-spore.name", name);
-          } catch {}
-        },
-        [arrivalStamps({ firstVisit: false, partners: [] }), who] as [[string, string][], string],
-      );
-      await page.goto(`${preview.url}?relay=${encodeURIComponent(relay.url)}`, {
-        waitUntil: "load",
-      });
-      await page.waitForSelector("#menu.on", { timeout: 30_000 });
-      return page;
-    };
+    const url = `${preview.url}?relay=${encodeURIComponent(relay.url)}`;
+    const phone = (who: string, other: string) =>
+      openPhone(browser, url, who, shape, viaPartners ? [{ name: other, wave: 0 }] : []);
+    const creator = await phone(creatorName, joinerName);
+    const joiner = await phone(joinerName, creatorName);
 
-    const looking = (p: Awaited<ReturnType<typeof phone>>): Promise<Looking> =>
-      p.evaluate(() => ({
-        head: document.querySelector("#joinScreen h2")?.textContent ?? "",
-        code: (document.getElementById("joinCode")?.textContent ?? "").trim(),
-        state: document.getElementById("joinState")?.textContent ?? "",
-      }));
-
-    const walk = async (p: Awaited<ReturnType<typeof phone>>, labels: readonly string[]) => {
-      for (const label of labels) {
-        const offered = await press(p, label);
-        if (offered) throw new Error(noSuchButton(label, offered));
-        await p.waitForTimeout(500);
+    if (viaPartners) {
+      // Neither phone is told a code: each derives the room from the two names
+      // and walks in. The creator is only the one that arrives first.
+      await walk(creator, partnerTrail(joinerName));
+      await creator.waitForTimeout(1200);
+      const alone = await looking(creator);
+      console.log(`first:  "${alone.head}" — ${alone.state}`);
+      await walk(joiner, partnerTrail(creatorName));
+    } else {
+      await walk(creator, CREATOR_TRAIL);
+      await creator.waitForTimeout(1200);
+      const held = await looking(creator);
+      console.log(`creator: "${held.head}" — code ${held.code || "(none)"}`);
+      if (!/^[A-Z0-9]{4}$/.test(held.code)) {
+        throw new Error(`the creator never got a code: "${held.code}"`);
       }
-    };
-
-    const creator = await phone(creatorName ?? "ADA");
-    const joiner = await phone(joinerName ?? "BEN");
-
-    await walk(creator, CREATOR_TRAIL);
-    await creator.waitForTimeout(1200);
-    const held = await looking(creator);
-    console.log(`creator: "${held.head}" — code ${held.code || "(none)"}`);
-    if (!/^[A-Z0-9]{4}$/.test(held.code)) {
-      throw new Error(`the creator never got a code: "${held.code}"`);
+      await walk(joiner, JOINER_TRAIL);
+      console.log(`joiner:  "${(await looking(joiner)).head}"`);
+      await joiner.fill("#joinInput", held.code);
+      await walk(joiner, [JOINER_COMMIT]);
     }
-
-    await walk(joiner, JOINER_TRAIL);
-    console.log(`joiner:  "${(await looking(joiner)).head}"`);
-    await joiner.fill("#joinInput", held.code);
-    await walk(joiner, [JOINER_COMMIT]);
     await joiner.waitForTimeout(2500);
 
     const onCreator = await looking(creator);
     const onJoiner = await looking(joiner);
-    console.log(`creator: "${onCreator.head}" — ${onCreator.state}`);
-    console.log(`joiner:  "${onJoiner.head}" — ${onJoiner.state}`);
+    console.log(
+      `creator: "${onCreator.head}" — ${onCreator.state} — ${onCreator.seats.join(" / ")}`,
+    );
+    console.log(`joiner:  "${onJoiner.head}" — ${onJoiner.state} — ${onJoiner.seats.join(" / ")}`);
     await creator.screenshot({ path: `${out}-creator.png` });
     await joiner.screenshot({ path: `${out}-joiner.png` });
     console.log(`${out}-creator.png  ${out}-joiner.png`);
 
-    // The question no single-device shot can ask: a creator leaves step 3 on
-    // the *other phone arriving*, and nothing on their own device knows the
-    // code has been read out (`join-steps.ts`).
-    if (onCreator.head === held.head) {
-      throw new Error(`the creator's page did not turn: still "${held.head}"`);
+    // The question no single-device shot can ask: both phones under THE ROOM,
+    // each pill naming the *other* phone — which is the room saying so, not
+    // either device (`join-steps.ts`; the own seat says YOU, `seatWord`). On
+    // the NEW GAME route that is also the creator's page turning on the other
+    // phone arriving; on the partner route it is two derivations of one code
+    // agreeing.
+    for (const [who, on, other] of [
+      ["creator", onCreator, joinerName],
+      ["joiner", onJoiner, creatorName],
+    ] as const) {
+      const seated = on.seats.map((s) => s.toUpperCase());
+      if (!seated.includes("YOU") || !seated.includes(other.toUpperCase())) {
+        throw new Error(`${who}'s pills say ${on.seats.join(" / ")} under "${on.head}"`);
+      }
     }
-    console.log("the creator's page turned when the joiner arrived");
+    console.log(
+      viaPartners
+        ? "both phones derived the same room and are in it together"
+        : "the creator's page turned when the joiner arrived",
+    );
   } finally {
     await closeBrowser(browser);
     await preview.stop();

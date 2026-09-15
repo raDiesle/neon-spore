@@ -36,11 +36,36 @@ export async function startPreview(
   return {
     url,
     stop: async () => {
+      await stopServerBehind(url);
       proc.kill();
       await proc.exited;
       await waitUntilQuiet(url);
     },
   };
+}
+
+/**
+ * The server itself, killed by the pid it reports at `/__preview`.
+ *
+ * `proc` is `bun run … preview:once`, and the server is its grandchild: the
+ * kill above takes the runner and leaves `bun preview.ts` standing, holding
+ * the stdout pipe this process gave the runner. A pipe still open is a handle
+ * Bun's event loop waits on, so `room-shot` printed its last line and then
+ * sat — for as long as the orphan took to notice it was idle, ten minutes by
+ * `preview.ts`'s own rule — and on 15 September 2026 four runs were each
+ * killed by hand. Asking the server for its pid is the one thing every
+ * preview answers (`preview.ts` puts it in the marker); one that has already
+ * gone answers nothing, and that is fine.
+ */
+async function stopServerBehind(url: string): Promise<void> {
+  try {
+    const marker = (await fetch(`${url}/__preview`, { signal: AbortSignal.timeout(500) }).then(
+      (r) => r.json(),
+    )) as { pid?: number };
+    if (marker.pid && marker.pid !== process.pid) process.kill(marker.pid);
+  } catch {
+    // Not answering, or already gone: nothing to kill.
+  }
 }
 
 /** How long the server is given to print its port before this stops waiting

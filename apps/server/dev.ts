@@ -5,6 +5,8 @@
 // matters between two worktrees — the number is derived from the tree's path
 // (`tools/ports.ts`), the same one every time, so two sessions never ask for
 // one socket and a `curl` twice reaches the same relay.
+import { mkdirSync } from "node:fs";
+import { join } from "node:path";
 import { relayPort, treeKey } from "../../tools/ports.js";
 
 /**
@@ -45,9 +47,25 @@ export function wranglerDevCommand(port: number): string[] {
   ];
 }
 
+/**
+ * The directory `wrangler.jsonc` names as the Worker's assets, made if it is
+ * missing — wrangler refuses to start without it, and a worktree that has never
+ * run `bun run preview` has none. An empty one is enough: the relay serves the
+ * game only where it is deployed, and every local caller (`room-shot`,
+ * `relay:check:all`) brings its own preview. Found on 15 September 2026, when
+ * `room-shot` in a fresh worktree said only that the relay never answered its
+ * health line.
+ */
+export function ensureAssets(tree: string): string {
+  const dir = join(tree, "apps", "game", "dist");
+  mkdirSync(dir, { recursive: true });
+  return dir;
+}
+
 if (import.meta.main) {
   const tree = Bun.fileURLToPath(new URL("../../", import.meta.url));
   const port = Number(process.env.RELAY_PORT ?? relayPort(tree));
+  ensureAssets(tree);
   console.log(`relay for ${treeKey(tree)}`);
   console.log(`  http://127.0.0.1:${port}/net/health`);
   console.log(`  bun run relay:check ws://127.0.0.1:${port}`);

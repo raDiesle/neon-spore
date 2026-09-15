@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
-import { CREATOR_TRAIL, JOINER_COMMIT, JOINER_TRAIL } from "../room-shot.js";
+import { partnerRow } from "../../../apps/game/src/menu-link.js";
+import { CREATOR_TRAIL, JOINER_COMMIT, JOINER_TRAIL, partnerTrail } from "../room-shot.js";
 
 /**
  * **The two walks, against the buttons that are really on the screen.**
@@ -37,5 +38,14 @@ describe("the trails room-shot presses", () => {
     // (`join-steps.ts`), so a trail with another label on the end would be
     // waiting for a button that is not there.
     expect(CREATOR_TRAIL).toHaveLength(3);
+  });
+
+  it("presses a partner's row as menu-link spells it for somebody not yet played with", () => {
+    // `--via partners` seeds each phone with the other at wave 0, so the row
+    // carries no `· WAVE n` — and the label is `partnerRow`'s, not a copy.
+    expect(partnerTrail("ben")).toEqual([
+      "PLAY",
+      partnerRow({ name: "ben", furthest: 0, level: "medium" }),
+    ]);
   });
 });

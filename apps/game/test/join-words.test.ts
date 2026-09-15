@@ -72,6 +72,15 @@ describe("a quiet phone and a dead line", () => {
     expect(explain(at({ ...inRoom, state: "stalled" }))).toContain("Still connected");
   });
 
+  test("and the wait for the other phone offers nothing the screen no longer has", () => {
+    // SEND LINK left the room screen when it became steps (`join-steps.ts`);
+    // the sentence went on offering it for a day, seen on a phone that walked
+    // in on a partner's row and had nothing to press.
+    const waiting = explain(at({ ...inRoom, state: "waiting" }));
+    expect(waiting).toContain("ACDE");
+    expect(waiting).not.toContain("link");
+  });
+
   test("while a full room says the line is fine and the room is not", () => {
     // A third phone typing the code is not a network fault, and telling somebody
     // it was sends them to check a signal that is working.
