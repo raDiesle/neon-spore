@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 00ecba66 — A harpooned control says MOVE CANNON! or MOVE SHIELD! under the other seat's dial
+
+The owner asked for both words by name on 14 September 2026, mark and all, and for them to appear under the seat that cannot move the control being asked for. `duty.ts` already carried a word for each of these two kinds, written for them as creatures — KEEP MOVING to the seat holding the control, SAY MOVE to the one watching it — and those rows are right for a body that fell down a lane onto the cannon, because both seats watched it land. As a malfunction there is nothing to watch: the fault is a pencil on the map and the body is already holding the control on the beat the placement starts, so the seat without that control has no panel to read it off and needs telling which control it is.
+
 ## 2026-09-15 · 1e870e05 — THE BALLOON comes in at a wall, never goes downwards, and is a torch at the top
 
 Three of the four things the owner asked for on 14 September 2026, each of them a rule or a look he named, so they land on the field. A balloon used to appear out of nothing one row above the ship, and it now enters at the left or right wall one or two rows above the shield and glides to somewhere around the middle before it starts to climb; the top of the field used to be a silent bill on the hull and is now a handoff, the body turning into a torch and dropping at once; and the sinking half of a split is gone, so both halves rise and a split is two bodies to answer rather than one to answer and one to survive.
