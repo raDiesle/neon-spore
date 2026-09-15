@@ -707,33 +707,3 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
-
-## Unverified at 1b4ca9f8: Two phones in one room seeing the gear's tempo arrive:…
-
-- **Found:** 2026-09-15, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-15, claude/queue-unverified-at-1b4ca9f8-two-phones-in-one-room-se
-- **Files:** `apps/game/src/confirm.ts`, `apps/game/src/link-types.ts`, `apps/game/src/link.ts`, `apps/game/src/menu-bindings.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-rows.ts`
-
-*The tempo is on the pair's row, behind a gear* landed from a session that could not look at it. The commit touched 13 more files. What went unchecked:
-
-- Two phones in one room seeing the gear's tempo arrive: link.join carries it and sends it on the welcome, proved only against a socket the test speaks through
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
-## Unverified at a2d84afd: Two phones in one room stepping through the new room sc…
-
-- **Found:** 2026-09-15, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-15, claude/queue-unverified-at-a2d84afd-two-phones-in-one-room-st
-- **Files:** `apps/game/index.html`, `apps/game/src/game.css`, `apps/game/src/join-link.ts`, `apps/game/src/join-name.ts`, `apps/game/src/join-step-view.ts`, `apps/game/src/join-steps.ts`, `apps/game/src/join.ts`, `apps/game/src/shell.ts`
-
-*The room screen is four steps, and a step asks one thing* landed from a session that could not look at it. The commit touched 7 more files. What went unchecked:
-
-- Two phones in one room stepping through the new room screen: a creator on step 3 seeing the page turn when the joiner arrives, and the joiner's own JOIN → name → code → room walk
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.

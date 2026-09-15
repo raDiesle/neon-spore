@@ -5287,3 +5287,26 @@ new one both reach `ready peers=2`. About 60 min.
 
 Bottleneck: looking — three reproductions were wrong before one discriminated,
 and each costs twenty seconds of wall clock plus a wrangler start.
+
+## 2026-09-15 · claude/queue-tasks-kkqozz — `room-shot`, and two unverified entries closed by running them
+
+The two `Unverified` entries that wanted *two phones in one room* — the gear's
+tempo arriving, and the four-step room screen walked by a creator and a joiner
+— were opened against a real Durable Object and both hold. The tempo a device
+carries into `link.join` reaches the other phone through the room; the
+creator's page turns from READ THIS OUT to THE ROOM the moment the joiner
+arrives, and both seat pills carry the two names. `room-shot` is the rig, which
+three sessions had now written as a throwaway: it starts the relay and the
+preview, walks both trails, prints each phone's heading and writes a PNG each.
+About 60 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the two entries, `join-steps.ts`, `menu-shot.ts`, `menu-press.ts`, `serve.ts` |
+| writing | 20 | `room-shot.ts`, `relay-up.ts`, three cases, the command and its line |
+| looking | 25 | the tempo probe, then the two-phone walk three times, and the four screenshots |
+| friction | 5 | the commit button says ENTER THE ROOM, not JOIN — found halfway through a two-minute run, which is what the new test now catches in a second |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: looking — every question here costs a wrangler start and a build,
+and the only way to shorten it was to stop writing the rig again.

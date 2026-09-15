@@ -51,6 +51,7 @@
     "icons": "bun run tools/icons/run.ts",
     "shot": "bun run tools/frames/shot.ts",
     "menu-shot": "bun run tools/frames/menu-shot.ts",
+    "room-shot": "bun run tools/frames/room-shot.ts",
     "crop": "bun run tools/frames/crop-png.ts",
     "versus:shot": "bun run tools/frames/versus-shot.ts",
     "test": "bun run tools/check/shard.ts",
