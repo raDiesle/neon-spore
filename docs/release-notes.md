@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 987733d1 — THE LEECH and THE LIMPET are fired from the emitter: a body on a control, kept off by moving it
+
+The owner asked for both by name on 14 September 2026. They shipped as creatures — a body that falls down a lane, takes a control, counts a five-beat fuse and is shaken off by moving enough times — and what he wanted is the same body arriving the way every other fault arrives: fired from the thing at the top of the field, on a beat row a pencil is laid across, for as long as the pencil is long. This is the simulation half of that.
+
 ## 2026-09-15 · 35c4fb35 — The director paints the pencil: a fault brush, a mark in the rail, and the four marks made pressable
 
 The second half of the owner's instruction of 14 September 2026, on top of the shape that landed with it: a fault is a thing you pick up in the palette and lay on a beat row, the list says which waves carry one, and the list can be narrowed to them.
