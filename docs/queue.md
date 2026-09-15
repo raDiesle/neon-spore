@@ -639,6 +639,7 @@ director opened on THE LEAK showing the rung on its panel row and no fault.
 ## Unverified at a80777a5: The sign-in half of the first meeting actually signing…
 
 - **Found:** 2026-09-15, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-15, claude/queue-unverified-at-a80777a5-the-sign-in-half-of-the-f
 - **Files:** `apps/game/src/game.css`, `apps/game/src/hello.ts`, `apps/game/src/join-name.ts`, `apps/game/src/menu.css`, `apps/game/src/nickname.ts`, `apps/game/src/shell.ts`, `apps/game/test/hello.test.ts`, `apps/game/test/intro.test.ts`
 
 *After the intro, a first visit is asked what it is called* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
