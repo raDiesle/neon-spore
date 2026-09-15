@@ -1180,6 +1180,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/hello.ts` | THE FIRST THING A DEVICE IS ASKED, ONCE THE SCENE HAS PLAYED |
 | `apps/game/src/settings.ts` | The things a player turns on and off, kept on their own device |
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
+| `apps/game/src/link-ask.ts` | **What a phone asks the room for**, and nothing it is told |
 | `apps/game/src/last-room.ts` | **The room this device was in a moment ago.** A phone that reloads loses everything about the room it was… |
 | `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
 | `apps/game/src/join-link.ts` | a room's code and the two things that happen to one on a phone — drawn fresh, or read off the link the page was opened on |
@@ -1234,6 +1235,7 @@ place — the generator keeps whatever is there.
 | `apps/server/src/start-gate.ts` | The two presses that stand between a full room and beat zero |
 | `apps/server/src/sign-in.ts` | Who signed in, read off a Firebase ID token — checked here, never trusted |
 | `apps/server/src/room-start.ts` | The gate's two sockets-facing halves: telling both phones who has pressed |
+| `apps/server/src/room-seat.ts` | **Who holds which seat, once the pair have a say in it.** A seat was the room's arrival order |
 | `apps/server/src/names.ts` | The name registry: one Durable Object holding every claimed name |
 | `apps/server/src/room-open.ts` | Everything that must be true before a socket is worth accepting, in the order it is worth being false in |
 | `apps/server/src/room-tally.ts` | The tally's storage half, and giving up on a run nobody is playing |

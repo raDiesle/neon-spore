@@ -1,5 +1,6 @@
-import type { Difficulty, LinkState, LinkStatus, RunMark, ServerMessage } from "@neon-spore/net";
+import type { Difficulty, LinkState, LinkStatus, ServerMessage } from "@neon-spore/net";
 import { DEFAULT_DIFFICULTY } from "@neon-spore/sim";
+import { roomAsks } from "./link-ask.js";
 import { createRoomClock } from "./link-clock.js";
 import { reclaimingSeat, stateAfterRefusal, turnedAway, worthReaching } from "./link-refusal.js";
 import { NOTHING_SAID, type RoomSaid, report } from "./link-report.js";
@@ -18,7 +19,8 @@ export type { Link, LinkOptions } from "./link-types.js";
  * file of its own and this is what holds them together — `link-socket.ts` the
  * socket and its reconnection, `link-run.ts` the scheduler and the
  * fingerprints, `link-clock.ts` the clock and the countdown it decides,
- * `link-report.ts` the state the player reads. Several runs can pass over one
+ * `link-report.ts` the state the player reads, `link-ask.ts` what it sends
+ * up. Several runs can pass over one
  * socket, since every phone that drops and returns makes the room stamp a
  * fresh beat zero, and that is exactly why they are not one file.
  *
@@ -119,7 +121,13 @@ export function createLink(o: LinkOptions): Link {
         // down here — so the room screen's line about the last time these two
         // played has always read as if they never had, and beat zero had no
         // wave to land on but the first.
-        said = { ...said, names: message.names, best: message.best, level: message.level };
+        said = {
+          ...said,
+          names: message.names,
+          best: message.best,
+          level: message.level,
+          host: message.host,
+        };
         // The tempo this join was told to bring, said once and only if it differs.
         if (asked !== null && asked !== message.level) socket?.send({ t: "level", level: asked });
         asked = null;
@@ -222,25 +230,10 @@ export function createLink(o: LinkOptions): Link {
     if (run.checkpoint()) settle("desync");
   };
 
-  /** A press, not a start: the room decides what two of them are worth. */
-  const ready = (): void => socket?.send({ t: "ready" });
-
-  /** The difficulty the pair has chosen, up to the room, which hands it back to
-   * both phones — so the one that chose and the one that did not take their
-   * tempo from the same answer (`sim/difficulty.ts`). */
-  const setLevel = (next: Difficulty): void => socket?.send({ t: "level", level: next });
-
-  /** How far this device has got, for the room to keep. Stored, never read. */
-  const tally = (mark: RunMark): void => {
-    socket?.send({ t: "stats", ...mark });
-  };
-
   return {
+    ...roomAsks(() => socket),
     join,
     leave,
-    ready,
-    setLevel,
-    tally,
     mayTick,
     drain: run.drain,
     checkpoint,

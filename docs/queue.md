@@ -180,7 +180,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8
 - **Taken:** 2026-09-15, claude/queue-play-is-a-list-of-partners-to-continue-with-and
-- **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-rejoin.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu.ts`, `apps/game/src/pairing.ts`, `apps/game/src/progress.ts`, `apps/game/src/join.ts`, `apps/game/src/join-steps.ts`, `apps/game/src/join-step-view.ts`, `apps/game/src/join-words.ts`, `apps/game/src/join-link.ts`, `apps/game/src/join-name.ts`, `apps/game/index.html`, `apps/game/src/link.ts`, `apps/server/src/seat.ts`, `apps/game/test/menu.test.ts`, `apps/game/test/pairing.test.ts`, `apps/game/test/join-words.test.ts`
+- **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-rejoin.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu.ts`, `apps/game/src/pairing.ts`, `apps/game/src/progress.ts`, `apps/game/src/join.ts`, `apps/game/src/join-steps.ts`, `apps/game/src/join-step-view.ts`, `apps/game/src/join-words.ts`, `apps/game/src/join-link.ts`, `apps/game/src/join-name.ts`, `apps/game/index.html`, `apps/game/src/link-ask.ts`, `apps/game/src/link-report.ts`, `apps/server/src/room-seat.ts`, `apps/game/test/menu.test.ts`, `apps/game/test/pairing.test.ts`, `apps/game/test/join-words.test.ts`
 
 The owner asked for this on 14 September 2026 — the first exemption under *A
 look is offered, never replaced*; say so in the commit. It is one workflow but
@@ -261,10 +261,20 @@ NEW GAME, CONTINUE and DIFFICULTY. **What he wants:**
      and **the difficulty** there — the joiner sees the choice made and takes
      the other seat — and each says READY with **the circle hold the guides
      use** (`briefing.ts`, `render/ready-circles.ts`), not a START button
-     (`#joinStart`, `startButton` in `join-words.ts`). Who holds which seat is
+     (`#joinStart`, `startButton` in `join-words.ts`). ~~Who holds which seat is
      today the server's arrival order (`seat.ts`, `link.ts:202`); the
      creator's pick has to reach the other phone, which is one new message or
-     a swap — the net-change skill's files move together.
+     a swap — the net-change skill's files move together.~~ **The wire half
+     landed on 15 September 2026**: a `seat` message (`protocol.ts`), honoured
+     only from the host and before beat zero (`apps/server/src/room-seat.ts`),
+     turns one persisted swap bit that every seat lookup reads through
+     (`seat.ts` `seatTag`); the welcome carries `host` and is re-sent to both
+     on a swap and on a `level`, so the joiner sees the pick made; the client
+     has `Link.pickSeat` and `LinkStatus.host` (`link-ask.ts`,
+     `link-report.ts`). Proved by `apps/server/test/room-seat.test.ts` and
+     `relay:check:all`. **The screen half is what is left**: the pills become
+     presses for the host (`#joinSeat1/2`, `join.ts`), the tempo sits on the
+     same step, and the READY circles replace `#joinStart`.
    - The joiner's pages mirror it: JOIN → name → code → the same shared step 4.
 5. ~~**The wait for the other player gives up too soon.**~~ — landed on 15
    September 2026, and **it was neither of the two timers this entry named**.
@@ -707,3 +717,37 @@ rows. Add it as `--then-wave <n>` to `room-shot`: after the seat check, START
 on both, the jump on the creator, and a line saying what the creator's row now
 reads, with a throw when the other name is not at `n`. `room-phones.ts` gets
 the fresh-tab verb. A case in `room-shot.test.ts` for the flag's parsing.
+
+## `room.ts` is at the line limit again, and `route`'s acts are the piece to move
+
+- **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
+- **Files:** `apps/server/src/room.ts`, `apps/server/src/room-route.ts`, `apps/server/src/room-seat.ts`
+
+Landing the seat swap put `room.ts` at exactly 250 lines after two trims —
+the arrival's tags went to `seat.ts` (`arrivalTags`) and the re-greet was
+inlined at both call sites. The next line the file needs is a split. The
+natural cut is the object literal in `Room.route` — five acts, each two to
+nine lines, each reading and writing the room's fields — into a `RoomActs`
+made by a function in `room-route.ts` (which already owns the switch that
+calls them) or a `room-acts.ts` that takes the room's state as an interface.
+Prove with `bun test apps/server` and `bun run relay:check:all`.
+
+## A pure test pulls a server `src` file into the root typecheck, without its types
+
+- **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
+- **Files:** `tsconfig.json`, `apps/server/tsconfig.json`, `apps/server/test/room-seat.test.ts`, `apps/server/src/room-seat.ts`
+
+The root `tsconfig.json` excludes `apps/server/src` and includes
+`apps/server/test`, so a test that imports a `src` file pulls it into the
+root typecheck — where `DurableObjectState`, `WebSocketPair` and
+`serializeAttachment` do not exist. `room-seat.test.ts` importing
+`room-seat.ts`, which imported `type Seat` from `seat.ts`, put eight errors
+on `seat.ts` under `bun run typecheck` while `apps/server`'s own typecheck
+was green; the fix was to give the pure rule its own `Asking` interface and
+never import `seat.ts` from a file a test reaches. That is a rule nobody
+wrote down, and `start-gate.ts` and `tally.ts` obey it by accident. Either
+the root config excludes `apps/server/test` too and `apps/server`'s own
+`tsconfig` includes it (it already carries `@cloudflare/workers-types`), or
+`apps/server/src` is checked once, from the root, with the workers types
+added — pick one and prove it with `bun run typecheck` and a test that
+imports `seat.ts` directly.

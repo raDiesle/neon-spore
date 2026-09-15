@@ -97,6 +97,7 @@ const welcome = (level: Difficulty | null): ServerMessage => ({
   names: ["", ""],
   best: null,
   level,
+  host: 1,
 });
 
 /** Every tempo this device asked the room for, in the order it asked. */

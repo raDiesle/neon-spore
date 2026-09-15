@@ -5332,3 +5332,25 @@ is the first walk; the second was a throwaway probe. About 60 min.
 Bottleneck: friction — a run that ends and does not exit looks exactly like
 a run that has hung, and each look cost a wrangler start; the answer was one
 `ps`, and it took four runs to think of it.
+
+## 2026-09-15 · claude/queued-tasks-2-f45f36 — the seat the host picks reaches the other phone
+
+The wire half of step 4 of the room screen. A `seat` message the room honours
+only from the host and before beat zero; one persisted swap bit that every
+seat lookup reads through, because a socket's tags cannot change; `host` on
+the welcome, re-sent to both phones on a swap and on a tempo pick;
+`Link.pickSeat` and `LinkStatus.host` on the client. Ten cases in
+`room-seat.test.ts` against a real workerd, the four relay checks green.
+About 15 min by the clock, 12:45 to 13:00.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `room.ts`, `seat.ts`, `room-tell.ts`, `room-start.ts`, `link.ts`, `room.test.ts`'s phone |
+| writing | 5 | the protocol, the rule, the tags, the re-greet, `link-ask.ts`, `phone.ts` out of `room.test.ts`, ten cases |
+| looking | 0 | nothing visible moved |
+| friction | 5 | six relay tests hung on room codes with an S in them (the alphabet has none); `link.ts` and `room.ts` both over the line limit; the root typecheck pulled `seat.ts` in through a pure test |
+| landing | 5 | `check:fast` four times, `relay:check:all` twice, the commit, `bun run land --keep` |
+
+Bottleneck: friction — a refused upgrade looked like a hang for a whole
+timeout, and the two files at their limit each cost a split before the
+check went green.

@@ -1,5 +1,5 @@
 import type { Difficulty } from "@neon-spore/sim";
-import type { RunMark } from "./protocol.js";
+import type { PlayerId, RunMark } from "./protocol.js";
 
 /**
  * What the network indicator may say. The list is closed on purpose.
@@ -93,6 +93,13 @@ export interface LinkStatus {
    */
   level: Difficulty | null;
   /**
+   * The seat of the phone that opened the room, or 0 when there is none —
+   * the one the room screen lets pick the seats and the tempo for both. It
+   * is the room's word (`welcome`), because a phone that dropped and came
+   * back cannot tell on its own whether it was here first.
+   */
+  host: PlayerId | 0;
+  /**
    * The lag this device is currently carrying between a touch and the tick it
    * lands on — `InputDelay` in milliseconds, 0 when playing alone. It is the
    * one number that says how the link *feels* rather than how it measures, so
@@ -155,6 +162,7 @@ export const SOLO_STATUS: LinkStatus = {
   names: ["", ""],
   best: null,
   level: null,
+  host: 0,
   delayMs: 0,
   delayTicks: 0,
   stalledMs: 0,

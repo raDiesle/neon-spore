@@ -21,11 +21,12 @@ import type { RoomSocket } from "./link-socket.js";
 /**
  * **What the room has told this device**, in one record.
  *
- * Four facts arrive on the room's own messages and are kept until it says
+ * Five facts arrive on the room's own messages and are kept until it says
  * otherwise: who has pressed START, what the two of them are called, what they
- * got to last time, and the tempo they play at. They are one object rather than
- * four variables because they are one subject — the room's word — and because
- * `link.ts` passes them all to `report` on a line that had run out of room.
+ * got to last time, the tempo they play at, and which seat opened the room.
+ * They are one object rather than five variables because they are one subject
+ * — the room's word — and because `link.ts` passes them all to `report` on a
+ * line that had run out of room.
  *
  * A room that is left says none of it, which is `NOTHING_SAID`.
  */
@@ -38,6 +39,8 @@ export interface RoomSaid {
   best: RunMark | null;
   /** The room's difficulty, or null before it has one (`sim/difficulty.ts`). */
   level: Difficulty | null;
+  /** The seat that opened the room, or 0 — see `LinkStatus.host`. */
+  host: PlayerId | 0;
 }
 
 export const NOTHING_SAID: RoomSaid = {
@@ -45,6 +48,7 @@ export const NOTHING_SAID: RoomSaid = {
   names: ["", ""],
   best: null,
   level: null,
+  host: 0,
 };
 
 export interface ReportParts {
@@ -76,6 +80,7 @@ export function report(p: ReportParts): LinkStatus {
     names: p.said.names,
     best: p.said.best,
     level: p.said.level,
+    host: p.said.host,
     delayMs: p.run.delayMs,
     delayTicks: p.run.delayTicks,
     stalledMs: p.run.stalledMs,

@@ -53,6 +53,10 @@ export function decodeClient(raw: string): ClientMessage | null {
     // one phone's beat (`sim/difficulty.ts`).
     case "level":
       return isDifficulty(m.level) ? { t: "level", level: m.level } : null;
+    // A seat that is not one of the two is refused whole: the room would
+    // otherwise be asked to give somebody a chair it has not got.
+    case "seat":
+      return isPlayer(m.seat) ? { t: "seat", seat: m.seat } : null;
     default:
       return null;
   }
@@ -95,6 +99,10 @@ export function decodeServer(raw: string): ServerMessage | null {
             names: namesFromWire(m.names),
             best: bestFromWire(m.best),
             level: isDifficulty(m.level) ? m.level : null,
+            // Nobody, rather than a refusal: a room from before the host was
+            // named still says who you are, and a screen with no host offers
+            // no pick.
+            host: isPlayer(m.host) ? m.host : 0,
           }
         : null;
     case "peers":

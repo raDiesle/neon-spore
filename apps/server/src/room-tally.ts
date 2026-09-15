@@ -31,6 +31,19 @@ export async function keepLevel(
   return level;
 }
 
+/**
+ * Whether the pair have swapped seats since the room formed (`seat.ts`
+ * `seatTag`). Kept here because it is the third thing the room keeps and
+ * hands back, and this is the file that touches storage.
+ */
+export async function readSwapped(storage: DurableObjectStorage): Promise<boolean> {
+  return (await storage.get<boolean>("swapped")) === true;
+}
+
+export async function keepSwapped(storage: DurableObjectStorage, swapped: boolean): Promise<void> {
+  await storage.put("swapped", swapped);
+}
+
 /** What this pair got to, as the room last heard it. */
 export async function readBest(storage: DurableObjectStorage): Promise<Tally> {
   return (await storage.get<Tally>("best")) ?? NOTHING_YET;

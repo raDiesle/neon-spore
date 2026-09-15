@@ -2,25 +2,31 @@ import {
   type ClientMessage,
   type Difficulty,
   decodeClient,
-  NAME_PARAM,
-  nameFromWire,
   type PlayerId,
   type ServerMessage,
 } from "@neon-spore/net";
 import { refuseUpgrade } from "./room-open.js";
 import { routeClient } from "./room-route.js";
+import { seatSwap } from "./room-seat.js";
 import { pressStart } from "./room-start.js";
-import { endStaleRun, keepBest, keepLevel, readBest, readLevel } from "./room-tally.js";
-import { announceGone, greetSeats, type RoomFacts } from "./room-tell.js";
 import {
+  endStaleRun,
+  keepBest,
+  keepLevel,
+  keepSwapped,
+  readBest,
+  readLevel,
+  readSwapped,
+} from "./room-tally.js";
+import { announceGone, greetSeats, type RoomFacts, tellSeats } from "./room-tell.js";
+import {
+  arrivalTags,
   hangUp,
-  nameTag,
   occupiedSeats,
   playerOfSocket,
   SEAT_SILENT_MS,
   type Seat,
   seatOfSocket,
-  seatTag,
   send,
   stamp,
 } from "./seat.js";
@@ -65,6 +71,8 @@ export class Room {
    * phones at two tempi never reach the same tick, so the pair's one answer
    * lives here (`packages/sim/src/difficulty.ts`, `room-tally.ts`). */
   private level: Difficulty | null = null;
+  /** Whether the pair swapped seats: the one bit a tag cannot hold (`seat.ts`). */
+  private swapped = false;
 
   constructor(ctx: DurableObjectState, env: RoomEnv) {
     this.ctx = ctx;
@@ -79,6 +87,7 @@ export class Room {
       this.startMs = (await ctx.storage.get<number>("startMs")) ?? 0;
       this.best = await readBest(ctx.storage);
       this.level = await readLevel(ctx.storage);
+      this.swapped = await readSwapped(ctx.storage);
       this.heard = (await ctx.storage.get<number>("heard")) ?? 0;
     });
   }
@@ -110,14 +119,15 @@ export class Room {
     const pair = new WebSocketPair();
     const client = pair[0];
     const server = pair[1];
-    const player: PlayerId = seats.some((s) => s.player === 1) ? 2 : 1;
-    // The seat is a tag rather than a field: hibernation wakes the object with
-    // nothing but its sockets, and a tag survives that where a Map does not.
-    // The name rides the upgrade beside the version, clamped on the way in by
-    // the same rule both clients apply on the way out. It is a tag because the
-    // seat is: hibernation wakes this object holding nothing but sockets.
-    const name = nameFromWire(new URL(request.url).searchParams.get(NAME_PARAM));
-    this.ctx.acceptWebSocket(server, [seatTag(player), nameTag(name)]);
+    // An empty room starts over: a swap is the pair's, and this is a new pair.
+    if (seats.length === 0 && this.swapped) {
+      this.swapped = false;
+      await keepSwapped(this.ctx.storage, false);
+    }
+    // Everything about the arrival is a tag: hibernation wakes this object
+    // holding nothing but sockets (`seat.ts`).
+    const { player, tags } = arrivalTags(seats, this.swapped, request.url);
+    this.ctx.acceptWebSocket(server, tags);
     stamp(server);
     this.greet(server, player);
     return new Response(null, { status: 101, webSocket: client });
@@ -159,6 +169,17 @@ export class Room {
       level: (level) => {
         this.level = level;
         void keepLevel(this.ctx.storage, level);
+        // The other phone reads the tempo off its welcome, so it gets one.
+        tellSeats(this.seats(), this.facts(), this.gate);
+      },
+      seat: (seat) => {
+        const swapped = seatSwap(me, seat, this.startMs, this.swapped);
+        if (swapped === null) return;
+        this.swapped = swapped;
+        void keepSwapped(this.ctx.storage, swapped);
+        // A press was for a seat that is now somebody else's.
+        this.gate.clear();
+        tellSeats(this.seats(), this.facts(), this.gate);
       },
       stats: (tally) =>
         void keepBest(this.ctx.storage, this.best, tally).then((next) => {
@@ -216,14 +237,14 @@ export class Room {
 
   /** The seats that are actually occupied — see `occupiedSeats`. */
   private seats(): Seat[] {
-    return occupiedSeats(this.ctx, this.silentMs);
+    return occupiedSeats(this.ctx, this.silentMs, this.swapped);
   }
 
   private seatOf(socket: WebSocket): Seat | null {
-    return seatOfSocket(this.ctx, socket);
+    return seatOfSocket(this.ctx, socket, this.swapped);
   }
 
   private playerOf(socket: WebSocket): PlayerId | null {
-    return playerOfSocket(this.ctx, socket);
+    return playerOfSocket(this.ctx, socket, this.swapped);
   }
 }

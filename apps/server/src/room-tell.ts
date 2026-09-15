@@ -1,6 +1,6 @@
 import type { Difficulty, PlayerId, RunMark } from "@neon-spore/net";
 import { tellReady } from "./room-start.js";
-import { namesOf, type Seat, send } from "./seat.js";
+import { hostOf, namesOf, type Seat, send } from "./seat.js";
 import type { StartGate } from "./start-gate.js";
 
 /**
@@ -44,17 +44,32 @@ export function greetSeats(
   facts: RoomFacts,
   gate: StartGate,
 ): void {
+  tellSeats(
+    seats.map((seat) => (seat.socket === socket ? { ...seat, player } : seat)),
+    facts,
+    gate,
+  );
+}
+
+/**
+ * Say the welcome again, to everybody, because what it would say has changed:
+ * the tempo the host picked, the seats swapped. Both phones read their seat
+ * and the pair's answers off one message rather than off a history of edges —
+ * the same reason a `ready` carries the whole set (`protocol.ts`).
+ */
+export function tellSeats(seats: Seat[], facts: RoomFacts, gate: StartGate): void {
   const peers = seats.length;
   for (const seat of seats) {
     send(seat.socket, {
       t: "welcome",
-      player: seat.socket === socket ? player : seat.player,
+      player: seat.player,
       room: facts.code,
       startMs: facts.startMs,
       peers,
       names: namesOf(seats),
       best: facts.best,
       level: facts.level,
+      host: hostOf(seats),
     });
   }
   if (peers >= 2) tellReady(gate, seats);

@@ -45,6 +45,12 @@ export interface Link {
   /** The difficulty the pair has chosen, up to the room (`link.ts`). */
   setLevel: (level: Difficulty) => void;
   /**
+   * The seat this phone would hold. Only the host's pick moves anybody — the
+   * room swaps both seats and re-welcomes them — and only before beat zero; any
+   * other is ignored where it lands (`apps/server/src/room-seat.ts`).
+   */
+  pickSeat: (seat: PlayerId) => void;
+  /**
    * Join a room. Leaves any room already held.
    *
    * `wanted` is a tempo to ask the room for once it answers — the level a pair

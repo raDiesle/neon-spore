@@ -112,7 +112,20 @@ export type ClientMessage =
    * is therefore where the disagreement is settled, and beat zero is when both
    * take what it says.
    */
-  | { t: "level"; level: Difficulty };
+  | { t: "level"; level: Difficulty }
+  /**
+   * The phone that opened the room asks to hold this seat, and the other
+   * phone takes the other one.
+   *
+   * Who holds which seat was the room's arrival order, which is nobody's
+   * choice. The pair choose on the room screen instead, and one of them
+   * chooses for both: the *host* — the seat the `welcome` names — because two
+   * phones each asking for seat 1 is a question the room would have to settle
+   * with a rule nobody can see. A `seat` from the other phone, or after beat
+   * zero, changes nothing. The answer is a fresh `welcome` to both, since a
+   * welcome is what says who you are (`apps/server/src/room-seat.ts`).
+   */
+  | { t: "seat"; seat: PlayerId };
 
 export type ServerMessage =
   | {
@@ -147,8 +160,22 @@ export type ServerMessage =
        * default — the game as it has always been (`sim/difficulty.ts`).
        */
       level: Difficulty | null;
+      /**
+       * The seat of the phone that opened the room — the one whose `seat` and
+       * whose pick of tempo the room takes for both — or 0 when it has gone.
+       * A phone that arrives at a room nobody hosts becomes its host, so the
+       * one that comes back after a drop is the host again.
+       */
+      host: PlayerId | 0;
     }
-  /** Someone joined or left. Two is a game; one is a wait. */
+  /**
+   * Someone joined or left. Two is a game; one is a wait.
+   *
+   * A `welcome` rather than one of these is what the room says when what it
+   * would have said has changed — the tempo picked, the seats swapped, beat
+   * zero stamped — so that every phone reads its seat and the pair's answers
+   * off one message rather than off a history of edges.
+   */
   | { t: "peers"; peers: number; names: [string, string] }
   /**
    * Which seats have pressed START, whenever that changes.

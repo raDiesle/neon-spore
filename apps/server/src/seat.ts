@@ -1,4 +1,12 @@
-import { encode, type PlayerId, type RefusalCode, type ServerMessage } from "@neon-spore/net";
+import {
+  encode,
+  NAME_PARAM,
+  nameFromWire,
+  otherPlayer,
+  type PlayerId,
+  type RefusalCode,
+  type ServerMessage,
+} from "@neon-spore/net";
 
 /**
  * A seat, and everything one does to a socket that holds one.
@@ -32,14 +40,29 @@ export interface Seat {
   player: PlayerId;
   /** What this player is called, or "" if they gave no name. */
   name: string;
+  /** Whether this is the phone that opened the room — see `HOST_TAG`. */
+  host: boolean;
 }
 
 /**
  * Which seat a socket holds, as a tag rather than a field: hibernation wakes
  * the object with nothing but its sockets, and a tag survives that where a Map
  * does not.
+ *
+ * **The tag is the chair the socket was given on arrival, not the seat it
+ * holds.** A tag cannot be changed once the socket is accepted, and the pair
+ * may swap seats on the room screen — so the room keeps one bit, `swapped`,
+ * and every read of a seat goes through it (`room-seat.ts`). Both sockets
+ * flip together, which is what a swap is.
  */
 export const seatTag = (player: PlayerId): string => `p${player}`;
+
+/**
+ * The phone that opened the room, as a third tag: the one whose pick of seat
+ * and tempo the room takes for both. Whoever arrives at a room nobody hosts
+ * is its host, so a host that drops and comes back is the host again.
+ */
+export const HOST_TAG = "host";
 
 /**
  * A player's name, as a second tag on the same socket and for the same reason
@@ -63,6 +86,32 @@ export const nameFromTags = (tags: string[]): string =>
  * `names[1]` for player 2 must not have to know how many people are in the
  * room to do it, and "" is what an empty seat is called.
  */
+/**
+ * The seat an arrival holds and the tags that say so.
+ *
+ * The first phone in is player 1 and the second player 2 — through the swap
+ * bit, so the tag is the chair and the seat is what the room reads
+ * (`seatTag`). The name rides the upgrade beside the version,
+ * clamped on the way in by the same rule both clients apply on the way out.
+ * The host tag goes to whoever arrives at a room nobody hosts.
+ */
+export function arrivalTags(
+  seats: readonly Pick<Seat, "player" | "host">[],
+  swapped: boolean,
+  url: string,
+): { player: PlayerId; tags: string[] } {
+  const player: PlayerId = seats.some((s) => s.player === 1) ? 2 : 1;
+  const name = nameFromWire(new URL(url).searchParams.get(NAME_PARAM));
+  const tags = [tagFor(player, swapped), nameTag(name)];
+  if (!seats.some((s) => s.host)) tags.push(HOST_TAG);
+  return { player, tags };
+}
+
+/** The seat of the host, for the wire, or 0 when nobody here opened the room. */
+export function hostOf(seats: readonly Seat[]): PlayerId | 0 {
+  return seats.find((s) => s.host)?.player ?? 0;
+}
+
 export function namesOf(seats: readonly Seat[]): [string, string] {
   return [
     seats.find((s) => s.player === 1)?.name ?? "",
@@ -122,24 +171,43 @@ export function send(socket: WebSocket, message: ServerMessage): void {
 }
 
 /**
- * Which seat a socket holds, read off its tags.
+ * Which seat a socket holds, read off its tags and through the room's one
+ * swap bit (`seatTag`).
  *
  * These three live here rather than on `Room` because a tag is this file's
  * idea: hibernation wakes the object holding nothing but its sockets, so
  * "which seat is this" and "what is this player called" are both questions
  * only the tags can answer, and the room should not have to know that.
  */
-export function playerOfSocket(ctx: DurableObjectState, socket: WebSocket): PlayerId | null {
+export function playerOfSocket(
+  ctx: DurableObjectState,
+  socket: WebSocket,
+  swapped: boolean,
+): PlayerId | null {
   for (const tag of ctx.getTags(socket)) {
-    if (tag === seatTag(1)) return 1;
-    if (tag === seatTag(2)) return 2;
+    if (tag === seatTag(1)) return swapped ? 2 : 1;
+    if (tag === seatTag(2)) return swapped ? 1 : 2;
   }
   return null;
 }
 
-export function seatOfSocket(ctx: DurableObjectState, socket: WebSocket): Seat | null {
-  const player = playerOfSocket(ctx, socket);
-  return player ? { socket, player, name: nameFromTags(ctx.getTags(socket)) } : null;
+/** The chair to tag an arrival with so that it *holds* `player` (`seatTag`). */
+export function tagFor(player: PlayerId, swapped: boolean): string {
+  return seatTag(swapped ? otherPlayer(player) : player);
+}
+
+export function seatOfSocket(
+  ctx: DurableObjectState,
+  socket: WebSocket,
+  swapped: boolean,
+): Seat | null {
+  const player = playerOfSocket(ctx, socket, swapped);
+  return player ? seatAt(ctx, socket, player) : null;
+}
+
+function seatAt(ctx: DurableObjectState, socket: WebSocket, player: PlayerId): Seat {
+  const tags = ctx.getTags(socket);
+  return { socket, player, name: nameFromTags(tags), host: tags.includes(HOST_TAG) };
 }
 
 /**
@@ -147,17 +215,17 @@ export function seatOfSocket(ctx: DurableObjectState, socket: WebSocket): Seat |
  * `silentMs` is hung up on and left out of the count — a phone whose
  * connection vanished is not holding its seat against its own return.
  */
-export function occupiedSeats(ctx: DurableObjectState, silentMs: number): Seat[] {
+export function occupiedSeats(ctx: DurableObjectState, silentMs: number, swapped: boolean): Seat[] {
   const out: Seat[] = [];
   const now = Date.now();
   for (const socket of ctx.getWebSockets()) {
-    const player = playerOfSocket(ctx, socket);
+    const player = playerOfSocket(ctx, socket, swapped);
     if (!player) continue;
     if (now - lastSeen(socket) > silentMs) {
       hangUp(socket);
       continue;
     }
-    out.push({ socket, player, name: nameFromTags(ctx.getTags(socket)) });
+    out.push(seatAt(ctx, socket, player));
   }
   return out;
 }

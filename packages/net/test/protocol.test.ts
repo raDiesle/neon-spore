@@ -56,6 +56,21 @@ describe("protocol", () => {
     expect(decodeServer(JSON.stringify({ ...JSON.parse(over), player: 1 }))).toBeNull();
   });
 
+  it("reads a seat pick, and refuses a chair the room has not got", () => {
+    expect(decodeClient('{"t":"seat","seat":2}')).toEqual({ t: "seat", seat: 2 });
+    expect(decodeClient('{"t":"seat","seat":3}')).toBeNull();
+    expect(decodeClient('{"t":"seat"}')).toBeNull();
+  });
+
+  it("reads the host off a welcome, and nobody off one from before there was one", () => {
+    const named = decodeServer('{"t":"welcome","player":2,"room":"ACDE","startMs":0,"host":1}');
+    expect(named?.t === "welcome" && named.host).toBe(1);
+    const older = decodeServer('{"t":"welcome","player":2,"room":"ACDE","startMs":0}');
+    expect(older?.t === "welcome" && older.host).toBe(0);
+    const odd = decodeServer('{"t":"welcome","player":2,"room":"ACDE","startMs":0,"host":"me"}');
+    expect(odd?.t === "welcome" && odd.host).toBe(0);
+  });
+
   it("drops a whole server frame when one command in it is bad", () => {
     const raw = JSON.stringify({
       t: "input",

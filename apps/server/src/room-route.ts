@@ -1,4 +1,4 @@
-import type { ClientMessage, Difficulty, ServerMessage } from "@neon-spore/net";
+import type { ClientMessage, Difficulty, PlayerId, ServerMessage } from "@neon-spore/net";
 import { type Seat, send } from "./seat.js";
 import { type Tally, tallyFromWire } from "./tally.js";
 
@@ -23,6 +23,8 @@ export interface RoomActs {
   level(level: Difficulty): void;
   /** The pair got somewhere; kept if it is better (`room-tally.ts`). */
   stats(tally: Tally): void;
+  /** The host asks to hold this seat (`room-seat.ts`). */
+  seat(seat: PlayerId): void;
 }
 
 export function routeClient(
@@ -60,6 +62,11 @@ export function routeClient(
       // opened. The further seat's whole, because the clock and the retries
       // are read at the wave (`tally.ts`).
       acts.stats(tallyFromWire(message));
+      return;
+    case "seat":
+      // Whether it is the host's to ask, and before beat zero, is the room's
+      // rule (`room-seat.ts`); the socket says who is asking.
+      acts.seat(message.seat);
       return;
   }
 }

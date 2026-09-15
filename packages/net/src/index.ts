@@ -23,6 +23,7 @@ export {
   NAME_MINE_ROUTE,
   NAME_PARAM,
   NAME_ROUTE,
+  otherPlayer,
   type PlayerId,
   PROTOCOL_VERSION,
   type RefusalCode,

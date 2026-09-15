@@ -1,6 +1,6 @@
 import type { PlayerId } from "@neon-spore/net";
 import type { RoomFacts } from "./room-tell.js";
-import { namesOf, type Seat, send } from "./seat.js";
+import { hostOf, namesOf, type Seat, send } from "./seat.js";
 import type { StartGate } from "./start-gate.js";
 
 /**
@@ -77,6 +77,7 @@ export async function pressStart(
       names: namesOf(room.seats),
       best: room.best,
       level: room.level,
+      host: hostOf(room.seats),
     });
   }
   return startMs;
