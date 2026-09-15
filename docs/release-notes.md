@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 02fb59fa — THE LEAK is STANDARD 5, a rung of the ladder, and no wave hands the pair a lance before THE LANCE
+
+The owner's instruction of 14 September 2026, with the one thing it waited on answered on the 15th: the beamless full panel is **STANDARD 5**, the next rung, with nothing between the plate and the maw. Standard 1 to 5 have no beam shot; STANDARD itself has everything, the lance included.
+
 ## 2026-09-15 · 785f9e43 — The tagline reads in one line on a 360 px phone, which is every Galaxy and every Pixel
 
 `TWO PEOPLE · TWO DEVICES · TALKING IS THE KEY` was 325 px of text in a box the viewport gives 36 px less than itself — so it was one line on the owner's 390 px phone, one line at 375 px, and two lines on every Android in the top ten. The comment over it in `menu-view.ts` said it was *the first version of it a phone reads in one line*, which was true of one phone.
