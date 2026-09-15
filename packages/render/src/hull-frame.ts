@@ -1,5 +1,6 @@
 import {
   type Bump,
+  bumpAdd,
   CANNON_LOBE,
   HULL,
   hullAngleAtX,
@@ -73,6 +74,13 @@ export function hullSpan(l: Layout): { cx: number; rx: number } {
   return { cx: l.gridLeft + rx / 2, rx };
 }
 
+/** The shortest way round from one angle to another, so a bump either side of
+ * the seam is still measured as near. `bumpLift`'s own wrap, said once here
+ * because this file asks the same question of one bump rather than of a list. */
+function wrapAngle(diff: number): number {
+  return Math.atan2(Math.sin(diff), Math.cos(diff));
+}
+
 export function frame(l: Layout, time: number, mood: HullMood, at: LobePositions): HullFrame {
   const { cx, rx } = hullSpan(l);
   const ry = l.tile * 1.6;
@@ -93,11 +101,38 @@ export function frame(l: Layout, time: number, mood: HullMood, at: LobePositions
   // of its own. At rest they lie on top of each other and add up to the armour
   // plate; while it travels they string out behind the head and the skin of the
   // ship travels with them.
+  //
+  // **The plate does not stand on the cannon's shoulders.** `bumpLift` adds
+  // every bump at a given angle, which is right for the four segments above —
+  // they *are* one plate, written as four — and wrong for the shield meeting
+  // the cannon: two swellings of one membrane in one column were drawn as one
+  // on top of the other, and the crest came out about twice as tall as either.
+  // The owner reported what follows from that, 15 September 2026: a rock warded
+  // in the cannon's column turns from *inside* the ship. The sim answers a
+  // wardable body one row above the hull (`sim/hull-guard.ts` `shieldRow`),
+  // which is a rule about where the dome's crown is — and in that one column
+  // the drawn crown was a whole tile higher than the rule assumes.
+  //
+  // So a segment carries only what it is taller than the cannon already is
+  // under it. The total lift is then the *greater* of the two rather than their
+  // sum, which is what one membrane does, and in every other column nothing
+  // changes because the cannon lifts nothing there. Where the cannon is the
+  // taller of the two the plate adds nothing at all and the rim is what says
+  // the shield is there (`shield.ts` `drawShieldRim`), which is the honest
+  // picture: the dome is over the gun, not on a pedestal above it.
   const scale = SHIELD_PASSIVE + (1 - SHIELD_PASSIVE) * mood.armed;
   for (const seg of at.shield) {
     const x = tileCX(l, seg.col);
+    const angle = toAngle(x);
+    const under = bumpAdd(
+      wrapAngle(angle - cannon.angle),
+      cannon.strength,
+      cannon.plateau,
+      cannon.shoulder,
+    );
+    const own = scale * seg.weight;
     skinBumps.push(
-      lobe(SHIELD_LOBE, toAngle(x), l.tile, ry, rx, time, scale * seg.weight, seg.halfMul),
+      lobe(SHIELD_LOBE, angle, l.tile, ry, rx, time, Math.max(0, own - under), seg.halfMul),
     );
   }
   return { cx, cy, rx, ry, bumps: [cannon, ...skinBumps], skinBumps, cannonX, t: hullClock(time) };

@@ -155,27 +155,38 @@ describe("what a ward does", () => {
     const { world, events } = run([volley(3)], tickAtRow(SHIELD) + 1, warding(3, HULL), LANE);
     expect(returns(events)).toHaveLength(1);
     expect(returns(events)[0]!.row).toBe(SHIELD);
-    // And it has **already left** on the same tick, from the row the shield
-    // answered on. This is the owner's third report as a number: the body used
-    // to finish the descent it was being drawn along and only reverse on the
-    // next beat, which reads as the dome swallowing it.
+    // And it has **already left** on the same tick. This is the owner's third
+    // report as a number: the body used to finish the descent it was being
+    // drawn along and only reverse on the next beat, which reads as the dome
+    // swallowing it.
     const body = only(world)!;
-    expect(body.fromRow).toBe(SHIELD);
     expect(body.row).toBe(SHIELD - LANE.volleyRiseRows);
     expect(volleyIsClimbing(body)).toBe(true);
+    // **And it climbs from a row above the dome, not from the dome itself.**
+    // The same report again, 15 September 2026, in the one column where it
+    // still showed: the ward is answered when the body's *centre* reaches the
+    // shield's row, and the ball is drawn half a tile wide of its centre and
+    // the hull's crest stands about half a tile above its own row — so a turn
+    // that begins at `SHIELD` begins with the lower half of the ball inside the
+    // ship, and over the cannon's lobe, which is higher again, with most of it.
+    // `fromRow` is a fact about the picture rather than about the world
+    // (`hash-coverage.test.ts` excepts it by name), and this is that fact: the
+    // eye last saw the ball a row up, so that is where it turns from.
+    expect(body.fromRow).toBe(SHIELD - 1);
   });
 
   /**
    * A press a shade late is answered on the ship's own row — a rock gets three
-   * beats and so does this — and it still turns **at the dome**. Otherwise the
-   * pair sees the ball go into the hull and come back out of it.
+   * beats and so does this — and it still turns **at the dome**, from the row
+   * above it. Otherwise the pair sees the ball go into the hull and come back
+   * out of it, which is what they saw when the ward was resolved a row lower.
    */
   it("turns from the dome even when the ward lands a beat late", () => {
     const late = tickAtRow(HULL);
     const inputs = [shield(0, 3), guard(late - 1)];
     const { world, events } = run([volley(3)], late + 1, inputs, LANE);
     expect(returns(events)[0]!.row).toBe(SHIELD);
-    expect(only(world)!.fromRow).toBe(SHIELD);
+    expect(only(world)!.fromRow).toBe(SHIELD - 1);
     expect(only(world)!.row).toBe(SHIELD - LANE.volleyRiseRows);
   });
 

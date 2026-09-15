@@ -12,6 +12,7 @@ import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { rockRadius } from "./rock-size.js";
 import { VOLLEY_LOOK, type VolleyShell } from "./volley-look.js";
+import { drawVolleyWard } from "./volley-ward.js";
 
 /**
  * THE VOLLEY's shell: **a basketball made of meteor**, and the count of wards
@@ -191,6 +192,11 @@ export function drawVolleyShell(
   VOLLEY_LOOK.stone(shell);
   ctx.restore();
   VOLLEY_LOOK.seams(shell);
+  // And the ward's own band across the face the shield will meet, which is the
+  // one thing the stone cannot say about this creature: a rock warded is gone,
+  // and this one comes back (`volley-ward.ts`). Inside the translate and over
+  // everything else, because it stands off the shell rather than on it.
+  drawVolleyWard(ctx, r, lead, time, c.id);
   ctx.restore();
 
   // The light out of the break, and none at all while the ball is closed —

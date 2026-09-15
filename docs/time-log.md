@@ -22,6 +22,25 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — THE VOLLEY wears the ward, and turns clear of the ship
+
+The owner, mid-turn: put a shield-like graphic on the volley so it is clear the
+shield bounces it, and the bounce is too late — it goes inside the cannon.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `ward.ts`, `volley.ts`, `hull-frame.ts`, `hull-shape.ts`, `rock-impact.ts` — four candidate causes before the right one |
+| writing | 30 | the band, the membrane rule, one line of `volleyReturn`, two cases rewritten |
+| looking | 45 | five sheets of the ward beat by beat, two measurements of the drawn crest, and the meteor's own timing |
+| friction | 10 | the first meteor capture used the wrong column, so nothing was warded and the sheet said nothing |
+| landing | 10 | `bun run index`, `check:fast` three times, the commit |
+
+The bottleneck was looking, and there was no way round it: three plausible causes
+for one symptom — the membrane stacking, the bounce effect's own height, and the
+row the turn is drawn from — and only a frame every nine ticks could say which.
+Two of the three turned out to be real and the third (the meteor's bounce) was
+already correct, which is a thing no amount of reading would have settled.
+
 ## 2026-09-15 — queued-tasks — the wave arrows paint what they open
 
 The owner, mid-turn: the arrows leave the wave page blank until WAVE is pressed,

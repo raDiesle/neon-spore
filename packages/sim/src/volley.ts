@@ -184,7 +184,19 @@ export function volleyReturn(world: World, c: Creature, guardRow: number): boole
   // Off the dome, whichever row the fall had actually reached. A rock gets
   // three beats to be answered on and so does this — but all three of them
   // turn it in the same place, because the place is where the shield is.
-  c.fromRow = guardRow;
+  //
+  // **`fromRow` is a row above it, and that is not a mistake.** It is a fact
+  // about the picture and not about the world (`hash.ts` excepts it by name):
+  // the row a body is drawn gliding *out of*. The ward is answered when the
+  // ball's **centre** reaches `guardRow`, and the ball is drawn half a tile
+  // wide of its centre while the hull's crest stands about half a tile above
+  // its own row — so a turn drawn starting at `guardRow` starts with the lower
+  // half of the ball inside the ship, and in the cannon's column, where the
+  // lobe lifts the crest further, with most of it. The owner reported that
+  // twice: *it goes inside of the cannon visuals, so it should bounce earlier*
+  // (15 September 2026). The eye last saw the ball a row up, so that is where
+  // it is seen to turn.
+  c.fromRow = Math.max(0, guardRow - 1);
   c.row = guardRow;
   climb(world, c);
   world.events.push({ type: "volleyReturn", id: c.id, col: c.col, row: guardRow, left });

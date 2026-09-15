@@ -868,6 +868,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/volley-ember.ts` | EMBER — THE VOLLEY's seams as the game draws them since 11 September 2026 |
 | `packages/render/src/volley-pitted.ts` | PITTED — a kept look for THE VOLLEY's stone, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/volley-pieces.ts` | how THE VOLLEY's shell comes apart — the arc-sector pieces a sector is cut into, and the speed and turn each leaves with — beside `volley-shards.ts`, which throws and draws them |
+| `packages/render/src/volley-ward.ts` | **THE VOLLEY wears the shield's own band on the face the shield will meet.** The owner asked for it on 15… |
 | `packages/render/src/maze-door.ts` | THE MAZE's way in, and the light that comes out of it when it is standing on the ship's column |
 | `packages/render/src/maze-blood.ts` | What THE MAZE's heart leaves on the floor of its room when it is hit, and why it is still there next round |
 | `packages/render/src/eye-lens.ts` | you are changing the shape of an open eye — the two lid curves, the corners, and the pupil they cut |
