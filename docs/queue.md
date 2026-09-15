@@ -639,6 +639,7 @@ director opened on THE LEAK showing the rung on its panel row and no fault.
 ## A strip of frames has no contact sheet: a scene is watched one frame at a time
 
 - **Found:** 2026-09-15, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-15, claude/queue-a-strip-of-frames-has-no-contact-sheet-a-scene-i
 - **Files:** `tools/frames/crop.ts`, `tools/frames/crop-png.ts`, `tools/frames/`, `tools/frames/test/`, `docs/commands.md`, `package.json`
 - **Where:** local
 
