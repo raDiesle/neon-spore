@@ -368,6 +368,7 @@ leech with the square, the code and MOVE CANNON! on it.
 ## THE LIMPET: THE LEECH's entry again, for the shield instead of the cannon
 
 - **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Taken:** 2026-09-15, claude/queue-the-limpet-the-leechs-entry-again-for-the-shield
 - **Files:** `packages/sim/src/cling.ts`, `packages/sim/src/config-cling.ts`, `packages/sim/src/events-cling.ts`, `packages/sim/src/malfunction.ts`, `packages/sim/src/config-malfunction.ts`, `packages/render/src/cling.ts`, `packages/render/src/cling-fuse.ts`, `packages/render/src/malfunction-look.ts`, `packages/render/src/siren.ts`, `packages/render/src/siren-seats.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/magnet-bounce.ts`, `packages/render/src/hull-mood.ts`, `packages/content/src/creatures-cling.ts`, `tools/director/src/brushes.ts`, `tools/director/src/fault-fields.ts`
 - **Where:** local
 
