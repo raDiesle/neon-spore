@@ -144,6 +144,21 @@ does not re-check that the links it once wrote are still there. Only `--force`
 put the junctions back; the plain install is the second round of the same
 error, spelled as a success.
 
+*Amended 2026-09-15:* and a shell can be blamed for a line it was never
+shown. THE GUM's director pass was one Python edit script of about 190
+lines, sent the way every shorter one has been — `cat > director.py
+<<'PY' … PY` — and the answer was *unexpected EOF while looking for
+matching `''*, before a line of the script had run. That message names
+the shell, and the shell was never given the script: the Bash tool reads
+the heredoc first, and at some length its reading of the quotes inside
+the block disagrees with the shell's. The same script written to the
+scratchpad with the Write tool and run by path went through unchanged,
+and a shorter script with the same `'''` blocks had passed through the
+heredoc a minute earlier — so it is the length of the block that decides
+it, not what is in it. `.claude/skills/lane` carries the rule beside the
+commit message one: **an edit script longer than a screen goes in by
+path**. Rewriting its quotes is the retry that asks the wrong tool again.
+
 *Amended 2026-09-05:* the other half of the same trap is the **index**, and
 `.gitattributes` cannot reach it. `eol=lf` governs what a checkout writes; a
 blob committed with carriage returns before the attribute landed stays CRLF,

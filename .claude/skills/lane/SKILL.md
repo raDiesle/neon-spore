@@ -48,7 +48,14 @@ carriage returns into 45 files before biome refused the lot; the fix is one
 argument, not a normalising pass afterwards. **A commit message with a dash
 or a quote in it goes through `git commit -F <file>`**, never through
 `-m "$(cat <<'EOF' ...)"` — that form hangs the Bash tool waiting for an EOF
-it never sees, and the lane finds out two minutes later.
+it never sees, and the lane finds out two minutes later. **An edit script
+longer than a screen is written to the scratchpad with the Write tool and
+run by path**, never sent through `cat > script.py <<'PY' … PY`: THE GUM's
+director pass, about 190 lines with `'''` blocks inside it, came back as
+*unexpected EOF while looking for matching `''* before a line of it ran,
+and the same script written by path went through unchanged. A shorter one
+with the same quoting had passed a minute earlier, so the length of the
+block is the trigger and rewriting the quotes is the wrong move.
 
 `bun install` there does **not** put `@neon-spore/*` in a root `node_modules` —
 the links land under each package's own. A throwaway script written at the

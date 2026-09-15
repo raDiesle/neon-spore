@@ -22,6 +22,25 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — a long edit script goes in by path
+
+The queue's *The Bash tool refuses a long quoted heredoc*. A command that
+failed and was worked around, written down where the next lane meets it: the
+rule beside the `git commit -F` one in `.claude/skills/lane`, and why it is
+not the shell's fault in `docs/working-with-claude.md`'s *who answered?*
+section.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the queue listing, the entry, the skill's install section and the amendment the document ends its newest run of on |
+| writing | 10 | two paragraphs |
+| looking | 0 | nothing is drawn |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was reading: the whole item is two paragraphs, and finding the
+two sentences they belong after took longer than writing them.
+
 ## 2026-09-15 — queue-tasks — the room screen is four steps, one question each
 
 The rest of step 4's first half, from the queue's *PLAY is a list of partners to
