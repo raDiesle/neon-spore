@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · f72ad5b7 — ‹ WAVE ›: two arrows over the wave column open the one before and the one after
+
+The owner asked for this on 14 September 2026. Reading through the waves in order was a press on a row, a trip back to the list and a press on the next one, with the editor's column scrolled to wherever it had been left. The bar the WAVE tab already stands in now carries two buttons either side of it, and `[` and `]` are the same step without the mouse. Each goes through the same `onSelect` a row press makes, so the list, the map and the stage follow exactly as they do for a press; each steps the whole list and not the filtered one, and the row it lands on is kept visible by the rule already there. The first wave's ‹ and the last wave's › are disabled rather than wrapping, and each arrow's title says by number and name which wave it opens.
+
 ## 2026-09-15 · 3f499b16 — `room-shot --then-wave 3` carries both phones out of the room and into a wave
 
 The tool stopped at THE ROOM, and the other half of what it was made to prove — what one phone writes down about the person in the *other* seat once the two of them get somewhere — was a throwaway probe three sessions had written. It is a flag now: both phones hold their READY circle, beat zero lands, the creator jumps to the wave asked for, and the run ends by reading that phone's PLAY page out of a second tab, where the partner's row says the wave. It throws when the record is not there or is at another wave, and prints the row it found.
