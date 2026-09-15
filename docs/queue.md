@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## The tagline wraps on a 360 px phone, which is most Android phones
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-15, claude/queue-the-tagline-wraps-on-a-360-px-phone-which-is-mos
 - **Files:** `apps/game/src/menu-view.ts`, `apps/game/src/menu.css`, `apps/game/test/menu-front.test.ts`
 - **Asks:** Loosen the letter-spacing, drop the type a point, cut the sentence shorter, or let it wrap on purpose?
 
