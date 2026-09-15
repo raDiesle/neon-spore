@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 3ec935f5 — menu-shot types into a field, so a screen's filled state has a picture too
+
+A trail is presses, so `menu-shot` could photograph every page whose state is which page is open and nothing else. The first meeting is the first screen where that is half the design: its one press is dark until the field holds a name it could keep, and the lane that built it wrote a throwaway Playwright script to see the other half.
+
 ## 2026-09-15 · a80777a5 — After the intro, a first visit is asked what it is called
 
 A name was asked for on the room screen, which a first-timer reaches only once they are already opening a room, and the sign-in was a row on SETTINGS, which is a page nobody opens on the way to play. Both halves existed and both were met too late. They are met between the intro closing and the menu coming up now, on a device with no name stored: one question, the same claimName behind it, and under it the Google button and the email field signInRow already builds, with syncName filling the field when it answers. A device that has a name never sees the screen, and the room screen keeps its own field as the fallback for a device that never passed the menu.
