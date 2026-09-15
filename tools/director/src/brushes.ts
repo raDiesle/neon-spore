@@ -40,6 +40,14 @@ export const FAULT_BRUSHES = [
   "fault:steer",
   "fault:codex",
   "fault:handover",
+  // **THE LEECH and THE LIMPET**, added on 15 September 2026 when the owner
+  // settled what they are: *they should only exist as brush, but once they are
+  // placed on a tile, for a defined period of time, the malfunction is
+  // applied.* They were `MalfunctionKind`s in the simulation from the day the
+  // harpoon landed (`sim/harpoon.ts`) and had no pencil, which is a fault an
+  // author could not place and therefore could not have.
+  "fault:leech",
+  "fault:limpet",
 ] as const;
 export type FaultBrush = (typeof FAULT_BRUSHES)[number];
 
@@ -123,8 +131,8 @@ const LIVING_BRUSHES: {
 }));
 
 /**
- * The five fault brushes as the palette shows them: a word, and the sentence
- * the picker under WAVE already says about each one.
+ * The fault brushes as the palette shows them: a word, and the sentence the
+ * picker under WAVE already says about each one.
  *
  * The note is short on purpose — every other brush's is, and this is a palette
  * button rather than a page. The whole sentence is `fault-fields.ts`'s `NOTE`,
@@ -152,6 +160,8 @@ const FAULT_LOOK: { brush: Brush; label: string; note: string }[] = [
     label: "HANDOVER",
     note: "the two panels change screens for a window",
   },
+  { brush: "fault:leech", label: "LEECH", note: "a body on the cannon; keep the cannon moving" },
+  { brush: "fault:limpet", label: "LIMPET", note: "a body on the dome; keep the dome moving" },
 ];
 
 export const BRUSHES: {

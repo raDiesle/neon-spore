@@ -1,7 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { authorsBodyColor, CREATURES, isInstalled } from "@neon-spore/content";
-import { type CreatureKind, isBossBody, isMeteorKind } from "@neon-spore/sim";
-import { BRUSHES, LIVING_BRUSH_KINDS } from "../src/brushes.js";
+import { type CreatureKind, isBossBody, isMeteorKind, MALFUNCTION_KINDS } from "@neon-spore/sim";
+import { BRUSH_MECHANIC } from "../src/brush-wave.js";
+import { BRUSHES, FAULT_BRUSHES, faultKindOf, LIVING_BRUSH_KINDS } from "../src/brushes.js";
 import { hasSilhouette } from "../src/silhouette.js";
 import { brushOf, CREATURE_BRUSHES, emptyWave, paint } from "../src/state.js";
 
@@ -106,4 +107,30 @@ describe("paint and brushOf round trip for every living brush", () => {
       expect(entry && brushOf(entry)).toBe(kind);
     });
   }
+});
+
+/**
+ * The same promise for the other half of the palette. The owner settled it on
+ * 15 September 2026: *a malfunction is an enemy I can place in the map editor,
+ * which then triggers a malfunction — I want this for all existing
+ * malfunctions.* So a kind the simulation knows and the palette does not is a
+ * fault an author cannot place and therefore cannot have, which is exactly how
+ * THE LEECH and THE LIMPET stood for a day: `MalfunctionKind`s with a pencil
+ * nobody could pick up.
+ */
+describe("FAULT_BRUSHES", () => {
+  test("is exactly the simulation's malfunction kinds — no more, no fewer", () => {
+    const placed = FAULT_BRUSHES.map((b) => faultKindOf(b));
+    expect(new Set(placed)).toEqual(new Set(MALFUNCTION_KINDS));
+  });
+
+  test("gives every one of them a button in the palette and a wave to jump to", () => {
+    for (const brush of FAULT_BRUSHES) {
+      expect(
+        BRUSHES.some((b) => b.brush === brush),
+        brush,
+      ).toBe(true);
+      expect(BRUSH_MECHANIC[brush], brush).toBeDefined();
+    }
+  });
 });

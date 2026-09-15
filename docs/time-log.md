@@ -5842,3 +5842,22 @@ The bottleneck was reading, and it was the right place for it: the ramp had to
 be read straight off the world rather than eased, and finding out why — `lay`'s
 own argument, two devices agreeing on the tick — took longer than writing the
 pass did.
+
+## 2026-09-15 — queued-tasks — a pencil for THE LEECH and THE LIMPET
+
+The owner settled what these two are on 15 September 2026: *they should only
+exist as brush, but once they are placed on a tile, for a defined period of
+time, the malfunction is applied — I want this for all existing malfunctions.*
+They were `MalfunctionKind`s with no pencil, which is a fault nobody could place.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `brushes.ts`, `brush-wave.ts`, `fault-fields.ts`'s note table, `mechanics-wave.ts` |
+| writing | 10 | two brushes, two palette rows, two mechanic pairings, one test that counts |
+| looking | 0 | — the palette is proved by the tests that build it, not by a frame |
+| friction | 5 | the tooltip test found the gap before I did, which is what it is for |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was reading, and it was mostly good news: the note table, the
+`at`/`beats` boxes and the emitter's beams already covered these two kinds, so
+the only thing missing was the button.

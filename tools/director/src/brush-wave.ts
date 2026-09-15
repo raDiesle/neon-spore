@@ -21,15 +21,22 @@ export const BRUSH_MECHANIC: Partial<Record<Brush, MechanicId>> = {
   ...BRUSH_KIND,
   purge: "purge",
   ward: "ward",
-  // The five faults, which are mechanics like everything else in the palette
-  // — `mechanics-wave.ts` has a row per kind and `faultMechanic` is the
-  // pairing, so Ctrl-clicking one lands on the wave it first appears in
-  // exactly as a creature's brush does.
+  // The faults, which are mechanics like everything else in the palette —
+  // `mechanics-wave.ts` has a row per kind and `FAULT_MECHANIC` is the pairing,
+  // so Ctrl-clicking one lands on the wave it first appears in exactly as a
+  // creature's brush does.
+  //
+  // **The last two point at a creature's row**, which is `FAULT_MECHANIC`'s own
+  // answer and not a shortcut taken here: the body a leech pencil fires is the
+  // body the bestiary already describes, and what the pencil changed is how it
+  // arrives. A mechanic row does not describe that.
   "fault:cannon": "cannonFault",
   "fault:shield": "shieldFault",
   "fault:steer": "steerFault",
   "fault:codex": "codexFault",
   "fault:handover": "handoverFault",
+  "fault:leech": "leech",
+  "fault:limpet": "limpet",
 };
 
 export interface FirstWave {
