@@ -635,38 +635,6 @@ message names the shell, and the shell was never given the script.
 Prove it with `bun run check` (the skill and the document are read by
 nothing that runs) and by reading the two edits once.
 
-## `bun run menu-shot` cannot type, so a field's own states need a throwaway
-
-- **Found:** 2026-09-15, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-15, claude/queue-bun-run-menu-shot-cannot-type-so-a-fields-own-st
-- **Files:** `tools/frames/menu-shot.ts`, `tools/frames/menu-trail.ts`, `tools/frames/test/menu-trail.test.ts`, `docs/commands.md`
-
-`menu-shot` walks a trail of presses (`--page "SETTINGS > CONTROLS"`) and
-photographs what it lands on, which is every page whose state is *which page
-is open*. It cannot put a character in a field, so a screen whose look turns
-on what has been typed has no picture but the empty one.
-
-The first meeting (`apps/game/src/hello.ts`) is the first screen where that
-matters and will not be the last: its one press is dark until the field holds
-a name it could keep, so the empty shot and the filled shot are the two halves
-of the design and only one of them can be taken. The lane that built it wrote
-a twenty-line Playwright script into the scratchpad to see the other — which
-is exactly the throwaway this tool's own preamble says turned `shot.ts` from a
-habit into a tool, and the second time it has happened.
-
-**What to add:** `--type "#helloName=DAVID"`, repeatable, applied after the
-trail and before the settle, in the order given. The parsing belongs beside
-`parseTrail` in `menu-trail.ts` — a selector and a value, split on the first
-`=`, with a refusal naming the argument when there is no `=` in it — because
-that file is already the half of this tool that needs no browser and is
-already the half that has a test. The filling itself is `page.locator(sel).fill(value)`,
-which fires the `input` event a paint is usually hanging off.
-
-Prove it with `bun run check`, the new cases in
-`tools/frames/test/menu-trail.test.ts`, and one shot of the first meeting with
-a name in it: `bun run menu-shot out.png --first-visit --type "#helloName=DAVID"`
-— the press reads amber instead of grey.
-
 ## Unverified at a80777a5: The sign-in half of the first meeting actually signing…
 
 - **Found:** 2026-09-15, claude/queue-tasks-kkqozz

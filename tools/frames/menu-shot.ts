@@ -3,7 +3,8 @@
 /**
  * `bun run menu-shot <out.png> [--page "SETTINGS > CONTROLS"] [--size 390x844]
  * [--scale 2] [--wait 600] [--port 4173] [--element "#menu"] [--desk]
- * [--first-visit]` — photograph a page of the **game's menu**.
+ * [--first-visit] [--type "#helloName=DAVID"]` — photograph a page of the
+ * **game's menu**.
  *
  * Three tools took a picture and none of them could take this one. `bun run
  * frames <sha>` drives the field through `window.neonSpore` and photographs
@@ -35,6 +36,15 @@
  * only arrive past it cannot show it. The intro stays stamped away either
  * way — twenty seconds of scene is not what is being judged.
  *
+ * **`--type` is how a field's own states are photographed.** A trail is
+ * presses, and a screen that reads what has been typed has a picture the
+ * presses cannot reach: the first meeting's one press is dark until the field
+ * holds a name it could keep, so the empty shot and the filled shot are the two
+ * halves of one design. The flag is repeatable and is applied after the trail
+ * and before the settle, in the order it was given. The filling is `fill()`
+ * rather than `type()` — it fires the `input` event the paint hangs off, and
+ * costs no keystroke per character.
+ *
  * **And as a phone rather than as a desk.** A viewport is a size; the pointer
  * is a separate pair of context options, and without them headless Chromium
  * reports a mouse at any width. `menu-device.ts` carries that decision and the
@@ -49,7 +59,7 @@ import { NAME_KEY } from "../../apps/game/src/nickname.js";
 import { closeBrowser, launchBrowser } from "./browser.js";
 import { root } from "./exec.js";
 import { menuDevice } from "./menu-device.js";
-import { noSuchButton, parseTrail } from "./menu-trail.js";
+import { noSuchButton, noSuchField, parseTrail, parseTyping } from "./menu-trail.js";
 import { startPreview } from "./serve.js";
 
 const args = process.argv.slice(2);
@@ -57,6 +67,12 @@ const flag = (name: string): string | undefined => {
   const i = args.indexOf(`--${name}`);
   return i >= 0 ? args[i + 1] : undefined;
 };
+/** Every value given for a repeatable flag, in the order they were typed. */
+const flags = (name: string): string[] =>
+  args.flatMap((a, i) => {
+    const value = args[i + 1];
+    return a === `--${name}` && value !== undefined ? [value] : [];
+  });
 const positional = args.filter((a, i) => !a.startsWith("--") && !args[i - 1]?.startsWith("--"));
 const out = positional[0];
 
@@ -69,6 +85,8 @@ const RIG_TAPS = 3;
 const PAGE_MS = 250;
 
 const trail = parseTrail(flag("page"));
+/** The fields filled once the trail has arrived — `--type "#helloName=DAVID"`. */
+const typing = parseTyping(flags("type"));
 /**
  * A portrait phone by default, and not the director's desk. The menu is read
  * on a phone and nowhere else; a picture of it 1240 px wide is a picture of a
@@ -95,6 +113,9 @@ const screen = firstVisit ? "#hello.on" : "#menu.on";
 /** What is photographed. The whole screen; a caller judging one row can say
  * `.entry`, `.seat-card` or anything else the page carries. */
 const element = flag("element") ?? (firstVisit ? "#hello" : "#menu");
+/** The screen in the words the caller used, for the log line and for a `--type`
+ * that finds nothing: the one thing they cannot see is where they are standing. */
+const where = firstVisit ? "the first meeting" : (flag("page") ?? "the front page");
 /** A thumb or a mouse — `menu-device.ts` has the argument. */
 const device = menuDevice(args);
 const port = flag("port");
@@ -146,6 +167,15 @@ try {
     await page.waitForTimeout(PAGE_MS);
   }
 
+  for (const { selector, value } of typing) {
+    const field = page.locator(selector);
+    if ((await field.count()) === 0) {
+      console.error(noSuchField(selector, where));
+      process.exit(5);
+    }
+    await field.first().fill(value);
+  }
+
   await page.waitForTimeout(settle);
   const target = page.locator(element);
   if ((await target.count()) === 0) {
@@ -154,7 +184,6 @@ try {
   }
   await target.first().screenshot({ path: out });
   const asWhat = device.hasTouch ? "a phone" : "a desk";
-  const where = firstVisit ? "the first meeting" : (flag("page") ?? "the front page");
   console.log(`wrote ${out} — ${where}, ${vw}x${vh} at ${scale}x, as ${asWhat}`);
 } finally {
   await closeBrowser(browser);
@@ -214,5 +243,6 @@ function usage(): never {
   console.error("       --desk photographs it as a mouse and a keyboard; the default is a thumb");
   console.error("       --port attaches to a preview already running instead of starting one");
   console.error("       --first-visit arrives with no name, on the screen that asks for one");
+  console.error('       --type "#helloName=DAVID" fills a field before the shot; repeatable');
   process.exit(1);
 }

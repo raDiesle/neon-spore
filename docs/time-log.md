@@ -22,6 +22,35 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queue-tasks — menu-shot types into a field
+
+The queue's *`bun run menu-shot` cannot type, so a field's own states need a
+throwaway*. A trail is presses, so every page whose state is *which page is
+open* had a picture and every screen that reads what has been typed had only
+its empty one — and the first meeting's press is dark until the field holds a
+name it could keep, so the half that matters was the half the camera could not
+reach.
+
+`--type "#helloName=DAVID"`, repeatable, applied after the trail and before the
+settle. The parsing is in `menu-trail.ts` beside `parseTrail`, which is already
+the half of this tool that opens no browser and already the half that has a
+test; the filling is `fill()`, which fires the `input` event the paint hangs
+off. Split on the first `=` and no other, so a value may carry one and an
+attribute selector may not — every field the menu has is reachable by id, and a
+name with an `=` in it is a name somebody will want a picture of.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry, `menu-shot.ts` and `menu-trail.ts` whole, `hello.ts` for the field's id |
+| writing | 5 | `parseTyping`, `noSuchField`, the flag's repeatable reader, seven test cases, the two doc lines |
+| looking | 5 | two shots of the first meeting, empty and filled, each behind its own preview build |
+| friction | 0 | none |
+| landing | 10 | `bun run check`, the commit |
+
+The bottleneck was looking, and it is the preview build rather than the shot:
+the tool builds `dist/` before every picture, so the empty state and the filled
+state cost two builds to compare when they differ by one flag.
+
 ## 2026-09-15 — queue-tasks — the first visit is asked what it is called
 
 The queue's *After the intro, a first visit asks for a name and offers a
