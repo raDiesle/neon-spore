@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 52224930 — THE LEECH and THE LIMPET get a pencil, so every malfunction has one
+
+The owner settled it on 15 September 2026: *they should only exist as brush, but once they are placed on a tile, for a defined period of time, the malfunction is applied — I want this for all existing malfunctions.* These two have been `MalfunctionKind`s since the harpoon landed, with the note under the picker already written for them and the `at`/`beats` boxes already theirs, and no button in the palette — a fault an author could not place and therefore could not have.
+
 ## 2026-09-15 · cd437478 — A control held by a harpoon heats up toward the tick it costs the round
 
 The owner's point 6 of 14 September 2026, asked for by name: while a leech is on the cannon or a limpet on the dome, the control glows toward a colour that says about to explode, and a move puts the glow back to the beginning.
