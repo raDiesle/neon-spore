@@ -186,6 +186,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## The editor's tab bar holds no tabs, and `?tab=` still pretends it does
 
 - **Found:** 2026-09-15, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-15, claude/queue-the-editors-tab-bar-holds-no-tabs-and-tab-still
 - **Files:** `tools/director/src/place.ts`, `tools/director/src/session.ts`, `tools/director/src/tabs.ts`, `tools/director/index.html`, `tools/director/test/place.test.ts`, `tools/director/test/session.test.ts`
 
 `#tabs` had four tabs — WAVE, SHIP, TUNING, BALANCE — and lost them one at a
