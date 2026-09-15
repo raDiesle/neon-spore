@@ -40,11 +40,14 @@ export const SILENT = [
   // `choirOpen`, a beat later, when the colour arrives.
   "choirArm",
   "choirMerge",
-  // A balloon popped. The `destroy` beside it on the same tick is what throws
-  // the particles (`rubBalloon`) — the pair earned an ordinary kill's burst
-  // and get one — so a second here would draw the same moment twice. Its
-  // siblings are not silent: a split and a turn at the top are pictures
-  // nothing else draws.
+  // A balloon popped. Its own picture is the skin coming apart into shreds,
+  // and that is a *break* rather than a burst — cut, thrown and fallen by
+  // `Debris` off `balloon-burst.ts`, ingested next door. What is still thrown
+  // in squares is the flash, on the `destroy` beside it on the same tick
+  // (`rubBalloon`), turned down to `BALLOON_SKIN.sparkScale` so sixteen shreds
+  // and a dozen squares are not two effects playing at once. A burst from here
+  // as well would be a third. Its siblings are not silent: a split and a turn
+  // at the top are pictures nothing else draws.
   "balloonPop",
   // A cloud coming apart and the body inside it showing: `veil-tear.ts` draws
   // the whole of it, and the ordinary `destroy` that rides beside it on the

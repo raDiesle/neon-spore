@@ -4,6 +4,7 @@ import type { Crater } from "./craters.js";
 import { stream } from "./hash.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { tileSeed } from "./tile-seed.js";
 
 /**
  * A breach stays, and it stays *in the skin*. The prototype scattered round
@@ -109,7 +110,7 @@ export function drawScars(
   ctx.save();
   for (const s of scars) {
     if (isWardable(s.kind) && !arrived(s.col, s.beat)) continue;
-    const seed = Math.imul(s.col + 1, 73856093) ^ Math.imul(s.beat + 1, 19349663);
+    const seed = tileSeed(s.col, s.beat);
     const rnd = stream(seed);
     const { x, side: lean } = crackOrigin(l, s, rnd, rnd() < 0.5 ? -1 : 1, craters);
     const top = surfaceAt(x);

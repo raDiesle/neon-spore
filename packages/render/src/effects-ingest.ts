@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
+import { balloonShreds } from "./balloon-burst.js";
 import { BEATBOX_PER_HIT_MUL, BEATBOX_START_MUL } from "./beatbox.js";
 import type { BeatboxSilences } from "./beatbox-silence.js";
 import type { BeatboxWaves } from "./beatbox-wave.js";
@@ -136,6 +137,14 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // `breakBody` has no outline to cut and leaves it whole — which is the
       // rule rather than a special case (`effects-break.ts`).
       breakBody(ctx.debris, ctx.l, ctx.time, { ...e, kind: "crawler" });
+      break;
+    // THE BALLOON popping: the skin two hands stretched, torn into shreds that
+    // fly outward and fall onto the ship (`balloon-burst.ts`). The body is
+    // gone from the world on this tick, so nothing here can be drawn around
+    // it — which is `breakBody`'s own arrangement one file along, and the
+    // reason this is a transient rather than a frame of the creature.
+    case "balloonPop":
+      balloonShreds(ctx.debris, ctx.l, ctx.time, e);
       break;
     case "crawlerBeam":
       ctx.crawler.beam(e.col);

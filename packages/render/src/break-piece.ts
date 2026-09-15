@@ -66,9 +66,21 @@ export function edgeLit(depth: number, landed: boolean): number {
   return depth * (landed ? LANDED_RIM : 1);
 }
 
-/** The piece's outline as a path in its own frame, walked straight rather than
- * splined: a fracture edge is a cut, and a cut is not smooth. */
-function outline(ctx: CanvasRenderingContext2D, pts: readonly Point[], scale: number): void {
+/**
+ * The piece's outline as a path in its own frame, walked straight rather than
+ * splined: a fracture edge is a cut, and a cut is not smooth.
+ *
+ * Exported for THE BALLOON's shreds (`balloon-burst.ts`), which are painted
+ * quite differently and cut exactly the same way — a second copy of *walk the
+ * points and close* is the kind of re-derived rule `purity.test.ts`' table
+ * exists to stop, and the day a piece's outline learns anything (a curl, a
+ * torn lip) it would be learned in one paint and not the other.
+ */
+export function piecePath(
+  ctx: CanvasRenderingContext2D,
+  pts: readonly Point[],
+  scale: number,
+): void {
   ctx.beginPath();
   const first = pts[0] as Point;
   ctx.moveTo(first.x * scale, first.y * scale);
@@ -95,7 +107,7 @@ export function facet(ctx: CanvasRenderingContext2D, p: PiecePaint): void {
   ctx.globalAlpha = pose.alpha;
   ctx.translate(pose.x * scale, pose.y * scale);
   ctx.rotate(pose.angle);
-  outline(ctx, shard.points, scale);
+  piecePath(ctx, shard.points, scale);
   ctx.fillStyle = faceHex(shard.depth, p.hex, p.dark);
   ctx.fill();
   // The lit edge, and the one thing that says which side of this used to face

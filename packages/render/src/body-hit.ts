@@ -1,3 +1,4 @@
+import { BALLOON_SKIN } from "./balloon-burst.js";
 import { afterglow } from "./body-hit-afterglow.js";
 import { pop } from "./body-hit-pop.js";
 import { rupture } from "./body-hit-rupture.js";
@@ -126,6 +127,17 @@ export const RIND_HIT: HitLook = { pieces: BREAK_LOOK, life: STRIKE_LIFE, strike
 export const ECHO_HIT: HitLook = { pieces: BREAK_LOOK, life: STRIKE_LIFE, strike: splash };
 
 /**
+ * THE BALLOON's, and the one record here that is not about a shot at all —
+ * nothing can be fired at a balloon (`sim/balloon.ts`: a bolt is spent on the
+ * skin). It is here because `breakSparks` reads `pieces.sparkScale` off this
+ * lookup for every `destroy` alike, and the `destroy` the simulation pushes
+ * beside a pop is the only thing left throwing squares once the skin has its
+ * own shreds. `BALLOON_SKIN` takes them down to the flash; there is no strike,
+ * because there was no impact to leave one.
+ */
+export const BALLOON_HIT: HitLook = { pieces: BALLOON_SKIN, life: 0, strike: none };
+
+/**
  * Every other body's. It exists so that it can stop being identical without
  * anybody deciding that it should — a decision about the slick is not a
  * decision about a dart (`body-interior.ts`'s `BODY_LOOK`, for the same
@@ -152,5 +164,6 @@ export function hitFor(kind: string, of?: string): HitLook {
   if (kind === "throb") return THROB_HIT;
   if (kind === "dart") return DART_HIT;
   if (kind === "wisp") return WISP_HIT;
+  if (kind === "balloon") return BALLOON_HIT;
   return BODY_HIT;
 }

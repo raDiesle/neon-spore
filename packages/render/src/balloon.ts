@@ -67,6 +67,10 @@ const FULL_RY = 0.88;
  * the size a whole balloon used to be. The two generations stay two thirds
  * apart, which is what keeps a split readable. */
 const SMALL_RY = 0.58;
+/** How wide a balloon is against its own height, before either hand is on
+ * it. Under one, because an egg taller than it is wide is the one proportion
+ * that reads as *inflated* rather than as a ball. */
+const WIDE = 0.82;
 /** How much wider a side gets at full tension, as a share of its own width.
  * Half again: the give has to be visible across a room, because the other seat
  * is reading it to decide whether their own hand is doing anything. */
@@ -87,6 +91,29 @@ export function balloonRy(l: Layout, cfg: SimConfig, c: Creature, beats: number)
   return full * (0.18 + 0.82 * balloonSwellPhase(cfg, beats, c));
 }
 
+/**
+ * **The skin a balloon is wearing on the frame it pops**, in pixels: its
+ * half-width and its half-height, with both hands taut on it.
+ *
+ * Here rather than in `balloon-burst.ts`, which is the file that cuts it into
+ * shreds. Four numbers decide what a balloon looks like and all four are this
+ * file's; a second set over there would be a picture that went on matching the
+ * body only until one of them moved, and the one thing a break must never do
+ * is come apart into a body of a different size from the one that was there.
+ *
+ * It asks for no creature and needs none. A pop is only ever the **last**
+ * generation — `rubBalloon` pops when there are no splits left, and every
+ * other rub splits instead — so the height is `SMALL_RY`. It is only ever
+ * reached with both hands taut and the hold run out, so both sides are given
+ * by the whole of `GIVE` and the body is squashed by the whole of `SQUASH`.
+ * And a body two people have held all the way to the end of its hold finished
+ * swelling long before, so the phase is one.
+ */
+export function balloonPopSkin(tile: number): { rx: number; ry: number } {
+  const ry = tile * SMALL_RY;
+  return { rx: ry * WIDE * (1 + GIVE), ry: ry * (1 - SQUASH) };
+}
+
 /** The body. `ctx` is expected to be inside the perspective transform
  * `drawCreatures` puts every body in, so nothing here scales for distance —
  * only the colour is hazed, which is where distance is spent everywhere else. */
@@ -95,7 +122,7 @@ export function drawBalloon({ ctx, l, world, c, x, y, time, beats, near }: Body)
   const ry = balloonRy(l, cfg, c, beats);
   const left = balloonTension(cfg, c, 1) / 1000;
   const right = balloonTension(cfg, c, 2) / 1000;
-  const base = ry * 0.82;
+  const base = ry * WIDE;
   const rxLeft = base * (1 + GIVE * left);
   const rxRight = base * (1 + GIVE * right);
   const squashed = ry * (1 - SQUASH * Math.max(left, right));

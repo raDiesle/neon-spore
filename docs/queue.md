@@ -317,38 +317,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## THE BALLOON's burst is a spark, and it should be a skin coming apart
-
-- **Found:** 2026-09-15, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-15, claude/queue-the-balloons-burst-is-a-spark-and-it-should-be-a
-- **Files:** `packages/render/src/effects-spark-handed.ts`, `packages/render/src/sprite-burst.ts`, `packages/content/src/balloon-shape.ts`, `packages/content/src/balloon-parts.ts`, `packages/render/test/frame.test.ts`
-- **Where:** local
-
-The one point of *THE BALLOON enters at a wall, never sinks, and is a torch at
-the top* that did not get built. The owner asked for it on 14 September 2026 by
-name, so it lands on the field rather than going to VERSUS.
-
-Today the end of a balloon is an ordinary kill's particles: `balloonPop` is
-silent in `effects-spark-silent.ts` and the `destroy` beside it on the same
-tick throws the same burst every body in the game throws. He wants it *realistic, like a balloon becoming many
-pieces blowing up*: the skin torn into shreds that fly outward and fall, built
-from the balloon's own contour (`content/balloon-shape.ts`, `balloon-parts.ts`)
-and the shapes page rather than invented. A baked strip in `sprite-burst.ts` if
-the pieces are too many to draw live; either way drawn again in
-`frame.test.ts` at its loudest frame.
-
-**It is `balloonPop` alone now.** The entry was written when `balloonBurst` was
-the other half of this, and that event is gone: nothing costs the hull at the
-top any more and no half of a split sinks, so the only end a balloon has is the
-one the pair makes with two hands. That is the better body for the look anyway
-— it is the moment they earned. Building it means taking `balloonPop` off
-`effects-spark-silent.ts`'s list and giving it a burst of its own, which is the
-one thing there that would then be drawn twice if the `destroy` beside it kept
-throwing particles as well.
-
-Prove it with `bun run check`, a wave carrying a balloon watched at tempo
-through a split and a pop, and one PNG of the shreds mid-flight.
-
 ## The client half of a sign-in has no rig, so no check ever signs anybody in
 
 - **Found:** 2026-09-15, claude/queued-tasks-51d8f9
@@ -702,3 +670,32 @@ rename it in `bosses.md` when he sees it.
 Prove it with `bun run check`, a replay test that fingerprints two echoes,
 `frame.test.ts` with an unseen body mid-fall and one at its kill on both
 seats, and the wave watched at tempo through one full stretch and its echo.
+
+## THE BALLOON's wave tells the pair three things the game stopped doing
+
+- **Found:** 2026-09-15, claude/queued-tasks-51d8f9
+- **Files:** `packages/content/src/waves/act-7b.ts`, `packages/content/src/scenes/`, `packages/render/test/briefing.test.ts`
+
+The owner ruled on 14 September 2026 that a balloon **never goes downwards**
+and that the top of the field is a body the pair has to answer rather than a
+bill on the hull (`sim/balloon.ts` `topOut`, `sim/balloon-rub.ts`). The wave's
+own guide was written before that and still says all three of the things that
+went:
+
+- *"Reach the top and one goes off and the hull pays for it"* — it turns into a
+  torch there now and the hull pays nothing.
+- *"one climbs on, one sinks"* — both halves climb, and the lane between them
+  and the carom each takes at its own wall is what makes them two problems.
+- *"a half that reaches the ship goes off like the top"* — nothing sinks, so
+  nothing reaches the ship.
+
+Player 2's half then names the sinking half again — *"or down into you"* — so
+the seat with no reason to watch the bottom of the field is told to. This is
+the one screen in the game whose whole job is telling two people what a body
+does, and it is describing a creature that has not existed for a day.
+
+Rewriting it is three sentences in `guide.both` and one clause in `guide.p2`,
+and the scene beside it is worth reading for the same drift. **`both` and each
+half are capped at 220 characters** (`briefing.test.ts`), and the present
+`both` is already at the cap, so this is a rewrite rather than an edit. Prove
+it with `bun run check` and one frame of the opening.

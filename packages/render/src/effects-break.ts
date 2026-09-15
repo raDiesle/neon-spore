@@ -5,6 +5,7 @@ import { contourClock, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio } from "./creature-tint.js";
 import type { Debris } from "./debris.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
+import { tileSeed } from "./tile-seed.js";
 
 /**
  * Turning a `destroy` into a body coming apart.
@@ -51,10 +52,9 @@ export function breakBody(
   // the ordinary kill and both are still the right *shape*.
   const r = livingRadius(l.tile, 1);
   const trio = colorTrio(e.color);
-  // The same seed shape `scars.ts` uses for the same reason: a break must look
-  // identical on both phones, and a column and a row are the only two numbers
-  // both of them agree about.
-  const seed = Math.imul(e.col + 1, 73856093) ^ Math.imul(e.row + 1, 19349663);
+  // A break must look identical on both phones, and a column and a row are the
+  // only two numbers both of them agree about (`tile-seed.ts`).
+  const seed = tileSeed(e.col, e.row);
   debris.break({
     look: hitFor(e.kind, e.of).pieces,
     outline: livingPoints(shape, contourClock(seed, time)),

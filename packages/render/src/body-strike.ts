@@ -5,6 +5,7 @@ import { contourClock, livingRadius, livingScale } from "./creature-place.js";
 import { colorTrio } from "./creature-tint.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
+import { tileSeed } from "./tile-seed.js";
 
 /**
  * A body on the beat it is struck, drawn where it stood after it is gone.
@@ -60,7 +61,7 @@ export class BodyStrikeFx {
       // creature left to ask how big it was.
       const r = livingRadius(l.tile, 1);
       const scale = livingScale(shape, r);
-      const seed = Math.imul(e.col + 1, 73856093) ^ Math.imul(e.row + 1, 19349663);
+      const seed = tileSeed(e.col, e.row);
       const t = contourClock(seed, time);
       const trio = colorTrio(e.color);
       this.live.push({

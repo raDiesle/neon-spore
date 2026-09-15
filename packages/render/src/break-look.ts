@@ -91,12 +91,30 @@ export const BREAK_LOOK: BreakLook = {
   paint: facet,
 };
 
-/** The cut this record asks for, at one place and one seed — the one route from
- * a look to a `Fracture`, so a caller never assembles one by hand. */
-export function fractureFrom(look: BreakLook, tile: number, seed: number): Fracture {
+/**
+ * The cut this record asks for, at one place and one seed — the one route from
+ * a look to a `Fracture`, so a caller never assembles one by hand.
+ *
+ * **Where it tears from is the caller's**, and the middle is only the default.
+ * A shot arrives from below and a body of this size is cut evenly enough that
+ * the centre is the honest answer for one; a balloon is not broken by anything
+ * arriving at all — the skin gives somewhere, and the pieces leave that point
+ * rather than leaving the middle. With the origin at the centre every wedge
+ * has the same reach, so all of them leave at the same speed and open as a
+ * ring however many there are, which is what the first picture of a pop showed
+ * (`balloon-burst.ts`). Off centre, the far side of the skin comes away in
+ * long fast pieces and the near side in short ones, and the ring is gone.
+ */
+export function fractureFrom(
+  look: BreakLook,
+  tile: number,
+  seed: number,
+  ox = 0,
+  oy = 0,
+): Fracture {
   return {
-    ox: 0,
-    oy: 0,
+    ox,
+    oy,
     wedges: look.wedges,
     innerAt: look.innerAt,
     speed: look.speedTiles * tile,

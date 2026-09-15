@@ -6050,3 +6050,24 @@ named files, so a session of its own can build it.
 The bottleneck was reading: the design touches spawning and the hash, and
 the entry had to say why the echo is derived from the queue rather than
 appended to it before anyone builds it the easy way.
+
+## 2026-09-15 — queued-tasks — a balloon coming apart into pieces of itself
+
+The one point of the owner's 14 September ruling that never got built: the end
+of a balloon was the same dozen squares every kill throws. It is a break cut
+from the balloon's own skin now, torn from a point on the rim.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `Debris`, `shatter`, `break-look` and the two silent lists, to find that every verb a pop needs was already written |
+| writing | 40 | one new file and its test, the shreds' paint, four call sites and a seed pulled out of its fourth copy |
+| looking | 45 | four rounds of `bun run frames` on a wave held through a split and a pop, at three tunings |
+| friction | 20 | a hold at `1600` is not taut — `balloonTautMilli` is 2000 — so the first three captures photographed a balloon nobody was pulling hard enough |
+| landing | 15 | `check:fast`, the full run, the commit |
+
+The bottleneck was looking, and it earned every minute: the first cut was one
+ring from the middle of the body, and the picture showed sixteen identical
+arrowheads opening as an even ring — a shockwave, not a skin. No test could
+have said so. Two rings helped and did not fix it; what fixed it was tearing
+the skin from a point out on the rim, so the far side comes away in long fast
+pieces and the near side in chips.

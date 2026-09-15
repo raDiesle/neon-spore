@@ -54,14 +54,18 @@ export const INGEST_SILENT = [
   // the *closing* is read straight off `Creature.choirFuseTick` every frame
   // (`render/choir.ts`), which is the one thing that cannot go stale.
   "choirOpen",
-  // THE BALLOON's three. Nothing about any of them outlives its frame: how big
+  // THE BALLOON's other two. Nothing about either outlives its frame: how big
   // a balloon is drawn, how far it leans and how far each side has given are
   // read every frame straight off the body (`balloonSwellPhase`,
   // `balloonTension`), which is the one thing that cannot go stale across a
   // restart. The bursts are `burstFor` above, and the hull damage rides on the
   // `breach` beside the burst, which `ingestBreach` already remembers.
+  //
+  // **`balloonPop` was here until 15 September 2026** and is in the switch next
+  // door now: the shreds of the skin go on flying and falling for a second
+  // after the body is off the field, which is exactly the thing this list is
+  // for saying a creature does not do (`balloon-burst.ts`).
   "balloonSplit",
-  "balloonPop",
   // Topping out is the same kind of nothing: the body it turned into is on
   // the field from that tick and is drawn as a torch off its own kind.
   "balloonTopped",

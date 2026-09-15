@@ -66,6 +66,11 @@ export interface BreakAt {
   /** The seed. The same body broken on the same beat breaks the same way on
    * both phones, which is `sparks.ts`'s rule and not a nicety. */
   readonly seed: number;
+  /** Where in the body the skin gave, in the same units the outline is in.
+   * Left out for a body broken by a shot, which tears from the middle — see
+   * `fractureFrom` for why a balloon does not. */
+  readonly ox?: number;
+  readonly oy?: number;
 }
 
 export class Debris {
@@ -75,7 +80,7 @@ export class Debris {
   break(b: BreakAt): void {
     const look = b.look;
     if (look.wedges < 3) return;
-    const cut = shatter(b.outline, fractureFrom(look, b.tile / b.scale, b.seed));
+    const cut = shatter(b.outline, fractureFrom(look, b.tile / b.scale, b.seed, b.ox, b.oy));
     if (cut.length === 0) return;
     // Into pixels once, here. Every coordinate a piece carries is scaled, and
     // so is every speed — a velocity left in contour units would put the same

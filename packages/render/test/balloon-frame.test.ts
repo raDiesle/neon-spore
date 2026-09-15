@@ -110,6 +110,74 @@ describe("a wave of balloons through a canvas that refuses what a real one does"
   });
 });
 
+/**
+ * One balloon held all the way to the end: the first rub splits it, and the
+ * pair take one of the halves the same way until the skin gives.
+ *
+ * The hands re-find a body whenever the one they were on leaves the field,
+ * which is exactly what a split does to them — and they take hold of it slack
+ * on the first tick and taut from the next, because a handle that is already
+ * out on the tick it is grabbed is a hand that never pulled.
+ */
+function poppedFrames(role: ViewRole, ticks: number) {
+  let held = 0;
+  let grabbed = -1;
+  const one: SpawnEntry[] = [{ beat: 0, col: 3, kind: "balloon", color: null }];
+  const { ctx, events } = runFrames(createWorld(CFG, 1, one), role, ticks, {
+    every: 2,
+    onTick: (tick, w) => {
+      if (!w.creatures.some((c) => c.id === held)) {
+        held = w.creatures.find((c) => c.kind === "balloon")?.id ?? 0;
+        grabbed = tick;
+      }
+      const far = tick === grabbed ? 0 : FAR;
+      const inputs: TimedCommand[] =
+        held === 0
+          ? []
+          : [
+              {
+                tick,
+                player: 1,
+                command: {
+                  kind: "drag",
+                  target: "balloonLeft",
+                  on: true,
+                  fromMilli: -far,
+                  id: held,
+                },
+              },
+              {
+                tick,
+                player: 2,
+                command: {
+                  kind: "drag",
+                  target: "balloonRight",
+                  on: true,
+                  fromMilli: far,
+                  id: held,
+                },
+              },
+            ];
+      step(w, inputs);
+    },
+  });
+  return { ctx, pop: events.filter((e) => e.type === "balloonPop").length };
+}
+
+describe("the skin of a balloon coming apart", () => {
+  for (const role of ROLES) {
+    it(`draws the shreds flying and falling as ${role}`, () => {
+      // Long enough to swell, be split, swell again, be held to the end of the
+      // hold, and then a second and a bit more so the shreds are drawn all the
+      // way from the tear to lying on the plating (`BALLOON_SKIN.life`).
+      const { ctx, pop } = poppedFrames(role, TPB * 16);
+      // The run reached the state its frames were supposed to prove.
+      expect(pop).toBeGreaterThan(0);
+      expect(ctx.calls).toBeGreaterThan(0);
+    });
+  }
+});
+
 describe("a caption pointed at one of THE BALLOON's handles", () => {
   /** A world with a balloon on the field, stepped until it has arrived. */
   function withBalloon() {
