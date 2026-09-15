@@ -98,7 +98,13 @@
 
       <section data-view="wave" data-column="editor" data-column-title="WAVE">
         <div id="tabs">
+          <!-- Reading through the waves in order used to be a press per wave,
+               back in the list each time. These open the row before and after
+               the one open, through the same `onSelect` a row press makes
+               (`rail.ts`); `[` and `]` are the same two without the mouse. -->
+          <button type="button" id="wavePrev">‹</button>
           <button type="button" data-tab="wave" class="on">WAVE</button>
+          <button type="button" id="waveNext">›</button>
         </div>
         <!-- Ordered by when a pair meets the thing: the card that opens the
              wave first, the wave's own fields next, and what the wave leaves

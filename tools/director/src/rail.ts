@@ -9,6 +9,7 @@ import { bindFaultFields } from "./fault-fields.js";
 import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields.js";
 import { bindRailFilter } from "./rail-filter.js";
 import { waveMarks } from "./rail-marks.js";
+import { bindWaveSteps } from "./rail-steps.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
 /**
@@ -38,6 +39,9 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const controlsRoster = document.getElementById("fControlSetRoster");
   const waveCopyBtn = document.getElementById("waveCopy") as HTMLButtonElement | null;
   const waveDelBtn = document.getElementById("waveDel") as HTMLButtonElement | null;
+  // The two arrows in the tab bar over this column, and the two keys that are
+  // the same step without the mouse (`rail-steps.ts`).
+  const steps = bindWaveSteps(store, onSelect);
   // The field above the list. It redraws the list and touches nothing else —
   // see `rail-filter.ts` for why it is a typed field and not a row of chips.
   const filter = bindRailFilter(() => renderList());
@@ -121,6 +125,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   const render = (): void => {
     renderList();
     renderFields();
+    steps.render();
   };
 
   // Typing a name changes the list but must not restart the stage — only the

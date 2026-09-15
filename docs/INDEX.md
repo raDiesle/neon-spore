@@ -1676,6 +1676,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/cell-config-rows.ts` |  |
 | `tools/director/src/grid-cell-art.ts` | What one cell of the map draws: the creature that arrives on that beat, and the pod that hangs in that column |
 | `tools/director/src/rail-filter.ts` | The filter over the wave list: one field above it, matching a wave's prose and everything it sends |
+| `tools/director/src/rail-steps.ts` | **The two arrows over the WAVE column**, and the two keys that are the same step without the mouse |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
@@ -1725,6 +1726,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/tails/braid.ts` | Two ribbons of flame wound round one axis half a turn apart and rolling on the beat |
 | `tools/director/src/tails/cinders.ts` | Eight cooling embers hanging back down the line the body came along |
 | `tools/director/src/tails/flame.ts` | A flame that leaves the body narrow, opens into a belly a third of the way back and frays out into nothing |
+| `tools/director/src/typing.ts` | Whether the keyboard belongs to a field rather than to the director |
 | `tools/director/src/stage-balloon-both.ts` | **Both of THE BALLOON's handles off one mouse**, and only under TEST |
 | `tools/director/src/style-colour.ts` | The colour half of the STYLE page: every swatch in `PALETTE`, filed under the rule it belongs to |
 | `tools/director/src/style-form.ts` | The form half of the STYLE page: how a body is drawn, how big it ships, what makes one nameable |

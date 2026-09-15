@@ -19,6 +19,7 @@ import {
   paint,
   type Store,
 } from "./state.js";
+import { isTyping } from "./typing.js";
 
 /**
  * The beat grid: beats down, the seven authored columns across.
@@ -216,19 +217,6 @@ export function bindGrid(
   watchStrokeEnd();
   render();
   return { render, mark };
-}
-
-/**
- * Whether the keyboard currently belongs to a field rather than to the map.
- * `Backspace` is the character the wave's name and sentence are corrected
- * with, and a global listener that did not ask this would delete a creature
- * every time somebody fixed a typo.
- */
-function isTyping(el: Element | null): boolean {
-  if (!el) return false;
-  const tag = el.tagName;
-  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return true;
-  return (el as HTMLElement).isContentEditable === true;
 }
 
 function label(cls: string, text: string): HTMLElement {

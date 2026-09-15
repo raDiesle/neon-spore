@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — ‹ WAVE ›: the wave column opens the next one
+
+The queue's *Two arrows at the top of the WAVE column open the previous and
+the next wave*, the owner's own ask. Two buttons in the bar the WAVE tab
+already stands in, `[` and `]` for the same step, disabled at both ends, each
+saying by number and name which wave it opens.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `rail.ts`, and which of the director's three keyboard listeners was the right place for two keys — none of them: `keys.ts` is the stage's play keyboard and has no store |
+| writing | 35 | the step, the arrows, the keys, the split that kept `rail.ts` under the limit, one shared `isTyping`, five cases and two verbs on the fake DOM |
+| looking | 5 | one `bun run shot` of the bar |
+| friction | 5 | `bun run imports:sort` twice, both times after `lint` asked for it — the command exists and is in `docs/commands.md`; it is `format` not doing it that keeps surprising a lane |
+| landing | 10 | `check:fast` twice, the commit |
+
+The bottleneck was the line limit arriving mid-change: the arrows took
+`rail.ts` to 283 and the ceiling test caught it after the work was done rather
+than before it was placed. The split was cheap because the seam was obvious —
+`rail.ts` is the wave being edited and `rail-steps.ts` is *which* wave that is
+— but a file at 238 lines is a file that should be split before anything is
+added to it, not after.
+
 ## 2026-09-15 — queued-tasks — `room-shot --then-wave` carries both phones past the room
 
 The queue's *`room-shot` stops at THE ROOM: the wave against the other seat

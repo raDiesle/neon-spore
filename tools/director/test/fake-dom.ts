@@ -31,6 +31,8 @@ export class FakeEl {
   height = 0;
   type = "";
   disabled = false;
+  /** What hovering says, which is where a button explains itself. */
+  title = "";
   private readonly clicks: Array<() => void> = [];
 
   readonly classList = {
@@ -118,6 +120,12 @@ export interface FakeDom {
   /** The URL as `history.replaceState` last left it. */
   url(): string;
   /**
+   * A key pressed on the window, for the three panels that listen there rather
+   * than on an element — a selection, and a wave, outlive the node a press
+   * arrives on (`grid.ts`, `rail.ts`).
+   */
+  press(key: string, target?: unknown): void;
+  /**
    * Puts the real globals back. `bun test` shares one process across files, so
    * a fake `document` left on `globalThis` is read by every file after this one
    * — call this in a `finally`.
@@ -153,7 +161,10 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     return bar.filter((b) => b.dataset.tab === want);
   };
 
-  const doc = {
+  const doc: { activeElement: unknown } & Record<string, unknown> = {
+    /** What has focus, which is how a global listener asks whether somebody is
+     * typing (`src/typing.ts`). Nothing, until a press says otherwise. */
+    activeElement: null,
     querySelector: (selector: string) => pick(selector)[0] ?? null,
     querySelectorAll: (selector: string) => pick(selector),
     getElementById: (id: string) => ids[id] ?? null,
@@ -173,7 +184,14 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     },
     addEventListener: () => {},
   };
+  const keys: Array<(e: { key: string; target: unknown; preventDefault(): void }) => void> = [];
   const win = {
+    addEventListener: (
+      type: string,
+      fn: (e: { key: string; target: unknown; preventDefault(): void }) => void,
+    ): void => {
+      if (type === "keydown") keys.push(fn);
+    },
     location: {
       get search(): string {
         const at = href.indexOf("?");
@@ -194,6 +212,10 @@ export function installDom(spec: DomSpec = {}): FakeDom {
   global.window = win;
   return {
     url: () => href,
+    press: (key: string, target: unknown = null) => {
+      doc.activeElement = target;
+      for (const fn of [...keys]) fn({ key, target, preventDefault: () => {} });
+    },
     restore: () => {
       global.document = had.document;
       global.window = had.window;

@@ -18,6 +18,7 @@ import {
   type SimConfig,
   type TimedCommand,
 } from "@neon-spore/sim";
+import { isTyping } from "./typing.js";
 
 /**
  * Both roles on one keyboard, so a wave can be tried the moment it is placed.
@@ -207,9 +208,4 @@ export function bindKeys(
     },
     push,
   };
-}
-
-function isTyping(target: EventTarget | null): boolean {
-  if (!(target instanceof HTMLElement)) return false;
-  return target.tagName === "INPUT" || target.tagName === "TEXTAREA";
 }

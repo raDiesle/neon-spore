@@ -46,6 +46,19 @@ export interface Store {
   dirty: boolean;
 }
 
+/**
+ * The wave `delta` away from the one open, or null when there is none that way.
+ *
+ * The whole list and never the filtered one: a filter narrows what is *shown*,
+ * and a step that skipped the rows it hid would make reading through the waves
+ * in order depend on what was typed in a field two panels away. The row it
+ * lands on is kept visible by the rule already in `rail.ts`.
+ */
+export function waveStep(store: Store, delta: number): number | null {
+  const to = store.index + delta;
+  return to >= 0 && to < store.waves.length ? to : null;
+}
+
 export function currentWave(store: Store): Wave | undefined {
   return store.waves[store.index];
 }
