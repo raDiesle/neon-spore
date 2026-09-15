@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — the first meeting with a keyboard over it
+
+The queue's *Unverified at a80777a5*, both halves. The keyboard half is
+answered: a thumb in the field with the window cut to what an iPhone leaves
+above the keys still has the question, the field, THAT IS ME, the line about
+logging in and the whole LOG IN block, and the sheet scrolls. The sign-in half
+is not, and it is an entry of its own now: there is no rig, and signing in by
+hand wants a Google account and a mailbox.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `hello.ts`, `sign-in.ts`, `syncName`, and what `apps/server/test/signed.ts` already fakes |
+| writing | 15 | one throwaway, and the entry for what is left |
+| looking | 10 | three shots of the sheet — arrival, keyboard, typed |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was deciding what a keyboard *is* to a headless browser. There
+is no on-screen keyboard to raise, and waiting for one would have been waiting
+for nothing — but what a keyboard does to a page is take the bottom of the
+viewport, and that is one call. The answer was worth having: the screen was
+built so the optional half would not be covered, and with 336 points gone it
+still is not.
+
 ## 2026-09-15 — queued-tasks — the opening scene, seen moving
 
 The queue's *Unverified at 7693db1b*. The scene was corrected off two headless

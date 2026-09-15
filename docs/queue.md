@@ -636,22 +636,6 @@ Prove it with `bun run check`: the panel tests in `packages/content/test`,
 `lance.test.ts` in `sim` on a world started with the field off, and the
 director opened on THE LEAK showing the rung on its panel row and no fault.
 
-## Unverified at a80777a5: The sign-in half of the first meeting actually signing…
-
-- **Found:** 2026-09-15, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-15, claude/queue-unverified-at-a80777a5-the-sign-in-half-of-the-f
-- **Files:** `apps/game/src/game.css`, `apps/game/src/hello.ts`, `apps/game/src/join-name.ts`, `apps/game/src/menu.css`, `apps/game/src/nickname.ts`, `apps/game/src/shell.ts`, `apps/game/test/hello.test.ts`, `apps/game/test/intro.test.ts`
-
-*After the intro, a first visit is asked what it is called* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
-
-- The sign-in half of the first meeting actually signing somebody in: LOG IN WITH GOOGLE opens a popup and the email link needs a mailbox, so syncName filling the field with a restored name was read off the code and never seen happen (apps/game/src/hello.ts)
-- The first meeting on a real phone with the keyboard up: the field is deliberately not focused on arrival so the optional half is not covered, and nobody has seen what the sheet does when a thumb does focus it (apps/game/src/hello.ts, apps/game/src/menu.css)
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## A game's tempo is fixed once it is made; NEW GAME is the way to another
 
 - **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
@@ -710,3 +694,32 @@ icon and every frame has to go in as a data URL; and a cell that scales the
 whole frame down is unreadable, which is what the window is for.
 
 Prove it with `bun run check` and one sheet of frames already on disk.
+
+## The client half of a sign-in has no rig, so no check ever signs anybody in
+
+- **Found:** 2026-09-15, claude/queued-tasks-51d8f9
+- **Files:** `apps/game/src/sign-in.ts`, `apps/game/src/nickname.ts`, `apps/game/src/hello.ts`, `apps/game/test/hello.test.ts`, `apps/server/test/signed.ts`, `apps/server/src/sign-in.ts`
+
+What *Unverified at a80777a5* left behind when the rest of it was checked off.
+The server half of the name registry is proved against a fake Firebase already:
+`apps/server/test/signed.ts` mints its own RSA key, hands the worker a JWKS and
+signs tokens with it, and `names.test.ts` drives real claims through a real
+Durable Object with them. The client half has nothing of the kind. `idToken()`
+asks the Firebase SDK for a signed-in user, so every path behind it — `syncName`
+filling the first meeting's field with a name the registry hands back, the same
+call reconciling a name this phone typed, the SETTINGS row saying who is logged
+in — is read off the source and has never run. Signing in by hand needs a Google
+account and a mailbox, which is not something a session has or should be given.
+
+The seam is `sign-in.ts`: everything above it (`nickname.ts`, `hello.ts`,
+`menu-sign-in.ts`) only ever asks it two questions — is somebody signed in, and
+what is their token. Two ways to answer those without Google, and the first is
+the smaller: **a signed-in stand-in inside `sign-in.ts`**, minting a token the
+way `signed.ts` does and refusing to exist unless the relay is a local one, so
+it cannot ship as a way past a sign-in; or **Firebase's own auth emulator**,
+which the SDK connects to with one call and which `relay:check:all` could start
+the way it starts a wrangler — truer, and a Java dependency in the tree. Either
+one makes the missing check writable: press LOG IN WITH GOOGLE on the first
+meeting and watch the name arrive in the field.
+
+Prove it with `bun run check` and one check that signs in and reads the field.
