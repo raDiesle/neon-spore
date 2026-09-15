@@ -1,4 +1,5 @@
 import { faultStep } from "./fault-clock.js";
+import { faultOn } from "./fault-placed.js";
 import { otherColor } from "./kinds.js";
 import type { Color } from "./types.js";
 import type { World } from "./world.js";
@@ -43,7 +44,7 @@ import type { World } from "./world.js";
 
 /** Whether this wave has THE CODEX on it at all. */
 export function codexed(world: World): boolean {
-  return world.malfunction?.kind === "codex";
+  return faultOn(world, "codex") !== null;
 }
 
 /**

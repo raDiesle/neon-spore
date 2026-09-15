@@ -1,5 +1,5 @@
 import type { ControlSet } from "@neon-spore/content";
-import type { Creature, Malfunction, MazeState, SimConfig, WardenState } from "@neon-spore/sim";
+import type { Creature, MazeState, PlacedFault, SimConfig, WardenState } from "@neon-spore/sim";
 
 /**
  * **What a hit test is handed**: the field as the control scheme needs to see
@@ -88,12 +88,13 @@ export interface Field {
    * The fault this wave is played under, or `null`.
    *
    * **Required and stated rather than defaulted**, for the reason every field
-   * above it is: a caller that quietly meant `null` would answer a button the
+   * above it is: a caller that quietly meant *none* would answer a button a
    * fault has taken over, so a thumb would fire a gun the pair can see is
    * broken — the one thing the picture and the simulation must never disagree
-   * about.
+   * about. The faults **in force this beat**, since they are placed on beat
+   * rows now and a wave may hold more than one (`sim/fault-placed.ts`).
    */
-  malfunction: Malfunction | null;
+  faults: readonly PlacedFault[];
   /**
    * Whether **this screen** is drawn as THE WELL — the field turned inside out
    * (`render/src/well.ts`). It is a boolean rather than a state because the

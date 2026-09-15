@@ -42,7 +42,7 @@ function field(seat: 1 | 2, controls: ControlSet = STANDARD, cols?: [number, num
     maze: null,
     warden: null,
     controls,
-    malfunction: null,
+    faults: [],
     well: false,
   };
 }

@@ -90,14 +90,18 @@ export function hashWorld(world: World): number {
   push(world.choirArmTick);
   push(world.wardUntilTick);
   push(world.lastFireTick);
-  // The wave's fault. It is script — handed in by `startWave` the way the
-  // queue is — but it is *hashed* where the queue is not, and cheaply: it is
-  // one small object rather than a list read by index, and it decides on every
-  // beat whether a shot goes out that nobody pressed.
-  const fault = world.malfunction;
-  push(fault === null ? -1 : MALFUNCTION_KINDS.indexOf(fault.kind));
-  if (fault !== null && fault.kind === "cannon") {
-    push(MALFUNCTION_COLORS.indexOf(fault.color) + 1);
+  // The wave's faults. They are script — handed in by `startWave` the way the
+  // queue is — but they are *hashed* where the queue is not, and cheaply: a
+  // handful of small objects rather than a list read by index, and they decide
+  // on every beat whether a shot goes out that nobody pressed. All of them,
+  // with their rows, because a fault that started a beat later on one device
+  // is a different game (`fault-placed.ts`).
+  push(world.faults.length);
+  for (const fault of world.faults) {
+    push(MALFUNCTION_KINDS.indexOf(fault.kind));
+    push(fault.at);
+    push(fault.beats);
+    if (fault.kind === "cannon") push(MALFUNCTION_COLORS.indexOf(fault.color) + 1);
   }
   // And whether this wave's panel fills the lobe at all. Script like the fault
   // and hashed like it: two devices that disagree about it disagree about

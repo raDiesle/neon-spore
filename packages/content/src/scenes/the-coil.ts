@@ -35,7 +35,7 @@ export const THE_COIL: GuideScene = {
   ticks: 1080,
   bpm: 120,
   seed: 1,
-  malfunction: { kind: "shield" },
+  faults: [{ kind: "shield" }],
   entries: [
     { beat: 0, col: 6, kind: "coil", color: null },
     // In the column the plate is going to stand in, timed so that it is

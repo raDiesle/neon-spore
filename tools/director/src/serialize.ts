@@ -127,16 +127,15 @@ function serializeWave(wave: Wave): string {
     lines.push(`    controls: "${wave.controls}",`);
   }
 
-  // And after it, on the same terms: a wave with no fault writes no line, so
-  // every wave in the game but a handful round trips exactly as it did. One
-  // line rather than a block, because a `Malfunction` is a word and at most
-  // three numbers — the shield arm carries nothing at all, the cannon arm has
-  // ammunition to name, and THE HANDOVER has the window the wave authors
-  // (`sim/malfunction.ts`). **Every field of the arm is written**, and that is
-  // the whole job: a field this misses is a field the editor deletes the first
-  // time somebody saves a wave.
-  if (wave.malfunction) {
-    lines.push(`    malfunction: ${faultLine(wave.malfunction)},`);
+  // And after it, on the same terms: a wave that places no fault writes no
+  // line, so every wave in the game but a handful round trips exactly as it
+  // did. One line rather than a block, because a placed fault is a word and at
+  // most three numbers — a kind, the row it enters on, and how many rows it
+  // holds (`sim/fault-placed.ts`). **Every field of every placement is
+  // written**, and that is the whole job: a field this misses is a field the
+  // editor deletes the first time somebody saves a wave.
+  if (wave.faults?.length) {
+    lines.push(`    faults: [${wave.faults.map(faultLine).join(", ")}],`);
   }
 
   lines.push("  },");

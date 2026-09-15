@@ -51,6 +51,16 @@ export interface MalfunctionConfig {
    * which is the same argument every number in this file makes.
    */
   handoverAtBeat: number;
+  /*
+   * **Neither this nor the hold below is read by the simulation any more.**
+   * They were the fallback for a handover that named no rows, and every fault
+   * is placed on rows now — `at` and `beats` come off the pencil, and a wave
+   * that leaves them out means *from the first beat, to the end*
+   * (`fault-placed.ts`, 15 September 2026). What they are is the number the
+   * director fills a fresh handover in with, which is the job that made them
+   * good numbers in the first place, and what the two paragraphs round them
+   * argue is still why those are the numbers.
+   */
   /**
    * Beats the panels stay traded before they come back.
    *

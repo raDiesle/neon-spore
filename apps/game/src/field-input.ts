@@ -11,7 +11,14 @@ import {
   wellCannonGrab,
   wellShieldGrab,
 } from "@neon-spore/render";
-import { briefingHolds, guideHolds, handedOver, mazeRound, type World } from "@neon-spore/sim";
+import {
+  briefingHolds,
+  faultsNow,
+  guideHolds,
+  handedOver,
+  mazeRound,
+  type World,
+} from "@neon-spore/sim";
 import { type BriefingBinding, bindBriefing } from "./briefing.js";
 import { bindControls, type Controls, type InputBuffer } from "./input.js";
 import { bindLost } from "./lost.js";
@@ -103,7 +110,7 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     warden: () => (world.boss?.kind === "warden" ? world.boss : null),
     // Which panel is up follows from the wave (`content/control-sets.ts`).
     controls: () => controlSetForWave(world.wave),
-    malfunction: () => world.malfunction,
+    faults: () => faultsNow(world),
     // And whether this screen is drawn as THE WELL, which is a fact about the
     // boss *and* about the seat: the clock is the pilot's picture and the
     // navigator keeps the flat field, so the same world answers this

@@ -1,6 +1,6 @@
 import type { ControlDef } from "@neon-spore/content";
 import { controlBroken } from "@neon-spore/content";
-import { reachOut, type World } from "@neon-spore/sim";
+import { faultsNow, reachOut, type World } from "@neon-spore/sim";
 import { drawActionButton, drawFireButton } from "./controls.js";
 import { drawAimButton, drawSalvoButton } from "./controls-fleet.js";
 import { drawCrankDial } from "./crank-dial.js";
@@ -59,7 +59,7 @@ export function drawLobe(
   // over the top of its own face — the panel keeps every button where it was
   // and the damage is what is new (`malfunction-look.ts`). It runs for the
   // whole wave: there is no relief to buy a pause with any more.
-  if (controlBroken(c.id, world.malfunction)) {
+  if (controlBroken(c.id, faultsNow(world))) {
     drawFaultOver(ctx, circle, time);
   }
   LOBE_LOOK.gloss({ ctx, x, y, r, dpr: l.dpr, skin });

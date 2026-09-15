@@ -1,4 +1,4 @@
-import type { Malfunction } from "@neon-spore/sim";
+import type { MalfunctionKind } from "@neon-spore/sim";
 import { type ControlSet, layoutSet, setControls, setHas } from "./control-sets.js";
 import type { ControlDef, ControlId } from "./controls.js";
 
@@ -40,8 +40,17 @@ import type { ControlDef, ControlId } from "./controls.js";
  * button that quietly did nothing would be indistinguishable from a button
  * that is broken, which is the mistake `drawLock` already exists to avoid.
  */
-export function controlBroken(id: ControlId, m: Malfunction | null | undefined): boolean {
-  if (!m) return false;
+export function controlBroken(
+  id: ControlId,
+  faults: readonly { kind: MalfunctionKind }[] | null | undefined,
+): boolean {
+  // **Any of them.** A wave places its faults on beat rows and may have more
+  // than one in force at once (`sim/fault-placed.ts`), so a button is drawn
+  // dead if a single fault standing over this beat has taken it.
+  return (faults ?? []).some((m) => brokenBy(id, m));
+}
+
+function brokenBy(id: ControlId, m: { kind: MalfunctionKind }): boolean {
   if (m.kind === "cannon") return id === "fireRed" || id === "fireCyan";
   if (m.kind === "steer") return id === "cannon";
   if (m.kind === "shield") return id === "guard";

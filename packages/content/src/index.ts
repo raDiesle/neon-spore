@@ -158,6 +158,7 @@ export {
   type Point,
 } from "./shapes.js";
 export { SNAKE_ROUNDS } from "./snake-rounds.js";
+export { placedFaults, type WaveFault } from "./wave-faults.js";
 export { freshWaveId } from "./wave-types.js";
 export {
   guideSteps,

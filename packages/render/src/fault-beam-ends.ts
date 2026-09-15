@@ -1,4 +1,12 @@
-import { handedOver, handoverWarning, malfunctionColor, midCol, type World } from "@neon-spore/sim";
+import {
+  faultsNow,
+  handedOver,
+  handoverWarning,
+  malfunctionColor,
+  midCol,
+  type PlacedFault,
+  type World,
+} from "@neon-spore/sim";
 import type { BeamEnd } from "./fault-emitter.js";
 import { type Layout, showsCodex, tileCX } from "./layout.js";
 
@@ -25,9 +33,23 @@ export function faultBeamEnds(
   showsCannon: boolean,
   showsShield: boolean,
 ): BeamEnd[] {
-  const m = world.malfunction;
-  if (m === null) return [];
   const out: BeamEnd[] = [];
+  // Every fault in force, not the one: a wave places them on beat rows and may
+  // stand two over the same beat, and a lantern with one beam under two faults
+  // would be pointing at half of what is wrong (`sim/fault-placed.ts`).
+  for (const m of faultsNow(world)) endsFor(m, world, l, lobes, showsCannon, showsShield, out);
+  return out;
+}
+
+function endsFor(
+  m: PlacedFault,
+  world: World,
+  l: Layout,
+  lobes: readonly { id: string; x: number; y: number; r: number }[],
+  showsCannon: boolean,
+  showsShield: boolean,
+  out: BeamEnd[],
+): void {
   const lobe = (id: string) => lobes.find((c) => c.id === id);
   if (m.kind === "shield") {
     const guard = lobe("guard");
@@ -74,5 +96,4 @@ export function faultBeamEnds(
     }
     if (showsCannon) out.push({ x: tileCX(l, world.cannonCol), y: l.hullY, r: l.tile * 0.4 });
   }
-  return out;
 }

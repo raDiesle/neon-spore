@@ -1,6 +1,6 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { Layout } from "@neon-spore/render";
-import type { Creature, Malfunction, MazeState, SimConfig, WardenState } from "@neon-spore/sim";
+import type { Creature, MazeState, PlacedFault, SimConfig, WardenState } from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
 
 /**
@@ -74,7 +74,7 @@ export interface Bindings {
    * every frame rather than once, for `controls`' reason: a wave ends and the
    * next one may be played straight (`sim/malfunction.ts`).
    */
-  malfunction: () => Malfunction | null;
+  faults: () => readonly PlacedFault[];
   /** The field, for hit-testing a finger against what is falling. */
   creatures: () => readonly Creature[];
   /**

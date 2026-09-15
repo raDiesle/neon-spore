@@ -51,7 +51,7 @@ export function bindControls({
   cfg,
   maze,
   controls,
-  malfunction,
+  faults,
   warden,
   creatures,
   cannonCol,
@@ -90,10 +90,10 @@ export function bindControls({
     maze: maze(),
     warden: warden(),
     controls: controls(),
-    // The wave's fault, so a button it has taken over is refused where it is
-    // drawn dead — the same argument `controls` makes one line up
-    // (`content/src/control-fault.ts`).
-    malfunction: malfunction(),
+    // The faults in force this beat, so a button one has taken over is refused
+    // where it is drawn dead — the same argument `controls` makes one line up
+    // (`content/src/control-fault.ts`, `sim/fault-placed.ts`).
+    faults: faults(),
     // The well is the one of these that depends on the seat as well as on the
     // world: the clock is drawn on one screen of the two (`render/well.ts`).
     well: well(),

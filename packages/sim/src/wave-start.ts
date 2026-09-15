@@ -3,11 +3,11 @@ import { openWave } from "./briefing.js";
 import { installCairn } from "./cairn.js";
 import { midCol } from "./config.js";
 import { NO_CRANK } from "./crank.js";
+import type { PlacedFault } from "./fault-placed.js";
 import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
 import { clearGrips } from "./grip.js";
 import { endPrime } from "./lance.js";
-import type { Malfunction } from "./malfunction.js";
 import { installMaze } from "./maze-state.js";
 import { installMirror } from "./mirror.js";
 import { installPinball } from "./pinball-round.js";
@@ -35,10 +35,11 @@ import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
  * held and for how many states, and it never reads a word of what is on the
  * screen. A caller that leaves it out gets an introduction and then the wave.
  *
- * `malfunction` is the wave's fault, and it arrives here beside the boss for
- * the reason the boss does: it is a whole-wave fact read once, before the
- * first tick, identically on both devices. A wave that names none is played
- * straight, which is every wave in the game but three.
+ * `faults` are the wave's malfunctions, each with the beat it enters on and
+ * the number of beats it holds, and they arrive here beside the boss for the
+ * reason the boss does: read once, before the first tick, identically on both
+ * devices. A wave that places none is played straight, which is most of them.
+ * It was one whole-wave fault until 15 September 2026 (`fault-placed.ts`).
  *
  * `hasLance` is the last of them and the only one that is the **panel's**:
  * whether holding a colour fills the cannon lobe at all. It is handed in for
@@ -54,7 +55,7 @@ export function startWave(
   boss: BossEntry | null = null,
   hasGuide = false,
   guideSteps = 0,
-  malfunction: Malfunction | null = null,
+  faults: PlacedFault[] = [],
   hasLance = true,
 ): void {
   const mid = midCol(world.cfg);
@@ -93,7 +94,7 @@ export function startWave(
   // The fault, and the brake the seat holding it starts with unspent. Both are
   // wave-local: a scar, a pause and a rest are all measured from a tick, and a
   // wave that inherited one would open with a window already half run.
-  world.malfunction = malfunction;
+  world.faults = faults;
   // And the panel's hold, read through `lanceLeaks` everywhere (`lance.ts`).
   world.hasLance = hasLance;
   // The arm home and empty. A wave that inherited one halfway up a column

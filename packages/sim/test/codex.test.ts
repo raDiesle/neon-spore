@@ -41,7 +41,7 @@ const fire = (tick: number, color: "red" | "cyan"): TimedCommand => ({
 /** A wave with the fault on it, or without. */
 function codexWorld(queue: SpawnEntry[], fault = true): World {
   const world = createWorld({ ...CFG }, 0);
-  startWave(world, 0, queue, [], null, false, 0, fault ? { kind: "codex" } : null);
+  startWave(world, 0, queue, [], null, false, 0, fault ? [{ kind: "codex", at: 0, beats: 0 }] : []);
   return world;
 }
 
@@ -77,7 +77,7 @@ describe("the key", () => {
   it("is nothing at all on a wave with no fault, or with another one", () => {
     expect(codexSwapped(codexWorld([slick(3)], false))).toBe(false);
     const steered = createWorld({ ...CFG }, 0);
-    startWave(steered, 0, [slick(3)], [], null, false, 0, { kind: "steer" });
+    startWave(steered, 0, [slick(3)], [], null, false, 0, [{ kind: "steer", at: 0, beats: 0 }]);
     expect(codexSwapped(steered)).toBe(false);
   });
 });

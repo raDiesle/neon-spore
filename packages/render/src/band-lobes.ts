@@ -64,7 +64,7 @@ export interface Lobe {
  * fault handed the broken seat one more lobe, so the row a seat had depended on
  * it. The owner took that button out on 6 September 2026, and what a fault
  * changes now is only what a button *does* and how it is drawn — which is
- * `band-control.ts`'s business and read off `world.malfunction` there. The row
+ * `band-control.ts`'s business and read off `faultsNow` there. The row
  * is `panelSlots`' answer and nothing else (`content/src/control-fault.ts`).
  */
 export function bandLobes(l: Layout, set: ControlSet, player: 1 | 2): Lobe[] {

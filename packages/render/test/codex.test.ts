@@ -24,7 +24,9 @@ const slick = (col: number): SpawnEntry => ({ beat: 0, col, kind: "slick", color
 
 function codexWorld(): World {
   const world = createWorld(CFG, 3);
-  startWave(world, 0, [slick(3), slick(5)], [], null, false, 0, { kind: "codex" });
+  startWave(world, 0, [slick(3), slick(5)], [], null, false, 0, [
+    { kind: "codex", at: 0, beats: 0 },
+  ]);
   return world;
 }
 

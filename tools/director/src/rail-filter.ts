@@ -64,7 +64,7 @@ export function waveHaystack(waves: readonly Wave[], index: number): string {
   if (set.id !== DEFAULT_CONTROL_SET_ID) parts.push("panel");
 
   if (wave.boss) parts.push("boss", wave.boss.kind);
-  if (wave.malfunction) parts.push("fault", "malfunction", wave.malfunction.kind);
+  for (const fault of wave.faults ?? []) parts.push("fault", "malfunction", fault.kind);
 
   // What arrives, by the name of the brush that would have placed it: the one
   // vocabulary a wave author already has, because it is what the palette says

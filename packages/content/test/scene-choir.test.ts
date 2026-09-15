@@ -57,7 +57,7 @@ function play(acts: SceneAct[]): Played {
     queue: queueFromWave(SCENE, CFG.cols),
     pods: [],
     hasLance: true,
-    malfunction: null,
+    faults: [],
     boss: null,
     commands: acts.flatMap((a) => sceneCommands(a, CFG)).sort((a, b) => a.tick - b.tick),
     ticks: SCENE.ticks,

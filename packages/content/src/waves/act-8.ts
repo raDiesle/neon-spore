@@ -197,7 +197,7 @@ export const WAVES_ACT_8: Wave[] = [
       { beat: 34, col: 6, color: "cyan" },
       { beat: 36, col: 2, color: "cyan" },
     ],
-    malfunction: { kind: "codex" },
+    faults: [{ kind: "codex" }],
   },
   {
     id: "theWell",
@@ -239,6 +239,6 @@ export const WAVES_ACT_8: Wave[] = [
       { beat: 18, col: 6, color: "red" },
       { beat: 24, col: 0, color: "cyan" },
     ],
-    malfunction: { kind: "handover", at: 9, beats: 8 },
+    faults: [{ kind: "handover", at: 9, beats: 8 }],
   },
 ];

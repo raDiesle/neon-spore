@@ -2,7 +2,7 @@ import { emptyRunStats, type RunStats } from "./balance.js";
 import type { BossState } from "./boss-state.js";
 import { type Briefings, newBriefings } from "./briefing.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
-import type { Malfunction } from "./malfunction.js";
+import type { PlacedFault } from "./fault-placed.js";
 import { createRng, type Rng } from "./rng.js";
 import { startWave } from "./wave-start.js";
 import { newShipState, type ShipState } from "./world-ship.js";
@@ -54,15 +54,18 @@ export interface World extends ShipState {
   nextId: number;
 
   /**
-   * The fault this wave is played under, or null for every wave that is played
-   * straight. Installed by `startWave` from the wave's own field, exactly the
-   * way a boss is, and never written again while the wave runs.
+   * **The faults placed on this wave's map**, each with the beat it enters on
+   * and the number of beats it holds — empty for every wave played straight.
+   * Installed by `startWave` from the wave's own list, exactly the way the
+   * arrivals are, and never written again while the wave runs.
    *
-   * Read through `malfunction.ts` rather than by name — what a fault does on
-   * a beat and what it loads are that file's business, and the panel, the
-   * picture and the beat all ask the same question.
+   * It was one `Malfunction | null` for the whole wave until 15 September
+   * 2026, when the owner asked for a fault to be *a pencil placed on the map*
+   * (`fault-placed.ts`). Read through `faultsNow`, `faultOn` and
+   * `faultWindow` rather than by index: what is in force has been a question
+   * about the beat rather than about the wave ever since.
    */
-  malfunction: Malfunction | null;
+  faults: PlacedFault[];
 
   /**
    * Whether **holding** a colour fills the cannon lobe on this wave's panel.
@@ -137,7 +140,7 @@ export function createWorld(
     beat: 0,
     nextId: 1,
     ...newShipState(cfg),
-    malfunction: null,
+    faults: [],
     hasLance: true,
     creatures: [],
     bullets: [],

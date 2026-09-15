@@ -1,8 +1,9 @@
 import { blobPoints } from "@neon-spore/content";
 import {
   faultFiresThisBeat,
-  type Malfunction,
+  faultsNow,
   malfunctionColor,
+  type PlacedFault,
   type World,
 } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
@@ -67,8 +68,12 @@ export function drawFaultEmitter(
   world: World,
   time: number,
 ): void {
-  const m = world.malfunction;
-  if (m === null) return;
+  // The first fault in force drives the lantern; `fault-beam-ends.ts` reaches
+  // a beam to everything every fault has taken. One body over the field and
+  // several beams out of it is the picture two faults at once make
+  // (`sim/fault-placed.ts`).
+  const m = faultsNow(world)[0];
+  if (m === undefined) return;
   // **THE CODEX's cause is the pilot's to see.** Every other fault hangs here on
   // both screens, because the beam is the announcement and both of them are
   // meant to have it. This one is a secret kept from the seat it acts on, and a
@@ -121,7 +126,7 @@ export function drawFaultEmitter(
 
 /** The colour the beam is carrying now: the shot's for a cannon fault, the
  * current's for a shield that is held. */
-function beamColor(world: World, m: Malfunction): string {
+function beamColor(world: World, m: PlacedFault): string {
   if (m.kind !== "cannon") return PALETTE.arc;
   return malfunctionColor(world, m) === "red" ? PALETTE.red : PALETTE.cyan;
 }
@@ -129,7 +134,9 @@ function beamColor(world: World, m: Malfunction): string {
 /** Whether the runaway cannon fired on the current beat — `stepMalfunction`'s
  * own rule, asked rather than copied. */
 function firedThisBeat(world: World): boolean {
-  return faultFiresThisBeat(world);
+  // The first fault in force, which is the one the lantern is drawn for.
+  const m = faultsNow(world)[0];
+  return m !== undefined && faultFiresThisBeat(world, m.at);
 }
 
 /** Where a beam ends on this screen, and how wide the thing it hits is. */
@@ -156,8 +163,8 @@ export function drawFaultBeam(
   beatPhase: number,
   time: number,
 ): void {
-  const m = world.malfunction;
-  if (m === null || ends.length === 0) return;
+  const m = faultsNow(world)[0];
+  if (m === undefined || ends.length === 0) return;
   const v = vesicleAt(l);
   const color = beamColor(world, m);
   // Steady for a held shield or a held steering; a thread with a flash on

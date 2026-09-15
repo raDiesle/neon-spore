@@ -37,7 +37,7 @@ export const THE_HANDOVER: GuideScene = {
   // has played their own halves before it lands. The wave itself names nine
   // and eight; a rehearsal is shorter than a wave and says so in its own
   // numbers (`sim/handover.ts` takes both off the fault's arm).
-  malfunction: { kind: "handover", at: 6, beats: 10 },
+  faults: [{ kind: "handover", at: 6, beats: 10 }],
   entries: [
     { beat: 0, col: 2, color: "red" },
     { beat: 6, col: 2, color: "red" },

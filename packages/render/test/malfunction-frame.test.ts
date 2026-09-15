@@ -1,6 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { controlSet } from "@neon-spore/content";
-import { createWorld, type Malfunction, startWave } from "@neon-spore/sim";
+import { createWorld, type Malfunction, startWave, TO_THE_END } from "@neon-spore/sim";
 import { Canvas2DRenderer } from "../src/canvas2d.js";
 import { bandLobes, computeLayout } from "../src/layout.js";
 import {
@@ -54,7 +54,7 @@ function faulted(fault: Malfunction) {
     null,
     false,
     0,
-    fault,
+    [{ ...fault, at: 0, beats: TO_THE_END }],
   );
   return world;
 }

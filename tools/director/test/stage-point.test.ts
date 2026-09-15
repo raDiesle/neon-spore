@@ -143,7 +143,7 @@ describe("the stage's pointer conversion", () => {
         maze: mazeRound(world),
         warden: null,
         controls: controlSet(undefined),
-        malfunction: null,
+        faults: [],
         well: false,
       }),
       push: (player, command) => sent.push({ player, command }),

@@ -69,7 +69,16 @@ function armed(role: "test" | "p1" | "p2", traded = false) {
   // fault's beat is set rather than stepped to: a round holds its own clock,
   // and what is under test is which seat a press is answered on, not the
   // simulation's count (`packages/sim/test/handover.test.ts` has that).
-  startWave(world, WAVE, [], [], { kind: "gauge" }, false, 0, traded ? { kind: "handover" } : null);
+  startWave(
+    world,
+    WAVE,
+    [],
+    [],
+    { kind: "gauge" },
+    false,
+    0,
+    traded ? [{ kind: "handover", at: 0, beats: 0 }] : [],
+  );
   if (traded) world.waveBeat = cfg.handoverAtBeat + 2;
   // Seated the way `stage.ts` hands it in: the other seat's while traded.
   const layout = handedLayout(computeLayout(VIEWPORT, cfg, role), world);

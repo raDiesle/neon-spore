@@ -39,7 +39,7 @@ export const HANDOVER_TRADE_POSE: Pose = {
   cadenceSeconds: (REPLAY_BEATS * 60) / POSE_CONFIG.bpm,
   build: () => {
     const w = createWorld(POSE_CONFIG, 11);
-    startWave(w, 0, [], [], null, false, 0, { kind: "handover", at: TRADE_AT, beats: HOLD });
+    startWave(w, 0, [], [], null, false, 0, [{ kind: "handover", at: TRADE_AT, beats: HOLD }]);
     until(w, "the beat before the warning", (x) => x.waveBeat >= OPEN_ON);
     if (handoverWarning(w) > 0) throw new Error("the warning came before the pose opened");
     return w;

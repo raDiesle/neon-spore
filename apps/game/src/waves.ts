@@ -3,6 +3,7 @@ import {
   buildPods,
   buildQueue,
   controlSetForWave,
+  placedFaults,
   setLance,
   WAVES,
   waveGuideSteps,
@@ -138,10 +139,11 @@ export function createWaveProgression({
       // How many pages this wave's guide has, which is the whole of what the
       // simulation knows about a rehearsal (`sim/guide-steps.ts`).
       retry ? 0 : waveGuideSteps(wave),
-      // And the fault it is played under, if it names one. Read off the wave
-      // beside its boss, because it is the same kind of fact: whole-wave, read
-      // once, and identical on both devices (`sim/malfunction.ts`).
-      WAVES[wave]?.malfunction ?? null,
+      // And the faults it places, with the beat each enters on. Read off the
+      // wave beside its boss, because they are the same kind of fact: read
+      // once, before the first tick, and identical on both devices
+      // (`sim/fault-placed.ts`, `content/wave-faults.ts`).
+      placedFaults(WAVES[wave]?.faults),
       // And whether this wave's panel fills the cannon lobe under a held
       // colour, off the set the wave names — the same place `field-input.ts`
       // reads which buttons are drawn. Every rung of the ladder holds the

@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildQueue, WAVES } from "@neon-spore/content";
+import { buildQueue, placedFaults, WAVES } from "@neon-spore/content";
 import { createWorld, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import { handedLayout, handedRole, handedView } from "../src/handover.js";
 import { handoverWords } from "../src/handover-look.js";
@@ -46,13 +46,22 @@ beforeAll(installCanvasGlobals);
  * with one strip on it — a screen that drew nothing would have proved nothing
  * about a panel changing hands.
  */
-const INDEX = WAVES.findIndex((w) => w.malfunction?.kind === "handover");
+const INDEX = WAVES.findIndex((w) => w.faults?.some((f) => f.kind === "handover"));
 if (INDEX === -1) throw new Error("no wave carries THE HANDOVER");
 
 function handWorld(fault = true): World {
   const world = createWorld(CONFIG, 3);
   const queue = buildQueue(INDEX, CONFIG.cols);
-  startWave(world, INDEX, queue, [], null, false, 0, fault ? { kind: "handover" } : null);
+  startWave(
+    world,
+    INDEX,
+    queue,
+    [],
+    null,
+    false,
+    0,
+    fault ? placedFaults(WAVES[INDEX]?.faults) : [],
+  );
   return world;
 }
 

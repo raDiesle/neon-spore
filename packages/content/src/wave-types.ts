@@ -1,7 +1,8 @@
-import type { BossEntry, Malfunction, PodEntry } from "@neon-spore/sim";
+import type { BossEntry, PodEntry } from "@neon-spore/sim";
 import type { ControlSetId } from "./control-sets.js";
 import type { SceneId } from "./scenes.js";
 import type { WaveEntry } from "./wave-entry.js";
+import type { WaveFault } from "./wave-faults.js";
 
 /**
  * What a wave is made of.
@@ -144,9 +145,17 @@ export interface Wave {
    */
   controls?: ControlSetId;
   /**
-   * The fault this wave is played under, if any — a control that acts by
-   * itself, and the seat it belongs to left with nothing at all in its place
-   * (`packages/sim/src/malfunction.ts`).
+   * The faults placed on this wave's map, each with the beat row it enters on
+   * and the number of rows it holds — controls that act by themselves, and the
+   * seat each belongs to left with nothing at all in its place
+   * (`packages/sim/src/malfunction.ts`, `wave-faults.ts`).
+   *
+   * **A list, and on rows, since 15 September 2026.** It was one fault for the
+   * whole wave, and the owner asked for a pencil to be placed on the map
+   * instead: *so I can define when it enters the wave (what beat row) and when
+   * it ends.* A wave may carry several, the same kind twice with quiet in
+   * between, and a fault that does not start until the pair is halfway
+   * through.
    *
    * **Beside `controls` and not part of it.** A set is a whole panel and sets
    * do not compose, which is the rule that makes a panel a thing a person can
@@ -161,7 +170,7 @@ export interface Wave {
    * is not the ordinary thing*, all three are read once before the first tick,
    * identically on both devices, and none of them costs the tick anything.
    */
-  malfunction?: Malfunction;
+  faults?: WaveFault[];
 }
 
 /**

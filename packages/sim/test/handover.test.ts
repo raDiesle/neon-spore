@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
+import { type PlacedFault, TO_THE_END } from "../src/fault-placed.js";
 import { handedOver, handoverLeft, handoverWarning } from "../src/handover.js";
 import { hashWorld } from "../src/hash.js";
 import { faultSwallows, MALFUNCTION_KINDS } from "../src/malfunction.js";
@@ -48,7 +49,9 @@ const QUEUE: SpawnEntry[] = [
  */
 function handWorld(fault = true): World {
   const world = createWorld({ ...CFG, hullInvulnerable: true }, 7);
-  startWave(world, 0, [...QUEUE], [], null, false, 0, fault ? { kind: "handover" } : null);
+  startWave(world, 0, [...QUEUE], [], null, false, 0, [
+    ...(fault ? [{ kind: "handover", at: AT, beats: HOLD } as PlacedFault] : []),
+  ]);
   return world;
 }
 
@@ -121,49 +124,55 @@ describe("the window", () => {
   });
 });
 
-describe("a window the wave itself names", () => {
-  /** A world on a wave that authors its own trade (`Malfunction`). */
-  function authored(m: { at?: number; beats?: number; every?: number }, beat: number): World {
+/**
+ * **The rows the fault is placed on**, which is where the window comes from
+ * since 15 September 2026.
+ *
+ * It used to be three numbers on the fault itself — `at`, `beats` and `every`
+ * — and this file worked out which turn of the cycle a beat fell in. Every
+ * fault is a pencil on the map now (`sim/fault-placed.ts`), so a wave that
+ * wants the panels traded three times **places it three times**, and there is
+ * no cycle arithmetic left anywhere: the placements are the windows.
+ */
+describe("the rows the wave places it on", () => {
+  /** A world on a wave that places its trades where it likes. */
+  function placed(faults: PlacedFault[], beat: number): World {
     const world = createWorld({ ...CFG, hullInvulnerable: true }, 7);
-    startWave(world, 0, [...QUEUE], [], null, false, 0, { kind: "handover", ...m });
+    startWave(world, 0, [...QUEUE], [], null, false, 0, faults);
     for (let t = 0; t <= (beat + 1) * TPB; t++) step(world, []);
     return world;
   }
+  const trade = (at: number, beats: number): PlacedFault => ({ kind: "handover", at, beats });
 
-  it("trades on the beat the wave says rather than the game's own", () => {
-    expect(handedOver(authored({ at: 4, beats: 2 }, 3))).toBe(false);
-    expect(handedOver(authored({ at: 4, beats: 2 }, 4))).toBe(true);
-    expect(handedOver(authored({ at: 4, beats: 2 }, 5))).toBe(true);
-    expect(handedOver(authored({ at: 4, beats: 2 }, 6))).toBe(false);
+  it("trades on the beat row the pencil is on, and comes home at its end", () => {
+    const one = (beat: number) => handedOver(placed([trade(4, 2)], beat));
+    expect([3, 4, 5, 6].map(one)).toEqual([false, true, true, false]);
   });
 
-  it("keeps trading when the wave names a period, and comes home between", () => {
-    // The owner's answer: both shapes, defined on the wave over a period of
-    // beat rows. Two beats away every six, from the fourth.
-    const traded = (beat: number) => handedOver(authored({ at: 4, beats: 2, every: 6 }, beat));
+  it("keeps trading when the wave places it more than once, and comes home between", () => {
+    // The owner's answer of 13 September 2026 — both shapes, over a period of
+    // beat rows — said with pencils instead of a period: two beats away, three
+    // times, six apart.
+    const many = [trade(4, 2), trade(10, 2), trade(16, 2)];
+    const traded = (beat: number) => handedOver(placed(many, beat));
     expect([4, 5, 10, 11, 16].map(traded)).toEqual([true, true, true, true, true]);
     expect([3, 6, 9, 12, 15].map(traded)).toEqual([false, false, false, false, false]);
   });
 
-  it("counts down to the next trade, not only to the first", () => {
-    const left = (beat: number) => handoverWarning(authored({ at: 4, beats: 2, every: 6 }, beat));
+  it("counts down to the next placement, not only to the first", () => {
+    const many = [trade(4, 2), trade(10, 2), trade(16, 2)];
+    const left = (beat: number) => handoverWarning(placed(many, beat));
     expect(left(2)).toBe(2);
     expect(left(8)).toBe(2);
     expect(left(9)).toBe(1);
   });
 
-  it("is one window when the period is shorter than the hold", () => {
-    // A cycle inside the hold would be a trade that never comes home, so it is
-    // read as the plain window it is nearest to.
-    expect(handedOver(authored({ at: 2, beats: 8, every: 3 }, 9))).toBe(true);
-    expect(handedOver(authored({ at: 2, beats: 8, every: 3 }, 10))).toBe(false);
-  });
-
-  it("falls back to the game's own numbers for whatever the wave leaves out", () => {
-    expect(handedOver(authored({}, AT))).toBe(true);
-    expect(handedOver(authored({}, AT - 1))).toBe(false);
-    expect(handedOver(authored({ at: 3 }, 3 + HOLD - 1))).toBe(true);
-    expect(handedOver(authored({ at: 3 }, 3 + HOLD))).toBe(false);
+  it("holds to the end of the wave when the pencil names no length", () => {
+    // `TO_THE_END` is what a placement with no `beats` means, and it is what
+    // every wave that used to carry a whole-wave fault is written with.
+    const forever = (beat: number) =>
+      handedOver(placed([{ kind: "handover", at: 3, beats: TO_THE_END }], beat));
+    expect([2, 3, 30].map(forever)).toEqual([false, true, true]);
   });
 });
 
@@ -230,7 +239,7 @@ describe("the fault itself", () => {
       step(without, []);
     }
     expect(hashWorld(withFault)).not.toBe(hashWorld(without));
-    withFault.malfunction = null;
+    withFault.faults = [];
     expect(hashWorld(withFault)).toBe(hashWorld(without));
   });
 });

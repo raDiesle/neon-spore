@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { controlSetForWave, WAVES, waveGuideSteps } from "@neon-spore/content";
+import { controlSetForWave, placedFaults, WAVES, waveGuideSteps } from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -46,7 +46,7 @@ function traded(): World {
   // No opening over it: a world held behind a guide does not step its wave at
   // all, and what this wants is the wave's own clock (`sim/step.ts`).
   const world = createWorld({ ...CFG, briefings: false }, 3);
-  startWave(world, WAVE, [], [], null, false, 0, WAVES[WAVE]?.malfunction ?? null);
+  startWave(world, WAVE, [], [], null, false, 0, placedFaults(WAVES[WAVE]?.faults));
   // The wave trades on its tenth beat and holds for eight (`act-8.ts`), so a
   // dozen beats in is inside the window on any tempo the config carries.
   const ticks = (DEFAULT_CONFIG.tickHz * 60 * 12) / DEFAULT_CONFIG.bpm;

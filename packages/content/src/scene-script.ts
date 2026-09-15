@@ -6,6 +6,7 @@ import { bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
 import type { SceneAct } from "./scene-act-types.js";
 import { crankCommands, dragCommands } from "./scene-drag.js";
 import { guideScene, type SceneId } from "./scenes.js";
+import { placedFaults } from "./wave-faults.js";
 
 /**
  * A rehearsal turned into the two things the runner takes: a command track and
@@ -148,7 +149,7 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     // columns every wave is authored in (`queue.ts`).
     pods: podsFromWave(scene, sceneCfg.cols),
     boss: bossFromWave(scene, sceneCfg.cols),
-    malfunction: scene.malfunction ?? null,
+    faults: placedFaults(scene.faults),
     // And the panel's own fact, read off the wave being rehearsed rather than
     // authored on the film: a rehearsal of a wave played on a panel whose hold
     // fills nothing has to fill nothing too, and the one thing worse than a

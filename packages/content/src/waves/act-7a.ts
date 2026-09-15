@@ -83,7 +83,7 @@ export const WAVES_ACT_7A: Wave[] = [
       { beat: 44, col: 0, color: "cyan" },
       { beat: 48, col: 2, color: "cyan" },
     ],
-    malfunction: { kind: "steer" },
+    faults: [{ kind: "steer" }],
   },
   {
     id: "theLimpet",

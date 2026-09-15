@@ -1,6 +1,7 @@
-import type { BossEntry, Malfunction, PodEntry } from "@neon-spore/sim";
+import type { BossEntry, PodEntry } from "@neon-spore/sim";
 import type { SceneAct } from "./scene-act-types.js";
 import type { SceneStep } from "./scene-step-types.js";
+import type { WaveFault } from "./wave-faults.js";
 import type { WaveEntry } from "./wave-types.js";
 
 /**
@@ -70,7 +71,7 @@ export interface GuideScene {
    * that wave is not. `startWave` has always taken it; only this shape was
    * missing.
    */
-  malfunction?: Malfunction;
+  faults?: WaveFault[];
   acts: SceneAct[];
   steps: SceneStep[];
 }

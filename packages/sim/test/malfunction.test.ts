@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
+import { TO_THE_END } from "../src/fault-placed.js";
 import { hashWorld } from "../src/hash.js";
 import { guardArmed } from "../src/hull-guard.js";
 import type { Malfunction } from "../src/malfunction.js";
@@ -37,7 +38,7 @@ interface Run {
 
 function open(fault: Malfunction, queue: SpawnEntry[] = []): World {
   const world = createWorld({ ...CFG }, 0);
-  startWave(world, 0, queue, [], null, false, 0, fault);
+  startWave(world, 0, queue, [], null, false, 0, [{ ...fault, at: 0, beats: TO_THE_END }]);
   return world;
 }
 

@@ -1,4 +1,5 @@
 import { faultStep } from "./fault-clock.js";
+import { faultInWave, faultOn, faultWindow } from "./fault-placed.js";
 import type { World } from "./world.js";
 
 /**
@@ -39,76 +40,46 @@ import type { World } from "./world.js";
  * a hand on the glass.
  */
 
-/** The fault's own numbers when this wave carries it, and null when it does not. */
-function handover(world: World): { at: number; beats: number; every: number } | null {
-  const m = world.malfunction;
-  if (m?.kind !== "handover") return null;
-  const cfg = world.cfg;
-  // Authored where the arrivals are, or the game's own numbers where the wave
-  // says nothing. Clamped the way every other fault clamps its beats, so a
-  // slider dragged to zero is one beat rather than a trade that is always on.
-  return {
-    at: Math.max(1, Math.round(m.at ?? cfg.handoverAtBeat)),
-    beats: Math.max(1, Math.round(m.beats ?? cfg.handoverHoldBeats)),
-    // 0 is the tell for *once*: a cycle shorter than the hold would be a trade
-    // that never comes home, so anything under the hold is one window too.
-    every: Math.max(0, Math.round(m.every ?? 0)),
-  };
-}
-
-/** Whether this wave has THE HANDOVER on it at all. */
-export function handedWave(world: World): boolean {
-  return handover(world) !== null;
-}
-
 /**
- * The trade this beat is in or next to: the beat it starts on, and the beat it
- * ends on.
+ * **The trade this beat is in, or the next one coming.**
  *
- * **One window, or one of many, and the arithmetic is the same either way.** A
- * wave that names `every` trades on `at`, `at + every`, `at + 2 * every` and so
- * on, and this answers the one the fault's own beat falls in or is coming up to
- * — so nothing downstream has to know which kind of wave it is on. Before the
- * first trade both kinds answer the first, which is what the countdown reads.
+ * It used to be arithmetic: the fault carried `at`, `beats` and `every`, and
+ * this file worked out which turn of the cycle the wave was on. Every fault is
+ * a pencil on the map now (`fault-placed.ts`) — so a wave that trades three
+ * times places THE HANDOVER three times, `faultWindow` finds the one in force
+ * or the one still to come, and none of the cycle arithmetic survives. The
+ * owner asked for the placement on 14 September 2026, and it is the same
+ * answer he gave about this fault on the 13th, generalised to all five.
  *
- * `bounds` rather than the obvious name: `window` is banned in this package, and
- * rightly — the simulation is headless and the host drives the ticks
+ * `bounds` rather than the obvious name: `window` is banned in this package,
+ * and rightly — the simulation is headless and the host drives the ticks
  * (`test/purity.test.ts`).
  */
-function bounds(world: World): { from: number; to: number } {
-  const held = handover(world);
-  if (!held) return { from: 0, to: 0 };
-  const { at, beats, every } = held;
-  const step = faultStep(world);
-  // A cycle only counts once it is longer than the hold: the panels have to be
-  // home before they can be taken again.
-  if (every <= beats || step < at) return { from: at, to: at + beats };
-  const turns = Math.floor((step - at) / every);
-  const from = at + turns * every;
-  // Past the end of this one, the next is what is being counted down to.
-  return step < from + beats
-    ? { from, to: from + beats }
-    : { from: from + every, to: from + every + beats };
+function bounds(world: World): { from: number; to: number } | null {
+  return faultWindow(world, "handover");
+}
+
+/** Whether this wave places THE HANDOVER at all, now or later. */
+export function handedWave(world: World): boolean {
+  return faultInWave(world, "handover");
 }
 
 /**
  * Whether the panels are traded **right now**.
  *
- * Counted in `faultStep`, the fault's own beat — zero on the wave's first beat
- * — so the number an author reads on the slider is the number of beats the pair
- * plays with its own hands first.
+ * Counted in `faultStep`, the wave's own beat — zero on its first — so the
+ * number an author places the pencil on is the number of beats the pair plays
+ * with its own hands first.
  */
 export function handedOver(world: World): boolean {
-  if (!handedWave(world)) return false;
-  const step = faultStep(world);
-  const { from, to } = bounds(world);
-  return step >= from && step < to;
+  return faultOn(world, "handover") !== null;
 }
 
 /** Beats until the trade, or 0 once it has happened. */
 function handoverIn(world: World): number {
-  if (!handedWave(world)) return 0;
-  return Math.max(0, bounds(world).from - faultStep(world));
+  const at = bounds(world);
+  if (!at) return 0;
+  return Math.max(0, at.from - faultStep(world));
 }
 
 /**
@@ -132,8 +103,10 @@ export function handoverWarning(world: World): number {
   return away > 0 && away <= Math.max(1, Math.round(world.cfg.handoverWarnBeats)) ? away : 0;
 }
 
-/** Beats until the panels come back, or 0 when they are not away. */
+/** Beats until the panels come back, or 0 when they are not away — and 0 as
+ * well for a placement with no end, which has no coming back to count to. */
 export function handoverLeft(world: World): number {
-  if (!handedOver(world)) return 0;
-  return Math.max(0, bounds(world).to - faultStep(world));
+  const at = bounds(world);
+  if (!handedOver(world) || !at || !Number.isFinite(at.to)) return 0;
+  return Math.max(0, at.to - faultStep(world));
 }

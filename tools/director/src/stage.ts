@@ -3,6 +3,7 @@ import { Canvas2DRenderer, handedLayout, showsWell, type ViewRole } from "@neon-
 import {
   beatPhase,
   createWorld,
+  faultsNow,
   mazeRound,
   type SimConfig,
   type SimEvent,
@@ -78,8 +79,7 @@ export function bindStage(
     layout: () => handedLayout(layout(), world), // answered where it is drawn.
     field: () => ({
       creatures: world.creatures,
-      // The ship answers a finger where it is drawn, so the hit test needs
-      // both lobes' columns (`render/touch-ship.ts`).
+      // The ship answers a finger where it is drawn (`render/touch-ship.ts`).
       cannonCol: world.cannonCol,
       shieldCol: world.shieldCol,
       beatPhase: beatPhase(cfg, world.tick),
@@ -89,7 +89,7 @@ export function bindStage(
       maze: mazeRound(world),
       warden: world.boss?.kind === "warden" ? world.boss : null,
       controls: currentControlSet(),
-      malfunction: world.malfunction,
+      faults: faultsNow(world),
       well: world.boss?.kind === "well" && showsWell(role),
     }),
     push: keys.push,

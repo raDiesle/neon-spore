@@ -24,7 +24,7 @@ export const THE_JAM: GuideScene = {
   ticks: 1020,
   bpm: 120,
   seed: 1,
-  malfunction: { kind: "cannon", color: "alternating" },
+  faults: [{ kind: "cannon", color: "alternating" }],
   entries: [
     { beat: 0, col: 1, color: "red" },
     { beat: 10, col: 5, kind: "lure", color: "cyan" },

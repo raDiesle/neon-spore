@@ -1,4 +1,5 @@
-import type { BossEntry, Malfunction } from "@neon-spore/sim";
+import type { WaveFault } from "@neon-spore/content";
+import type { BossEntry } from "@neon-spore/sim";
 
 /**
  * **A wave's boss, written back out**, and the nine shapes it can take.
@@ -88,15 +89,14 @@ export function serializeBoss(boss: BossEntry): string {
  * are a *wave's* one-line fact written back out, and `serialize.ts` is the file
  * that fills up (`sim/malfunction.ts`).
  */
-export function faultLine(m: Malfunction): string {
+export function faultLine(m: WaveFault): string {
   const parts = [`kind: "${m.kind}"`];
-  if (m.kind === "cannon") parts.push(`color: "${m.color}"`);
-  if (m.kind === "handover") {
-    // THE HANDOVER's window, and the three are optional on purpose: a wave that
-    // names none of them plays the game's own numbers (`sim/handover.ts`).
-    if (m.at !== undefined) parts.push(`at: ${m.at}`);
-    if (m.beats !== undefined) parts.push(`beats: ${m.beats}`);
-    if (m.every !== undefined) parts.push(`every: ${m.every}`);
-  }
+  if (m.kind === "cannon" && m.color !== undefined) parts.push(`color: "${m.color}"`);
+  // The rows it is placed on, and both are optional on purpose: a fault that
+  // names neither enters on the wave's first beat and holds to the end, which
+  // is every fault the game had before they were placed at all
+  // (`content/wave-faults.ts`).
+  if (m.at !== undefined) parts.push(`at: ${m.at}`);
+  if (m.beats !== undefined) parts.push(`beats: ${m.beats}`);
   return `{ ${parts.join(", ")} }`;
 }

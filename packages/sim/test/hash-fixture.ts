@@ -251,8 +251,10 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
   world.beam = beam();
   // A cannon fault rather than a shield one, because it is the arm that
   // carries a second field: the walk can only mutate what is there, so the
-  // union's larger member is the one that covers both.
-  world.malfunction = { kind: "cannon", color: "alternating" };
+  // union's larger member is the one that covers both. Placed on rows, and on
+  // rows that are not zero, so a fixture that stopped hashing either of them
+  // would be caught (`sim/fault-placed.ts`).
+  world.faults = [{ kind: "cannon", color: "alternating", at: 2, beats: 6 }];
   // First, not last: a boss that stands on the field has already put its own
   // body in this list, and the walk only ever mutates element zero. Behind a
   // queen, the fixture's creature — the one carrying every optional field —

@@ -1,5 +1,6 @@
 import { setHas } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
+import { faultsNow } from "@neon-spore/sim";
 import { bandControlSet, drawBand } from "./band.js";
 import { bandLobes } from "./band-lobes.js";
 import { drawWaveOpening } from "./briefing.js";
@@ -208,7 +209,7 @@ function drawFaultBeams(
   world: World,
   view: ViewState,
 ): void {
-  if (world.malfunction === null) return;
+  if (faultsNow(world).length === 0) return;
   const set = bandControlSet(view.controls, world.wave);
   const lobes = [...bandLobes(l, set, 1), ...bandLobes(l, set, 2)].map((b) => ({
     id: b.control.id,

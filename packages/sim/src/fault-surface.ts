@@ -13,6 +13,18 @@
 
 export { steerCol, steered, steerHeading } from "./choke.js";
 export { faultFiresThisBeat } from "./fault-clock.js";
+// A fault is placed on the map now, so the shape it is placed as, the
+// no-end tell and the two questions a picture asks about one are all out
+// here: the director paints them and render/ draws what is in force
+// (`fault-placed.ts`).
+export {
+  faultInWave,
+  faultOn,
+  faultsNow,
+  faultWindow,
+  type PlacedFault,
+  TO_THE_END,
+} from "./fault-placed.js";
 // THE HANDOVER's clock. Three names rather than one because the picture needs
 // all three: whether the panels are traded now, how many beats of warning are
 // left before they are, and how many until they come back. Nothing outside reads

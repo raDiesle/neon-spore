@@ -4,7 +4,7 @@ import {
   controlSetForWave,
   setControls,
 } from "@neon-spore/content";
-import { mirrorHoldsControls, type World } from "@neon-spore/sim";
+import { faultsNow, mirrorHoldsControls, type World } from "@neon-spore/sim";
 import { drawStripFor } from "./band-channel.js";
 import { drawLobe } from "./band-control.js";
 import { drawBandGround } from "./band-ground.js";
@@ -185,7 +185,7 @@ function drawHalf(
     drawStripFor(ctx, l, world, c);
     // Over the cannon strip while THE CHOKE's fault has the cannon: the rail
     // dead and the body on the node (`choke-strip.ts`).
-    if (controlBroken(c.id, world.malfunction) && c.id === "cannon")
+    if (controlBroken(c.id, faultsNow(world)) && c.id === "cannon")
       drawChokeStrip(ctx, l, world, time, seatSkin(l.role));
   }
   // The lobes come from `bandLobes` rather than from named fields of the

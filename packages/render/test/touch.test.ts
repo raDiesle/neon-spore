@@ -53,7 +53,7 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
     maze: null,
     warden: null,
     controls,
-    malfunction: null,
+    faults: [],
     well: false,
   };
 }

@@ -1,7 +1,7 @@
-import type { Wave } from "@neon-spore/content";
+import type { Wave, WaveFault } from "@neon-spore/content";
 import {
+  DEFAULT_CONFIG,
   MALFUNCTION_COLORS,
-  type Malfunction,
   type MalfunctionColor,
   type MalfunctionKind,
 } from "@neon-spore/sim";
@@ -44,7 +44,7 @@ export interface FaultFields {
   /** Repopulate the fields for the wave now on the stage. */
   render(wave: Wave | undefined): void;
   /** Called with the wave's new fault, or `undefined` when it has none. */
-  onChange(handler: (fault: Malfunction | undefined) => void): void;
+  onChange(handler: (fault: WaveFault | undefined) => void): void;
 }
 
 /** What the picker offers, in the order it offers it. `""` is no fault at all. */
@@ -82,12 +82,18 @@ const NOTE: Record<MalfunctionKind, string> = {
     "Both seats keep every button, and the two panels change screens: each phone draws and answers the other seat's half for the window below. Leave the three boxes empty and it plays the game's own numbers. Nobody changes seats on the wire, so a wave with a hand on the field — a grip, a pull, a tap — is the wrong wave for it.",
 };
 
-/** The three boxes THE HANDOVER's window is authored in, and what each one is
- * for. Beats, like everything else an author reads off the map's rows. */
+/**
+ * The two boxes a fault's **rows** are authored in, and what each one is for.
+ * Beats, like everything else an author reads off the map's rows.
+ *
+ * They were THE HANDOVER's alone, because it was the only fault that could say
+ * when. Every fault is placed on rows since 15 September 2026, so every fault
+ * gets them — and `every` went with the change: a wave that wants the panels
+ * traded three times places THE HANDOVER three times (`sim/fault-placed.ts`).
+ */
 const WINDOW_FIELDS = [
-  ["fFaultAt", "at", "Trades on beat"],
-  ["fFaultBeats", "beats", "Held for beats"],
-  ["fFaultEvery", "every", "And again every (blank: once)"],
+  ["fFaultAt", "at", "Enters on beat (blank: the first)"],
+  ["fFaultBeats", "beats", "Held for beats (blank: to the end)"],
 ] as const;
 
 const COLOUR_LABEL: Record<MalfunctionColor, string> = {
@@ -125,7 +131,7 @@ function select(id: string, label: string): { row: HTMLElement; field: HTMLSelec
 }
 
 export function bindFaultFields(host: HTMLElement | null): FaultFields {
-  const handlers: ((fault: Malfunction | undefined) => void)[] = [];
+  const handlers: ((fault: WaveFault | undefined) => void)[] = [];
   if (!host) return { render: () => {}, onChange: () => {} };
 
   const kind = select("fFaultKind", "Malfunction");
@@ -147,32 +153,39 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
   }
   host.replaceChildren(kind.row, colour.row, ...window.map((w) => w.row), note);
 
-  const read = (): Malfunction | undefined => {
+  const read = (): WaveFault | undefined => {
     const k = kind.field.value;
-    if (k === "cannon") return { kind: "cannon", color: colour.field.value as MalfunctionColor };
-    if (k === "handover") {
-      // An empty box is not a zero: it is the wave saying nothing, so the game's
-      // own number stands (`sim/handover.ts`).
-      const at = whole(window[0]?.field.value ?? "");
-      const beats = whole(window[1]?.field.value ?? "");
-      const every = whole(window[2]?.field.value ?? "");
-      return {
-        kind: "handover",
-        ...(at === undefined ? {} : { at }),
-        ...(beats === undefined ? {} : { beats }),
-        ...(every === undefined ? {} : { every }),
-      };
-    }
     // `leak` was here until 15 September 2026 and is a panel now, so it is
     // picked on the wave's control-set row rather than brushed on as a
     // fault: STANDARD 5 (`content/control-sets-table.ts`).
-    if (k === "shield" || k === "steer" || k === "codex") return { kind: k };
-    return undefined;
+    if (k !== "cannon" && k !== "shield" && k !== "steer" && k !== "codex" && k !== "handover") {
+      return undefined;
+    }
+    // An empty box is not a zero: it is the wave saying nothing, so the first
+    // beat and the end of the wave stand (`content/wave-faults.ts`).
+    //
+    // **Except for a handover placed with no rows**, which would be a wave the
+    // panels never come home in. The game's own two numbers stand in for it,
+    // which is the job they have left now that the simulation reads neither
+    // (`sim/config-malfunction.ts`).
+    const fresh = k === "handover";
+    const at =
+      whole(window[0]?.field.value ?? "") ?? (fresh ? DEFAULT_CONFIG.handoverAtBeat : undefined);
+    const beats =
+      whole(window[1]?.field.value ?? "") ?? (fresh ? DEFAULT_CONFIG.handoverHoldBeats : undefined);
+    return {
+      kind: k,
+      ...(k === "cannon" ? { color: colour.field.value as MalfunctionColor } : {}),
+      ...(at === undefined ? {} : { at }),
+      ...(beats === undefined ? {} : { beats }),
+    };
   };
 
-  const paint = (fault: Malfunction | undefined): void => {
+  const paint = (fault: WaveFault | undefined): void => {
     colour.row.hidden = fault?.kind !== "cannon";
-    for (const w of window) w.row.hidden = fault?.kind !== "handover";
+    // Every kind is placed on rows now, so the two boxes are hidden only when
+    // there is no fault at all to place.
+    for (const w of window) w.row.hidden = fault === undefined;
     note.textContent =
       fault === undefined
         ? "This wave is played straight: both seats have every button their panel carries."
@@ -190,11 +203,13 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
 
   return {
     render(wave) {
-      const fault = wave?.malfunction;
+      // The first placement, which is what this panel edits — a wave with
+      // several is painted on the map (`docs/queue.md`).
+      const fault = wave?.faults?.[0];
       kind.field.value = fault?.kind ?? "";
-      colour.field.value = fault?.kind === "cannon" ? fault.color : "red";
+      colour.field.value = fault?.kind === "cannon" ? (fault.color ?? "red") : "red";
       for (const w of window) {
-        const had = fault?.kind === "handover" ? fault[w.key] : undefined;
+        const had = fault?.[w.key];
         w.field.value = had === undefined ? "" : String(had);
       }
       paint(fault);

@@ -41,7 +41,7 @@ function wellField(seat: 1 | 2 = 1, cannonCol = 5): Field {
     maze: null,
     warden: null,
     controls: controlSet("default"),
-    malfunction: null,
+    faults: [],
     well: true,
   };
 }

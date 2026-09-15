@@ -1,5 +1,6 @@
 import { clampCol } from "./config-derived.js";
 import { faultStep } from "./fault-clock.js";
+import { faultOn } from "./fault-placed.js";
 import { spillPrime } from "./lance.js";
 import type { World } from "./world.js";
 
@@ -53,7 +54,7 @@ export function steerHeading(world: World): -1 | 1 {
 
 /** Whether this wave's fault is THE CHOKE — the strip dead, the cannon walking. */
 export function steered(world: World): boolean {
-  return world.malfunction?.kind === "steer";
+  return faultOn(world, "steer") !== null;
 }
 
 /**

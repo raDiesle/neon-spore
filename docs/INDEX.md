@@ -268,6 +268,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/fault-clock.ts` | The beat a fault is on and how often it acts — the one clock every malfunction reads and none of them keeps |
+| `packages/sim/src/fault-placed.ts` | **A FAULT IS A PENCIL ON THE MAP**: a kind, the beat it enters the wave on, and the number of beats it holds |
 | `packages/sim/src/malfunction.ts` | THE MALFUNCTION: a wave in which one of the two seats does not have its control any more — the control has it |
 | `packages/sim/src/magnet.ts` | THE MAGNET: the first body in this game that cannot be answered from the column it is standing in |
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
@@ -452,6 +453,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/creatures-fixtures.ts` | **The three bodies a wave never sends** |
 | `packages/content/src/mechanics-run.ts` | **The five mechanics that are not a thing the field sends**, and the whole of `reach: "run"` |
 | `packages/content/src/wave-entry.ts` | **What one arrival is**, and the half of a wave that grows |
+| `packages/content/src/wave-faults.ts` | **A fault as an author writes it**: the kind, the beat row it enters on, and how many beat rows it holds |
 | `packages/content/src/creatures-hazards.ts` | **The arrivals with nothing alive in them**: the five speed tiers, THE VEER, the torch — and THE FENCE |
 | `packages/content/src/creatures-split.ts` | The three bodies **one seat cannot see whole** that wear nothing to do it — the dart, the wisp and the ghost |
 | `packages/content/src/mechanics-split.ts` | The five bestiary rows for bodies one seat cannot see whole — the lure, the dart, the veil, the wisp and the ghost |

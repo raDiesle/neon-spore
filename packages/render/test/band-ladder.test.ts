@@ -47,7 +47,7 @@ function field(seat: 1 | 2, controls: ControlSet): Field {
     maze: null,
     warden: null,
     controls,
-    malfunction: null,
+    faults: [],
     well: false,
   };
 }

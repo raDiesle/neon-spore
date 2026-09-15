@@ -186,7 +186,7 @@ export const WAVES_ACT_7: Wave[] = [
       { beat: 48, col: 0, kind: "lure", color: "cyan" },
       { beat: 50, col: 6, color: "red" },
     ],
-    malfunction: { kind: "cannon", color: "alternating" },
+    faults: [{ kind: "cannon", color: "alternating" }],
   },
   {
     id: "theCoil",
@@ -206,6 +206,6 @@ export const WAVES_ACT_7: Wave[] = [
       { beat: 30, col: 6, kind: "coil", color: null },
       { beat: 46, col: 6, kind: "coil", color: null },
     ],
-    malfunction: { kind: "shield" },
+    faults: [{ kind: "shield" }],
   },
 ];

@@ -1,6 +1,7 @@
 import { fire } from "./bullets.js";
 import { stepChoke } from "./choke.js";
-import { faultEvery, faultFiresThisBeat, faultStep } from "./fault-clock.js";
+import { faultEvery, faultFiresThisBeat, faultStepIn } from "./fault-clock.js";
+import { faultsNow, type PlacedFault } from "./fault-placed.js";
 import { armShield } from "./hull-guard.js";
 import type { Color, Command } from "./types.js";
 import type { World } from "./world.js";
@@ -112,14 +113,15 @@ export type Malfunction =
   | { kind: "steer" }
   | { kind: "codex" }
   /**
-   * THE HANDOVER, and the one fault an author writes numbers on — the owner's
-   * answer of 13 September 2026, asked whether the panels trade once or keep
-   * trading: **both, defined on the wave, over a period of beat rows.** `at` is
-   * the beat the first trade happens on, `beats` how long it holds, `every` the
-   * period after which it happens again — absent, once. All three optional and
-   * falling back to `config-malfunction.ts` (`handover.ts`).
+   * THE HANDOVER. It used to be the one fault an author wrote numbers on —
+   * `at`, `beats` and `every`, because it was the only one that had ever
+   * needed to say *when*. Every fault is placed on beat rows now
+   * (`fault-placed.ts`), so `at` and `beats` are the placement's and a wave
+   * that wants the panels traded three times places it three times. The owner
+   * asked for that on 14 September 2026, and it is the same answer he gave on
+   * the 13th about this fault, generalised to all five.
    */
-  | { kind: "handover"; at?: number; beats?: number; every?: number };
+  | { kind: "handover" };
 
 /**
  * Whether this press falls into a control the fault has taken over.
@@ -133,8 +135,14 @@ export type Malfunction =
  * happened have desynced.
  */
 export function faultSwallows(world: World, c: Command): boolean {
-  const m = world.malfunction;
-  if (m === null) return false;
+  // **Any of them**, not the one. A wave may place several and they may
+  // overlap; a press is swallowed if a single fault in force this beat takes
+  // it (`fault-placed.ts`).
+  return faultsNow(world).some((m) => eats(m, c));
+}
+
+/** Whether one fault in force eats this press. */
+function eats(m: Malfunction, c: Command): boolean {
   // `prime` as well as `fire`: the trigger is a hold now, so a lobe a cannon
   // fault has taken over is pressed as a `prime` and would otherwise fill and
   // fire a lance out of a button the panel is drawing dead (`lance.ts`).
@@ -158,10 +166,13 @@ export function faultSwallows(world: World, c: Command): boolean {
  * `beat`, because the fault belongs to the wave: a pair replaying one meets
  * the same sequence in the same order, and it opens on red.
  */
-export function malfunctionColor(world: World, m: Malfunction): Color {
+export function malfunctionColor(world: World, m: PlacedFault): Color {
   if (m.kind !== "cannon") return "red";
   if (m.color !== "alternating") return m.color;
-  return Math.floor(faultStep(world) / faultEvery(world)) % 2 === 0 ? "red" : "cyan";
+  // The fault's own beat and not the wave's: a gun placed at beat 10 opens on
+  // red like one placed at beat 0 (`fault-clock.ts` `faultStepIn`).
+  const step = faultStepIn(world, m.at);
+  return Math.floor(step / faultEvery(world)) % 2 === 0 ? "red" : "cyan";
 }
 
 /**
@@ -175,8 +186,11 @@ export function malfunctionColor(world: World, m: Malfunction): Color {
  * `regenerateHull` inherits THE FORK's rule.
  */
 export function stepMalfunction(world: World): void {
-  const m = world.malfunction;
-  if (m === null) return;
+  for (const m of faultsNow(world)) actOn(world, m);
+}
+
+/** One fault in force, on the beat. */
+function actOn(world: World, m: PlacedFault): void {
   // The last two act on no beat of their own. THE CODEX does what it does at
   // the moment a bolt meets a body and THE HANDOVER does it in render/ and in
   // a host; whether either is doing it is a function of the wave rather than of
@@ -186,7 +200,7 @@ export function stepMalfunction(world: World): void {
     stepChoke(world);
     return;
   }
-  if (!faultFiresThisBeat(world)) return;
+  if (!faultFiresThisBeat(world, m.at)) return;
   if (m.kind === "cannon") fire(world, malfunctionColor(world, m));
   else armShield(world);
 }

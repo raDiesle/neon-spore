@@ -165,7 +165,9 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   faultFields.onChange((fault) => {
     const wave = currentWave(store);
     if (!wave) return;
-    wave.malfunction = fault;
+    // One placement, which is what the panel edits. A wave with several is
+    // painted on the map (`docs/queue.md`); this row is the first of them.
+    wave.faults = fault ? [fault] : undefined;
     store.dirty = true;
     onSelect();
   });

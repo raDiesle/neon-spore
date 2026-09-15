@@ -106,7 +106,7 @@ export const WAVES_ACT_7B: Wave[] = [
       { beat: 54, col: 6, kind: "coil", color: null },
       { beat: 62, col: 0, kind: "meteorMedium", color: null },
     ],
-    malfunction: { kind: "shield" },
+    faults: [{ kind: "shield" }],
   },
   {
     id: "theClaw",

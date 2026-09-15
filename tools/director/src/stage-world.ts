@@ -2,6 +2,7 @@ import {
   bossFromWave,
   controlSet,
   guideSteps,
+  placedFaults,
   podsFromWave,
   queueFromWave,
   setLance,
@@ -47,7 +48,7 @@ export function buildStageWorld(store: Store, cfg: SimConfig, round = 0): World 
     // How many pages that guide is read in, and the fault the wave carries.
     // Both come off the wave being *edited*, so neither waits for a save.
     guideSteps(wave.guide),
-    wave.malfunction ?? null,
+    placedFaults(wave.faults),
     // And the panel's own fact, off the set the wave being edited names, so a
     // stage shows the hold filling exactly where the game would
     // (`content/control-sets.ts` `setLance`).

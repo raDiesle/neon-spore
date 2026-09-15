@@ -49,7 +49,7 @@ function play(act: SceneAct): { held: boolean[]; open: boolean[] } {
     queue: queueFromWave(SCENE, CFG.cols),
     pods: [],
     hasLance: true,
-    malfunction: null,
+    faults: [],
     boss: null,
     commands: sceneCommands(act, CFG)
       .slice()

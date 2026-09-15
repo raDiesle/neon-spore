@@ -35,7 +35,7 @@ const slick = (col: number): SpawnEntry => ({ beat: 0, col, kind: "slick", color
  * hold does, which is the control every case here rests on. */
 function leakWorld(queue: SpawnEntry[], lance = false): World {
   const world = createWorld({ ...CFG }, 0);
-  startWave(world, 0, queue, [], null, false, 0, null, lance);
+  startWave(world, 0, queue, [], null, false, 0, [], lance);
   return world;
 }
 

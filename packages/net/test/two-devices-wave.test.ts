@@ -151,7 +151,7 @@ function openNext(world: World, wave: number): void {
     bossFromWave(small, cfg.cols),
     false,
     0,
-    null,
+    [],
   );
 }
 

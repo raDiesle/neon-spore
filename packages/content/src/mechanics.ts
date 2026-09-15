@@ -1,7 +1,7 @@
 import {
   type BossEntry,
   type CreatureKind,
-  type Malfunction,
+  type MalfunctionKind,
   type PodKind,
   podKindOf,
   type SimConfig,
@@ -191,7 +191,7 @@ export function mechanicOn(cfg: SimConfig, id: MechanicId): boolean {
  * those rules here would be a second reading that drifts. The column count
  * given to it is the authored one, since nothing here asks *where*.
  */
-export function faultMechanic(m: Malfunction): WaveMechanicId {
+export function faultMechanic(m: { kind: MalfunctionKind }): WaveMechanicId {
   return FAULT_MECHANIC[m.kind];
 }
 
@@ -211,7 +211,7 @@ export function mechanicsInWave(wave: Wave): Set<MechanicId> {
   // The two a wave reaches by a field of its own rather than by anything it
   // sends. Read straight off the wave and not through `queueFromWave`, because
   // there is nothing in the queue to read.
-  if (wave.malfunction) found.add(faultMechanic(wave.malfunction));
+  for (const fault of wave.faults ?? []) found.add(faultMechanic(fault));
   addCarried(found);
   return found;
 }

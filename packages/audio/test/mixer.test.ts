@@ -354,7 +354,16 @@ describe("THE HANDOVER", () => {
    * mixer hears, and `packages/sim/test/handover.test.ts` owns the count. */
   function handed(waveBeat: number): World {
     const w = world();
-    startWave(w, 0, [], [], null, false, 0, { kind: "handover" });
+    // Placed on the rows the rest of this block counts against, which is what
+    // a fault carries now (`sim/fault-placed.ts`): it used to be `{ kind:
+    // "handover" }` and the config's own two numbers underneath it.
+    startWave(w, 0, [], [], null, false, 0, [
+      {
+        kind: "handover",
+        at: DEFAULT_CONFIG.handoverAtBeat,
+        beats: DEFAULT_CONFIG.handoverHoldBeats,
+      },
+    ]);
     w.waveBeat = waveBeat;
     return w;
   }

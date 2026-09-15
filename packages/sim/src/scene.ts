@@ -1,7 +1,7 @@
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import type { BossEntry, PodEntry, SpawnEntry } from "./entries.js";
 import type { SimEvent } from "./events.js";
-import type { Malfunction } from "./malfunction.js";
+import type { PlacedFault } from "./fault-placed.js";
 import { aimed, type SceneCommand } from "./scene-aim.js";
 import { step } from "./step.js";
 import { startWave } from "./wave-start.js";
@@ -64,8 +64,8 @@ export interface SceneScript {
   queue: SpawnEntry[];
   pods: PodEntry[];
   boss: BossEntry | null;
-  /** The fault the rehearsed wave is played under, or none. */
-  malfunction: Malfunction | null;
+  /** The faults the rehearsed wave places, with their rows. */
+  faults: PlacedFault[];
   /**
    * Whether the rehearsed wave's panel fills the cannon lobe under a held
    * colour. Off, a film of a thumb staying down is a film of nothing
@@ -164,7 +164,7 @@ function build(script: SceneScript): World {
     script.boss,
     false,
     0,
-    script.malfunction,
+    script.faults,
     script.hasLance,
   );
   return world;
