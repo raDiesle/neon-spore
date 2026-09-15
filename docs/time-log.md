@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — the tagline reads in one line on an Android
+
+The queue's *The tagline wraps on a 360 px phone*, which had sat on the owner's
+answer since 14 September. He picked the letter-spacing out of four ways to buy
+the 18 px: 0.22em to 0.18em, no word and no type size touched.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry's own table, and which rule of `menu.css` the class is |
+| writing | 10 | one declaration, the note over it, the stale claim in `menu-view.ts`, one case |
+| looking | 15 | a throwaway measuring the line boxes at four widths, then the 360 px frame |
+| friction | 5 | the throwaway measured zero: a first visit stands on the intro, not the menu |
+| landing | 10 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was looking, and it was worth it: the decision is a number against
+another number, and the only honest way to hold it is a browser that lays the
+string out — one line at 360, 375 and 390, two at 320. The case that landed is the
+spacing rather than the width, because the runner has no DOM; the width is in the
+note over the rule, where the next person to retype the sentence will read it.
+
 ## 2026-09-15 — queued-tasks — `bun run sheet`, a strip of frames as one picture
 
 The queue's *A strip of frames has no contact sheet*, which this lane filed

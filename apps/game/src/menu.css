@@ -239,11 +239,19 @@
   }
 }
 
+/* The tagline, and the one number on it that is not taste: **0.18em is what
+   makes it one line on a 360 px phone**, which is every Galaxy and every
+   Pixel. The string does not reflow, so the fit is one width against another:
+   at 0.22em the text was 325 px against a box of 324 px and wrapped on every
+   Android in the top ten while reading fine on the owner's 390 px phone; at
+   0.18em it is 307 px and one line from 343 px up. The type size and the words
+   were the other two ways to buy those 18 px and this is the one that costs
+   neither (`docs/queue.md`, 15 September 2026). */
 #menu .tag {
   margin: 10px 0 24px;
   text-align: center;
   font-size: 10px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   color: var(--ink-faint);
 }
 

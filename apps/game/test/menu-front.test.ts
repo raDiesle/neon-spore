@@ -73,6 +73,18 @@ describe("the front page", () => {
     expect(view).toContain('"TWO PEOPLE · TWO DEVICES · TALKING IS THE KEY"');
     expect(view).not.toContain("TALKING IS THE CONTROL SCHEME");
   });
+
+  it("is spaced to read in one line on a 360 px phone, not only on the owner's", () => {
+    // The owner's answer, 15 September 2026, out of four ways to buy the 18 px
+    // the line was over by: keep the words and the type size, spend the
+    // letter-spacing. 0.22em is 325 px of text against the 324 px box a 360 px
+    // phone gives it — one line on a 390 px phone and two on every Galaxy and
+    // every Pixel; 0.18em is 307 px. A number rather than a rendering, because
+    // this runner has no DOM and the string does not reflow: the width is the
+    // spacing, and the browser that measured both is in `docs/queue.md`.
+    const tag = css.slice(css.indexOf("#menu .tag {"));
+    expect(tag.slice(0, tag.indexOf("}"))).toContain("letter-spacing: 0.18em");
+  });
 });
 
 describe("the page behind PLAY", () => {

@@ -124,8 +124,9 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     // The owner's own sentence — *talking is the key to success in this co-op
     // game* — cut to what fits (14 September 2026). The line it replaces was
     // 417 px against a 354 px box on a 390 px phone and had wrapped since the
-    // day it was written; this one is 325 px and is the first version of it a
-    // phone reads in one line.
+    // day it was written. This one is 307 px and reads in one line from 343 px
+    // up, which is every phone worth counting — but only at the letter-spacing
+    // `menu.css` sets, and the note over that rule is where the arithmetic is.
     el("p", "tag", "TWO PEOPLE · TWO DEVICES · TALKING IS THE KEY"),
     progress,
   );
