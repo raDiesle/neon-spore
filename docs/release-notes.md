@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 1b402daa — A game's tempo is fixed once it is made, and NEW GAME is the way to another
+
+The owner, 15 September 2026: a game that already exists does not change its difficulty. It is picked once, by the host, on the room screen while the game is being made, and after that the only way to another tempo is NEW GAME — a clear-and-start-over, rare on purpose, which offers the three tempi again on its own room screen. This is the rest of the menu catching up with that.
+
 ## 2026-09-15 · e491f0c6 — The first meeting holds with a keyboard over it; the sign-in half has no rig
 
 The queue's *Unverified at a80777a5*. The keyboard half is checked and it is right: on a 390-point phone with a thumb in the field and the window cut to the 508 points an iPhone's keyboard leaves, the question, the field, THAT IS ME, the line that says a name can be got back and the whole LOG IN block are all still on screen, the sheet scrolls, and nothing is trapped under the keys. Arrival focuses nothing, which is what the screen was built to do and the reason the optional half is reachable at all. LOG OUT is in the document and hidden, as it should be on a phone nobody is logged into.
