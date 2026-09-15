@@ -5958,3 +5958,20 @@ landing out of `hull.ts` took the *branch* with it, so a harpooned body fell
 through to the ordinary breach, was destroyed on the beat it arrived and fired
 again on the next. The rewritten frame test counted eight grips where it wanted
 two, which is exactly the assertion it was given for.
+
+## 2026-09-15 — bosses-splice-wave — THE SPLICE queued, his way
+
+One queue entry: THE SPLICE as a boss wave of tangled straws fed in number
+order, the boss ideas cut, and the BOSSES page taken off once it lands.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue's format, the old SPLICE idea, how SUCK and the maw work, what the BOSSES tab is built from |
+| writing | 10 | the entry, with the three answers the owner gave through the question tool |
+| looking | 0 | nothing drawn |
+| friction | 5 | a title over eighty characters, which the queue's own listing caught |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was reading: knowing that a suck is already a shipped
+control, and which files feed the tab he wants gone, is what makes the entry
+one a cold session can drain.

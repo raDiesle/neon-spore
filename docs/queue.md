@@ -377,3 +377,73 @@ one makes the missing check writable: press LOG IN WITH GOOGLE on the first
 meeting and watch the name arrive in the field.
 
 Prove it with `bun run check` and one check that signs in and reads the field.
+
+## THE SPLICE: straws fed in number order, then the BOSSES page goes
+
+- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Files:** `packages/sim/src/boss-entries.ts`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/config-boss.ts`, `packages/sim/src/hash-boss.ts`, `packages/sim/src/pods.ts`, `packages/sim/src/well.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/well-draw.ts`, `packages/render/test/frame.test.ts`, `packages/content/src/mechanics-bosses.ts`, `packages/content/src/queue-boss.ts`, `tools/director/src/snake-editor.ts`, `tools/director/src/backlog.ts`, `tools/director/src/backlog-page.ts`, `tools/director/src/backlog-tabs.ts`, `tools/director/src/backlog-api.ts`, `tools/director/index.html`, `docs/spec/ideas.md`, `docs/spec/bosses.md`
+
+The owner asked for this on 15 September 2026, by name and *his way*, so it
+lands on the field rather than going to VERSUS. Three landings, in this
+order; the entry is done after the third.
+
+**1. The boss.** THE SPLICE, a boss wave. Two tiles above the shield a row
+of **straw entrances** stands — the bottom ends of hollow straws, not the
+cable of the old idea. From each entrance a straw runs up the field,
+**tangled across the whole screen** with the others, and its top end carries
+a **number**. The picture he means is a children's path puzzle — several
+butterflies at the top, tangled paths, flowers at the bottom, "find which
+goes to which": <https://funforedu.com/final_worksheets_eng/path%20puzzles/find%20a%20way%20for%20butterflies%201_1.svg>.
+The first round has **two** straws; **every later round adds one**. The
+numbers say the order: the ship must **suck** the entrances 1, 2, 3 … in
+turn. A suck is the shipped SUCK — the cannon slid under the entrance and
+the maw opened (`pods.ts`, `mawOpen`); nothing new on the panel. When an
+entrance is sucked, the number at the top is drawn being pulled *into* the
+top end, races down its own straw to the entrance at the ship, and is fed to
+the maw. The right number is a success animation as loud as a kill; the
+wrong one is the ship eating something it should not — the damage look, in
+the colour of the thing, and the hull pays.
+
+Decided by the owner on 15 September 2026, through the question tool:
+
+- **The split.** The **navigator** sees the whole tangle and the numbers at
+  the top, and has no SUCK. The **pilot** sees only the entrances near the
+  ship, each straw fading out two tiles up, and holds the cannon and SUCK.
+  Every feed is a call — "the third from the left" — and neither seat can
+  do it alone.
+- **A wrong feed restarts the round.** Hull damage, the fed numbers return to
+  their top ends, the order begins again at 1. The straws do not re-tangle.
+- **Each round is on a beat count**, a director field per round like SNAKE's
+  and PINBALL's. Running it out costs the hull the way a wrong feed does and
+  the round repeats.
+
+How to build it: the model is THE WELL (`well.ts`, `well-draw.ts`), the most
+recent boss, and THE MIRROR for a boss whose whole fight is a sequence of
+SUCKs (`bosses.md` 11.3). One entry in `boss-entries.ts`, a name at the end
+of `BOSS_KINDS`, its numbers in `config-boss.ts`, its fields in
+`hash-boss.ts`, the rounds authored in the director with an editor beside
+`snake-editor.ts`, the mechanics card in `mechanics-bosses.ts`, its branch in
+`queue-boss.ts`. The tangle is laid out from the seeded `Rng` and stored in
+integers, so both devices draw the same straws; the straws' contours come
+from the shapes page (`tools/shape-sheet`), never invented. Drawn again in
+`frame.test.ts` on each seat, mid-feed. The design goes in `bosses.md` as
+11.13 when it is built, as every other boss did.
+
+**2. Cut the ideas.** Remove the whole **BOSS IDEAS** group: the `### Bosses`
+section of `ideas.md` (THE WEIGHT, THE TITHE, THE CAIRN's struck line) and
+the `fromIdeas("BOSS IDEAS", …)` group in `backlog.ts`. Once THE SPLICE is in
+the game, remove its entry from `### Rounds` in `ideas.md` the way THE WELL's
+was removed — a built idea is no longer an idea.
+
+**3. Take the BOSSES page off.** Everything on the NOT BUILT YET → BOSSES tab
+goes — THE ACT ORDER, ROUND IDEAS, the tab itself: the `bosses` group in
+`buildBacklog`, `fill("backlogBosses", …)` in `backlog-page.ts`, the button
+and `sheet-bosses` in `index.html`, the `Bosses` argument the API assembles
+in `backlog-api.ts`. The owner's words: *its not relevant for me any longer*.
+Whatever `parseRoster` still needs from `bosses.md` for other pages stays;
+what only fed this tab goes with it. The remaining `### Rounds` ideas stay in
+`ideas.md` as text — they just stop being drawn.
+
+Prove each landing with `bun run check`; the first also with the wave
+watched at tempo on both seats through a right feed, a wrong feed and a
+round's count running out, and one PNG of a number mid-straw.
