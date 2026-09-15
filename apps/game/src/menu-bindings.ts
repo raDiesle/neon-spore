@@ -1,7 +1,6 @@
 import type { MechanicId } from "@neon-spore/content";
 import type { LinkStatus } from "@neon-spore/net";
 import type { ViewRole } from "@neon-spore/render";
-import type { Difficulty } from "@neon-spore/sim";
 import type { DemoRow } from "./demo-menu.js";
 import type { MenuPage } from "./menu-parts.js";
 import type { SettingsHooks } from "./menu-settings.js";
@@ -34,26 +33,16 @@ export interface MenuBindings {
   /**
    * Join a room by code, with the room screen showing it.
    *
-   * `wanted` is a tempo to ask that room for, which is how a pair's own level
-   * gets there: a room keeps its level and hands it to both phones, so the gear
-   * on a partner's row writes a wish (`pairing.ts`) and this is where the wish
-   * is said out loud. Left off, the room's own answer stands.
+   * The room's own tempo stands, always: it keeps one and hands it to both
+   * phones, and the only device that may set it is the host, on that screen,
+   * before beat zero (`join-room.ts`). This carried a wish until 15 September
+   * 2026 — the tempo a pair had been given behind a gear — and the gear and the
+   * wish went together.
    */
-  joinRoom: (room: string, wanted?: Difficulty) => void;
+  joinRoom: (room: string) => void;
   /** Hang up: back to one device, both seats, and the menu. */
   leaveRoom: () => void;
   openTuning: () => void;
-  /**
-   * The difficulty the run is on, and the way to change it
-   * (`packages/sim/src/difficulty.ts`).
-   *
-   * The room's answer where there is a room and this device's where there is
-   * not: a level is a tempo, and two phones at two tempi are two games. Setting
-   * it takes the run back to the first wave, which is what the two-step in
-   * front of the row asks about before it reaches here.
-   */
-  level: () => Difficulty;
-  setLevel: (level: Difficulty) => void;
   /**
    * This seat is ready — the room's own START, sent by CONTINUE when there is a
    * room and nothing has been played in it yet. The room starts both devices

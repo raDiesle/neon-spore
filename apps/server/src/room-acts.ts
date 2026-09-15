@@ -41,6 +41,13 @@ export function roomActs(
   const retell = () => tellSeats(room.seats(), room.facts(), room.gate);
   return {
     level: (level) => {
+      // **A game that already exists does not change its difficulty** (the
+      // owner, 15 September 2026). The tempo is picked once, on the room screen
+      // while the game is being made, and beat zero is when it stops being made
+      // — so a phone that reaches that screen again mid-run cannot re-tempo the
+      // run underneath it. The screen already refuses (`join-room.ts`
+      // `mayShape`); this is the half that does not depend on the phone.
+      if (mem.startMs !== 0) return;
       // The field is set before the write is awaited, so the welcome that goes
       // out on the next line already says the new tempo (`room-memory.ts`).
       void mem.setLevel(level);

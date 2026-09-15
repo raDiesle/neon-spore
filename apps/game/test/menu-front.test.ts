@@ -2,7 +2,6 @@ import { describe, expect, it } from "bun:test";
 import type { LinkStatus } from "@neon-spore/net";
 import {
   type EntryActions,
-  levelEntries,
   menuEntries,
   playEntries,
   testingEntries,
@@ -32,7 +31,6 @@ const actions: EntryActions = {
   show: () => {},
   openRoom: () => {},
   rejoinWith: () => {},
-  levelFor: () => {},
   openTuning: () => {},
   demoCount: 7,
 };
@@ -42,7 +40,6 @@ const labels = (list: { label: string }[]): string[] => list.map((e) => e.label)
 
 const front = menuEntries(actions);
 const play = playEntries(actions);
-const levels = levelEntries();
 const rig = testingEntries(actions);
 
 describe("the front page", () => {
@@ -106,82 +103,31 @@ describe("the page behind PLAY", () => {
   });
 
   /**
-   * The owner put the difficulty on the pair's row on 14 September 2026: a
-   * tempo is a thing two people settle between themselves, so it belongs where
-   * the pair is rather than on a page a floor away. The gear is a second press
-   * target *beside* the row's own button — a button inside a button is not a
-   * thing (`menu-rows.ts`) — and it names the same index the row does.
+   * **Nothing on this menu picks a tempo** (the owner, 15 September 2026): a
+   * game that already exists does not change its difficulty. It is picked once,
+   * by the host, on the room screen while the game is being made
+   * (`join-room-step.ts`), and NEW GAME is the way to another. The gear that
+   * stood at the end of a partner's row and the three tempi behind it went with
+   * that rule, and so did the wrapper the two buttons shared.
    */
-  it("carries a gear on every partner's row, opening the tempi for that pair", () => {
-    const asked: number[] = [];
-    const rows = playEntries({ ...actions, levelFor: (i) => asked.push(i) });
-    for (const row of rows.slice(0, PARTNERS_KEPT)) row.aside?.run();
-    expect(asked).toEqual([0, 1, 2, 3]);
-  });
-
-  it("puts a gear on nothing else, because nothing else is a pair", () => {
-    for (const list of [front, play.slice(PARTNERS_KEPT), levels, rig]) {
-      expect(list.filter((row) => row.aside !== undefined)).toEqual([]);
-    }
-  });
-
-  it("hides the gear with the row it belongs to, and not on its own", () => {
-    // `setEntry(key, { on: false })` takes a row off the page, and a gear left
-    // standing beside a row that is gone is a press with nothing behind it.
-    expect(rows).toContain('el("div", "entry-pair")');
-    expect(rows).toContain('found.off.classList.toggle("off", !next.on)');
-    expect(css).toContain("#menu .entry-pair.off {");
+  it("offers no tempo anywhere: not a row, not a page, not a second press", () => {
+    const every = [...front, ...play, ...rig];
+    expect(keys(every)).not.toContain("easy");
+    expect(labels(every).join(" ")).not.toContain("DIFFICULTY");
+    // And no second press target for one to hide behind: a row is the bare
+    // button it was before the gear (`menu-rows.ts`).
+    expect(rows).toContain("page.append(button)");
+    expect(rows).not.toContain("entry-pair");
+    expect(css).not.toContain("#menu .gear");
+    expect(parts).not.toContain('| "level"');
+    // And no question in front of a tempo either: the two-step that asked
+    // before changing one went with the rows (`menu-steps.ts`).
+    expect(steps).not.toContain("level.choose");
   });
 
   it("shares no key with either other list, so `setEntry` names one row", () => {
-    const all = [...keys(front), ...keys(play), ...keys(levels), ...keys(rig)];
+    const all = [...keys(front), ...keys(play), ...keys(rig)];
     expect(new Set(all).size).toBe(all.length);
-  });
-});
-
-describe("the three difficulties", () => {
-  it("are the three the simulation has, in the order they get harder", () => {
-    expect(keys(levels)).toEqual(["easy", "medium", "hard"]);
-  });
-
-  it("act on nothing by themselves: the question in front of them does", () => {
-    // Changing the level takes the run back to the first wave, so each row is
-    // behind the two-step LEAVE ROOM is behind (`menu-steps.ts`, `confirm.ts`).
-    const ran: string[] = [];
-    for (const row of levels) row.run();
-    expect(ran).toEqual([]);
-    expect(steps).toContain("bindTwoStep(row, level.word, () => level.choose(one))");
-  });
-
-  it("say which one the run is on, and what it means", () => {
-    const r = recorder();
-    paintLink({
-      dom: r.dom,
-      link: status({ level: "hard" }),
-      pairs: [],
-      held: "",
-      opened: false,
-      wave: 0,
-    });
-    expect(r.label.get("hard")).toBe("HARD · ON");
-    expect(r.label.get("easy")).toBe("EASY");
-  });
-
-  it("mark the pair's tempo when the page was opened through their gear", () => {
-    // The same three rows serve both, so the mark is the only thing on the page
-    // saying which of the two a press will change (`menu.ts`, `levelFor`).
-    const r = recorder();
-    paintLink({
-      dom: r.dom,
-      link: null,
-      pairs: [],
-      held: "",
-      opened: false,
-      wave: 0,
-      pairLevel: "easy",
-    });
-    expect(r.label.get("easy")).toBe("EASY · ON");
-    expect(r.label.get("medium")).toBe("MEDIUM");
   });
 });
 

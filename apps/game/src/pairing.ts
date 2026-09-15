@@ -7,13 +7,7 @@ import {
 } from "@neon-spore/net";
 import type { Difficulty } from "@neon-spore/sim";
 import { readName } from "./nickname.js";
-import {
-  afterLevelling,
-  afterPlayingWith,
-  afterReaching,
-  type Partner,
-  parsePartners,
-} from "./partners.js";
+import { afterPlayingWith, afterReaching, type Partner, parsePartners } from "./partners.js";
 
 /**
  * The way *back* into a room, for two people who have played before.
@@ -135,18 +129,18 @@ export function pairsHere(): (Partner & { room: string })[] {
 }
 
 /**
- * **The tempo this device wants to play `partner` at**, chosen behind the gear
- * on their row and kept against the record rather than against the device.
+ * **A NEW GAME with somebody this device has played with before**: their record
+ * starts again, at whatever tempo the new room settles on.
  *
- * It is a wish rather than a fact until the two of them are in their room: the
- * room keeps its own level and hands it to both phones, so what this writes is
- * what `menu.ts` asks that room for on the way in (`rejoinWith`, `link.join`).
- * The room's answer comes back through `rememberFrom` and overwrites this,
- * which is right — the record says what they play at, and the room is what
- * they play in.
+ * The owner, 15 September 2026: a game that already exists does not change its
+ * difficulty, and NEW GAME is the way to another — a clear-and-start-over,
+ * rare on purpose. So the wave the two of them had reached goes with the game
+ * it was reached in, rather than standing on a row beside a tempo they are no
+ * longer playing at. Called once per room made, by the screen that made it
+ * (`join.ts`), and never by a rejoin.
  */
-export function setPartnerLevel(partner: string, level: Difficulty): void {
-  writePartners(afterLevelling(readPartners(), partner, level));
+export function startOverWith(partner: string, level: Difficulty | null): void {
+  writePartners(afterPlayingWith(readPartners(), partner, level, true));
 }
 
 /**

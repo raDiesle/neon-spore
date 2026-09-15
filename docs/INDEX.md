@@ -1215,7 +1215,6 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-rows.ts` | the rows an entry list is drawn as, and the map that finds one again by key — beside `menu-view.ts` |
 | `apps/game/src/menu-rejoin.ts` | **The way straight back into the room this device was just in**, at the top of the front page |
 | `apps/game/src/menu-toggles.ts` | SETTINGS' switches: the three things about this device a person may turn on and off |
-| `apps/game/src/menu-tempo.ts` | Whose tempo the level page is standing for — a partner's, through the gear on their row, or this device's — and what a press on it reaches |
 | `apps/game/src/keys-grip.ts` | what the desk rig's grip key takes hold of, and how it carries it |
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |

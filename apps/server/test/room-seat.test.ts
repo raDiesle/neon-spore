@@ -142,6 +142,31 @@ describe("a room lets the host pick the seats", () => {
     two.close();
   });
 
+  test("a tempo after beat zero is refused: the game that exists keeps its own", async () => {
+    // The owner, 15 September 2026: a game that already exists does not change
+    // its difficulty. The screen refuses first (`join-room.ts` `mayShape`) and
+    // this is the half that holds whatever the phone sends.
+    const one = await phone("HEAH", "ada");
+    await one.settle("welcome");
+    const two = await phone("HEAH", "ben");
+    await two.settle("welcome");
+    await one.settle("welcome");
+
+    one.send({ t: "level", level: "hard" });
+    await two.settle("welcome", (w) => w.level === "hard");
+    one.send({ t: "ready" });
+    two.send({ t: "ready" });
+    await one.settle("welcome", (w) => w.startMs > 0);
+    const stamped = of(one.said, "welcome").length;
+
+    one.send({ t: "level", level: "easy" });
+    await one.caughtUp();
+    expect(of(one.said, "welcome").length).toBe(stamped);
+    expect(of(one.said, "welcome").at(-1)?.level).toBe("hard");
+    one.close();
+    two.close();
+  });
+
   test("an empty room forgets the swap: the next pair starts as they arrive", async () => {
     const one = await phone("HEAG", "ada");
     await one.settle("welcome");

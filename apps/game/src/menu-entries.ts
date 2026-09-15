@@ -63,9 +63,6 @@ export interface EntryActions {
    * the list the evening the menu was built.
    */
   rejoinWith: (i: number) => void;
-  /** The gear at the right end of the `i`th partner's row: the three tempi, for
-   * that pair rather than for this device. An index for `rejoinWith`'s reason. */
-  levelFor: (i: number) => void;
   openTuning: () => void;
   /** How many demonstration rows there are, for the DEMOS line. */
   demoCount: number;
@@ -117,9 +114,13 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
  * CONTINUE is still here and half of it has left: the room's START is the
  * READY hold on the room screen now (`join-room-step.ts`), and what the row
  * still answers is the way back to a field open under the menu and the mend
- * of a parted run (`docs/queue.md`). DIFFICULTY left on 15 September 2026: a
- * new game's tempo is picked on the room screen by the host, and a pair's is
- * behind the gear on their row; a device on its own plays the rig's tempo.
+ * of a parted run (`docs/queue.md`). **Nothing here chooses a tempo**, and that
+ * is the owner's rule of 15 September 2026: a game that already exists does not
+ * change its difficulty. It is picked once, by the host, on the room screen
+ * while the game is being made (`join-room-step.ts`), and the way to another is
+ * NEW GAME. The gear that stood at the end of a partner's row went with that,
+ * and the three tempi behind it with the gear; a device on its own has the
+ * rig's sliders (TESTING › TUNING).
  *
  * **No seat here.** The cards are on the rig's page: a pair does not choose a
  * seat — the room deals them by arrival order — and the seat they hold is read
@@ -152,54 +153,15 @@ export function playEntries(a: EntryActions): MenuEntry[] {
  * place, so `paintLink` names a row by a key that does not move.
  */
 function partnerEntries(a: EntryActions): MenuEntry[] {
+  // The row says the tempo the two of them played at (`menu-link.ts`
+  // `partnerLine`) and offers no way to change it: that is a reading of what
+  // they did, never a wish to send.
   return Array.from({ length: PARTNERS_KEPT }, (_, i) => ({
     key: `pair${i}`,
     label: "CONTINUE GAME",
     desc: "Back into the room you two share. No code to read out.",
     run: () => a.rejoinWith(i),
-    // **The tempo, where the pair is** (the owner, 14 September 2026): the row
-    // says which one they are on, and the gear changes it without leaving the list.
-    aside: { mark: "⚙", what: "Tempo for this pair", run: () => a.levelFor(i) },
   }));
-}
-
-/**
- * **The three difficulties**, on a page of their own behind the PLAY page's own
- * row (`sim/difficulty.ts`).
- *
- * One thing changes between them and it is the tempo: everything on this field
- * falls a tile a beat, so the falling speed the owner asked to move *is* the
- * beat. Medium is the game as it has always been, which is why it is the middle
- * row and the one a device that has never chosen is already on.
- *
- * **None of them acts on the first press.** Changing the level takes the run
- * back to the first wave — a wave cleared at one tempo was not cleared at
- * another — so each row asks in place first, the way LEAVE ROOM does and
- * through the same two-step (`menu.ts`, `confirm.ts`). Their `run` is empty
- * for exactly that reason: the press is answered by the question in front of
- * it, and nothing here may reach the action.
- */
-export function levelEntries(): MenuEntry[] {
-  return [
-    {
-      key: "easy",
-      label: "EASY",
-      desc: "A fifth slower than the game as it ships. More time between the beat and the answer.",
-      run: () => {},
-    },
-    {
-      key: "medium",
-      label: "MEDIUM",
-      desc: "The game as it has always been played, and what every wave was authored against.",
-      run: () => {},
-    },
-    {
-      key: "hard",
-      label: "HARD",
-      desc: "A quarter faster. The same waves, with a quarter less of everything to answer them in.",
-      run: () => {},
-    },
-  ];
 }
 
 /**

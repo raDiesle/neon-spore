@@ -428,46 +428,6 @@
   }
 }
 
-/* A row with a second press target at its right end: the gear on a partner's
-   row, which opens the three tempi for that pair. The two buttons sit in one
-   wrapper so `setEntry(key, { on })` takes both off the page together — a gear
-   left standing beside a row that is gone is a press with nothing behind it.
-   The row keeps its own margin; the wrapper has none. */
-#menu .entry-pair {
-  position: relative;
-}
-#menu .entry-pair.off {
-  display: none;
-}
-/* Room for the gear, so a long label does not run under it. */
-#menu .entry-pair .entry {
-  padding-right: 52px;
-}
-#menu .gear {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 44px;
-  height: 44px;
-  padding: 0;
-  cursor: pointer;
-  border: 0;
-  background: none;
-  color: var(--ink-faint);
-  font:
-    16px / 1 "Courier New",
-    monospace;
-  transition:
-    color 0.16s,
-    transform 0.16s;
-}
-#menu .gear:hover,
-#menu .gear:focus-visible {
-  outline: none;
-  color: var(--accent);
-  transform: rotate(45deg);
-}
-
 /* The seat, as three cards with the job written on each. Two letters in a row
    of three said nothing to the person holding the phone, and the whole point of
    two devices is that the two of you do different jobs. */

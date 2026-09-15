@@ -12,15 +12,7 @@ import { BULB, blobPath } from "@neon-spore/content";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
-export type MenuPage =
-  | "root"
-  | "play"
-  | "level"
-  | "testing"
-  | "waves"
-  | "demos"
-  | "keys"
-  | "settings";
+export type MenuPage = "root" | "play" | "testing" | "waves" | "demos" | "keys" | "settings";
 
 export function el<K extends keyof HTMLElementTagNameMap>(
   tag: K,

@@ -1,5 +1,5 @@
 import type { LinkStatus } from "@neon-spore/net";
-import { DIFFICULTIES, type Difficulty } from "@neon-spore/sim";
+import type { Difficulty } from "@neon-spore/sim";
 import { roomLine } from "./join-words.js";
 import type { MenuDom } from "./menu-view.js";
 import { PARTNERS_KEPT, type Partner } from "./partners.js";
@@ -96,16 +96,10 @@ export interface LinkPaint {
   opened: boolean;
   /** The wave the field is on, for CONTINUE's line while one is open. */
   wave: number;
-  /**
-   * **The tempo the level page is standing for**, when it was opened through
-   * the gear on a partner's row rather than through DIFFICULTY — so its three
-   * rows mark the pair's tempo rather than this device's (`menu.ts`).
-   */
-  pairLevel?: Difficulty;
 }
 
 /** Cheap, so it is redone rather than diffed. */
-export function paintLink({ dom, link, pairs, held, opened, wave, pairLevel }: LinkPaint): void {
+export function paintLink({ dom, link, pairs, held, opened, wave }: LinkPaint): void {
   const room = inRoom(link);
   dom.setEntry("single", { on: !room });
   // How far this device has got, under the title. Off in a room, where the wave
@@ -146,16 +140,6 @@ export function paintLink({ dom, link, pairs, held, opened, wave, pairLevel }: L
   // and without a name, because a reload is not a meeting and asks nothing of
   // either of them.
   dom.setRejoin(room ? "" : held);
-  // **The difficulty, and which of the three is on.** The room's answer where
-  // there is a room — a level is a tempo and the pair plays one — and this
-  // device's where there is not. The page's three rows carry the mark, because
-  // a page of three settings with nothing saying which one you are on is three
-  // settings you have to guess at. The mark is on whichever tempo the page is
-  // standing for — a pair's when it was opened through their gear.
-  const marked = pairLevel ?? link?.level ?? far.level;
-  for (const one of DIFFICULTIES) {
-    dom.setEntry(one, { label: one === marked ? `${one.toUpperCase()} · ON` : one.toUpperCase() });
-  }
   dom.setEntry("leave", { on: room });
   // Who is sitting in each seat, on the cards. Blank for a seat the room has
   // not filled or a player who has given no name, which is what the cards said

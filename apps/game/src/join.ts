@@ -13,7 +13,7 @@ import { bindRoomStep, type RoomStepBindings } from "./join-room-step.js";
 import { bindStepView } from "./join-step-view.js";
 import { type JoinMode, joinStep } from "./join-steps.js";
 import { chipText, explain, lastTimeLine } from "./join-words.js";
-import { rememberFrom } from "./pairing.js";
+import { partnerIn, rememberFrom, startOverWith } from "./pairing.js";
 
 /** The link, as this screen asks things of it. Step 4's own asks — READY,
  * the seat, the tempo — are `RoomStepBindings` (`join-room-step.ts`). */
@@ -82,6 +82,15 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   let last: LinkStatus = SOLO_STATUS;
   /** Which way through this pair chose. Reset every time the screen opens solo. */
   let mode: JoinMode = "";
+  /**
+   * Who this NEW GAME has already been started over with, so it is done once.
+   *
+   * A new game overrides the one these two had (the owner, 15 September 2026),
+   * and `paint` runs on every message the room sends — so the write has to be
+   * an edge rather than a state. `mode` is what says this is a new game at all:
+   * a rejoin never walks the steps, so it is "" there and nothing is cleared.
+   */
+  let startedOverWith = "";
   const nameField = bindNameField(() => {
     paint();
     // The name was the thing in the way: whatever the chosen way through was
@@ -105,6 +114,13 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const paint = (): void => {
     // So the menu can offer the way back in without a code (`pairing.ts`).
     rememberFrom(last);
+    // And a NEW GAME clears what these two had: the wave goes with the game it
+    // was reached in, because the tempo may not be the one they reached it at.
+    const fresh = mode === "" ? "" : partnerIn(last);
+    if (fresh !== "" && fresh !== startedOverWith) {
+      startOverWith(fresh, last.level);
+      startedOverWith = fresh;
+    }
     nameField.paint();
     showStep(joinStep(mode, !nameField.asking(), last), mode, last);
     if (codeEl) codeEl.textContent = last.room || "————";
@@ -117,7 +133,10 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const open = (isOpen: boolean): void => {
     // A pair with no room starts at step 1 every time. A pair with one is put
     // back where they were, which is why this only resets while solo.
-    if (isOpen && last.state === "solo") mode = "";
+    if (isOpen && last.state === "solo") {
+      mode = "";
+      startedOverWith = "";
+    }
     if (isOpen) paint();
     if (screen) screen.style.display = isOpen ? "block" : "none";
   };

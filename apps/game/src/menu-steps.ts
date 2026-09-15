@@ -1,14 +1,17 @@
-import { DIFFICULTIES, type Difficulty } from "@neon-spore/sim";
 import { bindTwoStep, type TwoStep } from "./confirm.js";
 import type { MenuBindings } from "./menu-bindings.js";
 import type { MenuDom } from "./menu-view.js";
 
 /**
- * The questions the menu asks in place (`confirm.ts`): LEAVE ROOM's, and the
- * one in front of each difficulty. Bound here rather than in `menu.ts` so the
- * menu's own closure stays under the limit; what it keeps is the two moments
- * a question is put away again — every way off the page, and the room going
- * away under LEAVE ROOM — which are `cancel` and `cancelLeave`.
+ * The question the menu asks in place (`confirm.ts`): LEAVE ROOM's. Bound here
+ * rather than in `menu.ts` so the menu's own closure stays under the limit;
+ * what it keeps is the two moments a question is put away again — every way off
+ * the page, and the room going away under LEAVE ROOM — which are `cancel` and
+ * `cancelLeave`.
+ *
+ * It asked one in front of each difficulty too, until 15 September 2026: the
+ * three tempi came off the menu with the gear on a partner's row, because a
+ * game that already exists does not change its difficulty (`menu-entries.ts`).
  */
 export interface MenuSteps {
   /** Every question, put away: any way off the page it was asked on. */
@@ -22,23 +25,11 @@ export interface MenuSteps {
 }
 
 /**
- * What the difficulty rows reach, which is not one thing any more: the page
- * stands for this device's tempo or for a pair's, and `menu.ts` is where that
- * is known (`chooseLevel`). The word is asked when the question is put rather
- * than when the row is drawn, because a pair's tempo starts no run again and
- * `START AGAIN` would be a lie on half the presses.
- */
-export interface LevelSteps {
-  choose: (level: Difficulty) => void;
-  word: () => string;
-}
-
-/**
  * LEAVE ROOM drops the other player's game, so it asks in place first. Both
  * doors to it get the same two-step; the hold card's own LEAVE ROOM does
  * not, because that one answers a line that is already broken.
  */
-export function bindMenuSteps(dom: MenuDom, b: MenuBindings, level: LevelSteps): MenuSteps {
+export function bindMenuSteps(dom: MenuDom, b: MenuBindings): MenuSteps {
   /**
    * LEAVE ROOM's question, once the page it sits on exists. Held here because
    * every way off this page puts it away again: a question that outlives the
@@ -54,24 +45,8 @@ export function bindMenuSteps(dom: MenuDom, b: MenuBindings, level: LevelSteps):
     });
   }
 
-  /**
-   * The three difficulties, each behind the question LEAVE ROOM is behind:
-   * changing the level takes the run back to the first wave (`progress.ts`), so
-   * a row that acted on one press would be a wave count lost to a thumb landing
-   * while the page was still arriving.
-   */
-  const levelSteps: TwoStep[] = [];
-  for (const one of DIFFICULTIES) {
-    const row = dom.entryRoot(one);
-    if (!row) continue;
-    levelSteps.push(bindTwoStep(row, level.word, () => level.choose(one)));
-  }
-
   return {
-    cancel: () => {
-      leaveStep?.cancel();
-      for (const step of levelSteps) step.cancel();
-    },
+    cancel: () => leaveStep?.cancel(),
     cancelLeave: () => leaveStep?.cancel(),
   };
 }

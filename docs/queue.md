@@ -636,38 +636,6 @@ Prove it with `bun run check`: the panel tests in `packages/content/test`,
 `lance.test.ts` in `sim` on a world started with the field off, and the
 director opened on THE LEAK showing the rung on its panel row and no fault.
 
-## A game's tempo is fixed once it is made; NEW GAME is the way to another
-
-- **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
-- **Taken:** 2026-09-15, claude/queue-a-games-tempo-is-fixed-once-it-is-made-new-game
-- **Files:** `apps/game/src/menu-tempo.ts`, `apps/game/src/menu-rows.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/pairing.ts`, `apps/game/src/partners.ts`, `apps/game/src/join-room.ts`, `apps/server/src/room.ts`, `apps/server/src/room-route.ts`, `tools/frames/menu-trail.ts`, `apps/game/test/menu-front.test.ts`, `apps/game/test/pair-tempo.test.ts`, `apps/game/test/pairing.test.ts`, `apps/game/test/join-room.test.ts`, `apps/server/test/room-seat.test.ts`
-
-The owner, 15 September 2026: **a game that already exists does not change its
-difficulty.** The tempo is picked once, on the room screen while the game is
-being made (`join-room-step.ts`, landed the same day), and after that the
-only way to another tempo is **NEW GAME** — which overrides the previous game
-with the same partner, resets the whole wave state, and offers the three
-tempi again on its own room screen. It is a clear-and-start-over, rare on
-purpose, not a setting.
-
-What that removes, all of it landed earlier the same day: the gear on a
-partner's row and the TEMPO WITH ADA page behind it (`menu-rows.ts` `aside`,
-`menu-tempo.ts`'s pair half, `setPartnerLevel` and `afterLevelling` in
-`pairing.ts`/`partners.ts`, the `--page "PLAY > ⚙"` trail in
-`menu-trail.ts`), and the tempo a partner's row carries into the join
-(`pairLevel` in `menu-link.ts`, `link.join(room, wanted)`,
-`pair-tempo.test.ts`) — a partner's record keeps its `level` as a reading of
-what they played, never as a wish to send. What it guards: the room refuses a
-`level` after beat zero the way `room-seat.ts` refuses a seat
-(`room-route.ts` `level`, `room.ts` `startMs`), so a host who reaches step 4
-of a room already running cannot re-tempo it — today `room.ts` stores
-whatever arrives; `mayShape` already stops the screen before beat zero and
-that test moves to the server too. What it adds: NEW GAME with a partner
-already on the list writes that partner's record back to wave 0 at the tempo
-the new room settles on (`afterPlayingWith`), rather than keeping the old
-furthest wave beside a new tempo. `menu-front.test.ts` reads the rows without
-the gear; prove the rest with `bun run check` and one `relay:check` run.
-
 ## A strip of frames has no contact sheet: a scene is watched one frame at a time
 
 - **Found:** 2026-09-15, claude/queued-tasks-51d8f9

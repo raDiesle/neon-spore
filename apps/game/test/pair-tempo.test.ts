@@ -3,48 +3,51 @@ import type { ClientMessage, LinkStatus, ServerMessage } from "@neon-spore/net";
 import { createWorld, DEFAULT_CONFIG, type Difficulty } from "@neon-spore/sim";
 import { createLink } from "../src/link.js";
 import type { RoomSocket, RoomSocketHandlers } from "../src/link-socket.js";
-import { afterLevelling, newPartner, type Partner } from "../src/partners.js";
+import { afterPlayingWith, newPartner, type Partner } from "../src/partners.js";
 
 /**
- * **A pair's tempo, from the gear on their row to the room they share.**
+ * **A game's tempo is fixed once it is made**, and NEW GAME is the way to
+ * another.
  *
- * The owner asked for the difficulty to live on the partner's row rather than
- * on a page of its own (14 September 2026). A room keeps its own level and
- * hands it to both phones, so a choice made on the PLAY page — where there is
- * no socket — is a wish until somebody goes into the room and says it. Two
- * halves, and this is both: what a choice does to the record (`partners.ts`)
- * and what the record does to the room (`link.ts`'s `join`).
+ * The owner, 15 September 2026. It is picked once, by the host, on the room
+ * screen while the game is being made (`join-room-step.ts`), and after that the
+ * only way to a different one is to start over — which overrides the game these
+ * two had, wave and all. What that took away is a page: the gear on a partner's
+ * row and the three tempi behind it, and the wish a join used to carry into a
+ * room with it. This file holds both halves of what is left — what a record
+ * keeps, and what a join says.
  */
 
 const ada: Partner = { name: "Ada", furthest: 6, level: "medium" };
 
-describe("choosing a tempo for one partner", () => {
-  it("writes it against that partner and leaves the others alone", () => {
-    const kept = [ada, newPartner("David")];
-    const next = afterLevelling(kept, "Ada", "hard");
-    expect(next[0]).toEqual({ name: "Ada", furthest: 6, level: "hard" });
-    expect(next[1]).toEqual(newPartner("David"));
+describe("a partner's record", () => {
+  it("keeps the wave the two of them reached, when they carry on", () => {
+    const next = afterPlayingWith([ada, newPartner("David")], "Ada", "medium");
+    expect(next[0]).toEqual({ name: "Ada", furthest: 6, level: "medium" });
   });
 
-  it("does not move them up the list, because choosing is not playing", () => {
-    // `afterPlayingWith` is the one that reorders. A pair whose evening is
-    // being planned must not climb over the pair who actually played last
-    // night — the list is *who you last played with*, and a gear is not a game.
-    const kept = [newPartner("David"), ada];
-    expect(afterLevelling(kept, "Ada", "easy").map((one) => one.name)).toEqual(["David", "Ada"]);
+  it("starts the wave again on a new game, at the tempo the new room settled on", () => {
+    // The whole of the owner's rule in one line: a wave cleared at one tempo
+    // was not cleared at another, so a new game takes both or neither.
+    const next = afterPlayingWith([ada], "Ada", "hard", true);
+    expect(next[0]).toEqual({ name: "Ada", furthest: 0, level: "hard" });
+  });
+
+  it("starts a new game at the tempo they had, when the new room says nothing yet", () => {
+    const next = afterPlayingWith([ada], "Ada", null, true);
+    expect(next[0]).toEqual({ name: "Ada", furthest: 0, level: "medium" });
   });
 
   it("reads a name the way the rest of the store does, so a phone's capitals do not matter", () => {
-    expect(afterLevelling([ada], "ADA", "easy")[0]?.level).toBe("easy");
-    expect(afterLevelling([ada], " ada ", "hard")[0]?.level).toBe("hard");
+    expect(afterPlayingWith([ada], "ADA", "hard", true)[0]?.furthest).toBe(0);
+    expect(afterPlayingWith([ada], " ada ", "hard", true)[0]?.level).toBe("hard");
   });
 
-  it("keeps the wave the two of them reached", () => {
-    expect(afterLevelling([ada], "Ada", "hard")[0]?.furthest).toBe(6);
-  });
-
-  it("is nothing at all for somebody the list does not hold", () => {
-    expect(afterLevelling([ada], "Nobody", "hard")).toEqual([ada]);
+  it("leaves everybody else where they were", () => {
+    const kept = [newPartner("David"), ada];
+    const next = afterPlayingWith(kept, "Ada", "hard", true);
+    expect(next.map((one) => one.name)).toEqual(["Ada", "David"]);
+    expect(next[1]).toEqual(newPartner("David"));
   });
 });
 
@@ -104,55 +107,31 @@ const welcome = (level: Difficulty | null): ServerMessage => ({
 const levels = (sent: ClientMessage[]): (Difficulty | undefined)[] =>
   sent.filter((m) => m.t === "level").map((m) => (m.t === "level" ? m.level : undefined));
 
-describe("the tempo a join carries into the room", () => {
-  it("tells a room that holds a different one", () => {
-    const { link, wire } = linked();
-    link.join("ACDE", "hard");
-    wire.say(welcome("easy"));
-    expect(levels(wire.sent)).toEqual(["hard"]);
-  });
-
-  it("tells a room that holds none, which is a room nobody has set", () => {
-    const { link, wire } = linked();
-    link.join("ACDE", "hard");
-    wire.say(welcome(null));
-    expect(levels(wire.sent)).toEqual(["hard"]);
-  });
-
-  it("says nothing to a room already on that tempo", () => {
-    // The commonest welcome by far — the pair played at this tempo last time —
-    // and a message that changes nothing is a message that need not be sent.
-    const { link, wire } = linked();
-    link.join("ACDE", "hard");
-    wire.say(welcome("hard"));
-    expect(levels(wire.sent)).toEqual([]);
-  });
-
-  it("says nothing at all for a join that carried no tempo", () => {
-    // Every other door into a room — the code typed on the room screen, a
-    // link, BACK INTO THE GAME — takes whatever level the room holds.
+describe("a join", () => {
+  it("carries no tempo into the room, whatever the room holds", () => {
+    // Every door into a room — a partner's row, a code typed on the room
+    // screen, a link, BACK INTO THE GAME — takes the room's own answer. The
+    // only device that may set one is the host, on the room screen, before beat
+    // zero (`join-room.ts` `mayShape`, `apps/server/src/room-acts.ts`).
     const { link, wire } = linked();
     link.join("ACDE");
     wire.say(welcome("easy"));
     expect(levels(wire.sent)).toEqual([]);
   });
 
-  it("asks once, and not again when the same room welcomes this phone back", () => {
-    // A second welcome in one room is a rejoin, and by then the room's answer
-    // *is* the pair's tempo: asking again would put back a level one of them
-    // has since changed on the other phone.
+  it("says nothing to a room that holds no tempo either", () => {
     const { link, wire } = linked();
-    link.join("ACDE", "hard");
-    wire.say(welcome("easy"));
-    wire.say(welcome("easy"));
-    expect(levels(wire.sent)).toEqual(["hard"]);
+    link.join("ACDE");
+    wire.say(welcome(null));
+    expect(levels(wire.sent)).toEqual([]);
   });
 
-  it("does not carry one room's tempo into the next", () => {
-    const { link, wire } = linked();
-    link.join("ACDE", "hard");
-    link.join("BCDE");
-    wire.say(welcome("easy"));
-    expect(levels(wire.sent)).toEqual([]);
+  it("still reports the room's tempo to whoever asks the link", () => {
+    // Taking it is the point: two phones at two tempi never reach the same
+    // tick, so the room's one answer is what both of them play at.
+    const { link, wire, seen } = linked();
+    link.join("ACDE");
+    wire.say(welcome("hard"));
+    expect(seen.at(-1)?.level).toBe("hard");
   });
 });

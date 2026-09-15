@@ -1,4 +1,4 @@
-import type { Difficulty, LinkState, LinkStatus, ServerMessage } from "@neon-spore/net";
+import type { LinkState, LinkStatus, ServerMessage } from "@neon-spore/net";
 import { DEFAULT_DIFFICULTY } from "@neon-spore/sim";
 import { roomAsks } from "./link-ask.js";
 import { createRoomClock } from "./link-clock.js";
@@ -37,8 +37,6 @@ export function createLink(o: LinkOptions): Link {
   let player: 0 | 1 | 2 = 0;
   const clock = createRoomClock(now);
   let startMs = 0;
-  /** A tempo `join` must ask this room for, until the room answers (`link-types.ts`). */
-  let asked: Difficulty | null = null;
   /**
    * The beat zero this run began on. The room stamps a new one every time it
    * fills, so a value that has moved is a rejoin, seen from in here.
@@ -83,10 +81,9 @@ export function createLink(o: LinkOptions): Link {
     settle("solo");
   };
 
-  const join = (code: string, wanted?: Difficulty): void => {
+  const join = (code: string): void => {
     leave();
     room = code;
-    asked = wanted ?? null;
     settle("connecting");
     socket = openSocket(code, {
       message: receive,
@@ -128,9 +125,6 @@ export function createLink(o: LinkOptions): Link {
           level: message.level,
           host: message.host,
         };
-        // The tempo this join was told to bring, said once and only if it differs.
-        if (asked !== null && asked !== message.level) socket?.send({ t: "level", level: asked });
-        asked = null;
         socket?.rearm(peers < 2 && !run.started);
         // A beat zero that is not this run's is the room saying the run is over
         // and the next starts here, which is what a rejoin looks like from this

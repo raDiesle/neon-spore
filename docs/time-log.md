@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — a game's tempo is fixed once it is made
+
+The queue's *A game's tempo is fixed once it is made; NEW GAME is the way to
+another*, the owner's own rule of the same day. The gear on a partner's row,
+the page behind it, the three tempi, the two-step in front of each and the
+wish a join carried — all off. The room refuses a tempo after beat zero, and a
+NEW GAME with somebody already on the list starts their record over.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the entry, and then every door onto the level page — which turned out to be one, the gear, so the page went with it |
+| writing | 60 | fourteen files thinner, one guard, one edge in `join.ts`, `pair-tempo.test.ts` rewritten around the new rule and four cases moved or added |
+| looking | 5 | one `menu-shot` of the PLAY page |
+| friction | 10 | four rounds of `lint` after removals — an unused import, an unused constant, two sorts; and one heredoc the guard refused, which is the rule this lane wrote down two commits ago |
+| landing | 20 | `check:fast` three times, `relay:check:all`, `bun run index`, the commit |
+
+The bottleneck was finding out how much was load-bearing. The entry asked for
+a gear and a page to come off; what came off was a page nothing else could
+reach, three rows, their two-step, a `MenuPage`, a `MenuDom` verb, two
+`MenuBindings` fields, a parameter on `link.join` and the field behind it —
+each one dead only once the one above it had gone, and each found by the
+typecheck rather than by reading. Removing a feature is cheap; finding its
+edge is the work.
+
 ## 2026-09-15 — queued-tasks — the first meeting with a keyboard over it
 
 The queue's *Unverified at a80777a5*, both halves. The keyboard half is

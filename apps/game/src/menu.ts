@@ -2,17 +2,10 @@ import type { MechanicId } from "@neon-spore/content";
 import type { LinkStatus } from "@neon-spore/net";
 import { heldRoom } from "./last-room.js";
 import type { MainMenu, MenuBindings } from "./menu-bindings.js";
-import {
-  type EntryActions,
-  levelEntries,
-  menuEntries,
-  playEntries,
-  testingEntries,
-} from "./menu-entries.js";
+import { type EntryActions, menuEntries, playEntries, testingEntries } from "./menu-entries.js";
 import { inRoom as linkIsRoom, paintLink as paintPage } from "./menu-link.js";
 import type { MenuPage } from "./menu-parts.js";
 import { bindMenuSteps } from "./menu-steps.js";
-import { menuTempo } from "./menu-tempo.js";
 import { buildMenu } from "./menu-view.js";
 import { pairsHere as pairs } from "./pairing.js";
 import { readProgress } from "./progress.js";
@@ -128,24 +121,19 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     },
     play,
     close,
-    // Every other way onto the level page is this device's own tempo, so the
-    // page stops standing for a pair the moment one of them is taken.
-    show: (page) => {
-      if (page === "level") tempo.forSelf();
-      dom.show(page);
-    },
+    show: (page) => dom.show(page),
     openRoom: b.openRoom,
     rejoinWith: (i) => {
       const one = pairs()[i];
       if (!one || one.room === "") return;
       close();
-      // **And the tempo the two of them are on**, asked of the room on the way
-      // in: a room keeps its own level and hands it to both phones, so a gear
-      // pressed on this page is a wish until the room is told (`pairing.ts`,
-      // `link.ts`).
-      b.joinRoom(one.room, one.level);
+      // **And no tempo with it.** The room keeps its own and hands it to both
+      // phones; the level on a partner's record is a reading of what the two of
+      // them played at, never a wish to send (`pairing.ts`). A game that
+      // already exists does not change its difficulty — NEW GAME is the way to
+      // another (the owner, 15 September 2026).
+      b.joinRoom(one.room);
     },
-    levelFor: (i) => tempo.openFor(i),
     openTuning: b.openTuning,
     demoCount: b.demos.length,
   };
@@ -163,7 +151,6 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
   const dom = buildMenu({
     entries: menuEntries(actions),
     play: playEntries(actions),
-    levels: levelEntries(),
     testing: testingEntries(actions),
     demos: b.demos,
     onWave: play,
@@ -183,17 +170,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     },
   });
 
-  // Whose tempo the level page is standing for, and what a press on it reaches
-  // (`menu-tempo.ts`).
-  const tempo = menuTempo({
-    dom,
-    pairs,
-    repaint: () => paintLink(),
-    level: b.level,
-    setLevel: b.setLevel,
-  });
-
-  const steps = bindMenuSteps(dom, b, tempo.steps);
+  const steps = bindMenuSteps(dom, b);
 
   /**
    * The page, repainted for whatever the link now says (`menu-link.ts`). The
@@ -211,7 +188,6 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
       held: heldRoom(Date.now()),
       opened,
       wave: b.wave(),
-      pairLevel: tempo.pair()?.level,
     });
     if (!inRoom()) steps.cancelLeave();
   };

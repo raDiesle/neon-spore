@@ -93,36 +93,30 @@ function asPartner(entry: unknown): Partner | null {
  * played with thirty people does not need to remember twenty-six of them to
  * offer the last one. A level of `null` is a room that has not said which
  * tempo it is on yet, and says nothing about the one they last played at.
+ *
+ * **`fresh` is NEW GAME**, and it is the one thing that takes a wave away. The
+ * owner, 15 September 2026: a game that already exists does not change its
+ * difficulty, and the way to another tempo is to start over — which overrides
+ * the game these two had. So the wave goes back to nothing and the tempo is
+ * whatever the new room settles on; keeping the old furthest wave beside a new
+ * tempo would offer them a wave they cleared at a speed they are no longer
+ * playing at.
  */
 export function afterPlayingWith(
   kept: readonly Partner[],
   partner: string,
   level: Difficulty | null = null,
+  fresh = false,
 ): Partner[] {
   const name = normalizeName(partner);
   if (!isName(name)) return [...kept];
   const held = kept.find((one) => one.name.toLowerCase() === name.toLowerCase());
   const rest = kept.filter((one) => one.name.toLowerCase() !== name.toLowerCase());
   const was = held ?? newPartner(name);
-  return [{ ...was, name, level: level ?? was.level }, ...rest].slice(0, PARTNERS_KEPT);
-}
-
-/**
- * The list after this device chose a tempo to play `partner` at — the gear on
- * their row (`menu-entries.ts`).
- *
- * Unlike `afterReaching` it moves nobody: choosing a tempo is not playing, and
- * a pair whose evening is being planned should not climb over the pair who
- * actually played last night. A partner the list does not hold is left alone,
- * for that function's reason — the row being edited is one of these rows.
- */
-export function afterLevelling(
-  kept: readonly Partner[],
-  partner: string,
-  level: Difficulty,
-): Partner[] {
-  const name = normalizeName(partner).toLowerCase();
-  return kept.map((one) => (one.name.toLowerCase() === name ? { ...one, level } : one));
+  return [
+    { ...was, name, level: level ?? was.level, furthest: fresh ? 0 : was.furthest },
+    ...rest,
+  ].slice(0, PARTNERS_KEPT);
 }
 
 /**

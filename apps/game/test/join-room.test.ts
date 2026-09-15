@@ -130,3 +130,33 @@ describe("the seat pills", () => {
     expect(seatWord(at({ state: "waiting", peers: 1, player: 1, names }), 2)).toBe("WAITING…");
   });
 });
+
+const join = await Bun.file(Bun.fileURLToPath(new URL("../src/join.ts", import.meta.url))).text();
+
+/**
+ * **A NEW GAME overrides the game these two had** (the owner, 15 September
+ * 2026): the wave goes back to nothing at whatever tempo the new room settles
+ * on, because a wave cleared at one tempo was not cleared at another.
+ *
+ * There is no DOM in this runner, so the wiring is read out of the source the
+ * way `menu-front.test.ts` reads the menu's. What matters is that it is an
+ * *edge* — `paint` runs on every message the room sends, and a write on every
+ * one of them would put the pair back to wave nothing each time they reached a
+ * wave — and that a rejoin never reaches it, which `mode` is what says.
+ */
+describe("a new game with somebody already on the list", () => {
+  test("starts their record over, once, and only when the steps were walked", () => {
+    expect(join).toContain('const fresh = mode === "" ? "" : partnerIn(last);');
+    expect(join).toContain('if (fresh !== "" && fresh !== startedOverWith) {');
+    expect(join).toContain("startOverWith(fresh, last.level);");
+    expect(join).toContain("startedOverWith = fresh;");
+  });
+
+  test("forgets it again when the screen opens on a pair with no room", () => {
+    // The same line that resets `mode`, and for the same reason: a screen
+    // opened solo is a game about to be made rather than one being played.
+    expect(join).toMatch(
+      /if \(isOpen && last\.state === "solo"\) \{\s+mode = "";\s+startedOverWith = "";/,
+    );
+  });
+});

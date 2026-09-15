@@ -13,17 +13,6 @@ export interface MenuEntry {
   label: string;
   desc: string;
   run: () => void;
-  /**
-   * **A second press target at the right end of the row**, for a row that
-   * offers one thing and carries a setting for it — the gear on a partner's
-   * row, which opens the three tempi for that pair (`menu-entries.ts`).
-   *
-   * Drawn as a button *beside* the row's own rather than inside it, because a
-   * button inside a button is not a thing (`confirm.ts` settled the same
-   * question for the two-step). The pair share a wrapper, so `set(key, { on })`
-   * takes both off the page at once and neither can be left behind.
-   */
-  aside?: { mark: string; what: string; run: () => void };
 }
 
 export interface MenuRows {
@@ -40,6 +29,10 @@ export function entryRows(): MenuRows {
   // `setEntry("continue", …)` goes on reaching CONTINUE after it moved behind
   // PLAY. No key is on two lists, and `menu-entries.ts` is where that is kept
   // true — the rig's first row is `single` because `play` is the front page's.
+  // `off` is the row itself. It was the row *and* whatever stood beside it
+  // while a partner's row carried a gear, and that came off on 15 September
+  // 2026 with the rest of the pair tempo — a game's tempo is settled once, on
+  // the room screen (`menu-entries.ts`).
   const entries = new Map<
     string,
     { root: HTMLElement; label: HTMLElement; desc: HTMLElement; off: HTMLElement }
@@ -56,21 +49,8 @@ export function entryRows(): MenuRows {
       const desc = el("span", "desc", entry.desc);
       button.append(mark, label, desc);
       button.addEventListener("click", entry.run);
-      // A row with a second press target is wrapped with it, so the pair go on
-      // and off the page together; a row without one is the bare button it has
-      // always been, and no page's markup changes for a feature it does not use.
-      const pair = entry.aside ? el("div", "entry-pair") : undefined;
-      (pair ?? page).append(button);
-      if (entry.aside && pair) {
-        const gear = el("button", "gear", entry.aside.mark);
-        gear.type = "button";
-        gear.title = entry.aside.what;
-        gear.ariaLabel = entry.aside.what;
-        gear.addEventListener("click", entry.aside.run);
-        pair.append(gear);
-        page.append(pair);
-      }
-      entries.set(entry.key, { root: button, label, desc, off: pair ?? button });
+      page.append(button);
+      entries.set(entry.key, { root: button, label, desc, off: button });
     });
   };
   const set = (key: string, next: { label?: string; desc?: string; on?: boolean }): void => {

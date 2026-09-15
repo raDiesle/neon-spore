@@ -53,12 +53,14 @@ export interface Link {
   /**
    * Join a room. Leaves any room already held.
    *
-   * `wanted` is a tempo to ask the room for once it answers — the level a pair
-   * settled on this device, which nothing else could carry there: a room keeps
-   * its own and hands it to both phones, so a wish written while off the wire
-   * has exactly one moment to be said, and this is it (`link.ts`).
+   * **No tempo goes in with it.** A room keeps its own and hands it to both
+   * phones; the only device that may set one is the host, on the room screen,
+   * before beat zero (`join-room.ts` `mayShape`, `apps/server/src/room-acts.ts`).
+   * A join used to be able to carry a wish — the tempo a pair had settled on
+   * this device behind a gear — and that went on 15 September 2026 with the
+   * gear: a game that already exists does not change its difficulty.
    */
-  join(room: string, wanted?: Difficulty): void;
+  join(room: string): void;
   leave(): void;
   /**
    * "I am ready." Beat zero is stamped by the room once **both** seats have

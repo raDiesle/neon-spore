@@ -196,9 +196,9 @@ export function bindShell(p: ShellParts): Link {
       openRoom: () => joinScreen?.open(true),
       // The way back into a room the pair already share (`pairing.ts`). The
       // room screen opens with it, because the pair still have to press START.
-      joinRoom: (room, wanted) => {
+      joinRoom: (room) => {
         joinScreen?.open(true);
-        link.join(room, wanted);
+        link.join(room);
       },
       leaveRoom,
       // CONTINUE in a room is the room's own START, sent through the same door
@@ -218,8 +218,6 @@ export function bindShell(p: ShellParts): Link {
         canInstall: () => installer?.available() ?? false,
       },
       openTuning: p.openTuning,
-      level,
-      setLevel,
       openIntro: (back) => p.intro.open(back),
       demos,
       openDemo: p.openDemo,
