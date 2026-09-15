@@ -665,3 +665,18 @@ Prove it with `bun run check`, the new cases in
 `tools/frames/test/menu-trail.test.ts`, and one shot of the first meeting with
 a name in it: `bun run menu-shot out.png --first-visit --type "#helloName=DAVID"`
 — the press reads amber instead of grey.
+
+## Unverified at a80777a5: The sign-in half of the first meeting actually signing…
+
+- **Found:** 2026-09-15, claude/queue-tasks-kkqozz
+- **Files:** `apps/game/src/game.css`, `apps/game/src/hello.ts`, `apps/game/src/join-name.ts`, `apps/game/src/menu.css`, `apps/game/src/nickname.ts`, `apps/game/src/shell.ts`, `apps/game/test/hello.test.ts`, `apps/game/test/intro.test.ts`
+
+*After the intro, a first visit is asked what it is called* landed from a session that could not look at it. The commit touched 5 more files. What went unchecked:
+
+- The sign-in half of the first meeting actually signing somebody in: LOG IN WITH GOOGLE opens a popup and the email link needs a mailbox, so syncName filling the field with a restored name was read off the code and never seen happen (apps/game/src/hello.ts)
+- The first meeting on a real phone with the keyboard up: the field is deliberately not focused on arrival so the optional half is not covered, and nobody has seen what the sheet does when a thumb does focus it (apps/game/src/hello.ts, apps/game/src/menu.css)
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

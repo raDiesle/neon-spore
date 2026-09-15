@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · a80777a5 — After the intro, a first visit is asked what it is called
+
+A name was asked for on the room screen, which a first-timer reaches only once they are already opening a room, and the sign-in was a row on SETTINGS, which is a page nobody opens on the way to play. Both halves existed and both were met too late. They are met between the intro closing and the menu coming up now, on a device with no name stored: one question, the same claimName behind it, and under it the Google button and the email field signInRow already builds, with syncName filling the field when it answers. A device that has a name never sees the screen, and the room screen keeps its own field as the fallback for a device that never passed the menu.
+
 ## 2026-09-14 · 7e41eda0 — The queue title for the heredoc finding stays under eighty characters
 
 ## 2026-09-14 · 09fdf8fb — THE GUM is swiped out of the field by either hand, and splashes across the ship when it lands
