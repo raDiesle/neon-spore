@@ -5354,3 +5354,23 @@ About 15 min by the clock, 12:45 to 13:00.
 Bottleneck: friction — a refused upgrade looked like a hang for a whole
 timeout, and the two files at their limit each cost a split before the
 check went green.
+
+## 2026-09-15 · claude/queued-tasks-2-f45f36 — the room screen's step 4: the host picks, both hold READY
+
+The screen half of step 4. The two seat pills are the host's presses and the
+other phone's reading; three tempi under them, the host's too; two READY
+circles in DOM in place of START, the own one filling under a thumb over the
+guides' `readyHoldMs`, both drawn on both phones. DIFFICULTY left the PLAY
+page. Two browsers against a wrangler saw the whole of it and one PNG went
+to the owner. About 15 min by the clock, 13:02 to 13:17.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `join.ts`, the step markup, `join-words.ts`, `briefing.ts`, `ready-circles.ts`, `menu-entries.ts`, `menu-link.ts` |
+| writing | 5 | `join-room.ts`, `join-room-step.ts`, the markup and CSS, the tests, `holdReady`, the DIFFICULTY row out |
+| looking | 5 | the two-phone probe three times, the PNG, `room-shot` once |
+| friction | 5 | `#joinScreen .step button` outranked the pills' and the tempi's own rules twice — gold outlines on everything, then the own pill's gold gone |
+| landing | 5 | `check:fast`, the index, the commit, `bun run land --keep` |
+
+Bottleneck: friction — a selector one id short cost two probe runs, each a
+wrangler start, before the picture matched the intent.

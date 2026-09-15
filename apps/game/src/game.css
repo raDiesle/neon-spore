@@ -206,7 +206,9 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
   gap: 8px;
   margin: 0 0 16px;
 }
-#joinSeats .pill {
+/* Doubled selectors: `#joinScreen .step button` would otherwise dress these
+   two as the gold outline every other press on the screen wears. */
+#joinScreen #joinSeats .pill {
   flex: 1;
   display: grid;
   gap: 3px;
@@ -214,6 +216,16 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
   border: 1px solid #2a2250;
   border-radius: 10px;
   background: rgba(10, 7, 26, 0.55);
+  /* A button, so the host can press one — and still the pill it always was
+     on the phone that only reads it (`join-room.ts`, `mayShape`). */
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: default;
+}
+#joinScreen #joinSeats.pick .pill:not(.mine) {
+  border-style: dashed;
+  cursor: pointer;
 }
 #joinSeats .n {
   font-size: 10px;
@@ -233,12 +245,41 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
 #joinSeats .pill.empty .who {
   color: #4b4177;
 }
-#joinSeats .pill.mine {
+#joinScreen #joinSeats .pill.mine {
   border-color: #ffc24b;
   background: rgba(42, 31, 78, 0.6);
 }
 #joinSeats .pill.mine .who {
   color: #ffc24b;
+}
+
+/* The tempo, three words wide. Pressable by the host, read by the other. */
+#joinTempo {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 14px;
+}
+#joinScreen #joinTempo .tempo {
+  flex: 1;
+  padding: 7px 0;
+  border: 1px solid #2a2250;
+  border-radius: 8px;
+  background: rgba(10, 7, 26, 0.55);
+  color: #4b4177;
+  font:
+    10px "Courier New",
+    monospace;
+  letter-spacing: 0.16em;
+  cursor: default;
+}
+#joinTempo.pick .tempo {
+  cursor: pointer;
+  color: #6f639f;
+}
+#joinScreen #joinTempo .tempo.on {
+  border-color: #22d6e7;
+  color: #22d6e7;
+  background: rgba(34, 214, 231, 0.08);
 }
 
 #joinState {
@@ -303,25 +344,97 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
   gap: 8px;
   margin: 18px 0 0;
 }
-#joinGo,
-#joinStart {
+#joinGo {
   width: 100%;
   box-sizing: border-box;
 }
-/* The press that starts the run. It is the one thing on this screen a player
-   is waiting to do, so it reads as the action rather than as another option —
-   and it goes flat and quiet the moment it has been pressed, because the wait
-   after that is the other phone's. */
-#joinStart {
-  border-color: #22d6e7;
-  color: #22d6e7;
-  background: rgba(34, 214, 231, 0.08);
+
+/* The two READY circles: the hold the guides use, in DOM. The own one fills
+   under a thumb (`join-room-step.ts`); the one waiting on this phone breathes,
+   as `render/ready-circles.ts` does it; a full one goes green and says so.
+   Seat colours are the seat skins' tints (`render/seat-skin.ts`). */
+#joinReady {
+  display: flex;
+  justify-content: space-around;
+  margin: 4px 0 6px;
 }
-#joinStart:disabled {
-  border-color: #2b2450;
-  background: none;
-  color: #4b4177;
-  cursor: default;
+#joinReady .circle {
+  position: relative;
+  width: 92px;
+  padding: 6px 0 0;
+  text-align: center;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  --seat: #c05cff;
+}
+#joinReady #joinReady2 {
+  --seat: #ffae3d;
+}
+#joinReady svg {
+  display: block;
+  width: 84px;
+  height: 84px;
+  margin: 0 auto;
+  transform: rotate(-90deg);
+}
+#joinReady .track,
+#joinReady .arc {
+  fill: none;
+  stroke-width: 5;
+}
+#joinReady .track {
+  stroke: #3b3163;
+}
+#joinReady .arc {
+  stroke: var(--seat);
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+#joinReady .circle.done .arc {
+  stroke: #3bff9e;
+}
+#joinReady .circle.held svg {
+  background: radial-gradient(circle, rgba(122, 111, 168, 0.3) 58%, transparent 60%);
+  border-radius: 50%;
+}
+#joinReady .word {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #3bff9e;
+}
+#joinReady .name {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #6f639f;
+}
+#joinReady .circle.mine .name {
+  color: var(--seat);
+}
+#joinReady .circle.off {
+  opacity: 0.35;
+}
+#joinReady .circle.calling svg {
+  animation: joinBreathe 1.6s ease-in-out infinite;
+}
+@keyframes joinBreathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--seat) 45%, transparent);
+    border-radius: 50%;
+  }
+  50% {
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--seat) 0%, transparent);
+    border-radius: 50%;
+  }
 }
 
 /* A bad line, with a clock on it. It is not the room screen: the question here

@@ -114,9 +114,12 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
  * on this menu is under, and it is what lets the words be a fact about storage
  * while the page stays a pure function of its actions.
  *
- * CONTINUE is still here and is meant to leave: it becomes the ready hold the
- * pair press on the room screen (`docs/queue.md`). DIFFICULTY stays under it as
- * this device's own tempo — a pair's is on their own row now, behind the gear.
+ * CONTINUE is still here and half of it has left: the room's START is the
+ * READY hold on the room screen now (`join-room-step.ts`), and what the row
+ * still answers is the way back to a field open under the menu and the mend
+ * of a parted run (`docs/queue.md`). DIFFICULTY left on 15 September 2026: a
+ * new game's tempo is picked on the room screen by the host, and a pair's is
+ * behind the gear on their row; a device on its own plays the rig's tempo.
  *
  * **No seat here.** The cards are on the rig's page: a pair does not choose a
  * seat — the room deals them by arrival order — and the seat they hold is read
@@ -139,12 +142,6 @@ export function playEntries(a: EntryActions): MenuEntry[] {
       label: "CONTINUE",
       desc: "From the furthest wave this device has reached.",
       run: () => a.carryOn(),
-    },
-    {
-      key: "level",
-      label: "DIFFICULTY",
-      desc: "How fast everything falls. Three settings, and changing it starts the run again.",
-      run: () => a.show("level"),
     },
   ];
 }

@@ -225,13 +225,25 @@ the welcome, and only when it differs from what the room holds
 is the same shape and should use the same door rather than a second one.
 
 **Behind PLAY, today** (`playEntries`): the partners, each with a gear, then
-NEW GAME, CONTINUE and DIFFICULTY. **What he wants:**
+NEW GAME and CONTINUE. **What he wants:**
 
 1. ~~**The PLAY page is first a list of the people this device has played
-   with**~~ — landed. What is left of it: CONTINUE and DIFFICULTY still sit
-   under the list, and they leave it when 4 below gives them their homes.
-2. **Difficulty is chosen when creating a new game**, on the room screen (see
-   5) — *not done, and waiting on 4*. ~~And for an existing partner behind a
+   with**~~ — landed. ~~DIFFICULTY still sits under the list~~ — left on 15
+   September 2026, with step 4. **CONTINUE is still there**, and only a third
+   of it has a home: its START answer is the READY hold on the room screen
+   now, but its other two — the way back to a field open under the menu, and
+   the mend of a parted run, which `shell.ts` brings the menu up for and
+   `join-words.ts`'s desync sentence sends people to — have none. Two ways:
+   the room screen opens on a parting too and the circles mend it, and a
+   menu opened over a running field closes on its own chip, so CONTINUE goes;
+   or the row stays under NEW GAME with those two answers and a new name.
+   `menu.ts` `carryOn`, `menu-link.ts` `continueLine`, `shell.ts`, and the
+   CONTINUE cases in `menu-front.test.ts`.
+   - **Asks:** Does CONTINUE leave the PLAY page, the room screen taking the parted run and the chip taking the way back, or stay for those two?
+2. ~~**Difficulty is chosen when creating a new game**, on the room screen~~
+   — landed on 15 September 2026: three tempi on step 4, the host's to press
+   (`join-room-step.ts`), the other phone reading the pick off its welcome.
+   ~~And for an existing partner behind a
    gear icon on the right end of that partner's row, opening the three-level
    list for that pair~~ — landed: the gear is a second press target beside the
    row's own button (`menu-rows.ts`'s `aside`; a button inside a button is not
@@ -272,9 +284,15 @@ NEW GAME, CONTINUE and DIFFICULTY. **What he wants:**
      on a swap and on a `level`, so the joiner sees the pick made; the client
      has `Link.pickSeat` and `LinkStatus.host` (`link-ask.ts`,
      `link-report.ts`). Proved by `apps/server/test/room-seat.test.ts` and
-     `relay:check:all`. **The screen half is what is left**: the pills become
-     presses for the host (`#joinSeat1/2`, `join.ts`), the tempo sits on the
-     same step, and the READY circles replace `#joinStart`.
+     `relay:check:all`. **The screen half landed the same day**: the pills are
+     the host's presses (`join-room.ts` `mayShape`), the three tempi sit under
+     them, and two READY circles in DOM replace `#joinStart` — the own one
+     fills under a thumb over `readyHoldMs`, both are drawn on both phones,
+     the one waiting on this phone breathes (`join-room-step.ts`,
+     `join-room.test.ts`). `tools/frames/room-phones.ts` `holdReady` is the
+     press a walk cannot do. Seen on two browsers against a wrangler: the
+     swap, the joiner's press ignored, HARD on both, both holds, beat zero at
+     120 bpm on both.
    - The joiner's pages mirror it: JOIN → name → code → the same shared step 4.
 5. ~~**The wait for the other player gives up too soon.**~~ — landed on 15
    September 2026, and **it was neither of the two timers this entry named**.
@@ -751,3 +769,34 @@ the root config excludes `apps/server/test` too and `apps/server`'s own
 `apps/server/src` is checked once, from the root, with the workers types
 added — pick one and prove it with `bun run typecheck` and a test that
 imports `seat.ts` directly.
+
+## A game's tempo is fixed once it is made; NEW GAME is the way to another
+
+- **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
+- **Files:** `apps/game/src/menu-tempo.ts`, `apps/game/src/menu-rows.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/pairing.ts`, `apps/game/src/partners.ts`, `apps/game/src/join-room.ts`, `apps/server/src/room.ts`, `apps/server/src/room-route.ts`, `tools/frames/menu-trail.ts`, `apps/game/test/menu-front.test.ts`, `apps/game/test/pair-tempo.test.ts`, `apps/game/test/pairing.test.ts`, `apps/game/test/join-room.test.ts`, `apps/server/test/room-seat.test.ts`
+
+The owner, 15 September 2026: **a game that already exists does not change its
+difficulty.** The tempo is picked once, on the room screen while the game is
+being made (`join-room-step.ts`, landed the same day), and after that the
+only way to another tempo is **NEW GAME** — which overrides the previous game
+with the same partner, resets the whole wave state, and offers the three
+tempi again on its own room screen. It is a clear-and-start-over, rare on
+purpose, not a setting.
+
+What that removes, all of it landed earlier the same day: the gear on a
+partner's row and the TEMPO WITH ADA page behind it (`menu-rows.ts` `aside`,
+`menu-tempo.ts`'s pair half, `setPartnerLevel` and `afterLevelling` in
+`pairing.ts`/`partners.ts`, the `--page "PLAY > ⚙"` trail in
+`menu-trail.ts`), and the tempo a partner's row carries into the join
+(`pairLevel` in `menu-link.ts`, `link.join(room, wanted)`,
+`pair-tempo.test.ts`) — a partner's record keeps its `level` as a reading of
+what they played, never as a wish to send. What it guards: the room refuses a
+`level` after beat zero the way `room-seat.ts` refuses a seat
+(`room-route.ts` `level`, `room.ts` `startMs`), so a host who reaches step 4
+of a room already running cannot re-tempo it — today `room.ts` stores
+whatever arrives; `mayShape` already stops the screen before beat zero and
+that test moves to the server too. What it adds: NEW GAME with a partner
+already on the list writes that partner's record back to wave 0 at the tempo
+the new room settles on (`afterPlayingWith`), rather than keeping the old
+furthest wave beside a new tempo. `menu-front.test.ts` reads the rows without
+the gear; prove the rest with `bun run check` and one `relay:check` run.

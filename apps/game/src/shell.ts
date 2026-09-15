@@ -154,10 +154,22 @@ export function bindShell(p: ShellParts): Link {
   };
 
   const hold = bindHoldCard({ leave: leaveRoom });
+  // The room's level where there is a room, and this device's where there
+  // is not. Setting it tells the room — which hands it back to both phones
+  // on the next welcome — and starts the run again here
+  // (`packages/sim/src/difficulty.ts`, `main.ts`).
+  const level = (): Difficulty => link.status().level ?? p.level();
+  const setLevel = (next: Difficulty): void => {
+    link.setLevel(next);
+    p.setLevel(next);
+  };
   joinScreen = bindJoinScreen({
     join: (room) => link.join(room),
     leave: leaveRoom,
     ready: () => link.ready(),
+    pickSeat: (seat) => link.pickSeat(seat),
+    setLevel,
+    level,
     back: () => menu?.open(),
   });
 
@@ -206,15 +218,8 @@ export function bindShell(p: ShellParts): Link {
         canInstall: () => installer?.available() ?? false,
       },
       openTuning: p.openTuning,
-      // The room's level where there is a room, and this device's where there
-      // is not. Setting it tells the room — which hands it back to both phones
-      // on the next welcome — and starts the run again here
-      // (`packages/sim/src/difficulty.ts`, `main.ts`).
-      level: () => link.status().level ?? p.level(),
-      setLevel: (level) => {
-        link.setLevel(level);
-        p.setLevel(level);
-      },
+      level,
+      setLevel,
       openIntro: (back) => p.intro.open(back),
       demos,
       openDemo: p.openDemo,

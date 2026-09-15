@@ -13,7 +13,7 @@ const shell = await Bun.file(Bun.fileURLToPath(new URL("../src/shell.ts", import
  * phone has gone quiet" and "the connection is gone" have to be different
  * sentences, so that a creature which blinds a player can never be mistaken for
  * a dropped line. That is open question 10, and it was held by nothing —
- * `readyLine`, `seatWord` and `startButton` have `start-press.test.ts`, and the
+ * `readyLine` and `seatWord` have `join-room.test.ts`, and the
  * three functions that carry the actual sentences had no test at all.
  *
  * The state side of the same rule is `packages/net/test/status.test.ts`, beside

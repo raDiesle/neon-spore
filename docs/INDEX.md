@@ -1186,6 +1186,8 @@ place — the generator keeps whatever is there.
 | `apps/game/src/join-link.ts` | a room's code and the two things that happen to one on a phone — drawn fresh, or read off the link the page was opened on |
 | `apps/game/src/join-step-view.ts` | the chrome around whichever of the room screen's four steps is up — the blocks, the heading, the one way back |
 | `apps/game/src/join-steps.ts` | the room screen one step at a time — which of the four a device is on, and what that step says |
+| `apps/game/src/join-room-step.ts` | What step 4 can ask of the link — the room-shaping half of `JoinBindings` |
+| `apps/game/src/join-room.ts` | The rules of step 4, THE ROOM: who may shape it, and what each READY circle is doing |
 | `apps/game/src/nickname.ts` | This device's player name: asked once, kept here, carried into every room |
 | `apps/game/src/origin.ts` | Where the server lives, for both things that talk to it |
 | `apps/game/src/pairing.ts` | The way *back* into a room, for two people who have played before |

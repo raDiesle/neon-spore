@@ -20,6 +20,8 @@ export interface Looking {
   state: string;
   /** Who the two seat pills say, P1 then P2 — the names the room handed down. */
   seats: string[];
+  /** What is inside each READY circle, P1 then P2: "" until a hold fills it. */
+  ready: string[];
 }
 
 export interface PhoneShape {
@@ -69,7 +71,25 @@ export function looking(page: Page): Promise<Looking> {
     seats: [...document.querySelectorAll("#joinSeats .pill .who")].map((s) =>
       (s.textContent ?? "").trim(),
     ),
+    ready: [...document.querySelectorAll("#joinReady .circle .word")].map((s) =>
+      (s.textContent ?? "").trim(),
+    ),
   }));
+}
+
+/**
+ * Hold this phone's own READY circle until it fills (`join-room-step.ts`):
+ * the thumb goes down, stays past the hold, and lifts. The one press on step 4
+ * that is not a click, which is why `walk` cannot do it.
+ */
+export async function holdReady(page: Page): Promise<void> {
+  const box = await page.locator("#joinReady .circle.mine").boundingBox();
+  if (!box) throw new Error("no READY circle of this phone's own is on the screen");
+  await page.mouse.move(box.x + box.width / 2, box.y + box.width / 2);
+  await page.mouse.down();
+  await page.waitForTimeout(600);
+  await page.mouse.up();
+  await page.waitForTimeout(300);
 }
 
 /** Press each label in turn on whichever page is up, and fail loudly on the

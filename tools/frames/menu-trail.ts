@@ -10,7 +10,7 @@
  *
  *   --page SETTINGS                  the settings page
  *   --page "SETTINGS > CONTROLS"     the keys, which SETTINGS is the only way to
- *   --page "PLAY > DIFFICULTY"       the three levels, behind PLAY's own row
+ *   --page "PLAY > ⚙"                the three tempi, behind a partner's gear
  *   --page TESTING                   the rig, which no row reaches at all
  *   --page "PLAY > NEW GAME > CREATE"  the room screen, which NEW GAME opens
  *

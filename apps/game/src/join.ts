@@ -9,16 +9,17 @@ import {
 import { bindTwoStep } from "./confirm.js";
 import { freshCode, roomRequested } from "./join-link.js";
 import { bindNameField } from "./join-name.js";
+import { bindRoomStep, type RoomStepBindings } from "./join-room-step.js";
 import { bindStepView } from "./join-step-view.js";
 import { type JoinMode, joinStep } from "./join-steps.js";
-import { chipText, explain, lastTimeLine, seatWord, startButton } from "./join-words.js";
+import { chipText, explain, lastTimeLine } from "./join-words.js";
 import { rememberFrom } from "./pairing.js";
 
-export interface JoinBindings {
+/** The link, as this screen asks things of it. Step 4's own asks — READY,
+ * the seat, the tempo — are `RoomStepBindings` (`join-room-step.ts`). */
+export interface JoinBindings extends RoomStepBindings {
   join: (room: string) => void;
   leave: () => void;
-  /** This seat is ready. The room starts once the other one says so too. */
-  ready: () => void;
   /** The way out of this screen, which is the menu it was opened from. */
   back: () => void;
 }
@@ -70,15 +71,13 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const stateEl = document.getElementById("joinState");
   const lastEl = document.getElementById("joinLast");
   const input = document.getElementById("joinInput") as HTMLInputElement | null;
-  const startEl = document.getElementById("joinStart") as HTMLButtonElement | null;
   const closeEl = document.getElementById("joinClose");
   const backEl = document.getElementById("joinBack");
   const leaveEl = document.getElementById("joinLeave");
   const showStep = bindStepView();
-  const seatEls: [1 | 2, HTMLElement | null][] = [
-    [1, document.getElementById("joinSeat1")],
-    [2, document.getElementById("joinSeat2")],
-  ];
+  // Step 4 — the seats, the tempo and the two READY circles — is its own
+  // binding; this sheet only hands it the status.
+  const room = bindRoomStep(b);
 
   let last: LinkStatus = SOLO_STATUS;
   /** Which way through this pair chose. Reset every time the screen opens solo. */
@@ -112,21 +111,7 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     if (stateEl) stateEl.textContent = explain(last);
     // What the two of you got to last time, when the room remembers a time.
     if (lastEl) lastEl.textContent = lastTimeLine(last);
-    // The press that starts the run. Enabled only where a press means
-    // something, and saying which of the three waits this is — see
-    // `startButton` and `readyLine` in `join-words.ts`.
-    if (startEl) {
-      const { label, enabled } = startButton(last);
-      startEl.textContent = label;
-      startEl.disabled = !enabled;
-    }
-    for (const [seat, node] of seatEls) {
-      if (!node) continue;
-      const who = node.querySelector(".who");
-      if (who) who.textContent = seatWord(last, seat);
-      node.classList.toggle("mine", last.player === seat);
-      node.classList.toggle("empty", seatWord(last, seat) === "WAITING…" || last.state === "solo");
-    }
+    room.paint(last);
   };
 
   const open = (isOpen: boolean): void => {
@@ -147,10 +132,6 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   backEl?.addEventListener("click", () => {
     mode = "";
     paint();
-  });
-
-  startEl?.addEventListener("click", () => {
-    b.ready();
   });
 
   document.getElementById("joinPickJoin")?.addEventListener("click", () => {

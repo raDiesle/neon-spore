@@ -99,17 +99,43 @@
           </div>
         </div>
         <div class="step" id="joinStepRoom">
+          <!-- The seats and the tempo are the host's to press (`join-room.ts`);
+               on the other phone the same pills only say what was picked. -->
           <div id="joinSeats">
-            <div class="pill empty" id="joinSeat1">
+            <button type="button" class="pill empty" id="joinSeat1" disabled>
               <span class="n">P1</span><span class="job">PILOT</span><span class="who">—</span>
-            </div>
-            <div class="pill empty" id="joinSeat2">
+            </button>
+            <button type="button" class="pill empty" id="joinSeat2" disabled>
               <span class="n">P2</span><span class="job">NAVIGATOR</span><span class="who">—</span>
-            </div>
+            </button>
+          </div>
+          <div id="joinTempo">
+            <button type="button" class="tempo" data-level="easy" disabled>EASY</button>
+            <button type="button" class="tempo" data-level="medium" disabled>MEDIUM</button>
+            <button type="button" class="tempo" data-level="hard" disabled>HARD</button>
           </div>
           <p id="joinState"></p>
           <p class="sub last" id="joinLast"></p>
-          <button type="button" id="joinStart" class="start">START</button>
+          <!-- READY is the hold the guides use, one circle a seat, both drawn on
+               both phones (`join-room-step.ts`, `render/ready-circles.ts`). -->
+          <div id="joinReady">
+            <div class="circle off" id="joinReady1">
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <circle class="track" cx="32" cy="32" r="28" />
+                <circle class="arc" cx="32" cy="32" r="28" pathLength="100" />
+              </svg>
+              <span class="word"></span>
+              <span class="name">—</span>
+            </div>
+            <div class="circle off" id="joinReady2">
+              <svg viewBox="0 0 64 64" aria-hidden="true">
+                <circle class="track" cx="32" cy="32" r="28" />
+                <circle class="arc" cx="32" cy="32" r="28" pathLength="100" />
+              </svg>
+              <span class="word"></span>
+              <span class="name">—</span>
+            </div>
+          </div>
         </div>
         <div class="acts">
           <button type="button" id="joinBack" class="quiet">← BACK</button>

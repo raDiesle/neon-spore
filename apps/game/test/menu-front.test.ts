@@ -90,12 +90,12 @@ describe("the page behind PLAY", () => {
     expect(labels(play)[PARTNERS_KEPT]).toBe("NEW GAME");
   });
 
-  /** They are meant to leave: the first becomes the ready hold the pair press
-   * on the room screen and the second is chosen when a game is created
-   * (`docs/queue.md`). Until that screen exists they are the only start and
-   * the only way to change the tempo, so they stay under the list. */
-  it("keeps CONTINUE and DIFFICULTY at the bottom until the room screen has them", () => {
-    expect(labels(play).slice(PARTNERS_KEPT)).toEqual(["NEW GAME", "CONTINUE", "DIFFICULTY"]);
+  /** DIFFICULTY left when the room screen took it: a new game's tempo is the
+   * host's pick on step 4 (`join-room-step.ts`) and a pair's is behind their
+   * gear. CONTINUE is still the way back to an open field and the mend of a
+   * parted run (`docs/queue.md`). */
+  it("keeps CONTINUE at the bottom and no DIFFICULTY row", () => {
+    expect(labels(play).slice(PARTNERS_KEPT)).toEqual(["NEW GAME", "CONTINUE"]);
   });
 
   it("presses a row by where it is, not by who was on it when it was built", () => {
@@ -165,8 +165,6 @@ describe("the three difficulties", () => {
     });
     expect(r.label.get("hard")).toBe("HARD · ON");
     expect(r.label.get("easy")).toBe("EASY");
-    expect(r.desc.get("level")).toContain("Hard");
-    expect(r.desc.get("level")).toContain("starts the run again");
   });
 
   it("mark the pair's tempo when the page was opened through their gear", () => {
@@ -184,8 +182,6 @@ describe("the three difficulties", () => {
     });
     expect(r.label.get("easy")).toBe("EASY · ON");
     expect(r.label.get("medium")).toBe("MEDIUM");
-    // And the PLAY page's own DIFFICULTY row goes on being about this device.
-    expect(r.desc.get("level")).toContain("Medium");
   });
 });
 

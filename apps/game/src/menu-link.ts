@@ -72,14 +72,6 @@ export function partnerLine(one: Partner): string {
   return `${LEVEL_NAME[one.level]}. Back into the room you two share — no code to read out.`;
 }
 
-/** The DIFFICULTY row's own sentence, by level: what this one *is*, before the
- * warning every one of them carries. */
-const LEVEL_WORD: Record<Difficulty, string> = {
-  easy: "Easy — a fifth slower than the game as it ships.",
-  medium: "Medium — the game as it has always been played.",
-  hard: "Hard — a quarter faster, on the same waves.",
-};
-
 export interface LinkPaint {
   dom: MenuDom;
   /** The link as it last reported itself, or null before there was one. */
@@ -108,11 +100,6 @@ export interface LinkPaint {
    * **The tempo the level page is standing for**, when it was opened through
    * the gear on a partner's row rather than through DIFFICULTY — so its three
    * rows mark the pair's tempo rather than this device's (`menu.ts`).
-   *
-   * Only the three rows follow it. The DIFFICULTY row on the PLAY page is
-   * about this device and goes on saying what this device is on, because a row
-   * that changed its meaning while a page a floor down was open would be a row
-   * nobody could read.
    */
   pairLevel?: Difficulty;
 }
@@ -161,14 +148,11 @@ export function paintLink({ dom, link, pairs, held, opened, wave, pairLevel }: L
   dom.setRejoin(room ? "" : held);
   // **The difficulty, and which of the three is on.** The room's answer where
   // there is a room — a level is a tempo and the pair plays one — and this
-  // device's where there is not. The row that opens the page says it, and the
-  // page's own three rows carry the mark, because a page of three settings with
-  // nothing saying which one you are on is three settings you have to guess at.
-  const level = link?.level ?? far.level;
-  dom.setEntry("level", { desc: `${LEVEL_WORD[level]} Changing it starts the run again.` });
-  // The mark is on whichever tempo the page is standing for — a pair's when it
-  // was opened through their gear, this device's otherwise.
-  const marked = pairLevel ?? level;
+  // device's where there is not. The page's three rows carry the mark, because
+  // a page of three settings with nothing saying which one you are on is three
+  // settings you have to guess at. The mark is on whichever tempo the page is
+  // standing for — a pair's when it was opened through their gear.
+  const marked = pairLevel ?? link?.level ?? far.level;
   for (const one of DIFFICULTIES) {
     dom.setEntry(one, { label: one === marked ? `${one.toUpperCase()} · ON` : one.toUpperCase() });
   }
