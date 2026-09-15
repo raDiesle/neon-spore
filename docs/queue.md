@@ -638,6 +638,7 @@ nothing that runs) and by reading the two edits once.
 ## `bun run menu-shot` cannot type, so a field's own states need a throwaway
 
 - **Found:** 2026-09-15, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-15, claude/queue-bun-run-menu-shot-cannot-type-so-a-fields-own-st
 - **Files:** `tools/frames/menu-shot.ts`, `tools/frames/menu-trail.ts`, `tools/frames/test/menu-trail.test.ts`, `docs/commands.md`
 
 `menu-shot` walks a trail of presses (`--page "SETTINGS > CONTROLS"`) and
