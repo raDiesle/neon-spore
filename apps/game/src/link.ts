@@ -35,6 +35,8 @@ export function createLink(o: LinkOptions): Link {
   let player: 0 | 1 | 2 = 0;
   const clock = createRoomClock(now);
   let startMs = 0;
+  /** A tempo `join` must ask this room for, until the room answers (`link-types.ts`). */
+  let asked: Difficulty | null = null;
   /**
    * The beat zero this run began on. The room stamps a new one every time it
    * fills, so a value that has moved is a rejoin, seen from in here.
@@ -79,9 +81,10 @@ export function createLink(o: LinkOptions): Link {
     settle("solo");
   };
 
-  const join = (code: string): void => {
+  const join = (code: string, wanted?: Difficulty): void => {
     leave();
     room = code;
+    asked = wanted ?? null;
     settle("connecting");
     socket = openSocket(code, {
       message: receive,
@@ -117,6 +120,9 @@ export function createLink(o: LinkOptions): Link {
         // played has always read as if they never had, and beat zero had no
         // wave to land on but the first.
         said = { ...said, names: message.names, best: message.best, level: message.level };
+        // The tempo this join was told to bring, said once and only if it differs.
+        if (asked !== null && asked !== message.level) socket?.send({ t: "level", level: asked });
+        asked = null;
         socket?.rearm();
         // A beat zero that is not this run's is the room saying the run is over
         // and the next starts here, which is what a rejoin looks like from this

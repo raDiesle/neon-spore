@@ -104,10 +104,21 @@ export interface LinkPaint {
   opened: boolean;
   /** The wave the field is on, for CONTINUE's line while one is open. */
   wave: number;
+  /**
+   * **The tempo the level page is standing for**, when it was opened through
+   * the gear on a partner's row rather than through DIFFICULTY — so its three
+   * rows mark the pair's tempo rather than this device's (`menu.ts`).
+   *
+   * Only the three rows follow it. The DIFFICULTY row on the PLAY page is
+   * about this device and goes on saying what this device is on, because a row
+   * that changed its meaning while a page a floor down was open would be a row
+   * nobody could read.
+   */
+  pairLevel?: Difficulty;
 }
 
 /** Cheap, so it is redone rather than diffed. */
-export function paintLink({ dom, link, pairs, held, opened, wave }: LinkPaint): void {
+export function paintLink({ dom, link, pairs, held, opened, wave, pairLevel }: LinkPaint): void {
   const room = inRoom(link);
   dom.setEntry("single", { on: !room });
   // How far this device has got, under the title. Off in a room, where the wave
@@ -155,8 +166,11 @@ export function paintLink({ dom, link, pairs, held, opened, wave }: LinkPaint): 
   // nothing saying which one you are on is three settings you have to guess at.
   const level = link?.level ?? far.level;
   dom.setEntry("level", { desc: `${LEVEL_WORD[level]} Changing it starts the run again.` });
+  // The mark is on whichever tempo the page is standing for — a pair's when it
+  // was opened through their gear, this device's otherwise.
+  const marked = pairLevel ?? level;
   for (const one of DIFFICULTIES) {
-    dom.setEntry(one, { label: one === level ? `${one.toUpperCase()} · ON` : one.toUpperCase() });
+    dom.setEntry(one, { label: one === marked ? `${one.toUpperCase()} · ON` : one.toUpperCase() });
   }
   dom.setEntry("leave", { on: room });
   // Who is sitting in each seat, on the cards. Blank for a seat the room has

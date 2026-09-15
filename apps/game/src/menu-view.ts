@@ -2,7 +2,7 @@ import type { MechanicId } from "@neon-spore/content";
 import type { ViewRole } from "@neon-spore/render";
 import type { DemoRow } from "./demo-menu.js";
 import { buildControls } from "./menu-controls.js";
-import { buildDemos, buildWaves } from "./menu-pages.js";
+import { buildDemos, buildLevels, buildWaves } from "./menu-pages.js";
 import { backButton, el, type MenuPage, sporeSvg } from "./menu-parts.js";
 import { rejoinButton } from "./menu-rejoin.js";
 import { entryRows, type MenuEntry } from "./menu-rows.js";
@@ -76,6 +76,13 @@ export interface MenuDom {
   /** Re-label an entry, or take it off the page. Named by `key`. */
   setEntry: (key: string, next: { label?: string; desc?: string; on?: boolean }) => void;
   /**
+   * **Who the level page is about**: a partner's name, or `""` for this
+   * device's own tempo. The page's heading and its closing sentence follow it,
+   * because the three rows are the same either way and nothing else on the
+   * screen says which of the two a press will change (`menu.ts`).
+   */
+  setLevelFor: (name: string) => void;
+  /**
    * **The way straight back into the room this device was just in**, at the top
    * of the front page. An empty code takes it off.
    *
@@ -133,12 +140,12 @@ export function buildMenu(h: MenuHandlers): MenuDom {
 
   const rootPage = el("div", "page on");
   const playPage = el("div", "page");
-  const levelPage = el("div", "page");
+  const levelPage = buildLevels((p) => show(p));
   const testingPage = el("div", "page");
   const pages: Record<MenuPage, HTMLElement> = {
     root: rootPage,
     play: playPage,
-    level: levelPage,
+    level: levelPage.page,
     testing: testingPage,
     // Both jump lists are opened from TESTING now, so both go back to it.
     waves: buildWaves((p) => show(p), h.onWave, "testing"),
@@ -165,20 +172,10 @@ export function buildMenu(h: MenuHandlers): MenuDom {
   );
   rows.draw(h.play, playPage);
 
-  // Back to PLAY and not to the front page: a page reached one floor down must
-  // not put the reader two floors up (`menu-parts.ts`).
-  levelPage.append(
-    backButton((p) => show(p), "play"),
-    el("h2", undefined, "DIFFICULTY"),
-  );
-  rows.draw(h.levels, levelPage);
-  levelPage.append(
-    el(
-      "p",
-      "foot",
-      "Only the speed changes: everything falls a tile a beat, so the setting is the beat. Changing it starts the run again from the first wave.",
-    ),
-  );
+  // The three rows go between its heading and its closing sentence, so the page
+  // hands both back rather than being finished in `menu-pages.ts`.
+  rows.draw(h.levels, levelPage.page);
+  levelPage.page.append(levelPage.close);
 
   testingPage.append(
     backButton((p) => show(p)),
@@ -236,6 +233,7 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     lockSeats,
     paintNames,
     setEntry: rows.set,
+    setLevelFor: levelPage.setFor,
     entryRoot: rows.root,
     setRejoin: rejoin.set,
     setProgress: (line) => {

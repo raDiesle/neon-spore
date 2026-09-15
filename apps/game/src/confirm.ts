@@ -97,10 +97,16 @@ export function twoStep(
  * and a row saying `SURE? · <word> / CANCEL` takes that place while the
  * question stands. The row is a sibling rather than the button's children,
  * because a button inside a button is not a thing.
+ *
+ * **`word` may be a function**, read each time the question is asked rather
+ * than once at binding. One row can stand for two acts — a difficulty row sets
+ * this device's tempo, which restarts the run, or a pair's, which restarts
+ * nothing — and the word is the only thing on the screen saying which of the
+ * two this press is. A fixed word would be a lie half the time.
  */
 export function bindTwoStep(
   button: HTMLElement,
-  word: string,
+  word: string | (() => string),
   act: () => void,
   clock: ConfirmClock = wallClock,
 ): TwoStep {
@@ -114,7 +120,6 @@ export function bindTwoStep(
   const yes = document.createElement("button");
   yes.type = "button";
   yes.className = "yes";
-  yes.textContent = word;
 
   const no = document.createElement("button");
   no.type = "button";
@@ -127,6 +132,9 @@ export function bindTwoStep(
   const step = twoStep(
     act,
     (armed) => {
+      // Asked now, not at binding: what this press does can have changed since
+      // the row was drawn.
+      if (armed) yes.textContent = typeof word === "string" ? word : word();
       row.hidden = !armed;
       button.hidden = armed;
     },

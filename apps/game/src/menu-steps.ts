@@ -1,4 +1,4 @@
-import { DIFFICULTIES } from "@neon-spore/sim";
+import { DIFFICULTIES, type Difficulty } from "@neon-spore/sim";
 import { bindTwoStep, type TwoStep } from "./confirm.js";
 import type { MenuBindings } from "./menu-bindings.js";
 import type { MenuDom } from "./menu-view.js";
@@ -22,11 +22,23 @@ export interface MenuSteps {
 }
 
 /**
+ * What the difficulty rows reach, which is not one thing any more: the page
+ * stands for this device's tempo or for a pair's, and `menu.ts` is where that
+ * is known (`chooseLevel`). The word is asked when the question is put rather
+ * than when the row is drawn, because a pair's tempo starts no run again and
+ * `START AGAIN` would be a lie on half the presses.
+ */
+export interface LevelSteps {
+  choose: (level: Difficulty) => void;
+  word: () => string;
+}
+
+/**
  * LEAVE ROOM drops the other player's game, so it asks in place first. Both
  * doors to it get the same two-step; the hold card's own LEAVE ROOM does
  * not, because that one answers a line that is already broken.
  */
-export function bindMenuSteps(dom: MenuDom, b: MenuBindings): MenuSteps {
+export function bindMenuSteps(dom: MenuDom, b: MenuBindings, level: LevelSteps): MenuSteps {
   /**
    * LEAVE ROOM's question, once the page it sits on exists. Held here because
    * every way off this page puts it away again: a question that outlives the
@@ -49,15 +61,10 @@ export function bindMenuSteps(dom: MenuDom, b: MenuBindings): MenuSteps {
    * while the page was still arriving.
    */
   const levelSteps: TwoStep[] = [];
-  for (const level of DIFFICULTIES) {
-    const row = dom.entryRoot(level);
+  for (const one of DIFFICULTIES) {
+    const row = dom.entryRoot(one);
     if (!row) continue;
-    levelSteps.push(
-      bindTwoStep(row, "START AGAIN", () => {
-        if (level !== b.level()) b.setLevel(level);
-        dom.show("play");
-      }),
-    );
+    levelSteps.push(bindTwoStep(row, level.word, () => level.choose(one)));
   }
 
   return {

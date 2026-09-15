@@ -6,7 +6,14 @@ import {
   ROOM_CODE_LENGTH,
 } from "@neon-spore/net";
 import type { Difficulty } from "@neon-spore/sim";
-import { afterPlayingWith, afterReaching, type Partner, parsePartners } from "./partners.js";
+import { readName } from "./nickname.js";
+import {
+  afterLevelling,
+  afterPlayingWith,
+  afterReaching,
+  type Partner,
+  parsePartners,
+} from "./partners.js";
 
 /**
  * The way *back* into a room, for two people who have played before.
@@ -105,6 +112,41 @@ function writePartners(next: readonly Partner[]): void {
  */
 export function rememberPartner(partner: string, level: Difficulty | null = null): void {
   writePartners(afterPlayingWith(readPartners(), partner, level));
+}
+
+/**
+ * **The people this device can carry on with**, most recent first, each with
+ * the room the two of them share.
+ *
+ * Derived rather than stored, for `roomForPair`'s reason, and read on every
+ * paint of the PLAY page: the list grows the moment a room holds two named
+ * people, and that page is often up when it does.
+ *
+ * A partner this device shares no room with is not on it at all — that is a
+ * device which has not given its own name yet, and a row that cannot be
+ * pressed is worse than no row.
+ */
+export function pairsHere(): (Partner & { room: string })[] {
+  const mine = readName();
+  if (mine === "") return [];
+  return readPartners()
+    .map((one) => ({ ...one, room: roomForPair(mine, one.name) }))
+    .filter((one) => one.room !== "");
+}
+
+/**
+ * **The tempo this device wants to play `partner` at**, chosen behind the gear
+ * on their row and kept against the record rather than against the device.
+ *
+ * It is a wish rather than a fact until the two of them are in their room: the
+ * room keeps its own level and hands it to both phones, so what this writes is
+ * what `menu.ts` asks that room for on the way in (`rejoinWith`, `link.join`).
+ * The room's answer comes back through `rememberFrom` and overwrites this,
+ * which is right — the record says what they play at, and the room is what
+ * they play in.
+ */
+export function setPartnerLevel(partner: string, level: Difficulty): void {
+  writePartners(afterLevelling(readPartners(), partner, level));
 }
 
 /**

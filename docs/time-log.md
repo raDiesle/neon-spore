@@ -22,6 +22,37 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queue-tasks — the tempo is on the pair's row, behind a gear
+
+Step 2's first half, from the queue's *PLAY is a list of partners to continue
+with, and the room is a step-by-step* — the owner's own ask, and the first
+exemption under *a look is offered, never replaced*. Every partner's row carries
+a gear at its right end; it opens the same three tempi DIFFICULTY opens, saying
+TEMPO WITH ADA and marking the level that pair plays at, and the answer is
+written against their record rather than against this device.
+
+Most of the lane was the half nobody could see from the entry. A tempo is not a
+thing a device holds: the room keeps its own in Durable Object storage and hands
+it to both phones on `welcome`, and the run takes *that*. So a choice made on
+the PLAY page, where there is no socket, is a wish — and `link.join(room,
+wanted)` is where the wish is carried, sent once on the welcome and only when it
+differs from what the room already holds. That is the wire, so it is
+**unverified**: no two browsers in one room here.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | how a level actually reaches a run — `link.ts`, `room-tally.ts`, `shell.ts`, `main.ts` — which is not what the entry assumed |
+| writing | 45 | the gear and its wrapper, `menu-tempo.ts`, the pair's record, the join that carries a tempo, eleven cases, and four files split back under the line limit |
+| looking | 10 | `menu-shot` of the PLAY page and of the page the gear opens |
+| friction | 5 | none worth the name — the sharder fixed an hour earlier is why |
+| landing | 15 | `bun run check`, `bun run index`, the commit |
+
+The bottleneck was writing, and half of it was the line limit: the gear added
+about sixty lines across five files that were all within twenty of 250, so the
+level page went to `menu-pages.ts`, whose tempo the page is standing for went
+to `menu-tempo.ts`, and the PLAY page's list of pairs went to `pairing.ts`,
+where it always belonged.
+
 ## 2026-09-15 — queue-tasks — a shard is capped by files, and a killed one says so
 
 Found and queued an hour earlier in this session, then worked, because nothing

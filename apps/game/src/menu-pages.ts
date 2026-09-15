@@ -17,7 +17,49 @@ import { backButton, el, type MenuPage } from "./menu-parts.js";
  * Both lists are opened from TESTING rather than from the front page, so both
  * take where BACK goes: a page reached one floor down must not put the reader
  * two floors up.
+ *
+ * The level page is here too and is not a jump list. It came out of
+ * `menu-view.ts` on 15 September 2026, when that file passed its limit under
+ * the gear on a partner's row: the page learned to stand for two things — this
+ * device's tempo and a pair's — and the heading and the closing sentence that
+ * say which are more markup than the one that builds every page can hold.
  */
+
+/**
+ * **The three difficulties, and whose they are.**
+ *
+ * The rows themselves are a list like any other and are drawn by the caller;
+ * what this holds is the frame around them and `setFor`, which is the only
+ * thing on the page saying whether a press changes this device's tempo or the
+ * tempo two people play at. `""` is the device's own.
+ */
+export interface LevelPage {
+  page: HTMLElement;
+  /** Drawn between the heading and `close`, by whoever owns the rows. */
+  close: HTMLElement;
+  setFor: (name: string) => void;
+}
+
+const TEMPO = "Only the speed changes: everything falls a tile a beat, so the setting is the beat.";
+
+export function buildLevels(show: (page: MenuPage) => void): LevelPage {
+  const page = el("div", "page");
+  const head = el("h2", undefined, "DIFFICULTY");
+  const close = el("p", "foot");
+  // Back to PLAY and not to the front page: a page reached one floor down must
+  // not put the reader two floors up (`menu-parts.ts`).
+  page.append(backButton(show, "play"), head);
+  const setFor = (name: string): void => {
+    const who = name.trim().toUpperCase();
+    head.textContent = who === "" ? "DIFFICULTY" : `TEMPO WITH ${who}`;
+    close.textContent =
+      who === ""
+        ? `${TEMPO} Changing it starts the run again from the first wave.`
+        : `${TEMPO} The room the two of you share is told the next time either of you goes in, and ${who} sees it there.`;
+  };
+  setFor("");
+  return { page, close, setFor };
+}
 
 export function buildWaves(
   show: (page: MenuPage) => void,

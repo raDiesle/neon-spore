@@ -44,8 +44,15 @@ export interface LinkOptions {
 export interface Link {
   /** The difficulty the pair has chosen, up to the room (`link.ts`). */
   setLevel: (level: Difficulty) => void;
-  /** Join a room. Leaves any room already held. */
-  join(room: string): void;
+  /**
+   * Join a room. Leaves any room already held.
+   *
+   * `wanted` is a tempo to ask the room for once it answers — the level a pair
+   * settled on this device, which nothing else could carry there: a room keeps
+   * its own and hands it to both phones, so a wish written while off the wire
+   * has exactly one moment to be said, and this is it (`link.ts`).
+   */
+  join(room: string, wanted?: Difficulty): void;
   leave(): void;
   /**
    * "I am ready." Beat zero is stamped by the room once **both** seats have

@@ -32,6 +32,7 @@ const actions: EntryActions = {
   show: () => {},
   openRoom: () => {},
   rejoinWith: () => {},
+  levelFor: () => {},
   openTuning: () => {},
   demoCount: 7,
 };
@@ -104,6 +105,34 @@ describe("the page behind PLAY", () => {
     expect(asked).toEqual([2]);
   });
 
+  /**
+   * The owner put the difficulty on the pair's row on 14 September 2026: a
+   * tempo is a thing two people settle between themselves, so it belongs where
+   * the pair is rather than on a page a floor away. The gear is a second press
+   * target *beside* the row's own button — a button inside a button is not a
+   * thing (`menu-rows.ts`) — and it names the same index the row does.
+   */
+  it("carries a gear on every partner's row, opening the tempi for that pair", () => {
+    const asked: number[] = [];
+    const rows = playEntries({ ...actions, levelFor: (i) => asked.push(i) });
+    for (const row of rows.slice(0, PARTNERS_KEPT)) row.aside?.run();
+    expect(asked).toEqual([0, 1, 2, 3]);
+  });
+
+  it("puts a gear on nothing else, because nothing else is a pair", () => {
+    for (const list of [front, play.slice(PARTNERS_KEPT), levels, rig]) {
+      expect(list.filter((row) => row.aside !== undefined)).toEqual([]);
+    }
+  });
+
+  it("hides the gear with the row it belongs to, and not on its own", () => {
+    // `setEntry(key, { on: false })` takes a row off the page, and a gear left
+    // standing beside a row that is gone is a press with nothing behind it.
+    expect(rows).toContain('el("div", "entry-pair")');
+    expect(rows).toContain('found.off.classList.toggle("off", !next.on)');
+    expect(css).toContain("#menu .entry-pair.off {");
+  });
+
   it("shares no key with either other list, so `setEntry` names one row", () => {
     const all = [...keys(front), ...keys(play), ...keys(levels), ...keys(rig)];
     expect(new Set(all).size).toBe(all.length);
@@ -121,7 +150,7 @@ describe("the three difficulties", () => {
     const ran: string[] = [];
     for (const row of levels) row.run();
     expect(ran).toEqual([]);
-    expect(steps).toContain('bindTwoStep(row, "START AGAIN"');
+    expect(steps).toContain("bindTwoStep(row, level.word, () => level.choose(one))");
   });
 
   it("say which one the run is on, and what it means", () => {
@@ -138,6 +167,25 @@ describe("the three difficulties", () => {
     expect(r.label.get("easy")).toBe("EASY");
     expect(r.desc.get("level")).toContain("Hard");
     expect(r.desc.get("level")).toContain("starts the run again");
+  });
+
+  it("mark the pair's tempo when the page was opened through their gear", () => {
+    // The same three rows serve both, so the mark is the only thing on the page
+    // saying which of the two a press will change (`menu.ts`, `levelFor`).
+    const r = recorder();
+    paintLink({
+      dom: r.dom,
+      link: null,
+      pairs: [],
+      held: "",
+      opened: false,
+      wave: 0,
+      pairLevel: "easy",
+    });
+    expect(r.label.get("easy")).toBe("EASY · ON");
+    expect(r.label.get("medium")).toBe("MEDIUM");
+    // And the PLAY page's own DIFFICULTY row goes on being about this device.
+    expect(r.desc.get("level")).toContain("Medium");
   });
 });
 
@@ -280,6 +328,10 @@ describe("what a parted run does to the two phones", () => {
 const view = await Bun.file(
   Bun.fileURLToPath(new URL("../src/menu-view.ts", import.meta.url)),
 ).text();
+const rows = await Bun.file(
+  Bun.fileURLToPath(new URL("../src/menu-rows.ts", import.meta.url)),
+).text();
+const css = await Bun.file(Bun.fileURLToPath(new URL("../src/menu.css", import.meta.url))).text();
 const pages = await Bun.file(
   Bun.fileURLToPath(new URL("../src/menu-pages.ts", import.meta.url)),
 ).text();

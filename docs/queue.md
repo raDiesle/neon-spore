@@ -206,29 +206,40 @@ several green pieces; land each as it goes green rather than holding the
 branch (`docs/git-and-landing.md`). Seat choice reaching the other phone
 touches the wire: `.claude/skills/net-change` before that piece.
 
-**Steps 1 and 3 landed on 15 September 2026.** The PLAY page is the list, NEW
-GAME is under it, REJOIN is gone, a partner is a record of a name, the wave the
-two of them reached and the tempo they played it at
-(`apps/game/src/partners.ts`), and the seat cards are off the page
-(`bun run menu-shot out.png --page PLAY --partners "David:7"` photographs it).
-One thing step 1 asked for is **not** done and is why CONTINUE and DIFFICULTY
-are still at the bottom of the page: they are the only start and the only way
-to change the tempo until step 4's room screen has the ready holds and the
-level, and the gear in step 2 is the other half of moving DIFFICULTY off.
-So steps 2, 4 and 5 are what is left, and 4 and 5 want a session that can run
-two browsers against a wrangler.
+**Steps 1, 3 and the gear half of 2 landed on 15 September 2026.** The PLAY
+page is the list, NEW GAME is under it, REJOIN is gone, a partner is a record
+of a name, the wave the two of them reached and the tempo they played it at
+(`apps/game/src/partners.ts`), the seat cards are off the page, and every
+partner's row carries a gear that opens the three tempi *for that pair*
+(`bun run menu-shot out.png --page "PLAY > ⚙" --partners "Ada:6"` photographs
+it). **Steps 4 and 5 are what is left**, plus step 2's other half — the
+difficulty offered while a game is being *created* — which has no home until
+4 builds the room screen. Both want a session that can put two browsers in one
+room against a wrangler; this one could not.
 
-**Behind PLAY, today** (`playEntries`): the partners, NEW GAME, CONTINUE and
-DIFFICULTY. **What he wants:**
+**What the gear turned out to need, for whoever works 4.** A tempo is not a
+thing a device holds. The room keeps its own level in Durable Object storage
+(`room-tally.ts`) and hands it to both phones on `welcome`, and `onStart` uses
+*that* and not `b.level()` — so a choice made on the PLAY page, where there is
+no socket, is a wish until somebody carries it in. `link.join(room, wanted)`
+is where it is carried: the tempo travels with the join and is sent once, on
+the welcome, and only when it differs from what the room holds
+(`apps/game/test/pair-tempo.test.ts`). The creator's pick on the room screen
+is the same shape and should use the same door rather than a second one.
+
+**Behind PLAY, today** (`playEntries`): the partners, each with a gear, then
+NEW GAME, CONTINUE and DIFFICULTY. **What he wants:**
 
 1. ~~**The PLAY page is first a list of the people this device has played
    with**~~ — landed. What is left of it: CONTINUE and DIFFICULTY still sit
-   under the list, and they leave it when 2 and 4 below give them their homes.
+   under the list, and they leave it when 4 below gives them their homes.
 2. **Difficulty is chosen when creating a new game**, on the room screen (see
-   5), and for an existing partner behind a **gear icon on the right end of
-   that partner's row** — a second press target in the same button, opening
-   the three-level list (`levelEntries`) for that pair. The level already
-   travels on the wire (`protocol.ts` `t: "level"`).
+   5) — *not done, and waiting on 4*. ~~And for an existing partner behind a
+   gear icon on the right end of that partner's row, opening the three-level
+   list for that pair~~ — landed: the gear is a second press target beside the
+   row's own button (`menu-rows.ts`'s `aside`; a button inside a button is not
+   a thing), the page it opens says TEMPO WITH ADA and marks that pair's level,
+   and the answer goes to their record (`menu-tempo.ts`, `pairing.ts`).
 3. ~~**No seat on the PLAY page.**~~ — landed. The cards (`menu-seats.ts`) are
    drawn under the rig's rows now, which is where the one person who can press
    them is; a pair reads its seat off the room screen's own pills

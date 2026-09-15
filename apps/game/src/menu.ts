@@ -12,10 +12,9 @@ import {
 import { inRoom as linkIsRoom, paintLink as paintPage } from "./menu-link.js";
 import type { MenuPage } from "./menu-parts.js";
 import { bindMenuSteps } from "./menu-steps.js";
+import { menuTempo } from "./menu-tempo.js";
 import { buildMenu } from "./menu-view.js";
-import { readName } from "./nickname.js";
-import { readPartners, roomForPair } from "./pairing.js";
-import type { Partner } from "./partners.js";
+import { pairsHere as pairs } from "./pairing.js";
 import { readProgress } from "./progress.js";
 
 export type { MainMenu, MenuBindings } from "./menu-bindings.js";
@@ -129,14 +128,24 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     },
     play,
     close,
-    show: (page) => dom.show(page),
+    // Every other way onto the level page is this device's own tempo, so the
+    // page stops standing for a pair the moment one of them is taken.
+    show: (page) => {
+      if (page === "level") tempo.forSelf();
+      dom.show(page);
+    },
     openRoom: b.openRoom,
     rejoinWith: (i) => {
-      const room = pairs()[i]?.room ?? "";
-      if (room === "") return;
+      const one = pairs()[i];
+      if (!one || one.room === "") return;
       close();
-      b.joinRoom(room);
+      // **And the tempo the two of them are on**, asked of the room on the way
+      // in: a room keeps its own level and hands it to both phones, so a gear
+      // pressed on this page is a wish until the room is told (`pairing.ts`,
+      // `link.ts`).
+      b.joinRoom(one.room, one.level);
     },
+    levelFor: (i) => tempo.openFor(i),
     openTuning: b.openTuning,
     demoCount: b.demos.length,
   };
@@ -174,25 +183,17 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     },
   });
 
-  /**
-   * The people this device can carry on with, most recent first, each with the
-   * room the two of them share. Derived rather than stored — see `pairing.ts` —
-   * and read on every paint, because the list grows the moment a room holds two
-   * named people and the page is often up when it does.
-   *
-   * A partner this device shares no room with is not on the list at all: that
-   * is a device that has not given its own name yet, and the row it would draw
-   * could not be pressed.
-   */
-  const pairs = (): (Partner & { room: string })[] => {
-    const mine = readName();
-    if (mine === "") return [];
-    return readPartners()
-      .map((one) => ({ ...one, room: roomForPair(mine, one.name) }))
-      .filter((one) => one.room !== "");
-  };
+  // Whose tempo the level page is standing for, and what a press on it reaches
+  // (`menu-tempo.ts`).
+  const tempo = menuTempo({
+    dom,
+    pairs,
+    repaint: () => paintLink(),
+    level: b.level,
+    setLevel: b.setLevel,
+  });
 
-  const steps = bindMenuSteps(dom, b);
+  const steps = bindMenuSteps(dom, b, tempo.steps);
 
   /**
    * The page, repainted for whatever the link now says (`menu-link.ts`). The
@@ -210,6 +211,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
       held: heldRoom(Date.now()),
       opened,
       wave: b.wave(),
+      pairLevel: tempo.pair()?.level,
     });
     if (!inRoom()) steps.cancelLeave();
   };

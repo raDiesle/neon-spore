@@ -31,8 +31,15 @@ export interface MenuBindings {
   seat: () => ViewRole;
   setSeat: (role: ViewRole) => void;
   openRoom: () => void;
-  /** Join a room by code, with the room screen showing it. */
-  joinRoom: (room: string) => void;
+  /**
+   * Join a room by code, with the room screen showing it.
+   *
+   * `wanted` is a tempo to ask that room for, which is how a pair's own level
+   * gets there: a room keeps its level and hands it to both phones, so the gear
+   * on a partner's row writes a wish (`pairing.ts`) and this is where the wish
+   * is said out loud. Left off, the room's own answer stands.
+   */
+  joinRoom: (room: string, wanted?: Difficulty) => void;
   /** Hang up: back to one device, both seats, and the menu. */
   leaveRoom: () => void;
   openTuning: () => void;

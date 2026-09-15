@@ -63,6 +63,9 @@ export interface EntryActions {
    * the list the evening the menu was built.
    */
   rejoinWith: (i: number) => void;
+  /** The gear at the right end of the `i`th partner's row: the three tempi, for
+   * that pair rather than for this device. An index for `rejoinWith`'s reason. */
+  levelFor: (i: number) => void;
   openTuning: () => void;
   /** How many demonstration rows there are, for the DEMOS line. */
   demoCount: number;
@@ -111,17 +114,13 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
  * on this menu is under, and it is what lets the words be a fact about storage
  * while the page stays a pure function of its actions.
  *
- * CONTINUE and DIFFICULTY are still here and are meant to leave: the first
- * becomes the ready hold the pair press on the room screen, and the second is
- * chosen when a game is created and behind a gear on a partner's row
- * (`docs/queue.md`). Until that screen exists they are the only start and the
- * only way to change the tempo, so they stay at the bottom of the page.
+ * CONTINUE is still here and is meant to leave: it becomes the ready hold the
+ * pair press on the room screen (`docs/queue.md`). DIFFICULTY stays under it as
+ * this device's own tempo — a pair's is on their own row now, behind the gear.
  *
- * **No seat here.** The cards `menu-view.ts` used to draw under these rows are
- * on the rig's page now: a pair does not choose a seat — the room deals them by
- * arrival order and the cards were locked the whole time two phones were in one
- * — and BOTH was never a thing to offer a pair at all. The seat a pair holds is
- * read off the room screen's own pills instead (`join-words.ts`).
+ * **No seat here.** The cards are on the rig's page: a pair does not choose a
+ * seat — the room deals them by arrival order — and the seat they hold is read
+ * off the room screen's own pills (`join-words.ts`).
  */
 export function playEntries(a: EntryActions): MenuEntry[] {
   return [
@@ -161,6 +160,9 @@ function partnerEntries(a: EntryActions): MenuEntry[] {
     label: "CONTINUE GAME",
     desc: "Back into the room you two share. No code to read out.",
     run: () => a.rejoinWith(i),
+    // **The tempo, where the pair is** (the owner, 14 September 2026): the row
+    // says which one they are on, and the gear changes it without leaving the list.
+    aside: { mark: "⚙", what: "Tempo for this pair", run: () => a.levelFor(i) },
   }));
 }
 

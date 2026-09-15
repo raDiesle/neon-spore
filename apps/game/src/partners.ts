@@ -108,6 +108,24 @@ export function afterPlayingWith(
 }
 
 /**
+ * The list after this device chose a tempo to play `partner` at — the gear on
+ * their row (`menu-entries.ts`).
+ *
+ * Unlike `afterReaching` it moves nobody: choosing a tempo is not playing, and
+ * a pair whose evening is being planned should not climb over the pair who
+ * actually played last night. A partner the list does not hold is left alone,
+ * for that function's reason — the row being edited is one of these rows.
+ */
+export function afterLevelling(
+  kept: readonly Partner[],
+  partner: string,
+  level: Difficulty,
+): Partner[] {
+  const name = normalizeName(partner).toLowerCase();
+  return kept.map((one) => (one.name.toLowerCase() === name ? { ...one, level } : one));
+}
+
+/**
  * The list after the two of them reached `wave` together.
  *
  * Only ever up, for `progress.ts`'s reason: jumping to wave three from the
