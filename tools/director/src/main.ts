@@ -61,7 +61,7 @@ bindShipped();
 // The bundled waves are the fallback — the server reads the file from disk.
 const store: Store = { waves: structuredClone(WAVES), index: 0, dirty: false };
 
-const place: PlaceSession = bindPlace("#tabs", store.waves.length);
+const place: PlaceSession = bindPlace(store.waves.length);
 store.index = place.initialWave;
 
 const saveButton = document.getElementById("save");

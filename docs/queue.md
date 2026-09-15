@@ -183,39 +183,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## The editor's tab bar holds no tabs, and `?tab=` still pretends it does
-
-- **Found:** 2026-09-15, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-15, claude/queue-the-editors-tab-bar-holds-no-tabs-and-tab-still
-- **Files:** `tools/director/src/place.ts`, `tools/director/src/session.ts`, `tools/director/src/tabs.ts`, `tools/director/index.html`, `tools/director/test/place.test.ts`, `tools/director/test/session.test.ts`
-
-`#tabs` had four tabs — WAVE, SHIP, TUNING, BALANCE — and lost them one at a
-time as each moved to a sheet or a column of its own. The last of them, WAVE,
-went on 15 September 2026 when the owner asked for the wave's own number in its
-place: a bar with one tab offers no choice, and pressing it could only put back
-the page it was already on. What is left behind is the whole apparatus for
-remembering *which* tab:
-
-- `KNOWN_TABS`, `Tab`, `DEFAULT_TAB` and `Place.tab` in `place.ts`, and the
-  half of `parsePlace`/`placeToSearch` that reads and writes `?tab=`.
-- `bindPlace`'s loop over `button[data-tab]`, which now matches nothing, and
-  the `initialTab` it hands back, which `main.ts` no longer clicks.
-- Every URL the tool writes still carries `?tab=wave`, which is a parameter
-  naming a thing that does not exist.
-
-**What the answer picks between is not the owner's and needs no asking**: either
-take the tab out of `Place` — four fields become three, `?tab=` stops being
-written, and an old link carrying one is ignored the way an unknown tab name
-already is — or leave it, in which case say in `place.ts` that it is kept for a
-tab that may come back and stop `placeToSearch` writing it. The first is the
-smaller file and the honest URL; the second is one comment. Do not delete
-`bindTabs` itself — the backlog sheet's own bar still uses it, and `#tabs` is
-still bound because the arrows and the number live in it.
-
-`place.test.ts` and `session.test.ts` hold the round trip and will say exactly
-what moved. Prove with `bun run check` and one look at the director: the wave
-bar, a step with the arrows, and a reload landing on the wave the URL names.
-
 ## PLAY is a list of partners to continue with, and the room is a step-by-step
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8

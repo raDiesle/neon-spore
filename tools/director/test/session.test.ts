@@ -14,8 +14,10 @@ import { FakeEl, installDom, makeBar } from "./fake-dom.js";
 /** A sheet with a two-button inner bar, mounted with the place seeded from `search`. */
 function mount(search: string): { inner: FakeEl[]; url: () => string; restore: () => void } {
   const inner = makeBar(["states", "shapes"]);
-  const dom = installDom({ search, bars: { "#tabs": [], "#backlogTabs": inner } });
-  bindPlace("#tabs", 10);
+  const dom = installDom({ search, bars: { "#backlogTabs": inner } });
+  // No tab bar argument since 15 September 2026: the editor's bar holds no
+  // tab, so `bindPlace` reads the URL's wave and nothing else (`place.ts`).
+  bindPlace(10);
   mountSheet({
     name: "backlog",
     sheet: new FakeEl() as unknown as HTMLElement,
@@ -28,7 +30,7 @@ function mount(search: string): { inner: FakeEl[]; url: () => string; restore: (
 
 describe("mountSheet's restore", () => {
   test("opens the inner tab the URL named, not the bar's default", () => {
-    const { inner, url, restore } = mount("?tab=wave&sheet=backlog&inner=shapes");
+    const { inner, url, restore } = mount("?sheet=backlog&inner=shapes");
     try {
       expect(inner[1]?.classList.contains("on")).toBe(true);
       expect(inner[0]?.classList.contains("on")).toBe(false);
@@ -39,7 +41,7 @@ describe("mountSheet's restore", () => {
   });
 
   test("leaves the bar on its default when the URL named no inner tab", () => {
-    const { inner, url, restore } = mount("?tab=wave&sheet=backlog");
+    const { inner, url, restore } = mount("?sheet=backlog");
     try {
       expect(inner[0]?.classList.contains("on")).toBe(true);
       // The default is still written back, so the URL names the tab on screen.
@@ -50,7 +52,7 @@ describe("mountSheet's restore", () => {
   });
 
   test("falls back to the default on an inner tab the bar does not have", () => {
-    const { inner, restore } = mount("?tab=wave&sheet=backlog&inner=gone");
+    const { inner, restore } = mount("?sheet=backlog&inner=gone");
     try {
       expect(inner[0]?.classList.contains("on")).toBe(true);
     } finally {
@@ -59,7 +61,7 @@ describe("mountSheet's restore", () => {
   });
 
   test("opens nothing when the URL names a different sheet", () => {
-    const { inner, restore } = mount("?tab=wave&sheet=checks&inner=shapes");
+    const { inner, restore } = mount("?sheet=checks&inner=shapes");
     try {
       expect(inner.some((b) => b.classList.contains("on"))).toBe(true);
       expect(inner[0]?.classList.contains("on")).toBe(true);

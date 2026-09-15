@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — the URL stops naming a tab that is not there
+
+The queue's *The editor's tab bar holds no tabs*, filed two hours earlier by the
+lane that took the last tab out. `Place.tab`, `KNOWN_TABS`, `DEFAULT_TAB` and
+`bindPlace`'s whole tab half are gone, and `?tab=` is no longer written.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, which had already named every file and every symbol |
+| writing | 20 | four files, and the two test files that hold the round trip |
+| looking | 5 | a fresh load and a saved `?tab=tuning&wave=4` link, in a browser |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was nothing, and that is the entry's doing: it was written by the
+lane that made the mess, an hour after making it, while every symbol was still in
+front of it — so this one read a list rather than searching for one.
+
 ## 2026-09-15 — queued-tasks — THE VOLLEY wears the ward, and turns clear of the ship
 
 The owner, mid-turn: put a shield-like graphic on the volley so it is clear the

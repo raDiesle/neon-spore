@@ -10,26 +10,24 @@ import { type Place, parsePlace, placeToSearch } from "../src/place.js";
  */
 
 describe("parsePlace", () => {
-  test("reads a known tab and a wave index", () => {
-    expect(parsePlace("?tab=tuning&wave=7")).toEqual({
-      tab: "tuning",
-      wave: 7,
-      sheet: null,
-      inner: null,
-    });
+  test("reads a wave index", () => {
+    expect(parsePlace("?wave=7")).toEqual({ wave: 7, sheet: null, inner: null });
   });
 
-  test("falls back to the default tab on an unknown value", () => {
-    expect(parsePlace("?tab=nonsense&wave=3")).toEqual({
-      tab: "wave",
-      wave: 3,
-      sheet: null,
-      inner: null,
-    });
+  test("names nothing at all when the search is empty", () => {
+    expect(parsePlace("")).toEqual({ wave: null, sheet: null, inner: null });
   });
 
-  test("falls back to the default tab when none is named", () => {
-    expect(parsePlace("")).toEqual({ tab: "wave", wave: null, sheet: null, inner: null });
+  /**
+   * **`?tab=` is a parameter this tool wrote for months and no longer has.**
+   * The editor's bar held four tabs and lost them one at a time; the last went
+   * on 15 September 2026. A link somebody saved while it existed still opens
+   * the page it named, and the dead parameter is simply not read — which is
+   * the fallback every other stale value here already gets.
+   */
+  test("ignores a tab a saved link still carries", () => {
+    expect(parsePlace("?tab=tuning&wave=3")).toEqual({ wave: 3, sheet: null, inner: null });
+    expect(parsePlace("?tab=nonsense")).toEqual({ wave: null, sheet: null, inner: null });
   });
 
   test("treats a malformed wave as none named", () => {
@@ -43,8 +41,7 @@ describe("parsePlace", () => {
   });
 
   test("reads a sheet and its inner tab", () => {
-    expect(parsePlace("?tab=wave&sheet=backlog&inner=spec")).toEqual({
-      tab: "wave",
+    expect(parsePlace("?sheet=backlog&inner=spec")).toEqual({
       wave: null,
       sheet: "backlog",
       inner: "spec",
@@ -59,12 +56,7 @@ describe("parsePlace", () => {
   });
 
   test("drops an inner tab with no sheet named beside it", () => {
-    expect(parsePlace("?tab=wave&inner=spec")).toEqual({
-      tab: "wave",
-      wave: null,
-      sheet: null,
-      inner: null,
-    });
+    expect(parsePlace("?inner=spec")).toEqual({ wave: null, sheet: null, inner: null });
   });
 
   test("an empty sheet or inner is the same as none named", () => {
@@ -74,23 +66,26 @@ describe("parsePlace", () => {
 });
 
 describe("placeToSearch", () => {
-  test("round-trips tab and wave", () => {
-    const place: Place = { tab: "tuning", wave: 7, sheet: null, inner: null };
-    expect(placeToSearch(place)).toBe("?tab=tuning&wave=7");
+  test("round-trips a wave", () => {
+    const place: Place = { wave: 7, sheet: null, inner: null };
+    expect(placeToSearch(place)).toBe("?wave=7");
     expect(parsePlace(placeToSearch(place))).toEqual(place);
   });
 
-  test("omits wave when there is none, never a bare '?'", () => {
-    expect(placeToSearch({ tab: "wave", wave: null, sheet: null, inner: null })).toBe("?tab=wave");
+  test("is the empty string when there is nowhere to be, never a bare '?'", () => {
+    // It was `?tab=wave` until the editor's bar lost its last tab: the tool
+    // wrote a parameter on every load whether or not anything had been
+    // navigated to. A place that names nothing now writes nothing.
+    expect(placeToSearch({ wave: null, sheet: null, inner: null })).toBe("");
   });
 
   test("round-trips a sheet and its inner tab", () => {
-    const place: Place = { tab: "wave", wave: null, sheet: "checks", inner: null };
-    expect(placeToSearch(place)).toBe("?tab=wave&sheet=checks");
+    const place: Place = { wave: null, sheet: "checks", inner: null };
+    expect(placeToSearch(place)).toBe("?sheet=checks");
     expect(parsePlace(placeToSearch(place))).toEqual(place);
 
-    const withInner: Place = { tab: "wave", wave: 2, sheet: "backlog", inner: "spec" };
-    expect(placeToSearch(withInner)).toBe("?tab=wave&wave=2&sheet=backlog&inner=spec");
+    const withInner: Place = { wave: 2, sheet: "backlog", inner: "spec" };
+    expect(placeToSearch(withInner)).toBe("?wave=2&sheet=backlog&inner=spec");
     expect(parsePlace(placeToSearch(withInner))).toEqual(withInner);
   });
 
@@ -98,7 +93,7 @@ describe("placeToSearch", () => {
     // Not reachable through placeToSearch's own inputs if callers respect the
     // invariant, but a stray inner on a sheet-less Place must still not leak
     // into the URL — the parse side already refuses to read it back.
-    const place: Place = { tab: "wave", wave: null, sheet: null, inner: "spec" };
-    expect(placeToSearch(place)).toBe("?tab=wave");
+    const place: Place = { wave: null, sheet: null, inner: "spec" };
+    expect(placeToSearch(place)).toBe("");
   });
 });

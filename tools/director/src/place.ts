@@ -9,17 +9,23 @@
  * that would be tempted to break it.
  */
 
-/** The main editor's own tab bar — `#tabs` in `index.html`, wired by `bindTabs` in `tabs.ts`. */
-const KNOWN_TABS = ["wave", "ship", "tuning", "balance"] as const;
-export type Tab = (typeof KNOWN_TABS)[number];
-export const DEFAULT_TAB: Tab = "wave";
-
-function isKnownTab(value: string): value is Tab {
-  return (KNOWN_TABS as readonly string[]).includes(value);
-}
-
+/**
+ * **There is no `tab` here, and there used to be.**
+ *
+ * The main editor's bar held four — WAVE, SHIP, TUNING, BALANCE — and lost
+ * them one at a time as each moved to a sheet or a column of its own; the last
+ * of them went on 15 September 2026, when the owner asked for the wave's own
+ * number in its place, because a bar with one tab offers no choice. What was
+ * left was a field naming a thing that did not exist, written into every URL
+ * the tool produced.
+ *
+ * So it is gone, and an old link carrying `?tab=tuning` simply ignores it —
+ * the same fallback an unknown tab name already got, and the same one a wave
+ * index past the end of the list gets. A URL outlives the code that wrote it;
+ * that is the rule this file was written around, and dropping a field is a
+ * case of it rather than an exception to it.
+ */
 export interface Place {
-  tab: Tab;
   /** A wave index, or null when the URL named none. */
   wave: number | null;
   /** The overlay sheet open over the editor, by its own opaque name, or null for none. */
@@ -38,9 +44,6 @@ export interface Place {
 export function parsePlace(search: string): Place {
   const params = new URLSearchParams(search);
 
-  const rawTab = params.get("tab");
-  const tab = rawTab && isKnownTab(rawTab) ? rawTab : DEFAULT_TAB;
-
   const rawWave = params.get("wave");
   const parsed = rawWave ? Number(rawWave) : Number.NaN;
   const wave = Number.isInteger(parsed) && parsed >= 0 ? parsed : null;
@@ -51,13 +54,12 @@ export function parsePlace(search: string): Place {
   // digits is.
   const inner = sheet ? params.get("inner") || null : null;
 
-  return { tab, wave, sheet, inner };
+  return { wave, sheet, inner };
 }
 
-/** The query string a `Place` round-trips to, e.g. `"?tab=wave&sheet=backlog&inner=spec"` — never a trailing `?` alone. */
+/** The query string a `Place` round-trips to, e.g. `"?wave=7&sheet=backlog&inner=spec"` — never a trailing `?` alone. */
 export function placeToSearch(place: Place): string {
   const params = new URLSearchParams();
-  params.set("tab", place.tab);
   if (place.wave !== null) params.set("wave", String(place.wave));
   if (place.sheet !== null) {
     params.set("sheet", place.sheet);

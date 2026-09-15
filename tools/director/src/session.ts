@@ -3,9 +3,9 @@
  *
  * A value belongs here when it changes *what you are looking at*, and
  * belongs nowhere when it changes *what it looks like* or *what would ship*.
- * Which tab is open in the main `#tabs` bar, which wave is loaded, which
- * full-screen sheet covers the editor and which of that sheet's own inner
- * tabs is showing — all four are the former: navigation, the same thing
+ * Which wave is loaded, which full-screen sheet covers the editor and which of
+ * that sheet's own inner tabs is showing — all three are the former:
+ * navigation, the same thing
  * `back` and `forward` already mean everywhere else on the web. A dial in
  * TUNING, a picked skin, an edited wave's own fields are the latter, and none
  * of it is this module's business: the director starts from what ships,
@@ -40,7 +40,7 @@
  * reloaded comes back closed rather than remembering a tab nobody can see.
  */
 
-import { DEFAULT_TAB, type Place, parsePlace, placeToSearch, type Tab } from "./place.js";
+import { type Place, parsePlace, placeToSearch } from "./place.js";
 
 /** Read once, at startup — see the module header. */
 function readPlace(): Place {
@@ -64,11 +64,9 @@ function writePlace(place: Place): void {
  * `mountSheet`'s wiring are the only things that ever change it, and every
  * change goes straight to `writePlace`.
  */
-let current: Place = { tab: DEFAULT_TAB, wave: null, sheet: null, inner: null };
+let current: Place = { wave: null, sheet: null, inner: null };
 
 export interface PlaceSession {
-  /** The tab named by the URL at startup — `main.ts` clicks its button once `bindTabs` has wired it. */
-  initialTab: Tab;
   /** The wave index named by the URL at startup, already clamped to `[0, waveCount)`. */
   initialWave: number;
   /** Call whenever `store.index` changes, from the one place — `refreshAll` — every mover already runs through. */
@@ -76,31 +74,19 @@ export interface PlaceSession {
 }
 
 /**
- * Wires the main `#tabs` bar's buttons to the URL: a click updates it, and
- * `persist` keeps the wave index in step. Does not touch which tab is shown
- * on screen — `bindTabs` in `tabs.ts` already owns that, and the caller
- * clicks `initialTab`'s button through that same path so a restored tab is
- * indistinguishable from a clicked one. `waveCount` clamps a URL wave index
- * that no longer exists, the same fallback rule as an unknown tab name.
+ * Reads the URL once and clamps the wave index it names to a list that may
+ * have shrunk since — the same fallback rule every other field here gets.
+ *
+ * It took the main tab bar's selector until 15 September 2026 and wired every
+ * `button[data-tab]` in it to the URL. That bar holds no tab any more
+ * (`place.ts`), so there is nothing to wire and nothing to restore; what is
+ * left is the wave, and `persist` is how it is kept in step.
  */
-export function bindPlace(tabsSelector: string, waveCount: number): PlaceSession {
+export function bindPlace(waveCount: number): PlaceSession {
   const place = readPlace();
   current = { ...place, wave: Math.min(Math.max(place.wave ?? 0, 0), Math.max(waveCount - 1, 0)) };
 
-  for (const tab of document.querySelectorAll<HTMLButtonElement>(
-    `${tabsSelector} button[data-tab]`,
-  )) {
-    // `data-tab` here is written by hand in `index.html` and is exactly
-    // `KNOWN_TABS` above — the cast is that agreement, not a guess.
-    const name = tab.dataset.tab as Tab;
-    tab.addEventListener("click", () => {
-      current = { ...current, tab: name };
-      writePlace(current);
-    });
-  }
-
   return {
-    initialTab: current.tab,
     initialWave: current.wave ?? 0,
     persist(wave: number): void {
       current = { ...current, wave };
