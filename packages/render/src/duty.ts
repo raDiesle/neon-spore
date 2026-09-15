@@ -1,4 +1,5 @@
 import { type CreatureKind, fenceGapCols, type World } from "@neon-spore/sim";
+import { harpoonWord } from "./duty-harpoon.js";
 import { torchWarning } from "./torch-alarm.js";
 import type { ViewRole } from "./view-role.js";
 
@@ -195,7 +196,16 @@ function fenceWord(world: World): string {
   return "FIND GAP FOR SHIELD";
 }
 
-/** The words owed by one seat, in table order, without repeats. */
+/**
+ * The words owed by one seat, in table order, without repeats.
+ *
+ * **Two rows have a wording that something about the world picks**, and both
+ * pick it here rather than in the table: THE FENCE, whose word depends on
+ * whether the wall in front of the pair has a way through it, and the two
+ * clingers, whose word depends on whether the body holding the control was
+ * fired there by a fault (`duty-harpoon.ts`). The table is the shape and the
+ * default in both cases.
+ */
 function wordsFor(seat: "p1" | "p2", world: World): string[] {
   const words: string[] = [];
   for (const [kind, entry] of Object.entries(DUTY_WORD) as [
@@ -204,7 +214,7 @@ function wordsFor(seat: "p1" | "p2", world: World): string[] {
   ][]) {
     const owed = entry?.[seat];
     if (!owed || !kindActive(kind, world)) continue;
-    const word = kind === "fence" ? fenceWord(world) : owed;
+    const word = kind === "fence" ? fenceWord(world) : (harpoonWord(kind, seat, world) ?? owed);
     if (!words.includes(word)) words.push(word);
   }
   return words;

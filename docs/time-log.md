@@ -5805,3 +5805,22 @@ up its destination column correctly missed it. I read that as a possible hole in
 the shot sweep, threw the lane away and wrote the wrong claim into the queue.
 Stepping the world by hand and printing `col`, `fromCol` and the beat — two
 minutes — would have answered it before anything was reverted.
+
+## 2026-09-15 — queued-tasks — MOVE CANNON! and MOVE SHIELD!
+
+One of the five drawing jobs the parked LEECH/LIMPET entry left: the word a
+harpooned control puts under the dial of the seat that cannot move it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `duty.ts`'s table and its two clinger rows, `comms.ts`'s gate, `harpoon.ts` |
+| writing | 20 | `duty-harpoon.ts` and four cases |
+| looking | 0 | — the siren reads the field, so a frame proves nothing about it and the rows are checked directly |
+| friction | 5 | one import block biome wanted in a different order than `format` leaves it |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was reading, and usefully: the first draft appended the word to
+the table's, so the navigator would have read SAY MOVE · MOVE CANNON!. The
+table's rows were written for these two as creatures and are right for that;
+what the fault needed was a replacement on one seat, which is `fenceWord`'s
+arrangement already in the same file.

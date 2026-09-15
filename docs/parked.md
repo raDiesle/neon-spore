@@ -71,15 +71,17 @@ the placement runs out. A placement is one harpoon and stays spent once it has
 gone off. The same two bodies still arrive as creatures too, and the two
 steppers ignore each other by id.
 
-**What is left is the picture, and none of it is started.** Points 1, 2, 4 and
-6 of the owner's list:
+**What is left is the picture.** Points 1, 2, 4 and 6 of the owner's list, one
+of them now landed:
 
 - the harpoon **fired** from the emitter and the **reel** back to it when the
   placement ends (`fault-emitter.ts`; the events `clingGrip` and `clingFreed`
   are already pushed at both moments);
-- **MOVE CANNON!** / **MOVE SHIELD!** under the siren, on the seat *without*
-  the control — `duty.ts`'s table is keyed by `CreatureKind` and needs a
-  branch that reads the faults in force;
+- ~~**MOVE CANNON!** / **MOVE SHIELD!** under the siren, on the seat *without*
+  the control~~ — **done, 15 September 2026** (`render/duty-harpoon.ts`). The
+  branch reads `faultOn` rather than the field, and it *replaces* the table's
+  general word on the away seat rather than adding to it: the seat holding the
+  control still reads KEEP MOVING, which is all it can do about it;
 - the **code above the body** the way a codex is written (`codex.ts`) and the
   **radar square** round it (`radar-blip.ts`), with the word above the square;
 - the **timer** above it, which is the placement's own remaining beats;
