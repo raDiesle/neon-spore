@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · ab1fefae — THE VOLLEY wears the ward's own band, and a warded body turns clear of the ship
+
+The owner, mid-turn on 15 September 2026: put a graphic like the hull's shield around the volley so it is clear the shield can bounce it, and the bounce happens too late — when the shield is over the cannon the body goes inside the cannon's visuals before it turns.
+
 ## 2026-09-15 · 06a806c4 — A wave arrow paints the wave it opens, and what was the WAVE button is the wave's own number
 
 The owner, mid-turn on 15 September 2026: stepping with the new arrows leaves the wave page blank until WAVE is pressed, and why is there a WAVE button at all — put the number of the wave there instead.
