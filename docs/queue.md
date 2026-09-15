@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## A malfunction is a pencil on the map, with a beat it starts and one it ends
 
 - **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Taken:** 2026-09-15, claude/queue-a-malfunction-is-a-pencil-on-the-map-with-a-beat
 - **Files:** `packages/sim/src/malfunction.ts`, `packages/sim/src/world.ts`, `packages/sim/src/wave-start.ts`, `packages/sim/src/handover.ts`, `packages/sim/src/hash.ts`, `packages/content/src/wave-types.ts`, `packages/content/src/waves/*.ts`, `packages/content/src/mechanics.ts`, `tools/director/src/brushes.ts`, `tools/director/src/rail.ts`, `tools/director/src/rail-marks.ts`, `tools/director/src/rail-filter.ts`, `tools/director/src/fault-fields.ts`, `tools/director/src/serialize.ts`, `tools/director/src/stage-world.ts`
 - **Where:** local
 
