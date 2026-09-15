@@ -1147,7 +1147,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/testing.ts` | pause, wave skip and the tuning sliders |
 | `apps/game/src/link.ts` | solo or two devices: the clock, the scheduler, beat zero |
 | `apps/game/src/relay.ts` | the socket, and only the socket |
-| `apps/game/src/join.ts` | the room screen and the network indicator, which are one thing |
+| `apps/game/src/join.ts` | the room screen and the network indicator, which are one thing — four steps, one question each |
 | `apps/game/src/menu.ts` | the main menu, which is the front door: three rows, the link, the seat and the two-step in front of LEAVE ROOM |
 | `apps/game/src/menu-view.ts` | the shell, the root page's entries, and the seat as three cards |
 | `apps/game/src/briefing.ts` | the thumb on a wave's guide |
@@ -1182,7 +1182,9 @@ place — the generator keeps whatever is there.
 | `apps/game/src/link-types.ts` | What a link is asked for, and what it offers back |
 | `apps/game/src/last-room.ts` | **The room this device was in a moment ago.** A phone that reloads loses everything about the room it was… |
 | `apps/game/src/join-name.ts` | "What are you called?", asked once, on the room screen |
-| `apps/game/src/join-link.ts` | a room's code and the four things that happen to one on a phone — drawn fresh, read off a link, written into one, handed to the other phone |
+| `apps/game/src/join-link.ts` | a room's code and the two things that happen to one on a phone — drawn fresh, or read off the link the page was opened on |
+| `apps/game/src/join-step-view.ts` | the chrome around whichever of the room screen's four steps is up — the blocks, the heading, the one way back |
+| `apps/game/src/join-steps.ts` | the room screen one step at a time — which of the four a device is on, and what that step says |
 | `apps/game/src/nickname.ts` | This device's player name: asked once, kept here, carried into every room |
 | `apps/game/src/origin.ts` | Where the server lives, for both things that talk to it |
 | `apps/game/src/pairing.ts` | The way *back* into a room, for two people who have played before |
@@ -1747,6 +1749,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/menu-stamps.ts` | WHAT THE CAMERA ARRIVES AS: the browser storage a menu shot is taken with |
 | `tools/frames/menu-trail.ts` | WHICH PAGE OF THE MENU A PICTURE IS OF, read off one flag |
 | `tools/frames/menu-device.ts` | WHAT KIND OF DEVICE THE MENU IS PHOTOGRAPHED AS — a thumb by default, a mouse only when asked |
+| `tools/frames/menu-press.ts` | which button a word in a `--page` trail means, on whichever screen is up — the menu, or what a press on it opened |
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |

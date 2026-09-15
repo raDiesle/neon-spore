@@ -6,13 +6,18 @@ import {
 } from "@neon-spore/net";
 
 /**
- * A room's code, and the four things that happen to one on a phone: it is
- * drawn fresh, read off the address the page was opened on, written into an
- * address the other phone can tap, and handed over by whatever the handset
- * has. The screen that shows it is `join.ts`. Its own file because a code has
- * nothing to do with a chip or a sheet, and because `roomRequested` is a rule
- * with a test (`join-link.test.ts`) while the screen is a DOM binding without
- * one.
+ * A room's code, and the two things that happen to one on a phone: it is drawn
+ * fresh, or read off the address the page was opened on. The screen that shows
+ * it is `join.ts`. Its own file because a code has nothing to do with a chip or
+ * a sheet, and because `roomRequested` is a rule with a test
+ * (`join-link.test.ts`) while the screen is a DOM binding without one.
+ *
+ * **It used to write a link as well, and hand it over with the share sheet.**
+ * SEND LINK is off the room screen: the code is said down a voice call the pair
+ * are already on, and a second way to deliver it was a button on the one screen
+ * that had to be short enough to read aloud. A link *into* a room still works —
+ * `roomRequested` is what reads it — because that is how somebody sent one
+ * yesterday gets in; nothing in the app makes one any more.
  */
 
 /** Four characters of real randomness. The browser's, never the simulation's. */
@@ -39,34 +44,3 @@ export function roomRequested(url: string): string {
 }
 
 const ROOM_PARAM = "room";
-
-/** The address that opens this room, for a message the other phone can tap. */
-export function roomLink(room: string): string {
-  const url = new URL(location.href);
-  url.hash = "";
-  url.search = "";
-  url.searchParams.set(ROOM_PARAM, room);
-  return url.href;
-}
-
-/**
- * Hand the room to the other phone by whatever the handset has. The share
- * sheet where there is one — that is the Android path and the one that
- * matters — the clipboard where there is not, and the plain address where
- * neither is allowed, because a code that cannot be copied can still be read.
- */
-export async function shareRoom(room: string): Promise<string> {
-  const url = roomLink(room);
-  try {
-    if (navigator.share) {
-      await navigator.share({ title: "Neon Spore", text: `Room ${room}`, url });
-      return `Sent. Room ${room}.`;
-    }
-    await navigator.clipboard.writeText(url);
-    return `Link copied. Room ${room}.`;
-  } catch {
-    // A share sheet the player dismissed, or a clipboard the browser refused.
-    // Neither is a failure worth a red word: the address is right there.
-    return url;
-  }
-}

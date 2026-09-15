@@ -7,8 +7,10 @@ import {
   SOLO_STATUS,
 } from "@neon-spore/net";
 import { bindTwoStep } from "./confirm.js";
-import { freshCode, roomRequested, shareRoom } from "./join-link.js";
+import { freshCode, roomRequested } from "./join-link.js";
 import { bindNameField } from "./join-name.js";
+import { bindStepView } from "./join-step-view.js";
+import { type JoinMode, joinStep } from "./join-steps.js";
 import { chipText, explain, lastTimeLine, seatWord, startButton } from "./join-words.js";
 import { rememberFrom } from "./pairing.js";
 
@@ -46,37 +48,66 @@ export interface JoinScreen {
  * players are already talking — that is the game. It is the first sentence of
  * every session and there is no lobby, no account and no list of friends.
  *
+ * **It is four steps and each asks one thing** — JOIN or CREATE, the name, the
+ * code, the room — because the pair are on a voice call while they read it and
+ * a screen read aloud has to be short. Which step, and what it says, is
+ * `join-steps.ts`; this is the sheet the step is painted onto.
+ *
  * The chip is gone entirely while there is no room. It used to sit in the
  * corner saying SOLO, which is a button that reports the absence of the thing
  * it opens: nobody reads "SOLO" as "press here for two devices". The way to
  * two devices is the menu now, and the chip comes back the moment there is a
  * room for it to be about.
  *
- * The code itself — drawn fresh, read off a link, written into one and handed
- * to the other phone — is `join-link.ts`; this is the screen around it.
+ * The code itself — drawn fresh, read off a link, written into one — is
+ * `join-link.ts`; this is the screen around it.
  */
 export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const chip = document.getElementById("linkChip") as HTMLButtonElement | null;
   const screen = document.getElementById("joinScreen");
-  const sheet = document.getElementById("joinSheet");
+  const ledeEl = document.getElementById("joinLede");
   const codeEl = document.getElementById("joinCode");
   const stateEl = document.getElementById("joinState");
   const lastEl = document.getElementById("joinLast");
   const input = document.getElementById("joinInput") as HTMLInputElement | null;
   const startEl = document.getElementById("joinStart") as HTMLButtonElement | null;
+  const closeEl = document.getElementById("joinClose");
+  const backEl = document.getElementById("joinBack");
+  const leaveEl = document.getElementById("joinLeave");
+  const showStep = bindStepView();
   const seatEls: [1 | 2, HTMLElement | null][] = [
     [1, document.getElementById("joinSeat1")],
     [2, document.getElementById("joinSeat2")],
   ];
 
   let last: LinkStatus = SOLO_STATUS;
-  const nameField = bindNameField(() => paint());
+  /** Which way through this pair chose. Reset every time the screen opens solo. */
+  let mode: JoinMode = "";
+  const nameField = bindNameField(() => {
+    paint();
+    // The name was the thing in the way: whatever the chosen way through was
+    // about to do, it can do now.
+    begin();
+  });
+
+  /**
+   * Do the step the mode asks for, once it is reachable. A creator's step 3 is
+   * a code, and a code is a room — so the room is opened on the way in rather
+   * than by a second press on a screen whose only content is the answer.
+   */
+  const begin = (): void => {
+    if (mode !== "create" || nameField.asking() || last.state !== "solo") return;
+    const code = freshCode();
+    if (input) input.value = code;
+    b.join(code);
+  };
 
   /** The screen, from the last status seen. Cheap, so it is redone rather than tracked. */
   const paint = (): void => {
     // So the menu can offer the way back in without a code (`pairing.ts`).
     rememberFrom(last);
     nameField.paint();
+    showStep(joinStep(mode, !nameField.asking(), last), mode, last);
     if (codeEl) codeEl.textContent = last.room || "————";
     if (stateEl) stateEl.textContent = explain(last);
     // What the two of you got to last time, when the room remembers a time.
@@ -89,9 +120,6 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
       startEl.textContent = label;
       startEl.disabled = !enabled;
     }
-    // In a room the way in is over: the code box and CREATE would only offer to
-    // throw the room away, which is what LEAVE ROOM is for and says so.
-    sheet?.classList.toggle("in-room", last.state !== "solo");
     for (const [seat, node] of seatEls) {
       if (!node) continue;
       const who = node.querySelector(".who");
@@ -102,53 +130,56 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   };
 
   const open = (isOpen: boolean): void => {
+    // A pair with no room starts at step 1 every time. A pair with one is put
+    // back where they were, which is why this only resets while solo.
+    if (isOpen && last.state === "solo") mode = "";
     if (isOpen) paint();
     if (screen) screen.style.display = isOpen ? "block" : "none";
   };
 
   chip?.addEventListener("click", () => open(screen?.style.display !== "block"));
-  document.getElementById("joinClose")?.addEventListener("click", () => {
+  closeEl?.addEventListener("click", () => {
     open(false);
     b.back();
   });
 
-  document.getElementById("joinStart")?.addEventListener("click", () => {
+  // One step back, which is only ever offered where there is no room to lose.
+  backEl?.addEventListener("click", () => {
+    mode = "";
+    paint();
+  });
+
+  startEl?.addEventListener("click", () => {
     b.ready();
   });
 
-  document.getElementById("joinCreate")?.addEventListener("click", () => {
-    const code = freshCode();
-    if (input) input.value = code;
-    b.join(code);
+  document.getElementById("joinPickJoin")?.addEventListener("click", () => {
+    mode = "join";
+    paint();
+  });
+
+  document.getElementById("joinPickCreate")?.addEventListener("click", () => {
+    mode = "create";
+    paint();
+    begin();
   });
 
   document.getElementById("joinGo")?.addEventListener("click", () => {
     const code = normalizeRoomCode(input?.value ?? "");
     if (isRoomCode(code)) b.join(code);
-    else if (stateEl) stateEl.textContent = `A code is ${ROOM_CODE_LENGTH} characters.`;
+    else if (ledeEl) ledeEl.textContent = `A code is ${ROOM_CODE_LENGTH} characters.`;
   });
 
   // Not a straight `click` → `leave()`: this hangs up on the other player, so
   // it asks in place first. See `confirm.ts`.
-  const leaveButton = document.getElementById("joinLeave");
-  if (leaveButton) {
-    bindTwoStep(leaveButton, "LEAVE", () => {
+  if (leaveEl) {
+    bindTwoStep(leaveEl, "LEAVE", () => {
       b.leave();
+      mode = "";
       open(false);
       b.back();
     });
   }
-
-  // Reading four characters aloud is the design and stays the design — the two
-  // players are already talking, and that is the game. This is for the minute
-  // before they are: the room has to be got to the other phone somehow, and on
-  // two handsets in two cities that is a message rather than a voice.
-  document.getElementById("joinShare")?.addEventListener("click", () => {
-    if (!last.room) return;
-    void shareRoom(last.room).then((said) => {
-      if (stateEl) stateEl.textContent = said;
-    });
-  });
 
   input?.addEventListener("input", () => {
     input.value = normalizeRoomCode(input.value);
@@ -157,6 +188,10 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
   const update = (status: LinkStatus): void => {
     const changed = status.state !== last.state || status.room !== last.room;
     last = status;
+    // A room this screen did not open — the menu's way back in (`pairing.ts`),
+    // or a link walked straight into — is one this device joined, and the
+    // steps behind it are over.
+    if (!mode && status.state !== "solo") mode = "join";
     if (chip) {
       chip.textContent = chipText(status);
       chip.classList.toggle("on", status.state !== "solo");
@@ -190,7 +225,10 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     const room = roomRequested(location.href);
     if (!room) return;
     open(true);
+    // After `open`, which resets the way through for a pair with no room yet.
+    mode = "join";
     b.join(room);
+    paint();
   };
 
   return { update, open, invite };

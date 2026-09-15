@@ -61,54 +61,59 @@
     <div id="joinScreen">
       <div class="sheet" id="joinSheet">
         <button type="button" id="joinClose" class="back">← MENU</button>
-        <h2>TWO DEVICES</h2>
-        <p class="sub">
-          Two people, two devices, one voice channel. One of you opens a room and reads
-          the code out; the other types it in.
-        </p>
-        <div id="joinName">
-          <label class="sub" for="joinNameInput">YOUR NAME</label>
-          <input
-            id="joinNameInput"
-            type="text"
-            inputmode="text"
-            autocomplete="nickname"
-            spellcheck="false"
-            maxlength="12"
-          />
-          <button type="button" id="joinNameGo" class="enter">THAT IS ME</button>
-          <p class="sub" id="joinNameWhy"></p>
-          <p class="sub keep" id="joinNameKeep"></p>
+        <h2 id="joinTitle">TWO DEVICES</h2>
+        <p class="sub" id="joinLede"></p>
+        <div class="step" id="joinPick">
+          <button type="button" id="joinPickJoin" class="enter">JOIN</button>
+          <button type="button" id="joinPickCreate" class="enter">CREATE</button>
         </div>
-        <div id="joinCode">————</div>
-        <div id="joinSeats">
-          <div class="pill empty" id="joinSeat1">
-            <span class="n">P1</span><span class="job">PILOT</span><span class="who">—</span>
-          </div>
-          <div class="pill empty" id="joinSeat2">
-            <span class="n">P2</span><span class="job">NAVIGATOR</span><span class="who">—</span>
+        <div class="step" id="joinStepName">
+          <div id="joinName">
+            <label class="sub" for="joinNameInput">YOUR NAME</label>
+            <input
+              id="joinNameInput"
+              type="text"
+              inputmode="text"
+              autocomplete="nickname"
+              spellcheck="false"
+              maxlength="12"
+            />
+            <button type="button" id="joinNameGo" class="enter">THAT IS ME</button>
+            <p class="sub" id="joinNameWhy"></p>
+            <p class="sub keep" id="joinNameKeep"></p>
           </div>
         </div>
-        <p id="joinState"></p>
-        <p class="sub last" id="joinLast"></p>
-        <div id="joinEnter">
-          <label class="sub" for="joinInput">JOIN A CODE</label>
-          <input
-            id="joinInput"
-            type="text"
-            inputmode="latin"
-            autocomplete="off"
-            spellcheck="false"
-            maxlength="4"
-          />
+        <div class="step" id="joinStepCode">
+          <div id="joinCode">————</div>
+          <div id="joinEnter">
+            <label class="sub" for="joinInput">THE CODE</label>
+            <input
+              id="joinInput"
+              type="text"
+              inputmode="latin"
+              autocomplete="off"
+              spellcheck="false"
+              maxlength="4"
+            />
+            <button type="button" id="joinGo" class="enter">ENTER THE ROOM</button>
+          </div>
+        </div>
+        <div class="step" id="joinStepRoom">
+          <div id="joinSeats">
+            <div class="pill empty" id="joinSeat1">
+              <span class="n">P1</span><span class="job">PILOT</span><span class="who">—</span>
+            </div>
+            <div class="pill empty" id="joinSeat2">
+              <span class="n">P2</span><span class="job">NAVIGATOR</span><span class="who">—</span>
+            </div>
+          </div>
+          <p id="joinState"></p>
+          <p class="sub last" id="joinLast"></p>
+          <button type="button" id="joinStart" class="start">START</button>
         </div>
         <div class="acts">
-          <button type="button" id="joinGo" class="enter">JOIN</button>
-          <button type="button" id="joinCreate" class="enter">CREATE ROOM</button>
-          <button type="button" id="joinStart" class="roomed start">START</button>
-          <button type="button" id="joinShare" class="quiet roomed">SEND LINK</button>
-          <button type="button" id="joinWhat" class="quiet">WHAT THIS IS</button>
-          <button type="button" id="joinLeave" class="quiet roomed leave">LEAVE ROOM</button>
+          <button type="button" id="joinBack" class="quiet">← BACK</button>
+          <button type="button" id="joinLeave" class="quiet leave">LEAVE ROOM</button>
         </div>
       </div>
     </div>

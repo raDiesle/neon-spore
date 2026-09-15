@@ -40,16 +40,16 @@ export function bindNameField(onNamed: () => void): NameField {
   const why = document.getElementById("joinNameWhy");
   const keep = document.getElementById("joinNameKeep");
   const button = document.getElementById("joinNameGo") as HTMLButtonElement | null;
-  const sheet = document.getElementById("joinSheet");
 
   const asking = (): boolean => !hasName();
 
   const paint = (): void => {
     const wanted = asking();
+    // Everything past the name is out of reach until there is one, so nobody
+    // ends up halfway into a room under no name at all. That is the step rule's
+    // job now (`join-steps.ts`) and not a class over the whole sheet: this only
+    // takes its own field off the page once the name is given.
     if (block) block.hidden = !wanted;
-    // Everything past the name goes out of reach until there is one, so nobody
-    // ends up halfway into a room under no name at all.
-    sheet?.classList.toggle("unnamed", wanted);
     if (input && !wanted && input.value === "") input.value = readName();
   };
 

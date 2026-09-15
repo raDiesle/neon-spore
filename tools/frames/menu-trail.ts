@@ -12,6 +12,7 @@
  *   --page "SETTINGS > CONTROLS"     the keys, which SETTINGS is the only way to
  *   --page "PLAY > DIFFICULTY"       the three levels, behind PLAY's own row
  *   --page TESTING                   the rig, which no row reaches at all
+ *   --page "PLAY > NEW GAME > CREATE"  the room screen, which NEW GAME opens
  *
  * A page is not always all of its own state. A screen whose look turns on what
  * has been typed — the first meeting's press is dark until its field holds a

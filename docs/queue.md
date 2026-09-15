@@ -198,13 +198,26 @@ what the rest of this file holds.
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8
 - **Taken:** 2026-09-15, claude/queue-play-is-a-list-of-partners-to-continue-with-and
-- **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-rejoin.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu.ts`, `apps/game/src/pairing.ts`, `apps/game/src/progress.ts`, `apps/game/src/join.ts`, `apps/game/src/join-words.ts`, `apps/game/src/join-link.ts`, `apps/game/src/join-name.ts`, `apps/game/index.html`, `apps/game/src/link.ts`, `apps/server/src/seat.ts`, `apps/game/test/menu.test.ts`, `apps/game/test/pairing.test.ts`, `apps/game/test/join-words.test.ts`
+- **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-rejoin.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu.ts`, `apps/game/src/pairing.ts`, `apps/game/src/progress.ts`, `apps/game/src/join.ts`, `apps/game/src/join-steps.ts`, `apps/game/src/join-step-view.ts`, `apps/game/src/join-words.ts`, `apps/game/src/join-link.ts`, `apps/game/src/join-name.ts`, `apps/game/index.html`, `apps/game/src/link.ts`, `apps/server/src/seat.ts`, `apps/game/test/menu.test.ts`, `apps/game/test/pairing.test.ts`, `apps/game/test/join-words.test.ts`
 
 The owner asked for this on 14 September 2026 — the first exemption under *A
 look is offered, never replaced*; say so in the commit. It is one workflow but
 several green pieces; land each as it goes green rather than holding the
 branch (`docs/git-and-landing.md`). Seat choice reaching the other phone
 touches the wire: `.claude/skills/net-change` before that piece.
+
+**The stepping itself — step 4's first four pages — landed on 15 September
+2026.** The room screen is `join-steps.ts`'s four steps and each asks one
+thing: JOIN or CREATE, the name, the code, the room. SEND LINK and WHAT THIS
+IS are gone, markup and bindings both, and `shareRoom`/`roomLink` with them —
+a link *into* a room still opens one, because somebody was sent one yesterday.
+`bun run menu-shot out.png --page "PLAY > NEW GAME > CREATE" --element
+"#joinScreen"` photographs the creator's code page; the trail walks off the
+menu onto the screen a press opened now (`tools/frames/menu-press.ts`), which
+it could not before. **What is left of 4 is the shared room page itself** —
+the creator's seat and difficulty reaching the other phone, and the two
+READY circle holds in place of START — and that is the half that wants two
+browsers against a wrangler.
 
 **Steps 1, 3 and the gear half of 2 landed on 15 September 2026.** The PLAY
 page is the list, NEW GAME is under it, REJOIN is gone, a partner is a record
@@ -245,15 +258,21 @@ NEW GAME, CONTINUE and DIFFICULTY. **What he wants:**
    them is; a pair reads its seat off the room screen's own pills
    (`join-words.ts` `seatWord`), and BOTH was never offered to a pair at all.
 4. **The TWO DEVICES / room screen becomes steps** (`index.html` `#joinScreen`,
-   `join.ts`). Remove SEND LINK (`#joinShare`, `shareRoom` in `join-link.ts`)
-   and WHAT THIS IS (`#joinWhat`) — both, everywhere on this screen. Then:
-   - **Step 1**: two buttons only, **JOIN** or **CREATE**.
-   - **Step 2**: the nickname (`#joinName`, `join-name.ts`), asked once the
-     choice is made, skipped when the device already has one.
-   - **Step 3, creator**: the code, large, and one sentence: *be on a voice
+   `join.ts`). ~~Remove SEND LINK (`#joinShare`, `shareRoom` in
+   `join-link.ts`) and WHAT THIS IS (`#joinWhat`) — both, everywhere on this
+   screen.~~ — done. Then:
+   - ~~**Step 1**: two buttons only, **JOIN** or **CREATE**.~~ — done.
+   - ~~**Step 2**: the nickname (`#joinName`, `join-name.ts`), asked once the
+     choice is made, skipped when the device already has one.~~ — done, and it
+     is asked over the top of a room rather than before one: the device that
+     reaches that field walked in on a link and never passed the menu.
+   - ~~**Step 3, creator**: the code, large, and one sentence: *be on a voice
      call and read this out*. **Step 3, joiner**: the code field
-     (`#joinEnter`) and *type in the code you were told*.
-   - **Step 4**: waiting for the other phone; then, **on the same screen for
+     (`#joinEnter`) and *type in the code you were told*.~~ — done. The two
+     modes leave step 3 at different moments and that is the design: a joiner
+     leaves on the join, a creator on the second seat arriving.
+   - **Step 4** — *the page is there, and what is on it is not*. Waiting for
+     the other phone; then, **on the same screen for
      both**, the room's state: both names, and the creator picks **the seat**
      and **the difficulty** there — the joiner sees the choice made and takes
      the other seat — and each says READY with **the circle hold the guides

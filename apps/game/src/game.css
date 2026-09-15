@@ -268,7 +268,8 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
   flex-wrap: wrap;
   margin-top: 14px;
 }
-#joinScreen .acts button {
+#joinScreen .acts button,
+#joinScreen .step button {
   flex: 1 1 40%;
   padding: 11px 12px;
   border-radius: 8px;
@@ -284,35 +285,43 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
   border-color: #3b3163;
   color: #9c8fd6;
 }
-/* The press that starts the run. It is the one thing on this screen a player
-   is waiting to do, so it reads as the action rather than as another option —
-   and it goes flat and quiet the moment it has been pressed, because the wait
-   after that is the other phone's. */
-#joinScreen .acts button.start {
-  border-color: #22d6e7;
-  color: #22d6e7;
-  background: rgba(34, 214, 231, 0.08);
-}
-#joinScreen .acts button.start:disabled {
-  border-color: #2b2450;
-  background: none;
-  color: #4b4177;
-  cursor: default;
-}
 #joinScreen .acts button.leave {
   border-color: #ff5470;
   color: #ff5470;
 }
-/* In a room the way in is over, and leaving is the only door that is not the
-   BACK button — so the code box and CREATE go away rather than sit there
-   offering to throw the room out from under the other player. */
-#joinSheet.in-room #joinEnter,
-#joinSheet.in-room .acts .enter {
-  display: none;
+
+/* One step at a time (`join-steps.ts`). Every step is in the document from the
+   first paint and all but one of them carries `hidden`, which is why the ones
+   given a display say `:not([hidden])` — see `.twostep`. */
+#joinPick:not([hidden]) {
+  display: flex;
+  gap: 8px;
+  margin: 18px 0 0;
 }
-/* And the other way: nothing to send and nothing to leave until there is one. */
-#joinSheet:not(.in-room) .acts .roomed {
-  display: none;
+#joinEnter:not([hidden]) {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 0;
+}
+#joinGo,
+#joinStart {
+  width: 100%;
+  box-sizing: border-box;
+}
+/* The press that starts the run. It is the one thing on this screen a player
+   is waiting to do, so it reads as the action rather than as another option —
+   and it goes flat and quiet the moment it has been pressed, because the wait
+   after that is the other phone's. */
+#joinStart {
+  border-color: #22d6e7;
+  color: #22d6e7;
+  background: rgba(34, 214, 231, 0.08);
+}
+#joinStart:disabled {
+  border-color: #2b2450;
+  background: none;
+  color: #4b4177;
+  cursor: default;
 }
 
 /* A bad line, with a clock on it. It is not the room screen: the question here
@@ -635,11 +644,6 @@ body.player-view #waveSkip {
   color: #6f639f;
 }
 /* Nothing past the name is reachable until there is one, so nobody ends up
-   halfway into a room under no name at all. */
-#joinSheet.unnamed #joinCode,
-#joinSheet.unnamed #joinSeats,
-#joinSheet.unnamed #joinState,
-#joinSheet.unnamed #joinEnter,
-#joinSheet.unnamed .acts {
-  display: none;
-}
+   halfway into a room under no name at all. That used to be this class over
+   the whole sheet; it is the step rule now (`join-steps.ts`), which cannot let
+   a later step through because it only ever shows one. */

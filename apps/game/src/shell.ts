@@ -161,21 +161,6 @@ export function bindShell(p: ShellParts): Link {
     back: () => menu?.open(),
   });
 
-  /**
-   * WHAT THIS IS, from the room screen — bound here rather than in `join.ts`
-   * because it is a move *between* screens, which is this file's whole job,
-   * and because that one is at its line limit.
-   *
-   * It is the one place in the app where somebody meets the game without
-   * having passed the menu: they were sent a link and they are looking at a
-   * four-character code. The screen steps aside while the pages are up — it is
-   * opaque, and they are drawn on the canvas underneath it — and comes back.
-   */
-  document.getElementById("joinWhat")?.addEventListener("click", () => {
-    joinScreen?.open(false);
-    p.intro.open(() => joinScreen?.open(true));
-  });
-
   // The home-screen shortcut (`install.ts`), and the room the address named.
   void bindInstall().then((made) => {
     installer = made;

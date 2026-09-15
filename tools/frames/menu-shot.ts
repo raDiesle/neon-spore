@@ -53,6 +53,7 @@
 import { closeBrowser, launchBrowser } from "./browser.js";
 import { root } from "./exec.js";
 import { menuDevice } from "./menu-device.js";
+import { press } from "./menu-press.js";
 import { arrivalStamps, parsePartnerFlag } from "./menu-stamps.js";
 import { noSuchButton, noSuchField, parseTrail, parseTyping } from "./menu-trail.js";
 import { startPreview } from "./serve.js";
@@ -178,52 +179,12 @@ try {
   await preview.stop();
 }
 
-/**
- * Press the button on the open page whose words are `label`, and say nothing.
- * Where there is none, the labels that *are* on it come back instead, for the
- * message `noSuchButton` makes of them.
- *
- * **A button's name is its `.label` span where it has one**, and its own text
- * otherwise. A row is a marker, a label and a description in three spans with
- * no whitespace between them, so its `textContent` reads
- * `▸SETTINGSSound, motion, buzz…` — which matches nothing a person would type
- * and is nonsense in the message. A switch is one string with its state on the
- * end, which is what the trailing-space test leaves room for: SOUND still
- * reaches `SOUND ON`.
- *
- * **Only what is on the page counts.** A row that does not apply is taken off
- * with `setEntry` rather than removed, and the two-step's own LEAVE and CANCEL
- * sit behind whichever row asked (`menu-rows.ts`, `menu-steps.ts`) — both are
- * still in the document. Pressing one of those would photograph a page nobody
- * standing here could have reached.
- */
-async function press(
-  page: import("playwright-core").Page,
-  label: string,
-): Promise<string[] | null> {
-  return await page.evaluate((wanted: string) => {
-    const open = document.querySelector("#menu .page.on");
-    if (!open) return [];
-    const shown = [...open.querySelectorAll("button")].filter((b) => b.getClientRects().length > 0);
-    const name = (b: Element): string => {
-      const own = b.querySelector(".label") ?? b;
-      return (own.textContent ?? "").replace(/\s+/g, " ").trim();
-    };
-    const hit = shown.find((b) => {
-      const text = name(b);
-      return text === wanted || text.startsWith(`${wanted} `);
-    });
-    if (!hit) return shown.map(name).filter((t) => t !== "");
-    (hit as HTMLButtonElement).click();
-    return null;
-  }, label);
-}
-
 function usage(): never {
   console.error(
     'usage: bun run menu-shot <out.png> [--page "SETTINGS > CONTROLS"] [--size 390x844]',
   );
   console.error("       --page is the words a thumb would press, in order; TESTING is the spore");
+  console.error("       a trail carries on onto the screen a press opened, such as the room");
   console.error("       --size is a viewport, default 390x844 — the phone the menu is read on");
   console.error("       --scale is the device scale factor, default 2");
   console.error("       --wait is milliseconds to settle before the shot, default 600");

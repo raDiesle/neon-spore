@@ -22,6 +22,34 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queue-tasks — the room screen is four steps, one question each
+
+The rest of step 4's first half, from the queue's *PLAY is a list of partners to
+continue with, and the room is a step-by-step* — the owner's own ask, and the
+first exemption under *a look is offered, never replaced*. The TWO DEVICES sheet
+was the whole workflow at once — a name field, a code, a code box, two seat
+pills, JOIN, CREATE ROOM, START, SEND LINK and WHAT THIS IS, with CSS deciding
+which half was reachable. It is four steps now and a step asks one thing. The
+pair read this screen to each other down a voice call; a screen read aloud has
+to be short.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `join.ts` and its four neighbours, what `.in-room` and `.unnamed` were standing in for, and every reference to the two buttons coming off |
+| writing | 50 | the step rule and its sentences, the sheet that paints them, the markup, the CSS, nineteen cases, and two files split back under the line limit |
+| looking | 15 | `menu-shot` of step 1 and of both halves of step 3 |
+| friction | 20 | `menu-shot`'s trail stopped at the menu and could not reach the screen NEW GAME opens — fixed rather than worked around, which is the twenty |
+| landing | 20 | `bun run check` twice, `bun run index` twice, the commit |
+
+The bottleneck was the tool: three of the four steps are behind a press on a
+screen the menu hands over to, and a trail that only looked inside `#menu`
+could photograph exactly one of them. `.on` stays on the menu's own page after
+the menu closes — the class marks which page is current, not whether the menu
+is up — so the fix was to ask whether the page has a box rather than whether it
+has the class, and then to fall through to whichever overlay is drawn over the
+field. A throwaway script would have taken five minutes and left the next lane
+in the same place.
+
 ## 2026-09-15 — queue-tasks — the tempo is on the pair's row, behind a gear
 
 Step 2's first half, from the queue's *PLAY is a list of partners to continue
