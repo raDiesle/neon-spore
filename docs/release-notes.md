@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · d4743f72 — The director's field is not cut off any more, and RUN is a column of its own
+
+The owner, mid-turn on 15 September 2026, having just moved to another monitor: the first and the last column of the game screen are cut off, put the buttons that were under GAME into a strip between WAVE and GAME, add a difficulty picker, and move MAIN MENU out of DOCUMENTATION.
+
 ## 2026-09-15 · 02fb59fa — THE LEAK is STANDARD 5, a rung of the ladder, and no wave hands the pair a lance before THE LANCE
 
 The owner's instruction of 14 September 2026, with the one thing it waited on answered on the 15th: the beamless full panel is **STANDARD 5**, the next rung, with nothing between the plate and the maw. Standard 1 to 5 have no beam shot; STANDARD itself has everything, the lance included.
