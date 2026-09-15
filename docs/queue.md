@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## THE LEECH: a malfunction harpooned onto the cannon, kept off by moving it
 
 - **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Taken:** 2026-09-15, claude/queue-the-leech-a-malfunction-harpooned-onto-the-canno
 - **Files:** `packages/sim/src/cling.ts`, `packages/sim/src/config-cling.ts`, `packages/sim/src/events-cling.ts`, `packages/render/src/cling.ts`, `packages/render/src/cling-fuse.ts`, `packages/content/src/creatures-cling.ts`, `packages/sim/src/malfunction.ts`, `packages/sim/src/config-malfunction.ts`, `packages/sim/src/fault-clock.ts`, `packages/sim/src/magnet.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/events.ts`, `packages/sim/src/hash.ts`, `packages/content/src/mechanics.ts`, `packages/render/src/malfunction-look.ts`, `packages/render/src/fault-emitter.ts`, `packages/render/src/siren.ts`, `packages/render/src/siren-seats.ts`, `packages/render/src/radar-blip.ts`, `packages/render/src/codex.ts`, `packages/render/src/magnet-bounce.ts`, `packages/render/src/deflect.ts`, `packages/render/src/hull-mood.ts`, `packages/render/src/cannon-maw.ts`, `tools/director/src/brushes.ts`, `tools/director/src/fault-fields.ts`
 - **Where:** local
 
