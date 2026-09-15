@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 77bc431c — A shard is capped by files, and one that is killed says so
+
+`bun run check` and `check:fast` were red in every cloud session, on diffs with nothing wrong with them, and what they printed was `✗ shard 1/2 — 73 files, 0 tests, 0 failed` — a line that reads as a suite which ran nothing. It was a process that died: `exit 137`, `SIGKILL`, 7.4 GB of anonymous RSS and the memory cgroup's OOM killer, with no report written and the shard's whole result gone with it.
+
+## 2026-09-15 · c3be273e — The seat leaves the PLAY page for the rig
+
+The cards were a control a pair could never use. A room deals the two seats by arrival order, so PILOT / NAVIGATOR / BOTH stood locked under the PLAY page's rows every time two phones were actually in one, and BOTH — one device taking both bands — is the rig rather than a pair at all. They are drawn under the rig's four rows now, where the only person who can press them already is, and a pair reads its seat off the room screen's own pills instead (`join-words.ts` `seatWord`).
+
 ## 2026-09-15 · a4698ee9 — What the PLAY page's list could not be checked for is queued
 
 A cloud session photographed the rows and could not press one: `rejoinWith` resolving a row to the room the pair share, and `reachedWith` writing a wave against whoever is in the other seat, both want two phones in a room. They are an ordinary `Unverified at bc3a3b7d` entry now, for a machine that can.
