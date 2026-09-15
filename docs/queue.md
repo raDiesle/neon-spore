@@ -691,6 +691,7 @@ what the rest of this file holds.
 ## `room-shot` stops at THE ROOM: the wave against the other seat has no rig
 
 - **Found:** 2026-09-15, claude/queued-tasks-f45f36
+- **Taken:** 2026-09-15, claude/queue-room-shot-stops-at-the-room-the-wave-against-the
 - **Files:** `tools/frames/room-shot.ts`, `tools/frames/room-phones.ts`, `tools/frames/test/room-shot.test.ts`, `docs/commands.md`
 
 `room-shot` walks two phones to THE ROOM and stops. The other half of the entry
