@@ -22,8 +22,10 @@ import { PARTNERS_KEPT } from "./partners.js";
  * hang up. HOW TO PLAY was the fourth until the owner took it off on 14
  * September 2026: what it described, the intro now shows, and the way to ask
  * for that again is a row on SETTINGS (`menu-settings.ts`). `playEntries` is
- * the page behind PLAY, where the two of you actually meet: the room, the seat
- * cards and CONTINUE.
+ * the page behind PLAY, where the two of you actually meet: the people this
+ * device has played with, the room and CONTINUE. The seat cards were under
+ * them until 15 September 2026 and are the rig's now — a pair is dealt its
+ * seats by the room, so there was nothing there to press.
  * `testingEntries` is the rig — one person at a desk with both seats, jumping at
  * a wave or a mechanic, moving the sliders while it runs — and it has no row at
  * all now: it is reached by pressing the spore over the wordmark three times
@@ -115,8 +117,11 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
  * (`docs/queue.md`). Until that screen exists they are the only start and the
  * only way to change the tempo, so they stay at the bottom of the page.
  *
- * The seat cards are drawn under these by `menu-view.ts` rather than listed
- * here: they are a control and not a row.
+ * **No seat here.** The cards `menu-view.ts` used to draw under these rows are
+ * on the rig's page now: a pair does not choose a seat — the room deals them by
+ * arrival order and the cards were locked the whole time two phones were in one
+ * — and BOTH was never a thing to offer a pair at all. The seat a pair holds is
+ * read off the room screen's own pills instead (`join-words.ts`).
  */
 export function playEntries(a: EntryActions): MenuEntry[] {
   return [

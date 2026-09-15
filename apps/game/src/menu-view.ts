@@ -21,11 +21,14 @@ import { whoLine } from "./menu-who.js";
  *
  * **The front page is three rows**, on the owner's instruction: PLAY, SETTINGS
  * and — while there is a room — LEAVE ROOM. Everything that used to stand
- * beside them is one press down. PLAY is where two people meet, and it carries
- * the seat cards, because choosing a seat is part of meeting rather than
- * something to do while standing in the hall. HOW TO PLAY was the fourth until
- * 14 September 2026, when he took it off: the intro scene says what it said,
- * and asking for that scene again is a row on SETTINGS.
+ * beside them is one press down. PLAY is where two people meet: the people to
+ * carry on with, and the way to meet somebody new. It carried the seat cards
+ * until 15 September 2026, when the owner took the seat off it — a pair are
+ * dealt their seats by the room, so the cards stood locked there every time
+ * they mattered, and they are the rig's now (`testingPage`, below). HOW TO PLAY
+ * was the fourth row until 14 September 2026, when he took that off too: the
+ * intro scene says what it said, and asking for that scene again is a row on
+ * SETTINGS.
  *
  * **The rig has no row at all.** It is opened by pressing the spore over the
  * wordmark three times inside `RIG_TAPS_MS`, and nothing on the page says so:
@@ -182,6 +185,17 @@ export function buildMenu(h: MenuHandlers): MenuDom {
     el("h2", undefined, "TESTING"),
   );
   rows.draw(h.testing, testingPage);
+
+  // **The seat is the rig's, and nobody else's** (14 September 2026, the owner).
+  // A pair never chose it: the room hands it out by arrival order, and the
+  // cards were drawn locked the whole time two phones were in a room — a
+  // control that says *you may not* is a control that should not be on the page
+  // two people meet on. What is left that a person can actually press is one
+  // device taking both bands at a desk, which is what this page already is.
+  // Where a pair reads their seat instead: the room screen's own pills
+  // (`join-words.ts` `seatWord`), which say it in the other player's name.
+  const { seatBlock, paintSeat, lockSeats, paintNames } = buildSeats(h.onSeat);
+  testingPage.append(seatBlock);
   testingPage.append(
     el(
       "p",
@@ -189,13 +203,6 @@ export function buildMenu(h: MenuHandlers): MenuDom {
       "One device, both seats. Two people on two phones start from the front page instead.",
     ),
   );
-
-  // Under the three rows rather than on the front page: the seat is a thing the
-  // two of you settle while you are meeting, and a card offering a job to
-  // somebody who has not said who they are playing with was the front page's
-  // biggest block of text.
-  const { seatBlock, paintSeat, lockSeats, paintNames } = buildSeats(h.onSeat);
-  playPage.append(seatBlock);
 
   // The rig's door: three presses on the spore, inside a couple of seconds.
   // `Date.now` and not a frame clock — this is a person's hand on a title

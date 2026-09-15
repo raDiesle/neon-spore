@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queue-tasks — the seat leaves the PLAY page for the rig
+
+Step 3 of the queue's *PLAY is a list of partners to continue with, and the
+room is a step-by-step* — the owner's own ask, and the first exemption under
+*a look is offered, never replaced*. The seat cards sat under the PLAY page's
+rows and were a control a pair could never use: the room deals the seats by
+arrival order, so the block was drawn locked every time two phones were in one,
+and BOTH — one device taking both bands — is the rig and not a pair at all.
+They are on the rig's page now, under its four rows, where the only person who
+can press them already is.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the queue, `menu-entries.ts`, `menu-view.ts`, `menu-link.ts`, `menu-seats.ts` and `join-words.ts`, to find where a pair reads its seat once the cards are gone |
+| writing | 10 | the move, the three comments that described the old home, and the test that holds the new one |
+| looking | 5 | `menu-shot` of PLAY and of TESTING |
+| friction | 20 | `check:fast` red on a diff with nothing wrong with it — one of its two shards dying silently, run down to four shards and a queue entry |
+| landing | 10 | the scoped tests at `--shards 4`, the commit |
+
+The bottleneck was friction, and none of it was the work: `bun run check:fast`
+is red in this sandbox for a reason that has nothing to do with any lane's
+diff, and finding that out cost more than the change did. It is queued.
+
 ## 2026-09-15 — queue-tasks — release asks the trunk which claims it holds
 
 Found by being bitten by it an hour earlier, queued in that turn and worked in

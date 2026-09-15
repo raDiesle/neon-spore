@@ -206,20 +206,20 @@ several green pieces; land each as it goes green rather than holding the
 branch (`docs/git-and-landing.md`). Seat choice reaching the other phone
 touches the wire: `.claude/skills/net-change` before that piece.
 
-**Step 1 landed on 15 September 2026.** The PLAY page is the list, NEW GAME is
-under it, REJOIN is gone, and a partner is a record of a name, the wave the two
-of them reached and the tempo they played it at (`apps/game/src/partners.ts`;
-`bun run menu-shot out.png --page PLAY --partners "David:7"` photographs it).
-Two things that step asked for are **not** done and are why CONTINUE and
-DIFFICULTY are still at the bottom of the page: they are the only start and the
-only way to change the tempo until step 4's room screen has the ready holds and
-the level, and the gear in step 2 is the other half of moving DIFFICULTY off.
-So steps 2 to 5 are what is left, and a session that can run two browsers
-against a wrangler is what they want.
+**Steps 1 and 3 landed on 15 September 2026.** The PLAY page is the list, NEW
+GAME is under it, REJOIN is gone, a partner is a record of a name, the wave the
+two of them reached and the tempo they played it at
+(`apps/game/src/partners.ts`), and the seat cards are off the page
+(`bun run menu-shot out.png --page PLAY --partners "David:7"` photographs it).
+One thing step 1 asked for is **not** done and is why CONTINUE and DIFFICULTY
+are still at the bottom of the page: they are the only start and the only way
+to change the tempo until step 4's room screen has the ready holds and the
+level, and the gear in step 2 is the other half of moving DIFFICULTY off.
+So steps 2, 4 and 5 are what is left, and 4 and 5 want a session that can run
+two browsers against a wrangler.
 
-**Behind PLAY, today** (`playEntries`): CONTINUE, DIFFICULTY, REJOIN, OPEN A
-ROOM, and under them three seat cards PILOT / NAVIGATOR / BOTH
-(`menu-seats.ts`). **What he wants:**
+**Behind PLAY, today** (`playEntries`): the partners, NEW GAME, CONTINUE and
+DIFFICULTY. **What he wants:**
 
 1. ~~**The PLAY page is first a list of the people this device has played
    with**~~ — landed. What is left of it: CONTINUE and DIFFICULTY still sit
@@ -229,10 +229,10 @@ ROOM, and under them three seat cards PILOT / NAVIGATOR / BOTH
    that partner's row** — a second press target in the same button, opening
    the three-level list (`levelEntries`) for that pair. The level already
    travels on the wire (`protocol.ts` `t: "level"`).
-3. **No seat on the PLAY page.** The seat cards (`menu-seats.ts`) leave it;
-   **BOTH is not offered** to a pair at all — one device with both seats stays
-   the rig's business behind TESTING, where `testingEntries` already says
-   *both seats on this device*.
+3. ~~**No seat on the PLAY page.**~~ — landed. The cards (`menu-seats.ts`) are
+   drawn under the rig's rows now, which is where the one person who can press
+   them is; a pair reads its seat off the room screen's own pills
+   (`join-words.ts` `seatWord`), and BOTH was never offered to a pair at all.
 4. **The TWO DEVICES / room screen becomes steps** (`index.html` `#joinScreen`,
    `join.ts`). Remove SEND LINK (`#joinShare`, `shareRoom` in `join-link.ts`)
    and WHAT THIS IS (`#joinWhat`) — both, everywhere on this screen. Then:
@@ -673,3 +673,52 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `bun run check` deals two shards too fat for four cores, and one dies silent
+
+- **Found:** 2026-09-15, claude/queue-tasks-kkqozz
+- **Files:** `tools/check/shard.ts`, `tools/check/shards.ts`, `tools/check/test/shards.test.ts`
+
+A command that failed and was worked around. `bun run check:fast` in a cloud
+session is red, every time, on a diff that has nothing wrong with it:
+
+```
+✗ shard 1/2 — 73 files, 0 tests, 0 failed, 83.1s
+bun test v1.4.2 (744846f84)
+✓ shard 2/2 — 80 files, 580 tests, 0 failed, 84.0s
+580 pass, 0 fail, 0 skipped — … ; 1 shard red
+```
+
+**Zero tests, zero failures, a non-zero exit and no output at all** — the shard
+printed bun's version banner and then died. Its stderr, which `shard.ts` prints
+under the mark, was empty.
+
+It is not the files. The same 73 in one `bun test` of their own pass — 1131
+tests, exit 0, 145 s — and the same run dealt into four shards instead of two
+is green: 1711 tests, 0 failed, 79 s wall. What is different is how many files
+one process is given. `defaultShards()` is `min(8, cores - 2)`, the web image
+has four cores, so it deals **two shards of about 75 files each**, where the
+owner's sixteen-core machine deals eight of about twenty. Something in a
+process that long — the canvas globals every frame test installs, the preview
+and workerd two of them raise — takes it down before the report is written, and
+it takes the whole shard's result with it.
+
+The worked-around form is `bun run tools/check/shard.ts <filters> --shards 4`,
+which nothing tells a session about and which `bun run check`, `check:fast` and
+`land` do not go through. So every cloud session either reads a red check that
+is not about its diff, or invents the flag.
+
+**What to do.** The floor is the problem, not the ceiling: `defaultShards` has
+`min(8, …)` and needs a companion that keeps any one shard's *file count*
+sane — deal by a maximum bin size as well as by a process count, so four cores
+give four or five shards rather than two. `partition` already weighs files
+(`shards.ts`), so the number of bins can be `max(defaultShards(), ceil(files /
+MAX_FILES_PER_SHARD))` with the maximum set where the death stops happening —
+40 is known good here, 75 is known bad. More processes than cores is what a
+sixteen-core machine already does relative to its eight bins' worth of waiting,
+and the shards are mostly waiting on Chrome.
+
+Prove it with `bun run check` on a four-core machine — which is what a cloud
+session is, so the entry can be worked and proved in one — plus a case in
+`tools/check/test/shards.test.ts` that a hundred files never land in a bin of
+seventy.

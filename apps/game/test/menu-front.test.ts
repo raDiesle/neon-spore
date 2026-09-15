@@ -297,8 +297,17 @@ describe("the two doors that are not rows", () => {
     expect(view).toContain('show("testing")');
   });
 
-  it("draws the seat cards on the PLAY page rather than on the front one", () => {
-    expect(view).toContain("playPage.append(seatBlock)");
+  /**
+   * The owner took the seat off the PLAY page on 15 September 2026. A pair
+   * never chose one — the room deals the seats by arrival order, so the cards
+   * were drawn locked every time two phones were in a room — and BOTH is one
+   * device taking both bands, which is the rig and not a pair. So the cards
+   * are on the rig's page, and a pair reads its seat off the room screen's
+   * own pills (`join-words.ts` `seatWord`).
+   */
+  it("draws the seat cards on the rig's page and on neither of the other two", () => {
+    expect(view).toContain("testingPage.append(seatBlock)");
+    expect(view).not.toContain("playPage.append(seatBlock)");
     expect(view).not.toContain("rootPage.append(seatBlock)");
   });
 
