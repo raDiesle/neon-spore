@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · c698b684 — The room screen's step 4: the host picks the seat and the tempo, and each holds a READY circle
+
+The seat pills are presses for the phone the room calls host and a reading for the other; three tempi sit under them, the host's too, and the other phone sees the pick land off its welcome. START is gone: each seat has a READY circle, drawn on both phones, and the own one fills under a thumb over the guides' `readyHoldMs` — lifting early empties it, and the one waiting on this phone breathes. DIFFICULTY left the PLAY page, because a new game's tempo is picked here and a pair's is behind their gear. The look is the first exemption: the owner asked for it by name on 14 September 2026.
+
 ## 2026-09-15 · 40492653 — The seat the host picks reaches the other phone: a `seat` message, one swap bit, and `host` on the welcome
 
 The wire half of the room screen's step 4 (the owner's ask of 14 September, first exemption: a look asked for by name — though nothing drawn changes in this piece). The phone that opened the room is its host, as a third socket tag; a `seat` message from it before beat zero turns one persisted swap bit that every seat lookup reads through, because a socket's tags cannot change (`seat.ts` `seatTag`, `room-seat.ts`); from the other phone, or after the stamp, it is ignored. The welcome carries `host` and is re-sent to both phones on a swap and on a tempo pick, so the joiner sees the choice made. The client gains `Link.pickSeat` and `LinkStatus.host`.
