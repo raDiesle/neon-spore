@@ -639,6 +639,7 @@ director opened on THE LEAK showing the rung on its panel row and no fault.
 ## A game's tempo is fixed once it is made; NEW GAME is the way to another
 
 - **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
+- **Taken:** 2026-09-15, claude/queue-a-games-tempo-is-fixed-once-it-is-made-new-game
 - **Files:** `apps/game/src/menu-tempo.ts`, `apps/game/src/menu-rows.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/pairing.ts`, `apps/game/src/partners.ts`, `apps/game/src/join-room.ts`, `apps/server/src/room.ts`, `apps/server/src/room-route.ts`, `tools/frames/menu-trail.ts`, `apps/game/test/menu-front.test.ts`, `apps/game/test/pair-tempo.test.ts`, `apps/game/test/pairing.test.ts`, `apps/game/test/join-room.test.ts`, `apps/server/test/room-seat.test.ts`
 
 The owner, 15 September 2026: **a game that already exists does not change its
