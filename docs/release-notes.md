@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 03c1421c — The server package is typechecked once, by itself, with its own globals
+
+The root `tsconfig.json` excluded `apps/server/src` and included `apps/server/test`, so a test that imported a `src` file pulled it into a program where `DurableObjectState`, `WebSocketPair` and `serializeAttachment` do not exist: `room-seat.test.ts` importing `room-seat.ts` put eight errors on `seat.ts` while `apps/server`'s own typecheck was green. The root now excludes the whole package and `apps/server/tsconfig.json` takes `src`, `test` and `dev.ts` with both type sets, so a test may reach any file in the package and nobody has to obey a rule that was never written down. `apps/server/test/seat.test.ts` is that test: six cases over the tag half of `seat.ts` — which chair an arrival is tagged with, what the swap does to it, the name clamp, the seat order of the names, the host's seat — imported straight from the worker file.
+
 ## 2026-09-15 · a0ae4bda — A long edit script goes in by path, never through a heredoc
 
 The Bash tool reads a heredoc before the shell does, and past some length its reading of the quotes inside the block disagrees with the shell's: THE GUM's director pass, about 190 lines with `'''` blocks in it, came back as *unexpected EOF while looking for matching `''* before a line of it ran. The same script written to the scratchpad and run by path went through unchanged, and a shorter one with the same quoting had passed a minute earlier. The rule is now beside the `git commit -F` one in `.claude/skills/lane`, and why the message names a shell that was never given the script is a paragraph in `docs/working-with-claude.md`'s *who answered?* section.
