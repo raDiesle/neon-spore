@@ -25,20 +25,53 @@
 
 import type { Page } from "playwright-core";
 
-/** `MALFUNCTION_KINDS` from `packages/sim/src/malfunction.ts`, spelled out. */
-const KINDS = ["cannon", "shield", "steer", "codex", "handover", "leak"] as const;
-type FaultKind = (typeof KINDS)[number];
+/** `TO_THE_END` from `sim/fault-placed.ts`: a pencil with no end written. Zero
+ * rather than a large number, and spelled here for `FaultKind`'s reason — what
+ * crosses into the page is JSON, sometimes into a build that is not this tree's. */
+export const TO_THE_END = 0;
+
+/**
+ * `MALFUNCTION_KINDS` from `packages/sim/src/malfunction.ts`, spelled out.
+ *
+ * It said `leak` until 15 September 2026, which was a kind the owner took back
+ * off the list, and it did not say `leech` or `limpet`, which are the two he
+ * added — so the flag refused the only two faults anybody wanted a picture of
+ * and accepted one the simulation no longer knows. A list spelled out in a
+ * second file is a list that goes stale; `placed.test.ts` beside this one is
+ * what notices now.
+ */
+export const FAULT_FLAG_KINDS = [
+  "cannon",
+  "shield",
+  "steer",
+  "codex",
+  "handover",
+  "leech",
+  "limpet",
+] as const;
+type FaultKind = (typeof FAULT_FLAG_KINDS)[number];
 
 /** `MALFUNCTION_COLORS`, likewise. What a runaway cannon loads. */
 const COLORS = ["red", "cyan", "alternating"] as const;
 type FaultColor = (typeof COLORS)[number];
 
-/** What goes on `world.malfunction`: one arm of that file's union, as JSON. */
+/**
+ * **What goes in `world.faults`**: one `PlacedFault`, as JSON.
+ *
+ * It used to go on `world.malfunction`, a single field holding the wave's one
+ * fault for the whole of itself. That field is gone — a fault is a pencil on
+ * the map now, with a beat it enters on and a number of beats it holds, and a
+ * wave may carry several (`sim/fault-placed.ts`). So `at` and `beats` are no
+ * longer THE HANDOVER's alone: every kind takes them, which is the same thing
+ * the director's own two boxes say under every fault brush.
+ *
+ * `beats: 0` is `TO_THE_END` and is what a flag naming no length means.
+ */
 export interface FaultOnWorld {
   kind: FaultKind;
   color?: FaultColor;
-  at?: number;
-  beats?: number;
+  at: number;
+  beats: number;
   every?: number;
 }
 
@@ -90,20 +123,20 @@ export function parseFault(value: string | undefined): FaultSpec | undefined {
   const cut = value.indexOf(":");
   const kind = (cut === -1 ? value : value.slice(0, cut)).trim();
   const rest = cut === -1 ? "" : value.slice(cut + 1).trim();
-  if (!KINDS.includes(kind as FaultKind)) {
-    throw new Error(`--fault ${JSON.stringify(value)}: one of ${KINDS.join(", ")}`);
+  if (!FAULT_FLAG_KINDS.includes(kind as FaultKind)) {
+    throw new Error(`--fault ${JSON.stringify(value)}: one of ${FAULT_FLAG_KINDS.join(", ")}`);
   }
   const named: FaultKind = kind as FaultKind;
 
   if (named === "handover") {
-    // All three optional, falling back to `config-malfunction.ts` the way the
-    // wave's own author's do: `--fault handover` is the shipped window.
+    // All three optional: `--fault handover` is a pencil from the first beat to
+    // the last, at the shipped period.
     const [at, held, every] = rest === "" ? [] : numbers(rest, ["at", "beats", "every"], named);
     return {
       malfunction: {
         kind: named,
-        ...(at === undefined ? {} : { at }),
-        ...(held === undefined ? {} : { beats: held }),
+        at: at ?? 0,
+        beats: held ?? TO_THE_END,
         ...(every === undefined ? {} : { every }),
       },
     };
@@ -118,43 +151,53 @@ export function parseFault(value: string | undefined): FaultSpec | undefined {
       throw new Error(`--fault cannon:<color>[,<every>] — a colour, one of ${COLORS.join(", ")}`);
     }
     return {
-      malfunction: { kind: named, color: color as FaultColor },
+      malfunction: { kind: named, color: color as FaultColor, at: 0, beats: TO_THE_END },
       ...(every === undefined ? {} : { everyBeats: beats(every, "every") }),
     };
   }
 
   if (named === "shield") {
     return {
-      malfunction: { kind: named },
+      malfunction: { kind: named, at: 0, beats: TO_THE_END },
       ...(rest === "" ? {} : { everyBeats: numbers(rest, ["every"], named)[0] }),
     };
   }
 
-  if (rest !== "") {
-    throw new Error(`--fault ${named}: ${named} carries no numbers — write it as --fault ${named}`);
-  }
-  return { malfunction: { kind: named } };
+  // **Every other kind takes the pencil's own two numbers**, which is what a
+  // fault is since 15 September 2026. THE CODEX, THE STEER, THE LEECH and THE
+  // LIMPET all mean the same thing by them — enters on this beat, holds for
+  // this many — and a flag that refused them would be a flag that could not
+  // photograph the one thing a placed fault does that a whole-wave one could
+  // not: start in the middle and stop.
+  const [at, held] = rest === "" ? [] : numbers(rest, ["at", "beats"], named);
+  return { malfunction: { kind: named, at: at ?? 0, beats: held ?? TO_THE_END } };
 }
 
 /**
- * Write the fault on the world, where `startWave` would have left the wave's
- * own.
+ * Put the fault on the world's list, where `startWave` would have left the
+ * wave's own.
  *
  * **Before the opening lets go**, because the opening reads it: a handover's
  * countdown is drawn over the field from the first beat, and a fault installed
  * after the briefing would be a wave that acquired one halfway through its own.
+ *
+ * It **replaces** whatever the wave placed rather than adding to it. Two
+ * pencils at once is a legal wave (`sim/fault-placed.ts`) and it is not what
+ * `--fault` means: the flag exists to photograph a fault on a wave that does
+ * not carry one, and a picture with the wave's own fault still running under it
+ * is a picture of something nobody asked for.
  */
 export async function installFault(page: Page, fault: FaultSpec): Promise<void> {
   await page.evaluate((one) => {
     const ns = window.neonSpore;
     if (!ns) throw new Error("window.neonSpore missing before a fault");
-    if (!("malfunction" in ns.world)) {
+    if (!Array.isArray(ns.world.faults)) {
       throw new Error(
-        "this build has no world.malfunction — --fault needs a commit at or after the one that " +
-          "added the mechanic, and a before/after pair cannot set it on its parent",
+        "this build has no world.faults — --fault needs a commit at or after the one that made a " +
+          "fault a pencil on the map, and a before/after pair cannot set it on its parent",
       );
     }
-    ns.world.malfunction = one.malfunction;
+    ns.world.faults = [one.malfunction];
     if (one.everyBeats !== undefined) {
       if (!ns.world.cfg) {
         throw new Error("this build has no world.cfg — --fault cannot name a period on it");

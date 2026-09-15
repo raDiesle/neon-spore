@@ -1,6 +1,7 @@
 import { LEECH, LIMPET, livingPath } from "@neon-spore/content";
 import {
   type ClingKind,
+  type Creature,
   clingFuse,
   clingIsStuck,
   clingMovesSoFar,
@@ -114,6 +115,44 @@ function hooklets(
  * body's foot. On the beat one takes hold it is drawn sliding along the
  * plating from the lane it fell in, by `beatPhase`.
  */
+/**
+ * **Where a body stuck to a control is drawn**, and the only answer to it.
+ *
+ * It was inline in `drawStuckClingers` and had to come out when the harpoon's
+ * line and its marks wanted the same point: both were asking `creatureCenter`
+ * instead, which places a body by its own column and its own beat phase, and
+ * the cannon lobe is *eased* by the renderer on a slower clock than that. The
+ * first picture of a placed leech showed the body sitting on the cannon with
+ * its cable and its word a third of a tile to the side of it, which is two
+ * answers to one question rendered side by side.
+ *
+ * `cannonX` and `shieldX` are the eased lobes the ship pass drew. The grip beat
+ * is the exception and is where the lane still matters: on the beat one takes
+ * hold it slides along the plating from the lane it fell in, by `beatPhase`.
+ */
+export function stuckClingerAt(
+  l: Layout,
+  world: World,
+  c: Creature,
+  kind: ClingKind,
+  cannonX: number,
+  shieldX: number,
+  surfaceY: SurfaceY,
+  beatPhase: number,
+): { x: number; y: number; r: number; loose: number; arriving: number } {
+  const homeX = kind === "limpet" ? shieldX : cannonX;
+  // The grip beat: nought of both counts and a lane it has not left yet.
+  const arriving = clingStillBeats(c) === 0 && clingMovesSoFar(c) === 0 && c.fromCol !== c.col;
+  const u = arriving ? smoothstep(beatPhase) : 1;
+  const laneX = tileCX(l, c.fromCol ?? c.col);
+  const x = laneX + (homeX - laneX) * u;
+  const loose = clingMovesSoFar(c) / Math.max(1, clingShake(world, kind));
+  const r = l.tile * STUCK_R;
+  // `arriving` is that slide's own phase, handed back so the grab's light can
+  // be drawn on it without a second reading of the same three counts.
+  return { x, y: surfaceY(x) - r * 0.55 - l.tile * LIFT * loose, r, loose, arriving: u };
+}
+
 export function drawStuckClingers(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -128,15 +167,13 @@ export function drawStuckClingers(
   for (const c of world.creatures) {
     if (!isClingKind(c.kind) || !clingIsStuck(c)) continue;
     const kind: ClingKind = c.kind;
-    const homeX = kind === "limpet" ? shieldX : cannonX;
-    // The grip beat: nought of both counts and a lane it has not left yet.
-    const arriving = clingStillBeats(c) === 0 && clingMovesSoFar(c) === 0 && c.fromCol !== c.col;
-    const u = arriving ? smoothstep(beatPhase) : 1;
-    const laneX = tileCX(l, c.fromCol ?? c.col);
-    const x = laneX + (homeX - laneX) * u;
-    const loose = clingMovesSoFar(c) / Math.max(1, clingShake(world, kind));
-    const r = tile * STUCK_R;
-    const y = surfaceY(x) - r * 0.55 - tile * LIFT * loose;
+    const {
+      x,
+      y,
+      r,
+      loose,
+      arriving: u,
+    } = stuckClingerAt(l, world, c, kind, cannonX, shieldX, surfaceY, beatPhase);
     const shape = kind === "limpet" ? LIMPET : LEECH;
     const t = contourClock(c.id, time);
     const s = livingScale(shape, r);
@@ -158,7 +195,7 @@ export function drawStuckClingers(
     ctx.restore();
     if (kind === "limpet") hooklets(ctx, x, y, r * squat, t, loose, PALETTE.arcRim, true);
     // The grab: a light that swells and goes as it arrives.
-    if (arriving) halo(ctx, x, y, Math.round(tile * (1.2 + u)), PALETTE.arcRim, 0.5 * (1 - u));
+    if (u < 1) halo(ctx, x, y, Math.round(tile * (1.2 + u)), PALETTE.arcRim, 0.5 * (1 - u));
     if (showsClingFuse(l.role, kind)) {
       drawClingFuse(
         ctx,

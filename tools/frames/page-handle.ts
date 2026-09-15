@@ -45,12 +45,17 @@ declare global {
         /** The simulation's own clock, which `--settle` must not move. */
         tick: number;
         /**
-         * The wave's fault, or null. Written rather than read: `--fault` puts
-         * one on a wave that carries none (`fault.ts`). Optional because a
-         * build from before the field existed has no such key, and `--fault`
-         * says so by name rather than writing a property nothing reads.
+         * **The faults placed on this wave's map.** Written rather than read:
+         * `--fault` puts one on a wave that carries none (`fault.ts`).
+         *
+         * It was `malfunction`, one field holding the wave's single fault for
+         * the whole of itself, until a fault became a pencil on the map with a
+         * beat it enters on and a number it holds. Optional and loosely typed
+         * for the same reason it always was: a build from before the list
+         * existed has no such key, and `--fault` says so by name rather than
+         * writing a property nothing reads.
          */
-        malfunction?: unknown;
+        faults?: unknown[];
         /** The beat counter, which a tap waits for: it is **not** `tick /
          * ticksPerBeat`, because a wave's opening advances one and not the
          * other (`capture.ts`'s `toBeat`, and `docs/queue.md`). */

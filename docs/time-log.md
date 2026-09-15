@@ -5899,3 +5899,23 @@ The bottleneck was reading, and the useful part of it was `target-lock.ts`: the
 owner's own rule that four pictures for one idea is three too many meant the
 square was a call rather than a rectangle, and that decided the whole file in
 one line.
+
+## 2026-09-15 — queued-tasks — the picture, and the three things it found
+
+One PNG of a cannon under a placed leech, which is what the parked entry has
+been owed since the simulation half landed. Taking it was the work.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `tools/frames/fault.ts`, `drawStuckClingers`' own placement, `fault-beam-ends.ts`'s fall-through |
+| writing | 45 | the `--fault` flag rewritten for a placed fault, `harpoon-place.ts`, both passes moved to the ship pass, one beam case |
+| looking | 25 | four frames and two crops, each of which found something |
+| friction | 15 | `canvas2d.ts` went over its ceiling on a ten-argument call |
+| landing | 10 | `check:fast`, `bun run index`, the commit |
+
+The bottleneck was looking and every minute of it earned its keep: the first
+frame showed the round already lost, the second showed the line and the word a
+third of a tile to the side of the body, the third showed the lantern giving a
+leech a runaway cannon's beam. None of those is reachable from a test — two of
+them are *two right answers* rendered next to each other — and the commit before
+this one was green.

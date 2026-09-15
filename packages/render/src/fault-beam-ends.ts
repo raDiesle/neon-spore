@@ -88,6 +88,17 @@ function endsFor(
     if (showsCodex(l.role)) {
       out.push({ x: tileCX(l, midCol(world.cfg)), y: l.gridTop + l.tile, r: l.tile });
     }
+  } else if (m.kind === "leech" || m.kind === "limpet") {
+    // **No beam at all, and it is the only fault that gets none.** These two do
+    // not reach down and hold a control from a distance — they *fire a body at
+    // it*, and the line that body came down is already drawn, from this same
+    // lantern's vesicle to the thing it is stuck to (`harpoon-line.ts`). A beam
+    // beside it would be the lantern doing the same thing twice.
+    //
+    // Said by name rather than left to the `else` below, which is a runaway
+    // cannon's: until 15 September 2026 a placed leech lit both colour lobes
+    // and put a beam on the cannon's column, which is a picture of a different
+    // fault entirely. The first frame of one showed it.
   } else {
     const loading = malfunctionColor(world, m) === "red" ? "fireRed" : "fireCyan";
     for (const id of ["fireRed", "fireCyan"]) {

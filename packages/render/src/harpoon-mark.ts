@@ -1,12 +1,5 @@
-import {
-  faultWindow,
-  HARPOON_KINDS,
-  type HarpoonKind,
-  harpoonBody,
-  type World,
-} from "@neon-spore/sim";
-import { creatureCenter, creatureRadius } from "./creature-place.js";
-import type { Layout } from "./layout.js";
+import { faultWindow, HARPOON_KINDS, type HarpoonKind, type World } from "@neon-spore/sim";
+import type { HeldHarpoons } from "./harpoon-place.js";
 import { PALETTE } from "./palette.js";
 import { drawTargetLock } from "./target-lock.js";
 
@@ -72,30 +65,27 @@ export function harpoonBeatsLeft(world: World, kind: HarpoonKind): number | null
   return Math.max(0, Math.ceil(window.to - Math.max(0, world.waveBeat - 1)));
 }
 
-/** Every harpooned body on this screen, marked. Drawn over the bodies. */
+/**
+ * Every harpooned body on this screen, marked. Drawn on the finished ship,
+ * over the body itself.
+ *
+ * `held` is where each one is *drawn* (`harpoon-place.ts`), which is the eased
+ * lobe and not the body's own column: a square nailed to a column while the
+ * lobe under it is still gliding is a square that misses what it is round.
+ */
 export function drawHarpoonMarks(
   ctx: CanvasRenderingContext2D,
-  l: Layout,
   world: World,
+  held: HeldHarpoons,
   time: number,
-  beatPhase: number,
 ): void {
-  const bodies = HARPOON_KINDS.map((kind) => harpoonBody(world, kind));
   // Nothing held costs nothing, `harpoon-line.ts`'s rule and the op budget's.
-  if (bodies.every((b) => b === undefined)) return;
+  if (held.size === 0) return;
   ctx.save();
   ctx.textAlign = "center";
-  for (const [i, kind] of HARPOON_KINDS.entries()) {
-    const body = bodies[i];
-    if (!body) continue;
-    mark(
-      ctx,
-      world,
-      kind,
-      creatureCenter(l, world, body, beatPhase),
-      creatureRadius(l, world, body, beatPhase),
-      time,
-    );
+  for (const kind of HARPOON_KINDS) {
+    const at = held.get(kind);
+    if (at) mark(ctx, world, kind, at, at.r, time);
   }
   ctx.textAlign = "left";
   ctx.restore();
@@ -116,6 +106,7 @@ function mark(
   ctx.font = CODE_FONT;
   ctx.fillText(of.code, at.x, top - CODE_UP);
   const left = harpoonBeatsLeft(world, kind);
+  // Nothing when the pencil has no end written — see `harpoonBeatsLeft`.
   if (left !== null) {
     ctx.font = TIMER_FONT;
     ctx.fillStyle = PALETTE.arcRim;

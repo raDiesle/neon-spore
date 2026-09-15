@@ -18,7 +18,6 @@ import { drawGhostTrails } from "./ghost-trail.js";
 import { drawGrips } from "./grip.js";
 import { drawGyres } from "./gyre.js";
 import { drawGyreWind } from "./gyre-wind.js";
-import { drawHarpoonMarks } from "./harpoon-mark.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { drawLanceMark } from "./lance.js";
 import type { Layout } from "./layout.js";
@@ -117,10 +116,6 @@ export function drawBodies(
   // fault has taken (`fault-emitter.ts`). A body falling down the middle
   // column crosses in front of it.
   drawFaultEmitter(ctx, l, world, view.time);
-  // And the line out of it: what a harpoon fault fired at a control, and what
-  // it reels back when the pencil runs out. Straight after the lantern,
-  // because it comes out of it (`harpoon-line.ts`).
-  effects.harpoonLine.draw(ctx, l, world, view.time, view.beatPhase);
   // THE CODEX's shimmer, over the field's own light and under the bodies: the
   // air between the pilot and the field, on the pilot's screen and on nothing
   // the navigator is shown (`codex.ts`).
@@ -178,12 +173,6 @@ export function drawBodies(
   // shell-draw.ts), so it belongs beside the pass that owns bodies, not
   // inside Effects with the transients.
   drawShellArmour(ctx, l, world, view.beatPhase, view.time);
-  // What a fault fired onto a control, marked on it: the square, the code, the
-  // timer and the word (`harpoon-mark.ts`). Over the bodies, because it is a
-  // readout *about* one and the body is what it is nailed to — and on both
-  // screens, because a control about to cost the round is the one thing
-  // neither seat may be the only one to know.
-  drawHarpoonMarks(ctx, l, world, view.time, view.beatPhase);
   // Player 2's alarm, over the body it is about and on that device only. It is
   // the single difference between the two screens in this whole pass, and it
   // is drawn after the bodies rather than as part of them so that nothing in

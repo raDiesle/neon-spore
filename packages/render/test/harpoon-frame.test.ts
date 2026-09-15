@@ -15,9 +15,10 @@ import {
 } from "../src/harpoon-danger.js";
 import { HarpoonLineFx } from "../src/harpoon-line.js";
 import { drawHarpoonMarks, harpoonBeatsLeft } from "../src/harpoon-mark.js";
+import { heldHarpoons } from "../src/harpoon-place.js";
 import { frame } from "../src/hull-frame.js";
 import type { ViewRole } from "../src/layout.js";
-import { computeLayout } from "../src/layout.js";
+import { computeLayout, type Layout, tileCX } from "../src/layout.js";
 import { P1_SKIN, P2_SKIN } from "../src/seat-skin.js";
 import {
   CFG,
@@ -48,6 +49,24 @@ function stuck(kind: "leech" | "limpet", ticks: number) {
   startWave(world, 0, [], [], null, false, 0, [{ kind, at: 0, beats: TO_THE_END }]);
   for (let t = 0; t < ticks; t++) step(world, []);
   return world;
+}
+
+/**
+ * Every harpooned body, where the ship pass would have drawn it.
+ *
+ * The lobes are the world's own columns rather than the renderer's eased ones,
+ * which is what a test with no pose to ease has: what is being proved here is
+ * that both passes read *one* placement, not what that placement eases to.
+ */
+function placed(l: Layout, world: World) {
+  return heldHarpoons(
+    l,
+    world,
+    tileCX(l, world.cannonCol),
+    tileCX(l, world.shieldCol),
+    () => l.hullY,
+    0,
+  );
 }
 
 /** The same wave with no pencil on it at all. */
@@ -181,7 +200,7 @@ describe("the line the lantern fires it down", () => {
   function drawn(world: World, fx: HarpoonLineFx) {
     const { ctx } = stubCanvas();
     const l = computeLayout(VIEWPORT, CFG, "p1");
-    fx.draw(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0);
+    fx.draw(ctx as unknown as CanvasRenderingContext2D, l, placed(l, world), 0);
     return ctx;
   }
 
@@ -230,7 +249,7 @@ describe("what is written on the control it took", () => {
     ctx.texts = [];
     const l = computeLayout(VIEWPORT, CFG, "p1");
     for (let t = 0; t < ticks; t++) step(world, []);
-    drawHarpoonMarks(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0);
+    drawHarpoonMarks(ctx as unknown as CanvasRenderingContext2D, world, placed(l, world), 0);
     return ctx;
   }
 

@@ -97,8 +97,13 @@ is not started. `sim/cling.ts` keeps the *holding* — which column a body is on
 and whether it is stuck — because the harpoon calls it; what goes is the
 arrival, the fuse counted in beats and the shake.
 
-**A picture is still owed**: one PNG of a cannon under a placed leech with the
-square, the code, the timer and the word on it, watched at tempo.
+**The picture has been taken** and it found three defects nothing else had:
+the line, the square and the word were placed by the body's own column while the
+cannon lobe under them is *eased*, so all three sat a third of a tile to one
+side of the thing they were about; the lantern gave a placed leech a runaway
+cannon's beam, because `fault-beam-ends.ts` had no case for it and fell through
+to one; and `--fault` still wrote the removed `world.malfunction`, so no picture
+of a placed fault could be taken at all. All three are fixed.
 
 ~~Second, the entry's point 4 has no implementation as written.~~ **Answered,
 and by another queue entry rather than by the owner.** *A shot never goes

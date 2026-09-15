@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
+import { MALFUNCTION_KINDS } from "@neon-spore/sim";
 import { crankPresses } from "../crank.js";
-import { parseFault } from "../fault.js";
+import { FAULT_FLAG_KINDS, parseFault, TO_THE_END } from "../fault.js";
 import { collectHolds, parseFrameSpec, tickLine } from "../flags.js";
 import { parseHoldFlag } from "../hold.js";
 import { parsePress } from "../press.js";
@@ -233,9 +234,17 @@ describe("parseFault", () => {
       beats: 3,
       every: 6,
     });
-    expect(parseFault("handover:4")?.malfunction).toEqual({ kind: "handover", at: 4 });
-    // Bare is the wave's own window: all three fall back to the config.
-    expect(parseFault("handover")?.malfunction).toEqual({ kind: "handover" });
+    expect(parseFault("handover:4")?.malfunction).toEqual({
+      kind: "handover",
+      at: 4,
+      beats: TO_THE_END,
+    });
+    // Bare is a pencil across the whole wave at the shipped period.
+    expect(parseFault("handover")?.malfunction).toEqual({
+      kind: "handover",
+      at: 0,
+      beats: TO_THE_END,
+    });
   });
 
   it("refuses a fourth number, and one that is not a whole number of beats", () => {
@@ -250,27 +259,50 @@ describe("parseFault", () => {
     expect(parseFault("cannon:alternating")?.malfunction).toEqual({
       kind: "cannon",
       color: "alternating",
+      at: 0,
+      beats: TO_THE_END,
     });
   });
 
   it("names the fault clock for the two faults that read it off the config", () => {
     expect(parseFault("cannon:red,2")).toEqual({
-      malfunction: { kind: "cannon", color: "red" },
+      malfunction: { kind: "cannon", color: "red", at: 0, beats: TO_THE_END },
       everyBeats: 2,
     });
-    expect(parseFault("shield:3")).toEqual({ malfunction: { kind: "shield" }, everyBeats: 3 });
+    expect(parseFault("shield:3")).toEqual({
+      malfunction: { kind: "shield", at: 0, beats: TO_THE_END },
+      everyBeats: 3,
+    });
     // Nothing written unless the flag asked: a capture that names no period is
     // the shipped clock.
-    expect(parseFault("shield")).toEqual({ malfunction: { kind: "shield" } });
+    expect(parseFault("shield")).toEqual({
+      malfunction: { kind: "shield", at: 0, beats: TO_THE_END },
+    });
   });
 
-  it("refuses numbers on a fault that has no field for them", () => {
-    expect(() => parseFault("codex:4")).toThrow(/codex carries no numbers/);
-    expect(() => parseFault("leak:1,2")).toThrow(/leak carries no numbers/);
-    expect(parseFault("steer")?.malfunction).toEqual({ kind: "steer" });
+  it("gives every other kind the pencil's own two numbers", () => {
+    // **Which is what a fault is now.** They used to be refused outright —
+    // *codex carries no numbers* — because a fault was one field on the wave
+    // and only THE HANDOVER could say when. Every kind is placed on a beat row
+    // since, so every kind takes `at` and `beats`, and a flag that refused them
+    // could not photograph the one thing a placed fault does that a whole-wave
+    // one could not: start in the middle and stop.
+    expect(parseFault("codex:4")?.malfunction).toEqual({ kind: "codex", at: 4, beats: TO_THE_END });
+    expect(parseFault("leech:2,6")?.malfunction).toEqual({ kind: "leech", at: 2, beats: 6 });
+    expect(parseFault("steer")?.malfunction).toEqual({ kind: "steer", at: 0, beats: TO_THE_END });
+    expect(() => parseFault("limpet:1,2,3")).toThrow(/limpet takes 2/);
+  });
+
+  it("knows the kinds the simulation knows, and no others", () => {
+    // The list is spelled out in `fault.ts` because what crosses into the page
+    // is JSON, so it is the sort of list that goes stale: it said `leak` for a
+    // day after the owner took that kind off, and said nothing about THE LEECH
+    // or THE LIMPET for a day after he added them.
+    expect(new Set(FAULT_FLAG_KINDS)).toEqual(new Set(MALFUNCTION_KINDS));
   });
 
   it("refuses a fault the simulation has never heard of, and reads nothing as nothing", () => {
+    expect(() => parseFault("leak")).toThrow(/one of cannon, shield, steer, codex/);
     expect(() => parseFault("wobble")).toThrow(/one of cannon, shield, steer, codex/);
     expect(() => parseFault("")).toThrow(/one of cannon, shield, steer, codex/);
     expect(parseFault(undefined)).toBeUndefined();

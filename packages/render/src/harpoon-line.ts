@@ -1,14 +1,7 @@
-import {
-  HARPOON_KINDS,
-  type HarpoonKind,
-  harpoonBody,
-  isHarpoonKind,
-  type SimEvent,
-  type World,
-} from "@neon-spore/sim";
-import { creatureCenter } from "./creature-place.js";
+import { HARPOON_KINDS, type HarpoonKind, isHarpoonKind, type SimEvent } from "@neon-spore/sim";
 import { vesicleAt } from "./fault-emitter.js";
 import { strokeGlow } from "./glow.js";
+import type { HeldHarpoons } from "./harpoon-place.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -96,27 +89,22 @@ export class HarpoonLineFx {
   /**
    * The flights, and the cables of whatever is currently held.
    *
-   * The body's own place is `creatureCenter`'s, which is the one function that
-   * knows whether this screen is a flat field or a well — a second answer here
-   * is how two pictures of one body come to disagree.
+   * `held` is where each body is *drawn*, which is `stuckClingerAt`'s answer
+   * and not `creatureCenter`'s: a body on a control rides the eased lobe the
+   * ship pass drew, and a cable that ran to the body's own column instead
+   * ended a third of a tile to one side of the thing it is attached to. The
+   * first picture of a placed leech showed exactly that
+   * (`harpoon-place.ts`).
    */
-  draw(
-    ctx: CanvasRenderingContext2D,
-    l: Layout,
-    world: World,
-    time: number,
-    beatPhase: number,
-  ): void {
+  draw(ctx: CanvasRenderingContext2D, l: Layout, held: HeldHarpoons, time: number): void {
     // Nothing out and nothing held costs nothing at all — not even the
     // `save`/`restore` pair, which is a real op on every frame of every wave
     // that has no such fault and which `wave-budget.ts` counts.
-    const bodies = HARPOON_KINDS.map((kind) => harpoonBody(world, kind));
-    if (this.throws.length === 0 && bodies.every((b) => b === undefined)) return;
+    if (this.throws.length === 0 && held.size === 0) return;
     const v = vesicleAt(l);
     ctx.save();
-    for (const [i, kind] of HARPOON_KINDS.entries()) {
-      const body = bodies[i];
-      const at = body ? creatureCenter(l, world, body, beatPhase) : undefined;
+    for (const kind of HARPOON_KINDS) {
+      const at = held.get(kind);
       // A cable, while the line is out and the body is on the control. The
       // flight draws its own partial line, so the two never overlap: a throw
       // still running is the whole of the picture until it lands.
