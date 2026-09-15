@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 597596af — `room-shot`: two phones through the room screen, and the two entries it closes
+
+Two `Unverified` entries wanted two phones in one room, and both are now answered by running them against a real Durable Object rather than against a socket a test speaks through.
+
 ## 2026-09-15 · c61ec453 — The wait for the other player was the client giving up, not the room
 
 The owner met it as *the wait for the other player gives up too soon*, and the queue entry named two suspects. Reproduced against a live Durable Object, neither fires.
