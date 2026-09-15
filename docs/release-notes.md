@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 562d4d7f — The intro is about the two of you, not about the two phones — and it is slower
+
+The owner asked for both halves of this today. The focus: *it is a co-op game, people have shared controls, and it is mandatory to have voice communication — sitting in the same room or on a voice chat; how the game looks or what is shown on the mobile is not relevant.* And the pace: *the text shown should stay longer, that it is enough time to follow.*
+
 ## 2026-09-15 · 1b402daa — A game's tempo is fixed once it is made, and NEW GAME is the way to another
 
 The owner, 15 September 2026: a game that already exists does not change its difficulty. It is picked once, by the host, on the room screen while the game is being made, and after that the only way to another tempo is NEW GAME — a clear-and-start-over, rare on purpose, which offers the three tempi again on its own room screen. This is the rest of the menu catching up with that.
