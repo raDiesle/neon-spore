@@ -460,6 +460,12 @@ and shows every **partly built** one, so COUPLINGS, ASSIST FORMS and SYSTEMS
 each carry things half in the game. The built halves are already readable
 under DOCUMENTATION → SPEC, which is where he wants them read.
 
+**His rule, stated the same day: the MECHANICS page shows only what is not
+implemented yet.** Nothing built appears on it, and a *partly built* section
+appears only as its unbuilt remainder — for 5.6 that is the *Not built:*
+line, never the paragraph on scars and craters that ship. `fromConcepts`
+stops showing partly-built sections whole; what is done is DOCUMENTATION's.
+
 So cut the page down to the four ideas that have queue entries of their own
 below — **Destruction and damage** (SYSTEMS 5.6), **Mine**, **Moulting** and
 **Husk** (CREATURE IDEAS) — and remove everything else from **CREATURE
