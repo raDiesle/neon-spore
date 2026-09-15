@@ -164,3 +164,22 @@ async function ask(route: string, body: Record<string, string>): Promise<NameCla
   });
   return (await res.json()) as NameClaim;
 }
+
+/**
+ * Claim a name and keep it: the whole of what a field asking for one does.
+ *
+ * Answers `""` when the name is now this device's, and the sentence to put in
+ * front of the player when it is not — the registry's own words where it gave
+ * any, because a name that is taken and a name that is somebody else's must
+ * read the same. What was kept is `readName()`, normalised, whatever was typed.
+ *
+ * Two screens ask now — the first meeting after the intro (`hello.ts`) and the
+ * room screen for a device that got past it (`join-name.ts`) — and a name has
+ * to mean one thing on both, so the claiming is here rather than in either.
+ */
+export async function takeName(raw: string): Promise<string> {
+  const answer = await claimName(raw);
+  if (!answer.ok) return answer.why ?? "That name cannot be used.";
+  writeName(answer.name ?? raw);
+  return "";
+}

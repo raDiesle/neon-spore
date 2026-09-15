@@ -22,6 +22,50 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queue-tasks — the first visit is asked what it is called
+
+The queue's *After the intro, a first visit asks for a name and offers a
+sign-in*. Both halves already existed and both were met too late: a name was
+asked for on the room screen, which a first-timer reaches only once they are
+already opening a room, and the sign-in was a row on SETTINGS, which is a page
+nobody opens on the way to play. So they are met between the intro closing and
+the menu coming up, on a device with no name — one question, the same
+`claimName` behind it, and under it the Google button and the email field
+`signInRow` already builds, with `syncName` filling the field when it answers.
+
+A DOM sheet rather than a canvas scene, because the optional half is a popup
+and an input. It is drawn in the menu's own furniture — the sky, the scroll,
+the `.setting` block — by naming `#hello` beside `#menu` in seventeen
+selectors rather than by writing a second house style: the palette tokens are
+declared on the menu's rule and nowhere else, so an element outside it has no
+colours at all.
+
+The picture is what earned its place. Two defects nothing else would have
+caught were in the first frame: the ☰ sits at `z-index: 21` against this
+screen's 20, so it was pressable and the menu it opens would have stood in
+front of the one question the device had been asked; and nothing held the run,
+so the field played on behind the sheet for as long as somebody took to think
+of a name. The chrome steps aside the way it does for the intro, and the hold
+is the menu's own.
+
+`menu-shot` had to learn about this screen either way — it stamps the intro
+away and waits for `#menu.on`, which this change would have left it hanging
+on — so it stamps a name too, and `--first-visit` leaves that one off to
+photograph the screen itself.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry and the eight files it names, plus `menu.css`'s token block and what `menu-contrast.test.ts` holds about it |
+| writing | 10 | `hello.ts`, `takeName` shared with `join-name.ts`, the widened selectors, the shell's three lines, the test, `--first-visit` |
+| looking | 5 | three shots — the screen, the screen after the two fixes, the menu still landing on itself — and a scratch script for the one state the camera cannot reach |
+| friction | 5 | a long heredoc refused by the Bash guard (already queued), `autocomplete` not being an `AutoFill`, and three rounds of shaving a comment to keep `shell.ts` at 250 lines |
+| landing | 10 | two full `bun run check` runs at about three minutes each, `bun run index`, the commit |
+
+The bottleneck was landing, and it is the check's two shards rather than
+anything this lane did — but the five minutes of looking is the row that paid:
+both real defects were in a frame, neither was in a test, and the second frame
+is the only reason either is fixed.
+
 ## 2026-09-14 — queue-tasks — versus:shot drives the lifted startDirector
 
 `Unverified at 2c528788` said the second caller of the lifted `startDirector`

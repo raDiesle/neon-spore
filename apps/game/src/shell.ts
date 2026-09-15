@@ -3,6 +3,7 @@ import type { PlayerId } from "@neon-spore/net";
 import type { ViewRole } from "@neon-spore/render";
 import type { Difficulty, SimConfig, World } from "@neon-spore/sim";
 import { type DemoRow, demoRows } from "./demo-menu.js";
+import { openHello } from "./hello.js";
 import { bindHoldCard } from "./hold.js";
 import { bindInstall, type Installer } from "./install.js";
 import { type Intro, opensIntro, readIntroSeen } from "./intro.js";
@@ -236,12 +237,13 @@ export function bindShell(p: ShellParts): Link {
     // A room link lands on the room screen rather than on the menu behind it,
     // and `invite` has already put that up by the time this runs.
     if (roomRequested(location.href)) return link;
-    // The first visit reads the intro and lands on the menu afterwards; every
-    // visit after that lands on the menu, which is where the intro is asked
-    // for again by name (`menu-entries.ts`).
-    const toMenu = (): void => menu?.open();
-    if (opensIntro(readIntroSeen(), true)) p.intro.open(toMenu);
-    else toMenu();
+    // The first visit reads the intro, is asked what it is called, and lands on
+    // the menu; every visit after lands straight on it. Each step is skipped on
+    // its own terms and hands on to the next rather than being sequenced here.
+    const hold = (on: boolean): void => p.run.hold("menu", on);
+    const onward = (): void => openHello(hold, () => menu?.open());
+    if (opensIntro(readIntroSeen(), true)) p.intro.open(onward);
+    else onward();
   }
 
   return link;

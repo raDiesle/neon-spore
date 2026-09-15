@@ -65,8 +65,16 @@
  * the same colours the field does. They were already well clear of AA.
  *
  * The field's HUD keeps its own palette (`game.css`). This is the menu and the
- * pages behind it. */
-#menu {
+ * pages behind it.
+ *
+ * **And `#hello` beside it, everywhere the two share furniture.** The first
+ * meeting (`hello.ts`) is the menu's own front step — the same sky, the same
+ * scroll, the same `.setting` block around a field — and a screen shown once
+ * per device is not worth a second house style. Naming it in these selectors
+ * is how it gets the tokens as well: they are declared here rather than on
+ * `:root`, so an element outside this rule has no colours at all. Only what
+ * differs is written again, at the foot of this file. */
+:is(#menu, #hello) {
   /* The ground everything here is measured against. */
   --paper: #07060f;
   /* A label, a heading, the wordmark: the brightest thing on the page. 16.8:1 */
@@ -109,7 +117,7 @@
   z-index: 20;
   display: none;
 }
-#menu.on {
+:is(#menu, #hello).on {
   display: block;
 }
 /* An entry that does not apply right now — CONTINUE before both phones are in
@@ -120,7 +128,7 @@
 }
 
 /* The scrim and the scanlines, under everything and answering no touch. */
-#menu .sky {
+:is(#menu, #hello) .sky {
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -131,7 +139,7 @@
     linear-gradient(180deg, rgba(7, 6, 15, 0.93), rgba(7, 6, 15, 0.985) 30%, rgba(7, 6, 15, 1));
   backdrop-filter: blur(5px) saturate(1.35);
 }
-#menu .sky::after {
+:is(#menu, #hello) .sky::after {
   content: "";
   position: absolute;
   inset: -4px;
@@ -151,14 +159,14 @@
   }
 }
 
-#menu .scroll {
+:is(#menu, #hello) .scroll {
   position: absolute;
   inset: 0;
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 30px 18px 36px;
 }
-#menu .inner {
+:is(#menu, #hello) .inner {
   max-width: 390px;
   margin: 0 auto;
 }
@@ -278,7 +286,7 @@
   }
 }
 
-#menu h2 {
+:is(#menu, #hello) h2 {
   margin: 0 0 12px;
   font-size: 10px;
   letter-spacing: 0.3em;
@@ -579,7 +587,7 @@
   border-color: var(--accent);
 }
 
-#menu .foot {
+:is(#menu, #hello) .foot {
   margin: 24px 0 0;
   text-align: center;
   font-size: 9px;
@@ -678,7 +686,7 @@ body[data-motion="off"] #menu .entry {
 }
 
 /* SETTINGS: one switch per row, with what it means underneath. */
-#menu .setting {
+:is(#menu, #hello) .setting {
   display: grid;
   gap: 6px;
   margin: 14px 0;
@@ -689,10 +697,10 @@ body[data-motion="off"] #menu .entry {
 /* `display: grid` beats the browser's own `[hidden]`, so a row that is not
    offered — the home screen on a browser that has not offered it, logging in
    on a build with no project — drew as an empty frame. */
-#menu .setting[hidden] {
+:is(#menu, #hello) .setting[hidden] {
   display: none;
 }
-#menu .setting .switch {
+:is(#menu, #hello) .setting .switch {
   justify-self: start;
   padding: 10px 14px;
   border: 1px solid var(--line-lit);
@@ -705,25 +713,25 @@ body[data-motion="off"] #menu .entry {
   color: var(--ink-soft);
   cursor: pointer;
 }
-#menu .setting .switch.on {
+:is(#menu, #hello) .setting .switch.on {
   border-color: var(--accent-deep);
   color: var(--accent-deep);
 }
-#menu .setting .switch.danger {
+:is(#menu, #hello) .setting .switch.danger {
   border-color: var(--alert);
   color: var(--alert);
 }
-#menu .setting .switch:disabled {
+:is(#menu, #hello) .setting .switch:disabled {
   border-color: var(--line);
   color: var(--ink-faint);
   cursor: default;
 }
-#menu .setting .s {
+:is(#menu, #hello) .setting .s {
   font-size: 11px;
   line-height: 1.7;
   color: var(--ink-soft);
 }
-#menu .setting input {
+:is(#menu, #hello) .setting input {
   width: 100%;
   box-sizing: border-box;
   padding: 10px 12px;
@@ -737,7 +745,7 @@ body[data-motion="off"] #menu .entry {
   text-transform: uppercase;
   color: var(--ink-key);
 }
-#menu .setting label.sub {
+:is(#menu, #hello) .setting label.sub {
   margin: 0;
   color: var(--ink-faint);
 }
@@ -834,4 +842,48 @@ body[data-motion="off"] #menu .entry {
 #menu .page .keys + h2,
 #menu .page .panel + h2 {
   margin-top: 26px;
+}
+
+/* THE FIRST MEETING: one question, and one press across the width of it.
+   Everything else it is drawn in is shared above (`hello.ts`). */
+#hello .inner {
+  padding-top: 18px;
+}
+/* Larger than the menu's own headings, which label a page somebody chose to
+   open. This one is the only thing on the screen and it is a question. */
+#hello h2 {
+  font-size: 13px;
+  margin: 0 0 18px;
+}
+/* The line over the optional half. A `.foot` is centred with space above it,
+   which is right for a footnote under a page and wrong here: this one is the
+   heading of the block under it, and a sentence floating midway between two
+   framed blocks belongs to neither. */
+#hello .foot {
+  margin: 22px 0 6px;
+  text-align: left;
+}
+/* Not a `.switch`: those sit at the start of their row and are one of several
+   things a settings page offers. This is the way on, and the only press here
+   that goes anywhere. */
+#hello .go {
+  width: 100%;
+  margin-top: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--warm);
+  border-radius: 8px;
+  background: none;
+  font:
+    600 13px "Courier New",
+    monospace;
+  letter-spacing: 0.18em;
+  color: var(--warm);
+  cursor: pointer;
+}
+/* Dark until there is a name it could keep, so the screen says what it wants
+   before anybody presses anything. */
+#hello .go:disabled {
+  border-color: var(--line);
+  color: var(--ink-faint);
+  cursor: default;
 }

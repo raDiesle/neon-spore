@@ -81,8 +81,12 @@ describe("the way it is wired", () => {
     );
   });
 
-  it("is the front door before the menu, and hands the menu back afterwards", () => {
-    expect(shell).toMatch(/opensIntro\(readIntroSeen\(\), true\)\)\s*p\.intro\.open\(toMenu\)/);
+  it("is the front door before the menu, and hands what follows it back", () => {
+    // What follows it is the first meeting, which asks a device with no name
+    // what it is called and opens the menu itself afterwards (`hello.test.ts`).
+    // The intro's own half is unchanged: it opens, and it hands on.
+    expect(shell).toMatch(/opensIntro\(readIntroSeen\(\), true\)\)\s*p\.intro\.open\(onward\)/);
+    expect(shell).toContain("const onward = (): void => openHello(hold, () => menu?.open());");
   });
 });
 

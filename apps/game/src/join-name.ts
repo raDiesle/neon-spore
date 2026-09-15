@@ -1,4 +1,4 @@
-import { claimName, hasName, readName, writeName } from "./nickname.js";
+import { hasName, readName, takeName } from "./nickname.js";
 
 /**
  * "What are you called?", asked once, on the room screen.
@@ -15,6 +15,13 @@ import { claimName, hasName, readName, writeName } from "./nickname.js";
  * name that is already yours, on a phone that does not know it, comes back
  * by signing in on the settings page (`sign-in.ts`) — not here: this screen
  * asks a first-timer one thing.
+ *
+ * **It is the fallback now, not the front door.** Since 14 September 2026 a
+ * device with no name is asked for one right after the intro, with the sign-in
+ * under it (`hello.ts`); what still reaches this field is a device that never
+ * passed the menu — a link straight into a room — and a device whose stored
+ * name has gone. Both halves claim through the same `takeName`, so a name
+ * means one thing wherever it was given.
  *
  * Its own file because `join.ts` is the room and this is not: the room screen
  * reached its 250-line ceiling the day this arrived, and the seam was already
@@ -47,24 +54,25 @@ export function bindNameField(onNamed: () => void): NameField {
   };
 
   const submit = async (): Promise<void> => {
-    const typed = input?.value ?? "";
     if (button) button.disabled = true;
     try {
-      const answer = await claimName(typed);
-      if (!answer.ok) {
+      const said = await takeName(input?.value ?? "");
+      if (said !== "") {
         // Said rather than silently refused: a button that does nothing is a
-        // button a player presses harder. The registry's own sentence, because
-        // a name that is taken and a name that is somebody else's must read
-        // the same — otherwise this field is a way to ask which names exist.
-        if (why) why.textContent = answer.why ?? "That name cannot be used.";
+        // button a player presses harder. `takeName` carries the registry's
+        // own sentence, because a name that is taken and a name that is
+        // somebody else's must read the same — otherwise this field is a way
+        // to ask which names exist.
+        if (why) why.textContent = said;
         return;
       }
-      writeName(answer.name ?? typed);
       if (why) why.textContent = "";
       // Said once, here, where the name was just given: what keeps it past
-      // this phone is a sign-in, and where that is.
+      // this phone is a sign-in, and where that is. A device that met the
+      // first meeting was offered one there instead (`hello.ts`), and this
+      // screen is what a device that skipped it sees.
       if (keep) {
-        keep.textContent = `${answer.name} is yours. Log in on SETTINGS to keep it if this phone is lost.`;
+        keep.textContent = `${readName()} is yours. Log in on SETTINGS to keep it if this phone is lost.`;
       }
       paint();
       onNamed();

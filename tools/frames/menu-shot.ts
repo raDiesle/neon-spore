@@ -2,8 +2,8 @@
 
 /**
  * `bun run menu-shot <out.png> [--page "SETTINGS > CONTROLS"] [--size 390x844]
- * [--scale 2] [--wait 600] [--port 4173] [--element "#menu"] [--desk]` —
- * photograph a page of the **game's menu**.
+ * [--scale 2] [--wait 600] [--port 4173] [--element "#menu"] [--desk]
+ * [--first-visit]` — photograph a page of the **game's menu**.
  *
  * Three tools took a picture and none of them could take this one. `bun run
  * frames <sha>` drives the field through `window.neonSpore` and photographs
@@ -20,13 +20,20 @@
  * for a person at a desk — cannot use a tool that assumes one is up.
  * `--port` skips that for somebody who does have one.
  *
- * **It arrives as a device that has already met the intro.** The scene plays
- * over the menu on a first visit (`apps/game/src/intro.ts`), so without this
- * the capture waits on a hidden `#menu` until it times out. The stamp is
- * written through `addInitScript`, before the first navigation, and its key
- * and version are imported from the game rather than typed here: a version
- * that went stale would put the scene back and the failure would look like a
- * broken selector.
+ * **It arrives as a device that has already been here.** Two screens stand in
+ * front of the menu on a first visit — the intro scene (`apps/game/src/intro.ts`)
+ * and the question of what this device is called (`apps/game/src/hello.ts`) —
+ * and either of them leaves the capture waiting on a hidden `#menu` until it
+ * times out. So both are stamped away: the intro's version, and a name. The
+ * stamps go in through `addInitScript`, before the first navigation, and every
+ * key is imported from the game rather than typed here — one that went stale
+ * would put the screen back and the failure would look like a broken selector.
+ *
+ * **`--first-visit` is how the first meeting itself is photographed.** It
+ * leaves the name unstamped and waits for `#hello.on` instead: the screen
+ * exists to be seen by a device that has never given one, and a tool that can
+ * only arrive past it cannot show it. The intro stays stamped away either
+ * way — twenty seconds of scene is not what is being judged.
  *
  * **And as a phone rather than as a desk.** A viewport is a size; the pointer
  * is a separate pair of context options, and without them headless Chromium
@@ -38,6 +45,7 @@
  */
 
 import { INTRO_KEY, INTRO_VERSION } from "../../apps/game/src/intro.js";
+import { NAME_KEY } from "../../apps/game/src/nickname.js";
 import { closeBrowser, launchBrowser } from "./browser.js";
 import { root } from "./exec.js";
 import { menuDevice } from "./menu-device.js";
@@ -75,9 +83,18 @@ const scale = Number(flag("scale") ?? 2);
  * drifts while the menu is up, so a picture taken on arrival catches both
  * mid-step. */
 const settle = Number(flag("wait") ?? 600);
-/** What is photographed. `#menu` is the whole of it; a caller judging one row
- * can say `.entry`, `.seat-card` or anything else the page carries. */
-const element = flag("element") ?? "#menu";
+/**
+ * Arrive with no name, which is the one thing that puts the first meeting in
+ * front of the menu (`apps/game/src/hello.ts`). The default is past it: nearly
+ * every page this tool is pointed at is behind it.
+ */
+const firstVisit = args.includes("--first-visit");
+/** The screen this shot is of. Each is in the document only while it is up, or
+ * hidden until it opens, so both are waited for by their `.on`. */
+const screen = firstVisit ? "#hello.on" : "#menu.on";
+/** What is photographed. The whole screen; a caller judging one row can say
+ * `.entry`, `.seat-card` or anything else the page carries. */
+const element = flag("element") ?? (firstVisit ? "#hello" : "#menu");
 /** A thumb or a mouse — `menu-device.ts` has the argument. */
 const device = menuDevice(args);
 const port = flag("port");
@@ -92,21 +109,29 @@ try {
     deviceScaleFactor: scale,
     ...device,
   });
-  // Before the first navigation, so the bundle reads it on the way up rather
-  // than after the scene has already started.
+  // Before the first navigation, so the bundle reads them on the way up rather
+  // than after a screen has already opened over the one wanted.
   await context.addInitScript(
-    ([key, version]) => {
-      try {
-        localStorage.setItem(key as string, version as string);
-      } catch {
-        // A browser that refuses storage shows the intro; the wait below says so.
+    (pairs) => {
+      for (const [key, value] of pairs as [string, string][]) {
+        try {
+          localStorage.setItem(key, value);
+        } catch {
+          // A browser that refuses storage shows the screen; the wait says so.
+        }
       }
     },
-    [INTRO_KEY, INTRO_VERSION],
+    [
+      [INTRO_KEY, INTRO_VERSION],
+      // A name, unless the shot is of the screen that asks for one. Any name:
+      // nothing is drawn from it on the pages this tool photographs, and the
+      // registry is never asked, because a stored name is never re-claimed.
+      ...(firstVisit ? [] : [[NAME_KEY, "CAMERA"]]),
+    ],
   );
   const page = await context.newPage();
   await page.goto(preview.url, { waitUntil: "networkidle" });
-  await page.waitForSelector("#menu.on", { timeout: 15_000 });
+  await page.waitForSelector(screen, { timeout: 15_000 });
 
   for (const step of trail) {
     if (step.kind === "spore") {
@@ -129,9 +154,8 @@ try {
   }
   await target.first().screenshot({ path: out });
   const asWhat = device.hasTouch ? "a phone" : "a desk";
-  console.log(
-    `wrote ${out} — ${flag("page") ?? "the front page"}, ${vw}x${vh} at ${scale}x, as ${asWhat}`,
-  );
+  const where = firstVisit ? "the first meeting" : (flag("page") ?? "the front page");
+  console.log(`wrote ${out} — ${where}, ${vw}x${vh} at ${scale}x, as ${asWhat}`);
 } finally {
   await closeBrowser(browser);
   await preview.stop();
@@ -189,5 +213,6 @@ function usage(): never {
   console.error("       --element is what is photographed inside it, default #menu");
   console.error("       --desk photographs it as a mouse and a keyboard; the default is a thumb");
   console.error("       --port attaches to a preview already running instead of starting one");
+  console.error("       --first-visit arrives with no name, on the screen that asks for one");
   process.exit(1);
 }
