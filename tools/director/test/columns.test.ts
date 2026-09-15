@@ -158,7 +158,7 @@ describe("a dragged column width", () => {
 });
 
 /**
- * THE FOUR OPEN TRACKS ARE WRITTEN TWICE, AND THIS HOLDS THEM EQUAL.
+ * THE OPEN TRACKS ARE WRITTEN TWICE, AND THIS HOLDS THEM EQUAL.
  *
  * `director-columns.css` lays a fresh page out; `relayout()` rewrites the
  * same property inline from `OPEN_TRACKS` on every collapse and drag. A
@@ -172,14 +172,17 @@ describe("main's open tracks", () => {
   /** A track list split where the spaces are, but never inside `minmax(…)`. */
   const tracks = (list: string): string[] => list.trim().split(/\s+(?![^(]*\))/);
 
-  it("are the same four in columns.ts and in director-columns.css, in DOM order", async () => {
+  it("are the same list in columns.ts and in director-columns.css, in DOM order", async () => {
     const css = await Bun.file(
       Bun.fileURLToPath(new URL("../src/director-columns.css", import.meta.url)),
     ).text();
     const rule = /^main \{[^}]*?grid-template-columns:\s*([^;]+);/m.exec(css);
     expect(rule).not.toBeNull();
     const ids = [...html.matchAll(/data-column="([a-z]+)"/g)].map((m) => m[1] as string);
-    expect(ids).toEqual(["waves", "editor", "game", "map"]);
+    // RUN joined on 15 September 2026, between the wave's own fields and the
+    // field itself, which is where the owner asked for the strip of buttons
+    // that used to wrap under the stage.
+    expect(ids).toEqual(["waves", "editor", "run", "game", "map"]);
     expect(tracks((rule as RegExpExecArray)[1] as string)).toEqual(
       ids.map((id) => OPEN_TRACKS[id] ?? "missing"),
     );

@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — the field is not cut off, and RUN is a column
+
+The owner, mid-turn, on a monitor he had just switched to: the first and last
+column of the field are cut off, put the buttons in a strip of their own between
+WAVE and GAME, give me a difficulty picker, and move MAIN MENU to the topbar.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the column machinery — two copies of the track list, a phone sheet, and a stage sized by one dimension |
+| writing | 45 | the strip, the picker, the fit rule, four documents' worth of notes |
+| looking | 25 | four throwaways: the canvas against its box at four sizes, the picker driven both ways, the phone view, and three shots |
+| friction | 5 | `MEDIUM · 96 BPM` came back cut off at 120 px, and the picker arrived in the browser's own white |
+| landing | 10 | `index`, `check:fast`, the commit |
+
+The bottleneck was diagnosis, and it paid for itself twice over: the owner's own
+explanation of the cut was the layout, and the layout was not the cause — the
+canvas is sized off the column's *height* alone, so it is wider than the column
+on any tall window and `overflow: hidden` crops the difference. Measuring it
+(727 px of canvas in a 439 px box at 1440p) is what turned a guess into a
+one-line rule, and is also what showed that moving the buttons out — which frees
+height — would have made the cut *worse* on its own.
+
 ## 2026-09-15 — queued-tasks — THE LEAK becomes STANDARD 5
 
 The queue's *THE LEAK is a rung of the standard ladder, not a malfunction*, which

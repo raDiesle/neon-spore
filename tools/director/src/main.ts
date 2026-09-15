@@ -7,6 +7,7 @@ import { jumpWaveIndex } from "./brush-wave.js";
 import { bindCellPanel, type CellPanel } from "./cell-panel.js";
 import { initColumnResize } from "./column-resize.js";
 import { initColumns } from "./columns.js";
+import { bindDifficultyPicker } from "./difficulty-picker.js";
 import { bindDocumentationRooms } from "./documentation-rooms.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { makeHeld } from "./held.js";
@@ -113,11 +114,26 @@ const boss: BossPanel = bindBossPanel(
   () => stage.round(),
 );
 const rail = bindRail(store, refreshAll, onProse);
-bindTuning(cfg, () => {
+// **The tempo has two controls and they are one number.** TUNING's first
+// slider moves `bpm` two points at a time; the DIFFICULTY picker beside the
+// field sets it to one of the game's three levels. Whichever is turned, the
+// other is put back to what the run now says — a slider reading 96 under a run
+// at 120 is the tool disagreeing with itself.
+const onTempo = (): void => {
   grid.render();
   renderShip(cfg, currentWave(store));
   renderShipSheet(cfg);
   stage.rebuild();
+};
+const tuning = bindTuning(cfg, () => {
+  onTempo();
+  // A slider dragged off all three levels is what puts CUSTOM in the picker,
+  // and a preset landing on one is what takes it out again.
+  difficulty.render();
+});
+const difficulty = bindDifficultyPicker(cfg, () => {
+  onTempo();
+  tuning.render();
 });
 // The pair's own switches plus the cannon's wind-up — see `pair-panel.ts`. Its
 // `render` was for DEMOS, which flipped `cfg` from outside this file; nothing

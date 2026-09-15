@@ -97,7 +97,14 @@ const COLLAPSED_TRACK = "36px";
  * `test/columns.test.ts`, which reads the stylesheet and holds the two equal. */
 export const OPEN_TRACKS: Readonly<Record<string, string>> = {
   waves: "210px",
-  editor: "minmax(340px, 1.1fr)",
+  // 220 and not 340: RUN took its 120 out of this column on 15 September 2026,
+  // which is where the owner asked for it to come from. WAVE is the column
+  // with a `1.1fr` on it, so on a wide screen it gives nothing up at all.
+  editor: "minmax(220px, 1.1fr)",
+  // The strip of buttons that used to wrap under the field. Fixed, because
+  // every control in it is one line of words and a column that grew would
+  // only put air between them.
+  run: "120px",
   game: "minmax(320px, 460px)",
   // 600, not 560: the palette is 250 wide and the map is `--map-w` (302)
   // plus the gap and the column's own padding, and at 560 the strip of row

@@ -46,6 +46,10 @@
            see mobile-menu.ts. A wide screen never sees this row: media query
            only, no JS gate. -->
       <button type="button" class="menu-item" data-view="wave">WAVE</button>
+      <!-- RUN and GAME are one view on a phone: the strip of buttons is what
+           acts on the field, and a phone that showed one without the other
+           would be a transport with nothing to transport. Both sections carry
+           `data-view="game"`, so this one button brings up the pair. -->
       <button type="button" class="menu-item" data-view="game">GAME</button>
       <button type="button" class="menu-item" data-view="map">MAP</button>
       <button type="button" id="notesOpen" class="menu-item">≡ RELEASE NOTES</button>
@@ -57,6 +61,14 @@
            meaning "reference" — see the sheet itself, below SOUND. -->
       <button type="button" id="tuningOpen" class="menu-item">◉ TUNING</button>
       <button type="button" id="soundOpen" class="menu-item">♪ SOUND</button>
+      <!-- The one door in this row that leaves the director. It was inside
+           DOCUMENTATION's header until 15 September 2026, which put a link to
+           the running game two presses behind a word meaning *reference*; the
+           owner asked for it here. An `<a>` and not a button because it opens a
+           tab, and `menu-item` so the phone's menu carries it like the rest. -->
+      <a id="mainMenuLink" class="menu-item linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer"
+        >▶ MAIN MENU</a
+      >
     </header>
 
     <main data-view="wave">
@@ -156,6 +168,49 @@
         </div>
       </section>
 
+      <!-- RUN: everything that acts on the field, in a strip of its own to the
+           left of it. The owner asked for this on 15 September 2026, the day
+           the field stopped being cut off at both edges (director-field.css):
+           the buttons were a wrapping row *under* the stage, where they cost
+           the field two lines of height and read as part of the picture. They
+           are one per line here, in the order a session uses them — what the
+           run is doing, then what it is being run at, then who is watching. -->
+      <section data-view="game" data-column="run" data-column-title="RUN">
+        <div class="transport">
+          <button type="button" id="play">⏸</button>
+          <button type="button" id="restart">↺ WAVE</button>
+          <button type="button" id="endRun">▣ SHEET</button>
+          <!-- **The three tempi a pair can actually choose**, not the slider.
+               `bpm` has been movable since the tool existed, on TUNING's first
+               slider, two points at a time between 40 and 200 — which is the
+               right control for judging a wave and the wrong one for asking
+               *what will this feel like on Hard*. The game offers three
+               (`sim/difficulty.ts`) and this is those three; the slider is
+               still there and the picker says CUSTOM when it has been moved
+               somewhere that is none of them. -->
+          <label class="field" for="fDifficulty">DIFFICULTY</label>
+          <select id="fDifficulty"></select>
+          <p class="note" id="fDifficultyWhy"></p>
+          <!-- Whether a wave opens on a card at all, one click from the
+               stage it changes; the stage itself now steps and dismisses
+               the one that is up (stage-touch.ts) — clicking the field is
+               the card's whole control, the same target the phone answers.
+               Bound in pair-panel.ts, which still mounts the other two PAIR
+               rows into TUNING → PAIR. A button, not a checkbox: pressed
+               once it stays on until pressed again, same as the role
+               buttons below, and the `on` class is how both say so. -->
+          <button type="button" id="briefToggle" title="Whether a wave opens on a briefing card at all">
+            BRIEFINGS
+          </button>
+          <button type="button" data-role="test" class="role on">TEST</button>
+          <button type="button" data-role="p1" class="role">P1</button>
+          <button type="button" data-role="p2" class="role">P2</button>
+          <button type="button" id="keyHelpOpen" title="What the keyboard does, and whose hand it is">
+            ⌨ KEYS
+          </button>
+        </div>
+      </section>
+
       <section class="stage-col" data-view="game" data-column="game" data-column-title="GAME">
         <div id="stageWrap">
           <div id="stageBox"><canvas id="stage"></canvas></div>
@@ -164,28 +219,6 @@
           <div id="repeatWave" hidden>
             <strong>REPEAT WAVE?</strong>
             <span>The wave is finished. Click anywhere to run it again.</span>
-          </div>
-          <div class="transport">
-            <button type="button" id="play">⏸</button>
-            <button type="button" id="restart">↺ WAVE</button>
-            <button type="button" id="endRun">▣ SHEET</button>
-            <!-- Whether a wave opens on a card at all, one click from the
-                 stage it changes; the stage itself now steps and dismisses
-                 the one that is up (stage-touch.ts) — clicking the field is
-                 the card's whole control, the same target the phone answers.
-                 Bound in pair-panel.ts, which still mounts the other two PAIR
-                 rows into TUNING → PAIR. A button, not a checkbox: pressed
-                 once it stays on until pressed again, same as the role
-                 buttons below, and the `on` class is how both say so. -->
-            <button type="button" id="briefToggle" title="Whether a wave opens on a briefing card at all">
-              BRIEFINGS
-            </button>
-            <button type="button" data-role="test" class="role on">TEST</button>
-            <button type="button" data-role="p1" class="role">P1</button>
-            <button type="button" data-role="p2" class="role">P2</button>
-            <button type="button" id="keyHelpOpen" title="What the keyboard does, and whose hand it is">
-              ⌨ KEYS
-            </button>
           </div>
         </div>
       </section>
@@ -284,10 +317,10 @@
          because ?sheet=states is a URL somebody has bookmarked — renaming
          them buys a tidier grep and breaks a restore.
 
-         MAIN MENU is not a room — it is a link out to the running game, with
-         no content of its own to fold in — so it sits in this sheet's own
-         header, next to CLOSE, reachable from whichever tab is open rather
-         than living behind one of them. -->
+         MAIN MENU used to sit in this sheet's own header, next to CLOSE. The
+         owner moved it to the topbar on 15 September 2026: it is a link out to
+         the running game and describes nothing, so a door meaning *reference*
+         was two presses and the wrong word in front of it. -->
     <div id="states">
       <header>
         <span class="title">DOCUMENTATION</span>
@@ -296,9 +329,6 @@
           screen is called, every state the game can be held in, what a control
           set contains, and every colour and shape the game is drawn with
         </span>
-        <a id="mainMenuLink" class="linkbtn" href="/game?menu=1" target="_blank" rel="noreferrer"
-          >▶ MAIN MENU</a
-        >
         <button type="button" id="statesClose">✕ CLOSE</button>
       </header>
       <div id="statesTabs">

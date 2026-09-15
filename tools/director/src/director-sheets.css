@@ -50,15 +50,12 @@
   font-size: 0.875rem;
   max-width: 720px;
 }
-/* MAIN MENU rides the same `margin-left: auto` every other sheet gives
-   its CLOSE button, so it — not CLOSE — is what the growing `.sub`
-   pushes toward the end of the row; CLOSE then sits flush after it. */
-#states > header a.linkbtn {
-  margin-left: auto;
-}
-/* #tuning carries no MAIN MENU link, so its CLOSE takes the push the
-   link takes over there — every sheet's close sits at the end of the
-   row, whatever is in front of it. */
+/* Every sheet's CLOSE sits at the end of its row, whatever is in front of it,
+   and the growing `.sub` is what pushes it there. #states used to hand this
+   push to a MAIN MENU link standing before its CLOSE; the owner moved that
+   link to the topbar on 15 September 2026, so both sheets are the plain case
+   again. */
+#states > header button,
 #tuning > header button {
   margin-left: auto;
 }

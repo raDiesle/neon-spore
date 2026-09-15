@@ -49,17 +49,36 @@
   opacity: 0.9;
 }
 /* The canvas would otherwise size itself from its own width attribute, which
-   the renderer sets from its measured width — a loop that settles at zero. */
+   the renderer sets from its measured width — a loop that settles at zero.
+
+   `container-type: size` is what lets the canvas below fit *both* ways round.
+   Its own size comes from the column and never from its contents, so naming
+   it a size container costs nothing and introduces no cycle. */
 #stageBox {
   flex: 1 1 auto;
   min-height: 0;
   width: 100%;
   display: flex;
   justify-content: center;
+  container-type: size;
 }
-/* The stage aspect the renderer uses — STAGE_ASPECT in packages/render/src/layout.ts. */
+/* The stage aspect the renderer uses — STAGE_ASPECT in packages/render/src/layout.ts.
+
+   **The height is the smaller of the two ways this box can be filled**, and
+   that is the whole of the rule. It used to be a flat `height: 100%`, which
+   sizes the canvas off the column's height alone: on a tall window that is a
+   canvas wider than the column it stands in, and `section.stage-col` has
+   `overflow: hidden`, so the extra was simply cut off — evenly, at both edges,
+   where the first and the last column of the field are. Measured on 15
+   September 2026: 480 px of canvas in a 429 px box at 1600x1000, and 727 in
+   439 at 2560x1440, which is a column and a half gone at each side. The
+   bigger the monitor, the more of the wave is invisible.
+
+   `100cqw / 0.56` is the height whose 0.56-wide canvas is exactly the box;
+   `min` with `100cqh` takes whichever of the two the box can actually hold, so
+   the aspect never breaks and nothing ever overflows. */
 #stage {
-  height: 100%;
+  height: min(100cqh, 100cqw / 0.56);
   width: auto;
   aspect-ratio: 0.56;
   background: #05040c;
@@ -68,16 +87,29 @@
   display: block;
   cursor: crosshair;
 }
-/* One row of the same kind of control — wraps rather than clipping or
-   scrolling sideways once BRIEFINGS joined the buttons that were
-   already here. Last child of `#stageWrap`, so it sits at the bottom
-   of the column with no growable sibling below it to push it further. */
+/* **One control a line, in a column of its own beside the field.** It was a
+   wrapping row under the stage until 15 September 2026, which cost the field
+   two lines of height and read as part of the picture rather than as the
+   things that act on it. Each button fills the strip, so the words start in
+   the same place down the whole column and a press is a whole line wide. */
 .transport {
-  flex: 0 0 auto;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 4px;
-  justify-content: center;
+}
+.transport button {
+  width: 100%;
+  text-align: center;
+}
+/* The one thing in the strip that is not a button: DIFFICULTY, its picker and
+   the tempo under it. The picker is dressed by `director-shell.css` beside the
+   other `<select>` in the tool; what is here is only the air around it, which
+   is what keeps the strip reading as groups rather than as ten equal rows. */
+.transport label.field {
+  margin-top: 8px;
+}
+.transport .note {
+  margin: 4px 0 8px;
 }
 
 /* KEYBINDINGS: "for the time being" — a modal over the field, not a

@@ -186,7 +186,13 @@ label.field {
   color: var(--dim);
   margin: 9px 0 3px;
 }
-#fControlSet {
+/* The two `<select>`s a wave is edited through. A browser's own control is
+   white-on-white and takes none of `input`'s rule above, so they are named
+   here — a picker that looked like the page it stands on was the point of
+   writing this out once, and DIFFICULTY joining it on 15 September 2026 is
+   why it is a list rather than one id. */
+#fControlSet,
+#fDifficulty {
   font:
     11px "Courier New",
     monospace;

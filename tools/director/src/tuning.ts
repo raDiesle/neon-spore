@@ -74,7 +74,18 @@ const BUILT_IN: { name: string; preset: Preset }[] = [
 
 const STORE_KEY = "neon-spore.director.presets";
 
-export function bindTuning(cfg: SimConfig, onChange: () => void): void {
+export interface Tuning {
+  /**
+   * Put every slider back to what `cfg` now says.
+   *
+   * For the other view of the same numbers: the DIFFICULTY picker beside the
+   * field writes `bpm` directly (`difficulty-picker.ts`), and a slider left
+   * reading 96 under a run at 120 is the tool disagreeing with itself.
+   */
+  render(): void;
+}
+
+export function bindTuning(cfg: SimConfig, onChange: () => void): Tuning {
   mountTuningSheet();
   const rows = document.getElementById("sliders");
   const bar = document.getElementById("presets");
@@ -119,6 +130,10 @@ export function bindTuning(cfg: SimConfig, onChange: () => void): void {
     }
   }
 
+  const renderSliders = (): void => {
+    for (const spec of SLIDERS) show(spec);
+  };
+
   const renderPresets = (): void => {
     if (!bar) return;
     bar.replaceChildren();
@@ -148,6 +163,7 @@ export function bindTuning(cfg: SimConfig, onChange: () => void): void {
   };
 
   renderPresets();
+  return { render: renderSliders };
 }
 
 /**

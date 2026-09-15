@@ -1328,6 +1328,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/controlsets-page.ts` | CONTROLS: every registered panel, drawn, plus the things the pair touches on the field itself |
 | `tools/director/src/docs-api.ts` | The GET routes that only read a document off disk — `docs/borrowed.md` and the spec directory |
 | `tools/director/src/documentation-rooms.ts` | DOCUMENTATION's lazy rooms, bound in one place |
+| `tools/director/src/difficulty-picker.ts` | **THE THREE TEMPI A PAIR CAN CHOOSE, beside the field rather than behind a slider.** The owner asked for this… |
 | `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
 | `tools/director/src/fleet-editor.ts` | THE FLEET's placement, edited on the chart the pair will play it on |
 | `tools/director/src/glows/aura.ts` | A ring standing clear of the body, pulsing |

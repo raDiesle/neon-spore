@@ -76,6 +76,15 @@
   main[data-view="wave"] > section[data-view="wave"] {
     display: block;
   }
+  /* GAME brings up two sections, not one: the field and the RUN strip that
+     acts on it (15 September 2026). A phone showing the field without the
+     transport is a field nobody can start, and the strip is already a column
+     of full-width rows, so it reads on a phone exactly as it does beside the
+     field. The `.stage-col` rule below is the more specific of the two and
+     keeps the field's own flex column. */
+  main[data-view="game"] > section[data-view="game"] {
+    display: block;
+  }
   main[data-view="game"] > section.stage-col[data-view="game"] {
     display: flex;
   }
