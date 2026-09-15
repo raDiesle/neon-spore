@@ -314,6 +314,7 @@ sending one PNG of the shared ready step.
 ## Unverified at 7693db1b: The opening scene watched at tempo on a phone: the shou…
 
 - **Found:** 2026-09-14, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-15, claude/queue-unverified-at-7693db1b-the-opening-scene-watched
 - **Files:** `apps/game/src/intro.ts`, `apps/game/src/settings.ts`, `apps/game/test/intro.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `packages/content/src/index.ts`, `packages/content/src/intro.ts`
 
 *The intro is one scene of two phones and a shout, not six pages and a stepper* landed from a session that could not look at it. The commit touched 11 more files. What went unchecked:
