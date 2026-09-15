@@ -554,6 +554,7 @@ its first row down.
 ## Two arrows at the top of the WAVE column open the previous and the next wave
 
 - **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Taken:** 2026-09-15, claude/queue-two-arrows-at-the-top-of-the-wave-column-open-th
 - **Files:** `tools/director/index.html`, `tools/director/src/rail.ts`, `tools/director/src/keys.ts`, `tools/director/src/state.ts`, `tools/director/test/rail-list.test.ts`, `tools/director/test/keys.test.ts`
 - **Where:** local
 
