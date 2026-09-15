@@ -71,38 +71,34 @@ the placement runs out. A placement is one harpoon and stays spent once it has
 gone off. The same two bodies still arrive as creatures too, and the two
 steppers ignore each other by id.
 
-**What is left is the picture.** Points 1, 2, 4 and 6 of the owner's list, one
-of them now landed:
+**The picture is done.** All five of the owner's drawing jobs landed on 15
+September 2026 and none of them is left:
 
-- ~~the harpoon **fired** from the emitter and the **reel** back to it when the
-  placement ends~~ — **done, 15 September 2026** (`render/harpoon-line.ts`).
-  A cable from the lantern's vesicle to the body, read off the world every
-  frame so a restart cannot leave one behind, with a bead running down it from
-  the lantern's end; the flight out is a sixth of a second and the reel home is
-  a third. A wave with no such fault costs nothing, not even a `save`;
-- ~~**MOVE CANNON!** / **MOVE SHIELD!** under the siren, on the seat *without*
-  the control~~ — **done, 15 September 2026** (`render/duty-harpoon.ts`). The
-  branch reads `faultOn` rather than the field, and it *replaces* the table's
-  general word on the away seat rather than adding to it: the seat holding the
-  control still reads KEEP MOVING, which is all it can do about it;
-- the **code above the body** the way a codex is written (`codex.ts`) and the
-  **radar square** round it (`radar-blip.ts`), with the word above the square;
-- the **timer** above it, which is the placement's own remaining beats;
-- ~~the control's **glow growing toward a dangerous colour**, off
-  `harpoonDangerMilli`, restarting on every move~~ — **done, 15 September 2026**
-  (`render/harpoon-danger.ts`). A halo over the lobe, the ramp read straight off
-  the world and not eased, the colour the seat's own `rim` carried to its own
-  `edge` so neither seat borrows the other's warning, and the pulse quickening
-  from one a second to four. The dome gets a light per bump rather than one over
-  the middle of its span.
+- the harpoon **fired** from the lantern and the **reel** home
+  (`render/harpoon-line.ts`);
+- **MOVE CANNON!** / **MOVE SHIELD!** under the siren, on the seat without the
+  control (`render/duty-harpoon.ts`);
+- the **code**, the **radar square** and the **word** on the body itself
+  (`render/harpoon-mark.ts`, over `target-lock.ts`);
+- the **timer**, the placement's own remaining beats, in the same stack;
+- the control's **glow toward a dangerous colour** (`render/harpoon-danger.ts`).
 
-**And two decisions nobody has taken.** First, whether the creature half goes
-at all: the entries say the body *moves* under the malfunction brush, which
-would mean `installed: true` on both kinds, no palette brush, waves 57 and 58
-placing the fault, and the fall and `limpetShakeMoves` written up under NOT
-BUILT YET. Nothing here has done that, and the game still plays both waves the
-old way — so the two arrivals coexist, which is a coherent state to stop in but
-not the one the entry asks for.
+Both kinds also have a pencil now, so every `MalfunctionKind` has one and a test
+says so (`tools/director/test/brushes.test.ts`).
+
+**What is left is the creature half, and the owner decided it on 15 September
+2026:** *they should only exist as brush, but once they are placed on a tile,
+for a defined period of time, the malfunction is applied.* So the fall down a
+lane goes. That means `installed: true` on both kinds in
+`content/creatures-cling.ts`, the palette's two living brushes gone, waves 57
+and 58 rewritten to place the pencil instead of spawning the body, and the fall
+plus `limpetShakeMoves` written up under NOT BUILT YET rather than deleted. It
+is not started. `sim/cling.ts` keeps the *holding* — which column a body is on
+and whether it is stuck — because the harpoon calls it; what goes is the
+arrival, the fuse counted in beats and the shake.
+
+**A picture is still owed**: one PNG of a cannon under a placed leech with the
+square, the code, the timer and the word on it, watched at tempo.
 
 ~~Second, the entry's point 4 has no implementation as written.~~ **Answered,
 and by another queue entry rather than by the owner.** *A shot never goes

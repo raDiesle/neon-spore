@@ -14,6 +14,7 @@ import {
   harpoonDanger,
 } from "../src/harpoon-danger.js";
 import { HarpoonLineFx } from "../src/harpoon-line.js";
+import { drawHarpoonMarks, harpoonBeatsLeft } from "../src/harpoon-mark.js";
 import { frame } from "../src/hull-frame.js";
 import type { ViewRole } from "../src/layout.js";
 import { computeLayout } from "../src/layout.js";
@@ -220,5 +221,57 @@ describe("the line the lantern fires it down", () => {
     expect(drawn(quiet(), fx).calls).toBeGreaterThan(0);
     fx.reset();
     expect(drawn(quiet(), fx).calls).toBe(0);
+  });
+});
+
+describe("what is written on the control it took", () => {
+  function marks(world: World, ticks = 0) {
+    const { ctx } = stubCanvas();
+    ctx.texts = [];
+    const l = computeLayout(VIEWPORT, CFG, "p1");
+    for (let t = 0; t < ticks; t++) step(world, []);
+    drawHarpoonMarks(ctx as unknown as CanvasRenderingContext2D, l, world, 0, 0);
+    return ctx;
+  }
+
+  it("costs a quiet wave nothing", () => {
+    expect(marks(quiet(), TPB).calls).toBe(0);
+  });
+
+  it("writes the code and the word over a leech, and the cannon word not the dome one", () => {
+    const said = (marks(stuck("leech", TPB + 2)).texts ?? []).map((t) => t.text);
+    expect(said).toContain("MF·LEECH");
+    expect(said).toContain("MOVE CANNON!");
+    expect(said).not.toContain("MOVE SHIELD!");
+  });
+
+  it("writes the dome one over a limpet", () => {
+    const said = (marks(stuck("limpet", TPB + 2)).texts ?? []).map((t) => t.text);
+    expect(said).toContain("MF·LIMPET");
+    expect(said).toContain("MOVE SHIELD!");
+  });
+});
+
+describe("the timer over it", () => {
+  it("counts the placement own beats down", () => {
+    // Eight beats long, so the number has somewhere to go — a `TO_THE_END`
+    // pencil is the case below.
+    const world = createWorld({ ...CFG, hullInvulnerable: true }, 3);
+    startWave(world, 0, [], [], null, false, 0, [{ kind: "leech", at: 0, beats: 8 }]);
+    for (let t = 0; t < TPB; t++) step(world, []);
+    const first = harpoonBeatsLeft(world, "leech");
+    expect(first).toBeGreaterThan(0);
+    for (let t = 0; t < TPB * 3; t++) step(world, []);
+    expect(harpoonBeatsLeft(world, "leech")).toBeLessThan(first ?? 0);
+  });
+
+  it("says nothing at all for a pencil with no end written", () => {
+    // A countdown that never reaches nought is worse than no countdown: the
+    // pair spends the wave waiting for it.
+    expect(harpoonBeatsLeft(stuck("leech", TPB + 2), "leech")).toBeNull();
+  });
+
+  it("says nothing on a wave that placed no such pencil", () => {
+    expect(harpoonBeatsLeft(quiet(), "leech")).toBeNull();
   });
 });

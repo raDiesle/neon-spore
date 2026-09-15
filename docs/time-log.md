@@ -5881,3 +5881,21 @@ unconditional `save`/`restore` in a pass most waves never use is exactly the
 cost that test exists to notice, and the fix — return before it when nothing is
 out and nothing is held — is better code than the version that passed by being
 remeasured.
+
+## 2026-09-15 — queued-tasks — the code, the square, the timer and the word
+
+The parked entry's last two drawing jobs, landed together because they are one
+stack of marks over one body.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `target-lock.ts`'s argument, the lure's label, `faultWindow`, where the body pass ends |
+| writing | 30 | `harpoon-mark.ts`, one call in the field pass, ten cases |
+| looking | 0 | — the PNG is owed and is the next thing |
+| friction | 5 | `frame-field.ts` at 250 exactly, and the index wanted regenerating twice |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was reading, and the useful part of it was `target-lock.ts`: the
+owner's own rule that four pictures for one idea is three too many meant the
+square was a call rather than a rectangle, and that decided the whole file in
+one line.

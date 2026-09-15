@@ -1040,6 +1040,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/handover.ts` | **Which seat this device is playing** — its own, or the other one's while THE HANDOVER has the panels traded. One function, called by the renderer on a frame and by the host on the layout a finger is tested against |
 | `packages/render/src/harpoon-danger.ts` | **THE CONTROL HEATING UP UNDER A HARPOON.** The owner's point 6, on 14 September 2026 |
 | `packages/render/src/harpoon-line.ts` | **THE LINE**: the thing at the top of the field firing a body at a control |
+| `packages/render/src/harpoon-mark.ts` | **WHAT IS ON THE CONTROL, WRITTEN ON IT.** The owner's point 2 of 14 September 2026 |
 | `packages/render/src/crank-dial.ts` | THE CLAW's crank, drawn: the winder that brings the arm home |
 | `packages/render/src/crystal.ts` | THE CRYSTAL: a craft three tiles wide with an electric field round it — the order its parts go on in |
 | `packages/render/src/crystal-craft.ts` | THE CRYSTAL's craft: the `SHELL` saucer, the red and cyan engine pods and the canopy over the middle |
