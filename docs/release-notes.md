@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 628eeba4 — Everything on a harpooned control is drawn where that control is drawn
+
+Taking the first picture of a placed leech found three things, and none of them was reachable from a test.
+
 ## 2026-09-15 · 1d2224ff — A harpooned control is marked: the square, the code, the timer and the word
 
 The owner's point 2 of 14 September 2026 — *on the cannon it is marked the way a codex is: its code written above it, the radar square round it, and MOVE CANNON! above the square* — with point 5's *a timer above it says how long it stays* in the same stack.
