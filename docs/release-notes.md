@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · a0ae4bda — A long edit script goes in by path, never through a heredoc
+
+The Bash tool reads a heredoc before the shell does, and past some length its reading of the quotes inside the block disagrees with the shell's: THE GUM's director pass, about 190 lines with `'''` blocks in it, came back as *unexpected EOF while looking for matching `''* before a line of it ran. The same script written to the scratchpad and run by path went through unchanged, and a shorter one with the same quoting had passed a minute earlier. The rule is now beside the `git commit -F` one in `.claude/skills/lane`, and why the message names a shell that was never given the script is a paragraph in `docs/working-with-claude.md`'s *who answered?* section.
+
 ## 2026-09-15 · c698b684 — The room screen's step 4: the host picks the seat and the tempo, and each holds a READY circle
 
 The seat pills are presses for the phone the room calls host and a reading for the other; three tempi sit under them, the host's too, and the other phone sees the pick land off its welcome. START is gone: each seat has a READY circle, drawn on both phones, and the own one fills under a thumb over the guides' `readyHoldMs` — lifting early empties it, and the one waiting on this phone breathes. DIFFICULTY left the PLAY page, because a new game's tempo is picked here and a pair's is behind their gear. The look is the first exemption: the owner asked for it by name on 14 September 2026.
