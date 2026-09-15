@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 756a5387 — The opening scene has been watched moving, and it is right
+
+The queue's *Unverified at 7693db1b*: the scene was corrected off two headless stills by a session that could not watch it play. A phone at 390×844, the frame loop running at its own rate, photographed every 800 ms across the whole scene. Both shouts cross — SHOOT NOW from the left phone at about 1.5 seconds, MOVE THE SHIELD back the other way at about 5 — each act follows the shout that asked for it, the red body meets the cannon and the cyan one meets the shield that slid to take it, and the scene runs out at its 10.5 seconds and hands over to the screen that asks what this device is called. Nothing needed changing, so nothing did.
+
 ## 2026-09-15 · f72ad5b7 — ‹ WAVE ›: two arrows over the wave column open the one before and the one after
 
 The owner asked for this on 14 September 2026. Reading through the waves in order was a press on a row, a trip back to the list and a press on the next one, with the editor's column scrolled to wherever it had been left. The bar the WAVE tab already stands in now carries two buttons either side of it, and `[` and `]` are the same step without the mouse. Each goes through the same `onSelect` a row press makes, so the list, the map and the stage follow exactly as they do for a press; each steps the whole list and not the filtered one, and the row it lands on is kept visible by the rule already there. The first wave's ‹ and the last wave's › are disabled rather than wrapping, and each arrow's title says by number and name which wave it opens.
