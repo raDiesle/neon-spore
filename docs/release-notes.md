@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 1d2224ff — A harpooned control is marked: the square, the code, the timer and the word
+
+The owner's point 2 of 14 September 2026 — *on the cannon it is marked the way a codex is: its code written above it, the radar square round it, and MOVE CANNON! above the square* — with point 5's *a timer above it says how long it stays* in the same stack.
+
 ## 2026-09-15 · 1b8eac3e — The thing at the top of the field fires the harpoon and reels it back in
 
 The owner's point 1 of 14 September 2026 — *it fires the leech very fast, like a harpoon, at the cannon, where it sticks* — and his point 5, *when the timer runs out it is reeled in like a fishing line back to the alien.* He said the general form again on 15 September, about every fault at once: *visuals fired and triggered from this blue enemy — it should look like that blue enemy is triggering or shooting it.* So the line starts at the lantern's own vesicle, which is where its beams already start, rather than at a second mouth.
