@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · cd437478 — A control held by a harpoon heats up toward the tick it costs the round
+
+The owner's point 6 of 14 September 2026, asked for by name: while a leech is on the cannon or a limpet on the dome, the control glows toward a colour that says about to explode, and a move puts the glow back to the beginning.
+
 ## 2026-09-15 · 00ecba66 — A harpooned control says MOVE CANNON! or MOVE SHIELD! under the other seat's dial
 
 The owner asked for both words by name on 14 September 2026, mark and all, and for them to appear under the seat that cannot move the control being asked for. `duty.ts` already carried a word for each of these two kinds, written for them as creatures — KEEP MOVING to the seat holding the control, SAY MOVE to the one watching it — and those rows are right for a body that fell down a lane onto the cannon, because both seats watched it land. As a malfunction there is nothing to watch: the fault is a pencil on the map and the body is already holding the control on the beat the placement starts, so the seat without that control has no panel to read it off and needs telling which control it is.
