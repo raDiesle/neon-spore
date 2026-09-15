@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 3f499b16 — `room-shot --then-wave 3` carries both phones out of the room and into a wave
+
+The tool stopped at THE ROOM, and the other half of what it was made to prove — what one phone writes down about the person in the *other* seat once the two of them get somewhere — was a throwaway probe three sessions had written. It is a flag now: both phones hold their READY circle, beat zero lands, the creator jumps to the wave asked for, and the run ends by reading that phone's PLAY page out of a second tab, where the partner's row says the wave. It throws when the record is not there or is at another wave, and prints the row it found.
+
 ## 2026-09-15 · ff5291df — `room.ts` keeps the sockets; what it remembers and what that does are siblings
 
 The file was at exactly 250 lines after two trims, and the next line it needed was a split. The five acts it handed `routeClient` divide along the line the file is already drawn on: relaying a message and taking a press are done to the seats and stay, and a tempo, a seat and a tally are done to what the room remembers and go to `room-acts.ts`. The six facts that must outlive hibernation went with them, each beside the write that keeps it, as `RoomMemory` in `room-memory.ts` — so a field set without its `storage.put` is now one file to look at rather than six places to get right. `room.ts` is 197 lines and imports nothing about storage.
