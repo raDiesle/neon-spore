@@ -4,6 +4,7 @@ import {
   RECONNECT_MS,
   RECONNECT_TRIES,
   type RoomSocketHandlers,
+  WAITING_TRIES,
 } from "../src/link-socket.js";
 import { openRelay } from "../src/relay.js";
 
@@ -33,7 +34,7 @@ class FakeSocket {
 }
 
 /** The counts a caller of `openRoomSocket` sees, and every socket it opened. */
-function room() {
+function room(gathering = false) {
   const sockets: FakeSocket[] = [];
   const counts = { waiting: 0, gone: 0, opened: 0 };
   const handlers: RoomSocketHandlers = {
@@ -64,6 +65,9 @@ function room() {
     last?.fire("error");
     last?.fire("close");
   };
+  // A socket that has never been welcomed is gathering by construction, so a
+  // test that wants the pair's budget says so the way the room does.
+  if (!gathering) socket.rearm(false);
   return { socket, sockets, counts, die };
 }
 
@@ -102,8 +106,85 @@ describe("a room socket that keeps reaching", () => {
       r.die();
       r.socket.frame(RECONNECT_MS);
     }
-    r.socket.rearm();
+    r.socket.rearm(false);
     r.die();
     expect(r.counts.gone).toBe(0);
+  });
+});
+
+/**
+ * **A line that goes while the room is still waiting for its second phone.**
+ *
+ * Six tries at 900 ms is five and a half seconds, and that is what the owner
+ * met as *the wait for the other player gives up too soon*: somebody opens a
+ * room, reads the four characters down a voice call, their screen locks while
+ * the other person is typing, and the phone gives up on a seat the room is
+ * still holding — `SEAT_SILENT_MS` is ten seconds, nearly twice as long.
+ *
+ * The six are right for a pair. They are about a field that has stopped with a
+ * person sitting in front of it, owed the truth quickly. Nobody is sitting in
+ * front of anything before the room is full.
+ */
+describe("a room socket still waiting for the other phone", () => {
+  test("keeps reaching long past the six a pair gets", () => {
+    const r = room(true);
+    for (let i = 0; i < RECONNECT_TRIES + 1; i++) {
+      r.die();
+      r.socket.frame(RECONNECT_MS);
+    }
+    expect(r.counts.gone).toBe(0);
+    expect(r.counts.waiting).toBe(RECONNECT_TRIES + 1);
+  });
+
+  test("gives up in the end, because a phone put down is not a phone reconnecting", () => {
+    const r = room(true);
+    for (let i = 0; i < WAITING_TRIES; i++) {
+      r.die();
+      r.socket.frame(RECONNECT_MS);
+    }
+    expect(r.counts.gone).toBe(0);
+    r.die();
+    expect(r.counts.gone).toBe(1);
+  });
+
+  test("waits long enough for the room to have let the seat go first", () => {
+    // The point of the number: the phone must not abandon a seat the room is
+    // still holding. `SEAT_SILENT_MS` is 10 s in `apps/server/src/seat.ts`.
+    expect(WAITING_TRIES * RECONNECT_MS).toBeGreaterThan(10_000);
+    expect(RECONNECT_TRIES * RECONNECT_MS).toBeLessThan(10_000);
+  });
+
+  test("is the state a socket starts in, before any welcome has spoken", () => {
+    // A creator opening a room has been welcomed by nobody, and that is the
+    // case the number exists for — so patience is the default rather than
+    // something a caller has to remember to switch on.
+    const r = room(true);
+    for (let i = 0; i < RECONNECT_TRIES + 1; i++) {
+      r.die();
+      r.socket.frame(RECONNECT_MS);
+    }
+    expect(r.counts.gone).toBe(0);
+  });
+
+  test("goes back to the pair's six once the room says it is full", () => {
+    const r = room(true);
+    r.socket.rearm(false);
+    for (let i = 0; i < RECONNECT_TRIES; i++) {
+      r.die();
+      r.socket.frame(RECONNECT_MS);
+    }
+    expect(r.counts.gone).toBe(0);
+    r.die();
+    expect(r.counts.gone).toBe(1);
+  });
+
+  test("is still refused outright when the room turned it away", () => {
+    // Patience is about how long, never about whether: a room that said no is
+    // not coming back however long anybody waits.
+    const r = room(true);
+    r.socket.surrender();
+    r.die();
+    expect(r.counts.gone).toBe(1);
+    expect(r.counts.waiting).toBe(0);
   });
 });

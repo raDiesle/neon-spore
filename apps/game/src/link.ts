@@ -123,7 +123,7 @@ export function createLink(o: LinkOptions): Link {
         // The tempo this join was told to bring, said once and only if it differs.
         if (asked !== null && asked !== message.level) socket?.send({ t: "level", level: asked });
         asked = null;
-        socket?.rearm();
+        socket?.rearm(peers < 2 && !run.started);
         // A beat zero that is not this run's is the room saying the run is over
         // and the next starts here, which is what a rejoin looks like from this
         // side. Carrying on would leave the two devices counting from different

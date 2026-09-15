@@ -4,13 +4,36 @@ import { openRelay, type Relay, type RelayHandlers } from "./relay.js";
 /** Milliseconds before a socket that went away is reached for again. */
 export const RECONNECT_MS = 900;
 /**
- * How many times. A handset that locks its screen, goes through a tunnel or
- * hands over from wifi to the mobile network drops the socket and gets it back
- * within a second or two; one that has been away longer than this is a player
- * who has put the phone down, and telling them the truth beats reaching for a
- * room forever.
+ * How many times, **once there is somebody in the room with you**. A handset
+ * that locks its screen, goes through a tunnel or hands over from wifi to the
+ * mobile network drops the socket and gets it back within a second or two; one
+ * that has been away longer than this is a player who has put the phone down,
+ * and telling them the truth beats reaching for a room forever.
  */
 export const RECONNECT_TRIES = 6;
+
+/**
+ * And how many times **while the room is still waiting for its second phone**.
+ *
+ * Six tries at `RECONNECT_MS` is five and a half seconds, and that is the
+ * number the owner met as *the wait for the other player gives up too soon*.
+ * The case is the one the room screen is built around: somebody opens a room,
+ * reads the four characters down a voice call, and their screen locks or their
+ * line hiccups while the other person is still typing. Five and a half seconds
+ * later their phone has given up on the room altogether — and it has given up
+ * on a seat the room is *still holding for it*, since `SEAT_SILENT_MS` in
+ * `apps/server/src/seat.ts` is ten.
+ *
+ * The argument above is about a **pair**, and it is right about one: a field
+ * that has stopped is a person sitting in front of nothing, owed the truth
+ * quickly. Nobody is sitting in front of anything here. There is no run to
+ * stall, no partner to leave hanging, and the thing being waited for is a
+ * person reading characters aloud — which takes tens of seconds and sometimes
+ * a second go. So the budget is a hundred and twenty, which is a hundred and
+ * eight seconds: longer than reading a code out twice, shorter than a phone
+ * somebody has put down and walked away from.
+ */
+export const WAITING_TRIES = 120;
 
 export interface RoomSocketHandlers {
   message: (message: ServerMessage) => void;
@@ -34,8 +57,13 @@ export interface RoomSocket {
   close(): void;
   /** Time passing. Reopens the socket when a pending wait runs out. */
   frame(dtMs: number): void;
-  /** Give the attempts back. A `welcome` means the room is answering again. */
-  rearm(): void;
+  /**
+   * Give the attempts back, and say whether the room is still gathering — a
+   * `welcome` means the room is answering again, and it is the one moment its
+   * head count changes. Which budget a later drop is spent against follows
+   * from it (`WAITING_TRIES`).
+   */
+  rearm(stillGathering: boolean): void;
   /** Stop reaching for it, whatever is left. */
   surrender(): void;
   /** Whether a socket exists right now. */
@@ -68,7 +96,26 @@ export function openRoomSocket(
 ): RoomSocket {
   let relay: Relay | null = null;
   let retryIn = 0;
-  let triesLeft = RECONNECT_TRIES;
+  /**
+   * Attempts *made*, counted up rather than down, because the budget they are
+   * spent against is not fixed: a drop while the room is still waiting for its
+   * second phone is allowed far more of them than a drop mid-run
+   * (`WAITING_TRIES`), and a counter that had already been decremented against
+   * one budget could not be read against the other.
+   */
+  let tries = 0;
+  /** Turned away on purpose: no budget at all, whatever the state says. */
+  let surrendered = false;
+  /**
+   * Whether the room is still gathering, which is what `WAITING_TRIES` is for.
+   *
+   * **True until a welcome says otherwise**, because a socket that has never
+   * been welcomed is in a room that has not spoken — a creator opening one, or
+   * a phone still reaching for its first answer. `rearm` carries the room's
+   * own count every time it speaks, so the budget follows the room rather than
+   * being a thing this file guesses at.
+   */
+  let gathering = true;
   let closed = false;
   let awayMs = 0;
 
@@ -81,11 +128,16 @@ export function openRoomSocket(
   const drop = (): void => {
     relay = null;
     if (closed) return;
-    if (triesLeft <= 0 || !on.worthRetrying()) {
+    // Asked at the moment of the drop rather than held, so a line that goes
+    // while the pair is still gathering gets the patient budget and one that
+    // goes mid-run does not — and a room that fills between two drops moves
+    // from one to the other without anything having to be reset.
+    const budget = surrendered ? 0 : gathering ? WAITING_TRIES : RECONNECT_TRIES;
+    if (tries >= budget || !on.worthRetrying()) {
       on.gone();
       return;
     }
-    triesLeft--;
+    tries++;
     retryIn = RECONNECT_MS;
     on.waiting();
   };
@@ -111,11 +163,13 @@ export function openRoomSocket(
       retryIn -= dtMs;
       if (retryIn <= 0) open();
     },
-    rearm() {
-      triesLeft = RECONNECT_TRIES;
+    rearm(stillGathering) {
+      tries = 0;
+      surrendered = false;
+      gathering = stillGathering;
     },
     surrender() {
-      triesLeft = 0;
+      surrendered = true;
       retryIn = 0;
     },
     get present() {

@@ -225,10 +225,12 @@ of a name, the wave the two of them reached and the tempo they played it at
 (`apps/game/src/partners.ts`), the seat cards are off the page, and every
 partner's row carries a gear that opens the three tempi *for that pair*
 (`bun run menu-shot out.png --page "PLAY > ⚙" --partners "Ada:6"` photographs
-it). **Steps 4 and 5 are what is left**, plus step 2's other half — the
-difficulty offered while a game is being *created* — which has no home until
-4 builds the room screen. Both want a session that can put two browsers in one
-room against a wrangler; this one could not.
+it). **Step 4 is what is left**, plus step 2's other half — the difficulty offered
+while a game is being *created* — which has no home until 4 builds the room
+screen. It wants a session that can put two devices in one room against a
+wrangler, and **a cloud session is now one**: `bun run relay:check:all` starts
+the relay and stops it again, and 5 below was found and fixed that way on 15
+September 2026 (`docs/cloud-session.md`).
 
 **What the gear turned out to need, for whoever works 4.** A tempo is not a
 thing a device holds. The room keeps its own level in Durable Object storage
@@ -282,14 +284,17 @@ NEW GAME, CONTINUE and DIFFICULTY. **What he wants:**
      creator's pick has to reach the other phone, which is one new message or
      a swap — the net-change skill's files move together.
    - The joiner's pages mirror it: JOIN → name → code → the same shared step 4.
-5. **The wait for the other player gives up too soon.** Find which timer it
-   is before changing one: `SEAT_SILENT_MS` (10 s, `apps/server/src/seat.ts`)
-   evicts a seat whose pings stop, which is what a creator's phone does when
-   its screen locks while they read the code out; `HOLD_AFTER_MS` (1.2 s,
-   `hold.ts`) raises the *gone quiet* card. Reproduce with two browsers
-   against a wrangler (`bun run relay:check` has the setup), name the number
-   that fired, and raise it for the waiting-for-a-partner state only, with a
-   sentence in the constant's comment saying why.
+5. ~~**The wait for the other player gives up too soon.**~~ — landed on 15
+   September 2026, and **it was neither of the two timers this entry named**.
+   Reproduced against a live relay: `SEAT_SILENT_MS` never fires, because the
+   room only evicts while it is computing its seats and a silent seat with
+   nobody else pinging is never looked at — a device was left silent for 24
+   seconds and kept its seat. `HOLD_AFTER_MS` cannot fire either: `troubleOf`
+   answers only for `lost` and `stalled`, and a phone waiting for a partner is
+   `waiting`. What fired is `RECONNECT_TRIES` (6) at `RECONNECT_MS` (900) in
+   `link-socket.ts` — the client gives up **5.4 seconds** after its line goes,
+   and abandons a seat the room holds for ten. It is patient until a welcome
+   says the room is full now (`WAITING_TRIES`, 108 s).
 
 `menu.test.ts` and `menu-front.test.ts` read the rows; `pairing.test.ts`
 holds the store's shape; `join-words.test.ts` holds every sentence on the

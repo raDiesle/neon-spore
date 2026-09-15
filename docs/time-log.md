@@ -5263,3 +5263,27 @@ no wrangler; they say what happened instead. About 45 min.
 Bottleneck: looking — the whole of this lane is one question answered by
 running something for two minutes, and the value is that nobody has to ask it
 again.
+
+## 2026-09-15 · claude/queue-tasks-kkqozz — the wait for the other player, and the timer that was really firing
+
+Step 5 of the room workflow, now that a cloud session can run a relay. The
+entry named two suspects and reproduced against a live Durable Object neither
+of them fires: a device left silent for 24 seconds kept its seat, because
+`SEAT_SILENT_MS` is only read while the room computes its seats and nobody was
+making it; and `troubleOf` answers only for `lost` and `stalled`, so a phone
+that is merely `waiting` never raises the card. What fires is
+`RECONNECT_TRIES` — six tries at 900 ms is **5.4 seconds**, against a seat the
+room holds for ten. The blackout run shows both sides: with the old budget the
+partner arrives to `waiting peers=1` and the creator sits in `lost`; with the
+new one both reach `ready peers=2`. About 60 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry's step 5, `seat.ts`, `room.ts`, `hold.ts`, `link-socket.ts`, `link.ts` |
+| writing | 15 | `WAITING_TRIES`, the budget read at the drop, `rearm`'s argument, four cases |
+| looking | 25 | four probes: a silent seat, then a cut line, then a blackout — each run twice, with the fix and without |
+| friction | 5 | `link.ts` sits at exactly 250 lines, so the first shape of the fix could not be added to it at all |
+| landing | 0 | `check:fast`, `relay:check:all`, the commit, `bun run land --keep` |
+
+Bottleneck: looking — three reproductions were wrong before one discriminated,
+and each costs twenty seconds of wall clock plus a wrangler start.
