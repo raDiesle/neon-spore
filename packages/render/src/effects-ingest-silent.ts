@@ -100,7 +100,6 @@ export const INGEST_SILENT = [
   // moves are all read off the world every frame (`cling.ts`), and
   // `burstFor` has already thrown the sparks.
   "clingGrip",
-  "clingShake",
   "clingFreed",
   "clingBlast",
   // Nothing about the ejected body is remembered either: which way it is

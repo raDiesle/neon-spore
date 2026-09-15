@@ -39,12 +39,11 @@ export function heldHashParts(c: Creature): number[] {
   // than at its own, so two devices that disagree here disagree about the beat
   // it reaches the hull — the beat the shield has to answer on.
   out.push(c.dropped === true ? 1 : 0);
-  // The clingers' four (`cling.ts`): whether one has its control, how far
-  // its fuse has run, how many moves are against it, and the column the next
-  // beat is judged against. `-1` where absent, a value none of them takes.
+  // The clingers' two: whether one has its control, and the column the next
+  // tick is judged against (`harpoon.ts`). `-1` where absent, a value neither
+  // takes. It was four — a fuse counted in beats and a count of moves against
+  // the grip — and those went with the creature on 15 September 2026.
   out.push(c.clingStuck === true ? 1 : 0);
-  out.push(c.clingStill ?? -1);
-  out.push(c.clingMoves ?? -1);
   out.push(c.clingLastCol ?? -1);
   // THE WEIGHT's one: how long both hands have been on it. Two devices that
   // disagree about it disagree about the tick the body gives, and a body that

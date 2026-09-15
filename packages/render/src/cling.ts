@@ -2,15 +2,10 @@ import { LEECH, LIMPET, livingPath } from "@neon-spore/content";
 import {
   type ClingKind,
   type Creature,
-  clingFuse,
   clingIsStuck,
-  clingMovesSoFar,
-  clingShake,
-  clingStillBeats,
   isClingKind,
   type World,
 } from "@neon-spore/sim";
-import { drawClingFuse, showsClingFuse } from "./cling-fuse.js";
 import type { Body } from "./creature-body-in.js";
 import { drawLivingBody } from "./creature-body-living.js";
 import { contourClock, livingScale } from "./creature-place.js";
@@ -51,8 +46,6 @@ import { PALETTE, STROKE } from "./palette.js";
 const ARC_WASH: Wash = { rim: PALETTE.arcRim, hex: PALETTE.arc, dark: "#111A44", amount: 1 };
 /** The stuck body's radius in tiles: a little under the falling one, squat. */
 const STUCK_R = 0.36;
-/** How far the body lifts off its control when every move but one is in. */
-const LIFT = 0.28;
 /** The limpet's rim of hooklets, as HOOK COLONY has them. */
 const HOOKS = 9;
 
@@ -132,25 +125,25 @@ function hooklets(
  */
 export function stuckClingerAt(
   l: Layout,
-  world: World,
   c: Creature,
   kind: ClingKind,
   cannonX: number,
   shieldX: number,
   surfaceY: SurfaceY,
   beatPhase: number,
-): { x: number; y: number; r: number; loose: number; arriving: number } {
+): { x: number; y: number; r: number; arriving: number } {
   const homeX = kind === "limpet" ? shieldX : cannonX;
-  // The grip beat: nought of both counts and a lane it has not left yet.
-  const arriving = clingStillBeats(c) === 0 && clingMovesSoFar(c) === 0 && c.fromCol !== c.col;
-  const u = arriving ? smoothstep(beatPhase) : 1;
+  // **The arrival beat**, and it is the one beat this differs from the lobe on:
+  // a body comes out of the lantern's own column (`sim/harpoon.ts` sets
+  // `fromCol` there), so the picture slides it along to the control over that
+  // beat rather than having it appear on top of one.
+  const u = c.fromCol !== c.col ? smoothstep(beatPhase) : 1;
   const laneX = tileCX(l, c.fromCol ?? c.col);
   const x = laneX + (homeX - laneX) * u;
-  const loose = clingMovesSoFar(c) / Math.max(1, clingShake(world, kind));
   const r = l.tile * STUCK_R;
   // `arriving` is that slide's own phase, handed back so the grab's light can
-  // be drawn on it without a second reading of the same three counts.
-  return { x, y: surfaceY(x) - r * 0.55 - l.tile * LIFT * loose, r, loose, arriving: u };
+  // be drawn on it without a second reading of the same question.
+  return { x, y: surfaceY(x) - r * 0.55, r, arriving: u };
 }
 
 export function drawStuckClingers(
@@ -171,14 +164,15 @@ export function drawStuckClingers(
       x,
       y,
       r,
-      loose,
       arriving: u,
-    } = stuckClingerAt(l, world, c, kind, cannonX, shieldX, surfaceY, beatPhase);
+    } = stuckClingerAt(l, c, kind, cannonX, shieldX, surfaceY, beatPhase);
     const shape = kind === "limpet" ? LIMPET : LEECH;
     const t = contourClock(c.id, time);
     const s = livingScale(shape, r);
-    // Squatting: wider than tall, harder the tighter it holds.
-    const squat = 1 - 0.25 * (1 - loose);
+    // Squatting: wider than tall. It used to slacken toward round as the pair
+    // shook the body loose; nothing shakes one loose any more, so it holds at
+    // its tightest for the whole of a placement (`docs/spec/ideas.md`).
+    const squat = 0.75;
     const path = new Path2D(livingPath(shape, t));
     halo(ctx, x, y, Math.round(tile * 1.1), PALETTE.arc, 0.3);
     ctx.save();
@@ -193,20 +187,8 @@ export function drawStuckClingers(
     ctx.lineWidth = STROKE.outline / s;
     strokeGlow(ctx, path, PALETTE.arc, STROKE.outline / s, 0.8);
     ctx.restore();
-    if (kind === "limpet") hooklets(ctx, x, y, r * squat, t, loose, PALETTE.arcRim, true);
+    if (kind === "limpet") hooklets(ctx, x, y, r * squat, t, 0, PALETTE.arcRim, true);
     // The grab: a light that swells and goes as it arrives.
     if (u < 1) halo(ctx, x, y, Math.round(tile * (1.2 + u)), PALETTE.arcRim, 0.5 * (1 - u));
-    if (showsClingFuse(l.role, kind)) {
-      drawClingFuse(
-        ctx,
-        x,
-        y - r * squat,
-        tile,
-        clingFuse(world, kind),
-        clingStillBeats(c),
-        beatPhase,
-        time,
-      );
-    }
   }
 }

@@ -21,7 +21,6 @@ export function handedBurst(
         | "balloonTopped"
         | "gumFlung"
         | "clingGrip"
-        | "clingShake"
         | "clingFreed"
         | "clingBlast"
         | "weightCrushed"
@@ -52,8 +51,6 @@ export function handedBurst(
     // wave has just been lost to a control that stood still (`cling.ts`).
     case "clingGrip":
       return { x: tileCX(l, e.from), y: l.hullY, n: 14, hex: PALETTE.arc };
-    case "clingShake":
-      return { x: tileCX(l, e.col), y: l.hullY, n: 5, hex: PALETTE.arcRim };
     case "clingFreed":
       return { x: tileCX(l, e.col), y: l.hullY, n: 24, hex: PALETTE.arc };
     case "clingBlast":

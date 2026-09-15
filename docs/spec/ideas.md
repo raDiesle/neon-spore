@@ -421,10 +421,13 @@ pilot's screen alone — and the boss-sized body it was drawn for was never need
   rather than by enduring, and a broken control a gesture wins back. It is THE
   CHOKE's tap-off again in another body, and it belongs where that one does —
   on a later wave, offered to a pair that has learnt to live with a fault. To
-  restore: the tree at `1d2224ff` holds `stepClingers`' whole arrival path, the
-  fuse's lights in `render/cling-fuse.ts`, `clingShake` and `clingMovesSoFar` in
-  `sim/cling.ts`, and both creatures without `installed` in
-  `content/creatures-cling.ts`
+  restore: the tree at `1d2224ff` holds all of it — `stepClingers`' whole arrival
+  path and `clingLands` beside it, the fuse's own render module, `clingShake`
+  and `clingMovesSoFar` in the simulation's cling module, and both creatures
+  without `installed` in `content/creatures-cling.ts`. Named in prose rather
+  than as paths, because two of those files do not exist here any more and a
+  document that names a path this repository has not got is a red check
+  (`tools/test/doc-drift.test.ts`)
 - **THE CHOKE's body and its tap-off** — for a day THE CHOKE was a creature:
   TENDRIL's sac in bile yellow falling one lane at a slick's pace, unshootable
   and unwardable, that landed, crawled along the plating to the cannon and

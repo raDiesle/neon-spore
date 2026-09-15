@@ -29,10 +29,8 @@ export const BALLOON_FIELDS = {
   // seam, a creature a hand on the field works.
   gumSwipeMilli: "THE GUM — a drop either hand swipes out of the field",
   gumFlingCols: "THE GUM — a drop either hand swipes out of the field",
-  // And the clingers' four: a body on a control, shaken off by moving it.
+  // And the clingers' one — it was five, and four of them went with the
+  // creature on 15 September 2026. Both kinds read it, so it is filed under the
+  // plate's group and the cannon's note points at it.
   harpoonStillBeats: "THE LIMPET — a body on the plate that goes off if the plate stands still",
-  limpetStillBeats: "THE LIMPET — a body on the plate that goes off if the plate stands still",
-  limpetShakeMoves: "THE LIMPET — a body on the plate that goes off if the plate stands still",
-  leechStillBeats: "THE LEECH — a body on the cannon that goes off if the cannon stands still",
-  leechShakeMoves: "THE LEECH — a body on the cannon that goes off if the cannon stands still",
 } satisfies Partial<Record<keyof SimConfig, GroupName>>;

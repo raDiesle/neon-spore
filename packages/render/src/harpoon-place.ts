@@ -38,7 +38,7 @@ export function heldHarpoons(
   for (const kind of HARPOON_KINDS) {
     const body = harpoonBody(world, kind);
     if (!body) continue;
-    const at = stuckClingerAt(l, world, body, kind, cannonX, shieldX, surfaceY, beatPhase);
+    const at = stuckClingerAt(l, body, kind, cannonX, shieldX, surfaceY, beatPhase);
     out.set(kind, { x: at.x, y: at.y, r: at.r });
   }
   return out;

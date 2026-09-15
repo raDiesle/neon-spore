@@ -183,8 +183,6 @@ function install(world: World, kind: HarpoonKind): void {
     shell: 0,
     clingStuck: true,
     clingLastCol: col,
-    clingStill: 0,
-    clingMoves: 0,
   });
   setId(world, kind, id);
   setStill(world, kind, 0);

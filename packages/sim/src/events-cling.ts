@@ -2,33 +2,39 @@ import type { ClingKind } from "./cling.js";
 
 /**
  * **Everything THE LIMPET and THE LEECH do**, as events: one takes hold of a
- * control, is shaken a move looser, lets go, or goes off. Its own file on
- * `events-gum.ts`' terms — one arrival taken apart — and one arm of
- * `CreatureEvent`, so every consumer still switches over the whole list.
- * `kind` on every one, because the two are one module and one ear, and the
- * plate and the cannon are told apart by it.
+ * control, lets go of it, or goes off. Its own file on `events-gum.ts`' terms
+ * — one arrival taken apart — and one arm of `CreatureEvent`, so every consumer
+ * still switches over the whole list. `kind` on every one, because the two are
+ * one module and one ear, and the plate and the cannon are told apart by it.
  *
- * There is no event for a beat the control stood still. The count that beat
- * moved is read off the world every frame by the one seat that is shown it
- * (`render/cling.ts`), and a sound on it would tell the other seat too.
+ * **`clingShake` was the fourth** — *the control was found in a new column, one
+ * move of the several that shake it off* — and it went with the shake on 15
+ * September 2026, when these two stopped being creatures a wave spawns and
+ * became a pencil the lantern fires (`harpoon.ts`). Nothing replaced it: under
+ * a fault a move is not progress toward getting the body off, it is the whole
+ * of what the pair has to keep doing, and what says so is the danger glow going
+ * back to nought (`render/harpoon-danger.ts`) rather than a sound.
+ *
+ * There is no event for a control that stood still either. How near the round
+ * is to being lost is read off the world every frame by both screens, and an
+ * event on it would be a second clock to keep in step with the first.
  */
 export type ClingEvent =
   /**
-   * One came to rest on the ship and took its control. Pushed on the beat
-   * it is drawn standing on the hull; `from` is the lane it fell down and
-   * `col` the control's column, which is where it is from now on.
+   * One took its control. Pushed on the beat the fault fires it, which is the
+   * first beat of the placement; `col` is the control's column, and `from` is
+   * that same column — the body comes out of the lantern rather than down a
+   * lane, and the line it came down is drawn from there
+   * (`render/harpoon-line.ts`).
    */
   | { type: "clingGrip"; id: number; kind: ClingKind; col: number; row: number; from: number }
-  /**
-   * The control was found in a new column on the beat: one move of the
-   * `of` that shake it off. `moves` is how many so far.
-   */
-  | { type: "clingShake"; kind: ClingKind; col: number; moves: number; of: number }
-  /** Shaken off, and gone. `col` is the control's column as it lets go. */
+  /** Reeled home, and gone: the placement's own length ran out and the thing
+   * that fired it called it back. `col` is the control's column as it lets
+   * go. */
   | { type: "clingFreed"; kind: ClingKind; col: number; row: number }
   /**
-   * The control stood still for the whole fuse and the body went off: a
-   * heavy breach at `col`, which `breachHull` has already pushed as its own
-   * event. This one is the blast itself, for the ear and the flash.
+   * The control stood still for the whole count and the body went off: a heavy
+   * breach at `col`, which `breachHull` has already pushed as its own event.
+   * This one is the blast itself, for the ear and the flash.
    */
   | { type: "clingBlast"; kind: ClingKind; col: number; row: number };

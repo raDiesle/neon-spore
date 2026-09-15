@@ -1,5 +1,5 @@
 import { markMoment } from "./balance.js";
-import { clingLands, isClingKind } from "./cling.js";
+import { isClingKind } from "./cling.js";
 import { hullRow } from "./config.js";
 import { fenceIsOpen } from "./fence.js";
 import { breachHull, breachUnscarred, damageSpan } from "./hull-damage.js";
@@ -61,12 +61,20 @@ export function resolveHull(world: World): void {
     }
 
     // **THE LIMPET and THE LEECH never break the hull and never leave this
-    // loop.** Neither breaks the hull, the shield has nothing to say to
-    // either, and on the beat one is drawn standing on the ship it takes its
-    // control (`cling.ts`). Before the ward's question, because the fence's
-    // branch above is the shape of that: a body with an answer of its own.
+    // loop.** Neither breaks the hull and the shield has nothing to say to
+    // either. Before the ward's question, because the fence's branch above is
+    // the shape of that: a body with an answer of its own.
+    //
+    // Nothing happens here any more. It used to be where one *landed* and took
+    // its control, which was the arrival of a creature that fell down a lane;
+    // since 15 September 2026 a fault fires the body straight onto the control
+    // already holding it (`harpoon.ts`), so there is no landing left — only the
+    // rule that neither of these is the hull's business, which still has to be
+    // said or the ordinary breach below would take it — and it *did*, for one
+    // run: with the branch gone the body a fault had just fired was broken on
+    // the ship the same beat and fired again on the next, four times in three
+    // beats, which is what `cling-frame.test.ts` counts grips for.
     if (isClingKind(c.kind)) {
-      if (c.row >= shipRow) clingLands(world, c, shipRow);
       survivors.push(c);
       continue;
     }

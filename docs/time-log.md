@@ -5938,3 +5938,23 @@ The bottleneck was friction and it was the tree being right: `waveNames`,
 `isInstalled`, the mechanics table's own list and the guide's length limit each
 caught one end of the change, and the wave file's own header had already
 written down the mistake I made inside the array.
+
+## 2026-09-15 — queued-tasks — what the creature left behind
+
+Every path nothing could reach once THE LEECH and THE LIMPET stopped being
+creatures: the fall, the fuse, the shake, their four config numbers, their two
+hashed fields, one event and one whole render file.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | a grep of thirteen symbols across five packages, and what each of them still had a caller for |
+| writing | 55 | eleven source files cut, two test files rewritten, one deleted, one director pose rebuilt around a pencil |
+| looking | 10 | one frame before and one after, to see the fuse lights gone and nothing else with them |
+| friction | 20 | a guard dropped out of `hull.ts` by accident, which fired the body four times in three beats |
+| landing | 15 | three rounds of `check:fast`, the full run, the commit |
+
+The bottleneck was friction and it was one careless replacement: taking the
+landing out of `hull.ts` took the *branch* with it, so a harpooned body fell
+through to the ordinary breach, was destroyed on the beat it arrived and fired
+again on the next. The rewritten frame test counted eight grips where it wanted
+two, which is exactly the assertion it was given for.

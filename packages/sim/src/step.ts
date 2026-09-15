@@ -7,7 +7,6 @@ import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing
 import { advanceBullets, releaseShot } from "./bullets.js";
 import { stepChoirFuse } from "./choir.js";
 import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
-import { stepClingers } from "./cling.js";
 import { wardCoils } from "./coil.js";
 import { applyCommand } from "./commands.js";
 import { crankHeard } from "./crank.js";
@@ -153,7 +152,6 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
     // The clingers judge their controls before the field moves, so one that
     // takes hold on this beat has its first beat of fuse counted on the next
     // — a beat the pair has seen it standing there (`cling.ts`).
-    stepClingers(world);
     onBeat(world);
     // After the field has fallen, and only then: a held cord rides its lid
     // down and has to stay on the field as it goes (`lid.ts`).

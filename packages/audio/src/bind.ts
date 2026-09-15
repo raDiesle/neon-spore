@@ -212,7 +212,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "gumFlung":
       return gumCue(e, cols, rows);
     case "clingGrip":
-    case "clingShake":
     case "clingFreed":
     case "clingBlast":
       return clingCue(e, cols);

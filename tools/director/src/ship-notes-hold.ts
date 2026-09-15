@@ -23,15 +23,12 @@ export const HOLD_NOTES = {
     "beat, gone at the wall. A gum that reaches the ship hits it at once, with no scar, and splashes across the " +
     "whole hull. See gum.ts.",
   "THE LIMPET — a body on the plate that goes off if the plate stands still":
-    "It falls straight down its lane like a slick, no shot touches it and the shield does not stop it, and " +
-    "when it lands it goes to the plate wherever the plate is. Every beat the plate is found in the column " +
-    "it was in a beat before is one beat of the fuse; at limpetStillBeats of them it goes off, a heavy hit " +
-    "on the hull at the plate's column, and the wave is lost. A beat the plate is found in a new column " +
-    "puts the fuse back to nought and is one move against it; at limpetShakeMoves it lets go. Only player 1, " +
-    "who has no plate, is shown the fuse — a row of lights over the body, going out one a beat. See cling.ts.",
-  "THE LEECH — a body on the cannon that goes off if the cannon stands still":
-    "THE LIMPET's twin on the cannon: it lands on the swelling wherever the cannon is, the fuse runs " +
-    "leechStillBeats beats while the cannon stands in one column and is put back by a beat it stands in " +
-    "another, leechShakeMoves of those shake it off, and at the end of the fuse it is a heavy hit on the " +
-    "hull at the cannon's column. Only player 2, who has no cannon, is shown the fuse. See cling.ts.",
+    "A fault and never a wave's body: place the LIMPET pencil on a beat row and the thing at the top of " +
+    "the field fires it at the plate, very fast, wherever the plate is. No fall, no lane, nothing to evade, " +
+    "and no shot touches it. From that beat the plate has to keep moving and is judged between beats rather " +
+    "than on them: a plate that has not been found in a new column for harpoonStillBeats loses the round, a " +
+    "heavy hit on the hull at its column. The pencil's own length is how long it stays; when that runs out " +
+    "the line is reeled home. A timer over the body counts it down and MOVE SHIELD! is under player 1's " +
+    "dial — the seat that cannot move it. THE LEECH is the same on the cannon, off the same number, with " +
+    "MOVE CANNON! under player 2's. See harpoon.ts.",
 } satisfies Partial<Record<GroupName, string>>;

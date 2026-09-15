@@ -1,10 +1,10 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import {
   createWorld,
-  hullRow,
-  type SpawnEntry,
+  startWave,
   step,
   type TimedCommand,
+  TO_THE_END,
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from "./frame-harness.js";
@@ -12,41 +12,50 @@ import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, ROLES, runFrames } from ".
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE LIMPET and THE LEECH through a canvas that refuses what a real one
- * does (`frame-harness.ts`).
+ * THE LIMPET and THE LEECH through a canvas that refuses what a real one does
+ * (`frame-harness.ts`).
  *
- * Three pictures nothing else draws: a body arriving along the plating from
- * the lane it fell in, by `beatPhase`; a body lifting off its control and
- * opening its hooks as the moves against it mount; and the fuse — a row of
- * lights over the body, going out one a beat, pulsing on the last two and
- * flashing ember on the last (`cling.ts`, `cling-fuse.ts`). The fuse is
- * shown to one seat only, so every role is run: p1 is shown the limpet's
- * and not the leech's, p2 the other way, test both.
+ * **This file used to be about a creature and is about a fault.** It drew a
+ * body falling down a lane, arriving along the plating, loosening as the moves
+ * against it mounted, and a fuse of lights going out one a beat — and every one
+ * of those went on 15 September 2026, when the owner ruled that these two exist
+ * only as a pencil placed on the map (`docs/spec/ideas.md` keeps them). What is
+ * left is the body itself on its control, which is still a picture nothing else
+ * draws: the squat shape, its hooklets or needles, the halo of the barb going
+ * in, and the slide out of the lantern's column on the beat it arrives.
  *
- * Both runs go the whole way — one to the blast, one to the letting-go — so
- * the last beat's flash and the freed burst are drawn as well as the hold.
+ * Both placements are run to their end so the reel home is drawn as well as the
+ * hold, and the grip is asserted rather than assumed — a frame test that ran a
+ * wave where nothing arrived would pass on an empty picture.
  */
 
 beforeAll(installCanvasGlobals);
 
 const TPB = ticksPerBeat(CFG);
-const STUCK_BY = TPB * (hullRow(CFG) + 2);
 const MID = Math.floor(CFG.cols / 2);
 
-const queue = (): SpawnEntry[] => [
-  { beat: 0, col: 1, kind: "limpet", color: null },
-  { beat: 0, col: 5, kind: "leech", color: null },
-];
+/** A world with both pencils on it from the first beat, for `beats` beats. */
+function held(beats: number) {
+  const world = createWorld({ ...CFG, hullInvulnerable: true }, 1);
+  startWave(world, 0, [], [], null, false, 0, [
+    { kind: "limpet", at: 0, beats },
+    { kind: "leech", at: 0, beats },
+  ]);
+  return world;
+}
 
-/** Both controls walked a column a beat from the grip, or left standing. */
-function clingFrames(role: (typeof ROLES)[number], ticks: number, walking: boolean) {
-  const { ctx, events, world } = runFrames(createWorld(CFG, 1, queue()), role, ticks, {
+/**
+ * `walking` keeps both controls moving, which is the only way a placement ever
+ * reaches its own end: the still-count is a beat and a half, so a pair that
+ * stands still loses the round long before the shortest pencil runs out.
+ */
+function clingFrames(role: (typeof ROLES)[number], ticks: number, beats: number, walking = false) {
+  const { ctx, events, world } = runFrames(held(beats), role, ticks, {
     every: 3,
     onTick: (tick, w) => {
       const inputs: TimedCommand[] = [];
-      if (walking && tick > STUCK_BY && (tick - STUCK_BY) % TPB === 1) {
-        const b = Math.floor((tick - STUCK_BY) / TPB);
-        const col = b % 2 === 0 ? MID - 1 : MID + 1;
+      if (walking && tick % 4 === 0) {
+        const col = (tick / 4) % 2 === 0 ? MID - 1 : MID + 1;
         inputs.push({ tick, player: 2, command: { kind: "shieldCol", col } });
         inputs.push({ tick, player: 1, command: { kind: "cannonCol", col } });
       }
@@ -58,7 +67,6 @@ function clingFrames(role: (typeof ROLES)[number], ticks: number, walking: boole
     ctx,
     world,
     grip: count("clingGrip"),
-    shake: count("clingShake"),
     freed: count("clingFreed"),
     blast: count("clingBlast"),
   };
@@ -66,19 +74,25 @@ function clingFrames(role: (typeof ROLES)[number], ticks: number, walking: boole
 
 describe("THE LIMPET and THE LEECH through a canvas that refuses what a real one does", () => {
   for (const role of ROLES) {
-    it(`draws the fall, the grip, the fuse running out and the blast as ${role}`, () => {
-      const ticks = STUCK_BY + TPB * (CFG.limpetStillBeats + 1);
-      const { ctx, grip, blast } = clingFrames(role, ticks, false);
+    it(`draws both bodies arriving on their controls and holding as ${role}`, () => {
+      const { ctx, grip } = clingFrames(role, TPB * 3, TO_THE_END);
       expect(ctx.calls).toBeGreaterThan(0);
       expect(grip).toBe(2);
-      expect(blast).toBe(2);
     });
   }
 
-  it("draws the body loosening under the moves and letting go", () => {
-    const ticks = STUCK_BY + TPB * (CFG.limpetShakeMoves + 1);
-    const { shake, freed, blast, world } = clingFrames("test", ticks, true);
-    expect(shake).toBe(CFG.limpetShakeMoves + CFG.leechShakeMoves);
+  it("draws the round lost when nobody moves either control", () => {
+    // Nothing is pressed, so both counts run out — which is the whole of what
+    // the fault asks for and the only way either body leaves early.
+    const { blast, world } = clingFrames("test", TPB * 4, TO_THE_END);
+    expect(blast).toBe(2);
+    expect(world.creatures).toHaveLength(0);
+  });
+
+  it("draws both being reeled home when the placements run out", () => {
+    // Both controls walked the whole way, so nothing is ever still for the
+    // beat and a half that loses it and the two-beat pencils end on their own.
+    const { freed, blast, world } = clingFrames("test", TPB * 4, 2, true);
     expect(freed).toBe(2);
     expect(blast).toBe(0);
     expect(world.creatures).toHaveLength(0);

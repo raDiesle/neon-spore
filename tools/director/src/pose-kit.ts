@@ -6,6 +6,7 @@ import {
   type Color,
   createWorld,
   DEFAULT_CONFIG,
+  type PlacedFault,
   type PodEntry,
   type SimConfig,
   type SpawnEntry,
@@ -126,9 +127,19 @@ export function fresh(
   boss: BossEntry | null = null,
   cfg: Partial<SimConfig> = {},
   waveIndex = 0,
+  /**
+   * The pencils on this wave's map, for a pose about a **fault**.
+   *
+   * THE LIMPET and THE LEECH are the first two that need it: they used to be
+   * creatures a queue entry could spawn, and since 15 September 2026 the only
+   * way either body reaches the field is a placement (`sim/harpoon.ts`). The
+   * three faults that came before them are all posed off the panel rather than
+   * off the field, so nothing had asked for this before.
+   */
+  faults: PlacedFault[] = [],
 ): World {
   const world = createWorld({ ...POSE_CONFIG, ...cfg }, 11);
-  startWave(world, waveIndex, queue, pods, boss);
+  startWave(world, waveIndex, queue, pods, boss, false, 0, faults);
   return world;
 }
 

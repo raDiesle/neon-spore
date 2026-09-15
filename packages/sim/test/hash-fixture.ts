@@ -61,8 +61,6 @@ const creature = (): Required<Creature> => ({
   caromDir: -1,
   crystalDir: -1,
   clingStuck: true,
-  clingStill: 2,
-  clingMoves: 3,
   clingLastCol: 4,
   // THE WEIGHT: ticks both hands have been on it. Non-zero, so a fixture that
   // stopped hashing it would differ from one that did.

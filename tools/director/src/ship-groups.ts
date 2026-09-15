@@ -65,7 +65,6 @@ export type GroupName =
   | "THE GUM — a drop either hand swipes out of the field"
   | "THE WEIGHT — a load only two thumbs at once take down"
   | "THE LIMPET — a body on the plate that goes off if the plate stands still"
-  | "THE LEECH — a body on the cannon that goes off if the cannon stands still"
   | "THE MALFUNCTION — a control that acts by itself"
   | "WARDEN"
   | "VANE"
@@ -119,7 +118,6 @@ export const GROUP_ORDER: GroupName[] = [
   "THE WEIGHT — a load only two thumbs at once take down",
   "THE GUM — a drop either hand swipes out of the field",
   "THE LIMPET — a body on the plate that goes off if the plate stands still",
-  "THE LEECH — a body on the cannon that goes off if the cannon stands still",
   "WARDEN",
   "VANE",
   "MIRROR",
