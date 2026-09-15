@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · f43e57b9 — A shot never goes through a body: what the cannon cannot break, it hits and marks
+
+The owner's rule, 14 September 2026: *shots with the cannon, generally speaking, should never go through enemies, but should hit with no effect if the body cannot be destroyed with the cannon's colour. Reflect, like the magnet, or mark it, like the meteor, or something else — whatever is suitable. Shots should not go through the gum, the leech, the limpet.*
+
 ## 2026-09-15 · 987733d1 — THE LEECH and THE LIMPET are fired from the emitter: a body on a control, kept off by moving it
 
 The owner asked for both by name on 14 September 2026. They shipped as creatures — a body that falls down a lane, takes a control, counts a five-beat fuse and is shaken off by moving enough times — and what he wanted is the same body arriving the way every other fault arrives: fired from the thing at the top of the field, on a beat row a pencil is laid across, for as long as the pencil is long. This is the simulation half of that.
