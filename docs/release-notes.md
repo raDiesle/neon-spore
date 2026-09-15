@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · fd10951d — The MECHANICS entry carries the owner's rule: NOT BUILT YET shows only what is not implemented
+
+Stated on 15 September 2026, and it settles the question the entry opened: nothing built appears on the page, and a partly built section appears only as its unbuilt remainder. What is done is DOCUMENTATION's.
+
 ## 2026-09-15 · c0c1a07d — Queue the MECHANICS page's cut, four ideas built the owner's way, THE WEIGHT's duty words and a contents menu
 
 Seven entries, 15 September 2026. The NOT BUILT YET → MECHANICS page shows partly-built sections beside unbuilt ones, so it is cut to the four ideas the owner took: destruction's three missing pieces as VERSUS candidates; the Mine as an enemy, with the seeing seat a brush setting and the lettered grid on for both; Moulting as a body that turns meteor and pod every five beats, player 2 seeing what is next, nothing killing it; the Husk as a fake pod player 2 sees through, losing the wave if sucked and deflating like a balloon let go if refused. Then THE WEIGHT's siren words rewritten to say both touch at the same time, and a contents menu on the long director pages.
