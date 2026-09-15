@@ -676,6 +676,7 @@ director opened on THE LEAK showing the rung on its panel row and no fault.
 ## The Bash tool refuses a long quoted heredoc: a long edit script goes in by path
 
 - **Found:** 2026-09-14, claude/gum-swipe
+- **Taken:** 2026-09-15, claude/queue-the-bash-tool-refuses-a-long-quoted-heredoc-a-lo
 - **Files:** `.claude/skills/lane/SKILL.md`, `docs/working-with-claude.md`
 - **Where:** local
 
