@@ -33,6 +33,10 @@ Seven entries, 15 September 2026. The NOT BUILT YET → MECHANICS page shows par
 
 The owner's design, decided on 15 September 2026: straw entrances two tiles above the shield, one more straw each round, each tangled up the field to a number at the top; the ship sucks the entrances in that order with the shipped SUCK, the number rides the straw down into the maw, and a wrong one is eaten and costs the hull and the round. The navigator sees the tangle and the numbers, the pilot only the entrances; every round is on a beat count. When it lands, the BOSS IDEAS go, then THE SPLICE's own idea, then the whole NOT BUILT YET → BOSSES tab.
 
+## 2026-09-15 · cdc73888 — A balloon ends as its own skin, torn from the point where it gave
+
+The one point of the owner's 14 September ruling that never got built. Until now the end of a balloon was the same dozen three-pixel squares every kill in the game throws, and not one fragment of the body two people had just spent a hold on. It comes apart into twenty-four shreds of its own skin now, cut from the contour it was wearing on the frame it popped, flying outward, tumbling and falling onto the plating. A look the owner asked for by name, which is the first exemption under *A look is offered, never replaced*.
+
 ## 2026-09-15 · 27a43a15 — Take out everything the clingers' fall left behind, and close both entries
 
 Nothing could reach any of it once THE LEECH and THE LIMPET stopped being creatures a wave spawns. Out go `stepClingers` and `clingLands` with the whole arrival path, `clingFuse`, `clingShake`, `clingStillBeats` and `clingMovesSoFar`, the four `SimConfig` numbers they read, the two creature fields they wrote and their two rows in the hash, the `clingShake` event with its cue and its two spark tables, and `render/cling-fuse.ts` entire. `cling.ts` keeps what the harpoon calls: which kind it is, which control it takes, and whether it has hold.
