@@ -179,6 +179,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Unverified at bc3a3b7d: A partner's row pressed, and a wave written against a…
 
 - **Found:** 2026-09-15, claude/queue-tasks-kkqozz
+- **Taken:** 2026-09-15, claude/queue-unverified-at-bc3a3b7d-a-partners-row-pressed-an
 - **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/pairing.ts`, `apps/game/src/partners.ts`, `apps/game/src/waves.ts`
 
 *The PLAY page is a list of the people this device has played with* landed from
