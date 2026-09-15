@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 1b8eac3e — The thing at the top of the field fires the harpoon and reels it back in
+
+The owner's point 1 of 14 September 2026 — *it fires the leech very fast, like a harpoon, at the cannon, where it sticks* — and his point 5, *when the timer runs out it is reeled in like a fishing line back to the alien.* He said the general form again on 15 September, about every fault at once: *visuals fired and triggered from this blue enemy — it should look like that blue enemy is triggering or shooting it.* So the line starts at the lantern's own vesicle, which is where its beams already start, rather than at a second mouth.
+
 ## 2026-09-15 · 52224930 — THE LEECH and THE LIMPET get a pencil, so every malfunction has one
 
 The owner settled it on 15 September 2026: *they should only exist as brush, but once they are placed on a tile, for a defined period of time, the malfunction is applied — I want this for all existing malfunctions.* These two have been `MalfunctionKind`s since the harpoon landed, with the note under the picker already written for them and the `at`/`beats` boxes already theirs, and no button in the palette — a fault an author could not place and therefore could not have.
