@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · e491f0c6 — The first meeting holds with a keyboard over it; the sign-in half has no rig
+
+The queue's *Unverified at a80777a5*. The keyboard half is checked and it is right: on a 390-point phone with a thumb in the field and the window cut to the 508 points an iPhone's keyboard leaves, the question, the field, THAT IS ME, the line that says a name can be got back and the whole LOG IN block are all still on screen, the sheet scrolls, and nothing is trapped under the keys. Arrival focuses nothing, which is what the screen was built to do and the reason the optional half is reachable at all. LOG OUT is in the document and hidden, as it should be on a phone nobody is logged into.
+
 ## 2026-09-15 · 756a5387 — The opening scene has been watched moving, and it is right
 
 The queue's *Unverified at 7693db1b*: the scene was corrected off two headless stills by a session that could not watch it play. A phone at 390×844, the frame loop running at its own rate, photographed every 800 ms across the whole scene. Both shouts cross — SHOOT NOW from the left phone at about 1.5 seconds, MOVE THE SHIELD back the other way at about 5 — each act follows the shout that asked for it, the red body meets the cannon and the cyan one meets the shield that slid to take it, and the scene runs out at its 10.5 seconds and hands over to the screen that asks what this device is called. Nothing needed changing, so nothing did.
