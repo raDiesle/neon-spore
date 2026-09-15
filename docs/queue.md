@@ -188,19 +188,24 @@ several green pieces; land each as it goes green rather than holding the
 branch (`docs/git-and-landing.md`). Seat choice reaching the other phone
 touches the wire: `.claude/skills/net-change` before that piece.
 
+**Step 1 landed on 15 September 2026.** The PLAY page is the list, NEW GAME is
+under it, REJOIN is gone, and a partner is a record of a name, the wave the two
+of them reached and the tempo they played it at (`apps/game/src/partners.ts`;
+`bun run menu-shot out.png --page PLAY --partners "David:7"` photographs it).
+Two things that step asked for are **not** done and are why CONTINUE and
+DIFFICULTY are still at the bottom of the page: they are the only start and the
+only way to change the tempo until step 4's room screen has the ready holds and
+the level, and the gear in step 2 is the other half of moving DIFFICULTY off.
+So steps 2 to 5 are what is left, and a session that can run two browsers
+against a wrangler is what they want.
+
 **Behind PLAY, today** (`playEntries`): CONTINUE, DIFFICULTY, REJOIN, OPEN A
 ROOM, and under them three seat cards PILOT / NAVIGATOR / BOTH
 (`menu-seats.ts`). **What he wants:**
 
-1. **The PLAY page is first a list of the people this device has played
-   with**, one row each, *Continue game with David · wave 7*. `pairing.ts`
-   keeps `PARTNERS_KEPT` partner names under `neon-spore.pairs` and nothing
-   else; `progress.ts` keeps one `furthest` for the device. The wave number
-   needs the progress kept **per partner** — extend what `pairing.ts` stores
-   to `{ name, furthest, level }` with `parsePartners` reading the old list
-   of strings as furthest 0 — and REJOIN (`menu-rejoin.ts`, `roomForPair`)
-   is what the row does. Under the list, one row **NEW GAME** (was OPEN A
-   ROOM; `menu-entries.ts:128`). CONTINUE and DIFFICULTY leave this page.
+1. ~~**The PLAY page is first a list of the people this device has played
+   with**~~ — landed. What is left of it: CONTINUE and DIFFICULTY still sit
+   under the list, and they leave it when 2 and 4 below give them their homes.
 2. **Difficulty is chosen when creating a new game**, on the room screen (see
    5), and for an existing partner behind a **gear icon on the right end of
    that partner's row** — a second press target in the same button, opening

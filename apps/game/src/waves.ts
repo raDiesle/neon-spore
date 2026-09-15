@@ -12,6 +12,7 @@ import {
 } from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
 import type { InputBuffer } from "./input.js";
+import { reachedWith } from "./pairing.js";
 import { reached, timed, updateProgress } from "./progress.js";
 import { clearQuit, sayQuit } from "./quit.js";
 
@@ -110,7 +111,13 @@ export function createWaveProgression({
     // wave is reached — and the clock with it, so a run put down mid-way still
     // leaves the figures it was on. Solo and per device: it never touches the
     // room (`progress.ts`). A wave gone again was reached already.
-    if (!retry) updateProgress((p) => timed(reached(p, wave), playSeconds(world), world.retries));
+    if (!retry) {
+      updateProgress((p) => timed(reached(p, wave), playSeconds(world), world.retries));
+      // And against the person in the other seat, where there is one, so the
+      // PLAY page can offer to carry on from here with *them* (`pairing.ts`).
+      // Nothing at all off the wire: a solo run is this device's own.
+      reachedWith(wave);
+    }
     startWave(
       world,
       wave,

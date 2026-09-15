@@ -22,6 +22,44 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queue-tasks — the PLAY page is a list of people
+
+Step 1 of the queue's *PLAY is a list of partners to continue with, and the
+room is a step-by-step* — the owner's own ask, and the first exemption under *a
+look is offered, never replaced*. The page was CONTINUE, DIFFICULTY, REJOIN and
+OPEN A ROOM; it is now one row per person this device has played with, NEW GAME
+under them, and REJOIN gone — it was one row for the most recent partner, which
+is what the list is four of.
+
+Most of the lane was deciding how much of a five-step workflow one landing is.
+Steps 4 and 5 are the room screen and a timer, and both want two browsers
+against a wrangler; step 2's gear is the other half of taking DIFFICULTY off
+the page. So the cut is step 1, and CONTINUE and DIFFICULTY stay at the bottom
+of the page rather than leaving it — until the room screen has the ready holds
+and the level they are the only start and the only way to change the tempo, and
+a page that lost both would be a workflow half-moved rather than a piece
+landed.
+
+The store is the half that had to be right: a partner is a record now — the
+name, the wave the two of them reached, the tempo they played it at — because a
+wave number is a fact about the pair and `progress.ts`'s one `furthest` cannot
+tell two evenings with two different people apart. A list written by a build
+that stored plain names reads as those names at wave zero, which is what they
+were. `waves.ts` writes the wave against whoever the last status put in the
+other seat, and nothing at all off the wire.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, and `pairing.ts`, `progress.ts`, `menu-entries.ts`, `menu-link.ts`, `menu.ts`, `menu-rows.ts`, `menu-seats.ts` and both tests before cutting the scope |
+| writing | 5 | `partners.ts` and its test, the row painting, `menu-shot --partners`, `menu-stamps.ts` |
+| looking | 5 | two shots of the PLAY page, one of them to see the wave on the row |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, `bun run index`, the commit |
+
+The bottleneck was reading, and it was the right place for it: the entry is
+five steps in one item, and the minutes went on working out which of them a
+session that cannot run two browsers should touch at all.
+
 ## 2026-09-15 — queue-tasks — menu-shot types into a field
 
 The queue's *`bun run menu-shot` cannot type, so a field's own states need a

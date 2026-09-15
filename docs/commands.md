@@ -88,6 +88,7 @@ bun run menu-shot <out.png>            # a page of the game's menu — starts it
                        #   photographs as a phone; --desk for the rows only a mouse is offered
                        #   --first-visit arrives with no name, on the screen that asks for one
                        #   --type "#helloName=DAVID" fills a field first; repeatable, in order
+                       #   --partners "Ada,David:7" arrives having played with them, to that wave
 bun run versus:shot <slot> <name>      # one PNG of one VERSUS candidate
 bun run png <in.svg> <out.png>         # rasterise a sheet
 bun run crop           # a rectangle of a PNG already taken, magnified — tools/frames/picture.ts

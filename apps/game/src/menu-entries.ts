@@ -1,6 +1,7 @@
 import { WAVES } from "@neon-spore/content";
 import type { MenuPage } from "./menu-parts.js";
 import type { MenuEntry } from "./menu-rows.js";
+import { PARTNERS_KEPT } from "./partners.js";
 
 /**
  * The rows on the menu's three lists of entries, in the order they are read.
@@ -52,8 +53,14 @@ export interface EntryActions {
   close: () => void;
   show: (page: MenuPage) => void;
   openRoom: () => void;
-  /** Straight into the room this device shares with its most recent partner. */
-  rejoin: () => void;
+  /**
+   * Straight into the room this device shares with the `i`th person on the
+   * PLAY page's list. An index rather than a name or a room: the rows are
+   * drawn once and painted over on every link (`menu-link.ts`), so a row that
+   * carried the partner it was built with would offer whoever was second on
+   * the list the evening the menu was built.
+   */
+  rejoinWith: (i: number) => void;
   openTuning: () => void;
   /** How many demonstration rows there are, for the DEMOS line. */
   demoCount: number;
@@ -85,20 +92,44 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
 }
 
 /**
- * The rows behind PLAY: the three doors into a game with two people in it.
+ * The rows behind PLAY: **the people this device has played with**, and the way
+ * to meet somebody new.
  *
- * CONTINUE is first because it is the one press a pair who have played before
- * will want, and it is off the page until both phones are in the room
- * (`menu-link.ts`) — a row that starts a wave on one device of two is a row
- * that starts two different games. REJOIN is the way back to the partner this
- * device played with last, and the room row is the four-character code, which
- * is what a first meeting still needs.
+ * The owner asked for this page to be a list of partners on 14 September 2026 —
+ * *Continue game with David · wave 7* — which is the first exemption under *a
+ * look is offered, never replaced*, and it is the shape the page always wanted:
+ * a pair who have played before should not read a page about rooms and codes to
+ * carry on, and a code is what a *first* meeting is for. So the list comes
+ * first, NEW GAME sits under it, and REJOIN — one row for the most recent
+ * partner, which is what this list is four of — is gone.
  *
- * The seat cards are drawn under these three by `menu-view.ts` rather than
- * listed here: they are a control and not a row.
+ * **The rows are drawn empty and painted by the link** (`menu-link.ts`), one
+ * per partner the store can hold: `setEntry` takes a row off the page rather
+ * than the list being rebuilt, which is the same arrangement every other row
+ * on this menu is under, and it is what lets the words be a fact about storage
+ * while the page stays a pure function of its actions.
+ *
+ * CONTINUE and DIFFICULTY are still here and are meant to leave: the first
+ * becomes the ready hold the pair press on the room screen, and the second is
+ * chosen when a game is created and behind a gear on a partner's row
+ * (`docs/queue.md`). Until that screen exists they are the only start and the
+ * only way to change the tempo, so they stay at the bottom of the page.
+ *
+ * The seat cards are drawn under these by `menu-view.ts` rather than listed
+ * here: they are a control and not a row.
  */
 export function playEntries(a: EntryActions): MenuEntry[] {
   return [
+    ...partnerEntries(a),
+    {
+      key: "room",
+      label: "NEW GAME",
+      desc: "Open a room and read the code out, or type in the one you were told.",
+      run: () => {
+        a.close();
+        a.openRoom();
+      },
+    },
     {
       key: "continue",
       label: "CONTINUE",
@@ -111,22 +142,21 @@ export function playEntries(a: EntryActions): MenuEntry[] {
       desc: "How fast everything falls. Three settings, and changing it starts the run again.",
       run: () => a.show("level"),
     },
-    {
-      key: "rejoin",
-      label: "REJOIN",
-      desc: "Back into the room you two share. No code to read out.",
-      run: () => a.rejoin(),
-    },
-    {
-      key: "room",
-      label: "OPEN A ROOM",
-      desc: "Open a room and read the code out, or type in the one you were told.",
-      run: () => {
-        a.close();
-        a.openRoom();
-      },
-    },
   ];
+}
+
+/**
+ * One row per partner the store keeps, in that order. Every one of them is on
+ * the page from the first paint and off it until there is somebody in its
+ * place, so `paintLink` names a row by a key that does not move.
+ */
+function partnerEntries(a: EntryActions): MenuEntry[] {
+  return Array.from({ length: PARTNERS_KEPT }, (_, i) => ({
+    key: `pair${i}`,
+    label: "CONTINUE GAME",
+    desc: "Back into the room you two share. No code to read out.",
+    run: () => a.rejoinWith(i),
+  }));
 }
 
 /**

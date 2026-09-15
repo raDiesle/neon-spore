@@ -2,7 +2,7 @@ import type { LinkStatus } from "@neon-spore/net";
 import { DIFFICULTIES, type Difficulty } from "@neon-spore/sim";
 import { roomLine } from "./join-words.js";
 import type { MenuDom } from "./menu-view.js";
-import { readPartners } from "./pairing.js";
+import { PARTNERS_KEPT, type Partner } from "./partners.js";
 import { progressLine, readProgress } from "./progress.js";
 import { quitBy, quitLine } from "./quit.js";
 
@@ -53,6 +53,25 @@ function continueLine(link: LinkStatus | null, opened: boolean, wave: number): s
   return "Both of you press it, and the wave starts on the two phones together.";
 }
 
+/** The level in a word, for a line that is already saying something else. */
+const LEVEL_NAME: Record<Difficulty, string> = { easy: "Easy", medium: "Medium", hard: "Hard" };
+
+/**
+ * A partner's row, in the owner's own sentence: *Continue game with David ·
+ * wave 7*. The wave is on the label rather than in the description because it
+ * is half of what the row offers — a pair choose an evening by where they got
+ * to — and a label is what a thumb reads on the way past.
+ */
+export function partnerRow(one: Partner): string {
+  const far = one.furthest > 0 ? ` · WAVE ${one.furthest + 1}` : "";
+  return `CONTINUE GAME WITH ${one.name.toUpperCase()}${far}`;
+}
+
+/** The sentence under it: the tempo they play at, and that there is no code. */
+export function partnerLine(one: Partner): string {
+  return `${LEVEL_NAME[one.level]}. Back into the room you two share — no code to read out.`;
+}
+
 /** The DIFFICULTY row's own sentence, by level: what this one *is*, before the
  * warning every one of them carries. */
 const LEVEL_WORD: Record<Difficulty, string> = {
@@ -66,11 +85,13 @@ export interface LinkPaint {
   /** The link as it last reported itself, or null before there was one. */
   link: LinkStatus | null;
   /**
-   * The room this device shares with the partner it played with last, or ""
-   * when there is nobody to share one with yet — derived by `pairing.ts`, and
-   * handed in rather than read here so the caller keeps the one definition.
+   * The people this device can carry on with, most recent first — the rows the
+   * PLAY page opens on. Only those it can actually reach a room with: a device
+   * with no name of its own shares no room with anybody (`pairing.ts`), and a
+   * row that cannot be pressed is worse than no row. Handed in rather than read
+   * here so the caller keeps the one definition.
    */
-  pairRoom: string;
+  pairs: readonly Partner[];
   /**
    * The room this device was standing in a moment ago, or "" — `last-room.ts`,
    * handed in for `pairRoom`'s reason. It is a different question from the one
@@ -86,7 +107,7 @@ export interface LinkPaint {
 }
 
 /** Cheap, so it is redone rather than diffed. */
-export function paintLink({ dom, link, pairRoom, held, opened, wave }: LinkPaint): void {
+export function paintLink({ dom, link, pairs, held, opened, wave }: LinkPaint): void {
   const room = inRoom(link);
   dom.setEntry("single", { on: !room });
   // How far this device has got, under the title. Off in a room, where the wave
@@ -110,14 +131,17 @@ export function paintLink({ dom, link, pairRoom, held, opened, wave }: LinkPaint
     on: room && (link?.peers ?? 0) >= 2,
     desc: continueLine(link, opened, wave),
   });
-  // The way back in, once there is somebody to go back to. Off in a room,
-  // where the pair is already together, and off before the first meeting,
-  // which is what the four-character code is still for.
-  const partner = readPartners()[0] ?? "";
-  dom.setEntry("rejoin", {
-    on: !room && pairRoom !== "",
-    desc: `Back into the room you and ${partner} share. No code to read out.`,
-  });
+  // **The list of people to carry on with**, which is what the PLAY page opens
+  // on. Off in a room, where the pair is already together, and off before the
+  // first meeting — a pair who have never played have no row and the
+  // four-character code is still what a first meeting is for.
+  for (let i = 0; i < PARTNERS_KEPT; i++) {
+    const one = pairs[i];
+    dom.setEntry(`pair${i}`, {
+      on: !room && one !== undefined,
+      ...(one === undefined ? {} : { label: partnerRow(one), desc: partnerLine(one) }),
+    });
+  }
   // **And the way back into the room this device was just in**, at the top of
   // the front page rather than a floor down behind PLAY (`menu-rejoin.ts`).
   // Off in a room, where there is nothing to go back to; on without a partner

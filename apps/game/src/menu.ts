@@ -15,6 +15,7 @@ import { bindMenuSteps } from "./menu-steps.js";
 import { buildMenu } from "./menu-view.js";
 import { readName } from "./nickname.js";
 import { readPartners, roomForPair } from "./pairing.js";
+import type { Partner } from "./partners.js";
 import { readProgress } from "./progress.js";
 
 export type { MainMenu, MenuBindings } from "./menu-bindings.js";
@@ -130,8 +131,8 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     close,
     show: (page) => dom.show(page),
     openRoom: b.openRoom,
-    rejoin: () => {
-      const room = pairRoom();
+    rejoinWith: (i) => {
+      const room = pairs()[i]?.room ?? "";
       if (room === "") return;
       close();
       b.joinRoom(room);
@@ -174,14 +175,21 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
   });
 
   /**
-   * The room this device shares with the partner it played with last, or ""
-   * when there is nobody to share one with yet. Derived rather than stored —
-   * see `pairing.ts`.
+   * The people this device can carry on with, most recent first, each with the
+   * room the two of them share. Derived rather than stored — see `pairing.ts` —
+   * and read on every paint, because the list grows the moment a room holds two
+   * named people and the page is often up when it does.
+   *
+   * A partner this device shares no room with is not on the list at all: that
+   * is a device that has not given its own name yet, and the row it would draw
+   * could not be pressed.
    */
-  const pairRoom = (): string => {
+  const pairs = (): (Partner & { room: string })[] => {
     const mine = readName();
-    const theirs = readPartners()[0] ?? "";
-    return mine && theirs ? roomForPair(mine, theirs) : "";
+    if (mine === "") return [];
+    return readPartners()
+      .map((one) => ({ ...one, room: roomForPair(mine, one.name) }))
+      .filter((one) => one.room !== "");
   };
 
   const steps = bindMenuSteps(dom, b);
@@ -196,7 +204,7 @@ export function bindMainMenu(b: MenuBindings): MainMenu {
     paintPage({
       dom,
       link,
-      pairRoom: pairRoom(),
+      pairs: pairs(),
       // `Date.now` and not a frame clock: this is how long ago a person was in
       // a room, which the simulation's tick counter says nothing about.
       held: heldRoom(Date.now()),

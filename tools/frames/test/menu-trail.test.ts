@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { arrivalStamps, parsePartnerFlag } from "../menu-stamps.js";
 import { noSuchButton, noSuchField, parseTrail, parseTyping, RIG_LABEL } from "../menu-trail.js";
 
 /**
@@ -106,5 +107,60 @@ describe("noSuchField", () => {
     const said = noSuchField("#helloName", "the first meeting");
     expect(said).toContain('"#helloName"');
     expect(said).toContain("the first meeting");
+  });
+});
+
+describe("what the camera arrives as", () => {
+  it("stamps the intro away and gives the device a name", () => {
+    const keys = arrivalStamps({ firstVisit: false, partners: [] }).map(([key]) => key);
+    expect(keys).toContain("neon-spore.intro");
+    expect(keys).toContain("neon-spore.name");
+  });
+
+  /** The screen exists to be seen by a device that has never given a name, so
+   * the one stamp that would skip it is the one left off. */
+  it("leaves the name off for the first meeting, and the intro on", () => {
+    const keys = arrivalStamps({ firstVisit: true, partners: [] }).map(([key]) => key);
+    expect(keys).toContain("neon-spore.intro");
+    expect(keys).not.toContain("neon-spore.name");
+  });
+
+  it("stamps in whoever this device has played with, in the order given", () => {
+    const stamped = arrivalStamps({
+      firstVisit: false,
+      partners: [
+        { name: "Ada", wave: 0 },
+        { name: "David", wave: 7 },
+      ],
+    });
+    const pairs = stamped.find(([key]) => key === "neon-spore.pairs");
+    // The wave is counted from 0 in the game and from 1 on the row, so the
+    // seventh wave is stored as six.
+    expect(pairs?.[1]).toBe(
+      JSON.stringify([
+        { name: "Ada", furthest: 0, level: "medium" },
+        { name: "David", furthest: 6, level: "medium" },
+      ]),
+    );
+  });
+
+  /** A device that has played with nobody is what one that has not should look
+   * like: no key at all, rather than an empty list under it. */
+  it("stamps nobody in when nobody was asked for", () => {
+    const keys = arrivalStamps({ firstVisit: false, partners: [] }).map(([key]) => key);
+    expect(keys).not.toContain("neon-spore.pairs");
+  });
+
+  it("reads the flag as names and waves, and blank as nobody", () => {
+    expect(parsePartnerFlag(" Ada , David : 7 ")).toEqual([
+      { name: "Ada", wave: 0 },
+      { name: "David", wave: 7 },
+    ]);
+    expect(parsePartnerFlag(undefined)).toEqual([]);
+    expect(parsePartnerFlag(" , ")).toEqual([]);
+  });
+
+  it("refuses a wave that is not one, rather than photographing wave zero", () => {
+    expect(() => parsePartnerFlag("David:soon")).toThrow(/is not a wave/);
   });
 });

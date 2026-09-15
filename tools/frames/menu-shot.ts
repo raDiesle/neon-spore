@@ -3,8 +3,8 @@
 /**
  * `bun run menu-shot <out.png> [--page "SETTINGS > CONTROLS"] [--size 390x844]
  * [--scale 2] [--wait 600] [--port 4173] [--element "#menu"] [--desk]
- * [--first-visit] [--type "#helloName=DAVID"]` — photograph a page of the
- * **game's menu**.
+ * [--first-visit] [--type "#helloName=DAVID"] [--partners "Ada,David:7"]` —
+ * photograph a page of the **game's menu**.
  *
  * Three tools took a picture and none of them could take this one. `bun run
  * frames <sha>` drives the field through `window.neonSpore` and photographs
@@ -21,14 +21,10 @@
  * for a person at a desk — cannot use a tool that assumes one is up.
  * `--port` skips that for somebody who does have one.
  *
- * **It arrives as a device that has already been here.** Two screens stand in
- * front of the menu on a first visit — the intro scene (`apps/game/src/intro.ts`)
- * and the question of what this device is called (`apps/game/src/hello.ts`) —
- * and either of them leaves the capture waiting on a hidden `#menu` until it
- * times out. So both are stamped away: the intro's version, and a name. The
- * stamps go in through `addInitScript`, before the first navigation, and every
- * key is imported from the game rather than typed here — one that went stale
- * would put the screen back and the failure would look like a broken selector.
+ * **It arrives as a device that has already been here** — past the intro, with
+ * a name, and with whoever `--partners` names already played with. The stamps
+ * are `menu-stamps.ts` and they go in through `addInitScript`, before the first
+ * navigation.
  *
  * **`--first-visit` is how the first meeting itself is photographed.** It
  * leaves the name unstamped and waits for `#hello.on` instead: the screen
@@ -54,11 +50,10 @@
  * from the first paint and hidden until the menu opens.
  */
 
-import { INTRO_KEY, INTRO_VERSION } from "../../apps/game/src/intro.js";
-import { NAME_KEY } from "../../apps/game/src/nickname.js";
 import { closeBrowser, launchBrowser } from "./browser.js";
 import { root } from "./exec.js";
 import { menuDevice } from "./menu-device.js";
+import { arrivalStamps, parsePartnerFlag } from "./menu-stamps.js";
 import { noSuchButton, noSuchField, parseTrail, parseTyping } from "./menu-trail.js";
 import { startPreview } from "./serve.js";
 
@@ -87,6 +82,8 @@ const PAGE_MS = 250;
 const trail = parseTrail(flag("page"));
 /** The fields filled once the trail has arrived — `--type "#helloName=DAVID"`. */
 const typing = parseTyping(flags("type"));
+/** Who this device has played with, for the PLAY page's list — `--partners "Ada,David:7"`. */
+const partners = parsePartnerFlag(flag("partners"));
 /**
  * A portrait phone by default, and not the director's desk. The menu is read
  * on a phone and nowhere else; a picture of it 1240 px wide is a picture of a
@@ -131,25 +128,16 @@ try {
     ...device,
   });
   // Before the first navigation, so the bundle reads them on the way up rather
-  // than after a screen has already opened over the one wanted.
-  await context.addInitScript(
-    (pairs) => {
-      for (const [key, value] of pairs as [string, string][]) {
-        try {
-          localStorage.setItem(key, value);
-        } catch {
-          // A browser that refuses storage shows the screen; the wait says so.
-        }
+  // than after a screen has already opened over the one wanted (`menu-stamps.ts`).
+  await context.addInitScript((pairs) => {
+    for (const [key, value] of pairs as [string, string][]) {
+      try {
+        localStorage.setItem(key, value);
+      } catch {
+        // A browser that refuses storage shows the screen; the wait says so.
       }
-    },
-    [
-      [INTRO_KEY, INTRO_VERSION],
-      // A name, unless the shot is of the screen that asks for one. Any name:
-      // nothing is drawn from it on the pages this tool photographs, and the
-      // registry is never asked, because a stored name is never re-claimed.
-      ...(firstVisit ? [] : [[NAME_KEY, "CAMERA"]]),
-    ],
-  );
+    }
+  }, arrivalStamps({ firstVisit, partners }));
   const page = await context.newPage();
   await page.goto(preview.url, { waitUntil: "networkidle" });
   await page.waitForSelector(screen, { timeout: 15_000 });
@@ -244,5 +232,6 @@ function usage(): never {
   console.error("       --port attaches to a preview already running instead of starting one");
   console.error("       --first-visit arrives with no name, on the screen that asks for one");
   console.error('       --type "#helloName=DAVID" fills a field before the shot; repeatable');
+  console.error('       --partners "Ada,David:7" arrives having played with them, to that wave');
   process.exit(1);
 }

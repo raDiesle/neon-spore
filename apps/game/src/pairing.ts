@@ -5,6 +5,8 @@ import {
   ROOM_ALPHABET,
   ROOM_CODE_LENGTH,
 } from "@neon-spore/net";
+import type { Difficulty } from "@neon-spore/sim";
+import { afterPlayingWith, afterReaching, type Partner, parsePartners } from "./partners.js";
 
 /**
  * The way *back* into a room, for two people who have played before.
@@ -20,13 +22,17 @@ import {
  * open it and the other one lands in it. Both devices remember the pairing, so
  * the menu can offer REJOIN with nobody typing anything.
  *
- * **It does not resume the game.** That was deliberately left off the queue:
- * this removes the code from the second meeting, and nothing else. A rejoined
- * room starts a run the way any room does — with the two presses.
+ * **What is remembered about each of them is a record and not a name** — the
+ * wave the two of them reached and the tempo they played it at, so the PLAY
+ * page can offer *Continue game with David · wave 7* rather than a name on its
+ * own. The record and its rules are `partners.ts`; this file is the key, the
+ * room a pair share, and the reading and writing.
+ *
+ * **It still does not resume the game.** A rejoined room starts a run the way
+ * any room does — the wave is what the row offers to go back to, and the two
+ * presses are what start it.
  */
 
-/** How many partners a device remembers. The most recent is the one offered. */
-export const PARTNERS_KEPT = 4;
 /** The key the browser keeps them under. Namespaced like the others. */
 export const PAIRS_KEY = "neon-spore.pairs";
 
@@ -75,46 +81,8 @@ export function roomForPair(a: string, b: string): string {
   return out;
 }
 
-/**
- * Whatever was stored, read as a list of names. Unreadable means none.
- *
- * Names only: the room the two of you share follows from the pair of names
- * (`roomForPair`) and this device always knows its own, so storing it as well
- * would be a second copy of something derivable — and one that would go stale
- * the day the derivation changed.
- */
-export function parsePartners(raw: string | null): string[] {
-  if (raw === null) return [];
-  try {
-    const read = JSON.parse(raw) as unknown;
-    if (!Array.isArray(read)) return [];
-    return read
-      .filter((entry): entry is string => typeof entry === "string")
-      .map(normalizeName)
-      .filter(isName)
-      .slice(0, PARTNERS_KEPT);
-  } catch {
-    return [];
-  }
-}
-
-/**
- * The list after playing with `partner`, most recent first.
- *
- * Pure, so the rule can be tested: a partner played with again moves to the
- * front rather than appearing twice, and the list is capped — a device that
- * has played with thirty people does not need to remember twenty-six of them
- * to offer the last one.
- */
-export function afterPlayingWith(kept: readonly string[], partner: string): string[] {
-  const name = normalizeName(partner);
-  if (!isName(name)) return [...kept];
-  const rest = kept.filter((held) => held.toLowerCase() !== name.toLowerCase());
-  return [name, ...rest].slice(0, PARTNERS_KEPT);
-}
-
 /** The partners this device remembers, most recent first. */
-export function readPartners(): string[] {
+export function readPartners(): Partner[] {
   try {
     return parsePartners(localStorage.getItem(PAIRS_KEY));
   } catch {
@@ -122,18 +90,21 @@ export function readPartners(): string[] {
   }
 }
 
-/**
- * Remember that these two played together. Called whenever a room holds two
- * named people, which is idempotent — the same pair every frame is one entry.
- */
-export function rememberPartner(partner: string): void {
-  const next = afterPlayingWith(readPartners(), partner);
+function writePartners(next: readonly Partner[]): void {
   try {
     localStorage.setItem(PAIRS_KEY, JSON.stringify(next));
   } catch {
     // Nothing to be done: the pair can still read a code to each other, which
     // is what they did before this existed.
   }
+}
+
+/**
+ * Remember that these two played together. Called whenever a room holds two
+ * named people, which is idempotent — the same pair every frame is one entry.
+ */
+export function rememberPartner(partner: string, level: Difficulty | null = null): void {
+  writePartners(afterPlayingWith(readPartners(), partner, level));
 }
 
 /**
@@ -150,11 +121,35 @@ export function partnerIn(status: LinkStatus): string {
 }
 
 /**
+ * **Who the last status said is in the other seat**, and the one thing this
+ * module holds that is not in storage.
+ *
+ * A wave is reached in `waves.ts`, which knows the number and has no link to
+ * ask who it was reached with; the status that does know arrives on the room
+ * screen's own repaint (`join.ts`). Rather than thread a link through wave
+ * progression for one string, the last status seen leaves it here — and takes
+ * it away again the moment a status says this device is on its own, so a solo
+ * run cannot write a wave against the person played with last night.
+ */
+let playingWith = "";
+
+/**
  * Remember the pair this status describes, if it describes one. Called on
  * every repaint, which is idempotent: the same partner every frame is one
  * entry, moved to the front of a list it is already at the front of.
  */
 export function rememberFrom(status: LinkStatus): void {
   const partner = partnerIn(status);
-  if (partner !== "") rememberPartner(partner);
+  playingWith = partner;
+  if (partner !== "") rememberPartner(partner, status.level);
+}
+
+/**
+ * The wave the pair have got to, written against the partner this device is
+ * playing with. Nothing at all off the wire: a run with nobody in the other
+ * seat is this device's own, and `progress.ts` is where that is kept.
+ */
+export function reachedWith(wave: number): void {
+  if (playingWith === "") return;
+  writePartners(afterReaching(readPartners(), playingWith, wave));
 }

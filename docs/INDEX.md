@@ -1186,6 +1186,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/nickname.ts` | This device's player name: asked once, kept here, carried into every room |
 | `apps/game/src/origin.ts` | Where the server lives, for both things that talk to it |
 | `apps/game/src/pairing.ts` | The way *back* into a room, for two people who have played before |
+| `apps/game/src/partners.ts` | WHAT A DEVICE REMEMBERS ABOUT THE PEOPLE IT HAS PLAYED WITH, and the rules for changing that list |
 | `apps/game/src/menu-settings.ts` | The one durable place for "things about me" |
 | `apps/game/src/menu-controls.ts` | what a thumb does, every panel the game has, the field itself, then the keys |
 | `apps/game/src/input-bindings.ts` | what the pointer rig is handed, and why each of it is read fresh |
@@ -1742,6 +1743,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/versus-shot.ts` | `bun run versus:shot` — one PNG of one VERSUS candidate |
 | `tools/frames/versus-element.ts` | What `versus:shot --at` is measured against: the window the pose cuts, not the stage |
 | `tools/frames/menu-shot.ts` | `bun run menu-shot <out.png> [--page "SETTINGS > CONTROLS"]` — a page of the game's menu, off a preview it starts itself |
+| `tools/frames/menu-stamps.ts` | WHAT THE CAMERA ARRIVES AS: the browser storage a menu shot is taken with |
 | `tools/frames/menu-trail.ts` | WHICH PAGE OF THE MENU A PICTURE IS OF, read off one flag |
 | `tools/frames/menu-device.ts` | WHAT KIND OF DEVICE THE MENU IS PHOTOGRAPHED AS — a thumb by default, a mouse only when asked |
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |

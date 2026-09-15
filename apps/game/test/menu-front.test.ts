@@ -9,6 +9,7 @@ import {
 } from "../src/menu-entries.js";
 import { paintLink } from "../src/menu-link.js";
 import type { MenuDom } from "../src/menu-view.js";
+import { newPartner, PARTNERS_KEPT } from "../src/partners.js";
 
 /**
  * **The front page is three rows**, and what is behind each of them.
@@ -30,7 +31,7 @@ const actions: EntryActions = {
   close: () => {},
   show: () => {},
   openRoom: () => {},
-  rejoin: () => {},
+  rejoinWith: () => {},
   openTuning: () => {},
   demoCount: 7,
 };
@@ -77,8 +78,30 @@ describe("the front page", () => {
 });
 
 describe("the page behind PLAY", () => {
-  it("is where the two of you meet: CONTINUE, the difficulty, REJOIN and the code", () => {
-    expect(labels(play)).toEqual(["CONTINUE", "DIFFICULTY", "REJOIN", "OPEN A ROOM"]);
+  it("is a list of people to carry on with, then the way to meet somebody new", () => {
+    // The owner asked for this on 14 September 2026. One row per partner the
+    // store can hold, drawn empty and painted by the link, and NEW GAME under
+    // them — where OPEN A ROOM was. REJOIN is gone: it was one row for the
+    // most recent partner, which is what this list is four of.
+    expect(keys(play).slice(0, PARTNERS_KEPT)).toEqual(["pair0", "pair1", "pair2", "pair3"]);
+    expect(labels(play)).not.toContain("REJOIN");
+    expect(labels(play)).not.toContain("OPEN A ROOM");
+    expect(labels(play)[PARTNERS_KEPT]).toBe("NEW GAME");
+  });
+
+  /** They are meant to leave: the first becomes the ready hold the pair press
+   * on the room screen and the second is chosen when a game is created
+   * (`docs/queue.md`). Until that screen exists they are the only start and
+   * the only way to change the tempo, so they stay under the list. */
+  it("keeps CONTINUE and DIFFICULTY at the bottom until the room screen has them", () => {
+    expect(labels(play).slice(PARTNERS_KEPT)).toEqual(["NEW GAME", "CONTINUE", "DIFFICULTY"]);
+  });
+
+  it("presses a row by where it is, not by who was on it when it was built", () => {
+    const asked: number[] = [];
+    const rows = playEntries({ ...actions, rejoinWith: (i) => asked.push(i) });
+    rows[2]?.run();
+    expect(asked).toEqual([2]);
   });
 
   it("shares no key with either other list, so `setEntry` names one row", () => {
@@ -106,7 +129,7 @@ describe("the three difficulties", () => {
     paintLink({
       dom: r.dom,
       link: status({ level: "hard" }),
-      pairRoom: "",
+      pairs: [],
       held: "",
       opened: false,
       wave: 0,
@@ -148,13 +171,17 @@ function recorder(): {
   return { dom, on, desc, label, rejoin: () => rejoin };
 }
 
+/** Somebody an older build remembered as a plain name: no wave, and the tempo
+ * every device that has never chosen is already on. */
+const david = newPartner("David");
+
 const status = (over: Partial<LinkStatus>): LinkStatus =>
   ({ state: "playing", room: "ABCD", player: 1, peers: 2, ...over }) as LinkStatus;
 
 describe("CONTINUE", () => {
   it("is off the page with no room at all", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairRoom: "", held: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairs: [], held: "", opened: false, wave: 0 });
     expect(r.on.get("continue")).toBe(false);
   });
 
@@ -165,7 +192,7 @@ describe("CONTINUE", () => {
     paintLink({
       dom: r.dom,
       link: status({ peers: 1 }),
-      pairRoom: "",
+      pairs: [],
       held: "",
       opened: false,
       wave: 0,
@@ -175,14 +202,14 @@ describe("CONTINUE", () => {
 
   it("is offered once both phones are in the room", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairRoom: "", held: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: status({}), pairs: [], held: "", opened: false, wave: 0 });
     expect(r.on.get("continue")).toBe(true);
     expect(r.desc.get("continue")).toContain("Both of you press it");
   });
 
   it("says it is the way back when a field is already open under the menu", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairRoom: "", held: "", opened: true, wave: 6 });
+    paintLink({ dom: r.dom, link: status({}), pairs: [], held: "", opened: true, wave: 6 });
     expect(r.desc.get("continue")).toBe("Back to wave 7.");
   });
 
@@ -193,7 +220,7 @@ describe("CONTINUE", () => {
     paintLink({
       dom: r.dom,
       link: status({ readyHere: true, readyThere: false }),
-      pairRoom: "",
+      pairs: [],
       held: "",
       opened: false,
       wave: 0,
@@ -210,7 +237,7 @@ describe("CONTINUE", () => {
     paintLink({
       dom: r.dom,
       link: status({ state: "desync" }),
-      pairRoom: "",
+      pairs: [],
       held: "",
       opened: true,
       wave: 6,
@@ -285,7 +312,7 @@ describe("SINGLE PLAYER", () => {
   it("is the rig's row and is off while there is a room", () => {
     expect(keys(rig)[0]).toBe("single");
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairRoom: "", held: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: status({}), pairs: [], held: "", opened: false, wave: 0 });
     expect(r.on.get("single")).toBe(false);
   });
 });
@@ -303,15 +330,15 @@ describe("SINGLE PLAYER", () => {
 describe("the top button", () => {
   it("offers the room this device was just in, with no partner and no name", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairRoom: "", held: "ACDE", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairs: [], held: "ACDE", opened: false, wave: 0 });
     expect(r.rejoin()).toBe("ACDE");
-    // And REJOIN, which is the other question, is still off without a partner.
-    expect(r.on.get("rejoin")).toBe(false);
+    // And the list, which is the other question, is still empty without a partner.
+    expect(r.on.get("pair0")).toBe(false);
   });
 
   it("is off the page with nothing to go back to", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairRoom: "", held: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairs: [], held: "", opened: false, wave: 0 });
     expect(r.rejoin()).toBe("");
   });
 
@@ -320,16 +347,56 @@ describe("the top button", () => {
     // underneath it, and a button offering the room you are in is a button
     // that says the game is somewhere else.
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairRoom: "", held: "ACDE", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: status({}), pairs: [], held: "ACDE", opened: false, wave: 0 });
     expect(r.rejoin()).toBe("");
   });
 
-  it("is offered beside REJOIN rather than instead of it", () => {
+  it("is offered beside the list rather than instead of it", () => {
     // They answer different questions — where you just were, and who you play
     // with — and a pair who reload mid-session are owed both.
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairRoom: "WXY3", held: "ACDE", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairs: [david], held: "ACDE", opened: false, wave: 0 });
     expect(r.rejoin()).toBe("ACDE");
-    expect(r.on.get("rejoin")).toBe(true);
+    expect(r.on.get("pair0")).toBe(true);
+  });
+});
+
+/**
+ * **The PLAY page's list of people to carry on with.**
+ *
+ * The rows are drawn empty and painted from what the device remembers, so what
+ * is tested here is the painting: who is on the page, what their row says, and
+ * the one case where the whole list comes off.
+ */
+describe("the list of partners", () => {
+  const ada = { name: "Ada", furthest: 6, level: "hard" as const };
+
+  it("says who and how far, in the owner's own sentence", () => {
+    const r = recorder();
+    paintLink({ dom: r.dom, link: null, pairs: [ada], held: "", opened: false, wave: 0 });
+    expect(r.on.get("pair0")).toBe(true);
+    expect(r.label.get("pair0")).toBe("CONTINUE GAME WITH ADA · WAVE 7");
+    expect(r.desc.get("pair0")).toContain("Hard");
+    expect(r.desc.get("pair0")).toContain("no code to read out");
+  });
+
+  it("says no wave for somebody an older build remembered as a name", () => {
+    const r = recorder();
+    paintLink({ dom: r.dom, link: null, pairs: [david], held: "", opened: false, wave: 0 });
+    expect(r.label.get("pair0")).toBe("CONTINUE GAME WITH DAVID");
+  });
+
+  it("leaves the rows it has nobody for off the page", () => {
+    const r = recorder();
+    paintLink({ dom: r.dom, link: null, pairs: [ada, david], held: "", opened: false, wave: 0 });
+    expect(r.on.get("pair1")).toBe(true);
+    expect(r.on.get("pair2")).toBe(false);
+    expect(r.label.get("pair2")).toBeUndefined();
+  });
+
+  it("is off in a room, where the pair are already together", () => {
+    const r = recorder();
+    paintLink({ dom: r.dom, link: status({}), pairs: [ada], held: "", opened: false, wave: 0 });
+    expect(r.on.get("pair0")).toBe(false);
   });
 });
