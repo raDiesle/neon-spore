@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — the intro is about the two of you, and it is slower
+
+The owner, mid-turn, twice: the scene should be about a co-op game with shared
+controls where talking is mandatory, *how the game looks or what is shown on
+the mobile is not relevant*; and the text should stand long enough to follow.
+So the two phones came out of the picture and one board with a seam down it
+went in, the script became four sentences on their own clock, and the scene
+runs 19.6 seconds instead of 10.5.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the eight files the scene is made of, and what VERSUS can and cannot pair |
+| writing | 55 | the script, the board, the picture around it, the sentences that hold, and the cases for all of it |
+| looking | 30 | four runs of twenty-one frames and three contact sheets — the composition was wrong twice before it was right |
+| friction | 5 | the strict canvas caught a negative radius the moment the shield's rail was turned round, which is the test doing its job rather than friction — counted because it cost a run |
+| landing | 15 | `check`, `bun run index`, the commit |
+
+The bottleneck was composition, and it is the half no test can hold: the first
+draft gave the board every pixel under the two heads and drew a mostly empty
+board; the second centred each of them in its own half of the window and drew
+two pictures with a hole between them. What fixed it was treating the heads and
+the board as one group and centring that — one line of arithmetic, found by
+looking at a strip of frames rather than by reasoning about a layout.
+
 ## 2026-09-15 — queued-tasks — a game's tempo is fixed once it is made
 
 The queue's *A game's tempo is fixed once it is made; NEW GAME is the way to

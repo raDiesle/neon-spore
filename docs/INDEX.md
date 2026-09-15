@@ -803,9 +803,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/intro-parts.ts` | The parts the intro's picture is built out of: a plate, a body, a hull |
 | `packages/render/src/intro-pair.ts` | THE PICTURE THE WHOLE INTRO IS: two people, two phones, and a word crossing between them |
 | `packages/render/src/intro-player.ts` | ONE OF THE TWO PEOPLE IN THE SCENE |
-| `packages/render/src/intro-screens.ts` | THE TWO SCREENS, AND WHY THEY ARE NOT THE SAME SCREEN |
 | `packages/render/src/intro-scene.ts` | WHAT THIS GAME IS, ON THE GAME'S OWN SCREEN: one scene, and no stepper |
 | `packages/render/src/intro-shout.ts` | THE WORD CROSSING THE ROOM, which is the one thing the intro is about |
+| `packages/render/src/intro-share.ts` | **ONE SHIP'S CONTROLS, WITH A SEAM DOWN THE MIDDLE.** The picture the intro is about, since 15 September 2026 |
 | `packages/render/src/render-state.ts` | EVERYTHING A RENDERER HOLDS BETWEEN ONE FRAME AND THE NEXT |
 | `packages/render/src/carom.ts` | THE CAROM's crust: a meteor with a window cut in it, and the streak it drags |
 | `packages/render/src/chute.ts` | THE CHUTE, drawn: the thrust that throws a body out of a cracked carom |

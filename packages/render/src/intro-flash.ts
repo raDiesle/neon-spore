@@ -202,13 +202,16 @@ export function stamp(age: number): number {
  * The tag, put where a sticker goes: the corner of the picture, half out of
  * it, on a plane of its own.
  *
- * The bottom left corner, and both halves of that are the scene's doing: the
- * two people are along the top of the picture, so a sign up there covers the
- * one being shouted at, and the two controls that answer a shout are at the
- * bottom right, so a sign there covers the answer. What is left is the corner
- * of the phone that is only holding a field. Centred it would cover the lot. Its trip is half a turn behind the picture's, so when one
- * is at the glass the other is at the back — that counter-motion is the whole
- * of why the corner reads as having a depth.
+ * **The top left corner**, and that is the scene's doing rather than a
+ * designer's: the two people stand in the middle of the picture with a word
+ * crossing between them, and the two controls that answer it are along the
+ * bottom of the board under them (`intro-share.ts`) — so a sign at the bottom
+ * covers the answer and a sign in the middle covers the argument. It was at
+ * the bottom left while the picture was two phones with a field on one of
+ * them, which is the one part of it nothing was happening in. Centred it would
+ * cover the lot. Its trip is half a turn behind the picture's, so when one is
+ * at the glass the other is at the back — that counter-motion is the whole of
+ * why the corner reads as having a depth.
  */
 export function stickTag(
   ctx: CanvasRenderingContext2D,
@@ -221,7 +224,7 @@ export function stickTag(
   if (landed <= 0.01) return;
   const r = Math.min(box.w * 0.115, box.h * 0.12);
   const x = box.x + box.w * 0.16;
-  const y = box.y + box.h - r * 0.7;
+  const y = box.y + r * 0.7;
   towards(ctx, x, y, landed * (0.88 + 0.26 * surge(age, 0.5)), () =>
     flashTag(ctx, x, y, r, text, accent, age),
   );

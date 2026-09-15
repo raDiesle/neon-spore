@@ -26,10 +26,12 @@ import { drawIntroScene, introOver, type Layout } from "@neon-spore/render";
 /** Where the browser keeps whether this device has seen it. */
 export const INTRO_KEY = "neon-spore.intro";
 /** What is written there. A version rather than a flag: the day the intro is
- * rewritten enough to be worth showing again, this is how it says so — and on
- * 14 September 2026 it was, so a device that saw the six pages meets the scene
- * once. */
-export const INTRO_VERSION = "2";
+ * rewritten enough to be worth showing again, this is how it says so. It was
+ * on 14 September 2026, when six pages became one scene, and again on the
+ * 15th, when the scene stopped being about two phones and became about the two
+ * people holding them — so a device that saw either of the first two meets
+ * this one once. */
+export const INTRO_VERSION = "3";
 
 /**
  * Whether the intro opens on its own, given what storage remembers.

@@ -1,6 +1,13 @@
 import { describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
-import { INTRO_BEATS, INTRO_LINE, INTRO_SCENE_SECONDS, INTRO_TITLE } from "@neon-spore/content";
+import {
+  INTRO_BEATS,
+  INTRO_CROSS,
+  INTRO_LINES,
+  INTRO_SCENE_SECONDS,
+  INTRO_SIDES,
+  INTRO_TITLE,
+} from "@neon-spore/content";
 import { INTRO_KEY, INTRO_VERSION, opensIntro } from "../src/intro.js";
 
 /**
@@ -111,6 +118,20 @@ describe("what the scene says", () => {
     expect(new Set(INTRO_BEATS.map((b) => b.answer)).size).toBe(INTRO_BEATS.length);
   });
 
+  it("shouts both ways, so neither of them is the one giving the orders", () => {
+    // The owner's focus, 15 September 2026: shared controls. A scene where one
+    // of them speaks twice is a pilot and a passenger.
+    expect(new Set(INTRO_BEATS.map((b) => b.from)).size).toBe(2);
+  });
+
+  it("answers every shout on the far side of the seam from whoever shouted", () => {
+    // The whole of what *split controls* means: the person who can see it is
+    // never the person who can reach it (`render/src/intro-share.ts`).
+    for (const beat of INTRO_BEATS) {
+      expect(INTRO_SIDES[beat.answer], `${beat.id}: ${beat.shout}`).not.toBe(beat.from);
+    }
+  });
+
   it("shouts sentences somebody could actually shout", () => {
     // These are not captions about talking. They are the words one of them
     // will be saying out loud an hour from now, and the pair should recognise
@@ -131,23 +152,51 @@ describe("what the scene says", () => {
     expect(last, "the last shout").toBeLessThan(INTRO_SCENE_SECONDS);
   });
 
-  it("keeps the banner and the caption short enough for a phone", () => {
+  it("keeps the banner and every sentence short enough for a phone", () => {
     // The owner's correction, in two numbers: *use much shorter text, could be
     // like advertisement.* Nobody reads a paragraph on a screen they have not
     // chosen yet, and a line that wraps three times on a phone is a paragraph
     // however it was written.
     expect(INTRO_TITLE.length).toBeLessThanOrEqual(30);
-    expect(INTRO_LINE.length).toBeLessThanOrEqual(48);
+    for (const line of INTRO_LINES) {
+      expect(line.text.length, `${line.id}: ${line.text}`).toBeLessThanOrEqual(56);
+    }
+  });
+
+  it("leaves every sentence standing long enough to be read out loud", () => {
+    // The owner, 15 September 2026: *the text shown should stay longer, that
+    // it is enough time to follow.* A sentence of this length takes about two
+    // seconds to read to somebody else, and it is read once by somebody who
+    // has never seen it.
+    const READ = 3.5;
+    for (const [i, line] of INTRO_LINES.entries()) {
+      const next = INTRO_LINES[i + 1];
+      const held = (next ? next.at : INTRO_SCENE_SECONDS) - line.at;
+      expect(held, `${line.id} stands for ${held.toFixed(1)}s`).toBeGreaterThanOrEqual(READ);
+    }
+  });
+
+  it("is a scene somebody could read aloud, not one that flashes past", () => {
+    // The same ask from the other end: the whole of it is about as long as
+    // saying it takes. The press that ends it early is always there.
+    expect(INTRO_SCENE_SECONDS).toBeGreaterThanOrEqual(16);
   });
 
   it("says the thing the whole game rests on, in the game's own words", () => {
-    const all = [INTRO_TITLE, INTRO_LINE, ...INTRO_BEATS.map((b) => b.shout)]
+    const all = [INTRO_TITLE, ...INTRO_LINES.map((l) => l.text), ...INTRO_BEATS.map((b) => b.shout)]
       .join(" ")
       .toLowerCase();
-    // Two of them, two screens, and something said between them. A pitch that
-    // left any of it out would be a pitch for a different game.
-    for (const word of ["two", "phones", "talk", "shield"]) {
+    // Two of them, one ship, the controls split between them, and a voice. The
+    // owner's own focus of 15 September 2026, and a pitch that left any of it
+    // out would be a pitch for a different game.
+    for (const word of ["two", "ship", "split", "talk", "voice", "shield"]) {
       expect(all, word).toContain(word);
+    }
+  });
+
+  it("closes only once the last shout has been answered", () => {
+    for (const beat of INTRO_BEATS) {
+      expect(beat.at + INTRO_CROSS, beat.id).toBeLessThan(INTRO_SCENE_SECONDS);
     }
   });
 });

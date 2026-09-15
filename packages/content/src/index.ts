@@ -55,11 +55,14 @@ export {
   INTRO_BEATS,
   INTRO_CROSS,
   INTRO_FLASH,
-  INTRO_LINE,
+  INTRO_LINES,
   INTRO_SCENE_SECONDS,
+  INTRO_SIDES,
   INTRO_TITLE,
   type IntroAnswer,
   type IntroBeat,
+  type IntroLine,
+  type IntroSeat,
 } from "./intro.js";
 export {
   type DeskKey,
