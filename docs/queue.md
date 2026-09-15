@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## THE BALLOON's burst is a spark, and it should be a skin coming apart
 
 - **Found:** 2026-09-15, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-15, claude/queue-the-balloons-burst-is-a-spark-and-it-should-be-a
 - **Files:** `packages/render/src/effects-spark-handed.ts`, `packages/render/src/sprite-burst.ts`, `packages/content/src/balloon-shape.ts`, `packages/content/src/balloon-parts.ts`, `packages/render/test/frame.test.ts`
 - **Where:** local
 
