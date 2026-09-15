@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 8718f327 — `bun run sheet` lays a strip of frames out as one picture, so motion can be seen
+
+A session looks at a picture by reading it, one at a time, and a phone-sized one costs most of what a turn can spend on looking. Watching the opening scene meant twenty-one of them, so the answer was a throwaway that built a grid in a page and photographed that — twice in one day, which is where `bun run crop` came from too. It is a command now, beside `crop`, which is the same idea along the other axis: that one magnifies a body too small to see, this one puts twenty moments where they can be compared.
+
 ## 2026-09-15 · 562d4d7f — The intro is about the two of you, not about the two phones — and it is slower
 
 The owner asked for both halves of this today. The focus: *it is a co-op game, people have shared controls, and it is mandatory to have voice communication — sitting in the same room or on a voice chat; how the game looks or what is shown on the mobile is not relevant.* And the pace: *the text shown should stay longer, that it is enough time to follow.*
