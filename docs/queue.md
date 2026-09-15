@@ -444,6 +444,7 @@ its first row down.
 ## A shot never goes through a body: what it cannot break, it hits and marks
 
 - **Found:** 2026-09-14, claude/queue-backlog-604107
+- **Taken:** 2026-09-15, claude/queue-a-shot-never-goes-through-a-body-what-it-cannot
 - **Files:** `packages/sim/src/shot-reach.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/gum.ts`, `packages/sim/src/cling.ts`, `packages/sim/src/weight.ts`, `packages/sim/src/cairn.ts`, `packages/sim/src/gyre.ts`, `packages/sim/src/balloon.ts`, `packages/sim/src/magnet.ts`, `packages/sim/src/events.ts`, `packages/render/src/effects-spark.ts`, `packages/render/src/effects-spark-handed.ts`, `packages/render/src/magnet-bounce.ts`, `packages/render/src/deflect.ts`, `packages/render/src/crater-look.ts`, `packages/render/src/crater-geom.ts`, `packages/content/src/mechanics.ts`, `docs/spec/graphics.md`
 - **Where:** local
 
