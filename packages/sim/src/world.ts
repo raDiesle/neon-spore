@@ -64,6 +64,20 @@ export interface World extends ShipState {
    */
   malfunction: Malfunction | null;
 
+  /**
+   * Whether **holding** a colour fills the cannon lobe on this wave's panel.
+   *
+   * The panel's fact, not the wave's, and the sim is told it the way it is
+   * told the fault: once, before the first tick, identically on both devices
+   * (`startWave`). The rungs of the standard ladder hold the gesture back —
+   * STANDARD 5 is the full panel that still does — and STANDARD itself has it
+   * (`content/src/control-sets.ts`).
+   *
+   * Read through `lanceLeaks` rather than by name: the fill, the ring the
+   * panel draws from it and the shaft in the column are all one question.
+   */
+  hasLance: boolean;
+
   creatures: Creature[];
   bullets: Bullet[];
   pods: Pod[];
@@ -124,6 +138,7 @@ export function createWorld(
     nextId: 1,
     ...newShipState(cfg),
     malfunction: null,
+    hasLance: true,
     creatures: [],
     bullets: [],
     pods: [],

@@ -5,15 +5,21 @@ import type { Wave } from "../wave-types.js";
  * 250-line ceiling, which is less than one wave with its argument written
  * above it (`waves.ts`).
  *
- * **THE LEAK is the sixth fault and the first that takes a *gesture*.** The
- * other five take a control and say so on the panel: a button is drawn dead,
- * or a strip is, and the seat that still has one has to aim the fault
- * somewhere harmless. There is nothing to draw dead here. Both colours answer
- * the thumb, a tap is the bolt it has always been, and every button on both
- * panels works — what is gone is the **hold**. The cannon lobe fills nothing
- * all wave, so no lance ever comes (`sim/lance.ts`, `sim/malfunction.ts`).
+ * **THE LEAK was the sixth fault, and on 15 September 2026 the owner made it a
+ * rung instead.** The five faults take a control and say so on the panel: a
+ * button is drawn dead, or a strip is, and the seat that still has one has to
+ * aim the fault somewhere harmless. There is nothing to draw dead here, and
+ * nothing to aim. Both colours answer the thumb, a tap is the bolt it has
+ * always been, and every button on both panels works — what is gone is the
+ * **hold**. So the wave is simply played on the panel whose hold fills
+ * nothing, STANDARD 5 (`content/control-sets-table.ts`, `sim/lance.ts`), and
+ * nothing hangs over the field.
  *
- * So the wave is written against the one figure the lance was taught on:
+ * **It is a panel the pair has played on before, and that is the wave.** Every
+ * wave between the top of the ladder and THE LANCE is on STANDARD 5 now, so
+ * the hold is a thing they were given at wave 31 and have had for nine waves
+ * when this one takes it back. The wave is written against the one figure the
+ * lance was taught on:
  * **three of a colour standing in one column**. That is one shot and three
  * beats of a still cannon in THE LANCE, and it is three shots here, which is
  * the whole lesson — the pair meets the shape they know and finds out what it
@@ -44,9 +50,11 @@ import type { Wave } from "../wave-types.js";
  *    pair has to agree *which wall first* — the one question in the wave that
  *    a lance would have made cheap and that six ordinary shots make expensive.
  *
- * Nothing is aimed at the fault and nothing can be: it hangs over the field
- * with its beam on both colour lobes for the whole wave, and the only answer
- * to it is the thumb going up and down (`render/fault-beam-ends.ts`).
+ * Nothing is aimed at anything and nothing can be: the panel is the panel, the
+ * only answer is the thumb going up and down, and the wave's guide is what says
+ * so. The field is empty of emitters, which is the plainest reading of the
+ * lesson — there is no thing to blame, and the pair is not waiting for one to
+ * be dealt with.
  */
 export const WAVES_ACT_9: Wave[] = [
   {
@@ -54,7 +62,7 @@ export const WAVES_ACT_9: Wave[] = [
     name: "THE LEAK",
     sentence: "The one where the column takes three shots instead of one.",
     guide: {
-      both: "Something over the field is holding the cannon lobe open, and its beam is on both colours all wave. Every button still works and every tap still fires. What is gone is the hold: the lobe fills nothing, so there is no beam of your own and a column of three is three shots.",
+      both: "You are back on the panel you had before THE LANCE. Every button still works and every tap still fires — what is gone again is the hold: keep a colour down and the lobe fills nothing, so there is no beam of your own and a column of three is three shots.",
       p1: "Nothing is dead on your strip, and standing still buys you nothing this wave — there is no lobe to fill. Call the next column while they are still firing at this one: the crossing is what costs here, not the shots.",
       p2: "Tap. Holding a colour fills nothing and the body is still falling while your thumb is down, so take them one at a time and let go between. Three of a colour is three presses now.",
       scene: "theLeak",
@@ -77,6 +85,6 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 34, col: 6, color: "cyan" },
       { beat: 35, col: 6, color: "cyan" },
     ],
-    malfunction: { kind: "leak" },
+    controls: "standard5",
   },
 ];

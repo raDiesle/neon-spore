@@ -41,13 +41,15 @@ import { MILLI, type World } from "./world.js";
  * 1's: neither of them can do this alone, which is the same sentence the
  * lance always said with the halves swapped.
  *
- * **THE LEAK is the one wave where none of this happens.** The fault holds the
- * cannon lobe open, so the fill is nothing however long the thumb stays down
- * and no lance ever comes (`malfunction.ts`). It is read here rather than
- * enforced at the door: the press still starts a hold and the lift still fires
- * the bolt it owes, because a fault that swallowed the press would have taken
- * the trigger away rather than the beam, and every seat would find the panel
- * dead instead of the weapon gone.
+ * **A panel whose hold fills nothing is the one place none of this happens.**
+ * Every rung of the standard ladder is such a panel, and so is STANDARD 5 —
+ * the full set of buttons with the gesture still held back — which is what the
+ * waves before THE LANCE are played on and where THE LEAK went when it stopped
+ * being a fault (`content/src/control-sets-table.ts`). It is read here rather
+ * than enforced at the door: the press still starts a hold and the lift still
+ * fires the bolt it owes, because a panel that swallowed the press would have
+ * taken the trigger away rather than the beam, and every seat would find its
+ * buttons dead instead of simply never having had the gesture.
  *
  * **Sliding never eats the shot.** The fill resets, the *hold* does not — a
  * lift after the cannon moved still fires the ordinary shot the thumb was
@@ -57,14 +59,19 @@ import { MILLI, type World } from "./world.js";
  */
 
 /**
- * **THE LEAK: the lobe will not hold a charge this wave** (`malfunction.ts`).
+ * **The lobe will not hold a charge on this panel** (`world.hasLance`).
  * Everything about the fill is read through this — the number the panel draws
  * a ring from, the shaft in the column, and whether the thing ever goes off —
- * so the fault is one fact asked in one place rather than a rule re-derived at
- * each of them.
+ * so it is one fact asked in one place rather than a rule re-derived at each
+ * of them.
+ *
+ * It was `world.malfunction?.kind === "leak"` until 15 September 2026, when
+ * the owner moved THE LEAK off the fault list and onto the ladder. Nothing
+ * else in `sim` changed with it, which is the argument for having asked the
+ * question here in the first place.
  */
 export function lanceLeaks(world: World): boolean {
-  return world.malfunction?.kind === "leak";
+  return !world.hasLance;
 }
 
 /**

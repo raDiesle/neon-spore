@@ -66,6 +66,12 @@ export interface SceneScript {
   boss: BossEntry | null;
   /** The fault the rehearsed wave is played under, or none. */
   malfunction: Malfunction | null;
+  /**
+   * Whether the rehearsed wave's panel fills the cannon lobe under a held
+   * colour. Off, a film of a thumb staying down is a film of nothing
+   * happening, which is exactly what THE LEAK's rehearsal is (`lance.ts`).
+   */
+  hasLance: boolean;
   /** Sorted by tick. What the ghost thumb is doing, as presses. */
   commands: readonly SceneCommand[];
   /** How long one turn of the loop is, in ticks. */
@@ -159,6 +165,7 @@ function build(script: SceneScript): World {
     false,
     0,
     script.malfunction,
+    script.hasLance,
   );
   return world;
 }

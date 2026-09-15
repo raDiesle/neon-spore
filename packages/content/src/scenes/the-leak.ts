@@ -5,8 +5,9 @@ import type { GuideScene } from "../scene-types.js";
  *
  * The wave takes no button away — every one of them still works, and a tap is
  * the bolt it always was. What is gone is the **hold**: the cannon lobe fills
- * nothing all wave, so no lance ever comes (`sim/lance.ts`,
- * `sim/malfunction.ts`). Prose can say that, and the wave's three strings do.
+ * nothing all wave, because the wave is played on STANDARD 5, the rung whose
+ * hold fills nothing (`sim/lance.ts`, `content/control-sets-table.ts`). Prose
+ * can say that, and the wave's three strings do.
  * What prose cannot do is show it, because the whole of it is two pictures a
  * sentence turns into one — a ring that does not close under a thumb that is
  * not moving, and then the same thumb lifting with an ordinary bolt going out.
@@ -40,10 +41,11 @@ export const THE_LEAK: GuideScene = {
   ticks: 1080,
   bpm: 120,
   seed: 1,
-  // Authored on the film the way it is authored on the wave: a rehearsal of
-  // this wave played without the fault would be four pages of a lobe filling
-  // normally, which is the one thing it must not show (`scenes/the-jam.ts`).
-  malfunction: { kind: "leak" },
+  // Nothing is authored here about the lobe, and that is the change of 15
+  // September 2026: this used to carry `malfunction: { kind: "leak" }`, and the
+  // fact is the *panel's* now — `sceneScript` reads it off the wave being
+  // rehearsed, so a film of this wave fills nothing without an author having
+  // remembered to say so (`content/scene-script.ts`).
   entries: [
     { beat: 0, col: 2, color: "cyan" },
     { beat: 1, col: 2, color: "cyan" },

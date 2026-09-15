@@ -73,23 +73,19 @@ import type { World } from "./world.js";
  * hosts read: `handover.ts` has the argument, and nothing here acts on a beat
  * for it.
  *
- * **`leak` is the sixth, and it takes away a *gesture* rather than a control.**
- * THE LEAK: the cannon lobe will not hold a charge. Both colours answer the
- * thumb and a tap is the bolt it always was; what is gone is the **hold** — the
- * lobe fills nothing, so no lance comes and a column of one colour has to be
- * taken a body at a time (`lance.ts`). It is the first fault that leaves every
- * button on the panel working and still costs the pair a weapon, and the pair
- * find out from the emitter's beam standing on both colours rather than from a
- * button drawn dead: there is nothing dead to draw.
+ * **There was a sixth, `leak`, and the owner took it off this list on 15
+ * September 2026.** THE LEAK is the wave where the cannon lobe will not hold a
+ * charge: every button works, a tap is the bolt it always was, and what is
+ * gone is the **hold**. That is not a fault. A fault is a control the pair
+ * have and cannot trust, which is why every one above is aimed somewhere
+ * harmless by the seat that still works; a gesture the panel never offered is
+ * nothing to aim. So it became a rung — STANDARD 5, the full panel whose hold
+ * fills nothing (`content/src/control-sets-table.ts`) — and with it went every
+ * wave before THE LANCE, which used to be played on a panel carrying a weapon
+ * nothing had taught. Nothing in this file acts on it any more and `lance.ts`
+ * reads one field of the world.
  */
-export const MALFUNCTION_KINDS = [
-  "cannon",
-  "shield",
-  "steer",
-  "codex",
-  "handover",
-  "leak",
-] as const;
+export const MALFUNCTION_KINDS = ["cannon", "shield", "steer", "codex", "handover"] as const;
 export type MalfunctionKind = (typeof MALFUNCTION_KINDS)[number];
 
 /**
@@ -115,7 +111,6 @@ export type Malfunction =
   | { kind: "shield" }
   | { kind: "steer" }
   | { kind: "codex" }
-  | { kind: "leak" }
   /**
    * THE HANDOVER, and the one fault an author writes numbers on — the owner's
    * answer of 13 September 2026, asked whether the panels trade once or keep
@@ -147,13 +142,10 @@ export function faultSwallows(world: World, c: Command): boolean {
   // The strip, the swipe on the hull and the wire are all one door to the
   // cannon's column, and under THE CHOKE that door is shut.
   if (m.kind === "steer") return c.kind === "cannonCol";
-  // The last three swallow nothing at all, and in all three that is the fault:
-  // every button works and answers the thumb, and what has changed is what it
-  // means (`codex.ts`), whose screen it is on (`handover.ts`), or what holding
-  // one down is worth (`lance.ts`). THE LEAK in particular must not swallow
-  // `prime`: the press is what the lift's ordinary bolt is owed from, and a
-  // fault that ate it would take the trigger away rather than the beam.
-  if (m.kind === "codex" || m.kind === "handover" || m.kind === "leak") return false;
+  // The last two swallow nothing at all, and in both that is the fault: every
+  // button works and answers the thumb, and what has changed is what it means
+  // (`codex.ts`) or whose screen it is on (`handover.ts`).
+  if (m.kind === "codex" || m.kind === "handover") return false;
   return c.kind === "guard";
 }
 
@@ -185,12 +177,11 @@ export function malfunctionColor(world: World, m: Malfunction): Color {
 export function stepMalfunction(world: World): void {
   const m = world.malfunction;
   if (m === null) return;
-  // The last three act on no beat of their own. THE CODEX does what it does at
-  // the moment a bolt meets a body, THE HANDOVER does it in render/ and in a
-  // host, and THE LEAK does it at the moment a thumb asks how full the lobe is;
-  // whether any of them is doing it is a function of the wave rather than of
-  // state anybody steps (`codexSwapped`, `handedOver`, `lanceLeaks`).
-  if (m.kind === "codex" || m.kind === "handover" || m.kind === "leak") return;
+  // The last two act on no beat of their own. THE CODEX does what it does at
+  // the moment a bolt meets a body and THE HANDOVER does it in render/ and in
+  // a host; whether either is doing it is a function of the wave rather than of
+  // state anybody steps (`codexSwapped`, `handedOver`).
+  if (m.kind === "codex" || m.kind === "handover") return;
   if (m.kind === "steer") {
     stepChoke(world);
     return;

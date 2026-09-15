@@ -107,6 +107,7 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 15, col: 2, kind: "lure", color: "cyan" },
       { beat: 16, col: 4, color: "cyan" },
     ],
+    controls: "standard5",
   },
   {
     id: "theThrob",
@@ -119,6 +120,7 @@ export const WAVES_ACT_3: Wave[] = [
       scene: "theThrob",
     },
     entries: [{ beat: 0, col: 3, kind: "throb", color: "red" }],
+    controls: "standard5",
   },
   {
     id: "theCount",
@@ -135,6 +137,7 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 18, col: 2, kind: "countdown", color: "red" },
       { beat: 19, col: 5, kind: "countdown", color: "cyan" },
     ],
+    controls: "standard5",
   },
   {
     id: "theThirdShot",
@@ -150,6 +153,7 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 0, col: 1, kind: "shell", color: "cyan" },
       { beat: 10, col: 4, kind: "shell", color: "red" },
     ],
+    controls: "standard5",
   },
   {
     id: "theClasp",
@@ -168,6 +172,7 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 20, col: 2, kind: "clasp", color: "cyan" },
       { beat: 28, col: 4, kind: "clasp", color: "cyan" },
     ],
+    controls: "standard5",
   },
   {
     id: "theDart",
@@ -186,6 +191,7 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 17, col: 5, kind: "dart", color: "cyan" },
       { beat: 26, col: 2, kind: "dart", color: "cyan" },
     ],
+    controls: "standard5",
   },
   {
     id: "theVeil",
@@ -204,5 +210,6 @@ export const WAVES_ACT_3: Wave[] = [
       { beat: 18, col: 2, kind: "veil", color: null },
       { beat: 24, col: 0, kind: "veil", color: null },
     ],
+    controls: "standard5",
   },
 ];

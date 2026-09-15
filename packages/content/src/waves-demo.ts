@@ -80,7 +80,6 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   cannonFault: { wave: "theJam" },
   codexFault: { wave: "theCodex" },
   handoverFault: { wave: "theHandover" },
-  leakFault: { wave: "theLeak" },
   shieldFault: { wave: "theTwitch" },
   steerFault: { wave: "theChoke" },
   coil: { wave: "theCoil" },

@@ -196,6 +196,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
 | `packages/sim/src/wave-fail.ts` | A hit fails the wave, and the wave is played again; the clock and retries text |
 | `packages/sim/src/warden-rope.ts` | you are working on THE WARDEN's line — the hand on it, how taut it is, and when it is lowered or cut |
+| `packages/sim/src/warden-start.ts` | THE WARDEN takes the field where it stands and never leaves it: dead centre, at `wardenRow`, five columns wide |
 | `packages/sim/src/snake-open.ts` | Opening a round and starting an attempt over — the two places a `SnakeState` is written from nothing |
 | `packages/sim/src/scene.ts` | you are changing what a guide's rehearsal is — a small world, built from a script and looped |
 | `packages/sim/src/ready-gate.ts` | you are changing the two circles a guide ends on — what fills one, what empties it, and how long the hold is |

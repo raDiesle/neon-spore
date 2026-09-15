@@ -13,6 +13,7 @@ import {
   panelSends,
   setControls,
   setHas,
+  setLance,
   WAVES,
   wavesUsingSet,
 } from "../src/index.js";
@@ -56,6 +57,46 @@ describe("control sets", () => {
   it("keeps the maw off the rungs of the ladder, and on the panel they build to", () => {
     expect(setHas(controlSet(DEFAULT_CONTROL_SET_ID), "intake")).toBe(true);
     expect(setHas(controlSet("standard4"), "intake")).toBe(false);
+  });
+
+  /**
+   * The owner's rule of 14 September 2026, said in his own words: *standard 1
+   * to 5 have no beam shot, and STANDARD itself has everything, the lance
+   * included.* It is a field rather than a held-back `ControlId` because the
+   * lance has no button — it is the two colours held rather than tapped — so
+   * `reduces` cannot reach it (`control-sets-table.ts`).
+   */
+  it("holds the hold back on every numbered STANDARD, and hands it to STANDARD", () => {
+    for (const set of CONTROL_SETS) {
+      if (!/^STANDARD \d/.test(set.name)) continue;
+      expect(setLance(set), `${set.id} fills the lobe: ${set.name}`).toBe(false);
+    }
+    expect(setLance(controlSet(DEFAULT_CONTROL_SET_ID))).toBe(true);
+  });
+
+  it("gives no panel without both colours a hold at all, declared or not", () => {
+    // Derived rather than authored: the gesture rides the two colour buttons,
+    // so a round that replaced the band with slabs has nowhere to put a thumb
+    // and `lance: false` on it would restate its own control list.
+    for (const set of CONTROL_SETS) {
+      if (setHas(set, "fireRed") && setHas(set, "fireCyan")) continue;
+      expect(setLance(set), `${set.id} fills a lobe it has not got`).toBe(false);
+    }
+  });
+
+  /**
+   * STANDARD 5 is the one rung that is not a reduction, and this is why: it
+   * carries every button the full panel does. What it is less by is the
+   * gesture, which no list of controls can express — so a `reduces` on it would
+   * hold nothing back, which the ladder's own test refuses.
+   */
+  it("gives the top rung every button the full panel has and no reduction", () => {
+    const five = controlSet("standard5");
+    expect([...five.controls].sort()).toEqual(
+      [...controlSet(DEFAULT_CONTROL_SET_ID).controls].sort(),
+    );
+    expect(five.reduces).toBeUndefined();
+    expect(setLance(five)).toBe(false);
   });
 
   it("has a set that trades a button away rather than adding one", () => {

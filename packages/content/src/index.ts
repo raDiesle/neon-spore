@@ -27,6 +27,7 @@ export {
   panelSends,
   setControls,
   setHas,
+  setLance,
   wavesUsingSet,
 } from "./control-sets.js";
 export {

@@ -55,14 +55,19 @@ const CHOICES = [
   ["steer", "STEER — the cannon walks itself, player 1 loses the strip"],
   ["codex", "CODEX — the two colours do each other's job and nothing says so"],
   ["handover", "HANDOVER — the two panels change screens for a window mid-wave"],
-  ["leak", "LEAK — the cannon lobe fills nothing, so the wave has no lance in it"],
 ] as const;
 
 /**
  * The one sentence an author has to hold in their head while composing the
  * arrivals: for the three faults that take a control, which seat still has a
  * strip to aim with and therefore which body the wave can be *about*; for the
- * three that take none, what the pair is left having to say.
+ * two that take none, what the pair is left having to say.
+ *
+ * **LEAK was a seventh choice here until 15 September 2026.** A wave with no
+ * lance in it is picked on the control-set row now — STANDARD 5 — because it is
+ * a panel and not a fault: nothing hangs over the field, and a gesture the
+ * ladder has not handed out is nothing for a seat to aim away from
+ * (`content/control-sets-table.ts`).
  */
 const NOTE: Record<MalfunctionKind, string> = {
   cannon:
@@ -73,7 +78,6 @@ const NOTE: Record<MalfunctionKind, string> = {
     "Player 1 loses the cannon strip and gets nothing back; the cannon walks a column a beat, wall to wall, and player 2 fires from wherever it is.",
   codex:
     "Both seats keep every button. While the key is over, a bolt fired red kills what cyan kills — and the bands that say which way round it is are drawn on the pilot's screen alone.",
-  leak: "Both seats keep every button and every tap fires. The hold is what is gone: the lobe fills nothing all wave, so there is no lance — a column with three of one colour standing in it is three shots and three beats, which is the arrival worth composing against.",
   handover:
     "Both seats keep every button, and the two panels change screens: each phone draws and answers the other seat's half for the window below. Leave the three boxes empty and it plays the game's own numbers. Nobody changes seats on the wire, so a wave with a hand on the field — a grip, a pull, a tap — is the wrong wave for it.",
 };
@@ -159,7 +163,10 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
         ...(every === undefined ? {} : { every }),
       };
     }
-    if (k === "shield" || k === "steer" || k === "codex" || k === "leak") return { kind: k };
+    // `leak` was here until 15 September 2026 and is a panel now, so it is
+    // picked on the wave's control-set row rather than brushed on as a
+    // fault: STANDARD 5 (`content/control-sets-table.ts`).
+    if (k === "shield" || k === "steer" || k === "codex") return { kind: k };
     return undefined;
   };
 

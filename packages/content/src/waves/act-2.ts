@@ -26,6 +26,7 @@ export const WAVES_ACT_2: Wave[] = [
     entries: [],
     pods: [{ beat: 2, col: 3, row: 4, kind: "purge" }],
     boss: { kind: "queen", col: 3, petals: 9 },
+    controls: "standard5",
   },
   {
     id: "theMirror",
@@ -46,6 +47,7 @@ export const WAVES_ACT_2: Wave[] = [
         ["intake", "fireRed", "intake", "fireCyan", "intake", "fireRed"],
       ],
     },
+    controls: "standard5",
   },
   {
     id: "theMaze",
@@ -59,6 +61,7 @@ export const WAVES_ACT_2: Wave[] = [
     },
     entries: [],
     boss: { kind: "maze", rounds: MAZE_ROUNDS },
+    controls: "standard5",
   },
   {
     id: "theGauge",
@@ -87,6 +90,7 @@ export const WAVES_ACT_2: Wave[] = [
     },
     entries: [],
     boss: { kind: "warden" },
+    controls: "standard5",
   },
   {
     id: "theFleet",

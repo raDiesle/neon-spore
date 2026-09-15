@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — THE LEAK becomes STANDARD 5
+
+The queue's *THE LEAK is a rung of the standard ladder, not a malfunction*, which
+had been waiting on the owner since 14 September for one answer: is the beamless
+full panel the fifth rung or the sixth. He said the fifth. Twenty-three files.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the ladder's own tests, which are what decided the shape — a rung must hold a control back, so STANDARD 5 reduces nothing |
+| writing | 60 | one field, one world field, the hash, five call sites, sixteen waves pinned, four cases, three documents |
+| looking | 15 | the cyan lobe under a long hold on THE LANCE and on THE LEAK, and a probe of the fill every twenty ticks |
+| friction | 15 | the act files came back out of the serializer in its own field order, not the one a script inserted; `wave-start.ts` went over 250 lines |
+| landing | 15 | `bun run index`, `check:fast` four times, the commit |
+
+The bottleneck was the tests that already existed. Two of them settled the design
+before a line was written — *a reduction that holds nothing back is the full panel
+under a second name* meant the new rung could not use `reduces`, and *the first
+wave on a panel has a guide* meant pinning sixteen waves moved which wave
+introduces STANDARD and which introduces the rung, both of which turned out to
+have the guide they needed already. That is the argument for writing a rule as a
+test: it answered a question a year later that nobody was in the room for.
+
 ## 2026-09-15 — queued-tasks — the tagline reads in one line on an Android
 
 The queue's *The tagline wraps on a 360 px phone*, which had sat on the owner's

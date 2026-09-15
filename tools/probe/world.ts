@@ -1,4 +1,11 @@
-import { buildBoss, buildPods, buildQueue, WAVES } from "@neon-spore/content";
+import {
+  buildBoss,
+  buildPods,
+  buildQueue,
+  controlSetForWave,
+  setLance,
+  WAVES,
+} from "@neon-spore/content";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -62,6 +69,10 @@ export function waveWorld(id: string, seed = 1, cfg: SimConfig = DEFAULT_CONFIG)
     false,
     0,
     WAVES[index]?.malfunction ?? null,
+    // And the panel's hold, off the set the wave names. Without it a probe of
+    // any wave before THE LANCE would show a lobe filling that the game does
+    // not fill (`content/control-sets.ts` `setLance`).
+    setLance(controlSetForWave(index)),
   );
   return world;
 }

@@ -30,8 +30,25 @@ import type { ControlSet } from "./control-sets.js";
  * they will stand for the rest of the game — so a rung is the standard panel
  * with buttons held back, never a panel of its own with the survivors
  * rearranged. Each adds exactly one thing to the one above it: red, then cyan,
- * then the trigger, then the plate that trigger fires, and finally the maw,
- * which is the full panel and needs no entry of its own.
+ * then the trigger, then the plate that trigger fires, then the maw — and last
+ * the **hold**, which is STANDARD 5's one difference from STANDARD itself.
+ *
+ * **STANDARD 5 is the rung that holds back a gesture rather than a button**,
+ * and it is why `ControlSet` carries a `lance` field at all. The lance has no
+ * button to leave out: it is the two colours *held* rather than tapped, so
+ * `reduces` — which is a list of `ControlId`s — cannot reach it. STANDARD 5
+ * therefore carries every control the full panel does and is not a reduction
+ * of anything; what it is less than the panel by is one gesture, written as
+ * one field. The owner's instruction, 14 September 2026: *standard 1 to 5 have
+ * no beam shot; STANDARD itself has everything, the lance included.*
+ *
+ * That is also where **THE LEAK** went. It was a malfunction — a thing hanging
+ * over the field holding the lobe open for one wave — and a malfunction is
+ * something the pair aims somewhere harmless. A weapon they have not been
+ * taught yet is not that, so the wave is simply played on the rung whose hold
+ * fills nothing, and every wave between the top of the ladder and THE LANCE,
+ * which used to hand the pair a gesture nothing had introduced, is played
+ * there too.
  */
 export const CONTROL_SETS: readonly ControlSet[] = [
   {
@@ -44,6 +61,7 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     id: "standard1",
     name: "STANDARD 1",
     why: "A column and a colour, and nothing else yet: player 1 carries the cannon, player 2 has red.",
+    lance: false,
     reduces: "default",
     controls: ["cannon", "fireRed"],
   },
@@ -51,6 +69,7 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     id: "standard2",
     name: "STANDARD 2",
     why: "Cyan joins red, so what leaves the cannon is a decision. Nothing defends yet.",
+    lance: false,
     reduces: "default",
     controls: ["cannon", "fireRed", "fireCyan"],
   },
@@ -58,6 +77,7 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     id: "standard3",
     name: "STANDARD 3",
     why: "The trigger arrives, and it fires the plate where the plate already stands — nobody can move it yet.",
+    lance: false,
     reduces: "default",
     controls: ["cannon", "guard", "fireRed", "fireCyan"],
   },
@@ -65,8 +85,16 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     id: "standard4",
     name: "STANDARD 4",
     why: "Player 2 gets the plate itself, so a ward is two hands again. The maw is the last thing held back.",
+    lance: false,
     reduces: "default",
     controls: ["cannon", "guard", "shield", "fireRed", "fireCyan"],
+  },
+  {
+    id: "standard5",
+    name: "STANDARD 5",
+    why: "Every button the full panel has, and the hold still fills nothing: a column of three is three shots until THE LANCE.",
+    lance: false,
+    controls: ["cannon", "guard", "intake", "shield", "fireRed", "fireCyan"],
   },
   {
     id: "gauge",

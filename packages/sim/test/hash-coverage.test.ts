@@ -264,6 +264,7 @@ describe("the fingerprint covers the world", () => {
         "failTick",
         "guard",
         "guardTick",
+        "hasLance",
         "gripP1",
         "gripP2",
         "intakeTick",

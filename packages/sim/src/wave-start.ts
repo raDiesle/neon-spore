@@ -3,7 +3,6 @@ import { openWave } from "./briefing.js";
 import { installCairn } from "./cairn.js";
 import { midCol } from "./config.js";
 import { NO_CRANK } from "./crank.js";
-import type { WardenEntry } from "./entries.js";
 import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
 import { clearGrips } from "./grip.js";
@@ -15,9 +14,8 @@ import { installPinball } from "./pinball-round.js";
 import { installPulse } from "./pulse-round.js";
 import { NO_SHELL } from "./shell.js";
 import { installSnake } from "./snake-round.js";
-import { WARDEN_COLS } from "./types.js";
 import { installVane } from "./vane.js";
-import { NO_TETHER } from "./warden-cycle.js";
+import { installWarden } from "./warden-start.js";
 import { NOT_FAILED } from "./wave-fail.js";
 import { installWell } from "./well.js";
 import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
@@ -41,6 +39,12 @@ import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
  * the reason the boss does: it is a whole-wave fact read once, before the
  * first tick, identically on both devices. A wave that names none is played
  * straight, which is every wave in the game but three.
+ *
+ * `hasLance` is the last of them and the only one that is the **panel's**:
+ * whether holding a colour fills the cannon lobe at all. It is handed in for
+ * the same reason — the sim may not read content, and the caller has the set
+ * already (`content/src/control-sets.ts` `setLance`). Left out, the panel has
+ * the gesture, which is STANDARD and every generated wave.
  */
 export function startWave(
   world: World,
@@ -51,6 +55,7 @@ export function startWave(
   hasGuide = false,
   guideSteps = 0,
   malfunction: Malfunction | null = null,
+  hasLance = true,
 ): void {
   const mid = midCol(world.cfg);
   world.wave = waveIndex;
@@ -89,6 +94,8 @@ export function startWave(
   // wave-local: a scar, a pause and a rest are all measured from a tick, and a
   // wave that inherited one would open with a window already half run.
   world.malfunction = malfunction;
+  // And the panel's hold, read through `lanceLeaks` everywhere (`lance.ts`).
+  world.hasLance = hasLance;
   // The arm home and empty. A wave that inherited one halfway up a column
   // would open with a hand reaching for something the last wave had.
   world.reachDir = 0;
@@ -200,47 +207,4 @@ export function startWave(
   openWave(world, hasGuide, guideSteps);
 
   world.events.push({ type: "waveStart", wave: waveIndex });
-}
-
-/**
- * THE WARDEN takes the field where it stands and never leaves it: dead centre,
- * at `wardenRow`, five columns wide. There is no starting column to author —
- * a ring placed off centre is a ring with a short side — so the only thing a
- * wave says about it is how many plates it wears.
- *
- * The pupil starts in the middle of the body, which is the column the line
- * comes down in: the first thing the pair see is the rope standing in front of
- * the eye, which is exactly what pulling it aside is for.
- */
-function installWarden(world: World, entry: WardenEntry): void {
-  const id = world.nextId++;
-  const col = Math.floor((world.cfg.cols - WARDEN_COLS) / 2);
-  world.creatures.push({
-    id,
-    kind: "warden",
-    col,
-    row: world.cfg.wardenRow,
-    fromRow: world.cfg.wardenRow,
-    color: null,
-    holes: 0,
-    petals: 0,
-    dragMilli: 0,
-    shell: NO_SHELL,
-  });
-  world.boss = {
-    kind: "warden",
-    creatureId: id,
-    tetherId: NO_TETHER,
-    pupilCol: col + Math.floor(WARDEN_COLS / 2),
-    pupilDir: 1,
-    plates: entry.plates ?? world.cfg.wardenPlates,
-    eyeSpent: false,
-    pulling: false,
-    pullOriginMilli: 0,
-    pullOriginYMilli: 0,
-    pullMilli: 0,
-    pullYMilli: 0,
-    pullAnchorX: 0,
-    pullAnchorY: 0,
-  };
 }

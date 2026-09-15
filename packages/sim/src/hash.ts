@@ -99,6 +99,10 @@ export function hashWorld(world: World): number {
   if (fault !== null && fault.kind === "cannon") {
     push(MALFUNCTION_COLORS.indexOf(fault.color) + 1);
   }
+  // And whether this wave's panel fills the lobe at all. Script like the fault
+  // and hashed like it: two devices that disagree about it disagree about
+  // whether a column burns (`lance.ts`).
+  push(world.hasLance ? 1 : 0);
   // The shot that has been pressed and has not left yet. In for the reason a
   // bullet is: two devices that disagree about whether a shot exists have
   // desynced, and a charge is a shot that exists everywhere except on the

@@ -74,6 +74,7 @@ export type ControlSetId =
   | "standard2"
   | "standard3"
   | "standard4"
+  | "standard5"
   | "gauge"
   | "fleet"
   | "snake"
@@ -107,6 +108,23 @@ export interface ControlSet {
    * which panel it is a *picture of*, so the picture lines up.
    */
   reduces?: ControlSetId;
+  /**
+   * Whether **holding** a colour fills the cannon lobe on this panel.
+   *
+   * The lance rides the two colour buttons rather than a button of its own
+   * (`control-sets-table.ts`), so `reduces` cannot hold it back the way it
+   * holds back a lobe — there is no `ControlId` to leave out. It is one field
+   * instead, false on every rung and absent on `default`, which is the owner's
+   * instruction of 14 September 2026: *standard 1 to 5 have no beam shot, and
+   * STANDARD itself has everything.*
+   *
+   * It stays the panel's and not the wave's for the reason a held-back button
+   * is. A pair on a rung has never been handed the gesture, so nothing is
+   * taken from them and nothing is drawn dead; this used to be a whole-wave
+   * fault with an emitter hanging over the field, and a fault is a thing to
+   * aim somewhere harmless rather than a thing one has never had.
+   */
+  lance?: false;
 }
 
 /**
@@ -142,6 +160,24 @@ export function setControls(set: ControlSet, player: 1 | 2): readonly ControlDef
 
 export function setHas(set: ControlSet, id: ControlId): boolean {
   return set.controls.includes(id);
+}
+
+/**
+ * Whether the cannon lobe fills under a held colour on this panel.
+ *
+ * Asked rather than the field read, so the absent-means-true spelling lives in
+ * one place: the sim is *told* this before the first tick (`startWave`), the
+ * director's stage builds a world with it, and a wave's own rehearsal carries
+ * it — three callers, one answer.
+ *
+ * **A panel with no colour on it never has the hold**, declared or not, and
+ * that half is derived for `panelForm`'s reason: the gesture rides the two
+ * colour buttons, so a round that replaced the band with slabs has nowhere to
+ * put a thumb. Authoring `lance: false` on THE GAUGE would have been a second
+ * copy of something the controls already say.
+ */
+export function setLance(set: ControlSet): boolean {
+  return set.lance !== false && setHas(set, "fireRed") && setHas(set, "fireCyan");
 }
 
 /**

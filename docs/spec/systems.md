@@ -168,6 +168,17 @@ A rock still stops it and the wrong colour still stops it — a lance is a line,
 not a licence ([graphics](graphics.md); a rock cannot be broken because it does
 not live).
 
+**The hold is a rung of the standard ladder, not a thing every panel has.**
+Every numbered STANDARD holds it back the way it holds a button back, and so
+does **STANDARD 5**, which is the full set of buttons with the gesture still
+missing — the panel every wave between the top of the ladder and THE LANCE is
+played on, so nothing hands a pair the drill before the wave whose subject it
+is. It is one field on the set rather than a held-back `ControlId` because the
+lance has no button: it rides the two colours
+(`packages/content/src/control-sets-table.ts`). The sim is told once, before
+the first tick, and asks it in one place (`lanceLeaks`). THE LEAK is that rung
+played deliberately, and was a malfunction until 15 September 2026.
+
 What a shot tests against is `hitHeightMilli` in
 `packages/sim/src/config-shot.ts`, the height of the invisible box in
 thousandths of a tile: one tile means a creature is hit over exactly the tile it

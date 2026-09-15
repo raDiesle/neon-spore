@@ -609,29 +609,27 @@ who has played one has learnt nothing about the others:
   bodies answered by the band: a hand on the glass would be a hand the screen
   says is the other seat's and the ship says is yours.
 
-- **A leak fault** — THE LEAK (wave 71, act 9) — takes no control either, and
-  it is the only one that takes a **gesture**. The cannon lobe will not hold a
-  charge: a thumb held on a colour fills nothing however long it stays down, so
-  no lance comes and the column has to be taken a body at a time
-  (`lanceLeaks`, `packages/sim/src/lance.ts`). Everything else is untouched —
-  both colours answer the thumb, a tap is the bolt it has always been, the lift
-  after a long hold still fires the bolt it owes, and nothing on either panel is
-  drawn dead, because nothing is. What says the fault is there is the emitter's
-  beam standing on **both** colour lobes for the whole wave — not one lit and one
-  dim, as a cannon fault draws them, because this one has taken the same thing
-  from both — and the ring round the held button staying empty
-  (`render/fault-beam-ends.ts`, `lanceFillFor`). It is authored on the wave and
-  carries no numbers: there is nothing to time, the lobe is open from the first
-  beat to the last.
+**There were six, and the sixth is a panel now.** A leak fault took no control
+either and was the only one that took a **gesture**: the cannon lobe would not
+hold a charge, so no lance came and the column had to be taken a body at a time.
+The owner took it off this list on 15 September 2026, and the argument is the
+one the paragraph below makes about the other five — a fault is a thing the seat
+that still works *aims somewhere harmless*, and a weapon the pair have never
+been handed is nothing to aim. So it is a rung of the standard ladder:
+**STANDARD 5**, every button the full panel has and the hold still filling
+nothing (`packages/content/src/control-sets-table.ts`, `lanceLeaks` in
+`packages/sim/src/lance.ts`). Nothing hangs over the field on THE LEAK any more,
+and every wave between the top of the ladder and THE LANCE is played there too,
+because they used to carry a weapon nine waves before the game taught it.
 
-  **The wave is written against the figure the lance was taught on.** THE LANCE
-  opens on three of a colour standing in one column, which is one shot and three
-  beats of a still cannon; THE LEAK opens on the same column, to the beat, and it
-  is three shots. Quoting the teaching wave is the whole design — a new figure
-  would have made it a wave about a new problem rather than a wave about a
-  missing answer — and what it costs the pair is the crossing: six ordinary shots
-  at opposite walls is a question about *which wall first* that a lance made
-  cheap.
+**THE LEAK's wave is written against the figure the lance was taught on.** THE
+LANCE opens on three of a colour standing in one column, which is one shot and
+three beats of a still cannon; THE LEAK opens on the same column, to the beat,
+and it is three shots. Quoting the teaching wave is the whole design — a new
+figure would have made it a wave about a new problem rather than a wave about a
+missing answer — and what it costs the pair is the crossing: six ordinary shots
+at opposite walls is a question about *which wall first* that a lance made
+cheap.
 
 **In the two firing faults the broken half is never the half that moves**,
 and that is their whole design. The seat that still has a strip has to *aim

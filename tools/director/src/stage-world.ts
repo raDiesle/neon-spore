@@ -1,4 +1,11 @@
-import { bossFromWave, guideSteps, podsFromWave, queueFromWave } from "@neon-spore/content";
+import {
+  bossFromWave,
+  controlSet,
+  guideSteps,
+  podsFromWave,
+  queueFromWave,
+  setLance,
+} from "@neon-spore/content";
 import { createWorld, type SimConfig, setBossRound, startWave, type World } from "@neon-spore/sim";
 import { currentWave, type Store } from "./state.js";
 
@@ -41,6 +48,10 @@ export function buildStageWorld(store: Store, cfg: SimConfig, round = 0): World 
     // Both come off the wave being *edited*, so neither waits for a save.
     guideSteps(wave.guide),
     wave.malfunction ?? null,
+    // And the panel's own fact, off the set the wave being edited names, so a
+    // stage shows the hold filling exactly where the game would
+    // (`content/control-sets.ts` `setLance`).
+    setLance(controlSet(wave.controls)),
   );
   // `setBossRound` is the fight's own way in, so what the stage plays is the
   // round a pair would have reached rather than a field with a number written

@@ -30,6 +30,7 @@ export const WAVES_ACT_1B: Wave[] = [
       { beat: 7, col: 5, color: "red" },
     ],
     pods: [{ beat: 0, col: 3, row: 3, kind: "purge" }],
+    controls: "standard5",
   },
   {
     id: "catchAndAim",
@@ -50,6 +51,7 @@ export const WAVES_ACT_1B: Wave[] = [
       { beat: 0, col: 1, row: 3, kind: "ward" },
       { beat: 11, col: 0, row: 4, kind: "ward" },
     ],
+    controls: "standard5",
   },
   {
     id: "finale",
@@ -64,5 +66,6 @@ export const WAVES_ACT_1B: Wave[] = [
       { beat: 7, col: 1, kind: "meteor", color: null },
       { beat: 7, col: 5, kind: "meteor", color: null },
     ],
+    controls: "standard5",
   },
 ];

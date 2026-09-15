@@ -1,5 +1,6 @@
 import type { Command, SceneCommand, SceneScript, SimConfig } from "@neon-spore/sim";
 import { controlHold, controlPress, controlTurns } from "./control-command.js";
+import { controlSetForWave, setLance } from "./control-sets.js";
 import { type ControlId, control } from "./controls.js";
 import { bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
 import type { SceneAct } from "./scene-act-types.js";
@@ -148,6 +149,12 @@ export function sceneScript(id: SceneId, wave: number, cfg: SimConfig): SceneScr
     pods: podsFromWave(scene, sceneCfg.cols),
     boss: bossFromWave(scene, sceneCfg.cols),
     malfunction: scene.malfunction ?? null,
+    // And the panel's own fact, read off the wave being rehearsed rather than
+    // authored on the film: a rehearsal of a wave played on a panel whose hold
+    // fills nothing has to fill nothing too, and the one thing worse than a
+    // film that lies is a film an author has to remember to make honest
+    // (`control-sets.ts` `setLance`).
+    hasLance: setLance(controlSetForWave(wave)),
     // Sorted, because a grip contributes its release as well as its hold, and a
     // drag a whole run of carries — and any of those can fall after the act
     // written under it. `SceneRun` walks

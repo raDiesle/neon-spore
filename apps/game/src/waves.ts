@@ -1,4 +1,12 @@
-import { buildBoss, buildPods, buildQueue, WAVES, waveGuideSteps } from "@neon-spore/content";
+import {
+  buildBoss,
+  buildPods,
+  buildQueue,
+  controlSetForWave,
+  setLance,
+  WAVES,
+  waveGuideSteps,
+} from "@neon-spore/content";
 import { INTRO_SECONDS } from "@neon-spore/render";
 import {
   endRun,
@@ -134,6 +142,12 @@ export function createWaveProgression({
       // beside its boss, because it is the same kind of fact: whole-wave, read
       // once, and identical on both devices (`sim/malfunction.ts`).
       WAVES[wave]?.malfunction ?? null,
+      // And whether this wave's panel fills the cannon lobe under a held
+      // colour, off the set the wave names — the same place `field-input.ts`
+      // reads which buttons are drawn. Every rung of the ladder holds the
+      // gesture back, STANDARD 5 is the full panel that still does, and the
+      // sim may not ask content for itself (`content/control-sets.ts`).
+      setLance(controlSetForWave(wave)),
     );
     left = INTRO_SECONDS;
     sentAtTick = -1;

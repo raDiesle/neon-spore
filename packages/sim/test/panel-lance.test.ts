@@ -7,13 +7,21 @@ import { startWave } from "../src/wave-start.js";
 import { createWorld, type SpawnEntry, step, type World } from "../src/world.js";
 
 /**
- * THE LEAK: the fault that takes a **gesture** rather than a control.
+ * A panel whose hold fills nothing: the rungs of the standard ladder, and
+ * STANDARD 5, which is every button and still no gesture.
  *
- * Every other fault is tested by what a press does not do. This one has to be
- * tested from both ends at once, because the two halves are what make it the
- * mechanic the owner asked for rather than a broken trigger: **the beam never
- * comes, and the tap still fires**. A fault that swallowed the press would
- * have passed the first half and failed the game.
+ * It has to be tested from both ends at once, because the two halves are what
+ * make it a weapon the pair have not been given rather than a broken trigger:
+ * **the beam never comes, and the tap still fires**. A panel that swallowed
+ * the press would have passed the first half and failed the game.
+ *
+ * **It was a malfunction until 15 September 2026** — `{ kind: "leak" }`, one
+ * wave, a thing hanging over the field — and the owner moved it onto the
+ * ladder: a fault is something the seat that still works aims somewhere
+ * harmless, and a gesture nobody was ever handed is nothing to aim. What that
+ * cost in `sim` is this file's one argument: `startWave` takes the fact beside
+ * the fault, and every rule below is unchanged, because all of them were
+ * already asking `lanceLeaks` rather than the fault by name.
  */
 
 const CFG = DEFAULT_CONFIG;
@@ -23,9 +31,11 @@ const HELD = Math.round(CFG.lancePrimeBeats * TPB) + 2 * TPB;
 
 const slick = (col: number): SpawnEntry => ({ beat: 0, col, kind: "slick", color: "red" });
 
-function leakWorld(queue: SpawnEntry[], fault = true): World {
+/** A wave on a panel whose hold fills nothing — or, with `lance`, on one whose
+ * hold does, which is the control every case here rests on. */
+function leakWorld(queue: SpawnEntry[], lance = false): World {
   const world = createWorld({ ...CFG }, 0);
-  startWave(world, 0, queue, [], null, false, 0, fault ? { kind: "leak" } : null);
+  startWave(world, 0, queue, [], null, false, 0, null, lance);
   return world;
 }
 
@@ -47,7 +57,7 @@ const press = (tick: number, on: boolean): TimedCommand => ({
   command: { kind: "prime", on, color: "red" },
 });
 
-describe("the lobe under THE LEAK", () => {
+describe("the lobe on a panel with no hold", () => {
   it("fills nothing, however long the thumb stays down", () => {
     const world = leakWorld([slick(3)]);
     play(world, HELD, [press(0, true)]);
@@ -65,20 +75,20 @@ describe("the lobe under THE LEAK", () => {
     expect(world.beam).toBeNull();
   });
 
-  it("is the fault and not the fill: the same hold on the same wave lances", () => {
-    // The control, and the one this whole file rests on: without the fault
-    // this exact hold burns the column with nothing lifted. If it did not,
-    // every expectation above would pass on a wave that simply could not
-    // lance, and the fault would be proving nothing at all.
-    const world = leakWorld([slick(3)], false);
+  it("is the panel and not the fill: the same hold on STANDARD lances", () => {
+    // The control, and the one this whole file rests on: on a panel that has
+    // the gesture, this exact hold burns the column with nothing lifted. If it
+    // did not, every expectation above would pass on a wave that simply could
+    // not lance, and the panel would be proving nothing at all.
+    const world = leakWorld([slick(3)], true);
     play(world, 1, [aim(0, 3)]);
     play(world, HELD, [press(0, true)]);
     expect(world.creatures).toHaveLength(0);
   });
 
   it("leaves the body standing under a thumb that never comes up", () => {
-    // The same hold, the same column, the fault on: nothing has fired, because
-    // the only thing that fires without a lift is the beam.
+    // The same hold, the same column, the gesture held back: nothing has
+    // fired, because the only thing that fires without a lift is the beam.
     const world = leakWorld([slick(3)]);
     play(world, 1, [aim(0, 3)]);
     play(world, HELD, [press(0, true)]);
@@ -86,8 +96,10 @@ describe("the lobe under THE LEAK", () => {
   });
 });
 
-describe("the trigger under THE LEAK", () => {
+describe("the trigger on a panel with no hold", () => {
   it("swallows nothing, so the panel is not dead", () => {
+    // There is no fault on this wave at all now, which is the plainest form
+    // the answer could take: nothing is drawn dead because nothing is broken.
     const world = leakWorld([slick(3)]);
     const kinds: Command[] = [
       { kind: "cannonCol", col: 2 },

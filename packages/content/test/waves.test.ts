@@ -11,6 +11,7 @@ import {
   mechanicsInWave,
   queueFromWave,
   setHas,
+  setLance,
   WAVES,
 } from "../src/index.js";
 import { DEMONSTRATIONS } from "../src/waves-demo.js";
@@ -236,6 +237,30 @@ describe("wave content", () => {
    * director's rail asks the same question about a wave that is not on disk
    * yet and two spellings of "is this the first time" would drift.
    */
+  /**
+   * **Nothing hands the pair the hold before THE LANCE teaches it**, which is
+   * the whole of what the owner asked for on 14 September 2026 and the reason
+   * STANDARD 5 exists. It used to be false of seventeen waves: SALVAGE onward
+   * played on the full STANDARD panel, so the gesture that fills the cannon
+   * lobe was on every one of them nine waves before the wave whose subject it
+   * is.
+   *
+   * THE LANCE is found by name rather than by index for the reason the rest of
+   * this file does it: an act file gains a wave and every number after it moves.
+   */
+  it("hands nobody the hold before THE LANCE teaches it", () => {
+    const taught = WAVES.findIndex((w) => w.name === "THE LANCE");
+    expect(taught, "THE LANCE is gone from the list").toBeGreaterThan(0);
+    for (const [i, wave] of WAVES.entries()) {
+      if (i >= taught) continue;
+      expect(
+        setLance(controlSetForWave(i)),
+        `wave ${i + 1} · ${wave.name} fills the lobe on ${controlSetForWave(i).name}, before THE LANCE`,
+      ).toBe(false);
+    }
+    expect(setLance(controlSetForWave(taught))).toBe(true);
+  });
+
   it("gives the first wave played on a panel a guide that introduces it", () => {
     for (const [i, wave] of WAVES.entries()) {
       if (!firstOnPanel(WAVES, i)) continue;
