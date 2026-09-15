@@ -197,7 +197,7 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
 
     // The bodies answered by hands alone: `effects-spark-handed.ts`.
     case "balloonSplit":
-    case "balloonBurst":
+    case "balloonTopped":
     case "gumFlung":
     case "clingGrip":
     case "clingShake":

@@ -24,8 +24,8 @@ export const BALLOON_CONTROLS: readonly FieldControlDef[] = [
       "the same body together for balloonHoldBeats — the body sits at full " +
       "stretch with its glow coming up, and a hand that slackens inside the " +
       "hold gives it back. The first time it gives the balloon splits into " +
-      "two smaller ones that part, one climbing on and one sinking to burst " +
-      "on the ship for the top's price; the second it pops for nothing. " +
+      "two smaller ones that part a lane either side and both go on up; the " +
+      "second it pops for nothing. " +
       "Carrying it inward counts as nothing at all — a pair squeezing a " +
       "balloon is not a pair stretching one (sim/balloon-pull.ts, " +
       "sim/balloon-rub.ts).",

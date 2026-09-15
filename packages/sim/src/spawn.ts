@@ -1,4 +1,4 @@
-import { balloonEntryRow } from "./balloon.js";
+import { balloonEntryCol, balloonEntryRow, balloonEntrySide } from "./balloon-entry.js";
 import { rockCrossRowFor, rockEntryCol, rockMayCross } from "./rock-cross.js";
 import { shellOnSpawn } from "./shell.js";
 import { companionsOnSpawn } from "./spawn-companions.js";
@@ -57,17 +57,24 @@ export function spawnArrivals(world: World): void {
     // place is settled here rather than below, and every other arrival keeps
     // the column it was authored in and the row nought it has always had.
     const across = entry.cross !== undefined && rockMayCross(entry.kind) ? entry.cross : undefined;
-    const col =
-      across === undefined
+    const rises = entry.kind === "balloon";
+    // **THE BALLOON comes in at a wall and glides to the middle**, which is the
+    // owner's rule of 14 September 2026: it used to appear out of nothing one
+    // row above the ship and swell there, which made the arrival a place the
+    // pair already knew. The wall is the authored column's own side, the row is
+    // one or two above the shield and the column it settles in is somewhere
+    // around the middle — all three in `balloon-entry.ts`.
+    const col = rises
+      ? balloonEntryCol(world.cfg, world.rng, span)
+      : across === undefined
         ? clampSpanCol(entry.col, world.cfg.cols, span)
         : rockEntryCol(world.cfg.cols, span, across);
-    // THE BALLOON does not enter at the top and does not glide in either: it
-    // appears one row above the ship and swells there (`balloonEntryRow`), so
-    // its row and both `from` fields are settled here, beside the crossing
-    // rock's.
-    const rises = entry.kind === "balloon";
+    // The wall it slides out of: the picture's `fromCol` for that one beat.
+    const wall = rises
+      ? rockEntryCol(world.cfg.cols, span, balloonEntrySide(world.cfg, entry.col))
+      : 0;
     const row = rises
-      ? balloonEntryRow(world.cfg)
+      ? balloonEntryRow(world.cfg, world.rng)
       : across === undefined
         ? 0
         : rockCrossRowFor(world.cfg, entry.row);
@@ -91,7 +98,13 @@ export function spawnArrivals(world: World): void {
       // down from off the top edge into the middle of the field would be a
       // picture of the arrival it deliberately is not.
       fromRow: rises || across !== undefined ? row : -fallTilesPerBeat(entry.kind),
-      fromCol: rises || across === undefined ? col : col - across * span,
+      // A balloon glides in **sideways out of a wall**, which is a crossing
+      // rock's own arrangement one creature along: `fromCol` is the wall and
+      // `col` is where it stops, so the picture carries it in along the row it
+      // will climb from. For that one beat the body is genuinely out over the
+      // field between the two (`creatureLane`), which is why a bolt fired up
+      // the column it is heading for misses it.
+      fromCol: rises ? wall : across === undefined ? col : col - across * span,
       color: entry.color,
       // Only when the wave asked for something other than the kind's own
       // width: `spanOf` falls back to `colSpan`, so an unsized arrival carries

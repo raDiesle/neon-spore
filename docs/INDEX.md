@@ -328,7 +328,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-beatbox.ts` | **What THE BEATBOX does**, as events: a tap landing on the beat |
 | `packages/sim/src/balloon-pull.ts` | **The two hands on THE BALLOON**, which is the half of that creature nothing else in this game has |
 | `packages/sim/src/balloon-clock.ts` | THE BALLOON's clocks, read and never stored: the swell, which beat is a step and how far along it the picture draws the body, and how far through the hold at full stretch the pair has got |
-| `packages/sim/src/balloon-rub.ts` | What a balloon does once both hands have reached it: the hold, then the split into a half that climbs and a half that sinks, or the pop |
+| `packages/sim/src/balloon-rub.ts` | What a balloon does once both hands have reached it: the hold, then the split into two halves that both climb, or the pop |
+| `packages/sim/src/balloon-entry.ts` | **WHERE A BALLOON COMES IN**, which the owner rewrote on 14 September 2026 |
 | `packages/sim/src/balloon.ts` | THE BALLOON: the first body in this game that does not come down |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |

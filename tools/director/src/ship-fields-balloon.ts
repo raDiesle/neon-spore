@@ -16,6 +16,8 @@ import type { GroupName } from "./ship-groups.js";
  * whole arrangement exists for. Checked here, exact there.
  */
 export const BALLOON_FIELDS = {
+  balloonEntryRowsUp: "THE BALLOON — a body that goes up, opened by two hands at once",
+  balloonEntryBandCols: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonSwellBeats: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonRiseRows: "THE BALLOON — a body that goes up, opened by two hands at once",
   balloonClimbBeats: "THE BALLOON — a body that goes up, opened by two hands at once",

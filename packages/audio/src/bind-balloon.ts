@@ -14,7 +14,7 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
  * has to be able to tell the good one from the expensive one across a room.
  */
 export function balloonCue(
-  e: Extract<SimEvent, { type: "balloonSplit" | "balloonPop" | "balloonBurst" }>,
+  e: Extract<SimEvent, { type: "balloonSplit" | "balloonPop" | "balloonTopped" }>,
   cols: number,
   rows: number,
 ): Cue | null {
@@ -41,14 +41,13 @@ export function balloonCue(
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };
-    case "balloonBurst":
-      // "Everything docked being thrown off at once: a hard sheet of air
-      // outward." Deliberately **not** a hull cue, `choirSing`'s argument word
-      // for word: the `breach` beside it already plays the damage, and a pair
-      // who could not tell this from a body landing would not know that what
-      // beat them was at the far end of the field rather than on the ship.
+    // The top of the field, where a balloon turns into a torch — the moment
+    // the pair stops watching it go and starts having to answer it. The
+    // split's own sound, because that is what it is: one body becoming
+    // another, said quietly, with the fall that follows loud on its own.
+    case "balloonTopped":
       return {
-        id: "hull.purge",
+        id: "creature.colonySpread",
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows),
       };

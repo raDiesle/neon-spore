@@ -63,11 +63,13 @@ export function rubBalloons(world: World): void {
  * delay he asked for, and it is the same swell a fresh arrival has, because it
  * is the same picture.
  *
- * **The two halves part.** One goes a lane left and climbs on; the other goes
- * a lane right and **sinks**, so a split is two bodies going visibly different
- * ways rather than two doing the same thing a column apart — and a sinking
- * half bursts on the ship's row for the same price a climbing one pays at the
- * top (`stepBalloon`), so the pair still has to answer both. Against a wall,
+ * **The two halves part**, one a lane left and one a lane right, and **both
+ * climb**: the owner ruled on 14 September 2026 that a balloon never goes
+ * downwards, so a split is two bodies to answer rather than one to answer and
+ * one to survive. The right-hand half used to be sent to the ship's row to
+ * burst against the plating; what makes the two read as different problems now
+ * is the lane between them and the carom each takes at its own wall. Against a
+ * wall,
  * where one half has no lane to go outward into, the vertical split stays and
  * both halves head the same way sideways, inward: the one on the wall keeps
  * its column and turns in, the other is already a lane in.
@@ -130,10 +132,12 @@ function rubBalloon(world: World, c: Creature): void {
       // than crossing each other a beat later — unless one of them stepped
       // into a wall, and then both go inward together.
       balloonDir: onWall ? inward : (dir as CrossDir),
-      // The right-hand half goes down and the left-hand half goes on up —
-      // said for both, so a climber never inherits a sinking parent's way.
-      // Absent rather than `false` on the climber (`creature-state-balloon.ts`).
-      balloonSinks: dir === 1 ? (true as const) : undefined,
+      // **Both halves go up**, which is the owner's rule of 14 September 2026:
+      // *a balloon never goes downwards.* The right-hand half used to be sent
+      // to the ship's row to burst against the plating, and a body that rises
+      // for its whole life except once is two creatures wearing one name.
+      // Absent rather than `false` (`creature-state-balloon.ts`).
+      balloonSinks: undefined,
       // Neither half is held. The hands were on the body that has just stopped
       // existing, and a pull inherited by a spread would be two seats silently
       // taut on a thing they never took hold of.

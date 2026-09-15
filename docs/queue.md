@@ -394,76 +394,36 @@ two places for that rule to drift. Proved the same way, with the limpet's
 own frame in `frame.test.ts` at the moment it sticks and one PNG of the
 plate under it.
 
-## THE BALLOON enters at a wall, never sinks, and is a torch at the top
+## THE BALLOON's burst is a spark, and it should be a skin coming apart
 
-- **Found:** 2026-09-14, claude/queue-backlog-604107
-- **Taken:** 2026-09-15, claude/queue-the-balloon-enters-at-a-wall-never-sinks-and-is
-- **Files:** `packages/sim/src/balloon.ts`, `packages/sim/src/balloon-rub.ts`, `packages/sim/src/balloon-clock.ts`, `packages/sim/src/spawn.ts`, `packages/sim/src/spawn-fields.ts`, `packages/sim/src/entries.ts`, `packages/sim/src/config-balloon.ts`, `packages/sim/src/coil.ts`, `packages/sim/src/events-balloon.ts`, `packages/sim/src/hash-creature-late.ts`, `packages/render/src/balloon.ts`, `packages/render/src/balloon-alive.ts`, `packages/render/src/effects-spark-handed.ts`, `packages/render/src/sprite-burst.ts`, `packages/content/src/balloon-shape.ts`, `packages/content/src/balloon-parts.ts`, `tools/director/src/brush-cards.ts`
+- **Found:** 2026-09-15, claude/queued-tasks-51d8f9
+- **Files:** `packages/render/src/effects-spark-handed.ts`, `packages/render/src/sprite-burst.ts`, `packages/content/src/balloon-shape.ts`, `packages/content/src/balloon-parts.ts`, `packages/render/test/frame.test.ts`
 - **Where:** local
 
-The owner asked for it on 14 September 2026, mid-turn, for a local session
-only — never a cloud one — as four sentences about the one body that does not
-come down. Each is a look or a rule he asked for by name, so it lands on the
-field and the commit says so.
+The one point of *THE BALLOON enters at a wall, never sinks, and is a torch at
+the top* that did not get built. The owner asked for it on 14 September 2026 by
+name, so it lands on the field rather than going to VERSUS.
 
-1. **The burst is a balloon coming apart.** Today `balloonBurst` and
-   `balloonPop` are a 26px spark in the pod's amber
-   (`effects-spark-handed.ts`). He wants it *realistic, like a balloon
-   becoming many pieces blowing up*: the skin torn into shreds that fly out
-   and fall, built from the balloon's own contour (`content/balloon-shape.ts`,
-   `balloon-parts.ts`) and the shapes page, not invented — a baked strip in
-   `sprite-burst.ts` if the pieces are too many to draw live, and either way
-   drawn again in `frame.test.ts` at its loudest frame.
-2. **At the top it is a torch, at once.** `stepBalloon` reaching row 0 calls
-   `burstBalloon`, which charges the hull with `breachUnscarred`. Instead the
-   body **turns into a `torch` there and drops immediately** — the handoff
-   `coil.ts` already makes when a dome opens (a torch at thirteen rows a beat),
-   called rather than written again — so the top of the field stops being a
-   silent bill and starts being a body the pair has to answer. The hull damage
-   at the top goes; what a torch does when it lands is what it always does.
-3. **A balloon never goes downwards.** `balloonSinks` and the sinking half of a
-   split (`balloon-rub.ts`, the vertical split whose lower half goes to the
-   ship's row) go: both halves of a split rise. `hashWorld` loses the field;
-   `hash-creature-late.ts` says so.
-4. **It does not start at the hull.** `balloonEntryRow` puts it one row above
-   the ship, out of nothing. Instead it **enters from the left or right wall,
-   one or two tiles above the shield** (a `SimConfig` field for the rows, the
-   `Rng` for which of the two and which wall), announced by an arrow at that
-   wall the way every sideways arrival is; it **glides in to somewhere around
-   the middle**, the column drawn from the `Rng` inside a middle band named in
-   config, and from there **rises slowly in the climb it already has**
-   (`balloonClimbs`, the carom at the walls). The swell (`balloonSwellBeats`)
-   happens on the glide or at its end, whichever reads better at tempo. The
-   director's balloon card and `entries.ts`'s `rise` follow.
+Today the end of a balloon is an ordinary kill's particles: `balloonPop` is
+silent in `effects-spark-silent.ts` and the `destroy` beside it on the same
+tick throws the same burst every body in the game throws. He wants it *realistic, like a balloon becoming many
+pieces blowing up*: the skin torn into shreds that fly outward and fall, built
+from the balloon's own contour (`content/balloon-shape.ts`, `balloon-parts.ts`)
+and the shapes page rather than invented. A baked strip in `sprite-burst.ts` if
+the pieces are too many to draw live; either way drawn again in
+`frame.test.ts` at its loudest frame.
 
-**One session built all four and threw the work away on 15 September 2026, and
-what it learned is worth more than the diff was.** Points 2, 3 and 4 went in
-cleanly: the top-out handoff is `popCoil`'s, word for word; both halves of a
-split rise once `balloonSinks` answers false; and the entry is three functions
-in a `balloon-entry.ts` beside `balloon.ts`, which has to be split because it
-goes over 250 lines. Two things are worth knowing before starting again:
+**It is `balloonPop` alone now.** The entry was written when `balloonBurst` was
+the other half of this, and that event is gone: nothing costs the hull at the
+top any more and no half of a split sinks, so the only end a balloon has is the
+one the pair makes with two hands. That is the better body for the look anyway
+— it is the moment they earned. Building it means taking `balloonPop` off
+`effects-spark-silent.ts`'s list and giving it a burst of its own, which is the
+one thing there that would then be drawn twice if the `destroy` beside it kept
+throwing particles as well.
 
-- **The swell erases the glide.** `stepBalloon`'s swelling branch puts
-  `fromCol`/`fromRow` back to `col`/`row` on every beat it runs, including the
-  beat the body arrives on — so a body that glides in out of a wall is drawn at
-  its destination before anybody sees it leave. Skip that reset while
-  `c.balloonBeat === world.beat` and the glide is drawn over the arrival beat,
-  the way a crossing rock's is.
-- **And one thing nobody explained.** With the body moved off its authored
-  column, `balloon.test.ts`'s *is not answered by a shot in either colour*
-  stops seeing a `reject`: a bolt fired up the body's own column, with the
-  cannon held under it every tick, climbs straight past it. `firstAlong` called
-  by hand on the same world **does** return the balloon, and `sweep` calls it
-  per tick over a segment far shorter than the body's box, so the two cannot
-  both be true and one of them is being read wrong. Find that before building
-  anything: it is either a real hole in the sweep or a wrong reading of the
-  test, and both matter more than this entry does.
-
-Prove it with `bun run check`, every wave that carries a balloon (`grep
-balloon packages/content/src/waves`) watched at tempo for the entry, the
-glide and a split, one frame of the burst and one of the torch leaving the
-top in `frame.test.ts`, and two PNGs: the burst mid-flight and the torch on
-its first row down.
+Prove it with `bun run check`, a wave carrying a balloon watched at tempo
+through a split and a pop, and one PNG of the shreds mid-flight.
 
 ## The client half of a sign-in has no rig, so no check ever signs anybody in
 

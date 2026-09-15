@@ -24,24 +24,29 @@ import type { GuideScene } from "../scene-types.js";
  * twice — the first pull halves it and the second pops what is left for
  * nothing — and the film shows the first, because what a pair has never done
  * before is get two thumbs onto one beat and keep them there. What it then
- * shows is the two halves parting, one on up and one **down**, and the last
- * page is the shared one every film may spend: the sinking half reaching the
- * ship and the hull paying for it, so the pair reads that a split is not the
- * end and that both ends of the field punish a half left alone.
+ * shows is the two halves parting, and **both of them going on up**: the owner
+ * ruled on 14 September 2026 that a balloon never goes downwards, so a split is
+ * two bodies to answer rather than one to answer and one to survive.
  *
- * The body enters a beat in, at the seventh authored column, heading left. The
- * timing is the whole of the authoring: a step is `balloonClimbBeats` long
- * and the runner finds a handle's body by the column it stands in, so the
- * carry has to start and finish inside one step — the grab is on the beat
- * after a step and the carry is done before the next — and the split has to
- * land low enough that the sinking half reaches the ship inside the loop while
- * the climbing half is still on the field at the end of it.
+ * **The last page used to point at the retries and it cannot any more.** It
+ * showed the sinking half reaching the ship and the hull paying for it; nothing
+ * a balloon does costs the hull now. The top of the field is where the price
+ * moved to, and it is not a price at all — a body that gets there turns into a
+ * torch and falls (`sim/balloon.ts` `topOut`), which is a thing the pair has to
+ * answer rather than a bill they read afterwards. So the page says that, and
+ * points at the body it is about.
+ *
+ * The body comes in at a wall a beat in and glides to the middle
+ * (`sim/balloon-entry.ts`). The timing is the whole of the authoring: a step is
+ * `balloonClimbBeats` long and the runner finds a handle's body by the column
+ * it stands in, so the carry has to start and finish inside one step — the grab
+ * is on the beat after a step and the carry is done before the next.
  */
 export const THE_BALLOON: GuideScene = {
   ticks: 1620,
   bpm: 120,
   seed: 1,
-  entries: [{ beat: 1, col: 4, kind: "balloon", color: null }],
+  entries: [{ beat: 6, col: 4, kind: "balloon", color: null }],
   acts: [
     { tick: 630, drag: "balloonLeft", col: 2, by: 690, until: 800 },
     { tick: 630, drag: "balloonRight", col: 2, by: 690, until: 800 },
@@ -63,7 +68,7 @@ export const THE_BALLOON: GuideScene = {
     { tick: 540, seat: 2, text: "BOTH, AND HOLD TILL IT GIVES", anchor: { at: "body" } },
     // Three beats, and it holds with the climbing half on row six — the last
     // beat it is still in the middle of the screen — and the other on row ten.
-    { tick: 840, seat: 1, text: "ONE CLIMBS ON, ONE SINKS", anchor: { at: "body" } },
-    { tick: 1020, seat: 1, text: "A HALF LEFT ALONE HITS YOU", anchor: { at: "retries" } },
+    { tick: 840, seat: 1, text: "TWO NOW, AND BOTH GO UP", anchor: { at: "body" } },
+    { tick: 1020, seat: 1, text: "AT THE TOP IT DROPS BACK", anchor: { at: "radar" } },
   ],
 };

@@ -2,8 +2,10 @@ import { describe, expect, it } from "bun:test";
 import { balloonSinks, balloonSplitsLeft } from "../src/balloon.js";
 import { balloonGlidePhase, balloonHoldPhase } from "../src/balloon-clock.js";
 import { balloonIsRubbed, balloonSideTaut } from "../src/balloon-pull.js";
-import { DEFAULT_CONFIG, hullRow, ticksPerBeat } from "../src/config.js";
+import { DEFAULT_CONFIG, ticksPerBeat } from "../src/config.js";
+import { midCol } from "../src/config-derived.js";
 import { hashWorld } from "../src/hash.js";
+import { shieldRow } from "../src/hull-guard.js";
 import type { Creature, DragTarget, TimedCommand } from "../src/types.js";
 import { failHolds } from "../src/wave-fail.js";
 import { createWorld, type SimEvent, type SpawnEntry, step, type World } from "../src/world.js";
@@ -79,12 +81,24 @@ interface Run {
   events: SimEvent[];
 }
 
-function play(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = []): Run {
+/**
+ * `onTick` is for the one thing a wave can no longer author: a balloon standing
+ * at a wall. Every arrival glides to the middle band now
+ * (`balloon-entry.ts`), so a body only reaches a wall by caroming there, and a
+ * test about what happens at one has to put it there.
+ */
+function play(
+  queue: SpawnEntry[],
+  ticks: number,
+  inputs: TimedCommand[] = [],
+  onTick?: (tick: number, world: World) => void,
+): Run {
   const world = createWorld({ ...CFG }, 0, queue);
   const byTick = new Map<number, TimedCommand[]>();
   for (const i of inputs) byTick.set(i.tick, [...(byTick.get(i.tick) ?? []), i]);
   const events: SimEvent[] = [];
   for (let t = 0; t < ticks; t++) {
+    onTick?.(t, world);
     step(world, byTick.get(t) ?? []);
     events.push(...world.events);
   }
@@ -100,7 +114,17 @@ const only = (world: World): Creature => {
 const byCol = (world: World): Creature[] => [...world.creatures].sort((a, b) => a.col - b.col);
 
 /** The row an arrival appears on: one above the ship's own. */
-const ENTRY = hullRow(CFG) - 1;
+/**
+ * **The row a balloon came in on, read off the body rather than computed.**
+ *
+ * It used to be `hullRow - 1` exactly: a balloon appeared out of nothing one
+ * row above the ship. The owner moved the arrival to a wall on 14 September
+ * 2026, one or two rows above the shield and drawn from the seeded `Rng`
+ * (`balloon-entry.ts`), so the number is a fact about the run rather than
+ * about the config — and every expectation below counts from wherever this
+ * one started.
+ */
+const entryRowOf = (world: World): number => only(world).fromRow;
 /** How many steps the timed runs below measure. */
 const CLIMBS = 2;
 /** Beats one step takes, and so beats between one and the next. */
@@ -120,13 +144,49 @@ const FIRST_STEP = 1 + CFG.balloonSwellBeats;
 const HALVES_STEP = Math.floor((ON_FIELD + GIVES) / TPB) + CFG.balloonSwellBeats;
 
 describe("a body that goes up", () => {
-  it("appears one row above the ship and holds still while it swells", () => {
+  it("comes in at a wall, above the shield, and holds still while it swells", () => {
     const { world } = play([balloon(3)], TPB * 2);
     const c = only(world);
-    // The entry row, and it is still on it: the swell is `balloonSwellBeats`
-    // long and nothing moves until it is over.
-    expect(c.row).toBe(ENTRY);
+    // One or two rows above the dome, never the ship's own row and never the
+    // top: the band the owner named (`balloon-entry.ts`).
+    expect(c.row).toBeLessThan(shieldRow(CFG));
+    expect(c.row).toBeGreaterThanOrEqual(shieldRow(CFG) - CFG.balloonEntryRowsUp);
+    // Standing still by now: the glide is over and the swell is what is left.
+    // The `from` field is the subject either way round, and it is the one that
+    // may be absent — so it goes on the left, where `toBe` will take it.
+    expect(c.fromRow).toBe(c.row);
+    expect(c.fromCol).toBe(c.col);
     expect(c.kind).toBe("balloon");
+  });
+
+  it("is drawn gliding in out of the wall on the beat it arrives", () => {
+    // **On the arrival beat and only then**, which is the whole of the glide:
+    // the swell puts `fromCol` back to `col` on every beat after it
+    // (`stepBalloon`), so the slide out of the wall is drawn over one beat
+    // exactly as a crossing rock's is, and the body has settled after it.
+    //
+    // For that one beat the body is genuinely out over the field between the
+    // two columns (`creatureLane`), which is why a bolt fired up the column it
+    // is heading for misses it — the case below waits for the second beat.
+    const { world } = play([balloon(3)], TPB + 1);
+    const c = only(world);
+    // Painted in the left half, so it comes in at the left wall.
+    expect(c.fromCol).toBe(0);
+    expect(c.col).toBeGreaterThan(0);
+    // Sideways and not downwards: it has no fall to be drawn making.
+    expect(c.fromRow).toBe(c.row);
+  });
+
+  it("glides to somewhere around the middle rather than to the column it was painted in", () => {
+    // The band is `balloonEntryBandCols` wide, centred on the field: wide
+    // enough that the column is worth calling out, narrow enough that it is
+    // never a corner.
+    const half = Math.floor(CFG.balloonEntryBandCols / 2);
+    for (const painted of [0, 3, 6]) {
+      const { world } = play([balloon(painted)], TPB * 2);
+      const c = only(world);
+      expect(Math.abs(c.col - midCol(CFG)), `painted ${painted}`).toBeLessThanOrEqual(half);
+    }
   });
 
   it("climbs a row and a lane a step once it has filled, a step every few beats", () => {
@@ -135,11 +195,10 @@ describe("a body that goes up", () => {
     // it — and one ending a beat short of the second has exactly one.
     const { world } = play([balloon(3)], TPB * (FIRST_STEP + EVERY));
     const c = only(world);
-    expect(c.row).toBe(ENTRY - CLIMBS * CFG.balloonRiseRows);
-    // And it has left the lane it appeared in, which is the diagonal.
-    expect(c.col).not.toBe(3);
+    const entry = entryRowOf(play([balloon(3)], TPB * 2).world);
+    expect(c.row).toBe(entry - CLIMBS * CFG.balloonRiseRows);
     const between = play([balloon(3)], TPB * (FIRST_STEP + EVERY) - 1);
-    expect(only(between.world).row).toBe(ENTRY - CFG.balloonRiseRows);
+    expect(only(between.world).row).toBe(entry - CFG.balloonRiseRows);
   });
 
   it("keeps where a step set out from until the next one, and glides over all of it", () => {
@@ -148,8 +207,9 @@ describe("a body that goes up", () => {
     // reads runs 0..1 across the step rather than across each beat.
     const { world } = play([balloon(3)], TPB * (FIRST_STEP + EVERY - 1));
     const c = only(world);
-    expect(c.fromRow).toBe(ENTRY);
-    expect(c.row).toBe(ENTRY - CFG.balloonRiseRows);
+    const entry = entryRowOf(play([balloon(3)], TPB * 2).world);
+    expect(c.fromRow).toBe(entry);
+    expect(c.row).toBe(entry - CFG.balloonRiseRows);
     expect(balloonGlidePhase(CFG, world.beat, 0, c)).toBeCloseTo((EVERY - 1) / EVERY);
     expect(balloonGlidePhase(CFG, world.beat, 1, c)).toBe(1);
     expect(balloonGlidePhase(CFG, world.beat - (EVERY - 1), 0, c)).toBe(0);
@@ -157,41 +217,68 @@ describe("a body that goes up", () => {
 
   it("climbs faster when the wave authored a speed", () => {
     const fast = play([balloon(3, 2)], TPB * (FIRST_STEP + EVERY));
-    expect(only(fast.world).row).toBe(ENTRY - CLIMBS * 2);
+    const entry = entryRowOf(play([balloon(3, 2)], TPB * 2).world);
+    expect(only(fast.world).row).toBe(entry - CLIMBS * 2);
   });
 
-  it("bursts at the top of the field and the hull pays for it", () => {
-    // Long enough for the swell and the whole climb, whatever the field's
-    // height: the entry row is the ship's less one, a step every `EVERY`
-    // beats, and one more step for the burst itself.
-    const steps = ENTRY / CFG.balloonRiseRows + 1;
+  it("turns into a torch at the top rather than going off there", () => {
+    // **The owner's rule of 14 September 2026.** The top of the field used to
+    // be a silent bill: the pair watched a body go up, lost hull for it, and
+    // had nothing to do about it in between. A torch is a body they have to
+    // answer, and what it does when it lands is what a torch always does.
+    const entry = entryRowOf(play([balloon(3)], TPB * 2).world);
+    const steps = Math.ceil(entry / CFG.balloonRiseRows) + 1;
     const { world, events } = play([balloon(3)], TPB * (FIRST_STEP + steps * EVERY));
-    expect(world.creatures).toHaveLength(0);
-    expect(events.filter((e) => e.type === "balloonBurst")).toHaveLength(1);
-    expect(failHolds(world)).toBe(true);
-    // Nothing struck the ship, so nothing is torn in the plating: the burst
-    // happened a whole field away from the hull it cost (`burstBalloon`).
-    expect(world.scars).toHaveLength(0);
+    expect(events.filter((e) => e.type === "balloonTopped")).toHaveLength(1);
+    // And the ship is charged nothing for it. `balloonBurst` is gone from the
+    // event union along with the bill it carried, so what is asserted is the
+    // bill itself: no `breach` came out of the top of the field.
+    expect(events.some((e) => e.type === "breach")).toBe(false);
+    // The hull is untouched at the moment it turns: nothing has struck it, and
+    // the wave is still on — what the torch does is the torch's business.
+    expect(failHolds(world)).toBe(false);
+    // And the body that is left is a torch standing where the climb ended,
+    // carrying none of the balloon's own state.
+    const torch = world.creatures.find((c) => c.kind === "torch");
+    expect(torch).toBeDefined();
+    expect(torch?.balloonSplits).toBeUndefined();
+    expect(torch?.balloonDir).toBeUndefined();
   });
 
-  it("is drawn arriving at the top before it goes off", () => {
-    // The step that puts it on the top row does not burst it: it stands there
-    // for the length of a step, drawn gliding onto it, and goes on the next.
-    const steps = ENTRY / CFG.balloonRiseRows;
+  it("is drawn arriving at the top before it turns", () => {
+    // The step that puts it on the top row does not turn it: it stands there
+    // for the length of a step, drawn gliding onto it, and turns on the next.
+    const entry = entryRowOf(play([balloon(3)], TPB * 2).world);
+    const steps = Math.ceil(entry / CFG.balloonRiseRows);
     const arrived = play([balloon(3)], TPB * (FIRST_STEP + (steps - 1) * EVERY));
     const c = only(arrived.world);
     expect(c.row).toBe(0);
-    expect(c.fromRow).toBe(CFG.balloonRiseRows);
-    expect(arrived.events.some((e) => e.type === "balloonBurst")).toBe(false);
+    expect(c.kind).toBe("balloon");
+    expect(arrived.events.some((e) => e.type === "balloonTopped")).toBe(false);
   });
 
   it("is not answered by a shot in either colour", () => {
+    // Aimed where the body actually is: a balloon glides to a column the
+    // `Rng` drew rather than standing in the one it was painted in
+    // (`balloon-entry.ts`), so the column is read off a run rather than
+    // assumed.
+    // **Fired after the glide beat, with the cannon held under the body.**
+    // Two things about this creature make the aim a live question now: it
+    // glides to a column the `Rng` drew rather than standing where it was
+    // painted, and for the beat of that glide it is genuinely out over the
+    // field between the wall and its landing column (`creatureLane`) — a bolt
+    // fired up the column it is heading for misses, because it is not there
+    // yet. So the shot waits for the second beat, when it is standing still
+    // and swelling.
+    const fireAt = TPB * 2 + 2;
     const inputs: TimedCommand[] = [
-      { tick: ON_FIELD, player: 1, command: { kind: "cannonCol", col: 3 } },
-      { tick: ON_FIELD + 1, player: 2, command: { kind: "fire", color: "red" } },
-      { tick: ON_FIELD + 2, player: 2, command: { kind: "fire", color: "cyan" } },
+      { tick: fireAt, player: 2, command: { kind: "fire", color: "red" } },
+      { tick: fireAt + 1, player: 2, command: { kind: "fire", color: "cyan" } },
     ];
-    const { world, events } = play([balloon(3)], TPB * 3, inputs);
+    const { world, events } = play([balloon(3)], TPB * 4, inputs, (_t, w) => {
+      const c = w.creatures[0];
+      if (c) w.cannonCol = c.col;
+    });
     expect(only(world).kind).toBe("balloon");
     expect(events.some((e) => e.type === "destroy")).toBe(false);
     expect(events.some((e) => e.type === "reject")).toBe(true);
@@ -289,58 +376,70 @@ describe("what a rub does", () => {
       expect(c.balloonTautTick).toBeUndefined();
     }
     // A lane either side of where the parent stood, which is the picture of
-    // one thing becoming two — and the two go different ways: the left half
-    // on up, the right half down.
+    // one thing becoming two — and **both go up**, which is the owner's rule
+    // of 14 September 2026: *a balloon never goes downwards*. The right-hand
+    // half used to be sent to the ship's row to burst against the plating.
     const halves = byCol(world);
-    expect(halves.map((c) => c.col)).toEqual([2, 4]);
-    expect(halves.map((c) => balloonSinks(c))).toEqual([false, true]);
+    const parent = only(play([balloon(3)], TPB * 2).world).col;
+    expect(halves.map((c) => c.col)).toEqual([parent - 1, parent + 1]);
+    expect(halves.map((c) => balloonSinks(c))).toEqual([false, false]);
   });
 
   it("holds each half still for the swell before it moves", () => {
     // The delay the owner asked for, and it is the same swell a fresh arrival
     // has: the halves are given `balloonBeat` of the beat the rub landed on,
     // so they fill where the parent stood before either of them moves.
+    const entry = entryRowOf(play([balloon(3)], TPB * 2).world);
     const still = play([balloon(3)], TPB * HALVES_STEP - 1, rub(ON_FIELD, 1));
-    expect(still.world.creatures.map((c) => c.row)).toEqual([ENTRY, ENTRY]);
+    expect(still.world.creatures.map((c) => c.row)).toEqual([entry, entry]);
     const after = play([balloon(3)], TPB * HALVES_STEP, rub(ON_FIELD, 1));
-    // The climber has gone up a row; the sinker is clamped on the ship's row.
+    // Both halves have gone up a row: neither of them sinks any more.
     expect(byCol(after.world).map((c) => c.row)).toEqual([
-      ENTRY - CFG.balloonRiseRows,
-      hullRow(CFG),
+      entry - CFG.balloonRiseRows,
+      entry - CFG.balloonRiseRows,
     ]);
   });
 
-  it("sinks a half onto the ship, where it bursts for the burst's price and no scar", () => {
-    // The halves' first step puts the sinker on the ship's row, and the step
-    // after it is the one on which the body goes — not before, so the picture
-    // has drawn it arriving. One tick short, the wave is not lost.
-    const arriving = play([balloon(3)], TPB * (HALVES_STEP + EVERY) - 1, rub(ON_FIELD, 1));
-    expect(arriving.world.retries).toBe(0);
-    expect(byCol(arriving.world).map((c) => c.row)).toEqual([
-      ENTRY - CFG.balloonRiseRows,
-      hullRow(CFG),
-    ]);
+  it("sends both halves on up, so neither ever reaches the plating", () => {
+    // **The rule that replaced the sinking half** (14 September 2026). It used
+    // to be put on the ship's row and burst against the plating for the top's
+    // own price; a body that rises for the whole of its life except once is
+    // two creatures wearing one name, and the owner said so.
+    const entry = entryRowOf(play([balloon(3)], TPB * 2).world);
     const { world, events } = play([balloon(3)], TPB * (HALVES_STEP + EVERY), rub(ON_FIELD, 1));
-    const bursts = events.filter((e) => e.type === "balloonBurst");
-    expect(bursts).toHaveLength(1);
-    expect(bursts[0]).toMatchObject({ row: hullRow(CFG) });
-    // The climber is still on the field; the sinker is gone, and the hull
-    // paid for it — the top's price, and no scar, because nothing struck the
-    // plating (`burstBalloon`).
-    expect(balloonSinks(only(world))).toBe(false);
-    expect(failHolds(world)).toBe(true);
+    expect(events.some((e) => e.type === "breach")).toBe(false);
+    // Both still on the field, both above where they split, and the hull has
+    // paid nothing.
+    expect(world.creatures).toHaveLength(2);
+    for (const c of world.creatures) {
+      expect(balloonSinks(c)).toBe(false);
+      expect(c.row).toBeLessThan(entry);
+    }
+    expect(failHolds(world)).toBe(false);
     expect(world.scars).toHaveLength(0);
   });
 
   it("sends both halves inward when the parent split against a wall", () => {
     // A balloon in the leftmost column has no lane to its left, so the two
-    // halves stand in the wall column and the one beside it, still one up and
-    // one down — and both head into the field rather than one at the wall.
-    const { world } = play([balloon(0)], ON_FIELD + GIVES + 1, rub(ON_FIELD, 1));
+    // halves stand in the wall column and the one beside it — and both head
+    // into the field rather than one of them into the wall.
+    //
+    // **Carried there rather than authored there.** A wave cannot paint a
+    // balloon at a wall any more: every arrival glides to the middle band
+    // (`balloon-entry.ts`), and a body reaches a wall only by caroming into
+    // one. So the test puts it there, which is what a run would have done a
+    // few beats later.
+    const { world } = play([balloon(3)], ON_FIELD + GIVES + 1, rub(ON_FIELD, 1), (t, w) => {
+      if (t === ON_FIELD - 1) {
+        const c = w.creatures[0];
+        if (c) c.col = 0;
+      }
+    });
     const halves = byCol(world);
     expect(halves.map((c) => c.col)).toEqual([0, 1]);
     expect(halves.map((c) => c.balloonDir)).toEqual([1, 1]);
-    expect(halves.map((c) => balloonSinks(c))).toEqual([false, true]);
+    // And both go up, which is the rule that replaced the sinking half.
+    expect(halves.map((c) => balloonSinks(c))).toEqual([false, false]);
   });
 
   it("pops the second time, and the hull pays nothing at all", () => {

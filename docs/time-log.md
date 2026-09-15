@@ -5783,3 +5783,25 @@ to the owner. About 15 min by the clock, 13:02 to 13:17.
 
 Bottleneck: friction — a selector one id short cost two probe runs, each a
 wrangler start, before the picture matched the intent.
+
+## 2026-09-15 — queued-tasks — THE BALLOON, three of its four points
+
+The queue's *THE BALLOON enters at a wall, never sinks, and is a torch at the
+top*. Points 2, 3 and 4 landed; point 1, the burst drawn as a balloon coming
+apart, is still open and stays in the queue on its own.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry twice — once before the lane that threw itself away and once after — `spawn.ts`'s arrival fields and `popCoil`'s handoff |
+| writing | 60 | `balloon-entry.ts`, `topOut`, the two config numbers, the film, and nine test cases rewritten around a body that no longer stands where it was painted |
+| looking | 0 | — nothing new is drawn; the torch and the glide are bodies the game already draws |
+| friction | 45 | one whole lane reverted on a failure I could not explain, and the explanation was mine |
+| landing | 20 | two rounds of unused imports, a dead event to take out with its five bindings, and the stale prose in six files |
+
+The bottleneck was friction, and all of it was one misreading. `creatureLane`
+interpolates `fromCol → col` across the arrival beat, so once the balloon glided
+in from a wall it was genuinely out between two columns on that beat and a bolt
+up its destination column correctly missed it. I read that as a possible hole in
+the shot sweep, threw the lane away and wrote the wrong claim into the queue.
+Stepping the world by hand and printing `col`, `fromCol` and the beat — two
+minutes — would have answered it before anything was reverted.

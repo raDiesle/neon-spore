@@ -155,7 +155,6 @@ const SAMPLES: Record<string, SimEvent> = {
   choirSing: { type: "choirSing", col: 3, row: 5 },
   balloonSplit: { type: "balloonSplit", col: 3, row: 5 },
   balloonPop: { type: "balloonPop", col: 3, row: 5 },
-  balloonBurst: { type: "balloonBurst", col: 3, row: 0 },
   gumFlung: { type: "gumFlung", col: 2, row: 11, span: 1, dir: -1 },
   veilMorph: { type: "veilMorph", col: 3, row: 4, color: "red" },
   veilRebuff: { type: "veilRebuff", col: 3, row: 4 },
@@ -176,6 +175,7 @@ const SAMPLES: Record<string, SimEvent> = {
   weightCrushed: { type: "weightCrushed", col: 3, row: 8 },
   cairnPulled: { type: "cairnPulled", player: 1, col: 3, row: 2 },
   cairnShed: { type: "cairnShed", col: 5, row: 2 },
+  balloonTopped: { type: "balloonTopped", col: 4, row: 0 },
   bounce: { type: "bounce", col: 3, row: 6, color: "red" },
 };
 

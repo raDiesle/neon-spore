@@ -1,9 +1,6 @@
-import { markMoment } from "./balance.js";
 import { balloonClimbs, balloonIsSwelling } from "./balloon-clock.js";
-import { hullRow, type SimConfig } from "./config.js";
+import type { SimConfig } from "./config.js";
 import { type CrossDir, crossAwayFromWall, crossField } from "./cross.js";
-import { removeCreature } from "./field.js";
-import { breachUnscarred } from "./hull-damage.js";
 import { spanOf } from "./span.js";
 import type { Creature } from "./types.js";
 import type { World } from "./world.js";
@@ -61,21 +58,18 @@ export function balloonHeading(c: Creature): CrossDir {
 }
 
 /**
- * The row a balloon enters at: one above the ship's own, which is where the
- * owner asked for it to appear from nothing.
+ * **A balloon never goes downwards**, which is the owner's rule of 14
+ * September 2026, and this is what is left of the field that used to say
+ * otherwise.
  *
- * `hullRow(cfg) - 1` is a rule and not a literal, and it is written here once
- * so `spawnArrivals` calls it rather than spelling the arithmetic out — the
- * shape `purity.test.ts`'s `COPIES` table exists to catch.
+ * A vertical split used to send its lower half to the ship's row, where it
+ * burst against the plating; both halves rise now (`balloon-rub.ts`). The
+ * function stays because `hash-creature-late.ts` and the creature's own state
+ * both still name the field, and because a body that answers *no* to this in
+ * one place and *yes* in another is worse than one that answers it once.
  */
-export function balloonEntryRow(cfg: SimConfig): number {
-  return Math.max(0, hullRow(cfg) - 1);
-}
-
-/** Whether this body goes down the field rather than up. Absent is the
- * climbing answer, which is what every fresh arrival is. */
-export function balloonSinks(c: Creature): boolean {
-  return c.balloonSinks === true;
+export function balloonSinks(_c: Creature): boolean {
+  return false;
 }
 
 /** The fields a balloon arrives with: the beat its swell is counted from, the
@@ -103,10 +97,10 @@ export function balloonOnSpawn(
 /**
  * One beat of a balloon, in place of the fall every other body takes.
  *
- * Three phases and they are read in order: the swell, the climb, and the burst
- * at the end. A body that both climbed and fell would be going nowhere at all
- * — `own-step.ts`'s rule, and here it is the *sign* that carries it: a sinking
- * half takes the same step with the rise turned over.
+ * Three phases and they are read in order: the swell, the climb, and the turn
+ * at the top. **Every one of them goes upward** — the owner's rule of 14
+ * September 2026 — so there is no sign to carry and `own-step.ts`'s objection
+ * to a body that both climbs and falls never comes up.
  *
  * **It writes its own `from` fields**, which is why `beat.ts` skips it before
  * the reset it gives every other body. A step is `balloonClimbBeats` long and
@@ -115,26 +109,32 @@ export function balloonOnSpawn(
  * beat would have the body drawn back to its origin on the second beat of
  * every step.
  *
- * **The burst comes on the climbing beat after the body was drawn arriving**,
- * not on the beat it arrived. The row is clamped at the end of the field
- * rather than allowed past it, the glide carries the body onto that row, and
- * only on the next step — when it has been seen standing there — does it go
- * off. That is `resolveHull`'s rule for everything that lands on the ship,
- * and a sinking half is something that lands on the ship; the top is given
- * the same beat so the two ends of the field are one picture.
+ * **The turn at the top comes on the climbing beat after the body was drawn
+ * arriving**, not on the beat it arrived. The row is clamped at row 0 rather
+ * than allowed past it, the glide carries the body onto that row, and only on
+ * the next step — when it has been seen standing there — does it become a
+ * torch. That is `resolveHull`'s rule for everything that reaches the end of
+ * its travel, kept here so the handoff is a thing the pair watched happen
+ * rather than a body that vanished on the beat it appeared at the top.
  */
 export function stepBalloon(world: World, c: Creature): void {
   const cfg = world.cfg;
   if (balloonIsSwelling(cfg, world.beat, c)) {
+    // **Not on the beat it arrived**, which is the beat its glide is drawn
+    // over. A balloon comes in out of a wall and a split half comes out of its
+    // parent's tile (`balloon-entry.ts`, `balloon-rub.ts`), and both are
+    // carried by `fromCol`; resetting it on the same beat the body appeared
+    // would put the picture at its destination before anybody saw it leave.
+    // Every swelling beat after the first is a body standing still, and those
+    // do reset, or it would go on gliding out of a wall it left two beats ago.
+    if (c.balloonBeat === world.beat) return;
     c.fromRow = c.row;
     c.fromCol = c.col;
     return;
   }
   if (!balloonClimbs(cfg, world.beat, c)) return;
-  const sinks = balloonSinks(c);
-  const end = sinks ? hullRow(cfg) : 0;
-  if (c.row === end) {
-    burstBalloon(world, c);
+  if (c.row === 0) {
+    topOut(world, c);
     return;
   }
   c.fromRow = c.row;
@@ -146,32 +146,46 @@ export function stepBalloon(world: World, c: Creature): void {
   const step = crossField(cfg.cols, c.col, spanOf(c), balloonHeading(c), rise);
   c.col = step.col;
   c.balloonDir = step.dir;
-  // Clamped at either end so the burst is drawn on the field both players are
-  // looking at rather than past the edge of it.
-  c.row = sinks ? Math.min(end, c.row + rise) : Math.max(end, c.row - rise);
+  // Clamped at the top so the moment it turns is drawn on the field both
+  // players are looking at rather than past the edge of it.
+  c.row = Math.max(0, c.row - rise);
 }
 
 /**
- * A balloon reached the end of the field — the top, or the ship's row for a
- * sinking half — and the hull pays for it.
+ * **A balloon that reaches the top becomes a torch there and drops at once.**
  *
- * `breachUnscarred` rather than `breachHull`, at both ends: nothing struck
- * the ship. A scar is a crack drawn where a body landed, and drawing one for
- * something that went off at the far end of the field would put damage on the
- * hull in a place nothing ever hit — the defect the owner named when he asked
- * for damage to be drawn where it lands (`singChoirs` makes the same call for
- * the same reason). A half that bursts *on* the ship's row is a skin going
- * off against the plating rather than a body striking it, and the owner
- * priced it at the top's `damageBalloonBurst` on 9 September 2026.
+ * The owner's rule of 14 September 2026. It used to burst and charge the hull
+ * with `breachUnscarred`, which made the top of the field a silent bill: the
+ * pair watched a body go up, lost some ship for it, and had nothing to do
+ * about it in between. A torch is a body they have to answer, at thirteen rows
+ * a beat, and what it does when it lands is what a torch always does.
  *
- * The column is the balloon's own, so the burst comes out of a body the pair
- * has been watching go.
+ * `popCoil`'s handoff word for word and for its reason — the width is written
+ * down before the kind changes, because `spanOf` answers one for a balloon and
+ * two for a torch, and a rock that inherited the fallback would be twice the
+ * body the pair has been watching climb.
  */
-export function burstBalloon(world: World, c: Creature): void {
-  markMoment(world, false);
-  world.events.push({ type: "balloonBurst", col: c.col, row: c.row });
-  breachUnscarred(world, c.col, "balloon", c.fromRow, "heavy", null);
-  removeCreature(world, c.id);
+function topOut(world: World, c: Creature): void {
+  const span = spanOf(c);
+  c.kind = "torch";
+  c.span = span;
+  // Out of the tile it topped out in, straight down: `fromRow` is where it
+  // turned, so the picture starts the fall where the climb ended — the one
+  // thing that makes the torch read as *this* balloon rather than as a new
+  // arrival (`coil.ts`'s own argument, a creature along).
+  c.fromCol = c.col;
+  c.fromRow = c.row;
+  // Every balloon field goes with the kind: a torch that kept a swell beat or a
+  // split count would be a rock carrying state nothing reads, and
+  // `hash-creature-late.ts` would go on hashing it.
+  c.balloonBeat = undefined;
+  c.balloonDir = undefined;
+  c.balloonRise = undefined;
+  c.balloonSplits = undefined;
+  c.balloonPullP1 = undefined;
+  c.balloonPullP2 = undefined;
+  c.balloonTautTick = undefined;
+  world.events.push({ type: "balloonTopped", col: c.col, row: c.row });
 }
 
 /**

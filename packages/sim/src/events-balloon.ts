@@ -30,9 +30,16 @@ export type BalloonEvent =
    */
   | { type: "balloonPop"; col: number; row: number }
   /**
-   * It reached the top of the field and went off. The hull damage rides on the
-   * `breach` beside it (`burstBalloon`); this is the burst itself, which is
-   * the one thing in this creature that happens nowhere near the ship the
-   * damage lands on.
+   * **It reached the top and turned into a torch there**, which is the owner's
+   * rule of 14 September 2026: the top of the field used to be a silent bill on
+   * the hull and is a body the pair has to answer now (`balloon.ts` `topOut`).
+   * `col` and `row` are where it turned, which is where the fall starts.
+   *
+   * It replaced `balloonBurst`, which said *it reached the top and went off*
+   * and carried the hull's bill on a `breach` beside it. Nothing on the field
+   * could push that any more once the top stopped costing the ship and the
+   * sinking half of a split stopped existing, so it went with them; `pop`
+   * above is the end the pair still *makes*, and it is the one the burst look
+   * the owner asked for belongs to.
    */
-  | { type: "balloonBurst"; col: number; row: number };
+  | { type: "balloonTopped"; col: number; row: number };

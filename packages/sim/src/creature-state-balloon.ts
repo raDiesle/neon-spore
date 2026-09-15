@@ -59,16 +59,15 @@ export interface BalloonState {
    */
   balloonRise?: number;
   /**
-   * Whether this body goes **down** the field rather than up — one half of
-   * every split does, so the two are seen going visibly different ways rather
-   * than the same way a lane apart. Absent on a fresh arrival and on the
-   * climbing half; `true` and never `false`, so a body that climbs carries no
-   * field and every world written before the halves parted is byte-for-byte
-   * the same.
+   * Whether this body goes **down** the field rather than up, and **nothing
+   * sets it any more**: the owner ruled on 14 September 2026 that *a balloon
+   * never goes downwards*, so both halves of a split rise (`balloon-rub.ts`)
+   * and `balloonSinks` answers false for everything on the field.
    *
-   * Read it through `balloonSinks`. A sinking half bursts on the ship's row
-   * for the same price a climbing one pays at the top (`stepBalloon`): both
-   * ends of the field punish a half left alone.
+   * The field stays because a world saved before that rule still carries it
+   * and `hash-creature-late.ts` still has to hash what it finds. Absent on
+   * everything written since; `true` and never `false`, so no world written
+   * either side of the rule differs by a byte it does not mean.
    */
   balloonSinks?: true;
   /**

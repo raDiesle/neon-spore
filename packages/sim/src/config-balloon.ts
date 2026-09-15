@@ -17,6 +17,26 @@
  */
 export interface BalloonConfig {
   /**
+   * How far above the shield a balloon comes in, in rows — one of `1..n`,
+   * drawn from the `Rng`.
+   *
+   * Two. The owner asked for *one or two tiles above the shield* on 14
+   * September 2026, and the range is what makes the arrival a thing the pair
+   * reads rather than a place they already know: a body that always came in on
+   * one row is a body the navigator stops looking for.
+   */
+  balloonEntryRowsUp: number;
+  /**
+   * How many columns wide the band it glides to is, centred on the field.
+   *
+   * Three. *It glides in to somewhere around the middle* is the owner's own
+   * phrase, and the band is what makes *around* a rule: wide enough that the
+   * column is a thing to call out, narrow enough that it is never a corner —
+   * a balloon that stopped at a wall would climb the wall and the carom that
+   * makes it interesting would never happen.
+   */
+  balloonEntryBandCols: number;
+  /**
    * Beats a balloon stands still, swelling, before it starts to climb — both
    * on the beat it appears and on the beat a rub splits it in two. One number
    * for both, because it is one picture: a body growing into the field from
@@ -120,6 +140,8 @@ export interface BalloonConfig {
 
 /** The defaults, spread into `DEFAULT_CONFIG`. */
 export const BALLOON_DEFAULTS: BalloonConfig = {
+  balloonEntryRowsUp: 2,
+  balloonEntryBandCols: 3,
   balloonSwellBeats: 2,
   balloonRiseRows: 1,
   balloonClimbBeats: 2,

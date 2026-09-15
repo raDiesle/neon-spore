@@ -75,13 +75,15 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "The whole screen shakes while the window is open and shakes harder on " +
     "the merge. See choir.ts and choir-gesture.ts.",
   "THE BALLOON — a body that goes up, opened by two hands at once":
-    "It appears out of nothing one row above the ship, swells, then climbs balloonRiseRows up and " +
-    "across every balloonClimbBeats beats, turning at the walls, and bursts at the top for " +
-    "damageBalloonBurst off the hull. No shot touches it. Two hands answer it at once, both past " +
+    "It comes in at the left or right wall, balloonEntryRowsUp above the shield, glides to " +
+    "somewhere around the middle inside balloonEntryBandCols, swells, then climbs balloonRiseRows " +
+    "up and across every balloonClimbBeats beats, turning at the walls. At the top it does not go " +
+    "off: it turns into a torch there and drops at once, so the top of the field is a body to " +
+    "answer rather than a bill. No shot touches it. Two hands answer it at once, both past " +
     "balloonTautMilli together — player 1 the left handle leftward, player 2 the right one " +
     "rightward — and held there for balloonHoldBeats before the skin gives. The first give splits " +
-    "it into two smaller ones that swell again and then part, one climbing on and one sinking to " +
-    "burst on the ship for the same price; the second pops for nothing. SPEED under the map is how " +
+    "it into two smaller ones that swell again and then part a lane either side, and both go on " +
+    "up; the second pops for nothing. SPEED under the map is how " +
     "long the pair has to say which one of several a wave usually sends.",
 
   "THE LID — an armoured eye held open by a hand":

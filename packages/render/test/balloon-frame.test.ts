@@ -20,7 +20,7 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE BALLOON, drawn: the swell it comes up out of, the climb, the skin giving
- * on one side and on both, the split into two, the pop, and the burst at the
+ * on one side and on both, the split into two, the pop, and the turn at the
  * top.
  *
  * Nothing here can answer whether a stretched skin *reads* as about to give,
@@ -85,7 +85,7 @@ function balloonFrames(role: ViewRole, ticks: number, withHands = true) {
     ctx,
     split: count("balloonSplit"),
     pop: count("balloonPop"),
-    burst: count("balloonBurst"),
+    topped: count("balloonTopped"),
   };
 }
 
@@ -99,11 +99,14 @@ describe("a wave of balloons through a canvas that refuses what a real one does"
     });
   }
 
-  it("draws the burst at the top of the field, and the hull paying for it", () => {
-    // Nobody's hands on anything, and long enough for both to climb the whole
-    // field: what is drawn is the one way this creature beats the pair.
-    const { burst } = balloonFrames("test", TPB * (CFG.rows + 4), false);
-    expect(burst).toBeGreaterThan(0);
+  it("draws the turn at the top of the field, where it becomes a torch", () => {
+    // Nobody's hands on anything, and long enough to climb the whole field.
+    // **It used to burst there and charge the hull**; the owner made the top a
+    // handoff instead on 14 September 2026, so what is drawn is a body turning
+    // into another body and the fall that follows (`sim/balloon.ts` `topOut`).
+    const { ctx, topped } = balloonFrames("test", TPB * (CFG.rows + 4), false);
+    expect(topped).toBeGreaterThan(0);
+    expect(ctx.calls).toBeGreaterThan(0);
   });
 });
 

@@ -18,7 +18,7 @@ export function handedBurst(
     {
       type:
         | "balloonSplit"
-        | "balloonBurst"
+        | "balloonTopped"
         | "gumFlung"
         | "clingGrip"
         | "clingShake"
@@ -35,10 +35,13 @@ export function handedBurst(
     // A balloon given: rock grey and narrow, since a balloon carries no colour.
     case "balloonSplit":
       return at(l, e.col, e.row, 12, PALETTE.rock);
-    // One that reached the top: wide, in the pod's amber (hull damage lands at
-    // the ship, `sim/balloon.ts`).
-    case "balloonBurst":
-      return at(l, e.col, e.row, 26, PALETTE.pod);
+    // One that reached the top and **turned into a torch there** — the owner's
+    // rule of 14 September 2026. Rock grey and few: nothing has gone off, a
+    // body has changed into another body, and the wide amber this used to be
+    // would say the hull had just been charged for it (`sim/balloon.ts`
+    // `topOut`).
+    case "balloonTopped":
+      return at(l, e.col, e.row, 10, PALETTE.rock);
     // THE GUM in its own material, flung: the flick itself, thrown where the
     // hand caught it. Its landing is a `breach` (`effects-breach.ts`).
     case "gumFlung":

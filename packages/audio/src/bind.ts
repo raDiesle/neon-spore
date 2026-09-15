@@ -207,7 +207,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return choirCue(e, cols, rows);
     case "balloonSplit":
     case "balloonPop":
-    case "balloonBurst":
+    case "balloonTopped":
       return balloonCue(e, cols, rows);
     case "gumFlung":
       return gumCue(e, cols, rows);

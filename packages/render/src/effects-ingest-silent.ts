@@ -62,7 +62,9 @@ export const INGEST_SILENT = [
   // `breach` beside the burst, which `ingestBreach` already remembers.
   "balloonSplit",
   "balloonPop",
-  "balloonBurst",
+  // Topping out is the same kind of nothing: the body it turned into is on
+  // the field from that tick and is drawn as a torch off its own kind.
+  "balloonTopped",
   "veilTorn",
   // A layer off THE RIND: the burst is thrown by `burstFor` above, and the
   // skin it came off in is `rind-shed.ts`, ingested with the rest of

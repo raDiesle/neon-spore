@@ -697,6 +697,13 @@ rows it climbs on a climbing beat, and the columns it takes to the side on the
 same beat — one number, because the path is a diagonal. `balloonSplits` is how
 many times a fresh balloon comes apart before a rub finishes it: one, so the
 first rub splits it in two and the second pops each half.
+`balloonEntryRowsUp` is how far above the shield it comes in, in rows — one of
+that many, drawn from the seeded `Rng`, so the arrival is a thing the pair reads
+rather than a place they already know. `balloonEntryBandCols` is how many
+columns wide the band it glides to is, centred on the field: wide enough that
+the column it stops in is worth calling out, narrow enough that it is never a
+corner, because a balloon that stopped at a wall would climb the wall and the
+carom that makes it interesting would never happen.
 
 **THE BEATBOX** (`packages/sim/src/config-beatbox.ts`). `beatboxBeats` is how
 many beats a box asks for when the wave names no count — three, the shortest run
