@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · c0c1a07d — Queue the MECHANICS page's cut, four ideas built the owner's way, THE WEIGHT's duty words and a contents menu
+
+Seven entries, 15 September 2026. The NOT BUILT YET → MECHANICS page shows partly-built sections beside unbuilt ones, so it is cut to the four ideas the owner took: destruction's three missing pieces as VERSUS candidates; the Mine as an enemy, with the seeing seat a brush setting and the lettered grid on for both; Moulting as a body that turns meteor and pod every five beats, player 2 seeing what is next, nothing killing it; the Husk as a fake pod player 2 sees through, losing the wave if sucked and deflating like a balloon let go if refused. Then THE WEIGHT's siren words rewritten to say both touch at the same time, and a contents menu on the long director pages.
+
 ## 2026-09-15 · b96ef761 — Queue THE SPLICE as a boss wave of straws fed in number order, and the BOSSES page's removal behind it
 
 The owner's design, decided on 15 September 2026: straw entrances two tiles above the shield, one more straw each round, each tangled up the field to a number at the top; the ship sucks the entrances in that order with the shipped SUCK, the number rides the straw down into the maw, and a wrong one is eaten and costs the hull and the round. The navigator sees the tangle and the numbers, the pilot only the entrances; every round is on a beat count. When it lands, the BOSS IDEAS go, then THE SPLICE's own idea, then the whole NOT BUILT YET → BOSSES tab.
