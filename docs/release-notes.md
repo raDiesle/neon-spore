@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 27a43a15 — Take out everything the clingers' fall left behind, and close both entries
+
+Nothing could reach any of it once THE LEECH and THE LIMPET stopped being creatures a wave spawns. Out go `stepClingers` and `clingLands` with the whole arrival path, `clingFuse`, `clingShake`, `clingStillBeats` and `clingMovesSoFar`, the four `SimConfig` numbers they read, the two creature fields they wrote and their two rows in the hash, the `clingShake` event with its cue and its two spark tables, and `render/cling-fuse.ts` entire. `cling.ts` keeps what the harpoon calls: which kind it is, which control it takes, and whether it has hold.
+
 ## 2026-09-15 · ed1549fe — THE LEECH and THE LIMPET are only a pencil now, and a wave never names either
 
 The owner settled it on 15 September 2026: *they should only exist as brush, but once they are placed on a tile, for a defined period of time, the malfunction is applied.* So both kinds are `installed` — the bestiary's own row for a body something else on the field puts there, never a wave — and neither carries `waveNames` any more. What puts one on the field is a fault placed on the map, which fires it at the control from the lantern and reels it home when the pencil runs out.
