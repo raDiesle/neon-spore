@@ -22,6 +22,38 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queue-tasks — a shard is capped by files, and a killed one says so
+
+Found and queued an hour earlier in this session, then worked, because nothing
+could land until it was: `bun run check` and `check:fast` were red in every
+cloud session, on diffs with nothing wrong with them.
+
+`✗ shard 1/2 — 73 files, 0 tests, 0 failed` reads as a suite that ran nothing.
+It was a process that died — `exit 137`, `SIGKILL`, 7.4 GB of anonymous RSS and
+the memory cgroup's OOM killer, with no report written and its whole result
+gone. How many shards there were and how many ran at once were one number, so a
+machine with *fewer* cores was handed *more* files per process, which is
+backwards: four cores dealt two bins of about seventy-five where sixteen cores
+deal eight of about forty-eight. The two numbers are separate now — the bin is
+capped at forty files because a `bun test` process does not give a finished
+file's memory back, and the pool is as wide as `defaultShards()` says. And a
+shard that takes a signal names it, which is the line that would have made this
+a minute's work instead of an afternoon's.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `shard.ts`, `shards.ts` and their tests, and `dmesg` for what actually killed it |
+| writing | 20 | the cap, the bin count, the pool, the signal line, seven cases and two documents |
+| looking | 0 | nothing is drawn |
+| friction | 25 | finding it at all: two `check:fast` runs, a four-shard run, the 73 files alone, and a reproducer that reports exit codes — the shard's own output said nothing |
+| landing | 15 | the whole suite through the new sharder, twice, and the commit |
+
+The bottleneck was friction, and all of it was one missing word: the shard
+printed no signal, so a killed process and an empty suite looked the same, and
+every step of narrowing it down was another run of the suite. 458 files in 12
+shards of forty, two at a time, 9514 tests green in 82 s — on a machine that
+could not finish `bun run check` at all this morning.
+
 ## 2026-09-15 — queue-tasks — the seat leaves the PLAY page for the rig
 
 Step 3 of the queue's *PLAY is a list of partners to continue with, and the

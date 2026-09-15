@@ -10,8 +10,16 @@
  * reachable that way, and it is reachable this way: 384 files run one after
  * another in one process on a machine with sixteen cores. Files are
  * independent by construction — each installs its own canvas globals, every
- * writer takes a `mkdtemp` of its own — so they are dealt into N `bun test`
- * processes and run together.
+ * writer takes a `mkdtemp` of its own — so they are dealt into bins and run
+ * together.
+ *
+ * **Two numbers, not one.** How many bins there are is a memory figure and is
+ * the cap's (`MAX_FILES_PER_SHARD`); how many run at once is the machine's
+ * (`defaultShards`, or `--shards`). They were one number until 15 September
+ * 2026, and that arrangement gave a machine with *fewer* cores *more* files
+ * per process — so the four-core web image dealt two shards of seventy-five,
+ * and the heavier of them was killed by the memory cgroup every time. A bin is
+ * bounded now and the pool is as wide as the cores, whatever the suite's size.
  *
  * **Ports.** Two files start a server: `opening.test.ts` builds and serves
  * the game, `room.test.ts` raises workerd. Neither takes the port a tree
@@ -37,12 +45,13 @@
 import { readdirSync, statSync } from "node:fs";
 import { cpus, tmpdir } from "node:os";
 import { join, relative } from "node:path";
+import { firstFailure, mergeJunit, tallyOf } from "./junit.js";
 import {
-  firstFailure,
-  mergeJunit,
+  binCount,
+  MAX_FILES_PER_SHARD,
   partition,
+  pool,
   selected,
-  tallyOf,
   type Weighed,
   weigh,
 } from "./shards.js";
@@ -68,10 +77,15 @@ function testFiles(dir = ROOT, out: Weighed[] = []): Weighed[] {
 }
 
 /**
- * How many processes: the cores less two, so the terminal and whatever else
- * the owner has open keep breathing, and no more than eight — past that the
- * shards are waiting on each other's disk and the heaviest file, and the
- * machine is running Chrome and workerd beside them.
+ * How many processes run **at once**: the cores less two, so the terminal and
+ * whatever else the owner has open keep breathing, and no more than eight —
+ * past that the shards are waiting on each other's disk and the heaviest file,
+ * and the machine is running Chrome and workerd beside them.
+ *
+ * It no longer says how many bins there are, and that is the whole of the fix
+ * of 15 September 2026: this figure is about a machine's throughput, and how
+ * much one process may be given is about its memory. `binCount` holds the
+ * second question.
  */
 export function defaultShards(cores = cpus().length): number {
   return Math.max(1, Math.min(8, cores - 2));
@@ -90,17 +104,24 @@ const shards = Number(flag(argv, "--shards")) || defaultShards();
 const filters = argv;
 
 const files = testFiles().filter((f) => selected(f.file, filters));
-const bins = partition(files, shards);
+// Two numbers now, and `shards` is the smaller of them: how many run at once.
+// How big a bin may be is a memory figure and belongs to the cap in
+// `shards.ts`, because a process that is given too many files is killed rather
+// than slowed.
+const bins = partition(files, binCount(files.length, shards), MAX_FILES_PER_SHARD);
+const width = Math.min(shards, bins.length);
 const stamp = `${process.pid}-${Date.now()}`;
 const reportOf = (i: number): string => join(tmpdir(), `neon-spore-shard-${stamp}-${i}.xml`);
 
 console.log(
   `bun test — ${files.length} files in ${bins.length} shard${bins.length === 1 ? "" : "s"}` +
+    (width < bins.length ? `, ${width} at a time` : "") +
     (filters.length > 0 ? ` (${filters.join(" ")})` : ""),
 );
 
 const started = performance.now();
-const runs = bins.map(async (bin, i) => {
+const results = await pool(bins.length, width, async (i) => {
+  const bin = bins[i] ?? [];
   const proc = Bun.spawn(
     ["bun", "test", ...bin, "--reporter=junit", `--reporter-outfile=${reportOf(i)}`],
     { cwd: ROOT, stdout: "pipe", stderr: "pipe", env: { ...process.env, FORCE_COLOR: "0" } },
@@ -116,14 +137,18 @@ const runs = bins.map(async (bin, i) => {
     .catch(() => "");
   const tally = tallyOf(xml);
   const mark = code === 0 ? "✓" : "✗";
+  // **A shard that was killed says so.** It writes no report and no output, so
+  // without this line a `SIGKILL` reads as `0 tests, 0 failed` in red — which
+  // is what a whole afternoon was spent on before the cap above existed, and
+  // `KILL` is the one word that would have named it in a second.
+  const died = proc.signalCode ? `, ${proc.signalCode} at ${bin.length} files` : "";
   console.log(
-    `\n${mark} shard ${i + 1}/${bins.length} — ${bin.length} files, ${tally.tests} tests, ${tally.failures} failed, ${seconds}s`,
+    `\n${mark} shard ${i + 1}/${bins.length} — ${bin.length} files, ${tally.tests} tests, ${tally.failures} failed, ${seconds}s${died}`,
   );
   const text = `${out}${err}`.trim();
   if (text) console.log(text);
   return { code, xml };
 });
-const results = await Promise.all(runs);
 
 const wall = ((performance.now() - started) / 1000).toFixed(1);
 const merged = mergeJunit(results.map((r) => r.xml));

@@ -528,7 +528,7 @@ Where the target was reachable was the shape of the run: 384 files, one after
 another, in one process, on a machine with sixteen cores. The files are
 independent by construction — each installs its own canvas globals, every
 test that writes takes a `mkdtemp` of its own — so `tools/check/shard.ts`
-deals them across eight `bun test` processes and runs them together. It is
+deals them into bins and runs the bins a few at a time. It is
 what `bun run check`, `bun run test`, `check:fast` and `test:profile` run;
 bare `bun test` is still bun's, one process, for a human running one file.
 
@@ -547,6 +547,25 @@ bytes at two rates — a frame test or a shape-sheet test runs at about 3 500
 bytes a second, everything else at about 20 000, both read off one profile and
 rounded. One rate filled the shard that had `briefing.test.ts` with eight
 frame tests and it finished at 46 s while another finished at 10.
+
+**How many bins, and how many at once, are two numbers.** They were one until
+15 September 2026, and being one meant a machine with *fewer* cores was given
+*more* files per process: the four-core web image dealt two shards of about
+seventy-five files, and the heavier of the two reached 7.4 GB of anonymous RSS
+and was killed by the memory cgroup — `exit 137`, `SIGKILL`, no report written,
+and the shard's whole result gone with it. What it printed was
+`✗ shard 1/2 — 73 files, 0 tests, 0 failed`, which reads as a suite that ran
+nothing rather than as a process that died, and `bun run check` and `check:fast`
+were therefore red in every cloud session on diffs with nothing wrong with them.
+
+A `bun test` process does not give a finished file's memory back, so the fix is
+a ceiling on the *count* of files in one bin — `MAX_FILES_PER_SHARD`, forty,
+against the seventy-three that died — with the number of processes running at
+once left to the cores (`defaultShards`). `shard.ts` runs the bins through a
+pool that wide. On the four-core image the suite is then 458 files in 12 shards
+of forty, two at a time, green in 82 s of wall clock where before it could not
+finish at all; on sixteen cores the eight processes are unchanged and the deal
+is finer, which the table above was measured before and does not cover.
 
 Two things were in the way and neither turned out to be. A test that starts a
 server could collide with one in another shard on the port a tree derives

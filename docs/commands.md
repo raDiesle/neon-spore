@@ -27,7 +27,7 @@ bun run --cwd apps/server dev   # the relay under wrangler; it prints the port
 
 ```
 bun test               # everything, in one process — or one file, one package
-bun run test           # the same, dealt across eight — what `check` runs (tools/check/shard.ts)
+bun run test           # the same, dealt into bins, cores-less-two at a time (tools/check/shard.ts)
 bun run test:determinism
 bun run test:profile   # which test files carry the minutes — docs/performance.md
 bun run typecheck      # tsc, then the server's own
