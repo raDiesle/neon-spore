@@ -176,6 +176,24 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
+## Unverified at bc3a3b7d: A partner's row pressed, and a wave written against a…
+
+- **Found:** 2026-09-15, claude/queue-tasks-kkqozz
+- **Files:** `apps/game/src/menu.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/pairing.ts`, `apps/game/src/partners.ts`, `apps/game/src/waves.ts`
+
+*The PLAY page is a list of the people this device has played with* landed from
+a session that could not put two phones in a room. The page itself was
+photographed — `bun run menu-shot out.png --page PLAY --partners "David:7"` — so
+what the rows say is seen. What went unchecked:
+
+- A partner's row pressed, and the two phones landing in the same room: `rejoinWith` reads the index off the list it was drawn from and `roomForPair` derives the code, and neither has been pressed in a browser (apps/game/src/menu.ts, apps/game/src/menu-entries.ts)
+- A wave written against the person in the other seat: `reachedWith` takes the partner from the last status the room screen painted, and nothing has run a two-device wave to see the row afterwards say a number it did not say before (apps/game/src/pairing.ts, apps/game/src/waves.ts)
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
+
 ## PLAY is a list of partners to continue with, and the room is a step-by-step
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8
