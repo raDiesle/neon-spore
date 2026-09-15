@@ -114,8 +114,10 @@ export interface RailFilter {
   /** Whether anything is being filtered at all. */
   active(): boolean;
   /** Say how many of how many matched, under the field. The list calls this
-   * once it has drawn itself, because the count is what it drew. */
-  report(matched: number, total: number): void;
+   * once it has drawn itself, because the count is what it drew. `marked` is
+   * whether the row of symbols is narrowing as well, so a list cut by a press
+   * alone still says how much of it is showing (`rail-symbols.ts`). */
+  report(matched: number, total: number, marked?: boolean): void;
 }
 
 /**
@@ -144,9 +146,9 @@ export function bindRailFilter(onChange: () => void): RailFilter {
   return {
     passes: (waves, index) => waveMatches(waves, index, query()),
     active: () => filterTerms(query()).length > 0,
-    report: (matched, total) => {
+    report: (matched, total, marked = false) => {
       if (!note) return;
-      const on = filterTerms(query()).length > 0;
+      const on = marked || filterTerms(query()).length > 0;
       note.textContent = matched === 0 ? "nothing matches" : `${matched} of ${total}`;
       note.hidden = !on;
     },

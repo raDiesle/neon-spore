@@ -1370,12 +1370,14 @@ place — the generator keeps whatever is there.
 | `tools/director/src/key-help.ts` | The keybindings, shown rather than remembered — "for the time being," in the owner's own words |
 | `tools/director/src/keys.ts` | Both roles on one keyboard, so a wave can be tried the moment it is placed |
 | `tools/director/src/main.ts` | The director: one screen where a wave is placed, played and judged — not |
+| `tools/director/src/main-tempo.ts` | **THE TEMPO HAS TWO CONTROLS AND THEY ARE ONE NUMBER.** TUNING's first slider moves `bpm` two points at a… |
 | `tools/director/src/markdown.ts` | The little of markdown the spec actually writes, turned into DOM: headings, paragraphs, bullets |
 | `tools/director/src/mobile-menu.ts` | On a phone the director opens on a menu, not on a wave |
 | `tools/director/src/music-page.ts` | MUSIC: six pieces nobody has decided to use |
 | `tools/director/src/music-plot.ts` | A theme drawn: the whole piece on one axis, time across, frequency up |
 | `tools/director/src/notes-api.ts` | `GET /api/notes` — the release notes, and the two facts VERSUS votes against |
 | `tools/director/src/paint.ts` | The edits: what a click does to a wave, and what takes it back |
+| `tools/director/src/paint-fault.ts` | **A fault, laid across a beat row.** The column is ignored on purpose: a malfunction has none |
 | `tools/director/src/pair-panel.ts` | The one switch that exists because the game has two people in front of it |
 | `tools/director/src/pinball-editor.ts` | PINBALL's boards, painted on the grid the round is played on |
 | `tools/director/src/pose-art.ts` | A posed world, drawn — one frame of the shipping renderer, cut down to the part of the phone the pose is about |
@@ -1681,6 +1683,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/grid-cell-art.ts` | What one cell of the map draws: the creature that arrives on that beat, and the pod that hangs in that column |
 | `tools/director/src/rail-filter.ts` | The filter over the wave list: one field above it, matching a wave's prose and everything it sends |
 | `tools/director/src/rail-steps.ts` | **The two arrows over the WAVE column**, and the two keys that are the same step without the mouse |
+| `tools/director/src/rail-symbols.ts` | **THE ROW OF SYMBOLS OVER THE FILTER**: the rail's own four marks, made pressable |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |

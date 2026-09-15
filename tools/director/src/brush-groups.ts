@@ -1,5 +1,5 @@
 import { type CreatureCategory, categoryOf } from "@neon-spore/content";
-import { BRUSH_KIND, BRUSHES, type Brush } from "./brushes.js";
+import { BRUSH_KIND, BRUSHES, type Brush, FAULT_BRUSHES } from "./brushes.js";
 
 /**
  * How the palette is divided into sections. Split from `brushes.ts` when that
@@ -57,5 +57,8 @@ export const BRUSH_GROUPS: BrushGroup[] = (() => {
     if (brushes?.length) groups.push({ label: CATEGORY_LABEL[category], brushes });
   }
   groups.push({ label: "SUCK", brushes: ["purge", "ward"] });
+  // Last, and its own group: a fault is not a body and does not arrive — it is
+  // a pencil laid across a row of the map (`brushes.ts` `FAULT_BRUSHES`).
+  groups.push({ label: "FAULT", brushes: [...FAULT_BRUSHES] });
   return groups;
 })();

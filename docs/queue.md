@@ -317,56 +317,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## A malfunction is a pencil on the map, with a beat it starts and one it ends
-
-- **Found:** 2026-09-14, claude/queue-backlog-604107
-- **Taken:** 2026-09-15, claude/queue-a-malfunction-is-a-pencil-on-the-map-with-a-beat
-- **Files:** `packages/sim/src/malfunction.ts`, `packages/sim/src/world.ts`, `packages/sim/src/wave-start.ts`, `packages/sim/src/handover.ts`, `packages/sim/src/hash.ts`, `packages/content/src/wave-types.ts`, `packages/content/src/waves/*.ts`, `packages/content/src/mechanics.ts`, `tools/director/src/brushes.ts`, `tools/director/src/rail.ts`, `tools/director/src/rail-marks.ts`, `tools/director/src/rail-filter.ts`, `tools/director/src/fault-fields.ts`, `tools/director/src/serialize.ts`, `tools/director/src/stage-world.ts`
-- **Where:** local
-
-The owner asked for this on 14 September 2026, mid-turn, in three sentences.
-It is director work with a change to the wave's shape under it, so it lands as
-one lane in two commits — the shape first, the director on top — and the
-director's authoring is updated in the same pass as the content
-(`director-sync-on-content-changes`).
-
-1. **Every malfunction is a pencil placed on the map, not a field on the
-   wave.** Today `Wave.malfunction` is one fault for the whole wave, read once
-   at `startWave` into `world.malfunction`, and only THE HANDOVER carries
-   numbers (`at`, `beats`, `every`). His line: *all malfunctions are not
-   attached to the wave, but a pencil to be placed on the map, so I can define
-   when it enters the wave (what beat row) and when it ends.* So a fault
-   becomes an entry on a beat row like a creature is — `{ kind, at, beats }`,
-   any of the six kinds, more than one per wave, on the map beside the
-   creatures — and the wave-wide field goes. In `sim` that means the fault is
-   *active* for a window of beats (`handover.ts` already has the window; the
-   other five need one), `faultSwallows` and `stepMalfunction` read the
-   window, and `hashWorld` still covers whatever state the window adds. In
-   `content` every wave that carries a fault today (`grep malfunction
-   packages/content/src/waves`) is rewritten as a placed entry with the same
-   effect — THE HANDOVER's `at`/`beats`/`every` become the entry's own rows —
-   and `mechanicsInWave` finds the fault the new way. The director gets one
-   brush per fault kind on the palette (`brushes.ts`), the fault's fields
-   (`fault-fields.ts`) move under the map to the placed entry like a rock's
-   speed does, and `serialize.ts` writes the entry the way the waves are
-   written.
-2. **An icon beside a wave that carries any malfunction**, in the rail, as
-   one more span in `rail-marks.ts` — the file says a fourth mark is one more
-   block there. Its title names the kinds.
-3. **A compact filter of the wave list by its symbols.** The rail's marks are
-   boss, panel, guide and (now) malfunction; he wants to narrow the list to
-   waves carrying any of a chosen set — *either or is enough*, so the chosen
-   symbols are ORed with each other, and ANDed with whatever is typed. The
-   WAVES column is 210px and `rail-filter.ts` explains why it has one text
-   field and nothing beside it, so the compact form is the marks themselves
-   made pressable in a single row above or inside the field — press ♛ and the
-   list is the boss waves; press ⎈ too and it is both. Nothing stored.
-
-Prove it with `bun run check`, the director's own tests under
-`tools/director/test`, and the director opened on a wave with a placed fault
-— the map shows the pencil on its rows, the rail shows the icon, the filter
-narrows to it.
-
 ## THE LEECH: a malfunction harpooned onto the cannon, kept off by moving it
 
 - **Found:** 2026-09-14, claude/queue-backlog-604107

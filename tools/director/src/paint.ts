@@ -1,7 +1,8 @@
 import { authorsBodyColor, CREATURES, type Wave, type WaveEntry } from "@neon-spore/content";
 import type { CreatureKind } from "@neon-spore/sim";
-import { type Brush, ROCK_BRUSHES } from "./brushes.js";
+import { type Brush, faultKindOf, ROCK_BRUSHES } from "./brushes.js";
 import { setBody } from "./entry-fields.js";
+import { paintFault } from "./paint-fault.js";
 import {
   brushOf,
   CREATURE_BRUSHES,
@@ -43,6 +44,11 @@ const POD_DEFAULT_ROW = 3;
 export function paint(wave: Wave, beat: number, col: number, brush: Brush): void {
   if (isCreaturePlacementBlocked(wave) && CREATURE_BRUSHES.includes(brush)) return;
 
+  const fault = faultKindOf(brush);
+  if (fault) {
+    paintFault(wave, beat, fault);
+    return;
+  }
   if (brush === "purge" || brush === "ward") {
     paintPod(wave, beat, col, brush);
     return;

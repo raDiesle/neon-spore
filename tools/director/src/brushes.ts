@@ -1,6 +1,12 @@
 import { CREATURES, isInstalled } from "@neon-spore/content";
 import { PALETTE } from "@neon-spore/render";
-import { type CreatureKind, isBossBody, isMeteorKind, type RockKind } from "@neon-spore/sim";
+import {
+  type CreatureKind,
+  isBossBody,
+  isMeteorKind,
+  type MalfunctionKind,
+  type RockKind,
+} from "@neon-spore/sim";
 import { cardSubjects, livingStroke, SHORT_NOTE } from "./brush-cards.js";
 
 /**
@@ -17,7 +23,34 @@ import { cardSubjects, livingStroke, SHORT_NOTE } from "./brush-cards.js";
  * speed of one arrival is a number on the entry rather than a choice of tool
  * (`brushOf` in query.ts, `entry-fields.ts` for the numbers themselves).
  */
-export type Brush = CreatureKind | "rock" | "purge" | "ward" | "erase";
+/**
+ * **A fault is a brush too**, one per kind, prefixed so it can never collide
+ * with a creature's own name.
+ *
+ * The owner asked for it on 14 September 2026: a malfunction is *a pencil to
+ * be placed on the map*, which means it is picked up in the palette like
+ * everything else placed there. What it paints is a whole **beat row** rather
+ * than a cell — a fault has no column, it has a row it enters on and a number
+ * of rows it holds (`sim/fault-placed.ts`) — so a click anywhere along a row
+ * places it at that beat, and clicking it again takes it off.
+ */
+export const FAULT_BRUSHES = [
+  "fault:cannon",
+  "fault:shield",
+  "fault:steer",
+  "fault:codex",
+  "fault:handover",
+] as const;
+export type FaultBrush = (typeof FAULT_BRUSHES)[number];
+
+/** The kind a fault brush places, or null for a brush that is not one. */
+export function faultKindOf(brush: Brush): MalfunctionKind | null {
+  return (FAULT_BRUSHES as readonly string[]).includes(brush)
+    ? (brush.slice("fault:".length) as MalfunctionKind)
+    : null;
+}
+
+export type Brush = CreatureKind | "rock" | "purge" | "ward" | "erase" | FaultBrush;
 
 /**
  * The rock brushes, paired with the kind each one paints *first*.
@@ -89,6 +122,38 @@ const LIVING_BRUSHES: {
   detail: CREATURES[kind].blurb,
 }));
 
+/**
+ * The five fault brushes as the palette shows them: a word, and the sentence
+ * the picker under WAVE already says about each one.
+ *
+ * The note is short on purpose — every other brush's is, and this is a palette
+ * button rather than a page. The whole sentence is `fault-fields.ts`'s `NOTE`,
+ * which the picker prints under the row as soon as one is placed.
+ */
+const FAULT_LOOK: { brush: Brush; label: string; note: string }[] = [
+  {
+    brush: "fault:cannon",
+    label: "CANNON",
+    note: "the gun fires itself, player 2 loses both colours",
+  },
+  {
+    brush: "fault:shield",
+    label: "SHIELD",
+    note: "the dome arms itself, player 1 loses the trigger",
+  },
+  {
+    brush: "fault:steer",
+    label: "STEER",
+    note: "the cannon walks itself, player 1 loses the strip",
+  },
+  { brush: "fault:codex", label: "CODEX", note: "the two colours do each other's job, silently" },
+  {
+    brush: "fault:handover",
+    label: "HANDOVER",
+    note: "the two panels change screens for a window",
+  },
+];
+
 export const BRUSHES: {
   brush: Brush;
   label: string;
@@ -101,6 +166,10 @@ export const BRUSHES: {
   detail?: string;
 }[] = [
   ...LIVING_BRUSHES,
+  // A fault has no body, so it has no silhouette to draw: the `subjects` list
+  // is empty and the button is its word and its line, which is what a pencil
+  // laid across a row looks like in a palette of creatures.
+  ...FAULT_LOOK.map((f) => ({ ...f, subjects: [], stroke: PALETTE.arc })),
   {
     brush: "rock",
     label: "METEOR",

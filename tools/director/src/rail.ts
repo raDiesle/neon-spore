@@ -10,6 +10,7 @@ import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields
 import { bindRailFilter } from "./rail-filter.js";
 import { waveMarks } from "./rail-marks.js";
 import { bindWaveSteps } from "./rail-steps.js";
+import { bindRailSymbols } from "./rail-symbols.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
 
 /**
@@ -45,6 +46,9 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   // The field above the list. It redraws the list and touches nothing else —
   // see `rail-filter.ts` for why it is a typed field and not a row of chips.
   const filter = bindRailFilter(() => renderList());
+  // The four marks as presses, ORed with each other and ANDed with the field
+  // above — the owner's *either or is enough* (`rail-symbols.ts`).
+  const symbols = bindRailSymbols(document.getElementById("waveMarksFilter"), () => renderList());
 
   // One of the four textareas that grow with their content; the other three are the guide's.
   if (sentence) autoGrowTextarea(sentence);
@@ -73,7 +77,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     list.replaceChildren();
     let matched = 0;
     for (const [i, wave] of store.waves.entries()) {
-      const hit = filter.passes(store.waves, i);
+      const hit = filter.passes(store.waves, i) && symbols.passes(store.waves, i);
       if (hit) matched++;
       // The wave being edited stays in the list whatever the filter says: the
       // whole column beside it is that wave's own fields, and a list that hid
@@ -98,7 +102,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
       });
       list.appendChild(button);
     }
-    filter.report(matched, store.waves.length);
+    filter.report(matched, store.waves.length, symbols.active());
   };
 
   const renderFields = (): void => {

@@ -193,6 +193,42 @@ section.collapsed .column-body {
 #waveList .card-mark {
   color: #7dffb0;
 }
+/* A wave that places a fault on its map. Amber, which is the colour a thing
+   gone wrong wears everywhere else in the tool, and the one mark of the four
+   that is a warning rather than a category. */
+#waveList .fault-mark {
+  color: var(--warm);
+}
+
+/* **THE ROW OF SYMBOLS OVER THE FILTER** — the same four marks, pressable
+   (`rail-symbols.ts`). Each button is a glyph and nothing else, because the
+   column is 210 px and a label beside each would be the row of chips the
+   filter's own note rules out. Dim until pressed, so an untouched row reads as
+   furniture rather than as four things already doing something. */
+#waveMarksFilter {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+#waveMarksFilter .mark-toggle {
+  flex: 1 1 0;
+  padding: 3px 0;
+  font-size: 0.9rem;
+  color: var(--dim);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  cursor: pointer;
+}
+#waveMarksFilter .mark-toggle:hover {
+  color: var(--ink);
+  border-color: var(--cyan);
+}
+#waveMarksFilter .mark-toggle.on {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: rgba(255, 200, 80, 0.08);
+}
 .rail-actions {
   display: flex;
   flex-wrap: wrap;

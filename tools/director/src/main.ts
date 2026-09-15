@@ -7,10 +7,10 @@ import { jumpWaveIndex } from "./brush-wave.js";
 import { bindCellPanel, type CellPanel } from "./cell-panel.js";
 import { initColumnResize } from "./column-resize.js";
 import { initColumns } from "./columns.js";
-import { bindDifficultyPicker } from "./difficulty-picker.js";
 import { bindDocumentationRooms } from "./documentation-rooms.js";
 import { bindGrid, type GridPanel } from "./grid.js";
 import { makeHeld } from "./held.js";
+import { bindTempoControls } from "./main-tempo.js";
 import { initMobileMenu } from "./mobile-menu.js";
 import { bindNotes } from "./notes-page.js";
 import { bindPairPanel } from "./pair-panel.js";
@@ -34,7 +34,6 @@ import {
 import { bindStates } from "./states-page.js";
 import { initSubcols } from "./subcols.js";
 import { bindExpanders, bindTabs } from "./tabs.js";
-import { bindTuning } from "./tuning.js";
 import { renderWaveOpening } from "./wave-opening.js";
 import { bindWaveIo } from "./waves-io.js";
 
@@ -114,26 +113,12 @@ const boss: BossPanel = bindBossPanel(
   () => stage.round(),
 );
 const rail = bindRail(store, refreshAll, onProse);
-// **The tempo has two controls and they are one number.** TUNING's first
-// slider moves `bpm` two points at a time; the DIFFICULTY picker beside the
-// field sets it to one of the game's three levels. Whichever is turned, the
-// other is put back to what the run now says — a slider reading 96 under a run
-// at 120 is the tool disagreeing with itself.
-const onTempo = (): void => {
+// The slider and the picker, bound in terms of each other (`main-tempo.ts`).
+bindTempoControls(cfg, () => {
   grid.render();
   renderShip(cfg, currentWave(store));
   renderShipSheet(cfg);
   stage.rebuild();
-};
-const tuning = bindTuning(cfg, () => {
-  onTempo();
-  // A slider dragged off all three levels is what puts CUSTOM in the picker,
-  // and a preset landing on one is what takes it out again.
-  difficulty.render();
-});
-const difficulty = bindDifficultyPicker(cfg, () => {
-  onTempo();
-  tuning.render();
 });
 // The pair's own switches plus the cannon's wind-up — see `pair-panel.ts`. Its
 // `render` was for DEMOS, which flipped `cfg` from outside this file; nothing
@@ -182,6 +167,9 @@ function hiddenBrushes(): ReadonlySet<Brush> {
 }
 // A wave changed shape: redraw the grid, the boss panel, and replay from the top.
 function onShape(): void {
+  // The list too: a fault is painted on the map, and its ⚠ is on the wave's
+  // own row (`rail-marks.ts`). No other mark moves on a shape edit.
+  rail.render();
   grid?.render();
   boss.render();
   palette.render();

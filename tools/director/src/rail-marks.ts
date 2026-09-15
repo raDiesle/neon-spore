@@ -2,15 +2,44 @@ import { controlSet, DEFAULT_CONTROL_SET_ID, firstOnPanel, type Wave } from "@ne
 
 /**
  * The small glyphs in front of a wave's name in the rail: a boss, a panel, a
- * guide.
+ * guide, a fault.
  *
  * Split out of `rail.ts` on line count, and the seam is the honest one — next
  * door is the list and the fields and what editing one does, and this only
  * reads a wave and says what is remarkable about it at a glance.
  *
  * Each mark stays its own span and its own glyph rather than being folded into
- * one, so a fourth is one more block here and not a rewrite of the row.
+ * one, and the fourth cost exactly what that promised: one more block.
  */
+
+/** The glyph of each mark, and the word the filter offers it by — one table, so
+ * the pressable row in the filter cannot drift from the row it filters
+ * (`rail-filter.ts`). */
+export const MARKS = [
+  ["boss", "♛", "boss"],
+  ["control", "⎈", "panel"],
+  ["card", "✎", "guide"],
+  ["fault", "⚠", "fault"],
+] as const;
+
+export type MarkId = (typeof MARKS)[number][0];
+
+/** Which marks a wave carries, by id — the same four questions `waveMarks`
+ * draws, asked without a document. It is what the filter narrows on and what a
+ * test can read. */
+export function marksOn(waves: readonly Wave[], index: number): MarkId[] {
+  const wave = waves[index];
+  if (!wave) return [];
+  const out: MarkId[] = [];
+  if (wave.boss) out.push("boss");
+  if (firstOnPanel(waves, index) || controlSet(wave.controls).id !== DEFAULT_CONTROL_SET_ID) {
+    out.push("control");
+  }
+  if (wave.guide) out.push("card");
+  if (wave.faults?.length) out.push("fault");
+  return out;
+}
+/** The marks as spans, in the order a row draws them. */
 export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] {
   const wave = waves[index];
   if (!wave) return [];
@@ -55,7 +84,29 @@ export function waveMarks(waves: readonly Wave[], index: number): HTMLElement[] 
    * that only marks.
    */
   if (wave.guide) out.push(mark("card-mark", "✎ "));
+
+  /**
+   * **A fault, since it stopped being one thing about the whole wave.** The
+   * owner asked for it on 14 September 2026, with the pencil that made it
+   * worth having: a wave may now place several, on rows of their own, and
+   * nothing in the list said so. The title names the kinds and the rows they
+   * are placed on — which is the one thing about a fault a glance cannot get
+   * from the map without opening the wave (`sim/fault-placed.ts`).
+   */
+  if (wave.faults?.length) {
+    const m = mark("fault-mark", "⚠ ");
+    m.title = wave.faults
+      .map((f) => `${f.kind.toUpperCase()} from beat ${f.at ?? 0}${lengthOf(f)}`)
+      .join(", ");
+    out.push(m);
+  }
   return out;
+}
+
+/** How long a placement holds, as words — and nothing at all for one that
+ * holds to the end, which reads better as the absence of a limit. */
+function lengthOf(f: { beats?: number }): string {
+  return f.beats === undefined || f.beats === 0 ? " to the end" : ` for ${f.beats}`;
 }
 
 function mark(className: string, glyph: string): HTMLElement {

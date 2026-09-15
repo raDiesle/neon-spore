@@ -21,6 +21,15 @@ export const BRUSH_MECHANIC: Partial<Record<Brush, MechanicId>> = {
   ...BRUSH_KIND,
   purge: "purge",
   ward: "ward",
+  // The five faults, which are mechanics like everything else in the palette
+  // — `mechanics-wave.ts` has a row per kind and `faultMechanic` is the
+  // pairing, so Ctrl-clicking one lands on the wave it first appears in
+  // exactly as a creature's brush does.
+  "fault:cannon": "cannonFault",
+  "fault:shield": "shieldFault",
+  "fault:steer": "steerFault",
+  "fault:codex": "codexFault",
+  "fault:handover": "handoverFault",
 };
 
 export interface FirstWave {

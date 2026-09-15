@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — a malfunction is a pencil on the map
+
+The queue's *A malfunction is a pencil on the map, with a beat it starts and one
+it ends*, in the two commits the entry asked for: the shape first, the director
+on top. Sixty-odd files.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | thirty call sites of `world.malfunction`, and `handover.ts`, which owned the only window there was |
+| writing | 120 | two new modules, five faults re-grounded, the brush, the mark, the symbol filter, and sixteen test files swept |
+| looking | 20 | the palette's new group, the rail's four pressable glyphs, and a pencil painted on beat 4 |
+| friction | 15 | `main.ts` and `paint.ts` both hit 250 lines; the `after-sim-edit` hook ran the suite mid-refactor three times |
+| landing | 25 | `check:fast` eight times, `bun run index` four, two commits |
+
+The bottleneck was the sweep, and it was unavoidable: `world.malfunction` was one
+nullable field read in thirty places, and every one of them had to become a
+question about the beat rather than about the wave. What made it survivable was
+that four of the five faults already asked *is my kind on* through a function of
+their own — so the change landed inside `faultOn` and those four files moved one
+line each.
+
 ## 2026-09-15 — queued-tasks — the URL stops naming a tab that is not there
 
 The queue's *The editor's tab bar holds no tabs*, filed two hours earlier by the
