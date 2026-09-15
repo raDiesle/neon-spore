@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — the opening scene, seen moving
+
+The queue's *Unverified at 7693db1b*. The scene was corrected off two headless
+stills by a session that could not watch it; this is a phone photographed every
+800 ms across the whole 10.5 seconds, with the frame loop running at its own
+rate, laid out as two contact sheets. Nothing is wrong with it: both shouts
+cross, each act follows the shout that asked for it, and the scene ends by
+itself and hands over to the name screen. The entry is out, and the tool the
+throwaway should have been is in.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, `intro.ts`, `intro-scene.ts` and its 10.5 seconds |
+| writing | 20 | two throwaways — the watcher and the sheet |
+| looking | 20 | one run of sixteen frames, and three sheets of them |
+| friction | 10 | the first sheet was sixteen broken-image icons: a page made with `setContent` has no origin, so a `file://` image in it never loads and every frame has to go in as a data URL |
+| landing | 5 | the queue entry, the commit |
+
+The bottleneck was that a session cannot watch anything. It reads pictures one
+at a time, and sixteen phone-sized ones is most of what a turn has — so seeing
+*motion* means building one picture out of many first, and the second half of
+that is a window rather than a shrink: the whole phone at thumbnail size shows
+nothing moving, and a band of it at a readable width shows everything.
+
 ## 2026-09-15 — queued-tasks — ‹ WAVE ›: the wave column opens the next one
 
 The queue's *Two arrows at the top of the WAVE column open the previous and

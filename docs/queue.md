@@ -60,6 +60,13 @@ sentence from him. Filing the first kind here is what buried the queue last
 time under sixty-two entries nobody could face, and that has not stopped being
 true — the new rule widens the door by one hinge, not off them.
 
+**Every path an entry names is a path the tree has**, on the `Files:` line and
+in the body alike — `tools/test/doc-drift.test.ts` holds both, and it is the
+same rule every document here obeys. So an entry that proposes a **new** file
+cannot spell it out: name the directory on `Files:` and call the file *a
+`sheet.ts` beside `crop.ts`* in the body. A path that goes red is a document
+naming something nobody can open.
+
 **Draining it.** `bun run queue` lists what is waiting, half-done work from
 `docs/parked.md` first, and says which items somebody is already on. **It also
 says when an entry has gone stale** — a file its `Files:` line names was
@@ -310,21 +317,6 @@ NEW GAME and CONTINUE. **What he wants:**
 holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
-
-## Unverified at 7693db1b: The opening scene watched at tempo on a phone: the shou…
-
-- **Found:** 2026-09-14, claude/queue-tasks-kkqozz
-- **Taken:** 2026-09-15, claude/queue-unverified-at-7693db1b-the-opening-scene-watched
-- **Files:** `apps/game/src/intro.ts`, `apps/game/src/settings.ts`, `apps/game/test/intro.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/time-log.md`, `packages/content/src/index.ts`, `packages/content/src/intro.ts`
-
-*The intro is one scene of two phones and a shout, not six pages and a stepper* landed from a session that could not look at it. The commit touched 11 more files. What went unchecked:
-
-- The opening scene watched at tempo on a phone: the shout crossing, the press landing and the shield sliding were corrected off two headless stills, and nobody has seen the scene move.
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
 
 ## The tagline wraps on a 360 px phone, which is most Android phones
 
@@ -689,3 +681,31 @@ already on the list writes that partner's record back to wave 0 at the tempo
 the new room settles on (`afterPlayingWith`), rather than keeping the old
 furthest wave beside a new tempo. `menu-front.test.ts` reads the rows without
 the gear; prove the rest with `bun run check` and one `relay:check` run.
+
+## A strip of frames has no contact sheet: a scene is watched one frame at a time
+
+- **Found:** 2026-09-15, claude/queued-tasks-51d8f9
+- **Files:** `tools/frames/crop.ts`, `tools/frames/crop-png.ts`, `tools/frames/`, `tools/frames/test/`, `docs/commands.md`, `package.json`
+- **Where:** local
+
+Verifying the opening scene meant photographing a phone every 800 ms for
+twelve seconds and then looking at the sixteen pictures. A session looks at a
+picture by reading it, one at a time, and sixteen of a 780×1688 phone is most
+of what a turn can afford — so the answer was a throwaway that laid them out in
+one page and photographed that: a grid, each cell a fixed window onto its
+frame, so a band of the picture (two heads and a speech bubble; two phone
+screens) is what fills the sheet rather than the whole phone shrunk to a
+thumbnail. One picture, sixteen moments, and the motion is plain.
+
+That belongs beside `bun run crop`, which is the same idea for one picture:
+**`bun run sheet <prefix> <out.png> [--cols 8] [--cell 240] [--band 0.35,0.72]
+[--every 800]`**, over `<prefix>-00.png`, `-01.png` and so on — a `sheet.ts`
+beside `crop.ts`, with a case beside `crop.test.ts` for its flags. The band is the
+part worth seeing and the caption is the millisecond each frame was taken at,
+which the throwaway got wrong by assuming its own interval rather than being
+told it. Two things to be careful of, both met while writing it: a page made
+with `setContent` has no origin, so a `file://` image in it loads as a broken
+icon and every frame has to go in as a data URL; and a cell that scales the
+whole frame down is unreadable, which is what the window is for.
+
+Prove it with `bun run check` and one sheet of frames already on disk.
