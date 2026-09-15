@@ -8,10 +8,12 @@ import type { StartGate } from "./start-gate.js";
  * and stamping beat zero when the second press lands.
  *
  * Split from `start-gate.ts` because that file is the *rule* and this one
- * touches a `WebSocket`. The repository's root type check excludes
- * `apps/server/src` — it has no Cloudflare Workers types in it — so a test
- * that wanted the rule could not reach it while the rule imported a socket.
- * Now it can: `start-gate.ts` imports nothing but a `PlayerId`.
+ * touches a `WebSocket`: the gate is a set of presses and a table of cases, and
+ * nothing it decides needs a socket to say it. The typecheck used to insist on
+ * the same split as well — the root config took this package's tests without
+ * workerd's globals — and it does not any more: `apps/server` is checked once,
+ * by itself, so a test may import any file in it
+ * (`apps/server/tsconfig.json`, `test/seat.test.ts`).
  */
 
 /** Which seats have pressed, to both devices. The whole set, never an edge. */

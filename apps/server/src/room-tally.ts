@@ -6,9 +6,13 @@ import { bestOf, NOTHING_YET, runIsOver, type Tally } from "./tally.js";
  *
  * Split from `tally.ts` for the reason `room-start.ts` is split from
  * `start-gate.ts`: that file is the *rule* and this one touches a Durable
- * Object's storage. The root type check excludes `apps/server/src` because it
- * has no Cloudflare Workers types, so a test that wants the rule could not
- * reach it while the rule imported storage.
+ * Object's storage, and a rule that reaches for storage cannot be held to a
+ * table of cases. The typecheck used to insist on the same split for a second
+ * reason — the root config took this package's tests without workerd's globals,
+ * so a test could reach a `src` file only while that file imported none of them
+ * — and it does not any more: `apps/server` is checked once, by itself
+ * (`apps/server/tsconfig.json`, `test/seat.test.ts`). The split stands on the
+ * first reason alone.
  */
 
 /**
