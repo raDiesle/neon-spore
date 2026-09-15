@@ -7,6 +7,7 @@ import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
 // And THE LURE, next door for the same reason: what a shot does when it meets
 // the one body there is no right shot at (`bullet-hit-lure.ts`).
 import { resolveLure } from "./bullet-hit-lure.js";
+import { refuseBolt, refusesABolt } from "./bullet-refused.js";
 import { caromStruck } from "./carom.js";
 import { choirIsDots, choirStruck } from "./choir.js";
 import { chuteIsOpen, chuteStruck } from "./chute.js";
@@ -58,14 +59,17 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   if (isWardable(hit.kind)) {
     // A rock cannot be broken, because it does not live. The shot leaves a
     // crater and nothing else — the rule made visible (docs/spec/graphics.md).
-    //
     // `isWardable` rather than `isMeteorKind`, so THE VOLLEY's shell is here
-    // too: while it is on, the cannon has nothing to say to that body and the
-    // colour burning through the seams is a sentence for later. The instant
-    // the shell bursts the kind is a slick's or a bulb's and this branch stops
-    // catching it (`volley.ts`).
+    // too: while it is on, the cannon has nothing to say to that body, and the
+    // instant it bursts the kind is a slick's and this branch stops catching
+    // it (`volley.ts`).
     hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);
     world.events.push({ type: "hole", col: hit.col, row: hit.row });
+    return false;
+  }
+  // A body the cannon cannot answer still stops the bolt (`bullet-refused.ts`).
+  if (refusesABolt(hit.kind)) {
+    refuseBolt(world, b, hit);
     return false;
   }
   if (hit.kind === "fence") {
@@ -84,8 +88,8 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
   }
   if (hit.kind === "beatbox") {
     // **A soundbox refuses every shot**, and it is the creature rather than an
-    // omission: it carries no colour, so no ammunition could be right, and
-    // what answers one is a thumb on the beat (`beatbox-round.ts`).
+    // omission: it carries no colour, so no ammunition could be right, and what
+    // answers one is a thumb on the beat (`beatbox-round.ts`).
     beatboxStruck(world, b, hit);
     return false;
   }
@@ -97,9 +101,8 @@ export function resolve(world: World, b: Bullet, hit: Creature): boolean {
     claspStruck(world, hit);
     return false;
   }
-  // Three dots in a membrane, and the clasp's answer one creature on: nothing
-  // a shot carries gets in until the pilot has made the gesture, so there is
-  // no colour test here and no chipping branch (`choir.ts`).
+  // Three dots in a membrane, and the clasp's answer one creature on: nothing a
+  // shot carries gets in until the pilot has made the gesture (`choir.ts`).
   if (choirIsDots(hit)) {
     choirStruck(world, hit);
     return false;

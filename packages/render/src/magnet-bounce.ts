@@ -54,17 +54,25 @@ export class MagnetBounceFx {
   private live: Bounce[] = [];
 
   /**
-   * Every `magnetPlate` in this frame's events.
+   * Every bolt turned away in this frame: `magnetPlate`, and `bounce` from the
+   * four bodies that are not stone and cannot be broken (`sim/bullet-hit.ts`).
    *
-   * The plate's own offset is read off `MAGNET_SHAPE` rather than guessed at,
-   * so the bolt leaves the edge the body is actually drawn with: a ricochet
-   * starting at a tile centre would begin inside the arch it bounced off.
+   * **The two start in different places and that is the whole of the second
+   * branch.** The plate's own offset is read off `MAGNET_SHAPE` rather than
+   * guessed at, so the bolt leaves the edge the body is actually drawn with: a
+   * ricochet starting at a tile centre would begin inside the arch it bounced
+   * off. A gum has no arch and no plate, so the ricochet starts at the body
+   * itself; the same argument, the other way round.
    */
   ingest(events: readonly SimEvent[], l: Layout): void {
     for (const e of events) {
-      if (e.type !== "magnetPlate") continue;
-      const under = l.tile * 0.4 * (MAGNET_SHAPE.plateDrop + MAGNET_SHAPE.plateThick);
-      this.spawn(tileCX(l, e.col), tileCY(l, e.row) + under, l.tile, e.color);
+      if (e.type === "magnetPlate") {
+        const under = l.tile * 0.4 * (MAGNET_SHAPE.plateDrop + MAGNET_SHAPE.plateThick);
+        this.spawn(tileCX(l, e.col), tileCY(l, e.row) + under, l.tile, e.color);
+        continue;
+      }
+      if (e.type !== "bounce") continue;
+      this.spawn(tileCX(l, e.col), tileCY(l, e.row), l.tile, e.color);
     }
   }
 

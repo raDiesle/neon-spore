@@ -62,6 +62,32 @@ another surface. The last version of this was
 photographed and written up under `docs/checks/`, which has since been removed
 along with the `Check:` mechanic; `git log -- docs/checks` still has both.
 
+## A shot that is refused still lands
+
+**A shot never goes through a body.** The owner's rule, 14 September 2026:
+*shots with the cannon, generally speaking, should never go through enemies,
+but should hit with no effect if the body cannot be destroyed with the
+cannon's colour — reflect, like the magnet, or mark it, like the meteor, or
+something else, whatever is suitable.*
+
+A rock has always taken a crater and nothing else, the rule made visible. That
+is now the rule for **every** body a shot cannot break, and each one wears the
+mark that suits it:
+
+| | what a refused bolt leaves |
+|---|---|
+| a rock, THE VOLLEY's shell, THE CAIRN | a crater, because all of them are stone |
+| THE GUM, THE LIMPET, THE LEECH, THE WEIGHT | a ricochet, the magnet plate's own — none of them is stone, and a chip would say *shoot it again* |
+| a magnet's plate | the same ricochet, which is where the look comes from |
+
+**THE GYRE's hub is the one body a bolt still passes**, and it is a hole in the
+field rather than a body: the tile at the middle of a wheel is empty, so a hub
+that stopped bolts would be a wall across five columns with nothing in it.
+
+Neither mark books a colour miss. The ammunition was never the question — the
+body was — and booking it would read one seat's misreading to the other's
+balance (`sim/bullet-refused.ts`).
+
 ## The forms
 
 Blobs and slimes: closed contours built from a Catmull-Rom spline through

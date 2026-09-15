@@ -47,31 +47,21 @@ export function firstAlong(
     // line hanging in a column the pair still has to fire up. It is answered
     // by a hand and by nothing else (docs/spec/bosses.md 11.4).
     if (c.kind === "tether") continue;
-    // Nor is THE GYRE's hub, for the same two reasons at once: there is
-    // nothing on it to shoot, and the tile at the middle of a wheel is empty —
-    // what a shot meets in those columns is a mount or nothing (`gyre.ts`). A
-    // hub that stopped bolts would put a wall across five columns of the
-    // field with no body anywhere in it.
+    // **THE GYRE's hub is the only body a shot goes past**, and it is a hole in
+    // the field rather than a body: the tile at the middle of a wheel is empty,
+    // there is nothing on it to shoot, and what a shot meets in those columns
+    // is a mount or nothing (`gyre.ts`). A hub that stopped bolts would put a
+    // wall across five columns of the field with nothing anywhere in it.
+    //
+    // **Five other kinds used to be here and the owner took them out on 14
+    // September 2026**: *shots with the cannon, generally speaking, should
+    // never go through enemies, but should hit with no effect if the body
+    // cannot be destroyed with the cannon's colour.* THE GUM, THE LIMPET, THE
+    // LEECH, THE WEIGHT and THE CAIRN each carried a paragraph here saying a
+    // bolt went past it to whatever was above, and every one of those
+    // paragraphs is overruled: a body a shot cannot answer still stops the
+    // shot. What each of them does with it is `bullet-hit.ts`'s `resolve`.
     if (c.kind === "gyre") continue;
-    // Nor THE GUM, falling or flung: nothing fired reaches it, and a bolt
-    // fired up a lane it is falling down goes past it to whatever is above.
-    // A hand is the only answer to it (`gum.ts`).
-    if (c.kind === "gum") continue;
-    // Nor THE LIMPET or THE LEECH: nothing fired reaches either, in the air
-    // or on its control (`cling.ts`).
-    if (c.kind === "limpet" || c.kind === "leech") continue;
-    // Nor THE WEIGHT, and that is the whole of the creature: a bolt would be a
-    // way for one player to answer it alone, and the only answer it has is a
-    // hand from each seat at the same instant (`weight.ts`). A shot up its lane
-    // goes past it to whatever is above, the way one does through a gum.
-    if (c.kind === "weight") continue;
-    // Nor THE CAIRN, and it is the oldest rule in the game wearing a boss: a
-    // rock cannot be shot, and this body is seven of them. A bolt fired up one
-    // of its seven lanes goes past it to whatever is above, the way one does
-    // through a gum — so the cannon is not merely useless against the pile, it
-    // is not even stopped by it, and the pair finds that out with their first
-    // shot. What answers it is a hand carried sideways (`cairn.ts`).
-    if (c.kind === "cairn") continue;
     // THE FENCE stops a bolt in every column it is still **shut** in, and in
     // none of the ones it is open in: a hole is a hole, so a shot fired up a
     // way through reaches whatever is above it rather than dying on a gap the

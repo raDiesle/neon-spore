@@ -106,7 +106,7 @@ describe("the pile standing there", () => {
     expect((body as Creature).col).toBe(Math.floor((CFG.cols - CAIRN_COLS) / 2));
   });
 
-  it("does not stop a bolt fired up its own column", () => {
+  it("stops a bolt fired up its own column, and takes a crater from it", () => {
     const world = install();
     const body = pile(world) as Creature;
     const mid = body.col + Math.floor(CAIRN_COLS / 2);
@@ -122,10 +122,13 @@ describe("the pile standing there", () => {
     }
     runTo(world, TPB * 2, cmds);
     expect(world.cannonCol).toBe(mid);
-    // Fire, and watch the bolt the whole way up: it has to *pass* the pile
-    // rather than merely fail to hurt it. A body that stopped a shot in five
-    // columns of the field would be a wall the pair could not fire through,
-    // and the fiction is that there is nothing there to hit.
+    // Fire, and watch the bolt the whole way up. **It used to pass the pile**,
+    // on the argument that a body stopping a shot in five columns would be a
+    // wall the pair could not fire through — and the owner overruled exactly
+    // that on 14 September 2026: *shots should never go through enemies, but
+    // should hit with no effect.* So the bolt dies on the stone, and what it
+    // leaves is a crater, because a cairn is seven rocks and a rock takes a
+    // crater (`sim/bullet-hit.ts`).
     step(world, [{ tick: world.tick, player: 1, command: { kind: "fire", color: "red" } }]);
     let top = CFG.rows;
     // Three beats: long enough for the bolt to cross the whole field and
@@ -135,10 +138,12 @@ describe("the pile standing there", () => {
       step(world, []);
       for (const b of world.bullets) top = Math.min(top, b.row);
     }
-    expect(top).toBeLessThan(body.row);
-    // Nothing came off it, and the wave is still the pile's.
+    expect(top).toBeGreaterThanOrEqual(body.row);
+    // Nothing came off it and the wave is still the pile's — the shot marked
+    // it and did nothing else.
     expect(cairn(world).units).toBe(CFG.cairnUnits);
     expect(pile(world)).toBeDefined();
+    expect((pile(world) as Creature).holes).toBeGreaterThan(0);
   });
 });
 

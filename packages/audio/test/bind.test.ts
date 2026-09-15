@@ -176,6 +176,7 @@ const SAMPLES: Record<string, SimEvent> = {
   weightCrushed: { type: "weightCrushed", col: 3, row: 8 },
   cairnPulled: { type: "cairnPulled", player: 1, col: 3, row: 2 },
   cairnShed: { type: "cairnShed", col: 5, row: 2 },
+  bounce: { type: "bounce", col: 3, row: 6, color: "red" },
 };
 
 describe("bindings", () => {
@@ -333,6 +334,9 @@ const CREATURE_IDS: Record<string, string> = {
   strandBead: "impact.split",
   strandSwell: "impact.wrongTarget",
   magnetPlate: "creature.magnetPlate",
+  // A bolt spent on a gum, a clinger or a weight: the plate's own sound,
+  // because it is neither a kill nor a wrong colour (`bind-creatures.ts`).
+  bounce: "creature.magnetPlate",
   magnetBreak: "creature.magnetBreak",
 };
 

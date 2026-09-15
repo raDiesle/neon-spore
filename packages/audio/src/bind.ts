@@ -189,6 +189,9 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "strandBead":
     case "strandSwell":
     case "magnetPlate":
+    // A bolt spent on a body the cannon cannot answer, which sounds like the
+    // one spent on a magnet's plate and for the same reason (`bind-creatures.ts`).
+    case "bounce":
     case "magnetBreak":
       return creatureCue(e, cols, rows);
     // Each group below lives in its own `bind-*.ts`, cut out the way its

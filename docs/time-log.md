@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — a shot never goes through a body
+
+The queue's *A shot never goes through a body*, which is the owner's rule of 14
+September: five kinds were skipped by the sweep outright and a bolt flew past
+them to whatever was above.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `shot-reach.ts`'s five paragraphs, and the three marks the game already draws for a refused shot |
+| writing | 35 | one event, one branch, a new file, two test files, the spec's own rule |
+| looking | 25 | four sheets of a bolt climbing at a gum, three of them up the wrong column |
+| friction | 10 | `bullet-hit.ts` went over 250 lines twice, and the audio's two coverage tests wanted the new event in three tables |
+| landing | 10 | `check:fast`, `bun run index`, the commit |
+
+The bottleneck was looking, and every minute of it was one mistake: a wave is
+authored in seven columns and played in eleven, so `--press cannonCol=1` put the
+cannon under a column the gum was not in and three sheets showed a bolt sailing
+past a body it was never aimed at. `buildQueue` says where a body actually is,
+and asking it first would have cost twenty seconds.
+
 ## 2026-09-15 — queued-tasks — THE LEECH and THE LIMPET, the simulation half
 
 The queue's two entries for the clingers, which ask for the bodies to move under

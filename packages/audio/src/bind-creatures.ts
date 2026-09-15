@@ -49,6 +49,7 @@ export function creatureCue(
         | "strandBead"
         | "strandSwell"
         | "magnetPlate"
+        | "bounce"
         | "magnetBreak";
     }
   >,
@@ -69,7 +70,13 @@ export function creatureCue(
     // ammunition was right and the angle was not, and a pair that cannot hear
     // the difference will reload when what they had to do was move
     // (`sim/magnet.ts`).
+    // A bolt that arrived at a body the cannon cannot answer at all — a gum, a
+    // clinger, a weight (`sim/bullet-hit.ts`). The plate's own sound, for the
+    // plate's own reason: it is not a wrong colour and it is not a kill, and a
+    // pair that cannot hear the difference will reload when what they had to
+    // do was put a hand on it.
     case "magnetPlate":
+    case "bounce":
       return {
         id: "creature.magnetPlate",
         pan: panForCol(e.col, cols),

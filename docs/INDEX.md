@@ -290,6 +290,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/index-run.ts` | the world, the clock, a wave's start and end, and the fingerprint |
 | `packages/sim/src/index-ship.ts` | the ship and what a thumb does to it, as a reading |
 | `packages/sim/src/bullet-hit-lure.ts` | What a shot does when it meets THE LURE |
+| `packages/sim/src/bullet-refused.ts` | **A body the cannon cannot answer still stops the bolt**, and what each of them does with it |
 | `packages/sim/src/creature-kinds-many.ts` | the five kinds that are more than one body, answered a part at a time |
 | `packages/sim/src/creature-kinds-handed.ts` | **The two bodies answered by a hand from each seat at once** |
 | `packages/sim/src/creature-kinds-fixtures.ts` | The four bodies a wave never sends: the queen, the ring, the line it lowers and the pile, installed where they stand rather than queued |

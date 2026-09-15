@@ -156,6 +156,13 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "magnetPlate":
       return at(l, e.col, e.row, 7, PALETTE.rock);
 
+    // A bolt turned away by a body that is not stone — a gum, a clinger, a
+    // weight (`sim/bullet-hit.ts`). The plate's own grains and the plate's own
+    // reason: it is neither a kill nor a wrong colour, it is a shot that
+    // arrived at something the cannon has nothing to say to.
+    case "bounce":
+      return at(l, e.col, e.row, 7, PALETTE.rock);
+
     // THE CHOIR's film finishing, and the colour arriving with it.
     // `claspBreak`'s burst (`effects-spark-worn.ts`) word for word and for its
     // reason — a covering leaving a body that goes on falling — except that

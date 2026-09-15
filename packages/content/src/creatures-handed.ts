@@ -86,6 +86,6 @@ export const HANDED_CREATURES: Record<HandedKind, CreatureDef> = {
     // to say who is taking it.
     radar: "p2",
     blurb:
-      "A sticky mass that falls straight down one lane. No shot touches it and the shield does not stop it. Either of you can take it: a thumb on the drop and a swipe to the left or to the right flings it out of the field along its row and out of the wall. A thumb that only rests on it does nothing, and a drop that is not swiped before it reaches the ship hits the hull at once and splashes across the whole of it.",
+      "A sticky mass that falls straight down one lane. A shot is spent on it — the bolt bounces off and the body is untouched — and the shield does not stop it. Either of you can take it: a thumb on the drop and a swipe to the left or to the right flings it out of the field along its row and out of the wall. A thumb that only rests on it does nothing, and a drop that is not swiped before it reaches the ship hits the hull at once and splashes across the whole of it.",
   },
 };
