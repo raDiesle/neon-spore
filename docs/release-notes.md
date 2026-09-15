@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 785f9e43 — The tagline reads in one line on a 360 px phone, which is every Galaxy and every Pixel
+
+`TWO PEOPLE · TWO DEVICES · TALKING IS THE KEY` was 325 px of text in a box the viewport gives 36 px less than itself — so it was one line on the owner's 390 px phone, one line at 375 px, and two lines on every Android in the top ten. The comment over it in `menu-view.ts` said it was *the first version of it a phone reads in one line*, which was true of one phone.
+
 ## 2026-09-15 · 8718f327 — `bun run sheet` lays a strip of frames out as one picture, so motion can be seen
 
 A session looks at a picture by reading it, one at a time, and a phone-sized one costs most of what a turn can spend on looking. Watching the opening scene meant twenty-one of them, so the answer was a throwaway that built a grid in a page and photographed that — twice in one day, which is where `bun run crop` came from too. It is a command now, beside `crop`, which is the same idea along the other axis: that one magnifies a body too small to see, this one puts twenty moments where they can be compared.
