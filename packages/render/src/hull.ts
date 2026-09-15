@@ -4,6 +4,7 @@ import { hullBottom } from "./band-seam.js";
 import { drawLay } from "./cannon-maw.js";
 import { type Crater, clipOutMouths, drawCraters, craters as findCraters } from "./craters.js";
 import { strokeGlow } from "./glow.js";
+import { drawHarpoonDanger } from "./harpoon-danger.js";
 import {
   frame,
   type HullFrame,
@@ -183,6 +184,11 @@ export function drawHull(
   drawCraters(ctx, openCraters, skin_, filled);
   const on = (x: number) => surface(f, x);
   drawShieldRim(ctx, l, mood.armed, time, at, on, mood.resonance ?? 0);
+  // A control held by a harpoon, heating up toward the tick it costs the round
+  // — under the muzzle and the mouths rather than over them, because it is a
+  // thing happening *to* the lobe and not a thing the lobe is doing
+  // (`harpoon-danger.ts`).
+  drawHarpoonDanger(ctx, l, mood.danger, time, f, at, on, skin_);
   const tip = surface(f, f.cannonX);
   drawInhale(ctx, l, mood.intake, time, tip.x, tip.y);
   drawMuzzle(ctx, f, l, mood.intake, skin_);

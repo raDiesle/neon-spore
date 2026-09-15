@@ -85,9 +85,13 @@ of them now landed:
 - the **code above the body** the way a codex is written (`codex.ts`) and the
   **radar square** round it (`radar-blip.ts`), with the word above the square;
 - the **timer** above it, which is the placement's own remaining beats;
-- the control's **glow growing toward a dangerous colour**, off
-  `harpoonDangerMilli`, restarting on every move — from the seat's own
-  `HullSkin` and never `PALETTE` (`hull-mood.ts`, `cannon-maw.ts`).
+- ~~the control's **glow growing toward a dangerous colour**, off
+  `harpoonDangerMilli`, restarting on every move~~ — **done, 15 September 2026**
+  (`render/harpoon-danger.ts`). A halo over the lobe, the ramp read straight off
+  the world and not eased, the colour the seat's own `rim` carried to its own
+  `edge` so neither seat borrows the other's warning, and the pulse quickening
+  from one a second to four. The dome gets a light per bump rather than one over
+  the middle of its span.
 
 **And two decisions nobody has taken.** First, whether the creature half goes
 at all: the entries say the body *moves* under the malfunction brush, which

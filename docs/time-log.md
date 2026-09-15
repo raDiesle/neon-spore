@@ -5824,3 +5824,21 @@ the table's, so the navigator would have read SAY MOVE · MOVE CANNON!. The
 table's rows were written for these two as creatures and are right for that;
 what the fault needed was a replacement on one seat, which is `fenceWord`'s
 arrangement already in the same file.
+
+## 2026-09-15 — queued-tasks — a control heating up under a harpoon
+
+The parked LEECH/LIMPET entry's point 6: the glow that grows toward *about to
+explode* while a harpooned control stands still, and starts again on every move.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `drawHull`'s passes, `HullMood`'s fields, the two seat skins, and where a lobe's x actually comes from |
+| writing | 40 | `harpoon-danger.ts`, one `HullMood` field, one sim export, twelve cases |
+| looking | 0 | — nothing seen yet; the pass is proved by blit counts and the picture is owed |
+| friction | 10 | a first frame assertion that compared two different faults and measured the bodies rather than the glow |
+| landing | 10 | `bun run index`, `imports:sort`, the commit |
+
+The bottleneck was reading, and it was the right place for it: the ramp had to
+be read straight off the world rather than eased, and finding out why — `lay`'s
+own argument, two devices agreeing on the tick — took longer than writing the
+pass did.

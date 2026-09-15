@@ -1,4 +1,5 @@
 import type { EggFlare } from "./egg-skin.js";
+import type { HarpoonDanger } from "./harpoon-danger.js";
 import type { ShieldSegment } from "./shield.js";
 
 /**
@@ -70,4 +71,18 @@ export interface HullMood {
    * and on THE MIRROR's copy, which performs shots rather than firing them.
    */
   layFlare?: EggFlare;
+  /**
+   * How near each control is to losing the round under a harpoon, nought to
+   * one, or absent when no such fault is in force (`harpoon-danger.ts`).
+   *
+   * It sits here with `armed` and `intake` and is the odd one out among them:
+   * every other field is eased by the renderer and this one is read straight
+   * off the world. That is deliberate and it is `lay`'s own argument — the
+   * tick the count runs out is fixed for both devices, and a glow this file
+   * eased would have one phone's cannon already white while the other's was
+   * still coming up to it. The restart on a move is the simulation's too: the
+   * number goes to nought on the tick the count is cleared, because it is that
+   * count (`sim/harpoon.ts`).
+   */
+  danger?: HarpoonDanger;
 }
