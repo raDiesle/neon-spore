@@ -52,6 +52,28 @@ export function markTaken(md: string, title: string, mark: string): string {
   return [...lines.slice(0, at + 1), `- **Taken:** ${mark}`, ...lines.slice(at + 1)].join("\n");
 }
 
+/**
+ * The mark one entry carries, or "" when it carries none.
+ *
+ * Asked of a *copy* of the file rather than of a parsed `Item`, which is the
+ * whole reason it exists: the trunk's copy and the lane's working copy are two
+ * different files with two different answers, and on 15 September 2026 `release`
+ * read the lane's — where a claim made by a cloud session never appears, because
+ * that claim is written onto the ref and the working tree is not touched. It
+ * found no mark, left the trunk's line standing, and the item read as taken by a
+ * branch that had already been deleted.
+ */
+export function takenIn(md: string, title: string): string {
+  const lines = md.split("\n");
+  const [start, end] = sectionOf(lines, title);
+  if (start === -1) return "";
+  for (let i = start; i < end; i++) {
+    const m = TAKEN.exec((lines[i] ?? "").trim());
+    if (m) return m[1] ?? "";
+  }
+  return "";
+}
+
 /** The markdown with one entry's `Taken:` line removed. Silent when there is none. */
 export function clearTaken(md: string, title: string): string {
   const lines = md.split("\n");

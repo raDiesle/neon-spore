@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { branchFor, claimOn, heldElsewhere, takenMark, unclaimed } from "../claim.js";
-import { clearTaken, markTaken, removeItem } from "../edit.js";
+import { clearTaken, markTaken, removeItem, takenIn } from "../edit.js";
 import { parseItems } from "../queue.js";
 
 /**
@@ -135,5 +135,38 @@ describe("heldElsewhere", () => {
 
   it("leaves an item nobody holds removable, as it was before the guard", () => {
     expect(heldElsewhere(free, ["main"], "claude/some-other-lane")).toBeUndefined();
+  });
+});
+
+/**
+ * The mark read off a *copy* of the file rather than off a parsed item.
+ *
+ * `release` needs it of the trunk's copy, which is not the one it was handed:
+ * a claim made where no worktree holds `main` is written onto the ref with the
+ * working tree left alone, so the two copies give two different answers and the
+ * trunk's is the true one.
+ */
+describe("takenIn", () => {
+  const title = "Split the wave editor's cell panel";
+
+  it("is the mark, exactly as the line says it", () => {
+    const marked = markTaken(ONE, title, "2026-09-15, claude/queue-split");
+    expect(takenIn(marked, title)).toBe("2026-09-15, claude/queue-split");
+  });
+
+  it("is nothing for an entry nobody has taken", () => {
+    expect(takenIn(ONE, title)).toBe("");
+  });
+
+  it("is nothing for a title the copy has not got, rather than a throw", () => {
+    expect(takenIn(ONE, "An entry queued after this lane branched")).toBe("");
+  });
+
+  /** The mark belongs to its own entry: a file where the *other* item is taken
+   * says nothing about this one. */
+  it("reads only the entry it was asked about", () => {
+    const marked = markTaken(TWO, "Finish the wave editor's cell panel", "2026-09-15, claude/q");
+    expect(takenIn(marked, title)).toBe("");
+    expect(takenIn(marked, "Finish the wave editor's cell panel")).toBe("2026-09-15, claude/q");
   });
 });

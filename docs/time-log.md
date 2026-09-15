@@ -22,6 +22,37 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queue-tasks — release asks the trunk which claims it holds
+
+Found by being bitten by it an hour earlier, queued in that turn and worked in
+this one. `bun run queue take` in a cloud session writes the `Taken:` line onto
+the `main` ref and leaves the working tree alone — that is what a clone with no
+worktree on the trunk needs. `release` then asked *the working copy* whether the
+item was marked, found nothing there, and left the line standing on `main`: the
+branch went, the line stayed, and `bun run queue status` reported an item as
+taken by a branch that no longer existed.
+
+Two halves, and the second is the one that would have bitten again: the trunk's
+copy is what is asked now (`trunkTaken`), and the line is taken out of this
+checkout's copy as well as the trunk's (`alsoHere`) — because every lane that
+finishes an item is holding its own `docs/queue.md`, and a line removed only on
+the trunk comes back the moment `bun run land` rebases the lane over the
+give-back. Proved on the repository itself: the entry was in exactly the broken
+state, and the release cleared it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `claim.ts`, `repo.ts`, `edit.ts` and `run.ts`'s release, to find which copy the question was being asked of |
+| writing | 10 | `takenIn`, `trunkTaken`, `alsoHere`, the release wiring, and a temporary repository shaped like a cloud session to hold them |
+| looking | 0 | nothing is drawn |
+| friction | 0 | none — this lane *was* the friction, closed |
+| landing | 5 | `bun run check`, the commit |
+
+The bottleneck was writing, and most of it was the fixture: proving a claim
+that only exists on a ref needs a repository with a lane standing beside a
+trunk nothing has checked out, which is four lines of `git` and the whole of
+why the bug was invisible to every test the tool already had.
+
 ## 2026-09-15 — queue-tasks — the PLAY page is a list of people
 
 Step 1 of the queue's *PLAY is a list of partners to continue with, and the

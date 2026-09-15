@@ -13,7 +13,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { branchFor, takenMark } from "./claim.js";
-import { hasEntry, markTaken } from "./edit.js";
+import { hasEntry, markTaken, takenIn } from "./edit.js";
 import { commitOnRef, gitIn, gitWith } from "./git.js";
 import type { Item } from "./queue.js";
 import type { Trunk } from "./stale.js";
@@ -131,6 +131,37 @@ export function onTrunk(
 export function trunkHas(item: Item, root = ROOT): boolean {
   const md = gitWith({ cwd: root, raw: true }, "show", `${TRUNK}:docs/${item.source}.md`);
   return md.ok && hasEntry(md.out, item.title);
+}
+
+/**
+ * The mark the **trunk's** copy of the file carries for this item, or "".
+ *
+ * The one question `release` cannot answer from the item it was handed: that
+ * was parsed out of this checkout's working copy, and a claim made where no
+ * worktree holds `main` is written onto the ref with the working tree left
+ * alone (`onTrunk`). So a cloud session asking its own file whether the item is
+ * marked is asking the copy the mark was never written into.
+ */
+export function trunkTaken(item: Item, root = ROOT): string {
+  const md = gitWith({ cwd: root, raw: true }, "show", `${TRUNK}:docs/${item.source}.md`);
+  return md.ok ? takenIn(md.out, item.title) : "";
+}
+
+/**
+ * The same edit in *this* checkout's copy, when it has the entry to make it in.
+ *
+ * The other half of the same trap. A lane that is editing `docs/queue.md` —
+ * which every lane that finishes an item is — holds its own copy of the file,
+ * and a line taken off the trunk alone comes back the moment `bun run land`
+ * rebases the lane over it. Cheap and silent when there is nothing to change,
+ * so callers need not ask first.
+ */
+export function alsoHere(item: Item, edit: (md: string) => string, root = ROOT): void {
+  const path = join(root, `docs/${item.source}.md`);
+  const md = readFileSync(path, "utf8");
+  if (!hasEntry(md, item.title)) return;
+  const next = edit(md);
+  if (next !== md) writeFileSync(path, next);
 }
 
 /**

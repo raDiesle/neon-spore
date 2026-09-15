@@ -176,30 +176,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## A rebase puts back a `Taken:` line that `queue release` has just removed
-
-- **Found:** 2026-09-15, claude/queue-tasks-kkqozz
-- **Files:** `tools/queue/claim.ts`, `tools/queue/run.ts`, `tools/queue/test/taken.test.ts`, `docs/queue.md`
-
-A command that failed and was worked around. `bun run queue take` and
-`bun run queue release` both write `docs/queue.md` **on `main`**, directly on
-the ref, which is the arrangement a cloud session needs (`claim.ts`). A lane
-that is also editing `docs/queue.md` — which every lane that finishes an item
-is — holds its own copy of that file, so `bun run land` rebases the lane over
-the release commit and the lane's copy wins: the `Taken:` line is back, the
-claim branch is gone, and `bun run queue status` reads `BUSY` on an item
-nobody is on. It cost one extra commit here, and the next session to hit it
-will read the status of a queue that is lying to it.
-
-What to do: `release` and `done` already know the entry they are touching, so
-the fix is to take the same line out of the working tree's copy when there is
-one — the shape `take` already has for an entry that is not on `main` yet, and
-which its own comment in `docs/queue.md` describes. A test in
-`tools/queue/test/taken.test.ts` holds it: release with the entry present in
-both copies leaves it marked in neither.
-
-Prove it with `bun run check`.
-
 ## PLAY is a list of partners to continue with, and the room is a step-by-step
 
 - **Found:** 2026-09-14, claude/queued-items-cbcbd8

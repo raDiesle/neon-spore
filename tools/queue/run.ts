@@ -33,6 +33,7 @@ import { clearTaken, removeItem } from "./edit.js";
 import { problemsIn, refuseUnlessWhole } from "./problems.js";
 import { type How, type Item, match, order, parseItems, pick } from "./queue.js";
 import {
+  alsoHere,
   claim,
   drop,
   hasBranch,
@@ -41,6 +42,7 @@ import {
   PATHS,
   refs,
   trunkRef,
+  trunkTaken,
   trunkView,
 } from "./repo.js";
 import { staleLine, staleness } from "./stale.js";
@@ -152,15 +154,27 @@ if (!command || command === "list") {
   const { item, how } = match(items, arg);
   mine(item, how, "release");
   const branch = branchFor(item);
+  // **The trunk's copy is asked, not this one's.** `item` was parsed out of the
+  // working tree, and a claim made where no worktree holds `main` is written
+  // onto the ref with the working tree left alone — so a cloud session reading
+  // its own file finds no mark, leaves the trunk's line standing, and the item
+  // goes on reading as taken by a branch that has just been deleted. That is
+  // what happened on 15 September 2026.
+  const marked = item.taken || trunkTaken(item);
   // Nothing to give back is not a failure, and it is the common case now that a
   // claim can be swept out from under a session by another lane's landing: the
   // answer wanted is "nobody is on this", not git's answer to a different
   // question about a ref that is not there.
-  if (!claimOn(item, known)) {
+  if (!claimOn(item, known) && !marked) {
     console.log(`Not held: ${item.title} (no ${branch}, no Taken: line — nobody is on it)`);
   } else {
-    if (item.taken) {
-      onTrunk(item, (md) => clearTaken(md, item.title), `Give ${JSON.stringify(item.title)} back`);
+    if (marked) {
+      const cut = (md: string): string => clearTaken(md, item.title);
+      onTrunk(item, cut, `Give ${JSON.stringify(item.title)} back`);
+      // And in this checkout's own copy, which is the half a trunk edit cannot
+      // reach: a lane holding its own `docs/queue.md` puts the line straight
+      // back the moment `bun run land` rebases it over the give-back.
+      alsoHere(item, cut);
     }
     // The line can outlive the branch — a landing sweeps the branch, and a clone
     // never had one — so "no branch" is a shape of release rather than a failure.
