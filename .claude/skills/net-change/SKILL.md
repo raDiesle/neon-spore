@@ -52,7 +52,14 @@ wire, so the feature works solo and fails in a room.
 
 `bun test packages/net` proves the scheduler against a wire the test controls.
 It proves nothing about the Durable Object, the seat handout or the order a real
-socket delivers in. For that, and only with a wrangler running:
+socket delivers in. For that:
+
+```bash
+bun run relay:check:all           # all four, starting the wrangler and stopping it
+```
+
+Or, with a relay you are keeping up yourself — for reading its log while a
+check runs, which the one above swallows:
 
 ```bash
 bun run --cwd apps/server dev     # prints its port
@@ -74,9 +81,14 @@ never by hunting for `workerd`: wrangler is its direct child and goes with it
 Git Bash's `$!` is an MSYS pid, and a tree kill on that number takes the
 shell and leaves the relay answering.
 
-If you could not run it — no wrangler, a sandbox with no network — say
-**unverified** in the report and name what a person should run. Do not offer a
-green `bun test` as though it covered the relay.
+**A cloud session can run it**, which this said the opposite of until 15
+September 2026: `relay:check:all` came back with all four green from one, and
+`docs/cloud-session.md` carries the evidence. So the relay is no longer a thing
+to declare unverified and hand on.
+
+If you genuinely could not run it, say **unverified** in the report and name
+what a person should run. Do not offer a green `bun test` as though it covered
+the relay.
 
 ## The one thing that is not a bug
 

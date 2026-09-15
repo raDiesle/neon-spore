@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "bun run check.ts"
+    "check": "bun run check.ts",
+    "all": "bun run all.ts"
   },
   "dependencies": {
     "@neon-spore/content": "workspace:*",

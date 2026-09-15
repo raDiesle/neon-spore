@@ -83,17 +83,31 @@ does not exist. It was `perf --unmeasured` until 14 September 2026, which is
 why it reads as forbidden in anything written before then.
 `docs/performance.md` has the whole of it.
 
-**It cannot verify everything, and has to say which parts — in the report.**
-The sandbox has no wrangler, no `bun run delegate`, and no network access it
-did not arrange. It does have a headless Chromium, so a page can be opened,
-driven and screenshotted — what it cannot do is *look*, and those are
-different things: a green screenshot check says the DOM is there, not that the
-motion reads. `bun test` and the typecheck are the parts that hold unaided.
-Anything that would have needed `bun run relay:check`, `bun run perf`, a human
-eye on a shape sheet, or a wave watched at tempo is *unverified*, and the report says so in
-that word rather than offering a green check that covered less than usual. A
-wave whose timing was never watched is not finished, it is written — landed,
-now, but still written.
+**The relay runs here, and that is new.** This section said *the sandbox has no
+wrangler* from the day it was written until 15 September 2026, when a session
+tried it rather than believing it: `bun run relay:check:all` starts
+`apps/server/dev.ts`, waits for `/net/health` and came back with all four green
+— in step, the split caught at tick 300, the third device told the room is
+full, and a dropped seat back in step. Wrangler cannot reach the `Request.cf`
+it asks for on a sandboxed machine and falls back after a timeout of its own,
+which makes the first start slow and is the whole of what it costs.
+
+So **two devices in one room are a thing a cloud session can prove**, and a
+queue entry reserved for a machine with a wrangler is not reserved any more.
+What this does *not* say is that the sandbox has a network: the relay is local,
+both devices are `createLink` in this process, and nothing goes out.
+
+**It still cannot verify everything, and has to say which parts — in the
+report.** There is no `bun run delegate` and no network access it did not
+arrange. It does have a headless Chromium, so a page can be opened, driven and
+screenshotted — what it cannot do is *look*, and those are different things: a
+green screenshot check says the DOM is there, not that the motion reads. `bun
+test`, the typecheck and now the relay are the parts that hold unaided.
+Anything that would have needed `bun run perf`, a human eye on a shape sheet,
+or a wave watched at tempo is *unverified*, and the report says so in that word
+rather than offering a green check that covered less than usual. A wave whose
+timing was never watched is not finished, it is written — landed, now, but
+still written.
 
 **Say it once, in the report, queue it, and then let it go.** The report is
 the sentence; the queue is what survives the session. A lane that could not

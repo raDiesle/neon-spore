@@ -93,7 +93,8 @@ A session started from a phone clones `origin` and never sees this checkout.
 - **It says which parts it could not verify, in that word, and queues them**
   with `bun run land --unverified "<what>"`, repeatable. `bun test` and the
   typecheck hold unaided; a wave watched at tempo, a sheet seen by an eye,
-  `bun run perf` or `bun run relay:check` is *unverified*.
+  `bun run perf` is *unverified*. **The relay is not**: `bun run relay:check:all`
+  starts a wrangler, runs the four checks and stops it, and it works here.
 - **Its servers need a host**: `PREVIEW_HOST=127.0.0.1`, `DIRECTOR_HOST=127.0.0.1`.
 - **Two at once is the ceiling**, on different packages.
 
@@ -226,8 +227,10 @@ being reported.** `docs/performance.md`.
 ## Verifying the relay
 
 `packages/net`'s unit tests prove the scheduler and nothing about the Durable
-Object. For that, `bun run relay:check` against a running wrangler:
-`.claude/skills/net-change` has the flags and why.
+Object. For that, `bun run relay:check:all` — it starts the wrangler, runs the
+four checks and stops it again, in one foreground process, and a cloud session
+can run it. `.claude/skills/net-change` has the flags and why, and
+`bun run relay:check` on its own for a relay already up.
 
 ## Where things live
 

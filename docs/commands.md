@@ -52,6 +52,7 @@ bun run check:fast     # typecheck + lint + the tests a lane's diff can reach �
 bun run check          # the same with every test; what `land` runs, minutes long
 bun run scope          # which test directories a diff can have moved (tools/hooks/scope.ts)
 bun run relay:check    # two headless devices against a running relay — .claude/skills/net-change
+bun run relay:check:all # the four of them, starting the wrangler and stopping it again
 bun run perf           # what a frame costs, wave by wave, at phone speed — a baseline sweep
 bun run perf --wave X  # the waves the new thing appears in, and nothing else
 bun run perf --save    # keep this run as the baseline the next one is read against

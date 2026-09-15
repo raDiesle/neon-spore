@@ -1289,6 +1289,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/dom.ts` | `el` and `button`, the two helpers every panel builds rows out of |
 | `tools/ports.ts` | which port a server takes, and whose tree it serves |
 | `tools/relay-check/check.ts` | two headless devices against a real relay |
+| `tools/relay-check/all.ts` | **The four relay checks, against a wrangler this script starts and stops.** `bun run relay:check` wants a… |
 | `tools/delegate/run.ts` | the one command that hands a spec to the worker |
 | `tools/delegate/mentions.ts` | the paths a spec names, handed over read-only |
 | `tools/delegate/ignored.ts` | what `.aiderignore` keeps out of the worker's reach |

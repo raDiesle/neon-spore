@@ -5238,3 +5238,28 @@ an audio binding, a scene, a wave, a director pose, three notes and four specs,
 and each of those has a test that names the old words — most of the friction
 was finding the next place the sticking was still described after the code had
 stopped doing it.
+
+## 2026-09-15 · claude/queue-tasks-kkqozz — `relay:check:all`, and the relay a cloud session was told it had not got
+
+Asked for queue work a cloud session can do, and most of what is waiting says
+it wants *two browsers against a wrangler*. So the first question was whether
+that is still true: it is not. `apps/server/dev.ts` comes up here, and all four
+checks pass against a real Durable Object — in step, the split caught at tick
+300, the third device told the room is full, a dropped seat back in step.
+`relay:check:all` is the throwaway script two lanes have now written, as a
+command: one foreground process, a `/net/health` wait, the four runs, and a
+`finally` that stops the wrangler whether they passed or not.
+`docs/cloud-session.md`, CLAUDE.md and the net-change skill said the sandbox had
+no wrangler; they say what happened instead. About 45 min.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue's fifteen, which are reserved and why, the net-change skill, `dev.ts`, `check.ts` |
+| writing | 15 | `all.ts`, the script entry, eight cases, three documents and a skill |
+| looking | 15 | wrangler tried by hand first, then the four checks twice — once by hand, once through the new command |
+| friction | 5 | the first line of a green run was bun's own echo of the command rather than the verdict |
+| landing | 0 | `check:fast`, the commit, `bun run land --keep` |
+
+Bottleneck: looking — the whole of this lane is one question answered by
+running something for two minutes, and the value is that nobody has to ask it
+again.

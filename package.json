@@ -57,6 +57,7 @@
     "test:determinism": "bun test packages/sim/test/determinism.test.ts",
     "test:profile": "bun run tools/check/profile.ts",
     "relay:check": "bun run --cwd tools/relay-check check",
+    "relay:check:all": "bun run --cwd tools/relay-check all",
     "typecheck": "tsc --noEmit && bun run --cwd apps/server typecheck",
     "lint": "biome check --error-on-warnings .",
     "format": "biome check --write --assist-enabled=false .",
