@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · dc5ea2f7 — `relay:check:all`, and the relay a cloud session was told it had not got
+
+Most of what is waiting in the queue says it wants two browsers against a wrangler, and `docs/cloud-session.md` has said *the sandbox has no wrangler* since the day it was written. Nobody had tried it. It is not true: `apps/server/dev.ts` comes up here, and all four checks pass against a real Durable Object — in step at tick 660, the forced split caught at tick 300, a third device told the room is full, and a dropped seat back in step. Wrangler cannot reach the `Request.cf` it asks for on a sandboxed machine and falls back after a timeout of its own, which makes the first start slow and is the whole of what it costs.
+
 ## 2026-09-15 · a2d84afd — The room screen is four steps, and a step asks one thing
 
 The TWO DEVICES sheet was the whole workflow at once — a name field, a code, a code box, two seat pills, JOIN, CREATE ROOM, START, SEND LINK and WHAT THIS IS, stacked down one page with CSS deciding which half was reachable. Two people meeting for the first time read all of it before pressing anything, and they are on a voice call while they do. It is four steps now: JOIN or CREATE, the name, the code, the room.
