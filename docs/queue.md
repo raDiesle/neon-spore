@@ -435,6 +435,29 @@ field and the commit says so.
    happens on the glide or at its end, whichever reads better at tempo. The
    director's balloon card and `entries.ts`'s `rise` follow.
 
+**One session built all four and threw the work away on 15 September 2026, and
+what it learned is worth more than the diff was.** Points 2, 3 and 4 went in
+cleanly: the top-out handoff is `popCoil`'s, word for word; both halves of a
+split rise once `balloonSinks` answers false; and the entry is three functions
+in a `balloon-entry.ts` beside `balloon.ts`, which has to be split because it
+goes over 250 lines. Two things are worth knowing before starting again:
+
+- **The swell erases the glide.** `stepBalloon`'s swelling branch puts
+  `fromCol`/`fromRow` back to `col`/`row` on every beat it runs, including the
+  beat the body arrives on — so a body that glides in out of a wall is drawn at
+  its destination before anybody sees it leave. Skip that reset while
+  `c.balloonBeat === world.beat` and the glide is drawn over the arrival beat,
+  the way a crossing rock's is.
+- **And one thing nobody explained.** With the body moved off its authored
+  column, `balloon.test.ts`'s *is not answered by a shot in either colour*
+  stops seeing a `reject`: a bolt fired up the body's own column, with the
+  cannon held under it every tick, climbs straight past it. `firstAlong` called
+  by hand on the same world **does** return the balloon, and `sweep` calls it
+  per tick over a segment far shorter than the body's box, so the two cannot
+  both be true and one of them is being read wrong. Find that before building
+  anything: it is either a real hole in the sweep or a wrong reading of the
+  test, and both matter more than this entry does.
+
 Prove it with `bun run check`, every wave that carries a balloon (`grep
 balloon packages/content/src/waves`) watched at tempo for the entry, the
 glide and a split, one frame of the burst and one of the torch leaving the

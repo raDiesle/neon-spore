@@ -95,11 +95,10 @@ BUILT YET. Nothing here has done that, and the game still plays both waves the
 old way — so the two arrivals coexist, which is a coherent state to stop in but
 not the one the entry asks for.
 
-Second, **the entry's point 4 has no implementation as written.** *It is
-invulnerable, and visibly so — a shot at it does not go through; it is
-deflected the way the plate under a magnet turns a shot away.* Both bodies sit
-on the hull, under the muzzle, and bolts travel upward: no shot in this game
-can reach either of them. Either a bolt fired from a cannon carrying a leech is
-turned back off it — which makes the cannon dead and contradicts the rest of
-the entry — or the harpoon **line** from the emitter is what a crossing bolt
-bounces off. Ask before building either.
+~~Second, the entry's point 4 has no implementation as written.~~ **Answered,
+and by another queue entry rather than by the owner.** *A shot never goes
+through a body* landed on 15 September 2026 and both bodies bounce a bolt with
+the magnet plate's own ricochet (`sim/bullet-refused.ts`), which is point 4
+word for word. The confusion was geometry: a body **on the hull** cannot be
+shot at, but a body **falling down its lane** can, and that is where a pair
+tries it. Nothing is left to ask and nothing is left to build for that point.
