@@ -31,21 +31,40 @@ import type { Wave } from "../wave-types.js";
  * other two faults. The tap-off is on the NOT BUILT YET page.
  *
  * **THE LIMPET and THE LEECH are the fourth thing**, and the one that makes
- * *standing still* the mistake. Each falls like the choke, cannot be shot or
- * warded, lands, and takes hold of a control — the limpet the plate, the
- * leech the cannon — and from then on it is a fuse that runs while that
- * control stands in one column and is put back by a beat it stands in
- * another; `limpetStillBeats` of them is a heavy hit on the hull and the wave
- * lost, `limpetShakeMoves` moves and it lets go. What the two waves teach is
- * the split: the seat that moves the control is not shown the fuse, and the
- * seat that is shown it has nothing to press — the word *move*, said by the
- * one who can see the count to the one who can move, is the whole answer
- * (`sim/cling.ts`, `render/cling-fuse.ts`). THE LIMPET carries rocks,
- * because a rock is the thing that asks the plate to *stand* somewhere, and a
- * plate that has to meet a rock and be gone on the next beat is the lesson
- * with its teeth in; THE LEECH carries ordinary targets for the same reason —
- * parking the cannon under a body to line the shot up is the thing it
+ * *standing still* the mistake. Both are faults now, the same as the three
+ * above: the owner settled it on 15 September 2026 — *they should only exist as
+ * brush, but once they are placed on a tile, for a defined period of time, the
+ * malfunction is applied.* So the lantern fires a body at a control very fast,
+ * like a harpoon, and it sticks there; a control that has not been in a new
+ * column for `harpoonStillBeats` — a beat and a half, judged between beats and
+ * not on them — loses the round, and when the pencil runs out the line is
+ * reeled home and the wave goes on (`sim/harpoon.ts`).
+ *
+ * **What the body used to do is on the NOT BUILT YET page**: the fall down a
+ * lane, the fuse counted in beats, and being shaken off by moving enough times.
+ * A body that leaves because its owner called it back is a different creature
+ * from one the pair shook off, and the owner asked for the first.
+ *
+ * What the two waves teach is still the split, and it has moved one step: the
+ * seat holding the control can feel it failing and can do nothing but keep the
+ * thumb moving, and the seat *without* the control is the one with a panel to
+ * read it off — so MOVE CANNON! and MOVE SHIELD! are under that seat's dial and
+ * over the body, and the word is the whole answer
+ * (`render/duty-harpoon.ts`, `render/harpoon-mark.ts`). THE LIMPET carries
+ * rocks, because a rock is the thing that asks the plate to *stand* somewhere,
+ * and a plate that has to meet a rock and be gone on the next beat is the
+ * lesson with its teeth in; THE LEECH carries ordinary targets for the same
+ * reason — parking the cannon under a body to line the shot up is the thing it
  * punishes. Both are on the standard panel: nothing new is pressed.
+ *
+ * **Two placements each, with a gap between them**, which is the whole of what
+ * a pencil buys over a fault that held the wave: the pair gets six or eight
+ * beats to set up, twelve beats of the control not being theirs, eleven or so
+ * back, and then it happens again — THE LIMPET's second window while there are
+ * rocks on the field, THE LEECH's over a stretch that already carries targets,
+ * because what that wave punishes is the cannon parked under a body to line a
+ * shot up and the fault has to be on while there is something worth parking
+ * under.
  *
  * 1. Beats 0–8, plain bodies down the lanes the cannon walks through in
  *    its first sweep, so the first pass is a shot that can be made.
@@ -90,19 +109,21 @@ export const WAVES_ACT_7A: Wave[] = [
     name: "THE LIMPET",
     sentence: "The one where a plate that stands still is the mistake.",
     guide: {
-      both: "A round body with hooks, falling straight down one lane. No shot touches it and the shield does not stop it: it lands on the ship and takes hold of the plate. From then on it is counting, and it counts while the plate stands still — every beat the plate is found in the column it was in a beat before is one more, and when the count runs out it goes off against the hull and the wave is over. A beat the plate is somewhere new puts the count back and loosens it by one; enough of those and it lets go.",
-      p1: "You can see the count — the row of lights over the body, going out one a beat. Player 2 cannot. Say *move* the moment it is on the plate and keep saying it; when the lights are down to two, shout it.",
-      p2: "You cannot see how long you have. Keep the plate moving, a column a beat, and do not park it — not even under a rock. Meet the rock on the beat it lands and be gone on the next.",
+      both: "The thing at the top of the field fires a round body with hooks at the plate, very fast, and it clamps on wherever the plate is. No shot touches it. From then on the plate must keep moving: a plate that has not been in a new column for a beat and a half loses the round. A timer over the body says how many beats it stays — when it runs out the line is reeled back in and the body goes with it.",
+      p1: "You cannot move the plate. MOVE SHIELD! is under your dial and over the body: say it the moment it lands and keep saying it, and call the rocks so player 2 knows where they have to be.",
+      p2: "You hold the plate and it is being held. Keep it moving, a column a beat, and do not park it — not even under a rock. Meet the rock on the beat it lands and be gone on the next.",
     },
     entries: [
       { beat: 0, col: 2, kind: "meteor", color: null },
-      { beat: 6, col: 3, kind: "limpet", color: null },
       { beat: 16, col: 1, kind: "meteor", color: null },
       { beat: 22, col: 5, kind: "meteor", color: null },
       { beat: 30, col: 2, kind: "meteor", color: null },
-      { beat: 34, col: 4, kind: "limpet", color: null },
       { beat: 44, col: 0, kind: "meteor", color: null },
       { beat: 50, col: 5, kind: "meteor", color: null },
+    ],
+    faults: [
+      { kind: "limpet", at: 6, beats: 12 },
+      { kind: "limpet", at: 29, beats: 14 },
     ],
   },
   {
@@ -110,20 +131,22 @@ export const WAVES_ACT_7A: Wave[] = [
     name: "THE LEECH",
     sentence: "The one where a cannon that stands still is the mistake.",
     guide: {
-      both: "The same body on the cannon, four needles instead of hooks: it lands wherever the cannon is and drives them into the swelling. It counts while the cannon stands in one column, and when the count runs out it goes off against the hull and the wave is over. A beat the cannon is found in a new column puts the count back and loosens it; enough of those and it comes off.",
-      p1: "You cannot see the count. Keep the cannon walking, a column a beat — parking it under a body to give player 2 the shot is the mistake. Fire comes from wherever it is.",
-      p2: "You can see the count over the body and player 1 cannot. Say *move* while it is on, and how many lights are left. Fire on the pass, and call the bodies so player 1 walks the cannon through them.",
+      both: "The same thing fires the same body at the cannon, four needles instead of hooks, and it drives them into the swelling wherever the cannon is. No shot touches it. From then on the cannon must keep moving: a cannon that has not been in a new column for a beat and a half loses the round. A timer over the body says how many beats it stays before the line is reeled home.",
+      p1: "You hold the cannon and it is being held. Keep it walking, a column a beat — parking it under a body to give player 2 the shot is the mistake. Fire comes from wherever it is.",
+      p2: "You cannot move the cannon, and you are the one with a panel to read it off. MOVE CANNON! is under your dial and over the body. Say it while the body is on, and call the bodies so player 1 walks the cannon through them.",
     },
     entries: [
       { beat: 0, col: 3, color: "red" },
       { beat: 4, col: 1, color: "cyan" },
-      { beat: 8, col: 4, kind: "leech", color: null },
       { beat: 18, col: 0, color: "red" },
       { beat: 22, col: 6, color: "cyan" },
       { beat: 28, col: 2, color: "red" },
-      { beat: 36, col: 2, kind: "leech", color: null },
       { beat: 42, col: 5, color: "cyan" },
       { beat: 48, col: 1, color: "red" },
+    ],
+    faults: [
+      { kind: "leech", at: 8, beats: 12 },
+      { kind: "leech", at: 34, beats: 14 },
     ],
   },
 ];

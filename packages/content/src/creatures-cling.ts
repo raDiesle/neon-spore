@@ -10,9 +10,22 @@ import type { CreatureDef } from "./creatures.js";
  * wave with one on it must show the strip that shakes it off.
  *
  * Both without a colour: nothing fired reaches either. Each is announced on
- * the strip of the seat **without** the control, since that is the seat that
- * is shown the fuse once it lands and the seat whose word — *move* — is the
- * whole answer (`sim/cling.ts`).
+ * the strip of the seat **without** the control, since that is the seat whose
+ * word — *move* — is the whole answer (`render/duty-harpoon.ts`).
+ *
+ * **Both are `installed` since 15 September 2026**, which is the owner's ruling
+ * of that day: *they should only exist as brush, but once they are placed on a
+ * tile, for a defined period of time, the malfunction is applied.* So a wave
+ * never names one. What puts the body on the field is a fault placed on the
+ * map, which fires it at the control from the lantern at the top and reels it
+ * back when the pencil runs out (`sim/harpoon.ts`) — and `installed` is exactly
+ * the row for *a body something else on the field puts there, never a wave*.
+ *
+ * The rows stay because the body has not changed: the bestiary still describes
+ * it, the radar still announces it, the shape sheet still draws it, and the
+ * control groups still say which panel a wave carrying one has to show. What
+ * went is the arrival — the fall down a lane, the fuse counted in beats, and
+ * being shaken off by moving enough times. That is on the NOT BUILT YET page.
  */
 export type ClingCreatureKind = Extract<CreatureKind, "limpet" | "leech">;
 
@@ -22,15 +35,17 @@ export const CLING_CREATURES: Record<ClingCreatureKind, CreatureDef> = {
     controls: ["guard"],
     color: null,
     radar: "p1",
+    installed: true,
     blurb:
-      "A round body ringed with hooks that falls straight down one lane. A shot is spent on it — the bolt bounces off and the body is untouched — and the shield does not stop it; it lands on the ship and clamps onto the plate, wherever the plate is. From then on every beat the shield stands in the same column is a beat of its fuse, and when the fuse runs out it goes off — a hit on the hull, and the wave is lost. Every beat the shield is found in a new column puts the fuse back and loosens the grip by one; enough of those and it drops off. Only player 1 is shown the fuse. Player 2, who holds the plate, sees the body and has to be told to move.",
+      "A round body ringed with hooks. The thing at the top of the field fires it at the plate like a harpoon, very fast, and it clamps on wherever the plate is. A shot is spent on it — the bolt bounces off and the body is untouched. From then on the plate must keep moving: a plate that has not been in a new column for harpoonStillBeats loses the round, and a timer over the body says how many beats it stays before the line is reeled back in. Player 1, who cannot move the plate, is the seat told to say so.",
   },
   leech: {
     kind: "leech",
     controls: ["aim"],
     color: null,
     radar: "p2",
+    installed: true,
     blurb:
-      "Four needles on a round body, falling straight down one lane. A shot is spent on it — the bolt bounces off and the body is untouched — and the shield does not stop it; it lands on the ship and drives itself into the cannon, wherever the cannon is. Every beat the cannon stands in the same column is a beat of its fuse, and when the fuse runs out it goes off — a hit on the hull, and the wave is lost. Every beat the cannon is found in a new column puts the fuse back and loosens it by one; enough of those and it drops off. Only player 2 is shown the fuse. Player 1, who steers, sees the body and has to be told to move.",
+      "Four needles on a round body. The thing at the top of the field fires it at the cannon like a harpoon, very fast, and it drives them into the swelling wherever the cannon is. A shot is spent on it — the bolt bounces off and the body is untouched. From then on the cannon must keep moving: a cannon that has not been in a new column for harpoonStillBeats loses the round, and a timer over the body says how many beats it stays before the line is reeled back in. Player 2, who cannot move the cannon, is the seat told to say so.",
   },
 };

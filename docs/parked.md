@@ -86,16 +86,23 @@ September 2026 and none of them is left:
 Both kinds also have a pencil now, so every `MalfunctionKind` has one and a test
 says so (`tools/director/test/brushes.test.ts`).
 
-**What is left is the creature half, and the owner decided it on 15 September
-2026:** *they should only exist as brush, but once they are placed on a tile,
-for a defined period of time, the malfunction is applied.* So the fall down a
-lane goes. That means `installed: true` on both kinds in
-`content/creatures-cling.ts`, the palette's two living brushes gone, waves 57
-and 58 rewritten to place the pencil instead of spawning the body, and the fall
-plus `limpetShakeMoves` written up under NOT BUILT YET rather than deleted. It
-is not started. `sim/cling.ts` keeps the *holding* — which column a body is on
-and whether it is stuck — because the harpoon calls it; what goes is the
-arrival, the fuse counted in beats and the shake.
+**The creature half is gone**, which the owner decided on 15 September 2026:
+*they should only exist as brush, but once they are placed on a tile, for a
+defined period of time, the malfunction is applied.* Both kinds are `installed`,
+neither carries `waveNames`, waves 57 and 58 place two pencils each instead of
+spawning bodies, and the fall plus the fuse plus `limpetShakeMoves` are written
+up on `docs/spec/ideas.md` rather than deleted.
+
+**What is left is the dead code that leaves behind**, and it is the last thing
+on this entry. Nothing can spawn a `leech` or a `limpet` creature any more, so
+`stepClingers`' whole arrival path is unreachable: the fall, `clingFuse`,
+`clingShake`, `clingMovesSoFar`, the four `SimConfig` fields they read
+(`limpetStillBeats`, `limpetShakeMoves`, `leechStillBeats`, `leechShakeMoves`)
+and `render/cling-fuse.ts`. The last of those is **visibly** wrong rather than
+merely dead: the fuse's row of lights is still drawn under a harpooned body,
+where it never moves and says nothing the timer above it does not say better.
+`cling.ts` keeps `clingControlCol`, `clingIsStuck` and `stuckClingerAt`, which
+is what the harpoon calls.
 
 **The picture has been taken** and it found three defects nothing else had:
 the line, the square and the word were placed by the body's own column while the

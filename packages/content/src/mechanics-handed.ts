@@ -48,16 +48,20 @@ export const HANDED_MECHANICS = {
     // which is the lane one of the pair has to reach.
     waveNames: true,
   },
-  // THE LIMPET and THE LEECH ride along here: bodies on the ship answered
-  // by something other than a shot — this time a control being moved.
+  // THE LIMPET and THE LEECH ride along here: bodies on the ship answered by
+  // something other than a shot — this time a control being moved.
+  //
+  // **Neither carries `waveNames` any more**, and the flag is exactly the fact
+  // that changed: the owner ruled on 15 September 2026 that these two exist
+  // only as a pencil, so a wave never names the kind, it places the fault and
+  // the fault fires the body (`sim/harpoon.ts`). `mechanics.test.ts` holds the
+  // flag against `isInstalled` in the bestiary, so the two say one thing.
   limpet: {
-    what: "A round body ringed with hooks that falls straight down one lane, at a slick's pace. A shot is spent on it — the bolt bounces off and the body is untouched — and the shield does not stop it: it lands on the ship and clamps onto the plate, wherever the plate is. From that beat a fuse runs while the shield stands still — every beat it is found in the column it was in a beat before is a beat of the fuse, and when the fuse runs out the body goes off: a heavy hit on the hull at the plate's column, and the wave is lost. A beat the shield is found in a new column puts the fuse back to nought and is one move against the grip; enough moves and it drops off. Only the seat without the plate is shown the fuse. It cannot be evaded; the lane it falls in does not matter.",
-    reach: "spawn",
-    waveNames: true,
+    what: "A round body ringed with hooks. The thing at the top of the field fires it at the plate very fast, like a harpoon, and it clamps on wherever the plate is — no fall, no lane, and nothing to evade. A shot is spent on it: the bolt bounces off and the body is untouched. From that beat the plate has to keep moving, and it is judged between beats rather than on them — a plate that has not been found in a new column for harpoonStillBeats loses the round, a heavy hit on the hull at the plate's column. The pencil's own length is how long it stays; when that runs out the line is reeled back to the thing that fired it and the wave goes on. A timer over the body counts it down, and the seat without the plate is the one told to say MOVE SHIELD!",
+    reach: "wave",
   },
   leech: {
-    what: "Four needles on a round body, falling straight down one lane at a slick's pace. A shot is spent on it — the bolt bounces off and the body is untouched — and the shield does not stop it: it lands on the ship and drives itself into the cannon, wherever the cannon is. From that beat a fuse runs while the cannon stands still — every beat it is found in the column it was in a beat before is a beat of the fuse, and when the fuse runs out the body goes off: a heavy hit on the hull at the cannon's column, and the wave is lost. A beat the cannon is found in a new column puts the fuse back to nought and is one move against the grip; enough moves and it drops off. Only the seat without the cannon is shown the fuse. It cannot be evaded; the lane it falls in does not matter.",
-    reach: "spawn",
-    waveNames: true,
+    what: "Four needles on a round body. The thing at the top of the field fires it at the cannon very fast, like a harpoon, and it drives them into the swelling wherever the cannon is — no fall, no lane, and nothing to evade. A shot is spent on it: the bolt bounces off and the body is untouched. From that beat the cannon has to keep moving, and it is judged between beats rather than on them — a cannon that has not been found in a new column for harpoonStillBeats loses the round, a heavy hit on the hull at the cannon's column. The pencil's own length is how long it stays; when that runs out the line is reeled back to the thing that fired it and the wave goes on. A timer over the body counts it down, and the seat without the cannon is the one told to say MOVE CANNON!",
+    reach: "wave",
   },
 } as const satisfies Record<HandedId, Mechanic>;

@@ -5919,3 +5919,22 @@ third of a tile to the side of the body, the third showed the lantern giving a
 leech a runaway cannon's beam. None of those is reachable from a test — two of
 them are *two right answers* rendered next to each other — and the commit before
 this one was green.
+
+## 2026-09-15 — queued-tasks — THE LEECH and THE LIMPET stop being creatures
+
+The owner's ruling of 15 September 2026: *they should only exist as brush, but
+once they are placed on a tile, for a defined period of time, the malfunction is
+applied.*
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `CreatureDef.installed`'s own paragraph, the two waves' guides, `mechanics-handed.ts` |
+| writing | 40 | two `installed` rows, two waves rewritten as pencils, four prose blocks, the parked fall on `ideas.md` |
+| looking | 15 | two frames of the rewritten wave, the first of which lost the round |
+| friction | 15 | four tests that each hold one end of the same fact, and a comment put inside the wave array that the director would have eaten |
+| landing | 10 | `check:fast`, the full run, the commit |
+
+The bottleneck was friction and it was the tree being right: `waveNames`,
+`isInstalled`, the mechanics table's own list and the guide's length limit each
+caught one end of the change, and the wave file's own header had already
+written down the mistake I made inside the array.

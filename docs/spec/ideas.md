@@ -400,6 +400,31 @@ pilot's screen alone — and the boss-sized body it was drawn for was never need
   `6f902f6e`. It belongs, if anywhere, with a mode where a hit does *not*
   fail the wave, since that is the only game in which a second price means
   anything
+- **THE LIMPET's and THE LEECH's fall, and the shake that got them off** — for
+  a day these two were creatures: a round body, hooks or four needles, falling
+  straight down one lane at a slick's pace, unshootable and unwardable, that
+  landed on the ship and took a control — the limpet the plate, the leech the
+  cannon. From that beat a **fuse** ran in whole beats while the control stood
+  in one column, drawn as a row of lights over the body and shown only to the
+  seat *without* the control; `limpetStillBeats` of them — `leechStillBeats` on
+  the cannon, a field each because the two were tuned apart — was a heavy hit
+  and the wave lost. A beat the control was found somewhere new put the fuse
+  back and was one **move against the grip** — `limpetShakeMoves` of those, or
+  `leechShakeMoves`, and the body let go and dropped off, loosening visibly as it went (the `loose` share
+  in `render/cling.ts`, which lifted it off the plating and slackened its
+  hooklets). Taken out on 15 September 2026 at the owner's word — *they should
+  only exist as brush, but once they are placed on a tile, for a defined period
+  of time, the malfunction is applied* — so both are faults now, fired at the
+  control from the lantern and reeled back when the pencil runs out
+  ([bestiary](bestiary.md#the-malfunction)). What is parked here is the **fall
+  and the shake**: an arrival the pair can see coming and answer by *acting*
+  rather than by enduring, and a broken control a gesture wins back. It is THE
+  CHOKE's tap-off again in another body, and it belongs where that one does —
+  on a later wave, offered to a pair that has learnt to live with a fault. To
+  restore: the tree at `1d2224ff` holds `stepClingers`' whole arrival path, the
+  fuse's lights in `render/cling-fuse.ts`, `clingShake` and `clingMovesSoFar` in
+  `sim/cling.ts`, and both creatures without `installed` in
+  `content/creatures-cling.ts`
 - **THE CHOKE's body and its tap-off** — for a day THE CHOKE was a creature:
   TENDRIL's sac in bile yellow falling one lane at a slick's pace, unshootable
   and unwardable, that landed, crawled along the plating to the cannon and
