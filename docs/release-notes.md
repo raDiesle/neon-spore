@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · a2d84afd — The room screen is four steps, and a step asks one thing
+
+The TWO DEVICES sheet was the whole workflow at once — a name field, a code, a code box, two seat pills, JOIN, CREATE ROOM, START, SEND LINK and WHAT THIS IS, stacked down one page with CSS deciding which half was reachable. Two people meeting for the first time read all of it before pressing anything, and they are on a voice call while they do. It is four steps now: JOIN or CREATE, the name, the code, the room.
+
 ## 2026-09-15 · 1b4ca9f8 — The tempo is on the pair's row, behind a gear
 
 Every partner's row on the PLAY page carries a gear at its right end. It opens the same three tempi DIFFICULTY opens — the page says TEMPO WITH ADA, marks the level that pair plays at, and asks SURE? · SET rather than SURE? · START AGAIN, because a pair's tempo starts nothing again — and the answer is written against their record rather than against this device. A second press target beside the row's own button rather than inside it: a button inside a button is not a thing, and the two share a wrapper so a row going off the page takes its gear with it.
