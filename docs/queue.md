@@ -684,3 +684,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 1b4ca9f8: Two phones in one room seeing the gear's tempo arrive:…
+
+- **Found:** 2026-09-15, claude/queue-tasks-kkqozz
+- **Files:** `apps/game/src/confirm.ts`, `apps/game/src/link-types.ts`, `apps/game/src/link.ts`, `apps/game/src/menu-bindings.ts`, `apps/game/src/menu-entries.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu-pages.ts`, `apps/game/src/menu-rows.ts`
+
+*The tempo is on the pair's row, behind a gear* landed from a session that could not look at it. The commit touched 13 more files. What went unchecked:
+
+- Two phones in one room seeing the gear's tempo arrive: link.join carries it and sends it on the welcome, proved only against a socket the test speaks through
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

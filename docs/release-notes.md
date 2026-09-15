@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 1b4ca9f8 — The tempo is on the pair's row, behind a gear
+
+Every partner's row on the PLAY page carries a gear at its right end. It opens the same three tempi DIFFICULTY opens — the page says TEMPO WITH ADA, marks the level that pair plays at, and asks SURE? · SET rather than SURE? · START AGAIN, because a pair's tempo starts nothing again — and the answer is written against their record rather than against this device. A second press target beside the row's own button rather than inside it: a button inside a button is not a thing, and the two share a wrapper so a row going off the page takes its gear with it.
+
 ## 2026-09-15 · 77bc431c — A shard is capped by files, and one that is killed says so
 
 `bun run check` and `check:fast` were red in every cloud session, on diffs with nothing wrong with them, and what they printed was `✗ shard 1/2 — 73 files, 0 tests, 0 failed` — a line that reads as a suite which ran nothing. It was a process that died: `exit 137`, `SIGKILL`, 7.4 GB of anonymous RSS and the memory cgroup's OOM killer, with no report written and the shard's whole result gone with it.
