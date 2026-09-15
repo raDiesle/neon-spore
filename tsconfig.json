@@ -24,5 +24,5 @@
     "apps/*/*.ts",
     "tools/**/*.ts"
   ],
-  "exclude": ["node_modules", "**/dist", "legacy", "apps/server/src"]
+  "exclude": ["node_modules", "**/dist", "legacy", "apps/server"]
 }

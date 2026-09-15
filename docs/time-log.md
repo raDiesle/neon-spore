@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-15 — queued-tasks — the server package is typechecked once, by itself
+
+The queue's *A pure test pulls a server `src` file into the root typecheck,
+without its types*. The root config excluded `apps/server/src` and took
+`apps/server/test`, so a test that imported a `src` file dragged it into a
+program with no workerd globals. The root now excludes the whole package and
+`apps/server`'s own `tsconfig` takes `src`, `test` and `dev.ts`.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, the two configs, what the server's tests import |
+| writing | 25 | the two config lines, the two helpers the merged type set caught, and six cases over `seat.ts`'s tag half |
+| looking | 0 | nothing is drawn |
+| friction | 0 | — |
+| landing | 10 | `typecheck`, `bun test apps/server`, `check:fast`, the commit |
+
+The bottleneck was the type sets meeting: putting `bun` and
+`@cloudflare/workers-types` in one program let workerd's `Blob` and
+`CryptoKey` win over Bun's, and four errors arrived in two test helpers that
+had nothing to do with the change. They are four lines and a comment each,
+which is cheaper than the alternative — workerd's globals over every package
+in the repository — by a margin nothing needed measuring to see.
+
 ## 2026-09-15 — queued-tasks — a long edit script goes in by path
 
 The queue's *The Bash tool refuses a long quoted heredoc*. A command that

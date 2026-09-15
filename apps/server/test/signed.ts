@@ -33,11 +33,14 @@ function part(value: unknown): string {
 }
 
 export async function signer(): Promise<Signer> {
-  const pair = await crypto.subtle.generateKey(
+  // The cast is workerd's signature, not a doubt about the key: its
+  // `generateKey` is typed `CryptoKey | CryptoKeyPair` for every algorithm,
+  // and RSA always gives a pair.
+  const pair = (await crypto.subtle.generateKey(
     { ...ALG, modulusLength: 2048, publicExponent: new Uint8Array([1, 0, 1]) },
     true,
     ["sign", "verify"],
-  );
+  )) as CryptoKeyPair;
   const jwk = await crypto.subtle.exportKey("jwk", pair.publicKey);
   const keys = { keys: [{ ...jwk, kid: KID, use: "sig", alg: "RS256" }] };
   return {

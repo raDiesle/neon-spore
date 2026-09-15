@@ -15,12 +15,14 @@ import { expect, test } from "bun:test";
  * follows it, in the one place where the two are written down.
  */
 test("apps/server asks for the miniflare wrangler already depends on", async () => {
-  const ours = (await Bun.file(new URL("../package.json", import.meta.url)).json()) as {
+  // `.text()` and not `.json()`: this file is typechecked with workerd's
+  // globals, where `Blob` is workerd's and a `BunFile` has no `json`.
+  const ours = JSON.parse(await Bun.file(new URL("../package.json", import.meta.url)).text()) as {
     devDependencies: Record<string, string>;
   };
-  const wrangler = (await Bun.file(
-    Bun.fileURLToPath(import.meta.resolve("wrangler/package.json")),
-  ).json()) as { dependencies: Record<string, string> };
+  const wrangler = JSON.parse(
+    await Bun.file(Bun.fileURLToPath(import.meta.resolve("wrangler/package.json"))).text(),
+  ) as { dependencies: Record<string, string> };
 
   expect(ours.devDependencies.miniflare).toBe(wrangler.dependencies.miniflare);
 });

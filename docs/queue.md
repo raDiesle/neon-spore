@@ -719,27 +719,6 @@ made by a function in `room-route.ts` (which already owns the switch that
 calls them) or a `room-acts.ts` that takes the room's state as an interface.
 Prove with `bun test apps/server` and `bun run relay:check:all`.
 
-## A pure test pulls a server `src` file into the root typecheck, without its types
-
-- **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
-- **Taken:** 2026-09-15, claude/queue-a-pure-test-pulls-a-server-src-file-into-the-roo
-- **Files:** `tsconfig.json`, `apps/server/tsconfig.json`, `apps/server/test/room-seat.test.ts`, `apps/server/src/room-seat.ts`
-
-The root `tsconfig.json` excludes `apps/server/src` and includes
-`apps/server/test`, so a test that imports a `src` file pulls it into the
-root typecheck — where `DurableObjectState`, `WebSocketPair` and
-`serializeAttachment` do not exist. `room-seat.test.ts` importing
-`room-seat.ts`, which imported `type Seat` from `seat.ts`, put eight errors
-on `seat.ts` under `bun run typecheck` while `apps/server`'s own typecheck
-was green; the fix was to give the pure rule its own `Asking` interface and
-never import `seat.ts` from a file a test reaches. That is a rule nobody
-wrote down, and `start-gate.ts` and `tally.ts` obey it by accident. Either
-the root config excludes `apps/server/test` too and `apps/server`'s own
-`tsconfig` includes it (it already carries `@cloudflare/workers-types`), or
-`apps/server/src` is checked once, from the root, with the workers types
-added — pick one and prove it with `bun run typecheck` and a test that
-imports `seat.ts` directly.
-
 ## A game's tempo is fixed once it is made; NEW GAME is the way to another
 
 - **Found:** 2026-09-15, claude/queued-tasks-2-f45f36
