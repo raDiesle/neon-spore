@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-15 · 3a22041b — What THE BALLOON's lane learned before it was thrown away, and one question closed
+
+Two notes, no code.
+
 ## 2026-09-15 · f43e57b9 — A shot never goes through a body: what the cannon cannot break, it hits and marks
 
 The owner's rule, 14 September 2026: *shots with the cannon, generally speaking, should never go through enemies, but should hit with no effect if the body cannot be destroyed with the cannon's colour. Reflect, like the magnet, or mark it, like the meteor, or something else — whatever is suitable. Shots should not go through the gum, the leech, the limpet.*
