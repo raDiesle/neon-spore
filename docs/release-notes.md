@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 8253941e — THE FLIP: a fault that turns one seat's field about its middle
+
+The owner's sixth malfunction, and the first that changes nothing at all. On the seat the wave names, the field is drawn as a mirror of itself: a body falling down the left wall is really falling down the right one, on the same row, at the same speed, in the same colour, and nothing about it says so. Every button on both panels still works and both strips still slide where they are told, so what the pair has lost is the one thing they never had to say out loud — which side of the field a thing is on. The seat holding the true picture now has to call every column for a partner who can see the body perfectly well and must not believe a word of it.
+
 ## 2026-09-16 · ce66550b — Four reasons wave 1's briefing looked empty in the director
 
 The owner opened wave 1 in the director and found BRIEFING blank and the stage on the field. Nothing is wrong with the guide — the stage ships with briefings off — but following that one screen backwards found three real defects and a stale document, and all four are queued.
