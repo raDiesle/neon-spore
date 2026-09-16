@@ -662,6 +662,7 @@ take if the walk turns out to want the beat schedule.
 ## peakWorld opens a wave with an empty pod queue
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-peakworld-opens-a-wave-with-an-empty-pod-queue
 - **Where:** local
 - **Files:** `packages/render/test/frame-harness.ts`, `packages/render/test/husk-look.test.ts`
 
