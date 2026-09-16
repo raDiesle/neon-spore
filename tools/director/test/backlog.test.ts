@@ -6,8 +6,6 @@ const read = (rel: string) => Bun.file(Bun.fileURLToPath(new URL(rel, ROOT))).te
 
 async function realBacklog(): Promise<Backlog> {
   return buildBacklog(
-    await read("docs/spec/bestiary.md"),
-    await read("docs/spec/bosses.md"),
     await read("docs/spec/couplings.md"),
     await read("docs/spec/assists.md"),
     await read("docs/spec/systems.md"),
@@ -18,7 +16,7 @@ async function realBacklog(): Promise<Backlog> {
 const names = (groups: BacklogGroup[]): string[] =>
   groups.flatMap((g) => g.entries.map((e) => e.name));
 
-/** One group of a page, by its heading — the rounds share the boss page. */
+/** One group of a page, by its heading. */
 const group = (groups: BacklogGroup[], title: string): BacklogGroup => {
   const found = groups.find((g) => g.title === title);
   if (!found) throw new Error(`no group titled ${title}`);
@@ -51,15 +49,12 @@ describe("buildBacklog", () => {
     expect(everything).not.toContain("Glyph");
     expect(everything).not.toContain("The Jammer");
     expect(backlog).not.toHaveProperty("bestiary");
-
-    expect(names(backlog.bosses)).not.toContain("Bulb Queen");
-    expect(names(backlog.bosses)).not.toContain("The Mirror");
-    // The act order names only built bosses since 11 September 2026
-    // (docs/decisions.md #30): the group is empty and says how many it hid.
-    expect(names(backlog.bosses)).not.toContain("The Vessel");
-    const order = group(backlog.bosses, "THE ACT ORDER");
-    expect(order.entries).toHaveLength(0);
-    expect(order.builtHidden).toBe(6);
+    // And no BOSSES page at all since 16 September 2026, when the owner took
+    // the tab off: THE ACT ORDER drew the built bosses straight off
+    // `bosses.md` and the ideas beside it had gone the day before with THE
+    // SPLICE. `bosses.md` is still parsed — by the two tests that hold a drawn
+    // shape to the name it was drawn at — and nothing renders it.
+    expect(backlog).not.toHaveProperty("bosses");
   });
 
   test("a built coupling drops out, a partly built system does not", async () => {
@@ -110,37 +105,14 @@ describe("buildBacklog", () => {
 
     // A round that is not the field is none of the three above: it has no
     // silhouette, it is not a rule the field plays by, and it does not change
-    // what a hand does on a wave. Before this group existed the whole heading
-    // was parsed and then dropped, which is the failure a spec-derived page is
-    // supposed to make impossible.
-    // The rounds read on down the boss page, under their own heading.
-    expect(names(backlog.bosses)).toContain("THE LATHE");
-    expect(names(backlog.bosses)).toContain("THE VAULT");
-
-    // THE GAUGE, SNAKE and THE CLAW are all out of the list, and none of them
-    // is counted as hidden: their bullets were cut from `docs/spec/ideas.md`
-    // once they existed, because an entry describing a shipped round in the
-    // future tense is a page that lies to whoever reads it next. THE GAUGE and
-    // SNAKE are written up in `docs/spec/interludes.md` instead; THE CLAW was
-    // built as a control set and is in `docs/spec/controls.md`.
-    //
-    // `dropBuilt` is the belt beside that brace and stays: it hides a round by
-    // name off `BOSS_KINDS` whether or not anybody remembered to cut the
-    // bullet, so the count going to nought is what a tidy page looks like
-    // rather than a guard being removed.
-    expect(names(backlog.bosses)).not.toContain("THE GAUGE");
-    expect(names(backlog.bosses)).not.toContain("SNAKE");
-    expect(names(backlog.bosses)).not.toContain("THE CLAW");
-    expect(group(backlog.bosses, "ROUND IDEAS").builtHidden).toBe(0);
-
-    // **There are no boss ideas.** The group was three encounters waiting for
-    // a slot, and the owner cut it on 16 September 2026 along with the
-    // `### Bosses` heading they were parsed out of: two of the three had
-    // shipped as something other than the card they were written on and the
-    // third, THE TITHE, was a slot in an act order nobody was reading here.
-    // So a name from that group is on neither page rather than on this one.
-    expect(names(backlog.bosses)).not.toContain("THE TITHE");
-    expect(names(backlog.mechanics)).not.toContain("THE TITHE");
+    // what a hand does on a wave. It used to read on down the boss page under
+    // its own heading, and since 16 September 2026 it is **not drawn at all**
+    // — the owner took that page off and the `### Rounds` bullets stay in
+    // `ideas.md` as text. So the rounds are on no page, and neither are the
+    // boss ideas, which were cut from the spec itself the day before.
+    for (const gone of ["THE LATHE", "THE VAULT", "THE TITHE", "THE WEIGHT"]) {
+      expect(names(backlog.mechanics), gone).not.toContain(gone);
+    }
 
     // THE CODEX is off the page as of 13 September 2026, and it left the way
     // THE CHOIR below did with one difference: THE CHOIR became a *creature*
@@ -151,7 +123,6 @@ describe("buildBacklog", () => {
     // went with the mechanic rather than staying to describe a body nobody is
     // going to build. The card drawn for that body is still on the shapes page,
     // set free (`shape-sheet/src/drafts/bosses.ts`).
-    expect(names(backlog.bosses)).not.toContain("THE CODEX");
     expect(names(backlog.mechanics)).not.toContain("THE CODEX");
 
     // THE CHOIR is off the page entirely, and it left the way THE GAUGE and
@@ -161,15 +132,11 @@ describe("buildBacklog", () => {
     // bullet imagined — two bodies in a membrane, opened by shaking the phone
     // — and it is in the bestiary like any other arrival. The act-40 slot
     // still carries the name for a boss built on it later.
-    expect(names(backlog.bosses)).not.toContain("THE CHOIR");
     expect(names(backlog.mechanics)).not.toContain("THE CHOIR");
 
     // And in exactly one of them — a name in two sections is a name that gets
     // worked on twice.
-    const everywhere = [
-      ...names(backlog.mechanics),
-      ...names([group(backlog.bosses, "ROUND IDEAS")]),
-    ];
+    const everywhere = names(backlog.mechanics);
     expect(new Set(everywhere).size).toBe(everywhere.length);
   });
 

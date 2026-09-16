@@ -4,10 +4,10 @@
  * RELEASE NOTES route: a request handler is not the file where a server binds
  * its port.
  *
- * Nine files are read on every request rather than cached: the six spec files
- * and the three design documents, all parsed fresh for the reason the roster
- * always was — a copy kept beside the spec goes stale silently. Every one of them is a pure read; the reads are what keep this
- * async.
+ * Four spec files are read on every request rather than cached, and parsed
+ * fresh for the reason the roster always was — a copy kept beside the spec
+ * goes stale silently. Every one of them is a pure read; the reads are what
+ * keep this async.
  */
 
 import { buildBacklog } from "./backlog.js";
@@ -24,15 +24,15 @@ export async function backlogState(): Promise<Response> {
   // no group here asks git anything — every one of them is a read of a file
   // this module can find on its own.
   const base = new URL(import.meta.url);
-  const [bestiary, bosses, couplings, assists, systems, ideas] = await Promise.all([
-    Bun.file(specFile(base, "bestiary.md")).text(),
-    Bun.file(specFile(base, "bosses.md")).text(),
+  // Four spec files, not six: `bestiary.md` and `bosses.md` were read for the
+  // roster the BOSSES tab drew, and that tab went on 16 September 2026.
+  const [couplings, assists, systems, ideas] = await Promise.all([
     Bun.file(specFile(base, "couplings.md")).text(),
     Bun.file(specFile(base, "assists.md")).text(),
     Bun.file(specFile(base, "systems.md")).text(),
     Bun.file(specFile(base, "ideas.md")).text(),
   ]);
 
-  const backlog = buildBacklog(bestiary, bosses, couplings, assists, systems, ideas);
+  const backlog = buildBacklog(couplings, assists, systems, ideas);
   return Response.json(backlog, { headers: noCache });
 }

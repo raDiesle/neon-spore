@@ -13,10 +13,9 @@
  * heading in `docs/spec/ideas.md`, so moving one is an edit to the spec.
  */
 
-import { dropBuilt, fromIdeas } from "./backlog-ideas.js";
+import { fromIdeas } from "./backlog-ideas.js";
 import { type Concept, type Idea, parseConcepts } from "./concepts.js";
 import type { PlainRow } from "./plain-words.js";
-import { type Planned, parseRoster } from "./roster.js";
 
 export interface BacklogEntry {
   name: string;
@@ -54,11 +53,16 @@ export interface BacklogGroup {
 }
 
 export interface Backlog {
-  /** Bosses, and the rounds that are not the field, on one page. */
-  bosses: BacklogGroup[];
   /** Rules the field plays by, what would fall, and what a player's hands
    * would do — one page. */
   mechanics: BacklogGroup[];
+  // BOSSES was a page until 16 September 2026, when the owner took the tab
+  // off: *its not relevant for me any longer*. It held THE ACT ORDER — the
+  // built bosses read straight off `bosses.md` — and the boss and round
+  // ideas, and the boss ideas had gone the day before with THE SPLICE. The
+  // roster is still parsed, by the two tests that hold a drawn shape to the
+  // name it was drawn at (`concept-art.test.ts`, `scenes.test.ts`); nothing
+  // draws it. The `### Rounds` ideas stay in `ideas.md` as text.
   // DESIGNS was a third page until 12 September 2026: `docs/versus.md`,
   // `teaching.md` and `alive.md` read section by section as backlog. The
   // owner took it off — VERSUS is built and its file is a manual now, THE
@@ -92,22 +96,6 @@ function deferredGroup(deferred: Idea[]): BacklogGroup {
   };
 }
 
-// A built entry is not backlog. It is in the brush palette, or on the field.
-function fromRoster(
-  title: string,
-  note: string,
-  rows: Planned[],
-  builtWhere?: string,
-): BacklogGroup {
-  return {
-    title,
-    note,
-    entries: rows.filter((r) => !r.built).map(({ built: _built, ...rest }) => rest),
-    builtHidden: rows.filter((r) => r.built).length,
-    ...(builtWhere ? { builtWhere } : {}),
-  };
-}
-
 // Whether a section's heading tail claims the thing exists. Not a string
 // equality test — "built", but also "the pod, built" — and "not built" /
 // "partly built" are ruled out first, since they contain the word but mean
@@ -137,44 +125,14 @@ function fromConcepts(title: string, note: string, concepts: Concept[]): Backlog
 }
 
 export function buildBacklog(
-  bestiary: string,
-  bosses: string,
   couplings: string,
   assists: string,
   systems: string,
   ideas: string,
 ): Backlog {
-  const roster = parseRoster(bestiary, bosses);
   const sheet = parseConcepts(couplings, assists, systems, ideas);
 
   return {
-    // Bosses and rounds are one page: both are an encounter that takes a slot
-    // in the act order, and a round filed on a tab of its own was read as a
-    // different kind of thing than the boss it stands next to.
-    //
-    // **There are no boss ideas any more.** `ideas.md`'s `### Bosses` was
-    // three encounters and the owner cut the group on 16 September 2026, with
-    // THE SPLICE: two of the three had shipped as something other than the
-    // card they were written on (THE CAIRN as the boss it was written as, THE
-    // WEIGHT as a creature with the boss never built), and the one left —
-    // THE TITHE — was a slot in an act order nobody was reading off this page.
-    // What the two built ones turned into is `transfers-bosses.md`.
-    bosses: [
-      fromRoster(
-        "THE ACT ORDER",
-        "one boss every ten waves — bosses.md",
-        roster.bosses,
-        "the wave list",
-      ),
-      dropBuilt(
-        fromIdeas(
-          "ROUND IDEAS",
-          "rounds that are not the field, each with its own controls and picture — ideas.md",
-          sheet,
-          "Rounds",
-        ),
-      ),
-    ],
     // The controls used to be a tab of their own, holding two idea groups. A
     // control is a rule the field plays by that happens to live in a hand, and
     // two groups is not a page — so they read on down this one. The creature

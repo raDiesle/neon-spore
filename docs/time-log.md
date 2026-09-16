@@ -6136,3 +6136,24 @@ seven scenes and five contours had been drawn at those three ideas, and every
 one of them was held to the heading by a test. Making `Scene.suggests` optional
 is what let the drawings stay — a picture whose concept was **cut** is set
 free, where one whose concept was **renamed** still has to fail loudly.
+
+## 2026-09-16 — queued-tasks — the BOSSES page comes off the director
+
+The same queue entry's third and last landing. The owner's words: *its not
+relevant for me any longer*. THE ACT ORDER read the built bosses straight off
+`bosses.md` and the ideas beside it had gone with the second landing, so what
+was left was a page drawing a list nobody consults.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the four places the entry names — `backlog.ts`, `backlog-page.ts`, `backlog-api.ts`, `index.html` — and `backlog-tabs.ts` for which tab may safely lead |
+| writing | 20 | the group, the page, the tab, the `Bosses` argument and two arguments the API no longer reads; `fromRoster` and `dropBuilt` deleted with their only caller; the tests rewritten around a backlog with one page |
+| looking | 5 | the sheet opened in the director on this worktree's own server, to see MECHANICS lead and fill |
+| friction | 5 | two sheet assertions written against `backlogBosses` and a tab-count floor set the same morning |
+| landing | 10 | `bun run index`, `check:fast` and the commit |
+
+The bottleneck was writing, and most of it was subtraction: the page was four
+files wide and two helper functions deep, and the only judgement call was which
+tab leads now — MECHANICS rather than GRAPHICS, because GRAPHICS draws itself
+on first *click* and a sheet that opens on it would open on nothing. That pair
+of `class="on"` had no test holding it together; it has one now.

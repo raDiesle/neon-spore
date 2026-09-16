@@ -1,6 +1,5 @@
 import type { BacklogEntry, BacklogGroup } from "./backlog.js";
 import type { ConceptSheet, Idea } from "./concepts.js";
-import { isBuilt } from "./roster-parse.js";
 
 /**
  * The "accepted in principle, not worked out" half of the backlog — split out
@@ -21,14 +20,9 @@ export function fromIdeas(
   return { title, note, builtHidden: 0, entries: rows.map(toIdeaEntry) };
 }
 
-/**
- * A group, minus whatever `isBuilt` already covers by name. Only the rounds
- * ask for this: THE GAUGE ends in `gauge`, in `BOSS_KINDS`. The other idea
- * groups stay as `fromIdeas` leaves them; a boss idea's bullet is cut by hand
- * once the boss exists (THE VANE's was, 12 September 2026), and the shape
- * drawn for it is joined to the act order's row instead (`concept-art.test.ts`).
- */
-export function dropBuilt(group: BacklogGroup): BacklogGroup {
-  const open = group.entries.filter((e) => !isBuilt(e.name));
-  return { ...group, builtHidden: group.entries.length - open.length, entries: open };
-}
+// `dropBuilt` stood here until 16 September 2026: a group minus whatever
+// `isBuilt` covers by name, asked for by ROUND IDEAS alone because THE GAUGE
+// ends in `gauge`, in `BOSS_KINDS`. The owner took the BOSSES tab off and that
+// was its only caller, so the belt goes with the page it was buckled to. The
+// brace it stood beside is still the rule: a bullet describing something
+// shipped is cut from `ideas.md` by hand, and nothing renders the rounds now.

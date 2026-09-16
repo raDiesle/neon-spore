@@ -437,7 +437,13 @@
         <button type="button" id="backlogClose">✕ CLOSE</button>
       </header>
       <div id="backlogTabs">
-        <button type="button" data-tab="bosses" class="on">BOSSES</button>
+        <!-- BOSSES was the first tab here until 16 September 2026, when the
+             owner took it off: *its not relevant for me any longer*. It held
+             THE ACT ORDER — the built bosses, read off bosses.md — and the
+             boss and round ideas, and the ideas went with THE SPLICE the day
+             before. What is left of the rounds is still text in ideas.md; it
+             is simply not drawn anywhere. -->
+        <button type="button" data-tab="mechanics" class="on">MECHANICS</button>
         <!-- BESTIARY was a tab here until 11 September 2026, when the owner
              took it off: every creature it listed is built, and the creature
              ideas read on the MECHANICS page now, each beside the contour drawn
@@ -449,7 +455,6 @@
              saved place and every `shapes-*.ts` still find it, and `bun run shot
              --tab SHAPES` is mapped to this button in `shot-state.ts`. -->
         <button type="button" data-tab="shapes" title="was SHAPES">GRAPHICS</button>
-        <button type="button" data-tab="mechanics">MECHANICS</button>
         <!-- DESIGNS was a tab here until 12 September 2026, when the owner
              took it off: it read docs/versus.md, teaching.md and alive.md as
              backlog, and VERSUS is built, THE CALL is one design rather than
@@ -465,19 +470,6 @@
         <button type="button" data-tab="party">PARTY GAMES</button>
       </div>
       <div id="backlogBody">
-        <div class="sheetpage on" id="sheet-bosses">
-          <p class="pagewhat">
-            One boss every ten waves, and the rounds that are not the field.
-            The act order names only what is built; the empty slots are filled
-            from the boss ideas below, each of which says the slot it wants.
-            A round has its own rules, its own
-            controls and its own picture, and is over in about ninety seconds —
-            THE MIRROR is one already and is filed as a boss, because it is
-            one. What a round may be is docs/spec/interludes.md.
-          </p>
-          <button type="button" class="expand" data-expand="#backlogBosses">EXPAND ALL</button>
-          <div id="backlogBosses" class="columns reading"></div>
-        </div>
         <div class="sheetpage" id="sheet-shapes">
           <!-- OVERVIEW is the default and first view: one body walked across
                every skin, every motion, every glow and both light states, and
@@ -577,7 +569,7 @@
             <div id="shapesBuild"></div>
           </div>
         </div>
-        <div class="sheetpage" id="sheet-mechanics">
+        <div class="sheetpage on" id="sheet-mechanics">
           <p class="pagewhat">
             Rules the field would play by, what would fall, and what a player's
             own hands would do differently — one page, because a control is a

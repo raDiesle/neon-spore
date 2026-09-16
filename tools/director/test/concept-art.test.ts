@@ -21,8 +21,6 @@ const read = (rel: string) => Bun.file(Bun.fileURLToPath(new URL(rel, ROOT))).te
 
 async function realBacklog(): Promise<Backlog> {
   return buildBacklog(
-    await read("docs/spec/bestiary.md"),
-    await read("docs/spec/bosses.md"),
     await read("docs/spec/couplings.md"),
     await read("docs/spec/assists.md"),
     await read("docs/spec/systems.md"),

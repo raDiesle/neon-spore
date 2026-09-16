@@ -29,9 +29,10 @@ describe("the backlog sheet", () => {
     const bar = html.indexOf('id="backlogTabs"');
     const tabs = matches(html.slice(bar, html.indexOf("</div>", bar)), /data-tab="([^"]+)"/g);
 
-    // Five since 16 September 2026, when BULB QUEEN VARIANTS left the bar: the
-    // floor is there so an empty slice reads as a failure, not as no tabs.
-    expect(tabs.length).toBeGreaterThan(4);
+    // Four since 16 September 2026: BULB QUEEN VARIANTS left the bar that
+    // morning and BOSSES that afternoon. The floor is there so an empty slice
+    // reads as a failure rather than as no tabs.
+    expect(tabs.length).toBeGreaterThan(3);
     // The open one carries `on` as well, so the class is matched rather than
     // spelled — `bindTabs` only ever asks whether the id is `sheet-<tab>`.
     for (const tab of tabs) {
@@ -39,10 +40,27 @@ describe("the backlog sheet", () => {
     }
   });
 
+  /**
+   * The same pair of `class="on"` the documentation sheet is held to below,
+   * and for the same reason: `bindTabs` only acts on a click, so a bar
+   * highlighting one tab over another tab's page opens the sheet showing one
+   * room under the other room's name. It was worth adding on 16 September
+   * 2026, when the owner took BOSSES off and the lead passed to MECHANICS —
+   * two edits in two places, and this sheet had no test holding them together.
+   */
+  it("starts on the same page its bar says it is on", () => {
+    const bar = html.indexOf('id="backlogTabs"');
+    const first = matches(html.slice(bar, html.indexOf("</div>", bar)), /data-tab="([^"]+)"/g)[0];
+    expect(html).toMatch(new RegExp(`data-tab="${first}" class="on"`));
+    expect(html).toMatch(new RegExp(`class="sheetpage on" id="sheet-${first}"`));
+  });
+
   it("gives every filled group a container to be filled into", () => {
     const ids = matches(pageSource, /\bfill\("([^"]+)"/g);
 
-    expect(ids).toContain("backlogBosses");
+    // `backlogMechanics` and not `backlogBosses`: the BOSSES page went on
+    // 16 September 2026 and MECHANICS is the sheet's only filled page now.
+    expect(ids).toContain("backlogMechanics");
     for (const id of ids) expect(html).toContain(`id="${id}"`);
   });
 });
