@@ -7155,3 +7155,5 @@ passed as a clip, is what turns the owner's *the crater must stay untouched*
 from a sentence in a doc comment into something the next candidate in this slot
 cannot get wrong. The budget going red was the same reading paying again: the
 honest fix was `drawCraters`' own guard, not a moved number.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

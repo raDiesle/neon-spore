@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 92a2b8d7 — The hole is shown to have an inside
+
+The owner took `ship:hull-break` / `gape` on 16 September 2026 and changed most of it in the same breath: the crater keeps exactly the shape the game has always drawn, and what is new stands inside it. Ribs of the frame in the hole's own dark where the skin came off, the vent's glow at the mouth, the torn lip — and one glowing cut running a little way down out of the hole, with a narrow tongue of the hole's own colour carried with it.
+
 ## 2026-09-16 · 43b0e8bd — The tutorial's ring takes the shape of the body it is round
 
 A caption's ring round a body was a circle at `creatureRadius`, which is one number, and every living body in this game is a lobed blob wider than it is tall. So the ring stood well clear above and below a slick and ran along its two ends, and every candidate in the `guide:chrome` slot inherited it because they all come through the same anchor. `AnchorPoint` has carried the optional `rx` since a round's slab needed an ellipse; the body branch never filled it.
