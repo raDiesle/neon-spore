@@ -188,3 +188,63 @@
    needed a bar of buttons, a done state, a failure box and a red banner,
    because every row was an obligation with a verdict pending. Nothing
    here is pending, so none of that has anything to be. */
+
+/* The contents menu, on the sheet pages that run past a screen — NOT BUILT
+   YET's three and DOCUMENTATION's three. A closed button and an open list
+   rather than a standing column of links: these pages are prose first, and a
+   list of nine headings above the first paragraph would be the first thing
+   read every time and wanted once. `tabs.ts` builds both halves. */
+nav.contents {
+  margin: 0 0 10px;
+}
+nav.contents .contents-open::before {
+  content: "▸ ";
+}
+nav.contents .contents-open.on::before {
+  content: "▾ ";
+}
+.contents-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  /* A page with twenty headings is still a menu you can see the end of, and
+     the jump under it is the same distance from the button either way. */
+  max-height: 46vh;
+  overflow-y: auto;
+  max-width: 560px;
+}
+.contents-list li {
+  margin: 0;
+}
+.contents-list button {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-radius: 4px;
+  padding: 5px 7px;
+  color: var(--ink);
+  letter-spacing: 1px;
+}
+.contents-list button:hover:not(:disabled) {
+  background: #2a1f4e;
+  color: var(--gold);
+}
+/* Where on the page the item is, pushed to the far edge so the headings read
+   as one column and the places as another. */
+.contents-list .where {
+  margin-left: auto;
+  color: var(--dim);
+  font-size: 0.7rem;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+.contents-list .note {
+  color: var(--dim);
+  padding: 4px 7px;
+}

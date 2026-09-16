@@ -6522,3 +6522,23 @@ the answer was three words and needed no second turn to interpret. What it
 leaves behind is the arithmetic, which is worth keeping — the next time the
 model or the mode changes, the test is one flag and ten lanes each way, and
 decision 32 says what it would have to beat.
+
+## 2026-09-16 — task-queue-work — a contents menu on the long director pages
+
+The queue's *A contents menu on the long director pages, each heading a jump*:
+the owner's ask of 15 September, on NOT BUILT YET and DOCUMENTATION.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `tabs.ts`, `backlog-page.ts`, `whole-doc.ts`, the sheet markup and both fake DOMs |
+| writing | 25 | `bindContents` and its two pure halves, six `<nav>` lines, the panel's CSS, nine tests |
+| looking | 15 | the six menus opened and jumped in the browser pane, then two `bun run shot` runs |
+| friction | 10 | `bun run shot --open` and `--tab` both press NOT BUILT YET, so the first two shots timed out; `bun run queue take` claimed an entry whose own body says to do it with the next creature, and it had to be released |
+| landing | 10 | `check:fast`, the queue entry, the commit |
+
+The bottleneck was friction, and both halves of it were an entry read too late:
+the claimed item said in its last paragraph that it should be done with the next
+creature rather than on its own, and `bun run shot`'s two flags each say what
+they open without either saying they overlap. Reading a queue entry to the end
+before claiming it costs nothing; reading it after `take` costs a claim, a
+release and a push.

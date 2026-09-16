@@ -128,6 +128,15 @@ export class FakeEl {
     this.append(...nodes);
   }
 
+  /**
+   * Where a jump landed — the director's contents menu does this and nothing
+   * else, so it is the whole of what a test of it can read (`tabs.ts`).
+   */
+  scrolledIntoView = false;
+  scrollIntoView(): void {
+    this.scrolledIntoView = true;
+  }
+
   /** Out of the document, the way a screen seen once per device leaves it. */
   remove(): void {
     const siblings = this.parent?.children;

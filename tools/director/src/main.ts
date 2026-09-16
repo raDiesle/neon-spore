@@ -33,7 +33,7 @@ import {
 } from "./state.js";
 import { bindStates } from "./states-page.js";
 import { initSubcols } from "./subcols.js";
-import { bindExpanders, bindTabs } from "./tabs.js";
+import { bindContents, bindExpanders, bindTabs } from "./tabs.js";
 import { renderWaveOpening } from "./wave-opening.js";
 import { bindWaveIo } from "./waves-io.js";
 
@@ -233,5 +233,6 @@ bindNotes();
 bindStates();
 bindSoundPage();
 bindExpanders();
+bindContents();
 
 void io.load();

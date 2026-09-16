@@ -58,7 +58,12 @@ export interface FakeDom {
 export interface DomSpec {
   /** `location.search` at startup, `"?tab=wave&sheet=backlog"` and the like. */
   search?: string;
-  /** Tab bars, keyed by the selector they are mounted at — `"#statesTabs"`. */
+  /**
+   * Elements a selector should find, keyed by the selector: a tab bar by the
+   * bar it is mounted at — `"#statesTabs"` — or any whole selector written
+   * out, which is what a binder that sweeps the document rather than one bar
+   * needs (`bindContents` and its `nav[data-contents]`).
+   */
   bars?: Record<string, FakeEl[]>;
   /** Elements `getElementById` should find, keyed by id. */
   ids?: Record<string, FakeEl>;
@@ -70,9 +75,11 @@ export function installDom(spec: DomSpec = {}): FakeDom {
   const had = { document: globalThis.document, window: globalThis.window };
   let href = `/${search}`;
 
-  // Two selector shapes, which is every one the director uses: a bar's buttons,
-  // optionally narrowed by `.on` or a `data-tab` value.
+  // A selector written out whole, answered from `bars` as given; failing that,
+  // a bar's buttons, optionally narrowed by `.on` or a `data-tab` value.
   const pick = (selector: string): FakeEl[] => {
+    const whole = bars[selector];
+    if (whole) return whole;
     const at = selector.indexOf(" button");
     if (at === -1) return [];
     const bar = bars[selector.slice(0, at)] ?? [];

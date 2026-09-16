@@ -48,3 +48,135 @@ export function bindExpanders(): void {
     });
   }
 }
+
+/**
+ * A contents menu on a sheet page that runs past a screen or two: every
+ * heading the page already draws, each one a jump to it.
+ *
+ * The owner asked for it on 15 September 2026, naming NOT BUILT YET and
+ * DOCUMENTATION — the two pages you scroll blind. It is mounted by markup, one
+ * `<nav class="contents" data-contents="<id>">` standing where the menu should
+ * appear and naming the element whose headings it lists, so a new long page
+ * gets one by typing a line rather than by being wired through a module.
+ *
+ * **The list is built when the menu opens, never kept.** The pages under it
+ * draw themselves lazily and some of them redraw, so a list made at binding
+ * time would be empty on the first open and stale on every later one. Reading
+ * the headings off the page each time is also the whole reason this cannot
+ * disagree with what is under it: there is no second list to keep.
+ */
+export function bindContents(): void {
+  for (const nav of document.querySelectorAll<HTMLElement>("nav[data-contents]")) {
+    const container = document.getElementById(nav.dataset.contents ?? "");
+    if (!container) continue;
+
+    const opener = document.createElement("button");
+    opener.type = "button";
+    opener.className = "contents-open";
+    opener.textContent = "CONTENTS";
+
+    const list = document.createElement("ol");
+    list.className = "contents-list";
+    list.hidden = true;
+    nav.replaceChildren(opener, list);
+
+    // `on` and nothing else, the way a tab marks itself: the shell already
+    // draws `button.on` as the open thing, and a second marking would have to
+    // be kept in step with it.
+    opener.addEventListener("click", () => {
+      const open = !opener.classList.contains("on");
+      opener.classList.toggle("on", open);
+      list.hidden = !open;
+      if (open) fillContents(list, container, opener);
+    });
+  }
+}
+
+/** The heading levels a sheet page writes its own sections at, shallowest first. */
+const HEADINGS = ["H2", "H3", "H4"];
+
+/**
+ * The one level of heading that is this page's sections.
+ *
+ * A page is written at one level and titled at another: a whole document
+ * rendered by `markdown.ts` puts its `#` title in an `h3` and every `##`
+ * section under it in an `h4`, while the backlog's groups are `h2` with
+ * nothing above them. So the level taken is **the shallowest one with more
+ * than one heading at it** — which is the sections in both shapes, and never
+ * the single title standing over them. A page with one heading in total lists
+ * that one rather than nothing.
+ */
+export function listedHeadings(container: HTMLElement): HTMLElement[] {
+  const all: HTMLElement[] = [];
+  collectHeadings(container, all);
+  const at = (level: string): HTMLElement[] => all.filter((h) => h.tagName === level);
+  for (const level of HEADINGS) if (at(level).length > 1) return at(level);
+  for (const level of HEADINGS) if (at(level).length === 1) return at(level);
+  return [];
+}
+
+/** Every heading under `el`, in the order the page draws them. */
+function collectHeadings(el: HTMLElement, into: HTMLElement[]): void {
+  for (const child of Array.from(el.children) as HTMLElement[]) {
+    if (HEADINGS.includes(child.tagName)) into.push(child);
+    collectHeadings(child, into);
+  }
+}
+
+/**
+ * Where on the page an item is, in the words somebody would use out loud.
+ *
+ * The owner asked the menu to say where a thing is, and a heading's real
+ * offset is not it: these pages redraw, and a figure in pixels or a percent
+ * read at open time is precise about something nobody is asking. The position
+ * through the page's own sections is what a reader wants — whether the jump is
+ * a short one or the length of the sheet.
+ */
+export function whereOnPage(index: number, count: number): string {
+  if (count < 2) return "the whole page";
+  if (index === 0) return "at the top";
+  if (index === count - 1) return "at the end";
+  const through = index / (count - 1);
+  if (through < 0.34) return "near the top";
+  if (through < 0.67) return "halfway down";
+  return "near the end";
+}
+
+function fillContents(list: HTMLElement, container: HTMLElement, opener: HTMLElement): void {
+  const headings = listedHeadings(container);
+  list.replaceChildren();
+
+  // Said rather than shown empty: the pages here are drawn on first sight of
+  // their own tab, and a menu opened before that has nothing to list and no
+  // fault to report.
+  if (headings.length === 0) {
+    const none = document.createElement("li");
+    none.className = "note";
+    none.textContent = "nothing to list — the page has not been drawn yet.";
+    list.appendChild(none);
+    return;
+  }
+
+  for (const [index, heading] of headings.entries()) {
+    const item = document.createElement("li");
+    const jump = document.createElement("button");
+    jump.type = "button";
+    jump.textContent = heading.textContent ?? "";
+
+    const where = document.createElement("span");
+    where.className = "where";
+    where.textContent = whereOnPage(index, headings.length);
+    jump.appendChild(where);
+
+    jump.addEventListener("click", () => {
+      heading.scrollIntoView({ behavior: "smooth", block: "start" });
+      // Shut behind the jump: the menu is a way to somewhere, and one left
+      // open over the place it took you is the next thing to be closed.
+      opener.classList.toggle("on", false);
+      list.hidden = true;
+    });
+
+    item.appendChild(jump);
+    list.appendChild(item);
+  }
+}

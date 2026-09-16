@@ -355,23 +355,6 @@ on both seats and mid-deflation.
 Prove it with `bun run check`, a replay test, and the wave watched at tempo
 through a husk sucked and a husk refused.
 
-## A contents menu on the long director pages, each heading a jump
-
-- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
-- **Taken:** 2026-09-16, claude/queue-a-contents-menu-on-the-long-director-pages-each
-- **Files:** `tools/director/index.html`, `tools/director/src/tabs.ts`, `tools/director/src/backlog-page.ts`, `tools/director/src/whole-doc.ts`, `tools/director/src/documentation-rooms.ts`
-
-The owner, 15 September 2026: on the bigger pages — NOT BUILT YET and
-DOCUMENTATION are the two he named — a **contents menu** that lists what
-the page contains, and a click on an item jumps to it on the page. Built
-from the headings the page already draws (each `BacklogGroup`'s title, each
-`##` of a document under DOCUMENTATION) rather than a second list kept by
-hand, so it cannot go stale; one component, mounted on any sheet page past a
-screen or two tall, in the shipped panel look, wired the way `tabs.ts` wires
-a tab. Plain words on it, and it says where on the page the item is.
-
-Prove it with `bun run check` and one PNG of the menu open on MECHANICS.
-
 ## THE ECHO, his way: the wave sent again unseen, and a count on the boss
 
 - **Found:** 2026-09-16, claude/bulb-queen-crane
@@ -649,3 +632,45 @@ time, and only the cells are its own.
 Provable with `bun run check`: `tools/land`'s own tests already exercise the
 note-writing path against a temporary repository, so the stamp is a case
 beside them, and a rounding rule is a pure function with a table.
+
+## `bun run shot --open` and `--tab` together wait thirty seconds and fail
+
+- **Found:** 2026-09-16, claude/task-queue-work-5f529c
+- **Files:** `tools/frames/shot-state.ts`, `tools/frames/shot-usage.ts`, `tools/frames/test/shot-flags.test.ts`
+
+`--tab` opens NOT BUILT YET itself — `reachState` presses the header button by
+role before it presses the tab — so a caller who also passes
+`--open "◇ NOT BUILT YET"`, which is the flag's own documented job, presses that
+button a second time with the sheet already covering it. Playwright then retries
+for thirty seconds and fails with
+*`<span class="sub">…</span>` from `<div class="on" id="backlog">` intercepts
+pointer events*, which names neither flag and reads as a broken page rather than
+as two flags that mean the same press. The contents-menu lane lost a shot to it
+twice before dropping `--open`.
+
+Two fixes, and they are not exclusive: `reachState` can skip its own
+NOT BUILT YET press when `open` already named that sheet, and `readShotFlags`
+can refuse the pair outright with a sentence saying `--tab` opens it. The
+second is the cheaper one to prove — `shot-flags.test.ts` is pure and already
+holds the flag reader — and the first is what makes the pair simply work.
+
+## The build-stamp scan walks the whole tree inside a 5-second test
+
+- **Found:** 2026-09-16, claude/task-queue-work-5f529c
+- **Files:** `tools/test/build-stamp.test.ts`
+
+*is read through BUILD\_STAMP, never through the raw identifier* reads every
+`.ts` file in the repository — `sources(root)` recurses from the root and
+`readFileSync`s each one — and `bun run check` runs it while twelve other
+shards are reading the same disk. On 16 September 2026 it timed out at 5001 ms
+and turned a green lane red; run alone the same file passes in 475 ms. Its
+own doc comment already records one environment-dependent failure of the same
+walk, a `.wrangler` directory a bundler was deleting under it.
+
+The scan is worth keeping — it is the only thing holding `__BUILD_DATE__` to
+one reader — so the fix is to make it cost less rather than to widen the
+timeout: `Glob("**/*.ts").scanSync` the way `packages/sim/test/limits.test.ts`
+does, and grep the file list rather than reading every file whole. If that is
+still near the limit under thirteen shards, the test may name its own with
+`it(…, { timeout })`, which is the smaller change and the one to keep in
+reserve.

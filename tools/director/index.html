@@ -360,6 +360,7 @@
             it names. Under them, the words that have no one place to point
             at.
           </p>
+          <nav class="contents" data-contents="wordingsBody"></nav>
           <div id="wordingsBody"></div>
         </div>
         <div class="sheetpage" id="mech-states">
@@ -368,6 +369,7 @@
             shipping renderer against a world run into that state, not a
             screenshot somebody took.
           </p>
+          <nav class="contents" data-contents="statesCards"></nav>
           <div id="statesCards"></div>
         </div>
         <div class="sheetpage" id="mech-controlsets">
@@ -425,6 +427,7 @@
             sheet are docs/reference/style-guide.svg, from `bun run
             style-guide`.
           </p>
+          <nav class="contents" data-contents="styleBody"></nav>
           <div id="styleBody"></div>
         </div>
       </div>
@@ -585,6 +588,12 @@
             <code>docs/spec/</code>, where they are written.
           </p>
           <button type="button" class="expand" data-expand="#backlogMechanics">EXPAND ALL</button>
+          <!-- The contents menu: the headings this page draws, each one a jump
+               to it, read off the page when the menu opens so it cannot go
+               stale. `data-contents` names the element to read; the button and
+               the list inside are built by `tabs.ts`. Any page past a screen or
+               two gets one by typing this line. -->
+          <nav class="contents" data-contents="backlogMechanics"></nav>
           <div id="backlogMechanics" class="columns reading"></div>
         </div>
         <div class="sheetpage" id="sheet-borrowed">
@@ -596,6 +605,7 @@
             The verdict column is the point, and a NO with its reason in it is
             worth as much here as a yes.
           </p>
+          <nav class="contents" data-contents="borrowedDoc"></nav>
           <div id="borrowedDoc"></div>
         </div>
         <div class="sheetpage" id="sheet-party">
@@ -608,6 +618,7 @@
             seconds, stripped of the screen it was played on. The rounds it
             feeds are on the BOSSES tab.
           </p>
+          <nav class="contents" data-contents="partyGamesDoc"></nav>
           <div id="partyGamesDoc"></div>
         </div>
       </div>
