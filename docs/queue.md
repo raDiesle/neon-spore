@@ -632,6 +632,7 @@ unattended.
 ## `canvas-stub.ts` refuses the array radius `roundRect` really takes
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-canvas-stub-ts-refuses-the-array-radius-roundrec
 - **Files:** `packages/render/test/canvas-stub.ts`,
   `tools/versus/candidates/guide-chrome/tide/plate.ts`
 
