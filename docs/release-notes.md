@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · f5ac26f0 — The lost screen says how many times the run has gone again
+
+A fourth line under the tear's sentence: THIS RUN · 3 RETRIES, in the same words `retriesText` gives the HUD's corner and the balance sheet. The line above it is this wave's try; this one is the whole run, which is what the owner asked for by name as *the score* on 16 September 2026 (`docs/looks.md`, first exemption).
+
 ## 2026-09-16 · 0162ce42 — PARTY GAMES comes off the sheet, and takes the whole-document machinery with it
 
 The owner asked for the page to go. It rendered `docs/party-games.md` whole — Mario Party and Rayman Raving Rabbids read for what else a round can be — and the six rounds that reading fed are on this sheet already, which is where the argument ends up anyway. The study stays in `docs/` beside `borrowed.md` and `tower-defence.md`.

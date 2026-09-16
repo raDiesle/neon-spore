@@ -7065,3 +7065,5 @@ work was one line and not a feature. The retry-with-the-guide option is the
 opposite: it looks like a button and is a command kind, an event flag, a fact
 about the wave that no `World` field carries, and nine waves where the button
 would be dead. That is an idea, and it is on the sheet with its questions.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
