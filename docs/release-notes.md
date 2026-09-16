@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · d1f75f24 — THE HUSK, half one: a pod that is a lie, and swallowing it loses the wave
+
+A husk hangs at a column and a row like a pod, wears a real cargo's face, is knocked loose by a shot like a pod and arrives at the maw like a pod — and the receipt there is inverted. Taken in, the wave is lost; refused, it costs nothing at all, which makes it the one object on the field answered by two people doing two different things about it: the navigator sees it for what it is and the pilot keeps the maw shut.
+
 ## 2026-09-17 · 5c5c0f48 — Mark "The intro's two people do not read as people" done
 
 ## 2026-09-17 · 30119ba9 — The intro's two people are a mouth and an ear holding a phone each
