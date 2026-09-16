@@ -16,7 +16,7 @@ import { notesState } from "./src/notes-api.js";
  * `waves.ts`, decide a check or run one — none of that survives a build,
  * because there is no repository behind a static bundle. What *can* survive
  * is everything the director only ever reads: the wave list, the backlog
- * ("NOT BUILT YET"), the spec, `docs/borrowed.md`, and the check ledger's own
+ * ("NOT BUILT YET"), the spec, `docs/party-games.md`, and the check ledger's own
  * state (read by the checks tab — never by a decide or
  * a run, which have no route to call). Each of those is baked here, once, at
  * build time, into a plain file under `dist/api/`, at the exact path the

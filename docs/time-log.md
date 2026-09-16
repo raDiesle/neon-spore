@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-16 — director-borrowed-page — BORROWED comes off the sheet
+
+The owner asked for the page to go. The tab, its page, its reader, its route
+and its row in the README, with the study itself left in `docs/` — the same
+answer TOWER DEFENCE got.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | every reference to the page: the tab bar, `docs-api.ts`, `whole-doc.ts`, two tests and the README |
+| writing | 5 | the removals, and the comment left in the bar saying what was there and why it went |
+| looking | 0 | — a tab removed, and `sheet.test.ts` is what pairs the bar with its pages |
+| friction | 0 | none |
+| landing | 5 | one red `check:fast` on the tab-count floor, then the commit |
+
+The bottleneck was reading, and it is the cost of a page rather than of this
+page: a tab is nine places, and only two of them are the thing anybody would
+call the page. The one that went red is the one worth keeping — `sheet.test.ts`
+counts the tabs so an empty slice cannot read as no tabs, and that floor has to
+be walked down every time the owner takes one off.
+
+*Measured: the rows above are the session's own estimate, read off the previous landing at 21:26 and this one.*
+
 ## 2026-09-16 — queue-reconciling-a-diverged-trunk — the push reconciles itself
 
 The queue's own item, filed after it cost three hand-resolutions in one day:

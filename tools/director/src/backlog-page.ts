@@ -93,7 +93,6 @@ async function load(): Promise<void> {
   const backlog = (await res.json()) as Backlog;
 
   fill("backlogMechanics", backlog.mechanics);
-  void renderWholeDoc("borrowedDoc", "/api/borrowed");
   void renderWholeDoc("partyGamesDoc", "/api/party-games");
   loaded = true;
 }

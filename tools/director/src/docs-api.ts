@@ -1,6 +1,6 @@
 /**
- * The GET routes that only read a document off disk — the two studies of
- * games that are not this one — split out of `server.ts` the same way
+ * The GET route that only reads a document off disk — the study of games that
+ * are not this one — split out of `server.ts` the same way
  * `backlog-api.ts` and `notes-api.ts` were, and for a sharper reason than
  * tidiness. `docs/spec/` was read here too, whole, for the sheet's own SPEC
  * room; the owner took that room off on 14 September 2026 and the reader went
@@ -18,22 +18,14 @@
  * it. Nothing outside a server may import `server.ts`.
  */
 
-const borrowedFile = new URL("../../../docs/borrowed.md", import.meta.url);
 const partyGamesFile = new URL("../../../docs/party-games.md", import.meta.url);
 
 /**
- * `docs/borrowed.md`, whole — served rather than parsed into entries because
- * its argument is prose, and a parse would drop the half that took the
- * reading.
- */
-export async function readBorrowedText(): Promise<string> {
-  return await Bun.file(borrowedFile).text();
-}
-
-/**
- * `docs/party-games.md`, whole, for the same reason — the third study of games
- * that are not this one, read off Mario Party and Rayman Raving Rabbids for
- * the shape of a round. Its verdict table is its argument.
+ * `docs/party-games.md`, whole — served rather than parsed into entries
+ * because its argument is prose, and a parse would drop the half that took the
+ * reading. The study of games that are not this one, read off Mario Party and
+ * Rayman Raving Rabbids for the shape of a round; its verdict table is its
+ * argument.
  */
 export async function readPartyGamesText(): Promise<string> {
   return await Bun.file(partyGamesFile).text();
@@ -43,21 +35,22 @@ export async function readPartyGamesText(): Promise<string> {
  * The routes that answer with one document's whole text, as a table.
  *
  * `server.ts` serves these and `build.ts` bakes them, and the two lists were
- * written out by hand on both sides. They drifted: the comment above the
- * borrowed route in `server.ts` described `/api/spec`, and each new study had
- * to be added in two places that nothing held together. One table read by both
+ * written out by hand on both sides. They drifted: the comment above one
+ * study's route in `server.ts` described another's, and each new study had to
+ * be added in two places that nothing held together. One table read by both
  * cannot disagree with itself, and the next study is one line here.
  *
- * Two entries. TOWER DEFENCE and CLAUDE VS CHATGPT were tabs here until the
- * owner took them off the sheet; `docs/tower-defence.md` stays in the
- * repository, cited by half of `tools/shape-sheet`, and is read there. PARTY
- * GAMES is here because the owner put it here: the six rounds it feeds are on
- * this sheet already, and the study should be read beside them.
+ * One entry. TOWER DEFENCE, CLAUDE VS CHATGPT and BORROWED were tabs here
+ * until the owner took them off the sheet, the last of them on 16 September
+ * 2026; `docs/tower-defence.md` and `docs/borrowed.md` stay in the repository
+ * — the first cited by half of `tools/shape-sheet` and read there — because a
+ * study that is no longer a page is still a reading somebody did. PARTY GAMES
+ * is here because the owner put it here: the six rounds it feeds are on this
+ * sheet already, and the study should be read beside them.
  *
  * Keyed by the path the client already fetches, so `build.ts` bakes to
  * `dist/<path>` by dropping the leading slash and nothing else.
  */
 export const DOC_ROUTES: Record<string, () => Promise<string>> = {
-  "/api/borrowed": readBorrowedText,
   "/api/party-games": readPartyGamesText,
 };

@@ -152,7 +152,6 @@ somebody wrote it down.
 | `BOSSES` | the act order minus the ones that exist — every name in it is built, so the group stands empty — the boss ideas, and the rounds that are not the field |
 | `SHAPES` | the contour catalogue — see below |
 | `MECHANICS` | couplings, assist forms, systems, and the creature, mechanic, control and weapon ideas |
-| `BORROWED` | It Takes Two and Split Fiction, mapped row by row onto whether each mechanic can reach this one |
 | `PARKED` | deferred on purpose, or examined and turned down with the reason |
 
 `BESTIARY` was a tab here until 11 September 2026: every creature it listed
@@ -426,7 +425,7 @@ there is no repository behind a static bundle. `tools/director/build.ts` is
 that build: it bundles the client exactly like the game's own build, then
 bakes every *read* route the client already calls (`/api/waves`, from
 `@neon-spore/content`, the same compiled source the game itself reads;
-`/api/backlog`, `/api/borrowed`, `/api/spec`, `/api/notes`) into a plain
+`/api/backlog`, `/api/party-games`, `/api/spec`, `/api/notes`) into a plain
 file at the same path under `dist/api/`. A static host answering
 `GET /api/backlog` with a file looks identical to `server.ts` answering it
 with a handler, so none of `backlog-page.ts`, `spec.ts` or `whole-doc.ts`

@@ -29,10 +29,11 @@ describe("the backlog sheet", () => {
     const bar = html.indexOf('id="backlogTabs"');
     const tabs = matches(html.slice(bar, html.indexOf("</div>", bar)), /data-tab="([^"]+)"/g);
 
-    // Four since 16 September 2026: BULB QUEEN VARIANTS left the bar that
-    // morning and BOSSES that afternoon. The floor is there so an empty slice
-    // reads as a failure rather than as no tabs.
-    expect(tabs.length).toBeGreaterThan(3);
+    // Three since 16 September 2026: BULB QUEEN VARIANTS left the bar that
+    // morning, BOSSES that afternoon and BORROWED that evening. The floor is
+    // there so an empty slice reads as a failure rather than as no tabs, and
+    // it is moved down with the owner rather than held above him.
+    expect(tabs.length).toBeGreaterThan(2);
     // The open one carries `on` as well, so the class is matched rather than
     // spelled — `bindTabs` only ever asks whether the id is `sheet-<tab>`.
     for (const tab of tabs) {
