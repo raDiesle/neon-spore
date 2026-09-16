@@ -1,22 +1,32 @@
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { signedHash } from "../../../../../packages/render/src/hash.js";
-import type { LostPaint } from "../../../../../packages/render/src/lost-look.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { drop } from "../../../../../packages/render/src/text-drop.js";
+import { strokeGlow } from "./glow.js";
+import { signedHash } from "./hash.js";
+import type { LostPaint } from "./lost-look.js";
+import { PALETTE } from "./palette.js";
+import { drop } from "./text-drop.js";
 
 /**
- * Two heavy plates slide in over the field, one from the top and one from the
- * foot, and they close on everything except the column the ship was hit in —
- * where the lower plate is torn open, the tear ragged and lit.
+ * The lost screen: the field plated over, and then the lower plate drawn down
+ * off it, leaving the ship and the hole in it in the clear under a bulkhead
+ * with WAVE LOST stamped on it.
  *
  * **What it argues** is that a lost wave should feel like something shutting.
  * The field is *held* at that moment — nothing falls, nothing fires — and a
- * veil is a poor picture of a stop; a bulkhead coming down is the picture the
- * pause already is. The tear is the concession the slot demands: the one thing
- * the pair must still be able to see is where it got through.
+ * veil is a poor picture of a stop; a bulkhead is the picture the pause
+ * already is. What the slot demands is that the pair can still see where it
+ * got through, and this answers it by uncovering the half of the screen the
+ * breach is in rather than by cutting a hole in a plate.
+ *
+ * **Read `slid` before changing any of this.** The candidate's own sentence
+ * said the plates *slide in and close*, and they do the opposite: at `age` 0
+ * both cover their halves and the screen is solid, and over `CLOSE` seconds
+ * they retreat — the upper one up to `SEAM`, the lower one off the foot
+ * entirely. So the settled picture, which is the one the owner chose on 16
+ * September 2026, is one plate across the top and an open field below it. The
+ * tear below is only ever seen in transit, and `docs/queue.md` asks him
+ * whether that is the way round he wants.
  */
 
-/** How long the plates take to close, seconds. */
+/** How long the plates take to draw back, seconds. */
 const CLOSE = 0.45;
 
 /** Where the two plates meet, as a share of the play area. */

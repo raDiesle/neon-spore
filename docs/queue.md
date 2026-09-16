@@ -700,3 +700,36 @@ callers asking it.
 Seen on `guide:chrome` / `tide`'s silent companion ring, which uses the same
 route; it is the shipped caption's ring that has the fault, and every candidate
 in the slot inherits it.
+
+## The lost screen's plates open, and their own sentence says they close
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `packages/render/src/lost-shutters.ts`
+- **Asks:** Should the lost screen's plates close over the field as their description says, or keep drawing back off it the way the picture you picked actually does?
+
+`veil` computes `top = -(1 - k) * seam` and `foot = height - (1 - k) * (height
+- seam)`. At `age` 0 both plates cover their halves and the screen is solid; as
+`k` reaches 1 the upper one settles at `SEAM` and the lower one leaves the
+bottom of the screen entirely. They retreat. The candidate's sentence, quoted
+on the VERSUS page the pick was made from, says they "slide in over the field
+from the top and the foot and close on everything but the column it hit".
+
+Two things follow. The settled picture is one plate across the top with the
+hull, the breach and the buttons in the clear below it — which is a good
+picture and is the one that was chosen, seen at `freezeSeconds: 2.5`. And the
+tear, `TEAR_TILES` and `TEETH` and the lit ragged edge, is only on screen
+during the half second of transit: at rest the lower plate has no height for a
+tear to be in.
+
+The answer picks between two:
+
+- **Leave it.** Rewrite nothing but the words, which is already done, and
+  delete the tear — it is roughly forty lines drawing something visible for
+  under half a second on a screen the pair is reading.
+- **Turn it round.** Plates that really close, settling over everything but a
+  lit tear in the breach column. That is a different screen from the one that
+  was picked, so it would want to go back through VERSUS rather than onto the
+  field.
+
+Nothing is wrong on screen today; what is wrong is that the file and the
+picture disagree, and the next reader will believe the file.

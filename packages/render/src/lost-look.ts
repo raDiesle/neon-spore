@@ -1,7 +1,5 @@
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
-import { drop } from "./text-drop.js";
-import { wrapText } from "./wrap-text.js";
+import { veil, words } from "./lost-shutters.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **LOST SCREEN** PATCHES.
@@ -11,13 +9,18 @@ import { wrapText } from "./wrap-text.js";
  * every answer to "what does this screen look like" redraws the screen rather
  * than retuning it.
  *
- * **What ships here is what shipped before it, to the pixel.** This record was
- * cut out of `lost-screen.ts` and nothing in it was changed on the way: the
- * flat cold veil, the wave and the try, WAVE LOST, and one line for the pair.
- * The owner asked on 16 September 2026 for a full-screen statement that the
- * wave is to be played again — *like a game over visual* — and asked to be
- * shown several before one goes on the field, so `lost:screen` is where the
- * answers are and the field's answer is still the card.
+ * **What ships here is `shutters`**, which the owner took on 16 September 2026
+ * out of the three the slot was opened with: two heavy plates slide in over
+ * the field, one from the top and one from the foot, and they close on
+ * everything except the column the ship was hit in, where the lower plate is
+ * torn open and the tear is lit. The record used to carry the flat cold veil
+ * and the card of type this replaced; that is what `lost-screen.ts` drew from
+ * the day the screen existed, and it is in the git history rather than here.
+ *
+ * `lost-shutters.ts` holds both halves. It moved out of the candidate whole
+ * rather than being retyped, which is how a function is taken — a `paint`
+ * cannot be written back into a record by `versus adopt`, because `toString`
+ * hands back what the transpiler made and not how the file spells it.
  *
  * **The tension every answer in this slot has to resolve** is the one
  * `lost-screen.ts`'s own header states: the field stays under this screen,
@@ -61,55 +64,6 @@ export interface LostLook {
   readonly veil: (ctx: CanvasRenderingContext2D, p: LostPaint) => void;
   /** What it says, above the buttons. */
   readonly words: (ctx: CanvasRenderingContext2D, p: LostPaint) => void;
-}
-
-/** One line for the pair, chosen by how many times they have gone again so
- * far — the count is up only once a retry is taken (`sim/wave-start.ts`) —
- * so that both phones say the same one, and a second loss does not repeat it. */
-const LINES = [
-  "Each of you saw a different half of that. Swap notes, then go again.",
-  "It got through once. Say where, and it will not get through twice.",
-  "Same wave, same two of you. Talk it over first, then press.",
-  "What one of you missed, the other one saw. That is the whole game.",
-] as const;
-
-const BODY = '13px "Courier New",monospace';
-
-/** Cold and grey rather than the pause's own violet: the field under it is
- * not resting, it is *over*, and the one thing still in colour on it should
- * be the breach that ended it. */
-function veil(ctx: CanvasRenderingContext2D, p: LostPaint): void {
-  ctx.fillStyle = "rgba(18,20,30,.64)";
-  ctx.fillRect(0, 0, p.l.width, p.l.height);
-}
-
-function words(ctx: CanvasRenderingContext2D, p: LostPaint): void {
-  const mid = p.l.width / 2;
-  ctx.textAlign = "center";
-  let y = p.l.playHeight * 0.24;
-  drop(ctx, mid, y, p.age, 0, 0, () => {
-    ctx.font = '600 11px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.pod;
-    ctx.fillText(`WAVE ${p.wave} · TRY ${p.tries}`, 0, 0);
-  });
-  y += 30;
-  drop(ctx, mid, y, p.age, 1, 0, () => {
-    ctx.font = '700 21px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.red;
-    ctx.fillText("WAVE LOST", 0, 0);
-  });
-  y += 28;
-  ctx.font = BODY;
-  const line = LINES[p.retries % LINES.length] ?? LINES[0];
-  for (const text of wrapText(ctx, line, p.l.width - 64)) {
-    drop(ctx, mid, y, p.age, 2, 0, () => {
-      ctx.font = BODY;
-      ctx.fillStyle = PALETTE.text;
-      ctx.fillText(text, 0, 0);
-    });
-    y += 18;
-  }
-  ctx.textAlign = "left";
 }
 
 export const LOST_LOOK: LostLook = { veil, words };

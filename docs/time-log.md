@@ -6935,3 +6935,21 @@ is the answer, and it is the same move `creature:bite` / `notch` made for a
 different reason — worth knowing before the next look wants two pools.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the lost screen shuts
+
+`lost:screen` / `shutters` onto the field, by the owner's pick.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `lost-look.ts`, the candidate's paint, and the refusal that says how to take a function by hand |
+| writing | 15 | the move, the record, its header, and the file's own header once the picture contradicted it |
+| looking | 20 | finding a selector for one card in the STATES gallery, then the shot |
+| friction | 15 | `adopt` refused on a name collision; `drop` then failed twice, once on the moved file and once on a stale registry; two tree-walking tests flaked under the sharded runner |
+| landing | 10 | `bun run index`, `check:fast`, the commit |
+
+The bottleneck was looking, and all of it was one question: how to photograph a
+pose in the director's STATES room. The cards carry no id, so the selector is
+`.state:has(.name:text-is('…')) .shot` — worth writing down, because three
+guesses were spent on it and every later lane that shows the owner a posed
+state needs the same line.

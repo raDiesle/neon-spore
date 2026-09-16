@@ -935,3 +935,22 @@ Written into `packages/render/src/break-look.ts`, `BREAK_LOOK`: `fade`,
 `gravityTiles`, `life`, `speedTiles` and `spin`.
 
 It was the only answer offered.
+
+## `lost:screen` / `shutters` — taken by hand, 2026-09-16
+
+**The heading `drop` wrote said "nothing taken", and that is wrong**: the
+owner took `shutters` — *i like this one the most* — and what closed the slot
+was `drop` rather than `adopt` only because `adopt` could not carry it. Both
+of the candidate's exports are called what `lost-look.ts` already called its
+own, so the tool refused rather than write over a name, and the move was done
+by hand the way its refusal message spells out: `paint.ts` to
+`packages/render/src/lost-shutters.ts`, imports rewritten for where it now
+stands, the record pointed at it, and the shipped veil and card deleted.
+
+Two heavy plates now slide in over the field on a lost wave, one from the top
+and one from the foot, and they close on everything but the column the ship
+was hit in — where the lower plate is torn open, ragged and lit. WAVE LOST is
+stamped on the upper plate at thirty points.
+
+The other answers offered were `breach-hole` and `signal`; they went with the
+slot.
