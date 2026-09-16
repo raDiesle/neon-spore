@@ -565,6 +565,7 @@ with no new prose to place is a diff nobody can review against anything.
 ## The ledger estimates its minutes; the trunk knows them
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Taken:** 2026-09-16, claude/queue-the-ledger-estimates-its-minutes-the-trunk-knows
 - **Files:** `tools/land/run.ts`, `tools/land/notes.ts`, `tools/land/note-commit.ts`, `docs/time-log.md`, `docs/lane-speed.md`, `tools/land/test/`
 
 `docs/time-log.md`'s five rows are what a session estimates about itself,
