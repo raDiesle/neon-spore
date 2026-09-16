@@ -358,6 +358,7 @@ through a husk sucked and a husk refused.
 ## A contents menu on the long director pages, each heading a jump
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Taken:** 2026-09-16, claude/queue-a-contents-menu-on-the-long-director-pages-each
 - **Files:** `tools/director/index.html`, `tools/director/src/tabs.ts`, `tools/director/src/backlog-page.ts`, `tools/director/src/whole-doc.ts`, `tools/director/src/documentation-rooms.ts`
 
 The owner, 15 September 2026: on the bigger pages — NOT BUILT YET and
