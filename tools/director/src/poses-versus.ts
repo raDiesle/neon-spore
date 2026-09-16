@@ -19,7 +19,7 @@ import { CAIRN_PILE_POSE } from "./poses-cairn.js";
 import { COUNT_POSE } from "./poses-count.js";
 import { CAROM_POSE, CHUTE_POSE, VEER_POSE } from "./poses-crossing.js";
 import { BREACH_ROCKS_POSE, BREACH_STRIKE_POSE, METEOR_HIT_POSE } from "./poses-damage.js";
-import { GUIDE_FILM_POSE } from "./poses-guide.js";
+import { GUIDE_FILM_POSE, LOST_SCREEN_POSE } from "./poses-guide.js";
 import { HANDOVER_TRADE_POSE } from "./poses-handover.js";
 import { COIL_POSE, TETHER_POSE } from "./poses-link.js";
 import { BREAK_POSE, BULB_STRUCK_POSE } from "./poses-struck.js";
@@ -222,6 +222,7 @@ export const VERSUS_POSES: Pose[] = [
   CAIRN_PILE_POSE,
   HANDOVER_TRADE_POSE,
   GUIDE_FILM_POSE,
+  LOST_SCREEN_POSE,
 ];
 
 export const VERSUS_GROUP: PoseGroup = {

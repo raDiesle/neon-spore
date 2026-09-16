@@ -1,11 +1,10 @@
 import type { World } from "@neon-spore/sim";
 import { inside, type NavBox } from "./guide-nav.js";
-import type { Layout } from "./layout.js";
+import { type Layout, tileCX } from "./layout.js";
+import { LOST_LOOK } from "./lost-look.js";
 import { drawBeads, drawNavBody } from "./nav-button.js";
 import { PALETTE } from "./palette.js";
 import { type SeatSkin, seatSkin } from "./seat-skin.js";
-import { drop } from "./text-drop.js";
-import { wrapText } from "./wrap-text.js";
 
 /**
  * A lost wave stops on a friendly screen: RETRY WAVE or QUIT.
@@ -32,20 +31,9 @@ import { wrapText } from "./wrap-text.js";
  * the drop replays every time the wave is lost and never while it is held.
  */
 
-/** One line for the pair, chosen by how many times they have gone again so
- * far — the count is up only once a retry is taken (`sim/wave-start.ts`) —
- * so that both phones say the same one, and a second loss does not repeat it. */
-const LINES = [
-  "Each of you saw a different half of that. Swap notes, then go again.",
-  "It got through once. Say where, and it will not get through twice.",
-  "Same wave, same two of you. Talk it over first, then press.",
-  "What one of you missed, the other one saw. That is the whole game.",
-] as const;
-
 const BTN_H = 52;
 const BTN_GAP = 18;
 const WORD = '700 15px "Courier New",monospace';
-const BODY = '13px "Courier New",monospace';
 
 export interface LostButtons {
   retry: NavBox;
@@ -83,40 +71,31 @@ export function drawLostScreen(
   world: World,
   v: LostView,
 ): void {
-  // Cold and grey rather than the pause's own violet: the field under it is
-  // not resting, it is *over*, and the one thing still in colour on it should
-  // be the breach that ended it.
-  ctx.fillStyle = "rgba(18,20,30,.64)";
-  ctx.fillRect(0, 0, l.width, l.height);
-
-  const mid = l.width / 2;
-  ctx.textAlign = "center";
-  let y = l.playHeight * 0.24;
-  drop(ctx, mid, y, v.age, 0, 0, () => {
-    ctx.font = '600 11px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.pod;
-    ctx.fillText(`WAVE ${world.wave + 1} · TRY ${Math.max(1, world.waveTries)}`, 0, 0);
-  });
-  y += 30;
-  drop(ctx, mid, y, v.age, 1, 0, () => {
-    ctx.font = '700 21px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.red;
-    ctx.fillText("WAVE LOST", 0, 0);
-  });
-  y += 28;
-  ctx.font = BODY;
-  const line = LINES[world.retries % LINES.length] ?? LINES[0];
-  for (const text of wrapText(ctx, line, l.width - 64)) {
-    drop(ctx, mid, y, v.age, 2, 0, () => {
-      ctx.font = BODY;
-      ctx.fillStyle = PALETTE.text;
-      ctx.fillText(text, 0, 0);
-    });
-    y += 18;
-  }
+  // The veil and the words are `LOST_LOOK`'s, and the shipped record draws
+  // exactly what this function used to draw in these two places. The split is
+  // the seam a candidate reaches through (`lost-look.ts`).
+  const scarred = world.scars[world.scars.length - 1];
+  const paint = {
+    l,
+    age: v.age,
+    wave: world.wave + 1,
+    tries: Math.max(1, world.waveTries),
+    retries: world.retries,
+    breachX: scarred === undefined ? null : tileCX(l, scarred.col),
+    hullY: l.hullY,
+    buttonsY: lostButtons(l).retry.y,
+  };
+  LOST_LOOK.veil(ctx, paint);
+  LOST_LOOK.words(ctx, paint);
 
   // The buttons arrive after the words, and not by falling: a thing to be
   // pressed should be still by the time a thumb reaches it.
+  //
+  // Centred here rather than inherited: the words above are a candidate's to
+  // draw and an answer that left the alignment anywhere would hang both button
+  // faces off the side of their own bodies (`lost-look.ts`).
+  const mid = l.width / 2;
+  ctx.textAlign = "center";
   const shown = Math.max(0, Math.min(1, (v.age - 0.55) / 0.3));
   if (shown > 0) {
     const b = lostButtons(l);

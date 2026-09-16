@@ -6412,3 +6412,24 @@ queued it. The other minutes were the same shape one level down: two entries nam
 exist — `doc-drift.test.ts` holds `time-log.md` to nothing on purpose, and
 `tools/director/src/scenes.ts` is `scene-world.ts` — both caught by opening the
 file rather than trusting the ledger's sentence about it.
+## 2026-09-16 — queued-tasks — nine answers to a lost wave, none of them on the field
+
+The queue's *A lost wave has to be seen: the hit, the ship breaking, and go
+again*: the owner's own words on 16 September 2026, and his second message
+asking for several variants on the VERSUS page first. Three slots, three
+answers each.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | `docs/versus.md` and the README, `break-look.ts` and `debris.ts` for the seam a record that draws nothing is allowed to be, `effects-breach.ts`, `scars.ts`, `craters.ts`, `hull-shock.ts`, `lost-screen.ts`, `pose-kit.ts` |
+| writing | 145 | three look records and the two drawers and one transient behind them, `breach-hue.ts`, the `lost-screen.ts` cut, nine candidate paints, two poses, three test files |
+| looking | 10 | the frame of THE MOULT sent to the owner, and the three slot pages read back off `bun run versus` |
+| friction | 30 | five rounds of biome's import order on files Python had edited; two candidate sentences the distinct test reads as labels rather than claims; a full `bun test` that ran past ten minutes under three parallel runs and finished in ninety-six seconds alone |
+| landing | 20 | `check`, `bun run index`, `bun run versus index` three times, the queue entry, three commits |
+
+The bottleneck was writing, and the part that could not be shortened was that a
+VERSUS candidate can only patch a record — it cannot add a transient, a call
+site or a parameter — so every one of the three pieces needed its *seam* built
+and shipped drawing nothing before a single answer could be written. That is
+three records, two drawers, one transient and one file cut in half, all of it
+proving it changes no pixel, before any of the nine pictures existed.

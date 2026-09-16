@@ -94,6 +94,7 @@ export { iris } from "./lid-iris.js";
 export { LID_LOOK, type LidLook, type LidPlates } from "./lid-look.js";
 export { drawPlates } from "./lid-plates.js";
 export { drawLiving } from "./living-draw.js";
+export { LOST_LOOK, type LostLook, type LostPaint } from "./lost-look.js";
 export { drawLostScreen, lostButtons, lostHit } from "./lost-screen.js";
 export { drawMazeWalls, mazeCanvasAngle, mazeRimHalfGapMilli } from "./maze-walls.js";
 export { MOUNT_LOOK, type MountLook } from "./mount-look.js";
