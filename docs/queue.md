@@ -603,3 +603,17 @@ time, and only the cells are its own.
 Provable with `bun run check`: `tools/land`'s own tests already exercise the
 note-writing path against a temporary repository, so the stamp is a case
 beside them, and a rounding rule is a pure function with a table.
+
+## Unverified at ce8a2324: THE SCOUT's arenas were never watched at tempo — the fl…
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `apps/game/src/rounds.ts`, `apps/game/src/scout.ts`, `docs/INDEX.md`, `docs/spec/briefings.md`, `docs/spec/interludes.md`, `docs/time-log.md`, `packages/content/src/control-aim.ts`, `packages/content/src/control-command.ts`
+
+*THE SCOUT: the ship puts a little one out, and only one of you can see where it is going* landed from a session that could not look at it. The commit touched 49 more files. What went unchecked:
+
+- THE SCOUT's arenas were never watched at tempo — the flight's feel, its beat counts and the hazard timings are arithmetic and tests only
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

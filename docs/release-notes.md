@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · ce8a2324 — THE SCOUT: the ship puts a little one out, and only one of you can see where it is going
+
+The owner asked for a wave where the mother ship spills out a tiny ship one player flies freely, evading enemies, collecting a new kind of power-up, and the wave is not done until every one of them is collected. On the ordinary field that is the one thing this game cannot have — nothing the players control travels — so it is a round with its own picture, which is exactly the exemption `docs/decisions.md` #21 describes and the same one SNAKE uses. A wave names `boss: { kind: "scout", arenas: [...] }` and the field is gone while it stands.
+
 ## 2026-09-16 · 4b1ce663 — The build-stamp scan reads its 2,353 files at once, not in turn
 
 The test that holds `__BUILD_DATE__` to one reader walks the whole tree and read every file with `readFileSync`, one after another. On 16 September 2026 it passed its own 5-second timeout under `bun run check` — thirteen shards on the same disk — and turned a green lane red; alone, the same file took 475 ms.
