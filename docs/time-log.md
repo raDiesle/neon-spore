@@ -7362,3 +7362,5 @@ turned that luck off. Teaching the stub its own matrix took ten minutes; the
 thirty-five before it went on believing the sweep and fixing the collisions it
 appeared to be reporting, one at a time, each of which turned out to be a
 different word in a different place than the one on screen.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
