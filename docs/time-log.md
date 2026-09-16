@@ -7428,3 +7428,5 @@ the coincidence they had counted to was judged one beat early, which is the one
 thing this boss cannot afford. `beamBeat` in `lance-burn.ts` is the fix and the
 beat is handed in rather than read off the world, so the next thing to read a
 beat off a beam has to say which side of `onBeat` it is on.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
