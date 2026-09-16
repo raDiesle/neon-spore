@@ -1,5 +1,6 @@
 import { halo } from "./glow.js";
 import type { NavBox } from "./guide-nav.js";
+import { sinHash } from "./hash.js";
 import { rgba } from "./hex.js";
 import { drawBeads } from "./nav-button.js";
 import type { SeatSkin } from "./seat-skin.js";
@@ -25,13 +26,31 @@ import type { SeatSkin } from "./seat-skin.js";
 
 /** The rounding on every corner of every plate. Square enough to read as cut. */
 export const CORNER = 9;
-/** How tall the crest is inside the top edge, and its inset from the rim. */
-const CREST_H = 9;
+/**
+ * How deep the crest hangs inside the top edge, at its shallowest, and how far
+ * in from the rim it sits.
+ *
+ * It was a flat 9 until 16 September 2026, when the owner asked for less of it:
+ * *the top line, maybe not so much height, and more interesting, maybe
+ * something alien organic.* Six is the floor and `CREST_SWELL` is what the
+ * lobes add, so the deepest point of the wave lands at seven and a half — still
+ * shorter than the lid it replaces, at every point of it.
+ */
+const CREST_H = 4.5;
 const CREST_IN = 5;
-/** The rounding on the crest's lower two corners — enough to not be a knife
- * edge, little enough that the crest reads as a lid and not as a second
- * button inside the first. */
-const CREST_FOOT = 2;
+/**
+ * How far the lobes swell either side of that floor.
+ *
+ * Two and a half on four and a half puts the edge between two and seven, so
+ * the deepest point of the wave is still shorter than the flat lid it replaced
+ * and the shallowest is a third of it. It was 1.5 for an afternoon, and 1.5 on
+ * a badge 220 wide is a straight line with a wobble in it — which is the
+ * rounded rectangle again, drawn more slowly.
+ */
+const CREST_SWELL = 2.5;
+/** How wide one lobe is, across. A plate gets as many as it has room for, so a
+ * badge is not one long swell and BACK is not a single bump. */
+const LOBE_W = 55;
 
 export interface PlateSkin {
   /** The colour the rim, the crest and the words are in. */
@@ -65,11 +84,30 @@ export function plate(ctx: CanvasRenderingContext2D, box: NavBox, s: PlateSkin):
 }
 
 /**
- * The lid: a shallow plate inside the top edge, brighter than the body.
+ * The lid, and it is a meniscus rather than a shelf: a shallow pool of light
+ * inside the top edge whose lower edge rises and falls in lobes, with the
+ * brighter line along that edge a liquid has and a gradient does not.
  *
- * Drawn as its own rounded rectangle rather than as a clipped strip, so the
- * gap between it and the rim is even the whole way round — a strip clipped to
- * the body's path would run right into the corners and read as a bevel.
+ * **The owner asked for this by name** on 16 September 2026, of the shape a
+ * rounded rectangle made: *the top line, maybe not so much height, and more
+ * interesting, maybe something alien organic.* A second rectangle inside the
+ * first says machined, which is the one thing this game's furniture is not —
+ * everything a finger or an eye goes to here is grown. So the top of the crest
+ * still follows the corners it sits inside, because that is what makes the
+ * plate read as a thing with a lid, and the bottom of it is the same surface
+ * the band's own top is made of (`guide-tide-membrane.ts`): two sines at
+ * frequencies that do not divide each other, so the edge does not repeat
+ * across a plate the width of a phone. How many lobes a plate gets is its own
+ * width over `LOBE_W`, so the badge swells four or five times and BACK twice —
+ * one lobe stretched to fit is a bump, and eight squeezed in is a serration.
+ *
+ * **It does not move, and each plate's is its own.** The phase comes off the
+ * box rather than off a clock: six plates drawn from one shape with one edge
+ * between them read as six copies, and six with the lobes falling differently
+ * read as six of a kind. A clock here would be a seventh thing breathing on a
+ * page whose job is to point at one thing — `guide-tide.ts` already names the
+ * band's lobes as the part to watch — and it would cost a path per plate per
+ * frame instead of per plate.
  */
 export function crest(
   ctx: CanvasRenderingContext2D,
@@ -80,22 +118,51 @@ export function crest(
   const x = box.x + CREST_IN;
   const w = box.w - CREST_IN * 2;
   if (w <= CORNER) return;
-  const g = ctx.createLinearGradient(0, box.y + CREST_IN, 0, box.y + CREST_IN + CREST_H);
+  const top = box.y + CREST_IN;
+  // The body's rounding less the inset, so the crest follows the corner it
+  // sits inside rather than cutting across it.
+  const r = Math.max(0, CORNER - CREST_IN);
+  // A plate's own place on the row, which is the same on every frame.
+  const phase = sinHash(Math.round(box.x), Math.round(box.w)) * Math.PI * 2;
+  const cycles = Math.max(2, Math.round(w / LOBE_W));
+  const steps = Math.max(12, cycles * 8);
+  const foot = (t: number): number =>
+    top +
+    CREST_H +
+    CREST_SWELL *
+      (0.62 * Math.sin(t * Math.PI * 2 * cycles + phase) +
+        0.38 * Math.sin(t * Math.PI * 2 * cycles * 2.3 + phase * 1.7));
+
+  const lid = new Path2D();
+  lid.moveTo(x + r, top);
+  lid.lineTo(x + w - r, top);
+  lid.quadraticCurveTo(x + w, top, x + w, top + r);
+  lid.lineTo(x + w, foot(1));
+  for (let i = steps; i >= 0; i--) {
+    const t = i / steps;
+    lid.lineTo(x + t * w, foot(t));
+  }
+  lid.lineTo(x, top + r);
+  lid.quadraticCurveTo(x, top, x + r, top);
+  lid.closePath();
+
+  const g = ctx.createLinearGradient(0, top, 0, top + CREST_H + CREST_SWELL);
   g.addColorStop(0, rgba(hex, alpha));
-  g.addColorStop(1, rgba(hex, alpha * 0.25));
+  g.addColorStop(1, rgba(hex, alpha * 0.2));
   ctx.fillStyle = g;
-  ctx.beginPath();
-  // Four radii, clockwise from the top-left: the body's rounding less the
-  // inset along the top, so the crest follows the corner it sits inside, and
-  // nearly square at the foot, where its lower edge is a line across the
-  // plate rather than a corner of anything.
-  ctx.roundRect(x, box.y + CREST_IN, w, CREST_H, [
-    CORNER - CREST_IN,
-    CORNER - CREST_IN,
-    CREST_FOOT,
-    CREST_FOOT,
-  ]);
-  ctx.fill();
+  ctx.fill(lid);
+
+  // The meniscus: the lower edge alone, brighter than the pool above it. It is
+  // the whole of why this reads as something held rather than as a bevel.
+  const line = new Path2D();
+  for (let i = 0; i <= steps; i++) {
+    const t = i / steps;
+    if (i === 0) line.moveTo(x, foot(0));
+    else line.lineTo(x + t * w, foot(t));
+  }
+  ctx.strokeStyle = rgba(hex, Math.min(1, alpha * 1.5));
+  ctx.lineWidth = 1.2;
+  ctx.stroke(line);
 }
 
 export interface WordPlate extends NavBox, PlateSkin {

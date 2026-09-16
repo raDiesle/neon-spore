@@ -812,7 +812,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/guide-tide-companion.ts` | The second thing a page is about, ringed and never written on |
 | `packages/render/src/guide-tide-membrane.ts` | The living top: three sheets of fluid lying over each other, each with its own drift |
 | `packages/render/src/guide-tide-plate.ts` | TIDE's one body, and the shape every piece of its chrome is cut from: a square with the corners taken off |
-| `packages/render/src/guide-tide.ts` | TIDE — CONSOLE's arrangement, cut from a square body, under a living top |
+| `packages/render/src/guide-tide-bar.ts` | TIDE's bar, and the two of its three that are not on it |
+| `packages/render/src/guide-tide.ts` | the band across the top of every page of a guide: the living top, and the badge naming the seat |
 | `packages/render/src/guide-seat.ts` | one seat's screen inside a guide's rehearsal, drawn through the shipping four passes |
 | `packages/render/src/guide-switch.ts` | the slide from one player's screen to the other in a tutorial: the lit seam, and what the band naming the seat has to be told |
 | `packages/render/src/band-channel.ts` | A STRIP, AS A CHANNEL CUT IN THE TISSUE |

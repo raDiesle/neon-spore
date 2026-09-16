@@ -1,12 +1,11 @@
 import { halo } from "./glow.js";
 import type { GuideLook } from "./guide-look.js";
-import { inside, type NavBox, type NavButtons } from "./guide-nav.js";
+import type { NavBox } from "./guide-nav.js";
+import { NAV_HEIGHT } from "./guide-tide-bar.js";
 import { membrane } from "./guide-tide-membrane.js";
-import { CORNER, plate, wordPlate } from "./guide-tide-plate.js";
+import { plate } from "./guide-tide-plate.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { drawNavFeeder } from "./nav-feeder.js";
-import { slab } from "./nav-slab.js";
 import { PALETTE } from "./palette.js";
 import { seatName } from "./seat-name.js";
 import { seatSkin } from "./seat-skin.js";
@@ -39,21 +38,46 @@ import { seatSkin } from "./seat-skin.js";
  */
 
 export const BAND_FOOT = 104;
-export const NAV_HEIGHT = 96;
 const BEZEL_H = 96;
 
 const TAG_FONT = '700 24px "Courier New",monospace';
 const TITLE_FONT = '700 14px "Courier New",monospace';
-const WORD_FONT = '700 20px "Courier New",monospace';
-const SMALL_FONT = '700 13px "Courier New",monospace';
+/**
+ * Where the badge's two rows sit inside it, as baselines off its top.
+ *
+ * **Both came up on 16 September 2026**, from 36 and 53, because the owner read
+ * the shipped page and said so: *it looks strange that "PLAYER 1 · SCREEN" text
+ * is too near the bottom of the button, and maybe we can move text in the
+ * button a little bit more to top.* He was right about the number — the name's
+ * baseline was three pixels off the badge's own foot, so its descenders were
+ * sitting on the rim.
+ *
+ * The room to move up came from the crest, which lost three pixels of height in
+ * the same turn (`guide-tide-plate.ts`). What is left is five clear above
+ * TUTORIAL's capitals, five between the rows and six under the name's
+ * descenders — even, rather than all of the slack at the top the way a box that
+ * had never been measured has it.
+ */
+const TAG_BASE = 32;
+const TITLE_BASE = 47;
 export const CAPTION_FONT = '700 16px "Courier New",monospace';
 
 const SMALL_W = 78;
-const SMALL_H = 42;
-const NEXT_H = 58;
 const GAP = 12;
-/** Seconds the bar stays lit after a press on the picture (`guide-nav.ts`). */
-const NUDGE_S = 0.6;
+
+/**
+ * Where the badge is: the same plate the buttons are, so the top of the page
+ * and the foot of it are visibly one kit rather than two ideas.
+ *
+ * Exported because the two rows written on it are measured against its foot and
+ * `test/guide-tide.test.ts` holds that — the owner asked for the words off the
+ * bottom of it by name, and a box only the drawing knows about is a box a later
+ * edit can quietly shrink.
+ */
+export function badgeBox(l: Layout): NavBox {
+  const w = Math.min(l.width - 2 * (GAP + SMALL_W) - 24, 220);
+  return { x: (l.width - w) / 2, y: 18, w, h: BEZEL_H - 40 };
+}
 
 export const band: GuideLook["band"] = (ctx, l, p) => {
   const skin = p.seat === undefined ? null : seatSkin(p.seat === 1 ? "p1" : "p2");
@@ -65,20 +89,17 @@ export const band: GuideLook["band"] = (ctx, l, p) => {
   membrane(ctx, { x: 0, y: 0, w: l.width, h: BEZEL_H }, hex, PALETTE.pod, age);
   if (flash > 0) halo(ctx, l.width / 2, BEZEL_H / 2, l.width * 0.6, hex, 0.5 * flash);
 
-  // The badge is the same plate the buttons are, so the top of the page and
-  // the foot of it are visibly one kit rather than two ideas.
-  const w = Math.min(l.width - 2 * (GAP + SMALL_W) - 24, 220);
-  const badge = { x: (l.width - w) / 2, y: 18, w, h: BEZEL_H - 40 };
+  const badge = badgeBox(l);
   plate(ctx, badge, { hex: PALETTE.pod, glow: flash * 0.6, live: true, hover: false });
   const cx = l.width / 2;
   ctx.textAlign = "center";
   ctx.font = TAG_FONT;
   ctx.fillStyle = PALETTE.pod;
-  ctx.fillText("TUTORIAL", cx, badge.y + (title === "" ? 40 : 36));
+  ctx.fillText("TUTORIAL", cx, badge.y + (title === "" ? 38 : TAG_BASE));
   if (title !== "" && skin) {
     ctx.font = TITLE_FONT;
     ctx.fillStyle = flash > 0.05 ? PALETTE.text : skin.rim;
-    ctx.fillText(title, cx, badge.y + 53);
+    ctx.fillText(title, cx, badge.y + TITLE_BASE);
   }
   ctx.textAlign = "left";
   corners(ctx, l, BEZEL_H + 6, l.height - NAV_HEIGHT - 6, hex);
@@ -106,128 +127,4 @@ function corners(ctx: CanvasRenderingContext2D, l: Layout, top: number, foot: nu
     ctx.lineTo(x + dx * r, foot);
   }
   ctx.stroke();
-}
-
-export function buttons(l: Layout): NavButtons {
-  const top = l.height - NAV_HEIGHT;
-  return {
-    bar: { x: 0, y: top, w: l.width, h: NAV_HEIGHT },
-    back: { x: GAP, y: 26, w: SMALL_W, h: SMALL_H },
-    replay: { x: l.width - GAP - SMALL_W, y: 26, w: SMALL_W, h: SMALL_H },
-    next: { x: GAP + 8, y: top + 26, w: l.width - GAP * 2 - 16, h: NEXT_H },
-  };
-}
-
-export const nav: GuideLook["nav"] = (ctx, l, s) => {
-  const b = buttons(l);
-  const age = s.age ?? 0;
-  const nudge = s.nudge === undefined ? 0 : Math.max(0, 1 - s.nudge / NUDGE_S);
-  slab(ctx, l, b.bar, age, nudge);
-  const skin = seatSkin(l.role);
-  const canBack = (s.back ?? true) && s.page > 0;
-  const last = s.page >= s.pages - 1;
-  const over = (box: NavBox): boolean =>
-    s.pointer !== undefined && inside(box, s.pointer.x, s.pointer.y);
-  const paint = { dpr: l.dpr, lip: skin.lip };
-  const glow = last
-    ? 0
-    : Math.max(nudge, s.played ? 0.55 + 0.45 * Math.abs(Math.sin(age * 2.4)) : 0);
-
-  // The two small ones hang off the top bezel the way the bar's hang off the
-  // bar: nothing on this page simply sits where it was put.
-  drawNavFeeder(ctx, b.back.x + b.back.w / 2, 2, b.back.y + 6, PALETTE.hull, age * 1.1);
-  drawNavFeeder(
-    ctx,
-    b.replay.x + b.replay.w / 2,
-    2,
-    b.replay.y + 6,
-    PALETTE.shieldRim,
-    age * 1.1 + 2.1,
-  );
-  wordPlate(
-    ctx,
-    { ...b.back, ...paint, live: canBack, hex: PALETTE.hull, glow: 0, hover: over(b.back) },
-    "BACK",
-    -1,
-    SMALL_FONT,
-    7,
-  );
-  // REPLAY says its name too. The shipped bar puts a loop sign here, and the
-  // owner's ask was that a button be easier to find and to click — which is
-  // the argument for the word, and it makes all three one shape.
-  replayPlate(ctx, {
-    ...b.replay,
-    ...paint,
-    live: s.replay ?? false,
-    hex: PALETTE.shieldRim,
-    glow: 0,
-    hover: over(b.replay),
-  });
-  drawNavFeeder(ctx, l.width / 2, b.bar.y + 2, b.next.y + 8, PALETTE.pod, age * 1.1 + 4.2);
-  wordPlate(
-    ctx,
-    { ...b.next, ...paint, live: !last, hex: PALETTE.pod, glow, hover: over(b.next) },
-    "NEXT",
-    1,
-    WORD_FONT,
-    11,
-  );
-  steps(ctx, s.page, s.pages, l.width / 2, b.bar.y + 14);
-};
-
-/** REPLAY: the plate with its name centred on it and no arrow either side. */
-function replayPlate(
-  ctx: CanvasRenderingContext2D,
-  p: NavBox & { live: boolean; hex: string; glow: number; hover: boolean },
-): void {
-  plate(ctx, p, p);
-  ctx.font = SMALL_FONT;
-  ctx.fillStyle = p.live ? (p.hover ? "#FFF6E4" : p.hex) : "#3A3160";
-  ctx.textAlign = "center";
-  ctx.fillText("REPLAY", p.x + p.w / 2, p.y + p.h / 2 + 10);
-  ctx.textAlign = "left";
-}
-
-/**
- * The pages, and the owner's own correction to CONSOLE: **a step not yet read
- * has to be visible.**
- *
- * CONSOLE filled the ones already read in amber and the rest in `#332B57` on a
- * bezel that is nearly black, so the row said how far in you were and not how
- * far there was to go. Here every step is a cut plate of the same size: read
- * ones filled, the one being read filled and haloed and a third taller, and
- * the ones to come **outlined in amber over a lit ground**. The row is
- * countable from across the room before the first page is turned, which is the
- * only thing it is for.
- */
-function steps(
-  ctx: CanvasRenderingContext2D,
-  page: number,
-  pages: number,
-  mid: number,
-  cy: number,
-): void {
-  const gap = 5;
-  const w = Math.min(30, Math.max(9, (210 - gap * (pages - 1)) / Math.max(1, pages)));
-  const from = mid - (pages * w + (pages - 1) * gap) / 2;
-  for (let i = 0; i < pages; i++) {
-    const x = from + i * (w + gap);
-    const here = i === page;
-    const h = here ? 7 : 5;
-    const y = cy - h / 2;
-    if (here) halo(ctx, x + w / 2, cy, w * 1.4, PALETTE.pod, 0.45);
-    ctx.beginPath();
-    ctx.roundRect(x, y, w, h, Math.min(3, CORNER));
-    if (i <= page) {
-      ctx.fillStyle = PALETTE.pod;
-      ctx.fill();
-    } else {
-      // Lit ground under a full-strength rim: the mark the owner could not see.
-      ctx.fillStyle = rgba(PALETTE.pod, 0.22);
-      ctx.fill();
-      ctx.strokeStyle = rgba(PALETTE.pod, 0.85);
-      ctx.lineWidth = 1.4;
-      ctx.stroke();
-    }
-  }
 }

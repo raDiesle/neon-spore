@@ -7364,3 +7364,24 @@ appeared to be reporting, one at a time, each of which turned out to be a
 different word in a different place than the one on screen.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — TIDE's crest and its badge
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | — half one had just closed over the same five files |
+| writing | 5 | the crest made a meniscus, the badge's two baselines lifted, `badgeBox` exported, the bar split into `guide-tide-bar.ts` to stay under the file limit, `test/guide-tide.test.ts` |
+| looking | 5 | two frames of FIRST STEP's first page, cropped to the top 130 px at 3× |
+| friction | 0 | — |
+| landing | 5 | `bun run index`, `check:fast`, the commit |
+
+The bottleneck was looking, and it was worth every minute: the first crest had
+a swell of one and a half pixels, which passed its own test — the edge moves,
+the depth is under the ceiling — and in the frame read as **a straight bright
+bar**, which is the rounded rectangle the owner asked to be rid of, drawn more
+slowly. Nothing but the picture could have said so. The swell went to two and
+a half and the lobe count became the plate's width over a fixed lobe width, so
+the badge ripples four times and BACK twice, and the test grew a floor under
+how far the edge must travel so the next edit cannot quietly flatten it again.
+
+*Measured: read off half one's landing at 22:44 and this one.*
