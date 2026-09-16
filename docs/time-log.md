@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-16 — queue-the-echo — THE REPRISE, the look
+
+The second half of the queue's *THE ECHO, his way*: the mechanism drawn. The
+field's top edge torn open at the middle column, one tooth in the tear for
+every body the running echo still owes, and a swallow as each one is sent. The
+idea it came from leaves `ideas.md` built, and the draft drawn at it goes to
+`retired.ts` with what happened to it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the boss draw pass, `Effects` and its four verbs, `beatbox-count.ts` as the count's precedent, the draft the queue item names |
+| writing | 70 | three render files, the branch, the roster test, the spec section, the retirement and its argument |
+| looking | 35 | four rounds of `bun run frames` on the same tick — the first drawing read as a slug with two eyes, and the tally took three tries to stop reading as a face or as bookends |
+| friction | 20 | the draft's count and its `Status:` line, the backlog's canary and the ideas page all move when one idea ships |
+| landing | 15 | `bun run index`, `check:fast`, the commit |
+
+The bottleneck was looking, and it was the right place to spend it: the picture
+was wrong in a way no test could have said, and the measured half — sixteen
+render passes that drew a body neither screen may draw — was found and closed
+in one edit because the frame test could count calls. Drawn closed the shape
+read as a creature, which `forms/anchored.ts` warns about at the top of the
+file that defines it; reading that warning after drawing it rather than before
+cost two of the four rounds.
+
 ## 2026-09-16 — queue-the-echo — THE REPRISE, the simulation half
 
 The queue's *THE ECHO, his way*, first of its two halves: the wave sent again

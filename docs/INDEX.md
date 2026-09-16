@@ -1002,6 +1002,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/coil-flight.ts` | THE COIL's freed rock drawn thrown from the dome's tile to the far wall's hull from the frame the dome went, its tail from the dome and the line lit a moment after the hit |
 | `packages/render/src/coil.ts` | THE COIL's dome: the shell a rock crosses the field inside, and the three studs the charge leaves it by |
 | `packages/render/src/reach-arm.ts` | THE CLAW's arm, drawn out of the swelling that was the gun |
+| `packages/render/src/reprise-draw.ts` | THE REPRISE, drawn: the top edge of the field torn open, the wave that has just come down still inside it |
+| `packages/render/src/reprise-fx.ts` | **The one thing THE REPRISE's picture has to remember**: that the count of owed bodies just went down |
 | `packages/render/src/comms-talker.ts` | one row per creature: which seat has to say something about it |
 | `packages/render/src/corner-light.ts` | One rounded light in the bottom-right corner of the sky |
 | `packages/render/src/countdown.ts` | THE COUNT: the disc, `showsCount`, and the notches it wore — NOTCHES on the LIBRARY |
@@ -1130,6 +1132,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 | `packages/render/src/surface-clear.ts` | **Wiping an overlay whatever transform is on it** — a `clearRect` under a ratio below one misses the right edge |
+| `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
 
 ### packages/net
 

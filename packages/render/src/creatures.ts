@@ -80,12 +80,6 @@ export function drawCreatures(
     // `world.boss` and not on the creature alone — and so is the tether, which
     // is a line down a column rather than a thing standing on a tile.
     if (isBossBody(c.kind) || c.kind === "tether") continue;
-    // And a body THE REPRISE has sent again: it is on the field, it falls, it
-    // is warded and it is shot like any other, and **neither screen draws it**
-    // (`sim/reprise.ts`). The one thing the pair is given about it is the kill
-    // when they get it right, which is `body-hit.ts`'s and is drawn from the
-    // effect rather than from the body.
-    if (c.unseen) continue;
     // And THE GYRE's hub, which is an armature spanning five rows rather
     // than a body on a tile. `gyre.ts` draws every wheel in one pass before
     // this one, because `byDepth` sorts body by body and a hub taking its

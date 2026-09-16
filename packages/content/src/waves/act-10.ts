@@ -38,8 +38,8 @@ export const WAVES_ACT_10: Wave[] = [
     name: "THE REPRISE",
     sentence: "The one where the wave you have just beaten comes back with nothing to see.",
     guide: {
-      both: "This wave comes down twice. Every stretch of it you get through is sent again from the top — the same bodies, the same columns, the same spacing — and on the second run neither of your screens draws a thing. It is all still there. It still falls at the same speed, the dome still turns it, a bolt of the right colour still takes it, and one that reaches the ship costs you exactly what it would have the first time. While it is running, nothing new arrives: the wave takes up again where it left off once the last of it has gone by.",
-      p1: "Keep the order. Count them as they come, and say the gaps out loud — two beats, then three. When the field goes dark that count is the only clock either of you has.",
+      both: "This wave comes down twice. Every stretch of it you get through is sent again from the top — the same bodies, the same columns, the same spacing — and on the second run neither of your screens draws a thing. It is all still there. It still falls at the same speed, the dome still turns it, a bolt of the right colour still takes it, and one that reaches the ship costs you exactly what it would have the first time. While it is running, nothing new arrives: the wave takes up again where it left off once the last of it has gone by. The tear at the top says how many of them are still to come, and nothing whatever about where.",
+      p1: "Keep the order. Count them as they come, and say the gaps out loud — two beats, then three. When the field goes dark the tear counts them down for you; the gaps between them are yours.",
       p2: "Keep the columns. Say them while they are still lit, in order, and say them again the moment the field empties — a column you did not say out loud is a column neither of you has.",
     },
     entries: [

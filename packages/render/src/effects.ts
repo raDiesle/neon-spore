@@ -20,6 +20,7 @@ import type { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
 import { OpeningFx } from "./opening-fx.js";
 import { RecoilLeapFx } from "./recoil-leap.js";
+import { RepriseFx } from "./reprise-fx.js";
 import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
@@ -140,6 +141,14 @@ export class Effects {
   /** THE CHOIR's earthquake: the one transient that moves the *picture* rather
    * than something in it, applied where the stage is placed (`choir-quake.ts`). */
   readonly quake = new ChoirQuake();
+  /**
+   * THE REPRISE's swallow: the moment the count of owed bodies went down, which
+   * is the only sign either seat gets that an unseen body has entered the field.
+   * Driven from the boss pass rather than fed by an event — an unseen arrival
+   * deliberately pushes none — and kept here because it outlives its frame
+   * (`reprise-fx.ts`).
+   */
+  readonly reprise = new RepriseFx();
   /** THE BEATBOX's discharges, outliving their frame like everything above. */
   readonly beatboxWaves = new BeatboxWaves();
   /** And its silencings, which are the same picture with nowhere to go

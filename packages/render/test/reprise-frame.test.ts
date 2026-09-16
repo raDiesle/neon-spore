@@ -1,6 +1,13 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
-import { buildBoss, buildQueue } from "@neon-spore/content";
-import { createWorld, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
+import { buildBoss, buildQueue, CREATURES } from "@neon-spore/content";
+import {
+  type CreatureKind,
+  createWorld,
+  startWave,
+  step,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -78,3 +85,50 @@ describe("a frame of THE REPRISE", () => {
     }
   });
 });
+
+/**
+ * Every kind in the bestiary, one at a time, as an unseen body.
+ *
+ * The wave THE REPRISE ships on authors plain bodies, so the test above proves
+ * the rule for one kind and says nothing about the other forty. It is not the
+ * body pass that is the risk: it is the two dozen passes *beside* it, each
+ * walking the creature list for its own kind — a lure's alarm, a veil's marks,
+ * a mine's fuses, a wall's arcs, a box's row of dots. Sixteen of them drew an
+ * unseen body when this was first measured, and every one was a column handed
+ * to the pair for nothing.
+ *
+ * So the claim is made once over the whole roster, which is also what holds
+ * the *next* creature to it: a pass added with a new kind and no thought about
+ * this fails here rather than on a wave months later, where it would read as
+ * the pair having remembered better than they did.
+ */
+const KINDS = Object.keys(CREATURES) as CreatureKind[];
+
+describe("a body no screen may draw", () => {
+  for (const kind of KINDS) {
+    it(`costs the canvas nothing as a ${kind}`, () => {
+      for (const role of ROLES) {
+        const world = standing(kind);
+        expect(world.creatures.length, `${kind} never arrived`).toBeGreaterThan(0);
+        const drawn = oneFrame(world, role);
+        const lifted: World = {
+          ...world,
+          creatures: world.creatures.filter((c) => c.unseen !== true),
+        };
+        expect(oneFrame(lifted, role), `${kind}/${role}`).toBe(drawn);
+      }
+    });
+  }
+});
+
+/** One body of a kind, on the field and unseen. Built from a queue of its own
+ * rather than by hand: what a kind arrives carrying is `spawn-fields.ts`'s to
+ * answer, and a body assembled here would be a body no wave can produce. */
+function standing(kind: CreatureKind): World {
+  const at = waveWith("reprise");
+  const world = createWorld(CFG, 7, [{ beat: 0, col: 3, kind, color: "red" }]);
+  startWave(world, at, [{ beat: 0, col: 3, kind, color: "red" }], [], buildBoss(at, CFG.cols));
+  for (let t = 0; t < TPB * 2; t++) step(world, []);
+  for (const c of world.creatures) c.unseen = true;
+  return world;
+}

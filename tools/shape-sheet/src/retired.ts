@@ -1,8 +1,8 @@
 import type { CreatureSilhouette } from "@neon-spore/content";
 import { TREMBLE } from "@neon-spore/content";
 import type { CatalogueEntry } from "./catalogue.js";
-import { studded } from "./forms/index.js";
-import { SWELL } from "./motions.js";
+import { studded, welling } from "./forms/index.js";
+import { HEAVE, SWELL } from "./motions.js";
 import { blob } from "./subjects.js";
 
 /**
@@ -15,13 +15,18 @@ import { blob } from "./subjects.js";
  * neither. They are `free` all the same, because free is a statement about
  * whether anything draws them today and not about where they came from.
  *
- * **Two ways in, and the second is not the one this file was opened for.**
+ * **Three ways in, and only the first is the one this file was opened for.**
  * The first is a shape the game carried and gave back: something in the
  * bestiary wore it, and then that something was retired. The second is a
  * shape that lost — two entries standing for one proposal, judged side by
  * side, and the catalogue keeping one. A conversion that was drawn twice is
  * not two bodies, and leaving both on the SHAPES tab spends a decision that
- * has already been made.
+ * has already been made. The third is a **draft whose idea got built and did
+ * not take the drawing with it**: the idea leaves `ideas.md` the day it ships,
+ * and a `suggests` pointing at a heading that is gone is the one thing
+ * `drafts.test.ts` refuses. The shape itself is not spent by that — the
+ * argument it was drawn for still holds somewhere else — so it comes here
+ * rather than being deleted, with what happened written down.
  *
  * Its own file rather than more of `catalogue.ts`, which sits at the 250-line
  * limit — and the seam is a real one, because a retired shape carries
@@ -55,6 +60,22 @@ const RUNT: CreatureSilhouette = {
 };
 
 export const RETIRED: CatalogueEntry[] = [
+  {
+    subject: welling(
+      "THE BREACH",
+      "a torn opening, and something rising in it",
+      44,
+      52,
+      0.34,
+      0.16,
+      5.5,
+    ),
+    motion: HEAVE,
+    status: "free",
+    slot: "creature",
+    owner:
+      "nothing, and it is here because the idea it was drawn at got built without it. It was offered to *Reverse wave* — a wave from below, out of the ship's own damage — and on 16 September 2026 the owner replaced that design with THE REPRISE, a wave sent again unseen from the top (`docs/spec/bosses.md` 11.15). The picture that shipped took the argument and not the contour: a hole in the sky rather than in the hull, and an **open** stroke along the field's own top edge rather than a closed shape, because drawn closed it read as a slug with two eyes — which is the failure `forms/anchored.ts` warns about at the top of the file it defines this in. Whatever takes it next inherits exactly that: the torn rim is worth having and the enclosure is what costs you, so it wants to be something genuinely *in* an opening, with the opening's edge over it",
+  },
   {
     // The crown points up the sheet's axis, which is where the source gathers
     // its bright swellings.

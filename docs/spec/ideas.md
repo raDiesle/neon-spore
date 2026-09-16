@@ -393,18 +393,6 @@ filed rightly, and there is no second list to change.
   field back in `config-crystal.ts` — and it belongs, if anywhere, on a
   *later* crystal wave, where a pair that already knows the answer is being
   asked to stop guessing at it
-- **Reverse wave** — a wave from below, and the reason nothing was drawn at it
-  is that a direction is not a shape. The breach is what would give it one:
-  something comes up out of a hole in the hull, and since the hull is the bottom
-  row, a reverse wave is not an arrival from off-screen at all — it is the
-  ship's own damage turning into enemies. Unworked out, and this is the crux:
-  the cannon fires straight up from the hull, so a thing **below** the hull line
-  cannot be shot at all. Either it climbs first and the fight starts when it is
-  level with the field like everything else, or the pair has an arrival with no
-  answer, which is a different game. The radar is the top edge only
-  ([systems](systems.md) 5.8), so the warning has to appear somewhere it never
-  has; and [the 4-second rule](latency.md) is measured from the top, so
-  something that starts at the hull has no budget at all until it has climbed
 - **The breach** — a column scarred past a threshold stops being cosmetic and
   opens. Scars are already permanent, already at a column and already drawn
   (`Scar`, `maxScars`); this is the single rule that would make them structural

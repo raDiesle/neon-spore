@@ -125,6 +125,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.quake.update(dt);
   e.beatboxWaves.update(dt);
   e.beatboxSilences.update(dt);
+  e.reprise.update(dt);
   // A salvo's particles are thrown from here on the frame it lands, not from
   // `burstFor` on the frame the event arrived — a second and a quarter
   // earlier (`fleet-fx.ts`).
@@ -183,4 +184,5 @@ export function resetAll(e: Effects): void {
   e.quake.clear();
   e.beatboxWaves.clear();
   e.beatboxSilences.clear();
+  e.reprise.clear();
 }

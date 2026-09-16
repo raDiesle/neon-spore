@@ -119,7 +119,14 @@ describe("buildBacklog", () => {
     // The three idea groups that were not named on 16 September stay whole:
     // every mechanic, control and weapon idea the spec holds is on the page,
     // because every one of them is a thing the game does not do.
-    expect(names(backlog.mechanics)).toContain("Reverse wave");
+    //
+    // *Reverse wave* used to be the first of these two, and it is gone because
+    // it was **built** — the owner replaced its from-below design with THE
+    // REPRISE on 16 September 2026 (`bosses.md` 11.15) and the bullet left
+    // `ideas.md` the way the page's own preamble says an idea leaves it. An
+    // idea that ships is exactly what should stop appearing here, so the
+    // canary moved rather than the page.
+    expect(names(backlog.mechanics)).toContain("Interference");
     expect(names(backlog.mechanics)).toContain("Inverted instructions");
 
     // The creature ideas are the cut group, and these two are the proof that

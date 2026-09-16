@@ -1525,8 +1525,30 @@ wrong second, and a count with no column is a cannon fired at nothing. The
 strip stays silent for an echoed body, and so does the siren: an arrival nobody
 can see announces nothing (`radar-blip.ts`, `comms.ts`).
 
-**What it does not draw yet**, and it is the lane after this one: the mechanism
-itself at the top of the field, the count of bodies still to come in the
-running echo read as a shape rather than a digit, and the twitch that says one
-has just entered. Until that lands the pair has the memory and no tally, and
-`repriseLeft` is the number waiting for a picture.
+**What is drawn is a tear and a tally, and nothing else.** The field's own top
+edge is torn open at the middle column, lifted and flared at both ends, with
+the dark the wave went into hanging under it; one **tooth** in that tear for
+every body the running echo still owes; and a **swallow** — the tear clenching
+and the mass heaving down through it — each time one is sent
+(`render/src/reprise-draw.ts`). It is rock grey and it does not move sideways,
+because a colour would hand the navigator half of what they were meant to have
+remembered and a column would hand the pilot the other half. The tear shuts to
+a seam while a stretch is running seen, so the silhouette alone says whether
+the field in front of the pair is one they can see.
+
+The count is a shape and never a digit, which is the arrangement
+`beatbox-count.ts` already argues for: a row says *this many are still to come*
+at a glance, and a number has to be read. The one going out is drawn shortening
+rather than removed between two frames — without it a swallow is a clench with
+nothing to explain it. `repriseLeft` is the whole of what the picture is given,
+and `RepriseFx` is the one thing it remembers between frames, because a count
+read fresh says nothing about the moment it changed.
+
+**A body neither screen may draw is taken off the frame once**, as it arrives,
+rather than skipped by each pass that would have drawn it
+(`render/src/unseen.ts`). Sixteen passes drew an unseen body when that was
+measured — a lure's alarm, a veil's marks, a mine's fuses, a wall's arcs, a
+box's row of dots — and each one was a column handed to the pair for nothing.
+The kill is the exception and is drawn whole: it is fed by an event and drawn
+from the outline the body had, so the pair learns it was right by seeing the
+kill and never by seeing the body (`body-hit.ts`).

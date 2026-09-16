@@ -323,6 +323,28 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
+## The repository walk reads 1800 files one at a time and times out under load
+
+- **Found:** 2026-09-16, claude/queue-the-echo-his-way-the-wave-sent-again-unseen-and
+- **Files:** `tools/test/tree-walk.test.ts`
+
+The test named *a walk of the repository > skips `.claude`, wherever it
+recurses into directories* awaits `Bun.file(...).text()` once per file inside a
+`for` loop, over every `.ts` under `packages`, `apps` and `tools` — about
+eighteen hundred of them. Alone it takes 350 ms; inside `bun run check`, where
+thirteen shards are reading the same disk, it crossed the 5000 ms cap and took
+a landing red. The same `bun run land` was green on the next run with nothing
+changed, which is the worst shape a red check can have: the next session
+re-runs it, finds nothing, and learns to re-run rather than to read.
+
+Read them in parallel — `await Promise.all(files.map(...))`, or `Promise.all`
+over chunks if the open-file count matters — which is the same walk in a
+fraction of the wall time, and takes the test off the edge of the cap rather
+than moving the cap. `FRAME_TIMEOUT_MS` in
+`packages/render/test/frame-harness.ts` is the precedent for raising one
+instead, and its own comment says why that is the second choice: a cap raised
+to cover contention hides the next thing that gets slow.
+
 ## A WELL wave never ends: nothing ever takes that boss off the world
 
 - **Found:** 2026-09-16, claude/queue-the-echo-his-way-the-wave-sent-again-unseen-and
@@ -381,71 +403,6 @@ on both seats and mid-deflation.
 
 Prove it with `bun run check`, a replay test, and the wave watched at tempo
 through a husk sucked and a husk refused.
-
-## THE ECHO, his way: the wave sent again unseen, and a count on the boss
-
-- **Found:** 2026-09-16, claude/bulb-queen-crane
-- **Taken:** 2026-09-16, claude/queue-the-echo-his-way-the-wave-sent-again-unseen-and
-- **Files:** `packages/sim/src/boss-entries.ts`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-state.ts`, `packages/sim/src/boss.ts`, `packages/sim/src/hash-boss.ts`, `packages/sim/src/config-boss.ts`, `packages/sim/src/spawn.ts`, `packages/sim/src/creature-types.ts`, `packages/sim/src/boss-surface.ts`, `packages/content/src/queue-boss.ts`, `packages/content/src/mechanics-bosses.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/creature-body.ts`, `packages/render/src/body-hit.ts`, `packages/render/src/radar-blip.ts`, `packages/render/test/frame.test.ts`, `tools/director/src/boss.ts`, `tools/shape-sheet/src/drafts/creatures.ts`, `docs/spec/bosses.md`, `docs/spec/ideas.md`, `docs/asset-catalogue.md`
-
-The owner took the *Reverse wave* idea (`ideas.md`, Mechanics) on 16 September
-2026 and asked for it built **his way**, which replaces the from-below design
-written there. It is a **boss wave**, and the boss is a memory test.
-
-**The wave falls as usual**, the arrivals its author wrote, both seats seeing
-everything. Then, at a **defined point in wave time** (a beat authored on the
-entry, like the queen's cycle), **the arrivals since the wave's start — or
-since the last echo ended — are sent again**: the same kinds, the same order,
-the same columns and colours, at the same spacing, offset to now. **Every one
-of them is invisible, on both screens.** The pair has to remember what came,
-and defend the columns from memory. The wave's own arrivals pause while the
-echo plays and take up again after it, so a wave alternates seen stretch,
-unseen echo, seen stretch, unseen echo, until the queue is spent; the last
-echo repeats the last stretch. An echoed body that reaches the hull unshielded
-is a hit like any other (`hull-damage.ts`, `wave-fail.ts`), nothing new.
-
-**A body is seen at the moment it is beaten, and only then.** A correct shot,
-a deflection, a destruction — whichever the kind's own rule is — plays the
-kind's own hit look (`body-hit.ts`, `hitFor`) and the shield's flash exactly
-where the invisible body was, so the pair learns it was right by seeing the
-kill and never by seeing the body. THE GHOST's `ghostRelease` is the shipped
-precedent for a body shown to a seat only as it dies.
-
-**The boss is at the top middle**, where the queen stands, and it does two
-things: it **shows the number of bodies still to come** in the running echo,
-and it **moves each time a new echoed body enters the field** — a pulse, a
-twitch, a swallow — so the pair knows *something* has arrived and *how many*
-are left, and nothing about where. The radar strip stays blank for an echoed
-body (`radar-blip.ts`): a blip would give the column away and there would be
-nothing to remember. The count is read as a shape on the body, not as a digit
-(`beatbox-count.ts` is the precedent).
-
-Build it as a boss that does not fill the wave, like THE VANE and THE WELL
-(`bossFillsWave` false): a `EchoEntry` beside `WellEntry` with the beat the
-first echo starts on, `"echo"` **appended** to `BOSS_KINDS`, an `EchoState`
-counting the stretch's start, the echo's cursor and the bodies left, hashed
-in `hash-boss.ts`. **The echo is derived, never appended to `world.queue`**:
-the queue is the wave's script and is outside the hash on purpose
-(`hash.ts`), so `spawnArrivals` reads the echoed entry back off the queue by
-index — the entry the stretch sent *n* beats after its start — and stamps the
-body `unseen: true` (`creature-types.ts`); `creature-body.ts` draws nothing
-for an unseen body and `body-hit.ts` plays its hit whole. No physics of its
-own — the echoed body is the same kind on the same movement and resolution
-paths. The body at the top is **the draft `creatures.ts` already offers for
-*Reverse wave*** (`suggests: "Reverse wave"`) or one combined with it,
-never a shape the game draws. A boss panel in the director with the echo
-beat on it; the sentence in `mechanics-bosses.ts`; `bosses.md` §11.13; the
-BOSSES page then shows it built.
-
-**Then the idea goes**: the *Reverse wave* entry in `ideas.md` comes out as
-built, the draft's `suggests` is retired the way a shipped one is, and the
-sentence in `asset-catalogue.md` that counts it among the three still waiting
-is corrected. The name is a working one — THE ECHO — and the owner may
-rename it in `bosses.md` when he sees it.
-
-Prove it with `bun run check`, a replay test that fingerprints two echoes,
-`frame.test.ts` with an unseen body mid-fall and one at its kill on both
-seats, and the wave watched at tempo through one full stretch and its echo.
 
 ## THE FLIP, his way: a malfunction that mirrors the field for one seat
 

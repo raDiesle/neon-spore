@@ -15,6 +15,7 @@ import { computeLayout, computeStage, type Layout, type Stage } from "./layout.j
 import { RenderState } from "./render-state.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import type { SpriteBursts } from "./sprite-burst.js";
+import { seenView } from "./unseen.js";
 
 /**
  * Reads the world, writes pixels, changes nothing. If a value is needed here
@@ -102,7 +103,11 @@ export class Canvas2DRenderer implements Renderer {
   }
 
   draw(seen: ViewState): void {
-    const view = handedView(seen); // THE HANDOVER: the seat this device is playing (`handover.ts`).
+    // THE HANDOVER: the seat this device is playing (`handover.ts`) — and then
+    // the bodies neither seat may draw, taken out once for every pass below
+    // (`unseen.ts`). Both return the frame they were handed when there is
+    // nothing to change, which is every wave but one.
+    const view = seenView(handedView(seen));
     const { ctx } = this;
     const { world } = view;
     // The stage depends on the band, and the band on the role: sized per frame, like the layout.

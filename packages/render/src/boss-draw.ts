@@ -1,4 +1,4 @@
-import { wardenPullMilli, wardenTether } from "@neon-spore/sim";
+import { repriseEchoing, repriseLeft, wardenPullMilli, wardenTether } from "@neon-spore/sim";
 import { cairnBody, drawCairn } from "./cairn.js";
 import { drawPileHand } from "./cairn-hand.js";
 import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
@@ -11,6 +11,7 @@ import { drawMaze } from "./maze-draw.js";
 import { drawMirror } from "./mirror.js";
 import { drawQueen } from "./queen.js";
 import type { ViewState } from "./renderer.js";
+import { drawReprise } from "./reprise-draw.js";
 import { drawSplice } from "./splice-draw.js";
 import { drawTether } from "./tether.js";
 import { drawVane } from "./vane-draw.js";
@@ -97,6 +98,20 @@ export function drawBoss(
     if (showsCairnSettle(l)) {
       drawCairnSettle(ctx, l, world, boss, body, view.beatPhase, view.time);
     }
+    return;
+  }
+
+  // THE REPRISE, and it is the whole of what either seat is given while an
+  // echo is running: how many bodies are still owed, and a swallow as each one
+  // goes. No body among the creatures for the vane's reason — the mechanism
+  // hangs above row 0 and nothing of it is on the grid — and the count is read
+  // off the world every frame while the swallow is the one thing the picture
+  // has to remember for itself (`reprise-fx.ts`).
+  if (boss.kind === "reprise") {
+    const echo = effects.reprise;
+    echo.note(boss.at < 0 ? -1 : boss.left);
+    const seen = repriseEchoing(world);
+    drawReprise(ctx, l, world.cfg, seen, repriseLeft(world), echo.swallow, view.time);
     return;
   }
 

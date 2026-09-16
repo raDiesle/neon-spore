@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: twenty-five drafts, four claimed and twelve set free so far.** A draft is a picture
+> **Status: twenty-four drafts, four claimed and thirteen set free so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content`, or
 > into `packages/render` where what was drawn is a mechanism rather than a
@@ -349,7 +349,10 @@ Roughly in the order the work is worth doing.
 3. **Every creature, mechanic and control idea that can be a shape now has
    one.** *Reverse wave*, *The breach* and *Handover* were the three this page
    listed; they have drafts, and so do *The Patch* and *The Other Hand*, which
-   nobody had counted. Three ideas are left over and none of them is waiting on
+   nobody had counted. *Reverse wave* is the one that has since been answered,
+   and not by its own drawing: the owner replaced that design with THE REPRISE
+   on 16 September 2026 and the picture that shipped took the argument and left
+   the contour, which is now in `retired.ts` with what happened written on it. Three ideas are left over and none of them is waiting on
    a drawing: *The Flip* is the whole field rolling over, which is a motion and
    not a contour; *The Fork* is two routes and a gate; *Call signs* is what the
    eleven columns are **called**, which is typography. Of the twelve interludes,
