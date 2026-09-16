@@ -1,15 +1,9 @@
 import type { ControlSet, SceneStep } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
-import { drawCaption } from "./guide-caption.js";
-import {
-  drawGuideNav,
-  inside,
-  NAV_H,
-  type NavButtons,
-  type NavState,
-  navButtons,
-} from "./guide-nav.js";
-import { BANNER_H, BANNER_TOP, type CornerPlate, drawGuideCorner } from "./guide-switch.js";
+import { inside, type NavButtons, type NavState } from "./guide-nav.js";
+import type { CornerPlate } from "./guide-switch.js";
+import { BAND_FOOT, band, buttons, NAV_HEIGHT, nav } from "./guide-tide.js";
+import { caption } from "./guide-tide-caption.js";
 import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 
@@ -18,14 +12,18 @@ import type { SeatNames } from "./seat-name.js";
  * TUTORIAL and whose screen this is, the bar the pages are turned by, where
  * that bar's three buttons are, and the words a page writes beside its subject.
  *
- * **It is a seam, and it changes no pixel.** Every one of these was a function
- * called by name — `drawGuideCorner`, `drawGuideNav`, `drawCaption` — and a
+ * **It is a seam.** Every one of these was a function called by name, and a
  * candidate look for the chrome had nowhere to stand: VERSUS patches *records*
  * for the length of one `draw()` (`docs/versus.md`), and a function import
  * cannot be patched. So the four are read off this object on every call
  * instead, the way the hull reads `OWN_SKIN` and the band's joins read
- * `BAND_JOIN`. The defaults are the shipped functions themselves, so the game
- * draws exactly what it drew.
+ * `BAND_JOIN`.
+ *
+ * **What it holds today is TIDE**, taken by the owner on 16 September 2026 out
+ * of the six `guide:chrome` was opened with (`tools/versus/DECIDED.md`). The
+ * chrome that shipped before it — a grown plate across the top, a bar of three
+ * round buttons and a caption in a bubble — is gone rather than kept behind a
+ * flag: the record is the seam, and a second answer arrives as a candidate.
  *
  * **Geometry travels with the drawing.** `buttons` is on the record beside
  * `nav` because the two are one promise: a thumb is hit-tested against
@@ -63,12 +61,12 @@ export interface GuideLook {
 
 /** What ships. Read on every call, never copied. */
 export const GUIDE_LOOK: GuideLook = {
-  navHeight: NAV_H,
-  bandFoot: BANNER_TOP + BANNER_H + 8,
-  band: drawGuideCorner,
-  buttons: navButtons,
-  nav: drawGuideNav,
-  caption: drawCaption,
+  navHeight: NAV_HEIGHT,
+  bandFoot: BAND_FOOT,
+  band,
+  buttons,
+  nav,
+  caption,
 };
 
 /** Which of the bar's three a point is on, or null. `null` on a point outside the bar. */

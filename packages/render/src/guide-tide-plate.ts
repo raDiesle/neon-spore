@@ -1,9 +1,8 @@
-import { halo } from "../../../../../packages/render/src/glow.js";
-import type { NavBox } from "../../../../../packages/render/src/guide-nav.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { drawBeads } from "../../../../../packages/render/src/nav-button.js";
-import type { SeatSkin } from "../../../../../packages/render/src/seat-skin.js";
-import { arrow } from "../word-button.js";
+import { halo } from "./glow.js";
+import type { NavBox } from "./guide-nav.js";
+import { rgba } from "./hex.js";
+import { drawBeads } from "./nav-button.js";
+import type { SeatSkin } from "./seat-skin.js";
 
 /**
  * TIDE's one body, and the shape every piece of its chrome is cut from: a
@@ -135,4 +134,29 @@ export function wordPlate(
   arrow(ctx, cx + dir * (tw / 2 + 5 + r * 0.5) - shift, cy - size * 0.1, r, dir);
   if (p.live) drawBeads(ctx, cx + dir * (tw / 2 + 5) - shift, cy + r * 0.95, r);
   ctx.textAlign = "left";
+}
+
+/**
+ * A grown arrow: blunt head, concave back, no straight edge.
+ *
+ * It came across from the slot's shared `word-button.ts` when TIDE was taken,
+ * because it is the only thing TIDE ever used from that file and the file went
+ * with the four candidates that lost. The shape is the bar's own from before
+ * the vote — the owner's one firm ask of this bar was that NEXT *say "Next" in
+ * text also*, never that the sign should go.
+ */
+export function arrow(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  r: number,
+  dir: 1 | -1,
+): void {
+  ctx.beginPath();
+  ctx.moveTo(x - dir * r * 0.5, y - r);
+  ctx.quadraticCurveTo(x + dir * r * 0.3, y - r * 0.4, x + dir * r * 0.8, y);
+  ctx.quadraticCurveTo(x + dir * r * 0.3, y + r * 0.4, x - dir * r * 0.5, y + r);
+  ctx.quadraticCurveTo(x + dir * r * 0.06, y, x - dir * r * 0.5, y - r);
+  ctx.closePath();
+  ctx.fill();
 }

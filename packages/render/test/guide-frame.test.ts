@@ -2,9 +2,8 @@ import { beforeAll, describe, expect, it } from "bun:test";
 import { WAVES, waveGuideSteps } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave, type World } from "@neon-spore/sim";
 import { drawWaveOpening } from "../src/briefing.js";
-import { NAV_H, navButtons } from "../src/guide-nav.js";
+import { GUIDE_LOOK } from "../src/guide-look.js";
 import { GuideStage } from "../src/guide-scene.js";
-import { BANNER_H, BANNER_TOP } from "../src/guide-switch.js";
 import { drawGuideWelcome } from "../src/guide-welcome.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { OpeningFx } from "../src/opening-fx.js";
@@ -86,8 +85,10 @@ describe("a page of film", () => {
       const { texts, l } = filmPage("p1", 2, size);
       const tag = texts.find((t) => t.text === "TUTORIAL");
       expect(tag, `${size.width}: no TUTORIAL`).toBeDefined();
-      expect(tag!.y).toBeGreaterThanOrEqual(BANNER_TOP);
-      expect(tag!.y + tag!.h).toBeLessThanOrEqual(BANNER_TOP + BANNER_H);
+      // Inside the band, whatever the band is: `bandFoot` is the record's own
+      // statement of where it ends, and the HUD's top rows drop under it.
+      expect(tag!.y).toBeGreaterThanOrEqual(0);
+      expect(tag!.y + tag!.h).toBeLessThanOrEqual(GUIDE_LOOK.bandFoot);
       expect(tag!.x).toBeGreaterThanOrEqual(0);
       expect(tag!.x + tag!.w).toBeLessThanOrEqual(l.width);
     }
@@ -110,10 +111,10 @@ describe("the welcome before a device's first tutorial", () => {
     }
   });
 
-  it("names the three buttons over the buttons they name, above the bar", () => {
+  it("names the three buttons beside the buttons they name, clear of the bar", () => {
     for (const size of SIZES) {
       const { texts, l } = welcome(size, 0.5);
-      const b = navButtons(l);
+      const b = GUIDE_LOOK.buttons(l);
       const over = [
         ["BACK", b.back],
         ["PLAY AGAIN", b.replay],
@@ -123,10 +124,12 @@ describe("the welcome before a device's first tutorial", () => {
         const t = texts.find((x) => x.text === word);
         expect(t, `${size.width}: no ${word}`).toBeDefined();
         // Its box is on the screen and clear of the bar; its middle is nearer
-        // its own button than either neighbour's.
+        // its own button than either neighbour's. Which *side* of its button it
+        // is on is the chrome's business — TIDE keeps two of the three up in
+        // the bezel, and a label under one of those is still its label.
         expect(t!.x).toBeGreaterThanOrEqual(0);
         expect(t!.x + t!.w).toBeLessThanOrEqual(l.width);
-        expect(t!.y + t!.h).toBeLessThan(l.height - NAV_H);
+        expect(t!.y + t!.h).toBeLessThan(l.height - GUIDE_LOOK.navHeight);
         const mid = t!.x + t!.w / 2;
         const own = Math.abs(mid - (btn.x + btn.w / 2));
         for (const other of [b.back, b.replay, b.next]) {
@@ -139,12 +142,12 @@ describe("the welcome before a device's first tutorial", () => {
     }
   });
 
-  it("keeps its title clear of the band the plate stands in", () => {
+  it("keeps its title clear of the band the badge stands in", () => {
     for (const size of SIZES) {
       const { texts } = welcome(size, 0);
       const title = texts.find((t) => t.text === "WELCOME");
       expect(title).toBeDefined();
-      expect(title!.y).toBeGreaterThanOrEqual(BANNER_TOP + BANNER_H);
+      expect(title!.y).toBeGreaterThanOrEqual(GUIDE_LOOK.bandFoot);
     }
   });
 });

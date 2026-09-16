@@ -1,7 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { navHit } from "../src/guide-look.js";
-import { navButtons } from "../src/guide-nav.js";
+import { GUIDE_LOOK, navHit } from "../src/guide-look.js";
 import { computeLayout, computeStage } from "../src/layout.js";
 import { pointOnStage } from "../src/stage-point.js";
 
@@ -38,7 +37,7 @@ function clientOn(
 
 /** The middle of NEXT, in the coordinates the renderer drew it in. */
 function nextButton(): { x: number; y: number } {
-  const b = navButtons(LAYOUT).next;
+  const b = GUIDE_LOOK.buttons(LAYOUT).next;
   return { x: b.x + b.w / 2, y: b.y + b.h / 2 };
 }
 

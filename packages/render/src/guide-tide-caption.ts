@@ -1,14 +1,15 @@
-import { anchorPoint } from "../../../../../packages/render/src/caption-anchor.js";
-import { halo } from "../../../../../packages/render/src/glow.js";
-import type { GuideLook } from "../../../../../packages/render/src/guide-look.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import { LABEL_LINE } from "../../../../../packages/render/src/label-box.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { withNames } from "../../../../../packages/render/src/seat-name.js";
-import { wrapText } from "../../../../../packages/render/src/wrap-text.js";
-import { companionPoint } from "./companion.js";
-import { BAND_FOOT, CAPTION_FONT } from "./paint.js";
-import { CORNER, crest } from "./plate.js";
+import { anchorPoint } from "./caption-anchor.js";
+import { halo } from "./glow.js";
+import type { GuideLook } from "./guide-look.js";
+import { BAND_FOOT, CAPTION_FONT } from "./guide-tide.js";
+import { companionPoint } from "./guide-tide-companion.js";
+import { CORNER, crest } from "./guide-tide-plate.js";
+import { handoverPlateBox } from "./handover-look.js";
+import { rgba } from "./hex.js";
+import { LABEL_LINE } from "./label-box.js";
+import { PALETTE } from "./palette.js";
+import { withNames } from "./seat-name.js";
+import { wrapText } from "./wrap-text.js";
 
 /**
  * The words, the ring and the scrim.
@@ -75,7 +76,22 @@ export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, be
   const x = Math.max(8, Math.min(Math.max(8, l.width - w - 8), point.x - w / 2));
   const ring = Math.max(point.r, point.rx ?? 0) + 10;
   const above = point.y - ring - point.clear - LEAD - h;
-  const below = above < BAND_FOOT;
+  // **THE HANDOVER's plate is a second floor**, in the other direction, and it
+  // came across with the rest of this file when TIDE was taken. A caption
+  // anchored on a strip stands `CLEAR_STRIP` above its ring, which on that
+  // wave is exactly the lip of the band the plate sits on — so the page that
+  // says PLAYER 2 MOVES THE CANNON covered all of THEIR PANEL — BACK IN 3 but
+  // its first two letters (photographed 13 September 2026). A caption can go
+  // under its ring and the plate cannot go anywhere: the countdown is the
+  // fault's only answer to *when* (`handover-look.ts`).
+  const plate = handoverPlateBox(ctx, l, world);
+  const covered =
+    plate !== null &&
+    x < plate.x + plate.w &&
+    x + w > plate.x &&
+    above < plate.y + plate.h &&
+    above + h > plate.y;
+  const below = above < BAND_FOOT || covered;
   const y = below ? Math.max(BAND_FOOT, point.y + ring + point.clear + LEAD) : above;
 
   ctx.globalAlpha = k;

@@ -1,7 +1,6 @@
 import { halo } from "./glow.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { LIFT } from "./guide-nav.js";
-import { BANNER_H, BANNER_TOP } from "./guide-switch.js";
 import { drawLabelGround, drawLabelLines, type LabelBox, labelSize } from "./label-box.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -25,8 +24,15 @@ import { PALETTE } from "./palette.js";
  * the stage and the seconds it has been up, like every page of a guide.
  */
 
-/** Where the title's box sits under the plate, and the middle label under it. */
-const TITLE_Y = BANNER_TOP + BANNER_H + 30;
+/**
+ * How far under the band the title's box sits.
+ *
+ * Measured off `GUIDE_LOOK.bandFoot` rather than off a constant, because the
+ * band is a look and its foot moved 27 px the day TIDE was taken
+ * (`guide-tide.ts`). A page that explains the chrome cannot be laid out
+ * against a chrome that is no longer there.
+ */
+const TITLE_GAP = 30;
 /** How fast the one line that asks for a press breathes. */
 const BREATH = 2.2;
 
@@ -39,40 +45,56 @@ const SIGNS: readonly [string, string, string] = ["BACK", "PLAY AGAIN", "NEXT"];
 export function drawGuideWelcome(ctx: CanvasRenderingContext2D, l: Layout, age: number): void {
   const b = GUIDE_LOOK.buttons(l);
   const picture = l.height - GUIDE_LOOK.navHeight;
+  const top = GUIDE_LOOK.bandFoot;
 
-  // The scrim: the picture goes back a step and the bar does not, which is
-  // the whole sentence — *this half waits, that half is yours*.
+  // The scrim: the picture goes back a step and the chrome does not, which is
+  // the whole sentence — *this half waits, that half is yours*. It starts at
+  // the band's foot rather than at the top of the screen, because a chrome may
+  // keep two of its three buttons up in the bezel (`guide-tide.ts`) and dimming
+  // a button on the page that explains the buttons says the opposite.
   ctx.fillStyle = "rgba(9,7,20,.5)";
-  ctx.fillRect(0, 0, l.width, picture);
+  ctx.fillRect(0, top, l.width, picture - top);
   halo(ctx, l.width / 2, b.bar.y, l.width * 0.6, PALETTE.text, 0.18 + 0.06 * Math.sin(age * 1.6));
 
-  // The title, under the plate and clear of it.
-  const title = centred(ctx, l, TITLE, TITLE_Y);
+  // The title, under the band and clear of it.
+  const titleY = top + TITLE_GAP;
+  const title = centred(ctx, l, TITLE, titleY);
   drawLabelGround(ctx, title);
   drawLabelLines(ctx, title, TITLE);
 
-  // The three, one label each, on a row above the bar's shadow with a leader
-  // down to the button it names. `GUIDE_LOOK.buttons` is where the bar draws them, so
-  // a label cannot point at a place a button is not.
+  // The three, one label each, beside the button it names with a leader to it.
+  // `GUIDE_LOOK.buttons` is where the bar draws them, so a label cannot point
+  // at a place a button is not — and since a chrome decides *where* its three
+  // go, each label is placed off its own button rather than off a shared row:
+  // one up in the bezel takes its label underneath, one down by the bar takes
+  // its label above.
   const boxes = [b.back, b.replay, b.next] as const;
   const rowH = labelSize(ctx, [SIGNS[0]]).h;
-  const rowY = b.bar.y - LIFT - rowH - 14;
+  let lowest = b.bar.y;
   boxes.forEach((btn, i) => {
     const sign = SIGNS[i]!;
     const { w, h } = labelSize(ctx, [sign]);
     const x = Math.max(6, Math.min(l.width - w - 6, btn.x + btn.w / 2 - w / 2));
-    const box = { x, y: rowY, w, h };
+    const under = btn.y + btn.h < picture / 2;
+    const y = under ? btn.y + btn.h + 14 : btn.y - LIFT - h - 14;
+    const box = { x, y, w, h };
+    if (!under) lowest = Math.min(lowest, y);
     drawLabelGround(ctx, box);
     ctx.beginPath();
-    ctx.moveTo(btn.x + btn.w / 2, rowY + h);
-    ctx.lineTo(btn.x + btn.w / 2, btn.y + 6);
+    ctx.moveTo(btn.x + btn.w / 2, under ? y : y + h);
+    ctx.lineTo(btn.x + btn.w / 2, under ? btn.y + btn.h - 6 : btn.y + 6);
     ctx.stroke();
     drawLabelLines(ctx, box, [sign]);
   });
 
   // The picture waits — said in the middle of the picture that is waiting,
   // and the one line asking for a press breathes under it.
-  const waits = centred(ctx, l, WAITS, (TITLE_Y + title.h + rowY) / 2 - 30);
+  const waits = centred(
+    ctx,
+    l,
+    WAITS,
+    (titleY + title.h + Math.max(lowest, titleY + rowH)) / 2 - 30,
+  );
   drawLabelGround(ctx, waits);
   drawLabelLines(ctx, waits, WAITS);
   ctx.globalAlpha = 0.6 + 0.4 * Math.abs(Math.sin(age * BREATH));

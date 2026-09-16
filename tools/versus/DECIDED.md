@@ -1011,3 +1011,35 @@ there. `open` came down from 1.4 tiles to 0.35, because the reach really did
 change and that field is the one the next vote is cast on.
 
 The other answers offered were `buckle` and `peel`; they went with the slot.
+
+## `guide:chrome` / `tide` — taken by hand, 2026-09-16
+
+TIDE into `packages/render/src/guide-tide.ts` and four files beside it, with
+`GUIDE_LOOK`'s six fields pointing at them. The whole of the tutorial's
+furniture changed at once, which is what this slot is: the band across the top,
+the bar the pages are turned by, where that bar's three buttons are, and the
+words a page writes beside its subject.
+
+**It was written to be taken, out of the five that could not be.** The owner
+read the page on 16 September 2026 and said what he wanted from each — CONSOLE's
+positions and its dashed amber ring, RIBBON's moving top and its square body,
+SPOTLIGHT's dimmed field at a third of the weight — and named what was wrong
+with each as it stood. TIDE is those four corrections built together rather
+than a sixth idea, and `tide/index.ts` argued exactly that.
+
+What it changed about the game, beyond the drawing: the bar is 96 tall rather
+than 86 and the band's foot is 104 rather than 77, so a page of film is laid
+out differently; a page may now ring **two** subjects, the second silently,
+because a control that stands something over a column is about whatever is
+coming down that column (`guide-tide-companion.ts`); and the field under a
+caption is dimmed to 0.32 rather than left dark.
+
+What the old chrome was is gone rather than kept: `guide-caption.ts` deleted,
+`drawGuideNav`, `navButtons` and `NAV_H` out of `guide-nav.ts` — which is now
+the geometry's vocabulary and nothing else — and `drawGuideCorner` out of
+`guide-switch.ts`. A second answer arrives as a candidate, not as a flag.
+
+The other answers offered were `coach`, `console`, `rail`, `ribbon` and
+`spotlight`; they went with the slot, and `word-button.ts` with them — its
+`arrow` came across into `guide-tide-plate.ts`, which was the only thing TIDE
+ever used from it.

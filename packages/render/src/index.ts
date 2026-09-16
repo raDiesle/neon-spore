@@ -54,7 +54,7 @@ export { drawGaugeRound } from "./gauge-round.js";
 export { halo, haloSprite, strokeGlow } from "./glow.js";
 export { gripLabel } from "./grip.js";
 export { GUIDE_LOOK, type GuideLook, navHit, onNavBar } from "./guide-look.js";
-export { drawGuideNav, NAV_H, navButtons } from "./guide-nav.js";
+export type { NavBox, NavButtons, NavState } from "./guide-nav.js";
 export { drawGuideWelcome } from "./guide-welcome.js";
 // THE HANDOVER, for the host that has to answer a finger the way the frame is
 // drawn: the renderer seats itself as a frame arrives, and `apps/game` seats the

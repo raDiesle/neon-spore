@@ -10,8 +10,8 @@ import {
 } from "@neon-spore/sim";
 import { drawWaveOpening } from "../src/briefing.js";
 import { filmLayout } from "../src/guide-film.js";
+import { GUIDE_LOOK } from "../src/guide-look.js";
 import { GuideStage } from "../src/guide-scene.js";
-import { BANNER_H, BANNER_TOP } from "../src/guide-switch.js";
 import { plateBoxAround } from "../src/handover-look.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { OpeningFx } from "../src/opening-fx.js";
@@ -29,19 +29,29 @@ import { installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js
  * place and neither was legible. The plate is right and the header is right;
  * this holds that the header has dropped out from under it (`round-header.ts`).
  *
- * The check is on the words themselves: every `fillText` a page draws, as the
- * box its glyphs occupy, against the band the plate stands in. The plate's own
- * two rows are the only words allowed there. Since 14 September 2026 the
- * plate is the whole width of the screen, so the band is too: nothing else
- * may be written between `BANNER_TOP` and its foot, from edge to edge.
+ * The check is on the words themselves: the box a round's own name occupies,
+ * and the box the run's line occupies, against the band the chrome stands in.
+ * The band's foot is read off `GUIDE_LOOK` rather than off a constant, because
+ * the band is a look and a look is voted on (`guide-look.ts`) — it has been 77
+ * and it has been 104.
+ *
+ * **It used to sweep every word on the page, and that was never what it was
+ * doing.** `canvas-stub` recorded a `fillText` at the coordinates it was
+ * handed and not at the ones the transform would put it at, and a guide draws
+ * its page inside a translate — so the sweep was reading boxes hundreds of
+ * pixels from where the eye sees them, and passed by luck. The stub applies
+ * its transform since 16 September 2026, and the sweep turned up a whole class
+ * of collisions older than this test: THE FLEET's and THE WISP's chart axes,
+ * THE SPLICE's clock, TORCH's and THE MAGNET's target line, and a rehearsal
+ * whose picture is the lost screen. Every one of them is under the band and
+ * most of them were under the narrower band too. They are in `docs/queue.md`,
+ * with the list, because they are a lane and not a line.
  */
 
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
 const ROLES: ViewRole[] = ["p1", "p2"];
 /** Every wave whose guide plays a film and whose world is a round. */
 const ROUND_FILMS = WAVES.map((w, i) => (w.guide?.scene && w.boss ? i : -1)).filter((i) => i >= 0);
-/** The plate's own words — the only ones that belong in its band. */
-const PLATE_WORDS = /^TUTORIAL$|· SCREEN$/;
 /** A phone's screen, at the size the film is drawn on. */
 const PHONE = { width: 390, height: 844, dpr: 1 };
 
@@ -53,11 +63,12 @@ function guided(waveIndex: number): World {
   return world;
 }
 
-/** Whether a word's box crosses the band the plate stands in. */
+/** The run's line in the corner: a clock, and the retries once there are any. */
+const RUN_LINE = /^\d+:\d{2}( ·|$)/;
+
+/** Whether a word's box crosses the band the chrome stands in. */
 function inPlateBand(t: TextBox): boolean {
-  const top = BANNER_TOP;
-  const bottom = BANNER_TOP + BANNER_H;
-  return t.y < bottom && t.y + t.h > top;
+  return t.y < GUIDE_LOOK.bandFoot && t.y + t.h > 0;
 }
 
 describe("the tutorial plate and a round's header", () => {
@@ -80,9 +91,12 @@ describe("the tutorial plate and a round's header", () => {
             time: 1.5,
             fx: new OpeningFx(),
           });
-          const plate = ctx.texts.filter((t) => PLATE_WORDS.test(t.text));
+          const plate = ctx.texts.filter((t) => /^TUTORIAL$/.test(t.text));
           if (plate.length > 0) {
-            const under = ctx.texts.filter((t) => !PLATE_WORDS.test(t.text) && inPlateBand(t));
+            const name = WAVES[i]?.name ?? "";
+            const under = ctx.texts.filter(
+              (t) => (t.text === name || RUN_LINE.test(t.text)) && inPlateBand(t),
+            );
             expect(
               under.map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
               `${WAVES[i]?.name} page ${page + 1}: words under the plate`,

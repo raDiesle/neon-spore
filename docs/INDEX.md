@@ -808,9 +808,13 @@ place — the generator keeps whatever is there.
 | `packages/render/src/field-flip.ts` | THE FLIP, as a screen sees it: |
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the clock, which seat is showing, and the switch between them |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
-| `packages/render/src/guide-caption.ts` | a tutorial step's words and highlight, placed beside the body, control or bar they are about |
+| `packages/render/src/guide-tide-caption.ts` | The words, the ring and the scrim |
+| `packages/render/src/guide-tide-companion.ts` | The second thing a page is about, ringed and never written on |
+| `packages/render/src/guide-tide-membrane.ts` | The living top: three sheets of fluid lying over each other, each with its own drift |
+| `packages/render/src/guide-tide-plate.ts` | TIDE's one body, and the shape every piece of its chrome is cut from: a square with the corners taken off |
+| `packages/render/src/guide-tide.ts` | TIDE — CONSOLE's arrangement, cut from a square body, under a living top |
 | `packages/render/src/guide-seat.ts` | one seat's screen inside a guide's rehearsal, drawn through the shipping four passes |
-| `packages/render/src/guide-switch.ts` | the slide from one player's screen to the other in a tutorial — the lit seam and the banner naming it |
+| `packages/render/src/guide-switch.ts` | the slide from one player's screen to the other in a tutorial: the lit seam, and what the band naming the seat has to be told |
 | `packages/render/src/band-channel.ts` | A STRIP, AS A CHANNEL CUT IN THE TISSUE |
 | `packages/render/src/band-ground.ts` | WHAT THE CONTROL PANEL IS MADE OF |
 | `packages/render/src/band-seam.ts` | WHERE THE SHIP ENDS AND THE PANEL BEGINS — WHICH IS NOWHERE |
@@ -819,7 +823,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lobe-look.ts` | what a button stands in and shines with, as a record — the socket under a face and the gloss over it, so a candidate panel can grow its buttons as pores |
 | `packages/render/src/recoil-vent.ts` | The jet THE RECOIL leaves behind: fire vented **downward** out of the tile a shot met it in |
 | `packages/render/src/recoil.ts` | THE RECOIL's cage: the sprung frame a slick or a bulb falls inside |
-| `packages/render/src/guide-nav.ts` | BACK, the page number, and NEXT: the bar a stepped guide is turned by |
+| `packages/render/src/guide-nav.ts` | the geometry of the bar a stepped guide is turned by — the boxes, the hit test, and the two numbers other drawings measure off |
 | `packages/render/src/guide-play.ts` | The clock a rehearsal runs on, and the page it is running |
 | `packages/render/src/guide-plate.ts` | The body under the tutorial's corner plate: the panel's button recipe stretched to a plate, split from `guide-switch.ts` |
 | `packages/render/src/opening-fx.ts` | The two things a wave's opening remembers between frames: how long the page that is up has been up |

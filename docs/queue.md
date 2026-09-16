@@ -743,3 +743,61 @@ for one, and the argument a row carries is the first thing a lane will shorten.
 The cut is the same one `fault-beam-ends.ts` took out of `fault-emitter.ts`:
 the rows into `brush-rows.ts`, re-exported from here so no caller moves. Prove
 it with `bun test tools/director` and `bun run check`.
+
+## The guide's band covers a round's readouts on eleven rehearsals
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/splice-draw.ts`, `packages/render/src/coord-grid.ts`, `packages/render/src/magnet-look.ts`, `packages/render/src/torch.ts`, `packages/render/src/lost-shutters.ts`, `packages/render/src/round-header.ts`
+
+`round-header.ts` exists because a rehearsal's plate sat on a round's name and
+neither was legible. `headerTop` fixed the **name**, and nothing else ever
+called it. Every other readout a round writes in the top strip has been under
+the band since the band went full-width on 14 September 2026, and TIDE's band
+is 104 deep where the old one stopped at 77, so two more joined them.
+
+Measured on 16 September 2026 by drawing every page of every rehearsal that
+carries a film, at 390 × 844, both seats, and taking every word whose box
+crosses `GUIDE_LOOK.bandFoot`:
+
+- THE FLEET's chart axis — the row number at 381,86 and the square name at
+  347,83. `drawFleetChart`'s `leftCovered` moves the numbers to *the other
+  edge*, which was an answer while the plate was a corner and is not one now.
+- THE WISP's coordinate grid (`coord-grid.ts`) — the row number at 3,83 and
+  the whole letter row A..K at y 98, on three of its four pages.
+- THE SPLICE's clock — `1 OF 2 · 26` at 159,94, placed off `spliceTopY`.
+- THE MAGNET's target line at 206,72, and TORCH's at 170,58.
+- THE BEATBOX's count at 192,87 and THE VEER's at 191,20.
+- THE JAM's `LURE` at 293,25.
+- BULB QUEEN, THE COIL, THE LURE and TORCH each have a page whose picture is
+  the **lost screen**, which stamps WAVE LOST at 16% of the play height — 114,73.
+
+The shape of the fix is `headerTop` at each site, which needs `ViewState`
+carried to a few functions that take a `Layout` and a state today. The lost
+screen is the odd one: it is a whole screen drawn as a page's subject, so
+either it takes a clearance like the rest or the page draws it shrunk.
+
+`packages/render/test/guide-plate-room.test.ts` was narrowed to the round's
+name and the run's line on the day this was found, and its header carries the
+same list — widen it back as each site is fixed.
+
+## `canvas-stub` records a text box before the transform, and one test read it
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `packages/render/test/canvas-stub.ts`
+
+Fixed in the same commit, and here because the fix is one that wants looking
+at rather than one that wants doing. `StubContext.texts` promised that two
+boxes overlapping in the log overlap on the phone, and recorded the
+coordinates `fillText` was handed — so every word drawn inside a `translate`
+carried a box hundreds of pixels from where the eye sees it. A guide draws its
+page inside one; so does THE MIRROR's count-in.
+
+The stub now carries the matrix and puts each box through it. What it does not
+do is rotate the box: a rotated word keeps an axis-aligned box at the scaled
+size, because nothing in `render/` writes rotated type and a box that lied
+about its angle would be a second wrong answer. If something ever does, this
+is where it breaks.
+
+The four other files reading `texts` — `cairn-frame`, `guide-frame`,
+`guide-handover`, `harpoon-frame` — all still pass, which is worth knowing:
+their subjects are drawn untransformed.

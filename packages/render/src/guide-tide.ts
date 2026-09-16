@@ -1,19 +1,15 @@
-import { halo } from "../../../../../packages/render/src/glow.js";
-import type { GuideLook } from "../../../../../packages/render/src/guide-look.js";
-import {
-  inside,
-  type NavBox,
-  type NavButtons,
-} from "../../../../../packages/render/src/guide-nav.js";
-import { rgba } from "../../../../../packages/render/src/hex.js";
-import type { Layout } from "../../../../../packages/render/src/layout.js";
-import { drawNavFeeder } from "../../../../../packages/render/src/nav-feeder.js";
-import { slab } from "../../../../../packages/render/src/nav-slab.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { seatName } from "../../../../../packages/render/src/seat-name.js";
-import { seatSkin } from "../../../../../packages/render/src/seat-skin.js";
-import { membrane } from "./membrane.js";
-import { CORNER, plate, wordPlate } from "./plate.js";
+import { halo } from "./glow.js";
+import type { GuideLook } from "./guide-look.js";
+import { inside, type NavBox, type NavButtons } from "./guide-nav.js";
+import { membrane } from "./guide-tide-membrane.js";
+import { CORNER, plate, wordPlate } from "./guide-tide-plate.js";
+import { rgba } from "./hex.js";
+import type { Layout } from "./layout.js";
+import { drawNavFeeder } from "./nav-feeder.js";
+import { slab } from "./nav-slab.js";
+import { PALETTE } from "./palette.js";
+import { seatName } from "./seat-name.js";
+import { seatSkin } from "./seat-skin.js";
 
 /**
  * TIDE — CONSOLE's arrangement, cut from a square body, under a living top.

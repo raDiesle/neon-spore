@@ -1,13 +1,10 @@
-import type { ControlId } from "../../../../../packages/content/src/controls.js";
-import type { SceneAnchor } from "../../../../../packages/content/src/scene-step-types.js";
-import type { AnchorPoint } from "../../../../../packages/render/src/caption-anchor.js";
-import { creatureHalfAxes } from "../../../../../packages/render/src/creature-axes.js";
-import { creatureCenter } from "../../../../../packages/render/src/creature-place.js";
-import { glidePhase } from "../../../../../packages/render/src/depth.js";
-import type { Layout } from "../../../../../packages/render/src/layout.js";
-import type { Creature } from "../../../../../packages/sim/src/creature-types.js";
-import { spanOf } from "../../../../../packages/sim/src/span.js";
-import type { World } from "../../../../../packages/sim/src/world.js";
+import type { ControlId, SceneAnchor } from "@neon-spore/content";
+import { type Creature, spanOf, type World } from "@neon-spore/sim";
+import type { AnchorPoint } from "./caption-anchor.js";
+import { creatureHalfAxes } from "./creature-axes.js";
+import { creatureCenter } from "./creature-place.js";
+import { glidePhase } from "./depth.js";
+import type { Layout } from "./layout.js";
 
 /**
  * The second thing a page is about, ringed and never written on.

@@ -1,4 +1,4 @@
-import { rgba } from "../../../../../packages/render/src/hex.js";
+import { rgba } from "./hex.js";
 
 /**
  * The living top: three sheets of fluid lying over each other, each with its

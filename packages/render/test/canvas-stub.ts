@@ -233,8 +233,9 @@ export class StubContext {
    * Every word drawn, as the box it occupies, when a test asks for it. Unset
    * by default; assign an array to start collecting. The box is the glyphs'
    * own — the baseline `fillText` was given, an ascent of eight tenths of the
-   * font's size above it, and the width `measureText` answers — so two texts
-   * that overlap here overlap on the phone.
+   * font's size above it, and the width `measureText` answers, all put through
+   * the context's own transform — so two texts that overlap here overlap on
+   * the phone.
    */
   texts?: TextBox[];
   private _globalCompositeOperation = "source-over";
@@ -336,11 +337,52 @@ export class StubContext {
     return this._lineDashOffset;
   }
 
+  /**
+   * The context's own transform, so a text box is where the word lands.
+   *
+   * `texts` promises that two boxes which overlap here overlap on the phone,
+   * and until 16 September 2026 that was only true of words drawn with no
+   * transform on the context: a `fillText` was recorded at the coordinates it
+   * was handed. A guide draws its page inside a translate (`guide-film.ts`)
+   * and a count-in inside another (`simon-fx.ts`), so their boxes landed
+   * hundreds of pixels from where the eye sees them — which read as words in
+   * places nothing is, and hid words in places something is.
+   *
+   * Six numbers in canvas order. A rotation is carried on the corner and not
+   * on the box, which stays axis-aligned at the scaled size: nothing in
+   * `render/` writes rotated type, and a box that lied about its angle would
+   * be a second wrong answer rather than the same one.
+   */
+  private m: [number, number, number, number, number, number] = [1, 0, 0, 1, 0, 0];
+  private mStack: [number, number, number, number, number, number][] = [];
+
+  private mul(n: readonly number[]): void {
+    const [a, b, c, d, e, f] = this.m;
+    const [A, B, C, D, E, F] = n as [number, number, number, number, number, number];
+    this.m = [
+      a * A + c * B,
+      b * A + d * B,
+      a * C + c * D,
+      b * C + d * D,
+      a * E + c * F + e,
+      b * E + d * F + f,
+    ];
+  }
+
+  /** A point through the current transform. */
+  private at(x: number, y: number): { x: number; y: number } {
+    const [a, b, c, d, e, f] = this.m;
+    return { x: a * x + c * y + e, y: b * x + d * y + f };
+  }
+
   save(): void {
     this.mark("save");
+    this.mStack.push([...this.m]);
   }
   restore(): void {
     this.mark("restore");
+    const was = this.mStack.pop();
+    if (was) this.m = was;
   }
   beginPath(): void {
     this.mark("beginPath");
@@ -393,23 +435,39 @@ export class StubContext {
   }
   translate(...a: number[]): void {
     nums("translate", a);
+    this.mul([1, 0, 0, 1, a[0] as number, a[1] as number]);
   }
   scale(...a: number[]): void {
     nums("scale", a);
+    this.mul([a[0] as number, 0, 0, a[1] as number, 0, 0]);
   }
   rotate(...a: number[]): void {
     nums("rotate", a);
+    const r = a[0] as number;
+    this.mul([Math.cos(r), Math.sin(r), -Math.sin(r), Math.cos(r), 0, 0]);
   }
   /** The general one, which a shear has to go through: a flung gum leans
    * into its flight (`gum.ts`), and nothing else in render/ reaches for it. */
   transform(...a: number[]): void {
     nums("transform", a);
+    this.mul(a);
   }
   /** Logged as well as checked, unlike `translate`/`scale`/`rotate`: a
    * surface that wipes itself has to put the identity on first, and the log
    * is the only place a test can see that it did (`surface-clear.test.ts`). */
   setTransform(...a: number[]): void {
     nums("setTransform", a);
+    this.m =
+      a.length >= 6
+        ? [
+            a[0] as number,
+            a[1] as number,
+            a[2] as number,
+            a[3] as number,
+            a[4] as number,
+            a[5] as number,
+          ]
+        : [1, 0, 0, 1, 0, 0];
     this.mark("setTransform", undefined, a);
   }
 
@@ -460,7 +518,13 @@ export class StubContext {
       const size = px ? Number(px[1]) : 10;
       const left =
         this.textAlign === "center" ? x - width / 2 : this.textAlign === "right" ? x - width : x;
-      this.texts.push({ text, x: left, y: y - size * 0.8, w: width, h: size });
+      // Through the transform, so the box is where the word lands rather than
+      // where the caller counted from (`m` above).
+      const [a0, b0, c0, d0] = this.m;
+      const sx = Math.hypot(a0, b0);
+      const sy = Math.hypot(c0, d0);
+      const p = this.at(left, y - size * 0.8);
+      this.texts.push({ text, x: p.x, y: p.y, w: width * sx, h: size * sy });
     }
   }
   fill(): void {

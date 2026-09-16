@@ -3,7 +3,7 @@ import { controlSet, controlSetForWave, waveGuideSteps } from "@neon-spore/conte
 import {
   cannonGrab,
   computeLayout,
-  navButtons,
+  GUIDE_LOOK,
   readyCircles,
   shieldGrab,
   type ViewRole,
@@ -188,7 +188,7 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
     };
     /** NEXT, once. The bar is where a page is turned (`render/guide-nav.ts`). */
     const next = (): void => {
-      const box = navButtons(layout).next;
+      const box = GUIDE_LOOK.buttons(layout).next;
       downAt(box.x + box.w / 2, box.y + box.h / 2);
       stub.fire("pointerup", { pointerId: 1 });
       tick();

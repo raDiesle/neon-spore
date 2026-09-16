@@ -7341,3 +7341,24 @@ are authored against a seven-column field whatever `cfg.cols` says, and a
 guide's half is 220 characters because it is read on a phone under a beat.
 
 *Measured: read off the queue-take commit at 22:04 and this landing.*
+
+## 2026-09-16 — creature-bite-collision — GUIDE:CHROME · TIDE, taken
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | the five TIDE files and what each imports, `guide-look.ts`, `guide-nav.ts`, `guide-switch.ts`, `guide-welcome.ts`, `round-header.ts`, `fleet-chart.ts`, `hud.ts`, and the four tests that named the old functions |
+| writing | 55 | five files moved and rewired, the record repointed, `guide-nav.ts` cut to its geometry, `guide-caption.ts` and `drawGuideCorner` deleted, the welcome page taught that a chrome places its own three, the run line dropped under the band, the handover floor carried across, five tests rewritten, DECIDED.md, two queue entries |
+| looking | 0 | — the picture is half two |
+| friction | 45 | `guide-plate-room.test.ts`: six rounds of chasing one failing sweep to the bottom, which was `canvas-stub` recording a text box before the transform |
+| landing | 10 | `versus index`, `bun run index`, import sorting, `check:fast`, the commit |
+
+The bottleneck was friction, and all of it was one thing: **a test that had
+been passing by luck for as long as it existed.** `guide-plate-room.test.ts`
+swept every word a rehearsal draws against the band, and the stub handed it
+pre-transform coordinates — so the sweep was reading boxes that were nowhere
+near where the words are, and the band's old top of 24 px happened to exclude
+the ones that would have failed. Moving the band to the top of the phone
+turned that luck off. Teaching the stub its own matrix took ten minutes; the
+thirty-five before it went on believing the sweep and fixing the collisions it
+appeared to be reporting, one at a time, each of which turned out to be a
+different word in a different place than the one on screen.
