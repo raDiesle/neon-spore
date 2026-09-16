@@ -589,6 +589,7 @@ worked, which is how it came to be bad twice.
 ## The director's palette table is at its ceiling, and the next brush cannot go in
 
 - **Found:** 2026-09-16, claude/task-queue-work-5f529c
+- **Taken:** 2026-09-16, claude/queue-the-directors-palette-table-is-at-its-ceiling-an
 - **Files:** `tools/director/src/brushes.ts`, `tools/director/src/brush-groups.ts`
 
 THE FLIP's brush went in at 251 lines and had to be paid for by cutting three
