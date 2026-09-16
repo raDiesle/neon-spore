@@ -606,6 +606,7 @@ beside them, and a rounding rule is a pure function with a table.
 ## The build-stamp scan walks the whole tree inside a 5-second test
 
 - **Found:** 2026-09-16, claude/task-queue-work-5f529c
+- **Taken:** 2026-09-16, claude/queue-the-build-stamp-scan-walks-the-whole-tree-inside
 - **Files:** `tools/test/build-stamp.test.ts`
 
 *is read through BUILD\_STAMP, never through the raw identifier* reads every
