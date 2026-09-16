@@ -358,6 +358,7 @@ through a husk sucked and a husk refused.
 ## THE ECHO, his way: the wave sent again unseen, and a count on the boss
 
 - **Found:** 2026-09-16, claude/bulb-queen-crane
+- **Taken:** 2026-09-16, claude/queue-the-echo-his-way-the-wave-sent-again-unseen-and
 - **Files:** `packages/sim/src/boss-entries.ts`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/boss-state.ts`, `packages/sim/src/boss.ts`, `packages/sim/src/hash-boss.ts`, `packages/sim/src/config-boss.ts`, `packages/sim/src/spawn.ts`, `packages/sim/src/creature-types.ts`, `packages/sim/src/boss-surface.ts`, `packages/content/src/queue-boss.ts`, `packages/content/src/mechanics-bosses.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/creature-body.ts`, `packages/render/src/body-hit.ts`, `packages/render/src/radar-blip.ts`, `packages/render/test/frame.test.ts`, `tools/director/src/boss.ts`, `tools/shape-sheet/src/drafts/creatures.ts`, `docs/spec/bosses.md`, `docs/spec/ideas.md`, `docs/asset-catalogue.md`
 
 The owner took the *Reverse wave* idea (`ideas.md`, Mechanics) on 16 September
