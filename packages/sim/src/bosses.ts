@@ -27,6 +27,7 @@ export {
   type PinballEntry,
   type PulseEntry,
   type SnakeEntry,
+  type SpliceEntry,
   type VaneEntry,
   type WardenEntry,
   type WellEntry,
@@ -116,6 +117,23 @@ export {
   type MirrorVerdictReason,
   mirrorListenBeats,
 } from "./simon.js";
+export {
+  SPLICE_FIRST_STRAWS,
+  type SpliceRound,
+  type SpliceState,
+  spliceCurrent,
+  spliceEntranceRow,
+  spliceNumberAt,
+  spliceStraws,
+  spliceWanted,
+} from "./splice.js";
+export {
+  installSplice,
+  SPLICE_SETTLE_BEATS,
+  spliceHeard,
+  spliceRound,
+} from "./splice-round.js";
+export { spliceSpreadCol } from "./splice-tangle.js";
 export { vaneOpen } from "./vane.js";
 export { vaneFold, vanePivotCol, vaneReach, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
 export {

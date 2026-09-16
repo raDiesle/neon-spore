@@ -6093,3 +6093,26 @@ diverged because a landing moves `main` locally and only a push moves
 `docs/queue.md`, `docs/time-log.md` and `docs/release-notes.md` at once. The
 five minutes of looking is the number worth keeping: a mutation is the cheapest
 question a new test can be asked, and both answers came back inside a minute.
+
+## 2026-09-16 — queued-tasks — THE SPLICE, straws fed in the order the numbers say
+
+The queue's *THE SPLICE*, first landing: the whole boss, from the vocabulary to
+the picture. A children's path puzzle played by two people who can each see
+half of it — the navigator reads the tangle and has no SUCK, the pilot holds
+the cannon and the maw and sees a hand's width of straw over each mouth.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 40 | the queue entry, then `mirror-round.ts`, `fleet-board.ts` and `snake.ts` for the seam a boss is cut along, `control-sets-table.ts` for what a panel owes both seats, and `scene-types.ts` for what a film may carry |
+| writing | 120 | five sim files, the hash, four events, four sounds and their cue, two render files, the director's round editor, the mechanics card, the wave, the rehearsal, nine sim cases and six frame cases |
+| looking | 20 | four captures at tempo — a number mid-straw on the navigator's screen, the same one arriving on the pilot's, a wrong feed and a clock running out — and the one correction they bought |
+| friction | 25 | a Python edit that re-read a file it had already written and lost an import; `bind.ts` and `effects-ingest-silent.ts` both over the 250-line limit; `--press` refusing `2:intake` on a panel where the maw is player 2's |
+| landing | 20 | `bun run index`, `bun run format`, two full `check:fast` runs, the commit |
+
+The bottleneck was writing, which is what a boss costs: nothing here could be
+borrowed, because THE SPLICE is the first fight whose two screens are pictures
+of the *same* thing seen from opposite ends rather than two different subjects.
+The twenty minutes of looking is the number worth keeping — it bought exactly
+one fix, and no test could have found it: the number coming down the straw and
+the label it came from were both on the screen at once, so the tangle said the
+one was in two places.

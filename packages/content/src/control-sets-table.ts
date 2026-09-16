@@ -136,6 +136,25 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     ],
   },
   {
+    id: "splice",
+    name: "THE SPLICE",
+    why: "Two buttons and neither seat holds both: one slides the cannon under a mouth and cannot read the tangle, the other reads the tangle and holds the only mouth.",
+    // **The maw is `mawTake` and not `intake`** — THE CLAW's arrangement,
+    // reached from the other end. There the mouth is moved off the seat
+    // holding the arm so a catch is two hands; here it is moved off the seat
+    // holding the *strip* so a **feed** is, which is the whole fight: player 2
+    // can see which mouth the number belongs to and cannot put anything under
+    // it, player 1 can put the cannon anywhere and cannot see the cannon's
+    // column named in the sentence they are being told. Neither of them is
+    // waiting on the other with nothing to press.
+    //
+    // Not a reduction of `default`: a reduced panel draws the held-back slots
+    // empty so its buttons stand where they will stand later (`ControlSet`),
+    // and this is not a rung on that ladder — it is a fight's own panel, like
+    // the five above it.
+    controls: ["cannon", "mawTake"],
+  },
+  {
     id: "claw",
     name: "THE CLAW",
     why: "The gun is a hand: player 1 slides it, reaches up a column and winds it home again, and the mouth moves to player 2, so nothing is caught by one person alone.",

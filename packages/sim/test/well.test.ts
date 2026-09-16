@@ -78,8 +78,14 @@ describe("THE WELL", () => {
     expect(bossFillsWave("well")).toBe(false);
   });
 
-  it("is appended to BOSS_KINDS, never inserted — the tag is a wire value", () => {
-    expect(BOSS_KINDS[BOSS_KINDS.length - 1]).toBe("well");
+  // The tag `bossHashParts` pushes is this index, so the well's place in the
+  // list is a wire value: a replay recorded on yesterday's build has to
+  // fingerprint the same way today. It used to be read as "the last one",
+  // which said the right thing only until a boss was appended after it — THE
+  // SPLICE, 16 September 2026. What the rule always meant is the index.
+  it("keeps its place in BOSS_KINDS — the tag is a wire value", () => {
+    expect(BOSS_KINDS.indexOf("well")).toBe(11);
+    expect(BOSS_KINDS.length, "a kind was inserted rather than appended").toBeGreaterThan(11);
   });
 
   it("puts nothing on the field and keeps nothing between beats", () => {

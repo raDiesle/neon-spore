@@ -47,6 +47,17 @@ export const NO_SUBJECT: Record<string, string> = {
     "the first of THE CHOIR's two arrows going out. The subject is a gesture — a hand carrying a handle off the edge of the field — and there is no body anywhere in it; what the sound marks is that the pilot has started something and has two beats to finish.",
   "boss.fleetDown":
     "the last of them. What this marks is a chart with nothing left on it, which is an absence like ui.waveClear rather than a thing standing anywhere.",
+  // THE SPLICE's four. Every one of them happens at a *mouth*, and a mouth is
+  // an opening in the plating rather than a body — the sheet's cards are
+  // silhouettes of things that stand on the field, and the one thing this
+  // fight puts on the field is a tangle of lines nobody has a contour for.
+  "boss.spliceFeed":
+    "a suck taking hold of a straw. What it is attached to is a mouth two tiles over the plating and a number leaving the far end of a line, neither of which is a body the sheet has a card for.",
+  "boss.spliceFed": "the same mouth, swallowing the number it was owed. Same argument.",
+  "boss.spliceWrong":
+    "the wrong number arriving, or a round's beats running out. The second of those has no place on the field at all — it is a clock — and the two share a sound because they cost the pair the same thing.",
+  "boss.spliceDown":
+    "the last tangle coming apart. What this marks is a field with no straws left over it, which is an absence like ui.waveClear rather than a thing standing anywhere.",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",

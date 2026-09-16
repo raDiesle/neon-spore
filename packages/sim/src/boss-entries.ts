@@ -4,6 +4,7 @@ import type { PinballRound } from "./pinball.js";
 import type { PulseStage } from "./pulse.js";
 import type { MirrorStep } from "./simon.js";
 import type { SnakeRound } from "./snake.js";
+import type { SpliceRound } from "./splice.js";
 
 /**
  * **What a wave authors when it wants a boss** — twelve shapes and the union
@@ -190,6 +191,22 @@ export interface WellEntry {
   kind: "well";
 }
 
+/**
+ * What a wave authors when it wants THE SPLICE: how long each round lasts,
+ * and nothing else.
+ *
+ * There is no placement to write. How many straws a round stands follows from
+ * which round it is — two, then three, then four (`spliceStraws`) — and where
+ * they run is laid from the seeded rng at the moment the round opens
+ * (`splice-tangle.ts`), because a tangle an author drew by hand would be a
+ * tangle the pair could learn. So the whole entry is PINBALL's `beats` with
+ * the board taken away, which is the shortest an authored round has ever been.
+ */
+export interface SpliceEntry {
+  kind: "splice";
+  rounds: SpliceRound[];
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -203,4 +220,5 @@ export type BossEntry =
   | SnakeEntry
   | PinballEntry
   | PulseEntry
-  | WellEntry;
+  | WellEntry
+  | SpliceEntry;

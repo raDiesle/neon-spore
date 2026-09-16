@@ -770,12 +770,16 @@ no-travel rule relaxed.
   neither can see the other's. No right answer, only an agreed one, invented
   and executed before the count runs out. Unworked out: whether the dials
   wrap, which is probably the best thing in it
-- **THE SPLICE** — a tangle of cable, and the colour on the wrong phone. The
-  navigator sees where each strand enters, the pilot where each leaves; the
-  tangle between is drawn on both and legible on neither. Cutting the right
-  one takes a call from one seat and a press from the other; cutting the wrong
-  one re-tangles the rest. Unworked out: whether strands may cross at all,
-  since a truly unreadable tangle is decided by eyesight
+- ~~**THE SPLICE**~~ — **built**, as a boss wave, on 16 September 2026, and the
+  owner's own design rather than this card's: straws rather than cable, fed in
+  the order their numbers say rather than cut, and the tangle drawn on one
+  phone rather than on neither. Its one open question was answered by building
+  it — the strands cross freely, and what stops the puzzle being decided by
+  eyesight is that only one seat is shown it and only the other can reach a
+  mouth. The design is
+  [bosses 11.13](bosses.md#1113-the-splice--straws-fed-in-the-order-the-numbers-say)
+  and the fight is `packages/sim/src/splice.ts`. It leaves this list the way
+  THE WELL did: an idea that has been made is no longer an idea
 - ~~**THE WELL**~~ — **built**, as a boss wave, on 13 September 2026. Its two
   open questions were answered by building it: it is a boss rather than a
   modifier wave, and **one phone flips**, the pilot's, because a well on both

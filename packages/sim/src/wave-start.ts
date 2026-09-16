@@ -14,6 +14,7 @@ import { installPinball } from "./pinball-round.js";
 import { installPulse } from "./pulse-round.js";
 import { NO_SHELL } from "./shell.js";
 import { installSnake } from "./snake-round.js";
+import { installSplice } from "./splice-round.js";
 import { installVane } from "./vane.js";
 import { installWarden } from "./warden-start.js";
 import { NOT_FAILED } from "./wave-fail.js";
@@ -138,6 +139,12 @@ export function startWave(
     // round's own picture and the ship is not in it at all, so there is no
     // body here for the fall loop, the hull or a hand to find.
     world.boss = installPulse(world, boss.stages);
+  } else if (boss?.kind === "splice") {
+    // A row of mouths and a tangle over them, and the field underneath is the
+    // field: no creature, no row of its own for the fall loop to find, and
+    // every control the ship has still answering. The straws are laid here,
+    // from the seeded rng, so both devices draw the same ones (`splice.ts`).
+    world.boss = installSplice(world, boss.rounds);
   } else if (boss?.kind === "mirror") {
     world.boss = installMirror(world, boss.rounds);
   } else if (boss?.kind === "maze") {

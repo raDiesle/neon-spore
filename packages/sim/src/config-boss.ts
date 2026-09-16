@@ -157,6 +157,37 @@ export interface BossConfig {
    * holds both ends of that against these two numbers.
    */
   mazeSnapMilli: number;
+  /**
+   * How far above the hull THE SPLICE's straw entrances stand, in tiles.
+   *
+   * The owner's word is *two tiles above the shield*, and the shield covers
+   * the hull row — so this is measured from `hullRow` rather than written as
+   * an absolute row, and a field with fewer rows keeps the entrances the same
+   * distance off the plating instead of moving them onto it.
+   *
+   * Two is also what makes the pilot's half of the picture a half: the straws
+   * fade out just above the entrances, so the seat with the cannon sees a row
+   * of mouths and a hand's width of straw over each, and nothing of where any
+   * of them goes (`render/src/splice-straws.ts`).
+   */
+  spliceEntranceRows: number;
+  /**
+   * The row the numbered top ends of those straws sit on.
+   *
+   * One, not nought: a number drawn on the very top row has nothing above it
+   * to be pulled *into*, and the whole of what a feed looks like is the number
+   * going into the mouth of its own straw before it races down.
+   */
+  spliceTopRow: number;
+  /**
+   * Beats a number takes to travel its straw, from the top end to the maw.
+   *
+   * The feed is judged when it **arrives**, so this is also how long the pair
+   * has to watch an answer coming — two beats, a little over a second, which
+   * is long enough to see which straw it came down and far too short to do
+   * anything about it.
+   */
+  spliceFeedBeats: number;
 }
 
 /**
@@ -185,4 +216,7 @@ export const BOSS_DEFAULTS: BossConfig = {
   mazeDragMilliPerTile: 45_000,
   mazeDragBreakMilli: 80,
   mazeSnapMilli: 180,
+  spliceEntranceRows: 2,
+  spliceTopRow: 1,
+  spliceFeedBeats: 2,
 };

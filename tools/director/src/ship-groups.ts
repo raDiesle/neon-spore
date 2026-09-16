@@ -25,6 +25,7 @@ import type { BossEntry } from "@neon-spore/sim";
  */
 export type GroupName =
   | "THE CAIRN — a pile of rocks taken apart by hand"
+  | "THE SPLICE — straws fed in the order the numbers say"
   | "AIM — colour and column"
   | "GUARD — the shared defence"
   | "MAW — taking a pod in"
@@ -126,6 +127,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE CAIRN — a pile of rocks taken apart by hand",
   "THE FLEET — a chart only one of you can read",
   "THE WELL — the field drawn inside out on one screen",
+  "THE SPLICE — straws fed in the order the numbers say",
   "PLUMBING — not a dial a person turns",
 ];
 // The paragraph under each heading is `ship-notes.ts` next door — the half of
@@ -154,6 +156,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "SNAKE — a round the ship is the body of",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
+  "THE SPLICE — straws fed in the order the numbers say",
 ]);
 
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */
@@ -168,6 +171,7 @@ export const SHIP_GROUPS: GroupName[] = GROUP_ORDER.filter((g) => !WAVE_ONLY_GRO
 export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   pinball: "PINBALL — a table the ship's cannon fires up into",
   pulse: "THE PULSE — the same song on two screens",
+  splice: "THE SPLICE — straws fed in the order the numbers say",
   queen: "QUEEN",
   warden: "WARDEN",
   cairn: "THE CAIRN — a pile of rocks taken apart by hand",

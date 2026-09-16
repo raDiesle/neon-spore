@@ -11,6 +11,7 @@ import { drawMaze } from "./maze-draw.js";
 import { drawMirror } from "./mirror.js";
 import { drawQueen } from "./queen.js";
 import type { ViewState } from "./renderer.js";
+import { drawSplice } from "./splice-draw.js";
 import { drawTether } from "./tether.js";
 import { drawVane } from "./vane-draw.js";
 import { drawWarden, wardenRopeAnchor } from "./warden.js";
@@ -103,6 +104,15 @@ export function drawBoss(
     // No body among the creatures: the arm hangs off the top edge, so there is
     // nothing of it on the grid to find.
     drawVane(ctx, l, world.cfg, boss, world.waveBeat, world.beat, view.beatPhase, view.time);
+    return;
+  }
+
+  // THE SPLICE. The field under it is the field — the hull, the cannon and the
+  // shield are all drawn by the ordinary passes — so this adds a row of mouths
+  // and, on one screen of the two, the whole tangle over them
+  // (`splice-draw.ts`).
+  if (boss.kind === "splice") {
+    drawSplice(ctx, l, world.cfg, boss, world.cannonCol, world.beat, view.beatPhase);
     return;
   }
 

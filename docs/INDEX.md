@@ -181,6 +181,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/spawn.ts` | you are giving a new creature a field it is born with — one queue entry becoming a body, and the only place one does |
 | `packages/sim/src/spawn-companions.ts` | a creature is meant to bring bodies with it — the gyre's rim, the strand's beads, the crawler's links, built off the body just pushed |
 | `packages/sim/src/spawn-fields.ts` | you are giving a new creature a field it is born with — the per-kind spread, in the order the rolls come off `world.rng` |
+| `packages/sim/src/splice-hash.ts` | What THE SPLICE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/splice-round.ts` | THE SPLICE's clock, its one verb and what a feed costs |
+| `packages/sim/src/splice-tangle.ts` | Laying THE SPLICE's straws: three integer arrays and a permutation |
+| `packages/sim/src/splice.ts` | THE SPLICE: a children's path puzzle, played by two people who can each see half of it |
 | `packages/sim/src/config-gyre.ts` | you are retuning the wheel — how fast the rim turns, how much the maw takes off it, how far the diamond sinks |
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
 | `packages/sim/src/hash-creature.ts` | you added a field to `Creature` and have to put it in the fingerprint |
@@ -236,6 +240,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-strand.ts` | THE STRAND's three numbers: the default length of a thread, and what a bead and a whole thread are worth |
 | `packages/sim/src/creature-state-strand.ts` | **THE STRAND's three fields**, and the whole of what one bead remembers |
 | `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
+| `packages/sim/src/events-splice.ts` | **Everything THE SPLICE does that neither screen already says**, as events |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
 | `packages/sim/src/creature-state-veer.ts` | **THE VEER's two fields**, a side and a width |
@@ -485,6 +490,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-crossing.ts` | THE CROSSING's rehearsal: the lane you are aiming up is only yours until something walks across it |
 | `packages/content/src/scenes/the-crystal.ts` | THE CRYSTAL's rehearsal: a lane, a light, and four thumbs at once |
 | `packages/content/src/scenes/the-strand.ts` | THE STRAND's rehearsal: two beads, and neither seat can name one alone |
+| `packages/content/src/scenes/the-splice.ts` | THE SPLICE's rehearsal: the number is at the other end of the straw, and only one of you can see it |
 | `packages/content/src/scenes/the-jam.ts` | THE JAM's rehearsal: the trigger is gone and the aim is all that is left |
 | `packages/content/src/scenes/the-balloon.ts` | THE BALLOON's rehearsal: two hands on one body, or nothing at all |
 | `packages/content/src/scenes/the-beatbox.ts` | THE BEATBOX's rehearsal: the tap you do not make is the one that counts |
@@ -936,6 +942,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-gate.ts` | The way through a fence, on the screen that is shown it |
 | `packages/render/src/fence.ts` | THE FENCE: a live line the width of the field, and the two different pictures of it the two screens carry |
 | `packages/render/src/spline.ts` | A contour, written into a `Path2D` as numbers |
+| `packages/render/src/splice-draw.ts` | THE SPLICE, drawn — and drawn differently on each screen, which is the fight |
+| `packages/render/src/splice-straws.ts` | THE SPLICE's straws, as geometry and as lines |
 | `packages/render/src/effects-ingest-silent.ts` | **The events that leave nothing behind in `Effects`**, and why each one does not |
 | `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
 | `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |
@@ -1143,6 +1151,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
+| `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 
 ### apps/game
 
@@ -1772,6 +1781,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/menu-device.ts` | WHAT KIND OF DEVICE THE MENU IS PHOTOGRAPHED AS — a thumb by default, a mouse only when asked |
 | `tools/frames/menu-press.ts` | which button a word in a `--page` trail means, on whichever screen is up — the menu, or what a press on it opened |
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
+| `tools/director/src/splice-editor.ts` | THE SPLICE's rounds, which are one number each |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |
 | `tools/check/fast-scope.ts` | Which tests `bun run check:fast` runs — the diff's reach, plus the tree-wide sweeps |

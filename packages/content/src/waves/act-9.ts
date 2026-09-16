@@ -55,6 +55,28 @@ import type { Wave } from "../wave-types.js";
  * so. The field is empty of emitters, which is the plainest reading of the
  * lesson — there is no thing to blame, and the pair is not waiting for one to
  * be dealt with.
+ *
+ * **THE SPLICE is the act's second wave and has nothing to do with the first.**
+ * It is here because `act-8.ts` has six lines left and this file had room, and
+ * that is the whole of the reason (`waves.ts` says an act is a file, not an
+ * argument). What it is, is the thirteenth boss: a row of mouths over the
+ * plating, a straw out of each running the height of the field, and a number
+ * at the far end of every one. Three rounds, two straws then three then four
+ * (`spliceStraws`), and the only thing authored is how long the pair has —
+ * sixteen beats, then twenty-four, then thirty-two. That is about six beats a
+ * feed throughout, two of which are the number's own travel, so what the count
+ * really buys is four beats a straw to trace one and say it. The figures are
+ * written here rather than beside the entry because the director rewrites that
+ * line whenever anybody saves the wave (`tools/director/src/serialize-boss.ts`)
+ * and a comment inside it would not survive.
+ *
+ * It is played on a panel of its own with **two buttons, one a seat**
+ * (`control-sets-table.ts`): the cannon is player 1's and the mouth is player
+ * 2's, which is THE CLAW's arrangement reached from the other end. Player 2
+ * can read the tangle and cannot see the cannon; player 1 can move the cannon
+ * and cannot see past the first hand's width of any straw. So a feed is a
+ * sentence each way — *the third mouth from the left*, *I am on it* — and
+ * neither seat is sitting with nothing to press.
  */
 export const WAVES_ACT_9: Wave[] = [
   {
@@ -86,5 +108,20 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 35, col: 6, color: "cyan" },
     ],
     controls: "standard5",
+  },
+  {
+    id: "theSplice",
+    name: "THE SPLICE",
+    sentence:
+      "The one where the number is at the other end of the straw, and only one of you can see it.",
+    guide: {
+      both: "A row of mouths stands two tiles over the plating, and out of each one a straw runs the whole height of the field, tangled through every other. Each straw has a number at its far end. Feed them in order — one, then two, then three — by standing the cannon under a mouth and opening the maw. The number takes two beats to come down before the ship knows whether it was the one wanted. Get it wrong, or let the round's beats run out, and the hull pays.",
+      p1: "The cannon is yours and the mouth is not. Your straws fade out just above the mouths, so where one goes is not yours to know: count the mouths from the left, go where you are sent, and say when you are there.",
+      p2: "The mouth is yours and the cannon is not — you cannot see where it is. Trace the straw down from number one, say which mouth it leaves, counting from the left, and open the maw when they say they are under it.",
+      scene: "theSplice",
+    },
+    entries: [],
+    boss: { kind: "splice", rounds: [{ beats: 16 }, { beats: 24 }, { beats: 32 }] },
+    controls: "splice",
   },
 ];

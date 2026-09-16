@@ -164,6 +164,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // THE WELL authors nothing and keeps nothing: the tag is the only number it
   // contributes to the fingerprint (`well.ts`).
   well: { kind: "well" },
+  // THE SPLICE authors a beat count a round and nothing else; the straws are
+  // laid from the seeded rng at install, which is exactly what makes its four
+  // column arrays worth fingerprinting (`splice-hash.ts`). Two rounds, so the
+  // fixture's state has a next one to advance into.
+  splice: { kind: "splice", rounds: [{ beats: 16 }, { beats: 24 }] },
   // Two ships, one lying each way, neither touching the other and both well
   // inside a chart eleven columns by ten. `fleetFault` is what says that is a
   // fleet at all, and `fleet.test.ts` asks it of this one.

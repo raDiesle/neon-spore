@@ -55,3 +55,19 @@ export const showsQueenShape = (role: ViewRole): boolean => role !== "p2";
  * (`fleet-hulls.ts`).
  */
 export const showsFleetHulls = (role: ViewRole): boolean => role !== "p2";
+/**
+ * THE SPLICE's tangle, its numbers and its clock. The navigator's, and the
+ * first entry in this list on the *opposite* side from THE FLEET's — there the
+ * seat that can act is given the map, here the seat that cannot is.
+ *
+ * It has to be this way round because of what the two fights ask. THE FLEET's
+ * pilot has to get a square out of their mouth one coordinate at a time, and
+ * the fight is the saying. THE SPLICE's tangle takes *reading* — following a
+ * line across four others — and a seat doing that while also deciding when to
+ * press would simply stop talking. So the reading and the pressing are put on
+ * different phones and the panel crosses the other way (`mawTake`,
+ * `content/control-sets-table.ts`): the navigator reads the tangle and holds
+ * the only mouth, the pilot holds the cannon and is shown a hand's width of
+ * straw over each opening and nothing above it (`splice-draw.ts`).
+ */
+export const showsSpliceTangle = (role: ViewRole): boolean => role !== "p1";

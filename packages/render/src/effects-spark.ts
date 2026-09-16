@@ -195,6 +195,25 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
     case "beatboxWave":
       return at(l, e.col, e.row, 12, PALETTE.red);
 
+    // THE SPLICE's four, every one of them on the *mouth* rather than on the
+    // straw: the entrance is the only part of this fight both seats can name
+    // and the only part the seat holding the maw can see at all. The press
+    // first — a small white receipt, `beatboxTap`'s size and for its reason,
+    // because the answer to it is two beats away and a control may not answer
+    // with silence. Then the two verdicts, in the colours the game already
+    // uses for them, and the tangle coming apart at the end.
+    case "spliceFeed":
+      return at(l, e.col, e.row, 6, PALETTE.text);
+    case "spliceFed":
+      return at(l, e.col, e.row, 14, PALETTE.good);
+    // No bigger than a fed one. The hull damage on the `breach` beside it is
+    // where the cost is drawn, and a shower here would be the second thing
+    // saying the same sentence twice as loudly.
+    case "spliceWrong":
+      return at(l, e.col, e.row, 14, PALETTE.red);
+    case "spliceDown":
+      return at(l, e.col, e.row, 30, PALETTE.good);
+
     // The bodies answered by hands alone: `effects-spark-handed.ts`.
     case "balloonSplit":
     case "balloonTopped":

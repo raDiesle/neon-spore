@@ -108,7 +108,7 @@ export const MECHANICS = {
   // Spread in here rather than listed, at exactly the position they have
   // always held, so key order is untouched — `MECHANIC_IDS` is read off it.
   ...ROCK_MECHANICS,
-  // The four bosses, and the line one of them throws — next door in
+  // The bosses, and the line one of them throws — next door in
   // `mechanics-bosses.ts`. Named one by one rather than spread, for
   // `mechanics-split.ts`' reason: `MECHANIC_IDS` is read off this key order and
   // the bestiary walks it, so a group spread in one place would reorder them.
@@ -118,6 +118,7 @@ export const MECHANICS = {
   tether: BOSS_MECHANICS.tether,
   mirror: BOSS_MECHANICS.mirror,
   maze: BOSS_MECHANICS.maze,
+  splice: BOSS_MECHANICS.splice,
   vane: {
     what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
     reach: "spawn",

@@ -80,6 +80,7 @@ export type ControlSetId =
   | "snake"
   | "pinball"
   | "pulse"
+  | "splice"
   | "claw";
 
 export interface ControlSet {

@@ -1,0 +1,155 @@
+import { type SimConfig, type SpliceState, spliceEntranceRow } from "@neon-spore/sim";
+import { type Layout, tileCX, tileCY } from "./layout.js";
+import { PALETTE } from "./palette.js";
+
+/**
+ * THE SPLICE's straws, as geometry and as lines.
+ *
+ * Every curve in the fight comes out of `spliceCurve`, and so does every
+ * *position* on one: the number riding down a straw is `spliceAt` at a
+ * fraction of the same curve the straw was stroked from. One function rather
+ * than two is the whole point — a number drawn beside the line it is supposed
+ * to be inside is the one mistake this picture cannot afford, because tracing
+ * the line is the navigator's entire job.
+ *
+ * Nothing here is a rule. The three column arrays and the permutation are the
+ * simulation's, laid once from the seeded rng (`sim/splice-tangle.ts`); this
+ * file turns them into pixels and keeps nothing between frames.
+ */
+
+/** The y a straw's numbered top end stands at. */
+export function spliceTopY(l: Layout, cfg: SimConfig): number {
+  return tileCY(l, cfg.spliceTopRow);
+}
+
+/** The y the mouths stand at — two tiles over the plating by default. */
+export function spliceMouthY(l: Layout, cfg: SimConfig): number {
+  return tileCY(l, spliceEntranceRow(cfg));
+}
+
+/**
+ * One straw as a quadratic curve, from its numbered top end down to its mouth.
+ *
+ * Quadratic and not a polyline through the middle column, because the tangle
+ * has to read as *hose* rather than as a wiring diagram: a bend is where the
+ * eye loses a line, and a corner is where it loses it for good. The control
+ * point is the straw's own middle column at the height halfway between the two
+ * rows, which is the one number the simulation rolls purely for the picture
+ * (`SpliceState.midCols`) — without it every straw is a straight line and the
+ * whole puzzle can be read off the two rows without following anything.
+ */
+export interface SpliceCurve {
+  x0: number;
+  y0: number;
+  cx: number;
+  cy: number;
+  x1: number;
+  y1: number;
+}
+
+export function spliceCurve(
+  l: Layout,
+  cfg: SimConfig,
+  s: SpliceState,
+  entrance: number,
+): SpliceCurve {
+  const top = s.topOf[entrance] ?? entrance;
+  const y0 = spliceTopY(l, cfg);
+  const y1 = spliceMouthY(l, cfg);
+  return {
+    x0: tileCX(l, s.topCols[top] ?? 0),
+    y0,
+    // The waypoint is pulled clear of the two ends rather than sitting at the
+    // midpoint of the drop: a control point level with the middle of the run
+    // makes every straw the same shallow arc, and what makes a tangle legible
+    // to follow and hard to guess is that the arcs disagree about where they
+    // are steepest.
+    cx: tileCX(l, s.midCols[entrance] ?? 0),
+    cy: y0 + (y1 - y0) * 0.55,
+    x1: tileCX(l, s.entranceCols[entrance] ?? 0),
+    y1,
+  };
+}
+
+/** A point along one, `t` from the top end (0) to the mouth (1). */
+export function spliceAt(c: SpliceCurve, t: number): { x: number; y: number } {
+  const u = 1 - t;
+  return {
+    x: u * u * c.x0 + 2 * u * t * c.cx + t * t * c.x1,
+    y: u * u * c.y0 + 2 * u * t * c.cy + t * t * c.y1,
+  };
+}
+
+/**
+ * The tangle, on the seat that is shown it.
+ *
+ * Drawn twice per straw — a wide dark casing and a thin bright core — so a
+ * crossing reads as one hose passing *behind* another rather than as two lines
+ * meeting at a point. That is the whole difference between a puzzle and a
+ * scribble, and it costs one extra stroke.
+ *
+ * The straw whose number is already fed is dimmed rather than removed: what
+ * the pair has done is part of what they are reading, and a tangle that lost a
+ * line every feed would be a different picture each time they looked up.
+ */
+export function drawStraws(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  s: SpliceState,
+): void {
+  const wide = Math.max(3, l.tile * 0.2);
+  for (let e = 0; e < s.entranceCols.length; e++) {
+    const c = spliceCurve(l, cfg, s, e);
+    const done = (s.topOf[e] ?? 0) < s.fed;
+    ctx.globalAlpha = done ? 0.25 : 0.85;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = PALETTE.rockDark;
+    ctx.lineWidth = wide;
+    stroke(ctx, c);
+    ctx.strokeStyle = PALETTE.rock;
+    ctx.lineWidth = Math.max(1, wide * 0.38);
+    stroke(ctx, c);
+  }
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 1;
+}
+
+/**
+ * The stub the seat holding the cannon is given: the same curve, clipped to a
+ * band over the mouths and faded out at the top of it.
+ *
+ * It is the *same* curve and not a straight tail, so the direction a straw
+ * leaves its mouth in is honest — that is the one thing the pilot can
+ * legitimately notice, and a fake vertical stub would be the picture lying to
+ * the seat that cannot check it.
+ */
+export function drawStubs(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  s: SpliceState,
+): void {
+  const mouthY = spliceMouthY(l, cfg);
+  const topY = mouthY - l.tile * 1.2;
+  const fade = ctx.createLinearGradient(0, topY, 0, mouthY);
+  fade.addColorStop(0, "rgba(0,0,0,0)");
+  fade.addColorStop(1, PALETTE.rock);
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(l.gridLeft, topY, l.gridWidth, mouthY - topY);
+  ctx.clip();
+  ctx.lineCap = "round";
+  ctx.strokeStyle = fade;
+  ctx.lineWidth = Math.max(2, l.tile * 0.12);
+  for (let e = 0; e < s.entranceCols.length; e++) stroke(ctx, spliceCurve(l, cfg, s, e));
+  ctx.restore();
+  ctx.lineWidth = 1;
+}
+
+function stroke(ctx: CanvasRenderingContext2D, c: SpliceCurve): void {
+  ctx.beginPath();
+  ctx.moveTo(c.x0, c.y0);
+  ctx.quadraticCurveTo(c.cx, c.cy, c.x1, c.y1);
+  ctx.stroke();
+}

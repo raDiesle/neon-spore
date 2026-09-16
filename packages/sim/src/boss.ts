@@ -15,6 +15,7 @@ import {
 } from "./queen-mark.js";
 import { nextInt } from "./rng.js";
 import { NO_SHELL } from "./shell.js";
+import { stepSplice } from "./splice-round.js";
 import { type Creature, colSpan } from "./types.js";
 import { stepVane } from "./vane.js";
 import { stepWarden } from "./warden.js";
@@ -101,6 +102,15 @@ export function stepBoss(world: World): void {
   }
   if (boss.kind === "maze") {
     stepMaze(world, boss);
+    return;
+  }
+  // THE SPLICE is on the beat and on the field, like THE MIRROR: the hull,
+  // the cannon and the maw under it are the ship's own, and what this clock
+  // does is land a number that is already on its way down, give way to the
+  // next tangle, and run a round's beats out (`splice-round.ts`). Its one
+  // verb arrives on the tick, through the SUCK the pair already has.
+  if (boss.kind === "splice") {
+    stepSplice(world, boss);
     return;
   }
   // THE FLEET has exactly one thing on the beat and it is the clock. Its

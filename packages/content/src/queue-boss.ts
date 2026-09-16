@@ -78,5 +78,11 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
       })),
     };
   }
+  // THE SPLICE authors only a beat count. Both its rows of ends are spread
+  // across whatever field it is played on (`spliceSpreadCol`) and the tangle
+  // between them is laid from the rng at the moment the round opens, so there
+  // is not a column in the entry to remap — the shortest of the ten reasons
+  // above and the same one THE MAZE has.
+  if (boss.kind === "splice") return { ...boss, rounds: boss.rounds.map((r) => ({ ...r })) };
   return { ...boss, col: mapCol(boss.col, cols) };
 }

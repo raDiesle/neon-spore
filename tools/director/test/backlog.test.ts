@@ -59,7 +59,7 @@ describe("buildBacklog", () => {
     expect(names(backlog.bosses)).not.toContain("The Vessel");
     const order = group(backlog.bosses, "THE ACT ORDER");
     expect(order.entries).toHaveLength(0);
-    expect(order.builtHidden).toBe(5);
+    expect(order.builtHidden).toBe(6);
   });
 
   test("a built coupling drops out, a partly built system does not", async () => {

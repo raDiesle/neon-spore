@@ -1,4 +1,5 @@
 import type { CreatureEvent } from "./events-creature.js";
+import type { SpliceEvent } from "./events-splice.js";
 import type { BreachWeight } from "./hull-damage.js";
 import type { MazeVerdictReason } from "./maze-verdict.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
@@ -238,4 +239,9 @@ export type SimEvent =
    */
   | { type: "fleetSunk"; col: number; row: number; len: number; left: number }
   /** The last ship of the fleet. The chart is clear and the wave is over. */
-  | { type: "fleetDown"; col: number; row: number };
+  | { type: "fleetDown"; col: number; row: number }
+  // THE SPLICE's four, gathered next door rather than spelled out here: this
+  // file was one boss from its own 250-line limit (`events-splice.ts`).
+  | SpliceEvent;
+
+export type { SpliceEvent } from "./events-splice.js";

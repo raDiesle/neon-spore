@@ -220,6 +220,7 @@ export type {
   PulseEntry,
   QueenEntry,
   SnakeEntry,
+  SpliceEntry,
   VaneEntry,
   WardenEntry,
   WellEntry,

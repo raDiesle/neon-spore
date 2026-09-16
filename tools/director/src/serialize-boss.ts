@@ -73,6 +73,14 @@ export function serializeBoss(boss: BossEntry): string {
   // read back out as a list of `{ step, lane }` is a rhythm nobody could see
   // (`packages/content/src/pulse-stages.ts`).
   if (boss.kind === "pulse") return '{ kind: "pulse", stages: PULSE_STAGES }';
+  // THE SPLICE authors one number a round and the tangle is laid from the rng,
+  // so a round is short enough to read on one line — and the list of them is
+  // the whole fight, which is why it is written out here rather than named
+  // like SNAKE's.
+  if (boss.kind === "splice") {
+    const rounds = boss.rounds.map((r) => `{ beats: ${r.beats} }`).join(", ");
+    return `{ kind: "splice", rounds: [${rounds}] }`;
+  }
   // The rounds go one per line: a sequence is read down the page, and putting
   // several on one line is how a diff of a boss stops being reviewable.
   const rounds = boss.rounds.map((r) => `        [${r.map((s) => `"${s}"`).join(", ")}],`);

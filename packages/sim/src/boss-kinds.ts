@@ -50,4 +50,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   // recorded on yesterday's build would fingerprint as a different world.
   "cairn",
   "well",
+  "splice",
 ];

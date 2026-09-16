@@ -6,6 +6,7 @@ import { renderMazeEditor } from "./maze-editor.js";
 import { renderPinballEditor } from "./pinball-editor.js";
 import { renderSimonEditor } from "./simon-editor.js";
 import { renderSnakeEditor } from "./snake-editor.js";
+import { renderSpliceEditor } from "./splice-editor.js";
 import { currentWave, isCreaturePlacementBlocked, type Store } from "./state.js";
 
 /**
@@ -119,6 +120,17 @@ export function bindBossPanel(
     }
     if (wave.boss.kind === "snake") {
       renderSnakeEditor(panel, wave.boss, () => {
+        store.dirty = true;
+        onEdit();
+      });
+      if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
+      return;
+    }
+    // THE SPLICE authors one number a round, so this panel is the row of tabs
+    // `snake-editor.ts` has with the map taken out — the straws are laid from
+    // the seed and there is nothing to place (`splice-editor.ts`).
+    if (wave.boss.kind === "splice") {
+      renderSpliceEditor(panel, wave.boss, () => {
         store.dirty = true;
         onEdit();
       });

@@ -7,6 +7,7 @@ import { pinballHashParts } from "./pinball-board.js";
 import { pulseHashParts } from "./pulse-hash.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 import { snakeHashParts } from "./snake-hash.js";
+import { spliceHashParts } from "./splice-hash.js";
 
 /**
  * The boss half of the world fingerprint.
@@ -170,6 +171,12 @@ export function bossHashParts(boss: BossState | null): number[] {
   // them being forgotten (`pulseHashParts`).
   if (boss !== null && boss.kind === "pulse") {
     for (const n of pulseHashParts(boss)) push(n);
+  }
+  // THE SPLICE, gathered beside the boss like the four above it — and the one
+  // whose board is not authored at all, which is why every column it laid is in
+  // there too (`splice-hash.ts`).
+  if (boss !== null && boss.kind === "splice") {
+    for (const n of spliceHashParts(boss)) push(n);
   }
   if (boss !== null && boss.kind === "mirror") {
     // Every sequence, not only the one being played. They are authored, which

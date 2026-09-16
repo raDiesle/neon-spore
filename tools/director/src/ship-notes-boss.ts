@@ -24,6 +24,11 @@ export const BOSS_NOTES = {
     "Nothing to turn. The projection is render's own (well.ts), and the only " +
     "thing a dial here could move is how the picture reads — which is what a " +
     "VERSUS candidate is for, not a slider.",
+  "THE SPLICE — straws fed in the order the numbers say":
+    "How far over the plating the mouths stand, what row the numbers sit on, " +
+    "and how long a number takes to come down its straw. How many straws a " +
+    "round has and where they run are not here: the count follows from the " +
+    "round and the tangle is laid from the run's own seed (sim/splice-tangle.ts).",
   VANE: "The arm boss's own pins and worth.",
   MIRROR: "The boss that throws a Simon sequence back, and its own worth.",
   QUEEN: "The petal boss's own row, regrowth and worth.",

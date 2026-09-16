@@ -16,10 +16,11 @@
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
 Bulb Queen (10) · The Vane (30) · The Choir (40) · The Warden (50) ·
-The Mirror (built).
+The Mirror (built) · The Splice (built).
 
 THE MIRROR holds no slot in the act structure yet — 11.3 says where it would
-fit if one is ever given to it. Every other slot is empty and unnamed: what
+fit if one is ever given to it, and THE SPLICE (11.13) holds none either: it
+was asked for by name rather than dropped into a gap. Every other slot is empty and unnamed: what
 goes in it comes from the boss ideas, each of which says which slot it wants,
 and arrives here as a numbered section when it is built.
 
@@ -1383,3 +1384,84 @@ kill's burst, a crossing rock's blip, and the two hit tests that would let the
 ship's lobes and a body be taken hold of where they are drawn. Until those land
 the pilot's field answers no finger at all on a well wave and the rails do
 everything, which is what `touch-ship.ts` has always said they can.
+
+## 11.13 THE SPLICE — straws fed in the order the numbers say
+
+> The one where the number is at the other end of the straw, and only one of
+> you can see it.
+
+**A children's path puzzle, split down the middle.** Two tiles over the
+plating a row of **mouths** stands — the open bottom ends of hollow straws.
+Every straw runs the height of the field, tangled through all the others, and
+carries a **number** at its top end. The ship feeds them in that order: the
+cannon under a mouth, the maw open, and the number rides its own straw down
+into the throat. Feed the wrong one, or let the round's beats run out, and the
+hull pays. The owner's design, 15 September 2026, with the split, the beat
+count and the cost decided the same day.
+
+**Nothing new is on either panel and nothing new is a rule.** The field is
+still the field: the hull, the shield and the cannon are the ship's own, the
+one verb is the shipped SUCK, and the fight is stepped on the beat from
+`stepBoss` the way THE MIRROR's is (`packages/sim/src/splice-round.ts`). What
+the boss adds is a row of openings and a tangle over them.
+
+**The first round has two straws and every later one adds one**
+(`spliceStraws`), so how long the fight is and how hard it gets are the number
+of rounds an author writes. The only thing authored per round is **how long
+the pair has** — the shortest authored round in the game, and it is short
+because the board is not authored at all.
+
+**The tangle is laid from the seeded rng at the moment a round opens**
+(`splice-tangle.ts`), never per frame and never per feed: the entrances spread
+evenly across the bottom, the numbered ends evenly across the top, one column
+of its own that each straw is dragged through halfway up, and a permutation
+saying which top end each mouth reaches. Only the last two are drawn. The
+permutation is **never the identity** for more than one straw — that would be
+straight lines side by side with every number over its own mouth, and nothing
+to trace. Because the board is rolled rather than written, all four of those
+arrays are in the fingerprint (`splice-hash.ts`): an authored boss can only
+disagree about content, and this one can disagree about an rng.
+
+**The split is the fight, and so is the panel.** The navigator is shown the
+tangle and the numbers; the pilot's straws fade out a hand's width above the
+mouths, so where any of them goes is not theirs to know. The panel crosses the
+other way — the **cannon is player 1's and the mouth is player 2's**
+(`mawTake`, THE CLAW's arrangement reached from the other end) — and player 2
+cannot see the cannon at all. So a feed is a sentence each way: *the third
+mouth from the left*, *I am on it*, and then the suck. Neither seat can make
+one alone and neither is sitting with nothing to press.
+
+**A feed is judged when it arrives, not when it is sucked.** The number takes
+`spliceFeedBeats` to come down, which is long enough to watch which straw it
+came out of and far too short to do anything about it. A suck with no mouth
+under the cannon, or one while a number is already falling, is nothing at all
+rather than a mistake — neither is a *feed*, and only a feed can be the wrong
+one, so a pair fishing for a column does not lose the wave to a press they had
+not finished thinking about.
+
+**A wrong feed fails the wave, and the round has no second try.** The design
+this was built from says the fed numbers return to their tops and the order
+begins at 1; the owner's rule of 12 September 2026 is that every hull damage
+fails the whole wave, so that path is unreachable — exactly as SNAKE and THE
+MIRROR each found after writing one. It is kept for the single caller that can
+still reach it, a held hull (`hullInvulnerable`), which is how the director and
+the frame tests watch a round go wrong without ending the wave.
+
+## 11.14 THE HIVE — breaches in something alive, and what comes out of them
+
+> **Not built.** The owner's design, 16 September 2026.
+
+**One creature, nearly the width of the screen.** It hangs over the field alive
+rather than as a mechanism, and what it does is **open**. Breaches appear along
+its underside, and out of each one small insects fly, steering for the ship to
+damage it. Every breach carries a colour — cyan or red — and a bolt of that
+colour into it **closes it for good**: no more insects come out of that one.
+Left open, it goes on spilling, and more breaches open over time, so a pair
+that falls behind is answering two problems at once.
+
+**Unworked out**, and each of these is a decision rather than a detail: whether
+an insect can be shot on its way down or only warded; whether a breach's colour
+is drawn on both screens or is one seat's read (which is the thing that would
+make it this game's fight rather than a shooting gallery); what the opening
+clock is, and whether closing one slows it; whether the body has health of its
+own at all, or is only ever beaten by closing every breach it has.

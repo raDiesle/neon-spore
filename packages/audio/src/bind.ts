@@ -29,6 +29,7 @@ import { handedCue } from "./bind-handed.js";
 import { POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { mirrorCue } from "./bind-mirror.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
+import { spliceCue } from "./bind-splice.js";
 import { volleyCue } from "./bind-volley.js";
 
 // **What a cue is** is `bind-cue.ts` and **where a sound is** is
@@ -163,6 +164,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "fleetSunk":
     case "fleetDown":
       return fleetCue(e, cols, rows);
+    case "spliceFeed":
+    case "spliceFed":
+    case "spliceWrong":
+    case "spliceDown":
+      return spliceCue(e, cols);
     // What a covering did — armour chipping, a membrane coming off, a cage
     // buckling, a crust cracking, a body turning at a wall — and, below it,
     // what a body one of them cannot see did: a disguise going, a cloud

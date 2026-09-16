@@ -6,7 +6,10 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
  * `never` and the key becomes a build error, so this list cannot fall behind a
  * rename.
  */
-type BossId = Extract<MechanicId, "queen" | "warden" | "tether" | "cairn" | "mirror" | "maze">;
+type BossId = Extract<
+  MechanicId,
+  "queen" | "warden" | "tether" | "cairn" | "mirror" | "maze" | "splice"
+>;
 
 /**
  * **The bosses**, and the one thing a boss throws that is a mechanic of its own.
@@ -59,6 +62,10 @@ export const BOSS_MECHANICS = {
   },
   maze: {
     what: "A real maze of rings turns above the ship, with a heart in the middle. Turn a gap round onto the ship's own column, fire the colour the heart is beating in, and the shot crawls the corridors to it. Only one gap in a rim reaches the middle; a shot lost in one of the others brings the maze down and the stage begins again.",
+    reach: "spawn",
+  },
+  splice: {
+    what: "A row of mouths two tiles over the plating, and a straw out of each one running the whole height of the field, tangled through all the others, with a number at its far end. Feed them in order — the cannon under a mouth and the maw open — and the number takes two beats to come down the straw before the ship finds out whether it was the one wanted. Only one of you is shown the tangle and the numbers; only the other one can reach a mouth. A wrong number, or a round's beats running out, costs the hull.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

@@ -28,6 +28,7 @@ import { POD_SOUNDS } from "./sounds/pod.js";
 import { PULSE_SOUNDS } from "./sounds/pulse.js";
 import { SHIP_SOUNDS } from "./sounds/ship.js";
 import { SIGNAL_SOUNDS } from "./sounds/signal.js";
+import { SPLICE_SOUNDS } from "./sounds/splice.js";
 import { SWARM_SOUNDS } from "./sounds/swarm.js";
 import { UI_SOUNDS } from "./sounds/ui.js";
 import type { Family, SoundDef } from "./types.js";
@@ -42,6 +43,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_SOUNDS,
   ...BOSS_PLANNED_SOUNDS,
   ...FLEET_SOUNDS,
+  ...SPLICE_SOUNDS,
   ...PULSE_SOUNDS,
   ...MIRROR_SOUNDS,
   ...MIRROR_ROUND_SOUNDS,

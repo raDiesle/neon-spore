@@ -47,6 +47,14 @@ export const INGEST_SILENT = [
   // `ingestBreach` already remembers. Nothing about the chord itself outlives
   // its frame: the two events that *do* start a clock here are `choirArm` and
   // `choirMerge`, and both are in the switch next door.
+  // THE SPLICE's four, each answered by a burst (`effects-spark.ts`) and a
+  // sound. The number coming down its straw and the verdict under it are drawn
+  // every frame off `feedBeat` and `verdictBeat`, fields of the fight's own
+  // state (`splice.ts`); the hull damage rides on the `breach` beside it.
+  "spliceFeed",
+  "spliceFed",
+  "spliceWrong",
+  "spliceDown",
   "choirSing",
   // And the film finishing. The burst is thrown by `burstFor` above and the
   // body underneath is an ordinary slick or bulb from that tick on, drawn by

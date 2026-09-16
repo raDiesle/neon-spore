@@ -6,6 +6,7 @@ import type { PinballState } from "./pinball.js";
 import type { PulseState } from "./pulse.js";
 import type { MirrorState } from "./simon.js";
 import type { SnakeState } from "./snake.js";
+import type { SpliceState } from "./splice.js";
 import type { Color } from "./types.js";
 import type { WellState } from "./well.js";
 
@@ -232,4 +233,5 @@ export type BossState =
   | SnakeState
   | PinballState
   | PulseState
-  | WellState;
+  | WellState
+  | SpliceState;

@@ -22,11 +22,13 @@ describe("roster", () => {
     expect(roster.creatures).toHaveLength(14);
     // The Wisp alone — the nine idea rows beside it were retired the same day.
     expect(roster.accepted).toHaveLength(1);
-    // Four named in the act order, plus THE MIRROR, which holds no slot in it
-    // and is built (docs/spec/bosses.md 11.3). The seven names that held
-    // empty slots, and THE TELL, left the order on 11 September 2026
-    // (docs/decisions.md #30) — every name still in it is built.
-    expect(roster.bosses).toHaveLength(5);
+    // Four named in the act order, plus the two that hold no slot in it and
+    // are built anyway: THE MIRROR (docs/spec/bosses.md 11.3) and THE SPLICE
+    // (11.13), which was asked for by name rather than dropped into a gap.
+    // The seven names that held empty slots, and THE TELL, left the order on
+    // 11 September 2026 (docs/decisions.md #30) — every name still in it is
+    // built.
+    expect(roster.bosses).toHaveLength(6);
     for (const boss of roster.bosses) expect(boss.built, boss.name).toBe(true);
     expect(roster.bosses.find((b) => b.name === "The Tell")).toBeUndefined();
     expect(roster.bosses.find((b) => b.name === "The Mirror")?.built).toBe(true);

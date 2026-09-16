@@ -28,7 +28,7 @@ first creature falling. It has two states and the second is optional:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — sixty-two of the seventy-one waves today, and a wave with no
+   new carries one — sixty-three of the seventy-two waves today, and a wave with no
    guide has no circles either.
 2. **The introduction.** `WAVE 4`, the wave's name, its one sentence. Plain
    text on the field — no panel, no border, nothing to press. It stands for a
@@ -300,7 +300,7 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are fifty-seven of them now**, one per guided wave bar five, and each is
+**There are fifty-eight of them now**, one per guided wave bar five, and each is
 authored in `packages/content/src/scenes/` as a page of choreography rather than
 a page of prose. The five that are still the three strings and the two circles
 are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH and THE CODEX** —

@@ -105,6 +105,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   maze: { wave: "theMaze" },
   vane: { wave: "theVane" },
   well: { wave: "theWell" },
+  splice: { wave: "theSplice" },
   purge: { wave: "thePurge" },
   ward: { wave: "theWard" },
   clasp: { wave: "theClasp" },

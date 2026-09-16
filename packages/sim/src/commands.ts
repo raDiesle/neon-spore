@@ -15,6 +15,7 @@ import { resetRun } from "./run.js";
 import { endCharge } from "./shot-charge.js";
 import { fireStep } from "./simon.js";
 import { closeSnake } from "./snake-round.js";
+import { spliceHeard } from "./splice-round.js";
 import { bodyCenterCol, type Color, type TimedCommand } from "./types.js";
 import type { World } from "./world.js";
 
@@ -130,6 +131,10 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     case "intake":
       world.intakeTick = world.tick;
       mirrorHeard(world, "intake");
+      // And THE SPLICE, whose whole fight is this one press: the entrance
+      // under the cannon, if there is one, and the number at the far end of
+      // its straw on its way down (`splice-round.ts`).
+      spliceHeard(world);
       // The maw *is* the cannon lobe, turned inside out (docs/spec/systems.md
       // 5.7). Whatever was filling it goes out of the same opening — and, like
       // a cannon that slid, it empties the fill without taking the shot the

@@ -42,6 +42,7 @@ import { THE_PURGE } from "./scenes/the-purge.js";
 import { THE_RECOIL } from "./scenes/the-recoil.js";
 import { THE_RIND } from "./scenes/the-rind.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
+import { THE_SPLICE } from "./scenes/the-splice.js";
 import { THE_STRAND } from "./scenes/the-strand.js";
 import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
 import { THE_THROB } from "./scenes/the-throb.js";
@@ -135,7 +136,8 @@ export type SceneId =
   | "theWeight"
   | "theCairn"
   | "theWell"
-  | "theHandover";
+  | "theHandover"
+  | "theSplice";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -195,6 +197,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theCairn: THE_CAIRN,
   theWell: THE_WELL,
   theHandover: THE_HANDOVER,
+  theSplice: THE_SPLICE,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

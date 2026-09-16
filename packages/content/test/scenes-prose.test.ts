@@ -35,20 +35,20 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts fifty-seven films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts fifty-eight films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Fifty-seven, which is the number in the section. A film with no wave
+    // Fifty-eight, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);
   });
 
   it("counts the guided waves the opening section names", () => {
-    // "sixty-two of the seventy-one waves today" — the one figure in §1 that
+    // "sixty-three of the seventy-two waves today" — the one figure in §1 that
     // goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says sixty-two of seventy-one";
-    expect(guided.length, fix).toBe(62);
-    expect(WAVES.length, fix).toBe(71);
+    const fix = "update §1 of docs/spec/briefings.md, which says sixty-three of seventy-two";
+    expect(guided.length, fix).toBe(63);
+    expect(WAVES.length, fix).toBe(72);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {
