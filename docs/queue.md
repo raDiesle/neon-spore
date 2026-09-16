@@ -581,6 +581,7 @@ with no new prose to place is a diff nobody can review against anything.
 ## A file's line ceiling is met by a red check, never before the edit
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Taken:** 2026-09-16, claude/queue-a-files-line-ceiling-is-met-by-a-red-check-never
 - **Files:** `tools/hooks/format-edited.ts`, `.claude/settings.json`, `tools/hooks/test/wiring.test.ts`, `tools/hooks/test/edited.test.ts`, `packages/sim/test/limits.test.ts`
 
 Across the 296 lanes in `docs/time-log.md`, **27 of them spent 375 friction
