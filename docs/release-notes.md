@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 46b68b6c — TORCH's call and THE MAGNET's drop out from under a rehearsal's plate
+
+Both lines are right-aligned under the siren's dial and finish the sentence its chips start, and both were placed at a fixed offset from the top of the screen — 56 and 70. A rehearsal's band reaches 104, so on every film of a wave that sends a torch or a magnet the pilot was told which column to call by a line drawn underneath TUTORIAL. Measured 16 September 2026 at 170,58 and 206,72.
+
 ## 2026-09-16 · b4b80901 — THE BATON: a bead passed down an arm, one seat a beat, and whoever acted is locked out of the next
 
 The simulation half of §10 of the choreographed-bosses page. An arm of eleven sockets hangs down the middle column with a bead in the topmost; player 1's trigger launches it, it is in the air for three real beats (THE DRAG, not THE SLOW), player 2 has those three to put a shot of its colour through it, and the seat that acted may not touch the ship on the beat after. A bead struck lands a socket lower and the socket it left goes dark; one not struck lands back where it was; one left sitting is shaken back to the top. After four handovers the turn tightens to a beat, after four dark sockets the arm swings the landing a column off, after six the dark sockets shed as rocks down the arm's own column, and out of the last socket the bead drops as a pod the maw takes. Wave 68, THE BATON, carries it, fed by its own arrivals. Nothing is drawn yet: the look is the next lane, and until it lands the boss plays invisible.

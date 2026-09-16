@@ -7631,3 +7631,5 @@ glued to a body, a chart's axis, or a whole screen used as a page's subject,
 and none of those has an answer that does not need the owner. Looking is also
 what turned up the next entry: the row comes out from under the band and lands
 under the page's own caption box.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
