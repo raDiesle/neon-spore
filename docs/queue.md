@@ -533,6 +533,7 @@ what the rest of this file holds.
 ## The intro's two people do not read as people
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Taken:** 2026-09-16, claude/queue-the-intros-two-people-do-not-read-as-people
 - **Where:** local
 - **Files:** `packages/render/src/intro-player.ts`, `packages/render/src/intro-pair.ts`, `packages/render/src/intro-share.ts`, `packages/render/src/intro-scene.ts`, `packages/render/src/intro-parts.ts`, `packages/render/src/intro-shout.ts`, `packages/content/src/intro.ts`, `packages/render/test/intro.test.ts`
 
