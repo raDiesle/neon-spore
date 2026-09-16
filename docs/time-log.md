@@ -7554,3 +7554,19 @@ been a new decision on top of fixing that. The decision is queued with the
 three options written out instead.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the palette's lists off its table
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry and `brushes.ts` whole, to find where the seam already was |
+| writing | 5 | the lists into `brush-lists.ts`, the re-export block, two headers |
+| looking | 0 | — nothing drawn changed; the rows are byte-identical |
+| friction | 0 | — |
+| landing | 5 | `bun run imports`, `bun run index`, `check:fast`, the commit |
+
+The bottleneck was nothing. The one decision was which half to move, and the
+entry had it backwards: it proposed moving the rows out, which would have put
+the growing half in the new file and left the settled half with the room. The
+lists moved instead, so the table — the thing every creature and every fault
+adds a row to — is the half that got the headroom.

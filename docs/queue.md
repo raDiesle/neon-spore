@@ -586,24 +586,6 @@ mouth reads as a mouth or a line reads at all is to watch it at tempo on a
 screen. A cloud session can change the drawing and cannot tell whether it
 worked, which is how it came to be bad twice.
 
-## The director's palette table is at its ceiling, and the next brush cannot go in
-
-- **Found:** 2026-09-16, claude/task-queue-work-5f529c
-- **Taken:** 2026-09-16, claude/queue-the-directors-palette-table-is-at-its-ceiling-an
-- **Files:** `tools/director/src/brushes.ts`, `tools/director/src/brush-groups.ts`
-
-THE FLIP's brush went in at 251 lines and had to be paid for by cutting three
-lines of its own argument back to two. The file is two things: the *lists* —
-`BRUSHES`, `FAULT_BRUSHES`, `ROCK_BRUSHES`, the kinds and the types that read
-off them — and the *table*, one row per brush with a label, a stroke, its
-subjects and its note, which is what grows every time the game gets a creature
-or a fault. Nothing about the next brush is unusual; there is simply no room
-for one, and the argument a row carries is the first thing a lane will shorten.
-
-The cut is the same one `fault-beam-ends.ts` took out of `fault-emitter.ts`:
-the rows into `brush-rows.ts`, re-exported from here so no caller moves. Prove
-it with `bun test tools/director` and `bun run check`.
-
 ## The guide's band covers a round's readouts on eleven rehearsals
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
