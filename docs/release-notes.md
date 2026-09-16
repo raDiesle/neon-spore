@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 207e427c — The impacts leave bind.ts, so the next boss can be bound
+
+bind.ts was at exactly 250 lines and limits.test.ts fails at 251, so the next boss, creature or control with an event of its own was blocked before it started. THE SPLICE's four cues had already taken it over and it came back by losing prose a reader needed, which is a file out of room rather than a file being tidied.
+
 ## 2026-09-16 · e8525da7 — THE WEIGHT's dials say the mechanic instead of handing out parts
 
 Under the siren a weight said CALL THE BEAT to the pilot and PRESS ON THEIRS to the navigator. That is a protocol, offered to a pair nobody has yet told what the protocol is for: one hand on a weight does nothing whatever, and the two have to land on the body at the same moment. A seat reading PRESS ON THEIRS cannot know that pressing early is pressing alone.
