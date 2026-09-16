@@ -589,6 +589,7 @@ worked, which is how it came to be bad twice.
 ## The director cannot see or choose a wave's rehearsal scene
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-the-director-cannot-see-or-choose-a-waves-rehear
 - **Files:** `tools/director/src/guide-fields.ts`, `packages/content/src/waves/act-1.ts`, `packages/content/src/scenes/first-step.ts`
 
 `bindGuideFields` builds three textareas — both, p1, p2 — and carries `scene`
