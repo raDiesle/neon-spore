@@ -7047,3 +7047,21 @@ real paint through the canvas stub. A whole screen was outside the rule that
 everything drawn is drawn again in a test. It is inside it now.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the run's own figure, and two ideas filed
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | how a retry reaches `startWave`, what `world.retries` already counts, where it is already shown |
+| writing | 15 | one line on the lost screen, and two entries in `docs/spec/ideas.md` |
+| looking | 5 | one shot of the state card |
+| friction | 0 | — |
+| landing | 5 | `check:fast` and the commit |
+
+The bottleneck was reading, and it bought the right answer to two of the three
+asks: the score the owner wanted *already exists* — `world.retries` is in
+`hashWorld`, the HUD's corner and the balance sheet both close on it — so the
+work was one line and not a feature. The retry-with-the-guide option is the
+opposite: it looks like a button and is a command kind, an event flag, a fact
+about the wave that no `World` field carries, and nine waves where the button
+would be dead. That is an idea, and it is on the sheet with its questions.

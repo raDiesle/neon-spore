@@ -1,3 +1,4 @@
+import { retriesText } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { signedHash } from "./hash.js";
 import { bleed } from "./lost-blood.js";
@@ -125,6 +126,20 @@ export function words(ctx: CanvasRenderingContext2D, p: LostPaint): void {
     ctx.font = '13px "Courier New",monospace';
     ctx.fillStyle = PALETTE.dim;
     ctx.fillText("The tear is where it came in.", 0, 0);
+  });
+  // The run's own figure, asked for by the owner on 16 September 2026 as *the
+  // score*: not this wave's try, which the line above already gives, but how
+  // many times the pair has gone again across every wave of the run. It is the
+  // number the HUD's corner and the balance sheet both close on
+  // (`hud.ts`, `balance.ts`), and the lost screen is where another one is
+  // about to be added — so it is said in the same words `retriesText` gives
+  // those two, and never spelled a second way.
+  y += 20;
+  drop(ctx, mid, y, p.age, 4, 0, () => {
+    ctx.font = '11px "Courier New",monospace';
+    ctx.fillStyle = PALETTE.dim;
+    ctx.globalAlpha *= 0.8;
+    ctx.fillText(`THIS RUN · ${retriesText(p.retries)}`, 0, 0);
   });
   ctx.textAlign = "left";
 }

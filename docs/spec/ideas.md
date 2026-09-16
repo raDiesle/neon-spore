@@ -505,6 +505,27 @@ filed rightly, and there is no second list to change.
   gradient under the skin, a straight disagreement with
   [graphics](graphics.md)'s own sentence that detail does not survive there.
   The argument for each is in the file; its numbers are not current
+- **The user guide — a codex of everything the pair has met** — a page off the
+  main menu, named by the owner on 16 September 2026 while he was looking at
+  the lost screen: every enemy and every mechanic the pair has *experienced so
+  far*, explained in their own words rather than in the spec's. The first page
+  is an overview of brush views — the silhouette as the field draws it, nothing
+  else — and a tap on one opens that creature's own page, which explains it in
+  pictures rather than in paragraphs. What it attaches to: `Progress.reached`
+  already remembers the furthest wave this device got to and `pairing.ts`
+  remembers the furthest reached *with a given partner*, so "so far" has a
+  number already; `WAVES[n].guide` is the wave's own rehearsal and
+  `docs/spec/bestiary.md` is the prose; `tools/shape-sheet` draws a contour
+  with no field around it, which is what a brush view is. Unworked out: whether
+  the gate is this device's highest wave or the highest reached with *anyone*
+  (the owner said the latter, and the room does not currently keep it that
+  way); whether an enemy is unlocked by having been *seen* or by having been
+  beaten; whether the explanation pictures are drawn live from
+  `packages/render` at a frozen tick — which keeps them honest and costs a
+  headless field — or authored as sheets, which cannot go stale on a look but
+  will; whether a mechanic gets an entry of its own or lives on the creature
+  that teaches it; and whether the guide is reachable from the lost screen,
+  where the owner was standing when he asked for it, and not only from the menu
 
 ### Controls
 
@@ -582,6 +603,29 @@ filed rightly, and there is no second list to change.
   panel trades, the two *people* do not, because the wire's identities are fixed
   and the simulation gives a hand on the field to whoever sent it — so a handover
   wave is answered by the band and never by a thumb on a body
+- **Going again with the guide, or without it** — a second retry on the lost
+  screen. Today a wave gone again always skips its rehearsal: `waves.ts` passes
+  `!retry && WAVES[wave]?.guide !== undefined` and `retry ? 0 :
+  waveGuideSteps(wave)`, on the reasoning written there — *the pair has read
+  it, and what they need is the field*. The owner's answer on 16 September 2026
+  is that this should be the pair's choice and not the game's: a wave lost
+  three times is a wave whose lesson did not land, and the one thing that would
+  help is the lesson again. What it attaches to: `lostButtons` and `lostHit`
+  (`render/lost-screen.ts`) hand out the boxes, `apps/game/src/lost.ts`
+  hit-tests the same ones, and the answer travels as a command —
+  `{ kind: "retry" }` in `command-types.ts`, answered in `stepFailHold` with a
+  `needWave` event carrying `retry: true`. A second kind beside it, and a flag
+  on the event, is the whole of the wiring. Unworked out: whether it is a third
+  button of the same size — three 52 px bodies and a gap put the stack past
+  where `lostButtons` can start it — or a small word under RETRY WAVE, which
+  reads as secondary and is what it is; what it says, because *retry without
+  skipping the tutorial* is a double negative and RETRY + GUIDE is a sign the
+  pair has to be taught; what happens on the nine of seventy-six waves that
+  have no guide at all, where the button is dead and should not be drawn, which
+  means render has to know a fact about the wave that no `World` field
+  currently carries; and whether going again with the guide should still count
+  as a retry against the run, or whether being willing to be taught again is
+  worth not being charged for
 
 ### Weapons
 
