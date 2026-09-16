@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 1d72f940 — The lost wave stops behind a bulkhead
+
+`lost:screen` / `shutters`, which the owner picked out of the three the slot was opened with — a look he asked for by name. The screen a lost wave stops on is plated over and then the lower plate is drawn down off it, leaving the ship and the hole in it in the clear under a bulkhead with WAVE LOST stamped on it at thirty points.
+
 ## 2026-09-16 · 021377a6 — A well wave ends when the wave under it ends
 
 Wave 70 of the shipped campaign could be cleared and not passed. `beat.ts` ended a wave when the script was spent and the field was empty **and no boss was installed**, and nothing ever takes THE WELL off a world: it is a projection with no body, no health and no step, so the pair took the last body down and the wave stood there with a picture holding it open. `bossHoldsWave` is the question asked instead, and THE WELL is the only boss that answers no — deliberately not `!bossFillsWave`, which would answer the same for THE VANE, whose pins must still come out before its wave is over.

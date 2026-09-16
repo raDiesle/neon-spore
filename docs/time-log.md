@@ -6953,3 +6953,5 @@ pose in the director's STATES room. The cards carry no id, so the selector is
 `.state:has(.name:text-is('…')) .shot` — worth writing down, because three
 guesses were spent on it and every later lane that shows the owner a posed
 state needs the same line.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
