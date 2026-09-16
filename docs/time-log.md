@@ -7430,3 +7430,23 @@ beat is handed in rather than read off the world, so the next thing to read a
 beat off a beam has to say which side of `onBeat` it is on.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — `--press` says what is in the column
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the queue entry, `press-column.ts`, `press-plan.ts`, `press.ts`'s parser, `queue.ts`, `entries.ts`, `kinds.ts`, `beat.ts`, `config-derived.ts` |
+| writing | 10 | `press-standing.ts`, ten tests, the two lines in `run.ts`, the index line |
+| looking | 0 | — nothing visible moved |
+| friction | 0 | — |
+| landing | 5 | `bun run index`, `check:fast`, the commit |
+
+The bottleneck was reading, and it bought the shape of the answer: the entry
+asked for *what is standing in that column at that beat*, and the honest answer
+turned out to be smaller than it sounds. Five kinds do not hold their lane, so
+a body authored into one column can be standing in another when the press
+lands — which means a tool that said *this column is empty* would be lying with
+more confidence than the mistake it was written to prevent. It says what the
+**wave sends** instead, and asks `fallTilesPerBeat` for the window rather than
+working one out, which keeps the rock tiers, the torch, the wisp and the
+Warden's line out of a tool that has no business knowing them.

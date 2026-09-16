@@ -1840,6 +1840,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/press-command.ts` | What one `--press` actually sends, once the line has been taken apart |
 | `tools/frames/press-column.ts` | what a column in `--press` points at, said before the capture |
 | `tools/frames/press-spec.ts` | **What a caller sends into the page**, as opposed to what it asks the page for |
+| `tools/frames/press-standing.ts` | what the wave sends into a pressed column, and whether any of it is above the hull on that beat |
 | `tools/hooks/after-depth-edit.ts` | a depth claim is the drawing mistake that looks like a success — names the projection to call and the cues to check |
 | `tools/hooks/after-compact.ts` | What a session is told the moment its conversation has been compacted |
 | `tools/hooks/after-edit-size.ts` | One line on the edit that takes a file within 88% of the line ceiling, so the seam is chosen before the check goes red |

@@ -447,51 +447,6 @@ again unless it is his own idea. Keeping them as reference costs nothing and
 wants one sentence in `wave-types.ts` saying who the audience is, so the next
 lane does not spend a morning on prose that reaches nobody.
 
-## `--press` never says which column it actually pressed
-
-- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Taken:** 2026-09-16, claude/queue-press-never-says-which-column-it-actually-presse
-- **Files:** `tools/frames/press-plan.ts`, `tools/frames/press.ts`, `tools/frames/press-command.ts`, `tools/frames/spec.ts`, `tools/frames/test/`
-
-Eleven lanes and 95 friction minutes in `docs/time-log.md` went on photographing
-the wrong thing, and the ledger names the cause in one of them: *a wave is
-authored in seven columns and played in eleven, so `--press cannonCol=1` put
-the cannon under a column the gum was not in, and three sheets showed a bolt
-sailing past a body it was never aimed at.* That entry ends with the fix
-already worked out — `buildQueue` says where a body actually is, and asking it
-first would have cost twenty seconds.
-
-`pressPlan`'s own header is the precedent for where this belongs: it carries a
-rule that is *invisible at the call site and cost a lane a picture*, and it is
-tested as a function for exactly that reason. This is the second rule of that
-kind. A press that names a column is a press against the field the wave is
-**played** on, and the number a person reads off a wave file is the column it
-was **authored** in; the two agree only on a seven-column field.
-
-**The first half of this landed on 16 September 2026** and the entry is left
-open for the second. `tools/frames/press-column.ts` says the remapped column
-back before the capture runs: *cannonCol=1 — field column 1 of 11, and no
-authored column lands there. A wave's authored column 1 is field column 2.* —
-which is the ledger's own recorded failure, printed while the run is still
-worth stopping. Nothing is said on a seven-column field, where the two
-numbering systems are one.
-
-What is left is the half that needs the wave: ask `buildQueue` what is standing
-in that column **at that beat** and warn when the answer is nothing. It is the
-more valuable of the two and the more delicate — a press carries a tick and an
-arrival carries a beat, and a body stands in its column for as many beats as it
-takes to fall, so the window has to be worked out rather than guessed. A
-warning rather than a refusal — a picture of an empty column is a legitimate
-thing to want, and a lane that meant it should not have to argue with a tool.
-
-One thing it must not do: reach into the simulation to *move* anything. The
-tool photographs a world; a press that quietly became a different press would
-be a picture of something nobody asked for, which is the failure one level
-worse than the one this fixes.
-
-Provable with `bun run check`: `tools/frames/test/` holds the planner already,
-and the remap is a pure function over a column and a field width.
-
 ## The balloon's pop now falls harder than a struck body's break
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307

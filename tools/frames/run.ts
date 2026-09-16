@@ -113,6 +113,7 @@ import { sameFrames } from "./crop.js";
 import { parseFrameSpec } from "./flags.js";
 import { heldPageNote } from "./guide-film.js";
 import { columnNotes } from "./press-column.js";
+import { standingNotes } from "./press-standing.js";
 import { say, tickNote } from "./report.js";
 import { scratchDir } from "./scratch.js";
 import { captureAt, captureHere, git, root } from "./serve.js";
@@ -165,6 +166,12 @@ async function main(): Promise<void> {
   // (`press-column.ts`). Nothing is said on a seven-column field, where the
   // authored numbers and the field's are the same numbers.
   for (const said of columnNotes(spec.press ?? [], DEFAULT_CONFIG.cols)) console.log(`  ${said}`);
+  // And whether the wave puts anything in that column on the beat the press
+  // lands (`press-standing.ts`). The other half of the same failure: a column
+  // that exists and is empty photographs as well as one that does not exist.
+  for (const said of standingNotes(spec.press ?? [], spec.wave, DEFAULT_CONFIG)) {
+    console.log(`  ${said}`);
+  }
 
   const start = Date.now();
   if (here) {
