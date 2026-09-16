@@ -9,6 +9,22 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · a4183433 — The docs row is written out a second time, in the fast check's own test
+
+`fast-scope.test.ts` carries its own copy of what a `docs/*.md` change maps to, so adding `tools/test` to the two rows in `scope.ts` was green in `tools/hooks` and red in `tools/check` a hundred seconds into the landing. The copy is updated and the minutes are in the time log, where the entry for this lane now says what it cost: it is the *one new fact, four tables* entry queued in the commit before this one, met by the lane that wrote it.
+
+## 2026-09-16 · 223d06e5 — Splitting a task is the session's job, and four entries to apply the rest
+
+The reading of the time log said 14% of lanes carry 38% of the minutes and that the per-lane mean tripled in two days without anything getting slower. The owner's answer was to make the splitting automatic rather than asked about, so `CLAUDE.md` gains one bullet — a task too big for one sitting is split before it is started, the halves named in the report, worked in order and landed separately — and `docs/lane-speed.md` gains the cut: the size test is whether a half would land green on its own, with a table of the seams the tree already has (a creature is its simulation, then its look), what is not split, and how the halves are carried between `docs/parked.md`, `docs/queue.md` and a `NEXT:`.
+
+## 2026-09-16 · 6527c2c0 — A documentation change now runs the test that reads documentation
+
+`scope.ts` mapped every `docs/*.md` to `tools/director`, and the queue and the parked list to `tools/queue` as well — never to `tools/test`, which is where `doc-drift.test.ts` lives: the one test whose whole subject is documents. So a documentation change ran every parser that reads a document and skipped the test that checks what the document says. It cost a red trunk the same day: a lane landed a queue entry naming the file it proposed to create, green on `check:fast`, and only the full check would have refused it.
+
+## 2026-09-16 · 0c610f2a — The reading of the time log: 14% of lanes carry 38% of the minutes
+
+Six days of `docs/time-log.md` are 296 lanes and 14 320 minutes, and until now nobody had read them as a distribution. `docs/lane-speed.md` does: writing is 38.8% of the total, reading 21.6%, landing 14.5%, looking 13.0% and friction 12.1%; the mean lane is 48 minutes against a median of 35, because 42 lanes of 296 carry 38% of everything. The per-lane mean went from 30.7 minutes on 14 September to 105.3 on 16 September without a single thing getting slower — the four longest lanes in the ledger are all creature lanes that hold a simulation, a look, its tests, a director note, a wave and a spec page in one sitting.
+
 ## 2026-09-16 · 403955e9 — THE MOULT: a rock and a cargo by turns, and the turn is the call
 
 One body that is a rock for five beats and a supply cargo for five, all the way down. Nothing kills it — a shot craters the rock half and is spent on the cargo half — so what it is on the beat it reaches the ship is the whole of what happens: warded or a hull hit as a rock, swallowed by the maw or a lost wave as a cargo. Both seats see the form it is wearing now; only the navigator is shown what is coming, and every control it answers to is the pilot's, so the call is a timing and it has to be said out loud.
