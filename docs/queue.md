@@ -326,6 +326,7 @@ sending one PNG of the shared ready step.
 ## The repository walk reads 1800 files one at a time and times out under load
 
 - **Found:** 2026-09-16, claude/queue-the-echo-his-way-the-wave-sent-again-unseen-and
+- **Taken:** 2026-09-16, claude/queue-the-repository-walk-reads-1800-files-one-at-a-ti
 - **Files:** `tools/test/tree-walk.test.ts`
 
 The test named *a walk of the repository > skips `.claude`, wherever it
