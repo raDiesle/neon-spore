@@ -115,6 +115,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/balance.ts` | the balance sheet: the clock, the retries, joint moments, SYNC, the streak |
 | `packages/sim/src/hash.ts` | world fingerprint — desync detection |
 | `packages/sim/src/replay.ts` | the test format: inputs in, fingerprint out |
+| `packages/sim/src/reprise-state.ts` | **THE REPRISE**: the cursors into the wave's own script that the echo is read back off |
+| `packages/sim/src/reprise.ts` | **THE REPRISE's clock**: holds the wave's own arrivals and sends the stretch just gone down again, unseen |
 | `packages/sim/src/boss-state.ts` | everything the Bulb Queen encounter remembers between beats |
 | `packages/sim/src/briefing.ts` | how a wave opens, and the only part of it the simulation owns |
 | `packages/sim/src/clasp.ts` | THE CLASP: a slick or a bulb inside a shield of its own, becoming a different creature instead of dying |
@@ -469,6 +471,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-volley.ts` | THE VOLLEY's rehearsal: a ward that works is not a body that is gone |
 | `packages/content/src/scenes/catch-and-aim.ts` | CATCH AND AIM's rehearsal: the hand aims, so the cannon does not have to |
 | `packages/content/src/waves/act-1b.ts` | The last of act one, cut off `act-1.ts` when that file reached the 250-line ceiling on `CATCH AND AIM` |
+| `packages/content/src/waves/act-10.ts` | Act ten, opened for THE REPRISE — `act-9.ts` had twenty-odd lines left under the 250-line ceiling |
 | `packages/content/src/maze-drawn.ts` | The four sheets THE MAZE plays after the owner's own, drawn by `bun run maze` and printed here |
 | `packages/content/src/body-path.ts` | one living body's contour — a blob, or the walk that puts clubs on its rim |
 | `packages/content/src/body-path-clubbed.ts` | a creature is not a blob — the walked rim of balls on stalks THE THROB and THE BEATBOX wear, and the four numbers it is sampled at |
@@ -1738,6 +1741,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/rail-filter.ts` | The filter over the wave list: one field above it, matching a wave's prose and everything it sends |
 | `tools/director/src/rail-steps.ts` | **The two arrows over the WAVE column**, and the two keys that are the same step without the mouse |
 | `tools/director/src/rail-symbols.ts` | **THE ROW OF SYMBOLS OVER THE FILTER**: the rail's own four marks, made pressable |
+| `tools/director/src/reprise-editor.ts` | THE REPRISE's panel, which is one number |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
 | `tools/director/src/cell-config-mine.ts` | **THE MINE's two rows under the selected cell** |
 | `tools/director/src/cell-config-moult.ts` | **THE MOULT's one row under the selected cell** |

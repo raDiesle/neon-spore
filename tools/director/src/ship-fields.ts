@@ -173,6 +173,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   spliceEntranceRows: "THE SPLICE — straws fed in the order the numbers say",
   spliceTopRow: "THE SPLICE — straws fed in the order the numbers say",
   spliceFeedBeats: "THE SPLICE — straws fed in the order the numbers say",
+  repriseBeats: "THE REPRISE — the wave sent again unseen",
   ...ROUND_FIELD_GROUP,
   // PairConfig
   briefings: "OPENING — the introduction, the guide and the ready gate",

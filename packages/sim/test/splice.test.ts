@@ -73,8 +73,13 @@ describe("THE SPLICE", () => {
     // on 16 September 2026. What the list is about is that a name is
     // **appended, never inserted** — the index is a wire value
     // (`boss-kinds.ts`) — so the assertion is its place in the order rather
-    // than its place at the end, which the next round would break again.
-    expect(BOSS_KINDS.indexOf("splice")).toBe(BOSS_KINDS.length - 2);
+    // than its place at the end. Written as a *distance from the end* at
+    // first, which is the same mistake in slower motion: THE REPRISE was
+    // appended the same week and the row went red without a wire value having
+    // moved. The index is the fact, and `length` below is what holds the
+    // list append-only.
+    expect(BOSS_KINDS.indexOf("splice")).toBe(12);
+    expect(BOSS_KINDS.length, "a kind was inserted rather than appended").toBeGreaterThan(12);
   });
 
   it("lays a round of straws the pair can tell apart", () => {

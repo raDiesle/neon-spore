@@ -8,7 +8,7 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
  */
 type BossId = Extract<
   MechanicId,
-  "queen" | "warden" | "tether" | "cairn" | "mirror" | "maze" | "splice"
+  "queen" | "warden" | "tether" | "cairn" | "mirror" | "maze" | "splice" | "reprise"
 >;
 
 /**
@@ -62,6 +62,10 @@ export const BOSS_MECHANICS = {
   },
   maze: {
     what: "A real maze of rings turns above the ship, with a heart in the middle. Turn a gap round onto the ship's own column, fire the colour the heart is beating in, and the shot crawls the corridors to it. Only one gap in a rim reaches the middle; a shot lost in one of the others brings the maze down and the stage begins again.",
+    reach: "spawn",
+  },
+  reprise: {
+    what: "The wave itself, sent twice. A stretch of it falls in plain sight, and then the whole of that stretch comes down again from the top — the same bodies in the same columns at the same spacing — with nothing drawn on either screen. It arrives all the same, and it is answered the same way; the only thing missing is the picture. Nothing new comes down while it is running.",
     reach: "spawn",
   },
   splice: {

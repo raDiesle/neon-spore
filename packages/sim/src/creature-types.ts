@@ -88,6 +88,24 @@ export interface Creature extends CreatureState {
    * everything else to calling them.
    */
   shell: number;
+  /**
+   * **Whether this body is drawn at all.** Absent on every arrival the wave's
+   * author sent; `true` on one THE REPRISE has sent a second time, which is a
+   * body both screens are blind to until the moment it is beaten
+   * (`reprise.ts`).
+   *
+   * It is a field of the simulation and not of the picture, which is the
+   * opposite of `fromCol` two dozen lines up and for the opposite reason: what
+   * the pair is *shown* is exactly what this fight is about, so two devices
+   * that disagreed about it would be two devices playing different games — one
+   * pair warding a column they can see and the other warding from memory. So
+   * it is in `hashWorld` like anything else, and render/ reads it rather than
+   * deciding it.
+   *
+   * Absent and `false` are one state on purpose: a wave with no reprise in it
+   * carries no field at all and fingerprints exactly as it always has.
+   */
+  unseen?: boolean;
 }
 
 export type { CreatureState } from "./creature-state.js";

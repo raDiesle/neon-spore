@@ -3,6 +3,7 @@ import {
   bodyCenterCol,
   isMeteorKind,
   type RockCross,
+  repriseHeld,
   rockCrossRowFor,
   rockEntryCol,
   rockMayCross,
@@ -61,10 +62,18 @@ export interface RadarBlip {
 export function radarBlips(l: Layout, world: World): RadarBlip[] {
   const lead = world.cfg.radarLead;
   const out: RadarBlip[] = [];
+  // **The wave's own clock, which is not always the world's.** THE REPRISE
+  // stops the script while it sends a stretch of it down again unseen, and it
+  // stops it by holding the beat the queue is read against (`sim/reprise.ts`).
+  // The strip has to be read against the same one or it would count an
+  // arrival down through beats the wave is not spending — and once the echo
+  // was over, every remaining entry would be *past* and the strip would stay
+  // empty for the rest of the wave.
+  const waveBeat = world.waveBeat - repriseHeld(world);
   for (let i = world.spawned; i < world.queue.length; i++) {
     const q = world.queue[i]!;
     if (!showsRadar(l.role, q.kind)) continue;
-    const inBeats = q.beat - (world.waveBeat - 1);
+    const inBeats = q.beat - (waveBeat - 1);
     if (inBeats < 0 || inBeats > lead) continue;
     // A rock the wave sent across enters at a wall rather than in the column
     // it was authored in (`sim/rock-cross.ts`), so the blip goes where the

@@ -1472,3 +1472,61 @@ is drawn on both screens or is one seat's read (which is the thing that would
 make it this game's fight rather than a shooting gallery); what the opening
 clock is, and whether closing one slows it; whether the body has health of its
 own at all, or is only ever beaten by closing every breach it has.
+
+## 11.15 THE REPRISE — the wave you have just beaten, sent again unseen
+
+> The one where the wave you have just beaten comes back with nothing to see.
+
+**The boss is a memory test, and the wave is its own material.** A stretch of
+the wave falls as its author wrote it, both seats watching. Then the whole of
+that stretch is **sent again from the top with nothing drawn on either screen**
+— the same kinds in the same columns carrying the same colours, at the same
+spacing, offset to now. The wave's own arrivals stand still while it plays and
+take up where they left off afterwards, so a wave alternates seen stretch and
+unseen echo until its queue is spent; the last stretch is sent again like any
+other, and then the mechanism takes itself off and the wave ends. The owner's
+design, 16 September 2026, taken from the *Reverse wave* idea and replacing the
+from-below version written there.
+
+**Nothing about a body changes.** An echoed body falls at its kind's own speed,
+is turned by the shield, is taken by a bolt of the right colour and costs the
+hull exactly what it would have the first time (`hull-damage.ts`,
+`wave-fail.ts`). It is not a new kind and it has no physics of its own: it is
+the same arrival, made by the same `spawnOne`, carrying one extra flag —
+`Creature.unseen` — which render reads and nothing in the simulation branches
+on. The only thing taken away is the picture.
+
+**The echo is derived, never appended to the queue.** `world.queue` is the
+wave's script and is outside the fingerprint on purpose (`hash.ts`), so a boss
+that pushed entries into it would be writing into the one thing two devices
+never check they agree about. What the state keeps instead is a pair of cursors
+into that script — where the running stretch began, which entry the echo owes
+next, how many are left — and the beats the script has spent **held**
+(`packages/sim/src/reprise-state.ts`). The wave beat the queue is read against
+is the world's own less that number, which is the whole of how an echo pauses
+the wave: `spawnArrivals` knows nothing about the boss and reads a clock that
+has stopped. Everything above is in `bossHashParts`, because two devices that
+disagreed about a cursor would be sending a different body down a different
+column at a moment when neither player could see which.
+
+**`repriseBeats` is how long a stretch runs**, and the wave may author its own
+with `beat` on the entry. Sixteen by default, about ten seconds at the shipped
+tempo: short enough that the pair is not made to wait a third of a minute to
+find out they have forgotten, long enough that the stretch has to have been
+*said* rather than merely seen. It is also the beat the first echo starts on,
+and the two are one number because the first stretch runs from the wave's own
+start.
+
+**The split is the fight.** Both screens go blank together, so neither seat can
+read the answer off the other's, and what is left to divide is the record: the
+navigator keeps the columns and the pilot keeps the order and the gaps. Neither
+half is a wave on its own — a column with no beat on it is a dome held in the
+wrong second, and a count with no column is a cannon fired at nothing. The
+strip stays silent for an echoed body, and so does the siren: an arrival nobody
+can see announces nothing (`radar-blip.ts`, `comms.ts`).
+
+**What it does not draw yet**, and it is the lane after this one: the mechanism
+itself at the top of the field, the count of bodies still to come in the
+running echo read as a shape rather than a digit, and the twitch that says one
+has just entered. Until that lands the pair has the memory and no tally, and
+`repriseLeft` is the number waiting for a picture.

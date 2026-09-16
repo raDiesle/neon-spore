@@ -37,6 +37,13 @@ export function serializeBoss(boss: BossEntry): string {
     const pins = boss.pins === undefined ? "" : `, pins: ${boss.pins}`;
     return `{ kind: "vane"${pins} }`;
   }
+  // THE REPRISE authors one number and no column either: the mechanism hangs
+  // at the top middle, and the number is how long a stretch of the wave runs
+  // before it is sent back unseen (`RepriseEntry`).
+  if (boss.kind === "reprise") {
+    const beat = boss.beat === undefined ? "" : `, beat: ${boss.beat}`;
+    return `{ kind: "reprise"${beat} }`;
+  }
   if (boss.kind === "maze") {
     // The tangles are authored in `packages/content/src/maze-rounds.ts`, where
     // a node is written as two arms and the fused one. Emitting them here as

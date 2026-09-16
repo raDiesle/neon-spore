@@ -12,6 +12,8 @@ import { removeSpentLures } from "./lure-exit.js";
 import { stepMoult } from "./moult.js";
 import { steppedInsteadOfFalling } from "./own-step.js";
 import { spawnPods } from "./pods.js";
+import { sendEcho } from "./reprise.js";
+import { repriseHeld } from "./reprise-state.js";
 import { spawnArrivals } from "./spawn.js";
 import { breakSpentStrands } from "./strand-round.js";
 import { isBossBody } from "./types.js";
@@ -195,7 +197,13 @@ export function onBeat(world: World): void {
   // it — which is the whole of "one beat later" for this creature (`echo.ts`).
   splitEchoes(world);
 
-  spawnArrivals(world);
+  // THE REPRISE's own arrivals, before the wave's own and on the same beat:
+  // the stretch it is sending back at the pair is the script read a second
+  // time, and while it plays it holds the script's clock so nothing new comes
+  // down (`reprise.ts`). Every other wave is held by nought beats and reads
+  // exactly as it always has.
+  sendEcho(world);
+  spawnArrivals(world, repriseHeld(world));
   // What she releases this beat has to be on the field before the hull is resolved.
   stepBoss(world);
   spawnPods(world);

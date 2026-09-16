@@ -3,7 +3,7 @@ import { WAVES } from "../src/index.js";
 import { SCENES } from "../src/scenes.js";
 
 /**
- * **The five guides that are still prose, and the count of the ones that are
+ * **The guides that are still prose, and the count of the ones that are
  * not.**
  *
  * `docs/spec/briefings.md` said *one rehearsal exists* and *FIRST STEP has the
@@ -40,6 +40,11 @@ const STILL_PROSE = [
   // nothing of it is drawn yet, so the rehearsal has nothing to choreograph.
   // It comes off this list with the lane that draws the little ship.
   "THE SCOUT",
+  // THE REPRISE is owed for the same reason and comes off with the lane that
+  // draws the mechanism at the top of the field. Its rehearsal has something
+  // harder than usual to choreograph, too: what the film has to show is a
+  // stretch of field the pair can no longer see.
+  "THE REPRISE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -65,9 +70,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "sixty-six of the seventy-five waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says sixty-six of seventy-five";
-    expect(guided.length, fix).toBe(66);
-    expect(WAVES.length, fix).toBe(75);
+    const fix = "update §1 of docs/spec/briefings.md, which says sixty-seven of seventy-six";
+    expect(guided.length, fix).toBe(67);
+    expect(WAVES.length, fix).toBe(76);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

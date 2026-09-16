@@ -12,6 +12,7 @@ import { installMaze } from "./maze-state.js";
 import { installMirror } from "./mirror.js";
 import { installPinball } from "./pinball-round.js";
 import { installPulse } from "./pulse-round.js";
+import { installReprise } from "./reprise-state.js";
 import { installScout } from "./scout-round.js";
 import { NO_SHELL } from "./shell.js";
 import { installSnake } from "./snake-round.js";
@@ -170,6 +171,13 @@ export function startWave(
     // two — so there is nothing of it anywhere but the picture, and the wave
     // under it runs exactly as its author wrote it (`well.ts`).
     world.boss = installWell(world);
+  } else if (boss?.kind === "reprise") {
+    // No creature and no row, THE VANE's shape exactly: the mechanism hangs at
+    // the top middle and everything it ever puts on the field is a body the
+    // wave's own author wrote, sent a second time with nothing drawn
+    // (`reprise.ts`). Nothing of the boss itself falls, can be warded or can
+    // be taken hold of.
+    world.boss = installReprise(world.cfg, boss);
   } else if (boss?.kind === "cairn") {
     // A creature and a row, like the Warden and unlike the six above it: the
     // pile is a body standing on the grid, wide enough to have lanes of its

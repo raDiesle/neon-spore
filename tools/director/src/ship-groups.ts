@@ -27,6 +27,7 @@ export type GroupName =
   | "THE CAIRN — a pile of rocks taken apart by hand"
   | "THE SCOUT — a little ship one of you flies"
   | "THE SPLICE — straws fed in the order the numbers say"
+  | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
   | "GUARD — the shared defence"
   | "MAW — taking a pod in"
@@ -134,6 +135,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE FLEET — a chart only one of you can read",
   "THE WELL — the field drawn inside out on one screen",
   "THE SPLICE — straws fed in the order the numbers say",
+  "THE REPRISE — the wave sent again unseen",
   "PLUMBING — not a dial a person turns",
 ];
 // The paragraph under each heading is `ship-notes.ts` next door — the half of
@@ -164,6 +166,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",
+  "THE REPRISE — the wave sent again unseen",
 ]);
 
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */
@@ -194,4 +197,5 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   // reads belongs in a VERSUS candidate rather than on a slider
   // (`render/src/well.ts`, `docs/versus.md`). The card says so.
   well: "THE WELL — the field drawn inside out on one screen",
+  reprise: "THE REPRISE — the wave sent again unseen",
 };

@@ -22,9 +22,14 @@ import type { BossEntry } from "./boss-entries.js";
  * THE WELL is the second of those and the plainest: it is a projection, so it
  * spawns nothing, and a well with no arrivals is the field redrawn with nothing
  * standing in it (`well.ts`).
+ *
+ * THE REPRISE is the third and the one the question was invented for: every
+ * body it puts on the field is a body the wave's own author wrote, sent a
+ * second time, so a reprise over an empty wave is a mechanism sending nothing
+ * again (`reprise.ts`).
  */
 export function bossFillsWave(kind: BossEntry["kind"]): boolean {
-  return kind !== "vane" && kind !== "well";
+  return kind !== "vane" && kind !== "well" && kind !== "reprise";
 }
 
 /**
@@ -52,4 +57,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "well",
   "splice",
   "scout",
+  "reprise",
 ];

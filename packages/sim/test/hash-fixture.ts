@@ -104,6 +104,7 @@ const creature = (): Required<Creature> => ({
   balloonPullP1: -900,
   balloonPullP2: 700,
   balloonTautTick: 731,
+  unseen: true,
 });
 
 const bullet = (): Required<Bullet> => ({
@@ -189,6 +190,7 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // THE WELL authors nothing and keeps nothing: the tag is the only number it
   // contributes to the fingerprint (`well.ts`).
   well: { kind: "well" },
+  reprise: { kind: "reprise", beat: 12 },
   // THE SPLICE authors a beat count a round and nothing else; the straws are
   // laid from the seeded rng at install, which is exactly what makes its four
   // column arrays worth fingerprinting (`splice-hash.ts`). Two rounds, so the

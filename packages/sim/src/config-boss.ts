@@ -188,6 +188,17 @@ export interface BossConfig {
    * anything about it.
    */
   spliceFeedBeats: number;
+  /**
+   * Beats of seen wave THE REPRISE lets run before it sends that stretch back
+   * at the pair unseen — the default for a wave that authors no number of its
+   * own (`RepriseEntry`).
+   *
+   * Sixteen, which is about ten seconds at the default tempo: long enough that
+   * the stretch is something to have *remembered* rather than something still
+   * in the eye, and short enough that a pair who have forgotten it are not
+   * made to wait a third of a minute to find out.
+   */
+  repriseBeats: number;
 }
 
 /**
@@ -219,4 +230,5 @@ export const BOSS_DEFAULTS: BossConfig = {
   spliceEntranceRows: 2,
   spliceTopRow: 1,
   spliceFeedBeats: 2,
+  repriseBeats: 16,
 };

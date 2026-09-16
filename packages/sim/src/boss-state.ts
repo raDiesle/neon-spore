@@ -4,6 +4,7 @@ import type { GaugeState } from "./gauge.js";
 import type { MazeState } from "./maze-state.js";
 import type { PinballState } from "./pinball.js";
 import type { PulseState } from "./pulse.js";
+import type { RepriseState } from "./reprise-state.js";
 import type { ScoutState } from "./scout.js";
 import type { MirrorState } from "./simon.js";
 import type { SnakeState } from "./snake.js";
@@ -235,5 +236,6 @@ export type BossState =
   | PinballState
   | PulseState
   | WellState
+  | RepriseState
   | SpliceState
   | ScoutState;

@@ -5,6 +5,7 @@ import { GAUGE_PHASES } from "./gauge.js";
 import { mazeHashParts } from "./maze-hash.js";
 import { pinballHashParts } from "./pinball-board.js";
 import { pulseHashParts } from "./pulse-hash.js";
+import { repriseHashParts } from "./reprise-state.js";
 import { scoutHashParts } from "./scout-hash.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 import { snakeHashParts } from "./snake-hash.js";
@@ -181,6 +182,14 @@ export function bossHashParts(boss: BossState | null): number[] {
   // there too (`splice-hash.ts`).
   if (boss !== null && boss.kind === "splice") {
     for (const n of spliceHashParts(boss)) push(n);
+  }
+  // THE REPRISE, gathered beside the boss like the five above it — and the one
+  // whose numbers are all *cursors into the wave's own script*, which is why
+  // they matter as much as any board: two devices that disagree about one are
+  // two devices sending a different body back down a different column, at a
+  // moment when neither player can see which (`reprise-state.ts`).
+  if (boss !== null && boss.kind === "reprise") {
+    for (const n of repriseHashParts(boss)) push(n);
   }
   if (boss !== null && boss.kind === "mirror") {
     // Every sequence, not only the one being played. They are authored, which

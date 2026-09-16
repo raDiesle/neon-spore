@@ -120,6 +120,27 @@ export interface WellEntry {
   kind: "well";
 }
 
+/**
+ * What a wave authors when it wants THE REPRISE: how long a stretch of it runs
+ * before it is sent back at the pair unseen — and that is the whole entry.
+ *
+ * No column, for THE VANE's and THE MAZE's reason: the mechanism hangs at the
+ * top middle and has no body on the grid, so there is nothing to place. No
+ * health either, and none is possible: the fight is as long as the wave its
+ * author wrote, and it ends when the script is spent rather than when a count
+ * runs out (`reprise.ts`).
+ *
+ * One number, and it says two things that must not be able to disagree — how
+ * long a stretch is, and therefore which beat the first echo begins on. The
+ * first stretch runs from the wave's own start, so the two are the same
+ * integer (`repriseEvery`). Absent takes `repriseBeats` from the configuration,
+ * the way an unpinned vane takes `vanePins`.
+ */
+export interface RepriseEntry {
+  kind: "reprise";
+  beat?: number;
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -134,6 +155,7 @@ export type BossEntry =
   | PinballEntry
   | PulseEntry
   | WellEntry
+  | RepriseEntry
   | SpliceEntry
   | ScoutEntry;
 

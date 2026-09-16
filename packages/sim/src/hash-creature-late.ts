@@ -232,6 +232,13 @@ export function lateHashParts(c: Creature): number[] {
   // is in is not here and must not be: it is a pure function of `beat`, which
   // is hashed already, so a second copy could only ever be a way to disagree.
   out.push(c.moultCargo === undefined ? -1 : POD_KINDS.indexOf(c.moultCargo));
+  // Whether THE REPRISE sent this body back unseen. It decides *what the two
+  // players are shown*, which is the whole of that fight: a device that drew a
+  // body the other one has hidden would have one player calling a column and
+  // the other remembering one, and nothing on either screen would say so.
+  // Absent and false fold to the same number, so every wave without a reprise
+  // in it fingerprints as it always has.
+  out.push(c.unseen ? 1 : 0);
   return out;
 }
 

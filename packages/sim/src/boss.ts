@@ -135,6 +135,10 @@ export function stepBoss(world: World): void {
   // behaviour, so a beat of it is a beat of the wave its author wrote
   // (`well.ts`).
   if (boss.kind === "well") return;
+  // Nor THE REPRISE, and for the opposite reason: what it does on the beat is
+  // put bodies on the field, so it is stepped from `onBeat` beside the only
+  // other thing that does and *before* it (`reprise.ts`).
+  if (boss.kind === "reprise") return;
   if (boss.scratch.length === 0) boss.scratch = [0, 1];
 
   const queen = world.creatures.find((c) => c.id === boss.creatureId);

@@ -84,6 +84,11 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // is not a column in the entry to remap — the shortest of the ten reasons
   // above and the same one THE MAZE has.
   if (boss.kind === "splice") return { ...boss, rounds: boss.rounds.map((r) => ({ ...r })) };
+  // THE REPRISE authors one beat count and no column: the mechanism hangs at
+  // the top middle, and the bodies it sends again are the wave's own arrivals
+  // read back out of the queue — which `mapCol` has already put on this
+  // field's columns by the time they are sent (`reprise.ts`).
+  if (boss.kind === "reprise") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

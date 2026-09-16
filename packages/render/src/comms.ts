@@ -110,6 +110,11 @@ export function commsCall(world: World): CommsCall | null {
   let p1 = false;
   let p2 = false;
   for (const c of world.creatures) {
+    // A body neither screen draws is a body neither seat can describe. The
+    // siren is *"somebody has to say something about this"*, and an unseen
+    // arrival would light it with nothing on the field to say it about
+    // (`sim/reprise.ts`).
+    if (c.unseen) continue;
     const seat = talkerFor(c);
     if (seat === "both") {
       p1 = true;

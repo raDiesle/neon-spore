@@ -29,6 +29,11 @@ export const BOSS_NOTES = {
     "and how long a number takes to come down its straw. How many straws a " +
     "round has and where they run are not here: the count follows from the " +
     "round and the tangle is laid from the run's own seed (sim/splice-tangle.ts).",
+  "THE REPRISE — the wave sent again unseen":
+    "How long a stretch of the wave runs in plain sight before the whole of it " +
+    "is sent down again with nothing drawn. Nothing else is here: the bodies " +
+    "are the wave's own arrivals read back out of its queue, so the fight is " +
+    "as long and as hard as the wave under it (sim/reprise.ts).",
   VANE: "The arm boss's own pins and worth.",
   MIRROR: "The boss that throws a Simon sequence back, and its own worth.",
   QUEEN: "The petal boss's own row, regrowth and worth.",

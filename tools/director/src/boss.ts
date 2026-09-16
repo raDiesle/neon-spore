@@ -4,6 +4,7 @@ import { numberField, placementNote, renderVane, renderWarden } from "./boss-cyc
 import { renderFleetEditor } from "./fleet-editor.js";
 import { renderMazeEditor } from "./maze-editor.js";
 import { renderPinballEditor } from "./pinball-editor.js";
+import { renderRepriseEditor } from "./reprise-editor.js";
 import { renderSimonEditor } from "./simon-editor.js";
 import { renderSnakeEditor } from "./snake-editor.js";
 import { renderSpliceEditor } from "./splice-editor.js";
@@ -135,6 +136,14 @@ export function bindBossPanel(
         onEdit();
       });
       if (isCreaturePlacementBlocked(wave)) panel.appendChild(placementNote());
+      return;
+    }
+    // THE REPRISE authors one number and a note under it (`reprise-editor.ts`).
+    if (wave.boss.kind === "reprise") {
+      renderRepriseEditor(panel, wave.boss, () => {
+        store.dirty = true;
+        onEdit();
+      });
       return;
     }
     // THE PULSE's charts are authored as bars of text in

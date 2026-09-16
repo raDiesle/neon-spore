@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-16 — queue-the-echo — THE REPRISE, the simulation half
+
+The queue's *THE ECHO, his way*, first of its two halves: the wave sent again
+unseen. Built under the name THE REPRISE — `echo` is already a creature kind
+and a shipped wave name, and the entry says the working name may go. The
+mechanism, the flag on the body, the wave and the guide landed; the mechanism's
+own picture and its count are the half still to come.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 40 | the boss union end to end — install, step, hash, entry — and `beat.ts`'s clear test, which is why a boss has to take itself off |
+| writing | 70 | two files, the cut in `spawn.ts`, the wave, the spec section, two test files |
+| looking | 0 | — nothing of it is drawn yet, and that is the point of the half |
+| friction | 15 | ten totality errors from one appended name, two of them tools; a wave authored in eleven columns that is written in seven |
+| landing | 20 | `bun run index`, `baseline:blank`, the briefings counts, `check`, the commit |
+
+The bottleneck was reading, and it bought the design: `beat.ts` holds a wave
+open while `world.boss` is not null, so the only way a wave under this boss
+ends is for the mechanism to take itself off when its script is spent — a
+question that would have been found by a hanging wave an hour later otherwise.
+THE WELL, which never clears itself, is filed in the queue for exactly that.
+
 ## 2026-09-15 — queued-tasks — a shot never goes through a body
 
 The queue's *A shot never goes through a body*, which is the owner's rule of 14

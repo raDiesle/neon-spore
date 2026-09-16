@@ -26,6 +26,7 @@ export {
   type GaugeEntry,
   type PinballEntry,
   type PulseEntry,
+  type RepriseEntry,
   type ScoutEntry,
   type SnakeEntry,
   type SpliceEntry,
@@ -106,6 +107,12 @@ export {
 } from "./maze-wheel.js";
 export { mirrorHoldsControls } from "./mirror.js";
 export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
+export {
+  type RepriseState,
+  repriseEchoing,
+  repriseHeld,
+  repriseLeft,
+} from "./reprise-state.js";
 export {
   SCOUT_PHASES,
   type ScoutArena,
