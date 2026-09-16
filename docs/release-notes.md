@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · a201cc52 — MECHANICS keeps only what is not implemented yet
+
+The owner asked on 15 September 2026 whether NOT BUILT YET → MECHANICS documents what is not built or also what is done, and answered it as a rule: only what is not implemented yet. The page was carrying COUPLINGS and ASSIST FORMS whole, and every section of either is built or half built; it now carries neither, and the two spec files they were parsed from are no longer read. A half-built section appears as its unbuilt remainder alone — 5.6 is its "Not built: polygon clipping, splinters, debris", never the paragraph on the scars and craters that ship. SYSTEMS and CREATURE IDEAS are cut to the four things with work written down for them: Destruction and damage, the Mine, Moulting and the Husk. MECHANIC, CONTROL and WEAPON IDEAS and the deferred stay whole, because none of them is built at all.
+
 ## 2026-09-16 · 2f61f837 — The SPLICE entry is off the queue
 
 All three landings are on main: the boss, the boss ideas, and the BOSSES page.
