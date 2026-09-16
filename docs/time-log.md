@@ -7612,3 +7612,22 @@ column off the base caught it. It now counts from the handover the swing
 began on, so the first swung flight is a swing.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the two alarm rows drop under a rehearsal's plate
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `round-header.ts`, `siren.ts`, `torch-alarm.ts`, `magnet-alarm.ts`, `splice-draw.ts`, `fleet-chart.ts`, `beatbox-marks.ts`, `guide-plate-room.test.ts`, and the eleven sites the entry listed |
+| writing | 20 | `sirenDrop`, the two rows, `alarm-room.test.ts`, and the entry rewritten as two |
+| looking | 10 | two real rehearsal frames at 9caab36c, TORCH and THE MAGNET, both seats' chrome under the band |
+| friction | 10 | the new test drew nothing twice: `startWave` takes the queue as an argument rather than reading the wave, and both alarms only speak within `radarLead` beats of an arrival |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was reading, and it was the work: the entry's eleven sites read
+as one job and are four. Two are the ship's own chrome and hang off an
+instrument that had already learned to drop — this lane. One is a readout at a
+fixed offset and is the `headerTop` fix the entry describes. Six are a label
+glued to a body, a chart's axis, or a whole screen used as a page's subject,
+and none of those has an answer that does not need the owner. Looking is also
+what turned up the next entry: the row comes out from under the band and lands
+under the page's own caption box.

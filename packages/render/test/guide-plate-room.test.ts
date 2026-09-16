@@ -46,6 +46,14 @@ import { installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js
  * whose picture is the lost screen. Every one of them is under the band and
  * most of them were under the narrower band too. They are in `docs/queue.md`,
  * with the list, because they are a lane and not a line.
+ *
+ * **Two of them are done and are not swept here.** TORCH's call and THE
+ * MAGNET's are the ship's own chrome rather than a round's, so they are on
+ * every wave that sends one and on none of the boss waves this sweep walks —
+ * a word added to the filter below would never have matched. They hang off
+ * the siren and drop with it now, held by `alarm-room.test.ts`. What is left
+ * in the queue is what a *round* draws: two chart axes, a clock, three labels
+ * on bodies, and the lost screen as a page's subject.
  */
 
 const CFG = { ...DEFAULT_CONFIG, briefings: true };

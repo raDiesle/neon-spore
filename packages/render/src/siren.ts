@@ -2,7 +2,7 @@ import type { World } from "@neon-spore/sim";
 import { commsCall } from "./comms.js";
 import { dutyWord } from "./duty.js";
 import type { Layout } from "./layout.js";
-import { headerTop } from "./round-header.js";
+import { headerLift, headerTop } from "./round-header.js";
 import type { SeatNames } from "./seat-name.js";
 import { DIAL_R, drawDial, TICK } from "./siren-dial.js";
 import { drawSeat, pillWidth, SIREN_PAD, seatChip } from "./siren-seats.js";
@@ -72,6 +72,21 @@ export function sirenCentre(
   clearTop?: number,
 ): { x: number; y: number } {
   return { x: l.width / 2, y: headerTop({ clearTop }, TOP + DIAL_R) };
+}
+
+/**
+ * How far the whole top-centre cluster has dropped under a rehearsal's plate.
+ *
+ * Two rows hang directly off this cluster and are drawn by other files —
+ * TORCH's call and THE MAGNET's (`torch-alarm.ts`, `magnet-alarm.ts`), both
+ * right-aligned to `SIREN_PAD` because they finish the sentence the dial's
+ * chips start. They are placed at their own fixed offsets, so they have to
+ * move by the same amount the dial did rather than work out a clearance of
+ * their own: `headerTop` at each would clamp all three to one line and stack
+ * the two calls on the dial itself.
+ */
+export function sirenDrop(clearTop: number | undefined): number {
+  return headerLift({ clearTop }, TOP + DIAL_R);
 }
 
 export function drawCommsSiren(

@@ -586,38 +586,86 @@ mouth reads as a mouth or a line reads at all is to watch it at tempo on a
 screen. A cloud session can change the drawing and cannot tell whether it
 worked, which is how it came to be bad twice.
 
-## The guide's band covers a round's readouts on eleven rehearsals
+## A rehearsal's caption box covers the chrome it was just given room over
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-the-guides-band-covers-a-rounds-readouts-on-elev
-- **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/splice-draw.ts`, `packages/render/src/coord-grid.ts`, `packages/render/src/magnet-look.ts`, `packages/render/src/torch.ts`, `packages/render/src/lost-shutters.ts`, `packages/render/src/round-header.ts`
+- **Files:** `packages/render/src/guide-tide-caption.ts`, `packages/render/src/caption-anchor.ts`, `packages/render/src/torch-alarm.ts`, `packages/render/src/magnet-alarm.ts`, `packages/render/src/siren.ts`
 
-`round-header.ts` exists because a rehearsal's plate sat on a round's name and
-neither was legible. `headerTop` fixed the **name**, and nothing else ever
-called it. Every other readout a round writes in the top strip has been under
-the band since the band went full-width on 14 September 2026, and TIDE's band
-is 104 deep where the old one stopped at 77, so two more joined them.
+Found by looking at the fix above it. TORCH's call and THE MAGNET's now drop
+out from under the rehearsal's band — and land under the page's own caption
+box, which is anchored on the radar strip and is the widest thing on that row.
+Photographed at 9caab36c:
 
-Measured on 16 September 2026 by drawing every page of every rehearsal that
-carries a film, at 390 × 844, both seats, and taking every word whose box
-crosses `GUIDE_LOOK.bandFoot`:
+```
+bun run frames 9caab36c --wave "TORCH" --opening guide --seat p1
+bun run frames 9caab36c --wave "THE MAGNET" --opening guide --seat p1
+```
 
-- THE FLEET's chart axis — the row number at 381,86 and the square name at
-  347,83. `drawFleetChart`'s `leftCovered` moves the numbers to *the other
-  edge*, which was an answer while the plate was a corner and is not one now.
-- THE WISP's coordinate grid (`coord-grid.ts`) — the row number at 3,83 and
-  the whole letter row A..K at y 98, on three of its four pages.
-- THE SPLICE's clock — `1 OF 2 · 26` at 159,94, placed off `spliceTopY`.
-- THE MAGNET's target line at 206,72, and TORCH's at 170,58.
-- THE BEATBOX's count at 192,87 and THE VEER's at 191,20.
-- THE JAM's `LURE` at 293,25.
-- BULB QUEEN, THE COIL, THE LURE and TORCH each have a page whose picture is
-  the **lost screen**, which stamps WAVE LOST at 16% of the play height — 114,73.
+TORCH's page draws `TORCH · COLUMNS 3-4 · CALL IT` and shows `-4 · CALL IT`;
+THE MAGNET's draws `TARGET ENEMY · COLUMN 6` and shows `LUMN 6`. The siren's
+own duty word, `PULL`, is half under the same box on THE MAGNET's page — so
+this is not about the two rows that just moved, it is about every word the
+ship writes in the middle of the strip.
 
-The shape of the fix is `headerTop` at each site, which needs `ViewState`
-carried to a few functions that take a `Layout` and a state today. The lost
-screen is the odd one: it is a whole screen drawn as a page's subject, so
-either it takes a clearance like the rest or the page draws it shrunk.
+It was there before and was invisible: the band covered the chrome, so the
+caption had nothing to cover. Nothing got worse; one thing got better and
+stopped at half legible.
+
+The caption already knows how to get out of the way of one thing —
+`handover-look.ts` has `plateBoxAround`, and a caption that would cross THE
+HANDOVER's countdown goes under its ring instead
+(`packages/render/test/guide-plate-room.test.ts` holds it). The same move, for
+the alarm row and the duty word, is the shape of the fix: the box is placed by
+`anchorPoint` plus `CLEAR_STRIP`, and a strip anchor is exactly the one that
+lands on this row.
+
+## THE SPLICE's clock is under the guide's band
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `packages/render/src/splice-draw.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/round-header.ts`
+
+**One third of a split, and the only third that is decided.** The round writes
+`1 OF 2 · 26` at 159,94 on the seat shown the tangle, placed off
+`spliceTopY(l, cfg) - l.tile * 0.7`, and the rehearsal's band reaches 104. It
+is a readout at a fixed offset from the top of the screen, which is exactly
+what `round-header.ts` exists for: `headerTop(view, own)` at `drawClock`.
+
+`drawSplice` takes a `Layout` and the boss's own state today, so the clearance
+has to be carried down from `boss-draw.ts:140`, where the `ViewState` is
+already in hand. Nothing else in the file moves — the straws, the mouths and
+the numbers are on the field, not in the strip.
+
+Widen `packages/render/test/guide-plate-room.test.ts` to sweep the clock's
+line when it is done; its header carries the list.
+
+## A round's picture is under the guide's band on eight rehearsals — ASKS THE OWNER
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/coord-grid.ts`, `packages/render/src/beatbox-marks.ts`, `packages/render/src/lost-shutters.ts`, `packages/render/src/round-header.ts`
+
+**The rest of a split, and the original entry's one-line answer — "`headerTop`
+at each site" — is wrong for all of it.** The first part landed on 16
+September 2026 (TORCH's call and THE MAGNET's, which hang off the siren and
+drop with it); the second is the entry above. What is left is not a readout in
+a header at all, and three different things were in one list:
+
+**A label glued to a body that happens to stand high.** THE BEATBOX's count at
+192,87, THE VEER's at 191,20, THE JAM's `LURE` at 293,25. `drawCount` in
+`beatbox-marks.ts` takes the mark's own centre, so a header clearance would
+tear each label off the thing it names.
+
+**A grid axis.** THE FLEET's chart — the row number at 381,86 and the square
+name at 347,83 — and THE WISP's coordinate grid, the row number at 3,83 and
+the whole letter row A..K at y 98, on three of its four pages.
+`drawFleetChart` already has a `leftCovered` that moves the numbers to the
+*other* edge; that was an answer while the plate was a corner and is not one
+now the band is full-width. An axis cannot drop without its grid.
+
+**A whole screen used as a page's subject.** BULB QUEEN, THE COIL, THE LURE
+and TORCH each have a page whose picture is the lost screen, which stamps WAVE
+LOST at 16% of the play height — 114,73.
+
+- **Asks:** Three, and each can be answered on its own — does a label on a body move the body, go on the far side of it, or stay as it is; does a chart's axis shrink the whole chart into the room under the band or drop the chart as a block the way THE PULSE moves its header (`headerLift`); and does the lost screen take a clearance like the rest or get drawn shrunk inside the page?
 
 `packages/render/test/guide-plate-room.test.ts` was narrowed to the round's
 name and the run's line on the day this was found, and its header carries the

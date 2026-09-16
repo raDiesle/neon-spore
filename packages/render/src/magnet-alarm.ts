@@ -2,6 +2,7 @@ import { showsRadar } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { sirenDrop } from "./siren.js";
 import { SIREN_PAD } from "./siren-seats.js";
 
 /**
@@ -26,7 +27,9 @@ import { SIREN_PAD } from "./siren-seats.js";
  */
 
 /** Clear of the torch alarm's own band (`torch-alarm.ts`, y = 56) — the two
- * never share a wave today and a director could still author one that does. */
+ * never share a wave today and a director could still author one that does.
+ * Both rows drop together under a rehearsal's plate, so they stay clear of
+ * each other wherever the plate puts them (`sirenDrop`). */
 const ALARM_TOP = 70;
 const ALARM_HEIGHT = 12;
 
@@ -52,10 +55,14 @@ export function drawMagnetAlarm(
   l: Layout,
   world: World,
   time: number,
+  /** The foot of a plate over the top of the screen, when a rehearsal has one
+   * up (`ViewState.clearTop`). */
+  clearTop?: number,
 ): void {
   const col = magnetCall(l, world);
   if (col === null) return;
 
+  const top = ALARM_TOP + sirenDrop(clearTop);
   const pulse = 0.55 + 0.45 * Math.sin(time * 7);
   const left = l.gridLeft + col * l.tile;
   const right = left + l.tile;
@@ -70,7 +77,7 @@ export function drawMagnetAlarm(
   band.addColorStop(0.5, `rgba(255,194,74,${0.3 * pulse})`);
   band.addColorStop(1, "rgba(255,194,74,0)");
   ctx.fillStyle = band;
-  ctx.fillRect(0, ALARM_TOP, l.width, ALARM_HEIGHT);
+  ctx.fillRect(0, top, l.width, ALARM_HEIGHT);
 
   // Right-aligned under the siren, where the torch's line already goes: the
   // two are one sentence in the same voice — *this is the call, and here is
@@ -80,11 +87,7 @@ export function drawMagnetAlarm(
   ctx.fillStyle = PALETTE.pod;
   ctx.globalAlpha = 0.6 + 0.4 * pulse;
   // 1-based, the way a column is said out loud.
-  ctx.fillText(
-    `TARGET ENEMY · COLUMN ${col + 1}`,
-    l.width - SIREN_PAD,
-    ALARM_TOP + ALARM_HEIGHT - 2,
-  );
+  ctx.fillText(`TARGET ENEMY · COLUMN ${col + 1}`, l.width - SIREN_PAD, top + ALARM_HEIGHT - 2);
   ctx.globalAlpha = 1;
   ctx.textAlign = "left";
   ctx.restore();

@@ -1,6 +1,7 @@
 import { spanOf, type World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { sirenDrop } from "./siren.js";
 import { SIREN_PAD } from "./siren-seats.js";
 
 /** `PALETTE.rock` (#C7CBD6) as an rgb triple, for alpha-graded fills — the
@@ -30,7 +31,9 @@ export interface TorchWarning {
   span: number;
 }
 
-/** Clear of the hull bar (`hud.ts`, y = 14) and the guard balance (y = 48). */
+/** Clear of the hull bar (`hud.ts`, y = 14) and the guard balance (y = 48),
+ * when nothing is over the top of the screen. A rehearsal's plate is: the row
+ * drops with the siren it hangs off, by `sirenDrop`. */
 const ALARM_TOP = 56;
 const ALARM_HEIGHT = 12;
 
@@ -51,10 +54,14 @@ export function drawTorchAlarm(
   l: Layout,
   world: World,
   time: number,
+  /** The foot of a plate over the top of the screen, when a rehearsal has one
+   * up (`ViewState.clearTop`). */
+  clearTop?: number,
 ): void {
   const warning = torchWarning(world, world.cfg.radarLead);
   if (!warning) return;
 
+  const top = ALARM_TOP + sirenDrop(clearTop);
   const pulse = 0.55 + 0.45 * Math.sin(time * 7);
   // `col` is the torch's leftmost column (see `spanCenterCol` in sim/types.ts),
   // so the band runs from that column's left edge to the right edge of the
@@ -69,7 +76,7 @@ export function drawTorchAlarm(
   band.addColorStop(0.5, `rgba(${ROCK_RGB},${0.3 * pulse})`);
   band.addColorStop(1, `rgba(${ROCK_RGB},0)`);
   ctx.fillStyle = band;
-  ctx.fillRect(0, ALARM_TOP, l.width, ALARM_HEIGHT);
+  ctx.fillRect(0, top, l.width, ALARM_HEIGHT);
 
   // Edge vignette: a faint wash at both screen edges, legible even to a glance
   // that lands away from the strip or the text.
@@ -95,7 +102,7 @@ export function drawTorchAlarm(
   ctx.textAlign = "right";
   ctx.fillStyle = PALETTE.rock;
   ctx.globalAlpha = 0.6 + 0.4 * pulse;
-  ctx.fillText(alarmText(l.role, warning), l.width - SIREN_PAD, ALARM_TOP + ALARM_HEIGHT - 2);
+  ctx.fillText(alarmText(l.role, warning), l.width - SIREN_PAD, top + ALARM_HEIGHT - 2);
   ctx.globalAlpha = 1;
   ctx.textAlign = "left";
 

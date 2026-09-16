@@ -151,9 +151,11 @@ export function drawOverlays(
 ): void {
   const { armed: isArmed, open: isOpen, scene, fx, surfaceY } = state;
   drawHud(ctx, l, view);
-  drawTorchAlarm(ctx, l, world, view.time);
+  // Both calls hang off the siren below them, so both take the same clearance
+  // it does when a rehearsal's plate is over the top of the screen.
+  drawTorchAlarm(ctx, l, world, view.time, view.clearTop);
   // And the pilot's own call, on the pilot's screen alone (`magnet-alarm.ts`).
-  drawMagnetAlarm(ctx, l, world, view.time);
+  drawMagnetAlarm(ctx, l, world, view.time, view.clearTop);
   // Over the HUD and under the band: the one instrument that says *talk*, for
   // every creature that needs it. It is an overlay rather than part of the
   // field because it is about the pair rather than about anything standing in

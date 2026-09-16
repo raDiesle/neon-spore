@@ -27,7 +27,7 @@ export function headerTop(view: Pick<ViewState, "clearTop">, own: number): numbe
  * name, its meter, its tally and the top of its lanes off one another, and a
  * row moved on its own lands on the next. The block moves by this, as one.
  */
-export function headerLift(view: ViewState, own: number): number {
+export function headerLift(view: Pick<ViewState, "clearTop">, own: number): number {
   return headerTop(view, own) - own;
 }
 
