@@ -1777,3 +1777,41 @@ boss that is mostly still). A burned tooth is drawn as a flat, unlit
 non-event; a clean advance gets a visible click and jolt. A new silhouette —
 check `packages/content/src/silhouettes.ts` first. One PNG to the owner when
 it moves.
+What to do, and the two halves are separable. The cheap half is to notice:
+`Lockstep` can take the tick its run started on and count a peer message that
+arrives before it, so the ledger reports *commands lost at the start* rather
+than a fingerprint mismatch at tick 240. The real half is to hold what arrives:
+a pre-begin buffer in `link-run.ts` fed into the new scheduler, which needs the
+messages of the *previous* run kept out of it — the room stamps a fresh beat
+zero for every rejoin and an old run's ticks are far ahead of a new one's, so
+the buffer has to be cleared on every `end` and on every welcome that moves the
+stamp. `two-devices-opening.test.ts` already drives two devices through a beat
+zero over a wire it controls, so a case that begins one device late belongs
+beside the ones there.
+
+## A partner who vanishes on the room screen is still drawn as present
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `apps/server/src/room.ts`, `apps/server/src/room-route.ts`, `apps/server/test/room.test.ts`
+
+The room counts its seats only when something asks it to — a relayed `input`,
+`confirm` or `hash`, a press, or an arrival. During a run that is every frame,
+so a seat whose socket vanished is evicted within a beat of the window running
+out and the survivor is told `peers: 1` at once. On the **room screen** nothing
+is relayed: the only message either phone sends is a `ping`, and `ping` answers
+a `pong` without ever asking who is in the room.
+
+So a phone that vanishes while the pair are looking at each other's circles is
+never noticed. Proved against the shipped worker with the window shortened
+through `vars`: the survivor pinged for twice the eviction window and heard
+nothing, then pressed READY and was told `peers: 1` in the same breath. Until
+that press their screen draws a partner who is gone, with a circle they can
+hold and a wait that will never end on its own — which is the one screen in the
+game whose whole job is to say whether the other person is there.
+
+What to do: have the `ping` case count the seats the way the other cases do,
+which is one call to the room's own `seats()` and costs a tag read per socket
+every 700 ms. The eviction and the `peers` that follows it are already written
+— `occupiedSeats` hangs the dead socket up and `webSocketClose` announces it —
+so this is only about asking. `room.test.ts` has the harness: two phones, one
+falls silent, the other pings and is told without pressing anything.
