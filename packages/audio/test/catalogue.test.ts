@@ -124,6 +124,7 @@ const WIRING = [
   "packages/audio/src/bind-gum.ts",
   "packages/audio/src/bind-cling.ts",
   "packages/audio/src/bind-handed.ts",
+  "packages/audio/src/bind-impact.ts",
   "packages/audio/src/bind-mirror.ts",
   "packages/audio/src/bind-splice.ts",
   "packages/audio/src/mixer.ts",

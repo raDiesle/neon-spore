@@ -26,6 +26,7 @@ import { fenceCue } from "./bind-fence.js";
 import { fleetCue } from "./bind-fleet.js";
 import { gumCue } from "./bind-gum.js";
 import { handedCue } from "./bind-handed.js";
+import { impactCue } from "./bind-impact.js";
 import { POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { mirrorCue } from "./bind-mirror.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
@@ -71,23 +72,16 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "signal.markSet", pan: panForCol(e.col, cols) };
     case "lanceSpilled":
       return { id: "signal.markMissed", pan: panForCol(e.col, cols) };
-    // A ring off a crawler shares this exactly. The eye was given a burst of
-    // its own because a sac coming apart does not look like a slick going out
-    // (`events-crawler.ts`); the ear was not, because it *is* a kill and the
-    // pair has spent the whole game learning what one sounds like.
+    // The six a shot meeting a body makes, in `bind-impact.ts` — the most
+    // played group in the catalogue, and the one `bind.ts` had the least room
+    // left to explain.
     case "crawlerBreak":
     case "destroy":
-      return {
-        id: e.color === "red" ? "impact.destroyRed" : "impact.destroyCyan",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
     case "hole":
-      return { id: "impact.hole", pan: panForCol(e.col, cols), pitch: pitchForRow(e.row, rows) };
     case "reject":
-      return { id: "impact.reject", pan: panForCol(e.col, cols) };
     case "deflect":
-      return { id: "impact.deflect", pan: panForCol(e.col, cols) };
+    case "petal":
+      return impactCue(e, cols, rows);
     case "grip":
       return { id: "ship.gripTake", pan: panForCol(e.col, cols), pitch: pitchForRow(e.row, rows) };
     // THE PUSH, the same hand's second gesture. Deliberately not another
@@ -140,8 +134,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "ruin.collapse", pan: panForCol(e.col, cols) };
     case "wardenDown":
       return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
-    case "petal":
-      return { id: "impact.petal", pan: panForCol(e.col, cols) };
     case "queenDown":
       return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
     // THE MIRROR's four and THE MAZE's four, in `bind-mirror.ts`: the two

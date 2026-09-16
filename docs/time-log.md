@@ -6239,3 +6239,22 @@ The bottleneck was friction, and it was self-inflicted: the row's comment had
 to carry why a protocol was the wrong thing to print, and the file had no room
 for the paragraph. Splitting out the second world-picked word was the right
 answer and was sitting there — `duty-harpoon.ts` had been the first.
+
+## 2026-09-16 — queued-tasks — the impacts leave bind.ts
+
+`bind.ts` was at exactly 250 and `limits.test.ts` fails at 251, so the next
+boss with an event of its own was blocked before it started.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the whole switch and `bind-fleet.ts`, to find the group with one subject and the most lines |
+| writing | 15 | `bind-impact.ts`, the dispatch, the `WIRING` row and the wiring sentence in `audio.md` |
+| looking | 0 | nothing visible moved and nothing audible changed — the same six ids, the same pans, the same pitches |
+| friction | 5 | two tests name the wiring files, `catalogue.test.ts`'s own list and `docs/spec/audio.md`'s sentence, and the second is checked against the first |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was writing, which for a cut like this is the docstring: the
+group had to be worth a file, and what earns it is the rule about which two of
+the six are pitched and why the other four are not. `bind.ts` is at 242, so
+there is room for one more boss and not for two — the next cut is the ship's
+own group, and it is now obvious where the seam is.

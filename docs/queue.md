@@ -590,27 +590,6 @@ is not a devDependency, and that argument is worth writing once.
 Prove it with `bun run check`: every test that reads either file today passes
 unchanged, and neither installer's surface grows while it is moved.
 
-## `bind.ts` is at exactly 250 lines, so the next boss cannot be bound
-
-- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-16, claude/queue-bind-ts-is-at-exactly-250-lines-so-the-next-boss
-- **Files:** `packages/audio/src/bind.ts`, `packages/audio/src/bind-*.ts`, `packages/audio/test/catalogue.test.ts`
-
-THE SPLICE's four cues took it to 252 and it came back to the limit by having
-its own explanatory comment deleted — which is not a cut, it is a file that has
-run out of room and paid for one more line with the thing a reader needs.
-`packages/sim/test/limits.test.ts` fails at 251, so the next boss, creature or
-control with an event of its own is blocked before it starts.
-
-Everything about the shape of the fix is already here: fourteen `bind-*.ts`
-files hold one subject each and `bind.ts` dispatches to them. What is left in
-it is the ship, the hull, the impacts and the pods, and the impacts are the
-largest group — `bind-impact.ts` on the pattern of `bind-fleet.ts`, with the
-new file named in `WIRING` (`catalogue.test.ts`) and in the wiring sentence of
-`docs/spec/audio.md`. Prove it with `bun run check`: `bind.ts` has no `default`
-arm, so a case moved and not re-reached fails the typecheck rather than going
-quiet.
-
 ## `--press` decides a seat from the command, and a seat is the panel's
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
