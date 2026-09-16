@@ -7840,3 +7840,5 @@ The bottleneck was writing, and there was barely any: the fix is `collectHolds`
 copied one name along, because `--hold` had already been repeated for the same
 reason and the note over it says so. What the lane cost was paid yesterday by
 the capture that found it.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

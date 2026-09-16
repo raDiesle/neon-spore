@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 436ac7fd — Every --press on the line is kept, not the first one
+
+A capture written as `--press 300:1:cannonCol=5 --press 320:2:fire=red` ran with one of the two flags and dropped the other without a word, and the dropped one is usually the shot — so the picture came back as a wave playing itself, which looks exactly like a capture of a wave nobody pressed anything into. The lane that drew THE HUSK lost two captures and a read through `press-command.ts` to it, hunting a verb that was never wrong.
+
 ## 2026-09-17 · 02de682c — The balance sheet names a husk, and counts it the other way up
 
 THE HUSK's two counters were folded into the shared percentage and had no line of their own, so a pair who swallowed three of them watched SYNC drop with nothing on the screen saying why. There is a fifth row now — refused, of every husk that reached the ship — carried through the three files that draw the sheet.
