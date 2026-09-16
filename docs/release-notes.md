@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 713932d2 — A photographed wave has its pods hanging on it
+
+`peakWorld` is how every frame test in `packages/render` gets a world worth drawing: it plays a wave, keeps the busiest tick, and rebuilds the world up to it. It opened the wave with an empty pod queue and measured "busiest" by counting creatures alone — so the seven waves that hang pods were photographed without them, and their budgets were ceilings on a lane that is not what the phone draws. Nothing said so; a hole in a harness is quiet by construction.
+
 ## 2026-09-17 · 00f63e87 — The input delay is milliseconds, and a slow beat spends fewer ticks of it
 
 A press was scheduled a fixed number of ticks ahead, and THE SLOW makes a tick worth three times its ordinary length. So on exactly the beats a boss made dramatic, a thumb was answered a third of a second later than the same thumb a beat earlier, with nothing about the link having changed. `InputDelay` now holds what it was always promising — milliseconds, the gap between a thumb and the answer to it — and the tick count is asked for at the moment of scheduling, through `ticksAt(msPerTick)`.
