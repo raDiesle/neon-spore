@@ -736,3 +736,78 @@ than one telling the other something they alone can see.
 mouth reads as a mouth or a line reads at all is to watch it at tempo on a
 screen. A cloud session can change the drawing and cannot tell whether it
 worked, which is how it came to be bad twice.
+
+## The director's WAVE tab has a BRIEFING heading with nothing under it
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `tools/director/index.html`, `tools/director/src/wave-opening.ts`, `tools/director/src/main.ts`
+
+`renderWaveOpening` is one line — `document.getElementById("waveBriefing")
+?.replaceChildren()` — and its own doc comment says why: the sentence it used
+to paint said the same thing twice and was removed, but the function, the
+`<h2>BRIEFING</h2>` and the `<p id="waveBriefing">` were all left standing
+because deleting the call was outside that task. `main.ts` still runs it on
+every wave switch.
+
+What it looks like from outside is a field that failed to fill, and it read
+that way to the owner on 16 September 2026, on wave 1. Take the heading, the
+paragraph, the function and its two calls out; `waveOpeningStates` in the same
+file is reached by nothing but `tools/director/test/wave-opening.test.ts` and
+goes with them unless something is found that wants it.
+
+## The director's stage plays the saved guide, not the one being edited
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `tools/director/src/stage-world.ts`, `packages/render/src/guide-prose.ts`, `packages/render/src/guide-play.ts`
+
+`buildStageWorld` reads the draft for everything it is handed and says so —
+*it reads the draft in `store` and never the shipped `WAVES`, so nothing here
+waits for a save* — and it is true of the page count, the queue, the pods and
+the control set. It is not true of the words. `guide-prose.ts` reads `WAVES
+[world.wave]?.guide` and `guide-play.ts` reads `WAVES[world.wave]?.guide
+?.scene`, both by index off the list on disk, so editing the three GUIDE
+textareas changes the fields and nothing on the stage — and a page count fed
+off the draft can disagree with a film read off the shipped wave.
+
+Both render sites want telling rather than asking. A guide's words and its
+scene are content's facts about a wave, the same kind `hasGuide` and
+`guideSteps` already are, and those are handed to `startWave` for exactly this
+reason (`sim/briefing.ts`: *the sim never reads a scene*). The render side
+reaching back into `WAVES` is the same shortcut one layer up.
+
+## The director cannot see or choose a wave's rehearsal scene
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `tools/director/src/guide-fields.ts`, `packages/content/src/waves/act-1.ts`, `packages/content/src/scenes/first-step.ts`
+
+`bindGuideFields` builds three textareas — both, p1, p2 — and carries `scene`
+through untouched: *there is no control for it yet, and the page that would let
+somebody do that is not built*. So for the sixty-odd waves that carry a scene,
+the panel shows prose the pair never reads and says nothing at all about the
+four pages they do.
+
+Wave 1 is the clearest case. FIRST STEP authors three paragraphs **and**
+`scene: "firstStep"`, so what opens is a four-page film — ENEMY, PLAYER 1 MOVES
+CANNON, PLAYER 2 FIRES RED, A MISS LOSES THE WAVE — and the three paragraphs
+are dead text.
+
+The cheapest honest fix is a read-only line: when a wave names a scene, say
+which one and list its step captions under the textareas, and grey the
+textareas out. A picker over the scene catalogue is the larger version and
+wants the owner's word on whether a scene should be choosable at all.
+
+## Two documents still describe a GUIDES sheet the director does not have
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `docs/spec/briefings.md`, `tools/director/README.md`
+
+The guide's words moved into the WAVE tab's three textareas and the separate
+GUIDES sheet went with them, but four passages still send a reader to it —
+`docs/spec/briefings.md` around the sheet's description and its index of
+sheets, and `tools/director/README.md` twice. Someone reading either one looks
+for a tab that is not there and concludes the tool is broken, which is close to
+what happened on 16 September 2026.
+
+Fix is a read of both files and a rewrite of the four passages to say where the
+words actually live, including that a wave carrying a `scene` does not use them
+at all (the entry above).

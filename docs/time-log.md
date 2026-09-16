@@ -7291,3 +7291,20 @@ would send a session to re-derive both arguments and ship the thing he has now
 called bad twice.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — why wave 1's briefing looked empty
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | `wave-opening.ts`, `pair-panel.ts`, `main.ts`, `guide-fields.ts`, `stage-world.ts`, `guide-prose.ts`, `guide-play.ts`, `act-1.ts`, `scenes/first-step.ts` — following one screen backwards to four separate causes |
+| writing | 10 | four queue entries |
+| looking | 20 | `bun run frames` for the phone's own page 1, then three `bun run shot` runs of the director: the WAVE tab, the stage as it opens, and the stage with `#briefToggle` clicked |
+| friction | 15 | the third shot was the answer and the first two were the question — the stage's briefings switch is not on the WAVE tab, so the tab that owns the words does not show what they do |
+| landing | 5 | the commit |
+
+The bottleneck was looking, and it was worth it: the owner asked *how should it
+look*, and the only honest answer to that is the frame. **Nothing was wrong
+with the guide** — the stage ships with briefings off, so wave 1 opened on the
+field and the four pages of FIRST STEP never played. The three real defects
+behind it only became visible because the shot with the switch on and the shot
+with it off could be put side by side.
