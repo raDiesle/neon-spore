@@ -30,7 +30,8 @@ that list (`CLAUDE.md`, *an idea for the game is not collected*).
 |---|---|---|
 | [§7 THE DIASTOLE](#7-the-diastole--two-clocks-at-once) | **built, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation and THE SLOW, then the look. Worked and written up as [bosses](bosses.md) §11.17 |
 | [§10 THE BATON](#10-the-baton--whose-turn-is-it) | **taken, 16 September 2026** | `claude/boss-implementation-e3cfff` — the simulation half first, the look as the lane after; the next free concept this session takes is claimed here again before a line of it is written |
-| the other thirteen | free | — |
+| [§1 THE THROAT](#1-the-throat--what-you-feed-it) | **taken, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation half first (the inhale, the five ring tensions, the fling into the mouth), the look and the eversion as the lane after |
+| the other twelve | free | — |
 
 **THE SLOW is shipped, and the next boss does not have to build it.** It was
 THE DIASTOLE's lane that needed it first, so it was built there rather than
@@ -285,6 +286,10 @@ and none of those is under 900 ms (`guardWindowMs`, and the reason is in
 ---
 
 ### 1. THE THROAT — what you feed it
+
+> **Taken, 16 September 2026**, on `claude/neon-spore-boss-design-26ee5e`, in
+> two lanes: the simulation, then the look. Do not start it in a second
+> session — see [who is building what](#who-is-building-what-so-two-sessions-do-not-collide).
 
 > The one where its mouth and your maw are the same organ, facing each other.
 
