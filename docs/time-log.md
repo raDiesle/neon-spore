@@ -7110,3 +7110,5 @@ captures of fourteen frames each, and the answer is different for every wave.
 The director's own BREACH pose is a still on the STATES card, so `--wait` moves
 nothing. A `--until breach` on `frames`, stopping at the tick an event fires,
 would have turned thirty minutes into one — it is in the queue.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
