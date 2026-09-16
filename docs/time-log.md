@@ -6395,7 +6395,7 @@ automatically do better splitting of tasks I gave."*
 | reading | 5 | `promptFor` in `tools/queue/claim.ts`, the four director tests that hold one fact, `doc-drift.test.ts`'s record list and its path rule, `scope.ts`'s table |
 | writing | 10 | three queue entries, the split rule in `CLAUDE.md`, the table of cuts in `docs/lane-speed.md`, the docs rows in `tools/hooks/scope.ts` and their test |
 | looking | 0 | — nothing drawn |
-| friction | 10 | `check:fast` red on the queue entries: a `Files:` path must already exist and a proposed file may not be backticked anywhere, which nothing said; the heredoc guard refused a regex, correctly, and the edit went through the Edit tool |
+| friction | 15 | `check:fast` red on the queue entries: a `Files:` path must already exist and a proposed file may not be backticked anywhere, which nothing said; the landing then red on the same docs row written out a second time in `tools/check/test/fast-scope.test.ts`; the heredoc guard refused a regex, correctly, and the edit went through the Edit tool |
 | landing | 5 | `bun run queue` to prove the entries parse, `check`, the commit |
 
 The bottleneck was friction, and it found the thing this lane is really worth:
@@ -6404,8 +6404,11 @@ The bottleneck was friction, and it found the thing this lane is really worth:
 `tools/queue` — never to `tools/test`, where `doc-drift.test.ts` lives. So the
 lane an hour earlier landed a queue entry naming the file it proposed to
 create, green on `check:fast`, and the full check would have refused it. The
-row is fixed here and the test says so in its own case. The other ten minutes
-were the same shape one level down: two entries named a mechanism that did not
+row is fixed here and the test says so in its own case — and the fix was red
+once more on the way in, a hundred seconds into the landing, because the same
+mapping is written out a second time in `tools/check/test/fast-scope.test.ts`:
+the *one new fact, four tables* entry this lane queued, met by the lane that
+queued it. The other minutes were the same shape one level down: two entries named a mechanism that did not
 exist — `doc-drift.test.ts` holds `time-log.md` to nothing on purpose, and
 `tools/director/src/scenes.ts` is `scene-world.ts` — both caught by opening the
 file rather than trusting the ledger's sentence about it.

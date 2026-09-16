@@ -54,6 +54,7 @@ describe("fastScopeFor", () => {
         ...SWEEPS,
         "tools/director",
         "tools/queue",
+        "tools/test",
       ].sort(),
     );
   });
