@@ -46,6 +46,13 @@ export interface Pose {
    * card names its own subject in its title.
    */
   lookAt?: string;
+  /**
+   * How other games do the same screen: links, each with a plain label, that
+   * the VERSUS row prints under `lookAt` and opens in a new tab. The owner
+   * asked to see Clash Royale's tutorial beside the guide candidates; the
+   * pictures themselves are someone else's and stay on their own pages.
+   */
+  elsewhere?: readonly { label: string; href: string }[];
   crop: CropKind;
   /** Whose screen. Defaults to `test`, which is both halves at once. */
   role?: ViewRole;

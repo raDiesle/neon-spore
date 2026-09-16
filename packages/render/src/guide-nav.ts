@@ -40,9 +40,11 @@ import { seatSkin } from "./seat-skin.js";
  * laid over the phone rather than a fourth row of the control panel.
  *
  * **The geometry is written down once.** `navButtons` is what the drawing uses
- * and what a thumb is hit-tested against (`apps/game/src/briefing.ts`,
- * `tools/director/src/stage-opening.ts`), so a button cannot be drawn where it
- * is not answered — the rule `bandLobes` already plays by one layer down.
+ * and what a thumb is hit-tested against (`navHit` in `guide-look.ts`, read by
+ * `apps/game/src/briefing.ts` and `tools/director/src/stage-opening.ts`), so a
+ * button cannot be drawn where it is not answered — the rule `bandLobes`
+ * already plays by one layer down. Both sit on `GUIDE_LOOK`, so a candidate
+ * bar patched in for a VERSUS pair carries its own hit boxes with it.
  */
 
 /** How tall the bar under a page is: a row of dots, then a row of buttons.
@@ -97,20 +99,6 @@ export function navButtons(l: Layout): NavButtons {
     replay: { x: l.width / 2 - w / 2, y, w, h: BTN_H },
     next: { x: l.width - EDGE - w, y, w, h: BTN_H },
   };
-}
-
-/** Which of them a point is on, or null. `null` on a point outside the bar. */
-export function navHit(l: Layout, x: number, y: number): "back" | "replay" | "next" | null {
-  const b = navButtons(l);
-  if (inside(b.back, x, y)) return "back";
-  if (inside(b.replay, x, y)) return "replay";
-  if (inside(b.next, x, y)) return "next";
-  return null;
-}
-
-/** Whether a point is on the bar at all — a press there is not a press on the field. */
-export function onNavBar(l: Layout, y: number): boolean {
-  return y >= l.height - NAV_H;
 }
 
 export function inside(box: NavBox, x: number, y: number): boolean {

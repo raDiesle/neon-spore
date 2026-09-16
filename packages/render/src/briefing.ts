@@ -7,9 +7,9 @@ import {
   onReadyPage,
   type World,
 } from "@neon-spore/sim";
+import { GUIDE_LOOK } from "./guide-look.js";
 import { drawProsePage } from "./guide-prose.js";
 import type { GuideStage } from "./guide-scene.js";
-import { drawGuideCorner } from "./guide-switch.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { drawLostScreen } from "./lost-screen.js";
 import { type OpeningFx, SETTLED_AGE } from "./opening-fx.js";
@@ -109,5 +109,5 @@ export function drawWaveOpening(
   }
   // The corner says TUTORIAL on these pages too, and nothing else: there is no
   // film, so there is no screen of one seat's to name (`guide-switch.ts`).
-  drawGuideCorner(ctx, l, {});
+  GUIDE_LOOK.band(ctx, l, {});
 }

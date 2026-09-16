@@ -1,6 +1,6 @@
 import { WAVES } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
-import { drawGuideNav } from "./guide-nav.js";
+import { GUIDE_LOOK } from "./guide-look.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { type OpeningFx, SETTLED_AGE } from "./opening-fx.js";
 import { PALETTE } from "./palette.js";
@@ -119,7 +119,7 @@ export function drawProsePage(
   ctx.textAlign = "left";
   // No glow on NEXT here, and REPLAY is spent: a page of type has nothing to
   // finish and nothing to play again (`guide-nav.ts`).
-  drawGuideNav(ctx, l, { page, pages, age, pointer: view.pointer });
+  GUIDE_LOOK.nav(ctx, l, { page, pages, age, pointer: view.pointer });
 }
 
 /**

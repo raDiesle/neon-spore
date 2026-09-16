@@ -2,12 +2,11 @@ import type { ControlSet, GuideScene, SceneStep } from "@neon-spore/content";
 import { beatPhase, type World } from "@neon-spore/sim";
 import type { OpeningView } from "./briefing.js";
 import { smoothstep } from "./ease.js";
-import { drawCaption } from "./guide-caption.js";
 import { drawHands, filmLayout, seatRole } from "./guide-film.js";
-import { drawGuideNav } from "./guide-nav.js";
+import { GUIDE_LOOK } from "./guide-look.js";
 import { ScenePlay } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
-import { BANNER_H, BANNER_TOP, drawGuideCorner, drawSwitchSeam } from "./guide-switch.js";
+import { drawSwitchSeam } from "./guide-switch.js";
 import { handedSeat } from "./handover.js";
 import type { Layout, ViewRole } from "./layout.js";
 
@@ -35,7 +34,9 @@ import type { Layout, ViewRole } from "./layout.js";
  * A page is one step of the film. It plays once, stands on its last frame, and
  * plays again only when the seat reading it presses REPLAY — NEXT is what moves
  * on. That clock is `guide-play.ts` next door; what is here is the picture it
- * produces, and the bar the pages are turned by (`guide-nav.ts`).
+ * produces, and the bar the pages are turned by (`guide-nav.ts`). The band,
+ * the bar and the caption are read off `GUIDE_LOOK` rather than called by
+ * name, so a VERSUS candidate can stand in for them (`guide-look.ts`).
  *
  * ## It is a real simulation, and this draws only what it is given
  *
@@ -179,9 +180,9 @@ export class GuideStage {
     ctx.restore();
 
     const phase = beatPhase(cfg, run.world.tick);
-    drawCaption(ctx, l, run.world, set, step, run.tick, phase, names);
+    GUIDE_LOOK.caption(ctx, l, run.world, set, step, run.tick, phase, names);
     drawHands(ctx, l, run, scene, set, shown, phase);
-    drawGuideCorner(ctx, l, {
+    GUIDE_LOOK.band(ctx, l, {
       seat: step.seat,
       names,
       // Only a page that actually changed seat flares, and it flares off the
@@ -191,7 +192,7 @@ export class GuideStage {
       age: this.play.shown,
     });
     ctx.restore();
-    drawGuideNav(ctx, box, {
+    GUIDE_LOOK.nav(ctx, box, {
       page,
       pages: scene.steps.length + 1,
       played: this.play.plays > 0,
@@ -229,7 +230,7 @@ export class GuideStage {
       // The corner plate stands over the top of this screen for as long as the
       // guide is up, so a round's header and the HUD's lower rows go under it
       // (`round-header.ts`). Its foot, plus the slime hanging off it.
-      clearTop: BANNER_TOP + BANNER_H + 8,
+      clearTop: GUIDE_LOOK.bandFoot,
     });
     ctx.restore();
   }

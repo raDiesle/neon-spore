@@ -1,6 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
-import { navButtons, navHit, onNavBar } from "../src/guide-nav.js";
+import { navHit, onNavBar } from "../src/guide-look.js";
+import { navButtons } from "../src/guide-nav.js";
 import { computeLayout } from "../src/layout.js";
 import { readyCircles } from "../src/ready-page.js";
 

@@ -5993,3 +5993,22 @@ director pages.
 
 The bottleneck was reading: each of the four ideas had to be checked against
 what already ships before its entry could name the shipped path it rides.
+
+## 2026-09-16 — tutorial-screen-graphics — five looks for the guide's chrome
+
+The owner was unhappy with the tutorial screen's rounded buttons and boxes.
+The band, bar and caption went behind a seam (`guide-look.ts`), a pose was
+made for them, and five VERSUS candidates were drawn: spotlight, ribbon,
+console, rail and coach — three of them moving the header and the buttons
+to other places on the phone, the last one shaped after Clash Royale.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | how the band, bar and caption are drawn and hit, `drawNavBody`'s socket, the palette, the VERSUS row and the Pose type |
+| writing | 60 | the seam, the pose, five candidates, the shared word button, the links row |
+| looking | 25 | seven shots and the corrections they asked for: a stripe over a box, a leader through a ring, a socket's square on the field, a coach over the clock |
+| friction | 10 | the shell refusing a heredoc with TypeScript in it, the guard refusing a doubled backslash and biome's `--unsafe`, a crop called with the wrong syntax twice |
+| landing | 15 | five files over the line and split, the file index, `check:fast` twice, the commit and the landing |
+
+The bottleneck was looking: every candidate needed a shot and one fix after
+it, and the fixes were things only a picture shows.

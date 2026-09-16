@@ -1,5 +1,6 @@
 import { halo } from "./glow.js";
-import { LIFT, NAV_H, navButtons } from "./guide-nav.js";
+import { GUIDE_LOOK } from "./guide-look.js";
+import { LIFT } from "./guide-nav.js";
 import { BANNER_H, BANNER_TOP } from "./guide-switch.js";
 import { drawLabelGround, drawLabelLines, type LabelBox, labelSize } from "./label-box.js";
 import type { Layout } from "./layout.js";
@@ -36,8 +37,8 @@ const SIGNS: readonly [string, string, string] = ["BACK", "PLAY AGAIN", "NEXT"];
 
 /** The welcome, over a page already drawn. `age` is seconds it has been up. */
 export function drawGuideWelcome(ctx: CanvasRenderingContext2D, l: Layout, age: number): void {
-  const b = navButtons(l);
-  const picture = l.height - NAV_H;
+  const b = GUIDE_LOOK.buttons(l);
+  const picture = l.height - GUIDE_LOOK.navHeight;
 
   // The scrim: the picture goes back a step and the bar does not, which is
   // the whole sentence — *this half waits, that half is yours*.
@@ -51,7 +52,7 @@ export function drawGuideWelcome(ctx: CanvasRenderingContext2D, l: Layout, age: 
   drawLabelLines(ctx, title, TITLE);
 
   // The three, one label each, on a row above the bar's shadow with a leader
-  // down to the button it names. `navButtons` is where the bar draws them, so
+  // down to the button it names. `GUIDE_LOOK.buttons` is where the bar draws them, so
   // a label cannot point at a place a button is not.
   const boxes = [b.back, b.replay, b.next] as const;
   const rowH = labelSize(ctx, [SIGNS[0]]).h;

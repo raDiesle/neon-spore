@@ -68,6 +68,7 @@ export function renderCandidate(
     ),
   );
   if (pose.lookAt) row.appendChild(el("p", "versus-look", `LOOK AT — ${pose.lookAt}`));
+  if (pose.elsewhere?.length) row.appendChild(elsewhere(pose.elsewhere));
   row.appendChild(el("p", "versus-showing", `WHAT IS ON SCREEN — ${pose.name}`));
   row.appendChild(el("p", "versus-blink-note", pose.note));
 
@@ -82,6 +83,21 @@ export function renderCandidate(
   row.append(screensHost);
   if (plan !== null) row.appendChild(sizeNote(plan.share));
   return row;
+}
+
+/** Links to how other games do this screen, each opening alone in a new tab. */
+function elsewhere(links: readonly { label: string; href: string }[]): HTMLElement {
+  const p = el("p", "versus-elsewhere", "HOW OTHERS DO IT — ");
+  links.forEach((link, i) => {
+    if (i > 0) p.appendChild(document.createTextNode(" · "));
+    const a = document.createElement("a");
+    a.href = link.href;
+    a.target = "_blank";
+    a.rel = "noreferrer";
+    a.textContent = link.label;
+    p.appendChild(a);
+  });
+  return p;
 }
 
 /**

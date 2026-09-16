@@ -1,5 +1,5 @@
 import { seatReady, type World } from "@neon-spore/sim";
-import { drawGuideNav, NAV_H } from "./guide-nav.js";
+import { GUIDE_LOOK } from "./guide-look.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { type OpeningFx, SETTLED_AGE } from "./opening-fx.js";
 import { drawCircle } from "./ready-circles.js";
@@ -84,7 +84,7 @@ export function readyCircles(l: Layout): { p1: ReadyCircle; p2: ReadyCircle } {
  * press meaning two things.
  */
 function askGap(l: Layout): number {
-  const floor = l.height - NAV_H - FOOT - circleR(l) * 2;
+  const floor = l.height - GUIDE_LOOK.navHeight - FOOT - circleR(l) * 2;
   const above = l.playHeight * TOP + NAME_BLOCK + ASK_SUB + LABEL_GAP;
   return Math.max(24, Math.min(ASK_GAP, floor - above));
 }
@@ -166,7 +166,7 @@ export function drawReadyPage(
   // under a thumb between the last page and this one. NEXT has nowhere to go,
   // and BACK has nowhere to go either once this seat has committed. REPLAY has
   // nothing to play: there is no film on this page.
-  drawGuideNav(ctx, l, {
+  GUIDE_LOOK.nav(ctx, l, {
     page: pages - 1,
     pages,
     back: !iAmReady,

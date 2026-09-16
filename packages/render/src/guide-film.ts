@@ -1,7 +1,7 @@
 import type { ControlSet, GuideScene } from "@neon-spore/content";
 import type { SceneRun, SimConfig } from "@neon-spore/sim";
 import { drawGripThumb, fieldThumb, gripThumb, handleThumb, tapThumb } from "./guide-hand.js";
-import { NAV_H } from "./guide-nav.js";
+import { GUIDE_LOOK } from "./guide-look.js";
 import { drawGhostThumb, thumbAnchors } from "./guide-thumb.js";
 import { computeLayout, computeStage, type Layout, type Stage, type ViewRole } from "./layout.js";
 
@@ -31,7 +31,7 @@ import { computeLayout, computeStage, type Layout, type Stage, type ViewRole } f
 export function filmLayout(box: Layout, cfg: SimConfig, seat: 1 | 2): { film: Stage; l: Layout } {
   const role = seatRole(seat);
   const film = computeStage(
-    { width: box.width, height: Math.max(1, box.height - NAV_H), dpr: 1 },
+    { width: box.width, height: Math.max(1, box.height - GUIDE_LOOK.navHeight), dpr: 1 },
     cfg,
     role,
   );
