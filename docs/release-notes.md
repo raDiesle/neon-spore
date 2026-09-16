@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · afe18113 — The boss ideas go, and the cards drawn at them are set free
+
+The owner cut the BOSS IDEAS group with THE SPLICE, so `ideas.md`'s `### Bosses` heading and the `fromIdeas("BOSS IDEAS", ...)` group in the director's backlog both go. Three encounters were in it and two had already shipped as something other than the card they were written on: THE CAIRN as the boss it was written as, THE WEIGHT as a creature with the boss never built. What those two turned into on the way is `transfers-bosses.md`, which stays.
+
 ## 2026-09-16 · 8d538bc4 — The splice's two rows are named where the fight is written down
 
 `doc-drift.test.ts` holds that every field of `SimConfig` is named in a document, and `spliceEntranceRows` and `spliceTopRow` were not: 11.13 said the mouths stand two tiles over the plating without saying which number decides it. Both are now in the section, with why the two rows are arithmetic rather than authorship -- a narrower field spaces them closer and `queue-boss.ts` has nothing to remap.
