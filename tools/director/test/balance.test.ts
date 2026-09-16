@@ -16,7 +16,7 @@ function world() {
 describe("the director's sheet", () => {
   it("shows a dash, not a zero, for what has not been asked", () => {
     const lines = sheetLines(balanceSheet(world()));
-    expect(lines.map((l) => l.label)).toEqual(["WARDS", "TIMING", "COLOUR", "PODS"]);
+    expect(lines.map((l) => l.label)).toEqual(["WARDS", "TIMING", "COLOUR", "PODS", "REFUSED"]);
     for (const line of lines) {
       expect(line.count).toBe("—");
       expect(line.pct).toBeNull();
@@ -34,6 +34,17 @@ describe("the director's sheet", () => {
     expect(lines[0]).toEqual({ label: "WARDS", count: "6/8", pct: 75 });
     expect(lines[1]).toEqual({ label: "TIMING", count: "6/7", pct: 86 });
     expect(lines[2]).toEqual({ label: "COLOUR", count: "3/4", pct: 75 });
+  });
+
+  it("counts a husk the other way up — refused of arrived", () => {
+    const w = world();
+    w.balance.husksRefused = 3;
+    w.balance.husksSwallowed = 1;
+    const line = sheetLines(balanceSheet(w)).at(-1);
+    // Three kept out of four that came, and **not** one taken of four: the
+    // numerator on this row is the thing the pair did not do, which is why
+    // the label is a verb (`sim/balance.ts`, `BalanceSheet.husks`).
+    expect(line).toEqual({ label: "REFUSED", count: "3/4", pct: 75 });
   });
 
   it("keeps the memories as counts, never as shares", () => {

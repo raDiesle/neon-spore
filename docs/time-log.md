@@ -7805,3 +7805,21 @@ itself took one correction — the arc dipped into the hull plating — and the
 capture found it in one look.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — the balance sheet names a husk
+
+| row | minutes | what |
+|---|---|---|
+| reading | 10 | the queue entry, `balance.ts` in its three copies, the stub's `texts` |
+| writing | 25 | one `Tally`, three rows, four tests including the sheet's first height check |
+| looking | 0 | — the sheet is measured rather than photographed: `TextBox` says where the last words land |
+| friction | 5 | a `git checkout` to undo a deliberate break took the day's work on that file with it |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was writing, and it was one word: the row's good half is what
+the pair **refused**, which is the opposite way up from every other line on the
+sheet, so a label naming the object would be read backwards by everybody who
+skims it. REFUSED is a verb among four nouns on purpose. The one thing found
+rather than written is that the sheet is a flowing `y` with no page and had
+about a row of slack left on the smallest viewport it is drawn at — held now by
+a test, so the next line on it is spent against a number rather than a guess.

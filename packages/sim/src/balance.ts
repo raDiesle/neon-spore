@@ -81,6 +81,17 @@ export interface BalanceSheet {
   color: Tally;
   /** Pods taken in, of every pod that reached the maw. */
   pods: Tally;
+  /**
+   * Husks kept out, of every husk that reached the ship.
+   *
+   * **The good half is the one that was refused**, which is the opposite way
+   * round from every other line on this sheet: everywhere else the numerator
+   * is a thing the pair *did* to what arrived, and here it is the thing they
+   * deliberately did not. That is why the drawn label is a verb and not a
+   * noun (`render/balance.ts`) — a row reading `HUSKS 3/4` would be read the
+   * familiar way by everybody who skims it, and the familiar way is backwards.
+   */
+  husks: Tally;
   /** Pods a shot knocked loose. The chances the pair made for itself. */
   podsFreed: number;
   /** Longest run of joint moments with nothing missed. A shared memory. */
@@ -107,8 +118,8 @@ export function balanceSheet(world: World): BalanceSheet {
   // them saw it for what it was and the other stayed out of its way — so it
   // counts towards the shared percentage. It is deliberately not in `pods`:
   // that line says *pods taken in, of every pod that reached the maw*, and a
-  // husk is neither taken nor a pod. **The sheet has no line of its own for
-  // one yet** (`docs/queue.md`).
+  // husk is neither taken nor a pod. It has a line of its own instead, and
+  // that line counts the other way up.
   const husksArrived = b.husksRefused + b.husksSwallowed;
   const good = g.deflected + b.podsTaken + b.colorHits + b.husksRefused;
   const moments = g.tries + podsArrived + shots + husksArrived;
@@ -120,6 +131,7 @@ export function balanceSheet(world: World): BalanceSheet {
     timing: { good: g.deflected, of: g.deflected + g.mistimed },
     color: { good: b.colorHits, of: shots },
     pods: { good: b.podsTaken, of: podsArrived },
+    husks: { good: b.husksRefused, of: husksArrived },
     podsFreed: b.podsFreed,
     bestStreak: b.bestStreak,
     wavesCleared: b.wavesCleared,

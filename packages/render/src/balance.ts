@@ -151,6 +151,13 @@ function rows(s: BalanceSheet): Row[] {
     { label: "TIMING", tally: s.timing, empty: "no shield was in column" },
     { label: "COLOUR", tally: s.color, empty: "nothing was shot" },
     { label: "PODS", tally: s.pods, empty: "no pod came down" },
+    // **A verb where the four above are nouns**, and the odd one out on
+    // purpose. Every other row's good half is a thing the pair did to what
+    // arrived; this row's is the thing they refused to do, so a label naming
+    // the object — `HUSKS 3/4` — would be read as three husks taken in by
+    // everybody who skims it. The word says which way up the bar is
+    // (`sim/balance.ts`, `BalanceSheet.husks`).
+    { label: "REFUSED", tally: s.husks, empty: "no husk reached you" },
   ];
 }
 

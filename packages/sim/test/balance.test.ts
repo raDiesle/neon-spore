@@ -141,6 +141,8 @@ describe("the sheet", () => {
     world.balance.podsLost = 1;
     world.balance.colorHits = 12;
     world.balance.colorMisses = 4;
+    world.balance.husksRefused = 2;
+    world.balance.husksSwallowed = 1;
     world.balance.bestStreak = 9;
     world.balance.wavesCleared = 2;
     return world;
@@ -148,9 +150,26 @@ describe("the sheet", () => {
 
   it("is one shared percentage over every joint moment", () => {
     const s = balanceSheet(filled());
-    // 7 wards + 3 pods + 12 colours met, of 10 + 4 + 16 asked.
-    expect(s.moments).toBe(30);
-    expect(s.sync).toBe(Math.round((22 * 100) / 30));
+    // 7 wards + 3 pods + 12 colours + 2 husks refused met, of 10 + 4 + 16 + 3
+    // asked. A husk that reached the ship is a joint moment like the rest.
+    expect(s.moments).toBe(33);
+    expect(s.sync).toBe(Math.round((24 * 100) / 33));
+  });
+
+  it("gives a husk a line of its own, counted the other way up", () => {
+    const s = balanceSheet(filled());
+    // Refused of arrived, and the opposite way round from `pods`: on that row
+    // the good half is what went in, and on this one it is what did not.
+    expect(s.husks).toEqual({ good: 2, of: 3 });
+    expect(s.pods).toEqual({ good: 3, of: 4 });
+  });
+
+  it("keeps a swallowed husk out of the pods line, which is pods alone", () => {
+    const s = balanceSheet(filled());
+    // `podsTaken + podsLost`, and neither of the three husks is in it: a husk
+    // is neither taken nor a pod, and counting one there would put a lost wave
+    // in the column that says the pair met each other.
+    expect(s.pods.of).toBe(4);
   });
 
   it("reads timing off the wards where the column was right", () => {

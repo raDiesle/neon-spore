@@ -42,6 +42,9 @@ export function sheetLines(sheet: BalanceSheet): Line[] {
     { label: "TIMING", count: count(sheet.timing.good, sheet.timing.of), pct: share(sheet.timing) },
     { label: "COLOUR", count: count(sheet.color.good, sheet.color.of), pct: share(sheet.color) },
     { label: "PODS", count: count(sheet.pods.good, sheet.pods.of), pct: share(sheet.pods) },
+    // The husks, counted the other way up — refused of arrived. The label is
+    // the drawn screen's and the reason it is a verb is there.
+    { label: "REFUSED", count: count(sheet.husks.good, sheet.husks.of), pct: share(sheet.husks) },
   ];
 }
 
