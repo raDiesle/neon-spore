@@ -46,6 +46,16 @@ export const ROUND_FIELD_GROUP = {
   stareLookGrowBeats: "THE STARE — an eye that freezes whoever it looks at",
   stareLookMaxBeats: "THE STARE — an eye that freezes whoever it looks at",
   stareTurnBackBeats: "THE STARE — an eye that freezes whoever it looks at",
+  // DiastoleConfig — two cadences that do not divide each other, what a
+  // chamber can take, and how long the bridge takes to split. Every one of
+  // them is the pair's arithmetic rather than a difficulty knob: three against
+  // five is a coincidence every fifteen beats, and a pair that changed either
+  // number would be counting a different boss (`config-diastole.ts`).
+  diastoleLeftBeats: "THE DIASTOLE — two hearts on two cadences, one each",
+  diastoleRightBeats: "THE DIASTOLE — two hearts on two cadences, one each",
+  diastoleRightAloneBeats: "THE DIASTOLE — two hearts on two cadences, one each",
+  diastoleChamberHits: "THE DIASTOLE — two hearts on two cadences, one each",
+  diastoleBurstBeats: "THE DIASTOLE — two hearts on two cadences, one each",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

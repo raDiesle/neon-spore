@@ -1,4 +1,5 @@
 import type { BossState } from "./boss-state.js";
+import { diastoleHashParts } from "./diastole-hash.js";
 import { BOSS_KINDS } from "./entries.js";
 import { FLEET_DIRS } from "./fleet-board.js";
 import { GAUGE_PHASES } from "./gauge.js";
@@ -161,6 +162,12 @@ export function bossHashParts(boss: BossState | null): number[] {
   // already spent off both (`snake-hash.ts`).
   if (boss !== null && boss.kind === "stare") {
     for (const n of stareHashParts(boss)) push(n);
+  }
+  // THE DIASTOLE, gathered beside the boss like the six above it — and the one
+  // whose numbers are *two clocks and the origin they run from*, which is why
+  // they matter as much as any board (`diastole-hash.ts`).
+  if (boss !== null && boss.kind === "diastole") {
+    for (const n of diastoleHashParts(boss)) push(n);
   }
   if (boss !== null && boss.kind === "scout") {
     for (const n of scoutHashParts(boss)) push(n);

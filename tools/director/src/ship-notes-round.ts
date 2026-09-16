@@ -26,6 +26,23 @@ export const ROUND_NOTES = {
     "holds the only trigger; player 2 walks the sights a square at a time and is " +
     "shown nothing but water. The clock is the whole of the danger — running out " +
     "of it breaks the hull. See fleet.ts, config-fleet.ts.",
+  "THE DIASTOLE — two hearts on two cadences, one each":
+    "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §7, " +
+    "and the safe version of the boss THE CONDUCTOR was deferred for: the " +
+    "tempo never bends, but there are two counts on it and neither player can " +
+    "see both. The left chamber contracts every diastoleLeftBeats and is " +
+    "player 1's; the right every diastoleRightBeats and is player 2's; the " +
+    "far chamber is a still grey mass on the other screen, and geometry says " +
+    "whose. Three against five meet every fifteen beats and on no beat " +
+    "between — a pair of numbers that stopped being coprime would quietly " +
+    "stop being the boss. While the left beats alone an ordinary shot of its " +
+    "colour takes it on one of its contractions; from the moment the right " +
+    "wakes the only thing that lands is the LANCE beam standing in the " +
+    "bridge column on a beat every standing chamber is contracting on. " +
+    "diastoleChamberHits is each chamber's health and the fight's shape. The " +
+    "coincidence and the burst both open one of THE SLOW's windows, whose own " +
+    "two dials are under THE BEAT. Nothing about it is authored per wave. " +
+    "See sim/diastole.ts, sim/config-diastole.ts, docs/decisions.md #33.",
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

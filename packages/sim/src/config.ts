@@ -10,6 +10,7 @@ import { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 import { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 import { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 import { CRYSTAL_DEFAULTS, type CrystalConfig } from "./config-crystal.js";
+import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 import { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
 import { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 import { GUM_DEFAULTS, type GumConfig } from "./config-gum.js";
@@ -23,6 +24,7 @@ import { ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
 import { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
 import { SCOUT_DEFAULTS, type ScoutConfig } from "./config-scout.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
+import { SLOW_DEFAULTS, type SlowConfig } from "./config-slow.js";
 import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 import { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 import { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
@@ -42,6 +44,7 @@ export { COIL_DEFAULTS, type CoilConfig } from "./config-coil.js";
 export { CRAWLER_DEFAULTS, type CrawlerConfig } from "./config-crawler.js";
 export { CREATURE_DEFAULTS, type CreatureConfig } from "./config-creatures.js";
 export { CRYSTAL_DEFAULTS, type CrystalConfig } from "./config-crystal.js";
+export { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 export { FENCE_DEFAULTS, type FenceConfig } from "./config-fence.js";
 export { GHOST_DEFAULTS, type GhostConfig } from "./config-ghost.js";
 export { GUM_DEFAULTS, type GumConfig } from "./config-gum.js";
@@ -60,6 +63,7 @@ export { FLEET_SHELL_BEATS, ROUND_DEFAULTS, type RoundConfig } from "./config-ro
 export { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
 export { SCOUT_DEFAULTS, type ScoutConfig } from "./config-scout.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
+export { SLOW_DEFAULTS, type SlowConfig } from "./config-slow.js";
 export { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 export { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 export { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
@@ -81,6 +85,8 @@ export interface SimConfig
     ClawConfig,
     ScoutConfig,
     StareConfig,
+    SlowConfig,
+    DiastoleConfig,
     CrawlerConfig,
     CrystalConfig,
     GumConfig,
@@ -199,6 +205,8 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...CLAW_DEFAULTS,
   ...SCOUT_DEFAULTS,
   ...STARE_DEFAULTS,
+  ...SLOW_DEFAULTS,
+  ...DIASTOLE_DEFAULTS,
   ...GHOST_DEFAULTS,
   ...FENCE_DEFAULTS,
   ...GYRE_DEFAULTS,

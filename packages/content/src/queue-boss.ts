@@ -93,6 +93,12 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // and what it does is decided by the clock rather than by a place
   // (`sim/stare.ts`). The shortest entry of the fourteen, with THE WELL's.
   if (boss.kind === "stare") return { ...boss };
+  // THE DIASTOLE has nothing to remap either, and it is the one entry where
+  // that is a *geometric* claim rather than an absence: the bridge column is
+  // `midCol` of whatever field is actually being played, so the twin lobe is
+  // centred on an eleven-column field as exactly as on the seven it was
+  // authored against (`sim/diastole.ts`).
+  if (boss.kind === "diastole") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

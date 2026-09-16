@@ -33,7 +33,19 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // nothing to place, and no clock of its own that ends anything. What it does
   // is make the wave its author wrote cost more to play (`stare.ts`), so a
   // stare wave with no arrivals is an eye watching an empty field.
-  return kind !== "vane" && kind !== "well" && kind !== "reprise" && kind !== "stare";
+  // THE DIASTOLE is the fifth, and THE VANE's case exactly: a twin lobe
+  // hanging above the grid that falls nothing and reaches nothing, whose whole
+  // behaviour is deciding when a shot into the top of a column counts
+  // (`diastole.ts`). A diastole wave with no arrivals would be two hearts
+  // beating over an empty field — and worse, a boss nobody could author
+  // pressure against, since the pressure *is* the wave.
+  return (
+    kind !== "vane" &&
+    kind !== "well" &&
+    kind !== "reprise" &&
+    kind !== "stare" &&
+    kind !== "diastole"
+  );
 }
 
 /**
@@ -95,4 +107,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "scout",
   "reprise",
   "stare",
+  "diastole",
 ];

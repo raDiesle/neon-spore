@@ -23,7 +23,9 @@ function driven() {
   const alphas: number[] = [];
 
   const loop = startLoop(
-    HZ,
+    // A function, because the length of a tick is asked every frame now: THE
+    // SLOW's windows are spans in which it is longer (`loop.ts`).
+    () => 1000 / HZ,
     () => ticks.push(at),
     (alpha) => {
       frames.push(at);

@@ -33,6 +33,14 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   cols: "THE BEAT",
   rows: "THE BEAT",
   bpm: "THE BEAT",
+  // **THE SLOW's two numbers, and they belong to the beat rather than to any
+  // boss.** What they set is how many milliseconds of wall clock a tick is
+  // worth while a window is open — the tempo and `ticksPerBeat` never move, and
+  // a dial that could move either would be a dial that changes how far a body
+  // falls in a beat (`sim/slow.ts`, `docs/decisions.md` #33). Any boss may open
+  // a window; only one does today.
+  slowRateMilli: "THE BEAT",
+  slowBeats: "THE BEAT",
   tickHz: "PLUMBING — not a dial a person turns",
   inputDelayTicks: "PLUMBING — not a dial a person turns",
   guardWindowMs: "GUARD — the shared defence",

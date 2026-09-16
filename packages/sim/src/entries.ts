@@ -203,6 +203,7 @@ export interface SpawnEntry {
 export type {
   BossEntry,
   CairnEntry,
+  DiastoleEntry,
   FleetEntry,
   GaugeEntry,
   MazeEntry,

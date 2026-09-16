@@ -1,4 +1,11 @@
-import type { BossEntry, GaugeEntry, ScoutEntry, StareEntry, WellEntry } from "@neon-spore/sim";
+import type {
+  BossEntry,
+  DiastoleEntry,
+  GaugeEntry,
+  ScoutEntry,
+  StareEntry,
+  WellEntry,
+} from "@neon-spore/sim";
 
 /**
  * **The bosses with nothing on this panel to author**, and the reason for each.
@@ -32,16 +39,29 @@ import type { BossEntry, GaugeEntry, ScoutEntry, StareEntry, WellEntry } from "@
  *   warning is the boss's fairness rather than a per-wave decision
  *   (`sim/stare.ts`).
  *
+ * - **THE DIASTOLE** asks for nothing for three reasons rather than one: the
+ *   twin lobe is a fixture dead centre so there is no column, the two chambers
+ *   are the health so there is no number, and **the two cadences are the boss**
+ *   — three against five is a coincidence every fifteen beats, and a wave that
+ *   authored its own pair would be a boss nobody could ever have learned to
+ *   count (`sim/config-diastole.ts`).
+ *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
  * is what this question exists to stop.
  */
 export function bossAuthorsNothing(
   boss: BossEntry,
-): boss is GaugeEntry | WellEntry | ScoutEntry | StareEntry {
+): boss is GaugeEntry | WellEntry | ScoutEntry | StareEntry | DiastoleEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
   const { kind } = boss;
-  return kind === "gauge" || kind === "well" || kind === "scout" || kind === "stare";
+  return (
+    kind === "gauge" ||
+    kind === "well" ||
+    kind === "scout" ||
+    kind === "stare" ||
+    kind === "diastole"
+  );
 }

@@ -7401,3 +7401,30 @@ The bottleneck was nothing; the entry named the fix and the fix was the fix.
 rather than the cap being off the edge of the test.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — boss-design — THE DIASTOLE's simulation, and THE SLOW under it
+
+Two things in one lane on purpose. THE SLOW is what the owner reversed the
+design page's own refusal for on 16 September, and nothing needed it until a
+boss did; building it as a primitive with no caller would have been a mechanism
+nobody had watched. THE DIASTOLE is that caller, and the two share one
+argument — a span of beats played at a fraction of wall-clock rate, agreed by
+two integers in the fingerprint.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 40 | `git show --stat 805b6376` as the template for a boss's fifty-file plumbing, then the diff hunks rather than the files; `beat-clock.ts`'s argument that a beat is a label; `lance-burn.ts`'s place in `step` |
+| writing | 75 | `slow.ts`, `config-slow.ts`, `diastole*.ts` (five files), `wave-boss.ts` out of `wave-start.ts`, the wave in `act-7c.ts`, the director's group and dials, 21 tests |
+| looking | 0 | — the look is lane 2 and nothing drawn changed |
+| friction | 25 | 20 typecheck errors from exhaustive maps a new boss kind is a member of; `hash-coverage.test.ts`'s explicit field list; a `sed -i ''` with `\s` in it that silently did nothing on BSD sed and was redone in python |
+| landing | 15 | the coincidence the beam was judged one beat early on, `check`, the commit |
+
+The bottleneck was the beat the beam is judged on, and it is worth the
+paragraph. `releaseLance` runs *before* `onBeat` in `step.ts`, deliberately and
+with a comment saying so, while `advanceBullets` runs after it — so on a
+boundary tick the two callers of `diastoleStruck` mean different beats by the
+same `world.beat`. A pair who started the fill exactly `lancePrimeBeats` before
+the coincidence they had counted to was judged one beat early, which is the one
+thing this boss cannot afford. `beamBeat` in `lance-burn.ts` is the fix and the
+beat is handed in rather than read off the world, so the next thing to read a
+beat off a beam has to say which side of `onBeat` it is on.

@@ -1048,6 +1048,18 @@ possible signal that a window has opened.
   ticks of delay while each one is worth more — or the pair's hands go soft in
   every dramatic beat the game has.
 
+**As shipped, 16 September 2026.** Two dials, and neither is a tempo:
+`slowRateMilli` (333) is the fraction of wall-clock rate a slowed tick is
+consumed at, and `slowBeats` (2) is how long an ordinary dramatic window runs
+for — a boss that wants its own length passes one (`sim/config-slow.ts`).
+`openSlow(world, beats)` opens a window from the beat it is called on and never
+one scheduled ahead, which is what keeps both devices opening it inside the
+same step; `slowing` and `slowRateMilli` are the two questions
+`apps/game/src/frame.ts` asks once a frame (`sim/slow.ts`). The judder fix
+above went on with it: `frame.ts` interpolates while a window is open whether
+or not the flag is set, under *a look with no shipped alternative*. THE
+DIASTOLE ([bosses](spec/bosses.md) §11.17) is the first and so far only caller.
+
 **Consequences.** `docs/spec/transfers.md`'s filter line is amended to say
 *asymmetric* rather than any wobble, and points here.
 `docs/spec/bosses-choreographed.md` is rewritten around this rather than around

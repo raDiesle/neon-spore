@@ -1,6 +1,14 @@
 import type { RunMark } from "@neon-spore/net";
 import type { Canvas2DRenderer } from "@neon-spore/render";
-import { type SimEvent, step, ticksPerBeat, type World } from "@neon-spore/sim";
+import {
+  MILLI,
+  type SimEvent,
+  slowing,
+  slowRateMilli,
+  step,
+  ticksPerBeat,
+  type World,
+} from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
 import type { InputBuffer } from "./input.js";
 import { interpolatedBeatPhase } from "./interpolate.js";
@@ -109,9 +117,18 @@ export function startFrames(p: FrameParts): Frames {
     p.haptics.frame(frameEvents);
     p.renderer.draw({
       world: p.world,
-      beatPhase: p.interpolate
-        ? interpolatedBeatPhase(p.world.tick, frameAlpha, tpb)
-        : p.beatPhase(),
+      // **On inside a slow window, whatever the flag says.** At a third of
+      // wall-clock rate the loop runs about two ticks every three frames where
+      // it ran two a frame, so the same world would be drawn twice and the one
+      // moment the boss asks the pair to *look* would be the one that juddered.
+      // It replaces no frame the shipped game draws, because there were no
+      // slow windows before this boss — CLAUDE.md's *a look with no shipped
+      // alternative*, and the cleanest path onto the field this flag will get
+      // (`interpolate.ts`, `docs/decisions.md` #33).
+      beatPhase:
+        p.interpolate || slowing(p.world)
+          ? interpolatedBeatPhase(p.world.tick, frameAlpha, tpb)
+          : p.beatPhase(),
       role: p.role(),
       // Per device by design, not a value the two phones share — own-motion
       // (a shimmer, a wobble) is allowed to differ between them because it
@@ -142,7 +159,14 @@ export function startFrames(p: FrameParts): Frames {
   };
 
   startLoop(
-    p.tickHz,
+    // **How long a tick is, asked every frame.** Ordinarily `1000 / tickHz`
+    // exactly; inside one of THE SLOW's windows it is that divided by the
+    // world's own rate, which is how a boss plays a span of beats at a third
+    // of wall-clock speed without one number of the simulation moving
+    // (`sim/slow.ts`, `docs/decisions.md` #33). Both devices ask the same
+    // question of two worlds that agree about the answer, because the window's
+    // boundaries are hashed fields.
+    () => (1000 / p.tickHz) * (MILLI / slowRateMilli(p.world)),
     () => {
       // Paused: drop whatever was pressed rather than letting it pile up for the
       // moment play resumes. A finished run is not paused — its commands still

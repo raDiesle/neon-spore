@@ -1631,3 +1631,78 @@ flash on the button somebody pressed anyway. Until that lands the boss plays
 and is invisible — the hull's own breach is the only thing on screen when a
 press is caught — and its rehearsal is still the three strings
 ([briefings](briefings.md) §3.2).
+
+## 11.17 THE DIASTOLE — two hearts on two cadences, one each
+
+> The one where you are each counting a different number and neither of you can
+> see the other's.
+
+Designed as §7 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: the beat is the pair's shared ground and every mechanic in
+the game hangs off it, and this is the only way to make the beat *hard* without
+bending it. It is the safe half of what The Conductor (30) was deferred for
+([transfers-bosses](transfers-bosses.md)) — the tempo is never asymmetric, only
+the count each seat is keeping is.
+
+**The shape.** A twin lobe hangs **above the top of the field**, one lane
+either side of the middle, with a bridge of vessels across the middle column.
+That geometry is the whole reason it needs no new creature and no new
+interaction with the fall loop: a shot reaches it only by leaving through the
+top of a column nothing was standing in, which is the hook THE VANE's bearing
+already hangs on (`sim/bullets.ts`, `sim/lance-burn.ts`). The left chamber is
+red and player 1's; the right is cyan and player 2's; each seat sees only its
+own chamber beating true and the other as a still grey mass.
+
+**The rule, in one sentence.** While the left beats alone, an ordinary shot of
+its colour standing in its column on one of its contractions takes it; from the
+moment the right wakes, **only the lance beam standing in the bridge column on
+a beat every standing chamber is contracting on lands**. That covers both the
+two-chamber coincidence and the one-chamber endgame, which is why it is one
+sentence rather than two.
+
+**Four phases, and each one re-anchors both counts** to the beat it began on —
+that is the point of a phase here rather than a side effect of one, because
+each seat watches its own chamber contract and so watches its count move.
+`one`: the left beats every `diastoleLeftBeats` (3) and the right is still, so
+the pair learns that a count is a thing said out loud. `two`: the right wakes
+on `diastoleRightBeats` (5), and 3 against 5 coincides every fifteen beats and
+on no beat between. `alone`: the left has collapsed and the right goes to
+`diastoleRightAloneBeats` (7) — the count the pair spent half the fight
+learning is not the count that finishes it. `burst`: both are down,
+`diastoleBurstBeats` (4) of the bridge distending and splitting, and the boss
+is nulled at the end of it rather than at the last hit, so the picture gets the
+whole burst before the wave is allowed to close under it. Each chamber takes
+`diastoleChamberHits` (3).
+
+**A shot into a slack chamber costs nothing**, which is THE VANE's shut housing
+exactly: the window is visibly not open on the screen of the seat that owns it,
+and charging for a shot at something plainly not there would be charging for
+the pair's own eyes. A shot inside the window in the *wrong* colour is a colour
+miss and nothing else. A fill completed on a beat that is not the coincidence
+costs the pair the fill — `lancePrimeBeats` of a cannon held still — and that
+is cost enough without a charge on top.
+
+**It is fed by its wave, not by itself** (`bossFillsWave === false`, THE VANE's
+family), against the design page's own late phase where the boss spawned rocks.
+The arrivals are authored in `content/src/waves/act-7c.ts`, spread evenly and
+deliberately *not* laid against the chambers' counts: a wave whose rocks landed
+on the coincidences would be teaching the count twice, once honestly and once
+by accident.
+
+**It is the first thing in the game to open THE SLOW** — on the coincidence
+strike and on the burst, and nowhere else. A slow on every ordinary hit of the
+learning phase would be the brief's own refusal, *do not turn the entire game
+into permanent slow motion* ([decisions](../decisions.md) #33).
+
+**What it does not draw yet**, and it is the lane after this one: the two
+chambers, each seat's own beating true against the other's grey mass, the
+bridge burst, and the per-seat pulse through `render/src/hull-light.ts`. Until
+that lands the boss plays and is invisible.
+
+**Never watched at tempo.** Whether a pair can hold two counts at all at 96 BPM
+is a thing a person finds out with another person, and neither the tests nor
+the typecheck can say it. What the tests do say is the arithmetic: that three
+and five meet every fifteen beats and on no beat between, that a chamber can
+only be hurt while contracting, that nothing single lands once both are
+beating, and that the beam in the bridge takes both at once
+(`sim/test/diastole.test.ts`).

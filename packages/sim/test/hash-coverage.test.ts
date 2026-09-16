@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { CREATURE_KINDS } from "../src/creature-kinds.js";
+import { DIASTOLE_PHASES } from "../src/diastole.js";
 import { FLEET_DIRS } from "../src/fleet-board.js";
 import { GAUGE_PHASES } from "../src/gauge.js";
 import { hashWorld } from "../src/hash.js";
@@ -78,6 +79,7 @@ const FAMILIES: readonly (readonly string[])[] = [
   MIRROR_STEPS,
   MAZE_PHASES,
   MAZE_REASONS,
+  DIASTOLE_PHASES,
   MIRROR_PHASES,
   GAUGE_PHASES,
   FLEET_DIRS,
@@ -294,6 +296,8 @@ describe("the fingerprint covers the world", () => {
         "scars",
         "shieldCol",
         "shieldSinceTick",
+        "slowFromBeat",
+        "slowToBeat",
         "spawned",
         "tick",
         "wardUntilTick",

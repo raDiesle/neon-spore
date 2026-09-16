@@ -1,4 +1,5 @@
 import type { CairnState } from "./cairn.js";
+import type { DiastoleState } from "./diastole.js";
 import type { FleetShip } from "./fleet-board.js";
 import type { GaugeState } from "./gauge.js";
 import type { MazeState } from "./maze-state.js";
@@ -240,4 +241,5 @@ export type BossState =
   | RepriseState
   | SpliceState
   | ScoutState
-  | StareState;
+  | StareState
+  | DiastoleState;

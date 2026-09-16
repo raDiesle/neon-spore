@@ -123,6 +123,15 @@ export function hashWorld(world: World): number {
     push(beam.left);
     push(beam.topMilli);
   }
+  // **THE SLOW's boundaries**, and they are the whole of the owner's condition
+  // that a window *start and end at the same time for both players*: two
+  // devices agree about which beats are played slowly because they agree about
+  // these two integers. Nothing about the simulation reads them — what they
+  // decide is how many milliseconds of wall clock a tick is worth in
+  // `apps/game/src/loop.ts` — and they are in here for that reason rather than
+  // in spite of it (`slow.ts`, `docs/decisions.md` #33).
+  push(world.slowFromBeat);
+  push(world.slowToBeat);
   push(world.rng.state);
   push(world.guard.tries);
   push(world.guard.deflected);

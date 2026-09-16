@@ -1,5 +1,6 @@
 import type { BossState, QueenState } from "./boss-state.js";
 import { stepCairn } from "./cairn.js";
+import { stepDiastole } from "./diastole-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
@@ -43,6 +44,14 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // switch in `commands.ts` (`stare-step.ts`).
   if (boss.kind === "stare") {
     stepStare(world, boss);
+    return;
+  }
+  // THE DIASTOLE is four phases and nothing else: a contraction is derived
+  // from the beat and the origin, and a hit arrives on the tick a shot leaves
+  // through the top of a column. What the beat owns is when a cadence moves
+  // and when the bridge has finished bursting (`diastole-step.ts`).
+  if (boss.kind === "diastole") {
+    stepDiastole(world, boss);
     return;
   }
   if (boss.kind === "vane") {

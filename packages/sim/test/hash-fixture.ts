@@ -165,6 +165,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   vane: { kind: "vane", pins: 3 },
   maze: { kind: "maze", rounds: [WHEEL] },
   gauge: { kind: "gauge" },
+  // THE DIASTOLE authors nothing at all either, and for one reason more than
+  // THE STARE's: its two cadences are the boss, so they are tuning rather than
+  // authoring (`config-diastole.ts`). Everything it remembers is a clock the
+  // fixture's world will have moved by the time it is fingerprinted.
+  diastole: { kind: "diastole" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).

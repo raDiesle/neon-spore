@@ -1,6 +1,7 @@
 import { resolve } from "./bullet-hit.js";
 import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
+import { diastoleStruck } from "./diastole-step.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { firstPodAlong, freePod } from "./pods.js";
@@ -136,12 +137,14 @@ function sweep(world: World, b: Bullet): boolean {
     from = met;
   }
 
-  // Gone past the top of the field — which is where THE VANE's bearing hangs,
-  // and the only thing in the game that is not on the grid at all. Every other
-  // shot that gets here is simply spent; `vaneStruck` is a no-op unless the
-  // arm is up and its housing is split (docs/spec/transfers-bosses.md).
+  // Gone past the top of the field — which is where THE VANE's bearing hangs
+  // and THE DIASTOLE's twin lobe, the two things in the game that are not on
+  // the grid at all. Every other shot that gets here is simply spent; both
+  // calls are no-ops unless their own boss is installed and its own window is
+  // open (docs/spec/transfers-bosses.md, `diastole.ts`).
   if (to < 0) {
     vaneStruck(world, b);
+    diastoleStruck(world, b, world.beat);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

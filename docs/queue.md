@@ -780,3 +780,36 @@ is where it breaks.
 The four other files reading `texts` — `cairn-frame`, `guide-frame`,
 `guide-handover`, `harpoon-frame` — all still pass, which is worth knowing:
 their subjects are drawn untransformed.
+
+## The input delay is counted in ticks, and a slow window makes a tick longer
+
+- **Found:** 2026-09-16, claude/neon-spore-boss-design-26ee5e
+- **Where:** local
+- **Files:** `packages/net/src/delay.ts`, `packages/net/src/lockstep.ts`, `packages/net/src/lockstep-options.ts`, `apps/game/src/input-buffer.ts`, `apps/game/src/frame.ts`, `apps/game/src/loop.ts`, `packages/sim/src/slow.ts`, `docs/decisions.md`
+
+THE SLOW landed on 16 September 2026 and `docs/decisions.md` #33 names this as
+its one unpaid cost. A command is scheduled a fixed number of **ticks** ahead,
+which was a fixed number of milliseconds for as long as a tick was worth
+`1000 / tickHz` of them. Inside a slow window a tick is worth three times that
+(`slowRateMilli: 333`), so the same delay in ticks is three times as long in
+the hand: a thumb pressed during the burst is answered a third of a second
+later than it would be outside it.
+
+Nothing shipped can feel it yet, and that is why it is here rather than fixed
+in that lane: THE DIASTOLE opens windows of two and four beats, and neither is
+a moment anyone is meant to be pressing anything during — the burst is the
+payoff and the coincidence is already past by the time the window opens. The
+first concept on `docs/spec/bosses-choreographed.md` whose window is a *moment*
+inside a slow span breaks, and the page says so under [who is building
+what](spec/bosses-choreographed.md).
+
+**What to do, and the choice the two options are between.** Either the
+scheduler's delay becomes a number of *milliseconds* converted to ticks at
+schedule time using the rate in force — which keeps the hand honest and makes
+the tick count differ between a slowed span and an ordinary one, so both
+devices must agree about the rate before they agree about the tick (they do:
+`slowFromBeat`/`slowToBeat` are hashed) — or the delay stays in ticks and the
+slow rate is applied to the *presentation* only, with the simulation's clock
+left at wall speed, which means a slow window no longer slows the beat and is
+therefore not what the owner asked for. The first is the real answer; the
+second is written down so the next reader does not rediscover it as an option.

@@ -19,9 +19,28 @@ export type { BossState, FleetState, QueenState, VaneState, WardenState } from "
 export * from "./bosses-round.js";
 export { type CairnState, cairnState, cairnWaited } from "./cairn.js";
 export {
+  DIASTOLE_PHASES,
+  DIASTOLE_SIDES,
+  type DiastolePhase,
+  type DiastoleSide,
+  type DiastoleState,
+  diastoleBeating,
+  diastoleBridgeCol,
+  diastoleChamberCol,
+  diastoleCoincides,
+  diastoleColor,
+  diastoleContracts,
+  diastoleEvery,
+  diastoleHits,
+  diastoleSeat,
+  diastoleStanding,
+} from "./diastole.js";
+export { diastoleBoss } from "./diastole-step.js";
+export {
   BOSS_KINDS,
   bossFillsWave,
   type CairnEntry,
+  type DiastoleEntry,
   type FleetEntry,
   type GaugeEntry,
   type PinballEntry,

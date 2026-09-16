@@ -160,6 +160,30 @@ export interface StareEntry {
   kind: "stare";
 }
 
+/**
+ * What a wave authors when it wants THE DIASTOLE, which is nothing at all —
+ * THE STARE's entry one boss along, and for three reasons rather than one.
+ *
+ * No column: the twin lobe hangs dead centre above the grid, and one placed off
+ * centre would have a long side and a short one, so the cannon would be a
+ * different distance from the bridge depending on which way it came — the one
+ * thing this fight must not add to its arithmetic (`diastoleBridgeCol`).
+ *
+ * No health: it is two chambers of `diastoleChamberHits` each, and the number
+ * is the fight's shape rather than its length — the left gives two of them up
+ * to ordinary shots before the right ever wakes, which is how the pair learns
+ * that a cadence has to be counted rather than watched.
+ *
+ * And no cadences, which is the one that had to be argued: **they are the boss
+ * and they are tuning anyway** (`config-diastole.ts`). Three against five is a
+ * coincidence every fifteen beats and on no beat between; a wave that authored
+ * its own pair would be several different bosses wearing one name, and worse
+ * than that, a boss nobody could ever have learned to count.
+ */
+export interface DiastoleEntry {
+  kind: "diastole";
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -177,7 +201,8 @@ export type BossEntry =
   | RepriseEntry
   | SpliceEntry
   | ScoutEntry
-  | StareEntry;
+  | StareEntry
+  | DiastoleEntry;
 
 export type {
   FleetEntry,

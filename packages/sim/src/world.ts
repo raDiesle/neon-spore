@@ -4,6 +4,7 @@ import { type Briefings, newBriefings } from "./briefing.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import type { PlacedFault } from "./fault-placed.js";
 import { createRng, type Rng } from "./rng.js";
+import { NO_SLOW } from "./slow.js";
 import { startWave } from "./wave-start.js";
 import { newShipState, type ShipState } from "./world-ship.js";
 
@@ -103,6 +104,26 @@ export interface World extends ShipState {
    */
   hasLance: boolean;
 
+  /**
+   * **The beats THE SLOW is holding**, `[slowFromBeat, slowToBeat)`, and
+   * `NO_SLOW` on both while nothing is slowed.
+   *
+   * Two integers in the simulation for a thing the simulation does not do:
+   * what they decide is how many milliseconds of wall clock a tick is worth in
+   * `apps/game/src/loop.ts`, and nothing below that reads a clock at all. They
+   * are here, and hashed, because that is the entire safety argument — the
+   * owner's condition was that a slow window *start and end at the same time
+   * for both players*, and a boundary both devices already agree about is the
+   * only way to promise it (`slow.ts`, `docs/decisions.md` #33).
+   *
+   * Read through `slowing` and `slowRateMilli` rather than by name: whether a
+   * beat is inside the window and how fast it is being played are one
+   * question, and a caller that compared the two itself would be the second
+   * copy of a half-open range.
+   */
+  slowFromBeat: number;
+  slowToBeat: number;
+
   creatures: Creature[];
   bullets: Bullet[];
   pods: Pod[];
@@ -168,6 +189,8 @@ export function createWorld(
     leechHarpoonId: 0,
     limpetHarpoonId: 0,
     hasLance: true,
+    slowFromBeat: NO_SLOW,
+    slowToBeat: NO_SLOW,
     creatures: [],
     bullets: [],
     pods: [],

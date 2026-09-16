@@ -9,10 +9,22 @@ import type { Wave } from "../wave-types.js";
  * **`7c` and not `8`, because the order of the waves is the order of the
  * game** — the rule `act-3b.ts` states and `act-7b.ts` repeats, arrived at the
  * same way each time. An act file is a page rather than a chapter, and this
- * page is three waves that are each a different answer to *what may you touch*:
- * the little ship one of you flies and neither of you can see whole, the eye
- * that stops one of you touching anything at all, and the rock that crosses
- * the field in front of the cannon and leaves.
+ * page is a different answer to *what may you touch*: the little ship one of
+ * you flies and neither of you can see whole, the eye that stops one of you
+ * touching anything at all, and the rock that crosses the field in front of
+ * the cannon and leaves.
+ *
+ * **THE DIASTOLE closes it, and it is the one wave on this page authored
+ * around a lane the pair has to keep empty.** Its two chambers hang over
+ * authored columns 2 and 4 with the bridge between them at 3, which is
+ * `midCol` of whatever field is actually played (`mapCol`), and the only shot
+ * that ever takes both is the lance standing in that middle lane — so every
+ * arrival is at 0, 1, 5 or 6 and the three columns in the middle are never
+ * asked for. The entries are spread evenly rather than laid against the
+ * chambers' counts on purpose: which beat the fight changes phase on depends
+ * on when the pair lands its second hit, so a wave that tried to place a rock
+ * inside a particular window would be placing it against a beat nobody can
+ * know at authoring time.
  *
  * **THE STARE's arrivals are placed against the eye's own cycle**, which is
  * twenty-four beats at the opening rhythm: twelve to play in, four of warning,
@@ -139,5 +151,35 @@ export const WAVES_ACT_7C: Wave[] = [
       { beat: 26, col: 6, kind: "balloon", color: null },
       { beat: 36, col: 2, kind: "balloon", color: null },
     ],
+  },
+  {
+    id: "theDiastole",
+    name: "THE DIASTOLE",
+    sentence:
+      "The one where you are each counting a different number and neither of you can see the other's.",
+    guide: {
+      both: "Two chambers above the top of the field, one lane apart, with a bridge of vessels between them. They beat on different counts and each of you sees only your own beating true — the other one is a still grey mass on your screen. A chamber can only be hurt while it is contracting. Once both of them are beating, nothing single reaches either: the only answer is the lance standing in the middle lane on a beat they contract on together.",
+      p1: "The left chamber is yours, and it is threes. Say every contraction out loud. The lance is yours too: cannon in the middle lane, held still three beats. An ordinary shot goes a beat early — a bolt is a beat from the top.",
+      p2: "The right chamber is yours, and it is fives. Count it aloud and take their threes off it: the beat both meet on comes round once in fifteen. Your thumb starts the fill and may not lift. Then the right goes to sevens.",
+    },
+    entries: [
+      { beat: 4, col: 0, color: "red" },
+      { beat: 7, col: 6, color: "cyan" },
+      { beat: 12, col: 1, kind: "meteor", color: null },
+      { beat: 16, col: 5, color: "red" },
+      { beat: 20, col: 6, kind: "meteor", color: null },
+      { beat: 24, col: 0, color: "cyan" },
+      { beat: 28, col: 5, kind: "meteor", color: null },
+      { beat: 32, col: 1, color: "red" },
+      { beat: 36, col: 6, color: "cyan" },
+      { beat: 40, col: 0, kind: "meteor", color: null },
+      { beat: 45, col: 5, color: "cyan" },
+      { beat: 50, col: 1, kind: "meteor", color: null },
+      { beat: 55, col: 6, color: "red" },
+      { beat: 60, col: 0, color: "cyan" },
+      { beat: 66, col: 5, kind: "meteor", color: null },
+      { beat: 72, col: 1, color: "cyan" },
+    ],
+    boss: { kind: "diastole" },
   },
 ];

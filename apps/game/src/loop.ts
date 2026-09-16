@@ -53,26 +53,47 @@ export function accumulate(
   return { ticks, remainder: total - ticks * tickMs };
 }
 
+/**
+ * `tickMs` is **asked once a frame**, not computed once at the start.
+ *
+ * It was `const tickMs = 1000 / tickHz` here until 16 September 2026, and one
+ * number for the life of a run is exactly what THE SLOW needed changed: a span
+ * of beats played at a fraction of wall-clock rate is a span in which a tick
+ * is worth more milliseconds, and nothing else about it moves
+ * (`docs/decisions.md` #33). The simulation still runs the same integer steps
+ * on the same tick numbers at the same `ticksPerBeat` — a slow window cannot
+ * be told from an ordinary one by `hashWorld`, and it is not supposed to be.
+ * What the window is *for* lives entirely above this line: the caller asks the
+ * world which beats are slowed (`sim/slow.ts`) and hands the answer down as a
+ * length of tick.
+ *
+ * A rate that changes between two frames is safe by the arithmetic already
+ * here: `accumulate` floors and subtracts with the same `tickMs`, so the
+ * remainder it returns is always inside `[0, tickMs)` and `alpha` stays in
+ * `[0, 1)` across a boundary in either direction. A window closing simply
+ * leaves a remainder large enough to spend a tick or two on the next frame,
+ * which is the catch-up path the loop has always had.
+ */
 export function startLoop(
-  tickHz: number,
+  tickMs: () => number,
   onTick: () => void,
   onFrame: (alpha: number) => void,
   clock: LoopClock = {},
 ): Loop {
   const now = clock.now ?? (() => performance.now());
   const raf = clock.raf ?? ((frame) => requestAnimationFrame(frame));
-  const tickMs = 1000 / tickHz;
   let last = now();
   let accumulator = 0;
   let running = true;
 
   const frame = (at: number): void => {
     if (!running) return;
-    const { ticks, remainder } = accumulate(accumulator, at - last, tickMs);
+    const ms = tickMs();
+    const { ticks, remainder } = accumulate(accumulator, at - last, ms);
     last = at;
     accumulator = remainder;
     for (let i = 0; i < ticks; i++) onTick();
-    onFrame(remainder / tickMs);
+    onFrame(remainder / ms);
     raf(frame);
   };
   raf(frame);

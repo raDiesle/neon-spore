@@ -62,6 +62,12 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // the plate before it turns" a sentence with a consequence, and what lets a
   // pair play on through a look that took the other seat.
   "THE STARE": ["meteor"],
+  // THE DIASTOLE introduces no creature either — what is new is two counts
+  // neither of you can both see — so every arrival on it is a kept kind. The
+  // rock is what makes the lane the lance needs cost something: it is answered
+  // by the dome, which is player 1's, and he is also the one who must hold the
+  // cannon still in the middle column for the whole fill.
+  "THE DIASTOLE": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

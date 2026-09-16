@@ -143,6 +143,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   pulse: { wave: "pulse" },
   scout: { wave: "theScout" },
   stare: { wave: "theStare" },
+  diastole: { wave: "theDiastole" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "firstStep", config: { briefings: true } },

@@ -59,6 +59,10 @@ export { createRng, next, nextInt, type Rng } from "./rng.js";
 export { endRun, resetClock, resetRun } from "./run.js";
 export { SceneRun, type SceneScript } from "./scene.js";
 export { arrivingFirst, atBodyCol, type SceneCommand } from "./scene-aim.js";
+// **THE SLOW**, and it leaves the package because it has to: the only clock in
+// the stack is `apps/game/src/loop.ts`, so the simulation says *which beats are
+// slowed* and the app says *how long a tick is worth* (`docs/decisions.md` #33).
+export { NO_SLOW, slowing, slowRateMilli } from "./slow.js";
 export { roundSpent } from "./wave-end.js";
 export {
   clockText,
@@ -68,9 +72,13 @@ export {
   playSeconds,
   retriesText,
 } from "./wave-fail.js";
+// And the unit those thousandths are in. `MILLI` is CLAUDE.md rule 3's own
+// name for it and every `*Milli` field in the package is measured against it,
+// so a caller outside the package that reads one needs it to mean anything.
 export {
   type BossEntry,
   createWorld,
+  MILLI,
   type MirrorEntry,
   type PodEntry,
   type QueenEntry,

@@ -16,6 +16,49 @@
 > bosses already shipped and are [refused by name](#refused-by-name). What
 > survives is worth the page.
 
+## Who is building what, so two sessions do not collide
+
+**Read this before starting any concept on this page.** The owner works several
+of these at once, in parallel sessions and separate worktrees, and the page is
+the only place that knows which one is already under a hand. A session that
+takes a concept writes its row here **before it writes any code**, and the row
+goes away when the lane lands — the same discipline `docs/queue.md` uses, kept
+here because a boss concept is not a technical finding and does not belong on
+that list (`CLAUDE.md`, *an idea for the game is not collected*).
+
+| Concept | State | Lane |
+|---|---|---|
+| [§7 THE DIASTOLE](#7-the-diastole--two-clocks-at-once) | **taken, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation, and THE SLOW with it |
+| the other fourteen | free | — |
+
+**THE SLOW is shipped, and the next boss does not have to build it.** It was
+THE DIASTOLE's lane that needed it first, so it was built there rather than
+as a primitive of its own, but nothing about it is that boss's: it is
+`packages/sim/src/slow.ts` (`openSlow`, `slowing`, `slowRateMilli`, two hashed
+`World` fields) and one line of `apps/game/src/loop.ts`, which now asks for
+the length of a tick once a frame instead of computing it once at the start.
+Any concept on this page that says *slow motion* calls `openSlow(world, beats)`
+from its own step and is finished — see [THE SLOW and THE DRAG are two
+different tools](#the-slow-and-the-drag-are-two-different-tools) for which of
+the two a given beat wants, and `docs/decisions.md` #33 for the ruling.
+
+Three things the DIASTOLE lane decided against this page's own text, which a
+later concept should not read as still open:
+
+- **A boss on this page is fed by its wave, not by itself.** §7's design had
+  the boss spawning its own rocks in a late phase; it ships with
+  `bossFillsWave === false` (THE VANE's family), so `act-7c.ts` writes the
+  arrivals and the boss only ever answers shots. A concept that truly needs to
+  spawn should say so and say why the wave author cannot.
+- **Coprime means coprime all the way down.** §7 wanted the left chamber to
+  shift from every 3 beats to every 4 at its second phase; 4 against 5
+  coincides every 20 beats, which contradicts the design's own headline of a
+  window every 15. The shift was dropped rather than the headline.
+- **The input delay is still counted in ticks, not in slowed ticks.** A window
+  two or four beats wide does not care. A concept whose window is a *moment* —
+  one beat or less — inside a slow span has to re-derive it first; that is
+  queued, not solved.
+
 A Way Out is the odd reference on the shelf. Spaceteam and Lovers both hand
 two people a machine and let them fail at it; A Way Out hands two people a
 **scene** and asks them to perform it. There is no health, no aiming and
@@ -851,6 +894,10 @@ yet and several ideas in [ideas](ideas.md) want.
 ---
 
 ### 7. THE DIASTOLE — two clocks at once
+
+> **Taken, 16 September 2026**, on `claude/neon-spore-boss-design-26ee5e`:
+> the simulation of this one, and THE SLOW with it. Do not start it in a
+> second session — see [who is building what](#who-is-building-what-so-two-sessions-do-not-collide).
 
 > The one with two hearts on two cadences, one each, and the fight is the beat
 > they coincide.
