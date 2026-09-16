@@ -593,6 +593,7 @@ unchanged, and neither installer's surface grows while it is moved.
 ## `bind.ts` is at exactly 250 lines, so the next boss cannot be bound
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-16, claude/queue-bind-ts-is-at-exactly-250-lines-so-the-next-boss
 - **Files:** `packages/audio/src/bind.ts`, `packages/audio/src/bind-*.ts`, `packages/audio/test/catalogue.test.ts`
 
 THE SPLICE's four cues took it to 252 and it came back to the limit by having
