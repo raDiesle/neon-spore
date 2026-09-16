@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · f408d936 — A file says it is filling up on the edit, not when the check goes red
+
+The 250-line ceiling was the largest flat cause of friction in the ledger — 27 of 296 lanes, 375 minutes, unmoved all week — and always in the same shape: the file was discovered to be over when `bun run check` went red, with the change already spread through it, so the seam had to be chosen from under a diff that was about something else. `tools/hooks/after-edit-size.ts` is a PostToolUse hook beside the other three: it counts the file just written and prints one line naming it, its count and what it is held to, once the edit takes it within 88% of the limit. It never blocks, and `packages/sim/test/limits.test.ts` is still the rule.
+
 ## 2026-09-16 · 3e20bde1 — The trunk's account of the same days, and it is three times shorter
 
 `docs/time-log.md` says 3 385 minutes went into 15 September; that day's own commits span 860. The 14th is 2 395 against 969 and the 16th 1 790 against 634. It is not parallel sessions — six of the 204 work landings since 13 September landed more than ten minutes after they were written, and the author dates on `main` run strictly forward, one lane at a time. What the trunk says instead is that the ordinary pace is a landing every seven minutes, and that the longest lanes are long in calendar time too but by less than the rows claim: THE MOULT is 74 minutes between landings against 245 logged, THE MINE 70 against 220.
