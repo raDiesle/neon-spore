@@ -422,6 +422,7 @@ seats, and the wave watched at tempo through one full stretch and its echo.
 ## THE BALLOON's wave tells the pair three things the game stopped doing
 
 - **Found:** 2026-09-15, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-16, claude/queue-the-balloons-wave-tells-the-pair-three-things-th
 - **Files:** `packages/content/src/waves/act-7b.ts`, `packages/content/src/scenes/`, `packages/render/test/briefing.test.ts`
 
 The owner ruled on 14 September 2026 that a balloon **never goes downwards**
