@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 4d662199 — bun run frames can be asked for the tick an event happened on
+
+`--ticks` is an absolute `world.tick`, which is the right primitive and the wrong question. A capture is after *the breach*, *the pop*, *the wave failing*, and that is a different tick in every wave, on every seat, and again whenever a speed is retuned — so photographing a hole in the skin took three sweeps of fourteen frames, and the next lane to touch a strike or a shed would have paid it again.
+
 ## 2026-09-16 · 1f3d8936 — A boss that goes somewhere rather than loops, read off A Way Out
 
 Every boss in this game is a cadence the pair learns and then executes until the body runs out, and none of them has a second act. `spec/bosses-choreographed.md` is the store of the other kind: fifteen concepts whose content is an authored sequence, each asking a question no shipped boss asks, with the beat list, the per-seat split, the payoff frame and the cost written out.
