@@ -7587,3 +7587,5 @@ The bottleneck was nothing, and the entry undercounted by one: `session.ts`
 also explained itself through `guide-page.ts`, which is the shape of this
 problem — a file that is deleted takes its own line out of the index and
 leaves every sentence that pointed at it standing.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

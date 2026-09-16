@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 836217d3 — Four director comments stop explaining themselves through a deleted file
+
+The GUIDES room came off the sheets on 14 September 2026 and `guide-page.ts` went with it, leaving four comments describing the tool as though it were still there. `versus-tab.ts` told a reader that VERSUS is mounted *the way GUIDES is* and named the file to copy from — a pattern the next tab would have been built against, pointing at something that cannot be opened. `session.ts` explained which pages need a `mountSheet` call of their own by naming the same file. `backlog-tabs.ts` said GUIDES had moved to DOCUMENTATION, which is two rooms neither of which exists. And `backlog-page.ts` listed the lazily drawn tabs as SHAPES, GUIDES and OTHER GRAPHICS, which disagreed with the file next to it as well as with the sheet.
+
 ## 2026-09-16 · a1909fb2 — The palette's lists move off its table, so the next brush has room
 
 THE FLIP's row went into `brushes.ts` at 251 lines and had to be paid for by cutting three lines of its own argument back to two. Nothing about the next brush is unusual; there is simply no room for one, and the first thing a lane short of ten lines shortens is the reasoning beside a row.
