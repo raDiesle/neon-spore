@@ -10,6 +10,10 @@ import { fieldOf, type Item, WHERE } from "./queue.js";
 
 const ISO_DATE = /^\d{4}-\d{2}-\d{2}/;
 
+/** What `queue list` hangs off an entry's fields, and so what a title may not
+ * repeat: `ASKS THE OWNER` from `Asks:`, and `<kind> ONLY` from `Where:`. */
+const MARKERS = ["ASKS THE OWNER", "LOCAL ONLY", "CLOUD ONLY"];
+
 /**
  * What is wrong with an entry, in the words a session would need to fix it.
  * Empty means the entry can be handed to somebody who has read nothing else.
@@ -58,6 +62,17 @@ export function problemsWith(item: Item): string[] {
   // read it, agree, and still not know what was wanted from them.
   if (item.asks && !item.asks.includes("?")) {
     problems.push(`${where} — the Asks: line is not a question`);
+  }
+  // A marker the listing writes for itself, written into the title as well.
+  // `bun run queue list` builds each line as `<title> — ASKS THE OWNER —
+  // LOCAL ONLY` off the `Asks:` and `Where:` fields (`run.ts`), so a title
+  // that says one of them out loud gets it twice — and the title is what
+  // `take`, `release` and `done` match on, so the doubled one is what a
+  // session has to type. Both of these were written on 16 September 2026 by
+  // the sessions that added the fields underneath them.
+  const shouted = MARKERS.find((m) => item.title.toUpperCase().includes(m));
+  if (shouted) {
+    problems.push(`${where} — the title says ${shouted}; the listing adds that from the field`);
   }
   const reserved = fieldOf(item.body, WHERE);
   if (reserved && item.where === "anywhere") {

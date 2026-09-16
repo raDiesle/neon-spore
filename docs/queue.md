@@ -159,8 +159,12 @@ entry that already has one is refused rather than overwritten.
 writes on purpose. It goes under `Files:`, it has to end in a question mark —
 the parser refuses one that does not, because an `Asks:` reading like a task is
 a line the owner agrees with and still cannot answer — and it makes the listing
-say `ASKS THE OWNER`. Write the question so it can be answered in a sentence,
-and let the body carry the options it picks between:
+say `ASKS THE OWNER`. **The title does not say it too**, any more than a
+`Where:` entry's title says `LOCAL ONLY`: the listing hangs both off the
+fields, and a title that shouts one carries it twice — into the string `take`,
+`release` and `done` are matched on. The parser refuses that as well. Write the
+question so it can be answered in a sentence, and let the body carry the
+options it picks between:
 
 ```
 ## A button says two words where a sentence was asked for
@@ -638,7 +642,7 @@ the numbers are on the field, not in the strip.
 Widen `packages/render/test/guide-plate-room.test.ts` to sweep the clock's
 line when it is done; its header carries the list.
 
-## A round's picture is under the guide's band on eight rehearsals — ASKS THE OWNER
+## A round's picture is under the guide's band on eight rehearsals
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
 - **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/coord-grid.ts`, `packages/render/src/beatbox-marks.ts`, `packages/render/src/lost-shutters.ts`, `packages/render/src/round-header.ts`
@@ -670,28 +674,6 @@ LOST at 16% of the play height — 114,73.
 `packages/render/test/guide-plate-room.test.ts` was narrowed to the round's
 name and the run's line on the day this was found, and its header carries the
 same list — widen it back as each site is fixed.
-
-## `canvas-stub` records a text box before the transform, and one test read it
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Files:** `packages/render/test/canvas-stub.ts`
-
-Fixed in the same commit, and here because the fix is one that wants looking
-at rather than one that wants doing. `StubContext.texts` promised that two
-boxes overlapping in the log overlap on the phone, and recorded the
-coordinates `fillText` was handed — so every word drawn inside a `translate`
-carried a box hundreds of pixels from where the eye sees it. A guide draws its
-page inside one; so does THE MIRROR's count-in.
-
-The stub now carries the matrix and puts each box through it. What it does not
-do is rotate the box: a rotated word keeps an axis-aligned box at the scaled
-size, because nothing in `render/` writes rotated type and a box that lied
-about its angle would be a second wrong answer. If something ever does, this
-is where it breaks.
-
-The four other files reading `texts` — `cairn-frame`, `guide-frame`,
-`guide-handover`, `harpoon-frame` — all still pass, which is worth knowing:
-their subjects are drawn untransformed.
 
 ## The input delay is counted in ticks, and a slow window makes a tick longer
 
@@ -726,7 +708,7 @@ left at wall speed, which means a slow window no longer slows the beat and is
 therefore not what the owner asked for. The first is the real answer; the
 second is written down so the next reader does not rediscover it as an option.
 
-## A scene cannot be chosen in the director, only read — ASKS THE OWNER
+## A scene cannot be chosen in the director, only read
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
 - **Files:** `tools/director/src/guide-scene-note.ts`, `tools/director/src/guide-fields.ts`, `packages/content/src/scenes.ts`

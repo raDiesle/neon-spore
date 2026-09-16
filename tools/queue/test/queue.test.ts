@@ -71,6 +71,23 @@ describe("an entry that asks the owner something", () => {
     expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain("not a question");
   });
 
+  it("catches a title that shouts the marker the listing already adds", () => {
+    // Written twice on 16 September 2026, in two lanes, by the sessions that
+    // added the `Asks:` line underneath: the listing builds its line off the
+    // fields, so the entry showed up as "… — ASKS THE OWNER — ASKS THE
+    // OWNER", and the doubled title is the string `take` and `done` match on.
+    const md = ASKING.replace("## A button says the wrong word", "## A button — ASKS THE OWNER");
+    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain("the listing adds that");
+  });
+
+  it("catches the same in a Where: entry's title", () => {
+    const md = ASKING.replace(
+      "## A button says the wrong word",
+      "## A button — LOCAL ONLY",
+    ).replace("- **Asks:** Leave the two words, hang a caption, or widen the lobe?\n", "");
+    expect(problemsIn(parseItems(md, "queue"))[0] ?? "").toContain("LOCAL ONLY");
+  });
+
   it("puts the question at the top of the prompt the session is handed", () => {
     const item = parseItems(ASKING, "queue")[0]!;
     const prompt = promptFor(item, branchFor(item));

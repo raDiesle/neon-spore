@@ -7655,3 +7655,18 @@ the tick the bolt reaches the bead, not at the press — so the test now steps
 until `struck` and past player 1's own lock before it looks.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — a title cannot shout what the listing already says
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `tools/queue/problems.ts`, `where.ts`, `run.ts`'s listing line, and the `canvas-stub` entry against the file it describes |
+| writing | 10 | the rule, two tests, the preamble's sentence, two titles cut, one entry closed |
+| looking | 0 | — a command's output |
+| friction | 5 | a regex written through a heredoc came out with the wrong backslashes twice; the guard hook caught the first and the test the second |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was friction, and it was self-inflicted: the fixture only ever
+needed a plain string replace. The finding itself came free — `bun run queue
+list` printed `— ASKS THE OWNER — ASKS THE OWNER` on two entries this session
+wrote, which is the kind of thing only reading the listing shows.
