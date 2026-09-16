@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · af0f0836 — The rebase a landing never runs gets its own entry
+
+Another session filed The time log conflicts on every rebase and nothing merges it while this one was building the resolver, so the entry comes off the list - ledger-merge.ts settles that file in the replay now. But it named two files and only one of them is fixed.
+
 ## 2026-09-16 · 4c66e6b5 — A press that names a column says what that column points at
 
 Eleven lanes and 95 friction minutes in docs/time-log.md went on photographing the wrong thing, and the ledger names this as the cause of one of them: a wave is authored in seven columns and played in eleven, so --press cannonCol=1 put the cannon under a column no body can stand in, and three sheets showed a bolt sailing past something it was never aimed at. press.ts has warned about it in prose since the day it was written, which is the tell - a rule a person has to remember is a rule the tool should say.

@@ -6790,3 +6790,5 @@ was removed named two files and only one of them is fixed. `docs/release-notes.m
 conflicts in a rebase the landing never runs — the trunk against `origin/main`,
 which `bun run push` refuses and a person resolves — so closing the entry whole
 would have thrown away a finding that cost three hand-resolutions today.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
