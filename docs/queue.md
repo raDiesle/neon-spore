@@ -423,7 +423,6 @@ seats, and the wave watched at tempo through one full stretch and its echo.
 ## THE FLIP, his way: a malfunction that mirrors the field for one seat
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-16, claude/queue-the-flip-his-way-a-malfunction-that-mirrors-the
 - **Files:** `packages/sim/src/malfunction.ts`, `packages/sim/src/fault-placed.ts`, `packages/sim/src/fault-surface.ts`, `packages/sim/src/config-malfunction.ts`, `packages/sim/src/hash.ts`, `packages/content/src/wave-types.ts`, `packages/content/src/mechanics-table.ts`, `packages/render/src/malfunction-look.ts`, `packages/render/src/layout.ts`, `packages/render/src/touch.ts`, `packages/render/src/creatures.ts`, `tools/director/src/fault-fields.ts`, `tools/director/src/paint-fault.ts`, `tools/director/src/brushes.ts`, `docs/spec/ideas.md`, `docs/spec/transfers.md`
 
 The owner asked for **The Flip** (`ideas.md`, and `transfers.md` §The Flip)
