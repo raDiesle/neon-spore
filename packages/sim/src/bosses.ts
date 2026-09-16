@@ -13,6 +13,21 @@
  * `VaneStage` or a `MazeWheel` through `@neon-spore/sim` had to move.
  */
 
+export {
+  BATON_SOCKET_DARK,
+  BATON_SOCKET_LIT,
+  BATON_SOCKET_SHED,
+  BATON_STAGES,
+  type BatonStage,
+  type BatonState,
+  batonBaseCol,
+  batonBeadCol,
+  batonBeadRowMilli,
+  batonDark,
+  batonLocked,
+  batonSocketRow,
+} from "./baton.js";
+export { batonBoss } from "./baton-step.js";
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
 export type { BossState, FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 // The six rounds are next door and re-exported whole (`bosses-round.ts`).
@@ -38,6 +53,7 @@ export {
 } from "./diastole.js";
 export { diastoleBoss } from "./diastole-step.js";
 export {
+  type BatonEntry,
   BOSS_KINDS,
   bossFillsWave,
   type CairnEntry,

@@ -1,3 +1,4 @@
+import { batonBeadAlong, batonStruck } from "./baton-press.js";
 import { resolve } from "./bullet-hit.js";
 import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
@@ -123,8 +124,20 @@ function sweep(world: World, b: Bullet): boolean {
     // samples — one tile of box against 160 thousandths of travel.
     const hit = firstAlong(world, b, from, to);
     const pod = firstPodAlong(world, b.col, from, to);
-    // Both can be inside the same sweep. The shot stops at whichever stands
-    // lower in the column, because that is the one it reaches first.
+    // And THE BATON's bead, when it is in the air in this column — the one
+    // thing on the field that is not a body and not a pod and still stops a
+    // shot (`baton-press.ts`). All three can be inside the same sweep. The
+    // shot stops at whichever stands lower in the column, because that is the
+    // one it reaches first.
+    const bead = batonBeadAlong(world, b, from, to);
+    if (
+      bead >= 0 &&
+      (!hit || bead >= creatureMilli(world, hit)) &&
+      (!pod || bead >= pod.rowMilli)
+    ) {
+      batonStruck(world, b, bead);
+      return false;
+    }
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {
       freePod(world, pod);
       return false;

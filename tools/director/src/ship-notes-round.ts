@@ -43,6 +43,23 @@ export const ROUND_NOTES = {
     "coincidence and the burst both open one of THE SLOW's windows, whose own " +
     "two dials are under THE BEAT. Nothing about it is authored per wave. " +
     "See sim/diastole.ts, sim/config-diastole.ts, docs/decisions.md #33.",
+  "THE BATON — a bead passed down an arm, one seat a beat":
+    "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §10: " +
+    "an arm of batonSockets sockets hangs from the top of the middle column " +
+    "with one bead in the topmost, and the bead is passed down it by strict " +
+    "alternation. Player 1's trigger launches it, and it is in the air for " +
+    "batonFlightBeats — THE DRAG, not THE SLOW: the clock never bends, the " +
+    "bead is slow — during which a shot of its colour up its column from " +
+    "player 2 lands it a socket lower and darkens the one it left. The seat " +
+    "that acted is locked out of every control for batonLockBeats. A bead " +
+    "nobody hits lands back where it was and relights the socket; a bead left " +
+    "sitting batonTurnBeats (batonTightTurnBeats once batonTightenAfter " +
+    "handovers are made) settles back to the top. After batonSwingAfter dark " +
+    "sockets the arm swings a column either side of the middle; after " +
+    "batonShedAfter it sheds its topmost dark socket as a rock every " +
+    "batonShedBeats. Out of the last socket the bead falls as a pod, the maw " +
+    "takes it, and the arm folds away in batonDownBeats. Nothing about it is " +
+    "authored per wave. See sim/baton.ts, sim/config-baton.ts.",
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

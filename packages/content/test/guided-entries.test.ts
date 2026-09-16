@@ -68,6 +68,12 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // by the dome, which is player 1's, and he is also the one who must hold the
   // cannon still in the middle column for the whole fill.
   "THE DIASTOLE": ["meteor"],
+  // THE BATON introduces no creature either — what is new is that a seat is
+  // locked out of its own phone for the beat after it acts — so every arrival
+  // on it is a kept kind. The rock is what puts the lockout on the *shared*
+  // control: a ward needs her plate and his trigger, and on this wave one of
+  // them is always a beat behind the other.
+  "THE BATON": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

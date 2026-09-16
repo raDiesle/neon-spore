@@ -7589,3 +7589,24 @@ problem — a file that is deleted takes its own line out of the index and
 leaves every sentence that pointed at it standing.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — boss-implementation — THE BATON's simulation
+
+The first of a run of bosses worked one after another in one session, each
+claimed on `main`'s copy of `docs/spec/bosses-choreographed.md` before it is
+started so a second session working the same list can see it. This is the
+simulation half; the look is the next lane.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | §10 of the design page, the DIASTOLE lane's diff as the template for a boss's plumbing, `pods.ts`'s intake and `bullets.ts`'s sweep |
+| writing | 15 | `baton*.ts` (five files), `ship-verbs.ts` out of `stare.ts`, `bind-warden.ts` out of `bind.ts`, the wave in `act-7c.ts`, the director's group and dials, seven sounds, 13 tests |
+| looking | 0 | — the look is the next lane and nothing drawn changed |
+| friction | 5 | two sounds in the speech band with the five `pierce` permissions already spent; `hash-coverage` asking for a tuple's length; both guide halves over 220 characters |
+| landing | 5 | `check:fast`, the index, the baseline, the commit |
+
+The bottleneck was the swing: `[0, 1, 0, -1][handovers % 4]` indexed by the
+handover count from the *start* of the fight, so the first flight after the
+arm was allowed to swing did not swing at all and the test that asked for a
+column off the base caught it. It now counts from the handover the swing
+began on, so the first swung flight is a swing.

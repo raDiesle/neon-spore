@@ -18,6 +18,7 @@ type BossId = Extract<
   | "reprise"
   | "stare"
   | "diastole"
+  | "baton"
 >;
 
 /**
@@ -87,6 +88,10 @@ export const BOSS_MECHANICS = {
   },
   stare: {
     what: "An eye over the field that looks at one of you at a time. It turns towards a seat for four beats — only the other seat is shown which — and then it watches. While it is watching that player may not press anything at all: not the strip, not the trigger, not the plate. A button touched under it breaks the hull and the wave starts again. The other player keeps playing, alone, and the looks get longer as the wave goes on.",
+    reach: "spawn",
+  },
+  baton: {
+    what: "A segmented arm hanging from the top of the middle lane, eleven sockets long, with one bright bead standing in the topmost. The bead is safe in a socket and can only be hurt while it is moving between two — and it only moves when the pilot pulls the trigger. The seat that acts is locked out of its own phone for the next beat, so the bead is passed down the arm by strict alternation: he launches it, she shoots it in the air, he launches it again. A launched bead nobody hits lands back where it was; a bead nobody launches in time settles, and a settled bead goes back to the top. Each socket it leaves goes dark for good, the dark ones start dropping off the arm as rocks, the arm starts swinging, and out of the last socket the bead falls as a pod for the maw.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

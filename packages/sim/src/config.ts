@@ -1,4 +1,5 @@
 import { BALLOON_DEFAULTS, type BalloonConfig } from "./config-balloon.js";
+import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 import { BEATBOX_DEFAULTS, type BeatboxConfig } from "./config-beatbox.js";
 import { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 import { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
@@ -33,6 +34,7 @@ import { VOLLEY_DEFAULTS, type VolleyConfig } from "./config-volley.js";
 import { WEIGHT_DEFAULTS, type WeightConfig } from "./config-weight.js";
 
 export { BALLOON_DEFAULTS, type BalloonConfig } from "./config-balloon.js";
+export { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 export { BEATBOX_DEFAULTS, type BeatboxConfig } from "./config-beatbox.js";
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
 export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";
@@ -87,6 +89,7 @@ export interface SimConfig
     StareConfig,
     SlowConfig,
     DiastoleConfig,
+    BatonConfig,
     CrawlerConfig,
     CrystalConfig,
     GumConfig,
@@ -207,6 +210,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...STARE_DEFAULTS,
   ...SLOW_DEFAULTS,
   ...DIASTOLE_DEFAULTS,
+  ...BATON_DEFAULTS,
   ...GHOST_DEFAULTS,
   ...FENCE_DEFAULTS,
   ...GYRE_DEFAULTS,

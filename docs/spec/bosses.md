@@ -1727,3 +1727,74 @@ and five meet every fifteen beats and on no beat between, that a chamber can
 only be hurt while contracting, that nothing single lands once both are
 beating, and that the beam in the bridge takes both at once
 (`sim/test/diastole.test.ts`).
+
+## 11.18 THE BATON — a bead passed down an arm, one seat a beat
+
+> The one where acting locks you out of the next beat, so the two of you have
+> to become a metronome.
+
+Designed as §10 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: every mechanic in the game shares the ship between the
+seats, and this is the one that asks whether the two of them can *take turns*
+without either of them deciding whose turn it is. The rule decides: whoever
+acted is dead for the beat after, and the other half of the handover is the
+only thing left to do.
+
+**The shape.** An arm of `batonSockets` (11) sockets hangs down the middle
+column from the top row, one socket a row, with a bead in the topmost. It is a
+fixture, not a body (`bossFillsWave === false`): the fall loop, the hull and a
+hand find nothing of it, and the arrivals around it are the wave's own
+(`content/src/waves/act-7c.ts`, kept off the arm's column and its neighbours).
+The bead's own drop out of the bottom is a loose purge pod, and a segment the
+arm sheds is a meteor — everything it ever puts on the field is a thing a rule
+that already exists knows how to meet.
+
+**The rule, in one sentence.** Player 1's trigger launches the sitting bead,
+which is in the air for `batonFlightBeats` (3) — **THE DRAG, not THE SLOW**;
+the field does not slow, the bead simply takes three real beats to cross one
+socket — and player 2 has those three to put a shot of the bead's colour
+through it; a bead struck lands one socket down and the socket it left goes
+dark for good, a bead not struck lands back where it was, and **the seat that
+acted may not touch the ship on the beat after** (`batonLockBeats`, the
+TurnLock in `sim/baton-press.ts`, asked in `applyCommand` beside THE STARE's
+and swallowing rather than charging: the seat was told *not yet*, not warned
+off). The bead flips colour on every landing, so the colour language teaches
+the alternation for free.
+
+**The clock tightens and the arm moves.** A bead that sits `batonTurnBeats`
+(2) is shaken back to the top socket by the arm, and after `batonTightenAfter`
+(4) handovers that is `batonTightTurnBeats` (1) — one beat, which is no time to
+argue. After `batonSwingAfter` (4) dark sockets the arm swings the landing a
+column off the base, right, back, left, back, so the cannon has to follow the
+bead between player 1's own turns. After `batonShedAfter` (6) dark sockets the
+topmost dark socket the bead is not sitting in lets go every `batonShedBeats`
+(8): one rock, down the arm's own column, from that socket's row. That is the
+DIASTOLE lane's exception spoken for — the column is wherever the arm swung,
+the row is whichever socket went dark first, and the beat is the one the
+pair's own handovers reached the sixth on, and none of the three is a number
+an author could write.
+
+**Health is the arm.** Out of the last socket there is nothing to land in: the
+bead drops as a loose pod and the fight ends the way a pod does, in the maw
+with player 1 under it (`batonBeadTaken`). Then `batonDownBeats` (4) of the arm
+folding before the boss is nulled and the wave may close under it.
+
+**What is not built**, each of them a lane on its own once the look is in:
+the second bead the design page starts at step 9, the eleven-act final flight
+and the merge (steps 12–13), *a shot at a creature is her turn spent* (step 7 —
+today only a shot through the bead spends it), and the lance beam, which does
+not touch the bead at all. The base is fixed to the middle column rather than
+authored, for THE VANE's reason.
+
+**What it does not draw yet**, and it is the lane after this one: the arm, the
+sockets going dark and shed, the bead in flight with its colour, the grey
+panel on the locked seat's phone and the shaken settle. Until that lands the
+boss plays and is invisible — and the lock is a thing the pair can only feel.
+
+**Never watched at tempo.** Whether *going — got it* fits inside three beats
+at 96 BPM with a word between is a thing a person finds out with another
+person. What the tests say is the mechanism: the unfold is a socket a beat, a
+launch locks one seat and not the other, the right colour hands over and the
+wrong one relights, the arm settles, swings and sheds on the counts the
+numbers say, the last drop is a pod the maw takes, and the same run
+fingerprints the same way twice (`sim/test/baton.test.ts`).

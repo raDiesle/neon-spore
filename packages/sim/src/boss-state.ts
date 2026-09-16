@@ -1,3 +1,4 @@
+import type { BatonState } from "./baton.js";
 import type { CairnState } from "./cairn.js";
 import type { DiastoleState } from "./diastole.js";
 import type { FleetShip } from "./fleet-board.js";
@@ -242,4 +243,5 @@ export type BossState =
   | SpliceState
   | ScoutState
   | StareState
-  | DiastoleState;
+  | DiastoleState
+  | BatonState;

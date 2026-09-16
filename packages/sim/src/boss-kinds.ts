@@ -39,12 +39,16 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // (`diastole.ts`). A diastole wave with no arrivals would be two hearts
   // beating over an empty field — and worse, a boss nobody could author
   // pressure against, since the pressure *is* the wave.
+  // THE BATON is the sixth: an arm hanging in one column that falls nothing
+  // but its own dead segments, whose whole behaviour is whose turn it is
+  // (`baton.ts`). The arrivals around it are the wave's own.
   return (
     kind !== "vane" &&
     kind !== "well" &&
     kind !== "reprise" &&
     kind !== "stare" &&
-    kind !== "diastole"
+    kind !== "diastole" &&
+    kind !== "baton"
   );
 }
 
@@ -108,4 +112,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "reprise",
   "stare",
   "diastole",
+  "baton",
 ];

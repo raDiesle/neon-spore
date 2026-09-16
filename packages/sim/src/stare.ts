@@ -1,3 +1,4 @@
+import { reachesShip } from "./ship-verbs.js";
 import type { Command } from "./types.js";
 
 /**
@@ -124,19 +125,9 @@ export function stareTellLeft(stare: StareState, beat: number, tellBeats: number
  *
  * What is **not** here is the host talking to the run rather than a seat
  * talking to the ship: leaving, retrying, the guide's own steps and the ready
- * gate. A pair frozen out of `restart` would be a pair who could not put the
- * phone down, and `applyCommand` already reads `restart` above every other
- * rule for that reason.
+ * gate. The list itself is `reachesShip` (`ship-verbs.ts`), since THE BATON
+ * forbids a seat the same verbs and two copies of it would drift.
  */
 export function stareForbids(c: Command): boolean {
-  switch (c.kind) {
-    case "restart":
-    case "retry":
-    case "quit":
-    case "brief":
-    case "guideStep":
-      return false;
-    default:
-      return true;
-  }
+  return reachesShip(c);
 }

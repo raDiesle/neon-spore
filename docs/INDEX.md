@@ -353,6 +353,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
 | `packages/sim/src/lance-burn.ts` | **THE LANCE going off**: the lobe coming full, and the column burning on that tick |
 | `packages/sim/src/shot-reach.ts` | **What a shot meets on a stretch of a column**, and the one place that question is answered |
+| `packages/sim/src/ship-verbs.ts` | **Which commands are a seat talking to the ship**, as against the host talking to the run |
 | `packages/sim/src/beatbox-round.ts` | **What happens to a soundbox**: the thumb that lands on it, the run being committed |
 | `packages/sim/src/beatbox.ts` | THE BEATBOX: a soundbox that swells on every beat |
 | `packages/sim/src/config-beatbox.ts` | THE BEATBOX's numbers: how many beats one asks for, how near the beat a tap has to land |
@@ -363,7 +364,12 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/balloon-rub.ts` | What a balloon does once both hands have reached it: the hold, then the split into two halves that both climb, or the pop |
 | `packages/sim/src/balloon-entry.ts` | **WHERE A BALLOON COMES IN**, which the owner rewrote on 14 September 2026 |
 | `packages/sim/src/balloon.ts` | THE BALLOON: the first body in this game that does not come down |
+| `packages/sim/src/baton-hash.ts` | What THE BATON puts into `hashWorld`, and nothing else |
+| `packages/sim/src/baton-press.ts` | THE BATON's presses: the launch, the strike, the take and the lock |
+| `packages/sim/src/baton-step.ts` | THE BATON's clock: the unfold, the landing, the settle, the shed and the fold |
+| `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
+| `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
 | `packages/sim/src/creature-state-mine.ts` | **THE MINE's two fields**, a count and a seat, and between them they are the whole of a body that never moves |
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
@@ -372,6 +378,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/diastole-step.ts` | THE DIASTOLE's four phases, and the one shot that takes a chamber |
 | `packages/sim/src/diastole.ts` | THE DIASTOLE's shape and its questions — which column, which colour, which seat, and whether a chamber is contracting on a given beat |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
+| `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -1224,11 +1231,13 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
+| `packages/audio/src/bind-baton.ts` | THE BATON's seven, in a file of their own because `bind.ts` is at its limit |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
+| `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
 
 ### apps/game
 

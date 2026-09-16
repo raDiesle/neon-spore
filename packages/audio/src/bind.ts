@@ -13,6 +13,7 @@
 
 import type { SimEvent } from "@neon-spore/sim";
 import { balloonCue } from "./bind-balloon.js";
+import { batonCue } from "./bind-baton.js";
 import { beatboxCue } from "./bind-beatbox.js";
 import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
@@ -32,6 +33,7 @@ import { mirrorCue } from "./bind-mirror.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
 import { spliceCue } from "./bind-splice.js";
 import { volleyCue } from "./bind-volley.js";
+import { wardenCue } from "./bind-warden.js";
 
 // **What a cue is** is `bind-cue.ts` and **where a sound is** is
 // `bind-place.ts`, re-exported here for every `bind-*.ts` file.
@@ -105,21 +107,13 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       return { id: "pod.lost", pan: panForCol(e.col, cols) };
     case "breach":
       return breachCue(e, cols);
+    // THE WARDEN's four, in `bind-warden.ts`: a rope, a door, a plate, and
+    // the last plate.
     case "tether":
-      // A rope coming down out of the rim. Both screens hear it, and only one
-      // of them has a hand free to answer it.
-      return { id: "boss.wardenTether", pan: panForCol(e.col, cols) };
     case "eyeOpen":
-      // The one cue written for this boss: a door in something enormous. It
-      // fires when the rope comes fully taut, which is the moment player 2 has
-      // been waiting on and cannot feel.
-      return { id: "boss.warden", pan: panForCol(e.col, cols) };
     case "plate":
-      return {
-        id: "boss.wardenPlate",
-        pan: panForCol(e.col, cols),
-        pitch: pitchForRow(e.row, rows),
-      };
+    case "wardenDown":
+      return wardenCue(e, cols, rows);
     // THE CRAWLER's two endings, in `bind-crawler.ts`, on the same terms.
     case "crawlerBeam":
     case "crawlerBurrow":
@@ -137,8 +131,15 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     // to look somewhere — the one thing that is not what went wrong.
     case "stareCaught":
       return { id: "boss.stareCaught" };
-    case "wardenDown":
-      return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
+    // THE BATON's seven, in `bind-baton.ts`: handovers, each panned to its lane.
+    case "batonLaunch":
+    case "batonStruck":
+    case "batonLanded":
+    case "batonRelit":
+    case "batonSettled":
+    case "batonShed":
+    case "batonDown":
+      return batonCue(e, cols);
     case "queenDown":
       return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
     // THE MIRROR's four and THE MAZE's four, in `bind-mirror.ts`: the two

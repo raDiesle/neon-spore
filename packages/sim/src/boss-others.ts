@@ -1,3 +1,4 @@
+import { stepBaton } from "./baton-step.js";
 import type { BossState, QueenState } from "./boss-state.js";
 import { stepCairn } from "./cairn.js";
 import { stepDiastole } from "./diastole-step.js";
@@ -52,6 +53,14 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // and when the bridge has finished bursting (`diastole-step.ts`).
   if (boss.kind === "diastole") {
     stepDiastole(world, boss);
+    return;
+  }
+  // THE BATON on the beat is the arm's own clock: a bead lands, a bead that
+  // sat too long is shaken home, a dead segment lets go. Both presses — the
+  // launch and the strike — arrive on the tick, from `commands.ts` and
+  // `bullets.ts` (`baton-press.ts`).
+  if (boss.kind === "baton") {
+    stepBaton(world, boss);
     return;
   }
   if (boss.kind === "vane") {

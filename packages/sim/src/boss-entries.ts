@@ -184,6 +184,19 @@ export interface DiastoleEntry {
   kind: "diastole";
 }
 
+/**
+ * What a wave authors when it wants THE BATON, which is nothing at all —
+ * THE STARE's entry one boss along. No column: the arm hangs dead centre for
+ * THE DIASTOLE's reason. No health: it is `batonSockets` sockets and the
+ * fight's length is the pair's own alternation. And no cadence, because the
+ * cadence *is* the boss and is tuning (`config-baton.ts`): a wave that
+ * authored its own flight length would be several different bosses wearing
+ * one name.
+ */
+export interface BatonEntry {
+  kind: "baton";
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -202,7 +215,8 @@ export type BossEntry =
   | SpliceEntry
   | ScoutEntry
   | StareEntry
-  | DiastoleEntry;
+  | DiastoleEntry
+  | BatonEntry;
 
 export type {
   FleetEntry,

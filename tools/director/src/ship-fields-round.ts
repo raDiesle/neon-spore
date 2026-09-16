@@ -56,6 +56,19 @@ export const ROUND_FIELD_GROUP = {
   diastoleRightAloneBeats: "THE DIASTOLE — two hearts on two cadences, one each",
   diastoleChamberHits: "THE DIASTOLE — two hearts on two cadences, one each",
   diastoleBurstBeats: "THE DIASTOLE — two hearts on two cadences, one each",
+  // BatonConfig — the arm's length and every beat a handover takes. All of
+  // them are the pair's cadence: a flight is a word and a press, a turn is a
+  // look and a word, and a lock is *not you, not this beat* (`config-baton.ts`).
+  batonSockets: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonFlightBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonTurnBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonTightTurnBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonTightenAfter: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonLockBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonSwingAfter: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonShedAfter: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonShedBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonDownBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

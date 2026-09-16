@@ -13,7 +13,21 @@
  */
 
 export {
+  BATON_SOCKET_DARK,
+  BATON_SOCKET_LIT,
+  BATON_SOCKET_SHED,
+  BATON_STAGES,
+  type BatonEntry,
+  type BatonStage,
+  type BatonState,
   BOSS_KINDS,
+  batonBaseCol,
+  batonBeadCol,
+  batonBeadRowMilli,
+  batonBoss,
+  batonDark,
+  batonLocked,
+  batonSocketRow,
   bossFillsWave,
   type CairnState,
   cairnState,

@@ -1,3 +1,4 @@
+import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-state.js";
 import { diastoleHashParts } from "./diastole-hash.js";
 import { BOSS_KINDS } from "./entries.js";
@@ -168,6 +169,12 @@ export function bossHashParts(boss: BossState | null): number[] {
   // they matter as much as any board (`diastole-hash.ts`).
   if (boss !== null && boss.kind === "diastole") {
     for (const n of diastoleHashParts(boss)) push(n);
+  }
+  // THE BATON, gathered beside the boss like the seven above it — and the one
+  // whose numbers are *two locks*, one per seat, which decide who may touch
+  // their own phone this beat (`baton-hash.ts`).
+  if (boss !== null && boss.kind === "baton") {
+    for (const n of batonHashParts(boss)) push(n);
   }
   if (boss !== null && boss.kind === "scout") {
     for (const n of scoutHashParts(boss)) push(n);

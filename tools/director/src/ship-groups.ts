@@ -28,6 +28,7 @@ export type GroupName =
   | "THE SCOUT — a little ship one of you flies"
   | "THE STARE — an eye that freezes whoever it looks at"
   | "THE DIASTOLE — two hearts on two cadences, one each"
+  | "THE BATON — a bead passed down an arm, one seat a beat"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -100,6 +101,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE SCOUT — a little ship one of you flies",
   "THE STARE — an eye that freezes whoever it looks at",
   "THE DIASTOLE — two hearts on two cadences, one each",
+  "THE BATON — a bead passed down an arm, one seat a beat",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",
@@ -169,6 +171,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE SCOUT — a little ship one of you flies",
   "THE STARE — an eye that freezes whoever it looks at",
   "THE DIASTOLE — two hearts on two cadences, one each",
+  "THE BATON — a bead passed down an arm, one seat a beat",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",
@@ -200,6 +203,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   scout: "THE SCOUT — a little ship one of you flies",
   stare: "THE STARE — an eye that freezes whoever it looks at",
   diastole: "THE DIASTOLE — two hearts on two cadences, one each",
+  baton: "THE BATON — a bead passed down an arm, one seat a beat",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

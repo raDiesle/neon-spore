@@ -1,3 +1,4 @@
+import { installBaton } from "./baton-step.js";
 import { clampQueenCol, initialDropSide } from "./boss.js";
 import { installCairn } from "./cairn.js";
 import { installDiastole } from "./diastole-step.js";
@@ -120,6 +121,14 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // (`diastole-step.ts`), and the arrivals underneath are the ones the wave's
     // own author wrote (`bossFillsWave`).
     world.boss = installDiastole(world);
+  } else if (boss?.kind === "baton") {
+    // No creature and no row of its own: the arm hangs in the middle column
+    // and the bead in it is not a body, so the fall loop, the hull and a hand
+    // find nothing of it. What it does put on the field it puts there as
+    // ordinary things — a shed segment is a meteor and the bead's last drop
+    // is a pod — so every rule that meets one is a rule that already exists
+    // (`baton-step.ts`). The arrivals around it are the wave's own.
+    world.boss = installBaton(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

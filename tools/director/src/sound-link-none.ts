@@ -60,6 +60,22 @@ export const NO_SUBJECT: Record<string, string> = {
     "the last tangle coming apart. What this marks is a field with no straws left over it, which is an absence like ui.waveClear rather than a thing standing anywhere.",
   "boss.stareCaught":
     "a thumb landing while the eye was watching that seat. What it is attached to is not a body at all — it is a *button*, on a panel, pressed by the wrong person at the wrong moment — and the eye itself is a thing in the sky the sheet has no card for yet (`sim/stare.ts`).",
+  // THE BATON's seven. Every one of them happens to a *bead* in a socket of an
+  // arm that hangs from the top of the field, and neither the arm nor the bead
+  // is drawn yet (`docs/spec/bosses.md`) — the sheet has cards for bodies that
+  // stand on the field, and this is a fixture over it whose look half is owed.
+  "boss.batonLaunch":
+    "a bead leaving its socket. What it is attached to is THE BATON's arm, a fixture hanging from the top of the field that no sheet has a card for yet (`sim/baton.ts`).",
+  "boss.batonStruck": "the same bead, hit in the air between two sockets. Same argument.",
+  "boss.batonLanded":
+    "the bead landing a socket lower, and the one it left going dark. Same argument.",
+  "boss.batonRelit": "the bead landing back where it was, untouched. Same argument.",
+  "boss.batonSettled":
+    "the bead going back to the top of the arm after a missed turn. Same argument.",
+  "boss.batonShed":
+    "a dark socket parting from the arm. What falls is a meteor, which has a card; what it fell *from* is the arm, which does not.",
+  "boss.batonDown":
+    "the last drop taken and the arm coming off at every joint. What this marks is a field with no arm left over it — an absence like ui.waveClear rather than a thing standing anywhere.",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",

@@ -59,6 +59,10 @@ const STILL_PROSE = [
   // it would have to show a pulse the watching seat cannot see, which is the
   // boss; until the chambers are drawn there is nothing to choreograph against.
   "THE DIASTOLE",
+  // And THE BATON, owed by the lane that draws the arm. Its film is a bead in
+  // the air and a panel going grey under a thumb that must not land — the same
+  // "not touching" THE STARE's needs, with the arm drawn to give it a reason.
+  "THE BATON",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -82,11 +86,11 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   });
 
   it("counts the guided waves the opening section names", () => {
-    // "seventy of the seventy-nine waves today" — the one figure in §1
+    // "seventy-one of the eighty waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says seventy of seventy-nine";
-    expect(guided.length, fix).toBe(70);
-    expect(WAVES.length, fix).toBe(79);
+    const fix = "update §1 of docs/spec/briefings.md, which says seventy-one of eighty";
+    expect(guided.length, fix).toBe(71);
+    expect(WAVES.length, fix).toBe(80);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

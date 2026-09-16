@@ -1,3 +1,4 @@
+import { batonBeadTaken } from "./baton-press.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import type { PodEntry } from "./entries.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
@@ -209,6 +210,9 @@ function resolveIntake(world: World, pod: Pod): void {
 
   if (inColumn && inTime) {
     takeCargo(world, col, pod.kind);
+    // And if it was THE BATON's bead, the arm is beaten. A no-op for every
+    // pod a wave hung (`baton-press.ts`).
+    batonBeadTaken(world, pod.id);
     return;
   }
   lost(world, pod);

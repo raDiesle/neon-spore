@@ -99,6 +99,11 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // centred on an eleven-column field as exactly as on the seven it was
   // authored against (`sim/diastole.ts`).
   if (boss.kind === "diastole") return { ...boss };
+  // THE BATON has nothing to remap for THE DIASTOLE's reason: the arm hangs
+  // in `midCol` of the field being played and swings a column either side of
+  // it, so it is as centred on eleven columns as on the seven it was authored
+  // against (`sim/baton.ts`).
+  if (boss.kind === "baton") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

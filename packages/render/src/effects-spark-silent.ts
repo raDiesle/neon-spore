@@ -118,6 +118,16 @@ export const SILENT = [
   // (`docs/spec/bosses.md`). The hull's own `breach` lands in the same tick,
   // so the pair is not left wondering whether anything happened.
   "stareCaught",
+  // THE BATON's seven, for the same reason: the arm and the bead are its look
+  // half and are not drawn yet (`docs/spec/bosses.md`). A shed socket is a
+  // meteor and the last drop is a pod, and both of those burst on their own.
+  "batonLaunch",
+  "batonStruck",
+  "batonLanded",
+  "batonRelit",
+  "batonSettled",
+  "batonShed",
+  "batonDown",
   "quit", // The run ending is the menu opening (`apps/game`), not a mark on the field.
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.

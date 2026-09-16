@@ -1,3 +1,4 @@
+import { batonLaunch, batonLocks } from "./baton-press.js";
 import { beatboxTapped } from "./beatbox-round.js";
 import { fire } from "./bullets.js";
 import { choirShaken } from "./choir-gesture.js";
@@ -80,6 +81,9 @@ export function applyCommand(world: World, timed: TimedCommand): void {
   // once, the lobe, the swipe on the hull, a rehearsal's ghost thumb and the
   // wire (`stare-step.ts`).
   if (stareBreaks(world, timed)) return;
+  // **THE BATON swallows a press and says nothing**: the seat was told *not
+  // yet*, and the grey panel is the whole of the telling (`baton-press.ts`).
+  if (batonLocks(world, timed)) return;
 
   switch (c.kind) {
     case "cannonCol": {
@@ -121,6 +125,9 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     }
     case "guard":
       mirrorHeard(world, "guard");
+      // And THE BATON's launch, which is this trigger while the bead sits;
+      // the dome still comes up. A no-op unless that boss is installed.
+      batonLaunch(world);
       // Everything the dome coming up means is one call, because a shield
       // malfunction arms it on the beat with nobody pressing anything and the
       // two paths must not drift (`armShield` in `hull-guard.ts`).

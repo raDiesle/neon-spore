@@ -170,6 +170,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // authoring (`config-diastole.ts`). Everything it remembers is a clock the
   // fixture's world will have moved by the time it is fingerprinted.
   diastole: { kind: "diastole" },
+  // THE BATON authors nothing either: the arm's length and every beat it
+  // keeps are tuning (`config-baton.ts`), and what it remembers — which socket
+  // the bead is in, whose turn it is — is what the fixture's world has moved
+  // by the time it is fingerprinted (`baton-hash.ts`).
+  baton: { kind: "baton" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).

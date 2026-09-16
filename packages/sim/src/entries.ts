@@ -201,6 +201,7 @@ export interface SpawnEntry {
 }
 
 export type {
+  BatonEntry,
   BossEntry,
   CairnEntry,
   DiastoleEntry,

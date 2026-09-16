@@ -1,3 +1,4 @@
+import type { BatonEvent } from "./events-baton.js";
 import type { CreatureEvent } from "./events-creature.js";
 import type { FleetEvent } from "./events-fleet.js";
 import type { SpliceEvent } from "./events-splice.js";
@@ -224,8 +225,10 @@ export type SimEvent =
   // because this file keeps coming back to its 250-line limit and a boss is
   // worth four lines of it (`events-splice.ts`, `events-stare.ts`).
   | SpliceEvent
-  | StareEvent;
+  | StareEvent
+  | BatonEvent;
 
+export type { BatonEvent } from "./events-baton.js";
 export type { FleetEvent } from "./events-fleet.js";
 export type { SpliceEvent } from "./events-splice.js";
 export type { StareEvent } from "./events-stare.js";

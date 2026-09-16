@@ -1,4 +1,5 @@
 import type {
+  BatonEntry,
   BossEntry,
   DiastoleEntry,
   GaugeEntry,
@@ -45,6 +46,11 @@ import type {
  *   — three against five is a coincidence every fifteen beats, and a wave that
  *   authored its own pair would be a boss nobody could ever have learned to
  *   count (`sim/config-diastole.ts`).
+ * - **THE BATON** asks for nothing for THE STARE's reason and one more: the
+ *   arm hangs in `midCol` so there is no column, the sockets are the health so
+ *   there is no number, and the wave underneath is the wave its author wrote.
+ *   Every beat it keeps — the flight, the turn, the lock — is the pair's
+ *   cadence rather than a per-wave decision (`sim/config-baton.ts`).
  *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
@@ -52,7 +58,7 @@ import type {
  */
 export function bossAuthorsNothing(
   boss: BossEntry,
-): boss is GaugeEntry | WellEntry | ScoutEntry | StareEntry | DiastoleEntry {
+): boss is GaugeEntry | WellEntry | ScoutEntry | StareEntry | DiastoleEntry | BatonEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -62,6 +68,7 @@ export function bossAuthorsNothing(
     kind === "well" ||
     kind === "scout" ||
     kind === "stare" ||
-    kind === "diastole"
+    kind === "diastole" ||
+    kind === "baton"
   );
 }
