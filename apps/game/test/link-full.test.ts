@@ -37,6 +37,7 @@ function fakeSocket() {
     },
     say: (message: ServerMessage) => handlers?.message(message),
     worthRetrying: () => handlers?.worthRetrying() ?? false,
+    reclaiming: () => handlers?.reclaiming() ?? false,
   };
 }
 
@@ -91,6 +92,10 @@ describe("a room that says it is full", () => {
     // somebody else's.
     expect(wire.calls.surrender).toBe(0);
     expect(wire.worthRetrying()).toBe(true);
+    // And the attempts left are the *reclaim's*, not the six an ordinary drop
+    // gets: the room holds the seat for `SEAT_HELD_MS` and the six run out
+    // less than halfway through it (`link-socket.ts`, `RECLAIM_TRIES`).
+    expect(wire.reclaiming()).toBe(true);
   });
 
   test("the reaching still stops when the room means it", () => {
@@ -134,5 +139,7 @@ describe("a room that says it is full", () => {
     wire.say({ t: "error", why: "protocol version 1 expected", code: "protocol" });
     expect(link.status().state).toBe("lost");
     expect(wire.calls.surrender).toBe(1);
+    // Nothing is being raced for here, so nothing gets the reclaim's patience.
+    expect(wire.reclaiming()).toBe(false);
   });
 });

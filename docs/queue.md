@@ -646,3 +646,65 @@ worse than the one this fixes.
 
 Provable with `bun run check`: `tools/frames/test/` holds the planner already,
 and the remap is a pure function over a column and a field width.
+
+## The room writes to storage twice for every message on the wire
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `apps/server/src/room.ts`, `apps/server/src/room-memory.ts`, `apps/server/src/seat.ts`, `apps/server/test/room.test.ts`
+
+`webSocketMessage` ends in two writes to the Durable Object's storage, on every
+message without exception: `stamp(socket)` serialises the seat's `lastSeen`
+attachment, and `mem.heardNow()` puts the room's `heard` under its key. A run
+sends a `confirm` from each device on every frame and an `input` beside it on
+every press, so a pair playing is a room writing its own clock to disk well
+over a hundred times a second, for two numbers nothing reads more than once
+every ten seconds.
+
+Neither reader needs the precision it is being paid for. `lastSeen` decides a
+seat evicted at `SEAT_HELD_MS`, which is ten thousand milliseconds; `heard`
+decides a run abandoned at `RUN_OVER_MS`, which is thirty thousand. A write
+skipped unless the held value is more than a second old costs at most a second
+of accuracy on either window, and takes the two writes per message down to two
+writes per second per room.
+
+What to do: keep both fields in memory on every message as now, and write only
+when the stored copy has fallen more than a second behind — the field is the
+truth while the object is awake, and the write is only there so hibernation
+does not lose it. `room.test.ts` already shortens both windows through `vars`,
+so the eviction and the stale-run cases prove the throttle did not move them;
+a case that counts writes wants a storage stand-in the room can be built with,
+which `RoomMemory` taking its storage in the constructor already allows.
+
+## A peer's commands are dropped until this device reaches beat zero
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `apps/game/src/link.ts`, `apps/game/src/link-run.ts`, `packages/net/src/lockstep.ts`, `packages/net/test/two-devices-opening.test.ts`
+
+`createRun` builds its `Lockstep` in `begin`, and `run.receive` is
+`lockstep?.receive(message)` — so every `input` and `confirm` that lands before
+this device has begun goes nowhere at all, silently. The two devices begin at
+their own reading of one `startMs`, and the gap between those readings is
+whatever their clock offsets disagree by; anything the peer schedules inside
+that gap is simulated on one device and not on the other, which is a parting
+the fingerprints report four beats later as a desync with no cause attached.
+
+The gap is normally milliseconds and the field is normally still during a
+wave's opening, which is why this has not been seen. It is not always either:
+`frame` holds a device in `syncing` until `clock.ready`, so a phone that
+reaches beat zero with a window of stale samples — the rejoin case `snap` was
+written for — sits out the first seconds of a run the peer is already playing
+and drops every command sent in them. Its `peerHorizon` then jumps forward to
+the promise it was handed, so it races through those ticks empty rather than
+stalling on them.
+
+What to do, and the two halves are separable. The cheap half is to notice:
+`Lockstep` can take the tick its run started on and count a peer message that
+arrives before it, so the ledger reports *commands lost at the start* rather
+than a fingerprint mismatch at tick 240. The real half is to hold what arrives:
+a pre-begin buffer in `link-run.ts` fed into the new scheduler, which needs the
+messages of the *previous* run kept out of it — the room stamps a fresh beat
+zero for every rejoin and an old run's ticks are far ahead of a new one's, so
+the buffer has to be cleared on every `end` and on every welcome that moves the
+stamp. `two-devices-opening.test.ts` already drives two devices through a beat
+zero over a wire it controls, so a case that begins one device late belongs
+beside the ones there.

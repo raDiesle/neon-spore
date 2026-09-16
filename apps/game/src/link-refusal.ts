@@ -26,9 +26,15 @@ export function turnedAway(state: LinkState): boolean {
  * over to the mobile network — comes back 900 ms later, and for as long as the
  * room takes to notice the old socket is dead it answers `full`: to the very
  * device whose seat it is holding. That is a race, not a refusal. The room
- * evicts a seat silent for ten seconds (`apps/server/src/seat.ts`), and the
- * attempts `link-socket.ts` has left are the window in which that happens, so
- * the answer is to keep reaching rather than to give the seat up.
+ * evicts a seat silent for `SEAT_HELD_MS` (`apps/server/src/seat.ts`), so the
+ * answer is to keep reaching rather than to give the seat up.
+ *
+ * **Keeping reaching is not free, and for a while it was not enough either.**
+ * This said the attempts `link-socket.ts` had left were the window the room
+ * needed — and they were not: six at 900 ms is five and a half seconds against
+ * a hold of ten, so every reclaim ran out of tries while the seat was still
+ * being kept for it. The budget this answer is spent against is `RECLAIM_TRIES`
+ * now, which is the hold in attempts, and this is the question that picks it.
  *
  * Seat 0 is a device the room never answered, and for it `full` means what it
  * says: two other people are in there.

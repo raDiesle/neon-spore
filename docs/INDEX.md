@@ -1137,6 +1137,7 @@ place — the generator keeps whatever is there.
 | `packages/net/src/clock.ts` | four-timestamp clock sync, median, moved gently |
 | `packages/net/src/desync.ts` | the fingerprint ledger — where `hash.ts` finally gets used |
 | `packages/net/src/status.ts` | what the network indicator may say, and nothing else may |
+| `packages/net/src/seat-hold.ts` | how long a room holds a seat for a socket that has stopped answering — `SEAT_HELD_MS`, read by the room that evicts and by the phone that reaches back across the same window |
 | `packages/net/src/room-code.ts` | the four characters two people read to each other |
 | `packages/net/src/command-codec.ts` | Every `Command` variant, checked field by field, before it ever reaches a `Lockstep` or a simulation tick |
 | `packages/net/src/command-fields.ts` | the shape of every field a `Command` can carry on the wire — a colour, a column, a tick, a signed pull — one predicate each, for the decoder to ask for by name |

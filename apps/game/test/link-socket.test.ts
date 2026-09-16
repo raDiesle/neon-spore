@@ -1,6 +1,8 @@
 import { describe, expect, test } from "bun:test";
+import { SEAT_HELD_MS } from "@neon-spore/net";
 import {
   openRoomSocket,
+  RECLAIM_TRIES,
   RECONNECT_MS,
   RECONNECT_TRIES,
   type RoomSocketHandlers,
@@ -34,7 +36,7 @@ class FakeSocket {
 }
 
 /** The counts a caller of `openRoomSocket` sees, and every socket it opened. */
-function room(gathering = false) {
+function room(gathering = false, reclaiming = false) {
   const sockets: FakeSocket[] = [];
   const counts = { waiting: 0, gone: 0, opened: 0 };
   const handlers: RoomSocketHandlers = {
@@ -43,6 +45,7 @@ function room(gathering = false) {
       counts.opened++;
     },
     worthRetrying: () => true,
+    reclaiming: () => reclaiming,
     waiting: () => {
       counts.waiting++;
     },
@@ -149,9 +152,10 @@ describe("a room socket still waiting for the other phone", () => {
 
   test("waits long enough for the room to have let the seat go first", () => {
     // The point of the number: the phone must not abandon a seat the room is
-    // still holding. `SEAT_SILENT_MS` is 10 s in `apps/server/src/seat.ts`.
-    expect(WAITING_TRIES * RECONNECT_MS).toBeGreaterThan(10_000);
-    expect(RECONNECT_TRIES * RECONNECT_MS).toBeLessThan(10_000);
+    // still holding. The room's own window is `SEAT_HELD_MS`, read here from
+    // the one place both ends read it (`packages/net/src/seat-hold.ts`) rather
+    // than written down again as a ten this file would not notice moving.
+    expect(WAITING_TRIES * RECONNECT_MS).toBeGreaterThan(SEAT_HELD_MS);
   });
 
   test("is the state a socket starts in, before any welcome has spoken", () => {
@@ -186,5 +190,57 @@ describe("a room socket still waiting for the other phone", () => {
     r.die();
     expect(r.counts.gone).toBe(1);
     expect(r.counts.waiting).toBe(0);
+  });
+});
+
+/**
+ * **A line that goes mid-run, on a socket the room never saw close.**
+ *
+ * The third budget, and the case none of the others covered. A phone whose TCP
+ * connection vanishes — a pocket, a tunnel, flight mode — leaves the room
+ * holding its chair for `SEAT_HELD_MS`, and for every one of those ten seconds
+ * the room answers the returning phone with `full`. `link-refusal.ts` reads
+ * that as the race it is and keeps reaching; what it had to reach with was the
+ * pair's six attempts, five and a half seconds, so the reaching stopped four
+ * and a half seconds before the seat came free. The reclaim was written to win
+ * that race and could not win it once.
+ */
+describe("a room socket reclaiming a seat the room has not let go of", () => {
+  test("keeps reaching past the moment the room lets the seat go", () => {
+    expect(RECLAIM_TRIES * RECONNECT_MS).toBeGreaterThan(SEAT_HELD_MS);
+  });
+
+  test("outlasts the six an ordinary drop is worth", () => {
+    const r = room(false, true);
+    for (let i = 0; i < RECONNECT_TRIES + 1; i++) {
+      r.die();
+      r.socket.frame(RECONNECT_MS);
+    }
+    expect(r.counts.gone).toBe(0);
+    expect(r.counts.waiting).toBe(RECONNECT_TRIES + 1);
+  });
+
+  test("gives up in the end, because a held seat is not held for ever", () => {
+    const r = room(false, true);
+    for (let i = 0; i < RECLAIM_TRIES; i++) {
+      r.die();
+      r.socket.frame(RECONNECT_MS);
+    }
+    expect(r.counts.gone).toBe(0);
+    r.die();
+    expect(r.counts.gone).toBe(1);
+  });
+
+  test("a drop that is not a reclaim still gets the six, and no more", () => {
+    // The six are right where they were argued for: a room that let the seat
+    // go the moment the socket closed has nothing left to race, and a person
+    // sitting in front of a stopped field is owed the truth quickly.
+    const r = room(false, false);
+    for (let i = 0; i < RECONNECT_TRIES; i++) {
+      r.die();
+      r.socket.frame(RECONNECT_MS);
+    }
+    r.die();
+    expect(r.counts.gone).toBe(1);
   });
 });

@@ -6698,3 +6698,25 @@ which is the entire measured cost of a second lane on the trunk. A practice
 became a resolver, and only one of those two is work.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — task-performance-optimization — the reclaim never won its race
+
+An audit of the two-device path, asked for in the owner's own terms: network
+interruptions, rejoining, waiting for each other, and staying in step. One
+defect came out of it and was fixed; two findings went on the queue.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | `packages/net` whole, the six server files, `link.ts` and its five neighbours, and the three tests that already cover a drop |
+| writing | 25 | one shared constant, the third budget, four cases, two queue entries |
+| looking | 10 | a scratch Durable Object test, twice, to see what the room actually says when a socket vanishes rather than closes |
+| friction | 0 | — `bun run index` wanted a row, which is the tool asking rather than failing |
+| landing | 15 | `check:fast`, `bun run relay:check:all`, the commit |
+
+The bottleneck was reading, and it is what the lane was for — but the ten
+minutes of looking are the ones that earned the fix. The arithmetic was plain
+on the page (six attempts at 900 ms against a ten-second hold) and two files
+of prose said the opposite of it in confident sentences; only a room actually
+answering `full` to a phone holding that very seat settled which was true.
+Where two numbers in two packages have to agree, the cheap check is not to
+read both — it is to make one of them the other.
