@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · b2bcb0b1 — The ship bleeds down the lost screen
+
+Thirteen rivulets of violet run the full width of the lost screen from the top edge to the foot, each on its own clock, each with a heavier head that gathers before it goes. They thin below the hull line so the breach the plates are holding open stays the thing the pair is looking at.
+
 ## 2026-09-16 · 45796c58 — BORROWED comes off the director's sheet
 
 The owner asked for the page to go. It rendered `docs/borrowed.md` whole — It Takes Two and Split Fiction read row by row against whether each mechanic can reach this game — and the answer was NO down most of the verdict column, for the same reason every time: their unit of play is a character crossing a space and ours is a column.

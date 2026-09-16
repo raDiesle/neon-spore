@@ -7021,3 +7021,5 @@ was noticing that `lost-look.test.ts` replaces `veil` and `words` on every one
 of its tests, so until now nothing in the tree had ever drawn this screen's
 real paint through the canvas stub. A whole screen was outside the rule that
 everything drawn is drawn again in a test. It is inside it now.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
