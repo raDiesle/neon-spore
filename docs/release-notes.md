@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 403955e9 — THE MOULT: a rock and a cargo by turns, and the turn is the call
+
+One body that is a rock for five beats and a supply cargo for five, all the way down. Nothing kills it — a shot craters the rock half and is spent on the cargo half — so what it is on the beat it reaches the ship is the whole of what happens: warded or a hull hit as a rock, swallowed by the maw or a lost wave as a cargo. Both seats see the form it is wearing now; only the navigator is shown what is coming, and every control it answers to is the pilot's, so the call is a timing and it has to be said out loud.
+
 ## 2026-09-16 · 89f8e413 — THE MINE: a body on a tile, said by one seat and found by the other's finger
 
 THE WISP hides where a body is from the seat holding the cannon and the answer is still a shot. This one takes the gun out of the sentence: the body stands on a tile and never moves, one seat is drawn it and the other is looking at an empty field, and the only thing that answers it is that seat's finger on that exact square. A bolt bounces off. The four tiles around it break the hull, in its colour, because a pair that has the square to within one tile has already been told the square; anywhere else costs a beat off the count, so feeling around is allowed and is never free. The count running out is the hull too.
