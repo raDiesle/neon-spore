@@ -7262,3 +7262,5 @@ would be the one thing on the first screen that came from somewhere else — and
 overruling the first and narrowing the second, and an entry that did not say so
 would send a session to re-derive both arguments and ship the thing he has now
 called bad twice.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

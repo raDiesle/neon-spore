@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 00c29615 — The intro's two people go on the queue, reserved for a session that can look
+
+The owner's third word on this film: *the intro video is still bad. The human heads should be recognizable as it… the text must be very visible and readable… it should show in small the two mobile phones what the mouth and ears, the two players refer to and then act accordingly. They first look, then they call, then the other ones listen and performs what he was told to do so.* A look he asked for by name, so it lands on the field rather than going to VERSUS.
+
 ## 2026-09-16 · 805b6376 — THE STARE: something is watching, and the one it watches has to sit on their hands
 
 The owner asked for a boss that stops you playing while it looks at you, with a warning before each look, and for a caught press to break the hull and make the wave start again. It is a **field boss**: the hull, the cannon and the shield are exactly what they always are, and what is added is a clock nobody controls — away for twelve beats, turning for four, watching for six and two more every time, to a ceiling of twelve.
