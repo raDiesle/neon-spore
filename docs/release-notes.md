@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · ce66550b — Four reasons wave 1's briefing looked empty in the director
+
+The owner opened wave 1 in the director and found BRIEFING blank and the stage on the field. Nothing is wrong with the guide — the stage ships with briefings off — but following that one screen backwards found three real defects and a stale document, and all four are queued.
+
 ## 2026-09-16 · a4d0259f — The slow is allowed, and it changes tickMs and never ticksPerBeat
 
 The owner overruled the previous lane's refusal of cinematic slow motion and supplied the condition that makes the refusal wrong: both devices start and end the window on beats they agree about, and what happens inside it is animation. He is right, and the refusal had conflated two things. What this game cannot have is a tempo *bend* — the beat meaning something different on one phone than the other, which is what The Conductor was deferred for. A symmetric slow is still shared: the pair counts beats, both count the same ones, and a beat three times longer in wall clock means the voice delay covers fewer of them, so talking gets easier inside a window rather than harder.

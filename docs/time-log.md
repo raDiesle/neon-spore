@@ -7308,3 +7308,5 @@ with the guide** — the stage ships with briefings off, so wave 1 opened on the
 field and the four pages of FIRST STEP never played. The three real defects
 behind it only became visible because the shot with the switch on and the shot
 with it off could be put side by side.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
