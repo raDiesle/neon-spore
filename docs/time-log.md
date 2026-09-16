@@ -6767,3 +6767,5 @@ level, so the first draft filtered on a field that is always undefined and
 would have printed nothing at all while every test about the wording passed.
 The five minutes of looking were worth as much — the sentences are the whole
 deliverable here, and the only way to know they read is to read them.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

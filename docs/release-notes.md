@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 4c66e6b5 — A press that names a column says what that column points at
+
+Eleven lanes and 95 friction minutes in docs/time-log.md went on photographing the wrong thing, and the ledger names this as the cause of one of them: a wave is authored in seven columns and played in eleven, so --press cannonCol=1 put the cannon under a column no body can stand in, and three sheets showed a bolt sailing past something it was never aimed at. press.ts has warned about it in prose since the day it was written, which is the tell - a rule a person has to remember is a rule the tool should say.
+
 ## 2026-09-16 · 5796b0b7 — The fault half of the world fingerprint is its own file
 
 hash.ts was at its 250-line ceiling with the fault block inside it, so the next malfunction kind that carries a field of its own cannot be added without doing this refactor first, in a diff that is about something else. It moves to packages/sim/src/hash-faults.ts, beside hash-boss.ts and for that file's reason: a fault is the part of the hash that grows every time the owner asks for a kind. faultHashParts answers a list of numbers the way bossHashParts does, so it cannot depend on where in the hash it was folded in, and hash.ts is 239 lines with one line calling it.
