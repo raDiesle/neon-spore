@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · a54aabed — The director's WAVE tab loses a BRIEFING heading with nothing under it
+
+The sentence under it went yesterday, because its two branches differed by a clause and read as the same thing said twice. The heading and its empty paragraph stayed, because deleting the call was outside that task — and what an empty field under a heading looks like from outside is a panel that failed to load, which is the worse of the two faults and is how it read to the owner on wave 1. NAME is the first thing about a wave and is now the first thing in the tab.
+
 ## 2026-09-16 · eda078d6 — `--press` says what the wave sends into the column before it photographs it
 
 The second half of a failure the ledger already recorded: eleven lanes and 95 friction minutes went on photographing the wrong thing, and one of them is written down as a cannon put under a column the gum was not in, with three sheets showing a bolt sailing past a body it was never aimed at. `--press` learned in the morning to say which column a number points at, authored or field; it now also says whether the wave puts anything there on the beat the press lands. A column that exists and is empty photographs exactly as well as one no authored column reaches, and the ledger's three sheets were the first kind.

@@ -7467,3 +7467,5 @@ The bottleneck was nothing. Worth noting that the deletion was caught twice on
 the way out — `doc-drift.test.ts` named `docs/INDEX.md` and the queue entry's
 own `Files:` line as still pointing at a file that had gone, which is exactly
 the pair of stale references a deletion leaves and nobody looks for.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
