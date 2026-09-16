@@ -665,6 +665,7 @@ picture disagree, and the next reader will believe the file.
 ## `bun run frames` cannot be asked for the tick an event happened on
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-bun-run-frames-cannot-be-asked-for-the-tick-an-e
 - **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `tools/frames/drive.ts`
 
 `--ticks` is an absolute `world.tick`, which is the right primitive and the
