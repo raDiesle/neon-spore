@@ -25,6 +25,18 @@ The reading of the time log said 14% of lanes carry 38% of the minutes and that 
 
 Six days of `docs/time-log.md` are 296 lanes and 14 320 minutes, and until now nobody had read them as a distribution. `docs/lane-speed.md` does: writing is 38.8% of the total, reading 21.6%, landing 14.5%, looking 13.0% and friction 12.1%; the mean lane is 48 minutes against a median of 35, because 42 lanes of 296 carry 38% of everything. The per-lane mean went from 30.7 minutes on 14 September to 105.3 on 16 September without a single thing getting slower — the four longest lanes in the ledger are all creature lanes that hold a simulation, a look, its tests, a director note, a wave and a spec page in one sitting.
 
+## 2026-09-16 · 83ca0b39 — Three answers offered to the screen that says to play the wave again
+
+The last of the three pieces the owner asked for on 16 September 2026 — full screen, that the wave now needs to be repeated, like a game over visual. What is there today is a flat grey veil at sixty-four per cent over the held field and a card of type on it, and `lost:screen` is the slot. None of the three answers is on the field.
+
+## 2026-09-16 · 00f3d015 — Three answers offered to what the ship wears where it was hit
+
+The second of the three pieces the owner asked for on 16 September 2026 — the hull and the ship visibly destroyed, and where it was hit. What the ship wears today is a crystal-shaped pit clipped into the skin and a crack running out of its rim, and neither of them is plating: it is a hole in a membrane with a line off it. `ship:hull-break` is the slot, and none of the three answers is on the field.
+
+## 2026-09-16 · e0c0931a — Three answers offered to the hit that loses the wave
+
+Every hull damage has failed the wave since 12 September 2026, and the moment it happens is drawn about as loudly as a shot landing: sparks thrown at the hull in the body's own colour, a crack that stays, and for one creature out of forty the whole ship conducting. The owner asked for a picture of it on 16 September 2026 — a very clear visible animation of the enemy causing the damage — and asked in the same breath to be shown several variants on the VERSUS page first. So the field's answer stays none and this is the seam and the three answers, not one of them on the field.
+
 ## 2026-09-16 · 403955e9 — THE MOULT: a rock and a cargo by turns, and the turn is the call
 
 One body that is a rock for five beats and a supply cargo for five, all the way down. Nothing kills it — a shot craters the rock half and is spent on the cargo half — so what it is on the beat it reaches the ship is the whole of what happens: warded or a hull hit as a rock, swallowed by the maw or a lost wave as a cargo. Both seats see the form it is wearing now; only the navigator is shown what is coming, and every control it answers to is the pilot's, so the call is a timing and it has to be said out loud.
@@ -1392,6 +1404,7 @@ The queue entry said `versus:shot --at` on a `--only` tile pose photographed the
 ## 2026-09-10 · 4b68ed68 — Three backs for the field, offered in VERSUS, and a still's freeze counted in ticks
 
 `field:backdrop` opens with three answers beside the shipped sea, on a record cut out of `backdrop.ts` — `backdrop-look.ts`, one field, the whole composition, the shipped layers coming through it with not one pixel moved. BARE paints nothing behind the field but the field's own dark, pooled toward the middle so the columns sit in the brighter ground and the edges fall away. LANES shades every other column a shade darker in the field's black from the sky to the band, keeps the wash and horizon, halves the far dust and drops the near dust and the light shafts, so a column is counted off the space rather than off the grid lines. NEBULA puts the field in space: a black a step deeper than the ground, two large dim clouds of the act's tint drifting far behind everything, the far dust kept as stars and six pin stars breathing. All three are stills, judged on `BODIES · FOUR KINDS AT ONCE` — the slot's question is whether four bodies are easier to read, not whether the back is handsome — and the slot is named in `versus-pose.ts`.
+
 ## 2026-09-10 · 880a54fd — Three crusts for THE CAROM and three canopies for THE CHUTE, offered in VERSUS
 
 `creature:carom` and `creature:chute` open with three answers each beside what ships, and they are one question asked of the two halves of one creature: does a body on a path read as a solid thing travelling, or as a sprite being moved. Both records were cut for it — `carom-look.ts` carries the rock's face and the streak behind it, `chute-look.ts` the canopy over a falling body and the plume under a climbing one, and the shipped code came through both with not one pixel moved.
@@ -2751,6 +2764,7 @@ The pilot's screen already said which beads a shot could not answer, and it said
 ## 2026-09-05 · b3ffc52 — Refuse a landing onto a trunk `origin` has already moved past
 
 `bun run land` rebases the lane onto the **local** trunk and never asked `origin` where that trunk actually was. In a cloud clone the local `main` is whatever `origin` held when the container was built, and this repo lands several times a day: on 5 September 2026 a lane replayed onto a `main` sixty-six commits behind, landed cleanly onto it, and only then found that `origin/main` had eleven commits it did not — one of them a whole new creature touching the same four tables. By that point the branch was swept and the check was spent, so seven conflicts arrived on the trunk itself, at the one moment there was no lane left to fix them on. Two were resolved wrongly and each cost another three-minute `bun run check`.
+
 ## 2026-09-05 · 65981aaf — Queue what the worktree cleanup turned up, and park what would not land
 
 Forty worktrees had accumulated because the sweep's idle clock is reset by any git command aimed at the tree, including its own probe; twenty-four of them were spent and are gone. Four findings from clearing them, and the state of the four lanes that carried work `main` did not have.
@@ -2938,6 +2952,7 @@ The file is 21,991 characters in the repository and fits under the 22,000 ceilin
 ## 2026-09-05 · ea3cf39 — The intro is advertised rather than explained
 
 The six pages that say what this game is were even type on a dark screen, which reads as a manual however short the sentences are. They are laid out the way a store page is now: the headline stands on a lit banner in the page's own colour, a supermarket price flash is stamped across the corner of the picture, and the picture itself comes at the reader and goes back again on a three-and-a-half second trip, with the tag half a turn behind it so the corner reads as a second plane. Six pages, six colours, none of them one of the four greens the palette reserves.
+
 ## 2026-09-05 · d2e6567d — The iris's spokes run to the margin instead of being cut dark
 
 The dark under-stroke made the ring a black outline round the pupil and left the spokes as ticks, which was worse than the invisible bright ones it was meant to fix. Both attempts were spending the same mistake: a bar floating in the middle of a wash of its own colour has nothing to read against. Six arms running from just outside the aperture ring out past the lens's own edge do — the lids cut both of their ends, and a line the eyelid crosses is a line an eye finds. The budget rows go back to where they were before the dark pass.
