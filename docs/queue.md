@@ -589,6 +589,7 @@ worked, which is how it came to be bad twice.
 ## The guide's band covers a round's readouts on eleven rehearsals
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-the-guides-band-covers-a-rounds-readouts-on-elev
 - **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/splice-draw.ts`, `packages/render/src/coord-grid.ts`, `packages/render/src/magnet-look.ts`, `packages/render/src/torch.ts`, `packages/render/src/lost-shutters.ts`, `packages/render/src/round-header.ts`
 
 `round-header.ts` exists because a rehearsal's plate sat on a round's name and
