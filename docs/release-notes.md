@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 4ce310e1 — The opening scene can be photographed, which until now nothing could
+
+`bun run menu-shot <out.png> --intro --wait 2000`. The scene is drawn on the game's own canvas with a transparent sheet over it, so the wait is `#introTap.on` and the element is `#stage`; it plays through on its own and closes on a press anywhere, so the camera presses nothing and `--wait` is how far into it the picture is taken. Four moments are four shots at four numbers.
+
 ## 2026-09-16 · e890ff00 — The top of the ship is a stack, so the duty word and TORCH's call stop sharing a row
 
 The siren writes the word this seat owes on its own middle at `cy + DIAL_R + DUTY_DROP` — a baseline of 66. TORCH's call was written at `ALARM_TOP + ALARM_HEIGHT - 2`, which is also 66. So a wave that raised a call and owed a word printed the two over each other, the word centred and the call right-aligned and long enough to reach the middle, and had done since the alarm was written. It is on TORCH's own wave. Photographed at 0efcf7ba on the rehearsal, where `ROCK` sits under the word TORCH — the band had covered both until this morning, which is the only reason nobody had seen it.

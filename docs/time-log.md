@@ -7744,3 +7744,5 @@ The bottleneck was reading, and the thing worth knowing came out of it: the
 tool could not take this picture because it was built to stamp the scene away,
 one line, in the file that says what a camera arrives as. The scene itself is
 the next half of the same entry and needed this one first.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
