@@ -30,7 +30,7 @@ export function shipTopFoot(l: Layout, world: World, clearTop: number | undefine
   let foot: number | null = null;
   for (const y of [
     sirenFoot(l, world, clearTop),
-    torchAlarmFoot(world, clearTop),
+    torchAlarmFoot(l, world, clearTop),
     magnetAlarmFoot(l, world, clearTop),
   ]) {
     if (y !== null && (foot === null || y > foot)) foot = y;

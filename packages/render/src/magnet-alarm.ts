@@ -2,7 +2,7 @@ import { showsRadar } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { sirenDrop } from "./siren.js";
+import { ALARM_HEIGHT, alarmRows } from "./ship-top-rows.js";
 import { SIREN_PAD } from "./siren-seats.js";
 
 /**
@@ -26,13 +26,6 @@ import { SIREN_PAD } from "./siren-seats.js";
  * a queue and a field render already reads.
  */
 
-/** Clear of the torch alarm's own band (`torch-alarm.ts`, y = 56) — the two
- * never share a wave today and a director could still author one that does.
- * Both rows drop together under a rehearsal's plate, so they stay clear of
- * each other wherever the plate puts them (`sirenDrop`). */
-const ALARM_TOP = 70;
-const ALARM_HEIGHT = 12;
-
 /** The column of the magnet the pilot has to speak about, or null: the one on
  * the field if there is one, otherwise the next one the strip is carrying. */
 export function magnetCall(l: Layout, world: World): number | null {
@@ -50,15 +43,16 @@ export function magnetCall(l: Layout, world: World): number | null {
   return null;
 }
 
-/** The lowest this row reaches, or null on a screen not being told to aim —
- * the navigator's, or a wave with no magnet due (`torch-alarm.ts`). */
+/** The lowest this band reaches, or null on a screen not being told to aim —
+ * the navigator's, or a wave with no magnet due (`torch-alarm.ts`). Where the
+ * band goes, under TORCH's own, is `ship-top-rows.ts`. */
 export function magnetAlarmFoot(
   l: Layout,
   world: World,
   clearTop: number | undefined,
 ): number | null {
   if (magnetCall(l, world) === null) return null;
-  return ALARM_TOP + sirenDrop(clearTop) + ALARM_HEIGHT;
+  return alarmRows(l, world, clearTop).magnet + ALARM_HEIGHT;
 }
 
 export function drawMagnetAlarm(
@@ -73,7 +67,7 @@ export function drawMagnetAlarm(
   const col = magnetCall(l, world);
   if (col === null) return;
 
-  const top = ALARM_TOP + sirenDrop(clearTop);
+  const top = alarmRows(l, world, clearTop).magnet;
   const pulse = 0.55 + 0.45 * Math.sin(time * 7);
   const left = l.gridLeft + col * l.tile;
   const right = left + l.tile;

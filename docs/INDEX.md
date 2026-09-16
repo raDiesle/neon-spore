@@ -902,6 +902,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ship-nerves.ts` | what runs from a control to the organ it drives, as a record — drawn under the controls and across the membrane; ships empty, a candidate ship wires it |
 | `packages/render/src/ship-gland.ts` | GLAND's parts: EMBEDDED's arrangement with everything the owner asked for laid over it |
 | `packages/render/src/ship-top-chrome.ts` | How far down the ship's own chrome reaches at the top of a screen |
+| `packages/render/src/ship-top-rows.ts` | The rows the two alarm bands are written on, stacked under the siren |
 | `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |
 | `packages/render/src/band-lobes.ts` | Where the round buttons on the band stand, for one seat and one panel |
 | `packages/render/src/band-lock.ts` | The band, put out — the whole of it, or one seat's half |

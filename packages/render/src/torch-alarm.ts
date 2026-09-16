@@ -1,7 +1,7 @@
 import { spanOf, type World } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { sirenDrop } from "./siren.js";
+import { ALARM_HEIGHT, alarmRows } from "./ship-top-rows.js";
 import { SIREN_PAD } from "./siren-seats.js";
 
 /** `PALETTE.rock` (#C7CBD6) as an rgb triple, for alpha-graded fills — the
@@ -31,12 +31,6 @@ export interface TorchWarning {
   span: number;
 }
 
-/** Clear of the hull bar (`hud.ts`, y = 14) and the guard balance (y = 48),
- * when nothing is over the top of the screen. A rehearsal's plate is: the row
- * drops with the siren it hangs off, by `sirenDrop`. */
-const ALARM_TOP = 56;
-const ALARM_HEIGHT = 12;
-
 /** The next torch in the queue within `lead` beats of arriving, or null. */
 export function torchWarning(world: World, lead: number): TorchWarning | null {
   for (let i = world.spawned; i < world.queue.length; i++) {
@@ -50,14 +44,18 @@ export function torchWarning(world: World, lead: number): TorchWarning | null {
 }
 
 /**
- * The lowest this row reaches on a screen with a plate at `clearTop`, or null
+ * The lowest this band reaches on a screen with a plate at `clearTop`, or null
  * when no torch is close enough to be called. For whoever has to keep off it:
  * a rehearsal's caption box is placed around what the ship has already
- * written (`ship-top-chrome.ts`).
+ * written (`ship-top-chrome.ts`). Where the band *goes* is `ship-top-rows.ts`.
  */
-export function torchAlarmFoot(world: World, clearTop: number | undefined): number | null {
+export function torchAlarmFoot(
+  l: Layout,
+  world: World,
+  clearTop: number | undefined,
+): number | null {
   if (!torchWarning(world, world.cfg.radarLead)) return null;
-  return ALARM_TOP + sirenDrop(clearTop) + ALARM_HEIGHT;
+  return alarmRows(l, world, clearTop).torch + ALARM_HEIGHT;
 }
 
 export function drawTorchAlarm(
@@ -72,7 +70,7 @@ export function drawTorchAlarm(
   const warning = torchWarning(world, world.cfg.radarLead);
   if (!warning) return;
 
-  const top = ALARM_TOP + sirenDrop(clearTop);
+  const top = alarmRows(l, world, clearTop).torch;
   const pulse = 0.55 + 0.45 * Math.sin(time * 7);
   // `col` is the torch's leftmost column (see `spanCenterCol` in sim/types.ts),
   // so the band runs from that column's left edge to the right edge of the

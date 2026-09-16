@@ -4,7 +4,8 @@ import { createWorld, DEFAULT_CONFIG, startWave, type World } from "@neon-spore/
 import { GUIDE_LOOK } from "../src/guide-look.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { drawMagnetAlarm } from "../src/magnet-alarm.js";
-import { sirenCentre } from "../src/siren.js";
+import { alarmRows } from "../src/ship-top-rows.js";
+import { sirenCentre, sirenFoot } from "../src/siren.js";
 import { drawTorchAlarm } from "../src/torch-alarm.js";
 import { installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
 
@@ -120,13 +121,34 @@ describe("an alarm row under a rehearsal's plate", () => {
     });
   }
 
-  it("keeps the two rows apart from each other", () => {
-    const [torch, magnet] = ALARMS as [(typeof ALARMS)[0], (typeof ALARMS)[0]];
-    const a = row(torch.draw, GUIDE_LOOK.bandFoot);
-    const b = row(magnet.draw, GUIDE_LOOK.bandFoot);
-    // A wave carrying both is a thing a director could author, and the two
-    // were spaced apart on purpose (`magnet-alarm.ts`). One clearance applied
-    // twice would have put them on the same line.
-    expect(Math.abs(a.y - b.y)).toBeGreaterThanOrEqual(12);
+  it("starts the stack under the siren's own lowest row", () => {
+    // The defect this was found by: the duty word is drawn on its middle at a
+    // baseline of 66 and TORCH's call was written at 66 too, so a wave that
+    // raised a call *and* owed a word printed the two over each other. Both
+    // are up on TORCH's own wave.
+    const l = computeLayout(PHONE, CFG, SEAT);
+    const world = atWave("TORCH", "torch");
+    const foot = sirenFoot(l, world, undefined);
+    expect(foot, "TORCH's wave raises no call, so this checks nothing").not.toBeNull();
+    expect(alarmRows(l, world, undefined).torch).toBeGreaterThanOrEqual(foot as number);
+  });
+
+  it("leaves the stack where it was on a wave with no call at all", () => {
+    const l = computeLayout(PHONE, CFG, SEAT);
+    const quiet = createWorld(CFG, 3);
+    startWave(quiet, 0, [], [], null, false, 0);
+    expect(sirenFoot(l, quiet, undefined)).toBeNull();
+    expect(alarmRows(l, quiet, undefined).torch).toBe(56);
+  });
+
+  it("keeps the two bands apart from each other, on one screen", () => {
+    // A wave carrying both is a thing a director could author. Asked of one
+    // world rather than measured across two, because where the stack starts
+    // depends on whether that world's siren is up (`ship-top-rows.ts`).
+    const l = computeLayout(PHONE, CFG, SEAT);
+    for (const clearTop of [undefined, GUIDE_LOOK.bandFoot]) {
+      const rows = alarmRows(l, atWave("TORCH", "torch"), clearTop);
+      expect(rows.magnet - rows.torch).toBeGreaterThanOrEqual(12);
+    }
   });
 });

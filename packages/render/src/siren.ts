@@ -92,15 +92,19 @@ export function sirenDrop(clearTop: number | undefined): number {
 }
 
 /**
- * The lowest the whole cluster reaches — the dial, or the duty word under it
- * where this seat owes one — or null when no call is on and nothing is drawn.
+ * The lowest row the whole cluster claims — the duty word's, under the dial —
+ * or null when no call is on and the siren is not drawn at all.
  */
 export function sirenFoot(l: Layout, world: World, clearTop: number | undefined): number | null {
   if (!commsCall(world)) return null;
-  const { y } = sirenCentre(l, undefined, clearTop);
-  if (dutyWord(l.role, world) === null) return y + DIAL_R;
+  // The duty word's row is held whether or not this seat owes one *this*
+  // beat: `dutyWord` answers per beat, and a row that came and went with it
+  // would walk everything stacked under it up and down a beat at a time
+  // (`ship-top-rows.ts`). The siren lighting at all is the visible event; the
+  // rows under it move once, with that.
+  //
   // The word is drawn on its middle, so half of it hangs under its baseline.
-  return y + DIAL_R + DUTY_DROP + DUTY_HALF;
+  return sirenCentre(l, undefined, clearTop).y + DIAL_R + DUTY_DROP + DUTY_HALF;
 }
 
 export function drawCommsSiren(

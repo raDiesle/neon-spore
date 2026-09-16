@@ -7712,3 +7712,18 @@ test that cannot be made to fail is worth nothing, and this one had to be
 broken on purpose twice before it was.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the top of the ship is a stack, not four addresses
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `siren.ts`'s duty word, both alarm files, and what `sirenFoot` was already answering |
+| writing | 20 | `ship-top-rows.ts`, both bands moved onto it, `sirenFoot` steadied, three tests |
+| looking | 5 | the frame that found it — the duty word under the word TORCH |
+| friction | 5 | one test compared two rows measured in two different worlds, which stopped meaning anything the moment the stack depended on the world |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was writing, and the choice inside it took most of it: the duty
+word is answered per beat, so a stack that measured what was *drawn* would
+have walked two rows up and down a beat at a time. It holds the word's row
+whenever the siren is lit, whether or not this seat owes a word.

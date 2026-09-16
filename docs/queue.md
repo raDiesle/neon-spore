@@ -590,31 +590,6 @@ mouth reads as a mouth or a line reads at all is to watch it at tempo on a
 screen. A cloud session can change the drawing and cannot tell whether it
 worked, which is how it came to be bad twice.
 
-## The duty word and TORCH's call are written on the same row
-
-- **Files:** `packages/render/src/siren.ts`, `packages/render/src/torch-alarm.ts`, `packages/render/src/magnet-alarm.ts`
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-the-duty-word-and-torchs-call-are-written-on-the
-
-The siren writes the word this seat owes on its own middle at `cy + DIAL_R +
-DUTY_DROP`, which with the dial at 39 is a baseline of 66. TORCH's call is
-drawn at `ALARM_TOP + ALARM_HEIGHT - 2`, which is 66. THE MAGNET's is 80 and
-has the row to itself. So whenever a torch is within `radarLead` beats *and*
-this seat owes a word, the two are printed over each other — the duty word
-centred, the call right-aligned, and `TORCH · COLUMNS 3-4 · CALL IT` is long
-enough to reach the middle.
-
-Photographed at 0efcf7ba on TORCH's own rehearsal, where `ROCK` sits under the
-word TORCH. It is not new and it is not the rehearsal's: both rows are at the
-same offsets in the running game and have been since the alarm was written.
-The rehearsal is only where it became visible, because the band used to cover
-both.
-
-Three ways: move the call down by the duty word's height, move the duty word
-down past both alarm rows, or have the call give up its right alignment and
-sit on the row under whichever of the two is up. The first is smallest and the
-last is the one that survives a third row being added.
-
 ## THE SPLICE's clock is under the guide's band
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
