@@ -1,4 +1,4 @@
-import type { ClientMessage, ServerMessage } from "@neon-spore/net";
+import { type ClientMessage, SEAT_HELD_MS, type ServerMessage } from "@neon-spore/net";
 import { openRelay, type Relay, type RelayHandlers } from "./relay.js";
 
 /** Milliseconds before a socket that went away is reached for again. */
@@ -35,6 +35,30 @@ export const RECONNECT_TRIES = 6;
  */
 export const WAITING_TRIES = 120;
 
+/**
+ * And how many **while the room is holding this device's own seat against it**.
+ *
+ * A socket that vanished without closing — a screen locked in a pocket, a
+ * tunnel, flight mode — leaves the room holding a chair for a phone that is no
+ * longer on the other end of it. For `SEAT_HELD_MS` the room answers every
+ * arrival with `full`, including the arrival of the phone whose seat it is,
+ * and `link-refusal.ts` reads that refusal for what it is: a race, not a
+ * turning away.
+ *
+ * It read it right and then ran out of time to act on it. The budget spent
+ * against that race was `RECONNECT_TRIES` — six attempts at 900 ms, five and a
+ * half seconds — against a hold of ten, so **every** attempt landed inside the
+ * window and the sixth refusal was the last: the phone gave up four and a half
+ * seconds before the seat it was reaching for came free, and its player was
+ * told the connection was gone by a room that was still keeping their chair.
+ * The reclaim never once succeeded, on the case it was written for.
+ *
+ * So the budget is the hold, in attempts, and two more on top of it: the room
+ * notices the silence on the next message it handles rather than on a timer,
+ * and the last thing a dropped pair does is stop sending messages.
+ */
+export const RECLAIM_TRIES = Math.ceil(SEAT_HELD_MS / RECONNECT_MS) + 2;
+
 export interface RoomSocketHandlers {
   message: (message: ServerMessage) => void;
   /** A socket is open. The first clock ping goes out from here. */
@@ -45,6 +69,12 @@ export interface RoomSocketHandlers {
    * however many times it is asked, and neither is one the player has left.
    */
   worthRetrying: () => boolean;
+  /**
+   * Whether what stands between this device and the room is the room holding
+   * its own seat for a socket that has gone — which is a race with a known
+   * length rather than a refusal (`RECLAIM_TRIES`, `link-refusal.ts`).
+   */
+  reclaiming: () => boolean;
   /** No socket at the moment; another attempt is armed. */
   waiting: () => void;
   /** No socket, and none coming. */
@@ -132,7 +162,13 @@ export function openRoomSocket(
     // while the pair is still gathering gets the patient budget and one that
     // goes mid-run does not — and a room that fills between two drops moves
     // from one to the other without anything having to be reset.
-    const budget = surrendered ? 0 : gathering ? WAITING_TRIES : RECONNECT_TRIES;
+    const budget = surrendered
+      ? 0
+      : gathering
+        ? WAITING_TRIES
+        : on.reclaiming()
+          ? RECLAIM_TRIES
+          : RECONNECT_TRIES;
     if (tries >= budget || !on.worthRetrying()) {
       on.gone();
       return;

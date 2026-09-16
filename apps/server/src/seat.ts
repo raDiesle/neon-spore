@@ -5,6 +5,7 @@ import {
   otherPlayer,
   type PlayerId,
   type RefusalCode,
+  SEAT_HELD_MS,
   type ServerMessage,
 } from "@neon-spore/net";
 
@@ -30,10 +31,15 @@ import {
  * its own. Every seat pings every 700 ms, so more than a dozen missed pings is
  * a connection that is gone whatever the socket still says.
  *
+ * **The figure is `SEAT_HELD_MS`, one package down**, because it is not this
+ * room's private business: it is the window the turned-away phone has to keep
+ * reaching across, and the two ends held two different readings of it until
+ * there was one number to read (`packages/net/src/seat-hold.ts`).
+ *
  * A `vars` binding of the same name overrides it, which is how the Durable
  * Object test proves the eviction without sitting still for ten seconds.
  */
-export const SEAT_SILENT_MS = 10_000;
+export const SEAT_SILENT_MS = SEAT_HELD_MS;
 
 export interface Seat {
   socket: WebSocket;

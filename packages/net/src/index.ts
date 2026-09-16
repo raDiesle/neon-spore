@@ -39,6 +39,7 @@ export {
   ROOM_CODE_LENGTH,
   roomCodeFromBytes,
 } from "./room-code.js";
+export { SEAT_HELD_MS } from "./seat-hold.js";
 export {
   type LinkState,
   type LinkStatus,

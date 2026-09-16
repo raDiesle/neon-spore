@@ -95,6 +95,10 @@ export function createLink(o: LinkOptions): Link {
         clock.pingSent();
       },
       worthRetrying: () => worthReaching(state, player, room),
+      // A `full` at a room this device holds a seat in is the room's own dead
+      // socket, and the wait for it to notice is `SEAT_HELD_MS` long — far
+      // longer than the six attempts an ordinary drop is worth.
+      reclaiming: () => reclaiming(),
       waiting: () => {
         run.end();
         settle("connecting");
