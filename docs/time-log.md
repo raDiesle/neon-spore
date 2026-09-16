@@ -6031,3 +6031,22 @@ page went, with its twelve files.
 The bottleneck was looking: the draft gripped the rock from the side, and the
 field has no gap between the hull's tip and the rock, so the arm had to be
 redrawn to come up over it — something only a frame at the drop showed.
+
+## 2026-09-16 — bulb-queen-crane — THE ECHO queued, his way
+
+The owner took the *Reverse wave* idea and described his own design for it:
+a boss wave whose arrivals are sent a second time invisible, a count on the
+boss, a body seen only as it is beaten. Written as one queue entry, sized in
+named files, so a session of its own can build it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the idea's text, THE WELL and THE VANE as the bosses that do not fill a wave, `spawn.ts`'s cursor, the hash's rule on the queue, THE GHOST |
+| writing | 10 | the entry |
+| looking | 0 | nothing drawn |
+| friction | 5 | a shutdown already counting down, cancelled; a title over eighty characters |
+| landing | 5 | the queue parsed, `doc-drift`, lint, the commit |
+
+The bottleneck was reading: the design touches spawning and the hash, and
+the entry had to say why the echo is derived from the queue rather than
+appended to it before anyone builds it the easy way.
