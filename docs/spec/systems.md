@@ -197,10 +197,30 @@ Design:
 - Impacts leave permanent scars on the shell (open question)
 - Limit: ~40 splinters, 12 pieces of debris at once
 
-Built: scars on the hull, which are permanent and visible (`Scar`, `maxScars`),
-and craters on the meteor, which keeps its size and stays indestructible
-(`holes`, `maxHoles`). Not built: polygon clipping, splinters, debris. The
-clipping algorithm is chosen but unimplemented — see `docs/decisions.md`.
+Built: scars on the hull, which are permanent and visible (`Scar`, `maxScars`);
+the holes a rock tears in it, drawn open with the rim cut out around each mouth
+(`render/craters.ts`); craters on the meteor, which keeps its size and stays
+indestructible (`holes`, `maxHoles`); and, since 9 September 2026, **the break
+itself**. A destroyed body is cut into pieces of its own contour by a fracture
+that tiles it exactly — the pieces put back together are the body again with no
+gaps (`render/shatter.ts`) — and they are thrown, land on the hull and fade
+there (`render/shatter-fall.ts`, `render/debris.ts`). Nine wedges, cut again at
+half their reach, with the sparks down to two fifths so the squares read as the
+flash and the pieces as the break (`render/break-look.ts`). Seven bodies have a
+strike of their own besides — a bulb pops, a dart leaves an afterimage, a rind
+peels (`render/body-hit.ts`).
+
+**Not built:** a notch cut out of a body that keeps falling, splinters off the
+broken edge, drifting debris. What is left is the design above rather than the
+algorithm, which is built. Nothing in this game survives a shot of its own
+colour, so the only body that takes damage and lives is the rock, and a rock's
+craters are drawn on its face rather than taken out of its outline; the cut
+faces a fracture opens are what splinters would come off, and nothing throws
+any; and the shipped break deliberately does not drift — the owner's answer on
+9 September 2026 was that what is left falls, lands and fades on the ground
+rather than hanging in a lane two people are calling to each other about. The
+limits the design set — ~40 splinters and 12 pieces at once — are still the
+limits, and `BREAK_LOOK` is under both.
 
 ## 5.7 Power-ups — the pod, built
 

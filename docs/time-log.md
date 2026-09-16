@@ -6179,3 +6179,25 @@ drawings made at them, because both joins that hold a drawing to its concept
 were asking the *page* for the list of names. They ask the spec now — a shape
 whose idea is off the page is waiting, and only a shape whose idea was renamed
 is a picture of nothing.
+
+## 2026-09-16 — queued-tasks — what 5.6 still owes, said truthfully
+
+The first half of the destruction queue entry: the page claimed polygon
+clipping, splinters and debris were all three unbuilt and the algorithm
+"chosen but unimplemented", and the fracture engine had been in the game since
+9 September.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | `shatter.ts`, `shatter-fall.ts`, `debris.ts`, `break-look.ts`, `body-hit.ts`, `craters.ts` and the destruction skill, to find which of the three words is actually still owed |
+| writing | 10 | 5.6's two closing paragraphs |
+| looking | 0 | nothing visible moved — this landing is a document |
+| friction | 5 | the rewrite dropped the `Not built:` marker the MECHANICS page cuts a half-built section down to, and emptied the group |
+| landing | 10 | doc-drift, `check:fast`, the commit |
+
+The bottleneck was reading, and it is the right place for it: the entry names
+three words from a design written before any of it existed, and only one of
+them turns out to be unbuilt in the way the page said. The break is built and
+lands on the hull on purpose; what is missing is a notch in a body that keeps
+falling, splinters off the cut faces, and drift — and drift is missing because
+the owner asked for the opposite.

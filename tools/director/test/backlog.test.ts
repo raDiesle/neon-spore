@@ -92,8 +92,8 @@ describe("buildBacklog", () => {
     // the second: scars and craters are in the game, and NOT BUILT YET saying
     // so under that heading is the page describing the opposite of itself.
     expect(damage.kind).toBe("partly built");
-    expect(damage.note).toStartWith("Not built:");
-    expect(damage.note).toContain("polygon clipping, splinters, debris");
+    expect(damage.note).toStartWith("**Not built:**");
+    expect(damage.note).toContain("splinters off the broken edge");
     expect(damage.note).not.toContain("scars on the hull");
     // And nothing behind the expander: the section whole is `systems.md`, and
     // this page is not where the built half is read.

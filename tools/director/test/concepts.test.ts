@@ -190,7 +190,7 @@ Three encounters worked out far enough to be worth keeping.
     // sentence naming what is missing, and the page decides which of those a
     // reader sees (`backlog.ts`).
     const damage = sheet.systems.find((c) => c.name === "Destruction and damage");
-    expect(damage?.detail).toContain("Not built: polygon clipping, splinters, debris");
+    expect(damage?.detail).toContain("**Not built:** a notch cut out of a body that keeps");
     expect(damage?.detail.length).toBeGreaterThan(damage?.note.length ?? 0);
 
     // The sub-headings the backlog groups by: an idea with no group would
