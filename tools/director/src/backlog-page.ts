@@ -112,9 +112,11 @@ export function bindBacklog(): void {
   const close = document.getElementById("backlogClose");
   if (!sheet || !open || !close) return;
 
-  // The tabs that cost something to draw are mounted and wired together, in
-  // `backlog-tabs.ts` — SHAPES, GUIDES and OTHER GRAPHICS, each drawn on first
-  // sight of its own tab rather than on the first open of this sheet.
+  // The tab that costs something to draw is wired there, in `backlog-tabs.ts`
+  // — GRAPHICS, drawn on first sight of its own button rather than on the
+  // first open of this sheet — along with VERSUS, which is mounted there and
+  // costs nothing. It used to be three; the other two were rooms the owner
+  // took off the sheets on 14 September 2026.
   mountLazyTabs();
 
   // `mountSheet` (`session.ts`) wires open/close/Escape/inner-tab and the

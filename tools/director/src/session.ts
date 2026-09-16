@@ -31,9 +31,11 @@
  * `checks-page.ts`, `states-page.ts`, `sound-page.ts`, `controlsets-page.ts`)
  * joins in: one call wires its open button, close button, Escape key and
  * optional inner tab bar to a place the same way `bindPlace` already wires
- * the main tab bar, and drives the restoring click on startup. `guide-page.ts`
- * needs no call of its own — its CARDS tab lives inside the backlog's own
- * inner bar and rides that sheet's `mountSheet` call. A name nothing
+ * the main tab bar, and drives the restoring click on startup. A tab mounted
+ * into a sheet that is already bound needs no call of its own — VERSUS builds
+ * its own button inside the backlog's inner bar and rides that sheet's
+ * `mountSheet` call (`versus-tab.ts`), and GUIDES did the same until the owner
+ * took that room off on 14 September 2026. A name nothing
  * recognises opens nothing, the same fallback a stale top-level `tab` value
  * already gets, because a URL outlives the code that wrote it. `inner` rides
  * beside `sheet` and is cleared whenever it is, so a sheet closed and

@@ -17,8 +17,10 @@ import { mountVersusTab } from "./versus-tab.js";
  * (`versus-tab.ts`). Each look opens in a tab of its own instead, so there is
  * no first-sight cost left to defer.
  *
- * GUIDES was the other one until the owner moved it to DOCUMENTATION, where
- * the list of the guides it draws already was — see `guide-page.ts`.
+ * GUIDES was the other one until 14 September 2026, when the owner took the
+ * room off the sheets entirely: a wave's guide is read where it is written,
+ * in the WAVE tab's own fields, and watched on the stage. Its page and the
+ * file that mounted it are gone.
  *
  * They lived in `backlog-page.ts` until the fourth one pushed that file over
  * the 250-line ceiling. This is the seam CLAUDE.md's *split rather than grow*
@@ -27,7 +29,7 @@ import { mountVersusTab } from "./versus-tab.js";
  */
 export function mountLazyTabs(): void {
   // It has to be mounted before `bindTabs` runs, so a click on it is wired
-  // exactly the way a click on MECHANICS or PARKED is.
+  // exactly the way a click on MECHANICS or GRAPHICS is.
   mountVersusTab();
   bindTabs("#backlogTabs", "sheetpage", "sheet-");
 

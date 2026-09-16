@@ -26,11 +26,14 @@ import { versusListSection } from "./versus-page.js";
  * it was a door onto is still in the tree and still works, so the page opens
  * on `parkedSection()`, which says so in the one place somebody would look.
  *
- * Mounted the way GUIDES is (`guide-page.ts`): a tab button and a page
+ * Mounted rather than written into `index.html`: a tab button and a page
  * appended to the backlog sheet's own bar before `bindTabs` runs, placed right
  * after SHAPES rather than at the end — the two are the pages a look gets
- * judged on. There is no lazy draw left to wire, because there is nothing on
- * this page that moves.
+ * judged on. GUIDES was built the same way and was the pattern this copied,
+ * until the owner took that room off the sheets on 14 September 2026; this is
+ * the only tab on either sheet that still builds its own door, so the pattern
+ * is here now and nowhere else. There is no lazy draw left to wire, because
+ * there is nothing on this page that moves.
  */
 
 const TAB_ID = "versus";

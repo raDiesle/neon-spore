@@ -7572,3 +7572,18 @@ lists moved instead, so the table — the thing every creature and every fault
 adds a row to — is the half that got the headroom.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — four director comments stop naming a file that is gone
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `backlog-tabs.ts`, `versus-tab.ts`, `backlog-page.ts`, `session.ts`, and the sheet's own tab bar in the markup |
+| writing | 5 | four comments rewritten |
+| looking | 0 | — comments |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was nothing, and the entry undercounted by one: `session.ts`
+also explained itself through `guide-page.ts`, which is the shape of this
+problem — a file that is deleted takes its own line out of the index and
+leaves every sentence that pointed at it standing.
