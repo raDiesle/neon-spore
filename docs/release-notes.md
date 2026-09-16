@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · d0739334 — Fast mode stays off, and the queue entry that asked comes off the list
+
+The owner's answer to the `Asks:` written this morning, in three words. It is `docs/decisions.md` #32 with the reasoning attached: the saving would have been a fifth to a third of the part of a lane that is the session emitting tokens — fifteen to twenty-five minutes off a creature lane's seventy — while the tail it cannot touch is fourteen per cent of lanes carrying thirty-eight per cent of the attention, and the ledger a week of marked lanes would have been measured with runs two and a half to four times the trunk's own span.
+
 ## 2026-09-16 · d264d819 — The brief a session opens an item with says how big it is allowed to be
 
 `promptFor` said one thing about size and said it last, as a fallback: if it turns out to be bigger than one session, leave what you finished. That is the discovery at minute 180, and `docs/lane-speed.md` is 296 lanes of evidence that it is the expensive one — the top 14% carry 38% of the minutes and every one of them is a sitting asked to hold two pieces of work. The paragraph now sits above the worktree command, where the work is opened: name the halves first, a half is only a half if it lands green on its own, and the seams this tree already has are the table of cuts rather than something to invent. It is printed for every item, question or not, because the queue has no size field and adding one would make the writer of an entry guess at the size of work they are not doing. The closing line stays where it was: parking what is unfinished is the fallback, not the plan.
