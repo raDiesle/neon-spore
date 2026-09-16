@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 77ced4bc — THE BALLOON's guide says what the creature does now
+
+The owner ruled on 14 September that a balloon never goes downwards and that the top of the field is a body to answer rather than a bill on the hull. The wave's own guide still said all three of the things that went: that reaching the top costs the hull, that a split sends one half up and one down, and that a sinking half goes off against the ship. Player 2's half named the sinking one again, so the seat with no reason to watch the bottom of the field was told to.
+
 ## 2026-09-16 · db7842ca — The ledger estimates its minutes; the trunk knows them
 
 Every speed question this repository asks next is asked in minutes, and the minutes in docs/time-log.md are a session's estimate of itself: 3 385 logged on 15 September against an 860-minute span of that day's own commits, 2 395 against 969 on the 14th, 1 790 against 634 on the 16th. The shares survive that, the numbers do not. bun run land already holds both ends of a real measurement at the moment it writes the release note, so it now stamps one line under the entry the session just wrote: the minutes from the lane's first commit to the trunk moving. The five rows stay exactly as they are beside it, because an estimate next to a measurement is how the estimate gets better rather than replaced.

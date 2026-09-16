@@ -6671,3 +6671,5 @@ The bottleneck was looking, and it bought the finding rather than the proof:
 the entry asked for one frame of the opening, and every page of this wave's
 opening is its rehearsal — a wave with a film never reaches `drawProsePage`, so
 59 waves carry prose no phone shows. That is queued with the question.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
