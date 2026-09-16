@@ -630,6 +630,7 @@ wants the owner's word on whether a scene should be choosable at all.
 ## Two documents still describe a GUIDES sheet the director does not have
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-two-documents-still-describe-a-guides-sheet-the
 - **Files:** `docs/spec/briefings.md`, `tools/director/README.md`
 
 The guide's words moved into the WAVE tab's three textareas and the separate
