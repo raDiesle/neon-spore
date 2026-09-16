@@ -20,17 +20,10 @@
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
-import {
-  branchFor,
-  claimOn,
-  heldElsewhere,
-  promptFor,
-  statusLines,
-  statusOf,
-  unclaimed,
-} from "./claim.js";
+import { branchFor, claimOn, heldElsewhere, statusLines, statusOf, unclaimed } from "./claim.js";
 import { clearTaken, removeItem } from "./edit.js";
 import { problemsIn, refuseUnlessWhole } from "./problems.js";
+import { promptFor } from "./prompt.js";
 import { type How, type Item, match, order, parseItems, pick } from "./queue.js";
 import {
   alsoHere,

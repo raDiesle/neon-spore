@@ -579,36 +579,6 @@ grouping reads best next door, and any of them is an improvement on none.
 Do it with the next creature that needs a note, not before: a refactor of prose
 with no new prose to place is a diff nobody can review against anything.
 
-## The prompt `queue next` hands a session says nothing about size
-
-- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Taken:** 2026-09-16, claude/queue-the-prompt-queue-next-hands-a-session-says-nothi
-- **Files:** `tools/queue/claim.ts`, `tools/queue/test/queue.test.ts`
-
-`promptFor` is the whole brief a fresh session reads before it opens an item —
-the branch, the worktree command, the entry's body, and what to do when it is
-green. It says one thing about size, at the very bottom: *if it turns out to be
-bigger than one session, leave what you finished*. That is the discovery made
-at minute 180, which is the one `docs/lane-speed.md` exists to stop; the rule
-in `CLAUDE.md` now says the split is decided **before** the work starts, and
-the prompt that opens the work is the place it has to be said.
-
-Add it where the prompt already distinguishes an `Asks:` item from an ordinary
-one: a short paragraph, above the worktree command, saying to name the halves
-first when the item is bigger than one sitting, that a half is only a half if
-it lands green on its own, and pointing at the table of cuts in
-`docs/lane-speed.md` rather than repeating it. Keep the existing closing line —
-parking what is unfinished is the fallback, not the plan.
-
-One decision: whether the paragraph is printed for every item or only for ones
-the entry marks as large. Print it always — the queue has no size field, adding
-one means the writer of an entry guesses at the size of work they are not
-doing, and a line every session reads costs less than a field every session
-fills in wrongly.
-
-Provable with `bun run check`: `queue.test.ts` already holds `promptFor`'s
-shape, and the new lines are held the same way.
-
 ## One new fact, four tables, found one red test at a time
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf

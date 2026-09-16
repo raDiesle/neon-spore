@@ -1,17 +1,10 @@
 import { describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import {
-  branchFor,
-  claimOn,
-  promptFor,
-  slugFor,
-  statusLines,
-  statusOf,
-  unclaimed,
-} from "../claim.js";
+import { branchFor, claimOn, slugFor, statusLines, statusOf, unclaimed } from "../claim.js";
 import { removeItem } from "../edit.js";
 import { problemsIn, refuseUnlessWhole } from "../problems.js";
+import { promptFor } from "../prompt.js";
 import { match, order, parseItems, pick } from "../queue.js";
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
@@ -160,6 +153,48 @@ describe("promptFor", () => {
     const prompt = promptFor(item, branch);
     expect(prompt).toContain(
       `git worktree add .claude/worktrees/queue-split-the-wave-editors-cell-panel ${branch}`,
+    );
+  });
+
+  /**
+   * The size paragraph. `docs/lane-speed.md` found that the top 14% of lanes
+   * carry 38% of the minutes and are all one sitting holding two pieces of
+   * work, and that the prompt said one thing about size — in its last line,
+   * as a fallback. These four hold the fix in place: it is said, it is said
+   * before the work is opened, it points at the table rather than copying it,
+   * and the fallback is still there underneath.
+   */
+  it("says to decide the size before the work starts", () => {
+    const item = parseItems(ENTRY, "queue")[0]!;
+    const prompt = promptFor(item, branchFor(item));
+    expect(prompt).toContain("Decide the size before you start");
+    expect(prompt).toContain("lands green on its own");
+  });
+
+  it("says it above the command that opens the work, not after the body", () => {
+    const item = parseItems(ENTRY, "queue")[0]!;
+    const prompt = promptFor(item, branchFor(item));
+    expect(prompt.indexOf("Decide the size")).toBeLessThan(prompt.indexOf("git worktree add"));
+  });
+
+  it("points at the table of cuts rather than repeating it", () => {
+    const item = parseItems(ENTRY, "queue")[0]!;
+    expect(promptFor(item, branchFor(item))).toContain("docs/lane-speed.md");
+  });
+
+  it("says it for an item that opens with a question too", () => {
+    // Printed always: the queue has no size field, and adding one would make
+    // the writer of an entry guess at the size of work they are not doing.
+    const item = parseItems(ASKING, "queue")[0]!;
+    expect(promptFor(item, branchFor(item))).toContain("Decide the size before you start");
+  });
+
+  it("keeps parking what is unfinished as the fallback underneath it", () => {
+    const item = parseItems(ENTRY, "queue")[0]!;
+    const prompt = promptFor(item, branchFor(item));
+    expect(prompt).toContain("leave what you finished");
+    expect(prompt.indexOf("Decide the size")).toBeLessThan(
+      prompt.indexOf("leave what you finished"),
     );
   });
 });

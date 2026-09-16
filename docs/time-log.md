@@ -6478,3 +6478,26 @@ hand. The lane's own mistake is the one worth keeping — `*` followed by a slas
 inside a JSDoc block ends the comment, and the paragraph explaining which files
 the ceiling reaches was the one that could not be written in the file that
 answers it.
+
+## 2026-09-16 — queue-the-prompt-says-nothing-about-size — the brief says how big before it says what
+
+The queue's *The prompt `queue next` hands a session says nothing about size*.
+`promptFor` said one thing about it, in its last line, as a fallback: leave
+what you finished. That is the discovery at minute 180 the whole of
+`docs/lane-speed.md` exists to stop.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `tools/queue/claim.ts` whole, the `promptFor` cases in `queue.test.ts`, the table of cuts in `docs/lane-speed.md` |
+| writing | 10 | the size paragraph, `tools/queue/prompt.ts` and the two importers, five test cases |
+| looking | 0 | — nothing drawn |
+| friction | 0 | none |
+| landing | 5 | `bun run index` and its line, `check`, the queue entry, the commit |
+
+The bottleneck was nothing, and the lane is worth logging for one thing that
+happened in the middle of it: the paragraph took `claim.ts` to 234 lines and
+**the hook landed an hour earlier said so, on the edit**. The seam was chosen
+there and then, with a four-line diff open and nothing else in the file to
+weigh — who holds an item on one side, what the session holding it is told on
+the other. That is the 375-minute row in the ledger being paid at its cheapest,
+by the lane that queued the fix for it.
