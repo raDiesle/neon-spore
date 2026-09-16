@@ -7183,6 +7183,33 @@ honest fix was `drawCraters`' own guard, not a moved number.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-16 — boss-design — the slow is allowed, and it is one line of the loop
+
+The owner overruled the previous lane's refusal of slow motion and supplied the
+condition that made the refusal wrong. `decisions.md` #33, the filter line in
+`spec/transfers.md` it contradicted, and `spec/bosses-choreographed.md`
+rewritten around two tools instead of one.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `loop.ts`'s `tickMs`, `interpolate.ts`, `link-run.ts`'s `InputDelay` and ahead-limit, `testing.ts`'s uneven-beat assertion, and how `packages/audio` schedules a beat — the five files that decide whether a slowed beat is implementable or a desync |
+| writing | 5 | the decision entry, the filter amendment, correction 3 rewritten, the SLOW/DRAG table, fifteen per-boss paragraphs reassigned, the library split in two |
+| looking | 0 | — nothing drawn |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was reading, and the five minutes were the whole value of the
+lane: the previous one had refused the ask on a rule that turned out to forbid
+the wrong thing. What settled it was `loop.ts`'s own header — *wall-clock time
+exists here and nowhere below* — plus the fact that `packages/audio` binds cues
+to events rather than to a clock, so the metronome slows for free. **A refusal
+is worth re-reading when the owner pushes back on it**, and the distinction
+that came out of the re-read — seconds versus beats, presentation versus
+mechanics — is a better tool than either the original refusal or the
+workaround it proposed.
+
+*Measured: read off the previous landing at 22:02 and this one.*
+
 ## 2026-09-16 — boss-design — A Way Out at boss scale, half one
 
 The owner asked for boss encounters that read as authored action scenes, with a

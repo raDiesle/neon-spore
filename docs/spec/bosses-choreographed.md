@@ -9,8 +9,10 @@
 > built designs, and this one mines a game that has **no enemies at all**.
 >
 > The brief arrived with a twelve-card sheet drawn by another model. Four of
-> its premises are wrong about this game and are corrected below by name
-> rather than quietly worked around; six of its twelve cards are re-skins of
+> its premises need correcting against this engine and are corrected below by
+> name rather than quietly worked around — though **the slow motion it asks for
+> is allowed**, on the owner's ruling of 16 September 2026
+> (`docs/decisions.md` #33), which reversed this page's own first answer; six of its twelve cards are re-skins of
 > bosses already shipped and are [refused by name](#refused-by-name). What
 > survives is worth the page.
 
@@ -57,38 +59,85 @@ already forbids it: *"Its health is its silhouette. Petals, plates, a pupil
 that ends up permanently wide. No bar, ever."* Each concept below therefore
 says what part of its outline goes away, and how many there are.
 
-**3. Slow motion, as the brief describes it, cannot exist here.** This is the
-important one, because slow motion is the brief's core ask. The brief wants
-"gameplay time slows to perhaps 20–40%", particles suspended, projectiles
-stretched. [transfers](transfers.md#the-filter)'s last line already rules on
-it: *"A mechanism whose effect is a wobble in wall-clock time cannot exist
-here at all."* Three independent reasons, and each alone is fatal:
+**3. Slow motion is allowed, it slows the beat, and it is a change to one line
+of the loop.** This page first said it could not exist, on
+[transfers](transfers.md#the-filter)'s old filter line. The owner overruled
+that on 16 September 2026 and supplied the condition that makes the refusal
+wrong — *"it doesn't matter if it is in sync or not. Just what matters that
+both animations in slow mode start and end at the same time for both players
+when visible to both"* — and the ruling, with the mechanism and its two costs,
+is `docs/decisions.md` #33. The short version, because the rest of this page
+depends on it:
 
-- **The beat is the latency wall.** A shared tempo is the only reason an
-  announcement survives 0.5–2 s of voice ([latency](latency.md),
-  [couplings](couplings.md) 1). "Column four, on the three" works because the
-  three arrives when both of them expect it. Bending the tempo is what **The
-  Conductor (30) was deferred for**, in those words.
-- **The simulation stores integers.** There is no 0.3 of a tile and no 0.3 of
-  a tick. `slowStep` in `sim/slow-fall.ts` is the shipped shape of "slower",
-  and its own comment says it: *"on the beats it does not take there is no
-  fraction of a tile for it to move, because the simulation stores integers."*
-- **Two devices run delayed lockstep.** A slow that starts when a finger
-  lands, on the device the finger landed on, is a desync. Anything that scales
-  time has to be a hashed field of `World` reached through a `Command`, which
-  means it starts a round-trip late for both — and a dramatic beat that
-  arrives two frames after the touch is not dramatic.
+- **What was actually forbidden was a tempo *bend*, not a slow.** The wall this
+  game has is not the tempo, it is the tempo being **shared**. A symmetric slow
+  is still shared: the pair counts beats, both of them count the same ones, and
+  a beat three times longer in wall clock means the 0.5–2 s voice delay covers
+  *fewer* beats than usual. **Talking gets easier inside a slow window.** That
+  is the opposite of what The Conductor (30) was deferred for.
+- **It changes `tickMs` and never `ticksPerBeat`.** `apps/game/src/loop.ts`
+  holds the only wall clock in the stack — *"Wall-clock time exists here and
+  nowhere below: the simulation only ever hears 'one tick has passed'"* — and
+  `startLoop`'s one-off `const tickMs = 1000 / tickHz` becomes a lookup against
+  the window's rate. Ticks per beat is simulation and is untouched, so a
+  creature still falls exactly as far per beat as it always did.
+- **Desync is impossible by construction.** The same integer steps run on the
+  same tick numbers, so `hashWorld` cannot tell a slow window from an ordinary
+  one. The owner's *start and end together* is satisfied by the window's
+  **boundaries** being a hashed field of `World`; only the wall-clock rate
+  inside it is local, and two phones 200 ms apart stay 200 ms apart.
+- **The metronome slows with it, for free**, because `packages/audio` binds
+  cues to simulation events rather than to a wall-clock schedule — and a
+  slowing click is the loudest possible signal that a window has opened.
+- **Two costs, named in #33**: judder, because at a third of the rate frames
+  start outnumbering ticks, which is exactly what the already-written
+  `interpolatedBeatPhase` fixes; and the input delay, which is counted in ticks
+  and would triple in felt milliseconds at the very moment the drama peaks
+  unless it is re-derived against the rate.
 
-**The translation, and it is already shipped under another name.** What this
-game can do is hold the metronome and make **the body take more beats**. THE
-GRIP is exactly that and nothing else: a hand on a falling thing scales
-`grippedFallTiles`, the clock never moves, and the felt effect at the thumb is
-time dilation. Every concept below calls this **THE DRAG** and spends it the
-same way: on the beat a step resolves, the bodies that matter take three or
-four beats to cross a row they would have crossed in one. Particles, trails
-and bloom are render's to stretch with it and cost the simulation nothing.
-The picture gets its movie shot; the beat does not move; the fingerprint
-agrees.
+### THE SLOW and THE DRAG are two different tools
+
+The ruling leaves the game with **two** ways to make something take longer, and
+a concept that reaches for the wrong one gets either drama it did not want or a
+mechanic it did not earn. They are not substitutes and every entry below says
+which it is using.
+
+**THE SLOW** — the beat's wall-clock rate, for a named span of beats, both
+devices. It is **presentation**: the same ticks, the same integers, the same
+fingerprint, played back slower. It buys **wall-clock time**, which is why it
+is what makes a called one-beat window playable — a 900 ms call inside a
+third-rate window has 2.7 s to arrive. It changes no mechanic and costs the
+simulation nothing.
+
+**THE DRAG** — a body moving at a fraction of its rate, in beats. It is
+**mechanics**: `sim/grip.ts` scaling `grippedFallTiles`, and `slowStep` in
+`slow-fall.ts` as the per-kind version. It buys **beats**, which is a different
+currency — a body that takes three beats to cross a row is a body the pair has
+three beats to answer, and the fingerprint records every one of them.
+
+| Concept | Uses | For what |
+|---|---|---|
+| 1 THE THROAT | **both** | DRAG on the inhale — three beats a row is three beats for a braking hand. SLOW on a flung gum's last row |
+| 2 THE ORRERY | SLOW | a one-beat alignment across a voice delay. The rings keep their integer cadences, which is why this is the better tool |
+| 3 THE GORGE | SLOW | the beads rising as an intake goes full — the only warning before a one-beat pierce |
+| 4 THE TASTER | SLOW | a blade's colour crystallising: the beat the last conversation is judged |
+| 5 THE LEDGER | SLOW | the bead's last beat down the cord |
+| 6 THE CURTAIN | SLOW | the shove, and the fabric thinning under two hands |
+| 7 THE DIASTOLE | SLOW | the coincidence beat, both chambers open, the beam standing |
+| 8 THE SINEW | **both** | SLOW on the fibres parting. DRAG on the final fall — four beats a row is what makes walking it sideways possible |
+| 9 THE SURGE | SLOW | the last beat before a notch, which is what makes a one-beat mutual lift fair |
+| 10 THE BATON | **DRAG** | the bead genuinely takes three beats between sockets. A permanent SLOW here would be the brief's own refusal — *"do NOT turn the entire game into permanent slow motion"* |
+| 11 THE LEAD | SLOW | the bolt's last row: the brief's suspended projectile, literally |
+| 12 THE ANTIPHON | neither | the organ turning under a hand is a rotation, not a time effect |
+| 13 THE UNDERTOW | SLOW | the hull plate bowing and parting |
+| 14 THE CANDLE | SLOW + `AfterImage` | the decaying lit frame is a render buffer; SLOW lengthens the look at it |
+| 15 THE SCUTTLE | **DRAG** | three beats of a part hanging by a thread is the window it is shot in |
+
+**Where each earns its keep.** Four of the fifteen want DRAG and eleven want
+SLOW, and the four are the ones where the extra time is the *mechanic* — a hand
+to arrive, a body to walk sideways, a turn to take, a part to hit while it is
+still attached. Everywhere else the pair does not need more beats, it needs
+more seconds inside the beat it already has, and that is free.
 
 **4. Red and cyan are ammunition and cannot mean anything else.** The brief
 proposes `PURPLE = P1 interaction, BLUE/CYAN = P2 interaction`. Cyan already
@@ -127,7 +176,7 @@ ever fitted two of them."* Every table below marks a window **seen** or
 | An authored beat list; the scene will not advance until the beat is performed | nothing — every boss is a loop | **the whole of this page.** `BossSequenceStep` |
 | The two players are given different jobs in the same beat | all three [couplings](couplings.md) | built, and better here |
 | A prompt with a shrinking ring | the ready gate's two circles, `queen-drop.ts`'s filling bar | built, reusable as-is |
-| Time dilation on the dramatic action | THE GRIP, `slowStep` | **arrives as THE DRAG**, per correction 3 |
+| Time dilation on the dramatic action | `loop.ts`'s `tickMs`; THE GRIP and `slowStep` for the other kind | **arrives as THE SLOW**, per correction 3 and `decisions.md` #33 |
 | A split screen that reframes, zooms and re-composes per beat | nothing; the window is [not the stage](../decisions.md) (#14) | **refused.** Two portrait phones have no second pane to give |
 | Alternating turns — one acts, the other watches | nothing does this on purpose | **THE BATON**, below |
 | Simultaneous button press on a shared count | [couplings](couplings.md) 1, and SYNC in `balance.ts` | built; worth spending at boss scale |
@@ -180,7 +229,8 @@ sentence about what you are willing to lose. This page builds the first kind.
 Each is a **question no shipped boss asks**, because that is filter 8 and it
 is the one that killed the most drafts. Template throughout: the question, the
 silhouette and what part of it is the health, the mechanic, the two seats, the
-beat list, where THE DRAG falls, what the hull does instead of a camera, the
+beat list, where THE SLOW or THE DRAG falls, what the hull does instead of a
+camera, the
 colour statement, the payoff, the cost, and what of it is reusable.
 
 In every beat list, a **seen** window is one the acting seat can judge from
@@ -257,13 +307,14 @@ eat.
 | 13 | The last ring, and the mouth is wide open and no longer sliding | P1+P2 | he flings the gum he has been holding; she lances the column behind it | 4 beats, called | — | — |
 | 14 | **The throat everts.** With five slack rings and a full inhale it pulls itself through its own mouth — the tube turning inside out from the top down, ring by ring, each one appearing on the outside of the last, and what was the inside of the boss is drawn for the first time as it goes | — | — | — | — | — |
 
-**THE DRAG.** Two places, and both are a body taking more beats while the
-metronome holds. **The inhale beat**: everything in the throat's column takes
-three beats to climb a row instead of one, so a swallow is watched rather than
-noticed, and a braking hand has somewhere to arrive. **The fling** (step 3,
-and every fling after it): the gum's level flight is already the best shot in
-the fight, and its last row before the mouth takes three beats, with its trail
-drawn full length behind it.
+**THE DRAG, then THE SLOW**, and this is the concept that shows most plainly
+why they are two tools. **The inhale is a DRAG**: everything in the throat's
+column takes three beats to climb a row instead of one, and those are real
+beats — a braking hand has three chances to arrive rather than one, and the
+fingerprint records every one of them. **The fling is a SLOW**: the gum's level
+flight is already the best shot in the fight, so the beat it crosses its last
+row is played at a third rate with its trail drawn full length. Nothing about
+the flight changes; the pair simply gets to watch it.
 
 **Presentation.** No camera. The inhale is the **hull** answering: `ship-air.ts`
 pulled toward the top of the frame, the ship's own nerves drawn taut, and a
@@ -359,12 +410,14 @@ core's colour is the one thing about the core either of them can see.
 | 13 | Player 1 must keep the cannon still for the whole fill, in a column full of falling debris | P1 | do nothing, precisely | `lancePrimeBeats`, called | — | the fill drops to nothing |
 | 14 | **The beam stands in the column** for `lanceBeamBeats`, burning through the core and every loose organ in the shaft at once | — | — | — | the orrery goes out from the centre outward | — |
 
-**THE DRAG.** One place, and it is the whole design: **on any beat the gaps
-align, the rings hold their positions for three beats instead of one.** Organs
-trail behind their own arcs, the shaft through the body opens visibly, and a
-called column has somewhere to arrive. Without it a one-beat alignment across a
-voice delay is not a mechanic, it is a coin toss — this is the concept that
-proves THE DRAG has to exist before any of these can be built.
+**THE SLOW.** One place, and it is the whole design: **the beat the gaps align
+is played at a third rate.** Organs trail behind their own arcs, the shaft
+through the body opens visibly, and a 900 ms call has 2.7 s to arrive. This is
+the concept that proves THE SLOW has to exist before any of these can be built
+— a one-beat alignment across a voice delay is otherwise a coin toss. And it is
+the clearest case for SLOW over DRAG: three rings on coprime integer cadences
+are the entire boss, and stretching the *rings* would break the arithmetic the
+pair has been doing. Stretching the **second** breaks nothing.
 
 **Presentation.** The alignment beat brightens the *shaft* rather than the
 screen: a corridor of light straight down through three rings to the core, drawn
@@ -459,10 +512,13 @@ bead **empties it by one**.
 | 13 | The last intake goes transparent with every bead the boss has ever held in it at once — dozens, stacked up the lobe | P2 | **hold** a colour; player 1 keeps the column | `lancePrimeBeats`, called | the lobe fills past transparent | the fill drops and the lobe vents everything |
 | 14 | **The beam stands in the column.** The sack ruptures along its whole width and every bead it ever swallowed leaves at once, in the colour it was fired in, straight up through the top of the frame and gone | — | — | — | — | — |
 
-**THE DRAG.** One place, and it is the beat an intake goes full: **the four
-beads inside it rise through the lobe over three beats** instead of one, the
-skin going transparent around them as they climb. That is the tell for the
-one-beat pierce window, and it is the only warning the pair gets.
+**THE SLOW.** One place, and it is the beat an intake goes full: **the four
+beads rise through the lobe at a third rate**, the skin going transparent
+around them as they climb. That is the tell for the one-beat pierce window and
+the only warning the pair gets — and it has to be a SLOW rather than a DRAG,
+because an intake that took three beats to fill would be three beats the pair
+could spend not firing, which is the one thing this boss must never hand
+them.
 
 **Presentation.** A swallowed bolt is answered by the **sack**, not the screen:
 the intake puckers and the bead visibly enters, which is a small picture that
@@ -557,8 +613,8 @@ give me cyan for the next eight."**
 | 13 | The interlocked pair is edged in both colours at once, and neither single shot touches it | P2 | **hold** the colour the tally says she has spent least of, all fight | `lancePrimeBeats`, called | the lobe fills in the one colour the boss has never grown toward | the fill drops, and the closed fan is proof against everything they have |
 | 14 | **The beam stands in the column.** The interlock parts, the whole fan unlocks outward at once like a flower opening backwards, and the soft body under it is drawn for the first and last time | — | — | — | — | — |
 
-**THE DRAG.** The beat a blade's colour **sets**: the edge crystallises over
-three beats, the colour running up the blade from the root to the tip, and both
+**THE SLOW.** The beat a blade's colour **sets**: the edge crystallises at a
+third rate, the colour running up the blade from the root to the tip, and both
 seats watch it happen. That is the tell, the warning and the drama in one
 picture, and it is the moment the pair learns whether their last conversation
 worked.
@@ -659,9 +715,11 @@ other side.
 | 13 | She fires the fifth, and the script does not ask for a ward. **Both seats are shown the bead coming and neither is asked to stop it** | — | — | — | — | — |
 | 14 | **The return lands.** The hull takes the worst scar of the fight — and the cord, taut, tears out of the ship and takes the boss's entire underside with it, the two halves finally parting, still joined to a length of the pair's own hull plating | — | — | — | — | — |
 
-**THE DRAG.** The bead's **last beat before it lands** takes three: the cord's
-strain pattern brightening up its whole length, the socket opening, the plate's
-edge visible against it. That is the brief's shrinking-ring prompt done as
+**THE SLOW.** The bead's **last beat before it lands**, at a third rate: the
+cord's strain pattern brightening up its whole length, the socket opening, the
+plate's edge visible against it. Deliberately not a DRAG — the four beats down
+the cord are the clock this whole fight is timed against, and buying the pair a
+fifth would be giving back the debt the boss exists to collect. That is the brief's shrinking-ring prompt done as
 anatomy — a clock that is a body part.
 
 **Presentation.** Every beat of this fight is presented by the **hull**, which
@@ -756,8 +814,8 @@ of the lobes. Her half is *which way, and how far*. Both push.
 | 13 | **It tears off the rail.** The whole membrane falls across the field as a sheet, drifting down over four beats, the core's light coming through it as it goes | — | — | — | — | — |
 | 14 | The core stands naked in the middle of an empty field and fires continuously for four beats with nothing between it and the hull | P1+P2 | her plate, his trigger, then everything the cannon has | 4 beats, called | the core goes | the hull takes four rocks in four beats |
 
-**THE DRAG.** The **shove**: one column takes three beats, the membrane
-stretching against its rail, the fabric thinning where the hands are, and the
+**THE SLOW.** The **shove**, played at a third rate: the membrane stretching
+against its rail, the fabric thinning where the hands are, and the
 shadow behind sharpening as it thins. That is the brief's "objects stretching
 through space", and it costs the simulation one `Milli` field.
 
@@ -857,8 +915,10 @@ two clocks.
 | 13 | The right chamber contracts one last time and the pair takes it, and both chambers are now dead ends | P1+P2 | the fill again, against one clock this time | `lancePrimeBeats`, called | — | — |
 | 14 | **The bridge bursts along its whole length.** With nothing pumping at either end it fills, distends vessel by vessel from both ends toward the middle over four beats, and splits open in the middle column | — | — | — | — | — |
 
-**THE DRAG.** The **coincidence beat**: both chambers held at full contraction
-for three beats while the beam stands in the bridge. The two rhythms that have
+**THE SLOW.** The **coincidence beat**, at a third rate, both chambers at full
+contraction while the beam stands in the bridge. A DRAG here would be
+self-defeating: the two cadences *are* the boss, and 3 against 5 stops meaning
+anything the moment a beat is worth a different number of tiles. The two rhythms that have
 been fighting each other all fight stop at the same instant, and that stillness
 is the payoff of the count.
 
@@ -956,11 +1016,12 @@ a scalar.
 | 13 | The last pull needs more than either seat can reach alone, and the script says so: both handles to their limit, both held | P1+P2 | pull to the stop and hold | 6 beats, called | the last fibre parts | a snap-back at full strain throws three rocks |
 | 14 | **The mass comes down — and which column it lands in is the last thing they say to each other.** With the fibre gone it swings on the stub of its own tendon, and the pair keeps pulling to one side as it falls, walking a body the width of three columns away from the middle of their own hull | P1+P2 | keep pulling, one direction, agreed | 4 beats, called | it lands at the wall | it lands on the hull they have been defending for ten minutes |
 
-**THE DRAG.** The moment the sum **enters the zone**: the fibres go
-half-transparent and part one at a time over three beats, each with its own
-snap, so a success is a small sequence rather than an event. And in step 14 the
-fall itself — a mass this size takes four beats to cross a row, which is what
-makes walking it sideways possible at all.
+**THE SLOW, then THE DRAG.** The moment the sum **enters the zone** is a SLOW:
+the fibres go half-transparent and part one at a time at a third rate, each
+with its own snap, so a success is a small sequence rather than an event. Step
+14 is a **DRAG** and has to be — a mass this size takes four real beats to
+cross a row, and those four beats are what makes walking it sideways possible
+at all. Wall-clock seconds would not do: the pair needs *turns*.
 
 **Presentation.** The strain band **is** the prompt, which is what the brief
 asked for in its timing section: the clock is anatomy, it is on the body, and it
@@ -1052,11 +1113,12 @@ built.
 | 13 | The last notch sits at the very top of the gauge, one tick under the burst, and there is no margin at all | P1+P2 | charge to the limit and lift on the same beat | 1 beat, called | — | a burst covers the ship and the bulb re-seals a notch |
 | 14 | **It everts.** With the seam fully open and no pressure left to hold it, the bulb turns itself inside out through its own equator over five beats — ribs passing through the seam one at a time — and the inner body it has been growing is left standing in the field, naked, deflated and drawn for the first time | — | — | — | — | — |
 
-**THE DRAG.** The **last beat before a notch**: the seam's rim stretches, the
-skin goes translucent, and the notch line creeps toward the pressure mark over
-three beats. That is the release window made visible as tissue, and it is the
-single clearest case on this page for THE DRAG existing — a one-beat mutual lift
-across a voice delay is unplayable without it.
+**THE SLOW.** The **last beat before a notch**, at a third rate: the seam's rim
+stretches, the skin goes translucent, and the notch line creeps toward the
+pressure mark. That is the release window made visible as tissue, and it is one
+of the two clearest cases on this page for THE SLOW — *"let go on the four"* is
+a word that has to cross a voice delay and land on a single beat, and it is
+only fair if that beat is three seconds long.
 
 **Presentation.** A burst is presented on the **ship**: `gum-splash.ts` across
 the whole hull, `splash-blob.ts` and `splash-trail.ts`, and the frame stays
@@ -1144,11 +1206,14 @@ describes exactly, and the split is entirely in the hands.
 | 13 | The two beads merge into one, twice as bright, and the last flight is **eleven beats long** — the length of the whole arm in one crossing | P1+P2 | eleven alternating acts, no miss | 11 beats, called | the bead crosses | one miss and it goes back to the top of an arm that has grown its sockets back |
 | 14 | **The arm hands the bead to the ship.** At the end of its flight the bead drops out of the last socket, falls, and is taken into the cannon lobe — and the shot that leaves is the arm's own, taking it off at every joint at once, eleven segments parting on one beat | P1 | open the maw under it | `intakeWindowMs`, called | — | — |
 
-**THE DRAG.** Every handover: **the bead's flight between sockets takes three
-beats.** That is what makes a one-beat alternation legible, turns the whole
-fight into a visible rhythm, and gives a called turn somewhere to arrive. It is
-also the only concept here where THE DRAG is the *mechanic* rather than a
-flourish — without it the boss is a reaction test, which filter 4 forbids.
+**THE DRAG**, and emphatically not THE SLOW. Every handover: **the bead's
+flight between sockets takes three real beats.** That is what makes a one-beat
+alternation legible, turns the whole fight into a visible rhythm, and gives a
+called turn somewhere to arrive — without it the boss is a reaction test, which
+filter 4 forbids. A SLOW cannot do this job, because the job lasts the whole
+fight: slowing the beat for ten minutes is the brief's own refusal, *"do NOT
+turn the entire game into permanent slow motion"*. The bead is slow; the clock
+is not.
 
 **Presentation.** The **grey panel** is the whole presentation and it is
 shipped: `malfunction-look.ts` and `guard-lapse.ts` already draw a dead control.
@@ -1246,12 +1311,13 @@ for a body whose direction she cannot see.
 | 13 | **It commits to one final full-width pass at three columns a beat**, and the stalk lays almost flat with the lean | P2 | **hold** a colour | `lancePrimeBeats`, called | the lobe fills | — |
 | 14 | Player 1 must stand the cannon in the one column the boss will be in when the fill tops out — nine columns of lead, computed out loud from her number and his angle, and he cannot move the cannon after the hold starts or the fill drops | P1 | pick the column and do not move | `lancePrimeBeats`, called | **the beam stands there and it walks into it**; the stalk goes, the body follows, and the whole pass ends in one column | the beam burns an empty column and it reaches the wall |
 
-**THE DRAG.** The beat a shot shares a row with the stalk: **the bolt takes
-three beats to cross that last row**, stretched, with its full trail drawn. This
-is the one place on the page where the brief's literal ask — a projectile
-suspended in the air — is exactly what the mechanic needs, because a two-beat
-lead resolved in one tick is invisible and a pair cannot learn from an invisible
-result.
+**THE SLOW.** The beat a shot shares a row with the stalk, at a third rate,
+with the bolt's full trail drawn. This is the page's literal delivery of the
+brief's own ask — a projectile suspended in the air — and it must be a SLOW
+rather than a DRAG for the reason the whole boss exists: the lead is computed
+from the bolt's flight time in **beats**, so a bolt given extra beats is a bolt
+the pair has to re-do their arithmetic for. Give them extra *seconds* to watch
+the arithmetic they already did resolve.
 
 **Presentation.** `target-lock.ts` on her screen, `dart-path.ts`'s existing
 trail work on the bolt, and the reversal in step 4 is presented by the boss
@@ -1344,9 +1410,10 @@ directions is the boss.
 | 13 | **The last organ is their own ship.** It pushes out of the surface drawn by `drawHull` — the same function, the same hull, the same violet — and her rail offers three hulls, two of them subtly wrong | P1 | describe his own ship | 4 beats, called | — | — |
 | 14 | On the right one: the body cannot hold a shape it has copied, and every pit on its surface opens at once into the shape that made it, all of them at the same time — the whole fight's vocabulary erupting out of the body that took it | P2 | fire | 2 beats, seen | — | — |
 
-**THE DRAG.** While **either** seat rests a hand on the organ, it turns slowly
-in place and stops when the hand lifts. That is THE DRAG spent as a *tool*
-rather than as drama: a shape being described can be looked at from more than one
+**Neither, and it is the one concept that wants no time effect at all.** While
+either seat rests a hand on the organ, it turns slowly in place and stops when
+the hand lifts — a rotation, not a rate. It is the one place on this page where
+the thing being bought is *a second viewing angle* rather than time: a shape being described can be looked at from more than one
 angle, which is what makes describing it possible at all, and it is the one place
 on this page where a hand on the boss is an aid rather than an action.
 
@@ -1443,9 +1510,9 @@ colours for the lance.
 | 13 | **The last lobe comes up through the middle column and does not withdraw.** It stands, growing, and behind it the whole body is coming | P1 | open the maw and **hold it open** | 6 beats, called | — | it comes through anyway and the hull goes |
 | 14 | The body follows the lobe up through the hole — the entire boss drawn for the first and only time, passing through a breach narrower than it is, deforming to fit — and the ship takes it in. The fight ends with the boss **inside the ship**, and the hull closes over it | — | — | — | — | — |
 
-**THE DRAG.** The lobe's **four beats in the breach**, and specifically the hull
-plate bending: the edge deforming upward over three beats instead of one, seams
-opening, light coming through. That is the brief's "objects stretching through
+**THE SLOW.** The lobe's four beats in the breach are ordinary beats; what is
+slowed is the **hull plate bending** — the edge deforming upward at a third
+rate, seams opening, light coming through. That is the brief's "objects stretching through
 space" applied to the one object in this game the pair actually cares about.
 
 **Presentation.** This concept is the argument of correction 3 made as a whole
@@ -1541,11 +1608,13 @@ something she cannot see.
 | 13 | It stops moving and stops eating flashes. There is nothing left to work out | P2 | fire into it | 4 beats, seen | — | — |
 | 14 | **The light goes out.** The frame is fully black for two beats — no after-image, no glow, nothing — and then the wave-end light comes up on a field the pair has never seen, full of everything they answered blind and everything they did not | — | — | — | — | — |
 
-**THE DRAG.** The whole concept runs on it: **every flash holds its lit frame as
-a decaying after-image for three beats.** That is the only reason the mechanic is
-playable, and it is the brief's "particles suspended in air, trails becoming
-visible" arriving as a legitimate render effect over a world whose clock never
-moved a tick. The simulation does not know the field is dark.
+**THE SLOW, over `AfterImage`.** The after-image is not a time effect at all —
+**every flash holds its lit frame for three beats as a decaying buffer**, which
+is the only reason the mechanic is playable and is `Effects` work. THE SLOW sits
+on top of it and does one job: the beat a flash lands is played at a third rate,
+so the pair gets three seconds to read a field they are seeing for a fifth of a
+beat. Together they are the brief's "particles suspended in air, trails becoming
+visible", and the simulation does not know the field is dark.
 
 **Presentation.** `key-light.ts`, `corner-light.ts`, `light-shafts.ts`,
 `unseen.ts` and `hover.ts` already exist and this is the boss they were waiting
@@ -1639,11 +1708,13 @@ the target alone: he knows how many are left, she knows which one counts.
 | 13 | It does not throw it. It **winds up** — the whole frame drawing back over six beats for a throw the pair can see is the last one, and six beats is exactly `lancePrimeBeats` | P2 | **hold** the colour; he keeps the column | `lancePrimeBeats`, called | the fill tops out on the beat of the throw | the last part is thrown, the field closes over the hull, and the run ends |
 | 14 | **The beam stands in the column and the throw never happens.** The last part goes while still in the socket, and with nothing left to hold it together the frame collapses inward through its own outline — every empty socket closing at once — and the only things left falling are the parts it threw minutes ago | — | — | — | — | — |
 
-**THE DRAG.** The **detachment**: three beats of a part hanging off the body by
-a thread, which is simultaneously the window, the warning and the drama. The
-whole boss is built around one drag, repeated thirty times, and it is the
-clearest demonstration on this page that THE DRAG is a *mechanic-maker* rather
-than a decoration.
+**THE DRAG.** The **detachment**: three real beats of a part hanging off the
+body by a thread, which is simultaneously the window, the warning and the drama.
+The whole boss is built around one drag repeated thirty times, and it is the
+clearest demonstration on this page that a DRAG is a *mechanic-maker* rather
+than a decoration — the three beats are the shot, so they have to be beats the
+simulation counts. A SLOW on top of the last one, in step 13, is the only
+presentation this fight needs.
 
 **Presentation.** `break-piece.ts`, `shatter-fall.ts`, `debris.ts` and
 `splinter.ts` — the destruction work is shipped and this is the boss that spends
@@ -1749,7 +1820,8 @@ above cannot exist without.
 
 | Primitive | Must support | Ancestor | Wanted by |
 |---|---|---|---|
-| **`Drag`** — **build first** | A named set of bodies moving at a fraction of their rate for N beats, chosen by the script, with the **metronome untouched** and `waveBeat` untouched. A scale on tiles-per-beat, in thousandths, hashed. **Never a scale on time** — corrections 3 and `transfers.md`'s last line | `sim/grip.ts` scales `grippedFallTiles`; `slowStep` in `slow-fall.ts` is the same idea as a per-kind rule | all fifteen; 2, 9, 10 and 14 are unplayable without it |
+| **`Slow`** — **build first** | A span of beats played at a fraction of its wall-clock rate, on both devices. The **boundaries** are a hashed field of `World` so the two agree which ticks are slow; the rate is `tickMs` in `loop.ts` and nothing below it ever hears about it. **Changes `tickMs`, never `ticksPerBeat`** (`decisions.md` #33). Wants `interpolatedBeatPhase` on inside the window, and the input-delay floor re-derived against the rate | `loop.ts`'s one-off `const tickMs`; `interpolate.ts`, written and behind a flag | eleven of the fifteen; 2, 9 and 11 are unplayable without it |
+| **`Drag`** | A named set of bodies moving at a fraction of their rate **in beats**, chosen by the script, hashed. A scale on tiles-per-beat, in thousandths. The other currency entirely: this buys the pair *turns*, where `Slow` buys them *seconds* | `sim/grip.ts` scales `grippedFallTiles`; `slowStep` in `slow-fall.ts` is the same idea as a per-kind rule | 1, 8, 10, 15 — and 10 and 15 are unplayable without it |
 | **`AfterImage`** | A decaying frame buffer in `Effects`, cleared in `Effects.reset()` or `restart.test.ts` fails | `trail.ts`, `sparks.ts`, `ghost-trail.ts` | 14, and THE GHOST and THE VEIL want it |
 | **`DelayedConsequence`** — **build first** | A command's effect arriving N beats later at a named column, queued and hashed. This is what makes *act → reaction → act* possible at all, which is the brief's central diagram | the wave's own `queue`, read by index; `fault-clock.ts` | 5, 13, and any authored scene with a consequence |
 | **`CoprimeCadence`** / **`AlignmentWindow`** | The beat on which several independent cadences coincide, computable ahead and drawn | `queen-drop.ts`'s eight-beat bar; `pulse-chart.ts` | 2, 7 — and these two should be **one** primitive, arrived at from two directions |
@@ -1793,7 +1865,7 @@ documentation guarantee in the repository and the reason this table is short.
 | **`Occluder`** | A body that changes how the bodies behind it are drawn. `render/` has no z-concept for "dimmer, behind a membrane" | `veil-look.ts` comes closest and does not occlude | 6 |
 | **`InvertedWeakPoint`** | A body vulnerable to the colour it is **not** | `colour-armour.ts` says which colour hurts a body; this says which does not | 4 |
 
-**The four to build first, and in this order:** `BossSequenceStep`, `Drag`,
+**The four to build first, and in this order:** `BossSequenceStep`, `Slow`,
 `DelayedConsequence`, `StepBack`. Those four are a **choreographed boss engine**
 and nothing else on this page is reachable without them. Every one of the fifteen
 then costs what `decisions.md` #20 says a round costs — one wave entry, one
@@ -1841,10 +1913,14 @@ of it is worth starting, and all three are named rather than guessed at:
   is not this game's: a hit loses the wave, everywhere, today. Softening that for
   bosses only is a real change to what a wave *is*, and it is the one thing here
   that reaches outside `bosses.md`.
-- **Whether `Drag` is allowed at all.** It does not bend the metronome and it does
-  not touch `waveBeat`, so it clears the rules as written — but it is the first
-  mechanic in the game whose purpose is *drama* rather than difficulty, and that
-  is a taste question, not a technical one.
+- **~~Whether the slow is allowed at all.~~ Decided: it is.** The owner ruled on
+  16 September 2026 and `docs/decisions.md` #33 carries the mechanism. What is
+  left of the question is one implementation call somebody has to make rather
+  than ask about: **the input-delay floor is counted in ticks**
+  (`link-run.ts`), so inside a third-rate window the felt lag from thumb to
+  picture triples at exactly the moment the drama peaks. It has to be
+  re-derived against the rate, and whoever builds `Slow` owns that or the
+  first window will feel broken rather than dramatic.
 - **How many of the fifteen are wanted.** [transfers-bosses](transfers-bosses.md)
   already holds THE TITHE and THE WEIGHT unbuilt, [bosses](bosses.md) holds THE
   MOTHER and THE VESSEL waiting on machinery, and the act structure has empty

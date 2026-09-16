@@ -972,3 +972,93 @@ worth having whether or not any mode is ever switched on.
 calendar time is mostly generation after the tail has been split away — at
 which point the comparison is one flag and ten lanes each way, and this entry
 says what it would have to beat.
+
+## 33. The beat may be slowed for both, and it changes `tickMs` and never `ticksPerBeat`
+
+*16 September 2026.* The owner asked for cinematic slow motion at boss scale
+and was told it could not exist here — `docs/spec/transfers.md`'s filter ends
+*"a mechanism whose effect is a wobble in wall-clock time cannot exist here at
+all"*, the simulation stores integers, and a slow that starts when a finger
+lands is a desync under delayed lockstep. He overruled it, and supplied the
+condition that makes the objection wrong:
+
+> I still want the slow motion effect. It slows down the beat. As it's just
+> animation it doesn't matter if it is in sync or not. Just what matters that
+> both animations in slow mode start and end at the same time for both players
+> when visible to both.
+
+**He is right, and the refusal conflated two different things.** What cannot
+exist is a *tempo bend*: the beat meaning something different on one phone than
+on the other, which is what [The Conductor (30)](spec/transfers-bosses.md) was
+deferred for and what `docs/spec/latency.md` protects. A **symmetric slow** is
+the opposite of that. The pair counts beats, both of them count the same ones,
+and a beat that takes three times as long in wall clock means the voice delay
+covers *fewer* beats than usual — so talking gets easier inside a slow window,
+not harder. The one wall this game has was never the tempo; it was the tempo
+being *shared*, and a slow both devices take is still shared.
+
+**The mechanism, and it is one line of the loop.** `apps/game/src/loop.ts`
+already isolates the only wall clock in the stack, and its own header is the
+permission slip: *"Wall-clock time exists here and nowhere below: the
+simulation only ever hears 'one tick has passed'."* `startLoop` computes
+`const tickMs = 1000 / tickHz` once; it becomes a per-frame lookup against the
+world's current rate. Nothing else moves.
+
+**The rule that keeps it honest: a slow changes `tickMs`, never
+`ticksPerBeat`.** Milliseconds per tick is wall clock and belongs to the loop.
+Ticks per beat is simulation — `apps/game/src/testing.ts` asserts
+`(tickHz * 60) % bpm === 0` and calls the alternative an *uneven beat* — and a
+slow that touched it would change how far a creature falls per beat, which is
+the game, not the picture.
+
+**Desync is impossible by construction**, which is the part worth being
+explicit about because it is the reason this is cheap. The simulation runs the
+same integer steps on the same tick numbers at the same `ticksPerBeat`, so
+`hashWorld` cannot tell a slow window from an ordinary one. What satisfies the
+owner's condition — *start and end at the same time for both* — is that the
+window's **boundaries are a hashed field of `World`**: both devices agree which
+ticks are slow because they agree about everything (`decisions.md` #23). Only
+the wall-clock rate at which those ticks are consumed is local, and two phones
+that were 200 ms apart before a window are 200 ms apart after it. Clock sync
+already owns that gap.
+
+**The audio follows for free.** `packages/audio` binds cues to simulation
+events rather than to a wall-clock schedule, so the metronome's click slows
+with the beat with no work at all — and a slowing metronome is the loudest
+possible signal that a window has opened.
+
+**Two real costs, both named rather than discovered later.**
+
+- **Judder, and the fix is already written.** `tickHz` is 120 against a 60 Hz
+  display, so the simulation runs about two ticks a frame today and the picture
+  never wants for a new state. At a third of the rate that inverts — frames
+  outnumber ticks and the same world is drawn twice. `interpolatedBeatPhase`
+  in `apps/game/src/interpolate.ts` is exactly the fix, is written, and is off
+  behind `?interpolate=1` under *a look is offered, never replaced*. Turning it
+  on **inside a slow window** replaces no frame the game draws today, because
+  there are no slow windows today — so it needs no VERSUS candidate, and that
+  is the cleanest path onto the field this flag will ever get.
+- **The input delay is counted in ticks, and should not be.**
+  `apps/game/src/link-run.ts` builds `InputDelay({ tickHz, floorTicks:
+  cfg.inputDelayTicks })` and caps running ahead with `aheadLimitTicks:
+  cfg.tickHz * AHEAD_LIMIT_SECONDS`. Inside a window those ticks are three
+  times longer in wall clock, so the felt lag from thumb to picture triples at
+  exactly the moment the drama peaks, and the ahead-limit stops meaning
+  seconds. The floor has to be re-derived against the window's rate — fewer
+  ticks of delay while each one is worth more — or the pair's hands go soft in
+  every dramatic beat the game has.
+
+**Consequences.** `docs/spec/transfers.md`'s filter line is amended to say
+*asymmetric* rather than any wobble, and points here.
+`docs/spec/bosses-choreographed.md` is rewritten around this rather than around
+the per-body slow it proposed instead: **THE SLOW** is the beat's rate, for
+drama, and **THE DRAG** stays as the separate, shipped thing — a body taking
+more beats, which is THE GRIP and changes the mechanic rather than the picture.
+A boss may want either and they are not substitutes.
+
+**Reconsider if:** a round wants to slow **one** seat's picture and not the
+other's. That is not this mechanism and it does not inherit this entry's
+safety: with no shared boundary to resynchronise on, the two phones drift apart
+in wall clock for as long as the window lasts, and the pair's shared clock —
+the only thing holding a conversation together across a two-second voice delay
+— is what pays for it.

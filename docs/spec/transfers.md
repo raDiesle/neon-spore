@@ -37,7 +37,12 @@ a different game.
    these games are loud; neither of them listens, and neither may this one.
 
 And underneath all five: integers, the seeded `Rng`, the tick counter. A
-mechanism whose effect is a wobble in wall-clock time cannot exist here at all.
+mechanism whose effect is an **asymmetric** wobble in wall-clock time cannot
+exist here at all — one phone's clock bending where the other's does not takes
+away the shared beat, which is the wall all five of these tests are protecting.
+A slow both devices take together, starting and ending on beats they agree
+about, is a different thing and is allowed: `docs/decisions.md` #33, and the
+line above used to forbid both.
 
 ## Spaceteam
 
