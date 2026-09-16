@@ -1,4 +1,4 @@
-import { guardArmed, mawOpen, ticksPerBeat, wispOnField } from "@neon-spore/sim";
+import { guardArmed, mawOpen, mineOnField, ticksPerBeat, wispOnField } from "@neon-spore/sim";
 import { drawTakeover } from "./canvas2d-takeover.js";
 import type { ClaspFrames } from "./clasp-frames.js";
 import {
@@ -173,7 +173,7 @@ export class Canvas2DRenderer implements Renderer {
     // named by tile. Read straight off the world every frame rather than fed
     // by an event: a wisp arriving, being shot, or a wave being restarted
     // underneath one are three ways in, and the world answers all three.
-    this.held.effects.coordGrid.update(view.dt, wispOnField(world));
+    this.held.effects.coordGrid.update(view.dt, wispOnField(world) || mineOnField(world));
 
     // The beat is loud at the moment of the beat and gone before the next one.
     const flash = Math.max(0, 1 - view.beatPhase * (ticksPerBeat(world.cfg) / 26));

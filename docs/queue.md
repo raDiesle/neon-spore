@@ -317,46 +317,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## The Mine is an enemy, with its seeing seat set on the brush
-
-- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
-- **Taken:** 2026-09-16, claude/queue-the-mine-is-an-enemy-with-its-seeing-seat-set-on
-- **Files:** `packages/sim/src/wisp.ts`, `packages/sim/src/beatbox.ts`, `packages/sim/src/command-types.ts`, `packages/sim/src/config.ts`, `packages/content/src/creatures.ts`, `packages/render/src/coord-grid.ts`, `packages/render/test/frame.test.ts`, `tools/director/src/brush-cards.ts`, `tools/shape-sheet/src/drafts/mine.ts`, `docs/spec/ideas.md`, `docs/spec/bestiary.md`
-
-The Mine — `ideas.md`, Creatures, designed 12 September 2026 — becomes a
-creature, asked for by the owner on 15 September. `.claude/skills/new-creature`
-is the procedure. The design there stands: a body that appears on a tile
-and never moves; one seat sees it and the other, looking at an empty tile,
-taps it with the field thumb (`command-types.ts` `tap`, the one THE BEATBOX
-uses); a tap on one of the four neighbouring tiles is a hull hit in its
-colour; a tap farther away takes a beat off the fuse; the fuse is six beats
-(a `SimConfig` field), shown on both screens, and going off is a hull hit
-and the body gone. Rows two to twelve, never the hull row, never beside
-another mine.
-
-Decided on 15 September through the question tool:
-
-- **The exact tap kills it outright**, with a kill look of its own.
-- **No marks around it** — the seeing seat infers the four tiles from the
-  body; the shape (CALTROP's four points, `drafts/mine.ts`) says it. CALTROP
-  was lent to THE LEECH (`silhouettes-cling.ts`) and that creature is only a
-  pencil now, so the shape is free; check before taking it.
-- **Each mine runs its own fuse** from the beat it appeared.
-- **Which seat sees it is a brush setting**, not a rule: a field on the
-  entry the director's brush card edits (`brush-cards.ts`), so a wave can
-  give the sight to player 1 and the blind tap to player 2 or the other way
-  round. Today's wisp fixes that in code (`wisp.ts`); the mine must not.
-- **The lettered grid comes on for both seats** while a mine is on the field,
-  exactly as `coord-grid.ts` does for a wisp.
-
-Never on a wave with THE BEATBOX — a director guard, since both read the
-same tap. Drawn again in `frame.test.ts` on both seats. Its row goes into
-`bestiary.md` and its entry leaves `ideas.md` when it lands.
-
-Prove it with `bun run check`, a replay test in the creature's own file, and
-the wave watched at tempo through a right tap, a neighbour tap and a fuse
-running out.
-
 ## Moulting, his way: meteor and pod by turns, and player 2 sees what is next
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
@@ -529,3 +489,95 @@ and the scene beside it is worth reading for the same drift. **`both` and each
 half are capped at 220 characters** (`briefing.test.ts`), and the present
 `both` is already at the cap, so this is a rewrite rather than an edit. Prove
 it with `bun run check` and one frame of the opening.
+
+## THE FLIP, his way: a malfunction that mirrors the field for one seat
+
+- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Files:** `packages/sim/src/malfunction.ts`, `packages/sim/src/fault-placed.ts`, `packages/sim/src/fault-surface.ts`, `packages/sim/src/config-malfunction.ts`, `packages/sim/src/hash.ts`, `packages/content/src/wave-types.ts`, `packages/content/src/mechanics-table.ts`, `packages/render/src/malfunction-look.ts`, `packages/render/src/layout.ts`, `packages/render/src/touch.ts`, `packages/render/src/creatures.ts`, `tools/director/src/fault-fields.ts`, `tools/director/src/paint-fault.ts`, `tools/director/src/brushes.ts`, `docs/spec/ideas.md`, `docs/spec/transfers.md`
+
+The owner asked for **The Flip** (`ideas.md`, and `transfers.md` §The Flip)
+built on 16 September 2026, and his shape is not the one written there. It is
+**a malfunction**, not a mechanic of its own: a sixth `MalfunctionKind`
+alongside `cannon`, `shield`, `steer`, `codex` and `leech`, painted with the
+malfunction brush the director already has (`paint-fault.ts`), carrying the
+common malfunction graphics every fault wears — that blue — over the ship and
+the game area, so a pair that has met one fault recognises this one as the
+same family before reading a word.
+
+**What it does.** Bodies on the field are *drawn* in one column and *are* in
+its mirror about the vertical middle of the play area: a meteor drawn falling
+in column 0 is really falling in the last column, at the same row and the same
+speed. Nothing else changes — not the fall, not the beat, not the colour. So
+the shield goes to the **far right** for a body the seat can see on the left,
+and every column said out loud has to be turned around by whoever is holding
+the mirrored screen.
+
+**Which seat sees it is authored**, like `sees` on THE MINE
+(`packages/sim/src/mine.ts`, `SpawnEntry.sees`): the wave says whether the
+pilot's screen is flipped, the navigator's, or both. A flip on both is the
+wave it already was and the director should say so rather than allow it
+quietly (`docs/spec/bosses.md` line 1348 makes exactly this argument about
+THE MIRROR).
+
+**Where the flip lives decides whether it is a mechanic or a bug**, and
+`ideas.md` already holds the answer THE VANE learned the hard way: *a flip the
+simulation never hears about has nothing to hash, nothing to replay and
+nothing the director can show*. So the fold is in the **simulation's** placed
+fault (`fault-placed.ts`, in `hashWorld`), and render reads it — not a
+transform quietly applied in `layout.ts` on one device.
+
+**Four things must be visible**, and they are the whole of the owner's ask:
+
+- **A help text explaining the mirrored screen**, in the guide, in those words.
+- **A drawn mirror line down the middle of the field**, so the reflection is
+  something the picture states rather than something the pair infers.
+- **The moment the truth and the picture meet**: when a body is shielded,
+  destroyed, or takes the hull, that is shown *in the real column*, so the
+  pair sees where it actually was.
+- **The other seat is told its partner's picture is turned.** The seat whose
+  screen did not flip needs to know it is now the odd one out — the condition
+  `transfers.md` puts on the whole idea.
+
+Unworked out, for whoever takes it: whether the flip holds for the whole wave
+(every other malfunction does, and the owner removed the brake on 6 September
+2026) or runs on `fault-clock.ts`'s beats; and whether the cannon and shield
+strips are mirrored with the field or left alone — mirroring the strip as well
+turns the finger the same way as the eye and may cancel the whole mechanic
+out.
+
+Build it through the malfunction paths that exist rather than beside them:
+a kind in `MALFUNCTION_KINDS`, a brush in the director, a field in
+`hashWorld`, a wave of its own with a three-part guide, a replay test, and
+`frame.test.ts` on both seats — flipped and not — in one picture. Prove it
+with `bun run check` and the wave watched at tempo through a shielded body, a
+destroyed one and a hull hit. Then take the idea out of `ideas.md` and update
+`transfers.md`'s table row, which still says "new — see **The Flip**".
+
+## A rehearsal cannot show a finger on a bare tile, so THE MINE has no film
+
+- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Files:** `packages/content/src/scene-script.ts`, `packages/content/src/scene-types.ts`, `packages/content/src/scenes/`, `packages/render/src/guide-hand.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
+
+Every act a film can carry is a thumb on something the panel draws: a control
+press (`controlPress`), a hold, a drag, a turn, a shake, or `tap` — which is
+THE BEATBOX's and is fixed to the navigator and named by column alone. There
+is no act that says **a finger on a square of the field**, which is the whole
+of THE MINE's answer (`packages/sim/src/mine.ts`, the `tapTile` command), so
+that wave shipped with the three strings and the two circles and no rehearsal
+at all. It is the only guided wave in the game that cannot have one rather
+than merely not having one yet, and `scenes-prose.test.ts` and §3.2 of
+`briefings.md` both say so in those words today.
+
+What it needs is one more act shape: a **tile** act carrying `col`, `row` and
+the **seat** — unlike `tap`, whose seat is fixed, because which seat is blind
+is the wave's on this creature (`SpawnEntry.sees`) — producing a `tapTile`
+command; and the ghost hand drawn at the tile's centre rather than at a
+control's, which is the part `guide-hand.ts` has no case for. The film itself
+is then the ordinary five acts: the body standing on one screen, the other
+screen empty, the count coming down, the hand landing on the square, the
+contour closing.
+
+Worth doing only if the creature survives being played. Do it with the wave
+in front of you, not before. When it lands, take THE MINE out of
+`STILL_PROSE`, off §3.2's list and out of the paragraph under it — all three
+are named in the test's own failure message.

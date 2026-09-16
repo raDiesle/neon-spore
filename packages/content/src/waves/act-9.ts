@@ -77,6 +77,43 @@ import type { Wave } from "../wave-types.js";
  * and cannot see past the first hand's width of any straw. So a feed is a
  * sentence each way — *the third mouth from the left*, *I am on it* — and
  * neither seat is sitting with nothing to press.
+ *
+ * **THE MINE is the act's third wave**, and it is here for THE SPLICE's reason
+ * exactly: this file had room and no other did. It is a wisp that never hops,
+ * answered by a thumb instead of a bolt — one seat is drawn a body standing on
+ * a tile, the other is looking at an empty field, and the only thing that
+ * answers it is that seat's finger on that exact square. The four tiles beside
+ * it break the hull; anywhere else costs a beat off a fuse of six.
+ *
+ * **The wave is written round the one setting no other creature has**: which
+ * seat sees it is the arrival's (`WaveEntry.sees`), so the same three figures
+ * are the same problem handed to each seat in turn and then to both at once.
+ * A pair that spends the first figure learning *whose screen this is on* has
+ * learned the thing the second figure takes away.
+ *
+ * 1. Beat 0, **the navigator's tile and the pilot's finger**, in the middle of
+ *    an otherwise empty field. Nothing else to do for six beats, which is what
+ *    a pair needs to find out that the cannon is not in this at all: a bolt
+ *    bounces off one, and the strip under the pilot's thumb slides past the
+ *    answer without touching it.
+ * 2. Beat 12, **the same thing the other way round**. The pilot is drawn the
+ *    body and the navigator has to find it, and the column is at the edge
+ *    rather than the middle, where a letter said quickly is most easily heard
+ *    as the one next to it. This is the wave: everything the pair agreed about
+ *    who says and who presses expires on the beat the second one appears.
+ * 3. Beats 24–30, **one of each at once, and two ordinary bodies under them**.
+ *    Each seat is now saying a square and hunting for one at the same time,
+ *    with two fuses running at different offsets — and the slick and the bulb
+ *    falling through it are there so that neither seat can give the whole
+ *    thirty seconds to the tile. Two mines are placed clear of one another by
+ *    the simulation (`minePlaceRow`), so the tiles beside one are never the
+ *    answer to the other.
+ *
+ * It carries **no rehearsal**. Every act in a guide's film is a thumb on a
+ * named control (`scene-script.ts`, `controlPress`), and this creature's whole
+ * answer is a finger on a bare square of the field, which is not one — the film
+ * is queued rather than faked, and the guide's three parts carry it in the
+ * meantime.
  */
 export const WAVES_ACT_9: Wave[] = [
   {
@@ -123,5 +160,23 @@ export const WAVES_ACT_9: Wave[] = [
     entries: [],
     boss: { kind: "splice", rounds: [{ beats: 16 }, { beats: 24 }, { beats: 32 }] },
     controls: "splice",
+  },
+  {
+    id: "theMine",
+    name: "THE MINE",
+    sentence: "The one where the square has to be found with a finger, not a cannon.",
+    guide: {
+      both: "Something is standing still on a tile, and only one of your screens has it. No shot touches it — a bolt bounces off — and the only thing that answers it is the other one's finger on that exact square. The lettered grid is on for both of you. Miss by one tile and the hull goes; miss by more and the count on it drops by one.",
+      p1: "First one, you are the finger: take the letter and the number and press that square on the field itself. The cannon has nothing to do with this. Second one is yours to see — say the square, then say it again.",
+      p2: "First one is yours to see and not to touch: say the square at once, letter then number, and read the count on it — that is how long they have. Second one you press blind. Go straight there; feeling around costs a beat.",
+    },
+    entries: [
+      { beat: 0, col: 3, kind: "mine", color: "cyan", row: 6, sees: 2 },
+      { beat: 12, col: 1, kind: "mine", color: "red", row: 9, sees: 1 },
+      { beat: 24, col: 5, kind: "mine", color: "red", row: 3, sees: 2 },
+      { beat: 26, col: 2, kind: "mine", color: "cyan", row: 11, sees: 1 },
+      { beat: 28, col: 4, color: "cyan" },
+      { beat: 30, col: 0, color: "red" },
+    ],
   },
 ];

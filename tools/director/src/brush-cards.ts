@@ -161,6 +161,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   dart: "steps sideways; only p2 sees which way next",
   veil: "p2 does not see what is inside",
   wisp: "p1 cannot see it; hops tiles and never falls",
+  mine: "one of you sees it; the other taps that exact tile",
   ghost: "p1 cannot see it — say the column",
   echo: "splits",
   rind: "starts bigger, shrinks when shot",

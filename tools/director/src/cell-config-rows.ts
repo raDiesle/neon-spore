@@ -44,6 +44,12 @@ export function pathLabel(path: GhostPath): string {
 
 /** How many bodies hang on the thread, or run along the worm. The bare
  * number: the label beside it already says what is being counted. */
+/** Which seat a body is drawn to, said the way the panels are labelled
+ * everywhere else in the director rather than as a bare 1 or 2. */
+export function seatLabel(seat: 1 | 2): string {
+  return seat === 1 ? "P1 PILOT" : "P2 NAVIGATOR";
+}
+
 export function beadLabel(beads: number): string {
   return String(beads);
 }

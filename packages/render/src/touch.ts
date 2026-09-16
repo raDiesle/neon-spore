@@ -4,6 +4,7 @@ import { beatboxUnder } from "./beatbox-tap.js";
 import { creatureAt } from "./creature-under.js";
 import { handleUnder } from "./handles.js";
 import { colFromX, type Layout, showsCannon, showsShield } from "./layout.js";
+import { mineUnder } from "./mine-tap.js";
 
 // What a hit test is handed, and what it hands back: both lifted out when this
 // file went over its limit, and re-exported so nothing reaching for a `Field`,
@@ -63,7 +64,11 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     // for either player and a living body is an aim only the pilot has, so a
     // navigator's thumb finds nothing over a slick (`sim/hand.ts`).
     const held = creatureAt(l, field.creatures, x, y, field.beatPhase, field.seat);
-    if (!held) return null;
+    // And last of all, a bare square: the one press in this game that is not
+    // on anything drawn, from the seat a mine is hidden from (`mine-tap.ts`).
+    // It answers the whole field, so it is asked only where nothing else
+    // wanted the point.
+    if (!held) return mineUnder(l, field, x, y);
     return {
       player: field.seat,
       command: { kind: "grip", id: held.id },

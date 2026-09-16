@@ -13,6 +13,7 @@ import { fenceOnSpawn } from "./fence.js";
 import { fenceCracksOnSpawn } from "./fence-crack.js";
 import { ghostOnSpawn } from "./ghost.js";
 import { gyreOnSpawn } from "./gyre.js";
+import { mineOnSpawn } from "./mine.js";
 import { recoilOnSpawn } from "./recoil.js";
 import { rindOnSpawn } from "./rind.js";
 import { rockCrossOnSpawn } from "./rock-cross.js";
@@ -145,5 +146,11 @@ export function kindFieldsOnSpawn(world: World, entry: SpawnEntry, at: Placed): 
     // its heading and its speed — absent on every other kind. The heading is
     // derived rather than rolled, for `caromOnSpawn`'s reason.
     ...(rises ? balloonOnSpawn(world.cfg, world.beat, col, span, entry.rise) : {}),
+    // A full fuse and the seat the wave drew this one to, absent on every
+    // other kind. Authored, never rolled, and the seat is the first split in
+    // this game a wave chooses rather than the kind (`mineOnSpawn`). Last in
+    // the spread because nothing here rolls, and the order above is the
+    // fingerprint.
+    ...(entry.kind === "mine" ? mineOnSpawn(world.cfg, entry.sees) : {}),
   };
 }

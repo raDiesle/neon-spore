@@ -26,7 +26,17 @@ import type { World } from "./world.js";
  * chipped a gum or a leech would be telling the pair that shooting it more
  * would work. Every one is answered by a hand or by a control being moved.
  */
-const BOUNCES_A_BOLT: ReadonlySet<Creature["kind"]> = new Set(["gum", "limpet", "leech", "weight"]);
+const BOUNCES_A_BOLT: ReadonlySet<Creature["kind"]> = new Set([
+  "gum",
+  "limpet",
+  "leech",
+  "weight",
+  // And a mine, which is the sharpest case the owner's rule has: it is
+  // answered by a finger on its tile and by nothing else, and on a wave that
+  // draws it to the pilot a bolt that killed one would hand the seat holding
+  // the cannon both halves of the sentence at once (`mine.ts`).
+  "mine",
+]);
 
 /** Whether a bolt that meets this kind is spent on it with no effect. */
 export function refusesABolt(kind: Creature["kind"]): boolean {

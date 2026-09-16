@@ -1,4 +1,5 @@
 import { balloonEntryCol, balloonEntryRow, balloonEntrySide } from "./balloon-entry.js";
+import { minePlaceRow } from "./mine.js";
 import { rockCrossRowFor, rockEntryCol, rockMayCross } from "./rock-cross.js";
 import { shellOnSpawn } from "./shell.js";
 import { companionsOnSpawn } from "./spawn-companions.js";
@@ -58,6 +59,13 @@ export function spawnArrivals(world: World): void {
     // the column it was authored in and the row nought it has always had.
     const across = entry.cross !== undefined && rockMayCross(entry.kind) ? entry.cross : undefined;
     const rises = entry.kind === "balloon";
+    // **A mine is already there.** It enters in the column it was authored in
+    // like an ordinary arrival and on the *row* it was authored on, which no
+    // falling body has: the tile is the whole sentence, so where it stands is
+    // the wave's to write down rather than something the field works out.
+    // `minePlaceRow` pulls that row into the band and steps it clear of any
+    // mine already standing (`mine.ts`).
+    const stands = entry.kind === "mine";
     // **THE BALLOON comes in at a wall and glides to the middle**, which is the
     // owner's rule of 14 September 2026: it used to appear out of nothing one
     // row above the ship and swell there, which made the arrival a place the
@@ -75,9 +83,11 @@ export function spawnArrivals(world: World): void {
       : 0;
     const row = rises
       ? balloonEntryRow(world.cfg, world.rng)
-      : across === undefined
-        ? 0
-        : rockCrossRowFor(world.cfg, entry.row);
+      : stands
+        ? minePlaceRow(world, col, entry.row)
+        : across === undefined
+          ? 0
+          : rockCrossRowFor(world.cfg, entry.row);
     // Said once, at the top of the field, so player 2's ear has the column
     // before the eye has found the ring — haste, never surprise.
     if (entry.kind === "lure") world.events.push({ type: "lureSeen", col });
@@ -97,7 +107,9 @@ export function spawnArrivals(world: World): void {
       // entered at: it has no fall to be drawn making, and a body that slid
       // down from off the top edge into the middle of the field would be a
       // picture of the arrival it deliberately is not.
-      fromRow: rises || across !== undefined ? row : -fallTilesPerBeat(entry.kind),
+      // A mine has no entrance at all: it is on its tile from the first frame,
+      // which is the only arrival a thing that was *placed* can have.
+      fromRow: rises || stands || across !== undefined ? row : -fallTilesPerBeat(entry.kind),
       // A balloon glides in **sideways out of a wall**, which is a crossing
       // rock's own arrangement one creature along: `fromCol` is the wall and
       // `col` is where it stops, so the picture carries it in along the row it

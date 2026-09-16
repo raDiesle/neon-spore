@@ -77,6 +77,11 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
   "tether",
   "dart",
   "wisp",
+  // And a mine, for the wisp's reason with nothing left over: it does not
+  // fall in any degree, so a brake has no rate to scale. What answers one is
+  // a finger on its tile, and a hand that could also *hold* it would make a
+  // thumb that rested a fraction too long the other gesture entirely.
+  "mine",
   "gyre",
   "mount",
   "carom",

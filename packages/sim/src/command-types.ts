@@ -179,6 +179,30 @@ export type Command =
    * differently.
    */
   | { kind: "tap"; id: number }
+  /**
+   * **A finger on a tile of the field**, from the seat that cannot see what is
+   * standing on it — THE MINE's whole answer (`mine.ts`).
+   *
+   * `tap` above names a **body**, by the id the simulation dealt out, and that
+   * is exactly why it could not be reused here. A press this command describes
+   * is one that landed on *nothing the sender knows about*: the whole point is
+   * that the seat sending it is looking at an empty field, so there is no id
+   * for it to carry and no way for the device to find one. What it can say,
+   * and the only thing it can say, is the square the thumb came down on.
+   *
+   * So a column and a row, both in the simulation's own whole tiles — the
+   * arrangement `cannonCol` has, one axis further. Not pixels, for that
+   * command's reason: two phones of different widths share no pixel and do
+   * share a tile. Not a tile index either, which would be the same two numbers
+   * multiplied together by a device that would then have to agree with the
+   * other one about the width of the field.
+   *
+   * Which seat's press counts is the creature's rule and not this file's
+   * (`mineTapped`), on `tap`'s own terms: the command is what was pressed, and
+   * whose press it was belongs to the body it was aimed at. A press on a field
+   * with no mine on it at all finds nothing and does nothing.
+   */
+  | { kind: "tapTile"; col: number; row: number }
   | { kind: "restart" }
   /**
    * The answer to a lost wave (`wave-fail.ts`). The field holds on a screen

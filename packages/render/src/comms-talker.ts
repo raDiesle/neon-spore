@@ -42,6 +42,13 @@ export const TALKER = {
   // they listen — which makes the siren the only thing telling them that the
   // empty field they are staring at is not empty.
   wisp: "p2",
+  // THE MINE, and the only row in this table that is a *default* rather than
+  // an answer. Which seat is drawn a mine is the wave's to choose
+  // (`SpawnEntry.sees`), so the seat with something to say is read off the
+  // body — `comms.ts`'s `talkerFor` does that, and this is what a mine built
+  // with no seat named falls back to. It is the navigator's, because that is
+  // the seat the wisp's sight is on and a mine is a wisp standing still.
+  mine: "p2",
   // THE GYRE, both halves, and it is the loudest `null` in the table. Both
   // screens draw the whole wheel and every colour on it — nothing at all is
   // hidden — and the pair still cannot stop talking, because what has to be

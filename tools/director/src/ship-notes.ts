@@ -1,5 +1,6 @@
 import type { GroupName } from "./ship-groups.js";
 import { BOSS_NOTES } from "./ship-notes-boss.js";
+import { HIDDEN_NOTES } from "./ship-notes-hidden.js";
 import { HOLD_NOTES } from "./ship-notes-hold.js";
 import { ROUND_NOTES } from "./ship-notes-round.js";
 
@@ -151,21 +152,6 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "one to the other every few beats, which is what makes the call expire — " +
     "and a shot in the wrong colour shuts the cloud for a moment rather than " +
     "simply missing. See veil.ts.",
-  "THE WISP — a body only one of you can see at all":
-    "The veil's split again, and the whole body this time. Player 2 sees it " +
-    "and player 1 does not — not dimmed, not ringed, simply absent — and it " +
-    "stands on a tile for this many beats before it is somewhere else. It " +
-    "never falls, so it never reaches the ship and never leaves: the wave " +
-    "stays open until it is shot, and either colour does it. While one is on " +
-    "the field both screens carry the lettered grid, which is the only way to " +
-    "say where it is. See wisp.ts.",
-  "THE GHOST — a body with no column on one screen":
-    "Player 2 sees the body; player 1 is drawn a band across the row it is in " +
-    "and nothing about the column — and player 1 holds the cannon, so the " +
-    "column has to be said out loud as a number. A wave may also send one " +
-    "*across*: it prowls one row sideways, turns at each wall, gets visibly " +
-    "angrier each time, and after the last turn comes straight down at the " +
-    "hull head first. See ghost.ts.",
   "THE ECHO — one body that becomes eight":
     "The one arrival that gets harder while you watch it. It steps down only " +
     "every second beat, so the hull is never what is pressing — but it divides " +
@@ -246,5 +232,6 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "in SimConfig is silently absent, not because it wants a slider.",
   ...BOSS_NOTES,
   ...HOLD_NOTES,
+  ...HIDDEN_NOTES,
   ...ROUND_NOTES,
 };

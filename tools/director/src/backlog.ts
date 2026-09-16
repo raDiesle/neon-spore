@@ -116,7 +116,10 @@ function deferredGroup(deferred: Idea[]): BacklogGroup {
  * cuts the bullet that described it.
  */
 const KEPT_SYSTEMS = ["Destruction and damage"];
-const KEPT_CREATURES = ["Mine", "Moulting", "Husk"];
+// THE MINE came off this list on 16 September 2026, the day it was built:
+// the bullet that described it is out of `ideas.md` and the creature is in
+// the palette, which is the rule two paragraphs up said it would be.
+const KEPT_CREATURES = ["Moulting", "Husk"];
 
 // Whether a section's heading tail claims the thing exists. Not a string
 // equality test — "built", but also "the pod, built" — and "not built" /

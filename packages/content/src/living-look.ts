@@ -8,6 +8,7 @@ import type { OwnMotion } from "./own-motion.js";
 import { BEATBOX, BULB, type CreatureSilhouette, DART, SLICK, THROB, WISP } from "./silhouettes.js";
 import { LEECH, LIMPET } from "./silhouettes-cling.js";
 import { COUNTDOWN } from "./silhouettes-countdown.js";
+import { MINE } from "./silhouettes-mine.js";
 
 /**
  * Which kinds are drawn as a body of their own, and what that body looks like
@@ -137,6 +138,11 @@ const LIVING_LOOK = {
   // COLONY's base and CALTROP — and `render/cling.ts` draws them on the ship.
   limpet: { shape: LIMPET, motion: HOLD },
   leech: { shape: LEECH, motion: HOLD },
+  // THE MINE: REACHER, and the throb's stillness under it. A body that is
+  // fixed to the field is the one kind in this table for which a sway would be
+  // a lie about the rule — the fuse is the only thing about it that moves, and
+  // `render/mine.ts` draws that off the count rather than off a clock here.
+  mine: { shape: MINE, motion: HOLD },
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

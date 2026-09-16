@@ -227,12 +227,24 @@ export interface WaveEntry {
   cross?: RockCross;
   /**
    * The row a crossing rock walks along, which is also the row it falls to
-   * before it starts. Absent means the top of the field, and it says nothing
-   * about a rock that does not cross.
+   * before it starts — and the row a **mine** stands on, which is the only
+   * other body that has one. Absent means the top of the field, and it says
+   * nothing about a body that neither crosses nor stands.
    *
    * The one coordinate the director's map cannot show — that map is beats down
    * and columns across — so it is asked for in the panel above the map, beside
    * the same two fields a pod has had since THE CLAW (`PodEntry.row`).
    */
   row?: number;
+  /**
+   * Which seat THE MINE is drawn to: 1 the pilot, 2 the navigator, absent the
+   * navigator. It says nothing about any other kind.
+   *
+   * **The one split in this game the wave chooses**, which is why it is a
+   * brush setting and not a fact in `creatures-table.ts`. The other seat is
+   * the one with the finger, so turning this over turns the whole exchange
+   * round — and a pair that has learned which screen to look at has learned
+   * the wrong half of the creature (`sim/mine.ts`).
+   */
+  sees?: 1 | 2;
 }

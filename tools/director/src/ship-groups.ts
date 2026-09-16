@@ -46,6 +46,7 @@ export type GroupName =
   | "THE LURE — a body only one of you can see through"
   | "THE VEIL — a cloud only one of you can see into"
   | "THE WISP — a body only one of you can see at all"
+  | "THE MINE — a tile one of you says and the other has to find"
   | "THE GHOST — a body with no column on one screen"
   | "THE ECHO — one body that becomes eight"
   | "THE RIND — one body, three sizes"
@@ -98,6 +99,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE LURE — a body only one of you can see through",
   "THE VEIL — a cloud only one of you can see into",
   "THE WISP — a body only one of you can see at all",
+  "THE MINE — a tile one of you says and the other has to find",
   "THE GHOST — a body with no column on one screen",
   "THE ECHO — one body that becomes eight",
   "THE RIND — one body, three sizes",

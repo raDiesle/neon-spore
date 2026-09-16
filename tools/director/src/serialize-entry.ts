@@ -61,6 +61,10 @@ export function serializeEntry(entry: WaveEntry): string {
   // lost to once.
   if (entry.cross !== undefined) parts.push(`cross: ${entry.cross}`);
   if (entry.row !== undefined) parts.push(`row: ${entry.row}`);
+  // And which seat a mine is drawn to — dropped, a wave that handed the tile
+  // to the pilot would hand it back to the navigator on the first save, which
+  // is `wears` and `gaps` a third time.
+  if (entry.sees !== undefined) parts.push(`sees: ${entry.sees}`);
   return `{ ${parts.join(", ")} }`;
 }
 

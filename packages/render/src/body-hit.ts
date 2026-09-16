@@ -1,5 +1,6 @@
 import { BALLOON_SKIN } from "./balloon-burst.js";
 import { afterglow } from "./body-hit-afterglow.js";
+import { defuse } from "./body-hit-defuse.js";
 import { pop } from "./body-hit-pop.js";
 import { rupture } from "./body-hit-rupture.js";
 import { scatter } from "./body-hit-scatter.js";
@@ -118,6 +119,14 @@ export const DART_HIT: HitLook = { pieces: BREAK_LOOK, life: STRIKE_LIFE, strike
  * rise and blink out — and nothing of a wisp ever falls to the ship. */
 export const WISP_HIT: HitLook = { pieces: BREAK_LOOK, life: STRIKE_LIFE, strike: scatter };
 
+/**
+ * THE MINE's, and the only record here whose strike is not a body coming
+ * apart: a mine a finger found **did not go off**, so it goes out rather than
+ * bursting (`body-hit-defuse.ts`). `pieces` is the shared break look, which
+ * nothing here reaches — the strike throws no squares at all, deliberately.
+ */
+export const MINE_HIT: HitLook = { pieces: BREAK_LOOK, life: STRIKE_LIFE, strike: defuse };
+
 /** THE RIND's last layer: a rind is skin, and the skin peels back along its
  * veins into petals while the gel slides down and dries on the ship. */
 export const RIND_HIT: HitLook = { pieces: BREAK_LOOK, life: STRIKE_LIFE, strike: rupture };
@@ -164,6 +173,7 @@ export function hitFor(kind: string, of?: string): HitLook {
   if (kind === "throb") return THROB_HIT;
   if (kind === "dart") return DART_HIT;
   if (kind === "wisp") return WISP_HIT;
+  if (kind === "mine") return MINE_HIT;
   if (kind === "balloon") return BALLOON_HIT;
   return BODY_HIT;
 }

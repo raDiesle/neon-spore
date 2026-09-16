@@ -14,14 +14,22 @@ import { SCENES } from "../src/scenes.js";
  * (`sim/test/copies-table.ts`). So the numbers in that section are here, in the
  * package that owns them.
  *
- * Both directions matter. A film written for one of the five below fails this
+ * Both directions matter. A film written for one of the six below fails this
  * and the failure says to update the section; a guide that loses its film fails
  * it the other way. Neither is a defect in the film — it is the document being
  * asked to keep up, which is the only thing that was ever wrong with it.
  */
 
-/** The guided waves whose opening is the three strings and the two circles. */
-const STILL_PROSE = ["THE COUNT", "THE CHOKE", "THE LIMPET", "THE LEECH", "THE CODEX"];
+/**
+ * The guided waves whose opening is the three strings and the two circles.
+ *
+ * Five of them are films nobody has written yet. **THE MINE is the one that
+ * cannot have one**: every act of a rehearsal is a thumb on a named control
+ * (`scene-script.ts`, `controlPress`), and that creature's whole answer is a
+ * finger on a bare square of the field, which is not a control and has no
+ * name to press. A film for it would have to show a hand landing on nothing.
+ */
+const STILL_PROSE = ["THE COUNT", "THE CHOKE", "THE LIMPET", "THE LEECH", "THE CODEX", "THE MINE"];
 
 const guided = WAVES.filter((w) => w.guide);
 
@@ -44,11 +52,11 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   });
 
   it("counts the guided waves the opening section names", () => {
-    // "sixty-three of the seventy-two waves today" — the one figure in §1 that
-    // goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says sixty-three of seventy-two";
-    expect(guided.length, fix).toBe(63);
-    expect(WAVES.length, fix).toBe(72);
+    // "sixty-four of the seventy-three waves today" — the one figure in §1
+    // that goes stale the same way, and it went stale at sixteen of twenty-six.
+    const fix = "update §1 of docs/spec/briefings.md, which says sixty-four of seventy-three";
+    expect(guided.length, fix).toBe(64);
+    expect(WAVES.length, fix).toBe(73);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

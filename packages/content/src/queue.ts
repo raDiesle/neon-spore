@@ -136,6 +136,11 @@ export function queueFromWave(wave: Pick<Wave, "entries">, cols: number): SpawnE
       // *columns*, and a field is remapped across, never down.
       ...(e.cross === undefined ? {} : { cross: e.cross }),
       ...(e.row === undefined ? {} : { row: e.row }),
+      // Which seat a mine is drawn to, on the same terms as every field above
+      // it: absent means the navigator, and `mineOnSpawn` is the one place
+      // that default is read. A seat is a seat and never goes through
+      // `mapCol`, for the row's reason one line up.
+      ...(e.sees === undefined ? {} : { sees: e.sees }),
     });
   }
   return queue.sort((a, b) => a.beat - b.beat);

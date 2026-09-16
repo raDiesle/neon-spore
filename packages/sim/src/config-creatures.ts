@@ -108,6 +108,21 @@ export interface CreatureConfig {
    */
   wispDwellBeats: number;
   /**
+   * Beats a mine stands with its fuse running before it breaks the hull by
+   * itself, counted per body from the beat it appeared (`mine.ts`).
+   *
+   * Six, which is `wispDwellBeats` exactly and for its reason: 3.75 s at 96
+   * BPM, one and a half times the shortest full spoken exchange
+   * (docs/spec/latency.md), so a tile can be read out, heard and found. It
+   * buys the pair **one** wrong finger and no more — a far tap costs a beat,
+   * and two of them leave less time than the sentence takes.
+   *
+   * Beats and not milliseconds, for `wispDwellBeats`' reason with more riding
+   * on it: the count is drawn on both screens, and it is the only thing about
+   * this creature the seat that has to answer it is allowed to know.
+   */
+  mineFuseBeats: number;
+  /**
    * Beats between one step down and the next for THE ECHO. Two — it is the
    * whole of "half as fast", and it is the smallest number that is one: at
    * three the body hangs long enough that the pair stops reading it as
@@ -209,6 +224,7 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   veilMorphBeats: 5,
   veilArmourMs: 2000,
   wispDwellBeats: 6,
+  mineFuseBeats: 6,
   echoFallBeats: 2,
   echoSplits: 3,
   echoSplitBeats: 3,

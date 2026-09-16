@@ -139,6 +139,12 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
   // from this number, so a wisp's first frame is already on the tile it was
   // authored into, which is the only entrance a thing that teleports has.
   if (kind === "wisp") return 0;
+  // And a mine, which is a wisp that never even hops: it stands on the tile
+  // it was placed on until a finger finds it or its fuse runs out (`mine.ts`).
+  // Zero for the wisp's reason and one more of its own — a body drawn gliding
+  // in from off the top edge would tell the seat that can see it to wait, and
+  // the fuse is already counting on the beat it appeared.
+  if (kind === "mine") return 0;
   // THE GYRE, both halves of it: the hub walks its own route and the six on
   // its rim are carried by it (`stepGyre`), so neither has a fall for a number
   // here to describe.

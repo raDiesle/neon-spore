@@ -12,6 +12,7 @@
 import type { FixtureKind } from "./creature-kinds-fixtures.js";
 import type { HandedKind } from "./creature-kinds-handed.js";
 import type { ManyKind } from "./creature-kinds-many.js";
+import type { StandingKind } from "./creature-kinds-standing.js";
 
 export type CreatureKind =
   | "slick"
@@ -71,15 +72,11 @@ export type CreatureKind =
    * `Creature.veilStruckTick` is the armour a wrong colour buys it.
    */
   | "veil"
-  /**
-   * Drawn on player 2's screen and on nobody else's, and never in the same
-   * tile twice: every `wispDwellBeats` it stands somewhere else on the field,
-   * drawn from the seeded rng. It does not fall, so it never reaches the hull
-   * and never leaves on its own — the wave stays open until it is shot. The
-   * whole of it is in `wisp.ts`, and it carries no state of its own: where it
-   * is *is* `col` and `row`, and when it moves is the shared beat.
-   */
-  | "wisp"
+  // **The two that stand on a tile** — a wisp, which is somewhere else every
+  // two beats, and a mine, which is never anywhere else at all.
+  // `creature-kinds-standing.ts` next door, cut out at the moment this file's
+  // own note predicted for the second time.
+  | StandingKind
   /**
    * The first body whose **column** is the secret. Player 2 sees it whole;
    * player 1 is drawn a band across the row it is standing in and nothing

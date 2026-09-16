@@ -235,6 +235,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/veer.ts` | THE VEER: the first rock that does not hold its lane |
 | `packages/sim/src/lock.ts` | THE LOCK: the hand player 1 already has on the field, read a second way |
 | `packages/sim/src/mid-beat.ts` | **Where a thing stands between two beats**, in thousandths of a tile |
+| `packages/sim/src/mine.ts` | THE MINE: a wisp standing still, answered by a thumb instead of a bolt |
 | `packages/sim/src/scene-aim.ts` | The three acts a film aims rather than writes down, resolved against a world |
 | `packages/sim/src/boss-round.ts` | Stand the boss on a numbered round, through that fight's own way into one |
 | `packages/sim/src/config-strand.ts` | THE STRAND's three numbers: the default length of a thread, and what a bead and a whole thread are worth |
@@ -299,6 +300,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/creature-kinds-many.ts` | the five kinds that are more than one body, answered a part at a time |
 | `packages/sim/src/creature-kinds-handed.ts` | **The two bodies answered by a hand from each seat at once** |
 | `packages/sim/src/creature-kinds-fixtures.ts` | The four bodies a wave never sends: the queen, the ring, the line it lowers and the pile, installed where they stand rather than queued |
+| `packages/sim/src/creature-kinds-standing.ts` | **The two bodies that stand on a tile**, and the only two whose answer is a square rather than a column |
 | `packages/sim/src/creature-state-heading.ts` | the four kinds that carry a direction, and the beats attached to it |
 | `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
@@ -506,6 +508,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/silhouettes-beatbox.ts` | Beatbox: a rounded cabinet, and the one body on this roster whose contour is *architecture* rather than an… |
 | `packages/content/src/silhouettes-gum.ts` | **THE GUM in the air: THE WEIGHT's sac**, taken off the shape sheet whole |
 | `packages/content/src/silhouettes-weight.ts` | **THE WEIGHT: the slumped sac**, the louder of the two hanging drafts, taken off the shape sheet whole |
+| `packages/content/src/silhouettes-mine.ts` | **THE MINE is REACHER**, off the shape sheet: *four soft arms |
 | `packages/content/src/waves/act-8.ts` | Act eight, opened for THE BEATBOX rather than for a chapter |
 | `packages/content/src/waves/act-9.ts` | Act nine: THE LEAK, the fault that takes the hold rather than a button, on the figure THE LANCE was taught on |
 | `packages/content/src/balloon-shape.ts` | THE BALLOON's contour: a skin with a knot under it, and the fifth family of contour in this package |
@@ -535,6 +538,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/field.ts` | background, grid pulse, radar strip |
 | `packages/render/src/hull.ts` | the ship; cannon and shield as lobes of one contour |
 | `packages/render/src/mirror.ts` | the same ship, flipped and in the wrong colours — THE MIRROR |
+| `packages/render/src/mine-tap.ts` | **A finger on a bare square of the field**, from the seat that cannot see what is standing on it |
+| `packages/render/src/mine.ts` | THE MINE, drawn: the body on one seat, the **count** on both |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
 | `packages/render/src/simon-row.ts` | the row of slots: a control, or a question mark |
 | `packages/render/src/simon-verdict.ts` | the sequence flying into whichever ship earned it |
@@ -926,6 +931,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/duty.ts` | The one word (or two) a seat owes the other while a split body is on the field |
 | `packages/render/src/duty-harpoon.ts` | **What a harpooned control says under the dial of the seat that cannot move it** |
 | `packages/render/src/duty-fence.ts` | THE FENCE's own duty word, which is the only one in the table that the world picks rather than the table |
+| `packages/render/src/duty-mine.ts` | THE MINE's word, which of the two dials it goes under decided by the field rather than by the table |
 | `packages/render/src/throb.ts` | where THE THROB's far half lies — the seam meridian this instant and the region the paint clips to |
 | `packages/render/src/throb-look.ts` | THE ONE RECORD A CANDIDATE THROB LOOK PATCHES |
 | `packages/render/src/throb-pores.ts` | THE THROB's far half, PORES — seven pores pinned on the far hemisphere and carried round by the turn |
@@ -1024,6 +1030,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/body-hit-scatter.ts` | THE WISP's strike: lit motes rise and blink out, nothing lands |
 | `packages/render/src/body-hit-shock.ts` | THE THROB's strike: pressed flat by the blow, then rings run down the column |
 | `packages/render/src/body-hit-splash.ts` | THE ECHO's strike: a crown of drops thrown up and a puddle on the skin |
+| `packages/render/src/body-hit-defuse.ts` | DEFUSE — THE MINE's, and the one kill in this game that is not a kill |
 | `packages/render/src/pulse-body.ts` | One arrival falling down a lane, and the two ways of drawing one that cannot be read |
 | `packages/render/src/choir-shape.ts` | where THE CHOIR's two bodies stand and the skin traced over them — the shape half, with no light or colour in it |
 | `packages/render/src/choir-skin.ts` | **The light THE CHOIR throws and the film it wears** — the surface half of this creature |
@@ -1698,6 +1705,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/rail-steps.ts` | **The two arrows over the WAVE column**, and the two keys that are the same step without the mouse |
 | `tools/director/src/rail-symbols.ts` | **THE ROW OF SYMBOLS OVER THE FILTER**: the rail's own four marks, made pressable |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
+| `tools/director/src/cell-config-mine.ts` | **THE MINE's two rows under the selected cell** |
 | `tools/director/src/grid-note.ts` | The line of arithmetic under the map: how many entries and pods the wave carries, how long it runs |
 | `tools/director/src/grid-gestures.ts` | **Everything a hand can do to one cell of the map**: point at it, paint it, drag a stroke across it |
 | `tools/director/src/grid-rows.ts` | The map's beat labels — a number that seeks — and the two row edits behind them, a beat opened and a beat taken out, with the asking a removal does first |
@@ -1727,6 +1735,7 @@ place — the generator keeps whatever is there.
 | `tools/hooks/after-svg-edit.ts` | A drawn picture is the one thing a session cannot check by reading it back |
 | `tools/director/src/skins/glass.ts` | GLASS — a body you see *into*, rather than one with things drawn on it |
 | `tools/director/src/entry-fields-balloon.ts` | **THE BALLOON's one authored fact**: how fast it climbs |
+| `tools/director/src/entry-fields-mine.ts` | **THE MINE's two per-arrival facts**, and the first pair in this game that are not about how a body moves or… |
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
@@ -1734,6 +1743,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |
+| `tools/director/src/ship-notes-hidden.ts` | The paragraph under each card for a **body one seat is not drawn at all**: THE WISP |
 | `tools/director/src/ship-notes-boss.ts` | The paragraph under each **boss's** card — the ones played on the field |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
 | `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |

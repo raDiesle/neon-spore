@@ -5,6 +5,7 @@ import { stepCrystal } from "./crystal.js";
 import { stepDart } from "./dart.js";
 import { ghostCrosses, stepGhostAcross } from "./ghost.js";
 import { stepGyre } from "./gyre.js";
+import { stepMine } from "./mine.js";
 import { rockCrosses, stepRockAcross } from "./rock-cross.js";
 import { slowStep } from "./slow-fall.js";
 import type { Creature } from "./types.js";
@@ -105,6 +106,15 @@ export function steppedInsteadOfFalling(world: World, c: Creature): boolean {
   // lower than the tile player 2 just read out.
   if (c.kind === "wisp") {
     stepWisp(world, c);
+    return true;
+  }
+  // A mine does not move at all: what it spends a beat on is its own fuse, and
+  // at nought the ship pays for it (`stepMine`). It is here rather than beside
+  // the other counters because this file is the list of bodies that answer the
+  // beat themselves, and a mine that also fell would be counting down a column
+  // away from the tile somebody just read out.
+  if (c.kind === "mine") {
+    stepMine(world, c);
     return true;
   }
   // A crossing ghost drifts in to the row it prowls along, walks it a column a

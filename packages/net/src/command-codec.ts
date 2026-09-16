@@ -51,6 +51,17 @@ export function decodeCommand(x: unknown): Command | null {
     // on the side of the wire that owns the clock (`beatboxBeatFor`).
     case "tap":
       return isNonNegInt(c.id) ? { kind: "tap", id: c.id } : null;
+    // THE MINE's blind tap, and the one press on this wire that names a
+    // **place** on the field rather than a body: the seat sending it is
+    // looking at an empty square and has no id to carry (`sim/mine.ts`).
+    // Two whole tiles, checked the way `cannonCol` is — a peer that sent a
+    // fraction or a negative would put a finger off the field, and the four
+    // tiles round a mine are a hull hit, so a tile outside it is not a
+    // harmless nonsense.
+    case "tapTile":
+      return isNonNegInt(c.col) && isNonNegInt(c.row)
+        ? { kind: "tapTile", col: c.col, row: c.row }
+        : null;
     case "prime":
       return isBool(c.on) && isColor(c.color) ? { kind: "prime", on: c.on, color: c.color } : null;
     case "brief":

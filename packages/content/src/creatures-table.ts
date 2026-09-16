@@ -181,4 +181,28 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   gum: HANDED_CREATURES.gum,
   weight: HANDED_CREATURES.weight,
   ...CLING_CREATURES,
+  mine: {
+    kind: "mine",
+    // **Empty, and the box's argument word for word.** A mine is answered by a
+    // finger on a tile, and a finger on the field is not a `ControlGroup` —
+    // that union is aim and guard, the two things a wave may be missing.
+    // Neither reaches this body at all: a bolt up its column does nothing,
+    // and there is nothing to ward.
+    controls: [],
+    // None of its own, one authored per arrival — the dart's arrangement, and
+    // for the plainest reason any kind has it. Nothing fired kills a mine, so
+    // the colour is not which trigger is right; it is what the *ship* is
+    // marked in when the thing goes off, and damage in this game is drawn in
+    // the colour of what did it.
+    color: null,
+    authorsColor: true,
+    // The pilot's strip, and the rule crossing the controls once more: the
+    // seat warned that one has arrived is never the seat that is shown where.
+    // Which seat sees the body is the wave's to choose (`SpawnEntry.sees`);
+    // which seat is warned is not, because a strip that moved with the sight
+    // would make the same wave two different waves to read.
+    radar: "p1",
+    blurb:
+      "It appears on a tile and never moves again. One of you is drawn it and the other, looking at an empty field, has to put a finger on the exact tile — four arms stand off it, one into each of the four tiles a finger must not land on, and the diagonals are safe. The exact tile kills it. A neighbour is a hit on the ship. Anywhere farther off costs nothing but a beat of its fuse, so feeling around is never free. The fuse is drawn on both screens, and when it runs out the mine goes off: the ship takes it and the body is gone. While one is out, both screens carry the lettered grid.",
+  },
 };

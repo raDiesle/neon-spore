@@ -216,6 +216,14 @@ export function lateHashParts(c: Creature): number[] {
   // pilot is drawn it, so neither screen would show them their worlds had
   // parted. `-1` for a body without a count, which no phase can be.
   out.push(c.countPhase ?? -1);
+  // THE MINE's fuse and the seat it is drawn on. The fuse is the number both
+  // screens read, so two devices that disagreed about it would be two devices
+  // counting a different wave down; the seat is what decides which screen the
+  // body is on at all, so a disagreement there is one phone showing a mine
+  // that the other says is not there. `-1` and `0` for a body that is not a
+  // mine, neither of which a live one can take.
+  out.push(c.mineFuse ?? -1);
+  out.push(c.mineSees ?? 0);
   return out;
 }
 

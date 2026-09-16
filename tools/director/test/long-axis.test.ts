@@ -105,6 +105,10 @@ describe("the catalogue's long axes", () => {
     // GUM's own entry from the other side: the two sacs sit either side of
     // round, one a drop and one a load, which is the difference an eye reads
     // first and the reason they are tellable apart at all.
+    // **Still 122 with THE MINE**: REACHER came onto the field and **round**
+    // by this measure — four blunt arms on a circle stay a circle — and its
+    // draft card left the sheet in the same commit, so the tally did not move
+    // while the shape crossed from one list to the other.
     expect(axes.length).toBe(122);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own

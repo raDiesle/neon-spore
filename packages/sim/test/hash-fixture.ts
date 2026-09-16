@@ -66,6 +66,8 @@ const creature = (): Required<Creature> => ({
   // stopped hashing it would differ from one that did.
   weightPressTicks: 37,
   countPhase: 2,
+  mineFuse: 4,
+  mineSees: 1,
   chuteOpen: true,
   veerDir: -1,
   veerDist: 3,

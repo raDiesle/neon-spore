@@ -1,4 +1,11 @@
-import { guardArmed, mawOpen, ticksPerBeat, type World, wispOnField } from "@neon-spore/sim";
+import {
+  guardArmed,
+  mawOpen,
+  mineOnField,
+  ticksPerBeat,
+  type World,
+  wispOnField,
+} from "@neon-spore/sim";
 import { Effects } from "./effects.js";
 import { FieldPose } from "./field-pose.js";
 import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passes.js";
@@ -39,7 +46,7 @@ export class SeatView {
     const { world } = view;
     this.effects.ingest(view.events, l, view.time, (col, row) => idAt(world, col, row), world.cfg);
     this.effects.update(view.dt, l);
-    this.effects.coordGrid.update(view.dt, wispOnField(world));
+    this.effects.coordGrid.update(view.dt, wispOnField(world) || mineOnField(world));
 
     // A round replaces the whole picture rather than standing over the field,
     // and it draws its own panel with it — so a rehearsal of one ends here for

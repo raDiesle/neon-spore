@@ -165,8 +165,9 @@ export interface SpawnEntry {
   cross?: -1 | 1;
   /**
    * The row a crossing rock walks along, which is also the row it stops
-   * falling at. Absent means the top of the field, and it is meaningless on a
-   * rock that does not cross.
+   * falling at — and the row a **mine** is placed on, which is the only other
+   * thing in the game that has one (`minePlaceRow`). Absent means the top of
+   * the field, and it is meaningless on a body that neither crosses nor stands.
    *
    * A row on the arrival is the arrangement `PodEntry.row` already has, and
    * for the same reason: the director's map is beats down and columns across,
@@ -174,6 +175,18 @@ export interface SpawnEntry {
    * cannot show and the panel has to ask for.
    */
   row?: number;
+  /**
+   * Which seat a `mine` is drawn to, and absent on every other kind — absent
+   * on a mine too means the navigator, which is the seat a wisp is drawn on.
+   *
+   * **The first split in this game a wave chooses rather than a kind.** A veil
+   * hides its colour from the navigator on every wave it is ever on; a mine
+   * can be the pilot's tile to say on one wave and the navigator's on the
+   * next, and the other seat is the one with the finger. It is the wave's
+   * because it is the whole difficulty: a pair that has learned which screen
+   * to look at has learned the wrong half of this creature.
+   */
+  sees?: 1 | 2;
 }
 
 /**

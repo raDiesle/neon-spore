@@ -201,6 +201,20 @@ export function colFromX(l: Layout, x: number): number {
   return Math.max(0, Math.min(l.cols - 1, col));
 }
 
+/**
+ * The row a point is in: `colFromX`'s inverse down the field, and the one
+ * other axis a finger can name.
+ *
+ * It arrived with THE MINE, which is the first control in the game that is a
+ * press on a bare square rather than on a body or a strip (`mine-tap.ts`).
+ * Written beside its partner and clamped the same way, because the two halves
+ * of a tile address must never be worked out by two different expressions.
+ */
+export function rowFromY(l: Layout, y: number): number {
+  const row = Math.round((y - l.gridTop - l.tile / 2) / l.tile);
+  return Math.max(0, Math.min(l.rows - 1, row));
+}
+
 export function hitCircle(c: Circle, x: number, y: number): boolean {
   const dx = x - c.x;
   const dy = y - c.y;

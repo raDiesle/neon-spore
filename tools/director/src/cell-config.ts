@@ -7,6 +7,7 @@ import {
   type RockSize,
 } from "@neon-spore/sim";
 import { fenceCracksRow, fenceGapsRow } from "./cell-config-gaps.js";
+import { mineRows } from "./cell-config-mine.js";
 import {
   beadLabel,
   bodyRow,
@@ -56,6 +57,7 @@ import {
   setRockRow,
 } from "./entry-fields.js";
 import { hasFenceGaps } from "./entry-fields-fence.js";
+import { hasMineFields } from "./entry-fields-mine.js";
 
 /**
  * The rows under the selected cell that configure the arrival in it: how fast
@@ -208,6 +210,9 @@ export function cellConfig({ entry, onEdit }: CellConfigOptions): HTMLElement | 
       }),
     );
   }
+  // THE MINE's two, and the eighth and ninth per-arrival facts in the game:
+  // the row it stands on and which seat is drawn it (`cell-config-mine.ts`).
+  if (hasMineFields(e)) rows.push(...mineRows(e, onEdit));
   if (hasFenceGaps(e)) {
     // THE FENCE's own row, and the sixth per-arrival fact in the game — the
     // first that is a *set*. Which columns the wall is open in is the whole of

@@ -191,4 +191,14 @@ export const MECHANICS = {
   // And the two a wave turns on without sending anything at all, next door in
   // `mechanics-wave.ts` — the third cut, along that same seam.
   ...WAVE_MECHANICS,
+  mine: {
+    what: "A body that appears on a tile and never moves. One of you is drawn it and the other is not, and the one who is not has to put a finger on the exact tile — the four arms point at the four tiles that hurt, and a finger on one of those is a hit on the ship. Farther off costs a beat of the fuse. When the fuse runs out it goes off. Both screens carry the lettered grid and the count; only one carries the body.",
+    reach: "spawn",
+    // A wave names the kind, the tile it stands on, the colour the ship is
+    // marked in when it goes off, and which seat is shown it — four things,
+    // and none of them rolled. Where a mine is *is* the sentence the pair has
+    // to say, and a wave cannot be composed against a tile its author does not
+    // know.
+    waveNames: true,
+  },
 } as const satisfies Record<MechanicId, Mechanic>;

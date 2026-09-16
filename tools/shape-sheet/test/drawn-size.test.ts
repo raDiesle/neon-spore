@@ -108,6 +108,11 @@ describe("drawn size against the 20-26 px floor", () => {
     // (docs/decisions.md #31).
     // 107 the same day: THE WEIGHT, the slumped hanging draft brought onto the
     // field as a creature of its own (`content/silhouettes-weight.ts`).
+    // **Still 107 with THE MINE**, and the nought is the point: REACHER came
+    // onto the field as a creature of its own
+    // (`content/silhouettes-mine.ts`) and its draft card left the sheet the
+    // same hour, because the shipped body is drawn here under the creature's
+    // name and the two together would be one picture twice.
     expect(SQUARE.length).toBe(107);
   });
 
@@ -181,6 +186,10 @@ describe("drawn size against the 20-26 px floor", () => {
     // 67 with THE WEIGHT, which is the gum's own entry again: a sac fitted to a
     // 46 px card comes out under 26 px across, and the two of them differ by the
     // dent rather than by the size.
+    // **Still 67 with THE MINE.** It is REACHER at the card's own size — the
+    // quarter it is drawn larger on the field is `sizeMul` and is not a fact
+    // about the card, so it lands under 26 px here exactly where the draft it
+    // replaced did, and the draft is gone.
     expect(under26).toBe(67);
     expect(under20).toBe(23);
   });

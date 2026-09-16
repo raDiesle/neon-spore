@@ -92,6 +92,11 @@ export {
   mountOffset,
 } from "./gyre-rim.js";
 export { magnetPoleColor } from "./magnet.js";
+// THE MINE: the four render asks for — the grid's second switch, the seat a
+// body is drawn to, the count both seats are given, and the band it may
+// stand in. The rules themselves (`mineTapped`, `stepMine`) are the
+// simulation's alone and are deliberately not out here.
+export { mineFuseLeft, mineOnField, mineRows, mineSeenBy } from "./mine.js";
 export { recoilBouncesLeft, recoilRow, recoilTurn } from "./recoil.js";
 export { rindLayersLeft } from "./rind.js";
 // A crossing rock: a *path* a wave puts a plain rock on rather than a kind

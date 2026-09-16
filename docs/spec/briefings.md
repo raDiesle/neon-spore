@@ -28,8 +28,8 @@ first creature falling. It has two states and the second is optional:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — sixty-three of the seventy-two waves today, and a wave with no
-   guide has no circles either.
+   new carries one — sixty-four of the seventy-three waves today, and a wave with
+   no guide has no circles either.
 2. **The introduction.** `WAVE 4`, the wave's name, its one sentence. Plain
    text on the field — no panel, no border, nothing to press. It stands for a
    few seconds and passes on its own. Every wave has one, because every wave
@@ -300,15 +300,25 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are fifty-eight of them now**, one per guided wave bar five, and each is
+**There are fifty-eight of them now**, one per guided wave bar six, and each is
 authored in `packages/content/src/scenes/` as a page of choreography rather than
-a page of prose. The five that are still the three strings and the two circles
-are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH and THE CODEX** —
+a page of prose. The six that are still the three strings and the two circles
+are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE CODEX and THE MINE** —
 and that list is held by `test/scenes-prose.test.ts` rather than by this
 paragraph, so a film written for one of them fails a test here instead of
 leaving a sentence quietly wrong, which is what happened to the line this one
-replaced. A wave with a film keeps its prose as well: the three strings are
-what the pair reads on a phone that has already watched the film once.
+replaced.
+
+**Five of those six are films nobody has written; THE MINE is the one that
+cannot have one.** Every act of a rehearsal is a thumb landing on a *named*
+control (`scene-script.ts`, `controlPress`), and that creature's whole answer
+is a finger on a bare square of the field — not a control, with no name to
+press. A film for it would have to show a hand coming down on nothing, which
+teaches the opposite of the thing: that the tile is somewhere in particular
+and the picture knows where.
+
+A wave with a film keeps its prose as well: the three strings are what the pair
+reads on a phone that has already watched the film once.
 
 **It was a card first, and the card is what the owner rejected.** The first
 build drew both devices as thumbnails above a block of prose. What came back

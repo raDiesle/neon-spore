@@ -1,6 +1,7 @@
 import type { CreatureKind, World } from "@neon-spore/sim";
 import { fenceWord } from "./duty-fence.js";
 import { harpoonWord } from "./duty-harpoon.js";
+import { mineWord } from "./duty-mine.js";
 import { torchWarning } from "./torch-alarm.js";
 import type { ViewRole } from "./view-role.js";
 
@@ -171,6 +172,12 @@ const DUTY_WORD = {
   // no word — a hand is on the pile or it is not — so what the dials carry is
   // the sentence the fight is actually lost for want of.
   cairn: { p1: "SAY THE LANE", p2: "BE THERE" },
+  // THE MINE, and the one row here the table cannot answer on its own: which
+  // seat is drawn the body is the wave's (`SpawnEntry.sees`), so which of the
+  // two words below belongs to which dial is read off the field in
+  // `duty-mine.ts`. This is the shape and the default, the way THE FENCE's row
+  // is — the navigator sees it, so the navigator says the tile.
+  mine: { p1: "TAP THE TILE", p2: "SAY THE TILE" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind
@@ -199,7 +206,10 @@ function wordsFor(seat: "p1" | "p2", world: World): string[] {
   ][]) {
     const owed = entry?.[seat];
     if (!owed || !kindActive(kind, world)) continue;
-    const word = kind === "fence" ? fenceWord(world) : (harpoonWord(kind, seat, world) ?? owed);
+    const word =
+      kind === "fence"
+        ? fenceWord(world)
+        : (harpoonWord(kind, seat, world) ?? mineWord(kind, seat, world) ?? owed);
     if (!words.includes(word)) words.push(word);
   }
   return words;

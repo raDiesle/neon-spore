@@ -17,6 +17,7 @@ import { drawCrystalBody } from "./crystal.js";
 import { drawGhost, showsGhostBody } from "./ghost.js";
 import { drawGumBody } from "./gum.js";
 import { drawLid } from "./lid.js";
+import { drawMineBody } from "./mine.js";
 import { MOUNT_LOOK } from "./mount-look.js";
 import { drawVolleyCore } from "./volley-core.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
@@ -141,6 +142,11 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   ["coil", drawCoilBody],
   ["ghost", drawGhostBody],
   ["wisp", drawWispBody],
+  // A mine, and the one row here whose gate is a fact about the **body**
+  // rather than about the screen: which seat is drawn one is the wave's to
+  // choose, so `showsMine` is asked of the creature (`mine.ts`). The draw
+  // under the gate is the ordinary living blob with the fuse round it.
+  ["mine", drawMineBody],
   ["lid", drawLidBody],
   ["strand", drawStrandBody],
   ["magnet", drawMagnetBody],

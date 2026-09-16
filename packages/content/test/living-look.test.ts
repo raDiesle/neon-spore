@@ -32,7 +32,7 @@ describe("the living-look table", () => {
    * wrong answer has to walk past this list, and the person adding it has to
    * say out loud that their creature is or is not a body of its own.
    */
-  it("counts exactly the ten bodies the field draws through drawLiving", () => {
+  it("counts exactly the eleven bodies the field draws through drawLiving", () => {
     expect(livingBodyKinds()).toEqual([
       "slick",
       "bulb",
@@ -50,6 +50,9 @@ describe("the living-look table", () => {
       // `render/cling.ts` once they land.
       "limpet",
       "leech",
+      // THE MINE, whose body is the ordinary blob and whose gate is not:
+      // which seat is drawn one is the wave's (`render/mine.ts`).
+      "mine",
     ]);
   });
 

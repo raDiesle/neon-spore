@@ -66,7 +66,7 @@ table in a document cannot be wrong in a way a compiler notices.
 | `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `countdown`, `leech` |
 | `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal` |
-| `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `gum`, `weight` |
+| `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `gum`, `weight`, `mine` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
 
 `special` was reserved and empty for a long time on the reasoning that nothing
@@ -447,6 +447,63 @@ was two beats and 1.25 s, which was under an exchange rather than equal to one
 — that did not force the shorthand, it forced a miss. The grid goes down again
 with the last wisp, because a lattice behind every wave is a texture the pair
 stops seeing.
+
+## THE MINE
+
+**A wisp standing still, answered by a thumb instead of a bolt.** THE WISP took
+the body off one screen and left the answer where it had always been: the
+navigator says a tile and the pilot puts the cannon on it. This one takes the
+cannon out of the sentence altogether. A body appears on a tile and never
+moves; one seat is drawn it and the other, looking at an empty field, has to
+put a finger on that exact square. Nothing else answers it — a bolt bounces off
+one (`sim/bullet-refused.ts`), the shield has nothing to say to a body that
+never falls, and no hand may take hold of it.
+
+**What a wrong finger costs is the whole creature.** The four tiles round it
+break the hull, in the colour the wave authored on it: near enough to have been
+meant, so the price of guessing the last square is the wave. A finger anywhere
+else costs a beat off the fuse and nothing more — feeling around the field is
+allowed and is never free. `mineFuseBeats` is six, which is `wispDwellBeats`
+exactly and for its reason: 3.75 s at 96 BPM, one and a half times the shortest
+full spoken exchange (`docs/spec/latency.md`), so a tile can be read out, heard
+and found. It buys the pair one wrong finger and no more. The fuse running out
+is the hull too, in the same colour, and then the body is gone.
+
+**Which seat sees it is the wave's, and that is the first time in this game a
+split is authored rather than fixed by the kind.** A veil hides its colour from
+the navigator on every wave it is ever on; a mine can be the pilot's tile to say
+on one wave and the navigator's on the next (`WaveEntry.sees`, a brush setting
+in the director). The other seat is the one with the finger, so turning the
+setting over turns the whole exchange round — and a pair that has learned which
+screen to look at has learned the wrong half of the creature. It is carried on
+the body as `Creature.mineSees`, so the picture, the duty word and the rule all
+read one field (`render/duty-mine.ts`).
+
+**The count is the one thing both seats are given.** It has to be: the seat with
+the finger is the seat the fuse is running against, and a deadline only the
+other player can see is a deadline the pair cannot spend. The seeing seat gets
+it as a ring of pips on the body, where it is also a pointer at the square; the
+blind seat gets the same rings standing in a row at the top of the field, laid
+out by index and never by anything about the body — not the column, not the
+row, not left-to-right order, because every one of those is a share of the
+square (`render/mine.ts`).
+
+**It is the second thing to turn the lettered grid on**, exactly as a wisp does
+and through the same switch: while a mine is on the field both screens carry
+the lattice and its axes, because the whole creature is a place that has to
+cross the room in words. Rows two to twelve only — never the hull row and never
+the row the shield sweeps, since a mine either of those could answer would be a
+body the dome arriving happens to deal with — and never on or beside another
+mine, so a tile that is one mine's answer is never the tile that is another's
+mistake (`minePlaceRow`).
+
+**A finger that finds one does not set it off.** The kill is drawn as a thing
+going *out*: the arms let go, the ring of the fuse snaps shut to a point and a
+cold disc fades where the body stood, with nothing thrown and nothing reaching
+past the contour (`render/body-hit-defuse.ts`). Every other strike in the game
+is a body coming apart, and a burst here would say the opposite of what
+happened — a pair that saw one would learn that finding a mine and being one
+tile out look the same, and being one tile out is the wave.
 
 ## THE MAGNET
 

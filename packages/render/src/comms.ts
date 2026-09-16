@@ -1,4 +1,4 @@
-import type { CreatureKind, World } from "@neon-spore/sim";
+import type { Creature, CreatureKind, World } from "@neon-spore/sim";
 import { TALKER } from "./comms-talker.js";
 import { torchWarning } from "./torch-alarm.js";
 
@@ -68,6 +68,21 @@ function commsTalker(kind: CreatureKind): Talker | null {
   return TALKER[kind];
 }
 
+/**
+ * Who has to speak about **this body**, which for one kind is not the same
+ * question as who has to speak about its kind.
+ *
+ * THE MINE is that kind and is meant to be the only one: which seat is drawn
+ * a mine is a setting on the arrival rather than a rule (`SpawnEntry.sees`),
+ * so a wave may give the sight to either seat and the blind tap to the other.
+ * Every other body's answer is a fact about what it *is*, and the table is
+ * where that belongs.
+ */
+function talkerFor(c: Creature): Talker | null {
+  if (c.kind === "mine") return c.mineSees === 1 ? "p1" : "p2";
+  return commsTalker(c.kind);
+}
+
 /** Whether a blip of this kind wants the eye on the strip. */
 export function needsComms(kind: CreatureKind): boolean {
   return commsTalker(kind) !== null;
@@ -95,7 +110,7 @@ export function commsCall(world: World): CommsCall | null {
   let p1 = false;
   let p2 = false;
   for (const c of world.creatures) {
-    const seat = commsTalker(c.kind);
+    const seat = talkerFor(c);
     if (seat === "both") {
       p1 = true;
       p2 = true;

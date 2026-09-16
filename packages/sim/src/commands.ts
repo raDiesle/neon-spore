@@ -8,6 +8,7 @@ import { armShield } from "./hull-guard.js";
 import { endPrime, primeChargeMilli, priming, spillPrime, startPrime } from "./lance.js";
 import { faultSwallows } from "./malfunction.js";
 import { mazeHeard } from "./maze-controls.js";
+import { mineTapped } from "./mine.js";
 import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
 import { closePinball } from "./pinball-round.js";
 import { reachHeard, reachOut } from "./reach.js";
@@ -180,6 +181,13 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       // rule and not this file's, on `valve`'s terms: the command is what was
       // pressed, and whose press counts belongs to the creature.
       beatboxTapped(world, timed.player, c.id);
+      break;
+    case "tapTile":
+      // A blind finger on a square of the field, and the one press in this
+      // game that names a place nobody on the sending device can see anything
+      // at (`mine.ts`). Whose press counts is the creature's rule, exactly as
+      // the soundbox's is one case up.
+      mineTapped(world, timed.player, c.col, c.row);
       break;
     case "grip": {
       // Either seat may send this one, so it is the player on the command

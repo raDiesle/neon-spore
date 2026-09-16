@@ -163,7 +163,7 @@ describe("a rock's width", () => {
 describe("the kinds whose colour a wave authors", () => {
   const bodied = (Object.keys(CREATURES) as CreatureKind[]).filter(authorsBodyColor);
 
-  test("is exactly the sixteen", () => {
+  test("is exactly the seventeen", () => {
     // The lure's disguise, the throb's coloured half, the shell's core, the
     // clasp's prisoner, the dart's colour, the ghost's, the echo's, the
     // rind's, the lid's lens, the recoil's first body, the carom's prisoner,
@@ -208,6 +208,12 @@ describe("the kinds whose colour a wave authors", () => {
         // arrival — and it is the navigator's half of the sentence: the pilot
         // says *when* and the colour says *which trigger* (`countdownStruck`).
         "countdown",
+        // THE MINE's is the one colour here that is never fired at and never
+        // fired back: nothing can be shot at one. It is the colour the **hull**
+        // breaks in when a finger lands beside it or its fuse runs out
+        // (`mineTapped`), so what an author writes is what the mistake will
+        // look like rather than what the answer is.
+        "mine",
       ]),
     );
   });

@@ -6316,3 +6316,24 @@ finding that a notch cannot be cut from inside `pit` at all: the pit is painted
 over a canvas that already has the field on it, so material that is gone has to
 be material never laid down — which put the whole change one call earlier, at
 `body`, before a stroke of the rock exists.
+
+## 2026-09-16 — queued-tasks — THE MINE, a body a bolt cannot answer
+
+The queue's *The Mine is an enemy, with its seeing seat set on the brush*: a
+creature that stands on a tile, is drawn to one seat only, and is answered by
+the other seat's finger on that exact square.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | `new-creature`'s six tables, `wisp.ts` and `beatbox-tap.ts` for the two halves this one splits, `nameability.ts` to find out what actually separates two round bodies |
+| writing | 120 | `sim/mine.ts`, the `tapTile` command and its codec case, the arrival's row and seat, the silhouette, the blind seat's fuse rings, the defuse strike, the wave, the director's two rows, the bestiary section, three test files |
+| looking | 15 | the wave at tempo, and the shape sheet twice over the size axis |
+| friction | 35 | the nameability clash with THE LEECH — `rx` cannot separate on size because `footprint` divides by `max(rx, ry)`, so the first fix changed nothing; and three files went over 250 lines in turn |
+| landing | 20 | `check`, `bun run index`, the counts in four documents, the commit |
+
+The bottleneck was writing, and the part of it that could not be shortened was
+that this creature touches every layer at once: it is the first split in the
+game a *wave* chooses rather than a kind, so the seat had to be carried from
+`WaveEntry` through the queue, the arrival, the body, the fingerprint, the duty
+word and the drawing — seven places that each had a right answer and no shared
+one to copy.
