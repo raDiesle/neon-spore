@@ -596,43 +596,6 @@ again unless it is his own idea. Keeping them as reference costs nothing and
 wants one sentence in `wave-types.ts` saying who the audience is, so the next
 lane does not spend a morning on prose that reaches nobody.
 
-## The time log conflicts on every rebase and nothing merges it
-
-- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Files:** `tools/land/replay.ts`, `tools/land/queue-merge.ts`, `tools/land/index-merge.ts`, `tools/land/note-commit.ts`, `tools/land/test/`
-
-`replay.ts` settles two conflicts on its own, and its header says why each is
-not a disagreement anybody authored: `docs/queue.md`, because one tool wrote
-both sides, and `docs/INDEX.md`, because it is generated. **`docs/time-log.md`
-is neither of those and conflicts just as reliably** — it is append-only, every
-lane adds one `##` entry at the end, and two lanes landing in the same hour
-always add theirs in the same place. `docs/release-notes.md` is the same shape
-from the other end, written by `note-commit.ts` itself.
-
-It cost four hand-resolutions in one afternoon on 16 September 2026, all four
-identical: take the trunk's copy whole, re-append this lane's own entry, check
-that nothing else moved. `CLAUDE.md` already prescribes exactly that, which is
-the tell — a rule a person is told to follow by hand, on a file two tools
-write, is a resolver waiting to be written.
-
-**Why it is worth more than the minutes it saves.** It is the whole measured
-cost of running two sessions at once (`docs/lane-speed.md`): the trunk is
-otherwise one lane wide, and the only thing that makes a second lane expensive
-is this file and its neighbour. Every other kind of collision on that afternoon
-was zero.
-
-The merge is the easiest of the three already there: **both files are records
-in which nothing is ever edited or removed**, so a merge is the trunk's entries
-followed by whichever ones this lane added, in the order they were written. The
-refusal rule stays `queue-merge.ts`'s — if either side rewrote an entry that
-already existed, resolve nothing and stop the landing, because a record that
-was rewritten is the one case a resolver must not guess at.
-
-Provable with `bun run check`: `tools/land/test/` already drives the replay
-against a temporary repository, so this is a case beside those — two lanes,
-one entry each, and a third case where a past entry was edited and the merge
-refuses.
-
 ## `--press` never says which column it actually pressed
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
@@ -677,3 +640,31 @@ worse than the one this fixes.
 
 Provable with `bun run check`: `tools/frames/test/` holds the planner already,
 and the remap is a pure function over a column and a field width.
+
+## Reconciling a diverged trunk is four files resolved by hand, every time
+
+- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Files:** `tools/land/push.ts`, `tools/land/ledger-merge.ts`, `tools/land/queue-merge.ts`, `tools/land/notes.ts`, `tools/land/test/`
+
+`bun run land`'s replay settles `docs/queue.md`, `docs/INDEX.md` and
+`docs/time-log.md` on its own, and that covers a **lane** landing onto the
+trunk. It does not cover the other rebase this repository does: **the trunk
+against `origin/main`**, when two sessions pushed. `bun run push` refuses there
+with *origin/main has N commits yours has not* and the reconciliation is a
+`git rebase origin/main main` done by hand — which conflicts on exactly the
+same append-only files, plus `docs/release-notes.md`, which the lane replay
+never sees because `note-commit.ts` writes it on the trunk after the rebase.
+
+It happened three times on 16 September 2026, twice to one session and once to
+another, and the resolutions were identical each time: take origin's copy
+whole, re-append or re-prepend this side's own entries. `docs/release-notes.md`
+is the same shape as the ledger from the other end — newest first, written by
+one tool, never rewritten — so `notes.ts`'s `prepend` is the half that already
+exists and the merge is `ledger-merge.ts` with the order turned around.
+
+What to do: give `push.ts` the reconciliation it currently tells a person to do,
+using the three resolvers that exist plus one for the release notes, and refuse
+the same way the replay refuses — a real disagreement stops, a record never
+loses a row. Provable with `bun run check`: the merges are pure, and
+`replay-repo.test.ts` is the pattern for proving the wiring against a real
+repository rather than against strings.

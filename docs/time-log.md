@@ -6769,3 +6769,24 @@ The five minutes of looking were worth as much — the sentences are the whole
 deliverable here, and the only way to know they read is to read them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — release-notes-reconcile — one finding closed, a narrower one opened
+
+No queue item of its own: another session had filed *The time log conflicts on
+every rebase and nothing merges it* while this one was building the resolver,
+so this closes that entry and files what it named that the resolver does not
+reach.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the other session's entry against what landed, and `push.ts`'s refusal |
+| writing | 5 | the narrower entry |
+| looking | 0 | — nothing drawn |
+| friction | 0 | none |
+| landing | 5 | `queue done`, `check`, the commit |
+
+The bottleneck was reading, and it was the right five minutes: the entry that
+was removed named two files and only one of them is fixed. `docs/release-notes.md`
+conflicts in a rebase the landing never runs — the trunk against `origin/main`,
+which `bun run push` refuses and a person resolves — so closing the entry whole
+would have thrown away a finding that cost three hand-resolutions today.
