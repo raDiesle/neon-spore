@@ -600,6 +600,7 @@ and the remap is a pure function over a column and a field width.
 ## Reconciling a diverged trunk is four files resolved by hand, every time
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-16, claude/queue-reconciling-a-diverged-trunk-is-four-files-resol
 - **Files:** `tools/land/push.ts`, `tools/land/ledger-merge.ts`, `tools/land/queue-merge.ts`, `tools/land/notes.ts`, `tools/land/test/`
 
 `bun run land`'s replay settles `docs/queue.md`, `docs/INDEX.md` and
