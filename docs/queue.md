@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## Moulting, his way: meteor and pod by turns, and player 2 sees what is next
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Taken:** 2026-09-16, claude/queue-moulting-his-way-meteor-and-pod-by-turns-and-pla
 - **Files:** `packages/sim/src/pods.ts`, `packages/sim/src/pod-types.ts`, `packages/sim/src/wave-fail.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/config.ts`, `packages/content/src/creatures.ts`, `packages/render/src/pods.ts`, `packages/render/src/craters.ts`, `packages/render/test/frame.test.ts`, `tools/director/src/brush-cards.ts`, `docs/spec/ideas.md`, `docs/spec/bestiary.md`
 
 The owner redesigned *Moulting* (`ideas.md`, Creatures) on 15 September 2026
