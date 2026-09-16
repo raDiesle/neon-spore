@@ -6837,3 +6837,5 @@ balloon's pop is lighter than a break, which `drift` made false. Adoption
 rewrites five numbers and cannot know which sentences those numbers were the
 subject of, so a slot taken on a record with a long header is a documentation
 task wearing a one-command hat.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

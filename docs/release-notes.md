@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · b09f26fe — A body opens rather than bursts, and two slots close with nothing taken
+
+The owner's answers to three VERSUS slots in one message. `creature:debris` / `drift` is taken: the same nine wedges leave at two fifths the speed with the pull nearly off, so a destroyed body opens instead of bursting and its pieces fade in the lane rather than falling onto the hull and lying there. `creature:bite` / `notch` and `creature:splinters` / `shards` are dropped, and the game draws what it drew.
+
 ## 2026-09-16 · 6d28d721 — THE REPRISE sends the wave you have just beaten back at you unseen
 
 A boss that authors nothing and draws nothing: every sixteen beats of a wave, it takes the stretch of the script the pair has just played and sends it down again, in the same order, with the same gaps, with nothing on either screen. The wave's own arrivals stand still while a stretch is coming back — the clock `spawnArrivals` reads is the wave's beat less the beats the mechanism has held it — so what the pair has to keep is the count and the columns, said out loud while the field is still lit and said again when it goes dark.
