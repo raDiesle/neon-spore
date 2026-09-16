@@ -1,5 +1,6 @@
 import { strokeGlow } from "./glow.js";
 import { signedHash } from "./hash.js";
+import { bleed } from "./lost-blood.js";
 import type { LostPaint } from "./lost-look.js";
 import { PALETTE } from "./palette.js";
 import { drop } from "./text-drop.js";
@@ -95,6 +96,11 @@ export function veil(ctx: CanvasRenderingContext2D, p: LostPaint): void {
     }
     strokeGlow(ctx, hot, PALETTE.ember, Math.max(1, p.l.tile * 0.04), 1.1);
   }
+
+  // Last, so it runs over the plate and over the open field alike — the owner
+  // asked for it across the full width and a curtain that stopped at the seam
+  // would be a curtain on the plate (`lost-blood.ts`).
+  bleed(ctx, p);
 }
 
 export function words(ctx: CanvasRenderingContext2D, p: LostPaint): void {

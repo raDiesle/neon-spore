@@ -72,7 +72,12 @@ function entriesAfter(role: "p1" | "p2"): number {
 // harness answers nothing, so the screen stands for the rest of the run, and
 // its two buttons bake the bar's body at their one size and the beads beside
 // each word — one key per button part, the same set on every frame.
-const HELD = { p1: 43, p2: 52 } as const;
+// One more on each seat from 16 September 2026, when the ship began to bleed
+// down the lost screen (`lost-blood.ts`). It is one rather than thirteen
+// because the rivulets' heads all glow at the same `HALO` radius: written at
+// each head's own thickness it was thirteen sprites, and this test is what
+// said so.
+const HELD = { p1: 44, p2: 53 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {

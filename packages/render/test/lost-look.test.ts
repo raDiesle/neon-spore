@@ -63,3 +63,36 @@ describe("the lost screen is told where it got through", () => {
     expect(p.buttonsY).toBeLessThan(L.height);
   });
 });
+
+/**
+ * And the record's own paint, actually drawn.
+ *
+ * Everything above this replaces `veil` and `words` to read what they were
+ * handed, so until `shutters` shipped nothing in the tree ever ran the real
+ * ones through a canvas. What the stub refuses is exactly what this screen can
+ * get wrong: a rivulet's head at a NaN coordinate when `age` is 0 and its
+ * phase is still gathering, a negative radius out of a thickness that went the
+ * wrong side of zero, an unparseable colour out of an alpha over one.
+ *
+ * Three ages, because the screen is three different pictures: the instant it
+ * arrives with the plates still over everything, the half second the lower one
+ * is drawing back through its tear, and the settled state the pair reads.
+ */
+describe("the lost screen's own paint survives a canvas that refuses what a real one does", () => {
+  for (const age of [0, 0.25, 2.5]) {
+    it(`draws at ${age} seconds with a breach to cut around`, () => {
+      const world = createWorld(CFG, 1);
+      world.scars.push({ col: 7, beat: 5, kind: "meteor" });
+      const { ctx } = stubCanvas();
+      drawLostScreen(ctx as never, L, world, { age });
+      expect(ctx.calls).toBeGreaterThan(0);
+    });
+  }
+
+  it("draws on a wave the ship came out of unscarred", () => {
+    // `breachX` is null here, which is the branch the tear is skipped on.
+    const { ctx } = stubCanvas();
+    drawLostScreen(ctx as never, L, createWorld(CFG, 1), { age: 2.5 });
+    expect(ctx.calls).toBeGreaterThan(0);
+  });
+});

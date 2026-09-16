@@ -7002,3 +7002,22 @@ guesses were spent on it and every later lane that shows the owner a posed
 state needs the same line.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the ship bleeds down the lost screen
+
+The owner asked for it by name: *some cool effect like alien blood is flowing
+from top to bottom screen all across the full width*.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the palette's reserved colours, `sinHash`, what the lost screen already draws |
+| writing | 20 | `lost-blood.ts`, and four tests that draw the real paint rather than reading what it was handed |
+| looking | 10 | two shots — thin the first time, right the second |
+| friction | 0 | — |
+| landing | 10 | `bun run index`, `check:fast`, the commit |
+
+The bottleneck was writing, and the useful part of it was not the rivulets: it
+was noticing that `lost-look.test.ts` replaces `veil` and `words` on every one
+of its tests, so until now nothing in the tree had ever drawn this screen's
+real paint through the canvas stub. A whole screen was outside the rule that
+everything drawn is drawn again in a test. It is inside it now.
