@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## A hit cannot take a bite out of a body: no seam carries damage into a contour
 
 - **Found:** 2026-09-16, claude/queue-destruction-and-damage-the-three-unbuilt-pieces
+- **Taken:** 2026-09-16, claude/queue-a-hit-cannot-take-a-bite-out-of-a-body-no-seam-c
 - **Files:** `packages/render/src/meteor.ts`, `packages/render/src/meteor-look.ts`, `packages/render/src/meteor-looks.ts`, `packages/render/src/meteor-blaze.ts`, `packages/render/src/meteor-comet.ts`, `packages/render/src/meteor-smoulder.ts`, `packages/content/src/body-path.ts`, `packages/render/src/craters.ts`, `tools/versus/candidates/`, `docs/spec/systems.md`
 
 The third of *Destruction and damage*'s unbuilt pieces — **a hit cuts a real
