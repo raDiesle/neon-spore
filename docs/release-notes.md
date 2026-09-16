@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 5c5c0f48 — Mark "The intro's two people do not read as people" done
+
+## 2026-09-17 · 30119ba9 — The intro's two people are a mouth and an ear holding a phone each
+
+The opening scene drew each player as a lobed blob with one eye, and the owner called it bad twice. He said what he wanted on 16 September: the human heads should be recognizable as it, maybe only show the mouth and ear, but they must look like real identifiable as those. So there is no head on the first screen any more. There is the organ that speaks, the organ that hears, and the small phone the two of them are held against — lips with a cupid's bow and teeth behind them, an ear with its helix, its antihelix and its lobe, in the two seats' own colours.
+
 ## 2026-09-17 · 4ce310e1 — The opening scene can be photographed, which until now nothing could
 
 `bun run menu-shot <out.png> --intro --wait 2000`. The scene is drawn on the game's own canvas with a transparent sheet over it, so the wait is `#introTap.on` and the element is `#stage`; it plays through on its own and closes on a press anywhere, so the camera presses nothing and `--wait` is how far into it the picture is taken. Four moments are four shots at four numbers.

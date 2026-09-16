@@ -7762,3 +7762,5 @@ the five corrections this lane made — the mouth's corners, the group that read
 as three loose objects, and a speech bubble sitting on the open mouth it came
 out of — were invisible in the source and obvious in the picture. The scene had
 been changed twice by sessions that could not take one.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
