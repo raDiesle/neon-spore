@@ -6650,3 +6650,5 @@ whether it touched the ledger at all, and a lane that logged nothing is stamped
 nothing. The entry's second question, whether `land` should also prefill the
 empty table, is answered no in the code's own words: `land` runs at the end, and
 a skeleton written then is scaffolding for a lane that has not started.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

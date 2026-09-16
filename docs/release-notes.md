@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · db7842ca — The ledger estimates its minutes; the trunk knows them
+
+Every speed question this repository asks next is asked in minutes, and the minutes in docs/time-log.md are a session's estimate of itself: 3 385 logged on 15 September against an 860-minute span of that day's own commits, 2 395 against 969 on the 14th, 1 790 against 634 on the 16th. The shares survive that, the numbers do not. bun run land already holds both ends of a real measurement at the moment it writes the release note, so it now stamps one line under the entry the session just wrote: the minutes from the lane's first commit to the trunk moving. The five rows stay exactly as they are beside it, because an estimate next to a measurement is how the estimate gets better rather than replaced.
+
 ## 2026-09-16 · ce8a2324 — THE SCOUT: the ship puts a little one out, and only one of you can see where it is going
 
 The owner asked for a wave where the mother ship spills out a tiny ship one player flies freely, evading enemies, collecting a new kind of power-up, and the wave is not done until every one of them is collected. On the ordinary field that is the one thing this game cannot have — nothing the players control travels — so it is a round with its own picture, which is exactly the exemption `docs/decisions.md` #21 describes and the same one SNAKE uses. A wave names `boss: { kind: "scout", arenas: [...] }` and the field is gone while it stands.
