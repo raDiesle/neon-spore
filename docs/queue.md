@@ -636,6 +636,7 @@ beside them, and a rounding rule is a pure function with a table.
 ## `bun run shot --open` and `--tab` together wait thirty seconds and fail
 
 - **Found:** 2026-09-16, claude/task-queue-work-5f529c
+- **Taken:** 2026-09-16, claude/queue-bun-run-shot-open-and-tab-together-wait-thirty-s
 - **Files:** `tools/frames/shot-state.ts`, `tools/frames/shot-usage.ts`, `tools/frames/test/shot-flags.test.ts`
 
 `--tab` opens NOT BUILT YET itself — `reachState` presses the header button by
