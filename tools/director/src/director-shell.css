@@ -251,3 +251,22 @@ label.field {
 .md pre {
   font-family: var(--mono);
 }
+
+/* The read-only note over the three GUIDE fields, on a wave whose guide plays
+   a rehearsal: what the pair actually meets, page by page
+   (`guide-scene-note.ts`). The fields under it are dimmed rather than
+   disabled — the game never draws those words, and `waves.test.ts` still
+   requires them, so they have to stay fixable. */
+.guide-scene {
+  margin: 10px 0 0;
+}
+.guide-pages {
+  margin: 6px 0 0;
+  padding-left: 20px;
+  font-size: 0.8rem;
+  color: var(--dim);
+  line-height: 1.6;
+}
+.guide-unread {
+  opacity: 0.45;
+}

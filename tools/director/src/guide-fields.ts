@@ -1,4 +1,5 @@
 import type { Wave, WaveGuide } from "@neon-spore/content";
+import { bindSceneNote, type SceneNote } from "./guide-scene-note.js";
 
 /**
  * The GUIDE section `rail.ts` shows directly under SENTENCE: the three lines a
@@ -20,6 +21,11 @@ import type { Wave, WaveGuide } from "@neon-spore/content";
  * no control here yet — a scene is chosen by watching it, and the page that
  * would let somebody do that is not built — so what this file owes it is that
  * editing the prose does not throw it away. See `readBack`.
+ *
+ * **And that it says so.** A guide with a rehearsal never draws its words, so
+ * until 16 September 2026 the panel showed a reader three paragraphs the pair
+ * never meets and nothing about the pages they do. `guide-scene-note.ts` puts
+ * the film's own captions above the fields and dims them.
  */
 
 export interface GuideFields {
@@ -73,6 +79,7 @@ export function bindGuideFields(mount: HTMLElement | null): GuideFields {
   const listeners: ((guide: WaveGuide | undefined) => void)[] = [];
   let addBtn: HTMLButtonElement | null = null;
   let fieldsWrap: HTMLElement | null = null;
+  let sceneNote: SceneNote = { render: () => {} };
   /** The scene the wave on the stage names, held so `readBack` can give it back. */
   let scene: WaveGuide["scene"];
 
@@ -117,6 +124,11 @@ export function bindGuideFields(mount: HTMLElement | null): GuideFields {
     });
     mount.appendChild(addBtn);
 
+    // Above the fields and under the heading: what the pair meets comes before
+    // what the act file stores, because on a wave with a rehearsal only the
+    // first of those is true (`guide-scene-note.ts`).
+    sceneNote = bindSceneNote(mount);
+
     fieldsWrap = document.createElement("div");
     mount.appendChild(fieldsWrap);
 
@@ -147,7 +159,14 @@ export function bindGuideFields(mount: HTMLElement | null): GuideFields {
       // button click above is the only other way the fields show, and it
       // only affects the wave on the stage at the time.
       if (addBtn) addBtn.hidden = !wave || hasGuide;
-      if (fieldsWrap) fieldsWrap.hidden = !hasGuide;
+      if (fieldsWrap) {
+        fieldsWrap.hidden = !hasGuide;
+        // Dimmed, never disabled: the game draws the film instead of these
+        // words, and `packages/content/test/waves.test.ts` still requires all
+        // three of them (`guide-scene-note.ts`).
+        fieldsWrap.classList.toggle("guide-unread", scene !== undefined);
+      }
+      sceneNote.render(hasGuide ? scene : undefined);
       for (const [key] of PARTS) {
         const field = fields.get(key);
         if (field) setGrownValue(field, wave?.guide?.[key] ?? "");

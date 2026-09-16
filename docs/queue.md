@@ -586,28 +586,6 @@ mouth reads as a mouth or a line reads at all is to watch it at tempo on a
 screen. A cloud session can change the drawing and cannot tell whether it
 worked, which is how it came to be bad twice.
 
-## The director cannot see or choose a wave's rehearsal scene
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-the-director-cannot-see-or-choose-a-waves-rehear
-- **Files:** `tools/director/src/guide-fields.ts`, `packages/content/src/waves/act-1.ts`, `packages/content/src/scenes/first-step.ts`
-
-`bindGuideFields` builds three textareas — both, p1, p2 — and carries `scene`
-through untouched: *there is no control for it yet, and the page that would let
-somebody do that is not built*. So for the sixty-odd waves that carry a scene,
-the panel shows prose the pair never reads and says nothing at all about the
-four pages they do.
-
-Wave 1 is the clearest case. FIRST STEP authors three paragraphs **and**
-`scene: "firstStep"`, so what opens is a four-page film — ENEMY, PLAYER 1 MOVES
-CANNON, PLAYER 2 FIRES RED, A MISS LOSES THE WAVE — and the three paragraphs
-are dead text.
-
-The cheapest honest fix is a read-only line: when a wave names a scene, say
-which one and list its step captions under the textareas, and grey the
-textareas out. A picker over the scene catalogue is the larger version and
-wants the owner's word on whether a scene should be choosable at all.
-
 ## The director's palette table is at its ceiling, and the next brush cannot go in
 
 - **Found:** 2026-09-16, claude/task-queue-work-5f529c
@@ -741,3 +719,29 @@ Rewrite all three to say what the sheets hold today: DOCUMENTATION's four
 rooms (`documentation-rooms.ts`), NOT BUILT YET's own tabs, and whichever of
 them are drawn lazily. `bun run check` proves nothing here; the proof is that
 every file and room a comment names can be opened.
+
+## A scene cannot be chosen in the director, only read — ASKS THE OWNER
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `tools/director/src/guide-scene-note.ts`, `tools/director/src/guide-fields.ts`, `packages/content/src/scenes.ts`
+- **Asks:** Should a wave's rehearsal be choosable in the director — a picker over the scene catalogue — or stay something only an act file names?
+
+The half of the entry closed on 16 September 2026 that was not built. The GUIDE
+panel now says which film a wave plays and lists its pages, and that is all it
+does: the scene itself is still carried through untouched, so changing one means
+editing `packages/content/src/waves/act-*.ts` by hand.
+
+The options the answer picks between. **A picker** — a `<select>` over the
+scene catalogue beside the three fields, written back through `serializeEntry`
+the way `controls` already is. It is small, and it makes a wave's rehearsal a
+thing anybody can swap while watching the stage, which since the stage plays the
+draft's guide is now immediate. **Nothing** — a scene is a written film with a
+wave's shape baked into it (`sceneScript` takes the wave index and the config),
+so pointing a wave at another wave's rehearsal is mostly a way to author
+nonsense, and reading which one it plays is all a panel owes. **A picker over a
+shortlist**, the middle answer: only the scenes whose creatures the wave
+actually sends.
+
+Nothing is blocked on this. It is here because the read-only note makes the
+missing control obvious to whoever opens the panel next, and they should find
+the question already asked rather than ask it again.

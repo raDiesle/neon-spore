@@ -7536,3 +7536,19 @@ the wave being edited says about itself is a different subject from wiring a
 canvas to a keyboard.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the director says which film a wave plays
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry, `guide-fields.ts`, `scene-types.ts`, `scene-step-types.ts`, the director's stylesheets and its fake DOM |
+| writing | 15 | `guide-scene-note.ts`, the dimming, the stylesheet rules, six tests, one queue entry with a question |
+| looking | 0 | — a panel in a tool, held by its tests rather than by a frame |
+| friction | 5 | three typecheck rounds on the fake DOM — `FakeEl` is not an `HTMLElement` and its restore is called `restore` |
+| landing | 5 | `bun run index`, `check:fast`, the commit |
+
+The bottleneck was writing, and the useful part of it was deciding how little
+to build. The entry offered two sizes and the smaller one is the whole of the
+complaint: a reader was being told the wrong thing, and a picker would have
+been a new decision on top of fixing that. The decision is queued with the
+three options written out instead.

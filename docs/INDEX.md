@@ -1446,6 +1446,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/glows/trail.ts` | A luminous tail that lingers behind the body as it moves |
 | `tools/director/src/glows/types.ts` | What a glow is, and what it is told |
 | `tools/director/src/guide-fields.ts` | The GUIDE section `rail.ts` shows directly under SENTENCE: the three lines a wave's guide is made of |
+| `tools/director/src/guide-scene-note.ts` | the rehearsal a wave's guide plays, named over the GUIDE fields with a caption per page |
 | `tools/director/src/hits/dim.ts` | The body simply goes dark for a beat |
 | `tools/director/src/hits/flash.ts` | One bright frame, then gone |
 | `tools/director/src/hits/ring.ts` | A circle leaving the body and fading — the shockwave |
