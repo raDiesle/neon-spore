@@ -632,6 +632,7 @@ unattended.
 ## A ring round a body is a circle, and a body is wider than it is tall
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-a-ring-round-a-body-is-a-circle-and-a-body-is-wi
 - **Files:** `packages/render/src/caption-anchor.ts`,
   `tools/versus/candidates/guide-chrome/tide/companion.ts`
 
