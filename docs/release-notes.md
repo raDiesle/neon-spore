@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · e8525da7 — THE WEIGHT's dials say the mechanic instead of handing out parts
+
+Under the siren a weight said CALL THE BEAT to the pilot and PRESS ON THEIRS to the navigator. That is a protocol, offered to a pair nobody has yet told what the protocol is for: one hand on a weight does nothing whatever, and the two have to land on the body at the same moment. A seat reading PRESS ON THEIRS cannot know that pressing early is pressing alone.
+
 ## 2026-09-16 · b46befc5 — Two of destruction's three pieces, offered in VERSUS
 
 Destruction and damage asked for polygon clipping, splinters and drifting debris as candidates. Two of them are here.
