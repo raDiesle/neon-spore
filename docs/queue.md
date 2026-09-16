@@ -330,6 +330,7 @@ sending one PNG of the shared ready step.
 ## The Husk, his way: a fake pod player 2 sees through, deflating when refused
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Taken:** 2026-09-16, claude/queue-the-husk-his-way-a-fake-pod-player-2-sees-throug
 - **Files:** `packages/sim/src/pods.ts`, `packages/sim/src/pod-types.ts`, `packages/sim/src/wave-fail.ts`, `packages/sim/src/bullet-hit-lure.ts`, `packages/content/src/wave-types.ts`, `packages/render/src/pods.ts`, `packages/render/test/frame.test.ts`, `packages/audio/src/catalogue.ts`, `tools/director/src/brush-cards.ts`, `docs/spec/ideas.md`
 
 The owner redesigned the *Husk* (`ideas.md`, Creatures) on 15 September
