@@ -1359,6 +1359,7 @@ place — the generator keeps whatever is there.
 | `tools/land/land.ts` | whether a lane can land on a linear trunk, and what that would do |
 | `tools/land/ledger-merge.ts` | merging the ledger when a lane and the trunk both appended; a record loses no row |
 | `tools/land/notes.ts` | a landed commit turned into a release note, and where it goes in the file |
+| `tools/land/notes-merge.ts` | Merging `docs/release-notes.md` when two trunks both moved This conflict is not between two lanes and the… |
 | `tools/land/note-commit.ts` | The two files a landing writes at the moment `main` moves, and the one commit that carries them |
 | `tools/land/worktree.ts` | removing a worktree on Windows, verified rather than trusted, and when |
 | `tools/director/src/notes.ts` | `docs/release-notes.md` parsed into entries, grouped by day |
@@ -1664,6 +1665,8 @@ place — the generator keeps whatever is there.
 | `tools/land/replay.ts` | the rebase, and the three conflicts it settles on its own |
 | `tools/land/remote-branch.ts` | The lane's branch on `origin`, after the landing has taken it locally |
 | `tools/land/red-check.ts` | What a landing says when `bun run check` comes back red |
+| `tools/land/reconcile.ts` | **The other rebase: the trunk against `origin/main`.** `land`'s replay covers a lane landing onto the trunk |
+| `tools/land/record-merge.ts` | Merging a **record**: a file of `##` entries that one tool appends to and nobody ever edits |
 | `tools/frames/press.ts` | `--press`: the verbs a held thumb cannot reach |
 | `tools/frames/crop.ts` | Cropping and magnifying a captured frame, so a change the size of a creature can be seen |
 | `tools/frames/crop-png.ts` | you have a screenshot and want to look closer — `bun run crop` cuts a rectangle out and magnifies it by whole pixels |

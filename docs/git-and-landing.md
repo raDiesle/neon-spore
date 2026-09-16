@@ -252,6 +252,25 @@ The cost of the new rule is that a local `main` can now run several landings
 ahead of `origin`. Every landing that does not push says so, with the count and
 the command, so the number is never a thing anybody has to go and look up.
 
+**And a trunk that is behind is reconciled by the push, not reported by it.**
+Two sessions landing in the same hour is ordinary here, and it leaves the two
+trunks each holding commits the other has not. Until 16 September 2026 `bun run
+push` printed the refusal and a person ran `git rebase origin/main main` and
+resolved it — three times that day, always the same four files: `docs/queue.md`,
+`docs/INDEX.md`, `docs/time-log.md` and `docs/release-notes.md`. Every one of
+those is written by one tool and edited by nobody, which is to say none of those
+conflicts was authored by anyone.
+
+That is the landing's own replay pointed at the other pair of branches, so it is
+now the same code (`tools/land/reconcile.ts`, and `notes-merge.ts` for the
+release notes — the one record the landing never meets, because the note is
+written on the trunk *after* the rebase). It runs in whichever worktree has the
+trunk checked out and refuses if that tree is dirty, since a rebase walks over
+its files. **Anything it cannot settle still stops**, with the trunk exactly
+where it was: a conflict in a source file is a real disagreement between two
+sessions and it is a person's to resolve, on the lane, the way the rest of this
+document says.
+
 
 ## The local trunk is taken; the rest is offered
 

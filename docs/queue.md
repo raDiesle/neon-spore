@@ -597,35 +597,6 @@ worse than the one this fixes.
 Provable with `bun run check`: `tools/frames/test/` holds the planner already,
 and the remap is a pure function over a column and a field width.
 
-## Reconciling a diverged trunk is four files resolved by hand, every time
-
-- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-16, claude/queue-reconciling-a-diverged-trunk-is-four-files-resol
-- **Files:** `tools/land/push.ts`, `tools/land/ledger-merge.ts`, `tools/land/queue-merge.ts`, `tools/land/notes.ts`, `tools/land/test/`
-
-`bun run land`'s replay settles `docs/queue.md`, `docs/INDEX.md` and
-`docs/time-log.md` on its own, and that covers a **lane** landing onto the
-trunk. It does not cover the other rebase this repository does: **the trunk
-against `origin/main`**, when two sessions pushed. `bun run push` refuses there
-with *origin/main has N commits yours has not* and the reconciliation is a
-`git rebase origin/main main` done by hand — which conflicts on exactly the
-same append-only files, plus `docs/release-notes.md`, which the lane replay
-never sees because `note-commit.ts` writes it on the trunk after the rebase.
-
-It happened three times on 16 September 2026, twice to one session and once to
-another, and the resolutions were identical each time: take origin's copy
-whole, re-append or re-prepend this side's own entries. `docs/release-notes.md`
-is the same shape as the ledger from the other end — newest first, written by
-one tool, never rewritten — so `notes.ts`'s `prepend` is the half that already
-exists and the merge is `ledger-merge.ts` with the order turned around.
-
-What to do: give `push.ts` the reconciliation it currently tells a person to do,
-using the three resolvers that exist plus one for the release notes, and refuse
-the same way the replay refuses — a real disagreement stops, a record never
-loses a row. Provable with `bun run check`: the merges are pure, and
-`replay-repo.test.ts` is the pattern for proving the wiring against a real
-repository rather than against strings.
-
 ## The balloon's pop now falls harder than a struck body's break
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307

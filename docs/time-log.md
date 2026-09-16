@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-16 — queue-reconciling-a-diverged-trunk — the push reconciles itself
+
+The queue's own item, filed after it cost three hand-resolutions in one day:
+`bun run push` refused when two sessions had both pushed and left a person to
+run the rebase and settle four records by hand. It is the landing's replay
+pointed at the other pair of branches now — `reconcile.ts` — with the release
+notes as the fourth resolver and the ledger's merge shared between them.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `replay.ts`, `ledger-merge.ts`, `refusal.ts`, `state.ts`'s `trunkTree`, and `replay-repo.test.ts` for the shape of the proof |
+| writing | 20 | `record-merge.ts` out of the ledger's, `notes-merge.ts`, `reconcile.ts`, `push.ts`'s two passes, and ten tests over the two |
+| looking | 0 | — nothing drawn |
+| friction | 0 | none; one test wrote two different headings for the entry two sides shared and the merge refused, which is the merge being right |
+| landing | 5 | `check:fast`, `bun run index`, the commit |
+
+The bottleneck was writing, and the shape of it is worth saying: the merge was
+the small half. `mergeNotes` is four lines because the ledger's merge was
+already the general one wearing a specific name — the work was proving the
+wiring, and that needs a bare origin, three clones and a real `git rebase`,
+because every defect this could have has the same symptom as the defect it
+fixes and none of them is visible from a string.
+
+*Measured: the rows above are the session's own estimate, read off the take commit at 21:19 and the landing.*
+
 ## 2026-09-16 — queue-a-well-wave-never-ends — the boss nothing took off the world
 
 The queue's own finding from the lane before it: wave 70 of the shipped

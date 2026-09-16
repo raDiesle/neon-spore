@@ -19,6 +19,13 @@
  *   the end. It is a record, so nothing is ever dropped from it
  *   (`ledger-merge.ts`).
  *
+ * A fourth, **`docs/release-notes.md`**, is listed here and never reached by a
+ * landing: `note-commit.ts` writes it on the trunk after the rebase, so a lane
+ * never carries one. It is the other rebase's conflict — the trunk against
+ * `origin/main` — and it is registered here because that rebase is this same
+ * function called from `reconcile.ts`, which is the whole reason the replay
+ * takes the branch to rebase onto as an argument.
+ *
  * Anything else stops the landing exactly as before, and so does any of those
  * three when the sides genuinely disagree: every resolver refuses rather than
  * guess. The guard that catches a finished queue entry coming back still runs
@@ -31,6 +38,7 @@ import { regenerate } from "../index/generate.js";
 import { git } from "./git.js";
 import { keepLaneRows } from "./index-merge.js";
 import { LEDGER_FILE, mergeLedger } from "./ledger-merge.js";
+import { mergeNotes, NOTES_FILE } from "./notes-merge.js";
 import { QUEUE_FILES } from "./queue-guard.js";
 import { mergeQueue } from "./queue-merge.js";
 
@@ -64,6 +72,7 @@ for (const file of QUEUE_FILES) {
   RESOLVERS[file] = async ({ base, trunk, lane }) => mergeQueue(base, trunk, lane);
 }
 RESOLVERS[LEDGER_FILE] = async ({ base, trunk, lane }) => mergeLedger(base, trunk, lane);
+RESOLVERS[NOTES_FILE] = async ({ base, trunk, lane }) => mergeNotes(base, trunk, lane);
 RESOLVERS[INDEX_FILE] = async ({ root, file, base, trunk, lane }) => {
   // The trunk's copy is what the generator is run over: it carries every row
   // the trunk added, and the tree it reads is already this commit's, so the
