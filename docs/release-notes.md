@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 45796c58 — BORROWED comes off the director's sheet
+
+The owner asked for the page to go. It rendered `docs/borrowed.md` whole — It Takes Two and Split Fiction read row by row against whether each mechanic can reach this game — and the answer was NO down most of the verdict column, for the same reason every time: their unit of play is a character crossing a space and ours is a column.
+
 ## 2026-09-16 · 26d9a6a1 — bun run push reconciles a diverged trunk instead of reporting one
 
 Two sessions landing in the same hour leaves the local trunk and `origin`'s each holding commits the other has not, and `bun run push` refused there and left a person to run `git rebase origin/main main` by hand. It happened three times on 16 September 2026 and it was the same four files every time — `docs/queue.md`, `docs/INDEX.md`, `docs/time-log.md` and `docs/release-notes.md` — each of them written by one tool and edited by nobody, which is to say not one of those conflicts was authored by anyone.
