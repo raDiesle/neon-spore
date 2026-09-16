@@ -45,11 +45,12 @@ export const INGEST_SILENT_BOSS = [
   // own `breach` goes up in the same tick, so a caught press is not invisible
   // while this row stands; it is only unnamed.
   "stareCaught",
-  // THE BATON's seven, silent for the same reason and for now: the arm, its
-  // sockets going dark, the bead in flight and the grey panel under the seat
-  // whose turn it is not are the look half of that boss and are not drawn yet
-  // (`docs/spec/bosses.md`). What it puts on the field it puts there as a
-  // meteor and a pod, and those two are drawn already.
+  // THE BATON's seven, silent because its picture is read off its state
+  // every frame rather than off an event: the arm, a socket going dark, the
+  // bead in flight and the grey panel under the seat whose turn it is not are
+  // all in `baton-draw.ts` and `band-lock.ts` already, and a burst on top of
+  // them is a look for VERSUS, not for here. What it puts on the field it
+  // puts there as a meteor and a pod, and those two burst on their own.
   "batonLaunch",
   "batonStruck",
   "batonLanded",

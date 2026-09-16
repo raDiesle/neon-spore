@@ -24,6 +24,7 @@ export {
   batonBeadCol,
   batonBeadRowMilli,
   batonDark,
+  batonLandTick,
   batonLocked,
   batonSocketRow,
 } from "./baton.js";

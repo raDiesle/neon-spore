@@ -9,10 +9,10 @@ import { drawStripFor } from "./band-channel.js";
 import { drawLobe } from "./band-control.js";
 import { drawBandGround } from "./band-ground.js";
 import { BAND_JOIN } from "./band-join.js";
+import { drawBatonGrey, drawLock } from "./band-lock.js";
 import { chamberPath, drawSeamFlesh, drawSeamSpill, seamTop, seamY } from "./band-seam.js";
 import { drawChokeStrip } from "./choke-strip.js";
 import { bandLobes, type Layout, type Lobe, showsCannon, showsShield, tileCX } from "./layout.js";
-import { PALETTE } from "./palette.js";
 import { seatSkin } from "./seat-skin.js";
 import { SHIP_NERVES } from "./ship-nerves.js";
 import { BAND_SLIME } from "./slime-look.js";
@@ -147,6 +147,10 @@ export function drawBand(
 
   ctx.restore();
   if (locked) drawLock(ctx, l);
+  // THE BATON's lockout, one seat for one beat, over that seat's own controls
+  // (`band-lock.ts`). After the lock for THE MIRROR's reason: a scrim goes
+  // over a finished drawing.
+  drawBatonGrey(ctx, l, world, set);
   ctx.textAlign = "left";
 }
 
@@ -213,35 +217,3 @@ function drawHalf(
  * actually asked: the CONTROLS page in the menu, and the director's own PANELS
  * tab (`tools/director/src/controlsets-page.ts`).
  */
-
-/**
- * The band, put out.
- *
- * A scrim over the finished drawing rather than an alpha set before it: every
- * button in here reaches for `halo` or `reticle`, and both of those set
- * `globalAlpha` outright. Canvas alpha does not multiply, so anything set up
- * front is simply overwritten by the first child that has an opinion — which
- * is why the strips dimmed and the buttons did not.
- */
-function drawLock(ctx: CanvasRenderingContext2D, l: Layout): void {
-  const y = l.bandTop + l.bandHeight / 2;
-  ctx.save();
-  ctx.fillStyle = "rgba(7,4,15,.78)";
-  ctx.fillRect(0, seamTop(l), l.width, l.bandTop + l.bandHeight - seamTop(l));
-  ctx.fillStyle = "rgba(7,4,15,.72)";
-  ctx.fillRect(0, y - 15, l.width, 30);
-  ctx.strokeStyle = PALETTE.red;
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(0, y - 15);
-  ctx.lineTo(l.width, y - 15);
-  ctx.moveTo(0, y + 15);
-  ctx.lineTo(l.width, y + 15);
-  ctx.stroke();
-  ctx.textAlign = "center";
-  ctx.fillStyle = PALETTE.red;
-  ctx.font = '700 12px "Courier New",monospace';
-  ctx.fillText("LOCKED — WATCH", l.width / 2, y + 4);
-  ctx.restore();
-  ctx.textAlign = "left";
-}

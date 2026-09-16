@@ -1,4 +1,5 @@
 import { repriseEchoing, repriseLeft, wardenPullMilli, wardenTether } from "@neon-spore/sim";
+import { drawBaton } from "./baton-draw.js";
 import { cairnBody, drawCairn } from "./cairn.js";
 import { drawPileHand } from "./cairn-hand.js";
 import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
@@ -122,6 +123,16 @@ export function drawBoss(
   // each screen is shown one chamber beating and one still (`diastole-draw.ts`).
   if (boss.kind === "diastole") {
     drawDiastole(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
+    return;
+  }
+
+  // THE BATON: an arm down the middle column with the bead in it, the same on
+  // both screens — the split is on the band, where the seat that just acted
+  // is greyed for a beat (`band-lock.ts`). Off the tick and not only the
+  // beat, because the bead's flight is three beats long and a shot has to
+  // meet it where the simulation says it is (`baton-draw.ts`).
+  if (boss.kind === "baton") {
+    drawBaton(ctx, l, world.cfg, boss, world.tick, world.beat, view.beatPhase, view.time);
     return;
   }
 

@@ -1786,10 +1786,22 @@ today only a shot through the bead spends it), and the lance beam, which does
 not touch the bead at all. The base is fixed to the middle column rather than
 authored, for THE VANE's reason.
 
-**What it does not draw yet**, and it is the lane after this one: the arm, the
-sockets going dark and shed, the bead in flight with its colour, the grey
-panel on the locked seat's phone and the shaken settle. Until that lands the
-boss plays and is invisible — and the lock is a thing the pair can only feel.
+**What it draws** (`render/src/baton-draw.ts`, `render/src/band-lock.ts`): the
+arm as a rock spine from above row 0 down the socket rows, one socket shown
+per beat while it unfolds; a lit socket as a dark disc under a hull-coloured
+glow that breathes with the beat, a dark one as bare rock, a shed one as a gap
+in the spine; the bead in its colour, sitting in its socket or on its way to
+the next one along a sideways arc that swaps side each handover, and a wider
+halo with a ring round it once the bolt has met it; the swung arm's sockets
+above the bead in the column it left; the fold as the whole picture going out
+over `batonDownBeats`; and the locked seat's grey — over the whole band on a
+solo phone, over that seat's strip and lobes on the test screen — for as long
+as `batonLocked` says so. Both screens see the bead's colour, because both
+players need it: one to read what to shoot, the other to say it.
+
+**What it does not draw**: a trail the flight leaves, a shake on the settle —
+the bead simply sits in the top socket again — and anything from the list
+above.
 
 **Never watched at tempo.** Whether *going — got it* fits inside three beats
 at 96 BPM with a word between is a thing a person finds out with another

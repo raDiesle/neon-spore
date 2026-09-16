@@ -26,6 +26,7 @@ export {
   batonBeadRowMilli,
   batonBoss,
   batonDark,
+  batonLandTick,
   batonLocked,
   batonSocketRow,
   bossFillsWave,

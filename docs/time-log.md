@@ -7633,3 +7633,23 @@ what turned up the next entry: the row comes out from under the band and lands
 under the page's own caption box.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — boss-implementation — THE BATON's look
+
+The second half of the first boss in the run: the arm, the sockets, the bead
+and the grey panel, drawn off the state the previous lane landed. Claimed as
+"look taken" on `main`'s copy of the choreographed-bosses page before it
+started.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `diastole-draw.ts` and `vane-draw.ts` as the pattern, `band.ts` for where the split is, `frame-harness.ts` for what a frame test can assert |
+| writing | 20 | `baton-draw.ts`, `band-lock.ts` (with `drawLock` moved out of `band.ts` to keep it under the line), the dispatch in `boss-draw.ts`, `batonLandTick` through the sim's index, 13 frame tests, the spec |
+| looking | 5 | the frame tests' call counts and colours per role; one PNG at the end |
+| friction | 5 | the navigator's grey asserted at the fire press, when the lock is spent where the bolt meets the bead; `tsc -p packages/render` with no tsconfig there; the index test |
+| landing | 5 | `check:fast`, `bun run index`, the commit |
+
+The bottleneck was the P2 lock's moment: the test fired and asserted grey on
+the navigator's screen at once, and the seat is locked in `batonStruck`, on
+the tick the bolt reaches the bead, not at the press — so the test now steps
+until `struck` and past player 1's own lock before it looks.

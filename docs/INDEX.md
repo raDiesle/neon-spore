@@ -895,6 +895,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ship-gland.ts` | GLAND's parts: EMBEDDED's arrangement with everything the owner asked for laid over it |
 | `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |
 | `packages/render/src/band-lobes.ts` | Where the round buttons on the band stand, for one seat and one panel |
+| `packages/render/src/band-lock.ts` | The band, put out — the whole of it, or one seat's half |
 | `packages/render/src/band-join.ts` | THE ONE RECORD A CANDIDATE SHIP-AND-PANEL JOIN PATCHES |
 | `packages/render/src/band-filaments.ts` | Threads off the band's roof with a drop at the tip — the one part of POLYP the owner took, drawn over the pendants (12 September 2026) |
 | `packages/render/src/volley-seams.ts` | **The pattern painted on THE VOLLEY's shell**: the four seams a basketball has |
@@ -1149,6 +1150,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/moult.ts` | THE MOULT, drawn: the form it is wearing **now** on both screens |
 | `packages/render/src/balloon-alive.ts` | **What makes THE BALLOON alien**: the film that travels over its skin |
 | `packages/render/src/balloon-burst.ts` | **THE BALLOON popping**: the skin the pair stretched, torn into shreds that fly outward and fall onto the ship |
+| `packages/render/src/baton-draw.ts` | THE BATON, drawn: an arm of sockets hanging down the middle column |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
