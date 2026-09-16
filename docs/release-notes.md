@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 8d538bc4 — The splice's two rows are named where the fight is written down
+
+`doc-drift.test.ts` holds that every field of `SimConfig` is named in a document, and `spliceEntranceRows` and `spliceTopRow` were not: 11.13 said the mouths stand two tiles over the plating without saying which number decides it. Both are now in the section, with why the two rows are arithmetic rather than authorship -- a narrower field spaces them closer and `queue-boss.ts` has nothing to remap.
+
+## 2026-09-16 · 76c4982d — THE SPLICE: straws fed in the order the numbers say
+
+A children's path puzzle played by two people who can each see half of it. A row of mouths stands two tiles over the plating, and out of each one a straw runs the whole height of the field, tangled through every other; each straw carries a number at its far end, and the ship must feed them in order by standing the cannon under a mouth and opening the maw. The navigator is shown the tangle, the numbers and the round's clock and has no SUCK; the pilot holds the cannon and the maw and sees a hand's width of straw over each mouth and nothing above it. So every feed is a sentence neither seat can finish alone.
+
 ## 2026-09-16 · 412dd935 — A check signs in, and watches the name arrive in the field
 
 The server half of the name registry has been proved against a forged Firebase since it was written. The client half had never run: `idToken()` asks the Firebase SDK for a signed-in user, so `syncName` filling the first meeting's field with the name the registry hands back, the same call reconciling a name this phone typed, and the SETTINGS row saying who is logged in were all read off the source and checked by nothing. Signing in by hand needs a Google account and a mailbox, which is not something a session has or should be given.
