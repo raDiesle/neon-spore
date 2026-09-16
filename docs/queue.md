@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## Destruction and damage: the three unbuilt pieces, offered in VERSUS
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Taken:** 2026-09-16, claude/queue-destruction-and-damage-the-three-unbuilt-pieces
 - **Files:** `packages/render/src/shatter.ts`, `packages/render/src/shatter-fall.ts`, `packages/render/src/debris.ts`, `packages/render/src/craters.ts`, `packages/render/src/effects-break.ts`, `tools/versus/candidates/registry.ts`, `tools/versus/README.md`, `docs/spec/systems.md`, `docs/decisions.md`
 
 The owner took the *Destruction and damage* idea (`systems.md` 5.6) on
