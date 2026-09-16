@@ -654,12 +654,21 @@ kind. A press that names a column is a press against the field the wave is
 **played** on, and the number a person reads off a wave file is the column it
 was **authored** in; the two agree only on a seven-column field.
 
-What to do, in the order that costs least: say the remapped column back when a
-press names one, so a sheet that went to the wrong lane says so in its own
-output; and when the run also names a wave, ask `buildQueue` what is standing
-in that column at that beat and warn when the answer is nothing. A warning
-rather than a refusal — a picture of an empty column is a legitimate thing to
-want, and a lane that meant it should not have to argue with a tool.
+**The first half of this landed on 16 September 2026** and the entry is left
+open for the second. `tools/frames/press-column.ts` says the remapped column
+back before the capture runs: *cannonCol=1 — field column 1 of 11, and no
+authored column lands there. A wave's authored column 1 is field column 2.* —
+which is the ledger's own recorded failure, printed while the run is still
+worth stopping. Nothing is said on a seven-column field, where the two
+numbering systems are one.
+
+What is left is the half that needs the wave: ask `buildQueue` what is standing
+in that column **at that beat** and warn when the answer is nothing. It is the
+more valuable of the two and the more delicate — a press carries a tick and an
+arrival carries a beat, and a body stands in its column for as many beats as it
+takes to fall, so the window has to be worked out rather than guessed. A
+warning rather than a refusal — a picture of an empty column is a legitimate
+thing to want, and a lane that meant it should not have to argue with a tool.
 
 One thing it must not do: reach into the simulation to *move* anything. The
 tool photographs a world; a press that quietly became a different press would

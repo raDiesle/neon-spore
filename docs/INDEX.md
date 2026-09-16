@@ -1798,6 +1798,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/style-form.ts` | The form half of the STYLE page: how a body is drawn, how big it ships, what makes one nameable |
 | `tools/director/src/style-page.ts` | DOCUMENTATION → STYLE: the whole visual language on one page, drawn live |
 | `tools/frames/press-command.ts` | What one `--press` actually sends, once the line has been taken apart |
+| `tools/frames/press-column.ts` | what a column in `--press` points at, said before the capture |
 | `tools/hooks/after-depth-edit.ts` | a depth claim is the drawing mistake that looks like a success — names the projection to call and the cues to check |
 | `tools/hooks/after-compact.ts` | What a session is told the moment its conversation has been compacted |
 | `tools/hooks/after-edit-size.ts` | One line on the edit that takes a file within 88% of the line ceiling, so the seam is chosen before the check goes red |

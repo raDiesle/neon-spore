@@ -1,5 +1,7 @@
 #!/usr/bin/env bun
 
+import { mkdir, rm } from "node:fs/promises";
+import { dirname, join } from "node:path";
 /**
  * `bun run frames <sha> --wave N` — a before-and-after picture for a landing.
  *
@@ -87,11 +89,11 @@
  * not `--wave 20`) or a wave's own name. Both convert to the 0-based index
  * `jumpToWave` and `world.wave` actually use.
  */
-import { mkdir, rm } from "node:fs/promises";
-import { dirname, join } from "node:path";
+import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { sameFrames } from "./crop.js";
 import { parseFrameSpec } from "./flags.js";
 import { heldPageNote } from "./guide-film.js";
+import { columnNotes } from "./press-column.js";
 import { say, tickNote } from "./report.js";
 import { scratchDir } from "./scratch.js";
 import { captureAt, captureHere, git, root } from "./serve.js";
@@ -133,6 +135,12 @@ async function main(): Promise<void> {
   console.log(
     `wave: ${waveValue} → index ${spec.wave} (${historicalWaves[spec.wave]?.name ?? "beyond the authored waves"})`,
   );
+  // What each column named in `--press` actually points at. Said before the
+  // capture rather than after it, so a number that was going to photograph an
+  // empty lane is readable while the run is still worth stopping
+  // (`press-column.ts`). Nothing is said on a seven-column field, where the
+  // authored numbers and the field's are the same numbers.
+  for (const said of columnNotes(spec.press ?? [], DEFAULT_CONFIG.cols)) console.log(`  ${said}`);
 
   const start = Date.now();
   if (here) {

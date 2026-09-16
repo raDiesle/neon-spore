@@ -6746,3 +6746,24 @@ before writing rather than after. They are in the entry now, so the next
 session pays neither.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — queue-press-never-says-which-column — the number says what it points at
+
+The queue's *`--press` never says which column it actually pressed*, first half:
+the ledger's largest unfixed friction row after the ceiling and the heredoc —
+a picture taken of the wrong thing, 11 lanes and 95 minutes.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `press.ts`'s header, `press-plan.ts` as the precedent, `spec.ts` for what a `PressSpec` actually carries, `mapCol` and its two constants |
+| writing | 10 | `press-column.ts`, six lines in `run.ts`, ten cases against the shipped field's own numbers |
+| looking | 5 | the six real sentences printed for six columns, to read them as a person would |
+| friction | 0 | none |
+| landing | 10 | the entry rewritten to leave its second half, `index` and its row, `check`, the commit |
+
+The bottleneck was reading, and it bought the one thing the file had to get
+right: a `PressSpec` carries its control under `command.kind`, not at the top
+level, so the first draft filtered on a field that is always undefined and
+would have printed nothing at all while every test about the wording passed.
+The five minutes of looking were worth as much — the sentences are the whole
+deliverable here, and the only way to know they read is to read them.
