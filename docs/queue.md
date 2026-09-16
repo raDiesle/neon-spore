@@ -317,36 +317,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## The client half of a sign-in has no rig, so no check ever signs anybody in
-
-- **Found:** 2026-09-15, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-16, claude/queue-the-client-half-of-a-sign-in-has-no-rig-so-no-ch
-- **Files:** `apps/game/src/sign-in.ts`, `apps/game/src/nickname.ts`, `apps/game/src/hello.ts`, `apps/game/test/hello.test.ts`, `apps/server/test/signed.ts`, `apps/server/src/sign-in.ts`
-
-What *Unverified at a80777a5* left behind when the rest of it was checked off.
-The server half of the name registry is proved against a fake Firebase already:
-`apps/server/test/signed.ts` mints its own RSA key, hands the worker a JWKS and
-signs tokens with it, and `names.test.ts` drives real claims through a real
-Durable Object with them. The client half has nothing of the kind. `idToken()`
-asks the Firebase SDK for a signed-in user, so every path behind it — `syncName`
-filling the first meeting's field with a name the registry hands back, the same
-call reconciling a name this phone typed, the SETTINGS row saying who is logged
-in — is read off the source and has never run. Signing in by hand needs a Google
-account and a mailbox, which is not something a session has or should be given.
-
-The seam is `sign-in.ts`: everything above it (`nickname.ts`, `hello.ts`,
-`menu-sign-in.ts`) only ever asks it two questions — is somebody signed in, and
-what is their token. Two ways to answer those without Google, and the first is
-the smaller: **a signed-in stand-in inside `sign-in.ts`**, minting a token the
-way `signed.ts` does and refusing to exist unless the relay is a local one, so
-it cannot ship as a way past a sign-in; or **Firebase's own auth emulator**,
-which the SDK connects to with one call and which `relay:check:all` could start
-the way it starts a wrangler — truer, and a Java dependency in the tree. Either
-one makes the missing check writable: press LOG IN WITH GOOGLE on the first
-meeting and watch the name arrive in the field.
-
-Prove it with `bun run check` and one check that signs in and reads the field.
-
 ## THE SPLICE: straws fed in number order, then the BOSSES page goes
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
@@ -700,3 +670,30 @@ and the scene beside it is worth reading for the same drift. **`both` and each
 half are capped at 220 characters** (`briefing.test.ts`), and the present
 `both` is already at the cap, so this is a rewrite rather than an edit. Prove
 it with `bun run check` and one frame of the opening.
+
+## Two fake DOMs, neither of them the other's
+
+- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Files:** `tools/director/test/fake-dom.ts`, `apps/game/test/fake-dom.ts`, `tools/director/test/*.test.ts`, `apps/game/test/first-meeting.test.ts`
+
+`bun test` carries no DOM and this repository has now answered that twice. The
+director's (224 lines, 6 September 2026) is built round a tab bar,
+`querySelector`, `getElementById` and a canvas; the game's (135 lines,
+16 September 2026) round a field's value, a button's text, `hidden`,
+`disabled`, `remove` and a `body` with a dataset. Between them they write
+`FakeEl`, `createElement`, `append`, `addEventListener`, a click that iterates
+a copy of its listeners, and a `descendants()` that flattens the tree — the
+same six things, twice, with different names for two of them.
+
+The third screen that wants one is the point at which this is decided badly by
+default, and there are three waiting: SETTINGS, the room screen's own name
+field, and the menu's pages.
+
+**One `tools/test/fake-dom.ts` with the union of the two surfaces**, each
+caller keeping its own installer — the director's `installDom(spec)` with its
+bars and ids, the game's with its body — over one `FakeEl` and one
+`createElement`. Both files' doc comments carry the same argument for why this
+is not a devDependency, and that argument is worth writing once.
+
+Prove it with `bun run check`: every test that reads either file today passes
+unchanged, and neither installer's surface grows while it is moved.

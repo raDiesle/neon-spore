@@ -11,6 +11,14 @@ import {
   signInWithPopup,
 } from "@firebase/auth";
 import { SIGN_IN } from "./sign-in-config.js";
+import {
+  dropStandIn,
+  offerStandIn as offer,
+  type StandIn,
+  standIn,
+  standInInPlay,
+  takeStandIn,
+} from "./sign-in-standin.js";
 
 /**
  * Who is holding this phone, proved by Google or by an email link.
@@ -32,6 +40,10 @@ import { SIGN_IN } from "./sign-in-config.js";
  * **Nothing happens on a checkout without a project.** `SIGN_IN` is `null`
  * until the owner pastes the config, and every function here answers as if
  * nobody could sign in — which is the truth.
+ *
+ * **And a check has a way in**, because nothing behind these three questions
+ * could otherwise ever be run: `sign-in-standin.ts` puts an account behind our
+ * own button, against a relay on this machine and nowhere else.
  */
 
 /** The email the link was sent to, kept until the link is opened. */
@@ -39,6 +51,24 @@ export const EMAIL_KEY = "neon-spore.email";
 
 let auth: Auth | null = null;
 const listeners = new Set<() => void>();
+
+/** Everybody who asked to be told, told. */
+function told(): void {
+  for (const cb of listeners) cb();
+}
+
+export type { StandIn } from "./sign-in-standin.js";
+export { standInAllowed } from "./sign-in-standin.js";
+
+/**
+ * Offer a stand-in, or withdraw one — `sign-in-standin.ts`'s, with the telling
+ * around it, so a withdrawal repaints whatever was drawn for the sign-in.
+ */
+export function offerStandIn(who: StandIn | null): boolean {
+  const took = offer(who);
+  if (took && who === null) told();
+  return took;
+}
 
 /** Whether this build can sign anybody in at all. */
 export function signInConfigured(): boolean {
@@ -53,11 +83,13 @@ export function signInConfigured(): boolean {
  * its address says whether it was reached by a link.
  */
 function ready(): Auth | null {
+  // With a stand-in in play Firebase is never made at all, which is what lets
+  // everything behind these questions run in a runner with no browser to make
+  // it in — and what keeps a check off Google.
+  if (standInInPlay()) return null;
   if (auth || !SIGN_IN) return auth;
   auth = getAuth(initializeApp(SIGN_IN));
-  onAuthStateChanged(auth, () => {
-    for (const cb of listeners) cb();
-  });
+  onAuthStateChanged(auth, told);
   void finishEmailLink(auth);
   return auth;
 }
@@ -70,11 +102,13 @@ export function onSignIn(cb: () => void): void {
 
 /** Whether somebody is signed in. */
 export function signedIn(): boolean {
-  return ready()?.currentUser != null;
+  return standIn() !== null || ready()?.currentUser != null;
 }
 
 /** What to call the sign-in: the email, or GOOGLE when there is none to show. */
 export function signedInAs(): string {
+  const stood = standIn();
+  if (stood) return stood.email;
   const user = ready()?.currentUser;
   if (!user) return "";
   return user.email ?? "Google";
@@ -82,6 +116,8 @@ export function signedInAs(): string {
 
 /** The token that proves it to the registry, or "" when nobody is signed in. */
 export async function idToken(): Promise<string> {
+  const stood = standIn();
+  if (stood) return stood.token();
   const user = ready()?.currentUser;
   if (!user) return "";
   try {
@@ -93,6 +129,10 @@ export async function idToken(): Promise<string> {
 
 /** Google's own chooser, in a popup, from a press on our own button. */
 export async function signInWithGoogle(): Promise<string> {
+  if (takeStandIn()) {
+    told();
+    return "";
+  }
   const a = ready();
   if (!a) return "This build has no sign-in.";
   try {
@@ -152,6 +192,7 @@ export async function finishEmailLink(a: Auth | null = ready(), email = ""): Pro
 }
 
 export async function signOut(): Promise<void> {
+  if (dropStandIn()) told();
   const a = ready();
   if (a) await firebaseSignOut(a);
   keepEmail("");

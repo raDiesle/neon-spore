@@ -6071,3 +6071,25 @@ arrowheads opening as an even ring — a shockwave, not a skin. No test could
 have said so. Two rings helped and did not fix it; what fixed it was tearing
 the skin from a point out on the rim, so the far side comes away in long fast
 pieces and the near side in chips.
+
+## 2026-09-16 — queued-tasks — a check that signs in, and the name in the field
+
+The queue's *The client half of a sign-in has no rig*. The server half of the
+name registry has been proved against a forged Firebase since it was written;
+the client half — `idToken`, `syncName`, the field a sign-in fills — had never
+run at all, because running it needed a Google account.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | `sign-in.ts`, `nickname.ts`, `hello.ts` and its source-scraping test, then `signed.ts`, `names.ts` and `relay.ts` to find that the worker is already raisable from a plain `bun test` |
+| writing | 40 | the stand-in and its guard, six small branches in `sign-in.ts`, a 135-line fake document, and a four-part check that drives the shipped screen against a real workerd |
+| looking | 5 | two mutations — the field fill, and the registry's subject — to find out whether the new check could go red |
+| friction | 30 | a local trunk two commits ahead of an `origin` twelve ahead of it, and three conflicts in the append-only docs to reconcile before a line of work could start |
+| landing | 15 | `check:fast`, `bun run index`, the commit |
+
+The bottleneck was friction, and none of it was this lane's: the trunk had
+diverged because a landing moves `main` locally and only a push moves
+`origin`, so two days of cloud landings and one afternoon of local ones met in
+`docs/queue.md`, `docs/time-log.md` and `docs/release-notes.md` at once. The
+five minutes of looking is the number worth keeping: a mutation is the cheapest
+question a new test can be asked, and both answers came back inside a minute.

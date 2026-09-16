@@ -11,6 +11,11 @@ import { opensHello } from "../src/hello.js";
  * holding and it does not need a browser to hold it. The screen under it is
  * read out of the source, which is what `intro.test.ts` and `input-pc.test.ts`
  * both do with wiring nothing here can drive.
+ *
+ * **The optional half is no longer among that wiring.** `first-meeting.test.ts`
+ * opens this screen over a small fake document, presses LOG IN WITH GOOGLE and
+ * reads the field, against a real worker — so what is matched here about the
+ * sign-in is the shape of the source, and whether it works is held there.
  */
 
 const source = readFileSync(new URL("../src/hello.ts", import.meta.url), "utf8");
