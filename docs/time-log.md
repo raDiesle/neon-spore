@@ -7842,3 +7842,23 @@ reason and the note over it says so. What the lane cost was paid yesterday by
 the capture that found it.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — the input delay is milliseconds again
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `delay.ts`, `lockstep.ts`, `link-run.ts`, `frame.ts`'s `tickMs` callback and `slow.ts`'s own seam note |
+| writing | 30 | the class in milliseconds, `tick-rate.ts`, five tests, two queue entries |
+| looking | 0 | nothing visible moved — the whole change is what a tick is worth in the hand |
+| friction | 5 | `docs/INDEX.md` went stale on the new file and failed the check; `bun run index` |
+| landing | 15 | `check:fast`, `relay:check:all`, the commit |
+
+The bottleneck was reading, and the minutes went on one question the code does
+not answer: **who owns the conversion from ticks to milliseconds.**
+`sim/index-run.ts` had already decided it — the simulation says which beats are
+slowed, the app says how long a tick is worth — so the arithmetic could not go
+in `slow.ts` beside the thing it divides by, and finding that sentence was most
+of the lane. Once it was found, `tick-rate.ts` wrote itself and the class was a
+rename of two fields.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

@@ -15,6 +15,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { CommandSource } from "./relay.js";
+import { tickMs } from "./tick-rate.js";
 
 /** Beats between fingerprint exchanges. Often enough to catch a split within a breath. */
 const HASH_EVERY_BEATS = 4;
@@ -92,7 +93,6 @@ export interface Run {
 export function createRun(o: RunOptions): Run {
   const tpb = ticksPerBeat(o.cfg);
   const hashEvery = tpb * HASH_EVERY_BEATS;
-  const msPerTick = 1000 / o.cfg.tickHz;
 
   let lockstep: Lockstep | null = null;
   let ledger = new HashLedger();
@@ -117,7 +117,7 @@ export function createRun(o: RunOptions): Run {
       // stall the first bar of it before a frame could correct anything.
       lockstep = new Lockstep({
         player: player as PlayerId,
-        delayTicks: delay.ticks,
+        delayTicks: delay.ticksAt(tickMs(o.world)),
         aheadLimitTicks: o.cfg.tickHz * AHEAD_LIMIT_SECONDS,
         send: o.send,
       });
@@ -137,7 +137,12 @@ export function createRun(o: RunOptions): Run {
     observeLink(rttMs, dtMs) {
       delay.observe(rttMs);
       delay.settle(dtMs);
-      lockstep?.setDelayTicks(delay.ticks);
+      // **The tick count is recomputed every frame, not only when the link
+      // moves.** What `InputDelay` holds is milliseconds, and how many ticks
+      // that is changes the moment a boss opens one of THE SLOW's windows —
+      // with nothing about the link having changed at all (`tick-rate.ts`).
+      // The same question the loop asks to draw at the right rate.
+      lockstep?.setDelayTicks(delay.ticksAt(tickMs(o.world)));
     },
 
     pump(dtMs) {
@@ -200,7 +205,10 @@ export function createRun(o: RunOptions): Run {
     },
 
     get delayMs() {
-      return lockstep ? Math.round(lockstep.delay * msPerTick) : 0;
+      // Read off the delay itself rather than multiplied back out of the
+      // scheduler's tick count: inside a slow window those ticks are longer,
+      // and this is the number in the hand.
+      return lockstep ? Math.round(delay.ms) : 0;
     },
 
     get delayTicks() {

@@ -1,14 +1,6 @@
 import type { RunMark } from "@neon-spore/net";
 import type { Canvas2DRenderer } from "@neon-spore/render";
-import {
-  MILLI,
-  type SimEvent,
-  slowing,
-  slowRateMilli,
-  step,
-  ticksPerBeat,
-  type World,
-} from "@neon-spore/sim";
+import { type SimEvent, slowing, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
 import type { InputBuffer } from "./input.js";
 import { interpolatedBeatPhase } from "./interpolate.js";
@@ -17,6 +9,7 @@ import { startLoop } from "./loop.js";
 import { createMenuIdle } from "./menu-idle.js";
 import type { RunState } from "./run-state.js";
 import { runMark, throttledTally } from "./tally.js";
+import { tickMs } from "./tick-rate.js";
 import type { Welcome } from "./welcome.js";
 
 /**
@@ -40,7 +33,6 @@ import type { Welcome } from "./welcome.js";
  * one of these is built in `main.ts` and half of them close over each other. */
 export interface FrameParts {
   world: World;
-  tickHz: number;
   buffer: InputBuffer;
   run: RunState;
   renderer: Canvas2DRenderer;
@@ -159,14 +151,13 @@ export function startFrames(p: FrameParts): Frames {
   };
 
   startLoop(
-    // **How long a tick is, asked every frame.** Ordinarily `1000 / tickHz`
-    // exactly; inside one of THE SLOW's windows it is that divided by the
-    // world's own rate, which is how a boss plays a span of beats at a third
-    // of wall-clock speed without one number of the simulation moving
-    // (`sim/slow.ts`, `docs/decisions.md` #33). Both devices ask the same
-    // question of two worlds that agree about the answer, because the window's
-    // boundaries are hashed fields.
-    () => (1000 / p.tickHz) * (MILLI / slowRateMilli(p.world)),
+    // **How long a tick is, asked every frame** (`tick-rate.ts`). Ordinarily
+    // `1000 / tickHz` exactly; inside one of THE SLOW's windows it is that
+    // divided by the world's own rate, which is how a boss plays a span of
+    // beats at a third of wall-clock speed without one number of the
+    // simulation moving (`sim/slow.ts`, `docs/decisions.md` #33). The
+    // scheduler asks the same question for its own reason (`link-run.ts`).
+    () => tickMs(p.world),
     () => {
       // Paused: drop whatever was pressed rather than letting it pile up for the
       // moment play resumes. A finished run is not paused — its commands still

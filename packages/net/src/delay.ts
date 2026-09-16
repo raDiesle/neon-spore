@@ -10,6 +10,18 @@
  * for, the peer's promise never arrives in time, and the run spends its life in
  * `stalled`. Lag you can play through beats a stutter you cannot.
  *
+ * **What is held here is milliseconds, and the tick count is asked for at the
+ * moment of scheduling.** A delay is a promise about the *hand* — the gap
+ * between a thumb and the answer to it — and that gap is wall clock. It was
+ * kept in ticks until 17 September 2026, which was the same number right up
+ * until THE SLOW landed: inside one of its windows a tick is worth three times
+ * its ordinary length (`sim/slow.ts`), so a fixed number of ticks was a third
+ * of a second in the hand on exactly the beats a boss made dramatic. Nothing
+ * in this package may ask whether a window is open — `packages/net` does not
+ * import `packages/sim` — so the caller hands the rate in force to `ticksAt`
+ * and the two devices agree about it the way they agree about everything, by
+ * the window's boundaries being hashed fields.
+ *
  * **The delay is this device's own and is never agreed with the peer.** Every
  * command goes over the wire stamped with the exact tick it lands on, and a
  * device's `confirm` horizon is derived from its own delay, so two devices
@@ -41,6 +53,11 @@ const FALL_EVERY_MS = 1000;
 const CEILING_MS = 400;
 
 export interface InputDelayOptions {
+  /**
+   * The ordinary rate. Two things are measured against it and neither is the
+   * delay itself: the floor, which arrives as a tick count, and the step the
+   * delay gives back once a second.
+   */
   tickHz: number;
   /** Never go below this — the tuned value from `SimConfig`. */
   floorTicks: number;
@@ -49,7 +66,8 @@ export interface InputDelayOptions {
 }
 
 export class InputDelay {
-  private readonly tickHz: number;
+  /** One ordinary tick, in milliseconds. Not the tick in force — see `ticksAt`. */
+  private readonly step: number;
   private readonly floor: number;
   private readonly ceiling: number;
   private readonly margin: number;
@@ -58,10 +76,10 @@ export class InputDelay {
   private fallCredit = 0;
 
   constructor(o: InputDelayOptions) {
-    this.tickHz = o.tickHz;
+    this.step = 1000 / o.tickHz;
     this.margin = o.marginMs ?? MARGIN_MS;
-    this.floor = Math.max(1, Math.round(o.floorTicks));
-    this.ceiling = Math.max(this.floor, this.ticksFor((o.ceilingMs ?? CEILING_MS) - this.margin));
+    this.floor = Math.max(1, Math.round(o.floorTicks)) * this.step;
+    this.ceiling = Math.max(this.floor, o.ceilingMs ?? CEILING_MS);
     this.current = this.floor;
     this.wanted = this.floor;
   }
@@ -78,7 +96,7 @@ export class InputDelay {
    */
   observe(rttMs: number): void {
     if (!Number.isFinite(rttMs) || rttMs < 0) return;
-    this.wanted = clamp(this.ticksFor(rttMs), this.floor, this.ceiling);
+    this.wanted = clamp(Math.max(0, rttMs) + this.margin, this.floor, this.ceiling);
     if (this.wanted > this.current) {
       this.current = this.wanted;
       this.fallCredit = 0;
@@ -94,17 +112,26 @@ export class InputDelay {
     this.fallCredit += Math.max(0, elapsedMs);
     while (this.fallCredit >= FALL_EVERY_MS && this.current > this.wanted) {
       this.fallCredit -= FALL_EVERY_MS;
-      this.current--;
+      this.current = Math.max(this.wanted, this.current - this.step);
     }
   }
 
-  /** The delay to schedule by, in ticks. */
-  get ticks(): number {
+  /** The delay to schedule by, in milliseconds. What the indicator shows. */
+  get ms(): number {
     return this.current;
   }
 
-  private ticksFor(ms: number): number {
-    return Math.max(1, Math.ceil((Math.max(0, ms) + this.margin) * (this.tickHz / 1000)));
+  /**
+   * The same delay as a number of ticks, at the rate a tick is being consumed
+   * at right now — `1000 / tickHz` ordinarily, three times that inside one of
+   * THE SLOW's windows.
+   *
+   * Asked at the moment of scheduling rather than held, which is the whole
+   * point of this class keeping milliseconds: the tick count is the one part
+   * of the delay that changes without the link changing.
+   */
+  ticksAt(msPerTick: number): number {
+    return Math.max(1, Math.ceil(this.current / msPerTick));
   }
 }
 

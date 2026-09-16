@@ -6,51 +6,58 @@ import { InputDelay, Lockstep } from "../src/index.js";
 const TICK_HZ = 120;
 const FLOOR = 12;
 
+/** One tick at the ordinary rate, and one inside a slow window at 333/1000. */
+const ORDINARY = 1000 / TICK_HZ;
+const SLOWED = ORDINARY * (1000 / 333);
+
 const make = (): InputDelay => new InputDelay({ tickHz: TICK_HZ, floorTicks: FLOOR });
+
+/** The delay as the scheduler would take it, on a beat nothing is slowing. */
+const ticks = (d: InputDelay): number => d.ticksAt(ORDINARY);
 
 describe("input delay", () => {
   it("sits at the configured floor until the link says otherwise", () => {
     const delay = make();
-    expect(delay.ticks).toBe(FLOOR);
+    expect(ticks(delay)).toBe(FLOOR);
     // -1 is `ClockSync` before it has a median worth believing. A delay that
     // moved on that would open every run at its floor whatever the link is.
     delay.observe(-1);
     delay.settle(5000);
-    expect(delay.ticks).toBe(FLOOR);
+    expect(ticks(delay)).toBe(FLOOR);
   });
 
   it("does not drop below the floor on a link that is better than the tuning", () => {
     const delay = make();
     delay.observe(1);
     delay.settle(10_000);
-    expect(delay.ticks).toBe(FLOOR);
+    expect(ticks(delay)).toBe(FLOOR);
   });
 
   it("rises at once when the trip gets longer", () => {
     const delay = make();
     // 150 ms of trip plus the 45 ms margin is 195 ms, which is 24 ticks.
     delay.observe(150);
-    expect(delay.ticks).toBe(24);
+    expect(ticks(delay)).toBe(24);
     // No time has to pass. A delay that eased upwards would spend the easing
     // stalled, which is the one thing the whole class exists to avoid.
-    expect(delay.ticks).toBe(24);
+    expect(ticks(delay)).toBe(24);
   });
 
   it("gives a tick back at a time, and only while the link stays good", () => {
     const delay = make();
     delay.observe(150);
-    const high = delay.ticks;
+    const high = ticks(delay);
     delay.observe(10);
     // Still the high value: falling is what time does, not what a sample does.
-    expect(delay.ticks).toBe(high);
+    expect(ticks(delay)).toBe(high);
     delay.settle(1000);
-    expect(delay.ticks).toBe(high - 1);
+    expect(ticks(delay)).toBe(high - 1);
     delay.settle(2500);
-    expect(delay.ticks).toBe(high - 3);
+    expect(ticks(delay)).toBe(high - 3);
     // One bad sample stops the descent where it stands.
     delay.observe(150);
     delay.settle(5000);
-    expect(delay.ticks).toBe(high);
+    expect(ticks(delay)).toBe(high);
   });
 
   it("refuses to carry more lag than a game to a beat can survive", () => {
@@ -58,7 +65,33 @@ describe("input delay", () => {
     delay.observe(4000);
     // 400 ms is the ceiling, which is 48 ticks at 120 Hz. Past that the link
     // is allowed to stall and say so rather than hide behind lag.
-    expect(delay.ticks).toBe(48);
+    expect(ticks(delay)).toBe(48);
+  });
+
+  /**
+   * **The bug this class was rewritten for.** THE SLOW makes a tick worth
+   * three times its ordinary length, and the delay used to be a fixed number
+   * of ticks — so a thumb pressed on one of the beats a boss made dramatic was
+   * answered a third of a second later than the same thumb a beat earlier, on
+   * a link that had not changed at all.
+   */
+  it("is the same wait in the hand whether or not the beat is slowed", () => {
+    const delay = make();
+    delay.observe(150);
+    expect(delay.ms).toBeCloseTo(195, 6);
+    // A third of the ticks, because each of them is three times as long. What
+    // is held constant is the milliseconds, which is what the hand feels.
+    expect(delay.ticksAt(SLOWED)).toBe(8);
+    expect(delay.ticksAt(SLOWED) * SLOWED).toBeGreaterThanOrEqual(delay.ms);
+    expect(ticks(delay) * ORDINARY).toBeGreaterThanOrEqual(delay.ms);
+  });
+
+  it("never schedules on the tick that is already running, however slow it is", () => {
+    const delay = make();
+    // A window slow enough that the whole delay fits inside one tick. A delay
+    // of zero would be a command scheduled on a tick the peer may already have
+    // been promised, which is the one thing `Lockstep` may not be handed.
+    expect(delay.ticksAt(10_000)).toBe(1);
   });
 });
 

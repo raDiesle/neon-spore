@@ -207,7 +207,6 @@ function playAt(level: Difficulty): void {
  */
 const frames = startFrames({
   world,
-  tickHz: cfg.tickHz,
   buffer,
   run,
   renderer,

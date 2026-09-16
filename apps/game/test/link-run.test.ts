@@ -1,19 +1,20 @@
 import { describe, expect, test } from "bun:test";
 import type { ClientMessage } from "@neon-spore/net";
-import { createWorld, DEFAULT_CONFIG } from "@neon-spore/sim";
+import { createWorld, DEFAULT_CONFIG, type World } from "@neon-spore/sim";
 import { createRun, type Run } from "../src/link-run.js";
 
 /** A run in seat 1, with the wire tapped so a test can read what went out. */
-function seatOne(): { run: Run; sent: ClientMessage[] } {
+function seatOne(): { run: Run; sent: ClientMessage[]; world: World } {
   const sent: ClientMessage[] = [];
+  const world = createWorld(DEFAULT_CONFIG, 1);
   const run = createRun({
     cfg: DEFAULT_CONFIG,
-    world: createWorld(DEFAULT_CONFIG, 1),
+    world,
     buffer: { drain: () => [] },
     send: (message) => sent.push(message),
   });
   run.begin(1);
-  return { run, sent };
+  return { run, sent, world };
 }
 
 /**
@@ -56,5 +57,58 @@ describe("a run whose peer broke its promise", () => {
     run.end();
     expect(run.brokenPromises).toBe(0);
     expect(run.receive({ t: "confirm", player: 2, tick: 20 })).toBe(false);
+  });
+});
+
+/**
+ * **A press is answered the same number of milliseconds later on every beat.**
+ *
+ * The delay was a number of *ticks* until 17 September 2026, and THE SLOW
+ * makes a tick worth three of its ordinary self — so the same delay was three
+ * times as long in the hand on exactly the beats a boss made dramatic, with
+ * nothing about the link having changed. What is held constant now is the
+ * milliseconds (`net/delay.ts`), and the tick count is asked for every frame
+ * at the rate in force (`tick-rate.ts`).
+ */
+describe("the delay inside one of THE SLOW's windows", () => {
+  /** The two boundaries, set the way `openSlow` would from this beat. */
+  function slow(world: World, beats: number): void {
+    world.slowFromBeat = world.beat;
+    world.slowToBeat = world.beat + beats;
+  }
+
+  test("is fewer ticks, because each of them is longer", () => {
+    const { run, world } = seatOne();
+    run.observeLink(150, 16);
+    const ordinary = run.delayTicks;
+    // 195 ms at 120 Hz is 24 ticks, and a third of that when a tick is worth
+    // three times as much wall clock.
+    expect(ordinary).toBe(24);
+
+    slow(world, 4);
+    run.observeLink(150, 16);
+    expect(run.delayTicks).toBe(8);
+    // The same wait in the hand, which is the whole of the fix.
+    expect(run.delayMs).toBe(195);
+  });
+
+  test("goes back to what it was when the window closes", () => {
+    const { run, world } = seatOne();
+    slow(world, 4);
+    run.observeLink(150, 16);
+    expect(run.delayTicks).toBe(8);
+
+    world.beat = world.slowToBeat;
+    run.observeLink(150, 16);
+    expect(run.delayTicks).toBe(24);
+    expect(run.delayMs).toBe(195);
+  });
+
+  test("says nothing at all with no peer in the room", () => {
+    const { run } = seatOne();
+    run.end();
+    run.observeLink(150, 16);
+    expect(run.delayTicks).toBe(0);
+    expect(run.delayMs).toBe(0);
   });
 });

@@ -550,40 +550,6 @@ LOST at 16% of the play height — 114,73.
 name and the run's line on the day this was found, and its header carries the
 same list — widen it back as each site is fixed.
 
-## The input delay is counted in ticks, and a slow window makes a tick longer
-
-- **Found:** 2026-09-16, claude/neon-spore-boss-design-26ee5e
-- **Taken:** 2026-09-16, claude/queue-the-input-delay-is-counted-in-ticks-and-a-slow-w
-- **Where:** local
-- **Files:** `packages/net/src/delay.ts`, `packages/net/src/lockstep.ts`, `packages/net/src/lockstep-options.ts`, `apps/game/src/input-buffer.ts`, `apps/game/src/frame.ts`, `apps/game/src/loop.ts`, `packages/sim/src/slow.ts`, `docs/decisions.md`
-
-THE SLOW landed on 16 September 2026 and `docs/decisions.md` #33 names this as
-its one unpaid cost. A command is scheduled a fixed number of **ticks** ahead,
-which was a fixed number of milliseconds for as long as a tick was worth
-`1000 / tickHz` of them. Inside a slow window a tick is worth three times that
-(`slowRateMilli: 333`), so the same delay in ticks is three times as long in
-the hand: a thumb pressed during the burst is answered a third of a second
-later than it would be outside it.
-
-Nothing shipped can feel it yet, and that is why it is here rather than fixed
-in that lane: THE DIASTOLE opens windows of two and four beats, and neither is
-a moment anyone is meant to be pressing anything during — the burst is the
-payoff and the coincidence is already past by the time the window opens. The
-first concept on `docs/spec/bosses-choreographed.md` whose window is a *moment*
-inside a slow span breaks, and the page says so under [who is building
-what](spec/bosses-choreographed.md).
-
-**What to do, and the choice the two options are between.** Either the
-scheduler's delay becomes a number of *milliseconds* converted to ticks at
-schedule time using the rate in force — which keeps the hand honest and makes
-the tick count differ between a slowed span and an ordinary one, so both
-devices must agree about the rate before they agree about the tick (they do:
-`slowFromBeat`/`slowToBeat` are hashed) — or the delay stays in ticks and the
-slow rate is applied to the *presentation* only, with the simulation's clock
-left at wall speed, which means a slow window no longer slows the beat and is
-therefore not what the owner asked for. The first is the real answer; the
-second is written down so the next reader does not rediscover it as an option.
-
 ## A scene cannot be chosen in the director, only read
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
@@ -657,3 +623,64 @@ What to do once it is answered: take the bullet out, repoint or retire the two
 drafts and the scene, fix the `**Status:` draft count and the HUSK paragraphs in
 `docs/asset-catalogue.md`, and check `tools/director/src/backlog.ts` no longer
 shows it. `bun run check` proves all of it.
+
+## A delay that straddles the end of a slow window is short by two thirds
+
+- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Where:** local
+- **Files:** `apps/game/src/link-run.ts`, `apps/game/src/tick-rate.ts`, `packages/net/src/delay.ts`
+
+The delay is milliseconds now and the tick count is asked for at the rate in
+force, which is right for every press whose whole wait is at one rate. It is
+not right for a press whose wait *crosses a boundary*. A thumb inside one of
+THE SLOW's windows is scheduled eight ticks ahead because a tick is worth 25 ms
+there; if the window closes two ticks later, the remaining six are worth 8⅓ ms
+each and the press is answered after about 70 ms rather than the 195 the link
+asked for. Under-delayed is the direction that costs the run: the peer's
+promise may not have arrived, and the pair gets a breath of `stalled` on the
+beat after the drama.
+
+How much: a window is `slowBeats` long, 120–240 ticks, against a tail of at
+most the delay itself — four ticks at the ordinary floor, eight on a bad link.
+So a few per cent of the presses made during a window that is itself rare. The
+other direction, a press made just before a window opens, is over-delayed and
+harmless.
+
+What to do: schedule against the *wall clock the ticks will actually take*
+rather than the rate at the instant of the press — walk forward from the head
+beat by beat, spending each tick at the rate its own beat is played at, until
+the milliseconds are used up. The boundaries are `world.slowFromBeat` and
+`world.slowToBeat`, both hashed, so both devices walk the same ladder; the walk
+belongs beside `tickMs` in `apps/game/src/tick-rate.ts`, because
+`packages/net` may not import `packages/sim`.
+
+The choice the work picks between: the exact walk above, or simply refusing to
+lower the tick count while a window is open — which over-delays inside the
+window and never under-delays, costs three lines, and is what a lane should
+take if the walk turns out to want the beat schedule.
+
+## peakWorld opens a wave with an empty pod queue
+
+- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Where:** local
+- **Files:** `packages/render/test/frame-harness.ts`, `packages/render/test/husk-look.test.ts`
+
+`peakWorld` is how every frame test in `packages/render` gets a world worth
+photographing: it plays a wave and keeps the tick with the most creatures on
+the field. It calls `startWave(world, index, buildQueue(...), [])` — the pods
+argument is an empty array — so a wave whose subject is a **pod** is
+photographed with none of them on it, and the frame the test asserts about is
+of an empty lane. THE HUSK's look tests found this the hard way: three of six
+failed on `world.pods.length` being 0, and the answer was a local `huskWorld()`
+builder in `husk-look.test.ts` that passes `buildPods(index, CFG.cols)`.
+
+It is a silent hole rather than a red test. A wave with pods in it drawn by
+`frame.test.ts` today is being drawn without them, and nothing says so.
+
+What to do: give `peakWorld` the real pod queue — `buildPods(index, CFG.cols)`,
+the same call `startWave`'s caller in the app makes — and have its peak measure
+bodies *and* pods rather than creatures alone, so a pod wave is photographed at
+its fullest. Then fold `huskWorld()` back into it and delete the local builder.
+`bun run check` proves it: the budget tests in `packages/render/test` will move
+if a wave gains bodies it should have had all along, and a row that moves is
+remeasured with a sentence saying why.

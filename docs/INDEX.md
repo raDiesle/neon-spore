@@ -1354,6 +1354,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 | `apps/game/src/keys-crank.ts` | The desk key that turns THE CLAW's crank, which no key can do by itself |
 | `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
+| `apps/game/src/tick-rate.ts` |  |
 | `apps/game/src/quit.ts` | Who pressed QUIT on the lost screen, for the menu to say |
 
 ### apps/server
