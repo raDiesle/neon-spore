@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 43b0e8bd — The tutorial's ring takes the shape of the body it is round
+
+A caption's ring round a body was a circle at `creatureRadius`, which is one number, and every living body in this game is a lobed blob wider than it is tall. So the ring stood well clear above and below a slick and ran along its two ends, and every candidate in the `guide:chrome` slot inherited it because they all come through the same anchor. `AnchorPoint` has carried the optional `rx` since a round's slab needed an ellipse; the body branch never filled it.
+
 ## 2026-09-16 · c7bfefe2 — A breach is a tear or a blow
 
 The hit that loses the wave now has a picture, and it has two of them. The owner took `rend` and `hammer` together out of the three `ship:breach-strike` was opened with on 16 September 2026 — can we use both and randomly use either the one or the other — so the ship does not lose the same way twice running.
