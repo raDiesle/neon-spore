@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 412dd935 — A check signs in, and watches the name arrive in the field
+
+The server half of the name registry has been proved against a forged Firebase since it was written. The client half had never run: `idToken()` asks the Firebase SDK for a signed-in user, so `syncName` filling the first meeting's field with the name the registry hands back, the same call reconciling a name this phone typed, and the SETTINGS row saying who is logged in were all read off the source and checked by nothing. Signing in by hand needs a Google account and a mailbox, which is not something a session has or should be given.
+
 ## 2026-09-16 · 993ad3c8 — THE ECHO is queued, the owner's design for the reverse wave
 
 The owner took the *Reverse wave* idea from NOT BUILT YET on 16 September 2026 and asked for it built his way: a boss wave whose arrivals fall as usual, then are sent again from a set beat — same kinds, same order, same columns — with every body invisible on both screens, so the pair defends from memory; a body is seen only in the look of its own defeat; the boss at the top middle shows how many are still to come and moves when one enters. The entry in docs/queue.md names the files and says the echo is derived from the wave's queue rather than appended to it, since the queue is outside the hash. The idea comes off the page when it ships.
