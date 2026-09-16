@@ -660,6 +660,7 @@ shows it. `bun run check` proves all of it.
 ## A second `--press` flag is silently thrown away
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-a-second-press-flag-is-silently-thrown-away
 - **Where:** local
 - **Files:** `tools/frames/flags.ts`, `tools/frames/press.ts`, `tools/frames/test/flags.test.ts`
 
