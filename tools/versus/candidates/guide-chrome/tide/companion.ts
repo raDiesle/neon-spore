@@ -1,10 +1,8 @@
 import type { ControlId } from "../../../../../packages/content/src/controls.js";
 import type { SceneAnchor } from "../../../../../packages/content/src/scene-step-types.js";
 import type { AnchorPoint } from "../../../../../packages/render/src/caption-anchor.js";
-import {
-  creatureCenter,
-  creatureRadius,
-} from "../../../../../packages/render/src/creature-place.js";
+import { creatureHalfAxes } from "../../../../../packages/render/src/creature-axes.js";
+import { creatureCenter } from "../../../../../packages/render/src/creature-place.js";
 import { glidePhase } from "../../../../../packages/render/src/depth.js";
 import type { Layout } from "../../../../../packages/render/src/layout.js";
 import type { Creature } from "../../../../../packages/sim/src/creature-types.js";
@@ -56,7 +54,11 @@ export function companionPoint(
   if (!body) return null;
   const glide = glidePhase(world.cfg, world.beat, body, beatPhase);
   const at = creatureCenter(l, world, body, glide);
-  return { x: at.x, y: at.y, r: creatureRadius(l, world, body, glide) + 6, clear: 0 };
+  // Both half-axes: a body is wider than it is tall, and a silent ring that
+  // cuts through the two ends of the thing it is pointing at says the wrong
+  // thing louder than the caption beside it (`creature-axes.ts`).
+  const axes = creatureHalfAxes(l, world, body, glide);
+  return { x: at.x, y: at.y, r: axes.ry + 6, rx: axes.rx + 6, clear: 0 };
 }
 
 /**

@@ -1,6 +1,7 @@
 import { type ControlSet, control, type SceneAnchor } from "@neon-spore/content";
 import { type Creature, gripCount, type World } from "@neon-spore/sim";
-import { creatureCenter, creatureRadius } from "./creature-place.js";
+import { creatureHalfAxes } from "./creature-axes.js";
+import { creatureCenter } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
 import { handleCircle } from "./handles.js";
 import { runLineBox } from "./hud.js";
@@ -170,7 +171,7 @@ export function anchorPoint(
 
 /**
  * A ring round a body, wherever this screen draws it. `creatureCenter` and
- * `creatureRadius` answer for the picture this screen is drawing — on THE
+ * `creatureHalfAxes` answer for the picture this screen is drawing — on THE
  * WELL's the same body is at its hour on the row's circle, at `WELL_BODY` of
  * its size, and a ring placed from the flat centre would stand in the empty
  * middle of the picture, which is what THE WELL's film points at when it
@@ -179,7 +180,12 @@ export function anchorPoint(
  */
 function bodyRing(l: Layout, world: World, c: Creature, glide: number): AnchorPoint {
   const at = creatureCenter(l, world, c, glide);
-  return { x: at.x, y: at.y, r: creatureRadius(l, world, c, glide) + 6, clear: CLEAR };
+  // Both half-axes, because a living body is a blob wider than it is tall and
+  // a ring at one radius cuts through its two ends (`creature-axes.ts`). The
+  // caption draws an ellipse already — it has since a round's slab needed one
+  // — so the fault was the anchor answering with a circle, not the drawing.
+  const axes = creatureHalfAxes(l, world, c, glide);
+  return { x: at.x, y: at.y, r: axes.ry + 6, rx: axes.rx + 6, clear: CLEAR };
 }
 
 /**

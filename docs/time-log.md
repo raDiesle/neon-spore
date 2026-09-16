@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-16 — queue-a-ring-round-a-body — the ring takes the body's shape
+
+`bodyRing` answered with one radius, from `creatureRadius`, which is a scalar.
+Every living body is a lobed blob wider than it is tall, so the tutorial's ring
+stood well clear above and below a slick and hugged its two ends — and
+`AnchorPoint` has carried the optional `rx` for this since a round's slab
+needed one. `creature-axes.ts` is the new half of `creatureRadius`: both
+half-axes, taken from `livingScale`, the same call `drawLiving` scales a
+contour by.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `creature-place.ts`'s scaling, `hasOwnBody`/`wornKind`, and which callers ring a body — `grip.ts` and `lock-mark.ts` do it at 1.5x and 2.05x and are clear either way |
+| writing | 20 | the new file, both callers, three cases over it |
+| looking | 10 | `bun run frames . --wave "FIRST STEP" --opening guide` and the crop: the ring is an ellipse round the slick now, evenly clear |
+| friction | 5 | my own test spawned a kind called `rock`, which the game does not have — the rocks are `meteor` and its tiers |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was writing, and the length is the prose rather than the code:
+the rule that matters is that a half-width must not be re-derived at a ring,
+because the day a contour is retuned it is the ring that quietly stops fitting,
+and that took longer to write down than the five lines it guards.
+
+*Measured: the rows above are the session's own estimate, read off the previous landing and this one.*
+
 ## 2026-09-16 — queue-canvas-stub-roundrect — the stub takes the corner list
 
 `roundRect` takes one radius or up to four, every browser honours the list, and
