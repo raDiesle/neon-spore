@@ -30,6 +30,42 @@ looking 42, friction 39, landing 19, none 18, and 59 that name something
 specific rather than a row — a tool that hid why it stopped, a diagnosis, a
 type-set collision, the documents rather than the code.
 
+## These minutes are effort, not calendar time
+
+Read on 16 September 2026, after the rest of this file was written, and it
+qualifies every figure above. The ledger's rows are estimates a session writes
+about itself; the trunk keeps the other account, and the two do not agree:
+
+| day | logged in the ledger | span of the trunk's own commits | ratio |
+|---|---|---|---|
+| 2026-09-14 | 2 395 min | 969 min | 2.5x |
+| 2026-09-15 | 3 385 min | 860 min | 3.9x |
+| 2026-09-16 | 1 790 min | 634 min | 2.8x |
+
+**Most of it is not parallel sessions, and some of it may be.** Work lands as
+soon as it is done — six of the 204 landings since 13 September landed more
+than ten minutes after they were written — and the author dates on `main` run
+forward with two inversions a day at most, so the trunk is mostly one lane at a
+time. But two sessions were on it at once on 16 September, one of them
+recording three parallel test runs in its own friction row, and a second
+session's minutes are real minutes that no span of the trunk can show. **The
+ledger cannot tell the two apart, which is the argument for the stamp**: a
+measured elapsed per lane separates a day that held two sessions from a day
+that was estimated generously, and no amount of reading the rows will.
+
+What the trunk does say on its own is that the ordinary pace is **a landing
+every seven minutes** (median; mean 14), and that the longest lanes in the
+ledger are long in calendar time too, but by less than the rows claim — THE
+MOULT is 74 minutes between landings against 245 logged, THE MINE 70 against
+220.
+
+So the **shares** above are the useful part of the ledger and the **absolute
+minutes are not**: a row that says 245 is an account of attention, not of the
+clock on the wall. Nothing in the distribution changes — the tail is still the
+tail, friction is still a ninth of it — but any figure quoted in minutes should
+come from the trunk, and a lane's own minutes from the stamp
+`docs/queue.md`'s entry asks `bun run land` to write.
+
 ## The trend is lane size, not slowness
 
 | day | lanes | minutes | per lane | writing share |
@@ -154,9 +190,10 @@ faster, the lane takes `(1 − g) + g/k` of what it takes now:
 
 The evidence above puts *g* high — between about 55% and 70% — because the
 commands a lane runs are seconds and its rows are minutes. So the expected
-saving is **a fifth to a third of the wall clock**, not a halving, and it is
-worth having: at 09-16's rate that is roughly 20 to 35 minutes off a
-105-minute lane. It does not touch the tail that matters most, which is lane
+saving is **a fifth to a third of the wall clock**, not a halving. In calendar
+terms, read off the trunk rather than off the rows: roughly **15 to 25 minutes
+off a creature lane's 70 to 75**, and two or three off a median lane's seven.
+It is worth having and it is not the lever the tail is. It does not touch the tail that matters most, which is lane
 size, and it cannot be claimed without measuring.
 
 **So measure it.** The ledger is already the instrument. Add one line to each

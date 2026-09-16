@@ -6412,6 +6412,7 @@ queued it. The other minutes were the same shape one level down: two entries nam
 exist — `doc-drift.test.ts` holds `time-log.md` to nothing on purpose, and
 `tools/director/src/scenes.ts` is `scene-world.ts` — both caught by opening the
 file rather than trusting the ledger's sentence about it.
+
 ## 2026-09-16 — queued-tasks — nine answers to a lost wave, none of them on the field
 
 The queue's *A lost wave has to be seen: the hit, the ship breaking, and go
@@ -6433,3 +6434,25 @@ site or a parameter — so every one of the three pieces needed its *seam* built
 and shipped drawing nothing before a single answer could be written. That is
 three records, two drawers, one transient and one file cut in half, all of it
 proving it changes no pixel, before any of the nine pictures existed.
+
+## 2026-09-16 — task-performance-optimization — the trunk's account of the same days
+
+Asked for more ideas, and the first one arrived by reading the trunk instead of
+the ledger: the two accounts of the same six days differ by a factor of three.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `git log` over `origin/main` since 13 September — gaps between landings, author against committer dates — and `fast-scope.ts`'s sweep list |
+| writing | 5 | the calendar-time section in `docs/lane-speed.md`, the queue entry for the stamp, the document sweep |
+| looking | 0 | — nothing drawn |
+| friction | 0 | — two test expectations moved with the new sweep, which is the sweep working |
+| landing | 5 | `check`, the commit |
+
+The bottleneck was nothing, and the finding is that this table has been the
+wrong instrument all along: 3 385 minutes logged on 15 September against an
+860-minute span of that day's own commits, and the ledger cannot say how much
+of the gap is a second session and how much is a generous estimate — today it
+would be a second session, and 15 September shows no sign of one. The rows are
+an account of attention and they are worth keeping; the clock
+belongs to `bun run land`, which holds both ends of it at the moment it writes
+the release note and does not yet write it down.
