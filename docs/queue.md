@@ -345,34 +345,6 @@ than moving the cap. `FRAME_TIMEOUT_MS` in
 instead, and its own comment says why that is the second choice: a cap raised
 to cover contention hides the next thing that gets slow.
 
-## A WELL wave never ends: nothing ever takes that boss off the world
-
-- **Found:** 2026-09-16, claude/queue-the-echo-his-way-the-wave-sent-again-unseen-and
-- **Taken:** 2026-09-16, claude/queue-a-well-wave-never-ends-nothing-ever-takes-that-b
-- **Files:** `packages/sim/src/beat.ts`, `packages/sim/src/well.ts`, `packages/sim/src/wave-end.ts`, `packages/sim/test/well.test.ts`, `packages/content/src/waves/act-8.ts`
-
-`beat.ts` clears a wave only when `world.boss === null`, and THE WELL is never
-set to null by anything: it is a projection with no body, no health and no
-step, so the pair clears the field and the wave stands there. Proved with a
-scratch replay — the same wave with the boss and without it, played to the
-last body: without, `restBeat` is set and `wavesCleared` is 1; with, both stay
-at nought and no `needWave` is ever pushed. Wave 40 of the shipped campaign is
-that wave, so the run stops there.
-
-THE VANE has the same shape and escapes by accident — `vane.ts` nulls the boss
-when the last pin comes out — so a vane wave whose pins are left in stands
-too.
-
-The fix is one of two, and either is provable: clear the boss in `beat.ts`'s
-test for a boss that does not fill its wave (`!bossFillsWave(kind)`, which is
-exactly vane, well and reprise), or give each such boss the line THE REPRISE
-now has, which takes itself off when its work is done (`reprise.ts`). The
-first is one expression and covers every future projection; the second keeps
-`beat.ts` knowing nothing about which boss is installed. Take the first unless
-a boss turns up that wants to hold a wave open on purpose. Either way the test
-belongs in `well.test.ts` beside the claim it already makes: a well wave is
-byte-for-byte the wave under it, **and it ends when that wave does**.
-
 ## The Husk, his way: a fake pod player 2 sees through, deflating when refused
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34

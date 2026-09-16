@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-16 — queue-a-well-wave-never-ends — the boss nothing took off the world
+
+The queue's own finding from the lane before it: wave 70 of the shipped
+campaign could be cleared and not passed, because `beat.ts` would not end a
+wave while any boss was still installed and THE WELL is never taken off one.
+`bossHoldsWave` is the question it asks now, `well.test.ts` compares the two
+worlds on when they end as well as on what is in them, and the case that names
+the defect stands on its own.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `beat.ts`'s clear test, `wave-end.ts`'s `roundSpent`, `vane.ts` for the boss that must not be let off |
+| writing | 10 | the predicate and its paragraph, two test cases, the spec and `well.ts` |
+| looking | 0 | — nothing drawn |
+| friction | 10 | a probe confounded twice (`hullInvulnerable` keeps every body alive; the count is `balance.wavesCleared`), a stray `tools/probe/scratch.ts` red in the typecheck, and biome's import order |
+| landing | 5 | `check:fast`, the commit, `bun run land` |
+
+The bottleneck was friction, and all of it was the probe rather than the fix:
+the fix is one predicate and one `||`, and the ten minutes went on making a
+live world say something unambiguous. Two runs of wave 70, with the boss and
+without, were identical until every body was deleted the instant it spawned —
+until then the hull was eating them at different rates and neither run cleared,
+which reads exactly like the defect and is not it. A claim about *ending* needs
+a world with nothing else left to be about.
+
+*Measured: the rows above are the session's own estimate, read off the take commit at 21:09 and the landing.*
+
 ## 2026-09-16 — queue-the-echo — THE REPRISE, the look
 
 The second half of the queue's *THE ECHO, his way*: the mechanism drawn. The

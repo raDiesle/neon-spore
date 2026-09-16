@@ -1334,7 +1334,13 @@ shield covers, a bolt climbs, and two devices fingerprint the same world down
 to the tag that says which picture each is drawing (`packages/sim/src/well.ts`,
 `well.test.ts`). THE VANE was the first boss that attacked nobody and it still
 decided where an arrival landed; this one does not even do that. It is the
-whole of what `docs/spec/ideas.md` asked for and nothing besides.
+whole of what `docs/spec/ideas.md` asked for and nothing besides. **And it
+ends when that wave ends** — the pair clears the field and the wave is passed,
+with nothing to beat, because there is nothing there to beat. That is the one
+half of "changes nothing" that was not true: until 16 September 2026 a wave
+held itself open for any boss still installed, so wave 70 could be cleared and
+not passed at all. `bossHoldsWave` is the question `beat.ts` asks now, and THE
+WELL is the only boss that answers no.
 
 **What it does is redraw the field in the round.** The hull goes to the centre,
 the far row becomes a rim, and the columns are spread round the middle as the

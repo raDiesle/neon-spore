@@ -1,4 +1,8 @@
 import { describe, expect, it } from "bun:test";
+// Not on the package's surface and not meant to be: nothing outside
+// `packages/sim` asks this question, only `beat.ts` does (`boss-surface.ts`
+// says a name goes there when something outside imports it, and no sooner).
+import { bossHoldsWave } from "../src/boss-kinds.js";
 import {
   BOSS_KINDS,
   bossFillsWave,
@@ -21,15 +25,17 @@ import {
  *
  * The claim `docs/spec/bosses.md` 11.12 and `src/well.ts` both make is strong
  * and easy to break by accident: a well wave is byte-for-byte the wave its
- * author wrote, and the only difference the fingerprint carries is the tag that
- * says which picture the two devices are drawing. The test below is that claim
+ * author wrote **and it ends when that wave ends**, and the only difference the
+ * fingerprint carries is the tag that says which picture the two devices are
+ * drawing. The second half of that had never been tested and was not true: for
+ * a day, wave 70 of the shipped campaign could be cleared and not passed. The test below is that claim
  * read literally — the same wave played twice from the same seed with the same
  * presses, once with the boss and once without, compared tick by tick on
  * everything but the tag.
  *
  * It is also the guard against the obvious future mistake. The next lane to
  * want the seam to *cost* something (`docs/queue.md`'s Asks) will reach for
- * `stepWell`, and the moment it writes one the fourth case below goes red with
+ * `stepWell`, and the moment it writes one the last case below goes red with
  * the reason in its name.
  */
 
@@ -70,12 +76,56 @@ function shape(world: World): string {
     beat: world.beat,
     tick: world.tick,
     nextId: world.nextId,
+    // **How far through the script the world is, and whether it is over.**
+    // Both were missing until 16 September 2026, and while neither is what
+    // finally caught that day's defect — the run below loses the hull before
+    // either world could clear, so the case above it is the one that names it
+    // — a comparison meant to read "the same world twice" that leaves out the
+    // number saying the world is finished is a comparison about the middle of
+    // a wave only, and it is the middle that was never in doubt.
+    restBeat: world.restBeat,
+    spawned: world.spawned,
   });
 }
 
 describe("THE WELL", () => {
   it("is a wave the author fills, not one the boss fills", () => {
     expect(bossFillsWave("well")).toBe(false);
+  });
+
+  // The other question, and it is a different one: the vane does not fill its
+  // wave either and it *does* hold it open, because a vane is beaten by having
+  // its pins taken out and a wave that ended without that would be a fight the
+  // pair never had (`boss-kinds.ts`).
+  it("is the one boss that does not hold its wave open", () => {
+    expect(bossHoldsWave("well")).toBe(false);
+    for (const kind of BOSS_KINDS) {
+      if (kind === "well") continue;
+      expect(bossHoldsWave(kind), kind).toBe(true);
+    }
+  });
+
+  // The defect this test was written for, stated on its own rather than only
+  // as a difference: a well wave with the field cleared and the script spent
+  // has to end. It could not before 16 September 2026, and wave 70 of the
+  // shipped campaign is a well wave, so the campaign stopped there.
+  it("ends when the wave under it does", () => {
+    const world = wellWorld(true);
+    let rested = false;
+    for (let t = 0; t < TPB * 40; t++) {
+      step(world, []);
+      // Every body taken the instant it arrives, so what is under test is only
+      // the ending and never the fight.
+      world.creatures.length = 0;
+      // Watched rather than read at the end: the rest is a window, not a
+      // state the world keeps — it is set when the wave clears and back to -1
+      // once the next wave is asked for.
+      if (world.restBeat >= 0) rested = true;
+    }
+    expect(world.spawned, "the script never ran out").toBe(QUEUE.length);
+    expect(world.boss, "the projection went somewhere").toEqual({ kind: "well" });
+    expect(world.balance.wavesCleared, "the wave never ended").toBe(1);
+    expect(rested, "no rest was ever set").toBe(true);
   });
 
   // The tag `bossHashParts` pushes is this index, so the well's place in the

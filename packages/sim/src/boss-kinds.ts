@@ -33,6 +33,38 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
 }
 
 /**
+ * **Whether a boss still installed holds its wave open.**
+ *
+ * `beat.ts` ends a wave when the script is spent and the field is empty, and
+ * it asks this about whatever is still standing. Every boss but one answers
+ * yes, and for two different reasons that come to the same thing: a fight the
+ * pair has not finished is a wave that is not over, and a round that *has*
+ * finished stays installed on purpose so its picture holds until the next wave
+ * replaces it — that one ends its wave through `roundSpent` instead
+ * (`wave-end.ts`).
+ *
+ * **THE WELL is the exception, and it is the only boss that could be one.** It
+ * has no body, no health, no step and no state: `well.ts` says in as many
+ * words that it is the first boss in this game that changes nothing but the
+ * picture. There is nothing about it for the pair to finish, so a wave under
+ * it ends exactly when the wave its author wrote ends — which is the claim
+ * `well.test.ts` already makes about everything else in that world.
+ *
+ * Until 16 September 2026 there was no question here and `beat.ts` asked for
+ * `world.boss === null`, so wave 70 of the shipped campaign could not be
+ * passed at all: the pair cleared the field and the wave stood there with a
+ * projection holding it. **It is deliberately not `!bossFillsWave(kind)`**,
+ * which would answer the same for THE VANE — and a vane is nulled by its last
+ * pin coming out (`vane.ts`), so making it stop holding its wave would let a
+ * vane wave be passed without the mechanism ever being beaten. The two
+ * questions look alike and are about different halves of a boss: one is what
+ * it *sends*, this is what it still *asks*.
+ */
+export function bossHoldsWave(kind: BossEntry["kind"]): boolean {
+  return kind !== "well";
+}
+
+/**
  * The bosses that exist, as data. `tools/director` reads this to say which of
  * the twelve names in `docs/spec/bosses.md` are actually in the game — the
  * same question `CREATURES` answers for the bestiary, and one a tool must

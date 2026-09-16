@@ -34,7 +34,10 @@ import type { World } from "./world.js";
  * under it. Like THE VANE it attacks nobody — a well wave is as dangerous as
  * the wave its author wrote (`bossFillsWave`) — and, further than THE VANE, it
  * does not even decide where an arrival lands. It is the first boss in this
- * game that changes **nothing but the picture**.
+ * game that changes **nothing but the picture**, which is also why it is the
+ * one boss `bossHoldsWave` answers no for: a wave that ends when its script is
+ * spent and its field is empty has nothing left here to finish
+ * (`boss-kinds.ts`, and `beat.ts` is where it is asked).
  */
 export interface WellState {
   kind: "well";

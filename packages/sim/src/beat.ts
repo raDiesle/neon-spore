@@ -1,6 +1,7 @@
 import { stepBalloon } from "./balloon.js";
 import { settleSpentBeatboxes } from "./beatbox-round.js";
 import { stepBoss } from "./boss.js";
+import { bossHoldsWave } from "./boss-kinds.js";
 import { hullRow } from "./config.js";
 import { stepCrawlers } from "./crawler-beat.js";
 import { splitEchoes } from "./echo-split.js";
@@ -220,10 +221,17 @@ export function onBeat(world: World): void {
   // A boss still standing holds the wave open even when the field is empty.
   // The queen is a creature and counted herself; THE MIRROR is not on the
   // field at all, so without this its wave would clear on its first beat.
+  //
+  // **All but one of them, and the question is asked rather than assumed**
+  // (`bossHoldsWave`). THE WELL has no body, no health and no step — there is
+  // nothing about it for the pair to finish — so a `world.boss === null` here
+  // meant wave 70 could not be passed at all: the field emptied and the
+  // projection held the wave open for ever.
+  const boss = world.boss;
   const cleared =
     world.spawned >= world.queue.length &&
     world.creatures.length === 0 &&
     world.pods.length === 0 &&
-    world.boss === null;
+    (boss === null || !bossHoldsWave(boss.kind));
   if (cleared) noteWaveCleared(world);
 }
