@@ -467,9 +467,13 @@ about what comes next, rather than something forgotten:
   timer with nothing drawn to say how long is left.
 - **Wave 2's bulb scene**, and every scene after it. One rehearsal is what is
   being judged, and every other guide is still words.
-- **A running preview in the director.** The `✎ GUIDES` sheet draws a
-  rehearsal as a still, because it draws through the shipping renderer; there
-  is no way to watch a loop at tempo while authoring one.
+- **A running preview of the guide being edited.** The director's stage does
+  play an opening at tempo — it is the shipping renderer over a real world
+  (`stage-opening.ts`) — but it plays the guide the act file was last saved
+  with and not the one standing in the three fields, so a loop is watched one
+  save behind the words being written. The `✎ GUIDES` sheet that drew every
+  rehearsal as a still is gone; the owner took it off DOCUMENTATION on 14
+  September 2026.
 - **The TUTORIALS menu page**, gated on `progress.furthest`, where a pair could
   watch a rehearsal again without playing the wave.
 - **`prefers-reduced-motion`**: a held pose instead of a loop, for a player who
@@ -604,14 +608,17 @@ added quietly back here.
 - **A mark in the wave rail**, the way `♛` marks a boss wave: `✎` on every wave
   that carries a guide. It is a lookup now rather than a derivation, which is
   the whole of what moving the help into the wave bought.
-- **A note above the fields** saying what the pair will actually meet — the
-  introduction, and then the guide or nothing.
-- **`✎ GUIDES`**, a full-screen sheet of every wave that carries one, drawn by
-  the game's own renderer at the phone's real width.
-- **`◇ NOT BUILT YET → GUIDES`**, which holds both halves of every guide side
-  by side and a wave picker that shows the introduction and the guide in order.
-  What it no longer holds is a list of help nothing reaches: a guide lives in a
-  wave, so a guide with no wave cannot be expressed.
+- **Nothing above the fields.** There was a `BRIEFING` note there saying what
+  the pair would meet — the introduction, and then the guide or nothing — and
+  it went on 16 September 2026 because it said in a sentence what the fields
+  under it already say by existing. The heading outlived the sentence by a day
+  and read as a panel that had failed to load, which is why this bullet says
+  what is *not* there rather than being deleted.
+- **No sheet of its own.** `✎ GUIDES` was a full-screen sheet of every wave
+  that carries one, and `◇ NOT BUILT YET → GUIDES` held both halves of each
+  side by side; the owner took both off on 14 September 2026, when the words
+  moved into the WAVE tab. A guide is read where it is written now, and the
+  stage is where it is watched.
 - `refuse()` rejects a wave with no name and no sentence, and does **not**
   reject a wave with no guide. A wave that introduces nothing is supposed to
   have none; the test in `content` is what holds the other direction, because

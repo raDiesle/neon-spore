@@ -7469,3 +7469,20 @@ own `Files:` line as still pointing at a file that had gone, which is exactly
 the pair of stale references a deletion leaves and nobody looks for.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the GUIDES sheet, out of two documents
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the five passages, `documentation-rooms.ts`, `backlog-tabs.ts`, `versus-tab.ts`, `stage-opening.ts`, and the director's markup, to find what is actually there now |
+| writing | 5 | the four passages rewritten, a fifth found and rewritten, one queue entry |
+| looking | 0 | — prose |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was reading, and it is the whole cost of this kind of entry: a
+document that describes a tab can only be corrected by opening the tool and
+finding out what replaced it. Doing that turned up a fifth stale passage the
+entry had not counted and three code comments naming a file that has been gone
+since 14 September — queued, because a comment a writer copies a pattern from
+is a different problem from a document a reader is misled by.

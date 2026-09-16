@@ -265,7 +265,7 @@ design and costs one edit to change. Nothing in the simulation depends on it.
 
 `▣ DOCUMENTATION` is the third full-screen sheet, and the only one whose own
 tab is pictures rather than prose. It also holds the things that used to have
-topbar buttons of their own — CONTROL SETS, SHIP, DEMOS, GUIDES — SPEC, off
+topbar buttons of their own — CONTROL SETS, SHIP and DEMOS — SPEC, off
 NOT BUILT YET, and TUNING,
 which used to sit in the wave panel while its own note said it was the run and
 not the wave.
@@ -489,13 +489,14 @@ wave is restarted twenty times in an afternoon. A press on a guide in the
 `TEST` role fills **both** ready circles at once, because one person at a desk
 is both seats — the owner's own answer to the question that raised it.
 
-The `WAVE` tab's own `BRIEFING` line answers the other half of the same
-question: what the wave being edited actually puts in front of a pair — its
-introduction, and then the guide written in the `GUIDE` section right below,
-or nothing. `src/wave-opening.ts` reads that off the store's live entry, so an
-edit not yet saved shows there immediately. `▣ DOCUMENTATION → GUIDES` lists
-every wave that carries one and, under the list, holds both screens of each
-side by side — that page asks the shipped waves, this line asks the stage.
+The other half of the same question — what the wave being edited actually puts
+in front of a pair — is answered by the `WAVE` tab's `GUIDE` section itself,
+three fields under `SENTENCE`, and by the `✎` beside the wave in the rail. A
+`BRIEFING` line used to say it in prose above them and a `▣ DOCUMENTATION →
+GUIDES` sheet used to list every wave that carried one; the sheet went on 14
+September 2026 when the words moved into this tab, and the line went on the
+16th, because a sentence describing the fields directly under it is a second
+place to keep the same fact true.
 
 ## MUSIC
 

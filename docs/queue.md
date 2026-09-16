@@ -627,23 +627,6 @@ which one and list its step captions under the textareas, and grey the
 textareas out. A picker over the scene catalogue is the larger version and
 wants the owner's word on whether a scene should be choosable at all.
 
-## Two documents still describe a GUIDES sheet the director does not have
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-two-documents-still-describe-a-guides-sheet-the
-- **Files:** `docs/spec/briefings.md`, `tools/director/README.md`
-
-The guide's words moved into the WAVE tab's three textareas and the separate
-GUIDES sheet went with them, but four passages still send a reader to it —
-`docs/spec/briefings.md` around the sheet's description and its index of
-sheets, and `tools/director/README.md` twice. Someone reading either one looks
-for a tab that is not there and concludes the tool is broken, which is close to
-what happened on 16 September 2026.
-
-Fix is a read of both files and a rewrite of the four passages to say where the
-words actually live, including that a wave carrying a `scene` does not use them
-at all (the entry above).
-
 ## The director's palette table is at its ceiling, and the next brush cannot go in
 
 - **Found:** 2026-09-16, claude/task-queue-work-5f529c
@@ -751,3 +734,29 @@ slow rate is applied to the *presentation* only, with the simulation's clock
 left at wall speed, which means a slow window no longer slows the beat and is
 therefore not what the owner asked for. The first is the real answer; the
 second is written down so the next reader does not rediscover it as an option.
+
+## Three director comments name a `guide-page.ts` the tree does not have
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `tools/director/src/versus-tab.ts`, `tools/director/src/backlog-tabs.ts`, `tools/director/src/backlog-page.ts`
+
+The GUIDES room came off the sheets on 14 September 2026 and `guide-page.ts`
+went with it, but three comments still describe the tool as if it were there.
+`versus-tab.ts` tells a reader that VERSUS is *mounted the way GUIDES is
+(`guide-page.ts`)* — a pattern to copy, pointing at a file that cannot be
+opened. `backlog-tabs.ts` says GUIDES moved to DOCUMENTATION *where the list
+of the guides it draws already was*, which is two rooms neither of which
+exists. And `backlog-page.ts` lists the lazily drawn tabs as *SHAPES, GUIDES
+and OTHER GRAPHICS*, which disagrees with the file next to it as well as with
+the sheet.
+
+This is the same drift as the entry it was found beside — two documents
+describing a GUIDES sheet, fixed 16 September — and it is separate because
+those were documents a reader reads and these are comments a *writer* copies
+from. The mounting pattern `versus-tab.ts` points at is the one the next tab
+will be built the same way as.
+
+Rewrite all three to say what the sheets hold today: DOCUMENTATION's four
+rooms (`documentation-rooms.ts`), NOT BUILT YET's own tabs, and whichever of
+them are drawn lazily. `bun run check` proves nothing here; the proof is that
+every file and room a comment names can be opened.
