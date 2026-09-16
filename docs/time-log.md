@@ -6652,3 +6652,22 @@ empty table, is answered no in the code's own words: `land` runs at the end, and
 a skeleton written then is scaffolding for a lane that has not started.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — task-queue-work — THE BALLOON's guide says what it does now
+
+The queue's *THE BALLOON's wave tells the pair three things the game stopped
+doing*: the owner's rule of 14 September — a balloon never goes downwards —
+reached the simulation and not the words beside it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `balloon.ts`, `balloon-rub.ts` and the scene, to write three sentences that are true |
+| writing | 10 | the `both` rewrite, one clause of `p2`, and `balloon.ts`'s own stale paragraph |
+| looking | 15 | three frames of the opening, which is how it was found that this wave's prose is never drawn at all |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, the queue entry, the commit |
+
+The bottleneck was looking, and it bought the finding rather than the proof:
+the entry asked for one frame of the opening, and every page of this wave's
+opening is its rehearsal — a wave with a film never reaches `drawProsePage`, so
+59 waves carry prose no phone shows. That is queued with the question.

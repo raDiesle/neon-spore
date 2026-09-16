@@ -207,9 +207,9 @@ export const WAVES_ACT_7B: Wave[] = [
     name: "THE BALLOON",
     sentence: "The one where a hand on each of two different bodies is no hands at all.",
     guide: {
-      both: "They come up out of nothing a lane above the ship, swell, and then drift — a row and a lane every other beat, turning at the walls. Reach the top and one goes off and the hull pays for it. Nothing either of you can fire touches them. Each one has a handle on its left and a handle on its right: carry both out at the same instant, two lanes' worth, and hold until the skin gives. The first time it splits in two and the halves part — one climbs on, one sinks, and a half that reaches the ship goes off like the top. The second pull pops what is left, for nothing.",
+      both: "They come up out of nothing a lane above the ship, swell, and then drift — a row and a lane every other beat, turning at the walls. Reach the top and one turns into a torch there and drops back down the field. Nothing either of you can fire touches them. Each one has a handle on its left and a handle on its right: carry both out at the same instant, two lanes' worth, and hold until the skin gives. The first time it splits in two and the halves part, a lane each way, and both of them go on up, each turning at its own wall. The second pull pops what is left, for nothing.",
       p1: "Left handles are yours, carried left, and far. Name the one you are taking — its lane, and how high — before you take it: a pull on your own is nothing, and a hand that lets go early gives the hold back.",
-      p2: "Right handles are yours, carried right, and far. Say the one you are taking back before you take it, then hold until it gives. The half nobody agreed on is the one that gets away — up, or down into you.",
+      p2: "Right handles are yours, carried right, and far. Say the one you are taking back before you take it, then hold until it gives. The half nobody agreed on is the one that gets away — up, and back down as a torch.",
       scene: "theBalloon",
     },
     entries: [

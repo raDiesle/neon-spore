@@ -12,9 +12,10 @@ import type { World } from "./world.js";
  * It appears out of nothing one row above the ship, swells into the field for
  * `balloonSwellBeats`, and then climbs — a row up and a column across every
  * `balloonClimbBeats`, turning at the side walls the way a carom does. At the
- * top it bursts, and the hull pays for it wherever the ship happens to be
- * standing. A half sent downward by a split (`balloonSinks`) does the same on
- * the ship's row: both ends of the field punish a half left alone.
+ * top it becomes a torch and drops (`topOut`), which the pair has to answer;
+ * nothing it does costs the hull on its own. A split sends two halves up, not
+ * one up and one down — the owner's rule of 14 September 2026, and
+ * `balloonSinks` below is what is left of the field that said otherwise.
  *
  * **Every other arrival in the game is a deadline behind the pair.** A slick,
  * a rock, a wall: say the colour, say the column, before it reaches the ship.

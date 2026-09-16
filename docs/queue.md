@@ -419,36 +419,6 @@ Prove it with `bun run check`, a replay test that fingerprints two echoes,
 `frame.test.ts` with an unseen body mid-fall and one at its kill on both
 seats, and the wave watched at tempo through one full stretch and its echo.
 
-## THE BALLOON's wave tells the pair three things the game stopped doing
-
-- **Found:** 2026-09-15, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-16, claude/queue-the-balloons-wave-tells-the-pair-three-things-th
-- **Files:** `packages/content/src/waves/act-7b.ts`, `packages/content/src/scenes/`, `packages/render/test/briefing.test.ts`
-
-The owner ruled on 14 September 2026 that a balloon **never goes downwards**
-and that the top of the field is a body the pair has to answer rather than a
-bill on the hull (`sim/balloon.ts` `topOut`, `sim/balloon-rub.ts`). The wave's
-own guide was written before that and still says all three of the things that
-went:
-
-- *"Reach the top and one goes off and the hull pays for it"* — it turns into a
-  torch there now and the hull pays nothing.
-- *"one climbs on, one sinks"* — both halves climb, and the lane between them
-  and the carom each takes at its own wall is what makes them two problems.
-- *"a half that reaches the ship goes off like the top"* — nothing sinks, so
-  nothing reaches the ship.
-
-Player 2's half then names the sinking half again — *"or down into you"* — so
-the seat with no reason to watch the bottom of the field is told to. This is
-the one screen in the game whose whole job is telling two people what a body
-does, and it is describing a creature that has not existed for a day.
-
-Rewriting it is three sentences in `guide.both` and one clause in `guide.p2`,
-and the scene beside it is worth reading for the same drift. **`both` and each
-half are capped at 220 characters** (`briefing.test.ts`), and the present
-`both` is already at the cap, so this is a rewrite rather than an edit. Prove
-it with `bun run check` and one frame of the opening.
-
 ## THE FLIP, his way: a malfunction that mirrors the field for one seat
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
@@ -576,3 +546,30 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## A filmed wave's prose is drawn to nobody
+
+- **Found:** 2026-09-16, claude/task-queue-work-5f529c
+- **Files:** `packages/content/src/wave-types.ts`, `packages/render/src/briefing.ts`, `packages/render/src/guide-prose.ts`, `packages/render/test/briefing.test.ts`, `tools/director/src/guide-fields.ts`
+- **Asks:** A wave with a rehearsal never shows its `both`/`p1`/`p2` — should those three come off the 59 waves that have one, be drawn as a page in front of the film, or stay as the director's own reference and say so?
+
+`briefing.ts` draws the film whenever `scene.active`, and a stepped guide's
+pages are the film's steps and then the gate (`guide-steps.ts` `guidePages`), so
+`drawProsePage` is reached only by a guide with no film. Six waves have none;
+**59 have a film and prose both**, and on those the prose is written, held to
+its 220-character cap by `briefing.test.ts`, shown in the director's panel and
+seen by no player.
+
+It was found by the lane that rewrote THE BALLOON's three stale sentences: the
+queue entry called that screen *the one screen in the game whose whole job is
+telling two people what a body does*, and on that wave it is not a screen at
+all. The words were wrong and are right now, which is worth having either way —
+what is undecided is whether 59 waves should go on carrying them.
+
+The three answers cost different things. Taking them off is the smallest tree
+and loses the plainest statement of what each wave is, which the director reads
+and a film cannot be searched for. Drawing them in front of the film adds a page
+to every rehearsal, which is the owner's *I don't want to show old cards* said
+again unless it is his own idea. Keeping them as reference costs nothing and
+wants one sentence in `wave-types.ts` saying who the audience is, so the next
+lane does not spend a morning on prose that reaches nobody.
