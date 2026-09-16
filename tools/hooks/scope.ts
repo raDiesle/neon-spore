@@ -62,7 +62,7 @@ const ROWS: readonly Row[] = [
   // backlog, notes and parked-idea parsers (backlog.ts, notes.ts, parked.ts,
   // docs-api.ts, notes-api.ts, whole-doc.ts, spec.ts) — a
   // change to their shape can break how those pages parse them.
-  { prefix: "docs/spec/", dirs: ["tools/director"] },
+  { prefix: "docs/spec/", dirs: ["tools/director", "tools/test"] },
 
   // `settings.json` names every hook and how it is run, and `tools/hooks`
   // has a test that each of those commands points at a file that exists —
@@ -83,12 +83,23 @@ const ROWS: readonly Row[] = [
  * `docs/<name>.md` at the top level (not `docs/spec/...`) maps like docs/spec/.
  * The queue and the parked list have a second reader: `tools/queue` parses both
  * and fails on an entry a cold session could not act on.
+ *
+ * **Every document also reaches `tools/test`**, which is where
+ * `doc-drift.test.ts` lives — the test whose whole subject is documents: every
+ * backticked path a document names has to be a file the tree has, and a queue
+ * entry may name only files that already exist. Until 16 September 2026 no
+ * docs row named it, so the one test written to read documents was the one
+ * test a documentation change did not run, and a lane landed a queue entry
+ * naming the file it proposed to create — green on `check:fast`, red on
+ * `bun run check` minutes later. It is the hole `packages/net` had until
+ * 12 September, in the row above.
  */
 function docsTopLevelRow(path: string): readonly string[] | null | undefined {
   const m = /^docs\/([^/]+\.md)$/.exec(path);
   if (!m) return undefined;
-  if (m[1] === "queue.md" || m[1] === "parked.md") return ["tools/director", "tools/queue"];
-  return ["tools/director"];
+  if (m[1] === "queue.md" || m[1] === "parked.md")
+    return ["tools/director", "tools/queue", "tools/test"];
+  return ["tools/director", "tools/test"];
 }
 
 /** `tools/<name>/...` maps to that tool's own directory, whatever its name. */

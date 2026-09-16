@@ -73,16 +73,25 @@ describe("scopeFor", () => {
   });
 
   it("docs/spec is read by the director's backlog, notes and parked parsers", () => {
-    expect(scopeFor(["docs/spec/waves.md"])).toEqual(["tools/director"]);
+    expect(scopeFor(["docs/spec/waves.md"])).toEqual(["tools/director", "tools/test"]);
   });
 
   it("a top-level docs/*.md file is read by the same director parsers", () => {
-    expect(scopeFor(["docs/decisions.md"])).toEqual(["tools/director"]);
+    expect(scopeFor(["docs/decisions.md"])).toEqual(["tools/director", "tools/test"]);
   });
 
   it("the queue and the parked list have a second reader that checks their format", () => {
-    expect(scopeFor(["docs/queue.md"])).toEqual(["tools/director", "tools/queue"]);
-    expect(scopeFor(["docs/parked.md"])).toEqual(["tools/director", "tools/queue"]);
+    expect(scopeFor(["docs/queue.md"])).toEqual(["tools/director", "tools/queue", "tools/test"]);
+    expect(scopeFor(["docs/parked.md"])).toEqual(["tools/director", "tools/queue", "tools/test"]);
+  });
+
+  it("a document runs the test that reads documents, whatever else it runs", () => {
+    // The hole this closed: `doc-drift.test.ts` is in `tools/test`, and no docs
+    // row named that directory, so the one test about documents was the one a
+    // documentation change skipped.
+    for (const doc of ["docs/spec/waves.md", "docs/decisions.md", "docs/queue.md"]) {
+      expect(scopeFor([doc])).toContain("tools/test");
+    }
   });
 
   it("settings.json names the hooks, so it runs the test that checks that wiring", () => {
