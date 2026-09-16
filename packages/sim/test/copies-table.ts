@@ -428,7 +428,11 @@ export const COPIES: Copy[] = [
     // `gyreSuckMs`, so `gyreSucked` cannot be written without naming the tick
     // the maw opened on.
     call: "mawOpen",
-    owner: "packages/sim/src/pods.ts",
+    // `pod-intake.ts` since THE MOULT, which is the same rule under a new
+    // roof: a body that is wearing a pod when it lands is swallowed by the
+    // same mouth on the same two conditions, so the window moved next door to
+    // where both callers could reach it without one of them re-deriving it.
+    owner: "packages/sim/src/pod-intake.ts",
     pattern: /tick\s*-\s*world\s*\.\s*intakeTick/,
     strip: false,
     also: ["packages/sim/src/gyre.ts"],

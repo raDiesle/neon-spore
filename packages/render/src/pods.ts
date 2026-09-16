@@ -105,7 +105,7 @@ export function drawPodBody(
   ctx.fillStyle = PALETTE.podDark;
   ctx.fill(path);
   strokeGlow(ctx, path, PALETTE.pod, Math.max(1, r * 0.1) / scale, 0.8 + 0.4 * pulse);
-  core(ctx, 0.55 + 0.45 * pulse, kind);
+  drawPodCore(ctx, 0.55 + 0.45 * pulse, kind);
   ctx.restore();
 
   halo(ctx, x, y, r * (2.1 + 0.3 * pulse), PALETTE.pod, 0.14 + 0.1 * pulse);
@@ -144,14 +144,27 @@ function drawWreck(
   // The fire itself stays plain ember up close — that is the wreck, not the
   // kind. The kind reads in the halo below, which is what carries at a glance.
   strokeGlow(ctx, path, PALETTE.ember, Math.max(1, r * 0.13) / scale, 0.7 + 0.9 * flicker);
-  core(ctx, flicker, kind);
+  drawPodCore(ctx, flicker, kind);
   ctx.restore();
 
   halo(ctx, x, y, r * 2.4, PALETTE.pod, 0.2 + 0.22 * flicker);
 }
 
-/** The core, in the pod's own coordinates. Inner drawing stays thin. */
-function core(ctx: CanvasRenderingContext2D, brightness: number, kind: PodKind): void {
+/**
+ * The core, in the pod's own coordinates. Inner drawing stays thin.
+ *
+ * Exported because THE MOULT's blend has to be able to fade it in: a body
+ * turning into a cargo is worth catching or worth standing clear of depending
+ * on which cargo it is, and the mark is the only thing that says which
+ * (`glyph` below). A morph that showed the amber shape arriving and the mark
+ * only once it had is a morph that withholds the one fact the pair is deciding
+ * on, for the beat they are deciding it in (`moult.ts`).
+ */
+export function drawPodCore(
+  ctx: CanvasRenderingContext2D,
+  brightness: number,
+  kind: PodKind,
+): void {
   ctx.globalAlpha = 0.35 + 0.65 * brightness;
   ctx.fillStyle = PALETTE.podRim;
   ctx.beginPath();

@@ -49,6 +49,13 @@ export const TALKER = {
   // with no seat named falls back to. It is the navigator's, because that is
   // the seat the wisp's sight is on and a mine is a wisp standing still.
   mine: "p2",
+  // THE MOULT: both screens carry the body and the form it is in now, and the
+  // navigator alone is shown the one that is coming. So the split is not
+  // *what is there* — it is **when what is there stops being that**, which is
+  // the first time in this table the hidden thing is a moment rather than a
+  // fact about a body. The navigator talks, and the pilot, who holds every
+  // control this creature answers to, listens and counts.
+  moult: "p2",
   // THE GYRE, both halves, and it is the loudest `null` in the table. Both
   // screens draw the whole wheel and every colour on it — nothing at all is
   // hidden — and the pair still cannot stop talking, because what has to be

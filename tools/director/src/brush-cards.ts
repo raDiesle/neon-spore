@@ -104,6 +104,14 @@ export function cardSubjects(kind: CreatureKind): string[] {
   // over it is a membrane, which is no more a silhouette than a clasp's is. A
   // card asking for "COIL" would draw a blank.
   if (kind === "coil") return ["METEOR"];
+  // THE MOULT draws the **rock** card, which is THE COIL's answer arrived at
+  // from the other side: the coil is a rock with something over it, and this
+  // is a rock for five beats and a pod for the next five, so neither has a
+  // contour of its own (`living-look.ts` gives it the same `null`). The rock
+  // is the half the sheet can draw — a pod is not a body and has never had a
+  // card — and it is the half a palette needs to show, because the other one
+  // is not a *shape* the eye tells apart, it is a moment on a count.
+  if (kind === "moult") return ["METEOR"];
   // And THE CHOIR draws **no card**, for THE FENCE's reason arrived at from
   // the other side: a wall has no contour because it is one line across every
   // column, and a membrane has none because it is *three* bodies in a film —
@@ -162,6 +170,7 @@ export const SHORT_NOTE: Partial<Record<CreatureKind, string>> = {
   veil: "p2 does not see what is inside",
   wisp: "p1 cannot see it; hops tiles and never falls",
   mine: "one of you sees it; the other taps that exact tile",
+  moult: "rock five beats, cargo five — it lands as one of them",
   ghost: "p1 cannot see it — say the column",
   echo: "splits",
   rind: "starts bigger, shrinks when shot",

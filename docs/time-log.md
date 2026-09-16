@@ -6337,3 +6337,25 @@ game a *wave* chooses rather than a kind, so the seat had to be carried from
 `WaveEntry` through the queue, the arrival, the body, the fingerprint, the duty
 word and the drawing — seven places that each had a right answer and no shared
 one to copy.
+
+## 2026-09-16 — queued-tasks — THE MOULT, a body whose answer expires
+
+The queue's *Moulting, his way: meteor and pod by turns, and player 2 sees what
+is next*: one body that is a rock for five beats and a supply cargo for five,
+all the way down, where what it is on the beat it reaches the ship is the whole
+of what happens.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `new-creature`'s six tables, `pods.ts` for the mouth, `veil.ts` for a form read off a clock, `queen-glyph.ts` for the blend the owner asked for by name |
+| writing | 135 | `sim/moult.ts` and `pod-intake.ts`, the arrival branch in `hull.ts`, the blended contour and the two draw paths, the navigator's ghost and pips, the wave, the film, the bestiary section, the director's four rows, two test files |
+| looking | 10 | the wave probed at tempo for what each entry beat actually lands as, and the four figures authored against those numbers |
+| friction | 55 | five files over 250 lines in turn (`entries.ts`, `bullet-hit.ts`, `creature-state.ts`, `wave-entry.ts`, `scenes.ts`); a first cut of the rule written against `world.beat`; eleven dead imports biome would only remove with `--unsafe`; the film retimed twice against the real simulation |
+| landing | 20 | `check`, `bun run index`, `baseline:blank`, the counts in three documents, the commit |
+
+The bottleneck was writing, and the part that could not be shortened was that
+the turn had to be **composable**: a form rolled at spawn would have been an
+afternoon, but a wave author has to be able to write an entry beat and know
+what it lands as, so the clock had to be `waveBeat`, the wave's four figures
+had to be probed against the real simulation rather than reasoned about, and
+the film had to be retimed twice for the same reason.

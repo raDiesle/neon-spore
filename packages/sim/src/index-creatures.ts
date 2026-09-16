@@ -97,6 +97,12 @@ export { magnetPoleColor } from "./magnet.js";
 // stand in. The rules themselves (`mineTapped`, `stepMine`) are the
 // simulation's alone and are deliberately not out here.
 export { mineFuseLeft, mineOnField, mineRows, mineSeenBy } from "./mine.js";
+// THE MOULT: the turn itself, and nothing else. What form it is wearing, what
+// it turns into, and how many beats until it does — three readings of one
+// number, which is what makes them safe to hand out. The arrival, the shot and
+// the steer stay inside, because a picture that could answer those would be a
+// second copy of the rule rather than a drawing of it.
+export { moultBeatsToTurn, moultCargo, moultIsPod, moultNextIsPod } from "./moult.js";
 export { recoilBouncesLeft, recoilRow, recoilTurn } from "./recoil.js";
 export { rindLayersLeft } from "./rind.js";
 // A crossing rock: a *path* a wave puts a plain rock on rather than a kind

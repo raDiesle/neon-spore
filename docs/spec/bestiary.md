@@ -64,7 +64,7 @@ table in a document cannot be wrong in a way a compiler notices.
 | Category | Answered by | Members today |
 |---|---|---|
 | `cannon` | `aim` only | `slick`, `bulb`, `lure`, `throb`, `shell`, `dart`, `veil`, `wisp`, `ghost`, `echo`, `rind`, `recoil`, `gyre`, `lid`, `strand`, `magnet`, `choir`, `countdown`, `leech` |
-| `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` |
+| `shield` | `guard` only | `meteor`, `meteorMedium`, `meteorFast`, `meteorFaster`, `meteorFastest`, `torch`, `veer`, `coil`, `limpet`, `cairn` `moult` |
 | `mixed` | `aim` and `guard` | `queen`, `warden`, `clasp`, `carom`, `volley`, `crawler`, `fence`, `crystal` |
 | `special` | neither | `tether`, `mount`, `chute`, `beatbox`, `balloon`, `gum`, `weight`, `mine` |
 | `suck` | — (pods, not `CreatureKind`) | mend, purge, ward |
@@ -504,6 +504,51 @@ past the contour (`render/body-hit-defuse.ts`). Every other strike in the game
 is a body coming apart, and a burst here would say the opposite of what
 happened — a pair that saw one would learn that finding a mine and being one
 tile out look the same, and being one tile out is the wave.
+
+## THE MOULT
+
+**The first body whose answer expires while it falls.** Every other arrival in
+this bestiary asks one question and asks it the whole way down: a rock wants the
+dome, a slick wants a colour, a cargo wants the mouth. The pair's work is to
+find the answer and be there in time, and once they have found it the answer
+keeps. This one is a rock for `moultBeats` and a cargo for `moultBeats`,
+alternating all the way to the ship, so the answer agreed at the top of the
+field is the wrong one at the bottom of it about half the time. **What it is on
+the beat it reaches the ship is the whole of what happens** — warded or a hull
+hit as a rock; swallowed by the maw or a lost wave as a cargo — and that beat is
+arithmetic both of them can do before it lands.
+
+**Nothing kills it.** A shot at the rock half leaves a crater exactly as it does
+on a meteor and takes nothing off; a shot at the cargo half is simply spent. It
+carries no colour, so no ammunition could have been right, and that is the
+balloon's argument arriving at a second reason: the cannon's job on this
+creature is to *stand somewhere*, and a pair who had learned to shoot at one
+would be a pair spending the thing they are supposed to be aiming.
+
+**The form is derived and never stored.** `moultIsPod` is `waveBeat` against
+`moultBeats` and nothing else, so every moult on the field turns over together
+and the pair reads one clock rather than one body — *pod in two beats, open* is
+a sentence about the wave. It is `waveBeat` and not the run's own beat on
+purpose: a wave is authored to *land* one of its arrivals as a rock and the next
+as a cargo, and a run clock would make the same entry a rock on one playthrough
+and a cargo on the next for a reason nobody wrote down.
+
+**The seat that is told is the seat that cannot act.** Both screens carry the
+form it is wearing now, blended vertex by vertex through the turn so that a
+body changing is one silhouette and never two (`render/moult-shape.ts`, the
+Bulb Queen's own move). Only the navigator is shown what is coming — a hollow
+ghost of the next form beside the body, and a pip per beat until the turn — and
+every control the creature answers to, the column, the trigger and the mouth,
+is the pilot's. So the call is a timing, it has to be said out loud, and there
+is no version of this creature either seat can play alone.
+
+**It has no physics of its own.** It falls a tile a beat like the plain tier,
+and on the last `podHomeTiles` rows it steers one column a beat toward whatever
+column the cannon is holding, exactly as a freed pod does — the same steer in
+both forms, because the body does not know yet what it will be wearing when it
+lands and so cannot steer by it. What that buys the pilot is one column to
+stand in for either answer; what it costs is that standing there stops being
+optional.
 
 ## THE MAGNET
 

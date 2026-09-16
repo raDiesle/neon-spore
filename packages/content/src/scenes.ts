@@ -1,4 +1,4 @@
-import type { GuideScene, SceneStep } from "./scene-types.js";
+import type { GuideScene } from "./scene-types.js";
 import { BULB_QUEEN } from "./scenes/bulb-queen.js";
 import { CATCH_AND_AIM } from "./scenes/catch-and-aim.js";
 import { CYAN } from "./scenes/cyan.js";
@@ -37,6 +37,7 @@ import { THE_LURE } from "./scenes/the-lure.js";
 import { THE_MAGNET } from "./scenes/the-magnet.js";
 import { THE_MAZE } from "./scenes/the-maze.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
+import { THE_MOULT } from "./scenes/the-moult.js";
 import { THE_PULSE } from "./scenes/the-pulse.js";
 import { THE_PURGE } from "./scenes/the-purge.js";
 import { THE_RECOIL } from "./scenes/the-recoil.js";
@@ -137,7 +138,8 @@ export type SceneId =
   | "theCairn"
   | "theWell"
   | "theHandover"
-  | "theSplice";
+  | "theSplice"
+  | "theMoult";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -198,6 +200,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theWell: THE_WELL,
   theHandover: THE_HANDOVER,
   theSplice: THE_SPLICE,
+  theMoult: THE_MOULT,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";
@@ -218,32 +221,10 @@ export function sceneSteps(id: SceneId): number {
   return guideScene(id).steps.length;
 }
 
-/**
- * A page's span: the tick it opens on and the tick it ends on. This is what a
- * page plays through and stands at the end of, while the seat reading it takes
- * as long as it likes.
- *
- * **The last page ends one tick short of the loop.** `SceneRun.advance` wraps
- * the moment its tick reaches `ticks` — it rebuilds the world and starts at 0
- * again — so a span that ended *at* `ticks` was a span whose end the clock
- * could never observe: the page ran on into the next turn of the loop, past its
- * own words, and the caption vanished because the tick it was written against
- * was in the future again. `guide-play.ts` stops the film at `to`, so `to` has
- * to be a tick the run can actually stand on.
- */
-export function stepSpan(scene: GuideScene, index: number): { from: number; to: number } {
-  const step = scene.steps[Math.max(0, Math.min(scene.steps.length - 1, index))]!;
-  const next = scene.steps[scene.steps.indexOf(step) + 1];
-  return { from: step.tick, to: next ? next.tick : scene.ticks - 1 };
-}
-
-/** The step showing at this tick of the loop. Never undefined: a scene's first
- * step starts at tick 0, and `test/scenes.test.ts` is what holds that. */
-export function stepAt(scene: GuideScene, tick: number): SceneStep {
-  let found = scene.steps[0]!;
-  for (const step of scene.steps) {
-    if (step.tick > tick) break;
-    found = step;
-  }
-  return found;
-}
+// **Where a page begins and ends** is `scene-span.ts` next door, cut out when
+// THE MOULT's film took this file over its limit. The seam is the one the
+// header above already draws: this is the list, and those two take a film and
+// answer a question about its pages without ever asking the list anything.
+// Re-exported, so nothing that already reached for either through this file
+// had to move.
+export { stepAt, stepSpan } from "./scene-span.js";

@@ -1,5 +1,6 @@
-import type { Color, CrawlerSide, GhostPath, RockCross, RockSize } from "@neon-spore/sim";
+import type { Color, CrawlerSide, GhostPath, PodKind, RockCross, RockSize } from "@neon-spore/sim";
 import type { WaveKind } from "./mechanics.js";
+import type { FenceEntry } from "./wave-entry-fence.js";
 
 /**
  * **What one arrival is**, and the half of a wave that grows.
@@ -15,8 +16,15 @@ import type { WaveKind } from "./mechanics.js";
  * Columns are authored against a 7-column field and remapped by `buildQueue`;
  * `beat` is the offset from the start of the wave. `wave-types.ts` re-exports
  * this, so nothing that already reached for a `WaveEntry` had to move.
+ *
+ * **THE FENCE's three have gone next door** (`wave-entry-fence.ts`), cut out
+ * when THE MOULT's cargo took this file over its limit and along the only seam
+ * it has: every field left here is one number or one word, and those three are
+ * lists — which is the difference between a picker in the director's panel and
+ * a row of chips painted across a wall. `WaveEntry` extends it, so nothing that
+ * reads `e.gaps` moved either.
  */
-export interface WaveEntry {
+export interface WaveEntry extends FenceEntry {
   beat: number;
   col: number;
   /**
@@ -170,46 +178,6 @@ export interface WaveEntry {
    */
   rise?: number;
   /**
-   * Which columns THE FENCE is open in, authored in the same seven columns
-   * every wave is written in and remapped by `queueFromWave`. Absent on every
-   * other kind, and absent on a wall with **one** gap — which is the cell the
-   * author painted it in, so a wall placed in column three has its way through
-   * at column three and the map reads the way it looks.
-   *
-   * **A list on the entry and a bitmask on the body** (`Creature.fenceGaps`).
-   * An author names places, in the order they were painted; the field asks
-   * *is this column open* of one column on every beat, and `fenceMask` is the
-   * one crossing between the two shapes.
-   *
-   * **A field and not a kind per shape of wall**, the asymmetry `size` argues
-   * for said about a hole: a wall with one gap and a wall with two are not two
-   * creatures — the pair says exactly the same sentence about both, a number
-   * out loud — and what changes is how much being wrong costs. Two kinds in
-   * the bestiary would teach two words for one thing, and it would double
-   * again with every gap.
-   */
-  gaps?: number[];
-  /**
-   * Where this wall is **cracked**, one list of authored columns per colour a
-   * cannon can load. A crack is the only column a bolt opens, and the colour
-   * naming the list is the only bolt that opens it (`sim/fence-crack.ts`).
-   *
-   * Absent on every other kind, and absent on a wall the author left
-   * uncracked — except a wall with **no gaps at all**, which `queueFromWave`
-   * gives one red crack in the cell it was painted in, exactly as it gives an
-   * ungapped wall one gap there. A wall nobody can pass and nobody can cut is
-   * a price with a picture on it rather than a creature.
-   *
-   * **Two lists rather than one list of pairs**, and the reason is the file
-   * the director writes: an entry is serialised on one line, and
-   * `{ col: 3, color: "red" }` inside it puts a fence past the formatter's
-   * width and out of the round trip `serialize.test.ts` holds. Two lists read
-   * exactly like `gaps` — a row of columns — which is also how the brush
-   * offers them: one chip per column, cycling dark, red, cyan.
-   */
-  cracksRed?: number[];
-  cracksCyan?: number[];
-  /**
    * Which way this **rock** crosses the field instead of falling down its
    * lane: `-1` to the left, `1` to the right, absent for a rock that holds the
    * column it was painted in. Meaningless on every kind that already moves by
@@ -247,4 +215,16 @@ export interface WaveEntry {
    * the wrong half of the creature (`sim/mine.ts`).
    */
   sees?: 1 | 2;
+  /**
+   * What THE MOULT is carrying — `purge` or `ward` — for the beats it is
+   * wearing its cargo rather than its shell. Absent means a ward, and it says
+   * nothing about any other kind.
+   *
+   * A brush setting for `PodEntry.kind`'s reason word for word: a pair that
+   * watches one turn over has to be able to tell what catching it is worth
+   * before it decides whether to stand under it. **When** it turns over is
+   * deliberately not here — that is one clock off the shared beat, so a field
+   * of them is one sentence to say rather than one per body (`sim/moult.ts`).
+   */
+  cargo?: PodKind;
 }

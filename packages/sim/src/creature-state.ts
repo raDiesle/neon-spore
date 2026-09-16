@@ -5,8 +5,10 @@ import type { FenceState } from "./creature-state-fence.js";
 import type { GyreState } from "./creature-state-gyre.js";
 import type { HeadingState } from "./creature-state-heading.js";
 import type { HeldState } from "./creature-state-held.js";
+import type { MineState } from "./creature-state-mine.js";
 import type { StrandState } from "./creature-state-strand.js";
 import type { VeerState } from "./creature-state-veer.js";
+import type { PodKind } from "./pod-types.js";
 
 /**
  * **The state one kind carries and no other does.** Every field here is
@@ -20,14 +22,16 @@ import type { VeerState } from "./creature-state-veer.js";
  * This is the list that grows, and it has grown by a field for nearly every
  * creature added since THE DART.
  *
- * **Eight groups have gone next door**, each a set of fields that only mean
+ * **Nine groups have gone next door**, each a set of fields that only mean
  * anything against each other and each with its own argument in its own
  * header: `creature-state-held.ts` (the four a hand writes),
  * `creature-state-strand.ts`, `creature-state-crawler.ts`,
  * `creature-state-fence.ts`, `creature-state-gyre.ts`,
  * `creature-state-heading.ts` (the four kinds that carry a direction),
  * `creature-state-beatbox.ts` (the count, the run and the beat it stands on)
- * and `creature-state-balloon.ts` (the one body two hands write at once).
+ * `creature-state-balloon.ts` (the one body two hands write at once) and
+ * `creature-state-mine.ts` (a count and the seat a body is drawn on — the
+ * only field in here that is about a player rather than about the field).
  *
  * `Creature extends CreatureState` rather than nesting it under a key, so
  * every call site still reads `c.ghostLaps` and nothing moved. It is the same
@@ -49,6 +53,7 @@ export interface CreatureState
     GyreState,
     HeadingState,
     HeldState,
+    MineState,
     StrandState,
     VeerState {
   /**
@@ -217,28 +222,17 @@ export interface CreatureState
    */
   pushBeat?: number;
   /**
-   * Beats left on THE MINE's fuse, and absent on every other kind. It counts
-   * **down**, one a beat, and a wrong tap that was not a neighbour takes
-   * another off it (`mine.ts`); at nought the mine goes off and the ship pays
-   * for it.
+   * What THE MOULT gives if it is swallowed while it is wearing its cargo,
+   * and absent on every other kind. Authored by the wave (`SpawnEntry.cargo`)
+   * and never rolled, exactly as a pod's own kind is: a pair that watches one
+   * turn over has to be able to tell what catching it is worth before it
+   * decides whether to stand under it.
    *
-   * A countdown rather than the beat it was laid on, which is the opposite of
-   * `veilStruckTick`'s arrangement and deliberately so: this number is drawn
-   * on **both** screens and is the one thing a blind seat has, so it has to be
-   * the same number in the fingerprint as on the dial. A moment plus a length
-   * would make the two screens agree only as long as they agreed about the
-   * length, and a tap takes a beat off the length.
+   * **Which form it is in is deliberately not here.** That is a fixed cycle
+   * read off `world.beat` (`moultIsPod`), THE VEIL's arrangement one creature
+   * on — the body, the ghost of the next form beside it and the count under
+   * both are three pictures of one number, and a phase stored on the body
+   * would be a fourth that could disagree with all three.
    */
-  mineFuse?: number;
-  /**
-   * Which seat this mine is **drawn on**, and absent on every other kind. The
-   * wave chooses it (`SpawnEntry.sees`), so one wave may give the sight to the
-   * navigator and the blind tap to the pilot and the next may swap them.
-   *
-   * On the body rather than on the world, because two mines on one field may
-   * be set opposite ways round — which is the sharpest thing this creature can
-   * be asked to do, and the reason the setting is a wave's at all rather than
-   * a rule in this package (`docs/queue.md`, 15 September 2026).
-   */
-  mineSees?: 1 | 2;
+  moultCargo?: PodKind;
 }

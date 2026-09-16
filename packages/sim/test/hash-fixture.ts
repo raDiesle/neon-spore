@@ -68,6 +68,7 @@ const creature = (): Required<Creature> => ({
   countPhase: 2,
   mineFuse: 4,
   mineSees: 1,
+  moultCargo: "purge",
   chuteOpen: true,
   veerDir: -1,
   veerDist: 3,

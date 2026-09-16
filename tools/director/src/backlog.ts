@@ -118,8 +118,13 @@ function deferredGroup(deferred: Idea[]): BacklogGroup {
 const KEPT_SYSTEMS = ["Destruction and damage"];
 // THE MINE came off this list on 16 September 2026, the day it was built:
 // the bullet that described it is out of `ideas.md` and the creature is in
-// the palette, which is the rule two paragraphs up said it would be.
-const KEPT_CREATURES = ["Moulting", "Husk"];
+// the palette, which is the rule two paragraphs up said it would be. Moulting
+// came off the same day and the same way — and it is the one case where the
+// bullet went without being *implemented*, because the owner redesigned the
+// creature before anybody built it: what shipped is a rock and a cargo by
+// turns off the wave's own beat, and the shell-and-soft-body paragraph that
+// used to be here described something else entirely.
+const KEPT_CREATURES = ["Husk"];
 
 // Whether a section's heading tail claims the thing exists. Not a string
 // equality test — "built", but also "the pod, built" — and "not built" /

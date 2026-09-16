@@ -41,6 +41,17 @@ import { ROUND_NOTES } from "./ship-notes-round.js";
  * object-shaped equivalent of the `assertNever` `effects-spark.ts` uses for
  * `SimEvent`.
  */
+const MOULT_NOTE = {
+  "THE MOULT — a rock and a cargo by turns, and the turn is the call":
+    "One body wearing both ends of the game. For this many beats it is a " +
+    "rock the dome turns; for the next this many it is a cargo the mouth " +
+    "has to swallow, and a cargo nobody swallows loses the wave. Nothing " +
+    "kills it either way. What it is on the beat it lands is the whole of " +
+    "what happens, and every moult on the field turns over together — one " +
+    "clock, one call. Only the navigator is shown the form that is coming. " +
+    "See moult.ts.",
+} satisfies Partial<Record<GroupName, string>>;
+
 export const GROUP_NOTE: Record<GroupName, string> = {
   "THE WEIGHT — a load only two thumbs at once take down":
     "A heavy sac that comes down a lane a beat. Nothing fired reaches it " +
@@ -233,5 +244,6 @@ export const GROUP_NOTE: Record<GroupName, string> = {
   ...BOSS_NOTES,
   ...HOLD_NOTES,
   ...HIDDEN_NOTES,
+  ...MOULT_NOTE,
   ...ROUND_NOTES,
 };

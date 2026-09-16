@@ -205,4 +205,28 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
     blurb:
       "It appears on a tile and never moves again. One of you is drawn it and the other, looking at an empty field, has to put a finger on the exact tile — four arms stand off it, one into each of the four tiles a finger must not land on, and the diagonals are safe. The exact tile kills it. A neighbour is a hit on the ship. Anywhere farther off costs nothing but a beat of its fuse, so feeling around is never free. The fuse is drawn on both screens, and when it runs out the mine goes off: the ship takes it and the body is gone. While one is out, both screens carry the lettered grid.",
   },
+  moult: {
+    kind: "moult",
+    // **Guard only, and the mouth is the half that is not a group.** The rock
+    // it is for five beats wants the dome, which is `guard`; the cargo it is
+    // for the next five wants the maw, and the maw is not a `ControlGroup` —
+    // that union is aim and guard, *the two things a wave may be missing*, and
+    // the maw is on every panel that has one at all. `aim` is deliberately
+    // absent: nothing fired kills this body in either form, and a wave that
+    // demanded a trigger for it would be asking the pair to load a gun for a
+    // thing the gun cannot answer.
+    controls: ["guard"],
+    // None, and none authorable either — which is the balloon's blank rather
+    // than the dart's. There is no colour on a rock and none on a cargo, so a
+    // colour here would be a claim that some ammunition is right, and the one
+    // thing a pair must not learn about this creature is to shoot at it.
+    color: null,
+    // The pilot's strip. Every rock is on it already, and half of this is one
+    // — but the strip is not what this creature is about: the split is the
+    // *coming form*, which is drawn on the navigator's screen alone, so the
+    // seat warned is again never the seat that is told (`render/moult.ts`).
+    radar: "p1",
+    blurb:
+      "One body wearing both ends of the game by turns. For five beats it is a rock the shield has to turn; for the next five it is a supply cargo the maw has to swallow, and a cargo nobody swallows loses the wave. Nothing kills it either way — a shot leaves a crater on the rock half and is simply spent on the other. What it is on the beat it reaches the ship is the whole of what happens, so the call is a count and not a colour. On the last two rows it steers at whatever column the cannon is holding, which is the catch a freed pod already has. Every one on the field turns over on the same beat, and only the navigator is shown the form that is coming.",
+  },
 };

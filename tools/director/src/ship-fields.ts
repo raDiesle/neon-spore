@@ -82,6 +82,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   veilArmourMs: "THE VEIL — a cloud only one of you can see into",
   wispDwellBeats: "THE WISP — a body only one of you can see at all",
   mineFuseBeats: "THE MINE — a tile one of you says and the other has to find",
+  moultBeats: "THE MOULT — a rock and a cargo by turns, and the turn is the call",
   ghostCrossRow: "THE GHOST — a body with no column on one screen",
   ghostCrossCols: "THE GHOST — a body with no column on one screen",
   ghostChargeLaps: "THE GHOST — a body with no column on one screen",

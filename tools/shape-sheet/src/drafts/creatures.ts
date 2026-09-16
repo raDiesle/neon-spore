@@ -91,11 +91,10 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
       "11 facets · a shell under pressure",
     ),
     motion: SWELL,
-    status: "draft",
+    status: "free",
     slot: "creature",
-    suggests: "Moulting",
     owner:
-      "faceted, because a shell is the non-living material the rock already uses; it swells and does nothing else, so the moment it splits is the only event it ever has",
+      "free since 16 September 2026, and the one shape on this sheet released by the thing it was drawn for being *built*. It was offered to Moulting — a shell that comes off mid-fall, leaving a killable body — and the owner redesigned that creature before anybody built it: THE MOULT is a rock for five beats and a supply cargo for five, off the wave's own beat, and it wears the two contours the game already draws rather than one of its own (`render/moult-shape.ts` blends them vertex by vertex). So nothing carries these eleven facets and nothing is going to on that argument. Faceted, because a shell is the non-living material the rock already uses; it swells and does nothing else, so the moment it splits is the only event it ever has — which is still a good shape for anything whose whole story is one opening",
   },
   {
     subject: cluster("SYMBIOSIS", "two bodies in one membrane, safe while touching", {

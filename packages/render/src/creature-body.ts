@@ -18,6 +18,7 @@ import { drawGhost, showsGhostBody } from "./ghost.js";
 import { drawGumBody } from "./gum.js";
 import { drawLid } from "./lid.js";
 import { drawMineBody } from "./mine.js";
+import { drawMoultBody } from "./moult.js";
 import { MOUNT_LOOK } from "./mount-look.js";
 import { drawVolleyCore } from "./volley-core.js";
 import { drawWisp, showsWisp, wispJump } from "./wisp.js";
@@ -147,6 +148,12 @@ const EXCLUSIVE: ReadonlyMap<CreatureKind, BodyDraw> = new Map<CreatureKind, Bod
   // choose, so `showsMine` is asked of the creature (`mine.ts`). The draw
   // under the gate is the ordinary living blob with the fuse round it.
   ["mine", drawMineBody],
+  // THE MOULT, and a row for the same reason as THE COIL's: it is not an
+  // `isMeteorKind` — nothing about it is a rock for more than five beats at a
+  // time — so without one it would fall through to `drawLiving` and ask a body
+  // with no contour of its own for one. What it draws is the rock, the cargo,
+  // or the single blended outline between them (`moult.ts`).
+  ["moult", drawMoultBody],
   ["lid", drawLidBody],
   ["strand", drawStrandBody],
   ["magnet", drawMagnetBody],

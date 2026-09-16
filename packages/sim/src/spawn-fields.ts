@@ -14,6 +14,7 @@ import { fenceCracksOnSpawn } from "./fence-crack.js";
 import { ghostOnSpawn } from "./ghost.js";
 import { gyreOnSpawn } from "./gyre.js";
 import { mineOnSpawn } from "./mine.js";
+import { moultOnSpawn } from "./moult.js";
 import { recoilOnSpawn } from "./recoil.js";
 import { rindOnSpawn } from "./rind.js";
 import { rockCrossOnSpawn } from "./rock-cross.js";
@@ -152,5 +153,9 @@ export function kindFieldsOnSpawn(world: World, entry: SpawnEntry, at: Placed): 
     // the spread because nothing here rolls, and the order above is the
     // fingerprint.
     ...(entry.kind === "mine" ? mineOnSpawn(world.cfg, entry.sees) : {}),
+    // What a moult is carrying, absent on every other kind. Authored, never
+    // rolled, and it is the body's *whole* state: which form it is in is a
+    // pure function of the beat and is deliberately not stored (`moult.ts`).
+    ...(entry.kind === "moult" ? moultOnSpawn(entry.cargo) : {}),
   };
 }

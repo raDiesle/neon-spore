@@ -187,39 +187,17 @@ export interface SpawnEntry {
    * to look at has learned the wrong half of this creature.
    */
   sees?: 1 | 2;
-}
-
-/**
- * Where a pod is left hanging. Its own queue rather than an entry in the spawn
- * queue: a pod is not a creature, it is never cleared, and a wave that ends
- * with one still hanging has still ended (docs/spec/systems.md 5.7).
- */
-export interface PodEntry {
-  beat: number;
-  col: number;
-  /** Row it hangs at, from the top. Never the hull row. */
-  row: number;
-  /** What the pod gives when swallowed. Every pod says: the plain pod that a
-   * wave got by saying nothing gave hull points, and there are none. */
-  kind: PodKind;
   /**
-   * Which way it crosses the field, and absent for a pod that hangs where it
-   * was left — which is every pod authored before THE CLAW.
+   * What a **moult** gives if it is swallowed on a beat it is wearing its
+   * cargo, and absent on every other kind — absent on a moult too means a
+   * ward, which is the cargo that pays for the *other* half of the same body
+   * on its next turn (`moultCargo`).
    *
-   * A crossing pod enters at the edge it is authored in and travels its row
-   * until it leaves the far side, so it is a *window* rather than a place: the
-   * pair has as long as it takes to cross, and a pod that got away is a missed
-   * gift rather than a punishment, exactly as one that breaks on the skin is.
+   * Authored and never rolled, on `PodEntry.kind`'s terms exactly: a pair that
+   * watches one turn over has to be able to tell what catching it is worth
+   * before it decides whether to stand under it.
    */
-  cross?: -1 | 1;
-  /**
-   * How fast it crosses, in tiles per beat. Absent means
-   * `cfg.podCrossTilesPerBeat`, and it is meaningless on a pod that does not
-   * cross. Authored rather than rolled for `wears`' reason: how long the pair
-   * has is the whole of the difficulty, and a wave cannot be composed against
-   * a speed its author does not know.
-   */
-  speed?: number;
+  cargo?: PodKind;
 }
 
 export type {
@@ -245,3 +223,12 @@ export type {
 // Re-exported here so nothing that already reached for one through this file
 // had to move.
 export { BOSS_KINDS, bossFillsWave } from "./boss-kinds.js";
+
+// **Where a pod is left hanging** is `pod-entry.ts` next door, cut out when
+// THE MOULT's cargo took this file over its limit. The seam is the one the two
+// halves were already written along and `pod-types.ts` drew first: everything
+// left here is a **body** a wave sends down a lane, and a pod is the one thing
+// a wave authors that is not one — no kind, no colour, never cleared, and a
+// queue of its own. Re-exported, so nothing that already reached for a
+// `PodEntry` through this file had to move.
+export type { PodEntry } from "./pod-entry.js";

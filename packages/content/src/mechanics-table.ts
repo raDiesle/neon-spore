@@ -201,4 +201,13 @@ export const MECHANICS = {
     // know.
     waveNames: true,
   },
+  moult: {
+    what: "One body wearing both ends of the game by turns. For five beats it is a rock the shield turns away; for the next five it is a supply cargo the maw has to swallow, and one nobody swallows loses the wave. Nothing kills it either way — a shot craters the rock half and is simply spent on the other. What it is on the beat it reaches the ship is what happens, and on the last two rows it steers at whatever column the cannon is holding. Every one on the field turns over together, and only the navigator is shown the form that is coming.",
+    reach: "spawn",
+    // A wave names the kind and what it is carrying — two things, and neither
+    // of them rolled. **When** it turns over is not the wave's: that is one
+    // clock read off the shared beat, so a field of them is one sentence to
+    // say rather than one per body (`sim/moult.ts`).
+    waveNames: true,
+  },
 } as const satisfies Record<MechanicId, Mechanic>;

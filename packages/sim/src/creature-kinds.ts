@@ -72,6 +72,17 @@ export type CreatureKind =
    * `Creature.veilStruckTick` is the armour a wrong colour buys it.
    */
   | "veil"
+  /**
+   * One body wearing the two ends of this game by turns: a rock for
+   * `moultBeats`, then a cargo for `moultBeats`, then a rock again, the whole
+   * way down. Nothing kills it — a shot craters the rock half and is spent on
+   * the other — and what it **is** on the beat it reaches the ship is what
+   * happens: warded or a hull hit as a rock, swallowed or a lost wave as a
+   * cargo. `moultCargo` is the whole of its state, and the form is not state
+   * at all: it is read off the shared beat, so the two devices never store one
+   * (`moult.ts`).
+   */
+  | "moult"
   // **The two that stand on a tile** — a wisp, which is somewhere else every
   // two beats, and a mine, which is never anywhere else at all.
   // `creature-kinds-standing.ts` next door, cut out at the moment this file's

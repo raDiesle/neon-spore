@@ -123,6 +123,19 @@ export interface CreatureConfig {
    */
   mineFuseBeats: number;
   /**
+   * Beats THE MOULT spends in one form before it turns over into the other,
+   * counted off the shared beat and never off a body (`moultIsPod`).
+   *
+   * Five, which is `veilMorphBeats` exactly and for its reason: a little over
+   * three seconds at 96 BPM, about one spoken exchange
+   * (`docs/spec/latency.md`), so what one of them says about the form is worth
+   * saying and is not still true by default when it lands. It is also long
+   * enough that a full fall — twelve rows at a tile a beat — crosses the
+   * boundary twice rather than once, which is what makes the arithmetic a
+   * habit instead of a coin toss.
+   */
+  moultBeats: number;
+  /**
    * Beats between one step down and the next for THE ECHO. Two — it is the
    * whole of "half as fast", and it is the smallest number that is one: at
    * three the body hangs long enough that the pair stops reading it as
@@ -225,6 +238,7 @@ export const CREATURE_DEFAULTS: CreatureConfig = {
   veilArmourMs: 2000,
   wispDwellBeats: 6,
   mineFuseBeats: 6,
+  moultBeats: 5,
   echoFallBeats: 2,
   echoSplits: 3,
   echoSplitBeats: 3,

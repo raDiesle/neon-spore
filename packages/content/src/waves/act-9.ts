@@ -109,6 +109,29 @@ import type { Wave } from "../wave-types.js";
  *    the simulation (`minePlaceRow`), so the tiles beside one are never the
  *    answer to the other.
  *
+ * **THE MOULT is the act's fourth**, and the last wave in the file. One body
+ * wearing both ends of the game by turns: a rock the dome answers for five
+ * beats, then a cargo the mouth answers for five, all the way down. Nothing
+ * kills it either way, so the cannon's job on this wave is to *stand
+ * somewhere* — and what it is on the beat it lands is the whole of what
+ * happens.
+ *
+ * **The wave is four figures and the plain rock at the top is one of them.** A
+ * body defined by an answer that expires teaches nothing on an empty field:
+ * the meteor in the first column is there so the pair has something whose
+ * answer keeps — said once and still true a fall later — to measure the others
+ * against. Then a moult authored to land as a **rock**, which is the half they
+ * already know; one authored to land as a **cargo**, which is the same picture
+ * and the other hand; and last **two of them a beat apart in different
+ * columns, one of each** — both steered into the cannon's own lane by the
+ * homing, so the pilot triggers the dome on one beat and opens the mouth on
+ * the next, in one place, off one count the navigator is reading out.
+ *
+ * Every arrival's landing form is composed rather than hoped for: the turn is
+ * `waveBeat` against `moultBeats` and nothing else (`sim/moult.ts`), so an
+ * entry beat *is* an answer, and `content/test/moult-wave.test.ts` holds the
+ * four to the forms this paragraph claims for them.
+ *
  * It carries **no rehearsal**. Every act in a guide's film is a thumb on a
  * named control (`scene-script.ts`, `controlPress`), and this creature's whole
  * answer is a finger on a bare square of the field, which is not one — the film
@@ -177,6 +200,24 @@ export const WAVES_ACT_9: Wave[] = [
       { beat: 26, col: 2, kind: "mine", color: "cyan", row: 11, sees: 1 },
       { beat: 28, col: 4, color: "cyan" },
       { beat: 30, col: 0, color: "red" },
+    ],
+  },
+  {
+    id: "theMoult",
+    name: "THE MOULT",
+    sentence: "The one where the answer you agreed on is the wrong one by the time it lands.",
+    guide: {
+      both: "One body, two things by turns. For five beats it is a rock and the dome turns it away. For the next five it is a supply cargo and the maw has to swallow it, and one that breaks on the skin loses the wave. Shooting does nothing to either half. What it is on the beat it reaches the ship is all that counts, and on the last two rows it slides into whatever column the cannon is holding.",
+      p1: "The column, the trigger and the mouth are all yours. Park the cannon under it early — it comes to you — and do what they count you into: rock, hit the trigger; cargo, open the mouth. Never fire at it.",
+      p2: "Only you can see what it turns into next, so the count is yours and it has to be said out loud: rock now, pod in two. Put the shield where they park the cannon and leave it — the rock half still needs it there.",
+      scene: "theMoult",
+    },
+    entries: [
+      { beat: 0, col: 0, kind: "meteor", color: null },
+      { beat: 4, col: 3, kind: "moult", color: null, cargo: "ward" },
+      { beat: 9, col: 5, kind: "moult", color: null, cargo: "ward" },
+      { beat: 18, col: 2, kind: "moult", color: null, cargo: "purge" },
+      { beat: 19, col: 4, kind: "moult", color: null, cargo: "purge" },
     ],
   },
 ];

@@ -178,6 +178,13 @@ const DUTY_WORD = {
   // `duty-mine.ts`. This is the shape and the default, the way THE FENCE's row
   // is — the navigator sees it, so the navigator says the tile.
   mine: { p1: "TAP THE TILE", p2: "SAY THE TILE" },
+  // THE MOULT. The navigator is the only seat shown the form that is coming,
+  // and every control that answers one — the column, the trigger, the mouth
+  // — is the pilot's, so the word on one dial is a count and the word on the
+  // other is what to do with it. "ROCK OR POD" rather than a form: the pilot
+  // can see which one is standing there and cannot see when it stops being
+  // that, which is the only half the pair has to move across the room.
+  moult: { p1: "ROCK OR POD", p2: "CALL THE TURN" },
 } as const satisfies Record<CreatureKind, { p1?: string; p2?: string } | null>;
 
 /** Whether a kind counts as active for this word, including the one kind

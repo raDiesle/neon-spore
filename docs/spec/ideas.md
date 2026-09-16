@@ -60,19 +60,6 @@ filed rightly, and there is no second list to change.
   of a wave is free; how the pending state is drawn, since the draft has no
   marker for it and a hit that visibly does nothing reads as a miss; whether the
   wasted second shot costs anything beyond the time it took
-- **Moulting** — it changes which control answers it, halfway down. It falls
-  armoured and faceted and shots only crater it, exactly as the meteor already
-  does (`holes`, [systems](systems.md) 5.6); on a fixed beat the shell comes off
-  and the soft body inside is killable for a bounded window, in a colour nobody
-  knew until the moult. The shed shell keeps falling as a rock, so one arrival
-  needs the cannon and then the shield, in that order. Control visibility needs
-  no new rule for it: a wave holding one shows both groups from the start, and
-  the pair sees the second half coming before they know why
-  ([systems](systems.md) 5.1). Unworked out: whether the shell is a real second
-  body spawned mid-field, which nothing in `entries.ts` does today, or debris
-  that only looks like one; whether the moult is on a beat count or is provoked
-  by damage; the colour has to be drawn from the seeded rng at spawn, or the two
-  devices disagree the instant it is revealed
 - **Symbiosis** — two bodies in one membrane, vulnerable only while they are
   apart, and they part on a period rather than on a timer, so the window is a
   shape both players watch arrive instead of a number one of them holds. The

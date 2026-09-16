@@ -65,6 +65,12 @@ export function serializeEntry(entry: WaveEntry): string {
   // to the pilot would hand it back to the navigator on the first save, which
   // is `wears` and `gaps` a third time.
   if (entry.sees !== undefined) parts.push(`sees: ${entry.sees}`);
+  // And what a moult is carrying, the fourth time the same sentence: a wave
+  // authored to send a bomb down would send a shield down after one save, and
+  // a pair deciding whether to be under one would be deciding on the wrong
+  // fact. Absent is a ward, which is the default the rule already reads
+  // (`sim/moult.ts`), so there is no "nothing" here to preserve either.
+  if (entry.cargo !== undefined) parts.push(`cargo: "${entry.cargo}"`);
   return `{ ${parts.join(", ")} }`;
 }
 

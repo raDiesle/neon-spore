@@ -9,6 +9,7 @@ import { carryGrips } from "./grip-push.js";
 import { breakSpentGyres, isMount } from "./gyre.js";
 import { resolveHull } from "./hull.js";
 import { removeSpentLures } from "./lure-exit.js";
+import { stepMoult } from "./moult.js";
 import { steppedInsteadOfFalling } from "./own-step.js";
 import { spawnPods } from "./pods.js";
 import { spawnArrivals } from "./spawn.js";
@@ -167,6 +168,13 @@ export function onBeat(world: World): void {
     // that both stepped and fell would cover twice the ground it is drawn
     // covering; here the diagonal is the fall it already had (`veer.ts`).
     if (c.kind === "veer") stepVeer(world, c);
+    // And THE MOULT, the second body that steps sideways beside its fall
+    // rather than instead of it: on the last `podHomeTiles` it takes a column
+    // a beat toward the cannon, which is a freed pod's own last stretch at a
+    // whole tile instead of thousandths (`moult.ts`). Its form is not touched
+    // here and never is — it is read off `world.beat`, so there is nothing to
+    // keep in step.
+    if (c.kind === "moult") stepMoult(world, c);
   }
 
   // Every box whose run has stopped, judged on the count that stands. After

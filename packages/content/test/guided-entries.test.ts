@@ -49,6 +49,11 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // plate in the column and the dome up on the beat — which is the whole of what
   // the traded panels break. One rock, timed to land inside the window.
   "THE HANDOVER": ["meteor"],
+  // THE MOULT is a body whose answer expires, and one rock is what an answer
+  // that *keeps* looks like. Without it the lesson has nothing to be measured
+  // against: every arrival on an empty field would be a thing that turns over,
+  // and the pair would read that as the game rather than as the creature.
+  "THE MOULT": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

@@ -317,39 +317,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## Moulting, his way: meteor and pod by turns, and player 2 sees what is next
-
-- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
-- **Taken:** 2026-09-16, claude/queue-moulting-his-way-meteor-and-pod-by-turns-and-pla
-- **Files:** `packages/sim/src/pods.ts`, `packages/sim/src/pod-types.ts`, `packages/sim/src/wave-fail.ts`, `packages/sim/src/bullet-hit.ts`, `packages/sim/src/config.ts`, `packages/content/src/creatures.ts`, `packages/render/src/pods.ts`, `packages/render/src/craters.ts`, `packages/render/test/frame.test.ts`, `tools/director/src/brush-cards.ts`, `docs/spec/ideas.md`, `docs/spec/bestiary.md`
-
-The owner redesigned *Moulting* (`ideas.md`, Creatures) on 15 September 2026
-and asked for it built this way, which replaces the shell-and-soft-body
-design there. A falling body that **changes form every five beats** (a
-`SimConfig` field), alternating between **the meteor** and **a pod** — purge
-or ward, **authored per wave** like every pod, never drawn at random.
-**Both seats see its current form; player 2 (the navigator) also sees the
-next one**, drawn as a small ghost of the coming form beside the body. The
-call is the timing: "pod in two beats — open".
-
-**Nothing kills it.** In meteor form a shot craters it as `bullet-hit.ts`
-craters the meteor (`holes`, `maxHoles`); in pod form a shot is wasted. What
-it *is* on the beat it reaches the ship decides: as a meteor it is shielded
-or it is a hull hit, as the meteor is; as a pod it must be sucked into the
-maw, and one that is not is a hit **and the wave is lost** — the shipped pod
-rule in `wave-fail.ts`, nothing new. It sinks the last stretch toward the
-cannon's column the way a freed pod does, so the catch is the same catch.
-
-Build it through `.claude/skills/new-creature` on the shipped movement and
-resolution paths — the meteor's fall and craters, the pod's catch — with no
-physics of its own. The two looks are the two the game already draws, and
-the moult between them is a morph of the two contours, blended vertex by
-vertex, as the Bulb Queen's mark does. A brush in the director with the pod
-kind on it. Drawn again in `frame.test.ts` on both seats, mid-moult.
-
-Prove it with `bun run check`, a replay test, and the wave watched at tempo
-through a shielded meteor, a caught pod and a missed one.
-
 ## The Husk, his way: a fake pod player 2 sees through, deflating when refused
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
@@ -582,3 +549,87 @@ Worth doing only if the creature survives being played. Do it with the wave
 in front of you, not before. When it lands, take THE MINE out of
 `STILL_PROSE`, off §3.2's list and out of the paragraph under it — all three
 are named in the test's own failure message.
+
+## A lost wave has to be seen: the hit, the ship breaking, and go again
+
+- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Files:** `packages/render/src/effects-breach.ts`, `packages/render/src/hull-shock.ts`, `packages/render/src/shatter.ts`, `packages/render/src/scars.ts`, `packages/render/src/hull-skin.ts`, `packages/render/src/lost-screen.ts`, `packages/sim/src/wave-fail.ts`, `packages/render/test/frame.test.ts`, `packages/render/test/restart.test.ts`
+
+The owner asked for this on 16 September 2026, in his own words: *as we
+recently decided, any damage to the ship will make the wave lose. For this we
+need a very clear visible animation of the enemy causing the damage, and then
+the hull and ship have some effect, clearly visible and cool, of being
+destroyed and where it hit. And also full screen, that the wave now needs to
+be repeated, like a game over visual.* It is **a look he asked for by name** —
+the first exemption under *A look is offered, never replaced*; say which one in
+the commit.
+
+**The rule is already shipped and is not the work.** Every hull damage fails
+the wave (`wave-fail.ts`, 12 September 2026): the field is held for
+`waveFailBeats`, then RETRY WAVE or QUIT. What is missing is that the most
+expensive event in the game is drawn about as loudly as a shot landing.
+
+What is there today, so nobody rebuilds it: sparks thrown from the point in
+the body's own colour, waiting for a rock still in the air to actually come
+down (`effects-breach.ts`); a crack and a scar that stays (`scars.ts`); the
+whole ship arcing, but only for THE FENCE, because only the fence earths
+through the dome (`hull-shock.ts`); and a friendly card over the greyed field
+with which wave, which try and two buttons (`lost-screen.ts`).
+
+Three pieces, and they can land one at a time:
+
+1. **The body that did it, seen doing it.** Today the arrival and the hull's
+   answer are one beat and the picture has no moment in it. The pause is
+   already there to be spent — `failTick` holds the field — so the beat of the
+   hit is the one place in this game where a slow, deliberate picture is
+   affordable.
+2. **The ship breaking, at the column it was hit.** `hull-shock.ts` is the
+   shape of the answer and the precedent for asking for one; what it is not is
+   *local* — it is deliberately the whole ship and placed on no column. This
+   wants the opposite as well: plating torn open where it went in, and
+   `shatter.ts` is next door with the pieces already drawn falling.
+3. **Full screen, saying the wave is to be played again.** The tension to
+   resolve rather than step around: `lost-screen.ts`'s own header argues that
+   the field must stay visible under it, *with the breach still where it was
+   seen* — the pair are meant to look at where it got through. A full-screen
+   statement that covers that is a full-screen statement that takes the lesson
+   away. The way through is a full-screen treatment the breach column is a hole
+   in, not a card over it.
+
+**It goes to VERSUS first, and as several variants** — the owner, 16 September
+2026, asked for that in those words. So this is not a lane that puts one
+picture on the field: each of the three pieces above is authored as **more than
+one candidate** in `tools/versus/candidates/`, offered on the VERSUS page so he
+can see them side by side and pick, and only what he picks goes onto the field
+in a later lane. That is the ordinary route for a look (`docs/versus.md`) and
+it is what he wants here even though he asked for the work by name — the
+exemption would have let a single answer straight through, and a single answer
+is not what he is asking to be shown.
+
+Everything drawn here outlives a frame and so belongs in `Effects`, cleared in
+`Effects.reset()` (`restart.test.ts`); drawn again in `frame.test.ts`; and the
+op-count budgets are the per-lane measurement, remeasured with a sentence if a
+row legitimately moves. `hullInvulnerable` is how the director watches a wave
+without any of it.
+
+## ship-notes.ts is one line under its limit, and it grows with every creature
+
+- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Files:** `tools/director/src/ship-notes.ts`, `tools/director/src/ship-groups.ts`, `tools/director/src/ship-fields.ts`
+
+THE MOULT's note took this file to **249 lines of its 250**, so the next
+creature that wants a paragraph in the director's ship panel fails
+`packages/sim/test/limits.test.ts` before it has said anything. It is legal
+today and it has no headroom at all, which is the one state worth writing down:
+whoever adds the next note will otherwise spend the first half of their lane
+doing this refactor with an unrelated diff already open.
+
+The seam the file already has is its own `GROUP_NOTE` spread: `HIDDEN_NOTES`
+and `MOULT_NOTE` are each a const built somewhere and folded in at the bottom,
+so the cut is to take a group of notes out whole rather than to split the file
+down the middle. Nothing here is decided by the shape of the code — every note
+is a paragraph about one group of fields — so the only question is which
+grouping reads best next door, and any of them is an improvement on none.
+
+Do it with the next creature that needs a note, not before: a refactor of prose
+with no new prose to place is a diff nobody can review against anything.

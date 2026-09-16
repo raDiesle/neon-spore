@@ -5,6 +5,7 @@ import { fenceIsOpen } from "./fence.js";
 import { breachHull, breachUnscarred, damageSpan } from "./hull-damage.js";
 import { guardArmed, shieldRow } from "./hull-guard.js";
 import { impactWeight } from "./impact.js";
+import { moultArrives } from "./moult.js";
 import { beadIsSpent } from "./strand.js";
 import { type Creature, isWardable, occupiesCol } from "./types.js";
 import { wardTurns } from "./ward.js";
@@ -76,6 +77,18 @@ export function resolveHull(world: World): void {
     // beats, which is what `cling-frame.test.ts` counts grips for.
     if (isClingKind(c.kind)) {
       survivors.push(c);
+      continue;
+    }
+
+    // **THE MOULT has two answers and neither of them is the ordinary one.**
+    // It is a rock for `moultBeats` and a cargo for `moultBeats`, so which of
+    // the two rows below reaches it, and what happens when one does, changes
+    // on the beat. `moultArrives` is the whole of both, handed the body whole
+    // for `resolveFence`'s reason: threading it through a branch written for
+    // rocks would mean writing the mouth's two conditions out a second time
+    // (`moult.ts`).
+    if (c.kind === "moult") {
+      if (moultArrives(world, c)) survivors.push(c);
       continue;
     }
 

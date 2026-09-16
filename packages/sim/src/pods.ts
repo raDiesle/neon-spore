@@ -1,11 +1,9 @@
-import { markMoment } from "./balance.js";
-import { hullRow, msToTicks, type SimConfig, ticksPerBeat } from "./config.js";
+import { hullRow, ticksPerBeat } from "./config.js";
 import type { PodEntry } from "./entries.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
-import { purge, ward } from "./pod-effects.js";
+import { cargoLost, mawOpen, takeCargo } from "./pod-intake.js";
 import { nextInt } from "./rng.js";
 import type { Pod, PodKind } from "./types.js";
-import { failWave } from "./wave-fail.js";
 import { MILLI, type World } from "./world.js";
 
 /**
@@ -51,23 +49,13 @@ export function podKindOf(entry: PodEntry): PodKind {
   return entry.kind;
 }
 
-/** Ticks the maw stays open, from `intakeWindowMs` at this tick rate. */
-export function intakeWindowTicks(cfg: SimConfig): number {
-  return msToTicks(cfg, cfg.intakeWindowMs);
-}
-
-/**
- * Whether the maw is open this tick — the one place that decides it.
- *
- * `resolveIntake` asks it of an arriving pod, and the button and the sound ask
- * the same question rather than writing the window out again. They used `<`
- * where this uses `<=`, so the mouth drew and sounded shut one tick before it
- * stopped swallowing.
- */
-export function mawOpen(world: World): boolean {
-  const windowTicks = intakeWindowTicks(world.cfg);
-  return world.tick - world.intakeTick <= windowTicks && world.intakeTick <= world.tick;
-}
+// **The mouth is `pod-intake.ts`** — whether it is open, and what a cargo
+// arriving at it is worth either way. Cut out when THE MOULT arrived wanting
+// the second of those and none of this file: a moult is not a pod, it is a
+// body that is *wearing* one when it lands, and writing the two conditions a
+// second time is how the mouth would come to mean two things. Re-exported, so
+// nothing that already asked the package index for `mawOpen` had to move.
+export { intakeWindowTicks, mawOpen } from "./pod-intake.js";
 
 /** Position and speed in thousandths, all derived from the config. */
 function fallMilli(world: World): number {
@@ -220,28 +208,14 @@ function resolveIntake(world: World, pod: Pod): void {
   const inTime = mawOpen(world);
 
   if (inColumn && inTime) {
-    world.balance.podsTaken += 1;
-    markMoment(world, true);
-    switch (pod.kind) {
-      case "purge":
-        purge(world);
-        break;
-      case "ward":
-        ward(world);
-        break;
-    }
-    mirrorBaitTaken(world);
-    world.events.push({ type: "podTaken", col, kind: pod.kind });
+    takeCargo(world, col, pod.kind);
     return;
   }
   lost(world, pod);
 }
 
-/** A pod the pair did not take, at the hull or off the side: the wave is lost. */
+/** A pod the pair did not take, at the hull or off the side: the wave is lost
+ * (`cargoLost`, which is the half of this rule THE MOULT reads too). */
 function lost(world: World, pod: Pod): void {
-  const col = Math.max(0, Math.min(world.cfg.cols - 1, Math.round(pod.colMilli / MILLI)));
-  world.balance.podsLost += 1;
-  markMoment(world, false);
-  failWave(world);
-  world.events.push({ type: "podLost", col });
+  cargoLost(world, Math.round(pod.colMilli / MILLI));
 }

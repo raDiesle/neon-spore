@@ -143,6 +143,14 @@ const LIVING_LOOK = {
   // a lie about the rule — the fuse is the only thing about it that moves, and
   // `render/mine.ts` draws that off the count rather than off a clock here.
   mine: { shape: MINE, motion: HOLD },
+  // THE MOULT has no contour of its own, and that is the creature rather than
+  // an omission: the two things it looks like are the two things the game
+  // already draws — a rock, and a pod — and a third shape between them would
+  // be a picture of neither answer. What the pair reads is not a silhouette,
+  // it is *which of the two* is standing there, so a body of its own would be
+  // the one drawing that made this creature unanswerable
+  // (`render/moult.ts`).
+  moult: null,
 } as const satisfies Record<CreatureKind, { shape: CreatureSilhouette; motion: OwnMotion } | null>;
 
 /**

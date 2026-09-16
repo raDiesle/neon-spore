@@ -39,6 +39,7 @@ describe("buildBacklog", () => {
       "Choke",
       // Built on 16 September 2026, and off the page the same day.
       "Mine",
+      "Moulting",
     ])
       expect(everything).not.toContain(built);
     // Retired on 11 September 2026 (docs/decisions.md #28): the glyph, and
@@ -63,7 +64,7 @@ describe("buildBacklog", () => {
     // fails first. Exactly, not "contains": a fifth appearing unasked is the
     // page creeping back to what the owner cut it down from.
     expect(names([group(backlog.mechanics, "SYSTEMS")])).toEqual(["Destruction and damage"]);
-    expect(names([group(backlog.mechanics, "CREATURE IDEAS")])).toEqual(["Moulting", "Husk"]);
+    expect(names([group(backlog.mechanics, "CREATURE IDEAS")])).toEqual(["Husk"]);
   });
 
   test("the couplings and the assist forms are off the page entirely", async () => {

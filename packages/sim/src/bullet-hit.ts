@@ -1,26 +1,20 @@
 import { metColor, missedColor } from "./balance.js";
-import { balloonStruck } from "./balloon.js";
-import { beatboxStruck } from "./beatbox-round.js";
-// The queen's petals and the warden's plates, next door: what a shot does when
-// it meets a boss rather than an arrival (`bullet-hit-boss.ts`).
-import { resolveQueen, resolveWarden } from "./bullet-hit-boss.js";
-// And THE LURE, next door for the same reason: what a shot does when it meets
-// the one body there is no right shot at (`bullet-hit-lure.ts`).
-import { resolveLure } from "./bullet-hit-lure.js";
-import { refuseBolt, refusesABolt } from "./bullet-refused.js";
+// **The bodies a bolt never kills** — a rock, a mine, a wall, the two bosses,
+// a soundbox, a lure, a clasp, three dots, a balloon, a dome and a moult
+// wearing its cargo. Twelve branches that all stood at the top of this file
+// and all ended the bolt, cut out next door when THE MOULT took it over its
+// limit (`bullet-hit-shut.ts`). The queen, the warden and the lure went with
+// them: each had already been carried out to a file of its own and was only
+// ever reached from inside that block.
+import { struckWithoutKilling } from "./bullet-hit-shut.js";
 import { caromStruck } from "./carom.js";
-import { choirIsDots, choirStruck } from "./choir.js";
 import { chuteIsOpen, chuteStruck } from "./chute.js";
-import { claspIsShielded, claspStruck } from "./clasp.js";
-import { coilStruck } from "./coil.js";
-import { coilIsDomed } from "./coil-state.js";
 import { colourIsArmoured } from "./colour-armour.js";
 import { countdownStruck } from "./countdown.js";
 import { linkStruck } from "./crawler-round.js";
 import { wornKind } from "./creature-rules.js";
 import { crystalStruck } from "./crystal.js";
 import { echoStruck } from "./echo.js";
-import { fenceStruck } from "./fence.js";
 import { removeCreature } from "./field.js";
 import { ghostStruck } from "./ghost.js";
 import { lidStruck } from "./lid.js";
@@ -31,7 +25,7 @@ import { shellIsBare } from "./shell.js";
 import { shellStruck } from "./shell-round.js";
 import { beadStruck } from "./strand-round.js";
 import { throbStruck } from "./throb.js";
-import { type Bullet, type Creature, isWardable } from "./types.js";
+import type { Bullet, Creature } from "./types.js";
 import { veilStruck } from "./veil.js";
 import { wispStruck } from "./wisp.js";
 import type { World } from "./world.js";
@@ -56,70 +50,14 @@ import type { World } from "./world.js";
  * the beam became the weapon.
  */
 export function resolve(world: World, b: Bullet, hit: Creature): boolean {
-  if (isWardable(hit.kind)) {
-    // A rock cannot be broken, because it does not live. The shot leaves a
-    // crater and nothing else — the rule made visible (docs/spec/graphics.md).
-    // `isWardable` rather than `isMeteorKind`, so THE VOLLEY's shell is here
-    // too: while it is on, the cannon has nothing to say to that body, and the
-    // instant it bursts the kind is a slick's and this branch stops catching
-    // it (`volley.ts`).
-    hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);
-    world.events.push({ type: "hole", col: hit.col, row: hit.row });
-    return false;
-  }
-  // A body the cannon cannot answer still stops the bolt (`bullet-refused.ts`).
-  if (refusesABolt(hit.kind)) {
-    refuseBolt(world, b, hit);
-    return false;
-  }
-  if (hit.kind === "fence") {
-    // **The cannon's half of THE FENCE.** Whether the wire comes apart here or
-    // refuses, and what each costs, is one call: `fenceStruck` (`fence.ts`).
-    fenceStruck(world, hit, b.col, b.color);
-    return false;
-  }
-  if (hit.kind === "queen") {
-    resolveQueen(world, b, hit);
-    return false;
-  }
-  if (hit.kind === "warden") {
-    resolveWarden(world, b, hit);
-    return false;
-  }
-  if (hit.kind === "beatbox") {
-    // **A soundbox refuses every shot**, and it is the creature rather than an
-    // omission: it carries no colour, so no ammunition could be right, and what
-    // answers one is a thumb on the beat (`beatbox-round.ts`).
-    beatboxStruck(world, b, hit);
-    return false;
-  }
-  if (hit.kind === "lure") {
-    resolveLure(world, b, hit);
-    return false;
-  }
-  if (claspIsShielded(hit)) {
-    claspStruck(world, hit);
-    return false;
-  }
-  // Three dots in a membrane, and the clasp's answer one creature on: nothing a
-  // shot carries gets in until the pilot has made the gesture (`choir.ts`).
-  if (choirIsDots(hit)) {
-    choirStruck(world, hit);
-    return false;
-  }
-  // A balloon, and there is nothing a bolt can do to one. Not a colour miss:
-  // it carries no colour at all, so there was no right ammunition to have
-  // loaded, and what the pair has misread is what the body is rather than what
-  // it is made of (`balloon.ts`). Two hands are its whole answer.
-  if (hit.kind === "balloon") {
-    balloonStruck(world, hit);
-    return false;
-  }
-  // A dome over a rock, and the clasp's answer word for word (`coil.ts`).
-  if (coilIsDomed(hit)) {
-    coilStruck(world, hit);
-    return false;
-  }
+  // **Every body a bolt never kills** — a rock, a mine, a wall, the two
+  // bosses, a soundbox, a lure, a clasp, three dots, a balloon, a dome, and a
+  // moult wearing its cargo. Twelve branches and one seam: each ends the bolt
+  // and none can take a body off the field, so they are one call
+  // (`bullet-hit-shut.ts`), cut out when THE MOULT took this file over its
+  // limit. What is left below is the other half — the bodies a shot can
+  // answer, where the question is which colour and what the kill is worth.
+  if (struckWithoutKilling(world, b, hit)) return false;
   if (hit.kind === "veil") {
     // The cloud, the body inside it and the armour a wrong colour buys — all
     // one rule, and it lives in `veil.ts` for `claspStruck`'s reason.
