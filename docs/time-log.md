@@ -6863,3 +6863,24 @@ subject of, so a slot taken on a record with a long header is a documentation
 task wearing a one-command hat.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — guide:chrome / tide
+
+The owner read the five candidates on the slot and asked for a sixth carrying
+what he liked out of three of them, with four corrections in his own words.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the five candidates, `guide-look.ts`, `word-button.ts`, `nav-button.ts`, `SceneAnchor` |
+| writing | 35 | `plate.ts`, `membrane.ts`, `paint.ts`, `caption.ts`, the index and its sentence |
+| looking | 20 | three shots of the pose and two crops — the top band twice, the page row once |
+| friction | 10 | the stub canvas refused `roundRect`'s array radius; two lint runs; a sentence with no dash in it |
+| landing | 10 | `check:fast` three times and the commit |
+
+The bottleneck was looking, and it was the fluid: the first pass read as mauve
+hills rather than as a liquid, because three filled sheets at those alphas
+stack into one mass. What fixed it was a thin edge line on each sheet instead
+of a stronger fill — three lines that cross and part say there are three
+surfaces; three fills say there is one. Worth knowing before writing the next
+one: on a band under 100 px, an edge is read from its line and never from its
+body.

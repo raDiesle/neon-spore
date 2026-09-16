@@ -11,6 +11,7 @@ import { GUIDE_CONSOLE } from "./guide-chrome/console/index.js";
 import { GUIDE_RAIL } from "./guide-chrome/rail/index.js";
 import { GUIDE_RIBBON } from "./guide-chrome/ribbon/index.js";
 import { GUIDE_SPOTLIGHT } from "./guide-chrome/spotlight/index.js";
+import { GUIDE_TIDE } from "./guide-chrome/tide/index.js";
 import { LOST_BREACH_HOLE } from "./lost-screen/breach-hole/index.js";
 import { LOST_SHUTTERS } from "./lost-screen/shutters/index.js";
 import { LOST_SIGNAL } from "./lost-screen/signal/index.js";
@@ -27,6 +28,7 @@ export const VARIANTS: Variant[] = [
   GUIDE_RAIL,
   GUIDE_RIBBON,
   GUIDE_SPOTLIGHT,
+  GUIDE_TIDE,
   LOST_BREACH_HOLE,
   LOST_SHUTTERS,
   LOST_SIGNAL,
