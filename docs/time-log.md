@@ -7727,3 +7727,5 @@ The bottleneck was writing, and the choice inside it took most of it: the duty
 word is answered per beat, so a stack that measured what was *drawn* would
 have walked two rows up and down a beat at a time. It holds the word's row
 whenever the siren is lit, whether or not this seat owes a word.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

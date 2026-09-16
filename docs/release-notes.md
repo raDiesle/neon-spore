@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · e890ff00 — The top of the ship is a stack, so the duty word and TORCH's call stop sharing a row
+
+The siren writes the word this seat owes on its own middle at `cy + DIAL_R + DUTY_DROP` — a baseline of 66. TORCH's call was written at `ALARM_TOP + ALARM_HEIGHT - 2`, which is also 66. So a wave that raised a call and owed a word printed the two over each other, the word centred and the call right-aligned and long enough to reach the middle, and had done since the alarm was written. It is on TORCH's own wave. Photographed at 0efcf7ba on the rehearsal, where `ROCK` sits under the word TORCH — the band had covered both until this morning, which is the only reason nobody had seen it.
+
 ## 2026-09-16 · c9e81ed8 — A page's caption stands off the ship's own chrome, not off the band
 
 The siren, its duty word and TORCH's and THE MAGNET's call rows came out from under the tutorial band earlier today. The caption plate stopped at the band's foot, so the page landed on them instead: `TORCH · COLUMNS 3-4 · CALL IT` read as `-4 · CALL IT` and the duty word `PULL` was half a word, photographed at 9caab36c on both rehearsals. Nothing had got worse — the band had been covering the same rows — but one thing got better and stopped at half legible.
