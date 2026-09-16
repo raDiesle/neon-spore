@@ -85,3 +85,23 @@ export const showsSpliceTangle = (role: ViewRole): boolean => role !== "p1";
  */
 export const flipsField = (role: ViewRole, seat: 1 | 2): boolean =>
   seat === 1 ? role !== "p2" : role === "p2";
+/**
+ * *Whether this screen sees that chamber of THE DIASTOLE beating true.* One
+ * each: the pilot owns the left chamber, the navigator the right, and the one
+ * a seat does not own is drawn as a still grey mass on that screen
+ * (`sim/diastoleSeat`, `diastole-draw.ts`).
+ *
+ * The second entry here to take an argument, and for THE FLIP's reason — which
+ * seat owns which chamber is the boss's to say, not this file's. It is also the
+ * first split in this list that is **symmetric**: every other one keeps
+ * something from *one* of the two seats, and this keeps a different thing from
+ * each of them, which is what makes the fight two counts rather than one count
+ * and one witness.
+ *
+ * `test` is both halves at once, so it sees both beating — and here that is not
+ * the usual *follow the pilot* default but the only honest answer: a person
+ * playing alone is holding both counts, and a screen that showed one chamber
+ * grey would be hiding a count from the only pair there is.
+ */
+export const showsDiastoleBeat = (role: ViewRole, seat: 1 | 2): boolean =>
+  role === "test" || (seat === 1 ? role === "p1" : role === "p2");

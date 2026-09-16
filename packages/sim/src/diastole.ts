@@ -170,6 +170,26 @@ export function diastoleBeating(b: DiastoleState, side: DiastoleSide): boolean {
 }
 
 /**
+ * **How many beats since that chamber last contracted**, 0 on a contraction and
+ * `every - 1` the beat before the next one.
+ *
+ * Nothing in the simulation asks: a contraction is a beat, and a beat is either
+ * a contraction or it is not. This is the picture's question, and it is here
+ * rather than in `render/` for the reason `vaneReachMilli` is — the cadence's
+ * origin and its stride are the boss, and a second copy of the modulo in the
+ * file that draws the pulse is a chamber that beats on one screen and idles on
+ * the other under any change to either number.
+ *
+ * Negative beats are folded, so it answers before `phaseBeat` as well as
+ * after: a phase re-anchors mid-beat and the frame drawn on that boundary is
+ * allowed to ask about the beat that has just gone.
+ */
+export function diastoleSince(b: DiastoleState, beat: number, side: DiastoleSide): number {
+  const every = diastoleEvery(b, side);
+  return (((beat - b.phaseBeat) % every) + every) % every;
+}
+
+/**
  * Whether that chamber is contracting on this beat — which is the only beat it
  * can be hurt on.
  *

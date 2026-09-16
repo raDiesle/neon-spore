@@ -34,6 +34,7 @@ export {
   diastoleEvery,
   diastoleHits,
   diastoleSeat,
+  diastoleSince,
   diastoleStanding,
   FLEET_LEN_MAX,
   FLEET_LEN_MIN,

@@ -33,6 +33,7 @@ export {
   diastoleEvery,
   diastoleHits,
   diastoleSeat,
+  diastoleSince,
   diastoleStanding,
 } from "./diastole.js";
 export { diastoleBoss } from "./diastole-step.js";

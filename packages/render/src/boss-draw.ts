@@ -2,6 +2,7 @@ import { repriseEchoing, repriseLeft, wardenPullMilli, wardenTether } from "@neo
 import { cairnBody, drawCairn } from "./cairn.js";
 import { drawPileHand } from "./cairn-hand.js";
 import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
+import { drawDiastole } from "./diastole-draw.js";
 import type { Effects } from "./effects.js";
 import { chartOf, drawFleetChart } from "./fleet-chart.js";
 import { drawFleetHulls } from "./fleet-hulls.js";
@@ -112,6 +113,15 @@ export function drawBoss(
     echo.note(boss.at < 0 ? -1 : boss.left);
     const seen = repriseEchoing(world);
     drawReprise(ctx, l, world.cfg, seen, repriseLeft(world), echo.swallow, view.time);
+    return;
+  }
+
+  // THE DIASTOLE, and it is above row 0 for THE VANE's reason: the twin lobe
+  // hangs off the top edge, so there is no body of it among the creatures. The
+  // seat is read off the layout inside, because the split here is symmetric —
+  // each screen is shown one chamber beating and one still (`diastole-draw.ts`).
+  if (boss.kind === "diastole") {
+    drawDiastole(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
     return;
   }
 

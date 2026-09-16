@@ -1694,10 +1694,31 @@ strike and on the burst, and nowhere else. A slow on every ordinary hit of the
 learning phase would be the brief's own refusal, *do not turn the entire game
 into permanent slow motion* ([decisions](../decisions.md) #33).
 
-**What it does not draw yet**, and it is the lane after this one: the two
-chambers, each seat's own beating true against the other's grey mass, the
-bridge burst, and the per-seat pulse through `render/src/hull-light.ts`. Until
-that lands the boss plays and is invisible.
+**Drawn, and the picture has three states rather than two.** The two chambers
+hang above row 0, one lane either side of the middle, with the bundle bowing
+between them (`render/src/diastole-draw.ts`, `diastole-bridge.ts`). A chamber a
+seat owns *and* that is keeping a cadence pulses in that seat's colour; one a
+seat owns that has not woken wears the colour and stands perfectly still; one a
+seat does not own is grey. The third state was not designed — it came out of
+the first frame ever taken of this boss, where the navigator's screen through
+the whole of phase `one` was two identical grey masses and the seat that has to
+hold the other player's number could not tell which chamber would become its
+own. Ownership is not timing, so saying it gives away nothing.
+
+**The squeeze is size and brightness only.** A first version deepened the blob's
+lobes on the contraction and the contracting chamber read as a four-pointed
+star while the resting one read as a sac — one body doing something became two
+different bodies. The lobe count is the health and nothing else moves it.
+
+**The bundle never lights on the coincidence**, and that is a refusal rather
+than an omission: it would be the easiest glow in the game to write and it
+would hand the pair the one number they are supposed to arrive at by talking.
+The only thing that moves it is the burst.
+
+**What it still does not draw**: the hull's own pulse. A light that beat in each
+seat's colour from inside the ship would be a change to something the game
+already draws every frame, so it is a VERSUS candidate rather than a lane
+(`docs/looks.md`, `hull-light.ts`).
 
 **Never watched at tempo.** Whether a pair can hold two counts at all at 96 BPM
 is a thing a person finds out with another person, and neither the tests nor

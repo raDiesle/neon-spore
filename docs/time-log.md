@@ -7488,3 +7488,27 @@ since 14 September — queued, because a comment a writer copies a pattern from
 is a different problem from a document a reader is misled by.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — boss-design — THE DIASTOLE's look, and what the first frame said
+
+The second half of the lane above, and the first frame of it paid for itself
+twice. One version had the blob's lobes deepen on the contraction, so the
+squeezing chamber read as a four-pointed star against the resting one's sac —
+one body doing something looked like two different bodies. The other was worse
+and was not a bug: the navigator's screen through the whole of phase `one` was
+two identical grey masses, and the seat that has to hold the other player's
+number could not tell which chamber would become its own. Neither is a thing
+a test would have said.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `vane-draw.ts` as the template for a boss above row 0, `view-role.ts`'s five predicates, `frame-harness.ts`, `boss-draw.ts`'s order |
+| writing | 45 | `diastole-draw.ts`, `diastole-bridge.ts`, `showsDiastoleBeat`, `diastoleSince` in the sim, 15 frame tests |
+| looking | 25 | four `bun run frames . --wave "THE DIASTOLE"` passes at both seats, magnified with `bun run crop`; the star, the loom-straight bundle and the two grey masses all came out of them |
+| friction | 10 | `blobPath` is banned in `render/src` by `path-text.test.ts` and had to become `blobPoints` + `splinePath`; the draw file came out at 251 lines against a 250 limit and the bridge was cut out of it |
+| landing | 10 | `check:fast`, the index rows, the commit |
+
+The bottleneck was looking, and it should have been: a mechanic this file draws
+has no shipped alternative to compare against, so the only test of whether a
+still grey mass reads as *a count you cannot hear* rather than as *a bug* is a
+person looking at one. Three of the four frames changed the code.

@@ -1127,6 +1127,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/tile-seed.ts` | The seed a picture of one tile is drawn from |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
+| `packages/render/src/diastole-draw.ts` | you are drawing THE DIASTOLE — the two chambers above row 0, which seat is shown which one beating, and the bridge parting |
+| `packages/render/src/diastole-bridge.ts` | the bundle between THE DIASTOLE's two chambers, and why it never lights on the coincidence |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |

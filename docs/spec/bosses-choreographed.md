@@ -28,7 +28,7 @@ that list (`CLAUDE.md`, *an idea for the game is not collected*).
 
 | Concept | State | Lane |
 |---|---|---|
-| [§7 THE DIASTOLE](#7-the-diastole--two-clocks-at-once) | **taken, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation, and THE SLOW with it |
+| [§7 THE DIASTOLE](#7-the-diastole--two-clocks-at-once) | **built, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation and THE SLOW, then the look. Worked and written up as [bosses](bosses.md) §11.17 |
 | [§10 THE BATON](#10-the-baton--whose-turn-is-it) | **taken, 16 September 2026** | `claude/boss-implementation-e3cfff` — the simulation half first, the look as the lane after; the next free concept this session takes is claimed here again before a line of it is written |
 | the other thirteen | free | — |
 
@@ -896,9 +896,11 @@ yet and several ideas in [ideas](ideas.md) want.
 
 ### 7. THE DIASTOLE — two clocks at once
 
-> **Taken, 16 September 2026**, on `claude/neon-spore-boss-design-26ee5e`:
-> the simulation of this one, and THE SLOW with it. Do not start it in a
-> second session — see [who is building what](#who-is-building-what-so-two-sessions-do-not-collide).
+> **Built, 16 September 2026**, on `claude/neon-spore-boss-design-26ee5e`: the
+> simulation, THE SLOW with it, and then the look. What shipped and the three
+> places it argues with the design below are [bosses](bosses.md) §11.17 — read
+> that rather than this if you are changing it. The page keeps this section
+> because the *question* it asks is the reason the boss exists.
 
 > The one with two hearts on two cadences, one each, and the fight is the beat
 > they coincide.
