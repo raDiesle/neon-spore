@@ -830,6 +830,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the clock, which seat is showing, and the switch between them |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
 | `packages/render/src/guide-tide-caption.ts` | The words, the ring and the scrim |
+| `packages/render/src/guide-tide-caption-box.ts` | Where a page's caption plate goes, and what is written in it |
 | `packages/render/src/guide-tide-companion.ts` | The second thing a page is about, ringed and never written on |
 | `packages/render/src/guide-tide-membrane.ts` | The living top: three sheets of fluid lying over each other, each with its own drift |
 | `packages/render/src/guide-tide-plate.ts` | TIDE's one body, and the shape every piece of its chrome is cut from: a square with the corners taken off |
@@ -900,6 +901,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ship-air.ts` | THE AIR THE SHIP IS SITTING IN |
 | `packages/render/src/ship-nerves.ts` | what runs from a control to the organ it drives, as a record — drawn under the controls and across the membrane; ships empty, a candidate ship wires it |
 | `packages/render/src/ship-gland.ts` | GLAND's parts: EMBEDDED's arrangement with everything the owner asked for laid over it |
+| `packages/render/src/ship-top-chrome.ts` | How far down the ship's own chrome reaches at the top of a screen |
 | `packages/render/src/volley.ts` | THE VOLLEY's shell: the rock plating a slick or a bulb is sealed inside |
 | `packages/render/src/band-lobes.ts` | Where the round buttons on the band stand, for one seat and one panel |
 | `packages/render/src/band-lock.ts` | The band, put out — the whole of it, or one seat's half |

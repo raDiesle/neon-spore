@@ -590,39 +590,29 @@ mouth reads as a mouth or a line reads at all is to watch it at tempo on a
 screen. A cloud session can change the drawing and cannot tell whether it
 worked, which is how it came to be bad twice.
 
-## A rehearsal's caption box covers the chrome it was just given room over
+## The duty word and TORCH's call are written on the same row
 
+- **Files:** `packages/render/src/siren.ts`, `packages/render/src/torch-alarm.ts`, `packages/render/src/magnet-alarm.ts`
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-a-rehearsals-caption-box-covers-the-chrome-it-wa
-- **Files:** `packages/render/src/guide-tide-caption.ts`, `packages/render/src/caption-anchor.ts`, `packages/render/src/torch-alarm.ts`, `packages/render/src/magnet-alarm.ts`, `packages/render/src/siren.ts`
 
-Found by looking at the fix above it. TORCH's call and THE MAGNET's now drop
-out from under the rehearsal's band — and land under the page's own caption
-box, which is anchored on the radar strip and is the widest thing on that row.
-Photographed at 9caab36c:
+The siren writes the word this seat owes on its own middle at `cy + DIAL_R +
+DUTY_DROP`, which with the dial at 39 is a baseline of 66. TORCH's call is
+drawn at `ALARM_TOP + ALARM_HEIGHT - 2`, which is 66. THE MAGNET's is 80 and
+has the row to itself. So whenever a torch is within `radarLead` beats *and*
+this seat owes a word, the two are printed over each other — the duty word
+centred, the call right-aligned, and `TORCH · COLUMNS 3-4 · CALL IT` is long
+enough to reach the middle.
 
-```
-bun run frames 9caab36c --wave "TORCH" --opening guide --seat p1
-bun run frames 9caab36c --wave "THE MAGNET" --opening guide --seat p1
-```
+Photographed at 0efcf7ba on TORCH's own rehearsal, where `ROCK` sits under the
+word TORCH. It is not new and it is not the rehearsal's: both rows are at the
+same offsets in the running game and have been since the alarm was written.
+The rehearsal is only where it became visible, because the band used to cover
+both.
 
-TORCH's page draws `TORCH · COLUMNS 3-4 · CALL IT` and shows `-4 · CALL IT`;
-THE MAGNET's draws `TARGET ENEMY · COLUMN 6` and shows `LUMN 6`. The siren's
-own duty word, `PULL`, is half under the same box on THE MAGNET's page — so
-this is not about the two rows that just moved, it is about every word the
-ship writes in the middle of the strip.
-
-It was there before and was invisible: the band covered the chrome, so the
-caption had nothing to cover. Nothing got worse; one thing got better and
-stopped at half legible.
-
-The caption already knows how to get out of the way of one thing —
-`handover-look.ts` has `plateBoxAround`, and a caption that would cross THE
-HANDOVER's countdown goes under its ring instead
-(`packages/render/test/guide-plate-room.test.ts` holds it). The same move, for
-the alarm row and the duty word, is the shape of the fix: the box is placed by
-`anchorPoint` plus `CLEAR_STRIP`, and a strip anchor is exactly the one that
-lands on this row.
+Three ways: move the call down by the duty word's height, move the duty word
+down past both alarm rows, or have the call give up its right alignment and
+sit on the row under whichever of the two is up. The first is smallest and the
+last is the one that survives a third row being added.
 
 ## THE SPLICE's clock is under the guide's band
 

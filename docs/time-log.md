@@ -7695,3 +7695,18 @@ over the last whole stride rather than over the wall, and a paragraph in
 `throat-hash.ts` explaining why an anchor is a position.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — a page's caption stands off the ship's own chrome
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `guide-tide-caption.ts`, `caption-anchor.ts`, `handover-look.ts`'s precedent, `guide-scene.ts`'s draw order, `scene.ts`'s `SceneRun` |
+| writing | 25 | three `…Foot` functions, `ship-top-chrome.ts`, the placement split into `guide-tide-caption-box.ts`, `caption-chrome.test.ts` |
+| looking | 10 | the frames that found it, and the frames that showed the fix |
+| friction | 20 | the test passed without the fix twice — first against a posed world instead of the scene's own run, then against the stage's layout instead of the film's |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was friction, and it was one mistake made twice: a page is not
+drawn in the world or the layout it looks like it is drawn in. A regression
+test that cannot be made to fail is worth nothing, and this one had to be
+broken on purpose twice before it was.

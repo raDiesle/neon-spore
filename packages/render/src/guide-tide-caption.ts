@@ -1,15 +1,11 @@
-import { anchorPoint } from "./caption-anchor.js";
 import { halo } from "./glow.js";
 import type { GuideLook } from "./guide-look.js";
-import { BAND_FOOT, CAPTION_FONT } from "./guide-tide.js";
+import { type CaptionBox, captionBox, TEXT_TOP } from "./guide-tide-caption-box.js";
 import { companionPoint } from "./guide-tide-companion.js";
 import { CORNER, crest } from "./guide-tide-plate.js";
-import { handoverPlateBox } from "./handover-look.js";
 import { rgba } from "./hex.js";
 import { LABEL_LINE } from "./label-box.js";
 import { PALETTE } from "./palette.js";
-import { withNames } from "./seat-name.js";
-import { wrapText } from "./wrap-text.js";
 
 /**
  * The words, the ring and the scrim.
@@ -43,21 +39,17 @@ import { wrapText } from "./wrap-text.js";
 
 /** Ticks the caption takes to arrive. */
 const FADE_TICKS = 10;
-const PAD_X = 16;
-const PAD_Y = 12;
-/** Room above the words for the crest, which takes the top of the plate. */
-const CREST_ROOM = 8;
-const LEAD = 18;
 /** How dark the field goes at the edges of the pool, at full fade. */
 const SCRIM = 0.32;
 /** How far past the subject the pool reaches before the dimming begins. */
 const POOL = 34;
 
 export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, beatPhase, names) => {
-  const point = anchorPoint(l, world, set, step.anchor, beatPhase);
-  if (!point) return;
+  const box = captionBox(ctx, l, world, set, step, beatPhase, names);
+  if (!box) return;
   const k = Math.min(1, Math.max(0, (tick - step.tick) / FADE_TICKS));
   if (k <= 0) return;
+  const { point, ring, below, x, y, w, h } = box;
 
   const mate = companionPoint(l, world, step.anchor, beatPhase);
   const pools = [point, ...(mate ? [mate] : [])].map((p) => ({
@@ -66,33 +58,6 @@ export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, be
     r: Math.max(p.r, p.rx ?? 0) + POOL,
   }));
   scrimAround(ctx, l, pools, SCRIM * k);
-
-  ctx.font = CAPTION_FONT;
-  const lines = wrapText(ctx, withNames(step.text, names), l.width - 24 - PAD_X * 2);
-  let tw = 0;
-  for (const line of lines) tw = Math.max(tw, ctx.measureText(line).width);
-  const w = tw + PAD_X * 2;
-  const h = lines.length * LABEL_LINE + PAD_Y * 2 + CREST_ROOM;
-  const x = Math.max(8, Math.min(Math.max(8, l.width - w - 8), point.x - w / 2));
-  const ring = Math.max(point.r, point.rx ?? 0) + 10;
-  const above = point.y - ring - point.clear - LEAD - h;
-  // **THE HANDOVER's plate is a second floor**, in the other direction, and it
-  // came across with the rest of this file when TIDE was taken. A caption
-  // anchored on a strip stands `CLEAR_STRIP` above its ring, which on that
-  // wave is exactly the lip of the band the plate sits on — so the page that
-  // says PLAYER 2 MOVES THE CANNON covered all of THEIR PANEL — BACK IN 3 but
-  // its first two letters (photographed 13 September 2026). A caption can go
-  // under its ring and the plate cannot go anywhere: the countdown is the
-  // fault's only answer to *when* (`handover-look.ts`).
-  const plate = handoverPlateBox(ctx, l, world);
-  const covered =
-    plate !== null &&
-    x < plate.x + plate.w &&
-    x + w > plate.x &&
-    above < plate.y + plate.h &&
-    above + h > plate.y;
-  const below = above < BAND_FOOT || covered;
-  const y = below ? Math.max(BAND_FOOT, point.y + ring + point.clear + LEAD) : above;
 
   ctx.globalAlpha = k;
   if (mate) silentRing(ctx, mate, tick);
@@ -114,6 +79,12 @@ export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, be
 
   // The plate: the same body the buttons are cut from, in the amber the rest
   // of the chrome writes in.
+  drawPlate(ctx, box);
+  ctx.globalAlpha = 1;
+};
+
+/** The plate itself, and the words in it. */
+function drawPlate(ctx: CanvasRenderingContext2D, { x, y, w, h, lines }: CaptionBox): void {
   const g = ctx.createLinearGradient(0, y, 0, y + h);
   g.addColorStop(0, "rgba(22,17,44,.97)");
   g.addColorStop(1, "rgba(7,5,18,.97)");
@@ -126,11 +97,10 @@ export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, be
   ctx.fillStyle = PALETTE.text;
   ctx.textAlign = "center";
   lines.forEach((line, i) => {
-    ctx.fillText(line, x + w / 2, y + CREST_ROOM + PAD_Y + 16 + i * LABEL_LINE);
+    ctx.fillText(line, x + w / 2, y + TEXT_TOP + i * LABEL_LINE);
   });
   ctx.textAlign = "left";
-  ctx.globalAlpha = 1;
-};
+}
 
 /**
  * The field dimmed everywhere but over the page's subjects.

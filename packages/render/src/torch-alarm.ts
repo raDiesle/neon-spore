@@ -49,6 +49,17 @@ export function torchWarning(world: World, lead: number): TorchWarning | null {
   return null;
 }
 
+/**
+ * The lowest this row reaches on a screen with a plate at `clearTop`, or null
+ * when no torch is close enough to be called. For whoever has to keep off it:
+ * a rehearsal's caption box is placed around what the ship has already
+ * written (`ship-top-chrome.ts`).
+ */
+export function torchAlarmFoot(world: World, clearTop: number | undefined): number | null {
+  if (!torchWarning(world, world.cfg.radarLead)) return null;
+  return ALARM_TOP + sirenDrop(clearTop) + ALARM_HEIGHT;
+}
+
 export function drawTorchAlarm(
   ctx: CanvasRenderingContext2D,
   l: Layout,

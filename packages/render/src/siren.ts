@@ -54,6 +54,8 @@ const GAP = 3;
  * the two seat chips, which are level with the dial's own middle. */
 const DUTY_DROP = 12;
 const DUTY_FONT = '700 8px "Courier New",monospace';
+/** Half the duty word's own height, which is what hangs under its middle. */
+const DUTY_HALF = 4;
 
 /**
  * Where the dial's middle is on this screen. Exported for the director's
@@ -87,6 +89,18 @@ export function sirenCentre(
  */
 export function sirenDrop(clearTop: number | undefined): number {
   return headerLift({ clearTop }, TOP + DIAL_R);
+}
+
+/**
+ * The lowest the whole cluster reaches — the dial, or the duty word under it
+ * where this seat owes one — or null when no call is on and nothing is drawn.
+ */
+export function sirenFoot(l: Layout, world: World, clearTop: number | undefined): number | null {
+  if (!commsCall(world)) return null;
+  const { y } = sirenCentre(l, undefined, clearTop);
+  if (dutyWord(l.role, world) === null) return y + DIAL_R;
+  // The word is drawn on its middle, so half of it hangs under its baseline.
+  return y + DIAL_R + DUTY_DROP + DUTY_HALF;
 }
 
 export function drawCommsSiren(

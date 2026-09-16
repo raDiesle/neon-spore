@@ -50,6 +50,17 @@ export function magnetCall(l: Layout, world: World): number | null {
   return null;
 }
 
+/** The lowest this row reaches, or null on a screen not being told to aim —
+ * the navigator's, or a wave with no magnet due (`torch-alarm.ts`). */
+export function magnetAlarmFoot(
+  l: Layout,
+  world: World,
+  clearTop: number | undefined,
+): number | null {
+  if (magnetCall(l, world) === null) return null;
+  return ALARM_TOP + sirenDrop(clearTop) + ALARM_HEIGHT;
+}
+
 export function drawMagnetAlarm(
   ctx: CanvasRenderingContext2D,
   l: Layout,
