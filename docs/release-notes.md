@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 05c750d5 — THE THROAT: the one boss you answer by giving it something, and the mouth is a function of the beat
+
+A gullet of five ring muscles hangs from the top of the field to `throatMouthRow`, ending in a mouth one column wide that slides along that row. Nothing of it is a body, so no shot touches it and shots pass straight through the tube — which is deliberate and load-bearing: player 2's answer to a creature about to be eaten is to shoot it in the mouth's own column. Every six beats it inhales, and the inhale swallows before it lifts: whatever stands in the mouth is taken and everything else in that column is hauled a row closer. **A swallowed body re-tightens a slack ring**, so the boss heals out of the wave's own arrivals and the pair's habit of clearing the field is what feeds it. The only thing that hurts it is THE GUM, flung level along the mouth's row into the mouth, which chokes a ring for good. Health is the five rings; at five slack it everts.
+
 ## 2026-09-16 · 22e7fbd1 — An entry's title cannot shout the marker its own fields already say
 
 `bun run queue list` builds each line as `<title> — ASKS THE OWNER — LOCAL ONLY`, off the `Asks:` and `Where:` fields. Two entries written on 16 September 2026, in two lanes, said `— ASKS THE OWNER` in the title as well, so the listing printed it twice — and the title is the string `take`, `release` and `done` match on, so the doubled one is what a session has to type. Both titles are cut and the parser refuses the shape now, with `LOCAL ONLY` and `CLOUD ONLY` held the same way.
