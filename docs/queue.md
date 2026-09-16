@@ -457,6 +457,7 @@ through a husk sucked and a husk refused.
 ## THE WEIGHT's duty words say both touch at the same time
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Taken:** 2026-09-16, claude/queue-the-weights-duty-words-say-both-touch-at-the-sam
 - **Files:** `packages/render/src/duty.ts`, `packages/render/test/frame.test.ts`
 
 THE WEIGHT is in the game — `sim/weight.ts`, the brush, and the wave
