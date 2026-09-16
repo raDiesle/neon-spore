@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 3a37fa79 — The guide rings what the pair has to act on, and writes nothing on it
+
+TIDE's second half. A page that says PLAYER 1 MOVES CANNON rings the cannon and says nothing about what the cannon is being moved to, which is the half of the sentence a pair actually has to act on — "so also slick must be highlighted, but no text at the same time". A control that stands something over a column now also rings, silently, the lowest body coming down that column.
+
 ## 2026-09-16 · f609f863 — A sixth answer for the guide's chrome, built out of the owner's own three
 
 `guide:chrome` / `tide`. The owner read the five standing candidates and said which parts of which he wanted: CONSOLE's positions and its dashed amber ring, RIBBON's moving top and the shape of its box of words, SPOTLIGHT's idea about the field. Each came with a correction in his own words, and all four are here.

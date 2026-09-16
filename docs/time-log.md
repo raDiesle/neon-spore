@@ -6906,3 +6906,5 @@ them overlap and the far field goes to twice the darkness the owner asked to
 have reduced. Cutting both holes out of one flat fill under the even-odd rule
 is the answer, and it is the same move `creature:bite` / `notch` made for a
 different reason — worth knowing before the next look wants two pools.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
