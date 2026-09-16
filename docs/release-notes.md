@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 1f3d8936 — A boss that goes somewhere rather than loops, read off A Way Out
+
+Every boss in this game is a cadence the pair learns and then executes until the body runs out, and none of them has a second act. `spec/bosses-choreographed.md` is the store of the other kind: fifteen concepts whose content is an authored sequence, each asking a question no shipped boss asks, with the beat list, the per-seat split, the payoff frame and the cost written out.
+
 ## 2026-09-16 · 92a2b8d7 — The hole is shown to have an inside
 
 The owner took `ship:hull-break` / `gape` on 16 September 2026 and changed most of it in the same breath: the crater keeps exactly the shape the game has always drawn, and what is new stands inside it. Ribs of the frame in the hole's own dark where the skin came off, the vent's glow at the mouth, the torn lip — and one glowing cut running a little way down out of the hole, with a narrow tongue of the hole's own colour carried with it.
