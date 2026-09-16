@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · f609f863 — A sixth answer for the guide's chrome, built out of the owner's own three
+
+`guide:chrome` / `tide`. The owner read the five standing candidates and said which parts of which he wanted: CONSOLE's positions and its dashed amber ring, RIBBON's moving top and the shape of its box of words, SPOTLIGHT's idea about the field. Each came with a correction in his own words, and all four are here.
+
 ## 2026-09-16 · 2d186a23 — THE REPRISE is drawn: the sky torn open, and a tooth for every body still owed
 
 The mechanism is at the top of the field, dead centre, and it is the whole of what either seat is given while an echo is running. The field's own top edge is torn open, lifted and flared at both ends, with the dark the wave went into hanging under it; one tooth in that tear for every body the running echo still owes; and a swallow — the tear clenching, the mass heaving down through it — each time one is sent. Rock grey, and it does not move sideways: a colour would hand the navigator half of what they were meant to have remembered and a column would hand the pilot the other half. The tear shuts to a seam while a stretch is running seen, so the silhouette alone says whether the field in front of the pair is one they can see.

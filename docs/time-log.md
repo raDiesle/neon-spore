@@ -6884,3 +6884,5 @@ of a stronger fill — three lines that cross and part say there are three
 surfaces; three fills say there is one. Worth knowing before writing the next
 one: on a band under 100 px, an edge is read from its line and never from its
 body.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
