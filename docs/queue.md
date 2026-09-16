@@ -553,6 +553,7 @@ are named in the test's own failure message.
 ## A lost wave has to be seen: the hit, the ship breaking, and go again
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-16, claude/queue-a-lost-wave-has-to-be-seen-the-hit-the-ship-brea
 - **Files:** `packages/render/src/effects-breach.ts`, `packages/render/src/hull-shock.ts`, `packages/render/src/shatter.ts`, `packages/render/src/scars.ts`, `packages/render/src/hull-skin.ts`, `packages/render/src/lost-screen.ts`, `packages/sim/src/wave-fail.ts`, `packages/render/test/frame.test.ts`, `packages/render/test/restart.test.ts`
 
 The owner asked for this on 16 September 2026, in his own words: *as we
