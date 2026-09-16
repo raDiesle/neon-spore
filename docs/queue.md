@@ -566,6 +566,7 @@ it with `bun run check` and one frame of the opening.
 ## Two fake DOMs, neither of them the other's
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-16, claude/queue-two-fake-doms-neither-of-them-the-others
 - **Files:** `tools/director/test/fake-dom.ts`, `apps/game/test/fake-dom.ts`, `tools/director/test/*.test.ts`, `apps/game/test/first-meeting.test.ts`
 
 `bun test` carries no DOM and this repository has now answered that twice. The
