@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 3e20bde1 — The trunk's account of the same days, and it is three times shorter
+
+`docs/time-log.md` says 3 385 minutes went into 15 September; that day's own commits span 860. The 14th is 2 395 against 969 and the 16th 1 790 against 634. It is not parallel sessions — six of the 204 work landings since 13 September landed more than ten minutes after they were written, and the author dates on `main` run strictly forward, one lane at a time. What the trunk says instead is that the ordinary pace is a landing every seven minutes, and that the longest lanes are long in calendar time too but by less than the rows claim: THE MOULT is 74 minutes between landings against 245 logged, THE MINE 70 against 220.
+
+## 2026-09-16 · e137e916 — The document sweep runs on every fast check, whichever end breaks it
+
+Adding `tools/test` to the docs rows earlier today catches a document that names a file the tree has not got. It cannot catch the other direction: a lane that *renames* a file breaks every document naming it, and that is a change in `packages/` no docs row reaches. `doc-drift.test.ts` reads the whole tree in a sixth of a second, which is what the other four sweeps have in common, so it joins them.
+
 ## 2026-09-16 · a4183433 — The docs row is written out a second time, in the fast check's own test
 
 `fast-scope.test.ts` carries its own copy of what a `docs/*.md` change maps to, so adding `tools/test` to the two rows in `scope.ts` was green in `tools/hooks` and red in `tools/check` a hundred seconds into the landing. The copy is updated and the minutes are in the time log, where the entry for this lane now says what it cost: it is the *one new fact, four tables* entry queued in the commit before this one, met by the lane that wrote it.
