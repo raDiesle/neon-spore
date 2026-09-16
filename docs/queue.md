@@ -574,3 +574,75 @@ to every rehearsal, which is the owner's *I don't want to show old cards* said
 again unless it is his own idea. Keeping them as reference costs nothing and
 wants one sentence in `wave-types.ts` saying who the audience is, so the next
 lane does not spend a morning on prose that reaches nobody.
+
+## The time log conflicts on every rebase and nothing merges it
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `tools/land/replay.ts`, `tools/land/queue-merge.ts`, `tools/land/index-merge.ts`, `tools/land/note-commit.ts`, `tools/land/test/`
+
+`replay.ts` settles two conflicts on its own, and its header says why each is
+not a disagreement anybody authored: `docs/queue.md`, because one tool wrote
+both sides, and `docs/INDEX.md`, because it is generated. **`docs/time-log.md`
+is neither of those and conflicts just as reliably** — it is append-only, every
+lane adds one `##` entry at the end, and two lanes landing in the same hour
+always add theirs in the same place. `docs/release-notes.md` is the same shape
+from the other end, written by `note-commit.ts` itself.
+
+It cost four hand-resolutions in one afternoon on 16 September 2026, all four
+identical: take the trunk's copy whole, re-append this lane's own entry, check
+that nothing else moved. `CLAUDE.md` already prescribes exactly that, which is
+the tell — a rule a person is told to follow by hand, on a file two tools
+write, is a resolver waiting to be written.
+
+**Why it is worth more than the minutes it saves.** It is the whole measured
+cost of running two sessions at once (`docs/lane-speed.md`): the trunk is
+otherwise one lane wide, and the only thing that makes a second lane expensive
+is this file and its neighbour. Every other kind of collision on that afternoon
+was zero.
+
+The merge is the easiest of the three already there: **both files are records
+in which nothing is ever edited or removed**, so a merge is the trunk's entries
+followed by whichever ones this lane added, in the order they were written. The
+refusal rule stays `queue-merge.ts`'s — if either side rewrote an entry that
+already existed, resolve nothing and stop the landing, because a record that
+was rewritten is the one case a resolver must not guess at.
+
+Provable with `bun run check`: `tools/land/test/` already drives the replay
+against a temporary repository, so this is a case beside those — two lanes,
+one entry each, and a third case where a past entry was edited and the merge
+refuses.
+
+## `--press` never says which column it actually pressed
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `tools/frames/press-plan.ts`, `tools/frames/press.ts`, `tools/frames/press-command.ts`, `tools/frames/spec.ts`, `tools/frames/test/`
+
+Eleven lanes and 95 friction minutes in `docs/time-log.md` went on photographing
+the wrong thing, and the ledger names the cause in one of them: *a wave is
+authored in seven columns and played in eleven, so `--press cannonCol=1` put
+the cannon under a column the gum was not in, and three sheets showed a bolt
+sailing past a body it was never aimed at.* That entry ends with the fix
+already worked out — `buildQueue` says where a body actually is, and asking it
+first would have cost twenty seconds.
+
+`pressPlan`'s own header is the precedent for where this belongs: it carries a
+rule that is *invisible at the call site and cost a lane a picture*, and it is
+tested as a function for exactly that reason. This is the second rule of that
+kind. A press that names a column is a press against the field the wave is
+**played** on, and the number a person reads off a wave file is the column it
+was **authored** in; the two agree only on a seven-column field.
+
+What to do, in the order that costs least: say the remapped column back when a
+press names one, so a sheet that went to the wrong lane says so in its own
+output; and when the run also names a wave, ask `buildQueue` what is standing
+in that column at that beat and warn when the answer is nothing. A warning
+rather than a refusal — a picture of an empty column is a legitimate thing to
+want, and a lane that meant it should not have to argue with a tool.
+
+One thing it must not do: reach into the simulation to *move* anything. The
+tool photographs a world; a press that quietly became a different press would
+be a picture of something nobody asked for, which is the failure one level
+worse than the one this fixes.
+
+Provable with `bun run check`: `tools/frames/test/` holds the planner already,
+and the remap is a pure function over a column and a field width.

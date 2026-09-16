@@ -6673,3 +6673,26 @@ opening is its rehearsal — a wave with a film never reaches `drawProsePage`, s
 59 waves carry prose no phone shows. That is queued with the question.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — task-performance-optimization — the last two speed findings go on the list
+
+The owner asked the same question twice — *all your suggestions of speeding up
+tasks is added to queue already?* — and the honest answer the first time was
+no. Two were still only in a report, which is the one place `docs/queue.md`'s
+preamble says a finding may not live.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `tools/land/replay.ts` and its two resolvers, `note-commit.ts`, `pressPlan`'s header |
+| writing | 5 | two queue entries |
+| looking | 0 | — nothing drawn |
+| friction | 0 | — two titles over 80 characters, which `bun run queue` said before the commit did |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was nothing, and what the reading changed is worth the entry it
+is in: the first finding was going to be *two sessions at once is free*, which
+is a working practice nobody can prove with `bun run check`. Opening
+`replay.ts` turned it into something that can be — the landing already merges
+`docs/queue.md` and `docs/INDEX.md` on its own and the time log is neither,
+which is the entire measured cost of a second lane on the trunk. A practice
+became a resolver, and only one of those two is work.
