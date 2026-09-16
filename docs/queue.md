@@ -589,6 +589,7 @@ worked, which is how it came to be bad twice.
 ## The director's WAVE tab has a BRIEFING heading with nothing under it
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-the-directors-wave-tab-has-a-briefing-heading-wi
 - **Files:** `tools/director/index.html`, `tools/director/src/wave-opening.ts`, `tools/director/src/main.ts`
 
 `renderWaveOpening` is one line — `document.getElementById("waveBriefing")
