@@ -28,9 +28,9 @@ import { fleetCue } from "./bind-fleet.js";
 import { gumCue } from "./bind-gum.js";
 import { handedCue } from "./bind-handed.js";
 import { impactCue } from "./bind-impact.js";
-import { POD_TAKEN_SOUNDS } from "./bind-lookups.js";
 import { mirrorCue } from "./bind-mirror.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
+import { podCue } from "./bind-pod.js";
 import { spliceCue } from "./bind-splice.js";
 import { volleyCue } from "./bind-volley.js";
 import { wardenCue } from "./bind-warden.js";
@@ -99,12 +99,14 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
         pan: panForCol(e.col, cols),
         pitch: pitchForRow(e.row, rows) * (e.dir === 1 ? 1.06 : 0.94),
       };
+    // The maw, in `bind-pod.ts`: a pod freed, taken or broken, and the husk
+    // that is the same arrival paying the other way.
     case "podLoose":
-      return { id: "pod.loose", pan: panForCol(e.col, cols) };
     case "podTaken":
-      return { id: POD_TAKEN_SOUNDS[e.kind] ?? "pod.takenMend", pan: panForCol(e.col, cols) };
     case "podLost":
-      return { id: "pod.lost", pan: panForCol(e.col, cols) };
+    case "huskRefused":
+    case "huskSwallowed":
+      return podCue(e, cols);
     case "breach":
       return breachCue(e, cols);
     // THE WARDEN's four, in `bind-warden.ts`: a rope, a door, a plate, and

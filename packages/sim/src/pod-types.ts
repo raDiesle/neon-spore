@@ -53,8 +53,27 @@ export interface Pod {
   driftMilli: number;
   /** False while it hangs, true once it is falling. */
   loose: boolean;
-  /** What it gives when it is swallowed. Authored, never random. */
+  /** What it gives when it is swallowed. Authored, never random. On a husk it
+   * is what the thing is **pretending** to give, and it gives nothing. */
   kind: PodKind;
+  /**
+   * **A husk: a pod that should be refused.**
+   *
+   * The owner's design of 15 September 2026. It hangs at a column and a row
+   * like a pod, is freed by a shot like a pod, sinks to the maw like a pod,
+   * and wears a real cargo's own face on player 1's screen — `kind` is what it
+   * shows, and it shows one of the two real ones. Taking it in loses the wave.
+   * Refusing it costs nothing at all: it goes the way of a balloon let go.
+   *
+   * **A flag and not a fourth `PodKind`,** which is what the queue entry
+   * proposed. `PodKind` is *what a cargo gives*: it is the receipt on the
+   * banner, the glyph on the core, the switch in `takeCargo` and the list a
+   * moult's cargo is chosen from. A fourth member would need an entry in every
+   * one of those, and every one of them would be the tell — a husk that can be
+   * named before it is swallowed is free to ignore, and free to ignore is not
+   * a decision.
+   */
+  husk: boolean;
   /**
    * How fast it crosses the field while it is still moored, in thousandths of
    * a tile per tick, signed — negative leftwards. Nought is a pod that hangs

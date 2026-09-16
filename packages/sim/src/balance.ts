@@ -44,6 +44,10 @@ export interface RunStats {
   podsTaken: number;
   /** Pods that reached the maw and broke on the skin. */
   podsLost: number;
+  /** Husks that reached the ship and were kept out (`pod-intake.ts`). */
+  husksRefused: number;
+  /** Husks that were swallowed, each of which lost the wave it was on. */
+  husksSwallowed: number;
   /** Shots that met a living creature in its own colour. */
   colorHits: number;
   /** Shots that met one in the other colour. */
@@ -99,8 +103,15 @@ export function balanceSheet(world: World): BalanceSheet {
   const b = world.balance;
   const podsArrived = b.podsTaken + b.podsLost;
   const shots = b.colorHits + b.colorMisses;
-  const good = g.deflected + b.podsTaken + b.colorHits;
-  const moments = g.tries + podsArrived + shots;
+  // A husk that reached the ship is a joint moment like any other — one of
+  // them saw it for what it was and the other stayed out of its way — so it
+  // counts towards the shared percentage. It is deliberately not in `pods`:
+  // that line says *pods taken in, of every pod that reached the maw*, and a
+  // husk is neither taken nor a pod. **The sheet has no line of its own for
+  // one yet** (`docs/queue.md`).
+  const husksArrived = b.husksRefused + b.husksSwallowed;
+  const good = g.deflected + b.podsTaken + b.colorHits + b.husksRefused;
+  const moments = g.tries + podsArrived + shots + husksArrived;
 
   return {
     sync: share({ good, of: moments }),
@@ -167,6 +178,8 @@ export function emptyRunStats(): RunStats {
     podsFreed: 0,
     podsTaken: 0,
     podsLost: 0,
+    husksRefused: 0,
+    husksSwallowed: 0,
     colorHits: 0,
     colorMisses: 0,
     streak: 0,

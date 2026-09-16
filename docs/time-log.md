@@ -7764,3 +7764,20 @@ out of — were invisible in the source and obvious in the picture. The scene ha
 been changed twice by sessions that could not take one.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — THE HUSK, half one: the simulation
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the queue entry's own contradiction, `PodKind`'s five consumers, `pod-intake.ts`, `beat.ts`'s clear |
+| writing | 45 | `Pod.husk` and the inverted receipt, the two counters, the two events, `husk.test.ts` |
+| looking | 0 | — nothing is drawn: the look is half two |
+| friction | 20 | three 250-line limits tripped in one lane, each found by `check:fast` after the previous fix |
+| landing | 10 | `check:fast` four times, the queue entry, the commit |
+
+The bottleneck was friction, and it was the file limit: one boolean on `Pod`
+and two counters on `RunStats` pushed `beat.ts`, `hash.ts` and `bind.ts` over
+250 lines one after another, and each was only found by running the whole
+check again. The three splits — `wave-end.ts` taking the predicate,
+`hash-pods.ts`, `bind-pod.ts` — are all along seams those files already had,
+so the cost was the round trips and not the thinking.

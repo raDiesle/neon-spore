@@ -186,6 +186,12 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       ctx.ship.swallowPod(e.kind);
       break;
     }
+    // **A husk is silent to the eye here**, and that is this half of the
+    // creature: the simulation knows what a husk is worth, and nothing draws
+    // one until its look lands. No wave hangs one yet, so this runs for nobody.
+    case "huskRefused":
+    case "huskSwallowed":
+      break;
     case "volleyReturn":
       // The banner a ward earns, and the only half of a `deflect` a volley
       // takes: the pair put the shield in the column and the trigger on the

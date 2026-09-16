@@ -80,6 +80,38 @@ export function cargoLost(world: World, col: number): void {
   world.events.push({ type: "podLost", col: clampCol(world, col) });
 }
 
+/**
+ * **A husk swallowed: the wave is lost.** The receipt is inverted — a pod
+ * gives and a husk takes the same thing away — and the price is the one a lure
+ * costs for the same mistake, which is the whole of the shape: the reflex that
+ * pays off against every other thing that reaches the maw is the mistake here,
+ * and only one of the two can see which is which.
+ *
+ * `podsTaken` is not moved. That counter is *pods taken in, of every pod that
+ * reached the maw* and feeds the sheet's own line; a husk is neither taken nor
+ * a pod, and counting it there would put a lost wave in the column that says
+ * the pair met each other.
+ */
+export function huskSwallowed(world: World, col: number): void {
+  world.balance.husksSwallowed += 1;
+  markMoment(world, false);
+  failWave(world);
+  world.events.push({ type: "huskSwallowed", col: clampCol(world, col) });
+}
+
+/**
+ * **A husk refused: nothing at all happens.** The maw was shut, or the cannon
+ * was elsewhere, and the thing goes the way of a balloon let go — no damage,
+ * no scar, no hit. It is still a joint moment and the best kind: the navigator
+ * saw the lie and the pilot stayed out of its way, which is two people doing
+ * two different things about one object.
+ */
+export function huskRefused(world: World, col: number): void {
+  world.balance.husksRefused += 1;
+  markMoment(world, true);
+  world.events.push({ type: "huskRefused", col: clampCol(world, col) });
+}
+
 /** The column an event may name, which is one that exists. A cargo blown a
  * tile past the wall is still lost in the wall's own column. */
 function clampCol(world: World, col: number): number {

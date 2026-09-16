@@ -20,7 +20,7 @@ import { breakSpentStrands } from "./strand-round.js";
 import { isBossBody } from "./types.js";
 import { stepVeer } from "./veer.js";
 import { veilMorph } from "./veil.js";
-import { noteWaveCleared } from "./wave-end.js";
+import { hangingHusk, noteWaveCleared } from "./wave-end.js";
 import { wispHops, wispOnField } from "./wisp.js";
 import type { World } from "./world.js";
 
@@ -231,7 +231,7 @@ export function onBeat(world: World): void {
   const cleared =
     world.spawned >= world.queue.length &&
     world.creatures.length === 0 &&
-    world.pods.length === 0 &&
+    world.pods.every(hangingHusk) &&
     (boss === null || !bossHoldsWave(boss.kind));
   if (cleared) noteWaveCleared(world);
 }

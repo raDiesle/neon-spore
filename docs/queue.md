@@ -360,6 +360,31 @@ on both seats and mid-deflation.
 Prove it with `bun run check`, a replay test, and the wave watched at tempo
 through a husk sucked and a husk refused.
 
+## The balance sheet counts a husk and never names one
+
+- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Files:** `packages/sim/src/balance.ts`, `packages/render/src/balance.ts`, `tools/director/src/balance.ts`, `packages/sim/test/balance.test.ts`
+
+THE HUSK's simulation landed with two counters — `husksRefused` and
+`husksSwallowed` — and `balanceSheet` folds both into `sync`: a refusal is one
+of the *good* moments, a swallow is one of the moments and not a good one, and
+that is right, because keeping a lie out of the ship is two people doing two
+different things about one object. What it does **not** have is a line of its
+own. The sheet's `pods` Tally is deliberately pods alone (a husk is neither
+taken nor a pod, and putting it there would report a lost wave in the column
+that says the pair met each other), so a pair who swallowed three husks read a
+`sync` that dropped and nothing anywhere saying why.
+
+What it needs is one more Tally beside `pods` — refused of arrived — carried
+through the three files that draw the sheet. The wording is the argument: the
+*good* half is the one that was **refused**, which is the opposite way round
+from every other line on the sheet, and a reader who skims it will read it the
+familiar way unless the label says so.
+
+Do it with the husk drawn, not before: a line naming a creature nobody has
+seen on the field is a sheet that explains a picture the pair have never been
+shown.
+
 ## A rehearsal cannot show a finger on a bare tile, so THE MINE has no film
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9

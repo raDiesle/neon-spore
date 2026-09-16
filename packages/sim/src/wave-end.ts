@@ -1,3 +1,4 @@
+import type { Pod } from "./types.js";
 import type { World } from "./world.js";
 
 /**
@@ -7,6 +8,9 @@ import type { World } from "./world.js";
  * A round's path is `step.ts`: the round says it is spent, and there is no
  * field to be empty. Both have to credit the clear and start the same rest, so
  * both call the same two functions rather than each writing the rule out.
+ *
+ * And what may still be standing when it does: `hangingHusk`, which is the one
+ * object on the field that does not hold a wave open.
  */
 
 /**
@@ -68,4 +72,20 @@ export function endSpentRound(world: World): void {
   if (!roundSpent(world)) return;
   noteWaveCleared(world);
   progressWave(world);
+}
+
+/**
+ * Whether this pod is one a wave may end on top of: **a husk still hanging,
+ * and only that.**
+ *
+ * A pod holds the wave open because a pod still hanging is a pod still to be
+ * freed and taken. A husk is the opposite errand — the right answer to one is
+ * to leave it exactly where it is — so a wave that is otherwise over is not
+ * held open by a lie nobody took the bait on. A husk already *falling* holds
+ * it like any other pod: it is a thing in the air about to cost the pair a
+ * wave or nothing, and clearing over the top of it would decide that with a
+ * race between two counters.
+ */
+export function hangingHusk(p: Pod): boolean {
+  return p.husk && !p.loose;
 }

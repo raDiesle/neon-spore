@@ -127,6 +127,8 @@ const pod = (): Required<Pod> => ({
   driftMilli: -30,
   loose: true,
   kind: "ward",
+  // The lie, since this fixture carries every field at its non-default value.
+  husk: true,
   crossMilli: 300,
 });
 
@@ -322,6 +324,8 @@ export function populatedWorld(bossKind: BossEntry["kind"]): World {
     streak: 3,
     bestStreak: 5,
     wavesCleared: 2,
+    husksRefused: 3,
+    husksSwallowed: 1,
   };
   world.brief = {
     phase: 1,

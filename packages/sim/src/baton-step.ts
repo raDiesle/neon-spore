@@ -126,6 +126,8 @@ function land(world: World, b: BatonState): void {
     driftMilli: 0,
     loose: true,
     kind: "purge",
+    // A bead is a real cargo. THE BATON's arm is beaten by taking it in.
+    husk: false,
     crossMilli: 0,
   });
 }

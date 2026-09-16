@@ -2,7 +2,7 @@ import { batonBeadTaken } from "./baton-press.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import type { PodEntry } from "./entries.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
-import { cargoLost, mawOpen, takeCargo } from "./pod-intake.js";
+import { cargoLost, huskRefused, huskSwallowed, mawOpen, takeCargo } from "./pod-intake.js";
 import { nextInt } from "./rng.js";
 import type { Pod, PodKind } from "./types.js";
 import { MILLI, type World } from "./world.js";
@@ -26,6 +26,11 @@ import { MILLI, type World } from "./world.js";
  * come loose has to be able to tell what it is before it decides how to
  * chase it. The effect lands all at once, on the tick of the catch; there is
  * no pickup that waits to be spent.
+ *
+ * **And one of them is a lie.** A husk hangs and falls and arrives exactly as
+ * a pod does, wearing a real cargo's face, and swallowing it loses the wave
+ * (`Pod.husk`, `pod-intake.ts`). Nothing in this file treats it as a separate
+ * object: it is the receipt at the mouth that differs and nothing before it.
  *
  * **And a pod is taken, or the wave is lost.** The owner's rule of 12
  * September 2026 lists *sucked* beside destroyed, evaded and shielded as the
@@ -88,6 +93,7 @@ export function spawnPods(world: World): void {
       driftMilli: 0,
       loose: false,
       kind: podKindOf(entry),
+      husk: entry.husk === true,
       // Which way it crosses, and how fast. Absent is nought, which is a pod
       // that hangs exactly as every pod did before THE CLAW.
       crossMilli:
@@ -158,8 +164,11 @@ export function advancePods(world: World): void {
       if (p.crossMilli !== 0) {
         p.colMilli += p.crossMilli;
         if (p.colMilli < -MILLI || p.colMilli > edge + MILLI) {
-          // And a window that shut is a pod not taken: the wave is lost.
-          lost(world, p);
+          // And a window that shut is a pod not taken: the wave is lost. A
+          // husk that crossed and left is the opposite — the pair let a lie go
+          // past, which is exactly what they were supposed to do.
+          if (p.husk) huskRefused(world, Math.round(p.colMilli / MILLI));
+          else lost(world, p);
           continue;
         }
       }
@@ -207,6 +216,16 @@ function resolveIntake(world: World, pod: Pod): void {
   const col = Math.round(pod.colMilli / MILLI);
   const inColumn = world.cannonCol === col;
   const inTime = mawOpen(world);
+
+  // **A husk is the same two conditions, read the other way up.** Everything
+  // about getting it here is a pod's — the column, the moment, the maw — and
+  // only the receipt is inverted, which is the point: the pair cannot practise
+  // a husk separately from a pod, because up to this tick it *is* one.
+  if (pod.husk) {
+    if (inColumn && inTime) huskSwallowed(world, col);
+    else huskRefused(world, col);
+    return;
+  }
 
   if (inColumn && inTime) {
     takeCargo(world, col, pod.kind);

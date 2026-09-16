@@ -1,7 +1,7 @@
 import { bossHashParts } from "./hash-boss.js";
 import { creatureHashParts } from "./hash-creature.js";
 import { faultHashParts } from "./hash-faults.js";
-import { POD_KINDS } from "./types.js";
+import { podHashParts } from "./hash-pods.js";
 import type { World } from "./world.js";
 
 /**
@@ -139,6 +139,8 @@ export function hashWorld(world: World): number {
   push(world.balance.podsFreed);
   push(world.balance.podsTaken);
   push(world.balance.podsLost);
+  push(world.balance.husksRefused);
+  push(world.balance.husksSwallowed);
   push(world.balance.colorHits);
   push(world.balance.colorMisses);
   push(world.balance.streak);
@@ -220,21 +222,8 @@ export function hashWorld(world: World): number {
     push(b.aimMilli);
   }
 
-  push(world.pods.length);
-  for (const p of world.pods) {
-    push(p.id);
-    push(p.colMilli);
-    push(p.rowMilli);
-    push(p.driftMilli);
-    push(p.loose ? 1 : 0);
-    // What it gives when it is swallowed — `pods.ts` switches on it for hull,
-    // for a swept field or for an armed shield, so two devices that disagree
-    // here disagree about the state of the ship a beat later.
-    push(POD_KINDS.indexOf(p.kind) + 1);
-    // How it crosses. A device that disagrees here is watching a power-up in a
-    // different column from the one the other device has the arm over.
-    push(p.crossMilli);
-  }
+  // The pods, and whether each is what it says it is (`hash-pods.ts`).
+  for (const n of podHashParts(world.pods)) push(n);
 
   push(world.scars.length);
   for (const s of world.scars) {

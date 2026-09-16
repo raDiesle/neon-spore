@@ -86,6 +86,14 @@ export function burstFor(e: SimEvent, l: Layout): Burst | null {
       return at(l, e.col, e.row, 10, PALETTE.ember);
     case "podLost":
       return { x: tileCX(l, e.col), y: l.hullY, n: 12, hex: PALETTE.sparkDim };
+    // **The husk has no picture yet, on purpose.** This half of the creature is
+    // the simulation alone, and nothing hangs a husk on any field the game
+    // ships, so a burst written here could not be looked at. The deflating
+    // balloon a refused one goes out as, and what a swallowed one costs the
+    // hull, arrive with its look.
+    case "huskRefused":
+    case "huskSwallowed":
+      return null;
     // The ignition, at the tile the body stood in. It used to be eight grey
     // particles, smaller than a kill so a shot that felt satisfying to fire
     // read as smaller than it felt; a lure now goes up and takes the hull with

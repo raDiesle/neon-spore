@@ -137,6 +137,10 @@ export type SimEvent =
   | { type: "podLoose"; col: number; row: number }
   | { type: "podTaken"; col: number; kind: PodKind }
   | { type: "podLost"; col: number }
+  /** A husk went in, and the wave with it (`pod-intake.ts`). */
+  | { type: "huskSwallowed"; col: number }
+  /** A husk reached the ship and was refused: it deflates and is gone. */
+  | { type: "huskRefused"; col: number }
   | {
       type: "breach";
       col: number;

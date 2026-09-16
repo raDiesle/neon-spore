@@ -334,6 +334,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
 | `packages/sim/src/hash-faults.ts` | the fault half of the world fingerprint |
+| `packages/sim/src/hash-pods.ts` | The pods on the field, folded into the world hash |
 | `packages/sim/src/fence-crack.ts` |  |
 | `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
 | `packages/sim/src/handover.ts` | **THE HANDOVER's clock, and nothing else**: when the two panels change screens, how long they stay changed, and how many beats of warning first — no state, nothing hashed, no command swallowed |
@@ -1236,6 +1237,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-lookups.ts` | The two id-to-id tables `bind.ts` reads, and the only *data* in a file that is otherwise a switch |
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
+| `packages/audio/src/bind-pod.ts` | **What the one thing on the field that is *taken* sounds like** |
 | `packages/audio/src/bind-coil.ts` | **THE COIL's two, as sounds**: a dome coming off, and the charge it was holding leaving for the next one |
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |

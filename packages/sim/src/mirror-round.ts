@@ -108,6 +108,9 @@ export function releaseBait(world: World): void {
     // A ward, since the plain pod went: what it says it holds is beside the
     // point, because touching it at all is the mistake.
     kind: "ward",
+    // Bait, and still a real pod: the mistake it punishes is reaching for it
+    // at all, not swallowing something hollow.
+    husk: false,
     crossMilli: 0,
   });
 }
