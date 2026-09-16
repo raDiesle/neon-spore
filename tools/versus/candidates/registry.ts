@@ -14,6 +14,9 @@ import { GUIDE_CONSOLE } from "./guide-chrome/console/index.js";
 import { GUIDE_RAIL } from "./guide-chrome/rail/index.js";
 import { GUIDE_RIBBON } from "./guide-chrome/ribbon/index.js";
 import { GUIDE_SPOTLIGHT } from "./guide-chrome/spotlight/index.js";
+import { STRIKE_HAMMER } from "./ship-breach-strike/hammer/index.js";
+import { STRIKE_REND } from "./ship-breach-strike/rend/index.js";
+import { STRIKE_SPEAR } from "./ship-breach-strike/spear/index.js";
 
 export const VARIANTS: Variant[] = [
   BITE_NOTCH,
@@ -24,4 +27,7 @@ export const VARIANTS: Variant[] = [
   GUIDE_RAIL,
   GUIDE_RIBBON,
   GUIDE_SPOTLIGHT,
+  STRIKE_HAMMER,
+  STRIKE_REND,
+  STRIKE_SPEAR,
 ];

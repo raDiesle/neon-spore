@@ -38,6 +38,7 @@ const SLOT_POSE: Record<string, string> = {
   "creature:debris": "BREAK · A BODY COMING APART",
   "creature:splinters": "BREAK · A BODY COMING APART",
   "guide:chrome": "GUIDE · A PAGE OF FILM",
+  "ship:breach-strike": "BREACH · THE HIT THAT LOSES IT",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

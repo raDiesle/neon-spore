@@ -1,4 +1,5 @@
 import type { SimEvent, World } from "@neon-spore/sim";
+import { BreachStrike } from "./breach-strike.js";
 import type { ClaspFrames } from "./clasp-frames.js";
 import { Effects } from "./effects.js";
 import { FenceShards } from "./fence-shards.js";
@@ -61,6 +62,13 @@ export class RenderState {
    * not theirs to draw.
    */
   readonly fenceStrike = new FenceStrike();
+  /**
+   * The hit that loses the wave, seen happening (`breach-strike.ts`). Here for
+   * the fence strike's reason above and not `Effects`': it is drawn on the lit
+   * rim, and it rides the same `breach` event. The shipped look draws nothing
+   * — `breach-look.ts` says why the field's answer is none.
+   */
+  readonly breachStrike = new BreachStrike();
   /**
    * A gum landing on the ship: the smear where it hit and the whole hull
    * rippling from it (`gum-splash.ts`). Here for the strike's reason — it is
@@ -155,6 +163,10 @@ export class RenderState {
     this.lureBlast.update(dt);
     this.fenceStrike.ingest(events);
     this.fenceStrike.update(dt);
+    this.breachStrike.ingest(events);
+    // Whether the rock that caused it has been drawn reaching the hull yet.
+    // `Effects` is updated before this call, so the answer is this frame's.
+    this.breachStrike.update(dt, (col, beat) => this.effects.arrivals.has(col, beat));
     this.gumSplash.ingest(events);
     this.gumSplash.update(dt);
     this.fenceShards.ingest(events, l);
@@ -184,6 +196,7 @@ export class RenderState {
     this.pose.reset();
     this.lureBlast.clear();
     this.fenceStrike.clear();
+    this.breachStrike.clear();
     this.gumSplash.clear();
     this.fenceShards.clear();
     this.lanceFlash.clear();

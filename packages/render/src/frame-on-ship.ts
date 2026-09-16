@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import type { BreachStrike } from "./breach-strike.js";
 import { drawChokeCoils } from "./choke-hull.js";
 import { drawStuckClingers } from "./cling.js";
 import type { Effects } from "./effects.js";
@@ -40,7 +41,12 @@ export function drawOnShip(
    * a list of fields is worse than the object holding them: `canvas2d.ts` is
    * at its length limit and every pass added here would cost it a line.
    */
-  held: { fenceStrike: FenceStrike; gumSplash: GumSplash; effects: Effects },
+  held: {
+    fenceStrike: FenceStrike;
+    gumSplash: GumSplash;
+    breachStrike: BreachStrike;
+    effects: Effects;
+  },
   hull: HullFrame,
   at: LobePositions,
   surfaceY: SurfaceY,
@@ -53,6 +59,13 @@ export function drawOnShip(
   // same finished hull: the smear where it landed and the ripples running
   // out from it (`gum-splash.ts`).
   held.gumSplash.draw(ctx, l, surfaceY, view.time);
+  // And the third answer to the same event, over both of them: the hit that
+  // lost the wave, seen happening at the column it came in at. The shipped
+  // look draws nothing and this call is the seam a candidate reaches through
+  // (`breach-look.ts`); it is grouped with the other two rather than put at
+  // the end because all three are one event, and what goes at the end of this
+  // pass is a body stuck to the ship.
+  held.breachStrike.draw(ctx, l, surfaceY);
   // And THE CHOKE's grip on the cannon, on the eased cannon the ship pass
   // drew, while the steer fault has it (`choke-hull.ts`).
   drawChokeCoils(ctx, l, world, hull.cannonX, surfaceY, view.time);

@@ -1,5 +1,6 @@
-import { type Color, type CreatureKind, isWardable, type SimEvent } from "@neon-spore/sim";
+import { isWardable, type SimEvent } from "@neon-spore/sim";
 import type { Arrivals } from "./arrivals.js";
+import { breachHue } from "./breach-hue.js";
 import type { DeflectFx } from "./deflect.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -37,18 +38,6 @@ export interface BreachParts {
   tail?: boolean;
 }
 
-/** The colour a body's own burst is thrown in: what it was shot with, and
- * `red` for the colourless — a throb, a shell nobody opened, a round that
- * costs the hull with nothing on the field. */
-function breachHue(color: Color | null): string {
-  return color === "cyan" ? PALETTE.cyan : PALETTE.red;
-}
-
-/** A rock's own colour: the torch carries a flame, every other tier is stone. */
-function rockHue(kind: CreatureKind): string {
-  return kind === "torch" ? PALETTE.ember : PALETTE.rock;
-}
-
 export function ingestBreach(
   e: Extract<SimEvent, { type: "breach" }>,
   l: Layout,
@@ -66,7 +55,7 @@ export function ingestBreach(
   // places: `shield-outage.ts`, fed from `RenderState` because it is drawn over
   // the hull and everything this file feeds goes under it.
   if (e.kind === "fence") {
-    parts.burst(tileCX(l, e.col), l.hullY, 22, PALETTE.arc);
+    parts.burst(tileCX(l, e.col), l.hullY, 22, breachHue(e.kind, e.color));
     return;
   }
   // **THE GUM is the second**, and the other way round: it breaks the hull
@@ -75,14 +64,19 @@ export function ingestBreach(
   // the splash — the smear and the ripples across the whole ship — is
   // `gum-splash.ts`, fed from `RenderState` for the fence's reason.
   if (e.kind === "gum") {
-    parts.burst(tileCX(l, e.col + (e.span - 1) / 2), l.hullY, 18 * e.span, PALETTE.venom);
+    parts.burst(
+      tileCX(l, e.col + (e.span - 1) / 2),
+      l.hullY,
+      18 * e.span,
+      breachHue(e.kind, e.color),
+    );
     return;
   }
   // `isWardable` rather than `isMeteorKind`: THE VOLLEY is a rock the shield
   // answers, and a shell nobody warded arrives as the rock it looks like — the
   // fall replay and the crack that waits for it, not a burst at the hull.
   if (!isWardable(e.kind)) {
-    parts.burst(tileCX(l, e.col), l.hullY, 16 * e.span, breachHue(e.color));
+    parts.burst(tileCX(l, e.col), l.hullY, 16 * e.span, breachHue(e.kind, e.color));
     return;
   }
   // The event carries the width the body actually had — `colSpan(e.kind)`
@@ -98,7 +92,7 @@ export function ingestBreach(
     // rather than red — the torch's ember, everything else's stone. Red said
     // "damage" where the rock in front of the player said stone, and the two
     // readings fought.
-    const hue = rockHue(e.kind);
+    const hue = breachHue(e.kind, e.color);
     parts.burst(ax - r * 0.8, ay, 24 * e.span, hue);
     parts.burst(ax + r * 0.8, ay, 24 * e.span, hue);
     // A third, tighter burst out of the crater itself, so the middle of the

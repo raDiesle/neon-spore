@@ -1,4 +1,4 @@
-import type { SpawnEntry, TimedCommand } from "@neon-spore/sim";
+import { hullRow, type SpawnEntry, type TimedCommand } from "@neon-spore/sim";
 import {
   aim,
   EVENT_CADENCE_SECONDS,
@@ -173,6 +173,53 @@ export const BREACH_ROCKS_POSE: Pose = {
     // wherever they were authored.
     until(w, "the first hole cut in the hull", (x) => x.scars.length > 0);
     run(w, 8);
+    return w;
+  },
+};
+
+/**
+ * Seconds between replays of one rock going through the ship.
+ *
+ * Shorter than the sequence above and longer than `EVENT_CADENCE_SECONDS`,
+ * because what is being judged is a picture that lasts about a second: the
+ * longest answer in `ship:breach-strike` holds for 1.2 s, and a two-second
+ * clock would cut the last of it off on every loop. Three leaves most of a
+ * second of hit ship afterwards, which is the part that says whether the
+ * strike left the frame changed.
+ */
+const STRIKE_CADENCE_SECONDS = 3;
+
+/**
+ * One rock, one column, handed over a row above the hull with nobody arming
+ * the shield — the state `ship:breach-strike` is judged on.
+ *
+ * It is not `BREACH · ROCKS COMING THROUGH` next door, and the difference is
+ * the slot. That pose is four rocks over seven and a half seconds and exists
+ * to ask whether a hull wearing *several* holes still reads as a ship, which
+ * needs the rocks to roll off before the vote is cast. This asks what the
+ * instant of one hit looks like, so there must be exactly one of them, it must
+ * happen while the pair is watching rather than before they took the world
+ * over, and it must come round often enough to be watched twice.
+ *
+ * The strike waits for the rock to be drawn reaching the hull rather than for
+ * the beat that resolved it (`breach-strike.ts`), so handing the world over a
+ * row short is the whole of the setup: the fall, the arrival and the strike
+ * all happen on screen, in that order.
+ */
+export const BREACH_STRIKE_POSE: Pose = {
+  name: "BREACH · THE HIT THAT LOSES IT",
+  note: "One rock comes down in the middle of the ship and nobody arms the shield, so it goes through. Every hull damage loses the wave, and this is the moment it happens — the fall, the arrival, and whatever the ship does about it.",
+  lookAt: "the frame the rock reaches the skin, and the second after it",
+  crop: "ship",
+  cadenceSeconds: STRIKE_CADENCE_SECONDS,
+  build: () => {
+    const w = fresh([rock(COL, "meteorMedium")]);
+    // Nothing is pressed: the shield turns a rock only while it is armed, and
+    // nobody has armed it. A row short of the hull, so the impact itself is
+    // the first thing that happens after the pair takes the world over.
+    until(w, "a rock one row above the hull", (x) =>
+      x.creatures.some((c) => c.row >= hullRow(x.cfg) - 1),
+    );
     return w;
   },
 };

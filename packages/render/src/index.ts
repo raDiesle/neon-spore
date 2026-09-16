@@ -11,6 +11,11 @@ export {
   THROB_HIT,
   WISP_HIT,
 } from "./body-hit.js";
+export {
+  BREACH_STRIKE_LOOK,
+  type BreachStrikeLook,
+  type StrikePaint,
+} from "./breach-look.js";
 export { BREAK_LOOK, type BreakLook, fallFrom, fractureFrom } from "./break-look.js";
 export { edgeLit, faceHex, facet, type PiecePaint } from "./break-piece.js";
 export { drawWaveOpening } from "./briefing.js";
