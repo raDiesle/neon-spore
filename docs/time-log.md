@@ -6721,3 +6721,26 @@ a real rebase as well, because a wrong key in the resolver table passes every
 string test in the tree and changes nothing about the landing.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — queue-the-flip — the seam that was not there, and the one that was
+
+The queue's *THE FLIP, his way*, taken and given back. What landed is the piece
+that stood on its own: the fault block out of `hash.ts`, which was at its
+250-line ceiling with it inside.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `malfunction.ts`, `fault-placed.ts`, `fault-surface.ts`, `hash.ts`, the four tables the compiler named, `waves-demo.ts`'s argument, `tileCX`'s callers |
+| writing | 20 | `flip.ts`, the kind and its seats through five tables, `hash-faults.ts` — then all but the last reverted |
+| looking | 0 | — nothing drawn |
+| friction | 5 | a heredoc refused for a doubled backslash, rewritten through the Edit tool |
+| landing | 10 | the entry rewritten with what the attempt found, `release`, `index`, `check`, the commit |
+
+The bottleneck was writing, and most of it was thrown away — which was the
+right outcome and was reached late. The entry's split was *simulation first,
+look after*, and two facts in the tree say it cannot be: `DEMONSTRATIONS` is
+total over `MechanicId`, so a new kind does not typecheck until a wave names
+where it can be watched, and some forty files call `tileCX`, so the mirror
+cannot live there without turning the strips too. Both were findable by reading
+before writing rather than after. They are in the entry now, so the next
+session pays neither.

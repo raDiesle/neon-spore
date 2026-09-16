@@ -1,6 +1,6 @@
 import { bossHashParts } from "./hash-boss.js";
 import { creatureHashParts } from "./hash-creature.js";
-import { MALFUNCTION_COLORS, MALFUNCTION_KINDS } from "./malfunction.js";
+import { faultHashParts } from "./hash-faults.js";
 import { POD_KINDS } from "./types.js";
 import type { World } from "./world.js";
 
@@ -90,19 +90,9 @@ export function hashWorld(world: World): number {
   push(world.choirArmTick);
   push(world.wardUntilTick);
   push(world.lastFireTick);
-  // The wave's faults. They are script — handed in by `startWave` the way the
-  // queue is — but they are *hashed* where the queue is not, and cheaply: a
-  // handful of small objects rather than a list read by index, and they decide
-  // on every beat whether a shot goes out that nobody pressed. All of them,
-  // with their rows, because a fault that started a beat later on one device
-  // is a different game (`fault-placed.ts`).
-  push(world.faults.length);
-  for (const fault of world.faults) {
-    push(MALFUNCTION_KINDS.indexOf(fault.kind));
-    push(fault.at);
-    push(fault.beats);
-    if (fault.kind === "cannon") push(MALFUNCTION_COLORS.indexOf(fault.color) + 1);
-  }
+  // The wave's faults, with their rows and whatever each kind carries of its
+  // own (`hash-faults.ts`).
+  for (const n of faultHashParts(world.faults)) push(n);
   // And whether this wave's panel fills the lobe at all. Script like the fault
   // and hashed like it: two devices that disagree about it disagree about
   // whether a column burns (`lance.ts`).

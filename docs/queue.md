@@ -468,6 +468,27 @@ transform quietly applied in `layout.ts` on one device.
   screen did not flip needs to know it is now the odd one out — the condition
   `transfers.md` puts on the whole idea.
 
+**The obvious split does not exist, and that is worth knowing before you
+start.** A lane on 16 September 2026 took this as *simulation first, look
+after* — the split `CLAUDE.md` names for a creature — and it does not hold for
+a malfunction. `DEMONSTRATIONS` in `packages/content/src/waves-demo.ts` is
+total over `MechanicId` by construction, so a kind added to
+`MALFUNCTION_KINDS` fails the type check until a **wave** names where it can be
+watched; and a wave carrying a flip that nothing draws is a wave that lies to
+the pair. The mirror cannot be a transform at `tileCX` either — some forty
+files in `packages/render/src` call it, so mirroring there turns the cannon and
+shield strips with the field, and the finger and the eye cancel out. The
+drawing has to reach the field's bodies and leave the strips alone, which is a
+design piece and not a line. So the halves, if it is split at all, are along
+*what the pair can be told* rather than along sim/render: the fault and its
+wave drawn plainly first, the three remaining tells after.
+
+That lane landed only the piece that stood on its own — `hash.ts` was at its
+250-line ceiling with the fault block inside it, so the block moved to
+`packages/sim/src/hash-faults.ts` and the next kind that carries a field of its
+own can be added without doing a refactor in a diff about something else. The
+kind itself was reverted; nothing of THE FLIP is in the tree.
+
 Unworked out, for whoever takes it: whether the flip holds for the whole wave
 (every other malfunction does, and the owner removed the brake on 6 September
 2026) or runs on `fault-clock.ts`'s beats; and whether the cannon and shield
