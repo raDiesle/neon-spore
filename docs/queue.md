@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## The client half of a sign-in has no rig, so no check ever signs anybody in
 
 - **Found:** 2026-09-15, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-16, claude/queue-the-client-half-of-a-sign-in-has-no-rig-so-no-ch
 - **Files:** `apps/game/src/sign-in.ts`, `apps/game/src/nickname.ts`, `apps/game/src/hello.ts`, `apps/game/test/hello.test.ts`, `apps/server/test/signed.ts`, `apps/server/src/sign-in.ts`
 
 What *Unverified at a80777a5* left behind when the rest of it was checked off.
