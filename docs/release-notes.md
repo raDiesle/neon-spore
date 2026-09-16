@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 2f61f837 — The SPLICE entry is off the queue
+
+All three landings are on main: the boss, the boss ideas, and the BOSSES page.
+
 ## 2026-09-16 · b9927941 — The BOSSES page comes off the director
 
 The owner's words, 16 September 2026: *its not relevant for me any longer*. The NOT BUILT YET sheet's first tab held THE ACT ORDER -- the built bosses read straight off `bosses.md` -- and the boss and round ideas beside it, and the boss ideas went yesterday with THE SPLICE. So the tab, the page, the `bosses` group, the two spec files the API read only to build it, and `fromRoster` and `dropBuilt` with their one caller all go. MECHANICS leads now, because GRAPHICS draws itself on first click and a sheet opening on it would open on nothing.
