@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · fc0cf992 — The five places one new concept has to reach, named in one list
+
+A lane adding a concept met four tests going red in sequence, each a different copy of the same fact — the name in the spec, the shape join, the scene join, the draft count in the catalogue page — and learned the fifth place from the fourth red run, one process start at a time. Six lanes and 165 friction minutes in the ledger have that shape. None of the checks is wrong, so none of them is merged: `tools/director/test/concept-places.ts` states the list, and `concept-places.test.ts` reports every place that is not right in one message rather than the first one it happens to run.
+
 ## 2026-09-16 · 54da01d2 — A contents menu on the long director pages, each heading a jump
 
 The owner asked on 15 September for a contents menu on the sheets you scroll blind — NOT BUILT YET and DOCUMENTATION. One is mounted by markup: a `<nav class="contents" data-contents="<id>">` standing where the menu should appear and naming the element whose headings it lists, so a new long page gets one by typing a line. Six of them: MECHANICS, BORROWED and PARTY GAMES on the first sheet, WORDINGS, STATES and STYLE on the second.
