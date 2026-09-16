@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 9a4f8a8c — A press is checked against the wave's own panel, not a table in the tool
+
+--press kept its own map of which seat holds which control, and it had intake down as player 1's. That was true while the maw was only ever the cannon lobe. THE CLAW's panel moved it to the other seat and THE SPLICE's does the same, so `--press <t>:2:intake` was refused with a message about a round that accepts it perfectly well -- the simulation seat-checks nothing -- and the picture of THE SPLICE in its own landing had to be taken with the press attributed to a seat that never sent it.
+
 ## 2026-09-16 · 207e427c — The impacts leave bind.ts, so the next boss can be bound
 
 bind.ts was at exactly 250 lines and limits.test.ts fails at 251, so the next boss, creature or control with an event of its own was blocked before it started. THE SPLICE's four cues had already taken it over and it came back by losing prose a reader needed, which is a file out of room rather than a file being tidied.
