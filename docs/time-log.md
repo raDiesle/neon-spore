@@ -7236,3 +7236,5 @@ that each seam already existed in the file's own comments: the events of a boss
 go next door (`events-splice.ts` said so), the dispatch that says *not the
 queen* is not the queen's own beat, and an act file is a page rather than a
 chapter.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

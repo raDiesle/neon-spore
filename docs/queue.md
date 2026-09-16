@@ -662,3 +662,17 @@ The answer picks between two:
 
 Nothing is wrong on screen today; what is wrong is that the file and the
 picture disagree, and the next reader will believe the file.
+
+## Unverified at 805b6376: THE STARE's rhythm was never watched at tempo: whether…
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `docs/INDEX.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind.ts`, `packages/audio/src/sounds/boss.ts`, `packages/audio/test/bind.test.ts`
+
+*THE STARE: something is watching, and the one it watches has to sit on their hands* landed from a session that could not look at it. The commit touched 42 more files. What went unchecked:
+
+- THE STARE's rhythm was never watched at tempo: whether four beats of warning is long enough to say it is you, and whether the looks grow into something survivable, are figures an eye and a pair have to judge
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
