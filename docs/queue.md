@@ -327,39 +327,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## The Husk, his way: a fake pod player 2 sees through, deflating when refused
-
-- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
-- **Taken:** 2026-09-16, claude/queue-the-husk-his-way-a-fake-pod-player-2-sees-throug
-- **Files:** `packages/sim/src/pods.ts`, `packages/sim/src/pod-types.ts`, `packages/sim/src/wave-fail.ts`, `packages/sim/src/bullet-hit-lure.ts`, `packages/content/src/wave-types.ts`, `packages/render/src/pods.ts`, `packages/render/test/frame.test.ts`, `packages/audio/src/catalogue.ts`, `tools/director/src/brush-cards.ts`, `docs/spec/ideas.md`
-
-The owner redesigned the *Husk* (`ideas.md`, Creatures) on 15 September
-2026: it is a lure among pods. A third `PodKind` in `pod-types.ts` that
-**hangs at a column and row like a pod and looks like one** — purge or ward
-on player 1's screen, taut, its core beating. **Player 2 (the navigator)
-sees that it is a fake** — the lie is drawn on that seat only, the way
-`bullet-hit-lure.ts` gives the lure's truth to one seat — and has to stop
-it being taken: say so before it is shot loose, or have the maw kept shut
-when it arrives.
-
-- **Freed like a pod** — a shot knocks it loose and it sinks to the maw.
-- **Sucked in, the wave is lost**, as it is for a lure that is hit.
-- **Refused — the maw shut when it reaches the ship — it goes the way of a
-  balloon let go**: it does not break on the skin, it shrinks and shrinks,
-  flying about the hull as the air leaves it, with a funny sound in the
-  catalogue (`packages/audio/src/catalogue.ts`), and is gone. No damage.
-- Never shot loose, it hangs; it never holds the wave open (`beat.ts`
-  counts real pods only) and never blocks its end.
-
-The deflation is the destruction skill's business (`.claude/skills/destruction`)
-and the balloon's own fall is the nearest shipped motion — reuse it. Authored
-on the wave's `pods` list (`wave-types.ts` `PodEntry`) with the kind it
-pretends to be, and a brush in the director. Drawn again in `frame.test.ts`
-on both seats and mid-deflation.
-
-Prove it with `bun run check`, a replay test, and the wave watched at tempo
-through a husk sucked and a husk refused.
-
 ## The balance sheet counts a husk and never names one
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
