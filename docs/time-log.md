@@ -7803,3 +7803,5 @@ flag and drops the other, so the shot that frees the husk never fired and the
 capture looked like a wave that does nothing. Both are queued. The picture
 itself took one correction — the arc dipped into the hull plating — and the
 capture found it in one look.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

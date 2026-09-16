@@ -9,6 +9,16 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · d444c558 — THE HUSK goes into the baseline unweighed
+
+A new wave has no performance row, so `baseline:blank` marks it unmeasured rather than leaving `baseline.test.ts` red on a number nobody has taken.
+
+## 2026-09-17 · 76946f68 — Mark "The Husk, his way: a fake pod player 2 sees through, deflating when refused" done
+
+## 2026-09-17 · fda1e38b — THE HUSK, half two: player 2 alone sees the lie, and a refused one goes off like a balloon
+
+The wave THE HUSK, and the two pictures that make its pod a decision. Player 2 gets a white frame round it and the words DO NOT TAKE; player 1 gets two identical amber pods and no tell at all, which is the creature. Refuse it and it lets its air go and darts away over the hull, shrinking until there is nothing left — the one moment in the game that costs the pair nothing and is meant to be funny.
+
 ## 2026-09-17 · d1f75f24 — THE HUSK, half one: a pod that is a lie, and swallowing it loses the wave
 
 A husk hangs at a column and a row like a pod, wears a real cargo's face, is knocked loose by a shot like a pod and arrives at the maw like a pod — and the receipt there is inverted. Taken in, the wave is lost; refused, it costs nothing at all, which makes it the one object on the field answered by two people doing two different things about it: the navigator sees it for what it is and the pilot keeps the maw shut.
