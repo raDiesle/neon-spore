@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 50668c9e — TIDE's lid is a meniscus, and the badge's words come off its floor
+
+The two things the owner asked of GUIDE:CHROME · TIDE after he took it. The line inside the top of every plate was a rounded rectangle nine pixels deep — *the top line, maybe not so much height, and more interesting, maybe something alien organic* — and it is now a shallow pool whose lower edge rises and falls in lobes, with the brighter line along that edge a liquid has and a bevel does not. It hangs seven pixels at its deepest and two at its shallowest, so it is shorter everywhere than the shelf it replaces. And the badge's two rows — TUTORIAL over PLAYER 1 · SCREEN — had the name's baseline three pixels off the badge's own foot, with its descenders sitting on the rim; both baselines moved up, into room the crest gave back, and what is left is five clear above, five between and six under.
+
 ## 2026-09-16 · d938ca55 — GUIDE:CHROME · TIDE is what a tutorial wears
 
 The owner took it on 16 September 2026 — a look he asked for by name, which is the first of the three exemptions. TIDE moves into `packages/render` as five files and `GUIDE_LOOK`'s six fields point at them, so the whole of the tutorial's furniture changes at once: a band with a living top across the bezel, a badge cut from the same square body every button is, BACK and REPLAY up beside it, NEXT the width of the phone at the foot, pages drawn to be counted, a dashed amber ring turning on the subject with a second subject ringed silently beside it, and the field dimmed to a third rather than to two thirds.
