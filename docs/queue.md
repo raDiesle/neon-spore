@@ -582,6 +582,7 @@ with no new prose to place is a diff nobody can review against anything.
 ## One new fact, four tables, found one red test at a time
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Taken:** 2026-09-16, claude/queue-one-new-fact-four-tables-found-one-red-test-at-a
 - **Files:** `tools/director/src/concepts.ts`, `tools/director/src/backlog.ts`, `tools/director/src/concept-art.ts`, `tools/director/src/scene-world.ts`, `tools/director/test/concepts.test.ts`, `tools/director/test/backlog.test.ts`, `tools/director/test/concept-art.test.ts`, `tools/director/test/scenes.test.ts`, `docs/asset-catalogue.md`
 
 A lane on 16 September lost twenty minutes to **four tests going red in
