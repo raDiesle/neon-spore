@@ -16,6 +16,7 @@ import { FleetFx } from "./fleet-fx.js";
 import { GhostTrail } from "./ghost-trail.js";
 import { HarpoonLineFx } from "./harpoon-line.js";
 import type { SurfaceY } from "./hull-frame.js";
+import { HuskDeflates } from "./husk-deflate.js";
 import type { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
 import { OpeningFx } from "./opening-fx.js";
@@ -149,6 +150,10 @@ export class Effects {
    * (`reprise-fx.ts`).
    */
   readonly reprise = new RepriseFx();
+  /** The husks the pair refused, flying off. A second and a bit each, which is
+   * longer than anything else the mouth throws — it is a joke, and a joke has
+   * to be given room (`husk-deflate.ts`). */
+  readonly huskDeflates = new HuskDeflates();
   /** THE BEATBOX's discharges, outliving their frame like everything above. */
   readonly beatboxWaves = new BeatboxWaves();
   /** And its silencings, which are the same picture with nowhere to go

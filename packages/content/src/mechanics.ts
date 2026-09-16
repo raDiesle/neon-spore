@@ -26,11 +26,11 @@ import { WAVES } from "./waves.js";
  * **What counts as one.** A mechanic is a rule the pair has to learn *that the
  * game can be played without*. Take it away and there is still a game — one
  * that is missing something. That line puts the thirteen creatures, the six
- * bosses and the three pods in, and it keeps the substrate
- * out: the cannon, the shield, the beat, the hull, the score and the radar are
- * not mechanics, because a game without any of them is not a smaller game, it
- * is no game. THE GRIP and THE LANCE pass the test — a wave plays perfectly
- * well without either being used once — so they are in, and their rows say the
+ * bosses and the three pods in, and it keeps the substrate out: the cannon,
+ * the shield, the beat, the hull, the score and the radar are not mechanics,
+ * because a game without any of them is not a smaller game, it is no game. THE
+ * GRIP and THE LANCE pass the test — a wave plays perfectly well without
+ * either being used once — so they are in, and their rows say the
  * uncomfortable thing out loud: implemented, always available, demanded by no
  * wave.
  *
@@ -43,9 +43,9 @@ import { WAVES } from "./waves.js";
  * the bestiary and the mechanic sheet read it, and the guide is written where
  * it is played. The kinds themselves come from the sim's unions, so a
  * creature, a boss or a pod added there is a type error here until it has a
- * row. What a wave contains is read by
- * running content's own translation (`queueFromWave` and its siblings) rather
- * than by re-resolving colours to silhouettes a second time.
+ * row. What a wave contains is read by running content's own translation
+ * (`queueFromWave` and its siblings) rather than by re-resolving colours to
+ * silhouettes a second time.
  */
 
 /**
@@ -72,12 +72,13 @@ export type { WaveMechanicId } from "./mechanics-wave.js";
 /**
  * A mechanic a wave turns on **by a field on an arrival rather than by its
  * kind**: a plain rock sent across the field instead of down a column
- * (`WaveEntry.cross`, `sim/rock-cross.ts`). Its own class rather than a third
+ * (`WaveEntry.cross`, `sim/rock-cross.ts`), and the pod that is a lie
+ * (`PodEntry.husk`, `sim/pod-types.ts`). Its own class rather than a third
  * `WaveMechanicId`, because those two are defined by putting *no body* on the
- * field and this one does — it is a `spawn`, and what is unusual is only how
- * `mechanicsInWave` finds it.
+ * field and these do — they are `spawn`s, and what is unusual is only how
+ * `mechanicsInWave` finds them.
  */
-export type RouteMechanicId = "rockCross";
+export type RouteMechanicId = "rockCross" | "husk";
 
 /**
  * The closed list. `queen` and `warden` are a `CreatureKind` and a boss kind at
@@ -205,7 +206,11 @@ export function mechanicsInWave(wave: Wave): Set<MechanicId> {
     // once rather than restated.
     if (e.cross !== undefined) found.add("rockCross");
   }
-  for (const p of podsFromWave(wave, AUTHORED_COLS)) found.add(podKindOf(p));
+  for (const p of podsFromWave(wave, AUTHORED_COLS)) {
+    // The kind it claims — a husk's face is a real cargo's — and the lie too.
+    found.add(podKindOf(p));
+    if (p.husk) found.add("husk");
+  }
   const boss = bossFromWave(wave, AUTHORED_COLS);
   if (boss) found.add(boss.kind);
   // The two a wave reaches by a field of its own rather than by anything it

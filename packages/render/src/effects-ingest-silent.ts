@@ -191,6 +191,12 @@ export const INGEST_SILENT = [
   // purpose. A body that threw pieces outward would be a body that exploded,
   // and the two hands did the opposite of that.
   "weightCrushed",
+  // **A husk swallowed draws nothing of its own.** Its twin does — a refused
+  // husk flies off for a second and a bit (`husk-deflate.ts`) — and the
+  // asymmetry is the moment: this one went *in*, so there is nothing left on
+  // the field to draw. What the pair sees instead is the wave lost, which is
+  // the ship's own answer and is drawn from world state.
+  "huskSwallowed",
 ] as const satisfies readonly SimEvent["type"][];
 
 /** One of the above, as a type — what the guard narrows the union by. */

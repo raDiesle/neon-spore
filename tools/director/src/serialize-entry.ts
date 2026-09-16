@@ -81,6 +81,9 @@ export function serializePod(pod: PodEntry): string {
   // whole of why a pod that hangs where it was left comes back out of the
   // editor as the same three fields it went in with — a saved `cross: 0` or
   // `cross: 0` would be a wave file that changed the day somebody opened it.
+  // The lie, right after the face it wears, because that is the order the pair
+  // reads them in and the order `pod-types.ts` declares them in.
+  if (pod.husk) parts.push("husk: true");
   if (pod.cross !== undefined) parts.push(`cross: ${pod.cross}`);
   if (pod.speed !== undefined) parts.push(`speed: ${pod.speed}`);
   return `{ ${parts.join(", ")} }`;

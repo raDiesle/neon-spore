@@ -91,6 +91,7 @@ export function ingestAll(
       beatboxSilences: fx.beatboxSilences,
       blockedUntil: fx.blockedUntil,
       debris: fx.debris,
+      huskDeflates: fx.huskDeflates,
       put,
       burst,
     });
@@ -121,6 +122,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.volleyShards.update(dt);
   e.crawler.update(dt);
   e.spriteBursts.update(dt);
+  e.huskDeflates.update(dt);
   e.ghostTrail.update(dt);
   e.quake.update(dt);
   e.beatboxWaves.update(dt);
@@ -151,6 +153,7 @@ export function drawAll(
   e.volleyShards.draw(ctx);
   e.crawler.draw(ctx, l, surfaceY);
   e.spriteBursts.draw(ctx);
+  e.huskDeflates.draw(ctx, l);
   e.beatboxWaves.draw(ctx, l);
   e.beatboxSilences.draw(ctx, l);
   e.bodies.drawOnBodies(ctx, l, world, beatPhase, e.recoilLeap);
@@ -178,6 +181,7 @@ export function resetAll(e: Effects): void {
   e.volleyShards.clear();
   e.crawler.clear();
   e.spriteBursts.clear();
+  e.huskDeflates.clear();
   e.coordGrid.clear();
   e.ghostTrail.clear();
   e.opening.reset();

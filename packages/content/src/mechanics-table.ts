@@ -140,6 +140,10 @@ export const MECHANICS = {
     what: "This one holds the shield armed for six beats with no trigger at all.",
     reach: "spawn",
   },
+  husk: {
+    what: "A pod that is a lie. It hangs at a column and a row like a pod, beats like one, wears the face of a real cargo and comes loose to a shot like any other — and it carries nothing. Swallowed, the wave is lost. Refused, the maw shut when it arrives, it lets its air go and flies off around the hull, and costs nothing at all. Only player 2 is shown which one it is, and only player 1 can keep the maw shut, so the answer is a sentence one of them says and the other acts on.",
+    reach: "spawn",
+  },
   // The sixth worn body (`mechanics-worn.ts`), in the place it has always held.
   clasp: WORN_MECHANICS.clasp,
   ...ROUND_MECHANICS,

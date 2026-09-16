@@ -1,13 +1,21 @@
 /**
- * Pods: hanging, shot loose, falling, taken in, lost.
+ * Pods: hanging, shot loose, falling, taken in, lost — and the two a husk
+ * makes, which are this family's own vocabulary turned against itself.
  *
  * A pod is the only friendly thing on the field, so it is the only family with
  * a consonant interval in it — everything else in the catalogue is ring
  * modulated and deliberately out of tune. The moment a pod is taken in is the
  * one moment the game sounds like it agrees with you.
+ *
+ * **Which is exactly what a husk borrows.** It hangs silently like a pod and
+ * parts from its mooring with `pod.loose` like a pod, because up to the mouth
+ * it *is* one (`sim/pod-types.ts`); the two sounds below are the only ones in
+ * the game that are a husk's. One of them is the funniest thing the catalogue
+ * has and the other is the sourest, and they are the two ends of the one
+ * moment the pair decides together.
  */
 
-import { after, air, burst, chime, glint, noise, soft, spore, sub, tick } from "../grain.js";
+import { after, air, burst, chime, glint, noise, soft, spore, sub, thud, tick } from "../grain.js";
 import type { SoundDef } from "../types.js";
 
 export const POD_SOUNDS: SoundDef[] = [
@@ -144,6 +152,76 @@ export const POD_SOUNDS: SoundDef[] = [
     layers: [
       noise(500, { type: "lowpass", freq: 300, q: 2 }, 0.002, 0.05, 0.5),
       sub(64, 0.07, 0.4),
+    ],
+  },
+  {
+    id: "pod.huskFlight",
+    family: "pod",
+    blurb: "A balloon let go: a squeal that climbs, loses its nerve and runs out of air.",
+    status: "bound",
+    use: "A husk refused at a shut maw — the one moment in the game that is funny.",
+    level: 0.34,
+    layers: [
+      // The neck: a narrow band of air, wide open and closing, wobbling far
+      // harder than anything else in the catalogue. A balloon's note is its
+      // own neck flapping, and the flap is the joke.
+      //
+      // **Wholly above the speech band**, which is where the joke had to move
+      // to: a real balloon squeals at one to three kilohertz, which is a voice,
+      // and this wave is one the pair spends talking over
+      // (`test/catalogue.test.ts`, `judgeBand`). A balloon does whistle up
+      // there too, and the shrieking end of it is the funnier end anyway.
+      noise(4200, { type: "bandpass", freq: 3300, toFreq: 6400, q: 7 }, 0.006, 0.4, 0.4, {
+        rate: 14,
+        cents: 700,
+      }),
+      // And the pitch that goes with it: up, because the thing is getting away,
+      // and then nowhere. It is the only rising line in a family whose every
+      // other answer settles, which is what says *this one did not pay*.
+      {
+        source: "triangle",
+        freq: 3200,
+        toFreq: 5900,
+        gain: 0.26,
+        attack: 0.01,
+        release: 0.46,
+        wobble: { rate: 11, cents: 260 },
+      },
+      // The last of the air, thinner, as it drops out of the sky.
+      after(0.42, air(5200, 3400, 0.22, 0.2, 2.4)),
+    ],
+  },
+  {
+    id: "pod.huskTaken",
+    family: "pod",
+    blurb: "The swallow, and then nothing arrives: the answer falls in on itself.",
+    status: "bound",
+    use: "A husk swallowed — the wave is lost on the same tick.",
+    level: 0.46,
+    layers: [
+      // The first fifth of a second is `pod.taken*` note for note, because for
+      // the first fifth of a second the pair believes it worked.
+      spore(180, 0.14, 0.4, 30),
+      // Then the interval that should have opened closes instead: a purge's two
+      // chimes step down and *land*, and this one slides the whole way and is
+      // pulled flat by a ring three times deeper than any other pod's, which is
+      // the one gesture this family never otherwise makes.
+      //
+      // It falls to 4600 and not to a purge's 4400, and the eighty cycles
+      // between them are not taste: the ring puts sidebands at f±1300, so a
+      // carrier that ended any lower would be sitting on a voice for the last
+      // third of a second (`band.ts`, `spectrumAt`).
+      after(0.08, {
+        source: "triangle",
+        freq: 6300,
+        toFreq: 4600,
+        gain: 0.28,
+        attack: 0.01,
+        release: 0.36,
+        ring: { freq: 1300, depth: 0.7 },
+      }),
+      // And the floor drops out under it.
+      after(0.12, thud(150, 38, 0.6, 0.55)),
     ],
   },
   {

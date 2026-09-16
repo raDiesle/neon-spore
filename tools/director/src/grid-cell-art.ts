@@ -69,13 +69,31 @@ function drawPod(button: HTMLElement, pod: PodEntry, beside: boolean): void {
     art.classList.add("pod-art");
     if (beside) art.classList.add("beside");
     button.appendChild(art);
-    mark.textContent = String(pod.row);
+    mark.textContent = husked(pod, String(pod.row));
   } else {
-    mark.textContent = `${podGlyph(brush)}${pod.row}`;
+    mark.textContent = husked(pod, `${podGlyph(brush)}${pod.row}`);
   }
   const spec = BRUSHES.find((x) => x.brush === brush);
   if (spec) mark.style.color = spec.stroke;
+  // And a husk takes the colour off again. The picture above is the pod it is
+  // pretending to be — that is the creature, and the map must show the author
+  // the same lie the field will — so the only thing that may say otherwise is
+  // the mark, and it says it in the white the field's own alarm is drawn in
+  // (`render/src/husk-mark.ts`).
+  if (pod.husk) mark.style.color = "#FFFFFF";
   button.appendChild(mark);
+}
+
+/**
+ * **A hollow pod's mark, which is the row with a cross in front of it.**
+ *
+ * The map draws a husk as the pod it claims to be, so this is the one place an
+ * author can see which of three identical cells is the lie. Two characters and
+ * not a word: the cell is a few pixels wide and the row number has to stay
+ * readable beside it.
+ */
+function husked(pod: PodEntry, text: string): string {
+  return pod.husk ? `✗${text}` : text;
 }
 
 /**

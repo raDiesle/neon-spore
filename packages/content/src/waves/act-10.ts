@@ -101,4 +101,23 @@ export const WAVES_ACT_10: Wave[] = [
     ],
     faults: [{ kind: "flip", seat: 1, at: 6 }],
   },
+  {
+    id: "theHusk",
+    name: "THE HUSK",
+    sentence: "The one where taking the pod in is the mistake.",
+    guide: {
+      both: "Three pods hang over the field and one of them is hollow. It hangs where a pod hangs, it beats like a pod, it says on its face what it is carrying, and it is carrying nothing. It comes loose to a shot like any other and it sinks to the ship like any other. Swallow it and the wave is lost. Let it reach a shut maw and it simply lets go of its air and is gone, and that costs you nothing at all.",
+      p1: "Your screen cannot tell you which is which, so do not decide. Open the maw for a pod they have called safe and for no other — a pod nobody named is a pod you let past.",
+      p2: "The hollow one is framed on your screen and on nothing of theirs. Name the two that are real, by column, before either is loose; then name the fake and say to leave it. Saying nothing is what loses this wave.",
+    },
+    entries: [
+      { beat: 3, col: 0, color: "red" },
+      { beat: 9, col: 6, color: "cyan" },
+    ],
+    pods: [
+      { beat: 0, col: 1, row: 3, kind: "ward" },
+      { beat: 0, col: 3, row: 4, kind: "purge", husk: true },
+      { beat: 6, col: 5, row: 3, kind: "purge" },
+    ],
+  },
 ];

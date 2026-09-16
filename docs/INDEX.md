@@ -1029,6 +1029,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/splice-straws.ts` | THE SPLICE's straws, as geometry and as lines |
 | `packages/render/src/effects-ingest-silent.ts` | **The events that leave nothing behind in `Effects`**, and why each one does not |
 | `packages/render/src/effects-ingest-silent-boss.ts` | **The bosses' half of the silent list**, and nothing else |
+| `packages/render/src/effects-ingest-pod.ts` | **What the mouth leaves on screen**, for the two cargoes that leave anything |
 | `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
 | `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |
 | `packages/render/src/magnet.ts` | THE MAGNET, drawn: a horseshoe on two coloured poles with an armoured plate slung under it |
@@ -1174,6 +1175,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hull-break-gape.ts` | The hole shown to have an inside: ribs of the frame standing in the dark where the skin used to be |
 | `packages/render/src/hull-break.ts` | **What the ship wears where something went through it.** One call per open hole |
 | `packages/render/src/hull-mood.ts` | what the ship is doing this frame — `HullMood`, the eased state of its membrane, and `LobePositions`, where its lobes stand — re-exported from `hull-frame.ts` |
+| `packages/render/src/husk-deflate.ts` | **A husk refused: a balloon let go.** The owner asked for this by name on 15 September 2026 |
+| `packages/render/src/husk-mark.ts` |  |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |

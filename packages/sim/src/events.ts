@@ -137,10 +137,19 @@ export type SimEvent =
   | { type: "podLoose"; col: number; row: number }
   | { type: "podTaken"; col: number; kind: PodKind }
   | { type: "podLost"; col: number }
-  /** A husk went in, and the wave with it (`pod-intake.ts`). */
-  | { type: "huskSwallowed"; col: number }
-  /** A husk reached the ship and was refused: it deflates and is gone. */
-  | { type: "huskRefused"; col: number }
+  /**
+   * A husk went in, and the wave with it (`pod-intake.ts`).
+   *
+   * It carries where it was and what it was wearing, which `podLost` does not:
+   * a husk's whole last second is a picture of the thing the pair refused, so
+   * what is drawn has to be the body that was hanging there rather than a
+   * generic one (`render/src/husk-deflate.ts`).
+   */
+  | { type: "huskSwallowed"; col: number; row: number; kind: PodKind }
+  /** A husk reached the ship, or the far wall, and was refused: it lets its air
+   * go and flies off. `row` for the wall — a husk that crossed the field and
+   * left was never anywhere near the hull. */
+  | { type: "huskRefused"; col: number; row: number; kind: PodKind }
   | {
       type: "breach";
       col: number;

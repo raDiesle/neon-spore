@@ -194,8 +194,8 @@ const SAMPLES: Record<string, SimEvent> = {
   cairnShed: { type: "cairnShed", col: 5, row: 2 },
   balloonTopped: { type: "balloonTopped", col: 4, row: 0 },
   bounce: { type: "bounce", col: 3, row: 6, color: "red" },
-  huskRefused: { type: "huskRefused", col: 2 },
-  huskSwallowed: { type: "huskSwallowed", col: 2 },
+  huskRefused: { type: "huskRefused", col: 2, row: 9, kind: "purge" },
+  huskSwallowed: { type: "huskSwallowed", col: 2, row: 11, kind: "ward" },
 };
 
 describe("bindings", () => {
@@ -210,22 +210,10 @@ describe("bindings", () => {
   // sound on top would say the same thing three ways (`bind-choir.ts`).
   const SILENT_BY_DESIGN = new Set(["needWave", "choirMerge"]);
 
-  /**
-   * THE HUSK, which is half built: its rules are on the field and its look and
-   * its sound are the other half of the creature, not yet landed. No wave hangs
-   * one, so neither event can fire in a game anybody is playing — and that is
-   * the reason these are here rather than in the set above. **When the husk's
-   * look lands, both of these move out of this set and into the catalogue**: a
-   * lie collapsing and a lie swallowed are two of the loudest moments the game
-   * will have, and either of them arriving silent would be a defect
-   * (`bind-pod.ts`).
-   */
-  const SILENT_UNTIL_THE_HUSK_IS_DRAWN = new Set(["huskRefused", "huskSwallowed"]);
-
   it("names a sound that exists for every event but the ones that are silent by design", () => {
     for (const [type, e] of Object.entries(SAMPLES)) {
       const cue = cueFor(e, 7, 12);
-      if (SILENT_BY_DESIGN.has(type) || SILENT_UNTIL_THE_HUSK_IS_DRAWN.has(type)) {
+      if (SILENT_BY_DESIGN.has(type)) {
         expect(cue).toBeNull();
         continue;
       }

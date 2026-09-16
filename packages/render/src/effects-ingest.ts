@@ -11,11 +11,12 @@ import type { Debris } from "./debris.js";
 import type { DeflectFx } from "./deflect.js";
 import { ingestBreach, ingestDeflect } from "./effects-breach.js";
 import { breakBody } from "./effects-break.js";
+import { ingestMouth } from "./effects-ingest-pod.js";
 import { isIngestSilent } from "./effects-ingest-silent.js";
 import type { ShipMoods } from "./effects-ship.js";
+import type { HuskDeflates } from "./husk-deflate.js";
 import { fieldX, type Layout, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
-import { PALETTE } from "./palette.js";
 import type { RockImpactFx } from "./rock-impact.js";
 import type { Sparks } from "./sparks.js";
 import type { SpriteBursts } from "./sprite-burst.js";
@@ -52,6 +53,9 @@ export interface IngestOneCtx {
   /** The pieces a broken body leaves. Draws nothing until a candidate look
    * asks for a fracture at all (`break-look.ts`). */
   debris: Debris;
+  /** The husks flying off, which outlive the frame they were refused on by
+   * more than a second (`husk-deflate.ts`). */
+  huskDeflates: HuskDeflates;
   /** Where a pixel of the flat field is on this screen: itself, or its place
    * in THE WELL's lane (`wellFromFlat`). Everything here that keeps a pixel
    * past this frame is put through it, so the well's pass can draw it. */
@@ -178,19 +182,12 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
         tail: !ctx.coilFlight.landed(e.col),
       });
       break;
-    case "podTaken": {
-      // Sparks flying *inwards*: the one moment in the game where the ship
-      // takes something instead of losing it.
-      const mouth = ctx.put(fieldX(ctx.l, e.col), ctx.l.hullY);
-      ctx.sparks.implode(mouth.x, mouth.y, 22, PALETTE.pod, ctx.l.tile * 1.9);
-      ctx.ship.swallowPod(e.kind);
-      break;
-    }
-    // **A husk is silent to the eye here**, and that is this half of the
-    // creature: the simulation knows what a husk is worth, and nothing draws
-    // one until its look lands. No wave hangs one yet, so this runs for nobody.
+    // The two things that reach the mouth and leave a picture behind — one
+    // taken in, one refused and going off like a balloon let go. Next door,
+    // along the seam `sim/pod-intake.ts` cuts (`effects-ingest-pod.ts`).
+    case "podTaken":
     case "huskRefused":
-    case "huskSwallowed":
+      ingestMouth(e, ctx);
       break;
     case "volleyReturn":
       // The banner a ward earns, and the only half of a `deflect` a volley

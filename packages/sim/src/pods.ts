@@ -167,7 +167,7 @@ export function advancePods(world: World): void {
           // And a window that shut is a pod not taken: the wave is lost. A
           // husk that crossed and left is the opposite — the pair let a lie go
           // past, which is exactly what they were supposed to do.
-          if (p.husk) huskRefused(world, Math.round(p.colMilli / MILLI));
+          if (p.husk) huskRefused(world, p);
           else lost(world, p);
           continue;
         }
@@ -222,8 +222,8 @@ function resolveIntake(world: World, pod: Pod): void {
   // only the receipt is inverted, which is the point: the pair cannot practise
   // a husk separately from a pod, because up to this tick it *is* one.
   if (pod.husk) {
-    if (inColumn && inTime) huskSwallowed(world, col);
-    else huskRefused(world, col);
+    if (inColumn && inTime) huskSwallowed(world, pod);
+    else huskRefused(world, pod);
     return;
   }
 

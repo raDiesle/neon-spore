@@ -19,6 +19,7 @@ import { drawGrips } from "./grip.js";
 import { drawGyres } from "./gyre.js";
 import { drawGyreWind } from "./gyre-wind.js";
 import type { SurfaceY } from "./hull-frame.js";
+import { drawHuskMarks } from "./husk-mark.js";
 import { drawLanceMark } from "./lance.js";
 import type { Layout } from "./layout.js";
 import { drawLockMarks } from "./lock-mark.js";
@@ -230,6 +231,11 @@ export function drawBodies(
   drawLockMarks(ctx, l, world, cannonCol, view.beatPhase, view.time);
   drawBoss(ctx, l, view, effects);
   drawPods(ctx, l, world.pods, view.time);
+  // And over one of them, on one screen: the frame that says this pod is a lie
+  // (`husk-mark.ts`). It is drawn after the pods rather than inside them for
+  // `drawLureAlarms`' reason — nothing that draws a body should have to know
+  // which seat it is running on.
+  drawHuskMarks(ctx, l, world, view.time, view.bare);
   drawBullets(ctx, l, world.bullets);
   // Last of the pass, and over every body in it. The world goes in for the
   // ward's bolts and the shell they take off a clasp: both are drawn around a

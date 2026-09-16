@@ -2,9 +2,9 @@ import { markMoment } from "./balance.js";
 import { msToTicks, type SimConfig } from "./config.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
 import { purge, ward } from "./pod-effects.js";
-import type { PodKind } from "./pod-types.js";
+import type { Pod, PodKind } from "./pod-types.js";
 import { failWave } from "./wave-fail.js";
-import type { World } from "./world.js";
+import { MILLI, type World } from "./world.js";
 
 /**
  * **The mouth**: whether it is open, and what happens to a cargo that reaches
@@ -92,11 +92,11 @@ export function cargoLost(world: World, col: number): void {
  * a pod, and counting it there would put a lost wave in the column that says
  * the pair met each other.
  */
-export function huskSwallowed(world: World, col: number): void {
+export function huskSwallowed(world: World, pod: Pod): void {
   world.balance.husksSwallowed += 1;
   markMoment(world, false);
   failWave(world);
-  world.events.push({ type: "huskSwallowed", col: clampCol(world, col) });
+  world.events.push({ type: "huskSwallowed", ...whereItWas(world, pod) });
 }
 
 /**
@@ -106,10 +106,20 @@ export function huskSwallowed(world: World, col: number): void {
  * saw the lie and the pilot stayed out of its way, which is two people doing
  * two different things about one object.
  */
-export function huskRefused(world: World, col: number): void {
+export function huskRefused(world: World, pod: Pod): void {
   world.balance.husksRefused += 1;
   markMoment(world, true);
-  world.events.push({ type: "huskRefused", col: clampCol(world, col) });
+  world.events.push({ type: "huskRefused", ...whereItWas(world, pod) });
+}
+
+/** Where a husk was standing and what it was wearing, for the two events that
+ * are the only picture of it there will be. */
+function whereItWas(world: World, pod: Pod): { col: number; row: number; kind: PodKind } {
+  return {
+    col: clampCol(world, Math.round(pod.colMilli / MILLI)),
+    row: Math.round(pod.rowMilli / MILLI),
+    kind: pod.kind,
+  };
 }
 
 /** The column an event may name, which is one that exists. A cargo blown a

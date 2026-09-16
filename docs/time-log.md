@@ -7783,3 +7783,23 @@ check again. The three splits — `wave-end.ts` taking the predicate,
 so the cost was the round trips and not the thinking.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — THE HUSK, half two: the look
+
+| row | minutes | what |
+|---|---|---|
+| reading | 20 | `effects-ingest*.ts` and its silent list, `frame-harness.ts`, the web `ideas.md` sits in |
+| writing | 60 | the mark, the deflation, the two sounds, the wave and its guide, the director's CARGO row, `husk-look.test.ts` |
+| looking | 25 | six captures of THE HUSK at tempo on three seats, four crops, and the arc correction one of them asked for |
+| friction | 30 | two more 250-line limits; `peakWorld` opens a wave with no pods; a second `--press` flag thrown away |
+| landing | 15 | `check:fast` three times, two queue entries, the commit |
+
+The bottleneck was friction, and none of it was the drawing. Two more files hit
+250 lines (`mechanics.ts`, `effects-ingest.ts`) and each cost a round trip to
+find. Two tools then answered the wrong thing without saying so: `peakWorld`
+opens a wave with an empty pod queue, so the first photograph of a wave whose
+subject is a pod came back with none on it, and `--press` given twice keeps one
+flag and drops the other, so the shot that frees the husk never fired and the
+capture looked like a wave that does nothing. Both are queued. The picture
+itself took one correction — the arc dipped into the hull plating — and the
+capture found it in one look.

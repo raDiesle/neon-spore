@@ -67,6 +67,13 @@ const STILL_PROSE = [
   // have to show a mouth sliding along a row and a bar filling under it, and
   // neither is drawn yet; until they are there is nothing to choreograph.
   "THE THROAT",
+  // And THE HUSK, owed by the lane that films it. A rehearsal is a thumb
+  // landing on a named control, and half of this wave's answer is a thumb that
+  // must **not** land — the maw left shut while a pod arrives, which is THE
+  // STARE's and THE BATON's problem a third time — with the other half being a
+  // mark drawn on one seat's screen and not the other's, so the film has to be
+  // shot twice and read as one lesson.
+  "THE HUSK",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -90,11 +97,11 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   });
 
   it("counts the guided waves the opening section names", () => {
-    // "seventy-two of the eighty-one waves today" — the one figure in §1
+    // "seventy-three of the eighty-two waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says seventy-two of eighty-one";
-    expect(guided.length, fix).toBe(72);
-    expect(WAVES.length, fix).toBe(81);
+    const fix = "update §1 of docs/spec/briefings.md, which says seventy-three of eighty-two";
+    expect(guided.length, fix).toBe(73);
+    expect(WAVES.length, fix).toBe(82);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {
