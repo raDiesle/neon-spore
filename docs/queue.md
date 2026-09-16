@@ -323,29 +323,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## The repository walk reads 1800 files one at a time and times out under load
-
-- **Found:** 2026-09-16, claude/queue-the-echo-his-way-the-wave-sent-again-unseen-and
-- **Taken:** 2026-09-16, claude/queue-the-repository-walk-reads-1800-files-one-at-a-ti
-- **Files:** `tools/test/tree-walk.test.ts`
-
-The test named *a walk of the repository > skips `.claude`, wherever it
-recurses into directories* awaits `Bun.file(...).text()` once per file inside a
-`for` loop, over every `.ts` under `packages`, `apps` and `tools` — about
-eighteen hundred of them. Alone it takes 350 ms; inside `bun run check`, where
-thirteen shards are reading the same disk, it crossed the 5000 ms cap and took
-a landing red. The same `bun run land` was green on the next run with nothing
-changed, which is the worst shape a red check can have: the next session
-re-runs it, finds nothing, and learns to re-run rather than to read.
-
-Read them in parallel — `await Promise.all(files.map(...))`, or `Promise.all`
-over chunks if the open-file count matters — which is the same walk in a
-fraction of the wall time, and takes the test off the edge of the cap rather
-than moving the cap. `FRAME_TIMEOUT_MS` in
-`packages/render/test/frame-harness.ts` is the precedent for raising one
-instead, and its own comment says why that is the second choice: a cap raised
-to cover contention hides the next thing that gets slow.
-
 ## The Husk, his way: a fake pod player 2 sees through, deflating when refused
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34

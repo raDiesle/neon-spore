@@ -7385,3 +7385,17 @@ the badge ripples four times and BACK twice, and the test grew a floor under
 how far the edge must travel so the next edit cannot quietly flatten it again.
 
 *Measured: read off half one's landing at 22:44 and this one.*
+
+## 2026-09-16 — creature-bite-collision — the repository walk, read in parallel
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry and `tools/test/tree-walk.test.ts` |
+| writing | 5 | `sources`, chunked at sixty-four, and two tests for it |
+| looking | 0 | — nothing visible moved |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was nothing; the entry named the fix and the fix was the fix.
+350 ms became 111 ms, which is the point: the test is off the edge of the cap
+rather than the cap being off the edge of the test.
