@@ -146,8 +146,16 @@ export interface Scene {
    * same join `CatalogueEntry.suggests` makes, and held by the same kind of
    * test. Renaming an idea has to break something loudly, or the picture goes
    * quietly back to being a picture of nothing in particular.
+   *
+   * **Optional, because an idea can be cut rather than renamed.** The BOSS
+   * IDEAS group went on 16 September 2026 at the owner's ask, and the seven
+   * scenes drawn at THE WEIGHT, THE TITHE and THE CAIRN were pictures of
+   * arguments nobody is having any more. They stay on the page with this left
+   * off — *set free*, the way THE CODEX's card was — rather than being deleted
+   * or kept pointing at a heading that is gone. `scene-box.ts` looks a scene up
+   * by this name, so one without it is simply never asked for.
    */
-  suggests: string;
+  suggests?: string;
   /**
    * Whose screen. A mechanic about the shield is drawn on the seat that holds
    * one; a band with the wrong half of the controls in it is a picture of a

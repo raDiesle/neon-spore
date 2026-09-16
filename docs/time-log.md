@@ -6116,3 +6116,23 @@ The twenty minutes of looking is the number worth keeping — it bought exactly
 one fix, and no test could have found it: the number coming down the straw and
 the label it came from were both on the screen at once, so the tangle said the
 one was in two places.
+
+## 2026-09-16 — queued-tasks — the boss ideas go, and five cards are set free
+
+The same queue entry's second landing: the whole **BOSS IDEAS** group, which
+the owner cut with THE SPLICE. Three encounters, and two of them had already
+shipped as something other than the card they were written on.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `ideas.md`'s `### Bosses`, `backlog.ts`'s group list, and `concept-art.test.ts` for what a shape is joined to |
+| writing | 15 | the cut, the comment saying why the page has no boss ideas, and five catalogue cards moved from `draft` to `free` on THE CODEX's precedent |
+| looking | 0 | nothing on the field moved; the page this changes is the director's |
+| friction | 20 | four tests red in sequence, each one a different copy of the same fact — the group set in `concepts.test.ts`, the name in `backlog.test.ts`, the shape join in `concept-art.test.ts`, the scene join in `scenes.test.ts`, then the draft count in `asset-catalogue.md` |
+| landing | 10 | two `check:fast` runs and the commit |
+
+The bottleneck was friction, and it is the honest cost of cutting a heading:
+seven scenes and five contours had been drawn at those three ideas, and every
+one of them was held to the heading by a test. Making `Scene.suggests` optional
+is what let the drawings stay — a picture whose concept was **cut** is set
+free, where one whose concept was **renamed** still has to fail loudly.

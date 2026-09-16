@@ -43,7 +43,6 @@ export const BOSS_SCENES: Scene[] = [
    * refers to.
    */
   {
-    suggests: "THE WEIGHT",
     role: "p1",
     claim:
       "**1 · SINKING.** Nobody has a hand on it, so it comes down a row a beat and there is nothing on it to shoot — the stalk pays out above it and the cannon and the shield are both free and both useless. The clock in this fight is the boss.",
@@ -51,7 +50,6 @@ export const BOSS_SCENES: Scene[] = [
     marks: [{ kind: "tether", col: 5, fromRow: 0, toRow: 3, note: "the stalk it hangs from" }],
   },
   {
-    suggests: "THE WEIGHT",
     role: "p1",
     claim:
       "**2 · HELD.** Two hands stop it dead — and two hands on the boss is nobody on the cannon and nobody on the shield. This is the safest the field ever looks and no part of it is progress: hold forever and the fight never ends.",
@@ -63,7 +61,6 @@ export const BOSS_SCENES: Scene[] = [
     ],
   },
   {
-    suggests: "THE WEIGHT",
     role: "p1",
     claim:
       "**3 · BALLAST.** Held, it sheds rocks — real ones, the game's own, indestructible and needing the shield. So the price of holding is charged in the one currency the hold has taken away, and it comes due the beat a hand lets go.",
@@ -79,7 +76,6 @@ export const BOSS_SCENES: Scene[] = [
     ],
   },
   {
-    suggests: "THE WEIGHT",
     role: "p1",
     claim:
       "**4 · OPEN.** Below the line the seam at its narrow top parts, and for the first time there is something to shoot — one column, four rows above the hull, and the hand that takes the shot is a hand that was holding it up.",
@@ -92,7 +88,6 @@ export const BOSS_SCENES: Scene[] = [
     ],
   },
   {
-    suggests: "THE WEIGHT",
     role: "p1",
     claim:
       "**5 · HEAVE.** Hit, it lifts fast and settles back slowly, the seam shuts and the cycle restarts higher up — with the ballast it shed on the way down still falling. The ghost is where it was standing when the shot went in.",
@@ -124,7 +119,6 @@ export const BOSS_SCENES: Scene[] = [
     bodies: [{ shape: "THE CONDUCTOR", col: 2, row: 2, span: 7, fill: 1 }],
   },
   {
-    suggests: "THE TITHE",
     role: "p2",
     claim:
       "seven columns of body and one plate reaching — its card argues that each plate is exactly one column wide, and this is where that is either true or not: the demand steps along the row while two rocks fall, on the seat that has to park a shield under one of them",
@@ -135,7 +129,6 @@ export const BOSS_SCENES: Scene[] = [
     ],
   },
   {
-    suggests: "THE CAIRN",
     role: "p1",
     claim:
       "counting the units is counting the fight, so the seams have to survive at boss size — and the rock already falling beside it is the game's own, because that is exactly what a unit becomes once it is pulled",

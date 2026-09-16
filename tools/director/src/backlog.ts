@@ -151,18 +151,20 @@ export function buildBacklog(
     // Bosses and rounds are one page: both are an encounter that takes a slot
     // in the act order, and a round filed on a tab of its own was read as a
     // different kind of thing than the boss it stands next to.
+    //
+    // **There are no boss ideas any more.** `ideas.md`'s `### Bosses` was
+    // three encounters and the owner cut the group on 16 September 2026, with
+    // THE SPLICE: two of the three had shipped as something other than the
+    // card they were written on (THE CAIRN as the boss it was written as, THE
+    // WEIGHT as a creature with the boss never built), and the one left —
+    // THE TITHE — was a slot in an act order nobody was reading off this page.
+    // What the two built ones turned into is `transfers-bosses.md`.
     bosses: [
       fromRoster(
         "THE ACT ORDER",
         "one boss every ten waves — bosses.md",
         roster.bosses,
         "the wave list",
-      ),
-      fromIdeas(
-        "BOSS IDEAS",
-        "encounters worked out and set aside, each naming the slot it would fit — ideas.md",
-        sheet,
-        "Bosses",
       ),
       dropBuilt(
         fromIdeas(

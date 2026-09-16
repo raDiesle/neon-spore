@@ -52,9 +52,13 @@ export const BOSS_DRAFTS: CatalogueEntry[] = [
   {
     subject: sac("THE WEIGHT", "a sac hung heavy, narrow at the top", 0.46, 74, 96),
     motion: HEAVE,
-    status: "draft",
+    // Free, not draft, since 16 September 2026: the owner cut the whole BOSS
+    // IDEAS group, so there is no heading left for this card to be offered to.
+    // It is still the shape that was drawn for the encounter, and the encounter
+    // is still there to be wanted — a picture waiting for a boss, which is what
+    // `free` means and how THE CODEX's card left the same list.
+    status: "free",
     slot: "boss",
-    suggests: "THE WEIGHT",
     owner:
       "the only boss that descends continuously, so its shape has to say heavy before it has moved: mass pulled to the bottom, a narrow top where the stalk takes the load, and a lift that comes fast and falls back slowly",
   },

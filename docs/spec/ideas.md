@@ -305,55 +305,6 @@ filed rightly, and there is no second list to change.
   and whether a husk may share a wave with a `mend`, since two identical amber
   hearts falling together is either the whole idea or one coin-flip too many
 
-### Bosses
-
-Three encounters, each naming the slot in [bosses](bosses.md) it would fit.
-Cut to what each asks of the pair on 12 September 2026, at the owner's ask;
-what a hand does is the point of every one, and the pictures drawn at them
-are on the director's SHAPES tab, not here. THE VANE left this list because it
-is built ([bosses](bosses.md) 11.5), and **THE CODEX left it on 13 September
-2026** for the same reason and by a different road: the owner asked for it as a
-*fault on a wave* rather than as an encounter, so what shipped is a malfunction —
-the two colours swapped for the navigator, the shimmer that says so on the
-pilot's screen alone — and the boss-sized body it was drawn for was never needed
-([bestiary](bestiary.md), THE MALFUNCTION).
-
-- **THE WEIGHT** — *a creature of this name is built* (12 September 2026): a sac
-  that sinks a lane a beat and gives to a hand from each seat held together, with
-  each thumb drawn on its own screen and nowhere else. What is below is still the
-  **boss**, and none of it shipped — see [transfers-bosses](transfers-bosses.md).
-  The boss you hold up with your thumbs. It sinks steadily
-  instead of holding a row; a thumb pressed on it stops it, two thumbs lift
-  it, and it has no weak point until it has been dragged below a line. But two
-  thumbs on the boss is nobody on the cannon, and it sheds rocks while held —
-  so the fight is the pair negotiating out loud who lets go, when, to shoot.
-  *Screen: a heavy sac on a stalk over the field, its skin going taut and
-  bright toward whichever thumb holds it.* Slot: The Heart (60). Unworked out:
-  whether the pair *lets* it fall past the line or *drags* it there — a drag
-  is a gesture the game does not have yet
-- **THE TITHE** — it always takes something and the pair chooses what. Each
-  cycle: two rocks in two columns on one beat, one shield, and one plate lit
-  in a third column wanting the cannon on that same beat. Two hands, three
-  demands, so every cycle is one sentence about what to give up, and the first
-  boss where taking a scar on purpose is the right play. *Screen: a slab
-  across seven columns with a row of plates under it; the live plate reaches
-  down.* Slot: The Kernel (100). Unworked out: the choice must be legible a
-  cycle ahead, or it is merely mean
-- **THE CAIRN** — *built* (13 September 2026), and the one on this list that
-  shipped as the boss it was written as rather than as an arrival: a pile of
-  seven two-tile rocks five columns wide, taken apart by a hand carried
-  sideways, with the pile letting one go itself into a lane only the pilot is
-  shown if it is left alone. See [transfers-bosses](transfers-bosses.md) for
-  what moved on the way. The draft, as it stood: a pile of the field's own
-  rocks that cannot be shot: you
-  take it apart by hand. A thumb dragged across one unit pulls it out of the
-  pile, and once loose it falls as an ordinary rock to be warded like any
-  other. The fight is rate — pull two and you have two rocks and one shield —
-  so it asks how much your partner can absorb right now. *Screen: seven rocks
-  in one outline; drag one clear and there are two outlines.* Slot: The Heart
-  (60), the same slot as THE WEIGHT; build one of them. Unworked out: what
-  stops a pair pulling nothing and waiting
-
 ### Mechanics
 
 - **The point score** — one shared figure (`World.score`, in `hashWorld`),

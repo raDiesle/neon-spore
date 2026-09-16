@@ -133,9 +133,13 @@ describe("buildBacklog", () => {
     expect(names(backlog.bosses)).not.toContain("THE CLAW");
     expect(group(backlog.bosses, "ROUND IDEAS").builtHidden).toBe(0);
 
-    // A boss idea sits with the act order rather than among the creatures:
-    // it is a whole encounter waiting for a slot, not a thing that falls.
-    expect(names(backlog.bosses)).toContain("THE TITHE");
+    // **There are no boss ideas.** The group was three encounters waiting for
+    // a slot, and the owner cut it on 16 September 2026 along with the
+    // `### Bosses` heading they were parsed out of: two of the three had
+    // shipped as something other than the card they were written on and the
+    // third, THE TITHE, was a slot in an act order nobody was reading here.
+    // So a name from that group is on neither page rather than on this one.
+    expect(names(backlog.bosses)).not.toContain("THE TITHE");
     expect(names(backlog.mechanics)).not.toContain("THE TITHE");
 
     // THE CODEX is off the page as of 13 September 2026, and it left the way

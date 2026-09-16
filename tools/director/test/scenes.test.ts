@@ -62,10 +62,15 @@ async function allNames(backlog: Backlog): Promise<Set<string>> {
 
 describe("a mechanic drawn on the field", () => {
   test("is a picture of a concept the backlog actually has", async () => {
+    // A scene with no `suggests` is one whose concept was **cut** rather than
+    // renamed — the seven drawn at THE WEIGHT, THE TITHE and THE CAIRN when
+    // the BOSS IDEAS group went on 16 September 2026. The join is still the
+    // thing being tested: a scene that *claims* a name has to name something
+    // the design has, and this is the one way a picture is allowed to stop
+    // claiming one (`shape-sheet/src/scene.ts`).
     const names = await allNames(await realBacklog());
-    expect(
-      SCENES.filter((s) => !names.has(s.suggests.toLowerCase())).map((s) => s.suggests),
-    ).toEqual([]);
+    const claimed = SCENES.map((s) => s.suggests).filter((n): n is string => n !== undefined);
+    expect(claimed.filter((n) => !names.has(n.toLowerCase()))).toEqual([]);
   });
 
   test("only places contours the catalogue holds", () => {

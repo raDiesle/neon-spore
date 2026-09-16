@@ -73,9 +73,13 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
       live: 3,
     }),
     motion: TWITCH,
-    status: "draft",
+    // Free, not draft, since 16 September 2026: the owner cut the whole BOSS
+    // IDEAS group, so there is no heading left for this card to be offered to.
+    // It is still the shape that was drawn for the encounter, and the encounter
+    // is still there to be wanted — a picture waiting for a boss, which is what
+    // `free` means and how THE CODEX's card left the same list.
+    status: "free",
     slot: "boss",
-    suggests: "THE TITHE",
     owner:
       "the first boss wider than the middle of the field, and a body that is mostly edge: the live plate is not lit, it *reaches*, because a silhouette has no colours and the pair are reading it at 26 px — one plate hanging two and a half times as far is the only part of the outline that moves, and it steps one column every cycle",
   },
@@ -85,18 +89,26 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
       live: 0,
     }),
     motion: TWITCH,
-    status: "draft",
+    // Free, not draft, since 16 September 2026: the owner cut the whole BOSS
+    // IDEAS group, so there is no heading left for this card to be offered to.
+    // It is still the shape that was drawn for the encounter, and the encounter
+    // is still there to be wanted — a picture waiting for a boss, which is what
+    // `free` means and how THE CODEX's card left the same list.
+    status: "free",
     slot: "boss",
-    suggests: "THE TITHE",
     owner:
       "the case the whole shape has to survive: a demand in the outermost column of seven, which is where 'which part of a long thing is live' is a fine distinction rather than an obvious one — if this card reads, the body works, and if it does not, no amount of tuning the middle will save it",
   },
   {
     subject: pile("THE CAIRN", "seven rocks in one outline, seams left to count", CAIRN),
     motion: SHIVER,
-    status: "draft",
+    // Free, not draft, since 16 September 2026: the owner cut the whole BOSS
+    // IDEAS group, so there is no heading left for this card to be offered to.
+    // It is still the shape that was drawn for the encounter, and the encounter
+    // is still there to be wanted — a picture waiting for a boss, which is what
+    // `free` means and how THE CODEX's card left the same list.
+    status: "free",
     slot: "boss",
-    suggests: "THE CAIRN",
     owner:
       "the first boss that is a pile rather than a body, and the first drawn with facets instead of lobes: each unit contributes its own polygon rather than a metaball, so the outline creases where two units meet instead of bulging, and the seams survive into the silhouette — which matters because counting the units is counting the fight",
   },
@@ -106,9 +118,13 @@ export const COLLECTED_DRAFTS: CatalogueEntry[] = [
       pull: { unit: 3, dx: 3.1, dy: 0.25 },
     }),
     motion: LURCH,
-    status: "draft",
+    // Free, not draft, since 16 September 2026: the owner cut the whole BOSS
+    // IDEAS group, so there is no heading left for this card to be offered to.
+    // It is still the shape that was drawn for the encounter, and the encounter
+    // is still there to be wanted — a picture waiting for a boss, which is what
+    // `free` means and how THE CODEX's card left the same list.
+    status: "free",
     slot: "boss",
-    suggests: "THE CAIRN",
     owner:
       "the encounter in one picture: a grip drags a unit out and it stops being part of the boss, becoming a second loop and then an ordinary rock to be warded like any other — the notch it leaves is why the pile has to be traced rather than marched, and the whole fight is how many of these the pair can have in the air at once",
   },
