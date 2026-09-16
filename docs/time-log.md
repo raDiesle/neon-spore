@@ -6628,3 +6628,25 @@ player 2's, and a mote is not *had* until the little ship is home with that
 mouth open, which is THE CLAW's own rule about a catch being two hands. The
 owner asked for this round to sit beside that panel; the rule the panel already
 had is what made it actually sit there.
+
+## 2026-09-16 — queue-the-ledger-estimates-its-minutes — the trunk's own account, stamped
+
+The queue's *The ledger estimates its minutes; the trunk knows them*: this
+file's rows are out against the trunk by a factor of between two and a half and
+four, and every speed question the repository asks next is asked in minutes.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `notes.ts`, `note-commit.ts` whole, `unverified.ts`'s diff guard, `notes-repo.test.ts`'s temporary repository, the entry's two decisions |
+| writing | 15 | `stamp.ts`, the stamping half of `note-commit.ts`, eleven pure cases and two repo-backed ones, the preamble here and the paragraph in `docs/lane-speed.md` |
+| looking | 0 | — nothing drawn |
+| friction | 0 | none |
+| landing | 5 | `bun run index` and its line, `check`, the queue entry, the commit |
+
+The bottleneck was reading, and the decision that took it was the guard rather
+than the arithmetic: the stamp goes under **the last entry in the file**, which
+is only this lane's if this lane wrote one — so the landing asks its own diff
+whether it touched the ledger at all, and a lane that logged nothing is stamped
+nothing. The entry's second question, whether `land` should also prefill the
+empty table, is answered no in the code's own words: `land` runs at the end, and
+a skeleton written then is scaffolding for a lane that has not started.

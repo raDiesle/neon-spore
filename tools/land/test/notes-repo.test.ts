@@ -168,3 +168,58 @@ describe("an entry after a landing that deleted files", () => {
     expect(queue).not.toContain("`gone.md`");
   });
 });
+
+/**
+ * The measured minutes, stamped into the entry the session wrote.
+ *
+ * `stamp.test.ts` holds the arithmetic and the wording against strings. What
+ * needs a repository is the guard: the stamp goes in only when the landing's
+ * own commits touched `docs/time-log.md`, which is what makes "the last entry"
+ * mean "this lane's" rather than whoever wrote last.
+ */
+describe("what the lane actually took", () => {
+  test("is stamped under the entry, in the commit that carries the note", async () => {
+    await writeFile(
+      join(root, "docs", "time-log.md"),
+      "# Where the minutes went\n\n## 2026-09-16 — a-lane — something\n\nBottleneck: reading.\n",
+    );
+    await run(["add", "docs/time-log.md"]);
+    await run(["commit", "-q", "-m", "the lane, with its rows"]);
+    const logged = await capture(["rev-parse", "HEAD"]);
+    await run(["branch", "--force", "main", "HEAD"]);
+
+    await writeNotes(
+      cloneState(),
+      [{ ...LANDED[0]!, full: logged, sha: logged.slice(0, 7) }],
+      "main",
+      root,
+    );
+
+    const ledger = await Bun.file(join(root, "docs/time-log.md")).text();
+    expect(ledger).toContain("*Measured:");
+    // The rows the session wrote are untouched above it.
+    expect(ledger).toContain("Bottleneck: reading.");
+    expect(await capture(["show", "--name-only", "--format=", "HEAD"])).toContain(
+      "docs/time-log.md",
+    );
+  });
+
+  test("is not stamped at all by a landing that logged nothing", async () => {
+    const before = await Bun.file(join(root, "docs/time-log.md")).text();
+    await writeFile(join(root, "readme.md"), "three\n");
+    await run(["commit", "-q", "--only", "readme.md", "-m", "a lane with no rows"]);
+    const quiet = await capture(["rev-parse", "HEAD"]);
+    await run(["branch", "--force", "main", "HEAD"]);
+
+    await writeNotes(
+      cloneState(),
+      [{ ...LANDED[0]!, full: quiet, sha: quiet.slice(0, 7) }],
+      "main",
+      root,
+    );
+
+    // Byte for byte: a measurement under somebody else's rows is worse than
+    // none, and this file is a record.
+    expect(await Bun.file(join(root, "docs/time-log.md")).text()).toBe(before);
+  });
+});

@@ -1666,6 +1666,7 @@ place — the generator keeps whatever is there.
 | `tools/hooks/session-start.ts` | Pin bun to a version new enough for this repo on the web, and name a bun below the pin anywhere |
 | `tools/director/src/brush-poses-echo.ts` | THE ECHO's specimen, split out of `brush-poses.ts` when THE CAROM took that file over its 250-line limit |
 | `tools/land/state.ts` | the facts a landing is decided from, read off git — `run.ts` moves refs, `land.ts` decides |
+| `tools/land/stamp.ts` | The `*Measured:` line a landing stamps under a time-log entry — the elapsed from the lane's first commit to the trunk moving, beside the session's own estimate |
 | `tools/land/shallow.ts` | A shallow clone, which is what a cloud session lands from |
 | `tools/director/src/entry-fields-rock.ts` | **A rock's two numbers**: how fast it falls and how wide it arrives |
 | `tools/frames/exec.ts` | The three things every part of this tool needs before it can do anything: where the checkout is |

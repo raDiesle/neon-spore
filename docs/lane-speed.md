@@ -53,6 +53,14 @@ ledger cannot tell the two apart, which is the argument for the stamp**: a
 measured elapsed per lane separates a day that held two sessions from a day
 that was estimated generously, and no amount of reading the rows will.
 
+**The stamp is built.** `bun run land` writes a `*Measured:` line under the
+entry the session just wrote, from the lane's first commit to the trunk moving
+(`tools/land/stamp.ts`). It is a floor and says so in its own words — nothing
+before the first commit, and every minute the lane spent waiting — and the five
+rows stay beside it untouched. Every figure above this section is estimate-only
+and stays that way: a re-reading that can use both accounts wants ten or twenty
+stamped lanes first, and the earliest of them is 16 September 2026.
+
 What the trunk does say on its own is that the ordinary pace is **a landing
 every seven minutes** (median; mean 14), and that the longest lanes in the
 ledger are long in calendar time too, but by less than the rows claim — THE

@@ -1,18 +1,20 @@
 /**
- * The two files a landing writes at the moment `main` moves, and the one
- * commit that carries them: `docs/release-notes.md` always, and
- * `docs/queue.md` when the session named something with `--unverified`.
+ * The files a landing writes at the moment `main` moves, and the one commit
+ * that carries them: `docs/release-notes.md` always, `docs/time-log.md` when
+ * the landing's own commits wrote an entry in it, and `docs/queue.md` when the
+ * session named something with `--unverified`.
  *
  * Split out of `sweep.ts` because that file is the cleanup — the branch, the
  * worktrees, the spent specs — and this is bookkeeping about the landing
- * itself. `notes.ts` and `unverified.ts` are the pure halves that decide what
- * either file should say; everything here talks to git.
+ * itself. `notes.ts`, `stamp.ts` and `unverified.ts` are the pure halves that
+ * decide what each file should say; everything here talks to git.
  */
 
 import { join } from "node:path";
 import { git, gitOrDie } from "./git.js";
 import type { LandState } from "./land.js";
 import { type Landed, prepend } from "./notes.js";
+import { minutesBetween, stampInto } from "./stamp.js";
 import { appendEntry, parseUnverified, renderUnverified } from "./unverified.js";
 
 /**
@@ -62,6 +64,7 @@ export async function writeNotes(
   // is derived from the landing, not from this commit, so the pair is one
   // bookkeeping step rather than one of each.
   const paths = ["docs/release-notes.md"];
+  if (await stampTimeLog(tree, landed)) paths.push("docs/time-log.md");
   const unverified = parseUnverified(argv);
   // A bare `--unverified`, or one followed by the next flag, is a session that
   // meant to say something and said nothing. Landing silently there is the
@@ -77,6 +80,42 @@ export async function writeNotes(
   // moved. Where a worktree holds the trunk, that commit *was* the trunk's.
   if (!state.trunkTree) await gitOrDie(["branch", "--force", TRUNK, "HEAD"], root);
   console.log(`  noted    docs/release-notes.md — ${what}`);
+}
+
+/**
+ * The measured minutes, stamped under the entry the session just wrote.
+ *
+ * **Only when the landing's own commits touched the file**, and that guard is
+ * what makes "the last `##` block" mean "this lane's entry" rather than
+ * whoever wrote last. A lane that logged nothing is stamped nothing: a
+ * measurement attached to somebody else's rows would be worse than none, and
+ * `docs/time-log.md` is a record — `stamp.ts` never rewrites what is there.
+ *
+ * The span is the **author** date of the lane's first commit to now, which is
+ * the moment the trunk moved. Author rather than commit date because a rebase
+ * rewrites the second and the lane's own clock is what is being measured;
+ * `docs/queue.md`'s entry has the ratio this is here to correct.
+ */
+async function stampTimeLog(tree: string, landed: Landed[]): Promise<boolean> {
+  const oldest = landed[0]?.full ?? "";
+  const newest = landed.at(-1)?.full ?? "";
+  if (!oldest || !newest) return false;
+  const touched = await git(["diff", "--name-only", `${oldest}^`, newest], tree);
+  if (!touched.split(/\r?\n/).some((line) => line.trim() === "docs/time-log.md")) return false;
+
+  const at = Number((await git(["log", "-1", "--format=%at", oldest], tree)).trim());
+  if (!Number.isFinite(at) || at <= 0) return false;
+  const minutes = minutesBetween(at, Math.floor(Date.now() / 1000));
+
+  const path = join(tree, "docs/time-log.md");
+  const file = Bun.file(path);
+  if (!(await file.exists())) return false;
+  const existing = await file.text();
+  const stampedText = stampInto(existing, minutes);
+  if (stampedText === existing) return false;
+  await Bun.write(path, stampedText);
+  console.log(`  measured docs/time-log.md — ${minutes} min, first commit to trunk`);
+  return true;
 }
 
 /**

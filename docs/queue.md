@@ -563,47 +563,6 @@ grouping reads best next door, and any of them is an improvement on none.
 Do it with the next creature that needs a note, not before: a refactor of prose
 with no new prose to place is a diff nobody can review against anything.
 
-## The ledger estimates its minutes; the trunk knows them
-
-- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Taken:** 2026-09-16, claude/queue-the-ledger-estimates-its-minutes-the-trunk-knows
-- **Files:** `tools/land/run.ts`, `tools/land/notes.ts`, `tools/land/note-commit.ts`, `docs/time-log.md`, `docs/lane-speed.md`, `tools/land/test/`
-
-`docs/time-log.md`'s five rows are what a session estimates about itself,
-rounded to five, and they do not agree with the trunk: 3 385 logged minutes on
-15 September against an 860-minute span of that day's own commits, 2 395
-against 969 on the 14th, 1 790 against 634 on the 16th. It is not parallel
-sessions — six of 204 work landings since 13 September landed more than ten
-minutes after they were written, and the author dates run strictly forward. The
-ratio is the estimate, and it is between two and a half and four.
-
-The shares survive that (the tail is still the tail), the minutes do not, and
-**every speed question this repository will ask next is asked in minutes** —
-whether a lane split in two is shorter than the sitting it replaces, whether
-the line-ceiling hook took its 375 minutes off, whether fast mode is worth
-turning on. Each of those is currently settled by the same instrument that is
-out by a factor of three.
-
-`bun run land` is already holding both ends of the measurement at the moment it
-writes the release note: the branch's first commit and the fast-forward. So it
-can stamp one line into the entry — the elapsed, in minutes, from the lane's
-first commit to the trunk moving — and the session's own rows stay exactly as
-they are beside it, which is the point: an estimate next to a measurement is
-how the estimate gets better rather than replaced.
-
-Two things to decide, neither of which needs the owner. Whether the stamp goes
-in the entry the session writes (simplest: `land` appends the line to the last
-`##` block) or in a table of its own that nothing hand-written can drift from —
-prefer the entry, because a reader of one lane wants both accounts in one
-place. And whether `land` should also **prefill the table's skeleton** — the
-heading, the date, the branch and the five empty rows — which is the other half
-of the same minute: a lane writes the same eleven lines of scaffolding every
-time, and only the cells are its own.
-
-Provable with `bun run check`: `tools/land`'s own tests already exercise the
-note-writing path against a temporary repository, so the stamp is a case
-beside them, and a rounding rule is a pure function with a table.
-
 ## Unverified at ce8a2324: THE SCOUT's arenas were never watched at tempo — the fl…
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
