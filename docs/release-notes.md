@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 77f4bdf7 — A rock's holes are known before its stone is painted, so a bite can be offered
+
+Destruction's third piece — a hit cutting a real piece out of a body — could not be offered beside the other two, because nothing carried damage into a contour. A crater is placed inside the loop that paints it, so a `MeteorLook` heard about a hole only after it had laid down the stone the hole is in, and the most a `pit` could ever be was a mark on a finished face. `MeteorLook.pit` was also handed neither the rock's radius nor the clock, so it could not tell where the rim was or what time it was.
+
 ## 2026-09-16 · fa9b89a6 — One fake element under the director's document and the game's
 
 Two files called `fake-dom.ts` each held their own `FakeEl` — overlapping on `tagName`, `textContent`, `children`, `append`, `addEventListener`, `click` and `descendants`, diverging on everything else, and each carrying its own copy of the argument for why a hundred lines here beats a devDependency the whole repository would carry so that two files can be read.
