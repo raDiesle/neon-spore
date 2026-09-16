@@ -87,6 +87,20 @@ export const INTRO_BEATS: readonly IntroBeat[] = [
   { id: "shield", shout: "SHIELD, LEFT", from: 2, answer: "shield", at: 12.6 },
 ];
 
+/**
+ * **Seconds the caller spends reading their own screen before they speak.**
+ *
+ * The first of the four moments the scene is, and the one it did not have: the
+ * owner, 16 September 2026 — *they first look, then they call, then the other
+ * ones listen and performs what he was told to do so*. Without it a shout has
+ * no cause, and the pair reads as two people reciting rather than as one
+ * telling the other something only they can see.
+ *
+ * Long enough to be a moment and not a flicker. A beat's look runs from
+ * `at - INTRO_LOOK` to `at`, so no beat may be shouted before this much of the
+ * scene has passed — held by this file's own test.
+ */
+export const INTRO_LOOK = 1.5;
 /** Seconds a shout takes to cross the gap between the two of them. */
 export const INTRO_CROSS = 1.3;
 /** Seconds the one who hears it takes to find the control and move it. */

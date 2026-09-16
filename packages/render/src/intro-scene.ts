@@ -26,8 +26,9 @@ import { wrapText } from "./wrap-text.js";
  * long enough to be read to the person you are about to play with — the
  * owner's own two asks of 15 September 2026, the focus and the pace. The words
  * and their timings are `packages/content/src/intro.ts`, the board with the
- * seam down it is `intro-share.ts`, the people are `intro-player.ts` and the
- * word crossing between them is `intro-shout.ts`; the loud half — the banner,
+ * seam down it is `intro-share.ts`, the two people — a phone, an ear and a
+ * mouth each (`intro-ear.ts`, `intro-mouth.ts`) — are `intro-player.ts`, and
+ * the word crossing between them is `intro-shout.ts`; the loud half — the banner,
  * the tag and the one cycle that carries the picture at the reader and back —
  * is `intro-flash.ts`, which is the owner's own store-window comparison and has
  * survived two rewrites because none of it was ever the stepper's.
@@ -40,8 +41,20 @@ import { wrapText } from "./wrap-text.js";
 const TITLE_FONT = '700 22px "Courier New",monospace';
 /** One line of headline to the next. */
 const TITLE_STEP = 27;
-const BODY_FONT = '14px "Courier New",monospace';
-const SKIP_FONT = '600 11px "Courier New",monospace';
+/**
+ * **The sentences, at the size the owner asked for them.**
+ *
+ * *The text must be very visible and readable*, 16 September 2026, after the
+ * scene came back bad a second time. It was 14px with a 21px lead, which is
+ * the size a caption is set at in this game — and these are not captions, they
+ * are the four sentences the whole front door is. `intro-words.test.ts`
+ * measures them against a 360px phone rather than judging them: the headline
+ * on one line, every sentence on two, and nothing over an edge.
+ */
+const BODY_FONT = '17px "Courier New",monospace';
+/** One sentence's line to the next. */
+const BODY_STEP = 24;
+const SKIP_FONT = '600 12px "Courier New",monospace';
 
 /** The one press target that is drawn as one: the corner that says PLAY. */
 export function playBox(l: Layout): { x: number; y: number; w: number; h: number } {
@@ -120,7 +133,7 @@ export function drawIntroScene(
     1,
     ...INTRO_LINES.map((one) => wrapText(ctx, one.text, l.width - 52).length),
   );
-  const sayAt = l.height - 26 - (deepest - 1) * 21;
+  const sayAt = l.height - 26 - (deepest - 1) * BODY_STEP;
   const figureTop = slab.top + slab.h + 14;
   const box = {
     x: 14,
@@ -141,7 +154,7 @@ export function drawIntroScene(
       ctx.fillStyle = PALETTE.text;
       ctx.fillText(wrapped, 0, 0);
     });
-    y += 21;
+    y += BODY_STEP;
   }
 
   playCorner(ctx, l, age, pointer);

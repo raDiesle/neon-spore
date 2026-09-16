@@ -1,9 +1,16 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { INTRO_BEATS, INTRO_CROSS, INTRO_SCENE_SECONDS } from "@neon-spore/content";
+import {
+  INTRO_ANSWER,
+  INTRO_BEATS,
+  INTRO_CROSS,
+  INTRO_LOOK,
+  INTRO_SCENE_SECONDS,
+} from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { drawIntroPair, introPlay } from "../src/intro-pair.js";
+import { introPlayer } from "../src/intro-player.js";
 import { drawIntroScene, introOver, playBox } from "../src/intro-scene.js";
-import { answered, shoutNow } from "../src/intro-shout.js";
+import { answered, readingNow, shoutNow } from "../src/intro-shout.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
@@ -180,6 +187,59 @@ describe("the sentence the scene is saying", () => {
         expect(v, `${name} at ${age.toFixed(2)}`).toBeLessThanOrEqual(1);
       }
     }
+  });
+
+  it("puts a look in front of every shout, and takes it away as the word leaves", () => {
+    // The moment the scene did not have, and the cause of the other three: the
+    // owner, 16 September 2026 — *they first look, then they call, then the
+    // other ones listen and performs what he was told to do so*.
+    for (const beat of INTRO_BEATS) {
+      expect(
+        beat.at - INTRO_LOOK,
+        `${beat.id} would look before the scene opens`,
+      ).toBeGreaterThanOrEqual(0);
+      expect(readingNow(beat.at - INTRO_LOOK - 0.01)?.beat.id, beat.id).not.toBe(beat.id);
+      const mid = readingNow(beat.at - INTRO_LOOK * 0.4);
+      expect(mid?.beat.id, beat.id).toBe(beat.id);
+      expect(mid?.read ?? 0, beat.id).toBeGreaterThan(0.9);
+      // **The one reading is the one who is about to call**, and not the one
+      // who will answer. A scene where the listener is the one studying their
+      // screen is the pair the wrong way round.
+      expect(mid?.beat.from, beat.id).toBe(beat.from);
+      // And nobody is still bent over a phone while their own word crosses.
+      expect(readingNow(beat.at + INTRO_CROSS * 0.4)?.read ?? 0, beat.id).toBe(0);
+    }
+  });
+
+  it("runs the four moments in the order the scene claims, and in no other", () => {
+    for (const beat of INTRO_BEATS) {
+      const look = beat.at - INTRO_LOOK * 0.4;
+      const land = beat.at + INTRO_CROSS;
+      // Nothing is being said while the screen is being read.
+      expect(shoutNow(look)?.beat.id, beat.id).not.toBe(beat.id);
+      // Nothing has moved while the word is still in the air.
+      expect(answered(beat.at + 0.1, beat), beat.id).toBe(0);
+      expect(answered(land - 0.01, beat), beat.id).toBe(0);
+      // And the control has moved by the time the answer has had its say.
+      expect(answered(land + INTRO_ANSWER, beat), beat.id).toBeGreaterThan(0.9);
+    }
+  });
+
+  it("lights the phone of whoever is reading it, and nobody else's", () => {
+    // The look is only a look if it can be seen. The figure is a phone, an ear
+    // and a mouth (`intro-player.ts`), and the rows on the screen are the one
+    // part of it that says *this one is reading*.
+    const { ctx } = stubCanvas();
+    const still = { look: 1 as const, reading: 0, talking: 0, listening: 0 };
+    const before = ctx.calls;
+    introPlayer(ctx as unknown as CanvasRenderingContext2D, 100, 100, 40, "#C9A7FF", 2, still);
+    const dark = ctx.calls - before;
+    const at = ctx.calls;
+    introPlayer(ctx as unknown as CanvasRenderingContext2D, 100, 100, 40, "#C9A7FF", 2, {
+      ...still,
+      reading: 1,
+    });
+    expect(ctx.calls - at, "a lit phone draws no more than a dark one").toBeGreaterThan(dark);
   });
 
   it("ends only once both answers have been given", () => {

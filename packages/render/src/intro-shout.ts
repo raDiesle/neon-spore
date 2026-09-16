@@ -3,6 +3,7 @@ import {
   INTRO_ANSWER,
   INTRO_BEATS,
   INTRO_CROSS,
+  INTRO_LOOK,
   type IntroBeat,
 } from "@neon-spore/content";
 import { smoothstep } from "./ease.js";
@@ -45,6 +46,37 @@ export function answered(age: number, beat: IntroBeat): number {
 
 /** How long a landed bubble stays before it pops, in seconds. */
 const LINGER = 0.34;
+
+/** How long the caller takes to lift their eyes off the screen once they
+ * start speaking. Short: the word is already on its way. */
+const LOOK_AWAY = 0.32;
+
+/**
+ * **The one who is reading their own screen right now**, and how plainly.
+ *
+ * The first of the scene's four moments, and the cause of the other three: the
+ * caller sees something, *then* says it, *then* the other one hears it, *then*
+ * the control moves. It runs from `INTRO_LOOK` before the shout up to the
+ * moment the mouth opens, and is gone by a third of a second after — a figure
+ * still bent over a phone while its own word is crossing the room is one
+ * person doing two things at once.
+ *
+ * It climbs over the first half of the window rather than the whole of it, so
+ * there is a stretch where the screen is plainly being read and nothing is
+ * moving. A ramp that is still rising when the shout leaves reads as a glance.
+ */
+export function readingNow(age: number): { beat: IntroBeat; read: number } | null {
+  for (let i = INTRO_BEATS.length - 1; i >= 0; i--) {
+    const beat = INTRO_BEATS[i];
+    if (!beat) continue;
+    const from = beat.at - INTRO_LOOK;
+    if (age < from || age >= beat.at + LOOK_AWAY) continue;
+    const down = smoothstep(clamp01((age - from) / (INTRO_LOOK * 0.5)));
+    const up = smoothstep(clamp01((age - beat.at) / LOOK_AWAY));
+    return { beat, read: down * (1 - up) };
+  }
+  return null;
+}
 
 /**
  * The shout in the air right now, if there is one: how far it has got, and how
@@ -92,7 +124,13 @@ export function drawShout(
 ): void {
   const t = smoothstep(cross);
   const x = from.x + (to.x - from.x) * t;
-  const y = from.y + (to.y - from.y) * t - Math.sin(t * Math.PI) * scale * 1.1;
+  // **It clears the mouth it came out of from the first frame.** The arc used
+  // to start flat on the speaker's lips, and once those lips were drawn as
+  // lips (`intro-mouth.ts`) the bubble covered the one part of the figure that
+  // was doing anything. So there is a standing lift under the arc as well as
+  // the arc: the word is over the mouth rather than on it, the whole way.
+  const lift = (0.42 + 0.78 * Math.sin(t * Math.PI)) * scale;
+  const y = from.y + (to.y - from.y) * t - lift;
   // It is thrown rather than handed over: it swells out of the speaker, holds
   // its size across the gap, and is punched flat on the far side.
   const grown = smoothstep(clamp01(cross / 0.18));
@@ -111,7 +149,7 @@ export function drawShout(
     const back = t - i * 0.09;
     if (back <= 0) continue;
     const bx = from.x + (to.x - from.x) * back;
-    const by = from.y + (to.y - from.y) * back - Math.sin(back * Math.PI) * scale * 1.1;
+    const by = from.y + (to.y - from.y) * back - (0.42 + 0.78 * Math.sin(back * Math.PI)) * scale;
     const r = scale * 0.07 * (1 - i * 0.22);
     halo(ctx, bx, by, r * 3, PALETTE.text, 0.3);
     ctx.beginPath();

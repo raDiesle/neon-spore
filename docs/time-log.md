@@ -7746,3 +7746,19 @@ one line, in the file that says what a camera arrives as. The scene itself is
 the next half of the same entry and needed this one first.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — the intro's two people are a mouth and an ear
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the seven intro files, the queue entry's four asks, and what a 360px phone does to the sentences |
+| writing | 55 | `intro-mouth.ts`, `intro-ear.ts`, the figure rebuilt around a phone, `INTRO_LOOK`, two test files |
+| looking | 35 | nine photographs of the scene at seven moments, and the crops into the two figures |
+| friction | 5 | asked `bun run crop` for a zoom of 1.3; its own usage line says a whole number |
+| landing | 10 | `check:fast` twice, the commit |
+
+The bottleneck was looking, and it is the one that should have been: three of
+the five corrections this lane made — the mouth's corners, the group that read
+as three loose objects, and a speech bubble sitting on the open mouth it came
+out of — were invisible in the source and obvious in the picture. The scene had
+been changed twice by sessions that could not take one.
