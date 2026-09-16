@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 6d28d721 — THE REPRISE sends the wave you have just beaten back at you unseen
+
+A boss that authors nothing and draws nothing: every sixteen beats of a wave, it takes the stretch of the script the pair has just played and sends it down again, in the same order, with the same gaps, with nothing on either screen. The wave's own arrivals stand still while a stretch is coming back — the clock `spawnArrivals` reads is the wave's beat less the beats the mechanism has held it — so what the pair has to keep is the count and the columns, said out loud while the field is still lit and said again when it goes dark.
+
 ## 2026-09-16 · af0f0836 — The rebase a landing never runs gets its own entry
 
 Another session filed The time log conflicts on every rebase and nothing merges it while this one was building the resolver, so the entry comes off the list - ledger-merge.ts settles that file in the replay now. But it named two files and only one of them is fixed.
