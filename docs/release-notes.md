@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 00f63e87 — The input delay is milliseconds, and a slow beat spends fewer ticks of it
+
+A press was scheduled a fixed number of ticks ahead, and THE SLOW makes a tick worth three times its ordinary length. So on exactly the beats a boss made dramatic, a thumb was answered a third of a second later than the same thumb a beat earlier, with nothing about the link having changed. `InputDelay` now holds what it was always promising — milliseconds, the gap between a thumb and the answer to it — and the tick count is asked for at the moment of scheduling, through `ticksAt(msPerTick)`.
+
 ## 2026-09-17 · 436ac7fd — Every --press on the line is kept, not the first one
 
 A capture written as `--press 300:1:cannonCol=5 --press 320:2:fire=red` ran with one of the two flags and dropped the other without a word, and the dropped one is usually the shot — so the picture came back as a wave playing itself, which looks exactly like a capture of a wave nobody pressed anything into. The lane that drew THE HUSK lost two captures and a read through `press-command.ts` to it, hunting a verb that was never wrong.
