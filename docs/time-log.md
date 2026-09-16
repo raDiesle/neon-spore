@@ -7399,3 +7399,5 @@ how far the edge must travel so the next edit cannot quietly flatten it again.
 The bottleneck was nothing; the entry named the fix and the fix was the fix.
 350 ms became 111 ms, which is the point: the test is off the edge of the cap
 rather than the cap being off the edge of the test.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
