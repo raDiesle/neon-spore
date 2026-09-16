@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 5503b97a — Two documents stop sending a reader to a GUIDES sheet that is not there
+
+The guide's words moved into the WAVE tab's three fields on 14 September 2026 and the `✎ GUIDES` sheet went with them, but `docs/spec/briefings.md` and `tools/director/README.md` still described the sheet, the `◇ NOT BUILT YET → GUIDES` room beside it and the `BRIEFING` note above the fields as things to go and look at. Someone reading either one hunts for a tab that does not exist and concludes the tool is broken, which is close to what happened.
+
 ## 2026-09-16 · a54aabed — The director's WAVE tab loses a BRIEFING heading with nothing under it
 
 The sentence under it went yesterday, because its two branches differed by a clause and read as the same thing said twice. The heading and its empty paragraph stayed, because deleting the call was outside that task — and what an empty field under a heading looks like from outside is a panel that failed to load, which is the worse of the two faults and is how it read to the owner on wave 1. NAME is the first thing about a wave and is now the first thing in the tab.

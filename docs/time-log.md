@@ -7486,3 +7486,5 @@ finding out what replaced it. Doing that turned up a fifth stale passage the
 entry had not counted and three code comments naming a file that has been gone
 since 14 September — queued, because a comment a writer copies a pattern from
 is a different problem from a document a reader is misled by.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
