@@ -348,6 +348,7 @@ to cover contention hides the next thing that gets slow.
 ## A WELL wave never ends: nothing ever takes that boss off the world
 
 - **Found:** 2026-09-16, claude/queue-the-echo-his-way-the-wave-sent-again-unseen-and
+- **Taken:** 2026-09-16, claude/queue-a-well-wave-never-ends-nothing-ever-takes-that-b
 - **Files:** `packages/sim/src/beat.ts`, `packages/sim/src/well.ts`, `packages/sim/src/wave-end.ts`, `packages/sim/test/well.test.ts`, `packages/content/src/waves/act-8.ts`
 
 `beat.ts` clears a wave only when `world.boss === null`, and THE WELL is never
