@@ -3,7 +3,6 @@ import { claimPort, treeKey } from "../ports.js";
 import { SERVERS } from "../servers.js";
 import indexHtml from "./index.html";
 import { backlogState } from "./src/backlog-api.js";
-import { DOC_ROUTES } from "./src/docs-api.js";
 import { notesState } from "./src/notes-api.js";
 import { saveWaves, wavesState } from "./src/waves-api.js";
 import versusHtml from "./versus.html";
@@ -195,20 +194,12 @@ const server = Bun.serve({
       GET: withIdle(() => notesState(repoRootPath)),
     },
 
-    /**
-     * One study per route, each answering with a whole document — see
-     * `DOC_ROUTES` in `docs-api.ts` for the table, which `build.ts` bakes from
-     * as well. Written out from the table rather than by hand so the served
-     * set and the baked set are the same set.
-     */
-    ...Object.fromEntries(
-      Object.entries(DOC_ROUTES).map(([path, read]) => [
-        path,
-        {
-          GET: withIdle(async () => Response.json({ text: await read() }, { headers: noCache })),
-        },
-      ]),
-    ),
+    // A route per study answered with a whole document — `/api/borrowed` and
+    // `/api/party-games`, from a table in `docs-api.ts` that `build.ts` baked
+    // from as well. The owner took the last of those pages off the sheet on
+    // 16 September 2026 and the table, the readers and the file they lived in
+    // went with them: the documents are still in `docs/`, and a study that is
+    // read there needs no route. The next one is a reader and a line again.
 
     // `/api/spec` served every file in `docs/spec/` verbatim, for the sheet's
     // own SPEC room. The owner took that room off on 14 September 2026 and

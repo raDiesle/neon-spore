@@ -1399,7 +1399,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/columns.ts` | Every top-level column in the director's `<main>` can be put away as one unit |
 | `tools/director/src/concept-art.ts` | The picture beside a planned concept |
 | `tools/director/src/controlsets-page.ts` | CONTROLS: every registered panel, drawn, plus the things the pair touches on the field itself |
-| `tools/director/src/docs-api.ts` | The GET routes that only read a document off disk — `docs/borrowed.md` and the spec directory |
 | `tools/director/src/documentation-rooms.ts` | DOCUMENTATION's lazy rooms, bound in one place |
 | `tools/director/src/difficulty-picker.ts` | **THE THREE TEMPI A PAIR CAN CHOOSE, beside the field rather than behind a slider.** The owner asked for this… |
 | `tools/director/src/field-controls-page.ts` | The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on line count |
@@ -1540,7 +1539,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/versus-shot.ts` | The two query parameters that make a VERSUS pair photographable |
 | `tools/director/src/wave-opening.ts` | What the wave being edited puts in front of a pair before it starts |
 | `tools/director/src/waves-commit.ts` | A save in the wave editor is a commit |
-| `tools/director/src/whole-doc.ts` | The tabs that render one document whole — BORROWED (`docs/borrowed.md`) |
 | `tools/frames/capture.ts` | One picture, or a short strip of them, off the running game |
 | `tools/frames/chrome.ts` | Which browser `tools/frames` opens, and where it lives on the two machines this repository runs on |
 | `tools/frames/hold.ts` | `--hold` on the command line: the one thing this tool could not photograph |

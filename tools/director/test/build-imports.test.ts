@@ -11,9 +11,11 @@ import { fileURLToPath } from "node:url";
  * the idle timer fired an hour later. `bun run build` looked finished and
  * hung, which is the worst place for a hang to be.
  *
- * The readers live in `src/docs-api.ts` now. This test is the reason they
- * stay there: it fails the moment a non-server file reaches for `server.ts`
- * again, which is the only way that hang comes back.
+ * The reader it wanted lived in `src/docs-api.ts` after that, and that file
+ * went with the last study page on 16 September 2026 — so what is left is the
+ * rule rather than the arrangement: this fails the moment `build.ts`, or
+ * anything it imports, reaches for `server.ts` again, which is the only way
+ * that hang comes back.
  */
 
 const DIRECTOR = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -28,18 +30,20 @@ describe("nothing but a server imports the server", () => {
     expect(source).not.toMatch(/import\s*\(\s*["'][^"']*server\.(js|ts)["']/);
   });
 
-  it("the readers build.ts bakes come from a file that binds nothing", async () => {
-    const docs = await Bun.file(join(DIRECTOR, "src", "docs-api.ts")).text();
-    for (const line of docs.match(/^\s*import .*$/gm) ?? []) {
-      expect(line).not.toMatch(SERVER_IMPORT);
-    }
-    const { DOC_ROUTES, readPartyGamesText } = await import("../src/docs-api.js");
-    expect((await readPartyGamesText()).length).toBeGreaterThan(0);
-    // Every whole-document route, not the one this test happens to name: the
-    // table is what `build.ts` bakes from, so a route pointing at a file that
-    // is no longer there is a build that writes an empty page.
-    for (const read of Object.values(DOC_ROUTES) as (() => Promise<string>)[]) {
-      expect((await read()).length).toBeGreaterThan(0);
+  // The same rule one step further out: `build.ts` bakes what the readers it
+  // imports answer with, and the day one of those readers sits in a file that
+  // binds a port, the build hangs again — through the import it was given
+  // rather than the one it wrote.
+  it("nothing build.ts imports imports the server either", async () => {
+    const source = await Bun.file(join(DIRECTOR, "build.ts")).text();
+    const local = [...source.matchAll(/from "(\.[^"]+)"/g)].map((m) => m[1] as string);
+    expect(local.length).toBeGreaterThan(0);
+    for (const spec of local) {
+      const path = join(DIRECTOR, spec.replace(/\.js$/, ".ts"));
+      const text = await Bun.file(path).text();
+      for (const line of text.match(/^\s*import .*$/gm) ?? []) {
+        expect(line, spec).not.toMatch(SERVER_IMPORT);
+      }
     }
   });
 });

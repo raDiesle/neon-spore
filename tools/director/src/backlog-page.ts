@@ -17,7 +17,6 @@ import { type BacklogEntry, renderEntry } from "./backlog-entry.js";
 import { mountLazyTabs } from "./backlog-tabs.js";
 import { bindOrphans } from "./orphans-panel.js";
 import { mountSheet } from "./session.js";
-import { renderWholeDoc } from "./whole-doc.js";
 
 interface BacklogGroup {
   title: string;
@@ -93,7 +92,6 @@ async function load(): Promise<void> {
   const backlog = (await res.json()) as Backlog;
 
   fill("backlogMechanics", backlog.mechanics);
-  void renderWholeDoc("partyGamesDoc", "/api/party-games");
   loaded = true;
 }
 

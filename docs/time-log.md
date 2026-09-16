@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-16 — director-party-games-page — PARTY GAMES, and the machinery under it
+
+The owner's second removal of the evening, and the last study page on the
+sheet. The tab and its page, and then everything that existed only to serve it:
+`whole-doc.ts`, `docs-api.ts`, the `DOC_ROUTES` table, the route block in
+`server.ts` and the bake loop in `build.ts`.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | what still called `renderWholeDoc` and `DOC_ROUTES` once this page went, and whether `renderMarkdown` had another caller — it does |
+| writing | 5 | the removals, the comments left where the tab and the route block were, and `build-imports.test.ts` rewritten around the rule rather than the file it used to name |
+| looking | 0 | — `bun run build:director` run to the end, which is the check that matters here: it exits, and `dist/api/` is backlog, notes and waves |
+| friction | 0 | none; the tab-count floor went red again and that is the test doing its job |
+| landing | 5 | `check:fast`, `bun run index`, the commit |
+
+The bottleneck was reading, and it is the same five minutes the page before it
+cost — a page is nine places. What is worth saying is the shape of the second
+removal against the first: taking BORROWED off left the machinery standing with
+one caller, and taking PARTY GAMES off left it with none, so the second lane is
+larger than the first by exactly the renderer, the reader, the table and two
+route blocks. A page is cheap to remove until it is the last of its kind.
+
+*Measured: the rows above are the session's own estimate, read off the previous landing at 21:30 and this one.*
+
 ## 2026-09-16 — director-borrowed-page — BORROWED comes off the sheet
 
 The owner asked for the page to go. The tab, its page, its reader, its route

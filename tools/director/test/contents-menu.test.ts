@@ -40,7 +40,7 @@ describe("the level a page's sections are written at", () => {
   test("takes the h4 sections of a document titled in an h3", () => {
     const doc = new FakeEl();
     doc.append(
-      heading("H3", "Party games"),
+      heading("H3", "A document with a title over its sections"),
       heading("H4", "The one sentence"),
       heading("H4", "Sources"),
     );

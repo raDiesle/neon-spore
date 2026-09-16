@@ -3,7 +3,6 @@ import { join } from "node:path";
 import { WAVES } from "@neon-spore/content";
 import { buildDateToday } from "../build-stamp.js";
 import { backlogState } from "./src/backlog-api.js";
-import { DOC_ROUTES } from "./src/docs-api.js";
 import { notesState } from "./src/notes-api.js";
 
 /**
@@ -16,12 +15,11 @@ import { notesState } from "./src/notes-api.js";
  * `waves.ts`, decide a check or run one — none of that survives a build,
  * because there is no repository behind a static bundle. What *can* survive
  * is everything the director only ever reads: the wave list, the backlog
- * ("NOT BUILT YET"), the spec, `docs/party-games.md`, and the check ledger's own
- * state (read by the checks tab — never by a decide or
- * a run, which have no route to call). Each of those is baked here, once, at
- * build time, into a plain file under `dist/api/`, at the exact path the
- * client already fetches — `main.ts`, `backlog-page.ts`, `spec.ts`,
- * `whole-doc.ts` and the VERSUS page need no change: a static host answering
+ * ("NOT BUILT YET") and the check ledger's own state (read by the checks tab
+ * — never by a decide or a run, which have no route to call). Each of those is
+ * baked here, once, at build time, into a plain file under `dist/api/`, at the
+ * exact path the client already fetches — `main.ts`, `backlog-page.ts` and the
+ * VERSUS page need no change: a static host answering
  * `GET /api/backlog` with a file looks identical to `server.ts` answering it
  * with a handler. `PUT` and `POST` have no such file to land on, so saving a
  * wave or deciding a check simply has nowhere to go — which is why `main.ts`
@@ -81,12 +79,9 @@ await Promise.all([
   bake("api/waves", JSON.stringify({ waves: WAVES, token: "" })),
   bake("api/backlog", await backlogRes.text()),
   bake("api/notes", await notesRes.text()),
-  // The whole-document routes, from the table `server.ts` serves them from:
-  // the baked set is the served set by construction rather than by two lists
-  // being kept level by hand.
-  ...Object.entries(DOC_ROUTES).map(async ([path, read]) =>
-    bake(path.slice(1), JSON.stringify({ text: await read() })),
-  ),
+  // The whole-document routes were baked here too, from the table `server.ts`
+  // served them from. There are none since 16 September 2026, when the owner
+  // took the last study off the sheet.
   bake(
     "__director",
     JSON.stringify({

@@ -425,11 +425,10 @@ there is no repository behind a static bundle. `tools/director/build.ts` is
 that build: it bundles the client exactly like the game's own build, then
 bakes every *read* route the client already calls (`/api/waves`, from
 `@neon-spore/content`, the same compiled source the game itself reads;
-`/api/backlog`, `/api/party-games`, `/api/spec`, `/api/notes`) into a plain
+`/api/backlog`, `/api/notes`) into a plain
 file at the same path under `dist/api/`. A static host answering
 `GET /api/backlog` with a file looks identical to `server.ts` answering it
-with a handler, so none of `backlog-page.ts`, `spec.ts` or `whole-doc.ts`
-needed to change.
+with a handler, so `backlog-page.ts` needed no change.
 
 `PUT` and `POST` have no file to land on. Saving a wave is exactly the control
 a shipped build cannot offer — so `main.ts` hides `SAVE` and `▶ MAIN MENU`
