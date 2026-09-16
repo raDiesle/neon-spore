@@ -661,29 +661,3 @@ The answer picks between two:
 
 Nothing is wrong on screen today; what is wrong is that the file and the
 picture disagree, and the next reader will believe the file.
-
-## `bun run frames` cannot be asked for the tick an event happened on
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-bun-run-frames-cannot-be-asked-for-the-tick-an-e
-- **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `tools/frames/drive.ts`
-
-`--ticks` is an absolute `world.tick`, which is the right primitive and the
-wrong question. Photographing the breach that `breach-either.ts` now draws took
-three sweeps of fourteen frames each — 900 to 1360, stride 24, then narrower,
-then narrower again — because nothing in the tool knows when the ship was hit,
-and the answer is a different tick in every wave. Half an hour of captures for
-one frame, and the next lane that touches a strike, a pop, a shed or a breach
-pays it again.
-
-What would fix it is a stopping condition instead of a number: `--until
-breach`, `--until waveFailed`, `--until "hole"` — drive the loop until the
-named `SimEvent` fires and photograph from that tick, with `--frames` and
-`--stride` counting forward from it. Every one of those events is already in
-`world.events` on the tick it happens, and `drive.ts` already steps the world
-one tick at a time, so this is a predicate in the stepping loop and a flag, not
-a new mechanism. `--settle` would then mean what a person means by it.
-
-A related half, cheaper still: print the ticks any `SimEvent` fired on during
-the run it just did, so a sweep that missed can be narrowed without another
-sweep.

@@ -45,6 +45,18 @@ declare global {
         /** The simulation's own clock, which `--settle` must not move. */
         tick: number;
         /**
+         * **What the simulation reported about the tick just run**, cleared at
+         * the top of every step (`sim/step.ts`) — so it is read between two
+         * single steps or not at all, which is why `advance` steps one tick at
+         * a time (`drive.ts`). `--until` stops on a type in this list.
+         *
+         * Not optional, for `creatures`' reason: it has been on `World` since
+         * long before this tool existed, so a build old enough to lack it is
+         * older than anything a capture can drive. Loosely typed because the
+         * union grows with every mechanic and nothing here reads past `type`.
+         */
+        events: readonly { type?: unknown }[];
+        /**
          * **The faults placed on this wave's map.** Written rather than read:
          * `--fault` puts one on a wave that carries none (`fault.ts`).
          *

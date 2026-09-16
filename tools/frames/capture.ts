@@ -9,8 +9,9 @@ import { putHand } from "./hand.js";
 import { settleOpening } from "./opening-hold.js";
 import { openStage } from "./page.js";
 import { pictureDigest } from "./pixels.js";
-import { pressPlan } from "./press-plan.js";
+import { reachFirstFrame } from "./reach.js";
 import type { FrameSpec } from "./spec.js";
+import type { Fired } from "./until.js";
 
 /**
  * One picture, or a short strip of them, off the running game — driven the
@@ -65,6 +66,16 @@ export interface CaptureResult {
    * `undefined` on anything but `--opening guide`. */
   heldPage?: boolean;
   /**
+   * Every event the simulation reported on the way to these frames, on the
+   * tick it fired.
+   *
+   * Collected always and printed when asked (`--events`), because the run that
+   * has it is the run a reader is about to repeat: *which tick did the hull
+   * break on* used to be answered by a sweep of fourteen frames, and it was
+   * already in the loop's hand each time (`until.ts`).
+   */
+  fired: readonly Fired[];
+  /**
    * Every off-origin URL the page asked for on its way to these frames, and
    * was refused (`offline.ts`).
    *
@@ -111,7 +122,7 @@ export async function captureFrames(
     // it is `undefined` and a stepped world (`guide-film.ts`).
     const paintDriven = spec.opening === "guide";
     const filmDt = paintDriven ? 1 / (await filmTickHz(page)) : undefined;
-    const { advance, press, tick } = makeDriver(page, filmDt);
+    const { advance, press, tick, heard } = makeDriver(page, filmDt);
 
     // The opening's words let arrive, and a film wound back to the first tick
     // of its page afterwards (`opening-hold.ts`).
@@ -130,7 +141,7 @@ export async function captureFrames(
     // the *film's*, painted one at a time off a clock the world's `tick` is
     // not on at all (`guide-film.ts`).
     const startTick = paintDriven ? 0 : await tick();
-    if (spec.ticks < startTick) {
+    if (!spec.until && spec.ticks < startTick) {
       throw new Error(
         `--ticks ${spec.ticks}: the wave's opening already leaves world.tick at ${startTick}, ` +
           "and a capture cannot go back. --ticks is an absolute tick, so ask for a later one",
@@ -145,18 +156,19 @@ export async function captureFrames(
     const atTick: number[] = [];
     let heldPage: boolean | undefined;
     for (let i = 0; i < frames; i++) {
-      const advanceBy = i === 0 ? spec.ticks - startTick : strideTicks;
-      if (i === 0 && press0) {
-        // The presses walk the same tick line the first advance does, so a
-        // shot lands while its target is on the field rather than at whatever
-        // tick the wave happens to have reached. The tick each one is heard
-        // on — and the rule that one has to *run* after it — is `pressPlan`.
-        for (const step of pressPlan(press0, advanceBy)) {
-          if (step.advance > 0) await advance(step.advance);
-          if (step.press) await press(step.press);
-        }
+      if (i === 0) {
+        // The first frame is *reached*: the presses walk the same tick line
+        // the first advance does — so a shot lands while its target is on the
+        // field rather than at whatever tick the wave happens to have reached
+        // — and the run ends either on the number asked for or on the tick
+        // `--until`'s event fires (`reach.ts`).
+        await reachFirstFrame({ advance, press, tick, heard }, startTick, {
+          advanceBy: spec.ticks - startTick,
+          press: press0,
+          until: spec.until,
+        });
       } else {
-        await advance(advanceBy);
+        await advance(strideTicks);
       }
 
       // **After the wave's own ticks, never before them.** A hand takes hold of
@@ -225,7 +237,7 @@ export async function captureFrames(
       paths.push(path);
       if (!paintDriven) atTick.push(await tick());
     }
-    return { paths, whole, atTick, heldPage, offOrigin: offOrigin.asked };
+    return { paths, whole, atTick, heldPage, fired: heard(), offOrigin: offOrigin.asked };
   } finally {
     // A lent browser is the caller's to close; the tab this capture opened in
     // it is not, and a file that leaked one per capture would be back where it

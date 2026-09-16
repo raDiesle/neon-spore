@@ -12,6 +12,8 @@
 import type { Crop } from "./crop.js";
 import type { FaultSpec } from "./fault.js";
 import type { OpeningStop } from "./opening.js";
+import type { HandSpec, HoldSpec, PressSpec } from "./press-spec.js";
+import type { UntilSpec } from "./until.js";
 
 export interface FrameSpec {
   /** 0-based wave index, the same number `jumpToWave` already takes. */
@@ -34,6 +36,17 @@ export interface FrameSpec {
    * camera there is the rehearsal's own and not the world's.
    */
   ticks: number;
+  /**
+   * **Stop on the tick something happens instead**, and photograph from there.
+   *
+   * The other half of `ticks`, and the one a caller usually means: a capture
+   * is after the breach, the pop or the wave failing, and that is a different
+   * tick in every wave. Given, it replaces `ticks` entirely — the run drives
+   * until the named `SimEvent` fires, `frames` and `strideTicks` count forward
+   * from that tick, and a name that never fires is an error naming what did
+   * (`until.ts`).
+   */
+  until?: UntilSpec;
   /**
    * A strip rather than a still, for a check about motion. 1 is a single
    * frame at `ticks`; more than that captures `frames` frames, `strideTicks`
@@ -210,37 +223,12 @@ export interface FrameSpec {
 }
 
 /**
- * One press for `neonSpore.send`, structural rather than a `Command` imported
- * from `packages/sim` — for the same reason `window.neonSpore` is declared
- * below rather than imported: this file drives a *built* game, sometimes one
- * built from a commit whose types are not the working tree's, and the thing
- * that crosses into the page is JSON either way.
+ * The shapes a command takes on its way into the page — the spec a `--press`,
+ * a `--hold` or a `--hand` is parsed into. Their own file since `--until`
+ * wanted room here (`press-spec.ts`), and re-exported because a caller that
+ * already asked this file for one of them is asking the right question.
  */
-export interface HoldSpec {
-  player: 1 | 2;
-  command: { kind: string } & Record<string, unknown>;
-  /**
-   * Which body on the field this command's `id` names, chosen in the page
-   * rather than guessed from outside it. Absent for every command that already
-   * carries the number it means — `PICKS` in `press.ts` says why a grip cannot.
-   */
-  pick?: "first" | "lowest";
-}
-
-/**
- * Where a finger goes on the ship: one of the two swellings, and for the
- * navigator's thumb on the cannon's, which way it is carried. Parsed by
- * `parseHand` in `hand.ts`, which is also where the muzzle is explained.
- */
-export interface HandSpec {
-  on: "cannon" | "shield";
-  carry?: "red" | "cyan";
-}
-
-/** A `HoldSpec` with a tick to arrive on. Parsed by `parsePress` in `hold.ts`. */
-export interface PressSpec extends HoldSpec {
-  tick: number;
-}
+export type { HandSpec, HoldSpec, PressSpec } from "./press-spec.js";
 
 // The handle itself — every field of `window.neonSpore` a capture reaches
 // for, and why each of them is optional. Imported for its side effect: a

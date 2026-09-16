@@ -1,8 +1,9 @@
 import type { Page } from "playwright-core";
 import type { PressSpec } from "./spec.js";
+import type { Fired } from "./until.js";
 
 /**
- * **The three verbs a capture drives the page with**, and the rules each of
+ * **The four verbs a capture drives the page with**, and the rules each of
  * them carries.
  *
  * Cut out of `capture.ts` when the absolute-tick fix took that file past its
@@ -11,14 +12,23 @@ import type { PressSpec } from "./spec.js";
  * knows about frames, crops or files. The loop that spends them is next door.
  */
 export interface Driver {
-  /** `n` steps of whichever clock this capture is on — the world's, or a
-   * rehearsal's painted one when `filmDt` was given. */
-  advance(n: number): Promise<void>;
+  /**
+   * `n` steps of whichever clock this capture is on — the world's, or a
+   * rehearsal's painted one when `filmDt` was given.
+   *
+   * `until` is a `SimEvent.type` to stop early on: the run ends on the tick
+   * that event fires and the tick comes back, or the whole `n` is spent and
+   * `null` does (`until.ts`). Every event of every tick stepped is collected
+   * either way, which is what makes a miss answerable.
+   */
+  advance(n: number, until?: string): Promise<number | null>;
   /** One press into the page, with its `pick` resolved where the field can be
    * seen and a tap held back until the beat turns over. */
   press(one: PressSpec): Promise<void>;
   /** The simulation's own clock, right now. */
   tick(): Promise<number>;
+  /** Every event this driver has heard, in the order the ticks ran. */
+  heard(): readonly Fired[];
 }
 
 /**
@@ -48,25 +58,47 @@ const FRAME_CAP = 0.05;
  * the clock and nothing here changes.
  */
 export function makeDriver(page: Page, filmDt: number | undefined): Driver {
-  const advance = async (n: number): Promise<void> => {
-    await page.evaluate(
-      ([count, dt, cap]) => {
+  const log: Fired[] = [];
+  const advance = async (n: number, until?: string): Promise<number | null> => {
+    const said = await page.evaluate(
+      ([count, dt, cap, want]) => {
         const ns = window.neonSpore;
         if (!ns) throw new Error("window.neonSpore missing mid-capture");
+        const heard: { tick: number; type: string }[] = [];
         if (dt !== undefined) {
           for (let i = 0; i < (count as number); i++) ns.paint(dt as number);
-          return;
+          return { heard, at: null as number | null };
         }
         const tickHz = ns.world.cfg?.tickHz ?? 120;
         const run = Math.max(1, Math.floor((cap as number) * tickHz));
-        for (let left = count as number; left > 0; left -= run) {
+        let at: number | null = null;
+        for (let left = count as number; left > 0 && at === null; left -= run) {
           const ticks = Math.min(run, left);
-          ns.advance(ticks);
-          ns.paint(ticks / tickHz);
+          // **One tick at a time, painted in runs.** `ns.advance(k)` is k
+          // steps of the same loop, so splitting it changes nothing about the
+          // simulation — but `world.events` is cleared at the top of every
+          // step, so a run of six asked afterwards has five ticks' worth of
+          // events already thrown away. The paint still covers the whole run,
+          // which is what keeps a capture's frame clock the game's own.
+          let stepped = 0;
+          for (let i = 0; i < ticks && at === null; i++) {
+            ns.advance(1);
+            stepped++;
+            for (const event of ns.world.events) {
+              const type = (event as { type?: unknown }).type;
+              if (typeof type !== "string") continue;
+              heard.push({ tick: ns.world.tick, type });
+              if (type === want) at = ns.world.tick;
+            }
+          }
+          ns.paint(stepped / tickHz);
         }
+        return { heard, at };
       },
-      [n, filmDt, FRAME_CAP] as [number, number | undefined, number],
+      [n, filmDt, FRAME_CAP, until] as [number, number | undefined, number, string | undefined],
     );
+    log.push(...said.heard);
+    return said.at;
   };
 
   /** Advance to the next beat. The beat *counter* and not the tick one: they
@@ -129,5 +161,5 @@ export function makeDriver(page: Page, filmDt: number | undefined): Driver {
 
   const tick = (): Promise<number> => page.evaluate(() => window.neonSpore?.world.tick ?? 0);
 
-  return { advance, press, tick };
+  return { advance, press, tick, heard: () => log };
 }

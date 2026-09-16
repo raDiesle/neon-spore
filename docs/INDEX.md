@@ -1815,6 +1815,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/style-page.ts` | DOCUMENTATION → STYLE: the whole visual language on one page, drawn live |
 | `tools/frames/press-command.ts` | What one `--press` actually sends, once the line has been taken apart |
 | `tools/frames/press-column.ts` | what a column in `--press` points at, said before the capture |
+| `tools/frames/press-spec.ts` | **What a caller sends into the page**, as opposed to what it asks the page for |
 | `tools/hooks/after-depth-edit.ts` | a depth claim is the drawing mistake that looks like a success — names the projection to call and the cues to check |
 | `tools/hooks/after-compact.ts` | What a session is told the moment its conversation has been compacted |
 | `tools/hooks/after-edit-size.ts` | One line on the edit that takes a file within 88% of the line ceiling, so the seam is chosen before the check goes red |
@@ -1833,6 +1834,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/picture.ts` | encoding a decoded PNG again, and magnifying a rectangle of one pixel for pixel — what `bun run crop` is made of |
 | `tools/frames/report.ts` | What a finished capture prints, including the `world.tick` each frame was actually taken at |
 | `tools/frames/relay-up.ts` | **The relay, up and then down again**, for a tool that needs one for the length of one run |
+| `tools/frames/reach.ts` | **How the first picture's tick is reached** — the presses on their way |
 | `tools/frames/room-shot.ts` | `bun run room-shot <out-prefix> [--size 390x844] [--scale 2] [--names "ADA,BEN"]` |
 | `tools/frames/room-phones.ts` | A PHONE IN A ROOM, as `room-shot.ts` and a throwaway probe both drive one |
 | `tools/frames/shot-usage.ts` | What `bun run shot` prints when it is called with nothing to photograph |
@@ -1847,6 +1849,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/menu-trail.ts` | WHICH PAGE OF THE MENU A PICTURE IS OF, read off one flag |
 | `tools/frames/menu-device.ts` | WHAT KIND OF DEVICE THE MENU IS PHOTOGRAPHED AS — a thumb by default, a mouse only when asked |
 | `tools/frames/menu-press.ts` | which button a word in a `--page` trail means, on whichever screen is up — the menu, or what a press on it opened |
+| `tools/frames/until.ts` | **Stopping on the tick something happened, instead of on a number.** `--ticks` is an absolute `world.tick` |
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/director/src/splice-editor.ts` | THE SPLICE's rounds, which are one number each |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |

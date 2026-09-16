@@ -25,6 +25,9 @@ import { dirname, join } from "node:path";
  *   bun run frames <sha> --wave 21               wave 21, matching the HUD's W21
  *   bun run frames <sha> --wave "THE SHELL"        a wave by name — what a person has in hand
  *   bun run frames <sha> --wave 21 --ticks 240   an absolute world.tick, not a count of steps
+ *   bun run frames . --wave 21 --until breach   the tick the hull was holed, whenever that is
+ *   bun run frames . --wave 21 --until destroy --frames 4 --stride 0 --settle 3   the break, as a strip
+ *   bun run frames . --wave 21 --events   what fired, and on which tick
  *   bun run frames <sha> --wave 21 --frames 6 --stride 4   a short strip, for motion
  *   bun run frames <sha> --wave 21 --seat p1    one player's screen, not the rig's
  *   bun run frames . --wave "THE CLASP" --raster   the baked looks, which are off by default
@@ -67,6 +70,22 @@ import { dirname, join } from "node:path";
  * a scratch script to photograph, and nobody could take the picture twice
  * (`fault.ts`).
  *
+ * `--until <event>` drives the wave until the simulation reports a `SimEvent`
+ * of that type and photographs from that tick, with `--frames` and `--stride`
+ * counting forward from it. It is the flag `--ticks` could not be: a capture is
+ * after *the breach* rather than after tick 1137, and which tick that is
+ * changes with the wave, the seat and every retuned speed — the lane that
+ * photographed one spent three sweeps of fourteen frames finding it.
+ * `--until-ticks N` is how far to look. A name that never fires comes back
+ * naming the ones that did, which is `--events` under another name: that flag
+ * prints every event the run heard and the tick it first fired on, so a sweep
+ * that missed is narrowed without taking another one (`until.ts`).
+ *
+ * On a pair the two sides stop **at their own ticks**, which is the point of
+ * asking for a moment rather than a number: if the change moved when the hull
+ * breaks, the two `world.tick`s printed beside the files say so, and both
+ * pictures are still of the breach.
+ *
  * `--settle N` paints N frames **without stepping the world**, before each
  * picture: the two clocks are separate, so anything living in painted seconds
  * had one frame per photograph however long a capture ran (`FrameSpec.settle`).
@@ -97,6 +116,7 @@ import { columnNotes } from "./press-column.js";
 import { say, tickNote } from "./report.js";
 import { scratchDir } from "./scratch.js";
 import { captureAt, captureHere, git, root } from "./serve.js";
+import { firedNote } from "./until.js";
 import { waveNamesAt, waveNamesHere } from "./wave.js";
 
 async function main(): Promise<void> {
@@ -108,6 +128,7 @@ async function main(): Promise<void> {
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N][@TICK] (repeatable) " +
         "[--hold-ticks N] [--hand cannon|shield|muzzle[=red|cyan]] [--hand-over] " +
         "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] [--raster] " +
+        "[--until EVENT] [--until-ticks N] [--events] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
   }
@@ -132,6 +153,9 @@ async function main(): Promise<void> {
   const historicalWaves = here ? await waveNamesHere() : await waveNamesAt(full);
 
   const { spec, waveValue } = parseFrameSpec(argv, historicalWaves);
+  // A report flag rather than part of the spec: it changes nothing about the
+  // picture, only whether the run says what it heard on the way (`until.ts`).
+  const wantsEvents = argv.includes("--events") || spec.until !== undefined;
   console.log(
     `wave: ${waveValue} → index ${spec.wave} (${historicalWaves[spec.wave]?.name ?? "beyond the authored waves"})`,
   );
@@ -145,12 +169,13 @@ async function main(): Promise<void> {
   const start = Date.now();
   if (here) {
     await mkdir(out, { recursive: true });
-    const { paths, atTick, heldPage } = await captureHere(spec, join(out, "frame"));
+    const { paths, atTick, heldPage, fired } = await captureHere(spec, join(out, "frame"));
     const seconds = Math.round((Date.now() - start) / 1000);
     console.log(`wrote ${paths.length} frame(s) to ${out} in ${seconds}s`);
     paths.forEach((p, i) => {
       console.log(`  ${p}${tickNote(atTick[i])}`);
     });
+    if (wantsEvents) console.log(`  ${firedNote(fired)}`);
     say(heldPageNote(spec, heldPage));
     return;
   }
@@ -185,6 +210,9 @@ async function main(): Promise<void> {
     written.forEach((p, i) => {
       console.log(`  ${p}${tickNote(both[i])}`);
     });
+    // The **after** run's, and said so: a pair is two runs of two builds, and
+    // the events of the one being landed are the ones a reader is asking about.
+    if (wantsEvents) console.log(`  after ${firedNote(after.fired)}`);
     say(heldPageNote(spec, after.heldPage));
   } finally {
     await rm(scratchOut, { recursive: true, force: true }).catch(() => {});

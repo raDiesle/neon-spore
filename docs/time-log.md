@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-16 — queue-frames-until — a capture can be asked for a moment
+
+`--ticks` is an absolute `world.tick`, which is the right primitive and the
+wrong question: the lane that photographed a breach spent three sweeps of
+fourteen frames finding the tick the hull broke on. `--until breach` drives the
+wave until the simulation says so and photographs from there; `--events` prints
+what fired and when, which is that sweep, taken once and for free.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `capture.ts`'s first advance, `pressPlan`'s rule, and when `world.events` is cleared — the top of every step, which is what decided the loop |
+| writing | 30 | `until.ts`, `reach.ts`, the driver's log and early stop, the flag, twelve cases |
+| looking | 10 | `--until breach` on wave 3: the frame is the instant the skin broke, and a strip on the paint clock is the scar opening |
+| friction | 5 | two files at the 250-line ceiling before a field could be added, so `press-spec.ts` and `reach.ts` came out of them first |
+| landing | 10 | `check:fast`, the index, the commit |
+
+The bottleneck was writing, and a third of it was the two splits the ceiling
+asked for before a line of the feature could land. The rule that earned its
+comment is the small one: `world.events` is cleared at the top of every step,
+so a run of six ticks asked afterwards has five ticks of events already thrown
+away — which is why the loop steps one tick at a time and paints in runs, and
+why the log is free for every capture rather than a mode.
+
+*Measured: the rows above are the session's own estimate, read off the previous landing and this one.*
+
 ## 2026-09-16 — queue-a-ring-round-a-body — the ring takes the body's shape
 
 `bodyRing` answered with one radius, from `creatureRadius`, which is a scalar.

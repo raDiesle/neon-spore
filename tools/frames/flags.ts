@@ -5,6 +5,7 @@ import { parseHoldFlag } from "./hold.js";
 import { parseOpening } from "./opening.js";
 import { parsePress } from "./press.js";
 import type { FrameSpec, HoldSpec, PressSpec } from "./spec.js";
+import { DEFAULT_UNTIL_TICKS, parseUntil } from "./until.js";
 import { resolveWaveFlag, type WaveName } from "./wave.js";
 
 /**
@@ -126,9 +127,19 @@ export function parseFrameSpec(
 
   const atValue = after("at");
 
+  // What ends the first run: a number, or something happening. `--ticks` is
+  // read for whether it was *written* and not only for its value, because the
+  // two flags disagree about where the picture is and a default cannot be told
+  // from a choice (`until.ts`).
+  const until = parseUntil(after("until"), flag("until-ticks", DEFAULT_UNTIL_TICKS), {
+    ticks: argv.includes("--ticks"),
+    opening: parseOpening(after("opening")),
+  });
+
   const spec: FrameSpec = {
     wave,
     ticks: flag("ticks", 120),
+    until,
     frames: flag("frames", 1),
     // On the guide these two are painted frames rather than ticks, and a
     // rehearsal at 60Hz wants a wider step than a wave does — but the default
@@ -162,12 +173,18 @@ export function parseFrameSpec(
   };
 
   // A press past the picture is a press nobody ever sees, and silently
-  // clamping it would produce a frame that looks like the shot missed.
-  const late = (press ?? []).find((one) => one.tick > spec.ticks);
+  // clamping it would produce a frame that looks like the shot missed. Under
+  // `--until` the picture's tick is not known until the run reaches it, so the
+  // line the presses have to fit inside is how far it will look.
+  const end = until ? until.cap : spec.ticks;
+  const late = (press ?? []).find((one) => one.tick > end);
   if (late) {
     throw new Error(
-      `--press: a press at tick ${late.tick} is after --ticks ${spec.ticks}, so the picture is ` +
-        "taken before it lands. Raise --ticks, or move the press earlier",
+      until
+        ? `--press: a press at tick ${late.tick} is past --until-ticks ${end}, so the run stops ` +
+            "looking before it lands. Raise --until-ticks, or move the press earlier"
+        : `--press: a press at tick ${late.tick} is after --ticks ${spec.ticks}, so the picture is ` +
+            "taken before it lands. Raise --ticks, or move the press earlier",
     );
   }
 
