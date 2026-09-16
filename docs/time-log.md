@@ -7450,3 +7450,5 @@ more confidence than the mistake it was written to prevent. It says what the
 **wave sends** instead, and asks `fallTilesPerBeat` for the window rather than
 working one out, which keeps the rock tiers, the torch, the wisp and the
 Warden's line out of a tool that has no business knowing them.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

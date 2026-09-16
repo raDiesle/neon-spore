@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · eda078d6 — `--press` says what the wave sends into the column before it photographs it
+
+The second half of a failure the ledger already recorded: eleven lanes and 95 friction minutes went on photographing the wrong thing, and one of them is written down as a cannon put under a column the gum was not in, with three sheets showing a bolt sailing past a body it was never aimed at. `--press` learned in the morning to say which column a number points at, authored or field; it now also says whether the wave puts anything there on the beat the press lands. A column that exists and is empty photographs exactly as well as one no authored column reaches, and the ledger's three sheets were the first kind.
+
 ## 2026-09-16 · db0a348d — THE DIASTOLE: two hearts on two cadences, one each, and the fight is the beat they coincide
 
 A twin lobe hangs above the top of the field, one lane either side of the middle, with a bridge of vessels across the middle column. The left chamber is red and beats every three; the right is cyan and beats every five; each seat sees only its own beating true and the other as a still grey mass. Three against five coincides every fifteen beats and on no beat between, and from the moment both are beating nothing single lands at all: the only answer is the lance beam standing in the bridge column on a beat every standing chamber is contracting on. The count is the control scheme, which is the point — this is the only way to make the beat hard without bending it.
