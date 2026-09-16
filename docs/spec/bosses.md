@@ -24,6 +24,16 @@ was asked for by name rather than dropped into a gap. Every other slot is empty 
 goes in it comes from the boss ideas, each of which says which slot it wants,
 and arrives here as a numbered section when it is built.
 
+**Every boss in this file is a loop, and that is now written down as a gap
+rather than a property.** A cadence the pair learns and then executes until the
+body runs out: the Queen blooms forever, THE WARDEN cycles, THE MIRROR asks
+round after round. None of them has a second act.
+[bosses-choreographed](bosses-choreographed.md) is the answer to that, read off
+A Way Out at the owner's ask on 16 September 2026 — fifteen concepts whose
+content is an **authored sequence** rather than a cadence, the four corrections
+this engine makes to that brief, and the four primitives a scene needs before
+any of them can be built. Nothing on it is accepted.
+
 The five that exist ask five different questions. The Queen is about **what you
 know**, THE MIRROR about **what you remember**, The Warden about **what your
 hands are free to do**, THE VANE about **what you can still say when the words

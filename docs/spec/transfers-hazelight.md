@@ -9,6 +9,13 @@
 which are about **two people operating one machine**. This game is one of those
 too, and most of what came back was already here under another name.
 
+**Hazelight's first game is read on its own page.** A Way Out (2018) is the
+same studio and a different lesson — an authored co-op *scene* rather than a
+round with its own verbs — and it is in
+[bosses-choreographed](bosses-choreographed.md), which is about what a boss
+does between its phases rather than what a level does with a pair of verbs.
+This page is about the two later ones.
+
 Hazelight's two games — It Takes Two (2021) and its successor Split Fiction
 (2025) — are a reference for a different thing, and it is the thing this design
 has no answer to at all. They are not about one machine. They are about

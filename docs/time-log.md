@@ -7157,3 +7157,30 @@ cannot get wrong. The budget going red was the same reading paying again: the
 honest fix was `drawCraters`' own guard, not a moved number.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — boss-design — A Way Out at boss scale, half one
+
+The owner asked for boss encounters that read as authored action scenes, with a
+twelve-card sheet from another model attached. Too big for one sitting and split
+before it was started: this half is the reading, the fifteen concepts and the
+primitive library; the five signature encounters at 20+ steps are the second.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `spec/bosses.md`'s sixteen designs, `spec/controls.md`'s in-screen table, `roles.md`, `couplings.md`, `decisions.md` #20/#21/#23, `drag-targets.ts`, `slow-fall.ts`, `grippable.ts`, `loop.ts` — the last four to find out whether time can be scaled at all |
+| writing | 10 | the page, and four cross-references into `INDEX.md`, `spec/README.md`, `bosses.md` and `transfers-hazelight.md` |
+| looking | 0 | — nothing drawn; the shape-sheet drafts belong to the second half |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was reading, and specifically one sentence: the brief's core ask
+was slow motion, and whether it was possible at all turned on
+`transfers.md`'s last line — *"a mechanism whose effect is a wobble in
+wall-clock time cannot exist here at all"* — plus `slow-fall.ts`'s comment
+about integers and the delayed lockstep. Finding those three took most of the
+ten minutes and they rewrote the page: what the brief wanted became a body
+taking more beats while the metronome holds, which is THE GRIP generalised and
+already shipped. **A brief written against the wrong engine is cheap to answer
+and expensive to check**, and the checking is the whole value of the half.
+
+*Measured: read off the previous landing at 21:35 and this one.*
