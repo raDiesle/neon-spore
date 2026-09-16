@@ -37,6 +37,7 @@ import { dirname, join } from "node:path";
  *   bun run frames . --wave 0 --seat p1 --hand cannon   this phone's thumb on the lobe, and its ring
  *   bun run frames . --wave 0 --seat p2 --hand muzzle=red --hand-over   the navigator's, carried; or resting
  *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3,64:2:fire=red   a shot, or 90:1:salvo
+ *   bun run frames <sha> --wave 21 --press 60:1:cannonCol=3 --press 64:2:fire=red   the same, a flag each
  *   bun run frames <sha> --wave 21 --press 60:1:grip=lowest   a hand on the body nearest the hull
  *   bun run frames <sha> --wave 21 --settle 8 --frames 6 --stride 0   a burst, as a strip
  *   bun run frames <sha> --wave 21 --at 120,400,150,150 --zoom 3   one body, close up

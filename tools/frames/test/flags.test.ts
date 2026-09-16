@@ -203,6 +203,38 @@ describe("parseFrameSpec", () => {
     expect(spec.hold).toBeUndefined();
   });
 
+  it("keeps every --press, not the first one", () => {
+    // The finding this fixes: a capture written with one flag per gesture ran
+    // with one of them and dropped the other without a word, so the picture
+    // came back as a wave playing itself.
+    const { spec } = parseFrameSpec(
+      [
+        "<sha>",
+        "--wave",
+        "1",
+        "--ticks",
+        "400",
+        "--press",
+        "320:2:fire=red",
+        "--press",
+        "300:1:cannonCol=5",
+      ],
+      waves,
+    );
+    expect(spec.press?.map((p) => p.command.kind)).toEqual(["cannonCol", "fire"]);
+    // Sorted onto one tick line, so the order the flags were typed in is not
+    // the order they are sent.
+    expect(spec.press?.map((p) => p.tick)).toEqual([300, 320]);
+  });
+
+  it("still takes a whole line of gestures in one comma-joined flag", () => {
+    const { spec } = parseFrameSpec(
+      ["<sha>", "--wave", "1", "--ticks", "400", "--press", "300:1:cannonCol=5,320:2:fire=red"],
+      waves,
+    );
+    expect(spec.press?.map((p) => p.tick)).toEqual([300, 320]);
+  });
+
   it("refuses a press taken after the photograph", () => {
     expect(() =>
       parseFrameSpec(

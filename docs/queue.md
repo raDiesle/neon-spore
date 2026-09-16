@@ -656,28 +656,3 @@ What to do once it is answered: take the bullet out, repoint or retire the two
 drafts and the scene, fix the `**Status:` draft count and the HUSK paragraphs in
 `docs/asset-catalogue.md`, and check `tools/director/src/backlog.ts` no longer
 shows it. `bun run check` proves all of it.
-
-## A second `--press` flag is silently thrown away
-
-- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-a-second-press-flag-is-silently-thrown-away
-- **Where:** local
-- **Files:** `tools/frames/flags.ts`, `tools/frames/press.ts`, `tools/frames/test/flags.test.ts`
-
-`--press` is read with `after("press")`, which takes one value. So a capture
-written as `--press 300:1:cannonCol=5 --press 320:2:fire=red` runs with one of
-the two and drops the other without a word — and the dropped one is the shot,
-so the picture comes back with the wave playing itself and nothing to show.
-The comma form `--press "300:1:cannonCol=5,320:2:fire=red"` is the documented
-one and works.
-
-Two flags is the natural way to write it — `--hold` may be repeated and is
-collected (`collectHolds`), so the two neighbours disagree about the same
-gesture. Worked around in the lane that drew THE HUSK at a cost of two
-captures and the time spent reading `press-command.ts` for a verb that was
-never wrong.
-
-What to do: collect every `--press` rather than taking one, the way `--hold`
-already is, and join them onto the same tick line. The alternative — refusing a
-second one with a message naming the comma form — is smaller and worse: there
-is nothing wrong with the second flag, and a tool that can obey should.

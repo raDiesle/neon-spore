@@ -43,6 +43,30 @@ export function collectHolds(argv: readonly string[]): {
 }
 
 /**
+ * **Every `--press` on the command line, not the first one**, for the reason
+ * above and found the same way.
+ *
+ * This flag was read with one `after("press")`, so a capture written as
+ * `--press 300:1:cannonCol=5 --press 320:2:fire=red` ran with one of the two
+ * and dropped the other without a word. The lane that drew THE HUSK lost two
+ * captures and a read through `press-command.ts` to it, looking for a verb
+ * that was never wrong: what came back was a wave playing itself, which is
+ * exactly what a capture of a wave nobody pressed anything into looks like.
+ *
+ * Two flags is the natural way to write a line of gestures — it is how
+ * `--hold` is written, one neighbour along — and the comma form goes on
+ * working unchanged, because `parsePress` splits on commas and every value is
+ * put through it. They are concatenated and `tickLine` sorts the lot, so the
+ * order the flags are typed in never has to be the order they are sent.
+ */
+export function collectPresses(argv: readonly string[], wave: number): PressSpec[] {
+  // `argv[i + 1] ?? ""` rather than a skip: `--press` at the end of the line
+  // is a flag with nothing after it, and `parsePress` refuses an empty value
+  // by name. A silent skip there would be this file's own bug again.
+  return argv.flatMap((a, i) => (a === "--press" ? parsePress(argv[i + 1] ?? "", wave) : []));
+}
+
+/**
  * The one tick line a capture walks: the presses and the ticked holds, in the
  * order they are heard.
  *
@@ -112,8 +136,9 @@ export function parseFrameSpec(
   // press instead, so the wheel can be turned before the shot rather than
   // after it.
   const { hold, pressed } = collectHolds(argv);
-  const pressValue = after("press");
-  const line = tickLine(pressValue === undefined ? [] : parsePress(pressValue, wave), pressed);
+  // And every `--press`, for the same reason and found the same way
+  // (`collectPresses` above).
+  const line = tickLine(collectPresses(argv, wave), pressed);
   const press = line.length > 0 ? line : undefined;
 
   // This phone's own finger on the ship, which no command can put there

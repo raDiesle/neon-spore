@@ -7825,3 +7825,18 @@ about a row of slack left on the smallest viewport it is drawn at — held now b
 a test, so the next line on it is spent against a number rather than a guess.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — every --press, not the first one
+
+| row | minutes | what |
+|---|---|---|
+| reading | 5 | `collectHolds`, which had already been written for this exact bug one flag along |
+| writing | 15 | `collectPresses`, two tests and a usage line |
+| looking | 5 | one capture with a flag per gesture, to see both of them land |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was writing, and there was barely any: the fix is `collectHolds`
+copied one name along, because `--hold` had already been repeated for the same
+reason and the note over it says so. What the lane cost was paid yesterday by
+the capture that found it.
