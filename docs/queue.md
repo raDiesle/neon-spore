@@ -593,6 +593,7 @@ worked, which is how it came to be bad twice.
 ## A rehearsal's caption box covers the chrome it was just given room over
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-a-rehearsals-caption-box-covers-the-chrome-it-wa
 - **Files:** `packages/render/src/guide-tide-caption.ts`, `packages/render/src/caption-anchor.ts`, `packages/render/src/torch-alarm.ts`, `packages/render/src/magnet-alarm.ts`, `packages/render/src/siren.ts`
 
 Found by looking at the fix above it. TORCH's call and THE MAGNET's now drop
