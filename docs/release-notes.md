@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 54da01d2 — A contents menu on the long director pages, each heading a jump
+
+The owner asked on 15 September for a contents menu on the sheets you scroll blind — NOT BUILT YET and DOCUMENTATION. One is mounted by markup: a `<nav class="contents" data-contents="<id>">` standing where the menu should appear and naming the element whose headings it lists, so a new long page gets one by typing a line. Six of them: MECHANICS, BORROWED and PARTY GAMES on the first sheet, WORDINGS, STATES and STYLE on the second.
+
 ## 2026-09-16 · d0739334 — Fast mode stays off, and the queue entry that asked comes off the list
 
 The owner's answer to the `Asks:` written this morning, in three words. It is `docs/decisions.md` #32 with the reasoning attached: the saving would have been a fifth to a third of the part of a lane that is the session emitting tokens — fifteen to twenty-five minutes off a creature lane's seventy — while the tail it cannot touch is fourteen per cent of lanes carrying thirty-eight per cent of the attention, and the ledger a week of marked lanes would have been measured with runs two and a half to four times the trunk's own span.
