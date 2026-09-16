@@ -59,6 +59,15 @@
             "command": "bun tools/hooks/after-depth-edit.ts"
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun tools/hooks/after-edit-size.ts"
+          }
+        ]
       }
     ],
     "Stop": [

@@ -146,11 +146,16 @@ and the per-lane tax fell by nearly half. What is left of that row is the other
 shell hazards — an apostrophe, CRLF out of Python, a Python edit that re-read a
 file it had already written.
 
-The 250-line row is the same shape of problem with no fix yet, and it has not
-moved at all. The ceiling is enforced by `packages/sim/test/limits.test.ts`,
-which means it is discovered **when the check goes red**, with the change
-already written across the file. One lane on 16 September spent 55 minutes of
-friction, and five files over the ceiling in turn is most of it.
+The 250-line row was the same shape of problem and had not moved at all: the
+ceiling is enforced by `packages/sim/test/limits.test.ts`, so it was discovered
+**when the check went red**, with the change already written across the file.
+One lane on 16 September spent 55 minutes of friction, and five files over the
+ceiling in turn is most of it. It has the same answer as the heredoc row now —
+`tools/hooks/after-edit-size.ts` prints one line naming the file, its count and
+the ceiling the moment an edit takes it within 88% of the limit, so the seam is
+chosen while the diff is still about the file it is in. The rule is unchanged
+and still the test's; only the moment moved. Whether that row falls the way the
+heredoc row did is a reading for the next week of the ledger.
 
 ## What the machines actually cost
 
@@ -208,8 +213,8 @@ settles nothing.
    separately. Worth more than everything below it put together: the top 14%
    of lanes hold 38% of the time, and they are all of this kind.
 2. **Meet the 250-line ceiling before the edit, not at the red check** — 375
-   minutes of pure friction, flat across the whole week. `docs/queue.md` has
-   the entry.
+   minutes of pure friction, flat across the whole week. Built:
+   `tools/hooks/after-edit-size.ts`.
 3. **Ask the open questions in one batch before the code**, which
    `docs/token-budget.md` already argues for cost and which buys wall clock
    for the same reason: each question is a round trip on a long conversation.
@@ -222,8 +227,8 @@ multiplier on what is left. In that order they compound; in the other order the
 multiplier is applied to work that should not have been there.
 
 The first is now a rule in `CLAUDE.md` with its cuts in the section above. The
-other four are entries in `docs/queue.md`, written on 16 September 2026: the
+other four were entries in `docs/queue.md`, written on 16 September 2026: the
 line-ceiling hook, the size paragraph in the prompt `queue next` hands over,
 the four tables one fact has to enter, and the `Fast:` marker that turns the
-arithmetic above into a measurement. The last asks the owner one question
-before it can be worked.
+arithmetic above into a measurement. The first of them is built and the last
+asks the owner one question before it can be worked.

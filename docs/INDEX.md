@@ -1621,6 +1621,7 @@ place — the generator keeps whatever is there.
 | `tools/hooks/after-sim-edit.ts` | Determinism is the one thing a reviewer cannot see by looking |
 | `tools/hooks/check-on-stop.ts` | The last thing before Claude hands the turn back |
 | `tools/hooks/format-edited.ts` | Formatting is not a conversation |
+| `tools/hooks/file-size.ts` | The ~250-line ceiling, its exempt list and which paths it reaches — read by the test that enforces it and the hook that warns |
 | `tools/hooks/payload.ts` | The shape of a hook payload, read once |
 | `tools/director/src/brush-cards.ts` | What one brush's **card** says: the colour it is stroked in, the shape-sheet subjects it draws |
 | `tools/director/src/stage-point.ts` | WHERE A CLICK ON THE DIRECTOR'S CANVAS ACTUALLY LANDS |
@@ -1784,6 +1785,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/press-command.ts` | What one `--press` actually sends, once the line has been taken apart |
 | `tools/hooks/after-depth-edit.ts` | a depth claim is the drawing mistake that looks like a success — names the projection to call and the cues to check |
 | `tools/hooks/after-compact.ts` | What a session is told the moment its conversation has been compacted |
+| `tools/hooks/after-edit-size.ts` | One line on the edit that takes a file within 88% of the line ceiling, so the seam is chosen before the check goes red |
 | `tools/hooks/heredoc.ts` | The guard's one rule about a heredoc body: a doubled backslash the Bash tool would halve is refused, with the two ways that work |
 | `tools/hooks/bun-pin.ts` | The bun this repository is pinned to, read off `.bun-version`, and what to say to a session running an older one |
 | `tools/shape-sheet/src/cues.ts` | `bun run shapes:cues` — the motion half of `report.ts`, with a placed surface as its last row |

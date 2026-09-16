@@ -1,5 +1,7 @@
 import { describe, expect, it } from "bun:test";
+import { repoPath } from "../after-edit-size.ts";
 import { guardsDeterminism } from "../after-sim-edit.ts";
+import { counted, LIMIT, lineCount, mark, notice } from "../file-size.ts";
 import { formats } from "../format-edited.ts";
 import { editedPath, stopHookActive } from "../payload.ts";
 
@@ -91,5 +93,88 @@ describe("which edits have to re-prove determinism", () => {
     // in the table is the whole of what makes that true.
     expect(guardsDeterminism("packages/simulation-notes/x.ts")).toBe(false);
     expect(guardsDeterminism("packages/contents-list/x.ts")).toBe(false);
+  });
+});
+
+/**
+ * The line ceiling arriving with the edit rather than with the red check.
+ *
+ * `packages/sim/test/limits.test.ts` proves the rule against the real tree and
+ * cannot say anything about a file that does not exist; these are the four
+ * decisions the hook makes on a path and a number, which is all it ever sees.
+ */
+describe("which files the line ceiling reaches", () => {
+  it("takes source under the three top-level directories", () => {
+    for (const p of ["packages/sim/src/step.ts", "apps/game/src/loop.ts", "tools/queue/run.ts"]) {
+      expect(counted(p)).toBe(true);
+    }
+  });
+
+  it("leaves tests, test helpers and everything outside the tree alone", () => {
+    for (const p of [
+      "packages/sim/test/limits.test.ts",
+      "packages/render/test/fixture.ts",
+      "docs/queue.md",
+      "legacy/old.ts",
+      "packages/sim/src/step.tsx",
+      "node_modules/x/index.ts",
+      "packages/render/dist/bundle.ts",
+    ]) {
+      expect({ p, counted: counted(p) }).toEqual({ p, counted: false });
+    }
+  });
+
+  it("does not care how the path was spelled", () => {
+    expect(counted("tools\\hooks\\file-size.ts")).toBe(true);
+  });
+});
+
+describe("what a file's line count is measured against", () => {
+  it("counts lines the way wc -l does", () => {
+    // A trailing newline ends the last line; it does not begin an empty one.
+    expect(lineCount("a\nb\n")).toBe(2);
+    expect(lineCount("a\nb")).toBe(2);
+    expect(lineCount("")).toBe(0);
+  });
+
+  it("puts the mark at a share of the ceiling rather than at its own number", () => {
+    // The whole point of the share: moving `LIMIT` moves this with it, and
+    // there is no second constant to go stale quietly.
+    expect(mark("packages/sim/src/step.ts")).toBe(Math.round(LIMIT * 0.88));
+  });
+
+  it("says nothing at all until the mark", () => {
+    const file = "packages/sim/src/step.ts";
+    expect(notice(file, mark(file) - 1)).toBeNull();
+    expect(notice("packages/sim/test/limits.test.ts", 400)).toBeNull();
+  });
+
+  it("names the file, the count and the ceiling once the mark is reached", () => {
+    const said = notice("packages/sim/src/step.ts", 231);
+    expect(said).toContain("packages/sim/src/step.ts");
+    expect(said).toContain("231 lines");
+    expect(said).toContain(`${LIMIT}-line ceiling`);
+    expect(said).toContain("19 under");
+  });
+
+  it("says a file already over is over, rather than how much room is left", () => {
+    const said = notice("packages/sim/src/step.ts", LIMIT + 4);
+    expect(said).toContain("past the");
+    expect(said).not.toContain("under");
+    expect(notice("packages/sim/src/step.ts", LIMIT)).toContain("at the");
+  });
+});
+
+describe("the path the size hook is given", () => {
+  const root = "/home/me/neon-spore";
+
+  it("is the one the ceiling names, relative and forward-slashed", () => {
+    expect(repoPath(root, `${root}/packages/sim/src/step.ts`)).toBe("packages/sim/src/step.ts");
+  });
+
+  it("is null for anything outside the tree, and for no path at all", () => {
+    expect(repoPath(root, "/home/me/elsewhere/step.ts")).toBeNull();
+    expect(repoPath(root, root)).toBeNull();
+    expect(repoPath(root, null)).toBeNull();
   });
 });

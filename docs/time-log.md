@@ -6456,3 +6456,25 @@ would be a second session, and 15 September shows no sign of one. The rows are
 an account of attention and they are worth keeping; the clock
 belongs to `bun run land`, which holds both ends of it at the moment it writes
 the release note and does not yet write it down.
+
+## 2026-09-16 — queue-a-files-line-ceiling — the ceiling said before the edit, not at the red check
+
+The queue's *A file's line ceiling is met by a red check, never before the
+edit*, which `docs/lane-speed.md` had just named the largest flat cause of
+friction in the ledger: 27 lanes, 375 minutes, unmoved all week.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the four new queue entries, `format-edited.ts`, `payload.ts`, `after-depth-edit.ts`, `after-sim-edit.ts`, `wiring.test.ts`, `edited.test.ts`, `limits.test.ts`, `.claude/settings.json`, the ceiling passages in `docs/lane-speed.md` |
+| writing | 20 | `file-size.ts`, `after-edit-size.ts`, the constants and the scope rule cut out of `limits.test.ts`, the settings row, four describe blocks, two paragraphs in `lane-speed.md` |
+| looking | 0 | — nothing drawn |
+| friction | 20 | the trunk had diverged from `origin/main` and had to be rebased with two document conflicts; a worktree opened for the lane could not be written to from this session and the lane moved back; a glob written inside a block comment closed the comment and took the whole sim suite red |
+| landing | 10 | `bun run index`, `check`, the queue entry, the commit |
+
+The bottleneck was friction, and two thirds of it was paid before a line of the
+work: the trunk had moved under this session while the previous lane's
+landings sat unpushed, so the first thing the lane did was reconcile `main` by
+hand. The lane's own mistake is the one worth keeping — `*` followed by a slash
+inside a JSDoc block ends the comment, and the paragraph explaining which files
+the ceiling reaches was the one that could not be written in the file that
+answers it.
