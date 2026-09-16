@@ -6564,3 +6564,21 @@ was missing was only the *list* — five rows saying where a fact has to be
 written, and one test that reports all of them rather than the first. The four
 checks that were there are untouched and still hold their own halves; they now
 say, each in a sentence, that they are one of five.
+
+## 2026-09-16 — task-queue-work — --tab opens the sheet, so --open need not
+
+The queue's *`bun run shot --open` and `--tab` together wait thirty seconds and
+fail*, found by the lane before this one while it was taking its own picture.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `reachState`'s four presses and `shot-usage.ts`'s list |
+| writing | 10 | one guard, one usage line, a page that records presses and four tests |
+| looking | 5 | the shot that failed this morning, run again with both flags |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, the commit, `bun run land` |
+
+The bottleneck was writing, and only because the fix wanted a test and
+`shot-state.ts` had never had one: the presses are four lines each, but a page
+that records what it was asked to press is the thing that makes the *count* of
+them assertable, which is the whole defect.

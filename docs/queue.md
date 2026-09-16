@@ -603,28 +603,6 @@ Provable with `bun run check`: `tools/land`'s own tests already exercise the
 note-writing path against a temporary repository, so the stamp is a case
 beside them, and a rounding rule is a pure function with a table.
 
-## `bun run shot --open` and `--tab` together wait thirty seconds and fail
-
-- **Found:** 2026-09-16, claude/task-queue-work-5f529c
-- **Taken:** 2026-09-16, claude/queue-bun-run-shot-open-and-tab-together-wait-thirty-s
-- **Files:** `tools/frames/shot-state.ts`, `tools/frames/shot-usage.ts`, `tools/frames/test/shot-flags.test.ts`
-
-`--tab` opens NOT BUILT YET itself — `reachState` presses the header button by
-role before it presses the tab — so a caller who also passes
-`--open "◇ NOT BUILT YET"`, which is the flag's own documented job, presses that
-button a second time with the sheet already covering it. Playwright then retries
-for thirty seconds and fails with
-*`<span class="sub">…</span>` from `<div class="on" id="backlog">` intercepts
-pointer events*, which names neither flag and reads as a broken page rather than
-as two flags that mean the same press. The contents-menu lane lost a shot to it
-twice before dropping `--open`.
-
-Two fixes, and they are not exclusive: `reachState` can skip its own
-NOT BUILT YET press when `open` already named that sheet, and `readShotFlags`
-can refuse the pair outright with a sentence saying `--tab` opens it. The
-second is the cheaper one to prove — `shot-flags.test.ts` is pure and already
-holds the flag reader — and the first is what makes the pair simply work.
-
 ## The build-stamp scan walks the whole tree inside a 5-second test
 
 - **Found:** 2026-09-16, claude/task-queue-work-5f529c

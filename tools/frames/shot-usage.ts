@@ -19,6 +19,9 @@ export function usage(): never {
   console.error(
     "       --tab is a NOT BUILT YET tab name (SHAPES still means GRAPHICS); omit it for the main screen",
   );
+  console.error(
+    "       --tab opens that sheet itself, so --open is for any other one and the pair is one press",
+  );
   console.error("       --at is a rectangle inside it, x,y,w,h in its own CSS pixels");
   console.error('       --type fills a field first, e.g. "#waveFilter=boss"');
   console.error('       --select turns a <select> first, e.g. ".versus-rate=0.25"');

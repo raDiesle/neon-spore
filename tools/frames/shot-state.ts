@@ -46,6 +46,16 @@ export interface Reach {
   hold?: string | undefined;
 }
 
+/**
+ * Whether `--open`'s label is NOT BUILT YET's own header button — the sheet
+ * `--tab` opens for itself. The diamond is part of the label the markup ships
+ * (`◇ NOT BUILT YET`) and a caller may or may not have typed it, so the name
+ * is looked for inside the label rather than matched whole.
+ */
+function opensBacklog(open: string | undefined): boolean {
+  return open?.includes("NOT BUILT YET") ?? false;
+}
+
 /** What went wrong, said the way `shot.ts` says everything else. */
 export class Unreachable extends Error {
   constructor(
@@ -76,8 +86,18 @@ export async function reachState(page: Page, reach: Reach): Promise<void> {
   if (reach.tab) {
     // Both waits are real: the sheet builds sixty animated figures and the tab
     // it lands on rebuilds them again.
-    await page.getByRole("button", { name: "NOT BUILT YET" }).click();
-    await page.waitForTimeout(BUILD_MS);
+    //
+    // **Unless `--open` has already opened it.** `--tab` opens NOT BUILT YET
+    // on its own, and `--open "◇ NOT BUILT YET"` is the flag's own documented
+    // job, so a caller who reasonably passed both used to press that header
+    // button a second time with the sheet already covering it — thirty seconds
+    // of Playwright retries, and then a failure naming a `<span class="sub">`
+    // rather than either flag. Two flags asking for the same press is not an
+    // error to report; it is one press.
+    if (!opensBacklog(reach.open)) {
+      await page.getByRole("button", { name: "NOT BUILT YET" }).click();
+      await page.waitForTimeout(BUILD_MS);
+    }
     const label = FORMER_TAB[reach.tab] ?? reach.tab;
     await page.getByRole("button", { name: label, exact: true }).click();
   }
