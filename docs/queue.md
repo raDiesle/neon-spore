@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## The Mine is an enemy, with its seeing seat set on the brush
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Taken:** 2026-09-16, claude/queue-the-mine-is-an-enemy-with-its-seeing-seat-set-on
 - **Files:** `packages/sim/src/wisp.ts`, `packages/sim/src/beatbox.ts`, `packages/sim/src/command-types.ts`, `packages/sim/src/config.ts`, `packages/content/src/creatures.ts`, `packages/render/src/coord-grid.ts`, `packages/render/test/frame.test.ts`, `tools/director/src/brush-cards.ts`, `tools/shape-sheet/src/drafts/mine.ts`, `docs/spec/ideas.md`, `docs/spec/bestiary.md`
 
 The Mine — `ideas.md`, Creatures, designed 12 September 2026 — becomes a
