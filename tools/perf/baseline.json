@@ -848,6 +848,16 @@
       "mean": 0,
       "p90": 0,
       "unmeasured": true
+    },
+    {
+      "id": "theHusk",
+      "wave": 82,
+      "name": "THE HUSK",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
     }
   ]
 }
