@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 0db85097 — The last two speed findings go on the list rather than in a report
+
+Both were named in a report and nowhere else, which `docs/queue.md`'s preamble calls out by name: a report scrolls away, and the next session clones origin and sees only files.
+
 ## 2026-09-16 · 77ced4bc — THE BALLOON's guide says what the creature does now
 
 The owner ruled on 14 September that a balloon never goes downwards and that the top of the field is a body to answer rather than a bill on the hull. The wave's own guide still said all three of the things that went: that reaching the top costs the hull, that a split sends one half up and one down, and that a sinking half goes off against the ship. Player 2's half named the sinking one again, so the seat with no reason to watch the bottom of the field was told to.

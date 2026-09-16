@@ -6696,3 +6696,5 @@ is a working practice nobody can prove with `bun run check`. Opening
 `docs/queue.md` and `docs/INDEX.md` on its own and the time log is neither,
 which is the entire measured cost of a second lane on the trunk. A practice
 became a resolver, and only one of those two is work.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
