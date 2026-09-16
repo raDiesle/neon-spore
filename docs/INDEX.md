@@ -33,6 +33,7 @@ file, and a count has to agree with what the file's own header counts.
 | `docs/teaching.md` | you are about to touch a wave's guide, or reconsidering a gated demonstration for the first minutes — the game's own answer to that question is `docs/spec/briefings.md` |
 | `docs/release-notes.md` | you want to know what changed and when — read-only, written by `bun run land` |
 | `docs/time-log.md` | you want to know where a lane's time went, or you are landing one and owe it an entry — the bottlenecks across sessions, in minutes |
+| `docs/lane-speed.md` | you want the reading of `docs/time-log.md` rather than its entries — where a lane's minutes go across hundreds of them, what friction costs by cause, and what would take the minutes off |
 | `docs/queue.md` | you found a technical improvement and are not doing it now, or you are opening a session to drain one — `bun run queue` |
 | `docs/parked.md` | you are stopping mid-way through something, or picking up what a session left half-done — the front of the same queue, work only, never ideas |
 | `docs/performance.md` | you added a shape or an animation, or you want to know what a frame costs and where the time goes — `bun run perf` |

@@ -634,3 +634,44 @@ grouping reads best next door, and any of them is an improvement on none.
 
 Do it with the next creature that needs a note, not before: a refactor of prose
 with no new prose to place is a diff nobody can review against anything.
+
+## A file's line ceiling is met by a red check, never before the edit
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `tools/hooks/after-edit-size.ts` (new), `.claude/settings.json`, `tools/hooks/test/wiring.test.ts`, `tools/hooks/test/edited.test.ts`, `packages/sim/test/limits.test.ts`
+
+Across the 296 lanes in `docs/time-log.md`, **27 of them spent 375 friction
+minutes on the 250-line ceiling**, and the rate has not moved all week — 1.25
+minutes a lane before 14 September, 1.29 since. It is the largest single
+named cause of friction in the ledger and the only one of the top two that has
+had nothing done about it. `docs/lane-speed.md` has the reading.
+
+The shape of the loss is always the same, because the ceiling is enforced by
+`packages/sim/test/limits.test.ts`: the file is discovered to be over **when
+the check goes red**, with the change already spread across it, so the split
+is done under a diff that is about something else. One lane on 16 September
+lost 55 minutes to five files going over in turn; another lost 35 to three.
+The refactor itself is never the expensive part — deciding a seam mid-change,
+with an unrelated diff open, is.
+
+The fix is a warning where the other three post-edit hooks already are: a
+`PostToolUse` hook on `Edit|Write|MultiEdit` that counts the lines of the file
+just written and prints one line when it is at or over a soft mark — 220 is
+88% of the limit and leaves room for a paragraph — naming the file, its count
+and the ceiling. It never blocks: `limits.test.ts` stays the rule, this is
+only the notice arriving while there is still a choice about where to cut.
+`format-edited.ts` is the model to copy, `editedPath` in `payload.ts` already
+reads the path out of the payload, and the exempt list belongs where
+`limits.test.ts` keeps `KNOWN_LONG` rather than in a second copy.
+
+Two details the implementation has to decide and one it must not: the mark
+itself (220, or a share of `LIMIT` read from the test's own constant — prefer
+the second, so one number moves both), and whether a file already over the
+mark before the edit should be quiet on every subsequent edit or say it each
+time (say it each time; a hook nobody sees twice is a hook nobody reads once).
+It must **not** move the ceiling, which is `docs/token-budget.md`'s first
+lever and not this entry's business.
+
+Provable with `bun run check`: a unit test on the counting function beside
+`edited.test.ts`, and the `wiring.test.ts` row that holds every hook in
+`.claude/settings.json` to a file that exists.

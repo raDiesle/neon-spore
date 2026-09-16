@@ -6359,3 +6359,26 @@ afternoon, but a wave author has to be able to write an entry beat and know
 what it lands as, so the clock had to be `waveBeat`, the wave's four figures
 had to be probed against the real simulation rather than reasoned about, and
 the film had to be retimed twice for the same reason.
+
+## 2026-09-16 — task-performance-optimization — what 296 lanes say about the minutes
+
+The owner asked for the reading of this ledger rather than another entry in it:
+*"tasks take quite long time to finish, can we speed up."* The answer is
+`docs/lane-speed.md`, and the queue entry the ledger's largest flat cause
+earned.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the 296 entries parsed rather than read, then `token-budget.md`, `delegation-cost.md`, `performance.md`'s suite section and `.claude/settings.json` |
+| writing | 5 | `docs/lane-speed.md`, the queue entry, three throwaway parsers in the scratchpad |
+| looking | 0 | — nothing drawn |
+| friction | 0 | `/usr/bin/time` is not on the cloud image; `date` twice instead, seconds |
+| landing | 5 | `bun run check` measured rather than merely run, `bun run index`, the commit |
+
+The bottleneck was nothing, and that is the finding: a lane that reads a file
+with a script instead of with its eyes costs a quarter of an hour, while the
+four longest lanes in the ledger — all creature lanes on the last two days —
+cost between 210 and 245 minutes each. The ledger's own shape says the same
+thing twice: 14% of lanes carry 38% of the minutes, and the per-lane mean went
+from 30.7 on 14 September to 105.3 on 16 September without anything getting
+slower. What changed was how much one sitting is asked to hold.
