@@ -30,7 +30,7 @@ that list (`CLAUDE.md`, *an idea for the game is not collected*).
 |---|---|---|
 | [§7 THE DIASTOLE](#7-the-diastole--two-clocks-at-once) | **built, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation and THE SLOW, then the look. Worked and written up as [bosses](bosses.md) §11.17 |
 | [§10 THE BATON](#10-the-baton--whose-turn-is-it) | **built, 16 September 2026** | `claude/boss-implementation-e3cfff` — the simulation, then the look. Worked and written up as [bosses](bosses.md) §11.18 (wave 68) |
-| [§1 THE THROAT](#1-the-throat--what-you-feed-it) | **taken, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation half first (the inhale, the five ring tensions, the fling into the mouth), the look and the eversion as the lane after |
+| [§1 THE THROAT](#1-the-throat--what-you-feed-it) | **simulation built, 16 September 2026; the look is taken** | `claude/neon-spore-boss-design-26ee5e` — the inhale, the pull, the five ring tensions and the fling into the mouth are shipped and written up as [bosses](bosses.md) §11.19. **The gullet is not drawn**: the boss plays and is invisible. The look — the five rings, the travelling contraction, the mouth's target lock and the eversion — is the same lane's next piece |
 | [§13 THE UNDERTOW](#13-the-undertow--where-you-are-being-hit-from) | **taken, 16 September 2026** | `claude/boss-implementation-e3cfff` — the simulation half first (the breach as a place: the bow, the lobe in it, the maw's take, the scar, the widening the plate stops, the lance for the tall ones, the last lobe and the body taken in), the look — the hull bowing, the seams lit, the lobe, the body passing through — as the lane after. The next free concept this session takes is claimed here again before a line of it is written |
 | the other eleven | free | — |
 
@@ -61,6 +61,25 @@ later concept should not read as still open:
   two or four beats wide does not care. A concept whose window is a *moment* —
   one beat or less — inside a slow span has to re-derive it first; that is
   queued, not solved.
+
+And two the THROAT lane decided, which are about **where a moving part lives**
+rather than about one boss:
+
+- **A place a boss moves to is an anchor and a function of the beat, never a
+  stored position stepped once a beat.** `throatMouthCol(cfg, b, beat)` is the
+  shipped shape and `sim/throat.ts` argues it: a stored column has to be
+  stepped by *something*, and whatever steps it sits on one side of `onBeat`
+  while the bodies that read it sit on the other. Worse, every one of these
+  concepts hands one seat a readout of *where the thing will be*, and a stepper
+  cannot answer a question about a beat that has not happened. `crossField` is
+  still the right call for a body walking its own row; it is the wrong call for
+  a part of a boss both screens are reading against.
+- **A gesture already means one thing, and a concept may not quietly give it a
+  second.** §1's step 12 asks for a hand held on a gum to *brake* it, "THE
+  GRIP, unchanged" — but a hand on a gum is already the fling
+  (`handMeans` calls it a pull), so that would have changed THE GUM rather than
+  left it unchanged. The phase inhales every beat instead. A concept that wants
+  a shipped control to mean something new has to say so plainly and price it.
 
 A Way Out is the odd reference on the shelf. Spaceteam and Lovers both hand
 two people a machine and let them fail at it; A Way Out hands two people a
@@ -288,9 +307,20 @@ and none of those is under 900 ms (`guardWindowMs`, and the reason is in
 
 ### 1. THE THROAT — what you feed it
 
-> **Taken, 16 September 2026**, on `claude/neon-spore-boss-design-26ee5e`, in
-> two lanes: the simulation, then the look. Do not start it in a second
-> session — see [who is building what](#who-is-building-what-so-two-sessions-do-not-collide).
+> **Simulation built, 16 September 2026**, on
+> `claude/neon-spore-boss-design-26ee5e`, and written up as
+> [bosses.md](bosses.md) §11.19 — which is the record of what shipped and
+> where it departs from the text below. **The gullet is not drawn yet**: the
+> boss plays and is invisible, and the look is the same lane's next piece. Do
+> not start either half in a second session — see [who is building
+> what](#who-is-building-what-so-two-sessions-do-not-collide).
+>
+> Three things below are not built, and §11.19 says why for each: the throat
+> does not compete with the maw for a **pod** (queued); a hand cannot **brake a
+> gum** out of the pull, because a hand on a gum is already the fling; and the
+> **inhale is the climb** — one clock rather than a six-beat clock plus a
+> three-beat drag, so player 2's *beats until the next inhale* is the deadline
+> the pull is measured in.
 
 > The one where its mouth and your maw are the same organ, facing each other.
 

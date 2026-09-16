@@ -7,6 +7,7 @@ import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
 import { stepSplice } from "./splice-round.js";
 import { stepStare } from "./stare-step.js";
+import { stepThroat } from "./throat-step.js";
 import { stepVane } from "./vane.js";
 import { stepWarden } from "./warden.js";
 import type { World } from "./world.js";
@@ -61,6 +62,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // `bullets.ts` (`baton-press.ts`).
   if (boss.kind === "baton") {
     stepBaton(world, boss);
+    return;
+  }
+  // THE THROAT: the eversion's clock, the phase its slack rings have earned,
+  // and then the inhale — swallow what is in the mouth, then haul everything
+  // else in the column a row closer (`throat-step.ts`).
+  if (boss.kind === "throat") {
+    stepThroat(world, boss);
     return;
   }
   if (boss.kind === "vane") {

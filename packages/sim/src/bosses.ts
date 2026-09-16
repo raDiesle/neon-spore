@@ -68,6 +68,7 @@ export {
   type SnakeEntry,
   type SpliceEntry,
   type StareEntry,
+  type ThroatEntry,
   type VaneEntry,
   type WardenEntry,
   type WellEntry,

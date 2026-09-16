@@ -63,6 +63,10 @@ const STILL_PROSE = [
   // the air and a panel going grey under a thumb that must not land — the same
   // "not touching" THE STARE's needs, with the arm drawn to give it a reason.
   "THE BATON",
+  // And THE THROAT, owed by the lane that draws the gullet. A film of it would
+  // have to show a mouth sliding along a row and a bar filling under it, and
+  // neither is drawn yet; until they are there is nothing to choreograph.
+  "THE THROAT",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -86,11 +90,11 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   });
 
   it("counts the guided waves the opening section names", () => {
-    // "seventy-one of the eighty waves today" — the one figure in §1
+    // "seventy-two of the eighty-one waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says seventy-one of eighty";
-    expect(guided.length, fix).toBe(71);
-    expect(WAVES.length, fix).toBe(80);
+    const fix = "update §1 of docs/spec/briefings.md, which says seventy-two of eighty-one";
+    expect(guided.length, fix).toBe(72);
+    expect(WAVES.length, fix).toBe(81);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

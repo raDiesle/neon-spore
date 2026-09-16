@@ -5,6 +5,7 @@ import type {
   GaugeEntry,
   ScoutEntry,
   StareEntry,
+  ThroatEntry,
   WellEntry,
 } from "@neon-spore/sim";
 
@@ -52,13 +53,27 @@ import type {
  *   Every beat it keeps — the flight, the turn, the lock — is the pair's
  *   cadence rather than a per-wave decision (`sim/config-baton.ts`).
  *
+ * - **THE THROAT** asks for nothing for the same three reasons said about a
+ *   tube: the gullet hangs dead centre so there is no column, the five rings
+ *   are the health so there is no number, and **the inhale and the mouth's
+ *   stride are the two numbers the pair says out loud** — a wave that authored
+ *   its own pair would be a boss nobody could learn to talk about
+ *   (`sim/config-throat.ts`).
+ *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
  * is what this question exists to stop.
  */
 export function bossAuthorsNothing(
   boss: BossEntry,
-): boss is GaugeEntry | WellEntry | ScoutEntry | StareEntry | DiastoleEntry | BatonEntry {
+): boss is
+  | GaugeEntry
+  | WellEntry
+  | ScoutEntry
+  | StareEntry
+  | DiastoleEntry
+  | BatonEntry
+  | ThroatEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -69,6 +84,7 @@ export function bossAuthorsNothing(
     kind === "scout" ||
     kind === "stare" ||
     kind === "diastole" ||
-    kind === "baton"
+    kind === "baton" ||
+    kind === "throat"
   );
 }

@@ -1810,3 +1810,97 @@ launch locks one seat and not the other, the right colour hands over and the
 wrong one relights, the arm settles, swings and sheds on the counts the
 numbers say, the last drop is a pod the maw takes, and the same run
 fingerprints the same way twice (`sim/test/baton.test.ts`).
+## 11.19 THE THROAT — the boss you answer by feeding it
+
+*Built 16 September 2026, simulation only. The design is
+`docs/spec/bosses-choreographed.md` §1; the code is `sim/throat.ts`,
+`sim/throat-step.ts`, `sim/throat-pull.ts`, `sim/config-throat.ts`. **The
+gullet is not drawn yet** — the boss plays and is invisible, exactly as THE
+DIASTOLE did for one landing.*
+
+**The question no other boss asks.** *What you put in on purpose.* Every other
+boss in this game is answered by taking something away from it. This one is
+answered by **giving** it something, and the pair's own habit — clear the
+field, shoot the hazard, ward the rock — is what feeds it.
+
+**The shape.** A gullet of `throatRings` ring muscles hangs from the top of the
+field down to `throatMouthRow`, ending in a mouth one column wide that slides
+along that row. It is a fixture and not a body (`bossFillsWave` is false, THE
+VANE's family): nothing of it is among the creatures, so it cannot be shot,
+warded or taken hold of, and **shots pass straight through the tube**. That
+last is deliberate and load-bearing — player 2's answer to a creature about to
+be eaten is to shoot it *in the mouth's own column*, and a tube that stopped
+bolts would be a boss with no answer at all.
+
+**Health is the rings.** A choked ring goes slack for good. A tube of five
+slack rings cannot hold its own shape and everts.
+
+**Two clocks, and both are said out loud.** The inhale comes round every
+`throatInhaleBeats`, which tightens to `throatTightBeats` once two rings are
+slack and becomes every beat once four are. The mouth steps `throatSlideCols` a
+beat from the moment the first ring chokes and `throatQuickCols` from the
+second, turning at the walls.
+
+**The mouth's column is derived, not stored**, and that is the one decision in
+this boss a later lane must not undo. `throatMouthCol(cfg, b, beat)` is a pure
+function of an anchor — the column the mouth stood in when the phase began, and
+the beat it began on — so it answers about *any* beat. Two reasons, and the
+second is the stronger. First, the ordering hazard: the pull is decided inside
+`beat.ts`'s fall loop and the hit tests run from `stepBoss` after it, so a
+stored column stepped by either one would be read a beat stale by the other —
+the class of bug `beamBeat` was written to fix a day earlier. Second, player 2's
+readout is *which column the mouth will be in*, a question about a beat that has
+not happened, and a stepper cannot answer it at all.
+
+**What the pull does.** A body in the mouth's column at or below the mouth's
+row stops falling. On each inhale the throat **swallows before it lifts**:
+whatever is standing in the mouth is taken, and everything else in the column is
+hauled one row closer. That order is the pair's window — a body hauled into the
+mouth stands in it for a whole inhale before it goes down. It is **THE DRAG and
+not THE SLOW** (`decisions.md` #33 says why they are two tools): the climb costs
+real beats, so a braking hand has a whole inhale to arrive rather than one
+frame. `gripBrakes` and not `gripCount`, which is the shipped rule — a hand on a
+living body is player 1's aim and drags at nothing — so the sentence the pair
+ends up saying is *a rock in that column is his to brake, a creature is hers to
+shoot*.
+
+**A swallowed body re-tightens a ring.** So the throat heals out of the wave's
+own arrivals, and all of them do: two bodies in the mouth on one inhale tighten
+two rings, which is the design's own step 10. **The phases only ever go
+forward** — what a heal costs is rings, which is to say the fight is longer
+than it was, and never the ground the pair can see it has taken.
+
+**The one thing that hurts it** is THE GUM, flung. A hand carries a falling gum
+`gumSwipeMilli` sideways and it leaves its lane to fly level along the row it
+was on at `gumFlingCols` a beat (`sim/gum.ts`). Arriving at the mouth, it chokes
+a ring for good and opens a slow window, because the design asks for it by name:
+*the fling is a SLOW*. The hit test is a **sweep** and not an equality: a gum
+crosses three columns a beat and the mouth is one wide, so a test that asked
+only whether the two matched would be a boss a fling flew over two times in
+three. The sweep is read off where the gum landed and the way it is going, never
+off `fromCol` — that field is a fact about the picture and outside the
+fingerprint, and a hit test built on it is one two devices could disagree about.
+
+**Beaten, it everts** for `throatEvertBeats` with a slow window over the whole
+of it, and the boss is nulled at the end rather than at the last choke, so the
+picture has the eversion to run before the wave ends under it.
+
+**Three things the design asks for that are not built, and why.**
+*Pods.* Step 10 wants the throat to compete with the maw for a pod. Pods are a
+separate array with their own step and the hauling would be a second copy of the
+pull; it is a queue item rather than a silent omission.
+*A braked gum.* Step 12 wants a hand to hold a gum out of a continuous inhale,
+"THE GRIP, unchanged" — but a hand on a gum is already the *fling* gesture
+(`handMeans` calls it a pull), so braking one would change THE GUM rather than
+leave it unchanged. Phase `open` inhales every beat instead, which is the same
+pressure without a gesture meaning two things.
+*The eversion, the gullet, the travelling contraction wave and the mouth's
+target lock.* All four are the look, and the look is the lane after this one.
+
+**Never watched at tempo.** Whether a pair can hold a column and a count at 96
+BPM while one of them is timing a thumb is a thing a person finds out with
+another person. The tests say the arithmetic: that the mouth's travel is a pure
+function of the beat and never stands still against a wall, that the inhale
+counts from its phase's own origin, that the pull holds and a braking hand stops
+it, that a swallow re-tightens and a fling chokes, and that the phases go one
+way (`sim/test/throat.test.ts`).

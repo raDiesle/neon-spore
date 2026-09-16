@@ -60,6 +60,22 @@ export const ROUND_NOTES = {
     "batonShedBeats. Out of the last socket the bead falls as a pod, the maw " +
     "takes it, and the arm folds away in batonDownBeats. Nothing about it is " +
     "authored per wave. See sim/baton.ts, sim/config-baton.ts.",
+  "THE THROAT — the boss you answer by feeding it":
+    "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §1, " +
+    "and the only boss in the game answered by GIVING it something. A gullet " +
+    "of throatRings ring muscles hangs from the top of the field to " +
+    "throatMouthRow, ending in a mouth one column wide that slides its own " +
+    "row — throatSlideCols a beat, and throatQuickCols once two rings are " +
+    "slack. Every throatInhaleBeats it inhales: whatever stands in the mouth " +
+    "is swallowed and everything else in the column is hauled a row closer, " +
+    "which is THE DRAG and not THE SLOW, so a braking hand has a whole " +
+    "inhale to arrive. A swallowed creature RE-TIGHTENS a slack ring, so the " +
+    "wave's own arrivals are the boss's dinner and a pair who lets the field " +
+    "run is fighting something that heals. The only thing that hurts it is a " +
+    "gum a hand has flung, level along the mouth's row, into the mouth. " +
+    "Shots pass through the tube on purpose: that is player 2's answer to a " +
+    "creature about to be eaten. Nothing is authored per wave. " +
+    "See sim/throat.ts, sim/config-throat.ts, sim/throat-pull.ts.",
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

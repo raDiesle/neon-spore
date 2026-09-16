@@ -734,3 +734,26 @@ actually sends.
 Nothing is blocked on this. It is here because the read-only note makes the
 missing control obvious to whoever opens the panel next, and they should find
 the question already asked rather than ask it again.
+
+## THE THROAT does not haul a pod, and step 10 of its design wants it to
+
+- **Found:** 2026-09-16, claude/neon-spore-boss-design-26ee5e
+- **Where:** local
+- **Files:** `packages/sim/src/throat-pull.ts`, `packages/sim/src/throat-step.ts`, `packages/sim/src/pods.ts`, `packages/sim/src/span.ts`, `packages/sim/test/throat.test.ts`, `docs/spec/bosses.md`
+
+The pull and the swallow walk `world.creatures` only. Pods live in their own
+array with their own step (`advancePods`), so a pod loose in the mouth's column
+falls past a throat that should be fighting player 1's maw for it — which is
+the design's step 10, the one beat in the fight that needs both seats at once
+(`docs/spec/bosses-choreographed.md` §1, and `docs/spec/bosses.md` §11.18 lists
+it as an omission rather than a cut).
+
+What to do: give `throatHolds`/`throatLift`/the swallow a pod-shaped sibling
+rather than a second copy of the column test — the two callers already share
+one predicate and that is the property to keep. A swallowed pod re-tightens a
+ring like any other body, and the maw taking it first is the answer.
+
+The choice the work picks between: a second pair of functions over `Pod`, or a
+narrow common shape (`{ col, row, span }`) both arrays are read through. The
+second is smaller and is how `occupiesLane` is already written; the first is
+what every other boss that touches pods has done.

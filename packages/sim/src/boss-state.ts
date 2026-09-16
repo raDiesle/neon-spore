@@ -12,6 +12,7 @@ import type { MirrorState } from "./simon.js";
 import type { SnakeState } from "./snake.js";
 import type { SpliceState } from "./splice.js";
 import type { StareState } from "./stare.js";
+import type { ThroatState } from "./throat.js";
 import type { Color } from "./types.js";
 import type { WellState } from "./well.js";
 
@@ -244,4 +245,5 @@ export type BossState =
   | ScoutState
   | StareState
   | DiastoleState
-  | BatonState;
+  | BatonState
+  | ThroatState;

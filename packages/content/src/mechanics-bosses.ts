@@ -19,6 +19,7 @@ type BossId = Extract<
   | "stare"
   | "diastole"
   | "baton"
+  | "throat"
 >;
 
 /**
@@ -84,6 +85,10 @@ export const BOSS_MECHANICS = {
   },
   diastole: {
     what: "Two chambers side by side above the top of the field, one column apart, with a bridge of vessels between them. Each beats on its own count — the left every three beats, the right every five — and each of you is shown only your own chamber's pulse true; the other one is a still grey mass on your screen. A chamber can only be hurt on one of its own contractions. While the left is beating alone an ordinary shot of its colour, up its column, on one of its contractions takes it. Once the right wakes, nothing single lands at all: the only answer is the lance beam standing in the *bridge* column on a beat both of them are contracting on, which is every fifteen. Then the left collapses, the right goes to seven, and there is no second rhythm left to count it against.",
+    reach: "spawn",
+  },
+  throat: {
+    what: "A gullet hanging from the top of the field, five ring muscles stacked and narrowing, ending in a lipped mouth one column wide that slides along its own row. No shot touches it. Every few beats it inhales its own column: whatever is standing in its mouth is swallowed, and everything else in that column is hauled a row closer. A creature it swallows re-tightens one of its slack rings, so clearing the field feeds it and letting the field run feeds it faster. The only thing that hurts it is a gum flung level along the mouth's row into the mouth, which chokes a ring for good. Only one of you is shown the mouth's column and the beats to the next inhale; only the other one can fling. At five slack rings it pulls itself through its own mouth.",
     reach: "spawn",
   },
   stare: {

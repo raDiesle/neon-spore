@@ -74,6 +74,13 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // control: a ward needs her plate and his trigger, and on this wave one of
   // them is always a beat behind the other.
   "THE BATON": ["meteor"],
+  // THE THROAT introduces no creature at all — what is new is a boss answered
+  // by feeding it — so every arrival on it is a kept kind, and the two are
+  // the whole lesson rather than beside it. The gum is the *only* thing that
+  // hurts the boss, and the rock is the body in the mouth's column that no
+  // shot answers: it is player 1's to brake out of the pull, which is what
+  // makes THE DRAG legible in a wave where everything else is a colour.
+  "THE THROAT": ["meteor", "gum"],
 };
 
 describe("a guided wave's entries", () => {

@@ -208,6 +208,7 @@ export {
   stareTurning,
   stareWatches,
   stepBall,
+  type ThroatEntry,
   VANE_CYCLE,
   VANE_CYCLE_BEATS,
   VANE_PHASES,

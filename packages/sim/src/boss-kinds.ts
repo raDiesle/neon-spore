@@ -42,13 +42,19 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // THE BATON is the sixth: an arm hanging in one column that falls nothing
   // but its own dead segments, whose whole behaviour is whose turn it is
   // (`baton.ts`). The arrivals around it are the wave's own.
+  // THE THROAT is the seventh, and the one where it is the *point* rather than
+  // the shape: what the boss eats is the wave's own arrivals, and every
+  // creature it swallows re-tightens a slack ring (`throat-step.ts`). A throat
+  // that spawned its own dinner would be a boss healing off bodies its author
+  // never wrote, which is to say a boss whose difficulty nobody set.
   return (
     kind !== "vane" &&
     kind !== "well" &&
     kind !== "reprise" &&
     kind !== "stare" &&
     kind !== "diastole" &&
-    kind !== "baton"
+    kind !== "baton" &&
+    kind !== "throat"
   );
 }
 
@@ -113,4 +119,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "stare",
   "diastole",
   "baton",
+  "throat",
 ];

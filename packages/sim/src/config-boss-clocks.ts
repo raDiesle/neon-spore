@@ -1,0 +1,41 @@
+import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
+import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
+import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
+import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
+
+export { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
+export { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
+export { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
+export { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
+
+/**
+ * **The bosses that are a clock**, as one block of `SimConfig`.
+ *
+ * Split out of `config.ts` when THE THROAT's seven dials took that file two
+ * lines over its 250-line limit — `config-rounds.ts`' cut made a second time,
+ * for the reason that file gives: four lines of barrel a boss adds up faster
+ * than anything else in the game, and nine more rounds are designed.
+ *
+ * The seam is not "the newest four". Every one of these bosses is a *beat
+ * count the pair says out loud* — how long the eye takes to turn, how far
+ * apart two cadences that never divide each other are, how many beats a
+ * handover is in the air, how many beats until the next inhale — and that is
+ * why each of them got a file of its own rather than a field in
+ * `config-boss.ts` next door. That file is where a boss's *place* lives: the
+ * queen's row, the Warden's row, the pile's. A place can be read off the
+ * screen; a count has to be counted, and a wave that authored its own would be
+ * several different bosses wearing one name.
+ *
+ * `SimConfig` extends `BossClockConfig` rather than nesting it, exactly as it
+ * extended the four separately: every call site still reads `cfg.stareTurnBeats`
+ * and `cfg.throatInhaleBeats`, and nothing outside this file learns there is a
+ * grouping at all.
+ */
+export interface BossClockConfig extends StareConfig, DiastoleConfig, BatonConfig, ThroatConfig {}
+
+export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
+  ...STARE_DEFAULTS,
+  ...DIASTOLE_DEFAULTS,
+  ...BATON_DEFAULTS,
+  ...THROAT_DEFAULTS,
+};

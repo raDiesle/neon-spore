@@ -69,6 +69,18 @@ export const ROUND_FIELD_GROUP = {
   batonShedAfter: "THE BATON — a bead passed down an arm, one seat a beat",
   batonShedBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   batonDownBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  // ThroatConfig — five rings, a mouth a third of the way down, the inhale
+  // and what it tightens to, and how far the mouth steps between inhales.
+  // Every one of them is a deadline somebody has to say out loud rather than a
+  // difficulty knob: shorten the inhale and the fight does not get harder, it
+  // gets quiet (`config-throat.ts`).
+  throatRings: "THE THROAT — the boss you answer by feeding it",
+  throatMouthRow: "THE THROAT — the boss you answer by feeding it",
+  throatInhaleBeats: "THE THROAT — the boss you answer by feeding it",
+  throatTightBeats: "THE THROAT — the boss you answer by feeding it",
+  throatSlideCols: "THE THROAT — the boss you answer by feeding it",
+  throatQuickCols: "THE THROAT — the boss you answer by feeding it",
+  throatEvertBeats: "THE THROAT — the boss you answer by feeding it",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

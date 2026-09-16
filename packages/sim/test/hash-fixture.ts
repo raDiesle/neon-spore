@@ -175,6 +175,10 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // the bead is in, whose turn it is — is what the fixture's world has moved
   // by the time it is fingerprinted (`baton-hash.ts`).
   baton: { kind: "baton" },
+  // THE THROAT authors nothing either, and here the absence is the mechanic:
+  // what it eats is the wave's own arrivals, so its difficulty is the wave's
+  // and its two clocks are tuning (`config-throat.ts`).
+  throat: { kind: "throat" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).

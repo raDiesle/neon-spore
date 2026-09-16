@@ -13,6 +13,7 @@ import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 import { snakeHashParts } from "./snake-hash.js";
 import { spliceHashParts } from "./splice-hash.js";
 import { stareHashParts } from "./stare-hash.js";
+import { throatHashParts } from "./throat-hash.js";
 
 /**
  * The boss half of the world fingerprint.
@@ -175,6 +176,12 @@ export function bossHashParts(boss: BossState | null): number[] {
   // their own phone this beat (`baton-hash.ts`).
   if (boss !== null && boss.kind === "baton") {
     for (const n of batonHashParts(boss)) push(n);
+  }
+  // THE THROAT, and its two anchor fields are the mouth's position rather than
+  // its setup — a device that disagreed about either would judge a fling
+  // against a different column (`throat-hash.ts`).
+  if (boss !== null && boss.kind === "throat") {
+    for (const n of throatHashParts(boss)) push(n);
   }
   if (boss !== null && boss.kind === "scout") {
     for (const n of scoutHashParts(boss)) push(n);

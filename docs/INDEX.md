@@ -124,6 +124,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/cling.ts` | **THE LIMPET and THE LEECH**: two bodies that fall straight down one lane, cannot be shot |
 | `packages/sim/src/command-types.ts` | what a press *is*, as a flat union — so that a replay is a list of these and nothing else |
 | `packages/sim/src/config-boss.ts` | the numbers the bosses own |
+| `packages/sim/src/config-boss-clocks.ts` | **The bosses that are a clock**, as one block of `SimConfig` |
 | `packages/sim/src/config-creatures.ts` | how long one creature's own clock runs, and the shapes it moves |
 | `packages/sim/src/config-gauge.ts` | THE GAUGE's numbers — the first of the twelve rounds, and its whole difficulty |
 | `packages/sim/src/config-pair.ts` | the switch that exists because the game has two people in front of it |
@@ -266,6 +267,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/strand-shape.ts` | THE STRAND's shape, as arithmetic |
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
 | `packages/sim/src/throb.ts` | the throb's clockwise turn, which half a shot met, and what it costs |
+| `packages/sim/src/throat-hash.ts` | What THE THROAT puts into `hashWorld`: the anchor two devices have to agree about |
+| `packages/sim/src/throat-pull.ts` | The pull: a body in the mouth's column stops falling, and a braking hand stops the climb |
+| `packages/sim/src/throat-step.ts` | THE THROAT's clock, and the two opposite gestures — a fling chokes a ring, a swallow tightens one |
+| `packages/sim/src/throat.ts` | THE THROAT: the boss answered by feeding it, and the mouth's column derived from the beat |
 | `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — twelve shapes, the union of them |
 | `packages/sim/src/boss-entries-round.ts` | **What a wave authors when it wants a round** — the bosses that take the panel away |
 | `packages/sim/src/boss-kinds.ts` | a tool asks which bosses exist, or whether one is the whole wave — `BOSS_KINDS`, a wire value appended never inserted, and `bossFillsWave` |
@@ -385,6 +390,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
+| `packages/sim/src/config-throat.ts` | THE THROAT's numbers: five rings, a mouth a third down, and the inhale the pair counts |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
@@ -529,6 +535,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
 | `packages/content/src/waves/act-7a.ts` | Three waves between the two halves of act seven: THE CHOKE (the steer fault), THE LIMPET and THE LEECH |
 | `packages/content/src/waves/act-7c.ts` | The third page of act seven, cut off `act-7b.ts` when THE STARE took that file twenty-one lines over the… |
+| `packages/content/src/waves/act-7d.ts` | The fourth page of act seven, cut off `act-7c.ts` when THE THROAT and THE BATON landed on it within an hour… |
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |

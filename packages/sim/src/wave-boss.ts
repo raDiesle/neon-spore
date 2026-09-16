@@ -14,6 +14,7 @@ import { NO_SHELL } from "./shell.js";
 import { installSnake } from "./snake-round.js";
 import { installSplice } from "./splice-round.js";
 import { installStare } from "./stare-step.js";
+import { installThroat } from "./throat-step.js";
 import { installVane } from "./vane.js";
 import { installWarden } from "./warden-start.js";
 import { installWell } from "./well.js";
@@ -129,6 +130,15 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // is a pod — so every rule that meets one is a rule that already exists
     // (`baton-step.ts`). The arrivals around it are the wave's own.
     world.boss = installBaton(world);
+  } else if (boss?.kind === "throat") {
+    // No creature either, and here the absence is the mechanic rather than the
+    // geometry: the gullet hangs from the top down to `throatMouthRow` and its
+    // mouth walks that row, but nothing of it is a body — so it cannot be shot,
+    // warded or taken hold of, and **shots pass straight through the tube**,
+    // which is what leaves player 2 an answer to a creature about to be eaten.
+    // The arrivals underneath are the wave author's, and they are also the
+    // boss's dinner (`throat.ts`, `bossFillsWave`).
+    world.boss = installThroat(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

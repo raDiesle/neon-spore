@@ -7672,3 +7672,26 @@ list` printed `— ASKS THE OWNER — ASKS THE OWNER` on two entries this sessio
 wrote, which is the kind of thing only reading the listing shows.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+## 2026-09-16 — neon-spore-boss-design — THE THROAT's simulation, and the mouth that is a function
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | `gum.ts`, `own-step.ts`, `cross.ts`, `rock-cross.ts`, `grip.ts`, `slow-fall.ts`, `beat.ts`'s fall loop, `creature-types.ts`, and THE DIASTOLE's own diff as the template for a boss's ~30 files of plumbing |
+| writing | 55 | `config-throat.ts`, `throat.ts`, `throat-step.ts`, `throat-pull.ts`, `throat-hash.ts`, the wave and its three-part guide, 22 tests, `bosses.md` §11.19 |
+| looking | 0 | — nothing is drawn yet; the gullet is the lane after this one |
+| friction | 15 | `throat.ts` at 253 lines against a 250 limit; a would-be import cycle between the pull and the step; a mutation TypeScript could not narrow through; two of my own tests written against a mouth that had slid away |
+| landing | 10 | `bun run index`, the doc-drift section, `check:fast`, the commit |
+
+The bottleneck was a decision rather than a task: **whether the mouth's column
+is stored and stepped, or derived from the beat.** Storing it is what every
+crossing body in this game does and `crossField` is already written for it. It
+is wrong here twice. The pull is decided inside `beat.ts`'s fall loop and the
+hit tests run from `stepBoss` after it, so a stepped column would be read a
+beat stale by one of the two — the class of bug `beamBeat` had been written to
+fix the day before. And player 2's whole readout is *which column the mouth will
+be in*, which is a question about a beat that has not happened and which a
+stepper cannot answer at all. Deriving it took an anchor field, a reflection
+over the last whole stride rather than over the wall, and a paragraph in
+`throat-hash.ts` explaining why an anchor is a position.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -197,6 +197,21 @@ export interface BatonEntry {
   kind: "baton";
 }
 
+/**
+ * What a wave authors when it wants THE THROAT, which is nothing at all — THE
+ * DIASTOLE's entry one boss along, and for its three reasons said about a tube.
+ *
+ * No column: the gullet hangs dead centre and its mouth walks the field from
+ * there (`throatHomeCol`). No health: it is `throatRings` ring muscles, and the
+ * count is the silhouette rather than a difficulty dial. And no clocks — the
+ * inhale and the mouth's stride are the two numbers the pair *says out loud*,
+ * so a wave that authored its own pair would be a boss nobody could ever have
+ * learned to talk about (`config-throat.ts`).
+ */
+export interface ThroatEntry {
+  kind: "throat";
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -216,7 +231,8 @@ export type BossEntry =
   | ScoutEntry
   | StareEntry
   | DiastoleEntry
-  | BatonEntry;
+  | BatonEntry
+  | ThroatEntry;
 
 export type {
   FleetEntry,

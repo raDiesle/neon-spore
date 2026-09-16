@@ -8,6 +8,7 @@ import { stepGyre } from "./gyre.js";
 import { stepMine } from "./mine.js";
 import { rockCrosses, stepRockAcross } from "./rock-cross.js";
 import { slowStep } from "./slow-fall.js";
+import { throatHolds } from "./throat-pull.js";
 import type { Creature } from "./types.js";
 import { stepVolley, volleyIsClimbing } from "./volley.js";
 import { stepWisp } from "./wisp.js";
@@ -146,5 +147,16 @@ export function steppedInsteadOfFalling(world: World, c: Creature): boolean {
     stepGyre(world, c);
     return true;
   }
+  // **And last of all, THE THROAT's pull**, which is the only entry in this
+  // file that is a condition on a *place*: any body at all may be standing in
+  // the mouth's column, so it is asked after every body with a rule of its own
+  // has answered. A carom on its diagonal, a prowling ghost, a gum a hand has
+  // flung — each of those is *travelling through* that column rather than
+  // standing in it, and each must keep its own rule; the flung gum especially,
+  // since reaching the mouth is the only thing in the game that hurts this
+  // boss. What is caught is a body that would otherwise have fallen, and
+  // nothing moves here: the lift is a row an inhale, after the swallow
+  // (`throat-pull.ts`).
+  if (throatHolds(world, c)) return true;
   return false;
 }

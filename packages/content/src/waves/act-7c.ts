@@ -34,8 +34,7 @@ import type { Wave } from "../wave-types.js";
  * the pair can still play through if the other control was parked before it
  * landed. The colours sit in the windows, where both seats are free. The looks
  * grow (`stareLookGrowBeats`), so the last window is the short one and the
- * last rock falls with the eye already open.
- */
+ * last rock falls with the eye already open. */
 export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theScout",
