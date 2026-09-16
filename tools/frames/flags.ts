@@ -94,13 +94,25 @@ export function parseFrameSpec(
     throw new Error(`--seat ${seat}: one of p1, p2 or test`);
   }
 
+  // The wave is read before the presses and not after, because a press is
+  // checked against the panel *this* wave is played on: whose thumb a maw is
+  // under is a fact about the set, not about the command (`press.ts`).
+  const waveValue = after("wave") ?? "";
+  if (!waveValue) {
+    throw new Error(
+      '--wave is required: --wave N (the number the HUD prints) or --wave "NAME". A frame of ' +
+        "the wrong wave proves nothing, so this tool will not pick one for you.",
+    );
+  }
+  const wave = resolveWaveFlag(waveValue, waves);
+
   // Every `--hold`, not the first: two hands on one body is a gesture this
   // field has (`collectHolds` above). A value carrying `@TICK` comes back as a
   // press instead, so the wheel can be turned before the shot rather than
   // after it.
   const { hold, pressed } = collectHolds(argv);
   const pressValue = after("press");
-  const line = tickLine(pressValue === undefined ? [] : parsePress(pressValue), pressed);
+  const line = tickLine(pressValue === undefined ? [] : parsePress(pressValue, wave), pressed);
   const press = line.length > 0 ? line : undefined;
 
   // This phone's own finger on the ship, which no command can put there
@@ -113,16 +125,9 @@ export function parseFrameSpec(
   }
 
   const atValue = after("at");
-  const waveValue = after("wave") ?? "";
-  if (!waveValue) {
-    throw new Error(
-      '--wave is required: --wave N (the number the HUD prints) or --wave "NAME". A frame of ' +
-        "the wrong wave proves nothing, so this tool will not pick one for you.",
-    );
-  }
 
   const spec: FrameSpec = {
-    wave: resolveWaveFlag(waveValue, waves),
+    wave,
     ticks: flag("ticks", 120),
     frames: flag("frames", 1),
     // On the guide these two are painted frames rather than ticks, and a

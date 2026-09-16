@@ -1,3 +1,4 @@
+import { CONTROLS, controlPress, controlSetForWave } from "@neon-spore/content";
 import { crankPresses, parseTurns } from "./crank.js";
 import { commandFor } from "./press-command.js";
 import type { PressSpec } from "./spec.js";
@@ -59,6 +60,17 @@ import type { PressSpec } from "./spec.js";
  * than sent, because the round would refuse it too and the frame would come
  * back with nothing in it and no error anywhere.
  *
+ * **And the check is the wave's own panel, not a table here.** It was a table
+ * here, and it had `intake` down as player 1's — true while the maw was only
+ * ever the cannon lobe, and false from the day THE CLAW's panel moved it to
+ * the other seat. THE SPLICE's does the same, so a picture of this tool's own
+ * boss had to be taken with the press attributed to a seat that never sent it,
+ * because `<t>:2:intake` was refused with a message about a round that would
+ * have accepted it perfectly well (`sim/commands.ts` seat-checks nothing).
+ * Which seat has a button is a fact about the **panel**, it is written down
+ * once in `CONTROLS` and `controlSetForWave`, and `seatsOnPanel` below reads it
+ * there rather than keeping a second copy that can go stale in silence.
+ *
  * **A column here is a simulation column, not the one in the wave file.**
  * Waves are authored against seven columns and the field has `cfg.cols` of
  * them — eleven today — and `mapCol` is what carries one to the other. So a
@@ -70,68 +82,103 @@ import type { PressSpec } from "./spec.js";
  * re-derived, and that is one of them).
  */
 
-/** Which seat each control belongs to. `grip` is the one either may send. */
-const SEAT_OF: Record<string, 1 | 2 | "either"> = {
-  cannonCol: 1,
-  guard: 1,
-  intake: 1,
-  // A thumb on a colour: it fills the cannon lobe (`sim/lance.ts`).
-  prime: 2,
-  // THE FLEET's pair, and the seat check on them is the fight itself: the
-  // pilot holds the only trigger and the navigator the only sights, and the
-  // round refuses either one from the other chair (`sim/fleet.ts`).
-  salvo: 1,
-  aim: 2,
-  // THE CLAW's arm, and the mouth its panel moves to the other seat. The seat
-  // is what makes them worth listing separately from `intake` above: on that
-  // panel the maw is player 2's, and a press written as player 1's would be
-  // one nobody sent (`content/src/control-sets-table.ts`).
-  reach: 1,
-  mawTake: 2,
-  shieldCol: 2,
+/**
+ * The presses **no panel carries a button for**, and the only ones whose seat
+ * is decided here.
+ *
+ * Everything else is a control on somebody's panel and is asked of the wave
+ * being captured (`seatsOnPanel`). These four are not:
+ *
+ * - `fire` is the shot itself. The panel's own colour buttons send `prime`,
+ *   and the shot is what *lifting* one says (`content/src/control-command.ts`),
+ *   so there is no control whose press is a `fire` — but a rig wants to write
+ *   one without spelling out a hold. It is the navigator's, with the cannon
+ *   the pilot's, which is the split the whole game is built on.
+ * - `grip` is a thumb on a **body**, not on a button: either seat may put one
+ *   there, and the field is not a panel.
+ * - `tap` is THE BEATBOX's, on the box itself rather than on the band.
+ * - `shake` is THE CHOIR's, and is not a thumb at all — the *device* moved
+ *   (`sim/choir-gesture.ts`). The pilot's, for the reason every handle on this
+ *   field is: the navigator carries both colours and fires.
+ */
+const OFF_PANEL_SEAT: Record<string, 1 | 2 | "either"> = {
   fire: 2,
   grip: "either",
-  // THE BEATBOX's thumb, player 2's alone. The creature cannot be photographed
-  // without it: every picture worth taking of one — an arm on the rim, the
-  // green rings of a beat that counted, the red of one that did not — is taps
-  // deep, and an untouched box is a plain rounded body.
   tap: 2,
-  // THE CHOIR's shake, and the only entry here that is not a thumb on
-  // anything: the *device* was moved. It is the pilot's for the reason every
-  // handle on this field is — the navigator carries both colours and fires —
-  // and it takes no value, so it falls through to the bare-kind branch below
-  // with `guard` and `reach` (`sim/choir-gesture.ts`).
   shake: 1,
-  // THE PULSE's one verb, and the only entry here that is genuinely either
-  // seat's rather than either seat's by exception: both panels carry the same
-  // four lanes and the round does not care which thumb a press came from
-  // (`sim/pulse-controls.ts`). Without it this round could not be photographed
-  // at its own subject — the veiled arrow arrives in bar 7 and a capture with
-  // no presses in it has already lost the stage by bar 4.
-  pulseStep: "either",
-  // PINBALL's two, and the round could not be photographed doing anything at
-  // all without them: with no press in it the needle sweeps for the length of
-  // the capture and the ball never leaves the cannon, so every frame of it was
-  // the same frame. Both take no value and fall through to the bare-kind branch
-  // below, and the seats are the round's own — the pilot stops the needle, the
-  // navigator fires on the bar (`sim/pinball-controls.ts`). The cannon itself
-  // is `cannonCol` above, because on this round it is the ordinary strip.
-  latch: 1,
-  launch: 2,
-  // THE CLAW's crank, the pilot's. Unlike every other entry here it is not one
-  // command: what winds rope is a stream of bearings, and `crank.ts` expands
-  // one press into the run the desk keyboard and a rehearsal already send.
-  crank: 1,
 };
+
+/**
+ * Every control `--press` accepts, which is the list an unknown one is
+ * reported against.
+ *
+ * Listed rather than derived from the panels, and deliberately: a press is a
+ * thing a person types, and two of them — `mawTake` and `crank` — are named
+ * for the button rather than for the command it sends. A reader who has just
+ * been told `mawTake` is unknown, because the wave they picked has no maw, has
+ * been told the wrong thing.
+ */
+const PRESS_KINDS = [
+  "cannonCol",
+  "guard",
+  "intake",
+  "prime",
+  "salvo",
+  "aim",
+  "reach",
+  "mawTake",
+  "shieldCol",
+  "fire",
+  "grip",
+  "tap",
+  "shake",
+  "pulseStep",
+  "latch",
+  "launch",
+  "crank",
+];
+
+/** The command a press sends where its own name is the button's rather than
+ * the command's. `mawTake` is the ship's own `intake` under another thumb, and
+ * `crank` is a `drag` on the drum (`content/src/control-command.ts`). */
+const COMMAND_OF: Record<string, string> = { mawTake: "intake", crank: "drag" };
+
+/**
+ * Which seats this wave's own panel gives this press, or `null` where no
+ * control on it sends the command at all.
+ *
+ * `null` is not "refused": a press can be perfectly good on a panel that has
+ * no button for it — every `--hold` and every frame test sends commands no
+ * thumb could reach — and the four in `OFF_PANEL_SEAT` are exactly that case.
+ * What this answers is the narrower question the old table got wrong: *when a
+ * button for this does exist on the panel being photographed, whose is it?*
+ */
+function seatsOnPanel(kind: string, wave: number): (1 | 2)[] | null {
+  const want = COMMAND_OF[kind] ?? kind;
+  const seats = new Set<1 | 2>();
+  for (const id of controlSetForWave(wave).controls) {
+    if (controlPress(id).down.kind !== want) continue;
+    const def = CONTROLS.find((c) => c.id === id);
+    if (def) seats.add(def.player);
+  }
+  return seats.size === 0 ? null : [...seats];
+}
+
+/** The fixed seat of an off-panel press, as the one-entry list the check
+ * wants, or `null` for one either seat may send. */
+function whoseSeat(kind: string): (1 | 2)[] | null {
+  const seat = OFF_PANEL_SEAT[kind];
+  return seat === undefined || seat === "either" ? null : [seat];
+}
 
 export const PICKS: Record<string, "first" | "lowest"> = { first: "first", lowest: "lowest" };
 
-export function parsePress(value: string): PressSpec[] {
+export function parsePress(value: string, wave: number): PressSpec[] {
   const presses = value
     .split(",")
     .map((one) => one.trim())
     .filter(Boolean)
-    .flatMap((one) => parseOnePress(one, value));
+    .flatMap((one) => parseOnePress(one, value, wave));
   if (presses.length === 0) {
     throw new Error(`--press ${value}: nothing to press. See tools/frames/hold.ts for the shape`);
   }
@@ -140,7 +187,7 @@ export function parsePress(value: string): PressSpec[] {
   return presses.sort((a, b) => a.tick - b.tick);
 }
 
-function parseOnePress(one: string, whole: string): PressSpec[] {
+function parseOnePress(one: string, whole: string, wave: number): PressSpec[] {
   const [tickText = "", playerText = "", rest = ""] = one.split(":");
   const tick = Number(tickText);
   if (!Number.isInteger(tick) || tick < 0) {
@@ -152,16 +199,17 @@ function parseOnePress(one: string, whole: string): PressSpec[] {
   const player: 1 | 2 = playerText === "1" ? 1 : 2;
   const [kind = "", argument] = rest.split("=");
 
-  const seat = SEAT_OF[kind];
-  if (seat === undefined) {
+  if (!PRESS_KINDS.includes(kind)) {
     throw new Error(
-      `--press ${whole}: "${one}" — unknown control. One of ${Object.keys(SEAT_OF).join(", ")}`,
+      `--press ${whole}: "${one}" — unknown control. One of ${PRESS_KINDS.join(", ")}`,
     );
   }
-  if (seat !== "either" && seat !== player) {
+  const seats = seatsOnPanel(kind, wave) ?? whoseSeat(kind);
+  if (seats !== null && !seats.includes(player)) {
     throw new Error(
-      `--press ${whole}: "${one}" — ${kind} is player ${seat}'s, and a press from the other seat ` +
-        "is one the round refuses, so the frame would come back empty with nothing said",
+      `--press ${whole}: "${one}" — on this wave's panel ${kind} is player ${seats.join(" or ")}'s, ` +
+        "and a press from the other seat is one nobody sent, so the frame would come back with " +
+        "nothing in it and no error anywhere",
     );
   }
   // The one control that is a stream rather than a command, and the only place

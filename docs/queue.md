@@ -589,29 +589,3 @@ is not a devDependency, and that argument is worth writing once.
 
 Prove it with `bun run check`: every test that reads either file today passes
 unchanged, and neither installer's surface grows while it is moved.
-
-## `--press` decides a seat from the command, and a seat is the panel's
-
-- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-16, claude/queue-press-decides-a-seat-from-the-command-and-a-seat
-- **Files:** `tools/frames/press.ts`, `packages/content/src/control-sets-table.ts`, `packages/content/src/controls.ts`
-
-`SEAT_OF` in `press.ts` maps a command kind to the seat that sends it, and
-`intake` is down as player 1's. That was true while the maw was only ever the
-cannon lobe. It is not true now: THE CLAW's panel and THE SPLICE's both carry
-`mawTake`, which is **player 2's** and sends the same `{ kind: "intake" }`. So
-`bun run frames . --wave "THE SPLICE" --press <t>:2:intake` is refused with a
-message saying the round would ignore it, and the picture of this lane's own
-boss had to be taken with the press attributed to the wrong seat. The
-simulation does not gate `intake` by player, so the frame was honest about the
-world and wrong about the panel — which is exactly the kind of quiet wrongness
-the check was added to prevent.
-
-The fact is already written down once: `CONTROLS` gives every control a
-`player`, and `controlSetForWave(index)` says which controls a wave's panel
-carries. So the check belongs on the **wave being captured** — resolve the
-command kind to the control the wave's own set holds, and refuse only a seat
-that set really does not give it. `--wave` is already required and already
-resolved to an index before the presses are parsed (`run.ts`), so nothing new
-has to be threaded. Prove it with `bun run check` and one frame of THE SPLICE
-taken with `<t>:2:intake`.

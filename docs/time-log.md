@@ -6258,3 +6258,22 @@ group had to be worth a file, and what earns it is the rule about which two of
 the six are pitched and why the other four are not. `bind.ts` is at 242, so
 there is room for one more boss and not for two — the next cut is the ship's
 own group, and it is now obvious where the seam is.
+
+## 2026-09-16 — queued-tasks — a press is checked against the wave's own panel
+
+`--press` kept its own table of which seat holds which control, and the table
+had the maw down as the pilot's — true until THE CLAW moved it, and false for
+two bosses since.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `press.ts`, `control-command.ts`, `controls.ts` and `control-sets.ts`, to find where the fact is already written down |
+| writing | 30 | `seatsOnPanel`, the four presses no panel carries, the reordering in `flags.ts`, and the tests, which had to stop naming waves by number |
+| looking | 10 | one frame of THE SPLICE from the navigator's seat with `690:2:intake` — the command the tool used to refuse |
+| friction | 10 | wave 0's panel is STANDARD 1 and carries two buttons, so half the old assertions were checking a control the wave does not have |
+| landing | 10 | `check:fast`, the frame, the commit |
+
+The bottleneck was writing, and most of it was the tests: once a seat is a fact
+about a panel, a test that says "a press from the wrong chair is refused" has to
+say which panel it means, and the honest way to name one is by its set rather
+than by an index that moves whenever a wave is inserted.

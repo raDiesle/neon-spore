@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { controlSetForWave, WAVES } from "@neon-spore/content";
 import { MALFUNCTION_KINDS } from "@neon-spore/sim";
 import { crankPresses } from "../crank.js";
 import { FAULT_FLAG_KINDS, parseFault, TO_THE_END } from "../fault.js";
@@ -50,17 +51,27 @@ describe("collectHolds", () => {
   });
 });
 
+/** The panels these presses are checked against — `hold.test.ts` says why a
+ * wave rather than a number (`press.ts`). */
+const waveOn = (setId: string): number => {
+  const i = WAVES.findIndex((_, at) => controlSetForWave(at).id === setId);
+  if (i === -1) throw new Error(`no wave is played on the ${setId} panel`);
+  return i;
+};
+const FIELD = waveOn("default");
+const CLAW = waveOn("claw");
+
 describe("tickLine", () => {
   it("puts the wheel's turn before the shot it makes possible", () => {
     const { pressed } = collectHolds(["--hold", "mazeString=1400@240"]);
-    const line = tickLine(parsePress("300:2:fire=cyan"), pressed);
+    const line = tickLine(parsePress("300:2:fire=cyan", FIELD), pressed);
     expect(line.map((p) => p.tick)).toEqual([240, 240, 300]);
     expect(line.at(-1)?.command.kind).toBe("fire");
   });
 
   it("keeps a hold ahead of a press written on the same tick", () => {
     const { pressed } = collectHolds(["--hold", "mazeString=1400@300"]);
-    const line = tickLine(parsePress("300:2:fire=cyan"), pressed);
+    const line = tickLine(parsePress("300:2:fire=cyan", FIELD), pressed);
     expect(line.map((p) => p.command.kind)).toEqual(["drag", "drag", "fire"]);
   });
 });
@@ -97,15 +108,15 @@ describe("crank", () => {
   });
 
   it("reaches the page through --press, on the pilot's seat", () => {
-    const line = parsePress("240:1:crank=2");
+    const line = parsePress("240:1:crank=2", CLAW);
     expect(line.length).toBeGreaterThan(10);
     expect(line.every((p) => p.player === 1)).toBe(true);
     expect(line.every((p) => p.command.target === "crank")).toBe(true);
   });
 
   it("refuses the navigator's seat, and a crank with no turns on it", () => {
-    expect(() => parsePress("240:2:crank=2")).toThrow(/player 1/);
-    expect(() => parsePress("240:1:crank")).toThrow(/turns of the drum/);
+    expect(() => parsePress("240:2:crank=2", CLAW)).toThrow(/player 1/);
+    expect(() => parsePress("240:1:crank", CLAW)).toThrow(/turns of the drum/);
   });
 });
 
