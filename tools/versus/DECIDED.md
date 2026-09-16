@@ -905,3 +905,33 @@ rather than as one thing made of seven — banked and still both lose the same
 argument.
 
 The other answers offered were `banked` and `still`; they went with the slot.
+
+## `creature:bite` — nothing taken, 2026-09-16
+
+the bite sits at a seeded bearing rather than where the bolt struck — a stone
+chewed on its upper left by a shot that came from below is the wrong answer to
+the question the slot asked
+
+The other answer offered was `notch`; it went with the slot.
+
+## `creature:splinters` — nothing taken, 2026-09-16
+
+turned down — the slivers are not wanted ahead of the wedges, so zero stays
+the shipped answer to `systems.md` 5.6 rather than a gap waiting to be filled
+
+The other answer offered was `shards`; it went with the slot.
+
+## `creature:debris` / `drift` — taken, 2026-09-16
+
+taken in the same message that closed `creature:bite` and `creature:splinters`,
+which leaves `BREAK_LOOK` with one answer settled on every field a slot had
+opened on it.
+
+the same nine wedges thrown at two fifths the speed with the pull nearly off —
+the body opens rather than bursts, and the pieces fade in the air instead of
+falling onto the ship and lying there
+
+Written into `packages/render/src/break-look.ts`, `BREAK_LOOK`: `fade`,
+`gravityTiles`, `life`, `speedTiles` and `spin`.
+
+It was the only answer offered.

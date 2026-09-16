@@ -694,3 +694,35 @@ the same way the replay refuses — a real disagreement stops, a record never
 loses a row. Provable with `bun run check`: the merges are pure, and
 `replay-repo.test.ts` is the pattern for proving the wiring against a real
 repository rather than against strings.
+
+## The balloon's pop now falls harder than a struck body's break
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `packages/render/src/balloon-burst.ts`,
+  `packages/render/src/break-look.ts`,
+  `packages/render/test/balloon-burst.test.ts`
+- **Asks:** Should a popped balloon's shreds drift like a struck body's pieces now do, or keep falling onto the hull?
+
+Taking `creature:debris` / `drift` dropped `BREAK_LOOK.gravityTiles` from 14 to
+1, so a struck body's pieces hang in the lane and fade there. `BALLOON_SKIN`
+was not part of that slot and still pulls at 11 with `skid: 0.5`, so the skin
+of a balloon lands on the plating and slides along it. The two have swapped
+places: the light thing falls and the heavy thing floats, and the test that
+held the old order — a pop is "bigger, faster and lighter" than a break — lost
+its third clause rather than gaining a reversed one, because nobody chose the
+new order.
+
+The answer picks between two, and both are one field:
+
+- **Follow the break.** `BALLOON_SKIN.gravityTiles` down to about 1 and `skid`
+  to 0, so a pop opens and fades in the air like everything else, and nothing
+  in the game settles on the hull any more. Restores the old "and lighter"
+  clause as a real claim, since the pop keeps the higher speed and the larger
+  count.
+- **Keep the fall, and say why.** A skin is a thing with weight and a body
+  coming apart is not, so the pop is deliberately the heavier picture. Then the
+  clause stays gone and `balloon-burst.ts` grows a paragraph saying the
+  inversion is on purpose.
+
+Whichever it is, it is a look and goes to the owner rather than onto the field
+unattended.

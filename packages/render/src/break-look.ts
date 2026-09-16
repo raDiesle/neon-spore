@@ -25,8 +25,12 @@ import type { Fall } from "./shatter-fall.js";
  * bright. Nine wedges cut again at half their reach is the tuning `bun run
  * breaks` settles on: a shattered core and slabs of skin off the rim, the
  * difference between a body quartered and a body that took a hit. Then they
- * fall, land on the hull and fade there, which is the owner's own answer to
- * whether a break may leave anything behind.
+ * fall, land on the hull and fade there — which was the owner's own answer to
+ * whether a break may leave anything behind until `creature:debris` / `drift`
+ * took it back on 16 September 2026. The same nine wedges now leave at two
+ * fifths the speed with the pull nearly off, so the body **opens** rather than
+ * bursts and the pieces fade where they are. Nothing is left lying on the
+ * hull, because nothing arrives.
  *
  * **The sparks came down to two fifths in the same breath**, and `sparkScale`
  * exists for exactly that: eighteen fragments *and* twelve squares is the old
@@ -36,9 +40,13 @@ import type { Fall } from "./shatter-fall.js";
  * **What to watch for, because the candidate's own card named it.** The column
  * has to stay readable. Two people calling columns to each other need a lane to
  * be clear the moment it is clear, and this puts eighteen fragments in one for
- * most of a second and then leaves them lying on the ship. Hesitation over
- * whether something is still falling in a lane already cleared is this look,
- * and no amount of fading fixes it — the debris *is* the claim.
+ * most of a second. Hesitation over whether something is still falling in a
+ * lane already cleared is this look, and no amount of fading fixes it — the
+ * debris *is* the claim. `drift` answered half of that and sharpened the other
+ * half: nothing settles on the hull any more, but a piece is on screen for 1.4
+ * seconds rather than one, and it hangs in the lane rather than dropping out
+ * of it. If a pair ever hesitates over a cleared column, this is the record to
+ * read first.
  *
  * `Debris` reads this on the frame a body is destroyed and never again, so a
  * patch applied mid-flight does not retune pieces already in the air — which is
@@ -80,8 +88,9 @@ export interface BreakLook {
    * **Zero ships, and that is the honest number**: `systems.md` 5.6 asks for
    * three to six off the broken edge and nothing in the game throws one, so
    * the field's answer is none and this record says so rather than leaving the
-   * design's sentence with no spelling at all. `creature:splinters` is the
-   * candidate that argues for a number.
+   * design's sentence with no spelling at all. `creature:splinters` argued for
+   * a number and the owner turned it down on 16 September 2026, so none is now
+   * the answer rather than the absence of one (`tools/versus/DECIDED.md`).
    */
   readonly splinters: number;
   /** How one piece is painted. */
@@ -91,11 +100,11 @@ export interface BreakLook {
 export const BREAK_LOOK: BreakLook = {
   wedges: 9,
   innerAt: 0.5,
-  speedTiles: 1.2,
-  spin: 6,
-  gravityTiles: 14,
-  life: 1,
-  fade: 0.4,
+  speedTiles: 0.5,
+  spin: 2.5,
+  gravityTiles: 1,
+  life: 1.4,
+  fade: 0.6,
   skid: 0.3,
   sparkScale: 0.4,
   splinters: 0,

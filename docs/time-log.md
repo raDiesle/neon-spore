@@ -6814,3 +6814,26 @@ which `bun run push` refuses and a person resolves — so closing the entry whol
 would have thrown away a finding that cost three hand-resolutions today.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — three VERSUS answers in one message
+
+The owner rejected `creature:bite` / `notch` and `creature:splinters` /
+`shards` and took `creature:debris` / `drift`, after a question about whether a
+bite lands where the bolt struck.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `rockHits` and the golden angle, `bullet-hit-shut.ts`, the candidate's own file, `tools/versus/README.md` |
+| writing | 20 | three passages of `break-look.ts` that the adoption falsified, the balloon test's lost clause, the queue entry |
+| looking | 0 | — nothing drawn; the owner had already seen the pairs |
+| friction | 10 | a heredoc pattern missed the interface's three-space comment indent, and the queue's `Asks:` line was wrapped over two lines and refused |
+| landing | 10 | two red `check:fast` runs and the commit |
+
+The bottleneck was the writing, and none of it was the adoption — `bun run
+versus` did that in three commands and under a minute. Every minute after it
+went on what the three commands did not touch: the prose in `break-look.ts`
+still said the pieces land on the hull and lie there, and a test asserted a
+balloon's pop is lighter than a break, which `drift` made false. Adoption
+rewrites five numbers and cannot know which sentences those numbers were the
+subject of, so a slot taken on a record with a long header is a documentation
+task wearing a one-command hat.
