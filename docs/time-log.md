@@ -6277,3 +6277,22 @@ The bottleneck was writing, and most of it was the tests: once a seat is a fact
 about a panel, a test that says "a press from the wrong chair is refused" has to
 say which panel it means, and the honest way to name one is by its set rather
 than by an index that moves whenever a wave is inserted.
+
+## 2026-09-16 — queued-tasks — one fake element under two fake documents
+
+Two files called `fake-dom.ts` each held their own `FakeEl`, overlapping on
+half a dozen members and diverging on the rest, and each carried its own copy
+of the argument for why neither is a devDependency.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | both files end to end, and every test that imports one, to see which members are actually read |
+| writing | 30 | `tools/test/fake-dom.ts` with the union, the shared argument written once, and the two installers cut back to their own document |
+| looking | 0 | nothing visible moves: the game and the director draw exactly what they drew |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, `bun run index`, the commit |
+
+The bottleneck was writing, and the part of it that took the time was not the
+class: it was deciding what each caller's doc comment says now that the
+argument is somewhere else, so a reader who opens either file still learns why
+there is no jsdom here without being sent away to find out.

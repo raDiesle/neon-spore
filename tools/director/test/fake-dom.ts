@@ -3,97 +3,19 @@
  * wiring.
  *
  * The director is the one part of this repository that talks to a browser, and
- * the test runner carries no DOM — no jsdom, no happy-dom. So its wiring was
- * tested against the *source text* instead: `demo-panel.test.ts` matched a
- * regex over `demo-panel.ts`, `sheet.test.ts` read ids out of `index.html`.
- * That catches a rename and misses a bug, and on 6 September 2026 it missed
- * one — `mountSheet` restored every sheet to its first inner tab, three doc
- * comments described the behaviour it did not have, and every test passed.
+ * the test runner carries no DOM. **Why that is answered with a hundred lines
+ * rather than a devDependency is written once, in `tools/test/fake-dom.ts`**,
+ * along with the element both callers build a page out of.
  *
- * This is the alternative to a devDependency: about a hundred lines covering
- * exactly the surface the director touches — a class list, a dataset, a text
- * body, a field's value, children, one event type, and a `location`/`history`
- * pair that records the URL. It is deliberately not a DOM. A page that needs more than is here
- * either grows this file by the one method it wants, or is telling you it
- * reaches further into the browser than a director page should.
+ * What is here is the director's own document: tab bars found by selector, a
+ * few elements found by id, a key pressed on the window, and a
+ * `location`/`history` pair that records the URL. The game's screens want none
+ * of it and have their own installer (`apps/game/test/fake-dom.ts`).
  */
 
-export class FakeEl {
-  readonly classes = new Set<string>();
-  readonly dataset: { tab?: string } = {};
-  readonly children: FakeEl[] = [];
-  tagName = "";
-  textContent = "";
-  /** A textarea's or input's own content — the vote box reads one. */
-  value = "";
-  /** A canvas's own two, set before anything is drawn on it. */
-  width = 0;
-  height = 0;
-  type = "";
-  disabled = false;
-  /** What hovering says, which is where a button explains itself. */
-  title = "";
-  private readonly clicks: Array<() => void> = [];
+import { createElement, FakeEl } from "../../test/fake-dom.js";
 
-  readonly classList = {
-    add: (name: string): void => {
-      this.classes.add(name);
-    },
-    toggle: (name: string, on: boolean): void => {
-      if (on) this.classes.add(name);
-      else this.classes.delete(name);
-    },
-    contains: (name: string): boolean => this.classes.has(name),
-  };
-
-  get className(): string {
-    return [...this.classes].join(" ");
-  }
-  set className(value: string) {
-    this.classes.clear();
-    for (const name of value.split(/\s+/).filter(Boolean)) this.classes.add(name);
-  }
-
-  addEventListener(type: string, fn: () => void): void {
-    if (type === "click") this.clicks.push(fn);
-  }
-
-  /** A copy, so a listener that rewires the element mid-click is not iterated into. */
-  click(): void {
-    for (const fn of [...this.clicks]) fn();
-  }
-
-  append(...nodes: FakeEl[]): void {
-    this.children.push(...nodes);
-  }
-
-  /** One node, which is what a list built row by row calls. */
-  appendChild(node: FakeEl): FakeEl {
-    this.children.push(node);
-    return node;
-  }
-
-  replaceChildren(...nodes: FakeEl[]): void {
-    this.children.length = 0;
-    this.children.push(...nodes);
-  }
-
-  /**
-   * No drawing context, which is what a runner with no canvas has and what
-   * every panel here already handles: each one checks for `null` and hands
-   * back the bare element. So a panel's *wiring* — which stage is marked, what
-   * a click calls — is testable, and its picture is not, which is the right
-   * split: a picture is judged by an eye (`tools/shape-sheet`).
-   */
-  getContext(): null {
-    return null;
-  }
-
-  /** Every descendant, self excluded — what an assertion about a rendered list reads. */
-  descendants(): FakeEl[] {
-    return this.children.flatMap((c) => [c, ...c.descendants()]);
-  }
-}
+export { FakeEl };
 
 /**
  * One `<button data-tab>` per name, the first carrying `.on` the way the markup
@@ -168,11 +90,7 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     querySelector: (selector: string) => pick(selector)[0] ?? null,
     querySelectorAll: (selector: string) => pick(selector),
     getElementById: (id: string) => ids[id] ?? null,
-    createElement: (tag: string) => {
-      const node = new FakeEl();
-      node.tagName = tag.toUpperCase();
-      return node;
-    },
+    createElement,
     /** A text node, which this file has no separate class for: a `FakeEl`
      * whose whole content is its text reads the same way to an assertion
      * about what a rendered row says (`rail-list.test.ts`). */

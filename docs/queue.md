@@ -562,31 +562,3 @@ and the scene beside it is worth reading for the same drift. **`both` and each
 half are capped at 220 characters** (`briefing.test.ts`), and the present
 `both` is already at the cap, so this is a rewrite rather than an edit. Prove
 it with `bun run check` and one frame of the opening.
-
-## Two fake DOMs, neither of them the other's
-
-- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-16, claude/queue-two-fake-doms-neither-of-them-the-others
-- **Files:** `tools/director/test/fake-dom.ts`, `apps/game/test/fake-dom.ts`, `tools/director/test/*.test.ts`, `apps/game/test/first-meeting.test.ts`
-
-`bun test` carries no DOM and this repository has now answered that twice. The
-director's (224 lines, 6 September 2026) is built round a tab bar,
-`querySelector`, `getElementById` and a canvas; the game's (135 lines,
-16 September 2026) round a field's value, a button's text, `hidden`,
-`disabled`, `remove` and a `body` with a dataset. Between them they write
-`FakeEl`, `createElement`, `append`, `addEventListener`, a click that iterates
-a copy of its listeners, and a `descendants()` that flattens the tree — the
-same six things, twice, with different names for two of them.
-
-The third screen that wants one is the point at which this is decided badly by
-default, and there are three waiting: SETTINGS, the room screen's own name
-field, and the menu's pages.
-
-**One `tools/test/fake-dom.ts` with the union of the two surfaces**, each
-caller keeping its own installer — the director's `installDom(spec)` with its
-bars and ids, the game's with its body — over one `FakeEl` and one
-`createElement`. Both files' doc comments carry the same argument for why this
-is not a devDependency, and that argument is worth writing once.
-
-Prove it with `bun run check`: every test that reads either file today passes
-unchanged, and neither installer's surface grows while it is moved.
