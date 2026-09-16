@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · a4d0259f — The slow is allowed, and it changes tickMs and never ticksPerBeat
+
+The owner overruled the previous lane's refusal of cinematic slow motion and supplied the condition that makes the refusal wrong: both devices start and end the window on beats they agree about, and what happens inside it is animation. He is right, and the refusal had conflated two things. What this game cannot have is a tempo *bend* — the beat meaning something different on one phone than the other, which is what The Conductor was deferred for. A symmetric slow is still shared: the pair counts beats, both count the same ones, and a beat three times longer in wall clock means the voice delay covers fewer of them, so talking gets easier inside a window rather than harder.
+
 ## 2026-09-16 · 00c29615 — The intro's two people go on the queue, reserved for a session that can look
 
 The owner's third word on this film: *the intro video is still bad. The human heads should be recognizable as it… the text must be very visible and readable… it should show in small the two mobile phones what the mouth and ears, the two players refer to and then act accordingly. They first look, then they call, then the other ones listen and performs what he was told to do so.* A look he asked for by name, so it lands on the field rather than going to VERSUS.
