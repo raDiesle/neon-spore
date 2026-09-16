@@ -1,4 +1,4 @@
-import type { ControlSet } from "@neon-spore/content";
+import type { ControlSet, WaveGuide } from "@neon-spore/content";
 import type { SimEvent, World } from "@neon-spore/sim";
 import type { ViewRole } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
@@ -48,6 +48,24 @@ export interface ViewState {
    * this and skipping it has reintroduced the bug this field exists to close.
    */
   controls?: ControlSet;
+  /**
+   * The guide this wave opens on, stated rather than looked up — its three
+   * blocks of words and the rehearsal it may carry.
+   *
+   * `ViewState.controls`' problem exactly, one field along, and found the same
+   * way. `guide-prose.ts` read `WAVES[world.wave]?.guide` and `guide-play.ts`
+   * read that guide's `scene`, both by index off the list on disk, so the
+   * director — whose whole job is a wave that has not shipped — typed into the
+   * three GUIDE fields and watched the stage go on playing the saved words.
+   * `buildStageWorld` already feeds it the draft's page count, so the count
+   * and the film could disagree about the same wave.
+   *
+   * `undefined` means *ask `WAVES`*, which is right for the phone, where
+   * `world.wave` does index it. `null` means *stated, and this wave has no
+   * guide* — a draft the author has not written one for yet, which is a
+   * different thing from having said nothing.
+   */
+  guide?: WaveGuide | null;
   /**
    * What this device's own hand is doing on the ship, if anything — the ring
    * round the swelling a finger has taken hold of, and which colour player

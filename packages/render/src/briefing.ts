@@ -1,3 +1,4 @@
+import type { WaveGuide } from "@neon-spore/content";
 import {
   guideHolds,
   guidePage,
@@ -66,6 +67,9 @@ export interface OpeningView {
    * light up. Absent on a phone, which has no such thing as hovering.
    */
   pointer?: { x: number; y: number };
+  /** The wave's guide, stated by a host whose `world.wave` does not index the
+   * shipped `WAVES` — see `ViewState.guide`. */
+  guide?: WaveGuide | null;
 }
 
 export function drawWaveOpening(
@@ -105,6 +109,7 @@ export function drawWaveOpening(
       fx,
       names,
       pointer: view.pointer,
+      guide: view.guide,
     });
   }
   // The corner says TUTORIAL on these pages too, and nothing else: there is no

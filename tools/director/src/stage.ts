@@ -1,4 +1,3 @@
-import { controlSet } from "@neon-spore/content";
 import { Canvas2DRenderer, handedLayout, showsWell, type ViewRole } from "@neon-spore/render";
 import {
   beatPhase,
@@ -14,6 +13,7 @@ import {
 import { bindKeyHelp } from "./key-help.js";
 import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
+import { draftControlSet, draftGuide } from "./stage-draft.js";
 import { exposeStageHandle } from "./stage-handle.js";
 import { runStageLoopWhileSeen } from "./stage-loop.js";
 import type { StagePanel } from "./stage-panel.js";
@@ -24,7 +24,7 @@ import { bindStageTouch, pointerSeat } from "./stage-touch.js";
 import { bindStageTrail } from "./stage-trail.js";
 import { bindStageTransport } from "./stage-transport.js";
 import { buildStageWorld } from "./stage-world.js";
-import { currentWave, type Store } from "./state.js";
+import type { Store } from "./state.js";
 
 export function bindStage(
   store: Store,
@@ -52,10 +52,9 @@ export function bindStage(
     (v) => renderer.resize(v),
   );
 
-  // The stage plays `store.waves` (the draft), not the shipped `WAVES` — the
-  // panel comes from the wave's own `controls` field, the one `rail.ts`'s picker
-  // writes, never an index. Read fresh, since the picker changes it under us.
-  const currentControlSet = () => controlSet(currentWave(store)?.controls);
+  // What the wave being edited says, read fresh (`stage-draft.ts`).
+  const currentControlSet = () => draftControlSet(store);
+  const currentGuide = () => draftGuide(store);
   // The keyboard is that panel too: a key is a seat and a slot on it, and the
   // stage is the one panel that knows which wave it is standing on
   // (`keys.ts`). Handed the call rather than the set, for the same reason
@@ -157,6 +156,7 @@ export function bindStage(
       events: frameEvents,
       running,
       controls: currentControlSet(),
+      guide: currentGuide(),
       hand: touch.hand(),
       pointer: touch.pointer(), // whatever a desk's mouse is resting on
     });

@@ -7514,3 +7514,23 @@ still grey mass reads as *a count you cannot hear* rather than as *a bug* is a
 person looking at one. Three of the four frames changed the code.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the director's stage plays the draft's guide
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `guide-prose.ts`, `guide-play.ts`, `guide-scene.ts`, `briefing.ts`, `canvas2d-takeover.ts`, `frame-ship.ts`, `renderer.ts`'s `controls` field and the director's `stage.ts` |
+| writing | 20 | `ViewState.guide`, `Stated` through the play and the stage, four call sites, `stage-draft.ts`, seven tests |
+| looking | 0 | — nothing shipped changed; the phone's path is the unset one |
+| friction | 10 | the `COPIES` guard, twice, and `stage.ts` over its line limit |
+| landing | 5 | `bun run index`, `check:fast`, the commit |
+
+The bottleneck was friction, and both halves of it were the repository holding
+the line rather than getting in the way. `copies.test.ts` caught the new
+fallback written as `??` — the spelling reserved because it is how
+`controlSetForWave` gets copied — and then caught it a second time in the
+*comment* explaining why it was not written that way, which is the guard
+reading prose exactly as it is meant to. And the two draft readers took
+`stage.ts` to 260 lines, which is the split this file's own rule asks for: what
+the wave being edited says about itself is a different subject from wiring a
+canvas to a keyboard.

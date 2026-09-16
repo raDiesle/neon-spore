@@ -196,6 +196,7 @@ export function drawOverlays(
     fx,
     names: view.names,
     pointer: view.pointer,
+    guide: view.guide,
   });
 }
 

@@ -467,13 +467,13 @@ about what comes next, rather than something forgotten:
   timer with nothing drawn to say how long is left.
 - **Wave 2's bulb scene**, and every scene after it. One rehearsal is what is
   being judged, and every other guide is still words.
-- **A running preview of the guide being edited.** The director's stage does
-  play an opening at tempo — it is the shipping renderer over a real world
-  (`stage-opening.ts`) — but it plays the guide the act file was last saved
-  with and not the one standing in the three fields, so a loop is watched one
-  save behind the words being written. The `✎ GUIDES` sheet that drew every
+- ~~**A running preview in the director**~~ — **built.** The stage plays an
+  opening at tempo through the shipping renderer (`stage-opening.ts`), and
+  since 16 September 2026 it plays the guide standing in the three fields
+  rather than the one the act file was last saved with (`ViewState.guide`), so
+  a rehearsal is watched as it is typed. The `✎ GUIDES` sheet that drew every
   rehearsal as a still is gone; the owner took it off DOCUMENTATION on 14
-  September 2026.
+  September 2026, and there is nothing left for it to have done.
 - **The TUTORIALS menu page**, gated on `progress.furthest`, where a pair could
   watch a rehearsal again without playing the wave.
 - **`prefers-reduced-motion`**: a held pose instead of a loop, for a player who

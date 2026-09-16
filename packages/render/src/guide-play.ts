@@ -6,6 +6,7 @@ import {
   sceneScript,
   stepSpan,
   WAVES,
+  type WaveGuide,
 } from "@neon-spore/content";
 import {
   guideHolds,
@@ -53,6 +54,16 @@ import type { ViewRole } from "./layout.js";
 /** Never advance more than this in one frame: a stall is not fast-forwarded. */
 const MAX_CATCH_UP = 12;
 
+/**
+ * What a host whose `world.wave` does not index the shipped `WAVES` has to say
+ * for itself — the director, playing a draft. `ViewState.guide` and
+ * `ViewState.controls` are where both come from and why.
+ */
+export interface Stated {
+  guide?: WaveGuide | null;
+  controls?: ControlSet;
+}
+
 export class ScenePlay {
   run: SceneRun | null = null;
   scene: GuideScene | null = null;
@@ -65,7 +76,7 @@ export class ScenePlay {
   /** Seconds this page has been up, repeats included. For anything breathing. */
   shown = 0;
   readonly events: SimEvent[] = [];
-  private seen: { world: World; wave: number } | null = null;
+  private seen: { world: World; wave: number; scene: string | undefined } | null = null;
   /** Where the page being played begins and ends in the loop. */
   private span = { from: 0, to: 0 };
   /** Whether the page has reached its last tick and is standing on it. */
@@ -96,19 +107,36 @@ export class ScenePlay {
    * Bring the rehearsal up to this frame, or put it away. Called once per frame
    * by the stage, before anything is drawn.
    */
-  update(world: World, dt: number, role: ViewRole): boolean {
+  update(world: World, dt: number, role: ViewRole, stated?: Stated): boolean {
     const seat: 1 | 2 = role === "p2" ? 2 : 1;
+    // Not `??`, for `ViewState.guide`'s reason: `null` is a host saying this
+    // draft has no guide, and falling through to the shipped wave's would play
+    // a rehearsal the author has just taken off.
+    const guide = stated?.guide === undefined ? WAVES[world.wave]?.guide : stated.guide;
     // The gate is not a page of film: it is the wave's own name over the field,
     // and `ready-page.ts` draws it. Nothing is rehearsed behind it.
-    const id =
-      guideHolds(world) && !onReadyPage(world, seat) ? WAVES[world.wave]?.guide?.scene : undefined;
+    const id = guideHolds(world) && !onReadyPage(world, seat) ? guide?.scene : undefined;
     if (id === undefined) return this.clear();
     let built = false;
-    if (!this.run || this.seen?.world !== world || this.seen.wave !== world.wave) {
+    // The scene's own name is in what has been seen, not only the world and
+    // the wave: an author who swaps one rehearsal for another on a wave that
+    // is already standing changes neither of those, and a run left in place
+    // would go on playing the film that has been replaced.
+    if (
+      !this.run ||
+      this.seen?.world !== world ||
+      this.seen.wave !== world.wave ||
+      this.seen.scene !== id
+    ) {
       this.scene = guideScene(id);
-      this.set = controlSet(WAVES[world.wave]?.controls);
+      // Not `??`, and for the second of the two reasons this file now has one
+      // of: `copies-table.ts` watches that spelling next to this field's name
+      // because it is how `controlSetForWave` gets written out a second time,
+      // and a re-derivation is what a host stating its own set is avoiding.
+      this.set =
+        stated?.controls === undefined ? controlSet(WAVES[world.wave]?.controls) : stated.controls;
       this.run = new SceneRun(sceneScript(id, world.wave, world.cfg));
-      this.seen = { world, wave: world.wave };
+      this.seen = { world, wave: world.wave, scene: id };
       this.page = -1;
       this.acc = 0;
       built = true;

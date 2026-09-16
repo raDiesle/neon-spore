@@ -586,27 +586,6 @@ mouth reads as a mouth or a line reads at all is to watch it at tempo on a
 screen. A cloud session can change the drawing and cannot tell whether it
 worked, which is how it came to be bad twice.
 
-## The director's stage plays the saved guide, not the one being edited
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-the-directors-stage-plays-the-saved-guide-not-th
-- **Files:** `tools/director/src/stage-world.ts`, `packages/render/src/guide-prose.ts`, `packages/render/src/guide-play.ts`
-
-`buildStageWorld` reads the draft for everything it is handed and says so —
-*it reads the draft in `store` and never the shipped `WAVES`, so nothing here
-waits for a save* — and it is true of the page count, the queue, the pods and
-the control set. It is not true of the words. `guide-prose.ts` reads `WAVES
-[world.wave]?.guide` and `guide-play.ts` reads `WAVES[world.wave]?.guide
-?.scene`, both by index off the list on disk, so editing the three GUIDE
-textareas changes the fields and nothing on the stage — and a page count fed
-off the draft can disagree with a film read off the shipped wave.
-
-Both render sites want telling rather than asking. A guide's words and its
-scene are content's facts about a wave, the same kind `hasGuide` and
-`guideSteps` already are, and those are handed to `startWave` for exactly this
-reason (`sim/briefing.ts`: *the sim never reads a scene*). The render side
-reaching back into `WAVES` is the same shortcut one layer up.
-
 ## The director cannot see or choose a wave's rehearsal scene
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307

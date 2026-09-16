@@ -4,7 +4,7 @@ import type { OpeningView } from "./briefing.js";
 import { smoothstep } from "./ease.js";
 import { drawHands, filmLayout, seatRole } from "./guide-film.js";
 import { GUIDE_LOOK } from "./guide-look.js";
-import { ScenePlay } from "./guide-play.js";
+import { ScenePlay, type Stated } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
 import { drawSwitchSeam } from "./guide-switch.js";
 import { handedSeat } from "./handover.js";
@@ -78,8 +78,8 @@ export class GuideStage {
    * `Effects` was holding belongs to the world that has ended (CLAUDE.md,
    * `test/restart.test.ts`).
    */
-  update(world: World, dt: number, role: ViewRole): void {
-    if (this.play.update(world, dt, role)) this.resetSeats();
+  update(world: World, dt: number, role: ViewRole, stated?: Stated): void {
+    if (this.play.update(world, dt, role, stated)) this.resetSeats();
   }
 
   clear(): void {

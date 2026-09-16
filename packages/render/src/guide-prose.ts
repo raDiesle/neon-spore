@@ -1,4 +1,4 @@
-import { WAVES } from "@neon-spore/content";
+import { WAVES, type WaveGuide } from "@neon-spore/content";
 import type { World } from "@neon-spore/sim";
 import { GUIDE_LOOK } from "./guide-look.js";
 import type { Layout, ViewRole } from "./layout.js";
@@ -54,6 +54,9 @@ export interface ProseView {
   names?: SeatNames;
   /** Where a mouse is resting, for the bar's own hover. */
   pointer?: { x: number; y: number };
+  /** The wave's guide, stated by a host whose `world.wave` does not index the
+   * shipped `WAVES` — see `ViewState.guide`. */
+  guide?: WaveGuide | null;
 }
 
 export function drawProsePage(
@@ -63,7 +66,10 @@ export function drawProsePage(
   view: ProseView,
 ): void {
   const { role, page, pages, fx, names } = view;
-  const guide = WAVES[world.wave]?.guide;
+  // Not `??`: `null` here is the director saying *this draft has no guide*,
+  // and `??` would fall through to the shipped wave's and draw the words the
+  // author has just deleted. The spelling `band.ts` reserves, for its reason.
+  const guide = view.guide === undefined ? WAVES[world.wave]?.guide : view.guide;
   if (!guide) return;
   const both = role === "test";
   const age = fx?.age ?? SETTLED_AGE;

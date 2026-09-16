@@ -38,7 +38,7 @@ export function drawTakeover(
   // number, the wave's name dropping in and the blobs a READY throws are all
   // read off it, and none of them can be read off a world holding still.
   held.effects.opening.update(view.dt, openingKey(world, view.role));
-  held.guide.update(world, view.dt, view.role);
+  held.guide.update(world, view.dt, view.role, { guide: view.guide, controls: view.controls });
   if (held.guide.active) {
     // Nothing under it painted the ground, so this does. The guide's own
     // scrim is translucent, and translucent over nothing is the last frame.
@@ -51,6 +51,7 @@ export function drawTakeover(
       fx: held.effects.opening,
       names: view.names,
       pointer: view.pointer,
+      guide: view.guide,
     });
     return true;
   }
@@ -70,6 +71,7 @@ export function drawTakeover(
       fx: held.effects.opening,
       names: view.names,
       pointer: view.pointer,
+      guide: view.guide,
     });
     return true;
   }
