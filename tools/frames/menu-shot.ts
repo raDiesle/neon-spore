@@ -105,15 +105,34 @@ const settle = Number(flag("wait") ?? 600);
  * every page this tool is pointed at is behind it.
  */
 const firstVisit = args.includes("--first-visit");
+/**
+ * **`--intro` is how the opening scene is photographed**, and until 17
+ * September 2026 nothing could: this tool stamped the scene away so the menu
+ * would be up, `bun run frames` only ever arrives with `?play=1` — which is
+ * one of the two doors the intro deliberately does not stand in — and the
+ * queue entry asking for the scene to be redrawn said in its own words that
+ * nobody could tell whether a change to it had worked.
+ *
+ * It is drawn on the game's own canvas rather than in markup, so the element
+ * is `#stage` and the wait is the transparent sheet over it (`#introTap.on`,
+ * `apps/game/src/intro.ts`). The scene plays through on its own and closes on
+ * a press anywhere, so the camera presses nothing and `--wait` is how far into
+ * it the picture is taken: the four moments are four shots at four numbers.
+ */
+const intro = args.includes("--intro");
 /** The screen this shot is of. Each is in the document only while it is up, or
- * hidden until it opens, so both are waited for by their `.on`. */
-const screen = firstVisit ? "#hello.on" : "#menu.on";
+ * hidden until it opens, so all three are waited for by their `.on`. */
+const screen = intro ? "#introTap.on" : firstVisit ? "#hello.on" : "#menu.on";
 /** What is photographed. The whole screen; a caller judging one row can say
  * `.entry`, `.seat-card` or anything else the page carries. */
-const element = flag("element") ?? (firstVisit ? "#hello" : "#menu");
+const element = flag("element") ?? (intro ? "#stage" : firstVisit ? "#hello" : "#menu");
 /** The screen in the words the caller used, for the log line and for a `--type`
  * that finds nothing: the one thing they cannot see is where they are standing. */
-const where = firstVisit ? "the first meeting" : (flag("page") ?? "the front page");
+const where = intro
+  ? `the intro at ${Number(flag("wait") ?? 600) / 1000}s`
+  : firstVisit
+    ? "the first meeting"
+    : (flag("page") ?? "the front page");
 /** A thumb or a mouse — `menu-device.ts` has the argument. */
 const device = menuDevice(args);
 const port = flag("port");
@@ -130,15 +149,18 @@ try {
   });
   // Before the first navigation, so the bundle reads them on the way up rather
   // than after a screen has already opened over the one wanted (`menu-stamps.ts`).
-  await context.addInitScript((pairs) => {
-    for (const [key, value] of pairs as [string, string][]) {
-      try {
-        localStorage.setItem(key, value);
-      } catch {
-        // A browser that refuses storage shows the screen; the wait says so.
+  await context.addInitScript(
+    (pairs) => {
+      for (const [key, value] of pairs as [string, string][]) {
+        try {
+          localStorage.setItem(key, value);
+        } catch {
+          // A browser that refuses storage shows the screen; the wait says so.
+        }
       }
-    }
-  }, arrivalStamps({ firstVisit, partners }));
+    },
+    arrivalStamps({ firstVisit, partners, unseenIntro: intro }),
+  );
   const page = await context.newPage();
   await page.goto(preview.url, { waitUntil: "networkidle" });
   await page.waitForSelector(screen, { timeout: 15_000 });
@@ -192,6 +214,7 @@ function usage(): never {
   console.error("       --desk photographs it as a mouse and a keyboard; the default is a thumb");
   console.error("       --port attaches to a preview already running instead of starting one");
   console.error("       --first-visit arrives with no name, on the screen that asks for one");
+  console.error("       --intro photographs the opening scene; --wait is how far into it");
   console.error('       --type "#helloName=DAVID" fills a field before the shot; repeatable');
   console.error('       --partners "Ada,David:7" arrives having played with them, to that wave');
   process.exit(1);

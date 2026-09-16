@@ -29,6 +29,13 @@ export interface Arrival {
    */
   firstVisit: boolean;
   /**
+   * Arrive having never seen the intro, so it plays. The default is past it —
+   * twenty seconds of scene in front of every menu shot is not what those are
+   * judging — and `menu-shot.ts`'s `--intro` is the one caller that wants it
+   * (`apps/game/src/intro.ts`).
+   */
+  unseenIntro?: boolean;
+  /**
    * Who this device has played with, most recent first, and how far each pair
    * got — the two halves of a row on the PLAY page.
    */
@@ -45,9 +52,12 @@ export interface Played {
 }
 
 /** The storage a shot arrives with, as the pairs `addInitScript` writes. */
-export function arrivalStamps({ firstVisit, partners }: Arrival): [string, string][] {
+export function arrivalStamps({ firstVisit, partners, unseenIntro }: Arrival): [string, string][] {
   return [
-    [INTRO_KEY, INTRO_VERSION],
+    // Left unstamped only by the shot that is of the scene itself: the intro
+    // opens where the menu would and would otherwise stand in front of every
+    // other page this tool photographs.
+    ...(unseenIntro ? [] : ([[INTRO_KEY, INTRO_VERSION]] as [string, string][])),
     // A name, unless the shot is of the screen that asks for one. Any name:
     // nothing is drawn from it on the pages this tool photographs, and the
     // registry is never asked, because a stored name is never re-claimed.

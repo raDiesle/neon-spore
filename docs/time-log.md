@@ -7729,3 +7729,18 @@ have walked two rows up and down a beat at a time. It holds the word's row
 whenever the siren is lit, whether or not this seat owes a word.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — the opening scene can be photographed
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `menu-shot.ts`, `menu-stamps.ts`, `apps/game/src/intro.ts` and what stands in front of what |
+| writing | 15 | `--intro`, the stamp it leaves out, a test for the stamps, the commands line |
+| looking | 5 | the first photograph of the scene there has ever been |
+| friction | 0 | — the tool was already shaped for it |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was reading, and the thing worth knowing came out of it: the
+tool could not take this picture because it was built to stamp the scene away,
+one line, in the file that says what a camera arrives as. The scene itself is
+the next half of the same entry and needed this one first.

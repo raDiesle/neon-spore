@@ -89,6 +89,7 @@ bun run menu-shot <out.png>            # a page of the game's menu — starts it
                        #   --page "SETTINGS > CONTROLS" is the words a thumb would press
                        #   photographs as a phone; --desk for the rows only a mouse is offered
                        #   --first-visit arrives with no name, on the screen that asks for one
+                       #   --intro photographs the opening scene; --wait is how far into it
                        #   --type "#helloName=DAVID" fills a field first; repeatable, in order
                        #   --partners "Ada,David:7" arrives having played with them, to that wave
 bun run versus:shot <slot> <name>      # one PNG of one VERSUS candidate
