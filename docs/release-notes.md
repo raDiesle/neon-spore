@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 0162ce42 — PARTY GAMES comes off the sheet, and takes the whole-document machinery with it
+
+The owner asked for the page to go. It rendered `docs/party-games.md` whole — Mario Party and Rayman Raving Rabbids read for what else a round can be — and the six rounds that reading fed are on this sheet already, which is where the argument ends up anyway. The study stays in `docs/` beside `borrowed.md` and `tower-defence.md`.
+
 ## 2026-09-16 · b2bcb0b1 — The ship bleeds down the lost screen
 
 Thirteen rivulets of violet run the full width of the lost screen from the top edge to the foot, each on its own clock, each with a heavier head that gathers before it goes. They thin below the hull line so the breach the plates are holding open stays the thing the pair is looking at.
