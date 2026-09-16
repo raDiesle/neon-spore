@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 7f80aedf — THE THROAT is claimed, so a parallel session does not start it too
+
+§1 of `docs/spec/bosses-choreographed.md`, in the two lanes a creature is always split into: the simulation — the inhale that moves bodies up a column, the five ring tensions that are its health, and the gum flung into the mouth — and then the look, which carries the eversion the design says is the whole reason to build it.
+
 ## 2026-09-16 · 40a9e8d3 — The director's stage plays the guide being typed, not the one last saved
 
 `buildStageWorld` reads the draft for everything it is handed and says so — the page count, the queue, the pods, the control set. It was not true of the words. `guide-prose.ts` read `WAVES[world.wave]?.guide` and `guide-play.ts` read that guide's `scene`, both by index off the list on disk, so an author typing into the three GUIDE fields changed the fields and nothing on the stage — while the page count beside them, which does come off the draft, counted the pages of the wave being written. The two could disagree about the same wave.
