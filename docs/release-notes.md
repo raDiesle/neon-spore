@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 3b5dc88f — THE BATON's look: the arm, its sockets, the bead in flight and the grey over the seat whose turn it is not
+
+The boss that landed as a simulation two commits ago is now on screen. A rock spine hangs from above the top row down the socket rows, one socket appearing per beat as it unfolds; a lit socket is a dark disc under a hull-coloured glow that breathes with the beat, a dark one is bare rock, a shed one is a gap. The bead sits in its socket in the colour the navigator has to shoot, flies to the next one along a sideways arc that swaps side each handover, and wears a wider halo and a ring once the bolt has met it. When the arm has swung, the sockets above the bead stay in the column it left. The fold takes the whole picture out over the down beats. The seat that is locked sees grey: the whole band on a solo phone, that seat's strip and lobes on the test screen. Both screens see the bead's colour — one player reads what to shoot, the other says it.
+
 ## 2026-09-16 · 46b68b6c — TORCH's call and THE MAGNET's drop out from under a rehearsal's plate
 
 Both lines are right-aligned under the siren's dial and finish the sentence its chips start, and both were placed at a fixed offset from the top of the screen — 56 and 70. A rehearsal's band reaches 104, so on every film of a wave that sends a torch or a magnet the pilot was told which column to call by a line drawn underneath TUTORIAL. Measured 16 September 2026 at 170,58 and 206,72.

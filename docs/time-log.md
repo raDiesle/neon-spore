@@ -7653,3 +7653,5 @@ The bottleneck was the P2 lock's moment: the test fired and asserted grey on
 the navigator's screen at once, and the seat is locked in `batonStruck`, on
 the tick the bolt reaches the bead, not at the press — so the test now steps
 until `struck` and past player 1's own lock before it looks.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
