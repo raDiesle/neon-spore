@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## THE SPLICE: straws fed in number order, then the BOSSES page goes
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Taken:** 2026-09-16, claude/queue-the-splice-straws-fed-in-number-order-then-the-b
 - **Files:** `packages/sim/src/boss-entries.ts`, `packages/sim/src/boss-kinds.ts`, `packages/sim/src/config-boss.ts`, `packages/sim/src/hash-boss.ts`, `packages/sim/src/pods.ts`, `packages/sim/src/well.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/well-draw.ts`, `packages/render/test/frame.test.ts`, `packages/content/src/mechanics-bosses.ts`, `packages/content/src/queue-boss.ts`, `tools/director/src/snake-editor.ts`, `tools/director/src/backlog.ts`, `tools/director/src/backlog-page.ts`, `tools/director/src/backlog-tabs.ts`, `tools/director/src/backlog-api.ts`, `tools/director/index.html`, `docs/spec/ideas.md`, `docs/spec/bosses.md`
 
 The owner asked for this on 15 September 2026, by name and *his way*, so it
