@@ -13,6 +13,12 @@ same tax in minutes and in tokens. The test is one question: **could a fresh ses
 with `bun run check`?** Yes — it goes here, in the same commit as the work that
 found it, without asking first.
 
+**A `Files:` line names files the tree already has.** `tools/test/doc-drift.test.ts`
+holds every entry to it, and holds every document to naming no path in backticks
+that does not exist — so a file an entry proposes to *create* is described in
+the body, unbackticked, rather than listed as a file. An entry that names the
+file it is about to write is red on `bun run check`.
+
 **And a landing that could not check itself writes one, without being asked.**
 `bun run land --unverified "<what>"` puts an `## Unverified at <sha>:` entry
 here at the moment the trunk moves, and a cloud session uses it every time it
@@ -638,7 +644,7 @@ with no new prose to place is a diff nobody can review against anything.
 ## A file's line ceiling is met by a red check, never before the edit
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Files:** `tools/hooks/after-edit-size.ts` (new), `.claude/settings.json`, `tools/hooks/test/wiring.test.ts`, `tools/hooks/test/edited.test.ts`, `packages/sim/test/limits.test.ts`
+- **Files:** `tools/hooks/format-edited.ts`, `.claude/settings.json`, `tools/hooks/test/wiring.test.ts`, `tools/hooks/test/edited.test.ts`, `packages/sim/test/limits.test.ts`
 
 Across the 296 lanes in `docs/time-log.md`, **27 of them spent 375 friction
 minutes on the 250-line ceiling**, and the rate has not moved all week — 1.25
@@ -654,8 +660,10 @@ lost 55 minutes to five files going over in turn; another lost 35 to three.
 The refactor itself is never the expensive part — deciding a seam mid-change,
 with an unrelated diff open, is.
 
-The fix is a warning where the other three post-edit hooks already are: a
-`PostToolUse` hook on `Edit|Write|MultiEdit` that counts the lines of the file
+The fix is a warning where the other three post-edit hooks already are: a new
+file beside `tools/hooks/format-edited.ts` — after-edit-size.ts, unbackticked
+here because the tree has not got it yet — wired as a `PostToolUse` hook on
+`Edit|Write|MultiEdit` that counts the lines of the file
 just written and prints one line when it is at or over a soft mark — 220 is
 88% of the limit and leaves room for a paragraph — naming the file, its count
 and the ceiling. It never blocks: `limits.test.ts` stays the rule, this is
@@ -675,3 +683,98 @@ lever and not this entry's business.
 Provable with `bun run check`: a unit test on the counting function beside
 `edited.test.ts`, and the `wiring.test.ts` row that holds every hook in
 `.claude/settings.json` to a file that exists.
+
+## The prompt `queue next` hands a session says nothing about size
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `tools/queue/claim.ts`, `tools/queue/test/queue.test.ts`
+
+`promptFor` is the whole brief a fresh session reads before it opens an item —
+the branch, the worktree command, the entry's body, and what to do when it is
+green. It says one thing about size, at the very bottom: *if it turns out to be
+bigger than one session, leave what you finished*. That is the discovery made
+at minute 180, which is the one `docs/lane-speed.md` exists to stop; the rule
+in `CLAUDE.md` now says the split is decided **before** the work starts, and
+the prompt that opens the work is the place it has to be said.
+
+Add it where the prompt already distinguishes an `Asks:` item from an ordinary
+one: a short paragraph, above the worktree command, saying to name the halves
+first when the item is bigger than one sitting, that a half is only a half if
+it lands green on its own, and pointing at the table of cuts in
+`docs/lane-speed.md` rather than repeating it. Keep the existing closing line —
+parking what is unfinished is the fallback, not the plan.
+
+One decision: whether the paragraph is printed for every item or only for ones
+the entry marks as large. Print it always — the queue has no size field, adding
+one means the writer of an entry guesses at the size of work they are not
+doing, and a line every session reads costs less than a field every session
+fills in wrongly.
+
+Provable with `bun run check`: `queue.test.ts` already holds `promptFor`'s
+shape, and the new lines are held the same way.
+
+## One new fact, four tables, found one red test at a time
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `tools/director/src/concepts.ts`, `tools/director/src/backlog.ts`, `tools/director/src/concept-art.ts`, `tools/director/src/scene-world.ts`, `tools/director/test/concepts.test.ts`, `tools/director/test/backlog.test.ts`, `tools/director/test/concept-art.test.ts`, `tools/director/test/scenes.test.ts`, `docs/asset-catalogue.md`
+
+A lane on 16 September lost twenty minutes to **four tests going red in
+sequence, each one a different copy of the same fact** — the group set in
+`concepts.test.ts`, the name in `backlog.test.ts`, the shape join in
+`concept-art.test.ts`, the scene join in `scenes.test.ts`, and then the draft
+count in `docs/asset-catalogue.md`. Six lanes and 165 friction minutes in
+`docs/time-log.md` have this shape. None of the four checks is wrong; what
+costs the minutes is that the fifth place is only ever learned from the fourth
+red run, one process start at a time.
+
+The fix is not to merge the tests, which check different things about the same
+name. It is to make the *list of places* a thing the tree states once: one
+module naming every table a new concept has to enter, the four tests reading
+their row from it, and one test that fails with **all** the missing places
+named in a single message rather than the first one. The draft count in
+`docs/asset-catalogue.md` is the odd row — it is prose, and `doc-drift.test.ts`
+is where a number in prose is already held to the tree.
+
+The seam to check first, because it may make this much smaller: whether the
+four joins are really four lists or one list read four ways. If it is one, this
+is a module and four imports; if it is four, it is the aggregating test and
+nothing else.
+
+Provable with `bun run check`: add a concept to a fixture with one row missing
+and expect the message to name every place it is missing from.
+
+## The time log cannot answer whether fast mode is worth it
+
+- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Files:** `docs/time-log.md`, `docs/lane-speed.md`, `tools/test/`
+- **Asks:** Turn Claude Code's fast mode on for a week of lanes so the comparison can be measured — yes, or leave it off?
+
+`docs/lane-speed.md` puts the expected saving from fast mode at **a fifth to a
+third of a lane's wall clock** and cannot do better than that, because the
+ledger's five rows do not separate the session generating text from the
+machines running commands, and because the multiplier itself is not published.
+The arithmetic is in that file; what is missing is the measurement, and the
+measurement is cheap — the ledger is already the instrument.
+
+The change is one line per entry, `Fast: yes` or `Fast: no`, written with the
+five rows, plus the sentence in the preamble that says what it means and that
+it is read per *kind* of lane — a creature lane against a creature lane, never
+a creature lane against a documentation one, since lane size moves the total
+three times as much as this could. Ten lanes each way settles it. After that,
+the reading goes in `docs/lane-speed.md` under the arithmetic it replaces.
+
+The options the owner's answer picks between: **on for a week**, which costs
+nothing but the marker and answers it; **off**, in which case the marker is
+still worth having, because the same line answers the same question the next
+time the model changes; or **on permanently without measuring**, which is the
+one that leaves the repository unable to say whether it helped.
+
+Hold the format with a small test of its own — a new time-log.test.ts in
+`tools/test/` —
+so the marker cannot quietly stop being written: an entry dated after the day
+this lands and missing its `Fast:` line is a red check. It cannot ride on
+`doc-drift.test.ts`, which deliberately treats `time-log.md` as a **record**
+and holds it to nothing, for the reason its own comment gives: editing a past
+entry to match today's tree would be rewriting the record. A format test on new
+entries only does not touch that argument — every entry already written stays
+exactly as it was.

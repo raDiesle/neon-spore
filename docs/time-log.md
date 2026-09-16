@@ -6382,3 +6382,30 @@ cost between 210 and 245 minutes each. The ledger's own shape says the same
 thing twice: 14% of lanes carry 38% of the minutes, and the per-lane mean went
 from 30.7 on 14 September to 105.3 on 16 September without anything getting
 slower. What changed was how much one sitting is asked to hold.
+
+## 2026-09-16 — task-performance-optimization — the recommendations become entries and a rule
+
+The reading of this ledger landed an hour before; this lane turns it into work
+somebody can pick up. The owner asked for both halves in one sentence: *"create
+tasks for my queue to apply recommendations"* and *"maybe Claude should
+automatically do better splitting of tasks I gave."*
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `promptFor` in `tools/queue/claim.ts`, the four director tests that hold one fact, `doc-drift.test.ts`'s record list and its path rule, `scope.ts`'s table |
+| writing | 10 | three queue entries, the split rule in `CLAUDE.md`, the table of cuts in `docs/lane-speed.md`, the docs rows in `tools/hooks/scope.ts` and their test |
+| looking | 0 | — nothing drawn |
+| friction | 10 | `check:fast` red on the queue entries: a `Files:` path must already exist and a proposed file may not be backticked anywhere, which nothing said; the heredoc guard refused a regex, correctly, and the edit went through the Edit tool |
+| landing | 5 | `bun run queue` to prove the entries parse, `check`, the commit |
+
+The bottleneck was friction, and it found the thing this lane is really worth:
+**a documentation change did not run the test that reads documentation.**
+`scope.ts` mapped every `docs/*.md` to `tools/director` and, for the queue, to
+`tools/queue` — never to `tools/test`, where `doc-drift.test.ts` lives. So the
+lane an hour earlier landed a queue entry naming the file it proposed to
+create, green on `check:fast`, and the full check would have refused it. The
+row is fixed here and the test says so in its own case. The other ten minutes
+were the same shape one level down: two entries named a mechanism that did not
+exist — `doc-drift.test.ts` holds `time-log.md` to nothing on purpose, and
+`tools/director/src/scenes.ts` is `scene-world.ts` — both caught by opening the
+file rather than trusting the ledger's sentence about it.

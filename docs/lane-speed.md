@@ -51,6 +51,45 @@ LEECH and THE LIMPET were deliberately split into a simulation half and a look
 half, and the simulation half landed at 125 minutes instead of a 250-minute
 sitting that compacts in the middle.
 
+## How a task is split, before it is started
+
+`CLAUDE.md` carries the rule; the figures above are why, and this is the cut.
+The owner asked for it on 16 September 2026 — *"maybe Claude should
+automatically do better splitting of tasks I gave"* — and the point is that the
+splitting is the session's job, decided in the first minutes, not a question
+put to him and not a discovery made at minute 180.
+
+**The size test is one question: would this land green on its own?** A half
+that cannot be checked by itself is not a half, it is a torn diff. So the cut
+always follows a seam the tree already has:
+
+| a task of this shape | lands as |
+|---|---|
+| a creature | its simulation and tests, then its look, its film and its director note |
+| a wave | its rules and timing, then its tutorial |
+| a look with no shipped alternative | the VERSUS candidate, then the adoption |
+| a sweep across packages | one lane per package, `sim` first |
+| a rule plus the picture of it | the rule, then the picture — the rule is provable, the picture is looked at |
+
+**What is not split**: a rename or a type change that is red in halves by
+construction, and anything under about forty minutes, where a second landing
+costs more than it saves.
+
+**How the halves are carried.** They are named in the report of the first one
+and worked in order, each landed before the next starts — the same rule a
+prompt carrying several tasks already has. A half that turns out to need the
+owner's decision goes to `docs/parked.md` with the question and the next half
+starts; a half that is decided but not started is a `docs/queue.md` entry like
+any other. A `NEXT:` from the owner is appended after all of them, because it
+arrived after the list was made.
+
+**Why it is worth the second landing.** A lane that lands is a lane that
+survives a compaction whole (`docs/token-budget.md`), its rebase is small, and
+its friction stops at its own edges: the 55-minute friction record in this
+ledger is one sitting that took five files over the line ceiling at once, which
+two sittings would have met as two and a half files each, with a clean diff
+under both.
+
 ## Friction, by cause
 
 Friction is only 12.1% of the total, but it is the part that buys nothing, and
@@ -144,3 +183,10 @@ settles nothing.
 The first four shorten the lane whatever model is serving it; the fifth is a
 multiplier on what is left. In that order they compound; in the other order the
 multiplier is applied to work that should not have been there.
+
+The first is now a rule in `CLAUDE.md` with its cuts in the section above. The
+other four are entries in `docs/queue.md`, written on 16 September 2026: the
+line-ceiling hook, the size paragraph in the prompt `queue next` hands over,
+the four tables one fact has to enter, and the `Fast:` marker that turns the
+arithmetic above into a measurement. The last asks the owner one question
+before it can be worked.

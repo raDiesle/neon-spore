@@ -77,6 +77,10 @@ Style and formatting are Biome's job: `bun run lint`, `bun run format`.
   task starts. **A message that arrives mid-turn is read by its prefix**:
   `NEXT:` is appended to the list for after the current task, `STOP` applies
   now, and anything without a prefix is asked about before it is acted on.
+- **A task too big for one sitting is split before it is started, not asked
+  about**: the halves are named in the report, worked in order and landed
+  separately. A creature is its simulation, then its look. The cuts, and the
+  figures that earned them: `docs/lane-speed.md`.
 
 Why any of that: `docs/git-and-landing.md`; the prefixes:
 `docs/working-with-claude.md`.
