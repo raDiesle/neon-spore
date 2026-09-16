@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 26d9a6a1 — bun run push reconciles a diverged trunk instead of reporting one
+
+Two sessions landing in the same hour leaves the local trunk and `origin`'s each holding commits the other has not, and `bun run push` refused there and left a person to run `git rebase origin/main main` by hand. It happened three times on 16 September 2026 and it was the same four files every time — `docs/queue.md`, `docs/INDEX.md`, `docs/time-log.md` and `docs/release-notes.md` — each of them written by one tool and edited by nobody, which is to say not one of those conflicts was authored by anyone.
+
 ## 2026-09-16 · 1d72f940 — The lost wave stops behind a bulkhead
 
 `lost:screen` / `shutters`, which the owner picked out of the three the slot was opened with — a look he asked for by name. The screen a lost wave stops on is plated over and then the lower plate is drawn down off it, leaving the ship and the hole in it in the clear under a bulkhead with WAVE LOST stamped on it at thirty points.
