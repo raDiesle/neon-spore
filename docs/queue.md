@@ -559,6 +559,7 @@ are named in the test's own failure message.
 ## ship-notes.ts is one line under its limit, and it grows with every creature
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-16, claude/queue-ship-notes-ts-is-one-line-under-its-limit-and-it
 - **Files:** `tools/director/src/ship-notes.ts`, `tools/director/src/ship-groups.ts`, `tools/director/src/ship-fields.ts`
 
 THE MOULT's note took this file to **249 lines of its 250**, so the next
