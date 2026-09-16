@@ -7823,3 +7823,5 @@ skims it. REFUSED is a verb among four nouns on purpose. The one thing found
 rather than written is that the sheet is a flowing `y` with no page and had
 about a row of slack left on the smallest viewport it is drawn at — held now by
 a test, so the next line on it is spent against a number rather than a guess.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

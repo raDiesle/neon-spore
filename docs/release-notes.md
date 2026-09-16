@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 02de682c — The balance sheet names a husk, and counts it the other way up
+
+THE HUSK's two counters were folded into the shared percentage and had no line of their own, so a pair who swallowed three of them watched SYNC drop with nothing on the screen saying why. There is a fifth row now — refused, of every husk that reached the ship — carried through the three files that draw the sheet.
+
 ## 2026-09-17 · d444c558 — THE HUSK goes into the baseline unweighed
 
 A new wave has no performance row, so `baseline:blank` marks it unmeasured rather than leaving `baseline.test.ts` red on a number nobody has taken.
