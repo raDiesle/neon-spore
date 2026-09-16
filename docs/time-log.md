@@ -6886,3 +6886,23 @@ one: on a band under 100 px, an edge is read from its line and never from its
 body.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the guide's silent second subject
+
+The other half of the split: a page rings what its words are about *and* what
+the pair has to act on, with nothing written on the second one.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `SceneAnchor`'s ten shapes, `anchorPoint`'s branches, `creatureRadius` |
+| writing | 20 | `companion.ts`, the scrim cut to two holes, the breathing ring |
+| looking | 5 | one shot — the pose is the owner's own example, so it either shows it or it does not |
+| friction | 5 | bare `@neon-spore/*` specifiers do not resolve in `tools/versus`, and `bun run format` does not sort imports |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was the writing, and the part that took it was the scrim rather
+than the ring: a second pool cannot be a second radial gradient, because two of
+them overlap and the far field goes to twice the darkness the owner asked to
+have reduced. Cutting both holes out of one flat fill under the even-odd rule
+is the answer, and it is the same move `creature:bite` / `notch` made for a
+different reason — worth knowing before the next look wants two pools.

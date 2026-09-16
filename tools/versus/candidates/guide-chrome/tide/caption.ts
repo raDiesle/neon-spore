@@ -1,10 +1,12 @@
 import { anchorPoint } from "../../../../../packages/render/src/caption-anchor.js";
 import { halo } from "../../../../../packages/render/src/glow.js";
 import type { GuideLook } from "../../../../../packages/render/src/guide-look.js";
+import { rgba } from "../../../../../packages/render/src/hex.js";
 import { LABEL_LINE } from "../../../../../packages/render/src/label-box.js";
 import { PALETTE } from "../../../../../packages/render/src/palette.js";
 import { withNames } from "../../../../../packages/render/src/seat-name.js";
 import { wrapText } from "../../../../../packages/render/src/wrap-text.js";
+import { companionPoint } from "./companion.js";
 import { BAND_FOOT, CAPTION_FONT } from "./paint.js";
 import { CORNER, crest } from "./plate.js";
 
@@ -28,6 +30,14 @@ import { CORNER, crest } from "./plate.js";
  * crest inside the top, the same body as every button — with a leader drawn
  * from it to the ring rather than a grown tail. A tail is a speech bubble and
  * a speech bubble belongs to a character; this page has no character in it.
+ *
+ * **And the page may have a second subject with nothing written on it**
+ * (`companion.ts`), which is the rest of the owner's ask. Two things follow
+ * from that and both are here: the silent one is ringed differently — a whole
+ * thin circle that breathes, against the caption's turning dashes — so a pair
+ * can tell at a glance which of the two the words are about; and the pool has
+ * to open over both, because a subject the page is pointing at cannot be in
+ * the part of the field the page dimmed.
  */
 
 /** Ticks the caption takes to arrive. */
@@ -48,12 +58,13 @@ export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, be
   const k = Math.min(1, Math.max(0, (tick - step.tick) / FADE_TICKS));
   if (k <= 0) return;
 
-  const hole = Math.max(point.r, point.rx ?? 0) + POOL;
-  const scrim = ctx.createRadialGradient(point.x, point.y, hole, point.x, point.y, hole + 150);
-  scrim.addColorStop(0, "rgba(3,2,10,0)");
-  scrim.addColorStop(1, `rgba(3,2,10,${SCRIM * k})`);
-  ctx.fillStyle = scrim;
-  ctx.fillRect(0, 0, l.width, l.height);
+  const mate = companionPoint(l, world, step.anchor, beatPhase);
+  const pools = [point, ...(mate ? [mate] : [])].map((p) => ({
+    x: p.x,
+    y: p.y,
+    r: Math.max(p.r, p.rx ?? 0) + POOL,
+  }));
+  scrimAround(ctx, l, pools, SCRIM * k);
 
   ctx.font = CAPTION_FONT;
   const lines = wrapText(ctx, withNames(step.text, names), l.width - 24 - PAD_X * 2);
@@ -68,6 +79,7 @@ export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, be
   const y = below ? Math.max(BAND_FOOT, point.y + ring + point.clear + LEAD) : above;
 
   ctx.globalAlpha = k;
+  if (mate) silentRing(ctx, mate, tick);
   // The viewfinder's ring, turning, and the leader from the plate to it.
   ctx.strokeStyle = PALETTE.pod;
   ctx.lineWidth = 2;
@@ -103,3 +115,61 @@ export const caption: GuideLook["caption"] = (ctx, l, world, set, step, tick, be
   ctx.textAlign = "left";
   ctx.globalAlpha = 1;
 };
+
+/**
+ * The field dimmed everywhere but over the page's subjects.
+ *
+ * **Cut rather than layered.** The obvious way to open a second pool is a
+ * second radial gradient, and two of them overlap: the far corners take both
+ * and go to twice the darkness the owner asked for. So the scrim is one flat
+ * fill of a rectangle with a circle per subject taken out of it under the
+ * even-odd rule — the far field is the same value however many subjects there
+ * are — and the soft edge is put back inside each hole afterwards, where there
+ * is nothing yet to add to.
+ */
+function scrimAround(
+  ctx: CanvasRenderingContext2D,
+  l: { width: number; height: number },
+  pools: readonly { x: number; y: number; r: number }[],
+  alpha: number,
+): void {
+  const cut = new Path2D();
+  cut.rect(0, 0, l.width, l.height);
+  for (const p of pools) {
+    cut.moveTo(p.x + p.r, p.y);
+    cut.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+  }
+  ctx.fillStyle = `rgba(3,2,10,${alpha.toFixed(3)})`;
+  ctx.fill(cut, "evenodd");
+  for (const p of pools) {
+    const g = ctx.createRadialGradient(p.x, p.y, p.r * 0.45, p.x, p.y, p.r);
+    g.addColorStop(0, "rgba(3,2,10,0)");
+    g.addColorStop(1, `rgba(3,2,10,${alpha.toFixed(3)})`);
+    ctx.fillStyle = g;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+/**
+ * The second subject: a whole circle, breathing, with no leader and no words.
+ *
+ * It is the caption's ring with the two things taken away that say *read this*
+ * — the dashes, which the eye follows round, and the line to the box. What is
+ * left still says *and this one*, which is all it is for.
+ */
+function silentRing(
+  ctx: CanvasRenderingContext2D,
+  at: { x: number; y: number; r: number; rx?: number },
+  tick: number,
+): void {
+  const r = Math.max(at.r, at.rx ?? 0);
+  const breath = 0.5 + 0.5 * Math.sin(tick * 0.09);
+  ctx.strokeStyle = rgba(PALETTE.pod, 0.4 + 0.25 * breath);
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(at.x, at.y, r + 2 * breath, 0, Math.PI * 2);
+  ctx.stroke();
+  halo(ctx, at.x, at.y, r * 1.8, PALETTE.pod, 0.1 + 0.07 * breath);
+}

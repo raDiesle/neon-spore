@@ -704,3 +704,26 @@ each entry the way `nums` checks the rest — and the comment and this entry go.
 
 Nothing is wrong on screen today: the workaround is a rounder corner than the
 shape wants, not a broken one.
+
+## A ring round a body is a circle, and a body is wider than it is tall
+
+- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Files:** `packages/render/src/caption-anchor.ts`,
+  `tools/versus/candidates/guide-chrome/tide/companion.ts`
+
+`bodyRing` returns one radius, from `creatureRadius`, which is a scalar. Every
+living body is a lobed blob wider than it is tall, so the ring a tutorial draws
+round a slick cuts through its two ends: the shape pokes out either side of the
+circle that is supposed to contain it. `AnchorPoint` already has the optional
+`rx` for this — `marks` and the strips fill it in — and the body branch does
+not.
+
+What it needs is the drawn half-width, which is not `creatureRadius` and must
+not be re-derived from the silhouette by hand at the ring: `creature-place.ts`
+already scales a shape by `Math.max(shape.rx, shape.ry)`, so the honest fix is
+a function beside `creatureRadius` that hands back both half-axes, with both
+callers asking it.
+
+Seen on `guide:chrome` / `tide`'s silent companion ring, which uses the same
+route; it is the shipped caption's ring that has the fault, and every candidate
+in the slot inherits it.

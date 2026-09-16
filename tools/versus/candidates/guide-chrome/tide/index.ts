@@ -26,17 +26,17 @@ import { BAND_FOOT, band, buttons, NAV_HEIGHT, nav } from "./paint.js";
  * rounded rectangle per button per frame, which is nothing on its own and is
  * six of them here.
  *
- * **What it does not carry.** The fifth ask — a second thing highlighted with
- * no words on it, so a page about the cannon also rings the body the cannon
- * has to answer — is not here. `SceneAnchor` has no notion of a companion
- * today and picking one per anchor is a table somebody has to write; it is its
- * own lane.
+ * **The fifth ask is `companion.ts`.** A page about a control that stands
+ * something over a column also rings, silently, whatever is coming down that
+ * column — *so also slick must be highlighted, but no text at the same time*.
+ * `SceneAnchor` has no companion in it, so it is derived from the world rather
+ * than authored, and the table is two rows long on purpose.
  */
 export const GUIDE_TIDE: Variant = {
   slot: "guide:chrome",
   name: "tide",
   sentence:
-    "CONSOLE's positions and its dashed amber ring kept whole, with the four things the owner asked for on top of them — the pages still to read outlined so they can be counted, every button a square with the corners taken off and a lit crest inside its top, a fluid drifting under the top bezel where the tape was, and the field dimmed to a third rather than to two thirds",
+    "CONSOLE's positions and its dashed amber ring kept whole, with the four things the owner asked for on top of them — the pages still to read outlined so they can be counted, every button a square with the corners taken off and a lit crest inside its top, a fluid drifting under the top bezel where the tape was, and the field dimmed to a third rather than to two thirds, and the body under the cannon ringed with nothing written on it",
   dir: "tools/versus/candidates/guide-chrome/tide",
   screenshot: { freezeSeconds: 2.5 },
   patches: [
