@@ -25,6 +25,10 @@ const TIMES = [0, 0.7, 1.9, 4.3, 9.1, WOBBLE_PERIOD, WOBBLE_PERIOD * 1.5, 31.4];
  * `docs/asset-catalogue.md` unchecked, and it had already been wrong twice in
  * one day: two sessions each incremented the number they found instead of
  * counting the catalogue.
+ *
+ * The count is one of the five places a new concept has to reach.
+ * `tools/director/test/concept-places.ts` is the list and reports all five at
+ * once; this is still where the count itself is held.
  */
 const UNITS = [
   "zero",

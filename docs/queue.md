@@ -562,37 +562,6 @@ grouping reads best next door, and any of them is an improvement on none.
 Do it with the next creature that needs a note, not before: a refactor of prose
 with no new prose to place is a diff nobody can review against anything.
 
-## One new fact, four tables, found one red test at a time
-
-- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Taken:** 2026-09-16, claude/queue-one-new-fact-four-tables-found-one-red-test-at-a
-- **Files:** `tools/director/src/concepts.ts`, `tools/director/src/backlog.ts`, `tools/director/src/concept-art.ts`, `tools/director/src/scene-world.ts`, `tools/director/test/concepts.test.ts`, `tools/director/test/backlog.test.ts`, `tools/director/test/concept-art.test.ts`, `tools/director/test/scenes.test.ts`, `docs/asset-catalogue.md`
-
-A lane on 16 September lost twenty minutes to **four tests going red in
-sequence, each one a different copy of the same fact** — the group set in
-`concepts.test.ts`, the name in `backlog.test.ts`, the shape join in
-`concept-art.test.ts`, the scene join in `scenes.test.ts`, and then the draft
-count in `docs/asset-catalogue.md`. Six lanes and 165 friction minutes in
-`docs/time-log.md` have this shape. None of the four checks is wrong; what
-costs the minutes is that the fifth place is only ever learned from the fourth
-red run, one process start at a time.
-
-The fix is not to merge the tests, which check different things about the same
-name. It is to make the *list of places* a thing the tree states once: one
-module naming every table a new concept has to enter, the four tests reading
-their row from it, and one test that fails with **all** the missing places
-named in a single message rather than the first one. The draft count in
-`docs/asset-catalogue.md` is the odd row — it is prose, and `doc-drift.test.ts`
-is where a number in prose is already held to the tree.
-
-The seam to check first, because it may make this much smaller: whether the
-four joins are really four lists or one list read four ways. If it is one, this
-is a module and four imports; if it is four, it is the aggregating test and
-nothing else.
-
-Provable with `bun run check`: add a concept to a fixture with one row missing
-and expect the message to name every place it is missing from.
-
 ## The ledger estimates its minutes; the trunk knows them
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf

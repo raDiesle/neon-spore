@@ -18,6 +18,11 @@ import { specNames } from "./spec-names.js";
  * by a row without a single thing failing.
  *
  * The third is why this file builds the worlds rather than reading the data.
+ *
+ * One of the five places a new concept has to reach;
+ * `tools/director/test/concept-places.ts` is the list, and
+ * `concept-places.test.ts` fails with all five at once so the rest are not
+ * learned one red run at a time.
  */
 
 describe("a mechanic drawn on the field", () => {

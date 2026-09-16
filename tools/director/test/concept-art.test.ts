@@ -15,6 +15,11 @@ import { specNames } from "./spec-names.js";
  * (`spec-names.ts` says why the difference started to matter). It fails on the
  * rename rather than a month later on somebody noticing the Echo has stopped
  * showing its shape.
+ *
+ * One of the five places a new concept has to reach;
+ * `tools/director/test/concept-places.ts` is the list, and
+ * `concept-places.test.ts` fails with all five at once so the rest are not
+ * learned one red run at a time.
  */
 
 const suggested = (): string[] => [

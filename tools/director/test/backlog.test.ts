@@ -61,7 +61,8 @@ describe("buildBacklog", () => {
     // The one test that catches a rename. `backlog.ts` keeps these four by
     // name rather than deriving them, so a heading edited in `systems.md` or
     // a bullet edited in `ideas.md` empties a column silently — unless this
-    // fails first. Exactly, not "contains": a fifth appearing unasked is the
+    // fails first. It is one of the five places a new concept has to reach,
+    // and `concept-places.test.ts` names all five in one message. Exactly, not "contains": a fifth appearing unasked is the
     // page creeping back to what the owner cut it down from.
     expect(names([group(backlog.mechanics, "SYSTEMS")])).toEqual(["Destruction and damage"]);
     expect(names([group(backlog.mechanics, "CREATURE IDEAS")])).toEqual(["Husk"]);

@@ -6542,3 +6542,25 @@ creature rather than on its own, and `bun run shot`'s two flags each say what
 they open without either saying they overlap. Reading a queue entry to the end
 before claiming it costs nothing; reading it after `take` costs a claim, a
 release and a push.
+
+## 2026-09-16 — queue-one-new-fact-four-tables — the list of places, stated once
+
+The queue's *One new fact, four tables, found one red test at a time*: six
+lanes and 165 friction minutes in this ledger where a concept's name had to be
+written into five places and each one was learned from a red run.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `concepts.ts`, `concept-art.ts` and its test, `scenes.test.ts`, `backlog.test.ts`, `spec-names.ts`, the count case in `tools/shape-sheet/test/drafts.test.ts` |
+| writing | 15 | `concept-places.ts` and its test, four pointers in the tests that were already there |
+| looking | 0 | — nothing drawn |
+| friction | 5 | two places share a prefix, so the fixture case matched one of them twice; a Python replacement written against a comment reflowed differently in the file |
+| landing | 5 | `bun run index`, `check`, the queue entry, the commit |
+
+The bottleneck was reading, and the seam the entry told this lane to check
+first is what kept it short: two of the five joins already read one list
+(`spec-names.ts`), so there was no module to build and nothing to merge. What
+was missing was only the *list* — five rows saying where a fact has to be
+written, and one test that reports all of them rather than the first. The four
+checks that were there are untouched and still hold their own halves; they now
+say, each in a sentence, that they are one of five.
