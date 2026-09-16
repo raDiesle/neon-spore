@@ -29,6 +29,10 @@ export const CORNER = 9;
 /** How tall the crest is inside the top edge, and its inset from the rim. */
 const CREST_H = 9;
 const CREST_IN = 5;
+/** The rounding on the crest's lower two corners — enough to not be a knife
+ * edge, little enough that the crest reads as a lid and not as a second
+ * button inside the first. */
+const CREST_FOOT = 2;
 
 export interface PlateSkin {
   /** The colour the rim, the crest and the words are in. */
@@ -82,11 +86,16 @@ export function crest(
   g.addColorStop(1, rgba(hex, alpha * 0.25));
   ctx.fillStyle = g;
   ctx.beginPath();
-  // One radius rather than the four a crest would rather have (round at the
-  // top, near-square at the foot): `packages/render/test/canvas-stub.ts`
-  // refuses the array form `roundRect` really takes, and every candidate is
-  // drawn through it. In `docs/queue.md`.
-  ctx.roundRect(x, box.y + CREST_IN, w, CREST_H, CORNER - CREST_IN);
+  // Four radii, clockwise from the top-left: the body's rounding less the
+  // inset along the top, so the crest follows the corner it sits inside, and
+  // nearly square at the foot, where its lower edge is a line across the
+  // plate rather than a corner of anything.
+  ctx.roundRect(x, box.y + CREST_IN, w, CREST_H, [
+    CORNER - CREST_IN,
+    CORNER - CREST_IN,
+    CREST_FOOT,
+    CREST_FOOT,
+  ]);
   ctx.fill();
 }
 

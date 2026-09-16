@@ -629,27 +629,6 @@ The answer picks between two, and both are one field:
 Whichever it is, it is a look and goes to the owner rather than onto the field
 unattended.
 
-## `canvas-stub.ts` refuses the array radius `roundRect` really takes
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-canvas-stub-ts-refuses-the-array-radius-roundrec
-- **Files:** `packages/render/test/canvas-stub.ts`,
-  `tools/versus/candidates/guide-chrome/tide/plate.ts`
-
-`CanvasRenderingContext2D.roundRect` takes either one radius or a list of up to
-four, one per corner, and every browser the game runs in honours the list. The
-stub's `nums` guard rejects it: a call with `[4, 4, 3, 3]` fails with
-`roundRect: 4,4,3,3 is not a finite number`, so a shape that is round at the
-top and near-square at the foot cannot be drawn by anything the stub holds —
-which is every candidate and every frame test.
-
-`plate.ts`'s crest wanted exactly that and was written with one radius instead,
-with a comment saying why. Teach the stub the list form — spread it and check
-each entry the way `nums` checks the rest — and the comment and this entry go.
-
-Nothing is wrong on screen today: the workaround is a rounder corner than the
-shape wants, not a broken one.
-
 ## A ring round a body is a circle, and a body is wider than it is tall
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307

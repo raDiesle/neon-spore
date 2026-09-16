@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-16 — queue-canvas-stub-roundrect — the stub takes the corner list
+
+`roundRect` takes one radius or up to four, every browser honours the list, and
+`canvas-stub.ts` took the number only — so a shape round at the top and
+near-square at the foot could not be drawn by anything the tests hold. TIDE's
+crest wanted exactly that and had been written with one radius and a comment
+pointing here.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the stub's `nums`/`drew` split, both `roundRect`s, and what the crest was working around |
+| writing | 10 | `radii`, the two signatures, four cases over it, and the crest restored |
+| looking | 5 | `bun run versus:shot guide:chrome tide` — the candidate draws, and the corners are a foot radius apart |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was writing, and most of it was the test rather than the fix:
+the fix is one helper and two signatures. What the test had to say is the part
+worth having — a stub that refuses what the browser takes costs a shape nobody
+can draw, and one that takes what the browser refuses costs a green test on a
+frame that throws in the game, so the empty list, the fifth radius and the
+negative one are all held.
+
+*Measured: the rows above are the session's own estimate, read off the previous landing at 21:35 and this one.*
+
 ## 2026-09-16 — director-party-games-page — PARTY GAMES, and the machinery under it
 
 The owner's second removal of the evening, and the last study page on the

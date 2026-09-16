@@ -80,6 +80,32 @@ function nums(where: string, values: number[]): void {
   }
 }
 
+/**
+ * The corner radii of a `roundRect`, checked the way a real canvas checks
+ * them and returned as the list to log.
+ *
+ * `CanvasRenderingContext2D.roundRect` takes **either one radius or a list of
+ * up to four**, one per corner clockwise from the top-left, and every browser
+ * the game runs in honours the list. This stub took the number only, so a
+ * shape that is round at the top and near-square at the foot could not be
+ * drawn by anything held here — which is every candidate and every frame test
+ * — and `tools/versus/candidates/guide-chrome/tide/plate.ts` wrote its crest
+ * with one radius and a comment saying why. 16 September 2026.
+ *
+ * A real one throws `RangeError` on an empty list or a fifth entry and
+ * `IndexSizeError` on a negative one, so this refuses all three: a stub that
+ * takes a call the browser will not take is a test that passes on a frame
+ * nobody can draw.
+ */
+function radii(where: string, r: number | number[]): number[] {
+  const list = Array.isArray(r) ? r : [r];
+  if (list.length < 1 || list.length > 4)
+    fail(where, `${list.length} radii — a corner list is one to four`);
+  nums(where, list);
+  for (const v of list) if (v < 0) fail(where, `radius ${v} is negative`);
+  return list;
+}
+
 function color(where: string, value: unknown): void {
   if (value instanceof StubGradient || value instanceof StubPattern) return;
   if (typeof value !== "string" || !COLOR.test(value))
@@ -134,10 +160,10 @@ class StubPath {
   }
   /** A rounded rectangle in one call — THE MAGNET's plate, and the only
    * builder in this file that was missing until a frame actually reached it.
-   * A real one refuses a negative radius the way `arc` does. */
-  roundRect(x: number, y: number, w: number, h: number, r: number): void {
-    drew("Path2D.roundRect", [x, y, w, h, r]);
-    if (r < 0) fail("Path2D.roundRect", `radius ${r} is negative`);
+   * One radius or a corner list, refused the way a real one refuses them
+   * (`radii`). */
+  roundRect(x: number, y: number, w: number, h: number, r: number | number[]): void {
+    drew("Path2D.roundRect", [x, y, w, h, ...radii("Path2D.roundRect", r)]);
   }
   /** The rounded corner every plate in the intro is cut with. A real one
    * refuses a negative radius the same way `arc` does. */
@@ -359,9 +385,11 @@ export class StubContext {
     nums("arcTo", [x1, y1, x2, y2, r]);
     if (r < 0) fail("arcTo", `radius ${r} is negative`);
   }
-  roundRect(x: number, y: number, w: number, h: number, r: number): void {
-    nums("roundRect", [x, y, w, h, r]);
-    if (r < 0) fail("roundRect", `radius ${r} is negative`);
+  /** One radius, or up to four — `radii` is where the corner list is held to
+   * what a real canvas takes. */
+  roundRect(x: number, y: number, w: number, h: number, r: number | number[]): void {
+    nums("roundRect", [x, y, w, h]);
+    radii("roundRect", r);
   }
   translate(...a: number[]): void {
     nums("translate", a);
