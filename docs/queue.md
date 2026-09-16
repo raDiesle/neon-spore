@@ -317,37 +317,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## The MECHANICS page keeps four ideas and loses the rest of its four groups
-
-- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
-- **Taken:** 2026-09-16, claude/queue-the-mechanics-page-keeps-four-ideas-and-loses-th
-- **Files:** `tools/director/src/backlog.ts`, `tools/director/src/backlog-page.ts`, `tools/director/index.html`, `docs/spec/ideas.md`, `docs/spec/systems.md`, `docs/spec/couplings.md`, `docs/spec/assists.md`
-
-The owner asked, 15 September 2026, whether NOT BUILT YET → MECHANICS
-documents what is not built or also what is done. The answer is *both*:
-`fromConcepts` in `backlog.ts` hides a section whose heading claims **built**
-and shows every **partly built** one, so COUPLINGS, ASSIST FORMS and SYSTEMS
-each carry things half in the game. The built halves are already readable
-under DOCUMENTATION → SPEC, which is where he wants them read.
-
-**His rule, stated the same day: the MECHANICS page shows only what is not
-implemented yet.** Nothing built appears on it, and a *partly built* section
-appears only as its unbuilt remainder — for 5.6 that is the *Not built:*
-line, never the paragraph on scars and craters that ship. `fromConcepts`
-stops showing partly-built sections whole; what is done is DOCUMENTATION's.
-
-So cut the page down to the four ideas that have queue entries of their own
-below — **Destruction and damage** (SYSTEMS 5.6), **Mine**, **Moulting** and
-**Husk** (CREATURE IDEAS) — and remove everything else from **CREATURE
-IDEAS**, **SYSTEMS**, **ASSIST FORMS** and **COUPLINGS**: the COUPLINGS and
-ASSIST FORMS groups go entirely (their `fromConcepts` calls and whatever in
-`index.html` frames them), SYSTEMS is filtered to 5.6, CREATURE IDEAS to
-those three. The text stays where it is in `docs/spec/`; only the page stops
-drawing it. MECHANIC IDEAS, CONTROL IDEAS, WEAPON IDEAS and DEFERRED were
-not named and stay. When one of the four lands, its lane removes it here.
-
-Prove it with `bun run check` and the director's MECHANICS tab opened once.
-
 ## Destruction and damage: the three unbuilt pieces, offered in VERSUS
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
