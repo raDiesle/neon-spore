@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 4b1ce663 — The build-stamp scan reads its 2,353 files at once, not in turn
+
+The test that holds `__BUILD_DATE__` to one reader walks the whole tree and read every file with `readFileSync`, one after another. On 16 September 2026 it passed its own 5-second timeout under `bun run check` — thirteen shards on the same disk — and turned a green lane red; alone, the same file took 475 ms.
+
 ## 2026-09-16 · fa071cc8 — --tab opens NOT BUILT YET itself, so --open beside it is one press
 
 `bun run shot --tab MECHANICS` presses that sheet's header button for itself. A caller who also passed `--open "◇ NOT BUILT YET"` — which is that flag's own documented job — pressed it a second time with the sheet already covering it, so Playwright retried for thirty seconds and then failed naming a `<span class="sub">` in the header rather than either flag. The lane that took the contents menu's picture lost two runs to it before dropping the flag.
