@@ -582,6 +582,7 @@ with no new prose to place is a diff nobody can review against anything.
 ## The prompt `queue next` hands a session says nothing about size
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Taken:** 2026-09-16, claude/queue-the-prompt-queue-next-hands-a-session-says-nothi
 - **Files:** `tools/queue/claim.ts`, `tools/queue/test/queue.test.ts`
 
 `promptFor` is the whole brief a fresh session reads before it opens an item —
