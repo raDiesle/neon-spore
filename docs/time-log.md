@@ -7452,3 +7452,18 @@ working one out, which keeps the rock tiers, the torch, the wisp and the
 Warden's line out of a tool that has no business knowing them.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the director's empty BRIEFING field
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry, `wave-opening.ts`, its two calls and the panel's markup |
+| writing | 5 | the heading, the paragraph, the function, the painter and the test file out |
+| looking | 0 | — the change is an element that is no longer there |
+| friction | 0 | — |
+| landing | 5 | `bun run index`, `check:fast`, the commit |
+
+The bottleneck was nothing. Worth noting that the deletion was caught twice on
+the way out — `doc-drift.test.ts` named `docs/INDEX.md` and the queue entry's
+own `Files:` line as still pointing at a file that had gone, which is exactly
+the pair of stale references a deletion leaves and nobody looks for.

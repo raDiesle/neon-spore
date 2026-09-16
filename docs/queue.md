@@ -586,25 +586,6 @@ mouth reads as a mouth or a line reads at all is to watch it at tempo on a
 screen. A cloud session can change the drawing and cannot tell whether it
 worked, which is how it came to be bad twice.
 
-## The director's WAVE tab has a BRIEFING heading with nothing under it
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-the-directors-wave-tab-has-a-briefing-heading-wi
-- **Files:** `tools/director/index.html`, `tools/director/src/wave-opening.ts`, `tools/director/src/main.ts`
-
-`renderWaveOpening` is one line — `document.getElementById("waveBriefing")
-?.replaceChildren()` — and its own doc comment says why: the sentence it used
-to paint said the same thing twice and was removed, but the function, the
-`<h2>BRIEFING</h2>` and the `<p id="waveBriefing">` were all left standing
-because deleting the call was outside that task. `main.ts` still runs it on
-every wave switch.
-
-What it looks like from outside is a field that failed to fill, and it read
-that way to the owner on 16 September 2026, on wave 1. Take the heading, the
-paragraph, the function and its two calls out; `waveOpeningStates` in the same
-file is reached by nothing but `tools/director/test/wave-opening.test.ts` and
-goes with them unless something is found that wants it.
-
 ## The director's stage plays the saved guide, not the one being edited
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307

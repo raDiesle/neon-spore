@@ -34,7 +34,6 @@ import {
 import { bindStates } from "./states-page.js";
 import { initSubcols } from "./subcols.js";
 import { bindContents, bindExpanders, bindTabs } from "./tabs.js";
-import { renderWaveOpening } from "./wave-opening.js";
 import { bindWaveIo } from "./waves-io.js";
 
 // The director: one screen where a wave is placed, played and judged — not
@@ -178,12 +177,7 @@ function onShape(): void {
   cells?.render();
   stage.rebuild();
   paintStatus();
-  paintBriefing();
   renderShip(cfg, currentWave(store));
-}
-// Which cards the wave on the stage raises for a fresh pair — see `wave-opening.ts`.
-function paintBriefing(): void {
-  renderWaveOpening(currentWave(store));
 }
 // Only the prose changed — replaying the wave for a typed letter would be rude.
 function onProse(): void {
@@ -206,7 +200,6 @@ function refreshAll(): void {
   cells?.render();
   stage.rebuild();
   paintStatus();
-  paintBriefing();
   renderShip(cfg, currentWave(store));
 }
 
