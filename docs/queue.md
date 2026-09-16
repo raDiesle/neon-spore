@@ -553,6 +553,7 @@ same list — widen it back as each site is fixed.
 ## The input delay is counted in ticks, and a slow window makes a tick longer
 
 - **Found:** 2026-09-16, claude/neon-spore-boss-design-26ee5e
+- **Taken:** 2026-09-16, claude/queue-the-input-delay-is-counted-in-ticks-and-a-slow-w
 - **Where:** local
 - **Files:** `packages/net/src/delay.ts`, `packages/net/src/lockstep.ts`, `packages/net/src/lockstep-options.ts`, `apps/game/src/input-buffer.ts`, `apps/game/src/frame.ts`, `apps/game/src/loop.ts`, `packages/sim/src/slow.ts`, `docs/decisions.md`
 
