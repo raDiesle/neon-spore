@@ -7238,3 +7238,27 @@ queen* is not the queen's own beat, and an act file is a page rather than a
 chapter.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — task-performance-optimization — the intro's people go on the list, for a local session
+
+One entry, and the owner said where it must not go: *add to queue, not picked
+up by cloud session.* `docs/queue.md` already has that line — `Where: local`,
+his own reservation from 13 September — so the entry uses it rather than saying
+so in prose nothing enforces.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the eight `intro-*.ts` files, `content/src/intro.ts`'s beats, and the queue's own `Where:` convention |
+| writing | 5 | the entry |
+| looking | 0 | — the entry is *about* looking, and a cloud session may not do it |
+| friction | 0 | — |
+| landing | 5 | `bun run queue` to see it list as LOCAL ONLY, `check`, the commit |
+
+The bottleneck was nothing, and the reading is what the entry is worth: two of
+the four things asked for reverse decisions the code argues for out loud.
+`intro-player.ts` says a person is a lobed blob *on purpose* — a stick figure
+would be the one thing on the first screen that came from somewhere else — and
+`intro-pair.ts` records the owner taking the phones out on 15 September. He is
+overruling the first and narrowing the second, and an entry that did not say so
+would send a session to re-derive both arguments and ship the thing he has now
+called bad twice.
