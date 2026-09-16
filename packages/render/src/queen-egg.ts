@@ -2,7 +2,9 @@ import { type Creature, type QueenState, queenTorchCol, spanCenterCol } from "@n
 import { halo } from "./glow.js";
 import { type Layout, showsQueenHint, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { craneRelease, drawCraneArm, drawCraneClaw } from "./queen-crane.js";
 import { drawDropHint } from "./queen-drop.js";
+import { QUEEN_FIGURE } from "./queen-figure.js";
 import { torchRadius, torchRotation } from "./rock-size.js";
 import { drawTorchRock } from "./torch.js";
 
@@ -70,6 +72,12 @@ function eggScale(
  * without anything moving, changing size or turning. It wears NEXT TO FALL,
  * for player 2 only, while it is the side the next one comes from. No tail: a
  * torch only drags one once it is falling (`drawTorch`).
+ *
+ * What holds it there is THE CRANE (`queen-crane.ts`): an arm from her
+ * shoulder over the rock, with a claw closed on it from above. The arm is
+ * there whether the rock is or not — on the beat the torch broke off it
+ * stands open and empty over the socket, and the claw closes again as the
+ * next egg grows back into it.
  */
 export function drawEgg(
   ctx: CanvasRenderingContext2D,
@@ -86,17 +94,29 @@ export function drawEgg(
   growShare: number,
 ): void {
   const scale = eggScale(boss, side, beat, beatPhase, growShare);
-  if (scale <= 0) return;
 
   const cx = tileCX(l, spanCenterCol("torch", queenTorchCol(queen.col, side))) + ox;
   const cy = tileCY(l, queen.row) + oy;
-  const r = torchRadius(l) * scale;
+  const full = torchRadius(l);
+  const r = full * scale;
 
-  ctx.save();
-  ctx.translate(cx, cy);
-  ctx.rotate(torchRotation(cx));
-  drawTorchRock(ctx, r, time);
-  ctx.restore();
+  // The claw's geometry is the full rock's, whatever is in it: an empty claw
+  // is the same size as a closed one, and one closing over a growing egg
+  // closes rather than shrinks.
+  const release = craneRelease(boss, side, beat, waveBeat, beatPhase, scale);
+  const bodyX = tileCX(l, queen.col) + ox;
+  const bodyY = tileCY(l, queen.row) + oy + QUEEN_FIGURE.bodyCy * l.tile;
+  drawCraneArm(ctx, l.tile, bodyX, bodyY, side, cx, cy, full, release);
+
+  if (scale > 0) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(torchRotation(cx));
+    drawTorchRock(ctx, r, time);
+    ctx.restore();
+  }
+  drawCraneClaw(ctx, cx, cy, full, release);
+  if (scale <= 0) return;
 
   if (boss.dropSide === side) drawDropHint(ctx, l, cx, cy, r, side, waveBeat, beatPhase, time);
 }

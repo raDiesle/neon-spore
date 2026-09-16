@@ -862,6 +862,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/queen-facet.ts` | FACET — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/queen-look.ts` | THE ONE RECORD A CANDIDATE **QUEEN** PATCHES |
 | `packages/render/src/queen-carapace.ts` | CARAPACE — a kept look for THE BULB QUEEN's shell, drawn only on the GRAPHICS page's LIBRARY |
+| `packages/render/src/queen-crane.ts` | THE CRANE — what holds each flank torch to the queen: an arm of two segments with a claw on the end |
 | `packages/render/src/queen-scutes.ts` | SCUTES — THE BULB QUEEN's shell as the game draws it since 11 September 2026 |
 | `packages/render/src/maze-walls.ts` | THE MAZE's walls: the circles, the gaps cut in them, and the radial walls that make the corridors turn |
 | `packages/render/src/maze-shot.ts` | The shot inside THE MAZE: where it stands, the corridors behind it, and what it found when it stopped |
@@ -1362,18 +1363,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/hits/telegraph.ts` | A glow building over the beats before the hit, snapping off the instant it lands |
 | `tools/director/src/hits/types.ts` | What a hit is, and what it is told |
 | `tools/director/src/hits/leap.ts` | A ball of light thrown at the body over the beats before the hit, on a bowed path from off the frame |
-| `tools/director/src/holders-panel.ts` | The BULB QUEEN VARIANTS tab |
-| `tools/director/src/holders/collar.ts` | THE COLLAR — the reference picture's own answer, turned on its side |
-| `tools/director/src/holders/cradle.ts` | THE CRADLE — she is holding it with herself |
-| `tools/director/src/holders/crane.ts` | THE CRANE — the owner's own suggestion: an arm holds the rock out and lets go of it |
-| `tools/director/src/holders/hairline.ts` | HAIRLINE — her shell keeps every petal she has lost as a crack across it |
-| `tools/director/src/holders/queen-cycle.ts` | The one clock the three whole-body BULB QUEEN VARIANTS run on |
-| `tools/director/src/holders/queen-panel.ts` | Mounting for the three whole-body BULB QUEEN VARIANTS |
-| `tools/director/src/holders/queen-shared.ts` | What every whole-body BULB QUEEN VARIANT shares |
-| `tools/director/src/holders/queen-shell.ts` | The baseline BULB QUEEN body a whole-body draft starts from |
-| `tools/director/src/holders/types.ts` | What a holder draft is, and what it is told |
-| `tools/director/src/holders/underglow.ts` | UNDERGLOW — the shell stays whole; what changes is the light through it |
-| `tools/director/src/holders/withdrawal.ts` | WITHDRAWAL — she hunches, rather than cracking or glowing, as she is hurt |
 | `tools/director/src/keep-alive.ts` | The page telling its server that somebody still has it open |
 | `tools/director/src/key-help.ts` | The keybindings, shown rather than remembered — "for the time being," in the owner's own words |
 | `tools/director/src/keys.ts` | Both roles on one keyboard, so a wave can be tried the moment it is placed |

@@ -15,7 +15,6 @@
 
 import { type BacklogEntry, renderEntry } from "./backlog-entry.js";
 import { mountLazyTabs } from "./backlog-tabs.js";
-import { renderHolders } from "./holders-panel.js";
 import { bindOrphans } from "./orphans-panel.js";
 import { mountSheet } from "./session.js";
 import { renderWholeDoc } from "./whole-doc.js";
@@ -98,7 +97,6 @@ async function load(): Promise<void> {
   fill("backlogMechanics", backlog.mechanics);
   void renderWholeDoc("borrowedDoc", "/api/borrowed");
   void renderWholeDoc("partyGamesDoc", "/api/party-games");
-  renderHolders();
   loaded = true;
 }
 

@@ -115,9 +115,10 @@ export { RIND_LOOK, type RindLook, type RindShed, rindWears } from "./rind-look.
 export { pod } from "./rind-pod.js";
 export { drawShed } from "./rind-skin.js";
 export { slough } from "./rind-slough.js";
-// The torch's own rock, so a tool drafting what *holds* one can draw the real
-// thing rather than a stand-in (`tools/director/src/holders`). Drawing only —
-// it takes a radius and a time and reads no world.
+// The torch's own rock, so a tool drafting something round one can draw the
+// real thing rather than a stand-in — the director's holder drafts did, until
+// THE CRANE (`queen-crane.ts`) went into the game. Drawing only — it takes a
+// radius and a time and reads no world.
 export { torchRadius } from "./rock-size.js";
 export { hasSeatName, type SeatNames, seatName } from "./seat-name.js";
 export { P1_SKIN, P2_SKIN, type SeatSkin, seatSkin } from "./seat-skin.js";

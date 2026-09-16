@@ -1,6 +1,6 @@
 /**
- * CONTROLS, SHIP, CARDS and BULB QUEEN VARIANTS — four tabs of GAME MECHANICS
- * that each show one built thing beside the drafts offered against it.
+ * CONTROLS, SHIP and CARDS — three tabs of GAME MECHANICS that each show
+ * one built thing beside the drafts offered against it.
  */
 
 /* CONTROLS. A tab of GAME MECHANICS now, not its own sheet — renamed
@@ -180,12 +180,11 @@
   max-width: 700px;
 }
 
-/* BULB QUEEN VARIANTS: the torch-only holder drafts and the whole-body
-   drafts below them, each a canvas on the page's own beat. A row
-   rather than the backlog's column, because the whole question is a
-   comparison and a comparison read by scrolling is not one. The
-   whole-body cards reuse the same classes at a larger `max-width`
-   since a whole queen needs more room than a single torch. */
+/* A row of drafts, each a canvas on the page's own beat — GRAPHICS's
+   LIBRARY today. A row rather than the backlog's column, because the whole
+   question is a comparison and a comparison read by scrolling is not one.
+   Named for the BULB QUEEN VARIANTS tab it was built for, which closed on
+   16 September 2026 when THE CRANE went into the game. */
 .holder-row {
   display: flex;
   flex-wrap: wrap;
@@ -217,16 +216,6 @@
   color: var(--dim);
   font-size: 0.8rem;
   letter-spacing: 1px;
-}
-.queen-row .holder-card {
-  flex-basis: 320px;
-  max-width: 380px;
-}
-.queen-axis {
-  color: var(--cyan);
-  letter-spacing: 2px;
-  font-size: 0.95rem;
-  margin: 18px 0 2px;
 }
 .gallery-cat {
   color: var(--gold);

@@ -6012,3 +6012,22 @@ to other places on the phone, the last one shaped after Clash Royale.
 
 The bottleneck was looking: every candidate needed a shot and one fix after
 it, and the fixes were things only a picture shows.
+
+## 2026-09-16 — bulb-queen-crane — THE CRANE on the field, the variants page removed
+
+The owner asked for THE CRANE, one of the three flank-torch holders drafted on
+the director's BULB QUEEN VARIANTS page, to be put into the game by name; the
+three whole-body drafts were rejected and the queen kept as she is; and the
+page went, with its twelve files.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the director draft's arm and claw, `queen-egg.ts`'s clock and the split rule, `QUEEN_FIGURE`, the budget test |
+| writing | 35 | `queen-crane.ts`, the arm and claw wired round the rock in `queen-egg.ts`, the holders' removal, the comments that named them |
+| looking | 25 | three runs of frames across the drop: the fingers vanished white on the rock's rim, the arm reaching in from the side found no gap and went up and over |
+| friction | 10 | ␍ from python writes in three files, a tsconfig that was not there, a regex that moved one budget row of four |
+| landing | 15 | the budget rows remeasured, the file index, `check:fast` twice, the sheet test's floor, the commit and the landing |
+
+The bottleneck was looking: the draft gripped the rock from the side, and the
+field has no gap between the hull's tip and the rock, so the arm had to be
+redrawn to come up over it — something only a frame at the drop showed.

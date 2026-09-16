@@ -29,7 +29,9 @@ describe("the backlog sheet", () => {
     const bar = html.indexOf('id="backlogTabs"');
     const tabs = matches(html.slice(bar, html.indexOf("</div>", bar)), /data-tab="([^"]+)"/g);
 
-    expect(tabs.length).toBeGreaterThan(5);
+    // Five since 16 September 2026, when BULB QUEEN VARIANTS left the bar: the
+    // floor is there so an empty slice reads as a failure, not as no tabs.
+    expect(tabs.length).toBeGreaterThan(4);
     // The open one carries `on` as well, so the class is matched rather than
     // spelled — `bindTabs` only ever asks whether the id is `sheet-<tab>`.
     for (const tab of tabs) {

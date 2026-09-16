@@ -16,7 +16,7 @@ import { beatSeconds, DEFAULT_CONFIG } from "@neon-spore/sim";
  * The types sit apart from the registry so an asset file can import them
  * without importing its siblings — `index.ts` imports every asset, and an
  * asset that imported it back would be a cycle. The same arrangement as
- * `skins/types.ts` and `holders/types.ts`.
+ * `skins/types.ts`.
  */
 
 /** The page's heartbeat: the game's own tempo, not a number near it. */

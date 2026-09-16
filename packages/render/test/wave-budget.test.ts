@@ -293,12 +293,17 @@ const SCENES: readonly Scene[] = [
     // clipped, filled, its ridge stroked and its near side lit — so `stroke`
     // rose by eighteen, `fill` by seven, `new Path2D` by twenty-five, and the
     // shipped ramp on the plates is two more sprites placed.
+    //
+    // Remeasured on 16 September 2026, when THE CRANE arrived
+    // (`queen-crane.ts`): an arm on each flank holding its torch from above.
+    // Each is a two-segment arm stroked once, two joints filled and stroked,
+    // and two fingers stroked twice — fourteen strokes and four fills a frame.
     rows: {
       p1: [
         {
           fillRect: 63,
-          stroke: 120,
-          fill: 89,
+          stroke: 134,
+          fill: 93,
           clip: 7,
           save: 52,
           drawImage: 112,
@@ -309,8 +314,8 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 63,
-          stroke: 122,
-          fill: 89,
+          stroke: 136,
+          fill: 93,
           clip: 7,
           save: 52,
           drawImage: 112,
@@ -323,8 +328,8 @@ const SCENES: readonly Scene[] = [
       p2: [
         {
           fillRect: 63,
-          stroke: 116,
-          fill: 94,
+          stroke: 130,
+          fill: 98,
           clip: 7,
           save: 52,
           drawImage: 110,
@@ -335,8 +340,8 @@ const SCENES: readonly Scene[] = [
         },
         {
           fillRect: 63,
-          stroke: 118,
-          fill: 94,
+          stroke: 132,
+          fill: 98,
           clip: 7,
           save: 52,
           drawImage: 110,

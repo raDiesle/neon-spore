@@ -6,8 +6,8 @@ import { ASSETS, type AssetContext, BEAT_SECONDS } from "./library/index.js";
  *
  * `library/types.ts` says why the view is a canvas and the other three are
  * SVG. This file is the loop: one `requestAnimationFrame`, one clock, every
- * card handed the same `t` and the same beat, the way `holders-panel.ts` does
- * for the queen's drafts and `skins/types.ts` insists on for its page — four
+ * card handed the same `t` and the same beat, the way `skins/types.ts`
+ * insists on for its page — four
  * jellyfish hopping at four private moments would be noise, and the thing
  * compared is what hangs under each, which can only be judged if they hop
  * together.

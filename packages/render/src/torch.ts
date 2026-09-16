@@ -65,8 +65,8 @@ export function drawTorchTail(
  * this rock is named for. A plain meteor has none anywhere else it is drawn
  * (`drawMeteor`, meteor.ts), so leaving it on here made a grey rock grow an
  * orange outline in the last moment of its fall, which is exactly what the
- * owner saw. It defaults on because the queen's sockets and the director's
- * holders draw torches, and a torch is what this function is for.
+ * owner saw. It defaults on because the queen's sockets draw torches, and a
+ * torch is what this function is for.
  */
 export function drawTorchRock(
   ctx: CanvasRenderingContext2D,
