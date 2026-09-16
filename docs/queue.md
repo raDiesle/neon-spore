@@ -594,6 +594,7 @@ worked, which is how it came to be bad twice.
 
 - **Files:** `packages/render/src/siren.ts`, `packages/render/src/torch-alarm.ts`, `packages/render/src/magnet-alarm.ts`
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-the-duty-word-and-torchs-call-are-written-on-the
 
 The siren writes the word this seat owes on its own middle at `cy + DIAL_R +
 DUTY_DROP`, which with the dial at 39 is a baseline of 66. TORCH's call is
