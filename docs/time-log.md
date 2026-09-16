@@ -7710,3 +7710,5 @@ The bottleneck was friction, and it was one mistake made twice: a page is not
 drawn in the world or the layout it looks like it is drawn in. A regression
 test that cannot be made to fail is worth nothing, and this one had to be
 broken on purpose twice before it was.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

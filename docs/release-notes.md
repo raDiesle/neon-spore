@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · c9e81ed8 — A page's caption stands off the ship's own chrome, not off the band
+
+The siren, its duty word and TORCH's and THE MAGNET's call rows came out from under the tutorial band earlier today. The caption plate stopped at the band's foot, so the page landed on them instead: `TORCH · COLUMNS 3-4 · CALL IT` read as `-4 · CALL IT` and the duty word `PULL` was half a word, photographed at 9caab36c on both rehearsals. Nothing had got worse — the band had been covering the same rows — but one thing got better and stopped at half legible.
+
 ## 2026-09-16 · 05c750d5 — THE THROAT: the one boss you answer by giving it something, and the mouth is a function of the beat
 
 A gullet of five ring muscles hangs from the top of the field to `throatMouthRow`, ending in a mouth one column wide that slides along that row. Nothing of it is a body, so no shot touches it and shots pass straight through the tube — which is deliberate and load-bearing: player 2's answer to a creature about to be eaten is to shoot it in the mouth's own column. Every six beats it inhales, and the inhale swallows before it lifts: whatever stands in the mouth is taken and everything else in that column is hauled a row closer. **A swallowed body re-tightens a slack ring**, so the boss heals out of the wave's own arrivals and the pair's habit of clearing the field is what feeds it. The only thing that hurts it is THE GUM, flung level along the mouth's row into the mouth, which chokes a ring for good. Health is the five rings; at five slack it everts.
