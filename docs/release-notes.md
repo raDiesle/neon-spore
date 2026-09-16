@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · a1909fb2 — The palette's lists move off its table, so the next brush has room
+
+THE FLIP's row went into `brushes.ts` at 251 lines and had to be paid for by cutting three lines of its own argument back to two. Nothing about the next brush is unusual; there is simply no room for one, and the first thing a lane short of ten lines shortens is the reasoning beside a row.
+
 ## 2026-09-16 · 0dd9d7ec — The director says which film a wave plays, over the words it does not
 
 A guide that names a scene never draws its three paragraphs — the film takes the whole stage — so for the sixty-odd waves that carry one the GUIDE panel was showing a reader the half the pair never meets and nothing at all about the pages they do. FIRST STEP is the plainest case: three paragraphs written, and what opens is four pages of film, ENEMY through A MISS LOSES THE WAVE.

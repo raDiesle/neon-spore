@@ -7570,3 +7570,5 @@ entry had it backwards: it proposed moving the rows out, which would have put
 the growing half in the new file and left the settled half with the room. The
 lists moved instead, so the table — the thing every creature and every fault
 adds a row to — is the half that got the headroom.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
