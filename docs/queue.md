@@ -599,7 +599,6 @@ lane does not spend a morning on prose that reaches nobody.
 ## `--press` never says which column it actually pressed
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Taken:** 2026-09-16, claude/queue-press-never-says-which-column-it-actually-presse
 - **Files:** `tools/frames/press-plan.ts`, `tools/frames/press.ts`, `tools/frames/press-command.ts`, `tools/frames/spec.ts`, `tools/frames/test/`
 
 Eleven lanes and 95 friction minutes in `docs/time-log.md` went on photographing
