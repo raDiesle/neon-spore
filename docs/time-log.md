@@ -6744,3 +6744,5 @@ where it can be watched, and some forty files call `tileCX`, so the mirror
 cannot live there without turning the strips too. Both were findable by reading
 before writing rather than after. They are in the entry now, so the next
 session pays neither.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
