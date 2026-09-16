@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 021377a6 — A well wave ends when the wave under it ends
+
+Wave 70 of the shipped campaign could be cleared and not passed. `beat.ts` ended a wave when the script was spent and the field was empty **and no boss was installed**, and nothing ever takes THE WELL off a world: it is a projection with no body, no health and no step, so the pair took the last body down and the wave stood there with a picture holding it open. `bossHoldsWave` is the question asked instead, and THE WELL is the only boss that answers no — deliberately not `!bossFillsWave`, which would answer the same for THE VANE, whose pins must still come out before its wave is over.
+
 ## 2026-09-16 · 3a37fa79 — The guide rings what the pair has to act on, and writes nothing on it
 
 TIDE's second half. A page that says PLAYER 1 MOVES CANNON rings the cannon and says nothing about what the cannon is being moved to, which is the half of the sentence a pair actually has to act on — "so also slick must be highlighted, but no text at the same time". A control that stands something over a column now also rings, silently, the lowest body coming down that column.
