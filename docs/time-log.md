@@ -7610,3 +7610,5 @@ handover count from the *start* of the fight, so the first flight after the
 arm was allowed to swing did not swing at all and the test that asked for a
 column off the base caught it. It now counts from the handover the swing
 began on, so the first swung flight is a swing.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

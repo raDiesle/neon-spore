@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · b4b80901 — THE BATON: a bead passed down an arm, one seat a beat, and whoever acted is locked out of the next
+
+The simulation half of §10 of the choreographed-bosses page. An arm of eleven sockets hangs down the middle column with a bead in the topmost; player 1's trigger launches it, it is in the air for three real beats (THE DRAG, not THE SLOW), player 2 has those three to put a shot of its colour through it, and the seat that acted may not touch the ship on the beat after. A bead struck lands a socket lower and the socket it left goes dark; one not struck lands back where it was; one left sitting is shaken back to the top. After four handovers the turn tightens to a beat, after four dark sockets the arm swings the landing a column off, after six the dark sockets shed as rocks down the arm's own column, and out of the last socket the bead drops as a pod the maw takes. Wave 68, THE BATON, carries it, fed by its own arrivals. Nothing is drawn yet: the look is the next lane, and until it lands the boss plays invisible.
+
 ## 2026-09-16 · 836217d3 — Four director comments stop explaining themselves through a deleted file
 
 The GUIDES room came off the sheets on 14 September 2026 and `guide-page.ts` went with it, leaving four comments describing the tool as though it were still there. `versus-tab.ts` told a reader that VERSUS is mounted *the way GUIDES is* and named the file to copy from — a pattern the next tab would have been built against, pointing at something that cannot be opened. `session.ts` explained which pages need a `mountSheet` call of their own by naming the same file. `backlog-tabs.ts` said GUIDES had moved to DOCUMENTATION, which is two rooms neither of which exists. And `backlog-page.ts` listed the lazily drawn tabs as SHAPES, GUIDES and OTHER GRAPHICS, which disagreed with the file next to it as well as with the sheet.
