@@ -1431,6 +1431,13 @@ cannot see the cannon at all. So a feed is a sentence each way: *the third
 mouth from the left*, *I am on it*, and then the suck. Neither seat can make
 one alone and neither is sitting with nothing to press.
 
+**Where the two rows stand is arithmetic, not authorship.** The mouths are
+`spliceEntranceRows` over the hull and the numbered ends are on
+`spliceTopRow`, both spread across whatever width the field has — so a
+narrower phone simply spaces them closer and there is nothing for
+`queue-boss.ts` to remap. Two tiles is what leaves the plating's own damage
+readable under a mouth that has just been fed the wrong number.
+
 **A feed is judged when it arrives, not when it is sucked.** The number takes
 `spliceFeedBeats` to come down, which is long enough to watch which straw it
 came out of and far too short to do anything about it. A suck with no mouth
