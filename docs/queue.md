@@ -330,6 +330,7 @@ sending one PNG of the shared ready step.
 ## The balance sheet counts a husk and never names one
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-the-balance-sheet-counts-a-husk-and-never-names
 - **Files:** `packages/sim/src/balance.ts`, `packages/render/src/balance.ts`, `tools/director/src/balance.ts`, `packages/sim/test/balance.test.ts`
 
 THE HUSK's simulation landed with two counters — `husksRefused` and
