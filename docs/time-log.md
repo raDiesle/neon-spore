@@ -6501,3 +6501,24 @@ there and then, with a four-line diff open and nothing else in the file to
 weigh — who holds an item on one side, what the session holding it is told on
 the other. That is the 375-minute row in the ledger being paid at its cheapest,
 by the lane that queued the fix for it.
+
+## 2026-09-16 — task-performance-optimization — fast mode is answered, and the entry comes off
+
+One line from the owner — *"Leave 13 off"* — against the queue's own
+`Asks:` question of an hour earlier, which named three options and is now
+`docs/decisions.md` #32.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | — the entry was written this morning and named its own options |
+| writing | 5 | decision 32, the fast-mode section rewritten around the answer, the ranked list's fifth row |
+| looking | 0 | — nothing drawn |
+| friction | 0 | — |
+| landing | 5 | `queue done`, `check`, the commit |
+
+The bottleneck was nothing, and the entry paid for itself the way an `Asks:` is
+supposed to: the options were written down before the question was asked, so
+the answer was three words and needed no second turn to interpret. What it
+leaves behind is the arithmetic, which is worth keeping — the next time the
+model or the mode changes, the test is one flag and ten lanes each way, and
+decision 32 says what it would have to beat.

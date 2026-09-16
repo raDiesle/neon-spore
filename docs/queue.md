@@ -610,42 +610,6 @@ nothing else.
 Provable with `bun run check`: add a concept to a fixture with one row missing
 and expect the message to name every place it is missing from.
 
-## The time log cannot answer whether fast mode is worth it
-
-- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Files:** `docs/time-log.md`, `docs/lane-speed.md`, `tools/test/`
-- **Asks:** Turn Claude Code's fast mode on for a week of lanes so the comparison can be measured — yes, or leave it off?
-
-`docs/lane-speed.md` puts the expected saving from fast mode at **a fifth to a
-third of a lane's wall clock** and cannot do better than that, because the
-ledger's five rows do not separate the session generating text from the
-machines running commands, and because the multiplier itself is not published.
-The arithmetic is in that file; what is missing is the measurement, and the
-measurement is cheap — the ledger is already the instrument.
-
-The change is one line per entry, `Fast: yes` or `Fast: no`, written with the
-five rows, plus the sentence in the preamble that says what it means and that
-it is read per *kind* of lane — a creature lane against a creature lane, never
-a creature lane against a documentation one, since lane size moves the total
-three times as much as this could. Ten lanes each way settles it. After that,
-the reading goes in `docs/lane-speed.md` under the arithmetic it replaces.
-
-The options the owner's answer picks between: **on for a week**, which costs
-nothing but the marker and answers it; **off**, in which case the marker is
-still worth having, because the same line answers the same question the next
-time the model changes; or **on permanently without measuring**, which is the
-one that leaves the repository unable to say whether it helped.
-
-Hold the format with a small test of its own — a new time-log.test.ts in
-`tools/test/` —
-so the marker cannot quietly stop being written: an entry dated after the day
-this lands and missing its `Fast:` line is a red check. It cannot ride on
-`doc-drift.test.ts`, which deliberately treats `time-log.md` as a **record**
-and holds it to nothing, for the reason its own comment gives: editing a past
-entry to match today's tree would be rewriting the record. A format test on new
-entries only does not touch that argument — every entry already written stays
-exactly as it was.
-
 ## The ledger estimates its minutes; the trunk knows them
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf

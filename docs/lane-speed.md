@@ -198,10 +198,17 @@ commands a lane runs are seconds and its rows are minutes. So the expected
 saving is **a fifth to a third of the wall clock**, not a halving. In calendar
 terms, read off the trunk rather than off the rows: roughly **15 to 25 minutes
 off a creature lane's 70 to 75**, and two or three off a median lane's seven.
-It is worth having and it is not the lever the tail is. It does not touch the tail that matters most, which is lane
+It is worth having, and it is not the lever the tail is: it cannot touch lane
 size, and it cannot be claimed without measuring.
 
-**So measure it.** The ledger is already the instrument. Add one line to each
+**The owner decided on 16 September 2026 to leave it off**, and
+`docs/decisions.md` #32 says why: the tail is worth more than the multiplier,
+and the ledger it would have been measured with is not a clock. The arithmetic
+above stands for whenever that is revisited. What follows was the plan for
+measuring it and is kept because the shape of the test is the part worth
+reusing.
+
+**How it would be measured.** Add one line to each
 `docs/time-log.md` entry — `Fast: yes` or `Fast: no` — run a week of lanes with
 it on, and compare per-lane medians within a kind of lane (a creature lane
 against a creature lane). Ten lanes each way settles it; arguing about it
@@ -220,15 +227,19 @@ settles nothing.
    for the same reason: each question is a round trip on a long conversation.
 4. **One new fact, one table.** 165 minutes went on finding out one red test at
    a time that a creature's name lives in four places.
-5. **Fast mode**, once 1–4 are true, for a further fifth to a third.
+5. **Fast mode** was the fifth and is not on the list any more: the owner left
+   it off on 16 September 2026 (`docs/decisions.md` #32). Its place is taken by
+   **measuring the lane at all** — the elapsed stamp in `docs/queue.md` — which
+   is what tells you whether 1 to 4 worked.
 
-The first four shorten the lane whatever model is serving it; the fifth is a
-multiplier on what is left. In that order they compound; in the other order the
-multiplier is applied to work that should not have been there.
+The first four shorten the lane whatever model is serving it, and the fifth is
+how you find out that they did. A multiplier on the output would have been
+worth a fifth of what is left; it was never worth as much as the work that
+should not have been there in the first place.
 
 The first is now a rule in `CLAUDE.md` with its cuts in the section above. The
-other four were entries in `docs/queue.md`, written on 16 September 2026: the
-line-ceiling hook, the size paragraph in the prompt `queue next` hands over,
-the four tables one fact has to enter, and the `Fast:` marker that turns the
-arithmetic above into a measurement. The first of them is built and the last
-asks the owner one question before it can be worked.
+rest are entries in `docs/queue.md`, written on 16 September 2026: the
+line-ceiling hook, which is built and wired; the size paragraph in the prompt
+`queue next` hands over; the four tables one fact has to enter; and the elapsed
+stamp `bun run land` owes each entry. A fifth asked whether to measure fast
+mode; it was answered the day it was written and is off the list.

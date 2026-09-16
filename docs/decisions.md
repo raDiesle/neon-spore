@@ -944,3 +944,31 @@ the CHOKE subject. `creature.chokeDock` keeps its name and is the clingers'.
 a gesture can win back, is wanted — that is the parked idea, and it comes back
 through `ideas.md` as a fourth fault with a body in front of it, not by
 putting `"choke"` back on the roster.
+
+## 32. Fast mode stays off, and the ledger measures the clock instead
+
+*16 September 2026.* The owner asked what Claude Code's fast mode — the same
+Opus model with faster output — would be worth, and the answer was arithmetic
+rather than a measurement: it shortens only the part of a lane that is the
+session emitting tokens, so a saving of a fifth to a third of the wall clock,
+which in calendar terms is fifteen to twenty-five minutes off a creature lane's
+seventy and two or three off a median lane's seven. `docs/lane-speed.md` keeps
+the working. He read it and said to leave it off.
+
+Two things stand behind that and are the reason this is a decision rather than
+a preference. The tail is worth more than the multiplier: fourteen per cent of
+lanes carry thirty-eight per cent of the attention, and splitting one creature
+lane in two takes more off the week than a faster token ever could. And the
+instrument was wrong — the ledger's minutes run two and a half to four times
+the trunk's own span for the same day — so a week of marked lanes would have
+compared two numbers neither of which is a clock.
+
+**Consequences:** no `Fast:` marker on a `docs/time-log.md` entry, and the
+queue entry that proposed one is off the list. The measurement that survives is
+the elapsed stamp `bun run land` is asked for in `docs/queue.md`, which is
+worth having whether or not any mode is ever switched on.
+
+**Reconsider if:** the model or the mode changes, or the stamp shows a lane's
+calendar time is mostly generation after the tail has been split away — at
+which point the comparison is one flag and ten lanes each way, and this entry
+says what it would have to beat.
