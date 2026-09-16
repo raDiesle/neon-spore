@@ -51,7 +51,9 @@ describe("fastScopeFor", () => {
         "apps/game",
         "apps/server",
         "packages/net",
-        ...SWEEPS,
+        // `tools/test` is named whole by the document in the list, so the
+        // sweep that lives inside it is not named a second time.
+        ...SWEEPS.filter((s) => !s.startsWith("tools/test/")),
         "tools/director",
         "tools/queue",
         "tools/test",
@@ -63,6 +65,9 @@ describe("fastScopeFor", () => {
     expect(fastScopeFor(["packages/sim/src/step.ts"])).toEqual([
       "packages/sim",
       "tools/index/test/index.test.ts",
+      // The document sweep is not one of the three, and a rename in sim is
+      // exactly what breaks it.
+      "tools/test/doc-drift.test.ts",
     ]);
   });
 

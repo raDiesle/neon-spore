@@ -50,6 +50,13 @@ export const SWEEPS: readonly string[] = [
   "packages/sim/test/limits.test.ts",
   "packages/sim/test/purity.test.ts",
   "tools/index/test/index.test.ts",
+  // The fifth reads every document rather than every source file, and belongs
+  // here for the same reason the fourth does: a backticked path in a document
+  // is broken by the lane that *renames the file*, which is a change in
+  // `packages/` that no docs row can reach. Adding `tools/test` to the docs
+  // rows in `scope.ts` catches a document that names a file it has not got;
+  // this catches the other direction. It reads the tree in a sixth of a second.
+  "tools/test/doc-drift.test.ts",
 ];
 
 /**
