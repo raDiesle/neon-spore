@@ -381,6 +381,7 @@ with no new prose to place is a diff nobody can review against anything.
 ## Unverified at ce8a2324: THE SCOUT's arenas were never watched at tempo — the fl…
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Taken:** 2026-09-16, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
 - **Files:** `apps/game/src/rounds.ts`, `apps/game/src/scout.ts`, `docs/INDEX.md`, `docs/spec/briefings.md`, `docs/spec/interludes.md`, `docs/time-log.md`, `packages/content/src/control-aim.ts`, `packages/content/src/control-command.ts`
 
 *THE SCOUT: the ship puts a little one out, and only one of you can see where it is going* landed from a session that could not look at it. The commit touched 49 more files. What went unchecked:
