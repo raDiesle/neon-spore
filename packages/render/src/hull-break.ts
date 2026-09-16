@@ -1,5 +1,5 @@
 import type { Point } from "@neon-spore/content";
-import type { Crater } from "./crater-geom.js";
+import { type Crater, crystalPoints } from "./crater-geom.js";
 import { HULL_BREAK_LOOK, type HullBreakLook } from "./hull-break-look.js";
 import type { Layout } from "./layout.js";
 
@@ -30,11 +30,27 @@ export function drawHullBreaks(
   time: number,
   skinAt: (x: number) => Point,
   rim: string,
+  muzzle: string,
 ): void {
   const look: HullBreakLook = HULL_BREAK_LOOK;
-  if (look.open <= 0) return;
+  if (look.open <= 0 || craters.length === 0) return;
+  // An undamaged ship pays nothing, which is `drawCraters`' own guard and for
+  // its reason: a save is a counted op and every wave budget in
+  // `wave-budget.test.ts` is measured on frames with no open hole on them.
   ctx.save();
   for (const c of craters) {
+    // The hole's real outline, closed into a path and measured, because the
+    // crater itself is the owner's and not an answer's (`hull-break-look.ts`).
+    const pts = crystalPoints(c);
+    const dark = new Path2D();
+    let floor = c.top.y;
+    for (let i = 0; i < pts.length; i++) {
+      const p = pts[i] as Point;
+      if (i === 0) dark.moveTo(p.x, p.y);
+      else dark.lineTo(p.x, p.y);
+      floor = Math.max(floor, p.y);
+    }
+    dark.closePath();
     look.paint(ctx, {
       x: c.x,
       y: c.top.y,
@@ -48,6 +64,9 @@ export function drawHullBreaks(
       seed: (c.cols[0] ?? 0) * 31 + Math.round(c.rotation * 100),
       skinY: (x) => skinAt(x).y,
       rim,
+      pit: muzzle,
+      dark,
+      floor,
     });
   }
   ctx.restore();

@@ -1,3 +1,5 @@
+import { gape, OPEN } from "./hull-break-gape.js";
+
 /**
  * THE ONE RECORD A CANDIDATE **BREAK IN THE HULL** PATCHES.
  *
@@ -8,14 +10,15 @@
  * on the hull for the rest of the wave, and an answer on the hull that says
  * nothing at all about the moment, are both perfectly possible.
  *
- * **`open` is 0 and the shipped picture is therefore nothing extra.** What the
- * hull already wears is a crystal-shaped pit clipped into the skin
- * (`craters.ts`) and a crack running out of its rim (`scars.ts`), and neither
- * of them is *plating*: a hole in a membrane, with a line off it. The owner
- * asked for the ship to look destroyed where it was hit, by name, on 16
- * September 2026, and asked to be shown several answers first — so the field's
- * answer stays what it was, this record says so, and `ship:hull-break` is where
- * the answers are.
+ * **`open` was 0 and the shipped picture was therefore nothing extra**, for
+ * the length of one day. What the hull already wore was a crystal-shaped pit
+ * clipped into the skin (`craters.ts`) and a crack running out of its rim
+ * (`scars.ts`), and neither of them is *plating*: a hole in a membrane, with a
+ * line off it. The owner asked for the ship to look destroyed where it was
+ * hit, by name, on 16 September 2026, was shown three answers, and took `gape`
+ * — with the cavity it opened under the mouth taken back out of it
+ * (`hull-break-gape.ts`). The hole keeps its own shape; what is new is what
+ * stands *in* it.
  *
  * **Nothing here is clipped to the ship, and that is deliberate.** A crater is
  * clipped because a hole has to be *inside* something or it is a mark in the
@@ -51,6 +54,24 @@ export interface HullBreakPaint {
   readonly skinY: (x: number) => number;
   /** The ship's rim colour: torn plating is the same material as the hull. */
   readonly rim: string;
+  /** What the hole itself is filled with (`HullSkin.muzzle`), so anything an
+   * answer opens below the hole is the *same* dark and not a second one. */
+  readonly pit: string;
+  /**
+   * The hole's own outline, in screen space: the exact eight-point crystal
+   * `crater-pit.ts` fills (`crystalPoints`).
+   *
+   * **The crater is not the answer's to change.** The owner's rule, 16
+   * September 2026: *the crater shape must stay like current in game
+   * untouched*. An answer that wants to draw inside the hole clips to this and
+   * is then physically unable to widen it; one that wants to reach past it does
+   * so on purpose rather than by measuring a shape of its own off `r`.
+   */
+  readonly dark: Path2D;
+  /** The lowest that outline reaches. *The dark shouldn't go lower than the
+   * crater* — same sentence, same day — so this is the line an answer's own
+   * darkness is measured against. */
+  readonly floor: number;
 }
 
 export interface HullBreakLook {
@@ -69,7 +90,4 @@ export interface HullBreakLook {
   readonly paint: (ctx: CanvasRenderingContext2D, b: HullBreakPaint) => void;
 }
 
-/** The shipped picture: the pit and the crack, and nothing else. */
-function quiet(): void {}
-
-export const HULL_BREAK_LOOK: HullBreakLook = { open: 0, paint: quiet };
+export const HULL_BREAK_LOOK: HullBreakLook = { open: OPEN, paint: gape };

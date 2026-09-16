@@ -979,3 +979,35 @@ devices and already the thing that makes two hits in one wave two different
 pictures.
 
 The third answer offered was `spear`; it went with the slot.
+
+## `ship:hull-break` / `gape` — taken and changed, 2026-09-16
+
+Taken on the same evening as `ship:breach-strike`, and the second slot after
+`lost:screen` that `adopt` could not close: a `paint` cannot be written back
+into a record, so the candidate's file moved whole into
+`packages/render/src/hull-break-gape.ts` and the directory went.
+
+**Taken and changed, and the change is most of the file.** The candidate opened
+a cavity under the mouth — a bezier half an ellipse wide and one and a half
+radii deep, filled black — with ribs across it and a vent standing in it. The
+owner's answer: *the crater shape must stay like current in game untouched, so
+the dark shouldn't go lower than the crater. Only apply the lines with the
+glowing on the dark area where the meteor shape was before, keep the glowing on
+top, and just add a little bit of vertical glowing line going further from the
+dark into the crater area, but without extending the dark area or changing the
+overall crater graphics.*
+
+So the cavity is gone and the ribs stand in the **hole's own dark**, clipped to
+the exact eight-point crystal `crater-pit.ts` fills. The record hands that
+outline and its floor to the paint (`HullBreakPaint.dark`, `.floor`), which is
+what makes the rule enforceable rather than a sentence: an answer in this slot
+now physically cannot widen a crater. The vent's glow at the mouth and the torn
+lip are the candidate's, unchanged.
+
+**One thing does reach past the hole**, and it is the owner's own addition: a
+single glowing cut running down out of the dark, with a narrow tongue of the
+hole's own colour carried with it so the break goes a little deeper right
+there. `open` came down from 1.4 tiles to 0.35, because the reach really did
+change and that field is the one the next vote is cast on.
+
+The other answers offered were `buckle` and `peel`; they went with the slot.

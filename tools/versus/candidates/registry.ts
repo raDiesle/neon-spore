@@ -12,9 +12,6 @@ import { GUIDE_RAIL } from "./guide-chrome/rail/index.js";
 import { GUIDE_RIBBON } from "./guide-chrome/ribbon/index.js";
 import { GUIDE_SPOTLIGHT } from "./guide-chrome/spotlight/index.js";
 import { GUIDE_TIDE } from "./guide-chrome/tide/index.js";
-import { HULL_BREAK_BUCKLE } from "./ship-hull-break/buckle/index.js";
-import { HULL_BREAK_GAPE } from "./ship-hull-break/gape/index.js";
-import { HULL_BREAK_PEEL } from "./ship-hull-break/peel/index.js";
 
 export const VARIANTS: Variant[] = [
   GUIDE_COACH,
@@ -23,7 +20,4 @@ export const VARIANTS: Variant[] = [
   GUIDE_RIBBON,
   GUIDE_SPOTLIGHT,
   GUIDE_TIDE,
-  HULL_BREAK_BUCKLE,
-  HULL_BREAK_GAPE,
-  HULL_BREAK_PEEL,
 ];

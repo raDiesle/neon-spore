@@ -1,6 +1,6 @@
-import { crystalRadiusMul, METEOR, type Point } from "@neon-spore/content";
+import type { Point } from "@neon-spore/content";
 import { isWardable, type Scar, spanOf } from "@neon-spore/sim";
-import { type Crater, type CraterShape, centreY, cutY } from "./crater-geom.js";
+import { type Crater, type CraterShape, crystalPoints, cutY } from "./crater-geom.js";
 import { CRATER_LOOK } from "./crater-look.js";
 import type { HullSkin } from "./hull.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -111,18 +111,8 @@ export function craters(l: Layout, scars: readonly Scar[], skinAt: (x: number) =
  * the hull stops.
  */
 function mouth(c: CraterShape): { left: number; right: number } {
-  const cy = centreY(c);
   const cutAt = cutY(c);
-  const cos = Math.cos(c.rotation);
-  const sin = Math.sin(c.rotation);
-  const pts: Point[] = [];
-  for (let i = 0; i < METEOR.sides; i++) {
-    const a = (i / METEOR.sides) * Math.PI * 2;
-    const m = crystalRadiusMul(a, METEOR.sides, METEOR.depth, METEOR.wobble, 0, METEOR.seed);
-    const px = Math.cos(a) * c.r * m;
-    const py = Math.sin(a) * c.r * m;
-    pts.push({ x: c.x + px * cos - py * sin, y: cy + px * sin + py * cos });
-  }
+  const pts = crystalPoints(c);
   let left = c.x;
   let right = c.x;
   for (let i = 0; i < pts.length; i++) {

@@ -35,7 +35,6 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "guide:chrome": "GUIDE · A PAGE OF FILM",
-  "ship:hull-break": "BREACH · ROCKS COMING THROUGH",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

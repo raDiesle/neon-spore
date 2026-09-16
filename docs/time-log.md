@@ -7137,3 +7137,21 @@ nothing. A `--until breach` on `frames`, stopping at the tick an event fires,
 would have turned thirty minutes into one — it is in the queue.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — the hole shown to have an inside
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `craters.ts`, `crater-pit.ts`, `crater-geom.ts`, the candidate, where a break is drawn |
+| writing | 25 | `crystalPoints` factored out, two fields on the record, the corrected paint, three tests |
+| looking | 15 | the versus shot of the candidate, then two shots of the STATES card zoomed on one hole |
+| friction | 5 | a wave budget went red over one `save` on a frame with no hole in it |
+| landing | 10 | `check:fast` twice, the DECIDED entry, the commit |
+
+The bottleneck was reading, and it paid for itself twice. The crater's outline
+was already walked in `craters.ts` to measure the mouth, so handing the same
+walk to the look was a rename rather than a new derivation — and that outline,
+passed as a clip, is what turns the owner's *the crater must stay untouched*
+from a sentence in a doc comment into something the next candidate in this slot
+cannot get wrong. The budget going red was the same reading paying again: the
+honest fix was `drawCraters`' own guard, not a moved number.

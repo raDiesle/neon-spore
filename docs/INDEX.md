@@ -1123,6 +1123,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |
 | `packages/render/src/hull-barrel.ts` | THE SHIP LIT BY ITS OWN NORMAL, instead of by a straight ramp across its box |
 | `packages/render/src/hull-break-look.ts` | THE ONE RECORD A CANDIDATE **BREAK IN THE HULL** PATCHES |
+| `packages/render/src/hull-break-gape.ts` | The hole shown to have an inside: ribs of the frame standing in the dark where the skin used to be |
 | `packages/render/src/hull-break.ts` | **What the ship wears where something went through it.** One call per open hole |
 | `packages/render/src/hull-mood.ts` | what the ship is doing this frame — `HullMood`, the eased state of its membrane, and `LobePositions`, where its lobes stand — re-exported from `hull-frame.ts` |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |

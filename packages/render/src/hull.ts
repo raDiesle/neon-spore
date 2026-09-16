@@ -188,7 +188,7 @@ export function drawHull(
   // *not* clipped to the ship: a hole has to be inside the outline and a piece
   // of plating bent back out of one does not. The shipped look draws nothing
   // and this call is the seam a candidate reaches through (`hull-break-look.ts`).
-  drawHullBreaks(ctx, l, openCraters, time, (x) => skin(f, x), skin_.rim);
+  drawHullBreaks(ctx, l, openCraters, time, (x) => skin(f, x), skin_.rim, skin_.muzzle);
   const on = (x: number) => surface(f, x);
   drawShieldRim(ctx, l, mood.armed, time, at, on, mood.resonance ?? 0);
   // A control held by a harpoon, heating up toward the tick it costs the round

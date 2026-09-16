@@ -1,4 +1,4 @@
-import type { Point } from "@neon-spore/content";
+import { crystalRadiusMul, METEOR, type Point } from "@neon-spore/content";
 
 /**
  * What a crater *is*, and the two heights everything about one is measured
@@ -67,4 +67,33 @@ export function cutY(c: CraterShape): number {
  * `rock-impact.ts`'s stuck rock, which sits at exactly this height. */
 export function centreY(c: CraterShape): number {
   return c.top.y - c.r * 0.5;
+}
+
+/**
+ * The eight points the hole is cut as, **in screen space**: the rock's own
+ * crystal at its own radius, turned to the facing it came to rest at and
+ * placed at its centre.
+ *
+ * One walk, two callers. `craters.ts` intersects it with `cutY` to measure the
+ * mouth, and `hull-break.ts` closes it into the path a break look is clipped
+ * to — because the owner's rule about damage on the hull is that the crater
+ * itself stays exactly as it is (16 September 2026), and the only way an
+ * answer can be held to that is to be handed the hole's real outline rather
+ * than an estimate from the radius. `crystalPath` builds the same eight points
+ * around the origin for the fill, which draws them under the caller's own
+ * transform.
+ */
+export function crystalPoints(c: CraterShape): Point[] {
+  const cy = centreY(c);
+  const cos = Math.cos(c.rotation);
+  const sin = Math.sin(c.rotation);
+  const pts: Point[] = [];
+  for (let i = 0; i < METEOR.sides; i++) {
+    const a = (i / METEOR.sides) * Math.PI * 2;
+    const m = crystalRadiusMul(a, METEOR.sides, METEOR.depth, METEOR.wobble, 0, METEOR.seed);
+    const px = Math.cos(a) * c.r * m;
+    const py = Math.sin(a) * c.r * m;
+    pts.push({ x: c.x + px * cos - py * sin, y: cy + px * sin + py * cos });
+  }
+  return pts;
 }
