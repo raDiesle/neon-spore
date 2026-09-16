@@ -1,9 +1,9 @@
 /**
- * The replay, and the two conflicts it settles on its own
+ * The replay, and the three conflicts it settles on its own
  *
  * `git rebase` is run here rather than in `run.ts` because it is no longer a
- * single call. Two files conflict on landing after landing and neither
- * disagreement is one anybody authored:
+ * single call. Three files conflict on landing after landing and not one of
+ * those disagreements is one anybody authored:
  *
  * - **`docs/queue.md`**, on every landing that drained an item — `bun run queue
  *   take` wrote the `Taken:` line on the trunk and `bun run queue done` removed
@@ -14,11 +14,15 @@
  *   the one `CLAUDE.md` already states — resolve a generated file by running
  *   its command — with the lane's own row text put back afterwards
  *   (`index-merge.ts`).
+ * - **`docs/time-log.md`**, whenever two lanes land the same hour, because
+ *   every lane appends its entry in the landing commit and both appended at
+ *   the end. It is a record, so nothing is ever dropped from it
+ *   (`ledger-merge.ts`).
  *
- * Anything else stops the landing exactly as before, and so does either of
- * those two when the sides genuinely disagree: both resolvers refuse rather
- * than guess. The guard that catches a finished queue entry coming back still
- * runs after the replay, so this is a shortcut through a known agreement rather
+ * Anything else stops the landing exactly as before, and so does any of those
+ * three when the sides genuinely disagree: every resolver refuses rather than
+ * guess. The guard that catches a finished queue entry coming back still runs
+ * after the replay, so this is a shortcut through a known agreement rather
  * than a new way to lose work.
  */
 
@@ -26,6 +30,7 @@ import { join as joinPath } from "node:path";
 import { regenerate } from "../index/generate.js";
 import { git } from "./git.js";
 import { keepLaneRows } from "./index-merge.js";
+import { LEDGER_FILE, mergeLedger } from "./ledger-merge.js";
 import { QUEUE_FILES } from "./queue-guard.js";
 import { mergeQueue } from "./queue-merge.js";
 
@@ -58,6 +63,7 @@ const RESOLVERS: Record<string, Resolver> = {};
 for (const file of QUEUE_FILES) {
   RESOLVERS[file] = async ({ base, trunk, lane }) => mergeQueue(base, trunk, lane);
 }
+RESOLVERS[LEDGER_FILE] = async ({ base, trunk, lane }) => mergeLedger(base, trunk, lane);
 RESOLVERS[INDEX_FILE] = async ({ root, file, base, trunk, lane }) => {
   // The trunk's copy is what the generator is run over: it carries every row
   // the trunk added, and the tree it reads is already this commit's, so the
@@ -90,7 +96,7 @@ async function run(args: string[], root: string): Promise<{ code: number; err: s
 }
 
 /**
- * Replay this lane onto `trunk`, settling the two known conflicts and stopping
+ * Replay this lane onto `trunk`, settling the three known conflicts and stopping
  * on everything else. A failed replay is left aborted, so the worktree is on
  * the lane's own commits either way.
  */

@@ -1349,6 +1349,7 @@ place — the generator keeps whatever is there.
 | `tools/orphans/orphans.ts` | a mechanic that is built and reached by nothing, with where to fix it |
 | `tools/director/src/orphans-panel.ts` | the ORPHANS sheet, painted red the moment the count leaves zero |
 | `tools/land/land.ts` | whether a lane can land on a linear trunk, and what that would do |
+| `tools/land/ledger-merge.ts` | merging the ledger when a lane and the trunk both appended; a record loses no row |
 | `tools/land/notes.ts` | a landed commit turned into a release note, and where it goes in the file |
 | `tools/land/note-commit.ts` | The two files a landing writes at the moment `main` moves, and the one commit that carries them |
 | `tools/land/worktree.ts` | removing a worktree on Windows, verified rather than trusted, and when |
@@ -1652,7 +1653,7 @@ place — the generator keeps whatever is there.
 | `tools/maze/carve.ts` | The walls of THE MAZE's grid: which of them are opened |
 | `tools/director/src/maze-editor.ts` | THE MAZE's five stages, walked through one at a time |
 | `tools/land/refusal.ts` | Why a push was refused, said in full — git's own words and where the trunk stands |
-| `tools/land/replay.ts` | The replay, and the one conflict it settles on its own |
+| `tools/land/replay.ts` | the rebase, and the three conflicts it settles on its own |
 | `tools/land/remote-branch.ts` | The lane's branch on `origin`, after the landing has taken it locally |
 | `tools/land/red-check.ts` | What a landing says when `bun run check` comes back red |
 | `tools/frames/press.ts` | `--press`: the verbs a held thumb cannot reach |

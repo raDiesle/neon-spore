@@ -6698,3 +6698,24 @@ which is the entire measured cost of a second lane on the trunk. A practice
 became a resolver, and only one of those two is work.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — the-ledger-merges-itself — the record resolves its own conflict
+
+Not a queue item: the friction row *a rebase against append-only docs* in
+`docs/lane-speed.md`, picked up because this session had just paid it twice by
+hand in the same hour.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `replay.ts`'s resolver table, `queue-merge.ts` whole, `queue-guard.ts`'s file list, the ledger's own 310 headings for uniqueness |
+| writing | 15 | `ledger-merge.ts`, one line in `replay.ts`, ten pure cases and three against a real repository, the paragraph in `docs/lane-speed.md` |
+| looking | 0 | — nothing drawn |
+| friction | 0 | none |
+| landing | 10 | `bun run index` and its two rows, `check`, the commit, `bun run land` |
+
+The bottleneck was reading, and it was spent on one question worth the time:
+whether the queue's merge could simply be pointed at a second file. It could
+not — a queue entry is *meant* to be removed and a record's row never is — so
+the parser is shared and the policy is not. The pure cases were checked against
+a real rebase as well, because a wrong key in the resolver table passes every
+string test in the tree and changes nothing about the landing.

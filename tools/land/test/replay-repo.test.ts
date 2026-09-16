@@ -1,0 +1,92 @@
+import { afterAll, beforeAll, describe, expect, test } from "bun:test";
+import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { replay } from "../replay.js";
+
+/**
+ * The replay against a repository git actually made.
+ *
+ * `ledger-merge.ts` and `queue-merge.ts` are proved against hand-written
+ * strings, which says everything about the merge and nothing about the wiring:
+ * whether the key in `RESOLVERS` is the path git reports as conflicted, and
+ * whether a resolver is reached at all. A one-character difference in that key
+ * passes every pure test in the tree and leaves the landing stopping exactly
+ * as it did before — which is the failure this file exists to catch.
+ *
+ * So: one real repository, two real commits appending to the same end of the
+ * ledger, one real `git rebase`. The pattern is `repo.test.ts`'s, `realpath` on
+ * the way in for the same reason it gives.
+ */
+
+let root = "";
+
+async function git(args: string[]): Promise<void> {
+  const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
+  const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
+  if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
+}
+
+const PREAMBLE = "# Where a session's time goes\n\nOne `##` entry per lane.\n";
+
+function entry(name: string): string {
+  return `\n## 2026-09-16 — ${name} — what it did\n\n| activity | minutes |\n|---|---|\n| reading | 5 |\n\nThe bottleneck was reading.\n`;
+}
+
+async function ledger(text: string, message: string): Promise<void> {
+  await writeFile(join(root, "docs", "time-log.md"), text);
+  await git(["add", "docs/time-log.md"]);
+  await git(["commit", "-q", "-m", message]);
+}
+
+beforeAll(async () => {
+  root = await realpath(await mkdtemp(join(tmpdir(), "ns-replay-")));
+  await git(["init", "-b", "main", "--quiet"]);
+  await git(["config", "user.email", "test@example.com"]);
+  await git(["config", "user.name", "Test"]);
+  await Bun.write(join(root, "docs", "time-log.md"), PREAMBLE);
+  await git(["add", "."]);
+  await git(["commit", "-q", "-m", "the ledger"]);
+
+  // The lane branches here, then both sides append to the same last line.
+  await git(["switch", "-c", "lane", "--quiet"]);
+  await ledger(PREAMBLE + entry("my-lane"), "my lane, and its entry");
+  await git(["switch", "main", "--quiet"]);
+  await ledger(PREAMBLE + entry("their-lane"), "their lane, landed first");
+  await git(["switch", "lane", "--quiet"]);
+});
+
+afterAll(async () => {
+  await rm(root, { recursive: true, force: true }).catch(() => {});
+});
+
+describe("two lanes appending to the ledger in the same hour", () => {
+  test("replays without stopping, and says which file it settled", async () => {
+    const out = await replay(root, "main");
+    expect(out.ok).toBe(true);
+    expect(out.conflicted).toEqual([]);
+    // Named, not silent: a landing that resolved a record should say so.
+    expect(out.resolved).toContain("docs/time-log.md");
+  });
+
+  test("keeps both entries, the trunk's first", async () => {
+    const text = await Bun.file(join(root, "docs", "time-log.md")).text();
+    expect(text).toContain("their-lane");
+    expect(text).toContain("my-lane");
+    expect(text.indexOf("their-lane")).toBeLessThan(text.indexOf("my-lane"));
+    // The preamble survived a merge that touched neither end of it.
+    expect(text.startsWith(PREAMBLE)).toBe(true);
+  });
+
+  test("leaves the lane on top of the trunk, with both commits in history", async () => {
+    const proc = Bun.spawn(["git", "log", "--oneline", "main..HEAD"], {
+      cwd: root,
+      stdout: "pipe",
+      stderr: "pipe",
+    });
+    const log = await new Response(proc.stdout).text();
+    await proc.exited;
+    expect(log).toContain("my lane");
+    expect(log).not.toContain("their lane");
+  });
+});

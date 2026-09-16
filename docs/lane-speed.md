@@ -165,6 +165,22 @@ chosen while the diff is still about the file it is in. The rule is unchanged
 and still the test's; only the moment moved. Whether that row falls the way the
 heredoc row did is a reading for the next week of the ledger.
 
+The append-only row is the smallest of the six and the one with the least to
+decide, so it went the same way on 16 September. `bun run land` already
+replayed through two conflicts nobody authored — `docs/queue.md`, where one
+tool wrote both sides, and `docs/INDEX.md`, which is generated — and
+`docs/time-log.md` was not among them, though **every lane appends to it in
+the landing commit**, which makes two lanes landing the same hour a conflict on
+the same last lines every time. `tools/land/ledger-merge.ts` settles it as a
+record rather than as a list: trunk order first, the lane's own entry after it,
+and nothing dropped by either side. The session that wrote this paragraph had
+resolved that conflict by hand twice in the hour before it.
+
+Worth saying what the three resolvers have in common, because it is the shape
+of any fix that belongs here: each one **refuses** when the sides genuinely
+disagree. A merge that guessed would turn 65 minutes of friction into a record
+with a row missing, which nobody would find.
+
 ## What the machines actually cost
 
 Measured on the cloud image on 16 September 2026, at `origin/main` 3e322c18:
