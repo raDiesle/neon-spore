@@ -1,8 +1,14 @@
 /**
- * The design surface roster.ts does not cover: the couplings, the assist
- * forms, the not-yet-built systems and the idea store. Parsed on every
- * request for the same reason the bestiary is — a copy kept beside the spec
- * goes stale silently.
+ * The design surface roster.ts does not cover: the not-yet-built systems and
+ * the idea store. Parsed on every request for the same reason the bestiary is
+ * — a copy kept beside the spec goes stale silently.
+ *
+ * `couplings.md` and `assists.md` were read here too until 16 September 2026,
+ * when the owner cut them off the MECHANICS page: every section of both is
+ * built or half built, and a page called NOT BUILT YET was carrying them. The
+ * parser that read them is `toConcepts`, unchanged and still used — it is the
+ * two reads that went, because a file parsed on every request and shown to
+ * nobody is a cost with no reader.
  */
 
 import { firstParagraph, firstTable, parseNumberedSections, sectionBody } from "./sections.js";
@@ -38,8 +44,6 @@ export interface Idea {
 }
 
 export interface ConceptSheet {
-  couplings: Concept[];
-  assists: Concept[];
   systems: Concept[];
   ideas: Idea[];
   deferred: Idea[];
@@ -118,15 +122,8 @@ function parseBullets(text: string, headingContains: string, file: string): Idea
   return ideas;
 }
 
-export function parseConcepts(
-  couplings: string,
-  assists: string,
-  systems: string,
-  ideas: string,
-): ConceptSheet {
+export function parseConcepts(systems: string, ideas: string): ConceptSheet {
   return {
-    couplings: toConcepts(couplings, "couplings.md"),
-    assists: toConcepts(assists, "assists.md"),
     systems: toConcepts(systems, "systems.md"),
     ideas: parseBullets(ideas, "Accepted, not yet worked out", "ideas.md"),
     deferred: parseBullets(ideas, "Deliberately deferred", "ideas.md"),

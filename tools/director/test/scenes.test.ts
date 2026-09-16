@@ -1,9 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { CATALOGUE, SCENES } from "@neon-spore/shape-sheet";
 import { DEFAULT_CONFIG, hullRow } from "@neon-spore/sim";
-import { type Backlog, type BacklogGroup, buildBacklog } from "../src/backlog.js";
-import { parseRoster } from "../src/roster.js";
 import { sceneWorld } from "../src/scene-world.js";
+import { specNames } from "./spec-names.js";
 
 /**
  * A scene is a picture with three ways to go quietly wrong, and each of them
@@ -21,52 +20,15 @@ import { sceneWorld } from "../src/scene-world.js";
  * The third is why this file builds the worlds rather than reading the data.
  */
 
-const ROOT = new URL("../../../", import.meta.url);
-const read = (rel: string) => Bun.file(Bun.fileURLToPath(new URL(rel, ROOT))).text();
-
-async function realBacklog(): Promise<Backlog> {
-  return buildBacklog(
-    await read("docs/spec/couplings.md"),
-    await read("docs/spec/assists.md"),
-    await read("docs/spec/systems.md"),
-    await read("docs/spec/ideas.md"),
-  );
-}
-
-/**
- * Every name the design has, case-blind and with the built bosses in: a shape
- * or a scene drawn at THE VANE is drawn at something the act order lists as
- * "The Vane", built, and the backlog page hides a built row rather than
- * carrying it. Until 12 September 2026 the idea store kept a THE VANE bullet
- * after the boss was built only so this join would hold; the bullet is gone
- * and the join reads the roster instead.
- */
-async function allNames(backlog: Backlog): Promise<Set<string>> {
-  const roster = parseRoster(
-    await read("docs/spec/bestiary.md"),
-    await read("docs/spec/bosses.md"),
-  );
-  return new Set(
-    [
-      ...Object.values(backlog)
-        .flat()
-        .flatMap((g: BacklogGroup) => g.entries.map((e) => e.name)),
-      ...roster.bosses.map((b) => b.name),
-    ]
-      .filter(Boolean)
-      .map((n) => n.toLowerCase()),
-  );
-}
-
 describe("a mechanic drawn on the field", () => {
-  test("is a picture of a concept the backlog actually has", async () => {
+  test("is a picture of a concept the spec actually has", async () => {
     // A scene with no `suggests` is one whose concept was **cut** rather than
     // renamed — the seven drawn at THE WEIGHT, THE TITHE and THE CAIRN when
     // the BOSS IDEAS group went on 16 September 2026. The join is still the
     // thing being tested: a scene that *claims* a name has to name something
     // the design has, and this is the one way a picture is allowed to stop
     // claiming one (`shape-sheet/src/scene.ts`).
-    const names = await allNames(await realBacklog());
+    const names = await specNames();
     const claimed = SCENES.map((s) => s.suggests).filter((n): n is string => n !== undefined);
     expect(claimed.filter((n) => !names.has(n.toLowerCase()))).toEqual([]);
   });

@@ -96,6 +96,28 @@ function deferredGroup(deferred: Idea[]): BacklogGroup {
   };
 }
 
+/**
+ * The names the page still draws, out of the two groups the owner cut down on
+ * 16 September 2026.
+ *
+ * His rule that day: **MECHANICS shows only what is not implemented yet**, and
+ * a page that also carried what is half in the game was answering a question
+ * he had not asked. COUPLINGS and ASSIST FORMS went whole — every section of
+ * either is built or half built — and these two groups were cut to the work
+ * that has a `docs/queue.md` entry of its own: one system with pieces missing,
+ * three creatures nobody has built. The rest of both is still in `docs/spec/`,
+ * word for word, and is read there.
+ *
+ * **A list, not a rule, and therefore checked.** Nothing derives these four
+ * from the spec — they are the ones he named — so `test/backlog.test.ts`
+ * asserts each group holds exactly them, and a heading renamed in `ideas.md`
+ * or `systems.md` fails there rather than quietly emptying a column. When one
+ * of the four is built its lane takes the name out of here, the same way it
+ * cuts the bullet that described it.
+ */
+const KEPT_SYSTEMS = ["Destruction and damage"];
+const KEPT_CREATURES = ["Mine", "Moulting", "Husk"];
+
 // Whether a section's heading tail claims the thing exists. Not a string
 // equality test — "built", but also "the pod, built" — and "not built" /
 // "partly built" are ruled out first, since they contain the word but mean
@@ -106,31 +128,62 @@ function claimsBuilt(tail: string): boolean {
   return /\bbuilt\b/.test(t);
 }
 
-// A section counts as backlog unless its heading claims it exists — which
-// keeps "partly built", a system half in the game with work left.
-function fromConcepts(title: string, note: string, concepts: Concept[]): BacklogGroup {
-  const open = concepts.filter((c) => !claimsBuilt(c.status));
-  return {
-    title,
-    note,
-    builtHidden: concepts.length - open.length,
-    entries: open.map((c) => ({
-      name: c.name,
-      kind: c.status,
-      note: c.note,
-      detail: c.detail,
-      ref: c.ref,
-    })),
-  };
+/**
+ * What a half-built section has left: its **Not built:** sentence and whatever
+ * finishes that paragraph, and nothing above it.
+ *
+ * 5.6 is the case it was written for. The section opens with the design — real
+ * polygon pieces, splinters, drifting debris — and closes with a paragraph
+ * saying which half of that shipped: scars on the hull and craters on the
+ * meteor, which are in the game and are not this page's business. Showing the
+ * section whole put the built half on NOT BUILT YET, under a heading promising
+ * the opposite.
+ *
+ * Empty when the section says no such thing, and an empty remainder is a
+ * section with nothing left to show — `fromConcepts` drops it.
+ */
+function unbuiltRemainder(detail: string): string {
+  const at = detail.search(/(?:\*\*)?Not built:/i);
+  if (at === -1) return "";
+  const end = detail.indexOf("\n\n", at);
+  return (end === -1 ? detail.slice(at) : detail.slice(at, end)).replace(/\s*\n\s*/g, " ").trim();
 }
 
-export function buildBacklog(
-  couplings: string,
-  assists: string,
-  systems: string,
-  ideas: string,
-): Backlog {
-  const sheet = parseConcepts(couplings, assists, systems, ideas);
+/**
+ * A group of spec sections, cut to the names given and to what each has left.
+ *
+ * Two filters, and they are different questions. `claimsBuilt` asks whether the
+ * spec says the thing exists; `kept` is the owner's shortlist. A section that
+ * survives both and says "partly built" is shown as its remainder alone.
+ */
+function fromConcepts(
+  title: string,
+  note: string,
+  concepts: Concept[],
+  kept: string[],
+): BacklogGroup {
+  const entries: BacklogEntry[] = [];
+  for (const c of concepts) {
+    if (claimsBuilt(c.status) || !kept.includes(c.name)) continue;
+    const partly = c.status.toLowerCase().includes("partly built");
+    const left = partly ? unbuiltRemainder(c.detail) : "";
+    if (partly && left === "") continue;
+    entries.push({
+      name: c.name,
+      kind: c.status,
+      note: partly ? left : c.note,
+      detail: partly ? "" : c.detail,
+      ref: c.ref,
+    });
+  }
+  // Nothing is counted as hidden: what is not here is not all built, it is
+  // everything the shortlist leaves out, and "3 more are built" would be a
+  // sentence the page cannot honestly say. The group's own note says what it is.
+  return { title, note, builtHidden: 0, entries };
+}
+
+export function buildBacklog(systems: string, ideas: string): Backlog {
+  const sheet = parseConcepts(systems, ideas);
 
   return {
     // The controls used to be a tab of their own, holding two idea groups. A
@@ -142,14 +195,18 @@ export function buildBacklog(
     // falls — what it makes the pair say is the whole of it — and the contour
     // drawn for each stands on GRAPHICS, joined by the draft's `suggests`.
     mechanics: [
-      fromConcepts("COUPLINGS", "the patterns everything else follows from", sheet.couplings),
-      fromConcepts("ASSIST FORMS", "how the pair cushions a difference in ability", sheet.assists),
-      fromConcepts("SYSTEMS", "the rules the field plays by", sheet.systems),
+      fromConcepts(
+        "SYSTEMS",
+        "what is missing from a rule the field already half plays by — systems.md carries the built half",
+        sheet.systems,
+        KEPT_SYSTEMS,
+      ),
       fromIdeas(
         "CREATURE IDEAS",
-        "what would fall, accepted in principle and not worked out — ideas.md; the shape drawn for each is on GRAPHICS",
+        "the three bodies with work written down for them — ideas.md holds the rest; the shape drawn for each is on GRAPHICS",
         sheet,
         "Creatures",
+        KEPT_CREATURES,
       ),
       fromIdeas("MECHANIC IDEAS", "accepted in principle, not worked out", sheet, "Mechanics"),
       fromIdeas(

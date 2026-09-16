@@ -6157,3 +6157,25 @@ files wide and two helper functions deep, and the only judgement call was which
 tab leads now — MECHANICS rather than GRAPHICS, because GRAPHICS draws itself
 on first *click* and a sheet that opens on it would open on nothing. That pair
 of `class="on"` had no test holding it together; it has one now.
+
+## 2026-09-16 — queued-tasks — MECHANICS keeps only what is not implemented yet
+
+The owner's rule of 15 September 2026, asked as a question and answered as a
+rule: a page called NOT BUILT YET shows what is not built and nothing else. It
+was carrying the couplings and the assist forms whole, and every section of
+either is built or half built.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the entry, `backlog.ts`, `concepts.ts` and the five test files the cut reaches; every `suggests:` in the shape sheet, against every heading in `ideas.md` and `systems.md` |
+| writing | 35 | the shortlist and the unbuilt-remainder rule; two spec reads and two groups deleted; a shared `spec-names.ts` for the two joins, and `backlog.test.ts` rewritten around a page of six groups |
+| looking | 10 | the sheet opened on this worktree's own server: SYSTEMS at one, CREATURE IDEAS at three, the other four whole |
+| friction | 10 | the entry sends the built halves to DOCUMENTATION → SPEC, a room taken off that sheet on 14 September; and a heredoc refused for doubling its backslashes |
+| landing | 15 | `bun run index` and two stale rows in it, `check:fast`, the commit |
+
+The bottleneck was reading, and it was the thing that would have gone wrong
+silently: cutting nine creature ideas off the page orphans the nineteen
+drawings made at them, because both joins that hold a drawing to its concept
+were asking the *page* for the list of names. They ask the spec now — a shape
+whose idea is off the page is waiting, and only a shape whose idea was renamed
+is a picture of nothing.

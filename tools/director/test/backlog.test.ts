@@ -5,12 +5,7 @@ const ROOT = new URL("../../../", import.meta.url);
 const read = (rel: string) => Bun.file(Bun.fileURLToPath(new URL(rel, ROOT))).text();
 
 async function realBacklog(): Promise<Backlog> {
-  return buildBacklog(
-    await read("docs/spec/couplings.md"),
-    await read("docs/spec/assists.md"),
-    await read("docs/spec/systems.md"),
-    await read("docs/spec/ideas.md"),
-  );
+  return buildBacklog(await read("docs/spec/systems.md"), await read("docs/spec/ideas.md"));
 }
 
 const names = (groups: BacklogGroup[]): string[] =>
@@ -24,7 +19,7 @@ const group = (groups: BacklogGroup[], title: string): BacklogGroup => {
 };
 
 describe("buildBacklog", () => {
-  test("a built thing is not backlog, and the count of what was hidden is kept", async () => {
+  test("a built thing is not backlog, and no page holds one", async () => {
     const backlog = await realBacklog();
 
     // Nothing built is on any page. The BESTIARY tab went on 11 September
@@ -57,25 +52,53 @@ describe("buildBacklog", () => {
     expect(backlog).not.toHaveProperty("bosses");
   });
 
-  test("a built coupling drops out, a partly built system does not", async () => {
+  test("the page is the shortlist the owner named, spelled the spec's way", async () => {
+    const backlog = await realBacklog();
+
+    // The one test that catches a rename. `backlog.ts` keeps these four by
+    // name rather than deriving them, so a heading edited in `systems.md` or
+    // a bullet edited in `ideas.md` empties a column silently — unless this
+    // fails first. Exactly, not "contains": a fifth appearing unasked is the
+    // page creeping back to what the owner cut it down from.
+    expect(names([group(backlog.mechanics, "SYSTEMS")])).toEqual(["Destruction and damage"]);
+    expect(names([group(backlog.mechanics, "CREATURE IDEAS")])).toEqual([
+      "Mine",
+      "Moulting",
+      "Husk",
+    ]);
+  });
+
+  test("the couplings and the assist forms are off the page entirely", async () => {
     const backlog = await realBacklog();
     const mechanics = names(backlog.mechanics);
 
-    // Warding and marking are in the game; announcing is the work left.
-    expect(mechanics).not.toContain("Warding");
-    expect(mechanics).not.toContain("Marking");
-    expect(mechanics).toContain("Announcing");
+    // Both groups went on 16 September 2026, with the two spec files they were
+    // read from: every section of either is built or half built, and a page
+    // called NOT BUILT YET was carrying them. Announcing was the one coupling
+    // with real work left and it is not here either — the owner's rule is the
+    // page shows what has work *written down* for it.
+    for (const gone of ["Warding", "Marking", "Announcing", "THE GRIP", "The three forms"]) {
+      expect({ name: gone, on: mechanics.includes(gone) }).toEqual({ name: gone, on: false });
+    }
+    expect(backlog.mechanics.map((g) => g.title)).not.toContain("COUPLINGS");
+    expect(backlog.mechanics.map((g) => g.title)).not.toContain("ASSIST FORMS");
+  });
 
-    // "partly built" is work with a half still missing, and the badge says which.
-    const partly = backlog.mechanics
-      .flatMap((g) => g.entries)
-      .filter((e) => e.kind.includes("partly"));
-    expect(partly.length).toBeGreaterThan(0);
+  test("a half-built system shows what is missing and not what shipped", async () => {
+    const backlog = await realBacklog();
+    const damage = group(backlog.mechanics, "SYSTEMS").entries[0]!;
 
-    // The spec does not spell the tail the same way twice. These two are in
-    // the game and say so as "keep watch, built" and "the pod, built".
-    expect(mechanics).not.toContain("THE GRIP");
-    expect(mechanics).not.toContain("Power-ups");
+    // 5.6's closing paragraph names both halves in one breath. The page takes
+    // the second: scars and craters are in the game, and NOT BUILT YET saying
+    // so under that heading is the page describing the opposite of itself.
+    expect(damage.kind).toBe("partly built");
+    expect(damage.note).toStartWith("Not built:");
+    expect(damage.note).toContain("polygon clipping, splinters, debris");
+    expect(damage.note).not.toContain("scars on the hull");
+    // And nothing behind the expander: the section whole is `systems.md`, and
+    // this page is not where the built half is read.
+    expect(damage.detail).toBe("");
+    expect(damage.ref).toBe("systems.md 5.6");
   });
 
   test("a lead line is prose, never a flattened bullet list", async () => {
@@ -93,15 +116,18 @@ describe("buildBacklog", () => {
   test("an idea lands in the section its spec heading puts it under", async () => {
     const backlog = await realBacklog();
 
-    // A creature idea reads on the mechanics page, in a group of its own,
-    // since the BESTIARY tab went.
-    const creatures = group(backlog.mechanics, "CREATURE IDEAS");
-    expect(names([creatures])).toContain("Prism");
-    expect(names([creatures])).toContain("Wave gate");
+    // The three idea groups that were not named on 16 September stay whole:
+    // every mechanic, control and weapon idea the spec holds is on the page,
+    // because every one of them is a thing the game does not do.
     expect(names(backlog.mechanics)).toContain("Reverse wave");
-    // The controls read on down the mechanics page rather than having one of
-    // their own — a control is a rule that happens to live in a hand.
     expect(names(backlog.mechanics)).toContain("Inverted instructions");
+
+    // The creature ideas are the cut group, and these two are the proof that
+    // it is cut rather than emptied by a parse that stopped finding the
+    // heading: they are in `ideas.md`, the shapes drawn at them are still on
+    // GRAPHICS, and the page does not draw them.
+    expect(names(backlog.mechanics)).not.toContain("Prism");
+    expect(names(backlog.mechanics)).not.toContain("Wave gate");
 
     // A round that is not the field is none of the three above: it has no
     // silhouette, it is not a rule the field plays by, and it does not change
@@ -144,10 +170,10 @@ describe("buildBacklog", () => {
     const backlog = await realBacklog();
     for (const groups of Object.values(backlog)) {
       for (const group of groups as BacklogGroup[]) {
-        // A group whose every row is built is populated — the page says
-        // "nothing here — all of it is built" and counts them. A heading the
-        // parser no longer finds is nothing at all: no rows and none hidden.
-        const found = group.entries.length > 0 || group.builtHidden > 0;
+        // A group with no entries is a heading the parser no longer finds, now
+        // that nothing on this page is hidden for being built: the two cut
+        // groups are checked by name above, and the rest are whole.
+        const found = group.entries.length > 0;
         expect({ title: group.title, found }).toEqual({ title: group.title, found: true });
       }
     }
