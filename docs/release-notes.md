@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 40a9e8d3 — The director's stage plays the guide being typed, not the one last saved
+
+`buildStageWorld` reads the draft for everything it is handed and says so — the page count, the queue, the pods, the control set. It was not true of the words. `guide-prose.ts` read `WAVES[world.wave]?.guide` and `guide-play.ts` read that guide's `scene`, both by index off the list on disk, so an author typing into the three GUIDE fields changed the fields and nothing on the stage — while the page count beside them, which does come off the draft, counted the pages of the wave being written. The two could disagree about the same wave.
+
 ## 2026-09-16 · b5de32ad — THE DIASTOLE is drawn, and the picture has three states where the design had two
 
 Two chambers hang above row 0, one lane either side of the middle, with the bundle of vessels bowing between them. A chamber a seat owns and that is keeping a cadence pulses in that seat's colour; one a seat does not own is a grey mass. That is the encounter and not a trick of the drawing: a still mass is exactly what a count you cannot hear looks like, and the only way to learn the other one's stride is for its owner to say it out loud.

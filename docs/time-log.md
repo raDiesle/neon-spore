@@ -7534,3 +7534,5 @@ reading prose exactly as it is meant to. And the two draft readers took
 `stage.ts` to 260 lines, which is the split this file's own rule asks for: what
 the wave being edited says about itself is a different subject from wiring a
 canvas to a keyboard.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
