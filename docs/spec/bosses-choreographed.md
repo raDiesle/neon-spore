@@ -29,7 +29,7 @@ that list (`CLAUDE.md`, *an idea for the game is not collected*).
 | Concept | State | Lane |
 |---|---|---|
 | [§7 THE DIASTOLE](#7-the-diastole--two-clocks-at-once) | **built, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation and THE SLOW, then the look. Worked and written up as [bosses](bosses.md) §11.17 |
-| [§10 THE BATON](#10-the-baton--whose-turn-is-it) | **taken, 16 September 2026** | `claude/boss-implementation-e3cfff` — the simulation half first, the look as the lane after; the next free concept this session takes is claimed here again before a line of it is written |
+| [§10 THE BATON](#10-the-baton--whose-turn-is-it) | **simulation built, 16 September 2026; look taken** | `claude/boss-implementation-e3cfff` — the simulation landed as [bosses](bosses.md) §11.18 (wave 68); the look — the arm, the sockets, the bead in flight, the grey panel on the locked seat — is the lane under way now. The next free concept this session takes is claimed here again before a line of it is written |
 | [§1 THE THROAT](#1-the-throat--what-you-feed-it) | **taken, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation half first (the inhale, the five ring tensions, the fling into the mouth), the look and the eversion as the lane after |
 | the other twelve | free | — |
 
