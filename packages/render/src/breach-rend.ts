@@ -1,6 +1,6 @@
-import type { StrikePaint } from "../../../../../packages/render/src/breach-look.js";
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { stream } from "../../../../../packages/render/src/hash.js";
+import type { StrikePaint } from "./breach-look.js";
+import { strokeGlow } from "./glow.js";
+import { stream } from "./hash.js";
 
 /**
  * The plating giving way. The skin around the point chars first — a dark patch
@@ -9,13 +9,18 @@ import { stream } from "../../../../../packages/render/src/hash.js";
  * the char spreads under them.
  *
  * **What it argues** is that a breach should read as *material failing*
- * rather than as energy arriving. The other two answers in this slot are both
- * light at a point; this one takes light away first, and the eye goes to the
- * hole because it is the only dark thing on a lit ship.
+ * rather than as energy arriving: it takes light away first, and the eye goes
+ * to the hole because it is the only dark thing on a lit ship.
+ *
+ * **One of the two pictures a breach gets**, and `breach-either.ts` is which
+ * hit gets which. The owner took this and `breach-hammer.ts` together out of
+ * the three `ship:breach-strike` was opened with, on 16 September 2026, and
+ * asked for either one or the other — so neither of them is *the* breach and
+ * both are written as if they were.
  */
 
-/** Seconds. The slowest of the three: a tear is a thing that spreads. */
-export const SECONDS = 1.2;
+/** Seconds. The slower of the two: a tear is a thing that spreads. */
+export const REND_SECONDS = 1.2;
 
 /** How many forks tear out of the point. Odd, so none of them is straight down. */
 const FORKS = 7;

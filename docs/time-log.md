@@ -7092,3 +7092,21 @@ about the wave that no `World` field carries, and nine waves where the button
 would be dead. That is an idea, and it is on the sheet with its questions.
 
 *Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-16 — creature-bite-collision — a breach is a tear or a blow
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | both candidates, `breach-strike.ts`, how the seed is built, what the stub logs |
+| writing | 25 | the two paints rehoused, `breach-either.ts`, four tests, the DECIDED entry |
+| looking | 30 | hunting a real breach frame — three sweeps of `bun run frames` and a director shot |
+| friction | 10 | `versus drop` refused a slot whose registry no longer had it; the pose row test |
+| landing | 10 | `check:fast` twice, the commit |
+
+The bottleneck was looking, by a long way, and it is a tool-shaped one: there
+is no way to ask for *the frame the ship was hit on*. `bun run frames` takes an
+absolute tick, so finding the breach is a binary search by eye across three
+captures of fourteen frames each, and the answer is different for every wave.
+The director's own BREACH pose is a still on the STATES card, so `--wait` moves
+nothing. A `--until breach` on `frames`, stopping at the tick an event fires,
+would have turned thirty minutes into one — it is in the queue.

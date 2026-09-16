@@ -1,3 +1,4 @@
+import { either, STRIKE_SECONDS } from "./breach-either.js";
 import type { Layout } from "./layout.js";
 
 /**
@@ -8,16 +9,17 @@ import type { Layout } from "./layout.js";
  * one `draw()` and the call site never learns anything about it
  * (`docs/versus.md`).
  *
- * **`seconds` is 0 and the shipped picture is therefore nothing.** That is the
- * honest number rather than a placeholder. The most expensive event in this
- * game — the hit that loses the wave, 12 September 2026 — is drawn today about
- * as loudly as a shot landing: sparks thrown from the point in the body's own
- * colour (`effects-breach.ts`), a crack that stays (`scars.ts`), and for one
- * creature out of forty the whole ship conducting (`hull-shock.ts`). There is
- * no moment in it. The owner asked for one, by name, on 16 September 2026, and
- * asked to be shown several answers before any of them goes on the field — so
- * the field's answer stays none, this record says so, and `ship:breach-strike`
- * is where the answers are.
+ * **`seconds` was 0 and the shipped picture was therefore nothing**, from the
+ * day the record existed until the evening of the same one. The most expensive
+ * event in this game — the hit that loses the wave, 12 September 2026 — was
+ * drawn about as loudly as a shot landing: sparks thrown from the point in the
+ * body's own colour (`effects-breach.ts`), a crack that stays (`scars.ts`), and
+ * for one creature out of forty the whole ship conducting (`hull-shock.ts`).
+ * There was no moment in it. The owner asked for one by name on 16 September
+ * 2026, was shown three, and took **two**: a tear (`breach-rend.ts`) and a blow
+ * (`breach-hammer.ts`), either one or the other per hit. Which one is
+ * `breach-either.ts`, and it is decided by the hit's own seed rather than at
+ * random, because both phones have to be looking at the same picture.
  *
  * The seam is `Debris`'s, spelled the same way: a transient that draws nothing
  * sits in `RenderState` because a candidate cannot add one — it can only patch
@@ -68,7 +70,7 @@ export interface BreachStrikeLook {
   readonly paint: (ctx: CanvasRenderingContext2D, s: StrikePaint) => void;
 }
 
-/** The shipped picture: none, for the reason in the header. */
-function quiet(): void {}
-
-export const BREACH_STRIKE_LOOK: BreachStrikeLook = { seconds: 0, paint: quiet };
+export const BREACH_STRIKE_LOOK: BreachStrikeLook = {
+  seconds: STRIKE_SECONDS,
+  paint: either,
+};

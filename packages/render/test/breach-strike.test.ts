@@ -97,13 +97,30 @@ describe("the strike waits for what caused it", () => {
 });
 
 describe("the look is the switch", () => {
-  it("draws nothing at all at the shipped record", () => {
+  it("draws nothing at all while the look asks for no seconds", () => {
+    // `seconds: 0` is the whole switch, and it was the shipped record until
+    // the owner took two answers on 16 September 2026 (`breach-either.ts`).
+    // It is still the switch every future candidate is offered through.
+    const fx = new BreachStrike();
+    fx.ingest([breach("slick")]);
+    fx.update(0.016, () => true);
+    const { ctx } = stubCanvas();
+    withLook(
+      0,
+      () => {},
+      () => fx.draw(ctx as never, L, SURFACE),
+    );
+    expect(ctx.calls).toBe(0);
+  });
+
+  it("draws the shipped record's own picture, on a real canvas", () => {
+    // Not a patch: what the game actually draws on the frame it loses a wave.
     const fx = new BreachStrike();
     fx.ingest([breach("slick")]);
     fx.update(0.016, () => true);
     const { ctx } = stubCanvas();
     fx.draw(ctx as never, L, SURFACE);
-    expect(ctx.calls).toBe(0);
+    expect(ctx.calls).toBeGreaterThan(0);
   });
 
   it("runs its own clock out and then stops drawing", () => {

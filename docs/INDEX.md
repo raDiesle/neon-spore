@@ -603,8 +603,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/break-look.ts` | THE ONE RECORD A CANDIDATE **BREAK** PATCHES |
 | `packages/render/src/break-piece.ts` | How one piece of a broken body is painted |
 | `packages/render/src/breach-hue.ts` | **The colour a breach is drawn in**, and the one copy of it |
+| `packages/render/src/breach-hammer.ts` | The blow, drawn as a blow: a white core at the point and one crest running away from it along the membrane in… |
 | `packages/render/src/breach-look.ts` | THE ONE RECORD A CANDIDATE **STRIKE** PATCHES |
 | `packages/render/src/breach-strike.ts` | **The hit that loses the wave, seen happening.** One `breach` event |
+| `packages/render/src/breach-either.ts` | **Which of the two pictures this breach gets.** The owner took `rend` and `hammer` together out of the three… |
+| `packages/render/src/breach-rend.ts` | The plating giving way |
 | `packages/render/src/cannon-maw.ts` | Laying the shot: `maw.ts` run backwards |
 | `packages/render/src/clasp-break.ts` | THE CLASP's shield failing |
 | `packages/render/src/clasp-lattice.ts` | The honeycomb inside THE CLASP's bubble |

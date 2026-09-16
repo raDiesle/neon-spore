@@ -954,3 +954,28 @@ stamped on the upper plate at thirty points.
 
 The other answers offered were `breach-hole` and `signal`; they went with the
 slot.
+
+## `ship:breach-strike` / `rend` **and** `hammer` — both taken, 2026-09-16
+
+**The first slot to leave with two answers in it.** The owner liked both and
+asked for the pair rather than the winner — *can we use both and randomly use
+either the one or the other in game* — so a breach is a tear or a blow, and
+the ship does not lose the same way twice running. Taken by hand, the way
+`lost:screen` was: `adopt` cannot write a `paint` back into a record, so both
+candidates' `paint.ts` moved whole into `packages/render/src/breach-rend.ts`
+and `packages/render/src/breach-hammer.ts`, and the slot's directory went.
+
+`rend` is the plating giving way: the skin around the point chars to a dark
+patch with no light in it and seven forks of light tear out of the char along
+the membrane, 1.2 seconds, and the char is still there when they have gone
+out. `hammer` is the hit as a blow: a white core at the point and one crest
+running away along the membrane both ways, over in 0.55.
+
+**Which hit gets which is not random**, and `breach-either.ts` carries the
+reason: two phones draw the same breach, and the whole of this game is two
+people saying out loud what they just saw. So the coin is the hit's own seed —
+`col * 97 + beat`, through `sinHash` — which is the same number on both
+devices and already the thing that makes two hits in one wave two different
+pictures.
+
+The third answer offered was `spear`; it went with the slot.

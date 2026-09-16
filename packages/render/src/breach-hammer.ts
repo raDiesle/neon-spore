@@ -1,5 +1,5 @@
-import type { StrikePaint } from "../../../../../packages/render/src/breach-look.js";
-import { halo, strokeGlow } from "../../../../../packages/render/src/glow.js";
+import type { StrikePaint } from "./breach-look.js";
+import { halo, strokeGlow } from "./glow.js";
 
 /**
  * The blow, drawn as a blow: a white core at the point and one crest running
@@ -9,10 +9,16 @@ import { halo, strokeGlow } from "../../../../../packages/render/src/glow.js";
  * taken again and for the same reason: a wash of light over the ship is a
  * ship lit from outside, and a line that follows every rise the membrane takes
  * is something travelling *through* it.
+ *
+ * **The other of the two pictures a breach gets** — `breach-rend.ts` is the
+ * first and `breach-either.ts` is which hit gets which. This one is over in
+ * half the record's clock, which is deliberate and is the whole of the
+ * difference between them: a hammer blow that lasted as long as a tear would
+ * be a press.
  */
 
 /** Seconds. Short: a hammer blow that lasted a second would be a press. */
-export const SECONDS = 0.55;
+export const HAMMER_SECONDS = 0.55;
 
 /** How far the crest gets, in tiles, for a one-column body. */
 const REACH_TILES = 6;

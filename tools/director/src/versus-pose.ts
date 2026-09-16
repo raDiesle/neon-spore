@@ -35,7 +35,6 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "guide:chrome": "GUIDE · A PAGE OF FILM",
-  "ship:breach-strike": "BREACH · THE HIT THAT LOSES IT",
   "ship:hull-break": "BREACH · ROCKS COMING THROUGH",
 };
 
