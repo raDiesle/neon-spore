@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 0dd9d7ec — The director says which film a wave plays, over the words it does not
+
+A guide that names a scene never draws its three paragraphs — the film takes the whole stage — so for the sixty-odd waves that carry one the GUIDE panel was showing a reader the half the pair never meets and nothing at all about the pages they do. FIRST STEP is the plainest case: three paragraphs written, and what opens is four pages of film, ENEMY through A MISS LOSES THE WAVE.
+
 ## 2026-09-16 · 7f80aedf — THE THROAT is claimed, so a parallel session does not start it too
 
 §1 of `docs/spec/bosses-choreographed.md`, in the two lanes a creature is always split into: the simulation — the inhale that moves bodies up a column, the five ring tensions that are its health, and the gum flung into the mouth — and then the look, which carries the eversion the design says is the whole reason to build it.

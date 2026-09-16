@@ -7552,3 +7552,5 @@ to build. The entry offered two sizes and the smaller one is the whole of the
 complaint: a reader was being told the wrong thing, and a picker would have
 been a new decision on top of fixing that. The decision is queued with the
 three options written out instead.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
