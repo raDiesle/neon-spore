@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · b5de32ad — THE DIASTOLE is drawn, and the picture has three states where the design had two
+
+Two chambers hang above row 0, one lane either side of the middle, with the bundle of vessels bowing between them. A chamber a seat owns and that is keeping a cadence pulses in that seat's colour; one a seat does not own is a grey mass. That is the encounter and not a trick of the drawing: a still mass is exactly what a count you cannot hear looks like, and the only way to learn the other one's stride is for its owner to say it out loud.
+
 ## 2026-09-16 · 5503b97a — Two documents stop sending a reader to a GUIDES sheet that is not there
 
 The guide's words moved into the WAVE tab's three fields on 14 September 2026 and the `✎ GUIDES` sheet went with them, but `docs/spec/briefings.md` and `tools/director/README.md` still described the sheet, the `◇ NOT BUILT YET → GUIDES` room beside it and the `BRIEFING` note above the fields as things to go and look at. Someone reading either one hunts for a tab that does not exist and concludes the tool is broken, which is close to what happened.

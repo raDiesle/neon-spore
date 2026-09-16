@@ -7512,3 +7512,5 @@ The bottleneck was looking, and it should have been: a mechanic this file draws
 has no shipped alternative to compare against, so the only test of whether a
 still grey mass reads as *a count you cannot hear* rather than as *a bug* is a
 person looking at one. Three of the four frames changed the code.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
