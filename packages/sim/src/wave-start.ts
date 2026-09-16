@@ -12,6 +12,7 @@ import { installMaze } from "./maze-state.js";
 import { installMirror } from "./mirror.js";
 import { installPinball } from "./pinball-round.js";
 import { installPulse } from "./pulse-round.js";
+import { installScout } from "./scout-round.js";
 import { NO_SHELL } from "./shell.js";
 import { installSnake } from "./snake-round.js";
 import { installSplice } from "./splice-round.js";
@@ -174,6 +175,12 @@ export function startWave(
     // pile is a body standing on the grid, wide enough to have lanes of its
     // own, and a hand has to be able to find it (`cairn.ts`).
     world.boss = installCairn(world, boss);
+  } else if (boss?.kind === "scout") {
+    // The same nothing THE GAUGE and SNAKE leave on the field, for the same
+    // reason: the arena is the round's own picture and the ship is in it as
+    // the little one that was put out of it, so there is no body here for the
+    // fall loop, the hull or a hand to find (`scout.ts`).
+    world.boss = installScout(world, boss.arenas);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

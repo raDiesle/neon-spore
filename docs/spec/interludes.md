@@ -263,6 +263,66 @@ players whatever the body is doing, where "column four" needs a screen both of
 them can read — and in a round where only one of them can see the arena, that
 is the difference between a sentence and a guess.
 
+### THE SCOUT, the round that flies
+
+The owner asked for it on 16 September 2026, in his own words: *the mother ship
+spills out another tiny ship, which one player can fly freely around the space.
+It must evade enemies, otherwise it damages like hull and wave is lost. It can
+collect a specific kind of power up, and it is required to collect all of them
+to complete the wave.* On the ordinary field that is the one thing this game
+cannot have — **nothing the players control travels** — so it is a round with
+its own picture, which is exactly the exemption
+[`docs/decisions.md` #21](../decisions.md) describes and the same one SNAKE
+uses. It is built as `boss: { kind: "scout", arenas: [...] }` and is the
+thirteenth boss.
+
+**The panel is THE CLAW's, because that is where he asked for it.** Player 1
+holds the two turns and the burn — the crank that winds the arm home now swings
+a nose, and the button that sends the arm now pushes a ship — and **player 2
+holds the mouth**. A mote is picked up by flying over it and is not *had* until
+the little ship is back at the mother ship with that mouth open, which is THE
+CLAW's own rule that nothing is caught by one person alone. The seat that can
+see the arena therefore has a thumb in the round as well as a voice.
+
+**The split is the round.** Player 1 is shown the ship and its heading and not
+the arena; player 2 is shown every mote and every hazard and cannot move the
+ship by a thousandth of a tile. So the flying is done on somebody's word — an
+o'clock to point at and how long to burn — which is what keeps a game about
+flying a game about talking.
+
+**The motes are the first power-up that is flown to.** A pod comes to the ship
+because there was no flying in the game (`sim/pods.ts` says so out loud); a
+mote hangs exactly where a person placed it. Every mote in an arena has to be
+banked, or the arena is not won.
+
+**Its numbers are in `packages/sim/src/config-scout.ts`**, and all of them are
+feel. `scoutTurnMilliDeg` is how far the nose swings in a tick while a turn is
+held; `scoutBurnMilli` is what one tick of burn adds to the travel; and
+`scoutDragMilli` is what is left of that travel after a tick of nobody pressing
+anything — the three together decide whether the thing reads as a ship or as a
+cursor, and the drag is the one that matters most: near a thousand it is on
+ice, under about nine hundred it hops. `scoutMaxSpeedMilli` is the ceiling, and
+it exists so the ship cannot arrive before the sentence that sent it does.
+`scoutBounceMilli` is what a wall gives back — a wall is not a hazard and costs
+only time. `scoutRadiusMilli`, `scoutMoteRadiusMilli`, `scoutHazardRadiusMilli`
+and `scoutHomeRadiusMilli` are what counts as touching each of the four things
+in the arena, and home's is the largest because it is the one thing the pair is
+aiming at. `scoutMawTicks` is how long the mother ship's mouth stands open on a
+press. `scoutLeadBeats` is the quiet before the ship is let go, and
+`scoutVerdictBeats` is how long the result stands.
+
+**A hazard's touch is the wave lost**, and so is the clock running out with a
+mote still owed: both break the hull through `breachHull`, and since 12
+September 2026 every hit fails the wave (`sim/wave-fail.ts`). The round has no
+second try of its own, for the reason SNAKE's section gives one page up.
+
+**What is not built yet is the picture.** The round plays, the fingerprint
+covers it and `packages/sim/test/scout.test.ts` holds the flying; nothing of
+the little ship, the motes or the mother ship's mouth is drawn, and its
+rehearsal is still the three strings (§3.2 of
+[briefings](briefings.md)). That is the second half of the work rather than an
+oversight: a look is offered rather than assumed, and this one has none yet.
+
 ## Where they sit in the run
 
 In the act table, as bosses. Ten acts is ten boss slots and twelve rounds is

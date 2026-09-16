@@ -164,6 +164,28 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   vane: { kind: "vane", pins: 3 },
   maze: { kind: "maze", rounds: [WHEEL] },
   gauge: { kind: "gauge" },
+  // THE SCOUT authors the arena whole: where the little ship is put down, what
+  // it has to collect and what is moving between. Two motes and one hazard is
+  // the smallest arena that is still the round — something to collect twice,
+  // and something that would end it — and one arena is enough, because what
+  // the fingerprint has to notice is the flight rather than the list
+  // (`scout-hash.ts`).
+  scout: {
+    kind: "scout",
+    arenas: [
+      {
+        beats: 24,
+        startColMilli: 3_500,
+        startRowMilli: 7_500,
+        startHeadingMilli: 0,
+        motes: [
+          { colMilli: 1_500, rowMilli: 2_500 },
+          { colMilli: 5_500, rowMilli: 11_500 },
+        ],
+        hazards: [{ colMilli: 3_500, rowMilli: 2_000, vColMilli: 2_000, vRowMilli: 0 }],
+      },
+    ],
+  },
   // THE WELL authors nothing and keeps nothing: the tag is the only number it
   // contributes to the fingerprint (`well.ts`).
   well: { kind: "well" },

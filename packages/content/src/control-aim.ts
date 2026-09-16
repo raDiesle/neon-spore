@@ -40,6 +40,11 @@ export function aimOf(id: ControlId): Aim {
       return down.dir < 0 ? "left" : "right";
     case "snakeTurn":
       return down.dir;
+    // THE SCOUT's nose, and it is the arrows' business for `snakeTurn`'s
+    // reason: it walks something out in the arena rather than sliding
+    // something along the ship.
+    case "scoutTurn":
+      return down.dir < 0 ? "left" : "right";
     case "pulseStep":
       return down.lane;
     case "aim":
@@ -63,7 +68,7 @@ export function aimOf(id: ControlId): Aim {
  */
 export function onArrows(id: ControlId): boolean {
   const { kind } = controlPress(id).down;
-  return kind === "aim" || kind === "snakeTurn";
+  return kind === "aim" || kind === "snakeTurn" || kind === "scoutTurn";
 }
 
 /** Whether this control is one of a seat's *own* four-way — THE PULSE's lanes,

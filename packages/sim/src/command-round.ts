@@ -93,7 +93,39 @@ export type RoundCommand =
    * order, and a number would be that order written down a second time
    * (`PULSE_LANES`).
    */
-  | { kind: "pulseStep"; lane: PulseLane };
+  | { kind: "pulseStep"; lane: PulseLane }
+  /**
+   * THE SCOUT's two, and they are the claw's two controls doing the same jobs
+   * on a different thing — which is the whole reason the owner asked for this
+   * round beside that panel.
+   *
+   * `scoutTurn` is the crank: **held**, not pressed, and it turns the nose
+   * while the finger is on it. That is `crank.ts`'s own contract, where a
+   * finger going round and round brings the arm home; here it swings the
+   * little ship's nose, and a thumb that comes off leaves the heading exactly
+   * where it stopped. `on` ends it, the way `valve` and `prime` both do.
+   *
+   * `scoutBurn` is the reach button: held as well, and the only thing in the
+   * round that adds speed. An absolute heading would have made the round a
+   * thing one seat could fly alone — a turn that has to be *held for a while*
+   * is a turn the other seat has to keep talking through.
+   *
+   * Both are player 1's, and player 2 has nothing to press at all. Which seat
+   * may send which is checked in `scout-round.ts`, not here: the command is
+   * what was pressed, and whose press counts is the round's rule.
+   */
+  | { kind: "scoutTurn"; on: boolean; dir: -1 | 1 }
+  | { kind: "scoutBurn"; on: boolean }
+  /**
+   * And player 2's one, which is THE CLAW's maw under a different name and on
+   * the same seat: the mother ship's mouth, open for a moment.
+   *
+   * A press rather than a hold, because what it is for is the *arrival* — a
+   * mouth held open the whole round would take the second hand out of the
+   * round, and the catch being two hands is the thing this round borrowed
+   * from that panel (`scout-arena.ts`).
+   */
+  | { kind: "scoutMaw" };
 
 /**
  * The two ways SNAKE's body can be turned, and they are quarter turns rather

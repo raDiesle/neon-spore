@@ -73,6 +73,11 @@ export function serializeBoss(boss: BossEntry): string {
   // read back out as a list of `{ step, lane }` is a rhythm nobody could see
   // (`packages/content/src/pulse-stages.ts`).
   if (boss.kind === "pulse") return '{ kind: "pulse", stages: PULSE_STAGES }';
+  // THE SCOUT's arenas are named rather than written out, for SNAKE's reason
+  // and more so: an arena is a dozen places in thousandths of a tile, and a
+  // list of those read back into the wave file is a picture nobody could see
+  // again (`packages/content/src/scout-arenas.ts`).
+  if (boss.kind === "scout") return '{ kind: "scout", arenas: SCOUT_ARENAS }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

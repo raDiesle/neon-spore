@@ -22,6 +22,21 @@ export const ROUND_FIELD_GROUP = {
   gaugeMarks: "THE GAUGE — a round with no field in it",
   gaugeRoundBeats: "THE GAUGE — a round with no field in it",
   gaugeCallRestBeats: "THE GAUGE — a round with no field in it",
+  // ScoutConfig — every one of them is *feel*, which is why they are dials at
+  // all: the three at the top decide whether the little ship reads as a ship,
+  // and the owner is the only instrument that can say (`config-scout.ts`).
+  scoutTurnMilliDeg: "THE SCOUT — a little ship one of you flies",
+  scoutBurnMilli: "THE SCOUT — a little ship one of you flies",
+  scoutDragMilli: "THE SCOUT — a little ship one of you flies",
+  scoutMaxSpeedMilli: "THE SCOUT — a little ship one of you flies",
+  scoutBounceMilli: "THE SCOUT — a little ship one of you flies",
+  scoutRadiusMilli: "THE SCOUT — a little ship one of you flies",
+  scoutMoteRadiusMilli: "THE SCOUT — a little ship one of you flies",
+  scoutHazardRadiusMilli: "THE SCOUT — a little ship one of you flies",
+  scoutMawTicks: "THE SCOUT — a little ship one of you flies",
+  scoutHomeRadiusMilli: "THE SCOUT — a little ship one of you flies",
+  scoutLeadBeats: "THE SCOUT — a little ship one of you flies",
+  scoutVerdictBeats: "THE SCOUT — a little ship one of you flies",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

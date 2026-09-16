@@ -21,6 +21,7 @@ import { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 import { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.js";
 import { ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
 import { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
+import { SCOUT_DEFAULTS, type ScoutConfig } from "./config-scout.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 import { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 import { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
@@ -56,6 +57,7 @@ export { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.j
 // needs it to delay a splash.
 export { FLEET_SHELL_BEATS, ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
 export { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
+export { SCOUT_DEFAULTS, type ScoutConfig } from "./config-scout.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 export { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 export { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
@@ -75,6 +77,7 @@ export interface SimConfig
     CaromConfig,
     ChoirConfig,
     ClawConfig,
+    ScoutConfig,
     CrawlerConfig,
     CrystalConfig,
     GumConfig,
@@ -191,6 +194,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...VOLLEY_DEFAULTS,
   ...CREATURE_DEFAULTS,
   ...CLAW_DEFAULTS,
+  ...SCOUT_DEFAULTS,
   ...GHOST_DEFAULTS,
   ...FENCE_DEFAULTS,
   ...GYRE_DEFAULTS,

@@ -117,6 +117,20 @@ export function decodeCommand(x: unknown): Command | null {
     // out of range would land a press in a lane that is not on the screen.
     case "pulseStep":
       return isPulseLane(c.lane) ? { kind: "pulseStep", lane: c.lane } : null;
+    // THE SCOUT's two, and both are **held**: the peer is told when the finger
+    // went on and when it came off, and the round runs on the state rather
+    // than on the press (`scout-round.ts`). A dropped `on: false` would leave
+    // the other device turning for ever, which is the same hazard `slide` and
+    // `valve` have and the same answer — the bound is checked here, and the
+    // sender repeats the state on the next frame it owns.
+    case "scoutTurn":
+      return isBool(c.on) && (c.dir === -1 || c.dir === 1)
+        ? { kind: "scoutTurn", on: c.on, dir: c.dir }
+        : null;
+    case "scoutBurn":
+      return isBool(c.on) ? { kind: "scoutBurn", on: c.on } : null;
+    case "scoutMaw":
+      return { kind: "scoutMaw" };
     // `fromMilli` is a **displacement**, so it is signed: a hand that carried
     // a handle to the left reports a negative number, and `isNonNegInt` here
     // dropped exactly those frames — a pull that worked on one device and

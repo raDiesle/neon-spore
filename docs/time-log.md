@@ -6601,3 +6601,30 @@ proposed a `Glob` and that would have been the wrong fix — the walk is 25 ms o
 the 325 and the reads are the other 300 — so the ten minutes bought the
 difference between a change that sped it up fourfold and one that changed the
 line the slowness is not in.
+
+## 2026-09-16 — task-performance-optimization — THE SCOUT, the simulation half
+
+The owner's `NEXT:`, in his own words: *the mother ship spills out another tiny
+ship, which one player can fly freely around the space… it can collect a
+specific kind of power up, and it is required to collect all.* On the field
+that is the one thing the game cannot have, so it is a round with its own
+picture — decision 21's exemption, SNAKE's shape — and it is split in two: this
+is everything that plays, and nothing of it is drawn yet.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `decisions.md` #21 and `interludes.md`, THE CLAW's set and its four controls, SNAKE and THE GAUGE end to end, `hash-coverage.test.ts`'s walker, the desk keyboard, the director's five tables |
+| writing | 20 | six sim files and a config, the arenas, the wave, the panel and its four slabs, two stage listeners, twelve test cases, the spec section |
+| looking | 0 | — nothing is drawn, which is the other half |
+| friction | 10 | authored motes shared between two worlds by a shallow copy; a test holding the live round and comparing a field with itself; a guide half eight characters over the phone's line |
+| landing | 5 | `bun run index`, `baseline:blank` for the wave numbers the insert moved, `check`, the commit |
+
+The bottleneck was friction, and the largest piece of it was a rule rather than
+a bug: **every panel gives both seats something** (`control-sets.test.ts`), and
+the round as first written gave player 2 nothing to press on the argument that
+their half is the sentence they say. The fix is better than the design it
+replaced and it was two files away the whole time — the mother ship's mouth is
+player 2's, and a mote is not *had* until the little ship is home with that
+mouth open, which is THE CLAW's own rule about a catch being two hands. The
+owner asked for this round to sit beside that panel; the rule the panel already
+had is what made it actually sit there.

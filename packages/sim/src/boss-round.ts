@@ -2,6 +2,7 @@ import { mazeOpenRound } from "./maze-verdict.js";
 import { mirrorOpenRound } from "./mirror-round.js";
 import { pinballOpenRound } from "./pinball-round.js";
 import { pulseOpenStage } from "./pulse-round.js";
+import { scoutOpenRound } from "./scout-round.js";
 import { snakeOpenRound } from "./snake-open.js";
 import type { World } from "./world.js";
 
@@ -42,6 +43,9 @@ export function setBossRound(world: World, round: number): boolean {
       return true;
     case "snake":
       snakeOpenRound(world, boss, round);
+      return true;
+    case "scout":
+      scoutOpenRound(world, boss, round);
       return true;
     case "pinball":
       pinballOpenRound(world, boss, round);

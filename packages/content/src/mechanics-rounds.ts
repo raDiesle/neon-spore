@@ -36,4 +36,8 @@ export const ROUND_MECHANICS = {
     what: "Slicks, bulbs, rocks and pods fall down four lanes into four sockets cut into the hull, and both of you have the same four buttons, against one chart. Some arrive on one screen as a grey shape cycling through all four, readable only on the other, so a bar of a song is a bar of being told what to press. Anything nobody presses sinks into the ship and drains the shared meter; empty it and the hull pays.",
     reach: "spawn",
   },
+  scout: {
+    what: "The ship opens and puts a little one out into the dark, and one of you flies it. It coasts, so it is leaned on rather than steered, and the motes it has to collect are hanging still while the things that would end it are not. Only the pilot can see the nose it is pointing; only the other seat can see where anything is. Collect every mote and the wave is done — let one of the moving things touch it and the hull pays for it.",
+    reach: "spawn",
+  },
 } as const satisfies Record<string, Mechanic>;

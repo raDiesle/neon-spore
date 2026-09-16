@@ -67,9 +67,14 @@ function beats(world: World, n: number, cfg: SimConfig = CFG): SimEvent[] {
 }
 
 describe("THE SPLICE", () => {
-  it("fills its own wave and is appended to BOSS_KINDS", () => {
+  it("fills its own wave and is in BOSS_KINDS after the twelve before it", () => {
     expect(bossFillsWave("splice")).toBe(true);
-    expect(BOSS_KINDS[BOSS_KINDS.length - 1]).toBe("splice");
+    // It was the last name on the list until THE SCOUT was appended after it
+    // on 16 September 2026. What the list is about is that a name is
+    // **appended, never inserted** — the index is a wire value
+    // (`boss-kinds.ts`) — so the assertion is its place in the order rather
+    // than its place at the end, which the next round would break again.
+    expect(BOSS_KINDS.indexOf("splice")).toBe(BOSS_KINDS.length - 2);
   });
 
   it("lays a round of straws the pair can tell apart", () => {

@@ -26,6 +26,16 @@ export const ROUND_NOTES = {
     "holds the only trigger; player 2 walks the sights a square at a time and is " +
     "shown nothing but water. The clock is the whole of the danger — running out " +
     "of it breaks the hull. See fleet.ts, config-fleet.ts.",
+  "THE SCOUT — a little ship one of you flies":
+    "The round the owner asked for on 16 September 2026, and the first thing " +
+    "in the game that flies. The ship opens and puts a little one out: player " +
+    "1 turns its nose and burns, and coasts — the drag is what makes it read " +
+    "as a ship rather than a cursor. Player 2 is shown every mote and every " +
+    "hazard and has no button at all, so the flying is done on their word. " +
+    "Collect every mote and the wave is over; a hazard's touch or the clock " +
+    "running out costs the hull, which is the wave lost. The arenas are " +
+    "authored in packages/content/src/scout-arenas.ts; these dials are how it " +
+    "flies, and the top three are the whole feel of it.",
   "SNAKE — a round the ship is the body of":
     "The other built round, and the first control that moves something. The " +
     "ship shrinks into a snake that never stops: player 2 turns it a quarter " +

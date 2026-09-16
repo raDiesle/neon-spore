@@ -25,6 +25,7 @@ import type { BossEntry } from "@neon-spore/sim";
  */
 export type GroupName =
   | "THE CAIRN — a pile of rocks taken apart by hand"
+  | "THE SCOUT — a little ship one of you flies"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "AIM — colour and column"
   | "GUARD — the shared defence"
@@ -93,6 +94,7 @@ export const GROUP_ORDER: GroupName[] = [
   "OPENING — the introduction, the guide and the ready gate",
   "THE GAUGE — a round with no field in it",
   "SNAKE — a round the ship is the body of",
+  "THE SCOUT — a little ship one of you flies",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",
@@ -158,6 +160,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE GAUGE — a round with no field in it",
   "THE FLEET — a chart only one of you can read",
   "SNAKE — a round the ship is the body of",
+  "THE SCOUT — a little ship one of you flies",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",
@@ -185,6 +188,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   gauge: "THE GAUGE — a round with no field in it",
   fleet: "THE FLEET — a chart only one of you can read",
   snake: "SNAKE — a round the ship is the body of",
+  scout: "THE SCOUT — a little ship one of you flies",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

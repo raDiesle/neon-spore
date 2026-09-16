@@ -1,4 +1,5 @@
 import { PULSE_STAGES } from "../pulse-stages.js";
+import { SCOUT_ARENAS } from "../scout-arenas.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -133,6 +134,20 @@ export const WAVES_ACT_7B: Wave[] = [
       { beat: 50, col: 6, row: 5, kind: "purge", cross: -1 },
     ],
     controls: "claw",
+  },
+  {
+    id: "theScout",
+    name: "THE SCOUT",
+    sentence:
+      "The one where the ship puts something small out into the dark, and only one of you can see where it is going.",
+    guide: {
+      both: "The field is gone. The ship opens and a little one drifts out of it, and everything it has to collect is hanging still while everything that would end it is moving. Collect every mote and the wave is over; let one of the moving ones touch it and the hull pays and the wave starts again.",
+      p1: "You fly it and cannot see the arena. ◀ and ▶ swing the nose while held; BURN pushes it that way and it keeps going after you let go. Ask for a heading and how long to burn.",
+      p2: "Your screen has the motes and the moving things; MAW is yours, and a mote only comes off the ship while it is open at home. Give them an o'clock and a moment, and say what is crossing.",
+    },
+    entries: [],
+    boss: { kind: "scout", arenas: SCOUT_ARENAS },
+    controls: "scout",
   },
   {
     id: "theCrossing",

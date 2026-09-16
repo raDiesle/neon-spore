@@ -210,6 +210,7 @@ export type {
   PinballEntry,
   PulseEntry,
   QueenEntry,
+  ScoutEntry,
   SnakeEntry,
   SpliceEntry,
   VaneEntry,

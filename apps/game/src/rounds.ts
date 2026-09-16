@@ -2,6 +2,7 @@ import type { Layout, ViewRole } from "@neon-spore/render";
 import type { World } from "@neon-spore/sim";
 import { bindGauge } from "./gauge.js";
 import type { InputBuffer } from "./input.js";
+import { bindScout } from "./scout.js";
 import { bindSnake } from "./snake.js";
 
 /**
@@ -38,5 +39,6 @@ export interface RoundBindings {
 
 export function bindRounds(handle: RoundBindings): void {
   bindGauge(handle);
+  bindScout(handle);
   bindSnake(handle);
 }

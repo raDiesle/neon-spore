@@ -126,6 +126,9 @@ export function stepBoss(world: World): void {
   // while any of them stands — so the branch is here to say that out loud
   // rather than to do anything.
   if (boss.kind === "gauge" || boss.kind === "snake" || boss.kind === "pinball") return;
+  // THE SCOUT is the fourth of them and the same sentence: the little ship is
+  // flown on the tick, and the field has no beat while it is out.
+  if (boss.kind === "scout") return;
   if (boss.kind === "pulse") return;
   // And THE WELL never does anything here at all, on any clock: it is the
   // field drawn inside out and the field's own rules are the whole of its

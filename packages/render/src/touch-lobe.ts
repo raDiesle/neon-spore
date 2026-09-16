@@ -104,6 +104,13 @@ export function lobeMeans(
     case "snakeRight":
     case "snakeFire":
     case "snakeMaw":
+    // THE SCOUT's three, for SNAKE's reason one round along: they are slabs on
+    // the round's own panel rather than lobes in the band, so the press
+    // reaches them through the panel and never through a finger on the ship.
+    case "scoutTurnLeft":
+    case "scoutTurnRight":
+    case "scoutBurn":
+    case "scoutMaw":
       return null;
     default:
       return assertNever(id);

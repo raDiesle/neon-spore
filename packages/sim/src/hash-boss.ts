@@ -5,6 +5,7 @@ import { GAUGE_PHASES } from "./gauge.js";
 import { mazeHashParts } from "./maze-hash.js";
 import { pinballHashParts } from "./pinball-board.js";
 import { pulseHashParts } from "./pulse-hash.js";
+import { scoutHashParts } from "./scout-hash.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 import { snakeHashParts } from "./snake-hash.js";
 import { spliceHashParts } from "./splice-hash.js";
@@ -156,6 +157,9 @@ export function bossHashParts(boss: BossState | null): number[] {
   // SNAKE, gathered beside the boss for the same reason and with the most in
   // it of the four: the body, the arena it is driving round, and everything
   // already spent off both (`snake-hash.ts`).
+  if (boss !== null && boss.kind === "scout") {
+    for (const n of scoutHashParts(boss)) push(n);
+  }
   if (boss !== null && boss.kind === "snake") {
     for (const n of snakeHashParts(boss)) push(n);
   }

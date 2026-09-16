@@ -145,6 +145,7 @@ export {
   stepAt,
   stepSpan,
 } from "./scenes.js";
+export { SCOUT_ARENAS } from "./scout-arenas.js";
 export {
   blobPath,
   blobPoints,

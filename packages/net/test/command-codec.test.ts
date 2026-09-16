@@ -57,6 +57,11 @@ const ACCEPTED: Command[] = [
   { kind: "salvo" },
   // THE PULSE's one verb, and the only one both seats send.
   { kind: "pulseStep", lane: "meteor" },
+  // THE SCOUT's two, both held — one example of each edge, since the round
+  // runs on the state and a dropped release is the failure that matters.
+  { kind: "scoutTurn", on: true, dir: -1 },
+  { kind: "scoutBurn", on: false },
+  { kind: "scoutMaw" },
 ];
 
 /**
@@ -104,6 +109,9 @@ const EVERY_KIND: Record<Command["kind"], true> = {
   shake: true,
   restart: true,
   retry: true,
+  scoutTurn: true,
+  scoutBurn: true,
+  scoutMaw: true,
   quit: true,
 };
 

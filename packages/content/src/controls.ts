@@ -39,6 +39,12 @@ export type ControlId =
   | "snakeMaw"
   | "pinLatch"
   | "pinLaunch"
+  // THE SCOUT's three, and all three are player 1's: the seat that can see the
+  // arena has nothing to press (`control-sets-table.ts`).
+  | "scoutTurnLeft"
+  | "scoutTurnRight"
+  | "scoutBurn"
+  | "scoutMaw"
   // THE PULSE's four lanes, twice: it is the first panel that is the same in
   // both seats, and a `ControlDef` belongs to a seat (`controls-round.ts`).
   | "pulse1Slick"

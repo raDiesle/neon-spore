@@ -4,6 +4,7 @@ import { applyCommand } from "./commands.js";
 import { gaugeHolds, gaugeRoundHeard, stepGaugeRound } from "./gauge-round.js";
 import { pinballHolds, pinballRoundHeard, stepPinballRound } from "./pinball-round.js";
 import { pulseHolds, pulseRoundHeard, stepPulseRound } from "./pulse-round.js";
+import { scoutHolds, scoutRoundHeard, stepScoutRound } from "./scout-round.js";
 import { snakeHolds, snakeRoundHeard, stepSnakeRound } from "./snake-round.js";
 import type { Command, TimedCommand } from "./types.js";
 import { endSpentRound } from "./wave-end.js";
@@ -51,6 +52,7 @@ interface RoundStep {
 
 /**
  * The five, and why each of them is stepped on the tick rather than the beat.
+ * (Six with THE SCOUT, which is the fifth still standing.)
  *
  * - **THE GAUGE** — the needle answers a *held* valve, and a valve that only
  *   answered on the beat would feel like a queue rather than a hand on
@@ -62,6 +64,8 @@ interface RoundStep {
  * - **THE PULSE** — the whole round is *when a thumb landed*, and a press
  *   judged on the beat is judged to within six hundred milliseconds, which is
  *   not a judgement.
+ * - **THE SCOUT** — the little ship is *flown*, and a ship that moved once a
+ *   beat would be a chess piece rather than a thing anybody is holding.
  * - **THE TELL**, while it stood (removed 11 September 2026) — the exchange
  *   landed on a beat boundary, but the press it waited for had to be read on
  *   the tick it came down on, or a thumb on a window's last tick would have
@@ -72,6 +76,7 @@ const ROUNDS: readonly RoundStep[] = [
   { holds: snakeHolds, heard: snakeRoundHeard, step: stepSnakeRound },
   { holds: pinballHolds, heard: pinballRoundHeard, step: stepPinballRound },
   { holds: pulseHolds, heard: pulseRoundHeard, step: stepPulseRound },
+  { holds: scoutHolds, heard: scoutRoundHeard, step: stepScoutRound },
 ];
 
 /**

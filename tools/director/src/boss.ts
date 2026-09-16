@@ -162,6 +162,12 @@ export function bindBossPanel(
     // the only thing a dial could move is how the picture reads and that is
     // what VERSUS is for (`render/src/well.ts`).
     if (boss.kind === "well") return;
+    // THE SCOUT has nothing to author on this panel either: the arenas are
+    // named in `packages/content/src/scout-arenas.ts` and are places in
+    // thousandths of a tile, which is a picture rather than a form — the same
+    // answer SNAKE's rounds and PINBALL's boards get, one card along. How the
+    // little ship flies is `config-scout.ts`, which is the SHIP card's.
+    if (boss.kind === "scout") return;
     // THE CAIRN has one thing to author and it is the length of the fight:
     // how many rocks are stacked. No column — the pile is a fixture dead
     // centre, like the ring and the arm.

@@ -160,4 +160,23 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     why: "The gun is a hand: player 1 slides it, reaches up a column and winds it home again, and the mouth moves to player 2, so nothing is caught by one person alone.",
     controls: ["cannon", "reach", "crank", "mawTake"],
   },
+  {
+    id: "scout",
+    name: "THE SCOUT",
+    why: "The hand comes off the rope and goes on a ship: player 1 turns the nose and burns, and the seat that can see the arena has nothing to press at all.",
+    // **Three buttons and no strip**, which is what makes it a round's panel
+    // rather than a rung on any ladder: there is no column to slide anything
+    // along (`docs/decisions.md` #21). The two turns sit where THE CLAW's
+    // crank sits and the burn where its REACH does — the same two jobs, the
+    // same two places, a different thing on the end of them — because the
+    // owner asked for this round beside that panel and a pair that has played
+    // one should not be learning a new arrangement for the other.
+    //
+    // Player 2 cannot move the ship by a thousandth of a tile and still has a
+    // thumb in the round: the mother ship's mouth is theirs, and a mote only
+    // comes off the little ship while it is open. That is THE CLAW's catch —
+    // *nothing is caught by one person alone* — which is the rule the owner
+    // asked for this round to sit beside (`sim/scout-arena.ts`).
+    controls: ["scoutTurnLeft", "scoutTurnRight", "scoutBurn", "scoutMaw"],
+  },
 ];

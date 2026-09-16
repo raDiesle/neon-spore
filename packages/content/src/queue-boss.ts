@@ -1,5 +1,5 @@
 import type { BossEntry } from "@neon-spore/sim";
-import { mapCol } from "./queue.js";
+import { mapCol, mapColMilli } from "./queue.js";
 import type { Wave } from "./waves.js";
 
 /**
@@ -84,5 +84,28 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // is not a column in the entry to remap — the shortest of the ten reasons
   // above and the same one THE MAZE has.
   if (boss.kind === "splice") return { ...boss, rounds: boss.rounds.map((r) => ({ ...r })) };
+  // THE SCOUT is authored in the arena's own thousandths of a tile, which is
+  // the field's width in the units the little ship flies in — so it is the
+  // only boss whose places are remapped as *fractions* rather than as columns.
+  // `mapCol` rounds to a whole column, and a mote rounded to a column would
+  // sit a third of a tile from where the author put it; `mapColMilli` is the
+  // same arithmetic with the rounding left until the end.
+  if (boss.kind === "scout") {
+    return {
+      ...boss,
+      arenas: boss.arenas.map((a) => ({
+        ...a,
+        startColMilli: mapColMilli(a.startColMilli, cols),
+        motes: a.motes.map((m) => ({ ...m, colMilli: mapColMilli(m.colMilli, cols) })),
+        hazards: a.hazards.map((h) => ({
+          ...h,
+          colMilli: mapColMilli(h.colMilli, cols),
+          // The travel is scaled with the place, or a hazard authored to cross
+          // a seven-column arena in four beats would take six on an eleven.
+          vColMilli: mapColMilli(h.vColMilli, cols),
+        })),
+      })),
+    };
+  }
   return { ...boss, col: mapCol(boss.col, cols) };
 }

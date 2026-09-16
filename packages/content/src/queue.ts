@@ -26,6 +26,24 @@ export function mapCol(col: number, cols: number): number {
 }
 
 /**
+ * The same remap for a place that is **not on a column**: thousandths of a
+ * tile in, thousandths of a tile out.
+ *
+ * THE SCOUT is the one boss authored between the columns rather than on them
+ * (`queue-boss.ts`), and rounding its motes to whole columns would move every
+ * one of them by up to half a tile — on an arena where half a tile is the
+ * difference between collecting a mote and flying past it. So the ratio is the
+ * one `mapCol` uses and the rounding happens once, at the end, in the units
+ * the round actually stores. Clamped to the field rather than to its last
+ * column, because a thing at the right-hand edge is at `cols * 1000` and not
+ * at `(cols - 1) * 1000`.
+ */
+export function mapColMilli(colMilli: number, cols: number): number {
+  const mapped = Math.round((colMilli * (cols - 1)) / AUTHORED_COL_MAX);
+  return Math.max(-cols * 1000, Math.min(cols * 1000, mapped));
+}
+
+/**
  * Turn a wave into a spawn queue. Seeded by the wave index, so the same wave
  * always plays out the same way — see the randomness rule in
  * docs/spec/structure.md: only what one player knows and the other does not

@@ -31,7 +31,20 @@ describe("what a control says", () => {
     // control gaining an `up` is a press somebody has quietly turned into a
     // hold, and the panel drawing it would not know.
     const held = CONTROLS.filter((c) => controlHeld(c.id)).map((c) => c.id);
-    expect(held.sort()).toEqual(["crank", "fireCyan", "fireRed", "gaugeLeft", "gaugeRight"]);
+    expect(held.sort()).toEqual([
+      "crank",
+      "fireCyan",
+      "fireRed",
+      "gaugeLeft",
+      "gaugeRight",
+      // THE SCOUT's three, and they are the round's whole feel: the nose keeps
+      // swinging and the burn keeps pushing until the thumb comes off, so a
+      // heading said out loud is a heading somebody has to *hold*
+      // (`sim/scout-fly.ts`).
+      "scoutBurn",
+      "scoutTurnLeft",
+      "scoutTurnRight",
+    ]);
     for (const id of held) {
       expect(controlHold(id).up.kind, `${id}'s release sends nothing`).toBeTruthy();
     }

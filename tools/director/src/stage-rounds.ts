@@ -1,4 +1,5 @@
 import { bindStageGauge, type StageGauge } from "./stage-gauge.js";
+import { bindStageScout, type StageScout } from "./stage-scout.js";
 import { bindStageSnake, type StageSnake } from "./stage-snake.js";
 
 /**
@@ -28,7 +29,8 @@ import { bindStageSnake, type StageSnake } from "./stage-snake.js";
  * was deleted rather than kept, and the guard simply finds no slab to ask
  * about.
  */
-export function bindStageRounds(handle: StageGauge & StageSnake): void {
+export function bindStageRounds(handle: StageGauge & StageSnake & StageScout): void {
   bindStageGauge(handle);
   bindStageSnake(handle);
+  bindStageScout(handle);
 }

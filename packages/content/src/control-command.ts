@@ -162,6 +162,24 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
       return { down: { kind: "latch" } };
     case "pinLaunch":
       return { down: { kind: "launch" } };
+    // THE SCOUT's three, and all three are **held** — the nose keeps swinging
+    // and the burn keeps pushing while a finger is down, which is what makes
+    // the flying a thing one seat does on the other's word rather than a
+    // series of taps (`sim/scout-round.ts`).
+    case "scoutTurnLeft":
+      return {
+        down: { kind: "scoutTurn", on: true, dir: -1 },
+        up: { kind: "scoutTurn", on: false, dir: -1 },
+      };
+    case "scoutTurnRight":
+      return {
+        down: { kind: "scoutTurn", on: true, dir: 1 },
+        up: { kind: "scoutTurn", on: false, dir: 1 },
+      };
+    case "scoutBurn":
+      return { down: { kind: "scoutBurn", on: true }, up: { kind: "scoutBurn", on: false } };
+    case "scoutMaw":
+      return { down: { kind: "scoutMaw" } };
   }
 }
 
