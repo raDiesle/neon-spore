@@ -72,6 +72,10 @@ const NOT_ONE_BODY: Record<string, null> = {
   // Both are judged on the pose the break was, and that pose kills a slick.
   "creature:debris": null,
   "creature:splinters": null,
+  // And what a hit takes *out* of a body, which is damage rather than a kind.
+  // It is judged on `METEOR · CRATERED`, because the rock is the only body in
+  // the game that survives a hit and is still on the field to show one.
+  "creature:bite": null,
 };
 
 function isKind(name: string): boolean {

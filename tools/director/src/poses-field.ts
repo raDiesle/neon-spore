@@ -1,6 +1,7 @@
 import type { World } from "@neon-spore/sim";
 import {
   aim,
+  firstOfKind as at,
   fresh,
   living,
   type Pose,
@@ -31,12 +32,13 @@ import {
 
 const COL = 5;
 
-const at =
-  (kind: string) =>
-  (w: World): { col: number; row: number } => {
-    const c = w.creatures.find((x) => x.kind === kind) ?? w.creatures[0];
-    return c ? { col: c.col, row: c.row } : { col: COL, row: 7 };
-  };
+// The window follows the body **as it is drawn**, which is `pose-kit.ts`'s own
+// `firstOfKind`. This file had its own copy, centred on `c.col` and `c.row` —
+// the tile the simulation has already written down for the *next* beat, which
+// is a beat ahead of the picture. It never showed while these were reference
+// cards drawn once at hand-over and never stepped; the moment one of them is
+// the pair's pose for an open slot, the rock spends most of every beat off
+// its own centre (`versus-crop-follow.test.ts`).
 
 const CREATURES: Pose[] = [
   {
@@ -64,6 +66,8 @@ const CREATURES: Pose[] = [
   {
     name: "METEOR · CRATERED",
     note: "Four shots into a rock. It keeps its size and its speed and it is no closer to breaking — the craters are the rule made visible, and the shield is the only answer.",
+    lookAt:
+      "the rim of the rock and the four holes inside it — whether a hit is a mark on the face or a piece missing from the edge (`creature:bite`)",
     crop: "tile",
     at: at("meteor"),
     build: () => {

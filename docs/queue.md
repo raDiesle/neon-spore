@@ -317,41 +317,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## A hit cannot take a bite out of a body: no seam carries damage into a contour
-
-- **Found:** 2026-09-16, claude/queue-destruction-and-damage-the-three-unbuilt-pieces
-- **Taken:** 2026-09-16, claude/queue-a-hit-cannot-take-a-bite-out-of-a-body-no-seam-c
-- **Files:** `packages/render/src/meteor.ts`, `packages/render/src/meteor-look.ts`, `packages/render/src/meteor-looks.ts`, `packages/render/src/meteor-blaze.ts`, `packages/render/src/meteor-comet.ts`, `packages/render/src/meteor-smoulder.ts`, `packages/content/src/body-path.ts`, `packages/render/src/craters.ts`, `tools/versus/candidates/`, `docs/spec/systems.md`
-
-The third of *Destruction and damage*'s unbuilt pieces — **a hit cuts a real
-piece out of the creature; the body keeps falling with the notch missing and
-the broken edge glowing briefly** — could not be offered as a VERSUS candidate
-with the other two, because there is nothing to patch. A candidate is a field
-on a record the drawing code already reads (`docs/versus.md`), and no record
-anywhere lets damage reach the **outline** a body is drawn with:
-
-- `livingPath`/`livingPoints` build a creature's contour from its silhouette
-  and the beat, and take no argument about what has hit it.
-- The one body that takes damage and lives is the rock, and its craters are
-  painted **on its face**: `drawRockBody` calls `look.pit(ctx, hx, hy, pr, dx,
-  dy)` with the pit already positioned and sized, so a `MeteorLook.pit` is
-  handed neither the rock's radius `r` nor `time`. It cannot put a bite at the
-  rim rather than in the middle, and it cannot make an edge glow *briefly*.
-- `BLAZE_LOOK`, `COMET_LOOK` and `SMOULDER_LOOK` are not exported at all, so a
-  candidate today can only reach the blaze, through `METEOR_LOOK`.
-
-So the work is a seam first and a candidate second: thread `r` and `time`
-through `MeteorLook.pit` from `drawRockBody` into `STONE_LOOK.pit`, `hotPit`,
-`struck`, `redPit` and `packages/render/src/volley-pitted.ts` with not one
-pixel moved, export the three looks, and then `creature:bite` can argue for
-a notch taken out of the silhouette instead of a crater drawn on it. Whether
-the notch should reach `livingPath` too — so that a *creature* can also be
-bitten, not only a rock — is the size question to settle first; the rock alone
-is much the smaller lane and is the only body that currently survives a hit.
-
-`shatter.ts`'s `reachAt` is the contour ray this would cut against, and
-`splinter.ts` is the worked example of using it from outside.
-
 ## The Mine is an enemy, with its seeing seat set on the brush
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34

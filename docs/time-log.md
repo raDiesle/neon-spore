@@ -6296,3 +6296,23 @@ The bottleneck was writing, and the part of it that took the time was not the
 class: it was deciding what each caller's doc comment says now that the
 argument is somewhere else, so a reader who opens either file still learns why
 there is no jsdom here without being sent away to find out.
+
+## 2026-09-16 — queued-tasks — a hit that takes material instead of marking it
+
+Destruction's third piece — a hit cutting a real piece out of a body — had no
+seam to be offered on: a rock's craters are painted on a finished face, and a
+`MeteorLook.pit` was handed neither the radius nor the clock.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `meteor.ts`, `meteor-look.ts`, `meteor-looks.ts`, `volley-pitted.ts`, `variant.ts` and the VERSUS tests, to find what a candidate can actually reach |
+| writing | 45 | the hole list hoisted ahead of the paint, `r` and `time` on `pit`, the three looks exported, and the `notch` candidate that clips the stone to everything but the bites |
+| looking | 20 | two `versus:shot` frames of `creature:bite` — the first took so much out that four hits left a jigsaw piece, so the bite came in and the hot lip went up |
+| friction | 10 | the pose the slot opens on centred on the tile the rock is *going* to, not the one it is drawn at: `poses-field.ts` kept its own stale copy of `firstOfKind` |
+| landing | 10 | `check:fast`, `bun run index`, the commit |
+
+The bottleneck was writing, and the part that decided the shape of it was
+finding that a notch cannot be cut from inside `pit` at all: the pit is painted
+over a canvas that already has the field on it, so material that is gone has to
+be material never laid down — which put the whole change one call earlier, at
+`body`, before a stroke of the rock exists.

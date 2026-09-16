@@ -34,9 +34,16 @@ import { charcoal, redPit, smoke } from "./meteor-smoulder.js";
  *
  * The halo, and the shell, are the stone's: the candidates were judged with
  * only their body and their pit changed, so that is what goes in.
+ *
+ * **All three are exported, and only VERSUS reads them by name.** The game
+ * asks `meteorLookFor` and takes what it is given. A candidate cannot: a slot
+ * about what a hit does to a rock has to patch every look a rock can wear, or
+ * the pair judges it on the one rock in four that happens to have drawn the
+ * patched one — and `METEOR_LOOK` is the blaze, so before this the reachable
+ * half of the mix was two looks out of three away.
  */
 
-const BLAZE_LOOK: MeteorLook = {
+export const BLAZE_LOOK: MeteorLook = {
   ...STONE_LOOK,
   body(ctx, path, r, turn, time, within) {
     fireBehind(ctx, r, turn, time, within);
@@ -48,7 +55,7 @@ const BLAZE_LOOK: MeteorLook = {
   },
 };
 
-const COMET_LOOK: MeteorLook = {
+export const COMET_LOOK: MeteorLook = {
   ...STONE_LOOK,
   body(ctx, path, r, turn, time, within) {
     plume(ctx, r, turn, time, within);
@@ -59,7 +66,7 @@ const COMET_LOOK: MeteorLook = {
   },
 };
 
-const SMOULDER_LOOK: MeteorLook = {
+export const SMOULDER_LOOK: MeteorLook = {
   ...STONE_LOOK,
   body(ctx, path, r, turn, time, within) {
     smoke(ctx, r, turn, time, within);

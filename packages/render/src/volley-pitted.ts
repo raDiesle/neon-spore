@@ -74,7 +74,10 @@ export function pittedStone(s: VolleyShell): void {
     ctx.translate(f.x, f.y);
     ctx.scale(Math.max(0.12, f.sx), f.sy);
     ctx.globalAlpha = surfaceDim(DIM, f.lit);
-    STONE_LOOK.pit(ctx, 0, 0, r * PIT_MUL, dx, dy);
+    // The ball's own radius and the clock, which this stone's pit ignores —
+    // it is the crater a shot leaves, and a crater has never needed to know
+    // where the rim is. They are there for a look that does (`meteor-look.ts`).
+    STONE_LOOK.pit(ctx, 0, 0, r * PIT_MUL, dx, dy, r, s.time);
     ctx.restore();
   }
   ctx.restore();

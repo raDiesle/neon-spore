@@ -15,6 +15,14 @@ import type { Window } from "./rock-window.js";
  * 11 September 2026 with four candidates, and three of them are the game's
  * rocks now (`meteor-looks.ts`); the stone they replaced is below.
  */
+export interface RockHit {
+  /** Where the hole is, in the rock's own rotated frame, centred on the origin. */
+  readonly x: number;
+  readonly y: number;
+  /** How wide it is — one sixteenth of the rock, for every hole on every rock. */
+  readonly pr: number;
+}
+
 export interface MeteorLook {
   /**
    * The stone, in the rock's own rotated frame, centred on the origin.
@@ -23,6 +31,17 @@ export interface MeteorLook {
    * rock. `within` is where the rock's fire may show, in the rock-centred
    * screen frame, when a clip round it lets only part of it through — THE
    * CAIRN's pile — and the whole screen when left out (`rock-window.ts`).
+   *
+   * `hits` is every hole this rock carries, handed in **before** a stroke of
+   * it is painted. Nothing the game draws today reads it: the three shipped
+   * looks fill the whole stone and let `pit` mark it afterwards. It is here
+   * because a mark drawn *afterwards* can only ever be paint on a face —
+   * material that is gone has to be material never laid down, and the one
+   * moment at which that can be decided is this one. A look that wants a
+   * notch clips the stone to everything but the holes and fills through it,
+   * which takes the bite out of the contour without touching what was already
+   * on the canvas behind the rock. Optional only because `within` in front of
+   * it is; `drawRockBody` always hands it over.
    */
   body(
     ctx: CanvasRenderingContext2D,
@@ -31,11 +50,20 @@ export interface MeteorLook {
     turn: number,
     time: number,
     within?: Window,
+    hits?: readonly RockHit[],
   ): void;
   /**
    * One shot's hole, in the same frame. `dx`/`dy` is the key axis with the
    * rock's own rotation already taken back out — handed in rather than
    * recomputed per pit, because it is one axis for the whole rock.
+   *
+   * `r` is the rock's own radius and `time` is the clock the body is drawn
+   * from. Neither is needed by a crater painted in the middle of a face, and
+   * both are needed by anything that answers *where the rim is* — a mark at
+   * the edge has to know which edge, and an edge that is still hot has to
+   * know what time it is. They are the whole of what a pit could not ask
+   * before 16 September 2026, and the reason a bitten rock could not be
+   * offered beside a cratered one.
    */
   pit(
     ctx: CanvasRenderingContext2D,
@@ -44,6 +72,8 @@ export interface MeteorLook {
     pr: number,
     dx: number,
     dy: number,
+    r: number,
+    time: number,
   ): void;
   /**
    * Anything drawn *around* the rock and not turning with it — a field, a

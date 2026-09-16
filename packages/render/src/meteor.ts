@@ -2,7 +2,7 @@ import { crystalPath, METEOR } from "@neon-spore/content";
 import { type Creature, type CreatureKind, isMeteorKind, spanOf } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import type { Layout } from "./layout.js";
-import { keyAxis, type MeteorLook } from "./meteor-look.js";
+import { keyAxis, type MeteorLook, type RockHit } from "./meteor-look.js";
 import { meteorLookFor } from "./meteor-looks.js";
 import { rockRadius } from "./rock-size.js";
 import { WHOLE, type Window } from "./rock-window.js";
@@ -40,6 +40,32 @@ export function drawMeteor(
  */
 export function wearsRockLook(kind: CreatureKind): boolean {
   return isMeteorKind(kind) && kind !== "torch";
+}
+
+/**
+ * Where this rock's holes are, from its own seed — the same arrangement it has
+ * had since the craters were written, lifted out of the drawing loop and
+ * worked out **before** the body is painted.
+ *
+ * That is the whole of the move: the places were computed one at a time in the
+ * loop that marked them, so a look was told about a hole only after it had
+ * already laid down the stone the hole is in, and the most a `pit` could ever
+ * be was paint on a finished face. A list built first can be handed to
+ * `MeteorLook.body` as well, which is what lets a look answer with material
+ * that is missing rather than with a mark (`meteor-look.ts`).
+ *
+ * The numbers are untouched: the golden angle, the seed's own offset, and a
+ * distance that walks out from a third of the radius. Both devices agree on
+ * them because `seed` is a number out of the simulation.
+ */
+function rockHits(seed: number, holes: number, r: number): readonly RockHit[] {
+  const out: RockHit[] = [];
+  for (let k = 0; k < holes; k++) {
+    const a = ((k * 2.399) % (Math.PI * 2)) + (seed % 5) * 0.4;
+    const dist = 0.3 + ((k * 7 + seed) % 10) / 28;
+    out.push({ x: Math.cos(a) * r * dist, y: Math.sin(a) * r * dist, pr: r * 0.16 });
+  }
+  return out;
 }
 
 /**
@@ -88,6 +114,7 @@ export function drawRockBody(
   const path = new Path2D(d);
 
   const turn = (seed % 13) * 0.48 + time * 0.12;
+  const hits = rockHits(seed, holes, r);
   ctx.save();
   ctx.translate(x, y);
 
@@ -96,13 +123,9 @@ export function drawRockBody(
   // the one part of a rock that has to read as *not* part of it.
   ctx.save();
   ctx.rotate(turn);
-  look.body(ctx, path, r, turn, time, within);
+  look.body(ctx, path, r, turn, time, within, hits);
   const { dx, dy } = keyAxis(turn);
-  for (let k = 0; k < holes; k++) {
-    const a = ((k * 2.399) % (Math.PI * 2)) + (seed % 5) * 0.4;
-    const dist = 0.3 + ((k * 7 + seed) % 10) / 28;
-    look.pit(ctx, Math.cos(a) * r * dist, Math.sin(a) * r * dist, r * 0.16, dx, dy);
-  }
+  for (const h of hits) look.pit(ctx, h.x, h.y, h.pr, dx, dy, r, time);
   ctx.restore();
 
   look.shell?.(ctx, r, time);

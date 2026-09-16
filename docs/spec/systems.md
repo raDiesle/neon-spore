@@ -222,6 +222,17 @@ rather than hanging in a lane two people are calling to each other about. The
 limits the design set — ~40 splinters and 12 pieces at once — are still the
 limits, and `BREAK_LOOK` is under both.
 
+**All three are now offered rather than argued about**: `creature:debris`,
+`creature:splinters` and `creature:bite` on VERSUS
+(`tools/versus/candidates/`). The notch is offered **on the rock alone** — a
+living body dies to one shot of its own colour, so there is no falling body
+with a bite in it to look at, and `livingPath` takes no argument about what has
+hit it. It works by handing every look the holes *before* the stone is painted
+(`MeteorLook.body`'s `hits`, `packages/render/src/meteor-look.ts`), so a look
+that wants material missing clips it away instead of marking a finished face;
+the mark a shot leaves also knows the radius and the clock now, which is what
+lets one sit on the rim and stay hot.
+
 ## 5.7 Power-ups — the pod, built
 
 The original design:
