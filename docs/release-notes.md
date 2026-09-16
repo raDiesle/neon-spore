@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · e0eabf24 — What systems.md 5.6 still owes, said truthfully
+
+Destruction and damage claimed polygon clipping, splinters and debris were all three unbuilt, and that "the clipping algorithm is chosen but unimplemented — see docs/decisions.md", which names a decision that file does not carry. The fracture engine landed on 9 September 2026: a destroyed body is cut into pieces of its own contour by a cut that tiles it exactly, the pieces are thrown, they land on the hull and fade there, and seven bodies have a strike of their own besides.
+
 ## 2026-09-16 · 65dcb521 — The MECHANICS entry is off the queue
 
 Its work landed in a201cc52: the page now shows only what is not implemented yet, and the four things with work written down for them are what is left of SYSTEMS and CREATURE IDEAS.
