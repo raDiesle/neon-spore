@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · fa071cc8 — --tab opens NOT BUILT YET itself, so --open beside it is one press
+
+`bun run shot --tab MECHANICS` presses that sheet's header button for itself. A caller who also passed `--open "◇ NOT BUILT YET"` — which is that flag's own documented job — pressed it a second time with the sheet already covering it, so Playwright retried for thirty seconds and then failed naming a `<span class="sub">` in the header rather than either flag. The lane that took the contents menu's picture lost two runs to it before dropping the flag.
+
 ## 2026-09-16 · fc0cf992 — The five places one new concept has to reach, named in one list
 
 A lane adding a concept met four tests going red in sequence, each a different copy of the same fact — the name in the spec, the shape join, the scene join, the draft count in the catalogue page — and learned the fifth place from the fourth red run, one process start at a time. Six lanes and 165 friction minutes in the ledger have that shape. None of the checks is wrong, so none of them is merged: `tools/director/test/concept-places.ts` states the list, and `concept-places.test.ts` reports every place that is not right in one message rather than the first one it happens to run.
