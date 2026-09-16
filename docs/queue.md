@@ -320,6 +320,7 @@ sending one PNG of the shared ready step.
 ## The MECHANICS page keeps four ideas and loses the rest of its four groups
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
+- **Taken:** 2026-09-16, claude/queue-the-mechanics-page-keeps-four-ideas-and-loses-th
 - **Files:** `tools/director/src/backlog.ts`, `tools/director/src/backlog-page.ts`, `tools/director/index.html`, `docs/spec/ideas.md`, `docs/spec/systems.md`, `docs/spec/couplings.md`, `docs/spec/assists.md`
 
 The owner asked, 15 September 2026, whether NOT BUILT YET → MECHANICS
