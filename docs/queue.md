@@ -658,30 +658,3 @@ The choice the work picks between: the exact walk above, or simply refusing to
 lower the tick count while a window is open — which over-delays inside the
 window and never under-delays, costs three lines, and is what a lane should
 take if the walk turns out to want the beat schedule.
-
-## peakWorld opens a wave with an empty pod queue
-
-- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-16, claude/queue-peakworld-opens-a-wave-with-an-empty-pod-queue
-- **Where:** local
-- **Files:** `packages/render/test/frame-harness.ts`, `packages/render/test/husk-look.test.ts`
-
-`peakWorld` is how every frame test in `packages/render` gets a world worth
-photographing: it plays a wave and keeps the tick with the most creatures on
-the field. It calls `startWave(world, index, buildQueue(...), [])` — the pods
-argument is an empty array — so a wave whose subject is a **pod** is
-photographed with none of them on it, and the frame the test asserts about is
-of an empty lane. THE HUSK's look tests found this the hard way: three of six
-failed on `world.pods.length` being 0, and the answer was a local `huskWorld()`
-builder in `husk-look.test.ts` that passes `buildPods(index, CFG.cols)`.
-
-It is a silent hole rather than a red test. A wave with pods in it drawn by
-`frame.test.ts` today is being drawn without them, and nothing says so.
-
-What to do: give `peakWorld` the real pod queue — `buildPods(index, CFG.cols)`,
-the same call `startWave`'s caller in the app makes — and have its peak measure
-bodies *and* pods rather than creatures alone, so a pod wave is photographed at
-its fullest. Then fold `huskWorld()` back into it and delete the local builder.
-`bun run check` proves it: the budget tests in `packages/render/test` will move
-if a wave gains bodies it should have had all along, and a row that moves is
-remeasured with a sentence saying why.

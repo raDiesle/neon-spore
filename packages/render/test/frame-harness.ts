@@ -1,6 +1,7 @@
 import { setDefaultTimeout } from "bun:test";
 import {
   buildBoss,
+  buildPods,
   buildQueue,
   type ControlSet,
   type ControlSetId,
@@ -105,6 +106,14 @@ export function waveWith(kind: NonNullable<Wave["boss"]>["kind"]): number {
  * **The wave is named by id, not by index**, for `frame-budget.test.ts`'s
  * reason: a wave inserted earlier in the campaign moves every index after it,
  * and an index here would be a silent claim about the order of the whole game.
+ *
+ * **A pod is a body here**, and was not until 17 September 2026: this opened
+ * every wave with an empty pod queue and counted creatures alone, so the seven
+ * waves that hang pods were photographed without them and their budgets were
+ * ceilings on a lane that is not what the phone draws. A wave whose *subject*
+ * is a pod was worse than under-drawn — THE HUSK's look tests found this by
+ * asking for a world with one husk in it and getting an empty field, and
+ * carried a builder of their own until this was fixed.
  */
 export function peakWorld(id: string, seed = 3, beats = 24): World {
   const index = WAVES.findIndex((w) => w.id === id);
@@ -115,19 +124,21 @@ export function peakWorld(id: string, seed = 3, beats = 24): World {
       world,
       index,
       buildQueue(index, DEFAULT_CONFIG.cols),
-      [],
+      buildPods(index, DEFAULT_CONFIG.cols),
       buildBoss(index, DEFAULT_CONFIG.cols),
     );
     return world;
   };
+  /** Everything on the field that is drawn as a body, pods included. */
+  const bodies = (world: World) => world.creatures.length + world.pods.length;
   const ticks = ticksPerBeat(DEFAULT_CONFIG) * beats;
   const scout = build();
   let peakTick = 0;
-  let peak = scout.creatures.length;
+  let peak = bodies(scout);
   for (let t = 1; t <= ticks; t++) {
     step(scout, []);
-    if (scout.creatures.length > peak) {
-      peak = scout.creatures.length;
+    if (bodies(scout) > peak) {
+      peak = bodies(scout);
       peakTick = t;
     }
   }

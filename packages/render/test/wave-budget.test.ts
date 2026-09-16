@@ -298,57 +298,66 @@ const SCENES: readonly Scene[] = [
     // (`queen-crane.ts`): an arm on each flank holding its torch from above.
     // Each is a two-segment arm stroked once, two joints filled and stroked,
     // and two fingers stroked twice — fourteen strokes and four fills a frame.
+    //
+    // Remeasured on 17 September 2026, and **the picture changed rather than
+    // the drawing**: this is the one wave of the five with a pod on it, and
+    // `peakWorld` used to open every wave with an empty pod queue. So the
+    // busiest tick is a different tick now — one with the pod hanging in it —
+    // and the row moves in both directions at once: five more strokes and one
+    // more sprite for the pod and its tether, and three fewer rectangles, five
+    // fewer fills and one fewer word because the beat this tick falls on is
+    // not the beat the old one did.
     rows: {
       p1: [
         {
-          fillRect: 63,
-          stroke: 134,
-          fill: 93,
+          fillRect: 61,
+          stroke: 139,
+          fill: 90,
           clip: 7,
           save: 52,
-          drawImage: 112,
+          drawImage: 113,
           createLinearGradient: 28,
           createRadialGradient: 13,
-          "new Path2D": 76,
-          fillText: 5,
+          "new Path2D": 77,
+          fillText: 4,
         },
         {
-          fillRect: 63,
-          stroke: 136,
-          fill: 93,
+          fillRect: 61,
+          stroke: 141,
+          fill: 90,
           clip: 7,
           save: 52,
-          drawImage: 112,
+          drawImage: 113,
           createLinearGradient: 21,
           createRadialGradient: 8,
-          "new Path2D": 49,
-          fillText: 5,
+          "new Path2D": 50,
+          fillText: 4,
         },
       ],
       p2: [
         {
-          fillRect: 63,
-          stroke: 130,
-          fill: 98,
+          fillRect: 61,
+          stroke: 135,
+          fill: 95,
           clip: 7,
           save: 52,
-          drawImage: 110,
+          drawImage: 111,
           createLinearGradient: 28,
           createRadialGradient: 13,
-          "new Path2D": 72,
-          fillText: 5,
+          "new Path2D": 73,
+          fillText: 4,
         },
         {
-          fillRect: 63,
-          stroke: 132,
-          fill: 98,
+          fillRect: 61,
+          stroke: 137,
+          fill: 95,
           clip: 7,
           save: 52,
-          drawImage: 110,
+          drawImage: 111,
           createLinearGradient: 21,
           createRadialGradient: 8,
-          "new Path2D": 47,
-          fillText: 5,
+          "new Path2D": 48,
+          fillText: 4,
         },
       ],
     },

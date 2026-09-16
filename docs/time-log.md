@@ -7862,3 +7862,21 @@ of the lane. Once it was found, `tick-rate.ts` wrote itself and the class was a
 rename of two fields.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — creature-bite-collision — a photographed wave has its pods on it
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `peakWorld`'s two passes, `wave-budget.test.ts`'s table and which of its five waves hangs a pod |
+| writing | 10 | two lines of the harness, the comment that says what moved, folding the husk's builder back in |
+| looking | 5 | the measure switch, once, for BULB QUEEN's four rows |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was looking, in the narrow sense that the only real question was
+which numbers moved and why — and the answer needed a run rather than a
+reading. One wave of the five carries a pod, its busiest tick is now a
+different tick, and the row moved in both directions at once, which is the sort
+of thing a session will invent a wrong explanation for if it does not measure.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

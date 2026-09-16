@@ -1,10 +1,15 @@
 import { beforeAll, describe, expect, it } from "bun:test";
-import { buildPods, buildQueue, WAVES } from "@neon-spore/content";
-import { createWorld, DEFAULT_CONFIG, startWave, step, ticksPerBeat } from "@neon-spore/sim";
 import { castHuskFlight, HuskDeflates } from "../src/husk-deflate.js";
 import { drawHuskMarks, husks, showsHuskMark } from "../src/husk-mark.js";
 import { computeLayout } from "../src/layout.js";
-import { CFG, installCanvasGlobals, type ROLES, stubCanvas, VIEWPORT } from "./frame-harness.js";
+import {
+  CFG,
+  installCanvasGlobals,
+  peakWorld,
+  type ROLES,
+  stubCanvas,
+  VIEWPORT,
+} from "./frame-harness.js";
 
 /**
  * THE HUSK's two pictures: the frame one seat sees round it, and the flight it
@@ -24,20 +29,16 @@ import { CFG, installCanvasGlobals, type ROLES, stubCanvas, VIEWPORT } from "./f
 beforeAll(installCanvasGlobals);
 
 /**
- * The wave, played far enough in for every pod on it to be hanging.
+ * The wave, stepped to the tick it carries the most on.
  *
- * Built here rather than with `peakWorld`, which opens a wave with an empty
- * pod queue — it looks for the tick with the most *creatures* on the field,
- * and a wave whose subject is a pod would be photographed with nothing on it.
+ * This was a builder of its own until 17 September 2026, because `peakWorld`
+ * opened every wave with an empty pod queue and counted creatures alone — so a
+ * wave whose subject is a pod came back with an empty field and three of the
+ * cases below failed on `world.pods.length`. The harness hangs the pods now
+ * and counts them, and the hole it was papering over is fixed for the seven
+ * waves it was silently costing.
  */
-function huskWorld() {
-  const index = WAVES.findIndex((w) => w.id === "theHusk");
-  expect(index).toBeGreaterThan(-1);
-  const world = createWorld(DEFAULT_CONFIG, 3, []);
-  startWave(world, index, buildQueue(index, CFG.cols), buildPods(index, CFG.cols));
-  for (let t = 0; t < ticksPerBeat(CFG) * 8; t++) step(world, []);
-  return world;
-}
+const huskWorld = () => peakWorld("theHusk");
 
 function drawn(role: (typeof ROLES)[number]): number {
   const l = computeLayout(VIEWPORT, CFG, role);
