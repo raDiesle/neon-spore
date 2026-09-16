@@ -925,6 +925,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-mark.ts` | THE STRAND's two marks: the bead that has to be shot next on the navigator's screen |
 | `packages/render/src/duty.ts` | The one word (or two) a seat owes the other while a split body is on the field |
 | `packages/render/src/duty-harpoon.ts` | **What a harpooned control says under the dial of the seat that cannot move it** |
+| `packages/render/src/duty-fence.ts` | THE FENCE's own duty word, which is the only one in the table that the world picks rather than the table |
 | `packages/render/src/throb.ts` | where THE THROB's far half lies — the seam meridian this instant and the region the paint clips to |
 | `packages/render/src/throb-look.ts` | THE ONE RECORD A CANDIDATE THROB LOOK PATCHES |
 | `packages/render/src/throb-pores.ts` | THE THROB's far half, PORES — seven pores pinned on the far hemisphere and carried round by the turn |

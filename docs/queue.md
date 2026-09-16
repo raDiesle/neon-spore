@@ -454,24 +454,6 @@ on both seats and mid-deflation.
 Prove it with `bun run check`, a replay test, and the wave watched at tempo
 through a husk sucked and a husk refused.
 
-## THE WEIGHT's duty words say both touch at the same time
-
-- **Found:** 2026-09-15, claude/bosses-splice-wave-088f34
-- **Taken:** 2026-09-16, claude/queue-the-weights-duty-words-say-both-touch-at-the-sam
-- **Files:** `packages/render/src/duty.ts`, `packages/render/test/frame.test.ts`
-
-THE WEIGHT is in the game — `sim/weight.ts`, the brush, and the wave
-`THE WEIGHT` in `packages/content/src/waves/act-8.ts` — but the owner read
-the words the siren writes under itself and found they do not say the
-mechanic. `duty.ts` gives it `p1: "CALL THE BEAT"`, `p2: "PRESS ON THEIRS"`;
-neither says that it takes **both hands at the same moment**. He suggests
-*both to touch at the same time*, on 15 September 2026 — so one line for
-both seats, in that sense, in the duty word's own register (short, upper
-case, the width the siren has). A look asked for by name; it lands. Check
-the frame the word appears in, in `frame.test.ts`, and re-read it.
-
-Prove it with `bun run check` and one PNG of the siren lit with the word.
-
 ## A contents menu on the long director pages, each heading a jump
 
 - **Found:** 2026-09-15, claude/bosses-splice-wave-088f34

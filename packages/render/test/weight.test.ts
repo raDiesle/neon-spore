@@ -7,6 +7,7 @@ import {
   ticksPerBeat,
 } from "@neon-spore/sim";
 import { commsCall } from "../src/comms.js";
+import { dutyWord } from "../src/duty.js";
 import { drawGrips } from "../src/grip.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { pressSeats, showsOwnMark } from "../src/weight.js";
@@ -163,5 +164,18 @@ describe("the siren", () => {
     // balloon already uses — and here it means the sharper thing:
     // not *one of you can see this*, but *neither of you can*.
     expect(commsCall(held([]))).toEqual({ p1: true, p2: true });
+  });
+
+  it("writes the same word under both dials, and the word is the mechanic", () => {
+    // The owner read CALL THE BEAT / PRESS ON THEIRS on 15 September 2026 and
+    // found that between them they hand out a protocol without ever saying the
+    // rule it is for. Both halves are asserted, because a row that drifts back
+    // to one word per seat is a pair being given parts before they have been
+    // told that one hand does nothing.
+    const world = held([]);
+    expect(dutyWord("p1", world)).toBe("BOTH PRESS TOGETHER");
+    expect(dutyWord("p2", world)).toBe("BOTH PRESS TOGETHER");
+    // And the rig, which is both seats on one screen, must not print it twice.
+    expect(dutyWord("test", world)).toBe("BOTH PRESS TOGETHER");
   });
 });

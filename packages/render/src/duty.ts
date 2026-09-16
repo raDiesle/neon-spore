@@ -1,4 +1,5 @@
-import { type CreatureKind, fenceGapCols, type World } from "@neon-spore/sim";
+import type { CreatureKind, World } from "@neon-spore/sim";
+import { fenceWord } from "./duty-fence.js";
 import { harpoonWord } from "./duty-harpoon.js";
 import { torchWarning } from "./torch-alarm.js";
 import type { ViewRole } from "./view-role.js";
@@ -8,12 +9,12 @@ import type { ViewRole } from "./view-role.js";
  * field.
  *
  * **Nothing else in this game writes a word onto the playing screen**, and the
- * exception is the siren's and is narrow on purpose. `comms.ts`'s `TALKER`
- * table already says *which* seat has to speak about a kind — this file says
- * *what*, in one word, for every kind that table does not answer with `null`.
- * A kind `TALKER` leaves at `null` has nothing hidden, by a decision written
- * out at that row, and gets no word here either: this file only ever narrows
- * an existing siren, it never lights a new one.
+ * exception is the siren's and is narrow on purpose. `comms.ts`'s `TALKER` table
+ * already says *which* seat speaks about a kind; this file says *what*, in one
+ * word, for every kind that table does not answer with `null`.
+ * A kind `TALKER` leaves at `null` has nothing hidden, by a decision written out
+ * at that row, and gets no word here either: this file only ever narrows an
+ * existing siren, it never lights a new one.
  *
  * **THE STRAND started this file alone**, because it was the first body where
  * *both* mouths light for one creature and two lit mouths do not say which
@@ -21,7 +22,9 @@ import type { ViewRole } from "./view-role.js";
  * naming the seat already named the sentence; a thread needed the sentence
  * spelled out or a pair meeting it for the first time had no way to guess
  * who starts. The table below keeps that shape: most rows carry one word for
- * one seat, and `strand` is still the only row carrying one for each.
+ * one seat; the rest carry a **different** word each where the halves are not
+ * interchangeable, or the **same** word on both dials where what is missing is
+ * a fact neither seat has alone or an act neither hand does alone.
  */
 
 /** The word an active kind puts under one or both seats' dials, or `null` for
@@ -45,8 +48,9 @@ const DUTY_WORD = {
   wisp: { p2: "SPOT" },
   // The navigator sees the whole body; the pilot only a band across its row.
   ghost: { p2: "COLUMN" },
-  // The only row with a word for each seat: the pilot holds a colour and the
-  // navigator a place, and neither half is worth anything alone.
+  // The first row with a word for each seat, and the one the rest were written
+  // against: the pilot holds a colour and the navigator a place, neither half
+  // worth anything alone.
   strand: { p1: "COLOUR", p2: "POSITION" },
   slick: null,
   bulb: null,
@@ -79,15 +83,15 @@ const DUTY_WORD = {
   // walking, not a fact one of them is missing — so there is no word for a
   // siren to carry (`comms.ts`).
   crawler: null,
-  // THE FENCE, and the only row where **both seats are given the same word**
-  // and the only one whose word is not fixed. It said EVADE under the pilot
+  // THE FENCE, the first row where **both seats were given the same word** and
+  // still the only one whose word is not fixed. It said EVADE under the pilot
   // alone, then GAP under both, and the owner asked for the pair to be told
-  // which of this creature's two answers the wall in front of them takes:
-  // FIND GAP FOR SHIELD for a wall with a way through it somewhere, SHOOT
-  // THE CRACK for one with none. `fenceWord` picks; the row below is the shape
-  // and the default. The long one is the owner's own wording, asked for by
-  // name: GAP alone said nothing about *what* the gap is for, and the seat
-  // reading it is holding a shield rather than a cannon.
+  // which of this creature's two answers the wall in front of them takes: FIND
+  // GAP FOR SHIELD for a wall with a way through it somewhere, SHOOT THE CRACK
+  // for one with none. `fenceWord` picks; the row below is the shape and the
+  // default. The long one is the owner's own wording, asked for by name: GAP
+  // alone said nothing about *what* the gap is for, and the seat reading it is
+  // holding a shield rather than a cannon.
   //
   // Both seats get it because both are needed either way round. The pilot can
   // see where the wall is open and cannot move the dome; the navigator moves
@@ -135,19 +139,23 @@ const DUTY_WORD = {
   // BEATS and says a digit; the navigator reads it and knows a digit is coming.
   // Nothing leaks — the count is on one screen and stays there.
   beatbox: { p1: "NUMBER OF BEATS", p2: "NUMBER OF BEATS" },
-  // THE BALLOON, and the only row here that gives **both** seats a word — and
-  // the same kind of word THE CHOIR's is, an instruction to the seat reading
-  // it rather than a fact to pass on. Neither hand does anything alone, so
-  // what each dial says is the half its own thumb owes; what has to be said
-  // out loud is which body, and no dial can carry that.
+  // THE BALLOON, and the same kind of word THE CHOIR's is — an instruction to
+  // the seat reading it rather than a fact to pass on. Neither hand does
+  // anything alone, so what each dial says is the half its own thumb owes;
+  // what has to be said out loud is which body, and no dial can carry that.
   balloon: { p1: "PULL LEFT", p2: "PULL RIGHT" },
-  // THE WEIGHT, and the balloon's row with the asymmetry moved: the gesture is
-  // the same on both sides, so what differs is not which hand but **who
-  // counts**. A pair where both call a beat lands on two different ones, and a
-  // pair where neither calls never lands at all — so the dials hand the count
-  // to one seat and the answer to the other, which is the protocol the guide
-  // teaches and the field cannot show.
-  weight: { p1: "CALL THE BEAT", p2: "PRESS ON THEIRS" },
+  // THE WEIGHT, and THE FENCE's shape said about a hand instead of a wall. It
+  // said CALL THE BEAT under the pilot and PRESS ON THEIRS under the navigator,
+  // and the owner read the two on 15 September 2026 and found that between them
+  // they never say the mechanic: they hand out a **protocol** — who counts, who
+  // answers — to a pair nobody has yet told that one hand on this body does
+  // nothing whatever and the two have to land on it at the same moment
+  // (`sim/weight.ts`). So both dials say the mechanic, in his own sense — *both
+  // to touch at the same time* — and the count is left to the pair, which is
+  // where it was always coming from: a hand brightens on its own seat's screen
+  // and on no other, so once they know the presses have to coincide, saying one
+  // out loud is the only thing left to try.
+  weight: { p1: "BOTH PRESS TOGETHER", p2: "BOTH PRESS TOGETHER" },
   // Silent in `TALKER`, so no word here either.
   crystal: null,
   // Either seat's, either way, and one thumb is enough — so the same word on
@@ -174,37 +182,14 @@ function kindActive(kind: CreatureKind, world: World): boolean {
 }
 
 /**
- * Which of THE FENCE's two answers the wall on the field takes.
- *
- * A wall with no way through at all is the one the cannon is for: its cracks
- * are the only openings it has, and a bolt in the right colour is the only
- * thing that makes one (`fence-crack.ts`) — so the pair is told to make a hole
- * rather than to hunt for one. Everything else has an opening somewhere
- * and has to be talked through. A wall the pair has already cut counts as
- * having one: they watched the bolt open it, and the job from that beat on is
- * to get the dome there.
- *
- * `fenceGapCols` with `secret` true, which is the *world's* answer rather than
- * either screen's — the word is the same on both phones, the way every other
- * row in this table is.
- */
-function fenceWord(world: World): string {
-  for (const c of world.creatures) {
-    if (c.kind === "fence" && fenceGapCols(world.cfg, c, true).length === 0)
-      return "SHOOT THE CRACK";
-  }
-  return "FIND GAP FOR SHIELD";
-}
-
-/**
  * The words owed by one seat, in table order, without repeats.
  *
- * **Two rows have a wording that something about the world picks**, and both
- * pick it here rather than in the table: THE FENCE, whose word depends on
- * whether the wall in front of the pair has a way through it, and the two
- * clingers, whose word depends on whether the body holding the control was
- * fired there by a fault (`duty-harpoon.ts`). The table is the shape and the
- * default in both cases.
+ * **Two rows have a wording that something about the world picks**, and each
+ * picks it in a file of its own rather than in the table: THE FENCE, whose word
+ * depends on whether the wall in front of the pair has a way through it
+ * (`duty-fence.ts`), and the two clingers, whose word depends on whether the
+ * body holding the control was fired there by a fault (`duty-harpoon.ts`). The
+ * table is the shape and the default in both cases.
  */
 function wordsFor(seat: "p1" | "p2", world: World): string[] {
   const words: string[] = [];

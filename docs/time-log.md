@@ -6221,3 +6221,21 @@ on a phone and the only thing that says whether it reads is the sheet. The
 third piece is not here — a notch cut out of a body has no record to patch at
 all, so it went to the queue naming the seam it needs rather than being faked
 with a crater.
+
+## 2026-09-16 — queued-tasks — THE WEIGHT's dials say the mechanic
+
+The owner read CALL THE BEAT / PRESS ON THEIRS under the siren and found they
+never say what the body needs. One line now, on both dials.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `duty.ts`'s whole table, `sim/weight.ts`, the mechanic's own text and the film, to find what the two words were doing instead |
+| writing | 20 | the row, the comment, three stale "only" claims beside it, and the test that holds both halves |
+| looking | 10 | one frame of THE WEIGHT at 90 ticks, to see the nineteen characters fit under the dial |
+| friction | 15 | the rewrite put `duty.ts` at 260 lines; `fenceWord` went to `duty-fence.ts`, beside the `duty-harpoon.ts` the file already had |
+| landing | 10 | `check:fast`, the frame, the commit |
+
+The bottleneck was friction, and it was self-inflicted: the row's comment had
+to carry why a protocol was the wrong thing to print, and the file had no room
+for the paragraph. Splitting out the second world-picked word was the right
+answer and was sitting there — `duty-harpoon.ts` had been the first.
