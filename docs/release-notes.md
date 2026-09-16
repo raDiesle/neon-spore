@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · b9927941 — The BOSSES page comes off the director
+
+The owner's words, 16 September 2026: *its not relevant for me any longer*. The NOT BUILT YET sheet's first tab held THE ACT ORDER -- the built bosses read straight off `bosses.md` -- and the boss and round ideas beside it, and the boss ideas went yesterday with THE SPLICE. So the tab, the page, the `bosses` group, the two spec files the API read only to build it, and `fromRoster` and `dropBuilt` with their one caller all go. MECHANICS leads now, because GRAPHICS draws itself on first click and a sheet opening on it would open on nothing.
+
 ## 2026-09-16 · afe18113 — The boss ideas go, and the cards drawn at them are set free
 
 The owner cut the BOSS IDEAS group with THE SPLICE, so `ideas.md`'s `### Bosses` heading and the `fromIdeas("BOSS IDEAS", ...)` group in the director's backlog both go. Three encounters were in it and two had already shipped as something other than the card they were written on: THE CAIRN as the boss it was written as, THE WEIGHT as a creature with the boss never built. What those two turned into on the way is `transfers-bosses.md`, which stays.
