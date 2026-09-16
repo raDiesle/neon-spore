@@ -680,6 +680,7 @@ second is written down so the next reader does not rediscover it as an option.
 ## Three director comments name a `guide-page.ts` the tree does not have
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-three-director-comments-name-a-guide-page-ts-the
 - **Files:** `tools/director/src/versus-tab.ts`, `tools/director/src/backlog-tabs.ts`, `tools/director/src/backlog-page.ts`
 
 The GUIDES room came off the sheets on 14 September 2026 and `guide-page.ts`
