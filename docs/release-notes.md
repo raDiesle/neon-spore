@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · b37ad3a4 — The canvas stub takes the corner list roundRect really takes
+
+`CanvasRenderingContext2D.roundRect` takes either one radius or a list of up to four, one per corner, and every browser the game runs in honours the list. `canvas-stub.ts` took the number only, so `[4, 4, 3, 3]` came back as *4,4,3,3 is not a finite number* and a shape round at the top and near-square at the foot could not be drawn by anything the tests hold — which is every candidate and every frame test.
+
 ## 2026-09-16 · f5ac26f0 — The lost screen says how many times the run has gone again
 
 A fourth line under the tear's sentence: THIS RUN · 3 RETRIES, in the same words `retriesText` gives the HUD's corner and the balance sheet. The line above it is this wave's try; this one is the whole run, which is what the owner asked for by name as *the score* on 16 September 2026 (`docs/looks.md`, first exemption).
