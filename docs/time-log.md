@@ -7670,3 +7670,5 @@ The bottleneck was friction, and it was self-inflicted: the fixture only ever
 needed a plain string replace. The finding itself came free — `bun run queue
 list` printed `— ASKS THE OWNER — ASKS THE OWNER` on two entries this session
 wrote, which is the kind of thing only reading the listing shows.
+
+*Measured: under a minute from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

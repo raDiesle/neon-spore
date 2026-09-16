@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · 22e7fbd1 — An entry's title cannot shout the marker its own fields already say
+
+`bun run queue list` builds each line as `<title> — ASKS THE OWNER — LOCAL ONLY`, off the `Asks:` and `Where:` fields. Two entries written on 16 September 2026, in two lanes, said `— ASKS THE OWNER` in the title as well, so the listing printed it twice — and the title is the string `take`, `release` and `done` match on, so the doubled one is what a session has to type. Both titles are cut and the parser refuses the shape now, with `LOCAL ONLY` and `CLOUD ONLY` held the same way.
+
 ## 2026-09-16 · 3b5dc88f — THE BATON's look: the arm, its sockets, the bead in flight and the grey over the seat whose turn it is not
 
 The boss that landed as a simulation two commits ago is now on screen. A rock spine hangs from above the top row down the socket rows, one socket appearing per beat as it unfolds; a lit socket is a dark disc under a hull-coloured glow that breathes with the beat, a dark one is bare rock, a shed one is a gap. The bead sits in its socket in the colour the navigator has to shoot, flies to the next one along a sideways arc that swaps side each handover, and wears a wider halo and a ring once the bolt has met it. When the arm has swung, the sockets above the bead stay in the column it left. The fold takes the whole picture out over the down beats. The seat that is locked sees grey: the whole band on a solo phone, that seat's strip and lobes on the test screen. Both screens see the bead's colour — one player reads what to shoot, the other says it.
