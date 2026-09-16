@@ -28,7 +28,7 @@ first creature falling. It has two states and the second is optional:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — sixty-seven of the seventy-six waves today, and a wave with
+   new carries one — sixty-eight of the seventy-seven waves today, and a wave with
    no guide has no circles either.
 2. **The introduction.** `WAVE 4`, the wave's name, its one sentence. Plain
    text on the field — no panel, no border, nothing to press. It stands for a
@@ -300,19 +300,19 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are fifty-nine of them now**, one per guided wave bar eight, and each is
+**There are fifty-nine of them now**, one per guided wave bar nine, and each is
 authored in `packages/content/src/scenes/` as a page of choreography rather than
-a page of prose. The seven that are still the three strings and the two circles
+a page of prose. The nine that are still the three strings and the two circles
 are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE CODEX, THE MINE, THE
-SCOUT and THE REPRISE** —
+SCOUT, THE REPRISE and THE STARE** —
 and that list is held by `test/scenes-prose.test.ts` rather than by this
 paragraph, so a film written for one of them fails a test here instead of
 leaving a sentence quietly wrong, which is what happened to the line this one
 replaced.
 
-**Five of those eight are films nobody has written, THE SCOUT's and THE
-REPRISE's are owed by the lanes that draw them, and THE MINE is the one that
-cannot have one.** Every act of a rehearsal is a thumb landing on a *named*
+**Five of those nine are films nobody has written, THE SCOUT's, THE REPRISE's
+and THE STARE's are owed by the lanes that draw them, and THE MINE is the one
+that cannot have one.** Every act of a rehearsal is a thumb landing on a *named*
 control (`scene-script.ts`, `controlPress`), and that creature's whole answer
 is a finger on a bare square of the field — not a control, with no name to
 press. A film for it would have to show a hand coming down on nothing, which

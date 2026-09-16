@@ -89,6 +89,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // read back out of the queue — which `mapCol` has already put on this
   // field's columns by the time they are sent (`reprise.ts`).
   if (boss.kind === "reprise") return { ...boss };
+  // THE STARE has no column and nothing else to remap: the eye is in the sky,
+  // and what it does is decided by the clock rather than by a place
+  // (`sim/stare.ts`). The shortest entry of the fourteen, with THE WELL's.
+  if (boss.kind === "stare") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

@@ -23,6 +23,7 @@ import { ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
 import { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
 import { SCOUT_DEFAULTS, type ScoutConfig } from "./config-scout.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
+import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 import { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 import { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 import { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
@@ -59,6 +60,7 @@ export { FLEET_SHELL_BEATS, ROUND_DEFAULTS, type RoundConfig } from "./config-ro
 export { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
 export { SCOUT_DEFAULTS, type ScoutConfig } from "./config-scout.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
+export { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 export { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
 export { VEER_DEFAULTS, type VeerConfig } from "./config-veer.js";
 export { VIEW_DEFAULTS, type ViewConfig } from "./config-view.js";
@@ -78,6 +80,7 @@ export interface SimConfig
     ChoirConfig,
     ClawConfig,
     ScoutConfig,
+    StareConfig,
     CrawlerConfig,
     CrystalConfig,
     GumConfig,
@@ -195,6 +198,7 @@ export const DEFAULT_CONFIG: SimConfig = {
   ...CREATURE_DEFAULTS,
   ...CLAW_DEFAULTS,
   ...SCOUT_DEFAULTS,
+  ...STARE_DEFAULTS,
   ...GHOST_DEFAULTS,
   ...FENCE_DEFAULTS,
   ...GYRE_DEFAULTS,

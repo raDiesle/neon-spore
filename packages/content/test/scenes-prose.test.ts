@@ -45,6 +45,11 @@ const STILL_PROSE = [
   // harder than usual to choreograph, too: what the film has to show is a
   // stretch of field the pair can no longer see.
   "THE REPRISE",
+  // And THE STARE, owed by the lane that draws the eye. Its rehearsal is the
+  // hardest of the three to choreograph: a film is a thumb landing on a named
+  // control, and what this boss teaches is a thumb **not** landing — which
+  // needs an eye on the screen to not touch anything under.
+  "THE STARE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -68,11 +73,11 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   });
 
   it("counts the guided waves the opening section names", () => {
-    // "sixty-six of the seventy-five waves today" — the one figure in §1
+    // "sixty-eight of the seventy-seven waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says sixty-seven of seventy-six";
-    expect(guided.length, fix).toBe(67);
-    expect(WAVES.length, fix).toBe(76);
+    const fix = "update §1 of docs/spec/briefings.md, which says sixty-eight of seventy-seven";
+    expect(guided.length, fix).toBe(68);
+    expect(WAVES.length, fix).toBe(77);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

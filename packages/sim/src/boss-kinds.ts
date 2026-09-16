@@ -29,7 +29,11 @@ import type { BossEntry } from "./boss-entries.js";
  * again (`reprise.ts`).
  */
 export function bossFillsWave(kind: BossEntry["kind"]): boolean {
-  return kind !== "vane" && kind !== "well" && kind !== "reprise";
+  // THE STARE is the fourth of them and the plainest: nothing to shoot,
+  // nothing to place, and no clock of its own that ends anything. What it does
+  // is make the wave its author wrote cost more to play (`stare.ts`), so a
+  // stare wave with no arrivals is an eye watching an empty field.
+  return kind !== "vane" && kind !== "well" && kind !== "reprise" && kind !== "stare";
 }
 
 /**
@@ -90,4 +94,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "splice",
   "scout",
   "reprise",
+  "stare",
 ];

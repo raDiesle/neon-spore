@@ -37,6 +37,15 @@ export const ROUND_FIELD_GROUP = {
   scoutHomeRadiusMilli: "THE SCOUT — a little ship one of you flies",
   scoutLeadBeats: "THE SCOUT — a little ship one of you flies",
   scoutVerdictBeats: "THE SCOUT — a little ship one of you flies",
+  // StareConfig — the eye is not a round and its dials live here anyway: it
+  // takes the panel away in the one sense that matters, and every number in it
+  // is a count of beats a pair says something in (`config-stare.ts`).
+  stareAwayBeats: "THE STARE — an eye that freezes whoever it looks at",
+  stareTellBeats: "THE STARE — an eye that freezes whoever it looks at",
+  stareLookBeats: "THE STARE — an eye that freezes whoever it looks at",
+  stareLookGrowBeats: "THE STARE — an eye that freezes whoever it looks at",
+  stareLookMaxBeats: "THE STARE — an eye that freezes whoever it looks at",
+  stareTurnBackBeats: "THE STARE — an eye that freezes whoever it looks at",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

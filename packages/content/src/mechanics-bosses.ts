@@ -8,7 +8,7 @@ import type { Mechanic, MechanicId } from "./mechanics.js";
  */
 type BossId = Extract<
   MechanicId,
-  "queen" | "warden" | "tether" | "cairn" | "mirror" | "maze" | "splice" | "reprise"
+  "queen" | "warden" | "tether" | "cairn" | "mirror" | "maze" | "splice" | "reprise" | "stare"
 >;
 
 /**
@@ -70,6 +70,10 @@ export const BOSS_MECHANICS = {
   },
   splice: {
     what: "A row of mouths two tiles over the plating, and a straw out of each one running the whole height of the field, tangled through all the others, with a number at its far end. Feed them in order — the cannon under a mouth and the maw open — and the number takes two beats to come down the straw before the ship finds out whether it was the one wanted. Only one of you is shown the tangle and the numbers; only the other one can reach a mouth. A wrong number, or a round's beats running out, costs the hull.",
+    reach: "spawn",
+  },
+  stare: {
+    what: "An eye over the field that looks at one of you at a time. It turns towards a seat for four beats — only the other seat is shown which — and then it watches. While it is watching that player may not press anything at all: not the strip, not the trigger, not the plate. A button touched under it breaks the hull and the wave starts again. The other player keeps playing, alone, and the looks get longer as the wave goes on.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

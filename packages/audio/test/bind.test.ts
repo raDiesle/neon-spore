@@ -58,6 +58,14 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-choir.ts", "export type ChoirEvent ="],
     ["packages/sim/src/events-balloon.ts", "export type BalloonEvent ="],
     ["packages/sim/src/events-gum.ts", "export type GumEvent ="],
+    // The two bosses whose arms are files of their own: THE FLEET's five, cut
+    // out when `events.ts` came back to its limit, and THE STARE's one, cut
+    // out the same day. A boss is worth four or five lines of that file and
+    // there are nine more rounds designed, so the next one will be a file too
+    // — and a file this test cannot find is a file whose events go silently
+    // unheard, which is what the comment at the top of this list is about.
+    ["packages/sim/src/events-fleet.ts", "export type FleetEvent ="],
+    ["packages/sim/src/events-stare.ts", "export type StareEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -105,6 +113,7 @@ const SAMPLES: Record<string, SimEvent> = {
   eyeOpen: { type: "eyeOpen", col: 5, color: "red" },
   plate: { type: "plate", col: 5, row: 2, left: 3, color: "red" },
   wardenDown: { type: "wardenDown", col: 5, row: 2 },
+  stareCaught: { type: "stareCaught", player: 1, control: "fire" },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

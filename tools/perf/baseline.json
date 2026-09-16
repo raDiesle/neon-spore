@@ -649,8 +649,18 @@
       "unmeasured": true
     },
     {
-      "id": "theCrossing",
+      "id": "theStare",
       "wave": 62,
+      "name": "THE STARE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theCrossing",
+      "wave": 63,
       "name": "THE CROSSING",
       "bodies": 0,
       "typical": 0,
@@ -660,7 +670,7 @@
     },
     {
       "id": "theChoir",
-      "wave": 63,
+      "wave": 64,
       "name": "THE CHOIR",
       "bodies": 0,
       "typical": 0,
@@ -670,7 +680,7 @@
     },
     {
       "id": "pulse",
-      "wave": 64,
+      "wave": 65,
       "name": "THE PULSE",
       "bodies": 0,
       "arrivals": "0:741638a5",
@@ -681,7 +691,7 @@
     },
     {
       "id": "theBalloon",
-      "wave": 65,
+      "wave": 66,
       "name": "THE BALLOON",
       "bodies": 0,
       "typical": 0,
@@ -691,7 +701,7 @@
     },
     {
       "id": "theBeatbox",
-      "wave": 66,
+      "wave": 67,
       "name": "THE BEATBOX",
       "bodies": 0,
       "typical": 0,
@@ -701,7 +711,7 @@
     },
     {
       "id": "theWeight",
-      "wave": 67,
+      "wave": 68,
       "name": "THE WEIGHT",
       "bodies": 0,
       "typical": 0,
@@ -711,7 +721,7 @@
     },
     {
       "id": "theCairn",
-      "wave": 68,
+      "wave": 69,
       "name": "THE CAIRN",
       "bodies": 0,
       "typical": 0,
@@ -721,7 +731,7 @@
     },
     {
       "id": "theCodex",
-      "wave": 69,
+      "wave": 70,
       "name": "THE CODEX",
       "bodies": 0,
       "typical": 0,
@@ -731,7 +741,7 @@
     },
     {
       "id": "theWell",
-      "wave": 70,
+      "wave": 71,
       "name": "THE WELL",
       "bodies": 0,
       "typical": 0,
@@ -741,7 +751,7 @@
     },
     {
       "id": "theHandover",
-      "wave": 71,
+      "wave": 72,
       "name": "THE HANDOVER",
       "bodies": 0,
       "typical": 0,
@@ -751,7 +761,7 @@
     },
     {
       "id": "theLeak",
-      "wave": 72,
+      "wave": 73,
       "name": "THE LEAK",
       "bodies": 0,
       "typical": 0,
@@ -761,7 +771,7 @@
     },
     {
       "id": "theSplice",
-      "wave": 73,
+      "wave": 74,
       "name": "THE SPLICE",
       "bodies": 0,
       "typical": 0,
@@ -771,7 +781,7 @@
     },
     {
       "id": "theMine",
-      "wave": 74,
+      "wave": 75,
       "name": "THE MINE",
       "bodies": 0,
       "typical": 0,
@@ -781,7 +791,7 @@
     },
     {
       "id": "theMoult",
-      "wave": 75,
+      "wave": 76,
       "name": "THE MOULT",
       "bodies": 0,
       "typical": 0,
@@ -791,7 +801,7 @@
     },
     {
       "id": "theReprise",
-      "wave": 76,
+      "wave": 77,
       "name": "THE REPRISE",
       "bodies": 0,
       "typical": 0,

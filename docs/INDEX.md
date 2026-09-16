@@ -248,9 +248,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/scout.ts` | THE SCOUT: the ship puts something small out into the dark, and only one of you is holding it |
 | `packages/sim/src/boss-round.ts` | Stand the boss on a numbered round, through that fight's own way into one |
 | `packages/sim/src/config-strand.ts` | THE STRAND's three numbers: the default length of a thread, and what a bead and a whole thread are worth |
+| `packages/sim/src/config-stare.ts` | THE STARE's numbers — how long the eye is turned away, how much warning a turn gives |
 | `packages/sim/src/config-scout.ts` | THE SCOUT's numbers — how the little ship flies |
 | `packages/sim/src/creature-state-strand.ts` | **THE STRAND's three fields**, and the whole of what one bead remembers |
 | `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
+| `packages/sim/src/events-stare.ts` | **Everything THE STARE does that neither screen already says**, as one event |
 | `packages/sim/src/events-splice.ts` | **Everything THE SPLICE does that neither screen already says**, as events |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
@@ -262,6 +264,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — twelve shapes, the union of them |
 | `packages/sim/src/boss-entries-round.ts` | **What a wave authors when it wants a round** — the bosses that take the panel away |
 | `packages/sim/src/boss-kinds.ts` | a tool asks which bosses exist, or whether one is the whole wave — `BOSS_KINDS`, a wire value appended never inserted, and `bossFillsWave` |
+| `packages/sim/src/boss-others.ts` | **One beat of whichever boss is not the queen**, which is now thirteen of the fourteen |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
 | `packages/sim/src/crawler-round.ts` |  |
@@ -280,6 +283,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-fence.ts` | THE FENCE's two numbers: how wide each way through it is |
 | `packages/sim/src/creature-state-fence.ts` | **THE FENCE's two fields**, and both of them are sets of columns: the ways through the wave authored |
 | `packages/sim/src/events-fence.ts` | **What THE FENCE does**, as events: the wire going over the ship, and a bolt cutting a way through it |
+| `packages/sim/src/events-fleet.ts` | **Everything THE FLEET does that neither screen already says**, as events |
 | `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
@@ -369,6 +373,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
+| `packages/sim/src/stare-hash.ts` | What THE STARE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/stare-step.ts` | THE STARE's clock, and the one press that costs the hull |
+| `packages/sim/src/stare.ts` | THE STARE: a thing in the sky that looks at one of you, and whatever it catches the hull pays for |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
@@ -506,6 +513,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/control-sets-groups.ts` | **The panel half of the coverage rule**, and nothing else |
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
 | `packages/content/src/waves/act-7a.ts` | Three waves between the two halves of act seven: THE CHOKE (the steer fault), THE LIMPET and THE LEECH |
+| `packages/content/src/waves/act-7c.ts` | The third page of act seven, cut off `act-7b.ts` when THE STARE took that file twenty-one lines over the… |
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
@@ -985,6 +993,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/splice-draw.ts` | THE SPLICE, drawn — and drawn differently on each screen, which is the fight |
 | `packages/render/src/splice-straws.ts` | THE SPLICE's straws, as geometry and as lines |
 | `packages/render/src/effects-ingest-silent.ts` | **The events that leave nothing behind in `Effects`**, and why each one does not |
+| `packages/render/src/effects-ingest-silent-boss.ts` | **The bosses' half of the silent list**, and nothing else |
 | `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
 | `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |
 | `packages/render/src/magnet.ts` | THE MAGNET, drawn: a horseshoe on two coloured poles with an armoured plate slung under it |
@@ -1391,6 +1400,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/backlog-tabs.ts` | The tabs of the NOT BUILT YET sheet that are drawn on first sight rather than on first open |
 | `tools/director/src/backlog-entry.ts` | One card on the NOT BUILT YET page: the name, its frame, the plain-English rows |
 | `tools/director/src/boss-cycles.ts` | The two boss panels that are mostly a cycle, and the chrome all of them share |
+| `tools/director/src/boss-nothing.ts` | **The bosses with nothing on this panel to author**, and the reason for each |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
 | `tools/director/src/brush-category.ts` | Which brush categories (`BRUSH_GROUPS` in brush-groups.ts — CANNON, SHIELD, MIXED |
 | `tools/director/src/brush-frame.ts` | The frame a brush's specimen is photographed through, and the places a crop can be centred on |

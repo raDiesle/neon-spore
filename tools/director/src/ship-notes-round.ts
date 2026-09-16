@@ -26,6 +26,17 @@ export const ROUND_NOTES = {
     "holds the only trigger; player 2 walks the sights a square at a time and is " +
     "shown nothing but water. The clock is the whole of the danger — running out " +
     "of it breaks the hull. See fleet.ts, config-fleet.ts.",
+  "THE STARE — an eye that freezes whoever it looks at":
+    "The owner asked for this on 16 September 2026: when the boss looks at " +
+    "you, you may not shoot, move or use the shield. The eye is away for " +
+    "stareAwayBeats, turns for stareTellBeats — that turn is the whole " +
+    "fairness of it, and it is one spoken sentence long — then watches one " +
+    "seat, rolled from the wave's own rng and shown only to the *other* " +
+    "screen. A watched seat that presses anything breaks the hull, which is " +
+    "the wave lost. Every look is stareLookGrowBeats longer than the last, to " +
+    "stareLookMaxBeats. It is not the whole wave: the arrivals underneath are " +
+    "the ones its author wrote, and the seat that is not watched plays on " +
+    "alone. Nothing about it is authored per wave.",
   "THE SCOUT — a little ship one of you flies":
     "The round the owner asked for on 16 September 2026, and the first thing " +
     "in the game that flies. The ship opens and puts a little one out: player " +

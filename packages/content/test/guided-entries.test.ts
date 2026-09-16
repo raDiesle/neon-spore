@@ -54,6 +54,14 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // against: every arrival on an empty field would be a thing that turns over,
   // and the pair would read that as the game rather than as the creature.
   "THE MOULT": ["meteor"],
+  // THE STARE introduces no creature at all — what is new is that one of you
+  // may not touch anything — so every arrival on it is a kept kind, and the
+  // rock is the one that makes the lesson playable. A rock is answered by the
+  // *dome*, which is player 1's, and a colour is answered by the *trigger*,
+  // which is player 2's: putting rocks inside the looks is what makes "park
+  // the plate before it turns" a sentence with a consequence, and what lets a
+  // pair play on through a look that took the other seat.
+  "THE STARE": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

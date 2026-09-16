@@ -1,9 +1,6 @@
+import { stepOtherBoss } from "./boss-others.js";
 import type { QueenState } from "./boss-state.js";
-import { stepCairn } from "./cairn.js";
 import { hullRow, type SimConfig } from "./config.js";
-import { stepFleet } from "./fleet.js";
-import { stepMaze } from "./maze-round.js";
-import { stepMirror } from "./mirror.js";
 import {
   announce,
   closeBloom,
@@ -15,10 +12,7 @@ import {
 } from "./queen-mark.js";
 import { nextInt } from "./rng.js";
 import { NO_SHELL } from "./shell.js";
-import { stepSplice } from "./splice-round.js";
 import { type Creature, colSpan } from "./types.js";
-import { stepVane } from "./vane.js";
-import { stepWarden } from "./warden.js";
 import type { World } from "./world.js";
 
 /**
@@ -79,66 +73,12 @@ export function initialDropSide(world: World): -1 | 1 {
 export function stepBoss(world: World): void {
   const boss = world.boss;
   if (boss === null) return;
-  if (boss.kind === "mirror") {
-    stepMirror(world, boss);
+  if (boss.kind !== "queen") {
+    // Thirteen of the fourteen, next door: the dispatch that says *not her*
+    // grows by a branch a round, and her own beat does not (`boss-others.ts`).
+    stepOtherBoss(world, boss);
     return;
   }
-  if (boss.kind === "warden") {
-    stepWarden(world, boss);
-    return;
-  }
-  if (boss.kind === "vane") {
-    stepVane(world, boss);
-    return;
-  }
-  // THE CAIRN has exactly one thing on the beat, and it is the clock the pile
-  // keeps on the pair: a stack that has stood `cairnShedBeats` lets a rock go
-  // by itself. The hand that takes one apart answers on the tick, with the
-  // other carries (`grip-push.ts`) — a gesture lands when the finger has
-  // travelled, and only the clock belongs to the beat (`cairn.ts`).
-  if (boss.kind === "cairn") {
-    stepCairn(world, boss);
-    return;
-  }
-  if (boss.kind === "maze") {
-    stepMaze(world, boss);
-    return;
-  }
-  // THE SPLICE is on the beat and on the field, like THE MIRROR: the hull,
-  // the cannon and the maw under it are the ship's own, and what this clock
-  // does is land a number that is already on its way down, give way to the
-  // next tangle, and run a round's beats out (`splice-round.ts`). Its one
-  // verb arrives on the tick, through the SUCK the pair already has.
-  if (boss.kind === "splice") {
-    stepSplice(world, boss);
-    return;
-  }
-  // THE FLEET has exactly one thing on the beat and it is the clock. Its
-  // salvo and its sights answer a press on the tick, from `step` — a shot
-  // that waited for the next beat would put a queue between the sentence and
-  // the square it named (`fleet.ts`).
-  if (boss.kind === "fleet") {
-    stepFleet(world, boss);
-    return;
-  }
-  // THE GAUGE, SNAKE and PINBALL never reach this. All three are stepped on
-  // the tick from `step`'s own early return, and the field's beat does not run
-  // while any of them stands — so the branch is here to say that out loud
-  // rather than to do anything.
-  if (boss.kind === "gauge" || boss.kind === "snake" || boss.kind === "pinball") return;
-  // THE SCOUT is the fourth of them and the same sentence: the little ship is
-  // flown on the tick, and the field has no beat while it is out.
-  if (boss.kind === "scout") return;
-  if (boss.kind === "pulse") return;
-  // And THE WELL never does anything here at all, on any clock: it is the
-  // field drawn inside out and the field's own rules are the whole of its
-  // behaviour, so a beat of it is a beat of the wave its author wrote
-  // (`well.ts`).
-  if (boss.kind === "well") return;
-  // Nor THE REPRISE, and for the opposite reason: what it does on the beat is
-  // put bodies on the field, so it is stepped from `onBeat` beside the only
-  // other thing that does and *before* it (`reprise.ts`).
-  if (boss.kind === "reprise") return;
   if (boss.scratch.length === 0) boss.scratch = [0, 1];
 
   const queen = world.creatures.find((c) => c.id === boss.creatureId);

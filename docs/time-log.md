@@ -7209,3 +7209,30 @@ already shipped. **A brief written against the wrong engine is cheap to answer
 and expensive to check**, and the checking is the whole value of the half.
 
 *Measured: read off the previous landing at 21:35 and this one.*
+
+## 2026-09-16 — task-performance-optimization — THE STARE, the simulation half
+
+The owner's next boss, in his own words: *when the boss looks at you, you are
+not allowed to shoot or move or use shield… the rest what will happen you can
+surprise me.* Built as a field boss rather than a round — the hull, the cannon
+and the shield are exactly what they always are, and what is added is a clock
+nobody controls. Split in two before it was started: this is everything that
+plays, and nothing of the eye is drawn.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `faultSwallows` and where a press enters, THE VANE and THE WELL as bosses that bend a wave rather than being one, the fleet's plates, the audio catalogue's speech-band rule |
+| writing | 25 | five sim files, the event, the sound, the wave, nine test cases, the spec section, the director's card and note |
+| looking | 0 | — nothing is drawn, which is the other half |
+| friction | 20 | five files over 250 lines in turn (`events.ts`, `boss.ts`, `effects-ingest-silent.ts`, `act-7b.ts`, the director's `boss.ts`), and the director's save dropping every comment inside an `entries:` array — which is a rule nothing states and a test caught |
+| landing | 10 | `bun run index`, `baseline:blank` for the wave the insert moved, `imports`, `check`, the commit |
+
+The bottleneck was friction, and all of it was one thing: **a boss is about
+eight lines in each of five files that are already at their ceiling.**
+`events.ts` was at 247, `effects-ingest-silent.ts` at exactly 250, `boss.ts` at
+249 — so this lane spent as long splitting files as writing the boss, and every
+split was one the next boss would have forced anyway. What made it bearable is
+that each seam already existed in the file's own comments: the events of a boss
+go next door (`events-splice.ts` said so), the dispatch that says *not the
+queen* is not the queen's own beat, and an act file is a page rather than a
+chapter.

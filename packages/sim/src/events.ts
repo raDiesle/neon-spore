@@ -1,5 +1,7 @@
 import type { CreatureEvent } from "./events-creature.js";
+import type { FleetEvent } from "./events-fleet.js";
 import type { SpliceEvent } from "./events-splice.js";
+import type { StareEvent } from "./events-stare.js";
 import type { BreachWeight } from "./hull-damage.js";
 import type { MazeVerdictReason } from "./maze-verdict.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
@@ -216,32 +218,14 @@ export type SimEvent =
    * fired at spends neither. Both seats hear it — the chart is the one thing
    * in this fight the two of them share.
    */
-  /**
-   * A salvo left the cannon, whatever it is about to find. Pushed before the
-   * splash or the hit that rides beside it on the same tick, and carrying the
-   * square it is aimed at.
-   *
-   * Its own event because the *press* and the *arrival* are no longer the same
-   * moment on either screen: the shell is drawn arcing out of the muzzle and
-   * takes `FLEET_SHELL_BEATS` to land, and the two events after this one are
-   * held back by the same amount so the ear hears the water close over it when
-   * the eye sees it. Without this the pilot would press a trigger and get a
-   * second of silence back, which is the one thing a control may never do.
-   */
-  | { type: "fleetSalvo"; col: number; row: number }
-  | { type: "fleetSplash"; col: number; row: number }
-  /** A salvo that found a hull. The square is now marked on both screens. */
-  | { type: "fleetHit"; col: number; row: number }
-  /**
-   * The last square of one ship. `len` is how long it was and `left` how many
-   * are still afloat, so the ear can say how big a thing just went down and
-   * how much of the fight is left without either screen being read.
-   */
-  | { type: "fleetSunk"; col: number; row: number; len: number; left: number }
-  /** The last ship of the fleet. The chart is clear and the wave is over. */
-  | { type: "fleetDown"; col: number; row: number }
-  // THE SPLICE's four, gathered next door rather than spelled out here: this
-  // file was one boss from its own 250-line limit (`events-splice.ts`).
-  | SpliceEvent;
+  // THE FLEET's five are next door as well (`events-fleet.ts`).
+  | FleetEvent
+  // Two bosses' own arms, gathered next door rather than spelled out here,
+  // because this file keeps coming back to its 250-line limit and a boss is
+  // worth four lines of it (`events-splice.ts`, `events-stare.ts`).
+  | SpliceEvent
+  | StareEvent;
 
+export type { FleetEvent } from "./events-fleet.js";
 export type { SpliceEvent } from "./events-splice.js";
+export type { StareEvent } from "./events-stare.js";

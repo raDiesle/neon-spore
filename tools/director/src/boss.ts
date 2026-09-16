@@ -1,6 +1,7 @@
 import { AUTHORED_COL_MAX, CREATURES } from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { numberField, placementNote, renderVane, renderWarden } from "./boss-cycles.js";
+import { bossAuthorsNothing } from "./boss-nothing.js";
 import { renderFleetEditor } from "./fleet-editor.js";
 import { renderMazeEditor } from "./maze-editor.js";
 import { renderPinballEditor } from "./pinball-editor.js";
@@ -162,21 +163,10 @@ export function bindBossPanel(
       return;
     }
     const boss = wave.boss;
-    // THE GAUGE has nothing to author: no column, no health, no rounds. Its
-    // whole difficulty is `config-gauge.ts`, which is the SHIP card's, not
-    // this panel's.
-    if (boss.kind === "gauge") return;
-    // THE WELL has nothing to author either, and nothing in the SHIP card
-    // behind it: the projection's figures are render's own constants, because
-    // the only thing a dial could move is how the picture reads and that is
-    // what VERSUS is for (`render/src/well.ts`).
-    if (boss.kind === "well") return;
-    // THE SCOUT has nothing to author on this panel either: the arenas are
-    // named in `packages/content/src/scout-arenas.ts` and are places in
-    // thousandths of a tile, which is a picture rather than a form — the same
-    // answer SNAKE's rounds and PINBALL's boards get, one card along. How the
-    // little ship flies is `config-scout.ts`, which is the SHIP card's.
-    if (boss.kind === "scout") return;
+    // The four with no form at all, and a reason apiece next door
+    // (`boss-nothing.ts`). The chain that used to be here was four paragraphs
+    // long and growing by one a round.
+    if (bossAuthorsNothing(boss)) return;
     // THE CAIRN has one thing to author and it is the length of the fight:
     // how many rocks are stacked. No column — the pile is a fixture dead
     // centre, like the ring and the arm.

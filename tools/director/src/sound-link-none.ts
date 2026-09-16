@@ -58,6 +58,8 @@ export const NO_SUBJECT: Record<string, string> = {
     "the wrong number arriving, or a round's beats running out. The second of those has no place on the field at all — it is a clock — and the two share a sound because they cost the pair the same thing.",
   "boss.spliceDown":
     "the last tangle coming apart. What this marks is a field with no straws left over it, which is an absence like ui.waveClear rather than a thing standing anywhere.",
+  "boss.stareCaught":
+    "a thumb landing while the eye was watching that seat. What it is attached to is not a body at all — it is a *button*, on a panel, pressed by the wrong person at the wrong moment — and the eye itself is a thing in the sky the sheet has no card for yet (`sim/stare.ts`).",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",

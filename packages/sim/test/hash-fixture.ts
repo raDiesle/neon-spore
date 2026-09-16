@@ -165,6 +165,10 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   vane: { kind: "vane", pins: 3 },
   maze: { kind: "maze", rounds: [WHEEL] },
   gauge: { kind: "gauge" },
+  // THE STARE authors nothing at all: the eye's whole state is its own clock
+  // and the seat it rolled, both of which the fixture's world will have moved
+  // by the time it is fingerprinted (`stare-hash.ts`).
+  stare: { kind: "stare" },
   // THE SCOUT authors the arena whole: where the little ship is put down, what
   // it has to collect and what is moving between. Two motes and one hazard is
   // the smallest arena that is still the round — something to collect twice,

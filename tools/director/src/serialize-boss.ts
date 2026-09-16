@@ -85,6 +85,9 @@ export function serializeBoss(boss: BossEntry): string {
   // list of those read back into the wave file is a picture nobody could see
   // again (`packages/content/src/scout-arenas.ts`).
   if (boss.kind === "scout") return '{ kind: "scout", arenas: SCOUT_ARENAS }';
+  // THE STARE has nothing to write out at all — the shortest of the fourteen,
+  // with THE WELL's and for the same reason: the entry is the name.
+  if (boss.kind === "stare") return '{ kind: "stare" }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

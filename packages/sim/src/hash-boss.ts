@@ -10,6 +10,7 @@ import { scoutHashParts } from "./scout-hash.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 import { snakeHashParts } from "./snake-hash.js";
 import { spliceHashParts } from "./splice-hash.js";
+import { stareHashParts } from "./stare-hash.js";
 
 /**
  * The boss half of the world fingerprint.
@@ -158,6 +159,9 @@ export function bossHashParts(boss: BossState | null): number[] {
   // SNAKE, gathered beside the boss for the same reason and with the most in
   // it of the four: the body, the arena it is driving round, and everything
   // already spent off both (`snake-hash.ts`).
+  if (boss !== null && boss.kind === "stare") {
+    for (const n of stareHashParts(boss)) push(n);
+  }
   if (boss !== null && boss.kind === "scout") {
     for (const n of scoutHashParts(boss)) push(n);
   }

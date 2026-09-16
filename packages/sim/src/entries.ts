@@ -214,6 +214,7 @@ export type {
   ScoutEntry,
   SnakeEntry,
   SpliceEntry,
+  StareEntry,
   VaneEntry,
   WardenEntry,
   WellEntry,

@@ -108,6 +108,31 @@ export const BOSS_SOUNDS: SoundDef[] = [
     ],
   },
   {
+    id: "boss.stareCaught",
+    family: "boss",
+    blurb: "A thumb landing under a thing that was watching, and the room going out from under it.",
+    status: "bound",
+    use: "THE STARE catching the watched seat pressing something while it looks.",
+    // Loud, because it is the one sound in the game that means *that was you*.
+    // The pair has been told for four beats and a hand moved anyway; anything
+    // quieter would be a sound somebody could argue with.
+    level: 0.55,
+    layers: [
+      // The catch itself: a hard stop rather than a hit. No metal in it — this
+      // is not the hull being struck, it is the ship being *seen*.
+      thud(180, 34, 0.7, 0.7),
+      // And the drop under it, arriving a beat's fraction late, which is the
+      // stomach going. Below everything else in the catalogue, in the register
+      // `boss.arrive` opened.
+      after(0.12, sub(36, 0.9, 0.55)),
+      // One thin line over the top, falling. The eye closing again.
+      // Above the speech band rather than through it, which is where the
+      // catalogue keeps its sparkle: this game is two people talking, and a
+      // sound that covers a voice costs more than it says (`band.ts`).
+      after(0.06, glint(3400, 0.28, 0.16)),
+    ],
+  },
+  {
     id: "boss.queenDown",
     family: "boss",
     blurb: "The last petal, and everything under it letting go at once.",

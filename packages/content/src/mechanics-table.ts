@@ -120,6 +120,7 @@ export const MECHANICS = {
   maze: BOSS_MECHANICS.maze,
   splice: BOSS_MECHANICS.splice,
   reprise: BOSS_MECHANICS.reprise,
+  stare: BOSS_MECHANICS.stare,
   vane: {
     what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
     reach: "spawn",

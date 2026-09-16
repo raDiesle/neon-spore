@@ -132,6 +132,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       // rim is one; so is a thread with nothing alive left on it, which is why
       // the two share a case rather than each naming the same sound.
       return { id: "ruin.collapse", pan: panForCol(e.col, cols) };
+    // THE STARE's catch. No pan and no pitch: the eye is in the sky rather
+    // than in a lane, and a sound placed in a column would be telling the pair
+    // to look somewhere — the one thing that is not what went wrong.
+    case "stareCaught":
+      return { id: "boss.stareCaught" };
     case "wardenDown":
       return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
     case "queenDown":

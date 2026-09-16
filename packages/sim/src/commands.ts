@@ -17,6 +17,7 @@ import { endCharge } from "./shot-charge.js";
 import { fireStep } from "./simon.js";
 import { closeSnake } from "./snake-round.js";
 import { spliceHeard } from "./splice-round.js";
+import { stareBreaks } from "./stare-step.js";
 import { bodyCenterCol, type Color, type TimedCommand } from "./types.js";
 import type { World } from "./world.js";
 
@@ -71,6 +72,14 @@ export function applyCommand(world: World, timed: TimedCommand): void {
   // lobe, the gesture on the hull, a rehearsal's ghost thumb and the wire
   // (`malfunction.ts`).
   if (faultSwallows(world, c)) return;
+  // **THE STARE does not swallow a press, it charges for one.** A fault eats
+  // the command because the button is broken and nothing happens; here the
+  // button works, the pair was warned for four beats, and a watched seat that
+  // pressed anyway breaks the hull — which is the wave lost. Checked in the
+  // same place and for the same reason: every door into a command is closed at
+  // once, the lobe, the swipe on the hull, a rehearsal's ghost thumb and the
+  // wire (`stare-step.ts`).
+  if (stareBreaks(world, timed)) return;
 
   switch (c.kind) {
     case "cannonCol": {

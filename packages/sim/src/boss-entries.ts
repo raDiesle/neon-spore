@@ -141,6 +141,25 @@ export interface RepriseEntry {
   beat?: number;
 }
 
+/**
+ * What a wave authors when it wants THE STARE, which is nothing at all — THE
+ * WELL's entry one boss along, and for a related reason.
+ *
+ * No column: the eye is in the sky rather than in a lane, and one placed over
+ * a column would be a boss the pair could answer by standing somewhere else.
+ * No health and no rounds: there is nothing to shoot. And no length either,
+ * because the wave underneath is the wave its author wrote — the eye bends
+ * what that wave costs rather than being the encounter (`bossFillsWave`), so
+ * how long it runs is how long the entries take.
+ *
+ * Everything about its rhythm is tuning (`config-stare.ts`): a wave whose
+ * warning was authored per encounter would be several different bosses
+ * wearing one name, and the length of the warning is the whole fairness of it.
+ */
+export interface StareEntry {
+  kind: "stare";
+}
+
 /** The boss counterpart of `PodEntry`: whichever boss a wave carries. */
 export type BossEntry =
   | QueenEntry
@@ -157,7 +176,8 @@ export type BossEntry =
   | WellEntry
   | RepriseEntry
   | SpliceEntry
-  | ScoutEntry;
+  | ScoutEntry
+  | StareEntry;
 
 export type {
   FleetEntry,

@@ -1568,3 +1568,66 @@ box's row of dots — and each one was a column handed to the pair for nothing.
 The kill is the exception and is drawn whole: it is fed by an event and drawn
 from the outline the body had, so the pair learns it was right by seeing the
 kill and never by seeing the body (`body-hit.ts`).
+
+**What it does not draw yet**, and it is the lane after this one: the mechanism
+itself at the top of the field, the count of bodies still to come in the
+running echo read as a shape rather than a digit, and the twitch that says one
+has just entered. Until that lands the pair has the memory and no tally, and
+`repriseLeft` is the number waiting for a picture.
+
+## 11.16 THE STARE — the thing that looks, and the hands that must not move
+
+The owner asked for it on 16 September 2026, in his own words: *when the boss
+looks at you, you are not allowed to shoot or move or use shield. It's
+indicated when he will look next with some nice animation. When enemies do
+actions during he looks, it damages hull and wave must be repeated.*
+
+**It is not the whole wave.** THE VANE, THE WELL and THE REPRISE bend what a
+wave sends without being the encounter, and this is the fourth of them
+(`bossFillsWave`). There is nothing to shoot: the eye takes no damage, has no
+plates and cannot be answered. The arrivals underneath are the ones the wave's
+author wrote, and the wave is won the ordinary way — by answering all of them.
+
+**The cycle is four phases and a number apiece** (`sim/config-stare.ts`):
+
+| phase | beats | what it is |
+|---|---|---|
+| away | `stareAwayBeats` (12) | the working window. Nothing is forbidden and nobody is chosen |
+| turning | `stareTellBeats` (4) | the warning, and the whole fairness of the boss |
+| looking | `stareLookBeats` (6), plus `stareLookGrowBeats` (2) each time, to `stareLookMaxBeats` (12) | one seat may press nothing at all |
+| back | `stareTurnBackBeats` (2) | the eye turning away again, which is the picture's and not the rule's |
+
+**Four beats of warning is one spoken sentence.** `docs/spec/latency.md` puts a
+spoken exchange at 2.1–3.6 seconds, and the tell is three: long enough to say
+*it is you*, and nothing more. Shorter and the pair is being asked to react
+rather than to talk, which is the one thing this game is not.
+
+**It looks at one of you, and the other one is told which.** The seat is rolled
+from the seeded rng at the top of the turn — the only roll in the boss — and
+the picture shows it on the screen of the seat that is *not* about to be
+frozen. That is the randomness rule from [structure](structure.md) kept
+exactly: what is random is what one player knows and the other does not. A pair
+that says nothing has a fifty-fifty chance and a hull that pays for it.
+
+**A watched press is refused and charged for**, which is what separates this
+boss from a malfunction. `faultSwallows` eats a press because the button is
+broken and nothing happens; here the button works, the pair was warned, and the
+press does not move the ship *and* breaks the hull — which is the wave lost
+(`sim/wave-fail.ts`, `sim/stare-step.ts`). Everything a seat sends to the ship
+counts: the strip, the trigger, the fill, the dome, the maw, the arm, a hand on
+the field. What does not count is the host talking to the run — leaving,
+retrying, the guide's own steps — because a pair frozen out of `restart` would
+be a pair who could not put the phone down.
+
+**The seat that is not watched plays on, alone.** That is the difference
+between this boss and a cutscene, and it is what the wave is authored around:
+a rock is answered by the dome, which is player 1's, and a colour by the
+trigger, which is player 2's, so the four beats of warning are four beats for
+*parking* both controls as well as for saying whose hands come off.
+
+**What it does not draw yet**, and it is the lane after this one: the eye
+itself, the turn that warns the pair, which seat it has settled on, and the
+flash on the button somebody pressed anyway. Until that lands the boss plays
+and is invisible — the hull's own breach is the only thing on screen when a
+press is caught — and its rehearsal is still the three strings
+([briefings](briefings.md) §3.2).

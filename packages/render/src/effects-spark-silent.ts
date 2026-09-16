@@ -112,6 +112,12 @@ export const SILENT = [
   "waveStart", // The banner, not a burst — `banner.ts`, driven by the host.
   "needWave", // Bookkeeping between the host and the sim; nothing on the field.
   "waveFailed", // The breach that failed it has its own burst; the field then holds.
+  // THE STARE's catch, and it is silent for now rather than for ever: the eye,
+  // its turn, the seat it settles on and the flash on the button somebody
+  // pressed anyway are the look half of that boss and are not drawn yet
+  // (`docs/spec/bosses.md`). The hull's own `breach` lands in the same tick,
+  // so the pair is not left wondering whether anything happened.
+  "stareCaught",
   "quit", // The run ending is the menu opening (`apps/game`), not a mark on the field.
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.

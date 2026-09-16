@@ -30,6 +30,7 @@ export {
   type ScoutEntry,
   type SnakeEntry,
   type SpliceEntry,
+  type StareEntry,
   type VaneEntry,
   type WardenEntry,
   type WellEntry,
@@ -154,6 +155,16 @@ export {
   spliceRound,
 } from "./splice-round.js";
 export { spliceSpreadCol } from "./splice-tangle.js";
+export {
+  STARE_PHASES,
+  type StarePhase,
+  type StareState,
+  stareLooking,
+  stareTellLeft,
+  stareTurning,
+  stareWatches,
+} from "./stare.js";
+export { stareBoss } from "./stare-step.js";
 export { vaneOpen } from "./vane.js";
 export { vaneFold, vanePivotCol, vaneReach, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
 export {

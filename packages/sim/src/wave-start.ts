@@ -17,6 +17,7 @@ import { installScout } from "./scout-round.js";
 import { NO_SHELL } from "./shell.js";
 import { installSnake } from "./snake-round.js";
 import { installSplice } from "./splice-round.js";
+import { installStare } from "./stare-step.js";
 import { installVane } from "./vane.js";
 import { installWarden } from "./warden-start.js";
 import { NOT_FAILED } from "./wave-fail.js";
@@ -189,6 +190,11 @@ export function startWave(
     // the little one that was put out of it, so there is no body here for the
     // fall loop, the hull or a hand to find (`scout.ts`).
     world.boss = installScout(world, boss.arenas);
+  } else if (boss?.kind === "stare") {
+    // No creature and no row: the eye is in the sky and takes no damage, so
+    // there is nothing of it for the fall loop, the hull or a hand to find.
+    // The wave underneath is the wave its author wrote (`stare.ts`).
+    world.boss = installStare(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {
