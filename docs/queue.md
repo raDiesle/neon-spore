@@ -593,6 +593,7 @@ unchanged, and neither installer's surface grows while it is moved.
 ## `--press` decides a seat from the command, and a seat is the panel's
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-16, claude/queue-press-decides-a-seat-from-the-command-and-a-seat
 - **Files:** `tools/frames/press.ts`, `packages/content/src/control-sets-table.ts`, `packages/content/src/controls.ts`
 
 `SEAT_OF` in `press.ts` maps a command kind to the seat that sends it, and
