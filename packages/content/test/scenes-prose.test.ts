@@ -50,6 +50,11 @@ const STILL_PROSE = [
   // control, and what this boss teaches is a thumb **not** landing — which
   // needs an eye on the screen to not touch anything under.
   "THE STARE",
+  // And THE FLIP's, owed by the lane that finishes it. A rehearsal is the
+  // game's own screen played at full size, one device at a time — and this
+  // wave's whole content is that one of those two screens is a mirror, which
+  // a film has to show by turning and then by being believed.
+  "THE FLIP",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -73,11 +78,11 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   });
 
   it("counts the guided waves the opening section names", () => {
-    // "sixty-eight of the seventy-seven waves today" — the one figure in §1
+    // "sixty-nine of the seventy-eight waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says sixty-eight of seventy-seven";
-    expect(guided.length, fix).toBe(68);
-    expect(WAVES.length, fix).toBe(77);
+    const fix = "update §1 of docs/spec/briefings.md, which says sixty-nine of seventy-eight";
+    expect(guided.length, fix).toBe(69);
+    expect(WAVES.length, fix).toBe(78);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

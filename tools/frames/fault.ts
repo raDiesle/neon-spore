@@ -48,6 +48,7 @@ export const FAULT_FLAG_KINDS = [
   "handover",
   "leech",
   "limpet",
+  "flip",
 ] as const;
 type FaultKind = (typeof FAULT_FLAG_KINDS)[number];
 
@@ -70,6 +71,8 @@ type FaultColor = (typeof COLORS)[number];
 export interface FaultOnWorld {
   kind: FaultKind;
   color?: FaultColor;
+  /** Whose screen THE FLIP turns, and nothing else reads it (`sim/flip.ts`). */
+  seat?: 1 | 2;
   at: number;
   beats: number;
   every?: number;
@@ -153,6 +156,24 @@ export function parseFault(value: string | undefined): FaultSpec | undefined {
     return {
       malfunction: { kind: named, color: color as FaultColor, at: 0, beats: TO_THE_END },
       ...(every === undefined ? {} : { everyBeats: beats(every, "every") }),
+    };
+  }
+
+  if (named === "flip") {
+    // The seat is required and not defaulted, for the colour's reason one kind
+    // up: which screen is turned is the whole of what this fault says, and a
+    // picture of the other one is a picture of a different wave.
+    const [which, at, held] = rest.split(",").map((p) => p.trim());
+    if (which !== "1" && which !== "2") {
+      throw new Error("--fault flip:<1|2>[,<at>,<beats>] — whose screen is turned, 1 or 2");
+    }
+    return {
+      malfunction: {
+        kind: named,
+        seat: which === "2" ? 2 : 1,
+        at: at === undefined ? 0 : beats(at, "at"),
+        beats: held === undefined ? TO_THE_END : beats(held, "beats"),
+      },
     };
   }
 

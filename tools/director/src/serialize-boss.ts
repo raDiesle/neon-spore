@@ -115,6 +115,11 @@ export function serializeBoss(boss: BossEntry): string {
 export function faultLine(m: WaveFault): string {
   const parts = [`kind: "${m.kind}"`];
   if (m.kind === "cannon" && m.color !== undefined) parts.push(`color: "${m.color}"`);
+  // THE FLIP's seat, on the same terms as the colour above: it is the only
+  // thing this fault says, and a save that dropped it would turn every
+  // navigator's flip into a pilot's on the way through the editor
+  // (`content/wave-faults.ts`, `sim/flip.ts`).
+  if (m.kind === "flip" && m.seat !== undefined) parts.push(`seat: ${m.seat}`);
   // The rows it is placed on, and both are optional on purpose: a fault that
   // names neither enters on the wave's first beat and holds to the end, which
   // is every fault the game had before they were placed at all

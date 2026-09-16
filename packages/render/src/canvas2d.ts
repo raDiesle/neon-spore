@@ -11,7 +11,7 @@ import {
 } from "./frame-passes.js";
 import { handedView } from "./handover.js";
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
-import { computeLayout, computeStage, type Layout, type Stage } from "./layout.js";
+import { computeLayout, computeStage, flippedLayout, type Layout, type Stage } from "./layout.js";
 import { RenderState } from "./render-state.js";
 import type { Renderer, Viewport, ViewState } from "./renderer.js";
 import type { SpriteBursts } from "./sprite-burst.js";
@@ -93,13 +93,13 @@ export class Canvas2DRenderer implements Renderer {
    * screen the window is far wider than any phone, and the hull is as wide as
    * the field. Cheap arithmetic, so it is redone every frame rather than
    * cached — a test slider moves `cols` between two frames.
+   *
+   * `flippedLayout` is THE FLIP: the turned seat's field comes back mirrored,
+   * and input is handed a layout too, so a finger and a frame fold together.
    */
   private layoutFor(view: ViewState, stage: Stage): Layout {
-    return computeLayout(
-      { width: stage.width, height: stage.height, dpr: this.viewport.dpr },
-      view.world.cfg,
-      view.role,
-    );
+    const vp = { width: stage.width, height: stage.height, dpr: this.viewport.dpr };
+    return flippedLayout(computeLayout(vp, view.world.cfg, view.role), view.world);
   }
 
   draw(seen: ViewState): void {

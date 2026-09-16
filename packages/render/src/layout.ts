@@ -66,6 +66,15 @@ export interface Layout {
    */
   lobeY: number;
   lobeR: number;
+  /**
+   * **Whether this screen's field is drawn mirrored** — THE FLIP, and the one
+   * field here that is not arithmetic over a viewport. It is on the layout
+   * because a layout is what both the renderer and hit-testing are handed, and
+   * a fold in the field has to reach them together or a body is drawn in one
+   * place and answered in another. `computeLayout` never sets it;
+   * `flippedLayout` does, from a world (`field-flip.ts`).
+   */
+  flip: boolean;
 }
 
 export interface Strip {
@@ -165,6 +174,9 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
 
   return {
     role,
+    // Never here: the fold is a fact about the wave, and this is handed a
+    // viewport and a config (`field-flip.ts`).
+    flip: false,
     width,
     height,
     dpr: viewport.dpr,
@@ -186,6 +198,11 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
     lobeR: r,
   };
 }
+
+/** THE FLIP: this screen's own column, and the layout that carries the fold.
+ * Re-exported so a caller holding a layout is holding the answer; the subject
+ * itself is `field-flip.ts`, out of the way of the arithmetic. */
+export { fieldCol, fieldX, flippedLayout } from "./field-flip.js";
 
 export function tileCX(l: Layout, col: number): number {
   return l.gridLeft + col * l.tile + l.tile / 2;

@@ -13,7 +13,7 @@ import { ingestBreach, ingestDeflect } from "./effects-breach.js";
 import { breakBody } from "./effects-break.js";
 import { isIngestSilent } from "./effects-ingest-silent.js";
 import type { ShipMoods } from "./effects-ship.js";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import { fieldX, type Layout, tileCY } from "./layout.js";
 import { assertNever } from "./never.js";
 import { PALETTE } from "./palette.js";
 import type { RockImpactFx } from "./rock-impact.js";
@@ -67,7 +67,9 @@ const REJECT_FLASH = 0.35;
  * that tile. Sized off the flat tile on the well too: a sprite is a picture
  * the atlas decided, not a body the depth scale grows. */
 function spawnSprite(ctx: IngestOneCtx, col: number, row: number): void {
-  const at = ctx.put(tileCX(ctx.l, col), tileCY(ctx.l, row));
+  // `fieldX` and not `tileCX`: every column in this file is a body's, and a
+  // body's column turns with the field under THE FLIP (`field-flip.ts`).
+  const at = ctx.put(fieldX(ctx.l, col), tileCY(ctx.l, row));
   ctx.spriteBursts.spawn(at.x, at.y, ctx.l.tile * 2.4);
 }
 
@@ -125,7 +127,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // was standing is a question only the frame that draws the goo can answer
     // (`crawler-fx.ts`).
     case "crawlerBreak":
-      ctx.crawler.splash(tileCX(ctx.l, e.col), e.color);
+      ctx.crawler.splash(fieldX(ctx.l, e.col), e.color);
       // And the shipped kill sprite beside it, on the same terms as `destroy`
       // below: this is a cannon shot that killed the thing it hit, and the
       // pair should not have to learn a second reading of that.
@@ -179,7 +181,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     case "podTaken": {
       // Sparks flying *inwards*: the one moment in the game where the ship
       // takes something instead of losing it.
-      const mouth = ctx.put(tileCX(ctx.l, e.col), ctx.l.hullY);
+      const mouth = ctx.put(fieldX(ctx.l, e.col), ctx.l.hullY);
       ctx.sparks.implode(mouth.x, mouth.y, 22, PALETTE.pod, ctx.l.tile * 1.9);
       ctx.ship.swallowPod(e.kind);
       break;
@@ -221,7 +223,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
     // rather than a size decided in the effect.
     case "beatboxSilent":
       ctx.beatboxSilences.cast(
-        tileCX(ctx.l, e.col),
+        fieldX(ctx.l, e.col),
         tileCY(ctx.l, e.row),
         ctx.l.tile * 0.4 * (BEATBOX_START_MUL + e.hits * BEATBOX_PER_HIT_MUL),
       );
@@ -232,7 +234,7 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // wave that always travelled the same distance would overshoot the ship
       // from low down and stop short from high up, and the owner asked for it
       // to go the whole way every time (`beatbox-wave.ts`).
-      ctx.beatboxWaves.cast(tileCX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.hullY);
+      ctx.beatboxWaves.cast(fieldX(ctx.l, e.col), tileCY(ctx.l, e.row), ctx.l.hullY);
       break;
     default:
       assertNever(e);

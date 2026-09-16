@@ -20,6 +20,15 @@ export interface WaveFault {
   kind: MalfunctionKind;
   /** The runaway cannon's ammunition, and nothing else reads it. */
   color?: "red" | "cyan" | "alternating";
+  /**
+   * **Whose screen THE FLIP turns**, and nothing else reads it.
+   *
+   * Written by the author rather than derived, for THE MINE's reason: which
+   * seat is left holding the picture it cannot believe is the wave's decision.
+   * A flip with no seat named is the pilot's, which is the screen the cannon
+   * is on — the seat whose every press is a column (`sim/flip.ts`).
+   */
+  seat?: 1 | 2;
   /** The beat row it enters on. Missing is the wave's first beat. */
   at?: number;
   /** How many beat rows it holds. Missing is *to the end of the wave*. */
@@ -40,7 +49,11 @@ export function placedFaults(faults: readonly WaveFault[] | undefined): PlacedFa
     .map(
       (f): PlacedFault =>
         ({
-          ...(f.kind === "cannon" ? { kind: "cannon", color: f.color ?? "red" } : { kind: f.kind }),
+          ...(f.kind === "cannon"
+            ? { kind: "cannon", color: f.color ?? "red" }
+            : f.kind === "flip"
+              ? { kind: "flip", seat: f.seat ?? 1 }
+              : { kind: f.kind }),
           at: Math.max(0, Math.round(f.at ?? 0)),
           beats: Math.max(0, Math.round(f.beats ?? TO_THE_END)),
         }) as PlacedFault,

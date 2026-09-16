@@ -377,91 +377,6 @@ on both seats and mid-deflation.
 Prove it with `bun run check`, a replay test, and the wave watched at tempo
 through a husk sucked and a husk refused.
 
-## THE FLIP, his way: a malfunction that mirrors the field for one seat
-
-- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-16, claude/queue-the-flip-his-way-a-malfunction-that-mirrors-the
-- **Files:** `packages/sim/src/malfunction.ts`, `packages/sim/src/fault-placed.ts`, `packages/sim/src/fault-surface.ts`, `packages/sim/src/config-malfunction.ts`, `packages/sim/src/hash.ts`, `packages/content/src/wave-types.ts`, `packages/content/src/mechanics-table.ts`, `packages/render/src/malfunction-look.ts`, `packages/render/src/layout.ts`, `packages/render/src/touch.ts`, `packages/render/src/creatures.ts`, `tools/director/src/fault-fields.ts`, `tools/director/src/paint-fault.ts`, `tools/director/src/brushes.ts`, `docs/spec/ideas.md`, `docs/spec/transfers.md`
-
-The owner asked for **The Flip** (`ideas.md`, and `transfers.md` §The Flip)
-built on 16 September 2026, and his shape is not the one written there. It is
-**a malfunction**, not a mechanic of its own: a sixth `MalfunctionKind`
-alongside `cannon`, `shield`, `steer`, `codex` and `leech`, painted with the
-malfunction brush the director already has (`paint-fault.ts`), carrying the
-common malfunction graphics every fault wears — that blue — over the ship and
-the game area, so a pair that has met one fault recognises this one as the
-same family before reading a word.
-
-**What it does.** Bodies on the field are *drawn* in one column and *are* in
-its mirror about the vertical middle of the play area: a meteor drawn falling
-in column 0 is really falling in the last column, at the same row and the same
-speed. Nothing else changes — not the fall, not the beat, not the colour. So
-the shield goes to the **far right** for a body the seat can see on the left,
-and every column said out loud has to be turned around by whoever is holding
-the mirrored screen.
-
-**Which seat sees it is authored**, like `sees` on THE MINE
-(`packages/sim/src/mine.ts`, `SpawnEntry.sees`): the wave says whether the
-pilot's screen is flipped, the navigator's, or both. A flip on both is the
-wave it already was and the director should say so rather than allow it
-quietly (`docs/spec/bosses.md` line 1348 makes exactly this argument about
-THE MIRROR).
-
-**Where the flip lives decides whether it is a mechanic or a bug**, and
-`ideas.md` already holds the answer THE VANE learned the hard way: *a flip the
-simulation never hears about has nothing to hash, nothing to replay and
-nothing the director can show*. So the fold is in the **simulation's** placed
-fault (`fault-placed.ts`, in `hashWorld`), and render reads it — not a
-transform quietly applied in `layout.ts` on one device.
-
-**Four things must be visible**, and they are the whole of the owner's ask:
-
-- **A help text explaining the mirrored screen**, in the guide, in those words.
-- **A drawn mirror line down the middle of the field**, so the reflection is
-  something the picture states rather than something the pair infers.
-- **The moment the truth and the picture meet**: when a body is shielded,
-  destroyed, or takes the hull, that is shown *in the real column*, so the
-  pair sees where it actually was.
-- **The other seat is told its partner's picture is turned.** The seat whose
-  screen did not flip needs to know it is now the odd one out — the condition
-  `transfers.md` puts on the whole idea.
-
-**The obvious split does not exist, and that is worth knowing before you
-start.** A lane on 16 September 2026 took this as *simulation first, look
-after* — the split `CLAUDE.md` names for a creature — and it does not hold for
-a malfunction. `DEMONSTRATIONS` in `packages/content/src/waves-demo.ts` is
-total over `MechanicId` by construction, so a kind added to
-`MALFUNCTION_KINDS` fails the type check until a **wave** names where it can be
-watched; and a wave carrying a flip that nothing draws is a wave that lies to
-the pair. The mirror cannot be a transform at `tileCX` either — some forty
-files in `packages/render/src` call it, so mirroring there turns the cannon and
-shield strips with the field, and the finger and the eye cancel out. The
-drawing has to reach the field's bodies and leave the strips alone, which is a
-design piece and not a line. So the halves, if it is split at all, are along
-*what the pair can be told* rather than along sim/render: the fault and its
-wave drawn plainly first, the three remaining tells after.
-
-That lane landed only the piece that stood on its own — `hash.ts` was at its
-250-line ceiling with the fault block inside it, so the block moved to
-`packages/sim/src/hash-faults.ts` and the next kind that carries a field of its
-own can be added without doing a refactor in a diff about something else. The
-kind itself was reverted; nothing of THE FLIP is in the tree.
-
-Unworked out, for whoever takes it: whether the flip holds for the whole wave
-(every other malfunction does, and the owner removed the brake on 6 September
-2026) or runs on `fault-clock.ts`'s beats; and whether the cannon and shield
-strips are mirrored with the field or left alone — mirroring the strip as well
-turns the finger the same way as the eye and may cancel the whole mechanic
-out.
-
-Build it through the malfunction paths that exist rather than beside them:
-a kind in `MALFUNCTION_KINDS`, a brush in the director, a field in
-`hashWorld`, a wave of its own with a three-part guide, a replay test, and
-`frame.test.ts` on both seats — flipped and not — in one picture. Prove it
-with `bun run check` and the wave watched at tempo through a shielded body, a
-destroyed one and a hull hit. Then take the idea out of `ideas.md` and update
-`transfers.md`'s table row, which still says "new — see **The Flip**".
-
 ## A rehearsal cannot show a finger on a bare tile, so THE MINE has no film
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
@@ -811,3 +726,20 @@ what happened on 16 September 2026.
 Fix is a read of both files and a rewrite of the four passages to say where the
 words actually live, including that a wave carrying a `scene` does not use them
 at all (the entry above).
+
+## The director's palette table is at its ceiling, and the next brush cannot go in
+
+- **Found:** 2026-09-16, claude/task-queue-work-5f529c
+- **Files:** `tools/director/src/brushes.ts`, `tools/director/src/brush-groups.ts`
+
+THE FLIP's brush went in at 251 lines and had to be paid for by cutting three
+lines of its own argument back to two. The file is two things: the *lists* —
+`BRUSHES`, `FAULT_BRUSHES`, `ROCK_BRUSHES`, the kinds and the types that read
+off them — and the *table*, one row per brush with a label, a stroke, its
+subjects and its note, which is what grows every time the game gets a creature
+or a fault. Nothing about the next brush is unusual; there is simply no room
+for one, and the argument a row carries is the first thing a lane will shorten.
+
+The cut is the same one `fault-beam-ends.ts` took out of `fault-emitter.ts`:
+the rows into `brush-rows.ts`, re-exported from here so no caller moves. Prove
+it with `bun test tools/director` and `bun run check`.

@@ -10,6 +10,7 @@ import {
 } from "@neon-spore/sim";
 import { beatboxBodyMul } from "./beatbox.js";
 import { depthScale, drawnCol, drawnRow } from "./depth.js";
+import { fieldCol } from "./field-flip.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { rockRadius } from "./rock-size.js";
 import { WELL_BODY, wellShown } from "./well.js";
@@ -66,7 +67,11 @@ export function flatCenter(l: Layout, c: Creature, beatPhase: number): XY {
  * `spanCenterCol` in sim/types.ts) — every kind is drawn at its visual centre.
  */
 export function centerAt(l: Layout, c: Creature, row: number, col: number): XY {
-  return { x: tileCX(l, bodyCenterCol(c, col)), y: tileCY(l, row) };
+  // `fieldCol` is THE FLIP, and this is the only place it is applied to a
+  // body: a turned screen draws a body in the mirror of the column it is
+  // really in, and because every mark drawn *around* a body comes through here
+  // too, a ring cannot end up where the shape is not (`field-flip.ts`).
+  return { x: tileCX(l, fieldCol(l, bodyCenterCol(c, col))), y: tileCY(l, row) };
 }
 
 /**

@@ -101,6 +101,14 @@ export const MALFUNCTION_KINDS = [
   // asked for both by name on 14 September 2026.
   "leech",
   "limpet",
+  // **THE FLIP**, and it is the first fault that breaks nothing at all — no
+  // button, no meaning, no panel. What it takes is the agreement between the
+  // two screens: one seat's field is drawn about its middle and everything in
+  // it is really in the mirrored column, so a column said out loud has to be
+  // turned around by whoever is holding the turned picture. Its seat is
+  // authored and hashed, and `flip.ts` is why it lives in the simulation at
+  // all.
+  "flip",
 ] as const;
 export type MalfunctionKind = (typeof MALFUNCTION_KINDS)[number];
 
@@ -138,7 +146,14 @@ export type Malfunction =
    * asked for that on 14 September 2026, and it is the same answer he gave on
    * the 13th about this fault, generalised to all five.
    */
-  | { kind: "handover" };
+  | { kind: "handover" }
+  /**
+   * THE FLIP, and the `seat` is the whole of what an author writes: **which
+   * screen is turned**, never both (`flip.ts`). It is on the fault rather than
+   * derived from the wave for THE MINE's reason — which seat is blind is the
+   * author's decision, not a property of the thing on the field.
+   */
+  | { kind: "flip"; seat: 1 | 2 };
 
 /**
  * Whether this press falls into a control the fault has taken over.
@@ -167,12 +182,14 @@ function eats(m: Malfunction, c: Command): boolean {
   // The strip, the swipe on the hull and the wire are all one door to the
   // cannon's column, and under THE CHOKE that door is shut.
   if (m.kind === "steer") return c.kind === "cannonCol";
-  // The last four swallow nothing at all, and in all four that is the fault:
+  // THE LEECH and THE LIMPET must not swallow the strip in particular: moving
+  // it is the whole answer to them.
+  // The last five swallow nothing at all, and in all five that is the fault:
   // every button works and answers the thumb, and what has changed is what it
-  // means (`codex.ts`), whose screen it is on (`handover.ts`), or what standing
-  // still now costs (`harpoon.ts`). THE LEECH and THE LIMPET must not swallow
-  // the strip in particular: moving it is the whole answer to them.
+  // means (`codex.ts`), whose screen it is on (`handover.ts`), what standing
+  // still now costs (`harpoon.ts`), or where the field really is (`flip.ts`).
   if (m.kind === "codex" || m.kind === "handover" || isHarpoonKind(m.kind)) return false;
+  if (m.kind === "flip") return false;
   return c.kind === "guard";
 }
 
@@ -210,12 +227,13 @@ export function stepMalfunction(world: World): void {
 
 /** One fault in force, on the beat. */
 function actOn(world: World, m: PlacedFault): void {
-  // The last four act on no beat of their own. THE CODEX does what it does at
+  // The last five act on no beat of their own. THE CODEX does what it does at
   // the moment a bolt meets a body, THE HANDOVER does it in render/ and in a
-  // host, and the two harpoons are watched every *tick* rather than every beat
-  // — a count of a beat and a half cannot be judged on the beat
-  // (`stepHarpoons`).
+  // host, THE FLIP is a picture and nothing else (`flip.ts`), and the two
+  // harpoons are watched every *tick* rather than every beat — a count of a
+  // beat and a half cannot be judged on the beat (`stepHarpoons`).
   if (m.kind === "codex" || m.kind === "handover" || isHarpoonKind(m.kind)) return;
+  if (m.kind === "flip") return;
   if (m.kind === "steer") {
     stepChoke(world);
     return;

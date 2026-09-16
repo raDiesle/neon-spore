@@ -45,6 +45,11 @@ export function faultHashParts(faults: readonly PlacedFault[]): number[] {
     // (`malfunction.ts`). The only kind carrying a field of its own today, and
     // the reason the loop has an `if` in it at all.
     if (fault.kind === "cannon") out.push(MALFUNCTION_COLORS.indexOf(fault.color) + 1);
+    // Whose screen THE FLIP turns. The second kind to carry a field of its
+    // own, and the reason this file was cut out of `hash.ts` before either of
+    // them existed. A seat is 1 or 2 and never 0, so it is pushed as it stands
+    // — the index + 1 rule above is about a list whose first entry is zero.
+    if (fault.kind === "flip") out.push(fault.seat);
   }
   return out;
 }

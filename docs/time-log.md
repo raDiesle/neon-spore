@@ -7310,3 +7310,34 @@ behind it only became visible because the shot with the switch on and the shot
 with it off could be put side by side.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+## 2026-09-16 — queue-the-flip — a fault that only turns the picture
+
+THE FLIP, the owner's sixth malfunction: one seat's field drawn about its own
+middle, with every button on both panels still working. The simulation carries
+one number — whose screen — and the fold itself is one column arithmetic in
+render/, applied to bodies and to the marks bodies leave and to nothing else,
+because mirroring the finger along with the eye would cancel the mechanic out.
+Split before it was started: this half is the fault and its wave drawn plainly;
+the mirror line down the field, the truth shown in the real column on a hit,
+and telling the other seat are the second.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `malfunction.ts`, `fault-placed.ts`, `handover.ts`'s `handedLayout` as the precedent, `fault-beam-ends.ts`, `wave-faults.ts`, `view-role.ts`, THE WELL's and THE CODEX's waves |
+| writing | 10 | `sim/flip.ts`, `render/field-flip.ts`, the fold through `centerAt`/`effects-ingest`/`radar-blip`, the wave and its guide, the brush, and the two test files |
+| looking | 5 | both seats of THE FLIP at tick 900, as a pair |
+| friction | 5 | an edit script's regex, and two content invariants a first draft could not know |
+| landing | 5 | `index`, `baseline:blank`, `check:fast`, the commit |
+
+The bottleneck was friction, and all of it was self-inflicted in one line: a
+Python `re.sub` with `DOTALL` and a non-greedy `p1: ".*?"` matched from THE
+REPRISE's guide to THE FLIP's entries and deleted everything between, which
+came back as fifty-six red render tests reading *no wave carries the reprise*.
+`git checkout` on the one file and a plain string replace cost two minutes; the
+lesson is the skill's own — **an edit to a source file is an exact string
+replace, never a pattern that can span a neighbour**. The two content
+invariants were cheap by comparison and are the tests doing their job: waves
+are authored against a seven-column field whatever `cfg.cols` says, and a
+guide's half is 220 characters because it is read on a phone under a beat.
+
+*Measured: read off the queue-take commit at 22:04 and this landing.*

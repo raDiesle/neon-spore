@@ -56,6 +56,7 @@ const CHOICES = [
   ["steer", "STEER — the cannon walks itself, player 1 loses the strip"],
   ["codex", "CODEX — the two colours do each other's job and nothing says so"],
   ["handover", "HANDOVER — the two panels change screens for a window mid-wave"],
+  ["flip", "FLIP — one screen's field is drawn mirrored; everything is in the other column"],
   ["leech", "LEECH — a body on the cannon; keep the cannon moving or lose the round"],
   ["limpet", "LIMPET — a body on the plate; keep the shield moving or lose the round"],
 ] as const;
@@ -83,6 +84,7 @@ const NOTE: Record<MalfunctionKind, string> = {
     "Both seats keep every button. While the key is over, a bolt fired red kills what cyan kills — and the bands that say which way round it is are drawn on the pilot's screen alone.",
   handover:
     "Both seats keep every button, and the two panels change screens: each phone draws and answers the other seat's half for the window below. Leave the three boxes empty and it plays the game's own numbers. Nobody changes seats on the wire, so a wave with a hand on the field — a grip, a pull, a tap — is the wrong wave for it.",
+  flip: "One seat's field is drawn about its own middle: a body on their left wall is really on the right one, at the same row and the same speed. Every button on both panels works and neither strip is mirrored — so that seat has to count from the other wall, and the seat with the true picture has to say every column out loud. Pick whose screen is turned below; the other one is told nothing about it.",
   leech:
     "A body is fired at the cannon and sticks there for as long as the pencil is long. Both seats keep every button; what is gone is standing still. A cannon that has not moved for harpoonStillBeats loses the round, and player 2 — who can see the count and cannot move it — is the one who has to keep saying so.",
   limpet:
@@ -101,6 +103,13 @@ const NOTE: Record<MalfunctionKind, string> = {
 const WINDOW_FIELDS = [
   ["fFaultAt", "at", "Enters on beat (blank: the first)"],
   ["fFaultBeats", "beats", "Held for beats (blank: to the end)"],
+] as const;
+
+/** Whose screen THE FLIP turns. One or the other, never both: a wave with two
+ * turned screens is one where the pair agrees with itself again (`sim/flip.ts`). */
+const SEAT_LABEL = [
+  ["1", "PLAYER 1 — the pilot's screen is the mirror"],
+  ["2", "PLAYER 2 — the navigator's screen is the mirror"],
 ] as const;
 
 const COLOUR_LABEL: Record<MalfunctionColor, string> = {
@@ -143,6 +152,7 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
 
   const kind = select("fFaultKind", "Malfunction");
   const colour = select("fFaultColor", "Runaway ammunition");
+  const seat = select("fFaultSeat", "Turned screen");
   const window = WINDOW_FIELDS.map(([id, key, label]) => ({ key, ...number(id, label) }));
   const note = document.createElement("p");
   note.className = "note";
@@ -158,7 +168,13 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
     opt.textContent = COLOUR_LABEL[value];
     colour.field.appendChild(opt);
   }
-  host.replaceChildren(kind.row, colour.row, ...window.map((w) => w.row), note);
+  for (const [value, text] of SEAT_LABEL) {
+    const opt = document.createElement("option");
+    opt.value = value;
+    opt.textContent = text;
+    seat.field.appendChild(opt);
+  }
+  host.replaceChildren(kind.row, colour.row, seat.row, ...window.map((w) => w.row), note);
 
   const read = (): WaveFault | undefined => {
     const k = kind.field.value;
@@ -181,6 +197,7 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
     return {
       kind: k as MalfunctionKind,
       ...(k === "cannon" ? { color: colour.field.value as MalfunctionColor } : {}),
+      ...(k === "flip" ? { seat: seat.field.value === "2" ? (2 as const) : (1 as const) } : {}),
       ...(at === undefined ? {} : { at }),
       ...(beats === undefined ? {} : { beats }),
     };
@@ -188,6 +205,7 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
 
   const paint = (fault: WaveFault | undefined): void => {
     colour.row.hidden = fault?.kind !== "cannon";
+    seat.row.hidden = fault?.kind !== "flip";
     // Every kind is placed on rows now, so the two boxes are hidden only when
     // there is no fault at all to place.
     for (const w of window) w.row.hidden = fault === undefined;
@@ -204,6 +222,7 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
   };
   kind.field.addEventListener("change", fire);
   colour.field.addEventListener("change", fire);
+  seat.field.addEventListener("change", fire);
   for (const w of window) w.field.addEventListener("change", fire);
 
   return {
@@ -213,6 +232,7 @@ export function bindFaultFields(host: HTMLElement | null): FaultFields {
       const fault = wave?.faults?.[0];
       kind.field.value = fault?.kind ?? "";
       colour.field.value = fault?.kind === "cannon" ? (fault.color ?? "red") : "red";
+      seat.field.value = fault?.kind === "flip" ? String(fault.seat ?? 1) : "1";
       for (const w of window) {
         const had = fault?.[w.key];
         w.field.value = had === undefined ? "" : String(had);

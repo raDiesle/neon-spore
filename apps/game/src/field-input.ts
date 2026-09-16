@@ -2,6 +2,7 @@ import { controlSetForWave } from "@neon-spore/content";
 import {
   type Circle,
   cannonGrab,
+  flippedLayout,
   handedLayout,
   handedRole,
   type Layout,
@@ -84,7 +85,16 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
    * guide's pages and a round's own buttons all follow from these two.
    */
   const role = (): ViewRole => handedRole(o.role(), world);
-  const layout = (): Layout => handedLayout(o.layout(), world);
+  /**
+   * And THE FLIP over the top of it: on the turned seat the field is drawn
+   * about its middle while this band is not, so a hit test that did not fold
+   * would answer the column the body *used* to be in — the one failure the
+   * layout is shared to prevent (`render/field-flip.ts`).
+   *
+   * After the trade and not before, so the fold follows the panel this device
+   * is playing, which is what every other seat split in `view-role.ts` does.
+   */
+  const layout = (): Layout => flippedLayout(handedLayout(o.layout(), world), world);
   const controls = bindControls({
     canvas,
     buffer,

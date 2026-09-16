@@ -77,6 +77,7 @@ export {
   colFromX,
   computeLayout,
   computeStage,
+  flippedLayout,
   hitCircle,
   type Layout,
   type Lobe,

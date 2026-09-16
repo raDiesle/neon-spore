@@ -88,6 +88,24 @@ function endsFor(
     if (showsCodex(l.role)) {
       out.push({ x: tileCX(l, midCol(world.cfg)), y: l.gridTop + l.tile, r: l.tile });
     }
+  } else if (m.kind === "flip") {
+    // **The two columns that have changed places**, and only on the screen
+    // they have changed places on. THE FLIP takes no control — every button on
+    // both panels works — so there is nothing on a band for a beam to stand
+    // on, and the `else` below, which is a runaway cannon's, would have lit
+    // both colour lobes and put an end on the muzzle: a picture of a different
+    // fault, which is the mistake THE LEECH's arm above was written to undo.
+    //
+    // It asks the layout and not the world, because the layout is where the
+    // fold is (`field-flip.ts`) — the turned screen gets both ends and the
+    // true one gets none, so a seat is never shown a tell about a picture it
+    // is not being shown. The walls are the same two pixels either way round,
+    // which is the point of them: they are what the field is folded about.
+    if (l.flip) {
+      for (const col of [0, l.cols - 1]) {
+        out.push({ x: tileCX(l, col), y: l.gridTop + l.tile, r: l.tile * 0.5 });
+      }
+    }
   } else if (m.kind === "leech" || m.kind === "limpet") {
     // **No beam at all, and it is the only fault that gets none.** These two do
     // not reach down and hold a control from a distance — they *fire a body at

@@ -25,6 +25,11 @@ export {
   type PlacedFault,
   TO_THE_END,
 } from "./fault-placed.js";
+// THE FLIP: whose picture is turned this beat, and whether the wave turns one
+// at all. render/ asks the first to mirror a body's column and the director
+// asks the second (`flip.ts`); the mirror arithmetic itself is render's, in
+// `field-flip.ts`, because the simulation does not have a screen.
+export { flipInWave, flipSeat } from "./flip.js";
 // THE HANDOVER's clock. Three names rather than one because the picture needs
 // all three: whether the panels are traded now, how many beats of warning are
 // left before they are, and how many until they come back. Nothing outside reads

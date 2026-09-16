@@ -11,7 +11,7 @@ import {
   spanOf,
   type World,
 } from "@neon-spore/sim";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import { fieldX, type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -94,7 +94,9 @@ export function radarBlips(l: Layout, world: World): RadarBlip[] {
       inBeats,
       // `q.col` is a wide kind's leftmost column (`spanCenterCol` in
       // sim/types.ts) — the blip itself is drawn at the visual centre.
-      x: tileCX(l, bodyCenterCol(q, entryCol)),
+      // `fieldX`: the strip warns of a body, so it turns with the field the
+      // body will arrive on under THE FLIP (`field-flip.ts`).
+      x: fieldX(l, bodyCenterCol(q, entryCol)),
       y:
         across === undefined
           ? l.gridTop - 7 - inBeats * ((l.radarHeight - 12) / lead)

@@ -71,3 +71,17 @@ export const showsFleetHulls = (role: ViewRole): boolean => role !== "p2";
  * straw over each opening and nothing above it (`splice-draw.ts`).
  */
 export const showsSpliceTangle = (role: ViewRole): boolean => role !== "p1";
+/**
+ * *Which way round the field is drawn* — THE FLIP, and the one entry here that
+ * takes an argument, because which seat is turned is the wave's to say and not
+ * this file's (`sim/flip.ts`).
+ *
+ * What it settles is the third screen. `test` is both halves at once, so a
+ * fault authored on one seat has to be either shown there or not, and it
+ * follows the pilot for the reason every other split in this list does:
+ * `showsCannon`, `showsCodex` and `showsQueenShape` are all *not p2*, so a
+ * person playing alone is shown player 1's picture throughout rather than a
+ * third one nobody plays.
+ */
+export const flipsField = (role: ViewRole, seat: 1 | 2): boolean =>
+  seat === 1 ? role !== "p2" : role === "p2";

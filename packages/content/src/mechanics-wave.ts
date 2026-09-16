@@ -42,7 +42,8 @@ export type WaveMechanicId =
   | "shieldFault"
   | "steerFault"
   | "codexFault"
-  | "handoverFault";
+  | "handoverFault"
+  | "flipFault";
 
 /**
  * Which row a fault is, by kind — a table rather than a chain, and `satisfies`
@@ -64,6 +65,7 @@ export const FAULT_MECHANIC = {
   steer: "steerFault",
   codex: "codexFault",
   handover: "handoverFault",
+  flip: "flipFault",
   leech: "leech",
   limpet: "limpet",
 } as const satisfies Record<MalfunctionKind, MechanicId>;
@@ -83,6 +85,10 @@ export const WAVE_MECHANICS = {
   },
   codexFault: {
     what: "A thing hanging from the top of the field has the *key*: the air over the field travels in slow bands, and while it does, the two colours have each other's job. A bolt fired red kills what cyan kills and cyan kills what red kills — and nothing about the shot says so. The bolt that leaves the muzzle is the colour that was pressed, it sounds like that colour, and the lobe lights like that colour, so the navigator finds out by watching a body refuse a colour that should have taken it. Only the pilot can see the bands, and the key turns over every codexHoldBeats — so the pilot has to keep saying which way round it is, to a partner who is already mid-shot, and the shot that lands is the one fired on the reading that was still true when the thumb went down.",
+    reach: "wave",
+  },
+  flipFault: {
+    what: "A thing hanging over the field has one of the two screens turned about its middle. On that phone the field is a mirror of itself: a body drawn falling down the left wall is really falling down the right one, at the same row, at the same speed, in the same colour, and nothing about it says so. Every button on both panels works and both strips slide where they are told — the mirror is the picture and nothing else. What has gone is the one thing the pair never had to say out loud, which side of the field a thing is on: the seat holding the true picture has to say every column for the seat that cannot believe its own, and the seat whose screen is turned has to count from the other wall on everything it does.",
     reach: "wave",
   },
   handoverFault: {

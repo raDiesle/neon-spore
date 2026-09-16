@@ -40,6 +40,10 @@ export const FAULT_BRUSHES = [
   "fault:steer",
   "fault:codex",
   "fault:handover",
+  // **THE FLIP**, the one fault whose brush carries a seat: whose screen is
+  // turned is the author's decision, so the palette grows a picker for it
+  // beside the cannon's colour (`fault-fields.ts`).
+  "fault:flip",
   // **THE LEECH and THE LIMPET**, added on 15 September 2026 when the owner
   // settled what they are: *they should only exist as brush, but once they are
   // placed on a tile, for a defined period of time, the malfunction is
@@ -160,6 +164,7 @@ const FAULT_LOOK: { brush: Brush; label: string; note: string }[] = [
     label: "HANDOVER",
     note: "the two panels change screens for a window",
   },
+  { brush: "fault:flip", label: "FLIP", note: "one seat's field is drawn mirrored; nothing else" },
   { brush: "fault:leech", label: "LEECH", note: "a body on the cannon; keep the cannon moving" },
   { brush: "fault:limpet", label: "LIMPET", note: "a body on the dome; keep the dome moving" },
 ];

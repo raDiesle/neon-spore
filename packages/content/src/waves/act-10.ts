@@ -32,6 +32,31 @@ import type { Wave } from "../wave-types.js";
  * crosses over itself, which is the same sentence with one more clause in it
  * than anybody can hold without saying it.
  */
+/**
+ * **THE FLIP is the second wave in the game whose content is the picture**, and
+ * it is the opposite half of THE WELL's idea. There the turned screen is drawn
+ * as something else entirely — a clock, with its own hours — and the pair has
+ * to learn a second vocabulary. Here it is the same field, the same words and
+ * the same columns, and every one of them means another one. A seat that has
+ * learnt a clock knows it is reading a clock; a seat looking at a mirror of
+ * the field it has played all evening has no way of knowing, which is why the
+ * guide says so and the two walls stay lit under it.
+ *
+ * **It is the pilot's screen that turns**, and that is the whole design. The
+ * navigator's job is already talking, and turning their picture would only
+ * make the talking harder in a way they can hear themselves doing. The pilot's
+ * job is pressing, and every press they make is a column — so the mirror lands
+ * on the one seat whose eyes and hands now disagree, and the pair's only way
+ * through is the navigator calling columns the pilot can see perfectly well
+ * and must not believe (`sim/flip.ts`, `render/field-flip.ts`).
+ *
+ * **It starts on beat six rather than on beat nought.** Two bodies come down
+ * an honest field first, so the pair has the wave's own rhythm before anything
+ * is taken; and the body already falling when it turns crosses the screen in
+ * one frame, which is a tell nobody has to be told about. The middle column
+ * opens the wave and closes it on purpose: it is the one column the mirror
+ * leaves where it is, and a pair that notices that has found their landmark.
+ */
 export const WAVES_ACT_10: Wave[] = [
   {
     id: "theReprise",
@@ -52,5 +77,28 @@ export const WAVES_ACT_10: Wave[] = [
       { beat: 21, col: 6, color: "cyan" },
     ],
     boss: { kind: "reprise", beat: 12 },
+  },
+  {
+    id: "theFlip",
+    name: "THE FLIP",
+    sentence: "The one where the column you can see is the one it is not in.",
+    guide: {
+      both: "Six beats in, something over the field takes the pilot's screen and turns it about its middle. From then on their field is a mirror of itself: a body falling down the left wall is really falling down the right one, on the same row, at the same speed, in the same colour, and nothing about it says so. Every button on both panels still works and both strips still slide where they are told — it is the picture that turned, not the ship. The two walls light up on the screen it happened to, and stay lit while it holds.",
+      p1: "Your field is backwards and your cannon is not. A body against your left wall is one to shoot against your right — count from the wall it is not near. Only the middle column stayed put. Trust their number, not your eyes.",
+      p2: "Yours is the only true picture left, so the columns are all yours. Say every one early, and again while they aim — they can see the body perfectly and cannot believe where it is. Answer a repeated column with a number.",
+    },
+    entries: [
+      { beat: 0, col: 3, color: "red" },
+      { beat: 4, col: 1, color: "cyan" },
+      { beat: 10, col: 5, color: "red" },
+      { beat: 14, col: 0, color: "cyan" },
+      { beat: 18, col: 6, color: "red" },
+      { beat: 24, col: 2, color: "cyan" },
+      { beat: 28, col: 4, color: "red" },
+      { beat: 34, col: 5, color: "cyan" },
+      { beat: 36, col: 0, color: "red" },
+      { beat: 40, col: 3, color: "cyan" },
+    ],
+    faults: [{ kind: "flip", seat: 1, at: 6 }],
   },
 ];

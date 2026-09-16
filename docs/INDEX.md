@@ -162,6 +162,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-fleet.ts` | THE FLEET's numbers: how big the chart is, how long the pair has, and what running out costs |
 | `packages/sim/src/fleet-board.ts` | THE FLEET's chart as arithmetic — where a ship stands, which squares are spent, what makes a fleet |
 | `packages/sim/src/fleet.ts` | THE FLEET: one seat holds the map, the other holds the sights, and neither can reach the other's half |
+| `packages/sim/src/flip.ts` | THE FLIP: |
 | `packages/sim/src/config-snake.ts` | SNAKE's numbers — the arena, the mouth's window, what starting over costs |
 | `packages/sim/src/snake-controls.ts` | The four verbs of the round, and the two seats they are split between |
 | `packages/sim/src/snake-move.ts` | One step of the body, and the four ways an attempt ends badly |
@@ -804,6 +805,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
 | `packages/render/src/touch-ship.ts` | the ship as a control: both lobes answered where they are drawn on the hull |
 | `packages/render/src/field-pose.ts` | the ship's eased pose: where the two lobes are and how the membrane feels, shared by the field and a guide's mini-screens |
+| `packages/render/src/field-flip.ts` | THE FLIP, as a screen sees it: |
 | `packages/render/src/guide-scene.ts` | a guide's rehearsal at full size: the clock, which seat is showing, and the switch between them |
 | `packages/render/src/guide-thumb.ts` | the ghost hand a rehearsal is driven by, placed from `bandLobes` and the strips and never authored |
 | `packages/render/src/guide-caption.ts` | a tutorial step's words and highlight, placed beside the body, control or bar they are about |
