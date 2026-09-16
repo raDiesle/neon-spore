@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-16 · c1371822 — The ledger settles its own rebase, the way the queue already does
+
+Every lane appends an entry to docs/time-log.md in its landing commit, so two lanes landing the same hour conflict on the same last lines with nothing to disagree about. bun run land already replayed through the two conflicts nobody authored - docs/queue.md, where one tool wrote both sides, and docs/INDEX.md, which is generated - and the ledger was not among them. It is the append-only row in docs/lane-speed.md's friction table, 65 minutes over four lanes, and this session had just paid it twice by hand in the hour before.
+
 ## 2026-09-16 · 0db85097 — The last two speed findings go on the list rather than in a report
 
 Both were named in a report and nowhere else, which `docs/queue.md`'s preamble calls out by name: a report scrolls away, and the next session clones origin and sees only files.
