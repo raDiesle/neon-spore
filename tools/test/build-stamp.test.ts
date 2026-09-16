@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { readdirSync, readFileSync } from "node:fs";
+import { readdirSync } from "node:fs";
 import { dirname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -59,9 +59,22 @@ function sources(dir: string, found: string[] = []): string[] {
 }
 
 describe("the build stamp", () => {
-  it("is read through BUILD_STAMP, never through the raw identifier", () => {
-    const offenders = sources(root)
-      .filter((file) => readFileSync(file, "utf8").includes("__BUILD_DATE__"))
+  /**
+   * **Read together rather than one after another.** The walk itself is
+   * nothing — 25 ms of the 325 this used to take — and the rest was 2,353
+   * `readFileSync` calls waiting on the disk in turn. `bun run check` deals
+   * its tests across thirteen shards all reading that same disk, and on
+   * 16 September 2026 this test passed its own 5-second timeout and turned a
+   * green lane red; alone, the same file had taken 475 ms. Handing the reads
+   * to the runtime at once costs 50 ms instead of 250 on an idle machine,
+   * measured both orders round, and that is the margin the contended run
+   * wanted.
+   */
+  it("is read through BUILD_STAMP, never through the raw identifier", async () => {
+    const files = sources(root);
+    const texts = await Promise.all(files.map((file) => Bun.file(file).text()));
+    const offenders = files
+      .filter((_file, at) => texts[at]?.includes("__BUILD_DATE__"))
       .map((file) => relative(root, file))
       .filter((file) => !ALLOWED.has(file.split("/").join(sep)));
     expect(offenders).toEqual([]);

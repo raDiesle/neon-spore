@@ -6582,3 +6582,22 @@ The bottleneck was writing, and only because the fix wanted a test and
 `shot-state.ts` had never had one: the presses are four lines each, but a page
 that records what it was asked to press is the thing that makes the *count* of
 them assertable, which is the whole defect.
+
+## 2026-09-16 — task-queue-work — the build-stamp scan reads all at once
+
+The queue's *The build-stamp scan walks the whole tree inside a 5-second test*,
+found when it timed out on the landing check of the lane two before this one.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the test's own three paragraphs, and `limits.test.ts` for how the other whole-tree scan does it |
+| writing | 5 | the read turned into one `Promise.all`, and the paragraph saying why |
+| looking | 10 | a bench script timing the walk and both reads, run both orders round, then the file timed again and an offender planted to prove it still catches one |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, the commit, `bun run land` |
+
+The bottleneck was looking, and it was the right place to spend it: the entry
+proposed a `Glob` and that would have been the wrong fix — the walk is 25 ms of
+the 325 and the reads are the other 300 — so the ten minutes bought the
+difference between a change that sped it up fourfold and one that changed the
+line the slowness is not in.

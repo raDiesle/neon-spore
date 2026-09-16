@@ -602,25 +602,3 @@ time, and only the cells are its own.
 Provable with `bun run check`: `tools/land`'s own tests already exercise the
 note-writing path against a temporary repository, so the stamp is a case
 beside them, and a rounding rule is a pure function with a table.
-
-## The build-stamp scan walks the whole tree inside a 5-second test
-
-- **Found:** 2026-09-16, claude/task-queue-work-5f529c
-- **Taken:** 2026-09-16, claude/queue-the-build-stamp-scan-walks-the-whole-tree-inside
-- **Files:** `tools/test/build-stamp.test.ts`
-
-*is read through BUILD\_STAMP, never through the raw identifier* reads every
-`.ts` file in the repository — `sources(root)` recurses from the root and
-`readFileSync`s each one — and `bun run check` runs it while twelve other
-shards are reading the same disk. On 16 September 2026 it timed out at 5001 ms
-and turned a green lane red; run alone the same file passes in 475 ms. Its
-own doc comment already records one environment-dependent failure of the same
-walk, a `.wrangler` directory a bundler was deleting under it.
-
-The scan is worth keeping — it is the only thing holding `__BUILD_DATE__` to
-one reader — so the fix is to make it cost less rather than to widen the
-timeout: `Glob("**/*.ts").scanSync` the way `packages/sim/test/limits.test.ts`
-does, and grep the file list rather than reading every file whole. If that is
-still near the limit under thirteen shards, the test may name its own with
-`it(…, { timeout })`, which is the smaller change and the one to keep in
-reserve.
