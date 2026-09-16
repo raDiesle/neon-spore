@@ -5,6 +5,7 @@ import { drawLay } from "./cannon-maw.js";
 import { type Crater, clipOutMouths, drawCraters, craters as findCraters } from "./craters.js";
 import { strokeGlow } from "./glow.js";
 import { drawHarpoonDanger } from "./harpoon-danger.js";
+import { drawHullBreaks } from "./hull-break.js";
 import {
   frame,
   type HullFrame,
@@ -182,6 +183,12 @@ export function drawHull(
   );
   // `filled`: a hole is clipped to the ship, never a mark in the sky (craters.ts).
   drawCraters(ctx, openCraters, skin_, filled);
+  // And whatever the ship wears around each of those holes — plating torn
+  // open, a cavity, a buckled membrane. Over the pit rather than under it, and
+  // *not* clipped to the ship: a hole has to be inside the outline and a piece
+  // of plating bent back out of one does not. The shipped look draws nothing
+  // and this call is the seam a candidate reaches through (`hull-break-look.ts`).
+  drawHullBreaks(ctx, l, openCraters, time, (x) => skin(f, x), skin_.rim);
   const on = (x: number) => surface(f, x);
   drawShieldRim(ctx, l, mood.armed, time, at, on, mood.resonance ?? 0);
   // A control held by a harpoon, heating up toward the tick it costs the round

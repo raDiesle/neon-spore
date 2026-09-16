@@ -64,6 +64,11 @@ export { handedLayout, handedRole } from "./handover.js";
 export { signedHash, sinHash } from "./hash.js";
 export { mixHex, rgba } from "./hex.js";
 export { runLineBox } from "./hud.js";
+export {
+  HULL_BREAK_LOOK,
+  type HullBreakLook,
+  type HullBreakPaint,
+} from "./hull-break-look.js";
 export { drawIntroScene, introOver, playBox } from "./intro-scene.js";
 export { half, litBox, litColour, litRound, type Shade, shadeAt } from "./key-light.js";
 export {

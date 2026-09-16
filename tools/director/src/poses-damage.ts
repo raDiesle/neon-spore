@@ -130,7 +130,14 @@ const BREACH_CADENCE_SECONDS = 7.5;
 
 /**
  * Four rocks coming down in four columns, going through the hull and rolling
- * off it — the state `ship:crater` is judged on.
+ * off it — the state `ship:crater` and `ship:hull-break` are judged on.
+ *
+ * **Both slots, and it is the same question asked twice.** `ship:crater` is
+ * the hole itself and `ship:hull-break` is what the ship wears around one, and
+ * the thing neither can be voted on with a single dent is whether a hull
+ * carrying *several* of them still reads as one surface. That is what four
+ * rocks in four columns is for, and it is why the vote is cast in the couple of
+ * seconds after the last rock has rolled off rather than while they land.
  *
  * `BREACH · A SCAR` (`poses-mechanics.ts`) is the still beside this one and
  * stays what it is: one hole, held, as a reference card. This is the moving

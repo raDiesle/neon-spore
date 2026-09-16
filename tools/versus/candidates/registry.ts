@@ -17,6 +17,9 @@ import { GUIDE_SPOTLIGHT } from "./guide-chrome/spotlight/index.js";
 import { STRIKE_HAMMER } from "./ship-breach-strike/hammer/index.js";
 import { STRIKE_REND } from "./ship-breach-strike/rend/index.js";
 import { STRIKE_SPEAR } from "./ship-breach-strike/spear/index.js";
+import { HULL_BREAK_BUCKLE } from "./ship-hull-break/buckle/index.js";
+import { HULL_BREAK_GAPE } from "./ship-hull-break/gape/index.js";
+import { HULL_BREAK_PEEL } from "./ship-hull-break/peel/index.js";
 
 export const VARIANTS: Variant[] = [
   BITE_NOTCH,
@@ -30,4 +33,7 @@ export const VARIANTS: Variant[] = [
   STRIKE_HAMMER,
   STRIKE_REND,
   STRIKE_SPEAR,
+  HULL_BREAK_BUCKLE,
+  HULL_BREAK_GAPE,
+  HULL_BREAK_PEEL,
 ];
