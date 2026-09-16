@@ -131,6 +131,7 @@ export { type Arena, showsSnakeBody, showsSnakeFood, snakeArena } from "./snake-
 export { drawSnakeRound } from "./snake-round.js";
 export { FIELD_TRAIL_SCALE, neonHue } from "./splash-blob.js";
 export { SplashTrail } from "./splash-trail.js";
+export { splinters } from "./splinter.js";
 export { BURST_SHEET, SpriteBursts, type SpriteSheet } from "./sprite-burst.js";
 export { type CanvasBox, clientOfStage, pointOnStage } from "./stage-point.js";
 export { clearSurface } from "./surface-clear.js";

@@ -6,6 +6,8 @@
 // `index.ts` next door says why it is generated at all.
 
 import type { Variant } from "../variant.js";
+import { DEBRIS_DRIFT } from "./creature-debris/drift/index.js";
+import { SPLINTERS_SHARDS } from "./creature-splinters/shards/index.js";
 import { GUIDE_COACH } from "./guide-chrome/coach/index.js";
 import { GUIDE_CONSOLE } from "./guide-chrome/console/index.js";
 import { GUIDE_RAIL } from "./guide-chrome/rail/index.js";
@@ -13,6 +15,8 @@ import { GUIDE_RIBBON } from "./guide-chrome/ribbon/index.js";
 import { GUIDE_SPOTLIGHT } from "./guide-chrome/spotlight/index.js";
 
 export const VARIANTS: Variant[] = [
+  DEBRIS_DRIFT,
+  SPLINTERS_SHARDS,
   GUIDE_COACH,
   GUIDE_CONSOLE,
   GUIDE_RAIL,

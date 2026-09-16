@@ -3,6 +3,7 @@ import type { Shard } from "./shatter.js";
 import { shatter } from "./shatter.js";
 import type { Fall } from "./shatter-fall.js";
 import { shardAt } from "./shatter-fall.js";
+import { splinters } from "./splinter.js";
 
 /**
  * The pieces a broken body left, still in the air.
@@ -80,12 +81,17 @@ export class Debris {
   break(b: BreakAt): void {
     const look = b.look;
     if (look.wedges < 3) return;
-    const cut = shatter(b.outline, fractureFrom(look, b.tile / b.scale, b.seed, b.ox, b.oy));
-    if (cut.length === 0) return;
+    const cut = fractureFrom(look, b.tile / b.scale, b.seed, b.ox, b.oy);
+    const wedges = shatter(b.outline, cut);
+    if (wedges.length === 0) return;
+    // The slivers off the faces that cut opened are pieces too — one list, one
+    // fall, one paint, because a splinter that flew by its own rules would be a
+    // second particle system. None at all at the shipped `splinters: 0`.
+    const cast = [...wedges, ...splinters(b.outline, cut, look.splinters, b.seed)];
     // Into pixels once, here. Every coordinate a piece carries is scaled, and
     // so is every speed — a velocity left in contour units would put the same
     // break at a different size on a phone with a different tile.
-    const pieces = cut.map((s) => ({
+    const pieces = cast.map((s) => ({
       points: s.points.map((p) => ({ x: p.x * b.scale, y: p.y * b.scale })),
       x: s.x * b.scale,
       y: s.y * b.scale,

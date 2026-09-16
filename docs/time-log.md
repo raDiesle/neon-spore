@@ -6201,3 +6201,23 @@ them turns out to be unbuilt in the way the page said. The break is built and
 lands on the hull on purpose; what is missing is a notch in a body that keeps
 falling, splinters off the cut faces, and drift — and drift is missing because
 the owner asked for the opposite.
+
+## 2026-09-16 — queued-tasks — two of destruction's three pieces, offered
+
+The second half of the destruction queue entry: `creature:debris` / `drift` and
+`creature:splinters` / `shards`, plus the seam `splinter.ts` and the bench rows
+that tuned both.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `debris.ts`, `shatter.ts`, `break-look.ts`, `meteor.ts`'s pit call site — what a candidate can actually patch |
+| writing | 45 | `splinter.ts`, the `splinters` field, two candidates, two bench rows, the pose rows |
+| looking | 25 | `bun run breaks` four times: the drift throw twice, then the slivers at three lengths and three speeds |
+| friction | 10 | splinters first placed at a share of the body's widest ray, which stood a slick's out like spines before it had broken; `reachAt` had to be exported |
+| landing | 15 | the queue entry for the third piece, `check:fast`, the commit |
+
+The bottleneck was looking, and it was the work: a splinter is two pixels wide
+on a phone and the only thing that says whether it reads is the sheet. The
+third piece is not here — a notch cut out of a body has no record to patch at
+all, so it went to the queue naming the seam it needs rather than being faked
+with a crater.

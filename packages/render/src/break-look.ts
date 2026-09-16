@@ -74,6 +74,16 @@ export interface BreakLook {
    * judging the pieces would be judging the pair of them.
    */
   readonly sparkScale: number;
+  /**
+   * How many splinters come off the faces the cut opened — `splinter.ts`.
+   *
+   * **Zero ships, and that is the honest number**: `systems.md` 5.6 asks for
+   * three to six off the broken edge and nothing in the game throws one, so
+   * the field's answer is none and this record says so rather than leaving the
+   * design's sentence with no spelling at all. `creature:splinters` is the
+   * candidate that argues for a number.
+   */
+  readonly splinters: number;
   /** How one piece is painted. */
   readonly paint: (ctx: CanvasRenderingContext2D, p: PiecePaint) => void;
 }
@@ -88,6 +98,7 @@ export const BREAK_LOOK: BreakLook = {
   fade: 0.4,
   skid: 0.3,
   sparkScale: 0.4,
+  splinters: 0,
   paint: facet,
 };
 

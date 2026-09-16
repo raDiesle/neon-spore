@@ -66,6 +66,12 @@ const NOT_ONE_BODY: Record<string, null> = {
   // through is the defect this whole function replaces.
   "creature:skin": null,
   "creature:break": null,
+  // And the two halves of a break asked separately, which are a *fall* and a
+  // *shower* rather than a body: `creature:debris` is what the pieces do after
+  // the cut, and `creature:splinters` is what comes off the faces it opened.
+  // Both are judged on the pose the break was, and that pose kills a slick.
+  "creature:debris": null,
+  "creature:splinters": null,
 };
 
 function isKind(name: string): boolean {

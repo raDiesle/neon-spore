@@ -157,6 +157,9 @@ export const BALLOON_SKIN: BreakLook = {
   fade: 0.5,
   skid: 0.5,
   sparkScale: 0.3,
+  // No slivers off a skin: what a balloon is made of tears, and a tear has no
+  // face to splinter off (`splinter.ts`).
+  splinters: 0,
   paint: shred,
 };
 

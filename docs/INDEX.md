@@ -942,6 +942,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fence-gate.ts` | The way through a fence, on the screen that is shown it |
 | `packages/render/src/fence.ts` | THE FENCE: a live line the width of the field, and the two different pictures of it the two screens carry |
 | `packages/render/src/spline.ts` | A contour, written into a `Path2D` as numbers |
+| `packages/render/src/splinter.ts` | The splinters a break throws off the faces it opened |
 | `packages/render/src/splice-draw.ts` | THE SPLICE, drawn — and drawn differently on each screen, which is the fight |
 | `packages/render/src/splice-straws.ts` | THE SPLICE's straws, as geometry and as lines |
 | `packages/render/src/effects-ingest-silent.ts` | **The events that leave nothing behind in `Effects`**, and why each one does not |

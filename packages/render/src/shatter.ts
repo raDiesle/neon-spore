@@ -103,8 +103,14 @@ const MIN_AREA = 1e-4;
  * used for there is exactly one, and taking the nearest is what makes a contour
  * that *does* fold back degrade into a flattened piece instead of a piece that
  * swallows the fold.
+ *
+ * Exported for `splinter.ts` alone, which has to put a sliver **on** the skin
+ * rather than at some share of the body's widest ray — a slick is half as tall
+ * as it is wide, and a splinter placed off the mean would start outside the
+ * body on one axis and inside it on the other. Not part of the package's
+ * surface: `index.ts` does not carry it.
  */
-function reachAt(outline: readonly Point[], ox: number, oy: number, angle: number): number {
+export function reachAt(outline: readonly Point[], ox: number, oy: number, angle: number): number {
   const dx = Math.cos(angle);
   const dy = Math.sin(angle);
   let best = 0;

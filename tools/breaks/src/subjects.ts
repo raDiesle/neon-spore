@@ -6,6 +6,7 @@ import {
   PALETTE,
   type Shard,
   shatter,
+  splinters,
 } from "@neon-spore/render";
 
 /**
@@ -22,7 +23,9 @@ import {
  *
  * **Nothing here is a look the game draws.** Every subject is a tuning offered
  * to `tools/versus`, or a tuning being tried on the way to one; the field's own
- * answer is `BREAK_LOOK`, whose `wedges` is 0 (`docs/looks.md`).
+ * answer is `BREAK_LOOK` (`docs/looks.md`). That record shipped at `wedges: 0`
+ * — nothing at all — until `creature:break` was taken on 9 September 2026, and
+ * `SLICK · SPALLED` below is the tuning it was taken as.
  */
 
 /** One row of the sheet: a body, a cut, and a fall. */
@@ -35,6 +38,9 @@ export interface Subject {
   readonly outline: readonly { readonly x: number; readonly y: number }[];
   readonly cut: Fracture;
   readonly fall: Fall;
+  /** How many slivers come off the faces the cut opened, and none by default —
+   * `splinter.ts`, which is what the field does today. */
+  readonly splinters?: number;
   /** The body's own colour and its deep value — `colorTrio`'s two. */
   readonly hex: string;
   readonly dark: string;
@@ -67,7 +73,8 @@ function body(kind: Parameters<typeof livingSilhouette>[0]): {
 const SPAN = 1;
 
 /**
- * The fall every row on this sheet shares.
+ * The fall every row on this sheet shares, except the one arguing about the
+ * fall itself.
  *
  * The pull is what took the most looking. At a body-width and a half a second
  * squared the pieces were still in the air when they faded, which drew a break
@@ -125,6 +132,32 @@ export const SUBJECTS: Subject[] = [
     ...CYAN,
   },
   {
+    name: "SLICK · DRIFTING",
+    note: "spalled, thrown at two fifths the speed with the pull nearly off: debris that drifts and never lands",
+    ...body("slick"),
+    cut: { ox: 0, oy: 0, wedges: 9, innerAt: 0.5, speed: SPAN * 0.45, spin: 2.5, seed: 41 },
+    // SPALLED's cut thrown at two fifths the speed, and no floor at all: a
+    // piece that is drifting is not on its way to the ground, and leaving the
+    // ship's line in would put every one of them down in the last frame and
+    // say the opposite. There is no drag in `shardAt` on purpose, so slow is
+    // the only way a piece drifts rather than flies.
+    fall: { gravity: SPAN * 0.4, life: 1.6, fade: 0.6, skid: 0.3 },
+    ...RED,
+  },
+  {
+    name: "SLICK · SPLINTERED",
+    note: "spalled, with six slivers off the faces it opened: 5.6's splinters, which nothing throws today",
+    ...body("slick"),
+    cut: { ox: 0, oy: 0, wedges: 9, innerAt: 0.5, speed: SPAN * 1.1, spin: 6, seed: 41 },
+    // SPALLED's cut and SPALLED's fall, so the only thing between this row and
+    // that one is the slivers. They leave faster than the wedges do, which is
+    // the whole picture: the body opens and something comes *off* it, ahead of
+    // the pieces, gone before they have landed.
+    fall: FALL,
+    splinters: 6,
+    ...RED,
+  },
+  {
     name: "SLICK · TOO MANY PIECES",
     note: "sixteen wedges, twice over: what over-cutting looks like, kept on the sheet as the wrong end",
     ...body("slick"),
@@ -137,5 +170,8 @@ export const SUBJECTS: Subject[] = [
 /** The pieces of one subject, cut once. The sheet draws these at seven moments,
  * which is the whole reason `shardAt` is a function of `t` and not a step. */
 export function piecesOf(s: Subject): Shard[] {
-  return shatter(s.outline, s.cut);
+  return [
+    ...shatter(s.outline, s.cut),
+    ...splinters(s.outline, s.cut, s.splinters ?? 0, s.cut.seed),
+  ];
 }
