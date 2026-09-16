@@ -589,6 +589,7 @@ worked, which is how it came to be bad twice.
 ## The director's stage plays the saved guide, not the one being edited
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-16, claude/queue-the-directors-stage-plays-the-saved-guide-not-th
 - **Files:** `tools/director/src/stage-world.ts`, `packages/render/src/guide-prose.ts`, `packages/render/src/guide-play.ts`
 
 `buildStageWorld` reads the draft for everything it is handed and says so —
