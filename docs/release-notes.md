@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 5a9a8a8a — The lost screen's two buttons are the tutorial's plates
+
+The owner asked for it by name on 17 September 2026 — *make sure buttons of "wave end" looks like the new buttons of tutorial guide* — which is the first of the three look exemptions. RETRY WAVE and QUIT were the guide bar's grown bodies, drawn through `drawNavBody`, and that bar has been TIDE's cut plates since 16 September: these two were the last pair in the game still wearing the shape it left behind.
+
 ## 2026-09-17 · 7cc0864d — --boss: photograph a boss in a state no run of presses can reach
 
 Three look lanes in a row landed a picture of a first phase and said in the commit message that the frame that mattered had never been seen. THE THROAT's eversion needs five gums flung into a walking mouth; THE DIASTOLE's second chamber needs the first spent on a coincidence beat; THE BATON's shed socket needs a handover missed. Each one fell back to arithmetic in a test, which is the right proof of geometry and no proof at all of how a thing reads. So `--boss slack=5,phase=everts,phaseBeat=now` writes the installed boss's own fields, in the window `--fault` and `--boss-round` are written in: after the jump, before the opening lets go, because a phase is drawn over the field from the first beat.
