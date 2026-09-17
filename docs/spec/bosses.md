@@ -1887,10 +1887,18 @@ fingerprint, and a hit test built on it is one two devices could disagree about.
 of it, and the boss is nulled at the end rather than at the last choke, so the
 picture has the eversion to run before the wave ends under it.
 
-**Three things the design asks for that are not built, and why.**
-*Pods.* Step 10 wants the throat to compete with the maw for a pod. Pods are a
-separate array with their own step and the hauling would be a second copy of the
-pull; it is a queue item rather than a silent omission.
+**A pod is held by the same rule** — step 10, built last, on 17 September
+2026. Pods are a separate array in thousandths with their own step, so the hold
+is asked of a *place* rather than of a body (`Standing`, `throat-pull.ts`) and
+both arrays are read through the one predicate: a creature by its span, a pod by
+the tile it is nearest. A loose pod in the mouth's column stops where it is, is
+hauled a tile an inhale, and standing in the mouth is swallowed and re-tightens a
+ring — the design's own fail cell for that step, and it does not lose the wave:
+what the pod cost is rings. The maw answers it by reach: a loose pod within
+`podHomeTiles` of the hull is steering for the cannon and the throat has lost
+it. A moored pod hangs off the field and is nobody's to haul.
+
+**Two things the design asks for that are not built, and why.**
 *A braked gum.* Step 12 wants a hand to hold a gum out of a continuous inhale,
 "THE GRIP, unchanged" — but a hand on a gum is already the *fling* gesture
 (`handMeans` calls it a pull), so braking one would change THE GUM rather than

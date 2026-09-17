@@ -1,9 +1,10 @@
-import { batonBeadTaken } from "./baton-press.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import type { PodEntry } from "./entries.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
-import { cargoLost, huskRefused, huskSwallowed, mawOpen, takeCargo } from "./pod-intake.js";
+import { podArrived, podLost } from "./pod-arrive.js";
+import { huskRefused } from "./pod-intake.js";
 import { nextInt } from "./rng.js";
+import { throatHoldsPod } from "./throat-pull.js";
 import type { Pod, PodKind } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
@@ -168,10 +169,17 @@ export function advancePods(world: World): void {
           // husk that crossed and left is the opposite — the pair let a lie go
           // past, which is exactly what they were supposed to do.
           if (p.husk) huskRefused(world, p);
-          else lost(world, p);
+          else podLost(world, p);
           continue;
         }
       }
+      survivors.push(p);
+      continue;
+    }
+    // THE THROAT's pull, which is the design's step 10: a loose pod in the
+    // mouth's column is the throat's until the mouth steps off it or the maw's
+    // reach takes it back, and it goes nowhere meanwhile (`throat-pull.ts`).
+    if (throatHoldsPod(world, p)) {
       survivors.push(p);
       continue;
     }
@@ -199,46 +207,7 @@ export function advancePods(world: World): void {
       survivors.push(p);
       continue;
     }
-    resolveIntake(world, p);
+    podArrived(world, p);
   }
   world.pods = survivors;
-}
-
-/**
- * The pod has arrived at the hull. Two conditions, both player 1's: the cannon
- * stands in its column, and the maw was opened recently enough to still be
- * open. Anything else and the pod breaks on the skin, and that is a hit: the
- * wave is lost (`wave-fail.ts`). It used to be simply gone — a missed gift
- * and not a punishment — until taking every pod in became part of passing
- * the wave.
- */
-function resolveIntake(world: World, pod: Pod): void {
-  const col = Math.round(pod.colMilli / MILLI);
-  const inColumn = world.cannonCol === col;
-  const inTime = mawOpen(world);
-
-  // **A husk is the same two conditions, read the other way up.** Everything
-  // about getting it here is a pod's — the column, the moment, the maw — and
-  // only the receipt is inverted, which is the point: the pair cannot practise
-  // a husk separately from a pod, because up to this tick it *is* one.
-  if (pod.husk) {
-    if (inColumn && inTime) huskSwallowed(world, pod);
-    else huskRefused(world, pod);
-    return;
-  }
-
-  if (inColumn && inTime) {
-    takeCargo(world, col, pod.kind);
-    // And if it was THE BATON's bead, the arm is beaten. A no-op for every
-    // pod a wave hung (`baton-press.ts`).
-    batonBeadTaken(world, pod.id);
-    return;
-  }
-  lost(world, pod);
-}
-
-/** A pod the pair did not take, at the hull or off the side: the wave is lost
- * (`cargoLost`, which is the half of this rule THE MOULT reads too). */
-function lost(world: World, pod: Pod): void {
-  cargoLost(world, Math.round(pod.colMilli / MILLI));
 }

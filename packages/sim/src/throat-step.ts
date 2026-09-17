@@ -17,7 +17,7 @@ import {
   throatSpent,
   throatStride,
 } from "./throat.js";
-import { throatHasHold, throatLift } from "./throat-pull.js";
+import { podStanding, throatHasHold, throatHasHoldOfPod, throatLift } from "./throat-pull.js";
 import type { World } from "./world.js";
 
 /**
@@ -176,7 +176,9 @@ function throatChoked(world: World, b: ThroatState): void {
  *
  * `throatHasHold` rather than a column test written out again, so the body the
  * fall loop refused to drop and the body the mouth takes are decided by one
- * rule (`throat-pull.ts`).
+ * rule (`throat-pull.ts`). A pod standing in the mouth is taken by the same
+ * rule's pod-shaped half, and counts the same: the design's step 10, *the
+ * throat eats the pod and two rings re-tighten*.
  */
 function throatFed(world: World, b: ThroatState): void {
   const row = throatMouthRow(world.cfg);
@@ -187,8 +189,13 @@ function throatFed(world: World, b: ThroatState): void {
     if (!throatHasHold(world, b, c)) continue;
     eaten.push(c.id);
   }
-  if (eaten.length === 0) return;
+  const before = world.pods.length;
+  world.pods = world.pods.filter(
+    (p) => podStanding(p).row !== row || !throatHasHoldOfPod(world, b, p),
+  );
+  const fed = eaten.length + before - world.pods.length;
+  if (fed === 0) return;
   removeCreatures(world, eaten);
-  b.slack = Math.max(0, b.slack - eaten.length);
+  b.slack = Math.max(0, b.slack - fed);
   b.fedBeat = world.beat;
 }

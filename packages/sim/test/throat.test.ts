@@ -1,8 +1,9 @@
 import { describe, expect, it } from "bun:test";
-import { DEFAULT_CONFIG, midCol, type SimConfig, ticksPerBeat } from "../src/config.js";
+import { DEFAULT_CONFIG, hullRow, midCol, type SimConfig, ticksPerBeat } from "../src/config.js";
 import { setGrip } from "../src/grip.js";
 import { gumSwiped } from "../src/gum.js";
 import { hashWorld } from "../src/hash.js";
+import { freePod } from "../src/pods.js";
 import { slowing } from "../src/slow.js";
 import { step } from "../src/step.js";
 import {
@@ -17,9 +18,9 @@ import {
   throatToInhale,
 } from "../src/throat.js";
 import { throatPhaseFor } from "../src/throat-step.js";
-import type { Creature, CreatureKind } from "../src/types.js";
+import type { Creature, CreatureKind, Pod } from "../src/types.js";
 import { startWave } from "../src/wave-start.js";
-import { createWorld, type World } from "../src/world.js";
+import { createWorld, MILLI, type World } from "../src/world.js";
 
 /**
  * THE THROAT, and the sentence it is built to make true: **the one boss you
@@ -218,6 +219,76 @@ describe("what the mouth does to a body standing in its column", () => {
     beats(world, CFG.throatInhaleBeats);
     // A hand on it and the inhale came and went: it is exactly where it was.
     expect(rock.row).toBe(ROW + 2);
+  });
+});
+
+/** A pod hung where a test wants it, then shot loose — which is the only way a
+ * pod ever falls, and the only pod the throat may hold. */
+function loosePod(world: World, col: number, row: number): Pod {
+  const p: Pod = {
+    id: world.nextId++,
+    colMilli: col * MILLI,
+    rowMilli: row * MILLI,
+    driftMilli: 0,
+    loose: false,
+    kind: "purge",
+    husk: false,
+    crossMilli: 0,
+  };
+  world.pods.push(p);
+  freePod(world, p);
+  // The drift is the one random thing about a pod, and it would carry it out
+  // of the column under test: a wreck that has slid to the wall has none.
+  p.driftMilli = 0;
+  return p;
+}
+
+describe("what the mouth does to a pod, which is the design's step 10", () => {
+  it("holds a loose pod in its column and hauls it a tile an inhale, like a body", () => {
+    const world = open();
+    const b = tube(world);
+    b.phaseBeat = world.beat;
+    const pod = loosePod(world, HOME, ROW + 3);
+    beats(world, 1);
+    expect(pod.rowMilli).toBe((ROW + 3) * MILLI);
+    beats(world, CFG.throatInhaleBeats - 1);
+    expect(pod.rowMilli).toBe((ROW + 2) * MILLI);
+  });
+
+  it("lets a pod fall that is not in the mouth's column, and one still moored hang", () => {
+    const world = open();
+    tube(world).phaseBeat = world.beat;
+    const off = loosePod(world, HOME + 2, ROW + 1);
+    const moored = loosePod(world, HOME, ROW + 1);
+    moored.loose = false;
+    beats(world, 1);
+    expect(off.rowMilli).toBeGreaterThan((ROW + 1) * MILLI);
+    expect(moored.rowMilli).toBe((ROW + 1) * MILLI);
+  });
+
+  it("swallows a pod standing in the mouth and re-tightens a ring, and loses no wave", () => {
+    const world = open();
+    const b = tube(world);
+    b.slack = CFG.throatRings - 1;
+    b.phase = "open";
+    b.phaseBeat = world.beat;
+    loosePod(world, HOME, ROW);
+    beats(world, 1);
+    expect(world.pods).toHaveLength(0);
+    expect(b.slack).toBe(CFG.throatRings - 2);
+    expect(b.fedBeat).toBe(world.beat);
+    expect(world.balance.podsLost).toBe(0);
+  });
+
+  it("loses a pod to the maw's reach, which is the one thing that answers it", () => {
+    const world = open();
+    tube(world).phaseBeat = world.beat;
+    // Inside `podHomeTiles` of the hull and in the mouth's column: steering for
+    // the cannon, and no longer the throat's to haul.
+    const row = hullRow(CFG) - CFG.podHomeTiles;
+    const pod = loosePod(world, HOME, row);
+    beats(world, 1);
+    expect(pod.rowMilli).toBeGreaterThan(row * MILLI);
   });
 });
 

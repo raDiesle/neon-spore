@@ -8964,3 +8964,19 @@ and timing an arithmetic loop in-process read 1.07 with thirty-two spinners up
 because macOS keeps handing the foreground process a performance core.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-the-throat-does-not-haul-a-pod-and-step-10-of-it — THE THROAT holds, hauls and swallows a pod
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, `throat-pull.ts`, `throat-step.ts`, `pods.ts`, `span.ts`, the design's step 10 and §11.19's paragraph, the throat and pod tests |
+| deciding | 10 | the narrow shape the entry preferred; whether a swallowed pod loses the wave (no: rings are the cost); how the maw answers (by reach, `podHomeTiles`) |
+| writing | 15 | `Standing`, `podStanding`, the pod hold, lift and swallow, the tick-level hold in `advancePods`, four tests, two spec pages |
+| friction | 5 | `pods.ts` went to 252 lines on the one branch — `pod-arrive.ts` cut along the seam its own header drew |
+| landing | 5 | `check:fast`, this entry, the commit, `bun run land` |
+
+The bottleneck was the one design question the entry did not settle: how the
+maw "answers" a pod the throat has hold of, when the built pull freezes a body
+outright — settled as the maw's own reach, which is a rule the pod already had.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

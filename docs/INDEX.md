@@ -350,6 +350,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pod-effects.ts` | What a pod *gives*, once the mouth has closed on it |
 | `packages/sim/src/pod-entry.ts` | Where a pod is left hanging — the one thing a wave authors that is not a body |
 | `packages/sim/src/pod-intake.ts` | **The mouth**: whether it is open, and what happens to a cargo that reaches it either way |
+| `packages/sim/src/pod-arrive.ts` | **A pod arriving**: what happens on the tick a falling pod reaches the hull |
 | `packages/sim/src/reach.ts` | THE CLAW's arm: the cannon's column, reached up instead of fired along |
 | `packages/sim/src/index-creatures.ts` | one creature's own rules, as the rest of the repository reads them |
 | `packages/sim/src/index-run.ts` | the world, the clock, a wave's start and end, and the fingerprint |

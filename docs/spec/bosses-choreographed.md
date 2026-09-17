@@ -325,10 +325,9 @@ and none of those is under 900 ms (`guardWindowMs`, and the reason is in
 > **Built whole** as of 17 September 2026, in three pieces: the simulation, the
 > gullet, and then NEXT INHALE with the eversion. §11.19 is the record.
 >
-> Three things below are not built, and §11.19 says why for each: the throat
-> does not compete with the maw for a **pod** (queued); a hand cannot **brake a
-> gum** out of the pull, because a hand on a gum is already the fling; and the
-> **inhale is the climb** — one clock rather than a six-beat clock plus a
+> Two things below are not built, and §11.19 says why for each: a hand cannot
+> **brake a gum** out of the pull, because a hand on a gum is already the fling;
+> and the **inhale is the climb** — one clock rather than a six-beat clock plus a
 > three-beat drag, so player 2's *beats until the next inhale* is the deadline
 > the pull is measured in.
 
