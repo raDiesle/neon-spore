@@ -1915,6 +1915,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |
 | `tools/director/src/ship-notes-hidden.ts` | The paragraph under each card for a **body one seat is not drawn at all**: THE WISP |
 | `tools/director/src/ship-notes-boss.ts` | The paragraph under each **boss's** card — the ones played on the field |
+| `tools/director/src/ship-notes-twice.ts` | The paragraph under each card for a **body one landed answer does not finish**: THE ECHO, THE RIND |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
 | `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |
 | `tools/style-guide/src/form.ts` | the drawn panels: the stroke build-up, the size ladder down to 11 px, and the five living silhouettes |

@@ -3,6 +3,7 @@ import { BOSS_NOTES } from "./ship-notes-boss.js";
 import { HIDDEN_NOTES } from "./ship-notes-hidden.js";
 import { HOLD_NOTES } from "./ship-notes-hold.js";
 import { ROUND_NOTES } from "./ship-notes-round.js";
+import { TWICE_NOTES } from "./ship-notes-twice.js";
 
 /**
  * The paragraph under each card's heading, and nothing else.
@@ -32,6 +33,12 @@ import { ROUND_NOTES } from "./ship-notes-round.js";
  * for the same reason: a round is a whole second game with its own picture and
  * its own numbers, and there are nine more of them designed. Everything left
  * here is a dial on the field.
+ *
+ * **The bodies one landed answer does not finish are next door**, in
+ * `ship-notes-twice.ts`: THE ECHO, THE RIND, THE RECOIL, THE CAROM, THE
+ * CRYSTAL, THE STRAND, THE CRAWLER and THE VOLLEY, which is the cut that gave
+ * this file headroom again after it sat one line under the ceiling. What is
+ * left here is a body that is over when the pair get it right.
  *
  * Re-exported from `ship-groups.ts`, so nothing that already reaches for
  * `GROUP_NOTE` through that file had to move.
@@ -163,55 +170,6 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "one to the other every few beats, which is what makes the call expire — " +
     "and a shot in the wrong colour shuts the cloud for a moment rather than " +
     "simply missing. See veil.ts.",
-  "THE ECHO — one body that becomes eight":
-    "The one arrival that gets harder while you watch it. It steps down only " +
-    "every second beat, so the hull is never what is pressing — but it divides " +
-    "while it falls, and each wait is longer than the last: three beats, then " +
-    "six, then nine. Every division turns a corner — sideways, then up and " +
-    "down, then both at once — so the bodies stay in a knot instead of taking " +
-    "the whole width of the field, and the last one is the one a pair playing " +
-    "well never sees. Both players watch it strain and see which way it is " +
-    "about to part. A shot pays for every body the one it killed would still " +
-    "have become. See echo.ts, echo-split.ts.",
-  "THE RIND — one body, three sizes":
-    "The one arrival a landed shot does not finish. It comes down three " +
-    "times the size of a slick and the matching colour takes a layer off " +
-    "instead of killing it: three sizes, two sheds, and an ordinary body at " +
-    "the end that dies to an ordinary shot. How big it is *is* how much is " +
-    "left, so nothing is drawn over it and no number is shown. What it costs " +
-    "the pair is the column they had already finished with. See rind.ts.",
-  "THE RECOIL — a shot that sends it the wrong way":
-    "The one arrival whose own answer undoes the answer. A slick or a bulb " +
-    "in a sprung cage: the matching colour throws it two rows back up the " +
-    "field and a lane to one side the seeded rng picks, turning the body " +
-    "over on the way. Three times, then the fourth shot kills. See recoil.ts.",
-  "THE CAROM — a rock with something alive in it":
-    "The one arrival neither control can finish. A body sealed in rock, " +
-    "crossing on a diagonal and turning at the walls twice before it lands. " +
-    "The shield cannot touch it whole; the cannon cracks it, and what drops " +
-    "out is a meteor that has to be warded. See carom.ts.",
-  "THE CRYSTAL — two bodies in one shell, broken at the middle":
-    "A craft three tiles wide with an electric field round it, crossing on " +
-    "a diagonal. Only the middle breaks, in the colour the wave gave it, and " +
-    "only while the shield stands armed under any of its three lanes; then " +
-    "the two ends fall as a plain slick and a plain bulb. Any other shot is " +
-    "caught and nothing else happens. See crystal.ts.",
-  "THE STRAND — beads on a thread, shot in order":
-    "Two to five slicks and bulbs on one line, alternating. It is eaten " +
-    "from its ends inward and only one bead can be shot at a time, at an " +
-    "end rolled again after every shot. The navigator is shown which that " +
-    "is and no colours; the pilot is shown the colours and no mark, so the " +
-    "column and the trigger are two halves of one sentence. A shot at the " +
-    "wrong bead swells a dead one back. See strand.ts.",
-  "THE CRAWLER — a worm that walks the ship instead of falling":
-    "The one arrival that never arrives. It comes over a side wall onto the " +
-    "row the shield covers and walks the ship lengthways, costing the hull " +
-    "nothing while it does. Its head and tail are armour; the segments " +
-    "between them run red, cyan, plate and round again, so a colour wants " +
-    "the matching cannon under it and a plate wants the shield — and the " +
-    "body snaps together behind every one taken off. Strip it and a beam " +
-    "takes what is left; let it reach the far wall and it eats in, for as " +
-    "much as the pair left on it. See crawler.ts.",
   "THE MALFUNCTION — a control that acts by itself":
     "A wave in which one seat does not have its control any more — the control has it. A cannon fault fires up player 1's column every `malfunctionEveryBeats` beats and takes the two colours off player 2; a shield fault brings the dome up over player 2's column on the same clock and takes the trigger off player 1; a steer fault walks the cannon a column every `chokeSweepBeats` beats, wall to wall, and takes the strip off player 1 (THE CHOKE). The seat whose control broke gets nothing back and there is no way to hold a fault off. Two faults take nothing: THE CODEX gives the two colours each other's job, and THE HANDOVER trades the two panels between the screens `handoverAtBeat` beats in and gives them back `handoverHoldBeats` later, counting both phones down to it — the one fault that ends before the wave does. Which fault a wave carries is authored on the wave, beside its panel.",
   "THE FENCE — a live line with a way through it":
@@ -232,11 +190,6 @@ export const GROUP_NOTE: Record<GroupName, string> = {
     "one side wall on the row the wave named, walks that row, and leaves the " +
     "field at the other side — a moving wall the cannon cannot shoot past, " +
     "for as long as the crossing takes. See rock-cross.ts.",
-  "THE VOLLEY — a rock you have to hit back three times":
-    "The one arrival the shield does not finish. A ward hits it straight back " +
-    "up the field instead of off it and takes a plate of shell with it, and it " +
-    "comes down the same lane again. Three wards, and the shell bursts in " +
-    "mid-air over a body the cannon has to take. See volley.ts.",
   "PLUMBING — not a dial a person turns":
     "Real numbers — a lockstep buffer, a hit-test tolerance, a screen share — " +
     "but not something a person watching a wave decides by. Shown so nothing " +
@@ -246,4 +199,5 @@ export const GROUP_NOTE: Record<GroupName, string> = {
   ...HIDDEN_NOTES,
   ...MOULT_NOTE,
   ...ROUND_NOTES,
+  ...TWICE_NOTES,
 };

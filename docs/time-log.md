@@ -8511,3 +8511,26 @@ what the header calls the two views. Nothing but an eye was going to say that:
 the tests were green over the glyphs.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — creature-bite-collision — ship-notes.ts gets its headroom back
+
+| Step | Minutes | What |
+|---|---|---|
+| reading | 10 | the entry, `ship-notes.ts` whole, and the four cuts it has already taken |
+| writing | 15 | `ship-notes-twice.ts`, the eight notes moved, the two docstrings |
+| looking | 0 | prose moved, not a pixel — the compile guard is the whole proof |
+| friction | 0 | none |
+| landing | 5 | `bun run index`, `check:fast` |
+
+No bottleneck. The only decision in the lane was where to cut, and the eight
+bodies named the seam themselves: four of their paragraphs already opened on
+*the one arrival a landed shot does not finish*, *the one arrival the shield
+does not finish*, *the one arrival neither control can finish*, *the one
+arrival that gets harder while you watch it*. The entry said to wait for the
+next creature that needs a note, on the grounds that a refactor of prose with
+nothing new to place cannot be reviewed against anything; it is a pure move and
+`git diff -M` says so, and the entry's own other half — that whoever adds the
+next note pays for this with an unrelated diff already open — is the stronger
+argument. 249 lines to 203.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*
