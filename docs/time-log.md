@@ -8215,3 +8215,22 @@ Three copies became one function, which is what the two failures were actually
 reporting.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — creature-bite-collision — a mine's press goes back through the fold
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `mine-tap.ts`, `field-flip.ts`, and which test file actually exercises the press through pixels |
+| writing | 20 | one call wrapped, and two cases in `touch.test.ts` |
+| looking | 0 | nothing visible moved |
+| friction | 0 | none |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was reading, and it was the right minute to spend: the queue
+entry pointed at `mine-frame.test.ts` as where the press is tested, and that
+file injects `tapTile` commands straight into `step` — it never goes near the
+pixel-to-column arithmetic the bug is in. The case belongs in `touch.test.ts`,
+which asks the mapping directly, and the fix was checked by reverting it and
+watching the new case go red.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

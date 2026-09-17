@@ -617,26 +617,6 @@ split means it is shot twice and read as one lesson, which is THE HUSK's
 comment already. Four separate lanes, one boss each, in the order the sections
 are numbered.
 
-## A mine's press reads the column with no fold, so a mine on THE FLIP misreads it
-
-- **Found:** 2026-09-17, claude/queue-a-rehearsal-cannot-show-a-finger-on-a-bare-tile
-- **Taken:** 2026-09-17, claude/queue-a-mines-press-reads-the-column-with-no-fold-so-a
-- **Where:** local
-- **Files:** `packages/render/src/mine-tap.ts`, `packages/render/src/field-flip.ts`, `packages/render/test/mine-frame.test.ts`
-
-`mineUnder` turns a press into a `tapTile` with `colFromX`, which is the
-layout's arithmetic and knows nothing about the fold. Every other press on the
-field goes through `fieldCol` (`field-flip.ts`), which puts a mirrored screen's
-x back into the world's column. So a mine on a wave whose field is flipped on
-one seat would be pressed on the screen's square and answered on the world's,
-one column mirrored away — an exact press rejected and every fuse on the field
-docked a beat. No shipped wave sends a mine on a flipped field, which is why
-nothing fails today; THE FLIP is a boss without a rehearsal and the mine is
-act 9's, so the pairing is one wave away. Read the column through `fieldCol`
-where the row is read through `rowFromY`, and add the flipped case to
-`mine-frame.test.ts`, which is where the press is tested today. `docs/spec/briefings.md` §3.2 keeps
-its sentence about THE FLIP's film being owed; nothing there changes.
-
 ## The fuse count is drawn under the siren dial, on its centre at its radius
 
 - **Found:** 2026-09-17, claude/queue-a-rehearsal-cannot-show-a-finger-on-a-bare-tile

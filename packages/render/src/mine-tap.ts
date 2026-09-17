@@ -1,4 +1,5 @@
 import { mineSeenBy } from "@neon-spore/sim";
+import { fieldCol } from "./field-flip.js";
 import { colFromX, type Layout, rowFromY } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
 
@@ -30,13 +31,23 @@ import type { Field, Touch } from "./touch.js";
  * the four tiles round a mine break the hull, so a press that went on meaning
  * something while the thumb slid would be a mistake made by the finger rather
  * than by the pair.
+ *
+ * **The column goes back through the fold.** `colFromX` is the layout's
+ * arithmetic and knows nothing about THE FLIP, so on the seat whose field is
+ * turned it hands back the column the *screen* drew, and the command carries
+ * the column the *world* holds. Everything else on the field that turns goes
+ * through `fieldCol` and this did not, which would have been an exact press
+ * rejected and every fuse on the field docked a beat. No shipped wave puts a
+ * mine on a flipped field yet — THE FLIP is a boss and the mine is act 9's —
+ * so nothing was failing; it is one wave away from failing, which is why the
+ * test below it carries the flipped case.
  */
 export function mineUnder(l: Layout, field: Field, x: number, y: number): Touch | null {
   const owes = field.creatures.some((c) => c.kind === "mine" && mineSeenBy(c) !== field.seat);
   if (!owes) return null;
   return {
     player: field.seat,
-    command: { kind: "tapTile", col: colFromX(l, x), row: rowFromY(l, y) },
+    command: { kind: "tapTile", col: fieldCol(l, colFromX(l, x)), row: rowFromY(l, y) },
     hold: null,
   };
 }

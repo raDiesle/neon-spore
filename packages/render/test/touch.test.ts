@@ -16,7 +16,7 @@ import {
   step,
 } from "@neon-spore/sim";
 import { flatCenter } from "../src/creature-place.js";
-import { bandLobes, computeLayout, hitCircle, type ViewRole } from "../src/layout.js";
+import { bandLobes, computeLayout, hitCircle, tileCX, type ViewRole } from "../src/layout.js";
 import { mazeStringCircle } from "../src/maze-string.js";
 import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
 
@@ -437,5 +437,55 @@ describe("a hand on THE MAZE's string", () => {
     expect(c.y).toBeLessThan(l.hullY);
     expect(c.y).toBeGreaterThan(l.gridTop);
     expect(c.r * 2).toBeGreaterThan(20);
+  });
+});
+
+/**
+ * **A finger on a bare square, on the seat whose field is turned.**
+ *
+ * The press is a `tapTile` carrying a column, and a column on a flipped screen
+ * is not the column the world holds — everything else on the field that turns
+ * goes through `fieldCol` (`field-flip.ts`) and this one did not. Nothing was
+ * failing, because no shipped wave puts a mine on a flipped field: THE FLIP is
+ * a boss and the mine is act 9's, so the two are one wave apart. What that
+ * costs when they meet is an exact press rejected and every fuse on the field
+ * docked a beat, on the one control in the game whose whole point is that the
+ * seat pressing it cannot see what it is pressing.
+ */
+describe("a press on a bare square", () => {
+  /** A field with one mine on it, seen by the seat that is *not* pressing. */
+  function mineField(seat: 1 | 2, col: number): Field {
+    const world = createWorld(CFG, 2, [{ beat: 0, col, kind: "mine", color: null }]);
+    for (let i = 0; i < 200; i++) step(world, []);
+    const mine = world.creatures.find((c) => c.kind === "mine");
+    expect(mine).toBeDefined();
+    return { ...field(seat), creatures: world.creatures };
+  }
+
+  const PRESSED = 2;
+
+  it("answers the column the world holds, not the one the screen drew", () => {
+    const flat = layout("p1");
+    const turned = { ...flat, flip: true };
+    const f = mineField(1, 3);
+    const y = flat.gridTop + flat.tile * 1.5;
+
+    // The same pixel, pressed on both screens. Unturned it is the column it
+    // looks like; turned it is that column mirrored, because the body standing
+    // under the thumb is the one drawn there.
+    const straight = touchDown(flat, tileCX(flat, PRESSED), y, f);
+    const mirrored = touchDown(turned, tileCX(turned, PRESSED), y, f);
+
+    expect(straight?.command).toMatchObject({ kind: "tapTile", col: PRESSED });
+    expect(mirrored?.command).toMatchObject({
+      kind: "tapTile",
+      col: CFG.cols - 1 - PRESSED,
+    });
+  });
+
+  it("is still nothing at all on a field with no mine the seat owes", () => {
+    const flat = layout("p1");
+    const y = flat.gridTop + flat.tile * 1.5;
+    expect(touchDown({ ...flat, flip: true }, tileCX(flat, PRESSED), y, field())).toBeNull();
   });
 });
