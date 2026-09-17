@@ -39,8 +39,12 @@ if (!(await file.exists())) {
 }
 
 const before = (await file.json()) as Run;
-const { run: written, added, blanked } = fillUnmeasured(before);
-if (added.length === 0 && blanked.length === 0) {
+const { run: written, added, blanked, moved, dropped } = fillUnmeasured(before);
+// Written whenever *anything* differs, not only when a row was added or
+// blanked: a rebase that left an inserted wave's row at yesterday's number,
+// with every row behind it one out, used to be answered with "nothing to
+// mark" and a failing `baseline.test.ts` (`docs/queue.md`, 17 September 2026).
+if (JSON.stringify(written) === JSON.stringify(before)) {
   console.log("the baseline already describes the waves the game ships — nothing to mark");
   process.exit(0);
 }
@@ -51,5 +55,12 @@ await Bun.write(
 `,
 );
 const marked = [...added, ...blanked.map((b) => `${b} (changed under its row)`)];
-console.log(`marked unmeasured in tools/perf/baseline.json: ${marked.join(", ")}`);
-console.log("  commit it, and say in the report that those waves went in unweighed");
+if (marked.length > 0) {
+  console.log(`marked unmeasured in tools/perf/baseline.json: ${marked.join(", ")}`);
+  console.log("  commit it, and say in the report that those waves went in unweighed");
+}
+if (moved.length > 0) console.log(`renumbered to today's play order: ${moved.join(", ")}`);
+if (dropped.length > 0) console.log(`dropped, the game no longer has them: ${dropped.join(", ")}`);
+if (marked.length + moved.length + dropped.length === 0) {
+  console.log("put tools/perf/baseline.json back in play order — the rows were out of sequence");
+}

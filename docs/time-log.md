@@ -9218,3 +9218,19 @@ before saying a boss is ready. The body's width came out of the same capture:
 it was drawn half the width of the body the rules were being applied to.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-four-drawn-bosses-still-owe-their-rehearsal-film — `baseline:blank` leaves the rows behind an inserted wave a number stale
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry, `blank.ts`, `unmeasured.ts`, `renumber.ts`, the `fillUnmeasured` and `renumber` cases in `baseline.test.ts` |
+| deciding | 5 | gate the write on the run differing at all, and have `fillUnmeasured` name what `renumber` did — `moved` old → new, and `dropped` passed through rather than thrown away |
+| writing | 5 | the two return fields, the gate and three printed lines in `blank.ts`, a fixture with a row at a stale number and the rows behind it |
+| friction | 0 | — |
+| landing | 5 | a probe with the checked-in baseline bumped one number from row four, `check:fast`, this entry, the commit, `bun run land` |
+
+The bottleneck was choosing the gate: the named lists cover every change
+`renumber` makes except a file merely out of sequence, so the write is
+decided by comparing the two runs whole and the lists only say why.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

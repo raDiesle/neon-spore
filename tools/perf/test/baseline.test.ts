@@ -176,10 +176,35 @@ describe("a row nobody has measured", () => {
   });
 
   it("adds nothing to a baseline that already covers the game", () => {
-    const { run, added, blanked } = fillUnmeasured(saved);
+    const { run, added, blanked, moved, dropped } = fillUnmeasured(saved);
     expect(added).toEqual([]);
     expect(blanked).toEqual([]);
+    expect(moved).toEqual([]);
+    expect(dropped).toEqual([]);
     expect(run.waves).toHaveLength(saved.waves.length);
+  });
+
+  it("reports the rows an inserted wave left a number stale, rather than swallowing them", () => {
+    // The shape a rebase leaves: the new wave's row is already there, written
+    // under yesterday's number, and every row behind it is one out. Nothing
+    // is added and nothing is blanked — and `blank.ts` used to say "nothing to
+    // mark" and leave the file failing on the next row's number.
+    const at = 3;
+    const stale = saved.waves.map((w: WaveCost, i: number) =>
+      i < at ? w : { ...w, wave: w.wave + 1 },
+    );
+    const { run, added, blanked, moved } = fillUnmeasured({ ...saved, waves: stale });
+    expect(added).toEqual([]);
+    expect(blanked).toEqual([]);
+    expect(moved).toHaveLength(saved.waves.length - at);
+    expect(moved[0]).toBe(
+      `${(saved.waves[at] as WaveCost).wave + 1} ${waveName(at)} → ${at + 1} ${waveName(at)}`,
+    );
+    for (const [index, cost] of run.waves.entries()) {
+      expect(cost.wave, `wave ${index + 1} is in play order`).toBe(index + 1);
+    }
+    // And what it was asked for is exactly the file `renumber` would write.
+    expect(run).toEqual(renumber({ ...saved, waves: stale }).run);
   });
 
   it("blanks a measured row whose wave no longer sends what it was measured on", () => {

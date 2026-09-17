@@ -250,30 +250,6 @@ somebody and the reason is written down nowhere, so finding out what it was
 guarding against is the first half of this item.
 - **Asks:** Should `format` sort imports, should `lint` stop asking, or should the incantation get a script of its own?
 
-## `baseline:blank` leaves the rows behind an inserted wave a number stale
-
-- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Taken:** 2026-09-17, claude/queue-baseline-blank-leaves-the-rows-behind-an-inserte
-- **Files:** `tools/perf/blank.ts`, `tools/perf/unmeasured.ts`, `tools/perf/test/baseline.test.ts`
-
-`fillUnmeasured` renumbers every row to today's wave list (`renumber.ts`),
-but `blank.ts` writes the file only when a row was *added* or *blanked* — so
-a baseline that already has a row for the new wave, at whatever number it was
-written under, and rows behind it that have all moved up one, is answered with
-"the baseline already describes the waves the game ships — nothing to mark"
-and left as it is. `baseline.test.ts` then fails on THE BEATBOX's number. It
-happened on this lane's rebase: THE LEDGER had landed at wave 77 under a
-branch that had written THE SURGE's row at 77, the conflict was resolved to
-both rows, and the tool had nothing to say about the twelve rows after them.
-The work-around was `git checkout main -- tools/perf/baseline.json` and
-running it again, which added the row and renumbered in the same write.
-
-What to do: have `blank.ts` compare the renumbered run against the file it
-read and write when *anything* differs, saying which rows moved; and give
-`unmeasured.test.ts` a fixture with a row already present at a stale number
-and rows behind it, expecting the renumbering to be reported rather than
-swallowed.
-
 ## A breach never widens to a second lobe with the shipped numbers
 
 - **Found:** 2026-09-17, claude/queue-four-drawn-bosses-still-owe-their-rehearsal-film

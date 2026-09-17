@@ -86,6 +86,16 @@ export function unmeasuredRow(index: number): WaveCost {
  *
  * A run that adds nothing is not an error: it is the answer that the baseline
  * already covers the game, which is what the caller wanted to know.
+ *
+ * **What `renumber` did is reported too**, since 17 September 2026. `blank.ts`
+ * wrote the file only when a row was added or blanked, so a baseline that
+ * already had a row for an inserted wave — at whatever number a rebase left
+ * it under — and twelve rows behind it all one number out was answered with
+ * "nothing to mark" and left as it was; `baseline.test.ts` then failed on the
+ * next row's number with no command that would fix it (`docs/queue.md`, 17
+ * September 2026). So `moved` names every row whose number or name changed on
+ * the way through, and `dropped` is `renumber`'s own list rather than thrown
+ * away here.
  */
 export function fillUnmeasured(baseline: Run): {
   run: Run;
@@ -93,6 +103,10 @@ export function fillUnmeasured(baseline: Run): {
   added: string[];
   /** The waves whose measured row was for something they no longer send. */
   blanked: string[];
+  /** The rows put on another number or name, old → new. */
+  moved: string[];
+  /** The rows for waves the game no longer has (`renumber`). */
+  dropped: string[];
 } {
   const known = new Map(baseline.waves.map((w) => [keyOf(w), w]));
   const rows = [...baseline.waves];
@@ -108,6 +122,11 @@ export function fillUnmeasured(baseline: Run): {
       blanked.push(`${index + 1} ${waveName(index)}`);
     }
   }
-  const { run } = renumber({ ...baseline, waves: rows });
-  return { run, added, blanked };
+  const { run, dropped } = renumber({ ...baseline, waves: rows });
+  const moved = run.waves.flatMap((w) => {
+    const was = known.get(keyOf(w));
+    if (was === undefined || (was.wave === w.wave && was.name === w.name)) return [];
+    return [`${was.wave} ${was.name} → ${w.wave} ${w.name}`];
+  });
+  return { run, added, blanked, moved, dropped };
 }
