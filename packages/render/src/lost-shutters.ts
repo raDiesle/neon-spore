@@ -23,9 +23,16 @@ import { drop } from "./text-drop.js";
  * both cover their halves and the screen is solid, and over `CLOSE` seconds
  * they retreat — the upper one up to `SEAM`, the lower one off the foot
  * entirely. So the settled picture, which is the one the owner chose on 16
- * September 2026, is one plate across the top and an open field below it. The
- * tear below is only ever seen in transit, and `docs/queue.md` asks him
- * whether that is the way round he wants.
+ * September 2026, is one plate across the top and an open field below it, and
+ * the tear below is only ever seen in transit.
+ *
+ * **That disagreement was put to the owner and he answered it on 17 September
+ * 2026: turn it round, through VERSUS.** The sentence drawn — plates that come
+ * in and shut on everything but a lit slot in the breach column — is the
+ * `shut` candidate in the `lost:screen` slot, and it is a different screen
+ * from the one he picked rather than a correction to it. Nothing here moved;
+ * what changed is that the other way round is now something he can look at
+ * beside this one.
  */
 
 /** How long the plates take to draw back, seconds. */

@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — queue-lost-shut — the sentence the screen was picked on, drawn
+
+The shipped lost screen's plates draw *back* off the field; the sentence the
+owner picked it on said they slide in and close on everything but the column
+it hit. He answered the disagreement with *turn it round, through VERSUS*, so
+`shut` is that screen as a candidate: plates that meet at the seam and one
+ragged lit slot in the breach column, torn widest at the hull.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry and its answer, `lost-shutters.ts`, `lost-look.ts`'s tension, and the three candidates already in the slot |
+| writing | 25 | the paint, the index, the registry, and the shipped file's note pointed at the answer instead of at the question |
+| looking | 30 | four `versus:shot` frames — a straight-railed first drawing, a taper that made it a tear, and a black column in the open field that only the mid-transit frame showed |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, the index, the commit |
+
+The bottleneck was looking, and it earned every minute: two of the three
+defects were invisible to `bun run check` and one of them — `evenodd` filling
+the slot's own outline where neither plate covered anything — was invisible in
+the settled frame too and only appeared in the half second of transit.
+
 ## 2026-09-17 — queue-imports-timeout — a cap for the case that spawns
 
 `tools/imports/test/imports.test.ts` hands a pruned file to three `bunx biome`

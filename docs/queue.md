@@ -543,3 +543,10 @@ named constant with the reason beside it — `canvas-stub.ts`'s
 `FRAME_TIMEOUT_MS` is the pattern, and `imports.test.ts` is the worked example
 — and where a file spawns the same command once per case, consider one spawn
 for the file with the cases reading its output instead.
+
+**And one that spawns nothing.** `tools/director/test/shape-fit.test.ts` timed
+out twice under `bun run check:fast` on 17 September 2026 — 779 assertions
+laying out every rest pose, green in 1.7 s on its own and past five seconds
+when eight shards are on the machine at once. So the shape to look for is not
+only a child process: it is a file whose own work is near the default, and that
+one wants the cap rather than a faster test.
