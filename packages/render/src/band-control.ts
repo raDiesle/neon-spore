@@ -13,6 +13,7 @@ import { drawFaultOver } from "./malfunction-look.js";
 import { PALETTE } from "./palette.js";
 import { drawPinLobe, pinLobeOf } from "./pinball-button.js";
 import { drawPulseLobe, pulseLobeOf } from "./pulse-button.js";
+import { drawScoutLobe, scoutLobeOf } from "./scout-button.js";
 import { type SeatSkin, seatSkin } from "./seat-skin.js";
 
 /**
@@ -136,6 +137,14 @@ function drawFace(
   const pin = pinLobeOf(c.id);
   if (pin !== null) {
     drawPinLobe(ctx, circle, pin, world, skin);
+    return;
+  }
+  // THE SCOUT's four, on the band because its design put them in THE CLAW's
+  // sockets and that panel is the band: the nose under the pilot's thumb, and
+  // the mouth under the navigator's (`scout-button.ts`).
+  const scout = scoutLobeOf(c.id);
+  if (scout !== null) {
+    drawScoutLobe(ctx, circle, scout, world, skin);
     return;
   }
   // THE FLEET's five. The arrows are one picture with a direction, so they

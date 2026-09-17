@@ -27,6 +27,13 @@ import type { ControlDef } from "./controls.js";
  * What is left here is the pair of presses that are genuinely the round's: the
  * needle stopped, and the shot fired.
  *
+ * **THE SCOUT's four are lobes, and they arrived as slabs.** The design put
+ * the round on THE CLAW's panel — the two turns where the crank stands, the
+ * burn where REACH does, the mouth on the other seat (`docs/spec/interludes.md`)
+ * — and THE CLAW's panel is the band. Its look lane moved the four into the
+ * sockets the design named, with the ship on the screen under them, which is
+ * the same request the owner made of the two rounds above.
+ *
  * `CONTROLS` spreads this in place, so nothing that reads the vocabulary had
  * to learn there are two files.
  *
@@ -195,28 +202,28 @@ export const ROUND_CONTROLS: readonly ControlDef[] = [
   {
     id: "scoutTurnLeft",
     player: 1,
-    form: "slab",
+    form: "lobe",
     label: "◀",
     does: "Swings the little ship's nose anticlockwise for as long as it is held. A heading, not a place: it stays where the finger left it, which is THE CLAW's crank doing the same job on a different rope (`sim/scout-fly.ts`).",
   },
   {
     id: "scoutTurnRight",
     player: 1,
-    form: "slab",
+    form: "lobe",
     label: "▶",
     does: "The same, clockwise, under the same hand. Player 1 does all the flying.",
   },
   {
     id: "scoutBurn",
     player: 1,
-    form: "slab",
+    form: "lobe",
     label: "BURN",
     does: "Held, and the only thing that adds speed. The ship keeps whatever it was already doing — a burn is leaned on rather than steered with, so a heading said out loud has to be held long enough to be flown.",
   },
   {
     id: "scoutMaw",
     player: 2,
-    form: "slab",
+    form: "lobe",
     label: "MAW",
     does: "Opens the mother ship's mouth for a moment. Motes the little ship is carrying only come off it here, and only while this is open — THE CLAW's own rule about a catch being two hands, on the seat that can see where everything is.",
   },

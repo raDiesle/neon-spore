@@ -10026,3 +10026,22 @@ The bottleneck was the install: a fresh worktree without `bun install` fails
 the typecheck before the work is even looked at.
 
 *Measured: — from this lane's first commit to the trunk moving, by `bun run land`.*
+
+## 2026-09-17 — boss-implementation — THE SCOUT, the look
+
+The round's picture: the four presses moved from slabs to lobes in THE
+CLAW's sockets on the band (`scout-button.ts`), the app's and the director's
+slab listeners deleted, the arena on the field's own columns with the real
+hull's intake as the mother ship's mouth (`scout-round.ts`, `scout-draw.ts`,
+`scout-ship.ts`), two seat predicates, eight frame tests, the spec paragraph.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | PINBALL's composition, the harness, what the stub logs |
+| writing | 10 | five render files, the control forms, the surface names, the test, the paragraph |
+| looking | 5 | one frame of the navigator's screen after the landing |
+| friction | 5 | the heredoc guard twice; the stub does not log the context's own `moveTo`, so the nose is proved by the bead riding it; a rock has no palette colour, so the hazards are proved by their cost |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep`, the ledger |
+
+The bottleneck was proving the split from the call log: three tells were
+tried before one held on both seats.

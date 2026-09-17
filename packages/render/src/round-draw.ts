@@ -3,6 +3,7 @@ import type { Layout } from "./layout.js";
 import { drawPinballRound } from "./pinball-round.js";
 import { drawPulseRound } from "./pulse-round.js";
 import type { ViewState } from "./renderer.js";
+import { drawScoutRound } from "./scout-round.js";
 import { drawSnakeRound } from "./snake-round.js";
 
 /**
@@ -26,4 +27,5 @@ export const ROUND_DRAWS: Record<
   snake: drawSnakeRound,
   pinball: drawPinballRound,
   pulse: drawPulseRound,
+  scout: drawScoutRound,
 };

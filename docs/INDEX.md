@@ -816,6 +816,10 @@ place — the generator keeps whatever is there.
 | `packages/render/src/scuttle-draw.ts` | **THE SCUTTLE**: a dark slab of a frame hung over the top of the field above row 0, plated with its parts |
 | `packages/render/src/scuttle-fx.ts` | What THE SCUTTLE leaves behind a frame: the **jolt** a throw puts through the frame |
 | `packages/render/src/scuttle-shape.ts` | **Where THE SCUTTLE is**, in field pixels: the frame of sockets hung over the top of the field above row 0 |
+| `packages/render/src/scout-button.ts` | THE SCOUT's four presses, as faces on the band's own lobes |
+| `packages/render/src/scout-draw.ts` | THE SCOUT's arena, drawn: the little ship, what it is there to collect, what would end it |
+| `packages/render/src/scout-round.ts` | THE SCOUT over the whole stage |
+| `packages/render/src/scout-ship.ts` | THE SCOUT's little ship, drawn |
 | `packages/render/src/sheen.ts` | The light inside the membrane, and the film on top of it |
 | `packages/render/src/shell-draw.ts` | THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`) has no shape for |
 | `packages/render/src/shell-plate.ts` | WHAT A PLATE IS MADE OF — the paint over the geometry next door |
@@ -1543,7 +1547,6 @@ place — the generator keeps whatever is there.
 | `apps/game/src/sign-in-config.ts` | The Firebase project the game signs in against — the owner's to paste |
 | `apps/game/src/sign-in-standin.ts` | A signed-in person with no Google behind them, so a check can be one |
 | `apps/game/src/sign-in.ts` | Who is holding this phone, proved by Google or by an email link |
-| `apps/game/src/scout.ts` | The host's half of THE SCOUT: the three thumbs that fly it and the one that catches what it brings home |
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
 | `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
 | `apps/game/src/tick-rate.ts` |  |
@@ -1770,7 +1773,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-rounds.ts` | Every round that is not the field, bound to the director's canvas at once |
 | `tools/director/src/stage-repeat.ts` | A cleared wave stops and asks, rather than starting itself again |
 | `tools/director/src/stage-snake.ts` | SNAKE'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
-| `tools/director/src/stage-scout.ts` | THE SCOUT'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
 | `tools/director/src/stage-transport.ts` | The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches |
 | `tools/director/src/state.ts` | The edits and the questions moved out when this file went over the line limit |
 | `tools/director/src/states-page.ts` | DOCUMENTATION: the four reference rooms in one full-screen sheet, and the sheet's own wiring |

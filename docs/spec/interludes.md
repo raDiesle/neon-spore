@@ -327,12 +327,39 @@ timed, because the autopilot cannot clear it at all — five of its six motes si
 one tile from a hazard's row and a touch reaches 0.88 of one, which is an open
 question in `docs/queue.md` rather than a figure waiting to be set.
 
-**What is not built yet is the picture.** The round plays, the fingerprint
-covers it and `packages/sim/test/scout.test.ts` holds the flying; nothing of
-the little ship, the motes or the mother ship's mouth is drawn, and its
-rehearsal is still the three strings (§3.2 of
-[briefings](briefings.md)). That is the second half of the work rather than an
-oversight: a look is offered rather than assumed, and this one has none yet.
+**The look, landed 18 September 2026.** The field is gone and nothing else
+is: the ship stands on the screen with its real scars, the band holds the
+panel, and the arena is the field's own columns from the top of the play area
+to the hull's surface, with the walls as a hairline the ship genuinely bounces
+off (`render/scout-round.ts`, `scout-draw.ts`). The four presses are lobes in
+THE CLAW's sockets on the band — the panel the design named, and the band is
+that panel — so the round needs no listener of its own in the app or the
+director: `touch-lobe.ts` holds the three of player 1's and taps player 2's,
+and `scout-button.ts` draws what is on each face. Player 1's three carry the
+nose the little ship is actually pointed at, read off the round, with an arc
+saying which way each turn swings it and a wake on BURN; player 2's one is the
+mouth, drawn by the same call the ship's own intake is drawn by and lit for
+as long as it stands open. **The mother ship's mouth is the hull's own
+intake**: `scoutHome` stands on the bottom row's middle, which is where the
+cannon's socket is when the cannon is over the middle column, so the pose
+parks the cannon there and drives `mood.intake` off `scoutMawOpen` — the
+hull opens with the same swelling and throat a pod is swallowed through, and
+home is a ring on the water in front of it that brightens for the beat the
+mouth is open. A mote is a pod and a hazard is a burning rock, the two things
+the game already means by *go and get this* and *this costs the hull*; the
+little ship is one lobed contour of the hull's own violet at a tile's scale, a
+piece of the ship put out. The split is two predicates in `view-role.ts`,
+`showsScoutArena` and `showsScoutNose`, obeyed in one place each: the pilot
+is shown the ship, its nose and the motes riding its rim and not one mote or
+hazard; the navigator every mote and hazard and a ship with no nose on it;
+both the place, home, the walls and the count. Nothing outlives a frame.
+`packages/render/test/scout-frame.test.ts` draws every phase on all three
+screens, set rather than waited for, and proves the split both ways.
+
+**What is not built:** nobody has watched it at tempo, and its rehearsal is
+still the three strings (§3.2 of [briefings](briefings.md)). Whether a nose
+on a button and a ship with none reads as *point it at two o'clock* across a
+table is the owner's eye.
 
 ## Where they sit in the run
 

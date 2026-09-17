@@ -159,12 +159,16 @@ export {
   type ScoutHazard,
   type ScoutMote,
   type ScoutPhase,
+  type ScoutPoint,
   type ScoutState,
   scoutCleared,
   scoutCurrent,
+  scoutHome,
   scoutLeft,
+  scoutMawOpen,
 } from "./scout.js";
-export { scoutHolds, scoutRound } from "./scout-round.js";
+export { scoutNose } from "./scout-fly.js";
+export { enterScoutPhase, scoutHolds, scoutOpenRound, scoutRound } from "./scout-round.js";
 export {
   fireStep,
   MIRROR_HOLD_BEATS,

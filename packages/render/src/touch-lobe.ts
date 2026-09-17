@@ -94,7 +94,22 @@ export function lobeMeans(
     // the ship's own cannon strip, answered above like any other wave's.
     case "pinLatch":
     case "pinLaunch":
+    // THE SCOUT's mouth, player 2's one press: a moment, not a hold — it
+    // stands open for `scoutMawTicks` from the press and shuts on its own
+    // (`sim/scout-round.ts`).
+    case "scoutMaw":
       return { command: controlPress(id).down, hold: null };
+    // THE SCOUT's three that fly, and **all three are held**: the nose keeps
+    // swinging and the burn keeps pushing until the thumb comes off, which is
+    // the round's whole feel — a heading said out loud is a heading somebody
+    // has to *hold* (`sim/scout-fly.ts`). They stand on the band because the
+    // design put them where THE CLAW's crank and REACH stand, and that panel
+    // is the band; the lift sends the control's own release, as the two
+    // colours' does.
+    case "scoutTurnLeft":
+    case "scoutTurnRight":
+    case "scoutBurn":
+      return { command: controlPress(id).down, hold: { kind: "held", control: id, player: 1 } };
     case "cannon":
     case "shield":
     case "gaugeLeft":
@@ -104,13 +119,6 @@ export function lobeMeans(
     case "snakeRight":
     case "snakeFire":
     case "snakeMaw":
-    // THE SCOUT's three, for SNAKE's reason one round along: they are slabs on
-    // the round's own panel rather than lobes in the band, so the press
-    // reaches them through the panel and never through a finger on the ship.
-    case "scoutTurnLeft":
-    case "scoutTurnRight":
-    case "scoutBurn":
-    case "scoutMaw":
       return null;
     default:
       return assertNever(id);

@@ -1,5 +1,4 @@
 import { bindStageGauge, type StageGauge } from "./stage-gauge.js";
-import { bindStageScout, type StageScout } from "./stage-scout.js";
 import { bindStageSnake, type StageSnake } from "./stage-snake.js";
 
 /**
@@ -27,10 +26,10 @@ import { bindStageSnake, type StageSnake } from "./stage-snake.js";
  *
  * PINBALL is no longer among them: its panel is the band now, so its listener
  * was deleted rather than kept, and the guard simply finds no slab to ask
- * about.
+ * about. THE SCOUT left the same way when its look landed — its four stand in
+ * THE CLAW's sockets, and `stage-scout.ts` went with the slabs.
  */
-export function bindStageRounds(handle: StageGauge & StageSnake & StageScout): void {
+export function bindStageRounds(handle: StageGauge & StageSnake): void {
   bindStageGauge(handle);
   bindStageSnake(handle);
-  bindStageScout(handle);
 }
