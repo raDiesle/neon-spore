@@ -59,7 +59,10 @@ export function drawThroat(
 
   const shape = rings(l, cfg, b, beat, beatPhase).slice(through);
   if (shape.length > 0) {
-    drawSkin(ctx, l, shape, time);
+    // Two rings or more, or there is no *between* for the skin to be: a lone
+    // ring left at the end of the eversion drew a flat line across the field,
+    // which the last frames of it made plain.
+    if (shape.length > 1) drawSkin(ctx, l, shape, time);
     // Top down, so a ring's own outline sits over the skin above it and the
     // gullet reads as a stack of muscles seen from outside rather than as a
     // ladder of hoops.

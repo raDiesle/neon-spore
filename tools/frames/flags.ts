@@ -1,3 +1,4 @@
+import { parseBoss } from "./boss.js";
 import { parseAt } from "./crop.js";
 import { parseFault } from "./fault.js";
 import { parseHand } from "./hand.js";
@@ -192,6 +193,10 @@ export function parseFrameSpec(
     // would have left it. Undefined is every capture this tool has ever taken:
     // the wave's own fault, or none (`fault.ts`).
     fault: parseFault(after("fault")),
+    // And the boss's own fields, for the same reason one flag up: a state a
+    // run of correct presses deep is a state nobody could photograph twice
+    // (`boss.ts`).
+    boss: parseBoss(after("boss")),
     // Undefined rather than 0, so `--opening guide` on a film of one page is
     // not refused for a flag nobody wrote.
     ...(argv.includes("--guide-page") ? { guidePage: flag("guide-page", 0) } : {}),

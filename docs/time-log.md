@@ -7971,3 +7971,29 @@ events to a `default` narrowed by every case above it, rather than naming
 sixteen cases it has no room for.
 
 *Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 - frames-boss - a flag for a state a press cannot reach
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `tools/frames/fault.ts` whole, `flags.ts`'s `after`, `page.ts`'s install window, `spec.ts` |
+| writing | 30 | `tools/frames/boss.ts`, the wiring through `flags.ts`/`spec.ts`/`page.ts`, `run.ts`'s header, nine tests |
+| looking | 10 | the eversion, at last - four frames of it, and the last one showed a flat line across the field |
+| friction | 5 | `parseFrameSpec` returns `{ spec, waveValue }` and the test read it as the spec |
+| landing | 10 | the queue entry out, `bun run index`, `check:fast`, the commit |
+
+The bottleneck was the decision the queue entry had already named: a generic
+field-setter or a handle per boss. The entry called the generic one unsafe
+because this tool drives a *built* game whose types are not always the working
+tree's. That is true of a check made **here** and not of one made **in the
+page**, where the real state is - so the names are checked against
+`Object.keys(world.boss)` and the value's kind against the field's own, and
+there is no second copy of fourteen boss states in this tree to go stale. Which
+is the failure `--fault` already had: `FAULT_FLAG_KINDS` listed a fault the
+simulation had stopped having and omitted the two anybody wanted a picture of.
+
+And it paid for itself inside the hour: the first strip of THE THROAT's
+eversion showed the last remaining ring drawn as a flat line across the field,
+which no test was ever going to catch.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

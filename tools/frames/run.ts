@@ -44,6 +44,7 @@ import { dirname, join } from "node:path";
  *   bun run frames <sha> --wave 19 --boss-round 3   a later sheet of THE MAZE
  *   bun run frames . --wave "THE HANDOVER" --fault handover:4,3,6   a fault no wave names
  *   bun run frames . --wave 3 --fault cannon:alternating,2   a runaway cannon, twice as slow
+ *   bun run frames . --wave "THE THROAT" --boss slack=5,phase=everts,phaseBeat=now   a boss's last phase
  *   bun run frames <sha> --wave 2 --opening guide|intro --frames 8 --stride 6   its opening
  *   bun run frames <sha> --wave 7 --opening guide --guide-page 3   a later page of a rehearsal
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
@@ -70,6 +71,18 @@ import { dirname, join } from "node:path";
  * it existed, a fault at figures no wave names — THE HANDOVER *repeating* — took
  * a scratch script to photograph, and nobody could take the picture twice
  * (`fault.ts`).
+ *
+ * `--boss <key>=<value>[,…]` writes the installed boss's own fields, in the
+ * same window `--fault` is written in. It is that flag's argument said about
+ * the other half of a wave: a boss's later phases are a run of correct presses
+ * deep — five gums flung into a walking mouth, a chamber spent on a coincidence
+ * beat — so three look lanes in a row landed a picture of a first phase and
+ * said in the commit message that the frame that mattered had never been seen.
+ * The names are checked **in the page**, against the boss that is actually
+ * installed, so there is no second copy of fourteen states here to go stale;
+ * a name the boss does not have is refused along with the names it does have.
+ * The value's kind follows the field's, `now` means `world.beat`, and a list or
+ * a shape is refused because a wave authors those (`boss.ts`).
  *
  * `--until <event>` drives the wave until the simulation reports a `SimEvent`
  * of that type and photographs from that tick, with `--frames` and `--stride`

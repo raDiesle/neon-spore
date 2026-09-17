@@ -1,4 +1,5 @@
 import type { Browser, Page } from "playwright-core";
+import { installBoss } from "./boss.js";
 import { installFault } from "./fault.js";
 import { type OffOrigin, refuseOffOrigin } from "./offline.js";
 import { clearOpening } from "./opening.js";
@@ -130,6 +131,12 @@ export async function openStage(
   // Straight after the jump and before the opening lets go, which is where
   // `startWave` left the wave's own (`installFault`).
   if (spec.fault) await installFault(page, spec.fault);
+
+  // And the boss's own fields, in the same window and for the same reason: a
+  // phase is drawn over the field from the first beat, so one written after the
+  // briefing would be a fight that changed its mind halfway through its own
+  // introduction (`boss.ts`).
+  if (spec.boss) await installBoss(page, spec.boss);
 
   // Straight after the jump and before the opening lets go: the round is the
   // *fight's* state rather than the wave's, so standing it up early means the

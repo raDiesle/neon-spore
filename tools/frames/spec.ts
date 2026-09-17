@@ -9,6 +9,7 @@
  * caller that already reached for a `FrameSpec` through it did not move.
  */
 
+import type { BossSpec } from "./boss.js";
 import type { Crop } from "./crop.js";
 import type { FaultSpec } from "./fault.js";
 import type { OpeningStop } from "./opening.js";
@@ -220,6 +221,17 @@ export interface FrameSpec {
    * is where `startWave` left it (`fault.ts`, and `page.ts` for the install).
    */
   fault?: FaultSpec;
+  /**
+   * The installed boss's own fields, whether or not a press could reach them.
+   *
+   * `fault`'s sentence said about the other half of a wave. A boss's later
+   * phases are a run of correct presses deep — five gums flung into a walking
+   * mouth, a chamber spent on a coincidence beat — so a look lane could land
+   * the picture of a first phase and nothing else. The names are checked in the
+   * page against the boss that is actually installed, never against a list in
+   * this tree (`boss.ts`, and `page.ts` for the install).
+   */
+  boss?: BossSpec;
 }
 
 /**

@@ -577,39 +577,6 @@ Nothing is blocked on this. It is here because the read-only note makes the
 missing control obvious to whoever opens the panel next, and they should find
 the question already asked rather than ask it again.
 
-## `bun run frames` cannot stand a boss in a state a press cannot reach
-
-- **Found:** 2026-09-17, claude/throat-look
-- **Taken:** 2026-09-17, claude/queue-bun-run-frames-cannot-stand-a-boss-in-a-state-a
-- **Where:** local
-- **Files:** `tools/frames/hold.ts`, `tools/frames/flags.ts`, `tools/frames/run.ts`, `docs/commands.md`
-
-THE THROAT's look lane could photograph the whole gullet and could not
-photograph a *worn* one. Every ring going slack needs a gum flung into a
-walking mouth, which is a hand carried `gumSwipeMilli` sideways — and `--hold`
-knows seven named handles, none of which is a sideways carry on a body
-(`hold.ts`'s `DRAGS`). So the sag, the limp rings and the choke receipt went to
-`packages/render/test/throat-shape.test.ts` and a frame test instead of to a
-picture, which is the right proof of the arithmetic and no proof at all of how
-it reads.
-
-It is not THE THROAT's problem. THE DIASTOLE's second chamber, THE BATON's shed
-socket and every boss whose later phases are a run of correct presses deep are
-the same photograph nobody can take, and two of those lanes have already said
-so in a commit message.
-
-What to do: a way to set the installed boss's own fields before the capture, in
-the shape `--boss slack=3,phase=quick`, written where `--fault` is written —
-after `startWave` and before the opening — and validated against the state's
-own keys so a typo is an error rather than a picture of nothing. It is the
-`--fault` argument said about a boss: a state no wave names took a scratch
-script to photograph, and nobody could take the picture twice.
-
-The choice the work picks between: a generic field-setter over `BossState`, or
-a handle per boss the way `--hold` names one per control. The first is one flag
-for all fourteen and cannot be typed safely; the second is honest and is
-fourteen more entries in a file that is already a list.
-
 ## THE THROAT does not haul a pod, and step 10 of its design wants it to
 
 - **Found:** 2026-09-16, claude/neon-spore-boss-design-26ee5e

@@ -1778,6 +1778,7 @@ place — the generator keeps whatever is there.
 | `tools/perf/arrivals.ts` | WHAT A WAVE SENDS, in one short string a stale baseline row can be caught by |
 | `tools/perf/noise.ts` | WHEN A MEASUREMENT CAN BE TRUSTED, and by how much it has to move before anybody is told about it |
 | `tools/frames/browser.ts` | THE ONE PLACE A BROWSER IS OPENED, and the one place it is shut |
+| `tools/frames/boss.ts` | `--boss <key>=<value>[,<key>=<value>…]` — the installed boss's own fields |
 | `tools/tmp-litter.ts` | The directories a browser run leaves under `.claude/tmp`, and when one of them is spent |
 | `tools/perf/shape.ts` | PUTTING TWO RUNS ON THE SAME FOOTING, and one row from one of them into the other |
 | `tools/perf/sweep-timing.ts` | The numbers a paint is sampled with, and the statistics taken off the sample |
