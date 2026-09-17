@@ -641,6 +641,7 @@ named instead.
 ## A hit splashes the enemy's colour on the hull, and the field really stops
 
 - **Found:** 2026-09-17, queue-four-from-the-owner
+- **Taken:** 2026-09-17, claude/queue-a-hit-splashes-the-enemys-colour-on-the-hull-and
 - **Files:** packages/sim/src/hull-types.ts, packages/sim/src/hull-damage.ts, packages/sim/src/hash.ts, packages/render/src/scars.ts, packages/render/src/breach-hue.ts, packages/render/src/depth.ts, packages/render/src/lost-screen.ts, packages/sim/src/wave-fail.ts
 
 The owner asked for two things on 17 September 2026, and they are one lane
