@@ -55,8 +55,15 @@ export function sinewHandleCircle(
   return { x: Math.min(Math.max(rest, r), l.width - r), y: mass.y - REST_UP * l.tile, r };
 }
 
-/** Where it stands: its rest, plus the hand's sway and pull, plus the whip. */
-function handleAt(
+/**
+ * Where it stands: its rest, plus the hand's sway and pull, plus the whip.
+ * Exported for `handle-place.ts`, which is the caption and the ghost hand
+ * asking the same question the drawing does, so a rehearsal's ring cannot
+ * stand where the handle is not. Those two pass no whip: while the handles
+ * swing no hand is on them (`sim/sinew-hand.ts`), and a film's page about
+ * the snap points at the rock, not the ring.
+ */
+export function sinewHandleAt(
   l: Layout,
   cfg: SimConfig,
   s: SinewState,
@@ -111,7 +118,7 @@ export function drawSinewHandles(
   const falling = s.fallBeat >= 0 && s.outBeat < 0;
   for (const side of [-1, 1] as const) {
     const player = sinewHandleSeat(side);
-    const head = handleAt(l, cfg, s, beat, beatPhase, side, swingTiles);
+    const head = sinewHandleAt(l, cfg, s, beat, beatPhase, side, swingTiles);
     const held = sinewHeld(s, player);
     const pull = Math.min(1, sinewPull(s, player) / Math.max(1, cfg.sinewReachMilli));
     const mine = l.role === "test" || (l.role === "p1") === (player === 1);

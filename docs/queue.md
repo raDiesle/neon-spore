@@ -193,6 +193,24 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
+## A caption has no anchor for a boss's own gauge, so it points at the hull
+
+- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`
+
+`SceneAnchor` names a body, a control, a handle, the hull, the radar, the
+ship and the retries — nothing that is a boss's fixture. THE SINEW's film has
+three pages about a number drawn on the collar round the tendon
+(`render/sinew-band.ts`), and a caption anchored at the nearer handle stands
+its box exactly over that collar, so the pages point at the hull instead,
+which THE TASTER's two counting pages already do for the same reason: the
+box lands clear, and the leader line says nothing. Add an anchor for a boss's
+own point of interest — `{ at: "boss", part?: string }` answered by a
+per-kind line in `caption-anchor.ts` off the boss's draw file, the way
+`handle` is answered off each handle's — and move those five pages onto it.
+`render/test/choir-anchor.test.ts` is the pattern for proving the anchor
+lands where the fixture is drawn.
+
 ## A rehearsal's frame hides what stands over row 0 of the field
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff

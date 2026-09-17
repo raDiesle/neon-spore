@@ -10232,6 +10232,27 @@ outside it that a boss is a name in, each found by a test going red.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-17 — boss-implementation — THE SINEW, the rehearsal
+
+The fifth boss film written after its look, and the second with a hand on
+both phones at once: ten pages over 2160 ticks, two holds authored as sums
+against the seed's zone, the snap, the rock shed and the plate under it. The
+same lane gave `handleCircle` its sinew branch, so a caption can point at
+either handle, and found that no anchor reaches a boss's own gauge
+(`docs/queue.md`).
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `sinew-hand.ts`, `sinew-step.ts`, `hull.ts` for what wards a rock, `handle-place.ts`, THE BALLOON's film |
+| writing | 5 | the sinew branch and its test, the scene, `scene-drag.ts`'s taut and seat, the registry, the prose list, the film test, §3.2, the §11.26 paragraph |
+| looking | 5 | the acts run through a probe until the two sums and the snap fell on the beats written, three frames |
+| friction | 5 | a shield strip at authored column 6 landing on real column 10, the plate under the rock with no trigger, a caption's box over the collar the number is on |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the rock: the film could not end on a hull hit, and it
+took the hull's own resolution read through to learn that a plate under a
+rock is nothing without the trigger on the shield's row.
+
 ## 2026-09-17 — boss-implementation — THE TASTER, the rehearsal
 
 The fourth boss film written after its look, and the first whose arithmetic

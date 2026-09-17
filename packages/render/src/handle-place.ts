@@ -14,6 +14,7 @@ import type { Circle, Layout } from "./layout.js";
 import { lidCordCircle, lidHandlePoint } from "./lid-string.js";
 import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
 import { orreryRingCircle } from "./orrery-grab.js";
+import { sinewHandleAt } from "./sinew-handles.js";
 
 /**
  * **Where a handle is standing**, as against where a finger may grab it.
@@ -100,6 +101,16 @@ export function handleCircle(
     // no orrery, and on one whose rings are all off.
     const b = world.boss?.kind === "orrery" ? world.boss : null;
     return b === null ? null : orreryRingCircle(l, cfg, b);
+  }
+  if (target === "sinewLeft" || target === "sinewRight") {
+    // THE SINEW's two, THE BALLOON's arrangement hung off a boss instead of
+    // a body: one per seat, carried down to pull and sideways to sway, and
+    // the drawing's own answer for where the ring is standing under a hand
+    // (`sinew-handles.ts`). Null with no sinew on the field, and with no
+    // whip: a caption points at a handle a hand can be on.
+    const s = world.boss?.kind === "sinew" ? world.boss : null;
+    if (s === null) return null;
+    return sinewHandleAt(l, cfg, s, world.beat, beatPhase, target === "sinewLeft" ? -1 : 1, 0);
   }
   if (target === "wardenTether") {
     const b = world.boss?.kind === "warden" ? world.boss : null;

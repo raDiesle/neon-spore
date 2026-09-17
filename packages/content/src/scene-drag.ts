@@ -44,6 +44,11 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // side, so a film says which handle and never how far.
   if (target === "balloonLeft") return -cfg.balloonTautMilli;
   if (target === "balloonRight") return cfg.balloonTautMilli;
+  // THE SINEW's two are pulled down as far as a hand reaches, and a film
+  // about this boss almost never wants that: the sum of the two pulls has to
+  // land inside a zone, so a page writes `toMilli` for each hand. Left out,
+  // it is one hand at the band's limit — the last fibre's own number.
+  if (target === "sinewLeft" || target === "sinewRight") return cfg.sinewReachMilli;
   return cfg.mazeTurnMilli;
 }
 
@@ -96,12 +101,15 @@ function pullsDown(target: DragTarget): boolean {
  * **A balloon's right handle is the exception and is the whole creature** —
  * one body with a handle on each side, one hand from each phone, and the skin
  * gives only when both are taut at the same instant (`sim/balloon-pull.ts`
- * refuses a side that is not the seat that sent it). So the seat is read off
+ * refuses a side that is not the seat that sent it) — and THE SINEW's right
+ * handle is the same arrangement on a boss. So the seat is read off
  * the target here, the way a press reads its seat off `ControlDef.player`,
  * rather than being a field a film could get wrong.
  */
 export function dragSeat(target: DragTarget): 1 | 2 {
-  return target === "balloonRight" ? 2 : 1;
+  // And THE SINEW's right handle, the second: one handle per seat, each
+  // pulled down, and the sum is the two of them (`sim/sinew-hand.ts`).
+  return target === "balloonRight" || target === "sinewRight" ? 2 : 1;
 }
 
 /**

@@ -23,8 +23,7 @@ import type { Wave } from "../wave-types.js";
  * a gum falls a row a beat, so one dropped in authored column 2 is on the
  * mouth's row five beats later and a swipe from there crosses `gumFlingCols`
  * into the mouth on the next beat. A gum at the wall gives the pair three beats
- * of flight to talk over and a mouth that has moved by the time it arrives,
- * which is the same lesson said at length.
+ * of flight to talk over and a moved mouth: the same lesson said at length.
  *
  * **Nothing is placed against the inhale's own count**, for THE DIASTOLE's
  * reason one page up: which beat the tube tightens on depends on when the pair
@@ -192,6 +191,7 @@ export const WAVES_ACT_7D: Wave[] = [
       both: "A mass hangs on a rope of six fibres, a handle either side. Each of you pulls one handle down and the two pulls add into one sum. Hold the sum in the fibre's band four beats and it parts; over the band it snaps and throws a rock; slip out and the hold restarts. From the fourth fibre the rope creeps slack under your hands — let go together and grip again. When the last parts the mass falls: sway both handles the same way to walk it clear of the hull.",
       p1: "Only you see the band the sum must sit in, and it narrows every fibre. Say harder or softer and by how much, against her number, and when the count begins. When the mass falls, say which way you are both swaying.",
       p2: "Only you see the sum of the two pulls as a number, and his hand's half of it. Say it out loud every beat as it changes; he has the band. Match your pull to his on the fall, and say when it is level.",
+      scene: "theSinew",
     },
     entries: [
       { beat: 16, col: 1, color: "red" },

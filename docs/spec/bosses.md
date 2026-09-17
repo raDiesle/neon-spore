@@ -3290,6 +3290,27 @@ no lag or overshoot beyond the snap's whip, its sag is a curve of the sum;
 THE SLOW on a part is wired by the simulation and nothing in the look marks
 it beyond the hull's shock. The owner's eye decides all three.
 
+**The rehearsal** (`content/src/scenes/the-sinew.ts`, 17 September 2026,
+ten pages over 2160 ticks): each seat's handle, then the zone on the pilot's
+screen and the sum on the navigator's, a hold of 600 and 700 parting the
+first fibre on the fourth beat, 800 and 900 parting the second against the
+zone the part rolled, then both hands at their whole reach over the top of
+the third — the snap, both hands thrown off, one rock shed at the mass's
+right — and the plate carried under the rock by `atBody` (its column is not
+one an author can write) with the trigger going off on the shield's row. The
+zone is the seed's, so the pulls are authored against this seed's numbers
+and every hand is carried to a written `toMilli` rather than to taut
+(`content/src/scene-drag.ts`): a hand at taut is a snap, and the film has two
+holds to show before its one. It is the second film with a hand on both
+phones at once, THE BALLOON's order — each seat's own handle first — and its
+captions about the number point at the hull, because a caption anchored at a
+handle stands over the collar the number is drawn on (`docs/queue.md`). The
+film takes no hit; the fall, the sway and the decay are the guide's prose.
+Proved in `content/test/scene-films.test.ts` as the grips, enters, parts,
+releases, the snap, the rock and the deflect in order, with no fall, no crush
+and no breach; `render/test/sinew-anchor.test.ts` proves a caption's ring
+stands where the handle is drawn, under a hand or not.
+
 **Never watched at tempo.** What the tests say is the mechanism: it installs
 with six fibres, the mass over the middle and nothing arriving from it; the
 zone differs by seed and sits inside the band; a seat's handle answers that
