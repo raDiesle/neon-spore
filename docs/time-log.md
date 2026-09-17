@@ -9787,3 +9787,24 @@ that a document names no file that does not exist — is what made the third
 one cheap.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — task-queue-work — the boss re-export blocks come out of entries.ts and events.ts
+
+`entries.ts` was at 250 lines of 250 and `events.ts` at 247, and in both the
+only reason was a block re-exporting a neighbour's boss types. Both blocks are
+gone: 225 and 236, and every boss entry type now reaches a caller by the same
+road.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `entries.ts`, `events.ts`, `boss-entries.ts`, `boss-surface*.ts` and how a boss type actually reaches the package surface |
+| writing | 20 | nine import sites repointed by script, the three strays consolidated into `bosses.ts`, `HiveEntry` off its old road, three doc comments rewritten |
+| looking | 10 | `tsc --noEmit` used as the search: delete the block, read who breaks; then a probe importing five entry types to prove the surface is unchanged |
+| friction | 5 | `lint` asked for an import sort that `format` will not do — `bun run imports:sort`, which this session put on CLAUDE.md's Biome line four commits ago |
+| landing | 10 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was that the entry named files that had moved since it was
+written — the three strays were in `boss-surface-clocks*.ts` rather than
+`bosses-clocks-b.ts`, and its proposed `export * from "./boss-entries.js"` in
+`index.ts` described a surface that does not work that way. Fifteen minutes
+went to mapping the real one before anything could be deleted safely.

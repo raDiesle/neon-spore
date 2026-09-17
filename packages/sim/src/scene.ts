@@ -1,5 +1,6 @@
+import type { BossEntry } from "./boss-entries.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
-import type { BossEntry, PodEntry, SpawnEntry } from "./entries.js";
+import type { PodEntry, SpawnEntry } from "./entries.js";
 import type { SimEvent } from "./events.js";
 import type { PlacedFault } from "./fault-placed.js";
 import { aimed, type SceneCommand } from "./scene-aim.js";

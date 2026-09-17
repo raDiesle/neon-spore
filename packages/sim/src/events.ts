@@ -227,21 +227,10 @@ export type SimEvent =
   | FleetEvent
   // The choreographed bosses' own arms, as one union next door: this file has
   // been at its 250-line limit for four bosses running, and each of them cost
-  // three lines of it (`events-bosses.ts`).
+  // three lines of it (`events-bosses.ts`). Only the union crosses; the twelve
+  // member types used to be re-exported below it and nothing imported one
+  // through here, so that block was fourteen lines of this file's limit spent
+  // on a road nobody drove.
   | BossEvent;
 
-export type {
-  BatonEvent,
-  BossEvent,
-  CandleEvent,
-  CurtainEvent,
-  GorgeEvent,
-  LeadEvent,
-  SinewEvent,
-  SpliceEvent,
-  StareEvent,
-  SurgeEvent,
-  TasterEvent,
-  UndertowEvent,
-} from "./events-bosses.js";
 export type { FleetEvent } from "./events-fleet.js";

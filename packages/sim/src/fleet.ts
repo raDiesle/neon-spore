@@ -1,6 +1,6 @@
+import type { FleetEntry } from "./boss-entries.js";
 import type { FleetState } from "./boss-state.js";
 import { midCol } from "./config.js";
-import type { FleetEntry } from "./entries.js";
 import {
   fleetCols,
   fleetIndex,

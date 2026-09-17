@@ -1,4 +1,4 @@
-import type { WardenEntry } from "./entries.js";
+import type { WardenEntry } from "./boss-entries.js";
 import { NO_SHELL } from "./shell.js";
 import { WARDEN_COLS } from "./types.js";
 import { NO_TETHER } from "./warden-cycle.js";

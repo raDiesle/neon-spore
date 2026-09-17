@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
+import type { FleetEntry } from "../src/boss-entries.js";
 import { DEFAULT_CONFIG, type SimConfig } from "../src/config.js";
-import type { FleetEntry } from "../src/entries.js";
 import { fleetAfloat, fleetBeatsLeft, fleetRound } from "../src/fleet.js";
 import {
   FLEET_SHIPS_MAX,

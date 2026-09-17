@@ -271,27 +271,6 @@ whole subject. So 24 is twice a flight nobody has flown. The two entries are
 coupled: fix the second arena's geometry, fly it, and take 24 from what it
 measures. Arena one's 40 → 18 can land on its own, today, and should.
 
-## Three bosses went round `sim/entries.ts` and `sim/events.ts`, both full
-
-- **Found:** 2026-09-17, claude/shared-list-bosses-f7ff91
-- **Taken:** 2026-09-17, claude/queue-three-bosses-went-round-sim-entries-ts-and-sim-e
-- **Files:** `packages/sim/src/entries.ts`, `packages/sim/src/events.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/events-bosses.ts`, `packages/sim/src/bosses-clocks-b.ts`
-
-`entries.ts` is at 250 lines and `events.ts` at 247, and neither is about
-bosses any more: the thirty-line `export type { … } from "./boss-entries.js"`
-block at the end of `entries.ts` is the only reason it is at its limit, and
-`events.ts` has the same shape around `events-bosses.ts`. THE SCUTTLE, THE
-ANTIPHON and THE HIVE each added a boss without touching either file —
-`ScuttleEntry`, `AntiphonEntry` and `HiveEntry` are re-exported from
-`bosses-clocks-b.ts` instead, so the newest three entry types reach the
-surface by a different road from the other twenty-nine, and a reader
-following `entries.ts` will not find them. Move
-the boss re-export block out of `entries.ts` into `boss-entries.ts`' own
-surface (one `export * from "./boss-entries.js"` in `index.ts` where the
-block's names are re-exported today), do the same for `events.ts` and
-`events-bosses.ts`, and take the three stray re-exports out of
-`bosses-clocks-b.ts`. `bun run typecheck` proves the surface unchanged.
-
 ## Act seven has no room for another wave and no letter to put a page under
 
 - **Found:** 2026-09-17, claude/task-queue-progress-abb7a3

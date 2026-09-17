@@ -14,6 +14,9 @@
  * is not (`antiphon.ts`).
  */
 
+// THE HIVE's entry, which authors nothing: it travels with the other
+// thirty-two, out of `boss-entries.ts` through `bosses.ts`.
+export type { HiveEntry } from "./bosses.js";
 export {
   ANTIPHON_SHIP,
   type AntiphonCandidate,
@@ -34,12 +37,9 @@ export {
   antiphonTwins,
   antiphonWindow,
 } from "./bosses.js";
-
 export {
-  // THE HIVE's entry, which authors nothing, and the underside the screens
-  // read different halves of: what colour each open site is for the
-  // pilot, which site is swelling next for the navigator (`hive.ts`).
-  type HiveEntry,
+  // The underside the screens read different halves of: what colour each open
+  // site is for the pilot, which site is swelling next for the navigator.
   type HiveState,
   hiveBoss,
   hiveDown,

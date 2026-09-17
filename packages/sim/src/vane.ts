@@ -1,6 +1,6 @@
 import { metColor, missedColor } from "./balance.js";
+import type { VaneEntry } from "./boss-entries.js";
 import type { VaneState } from "./boss-state.js";
-import type { VaneEntry } from "./entries.js";
 import { type Bullet, spanOf } from "./types.js";
 import { vaneFold, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
 import { vaneColor, vaneOpening } from "./vane-cycle.js";

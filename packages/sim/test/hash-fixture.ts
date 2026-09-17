@@ -1,5 +1,6 @@
+import type { BossEntry } from "../src/boss-entries.js";
 import { DEFAULT_CONFIG } from "../src/config.js";
-import { BOSS_KINDS, type BossEntry } from "../src/entries.js";
+import { BOSS_KINDS } from "../src/entries.js";
 import type { LanceBeam, Prime } from "../src/lance.js";
 import { mazeWheel } from "../src/maze-solve.js";
 import type { MazeWheel } from "../src/maze-wheel.js";

@@ -1,4 +1,4 @@
-import type { CairnEntry } from "./entries.js";
+import type { CairnEntry } from "./boss-entries.js";
 import { removeCreatures } from "./field.js";
 import { nextInt } from "./rng.js";
 import { NO_SHELL } from "./shell.js";

@@ -14,6 +14,37 @@
  */
 
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
+export type {
+  AntiphonEntry,
+  BatonEntry,
+  CairnEntry,
+  CandleEntry,
+  CurtainEntry,
+  DiastoleEntry,
+  FleetEntry,
+  GaugeEntry,
+  GorgeEntry,
+  HiveEntry,
+  LeadEntry,
+  LedgerEntry,
+  OrreryEntry,
+  PinballEntry,
+  PulseEntry,
+  RepriseEntry,
+  ScoutEntry,
+  ScuttleEntry,
+  SinewEntry,
+  SnakeEntry,
+  SpliceEntry,
+  StareEntry,
+  SurgeEntry,
+  TasterEntry,
+  ThroatEntry,
+  UndertowEntry,
+  VaneEntry,
+  WardenEntry,
+  WellEntry,
+} from "./boss-entries.js";
 export type { FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 export type { BossState } from "./boss-union.js";
 // And the five bosses that are a clock, whole, for that file's reason said
@@ -22,36 +53,7 @@ export * from "./bosses-clocks.js";
 // The six rounds are next door and re-exported whole (`bosses-round.ts`).
 export * from "./bosses-round.js";
 export { type CairnState, cairnState, cairnWaited } from "./cairn.js";
-export {
-  type BatonEntry,
-  BOSS_KINDS,
-  bossFillsWave,
-  type CairnEntry,
-  type CandleEntry,
-  type CurtainEntry,
-  type DiastoleEntry,
-  type FleetEntry,
-  type GaugeEntry,
-  type GorgeEntry,
-  type LeadEntry,
-  type LedgerEntry,
-  type OrreryEntry,
-  type PinballEntry,
-  type PulseEntry,
-  type RepriseEntry,
-  type ScoutEntry,
-  type SinewEntry,
-  type SnakeEntry,
-  type SpliceEntry,
-  type StareEntry,
-  type SurgeEntry,
-  type TasterEntry,
-  type ThroatEntry,
-  type UndertowEntry,
-  type VaneEntry,
-  type WardenEntry,
-  type WellEntry,
-} from "./entries.js";
+export { BOSS_KINDS, bossFillsWave } from "./entries.js";
 export {
   fleetAfloat,
   fleetBeatsLeft,

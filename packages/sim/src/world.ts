@@ -9,14 +9,8 @@ import { newSpendLedger, type SpendLedger } from "./spend.js";
 import { startWave } from "./wave-start.js";
 import { newShipState, type ShipState } from "./world-ship.js";
 
-export type {
-  BossEntry,
-  MazeEntry,
-  MirrorEntry,
-  PodEntry,
-  QueenEntry,
-  SpawnEntry,
-} from "./entries.js";
+export type { BossEntry, MazeEntry, MirrorEntry, QueenEntry } from "./boss-entries.js";
+export type { PodEntry, SpawnEntry } from "./entries.js";
 export type { SimEvent } from "./events.js";
 export type { ShipState } from "./world-ship.js";
 

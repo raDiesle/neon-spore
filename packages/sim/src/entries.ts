@@ -200,44 +200,19 @@ export interface SpawnEntry {
   cargo?: PodKind;
 }
 
-export type {
-  BatonEntry,
-  BossEntry,
-  CairnEntry,
-  CandleEntry,
-  CurtainEntry,
-  DiastoleEntry,
-  FleetEntry,
-  GaugeEntry,
-  GorgeEntry,
-  LeadEntry,
-  LedgerEntry,
-  MazeEntry,
-  MirrorEntry,
-  OrreryEntry,
-  PinballEntry,
-  PulseEntry,
-  QueenEntry,
-  RepriseEntry,
-  ScoutEntry,
-  SinewEntry,
-  SnakeEntry,
-  SpliceEntry,
-  StareEntry,
-  SurgeEntry,
-  TasterEntry,
-  ThroatEntry,
-  UndertowEntry,
-  VaneEntry,
-  WardenEntry,
-  WellEntry,
-} from "./boss-entries.js";
 // **What a wave authors when it wants a boss** is `boss-entries.ts` next door,
-// cut out when THE CRAWLER's two fields took this file over its limit: twelve
+// cut out when THE CRAWLER's two fields took this file over its limit: thirty
 // shapes and the union of them — and the two questions asked about that
 // union are `boss-kinds.ts`, cut out when the twelve reached the same limit.
-// Re-exported here so nothing that already reached for one through this file
-// had to move.
+//
+// **The thirty are not re-exported here any more.** They were, so that nothing
+// which already reached for one through this file had to move — and the block
+// grew a line per boss until it was the only reason this file sat at 250. Three
+// bosses then went round it rather than through it, and their entry types
+// reached the surface by a different road from the other thirty, which is the
+// state that made the block worth deleting: a reader following `entries.ts`
+// could not find them. Everything that wanted one now says `boss-entries.js`,
+// which is where they are declared.
 export { BOSS_KINDS, bossFillsWave } from "./boss-kinds.js";
 
 // **Where a pod is left hanging** is `pod-entry.ts` next door, cut out when
