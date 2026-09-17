@@ -9616,3 +9616,23 @@ seat that could act on it alone, and the fight needed no words, so it was
 flipped before the content was written.
 
 *Measured: 13 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — task-queue-work — four answers written where the next session will find them
+
+The owner answered all five `Asks:` entries in one sitting and then had to shut
+the machine down. Two of the five landed as work; the other four are written
+back into their own entries so the answers outlive the session, and one of them
+carries a correction: the option he picked does not do what the entry promised.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `scout-arenas.ts`'s two arenas, `config-scout.ts`'s three radii, `scout-arena.ts`'s touch |
+| writing | 10 | four answers into `docs/queue.md`, the corrected `Asks:` on the hazards entry |
+| looking | 10 | the separation arithmetic on arena two's column — every row between two motes on a two-tile pitch is 1.0 from one of them, so 9.5 and 5.5 are what 7.5 and 3.5 already were |
+| friction | 5 | two claims taken and released without work, because the first thing found under one of them was that its answer was a no-op |
+| landing | 10 | the queue tests, `check`, the commit, `land --keep` |
+
+The bottleneck was that the hazards entry named an option nobody had checked
+the arithmetic of, so the owner's answer was spent on a move that changes
+nothing — the ten minutes that found it would have been ten minutes in the
+lane that tried to build it instead.

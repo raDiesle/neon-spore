@@ -197,7 +197,8 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
 - **Files:** `packages/content/src/scout-arenas.ts`, `packages/sim/src/config-scout.ts`
-- **Asks:** Move the motes off the hazards' rows, move the hazards, or make a hazard's touch smaller?
+- **Asks:** Widen the column's pitch, cut the hazard's touch, or say a mote here is passed and never waited on?
+- **Answered:** 17 September 2026 — move the two hazards. **The answer was given against a wrong option and does not fix this**, so the `Asks:` above replaces it with the three the geometry actually allows.
 
 Five of the second arena's six motes sit exactly one tile from a hazard's row
 — motes on rows 8.5, 6.5, 4.5 and 2.5 against hazards on 7.5 and 3.5 — and a
@@ -216,12 +217,26 @@ proof that *stopping on a mote is never safe here*, which is the one thing the
 arena's own comment assumes when it says the column of motes is the line a
 ship takes on its own.
 
-The options the answer picks between: move the five motes half a tile off the
-hazards' rows, which keeps both hazards where they are and costs the tidy
-two-tile spacing; move the two hazards to rows nothing is on — 9.5 and 5.5 are
-free — which keeps the motes' column and changes which gap the pair is
-waiting for; or cut `scoutHazardRadiusMilli` from 460, which is a change to
-every arena and to any arena written later. Measured by flying the shipped
+The options as first written were: move the five motes half a tile off the
+hazards' rows; move the two hazards to rows nothing is on — 9.5 and 5.5 are
+free; or cut `scoutHazardRadiusMilli` from 460. The owner picked the second on
+17 September 2026, and **the second is a no-op**. The motes sit two tiles
+apart, so every row between two of them is 1.0 from one of them: 9.5 is 1.0
+from the motes on 10.5 and 8.5, and 5.5 is 1.0 from those on 6.5 and 4.5 —
+exactly what 7.5 and 3.5 already are. The rows the hazards are on now were
+already rows nothing is on. Nothing moves.
+
+**What the geometry actually allows.** With the column on a two-tile pitch,
+1.0 of separation is the most any hazard row can have, so 0.12 of a tile is the
+ceiling and not the accident. Room comes from one of three places and no other:
+widen the column's pitch (2.5 tiles puts a hazard 1.25 away, which is 0.37 of
+room); cut `scoutHazardRadiusMilli` (300 gives 0.28, 200 gives 0.38); or leave
+the geometry and change the *comment*, which is the option nobody listed — the
+arena's own text already says the column is the line a ship takes and that the
+timing is the whole of it, so "a mote here is passed through and never waited
+on" may be the arena as designed rather than a defect in it. Arena one's 2.12
+tiles are what a mote you may park on looks like; arena two may simply not have
+those, on purpose. Measured by flying the shipped
 arenas in `tools/probe/`; nothing here was watched, because nothing of the
 round is drawn yet (`docs/spec/interludes.md`).
 
@@ -229,7 +244,7 @@ round is drawn yet (`docs/spec/interludes.md`).
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
 - **Files:** `packages/content/src/scout-arenas.ts`, `docs/spec/interludes.md`
-- **Asks:** Should the two arena clocks come down to something a pair can run out of?
+- **Answered:** 17 September 2026 — bring them to 18 and 24. **18 is measured and 24 is not**; see below.
 
 The first arena is authored at 40 beats and the second at 56. An autopilot
 that points, burns and coasts collects all four of the first arena's motes and
@@ -249,11 +264,18 @@ second, which is where the difficulty is meant to be. Whichever it is, the
 figure wants to be chosen against a measured flight rather than against
 nothing, which is what it was chosen against.
 
+**The owner picked 18 and 24 on 17 September 2026, and only 18 stands on a
+measurement.** The 7-to-16-beat flight this entry quotes is the *first* arena's;
+the autopilot never cleared the second at all, which is the other SCOUT entry's
+whole subject. So 24 is twice a flight nobody has flown. The two entries are
+coupled: fix the second arena's geometry, fly it, and take 24 from what it
+measures. Arena one's 40 → 18 can land on its own, today, and should.
+
 ## THE STARE's warning is under the spec's own four-second rule
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
 - **Files:** `packages/sim/src/config-stare.ts`, `docs/spec/bosses.md`, `docs/spec/latency.md`
-- **Asks:** Should the tell be six beats, seven, or four with the reason it is exempt written down?
+- **Answered:** 17 September 2026 — **7 beats** (4.38s), the first value that meets `latency.md`'s rule as written, so no exemption has to be argued. The cycle becomes an odd length.
 
 `stareTellBeats` is 4, and at 96 bpm a beat is 0.625s, so the warning is 2.50
 seconds. `config-stare.ts` called it three and `docs/spec/bosses.md` said the
@@ -280,7 +302,7 @@ written down rather than left as the silence it is now.
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
 - **Files:** `packages/sim/src/config-stare.ts`, `packages/content/src/waves/act-7c.ts`
-- **Asks:** Lengthen the wave, grow the look faster, or bring `stareLookMaxBeats` down to ten?
+- **Answered:** 17 September 2026 — **`stareLookGrowBeats` 3**, so the looks run 6, 9, 12 and the third look is the ceiling; the wave as authored then reaches it, with no new arrivals to author or balance.
 
 The looks are 6, then 8, then 10, then 12 and 12 thereafter, and the eye turns
 on beats 12, 36, 62 and 90 — a cycle is 18 beats plus its own look, so it
