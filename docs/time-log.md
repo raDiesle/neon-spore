@@ -9636,3 +9636,5 @@ The bottleneck was that the hazards entry named an option nobody had checked
 the arithmetic of, so the owner's answer was spent on a move that changes
 nothing — the ten minutes that found it would have been ten minutes in the
 lane that tried to build it instead.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

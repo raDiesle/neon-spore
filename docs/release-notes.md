@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 7f2da3a2 — Four answered queue entries carry their answers, and one carries a correction
+
+The owner answered all five of the queue's `ASKS THE OWNER` entries. Two landed as work in their own commits; these four are written back into `docs/queue.md` so the answers are read by whoever runs `bun run queue` rather than lost with the session that asked. THE STARE's two are decided and need nothing further: the tell goes to **7 beats** (4.38s), the first value that meets `latency.md`'s own four-second rule so no exemption has to be argued, and **`stareLookGrowBeats` 3** makes the looks 6, 9, 12 so the third is the ceiling and the wave as authored reaches it.
+
 ## 2026-09-17 · 58e1e0b9 — THE HIVE, the simulation: nine breaches on a clock nothing slows, sealed by colour
 
 The sixteenth boss and the first taken off `docs/spec/bosses.md` §11.14 rather than the choreographed page, whose ledger was built or taken to the last row. A mass over the top of the field with nine sites sown across the inner columns by the seed, each with a colour rolled; after four beats one opens, then one more every eight, two at once from the fifth; every open breach spills a rock down its own column every three beats, warded and never shot. A bolt out of the top in an open breach's column and colour seals it for good, the wrong colour brings every open breach's next spill two beats sooner, and the skin between swallows a shot. Sealing never slows the clock — what the pair's speed buys is how many breaches spill at once. The pilot alone is to be shown the colours and cannot fire; the navigator alone the swell before an opening and cannot move the cannon. The last seal opens THE SLOW; wave 81 "THE HIVE" in act 7e carries it with no entries. The four questions the design left open are answered by name in §11.14; the look is lane two.
