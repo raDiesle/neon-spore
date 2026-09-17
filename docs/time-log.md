@@ -10254,6 +10254,28 @@ outside it that a boss is a name in, each found by a test going red.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-17 — boss-implementation — THE LEDGER, the rehearsal
+
+The sixth boss film written after its look, and the first whose `atBoss`
+strip is the plate's rather than the cannon's: ten pages over 1860 ticks,
+two hits of the seed's colours up the seam, two returns warded in the socket,
+the socket walked and the second ward whipping the seam. The same lane gave
+`boss-answer.ts` its ledger line — the socket wherever it has walked to, and
+nothing under the last return or once the cord is out.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `ledger.ts`, `ledger-shot.ts`, `ledger-bead.ts`, `ledger-step.ts`, `boss-answer.ts`, THE CRAWLER's ward, `view-role-clocks.ts` for which seat sees what |
+| writing | 5 | the ledger line and its test, the scene, the registry, the wave's `scene`, the prose list, the film test, §3.2, the §11.27 paragraph |
+| looking | 5 | eight seeds swept for a colour that changes on the first hit, the acts run through a probe until both wards and the whip fell on written beats, two frames |
+| friction | 5 | the act timings laid out twice before every page was 180 ticks, and the last page a tick short of readable |
+| landing | 5 | `check:fast`, the sort, the index, the commit, `bun run land --keep` |
+
+The bottleneck was the beat arithmetic: a return lands four beats after a
+hit that lands sixty-five ticks after a press, and the trigger must go forty
+ticks before that, so the pages could not be laid down until the acts were
+run through the probe and read back off the beats they actually fell on.
+
 ## 2026-09-17 — boss-implementation — THE SINEW, the rehearsal
 
 The fifth boss film written after its look, and the second with a hand on

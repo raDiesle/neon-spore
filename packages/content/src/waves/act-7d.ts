@@ -27,8 +27,7 @@ import type { Wave } from "../wave-types.js";
  *
  * **Nothing is placed against the inhale's own count**, for THE DIASTOLE's
  * reason one page up: which beat the tube tightens on depends on when the pair
- * chokes its second ring, so an arrival laid inside a particular window would
- * be laid against a beat nobody can know at authoring time.
+ * chokes its second ring, a beat nobody can know at authoring time.
  *
  * **THE CANDLE's arrivals are few and far apart, on purpose.** The fight is
  * in the dark, and a field with bodies in it is a field the pair has to light
@@ -213,6 +212,7 @@ export const WAVES_ACT_7D: Wave[] = [
       both: "A body hangs over the middle of the field on a thick cord rooted in your own hull. Every hit you land on the split down its middle comes back down that cord as damage, landing in the socket four beats later — ward it there the way you ward a rock, or the hull takes it and the wave is lost. Each return slides the socket a column along the ship. Once the split is open the cord charges you for every shot you fire at anything, and a warded return is thrown back up it and widens the split for nothing. Five hits part it.",
       p1: "You carry the cannon and the trigger. Stand on the middle column to hit the split, and trigger on the beat the return lands — she has the column it is landing in. The last return is not yours to stop.",
       p2: "You load the colour the split is showing and carry the plate. Say which column the socket has walked to, every time, and get there before the beat. On the last return, take the plate out of that column and let it land.",
+      scene: "theLedger",
     },
     entries: [
       { beat: 18, col: 1, kind: "meteor", color: null },

@@ -4,6 +4,7 @@ import { candleBoss } from "../src/candle.js";
 import { DEFAULT_CONFIG, midCol, type SimConfig, ticksPerBeat } from "../src/config.js";
 import { diastoleChamberCol } from "../src/diastole.js";
 import { diastoleBoss } from "../src/diastole-step.js";
+import { ledgerBoss } from "../src/ledger.js";
 import { step } from "../src/step.js";
 import { tasterBoss } from "../src/taster.js";
 import { undertowBoss } from "../src/undertow.js";
@@ -110,6 +111,23 @@ describe("the column a boss is answered from", () => {
     expect(bossAnswerCol(world)).toBe(t.col + 6);
     // Closed over the body: every column is the interlock, the beam the answer.
     t.shorn = t.blades.length - CFG.tasterClosedBlades;
+    expect(bossAnswerCol(world)).toBeNull();
+  });
+
+  it("is THE LEDGER's socket wherever it has walked to, and nothing under the last return or once the cord is out", () => {
+    const world = open({ kind: "ledger" });
+    const g = ledgerBoss(world);
+    if (g === null) throw new Error("no cord");
+    // The plate's column, from the first beat: the socket is where the cord
+    // roots and the first return lands there.
+    expect(bossAnswerCol(world)).toBe(g.socket);
+    g.socket = 6;
+    expect(bossAnswerCol(world)).toBe(6);
+    // The last return is the one to let land: no column is the answer.
+    g.beads.push({ beat: world.beat + 2, span: 2, last: true });
+    expect(bossAnswerCol(world)).toBeNull();
+    g.beads = [];
+    g.outBeat = world.beat;
     expect(bossAnswerCol(world)).toBeNull();
   });
 });

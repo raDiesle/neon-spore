@@ -3479,6 +3479,23 @@ columns, which the simulation dropped for the owner's rule; and the body's
 lobed back is `ledgerHalfPath`'s own rather than a silhouette off the sheet.
 The owner's eye decides all three.
 
+**The rehearsal** (`content/src/scenes/the-ledger.ts`, 17 September 2026,
+ten pages over 1860 ticks): the cord rooted in the hull, the colour the seam
+shows loaded and fired up the middle column by the navigator, the bead coming
+down the cord with its beats beside it on the pilot's screen and the trigger
+on the beat it lands, the socket walked a column and said by the navigator,
+the plate carried there and the second colour fired, and the second return
+warded where it whips the seam a notch wider for nothing. The colours are the
+seed's — rolled at install and rerolled by every hit — so the two presses
+are authored against this seed's cyan and then red, and the second socket is
+column 6, which no authored strip reaches, so the plate is carried there by
+`atBoss` (`sim/boss-answer.ts`), the one line there that answers with the
+plate rather than the cannon: the socket wherever it has walked to, and
+nothing under the last return or once the cord is out. The bill for a shot at
+anything else and the fifth return the plate must step out from under are the
+last two pages' words and otherwise the prose; the film takes no hit and
+points at no retries. `content/test/scene-films.test.ts` holds the sequence.
+
 **Never watched at tempo.** What the tests say is the mechanism: it installs
 centred with the cord in the middle column, the seam empty and nothing arriving
 from it; it holds its wave and falls nothing; nothing can hit it while the cord
@@ -3500,8 +3517,7 @@ twice and differently from one where a return was warded
 state of the picture is one a canvas accepts. **What no test can say** is
 whether the plate reaches a socket a column away in the beats the cadence
 leaves, once it is down to `ledgerCadenceMinBeats` — the fight's whole
-difficulty, and a thing an eye sees at tempo. One frame has been sent; the wave
-has no film, which `content/test/scenes-prose.test.ts` holds by name.
+difficulty, and a thing an eye sees at tempo. One frame has been sent.
 
 ## 11.28 THE SURGE — the boss beaten by letting go
 

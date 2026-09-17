@@ -1,6 +1,7 @@
 import { candleBoss, candleEating } from "./candle.js";
 import { diastoleBridgeCol, diastoleChamberCol } from "./diastole.js";
 import { diastoleBoss } from "./diastole-step.js";
+import { ledgerBoss } from "./ledger.js";
 import { type TasterState, tasterBoss, tasterOrder, tasterPhase } from "./taster.js";
 import { undertowBoss } from "./undertow.js";
 import type { World } from "./world.js";
@@ -19,8 +20,9 @@ import type { World } from "./world.js";
  * film cannot know which until the world does. THE CANDLE's glow drifts a
  * column at a time off the same rng. THE TASTER's fan opens from the middle
  * outward and its second blade stands over column 6, which no authored
- * column reaches either. So a strip may say `atBoss` instead of a column,
- * and this is the one reading of what that means.
+ * column reaches either. THE LEDGER's socket walks a column along the hull
+ * per return, into every column there is. So a strip may say `atBoss`
+ * instead of a column, and this is the one reading of what that means.
  *
  * **It is the boss's own answer, not the picture's.** Each line here asks the
  * boss's file the question the pair is meant to be asking — where does the
@@ -59,6 +61,17 @@ export function bossAnswerCol(world: World): number | null {
   }
   const t = tasterBoss(world);
   if (t !== null) return tasterAnswerCol(world, t);
+  const g = ledgerBoss(world);
+  if (g !== null) {
+    // THE LEDGER is answered with the plate, not the cannon: the seam is the
+    // middle column, which an author can write, and the column that moves is
+    // the socket the returns land in — a column further along the hull for
+    // every return, and the walk reaches all eleven (`ledgerWalk`). Nothing
+    // once the cord has torn out, and nothing while the last return is on it,
+    // which is the one the plate must *not* stand under (`ledgerLetThrough`).
+    if (g.outBeat >= 0 || g.beads.some((b) => b.last)) return null;
+    return g.socket;
+  }
   return null;
 }
 

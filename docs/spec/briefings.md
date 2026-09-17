@@ -300,18 +300,18 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are sixty-nine of them now**, one per guided wave bar eighteen, and
+**There are seventy of them now**, one per guided wave bar seventeen, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The eighteen that are still the three strings
+rather than a page of prose. The seventeen that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
 CODEX, THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE ORRERY, THE
-LEDGER, THE SURGE, THE LEAD, THE SCUTTLE, THE ANTIPHON, THE HIVE and THE
-INSTAR** — and that list is held by
+SURGE, THE LEAD, THE SCUTTLE, THE ANTIPHON, THE HIVE and THE INSTAR** — and
+that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those eighteen is a film nobody has written, and from THE
+**Every one of those seventeen is a film nobody has written, and from THE
 SCOUT's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
@@ -334,7 +334,12 @@ with a hand on both phones at once: every pull is carried to a written
 number rather than to taut, because the sum of two hands is the lesson and
 the seed's zone is what the numbers are authored against; it ends on the
 snap and the rock the shield turns, with the fall and the sway left to the
-prose.
+prose. THE LEDGER's, the same day, is two hits and two returns, both warded:
+the colours are the seed's, the second socket is a column no authored strip
+reaches and the plate is carried there by `atBoss` — the one boss answered
+with the plate rather than the cannon — and the bill for every shot and the
+fifth return the plate must step out from under are the prose, because a
+thumb lifting off is the one gesture a film shows badly.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square
