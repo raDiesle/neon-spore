@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 36339f9d — THE THROAT has a rehearsal film: a body shot clear, one swallowed, then a gum flung into the mouth
+
+The still phase in eight pages: a red creature stops in the mouth's column and player 2 shoots it before the count runs out; a rock left alone is taken on the inhale at beat 18; a gum swiped level from the leftmost column flies a beat and chokes a ring, and the last two pages are the mouth sliding a column a beat. Every page about a held body is anchored at the hull, because a body in the mouth stands on row five. Eighteen guided waves are still prose.
+
 ## 2026-09-17 · 73fd1b5a — THE SURGE, the simulation: a bulb fed by two thumbs and vented only by both lifting at once
 
 The sixth boss off the choreographed list, its rule and nothing of its look. A bulb sits under the field with a thumb-glass for each seat: both thumbs on feed the pressure, one alone leaks it, and the only way down is the pair lifting inside `surgeWindowMilli` of each other, which vents it a notch along the seam. The band the pressure has to be in when they let go narrows with every notch, and a pressure over the band bursts the bulb instead — gums down the bulb's own columns and both hands thrown off — while from the third notch the bulb holds what it has and the two lifts have to agree twice. The last notch everts it and the wave ends. The split is the eyes: the pilot is shown the seam and how far along it the pair is, the navigator the pressure, and neither the other's, so the count-down is spoken. Twelve events, each with a cue; wave 77 in act 7 with its guide; nineteen tests; the director's sheet; the silent lists; §11.27 in `docs/spec/bosses.md` with the seven departures from the design argued by name, and the wave went into the perf baseline unweighed.
