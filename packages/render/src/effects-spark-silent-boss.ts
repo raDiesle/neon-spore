@@ -188,9 +188,8 @@ export const SILENT_BOSS = [
   "leadWall",
   "leadDown",
   "leadOut",
-  // THE SCUTTLE's ten, silent until the look lane draws the frame: what
-  // sparks will be one family read above the loop by `scuttle-fx.ts`, never
-  // rows here (`docs/spec/bosses.md` §11.30).
+  // THE SCUTTLE's ten are one family read above the loop by
+  // `scuttle-fx.ts`, never rows here (`docs/spec/bosses.md` §11.30).
   "scuttleEnter",
   "scuttleLoose",
   "scuttleThrow",

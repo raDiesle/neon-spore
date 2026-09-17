@@ -9445,3 +9445,24 @@ a rig to ask the arithmetic the questions an eye would have answered in two
 minutes once the round is drawn.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — boss-implementation — THE SCUTTLE, the look
+
+Lane two of the eighth boss off the choreographed list: a lobed slab hung
+over the top of the field and plated with its parts, an open socket and a
+part on a thread under it, the count on the pilot's screen and the live
+part in its colour with the lock on the navigator's, the wind-up's shiver,
+the throw's jolt, the strike's tumbling plate, and the fade. A look with no
+shipped alternative.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | THE LEAD's `lead-draw.ts`, `lead-fx.ts`, `lead-shape.ts` and its frame test as the pattern; `boss-draw-clocks.ts`, `effects-boss.ts`, `target-lock.ts`, `layout.ts` |
+| writing | 40 | `scuttle-shape.ts`, `scuttle-draw.ts`, `scuttle-fx.ts`, `view-role-clocks-b.ts`, the four wirings, fifteen frame tests, §11.30's look |
+| looking | 10 | a frame on each seat: the slab was a rectangle first and got its lobes; the lock sat under the hanging part where it should |
+| friction | 15 | three false negatives in the frame test, each a fact about the harness and not the picture — beat zero read as "standing" after the down, the first frame at a size lays a sprite the next frames `drawImage`, the sim's own loose part hanging in an arrangement meant to be bare; `scuttleNextCol` missing from the surface list |
+| landing | 10 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was the frame test's three false negatives, each a fact about the
+harness rather than the picture, and each found by reading the canvas log
+rather than the drawer.

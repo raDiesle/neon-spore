@@ -3713,7 +3713,7 @@ thrown goes straight through the hull as a heavy breach (`scuttleLast`,
 shown the parts still attached — the count, which is the time — and never
 which of them is live; player 2 the live part and the column the next throw
 lands in, and never the count (`showsScuttleCount`, `showsScuttleLive` in
-`render/view-role-clocks.ts`, unbuilt). Nothing in the simulation depends
+`render/view-role-clocks-b.ts`). Nothing in the simulation depends
 on it: `live` is a field on the state the navigator's drawer reads, and the
 parts are the pilot's. The sentence between them is *nine left — four,
 red, now*.
@@ -3755,14 +3755,46 @@ sockets*: the design's cost note has the thinning body as socket work at
 boss scale, and that is the look's — the simulation's frame is a list of
 what is in it, and the picture decides what a socket is.
 
-**What is not built.** The look — the frame, the parts, the thread a part
-hangs by, the live part in the ammunition colour, the wind-up and the
-collapse — is the second lane's, and until it lands every one of the ten
-events is on the silent lists and nothing of THE SCUTTLE is drawn
-(`effects-ingest-silent-boss.ts`, `effects-spark-silent-boss.ts`). Nothing
-is timed on a call (`CLAUDE.md` rule 5): steps 1, 3 and 13 give 900 ms for a
-number or a column to be said, and the frame counts whether or not
-anything is. The split is a pair of predicates the look lane owes.
+**The look** (`render/scuttle-draw.ts`, `scuttle-shape.ts`, `scuttle-fx.ts`).
+A grey **slab** hangs above row 0 the whole width of the frame's columns —
+its top arched, its flanks breathing a little with time, its underside
+scalloped once per column — filled in the rock's dark over the hull's violet
+and rimmed in both, and it is **plated** with its parts: a flat-topped rock
+plate in every socket that still holds one, in `scuttleRows` rows a bit
+under half a tile apart, so the silhouette is the count and a plate fewer is a throw. A socket
+a part has come loose from is **open** — a low violet hollow rimmed in the
+hull's rim — and the part hangs a half tile under it by a dim **thread**,
+dropping over the cadence by the square root of the beat so it falls fast
+and then waits. **Who is shown what is the split** (`showsScuttleCount`,
+`showsScuttleLive`, `view-role-clocks-b.ts`): the pilot's screen has every
+plate and every open socket, and any hanging part is a grey plate — the
+count and never the colour; the navigator's slab is blind, one hollow where
+the live part came loose, the part itself in its ammunition's colour with
+its rim and breathing, and the instrument's **lock** (`target-lock.ts`, in
+the shield's rim) closed on the column the next throw lands in, at full
+strength when a bolt would count and half while the last part winds up; the
+test screen has both. Twins are a second grey plate on a second thread on
+every screen — a twin is never live, and its colour is nobody's. The
+**wind-up** shivers the last part in its socket and lifts it `WIND_RISE`
+of a tile by the square of the beat, so it draws back before it goes.
+**Down**, every plate is a plate again and the slab, its plates and the lock
+fade over `scuttleOutBeats` — in the colour, since `strokeGlow` owns the
+alpha — and after them nothing. The ten events are one family read above
+`Effects`' loop (`scuttle-fx.ts`): a throw **jolts** the slab an eighth of a
+tile and lets it settle over a few frames, twice for the last throw
+and the collapse; a strike sends the plate **tumbling** from where the
+navigator's screen had it hanging, turning as it falls a tile and a half
+over a beat and a tenth; and every burst is placed by what the screen is
+allowed to know — the loose part's in the shield's rim on the screens shown
+the live part and dim on the pilot's, the throw's in rock at the top of its
+column, the slack's in the pod's rim at `scuttlePodRow`. Nothing of it is a
+sprite. `render/test/scuttle-frame.test.ts` proves the slab on all three
+screens, the count drawn on the pilot's and not the navigator's, the live
+part drawn on the navigator's and not the pilot's — both ways, by swapping
+which part is live — a part hanging by its thread, the wind-up, the fade,
+the gone, and the jolt's reset (fifteen). Nothing is timed on a call
+(`CLAUDE.md` rule 5): steps 1, 3 and 13 give 900 ms for a number or a
+column to be said, and the frame counts whether or not anything is.
 
 **Never watched at tempo.** What the tests say is the mechanism: it comes
 in full with its pods sown and nothing on the field; it holds its wave and
@@ -3779,5 +3811,6 @@ THE SLOW for the lance's fill and a beat, refuses a bolt, and then costs
 the wave through the hull; the beam in its column takes it down and the
 frame is gone `scuttleOutBeats` later with the wave not lost; and the same
 run fingerprints the same way twice (`sim/test/scuttle.test.ts`, fourteen).
-The picture does not exist yet, and whether three beats of a part hanging
-reads as a window or as a decoration is the owner's, once it does.
+The picture was drawn on both seats at a tick and never watched at tempo,
+and whether three beats of a part hanging reads as a window or as a
+decoration is the owner's.

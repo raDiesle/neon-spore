@@ -794,6 +794,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/rock-impact.ts` | How long a missed rock sits sunk into the hull before it starts to drift off |
 | `packages/render/src/rock-impact-state.ts` | One rock on its way into, or off, the hull — the record `rock-impact.ts` keeps per impact |
 | `packages/render/src/scars.ts` | A breach stays, and it stays *in the skin* |
+| `packages/render/src/scuttle-draw.ts` | **THE SCUTTLE**: a dark slab of a frame hung over the top of the field above row 0, plated with its parts |
+| `packages/render/src/scuttle-fx.ts` | What THE SCUTTLE leaves behind a frame: the **jolt** a throw puts through the frame |
+| `packages/render/src/scuttle-shape.ts` | **Where THE SCUTTLE is**, in field pixels: the frame of sockets hung over the top of the field above row 0 |
 | `packages/render/src/sheen.ts` | The light inside the membrane, and the film on top of it |
 | `packages/render/src/shell-draw.ts` | THE SHELL's plating: the picture the sim's own bitmask (`Creature.shell`) has no shape for |
 | `packages/render/src/shell-plate.ts` | WHAT A PLATE IS MADE OF — the paint over the geometry next door |
@@ -856,6 +859,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/band-control.ts` | One control of the band, drawn — a lobe or a strip, whichever the set says |
 | `packages/render/src/view-role.ts` | Whose screen this is, and what that seat is allowed to be shown |
 | `packages/render/src/view-role-clocks.ts` | **The clock bosses' halves** — what each seat is shown of THE DIASTOLE onward |
+| `packages/render/src/view-role-clocks-b.ts` | **The clock bosses' halves, page two** |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
 | `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |
 | `packages/render/src/snake-round.ts` | SNAKE over the whole stage |

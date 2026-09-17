@@ -167,6 +167,7 @@ export {
   scuttleFast,
   scuttleLeft,
   scuttleLeftCol,
+  scuttleNextCol,
   scuttleShootable,
   scuttleSocketCol,
   scuttleSocketRow,

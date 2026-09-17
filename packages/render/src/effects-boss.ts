@@ -7,6 +7,7 @@ import type { Layout, ViewRole } from "./layout.js";
 import { LeadFx } from "./lead-fx.js";
 import { LedgerFx } from "./ledger-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
+import { ScuttleFx } from "./scuttle-fx.js";
 import { MirrorFx } from "./simon-fx.js";
 import { SinewFx } from "./sinew-fx.js";
 import { SurgeFx } from "./surge-fx.js";
@@ -91,6 +92,10 @@ export class BossTransients {
    * asked for the angle by the drawer every frame, and told where the stalk
    * stood (`lead-fx.ts`, `lead-draw.ts`). */
   readonly lead = new LeadFx();
+  /** THE SCUTTLE's jolt and tumbling plate, and its receipts' bursts — asked
+   * for the jolt by the drawer every frame, and told where the live part
+   * hung (`scuttle-fx.ts`, `scuttle-draw.ts`). */
+  readonly scuttle = new ScuttleFx();
 
   /** `role` is the layout's: a flash lights only the screen whose control
    * made it (`after-image.ts`). */
@@ -112,6 +117,7 @@ export class BossTransients {
     this.ledger.ingest(events, l, cfg, beatSeconds, burst);
     this.surge.ingest(events, l, cfg, beatSeconds, burst);
     this.lead.ingest(events, l, beatSeconds, role, burst);
+    this.scuttle.ingest(events, l, cfg, beatSeconds, role, burst);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
   }
@@ -130,6 +136,7 @@ export class BossTransients {
     this.ledger.update(dt);
     this.surge.update(dt);
     this.lead.update(dt);
+    this.scuttle.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
@@ -145,6 +152,7 @@ export class BossTransients {
     this.ledger.draw(ctx, l);
     this.surge.draw(ctx, l);
     this.lead.draw(ctx, l);
+    this.scuttle.draw(ctx, l);
   }
 
   clear(): void {
@@ -160,6 +168,7 @@ export class BossTransients {
     this.ledger.clear();
     this.surge.clear();
     this.lead.clear();
+    this.scuttle.clear();
   }
 }
 

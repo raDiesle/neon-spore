@@ -10,6 +10,7 @@ import { drawLead } from "./lead-draw.js";
 import { drawLedger } from "./ledger-draw.js";
 import { drawOrrery } from "./orrery-draw.js";
 import type { ViewState } from "./renderer.js";
+import { drawScuttle } from "./scuttle-draw.js";
 import { drawSinew } from "./sinew-draw.js";
 import { drawSurge } from "./surge-draw.js";
 import { drawTaster } from "./taster-draw.js";
@@ -53,6 +54,7 @@ const CLOCK_KINDS = [
   "ledger",
   "surge",
   "lead",
+  "scuttle",
 ] as const;
 
 export type ClockBoss = Extract<Installed, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -199,5 +201,17 @@ export function drawClockBoss(
   // where it leans instead, which is the whole split. What outlives a frame —
   // the spring the lean rides, the whip, the bead that tumbles off — is
   // `effects.boss.lead` (`lead-draw.ts`, `lead-fx.ts`).
-  drawLead(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.lead);
+  if (boss.kind === "lead") {
+    drawLead(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.lead);
+    return;
+  }
+
+  // THE SCUTTLE: a slab of a frame over the top of the field plated with its
+  // parts, the loose ones sliding out of their sockets on threads over the
+  // cadence. The sockets — plated or open, the count — are on the pilot's
+  // screen; the live part in its colour and the lock on the column of the
+  // next throw are on the navigator's, which is the whole split. What
+  // outlives a frame — the jolt of a throw, the plate that tumbles off on a
+  // strike — is `effects.boss.scuttle` (`scuttle-draw.ts`, `scuttle-fx.ts`).
+  drawScuttle(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.scuttle);
 }
