@@ -2660,10 +2660,21 @@ boss stays installed; when the sim takes it away the black lifts over one
 beat — the design's wave-end light coming up on a field the pair never saw.
 Proved on both screens in `render/test/candle-frame.test.ts`.
 
-**What is not built**: THE SLOW over the flash beat (the design's step 6) —
-whether a shot's light should hang is the owner's eye — and *the corner light
-first*, the ship's own glow being the last thing to go dark, which is a beat
-of choreography over the opening and not a mechanism.
+**Corner light first** (the design's step 1, landed 17 September 2026): the
+black does not fall evenly. It is a front (`candleDarkAt`, `candle-dark.ts`)
+that starts at the side the sky's one corner light stands on — bottom right,
+`corner-light.ts` — and rolls across the field column by column over the
+same four beats, each column taking half the count to go, so the corner is
+black while the far edge is still lit and the last light to go out is the
+one furthest from it; the margins beside the grid go with the column beside
+them. The glow is drawn over the black, so once the front has crossed it is
+what is left. A look the owner asked for by name. Proved in
+`candle-frame.test.ts`: two beats in, the right of the field is full black
+and the left not yet drawn.
+
+**What is not built**: THE SLOW over the flash beat — the design's *the beat
+a flash lands is played at a third rate*. Whether a shot's light should hang
+is the owner's eye, and it is put to him in `docs/queue.md`.
 
 **Never watched at tempo.** What the tests say is the mechanism: it arrives
 full at the middle column facing its own, cannot be struck and does not move

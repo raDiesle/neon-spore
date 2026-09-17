@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE CANDLE, corner light first
+
+The design's step 1 as a look: the dark rolling in from the corner light's
+side over the four beats rather than falling evenly, and the SLOW over the
+flash beat put to the owner as a question.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `candle-dark.ts`, `corner-light.ts`, the design's §14 table and its SLOW paragraph, `candle-frame.test.ts`'s helpers, what the canvas stub logs |
+| writing | 20 | the front in `candle-dark.ts`, the per-column alpha through `drawLit`'s runs, the test that reads the black's alpha back off the log, the write-up, the queue's question |
+| looking | 10 | the browser route once: the preview restarted for the build, THE CANDLE reached by wave index, one frame two beats into the dark |
+| friction | 5 | unpausing the hidden tab let the run catch up ten beats before the paint; the world was set and painted in one synchronous block instead |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was small this time: the picture, again, for the preview
+that has to be rebuilt and the tab that runs ahead when unpaused.
+
 ## 2026-09-17 — boss-implementation — THE UNDERTOW, the plate's hole and step 11
 
 The plate a tall lobe takes drawn as a hole in the outline, and a cannon slid

@@ -30,7 +30,12 @@ import { showsCandleGuard } from "./view-role-clocks.js";
  * here every frame, so they hold exactly as long as the sim says they do.
  *
  * The black comes down over `candleDarkBeats` from the beat the boss arrives
- * and lifts over one beat after the sim takes it away, which is the design's
+ * — **corner light first**, the design's step 1: the dark starts at the side
+ * the sky's one corner light stands on (`corner-light.ts`, bottom right) and
+ * rolls across the field column by column, each column taking `SWEEP` of the
+ * count to go, so the last light to go is the far one and the boss's glow is
+ * what is left. Built 17 September 2026 in place of an even fade. It lifts
+ * over one beat after the sim takes the boss away, which is the design's
  * wave-end light coming up on a field the pair never saw. Between the last
  * step going and that, the frame is black and nothing else: no after-image,
  * no glow (`out`).
@@ -45,10 +50,24 @@ const AFTER_BEATS = 3;
 /** Beats the wave-end light takes to come up. */
 const RELIGHT_BEATS = 1;
 
-/** How black the field is, 0..1: coming down while the boss is `dark`, full from then on. */
-function darkness(c: CandleState, beat: number, beatPhase: number, darkBeats: number): number {
+/** The share of the dark beats one column takes to go black; the front
+ * crosses from the corner's column to the far one over the rest. */
+const SWEEP = 0.5;
+
+/** How far the dark has come, 0..1: counting while the boss is `dark`, done from then on. */
+function progress(c: CandleState, beat: number, beatPhase: number, darkBeats: number): number {
   if (c.phase !== "dark") return 1;
-  return smoothstep(Math.min(1, (beat - c.phaseBeat + beatPhase) / darkBeats));
+  return Math.min(1, (beat - c.phaseBeat + beatPhase) / darkBeats);
+}
+
+/**
+ * How black one column is at a progress, 0..1: the rightmost — the corner
+ * light's — goes first, the leftmost last, each over `SWEEP` of the count.
+ * Exported for `candle-frame.test.ts`.
+ */
+export function candleDarkAt(p: number, col: number, cols: number): number {
+  const start = (1 - SWEEP) * (1 - col / Math.max(1, cols - 1));
+  return smoothstep(Math.max(0, Math.min(1, (p - start) / SWEEP)));
 }
 
 /**
@@ -84,29 +103,39 @@ function fillField(ctx: CanvasRenderingContext2D, l: Layout, a: number): void {
   ctx.globalAlpha = 1;
 }
 
-/** The lit columns, each through the tint of the light that lit it. */
+/** The lit columns, each through the tint of the light that lit it; the
+ * unlit ones in runs, one fill per run while the front gives them one alpha. */
 function drawLit(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   img: AfterImage,
   time: number,
   decay: number,
-  dark: number,
+  darkAt: (col: number) => number,
 ): void {
   let run = -1;
+  let runA = 0;
   for (let col = 0; col < l.cols; col++) {
+    const dark = darkAt(col);
     const light = img.light(col, time, decay);
     if (light <= 0) {
-      if (run < 0) run = col;
+      if (run >= 0 && Math.abs(dark - runA) > 0.002) {
+        fillCols(ctx, l, run, col - 1, runA);
+        run = -1;
+      }
+      if (run < 0) {
+        run = col;
+        runA = dark;
+      }
       continue;
     }
-    if (run >= 0) fillCols(ctx, l, run, col - 1, dark);
+    if (run >= 0) fillCols(ctx, l, run, col - 1, runA);
     run = -1;
     fillCols(ctx, l, col, col, dark * (1 - light));
     ctx.fillStyle = rgba(img.tint(col), TINT * light * dark);
     ctx.fillRect(l.gridLeft + col * l.tile, 0, l.tile, l.hullY);
   }
-  if (run >= 0) fillCols(ctx, l, run, l.cols - 1, dark);
+  if (run >= 0) fillCols(ctx, l, run, l.cols - 1, runA);
 }
 
 /**
@@ -140,20 +169,27 @@ export function drawCandleField(
     fillField(ctx, l, 1);
     return;
   }
-  const dark = darkness(c, world.beat, view.beatPhase, world.cfg.candleDarkBeats);
+  const p = progress(c, world.beat, view.beatPhase, world.cfg.candleDarkBeats);
+  const darkAt = (col: number): number => candleDarkAt(p, col, l.cols);
   // The two lights that stand, refreshed for as long as the world says they
   // do: a hold of nought, so the decay starts the frame after the last one.
   if (guardArmed(world) && showsCandleGuard(view.role)) {
     img.lit(world.shieldCol, view.time, 0, PALETTE.hull);
   }
   if (world.beam !== null) img.lit(world.beam.col, view.time, 0, WHITE);
-  // The margins beside the grid have no light in them and never will.
+  // The margins beside the grid have no light in them and never will; each
+  // goes with the column beside it, the right one first.
   const gridRight = l.gridLeft + l.cols * l.tile;
-  ctx.globalAlpha = dark;
   ctx.fillStyle = BLACK;
-  if (l.gridLeft > 0) ctx.fillRect(0, 0, l.gridLeft, l.hullY);
-  if (gridRight < l.width) ctx.fillRect(gridRight, 0, l.width - gridRight, l.hullY);
+  if (l.gridLeft > 0) {
+    ctx.globalAlpha = darkAt(0);
+    ctx.fillRect(0, 0, l.gridLeft, l.hullY);
+  }
+  if (gridRight < l.width) {
+    ctx.globalAlpha = darkAt(l.cols - 1);
+    ctx.fillRect(gridRight, 0, l.width - gridRight, l.hullY);
+  }
   ctx.globalAlpha = 1;
-  drawLit(ctx, l, img, view.time, afterSeconds(c, world.cfg.candleGlowSteps, spb), dark);
+  drawLit(ctx, l, img, view.time, afterSeconds(c, world.cfg.candleGlowSteps, spb), darkAt);
   drawCandleGlow(ctx, l, c, world.cfg, view.time, view.role);
 }

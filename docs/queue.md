@@ -365,3 +365,24 @@ the ingest list already has its `-b` page. Cut the spark list the same way
 before the next boss — `effects-spark-silent-boss-b.ts` from THE HIVE on,
 the first page re-exporting it — so the next lane adds a row rather than a
 split. A test: the silent-list coverage test unchanged and green.
+
+## THE CANDLE's flash beat is played at tempo, and the design asks for a third
+
+- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Files:** `packages/sim/src/candle-step.ts`, `packages/sim/src/slow.ts`, `packages/sim/test/candle.test.ts`, `docs/spec/bosses.md`
+- **Asks:** Should the beat a flash lands in THE CANDLE be played under THE SLOW, or left at tempo?
+
+The design (`docs/spec/bosses-choreographed.md` §14, *THE SLOW, over
+`AfterImage`*) says the beat a flash lands is played at a third rate, so the
+pair gets three seconds to read a field they see for a fifth of a beat. What
+shipped (`bosses.md` §11.22) holds the light for `AFTER_BEATS` instead and
+never slows the clock: the after-image is what makes the fight playable, and
+whether a slowed beat on top of it is drama or a stutter — a shot every beat
+is a slow every beat — is a thing to be watched at tempo, not decided in a
+lane. The options: **slow every flash beat**, `openSlow(world,
+cfg.candleFlashSlowBeats)` from the `fire` that lit the field, one beat at
+`slowRateMilli`, both screens together (`decisions.md` #33); **slow the first
+flash of the fight only**, the one that shows the pair the field is still
+there, and none after; or **leave it at tempo** and take the design's
+paragraph out of §14 as argued. Any of the first two is a config field, a
+line in the step, a receipt, and `bun run check`.

@@ -9,6 +9,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { candleDarkAt } from "../src/candle-dark.js";
 import type { ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import {
@@ -31,8 +32,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * What this file asks is whether every branch of the picture is one a canvas
  * accepts, and the three things nothing else in the suite could catch: that
  * the black is there at all, that the lights are on the screen of the seat
- * whose control made them and on no other, and that the field is black and
- * nothing else once the last step has gone.
+ * whose control made them and on no other, that the field is black and
+ * nothing else once the last step has gone, and that the dark comes in from
+ * the corner light's side rather than falling evenly (the design's step 1).
  */
 
 beforeAll(installCanvasGlobals);
@@ -90,6 +92,19 @@ function drawn(
 
 function count(text: string, colour: string): number {
   return text.split(colour).length - 1;
+}
+
+/**
+ * The alpha of every black fill over the field in one frame's log, by the
+ * stage x it starts at: `fillCols` sets the alpha, then the colour, then
+ * fills, and nothing else in the frame fills black through an alpha.
+ */
+function blackAlphaByX(text: string): Map<number, number> {
+  const out = new Map<number, number>();
+  const re =
+    /set globalAlpha=([\d.]+)\|set fillStyle=#000000\|fillRect\(([\d.]+), 0, [\d.]+, [\d.]+\)/g;
+  for (const m of text.matchAll(re)) out.set(Number(m[2]), Number(m[1]));
+  return out;
 }
 
 describe("THE CANDLE's dark", () => {
@@ -164,6 +179,36 @@ describe("THE CANDLE's dark", () => {
     darkened(other);
     step(other, [{ tick: other.tick, player: 1, command: { kind: "guard" } }]);
     expect(count(drawn(other, "p2", 3).text, VIOLET)).toBe(0);
+  });
+
+  it("brings the dark in from the corner light's side, column by column", () => {
+    // The front, on its own: half way through the count the corner's column
+    // is black, the far one untouched, and the ones between run in order.
+    expect(candleDarkAt(0.5, CFG.cols - 1, CFG.cols)).toBe(1);
+    expect(candleDarkAt(0.5, 0, CFG.cols)).toBe(0);
+    for (let col = 1; col < CFG.cols; col++) {
+      expect(candleDarkAt(0.5, col, CFG.cols)).toBeGreaterThan(
+        candleDarkAt(0.5, col - 1, CFG.cols),
+      );
+    }
+    expect(candleDarkAt(1, 0, CFG.cols)).toBe(1);
+    // And on the pilot's screen, two beats into the four: the black over the
+    // right of the field is full, the left of it not yet drawn at all.
+    const world = opened();
+    for (let i = 0; i < 2 * TPB; i++) step(world, []);
+    if (glow(world).phase !== "dark") throw new Error("the dark came down early");
+    const frame = drawn(world, "p1", 1, () => {}).text;
+    const fills = [...blackAlphaByX(frame).entries()].sort((a, b) => a[0] - b[0]);
+    expect(fills.length).toBeGreaterThan(2);
+    const leftmost = fills[0] as [number, number];
+    const rightmost = fills[fills.length - 1] as [number, number];
+    expect(rightmost[1]).toBe(1);
+    expect(leftmost[1]).toBeLessThan(rightmost[1]);
+    // Past the count, the whole field is under one black.
+    darkened(world);
+    const even = [...blackAlphaByX(drawn(world, "p1", 1, () => {}).text).values()];
+    expect(even.length).toBeGreaterThan(0);
+    expect(Math.min(...even)).toBe(1);
   });
 
   it("lifts the black over a beat once the sim takes the glow away", () => {
