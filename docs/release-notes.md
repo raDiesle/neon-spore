@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 4939a0c7 — THE SURGE, the look: a ribbed bulb over the field with the gauge on its seam read by seat
+
+A look with no shipped alternative. A seven-lobed bulb hung high over the middle column with a dark seam round its equator; the pilot's screen shows the notches on the seam — the next one's band, the slits opened, the ticks to come — and never the pressure, the navigator's shows the pressure as one mark sliding along the seam and never a notch, and the body swells only where the pressure is shown. A grip mark on each flank with the word HOLD under it, and the whole bulb one hit circle for both seats — the first handle in the game taken by both thumbs at once. A burst pinches it dim and shut; the last vent folds it through its own equator and it fades. The twelve events are one family read above the loop (`surge-fx.ts`): the sink, the jet and the jolt.
+
 ## 2026-09-17 · aafa606f — `baseline:blank` writes a renumbering, and says which rows moved
 
 `blank.ts` wrote the file only when a row was added or blanked, so a baseline that already carried an inserted wave's row at yesterday's number, with every row behind it one out, was answered with "nothing to mark" and left failing `baseline.test.ts`. It now writes whenever the renumbered run differs from the file it read, and `fillUnmeasured` reports `moved` (old → new) and `renumber`'s `dropped` beside `added` and `blanked`, so the tool names what it did. A case in `baseline.test.ts` pins the stale-number shape.
