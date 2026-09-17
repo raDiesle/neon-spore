@@ -9761,3 +9761,5 @@ The bottleneck was that the entry had been written from the one file in front
 of the session that wrote it, without looking at the pages either side — so the
 fix it proposed ("a new page, `7d`") named a file that had existed for days.
 Ten minutes of counting turned a wrong task into a real question.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
