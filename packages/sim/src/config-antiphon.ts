@@ -52,6 +52,8 @@ export interface AntiphonConfig {
   antiphonShipRail: number;
   /** Beats the pits erupt for after the right ship, before the wave may end. */
   antiphonOutBeats: number;
+  /** Beats one whole turn of the organ takes under a resting thumb. */
+  antiphonTurnBeats: number;
 }
 
 /**
@@ -81,4 +83,5 @@ export const ANTIPHON_DEFAULTS: AntiphonConfig = {
   antiphonStillBeats: 4,
   antiphonShipRail: 3,
   antiphonOutBeats: 3,
+  antiphonTurnBeats: 8,
 };

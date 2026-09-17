@@ -6,7 +6,7 @@ import {
   antiphonWindow,
   type SimConfig,
 } from "@neon-spore/sim";
-import { type Layout, tileCX } from "./layout.js";
+import { type Circle, type Layout, tileCX } from "./layout.js";
 import { splineInto } from "./spline.js";
 
 /**
@@ -119,7 +119,11 @@ export function antiphonBodyPath(
  * multiplier walked round and splined closed, the way a creature's is.
  * `ANTIPHON_SHIP` is a hull — `HULL`'s own lobes, and the cannon's bump on
  * top — and `lobes` is how many it is drawn with, so a decoy hull can be
- * one that is *subtly wrong* (`antiphonDecoyLobes`).
+ * one that is *subtly wrong* (`antiphonDecoyLobes`). `turn` is how far the
+ * whole contour is turned in place, in radians: the point the shape puts at
+ * angle `a` is drawn at `a + turn`, so the outline keeps its lobes and its
+ * hull's cannon bump and only faces another way — the organ under a
+ * resting thumb (`antiphon-grip.ts`).
  */
 export function antiphonContourPath(
   shape: number,
@@ -127,17 +131,19 @@ export function antiphonContourPath(
   r: number,
   t: number,
   lobes = HULL.lobes,
+  turn = 0,
 ): Path2D {
   const pts: Point[] = [];
   for (let i = 0; i < N; i++) {
     const a = (i / N) * Math.PI * 2;
+    const at = a + turn;
     let m: number;
     if (shape === ANTIPHON_SHIP) {
       m = hullRadiusMul(a, lobes, HULL.depth, HULL.wobble, t, HULL.seed);
       const da = Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2));
       m += 0.4 * Math.exp(-(da * da) / 0.08);
     } else m = antiphonRadiusMul(shape, a, t);
-    pts.push({ x: c.x + Math.cos(a) * r * m, y: c.y + Math.sin(a) * r * m });
+    pts.push({ x: c.x + Math.cos(at) * r * m, y: c.y + Math.sin(at) * r * m });
   }
   const p = new Path2D();
   splineInto(p, pts, true);
@@ -149,6 +155,21 @@ export function antiphonContourPath(
 export function antiphonDecoyLobes(i: number): number {
   const wrong = [10, 14, 9, 15, 8, 16];
   return wrong[i % wrong.length] ?? 10;
+}
+
+/**
+ * Where organ `i` of `n` hangs on the screen shown the organ: under the
+ * body's middle whatever its column, twins `TWIN_GAP` apart by index, at the
+ * perch's height — one circle the drawing fills and the thumb is tested
+ * against (`antiphon-draw.ts`, `antiphon-grip.ts`).
+ */
+export function antiphonOrganCircle(l: Layout, cfg: SimConfig, i: number, n: number): Circle {
+  const c = antiphonCentre(l, cfg);
+  return {
+    x: c.x + (i - (n - 1) / 2) * TWIN_GAP * l.tile,
+    y: antiphonPerch(l, 0).y,
+    r: ORGAN_R * l.tile,
+  };
 }
 
 /** How far out the standing organs are, 0 at the push and 1 grown; 0 while none stands. */

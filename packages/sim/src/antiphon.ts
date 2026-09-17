@@ -1,4 +1,4 @@
-import type { SimConfig } from "./config.js";
+import { type SimConfig, ticksPerBeat } from "./config.js";
 import type { Color } from "./types.js";
 import type { World } from "./world.js";
 
@@ -75,6 +75,15 @@ export interface AntiphonState {
   stillBeat: number;
   /** `world.beat` the right ship was fired on; `-1` while it stands. */
   downBeat: number;
+  /**
+   * Ticks the standing organs have been turned under a hand, back to nought
+   * as each cycle grows: the orientation, and the one thing about this boss
+   * a hand changes (`antiphon-hand.ts`).
+   */
+  turnTicks: number;
+  /** Whose thumbs rest on the organ now — the turn goes on while either does. */
+  heldP1: boolean;
+  heldP2: boolean;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than five. */
@@ -141,6 +150,17 @@ export function antiphonIsOrgan(s: AntiphonState, c: AntiphonCandidate): boolean
 /** The organ standing over `col`, if one is. */
 export function antiphonOrganAt(s: AntiphonState, col: number): AntiphonOrgan | null {
   return s.organs.find((o) => o.col === col) ?? null;
+}
+
+/** Whether a thumb rests on the organ: the turn runs while one does. */
+export function antiphonHeld(s: AntiphonState, player: 1 | 2): boolean {
+  return player === 1 ? s.heldP1 : s.heldP2;
+}
+
+/** How far round the organs have been turned, in thousandths of a turn: a whole turn is `antiphonTurnBeats`. */
+export function antiphonTurnMilli(s: AntiphonState, cfg: SimConfig): number {
+  const ticks = ticksPerBeat(cfg) * cfg.antiphonTurnBeats;
+  return Math.floor(((s.turnTicks % ticks) * 1000) / ticks);
 }
 
 /** Whether the body is collapsing after the right ship. */

@@ -13,6 +13,7 @@ import {
 import { Effects } from "../src/effects.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
+import type { TextBox } from "./canvas-stub.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -68,6 +69,9 @@ function bare(world: World): AntiphonState {
   s.cycleBeat = world.beat;
   s.stillBeat = -1;
   s.downBeat = -1;
+  s.turnTicks = 0;
+  s.heldP1 = false;
+  s.heldP2 = false;
   return s;
 }
 
@@ -100,23 +104,34 @@ function down(world: World): AntiphonState {
   return s;
 }
 
-function drawn(world: World, role: ViewRole, ticks: number): { calls: number; text: string } {
+function drawn(
+  world: World,
+  role: ViewRole,
+  ticks: number,
+): { calls: number; text: string; words: string[] } {
   const log: string[] = [];
+  const texts: TextBox[] = [];
   const { ctx } = runFrames(world, role, ticks, {
     every: 3,
     onCanvas: (c) => {
       c.log = log;
+      c.texts = texts;
     },
   });
-  return { calls: ctx.calls, text: log.join("|") };
+  return { calls: ctx.calls, text: log.join("|"), words: texts.map((t) => t.text) };
 }
+
+const turnWord = (words: string[]): boolean => words.some((w) => w.includes("TURN"));
 
 function count(text: string, colour: string): number {
   return text.split(colour).length - 1;
 }
 
 /** Three frames, with the body bare and then set as `arrange` says. */
-function frame(role: ViewRole, arrange: (world: World) => void): { calls: number; text: string } {
+function frame(
+  role: ViewRole,
+  arrange: (world: World) => void,
+): { calls: number; text: string; words: string[] } {
   const world = hung();
   bare(world);
   arrange(world);
@@ -188,6 +203,38 @@ describe("THE ANTIPHON's body", () => {
     }).text;
     expect(two).not.toBe(one);
     expect(count(two, PALETTE.hullRim)).toBeGreaterThan(count(one, PALETTE.hullRim));
+  });
+
+  it("draws the organ's grip with the word on the pilot's screen, and neither on the navigator's", () => {
+    // The grip mark is the one thing on this body in the rock's grey, and
+    // the word under it the one text; a held mark loses the word.
+    const none = frame("p1", () => {});
+    const up = frame("p1", (w) => void grown(w));
+    expect(count(up.text, PALETTE.rock)).toBeGreaterThan(count(none.text, PALETTE.rock));
+    expect(turnWord(up.words)).toBe(true);
+    expect(turnWord(none.words)).toBe(false);
+    const held = frame("p1", (w) => {
+      grown(w).heldP2 = true;
+    });
+    expect(turnWord(held.words)).toBe(false);
+    expect(held.text).not.toBe(up.text);
+    const hers = frame("p2", (w) => void grown(w));
+    expect(count(hers.text, PALETTE.rock)).toBe(count(frame("p2", () => {}).text, PALETTE.rock));
+    expect(turnWord(hers.words)).toBe(false);
+  });
+
+  it("draws the organ turned as far as the thumb has turned it, on the pilot's screen only", () => {
+    const turned = (role: ViewRole, ticks: number) =>
+      frame(role, (w) => {
+        grown(w).turnTicks = ticks;
+      }).text;
+    const quarter = Math.floor((TPB * CFG.antiphonTurnBeats) / 4);
+    expect(turned("p1", quarter)).not.toBe(turned("p1", 0));
+    expect(turned("p1", quarter)).not.toBe(turned("p1", quarter * 2));
+    // A whole turn is upright again.
+    expect(turned("p1", TPB * CFG.antiphonTurnBeats)).toBe(turned("p1", 0));
+    // And the rail never turns: her screen is the same picture at any turn.
+    expect(turned("p2", quarter)).toBe(turned("p2", 0));
   });
 
   it.each(ROLES)("sinks a pit into the body for every shape named, on %s", (role) => {

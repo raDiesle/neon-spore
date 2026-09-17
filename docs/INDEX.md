@@ -491,6 +491,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the push, the bow, the lobe coming through, the widening, the withdrawal |
 | `packages/sim/src/undertow.ts` | THE UNDERTOW: where you are being hit from |
 | `packages/sim/src/antiphon-hash.ts` | What THE ANTIPHON puts into `hashWorld`, and nothing else |
+| `packages/sim/src/antiphon-hand.ts` | **A thumb resting on THE ANTIPHON's organ**, off the wire, on the tick |
 | `packages/sim/src/antiphon-rail.ts` | **What grows and what she is shown beside it** — one cycle's organs and the rail they are hidden on |
 | `packages/sim/src/antiphon-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE ANTIPHON |
 | `packages/sim/src/antiphon-step.ts` | THE ANTIPHON's clock — the rise, the growth, the window, the sinking, the still and the ship, and the collapse |
@@ -1269,6 +1270,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
 | `packages/render/src/antiphon-fx.ts` | What THE ANTIPHON leaves behind a frame |
 | `packages/render/src/antiphon-shape.ts` | **Where THE ANTIPHON is**, in field pixels: the body hung over the top of the field above row 0 |
+| `packages/render/src/antiphon-grip.ts` |  |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |
 | `packages/render/src/beatbox-tap.ts` | **Player 2's thumb on a soundbox**, and the first press in this game that lands on a *body* and is over the… |
 | `packages/render/src/beatbox-wave.ts` | **The wave of sound a miscounted box sends at the ship**, and the picture this creature is named for |
@@ -1688,6 +1690,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-field.ts` | The states of the things a wave puts on the field: the creatures, and the two bosses that exist |
 | `tools/director/src/poses-field-controls.ts` | The states the ON THE FIELD tab needed a picture of and the gallery did not have |
 | `tools/director/src/poses-field-controls-surge.ts` | THE SURGE with both thumbs on the bulb and the pressure climbing |
+| `tools/director/src/poses-field-controls-antiphon.ts` | THE ANTIPHON with the pilot's thumb on the organ, a quarter turn in |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2042,6 +2045,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-orrery.ts` | THE ORRERY's ring, as a row of the ON THE FIELD tab — its own file for `field-controls-balloon.ts`'s reason |
 | `tools/director/src/field-controls-sinew.ts` | THE SINEW's two handles, in a file of their own |
 | `tools/director/src/field-controls-surge.ts` | THE SURGE's one handle, in a file of its own |
+| `tools/director/src/field-controls-antiphon.ts` | THE ANTIPHON's one handle, in a file of its own |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |

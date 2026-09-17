@@ -21,6 +21,7 @@ import type { HoldSpec } from "./spec.js";
  *   --hold sinewRight=0,y=500       and the navigator's, half a tile
  *   --hold surgeBulb=0              THE SURGE: the pilot's thumb on the bulb
  *   --hold surgeBulb2=0             and the navigator's, on the same bulb
+ *   --hold antiphonOrgan=0          THE ANTIPHON: the pilot's thumb on the organ
  *
  * THE CHOIR's two are the only handles here whose **sign** is the whole of the
  * gesture rather than a direction the picture happens to take: the left arrow
@@ -117,6 +118,7 @@ export function parseHold(value: string): HoldSpec[] {
     "sinewRight",
     "surgeBulb",
     "surgeBulb2",
+    "antiphonOrgan",
   ];
   if (!DRAGS.includes(name0)) {
     throw new Error(`--hold ${value}: unknown control. One of prime=red|cyan, ${DRAGS.join(", ")}`);

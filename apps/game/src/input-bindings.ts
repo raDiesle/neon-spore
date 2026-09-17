@@ -1,6 +1,7 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { Layout } from "@neon-spore/render";
 import type {
+  AntiphonState,
   Creature,
   MazeState,
   OrreryState,
@@ -86,6 +87,9 @@ export interface Bindings {
   /** THE SURGE, when it is the boss up: one bulb both seats take
    * (`render/surge-grip.ts`). */
   surge: () => SurgeState | null;
+  /** THE ANTIPHON, when it is the boss up: the organ, on the screen shown it
+   * (`render/antiphon-grip.ts`). */
+  antiphon: () => AntiphonState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

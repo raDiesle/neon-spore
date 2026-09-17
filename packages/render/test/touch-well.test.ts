@@ -43,6 +43,7 @@ function wellField(seat: 1 | 2 = 1, cannonCol = 5): Field {
     orrery: null,
     sinew: null,
     surge: null,
+    antiphon: null,
     controls: controlSet("default"),
     faults: [],
     well: true,

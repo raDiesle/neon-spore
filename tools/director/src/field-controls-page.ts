@@ -1,4 +1,5 @@
 import type { FieldControlDef } from "./field-control-def.js";
+import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
@@ -221,6 +222,8 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...SINEW_CONTROLS,
   // THE SURGE's one, the first taken by both seats (`field-controls-surge.ts`).
   ...SURGE_CONTROLS,
+  // THE ANTIPHON's one, the first on one screen only (`field-controls-antiphon.ts`).
+  ...ANTIPHON_CONTROLS,
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

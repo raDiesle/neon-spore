@@ -48,6 +48,9 @@ export function installAntiphon(world: World): AntiphonState {
     cycleBeat: world.beat,
     stillBeat: -1,
     downBeat: -1,
+    turnTicks: 0,
+    heldP1: false,
+    heldP2: false,
   };
   world.events.push({ type: "antiphonEnter", col: midCol(world.cfg) });
   return s;
@@ -68,6 +71,9 @@ function endCycle(world: World, s: AntiphonState): void {
 /** This cycle's organs push out, and the rail is laid. */
 function grow(world: World, s: AntiphonState): void {
   s.cycleBeat = world.beat;
+  // A new organ pushes out the way up its contour was drawn; a thumb still
+  // resting from the last one goes on turning this one from there.
+  s.turnTicks = 0;
   const organs = growCycle(world, s);
   for (const o of organs) {
     if (o.shape === ANTIPHON_SHIP) {

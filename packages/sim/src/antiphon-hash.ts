@@ -19,6 +19,8 @@ export function antiphonHashParts(s: AntiphonState): number[] {
     s.cycleBeat,
     s.stillBeat,
     s.downBeat,
+    s.turnTicks,
+    (s.heldP1 ? 1 : 0) + (s.heldP2 ? 2 : 0),
     s.organs.length,
     s.rail.length,
     s.pits.length,

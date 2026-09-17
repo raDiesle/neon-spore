@@ -32,7 +32,8 @@ export type DragTarget =
   | "orreryRing"
   | "sinewLeft"
   | "sinewRight"
-  | "surgeBulb";
+  | "surgeBulb"
+  | "antiphonOrgan";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -121,4 +122,15 @@ export type DragTarget =
  * (`surge-hand.ts`): the second lift inside a beat of the first is what the
  * pressure is judged on. No `id`, for `orreryRing`'s reason: one bulb, and
  * it is the boss.
+ */
+
+/**
+ * `antiphonOrgan` is the fourteenth, and the first that is **an aid rather
+ * than an action**: a thumb resting on THE ANTIPHON's organ turns it slowly
+ * in place and lifting stops it, and nothing about the fight is changed by
+ * it — what is bought is a second viewing angle on a shape one seat has to
+ * describe to the other (`antiphon-hand.ts`). The press reports nothing but
+ * `on`, like the bulb's, and either seat may send it; the organ is drawn on
+ * the pilot's screen alone, so his is the thumb that finds it. No `id`, for
+ * `orreryRing`'s reason: whatever stands turns, and it is the boss.
  */

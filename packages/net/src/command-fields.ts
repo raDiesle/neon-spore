@@ -17,7 +17,7 @@ export const COLORS = ["red", "cyan"] as const;
 export const DRAG_TARGETS: readonly DragTarget[] = [
   "mazeString", "wardenTether", "lidString", "gripBody", "choirLeft", "choirRight",
   "balloonLeft", "balloonRight", "crank", "orreryRing", "sinewLeft", "sinewRight",
-  "surgeBulb",
+  "surgeBulb", "antiphonOrgan",
 ];
 
 export const isColor = (x: unknown): x is Color =>

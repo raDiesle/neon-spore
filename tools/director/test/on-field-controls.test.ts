@@ -104,6 +104,12 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // `render/surge-grip.ts` (`docs/spec/bosses.md` §11.28).
     case "surgeBulb":
       return target;
+    // `antiphonOrgan` is the first on one screen only: heard by
+    // `sim/antiphon-hand.ts` from either seat, answered on the organ by
+    // `render/antiphon-grip.ts` where the organ is drawn, which is the
+    // pilot's screen and never the navigator's (`docs/spec/bosses.md` §11.31).
+    case "antiphonOrgan":
+      return target;
     default:
       return assertNever(target);
   }
@@ -207,6 +213,7 @@ const FIELD: Field = {
   orrery: null,
   sinew: null,
   surge: null,
+  antiphon: null,
   controls: controlSetForWave(0),
   faults: [],
   well: false,

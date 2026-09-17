@@ -145,6 +145,7 @@ describe("the stage's pointer conversion", () => {
         orrery: null,
         sinew: null,
         surge: null,
+        antiphon: null,
         controls: controlSet(undefined),
         faults: [],
         well: false,

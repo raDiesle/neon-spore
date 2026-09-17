@@ -1,5 +1,6 @@
 import type { ControlSet } from "@neon-spore/content";
 import type {
+  AntiphonState,
   Creature,
   MazeState,
   OrreryState,
@@ -105,6 +106,16 @@ export interface Field {
    * (`surge-grip.ts`).
    */
   surge: SurgeState | null;
+  /**
+   * THE ANTIPHON, if it is the boss running, `null` otherwise. **Required,
+   * and stated rather than defaulted**, for the reason the five above are,
+   * with this boss's own twist: the organ is on one screen only, so the hit
+   * test already answers nothing on the navigator's, and a caller that
+   * quietly meant `null` would make the pilot's the same — a thumb resting
+   * on the organ to turn it landing on the rocks behind it instead
+   * (`antiphon-grip.ts`).
+   */
+  antiphon: AntiphonState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

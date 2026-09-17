@@ -3,11 +3,13 @@ import {
   type AntiphonCandidate,
   type AntiphonState,
   antiphonIsOrgan,
+  antiphonTurnMilli,
   type Color,
   type SimConfig,
   type World,
 } from "@neon-spore/sim";
 import type { AntiphonFx } from "./antiphon-fx.js";
+import { drawAntiphonGrip } from "./antiphon-grip.js";
 import {
   antiphonBodyPath,
   antiphonCentre,
@@ -15,6 +17,7 @@ import {
   antiphonDecoyLobes,
   antiphonFade,
   antiphonGrowPhase,
+  antiphonOrganCircle,
   antiphonPerch,
   antiphonPitSpot,
   antiphonStill,
@@ -22,7 +25,6 @@ import {
   ORGAN_R,
   PIT_R,
   RAIL_R,
-  TWIN_GAP,
 } from "./antiphon-shape.js";
 import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
@@ -34,7 +36,8 @@ import { showsAntiphonOrgan, showsAntiphonRail } from "./view-role-clocks-b.js";
  * **THE ANTIPHON**: a smooth violet body hung over the top of the field
  * above row 0, the pits of the shapes already named sunk into it in the
  * order they were taken, and — on one screen — the organ it has grown
- * hanging under its middle in the body's own violet, on the other every
+ * hanging under its middle in the body's own violet, turned the way the
+ * pilot's thumb has turned it with its grip under it, on the other every
  * candidate on the rail hanging under its column in its colour, with the
  * window running out along the underside (§11.31).
  *
@@ -76,15 +79,29 @@ export function drawAntiphon(
     drawPit(ctx, l, cfg, i, s.pits[i] ?? 0, time, fade);
   }
   if (showsAntiphonOrgan(l.role)) {
-    const c = antiphonCentre(l, cfg);
-    const y = antiphonPerch(l, 0).y;
+    // The turn under a hand: the organ faces the way the thumb has turned
+    // it, the twins together, and never on the rail (`antiphon-grip.ts`).
+    const turn = (antiphonTurnMilli(s, cfg) / 1000) * Math.PI * 2;
     const n = s.organs.length;
     for (let i = 0; i < n; i++) {
       const o = s.organs[i];
       if (o === undefined) continue;
-      const x = c.x + (i - (n - 1) / 2) * TWIN_GAP * l.tile;
-      drawContour(ctx, l, o, { x, y }, ORGAN_R * grow, PALETTE.hull, PALETTE.hullRim, time, fade);
+      const at = antiphonOrganCircle(l, cfg, i, n);
+      drawContour(
+        ctx,
+        l,
+        o,
+        at,
+        ORGAN_R * grow,
+        PALETTE.hull,
+        PALETTE.hullRim,
+        time,
+        fade,
+        undefined,
+        turn,
+      );
     }
+    if (n > 0) drawAntiphonGrip(ctx, l, cfg, s, time, fade);
   }
   if (showsAntiphonRail(l.role)) {
     let decoy = 0;
@@ -163,10 +180,11 @@ function drawContour(
   time: number,
   fade: number,
   lobes?: number,
+  turn = 0,
 ): void {
   if (rTiles <= 0) return;
   const r = l.tile * rTiles * (1 + 0.03 * Math.sin(time * 4));
-  const p = antiphonContourPath(c.shape, at, r, time * 0.3, lobes);
+  const p = antiphonContourPath(c.shape, at, r, time * 0.3, lobes, turn);
   ctx.save();
   ctx.fillStyle = faded(hex, fade, 0.75);
   ctx.fill(p);

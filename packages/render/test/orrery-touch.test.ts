@@ -72,6 +72,7 @@ function field(world: World, seat: 1 | 2 = 1): Field {
     orrery: rings(world),
     sinew: null,
     surge: null,
+    antiphon: null,
     controls: STANDARD,
     faults: [],
     well: false,

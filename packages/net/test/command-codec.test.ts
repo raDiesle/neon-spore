@@ -45,6 +45,7 @@ const ACCEPTED: Command[] = [
   // and whose *lift* is the command (`surge-hand.ts`).
   { kind: "drag", target: "surgeBulb", on: true, fromMilli: 0 },
   { kind: "drag", target: "surgeBulb", on: false, fromMilli: 0 },
+  { kind: "drag", target: "antiphonOrgan", on: true, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -142,6 +143,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   sinewLeft: true,
   sinewRight: true,
   surgeBulb: true,
+  antiphonOrgan: true,
   crank: true,
   orreryRing: true,
 };

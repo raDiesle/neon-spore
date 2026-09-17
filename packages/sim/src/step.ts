@@ -1,3 +1,4 @@
+import { antiphonHeard, stepAntiphonTurn } from "./antiphon-hand.js";
 import { balloonHeard } from "./balloon-pull.js";
 import { rubBalloons } from "./balloon-rub.js";
 import { onBeat } from "./beat.js";
@@ -142,6 +143,10 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // inside one beat of each other, and the tick is what a lift is timed by
   // (`surge-hand.ts`).
   for (const c of commands) surgeHeard(world, c.player, c.command);
+  // THE ANTIPHON's thumb on the organ, on the tick because what it does is
+  // turn a shape a finger is watching (`antiphon-hand.ts`).
+  for (const c of commands) antiphonHeard(world, c.player, c.command);
+  stepAntiphonTurn(world);
   // And the two hands on THE WEIGHT, which is not a command at all: the press
   // is the ordinary `grip` and `applyCommand` has already recorded it, so what
   // runs here is the clock over it. On the tick with the balloon's rub above

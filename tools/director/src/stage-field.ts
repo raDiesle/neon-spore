@@ -39,6 +39,7 @@ export function stageField(
     orrery: world.boss?.kind === "orrery" ? world.boss : null,
     sinew: world.boss?.kind === "sinew" ? world.boss : null,
     surge: world.boss?.kind === "surge" ? world.boss : null,
+    antiphon: world.boss?.kind === "antiphon" ? world.boss : null,
     controls,
     faults: faultsNow(world),
     well: world.boss?.kind === "well" && showsWell(role),

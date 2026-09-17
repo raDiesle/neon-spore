@@ -49,6 +49,7 @@ function field(seat: 1 | 2, controls: ControlSet): Field {
     orrery: null,
     sinew: null,
     surge: null,
+    antiphon: null,
     controls,
     faults: [],
     well: false,

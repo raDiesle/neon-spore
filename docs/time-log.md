@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE ANTIPHON, the turn under a hand
+
+The third lane of the boss that grows a thing nobody has a word for: the
+design's one concept that wants no time effect. `antiphonOrgan` is a
+`DragTarget` heard from either seat (`sim/antiphon-hand.ts`), `turnTicks`
+counts while a thumb rests and stops when it lifts, the contour is drawn
+turned on the organ and never on the rail, and the handle — the organ's own
+circle, a grip mark, the word — is the first in the game on one screen only
+(`render/antiphon-grip.ts`). Threaded through `Field` and its fourteen
+builders, the frames tool, the director's card and pose, and `controls.md`.
+The lane was cut by a context compaction between its halves.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | THE SURGE's hand and grip as the pattern, `Field` and every builder, the frames hold list, the director's card and pose files |
+| writing | 30 | the sim half and its six tests; the shape's `turn`, the grip, the handle chain, the two render tests, fourteen `antiphon:` lines, the director's two files, `controls.md`, §11.31 |
+| looking | 10 | three frames — the grip missing under a growing organ, the hold too short to see a turn — and the two things they moved |
+| friction | 5 | the barrel edit that missed one page, a test that expected the turn a tick before the grow, the config field the director's table wanted |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the fourteen places a `Field` is built by hand: every
+required field on it is a fourteen-file edit, and the compiler is the only
+thing that finds the fourteenth.
+
 ## 2026-09-17 — boss-implementation — THE ANTIPHON, the look
 
 The second lane of the boss that grows a thing nobody has a word for. Four

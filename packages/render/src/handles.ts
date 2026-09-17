@@ -1,4 +1,5 @@
 import { NO_TETHER } from "@neon-spore/sim";
+import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
 import { hitCircle, type Layout } from "./layout.js";
@@ -28,7 +29,8 @@ import type { Field, Touch } from "./touch.js";
  * `sinew-handles.ts` for THE ORRERY's reason: the rest a thumb is answered at
  * is the rest the ring is drawn from, and one file keeps them one fact.
  * THE SURGE's bulb is the eighth and the first taken by both seats at
- * once, in `surge-grip.ts` for the same reason.
+ * once, in `surge-grip.ts` for the same reason. THE ANTIPHON's organ is the
+ * ninth, on the one screen that shows it, in `antiphon-grip.ts`.
  *
  * There are five of them here — THE MAZE's string, THE WARDEN's rope, THE LID's
  * cord, THE CHOIR's two arrows and THE BALLOON's two handles — and that is why
@@ -63,6 +65,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     choirArrowUnder(l, x, y, field) ??
     sinewHandleUnder(l, x, y, field) ??
     surgeBulbUnder(l, x, y, field) ??
+    antiphonOrganUnder(l, x, y, field) ??
     orreryRingUnder(l, x, y, field)
   );
 }

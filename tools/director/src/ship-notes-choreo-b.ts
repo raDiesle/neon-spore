@@ -115,8 +115,9 @@ export const CHOREO_NOTES_B = {
     "bodies; from antiphonTwinPits two grow; from antiphonFirePits a sinking " +
     "organ fires; from antiphonEchoPits a pit grows again. Full, it is still " +
     "antiphonStillBeats and grows the ship on a rail of antiphonShipRail; " +
-    "the right one bursts it over antiphonOutBeats. See sim/antiphon.ts, " +
-    "sim/config-antiphon.ts.",
+    "the right one bursts it over antiphonOutBeats. A thumb resting on the " +
+    "organ turns it in place, a whole turn in antiphonTurnBeats, and it " +
+    "stops when the thumb lifts. See sim/antiphon.ts, sim/config-antiphon.ts.",
   "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling":
     "Designed on 16 September 2026 in docs/spec/bosses.md §11.14: the boss " +
     "you seal, on a clock nothing slows. hiveSites sites are sown across the " +

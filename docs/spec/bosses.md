@@ -3944,9 +3944,39 @@ the organ drawn on the pilot's and not the navigator's — and the same
 picture there whichever column it stands over — the rail drawn on the
 navigator's and not the pilot's — and the same picture there whichever
 candidate is the organ — twins, the pits, the still, the ship, the fade,
-the gone, and the eruption's reset (nineteen). *The turn under a hand is
-still not built*: a `Hold` that turns the organ is the default set's to
-grow, or the owner's to decline (`new-boss` skill §6, open).
+the gone, and the eruption's reset (nineteen).
+
+**The turn under a hand.** The design's one concept that wants no time
+effect: *while either seat rests a hand on the organ, it turns slowly in
+place and stops when the hand lifts — a rotation, not a rate*, a second
+viewing angle bought rather than a second. Built as a third lane, and as
+the default set's first **turn**. `antiphonOrgan` is a `DragTarget`
+(`sim/drag-targets.ts`) heard by `sim/antiphon-hand.ts` from either seat:
+`on` is that seat's thumb on the glass (`heldP1`, `heldP2`), and while
+either is on and an organ stands, `turnTicks` counts — one whole turn in
+`antiphonTurnBeats` (8), read as `antiphonTurnMilli`, the angle in
+thousandths of a turn. A thumb lifted stops it where it is; the next organ
+grows upright, since `turnTicks` is zeroed on the grow; twins turn
+together; and nothing else reads it — the turn changes no window, sinks
+no organ, names no shape, and `sim/test/antiphon-hand.test.ts` proves it
+changes nothing about the fight and is in the hash. On the screen it is
+`antiphonContourPath`'s `turn`, the contour's own points faced another
+way so the lobes and the hull's cannon bump keep their count, drawn on
+the organ only (`render/antiphon-draw.ts`) and never on the rail — a rail
+that turned with his thumb would put his hand on her screen. The handle
+is the organ's own circle (`antiphonOrganCircle`, one place for the
+drawing and the hit test), a grip mark on its lower flank that fills
+while a thumb is on and the word TURN under it while none is
+(`render/antiphon-grip.ts`), and it is **on one screen only**: the
+navigator is shown the rail and nothing to hold, so her press falls
+through to the field as if no organ hung — the first handle in the game
+that is not on both screens, which is the one departure from the design's
+*either seat*: the simulation hears both, the picture offers one. The
+desk and a film reach it as `--hold antiphonOrgan=0` (`tools/frames/hold.ts`),
+and `FIELD_CONTROLS`, [controls](controls.md) and a gallery pose carry it.
+*Not built*: the design's step 8, where the organ begins turning **on its
+own** as an escalation so the description has to say which way up — that
+is a rate, and the one this paragraph refuses.
 
 **Never watched at tempo.** What the tests say is the mechanism: it rises
 smooth with nothing on the rail and nothing on the field; it holds its
