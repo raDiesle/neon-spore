@@ -641,6 +641,7 @@ named instead.
 ## The cannon slider misses presses on a phone; the buttons never do
 
 - **Found:** 2026-09-17, queue-four-from-the-owner
+- **Taken:** 2026-09-17, claude/queue-the-cannon-slider-misses-presses-on-a-phone-the
 - **Files:** apps/game/src/input.ts, packages/render/src/touch-ship.ts, packages/render/src/layout.ts, tools/director/src/stage-touch.ts, tools/director/src/tuning.ts
 
 The owner, 17 September 2026, testing on his phone: *"the slider control often
