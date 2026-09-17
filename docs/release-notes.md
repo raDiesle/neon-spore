@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 87e13f6b — A red run's closing line carries the failure's message, not only its name
+
+`firstFailure` reads the `<failure>` element's `message` out of the merged JUnit report and `shard.ts` prints it indented under the case's name, capped at twelve lines — so a case that lists what it found, like `loop-once.test.ts`'s carriers, says so at the bottom of the run where a reader's eye is, instead of in a shard's block hundreds of lines up. That test also names the files it found in its own assertion message. The flake the queue entry was about could not be reproduced; the next time it goes red the run will say which file.
+
 ## 2026-09-17 · f87f3ea5 — The ☰ reaches the road that skips the menu
 
 `?play` is the tester's door and what `tools/frames` drives, and it bound no menu at all — so on that road the ☰ in the corner was missing, and on a phone that chip is the whole of the way out of a field: no Escape key, no browser chrome worth the name. A door that locked behind whoever walked through it, on exactly the road walked most often. The owner asked for it, 17 September 2026.
