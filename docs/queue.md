@@ -287,22 +287,6 @@ parting at its gap, the core spitting, the core going out from the centre
 outward. `sound-link-none.ts` is where a moment with no card on the sheet is
 named instead.
 
-## THE CURTAIN is on the field and drawn nowhere
-
-- **Found:** 2026-09-17, claude/render-tests-draw-real-pixels
-- **Taken:** 2026-09-17, claude/queue-the-curtain-is-on-the-field-and-drawn-nowhere
-- **Files:** `packages/render/test/pixel-frame.test.ts`, `packages/content/src/living-look.ts`, `docs/spec/bosses.md`
-
-The pixel test's first run against the trunk, the morning THE CURTAIN's
-simulation landed: wave 74's peak frame has a `curtain` body on the field and
-the picture with it is the picture without it, on both seats. `living-look.ts`
-answers `null` for the kind and names a `curtain-draw.ts` that is not written —
-the look is the lane the simulation's commit promised next, and this is the
-one place the gap is visible without a person looking. Until it is drawn the
-kind sits in `LOOK_PENDING` in the test, which goes red the moment the look
-lands, so that lane deletes the line. A look with no shipped alternative, the
-second exemption, so it lands on the field.
-
 ## `bun run format` cannot fix what `bun run lint` reports about import order
 
 - **Found:** 2026-09-17, claude/boss-taster

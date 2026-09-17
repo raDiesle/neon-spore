@@ -8898,3 +8898,19 @@ every few beats. They are on the ridge now, and nothing on the field can
 reach above row 0.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-the-curtain-is-on-the-field-and-drawn-nowhere — THE CURTAIN's queue entry closes: the look landed at 2a78763c
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `curtain-draw.ts` in the tree, `living-look.ts`'s note, `pixel-frame.test.ts`'s empty `LOOK_PENDING` |
+| deciding | 0 | nothing to decide: the work the entry asks for is on the trunk |
+| writing | 0 | — |
+| friction | 0 | — |
+| landing | 5 | the pixel test for `theCurtain` alone, this entry, the commit, `bun run land` |
+
+The bottleneck was that the entry outlived its work: the lane that drew the
+look (2a78763c) emptied `LOOK_PENDING` and never marked the entry done, so
+it stood in the queue as free work for a day.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*
