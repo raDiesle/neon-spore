@@ -8557,3 +8557,16 @@ two is the whole difference between a port *under* something and a sphere
 have failed on either.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — queue-the-owners-eight-answers — the owner's answers to eight asks, and the two that needed nothing built
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the eight `Asks:` entries, whole, to put each question with its options |
+| deciding | 5 | a recommendation for each, put first |
+| writing | 10 | the `Answered:` lines, the sentence in `wave-types.ts`, two `queue done` |
+| friction | 5 | the guard hook on a heredoc with a doubled backslash; the formatter splitting a pair the `sed` then half-deleted |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was the asking itself: eight questions read in full before
+they could be put in a sentence each.

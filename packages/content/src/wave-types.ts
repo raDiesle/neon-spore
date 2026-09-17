@@ -53,6 +53,14 @@ export type { WaveEntry } from "./wave-entry.js";
  * Keep the lines short. They are read on a phone, under a beat, by someone who
  * is about to have to say them out loud. The heading is the wave's own `name`,
  * so a guide never carries a title of its own.
+ *
+ * **On a wave with a `scene`, the three lines reach no player.** The film is
+ * the screen, and its pages are the film's steps and then the gate; the prose
+ * is drawn only by a guide with no film. The owner decided on 17 September
+ * 2026 that the words stay on those waves all the same, as the director's own
+ * reference — the plainest statement of what the wave is, in the panel and in
+ * a search — so a lane rewriting them for a filmed wave is writing for the
+ * director, not the phone, and should not spend a morning on their look.
  */
 export interface WaveGuide {
   /** The line both screens carry. Never the whole of it. */

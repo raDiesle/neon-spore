@@ -255,7 +255,7 @@ NEW GAME and CONTINUE. **What he wants:**
    or the row stays under NEW GAME with those two answers and a new name.
    `menu.ts` `carryOn`, `menu-link.ts` `continueLine`, `shell.ts`, and the
    CONTINUE cases in `menu-front.test.ts`.
-   - **Asks:** Does CONTINUE leave the PLAY page, the room screen taking the parted run and the chip taking the way back, or stay for those two?
+   - **Answered:** 2026-09-17, by the owner — **It leaves.** The room screen opens on a parting too and the READY circles mend it; a menu opened over a running field closes on its own chip; CONTINUE comes off the PLAY page. `.claude/skills/net-change` before the piece that reaches the wire.
 2. ~~**Difficulty is chosen when creating a new game**, on the room screen~~
    — landed on 15 September 2026: three tempi on step 4, the host's to press
    (`join-room-step.ts`), the other phone reading the pick off its welcome.
@@ -341,40 +341,13 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A filmed wave's prose is drawn to nobody
-
-- **Found:** 2026-09-16, claude/task-queue-work-5f529c
-- **Files:** `packages/content/src/wave-types.ts`, `packages/render/src/briefing.ts`, `packages/render/src/guide-prose.ts`, `packages/render/test/briefing.test.ts`, `tools/director/src/guide-fields.ts`
-- **Asks:** A wave with a rehearsal never shows its `both`/`p1`/`p2` — should those three come off the 59 waves that have one, be drawn as a page in front of the film, or stay as the director's own reference and say so?
-
-`briefing.ts` draws the film whenever `scene.active`, and a stepped guide's
-pages are the film's steps and then the gate (`guide-steps.ts` `guidePages`), so
-`drawProsePage` is reached only by a guide with no film. Six waves have none;
-**59 have a film and prose both**, and on those the prose is written, held to
-its 220-character cap by `briefing.test.ts`, shown in the director's panel and
-seen by no player.
-
-It was found by the lane that rewrote THE BALLOON's three stale sentences: the
-queue entry called that screen *the one screen in the game whose whole job is
-telling two people what a body does*, and on that wave it is not a screen at
-all. The words were wrong and are right now, which is worth having either way —
-what is undecided is whether 59 waves should go on carrying them.
-
-The three answers cost different things. Taking them off is the smallest tree
-and loses the plainest statement of what each wave is, which the director reads
-and a film cannot be searched for. Drawing them in front of the film adds a page
-to every rehearsal, which is the owner's *I don't want to show old cards* said
-again unless it is his own idea. Keeping them as reference costs nothing and
-wants one sentence in `wave-types.ts` saying who the audience is, so the next
-lane does not spend a morning on prose that reaches nobody.
-
 ## The balloon's pop now falls harder than a struck body's break
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
 - **Files:** `packages/render/src/balloon-burst.ts`,
   `packages/render/src/break-look.ts`,
   `packages/render/test/balloon-burst.test.ts`
-- **Asks:** Should a popped balloon's shreds drift like a struck body's pieces now do, or keep falling onto the hull?
+- **Answered:** 2026-09-17, by the owner — **Follow the break.** `BALLOON_SKIN.gravityTiles` down to about 1 and `skid` to 0, so a pop opens and fades in the air; the old "and lighter" clause comes back as a real claim. A look the owner asked for by name — the first exemption — so it lands.
 
 Taking `creature:debris` / `drift` dropped `BREAK_LOOK.gravityTiles` from 14 to
 1, so a struck body's pieces hang in the lane and fade there. `BALLOON_SKIN`
@@ -404,7 +377,7 @@ unattended.
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
 - **Files:** `packages/render/src/lost-shutters.ts`
-- **Asks:** Should the lost screen's plates close over the field as their description says, or keep drawing back off it the way the picture you picked actually does?
+- **Answered:** 2026-09-17, by the owner — **Turn it round, through VERSUS.** Plates that really close, settling over everything but a lit tear in the breach column, offered as a candidate against the picked screen; the words stay as they are, since they already describe the candidate.
 
 `veil` computes `top = -(1 - k) * seam` and `foot = height - (1 - k) * (height
 - seam)`. At `age` 0 both plates cover their halves and the screen is solid; as
@@ -493,37 +466,11 @@ now the band is full-width. An axis cannot drop without its grid.
 and TORCH each have a page whose picture is the lost screen, which stamps WAVE
 LOST at 16% of the play height — 114,73.
 
-- **Asks:** Three, and each can be answered on its own — does a label on a body move the body, go on the far side of it, or stay as it is; does a chart's axis shrink the whole chart into the room under the band or drop the chart as a block the way THE PULSE moves its header (`headerLift`); and does the lost screen take a clearance like the rest or get drawn shrunk inside the page?
+- **Answered:** 2026-09-17, by the owner — **A label on a body stays as it is**, glued to the thing it names; **a chart drops as a block** the way THE PULSE moves its header (`headerLift`); **the lost screen is drawn shrunk inside the page.**
 
 `packages/render/test/guide-plate-room.test.ts` was narrowed to the round's
 name and the run's line on the day this was found, and its header carries the
 same list — widen it back as each site is fixed.
-
-## A scene cannot be chosen in the director, only read
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Files:** `tools/director/src/guide-scene-note.ts`, `tools/director/src/guide-fields.ts`, `packages/content/src/scenes.ts`
-- **Asks:** Should a wave's rehearsal be choosable in the director — a picker over the scene catalogue — or stay something only an act file names?
-
-The half of the entry closed on 16 September 2026 that was not built. The GUIDE
-panel now says which film a wave plays and lists its pages, and that is all it
-does: the scene itself is still carried through untouched, so changing one means
-editing `packages/content/src/waves/act-*.ts` by hand.
-
-The options the answer picks between. **A picker** — a `<select>` over the
-scene catalogue beside the three fields, written back through `serializeEntry`
-the way `controls` already is. It is small, and it makes a wave's rehearsal a
-thing anybody can swap while watching the stage, which since the stage plays the
-draft's guide is now immediate. **Nothing** — a scene is a written film with a
-wave's shape baked into it (`sceneScript` takes the wave index and the config),
-so pointing a wave at another wave's rehearsal is mostly a way to author
-nonsense, and reading which one it plays is all a panel owes. **A picker over a
-shortlist**, the middle answer: only the scenes whose creatures the wave
-actually sends.
-
-Nothing is blocked on this. It is here because the read-only note makes the
-missing control obvious to whoever opens the panel next, and they should find
-the question already asked rather than ask it again.
 
 ## THE THROAT does not haul a pod, and step 10 of its design wants it to
 
@@ -553,7 +500,7 @@ what every other boss that touches pods has done.
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
 - **Where:** local
 - **Files:** `docs/spec/ideas.md`, `docs/asset-catalogue.md`, `tools/shape-sheet/src/drafts/creatures.ts`, `tools/shape-sheet/src/scenes/creatures.ts`, `tools/director/src/backlog.ts`
-- **Asks:** the two HUSK drafts describe a tell the shipped creature does not use — do they stay offered, move to VERSUS, or go?
+- **Answered:** 2026-09-17, by the owner — **They move to VERSUS**, as a second look for the shipped husk mark — the sagging dead-core body offered against the flag on the pod. Then the bullet comes off NOT BUILT YET and the catalogue's count is fixed.
 
 The husk ships: the flag, the wave, the seat-split mark, the deflation, the two
 sounds. Its bullet is still under ◇ NOT BUILT YET in `docs/spec/ideas.md`, and
@@ -649,7 +596,7 @@ it, and the wave's one-sentence test has to still read true afterwards.
 
 - **Found:** 2026-09-17, claude/queue-render-tests-draw-real-pixels
 - **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/test/frame-harness.ts`, `packages/render/package.json`, `tools/frames/pixels.ts`, `tools/frames/svg.ts`
-- **Asks:** Should the render tests be able to draw a frame into real pixels in-process — a native Skia canvas as a dev dependency of `packages/render` — or stay on the stub and leave visibility to the eye?
+- **Answered:** 2026-09-17, by the owner — **Yes — the pixel harness.** A second harness beside `frame-harness.ts` drawing through a native Skia canvas, and a visibility test over every wave's peak frame and every seat.
 
 The stub canvas checks every *argument* a frame hands the canvas — a colour
 that does not parse, a NaN, a negative radius — and is silent about the
