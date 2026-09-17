@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · eecd2c25 — Queue: names.test.ts times out under the full check's fifteen shards
+
+Found while landing the pod:husk-tell drop — shard 8 of 15 red on fourteen timeouts in a file the diff never touched, green alone in under a second.
+
+## 2026-09-17 · b8277813 — `pod:husk-tell` closes with nothing taken: the husk keeps its frame
+
+The owner looked at the pair on 17 September 2026 and rejected both `sag` and `dent`. `bun run versus drop` removed the slot's two directories, regenerated the registry to four candidates, took the row out of the director's `SLOT_POSE` map and wrote the answer to `tools/versus/DECIDED.md`. The shipped mark — a flag on the pod with a white frame on player 2's screen — stays as it was; nothing the game draws changed.
+
 ## 2026-09-17 · 62a350aa — THE BATON tells its second bead from the first, and draws the two become one brighter
 
 The look half of the second bead, a look with no shipped alternative: the twin is the one with the eye — a little smaller than the lead and with a dark pupil at its centre, in its own colour — so which bead is going is a shape and what to shoot is a colour, and neither has to wait for the other. The merged bead is drawn once, a third larger with a second halo and an outer ring and without the pupil, the design's step 13. The bead moves out of `baton-draw.ts` into `baton-bead-draw.ts`, two frame tests per screen prove the pupil and the brightness, and §11.18's *What it draws* says all of it; what is left not built is the merged bead's eleven-act final flight.
