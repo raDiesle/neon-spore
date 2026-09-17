@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 99011cd0 — THE ORRERY's ring is turned by a key, a press line and a film
+
+The ring landed with a real thumb and nothing else: it could not be turned at a desk, could not be photographed, and could not be shown in a guide. THE CLAW's crank has three senders of that stream and each asks the simulation for the rate rather than choosing one; this gives the ring the same three.
+
 ## 2026-09-17 · 53d21977 — Mark the cannon slider's reach done
 
 ## 2026-09-17 · 3658ef8b — A strip on the panel answers its share of the band
