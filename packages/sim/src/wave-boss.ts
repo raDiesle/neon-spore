@@ -6,6 +6,7 @@ import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
 import { installMaze } from "./maze-state.js";
 import { installMirror } from "./mirror.js";
+import { installOrrery } from "./orrery-step.js";
 import { installPinball } from "./pinball-round.js";
 import { installPulse } from "./pulse-round.js";
 import { installReprise } from "./reprise-state.js";
@@ -148,6 +149,17 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // lobe not held is `breachHull` like any other hit (`undertow-step.ts`).
     // The arrivals over it are the wave's own (`bossFillsWave`).
     world.boss = installUndertow(world);
+  } else if (boss?.kind === "orrery") {
+    // No creature and no row again, and this one is *concentric*: three rings
+    // of organs around a core, all of it above the grid and none of it a body,
+    // so the fall loop, the hull and a hand find nothing of it. What it puts on
+    // the field it puts there as meteors — organs off a broken ring and the
+    // core's own fire — which is THE BATON's shed segment exactly, and the one
+    // boss on the choreographed page that fills its own wave: neither the beat
+    // a ring breaks nor the column its organs come off in is writable by an
+    // author, because both are decided by when the pair managed to agree
+    // (`orrery-step.ts`, `bossFillsWave`).
+    world.boss = installOrrery(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

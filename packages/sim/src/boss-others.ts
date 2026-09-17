@@ -1,10 +1,12 @@
 import { stepBaton } from "./baton-step.js";
-import type { BossState, QueenState } from "./boss-state.js";
+import type { QueenState } from "./boss-state.js";
+import type { BossState } from "./boss-union.js";
 import { stepCairn } from "./cairn.js";
 import { stepDiastole } from "./diastole-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
+import { stepOrrery } from "./orrery-step.js";
 import { stepSplice } from "./splice-round.js";
 import { stepStare } from "./stare-step.js";
 import { stepThroat } from "./throat-step.js";
@@ -78,6 +80,16 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // `commands.ts` and `lance-burn.ts` (`undertow-press.ts`).
   if (boss.kind === "undertow") {
     stepUndertow(world, boss);
+    return;
+  }
+  // THE ORRERY on the beat is three orbits that nothing steps — where a gap
+  // is is arithmetic over its anchor — so what is left for the clock is the
+  // core's own fire, the organs coming off a ring that has just been taken,
+  // and THE SLOW opened as an alignment comes up (`orrery-step.ts`). The one
+  // thing that takes a ring off arrives from the top of a column
+  // (`orrery-shot.ts`).
+  if (boss.kind === "orrery") {
+    stepOrrery(world, boss);
     return;
   }
   if (boss.kind === "vane") {

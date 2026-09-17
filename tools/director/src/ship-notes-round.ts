@@ -76,6 +76,20 @@ export const ROUND_NOTES = {
     "Shots pass through the tube on purpose: that is player 2's answer to a " +
     "creature about to be eaten. Nothing is authored per wave. " +
     "See sim/throat.ts, sim/config-throat.ts, sim/throat-pull.ts.",
+  "THE ORRERY — three orbits, and neither of you can see all three":
+    "Three rings about a core in the middle column, coming round every " +
+    "orreryOuterOrgans, orreryMiddleOrgans and orreryInnerOrgans beats — one " +
+    "organ a beat, so the count is the cadence. Every ring is anchored so all " +
+    "three gaps first stand at the bottom of their orbits orreryFirstBeats " +
+    "after the install, and after that whenever the three come round " +
+    "together. A shot up the middle column on such a beat, in the colour the " +
+    "core is showing, takes the outermost ring still standing and sheds " +
+    "orreryDebris of its organs as rocks. From the first break the core " +
+    "spits a rock every orrerySpitBeats down the column its innermost ring " +
+    "is pointing at, never its own and never on a beat the shaft is open. An " +
+    "alignment opens orrerySlowBeats of THE SLOW as it comes up; the naked " +
+    "core takes the beam alone and goes out over orreryOutBeats. Nothing " +
+    "about it is authored per wave. See sim/orrery.ts, sim/config-orrery.ts.",
   "THE UNDERTOW — the boss under the floor, answered downward":
     "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §13: " +
     "the one boss that comes up through the hull. A plate bows for " +

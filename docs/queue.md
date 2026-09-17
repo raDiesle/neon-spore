@@ -722,3 +722,46 @@ under the duty word through `ship-top-rows.ts`, the way the word itself made
 room under the dial, and hold in `frame.test.ts` that no fuse ring's centre is
 within `DIAL_R` of the siren's. The film needs no change; it draws the real
 screen and will show the row where it lands.
+
+## THE ORRERY makes no sound
+
+- **Found:** 2026-09-17, claude/boss-orrery
+- **Files:** packages/sim/src/orrery.ts, packages/sim/src/orrery-step.ts, packages/audio/src/bind-choreographed.ts, tools/director/src/sound-link-none.ts, docs/spec/bosses.md
+
+The simulation shipped without a single event of its own, deliberately: every
+edge a mixer would want is already a field on the state — `brokeBeat` when a
+ring comes off, `spatBeat` when the core fires, `phaseBeat` when it goes out —
+and THE UNDERTOW's own `events-undertow.ts` says an event is for an edge that
+is *not* in the world a frame later. So nothing needed adding to find them.
+But nothing binds them either, and a ring of organs breaking in silence is the
+one part of this fight the pair cannot hear coming.
+
+What to do: decide whether the three moments are read off the state in
+`audio/` the way `bind-choreographed.ts` reads a beat, or whether they earn an
+`OrreryEvent` arm after all — and if they do, say in that file why this boss
+needed one where the state was enough for the picture. Three sounds: a ring
+parting at its gap, the core spitting, the core going out from the centre
+outward. `sound-link-none.ts` is where a moment with no card on the sheet is
+named instead.
+
+## Two `tools/land` tests time out when two lanes check at once
+
+- **Found:** 2026-09-17, claude/boss-orrery
+- **Files:** tools/land/test/reconcile-repo.test.ts, tools/land/test/notes-repo.test.ts, tools/index/test/index.test.ts, tools/check/shard.ts
+
+`bun run land` refused twice in a row with six red tests across three shards,
+every one of them a 5-second `it` timeout around a `git init`, `git clone` or
+`git commit` in a temporary repository — and the same files passed in 8.5
+seconds when run on their own a minute later. What is actually happening is
+load: the shard runner puts fourteen `bun test` processes on the machine and
+another session's `bun run check` was doing the same, so a subprocess that
+normally takes 200 ms takes six seconds. `docs/INDEX.md`'s own completeness
+test took 48 s against a 30 s limit for the same reason.
+
+A landing that is red for a reason the diff cannot cause is worse than a slow
+one: it teaches a session to re-run `land` until it is green, which is exactly
+the habit that lets a real failure through. What to do: give the tests that
+shell out to `git` a timeout that is a multiple of a measured baseline rather
+than a flat 5000 ms — `bun test`'s per-`it` timeout takes a number, and these
+files know they are doing repository work — or serialise the repo-backed files
+onto one shard and give that shard room.

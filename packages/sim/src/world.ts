@@ -1,5 +1,5 @@
 import { emptyRunStats, type RunStats } from "./balance.js";
-import type { BossState } from "./boss-state.js";
+import type { BossState } from "./boss-union.js";
 import { type Briefings, newBriefings } from "./briefing.js";
 import { type SimConfig, ticksPerBeat } from "./config.js";
 import type { PlacedFault } from "./fault-placed.js";

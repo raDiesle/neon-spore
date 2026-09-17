@@ -8090,3 +8090,27 @@ beam, then a window frame, then a sunburst. Four of the seven shots were
 distinct defects and the last was the tuning that says stop.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — boss-orrery — the rings, the shaft and the core's own fire
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | §2 of the choreographed page, then the four bosses it is shaped like — `diastole-step.ts`'s struck hook, `baton-step.ts`'s shed rock, `bullets.ts` and `lance-burn.ts`'s two calls at the top of a column |
+| writing | 55 | `config-orrery.ts`, `orrery.ts`, `orrery-gap.ts`, `orrery-step.ts`, `orrery-shot.ts`, `orrery-hash.ts`, the wave, `bosses.md` §11.21 and seventeen tests |
+| friction | 20 | the design's own arithmetic does not work, and finding out why took a page of it: three coprime orbits put the first window 120 beats out |
+| refactor | 10 | `boss-state.ts` stood exactly on its 250-line limit, so the union of every boss came out into `boss-union.ts` |
+| landing | 15 | the conflict markers another lane committed into `bosses.md`, `check:fast`, `bun run index`, the commits |
+
+The bottleneck was the arithmetic, and it was a design fault rather than a
+misreading. §2 asks for three rings on coprime organ counts and an alignment
+"every fifteen beats at best"; coprime is what makes those two sentences
+contradict each other — 8, 6 and 5 come together every 120 beats, and every
+triple that is genuinely pairwise coprime is worse. What took the time was
+working out that coprimality is the right tool for *two* cadences and the
+wrong one for three, that what the fight actually needs is a short common
+multiple and no *pair* of rings meeting often enough to leak the third, and
+then that no choice of orbits guarantees a window exists at all — so the
+rings are anchored off one number, `orreryFirstBeats`, and the first window is
+placed rather than hoped for.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

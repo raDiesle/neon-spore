@@ -100,6 +100,10 @@ export function serializeBoss(boss: BossEntry): string {
   // And THE UNDERTOW, the fifth of that length: no column, because it draws its own; no
   // health, because the pushes are counted (`sim/config-undertow.ts`).
   if (boss.kind === "undertow") return '{ kind: "undertow" }';
+  // And THE ORRERY, the sixth: no column, because the only column a shot can
+  // reach its core up is the middle of the field; no health, because the three
+  // rings are taken on beats nobody authors (`sim/config-orrery.ts`).
+  if (boss.kind === "orrery") return '{ kind: "orrery" }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

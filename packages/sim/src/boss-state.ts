@@ -1,21 +1,5 @@
-import type { BatonState } from "./baton.js";
-import type { CairnState } from "./cairn.js";
-import type { DiastoleState } from "./diastole.js";
 import type { FleetShip } from "./fleet-board.js";
-import type { GaugeState } from "./gauge.js";
-import type { MazeState } from "./maze-state.js";
-import type { PinballState } from "./pinball.js";
-import type { PulseState } from "./pulse.js";
-import type { RepriseState } from "./reprise-state.js";
-import type { ScoutState } from "./scout.js";
-import type { MirrorState } from "./simon.js";
-import type { SnakeState } from "./snake.js";
-import type { SpliceState } from "./splice.js";
-import type { StareState } from "./stare.js";
-import type { ThroatState } from "./throat.js";
 import type { Color } from "./types.js";
-import type { UndertowState } from "./undertow.js";
-import type { WellState } from "./well.js";
 
 /**
  * Everything the Bulb Queen encounter remembers between beats. It lives in
@@ -206,45 +190,3 @@ export interface FleetState {
   /** Whether it found a hull. render/ only. */
   lastHit: boolean;
 }
-
-/**
- * The boss a wave installed, whichever one it is. A tagged union rather than
- * one widening interface: the six bosses share the slot and nothing else,
- * and a single struct carrying every set of fields would let `boss.ts` read a
- * `tellColor` off a mirror and get `undefined` at runtime with a clean type
- * check behind it.
- *
- * `WellState` is the one member with no fields at all, and it is in `well.ts`
- * for `CairnState`'s reason with nothing left over: a fight's state lives
- * beside its rules, and THE WELL's rules are that nothing about the simulation
- * changes. The tag earns its place in the union because `bossHashParts` pushes
- * it and two devices have to agree which picture they are drawing.
- *
- * `GaugeState` is in here and its fields are in `gauge.ts` rather than beside
- * the other four, for the reason the maze's and the mirror's are in theirs:
- * one file owns a fight's state and nothing else writes it. `CairnState` was
- * the first to *leave* this file rather than never arrive in it — THE CAIRN's
- * four integers took it over its 250-line limit, against a rule this page
- * already states.
- */
-export type BossState =
-  | QueenState
-  | MirrorState
-  | WardenState
-  | CairnState
-  | VaneState
-  | MazeState
-  | GaugeState
-  | FleetState
-  | SnakeState
-  | PinballState
-  | PulseState
-  | WellState
-  | RepriseState
-  | SpliceState
-  | ScoutState
-  | StareState
-  | DiastoleState
-  | BatonState
-  | ThroatState
-  | UndertowState;

@@ -114,6 +114,11 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // drawn from the field being played, and the last one is `midCol` of it
   // (`sim/undertow-step.ts`).
   if (boss.kind === "undertow") return { ...boss };
+  // THE ORRERY has nothing to remap either, and for the strongest form of the
+  // reason: the one column it can be shot up is the middle of the field
+  // whatever the field is, because the rings are concentric about it
+  // (`sim/orrery.ts`).
+  if (boss.kind === "orrery") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

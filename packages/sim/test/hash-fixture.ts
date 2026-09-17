@@ -181,6 +181,10 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // what it eats is the wave's own arrivals, so its difficulty is the wave's
   // and its two clocks are tuning (`config-throat.ts`).
   throat: { kind: "throat" },
+  // THE ORRERY authors nothing either: three orbits and the beat they first
+  // meet on are tuning, and the column is the middle of the field
+  // (`config-orrery.ts`).
+  orrery: { kind: "orrery" },
   // THE UNDERTOW authors nothing either: how many pushes and how long each
   // stands are tuning (`config-undertow.ts`), and what it remembers — which
   // columns are open and how wide — is what the fixture's world has moved by

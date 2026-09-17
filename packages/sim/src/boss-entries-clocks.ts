@@ -100,3 +100,20 @@ export interface ThroatEntry {
 export interface UndertowEntry {
   kind: "undertow";
 }
+
+/**
+ * What a wave authors when it wants THE ORRERY, which is nothing at all — the
+ * fifth in a row, and the first where the *place* is not merely unauthorable
+ * but is the whole of what the design had to give up. No column: the rings are
+ * concentric about a core in the middle of the field, so the one column a shot
+ * can ever reach it up is the middle one, and a wave that moved it would move
+ * the cannon's home rather than the boss. No health: it is three rings and a
+ * core, and which beat each of them can be taken on is arithmetic over three
+ * orbits (`orrery.ts`). The three orbits and the beat they first meet on are
+ * tuning (`config-orrery.ts`), for THE DIASTOLE's reason said about three
+ * cadences instead of two: the pair's job is to *count* them, and a boss whose
+ * arithmetic changed per wave is a boss nobody could ever have learned.
+ */
+export interface OrreryEntry {
+  kind: "orrery";
+}

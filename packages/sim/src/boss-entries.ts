@@ -1,6 +1,7 @@
 import type {
   BatonEntry,
   DiastoleEntry,
+  OrreryEntry,
   StareEntry,
   ThroatEntry,
   UndertowEntry,
@@ -170,12 +171,14 @@ export type BossEntry =
   | DiastoleEntry
   | BatonEntry
   | ThroatEntry
-  | UndertowEntry;
+  | UndertowEntry
+  | OrreryEntry;
 
-// The five that are a clock and author nothing (`boss-entries-clocks.ts`).
+// The six that are a clock and author nothing (`boss-entries-clocks.ts`).
 export type {
   BatonEntry,
   DiastoleEntry,
+  OrreryEntry,
   StareEntry,
   ThroatEntry,
   UndertowEntry,

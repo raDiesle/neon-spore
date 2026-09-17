@@ -21,6 +21,7 @@ type BossId = Extract<
   | "baton"
   | "throat"
   | "undertow"
+  | "orrery"
 >;
 
 /**
@@ -98,6 +99,10 @@ export const BOSS_MECHANICS = {
   },
   baton: {
     what: "A segmented arm hanging from the top of the middle lane, eleven sockets long, with one bright bead standing in the topmost. The bead is safe in a socket and can only be hurt while it is moving between two — and it only moves when the pilot pulls the trigger. The seat that acts is locked out of its own phone for the next beat, so the bead is passed down the arm by strict alternation: he launches it, she shoots it in the air, he launches it again. A launched bead nobody hits lands back where it was; a bead nobody launches in time settles, and a settled bead goes back to the top. Each socket it leaves goes dark for good, the dark ones start dropping off the arm as rocks, the arm starts swinging, and out of the last socket the bead falls as a pod for the maw.",
+    reach: "spawn",
+  },
+  orrery: {
+    what: "Three rings of organs turning about a core in the middle of the field, each ring with one gap in it. A shot up the middle column reaches the core only on a beat every ring still standing has its gap at the bottom of its orbit — and the outer ring is drawn true on both screens, the middle on the pilot's alone and the inner on the navigator's alone, so neither of you can work that beat out by yourself. The rings come round every eight, six and four beats and first meet twelve beats in. A shot that lands in the colour the core is showing takes the outermost ring still standing; the colour changes every time one comes off, three organs come loose and fall as rocks, and the core starts firing a rock of its own down a column every four beats. With every ring gone the core takes nothing but the beam, which means she holds a colour while he keeps the cannon still in a column being shot at.",
     reach: "spawn",
   },
   undertow: {

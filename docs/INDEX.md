@@ -278,6 +278,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-entries-clocks.ts` | **What a wave authors when it wants a boss that is a clock** |
 | `packages/sim/src/boss-kinds.ts` | a tool asks which bosses exist, or whether one is the whole wave — `BOSS_KINDS`, a wire value appended never inserted, and `bossFillsWave` |
 | `packages/sim/src/boss-others.ts` | **One beat of whichever boss is not the queen**, which is now thirteen of the fourteen |
+| `packages/sim/src/boss-union.ts` | The boss a wave installed, whichever one it is |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
 | `packages/sim/src/crawler-round.ts` |  |
@@ -317,6 +318,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-coil.ts` | THE COIL's numbers: how far it crosses the field each beat, how far it sinks at a wall |
 | `packages/sim/src/events-coil.ts` | **THE COIL's two**: a dome coming off, and the charge it was holding leaving for the next one |
 | `packages/sim/src/own-step.ts` | **The bodies that move by a rule of their own instead of falling** |
+| `packages/sim/src/orrery-gap.ts` | **Where a gap is on the field**, as opposed to where it is in the beat |
+| `packages/sim/src/orrery-hash.ts` | What THE ORRERY puts into `hashWorld`, and nothing else |
+| `packages/sim/src/orrery-shot.ts` | What a shot that left the top of a column does when THE ORRERY is up |
+| `packages/sim/src/orrery-step.ts` | THE ORRERY's clock: the core's own fire, the organs that come off a broken ring, and the going out |
+| `packages/sim/src/orrery.ts` | THE ORRERY: whether you can agree on **when** |
 | `packages/sim/src/creature-state-gyre.ts` | **THE GYRE's four**: the two the hub carries and the two a body on its rim does |
 | `packages/sim/src/index-bodies.ts` | **The four bodies that wear something**, narrowed to what render/ and the tools actually ask of each |
 | `packages/sim/src/pod-effects.ts` | What a pod *gives*, once the mouth has closed on it |
@@ -399,6 +405,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
 | `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how many times it pushes up through the floor in each part of the fight |
 | `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth hangs |
+| `packages/sim/src/config-orrery.ts` | **THE ORRERY's numbers**: three orbits, the beat they first come together on |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |

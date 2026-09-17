@@ -2127,3 +2127,152 @@ one is beam-only, the seat under the cannon is swallowed and the shield's is
 not, the last lobe is held down or comes through, the wave stays open until
 the body has passed, and the same run fingerprints the same way twice
 (`sim/test/undertow.test.ts`).
+
+## 11.21 THE ORRERY — three orbits, and neither of you can see all three
+
+*Simulation built 17 September 2026. The design is
+[bosses-choreographed](bosses-choreographed.md) §2, and this section is the
+record of what shipped — including four places where it shipped differently
+from the design, each said here by name. The picture is not drawn yet and the
+hand on the ring is not built yet; both are lanes named on that page's own
+table before this one was started.*
+
+> The one where you each see two of the three rings.
+
+**The question.** *Whether you can agree on a beat you are each half-blind
+to.* The design page puts it next to THE QUEEN and that comparison is the
+whole boss: she asks **which column**, and this asks **which beat** — and
+makes the answer uncomputable from either seat alone.
+
+**The shape.** A core in the middle column with three concentric rings of
+orbiting organs around it, each ring with exactly one gap. A ring's organ
+count is also the beats it takes to come round, one organ a beat, so the count
+*is* the cadence: `orreryOuterOrgans` 8, `orreryMiddleOrgans` 6,
+`orreryInnerOrgans` 4. Nothing of it is a body — no creature, no row — so the
+fall loop, the hull and a hand find nothing of it, and the only thing that
+ever reaches it is a shot that left the top of a column (`sim/orrery.ts`,
+`sim/wave-boss.ts`).
+
+**The column is never in question, and that is the first departure.** The
+rings are concentric about the core, so a shot that passes all three gaps
+arrives at the middle of the field and nowhere else: `orreryCoreCol` is
+`midCol` and the cannon is parked in it for the whole fight. The design's beat
+list has player 2 *calling which column the gap will stand over* and player 1
+sliding the cannon there, which would have made a second QUEEN out of a boss
+the same page says is the opposite of one. What the pair cannot compute apart
+is the moment, and the moment is all this asks for.
+
+**A gap's place is a function of the beat.** Each ring carries where its gap
+stood on `anchorBeat`, as a slot of its own orbit, and slot 0 is the bottom of
+the ring — the one slot a shot can pass through (`orreryGapSlot`,
+`orreryRingOpen`). Nothing is stepped. That is THE THROAT's rule and this boss
+is the reason it was written down in general terms: `orreryNextOpen` answers a
+question about a beat that has not happened yet, which is the only number
+player 2's readout will ever want, and a stepper cannot answer it.
+
+**The three orbits are not coprime, and the design says they should be — the
+second departure.** Coprime is the right tool for *two* cadences that must
+meet rarely, which is THE DIASTOLE's 3 against 5 meeting every 15 beats and on
+no beat between. For *three* it maximises exactly the number this fight cannot
+afford: 8, 6 and 5 as the page asks come together every **120** beats, which is
+a wave and a half of waiting for one shot. 8, 6 and 4 come together every 24.
+What a shared factor actually costs is that two rings meet oftener than three
+do, and that is not a leak — a seat watching two gaps cross knows nothing
+whatever about the third, which is the only secret this boss keeps.
+
+**Every ring is anchored off one number**, `orreryFirstBeats` 12, so that all
+three gaps first stand at the bottom of their orbits twelve beats after the
+wave puts the boss up (`orreryAnchors`). Three residues picked apart need not
+ever come together, and with orbits that share factors they usually do not: a
+boss that could install itself unbeatable is not a boss.
+
+**Per-seat truth is the fight.** The outer ring is drawn true on both screens,
+the middle on player 1's alone and the inner on player 2's alone; on the other
+screen each is an unbroken grey arc with no gap in it at all. So the arithmetic
+has to be done out loud, in halves, by two people who can each check exactly
+one third of the other's work. That is the design's `PerSeatTruth`, and it is
+the one part of this boss that is entirely the picture's: the simulation knows
+where every gap is and says so to anybody who asks, exactly as it does for
+THE QUEEN's two marks. The split lives in `render/view-role.ts` when the look
+lands.
+
+**Health is the rings, outermost first.** A landed shot takes the outermost
+ring still standing (`orreryBreak`), so the arithmetic gets *easier* as the
+fight goes on — three gaps, then two, then one — while the blindness gets
+worse: the last gap left is the inner one, which player 1 cannot see at all,
+and he fires on her word alone. Three things have to be true for a shot to
+land and each belongs to a different half of the pair: the column is the
+core's, the beat is one every unbroken ring is open on, and the colour is the
+one the core is showing, which **changes every time a ring comes off** so that
+a pair who learned it once has to read it again. A shot on a closed shaft
+costs nothing and is not even a reject — it is armour both screens were
+drawing. A shot in the wrong colour is a colour miss and nothing else
+(`sim/orrery-shot.ts`).
+
+**It fills its own wave, which is the third departure — and the page asks for
+this one to be said out loud with its reason.** THE DIASTOLE's lane wrote down
+that a boss on that page is fed by its wave and not by itself. This is the
+exception it allowed for: a ring that comes off sheds `orreryDebris` 3 of its
+organs as ordinary meteors, and from the first break the core spits one of its
+own every `orrerySpitBeats` 4 beats. Neither the beat a ring breaks on nor the
+column its organs come off in is writable by an author, because both are
+decided by *when the pair managed to agree* — which is the whole of what this
+fight is about. Three organs rather than the ring's whole eight is the fourth
+departure and the smallest: eight rocks arriving on one beat is a wave, and
+this is meant to be a consequence.
+
+**The core never spits down its own column**, and the rule pays for itself
+twice. A meteor cannot be shot, so a rock spat down the shaft would stand in
+the only column the pair is allowed to fire up, for the fifteen beats it takes
+to fall, with nothing either of them able to do about it. And a core aiming at
+the seat directly beneath it is a boss that does not have to be read. It is
+silent on a beat the shaft is open for the same reason said about the moment
+rather than the place: **the beat the pair can reach the core is the one beat
+the core does not reach them** (`sim/orrery-step.ts`).
+
+**Which column a rock does come down** is the column the innermost ring still
+standing is pointing at (`orreryGapCol`), and that number is a triangle rather
+than a circle's own cosine. A gap that crossed the field fast in the middle and
+hung at the walls — which is what an orbit at a constant angular rate looks
+like from below — cannot be counted in beats by somebody who is also talking.
+A gap that moves an even share of its reach per organ can: *three out, coming
+back*. The organs are drawn on the circle where they belong; it is the gap the
+pair reads, and it reads evenly.
+
+**THE SLOW, in one place, and it is the whole design.** `orrerySlowBeats` 2
+opens on the beat before an alignment and runs through it, so a window one beat
+wide is about three seconds of real time for a pair to say *now* across a voice
+delay. This is the concept THE SLOW was ruled in for
+(`docs/decisions.md` #33): three rings on integer cadences are the entire
+boss, and stretching the *rings* would break the arithmetic the pair has been
+doing, where stretching the second breaks nothing.
+
+**The finish is the lance and nothing else.** With every ring gone the core is
+naked and an ordinary bolt is spent on it: she holds a colour for
+`lancePrimeBeats` while he keeps the cannon still in a column the core is
+spitting rocks down, and neither half of that is worth anything without the
+other. The beam standing in the column takes it, and it goes out over
+`orreryOutBeats` 5, slowed for the whole of it, because that is the picture
+this fight was for.
+
+**The fingerprint is anchors rather than positions** (`sim/orrery-hash.ts`).
+Nothing about a ring is stepped, so there is no position to compare: two
+devices agree about where every gap is exactly when they agree about `from` and
+`anchorBeat`, and one beat out is a pair firing into armour on one screen and
+into the core on the other.
+
+**Nothing drawn and nothing sounded.** The picture is the next-but-one lane on
+the choreographed page's table; until it lands, wave 70 shows a boss with no
+body, which is what every boss on that page looked like between its two
+landings. It makes no sound either, and that is queued rather than quietly
+skipped: the state carries the edges a mixer would want — `brokeBeat`,
+`spatBeat`, `phaseBeat` — so nothing needs an event added to find them.
+
+**Never watched at tempo.** What the tests say is the mechanism: the three
+orbits come round on their own counts, the anchors put the first alignment
+where the configuration says, the shaft is open only when every unbroken ring
+is, a shot on the beat takes the outermost ring and changes the colour, one
+off the beat costs nothing, the wrong colour is a colour miss, the organs come
+off, the core spits and never down its own column, the naked core refuses a
+bolt and takes the beam, and the same run fingerprints the same way twice
+(`sim/test/orrery.test.ts`).

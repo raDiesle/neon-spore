@@ -51,6 +51,24 @@ export {
   diastoleStanding,
 } from "./diastole.js";
 export { diastoleBoss } from "./diastole-step.js";
+// THE ORRERY is three clocks rather than one, and the only number the pair
+// ever wants off it is a beat that has not happened yet (`orreryNextOpen`).
+export {
+  ORRERY_PHASES,
+  ORRERY_RINGS,
+  type OrreryPhase,
+  type OrreryState,
+  orreryBoss,
+  orreryCoreCol,
+  orreryDir,
+  orreryGapSlot,
+  orreryNextOpen,
+  orreryOrbit,
+  orreryRingBroken,
+  orreryRingOpen,
+  orreryShaftOpen,
+} from "./orrery.js";
+export { orreryGapCol, orreryReach } from "./orrery-gap.js";
 export {
   STARE_PHASES,
   type StarePhase,

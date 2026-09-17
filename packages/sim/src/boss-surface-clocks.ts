@@ -45,6 +45,10 @@ export {
   diastoleSeat,
   diastoleSince,
   diastoleStanding,
+  // The entry alone, for now: THE ORRERY's rings are read by nothing outside
+  // this package until its picture is drawn, and this file's rule is that a
+  // name here is one something outside `packages/sim` imports.
+  type OrreryEntry,
   STARE_PHASES,
   type StareEntry,
   type StarePhase,

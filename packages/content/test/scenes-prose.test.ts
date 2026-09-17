@@ -78,6 +78,11 @@ const STILL_PROSE = [
   // rehearsal film"). It is a plate of hull bowing on one screen and not the
   // other, and a maw opened under a lobe.
   "THE UNDERTOW",
+  // And THE ORRERY, owed by the lane that draws the three orbits. Its film
+  // would have to show the same ring drawn true on one screen and as solid
+  // armour on the other, which is the whole boss and not a thumb landing
+  // anywhere; until the rings are drawn there is nothing to shoot it against.
+  "THE ORRERY",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -103,9 +108,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says seventy-four of eighty-three";
-    expect(guided.length, fix).toBe(74);
-    expect(WAVES.length, fix).toBe(83);
+    const fix = "update §1 of docs/spec/briefings.md, which says seventy-five of eighty-four";
+    expect(guided.length, fix).toBe(75);
+    expect(WAVES.length, fix).toBe(84);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

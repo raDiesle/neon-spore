@@ -1,6 +1,7 @@
 import { batonHashParts } from "./baton-hash.js";
-import type { BossState } from "./boss-state.js";
+import type { BossState } from "./boss-union.js";
 import { diastoleHashParts } from "./diastole-hash.js";
+import { orreryHashParts } from "./orrery-hash.js";
 import { stareHashParts } from "./stare-hash.js";
 import { throatHashParts } from "./throat-hash.js";
 import { undertowHashParts } from "./undertow-hash.js";
@@ -49,6 +50,14 @@ export function clockHashParts(boss: BossState): number[] {
   // asked to answer a hole and the other to plate it (`undertow-hash.ts`).
   if (boss.kind === "undertow") {
     for (const n of undertowHashParts(boss)) out.push(n);
+  }
+  // THE ORRERY, whose numbers are *anchors* rather than positions: nothing
+  // about a ring is stepped, so two devices agree about where every gap is
+  // exactly when they agree about these, and one beat out is a pair firing
+  // into armour on one screen and into the core on the other
+  // (`orrery-hash.ts`).
+  if (boss.kind === "orrery") {
+    for (const n of orreryHashParts(boss)) out.push(n);
   }
   return out;
 }

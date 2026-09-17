@@ -209,6 +209,7 @@ export type {
   GaugeEntry,
   MazeEntry,
   MirrorEntry,
+  OrreryEntry,
   PinballEntry,
   PulseEntry,
   QueenEntry,

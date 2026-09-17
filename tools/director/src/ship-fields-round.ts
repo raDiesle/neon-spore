@@ -100,6 +100,17 @@ export const ROUND_FIELD_GROUP = {
   undertowLastBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowDownBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowSlowBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  // OrreryConfig — three orbits, the beat they first come together on, and
+  // what the core does with the gap once a ring is off it. Every one of them
+  // is a count the pair says out loud (`config-orrery.ts`).
+  orreryOuterOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
+  orreryMiddleOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
+  orreryInnerOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
+  orreryFirstBeats: "THE ORRERY — three orbits, and neither of you can see all three",
+  orrerySpitBeats: "THE ORRERY — three orbits, and neither of you can see all three",
+  orreryDebris: "THE ORRERY — three orbits, and neither of you can see all three",
+  orrerySlowBeats: "THE ORRERY — three orbits, and neither of you can see all three",
+  orreryOutBeats: "THE ORRERY — three orbits, and neither of you can see all three",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

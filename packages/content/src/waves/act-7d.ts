@@ -61,4 +61,16 @@ export const WAVES_ACT_7D: Wave[] = [
     ],
     boss: { kind: "throat" },
   },
+  {
+    id: "theOrrery",
+    name: "THE ORRERY",
+    sentence: "The one where you each see two of the three rings.",
+    guide: {
+      both: "A core hangs in the middle of the field inside three rings of turning organs, and each ring has exactly one gap. A shot up the middle column reaches the core only on a beat when every ring still standing has its gap at the bottom of its orbit. The rings come round every eight, six and four beats, and they first come together on beat twelve.",
+      p1: "The middle ring is true on your screen and grey on hers, so only you know its gap. Keep the cannon in the middle column, say your gap when she says hers, and pull on the beat you both counted to.",
+      p2: "The inner ring is true on your screen alone, and so is the core's colour — load it and say it, because it changes each time a ring comes off. With every ring gone the core takes the beam alone.",
+    },
+    entries: [],
+    boss: { kind: "orrery" },
+  },
 ];

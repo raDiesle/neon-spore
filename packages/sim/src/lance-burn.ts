@@ -4,6 +4,7 @@ import { hullRow } from "./config.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
+import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { firstAlong } from "./shot-reach.js";
 import type { Bullet, Color } from "./types.js";
@@ -130,5 +131,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   // (`diastole-step.ts`).
   vaneStruck(world, b);
   diastoleStruck(world, b, beamBeat(world));
+  // And THE ORRERY, where the beam is the only thing that finishes the fight:
+  // a naked core takes the lance and nothing else (`orrery-shot.ts`).
+  orreryStruck(world, b, beamBeat(world));
   return 0;
 }

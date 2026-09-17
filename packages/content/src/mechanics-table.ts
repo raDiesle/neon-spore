@@ -125,6 +125,7 @@ export const MECHANICS = {
   baton: BOSS_MECHANICS.baton,
   throat: BOSS_MECHANICS.throat,
   undertow: BOSS_MECHANICS.undertow,
+  orrery: BOSS_MECHANICS.orrery,
   vane: {
     what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
     reach: "spawn",

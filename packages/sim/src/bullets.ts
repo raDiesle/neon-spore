@@ -5,6 +5,7 @@ import { hullRow, ticksPerBeat } from "./config.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
+import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-charge.js";
 import { firstAlong } from "./shot-reach.js";
@@ -158,6 +159,10 @@ function sweep(world: World, b: Bullet): boolean {
   if (to < 0) {
     vaneStruck(world, b);
     diastoleStruck(world, b, world.beat);
+    // And THE ORRERY's core, which is three rings up: a bolt that got here on a
+    // beat every gap is at the bottom of its orbit takes the outermost ring
+    // still standing (`orrery-shot.ts`).
+    orreryStruck(world, b, world.beat);
     return false;
   }
   b.row = Math.ceil(to / MILLI);
