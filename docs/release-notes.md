@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · dbd50c85 — A test that drives a repository gets a timeout the machine decides
+
+Fourteen test files shell out to `git` or read the whole tree off disk, and every one of them had bun's flat five-second `it` timeout. On 17 September 2026 `bun run land` refused twice in a row with six red tests across three shards — all of them timeouts around a `git init`, `clone` or `commit` — and the same files passed in 8.5 seconds run alone a minute later. The cause was load: the shard runner puts fourteen `bun test` processes on the machine, and another session was doing the same.
+
 ## 2026-09-17 · fab8685b — The land flake has a second shape: an error that escapes the test
 
 Same contention, but this time git reset threw outside any it's frame, so the shard was red with zero failed tests. Noted on the existing item, because a fix that only raises timeouts would not reach it.

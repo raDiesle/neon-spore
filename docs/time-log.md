@@ -8137,3 +8137,5 @@ The bottleneck was counting: a timeout that scales is arithmetic, but every
 one of the eleven files needed its own `ops` number, and the only honest way
 to get it is to read the test and add up the calls its helpers make as well as
 its own. Fourteen minutes of the writing row is that, not the helper.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
