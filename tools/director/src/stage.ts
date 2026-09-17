@@ -1,4 +1,4 @@
-import { Canvas2DRenderer, handedLayout, type ViewRole } from "@neon-spore/render";
+import { Canvas2DRenderer, DeskSeat, handedLayout, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
   framePhase,
@@ -58,7 +58,10 @@ export function bindStage(
   // stage is the one panel that knows which wave it is standing on
   // (`keys.ts`). Handed the call rather than the set, for the same reason
   // everything else on this line is.
-  const keys: Keys = bindKeys(cfg, () => world.creatures, currentControlSet);
+  // And the two seat keys, which say whose hand the mouse is under TEST
+  // (`render/desk-seat.ts`): held here by the keyboard, read by every hit test.
+  const desk = new DeskSeat();
+  const keys: Keys = bindKeys(cfg, () => world.creatures, currentControlSet, desk);
   // Ink off the end of a mouse, over the field and nowhere else, and none of
   // it on a phone (`stage-trail.ts`).
   bindStageTrail(canvas);
@@ -76,7 +79,7 @@ export function bindStage(
     at,
     layout: () => handedLayout(layout(), world), // answered where it is drawn.
     // What a hit test is handed, read fresh on every press (`stage-field.ts`).
-    field: () => stageField(world, role, currentControlSet(), cfg),
+    field: () => stageField(world, role, currentControlSet(), cfg, desk.seat()),
     push: keys.push,
     world: () => world,
     role: () => role,

@@ -792,6 +792,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/deflect.ts` | Seconds into the press-and-release that opens every bounce (capped at `DEFLECT_LOOK.pressLife`); ordinary |
 | `packages/render/src/depth.ts` | THE FIELD HAS A NEAR EDGE AND A FAR ONE |
 | `packages/render/src/debris.ts` | The pieces a broken body left, still in the air |
+| `packages/render/src/desk-seat.ts` | **Whose hand a desk's one mouse is**, on the screen that shows both seats |
 | `packages/render/src/effects-body.ts` | The transients that belong to **one body** and outlive it by less than a beat: a lure folding to a point, the |
 | `packages/render/src/effects-boss.ts` | The transients that belong to **one boss** and are read above the loop |
 | `packages/render/src/effects-breach.ts` | What a breach looks like — the one event whose answer is not a burst at a point, because the thing that |

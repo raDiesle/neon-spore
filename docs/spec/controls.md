@@ -182,10 +182,15 @@ under the thing it is moving. `render/ship-hand.ts` draws it; a mouse gets the
 same bracket on hover, which is the desktop's half of knowing what a press
 would take hold of before pressing.
 
-**The `test` view is player 1's.** One screen showing both bands still signs a
-finger on the field as player 1 (`apps/game/src/main.ts`), so the two gestures
-that are player 2's are reached there by switching the view, or by the band,
-which has all of them.
+**The `test` view is player 1's, unless a seat key is held.** One screen
+showing both bands signs a finger on the field as player 1 — and **while `1`
+or `2` is held on the keyboard, as that seat**, for every gesture the field
+answers: a press, a hold, a drag, a swipe, a turn (`render/desk-seat.ts`,
+read by the game's `field-input.ts` and the director's `stage-field.ts`). So
+one mouse tries the pilot's mark, then the navigator's, on the same screen;
+what one mouse cannot do is hold both at once, which is the director's pose
+or `bun run frames --hold`. The band has every control of both seats without
+any key.
 
 ## Tried and set aside
 

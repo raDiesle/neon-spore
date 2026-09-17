@@ -4,6 +4,7 @@ import {
   cannonGrab,
   computeLayout,
   GUIDE_LOOK,
+  pointerSeat,
   readyCircles,
   shieldGrab,
   type ViewRole,
@@ -24,7 +25,7 @@ import {
   step,
   type TimedCommand,
 } from "@neon-spore/sim";
-import { bindStageTouch, pointerSeat } from "../src/stage-touch.js";
+import { bindStageTouch } from "../src/stage-touch.js";
 
 /**
  * Split out of `stage.test.ts`, which held this beside two unrelated subjects
@@ -147,7 +148,7 @@ describe("bindStageTouch answers the guide with a hold, and a tap with a step", 
         shieldCol: world.shieldCol,
         beatPhase: 0,
         beat: 0,
-        seat: pointerSeat(role),
+        seat: pointerSeat(role, undefined),
         cfg,
         maze: mazeRound(world),
         warden: world.boss?.kind === "warden" ? world.boss : null,
@@ -374,7 +375,7 @@ describe("bindStageTouch reports the hand on the ship", () => {
         shieldCol: world.shieldCol,
         beatPhase: 0,
         beat: 0,
-        seat: pointerSeat(role),
+        seat: pointerSeat(role, undefined),
         cfg,
         maze: mazeRound(world),
         warden: world.boss?.kind === "warden" ? world.boss : null,

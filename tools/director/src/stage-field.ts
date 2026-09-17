@@ -1,8 +1,7 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { Field } from "@neon-spore/render";
-import { showsWell, type ViewRole } from "@neon-spore/render";
+import { pointerSeat, showsWell, type ViewRole } from "@neon-spore/render";
 import { faultsNow, framePhase, mazeRound, type World } from "@neon-spore/sim";
-import { pointerSeat } from "./stage-touch.js";
 
 /**
  * **What the stage hands a hit test**, and nothing else.
@@ -24,6 +23,8 @@ export function stageField(
   role: ViewRole,
   controls: ControlSet,
   cfg: World["cfg"],
+  /** The seat key held at the desk, if one is (`render/desk-seat.ts`). */
+  seatKey: 1 | 2 | undefined,
 ): Field {
   return {
     creatures: world.creatures,
@@ -32,7 +33,8 @@ export function stageField(
     shieldCol: world.shieldCol,
     beatPhase: framePhase(world),
     beat: world.beat,
-    seat: pointerSeat(role),
+    // Whose hand the mouse is: the role's, or under TEST the held seat key's.
+    seat: pointerSeat(role, seatKey),
     cfg,
     maze: mazeRound(world),
     warden: world.boss?.kind === "warden" ? world.boss : null,

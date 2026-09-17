@@ -2,6 +2,7 @@ import {
   type Field,
   type Hold,
   type Layout,
+  pointerSeat,
   type ShipHand,
   shipHand,
   shipUnder,
@@ -27,27 +28,13 @@ import type { StagePoint } from "./stage-point.js";
  */
 
 /**
- * Whose hand a grab on the field speaks for. `p1` and `p2` are unambiguous —
- * the role bar has already picked a seat, and the mouse is that seat's only
- * hand. `test` shows both seats on the one screen, so a grab there needs its
- * own answer, and player 1 is it.
- *
- * It used to ask THE WARDEN whose turn it was, because that boss clamped one of
- * the two controls and only the *other* seat could pull its line. Nothing
- * alternates any more: the rope is player 1's every cycle and player 2 fires,
- * which is the whole coupling (`packages/sim/src/warden.ts`). Every other grip
- * has no exclusivity at all (`packages/sim/src/grip.ts`, either hand may hold
- * anything), so player 1 is simply the default and `G` — bound to player 2 in
- * `keys.ts` — stays the deliberate way to act as the other seat.
- *
- * So it is the role and nothing else now. It kept a `world` and a `cfg` for as
- * long as a boss had something to say about it; both are gone rather than left
- * unread, because a parameter nobody looks at is the next reader's wrong guess
- * about what decides this.
+ * Whose hand a grab on the field speaks for is `pointerSeat`, in
+ * `render/desk-seat.ts` now: the role's own seat, and under `test` the seat
+ * key held at the desk, player 1 with none. It lived here while THE WARDEN
+ * had an opinion about it and while the test screen's answer was fixed; the
+ * game's field asks the same question and the two hosts share nothing else,
+ * so the rule went where both may call it.
  */
-export function pointerSeat(role: ViewRole): 1 | 2 {
-  return role === "p2" ? 2 : 1;
-}
 
 export interface StageTouch {
   canvas: HTMLCanvasElement;
@@ -145,7 +132,8 @@ export function bindStageTouch({
     // answers, from the same geometry — and the lost screen's two buttons.
     if (briefingHolds(world()) || lostAsks(world())) {
       e.preventDefault();
-      const speaksFor: readonly (1 | 2)[] = role() === "test" ? [1, 2] : [pointerSeat(role())];
+      const speaksFor: readonly (1 | 2)[] =
+        role() === "test" ? [1, 2] : [pointerSeat(role(), undefined)];
       const seats = openingPress({
         world: world(),
         layout: layout(),

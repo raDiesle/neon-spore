@@ -2,10 +2,12 @@ import { controlSetForWave } from "@neon-spore/content";
 import {
   type Circle,
   cannonGrab,
+  DeskSeat,
   flippedLayout,
   handedLayout,
   handedRole,
   type Layout,
+  pointerSeat,
   shieldGrab,
   showsWell,
   type ViewRole,
@@ -95,6 +97,12 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
    * is playing, which is what every other seat split in `view-role.ts` does.
    */
   const layout = (): Layout => flippedLayout(handedLayout(o.layout(), world), world);
+  // The two seat keys, for the screen that shows both seats: while 1 or 2 is
+  // held the mouse is that player's hand on the field (`render/desk-seat.ts`).
+  const desk = new DeskSeat();
+  window.addEventListener("keydown", (e) => desk.down(e.code));
+  window.addEventListener("keyup", (e) => desk.up(e.code));
+  window.addEventListener("blur", () => desk.clear());
   const controls = bindControls({
     canvas,
     buffer,
@@ -102,13 +110,14 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     inStage,
     isOver: () => world.over,
     // The seat decides whose hand a finger on the field is. `test` is both
-    // halves on one screen, so it grips as player 1 and G grips as player 2.
+    // halves on one screen, so it is player 1's unless 1 or 2 is held, and G
+    // grips as player 2 without either.
     //
     // **This device's own seat and not the traded one**, unlike everything else
     // here: a hand on the field is signed on the wire, and the simulation gives
     // a grip to the player who sent it. THE HANDOVER moves panels between
     // screens and moves nobody between seats (`sim/handover.ts`).
-    player: () => (o.role() === "p2" ? 2 : 1),
+    player: () => pointerSeat(o.role(), desk.seat()),
     handed: () => handedOver(world),
     cfg: world.cfg,
     // THE MAZE's string is answered on the field like any other handle, so the

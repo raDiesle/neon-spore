@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
+import { pointerSeat } from "@neon-spore/render";
 import { bindKeyHelp } from "../src/key-help.js";
 import { keyBindings } from "../src/keys.js";
-import { pointerSeat } from "../src/stage-touch.js";
 
 /**
  * THE MOUSE IS ONE HAND, AND IT IS THE ROLE BAR THAT SAYS WHOSE.
@@ -16,14 +16,28 @@ import { pointerSeat } from "../src/stage-touch.js";
 
 describe("pointerSeat", () => {
   test("p1 and p2 are unambiguous: the pointer is that seat's only hand", () => {
-    expect(pointerSeat("p1")).toBe(1);
-    expect(pointerSeat("p2")).toBe(2);
+    expect(pointerSeat("p1", undefined)).toBe(1);
+    expect(pointerSeat("p2", undefined)).toBe(2);
+    // A seat key does not move a phone's pointer off its own seat.
+    expect(pointerSeat("p1", 2)).toBe(1);
+    expect(pointerSeat("p2", 1)).toBe(2);
   });
 
   test("test shows both halves on one screen, and grabs as player 1", () => {
     // Which is also the seat THE WARDEN's rope belongs to, so the one boss
     // that ever had an opinion about this agrees with the default.
-    expect(pointerSeat("test")).toBe(1);
+    expect(pointerSeat("test", undefined)).toBe(1);
+  });
+
+  test("test with 1 or 2 held is that seat's hand — the owner's way to try each seat with one mouse", () => {
+    expect(pointerSeat("test", 1)).toBe(1);
+    expect(pointerSeat("test", 2)).toBe(2);
+  });
+
+  test("the modal lists both seat keys under their own seats", () => {
+    const rows = keyBindings(controlSet("default"));
+    expect(rows.find((b) => b.code === "Digit1")?.seat).toBe(1);
+    expect(rows.find((b) => b.code === "Digit2")?.seat).toBe(2);
   });
 });
 

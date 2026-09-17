@@ -9,6 +9,7 @@ import {
   keyLabel,
   panelSends,
 } from "@neon-spore/content";
+import type { DeskSeat } from "@neon-spore/render";
 import {
   type Command,
   type Creature,
@@ -40,8 +41,10 @@ import { isTyping } from "./typing.js";
  * **What is left is everything that is nobody's button.** W is red and a guard
  * in one press, for the person at a desk who is both seats; G takes hold of
  * the body nearest the hull, as player 2, because the mouse on the stage is
- * player 1's hand and the other seat's grip is the half worth seeing. Neither
- * is a control on any panel, so neither has a slot to be read out of.
+ * player 1's hand and the other seat's grip is the half worth seeing; and 1
+ * and 2, held, make the mouse that seat's hand on the field under TEST, for
+ * every gesture a field answers (`render/desk-seat.ts`). None is a control
+ * on any panel, so none has a slot to be read out of.
  *
  * **Which body `G` takes hold of is not typed out twice either.** This file
  * kept its own `nearestHull` once, differing from the game's in a branch it
@@ -80,6 +83,18 @@ export interface KeyBinding {
 const HOST_KEYS: readonly KeyBinding[] = [
   { code: "KeyW", key: "W", seat: "both", does: "fire red, and guard, together" },
   { code: "KeyG", key: "G", seat: 2, does: "grab the creature nearest the hull" },
+  {
+    code: "Digit1",
+    key: "1",
+    seat: 1,
+    does: "hold: the mouse is this seat's hand on the field (TEST)",
+  },
+  {
+    code: "Digit2",
+    key: "2",
+    seat: 2,
+    does: "hold: the mouse is this seat's hand on the field (TEST)",
+  },
 ];
 
 /**
@@ -121,6 +136,9 @@ export function bindKeys(
    * time would gate the whole session by whichever wave was open first.
    */
   controls: () => ControlSet,
+  /** The two seat keys, fed from here because this is the listener that
+   * already knows a wave's name is being typed (`isTyping`). */
+  desk: DeskSeat,
 ): Keys {
   let pending: { player: 1 | 2; command: Command }[] = [];
   /** Where each seat's strip stands, as this rig believes it. The middle, so
@@ -160,6 +178,7 @@ export function bindKeys(
     if (isTyping(e.target)) return;
     if (held.has(e.code)) return;
     held.add(e.code);
+    if (desk.down(e.code)) return;
 
     const key = deskKey(controls(), e.code);
     if (key !== undefined) {
@@ -191,6 +210,7 @@ export function bindKeys(
   });
   window.addEventListener("keyup", (e) => {
     held.delete(e.code);
+    desk.up(e.code);
     if (e.code === "KeyG") send(2, { kind: "grip", id: NO_GRIP });
     // And whatever this panel puts on this key, let go — present on exactly
     // the controls a thumb stays on (`content/src/control-command.ts`). A
@@ -199,6 +219,8 @@ export function bindKeys(
     const release = key === undefined ? undefined : controlPress(key.control).up;
     if (key !== undefined && release !== undefined) send(key.player, release);
   });
+
+  window.addEventListener("blur", () => desk.clear());
 
   return {
     drain(tick: number): TimedCommand[] {

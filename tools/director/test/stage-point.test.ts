@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { controlSet } from "@neon-spore/content";
-import { computeLayout, computeStage } from "@neon-spore/render";
+import { computeLayout, computeStage, pointerSeat } from "@neon-spore/render";
 import {
   type Command,
   createWorld,
@@ -11,7 +11,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { stagePoint } from "../src/stage-point.js";
-import { bindStageTouch, pointerSeat } from "../src/stage-touch.js";
+import { bindStageTouch } from "../src/stage-touch.js";
 
 /**
  * A CLICK ON A CONTROL LANDS ON THE CONTROL THAT WAS DRAWN.
@@ -138,7 +138,7 @@ describe("the stage's pointer conversion", () => {
         shieldCol: world.shieldCol,
         beatPhase: 0,
         beat: 0,
-        seat: pointerSeat("test"),
+        seat: pointerSeat("test", undefined),
         cfg,
         maze: mazeRound(world),
         warden: null,

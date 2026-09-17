@@ -10384,3 +10384,24 @@ six glyphs, a word and two rings per mark is eight files, and each one is
 its own hundred lines before anything can be drawn at all.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — tutorial-boss-onscreen-actions — the seat keys on the test screen
+
+The owner's own design, built as asked: on the screen that shows both seats,
+the mouse is player 1's hand until `1` or `2` is held, and then that seat's,
+for every gesture the field answers. One rule in `render/desk-seat.ts`, a
+memory of the keys fed by each host's listeners, read where the game and the
+director each sign their pointer. Nothing in `packages/sim`, nothing on the
+wire.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | where each host signs a press — `field-input.ts`, the director's `stage-field.ts` and its own `pointerSeat`, the two `keys.ts` and their `held` sets, `handles.ts`'s `field.seat` reads |
+| writing | 20 | the rule and the class, three wirings, the director's help rows and the game's hint line, three test files, the controls page |
+| looking | 0 | nothing drawn changed |
+| friction | 5 | `docs/INDEX.md` out of date — the standing fix |
+| landing | 5 | `check:fast` twice, the commit, `bun run land --keep` |
+
+The bottleneck was that the director and the game each had their own copy of
+whose hand the mouse is, and neither imports the other: the rule had to move
+to render before either could change.
