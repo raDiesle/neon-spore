@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 71da1875 — THE ANTIPHON, the look: a body that grows what one seat sees and the other names
+
+The boss's second lane, a look with no shipped alternative. Four draft creatures from the shape sheet — REVERB, SMOKE, PRISM and MOULT — are taken as the heads of its four families of contours, sixteen closed outlines in `content/antiphon-contours.ts` that differ by count, depth, wobble and aspect within a family and by kind between them. The body hangs from the top of the field with a slow-waved underside; the organ grows under it on the pilot's screen only, the rail of candidates stands at its columns on the gunner's only, the window is a thread along the top that shrinks from both ends, the pits are small contours on the body's flank, the ship's candidate is the hull's own outline with the cannon's bump and the decoys wear the hull's lobes miscounted, the still dims the whole picture, and a burst erupts one contour per noted pit through the frames that follow. Nineteen frame tests set every state on all three screens and prove the split both ways. The turn under a hand is still not built.
+
 ## 2026-09-17 · 7ea3fa40 — The boss page is ordered by what is left to do, and two ideas older than three days are gone
 
 The owner keeps no boss idea on the page longer than three days, so The Mother (11.1) and The Vessel (11.2) are cut — written 23 August 2026, never built, one waiting on destruction tracking and the other on a second device. What was worth keeping outlived both designs rather than dying with them: a new `## Fixed and learnable` section carries the rule that a boss reacts to *what* the pair did and never to *how well*, and the five places in `sim` and `docs/spec` that were citing it as §11.1 now cite it by name. The Vessel's argument was already `systems.md` 5.2's.
