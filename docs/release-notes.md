@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · daf5029e — THE ANTIPHON turns its organ under a resting thumb
+
+The design's one concept that wants no time effect (bosses-choreographed.md §12): while a thumb rests on the organ it turns slowly in place, a whole turn in `antiphonTurnBeats`, and stops the moment the thumb lifts — a second viewing angle rather than a second. `antiphonOrgan` is a `DragTarget` heard from either seat by `sim/antiphon-hand.ts`; `turnTicks` counts while a thumb is on, is zeroed on the grow so every organ starts upright, turns twins together, changes nothing else about the fight and is in the hash. On the screen the contour is drawn turned on the organ and never on the rail, so nothing of his hand reaches her picture; the handle is the organ's own circle with a grip mark that fills under a thumb and the word TURN while none is — the first handle in the game on one screen only, since the navigator is shown the rail and nothing to hold.
+
 ## 2026-09-17 · f0c9e934 — Every boss entry type reaches a caller by one road, and two full files lose 36 lines
 
 `entries.ts` sat at 250 lines of 250 and `events.ts` at 247, and in both the only reason was a block re-exporting a neighbour's boss types. Both are gone — 225 and 236 — and the asymmetry that made them worth deleting is gone with them: THE SCUTTLE, THE ANTIPHON and THE HIVE had each added a boss without touching `entries.ts`, so three of the thirty-three entry types reached the surface by a different road and a reader following `entries.ts` could not find them. All thirty-three now come out of `boss-entries.ts`, where they are declared.
