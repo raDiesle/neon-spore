@@ -8712,3 +8712,35 @@ numbers in three tests and the catalogue's status line, each with a paragraph
 saying why it stood where it did.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — boss-taster — THE TASTER's simulation, and the ledger it is built on
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the design page's §4, THE GORGE's landing as the list of every file a field boss is a name in, `slow.ts` and `openMouth` for the two precedents this boss leans on, and `balance.ts` for what an inverted rule is allowed to score |
+| writing | 40 | `spend.ts` and its `COPIES` row, `taster.ts`, `taster-step.ts`, `taster-shot.ts`, `taster-hash.ts`, `config-taster.ts`, `events-taster.ts`, `events-bosses.ts`, the twenty registration points, `bind-taster.ts` and `sounds/boss-taster.ts`, the wave and its guide, `taster.test.ts` and `spend.test.ts`, §11.25 |
+| looking | 0 | nothing is drawn: every event is silent until the look lane, and the boss has never been in a frame |
+| friction | 45 | two files went over 250 lines and had to be split mid-write and a third had to be pared; a cascade of typecheck errors, one per unregistered point; the director's group needed three lists rather than the one the skill names; and then thirty-five conflicts against thirty-two commits that landed under the lane |
+| landing | 20 | `check:fast` six times, `bun run index`, `baseline:blank`, the rebase, the commit |
+
+The bottleneck was the trunk moving under an open lane: THE CURTAIN's two
+lanes, THE CRYSTAL and a claim on THE SINEW landed while this one was being
+written, and rebasing onto them was thirty-five conflicted files — every
+barrel a boss is a name in, conflicting on the line above or below the one
+this lane added. None of it was a decision either: each file wanted both
+sides, and the cost was in the syntax slips that taking both sides produces,
+each found by `bunx tsc --noEmit` and fixed one at a time. THE TASTER's
+section renumbered from §11.24 to §11.25 for the same reason, in three code
+comments as well as the document.
+
+Two line limits were hit before that. `taster-step.ts` came out at 258 lines,
+so the tick half moved into `taster-shot.ts` — which is the better file
+anyway, because the beat half asks what the pair is *leaning* on and the tick
+half asks what they are *short* of. Then `events.ts` was already at exactly
+250, so a thirteenth boss arm could not be added at all: seven imports, seven
+arms and seven re-exports collapsed into one each behind `events-bosses.ts`,
+and that file fell to 246 with room for the next boss. A third, the silent
+spark list, is queued rather than split. None of them was a decision, and
+together they cost more than the ledger did.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

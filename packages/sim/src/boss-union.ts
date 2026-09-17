@@ -16,6 +16,7 @@ import type { MirrorState } from "./simon.js";
 import type { SnakeState } from "./snake.js";
 import type { SpliceState } from "./splice.js";
 import type { StareState } from "./stare.js";
+import type { TasterState } from "./taster.js";
 import type { ThroatState } from "./throat.js";
 import type { UndertowState } from "./undertow.js";
 import type { WellState } from "./well.js";
@@ -72,4 +73,5 @@ export type BossState =
   | OrreryState
   | CandleState
   | GorgeState
-  | CurtainState;
+  | CurtainState
+  | TasterState;

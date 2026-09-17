@@ -90,8 +90,6 @@ export {
   gorgePhase,
   gorgeSink,
 } from "./gorge.js";
-// THE ORRERY is three clocks rather than one, and the only number the pair
-// ever wants off it is a beat that has not happened yet (`orreryNextOpen`).
 export {
   ORRERY_PHASES,
   ORRERY_RINGS,
@@ -129,6 +127,28 @@ export {
   stareWatches,
 } from "./stare.js";
 export { stareBoss } from "./stare-step.js";
+// THE ORRERY is three clocks rather than one, and the only number the pair
+// ever wants off it is a beat that has not happened yet (`orreryNextOpen`).
+// THE TASTER keeps no clock but the growth and the re-edge: what it holds is
+// a fan of eleven blades, and the colour of every one of them was read off
+// what the pair had spent by the beat it set (`taster.ts`, `spend.ts`).
+export {
+  TASTER_PHASES,
+  type TasterBlade,
+  type TasterPhase,
+  type TasterState,
+  tasterBladeAt,
+  tasterBoss,
+  tasterGrowing,
+  tasterLean,
+  tasterLifted,
+  tasterOrder,
+  tasterPhase,
+  tasterSoft,
+  tasterStanding,
+  tasterWeak,
+  tasterWindow,
+} from "./taster.js";
 export {
   THROAT_PHASES,
   type ThroatPhase,

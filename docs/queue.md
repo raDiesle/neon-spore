@@ -517,3 +517,53 @@ laying out every rest pose, green in 1.7 s on its own and past five seconds
 when eight shards are on the machine at once. So the shape to look for is not
 only a child process: it is a file whose own work is near the default, and that
 one wants the cap rather than a faster test.
+
+## `bun run format` cannot fix what `bun run lint` reports about import order
+
+- **Found:** 2026-09-17, claude/boss-taster
+- **Files:** `package.json`, `tools/imports/run.ts`
+
+`lint` is `biome check --error-on-warnings .`, with the assist enabled by
+default, so a mis-ordered import block is reported as
+`assist/source/organizeImports  FIXABLE`. `format` is
+`biome check --write --assist-enabled=false .`, which turns that assist off —
+so the one command a lane is told to run **cannot fix the one thing lint is
+failing on**. `bun run imports` does not either: it finds imports nothing uses,
+which is a different rule.
+
+Six files hit it in one lane (a boss adds a name to six barrels), and the way
+past it was `bunx biome check --write --assist-enabled=true <paths>` — a
+command nobody has written down, found by reading the two scripts. Every lane
+that adds an import to an existing block will find the same wall.
+
+The options the answer picks between: turn the assist **on** in `format`, so
+the pair of commands agree and a lane's imports are sorted by the same tool
+that formats them; or turn it **off** in `lint`, so import order stops being a
+red check at all and `bun run imports` stays the only thing that has an opinion
+about an import; or leave both and add a third script, beside `imports`, with
+the incantation in it. The first is one word in `package.json` and is the
+obvious answer — but `--assist-enabled=false` was put there on purpose by
+somebody and the reason is written down nowhere, so finding out what it was
+guarding against is the first half of this item.
+- **Asks:** Should `format` sort imports, should `lint` stop asking, or should the incantation get a script of its own?
+
+## `effects-spark-silent.ts` is at 250 lines and the next boss cannot be added
+
+- **Found:** 2026-09-17, claude/boss-taster
+- **Files:** `packages/render/src/effects-spark-silent.ts`, `packages/render/src/effects-ingest-silent-boss.ts`
+
+The file's own header says what happened the last time it filled up: THE
+CHUTE's one case pushed it over, and the only way to land was to reword two
+comments belonging to other creatures. THE TASTER's twelve names put it at 252
+and it was paid for the same way — by cutting two lines of the taster's own
+paragraph, which is the better half of a bad trade but still prose edited for
+arithmetic rather than for meaning.
+
+The ingest half has already been split along the seam that works: the boss
+events live in `effects-ingest-silent-boss.ts` and the creatures stay behind.
+Doing the same here moves the eight bosses' runs — the baton's, the undertow's,
+the candle's, the gorge's, the curtain's, the fleet's, the maze's and the
+taster's — into a boss file beside it and spreads `SILENT` out of the two
+arrays, which leaves the type guard and its `assertNever` exactly as they are
+because `SILENT` is still one `as const` at the end. Fifteen lines of work and
+the next boss lands without touching anybody's comment.

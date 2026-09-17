@@ -664,4 +664,19 @@ export const COPIES: Copy[] = [
     owner: "packages/sim/src/countdown.ts",
     pattern: /Math\.max\(\s*1,\s*(?:\w+\.)*cfg\.countdownBeats\s*\)/,
   },
+  {
+    // **Which colour the pair has been leaning on** — two windows of the spend
+    // ledger compared. The rule THE TASTER's whole inverted mechanic hangs off
+    // (`docs/spec/bosses.md` 11.25), and the one the ledger was built to
+    // outlive this boss with: the next reader of it is the design page's THE
+    // MOTHER, and the lane that draws the fan wants the same answer to colour
+    // the crest with. A second comparison written out by hand is a screen
+    // showing one lean while the blades grow to another — and on a dead heat
+    // it is worse than that, because `spendLean` returns null and the edge is
+    // rolled off the seeded `Rng`, so a copy that picked a winner anyway would
+    // disagree about a colour two devices must agree about.
+    call: "spendLean",
+    owner: "packages/sim/src/spend.ts",
+    pattern: /spentOver\([^;\n]*spentOver\(|red\s*[<>]\s*cyan|cyan\s*[<>]\s*red/,
+  },
 ];

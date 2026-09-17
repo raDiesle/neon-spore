@@ -12,6 +12,8 @@ import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-charge.js";
 import { firstAlong } from "./shot-reach.js";
+import { spendShot } from "./spend.js";
+import { tasterStruck } from "./taster-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { vaneStruck } from "./vane.js";
 import { MILLI, type World } from "./world.js";
@@ -62,6 +64,10 @@ function launch(world: World, color: Color): void {
   // THE CANDLE eats a flash fired from the column it faces: no bolt, no
   // `fire`, nothing lit — the press is spent on its glow (`candle-step.ts`).
   if (candleEats(world, world.cannonCol)) return;
+  // **The one place an ordinary bolt is counted as spent**, and with the
+  // colour it means rather than the one that was pressed: what a boss tastes
+  // is the ammunition that went past it (`spend.ts`).
+  spendShot(world, means);
   world.bullets.push({
     id: world.nextId++,
     col: world.cannonCol,
@@ -175,6 +181,9 @@ function sweep(world: World, b: Bullet): boolean {
     gorgeStruck(world, b);
     // And THE CURTAIN's core, if the fabric is shoved clear of it (`curtain-shot.ts`).
     curtainStruck(world, b);
+    // And THE TASTER's fan, where the colour that breaks a blade is the one it
+    // is not (`taster-shot.ts`).
+    tasterStruck(world, b);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

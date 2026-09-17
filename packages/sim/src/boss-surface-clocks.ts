@@ -105,6 +105,9 @@ export {
   stareTellLeft,
   stareTurning,
   stareWatches,
+  // THE TASTER's entry, which authors nothing — the director's own guard
+  // narrows on it (`tools/director/src/boss-nothing.ts`).
+  type TasterEntry,
   THROAT_PHASES,
   type ThroatEntry,
   type ThroatPhase,

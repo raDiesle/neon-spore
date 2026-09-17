@@ -25,6 +25,7 @@ type BossId = Extract<
   | "candle"
   | "gorge"
   | "curtain"
+  | "taster"
 >;
 
 /**
@@ -118,6 +119,10 @@ export const BOSS_MECHANICS = {
   },
   curtain: {
     what: "The one boss that is in the way. A membrane seven columns wide hangs a row below the top of the field with weighted lobes along its hem, and behind it a core hides in one column and fires torches down it. No shot reaches the core through the fabric; the membrane is shoved aside instead, one column per hand carried across it, the two of you pulling opposite ways holding it still, and left alone four beats it rolls back over the core. The hem is its health: every six beats two lobes go soft, only the pilot sees which, and a shot into a soft one takes it off — four gone and it slides two columns a shove. The core's column and colour are the navigator's alone while it is covered. Bared, it takes a shot in its own colour, drops its nearest lobe and drifts to a new column and colour; the wrong colour fires a torch at once. Three hits end it. A hem with no lobes left tears off the rail at the next shove, and the naked core fires every second beat until it is put out.",
+    reach: "spawn",
+  },
+  taster: {
+    what: "The one boss that watches what you spend. A crest hangs across the top of the field and grows eleven blades out of itself, middle outward, and the blades are its health. Every blade takes its edge from whichever colour the pair has fired more of over the last thirty beats — and a blade is only struck off by the colour it is not. Its own colour thickens it instead, so the answer to a red edge is cyan, and the harder you lean on one colour the more of the fan you cannot touch. The column of a sheared blade is left soft and swallows a shot for nothing. The majority flipping re-edges every standing blade at once, until the crest itself is cut through four times — after which it can never taste again. With two blades left they fold over the body and refuse every single bolt: only the beam, held in the colour the fan is not, opens them.",
     reach: "spawn",
   },
   undertow: {

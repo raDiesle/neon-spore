@@ -5,6 +5,7 @@ import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
 import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
 import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
+import { TASTER_DEFAULTS, type TasterConfig } from "./config-taster.js";
 import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
 import { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
 
@@ -47,7 +48,8 @@ export interface BossClockConfig
     OrreryConfig,
     CandleConfig,
     GorgeConfig,
-    CurtainConfig {}
+    CurtainConfig,
+    TasterConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -59,4 +61,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...CANDLE_DEFAULTS,
   ...GORGE_DEFAULTS,
   ...CURTAIN_DEFAULTS,
+  ...TASTER_DEFAULTS,
 };

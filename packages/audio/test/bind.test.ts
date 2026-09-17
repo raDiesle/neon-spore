@@ -71,6 +71,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-candle.ts", "export type CandleEvent ="],
     ["packages/sim/src/events-gorge.ts", "export type GorgeEvent ="],
     ["packages/sim/src/events-curtain.ts", "export type CurtainEvent ="],
+    ["packages/sim/src/events-taster.ts", "export type TasterEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -161,6 +162,18 @@ const SAMPLES: Record<string, SimEvent> = {
   curtainFire: { type: "curtainFire", col: 5 },
   curtainTear: { type: "curtainTear", col: 5 },
   curtainOut: { type: "curtainOut", col: 5 },
+  tasterRise: { type: "tasterRise", col: 0, width: 7 },
+  tasterGrow: { type: "tasterGrow", col: 3 },
+  tasterSet: { type: "tasterSet", col: 3, color: "red" },
+  tasterThick: { type: "tasterThick", col: 3, layers: 2 },
+  tasterPare: { type: "tasterPare", col: 3, layers: 1 },
+  tasterShear: { type: "tasterShear", col: 3, left: 9 },
+  tasterCrest: { type: "tasterCrest", col: 3, cuts: 2 },
+  tasterLift: { type: "tasterLift" },
+  tasterTaste: { type: "tasterTaste", color: "cyan" },
+  tasterClose: { type: "tasterClose", col: 2, left: 2 },
+  tasterRefused: { type: "tasterRefused", col: 2 },
+  tasterOut: { type: "tasterOut", col: 2, color: "cyan" },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

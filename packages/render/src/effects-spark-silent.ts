@@ -216,6 +216,24 @@ export const SILENT = [
   "fleetHit",
   "fleetSunk",
   "fleetDown",
+  // THE TASTER's twelve, silent **until the look lane draws it**: nothing of
+  // the fan is on the screen yet, so a transient about a blade shearing would
+  // be a picture of nothing. Every one has a sound (`bind-taster.ts`), and the
+  // boss's state carries what each blade is and how far the crest is cut, so
+  // this list is exactly what the second lane reaches for: the edge
+  // crystallising, the shear, the shiver, the interlock (`bosses.md` §11.25).
+  "tasterRise",
+  "tasterGrow",
+  "tasterSet",
+  "tasterThick",
+  "tasterPare",
+  "tasterShear",
+  "tasterCrest",
+  "tasterLift",
+  "tasterTaste",
+  "tasterClose",
+  "tasterRefused",
+  "tasterOut",
 ] as const satisfies readonly SimEvent["type"][];
 
 /** One of the above, as a type — what the guard narrows the union by. */

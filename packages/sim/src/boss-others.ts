@@ -12,6 +12,7 @@ import { stepMirror } from "./mirror.js";
 import { stepOrrery } from "./orrery-step.js";
 import { stepSplice } from "./splice-round.js";
 import { stepStare } from "./stare-step.js";
+import { stepTaster } from "./taster-step.js";
 import { stepThroat } from "./throat-step.js";
 import { stepUndertow } from "./undertow-step.js";
 import { stepVane } from "./vane.js";
@@ -114,6 +115,14 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // (`grip-push.ts`), and the shots are on the tick (`curtain-shot.ts`).
   if (boss.kind === "curtain") {
     stepCurtain(world, boss);
+    return;
+  }
+  // THE TASTER on the beat is the fan's own clock: a blade out of the crest,
+  // its colour setting off the ledger of what the pair has spent, and the
+  // re-edge once it is hurrying. What a shot does to it is on the tick, from
+  // `bullets.ts` and `lance-burn.ts` (`taster-shot.ts`).
+  if (boss.kind === "taster") {
+    stepTaster(world, boss);
     return;
   }
   if (boss.kind === "vane") {

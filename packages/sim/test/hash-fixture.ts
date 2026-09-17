@@ -204,6 +204,10 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // how far it has been shoved are what the fixture's world has moved by the
   // time it is fingerprinted (`curtain-hash.ts`).
   curtain: { kind: "curtain" },
+  // THE TASTER authors nothing either: the eleven blades are tuning
+  // (`config-taster.ts`), and every edge is read off what the pair has spent
+  // by the time the fixture's world is fingerprinted (`taster-hash.ts`).
+  taster: { kind: "taster" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -547,6 +551,24 @@ function patchBoss(world: World): void {
     boss.lobes[0] = false;
     boss.coreHits = 1;
     boss.tornBeat = 3;
+    boss.outBeat = 4;
+  }
+  if (boss.kind === "taster") {
+    // One blade out of the crest with its edge already set, so `edge` is a
+    // value and not the null a growing blade carries — the walk cannot flip a
+    // null — and one of every other field of the state moved off its start.
+    const first = boss.blades[0];
+    if (first !== undefined) {
+      first.edge = "cyan";
+      first.layers = 2;
+      first.growBeat = 1;
+      first.setBeat = 2;
+      first.shorn = false;
+    }
+    boss.shorn = 1;
+    boss.crest = 1;
+    boss.liftBeat = 3;
+    boss.edgeBeat = 2;
     boss.outBeat = 4;
   }
 }

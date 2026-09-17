@@ -129,6 +129,7 @@ export const MECHANICS = {
   candle: BOSS_MECHANICS.candle,
   gorge: BOSS_MECHANICS.gorge,
   curtain: BOSS_MECHANICS.curtain,
+  taster: BOSS_MECHANICS.taster,
   vane: {
     what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
     reach: "spawn",

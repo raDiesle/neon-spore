@@ -1,12 +1,6 @@
-import type { BatonEvent } from "./events-baton.js";
-import type { CandleEvent } from "./events-candle.js";
+import type { BossEvent } from "./events-bosses.js";
 import type { CreatureEvent } from "./events-creature.js";
-import type { CurtainEvent } from "./events-curtain.js";
 import type { FleetEvent } from "./events-fleet.js";
-import type { GorgeEvent } from "./events-gorge.js";
-import type { SpliceEvent } from "./events-splice.js";
-import type { StareEvent } from "./events-stare.js";
-import type { UndertowEvent } from "./events-undertow.js";
 import type { BreachWeight } from "./hull-damage.js";
 import type { MazeVerdictReason } from "./maze-verdict.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
@@ -231,20 +225,20 @@ export type SimEvent =
    * a square already fired at spends nothing. THE FLEET's five: `events-fleet.ts`.
    */
   | FleetEvent
-  // The bosses' own arms, next door: this file keeps hitting its 250-line limit.
-  | SpliceEvent
-  | StareEvent
-  | BatonEvent
-  | UndertowEvent
-  | CandleEvent
-  | GorgeEvent
-  | CurtainEvent;
+  // The choreographed bosses' own arms, as one union next door: this file has
+  // been at its 250-line limit for four bosses running, and each of them cost
+  // three lines of it (`events-bosses.ts`).
+  | BossEvent;
 
-export type { BatonEvent } from "./events-baton.js";
-export type { CandleEvent } from "./events-candle.js";
-export type { CurtainEvent } from "./events-curtain.js";
+export type {
+  BatonEvent,
+  BossEvent,
+  CandleEvent,
+  CurtainEvent,
+  GorgeEvent,
+  SpliceEvent,
+  StareEvent,
+  TasterEvent,
+  UndertowEvent,
+} from "./events-bosses.js";
 export type { FleetEvent } from "./events-fleet.js";
-export type { GorgeEvent } from "./events-gorge.js";
-export type { SpliceEvent } from "./events-splice.js";
-export type { StareEvent } from "./events-stare.js";
-export type { UndertowEvent } from "./events-undertow.js";

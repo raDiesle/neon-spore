@@ -3,6 +3,7 @@ import { creatureHashParts } from "./hash-creature.js";
 import { faultHashParts } from "./hash-faults.js";
 import { podHashParts } from "./hash-pods.js";
 import { scarHashParts } from "./hull-types.js";
+import { spendHashParts } from "./spend.js";
 import type { World } from "./world.js";
 
 /**
@@ -133,6 +134,10 @@ export function hashWorld(world: World): number {
   // in spite of it (`slow.ts`, `docs/decisions.md` #33).
   push(world.slowFromBeat);
   push(world.slowToBeat);
+  // What the pair has spent, beat by beat (`spend.ts`). Two devices that
+  // disagree about the tally disagree about the colour THE TASTER's next blade
+  // grows in, and therefore about which colour breaks it.
+  for (const n of spendHashParts(world.spend)) push(n);
   push(world.rng.state);
   push(world.guard.tries);
   push(world.guard.deflected);

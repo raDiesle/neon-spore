@@ -6,6 +6,7 @@ import { diastoleHashParts } from "./diastole-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
 import { stareHashParts } from "./stare-hash.js";
+import { tasterHashParts } from "./taster-hash.js";
 import { throatHashParts } from "./throat-hash.js";
 import { undertowHashParts } from "./undertow-hash.js";
 
@@ -73,6 +74,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE CURTAIN: the hem, the soft set, the core and its clocks (`curtain-hash.ts`).
   if (boss.kind === "curtain") {
     for (const n of curtainHashParts(boss)) out.push(n);
+  }
+  // THE TASTER: every blade's edge, thickness and clock (`taster-hash.ts`).
+  if (boss.kind === "taster") {
+    for (const n of tasterHashParts(boss)) out.push(n);
   }
   return out;
 }

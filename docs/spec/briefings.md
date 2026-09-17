@@ -28,8 +28,8 @@ first creature falling. It has two states and the second is optional:
    prose (§3.2). Either way it ends on **the ready gate**: two circles, one per
    seat, each filling while that seat holds and saying READY when it is full.
    The guide passes when both say READY. Only a wave that introduces something
-   new carries one — seventy-eight of the eighty-seven waves today, and a wave with
-   no guide has no circles either.
+   new carries one — seventy-nine of the eighty-eight waves today, and a wave
+   with no guide has no circles either.
 2. **The introduction.** `WAVE 4`, the wave's name, its one sentence. Plain
    text on the field — no panel, no border, nothing to press. It stands for a
    few seconds and passes on its own. Every wave has one, because every wave
@@ -300,19 +300,21 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are sixty of them now**, one per guided wave bar eighteen, and each
+**There are sixty of them now**, one per guided wave bar nineteen, and each
 is authored in `packages/content/src/scenes/` as a page of choreography rather
-than a page of prose. The eighteen that are still the three strings and the two
+than a page of prose. The nineteen that are still the three strings and the two
 circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE CODEX, THE
 SCOUT, THE REPRISE, THE STARE, THE FLIP, THE DIASTOLE, THE BATON, THE THROAT,
-THE HUSK, THE UNDERTOW, THE ORRERY, THE CANDLE, THE GORGE and THE CURTAIN** — and that list is held by
+THE HUSK, THE UNDERTOW, THE ORRERY, THE CANDLE, THE GORGE, THE CURTAIN and THE
+TASTER** — and that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those eighteen is a film nobody has written, and THE SCOUT's, THE
+**Every one of those nineteen is a film nobody has written, and THE SCOUT's, THE
 REPRISE's, THE STARE's, THE FLIP's, THE DIASTOLE's, THE BATON's, THE THROAT's,
-THE HUSK's, THE UNDERTOW's, THE ORRERY's, THE CANDLE's, THE GORGE's and THE CURTAIN's are owed by the lanes that draw them.** THE MINE
+THE HUSK's, THE UNDERTOW's, THE ORRERY's, THE CANDLE's, THE GORGE's, THE
+CURTAIN's and THE TASTER's are owed by the lanes that draw them.** THE MINE
 stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square

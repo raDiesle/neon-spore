@@ -56,6 +56,13 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // and falls only what the pair overfed it with — a vented torch, a spat
   // bead (`gorge-step.ts`). The arrivals the pair must not shoot at are
   // authored, or there is nothing for the restraint to be against.
+  // THE TASTER is the tenth, and the reason is the fight itself: what its fan
+  // tastes is the colours the pair spend *answering the wave*, so a taster
+  // that sent its own bodies would be a boss feeding the ledger it then reads
+  // (`taster.ts`). The design's step 7 — a blade sweeping down and throwing a
+  // rock — is dropped for exactly that, and this page's own ruling says so:
+  // *a boss on this page is fed by its wave, not by itself*
+  // (`docs/spec/bosses-choreographed.md`).
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -65,7 +72,8 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
     kind !== "baton" &&
     kind !== "throat" &&
     kind !== "undertow" &&
-    kind !== "gorge"
+    kind !== "gorge" &&
+    kind !== "taster"
   );
 }
 
@@ -136,4 +144,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "candle",
   "gorge",
   "curtain",
+  "taster",
 ];

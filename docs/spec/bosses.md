@@ -2794,3 +2794,111 @@ third hit puts it out with the wave held two beats after and cleared once it
 is gone; and the same run fingerprints the same way twice and differently for
 another seed (`sim/test/curtain.test.ts`). The look has been seen in a frame
 and never at tempo.
+## 11.25 THE TASTER — the boss that grows armour in the colour you spend
+
+> The one where the colour you keep firing is the colour that stops working.
+
+Designed as §4 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: it is the **first boss in this game with a memory of the
+players**. Every other fight is a rule the pair reads off the field; this one
+reads *them* — what they have actually been firing — and grows its armour in
+it, so the counter-play is a habit rather than a beat.
+
+**The reusable it exists for.** The ledger is a `World` field and not boss
+state (`sim/spend.ts`, `world.spend`): a ring `SPEND_BEATS` (32) long, one slot
+per beat carrying its own beat and a count per colour, written only where a
+colour leaves the muzzle — `launch` in `bullets.ts` and `releaseLance` in
+`lance-burn.ts` — cleared by `startWave` beside `clearSlow`, and hashed whole
+(`spendHashParts`). It is read as a pure function of `world.beat` through
+`spentOver` and `spendLean` and never as a position anything steps, which is
+the discipline `throat.ts` argues for a moving mouth. It is a field of the
+world rather than of this boss because the design page says THE MOTHER (§11.1)
+has been waiting for exactly this, and `spendLean` carries a row in
+`sim/test/copies-table.ts` so the second reader asks rather than re-derives.
+A slot is stale by the beat it carries, which is also what makes it safe
+across `resetClock`.
+
+**It is a fixture, not a body.** `bossFillsWave === false`, so the wave's own
+arrivals fall under it (`content/src/waves/act-7d.ts`, "THE TASTER") — rocks
+for the shield, and three slicks and three bulbs evenly split, because on this
+boss a body answered *with a shot* is a colour the fan will then grow in.
+What `packages/sim` holds is the fan (`sim/taster.ts`, hashed in
+`sim/taster-hash.ts`): `tasterBlades` (11) blades centred on the field, each
+with the colour down its edge, how many layers it takes, the beat it began
+growing and the beat its colour last set; how many are struck off; how many
+shots have gone into the bare crest; the beat the crest opened for good; and
+the four movements — `opening`, `fanning`, `hurrying`, `closed`, then `out` —
+**derived** from those counts rather than stored (`tasterPhase`), at
+`tasterFanShorn` (2) and `tasterHurryShorn` (6) blades gone, and closed with
+`tasterClosedBlades` (2) still up.
+
+**The rule, in one sentence.** A blade comes out of the crest from the middle
+outward (`tasterOrder`, a pure function of the width), takes `tasterGrowBeats`
+(4) beats to decide, and then **sets its edge to whichever colour the pair has
+fired more of** over the last `tasterWindowBeats` (30) beats —
+`tasterFastWindowBeats` (12) once the fight is hurrying, which is the design's
+*it tastes faster* — and
+**a blade is struck off only by the colour it is not**. Its own colour thickens
+it instead, to `tasterThickMax` (2) layers, and the balance sheet reads that as
+the missed colour it was; the other colour takes a layer off and the last layer
+takes the blade. The fan grows one blade at a time while it is opening and
+`tasterFanBlades` (3) at a time after that. Every `tasterEdgeBeats` (8) beats,
+once it is hurrying, every standing blade **re-edges** to the current majority
+at once — the design's *it noticed* — until the crest has been cut through
+`tasterCrestCuts` (4) times, after which it can never taste again
+(`tasterLifted`). The column of a struck-off blade is soft crest: it takes a
+bolt of either colour, counts nothing on the balance sheet, and is still a
+colour spent into the ledger, which is the whole trap. With two blades left
+they **interlock** over the body and no single bolt of either colour touches
+them: only **the beam in the colour the ledger says the pair has spent least
+of** opens the fan (`tasterWeak`, `tasterOut`), and the boss stays installed
+`tasterOutBeats` (2) beats more so the wave cannot end on the beat the fan
+does. The beat an edge sets is the one beat of this fight given THE SLOW,
+`tasterSlowBeats` (1), because it is the moment the pair learns whether their
+last conversation worked.
+
+**Where this departs from the design, and why.** Four places, each argued by
+name. *The rock throw is dropped*: the design's step 7 has a blade sweeping
+down to throw a rock, and a boss that fed the field would be feeding the
+ledger it reads — the page's own ruling is that *a boss on this page is fed by
+its wave, not by itself*, and the reason is written into `bossFillsWave`.
+*A dead heat is a real answer, not a tie broken toward red*: `spendLean`
+returns `null`, a blade's edge is then rolled off the seeded `Rng` the way
+`openMouth` rolls one boss over, and the closed interlock has **no** weak
+colour at all while the pair has spent evenly — the one moment in this fight
+where the trap runs the other way and they have to lean *deliberately* before
+the beam goes in. *The crest counts nothing*: the design calls the gap soft and
+wet without saying what it scores, and the balance sheet counts joint colour
+moments (`balance.ts`) — the crest is the one target here with no colour, so
+scoring it either way would make the pilot's job read as a mistake.
+*What is counted is the ammunition, not the thumb*: `spendShot` takes the
+colour the shot **is** rather than the one pressed, so THE CODEX's swap is a
+real lean, because what a boss tastes is what went past it (`codex.ts`).
+
+**What is not built.** Everything the pair would see. There is no picture of
+the crest, of a blade, of an edge thickening or of the fan unlocking: the
+twelve events are listed silent in `render/src/effects-ingest-silent-boss.ts`
+and `effects-spark-silent.ts` until the look lane draws them, the wave's guide
+is prose rather than a film (`content/test/scenes-prose.test.ts`), and neither
+seat is yet shown anything the other is not — the split the guide promises,
+the edges on one screen and the ledger on the other, is a `showsX` predicate
+the second lane owes. The twelve sounds are bound and panned
+(`audio/src/bind-taster.ts`, `sounds/boss-taster.ts`) and every one of them is
+in `sound-link-none.ts`, because there is no card to hang them on yet.
+
+**Never watched at tempo.** What the tests say is the mechanism: it arrives
+centred with nothing out of the crest, opens from the middle outward one blade
+at a time, sets an edge to the colour the pair has been leaning on and slows
+that beat, rolls a dead heat off the seed identically on two devices, shortens
+its window once it is hurrying, thickens to the cap and no further under its
+own colour while counting the miss, pares and then shears under the other
+while counting the hit, ignores a shot off the crest's ends and one at a blade
+that has not decided, swallows either colour into a shorn column for nothing
+and lifts the crest once and once only, re-edges the whole fan when the
+majority flips but never once it is lifted and never on a tie, refuses both
+bolts at the interlock for nothing, opens to the beam in the weak colour and
+refuses it in the fed one, has no weak colour at all on an even ledger, holds
+the wave its last beats and takes nothing after the beam, and the same run
+fingerprints the same way twice (`sim/test/taster.test.ts`, `spend.test.ts`).
+Nothing of it has been seen in a frame, and the wave went into
+`tools/perf/baseline.json` unweighed.

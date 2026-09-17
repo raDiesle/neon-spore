@@ -134,6 +134,23 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.curtainTear": "the sheet tearing off its rail. Same argument.",
   "boss.curtainOut":
     "the core going out. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
+  "boss.tasterRise":
+    "the crest coming in across the top of the frame. It is eleven columns of one long edge rather than a body, and a fan of blades is not a card (`sim/taster.ts`).",
+  "boss.tasterGrow": "a blade coming out of the crest, no colour on it yet. Same argument.",
+  "boss.tasterSet": "an edge taking the colour the pair has been spending. Same argument.",
+  "boss.tasterThick": "its own colour going in and thickening the edge. Same argument.",
+  "boss.tasterPare": "the other colour taking a layer off it. Same argument.",
+  "boss.tasterShear": "a blade struck off for good. Same argument.",
+  "boss.tasterCrest": "a shot into the soft crest where a blade used to be. Same argument.",
+  "boss.tasterLift":
+    "the crest cut through — what it marks is the fan losing the ability to taste, which is a rule and not a shape.",
+  "boss.tasterTaste":
+    "every standing edge turning over at once. The subject is eleven blades changing colour, not one of them.",
+  "boss.tasterClose": "the last blades folding over the body. Same argument.",
+  "boss.tasterRefused":
+    "a single bolt turned away by the interlock. What it marks is nothing happening.",
+  "boss.tasterOut":
+    "the fan thrown open by the beam. Like boss.gorgeOut, what this marks is a frame with nothing under its top — an absence rather than a thing standing anywhere.",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",

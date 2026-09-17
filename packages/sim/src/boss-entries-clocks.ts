@@ -147,3 +147,15 @@ export interface GorgeEntry {
 export interface CurtainEntry {
   kind: "curtain";
 }
+
+/**
+ * What a wave authors when it wants THE TASTER, which is nothing at all — the
+ * ninth. No column: the crest is as wide as the field and hugs its top row.
+ * No health either, and none is authorable: the fan is eleven blades and the
+ * colour of every one of them is read off what the pair has spent, so a wave
+ * that set its own would be a boss with the one thing about it that is not the
+ * pair's own doing (`taster.ts`, `config-taster.ts`).
+ */
+export interface TasterEntry {
+  kind: "taster";
+}

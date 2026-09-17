@@ -129,6 +129,11 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // THE CURTAIN unrolls centred on whatever field is played and its core is
   // rolled behind it, so there is nothing authored to remap (`sim/curtain-step.ts`).
   if (boss.kind === "curtain") return { ...boss };
+  // THE TASTER has nothing to remap for THE GORGE's reason exactly: the crest
+  // is centred on `midCol` of whatever field is played and is as wide as
+  // `tasterBlades` lets it be, so a fan authored on seven columns opens over
+  // eleven with the same blade in the middle (`sim/taster-step.ts`).
+  if (boss.kind === "taster") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

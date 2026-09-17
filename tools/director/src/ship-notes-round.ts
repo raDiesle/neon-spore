@@ -150,6 +150,22 @@ export const ROUND_NOTES = {
     "hem with no lobe left tears off at the next shove and the naked core " +
     "fires every curtainNakedFireBeats. Nothing about it is authored per " +
     "wave. See sim/curtain.ts, sim/config-curtain.ts.",
+  "THE TASTER — the boss that grows its armour in the colour you have been spending":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §4: " +
+    "the first boss in the game with a memory of the pair rather than of " +
+    "itself. A crest of tasterBlades blades stands across the top of the " +
+    "field, and each one grows out of it over tasterGrowBeats and then sets " +
+    "its edge to whichever colour the pair has spent more of over the last " +
+    "tasterWindowBeats — and a blade is struck off only by the colour it is " +
+    "not. Its own colour thickens it instead, up to tasterThickMax. From " +
+    "tasterFanShorn gone it grows tasterFanBlades at a time; from " +
+    "tasterHurryShorn the window shortens to tasterFastWindowBeats and every " +
+    "standing blade re-edges every tasterEdgeBeats, until tasterCrestCuts " +
+    "shots into the gaps open the crest and stop it. With tasterClosedBlades " +
+    "left the fan closes over the body and only the beam in the colour they " +
+    "have spent least of opens it, holding the wave tasterOutBeats more. " +
+    "Nothing about it is authored per wave. See sim/taster.ts, " +
+    "sim/spend.ts, sim/config-taster.ts.",
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

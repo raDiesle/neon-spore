@@ -149,6 +149,34 @@ export const ROUND_FIELD_GROUP = {
   curtainRerollBeats: "THE CURTAIN — the boss that is in the way",
   curtainCoreHits: "THE CURTAIN — the boss that is in the way",
   curtainOutBeats: "THE CURTAIN — the boss that is in the way",
+  // TasterConfig — how many blades the fan holds, the two windows it tastes
+  // over, how long a blade grows, and the counts that move the fight along
+  // (`config-taster.ts`).
+  tasterBlades: "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterWindowBeats:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterFastWindowBeats:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterGrowBeats:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterThickMax:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterFanShorn:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterFanBlades:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterHurryShorn:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterEdgeBeats:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterClosedBlades:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterCrestCuts:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterSlowBeats:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  tasterOutBeats:
+    "THE TASTER — the boss that grows its armour in the colour you have been spending",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

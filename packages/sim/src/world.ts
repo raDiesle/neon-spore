@@ -5,6 +5,7 @@ import { type SimConfig, ticksPerBeat } from "./config.js";
 import type { PlacedFault } from "./fault-placed.js";
 import { createRng, type Rng } from "./rng.js";
 import { NO_SLOW } from "./slow.js";
+import { newSpendLedger, type SpendLedger } from "./spend.js";
 import { startWave } from "./wave-start.js";
 import { newShipState, type ShipState } from "./world-ship.js";
 
@@ -124,6 +125,19 @@ export interface World extends ShipState {
   slowFromBeat: number;
   slowToBeat: number;
 
+  /**
+   * **What the pair has spent, per colour, beat by beat** — the only thing in
+   * the world that remembers the two *players* rather than itself.
+   *
+   * Read through `spentOver` and `spendLean` rather than by index: the ring is
+   * keyed by the beat and a window is a question about `world.beat`, never a
+   * position anything steps. Written only where a colour leaves the muzzle,
+   * cleared by `startWave`, and hashed whole — two devices that disagreed
+   * about it would disagree about the colour THE TASTER's next blade grows in
+   * (`spend.ts`).
+   */
+  spend: SpendLedger;
+
   creatures: Creature[];
   bullets: Bullet[];
   pods: Pod[];
@@ -201,6 +215,7 @@ export function createWorld(
     hasLance: true,
     slowFromBeat: NO_SLOW,
     slowToBeat: NO_SLOW,
+    spend: newSpendLedger(),
     creatures: [],
     bullets: [],
     pods: [],

@@ -5,6 +5,7 @@ import type { PlacedFault } from "./fault-placed.js";
 import { clearGrips } from "./grip.js";
 import { endPrime } from "./lance.js";
 import { clearSlow } from "./slow.js";
+import { clearSpend } from "./spend.js";
 import { installWaveBoss } from "./wave-boss.js";
 import { NOT_FAILED } from "./wave-fail.js";
 import type { BossEntry, PodEntry, SpawnEntry, World } from "./world.js";
@@ -111,6 +112,10 @@ export function startWave(
   // one at a third of wall-clock rate with nothing dramatic happening in it
   // (`slow.ts`).
   clearSlow(world);
+  // And nothing spent yet. The ledger is what the pair has spent **in this
+  // fight**, so a taster that opened on the last wave's colours would grow its
+  // first blade against a conversation they had already finished (`spend.ts`).
+  clearSpend(world);
 
   // Which boss, and what it leaves on the field: one branch a boss, next door
   // (`wave-boss.ts`).

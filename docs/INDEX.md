@@ -192,6 +192,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/splice-round.ts` | THE SPLICE's clock, its one verb and what a feed costs |
 | `packages/sim/src/splice-tangle.ts` | Laying THE SPLICE's straws: three integer arrays and a permutation |
 | `packages/sim/src/splice.ts` | THE SPLICE: a children's path puzzle, played by two people who can each see half of it |
+| `packages/sim/src/spend.ts` | **THE SPEND LEDGER: what the pair has already spent**, per colour, over the last few beats of their own play |
 | `packages/sim/src/config-gyre.ts` | you are retuning the wheel — how fast the rim turns, how much the maw takes off it, how far the diamond sinks |
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
 | `packages/sim/src/hash-creature.ts` | you added a field to `Creature` and have to put it in the fingerprint |
@@ -279,6 +280,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/throat-pull.ts` | **The pull**: what standing in THE THROAT's column does to a body |
 | `packages/sim/src/throat-step.ts` | THE THROAT's clock, and the two things that change its health |
 | `packages/sim/src/throat.ts` | THE THROAT: the one boss you answer by **giving it something** |
+| `packages/sim/src/taster-hash.ts` | What THE TASTER puts into `hashWorld`, and nothing else |
+| `packages/sim/src/taster-shot.ts` | **What a shot does to THE TASTER**, which is the whole of the inverted rule |
+| `packages/sim/src/taster-step.ts` | THE TASTER's clock — the crest arriving, a blade coming out of it, its colour setting on the ledger |
+| `packages/sim/src/taster.ts` | THE TASTER: what you have already spent |
 | `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — twelve shapes, the union of them |
 | `packages/sim/src/boss-entries-round.ts` | **What a wave authors when it wants a round** — the bosses that take the panel away |
 | `packages/sim/src/boss-entries-clocks.ts` | **What a wave authors when it wants a boss that is a clock** |
@@ -409,7 +414,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/diastole.ts` | THE DIASTOLE's shape and its questions — which column, which colour, which seat, and whether a chamber is contracting on a given beat |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
+| `packages/sim/src/events-bosses.ts` | **The choreographed bosses' arms of `SimEvent`**, as one union |
 | `packages/sim/src/events-undertow.ts` | **Everything THE UNDERTOW does that neither screen already says**, as events |
+| `packages/sim/src/events-taster.ts` | **Everything THE TASTER does that neither screen already says**, as events |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -419,6 +426,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
 | `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how many times it pushes up through the floor in each part of the fight |
 | `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth hangs |
+| `packages/sim/src/config-taster.ts` | THE TASTER's numbers — how many blades the fan holds |
 | `packages/sim/src/config-orrery.ts` | **THE ORRERY's numbers**: three orbits, the beat they first come together on |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
@@ -1327,6 +1335,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
+| `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
 
 ### apps/game
 

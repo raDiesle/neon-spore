@@ -93,6 +93,10 @@ const STILL_PROSE = [
   // And THE CURTAIN, owed by the lane that draws the membrane: a sheet seven
   // columns wide with a shadow behind it, shoved by two hands at once.
   "THE CURTAIN",
+  // And THE TASTER, owed by the lane that draws the fan: eleven blades with an
+  // edge each, a thickness each, and a crest they grow out of — none of which
+  // is drawn yet.
+  "THE TASTER",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -118,9 +122,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says seventy-eight of eighty-seven";
-    expect(guided.length, fix).toBe(78);
-    expect(WAVES.length, fix).toBe(87);
+    const fix = "update §1 of docs/spec/briefings.md, which says seventy-nine of eighty-eight";
+    expect(guided.length, fix).toBe(79);
+    expect(WAVES.length, fix).toBe(88);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

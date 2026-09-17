@@ -107,6 +107,26 @@ export const INGEST_SILENT_BOSS = [
   "curtainFire",
   "curtainTear",
   "curtainOut",
+  // THE TASTER's twelve, silent **until the look lane draws it**: nothing of
+  // the fan is on the screen yet, so a transient about a blade shearing would
+  // be a picture of nothing. Every one of them has a sound
+  // (`packages/audio/src/bind-taster.ts`), and the boss's own state carries
+  // what each blade is and how far the crest is cut, so this list is exactly
+  // the moments the second lane will reach for: the edge crystallising, the
+  // shear, the shiver along the crest, the interlock opening
+  // (`docs/spec/bosses.md` §11.25).
+  "tasterRise",
+  "tasterGrow",
+  "tasterSet",
+  "tasterThick",
+  "tasterPare",
+  "tasterShear",
+  "tasterCrest",
+  "tasterLift",
+  "tasterTaste",
+  "tasterClose",
+  "tasterRefused",
+  "tasterOut",
   "tether",
   "eyeOpen",
   "wardenDown",

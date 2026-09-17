@@ -10,6 +10,8 @@ import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { firstAlong } from "./shot-reach.js";
+import { spendShot } from "./spend.js";
+import { tasterStruck } from "./taster-shot.js";
 import type { Bullet, Color } from "./types.js";
 import { undertowBurned } from "./undertow-press.js";
 import { vaneStruck } from "./vane.js";
@@ -75,6 +77,10 @@ export function releaseLance(world: World): void {
   spendPrime(world);
   world.lastFireTick = world.tick;
   const col = world.cannonCol;
+  // The beam is spending too, and it spends once: the lobe is one colour
+  // held and one column burnt, however many bodies are standing in it
+  // (`spend.ts`).
+  spendShot(world, color);
   world.events.push({ type: "lanceFull", col });
   world.events.push({ type: "fire", col, color, lance: true });
   world.beam = { col, color, left: beamTicks(world.cfg), topMilli: burnColumn(world, col, color) };
@@ -143,5 +149,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   // (`gorge-step.ts`).
   gorgeStruck(world, b);
   curtainStruck(world, b);
+  // And THE TASTER, where the beam in the colour the pair has spent least of
+  // is the one thing that opens the closed fan (`taster-shot.ts`).
+  tasterStruck(world, b);
   return 0;
 }

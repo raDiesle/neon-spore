@@ -9,6 +9,7 @@ import type {
   OrreryEntry,
   ScoutEntry,
   StareEntry,
+  TasterEntry,
   ThroatEntry,
   UndertowEntry,
   WellEntry,
@@ -74,6 +75,13 @@ import type {
  *   carries it and how soon it re-rolls are the pair's cadence
  *   (`sim/config-curtain.ts`).
  *
+ * - **THE TASTER** asks for nothing, and it is the one where the *absence* is
+ *   the boss: the crest is centred so there is no column, the fan is the
+ *   health so there is no number, and the colour of every blade in it is read
+ *   off what the pair has already spent — so a wave that authored one would be
+ *   setting the only thing about this fight that is meant to be the pair's own
+ *   doing (`sim/config-taster.ts`).
+ *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
  * is what this question exists to stop.
@@ -92,7 +100,8 @@ export function bossAuthorsNothing(
   | OrreryEntry
   | CandleEntry
   | GorgeEntry
-  | CurtainEntry {
+  | CurtainEntry
+  | TasterEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -109,6 +118,7 @@ export function bossAuthorsNothing(
     kind === "orrery" ||
     kind === "candle" ||
     kind === "gorge" ||
-    kind === "curtain"
+    kind === "curtain" ||
+    kind === "taster"
   );
 }

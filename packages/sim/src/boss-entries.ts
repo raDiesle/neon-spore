@@ -6,6 +6,7 @@ import type {
   GorgeEntry,
   OrreryEntry,
   StareEntry,
+  TasterEntry,
   ThroatEntry,
   UndertowEntry,
 } from "./boss-entries-clocks.js";
@@ -178,7 +179,8 @@ export type BossEntry =
   | OrreryEntry
   | CandleEntry
   | GorgeEntry
-  | CurtainEntry;
+  | CurtainEntry
+  | TasterEntry;
 
 // The nine that are a clock and author nothing (`boss-entries-clocks.ts`).
 export type {
@@ -189,6 +191,7 @@ export type {
   GorgeEntry,
   OrreryEntry,
   StareEntry,
+  TasterEntry,
   ThroatEntry,
   UndertowEntry,
 } from "./boss-entries-clocks.js";

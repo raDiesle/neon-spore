@@ -50,6 +50,16 @@ import type { Wave } from "../wave-types.js";
  * **THE CURTAIN's wave is empty**, THE ORRERY's case one wave up: what falls
  * is the core's own fire, from a column the pair uncovered, on a beat they
  * left it bare — neither writable by an author (`sim/curtain-step.ts`).
+ *
+ * **THE TASTER's arrivals are the colours it is counting.** The fan reads what
+ * the pair has fired over the last thirty beats, so every body under it costs
+ * a shot in a colour the boss will then grow armour in — which makes this the
+ * one wave where a body answered *without* firing is worth something. Rocks
+ * for the shield, and three slicks and three bulbs, evenly split and
+ * alternating, so the lean is a decision the pair makes rather than one the
+ * wave makes for them. Nothing is placed against the fan's own count, for THE
+ * DIASTOLE's reason above: which beat a blade sets its edge on depends on when
+ * the pair sheared the last one.
  */
 export const WAVES_ACT_7D: Wave[] = [
   {
@@ -146,5 +156,28 @@ export const WAVES_ACT_7D: Wave[] = [
     },
     entries: [],
     boss: { kind: "curtain" },
+  },
+  {
+    id: "theTaster",
+    name: "THE TASTER",
+    sentence: "The one where the colour you keep firing is the colour that stops working.",
+    guide: {
+      both: "A crest hangs over the field and grows eleven blades out of itself, middle outward, and the blades are its health. Every blade takes its edge from whichever colour the two of you have fired more of lately — and a blade is only struck off by the colour it is not. Its own colour thickens it instead. The column of a blade already gone is soft and swallows a shot for nothing. Shear all but two and they fold over the body and refuse every single shot: only the beam opens them.",
+      p1: "You see the edge on every blade. Say its colour and hold the cannon on its column — the answer is always the other one. Never fire into a column whose blade is already gone.",
+      p2: "You see what the pair has been spending, which is the colour the next blade grows in. Load against him and keep the two counts level, or the whole fan comes up in the colour you have most of.",
+    },
+    entries: [
+      { beat: 16, col: 1, kind: "meteor", color: null },
+      { beat: 24, col: 5, kind: "meteor", color: null },
+      { beat: 30, col: 3, color: "red" },
+      { beat: 36, col: 0, color: "cyan" },
+      { beat: 44, col: 6, kind: "meteor", color: null },
+      { beat: 50, col: 2, color: "red" },
+      { beat: 56, col: 4, color: "cyan" },
+      { beat: 64, col: 3, kind: "meteor", color: null },
+      { beat: 72, col: 1, color: "cyan" },
+      { beat: 80, col: 5, color: "red" },
+    ],
+    boss: { kind: "taster" },
   },
 ];

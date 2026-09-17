@@ -18,6 +18,7 @@ import { NO_SHELL } from "./shell.js";
 import { installSnake } from "./snake-round.js";
 import { installSplice } from "./splice-round.js";
 import { installStare } from "./stare-step.js";
+import { installTaster } from "./taster-step.js";
 import { installThroat } from "./throat-step.js";
 import { installUndertow } from "./undertow-step.js";
 import { installVane } from "./vane.js";
@@ -177,6 +178,11 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // at `curtainRow`, and the core behind it is a column and a colour with
     // no body at all (`curtain-step.ts`).
     world.boss = installCurtain(world);
+  } else if (boss?.kind === "taster") {
+    // No creature and no row: a crest hugging the top of the field with a fan
+    // of blades standing out of it, none of which falls. What it answers is
+    // what the pair has spent answering the wave (`taster-step.ts`).
+    world.boss = installTaster(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

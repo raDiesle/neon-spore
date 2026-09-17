@@ -88,6 +88,13 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // with nothing under the sack but colours would be a wave where every
   // answer feeds it.
   "THE GORGE": ["meteor"],
+  // THE TASTER introduces no creature either — what is new is that a blade is
+  // broken by the colour it is *not* — and the rock is the only arrival on the
+  // wave that can be answered without spending a colour. On a boss that reads
+  // what the pair has fired, a field of nothing but colours would be a field
+  // where clearing it is what grows the armour, and the lesson would read as
+  // the game being unfair rather than as the boss counting.
+  "THE TASTER": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {
