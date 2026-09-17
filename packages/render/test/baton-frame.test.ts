@@ -7,6 +7,7 @@ import {
   type BatonState,
   batonBoss,
   batonLocked,
+  batonOneSegment,
   createWorld,
   startWave,
   step,
@@ -36,7 +37,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * and this file only asks whether every branch of the picture is drawn. The
  * one thing here nothing else in the suite could catch is the grey panel: it
  * has to land on the locked seat's screen and on no other. The second bead
- * and the merged one are set, three handovers being a run deep.
+ * and the merged one are set, three handovers being a run deep, and so is
+ * the thread: the arm down to one lit socket, with `threadBeat` two beats
+ * back so the thinning is over.
  */
 
 beforeAll(installCanvasGlobals);
@@ -45,6 +48,8 @@ const TPB = ticksPerBeat(CFG);
 const GREY = "rgba(60,63,73,.62)";
 /** The second bead's pupil fill (`baton-bead-draw.ts`), which nothing else on the arm uses. */
 const TWIN_PUPIL = "#0B0614";
+/** What the thread keeps of the spine's width (`baton-draw.ts`). */
+const THREAD_WIDTH = 0.18;
 
 function opened(): World {
   const world = createWorld(CFG, 3);
@@ -169,6 +174,43 @@ describe("the baton", () => {
       const bright = drawn(merged, role, 3);
       expect(bright.calls).toBeGreaterThan(plain.calls);
       expect(bright.text).not.toContain(TWIN_PUPIL);
+    });
+  }
+
+  /** The arm down to its last lit socket with the merged bead in it, on the thread or not. */
+  function oneSegment(world: World, thread: boolean): void {
+    sitting(world);
+    const b = arm(world);
+    for (let i = 0; i < CFG.batonSockets - 1; i++) b.sockets[i] = BATON_SOCKET_DARK;
+    bead(world).socket = CFG.batonSockets - 1;
+    b.merged = true;
+    b.threadBeat = thread ? world.beat - 2 : -1;
+    if (!batonOneSegment(b)) throw new Error("the arm is longer than one segment");
+  }
+
+  /** Every distinct `lineWidth` a run set. */
+  function widths(text: string): Set<number> {
+    const out = new Set<number>();
+    for (const call of text.split("|"))
+      if (call.startsWith("set lineWidth=")) out.add(Number(call.slice("set lineWidth=".length)));
+    return out;
+  }
+
+  for (const role of ROLES) {
+    it(`hangs a one-segment arm by a thread, its spine a hair wide above the last socket, for ${role}`, () => {
+      const threaded = opened();
+      oneSegment(threaded, true);
+      const on = widths(drawn(threaded, role, 3).text);
+      const whole = opened();
+      oneSegment(whole, false);
+      const off = widths(drawn(whole, role, 3).text);
+      // The one width the thread adds is the hair: the spine's width, which
+      // the segment below still has, at what the thread keeps of it.
+      const added = [...on].filter((w) => !off.has(w));
+      expect(added).toHaveLength(1);
+      const hair = added[0] ?? 0;
+      expect([...off].some((w) => Math.abs(w * THREAD_WIDTH - hair) < 0.002)).toBe(true);
+      expect([...off].every((w) => on.has(w))).toBe(true);
     });
   }
 

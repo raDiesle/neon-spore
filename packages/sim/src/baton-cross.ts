@@ -91,6 +91,7 @@ function miss(world: World, b: BatonState, bead: BatonBead): void {
   b.stillBeat = world.beat;
   b.col = col;
   for (let i = 0; i < b.sockets.length; i++) b.sockets[i] = BATON_SOCKET_LIT;
+  b.threadBeat = -1;
   bead.flying = false;
   bead.final = false;
   bead.flightTick = -1;

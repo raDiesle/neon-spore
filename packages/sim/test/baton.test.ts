@@ -13,6 +13,7 @@ import {
   batonLaunchable,
   batonLead,
   batonLocked,
+  batonOneSegment,
   batonSocketCol,
   batonWaiting,
   createWorld,
@@ -537,6 +538,29 @@ describe("THE BATON", () => {
     );
     expect(row).toBeGreaterThan(LAST * 1000 + 400);
     expect(row).toBeLessThan(LAST * 1000 + 600);
+  });
+
+  it("comes down to one segment on the landing that leaves one socket lit, and grows back on a miss", () => {
+    const world = open(3, { ...CFG, batonShedAfter: CFG.batonSockets + 1 });
+    handover(world);
+    expect(batonOneSegment(arm(world))).toBe(false);
+    expect(arm(world).threadBeat).toBe(-1);
+    for (let i = 0; i < 40 && lead(world).socket < LAST; i++) handover(world);
+    const b = arm(world);
+    expect(batonOneSegment(b)).toBe(true);
+    expect(b.threadBeat).toBe(world.beat);
+    const on = b.threadBeat;
+    // The twin's landings down the dead sockets do not move the beat it was set on.
+    merged(world);
+    expect(b.threadBeat).toBe(on);
+    expect(batonOneSegment(b)).toBe(true);
+    launch(world);
+    nextBeat(world);
+    nextBeat(world);
+    nextBeat(world);
+    expect(b.stage).toBe("passing");
+    expect(batonOneSegment(b)).toBe(false);
+    expect(b.threadBeat).toBe(-1);
   });
 
   it("owes an act a beat on the crossing, in turn, and drops the bead once every one is made", () => {

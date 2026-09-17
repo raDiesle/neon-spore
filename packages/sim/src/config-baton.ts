@@ -83,6 +83,12 @@ export interface BatonConfig {
    * clock here.
    */
   batonDownBeats: number;
+  /**
+   * Beats the picture takes to thin the arm above its last socket to a
+   * thread once it is one segment long (`threadBeat`). One: the beat the
+   * landing is seen in, so the thread is there by the time the bead is.
+   */
+  batonThreadBeats: number;
 }
 
 /**
@@ -105,4 +111,5 @@ export const BATON_DEFAULTS: BatonConfig = {
   batonTwinAfter: 3,
   batonFinalBeats: 11,
   batonDownBeats: 4,
+  batonThreadBeats: 1,
 };

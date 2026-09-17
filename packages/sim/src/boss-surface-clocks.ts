@@ -31,6 +31,7 @@ export {
   batonLaunchable,
   batonLead,
   batonLocked,
+  batonOneSegment,
   batonSocketCol,
   batonSocketRow,
   batonWaiting,

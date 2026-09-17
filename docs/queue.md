@@ -319,3 +319,23 @@ slot's candidates from the directories the way `index` does, or `git show
 HEAD:` the registry's inputs, so the by-hand sequence the tool itself
 prescribes can end in the tool. A test: move a candidate's paint out, run
 `drop`, expect the slot gone.
+
+## `frames --boss` cannot reach a boss state that lives in an array
+
+- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Files:** `tools/frames/boss.ts`, `tools/frames/opening.ts`, `tools/frames/test/boss-flag.test.ts`
+
+`--boss key=value` writes scalar fields of `world.boss` and refuses arrays
+and objects, by design (`boss.ts`, line 30). THE BATON's thread — every
+socket but the last dark, one bead sat in the last socket, `merged` — is
+three array fields, and THE UNDERTOW's breaches, THE TASTER's blades and THE
+GORGE's intakes are the same shape, so the picture of a boss's late state
+cannot be taken by the tool that exists to take pictures. Taking step 12's
+frame (17 September 2026) meant the preview page, `window.neonSpore`, a
+world built by hand in the console, a pause hold the built-in browser's tab
+never lifted, and the canvas pulled out as base64. Add one of: a
+`--boss-json '{...}'` flag that assigns a JSON object's fields whole, arrays
+included, after the same `now` substitution; or a per-boss preset table
+(`--boss-state thread`) next to `installBoss`, each preset a function of the
+installed state. A test: `--boss-json '{"sockets":[1,1,0]}'` on THE BATON
+writes the array and refuses a key the boss does not have.

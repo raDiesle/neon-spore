@@ -1802,10 +1802,22 @@ have locked him through the beat the pod falls in, and the catch under it is
 his (step 14). A shed socket grows back with the rest on a miss, which the
 page does not say and the line *grown its sockets back* allows.
 
-**What is not built**: the picture of step 12, the arm one segment long and
-hanging by a thread; the crossing as built draws the bead's descent past the
-dark sockets and nothing about the arm changes for it. The base is fixed to
-the middle column rather than authored, for THE VANE's reason.
+**The thread** — the design's step 12, as of 17 September 2026. The beat a
+landing leaves one socket lit — every other gone dark or shed — the sim
+remembers as `threadBeat` (`batonOneSegment`), and a miss, which relights the
+arm, clears it. The picture reads it and nothing else: over
+`batonThreadBeats` (1) everything above the last socket thins to a thread a
+fifth of the spine's width, sways more than the arm did, loses its glow, and
+every dark socket on it shrinks to half — a husk on a string — while the last
+segment keeps its full width and its lit socket keeps its glow, so the one
+piece of arm the bead has left is the one piece still drawn as arm. Nothing
+in the rules changes with it: the crossing runs as it did, and the thread is
+only what the arm looks like once the pair have taken all of it but one.
+
+**What is not built**: the fold at step 14 still fades the whole picture
+rather than parting the eleven segments the design describes, and no sound
+marks the beat the arm comes down to one. The base is fixed to the middle
+column rather than authored, for THE VANE's reason.
 
 **What it draws** (`render/src/baton-draw.ts`, `render/src/baton-bead-draw.ts`,
 `render/src/band-lock.ts`): the arm as a rock spine from above row 0 down the
@@ -1815,7 +1827,9 @@ as bare rock, a shed one as a gap in the spine; the bead in its colour,
 sitting in its socket or on its way to the next one along a sideways arc that
 swaps side each handover, and a wider halo with a ring round it once the bolt
 has met it; the swung arm's sockets above the bead in the column it left; the
-fold as the whole picture going out over `batonDownBeats`; and the locked
+fold as the whole picture going out over `batonDownBeats`; the arm above
+the last socket as a thread with husks on it once one socket is all that is
+lit (`threadBeat`); and the locked
 seat's grey — over the whole band on a solo phone, over that seat's strip and
 lobes on the test screen — for as long as `batonLocked` says so. Both screens
 see the bead's colour, because both players need it: one to read what to

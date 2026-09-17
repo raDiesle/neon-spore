@@ -8,6 +8,7 @@ import {
   batonDark,
   batonFlip,
   batonLead,
+  batonOneSegment,
   batonSocketRow,
   batonWaiting,
 } from "./baton.js";
@@ -69,6 +70,7 @@ export function installBaton(world: World): BatonState {
     lockUntil: [-1, -1],
     podId: -1,
     shedBeat: -1,
+    threadBeat: -1,
   };
 }
 
@@ -155,6 +157,9 @@ function land(world: World, b: BatonState, bead: BatonBead): void {
     return;
   }
   b.sockets[bead.socket] = BATON_SOCKET_DARK;
+  // The landing that leaves one socket lit is the arm come down to one
+  // segment, and the picture counts its thread from this beat (step 12).
+  if (b.threadBeat < 0 && batonOneSegment(b)) b.threadBeat = world.beat;
   bead.socket += 1;
   b.handovers += 1;
   bead.color = batonFlip(bead.color);

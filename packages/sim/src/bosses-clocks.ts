@@ -29,6 +29,7 @@ export {
   batonLaunchable,
   batonLead,
   batonLocked,
+  batonOneSegment,
   batonSocketRow,
   batonWaiting,
 } from "./baton.js";

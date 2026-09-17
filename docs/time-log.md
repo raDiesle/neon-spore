@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE BATON, the thread
+
+Step 12's picture: the arm one segment long, hanging by a thread. The sim
+remembers the beat it came down to one socket, the look thins everything
+above the last socket.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `baton-draw.ts`, `baton-step.ts`'s landing, `opening.ts`'s driven loop, the page handle |
+| writing | 5 | `threadBeat` and `batonOneSegment`, the hash row, the config field, the spine split in two widths, the husks, two tests, the write-up |
+| looking | 5 | the frame from the preview page: reach `passing`, set the one-segment state by hand, unpause for one paint, crop the canvas |
+| friction | 5 | `bun run frames --boss` refuses arrays, so the state had to be set in the page; the page stayed paused under a `hidden` hold the built-in browser never lifted, and the first capture was a wave lost while the world ran |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep`, the ledger mark |
+
+The bottleneck was the picture: a boss state the frames tool cannot set is a
+boss state that costs a browser, a hand-built world and a hold to find.
+
 ## 2026-09-17 — versus — the lost screen's plates shut
 
 `lost:screen` / `shut` onto the field, by the owner's pick; `bleedout`, `hold`

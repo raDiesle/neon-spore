@@ -144,6 +144,13 @@ export interface BatonState {
   podId: number;
   /** `world.beat` the arm last shed a shell on, -1 before the first. */
   shedBeat: number;
+  /**
+   * `world.beat` the arm came down to one segment on — every socket but the
+   * last gone dark or shed, the design's step 12 — and -1 while it is
+   * longer. The picture hangs that last segment by a thread from here
+   * (`render/baton-draw.ts`); a miss grows the arm back and clears it.
+   */
+  threadBeat: number;
 }
 
 /** Where the arm hangs: dead centre, for THE VANE's and THE WARDEN's reason. */
@@ -166,6 +173,15 @@ export function batonDark(b: BatonState): number {
   let dark = 0;
   for (const s of b.sockets) if (s !== BATON_SOCKET_LIT) dark += 1;
   return dark;
+}
+
+/**
+ * Whether the arm is one segment long: one socket still lit and every other
+ * gone. The moment of the design's step 12, remembered in `threadBeat` so
+ * the picture can thin the arm over a beat rather than on a frame.
+ */
+export function batonOneSegment(b: BatonState): boolean {
+  return b.sockets.length - batonDark(b) <= 1;
 }
 
 /** Whether that seat may touch the ship on this beat. */

@@ -34,6 +34,16 @@ import { splinePath } from "./spline.js";
  * (`batonFlip`), so the arm teaches the alternation without a word. The bead
  * itself, the second one and the two become one are `baton-bead-draw.ts`.
  *
+ * **One segment long, it hangs by a thread** — the design's step 12
+ * (`docs/spec/bosses-choreographed.md` §10). From the beat the sim says the
+ * arm came down to one lit socket (`threadBeat`, `batonOneSegment`) the
+ * spine above that socket thins to a hair and swings wider and faster, and
+ * the dead sockets on it shrivel to husks; the last socket and the piece of
+ * arm that hangs it keep their width, because that is the segment. The
+ * thread is on both screens, and it stays through the crossing under it: the
+ * bead's last flight is out of a thing that is nearly gone. A miss grows the
+ * arm back, and the sim clears the beat with it.
+ *
  * Nothing here is held between frames. Every number comes off the boss, the
  * tick and the beat, so there is no `Effects` field to clear and a restart
  * cannot show this fight the last one's arm.
@@ -47,6 +57,22 @@ const SOCKET_R = 0.3;
 
 /** How far above row 0 the arm's root hangs, in tiles. */
 const ROOT = 0.6;
+
+/** How much of the spine's width the thread keeps, at the end of its thinning. */
+const THREAD_WIDTH = 0.18;
+
+/** How much of a dead socket's ring a husk on the thread keeps. */
+const HUSK = 0.5;
+
+/**
+ * How far along its thinning the thread is, 0 to 1 — and 0 for as long as
+ * the arm is longer than one segment. Off the sim's beat and the config's
+ * count, so both screens thin it together.
+ */
+function threadOf(cfg: SimConfig, b: BatonState, beat: number, beatPhase: number): number {
+  if (b.threadBeat < 0) return 0;
+  return Math.max(0, Math.min(1, (beat - b.threadBeat + beatPhase) / cfg.batonThreadBeats));
+}
 
 export function drawBaton(
   ctx: CanvasRenderingContext2D,
@@ -70,13 +96,14 @@ export function drawBaton(
     b.stage === "unfolding"
       ? Math.min(b.sockets.length, beat - b.stageBeat + beatPhase)
       : b.sockets.length;
+  const thread = threadOf(cfg, b, beat, beatPhase);
   ctx.save();
   ctx.globalAlpha = alpha;
-  drawSpine(ctx, l, cfg, b, shown, time);
+  drawSpine(ctx, l, cfg, b, shown, thread, time);
   for (let i = 0; i < b.sockets.length; i++) {
     const grow = Math.max(0, Math.min(1, shown - i));
     if (grow <= 0) break;
-    drawSocket(ctx, l, cfg, b, i, grow, beatPhase, time);
+    drawSocket(ctx, l, cfg, b, i, grow, thread, beatPhase, time);
   }
   // The crossing is the last flight, and the bead is the whole of it.
   if (b.stage === "passing" || b.stage === "crossing")
@@ -99,6 +126,10 @@ function socketX(l: Layout, b: BatonState, socket: number): number {
  * shape would read as a body, and this is a mechanism. When the arm has swung
  * the spine leans across the columns between the socket the bead left and
  * the one it is landing in, so the swing is a bend in the arm and not a jump.
+ *
+ * On the thread (`thread` > 0) the spine is drawn in two: everything above
+ * the last socket as a hair that swings wide and quick, and the last piece —
+ * the segment — at its full width.
  */
 function drawSpine(
   ctx: CanvasRenderingContext2D,
@@ -106,6 +137,7 @@ function drawSpine(
   cfg: SimConfig,
   b: BatonState,
   shown: number,
+  thread: number,
   time: number,
 ): void {
   if (shown <= 0) return;
@@ -114,26 +146,40 @@ function drawSpine(
   for (let i = 0; i <= last; i++) {
     // A slow sway, a hair's width, so the arm is a hanging thing and not a
     // ruled line; the same amount on both screens because it is off `time`
-    // and `time` is the frame clock, not the world.
-    const sway = Math.sin(time * 0.9 + i * 0.5) * l.tile * 0.03;
+    // and `time` is the frame clock, not the world. A thread swings six
+    // times as wide and twice as fast — except at the last socket, which
+    // stays where the bead in it is drawn (`baton-bead-draw.ts`).
+    const loose = i < last ? thread : 0;
+    const sway = Math.sin(time * (0.9 + 1.2 * loose) + i * 0.5) * l.tile * 0.03 * (1 + 5 * loose);
     pts.push({ x: socketX(l, b, i) + sway, y: tileCY(l, batonSocketRow(cfg, i)) });
   }
-  const spine = splinePath(pts, false);
+  const split = thread > 0 && pts.length > 2 ? pts.length - 2 : -1;
+  const upper = splinePath(split < 0 ? pts : pts.slice(0, split + 1), false);
   ctx.save();
   ctx.lineCap = "round";
   ctx.lineJoin = "round";
   ctx.strokeStyle = PALETTE.rockDark;
-  ctx.lineWidth = l.tile * SPINE;
-  ctx.stroke(spine);
+  ctx.lineWidth = l.tile * SPINE * (1 - (1 - THREAD_WIDTH) * thread);
+  ctx.stroke(upper);
+  if (split >= 0) {
+    const segment = splinePath(pts.slice(split), false);
+    ctx.lineWidth = l.tile * SPINE;
+    ctx.stroke(segment);
+    ctx.restore();
+    strokeGlow(ctx, segment, PALETTE.rock, STROKE.inner, 0.3);
+    strokeGlow(ctx, upper, PALETTE.rock, STROKE.inner, 0.3 * (1 - thread));
+    return;
+  }
   ctx.restore();
-  strokeGlow(ctx, spine, PALETTE.rock, STROKE.inner, 0.3);
+  strokeGlow(ctx, upper, PALETTE.rock, STROKE.inner, 0.3);
 }
 
 /**
  * One socket: a violet ring while the bead has yet to pass it, a dark husk
  * once it has, and a gap where the shell has already fallen off the arm. The
  * lit ones breathe on the beat, all together, which is the metronome the
- * fight is — the pair keeps time off the arm without counting.
+ * fight is — the pair keeps time off the arm without counting. On the
+ * thread a dark one shrivels to a husk, half its ring and fainter.
  */
 function drawSocket(
   ctx: CanvasRenderingContext2D,
@@ -142,6 +188,7 @@ function drawSocket(
   b: BatonState,
   socket: number,
   grow: number,
+  thread: number,
   beatPhase: number,
   time: number,
 ): void {
@@ -151,7 +198,8 @@ function drawSocket(
   const y = tileCY(l, batonSocketRow(cfg, socket));
   const lit = state === BATON_SOCKET_LIT;
   const breath = lit ? (1 - beatPhase) * (1 - beatPhase) : 0;
-  const r = l.tile * SOCKET_R * grow * (1 + 0.08 * breath);
+  const husk = lit ? 0 : thread;
+  const r = l.tile * SOCKET_R * grow * (1 + 0.08 * breath) * (1 - (1 - HUSK) * husk);
   const ring = splinePath(
     blobPoints(x, y, r, r * 0.92, 4, 0.06, 0.03, time * 0.5, socket + 3, 20),
     true,
@@ -165,6 +213,6 @@ function drawSocket(
     ring,
     lit ? PALETTE.hull : PALETTE.rock,
     STROKE.outline,
-    lit ? 0.45 + 0.4 * breath : 0.25,
+    lit ? 0.45 + 0.4 * breath : 0.25 * (1 - 0.5 * husk),
   );
 }

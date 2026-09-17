@@ -56,6 +56,8 @@ export const CHOREO_NOTES = {
     "batonShedAfter it sheds its topmost dark socket as a rock every " +
     "batonShedBeats. After batonTwinAfter dark sockets a second bead lights " +
     "at the top in the other colour, and the two merge in the last socket. " +
+    "Down to one lit socket, the arm hangs by a thread — the picture thins " +
+    "it over batonThreadBeats, and a miss grows it back. " +
     "The merged bead's flight out of it is the crossing, batonFinalBeats " +
     "long, owing an act a beat in turn — a miss sends it back to the top of " +
     "a relit arm. Made whole, the bead falls as a pod, the maw takes it, and " +

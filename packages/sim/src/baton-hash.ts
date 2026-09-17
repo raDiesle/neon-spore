@@ -46,6 +46,7 @@ export function batonHashParts(b: BatonState): number[] {
     b.lockUntil[1],
     b.podId,
     b.shedBeat,
+    b.threadBeat,
   );
   return out;
 }
