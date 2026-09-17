@@ -13,46 +13,14 @@
  * `VaneStage` or a `MazeWheel` through `@neon-spore/sim` had to move.
  */
 
-export {
-  BATON_SOCKET_DARK,
-  BATON_SOCKET_LIT,
-  BATON_SOCKET_SHED,
-  BATON_STAGES,
-  type BatonStage,
-  type BatonState,
-  batonBaseCol,
-  batonBeadCol,
-  batonBeadRowMilli,
-  batonDark,
-  batonLandTick,
-  batonLocked,
-  batonSocketRow,
-} from "./baton.js";
-export { batonBoss } from "./baton-step.js";
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
 export type { BossState, FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
+// And the four bosses that are a clock, whole, for that file's reason said
+// about beats rather than about pictures (`bosses-clocks.ts`).
+export * from "./bosses-clocks.js";
 // The six rounds are next door and re-exported whole (`bosses-round.ts`).
 export * from "./bosses-round.js";
 export { type CairnState, cairnState, cairnWaited } from "./cairn.js";
-export {
-  DIASTOLE_PHASES,
-  DIASTOLE_SIDES,
-  type DiastolePhase,
-  type DiastoleSide,
-  type DiastoleState,
-  diastoleBeating,
-  diastoleBridgeCol,
-  diastoleChamberCol,
-  diastoleCoincides,
-  diastoleColor,
-  diastoleContracts,
-  diastoleEvery,
-  diastoleHits,
-  diastoleSeat,
-  diastoleSince,
-  diastoleStanding,
-} from "./diastole.js";
-export { diastoleBoss } from "./diastole-step.js";
 export {
   type BatonEntry,
   BOSS_KINDS,
@@ -193,16 +161,6 @@ export {
   spliceRound,
 } from "./splice-round.js";
 export { spliceSpreadCol } from "./splice-tangle.js";
-export {
-  STARE_PHASES,
-  type StarePhase,
-  type StareState,
-  stareLooking,
-  stareTellLeft,
-  stareTurning,
-  stareWatches,
-} from "./stare.js";
-export { stareBoss } from "./stare-step.js";
 export { vaneOpen } from "./vane.js";
 export { vaneFold, vanePivotCol, vaneReach, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
 export {

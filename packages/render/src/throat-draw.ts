@@ -1,0 +1,148 @@
+import type { Point } from "@neon-spore/content";
+import type { SimConfig, ThroatState } from "@neon-spore/sim";
+import { strokeGlow } from "./glow.js";
+import type { Layout } from "./layout.js";
+import { PALETTE, STROKE } from "./palette.js";
+import { splinePath } from "./spline.js";
+import { drawMouth } from "./throat-mouth.js";
+import { type Ring, rings } from "./throat-shape.js";
+
+/**
+ * THE THROAT, drawn: a gullet of ring muscles hanging from the top of the
+ * frame, narrowing to a mouth one column wide that walks its own row.
+ *
+ * **The silhouette is the health bar** (`docs/spec/bosses.md` §11.0), and on
+ * this boss it is the whole of it: a ring a gum has choked goes slack for good,
+ * loses its tension and hangs limp inside the tube, so how many taut muscles
+ * are left is how many gums the fight still needs. There is no bar and no
+ * count. A tube whose rings have all gone is one that cannot hold its own shape
+ * and sags across the field, which is the last picture before it everts.
+ *
+ * **Both screens draw the same gullet**, and the split of this fight is in what
+ * is *said* about it: the navigator alone is told which column the mouth will
+ * be in and how many beats until the next inhale, which is the lane after this
+ * one (`docs/spec/bosses-choreographed.md` §1). Nothing about the tube as it
+ * stands right now is kept from either seat — the mouth's column this beat is
+ * what a fling is judged against, and a picture that hid it from the seat who
+ * owns the fling would be a boss with no answer at all.
+ *
+ * **Grey, except the lip.** Shots pass straight through the tube and no hand
+ * can take hold of it (`sim/throat.ts`), so the body of it is `rock` — THE
+ * VANE's arm and THE BATON's spine, and the honest colour for a mechanism
+ * nothing can be fired at. `throat-mouth.ts` argues the one exception.
+ *
+ * Nothing here is held between frames. Every number comes off the boss and the
+ * beat (`throat-shape.ts`), so there is no `Effects` field to clear and a
+ * restart cannot show this fight the last one's gullet.
+ */
+
+/** How far past a ring the skin between two of them bows outward. */
+const SKIN_BOW = 0.14;
+
+export function drawThroat(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  b: ThroatState,
+  beat: number,
+  beatPhase: number,
+  time: number,
+): void {
+  const shape = rings(l, cfg, b, beat, beatPhase);
+  if (shape.length === 0) return;
+  drawSkin(ctx, l, shape, time);
+  // Top down, so a ring's own outline sits over the skin above it and the
+  // gullet reads as a stack of muscles seen from outside rather than as a
+  // ladder of hoops.
+  for (const ring of shape) drawRing(ctx, l, ring, time);
+  drawMouth(ctx, l, cfg, b, beat, beatPhase, time);
+}
+
+/**
+ * The tube between the rings: one closed shape down each side, bowing out
+ * between one ring and the next.
+ *
+ * Filled against the background rather than left open, for `docs/alive.md`'s
+ * reason — a mechanism the field shows through is a mechanism with a hole in
+ * it — and dark, so a taut ring reads as a highlight on a body and not as a
+ * wire in space.
+ */
+function drawSkin(ctx: CanvasRenderingContext2D, l: Layout, shape: Ring[], time: number): void {
+  const left: Point[] = [];
+  const right: Point[] = [];
+  for (let i = 0; i < shape.length; i++) {
+    const ring = shape[i];
+    if (ring === undefined) continue;
+    // A slow breathing sway, a hair's width, off the frame clock rather than
+    // the world's — the baton's spine does the same so a hanging thing is not
+    // a ruled line. It is the same on both screens because `time` is a frame
+    // clock and never a rule.
+    const sway = Math.sin(time * 0.7 + i * 0.6) * l.tile * 0.02;
+    left.push({ x: ring.x - ring.rx + sway, y: ring.y });
+    right.push({ x: ring.x + ring.rx + sway, y: ring.y });
+    const next = shape[i + 1];
+    if (next === undefined) continue;
+    const my = (ring.y + next.y) / 2;
+    const mr = ((ring.rx + next.rx) / 2) * (1 + SKIN_BOW);
+    const mx = (ring.x + next.x) / 2 + sway;
+    left.push({ x: mx - mr, y: my });
+    right.push({ x: mx + mr, y: my });
+  }
+  const skin = splinePath([...left, ...right.reverse()], true);
+  ctx.save();
+  ctx.fillStyle = PALETTE.rockDark;
+  ctx.fill(skin);
+  ctx.restore();
+  strokeGlow(ctx, skin, PALETTE.rock, STROKE.inner, 0.3);
+}
+
+/**
+ * One ring muscle.
+ *
+ * Three states, and THE DIASTOLE's chamber is the argument for there being
+ * three rather than two: a taut ring is a bright hoop, a taut ring with the
+ * gulp in it is brighter and narrower for the beat the contraction is passing
+ * through, and a slack one is a dark limp curve **drawn inside its own
+ * station** — the design's *hangs limp inside the tube*, which is also the only
+ * way a spent muscle can still be seen to be there. A ring simply left out
+ * would make a choked gullet look shorter rather than weaker.
+ */
+function drawRing(ctx: CanvasRenderingContext2D, l: Layout, ring: Ring, time: number): void {
+  const hoop = splinePath(ovalPoints(ring.x, ring.y, ring.rx, ring.ry, time, ring.index), true);
+  if (ring.slack > 0) {
+    // Limp: narrower than the tube it hangs in, sunk below its station, and it
+    // does not move again.
+    const limp = splinePath(
+      ovalPoints(ring.x, ring.y + l.tile * 0.07, ring.rx * 0.66, ring.ry * 0.8, 0, ring.index),
+      true,
+    );
+    strokeGlow(ctx, limp, PALETTE.rockDark, STROKE.inner, 0.9);
+    ctx.save();
+    ctx.globalAlpha = 0.5;
+    ctx.strokeStyle = PALETTE.rockDark;
+    ctx.lineWidth = STROKE.inner;
+    ctx.stroke(hoop);
+    ctx.restore();
+    return;
+  }
+  strokeGlow(ctx, hoop, PALETTE.rock, STROKE.outline, 0.4 + 0.5 * ring.squeeze);
+  if (ring.squeeze > 0) strokeGlow(ctx, hoop, PALETTE.hullRim, STROKE.inner, ring.squeeze * 0.7);
+}
+
+/** A ring's outline: an oval with a little life in it, seeded per ring. */
+function ovalPoints(
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  time: number,
+  seed: number,
+): Point[] {
+  const pts: Point[] = [];
+  for (let i = 0; i < 26; i++) {
+    const a = (i / 26) * Math.PI * 2;
+    const m = 1 + 0.05 * Math.sin(a * 3 + seed) + 0.03 * Math.sin(time * 1.1 + a * 2 + seed);
+    pts.push({ x: cx + Math.cos(a) * rx * m, y: cy + Math.sin(a) * ry * m });
+  }
+  return pts;
+}

@@ -16,6 +16,7 @@ import type { ViewState } from "./renderer.js";
 import { drawReprise } from "./reprise-draw.js";
 import { drawSplice } from "./splice-draw.js";
 import { drawTether } from "./tether.js";
+import { drawThroat } from "./throat-draw.js";
 import { drawVane } from "./vane-draw.js";
 import { drawWarden, wardenRopeAnchor } from "./warden.js";
 
@@ -133,6 +134,17 @@ export function drawBoss(
   // meet it where the simulation says it is (`baton-draw.ts`).
   if (boss.kind === "baton") {
     drawBaton(ctx, l, world.cfg, boss, world.tick, world.beat, view.beatPhase, view.time);
+    return;
+  }
+
+  // THE THROAT: a gullet down the middle of the frame with its mouth walking
+  // one row of it, the same on both screens. It is above and across the field
+  // rather than on it — nothing of it is among the creatures, for THE VANE's
+  // reason — and it is the first boss the field is drawn *through*: shots pass
+  // up the tube and bodies are hauled up the column under the mouth
+  // (`throat-draw.ts`).
+  if (boss.kind === "throat") {
+    drawThroat(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
     return;
   }
 

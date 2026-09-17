@@ -1812,11 +1812,12 @@ numbers say, the last drop is a pod the maw takes, and the same run
 fingerprints the same way twice (`sim/test/baton.test.ts`).
 ## 11.19 THE THROAT — the boss you answer by feeding it
 
-*Built 16 September 2026, simulation only. The design is
+*Built 16–17 September 2026, the simulation and then the gullet. The design is
 `docs/spec/bosses-choreographed.md` §1; the code is `sim/throat.ts`,
-`sim/throat-step.ts`, `sim/throat-pull.ts`, `sim/config-throat.ts`. **The
-gullet is not drawn yet** — the boss plays and is invisible, exactly as THE
-DIASTOLE did for one landing.*
+`sim/throat-step.ts`, `sim/throat-pull.ts`, `sim/config-throat.ts` and
+`render/throat-draw.ts`, `render/throat-shape.ts`, `render/throat-mouth.ts`.
+**The navigator's target lock and the eversion are still to come** — the third
+piece of the same lane.*
 
 **The question no other boss asks.** *What you put in on purpose.* Every other
 boss in this game is answered by taking something away from it. This one is
@@ -1894,8 +1895,84 @@ pull; it is a queue item rather than a silent omission.
 (`handMeans` calls it a pull), so braking one would change THE GUM rather than
 leave it unchanged. Phase `open` inhales every beat instead, which is the same
 pressure without a gesture meaning two things.
-*The eversion, the gullet, the travelling contraction wave and the mouth's
-target lock.* All four are the look, and the look is the lane after this one.
+*The mouth's target lock and the eversion.* Both are the look's second half,
+and the look's first half is below.
+
+### The gullet, drawn
+
+*Landed 17 September 2026. A look with **no shipped alternative** — the boss
+played and was invisible — which is the second of the three exemptions in
+`CLAUDE.md`.*
+
+**The silhouette is the health bar, and here it is the whole of it** (§11.0).
+Five ring muscles hang between the top of the frame and the mouth's row, each a
+closed contour with the skin of the tube filled dark behind it. A ring a gum
+choked goes slack for good: it is drawn **limp inside its own station**, a dark
+narrow curve sunk below where the taut hoop was, and the hoop itself is left as
+a dim outline. A slack ring is never simply left out — a gullet with three gone
+has to read as *weaker* and not as *shorter*, and a tube that got visibly
+smaller as the pair won would be telling them the fight was nearly over at the
+moment it started healing.
+
+**Which ring a choke took is a convention, and it had to be.** The simulation
+stores a count and nothing else, deliberately, because no rule cares which
+muscle it was. So the picture chose: the rings go slack **from the mouth
+upward**, a choke landing at the mouth and the damage climbing. A second rule
+for healing then came free — the count drops, so the ring that tightens again is
+the one furthest from the mouth, which is the most recent one to have gone.
+Either choice had to be a function of `b.slack` alone or two phones would draw
+two different gullets out of one world (`render/throat-shape.ts`).
+
+**The tube leans toward the mouth, and how far up the lean reaches is the
+slack.** A whole gullet bends only in its lowest rings and hangs straight from
+the root; one with four muscles gone sags across the field from the top. That is
+the design's *the tube can no longer hold its own shape*, said with the number
+that already exists rather than with a second clock.
+
+**The contraction travels upward, and that is the load-bearing decision of this
+half.** A gulp starts at the mouth on an inhale and climbs one ring a beat. The
+other direction was the obvious one and is wrong: a wave running *down* the tube
+to arrive at the mouth on the inhale beat is a **countdown**, legible on both
+screens — and the count is the one thing this fight gives the navigator alone to
+say. Running upward it is a receipt: *it has just taken something*, a fact
+neither player needs the other for, and it gives away no beat that has not
+happened. The lip gapes on the inhale and shuts over the beat after, never
+ahead of one, for the same reason.
+
+**Grey, except the lip.** Shots pass straight through the tube and no hand can
+take hold of it, so the body of it is `rock` — THE VANE's arm and THE BATON's
+spine, the honest colour for a mechanism nothing can be fired at. The lip is
+`venom`, THE GUM's own hue, because it is the only thing in the fight anybody
+aims at and the gum is the only ammunition that touches it: a *load this* mark
+that is true, which is what `clownNose` and `arc` are each argued not to be.
+
+**The hauled column is drawn or the pull is a bug.** A rock that stops falling
+halfway down a lane with nothing to say why is the most alarming thing this boss
+does. The first frame of it was an even ladder of chevrons at full length and
+full strength — louder than the gum it was a background to, and perfectly still,
+because an evenly spaced repeat has no motion in it. The throat's reach really
+is the whole column, so the current is not shortened to lie about it; it is
+thinned with distance instead, which is true of a pull anyway and leaves the
+bottom of the column to the bodies standing in it. The marks climb, and that is
+the one thing about it that must be unmistakable: everything else on this field
+goes down.
+
+**Both screens draw the same gullet.** Nothing about the tube *as it stands* is
+kept from either seat: the mouth's column this beat is what a fling is swept
+against, and hiding it from the seat who owns the fling would be a boss with no
+answer at all. The split arrives with the lock.
+
+**Nothing is held between frames.** Every number is arithmetic over the phase,
+the anchor, the slack count and the two receipt beats, so there is no `Effects`
+field to clear and a restart cannot show this fight the last one's gullet.
+
+**A worn gullet was never photographed**, and that is a tool gap rather than a
+choice: every ring going slack needs a gum flung into a walking mouth, and
+`bun run frames` has no handle for a sideways carry and no way to set a boss's
+own fields (`docs/queue.md`). The sag, the limp rings, the gulp's direction and
+the mouth's snap are proved as arithmetic in
+`render/test/throat-shape.test.ts` — which is the right proof of the geometry
+and no proof at all of how it reads.
 
 **Never watched at tempo.** Whether a pair can hold a column and a count at 96
 BPM while one of them is timing a thumb is a thing a person finds out with

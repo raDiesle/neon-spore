@@ -7900,3 +7900,28 @@ still whole beats, so the sum counts forward from the tick line instead and the
 label is only ever subtracted from itself.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — throat-look — THE THROAT's gullet, and the wave that must not travel downward
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `diastole-draw.ts`, `baton-draw.ts`, `queen-drop.ts`, `glow.ts`, the whole of `palette.ts`, `baton-frame.test.ts`, and the design's own step list |
+| writing | 45 | `throat-shape.ts`, `throat-draw.ts`, `throat-mouth.ts`, the `boss-draw` branch, two test files, `bosses.md` §11.19's second half |
+| looking | 10 | two frames of wave 69 — the first said the haul column was the loudest thing on the screen |
+| friction | 20 | both boss barrels sat two lines under the 250 limit and had to be cut before a name could be added; a canvas-call count cannot tell a ring that went away from one whose glow costs a stroke less |
+| landing | 10 | `bun run index`, `check:fast`, the queue entry, the commit |
+
+The bottleneck was a decision again, and it was **which way the contraction
+travels.** The design says *rings contracting in sequence top to bottom*, and a
+wave running down the tube to arrive at the mouth on the inhale beat is the
+obvious, beautiful version of it: the throat visibly winding up. It is also a
+**countdown on both screens**, and the beats until the next inhale is the one
+thing this whole fight gives player 2 alone to say out loud. Drawn that way the
+navigator has nothing to contribute and the boss is a solo act. So the gulp
+climbs instead, starting at the mouth on the inhale — which is what a throat
+actually does, and which makes it a receipt for something that has already
+happened rather than a warning about something that has not. The lip's gape got
+the same treatment for the same reason: it opens *on* the beat, never ahead of
+one.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
