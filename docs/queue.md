@@ -598,6 +598,7 @@ shows it. `bun run check` proves all of it.
 ## `bun run versus new` scaffolds a candidate that cannot compile
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-bun-run-versus-new-scaffolds-a-candidate-that-ca
 - **Where:** local
 - **Files:** `tools/versus/scaffold.ts`, `tools/versus/registry.ts`
 
