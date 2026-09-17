@@ -567,3 +567,22 @@ taster's — into a boss file beside it and spreads `SILENT` out of the two
 arrays, which leaves the type guard and its `assertNever` exactly as they are
 because `SILENT` is still one `as const` at the end. Fifteen lines of work and
 the next boss lands without touching anybody's comment.
+
+## `shape-fit.test.ts` went red once under the sharded check, then green
+
+- **Found:** 2026-09-17, claude/shape-fit-flake-queued
+- **Files:** `tools/director/test/shape-fit.test.ts`
+
+The lane that offered the lost screen's closing plates touched nothing this
+file reads, and `check:fast` reported its first failure at line 65 — *a
+figure's layout > draws every rest pose inside the frame it fitted* — in one
+run of eight shards, then passed it alone in 1.7 seconds and passed the whole
+sharded check on the next run. The sharded runner prints only the first
+failure's name, so whether it was the assertion or the clock is not in what
+was seen; the file walks every catalogue entry through `FIT_TIMES` twice over
+and sets no timeout of its own, which is the shape of the entry above this
+one. Run it under the sharded check a few times on a busy machine, read
+whether it is the five-second default that goes, and if it is give it a named
+constant with the reason beside it, `FRAME_TIMEOUT_MS`'s way; if it is the
+assertion, the catalogue has an entry whose rest box is not deterministic,
+and that is the real finding.

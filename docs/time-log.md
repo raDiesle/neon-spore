@@ -8744,3 +8744,21 @@ spark list, is queued rather than split. None of them was a decision, and
 together they cost more than the ledger did.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — shape-fit-flake-queued — a lost-plates candidate thrown away, and a flaky test queued
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `lost-shutters.ts`, `lost-look.ts`, `lost-screen.ts`'s draw order, the three candidates in the slot |
+| deciding | 5 | a tall tear from the seam to the hull rather than the shipped bite, every other number the shipped one |
+| writing | 10 | a `close` candidate for `lost:screen`, its shot, the two headers pointed at it — all dropped |
+| friction | 10 | `bun run land` found `shut` (c7775047) already on `main`, the same answer from another session, and the item marked done |
+| landing | 5 | `check:fast`, this entry, the commit, `bun run land` |
+
+The bottleneck was the second session: the item was claimed on the trunk
+before this lane started and worked twice anyway, and the candidate written
+here was thrown away because a second copy of one question is not a vote.
+`bun run queue` said "taken" by this branch's own name, so the claim did not
+stop it — the other lane worked it under a different branch.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*
