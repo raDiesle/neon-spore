@@ -617,27 +617,6 @@ split means it is shot twice and read as one lesson, which is THE HUSK's
 comment already. Four separate lanes, one boss each, in the order the sections
 are numbered.
 
-## The fuse count is drawn under the siren dial, on its centre at its radius
-
-- **Found:** 2026-09-17, claude/queue-a-rehearsal-cannot-show-a-finger-on-a-bare-tile
-- **Taken:** 2026-09-17, claude/queue-the-fuse-count-is-drawn-under-the-siren-dial-on
-- **Where:** local
-- **Files:** `packages/render/src/mine.ts`, `packages/render/src/siren.ts`, `packages/render/src/ship-top-rows.ts`, `packages/render/test/frame.test.ts`
-
-`drawMineFuses` puts the blind seat's ring of pips at the middle of the field,
-`gridTop + r * 1.3` with `r = tile * 0.42` — on an eleven-column phone that is
-a fifteen-pixel ring centred exactly where `drawCommsSiren` puts its dial,
-`DIAL_R = 15`, and the mine is a `TALKER` kind, so the dial is always lit
-while a mine stands. THE MINE's rehearsal shows it: on player 1's page the six
-pips are a dashed rim around the dial's red disc and read as its decoration,
-and the count — the one thing the blind seat has to read the clock off — is
-not a thing on the screen. This is a fix to something wrong rather than
-unlovely (the third exemption), so it lands: give the fuses a row of their own
-under the duty word through `ship-top-rows.ts`, the way the word itself made
-room under the dial, and hold in `frame.test.ts` that no fuse ring's centre is
-within `DIAL_R` of the siren's. The film needs no change; it draws the real
-screen and will show the row where it lands.
-
 ## THE ORRERY makes no sound
 
 - **Found:** 2026-09-17, claude/boss-orrery

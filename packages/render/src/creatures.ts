@@ -10,7 +10,6 @@ import { mountPlace } from "./gyre-place.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawLidCords } from "./lid-string.js";
-import { drawMineFuses, mines } from "./mine.js";
 import type { RecoilLeapFx } from "./recoil-leap.js";
 import { rockLandingY } from "./rock-landing.js";
 import { drawWeightPress } from "./weight.js";
@@ -67,11 +66,6 @@ export function drawCreatures(
     if (showsWisp(l)) drawWispGround(ctx, l, world, beatPhase);
     if (showsWispSearch(l)) drawWispSearch(ctx, l, world.cfg, time);
   }
-  // And the mine's half that is not a body: the count of every mine **this**
-  // screen is not drawn, standing in a row at the top of the field with no
-  // relation to any column (`mine.ts`). Flat, for the wisp's reason turned
-  // inside out — those marks are on a square and these must be on none.
-  if (mines(world).length > 0) drawMineFuses(ctx, l, world);
   // Farthest first: which of two overlapping bodies is in front used to be
   // decided by spawn order, which is not a fact about the picture. See
   // `byDepth` — it copies rather than sorting the simulation's own array.

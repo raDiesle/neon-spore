@@ -17,6 +17,7 @@ import { frame, type HullFrame } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { drawMagnetAlarm } from "./magnet-alarm.js";
 import { drawMazeDrips } from "./maze-drips.js";
+import { drawMineFuses } from "./mine.js";
 import type { OpeningFx } from "./opening-fx.js";
 import { drawOtherHand } from "./other-hand.js";
 import { hullShake, torchTremor } from "./queen.js";
@@ -161,6 +162,13 @@ export function drawOverlays(
   // field because it is about the pair rather than about anything standing in
   // a column (`siren.ts`).
   drawCommsSiren(ctx, l, world, view.time, view.names, view.clearTop);
+  // And the blind seat's mine counts, which are the bottom row of that same
+  // cluster (`ship-top-rows.ts`). They were drawn with the field, among the
+  // bodies, and could be neither placed under the chrome — the field pass is
+  // never handed `clearTop` — nor kept out from behind a body standing in the
+  // top row. A count somebody's own arrival can cover is not a count
+  // (`mine.ts`).
+  drawMineFuses(ctx, l, world, view.clearTop);
   drawBand(
     ctx,
     l,

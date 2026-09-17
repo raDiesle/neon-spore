@@ -4,6 +4,8 @@ import { drawLivingBody } from "./creature-body-living.js";
 import { flatRadius } from "./creature-place.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { shipTopFoot } from "./ship-top-chrome.js";
+import { fuseRow } from "./ship-top-rows.js";
 
 /**
  * THE MINE, drawn: the body on one seat, the **count** on both.
@@ -81,8 +83,23 @@ export function drawMineBody(b: Body): void {
  * reason. An id is dealt out in arrival order and arrival order is a fact
  * about the field; the count is the only thing this seat may read, so it is
  * also the only thing that decides where a ring stands.
+ *
+ * **Which row they stand on is `ship-top-rows.ts`'s and not this file's.** It
+ * was this file's, measured off the top of the field, and on a short screen
+ * that put the whole ring on the siren's dial — `fuseRow` carries the defect
+ * and the arithmetic. The row is the one thing here that is not about the
+ * mine: everything the ship writes at the top of the screen is in one stack,
+ * and this is the bottom of it.
  */
-export function drawMineFuses(ctx: CanvasRenderingContext2D, l: Layout, world: World): void {
+export function drawMineFuses(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  /** The foot of a plate over the top of the screen, when a rehearsal has one
+   * up (`ViewState.clearTop`) — the chrome above these rings drops under it,
+   * so they drop with it. */
+  clearTop?: number,
+): void {
   const blind = mines(world).filter((c) => !showsMine(l, c));
   if (blind.length === 0) return;
   const fuses = blind
@@ -90,11 +107,18 @@ export function drawMineFuses(ctx: CanvasRenderingContext2D, l: Layout, world: W
     .sort((a, b) => a.left - b.left);
   const r = l.tile * 0.42;
   const gap = r * 2.6;
-  const y = l.gridTop + r * 1.3;
+  const y = fuseRow(l, r, r + pipRadius(r), shipTopFoot(l, world, clearTop));
   const x0 = l.gridLeft + l.gridWidth / 2 - (gap * (fuses.length - 1)) / 2;
   for (const [i, f] of fuses.entries()) {
     drawFuseRing(ctx, x0 + gap * i, y, r, f, f.color, 0);
   }
+}
+
+/** How big one pip on a ring of radius `r` is. Named because the row the ring
+ * stands on is worked out from how far it reaches, which is one of these past
+ * the radius. */
+function pipRadius(r: number): number {
+  return Math.max(1, r * 0.17);
 }
 
 /**
@@ -118,7 +142,7 @@ function drawFuseRing(
 ): void {
   const hex = color === "red" ? PALETTE.red : color === "cyan" ? PALETTE.cyan : PALETTE.wisp;
   const dim = PALETTE.sparkDim;
-  const pip = Math.max(1, r * 0.17);
+  const pip = pipRadius(r);
   // The breathing is on the pip about to go and on nothing else: a ring where
   // everything moved would be an alarm, and an alarm says *hurry* where this
   // has to say *how many*.

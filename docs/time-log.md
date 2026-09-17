@@ -8271,3 +8271,23 @@ the honest answer is that nothing in this renderer can keep a frame — so the
 decision about what the after-image *is* took longer than drawing it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — the fuse count comes off the siren's dial
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `mine.ts`, `siren.ts`, `ship-top-rows.ts`, `ship-top-chrome.ts`, and `computeLayout` closely enough to say which screens the collision is on |
+| writing | 25 | `fuseRow`, the call moved to the overlay pass, and `fuse-row.test.ts` |
+| looking | 0 | the arithmetic is the picture here; the ring is read off the pips it draws |
+| friction | 5 | the test world drew no mine — `alarm-room.test.ts`'s config turns `briefings` on and a briefing holds the field still |
+| landing | 10 | `check:fast` twice, the split at 250 lines, the commit |
+
+The bottleneck was reading, and it bought the one number the entry did not
+have: the collision is not on a phone at all. A phone's field is limited by
+its *width*, so it begins 150 pixels down and the ring never came near the
+dial; it is any screen under about 730 tall — a laptop window, a rehearsal's
+pane — where the field is limited by its height, `gridTop` is the radar's own
+34, and the ring lands at 53 against a dial at 39. That is what the two
+viewports in the new test are, and why the phone's own frame does not move.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*
