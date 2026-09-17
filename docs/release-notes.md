@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 08a8855f — Mark the imports test's timeout done
+
 ## 2026-09-17 · 50f89c25 — The case that spawns biome runs under a cap of its own
 
 `tools/imports/test/imports.test.ts` writes a pruned file and hands it to three `bunx biome` children, and what those cost is whatever the machine is doing. It took 5059 ms under a landing on a busy machine and went red on bun's five-second default with nothing wrong in the code; the landing was rerun and passed, which is the worst shape a failure can have — it teaches whoever meets it that a red check is something you run again.
