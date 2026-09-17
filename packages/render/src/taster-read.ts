@@ -8,7 +8,7 @@ import {
 import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import { showsTasterNext, showsTasterTally } from "./view-role.js";
+import { showsTasterNext, showsTasterTally } from "./view-role-clocks.js";
 
 /**
  * **What is written about THE TASTER's fan, and which seat is shown it.**

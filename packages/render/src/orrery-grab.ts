@@ -13,7 +13,7 @@ import type { Layout } from "./layout.js";
 import { ORRERY_FLATTEN, orreryCorePoint, orreryOrganR, orreryPoint } from "./orrery-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { Field, Hold, Touch } from "./touch.js";
-import { showsOrreryGrip } from "./view-role.js";
+import { showsOrreryGrip } from "./view-role-clocks.js";
 
 /**
  * **The ring under the pilot's thumb**: where he may take hold of it, what a

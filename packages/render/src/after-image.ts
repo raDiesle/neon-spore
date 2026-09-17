@@ -1,7 +1,8 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { PALETTE } from "./palette.js";
-import { showsCandleMuzzle, type ViewRole } from "./view-role.js";
+import type { ViewRole } from "./view-role.js";
+import { showsCandleMuzzle } from "./view-role-clocks.js";
 
 /**
  * **THE CANDLE's after-image**: which columns of a dark field were lit, by

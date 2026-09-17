@@ -1,5 +1,4 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
-import { AfterImage } from "./after-image.js";
 import { Arrivals } from "./arrivals.js";
 import { BeatboxSilences } from "./beatbox-silence.js";
 import { BeatboxWaves } from "./beatbox-wave.js";
@@ -8,15 +7,13 @@ import { ClaspFrames } from "./clasp-frames.js";
 import { CoilFlightFx } from "./coil-flight.js";
 import { CoordGrid } from "./coord-grid.js";
 import { CrawlerFx } from "./crawler-fx.js";
-import { CurtainFx } from "./curtain-fx.js";
 import { Debris } from "./debris.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
+import { BossTransients } from "./effects-boss.js";
 import { drawAll, ingestAll, resetAll, updateAll } from "./effects-frame.js";
 import { ShipMoods } from "./effects-ship.js";
-import { FleetFx } from "./fleet-fx.js";
 import { GhostTrail } from "./ghost-trail.js";
-import { GorgeFx } from "./gorge-fx.js";
 import { HarpoonLineFx } from "./harpoon-line.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { HuskDeflates } from "./husk-deflate.js";
@@ -24,14 +21,10 @@ import type { LayEcho } from "./lay-echo.js";
 import type { Layout } from "./layout.js";
 import { OpeningFx } from "./opening-fx.js";
 import { RecoilLeapFx } from "./recoil-leap.js";
-import { RepriseFx } from "./reprise-fx.js";
 import { RockImpactFx } from "./rock-impact.js";
-import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
-import { TasterFx } from "./taster-fx.js";
 import { VolleyShardsFx } from "./volley-shards.js";
-import { WardenFx } from "./warden-fx.js";
 
 /**
  * Everything transient. Effects own their own state, are fed only by
@@ -73,6 +66,9 @@ export class Effects {
   readonly arrivals = new Arrivals();
   /** The transients that belong to one body — `effects-body.ts`. */
   readonly bodies = new BodyTransients();
+  /** And the ones that belong to one boss, read above the loop by the boss
+   * pass: `effects.boss.mirror`, `.fleet`, `.afterImage` (`effects-boss.ts`). */
+  readonly boss = new BossTransients();
   /** THE RECOIL's knock-back as a throw, one beat long from the frame of the
    * hit. Public: `drawCreatures` asks it where each recoil is drawn
    * (`recoil-leap.ts`), which is not a place a transient can paint. */
@@ -93,20 +89,6 @@ export class Effects {
   /** THE CRAWLER's three: a burst ring's goo, the swept lane, the burrow's
    * banks — each outliving what it is about (`crawler-fx.ts`). */
   readonly crawler = new CrawlerFx();
-  /**
-   * THE MIRROR's own transients. Public: the boss is drawn as a whole ship
-   * rather than as particles, and `canvas2d` reads `armed` and `intake` off
-   * it to build the mirror's hull mood.
-   */
-  readonly mirror = new MirrorFx();
-  /** THE WARDEN's one transient: the line whipping down after it is torn.
-   * Public for the mirror's reason — the boss is drawn as a whole body by
-   * `boss-draw.ts`, not as a handful of particles here. */
-  readonly warden = new WardenFx();
-  /** THE FLEET's salvoes between the muzzle and the square. Public for the
-   * mirror's reason, and asked questions as well as drawn: the marks and the
-   * scars check with it before calling a square spent (`fleet-fx.ts`). */
-  readonly fleet = new FleetFx();
   /**
    * The baked burst, played from an atlas over a destroyed creature. Public
    * because installing the atlas is the *host's* decision: `apps/game` does it
@@ -146,14 +128,6 @@ export class Effects {
   /** THE CHOIR's earthquake: the one transient that moves the *picture* rather
    * than something in it, applied where the stage is placed (`choir-quake.ts`). */
   readonly quake = new ChoirQuake();
-  /**
-   * THE REPRISE's swallow: the moment the count of owed bodies went down, which
-   * is the only sign either seat gets that an unseen body has entered the field.
-   * Driven from the boss pass rather than fed by an event — an unseen arrival
-   * deliberately pushes none — and kept here because it outlives its frame
-   * (`reprise-fx.ts`).
-   */
-  readonly reprise = new RepriseFx();
   /** The husks the pair refused, flying off. A second and a bit each, which is
    * longer than anything else the mouth throws — it is a joke, and a joke has
    * to be given room (`husk-deflate.ts`). */
@@ -163,21 +137,6 @@ export class Effects {
   /** And its silencings, which are the same picture with nowhere to go
    * (`beatbox-silence.ts`). */
   readonly beatboxSilences = new BeatboxSilences();
-  /** THE CANDLE's after-image: which columns of the dark field were lit, by
-   * what, and how long ago. Public and drawn by the renderer between the
-   * bodies and the ship rather than here — it is a mask over the field, not
-   * a thing on it (`after-image.ts`, `candle-dark.ts`). */
-  readonly afterImage = new AfterImage();
-  /** THE GORGE's beads leaving at the end, and the bursts its receipts throw
-   * on the way there — read above the loop, the way the mirror's are
-   * (`gorge-fx.ts`). */
-  readonly gorge = new GorgeFx();
-  /** THE CURTAIN's sheet coming down once torn, and its receipts' bursts
-   * (`curtain-fx.ts`). */
-  readonly curtain = new CurtainFx();
-  /** THE TASTER's blades tumbling off the crest, the shiver down the fan as it
-   * re-edges, and the colour each blade wore when it went (`taster-fx.ts`). */
-  readonly taster = new TasterFx();
 
   /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {

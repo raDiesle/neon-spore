@@ -85,7 +85,7 @@ export function drawBoss(
     if (wardenTether(world)) drawTether(ctx, l, world, boss, body, openness, view.time);
     // A rope that snapped back no longer exists in the world, so its leaving is
     // the one part of this boss the picture has to remember for itself.
-    effects.warden.draw(ctx, l, world.cfg, anchor);
+    effects.boss.warden.draw(ctx, l, world.cfg, anchor);
     return;
   }
 
@@ -110,7 +110,7 @@ export function drawBoss(
   // swallow as each one goes — the one thing the picture has to remember for
   // itself (`reprise-fx.ts`). No body among the creatures, for the vane's reason.
   if (boss.kind === "reprise") {
-    const echo = effects.reprise;
+    const echo = effects.boss.reprise;
     echo.note(boss.at < 0 ? -1 : boss.left);
     const seen = repriseEchoing(world);
     drawReprise(ctx, l, world.cfg, seen, repriseLeft(world), echo.swallow, view.time);
@@ -157,7 +157,7 @@ export function drawBoss(
   // is the flight itself, which outlives its frame by a second and a quarter
   // and is cleared with everything else in `Effects.reset` (`fleet-fx.ts`).
   if (boss.kind === "fleet") {
-    const fleet = effects.fleet;
+    const fleet = effects.boss.fleet;
     drawFleetChart(ctx, l, world, boss, view.beatPhase, view.time, view.clearTop);
     drawFleetHulls(ctx, l, world, boss, view.beatPhase, fleet, view.clearTop);
     drawFleetMarks(ctx, l, world, boss, fleet, view.clearTop);
@@ -172,7 +172,7 @@ export function drawBoss(
   // effects — and its ghost shots under it, the way the player's shots are
   // drawn under the player's own hull.
   if (boss.kind !== "mirror") return;
-  const fx = effects.mirror;
+  const fx = effects.boss.mirror;
   drawMirror(ctx, l, world.cfg, boss, world.shieldCol, view.time, {
     armed: fx.armed,
     intake: fx.intake,

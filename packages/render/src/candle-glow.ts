@@ -3,7 +3,8 @@ import { halo } from "./glow.js";
 import { rgba } from "./hex.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
-import { showsCandleFace, type ViewRole } from "./view-role.js";
+import type { ViewRole } from "./view-role.js";
+import { showsCandleFace } from "./view-role-clocks.js";
 
 /**
  * **THE CANDLE's glow**: its health, and the only steady light in the field.

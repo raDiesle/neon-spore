@@ -92,11 +92,13 @@ commit. The shape of it, from THE DIASTOLE, THE CANDLE and THE GORGE:
 
 - `render/src/<boss>-draw.ts` reads the boss off `world` every frame and keeps
   nothing; split a `<boss>-lobe.ts` or `<boss>-shape.ts` off before 250.
-- One `showsX(role)` predicate per fact one seat is shown, in `view-role.ts`,
-  with the reason it is that seat's — the split is the encounter.
-- Anything that outlives a frame is a class in `Effects` (`effects.ts`),
-  walked by all four verbs in `effects-frame.ts`; `restart.test.ts` proves the
-  reset. A family of events is read above the loop (`<boss>-fx.ts`, the way
+- One `showsX(role)` predicate per fact one seat is shown, in
+  `view-role-clocks.ts` (a choreographed boss) or `view-role.ts` (one with a
+  body on the field), with the reason it is that seat's — the split is the
+  encounter.
+- Anything that outlives a frame is a field of `BossTransients`
+  (`effects-boss.ts`, reached as `effects.boss.<name>`), walked by its four
+  verbs there; `restart.test.ts` proves the reset. A family of events is read above the loop (`<boss>-fx.ts`, the way
   THE MIRROR's and THE GORGE's are) rather than as rows in a spark table at
   its limit.
 - The branch in `boss-draw.ts` is short; the file is near 250.

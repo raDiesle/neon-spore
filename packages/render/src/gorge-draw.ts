@@ -11,7 +11,7 @@ import { drawLobe, lobeHex } from "./gorge-lobe.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
-import { showsGorgeNearest, showsGorgeTally } from "./view-role.js";
+import { showsGorgeNearest, showsGorgeTally } from "./view-role-clocks.js";
 
 /**
  * THE GORGE, drawn: a translucent sack across seven columns above the top of

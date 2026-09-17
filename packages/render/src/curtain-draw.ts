@@ -11,7 +11,7 @@ import { drawnCol } from "./depth.js";
 import { drawHandAt } from "./grip.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
-import { showsCurtainShadow, showsCurtainSoft } from "./view-role.js";
+import { showsCurtainShadow, showsCurtainSoft } from "./view-role-clocks.js";
 
 /**
  * THE CURTAIN, drawn: a translucent violet-grey membrane hung across seven

@@ -6,7 +6,8 @@ import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 import { BOW_TILES, bowLift, breachHalf, edgeLight } from "./undertow-shape.js";
-import { showsUndertowBow, type ViewRole } from "./view-role.js";
+import type { ViewRole } from "./view-role.js";
+import { showsUndertowBow } from "./view-role-clocks.js";
 
 /**
  * THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach

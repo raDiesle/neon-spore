@@ -59,14 +59,7 @@ export function ingestAll(
     const at = put(x, y);
     fx.sparks.burst(at.x, at.y, n, hex);
   };
-  fx.mirror.ingest(events);
-  fx.warden.ingest(events);
-  fx.gorge.ingest(events, l, burst);
-  fx.curtain.ingest(events, l, cfg, spb, burst);
-  fx.taster.ingest(events, l, spb, burst);
-  // The seat is the layout's: a flash lights only the screen whose control made it.
-  fx.afterImage.ingest(events, l.role, time, spb);
-  fx.fleet.ingest(events, spb);
+  fx.boss.ingest(events, l, cfg, spb, time, l.role, burst);
   fx.bodies.ingest(events, l, cfg, spb, time);
   fx.recoilLeap.ingest(events, spb);
   fx.coilFlight.ingest(events, l, spb);
@@ -118,8 +111,6 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
     else e.blockedUntil.set(id, left);
   }
   e.ship.update(dt);
-  e.mirror.update(dt);
-  e.warden.update(dt);
   e.bodies.update(dt);
   e.recoilLeap.update(dt);
   e.coilFlight.update(dt);
@@ -132,14 +123,10 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.quake.update(dt);
   e.beatboxWaves.update(dt);
   e.beatboxSilences.update(dt);
-  e.reprise.update(dt);
-  e.gorge.update(dt);
-  e.curtain.update(dt);
-  e.taster.update(dt);
-  // A salvo's particles are thrown from here on the frame it lands, not from
-  // `burstFor` on the frame the event arrived — a second and a quarter
-  // earlier (`fleet-fx.ts`).
-  e.fleet.update(dt, l, (x, y, n, hex) => e.sparks.burst(x, y, n, hex));
+  // Last, for the fleet: a salvo's particles are thrown from here on the
+  // frame it lands, not from `burstFor` on the frame the event arrived
+  // (`effects-boss.ts`).
+  e.boss.update(dt, l, (x, y, n, hex) => e.sparks.burst(x, y, n, hex));
 }
 
 /** Drawn under the hull, so a deflected rock passes behind nothing. The world
@@ -164,9 +151,7 @@ export function drawAll(
   e.huskDeflates.draw(ctx, l);
   e.beatboxWaves.draw(ctx, l);
   e.beatboxSilences.draw(ctx, l);
-  e.gorge.draw(ctx, l);
-  e.curtain.draw(ctx, l);
-  e.taster.draw(ctx, l);
+  e.boss.draw(ctx, l);
   e.bodies.drawOnBodies(ctx, l, world, beatPhase, e.recoilLeap);
 }
 
@@ -182,9 +167,7 @@ export function resetAll(e: Effects): void {
   e.arrivals.clear();
   e.blockedUntil.clear();
   e.ship.clear();
-  e.mirror.clear();
-  e.warden.reset();
-  e.fleet.clear();
+  e.boss.clear();
   e.bodies.clear();
   e.recoilLeap.clear();
   e.coilFlight.clear();
@@ -199,9 +182,4 @@ export function resetAll(e: Effects): void {
   e.quake.clear();
   e.beatboxWaves.clear();
   e.beatboxSilences.clear();
-  e.reprise.clear();
-  e.afterImage.clear();
-  e.gorge.clear();
-  e.curtain.clear();
-  e.taster.clear();
 }

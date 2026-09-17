@@ -19,7 +19,7 @@ import {
 } from "./orrery-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
-import { showsOrreryRing } from "./view-role.js";
+import { showsOrreryRing } from "./view-role-clocks.js";
 
 /**
  * THE ORRERY, drawn: a core in the middle column held inside three flattened

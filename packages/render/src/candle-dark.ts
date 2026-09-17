@@ -7,7 +7,7 @@ import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
-import { showsCandleGuard } from "./view-role.js";
+import { showsCandleGuard } from "./view-role-clocks.js";
 
 /**
  * **THE CANDLE's dark**: the field going black, and the pair's own weapons as
@@ -122,7 +122,7 @@ export function drawCandleField(
 ): void {
   const { world } = view;
   const c = candleBoss(world);
-  const img = effects.afterImage;
+  const img = effects.boss.afterImage;
   const spb = beatSeconds(world.cfg);
   if (c === null) {
     // The wave-end light: the black lifts over a beat from the last dark frame.

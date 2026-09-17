@@ -8931,3 +8931,19 @@ work was the older seven and the header that says why the seam is the
 ingest half's, not the one the entry described.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-view-role-ts-and-effects-ts-are-both-at-the-ceil — the clock bosses' halves and the boss transients move next door
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | both files, `effects-body.ts` and `effects-frame.ts` for the four verbs, `boss-draw-clocks.ts` for the seam, every importer |
+| deciding | 5 | two seams, both already cut elsewhere: THE DIASTOLE onward to `view-role-clocks.ts`, one boss's transients to `BossTransients` |
+| writing | 15 | two new files, fourteen predicates and eight fields moved, eleven imports and six reads repointed, the four verbs collapsed to one call each |
+| friction | 5 | `bun run index` read the `Burst` type's comment as the file's line, and keeps a row once written — edited the row by hand |
+| landing | 5 | `check:fast` twice, this entry, the commit, `bun run land` |
+
+The bottleneck was the repointing: the split itself was two seams the tree
+had already cut three times over, and the time went into finding every file
+that named a moved predicate or field and turning each one by hand.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

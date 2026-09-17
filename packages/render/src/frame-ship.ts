@@ -119,7 +119,7 @@ export function drawShip(
   effects.rockImpact.draw(ctx, l, view.time, (x) => hullSkinY(l, view.time, mood, at, x, f));
   effects.drawBanner(ctx, l);
   if (world.boss?.kind === "mirror") {
-    effects.mirror.draw(ctx, l, world.cfg, world.boss, world.beat, view.beatPhase);
+    effects.boss.mirror.draw(ctx, l, world.cfg, world.boss, world.beat, view.beatPhase);
   }
   // Last of the ship pass and over all of it: a ring that says which swelling
   // this phone's own finger has hold of. It is drawn from the world's columns

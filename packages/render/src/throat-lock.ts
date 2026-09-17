@@ -10,7 +10,7 @@ import { type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawTargetLock } from "./target-lock.js";
 import { mouthY } from "./throat-shape.js";
-import { showsThroatLock } from "./view-role.js";
+import { showsThroatLock } from "./view-role-clocks.js";
 
 /**
  * NEXT INHALE: the column the mouth will be standing in on the beat it next

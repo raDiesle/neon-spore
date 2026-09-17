@@ -17,7 +17,7 @@ import { strokeGlow } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
-import { showsDiastoleBeat } from "./view-role.js";
+import { showsDiastoleBeat } from "./view-role-clocks.js";
 
 /**
  * THE DIASTOLE, drawn: two chambers above the top of the field, and the bridge

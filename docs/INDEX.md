@@ -718,6 +718,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/depth.ts` | THE FIELD HAS A NEAR EDGE AND A FAR ONE |
 | `packages/render/src/debris.ts` | The pieces a broken body left, still in the air |
 | `packages/render/src/effects-body.ts` | The transients that belong to **one body** and outlive it by less than a beat: a lure folding to a point, the |
+| `packages/render/src/effects-boss.ts` | The transients that belong to **one boss** and are read above the loop |
 | `packages/render/src/effects-breach.ts` | What a breach looks like — the one event whose answer is not a burst at a point, because the thing that |
 | `packages/render/src/effects-break.ts` | Turning a `destroy` into a body coming apart |
 | `packages/render/src/effects-spark.ts` | The events whose whole visible answer is a handful of particles |
@@ -813,6 +814,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fleet-marks.ts` | THE FLEET's shared half: every square already spent, and the sights standing on one |
 | `packages/render/src/band-control.ts` | One control of the band, drawn — a lobe or a strip, whichever the set says |
 | `packages/render/src/view-role.ts` | Whose screen this is, and what that seat is allowed to be shown |
+| `packages/render/src/view-role-clocks.ts` | **The clock bosses' halves** — what each seat is shown of THE DIASTOLE onward |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
 | `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |
 | `packages/render/src/snake-round.ts` | SNAKE over the whole stage |
