@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · d89bd615 — THE SCUTTLE, the look: a lobed slab plated with its parts, the sockets the pilot counts and the live part the navigator is shown
+
+A grey slab hung over the top of the field, plated with a rock plate per part still in it, so the silhouette is the count and a plate fewer is a throw. A socket a part came loose from is an open violet hollow with the part hanging a half tile under it on a thread. The pilot's screen has every plate and every open socket and any hanging part grey; the navigator's slab is blind but for the live part's socket, the part itself in its ammunition's colour, and the lock on the column the next throw lands in (`showsScuttleCount`, `showsScuttleLive`, `view-role-clocks-b.ts`). The wind-up shivers and lifts the last part; a throw jolts the slab; a strike sends the plate tumbling; down, the slab fades over `scuttleOutBeats`. Fifteen frame tests prove every state on all three screens and the split both ways. A look with no shipped alternative.
+
 ## 2026-09-17 · 6661cc41 — The probe's scratch directory is out of the typecheck, so a throwaway left behind is nobody else's red check
 
 `tools/probe/run.ts` promised a probe left behind was "neither committed nor in anybody's way", and only the first half held. `.gitignore` hides `tools/probe/scratch/*`, but `tsconfig.json` includes `tools/**/*.ts` and excluded nothing under it, so `bunx tsc --noEmit` read every probe anybody had ever left there — and a throwaway written against `noUncheckedIndexedAccess` is red ten times over. The lane that found this inherited nine errors from its own probe, in a file `git status` cannot show, which is the worst shape a failure has: invisible in the diff and inherited by whoever works in the tree next.

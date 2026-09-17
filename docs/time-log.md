@@ -9466,3 +9466,5 @@ shipped alternative.
 The bottleneck was the frame test's three false negatives, each a fact about the
 harness rather than the picture, and each found by reading the canvas log
 rather than the drawer.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
