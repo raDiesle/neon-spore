@@ -291,25 +291,37 @@ block's names are re-exported today), do the same for `events.ts` and
 `events-bosses.ts`, and take the three stray re-exports out of
 `bosses-clocks-b.ts`. `bun run typecheck` proves the surface unchanged.
 
-## `act-7c.ts` is two lines under the 250-line ceiling and cannot take another wave
+## Act seven has no room for another wave and no letter to put a page under
 
 - **Found:** 2026-09-17, claude/task-queue-progress-abb7a3
-- **Taken:** 2026-09-17, claude/queue-act-7c-ts-is-two-lines-under-the-250-line-ceilin
-- **Files:** `packages/content/src/waves/act-7c.ts`
+- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves.ts`
+- **Asks:** When a page in the middle splits, do the later letters shift up, or do waves migrate between pages?
 
-The file is at 248 lines. It exists at all because THE STARE took `act-7b.ts`
-twenty-one lines over the same ceiling and the page was cut; it is now one
-paragraph or one wave from the same wall, and the next lane to touch act seven
-will meet it mid-task rather than at the start.
+`act-7c.ts` is at 248 lines of 250 and `act-7d.ts` at 247. `act-7e.ts` has 98,
+so act seven holds 593 lines against a budget of 750 across its three pages:
+**157 lines of headroom for twenty-two waves, and the act is still growing** —
+THE HIVE's look is parked in this same file and act seven is where every new
+boss has landed for a week.
 
-Nothing is wrong with the file — the three waves on it are a coherent page,
-which is the rule an act file is held to ("a page rather than a chapter"). What
-is needed is the cut made deliberately rather than under a red check. THE
-DIASTOLE is the natural one to move: it is the only wave on the page with no
-relation to the other two, it closes the act, and its own doc comment is the
-longest of the three. A new page takes it, `7d` by the same naming rule that
-produced `7c`, and the remaining file drops to about 150 lines with room for
-the boss work act seven still has queued against it.
+Shuffling does not make headroom, it moves it. The convention the pages were
+built on is that a full page is cut at its *end* and the overflow takes the
+next letter, which is how `7d` came off `7c` and `7e` off `7d`. That works
+until the page that fills is not the last one, and `7c` is not: the overflow
+belongs between `7c` and `7d` and there is no letter there. The order of the
+waves is the order of the game (`waves.ts` spreads the pages in sequence), so
+the new page cannot simply go on the end.
 
-Proved with `bun run check` — `packages/sim/test/limits.test.ts` holds the
-ceiling and `packages/content/test/waves.test.ts` holds the act ordering.
+The options the answer picks between. **Shift the letters**: cut `7c`'s tail
+into a new `7d` and rename the present `7d` and `7e` to `7e` and `7f`, which
+keeps every page readable as a page and costs a rename each time a middle page
+fills. **Migrate waves down the chain**: move `7c`'s tail to the front of `7d`
+and `7d`'s tail to the front of `7e`, which needs no rename and no new file,
+but moves each wave's prose to a different page's header and buys `7c` about
+55 lines while leaving `7e` near 220 — it postpones rather than solves.
+**Or lift the prose**: the three headers are 46, 65 and 40 lines of design
+argument, and moving that to `docs/spec/` would free more than either, at the
+cost of separating a wave's reasoning from its figures — which is the thing
+these headers were written the way they are to avoid.
+
+The first is the only one that gives act seven somewhere to grow. It wants
+deciding before the next boss lands rather than during it.

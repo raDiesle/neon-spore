@@ -9741,3 +9741,23 @@ files in `sim`, and each citation had to be read to know whether it wanted THE
 VANE's write-up, THE CAIRN's, or the filter it was really standing on.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — task-queue-work — act seven's page problem is a convention question, not a split
+
+Claimed the entry this session had written about `act-7c.ts` being two lines
+under the ceiling, and found the entry wrong on every figure: nine waves on the
+page rather than three, `7d` and `7e` already taken rather than free, and `7d`
+itself at 247. The entry is rewritten as the question it actually is.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the six act-seven pages, their headers, `waves.ts`'s assembly order, `act-7d.ts`'s account of its own cut |
+| writing | 10 | the entry rewritten with the real figures and three named options |
+| looking | 10 | line counts and wave spans across `7c`, `7d` and `7e`, and arithmetic on what each rebalancing would actually buy |
+| friction | 5 | `queue release` matches on the title, so renaming an entry while holding it drops the claim and leaves the branch behind to delete by hand |
+| landing | 5 | the queue tests, the commit, `land --keep` |
+
+The bottleneck was that the entry had been written from the one file in front
+of the session that wrote it, without looking at the pages either side — so the
+fix it proposed ("a new page, `7d`") named a file that had existed for days.
+Ten minutes of counting turned a wrong task into a real question.
