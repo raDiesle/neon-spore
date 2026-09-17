@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 21a178f6 — Claim THE ORRERY's look, the last of its three lanes
+
+The hand landed; the row says what it shipped and which two of §2's claims it shipped against. The look takes the circle the thumb lands on with it.
+
 ## 2026-09-17 · 8d1afe21 — THE ORRERY: a hand on the ring, and the one gap you can move yourself
 
 The pilot can turn the outermost unbroken ring by hand. A drag on it reports a bearing — where the thumb is round the circle, in thousandths of a turn, the way THE CLAW's crank does — and a turn and a half of it clicks the ring one organ round. So the alignment the pair has been waiting for can be brought forward instead, and the only thing in this fight that can move a gap off a beat they have already agreed on is one of their own hands.
