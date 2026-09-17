@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 06c18a70 — The versus scaffold prints a candidate that compiles
+
+`bun run versus new` printed `../../../../packages/…` and `../../variant.js`, which were right when a candidate was one file at `candidates/<name>.ts` and one directory short of the `candidates/<slot>/<name>/index.ts` layout that replaced it. Every import in a freshly scaffolded candidate was wrong the moment the file was saved, and nothing said so — the template is printed for a person to paste, so no compiler ever sees it. Both specifiers are now `posix.relative` from the directory the template itself names, and a test takes them back out of the printed text, resolves them against that directory and asks the tree what is there.
+
 ## 2026-09-17 · 32437a5d — THE CANDLE's simulation: a glow of five steps that any colour dims, that drifts and turns, and that eats the shot from the column it faces
 
 The third choreographed boss, §14 of docs/spec/bosses-choreographed.md, in its first half: the rules and nothing drawn. The boss is a glow at the top of the field with five steps of health; a bullet reaching the top of its column or the beam burning it takes a step. It arrives dark and still for four beats, then drifts a column every three and turns to face a column every four — the one thing player 1 sees and player 2 does not. Down to two steps it eats: a shot fired from the column it faces never becomes a bullet and the glow comes back a step. Down to one it stops, and the last shot puts it out, with the wave held two black beats more. The simulation does not know the field is dark; the darkness, the per-seat light and the after-image are the look half, next.
