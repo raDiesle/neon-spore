@@ -196,7 +196,6 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
-- **Taken:** 2026-09-17, claude/queue-the-scouts-second-arena-leaves-the-scout-nowhere
 - **Files:** `packages/content/src/scout-arenas.ts`, `packages/sim/src/config-scout.ts`
 - **Asks:** Move the motes off the hazards' rows, move the hazards, or make a hazard's touch smaller?
 
