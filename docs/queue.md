@@ -440,6 +440,7 @@ second exemption, so it lands on the field.
 ## Nine more tests spawn a child process under bun's five-second default
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-nine-more-tests-spawn-a-child-process-under-buns
 - **Files:** `tools/test/line-endings.test.ts`, `tools/imports/test/format-script.test.ts`, `tools/hooks/test/guard.test.ts`, `tools/queue/test/ref-commit.test.ts`, `tools/queue/test/stale.test.ts`, `tools/dev/test/supervise-stop.test.ts`, `tools/dev/test/here.test.ts`, `tools/versus/test/registry.test.ts`, `apps/server/test/dev-stop.test.ts`
 
 The lane that capped `tools/imports/test/imports.test.ts` swept for the same
