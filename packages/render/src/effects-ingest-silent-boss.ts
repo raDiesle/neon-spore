@@ -62,17 +62,21 @@ export const INGEST_SILENT_BOSS = [
   "batonMissed",
   "batonShed",
   "batonDown",
-  // THE UNDERTOW's nine, silent for now rather than for ever: the plate
-  // bowing, the lobe standing in its breach and the body passing through are
-  // the look half of that boss and are not drawn yet (`docs/spec/bosses.md`).
-  // What it does to the hull it does through `scarHull` and `breachHull`, so
-  // a scar and the last lobe's breach are on the field the same tick.
+  // THE UNDERTOW's ten: the plate bowing, the lobe standing in its breach and
+  // the body passing through are read off the world every frame
+  // (`undertow-draw.ts`, `undertow-lobe.ts`), and a breach that opens is
+  // drawn open. What it does to the hull it does through `scarHull` and
+  // `breachHull`, so a scar — and the plate a tall lobe takes, drawn as a
+  // hole in the outline (`plate-gap.ts`) — is on the field the same tick.
+  // The one that outlives its frame, the plate closing under a cannon slid
+  // off in time, is read above the loop by `undertow-fx.ts`.
   "undertowBow",
   "undertowLobe",
   "undertowTaken",
   "undertowScar",
   "undertowWidened",
   "undertowUnseated",
+  "undertowClosed",
   "undertowRise",
   "undertowSwallowed",
   "undertowThrough",

@@ -14,6 +14,7 @@ import { MirrorFx } from "./simon-fx.js";
 import { SinewFx } from "./sinew-fx.js";
 import { SurgeFx } from "./surge-fx.js";
 import { TasterFx } from "./taster-fx.js";
+import { UndertowFx } from "./undertow-fx.js";
 import { WardenFx } from "./warden-fx.js";
 
 /**
@@ -107,6 +108,10 @@ export class BossTransients {
    * event's column, an opening in its colour only where the colour is drawn
    * (`hive-fx.ts`, `hive-draw.ts`). */
   readonly hive = new HiveFx();
+  /** THE UNDERTOW's one transient: the plate closing under a cannon slid off
+   * in time, drawn on the finished ship where the bow itself is
+   * (`undertow-fx.ts`, `frame-on-ship.ts`). */
+  readonly undertow = new UndertowFx();
 
   /** `role` is the layout's: a flash lights only the screen whose control
    * made it (`after-image.ts`). */
@@ -131,6 +136,7 @@ export class BossTransients {
     this.scuttle.ingest(events, l, cfg, beatSeconds, role, burst);
     this.antiphon.ingest(events, l, cfg, beatSeconds, role, burst);
     this.hive.ingest(events, l, role, burst);
+    this.undertow.ingest(events, l, cfg, beatSeconds, role);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
   }
@@ -152,6 +158,7 @@ export class BossTransients {
     this.scuttle.update(dt);
     this.antiphon.update(dt);
     this.hive.update(dt);
+    this.undertow.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
@@ -187,6 +194,7 @@ export class BossTransients {
     this.scuttle.clear();
     this.antiphon.clear();
     this.hive.clear();
+    this.undertow.clear();
   }
 }
 

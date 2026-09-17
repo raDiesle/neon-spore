@@ -109,6 +109,10 @@ export function drawScars(
 ): void {
   ctx.save();
   for (const s of scars) {
+    // Plating that is gone did not crack: it is a hole in the outline
+    // (`plate-gap.ts`), and a crack hanging off the skin above a hole would
+    // be the skin drawn where there is none.
+    if (s.plate === true) continue;
     if (isWardable(s.kind) && !arrived(s.col, s.beat)) continue;
     const seed = tileSeed(s.col, s.beat);
     const rnd = stream(seed);

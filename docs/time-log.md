@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE UNDERTOW, the plate's hole and step 11
+
+The plate a tall lobe takes drawn as a hole in the outline, and a cannon slid
+off in time closing the plate — in the sim as the design says, and on the
+pilot's screen as the bow running down.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `hull.ts`'s crater clip, `craters.ts`, `crater-geom.ts`, `scars.ts`, `undertow-draw.ts`, `effects-boss.ts`, the harness's `onTick` |
+| writing | 40 | `plate-gap.ts`, the seam split off `undertow-draw.ts`, `undertow-fx.ts`, the step's `seat` branch and `undertowClosed`, the bind, the silent lists, two tests, the write-up |
+| looking | 20 | the browser route three times: the first build was stale, the second had the seat's glow in the hull's own colour on the hull, invisible; the rim flare replaced it |
+| friction | 10 | the preview had exited with the tab still holding its page; the tab is hidden in the pane so the run held itself and painted the pause veil until `document.hidden` was overridden; `undertow-step.ts` four lines over 250 |
+| landing | 10 | `check:fast` red on `docs/INDEX.md` for three new files, `bun run index`, the commit, `bun run land --keep` |
+
+The bottleneck was the picture: a preview that builds once has to be
+restarted for every change, and a tab the pane hides holds the run paused.
+
 ## 2026-09-17 — boss-implementation — THE UNDERTOW, the plate taken
 
 Steps 9 and 10 as a fact: a tall lobe withdrawing takes the plate, its

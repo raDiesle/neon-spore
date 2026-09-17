@@ -5,7 +5,8 @@ import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
-import { BOW_TILES, bowLift, breachHalf, edgeLight } from "./undertow-shape.js";
+import { drawPlateBow, flicker, lifted, seamLight } from "./undertow-seam.js";
+import { bowLift, breachHalf, edgeLight } from "./undertow-shape.js";
 import type { ViewRole } from "./view-role.js";
 import { showsUndertowBow } from "./view-role-clocks.js";
 
@@ -31,7 +32,9 @@ import { showsUndertowBow } from "./view-role-clocks.js";
  *
  * **Violet, through the seams.** The light is `hull`, the ship's own colour,
  * which is the fiction the design asks for — it is coming up out of whatever
- * the ship is standing on. Nothing here is held between frames.
+ * the ship is standing on. Nothing here is held between frames; the one
+ * moment that outlives one, a plate closing under a cannon slid off in time,
+ * is `undertow-fx.ts`'s, drawn with the same seam (`undertow-seam.ts`).
  */
 
 /** How far the whole edge lifts at the rise, in tiles: less than one plate's bow. */
@@ -61,7 +64,8 @@ export function drawUndertowHull(
   for (const b of u.breaches) {
     if (b.stage === "standing") drawParted(ctx, l, b, time, surfaceY);
     else if (showsUndertowBow(role) || u.phase === "last") {
-      drawBow(ctx, l, b, bowLift(cfg, u, b, beat, beatPhase), time, surfaceY);
+      const lift = bowLift(cfg, u, b, beat, beatPhase);
+      drawPlateBow(ctx, l, tileCX(l, b.col), breachHalf(b) * l.tile, lift, time, surfaceY);
     }
   }
   // The seat's own column, lit under the cannon while it is unseated: the
@@ -70,78 +74,6 @@ export function drawUndertowHull(
   if (showsUndertowBow(role) && undertowUnseated(u, beat)) {
     halo(ctx, cannonX, surfaceY(cannonX), l.tile * 0.7, PALETTE.hull, 0.35 + 0.25 * flicker(time));
   }
-}
-
-/** A slow unsteady pulse for the light, off the frame clock; the same on both screens. */
-function flicker(time: number): number {
-  return 0.5 + 0.5 * Math.sin(time * 7.3) * Math.sin(time * 2.1);
-}
-
-/**
- * The skin between two screen x's, lifted by a raised-cosine window — the
- * plate as it bows — as an open run of points, left to right.
- */
-function lifted(x0: number, x1: number, lift: number, surfaceY: SurfaceY): Point[] {
-  const pts: Point[] = [];
-  const n = 10;
-  for (let i = 0; i <= n; i++) {
-    const f = i / n;
-    const x = x0 + (x1 - x0) * f;
-    pts.push({ x, y: surfaceY(x) - lift * 0.5 * (1 - Math.cos(f * Math.PI * 2)) });
-  }
-  return pts;
-}
-
-/** The same run along the skin itself, right to left, to close a light against it. */
-function along(x0: number, x1: number, surfaceY: SurfaceY): Point[] {
-  const pts: Point[] = [];
-  for (let i = 10; i >= 0; i--) {
-    const x = x0 + (x1 - x0) * (i / 10);
-    pts.push({ x, y: surfaceY(x) });
-  }
-  return pts;
-}
-
-/**
- * The light under a lifted plate: filled additively between the skin and the
- * plate's underside, so it reads as light through a seam rather than as a
- * second hull painted over the first.
- */
-function seamLight(
-  ctx: CanvasRenderingContext2D,
-  plate: Point[],
-  x0: number,
-  x1: number,
-  alpha: number,
-  surfaceY: SurfaceY,
-): void {
-  const light = splinePath([...plate, ...along(x0, x1, surfaceY)], true);
-  ctx.save();
-  ctx.globalCompositeOperation = "lighter";
-  ctx.globalAlpha = alpha;
-  ctx.fillStyle = PALETTE.hull;
-  ctx.fill(light);
-  ctx.restore();
-}
-
-/** One plate bowing up under the pilot's eye: the seam lit, the rim lifted, a glow at each end. */
-function drawBow(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  b: UndertowBreach,
-  lift: number,
-  time: number,
-  surfaceY: SurfaceY,
-): void {
-  if (lift <= 0) return;
-  const x = tileCX(l, b.col);
-  const half = breachHalf(b) * l.tile;
-  const plate = lifted(x - half, x + half, BOW_TILES * l.tile * lift, surfaceY);
-  seamLight(ctx, plate, x - half, x + half, 0.25 + 0.3 * lift, surfaceY);
-  strokeGlow(ctx, splinePath(plate, false), PALETTE.hullRim, STROKE.inner, 0.3 + 0.6 * lift);
-  const glow = (0.2 + 0.4 * lift) * (0.7 + 0.3 * flicker(time));
-  halo(ctx, x - half, surfaceY(x - half), l.tile * 0.35, PALETTE.hull, glow);
-  halo(ctx, x + half, surfaceY(x + half), l.tile * 0.35, PALETTE.hull, glow);
 }
 
 /**

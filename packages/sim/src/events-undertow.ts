@@ -32,6 +32,8 @@ export type UndertowEvent =
   | ({ type: "undertowWidened" } & UndertowColEvent)
   /** The floor bowed under the cannon and it was not slid off in time: player 1's seat is unseated. */
   | ({ type: "undertowUnseated" } & UndertowColEvent)
+  /** The floor bowed under the cannon and it was slid off in time: the plate closes, with nothing through it. */
+  | ({ type: "undertowClosed" } & UndertowColEvent)
   /** Every seam lit at once: the last lobe is rising in the middle column. */
   | ({ type: "undertowRise" } & UndertowColEvent)
   /** The maw was held open long enough: the body follows the lobe in, and the boss is beaten. */

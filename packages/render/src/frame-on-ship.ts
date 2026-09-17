@@ -103,4 +103,8 @@ export function drawOnShip(
   // parted round its lobe and the whole edge rising — the hull's own skin
   // doing something, over the rim the ship pass just lit (`undertow-draw.ts`).
   drawUndertowHull(ctx, l, world, view.role, view.beatPhase, view.time, surfaceY, hull.cannonX);
+  // And its one transient, on the same plating: the plate closing under a
+  // cannon slid off in time, which the world has already forgotten
+  // (`undertow-fx.ts`).
+  held.effects.boss.undertow.drawClose(ctx, l, surfaceY, view.time);
 }

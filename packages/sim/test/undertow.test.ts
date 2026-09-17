@@ -254,16 +254,24 @@ describe("THE UNDERTOW", () => {
     expect(undertowUnseated(u, world.beat)).toBe(false);
   });
 
-  it("lets a pilot who slid off keep his seat, and the lobe stands where he was", () => {
+  it("closes the plate under a pilot who slid off in time, and nothing comes through", () => {
+    // The design's step 11, landed: the one thing that beat asks is the
+    // slide, and the plate closing is its whole answer — no lobe stands
+    // where the cannon was, no scar, and his seat is his.
     const world = open();
     takeAll(world, "seat");
     untilBow(world);
     const col = world.cannonCol;
+    const scarsBefore = world.scars.length;
     step(world, [cmd(world, 1, { kind: "cannonCol", col: col === 0 ? 1 : 0 })]);
-    beats(world, CFG.undertowUnseatBeats + 1);
+    const seen = beats(world, CFG.undertowUnseatBeats + 1);
+    expect(seen.has("undertowClosed")).toBe(true);
+    expect(seen.has("undertowLobe")).toBe(false);
     const u = floor(world);
     expect(undertowUnseated(u, world.beat)).toBe(false);
-    expect(undertowLobeAt(u, col)).not.toBeNull();
+    expect(undertowLobeAt(u, col)).toBeNull();
+    expect(u.breaches).toHaveLength(0);
+    expect(world.scars).toHaveLength(scarsBefore);
   });
 
   it("swallows the body when the maw is held under the last lobe, and the boss is beaten", () => {

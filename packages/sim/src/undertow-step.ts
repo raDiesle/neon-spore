@@ -44,21 +44,12 @@ export function installUndertow(world: World): UndertowState {
   };
 }
 
-/** Pushes a phase makes before the next one begins. */
+/** Pushes a phase makes before the next one begins: the seat and the last are one push each. */
 function pushesIn(cfg: SimConfig, phase: UndertowPhase): number {
-  switch (phase) {
-    case "one":
-      return cfg.undertowSingles;
-    case "two":
-      return cfg.undertowPairs;
-    case "hard":
-      return cfg.undertowTalls;
-    case "seat":
-    case "last":
-      return 1;
-    case "taken":
-      return 0;
-  }
+  if (phase === "one") return cfg.undertowSingles;
+  if (phase === "two") return cfg.undertowPairs;
+  if (phase === "hard") return cfg.undertowTalls;
+  return phase === "taken" ? 0 : 1;
 }
 
 /**
@@ -133,16 +124,20 @@ function remove(u: UndertowState, b: UndertowBreach): void {
 }
 
 /**
- * The plate parts. In the `seat` phase a cannon still standing on the bow is
- * unseated and no lobe comes through — the push was at the seat, not the
- * hull; slid off in time, the lobe stands where the cannon was and the maw
- * answers it like any other.
+ * The plate parts. In the `seat` phase the push was at the seat, not the
+ * hull, and no lobe comes through either way: a cannon still on the bow is
+ * unseated; slid off in time, **the plate closes** (`undertowClosed`) — the
+ * design's step 11, whose one ask is the slide. Until 17 September 2026 a
+ * lobe stood where the cannon had been, a second ask the design never made.
  */
 function through(world: World, u: UndertowState, b: UndertowBreach): void {
   const cfg = world.cfg;
-  if (u.phase === "seat" && world.cannonCol === b.col) {
-    u.unseatedUntil = world.beat + cfg.undertowUnseatedBeats;
-    world.events.push({ type: "undertowUnseated", col: b.col });
+  if (u.phase === "seat") {
+    if (world.cannonCol !== b.col) world.events.push({ type: "undertowClosed", col: b.col });
+    else {
+      u.unseatedUntil = world.beat + cfg.undertowUnseatedBeats;
+      world.events.push({ type: "undertowUnseated", col: b.col });
+    }
     remove(u, b);
     return;
   }

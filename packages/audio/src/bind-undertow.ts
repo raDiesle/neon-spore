@@ -23,6 +23,7 @@ export function undertowCue(
         | "undertowScar"
         | "undertowWidened"
         | "undertowUnseated"
+        | "undertowClosed"
         | "undertowRise"
         | "undertowSwallowed"
         | "undertowThrough";
@@ -45,6 +46,9 @@ export function undertowCue(
       return { id: "boss.undertowWidened", pan: panForCol(e.col, cols) };
     case "undertowUnseated":
       return { id: "boss.undertowUnseated", pan: panForCol(e.col, cols) };
+    case "undertowClosed":
+      // The same plate closing as after a take, quieter: nothing went in.
+      return { id: "boss.undertowTaken", pan: panForCol(e.col, cols), gain: 0.7 };
     case "undertowRise":
       return { id: "boss.undertowRise" };
     case "undertowSwallowed":

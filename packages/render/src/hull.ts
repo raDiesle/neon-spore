@@ -22,6 +22,7 @@ import type { Layout } from "./layout.js";
 import { drawCharge, drawChew, drawInhale } from "./maw.js";
 import { drawMuzzle } from "./muzzle.js";
 import { STROKE } from "./palette.js";
+import { clipOutPlates, drawPlateGaps, type PlateGap, plateGaps } from "./plate-gap.js";
 import { drawScars } from "./scars.js";
 import { drawShieldRim } from "./shield.js";
 import { splinePath, splineSkirt } from "./spline.js";
@@ -165,7 +166,10 @@ export function drawHull(
   // until the rock that made it has climbed back out of it.
   const allCraters = findCraters(l, scars, (x) => skin(f, x));
   const openCraters = allCraters.filter((c) => craterVisible(c.x));
-  strokeHullRim(ctx, l, body, openCraters, skin_.rim, skin_.rimAlpha ?? 1);
+  // And round every plate that is gone, for the same reason: a hull two
+  // columns shorter is shorter in its outline first (`plate-gap.ts`).
+  const gaps = plateGaps(l, scars, (x) => skin(f, x));
+  strokeHullRim(ctx, l, body, openCraters, gaps, skin_.rim, skin_.rimAlpha ?? 1);
 
   // What the thing that broke the hull left on it, in its own colour, under
   // the cracks: the tear is the sharpest thing about a breach and reads over
@@ -189,6 +193,14 @@ export function drawHull(
   );
   // `filled`: a hole is clipped to the ship, never a mark in the sky (craters.ts).
   drawCraters(ctx, openCraters, skin_, filled);
+  // The plates gone, inside the same clip: the outline carried down round
+  // each and the ship's own dark inside it.
+  if (gaps.length > 0) {
+    ctx.save();
+    ctx.clip(filled);
+    drawPlateGaps(ctx, l, gaps, skin_, (x) => skin(f, x));
+    ctx.restore();
+  }
   // And whatever the ship wears around each of those holes — plating torn
   // open, a cavity, a buckled membrane. Over the pit rather than under it, and
   // *not* clipped to the ship: a hole has to be inside the outline and a piece
@@ -216,17 +228,19 @@ export function drawHull(
   ctx.restore();
 }
 
-/** The outline, minus the mouths of any craters it would otherwise run over. */
+/** The outline, minus the mouths of any craters and the plates gone it would otherwise run over. */
 function strokeHullRim(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   body: Path2D,
   craters: Crater[],
+  gaps: readonly PlateGap[],
   rim: string,
   alpha: number,
 ): void {
   ctx.save();
   clipOutMouths(ctx, l, craters);
+  clipOutPlates(ctx, l, gaps);
   strokeGlow(ctx, body, rim, STROKE.outline + 0.6, alpha);
   ctx.restore();
 }

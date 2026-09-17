@@ -2149,9 +2149,31 @@ rule is that a body reaching the hull costs the wave, whatever it came
 through, so a creature through a breach is the wave lost like any other and
 there is nothing for it to be worth twice.
 
-**What is not built**: the plate's picture — a scar with `plate` is drawn as
-the crack every scar is, not yet as a hole in the outline — and the plate
-closing under a cannon slid off in time as a picture rather than a fact.
+**The plate's look** — 17 September 2026. A scar with `plate` is not a crack
+(`scars.ts` skips it) but **a hole in the outline**: `plate-gap.ts` joins the
+two plate scars a tall lobe leaves — adjacent columns, one beat — into one
+gap, and the hull's rim is cut out over it the way it is cut over a crater's
+mouth (`clipOutPlates`, the same even-odd clip as `clipOutMouths`, composed).
+Inside the gap the ship's deepest body colour is filled to a jittered floor
+`0.42` tiles under the skin, and the rim colour is carried down both walls
+and along that floor, so the outline visibly dips two columns and the eye
+reads *shorter*, not *marked*. The splash the lobe left stays on the skin
+either side, torn edges in its colour; inside the gap it is painted over,
+since there is no skin there to hold it.
+
+**Step 11, landed** — 17 September 2026. The design's step 11 asks one thing
+of the seat beat: slide off in time. Until this date the simulation asked a
+second — a lobe stood where the cannon had been and the maw had to take it —
+which the design never wrote; now a cannon slid off in time **closes the
+plate** (`undertowClosed`), nothing comes through, no scar, his seat is his.
+The close is the pilot's, like the bow (`showsUndertowBow`), and it is the one
+transient THE UNDERTOW keeps (`undertow-fx.ts`, `BossTransients.undertow`):
+the breach leaves the world the beat it closes, so a plate flat the next
+frame would be a plate that vanished, and instead the same bow is drawn by
+the same seam with the lift running down over half `undertowBowBeats`, and
+the rim over the plate flares once in its own light as it seats
+(`restart.test.ts` proves it forgotten). Nothing of the design is left
+unbuilt in this section.
 
 **Drawn, in two passes, because the boss is on both sides of the hull line.**
 The lobes and the body are drawn in the field pass with the other bosses
@@ -2184,10 +2206,11 @@ flaps and the plate keep the hull's rim; a lobe is rock — `rockDark` under a
 lobe alone carries the beam's two colours, cyan at its top and red at its
 base, which is the sentence *only the beam takes this* said in paint rather
 than told. The body is the sheen's own deep violet, pinched to the plate's
-width at the hull line and swelling above it. The nine events are still
+width at the hull line and swelling above it. The ten events are still
 silent in `render/` (`effects-ingest-silent-boss.ts`,
-`effects-spark-silent.ts`): a breach that opens is drawn open, and a spark on
-top of it would be the same fact said twice.
+`effects-spark-silent.ts`): a breach that opens is drawn open, the plate gone
+is a hole in the outline, and a spark on top of either would be the same fact
+said twice.
 
 **Never watched at tempo.** What the tests say is the mechanism: a plate bows
 for four beats and a lobe stands for four, the maw takes it and the plate does

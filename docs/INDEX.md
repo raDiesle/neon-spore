@@ -1333,6 +1333,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
+| `packages/render/src/plate-gap.ts` | A plate of the hull that is **gone**, drawn as a hole in the outline |
 | `packages/render/src/beatbox-air.ts` | **The air a soundbox is moving**, which is the half of this creature that has no number in it at all |
 | `packages/render/src/hull-light.ts` | who lights the ship, as a record — the seam a candidate light is patched onto, and the one that won |
 | `packages/render/src/hull-barrel.ts` | THE SHIP LIT BY ITS OWN NORMAL, instead of by a straight ramp across its box |
@@ -1373,6 +1374,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach parted |
 | `packages/render/src/undertow-lobe.ts` | THE UNDERTOW's lobes and, once, its body — the half of the boss that is *above* the hull line |
 | `packages/render/src/undertow-shape.ts` | THE UNDERTOW's geometry: how far a plate has risen, how high a lobe stands, how wide a breach is |
+| `packages/render/src/undertow-seam.ts` | THE UNDERTOW's seam: the skin lifted between two x's, the violet light under it |
+| `packages/render/src/undertow-fx.ts` | What THE UNDERTOW leaves behind a frame: **the plate closing** under a cannon slid off in time |
 
 ### packages/net
 

@@ -42,15 +42,18 @@ export const SILENT_BOSS = [
   "batonMissed",
   "batonShed",
   "batonDown",
-  // THE UNDERTOW's nine: the hull lifting and the lobe in it are the look
-  // half, not drawn yet (`docs/spec/bosses.md`); the scar it leaves and the
-  // hull's own `breach` at the end land on the field by themselves.
+  // THE UNDERTOW's ten: the hull lifting and the lobe in it are drawn off
+  // the world (`undertow-draw.ts`), the plate closing off `undertow-fx.ts`,
+  // and a spark on plating that is seen moving would be the same fact twice;
+  // the scar it leaves and the hull's own `breach` at the end land on the
+  // field by themselves.
   "undertowBow",
   "undertowLobe",
   "undertowTaken",
   "undertowScar",
   "undertowWidened",
   "undertowUnseated",
+  "undertowClosed",
   "undertowRise",
   "undertowSwallowed",
   "undertowThrough",
