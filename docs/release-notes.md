@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 5b70a9f0 — A skill for building a boss: the three kinds, the two lanes, every file it is a name in, and what the owner likes and does not
+
+`.claude/skills/new-boss` — asked for by the owner on 17 September 2026 so a boss is built the way he wants one built and judged the way he judges one. It names the three kinds he named (a round with rules of its own, a field boss on the default set with at most one handle, a choreographed scene of gestures in A Way Out's manner, which no shipped boss is yet), the rules every kind must pass, the claim on the shared table, the simulation lane's file list from THE GORGE's landing, the look lane's shape, and — quoted from the record, THE TELL's removal above all — what he has said he likes and does not, with an open list for the feedback each tested boss brings back. One pointer line in `CLAUDE.md`'s conventions.
+
 ## 2026-09-17 · 41f50952 — THE GORGE's skin: the translucent sack breathing above the field, its lobes filling, going transparent, rupturing and feeding the mouth, the pilot's tally and the navigator's nearest lobe, and every bead leaving at once
 
 The look half of THE GORGE (`docs/spec/bosses.md` §11.23), a look with no shipped alternative — the sack's nine events were silent in render until now.
