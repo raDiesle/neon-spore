@@ -156,6 +156,7 @@ export const WAVES_ACT_7D: Wave[] = [
       both: "A membrane hangs across the top of the field with a core hiding behind it, firing down its own column. No shot reaches it through the fabric. Take hold of the membrane and carry your thumb sideways and it slides one column; pull opposite ways and it holds; leave it four beats and it rolls back over the core. Bare the core and shoot it in its colour, three times.",
       p1: "You see which lobes on the hem are soft — a shot into one takes it off, and four off makes it slide two columns a shove. Say which side is coming away. When she says the core is bare, put the cannon in its column.",
       p2: "You see the core's shadow through the fabric and the colour it is, and he sees neither. Say which way to shove and how far, load its colour, and fire the beat it is bare. The wrong colour makes it fire back.",
+      scene: "theCurtain",
     },
     entries: [],
     boss: { kind: "curtain" },

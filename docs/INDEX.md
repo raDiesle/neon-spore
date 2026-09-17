@@ -639,6 +639,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scene-step-types.ts` | a page of a rehearsal, and the thing its words point at |
 | `packages/content/src/scene-span.ts` | **Where a page of a film begins and ends**, and which one is showing |
 | `packages/content/src/scenes/the-cut.ts` | THE CUT's rehearsal: a wall with no way through, and the crack that is the only place a shot goes through it |
+| `packages/content/src/scenes/the-curtain.ts` | THE CURTAIN's rehearsal: a bounce, a soft lobe shot, a shove, a carry of four, the core bared and hit — every act the pilot's hand |
 | `packages/content/src/scenes/the-fence.ts` | THE FENCE's rehearsal: a wall the width of the field, and the one thing that has to be true when it lands |
 | `packages/content/src/scenes/the-gap.ts` | THE GAP's rehearsal: the wall moves its opening, and only one of them can see where it went |
 | `packages/content/src/scenes/the-gum.ts` | THE GUM's rehearsal: a still thumb moves nothing, a swipe flings it out, and one nobody takes splashes on the ship |

@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE CURTAIN, the rehearsal
+
+The third boss film written after its look, and the first whose every act is
+the pilot's hand on the boss: ten pages over 2400 ticks, a bounce, a lobe
+off, a shove, a carry of four, the core bared and hit, the drift. The same
+commit repairs THE GORGE's landing, which had left its film test and §3.2's
+count out.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `curtain.ts`, `curtain-step.ts`, the grip and carry in `scene-script.ts`, the seed's reach and reroll |
+| writing | 15 | the scene, the registry, the prose list, the two film tests, §3.2, the §11.24 paragraph |
+| looking | 15 | eighty seeds probed for a core under the cannon with a soft lobe over it, four runs of the acts against the sheet's glide, one frame |
+| friction | 10 | `scene:` put on the wave instead of in its guide, a bolt fired into the glide taking a lobe and the core firing back, the GORGE test block found missing from its landing |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the sheet's clock against the hand's: a bolt a beat early
+meets cloth still gliding, and the only way to find the beat was to run the
+acts and read the events.
+
 ## 2026-09-17 — boss-implementation — THE GORGE, the rehearsal
 
 The second boss film written after its look, and the one that cut the scene

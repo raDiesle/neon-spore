@@ -2925,6 +2925,22 @@ the transient's reset. THE SLOW on the shove (`decisions.md` #33) is not
 wired: the shove is a glide over one beat and nothing in it has a beat worth
 slowing yet; the owner's eye decides.
 
+**The rehearsal** (`content/src/scenes/the-curtain.ts`, 17 September 2026,
+ten pages over 2400 ticks): the core hiding, its shadow on player 2's
+screen, a bolt into cloth bouncing off, the soft lobes on player 1's, a soft
+one shot and dropped, a shove one column over and the sheet rolling back when
+the hand lets go, a carry four columns over, the core baring under the hem
+and its own colour fired into it, and the drift back under the cloth. Every
+act is the pilot's hand — the grip and the carry (`gripBody`), the cannon
+never sliding — and the seed matters twice: the core has to start under the
+cannon's column and the lobe over it has to be soft when the fifth page says
+so, which seed 64 does. The film ends on the drift and takes no hit; the
+torch and the tear are the guide's prose, because a bolt sent up the core's
+column while the torch comes down it would meet the torch. No page is
+anchored at `retries`. Proved in `content/test/scene-films.test.ts` as the
+bounce, the lobe off, the shoves beat by beat, the reroll, the hit, the second
+lobe and the shadow, with nothing fired, torn or out.
+
 **Never watched at tempo.** What the tests say is the mechanism: it unrolls
 seven wide and centred with the core under it and two soft lobes drawn; the
 soft set is redrawn on its count; a hand carried across it moves the whole

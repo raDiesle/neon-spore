@@ -379,3 +379,97 @@ describe("the rehearsal for THE CANDLE", () => {
     expect(run.world.boss).toBeNull();
   });
 });
+
+describe("the rehearsal for THE GORGE", () => {
+  it("swallows a stray, fills and pierces two intakes, and spits the stray back to be broken", () => {
+    const wave = WAVES.findIndex((w) => w.guide?.scene === "theGorge");
+    const run = new SceneRun(sceneScript("theGorge", wave, DEFAULT_CONFIG));
+    const seen: string[] = [];
+    for (let t = 0; t < SCENES.theGorge.ticks - 1; t++) {
+      run.advance([]);
+      for (const e of run.world.events) {
+        if (e.type === "gorgeSwallow")
+          seen.push(`swallow ${e.col} ${e.color} ${e.beads} @${run.world.beat}`);
+        else if (e.type === "gorgeEmptied")
+          seen.push(`emptied ${e.col} ${e.beads} @${run.world.beat}`);
+        else if (e.type === "gorgeFull") seen.push(`full ${e.col} @${run.world.beat}`);
+        else if (e.type === "gorgeRupture")
+          seen.push(`rupture ${e.col} ${e.left} @${run.world.beat}`);
+        else if (e.type === "gorgeSpit") seen.push(`spit ${e.col} ${e.color} @${run.world.beat}`);
+        else if (e.type === "gorgeVent" || e.type === "gorgeMouth") seen.push(e.type);
+        else if (e.type === "destroy") seen.push(`destroy ${e.kind} ${e.col} @${run.world.beat}`);
+      }
+    }
+    // The stray red into the middle intake first; three cyan into the one
+    // player 1 picked, a red taking one back out, two more cyan to full and
+    // the fifth through it; four red into the next and the fifth through
+    // that; then the twice-pierced sack spits the stray down the middle,
+    // where its own colour breaks it. Nothing vents and the mouth never opens.
+    expect(seen).toEqual([
+      "swallow 5 red 1 @5",
+      "swallow 3 cyan 1 @14",
+      "swallow 3 cyan 2 @15",
+      "swallow 3 cyan 3 @16",
+      "emptied 3 2 @20",
+      "swallow 3 cyan 3 @23",
+      "swallow 3 cyan 4 @24",
+      "full 3 @24",
+      "rupture 3 6 @27",
+      "swallow 7 red 1 @34",
+      "swallow 7 red 2 @35",
+      "swallow 7 red 3 @36",
+      "swallow 7 red 4 @37",
+      "full 7 @37",
+      "rupture 7 5 @39",
+      "spit 5 red @40",
+      "destroy slick 5 @50",
+    ]);
+  });
+});
+
+describe("the rehearsal for THE CURTAIN", () => {
+  it("bounces a shot off the cloth, drops a soft lobe, shoves and lets the sheet roll back, then bares the core and hits it once", () => {
+    const wave = WAVES.findIndex((w) => w.guide?.scene === "theCurtain");
+    const run = new SceneRun(sceneScript("theCurtain", wave, DEFAULT_CONFIG));
+    const seen: string[] = [];
+    for (let t = 0; t < SCENES.theCurtain.ticks - 1; t++) {
+      run.advance([]);
+      for (const e of run.world.events) {
+        if (e.type === "bounce") seen.push(`bounce ${e.col} @${run.world.beat}`);
+        else if (e.type === "curtainLobeOff")
+          seen.push(`lobeOff ${e.col} ${e.left} @${run.world.beat}`);
+        else if (e.type === "curtainShove")
+          seen.push(`shove ${e.col} ${e.stride} @${run.world.beat}`);
+        else if (e.type === "curtainReroll") seen.push(`reroll ${e.col} @${run.world.beat}`);
+        else if (e.type === "curtainCoreHit")
+          seen.push(`coreHit ${e.col} ${e.left} @${run.world.beat}`);
+        else if (e.type === "curtainShadow")
+          seen.push(`shadow ${e.col} ${e.color} @${run.world.beat}`);
+        else if (e.type === "curtainFire" || e.type === "curtainTear" || e.type === "curtainOut") {
+          seen.push(e.type);
+        }
+      }
+    }
+    // Seed 64 puts the core under the cannon's column in cyan. A bolt into
+    // the cloth at beat eight bounces; the same column's lobe is soft from
+    // beat twelve and the next bolt takes it. One shove, the hand off, and
+    // the sheet rolls back four beats later; then four shoves two beats
+    // apart bare the core on beat thirty-four, the own-colour bolt lands the
+    // beat after, the nearest lobe drops and the core drifts under the
+    // fabric in red. It never fires: the hit lands before its count.
+    expect(seen).toEqual([
+      "bounce 5 @8",
+      "lobeOff 5 6 @14",
+      "shove 3 1 @18",
+      "reroll 2 @23",
+      "shove 3 1 @28",
+      "shove 4 1 @30",
+      "shove 5 1 @32",
+      "shove 6 1 @34",
+      "coreHit 5 2 @35",
+      "lobeOff 6 5 @35",
+      "shadow 9 red @35",
+    ]);
+    expect(run.world.creatures.filter((c) => c.kind !== "curtain")).toHaveLength(0);
+  });
+});
