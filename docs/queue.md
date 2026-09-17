@@ -348,6 +348,7 @@ file.
 ## `view-role.ts` and `effects.ts` are both at the ceiling a boss has to add to
 
 - **Found:** 2026-09-17, claude/taster-look
+- **Taken:** 2026-09-17, claude/queue-view-role-ts-and-effects-ts-are-both-at-the-ceil
 - **Files:** `packages/render/src/view-role.ts`, `packages/render/src/effects.ts`
 
 Every boss with a look adds a line to both: one `showsX` predicate per fact a
