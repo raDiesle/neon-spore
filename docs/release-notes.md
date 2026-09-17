@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 1f1860f7 — THE STARE's looks are survivable and its warning is half a second short of the spec's own rule
+
+The second unverified entry asked whether four beats of warning is long enough to say it is you, and whether the looks grow into something survivable. Nothing of the eye is drawn, so the questions went to the wave: the cycle walked out against the fifteen arrivals in `act-7c.ts`, and a rock's fall measured.
+
 ## 2026-09-17 · d89bd615 — THE SCUTTLE, the look: a lobed slab plated with its parts, the sockets the pilot counts and the live part the navigator is shown
 
 A grey slab hung over the top of the field, plated with a rock plate per part still in it, so the silhouette is the count and a plate fewer is a throw. A socket a part came loose from is an open violet hollow with the part hanging a half tile under it on a thread. The pilot's screen has every plate and every open socket and any hanging part grey; the navigator's slab is blind but for the live part's socket, the part itself in its ammunition's colour, and the lock on the column the next throw lands in (`showsScuttleCount`, `showsScuttleLive`, `view-role-clocks-b.ts`). The wind-up shivers and lifts the last part; a throw jolts the slab; a strike sends the plate tumbling; down, the slab fades over `scuttleOutBeats`. Fifteen frame tests prove every state on all three screens and the split both ways. A look with no shipped alternative.
