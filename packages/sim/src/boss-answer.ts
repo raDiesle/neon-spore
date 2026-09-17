@@ -1,3 +1,4 @@
+import { candleBoss, candleEating } from "./candle.js";
 import { diastoleBridgeCol, diastoleChamberCol } from "./diastole.js";
 import { diastoleBoss } from "./diastole-step.js";
 import { undertowBoss } from "./undertow.js";
@@ -14,8 +15,9 @@ import type { World } from "./world.js";
  * with no body to find. THE DIASTOLE's left chamber hangs over column 4 — one
  * off the middle, and no authored column rounds to it. THE UNDERTOW's first
  * lobe comes up wherever the seeded rng says, in any of the eleven, and the
- * film cannot know which until the world does. So a strip may say `atBoss`
- * instead of a column, and this is the one reading of what that means.
+ * film cannot know which until the world does. THE CANDLE's glow drifts a
+ * column at a time off the same rng. So a strip may say `atBoss` instead of
+ * a column, and this is the one reading of what that means.
  *
  * **It is the boss's own answer, not the picture's.** Each line here asks the
  * boss's file the question the pair is meant to be asking — where does the
@@ -43,6 +45,14 @@ export function bossAnswerCol(world: World): number | null {
     // cannon itself and the answer is to leave, so it has no column here.
     if (u.phase === "seat") return null;
     return u.breaches[0]?.col ?? null;
+  }
+  const c = candleBoss(world);
+  if (c !== null) {
+    // The column the glow hangs over, which is the one a shot dims it from
+    // (`candleStruck`) — unless it is eating from that very column, when the
+    // answer is to leave it (`candleEats`) and no column is the answer.
+    if (c.phase === "dark" || c.phase === "out") return null;
+    return candleEating(c) && c.faceCol === c.col ? null : c.col;
   }
   return null;
 }

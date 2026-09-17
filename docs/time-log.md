@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE CANDLE, the rehearsal
+
+The wave's guide had been prose only since the boss landed. A twelve-page
+film over one loop of 2400 ticks: the dark, three dims under a drifting
+glow, one shot eaten from the faced column, two clean ones and the beam.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the new-tutorial skill, `scene-aim.ts` and `boss-answer.ts`, THE UNDERTOW's film and its test, the candle's step for what moves on which beat |
+| writing | 10 | the scene, the `bossAnswerCol` line for the glow, the two tests, §3.2's count, the §11.22 paragraph |
+| looking | 5 | three probe scripts against the scene's own run — which seed keeps the face reachable and the glow off it at the two ticks the film needs — and one frame off `bun run frames --opening guide` |
+| friction | 5 | the first `atBoss` act slid to column 0 because no line in `boss-answer.ts` answered for the candle; the beam held while the glow was still drifting missed it, so the film keeps the beam for the last step |
+| landing | 5 | `check:fast`, `bun run index` for the new file's row, the commit, `bun run land --keep` |
+
+The bottleneck was the drift: the glow moves every three beats and a bolt
+takes just over one to land, so every fire in the film had to be placed
+inside a window that a seed decides, and the seed was found by search.
+
 ## 2026-09-17 — boss-implementation — THE CANDLE, corner light first
 
 The design's step 1 as a look: the dark rolling in from the corner light's

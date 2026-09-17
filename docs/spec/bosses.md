@@ -2672,6 +2672,20 @@ what is left. A look the owner asked for by name. Proved in
 `candle-frame.test.ts`: two beats in, the right of the field is full black
 and the left not yet drawn.
 
+**The rehearsal** (`content/src/scenes/the-candle.ts`, 17 September 2026,
+twelve pages over 2400 ticks at seed 8): the field goes black, player 2
+fires and it dims; it drifts and player 1 follows — every slide under it an
+`atBoss` act, aimed by `bossAnswerCol` off the glow's own column, since where
+it drifts is the rng's and not an author's — two more fires and it starts
+eating; *only player 1 sees its face*, held on the hull; then the one
+authored slide in the film, to the column it faces, and the shot from there
+is eaten on player 2's screen; player 1 slides clear, two clean fires stop
+it, and the beam's one step puts it out, with the two black beats after. A
+film takes a hit only from a page anchored at `retries`, and none is: the
+eaten shot costs nothing, which is the lesson. Proved in
+`content/test/scene-films.test.ts` as the sequence of dims, the one `candleFed`
+and the `candleOut`, all inside the loop.
+
 **What is not built**: THE SLOW over the flash beat — the design's *the beat
 a flash lands is played at a third rate*. Whether a shot's light should hang
 is the owner's eye, and it is put to him in `docs/queue.md`.

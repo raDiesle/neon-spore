@@ -10,6 +10,7 @@ import { THE_BALLOON } from "./scenes/the-balloon.js";
 import { THE_BATON } from "./scenes/the-baton.js";
 import { THE_BEATBOX } from "./scenes/the-beatbox.js";
 import { THE_CAIRN } from "./scenes/the-cairn.js";
+import { THE_CANDLE } from "./scenes/the-candle.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CHOIR } from "./scenes/the-choir.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
@@ -149,7 +150,8 @@ export type SceneId =
   | "theDiastole"
   | "theBaton"
   | "theThroat"
-  | "theUndertow";
+  | "theUndertow"
+  | "theCandle";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -216,6 +218,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theBaton: THE_BATON,
   theThroat: THE_THROAT,
   theUndertow: THE_UNDERTOW,
+  theCandle: THE_CANDLE,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

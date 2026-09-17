@@ -113,6 +113,7 @@ export const WAVES_ACT_7D: Wave[] = [
       both: "The field goes black. The boss is a glow at the top, and every shot, plate and beam lights the column it was made in for a beat. Any colour dims the glow a step; five steps and it goes out. When it is down to two it turns and swallows the flashes from the column it faces, and a swallowed shot brightens it again. Down to one it stops, and the last shot puts it out: two black beats, then the light comes back.",
       p1: "Only you see which column it faces. Say it, and keep the cannon off it while it is eating. It drifts a column at a time — call the new one every time it moves.",
       p2: "You see where it is, not where it looks. Say the column it stands in every time it drifts, and fire when he says the way is clear. The beam dims it too: hold a colour on its column when the cannon cannot get there.",
+      scene: "theCandle",
     },
     entries: [
       { beat: 18, col: 1, color: "red" },

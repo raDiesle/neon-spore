@@ -604,6 +604,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/mechanics-rocks.ts` | The six rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took that file past its 250-line… |
 | `packages/content/src/scenes/the-carom.ts` | THE CAROM's rehearsal: a shape, then an order |
 | `packages/content/src/scenes/the-cairn.ts` | THE CAIRN's rehearsal: the rock you did not pull is the one that lands |
+| `packages/content/src/scenes/the-candle.ts` | THE CANDLE's rehearsal: the field goes black, and the pair fights by the light of its own shots |
 | `packages/content/src/control-sets-table.ts` | Every panel in the game, as a table |
 | `packages/content/src/scenes/cyan.ts` | CYAN's rehearsal: the second button, and the cost of the first one |
 | `packages/content/src/scenes/two-rocks.ts` | TWO ROCKS' rehearsal: the plate becomes something player 2 can carry |

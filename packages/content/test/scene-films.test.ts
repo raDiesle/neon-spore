@@ -342,3 +342,40 @@ describe("the rehearsal for THE UNDERTOW", () => {
     expect(run.world.cannonCol).toBe(3);
   });
 });
+
+describe("the rehearsal for THE CANDLE", () => {
+  it("dims the glow three times, feeds it once from the faced column, and puts it out with the beam", () => {
+    const wave = WAVES.findIndex((w) => w.guide?.scene === "theCandle");
+    const run = new SceneRun(sceneScript("theCandle", wave, DEFAULT_CONFIG));
+    const seen: string[] = [];
+    for (let t = 0; t < SCENES.theCandle.ticks - 1; t++) {
+      run.advance([]);
+      for (const e of run.world.events) {
+        if (e.type === "candleDim" || e.type === "candleFed") {
+          seen.push(`${e.type} ${e.col} ${e.left} @${run.world.beat}`);
+        } else if (e.type === "candleLast" || e.type === "candleOut") {
+          seen.push(`${e.type} @${run.world.beat}`);
+        }
+      }
+    }
+    // Three bolts from under the glow, each slid there by `atBoss` after it
+    // drifted; the third brings it to two and it eats. The fourth is fired from
+    // the column it faces — the one authored slide in the film — and is put
+    // back on the glow at the muzzle. Then two clean ones with the cannon slid
+    // clear, the last of which stops it, and the beam's one step puts it out.
+    expect(seen).toEqual([
+      "candleDim 5 4 @6",
+      "candleDim 3 3 @12",
+      "candleDim 4 2 @15",
+      "candleFed 3 3 @20",
+      "candleDim 6 2 @27",
+      "candleDim 5 1 @30",
+      "candleLast @30",
+      "candleDim 5 0 @35",
+      "candleOut @35",
+    ]);
+    // Out, and gone: the two black beats have passed and the light is back
+    // before the loop turns over.
+    expect(run.world.boss).toBeNull();
+  });
+});

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import { bossAnswerCol } from "../src/boss-answer.js";
+import { candleBoss } from "../src/candle.js";
 import { DEFAULT_CONFIG, midCol, type SimConfig, ticksPerBeat } from "../src/config.js";
 import { diastoleChamberCol } from "../src/diastole.js";
 import { diastoleBoss } from "../src/diastole-step.js";
@@ -61,6 +62,31 @@ describe("the column a boss is answered from", () => {
     expect(bossAnswerCol(world)).toBe(u.breaches[0]?.col ?? -1);
     // And none under the cannon's own seat: the answer there is to leave.
     u.phase = "seat";
+    expect(bossAnswerCol(world)).toBeNull();
+  });
+
+  it("is THE CANDLE's glow once the dark is in, and nothing while it eats from that column", () => {
+    const world = open({ kind: "candle" });
+    // Nothing to answer while the light is still going out: a shot in the
+    // dark phase lights nothing (`candleStruck`).
+    expect(bossAnswerCol(world)).toBeNull();
+    beats(world, CFG.candleDarkBeats);
+    const c = candleBoss(world);
+    if (c === null) throw new Error("no glow");
+    expect(c.phase).toBe("full");
+    expect(bossAnswerCol(world)).toBe(c.col);
+    // It drifts, and the answer drifts with it.
+    beats(world, CFG.candleMoveBeats);
+    expect(bossAnswerCol(world)).toBe(c.col);
+    // Eating from a column that is not its own: still its own, the bolt lands.
+    c.glow = CFG.candleEatSteps;
+    c.phase = "eating";
+    c.faceCol = c.col === 0 ? 1 : c.col - 1;
+    expect(bossAnswerCol(world)).toBe(c.col);
+    // Eating from its own column: no column is the answer, the beam is.
+    c.faceCol = c.col;
+    expect(bossAnswerCol(world)).toBeNull();
+    c.phase = "out";
     expect(bossAnswerCol(world)).toBeNull();
   });
 });

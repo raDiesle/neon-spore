@@ -300,21 +300,22 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are sixty-four of them now**, one per guided wave bar eighteen, and
+**There are sixty-five of them now**, one per guided wave bar twenty-two, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The eighteen that are still the three strings and
-the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE CODEX,
-THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE ORRERY, THE CANDLE,
-THE GORGE, THE CURTAIN, THE TASTER, THE SINEW, THE LEDGER and THE SURGE** — and
-that list is held by
+rather than a page of prose. The twenty-two that are still the three strings
+and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
+CODEX, THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE ORRERY, THE
+GORGE, THE CURTAIN, THE TASTER, THE SINEW, THE LEDGER, THE SURGE, THE LEAD, THE
+SCUTTLE, THE ANTIPHON, THE HIVE and THE INSTAR** — and that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those eighteen is a film nobody has written, and THE SCOUT's, THE
-REPRISE's, THE STARE's, THE FLIP's, THE HUSK's, THE ORRERY's, THE CANDLE's, THE
-GORGE's, THE CURTAIN's, THE TASTER's, THE SINEW's, THE LEDGER's and THE SURGE's
-are owed by the lanes that draw them.**
+**Every one of those twenty-two is a film nobody has written, and from THE
+SCOUT's on they are owed by the lanes that draw them.** THE CANDLE's was the
+first of the boss films written after its look landed rather than with it
+(17 September 2026): a black field, the glow drifting off the rng and every
+slide under it an `atBoss` act, the one authored column the mistake.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square

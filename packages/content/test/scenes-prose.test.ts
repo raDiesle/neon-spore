@@ -66,10 +66,6 @@ const STILL_PROSE = [
   // armour on the other, which is the whole boss and not a thumb landing
   // anywhere; until the rings are drawn there is nothing to shoot it against.
   "THE ORRERY",
-  // And THE CANDLE, owed by the lane that draws the dark. Its film is a black
-  // field lit a column at a time by the pair's own shots, and a glow that
-  // turns to face one seat's column — nothing of which is drawn yet.
-  "THE CANDLE",
   // And THE GORGE, owed by the lane that draws the sack: seven intakes, the
   // beads inside them and a rupture at a size nothing has asked for yet.
   "THE GORGE",
@@ -123,9 +119,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts sixty films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts sixty-five films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Sixty, which is the number in the section. A film with no wave
+    // Sixty-five, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);
