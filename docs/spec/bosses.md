@@ -3583,13 +3583,50 @@ presentation is entirely in the drawing, and this lane hangs nothing on it
 — `leadPace` carries the lean each beat, `leadReverse` carries the flip,
 and the look decides what the stalk does between two beats.
 
-**What is not built.** The picture: no body, no stalk, no lean drawn either
-way; every one of the fourteen events is listed silent
-(`effects-ingest-silent-boss.ts`, `effects-spark-silent-boss.ts`) with the
-look lane named as the reason, and the wave plays on the ordinary field
-with the boss unseen. The split above is unbuilt with it. The sounds are
-built (`audio/bind-lead.ts`, `sounds/boss-lead.ts`): every event cued in
-its column, the hit dropping a semitone's worth with every segment gone.
+**The look** (`render/lead-draw.ts`, `lead-shape.ts`, `lead-fx.ts`). A long
+grey **ridge** the whole width of the field hangs above row 0 — flat along
+its top, its underside swelling and sinking a little with time, filled in
+the rock's dark and rimmed in rock — and the body is a **stalk** of beads
+standing out of it, a bead a segment at a quarter of a tile each, in the hull's
+violet, with a larger pale organ at the tip ringed in the hull's rim: the
+silhouette is the health, one bead fewer a hit, and the tip alone when only
+the beam can end it. **Where the stalk stands and what it does are split
+by seat** (`showsLeadCol`, `showsLeadLean`, `view-role-clocks.ts`): on the
+navigator's screen it stands at the body's own column on a low violet
+**mound** on the ridge, with the instrument's **lock** — the target ring
+(`target-lock.ts`) in the shield's rim — closed on that column, and it
+never tilts; on the pilot's it stands in the middle column every frame, on
+a short grey **sill** and in a readout's tone (the hull's violet mixed
+toward grey), with no mound and no lock, and **leans** 0.55 rad the way
+the body goes — the lean being the whole of what he is given, and the
+column nothing; the test screen has both. A **flight** is a white bolt
+over its column on every screen, climbing from the ridge's underside to a
+tile above its top across the beats of the flight, because the shot is the
+pilot's own and the column it went up is no secret. **Still**, the stalk
+is grey and dead upright on every screen, the mound grey with it and the
+lock at half strength; on the **pass** the stalk lies over 1.2 rad the
+way it lunges on every screen, since the pass is given away on the still's
+last beat and a lean here hides nothing; **down**, the stalk is gone and
+the ridge, the mound and the sill fade over `leadOutBeats` — in the colour,
+since `strokeGlow` owns the alpha. The fourteen events are one family read
+above `Effects`' loop (`lead-fx.ts`): the lean rides a **spring** (stiffness
+90, damping 11, capped at 1.35 rad) so a new lean is an overshoot and a
+settle rather than a snap, and a doubling back **whips** it — but only on
+the screens shown the lean, so the whip is never the pilot's column by
+another road; a **hit** sends the tip bead tumbling a tile and a half down
+past the ridge over a beat and a fifth; and every burst is placed by what
+the screen is allowed to know — the body's events at the foot of the stalk
+*as that screen draws it*, the shots and the drops at their column. The
+ridge's own stroke, the mound and the lock are ordinary `strokeGlow` and
+`target-lock` calls; nothing of it is a sprite. `render/test/lead-frame.test.ts`
+proves the ridge and the stalk on all three screens, the column drawn on
+the navigator's and not the pilot's, the lean drawn on the pilot's and not
+the navigator's, a flight in the air, the still, the pass, the fade and the
+gone, and the spring's reset (eighteen). *Not built of the design's look*:
+the lean is a tilt of the stalk and not a drawn arrow with a length to it;
+the ridge does not show the walls it turns at; the torch and the rock are
+the field's own creatures with a burst over the column and no fall drawn
+out of the body. The owner's eye decides all three.
 
 **Never watched at tempo.** What the tests say is the mechanism: it
 installs over the middle facing right with every segment on the stalk and
@@ -3610,5 +3647,9 @@ beam standing in a column the pass goes through, and the wave ends after;
 it is ended by a beam fired up its own column on the pass; it walks past a
 beam that something on the field stopped short of the top; and the same
 run fingerprints the same way twice, and moves with a shot in the air
-(`sim/test/lead.test.ts`, nineteen). Nothing of it has been seen in a
-frame.
+(`sim/test/lead.test.ts`, nineteen). The picture has been seen in one
+frame per state on a canvas stub and in one PNG of the pilot's screen, and
+never for a beat at tempo: whether the lean's overshoot reads as a lean or
+as a wobble, whether a stalk in the middle of the pilot's screen reads as
+an instrument or as a body he cannot find, and whether the flight's climb
+is long enough for the pair to see it judged are the owner's.

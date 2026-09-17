@@ -4,6 +4,7 @@ import { CurtainFx } from "./curtain-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
 import type { Layout, ViewRole } from "./layout.js";
+import { LeadFx } from "./lead-fx.js";
 import { LedgerFx } from "./ledger-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
 import { MirrorFx } from "./simon-fx.js";
@@ -86,6 +87,10 @@ export class BossTransients {
    * asked for the sink and the jolt by the drawer (`surge-fx.ts`,
    * `surge-draw.ts`). */
   readonly surge = new SurgeFx();
+  /** THE LEAD's spring, whip and tumbling bead, and its receipts' bursts —
+   * asked for the angle by the drawer every frame, and told where the stalk
+   * stood (`lead-fx.ts`, `lead-draw.ts`). */
+  readonly lead = new LeadFx();
 
   /** `role` is the layout's: a flash lights only the screen whose control
    * made it (`after-image.ts`). */
@@ -106,6 +111,7 @@ export class BossTransients {
     this.sinew.ingest(events, l, cfg, beatSeconds, burst);
     this.ledger.ingest(events, l, cfg, beatSeconds, burst);
     this.surge.ingest(events, l, cfg, beatSeconds, burst);
+    this.lead.ingest(events, l, beatSeconds, role, burst);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
   }
@@ -123,10 +129,11 @@ export class BossTransients {
     this.sinew.update(dt);
     this.ledger.update(dt);
     this.surge.update(dt);
+    this.lead.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
-  /** The five drawn under the hull with everything else. The mirror, the
+  /** The six drawn under the hull with everything else. The mirror, the
    * warden, the fleet and the reprise are drawn by the boss pass, the
    * after-image by the renderer between the bodies and the ship, and the
    * sinew's shock on the finished ship (`frame-on-ship.ts`). */
@@ -137,6 +144,7 @@ export class BossTransients {
     this.sinew.draw(ctx, l);
     this.ledger.draw(ctx, l);
     this.surge.draw(ctx, l);
+    this.lead.draw(ctx, l);
   }
 
   clear(): void {
@@ -151,6 +159,7 @@ export class BossTransients {
     this.sinew.clear();
     this.ledger.clear();
     this.surge.clear();
+    this.lead.clear();
   }
 }
 

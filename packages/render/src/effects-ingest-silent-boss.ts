@@ -178,12 +178,10 @@ export const INGEST_SILENT_BOSS = [
   "surgeClose",
   "surgeEvert",
   "surgeOut",
-  // THE LEAD's fourteen are silent **until the look lane draws it**: the
-  // body, the stalk, the shot hanging over the top of the field and the
-  // stalk's lean are read by seat off the state every frame, and what
-  // outlives a frame — a segment tumbling, the flash of the hit, the
-  // whistle of a miss — will be one family read above the loop by a
-  // `lead-fx.ts`, never rows here (`docs/spec/bosses.md` §11.29).
+  // THE LEAD's fourteen are read as one family above the loop by
+  // `lead-fx.ts` (`Effects.lead`), the way THE SURGE's are: a burst per
+  // event at the foot or the column, the whip on a doubling back, the bead
+  // that tumbles off on a hit (`docs/spec/bosses.md` §11.29).
   "leadEnter",
   "leadPace",
   "leadTurn",

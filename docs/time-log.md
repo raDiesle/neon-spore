@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE LEAD, the look
+
+Lane two of the seventh boss: a long rock ridge above row 0, a stalk of
+beads standing out of it a bead a segment with a pale organ at the tip, the
+split by seat — the stalk at its column on a mound with the target lock on
+the navigator's screen and never a tilt, in the middle of the pilot's on a
+sill leaning the way the body goes and never the column — white bolts over
+each flight's column on both, grey and upright on the still, lying over on
+the pass, gone and fading when the beam has it. Three render files, the
+family of fourteen read above the loop with a spring, a whip and a tumbling
+bead, eighteen frame tests, §11.29.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | THE SURGE's draw, shape and fx files as the pattern, `target-lock.ts`, the canvas stub for what a frame test can count |
+| writing | 10 | `lead-shape.ts`, `lead-draw.ts`, `lead-fx.ts`, the two role predicates, the arm in `boss-draw-clocks.ts`, the slot in `effects-boss.ts`, the silent lists' reasons, the frame test, the write-up |
+| looking | 5 | two `bun run frames` of the pilot's screen and their crops: the full stalk stood up into the HUD's pills and was shortened by a third |
+| friction | 5 | a `downBeat` set before beat zero read as a body that stands, so the fade test was arranged on a world stepped further; `strokeGlow` owns the alpha, so the fade went into the colours |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was the frame test's arrangement: a past beat the world has
+never seen is a negative number the state reads as *never*, and the test
+was red for the picture being right.
+
 ## 2026-09-17 — boss-implementation — THE LEAD, the simulation
 
 Lane one of the seventh boss off the choreographed list, straight after THE

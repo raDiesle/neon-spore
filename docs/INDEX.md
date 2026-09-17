@@ -1213,6 +1213,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/ledger-read.ts` | **What is written about the cord, and which seat is shown it** — *his clock, her column* |
 | `packages/render/src/ledger-root.ts` | **The navigator's half of THE LEDGER, on the finished ship** |
 | `packages/render/src/ledger-shape.ts` | **Where THE LEDGER is**, in field pixels: the two halves of the body, the cord between it and the hull |
+| `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill, the lock and the flights, split by seat |
+| `packages/render/src/lead-fx.ts` | What THE LEAD leaves behind a frame: the spring the lean rides, the whip, the tumbling bead, the bursts |
+| `packages/render/src/lead-shape.ts` | Where THE LEAD is in field pixels: the ridge, the foot, the stalk's length and the angle each seat is asked for |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
 | `packages/render/src/body-inset.ts` | what is inside a living body is clipped to the body drawn a sixth smaller, so an interior borrowed from one contour never crosses another's rim |

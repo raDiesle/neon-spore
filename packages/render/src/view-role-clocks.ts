@@ -233,3 +233,15 @@ export const showsLedgerSocket = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsSurgeNotches = (role: ViewRole): boolean => role !== "p2";
 export const showsSurgePressure = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE LEAD's two, and the split is the eyes, each way: the navigator is
+ * shown **the column** the body stands in — the stalk at its foot, locked —
+ * and never which way it leans; the pilot is shown **the lean**, a stalk
+ * standing in the middle of his screen and tilting the way the body goes,
+ * and never where it is. His direction times the pace, her column: the sum
+ * is the fight, and a screen with both terms on it would have no one to
+ * say it to (`lead-shape.ts`, `lead-draw.ts`, `sim/lead.ts`). `test` is both.
+ */
+export const showsLeadLean = (role: ViewRole): boolean => role !== "p2";
+export const showsLeadCol = (role: ViewRole): boolean => role !== "p1";

@@ -6,6 +6,7 @@ import type { Effects } from "./effects.js";
 import { drawGorge } from "./gorge-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
+import { drawLead } from "./lead-draw.js";
 import { drawLedger } from "./ledger-draw.js";
 import { drawOrrery } from "./orrery-draw.js";
 import type { ViewState } from "./renderer.js";
@@ -51,6 +52,7 @@ const CLOCK_KINDS = [
   "sinew",
   "ledger",
   "surge",
+  "lead",
 ] as const;
 
 export type ClockBoss = Extract<Installed, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -184,5 +186,18 @@ export function drawClockBoss(
   // the pilot's screen, the pressure on the navigator's. What outlives a
   // frame — the sink after a vent, the jolt of a burst, the jet — is
   // `effects.boss.surge` (`surge-draw.ts`, `surge-fx.ts`).
-  drawSurge(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.surge);
+  if (boss.kind === "surge") {
+    drawSurge(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.surge);
+    return;
+  }
+
+  // THE LEAD: a ridge across the top of the field above row 0 with a stalk of
+  // beads pacing along it, and the shots hanging in the air over it until they
+  // are judged. Not a clock — a *place* — but it hangs over the field with
+  // nothing of itself on the grid, like every arm here. The stalk stands at
+  // its column on the navigator's screen and in the middle of the pilot's,
+  // where it leans instead, which is the whole split. What outlives a frame —
+  // the spring the lean rides, the whip, the bead that tumbles off — is
+  // `effects.boss.lead` (`lead-draw.ts`, `lead-fx.ts`).
+  drawLead(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.lead);
 }
