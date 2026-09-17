@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · dd33e924 — THE LEDGER: the navigator's lock was under the plating, and the body was half its own width
+
+Two defects the first capture of the boss found, both of them wrong rather than unlovely.
+
 ## 2026-09-17 · 87e13f6b — A red run's closing line carries the failure's message, not only its name
 
 `firstFailure` reads the `<failure>` element's `message` out of the merged JUnit report and `shard.ts` prints it indented under the case's name, capped at twelve lines — so a case that lists what it found, like `loop-once.test.ts`'s carriers, says so at the bottom of the run where a reader's eye is, instead of in a shard's block hundreds of lines up. That test also names the files it found in its own assertion message. The flake the queue entry was about could not be reproduced; the next time it goes red the run will say which file.
