@@ -2130,12 +2130,13 @@ the body has passed, and the same run fingerprints the same way twice
 
 ## 11.21 THE ORRERY — three orbits, and neither of you can see all three
 
-*Simulation built 17 September 2026. The design is
-[bosses-choreographed](bosses-choreographed.md) §2, and this section is the
-record of what shipped — including four places where it shipped differently
-from the design, each said here by name. The picture is not drawn yet and the
-hand on the ring is not built yet; both are lanes named on that page's own
-table before this one was started.*
+*Simulation built 17 September 2026, and the hand on the ring the same day.
+The design is [bosses-choreographed](bosses-choreographed.md) §2, and this
+section is the record of what shipped — including five places where it shipped
+differently from the design, each said here by name. The picture is not drawn
+yet; it is the last lane, named on that page's own table before any of this
+was started, and it carries the one piece of the hand a simulation may not
+have.*
 
 > The one where you each see two of the three rings.
 
@@ -2239,6 +2240,59 @@ A gap that moves an even share of its reach per organ can: *three out, coming
 back*. The organs are drawn on the circle where they belong; it is the gap the
 pair reads, and it reads evenly.
 
+**And player 1 can turn a ring by hand** (`sim/orrery-hand.ts`). A drag on
+the ring reports a **bearing** — where the thumb is round the circle, in
+thousandths of a turn — exactly as THE CLAW's crank does, and this is the one
+thing in the fight that can move a gap off a beat the pair has already agreed
+on. It is the design's step 10, and the page is right about what it is for:
+the alignment can be *brought forward* rather than waited for, so an
+arithmetic problem becomes a physical one.
+
+**It writes the anchor, not a position**, which is the only way it could exist
+at all on this boss. The hand adds whole organs to `from[ring]` and the ring
+goes on turning at its own cadence around the new anchor, so every gap is
+still a function of the beat and `orreryNextOpen` is still answerable. A hand
+that stepped a stored slot would have made player 2's readout a lie the moment
+it was asked.
+
+**The ring turns in whole organs, and the gearing is the difficulty.**
+`orreryHandMilliPerOrgan` 1500 is the thumb travel one detent costs — a turn
+and a half — and the remainder is banked against the next one rather than
+lost. Read against the ring's own drift of one organ a beat, that number says
+the whole control: **holding** a gap still would cost a turn and a half every
+beat, 2.4 turns a second at 96 BPM, which no thumb has; **bringing** an
+alignment one organ forward costs a turn and a half whenever the pilot can
+spare the hand. So the hand bends the arithmetic and cannot break it, and what
+it actually costs is his attention — the ring is on the field and the cannon
+is on the panel, and he cannot be on both. A bank wound against a ring dies
+with that ring.
+
+**The hand moves inward as the rings come off, which is the fifth departure.**
+The design gives the pilot the outer ring and stops, which would make him a
+spectator for two thirds of a fight whose health *is* the rings. So the hand
+is always on the outermost one still standing (`orreryHandRing`), and the
+fight gets better rather than thinner: once the outer ring is gone he is
+turning the middle one, true on his screen and a blank grey arc on hers — and
+at the end he is turning the inner one, which he cannot see at all, on her
+word alone. That is this boss's own sentence played on a control instead of a
+readout. It is also why the drag carries no `id`: **the hand never names the
+ring**, because a hand that could would be able to name one it cannot see.
+
+**And the ring has no flywheel**, against the design's animation note, which
+asks for it to keep a little of the thumb's motion after the lift. A gap
+moving with nobody's hand on it is exactly what this boss's central rule
+forbids, and for the reason the rule exists — one seat's readout is about a
+beat that has not happened. The overshoot the design wants is still there and
+it is the thumb's: at a turn and a half an organ, a hand that keeps going past
+the socket it wanted has bought the next one.
+
+**A bearing is its own vocabulary now** (`sim/bearing.ts`). `TURN`,
+`NO_BEARING` and `MAX_BEARING_STEP` were THE CLAW's, in `sim/crank.ts`, and a
+second mechanism turning made them shared — a boss reaching into a control's
+file for a unit, and worse, a real import cycle that left `TURN` undefined
+while THE ORRERY's module body read it. The old names `NO_CRANK` and
+`CRANK_TURN` are gone; neither was ever on the wire.
+
 **THE SLOW, in one place, and it is the whole design.** `orrerySlowBeats` 2
 opens on the beat before an alignment and runs through it, so a window one beat
 wide is about three seconds of real time for a pair to say *now* across a voice
@@ -2261,10 +2315,14 @@ devices agree about where every gap is exactly when they agree about `from` and
 `anchorBeat`, and one beat out is a pair firing into armour on one screen and
 into the core on the other.
 
-**Nothing drawn and nothing sounded.** The picture is the next-but-one lane on
-the choreographed page's table; until it lands, wave 70 shows a boss with no
-body, which is what every boss on that page looked like between its two
-landings. It makes no sound either, and that is queued rather than quietly
+**Nothing drawn and nothing sounded.** The picture is the last lane on the
+choreographed page's table; until it lands, wave 70 shows a boss with no body,
+which is what every boss on that page looked like between its landings — and
+**the hand cannot yet be laid on the ring by a real thumb**, because a
+hit-test is a circle in pixels and nothing in `packages/sim` may know one. The
+rule, the wire and the fingerprint are shipped and tested; the circle, the
+`touch.ts` branch and the row in `docs/spec/controls.md` are the look's, which
+is said in that page's claim row rather than found out twice. It makes no sound either, and that is queued rather than quietly
 skipped: the state carries the edges a mixer would want — `brokeBeat`,
 `spatBeat`, `phaseBeat` — so nothing needs an event added to find them.
 
@@ -2275,7 +2333,14 @@ is, a shot on the beat takes the outermost ring and changes the colour, one
 off the beat costs nothing, the wrong colour is a colour miss, the organs come
 off, the core spits and never down its own column, the naked core refuses a
 bolt and takes the beam, and the same run fingerprints the same way twice
-(`sim/test/orrery.test.ts`).
+(`sim/test/orrery.test.ts`) — and, for the hand, that the first sample after a
+grab is a reference and turns nothing, that a thumb past the top is read the
+short way round, that a turn shorter than a detent is banked and finished
+later, that the bank survives a lift and moves nothing on its own, that
+turning back gives up exactly what turning in bought, that it is player 1's
+alone, that a turned ring still comes round on its own count, and that four
+organs of the outer ring turn a twelve-beat wait into this beat
+(`sim/test/orrery-hand.test.ts`).
 
 ## 11.22 THE CANDLE — the boss fought in the dark
 

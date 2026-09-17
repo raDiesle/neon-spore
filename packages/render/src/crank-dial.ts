@@ -1,9 +1,9 @@
 import {
-  CRANK_TURN,
+  BEARING_TURN,
   crankBites,
   crankTurnedMilli,
   crankWinds,
-  NO_CRANK,
+  NO_BEARING,
   type World,
 } from "@neon-spore/sim";
 import { halo } from "./glow.js";
@@ -74,12 +74,12 @@ export function drawCrankDial(
   const live = crankBites(world);
   // Live and nobody reporting a bearing: the arm is hanging up there waiting
   // for a hand. That is what breathes (`sim/crank.ts`).
-  const waiting = crankWinds(world) && world.crankAtMilli === NO_CRANK;
+  const waiting = crankWinds(world) && world.crankAtMilli === NO_BEARING;
   const breath = waiting ? 0.5 + 0.5 * Math.sin((time / BREATH) * Math.PI * 2) : 0;
   const hex = live ? PALETTE.hull : skin.dead[0];
   // Clockwise from the top, which is the way the hand winds — the drum's own
   // angle, in the one place it becomes radians.
-  const turn = (crankTurnedMilli(world) / CRANK_TURN) * Math.PI * 2;
+  const turn = (crankTurnedMilli(world) / BEARING_TURN) * Math.PI * 2;
 
   if (live) halo(ctx, x, y, r * (1.9 + 0.5 * breath), PALETTE.hull, 0.4 + 0.35 * breath);
   ctx.fillStyle = skin.face;

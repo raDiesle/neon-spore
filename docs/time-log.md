@@ -8234,3 +8234,21 @@ which asks the mapping directly, and the fix was checked by reverting it and
 watching the new case go red.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — orrery-hand — the pilot's hand on a ring
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `crank.ts` end to end, `drag-targets.ts`, `step.ts`'s tick line, and §2's step 10 and animation note — the two places the design asks for something this lane refused |
+| writing | 25 | `orrery-hand.ts`, `bearing.ts`, the two state fields and their hash, the config's gearing, the tenth drag target, the codec sample, the director's two lists, sixteen tests, `bosses.md` §11.21 |
+| friction | 10 | a real import cycle — `crank.ts` reaches the field, the field reaches every boss, so `TURN` was undefined while this module's body read it; then the rename it forced across twelve files |
+| landing | 10 | two claim attempts against a trunk the parallel lane moved under them, a conflict in the choreographed table, `check:fast`, the index |
+
+The bottleneck was the cycle, and it was worth what it cost: the fix is the
+constant moved into a file that imports nothing, which is where a vocabulary
+two mechanisms share belongs, and the second mechanism is what made that
+true. The design's flywheel was the other minute-eater and it was refused
+rather than built — a gap that moves with nobody's hand on it is the one
+thing this boss's central rule forbids.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

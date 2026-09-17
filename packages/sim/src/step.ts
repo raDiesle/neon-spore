@@ -19,6 +19,7 @@ import { releaseLance } from "./lance-burn.js";
 import { lidHeard, stepLidPulls } from "./lid.js";
 import { stepMalfunction } from "./malfunction.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
+import { orreryRingHeard } from "./orrery-hand.js";
 import { advancePods } from "./pods.js";
 import { stepReach } from "./reach.js";
 import { stepRound } from "./step-round.js";
@@ -104,6 +105,13 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // the one `drag` in the game that is a hand on a *control* rather than on
   // something the field is carrying.
   for (const c of commands) crankHeard(world, c.player, c.command);
+  // THE ORRERY's outermost unbroken ring, which is that same bearing put back
+  // on the field — and read here for the crank's reason with a second one of
+  // its own: what the hand writes is the ring's *anchor*, and the beat is
+  // where every other thing about this boss is decided, so a turn answered
+  // there would move a gap in the same instant the pair was counting itself
+  // into (`orrery-hand.ts`).
+  for (const c of commands) orreryRingHeard(world, c.player, c.command);
   // THE CHOIR's two arrows, read on the tick with the other four hands for
   // their reason: how far the pilot has carried one is never stale, and the
   // window between the two of them is counted in ticks (`choir-gesture.ts`).

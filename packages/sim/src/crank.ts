@@ -1,3 +1,4 @@
+import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
 import type { SimConfig } from "./config.js";
 import { ARM_HOME, reachMaxMilli, reachMilliPerTick, reachOut, strikeReach } from "./reach.js";
 import type { Command } from "./types.js";
@@ -15,25 +16,19 @@ import { MILLI, type World } from "./world.js";
  * half of the band — and the rope comes in for exactly as long as the hand
  * keeps turning.
  *
- * **The hand says where it is, not how far it has come.** Every other thing a
- * hand carries in this game reports a displacement from where it grabbed
- * (`Command`'s `drag`), because a wheel is turned by how far the hand has
- * travelled and a lost message has to heal itself. A crank cannot be written
- * that way: a finger going round the same circle for four turns is back where
- * it grabbed four times over, so the displacement is nought at exactly the
- * moments the most has been wound. What a hand on a crank has to say is its
- * **bearing** — which way round the circle it currently is, in thousandths of
- * a turn, clockwise from the top — and that is an absolute the way `cannonCol`
- * is: the next one supersedes the last, a message coalesced away costs
- * nothing, and the device that has the crank's centre under its own finger is
- * the only one that ever knew a pixel.
+ * **The hand says where it is, not how far it has come**: a crank reports a
+ * **bearing** rather than a displacement, because a finger going round the
+ * same circle for four turns is back where it grabbed four times over. That
+ * argument, and the three numbers it is written in, are `bearing.ts` — this
+ * was the first mechanism in the game to need them and THE ORRERY's rings are
+ * the second.
  *
  * **The turning is what winds, and the simulation is what turns it into
  * rope.** Two devices are handed the same bearings on the same ticks and both
  * work out the same step, so the arm is in one place on both screens. The
  * reference is the last bearing this hand reported: the first sample after a
  * hand goes on says only where it started, which is why a press carries
- * `NO_CRANK` instead of a bearing — a grab that pretended to be at the top of
+ * `NO_BEARING` instead of a bearing — a grab that pretended to be at the top of
  * the circle would wind up to half a turn of rope the finger never travelled.
  *
  * **It turns both ways.** Clockwise winds the rope in and the arm comes down;
@@ -55,32 +50,6 @@ import { MILLI, type World } from "./world.js";
  * the press is, and a pair that could lift a caught pod back out of the way
  * would have a panel with no losing move in it.
  */
-
-/** A full turn of the crank, in thousandths. Bearings are `0`..`TURN - 1`. */
-export const TURN = 1000;
-
-/**
- * No hand on the crank, and the value a press carries instead of a bearing.
- *
- * One value for the two states, because they are one state: a hand that has
- * just gone on has no reference yet, and neither has a crank nobody is
- * touching. Anything negative reads as this, so a caller has nothing to get
- * wrong (`crankHeard`).
- */
-export const NO_CRANK = -1;
-
-/**
- * The largest step this reads as turning *clockwise* rather than as a hand
- * that has come round the other way: half a turn.
- *
- * Past it, the shorter way round is anticlockwise, and the sample is read as
- * that much of a turn the other way — which pays rope out. A real finger
- * reports many times a second and cannot cover half a circle between two of
- * them, so the shorter way round is always the way it actually went; a
- * synthetic one — the desk keyboard, a rehearsal — is written to stay well
- * inside it.
- */
-const MAX_STEP = TURN / 2;
 
 /**
  * How far the drum is turned, in thousandths of a turn, clockwise from where
@@ -145,18 +114,18 @@ export function crankHeard(world: World, player: 1 | 2, command: Command): void 
   // The hand off the crank, or a hand that has just gone on: either way there
   // is no reference and the next bearing is only a starting point.
   if (!command.on || command.fromMilli < 0) {
-    world.crankAtMilli = NO_CRANK;
+    world.crankAtMilli = NO_BEARING;
     return;
   }
   const at = ((command.fromMilli % TURN) + TURN) % TURN;
   const was = world.crankAtMilli;
   world.crankAtMilli = at;
-  if (was === NO_CRANK) return;
+  if (was === NO_BEARING) return;
   const step = (at - was + TURN) % TURN;
   if (step === 0) return;
   // Thousandths of a turn times tiles per turn is thousandths of a tile, and
   // the whole of it is integers — two devices cannot round this apart.
-  if (step <= MAX_STEP) {
+  if (step <= MAX_BEARING_STEP) {
     if (!crankWinds(world)) return;
     world.reachMilli = Math.max(0, world.reachMilli - step * world.cfg.windTilesPerTurn);
     return;

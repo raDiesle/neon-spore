@@ -32,5 +32,13 @@ export function orreryHashParts(b: OrreryState): number[] {
   // the boss whatever the four numbers say.
   out.push(b.from.length);
   for (const at of b.from) out.push(at);
+  // **And the hand**, both halves of it. The bearing is the reference the next
+  // sample is read against, so two devices that disagree about it work out
+  // different turns from the same thumb and put the same gap in two places;
+  // the bank is a part-organ that has been paid for and not yet spent, and a
+  // device missing it is one detent behind the other for the rest of the
+  // fight (`orrery-hand.ts`).
+  out.push(b.handAtMilli);
+  out.push(b.windMilli);
   return out;
 }

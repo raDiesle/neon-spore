@@ -325,6 +325,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/own-step.ts` | **The bodies that move by a rule of their own instead of falling** |
 | `packages/sim/src/orrery-gap.ts` | **Where a gap is on the field**, as opposed to where it is in the beat |
 | `packages/sim/src/orrery-hash.ts` | What THE ORRERY puts into `hashWorld`, and nothing else |
+| `packages/sim/src/orrery-hand.ts` | **The pilot's hand on a ring**: the one thing in this fight that can move a gap off a beat the pair has… |
 | `packages/sim/src/orrery-shot.ts` | What a shot that left the top of a column does when THE ORRERY is up |
 | `packages/sim/src/orrery-step.ts` | THE ORRERY's clock: the core's own fire, the organs that come off a broken ring, and the going out |
 | `packages/sim/src/orrery.ts` | THE ORRERY: whether you can agree on **when** |
@@ -420,6 +421,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
+| `packages/sim/src/bearing.ts` | **A bearing**: where a hand is round a circle, in thousandths of a turn clockwise from the top |
 | `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's presses: the maw, the beam and the unseat |
 | `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the push, the bow, the lobe coming through, the widening, the withdrawal |

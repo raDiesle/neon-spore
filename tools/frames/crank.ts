@@ -1,4 +1,4 @@
-import { CRANK_TURN, DEFAULT_CONFIG, NO_CRANK, windPerTickMilli } from "@neon-spore/sim";
+import { BEARING_TURN, DEFAULT_CONFIG, NO_BEARING, windPerTickMilli } from "@neon-spore/sim";
 import type { PressSpec } from "./spec.js";
 
 /**
@@ -29,13 +29,13 @@ import type { PressSpec } from "./spec.js";
  * second copy of a rule).
  *
  * **The bearings start from nought**, exactly as the keyboard's do, because the
- * grab reports `NO_CRANK` and the reference is the last bearing *this* hand
+ * grab reports `NO_BEARING` and the reference is the last bearing *this* hand
  * gave: a hand that pretended to start at the top of the circle would wind up
  * to half a turn of rope that no finger ever travelled.
  */
 export function crankPresses(tick: number, player: 1 | 2, turns: number): PressSpec[] {
   const step = windPerTickMilli(DEFAULT_CONFIG);
-  const ticks = Math.max(1, Math.round((Math.abs(turns) * CRANK_TURN) / step));
+  const ticks = Math.max(1, Math.round((Math.abs(turns) * BEARING_TURN) / step));
   const way = turns < 0 ? -1 : 1;
   const bearing = (which: number): PressSpec => ({
     tick: tick + which,
@@ -48,20 +48,20 @@ export function crankPresses(tick: number, player: 1 | 2, turns: number): PressS
       // the circle the finger is, and the simulation reads the *step* between
       // two of them, so an anticlockwise hand counts down through the modulus
       // rather than into negative numbers.
-      fromMilli: (((which * way * step) % CRANK_TURN) + CRANK_TURN) % CRANK_TURN,
+      fromMilli: (((which * way * step) % BEARING_TURN) + BEARING_TURN) % BEARING_TURN,
     },
   });
   const grab: PressSpec = {
     tick,
     player,
-    command: { kind: "drag", target: "crank", on: true, fromMilli: NO_CRANK },
+    command: { kind: "drag", target: "crank", on: true, fromMilli: NO_BEARING },
   };
   const out: PressSpec[] = [grab];
   for (let i = 0; i <= ticks; i++) out.push(bearing(i));
   out.push({
     tick: tick + ticks,
     player,
-    command: { kind: "drag", target: "crank", on: false, fromMilli: NO_CRANK },
+    command: { kind: "drag", target: "crank", on: false, fromMilli: NO_BEARING },
   });
   return out;
 }

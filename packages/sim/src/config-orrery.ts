@@ -3,9 +3,12 @@
  * on, and what the core does with the gap once a ring is off it
  * (`orrery.ts`, `docs/spec/bosses-choreographed.md` §2).
  *
- * Its own file for `config-diastole.ts`'s reason, and every field here is a
- * **beat count** rather than a place — which is why `SimConfig` picks it up
- * through `config-boss-clocks.ts` beside the other four clocks.
+ * Its own file for `config-diastole.ts`'s reason, and every field here but
+ * one is a **beat count** rather than a place — which is why `SimConfig`
+ * picks it up through `config-boss-clocks.ts` beside the other four clocks.
+ * The exception is the last of them, `orreryHandMilliPerOrgan`, and it is a
+ * measure of a thumb rather than of the field, so it does not break the
+ * seam.
  *
  * **The three orbits are not coprime, and the design page says they should
  * be.** That is a correction rather than an oversight, and it is the same
@@ -91,6 +94,27 @@ export interface OrreryConfig {
    * orbits with the debris of twenty organs falling through it.
    */
   orreryOutBeats: number;
+  /**
+   * **Thumb travel the ring's next detent costs**, in thousandths of a turn —
+   * one and a half turns, and it is the only number in this fight that is not
+   * a beat count.
+   *
+   * The pilot can turn the outermost unbroken ring by hand, and what the ring
+   * gives is whole organs (`orrery-hand.ts`). This is the gearing, and it is
+   * the whole difficulty of that control: a ring drifts one organ a beat under
+   * its own cadence, so **holding a gap still** would cost one and a half
+   * turns *every beat* — 2.4 turns a second at 96 BPM, which no thumb has —
+   * while **bringing an alignment one organ forward** costs one and a half
+   * turns whenever the pilot can spare the hand. So the hand bends the
+   * arithmetic and cannot break it, and the price is the pilot's attention:
+   * the ring is on the field and the cannon is on the panel, and he cannot be
+   * on both.
+   *
+   * Half a turn an organ would make it a dial and the prediction pointless;
+   * three would make it furniture. 1500 is read against `TURN` in `crank.ts`,
+   * which is what a thousandth of a turn means everywhere in this game.
+   */
+  orreryHandMilliPerOrgan: number;
 }
 
 /**
@@ -98,7 +122,8 @@ export interface OrreryConfig {
  *
  * Read as one fight: eight beats, six and four, first together on beat twelve
  * and every twenty-four after that; a rock down the middle every four beats
- * from the first break; three organs off each ring that goes.
+ * from the first break; three organs off each ring that goes; and a ring that
+ * gives one organ for every turn and a half of the pilot's thumb.
  */
 export const ORRERY_DEFAULTS: OrreryConfig = {
   orreryOuterOrgans: 8,
@@ -109,4 +134,5 @@ export const ORRERY_DEFAULTS: OrreryConfig = {
   orreryDebris: 3,
   orrerySlowBeats: 2,
   orreryOutBeats: 5,
+  orreryHandMilliPerOrgan: 1500,
 };

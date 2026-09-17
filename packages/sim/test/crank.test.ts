@@ -1,12 +1,12 @@
 import { describe, expect, it } from "bun:test";
 import {
-  CRANK_TURN,
+  BEARING_TURN,
   crankBites,
   crankTurnedMilli,
   createWorld,
   DEFAULT_CONFIG,
   hashWorld,
-  NO_CRANK,
+  NO_BEARING,
   reachOut,
   type SimConfig,
   startWave,
@@ -101,7 +101,7 @@ describe("a hand on the crank", () => {
     let at = 0;
     step(world, [turn(at)]);
     for (let i = 0; i < TPB * 4; i++) {
-      at = (at - STEP + CRANK_TURN) % CRANK_TURN;
+      at = (at - STEP + BEARING_TURN) % BEARING_TURN;
       step(world, [turn(at)]);
     }
     expect(world.reachMilli).toBe(ceiling);
@@ -113,7 +113,7 @@ describe("a hand on the crank", () => {
     expect(crankBites(world)).toBe(true);
     world.cannonCol = 2;
     step(world, [turn(0)]);
-    step(world, [turn(CRANK_TURN - 200)]);
+    step(world, [turn(BEARING_TURN - 200)]);
     expect(reachOut(world)).toBe(true);
     // Hanging, not climbing: nothing carries it on when the hand stops.
     expect(world.reachDir).toBe(-1);
@@ -130,7 +130,7 @@ describe("a hand on the crank", () => {
     step(world, [
       { tick: 0, player: 1, command: { kind: "drag", target: "crank", on: false, fromMilli: -1 } },
     ]);
-    expect(world.crankAtMilli).toBe(NO_CRANK);
+    expect(world.crankAtMilli).toBe(NO_BEARING);
     const was = world.reachMilli;
     // A hand back on at the far side of the circle is a new starting point,
     // not half a turn of rope the finger never travelled.
@@ -162,7 +162,7 @@ describe("a hand on the crank", () => {
     let at = 0;
     for (let i = 0; i < TPB * 8; i++) {
       step(world, [turn(at)]);
-      at = (at + STEP) % CRANK_TURN;
+      at = (at + STEP) % BEARING_TURN;
     }
     expect(reachOut(world)).toBe(false);
     expect(world.reachMilli).toBe(0);

@@ -1,5 +1,5 @@
+import { NO_BEARING } from "./bearing.js";
 import { midCol, type SimConfig } from "./config.js";
-import { NO_CRANK } from "./crank.js";
 import { NO_GRIP } from "./grip.js";
 import type { GripPush } from "./grip-push.js";
 import type { LanceBeam, Prime } from "./lance.js";
@@ -60,7 +60,7 @@ export interface ShipState {
    * second reference to a member of it is a second truth. */
   reachHeld: number;
   /** Where round the crank player 1's finger last reported itself, in
-   * thousandths of a turn, or `NO_CRANK` for a crank nobody is touching. The
+   * thousandths of a turn, or `NO_BEARING` for a crank nobody is touching. The
    * *reference* the next bearing is a step from, never a total — the rope the
    * winding moves is `reachMilli` above (`crank.ts`). */
   crankAtMilli: number;
@@ -141,7 +141,7 @@ export function newShipState(cfg: SimConfig): ShipState {
     reachCol: mid,
     reachMilli: 0,
     reachHeld: 0,
-    crankAtMilli: NO_CRANK,
+    crankAtMilli: NO_BEARING,
     choirArm: 0,
     choirArmTick: 0,
     wardUntilTick: -1_000_000,

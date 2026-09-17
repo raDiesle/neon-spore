@@ -1,6 +1,6 @@
+import { NO_BEARING } from "./bearing.js";
 import { openWave } from "./briefing.js";
 import { midCol } from "./config.js";
-import { NO_CRANK } from "./crank.js";
 import type { PlacedFault } from "./fault-placed.js";
 import { clearGrips } from "./grip.js";
 import { endPrime } from "./lance.js";
@@ -98,7 +98,7 @@ export function startWave(
   // And nobody's hand on the crank: a bearing kept across a wave would wind
   // the first sample of the next one against a finger that has gone
   // (`crank.ts`).
-  world.crankAtMilli = NO_CRANK;
+  world.crankAtMilli = NO_BEARING;
   world.reachCol = mid;
   world.reachMilli = 0;
   world.reachHeld = 0;

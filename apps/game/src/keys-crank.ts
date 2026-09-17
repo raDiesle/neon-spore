@@ -1,5 +1,5 @@
 import { type ControlSet, controlPress, controlTurns, deskKeys } from "@neon-spore/content";
-import { type Command, CRANK_TURN, type SimConfig, windPerTickMilli } from "@neon-spore/sim";
+import { BEARING_TURN, type Command, type SimConfig, windPerTickMilli } from "@neon-spore/sim";
 
 /**
  * The one key on the desk keyboard that stands in for a hand **going round in
@@ -86,7 +86,7 @@ export function bindCranking(
       const k = key();
       if (at === null || k === undefined) return;
       send(k.player, { kind: "drag", target: "crank", on: true, fromMilli: at });
-      at = (at + way * step + CRANK_TURN) % CRANK_TURN;
+      at = (at + way * step + BEARING_TURN) % BEARING_TURN;
     },
   };
 }

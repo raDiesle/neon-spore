@@ -100,9 +100,10 @@ export const ROUND_FIELD_GROUP = {
   undertowLastBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowDownBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   undertowSlowBeats: "THE UNDERTOW — the boss under the floor, answered downward",
-  // OrreryConfig — three orbits, the beat they first come together on, and
-  // what the core does with the gap once a ring is off it. Every one of them
-  // is a count the pair says out loud (`config-orrery.ts`).
+  // OrreryConfig — three orbits, the beat they first come together on, what
+  // the core does with the gap once a ring is off it, and what a turn of the
+  // pilot's thumb costs. Every one but the last is a count the pair says out
+  // loud; the last is a measure of a thumb (`config-orrery.ts`).
   orreryOuterOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
   orreryMiddleOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
   orreryInnerOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
@@ -111,6 +112,7 @@ export const ROUND_FIELD_GROUP = {
   orreryDebris: "THE ORRERY — three orbits, and neither of you can see all three",
   orrerySlowBeats: "THE ORRERY — three orbits, and neither of you can see all three",
   orreryOutBeats: "THE ORRERY — three orbits, and neither of you can see all three",
+  orreryHandMilliPerOrgan: "THE ORRERY — three orbits, and neither of you can see all three",
   // CandleConfig — how many steps the glow has, how long the dark takes to
   // fall, and the counts it drifts, turns, eats and goes out on. Every one a
   // count the pair says aloud in the dark (`config-candle.ts`).

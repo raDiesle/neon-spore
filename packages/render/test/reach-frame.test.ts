@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildPods, buildQueue } from "@neon-spore/content";
 import {
-  CRANK_TURN,
+  BEARING_TURN,
   createWorld,
   hullRow,
   startWave,
@@ -93,7 +93,7 @@ function clawFrames(role: ViewRole, ticks: number) {
           player: 1,
           command: { kind: "drag", target: "crank", on: true, fromMilli: bearing },
         });
-        bearing = (bearing + windPerTickMilli(CFG)) % CRANK_TURN;
+        bearing = (bearing + windPerTickMilli(CFG)) % BEARING_TURN;
       }
       // And the other seat's mouth, on the beat, so a pod brought down is met.
       if (w.tick % ticksPerBeat(CFG) === 0) {

@@ -1,7 +1,7 @@
 import {
-  CRANK_TURN,
+  BEARING_TURN,
   type DragTarget,
-  NO_CRANK,
+  NO_BEARING,
   type SceneCommand,
   type SimConfig,
   windPerTickMilli,
@@ -183,7 +183,7 @@ function carry(target: DragTarget, milli: number): { fromMilli: number; fromYMil
  */
 export function crankCommands(act: SceneAct, player: 1 | 2, cfg: SimConfig): SceneCommand[] {
   const until = act.until ?? act.tick + SAMPLE_TICKS;
-  const grab = { kind: "drag", target: "crank", on: true, fromMilli: NO_CRANK } as const;
+  const grab = { kind: "drag", target: "crank", on: true, fromMilli: NO_BEARING } as const;
   const out: SceneCommand[] = [{ tick: act.tick, player, command: grab }];
   const step = windPerTickMilli(cfg) * SAMPLE_TICKS;
   let at = 0;
@@ -193,12 +193,12 @@ export function crankCommands(act: SceneAct, player: 1 | 2, cfg: SimConfig): Sce
       player,
       command: { kind: "drag", target: "crank", on: true, fromMilli: at },
     });
-    at = (at + step) % CRANK_TURN;
+    at = (at + step) % BEARING_TURN;
   }
   out.push({
     tick: until,
     player,
-    command: { kind: "drag", target: "crank", on: false, fromMilli: NO_CRANK },
+    command: { kind: "drag", target: "crank", on: false, fromMilli: NO_BEARING },
   });
   return out;
 }

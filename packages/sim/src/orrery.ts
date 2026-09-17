@@ -37,9 +37,10 @@ import type { World } from "./world.js";
  * but the lance (`orrery-shot.ts`).
  *
  * The clock, the core's own fire and the organs that come off a broken ring
- * are `orrery-step.ts`; what a shot does is `orrery-shot.ts`; the
- * fingerprint is `orrery-hash.ts`; the numbers are `config-orrery.ts`. This
- * file is the shape and the arithmetic every one of them calls.
+ * are `orrery-step.ts`; what a shot does is `orrery-shot.ts`; the pilot's
+ * hand on a ring is `orrery-hand.ts`; the fingerprint is `orrery-hash.ts`;
+ * the numbers are `config-orrery.ts`. This file is the shape and the
+ * arithmetic every one of them calls.
  */
 
 /** Rings, outermost first. Three, and the index is a wire value (`orrery-hash.ts`). */
@@ -73,9 +74,11 @@ export interface OrreryState {
    * Where each ring's gap stood on `anchorBeat`, as a slot of its own orbit —
    * 0 is the bottom of the ring, over the core's column.
    *
-   * An anchor rather than a position: nothing steps these, and a hand on a
-   * ring will write one of them and leave the rest alone (the lane after this
-   * one).
+   * An anchor rather than a position: nothing steps these, and **the pilot's
+   * hand writes one of them and leaves the rest alone** — which is the whole
+   * reason a gap is arithmetic rather than a stored slot, because a hand is
+   * the one thing that can move a gap off a beat the pair has already agreed
+   * on (`orrery-hand.ts`).
    */
   from: number[];
   /** The beat `from` is read against. */
@@ -90,6 +93,22 @@ export interface OrreryState {
   brokeBeat: number;
   /** `world.beat` the core last spat a rock on, or -1. */
   spatBeat: number;
+  /**
+   * Where the pilot's thumb is on the ring it has hold of, in thousandths of
+   * a turn, or `NO_BEARING` for no hand on it — a **bearing**, exactly as THE
+   * CLAW's crank reports one, and for the crank's own reason
+   * (`orrery-hand.ts`).
+   */
+  handAtMilli: number;
+  /**
+   * Thumb travel banked against the ring's next detent, in thousandths of a
+   * turn, signed the way the gap's slot numbers run.
+   *
+   * The ring turns in whole organs and nothing else, so what a turn shorter
+   * than a detent buys is kept here until it is paid. Nothing moves it but a
+   * hand: this is not a flywheel (`orrery-hand.ts`).
+   */
+  windMilli: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than six. */

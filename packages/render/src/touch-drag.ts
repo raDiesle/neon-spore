@@ -1,4 +1,4 @@
-import { type Command, CRANK_TURN, NO_CRANK } from "@neon-spore/sim";
+import { BEARING_TURN, type Command, NO_BEARING } from "@neon-spore/sim";
 import type { Hold, Touch } from "./touch-hold.js";
 
 /**
@@ -36,7 +36,7 @@ export function crankTurn(hold: Extract<Hold, { kind: "drag" }>, x: number, y: n
 
 /**
  * Where round a crank the finger is, in thousandths of a turn clockwise from
- * the top — or `NO_CRANK` for a finger too close to the middle to have a
+ * the top — or `NO_BEARING` for a finger too close to the middle to have a
  * bearing at all.
  *
  * The dead spot is the whole reason this is not one line of `atan2`. A hand
@@ -52,11 +52,11 @@ export function crankTurn(hold: Extract<Hold, { kind: "drag" }>, x: number, y: n
 function bearingOn(hold: Extract<Hold, { kind: "drag" }>, x: number, y: number): number {
   const dx = x - hold.originX;
   const dy = y - hold.originY;
-  if (dx * dx + dy * dy < CRANK_DEAD * CRANK_DEAD) return NO_CRANK;
+  if (dx * dx + dy * dy < CRANK_DEAD * CRANK_DEAD) return NO_BEARING;
   // Clockwise from the top: `y` grows downwards on a screen, so the pair goes
   // in as (across, up) and the turn comes out the way a hand winds.
   const turn = Math.atan2(dx, -dy) / (Math.PI * 2);
-  return Math.round((turn - Math.floor(turn)) * CRANK_TURN) % CRANK_TURN;
+  return Math.round((turn - Math.floor(turn)) * BEARING_TURN) % BEARING_TURN;
 }
 
 /** How close to the middle of a crank a finger stops having a bearing, in

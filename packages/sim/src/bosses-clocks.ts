@@ -79,6 +79,11 @@ export {
   orreryShaftOpen,
 } from "./orrery.js";
 export { orreryGapCol, orreryReach } from "./orrery-gap.js";
+// The pilot's hand on a ring, and the two things the picture asks about it:
+// which ring answers a thumb, and how far it is wound against its next
+// detent — which is a strain to be drawn and never a rotation
+// (`orrery-hand.ts`).
+export { NO_RING, orreryHandHolds, orreryHandRing, orreryWoundMilli } from "./orrery-hand.js";
 export {
   STARE_PHASES,
   type StarePhase,

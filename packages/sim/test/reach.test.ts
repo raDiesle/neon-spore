@@ -1,6 +1,6 @@
 import { describe, expect, it } from "bun:test";
 import {
-  CRANK_TURN,
+  BEARING_TURN,
   crankBites,
   createWorld,
   DEFAULT_CONFIG,
@@ -66,7 +66,7 @@ function wind(world: World, n: number): void {
   let at = 0;
   for (let i = 0; i < n; i++) {
     step(world, [press(1, { kind: "drag", target: "crank", on: true, fromMilli: at })]);
-    at = (at + windPerTickMilli(CFG)) % CRANK_TURN;
+    at = (at + windPerTickMilli(CFG)) % BEARING_TURN;
   }
 }
 
@@ -129,7 +129,7 @@ function unwind(world: World, n: number): void {
   let at = 0;
   for (let i = 0; i < n; i++) {
     step(world, [press(1, { kind: "drag", target: "crank", on: true, fromMilli: at })]);
-    at = (at - windPerTickMilli(CFG) + CRANK_TURN) % CRANK_TURN;
+    at = (at - windPerTickMilli(CFG) + BEARING_TURN) % BEARING_TURN;
   }
 }
 
@@ -183,7 +183,7 @@ describe("what it closes on", () => {
         world.reachDir < 0
           ? [press(1, { kind: "drag", target: "crank", on: true, fromMilli: at })]
           : [];
-      at = (at + windPerTickMilli(CFG)) % CRANK_TURN;
+      at = (at + windPerTickMilli(CFG)) % BEARING_TURN;
       step(world, turn);
       if (world.reachHeld !== 0) held = true;
       if (wasOut && !reachOut(world)) looseAtHome = world.pods[0]?.loose === true;
@@ -204,7 +204,7 @@ describe("what it closes on", () => {
       const commands: TimedCommand[] = i % 20 === 0 ? [press(2, { kind: "intake" })] : [];
       if (world.reachDir < 0) {
         commands.push(press(1, { kind: "drag", target: "crank", on: true, fromMilli: at }));
-        at = (at + windPerTickMilli(CFG)) % CRANK_TURN;
+        at = (at + windPerTickMilli(CFG)) % BEARING_TURN;
       }
       step(world, commands);
     }

@@ -36,9 +36,16 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "balloonLeft", on: true, fromMilli: -1400, id: 4 },
   { kind: "drag", target: "balloonRight", on: true, fromMilli: 1400, id: 4 },
   // THE CLAW's crank, whose `fromMilli` is a bearing round a circle rather
-  // than a distance, and whose press carries `NO_CRANK` instead of one.
+  // than a distance, and whose press carries `NO_BEARING` instead of one.
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
+  // THE ORRERY's outermost unbroken ring: the same bearing, on the field
+  // instead of on the panel, and carrying no id because the hand never names
+  // the ring (`sim/orrery-hand.ts`). A codec that dropped it would leave the
+  // pilot turning a ring on his own screen alone — which on this boss is two
+  // devices firing at two different beats.
+  { kind: "drag", target: "orreryRing", on: true, fromMilli: 250 },
+  { kind: "drag", target: "orreryRing", on: false, fromMilli: -1 },
   { kind: "shake" },
   { kind: "restart" },
   { kind: "retry" },
@@ -125,6 +132,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   balloonLeft: true,
   balloonRight: true,
   crank: true,
+  orreryRing: true,
 };
 
 describe("decodeCommand: one accepted example per variant", () => {

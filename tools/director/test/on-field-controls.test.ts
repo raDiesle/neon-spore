@@ -73,10 +73,20 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
  * describes it with the other buttons. It is named here for `"held"`'s reason
  * one switch up — to keep this exhaustive, so a target invented tomorrow still
  * fails to compile — and not given a `FIELD_CONTROLS` entry.
+ *
+ * `orreryRing` is on the field and has no entry **yet**, which is the one
+ * case of that in this list and is a seam rather than an omission: the rule
+ * and the wire are shipped (`sim/orrery-hand.ts`) and the circle a thumb
+ * lands on is not, because a hit-test is a radius in pixels and nothing in
+ * `packages/sim` may know one. The row's own fields say why it has to wait —
+ * `where` is a place on the screen and `source` is a branch of `touch.ts` —
+ * so it is written by THE ORRERY's look lane, which the claim row in
+ * `docs/spec/bosses-choreographed.md` §2 hands the handle to by name.
  */
 function documentedDragTarget(target: DragTarget): DragTarget {
   switch (target) {
     case "crank":
+    case "orreryRing":
     case "mazeString":
     case "wardenTether":
     case "lidString":

@@ -1,3 +1,4 @@
+import { NO_BEARING } from "./bearing.js";
 import {
   ORRERY_RINGS,
   type OrreryState,
@@ -56,6 +57,10 @@ export function installOrrery(world: World): OrreryState {
     color: nextInt(world.rng, 2) === 0 ? "red" : "cyan",
     brokeBeat: -1,
     spatBeat: -1,
+    // No hand on it, and nothing banked against the outer ring's first detent
+    // (`orrery-hand.ts`).
+    handAtMilli: NO_BEARING,
+    windMilli: 0,
   };
 }
 
@@ -118,6 +123,10 @@ export function orreryBreak(world: World, b: OrreryState): void {
   b.color = b.color === "red" ? "cyan" : "red";
   b.phase = b.broken >= ORRERY_RINGS ? "naked" : "spitting";
   b.phaseBeat = world.beat;
+  // Whatever the pilot had wound against *this* ring's detent goes with it. A
+  // bank carried inward would hand the next ring a free part-organ the thumb
+  // earned against something that is no longer there (`orrery-hand.ts`).
+  b.windMilli = 0;
   shed(world, b, ring);
 }
 

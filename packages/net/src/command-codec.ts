@@ -139,7 +139,7 @@ export function decodeCommand(x: unknown): Command | null {
     //
     // **`crank` is the one target whose `fromMilli` is not a displacement at
     // all**: it is a bearing round a circle, in thousandths of a turn, or
-    // `NO_CRANK` for a hand going on or coming off (`sim/crank.ts`). Nothing
+    // `NO_BEARING` for a hand going on or coming off (`sim/crank.ts`). Nothing
     // here has to know that — a signed whole number inside the magnitude bound
     // is exactly what both readings are, and the simulation is where a bearing
     // becomes rope. This wire carries what was said, not what it means.

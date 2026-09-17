@@ -1,4 +1,4 @@
-import { type Command, NO_CRANK } from "@neon-spore/sim";
+import { type Command, NO_BEARING } from "@neon-spore/sim";
 import type { ControlId } from "./controls.js";
 
 /**
@@ -88,7 +88,7 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
      * round the crank rather than a distance from where it grabbed, which is
      * the whole of `sim/crank.ts`'s argument.
      *
-     * Both halves here carry `NO_CRANK` and neither of them winds anything: a
+     * Both halves here carry `NO_BEARING` and neither of them winds anything: a
      * hand going on has no reference yet and a hand coming off has none any
      * more. The rope moves on the bearings in between, which only a device
      * with the crank's own centre under a finger can send (`render/touch.ts`)
@@ -97,8 +97,8 @@ export function controlPress(id: ControlId, col = 0): ControlPress {
      */
     case "crank":
       return {
-        down: { kind: "drag", target: "crank", on: true, fromMilli: NO_CRANK },
-        up: { kind: "drag", target: "crank", on: false, fromMilli: NO_CRANK },
+        down: { kind: "drag", target: "crank", on: true, fromMilli: NO_BEARING },
+        up: { kind: "drag", target: "crank", on: false, fromMilli: NO_BEARING },
       };
     // THE GAUGE. The two valve slabs are held — the needle travels for as long
     // as the thumb stays — and the call is one press by the other seat.

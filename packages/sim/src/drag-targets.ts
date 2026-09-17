@@ -28,7 +28,8 @@ export type DragTarget =
   | "choirRight"
   | "balloonLeft"
   | "balloonRight"
-  | "crank";
+  | "crank"
+  | "orreryRing";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -70,6 +71,20 @@ export type DragTarget =
  * sat. The owner took the sticking out on 14 September 2026 — a gum is
  * swiped in the air now, and that is `gripBody` below, the carry every hand
  * on the field already reports (`gum.ts`).
+ */
+
+/**
+ * `orreryRing` is the tenth, and it is the crank's gesture put back on the
+ * field: a bearing in thousandths of a turn, reported by a thumb going round
+ * one of THE ORRERY's orbits (`orrery-hand.ts`). It is the second target in
+ * this list that is not a distance, and the first that is a bearing on
+ * something the field is carrying rather than on a control of the panel.
+ *
+ * It carries no `id`, and the reason is this boss's own: **the hand never
+ * names the ring.** Which ring answers is the outermost one still standing,
+ * which is the boss's business and not the thumb's — and it has to be, because
+ * two of the three rings are drawn as a blank grey arc on one of the two
+ * screens, so a hand that named a ring could name one it cannot see.
  */
 
 /**
