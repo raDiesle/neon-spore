@@ -619,6 +619,7 @@ answer; the second is cheap and has to be argued, not assumed.
 ## Four frame tests draw under bun's five-second default and go red at random
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-four-frame-tests-draw-under-buns-five-second-def
 - **Where:** local
 - **Files:** `packages/render/test/briefing.test.ts`, `packages/render/test/path-text.test.ts`, `packages/render/test/husk-look.test.ts`, `packages/render/test/pulse-frame.test.ts`, `packages/render/test/frame-harness.ts`
 
