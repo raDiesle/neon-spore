@@ -9542,3 +9542,5 @@ pointer to it in the file every lane reads.
 The bottleneck was that nothing in the queue could be worked at all — all six
 entries ask the owner something — so the lane's time went to proving that one
 of the six was not a question.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 002e5c01 — The import-order wall is a command nobody was pointed at, not a choice of three
+
+`lint` reports a mis-ordered import block as `FIXABLE` and `format` will not fix it, and a queue item asked the owner to pick between turning the assist on in `format`, turning it off in `lint`, or writing a third script. None of the three is the answer: the third script already exists. CLAUDE.md's Biome line now names `bun run imports:sort` beside the other two, which is the whole of what was missing.
+
 ## 2026-09-17 · 7286b64f — One list of what a guard never reads, so the probe's scratch directory is out of all four walks rather than one
 
 The lane that put `tools/probe/scratch` into `tsconfig.json`'s `exclude` fixed the half it had been bitten by. The other half turned up an hour later: a probe wrote `60 / cfg.bpm` and `packages/sim/test/copies.test.ts` failed a lane over a re-derived rule in a file `git status` cannot show. Four walks reach this tree and each carried its own chain of exclusions, which is why the same defect was found twice.
