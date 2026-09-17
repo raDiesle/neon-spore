@@ -193,36 +193,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## `bun run format` cannot fix what `bun run lint` reports about import order
-
-- **Found:** 2026-09-17, claude/boss-taster
-- **Taken:** 2026-09-17, claude/queue-bun-run-format-cannot-fix-what-bun-run-lint-repo
-- **Files:** `package.json`, `tools/imports/run.ts`
-
-`lint` is `biome check --error-on-warnings .`, with the assist enabled by
-default, so a mis-ordered import block is reported as
-`assist/source/organizeImports  FIXABLE`. `format` is
-`biome check --write --assist-enabled=false .`, which turns that assist off —
-so the one command a lane is told to run **cannot fix the one thing lint is
-failing on**. `bun run imports` does not either: it finds imports nothing uses,
-which is a different rule.
-
-Six files hit it in one lane (a boss adds a name to six barrels), and the way
-past it was `bunx biome check --write --assist-enabled=true <paths>` — a
-command nobody has written down, found by reading the two scripts. Every lane
-that adds an import to an existing block will find the same wall.
-
-The options the answer picks between: turn the assist **on** in `format`, so
-the pair of commands agree and a lane's imports are sorted by the same tool
-that formats them; or turn it **off** in `lint`, so import order stops being a
-red check at all and `bun run imports` stays the only thing that has an opinion
-about an import; or leave both and add a third script, beside `imports`, with
-the incantation in it. The first is one word in `package.json` and is the
-obvious answer — but `--assist-enabled=false` was put there on purpose by
-somebody and the reason is written down nowhere, so finding out what it was
-guarding against is the first half of this item.
-- **Asks:** Should `format` sort imports, should `lint` stop asking, or should the incantation get a script of its own?
-
 ## A breach never widens to a second lobe with the shipped numbers
 
 - **Found:** 2026-09-17, claude/queue-four-drawn-bosses-still-owe-their-rehearsal-film

@@ -9521,3 +9521,24 @@ harness rather than the picture, and each found by reading the canvas log
 rather than the drawer.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — task-queue-work — the import-order wall was a command nobody was pointed at
+
+A queue item asked the owner to pick between three ways out of the wall
+between `lint` and `format` over import order, and named its own first half:
+find out why `--assist-enabled=false` was put in `format`. It was put there on
+purpose, three days earlier, with tests — and the third option the item
+proposed already existed as `bun run imports:sort`. What was missing was a
+pointer to it in the file every lane reads.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `docs/queue.md`'s six entries and its preamble, `docs/parked.md`, the three scripts in `package.json` |
+| writing | 5 | three words and a clause on CLAUDE.md's Biome line; the entry out of `docs/queue.md` |
+| looking | 5 | `git log -S` on `--assist-enabled=false`, commit `a739d97a` and its reasoning, `docs/commands.md`'s entry for the sort |
+| friction | 5 | `queue take` moved and pushed `main` under a worktree sitting on its own branch, so the branch had to be fast-forwarded before any edit |
+| landing | 10 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was that nothing in the queue could be worked at all — all six
+entries ask the owner something — so the lane's time went to proving that one
+of the six was not a question.

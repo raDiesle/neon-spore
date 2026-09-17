@@ -33,7 +33,9 @@ Rules 1–4 are tests: `packages/sim/test/purity.test.ts`, which also carries a
 table of rules that must be **called, not re-derived** — add a row when review
 catches one — and `packages/sim/test/hash-coverage.test.ts`.
 
-Style and formatting are Biome's job: `bun run lint`, `bun run format`.
+Style and formatting are Biome's job: `bun run lint`, `bun run format`, and
+`bun run imports:sort` when lint asks for a sort — `format` never sorts, on
+purpose, and the sort's diff is read before it is committed (`docs/commands.md`).
 
 ## Git
 
