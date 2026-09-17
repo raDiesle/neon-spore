@@ -8446,3 +8446,24 @@ spec pages and are quoted nowhere together, which is what the skill's sixth
 section now is.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — creature-bite-collision — a strip answers its share of the band
+
+| Step | Minutes | What |
+|---|---|---|
+| reading | 20 | `touch.ts`, `layout.ts`, `panel-plan.ts`, `gland-fluid.ts` and the app's pointer plumbing |
+| writing | 25 | `strip-band.ts`, the band branch of `touchDown` rewritten, and seven cases |
+| looking | 10 | a probe sweeping the panel a pixel at a time, before and after |
+| friction | 15 | the copies table's pattern had to move with the rule and its first spelling was not in the owner; then `touch.ts` went four lines over its limit and the panel's half came out as `touch-band.ts` |
+| landing | 20 | typecheck, the three packages that answer a finger, `check:fast`, and two red landings |
+
+The bottleneck was the reading, and it bought the lane: the owner's guess and
+the queue entry's both said the grab area was too small, and the first thing
+measured showed it is not — 48 px tall and the width of the stage, against a
+44 px guideline, with the cannon's swelling on the hull 65 px across. The
+defect is the margin rather than the size. A press on the visible top of the
+node landed 11 px outside the only rectangle that answered it, and between the
+cannon on the hull and the cannon on the panel there were 36 px of screen that
+answered nothing at all.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

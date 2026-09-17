@@ -1,9 +1,9 @@
-import { controlPress, type Point, setHas } from "@neon-spore/content";
+import { controlPress, type Point } from "@neon-spore/content";
 import { NO_GRIP } from "@neon-spore/sim";
 import { beatboxUnder } from "./beatbox-tap.js";
 import { creatureAt } from "./creature-under.js";
 import { handleUnder } from "./handles.js";
-import { colFromX, type Layout, showsCannon, showsShield } from "./layout.js";
+import { colFromX, type Layout } from "./layout.js";
 import { mineUnder } from "./mine-tap.js";
 import { orreryRingTurn } from "./orrery-grab.js";
 
@@ -13,11 +13,11 @@ import { orreryRingTurn } from "./orrery-grab.js";
 export type { Field } from "./touch-field.js";
 export type { Hold, Touch } from "./touch-hold.js";
 
+import { bandUnder } from "./touch-band.js";
 import { crankTurn, dragging } from "./touch-drag.js";
 import type { Field } from "./touch-field.js";
 import { sucksOnLift, swipeColor } from "./touch-hand.js";
 import type { Hold, Touch } from "./touch-hold.js";
-import { lobeUnder } from "./touch-lobe.js";
 import { shipUnder } from "./touch-ship.js";
 import { wellCol, wellColsFrom, wellSucksOnLift, wellUnder } from "./touch-well.js";
 
@@ -80,45 +80,8 @@ export function touchDown(l: Layout, x: number, y: number, field: Field): Touch 
     };
   }
 
-  if (showsCannon(l.role)) {
-    // The strip is answered only when the wave's panel actually has one, and
-    // that is the repair the lobes already had: `bandLobes` walks the set, so
-    // a button the set left out has no circle to be answered at — while these
-    // two strips were still answered by position whatever the set said. THE
-    // FLEET is the first panel with no strip on it at all, and without this
-    // its arrows would sit under a cannon nobody can see and nothing can move.
-    if (
-      setHas(field.controls, "cannon") &&
-      Math.abs(y - l.cannonStrip.y) <= l.cannonStrip.height * 0.75
-    ) {
-      // A press on the strip while THE CHOKE's fault has the cannon goes to
-      // the ship like any other and is swallowed there (`faultSwallows`),
-      // the way a press on a dead lobe is: the panel keeps every control
-      // where it was, and the simulation is the one that says no.
-      return {
-        player: 1,
-        command: { kind: "cannonCol", col: colFromX(l, x) },
-        hold: { kind: "cannon" },
-      };
-    }
-    const lobe = lobeUnder(l, field.controls, 1, x, y);
-    if (lobe) return lobe;
-  }
-  if (showsShield(l.role)) {
-    if (
-      setHas(field.controls, "shield") &&
-      Math.abs(y - l.shieldStrip.y) <= l.shieldStrip.height * 0.75
-    ) {
-      return {
-        player: 2,
-        command: { kind: "shieldCol", col: colFromX(l, x) },
-        hold: { kind: "shield" },
-      };
-    }
-    const lobe = lobeUnder(l, field.controls, 2, x, y);
-    if (lobe) return lobe;
-  }
-  return null;
+  // And the panel below it: the buttons, then the strips (`touch-band.ts`).
+  return bandUnder(l, x, y, field);
 }
 
 /**

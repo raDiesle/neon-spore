@@ -17,7 +17,12 @@ export {
 } from "./view-role.js";
 
 import { PANEL_PLAN } from "./panel-plan.js";
-import type { ViewRole } from "./view-role.js";
+// The rows a strip answers a press on, worked out where its reasons are
+// written down. Re-exported so nothing holding a `Strip` had to move.
+import { type Strip, stripBands } from "./strip-band.js";
+import { showsCannon, showsShield, type ViewRole } from "./view-role.js";
+
+export type { Strip };
 
 /**
  * Where everything sits on the screen. Computed once per resize and shared by
@@ -75,11 +80,6 @@ export interface Layout {
    * `flippedLayout` does, from a world (`field-flip.ts`).
    */
   flip: boolean;
-}
-
-export interface Strip {
-  y: number;
-  height: number;
 }
 
 export interface Circle {
@@ -171,6 +171,15 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
   // screen carrying one role's half.
   const r = Math.min(bandHeight * plan.lobeR[at], width * plan.lobeRCap[at]);
   const stripHeight = Math.min(bandHeight * plan.stripH, plan.stripHCap);
+  const strips = stripBands({
+    bandTop,
+    cannon: rowCannon,
+    shield: rowShield,
+    button: rowButton,
+    lobeReach: r * 1.3,
+    height: stripHeight,
+    shows: { cannon: showsCannon(role), shield: showsShield(role) },
+  });
 
   return {
     role,
@@ -192,8 +201,8 @@ export function computeLayout(viewport: Viewport, cfg: SimConfig, role: ViewRole
     playHeight,
     radarHeight,
     hullY: gridTop + (cfg.rows - 1) * tile,
-    cannonStrip: { y: rowCannon, height: stripHeight },
-    shieldStrip: { y: rowShield, height: stripHeight },
+    cannonStrip: strips.cannon,
+    shieldStrip: strips.shield,
     lobeY: rowButton,
     lobeR: r,
   };

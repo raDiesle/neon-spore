@@ -1120,6 +1120,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/strand-fuse-draw.ts` | The three pictures a burning thread is made of (`strand-fuse.ts`): a front eating its way along the line |
 | `packages/render/src/strand-fuse.ts` | THE STRAND's thread going, drawn as a fuse |
 | `packages/render/src/strip-look.ts` | what a strip looks like, as a record — the trough, its lip, the rail, the stations and the block, lifted out of band-channel so a candidate panel can draw a rail as something else |
+| `packages/render/src/strip-band.ts` | HOW FAR OFF A STRIP A THUMB MAY LAND AND STILL MEAN IT |
 | `packages/render/src/maze-timer.ts` | THE MAZE's clock, drawn on the outside of the heart |
 | `packages/render/src/choir-arrows.ts` | **THE CHOIR's two arrows**: the way to open a membrane on a device that cannot tell you it has been shaken |
 | `packages/render/src/choir-prompt.ts` | **The instruction over a membrane**: a scan frame around the middle dot with the gesture written under it |
@@ -1191,6 +1192,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/crystal-field.ts` | THE CRYSTAL's electric field: arcs crawling round the whole craft, and the hole they open underneath while the shield stands there |
 | `packages/render/src/touch-drag.ts` | What a hand that already has hold of something says when it moves — a handle carried, a crank turned |
 | `packages/render/src/touch-well.ts` | THE WELL's screen as a control: the same two questions `touch.ts` asks of the flat field |
+| `packages/render/src/touch-band.ts` | A press on the panel below the field: the buttons, and the two strips |
 | `packages/render/src/tile-seed.ts` | The seed a picture of one tile is drawn from |
 | `packages/render/src/dart-torch.ts` | WHAT A DART'S THRUST IS DRAWN AS, in a file of its own beside `dart-look.ts` |
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |

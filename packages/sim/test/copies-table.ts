@@ -227,9 +227,16 @@ export const COPIES: Copy[] = [
     also: ["packages/content/src/own-motion.ts"],
   },
   {
-    call: "touchDown",
-    owner: "packages/render/src/touch.ts",
-    pattern: /cannonStrip\s*\.\s*height\s*\*\s*0\.75/,
+    // The rule moved from `touch.ts` to `strip-band.ts` on 17 September 2026,
+    // and the number moved with it: how near a strip counts is no longer a
+    // slab round the cord but the strip's own share of the band, and the old
+    // three-quarters of a strip's height is only the floor under it. So what
+    // is watched for is that fraction written anywhere else — a second, older
+    // answer to "how near is near enough", which is exactly what the reach a
+    // layout already carries on `Strip.top` and `Strip.bottom` replaced.
+    call: "stripBands",
+    owner: "packages/render/src/strip-band.ts",
+    pattern: /height\s*\*\s*0\.75/,
     strip: false,
   },
   {
