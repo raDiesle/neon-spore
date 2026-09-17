@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · b6fcf1a0 — MECHANICS comes off NOT BUILT YET, and the sheet is the bosses
+
+The owner asked for the page to go. What it drew was a second rendering of `systems.md` and `ideas.md` — one half-built system and three groups of ideas — and both files are read whole in the SPEC room next door, so keeping it was keeping two pages in step to say one thing. Every word of it is still in `docs/spec/`; nothing left the design.
+
 ## 2026-09-17 · bead2b62 — THE CURTAIN's rehearsal: every act is the pilot's hand on the sheet, and the cannon never slides
 
 The wave's guide was prose only since the boss landed. A ten-page film over 2400 ticks: the core hiding, its shadow on player 2's screen, a bolt into cloth bouncing off, the soft lobes on player 1's, a soft one shot and dropped, a shove one column over and the sheet rolling back, a carry of four columns, the core bared under the hem and hit in its own colour, and the drift back under the cloth. Seed 64 is the one chosen thing: the core has to start under the cannon and the lobe over it has to be soft when the fifth page says so. The film takes no hit and ends before the torch; the torch and the tear are the guide's prose.
