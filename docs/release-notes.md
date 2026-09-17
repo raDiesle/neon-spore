@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 29ad903a — Mark "Four drawn bosses still owe their rehearsal film" done
+
+All four films landed: THE DIASTOLE, THE BATON, THE THROAT and THE UNDERTOW.
+
 ## 2026-09-17 · c8f4eb15 — THE UNDERTOW has a rehearsal film: a lobe scarred, two taken by the maw, a pair split between maw and plate
 
 Eleven pages over the first four pushes: a lobe nobody answers stands its four beats and scars the column; the cannon slides under the next by `atBoss` and the maw is open as it comes through; the third bows under the plate, so player 2 moves off before player 1 answers; and of the pair the maw takes the near lobe while the plate stands on the far one. Seed 36 is the one whose pair stands in columns the shield's strip can reach. Eighteen guided waves are still prose. Queued: with the shipped numbers a breach withdraws at 300 of the 400 it needs to widen, so the second lobe never comes.
