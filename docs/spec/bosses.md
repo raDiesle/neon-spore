@@ -3843,16 +3843,59 @@ the design's one time effect is a second viewing angle, and a hand that
 turns the organ is a `Hold` the default set does not have yet — it is the
 look lane's to add, or the owner's to decline (`new-boss` skill §6, open).
 
-**What is not built.** The picture: the body, the organ pushing out of it
-(`body-inset.ts`, `metaball-spread.ts`), the table of sixteen contours
-from `tools/shape-sheet/src/drafts/` and their families, the navigator's
-rail, the pits, the ship among ships, the eruption; the split, which is a
-pair of predicates in `render/view-role-clocks-b.ts`; the turn under a
-hand. Every event is on the silent lists
-(`render/effects-ingest-silent-boss-b.ts`, `effects-spark-silent-boss.ts`)
-until the look lane draws it. The sounds are bound
-(`audio/bind-antiphon.ts`, `sounds/boss-antiphon.ts`), one a cue, panned to
-the column.
+**The look** (`render/antiphon-draw.ts`, `antiphon-shape.ts`,
+`antiphon-fx.ts`; the table `content/antiphon-contours.ts`). A smooth
+violet **body** hangs above row 0 the whole width of the columns — its top
+arched, its flanks breathing, its underside swelling in slow waves one a
+pair of columns — filled in the hull's violet over the background, dark,
+and rimmed in the hull and its rim; not the rock of THE SCUTTLE's slab
+next door but the thing that is *soft*. The **table** is sixteen contours
+in four families, each family one draft off the shape sheet taken whole
+and three that differ from it by the one thing a sentence can say:
+REVERB (three lobes; the bottom one long; pinched; four), SMOKE (six soft
+lobes; five; cut deep; wide), PRISM (three facets; four; sharp; tall) and
+MOULT (eleven facets; nine; shallow; squat) — a radius multiplier at an
+angle like every body's, and an aspect for the tall and the wide, so the
+tight rail is a rail where the difference has to be described rather than
+the shape. An **organ** hangs off the underside at `PERCH_RISE` of a tile,
+its contour pushing out over `antiphonGrowBeats` (eased, so it slows as it
+arrives) and breathing once it is out. **Who is shown what is the split**
+(`showsAntiphonOrgan`, `showsAntiphonRail`, `view-role-clocks-b.ts`): the
+pilot's screen has the organ under the *middle* of the body whatever its
+column, in the body's own violet with the hull's rim — no column under it,
+no colour on it — and twins a `TWIN_GAP` apart by index; the navigator's
+has the **rail**, every candidate at its column at `RAIL_R` in its colour
+with that colour's rim, the whole rail pushing out together so the organ
+is not the one that grows, nothing marking it, and under them the
+**window**: a thread in the shield's rim along the underside, shortening
+from both ends as the beats run out — the count, hers; the test screen has
+both. A **pit** is the shape that made it sunk into the body small and
+dark at `PIT_R`, rimmed dim, spread across the body in the order taken.
+Their own **ship** is a closed hull contour — `HULL`'s twelve lobes with
+the cannon's bump on top — drawn true on the pilot's screen and true for
+the organ on the rail, while every decoy hull is drawn with the *wrong
+number of lobes* (`antiphonDecoyLobes`: ten, fourteen, nine…), subtly, so
+*ours has twelve* is a thing he can say and she can count. With every pit
+there the body goes **still**: the breathing stops, the fill and the rim
+go glassy-bright. **Down**, the body closes in on its middle and fades
+over `antiphonOutBeats` — in the colour, since `strokeGlow` owns the alpha
+— while the ten events, one family read above `Effects`' loop
+(`antiphon-fx.ts`), do the rest: the drawer tells the transient the pits
+every frame, and the burst makes every one an **eruption**, its contour
+pushing out from pit size to over a tile and thinning to nothing over the
+beats the body has left; and every burst is placed by what the screen is
+allowed to know — a growth and the ship burst at the organ's column on
+the screens shown the rail and under the middle on the pilot's, since his
+screen keeps the column from him, and everything after a shot at the
+column the shot went up, which both know. Nothing of it is a sprite.
+`render/test/antiphon-frame.test.ts` proves the body on all three screens,
+the organ drawn on the pilot's and not the navigator's — and the same
+picture there whichever column it stands over — the rail drawn on the
+navigator's and not the pilot's — and the same picture there whichever
+candidate is the organ — twins, the pits, the still, the ship, the fade,
+the gone, and the eruption's reset (nineteen). *The turn under a hand is
+still not built*: a `Hold` that turns the organ is the default set's to
+grow, or the owner's to decline (`new-boss` skill §6, open).
 
 **Never watched at tempo.** What the tests say is the mechanism: it rises
 smooth with nothing on the rail and nothing on the field; it holds its

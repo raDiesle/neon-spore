@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: twenty-two drafts, four claimed, thirteen set free and two moved to VERSUS so far.** A draft is a picture
+> **Status: nineteen drafts, eight claimed, twelve set free and two moved to VERSUS so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content`, or
 > into `packages/render` where what was drawn is a mechanism rather than a
@@ -89,6 +89,12 @@ The direction of travel is one way: a draft that is claimed becomes taken, and
 its numbers move out of the tool and into content. Nothing goes back. A draft
 that is not claimed is cut, and the commit that cuts it says why — that is more
 useful to the next session than the shape was.
+
+Four went at once on 17 September 2026, and as a set: REVERB, SMOKE, PRISM
+(drafts) and MOULT (free since the 16th) are the heads of THE ANTIPHON's four
+families of contours, `packages/content/src/antiphon-contours.ts` — each
+carried unchanged, with three that differ from it by the one thing a
+sentence can say. The boss grows one and the pilot has to say which.
 
 **Content is what the game ships.** A contour nothing carries is not content,
 which is why every draft lives in `tools/` and none of them in `packages/`.

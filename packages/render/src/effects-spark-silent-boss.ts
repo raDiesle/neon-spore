@@ -200,9 +200,8 @@ export const SILENT_BOSS = [
   "scuttleLast",
   "scuttleDown",
   "scuttleOut",
-  // THE ANTIPHON's ten, silent until the look lane draws the body: what
-  // sparks will be one family read above the loop by `antiphon-fx.ts`, never
-  // rows here (`docs/spec/bosses.md` §11.31).
+  // THE ANTIPHON's ten: what sparks is one family read above the loop by
+  // `antiphon-fx.ts`, never rows here (`docs/spec/bosses.md` §11.31).
   "antiphonEnter",
   "antiphonGrow",
   "antiphonPit",

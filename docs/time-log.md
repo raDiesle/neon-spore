@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE ANTIPHON, the look
+
+The second lane of the boss that grows a thing nobody has a word for. Four
+draft creatures from the shape sheet became the heads of its four families
+of contours (`content/antiphon-contours.ts`); the body, the organ under the
+pilot's screen, the rail of candidates on the gunner's, the window thread,
+the pits, the ship and its decoys, the still and the eruption are drawn in
+`render/antiphon-shape.ts`, `antiphon-draw.ts` and `antiphon-fx.ts`, and
+nineteen frame tests prove every state on all three screens and the split
+both ways. The lane was cut in two by a shutdown and picked up an hour later.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | THE SCUTTLE's shape/draw/fx pattern, the drafts' status and `suggests` rules, `view-role-clocks-b.ts` |
+| writing | 20 | the contours, the three render files, the effects wiring, the frame test, §11.31's *The look* |
+| looking | 5 | two frames — the rail clipped at the right edge, the body too pale — and the numbers they moved |
+| friction | 5 | three guards that fire only in the full check, one at a time: a taken draft keeps no `suggests`, the catalogue counts drafts, `cols / 2` is `midCol` |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the guards that only the full `bun test` runs — the
+concept-art test, the drafts count and the copies table — each found by a
+separate red run after the work was thought done, because `check:fast` reaches
+only the tests a diff touches and a look's diff does not touch those.
+
 ## 2026-09-17 — queue-scratch-guards — the scratch directory out of the guards too
 
 The second half of the typecheck item, queued an hour after the first landed

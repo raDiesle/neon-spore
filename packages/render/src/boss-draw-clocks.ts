@@ -1,4 +1,5 @@
 import type { World } from "@neon-spore/sim";
+import { drawAntiphon } from "./antiphon-draw.js";
 import { drawBaton } from "./baton-draw.js";
 import { drawCurtain } from "./curtain-draw.js";
 import { drawDiastole } from "./diastole-draw.js";
@@ -55,6 +56,7 @@ const CLOCK_KINDS = [
   "surge",
   "lead",
   "scuttle",
+  "antiphon",
 ] as const;
 
 export type ClockBoss = Extract<Installed, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -213,5 +215,15 @@ export function drawClockBoss(
   // next throw are on the navigator's, which is the whole split. What
   // outlives a frame — the jolt of a throw, the plate that tumbles off on a
   // strike — is `effects.boss.scuttle` (`scuttle-draw.ts`, `scuttle-fx.ts`).
-  drawScuttle(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.scuttle);
+  if (boss.kind === "scuttle") {
+    drawScuttle(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.scuttle);
+    return;
+  }
+
+  // THE ANTIPHON: a smooth body over the top of the field, pitted with the
+  // shapes already named, the organ it has grown under its middle on the
+  // pilot's screen and the whole rail under its columns on the navigator's,
+  // which is the whole split. What outlives a frame — the eruption of every
+  // pit — is `effects.boss.antiphon` (`antiphon-draw.ts`, `antiphon-fx.ts`).
+  drawAntiphon(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.antiphon);
 }

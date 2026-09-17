@@ -14,11 +14,11 @@ import type { SimEvent } from "@neon-spore/sim";
  * for the next frame* — and the reasons stay with the rows.
  */
 export const INGEST_SILENT_BOSS_B = [
-  // THE ANTIPHON's ten are silent **until the look lane draws it**: the
+  // THE ANTIPHON's ten leave nothing behind for the next frame here: the
   // body, the organs, the rail and the pits are read off the state every
-  // frame, and what outlives a frame — an organ pushing out, the shrivel to
-  // a pit, the spill, the eruption — will be one family read above the loop
-  // by an `antiphon-fx.ts`, never rows here (`docs/spec/bosses.md` §11.31).
+  // frame, and what outlives a frame — the eruption of every pit — and the
+  // bursts are one family read above the loop by `antiphon-fx.ts`, never
+  // rows here (`docs/spec/bosses.md` §11.31).
   "antiphonEnter",
   "antiphonGrow",
   "antiphonPit",

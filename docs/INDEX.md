@@ -682,6 +682,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/surface.ts` | where a mark placed at a longitude and latitude lands, how the tangent plane foreshortens it, and its own normal against `KEY` |
 | `packages/content/src/studded.ts` | A body whose whole rim is broken by the same feature repeated: knobs, spines or hairs — the contour alone |
 | `packages/content/src/rooted.ts` | A bulb held down by roots: a round body with narrow tendrils reaching from its underside |
+| `packages/content/src/antiphon-contours.ts` | **THE ANTIPHON's table of contours** — the sixteen shapes the body can grow |
 
 ### packages/render
 
@@ -1266,6 +1267,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
 | `packages/render/src/after-image.ts` | **THE CANDLE's after-image**: which columns of a dark field were lit, by what |
+| `packages/render/src/antiphon-draw.ts` | **THE ANTIPHON**: a smooth violet body hung over the top of the field above row 0 |
+| `packages/render/src/antiphon-fx.ts` | What THE ANTIPHON leaves behind a frame |
+| `packages/render/src/antiphon-shape.ts` | **Where THE ANTIPHON is**, in field pixels: the body hung over the top of the field above row 0 |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |
 | `packages/render/src/beatbox-tap.ts` | **Player 2's thumb on a soundbox**, and the first press in this game that lands on a *body* and is over the… |
 | `packages/render/src/beatbox-wave.ts` | **The wave of sound a miscounted box sends at the ship**, and the picture this creature is named for |

@@ -34,3 +34,21 @@ import type { ViewRole } from "./view-role.js";
  */
 export const showsScuttleCount = (role: ViewRole): boolean => role !== "p2";
 export const showsScuttleLive = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE ANTIPHON's two, and the split is the eyes again, each way, but on a
+ * thing neither seat can point at: the pilot is shown **the organ** — the
+ * contour the body has grown, hanging under the middle of the body in the
+ * body's own violet, with no column under it and no colour on it, so what
+ * it *is* is his to put into words; the navigator is shown **the rail** —
+ * every candidate at its column in its colour, the organ among them
+ * unmarked, and the beats left before it sinks — so which of them he is
+ * describing, and the column and colour a bolt has to be, are hers. On her
+ * screen the whole rail pushes out of the body together, so the organ is
+ * not given away by being the one that grows; on his nothing stands at a
+ * column at all. His *three lobes, the bottom one long* and her *column
+ * four, red, six beats* are the fight (`antiphon-shape.ts`,
+ * `antiphon-draw.ts`, `sim/antiphon.ts`). `test` is both.
+ */
+export const showsAntiphonOrgan = (role: ViewRole): boolean => role !== "p2";
+export const showsAntiphonRail = (role: ViewRole): boolean => role !== "p1";

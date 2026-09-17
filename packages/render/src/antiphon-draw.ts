@@ -1,0 +1,193 @@
+import {
+  ANTIPHON_SHIP,
+  type AntiphonCandidate,
+  type AntiphonState,
+  antiphonIsOrgan,
+  type Color,
+  type SimConfig,
+  type World,
+} from "@neon-spore/sim";
+import type { AntiphonFx } from "./antiphon-fx.js";
+import {
+  antiphonBodyPath,
+  antiphonCentre,
+  antiphonContourPath,
+  antiphonDecoyLobes,
+  antiphonFade,
+  antiphonGrowPhase,
+  antiphonPerch,
+  antiphonPitSpot,
+  antiphonStill,
+  antiphonWindowLeft,
+  ORGAN_R,
+  PIT_R,
+  RAIL_R,
+  TWIN_GAP,
+} from "./antiphon-shape.js";
+import { strokeGlow } from "./glow.js";
+import { rgba } from "./hex.js";
+import type { Layout } from "./layout.js";
+import { PALETTE, STROKE } from "./palette.js";
+import { showsAntiphonOrgan, showsAntiphonRail } from "./view-role-clocks-b.js";
+
+/**
+ * **THE ANTIPHON**: a smooth violet body hung over the top of the field
+ * above row 0, the pits of the shapes already named sunk into it in the
+ * order they were taken, and — on one screen — the organ it has grown
+ * hanging under its middle in the body's own violet, on the other every
+ * candidate on the rail hanging under its column in its colour, with the
+ * window running out along the underside (§11.31).
+ *
+ * Read off the world every frame and drawn in the order the eye reads it:
+ * the body, the pits, the organs or the rail, the window last. Its health
+ * is its silhouette: a pit a shape named, and the body goes glassy and
+ * still when they are all there. Down, the body closes in on its middle and
+ * fades over `antiphonOutBeats` while the pits erupt. What outlives a frame
+ * — the push of a growth, the shrivel to a pit, the eruption — is
+ * `effects.boss.antiphon` (`antiphon-fx.ts`).
+ *
+ * **The organ is drawn on the screen shown the organ, the rail on the
+ * screen shown the rail** (`view-role-clocks-b.ts`). On the pilot's the
+ * organ hangs under the middle whatever its column, twins a gap apart by
+ * index, and their own ship is drawn true; on the navigator's every
+ * candidate hangs at its column, the ship's decoys with the wrong number of
+ * lobes, and nothing says which is the organ.
+ */
+export function drawAntiphon(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  s: AntiphonState,
+  beat: number,
+  beatPhase: number,
+  time: number,
+  fx: AntiphonFx,
+): void {
+  const cfg = world.cfg;
+  const fade = antiphonFade(s, cfg, beat, beatPhase);
+  if (fade <= 0) return;
+  const still = antiphonStill(s);
+  const grow = antiphonGrowPhase(s, cfg, beat, beatPhase);
+  fx.note(s.pits);
+
+  ctx.save();
+  drawBody(ctx, l, cfg, time, fade, still);
+  for (let i = 0; i < s.pits.length; i++) {
+    drawPit(ctx, l, cfg, i, s.pits[i] ?? 0, time, fade);
+  }
+  if (showsAntiphonOrgan(l.role)) {
+    const c = antiphonCentre(l, cfg);
+    const y = antiphonPerch(l, 0).y;
+    const n = s.organs.length;
+    for (let i = 0; i < n; i++) {
+      const o = s.organs[i];
+      if (o === undefined) continue;
+      const x = c.x + (i - (n - 1) / 2) * TWIN_GAP * l.tile;
+      drawContour(ctx, l, o, { x, y }, ORGAN_R * grow, PALETTE.hull, PALETTE.hullRim, time, fade);
+    }
+  }
+  if (showsAntiphonRail(l.role)) {
+    let decoy = 0;
+    for (const c of s.rail) {
+      const organ = antiphonIsOrgan(s, c);
+      const lobes = c.shape === ANTIPHON_SHIP && !organ ? antiphonDecoyLobes(decoy++) : undefined;
+      const [hex, rim] = tone(c.color);
+      drawContour(ctx, l, c, antiphonPerch(l, c.col), RAIL_R * grow, hex, rim, time, fade, lobes);
+    }
+    drawWindow(ctx, l, cfg, antiphonWindowLeft(s, cfg, beat, beatPhase), fade);
+  }
+  ctx.restore();
+}
+
+/**
+ * A colour at the fade: the hex itself while the body stands, so the frame
+ * tests can count it, and an `rgba` once it is going — `strokeGlow` owns the
+ * alpha, so a fade has to be in the colour (`scuttle-draw.ts`).
+ */
+function faded(hex: string, fade: number, alpha = 1): string {
+  return fade >= 1 && alpha >= 1 ? hex : rgba(hex, alpha * fade);
+}
+
+/** A colour's fill and rim. */
+function tone(color: Color): [string, string] {
+  return color === "red" ? [PALETTE.red, PALETTE.redRim] : [PALETTE.cyan, PALETTE.cyanRim];
+}
+
+/** The body: a smooth violet mass breathing, glassy and rimmed bright once it is still, closing in on its way out. */
+function drawBody(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  time: number,
+  fade: number,
+  still: boolean,
+): void {
+  const p = antiphonBodyPath(l, cfg, fade, time, still ? 0 : 1);
+  ctx.save();
+  ctx.fillStyle = faded(PALETTE.background, fade);
+  ctx.fill(p);
+  ctx.fillStyle = faded(PALETTE.hull, fade, still ? 0.42 : 0.28);
+  ctx.fill(p);
+  ctx.restore();
+  strokeGlow(ctx, p, faded(PALETTE.hull, fade), STROKE.inner, 0.6 * fade);
+  strokeGlow(ctx, p, faded(PALETTE.hullRim, fade), STROKE.inner, (still ? 0.7 : 0.3) * fade);
+}
+
+/** A pit: the shape that made it, sunk into the body small and dark, its rim in the dim violet. */
+function drawPit(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  i: number,
+  shape: number,
+  time: number,
+  fade: number,
+): void {
+  const p = antiphonContourPath(shape, antiphonPitSpot(l, cfg, i), l.tile * PIT_R * fade, time);
+  ctx.save();
+  ctx.fillStyle = faded(PALETTE.background, fade, 0.8);
+  ctx.fill(p);
+  ctx.restore();
+  strokeGlow(ctx, p, faded(PALETTE.dim, fade), STROKE.inner, 0.6 * fade);
+}
+
+/** An organ or a candidate hanging off the underside: its contour, filled in `hex` and rimmed in `rim`, breathing. */
+function drawContour(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  c: AntiphonCandidate,
+  at: { x: number; y: number },
+  rTiles: number,
+  hex: string,
+  rim: string,
+  time: number,
+  fade: number,
+  lobes?: number,
+): void {
+  if (rTiles <= 0) return;
+  const r = l.tile * rTiles * (1 + 0.03 * Math.sin(time * 4));
+  const p = antiphonContourPath(c.shape, at, r, time * 0.3, lobes);
+  ctx.save();
+  ctx.fillStyle = faded(hex, fade, 0.75);
+  ctx.fill(p);
+  ctx.restore();
+  strokeGlow(ctx, p, faded(rim, fade), STROKE.outline, 0.8 * fade);
+}
+
+/** The window: a thread along the underside of the body, shortening from both ends as the beats run out. */
+function drawWindow(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  cfg: SimConfig,
+  left: number,
+  fade: number,
+): void {
+  if (left <= 0) return;
+  const c = antiphonCentre(l, cfg);
+  const half = ((cfg.cols - 1) * l.tile * 0.5 + l.tile * 0.3) * left;
+  const y = l.gridTop - l.tile * 0.08;
+  const p = new Path2D();
+  p.moveTo(c.x - half, y);
+  p.lineTo(c.x + half, y);
+  strokeGlow(ctx, p, faded(PALETTE.shieldRim, fade), STROKE.outline, 0.7 * fade);
+}

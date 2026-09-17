@@ -40,11 +40,10 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
       "one body, arriving twice",
     ),
     motion: LURCH,
-    status: "draft",
+    status: "taken",
     slot: "creature",
-    suggests: "Reverb",
     owner:
-      "travels, stops, waits, travels again — the delay is in the motion, which is where a repeat belongs; the contour stays plain so it is not mistaken for the Herald",
+      "THE ANTIPHON, taken 17 September 2026, as the head of one of its four families of contours (`content/antiphon-contours.ts`): the body grows it and three that differ from it by the one thing a sentence can say, and the pilot has to say it. Before that: travels, stops, waits, travels again — the delay is in the motion, which is where a repeat belongs; the contour stays plain so it is not mistaken for the Herald",
   },
   {
     subject: glyphed("COUNTDOWN · MARKS", "a rim of marks, one fewer each pass", 42, 42, 7, 0.9),
@@ -62,10 +61,10 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
       "11 facets · a shell under pressure",
     ),
     motion: SWELL,
-    status: "free",
+    status: "taken",
     slot: "creature",
     owner:
-      "free since 16 September 2026, and the one shape on this sheet released by the thing it was drawn for being *built*. It was offered to Moulting — a shell that comes off mid-fall, leaving a killable body — and the owner redesigned that creature before anybody built it: THE MOULT is a rock for five beats and a supply cargo for five, off the wave's own beat, and it wears the two contours the game already draws rather than one of its own (`render/moult-shape.ts` blends them vertex by vertex). So nothing carries these eleven facets and nothing is going to on that argument. Faceted, because a shell is the non-living material the rock already uses; it swells and does nothing else, so the moment it splits is the only event it ever has — which is still a good shape for anything whose whole story is one opening",
+      "THE ANTIPHON, taken 17 September 2026, as the head of one of its four families of contours (`content/antiphon-contours.ts`): the body grows it and three that differ from it by the one thing a sentence can say, and the pilot has to say it. Free from 16 September 2026, and the one shape on this sheet released by the thing it was drawn for being *built*. It was offered to Moulting — a shell that comes off mid-fall, leaving a killable body — and the owner redesigned that creature before anybody built it: THE MOULT is a rock for five beats and a supply cargo for five, off the wave's own beat, and it wears the two contours the game already draws rather than one of its own (`render/moult-shape.ts` blends them vertex by vertex). So nothing carries these eleven facets and nothing is going to on that argument. Faceted, because a shell is the non-living material the rock already uses; it swells and does nothing else, so the moment it splits is the only event it ever has — which is still a good shape for anything whose whole story is one opening",
   },
   {
     subject: cluster("SYMBIOSIS", "two bodies in one membrane, safe while touching", {
@@ -89,11 +88,10 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
       "shallow lobes, a wobble deep enough to blur the edge",
     ),
     motion: DRIFT,
-    status: "draft",
+    status: "taken",
     slot: "creature",
-    suggests: "Camouflage",
     owner:
-      "the only draft whose outline is deliberately hard to fix on — it wanders rather than rocks, so aiming beside it is a decision rather than a mistake",
+      "THE ANTIPHON, taken 17 September 2026, as the head of one of its four families of contours (`content/antiphon-contours.ts`): the body grows it and three that differ from it by the one thing a sentence can say, and the pilot has to say it. Before that: the only draft whose outline is deliberately hard to fix on — it wanders rather than rocks, so aiming beside it is a decision rather than a mistake",
   },
   {
     subject: cluster("COLONY", "five small bodies sharing one skin", {
@@ -118,11 +116,10 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
       "3 facets · a wedge, and the angle is the mechanic",
     ),
     motion: TURN,
-    status: "draft",
+    status: "taken",
     slot: "creature",
-    suggests: "Prism",
     owner:
-      "the one draft whose rotation is not decoration: a shot leaves along the face it struck, so the face a player can see is the aim, and a triangle has no ambiguous face",
+      "THE ANTIPHON, taken 17 September 2026, as the head of one of its four families of contours (`content/antiphon-contours.ts`): the body grows it and three that differ from it by the one thing a sentence can say, and the pilot has to say it. Before that: the one draft whose rotation is not decoration: a shot leaves along the face it struck, so the face a player can see is the aim, and a triangle has no ambiguous face",
   },
   {
     subject: slab("GATE", "a bar across the lane, square-shouldered", 62, 20, 4),

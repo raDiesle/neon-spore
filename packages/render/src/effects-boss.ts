@@ -1,5 +1,6 @@
 import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { AfterImage } from "./after-image.js";
+import { AntiphonFx } from "./antiphon-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
@@ -96,6 +97,10 @@ export class BossTransients {
    * for the jolt by the drawer every frame, and told where the live part
    * hung (`scuttle-fx.ts`, `scuttle-draw.ts`). */
   readonly scuttle = new ScuttleFx();
+  /** THE ANTIPHON's eruption, and its receipts' bursts — told the pits by
+   * the drawer every frame, so what comes out of each is the shape that
+   * made it (`antiphon-fx.ts`, `antiphon-draw.ts`). */
+  readonly antiphon = new AntiphonFx();
 
   /** `role` is the layout's: a flash lights only the screen whose control
    * made it (`after-image.ts`). */
@@ -118,6 +123,7 @@ export class BossTransients {
     this.surge.ingest(events, l, cfg, beatSeconds, burst);
     this.lead.ingest(events, l, beatSeconds, role, burst);
     this.scuttle.ingest(events, l, cfg, beatSeconds, role, burst);
+    this.antiphon.ingest(events, l, cfg, beatSeconds, role, burst);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
   }
@@ -137,6 +143,7 @@ export class BossTransients {
     this.surge.update(dt);
     this.lead.update(dt);
     this.scuttle.update(dt);
+    this.antiphon.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
@@ -153,6 +160,7 @@ export class BossTransients {
     this.surge.draw(ctx, l);
     this.lead.draw(ctx, l);
     this.scuttle.draw(ctx, l);
+    this.antiphon.draw(ctx, l);
   }
 
   clear(): void {
@@ -169,6 +177,7 @@ export class BossTransients {
     this.surge.clear();
     this.lead.clear();
     this.scuttle.clear();
+    this.antiphon.clear();
   }
 }
 

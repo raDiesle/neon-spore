@@ -14,6 +14,11 @@
  */
 
 export {
+  ANTIPHON_CONTOURS,
+  type AntiphonContour,
+  antiphonRadiusMul,
+} from "./antiphon-contours.js";
+export {
   BALLOON_PARTS,
   type BalloonNode,
   balloonNodes,
