@@ -98,6 +98,37 @@ describe("the hull", () => {
     expect(world.scars.map((s) => s.col)).toContain(4);
   });
 
+  /**
+   * The scar and the event it came with say the same thing about the hit.
+   *
+   * `breachHue` maps a kind *and* a colour to what an impact is drawn in, and
+   * a `Scar` carried only the kind until 17 September 2026 — so anything
+   * replaying a remembered hit had to hand it a `null` and got red for every
+   * cyan body, the live strike and its own replay a second later disagreeing
+   * about what broke the hull. The lost screen replays exactly this
+   * (`render/lost-screen.ts`) and is where it showed.
+   */
+  it("remembers what colour broke it, the same colour the breach was thrown in", () => {
+    for (const color of ["cyan", "red"] as const) {
+      const { world, events } = run([slick(4, color)], BREACH_TICK + 1);
+      const breach = events.find((e) => e.type === "breach");
+      expect(breach).toBeDefined();
+      expect(world.scars[0]?.color).toBe(color);
+      expect(breach?.type === "breach" ? breach.color : null).toBe(color);
+    }
+  });
+
+  /**
+   * A rock has no colour to remember, and that is not the same as forgetting
+   * one: `breachHue` reads a missing colour as "its kind already says", which
+   * is the truth for every meteor, and `Scar.color` is absent rather than red.
+   */
+  it("leaves the colour off a hit whose colour is not a fact about it", () => {
+    const { world } = run([meteor(4)], BREACH_TICK + 1);
+    expect(world.scars.length).toBeGreaterThan(0);
+    expect(world.scars[0]?.color).toBeUndefined();
+  });
+
   const ASKED_TICK = BREACH_TICK + TPB * CFG.waveFailBeats;
   const answer = (tick: number, player: 1 | 2, kind: "retry" | "quit"): TimedCommand => ({
     tick,

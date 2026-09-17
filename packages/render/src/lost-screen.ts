@@ -90,18 +90,19 @@ export function drawLostScreen(
     tries: Math.max(1, world.waveTries),
     retries: world.retries,
     breachX: scarred === undefined ? null : tileCX(l, scarred.col),
-    // **The colour is the kind's and not the shot's.** A `Scar` remembers what
-    // hit the ship and not what colour it was wearing, so a body that was shot
-    // cyan replays in the red `breachHue` gives a colourless one — the colour
-    // WAVE LOST is already written in. Everything whose hue is a fact about
-    // the thing rather than about the shot — a rock, a torch, a wall, a gum —
-    // comes back exact. `docs/queue.md` carries the finding.
+    // **The colour the hit arrived in, off the scar itself.** A `Scar` carried
+    // what hit the ship and not what colour it was wearing until 17 September
+    // 2026, so a body that was shot cyan replayed in the red `breachHue` gives
+    // a colourless one and the live strike and its own replay a second later
+    // disagreed about what broke the hull. The field is `Scar.color`, and it
+    // is absent exactly where a colour is not a fact about the hit — a rock, a
+    // round from off the field — which is the `null` this passed always.
     breach:
       scarred === undefined
         ? null
         : {
             span: spanOf(scarred),
-            hex: breachHue(scarred.kind, null),
+            hex: breachHue(scarred.kind, scarred.color ?? null),
             seed: strikeSeed(scarred.col, scarred.beat),
           },
     surfaceY: v.surfaceY ?? (() => l.hullY),

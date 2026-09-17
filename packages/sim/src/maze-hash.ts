@@ -1,3 +1,4 @@
+import { scarHashParts } from "./hull-types.js";
 import { MAZE_PHASES } from "./maze.js";
 import type { MazeState } from "./maze-state.js";
 import { MAZE_REASONS } from "./maze-verdict.js";
@@ -72,6 +73,6 @@ export function mazeHashParts(m: MazeState): number[] {
   parts.push(m.tried.length);
   for (const way of m.tried) parts.push(way);
   parts.push(m.scars.length);
-  for (const scar of m.scars) parts.push(scar.col, scar.beat);
+  for (const scar of m.scars) parts.push(...scarHashParts(scar));
   return parts;
 }

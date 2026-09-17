@@ -595,28 +595,6 @@ drafts and the scene, fix the `**Status:` draft count and the HUSK paragraphs in
 `docs/asset-catalogue.md`, and check `tools/director/src/backlog.ts` no longer
 shows it. `bun run check` proves all of it.
 
-## A scar does not remember what colour hit the ship
-
-- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-17, claude/queue-a-scar-does-not-remember-what-colour-hit-the-shi
-- **Where:** local
-- **Files:** `packages/sim/src/hull-types.ts`, `packages/sim/src/hash.ts`, `packages/render/src/breach-hue.ts`, `packages/render/src/lost-screen.ts`, `packages/render/src/scars.ts`
-
-`breachHue` takes a kind **and a colour**, because a body that is not a rock,
-a fence or a gum is drawn in what it was shot with — cyan or red. A `Scar`
-holds `col`, `beat`, `kind` and `span`, and no colour at all. So the lost
-screen, which replays the breach that ended the wave off the last scar, has to
-hand `breachHue` a `null` and gets red for every cyan body. The two halves of
-one hit disagree about what hit the ship, which is the exact thing
-`breach-hue.ts`'s own header says must not happen — the live strike is right
-and the replay a second later is wrong.
-
-Either put the `Color | null` on the `Scar` — a new field, so `hashWorld` gains
-a row and `hash-coverage.test.ts` is what checks it — or decide in writing that
-a remembered hit is drawn by kind alone and take the `color` argument off the
-call in `lost-screen.ts` with a sentence saying so. The first is the honest
-answer; the second is cheap and has to be argued, not assumed.
-
 ## Four drawn bosses still owe their rehearsal film
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff

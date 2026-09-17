@@ -8197,3 +8197,21 @@ four files that had been seen to fail, and the rule they broke was being broken
 by fifty-two.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — creature-bite-collision — a scar remembers what colour hit the ship
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `hull-damage.ts`'s three ways of making a scar, and which of them already had the colour in hand |
+| writing | 20 | the field, the two callers, `scarHashParts`, and three tests |
+| looking | 0 | nothing visible moved on the field; the screen it fixes is a candidate's |
+| friction | 5 | `hash-coverage.test.ts` named `boss.scars.*.color` twice, which is how the second and third copies of the scar-hash were found |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was writing, and the useful part of it was not the field: it was
+the third copy of *which of a scar's fields go into the hash*, in
+`hash-boss.ts`, found only because the coverage test walks a boss's scars too.
+Three copies became one function, which is what the two failures were actually
+reporting.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

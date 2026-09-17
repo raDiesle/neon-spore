@@ -52,7 +52,7 @@ export function breachHull(
    * a rock, and the rounds that cost the hull from off the field. */
   color: Color | null = null,
 ): void {
-  scarHull(world, col, kind);
+  scarHull(world, col, kind, color);
   breachUnscarred(world, col, kind, fromRow, weight, color);
 }
 
@@ -65,8 +65,15 @@ export function breachHull(
  * one (`undertow-step.ts`). The cap is the same cap, so the oldest scar goes
  * whichever way the newest was made.
  */
-export function scarHull(world: World, col: number, kind: Creature["kind"]): void {
-  world.scars.push({ col, beat: world.beat, kind });
+export function scarHull(
+  world: World,
+  col: number,
+  kind: Creature["kind"],
+  /** The body's own colour, kept so a remembered hit is drawn in what made it
+   * (`Scar.color`). Null for every caller that breaks the hull without one. */
+  color: Color | null = null,
+): void {
+  world.scars.push({ col, beat: world.beat, kind, ...(color ? { color } : {}) });
   if (world.scars.length > world.cfg.maxScars) world.scars.shift();
 }
 
@@ -122,7 +129,13 @@ export function damageSpan(world: World, c: Creature, weight: BreachWeight): voi
     // The scar carries the width too: a crater is drawn at the size of the
     // rock that made it (`rockRadius`), and a two-wide meteor that left
     // one-tile dents would read as two small hits rather than one big one.
-    world.scars.push({ col, beat: world.beat, kind: c.kind, ...(c.span ? { span: c.span } : {}) });
+    world.scars.push({
+      col,
+      beat: world.beat,
+      kind: c.kind,
+      ...(c.span ? { span: c.span } : {}),
+      ...(c.color ? { color: c.color } : {}),
+    });
     if (world.scars.length > world.cfg.maxScars) world.scars.shift();
   }
   world.events.push({

@@ -2,6 +2,7 @@ import { bossHashParts } from "./hash-boss.js";
 import { creatureHashParts } from "./hash-creature.js";
 import { faultHashParts } from "./hash-faults.js";
 import { podHashParts } from "./hash-pods.js";
+import { scarHashParts } from "./hull-types.js";
 import type { World } from "./world.js";
 
 /**
@@ -226,10 +227,9 @@ export function hashWorld(world: World): number {
   for (const n of podHashParts(world.pods)) push(n);
 
   push(world.scars.length);
-  for (const s of world.scars) {
-    push(s.col);
-    push(s.beat);
-  }
+  // Where it broke, when, and what colour made it — the last so two devices
+  // cannot remember one hit in two colours (`hull-types.ts`).
+  for (const s of world.scars) for (const n of scarHashParts(s)) push(n);
 
   for (const n of bossHashParts(world.boss)) push(n);
 

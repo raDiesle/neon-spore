@@ -1,4 +1,5 @@
 import type { CreatureKind } from "./creature-kinds.js";
+import type { Color } from "./types.js";
 
 /**
  * What the hull remembers: where it broke, and how the pair have been doing at
@@ -26,6 +27,23 @@ export interface Scar {
    * rather than one big one.
    */
   span?: number;
+  /**
+   * **What colour the thing that made it was**, when its kind does not say.
+   *
+   * `breachHue` takes a kind *and* a colour, because a body that is not a
+   * rock, a fence or a gum is drawn in what it was shot with — cyan or red.
+   * The live strike had that colour off the `breach` event and the scar did
+   * not, so anything replaying a remembered hit had to hand `breachHue` a
+   * `null` and got red for every cyan body: the hit and the record of the hit
+   * disagreeing about what hit the ship, which is the one thing
+   * `breach-hue.ts`'s own header says must not happen. The lost screen replays
+   * the breach that ended the wave (`lost-screen.ts`) and is where it showed.
+   *
+   * Absent for every hit whose colour is not a fact about it — a rock, a
+   * round that costs the hull from off the field, a lobe withdrawing — and
+   * `breachHue` reads absent exactly as it reads `null`.
+   */
+  color?: Color;
 }
 
 export interface GuardStats {
@@ -35,4 +53,23 @@ export interface GuardStats {
   deflected: number;
   /** Right column, wrong moment — the interesting failure class. */
   mistimed: number;
+}
+
+/**
+ * One scar, as numbers, for whichever fingerprint is asking.
+ *
+ * Two places keep scars — the hull's own list and a boss's (`maze-state.ts`) —
+ * and each used to spell out which of a scar's fields went into the hash. A
+ * field added to the type then had to be found twice, and on 17 September 2026
+ * it was: `color` landed in `hash.ts` and `hash-coverage.test.ts` failed on
+ * `boss.scars.*.color`, which is the same test doing the finding both times.
+ * One function, called rather than re-derived — `purity.test.ts`'s rule.
+ *
+ * `kind` and `span` are deliberately not here: neither can differ between two
+ * devices that agree about the rest, and `hash.ts`'s own exceptions table is
+ * where that argument lives.
+ */
+export function scarHashParts(scar: Scar): number[] {
+  // Absent is its own value and is not the same as either colour.
+  return [scar.col, scar.beat, scar.color === undefined ? 0 : scar.color === "red" ? 1 : 2];
 }

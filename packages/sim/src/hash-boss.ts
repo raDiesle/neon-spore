@@ -3,6 +3,7 @@ import { BOSS_KINDS } from "./entries.js";
 import { FLEET_DIRS } from "./fleet-board.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { clockHashParts } from "./hash-boss-clocks.js";
+import { scarHashParts } from "./hull-types.js";
 import { mazeHashParts } from "./maze-hash.js";
 import { pinballHashParts } from "./pinball-board.js";
 import { pulseHashParts } from "./pulse-hash.js";
@@ -218,10 +219,9 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.verdict);
     push(boss.verdictCol);
     push(boss.scars.length);
-    for (const s of boss.scars) {
-      push(s.col);
-      push(s.beat);
-    }
+    // The hull's own list and this one go through one function, so a field
+    // added to a `Scar` is not something to find twice (`hull-types.ts`).
+    for (const s of boss.scars) for (const n of scarHashParts(s)) push(n);
   }
 
   return out;

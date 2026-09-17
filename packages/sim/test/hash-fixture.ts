@@ -132,7 +132,7 @@ const pod = (): Required<Pod> => ({
   crossMilli: 300,
 });
 
-const scar = (): Required<Scar> => ({ col: 4, beat: 9, kind: "meteor", span: 2 });
+const scar = (): Required<Scar> => ({ col: 4, beat: 9, kind: "meteor", span: 2, color: "cyan" });
 
 const charge = (): Required<ShotCharge> => ({ left: 5, color: "red" });
 
