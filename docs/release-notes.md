@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 72fa7811 — THE LEDGER's simulation: the boss that bills your own hull for every shot
+
+The first boss in this game whose damage travels the other way. A tall split body stands over three columns on a cord rooted in the pair's own hull; a bolt of the colour the seam is showing, up the seam's own column, widens the split and starts a return down the cord, and the return lands in the socket four beats later and is warded exactly the way a rock is — the plate in that column, the trigger on that beat. The socket walks a column with every return, so the sentence between the two seats is the same one with a new number in it every few beats, and from the second hit the cord bills every shot the cannon takes, whatever it was fired at: not shooting becomes a move. Five hits part the halves. §5 of docs/spec/bosses-choreographed.md, written up as §11.27 of docs/spec/bosses.md, played as wave 77, "THE LEDGER".
+
 ## 2026-09-17 · 650e70d2 — THE ORRERY is heard: a ring off, the core spitting, the core going out
 
 Three sounds for the one choreographed boss that had none, read off its state rather than off events — the first boss of that page heard that way. The simulation shipped without an event of its own on purpose: `brokeBeat`, `spatBeat` and `phase` are still in the world a frame later, and `events-undertow.ts`' rule says an event is for what is not. The mixer already hears the queen's armour and THE MIRROR's count-in frame against remembered frame, so `mixer-boss.ts` grew `soundOrrery` and `Memory` its three clocks. A ring coming off is pitched up a step for every ring gone so the count can be kept by ear; the spit sits on the core's column; the core going out is unpanned and as long as the picture. The shaft opening is deliberately not a sound — that beat is the fight. The three are excused from the sound sheet, an orbit being arithmetic and not a card.
