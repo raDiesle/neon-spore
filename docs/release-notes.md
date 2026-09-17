@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 362074c6 — Ledger: THE INSTAR's look is b4fda399 on main, the sha the rebase gave it
+
 ## 2026-09-17 · 849fecd1 — Mark §16 THE INSTAR built on the ledger, both lanes
 
 The simulation (954a65ed) and the look (30bf5110), landed separately; nothing of the design is left unbuilt, and the fight has never been watched at tempo.
