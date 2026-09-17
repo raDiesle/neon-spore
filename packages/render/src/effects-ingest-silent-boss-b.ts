@@ -29,10 +29,9 @@ export const INGEST_SILENT_BOSS_B = [
   "antiphonShip",
   "antiphonBurst",
   "antiphonOut",
-  // THE HIVE's nine are silent **until the look lane draws it**: a breach
-  // open or sealed and the swell before one opens are read off the boss every
-  // frame, and the bursts an opening, a seal, a wrong colour and the spill
-  // want are `hive-fx.ts`'s, read above the loop as one family the way THE
+  // THE HIVE's nine: a breach open or sealed and the swell before one opens
+  // are read off the boss every frame, and the bursts, the clench and the
+  // jolt are `hive-fx.ts`'s, read above the loop as one family the way THE
   // SCUTTLE's are (`docs/spec/bosses.md` §11.14).
   "hiveEnter",
   "hiveSwell",

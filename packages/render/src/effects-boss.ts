@@ -4,6 +4,7 @@ import { AntiphonFx } from "./antiphon-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
+import { HiveFx } from "./hive-fx.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { LeadFx } from "./lead-fx.js";
 import { LedgerFx } from "./ledger-fx.js";
@@ -101,6 +102,11 @@ export class BossTransients {
    * the drawer every frame, so what comes out of each is the shape that
    * made it (`antiphon-fx.ts`, `antiphon-draw.ts`). */
   readonly antiphon = new AntiphonFx();
+  /** THE HIVE's clench and jolt, and its receipts' bursts — asked for both by
+   * the drawer every frame, the bursts thrown at the underside over the
+   * event's column, an opening in its colour only where the colour is drawn
+   * (`hive-fx.ts`, `hive-draw.ts`). */
+  readonly hive = new HiveFx();
 
   /** `role` is the layout's: a flash lights only the screen whose control
    * made it (`after-image.ts`). */
@@ -124,6 +130,7 @@ export class BossTransients {
     this.lead.ingest(events, l, beatSeconds, role, burst);
     this.scuttle.ingest(events, l, cfg, beatSeconds, role, burst);
     this.antiphon.ingest(events, l, cfg, beatSeconds, role, burst);
+    this.hive.ingest(events, l, role, burst);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
   }
@@ -144,6 +151,7 @@ export class BossTransients {
     this.lead.update(dt);
     this.scuttle.update(dt);
     this.antiphon.update(dt);
+    this.hive.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
@@ -178,6 +186,7 @@ export class BossTransients {
     this.lead.clear();
     this.scuttle.clear();
     this.antiphon.clear();
+    this.hive.clear();
   }
 }
 

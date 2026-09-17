@@ -5,6 +5,7 @@ import { drawCurtain } from "./curtain-draw.js";
 import { drawDiastole } from "./diastole-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGorge } from "./gorge-draw.js";
+import { drawHive } from "./hive-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawLead } from "./lead-draw.js";
@@ -57,6 +58,7 @@ const CLOCK_KINDS = [
   "lead",
   "scuttle",
   "antiphon",
+  "hive",
 ] as const;
 
 export type ClockBoss = Extract<Installed, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -225,5 +227,13 @@ export function drawClockBoss(
   // pilot's screen and the whole rail under its columns on the navigator's,
   // which is the whole split. What outlives a frame — the eruption of every
   // pit — is `effects.boss.antiphon` (`antiphon-draw.ts`, `antiphon-fx.ts`).
-  drawAntiphon(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.antiphon);
+  if (boss.kind === "antiphon") {
+    drawAntiphon(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.antiphon);
+    return;
+  }
+
+  // THE HIVE: a waxen mass over the top of the field with a site in every
+  // lobe of its underside. The breach's colour is on the pilot's screen, the
+  // swell of the next site on the navigator's (`hive-draw.ts`, `hive-fx.ts`).
+  drawHive(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.hive);
 }

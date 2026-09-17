@@ -56,37 +56,6 @@ count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
 
-## THE HIVE has its simulation and no look yet
-
-- **Found:** 2026-09-17, claude/shared-list-bosses-f7ff91
-- **Files:** `packages/render/src/view-role-clocks-b.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/boss-draw-clocks.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/src/effects-spark-silent-boss.ts`, `docs/spec/bosses.md`, `docs/spec/bosses-choreographed.md`
-
-Lane one landed as `58e1e0b9` (THE HIVE, `docs/spec/bosses.md` §11.14,
-wave 82 in `act-7e.ts`); the ledger row on `bosses-choreographed.md` says
-**taken** with both lanes named. The session stopped before a line of the
-look was written, so the second lane starts from `.claude/skills/new-boss`
-step 5 — three new files in `packages/render/src`, a draw, a shape and an
-fx page named for the hive, and one frame test beside them — with THE
-SCUTTLE's files as the pattern (`scuttle-draw.ts`,
-`scuttle-shape.ts`, `scuttle-fx.ts`, `scuttle-frame.test.ts`). What the sim
-gives it: `HiveState` (`cols`, `colors`, `sealed`, `opened`, `openBeat`,
-`spillBeat`, `downBeat`), `hiveBoss`, `hiveOpen`, `hiveNext`, `hiveTwins`,
-`hiveNextBeat`, `hiveSwelling`, `hiveDown` and the nine `hive*` events, all
-from `@neon-spore/sim`. The picture, decided: a mass over row 0 nearly the
-width of the field with a site at `tileCX(l, col)` for every column in
-`s.cols`, shut, open or sealed on both screens; an open breach in its colour
-only where `showsHiveColor(role)` — the pilot, `role !== "p2"` — and grey
-elsewhere; the swell on the next site, and on the one after it too once
-`hiveTwins`, only where `showsHiveSwell(role)` — the navigator,
-`role !== "p1"` — since the split is the encounter; the fade over
-`hiveOutBeats` from `downBeat`. `HiveFx` is a field of `BossTransients`
-walked by its four verbs; the hive rows leave the two silent lists' *reason*.
-Then §11.14 gets *The look* and loses *What is not built*, one PNG goes to
-the owner (`bun run frames . --wave "THE HIVE" --seat p1`), the commit says
-"a look with no shipped alternative", `bun run land --keep`, and the ledger
-row is marked **built** on `main` with the shas and what of the design is
-not built.
-
 ## The boss spec pages are ordered by state; the director has no page reading them
 
 - **Found:** 2026-09-17, claude/boss-pages-next

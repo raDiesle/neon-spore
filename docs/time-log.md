@@ -9741,7 +9741,6 @@ files in `sim`, and each citation had to be read to know whether it wanted THE
 VANE's write-up, THE CAIRN's, or the filter it was really standing on.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
-
 ## 2026-09-17 — task-queue-work — act seven's page problem is a convention question, not a split
 
 Claimed the entry this session had written about `act-7c.ts` being two lines
@@ -9763,3 +9762,26 @@ fix it proposed ("a new page, `7d`") named a file that had existed for days.
 Ten minutes of counting turned a wrong task into a real question.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — shared-list-bosses — THE HIVE, the look
+
+The second lane of the boss taken off `bosses.md` §11.14 once the shared
+ledger ran out: the mass over row 0, its lobed underside with a site in each,
+the breach in its colour on the pilot's screen and the swell on the
+navigator's, the clench, the jolt and the fade, on THE SCUTTLE's pattern.
+The session was quit twice mid-lane; the parked entry from the first stop
+carried the whole plan, so the third sitting wrote code from its first
+minute.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | THE SCUTTLE's four files as the pattern, the sim's `hive.ts` surface, the two silent lists, `boss-draw-clocks.ts`'s tail, the frame harness |
+| writing | 60 | `hive-shape.ts`, `hive-fx.ts`, `hive-draw.ts`, the two predicates, the wiring in `effects-boss.ts` and `boss-draw-clocks.ts`, thirteen frame tests, §11.14's look paragraph |
+| looking | 5 | one pilot frame at tick 400 with three sites open |
+| friction | 15 | a first `hive-fx.ts` written against an `ingest` signature the transients do not have; a doc-drift test and the queue both refusing the parked entry for naming files that did not exist yet; two hexes the tests counted that the drawer only ever set at an alpha |
+| landing | 10 | `check:fast`, the commit, `land --keep`, the ledger row on `main` |
+
+The bottleneck was the two stops: a lane that would have been one sitting
+was three, and the parked entry — written under the doc-drift test's rule
+that a document names no file that does not exist — is what made the third
+one cheap.

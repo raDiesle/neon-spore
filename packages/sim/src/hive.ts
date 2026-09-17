@@ -21,7 +21,7 @@ import type { World } from "./world.js";
  * the navigator alone is shown the **swell** where the next one opens,
  * `hiveSwellBeats` before it does, and she cannot move the cannon there.
  * *Four is red — and the next one comes at seven*
- * (`docs/spec/bosses.md` §11.14; the split is the look's, `render/view-role.ts`).
+ * (`docs/spec/bosses.md` §11.14; the split is the look's, `render/view-role-clocks-b.ts`).
  *
  * **Health is the underside**: a site sealed is a scar, and there is no
  * body of its own to shoot — it is beaten when every site has opened and

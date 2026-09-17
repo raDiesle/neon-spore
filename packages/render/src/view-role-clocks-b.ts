@@ -52,3 +52,21 @@ export const showsScuttleLive = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsAntiphonOrgan = (role: ViewRole): boolean => role !== "p2";
 export const showsAntiphonRail = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE HIVE's two, and the split is the eyes, each way — with each fact
+ * kept from the seat whose hands could answer it. The pilot is shown
+ * **the colour** of every open breach, and he cannot fire: what he can do
+ * is slide the cannon under one, so *four is red* is his to say and the
+ * navigator's to fire. The navigator is shown **the swell** — which site
+ * bulges in the beats before it opens, and which two once they come in
+ * pairs — and she cannot move the cannon: *the next one is at seven* is
+ * hers to say and his to slide to. On his screen every site is shut, open
+ * or scarred and nothing bulges; on hers every open breach is the same
+ * grey. The split was flipped once before a line was drawn: the other way
+ * round she fires what she sees and he slides to what he sees, and nobody
+ * says anything (`docs/spec/bosses.md` §11.14, `hive-draw.ts`,
+ * `sim/hive.ts`). `test` is both.
+ */
+export const showsHiveColor = (role: ViewRole): boolean => role !== "p2";
+export const showsHiveSwell = (role: ViewRole): boolean => role !== "p1";
