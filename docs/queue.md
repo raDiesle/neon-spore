@@ -595,6 +595,7 @@ it, and the wave's one-sentence test has to still read true afterwards.
 ## A frame test cannot say whether the thing it drew is visible
 
 - **Found:** 2026-09-17, claude/queue-render-tests-draw-real-pixels
+- **Taken:** 2026-09-17, claude/queue-a-frame-test-cannot-say-whether-the-thing-it-dre
 - **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/test/frame-harness.ts`, `packages/render/package.json`, `tools/frames/pixels.ts`, `tools/frames/svg.ts`
 - **Answered:** 2026-09-17, by the owner — **Yes — the pixel harness.** A second harness beside `frame-harness.ts` drawing through a native Skia canvas, and a visibility test over every wave's peak frame and every seat.
 
