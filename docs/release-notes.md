@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 66280e33 — NEXT INHALE: the column the mouth will be in, on the navigator's screen alone — and the throat turning inside out
+
+THE THROAT is whole. The navigator gets the one readout in this game about a beat that has not happened: the column the mouth will be standing in when it next takes something, and a bar filling toward that beat. It is `queen-drop.ts`'s picture, which the design asks for by name, and it is why the mouth's column is a pure function of the beat rather than a position stepped once a beat — a stepper could not have answered the question at all. The pilot sees none of it. He has the whole gullet, which is where the mouth is now, and now is what a fling this beat is swept against; where to let go for a gum that lands in four beats' time is the sentence the pair has to say out loud.
+
 ## 2026-09-17 · 2f9f78b2 — THE THROAT's gullet: five rings, the slack ones hanging limp, and a contraction that climbs away from the field
 
 THE THROAT played and was invisible for one landing; now the gullet hangs down the frame. Five ring muscles between the top edge and the mouth's row, the tube filled dark behind them, and a mouth one column wide with a venom lip that gapes on the inhale. A ring a gum has choked goes slack for good and is drawn limp inside its own station rather than left out — the silhouette is this boss's whole health bar, so a worn gullet has to read as weaker and never as shorter. The tube leans toward the mouth, and how far up the lean reaches is the slack, so a spent one sags across the field.
