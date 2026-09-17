@@ -1434,6 +1434,7 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-parts.ts` | the pieces every menu page is made of, and the wordmark's spore |
 | `apps/game/src/run-state.ts` | whether the world ticks, and which of the four holds is on it |
 | `apps/game/src/shell.ts` | everything around the field: menu, room screen, bad-line card, and the link |
+| `apps/game/src/shell-menu.ts` | What the shell hands the menu — beside `shell.ts` rather than inside it |
 | `apps/game/build.ts` | What `bun build ./index.html --outdir=dist --minify --sourcemap` used to be, as a script |
 | `apps/game/preview.ts` | Which checkout this one serves |
 | `apps/game/src/confirm.ts` | A button that hangs up on somebody else, and asks once before it does |

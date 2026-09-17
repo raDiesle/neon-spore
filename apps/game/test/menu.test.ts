@@ -55,7 +55,7 @@ describe("the way the shell reads it", () => {
   const shell = readFileSync(new URL("../src/shell.ts", import.meta.url), "utf8");
 
   test("binds the menu before it asks which road this is", () => {
-    const bind = shell.indexOf("menu = bindMainMenu({");
+    const bind = shell.indexOf("menu = bindMainMenu(menuWiring(p, {");
     const gate = shell.indexOf("if (!opensOnMenu(location.href)) return link;");
     expect(bind).toBeGreaterThan(-1);
     expect(gate).toBeGreaterThan(-1);

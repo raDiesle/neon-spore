@@ -9256,3 +9256,19 @@ The bottleneck was choosing the gate: the named lists cover every change
 decided by comparing the two runs whole and the lists only say why.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-four-drawn-bosses-still-owe-their-rehearsal-film — `apps/game/src/shell.ts` is two lines under the ceiling
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry, `shell.ts`, `menu-bindings.ts`, the two source-reading tests |
+| deciding | 0 | the cut was drawn in the entry: `menuWiring(p, deps)` beside the shell, `installer` as a getter because the offer arrives after the bind |
+| writing | 5 | `shell-menu.ts`, the one-line call in `bindShell`, `bun run index` |
+| friction | 5 | two tests read the shell's source and pinned the old spelling — `last-room.test.ts`'s `leaveRoom,` line and `menu.test.ts`'s `bindMainMenu({` — and the first red run's closing message was a whole file on one line, queued |
+| landing | 5 | `check:fast` twice (the first had three render shards time out under the parallel session), this entry, the commit, `bun run land` |
+
+The bottleneck was the tests that read `shell.ts` as text: each pinned a
+spelling rather than a fact, so a lift that moved no behaviour cost two test
+edits and a second `check:fast`.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

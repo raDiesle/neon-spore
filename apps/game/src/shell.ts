@@ -2,7 +2,6 @@ import type { MechanicId } from "@neon-spore/content";
 import type { PlayerId } from "@neon-spore/net";
 import type { ViewRole } from "@neon-spore/render";
 import type { Difficulty, SimConfig, World } from "@neon-spore/sim";
-import { type DemoRow, demoRows } from "./demo-menu.js";
 import { openHello } from "./hello.js";
 import { bindHoldCard } from "./hold.js";
 import { bindInstall, type Installer } from "./install.js";
@@ -16,6 +15,7 @@ import { onQuit } from "./quit.js";
 import type { CommandSource } from "./relay.js";
 import type { RunState } from "./run-state.js";
 import { hasMotionChoice, readSettings } from "./settings.js";
+import { menuWiring } from "./shell-menu.js";
 
 /**
  * Everything around the field: the menu, the room screen, the bad-line card
@@ -195,39 +195,10 @@ export function bindShell(p: ShellParts): Link {
    * on a phone, there being no Escape and no browser chrome worth the name —
    * was missing from exactly the road a tester takes. What `?play` skips is
    * the opening: no intro, no name, no menu in front of the field.
+   *
+   * What it is handed is `shell-menu.ts`: wiring, not order.
    */
-  const demos: DemoRow[] = demoRows();
-  menu = bindMainMenu({
-    jumpToWave: p.jumpToWave,
-    run: p.run,
-    wave: () => p.world.wave,
-    seat: p.seat,
-    setSeat: p.setSeat,
-    openRoom: () => joinScreen?.open(true),
-    // The way back into a room the pair already share (`pairing.ts`). The
-    // room screen opens with it, because the pair still have to press START.
-    joinRoom: (room) => {
-      joinScreen?.open(true);
-      link.join(room);
-    },
-    leaveRoom,
-    settings: {
-      setSound: p.setSound,
-      // The animations are CSS, so the switch is a class. `data-motion` and
-      // not a plain class, so it can win in *both* directions against the
-      // phone's own `prefers-reduced-motion` — a player who asked their
-      // phone for less motion and wants this one to move must be able to.
-      setMotion: (on) => {
-        document.body.dataset.motion = on ? "on" : "off";
-      },
-      install: () => installer?.offer(),
-      canInstall: () => installer?.available() ?? false,
-    },
-    openTuning: p.openTuning,
-    openIntro: (back) => p.intro.open(back),
-    demos,
-    openDemo: p.openDemo,
-  });
+  menu = bindMainMenu(menuWiring(p, { joinScreen, link, installer: () => installer, leaveRoom }));
 
   // On the road that skips the opening, that is the whole of it.
   if (!opensOnMenu(location.href)) return link;

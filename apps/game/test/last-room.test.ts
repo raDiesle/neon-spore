@@ -87,6 +87,8 @@ describe("how long it is worth offering", () => {
  * pressed LEAVE ROOM.
  */
 const shell = readFileSync(new URL("../src/shell.ts", import.meta.url), "utf8");
+/** The menu's wiring, lifted beside the shell on 17 September 2026. */
+const shellMenu = readFileSync(new URL("../src/shell-menu.ts", import.meta.url), "utf8");
 
 describe("the way it is wired", () => {
   it("writes the room down on every status the room sends, not once on joining", () => {
@@ -111,7 +113,11 @@ describe("the way it is wired", () => {
     );
     expect(shell).toContain("bindHoldCard({ leave: leaveRoom })");
     expect(shell).toContain("leave: leaveRoom,");
-    expect(shell).toMatch(/^\s+leaveRoom,$/m);
+    // The menu's LEAVE ROOM reaches it through `shell-menu.ts`, handed the
+    // shell's own rather than one of its making.
+    expect(shell).toMatch(/menuWiring\(p, \{[^}]*\bleaveRoom \}\)/);
+    expect(shellMenu).toContain("leaveRoom: deps.leaveRoom,");
+    expect(shellMenu).not.toContain("link.leave(");
     // And no leave goes around it.
     expect(shell.match(/link\.leave\(\)/g)).toHaveLength(1);
   });
