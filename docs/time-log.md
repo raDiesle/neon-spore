@@ -9421,3 +9421,5 @@ The bottleneck was that the verification the entry asked for cannot be done
 at all yet: an eye at tempo needs a picture, so half an hour went on building
 a rig to ask the arithmetic the questions an eye would have answered in two
 minutes once the round is drawn.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
