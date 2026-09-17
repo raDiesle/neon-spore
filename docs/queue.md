@@ -344,6 +344,7 @@ what the rest of this file holds.
 ## The lost screen's plates open, and their own sentence says they close
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-the-lost-screens-plates-open-and-their-own-sente
 - **Files:** `packages/render/src/lost-shutters.ts`
 - **Answered:** 2026-09-17, by the owner — **Turn it round, through VERSUS.** Plates that really close, settling over everything but a lit tear in the breach column, offered as a candidate against the picked screen; the words stay as they are, since they already describe the candidate.
 
