@@ -1,7 +1,8 @@
 # Choreographed bosses — A Way Out, read against this engine
 
-> **Status: all fifteen are in the game, and a sixteenth is half in — its
-> simulation landed, its look not started.** The fifteen were written on 16
+> **Status: all fifteen are in the game, a sixteenth is half in — its
+> simulation landed, its look not started — and a seventeenth is written and
+> unstarted.** The fifteen were written on 16
 > September 2026 from the owner's brief for encounters that read as
 > *interactive action scenes* rather than arcade fights, with Hazelight's A Way
 > Out named as the reference, and every one of them was built inside two days —
@@ -29,11 +30,15 @@
 
 ## Contents
 
-The sixteen, by what is left to do rather than by the number each was
+The seventeen, by what is left to do rather than by the number each was
 written at. **The `§n` numbers are not in sequence down the page, on**
 **purpose:** `tools/director/src/ship-notes-choreo.ts` and half of
 [bosses](bosses.md)'s own write-ups cite a concept by its number, and
 reordering the page without keeping them would break every one of them.
+
+**Not built — written and nobody has started it**
+
+- **[THE FILAMENT](#17-the-filament--whether-you-can-follow-a-line-that-is-still-being-drawn)** · §17 — whether you can follow a line that is still being drawn. Written 17 September 2026 out of [the second brief](#a-second-brief-and-the-four-things-in-it-this-page-did-not-have)'s one absent category, and it wants `TraceDrag`, which is the only gesture on either brief with no ancestor anywhere in this game
 
 **Still in hand — the simulation landed, the look is not written**
 
@@ -60,6 +65,7 @@ reordering the page without keeping them would break every one of them.
 **Neither** — [what the engine says back to the brief](#the-four-things-the-engine-says-back-to-the-brief),
 [the filter these had to pass](#the-filter-these-fifteen-had-to-pass),
 [refused by name](#refused-by-name),
+[a second brief, and the four things in it this page did not have](#a-second-brief-and-the-four-things-in-it-this-page-did-not-have),
 [the reusable boss mechanic library](#the-reusable-boss-mechanic-library).
 
 ## Who is building what, so two sessions do not collide
@@ -74,6 +80,7 @@ that list (`CLAUDE.md`, *an idea for the game is not collected*).
 
 | Concept | State | Lane |
 |---|---|---|
+| [§17 THE FILAMENT](#17-the-filament--whether-you-can-follow-a-line-that-is-still-being-drawn) | **written, 17 September 2026 — nothing started** | nobody. `claude/boss-hints-mechanics-5b5a9f` wrote it out of the second brief and did not take it. It wants `TraceDrag` first, which is a hashed path in `World` and the largest new field any concept on this page asks for; the simulation and the look are two lanes as usual |
 | [§7 THE DIASTOLE](#7-the-diastole--two-clocks-at-once) | **built, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation and THE SLOW, then the look. Worked and written up as [bosses](bosses.md) §11.17 |
 | [§10 THE BATON](#10-the-baton--whose-turn-is-it) | **built, 16 September 2026** — **built again, 17 September 2026** | `claude/boss-implementation-e3cfff` — the simulation, then the look. Worked and written up as [bosses](bosses.md) §11.18 (wave 68). **Step 7 and the beam landed** (`8be1c9fe`): a shot at anything is her turn spent from the tick it leaves, and the lance beam meets the bead the way a bolt does; no look, the grey panel already draws it. **The second bead landed** (`b97a312a`, step 9): it lights after three dark sockets, the trigger sends the longest sitter, a bolt takes the lowest bead, the lead waits in the last socket and the two merge. **The second bead's look landed** (`62a350aa`): the twin is the one with the eye, the merged bead a third larger and brighter. **The crossing landed** (`194b4c8a`, step 13): the merged bead's flight out of the last socket is eleven beats long and owes an act a beat in turn, a miss sends it back to the top of a relit arm, and the drop opens both locks for the catch. **The thread landed** (`cae4a8b9`, step 12): the sim remembers the beat the arm came down to one segment, and the look thins everything above the last socket to a thread with dead husks on it. **Every step of the design is built.** What is not: the fold at step 14 fades the picture rather than parting eleven segments, and no sound marks the moment the arm comes down to one — for the owner's eye and ear. |
 | [interludes.md THE SCOUT](interludes.md#the-scout-the-round-that-flies) | **built, 17 September 2026** | `claude/boss-implementation-e3cfff` — the simulation (`ce8a2324`), then the look (`3a3306cf`): the four presses as lobes in THE CLAW's sockets on the band, the arena on the field's own columns with the real hull's intake as the mother ship's mouth, a pod for a mote and a burning rock for a hazard, the split in `showsScoutArena` and `showsScoutNose`. Worked and written up in [interludes](interludes.md) §THE SCOUT (wave `theScout`, act 7c). **Not built:** nobody has watched it at tempo; its rehearsal is still the three strings; whether a nose on a button reads as *point it at two o'clock* is the owner's eye |
@@ -2053,6 +2060,162 @@ with the **hull** — shake, shock, light, scar, bleed — which is what this ga
 instead of a camera, and it is better for this brief than a camera would be,
 because the ship is the thing the pair has feelings about.
 
+## A second brief, and the four things in it this page did not have
+
+*17 September 2026.* A second brief arrived from the same source, after
+fourteen of the fifteen had shipped: twenty bosses, a fourteen-gesture
+vocabulary, a worked eight-step encounter, and a reusable-interaction library
+to be named at the end. It is longer than the first and it wants the same
+thing, so most of it reads as confirmation — **the interaction surface is the
+boss itself, no cannon, no shield, no ability buttons**, which is [THE
+INSTAR](#16-the-instar--whether-two-different-hands-can-finish-one-beat), built
+the day before it arrived and arrived at from the owner's own words rather than
+from a sheet.
+
+Four things in it are not on this page. They are listed first, argued below,
+and only one of them is a boss.
+
+1. **The world should say what to do, in one word.** The brief's own section is
+   headed *the world should teach the player* and then asks for text only where
+   necessary; the owner asked for the text directly the same day, and
+   `docs/decisions.md` #34 is the ruling. It is the largest thing in the second
+   brief and it is not a boss at all — it is a rule every boss on this page now
+   obeys.
+2. **A scene is a layer above a step.** §16's script is a flat list of steps.
+   The brief writes `SCENE 1 — DORMANT`, eight steps, then `SCENE 2 — BOSS
+   TRANSFORMATION`, and the scene break is where the body, the arena and the
+   music all change at once. `BossSequenceStep` can express it today — a step
+   whose marks are empty and whose `landBeats` are long is a transformation —
+   and what is missing is the *name*, so a script can say which steps belong
+   to which movement and a look can spend everything it has on the boundary.
+3. **Four gestures the union does not have**, in the library below: `TRACE`,
+   `SEQUENCE TAP`, `FOLLOW` and `REPEATED TAP`. The other ten of the brief's
+   fourteen are `drag`, `grip`, `crank`, `instarMark` or `prime` under another
+   name.
+4. **Failure that costs a step and not the wave** — `StepBack`, already the
+   loudest unbuilt row in the library, restated by the brief as *"do not
+   automatically kill the player; describe how the scene recovers."* §16
+   answers a softer version of it with the slip, and the hard version is still
+   not built.
+
+### The brief's own worked encounter, read against this engine
+
+THE HOLLOW WARDEN is the sheet's eight-step example and the clearest statement
+of what the brief wants a boss to feel like. Read step by step, five of its
+eight are shipped mechanics and three are the page's own unbuilt primitives —
+which is the useful result, because it means the *shape* transfers and the
+content does not.
+
+| Its step | Here | Verdict |
+|---|---|---|
+| 1 — an eye opens and asks to be touched | a mark coming up after `morphBeats` (§16) | shipped |
+| 2 — drag the eye down; the skin stretches | `pullDown` on a mark, and the part resisting | shipped |
+| 3 — a tendon behind it, grabbed | `grip` on a body, `instarMark` on a boss | shipped |
+| 4 — pull, and the whole body follows | THE SINEW's depth, THE BALLOON's handles | shipped |
+| 5 — P2 taps the organ the pull exposed | a step whose second mark exists only after the first landed | shipped, and it is what §16's cursor is for |
+| 6 — P2 rotates it until three symbols line up | `turn`, a bearing read like the crank's | shipped |
+| 7 — both hold two anchors while it pulls away | THE BALLOON, and §16's `hold` | shipped |
+| 8 — **both release together, and the chest explodes** | `MutualRelease` — `touchUp` is the end of a command here and not a command | **not built** |
+| the scene break: a second creature emerges, the arena darkens | a named scene above the step list, item 2 above | **not built** |
+| the shrinking ring under every prompt | the ready gate's circles, `queen-drop.ts`'s bar | shipped, reusable as-is |
+
+**What the reading is worth.** The brief's central diagram — *event → realise →
+touch → time slows → gesture → boss reacts → next event* — is
+`BossSequenceStep` plus THE SLOW plus the cue, and all three of those exist as
+of 17 September 2026. A scene in that shape can now be **authored** rather than
+built: a script in `packages/content` and a look, with no new machinery between
+them. That is the single most useful sentence in this whole page.
+
+### The twenty categories, and where each already is
+
+The brief asks that twenty concepts collectively cover twenty categories. Ten
+of them are on this page under another name, six are shipped elsewhere in the
+game, and **two are genuinely absent**. Nothing here is a bad category; most of
+them are a body swap on a question already asked, which is filter 8.
+
+| The brief's category | Here | |
+|---|---|---|
+| tendril / pulling | THE SINEW (8), THE BALLOON | shipped |
+| rotation | THE ORRERY (2), THE MAZE's string, THE CLAW's crank | shipped |
+| timing | THE DIASTOLE (7), THE SURGE (9) | shipped |
+| multi-touch | THE BALLOON, §16's `hold` | shipped |
+| sequence | THE SPLICE, THE PULSE, THE BATON (10) | shipped |
+| chasing / follow | THE LEAD (11) | shipped |
+| drag-and-place | THE THROAT (1) — a body carried into a mouth | shipped |
+| push-away | THE PUSH, THE CURTAIN (6) | shipped |
+| repeated-tap | nothing. §16 counts taps; nothing tracks a target that moves between them | **absent** |
+| trace-path | nothing at all — there is no gesture for following a line | **absent** |
+| timed-release | `MutualRelease`, wanted by (9) | unbuilt primitive |
+| transformation | THE INSTAR (16) | shipped |
+| split | THE SCUTTLE (15) — it comes apart into its own arrivals | shipped |
+| multi-stage environmental | THE UNDERTOW (13) — it takes the hull | shipped |
+| parasite | THE CLING, THE MOULT | shipped, as creatures |
+| giant organic machine | THE ORRERY (2), THE ANTIPHON (12) | shipped |
+| living crystal | THE CRYSTAL, and the colour-armour rule it is made of | shipped |
+| swarm | THE HIVE (`bosses.md` §11.14) | shipped |
+| changes the arena | THE CANDLE (14) takes the light; THE UNDERTOW (13) takes the floor | shipped |
+| final multi-mechanic cinematic | the five signature candidates below | named, unwritten |
+
+### §17 THE FILAMENT — whether you can follow a line that is still being drawn
+
+*The one absent category worth a boss.* Trace is the only gesture on the
+brief's list with no ancestor anywhere in this game, and the reason to want it
+is not the gesture — it is that **a line has two ends and a phone has one
+thumb**.
+
+**Question.** *Whether you can follow a line the other of you is still
+drawing.* Every trace mechanic elsewhere is one finger on a fixed glowing path,
+which is a dexterity test and not a conversation. Here the path is not fixed:
+one seat's thumb **lays** it, a tile a beat, and the other's has to follow it
+without catching up and without falling behind, on a phone where the near end
+is off the bottom of the picture.
+
+**Silhouette.** A body at the top of the field made of loose filaments, the way
+a nerve is a bundle. Its health is the filaments: each one traced end to end is
+a filament pulled out and gone, and the body narrows visibly as they go. No
+bar, seven filaments, and the last one is the width of the whole body.
+
+**Mechanic.** A step arms one filament. **The pilot draws**: an ordinary `drag`
+along the filament, which lights the tiles it has passed and no others, at most
+one tile a beat — carrying faster than that snaps it. **The navigator
+follows**: her own thumb has to stay within `filamentGapTiles` of his, on the
+lit part, and the gap is the only number either of them can see — she has the
+distance behind her, he has the distance ahead. Neither has both. A gap that
+closes to nothing is the two thumbs colliding and the filament recoils; a gap
+that opens past the window is the filament going dark and the step starting
+again, which is the slip §16 already has.
+
+**The cue**, per `docs/decisions.md` #34: `DRAW` over the lit end on his
+screen, `FOLLOW` over the last lit tile on hers, and the kind line naming the
+carry. Neither cue says how far apart they are, because that is the sentence.
+
+**What this needs that does not exist.** `TraceDrag` — a drag whose progress is
+a *path* rather than a depth or a bearing, stored as the tiles it has passed,
+hashed. It is the fourth gesture primitive and it is the only one of the four
+that is a boss rather than a convenience.
+
+**Cost.** Medium for the simulation — a path in `World` is the largest new
+hashed field any boss on this page has asked for — and medium for the look,
+because a filament is a contour the shape sheet already draws and the lighting
+is `corner-light.ts`'s job done along a line.
+
+**Not built.** Nothing of it. Written 17 September 2026 from the second brief's
+trace category; nobody has started it.
+
+### The reusable interaction library the brief asks for
+
+It asks for twenty-two named systems. Eighteen of them are the library below
+under this game's names, and listing them twice would be two tables to keep in
+step — so the four rows the library did not have are **added to it** rather
+than restated here: `TraceDrag`, `SequenceTap`, `FollowTarget` and
+`RepeatedTap` are in the Gesture table, and `SceneBreak` is in the step
+machinery. `SlowMotionInteraction` is THE SLOW and shipped;
+`CinematicFocus` is the hull's reaction and not the frame's, which is
+correction 4 above; `BossSequence`, `BossSequenceStep` and `SequentialAction`
+are built.
+
+---
+
 ---
 
 ## The reusable boss mechanic library
@@ -2076,6 +2239,7 @@ above cannot exist without.
 |---|---|---|---|
 | **`BossSequenceStep`** — **built** | One beat of an authored scene: which seat, which gesture, which target, the window in beats, the landed branch, the missed branch, and the next index. Data in `packages/content`, read by index in `sim/`, with the cursor a hashed field the way `spawned` is (`decisions.md` #23) | `sim/instar.ts` — THE INSTAR (§16) is this primitive and nothing else: a pose, up to two marks, three clocks, read by index off `content/instar-script.ts`. The missed branch is the strike (the wave, under the owner's rule), the landed branch is the next index; a scene that wants another branch adds a field | all fifteen; 16, built |
 | **`SequentialAction`** | A step that may not be entered until the previous one landed. Falls out of the above for free | `simon.ts`'s step cursor | all fifteen |
+| **`SceneBreak`** | A name over a run of steps, so a script can say which movement each belongs to and a look can spend everything it has on the boundary — the body, the arena and the sound all changing at once. Expressible today as a step with no marks and a long `landBeats`; what is missing is the name | `instar-script.ts`'s five poses, which are a movement each and say so nowhere | the second brief's scene layer; 16 would be rewritten in it |
 | **`SimultaneousAction`** | Two commands inside one window from two seats. The window, not the tick, is the unit — a shared *instant* is what [latency](latency.md) forbids | SYNC in `balance.ts`; THE BALLOON's two handles | 6, 8, 9, 10 |
 | **`Alternation`** | A step list that requires the acting seat to change, and refuses a repeat | `baton.ts` — THE BATON is whose turn it is, and the refusal is the fight | 10, built |
 | **`TurnLock`** | A seat forbidden from sending commands for N beats, drawn as a grey panel | THE WARDEN's clamp, THE MALFUNCTION; `guard-lapse.ts` and `malfunction-look.ts` draw it | 10 |
@@ -2108,6 +2272,10 @@ documentation guarantee in the repository and the reason this table is short.
 | **`FeedTarget`** | A place on a boss that accepts a **body** rather than a shot | `resolveIntake` accepts a pod at the hull; nothing accepts one anywhere else | 1 |
 | **`InhaleColumn`** | A column that moves bodies **up** instead of down | THE WELL's projection arithmetic, pointed the other way | 1, 9 |
 | **`AttachedWindow`** | A target vulnerable only while it is coming loose from its parent | `pods.ts`: a pod hangs, is shot loose, falls | 15 |
+| **`TraceDrag`** | A drag whose progress is a **path** — the tiles a thumb has passed, in order, hashed — rather than a depth or a bearing. The largest new hashed field any concept here asks for | nothing. `crank` reports a turn and `instarMark` a depth; neither remembers where the thumb has been | 17, and nothing else — which is why it is a boss rather than a convenience |
+| **`SequenceTap`** | Several marks that must be answered in a written order, with a wrong one costing the step. Falls out of `BossSequenceStep` for free if a step may hold one mark and the script may hold many steps | `simon.ts`'s step cursor; §16's cursor | the second brief's sequence category, already shipped as THE SPLICE |
+| **`FollowTarget`** | A hold that stays valid only while the thumb keeps up with a body that is moving under it | `grip.ts` — a hand stays on a creature until the creature stops existing, and the creature is what moves | 11, and 17's follower |
+| **`RepeatedTap`** | A count of presses on a target that **moves between them**, so the count cannot be spent in one place | §16's `tap` counts grabs on a mark that stands still | the second brief's repeated-tap category — absent here, and no concept wants it yet |
 
 ### Information
 

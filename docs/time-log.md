@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-hints — the second brief, read against the engine
+
+A twenty-boss brief from the same source as the first, arriving after fourteen
+of the fifteen had shipped. Four things in it are not on the page: the cue the
+owner asked for the same day, a scene layer above the step list, four gestures
+the union has not got, and `StepBack` again. One of the twenty categories is
+worth a boss and it is written as §17 THE FILAMENT; the other nineteen are on
+the page or in the game under another name, and the table says which.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the brief against the page's own four corrections, the refused-by-name sheet, the primitive library, `instar.ts`'s design paragraphs |
+| writing | 25 | `decisions.md` #34, the second-brief section, the category table, §17, five library rows, the contents and the collision ledger |
+| looking | 0 | nothing drawn — a spec lane |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was telling a new category from a re-skin: nineteen of the
+twenty had an ancestor somewhere, and finding each one meant reading a shipped
+creature rather than the boss page.
+
 ## 2026-09-17 — boss-hints — MECHANICS off NOT BUILT YET
 
 The owner asked for the page to go. It was a second rendering of `systems.md`

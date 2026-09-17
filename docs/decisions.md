@@ -1078,3 +1078,63 @@ safety: with no shared boundary to resynchronise on, the two phones drift apart
 in wall clock for as long as the window lasts, and the pair's shared clock —
 the only thing holding a conversation together across a two-second voice delay
 — is what pays for it.
+
+## 34. The field may say one word, and the tutorial stops saying it
+
+*17 September 2026.* Sixteen choreographed bosses landed in two days, and the
+owner met them the way a player will:
+
+> for the bosses we added recently, please add hints and one or two words help
+> what to do in the right moment of time — such as given sequence of steps and
+> on every action, it writes down what the players have to do next, in one word
+> with this scanner box or text next to the red circle indicating where the
+> action is required, and above it what kind of action is required. What is
+> explained during the boss game wave, it must be skipped in the tutorial
+> briefing of the boss wave.
+
+**This reverses a refusal this repository made twice.**
+`docs/spec/bosses-choreographed.md` read a sheet of boss cards and rejected
+*"the instruction text under every card"* as against the brief's own cinematic
+rule; `sim/instar.ts` was written the same week with *"nothing is written for
+the pair to read aloud; the mark's own picture is the instruction."* Both were
+arguing against the wrong thing. What is forbidden is **a script for the pair
+to read out** — a line of dialogue, a sentence that does their talking for
+them, the thing `roles.md` protects when it says the voice is the control
+scheme. **A verb is not a script.** `SLAP` over a marked hand tells a player
+what their own thumb does; it tells them nothing about what the other seat is
+doing, which is the part they still have to ask for.
+
+**And there is a shipped precedent that was never generalised.** THE CHOIR's
+membrane wears a target lock with `SHAKE SCREEN` under it
+(`render/src/choir-prompt.ts`), for exactly the reason the owner is giving now:
+*"a phone being shaken is on no panel and hangs off nothing, so a pair meeting
+one of these with no prompt would sit and watch it fall."* Every choreographed
+boss has that problem, because every one of them answers a gesture that is not
+a button.
+
+**The shape, and it is the owner's.** Where the action is, is a mark on the
+field. Beside it, a scan frame with **one word** — the verb the thumb performs.
+Above it, **what kind of action** it is: whose thumb, and whether it is a press,
+a carry, a turn or a hold. Nothing else, and never a sentence.
+
+**Three rules it inherits.**
+
+- **Geometry still says whose.** The cue does not colour itself per seat, and
+  the kind line names a seat only where the body cannot
+  (`bosses-choreographed.md`, correction 4).
+- **A cue is drawn on the seat that can act.** An instruction on the phone whose
+  thumb the game will refuse is worse than none.
+- **It says the verb and never the answer.** `SHOOT` is a cue; `SHOOT COLUMN 4`
+  is the conversation the wave exists to cause, and the field never has it.
+
+**The tutorial gives the words back.** A rehearsal page that exists only to name
+a gesture the fight now names is a page teaching what the player is about to be
+told, and it comes out — `.claude/skills/new-tutorial`'s checklist question 1
+*what one thing does this wave teach* is answered by the split rather than by
+the verb. What stays in a briefing is what the fight cannot say: which half of
+the picture is on which phone, what a mistake costs, and the sentence the pair
+has to say to each other.
+
+**Reconsider if:** a cue starts carrying a column, a colour or a count. That is
+the pair's own sentence, and a field that says it has taken the game's subject
+away.
