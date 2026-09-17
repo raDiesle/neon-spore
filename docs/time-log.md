@@ -8855,3 +8855,20 @@ a stamped run and that `ready()` still sends after a parting — so the
 `net-change` skill and the relay check were not owed.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — creature-bite-collision — eight test files get a cap that scales with the machine
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the nine files the entry names, what each actually spawns, and `repo-time.ts`, which landed the same afternoon and had already answered three of them |
+| measuring | 10 | each file and each spawning case alone, so the number passed to `loadedTimeout` is what the case costs rather than a guess |
+| writing | 10 | a `setDefaultTimeout(loadedTimeout(n))` and its reason in seven files, and `imports.test.ts` off its flat thirty seconds onto the same helper |
+| looking | 5 | shape-fit alone five times, green every time, against two reds at the same line under eight shards |
+| landing | 5 | `check:fast`, this entry, the commit, `bun run land` |
+
+The bottleneck was the measuring, and it was the work: the entry's own
+instruction was *not one cap for all nine*, and the only way to hold to that is
+to time each case, which costs more than typing nine identical constants would
+have.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

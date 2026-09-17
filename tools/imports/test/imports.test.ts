@@ -1,6 +1,7 @@
 import { afterAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
+import { loadedTimeout } from "../../test/repo-time.js";
 import { pruneImports } from "../imports.js";
 
 /**
@@ -12,14 +13,16 @@ import { pruneImports } from "../imports.js";
  * rerun and passed, which is the worst shape a failure can have — it teaches
  * whoever meets it that a red check is something you run again.
  *
- * Thirty seconds is the same number `packages/render/test/canvas-stub.ts`
- * chose for the same reason. A cap that generous catches a hang and nothing
- * else, which is all a cap is for here: the pruning cases above it run in
- * single-digit milliseconds and would not notice a cap of any size.
+ * **It was a flat thirty seconds for a day**, copied from
+ * `packages/render/test/canvas-stub.ts`, and `tools/test/repo-time.ts` landed
+ * the same afternoon with the argument against it: a flat number is only ever
+ * right for one machine under one load, and it is either too short on the
+ * loaded one or says nothing on the idle one. `loadedTimeout` takes what the
+ * case costs alone — 210 ms — and multiplies it by how much slower this
+ * machine is measuring than an idle one, so the cap rises when the eight
+ * shards do and stays tight when they do not.
  */
-const SPAWN_TIMEOUT_MS = 30_000;
-
-setDefaultTimeout(SPAWN_TIMEOUT_MS);
+setDefaultTimeout(loadedTimeout(210));
 
 describe("pruneImports", () => {
   it("takes a stranded name out of a list and leaves the comment above it", () => {

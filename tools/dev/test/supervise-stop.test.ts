@@ -1,5 +1,12 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { fileURLToPath } from "node:url";
+import { loadedTimeout } from "../../test/repo-time.js";
+
+// What this file is allowed to take, scaled to how busy the machine is
+// (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
+// these cases are not. A supervisor and its child, both `bun`, and the case waits for
+// both of them to be gone. 270 ms alone.
+setDefaultTimeout(loadedTimeout(300));
 
 /**
  * A supervisor that is told to stop takes its child with it.

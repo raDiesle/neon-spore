@@ -1,7 +1,14 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, setDefaultTimeout } from "bun:test";
+import { loadedTimeout } from "../../test/repo-time.js";
 import { VARIANTS } from "../candidates/index.js";
 import { discover, type Registered, registryText } from "../registry.js";
 import { CANDIDATES, ROOT } from "../root.js";
+
+// What this file is allowed to take, scaled to how busy the machine is
+// (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
+// these cases are not. `bunx biome format` once per case, to prove the generated file
+// is printed the way the formatter would print it. 200 ms alone for the widest.
+setDefaultTimeout(loadedTimeout(200));
 
 /**
  * The registry is generated, so the failure worth catching is the one where

@@ -1,7 +1,14 @@
-import { expect, test } from "bun:test";
+import { expect, setDefaultTimeout, test } from "bun:test";
 import { existsSync } from "node:fs";
 import { freePort } from "../../../tools/ports.js";
+import { loadedTimeout } from "../../../tools/test/repo-time.js";
 import { wranglerCli, wranglerDevCommand } from "../dev.js";
+
+// What this file is allowed to take, scaled to how busy the machine is
+// (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
+// these cases are not. A wrangler started and stopped, which is the slowest child
+// anything in the repository starts. 1.1 s alone.
+setDefaultTimeout(loadedTimeout(1200));
 
 const DEV = Bun.fileURLToPath(new URL("../dev.ts", import.meta.url));
 

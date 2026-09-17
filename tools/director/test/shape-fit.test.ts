@@ -1,7 +1,16 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { boundsOver, CATALOGUE, type CatalogueEntry } from "@neon-spore/shape-sheet";
+import { loadedTimeout } from "../../test/repo-time.js";
 import { FIT_TIMES, figureLayout, isWide, WIDE_RATIO } from "../src/shape-fit.js";
 import { extentOf, longAxisOf } from "../src/shapes-motion.js";
+
+// What this file is allowed to take, scaled to how busy the machine is
+// (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
+// these cases are not. **This one spawns nothing**, and is here because the shape to
+// look for is not only a child process: it lays out every rest pose in the catalogue,
+// which is 780 assertions and 1.9 s alone, and it went red twice on the flat default
+// under eight shards on 17 September 2026.
+setDefaultTimeout(loadedTimeout(2000));
 
 /**
  * `shape-fit.ts` decides how big a frame every card on the SHAPES page needs,
