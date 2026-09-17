@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 7cc0864d — --boss: photograph a boss in a state no run of presses can reach
+
+Three look lanes in a row landed a picture of a first phase and said in the commit message that the frame that mattered had never been seen. THE THROAT's eversion needs five gums flung into a walking mouth; THE DIASTOLE's second chamber needs the first spent on a coincidence beat; THE BATON's shed socket needs a handover missed. Each one fell back to arithmetic in a test, which is the right proof of geometry and no proof at all of how a thing reads. So `--boss slack=5,phase=everts,phaseBeat=now` writes the installed boss's own fields, in the window `--fault` and `--boss-round` are written in: after the jump, before the opening lets go, because a phase is drawn over the field from the first beat.
+
 ## 2026-09-17 · 622eb22b — THE UNDERTOW: the attack comes up through the floor, and the pair answers it downward
 
 The simulation half of §13 of docs/spec/bosses-choreographed.md, wave 69 of act 7c. A plate of hull bows for four beats and a lobe stands through it for four; the maw opened over the breach from the cannon's own column takes it, a tall one is the lance beam's alone, and one left standing withdraws and the column is a scar. Three pushes alone, two in pairs four columns apart so the maw reaches one and the pair have to say which, two tall, one under the cannon's own column that has two beats to slide off or has every press swallowed for four, then the whole edge lifts and the last lobe rises in the middle: the maw held under it for six beats takes the body down through the breach, ten beats standing and it comes through the other way. Nothing is drawn yet; the look is the next lane.
