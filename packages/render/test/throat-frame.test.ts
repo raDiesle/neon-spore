@@ -39,6 +39,8 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 beforeAll(installCanvasGlobals);
 
 const TPB = ticksPerBeat(CFG);
+/** The words under the navigator's lock (`throat-lock.ts`). */
+const LABEL = "NEXT INHALE";
 
 function opened(): World {
   const world = createWorld(CFG, 5);
@@ -51,6 +53,19 @@ function tube(world: World): ThroatState {
   const b = throatBoss(world);
   if (b === null) throw new Error("the throat wave installed no gullet");
   return b;
+}
+
+/** Every word a screen wrote over a run of frames. */
+function words(world: World, role: ViewRole, ticks: number): string[] {
+  const { ctx } = runFrames(world, role, ticks, {
+    every: 3,
+    onCanvas: (c) => {
+      // One canvas takes the whole run and `onCanvas` is handed it once, so a
+      // list put here accumulates every word of every frame.
+      c.texts = [];
+    },
+  });
+  return (ctx.texts ?? []).map((t) => t.text);
 }
 
 /** Every colour a screen set over a run of frames, as one string. */
@@ -108,6 +123,44 @@ describe("the throat", () => {
       expect(text).toContain(PALETTE.rock);
     });
   }
+
+  it("draws the eversion and stops when the boss does", () => {
+    const world = opened();
+    const b = tube(world);
+    b.slack = CFG.throatRings;
+    b.phase = "everts";
+    b.phaseBeat = world.beat;
+    // Through the whole eversion and a beat past it: the sim nulls the boss at
+    // the end, so the last frames are of a field with no gullet on it.
+    const { calls, text } = drawn(world, "test", (CFG.throatEvertBeats + 2) * TPB);
+    expect(calls).toBeGreaterThan(500);
+    // The inside, which nothing else in the fight ever draws.
+    expect(text).toContain(PALETTE.venomDeep);
+    expect(throatBoss(world)).toBeNull();
+  });
+
+  it("puts the next inhale's lock on the navigator's screen and on no other", () => {
+    // The load-bearing test of this file. The column the mouth will be in is
+    // the navigator's whole half of this fight, and a copy of it on the
+    // pilot's phone would leave the pair nothing to say.
+    const p2 = opened();
+    expect(words(p2, "p2", TPB)).toContain(LABEL);
+    const p1 = opened();
+    expect(words(p1, "p1", TPB)).not.toContain(LABEL);
+    const both = opened();
+    expect(words(both, "test", TPB)).toContain(LABEL);
+  });
+
+  it("drops the lock once the mouth inhales every beat", () => {
+    // Phase `open` has no beat to arrive at that the mouth is not already in,
+    // so a frame there would be a second picture of the lip.
+    const world = opened();
+    const b = tube(world);
+    b.slack = CFG.throatRings - 1;
+    b.phase = "open";
+    b.phaseBeat = world.beat;
+    expect(words(world, "p2", TPB)).not.toContain(LABEL);
+  });
 
   it("shows the whole gullet to both seats", () => {
     // Nothing about the tube as it stands is kept from either screen: the

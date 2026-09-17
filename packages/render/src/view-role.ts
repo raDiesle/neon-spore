@@ -105,3 +105,23 @@ export const flipsField = (role: ViewRole, seat: 1 | 2): boolean =>
  */
 export const showsDiastoleBeat = (role: ViewRole, seat: 1 | 2): boolean =>
   role === "test" || (seat === 1 ? role === "p1" : role === "p2");
+
+/**
+ * *Where it will be, and when* — THE THROAT's next inhale: the column the mouth
+ * will stand in on that beat, and the count to it. The navigator's read, and
+ * the sharpest one in this list.
+ *
+ * Everything else here keeps a fact somebody could have worked out. This keeps
+ * a fact about **a beat that has not happened**, which is why the mouth's
+ * column is a pure function of the beat rather than a position stepped once a
+ * beat (`sim/throat.ts`, `docs/spec/bosses.md` §11.19) — a stepper could not
+ * answer the question this readout asks.
+ *
+ * The pilot is not being punished for it. He owns the fling and he has the
+ * whole gullet in front of him: where the mouth is *now*, which is what a fling
+ * this beat is swept against. What he cannot see is where to aim for a fling
+ * that lands in four beats' time, and that is the sentence the pair has to say.
+ *
+ * `test` shows it, the usual *one person is holding both seats* answer.
+ */
+export const showsThroatLock = (role: ViewRole): boolean => role !== "p1";

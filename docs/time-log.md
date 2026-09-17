@@ -7925,3 +7925,25 @@ the same treatment for the same reason: it opens *on* the beat, never ahead of
 one.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — throat-lock — NEXT INHALE, and the throat turning inside out
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `queen-drop.ts`, `target-lock.ts`, `view-role.ts`'s list of splits, `canvas-stub.ts`'s `texts` |
+| writing | 35 | `throat-lock.ts`, `throat-evert.ts`, `showsThroatLock`, the two `throat-draw` branches, six more tests, `bosses.md` §11.19's third section |
+| looking | 10 | two frames of the navigator's screen; the first one put the bracket around the lip |
+| friction | 15 | a bar off *beats until the next inhale* stands full for a whole beat and then drops — the query answers 0 where the bar wants the stride; and `onCanvas` is handed the canvas once rather than per frame, so a words helper written as a per-frame drain collected nothing |
+| landing | 10 | `bun run index`, `check:fast`, the commit |
+
+The bottleneck was the first frame rather than a decision: in phase `still` the
+mouth has no stride, so **the column it will be in is the column it is in**, and
+the target lock landed as a bracket around a lip that is already drawn on both
+screens — a second highlight saying nothing. The fix is the rule the picture
+should have started from: a bracket is the answer to *which column*, and until
+the mouth walks there is no question. The words and the bar carry the count on
+their own until it does. Worth saying because the argument in the file was
+already written correctly and the code still did the wrong thing — the comment
+said "not on the mouth" and the two happened to coincide.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

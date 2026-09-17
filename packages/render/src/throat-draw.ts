@@ -4,6 +4,8 @@ import { strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
+import { drawEversion, evertedRings } from "./throat-evert.js";
+import { drawThroatLock } from "./throat-lock.js";
 import { drawMouth } from "./throat-mouth.js";
 import { type Ring, rings } from "./throat-shape.js";
 
@@ -20,11 +22,11 @@ import { type Ring, rings } from "./throat-shape.js";
  *
  * **Both screens draw the same gullet**, and the split of this fight is in what
  * is *said* about it: the navigator alone is told which column the mouth will
- * be in and how many beats until the next inhale, which is the lane after this
- * one (`docs/spec/bosses-choreographed.md` §1). Nothing about the tube as it
- * stands right now is kept from either seat — the mouth's column this beat is
- * what a fling is judged against, and a picture that hid it from the seat who
- * owns the fling would be a boss with no answer at all.
+ * be in on its next inhale and how long until that beat (`throat-lock.ts`).
+ * Nothing about the tube as it stands right now is kept from either seat — the
+ * mouth's column this beat is what a fling is judged against, and a picture
+ * that hid it from the seat who owns the fling would be a boss with no answer
+ * at all.
  *
  * **Grey, except the lip.** Shots pass straight through the tube and no hand
  * can take hold of it (`sim/throat.ts`), so the body of it is `rock` — THE
@@ -48,14 +50,23 @@ export function drawThroat(
   beatPhase: number,
   time: number,
 ): void {
-  const shape = rings(l, cfg, b, beat, beatPhase);
-  if (shape.length === 0) return;
-  drawSkin(ctx, l, shape, time);
-  // Top down, so a ring's own outline sits over the skin above it and the
-  // gullet reads as a stack of muscles seen from outside rather than as a
-  // ladder of hoops.
-  for (const ring of shape) drawRing(ctx, l, ring, time);
+  // The eversion feeds the tube through its own mouth, so the gullet above
+  // shortens from the top as it goes: the rings still to come through are the
+  // ones left, and they keep their own stations (`throat-evert.ts`). Drawn
+  // first, under the lip, so a ring on its way out passes behind it.
+  const through = b.phase === "everts" ? Math.floor(evertedRings(cfg, b, beat, beatPhase)) : 0;
+  if (b.phase === "everts") drawEversion(ctx, l, cfg, b, beat, beatPhase, time);
+
+  const shape = rings(l, cfg, b, beat, beatPhase).slice(through);
+  if (shape.length > 0) {
+    drawSkin(ctx, l, shape, time);
+    // Top down, so a ring's own outline sits over the skin above it and the
+    // gullet reads as a stack of muscles seen from outside rather than as a
+    // ladder of hoops.
+    for (const ring of shape) drawRing(ctx, l, ring, time);
+  }
   drawMouth(ctx, l, cfg, b, beat, beatPhase, time);
+  drawThroatLock(ctx, l, cfg, b, beat, beatPhase, time);
 }
 
 /**

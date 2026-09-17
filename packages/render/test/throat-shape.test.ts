@@ -6,8 +6,11 @@ import {
   type ThroatState,
   throatMouthCol,
   throatMouthRow,
+  throatToInhale,
 } from "@neon-spore/sim";
 import { computeLayout, tileCY } from "../src/layout.js";
+import { evertedRings, evertShare } from "../src/throat-evert.js";
+import { inhaleShare } from "../src/throat-lock.js";
 import { mouthX, ringSlack, ringSqueeze, rings } from "../src/throat-shape.js";
 
 /**
@@ -138,5 +141,50 @@ describe("the tube", () => {
     const low = rings(L, CFG, tube(), 0, 0)[CFG.throatRings - 1];
     if (low === undefined) throw new Error("no lowest ring");
     expect(low.y + low.ry).toBeLessThan(tileCY(L, throatMouthRow(CFG)));
+  });
+});
+
+describe("the navigator's readout", () => {
+  it("locks the column the mouth will be in on the inhale, not the one it is in now", () => {
+    // The whole reason the mouth's column is a function of the beat. A lock on
+    // where the tube is already pointing would tell that seat nothing the
+    // pilot cannot see, and the pilot is the one with the thumb.
+    const b = tube({ phase: "quick", phaseBeat: 0, mouthFrom: 0 });
+    const at = 1;
+    const wait = throatToInhale(CFG, b, at);
+    if (wait <= 0) throw new Error("the beat asked about is itself an inhale");
+    expect(throatMouthCol(CFG, b, at + wait)).not.toBe(throatMouthCol(CFG, b, at));
+  });
+
+  it("fills the bar over the inhale it is actually waiting on", () => {
+    const b = tube();
+    // Empty on the beat it inhales — the whole wait is ahead — and full on the
+    // last frame before the next one.
+    expect(inhaleShare(CFG, b, 0, 0)).toBe(0);
+    expect(inhaleShare(CFG, b, CFG.throatInhaleBeats - 1, 0.99)).toBeGreaterThan(0.9);
+  });
+
+  it("reads the stride the phase is on and not the one it was on", () => {
+    // The inhale tightens once two rings are slack, so a bar off a remembered
+    // stride would run past its own end (`throat-lock.ts`).
+    const quick = tube({ phase: "quick", slack: 2 });
+    expect(inhaleShare(CFG, quick, CFG.throatTightBeats - 1, 0.99)).toBeGreaterThan(0.9);
+    expect(inhaleShare(CFG, quick, CFG.throatTightBeats, 0)).toBe(0);
+  });
+});
+
+describe("the eversion", () => {
+  it("feeds one ring through for each share of its beats", () => {
+    const b = tube({ phase: "everts", phaseBeat: 0 });
+    expect(evertedRings(CFG, b, 0, 0)).toBe(0);
+    expect(evertedRings(CFG, b, CFG.throatEvertBeats, 0)).toBeCloseTo(CFG.throatRings, 6);
+  });
+
+  it("is over when the simulation says the boss is", () => {
+    // Off the beats left rather than a remembered start, so the picture cannot
+    // outlive the boss: the frame the count reaches zero is the frame
+    // `stepThroat` nulls it.
+    const b = tube({ phase: "everts", phaseBeat: 0 });
+    expect(evertShare(CFG, b, CFG.throatEvertBeats + 4, 0)).toBe(1);
   });
 });

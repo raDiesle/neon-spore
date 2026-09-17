@@ -1015,6 +1015,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/throat-draw.ts` | THE THROAT, drawn: a gullet of ring muscles hanging from the top of the frame |
 | `packages/render/src/throat-mouth.ts` | The mouth, the lip, and the column of field the inhale is holding |
 | `packages/render/src/throat-shape.ts` | Where every part of THE THROAT is, as numbers — no canvas in this file |
+| `packages/render/src/throat-evert.ts` | **The eversion**: with every ring slack the tube can no longer hold its own shape |
+| `packages/render/src/throat-lock.ts` | NEXT INHALE: the column the mouth will be standing in on the beat it next takes something |
 | `packages/render/src/crawler-fx.ts` | THE CRAWLER's three transients — the burst ring's splash, the swept lane, the burrow's mound |
 | `packages/render/src/crawler.ts` | THE CRAWLER, drawn — a maggot lying along the ship's surface, its rings overlapping |
 | `packages/render/src/crawler-ring.ts` | **One ring of a maggot, as a shape** — the three sets of proportions the parts of a worm are drawn at |

@@ -1812,12 +1812,12 @@ numbers say, the last drop is a pod the maw takes, and the same run
 fingerprints the same way twice (`sim/test/baton.test.ts`).
 ## 11.19 THE THROAT — the boss you answer by feeding it
 
-*Built 16–17 September 2026, the simulation and then the gullet. The design is
+*Built 16–17 September 2026 in three pieces: the simulation, the gullet, then
+the navigator's readout and the eversion. The design is
 `docs/spec/bosses-choreographed.md` §1; the code is `sim/throat.ts`,
 `sim/throat-step.ts`, `sim/throat-pull.ts`, `sim/config-throat.ts` and
-`render/throat-draw.ts`, `render/throat-shape.ts`, `render/throat-mouth.ts`.
-**The navigator's target lock and the eversion are still to come** — the third
-piece of the same lane.*
+`render/throat-draw.ts`, `render/throat-shape.ts`, `render/throat-mouth.ts`,
+`render/throat-lock.ts`, `render/throat-evert.ts`.*
 
 **The question no other boss asks.** *What you put in on purpose.* Every other
 boss in this game is answered by taking something away from it. This one is
@@ -1895,8 +1895,8 @@ pull; it is a queue item rather than a silent omission.
 (`handMeans` calls it a pull), so braking one would change THE GUM rather than
 leave it unchanged. Phase `open` inhales every beat instead, which is the same
 pressure without a gesture meaning two things.
-*The mouth's target lock and the eversion.* Both are the look's second half,
-and the look's first half is below.
+*Nothing else.* The mouth's target lock and the eversion landed with the look,
+below.
 
 ### The gullet, drawn
 
@@ -1960,7 +1960,50 @@ goes down.
 **Both screens draw the same gullet.** Nothing about the tube *as it stands* is
 kept from either seat: the mouth's column this beat is what a fling is swept
 against, and hiding it from the seat who owns the fling would be a boss with no
-answer at all. The split arrives with the lock.
+answer at all.
+
+### The navigator's readout, and the eversion
+
+*Landed 17 September 2026, the same exemption.*
+
+**NEXT INHALE is the navigator's whole half of this fight** — the column the
+mouth will be standing in on the beat it next takes something, and how long
+until that beat. It is `queen-drop.ts`'s picture, which the design asks for by
+name: the target lock, the words under it, and a bar that fills as the beat
+comes on rather than draining, so the eye reads a thing arriving.
+
+**It is the one readout in this game about a beat that has not happened**, and
+it is why the mouth's column is a pure function of the beat rather than a
+position stepped once a beat. A stepper could not answer the question at all.
+The pilot is not being punished for it: he has the whole gullet, which is where
+the mouth is *now*, and now is what a fling this beat is swept against. What he
+cannot see is where to let go for a gum that lands in four beats' time, and the
+mouth crosses two columns a beat while the gum crosses three — that arithmetic
+is the sentence the pair has to say out loud.
+
+**No bracket until the mouth walks**, which the first frame of it taught. In
+phase `still` the mouth has no stride, so the column it will be in *is* the
+column it is in, and the bracket landed around the lip as a second highlight on
+a thing already drawn on both screens. A bracket answers *which column*; until
+there is a question there is none, and the words and the bar carry the count on
+their own. The bar reads `throatEvery` every frame rather than a remembered
+stride, so it is still right on the beat the inhale tightens from six to four.
+
+**The eversion** is what the design calls the whole reason to build it. With
+every ring slack the tube pulls itself through its own mouth: the root descends,
+the gullet above shortens from the top as it feeds through, and each ring that
+comes out blooms below the mouth's row, the newest widest, so what grows on the
+field is visibly the boss turned inside out rather than a boss falling apart.
+
+**The inside is `venom`, and it needed no new hue** — the lip has been saying so
+the whole fight. The lip is the *edge* of this surface, the only part of the
+inside a pair can ever see, and the first thing the eversion does is prove the
+green they have been aiming at goes all the way in. Not one stroke of the tube's
+grey outside is drawn on an everted ring; that is the picture. It runs off
+`throatEvertBeatsLeft` rather than a remembered start, so the frame the count
+reaches zero is the frame `stepThroat` nulls the boss and there is nothing left
+to draw — which is why the sim keeps the boss installed for the whole of
+`throatEvertBeats` instead of nulling it at the last choke.
 
 **Nothing is held between frames.** Every number is arithmetic over the phase,
 the anchor, the slack count and the two receipt beats, so there is no `Effects`

@@ -30,7 +30,7 @@ that list (`CLAUDE.md`, *an idea for the game is not collected*).
 |---|---|---|
 | [§7 THE DIASTOLE](#7-the-diastole--two-clocks-at-once) | **built, 16 September 2026** | `claude/neon-spore-boss-design-26ee5e` — the simulation and THE SLOW, then the look. Worked and written up as [bosses](bosses.md) §11.17 |
 | [§10 THE BATON](#10-the-baton--whose-turn-is-it) | **built, 16 September 2026** | `claude/boss-implementation-e3cfff` — the simulation, then the look. Worked and written up as [bosses](bosses.md) §11.18 (wave 68) |
-| [§1 THE THROAT](#1-the-throat--what-you-feed-it) | **simulation and gullet built, 17 September 2026; the last piece is taken** | `claude/throat-look` — the inhale, the pull, the five ring tensions, the fling into the mouth and the gullet itself are shipped and written up as [bosses](bosses.md) §11.19. What is left is the navigator's target lock — the mouth's *next* column and the beats to the next inhale, which is the whole of this fight's split — and the eversion. Same lane, next piece |
+| [§1 THE THROAT](#1-the-throat--what-you-feed-it) | **built, 17 September 2026** | `claude/neon-spore-boss-design-26ee5e` then `claude/throat-look`, `claude/throat-lock` — the simulation, the gullet, then the navigator's readout and the eversion. Worked and written up as [bosses](bosses.md) §11.19 (wave 69) |
 | [§13 THE UNDERTOW](#13-the-undertow--where-you-are-being-hit-from) | **taken, 16 September 2026** | `claude/boss-implementation-e3cfff` — the simulation half first (the breach as a place: the bow, the lobe in it, the maw's take, the scar, the widening the plate stops, the lance for the tall ones, the last lobe and the body taken in), the look — the hull bowing, the seams lit, the lobe, the body passing through — as the lane after. The next free concept this session takes is claimed here again before a line of it is written |
 | the other eleven | free | — |
 
@@ -315,10 +315,8 @@ and none of those is under 900 ms (`guardWindowMs`, and the reason is in
 > not start either half in a second session — see [who is building
 > what](#who-is-building-what-so-two-sessions-do-not-collide).
 >
-> **The gullet is drawn** as of 17 September 2026 — the five rings, the slack
-> ones hanging limp, the tube's sag, the gulp climbing away from the field and
-> the mouth's venom lip (`render/throat-draw.ts`). The navigator's target lock
-> and the eversion are the piece after.
+> **Built whole** as of 17 September 2026, in three pieces: the simulation, the
+> gullet, and then NEXT INHALE with the eversion. §11.19 is the record.
 >
 > Three things below are not built, and §11.19 says why for each: the throat
 > does not compete with the maw for a **pod** (queued); a hand cannot **brake a

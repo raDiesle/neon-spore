@@ -66,9 +66,11 @@ export {
   type ThroatPhase,
   type ThroatState,
   throatBoss,
+  throatEvertBeatsLeft,
   throatEvery,
   throatInhales,
   throatMouthCol,
   throatMouthRow,
   throatStride,
+  throatToInhale,
 } from "./throat.js";
