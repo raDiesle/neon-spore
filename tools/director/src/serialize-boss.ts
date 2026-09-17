@@ -139,6 +139,10 @@ export function serializeBoss(boss: BossEntry): string {
   // And THE HIVE, the seventeenth: no column, the sites are sown by the seed;
   // no health, the unsealed sites are it (`sim/config-hive.ts`).
   if (boss.kind === "hive") return '{ kind: "hive" }';
+  // THE INSTAR's script is named rather than written out, for THE PULSE's
+  // reason: a beat list of poses, marks and clocks is authored to be read
+  // down a page (`packages/content/src/instar-script.ts`).
+  if (boss.kind === "instar") return '{ kind: "instar", steps: INSTAR_SCRIPT }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

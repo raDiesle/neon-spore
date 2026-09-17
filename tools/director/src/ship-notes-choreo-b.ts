@@ -132,4 +132,18 @@ export const CHOREO_NOTES_B = {
     "the skin between them swallows a shot. The last seal opens THE SLOW " +
     "hiveSlowBeats and the wave holds hiveOutBeats more. Nothing about it " +
     "is authored per wave. See sim/hive.ts, sim/config-hive.ts.",
+  "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §16 " +
+    "and docs/spec/bosses.md §11.32: the choreographed scene with no control " +
+    "set. The script (packages/content/src/instar-script.ts) is a beat list " +
+    "of poses; each pose morphs in over its own beats with the marks hidden, " +
+    "then shows its marks — a ring on a part of the body, saying whose thumb " +
+    "and what gesture — for its own window, then lands and settles. A mark " +
+    "is a drag on instarMark: a tap, a pull, a swipe, a turn or a hold. A " +
+    "step with a mark per seat lands only when both are done within " +
+    "instarTogetherBeats of each other, else the first slips; a swipe counts " +
+    "on a lift past instarSwipeMilli. A window closing on an undone mark is " +
+    "one strike on the hull, which is the wave. The last landing opens THE " +
+    "SLOW instarSlowBeats and the body hangs instarOutBeats more. See " +
+    "sim/instar.ts, sim/instar-hand.ts, sim/config-instar.ts.",
 } satisfies Partial<Record<GroupName, string>>;

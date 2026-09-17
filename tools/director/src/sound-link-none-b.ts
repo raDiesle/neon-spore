@@ -62,4 +62,18 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.hiveDown": "the last breach sealed under THE SLOW. Same argument.",
   "boss.hiveOut":
     "the mass gone. What this marks is a field with nothing over its top — an absence like ui.waveClear rather than a thing standing anywhere.",
+  "boss.instarEnter":
+    "the body settling over the field with its first pose to take. It is a body that changes shape, which no one card is (`sim/instar.ts`).",
+  "boss.instarMorph": "the body morphing into its next pose. Same argument.",
+  "boss.instarShow": "the marks lighting on the body. Same argument.",
+  "boss.instarRefuse": "a thumb from the wrong seat on a mark. The mark's, not a card's.",
+  "boss.instarAnswer": "one unit of a mark's need given. Same argument.",
+  "boss.instarDone": "a mark reaching its need. Same argument.",
+  "boss.instarSlip": "a done mark slipping back to nought. Same argument.",
+  "boss.instarLand": "every mark of a step done together. Same argument.",
+  "boss.instarStrike":
+    "a part striking the hull. It is the hull, which is the ship's and not a card's.",
+  "boss.instarDown": "the last step landed under THE SLOW. Same argument.",
+  "boss.instarOut":
+    "the body gone. An absence like ui.waveClear rather than a thing standing anywhere.",
 };

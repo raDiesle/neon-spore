@@ -14,9 +14,9 @@
  * is not (`antiphon.ts`).
  */
 
-// THE HIVE's entry, which authors nothing: it travels with the other
-// thirty-two, out of `boss-entries.ts` through `bosses.ts`.
-export type { HiveEntry } from "./bosses.js";
+// THE HIVE's entry, which authors nothing, and THE INSTAR's, which authors
+// its script: both travel out of `boss-entries.ts` through `bosses.ts`.
+export type { HiveEntry, InstarEntry } from "./bosses.js";
 export {
   ANTIPHON_SHIP,
   type AntiphonCandidate,
@@ -40,6 +40,10 @@ export {
   antiphonWindow,
 } from "./bosses.js";
 export {
+  // The script and where the scene is in it: every mark is drawn from the
+  // step under the cursor, by the seat it belongs to, and the content that
+  // authors a script needs the step's shape and the closed lists it is written in.
+  type BossSequenceStep,
   // The underside the screens read different halves of: what colour each open
   // site is for the pilot, which site is swelling next for the navigator.
   type HiveState,
@@ -54,4 +58,27 @@ export {
   hiveSiteCols,
   hiveSwelling,
   hiveTwins,
+  INSTAR_GESTURES,
+  INSTAR_PARTS,
+  INSTAR_PHASES,
+  INSTAR_POSES,
+  INSTAR_SEATS,
+  type InstarGesture,
+  type InstarMark,
+  type InstarPart,
+  type InstarPhase,
+  type InstarPose,
+  type InstarSeat,
+  type InstarState,
+  instarActing,
+  instarAllDone,
+  instarBoss,
+  instarDown,
+  instarHeld,
+  instarMarkCol,
+  instarMarkDone,
+  instarSeatHears,
+  instarStep,
+  instarStrikeBeat,
+  NOT_DONE,
 } from "./bosses-clocks-b.js";

@@ -5,6 +5,7 @@ import { installCurtain } from "./curtain-step.js";
 import { installDiastole } from "./diastole-step.js";
 import { installGorge } from "./gorge-step.js";
 import { installHive } from "./hive-step.js";
+import { installInstar } from "./instar-step.js";
 import { installLead } from "./lead-step.js";
 import { installLedger } from "./ledger-step.js";
 import { installOrrery } from "./orrery-step.js";
@@ -56,6 +57,7 @@ const CLOCK_KINDS = [
   "scuttle",
   "antiphon",
   "hive",
+  "instar",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -155,12 +157,16 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // No creature and no row: a body over the top of the field that grows
     // organs for one seat to describe and the other to name (`antiphon-step.ts`).
     world.boss = installAntiphon(world);
-  } else {
-    // THE HIVE, the last kind in the list and so the branch with no test on
-    // it — the next boss goes in above it, with its `kind` on the list. No
-    // creature and no row: a body over the top of the field with breaches
+  } else if (boss.kind === "hive") {
+    // No creature and no row: a body over the top of the field with breaches
     // along its underside, and everything that falls in its wave is a rock
     // one of them spilled (`hive-step.ts`).
     world.boss = installHive(world);
+  } else {
+    // THE INSTAR, the last kind in the list and so the branch with no test on
+    // it — the next boss goes in above it, with its `kind` on the list. No
+    // creature, no row and no field: a body that is the whole panel, running
+    // the script its wave authored, beat by beat (`instar-step.ts`).
+    world.boss = installInstar(world, boss.steps);
   }
 }

@@ -10097,3 +10097,21 @@ The bottleneck was proving the split from the call log: three tells were
 tried before one held on both seats.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — tutorial-boss-onscreen-actions — THE INSTAR, the engine and the simulation
+
+The first boss with no panel: `BossSequenceStep` read by index off a script
+in content, six gestures off one drag target, together-or-slip, the strike
+as the wave, the wave, the sounds, the director's sheet, the write-ups.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the choreographed page's filter and step machinery, THE HIVE's landing as the pattern, `bearing.ts`, `breachHull`, the serializer's round trip |
+| writing | 40 | seven sim files and the plumbing, the script, the wave, nineteen tests, the audio, the net target, the director's five files, §16, §11.32 |
+| looking | 0 | nothing was drawn: the look is the second lane |
+| friction | 10 | `NOT_DONE` not on the surface; the tap test's thumb left down; `hullDamaged` is `breach`; the audio doc's counts; `GroupName` in three places; the wave file did not round-trip through the director until its comment, its key order and its sentence were moved |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep`, the ledger mark |
+
+The bottleneck was the receipts, not the mechanism: the sim was done in a
+quarter of the time and the other three quarters were the fourteen files
+outside it that a boss is a name in, each found by a test going red.

@@ -1,0 +1,143 @@
+import { midCol } from "./config.js";
+import { breachHull } from "./hull-damage.js";
+import {
+  type BossSequenceStep,
+  type InstarState,
+  instarActing,
+  instarHeld,
+  instarMarkCol,
+  instarMarkDone,
+  instarStep,
+  instarStrikeBeat,
+  NOT_DONE,
+} from "./instar.js";
+import { answerMark, armMarks, slipMark } from "./instar-marks.js";
+import { openSlow } from "./slow.js";
+import type { World } from "./world.js";
+
+/**
+ * THE INSTAR's clock: the morph, the window, the landing, the next pose.
+ *
+ * Every clock in here is the step's own (`BossSequenceStep`), read off the
+ * script by the cursor, and the one thing the beat does that a thumb cannot
+ * is **close the window**: a mark still undone when `windowBeats` have run is
+ * the part doing what the mark was there to stop, and that is one strike on
+ * the hull at the mark's column — which, under the owner's rule of 12
+ * September 2026, is the wave (`hull-damage.ts`, `wave-fail.ts`). A strike
+ * is never two: the failed field is held from the next tick and this clock
+ * does not run under a hold.
+ *
+ * The beat also **lets a lonely mark slip**: one done `instarTogetherBeats`
+ * ago whose partner is still not, back to nought with its sound. The thumbs
+ * decide when a mark is done (`instar-hand.ts`); the beat decides whether
+ * *done* was together. On the beat and not the tick so a hand two ticks late
+ * on the other phone is not two ticks late — the window the pair is given is
+ * said in beats, and a beat is the unit they can hear.
+ *
+ * And the beat is what counts a **hold**: a mark both thumbs are on gains one
+ * unit per beat they stay, which is the one gesture with no command of its
+ * own — it is two presses and no lift, and time.
+ */
+
+export function installInstar(world: World, steps: readonly BossSequenceStep[]): InstarState {
+  const s: InstarState = {
+    kind: "instar",
+    steps: steps.map((step) => ({ ...step, marks: step.marks.map((m) => ({ ...m })) })),
+    cursor: 0,
+    phase: "morph",
+    phaseBeat: world.beat,
+    progress: [],
+    doneBeat: [],
+    ref: [],
+    thumbs: [],
+  };
+  armMarks(s);
+  const mid = midCol(world.cfg);
+  world.events.push({ type: "instarEnter", col: mid });
+  const first = instarStep(s);
+  if (first !== null)
+    world.events.push({ type: "instarMorph", step: 0, pose: first.pose, col: mid });
+  return s;
+}
+
+function strike(world: World, s: InstarState): void {
+  const step = instarStep(s);
+  if (step === null) return;
+  // The first undone mark's part is the one that strikes; a step with two
+  // undone is still one strike, because one is the wave.
+  for (let i = 0; i < step.marks.length; i++) {
+    const mark = step.marks[i];
+    if (mark === undefined || instarMarkDone(s, i)) continue;
+    const col = instarMarkCol(world.cfg, mark);
+    world.events.push({ type: "instarStrike", part: mark.part, col });
+    breachHull(world, col, "meteorFastest", 0, "heavy");
+    return;
+  }
+}
+
+function slipLonely(world: World, s: InstarState): void {
+  const step = instarStep(s);
+  if (step === null || step.marks.length < 2) return;
+  for (let i = 0; i < step.marks.length; i++) {
+    const mark = step.marks[i];
+    const done = s.doneBeat[i] ?? NOT_DONE;
+    if (mark === undefined || instarHeld(mark.gesture) || done === NOT_DONE) continue;
+    if (world.beat - done <= world.cfg.instarTogetherBeats) continue;
+    slipMark(world, s, i);
+  }
+}
+
+/** Both thumbs on a hold mark is one more beat of it. */
+function countHolds(world: World, s: InstarState): void {
+  const step = instarStep(s);
+  if (step === null) return;
+  for (let i = 0; i < step.marks.length; i++) {
+    if (step.marks[i]?.gesture !== "hold" || s.thumbs[i] !== 3) continue;
+    answerMark(world, s, i, 1);
+  }
+}
+
+export function stepInstar(world: World, s: InstarState): void {
+  const cfg = world.cfg;
+  const mid = midCol(cfg);
+  if (s.phase === "down") {
+    // Nulled here rather than at the last landing, so the frame has its beats
+    // of the beaten body before the wave is allowed to end (`bossHoldsWave`).
+    if (world.beat - s.phaseBeat >= cfg.instarOutBeats) {
+      world.events.push({ type: "instarOut", col: mid });
+      world.boss = null;
+    }
+    return;
+  }
+  const step = instarStep(s);
+  if (step === null) return;
+  if (s.phase === "morph") {
+    if (world.beat - s.phaseBeat < step.morphBeats) return;
+    s.phase = "act";
+    s.phaseBeat = world.beat;
+    armMarks(s);
+    world.events.push({ type: "instarShow", step: s.cursor, col: mid });
+    return;
+  }
+  if (s.phase === "act") {
+    slipLonely(world, s);
+    countHolds(world, s);
+    // A hold that landed the step this beat has closed the window itself.
+    if (instarActing(s) && world.beat >= instarStrikeBeat(s)) strike(world, s);
+    return;
+  }
+  // Landed: the body settles, then either the next pose or the end.
+  if (world.beat - s.phaseBeat < step.landBeats) return;
+  s.cursor += 1;
+  s.phaseBeat = world.beat;
+  const next = instarStep(s);
+  if (next === null) {
+    s.phase = "down";
+    armMarks(s);
+    openSlow(world, cfg.instarSlowBeats);
+    world.events.push({ type: "instarDown", col: mid });
+    return;
+  }
+  s.phase = "morph";
+  world.events.push({ type: "instarMorph", step: s.cursor, pose: next.pose, col: mid });
+}

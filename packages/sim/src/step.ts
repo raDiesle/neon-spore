@@ -15,6 +15,7 @@ import { fleetHeard } from "./fleet.js";
 import { dropLostGrips } from "./grip.js";
 import { gripPushHeard } from "./grip-push.js";
 import { stepHarpoons } from "./harpoon.js";
+import { instarHeard } from "./instar-hand.js";
 import { stepBeam } from "./lance.js";
 import { releaseLance } from "./lance-burn.js";
 import { lidHeard, stepLidPulls } from "./lid.js";
@@ -147,6 +148,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // turn a shape a finger is watching (`antiphon-hand.ts`).
   for (const c of commands) antiphonHeard(world, c.player, c.command);
   stepAntiphonTurn(world);
+  // THE INSTAR's marks, on the tick because a tap is a tap when it lands and
+  // a pull is where the thumb is now (`instar-hand.ts`).
+  for (const c of commands) instarHeard(world, c.player, c.command);
   // And the two hands on THE WEIGHT, which is not a command at all: the press
   // is the ordinary `grip` and `applyCommand` has already recorded it, so what
   // runs here is the clock over it. On the tick with the balloon's rub above

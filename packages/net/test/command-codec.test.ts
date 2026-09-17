@@ -46,6 +46,7 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "surgeBulb", on: true, fromMilli: 0 },
   { kind: "drag", target: "surgeBulb", on: false, fromMilli: 0 },
   { kind: "drag", target: "antiphonOrgan", on: true, fromMilli: 0 },
+  { kind: "drag", target: "instarMark", on: true, fromMilli: 250, fromYMilli: 800, id: 1 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -144,6 +145,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   sinewRight: true,
   surgeBulb: true,
   antiphonOrgan: true,
+  instarMark: true,
   crank: true,
   orreryRing: true,
 };

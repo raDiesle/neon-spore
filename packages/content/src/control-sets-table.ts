@@ -179,4 +179,17 @@ export const CONTROL_SETS: readonly ControlSet[] = [
     // asked for this round to sit beside (`sim/scout-arena.ts`).
     controls: ["scoutTurnLeft", "scoutTurnRight", "scoutBurn", "scoutMaw"],
   },
+  {
+    id: "scene",
+    name: "THE SCENE",
+    why: "Nothing on the band at all: the boss's own body carries every mark a thumb answers, and where a mark sits says whose thumb it is.",
+    // **Empty, and that is the set.** THE INSTAR is the owner's ask of 17
+    // September 2026 for a boss understood without reading anything: no
+    // control set, only actions on the screen. A band with buttons on it
+    // would be a second place to look, so the band is drawn with nothing on
+    // it and every gesture is a `drag` on the body (`sim/drag-targets.ts`
+    // `instarMark`). Not a reduction of anything — there is no panel this is
+    // a picture of.
+    controls: [],
+  },
 ];

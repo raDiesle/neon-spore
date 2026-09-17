@@ -51,6 +51,7 @@ export {
   showsRadar,
 } from "./creatures.js";
 export * from "./index-shapes.js";
+export { INSTAR_SCRIPT } from "./instar-script.js";
 export {
   INTRO_ANSWER,
   INTRO_BEATS,

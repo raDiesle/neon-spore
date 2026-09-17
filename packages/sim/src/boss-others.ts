@@ -9,6 +9,7 @@ import { stepDiastole } from "./diastole-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepGorge } from "./gorge-step.js";
 import { stepHive } from "./hive-step.js";
+import { stepInstar } from "./instar-step.js";
 import { stepLead } from "./lead-step.js";
 import { stepLedger } from "./ledger-step.js";
 import { stepMaze } from "./maze-round.js";
@@ -180,6 +181,11 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // and the spill. The bolt that seals a breach is on the tick (`hive-shot.ts`).
   if (boss.kind === "hive") {
     stepHive(world, boss);
+    return;
+  }
+  // THE INSTAR on the beat is the script's clock; the thumbs are on the tick (`instar-hand.ts`).
+  if (boss.kind === "instar") {
+    stepInstar(world, boss);
     return;
   }
   if (boss.kind === "vane") {

@@ -6,6 +6,7 @@ import { curtainHashParts } from "./curtain-hash.js";
 import { diastoleHashParts } from "./diastole-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
 import { hiveHashParts } from "./hive-hash.js";
+import { instarHashParts } from "./instar-hash.js";
 import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
@@ -102,6 +103,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE HIVE: every site's column, colour and seal, the count opened and the clocks (`hive-hash.ts`).
   if (boss.kind === "hive") {
     for (const n of hiveHashParts(boss)) out.push(n);
+  }
+  // THE INSTAR: the whole script, the cursor and phase, and every mark's count (`instar-hash.ts`).
+  if (boss.kind === "instar") {
+    for (const n of instarHashParts(boss)) out.push(n);
   }
   if (boss.kind === "curtain") {
     for (const n of curtainHashParts(boss)) out.push(n);

@@ -110,6 +110,13 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // pilot's screen and never the navigator's (`docs/spec/bosses.md` §11.31).
     case "antiphonOrgan":
       return target;
+    // `instarMark` is the first target with no hold behind it yet: heard by
+    // `sim/instar-hand.ts` from the seat the mark names, and answered nowhere
+    // in `touch.ts` until the look lane draws the body and its marks — the
+    // row here, its pose and its hit test land with that lane
+    // (`docs/spec/bosses.md` §11.32, *What is not built*).
+    case "instarMark":
+      return target;
     default:
       return assertNever(target);
   }

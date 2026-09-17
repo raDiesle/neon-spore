@@ -8,6 +8,7 @@ import type { DiastoleState } from "./diastole.js";
 import type { GaugeState } from "./gauge.js";
 import type { GorgeState } from "./gorge.js";
 import type { HiveState } from "./hive.js";
+import type { InstarState } from "./instar.js";
 import type { LeadState } from "./lead.js";
 import type { LedgerState } from "./ledger.js";
 import type { MazeState } from "./maze-state.js";
@@ -88,4 +89,5 @@ export type BossState =
   | LeadState
   | ScuttleState
   | AntiphonState
-  | HiveState;
+  | HiveState
+  | InstarState;

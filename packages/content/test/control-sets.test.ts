@@ -40,6 +40,13 @@ describe("control sets", () => {
   it("gives every set both players and no repeats", () => {
     for (const set of CONTROL_SETS) {
       expect(new Set(set.controls).size).toBe(set.controls.length);
+      // THE SCENE is the one set with nothing on the band, by design: THE
+      // INSTAR's panel is the boss's own body, and every gesture on it is a
+      // drag the band never carries (`control-sets-table.ts`).
+      if (set.id === "scene") {
+        expect(set.controls.length).toBe(0);
+        continue;
+      }
       expect(setControls(set, 1).length).toBeGreaterThan(0);
       expect(setControls(set, 2).length).toBeGreaterThan(0);
     }

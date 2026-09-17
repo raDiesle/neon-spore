@@ -251,6 +251,27 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // seed's, and which are open, sealed and spilling are its own by the time
   // it is fingerprinted (`hive-hash.ts`).
   hive: { kind: "hive" },
+  // THE INSTAR authors the script whole: what poses the body takes, what marks
+  // each shows and whose thumb each wants. One step with a mark for each seat
+  // is the smallest script that is still the scene — a beat the pair has to
+  // land together — and one step is enough, because the fingerprint's job is
+  // the cursor and the per-mark counts, not the length of the list
+  // (`instar-hash.ts`).
+  instar: {
+    kind: "instar",
+    steps: [
+      {
+        pose: "gape",
+        morphBeats: 2,
+        windowBeats: 6,
+        landBeats: 2,
+        marks: [
+          { seat: "p1", part: "jaw", gesture: "pullDown", xMilli: 500, yMilli: 440, need: 1000 },
+          { seat: "p2", part: "jaw", gesture: "pullUp", xMilli: 500, yMilli: 240, need: 1000 },
+        ],
+      },
+    ],
+  },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -710,5 +731,15 @@ function patchBoss(world: World): void {
     boss.openBeat = 6;
     boss.spillBeat = 7;
     boss.downBeat = 8;
+  }
+  if (boss.kind === "instar") {
+    // The marks up on the first step, one thumb on each, one mark halfway
+    // and the other done a beat ago with a bearing remembered.
+    boss.phase = "act";
+    boss.phaseBeat = 3;
+    boss.progress = [500, 1000];
+    boss.doneBeat = [-1, 5];
+    boss.ref = [-1, 250];
+    boss.thumbs = [1, 2];
   }
 }

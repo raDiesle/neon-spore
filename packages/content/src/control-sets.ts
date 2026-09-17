@@ -68,6 +68,13 @@ export { controlSetForWave, firstOnPanel, wavesUsingSet } from "./control-sets-w
  * THE MIRROR, and what it does is take all of them away for a few beats
  * (`mirrorHoldsControls`) — the empty set, in time rather than by wave, which
  * is a different mechanism and stays where it is.
+ *
+ * **`scene` is the empty set by wave**, and it is the first: THE INSTAR has
+ * no panel because its body is the panel — every gesture it asks for is a
+ * mark drawn on the boss itself and answered where it stands (`sim/instar.ts`).
+ * An empty list of controls is a band with nothing on it, which `panelForm`
+ * already answers, and the one test that wanted every seat to hold something
+ * names this set as the exception it is (`test/control-sets.test.ts`).
  */
 
 export type ControlSetId =
@@ -84,7 +91,8 @@ export type ControlSetId =
   | "pulse"
   | "splice"
   | "claw"
-  | "scout";
+  | "scout"
+  | "scene";
 
 export interface ControlSet {
   id: ControlSetId;

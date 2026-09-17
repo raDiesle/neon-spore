@@ -4,6 +4,13 @@ import { DIASTOLE_PHASES } from "../src/diastole.js";
 import { FLEET_DIRS } from "../src/fleet-board.js";
 import { GAUGE_PHASES } from "../src/gauge.js";
 import { hashWorld } from "../src/hash.js";
+import {
+  INSTAR_GESTURES,
+  INSTAR_PARTS,
+  INSTAR_PHASES,
+  INSTAR_POSES,
+  INSTAR_SEATS,
+} from "../src/instar.js";
 import { MALFUNCTION_COLORS, MALFUNCTION_KINDS } from "../src/malfunction.js";
 import { MAZE_PHASES } from "../src/maze.js";
 import { MAZE_REASONS } from "../src/maze-verdict.js";
@@ -93,6 +100,11 @@ const FAMILIES: readonly (readonly string[])[] = [
   PULSE_PHASES,
   MALFUNCTION_KINDS,
   MALFUNCTION_COLORS,
+  INSTAR_SEATS,
+  INSTAR_PARTS,
+  INSTAR_GESTURES,
+  INSTAR_POSES,
+  INSTAR_PHASES,
 ];
 
 /**

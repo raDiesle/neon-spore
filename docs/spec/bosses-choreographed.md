@@ -1,15 +1,17 @@
 # Choreographed bosses — A Way Out, read against this engine
 
-> **Status: all fifteen are in the game, and this page is now read for what is
-> left rather than for what to start.** They were written on 16
+> **Status: all fifteen are in the game, and a sixteenth is half in — its
+> simulation landed, its look not started.** The fifteen were written on 16
 > September 2026 from the owner's brief for encounters that read as
 > *interactive action scenes* rather than arcade fights, with Hazelight's A Way
 > Out named as the reference, and every one of them was built inside two days —
 > the ledger below names the lane, the wave and the §11 write-up for each.
-> The last of them, §12 THE ANTIPHON, finished on 17 September 2026. What is
-> unbuilt on this page is therefore no longer a concept; it is the *Not built*
-> clause at the end of a built concept's row, and the primitive library two
-> thirds down.
+> The last of them, §12 THE ANTIPHON, finished on 17 September 2026. The
+> sixteenth, [§16 THE INSTAR](#16-the-instar--whether-two-different-hands-can-finish-one-beat),
+> is the owner's own ask of that day and the first boss with no panel at all,
+> and it is the one that built the step machinery every scene on this page
+> was waiting for. What else is unbuilt here is the *Not built* clause at the
+> end of a built concept's row, and the primitive library two thirds down.
 >
 > It is the second boss-idea page rather than the third: the one that read the
 > same two reference games at boss scale was deleted on 17 September 2026 as
@@ -27,7 +29,7 @@
 
 ## Contents
 
-The fifteen, by what is left to do rather than by the number each was
+The sixteen, by what is left to do rather than by the number each was
 written at. **The `§n` numbers are not in sequence down the page, on**
 **purpose:** `tools/director/src/ship-notes-choreo.ts` and half of
 [bosses](bosses.md)'s own write-ups cite a concept by its number, and
@@ -35,10 +37,7 @@ reordering the page without keeping them would break every one of them.
 
 **Still in hand — the simulation landed, the look is not written**
 
-Nothing, since 17 September 2026: §12 THE ANTIPHON was the last, and its
-look landed the same day. What is unbuilt on this page is the *Not built*
-clause at the end of a built concept's ledger row, and the primitive
-library two thirds down.
+- **[THE INSTAR](#16-the-instar--whether-two-different-hands-can-finish-one-beat)** · §16 — whether two different hands can finish one beat. The engine and the simulation landed 17 September 2026; the look — the body that morphs, moves and changes perspective between its poses, which the owner asked for by name — is the next lane
 
 **Built — and what is left on each is in its row of the ledger below**
 
@@ -1895,6 +1894,123 @@ which is the single most reusable drag on this page.
 
 ---
 
+### 16. THE INSTAR — whether two different hands can finish one beat
+
+> The one with no panel. Its body is marked where it will hurt you, and the
+> mark says whose thumb it wants.
+
+**Question.** *Whether two different hands can finish one beat.* Every scene
+above splits the eyes or the hands and then asks the pair to talk across the
+split. This one takes the panel away altogether — no cannon, no shield, no
+colours, no control set — and asks the plainest thing on the page: a body in
+front of you is doing something, a mark on it says what to do about it and
+which of you is to do it, and the beat is not finished until *both* of you
+have done your part **inside the same two beats**. The sentence between them
+is one word, *now*, and the whole boss is arranged so that it has to be said.
+
+**Where it came from.** The owner's ask of 17 September 2026, after the
+last of the fifteen: a boss with no control set, *only on-screen actions* —
+one seat acting while the other watches and can see whose it is, or both at
+once in two places succeeding in the same moment, or both on the same spot.
+His sequence, in his order: two red circles, one pulled down and one pulled
+up together; one seat slapping the alien's hand until it drops its weapon
+while the other swipes the eggs off three times downward before they hatch;
+the boss morphs and picks up another weapon, the hand slapped again while
+the other seat winds the tongue back in on the mark; the boss turns and
+shows its tail, one seat pulls it up; *and so on* — a pause with an
+animation, then the action shown, then the animation, then the action again.
+And, mid-lane: *detailed and nice graphics like the bulb queen or the warden,
+and the enemy transforms and moves and changes perspective and appearance
+during the animations.* That last sentence is the look lane's brief and is
+quoted here so it is not lost between the two lanes.
+
+**Silhouette.** A body over the middle of the field that is never the same
+shape twice: it **morphs** between poses and holds each one — jaws open, a
+weapon in one hand and eggs on the flank, moulted with a second weapon and
+its tongue out, turned away with its tail over the ship, lunging head-first.
+Its health is the poses left: there is no bar, and there is no lobe count
+either, because the thing the pair takes off it each beat is a *threat* —
+the hand opens, the eggs are off, the tongue is in. The marks are the only
+control on the screen, every one of them the same red, and **geometry says
+whose** (this page's colour rule holds): a mark on the left of the body is
+player 1's, on the right player 2's, one in the middle wants both.
+
+**Mechanic — the engine.** This is the boss that built `BossSequenceStep`
+(the step machinery, *build first*), and it is nothing but that primitive
+run five times. A step is a pose, up to two marks, and three clocks —
+`morphBeats` with the marks hidden, `windowBeats` with them up, `landBeats`
+of the part giving before the next morph. The script is data in
+`packages/content/src/instar-script.ts`, read by index in `sim/instar.ts`,
+the cursor hashed (`instar-hash.ts`). A mark is one `Command`: every
+gesture is a `drag` on the `instarMark` target with `id` naming the mark,
+and the six gestures are read off what a drag already carries — the grab and
+the lift from `on`, a pull and a swipe from `fromYMilli`, a turn from
+`fromMilli` as a bearing the way THE ORRERY's ring and the crank read one,
+a hold from two thumbs and the beat (`instar-hand.ts`, `instar-step.ts`).
+Together means together: a step's marks land only when both are done inside
+`instarTogetherBeats` (2) of each other; a count reached alone and left
+waiting **slips** back to nought with a sound, and the pair starts the beat
+again inside the same window. A pull or a hold is exempt, because its *done*
+is a state the thumb keeps — letting go is what undoes it. The wrong seat on
+a mark is refused, once per press, and told so.
+
+**The missed branch is the wave.** A window that closes with a mark undone is
+the part doing what the mark was there to stop — the weapon on the hull, the
+eggs hatched, the tongue's poison, the tail's blow — and it is one strike at
+the mark's column through `breachHull`, which under the owner's rule of 12
+September 2026 is the wave lost. The owner's own sequence says *else it
+damages the hull* at every step, and hull damage is the wave; so `StepBack`
+is **still not built** by this boss, on purpose, and the brief's *failure
+should not mean you lose* is answered here by the slip rather than by a
+retreat — a beat missed by a hair costs the pair the beat, not the wave.
+
+**Player 1 and Player 2.** Both see the whole body and every mark. The split
+is the marks themselves: on the *gape* he pulls the lower jaw down and she
+the upper jaw up; on *armed* he slaps the hand and she swipes the eggs; on
+*moulted* the sides swap, she slaps and he winds the tongue; on *turned*
+she alone pulls the tail and he has nothing to do but watch and say when
+she has it; on the *lunge* both thumbs on the one mark for four beats. Two
+of the five are one seat's while the other observes, which is the owner's
+first case; two are both seats in two places, his second; one is both on the
+one spot, his third.
+
+**Payoff.** Step 2. The two counts — six slaps and three swipes — land at
+different rates from different hands, and the last of each has to fall inside
+two beats of the other or the finished one slips. The pair cannot pace it by
+watching, because the other's count is the other's thumb; they have to say
+*now*, and the first time a slap slips back to nought for want of the word is
+the beat the boss is for.
+
+**Cost. Low for the simulation, high for the look.** The engine is a cursor,
+three clocks and six readings of one command, and it landed with nineteen
+tests. Everything the owner asked for by name — a body that transforms, moves
+and changes perspective between poses — is the look lane's, and it is the
+most drawing any boss on this page has asked for.
+
+**Reusable.** `BossSequenceStep` — built, and the next scene of this kind
+authors a script and nothing else. `TogetherWindow` — two marks that count
+only inside `n` beats of each other, with the slip; the page's
+`SimultaneousAction`, made concrete. `SeatMark` — a control that is on both
+screens and refuses one of them, which is the first handle in the game that
+says *whose* by where it is drawn.
+
+**Where this departs from the owner's sequence, and why.** Three places.
+*The circles are not two colours*: he said *two red circles*, and every mark
+is red, because this page's rule is that geometry says whose and a colour on
+a mark would be the third colour rule the pair has to learn. *The eggs do not
+hatch into bees*: nothing this boss does spawns a creature, because it fills
+its wave (`bossFillsWave`) and a wave with a scripted body and free bees in
+it is two waves; the undone eggs are a strike like every other undone mark.
+*The strike is the wave*: argued above. The sequence's *and so on* is five
+steps, which is the number the owner named plus the lunge that ends it; a
+sixth is one more entry in the script.
+
+**Built.** `claude/tutorial-boss-onscreen-actions-07cc80` — the engine and
+the simulation, written up as [bosses](bosses.md) §11.32 (wave `theInstar`,
+act 7e, control set `scene`). The look is the second lane and is not started.
+
+---
+
 ## Refused by name
 
 The sheet that came with the brief carries twelve cards. Ten of them are things
@@ -1958,7 +2074,7 @@ above cannot exist without.
 
 | Primitive | Must support | Ancestor | Wanted by |
 |---|---|---|---|
-| **`BossSequenceStep`** — **build first** | One beat of an authored scene: which seat, which gesture, which target, the window in beats, the landed branch, the missed branch, and the next index. Data in `packages/content`, read by index in `sim/`, with the cursor a hashed field the way `spawned` is (`decisions.md` #23) | `scene-script.ts` and `scene-step-types.ts` already do this for a guide's pages; `pulse-steps.ts` and `pulse-stages.ts` do it for a round | all fifteen |
+| **`BossSequenceStep`** — **built** | One beat of an authored scene: which seat, which gesture, which target, the window in beats, the landed branch, the missed branch, and the next index. Data in `packages/content`, read by index in `sim/`, with the cursor a hashed field the way `spawned` is (`decisions.md` #23) | `sim/instar.ts` — THE INSTAR (§16) is this primitive and nothing else: a pose, up to two marks, three clocks, read by index off `content/instar-script.ts`. The missed branch is the strike (the wave, under the owner's rule), the landed branch is the next index; a scene that wants another branch adds a field | all fifteen; 16, built |
 | **`SequentialAction`** | A step that may not be entered until the previous one landed. Falls out of the above for free | `simon.ts`'s step cursor | all fifteen |
 | **`SimultaneousAction`** | Two commands inside one window from two seats. The window, not the tick, is the unit — a shared *instant* is what [latency](latency.md) forbids | SYNC in `balance.ts`; THE BALLOON's two handles | 6, 8, 9, 10 |
 | **`Alternation`** | A step list that requires the acting seat to change, and refuses a repeat | `baton.ts` — THE BATON is whose turn it is, and the refusal is the fight | 10, built |

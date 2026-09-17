@@ -33,7 +33,8 @@ export type DragTarget =
   | "sinewLeft"
   | "sinewRight"
   | "surgeBulb"
-  | "antiphonOrgan";
+  | "antiphonOrgan"
+  | "instarMark";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -133,4 +134,16 @@ export type DragTarget =
  * `on`, like the bulb's, and either seat may send it; the organ is drawn on
  * the pilot's screen alone, so his is the thumb that finds it. No `id`, for
  * `orreryRing`'s reason: whatever stands turns, and it is the boss.
+ */
+
+/**
+ * `instarMark` is the fifteenth, and the first that is **many gestures on
+ * one name**: every mark on THE INSTAR's body is this target with `id`
+ * naming which, and what the thumb is to do there — tap, pull, swipe, turn,
+ * hold — is the mark's own, authored in the script and read by the
+ * simulation off the fields a drag already carries (`instar-hand.ts`). It is
+ * the panel of a boss with no control set at all, which is why one name and
+ * not six: the hand reports what it did, and the mark decides what that was
+ * worth. Which seat may send which is the mark's too, and the wrong one is
+ * refused with a sound rather than dropped in silence.
  */

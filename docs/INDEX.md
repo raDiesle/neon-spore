@@ -365,6 +365,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/index-creatures.ts` | one creature's own rules, as the rest of the repository reads them |
 | `packages/sim/src/index-run.ts` | the world, the clock, a wave's start and end, and the fingerprint |
 | `packages/sim/src/index-ship.ts` | the ship and what a thumb does to it, as a reading |
+| `packages/sim/src/instar-hand.ts` | A thumb on one of THE INSTAR's marks |
+| `packages/sim/src/instar-hash.ts` | What THE INSTAR puts into `hashWorld`, and nothing else |
+| `packages/sim/src/instar-marks.ts` | What happens to one mark: armed, answered, done, slipped |
+| `packages/sim/src/instar-step.ts` | THE INSTAR's clock: the morph, the window, the landing, the next pose |
+| `packages/sim/src/instar.ts` | THE INSTAR: a body over the field that will not move on until the pair has done what its own picture asks |
 | `packages/sim/src/bullet-hit-lure.ts` | What a shot does when it meets THE LURE |
 | `packages/sim/src/bullet-hit-shut.ts` | **The bodies a bolt never kills**, and what each of them does with one instead |
 | `packages/sim/src/bullet-refused.ts` | **A body the cannon cannot answer still stops the bolt**, and what each of them does with it |
@@ -454,6 +459,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-lead.ts` | **Everything THE LEAD does that neither screen already says**, as events |
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
+| `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -470,6 +476,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
+| `packages/sim/src/config-instar.ts` | THE INSTAR's tuning: the rules that hold across every step of a scene |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/curtain-hash.ts` | What THE CURTAIN puts into `hashWorld`, and nothing else |
@@ -581,6 +588,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-3b.ts` | The second half of act three, cut off `act-3.ts` when that file reached the 250-line ceiling on `THE VEIL` |
 | `packages/content/src/intro.ts` | WHAT THIS GAME IS, IN ONE SCENE |
 | `packages/content/src/index-shapes.ts` | Every shape on `@neon-spore/content`'s surface — contours, outlines and stacks — split off the barrel by subject |
+| `packages/content/src/instar-script.ts` | THE INSTAR's script: five poses, and what the pair does to each |
 | `packages/content/src/scenes/the-lance.ts` | THE LANCE's rehearsal: one shot instead of three |
 | `packages/content/src/scenes/pinball.ts` | PINBALL's rehearsal: the thing you fire from is the thing you have to catch it with |
 | `packages/content/src/scenes/the-gauge.ts` | THE GAUGE's rehearsal: neither of them has more than half a dial |
@@ -1451,6 +1459,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-surge.ts` | THE SURGE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
+| `packages/audio/src/bind-instar.ts` | THE INSTAR's eleven, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |

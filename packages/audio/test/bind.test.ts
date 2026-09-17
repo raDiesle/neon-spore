@@ -78,6 +78,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-scuttle.ts", "export type ScuttleEvent ="],
     ["packages/sim/src/events-antiphon.ts", "export type AntiphonEvent ="],
     ["packages/sim/src/events-hive.ts", "export type HiveEvent ="],
+    ["packages/sim/src/events-instar.ts", "export type InstarEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -253,6 +254,17 @@ const SAMPLES: Record<string, SimEvent> = {
   hiveSeal: { type: "hiveSeal", col: 3, left: 8 },
   hiveDown: { type: "hiveDown", col: 7 },
   hiveOut: { type: "hiveOut", col: 5 },
+  instarEnter: { type: "instarEnter", col: 5 },
+  instarMorph: { type: "instarMorph", col: 5, step: 1, pose: "armed" },
+  instarShow: { type: "instarShow", col: 5, step: 1 },
+  instarRefuse: { type: "instarRefuse", col: 3, mark: 0, player: 2 },
+  instarAnswer: { type: "instarAnswer", col: 3, mark: 0, part: "hand" },
+  instarDone: { type: "instarDone", col: 3, mark: 0, part: "hand" },
+  instarSlip: { type: "instarSlip", col: 7, mark: 1, part: "eggs" },
+  instarLand: { type: "instarLand", col: 5, step: 1 },
+  instarStrike: { type: "instarStrike", col: 7, part: "eggs" },
+  instarDown: { type: "instarDown", col: 5 },
+  instarOut: { type: "instarOut", col: 5 },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

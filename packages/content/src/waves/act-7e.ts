@@ -1,3 +1,4 @@
+import { INSTAR_SCRIPT } from "../instar-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -35,6 +36,16 @@ import type { Wave } from "../wave-types.js";
  * and a wave authored beside it would be a spill nobody could seal
  * (`sim/hive-step.ts`). What the pair's speed buys is how many breaches are
  * spilling at once, never whether one is.
+ *
+ * **THE INSTAR authors its script and nothing that falls.** The body is the
+ * wave (`instar-script.ts`, `bossFillsWave`), and **its guide says only that
+ * there is nothing to read.** The owner's ask of 17 September 2026 was a
+ * boss understood without a tutorial — and the game's rule is that the first
+ * wave on a panel carries one (`test/waves.test.ts`), so this one is the
+ * shortest it can be: the marks are the instruction, and where a mark sits
+ * says whose. Nothing in it names a gesture; the picture does that. The
+ * comment is up here rather than on the wave because the director writes
+ * this file back and keeps nothing between a wave's braces.
  */
 export const WAVES_ACT_7E: Wave[] = [
   {
@@ -94,5 +105,19 @@ export const WAVES_ACT_7E: Wave[] = [
     },
     entries: [],
     boss: { kind: "hive" },
+  },
+  {
+    id: "theInstar",
+    name: "THE INSTAR",
+    sentence:
+      "The one with no panel: its body is marked where it will hurt you, and whose thumb the mark wants.",
+    guide: {
+      both: "No buttons this time. The body over the field is marked in red where it is about to hurt the ship. Do what the mark shows, where it is, before it closes — and a mark done alone slips back if the other one is late.",
+      p1: "A mark on your side of the body is yours; one in the middle wants both thumbs. When the mark is hers, watch, and say when she has it.",
+      p2: "A mark on your side of the body is yours; one in the middle wants both thumbs. When the mark is his, watch, and say when he has it.",
+    },
+    entries: [],
+    boss: { kind: "instar", steps: INSTAR_SCRIPT },
+    controls: "scene",
   },
 ];

@@ -8,6 +8,7 @@ import type {
   GaugeEntry,
   GorgeEntry,
   HiveEntry,
+  InstarEntry,
   LeadEntry,
   LedgerEntry,
   OrreryEntry,
@@ -112,6 +113,13 @@ import type {
  *   sites are the health so there is no number, and a wave that authored
  *   which site opens next would be a boss with its swell printed on it
  *   (`sim/config-hive.ts`).
+ * - **THE INSTAR**'s script is authored in
+ *   `packages/content/src/instar-script.ts` as poses, marks and clocks — a
+ *   beat list read by index, which is THE PULSE's answer (a step-file is
+ *   already a picture) and THE SCOUT's (a mark is a place in thousandths):
+ *   the panel says where it is and gets out of the way. No column, the body
+ *   hangs over the middle; no number, the steps left are the health
+ *   (`sim/instar.ts`).
  *
  * - **THE TASTER** asks for nothing, and it is the one where the *absence* is
  *   the boss: the crest is centred so there is no column, the fan is the
@@ -153,7 +161,8 @@ export function bossAuthorsNothing(
   | LeadEntry
   | ScuttleEntry
   | AntiphonEntry
-  | HiveEntry {
+  | HiveEntry
+  | InstarEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -178,6 +187,7 @@ export function bossAuthorsNothing(
     kind === "lead" ||
     kind === "scuttle" ||
     kind === "antiphon" ||
-    kind === "hive"
+    kind === "hive" ||
+    kind === "instar"
   );
 }

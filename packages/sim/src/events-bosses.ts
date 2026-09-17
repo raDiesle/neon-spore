@@ -4,6 +4,7 @@ import type { CandleEvent } from "./events-candle.js";
 import type { CurtainEvent } from "./events-curtain.js";
 import type { GorgeEvent } from "./events-gorge.js";
 import type { HiveEvent } from "./events-hive.js";
+import type { InstarEvent } from "./events-instar.js";
 import type { LeadEvent } from "./events-lead.js";
 import type { LedgerEvent } from "./events-ledger.js";
 import type { ScuttleEvent } from "./events-scuttle.js";
@@ -49,7 +50,8 @@ export type BossEvent =
   | LeadEvent
   | ScuttleEvent
   | AntiphonEvent
-  | HiveEvent;
+  | HiveEvent
+  | InstarEvent;
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
@@ -57,6 +59,7 @@ export type { CandleEvent } from "./events-candle.js";
 export type { CurtainEvent } from "./events-curtain.js";
 export type { GorgeEvent } from "./events-gorge.js";
 export type { HiveEvent } from "./events-hive.js";
+export type { InstarEvent } from "./events-instar.js";
 export type { LeadEvent } from "./events-lead.js";
 export type { LedgerEvent } from "./events-ledger.js";
 export type { ScuttleEvent } from "./events-scuttle.js";

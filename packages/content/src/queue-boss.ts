@@ -162,6 +162,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // played (`sim/hive.ts` `hiveSiteCols`) and spills nothing but rocks from
   // them — so there is nothing to remap (`sim/hive-step.ts`).
   if (boss.kind === "hive") return { ...boss };
+  // THE INSTAR's marks are authored in thousandths of the field's width and
+  // height, which is already a fraction of whatever field is played — so
+  // there is nothing to remap (`sim/instar.ts`).
+  if (boss.kind === "instar") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

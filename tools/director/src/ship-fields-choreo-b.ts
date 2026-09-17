@@ -153,4 +153,16 @@ export const CHOREO_FIELD_GROUP_B = {
     "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   hiveOutBeats:
     "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  // InstarConfig — how close two seats' answers must be to be together, how
+  // far a swipe carries before it counts, THE SLOW on the last landing and
+  // how long the body hangs after (`config-instar.ts`). The clocks of every
+  // step are the script's own, not dials.
+  instarTogetherBeats:
+    "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
+  instarSwipeMilli:
+    "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
+  instarSlowBeats:
+    "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
+  instarOutBeats:
+    "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
 } satisfies Record<string, GroupName>;

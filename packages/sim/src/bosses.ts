@@ -25,6 +25,7 @@ export type {
   GaugeEntry,
   GorgeEntry,
   HiveEntry,
+  InstarEntry,
   LeadEntry,
   LedgerEntry,
   OrreryEntry,

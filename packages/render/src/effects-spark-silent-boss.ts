@@ -230,4 +230,16 @@ export const SILENT_BOSS = [
   "hiveSeal",
   "hiveDown",
   "hiveOut",
+  // THE INSTAR's eleven wait on the look lane; nothing is drawn for them yet.
+  "instarEnter",
+  "instarMorph",
+  "instarShow",
+  "instarRefuse",
+  "instarAnswer",
+  "instarDone",
+  "instarSlip",
+  "instarLand",
+  "instarStrike",
+  "instarDown",
+  "instarOut",
 ] as const satisfies readonly SimEvent["type"][];

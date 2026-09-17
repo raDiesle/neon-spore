@@ -53,6 +53,34 @@ export {
   hiveSwelling,
   hiveTwins,
 } from "./hive.js";
+// THE INSTAR's clock is the script's: a morph, a window, a landing, per step
+// (`instar.ts`) — and the engine every choreographed scene runs on.
+export {
+  type BossSequenceStep,
+  INSTAR_GESTURES,
+  INSTAR_PARTS,
+  INSTAR_PHASES,
+  INSTAR_POSES,
+  INSTAR_SEATS,
+  type InstarGesture,
+  type InstarMark,
+  type InstarPart,
+  type InstarPhase,
+  type InstarPose,
+  type InstarSeat,
+  type InstarState,
+  instarActing,
+  instarAllDone,
+  instarBoss,
+  instarDown,
+  instarHeld,
+  instarMarkCol,
+  instarMarkDone,
+  instarSeatHears,
+  instarStep,
+  instarStrikeBeat,
+  NOT_DONE,
+} from "./instar.js";
 export {
   type ScuttlePart,
   type ScuttlePartKind,

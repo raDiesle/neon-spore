@@ -60,7 +60,9 @@ section below had to pass before it was written.
 
 **Still in hand**
 
-Nothing, as of 17 September 2026: THE HIVE's look landed, and every design on this page is in the game or was taken out of it again. What is left undone is **inside** the built sections, each under its own *What is not built* paragraph, and the director's `◇ NOT BUILT YET` sheet is where those are read together.
+- **[THE INSTAR](#1132-the-instar--the-boss-with-no-panel-marked-where-it-will-hurt-you)** · 11.32 — the boss with no panel, marked where it will hurt you. The simulation landed 17 September 2026; the look is the next lane, and the owner's brief for it is quoted under *What is not built*
+
+Everything else on this page is in the game or was taken out of it again. What is left undone there is **inside** the built sections, each under its own *What is not built* paragraph, and the director's `◇ NOT BUILT YET` sheet is where those are read together.
 
 **Built — and what is still left on each is inside its own section**
 
@@ -93,6 +95,7 @@ Nothing, as of 17 September 2026: THE HIVE's look landed, and every design on th
 - **[THE LEAD](#1129-the-lead--the-boss-you-shoot-where-it-will-be)** · 11.29 — the boss you shoot where it will be
 - **[THE SCUTTLE](#1130-the-scuttle--the-boss-racing-you-to-its-own-death)** · 11.30 — the boss racing you to its own death
 - **[THE ANTIPHON](#1131-the-antiphon--the-boss-that-grows-a-thing-nobody-has-a-word-for)** · 11.31 — the boss that grows a thing nobody has a word for
+- **[THE INSTAR](#1132-the-instar--the-boss-with-no-panel-marked-where-it-will-hurt-you)** · 11.32 — the boss with no panel, marked where it will hurt you
 
 **Retired — shipped and taken out again, kept for the verdict**
 
@@ -4111,6 +4114,160 @@ the ship grows again with no second still; and the same run fingerprints
 the same way twice (`sim/test/antiphon.test.ts`, eighteen). Nothing was
 drawn, nothing was watched, and whether fourteen beats is a conversation
 or a wait is the owner's.
+
+## 11.32 THE INSTAR — the boss with no panel, marked where it will hurt you
+
+> The one with no buttons. Its body is marked in red where it is about to
+> hurt the ship, and the mark says whose thumb it wants.
+
+Designed as §16 of [bosses-choreographed](bosses-choreographed.md), from
+the owner's ask of 17 September 2026: a boss with **no control set**, only
+actions on the screen — one seat acting while the other watches and can
+see whose it is, both at once in two places succeeding inside the same
+moment, or both on the one spot — and *a pause with an animation, then
+the action shown, then the animation, then the action again*. It is the
+third of the three kinds in `.claude/skills/new-boss`, the choreographed
+scene, and the first one built whole: the field under it is still (wave
+`theInstar`'s `entries` are empty and it **fills its wave**,
+`bossFillsWave`), and the boss *is* the picture. It is also the boss that
+built the engine every scene of that kind was waiting for —
+`BossSequenceStep`, the step machinery the choreographed page said to
+build first.
+
+**It is a script, not a body.** Nothing of it is in `world.creatures`: the
+state (`sim/instar.ts`, hashed in `sim/instar-hash.ts`) is the **script**
+copied in from `packages/content/src/instar-script.ts` so content is never
+written to, the **cursor** — which step the scene is on, `steps.length`
+once the last has landed — the **phase** it is in and the beat it began,
+and four lists sized to the current step's marks: how far each is along in
+its own unit, the beat each reached its need (`-1` while it has not), the
+hand's reference for a turn's bearing or an armed swipe, and which seats'
+thumbs are on it as two bits. A step is a **pose** the body morphs into,
+up to two **marks** on it, and three clocks that are the step's own and
+not tuning — `morphBeats` with the marks hidden, `windowBeats` with them
+up, `landBeats` of the part giving before the next morph. The script is
+five poses: *gape*, *armed*, *moulted*, *turned*, *lunge*.
+
+**The rule, in one sentence.** The body morphs into a pose over its
+`morphBeats` (`instarMorph`, `instarShow` when the marks come up), and
+every mark on it must be done — by the seat it names, with the gesture it
+names, to the amount it names — with the step's marks done inside
+`instarTogetherBeats` (2) of each other, before `windowBeats` have run;
+then the beat is landed (`instarLand`), the body settles for `landBeats`
+and morphs into the next, and after the last it goes down under THE SLOW
+(`instarDown`, `instarSlowBeats` 2) and is out `instarOutBeats` (3) later
+(`instarOut`), which is when the wave may end (`bossHoldsWave`).
+
+**A mark is one `Command`.** Every gesture is a `drag` on the `instarMark`
+target with `id` naming the mark, and the six gestures are read off what a
+drag already carries (`sim/instar-hand.ts`): the **grab** is the first
+`on` from a seat whose thumb was not on the mark, a **move** every `on`
+after it, the **lift** `on: false`. A `tap` counts grabs, so a thumb held
+down is one slap and not a slap a tick. A `pullDown` or `pullUp` **stands
+at** the depth `fromYMilli` carries the part in its own direction, the
+other direction is nought, and a lift before the step lands lets the part
+go — back to nought. A `swipeDown` arms on a carry past `instarSwipeMilli`
+(600) and counts on the lift that follows: an egg is off when the thumb
+comes away. A `turn` winds clockwise like the crank, `fromMilli` a bearing
+and the step between two bearings up to half a turn the progress, said
+once a quarter turn so the sound is a ratchet. A `hold` is both thumbs on
+the one mark, counted a unit a beat by the clock (`sim/instar-step.ts`),
+and either thumb off before it is done is the hold broken. Every unit is
+`instarAnswer`; the need reached is `instarDone`, the part giving. **The
+wrong seat is refused** (`instarRefuse`), once per press, and moves
+nothing: the mark's place on the body says whose it is first, and this is
+what happens when that was not read.
+
+**Together means together.** A step with two marks lands only when both
+are done inside `instarTogetherBeats` of each other. A count reached alone
+and left waiting longer than that **slips** (`instarSlip`) back to nought
+with a sound, and the pair starts the beat again inside the same window.
+A pull or a hold never slips for waiting, because its *done* is a state
+the thumb keeps — letting go is what undoes it, and a partner already at
+depth slips with it on the beat. The slip is judged on the beat and not
+the tick, so a hand two ticks late on the other phone is not two ticks
+late: the window the pair is given is in beats, the unit they can hear.
+
+**The window closing is the wave.** A mark still undone when the window
+runs out is the part doing what the mark was there to stop — the weapon
+on the hull, the eggs hatched, the tongue's poison, the tail's blow — and
+that is `instarStrike` and one `breachHull` at the mark's column, which
+under the owner's rule of 12 September 2026 is the wave lost
+(`wave-fail.ts`). A strike is never two: the failed field is held from
+the next tick and this clock does not run under a hold; the invulnerable
+hull skips the loss and still says the strike.
+
+**The split is the marks.** Both seats see the whole body and every mark,
+and every mark is the same red — the owner asked for *red circles*, and
+this game's rule is that geometry says whose, not colour, so a mark on the
+left of the body is player 1's, on the right player 2's, one in the
+middle wants both. On the *gape* he pulls the lower jaw down and she the
+upper jaw up, one and a half tiles each, and both must be at depth at
+once. On *armed* he slaps the hand six times and she swipes the eggs off
+three times, downward, and the last of each has to fall inside two beats
+of the other. On *moulted* the sides swap — the morph is six beats,
+because the pair is meant to watch it: she slaps the second hand eight
+times and he winds the tongue back in, a turn and a half. On *turned* she
+alone pulls the tail up two tiles and he has nothing to do but watch and
+say when she has it. On the *lunge* both thumbs on the head for four
+beats. The guide says the rule in two halves and no more
+(`waves/act-7e.ts`), and the wave's control set is `scene` — no cannon, no
+shield, no colours, nothing on the band.
+
+**Where this departs from the owner's sequence, and why.** Four places,
+each argued by name. **The circles are not two colours**: every mark is
+red, and whose it is is where it is drawn, because a colour on a mark
+would be a third colour rule for the pair to learn and the choreographed
+page's own rule is that geometry says whose. **The eggs do not hatch into
+bees**: nothing this boss does spawns a creature, because it fills its
+wave and a scripted body with free bees under it is two waves; undone
+eggs are a strike like every other undone mark. **A missed beat is the
+wave and not a step back**: the owner's sequence says *else it damages
+the hull* at every step and hull damage is the wave by his own rule, so
+`StepBack` stays unbuilt and the brief's *failure should not mean you
+lose* is answered by the slip — a beat missed by a hair costs the beat,
+not the wave. **The sequence is five steps**: the four he named and the
+lunge that ends it; his *and so on* is one more entry in the script, and
+nothing else has to change for it. And one thing that is not a departure
+but a judgment: **it fills its wave**, which is THE SCUTTLE's case on the
+choreographed page — the ruling that *a boss on this page is fed by its
+wave* is about a boss that reads the wave, and this one reads nothing
+but its own script.
+
+**What is not built.** The look, whole — this is the first of the two
+lanes. The owner's brief for the second, in his words: *detailed and nice
+graphics like the bulb queen or the warden, and the enemy transforms and
+moves and changes perspective and appearance during the animations.*
+With it goes everything a thumb needs to find a mark: the `instarMark`
+hit test and its bearing in `render/touch.ts`, the `FIELD_CONTROLS` row
+and its pose and the [controls](controls.md) row — deferred on purpose,
+because a row needs a picture of the answered state and a hit test, and
+neither exists before the look — and the eleven events out of the two
+silent lists (`render/effects-ingest-silent-boss-b.ts`,
+`effects-spark-silent-boss.ts`). The sounds are bound
+(`audio/bind-instar.ts`): a cue per event, panned to the mark's column,
+the landing pitched a shade higher each step. The guide's rehearsal is the three
+strings and not a film.
+
+**Never watched at tempo.** What the tests say is the mechanism: it comes
+in over the middle morphing into its first pose with the marks hidden, and
+a thumb before the marks are up is nothing; both pulls at depth land the
+step and it settles into the next morph; a pull standing alone waits, and
+letting go is what undoes it; a tap done alone slips once its partner is
+more than the together beats late, and a tap and a tap inside them land;
+a mark alone on its step never slips; a tap counts the press and not the
+hold; a pull reads its own direction only and stands where the thumb is; a
+swipe counts on the lift and only one carried past the line; a turn winds
+clockwise like the crank and anticlockwise not at all; a hold counts by
+the beat with both thumbs on and breaks on a lift; the wrong seat is
+refused once per press and moves nothing; the window closes on an undone
+mark with one strike and the wave is lost; it never strikes twice; the
+invulnerable hull is still told; the last landing is THE SLOW, the body
+down, then out, and the wave cleared; the wave is held open until the
+body is out; and the same script and thumbs fingerprint the same way
+twice (`sim/test/instar.test.ts`, nineteen). Nothing was drawn, nothing
+was watched, and whether twelve beats is a window or a wait is the
+owner's.
 
 ## Retired
 

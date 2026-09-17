@@ -339,3 +339,29 @@ included, after the same `now` substitution; or a per-boss preset table
 (`--boss-state thread`) next to `installBoss`, each preset a function of the
 installed state. A test: `--boss-json '{"sockets":[1,1,0]}'` on THE BATON
 writes the array and refuses a key the boss does not have.
+
+## `hash-fixture.ts` is three times its limit and every boss adds a branch to it
+
+- **Found:** 2026-09-17, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `packages/sim/test/hash-fixture.ts`, `packages/sim/test/hash-coverage.test.ts`
+
+The fixture stands at 738 lines: one `BOSS_ENTRIES` entry and one `patchBoss`
+branch per boss, thirty-four of each, and THE INSTAR's put a fifth screen of
+them in. Every field of every branch is there so `hash-coverage` can prove a
+`null` the fixture never changed, so nothing in it can go — but nothing
+requires it to be one file. Split it the way `bosses-clocks.ts` was split:
+`hash-fixture-bosses-a.ts` / `-b.ts` holding the entries and the patches for
+their half of `BOSS_KINDS`, `hash-fixture.ts` composing the two and keeping
+the world. A test: `hash-coverage.test.ts` unchanged and green, and no file
+of the three over 250.
+
+## `effects-spark-silent-boss.ts` has no room for the next boss's events
+
+- **Found:** 2026-09-17, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `packages/render/src/effects-spark-silent-boss.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`
+
+The spark's silent list is at 242 lines after THE INSTAR's eleven events;
+the ingest list already has its `-b` page. Cut the spark list the same way
+before the next boss — `effects-spark-silent-boss-b.ts` from THE HIVE on,
+the first page re-exporting it — so the next lane adds a row rather than a
+split. A test: the silent-list coverage test unchanged and green.

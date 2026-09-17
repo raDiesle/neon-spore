@@ -33,6 +33,7 @@ type BossId = Extract<
   | "scuttle"
   | "antiphon"
   | "hive"
+  | "instar"
 >;
 
 /**
@@ -162,6 +163,10 @@ export const BOSS_MECHANICS = {
   },
   undertow: {
     what: "The one boss that comes up through the floor. A plate of the hull bows for four beats — only the pilot sees which, on his own screen — and then a lobe stands up through it into the field. A standing lobe is taken by the maw opened under it, from the cannon's own column; a lobe too tall for the maw is taken by the beam alone. One that stands its four beats untaken withdraws and leaves the breach as a scar, and while it stands the breach widens each beat the plate is not standing on it, until a second lobe comes through next door — the first time in the game the shield faces down. Two come up four columns apart, so the maw can reach one and the pair have to agree which. Then the floor bows under the cannon itself, and the pilot has two beats to slide off or his seat is swallowed. Last, the whole edge lights and one lobe rises in the middle column: the maw held open under it for six beats takes the body down through the breach; ten beats standing and it comes through the other way.",
+    reach: "spawn",
+  },
+  instar: {
+    what: "The one boss with no control set: the panel is its body. It hangs over an empty field and morphs, pose by pose, and in each pose red marks come up on the parts of it that are about to hurt the ship — a jaw, a hand with a weapon in it, a clutch of eggs, a tongue, a tail, the head — and where a mark sits says whose thumb it wants. One seat acts while the other watches and says so; or both act at once in two places and the last of the two must land inside two beats of the other, or the first slips back to nought; or both thumbs hold the one mark. A pull is held at its depth, a slap is counted, an egg is swiped off, a tongue is wound in, a head is held. Every mark done together lands the beat, the body settles and morphs to the next pose; a window that closes with a mark undone is the part striking the hull, which is the wave. Nothing is written for the pair to read: the mark is the instruction. Five poses, and the last lands under THE SLOW.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

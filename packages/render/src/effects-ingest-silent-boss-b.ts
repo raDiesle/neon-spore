@@ -42,4 +42,18 @@ export const INGEST_SILENT_BOSS_B = [
   "hiveSeal",
   "hiveDown",
   "hiveOut",
+  // THE INSTAR's eleven: silent until the look lane draws the body, its
+  // poses and its marks — a scene with no picture yet has nothing for a
+  // frame to answer (`docs/spec/bosses.md` §11.32, *What is not built*).
+  "instarEnter",
+  "instarMorph",
+  "instarShow",
+  "instarRefuse",
+  "instarAnswer",
+  "instarDone",
+  "instarSlip",
+  "instarLand",
+  "instarStrike",
+  "instarDown",
+  "instarOut",
 ] as const satisfies readonly SimEvent["type"][];

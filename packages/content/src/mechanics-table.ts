@@ -137,6 +137,7 @@ export const MECHANICS = {
   scuttle: BOSS_MECHANICS.scuttle,
   antiphon: BOSS_MECHANICS.antiphon,
   hive: BOSS_MECHANICS.hive,
+  instar: BOSS_MECHANICS.instar,
   vane: {
     what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
     reach: "spawn",
