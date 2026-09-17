@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · e60ac7b5 — THE HUSK's two drafts become a VERSUS slot, and the creature leaves NOT BUILT YET
+
+The shape sheet's HUSK 1 and HUSK 2 — the pod's contour with its mass gone to the bottom, and the same with one shoulder fallen in — were drawn for a fourth pod kind whose tell was a dead core and a sag. The husk that shipped is a flag on a pod with a white frame on player 2's screen, so the two cards described a look the game does not draw. The owner's answer on 17 September 2026: they move to VERSUS as a second look for the shipped mark. `pod:husk-tell` is open with `sag` and `dent`, each drawing player 1 the pod and player 2 a sagging body with the light out and no frame, judged on a new pose of a husk hanging alone on player 2's screen. The Husk bullet is off `ideas.md`, the CREATURE IDEAS group is off the NOT BUILT YET page with its last name, and the catalogue counts twenty-two drafts.
+
 ## 2026-09-17 · 08a8855f — Mark the imports test's timeout done
 
 ## 2026-09-17 · 50f89c25 — The case that spawns biome runs under a cap of its own
