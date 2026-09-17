@@ -253,6 +253,7 @@ guarding against is the first half of this item.
 ## `baseline:blank` leaves the rows behind an inserted wave a number stale
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Taken:** 2026-09-17, claude/queue-baseline-blank-leaves-the-rows-behind-an-inserte
 - **Files:** `tools/perf/blank.ts`, `tools/perf/unmeasured.ts`, `tools/perf/test/baseline.test.ts`
 
 `fillUnmeasured` renumbers every row to today's wave list (`renumber.ts`),
