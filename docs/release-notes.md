@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · f4e43954 — The menu's wiring stands beside the shell, not inside it
+
+`bindShell` handed `bindMainMenu` forty-five lines of hooks in a file two lines under its ceiling. They are now `menuWiring(p, deps)` in `apps/game/src/shell-menu.ts`, returning the `MenuBindings` the type file already named; the shell keeps its order — the link first, the three screens before it reports, the `opensOnMenu` gate below the bind — and is 219 lines. The two tests that read the shell's source follow the wiring to its file.
+
 ## 2026-09-17 · 4939a0c7 — THE SURGE, the look: a ribbed bulb over the field with the gauge on its seam read by seat
 
 A look with no shipped alternative. A seven-lobed bulb hung high over the middle column with a dark seam round its equator; the pilot's screen shows the notches on the seam — the next one's band, the slits opened, the ticks to come — and never the pressure, the navigator's shows the pressure as one mark sliding along the seam and never a notch, and the body swells only where the pressure is shown. A grip mark on each flank with the word HOLD under it, and the whole bulb one hit circle for both seats — the first handle in the game taken by both thumbs at once. A burst pinches it dim and shut; the last vent folds it through its own equator and it fades. The twelve events are one family read above the loop (`surge-fx.ts`): the sink, the jet and the jolt.
