@@ -196,6 +196,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## `bun run format` cannot fix what `bun run lint` reports about import order
 
 - **Found:** 2026-09-17, claude/boss-taster
+- **Taken:** 2026-09-17, claude/queue-bun-run-format-cannot-fix-what-bun-run-lint-repo
 - **Files:** `package.json`, `tools/imports/run.ts`
 
 `lint` is `biome check --error-on-warnings .`, with the assist enabled by
