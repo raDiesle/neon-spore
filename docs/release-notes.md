@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · fb63f2ab — THE GORGE's sack: a boss that swallows every shot as a bead, pierced only by the fifth into one full intake, and ended by the beam in its mouth
+
+The first half of the fourth choreographed boss (docs/spec/bosses-choreographed.md §3). A sack seven intakes wide hangs under the top of the field and swallows every shot that leaves it: the intake's colour fills it a bead, the other colour takes one out. Four beads fill an intake and the next shot ruptures it for good — but a full intake nobody pierces vents a torch, and from two ruptures the sack spits the pair's own beads back as bodies. At four ruptures the intake nearest the centre becomes the mouth, feeds itself, and only the beam in its colour while it is full ends the fight. Nine events, nine sounds, thirteen tests, the wave in act 7, and the director's sheet; the look is the next lane.
+
 ## 2026-09-17 · 2abe6443 — The field a hit stopped stops in the picture too
 
 `step` has held the world after a hull breach since the lost screen was written: nothing falls, nothing fires, nothing spawns. The picture went on moving anyway. The tick keeps counting through the hold, and `drawnRow` eases a body from `fromRow` to `row` across the phase of the beat, so every body finished the step it was halfway through — a rock caught mid-fall slid on down its column under a screen saying the wave was lost. The owner, 17 September 2026: *everything on the game area should stay at their current position in the moment hull took damage, and neither disappear nor continue falling.*
