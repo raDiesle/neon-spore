@@ -7,6 +7,7 @@ import { stepCurtain } from "./curtain-step.js";
 import { stepDiastole } from "./diastole-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepGorge } from "./gorge-step.js";
+import { stepLedger } from "./ledger-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
 import { stepOrrery } from "./orrery-step.js";
@@ -124,6 +125,15 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // `bullets.ts` and `lance-burn.ts` (`taster-shot.ts`).
   if (boss.kind === "taster") {
     stepTaster(world, boss);
+    return;
+  }
+  // THE LEDGER on the beat is the cord's clock: the returns reaching the
+  // socket and warded there or not, the root walking one column along the hull
+  // with each of them, and the tear. Both halves of what a shot costs are on
+  // the tick — one at the top of the field and one at the muzzle
+  // (`ledger-shot.ts`).
+  if (boss.kind === "ledger") {
+    stepLedger(world, boss);
     return;
   }
   // THE SINEW on the beat is the tendon's clock: the sum read against the

@@ -151,6 +151,25 @@ export const NO_SUBJECT: Record<string, string> = {
     "a single bolt turned away by the interlock. What it marks is nothing happening.",
   "boss.tasterOut":
     "the fan thrown open by the beam. Like boss.gorgeOut, what this marks is a frame with nothing under its top — an absence rather than a thing standing anywhere.",
+  // THE LEDGER's eleven. The boss is a body and a cord, and the cord is what
+  // every one of these is about: the sheet has cards for bodies, and a length
+  // of tension between two of them is not one.
+  "boss.ledgerRoot":
+    "the cord paying out and going into the plating. What it marks is a line between the boss and the ship rather than either of them (`sim/ledger.ts`).",
+  "boss.ledgerSeam": "the split down its middle widening by one. Same argument.",
+  "boss.ledgerRefused":
+    "a bolt off the plating or in the wrong colour. What it marks is nothing happening.",
+  "boss.ledgerBead": "a return starting down the cord. Same argument as the root.",
+  "boss.ledgerWard": "the return turned in the socket. Same argument.",
+  "boss.ledgerWhip": "the same return thrown back up the cord. Same argument.",
+  "boss.ledgerBill":
+    "the return landing in the socket unanswered. What it marks is the hull taking a hit, which is `impact`'s subject and not a body of this boss's.",
+  "boss.ledgerSocket": "the root sliding a column along the hull. Same argument as the root.",
+  "boss.ledgerLast": "the fifth return, the one to let through. Same argument.",
+  "boss.ledgerHeld":
+    "the last return warded anyway and refused. What it marks is nothing happening.",
+  "boss.ledgerTear":
+    "the cord out of the ship and the halves parting. Like boss.gorgeOut, what this marks is a frame with nothing under its top — an absence rather than a thing standing anywhere.",
   // THE SINEW's thirteen. The boss is a rope the sheet has no card for, and
   // what these mark is a pull, a hold and a fall, never a body standing anywhere.
   "boss.sinewSettle":

@@ -102,6 +102,15 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // rope to shield is the whole cost of step 7, and a wave with nothing but
   // colours under the mass would let the navigator shoot without letting go.
   "THE SINEW": ["meteor"],
+  // THE LEDGER introduces no creature either — what is new is that a hit the
+  // pair lands comes back at their own hull — and every arrival on it is a
+  // kept kind. The rock is the one arrival the *guard* answers rather than
+  // the cannon, and on this boss that is the whole lesson: from the second
+  // hit the cord bills every shot the cannon takes, so a wave of nothing but
+  // colours would be a wave where answering the field is the thing that
+  // kills them, and the pair would read the bill as unfair rather than as a
+  // choice about what to shoot at all.
+  "THE LEDGER": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

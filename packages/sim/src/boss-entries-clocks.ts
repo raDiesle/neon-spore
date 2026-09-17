@@ -169,3 +169,15 @@ export interface TasterEntry {
 export interface SinewEntry {
   kind: "sinew";
 }
+
+/**
+ * What a wave authors when it wants THE LEDGER: nothing, the eleventh. The
+ * body stands over the middle of the field and the cord goes into the hull
+ * under it; where the socket walks to is the fight's own arithmetic and the
+ * colour the seam shows is the seeded rng's, so a wave that authored either
+ * would be answering the question the pair is there to be asked
+ * (`ledger.ts`, `config-ledger.ts`).
+ */
+export interface LedgerEntry {
+  kind: "ledger";
+}

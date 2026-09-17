@@ -4,6 +4,7 @@ import { candleHashParts } from "./candle-hash.js";
 import { curtainHashParts } from "./curtain-hash.js";
 import { diastoleHashParts } from "./diastole-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
+import { ledgerHashParts } from "./ledger-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
 import { stareHashParts } from "./stare-hash.js";
@@ -79,6 +80,11 @@ export function clockHashParts(boss: BossState): number[] {
   }
   if (boss.kind === "curtain") {
     for (const n of curtainHashParts(boss)) out.push(n);
+  }
+  // THE LEDGER: the seam, the socket and every return on the cord
+  // (`ledger-hash.ts`).
+  if (boss.kind === "ledger") {
+    for (const n of ledgerHashParts(boss)) out.push(n);
   }
   // THE TASTER: every blade's edge, thickness and clock (`taster-hash.ts`).
   if (boss.kind === "taster") {

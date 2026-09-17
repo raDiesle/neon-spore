@@ -4,6 +4,7 @@ import { candleCue } from "./bind-candle.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
 import { gorgeCue } from "./bind-gorge.js";
+import { ledgerCue } from "./bind-ledger.js";
 import { sinewCue } from "./bind-sinew.js";
 import { tasterCue } from "./bind-taster.js";
 import { undertowCue } from "./bind-undertow.js";
@@ -30,6 +31,7 @@ type ChoreographedEvent = Extract<
       | `gorge${string}`
       | `curtain${string}`
       | `taster${string}`
+      | `ledger${string}`
       | `sinew${string}`;
   }
 >;
@@ -86,6 +88,18 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "tasterRefused":
     case "tasterOut":
       return tasterCue(e, cols);
+    case "ledgerRoot":
+    case "ledgerSeam":
+    case "ledgerRefused":
+    case "ledgerBead":
+    case "ledgerWard":
+    case "ledgerWhip":
+    case "ledgerBill":
+    case "ledgerSocket":
+    case "ledgerLast":
+    case "ledgerHeld":
+    case "ledgerTear":
+      return ledgerCue(e, cols);
     case "sinewSettle":
     case "sinewGrip":
     case "sinewRelease":

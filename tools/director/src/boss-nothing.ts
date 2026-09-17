@@ -6,6 +6,7 @@ import type {
   DiastoleEntry,
   GaugeEntry,
   GorgeEntry,
+  LedgerEntry,
   OrreryEntry,
   ScoutEntry,
   SinewEntry,
@@ -88,6 +89,13 @@ import type {
  *   setting the only thing about this fight that is meant to be the pair's own
  *   doing (`sim/config-taster.ts`).
  *
+ * - **THE LEDGER** asks for nothing for THE TASTER's reason said about a
+ *   column rather than a colour: the body stands over the middle, the seam is
+ *   the health, and where the cord's socket walks to is the fight's own
+ *   arithmetic — a wave that authored the column the plate has to be in would
+ *   be answering the only question this boss asks
+ *   (`sim/config-ledger.ts`).
+ *
  * A boss added to this list and given a form next door is a form nobody can
  * reach; one left off it and given no form falls through to the queen's, which
  * is what this question exists to stop.
@@ -108,7 +116,8 @@ export function bossAuthorsNothing(
   | GorgeEntry
   | CurtainEntry
   | TasterEntry
-  | SinewEntry {
+  | SinewEntry
+  | LedgerEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -127,6 +136,7 @@ export function bossAuthorsNothing(
     kind === "gorge" ||
     kind === "curtain" ||
     kind === "taster" ||
-    kind === "sinew"
+    kind === "sinew" ||
+    kind === "ledger"
   );
 }

@@ -33,6 +33,7 @@ export {
   type FleetEntry,
   type GaugeEntry,
   type GorgeEntry,
+  type LedgerEntry,
   type OrreryEntry,
   type PinballEntry,
   type PulseEntry,

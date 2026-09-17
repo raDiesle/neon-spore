@@ -6,6 +6,7 @@ import { hullRow, ticksPerBeat } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { gorgeStruck } from "./gorge-step.js";
+import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { orreryStruck } from "./orrery-shot.js";
@@ -68,6 +69,10 @@ function launch(world: World, color: Color): void {
   // colour it means rather than the one that was pressed: what a boss tastes
   // is the ammunition that went past it (`spend.ts`).
   spendShot(world, means);
+  // **And the one place the cord bills for it**, beside the count for the same
+  // reason: from the third hit THE LEDGER charges the pair a return for every
+  // shot the cannon takes, whatever it was aimed at (`ledger-shot.ts`).
+  ledgerBills(world);
   world.bullets.push({
     id: world.nextId++,
     col: world.cannonCol,
@@ -184,6 +189,9 @@ function sweep(world: World, b: Bullet): boolean {
     // And THE TASTER's fan, where the colour that breaks a blade is the one it
     // is not (`taster-shot.ts`).
     tasterStruck(world, b);
+    // And THE LEDGER's seam, which only the middle column of it is, and only
+    // in the colour it is showing (`ledger-shot.ts`).
+    ledgerStruck(world, b);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

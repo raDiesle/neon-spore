@@ -6,6 +6,7 @@ import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
+import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
@@ -81,6 +82,9 @@ export function releaseLance(world: World): void {
   // held and one column burnt, however many bodies are standing in it
   // (`spend.ts`).
   spendShot(world, color);
+  // And THE LEDGER's bill for it, beside the count: a beam is one shot the
+  // cannon took, so the cord charges one return for it (`ledger-shot.ts`).
+  ledgerBills(world);
   world.events.push({ type: "lanceFull", col });
   world.events.push({ type: "fire", col, color, lance: true });
   world.beam = { col, color, left: beamTicks(world.cfg), topMilli: burnColumn(world, col, color) };
@@ -152,5 +156,7 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE TASTER, where the beam in the colour the pair has spent least of
   // is the one thing that opens the closed fan (`taster-shot.ts`).
   tasterStruck(world, b);
+  // And THE LEDGER's seam, which the beam widens like a bolt would.
+  ledgerStruck(world, b);
   return 0;
 }

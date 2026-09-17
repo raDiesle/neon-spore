@@ -201,4 +201,25 @@ export const WAVES_ACT_7D: Wave[] = [
     ],
     boss: { kind: "sinew" },
   },
+  {
+    id: "theLedger",
+    name: "THE LEDGER",
+    sentence: "The one where every hit you land comes back at your own hull.",
+    guide: {
+      both: "A body hangs over the middle of the field on a thick cord rooted in your own hull. Every hit you land on the split down its middle comes back down that cord as damage, landing in the socket four beats later — ward it there the way you ward a rock, or the hull takes it and the wave is lost. Each return slides the socket a column along the ship. Once the split is open the cord charges you for every shot you fire at anything, and a warded return is thrown back up it and widens the split for nothing. Five hits part it.",
+      p1: "You carry the cannon and the trigger. Stand on the middle column to hit the split, and trigger on the beat the return lands — she has the column it is landing in. The last return is not yours to stop.",
+      p2: "You load the colour the split is showing and carry the plate. Say which column the socket has walked to, every time, and get there before the beat. On the last return, take the plate out of that column and let it land.",
+    },
+    entries: [
+      { beat: 18, col: 1, kind: "meteor", color: null },
+      { beat: 26, col: 5, color: "red" },
+      { beat: 34, col: 3, color: "cyan" },
+      { beat: 44, col: 0, kind: "meteor", color: null },
+      { beat: 52, col: 6, color: "red" },
+      { beat: 62, col: 2, color: "cyan" },
+      { beat: 72, col: 4, kind: "meteor", color: null },
+      { beat: 82, col: 5, color: "cyan" },
+    ],
+    boss: { kind: "ledger" },
+  },
 ];

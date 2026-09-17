@@ -3,6 +3,7 @@ import { CANDLE_DEFAULTS, type CandleConfig } from "./config-candle.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
+import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
 import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
 import { SINEW_DEFAULTS, type SinewConfig } from "./config-sinew.js";
 import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
@@ -51,7 +52,8 @@ export interface BossClockConfig
     GorgeConfig,
     CurtainConfig,
     TasterConfig,
-    SinewConfig {}
+    SinewConfig,
+    LedgerConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -65,4 +67,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...CURTAIN_DEFAULTS,
   ...TASTER_DEFAULTS,
   ...SINEW_DEFAULTS,
+  ...LEDGER_DEFAULTS,
 };

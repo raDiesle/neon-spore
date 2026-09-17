@@ -120,6 +120,10 @@ export function serializeBoss(boss: BossEntry): string {
   // And THE SINEW, the eleventh: no column, the mass hangs over the middle; no
   // health, the fibres are it (`sim/config-sinew.ts`).
   if (boss.kind === "sinew") return '{ kind: "sinew" }';
+  // And THE LEDGER, the twelfth: no column, the body stands over the middle and
+  // the cord's socket walks from under it; no health, the seam is it
+  // (`sim/config-ledger.ts`).
+  if (boss.kind === "ledger") return '{ kind: "ledger" }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

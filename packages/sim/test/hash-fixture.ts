@@ -208,6 +208,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // (`config-taster.ts`), and every edge is read off what the pair has spent
   // by the time the fixture's world is fingerprinted (`taster-hash.ts`).
   taster: { kind: "taster" },
+  // THE LEDGER authors nothing either: the body's width, the seam's length and
+  // the cadence are tuning (`config-ledger.ts`), and the socket, the colour the
+  // seam shows and every return on the cord are what the fixture's world has
+  // moved by the time it is fingerprinted (`ledger-hash.ts`).
+  ledger: { kind: "ledger" },
   // THE SINEW authors nothing either: the fibres, the reach and the zone's
   // width are tuning (`config-sinew.ts`), and how deep each hand has pulled,
   // how slack it has gone and where the zone was rolled are what the
@@ -575,6 +580,21 @@ function patchBoss(world: World): void {
     boss.liftBeat = 3;
     boss.edgeBeat = 2;
     boss.outBeat = 4;
+  }
+  if (boss.kind === "ledger") {
+    // A seam part way open with a return on the cord and the socket walked off
+    // its start, and every clock that only a tear sets given a beat — the walk
+    // cannot flip a `-1` it never sees change. The bead is the field that
+    // matters: a cord the two devices disagree about is one screen warding an
+    // empty socket (`ledger-hash.ts`).
+    boss.socket = 4;
+    boss.walk = -1;
+    boss.want = "cyan";
+    boss.seam = 2;
+    boss.warded = 1;
+    boss.rootBeat = 1;
+    boss.outBeat = 5;
+    boss.beads = [{ beat: 6, span: 3, last: false }];
   }
   if (boss.kind === "sinew") {
     // Both hands on and carried, some slack, and every clock that only a

@@ -67,6 +67,11 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // tendon the cannon cannot touch, that falls only what the pair's own
   // snap-backs shake out of it (`sinew-step.ts`). The arrivals under it are
   // authored, so that letting go of the handles to shoot is a decision.
+  // THE LEDGER is the twelfth, and its wave is the bill: from the third hit
+  // the cord charges the pair for **every** shot the cannon takes, so what
+  // falls has to be the wave's own or the boss would be posting itself the
+  // bills it then makes them ward (`ledger.ts`). The arrivals are authored for
+  // the one decision the design asks for — *choose what to shoot at all*.
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -78,7 +83,8 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
     kind !== "undertow" &&
     kind !== "gorge" &&
     kind !== "taster" &&
-    kind !== "sinew"
+    kind !== "sinew" &&
+    kind !== "ledger"
   );
 }
 
@@ -151,4 +157,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "curtain",
   "taster",
   "sinew",
+  "ledger",
 ];

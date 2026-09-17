@@ -166,6 +166,23 @@ export const ROUND_NOTES = {
     "have spent least of opens it, holding the wave tasterOutBeats more. " +
     "Nothing about it is authored per wave. See sim/taster.ts, " +
     "sim/spend.ts, sim/config-taster.ts.",
+  "THE LEDGER — the boss that bills your own hull for every shot":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §5: " +
+    "the first boss whose damage travels the other way. A body ledgerCols " +
+    "wide stands over the middle of the field with a cord out of its " +
+    "underside rooted in the hull, and the seam down its middle takes " +
+    "ledgerSeamHits hits — each one in the colour the seam is showing, and " +
+    "each one sending the same damage back down the cord into the socket " +
+    "ledgerCadenceBeats beats later, one beat less per hit and never under " +
+    "ledgerCadenceMinBeats. The plate in the socket's column with the " +
+    "trigger on that beat wards it; nobody there and the hull takes it, " +
+    "which loses the wave. Every return walks the root ledgerSocketStep " +
+    "columns along the hull. From ledgerWhipSeam hits the cord bills every " +
+    "shot the cannon takes and a warded return is thrown back up it, " +
+    "widening the seam for nothing. The last return is the one to let " +
+    "through: unwarded it tears the cord out and the halves part over " +
+    "ledgerOutBeats. Nothing about it is authored per wave. See " +
+    "sim/ledger.ts, sim/config-ledger.ts.",
   "THE SINEW — the boss that asks how hard, not when":
     "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §8: " +
     "the boss whose question is a magnitude. A mass sinewMassCols wide hangs " +

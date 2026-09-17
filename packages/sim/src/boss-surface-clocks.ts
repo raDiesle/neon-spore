@@ -74,6 +74,16 @@ export {
   gorgeNearestFull,
   gorgePhase,
   gorgeSink,
+  // THE TASTER's entry, which authors nothing — the director's own guard
+  // narrows on it (`tools/director/src/boss-nothing.ts`) — and then the fan
+  // itself, which a screen has to read a blade at a time: what each edge is,
+  // how thick, which are soft, whether the crest is cut through, and which
+  // column the next blade comes out of. The two the picture deliberately does
+  // **not** import are `tasterLean` and `tasterWeak`: the colour the pair is
+  // leaning on is on the screen already, in every edge the fan has set, and
+  // the colour the beam has to be is the one thing in this fight nobody is
+  // shown (`taster-draw.ts`).
+  type LedgerEntry,
   NO_RING,
   ORRERY_PHASES,
   ORRERY_RINGS,
@@ -121,15 +131,6 @@ export {
   stareTellLeft,
   stareTurning,
   stareWatches,
-  // THE TASTER's entry, which authors nothing — the director's own guard
-  // narrows on it (`tools/director/src/boss-nothing.ts`) — and then the fan
-  // itself, which a screen has to read a blade at a time: what each edge is,
-  // how thick, which are soft, whether the crest is cut through, and which
-  // column the next blade comes out of. The two the picture deliberately does
-  // **not** import are `tasterLean` and `tasterWeak`: the colour the pair is
-  // leaning on is on the screen already, in every edge the fan has set, and
-  // the colour the beam has to be is the one thing in this fight nobody is
-  // shown (`taster-draw.ts`).
   TASTER_PHASES,
   type TasterBlade,
   type TasterEntry,

@@ -293,3 +293,29 @@ obvious answer — but `--assist-enabled=false` was put there on purpose by
 somebody and the reason is written down nowhere, so finding out what it was
 guarding against is the first half of this item.
 - **Asks:** Should `format` sort imports, should `lint` stop asking, or should the incantation get a script of its own?
+
+## `ship-notes-round.ts` is at 249 lines and the next boss has nowhere to write
+
+- **Found:** 2026-09-17, claude/boss-ledger
+- **Files:** `tools/director/src/ship-notes-round.ts`, `tools/director/src/ship-groups.ts`
+
+Every boss lane writes the director one paragraph — what the mechanic is, in
+the sheet's own voice, keyed by the group title (`.claude/skills/new-boss`,
+step 4). THE LEDGER's put this file at 249 lines, so the next boss cannot add
+its paragraph without rewording another boss's, which is the same tax
+`effects-spark-silent.ts` and `view-role.ts` are already queued for and the
+same answer: the file has a seam and it has been cut along it next door in
+this very lane. `ship-fields-round.ts` went over in the same turn and became
+`ship-fields-choreo.ts` — the dials of the bosses on
+`docs/spec/bosses-choreographed.md`, nine of them for THE LEDGER alone — and
+the notes divide the same way, because the notes and the dials are keyed by
+the same `GroupName`.
+
+What to do: cut the choreographed bosses' notes into a `ship-notes-choreo.ts`
+beside the fields file, re-export it from `ship-notes-round.ts` the way
+`ship-groups.ts` re-exports `GROUP_NOTE` today, and leave the rounds' own
+notes where they are. The record's type is what holds it together, so the
+exhaustiveness the tests check (`tools/director/test/ship-fields.test.ts`,
+`ship-notes.test.ts`) survives the move unchanged — the same property the
+fields split kept, and the reason that one took twenty minutes rather than an
+afternoon.

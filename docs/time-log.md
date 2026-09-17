@@ -9035,3 +9035,25 @@ existed; once `mixer-boss.ts` was open the entry's question had its answer in
 the file's own header.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — claude/boss-ledger — THE LEDGER's simulation: the cord that bills the pair's own hull
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | §5 of the design page, `couplings.md` §1 on warding, `hull-guard.ts`, `taster.ts` and `taster-shot.ts` as the pattern, the three registries a boss is a name in |
+| deciding | 30 | what to do about a design whose damage model the owner's rule forbids: three answers, each argued by name in the code and in §11.27 |
+| writing | 75 | seven sim files, eleven events and eleven sounds, the director's nine dials and its paragraph, the wave and its guide, the test's twenty-three cases, §11.27 |
+| friction | 25 | two files over 250 lines mid-lane (`ship-fields-round.ts` cut to `ship-fields-choreo.ts`, `ship-notes-round.ts` queued at 249); `bun run format` cannot fix the import order `bun run lint` reports, so `bunx biome check --write` by hand — already queued; six document and table counts that only `check:fast` names |
+| landing | 20 | `bun run baseline:blank`, `bun run index`, the queue entry, this entry, `check:fast`, the commit |
+
+The bottleneck was the decision, and it was worth its half hour: the design's
+accumulating hull scars and its scripted winning hull hit both contradict
+*every hull damage fails the wave* (the owner, 12 September 2026), and the
+fight only works if all three of the answers hold together — a missed ward
+loses the wave like every other hit, the cadence shortens per **hit** so the
+pair's own progress is what speeds the bills up, and the fifth return is the
+one they are told to let go of, which tears the cord out instead of holing the
+ship. Warding that last one is refused rather than fatal, so the fight holds
+open until they take their hands off it. Everything after that was typing.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

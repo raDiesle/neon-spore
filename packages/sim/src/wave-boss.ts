@@ -7,6 +7,7 @@ import { installDiastole } from "./diastole-step.js";
 import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
 import { installGorge } from "./gorge-step.js";
+import { installLedger } from "./ledger-step.js";
 import { installMaze } from "./maze-state.js";
 import { installMirror } from "./mirror.js";
 import { installOrrery } from "./orrery-step.js";
@@ -184,6 +185,12 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // of blades standing out of it, none of which falls. What it answers is
     // what the pair has spent answering the wave (`taster-step.ts`).
     world.boss = installTaster(world);
+  } else if (boss?.kind === "ledger") {
+    // No creature and no row either: a body over the middle of the field with
+    // a cord out of its underside rooted in the hull, which is the only thing
+    // in this game that touches both of them. It falls nothing — what it sends
+    // down the cord is the pair's own shots (`ledger-step.ts`).
+    world.boss = installLedger(world);
   } else if (boss?.kind === "sinew") {
     // No creature and no row: a tendon above the grid with a mass on it that
     // the cannon cannot touch, and falls only what the pair's own snap-backs

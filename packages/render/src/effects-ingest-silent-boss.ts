@@ -127,6 +127,21 @@ export const INGEST_SILENT_BOSS = [
   "tasterClose",
   "tasterRefused",
   "tasterOut",
+  // THE LEDGER's eleven, silent because nothing draws the boss yet: its look is
+  // the second lane (`docs/spec/bosses.md` §11.27), which will read the family
+  // above the loop in a `ledger-fx.ts` of its own — a return reaching the
+  // socket is a moment and not a state.
+  "ledgerRoot",
+  "ledgerSeam",
+  "ledgerRefused",
+  "ledgerBead",
+  "ledgerWard",
+  "ledgerWhip",
+  "ledgerBill",
+  "ledgerSocket",
+  "ledgerLast",
+  "ledgerHeld",
+  "ledgerTear",
   // THE SINEW's thirteen are read as one family above the loop by
   // `sinew-fx.ts` (`Effects.sinew`), the way the two above are: a burst per
   // event at the mass or the handle, the flash on a snap, the hull's shock

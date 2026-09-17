@@ -141,4 +141,21 @@ export const SILENT_BOSS = [
   "sinewSwing",
   "sinewOut",
   "sinewCrush",
+  // THE LEDGER's eleven, silent **until the look lane draws it**: nothing of
+  // the cord is on the screen yet, so a burst where a return landed would be
+  // a picture of nothing. Every one has a sound (`bind-ledger.ts`), and the
+  // boss's state carries the seam, the socket and every bead on the cord, so
+  // this list is exactly what the second lane reaches for: the root going in,
+  // the whip, the bill, the tear (`bosses.md` §11.27).
+  "ledgerRoot",
+  "ledgerSeam",
+  "ledgerRefused",
+  "ledgerBead",
+  "ledgerWard",
+  "ledgerWhip",
+  "ledgerBill",
+  "ledgerSocket",
+  "ledgerLast",
+  "ledgerHeld",
+  "ledgerTear",
 ] as const satisfies readonly SimEvent["type"][];

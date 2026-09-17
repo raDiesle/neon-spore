@@ -27,6 +27,7 @@ type BossId = Extract<
   | "curtain"
   | "taster"
   | "sinew"
+  | "ledger"
 >;
 
 /**
@@ -124,6 +125,10 @@ export const BOSS_MECHANICS = {
   },
   taster: {
     what: "The one boss that watches what you spend. A crest hangs across the top of the field and grows eleven blades out of itself, middle outward, and the blades are its health. Every blade takes its edge from whichever colour the pair has fired more of over the last thirty beats — and a blade is only struck off by the colour it is not. Its own colour thickens it instead, so the answer to a red edge is cyan, and the harder you lean on one colour the more of the fan you cannot touch. The column of a sheared blade is left soft and swallows a shot for nothing. The majority flipping re-edges every standing blade at once, until the crest itself is cut through four times — after which it can never taste again. With two blades left they fold over the body and refuse every single bolt: only the beam, held in the colour the fan is not, opens them.",
+    reach: "spawn",
+  },
+  ledger: {
+    what: "The one boss whose damage travels the other way. A body three columns wide hangs over the middle of the field on a thick violet cord rooted in a socket in the pair's own hull, and the seam down its middle is its health: five hits part it. A bolt in the colour the seam is showing, up the seam's own column, widens it — and sends the same damage back down the cord, landing in the socket four beats later, one beat sooner per hit and never under two. The plate in the socket's column with the trigger on that beat wards it exactly the way it wards a rock; nobody there and the hull takes it, which loses the wave. Every return that lands walks the root a column further along the ship, so the column to be warded is a new one each time. From the second hit the cord bills every shot the cannon takes, whatever it was aimed at, and a warded return is thrown back up the cord and widens the seam for nothing — so the last three hits can be made without firing at the body at all. The fifth return is the one to let through: unwarded it tears the cord out of the ship and the halves part.",
     reach: "spawn",
   },
   sinew: {

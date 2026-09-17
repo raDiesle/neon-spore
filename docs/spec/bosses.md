@@ -3145,3 +3145,125 @@ clear, the boss is gone two beats later and the wave wants its next; fewer
 lands on the hull with a breach; and the same run fingerprints the same way
 twice and differently for another seed (`sim/test/sinew.test.ts`). Nothing of
 it has been seen in a frame.
+
+## 11.27 THE LEDGER — the boss that bills your own hull for every shot
+
+> The one where every hit you land comes back at your own hull.
+
+Designed as §5 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: the whole game so far has **one direction of damage** — the
+field hurts the ship — and this one inverts the *consequence* without touching
+the controls. The pair still shoots it, it still dies, and the bill for every
+shot is posted to them: the guard window they have used on falling rock all
+game is pointed, for the first time, at something they caused.
+
+**It is a fixture, not a body.** Nothing of it is in `world.creatures`
+(`bossFillsWave === false`), and wave 77, "THE LEDGER" in
+`content/src/waves/act-7d.ts`, carries its own eight arrivals — three rocks and
+five colours — because from the second hit the cord bills every shot the cannon
+takes, and *what to shoot at all* is a decision only if something is arriving.
+What `packages/sim` holds is the cord (`sim/ledger.ts`, hashed in
+`sim/ledger-hash.ts`): the leftmost column the body covers, the hull column the
+cord is rooted in, which way that root walks, the colour the seam is showing,
+the hits down the seam, the returns on the cord, the returns the pair warded,
+and the beats the cord rooted and tore out on. The body stands over
+`ledgerCols` (3) columns with the seam down the middle one of them, and the
+five movements — `rooting`, `paying`, `whipping`, `taut`, `out` — are
+**derived** from those counts rather than stored (`ledgerPhase`), which is why
+that reader takes the beat as a parameter: the first movement is the only clock
+this fight has.
+
+**The rule, in one sentence.** The cord pays out over `ledgerRootBeats` (2)
+beats and nothing can be hit until it is in; then the seam shows a colour, and
+**a bolt of that colour up the seam's own column** widens the split and starts
+a return down the cord, which lands in the socket `ledgerCadenceBeats` (5)
+beats less one per hit later — never under `ledgerCadenceMinBeats` (2) — and is
+**warded exactly the way a rock is**: the plate in the socket's column and the
+trigger inside its own window, neither re-derived here (`hull-guard.ts`'s
+`guardArmed`). A return nobody answered is a hit on the hull, which loses the
+wave like every other hit in this game (`wave-fail.ts`). Every return that
+reaches the hull, warded or not, roots the cord `ledgerSocketStep` (1) columns
+further along it, **turning at the walls**, so the column to be warded is a new
+one every time. The seam rerolls its colour on every hit. From `ledgerWhipSeam`
+(2) hits the cord **whips**: it bills every shot the cannon takes, whatever it
+was fired at (`ledgerBills`, called where a shot is spent rather than where one
+lands), and a *warded* return is thrown back up the cord and widens the seam
+with no bill at all — so the last three of the `ledgerSeamHits` (5) can be made
+without firing at the body once. The hit that fills the seam puts the **last**
+return on the cord, and that one is the pair's to **let through**: it tears the
+cord out of the ship, and the boss stands `ledgerOutBeats` (3) beats more so the
+wave cannot end on the beat the halves part. THE SLOW opens for
+`ledgerSlowBeats` (1) as the soonest return takes its last beat down the cord —
+the design's own choice of where to spend it, and deliberately not a DRAG,
+because the beats down the cord are the clock the whole fight is timed against
+(`decisions.md` #33).
+
+**The split is the design's, read from the other side.** The pilot carries the
+cannon and the trigger and is shown the bead **coming**; the navigator carries
+the plate and both colours and is shown **where the socket has walked to**. His
+clock, her column — warding with the halves swapped from every other wave in
+the game, and the one sentence in this fight that is never the same twice is
+hers: the column, every time, before the beat.
+
+**Where this departs from the design, and why.** Eight places, each argued by
+name. *There is no scar and no fight carried on over it*: steps 4, 7 and 10 all
+end a missed ward in "a scar in the socket column" with the fight continuing,
+and **every hull damage fails the wave** (the owner, 12 September 2026), so a
+scar that let this fight go on would make this boss alone among fifteen in what
+a hit costs. *So the cadence shortens per hit rather than per miss*: step 4's
+"the cord roots deeper — next return comes in three beats, not four" is moved
+onto the thing that can still happen, and `ledgerCadence` takes a beat off for
+every hit down the seam — the pair's own progress is what speeds the bills up,
+which is the same pressure from the other end. *Steps 13 and 14's scripted
+unwarded hit is the return they are told to let go of*: the fifth bead comes
+down with both seats shown it and neither asked to stop it, and a pair that
+wards it anyway is **refused** — `ledgerHeld`, thrown back up, on the cord
+again a cadence later — so the fight holds open until they take their hands
+off it instead of ending in a hull hit the wave cannot survive. *Step 10's
+halves firing down their own columns are dropped*: a boss that fired would be
+an unwardable hull hit and therefore an instant loss, which is the same
+consequence of the owner's rule and not a scope cut. *Step 11's beads in both
+directions are resolved on the beat*: a whipped return widens the seam where it
+was warded rather than travelling back up as a second bead, because a bead
+going the other way is a picture and the cord already carries the one number
+two devices must agree about. *A bead carries no column*: it lands wherever the
+cord is rooted when it gets there, which is what makes the socket walking a
+mechanic rather than a decoration — a bead that remembered where it started
+would let the pair answer this fight from one column. *Step 3's 900 ms call is
+not timed*: the game never evaluates speech (`CLAUDE.md` rule 5), so the socket
+stands until the return lands and what a late call costs is the beat. *And
+`damageGauge`-sized is a heavy breach from off the field*:
+`breachHull(world, socket, "meteorFastest", 0, "heavy")`, the idiom for damage
+with no body behind it (`fleet.ts`, `mirror-round.ts`), because a return is
+damage on a cord and there is nothing falling to size.
+
+**What is not built.** The look, all of it: the tall split body, the violet
+cord drawn full length, the bead descending it on the pilot's screen, the
+socket's white target lock on the navigator's, the seam carrying the ammunition
+colour, the cord going taut and whipping, and the tear that takes a length of
+the pair's own plating with it. The presentation the design asks the hull for —
+`hull-shock.ts` on the rooting, `ship-nerves.ts` lit along the cord's line — is
+the second lane's too. The eleven events are listed silent in
+`render/src/effects-ingest-silent-boss.ts` and `effects-spark-silent-boss.ts`,
+and `render/test/pixel-frame.test.ts`'s `LOOK_PENDING` does not name it: there
+is no creature body to be unseen. The wave has no film, which
+`content/test/scenes-prose.test.ts` holds by name.
+
+**Never watched at tempo.** What the tests say is the mechanism: it installs
+centred with the cord in the middle column, the seam empty and nothing arriving
+from it; it holds its wave and falls nothing; nothing can hit it while the cord
+pays out; the seam widens only on its own colour up its own column, and the
+plating either side refuses a bolt at no cost in colour while the wrong colour
+up the right column is the colour miss it is; the cadence shortens a beat per
+hit and floors; a return is warded by the plate in the socket with the trigger
+and the wave holds, is a hull breach and a lost wave when nobody answered it,
+and counts for nothing warded in the wrong column; the root walks a column per
+return and turns at the wall; the beat before a return lands is slowed; a
+warded return whips the seam wider with no bill from `ledgerWhipSeam`, every
+shot is billed once it whips and none before, a hit that reaches the body is
+charged once, and the last return is never doubled; the last return is
+announced as itself, tears the cord out when it is let through without failing
+the wave, is refused and re-armed a cadence later when it is warded, and holds
+the wave while the halves part; and the same run fingerprints the same way
+twice and differently from one where a return was warded
+(`sim/test/ledger.test.ts`). Nothing of it has been seen in a frame.

@@ -138,6 +138,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // the mass walks from there, so there is nothing authored to remap
   // (`sim/sinew-step.ts`).
   if (boss.kind === "sinew") return { ...boss };
+  // THE LEDGER stands over `midCol` of whatever field is played and roots its
+  // cord under itself, and the socket walks from there — so nothing is
+  // authored and nothing remaps (`sim/ledger-step.ts`).
+  if (boss.kind === "ledger") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.
