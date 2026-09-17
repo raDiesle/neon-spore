@@ -6,6 +6,7 @@ import type { Effects } from "./effects.js";
 import { drawGorge } from "./gorge-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
+import { drawLedger } from "./ledger-draw.js";
 import { drawOrrery } from "./orrery-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSinew } from "./sinew-draw.js";
@@ -47,6 +48,7 @@ const CLOCK_KINDS = [
   "curtain",
   "taster",
   "sinew",
+  "ledger",
 ] as const;
 
 export type ClockBoss = Extract<Installed, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -157,5 +159,17 @@ export function drawClockBoss(
   // each side of the mass — one per seat — and the strain band across the
   // tendon read by seat. What outlives a frame — the snap's whip and its
   // flash — is `effects.boss.sinew` (`sinew-draw.ts`, `sinew-fx.ts`).
-  drawSinew(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.sinew);
+  if (boss.kind === "sinew") {
+    drawSinew(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.sinew);
+    return;
+  }
+
+  // THE LEDGER: a tall split body high in the field on one thick cord running
+  // down into the ship's own plating, and the field is drawn *through* it the
+  // way THE THROAT's gullet is. Both screens see the body, the seam and the
+  // cord — and only the navigator's sees where the cord is rooted, which is
+  // this boss's whole split (`ledger-draw.ts`, `view-role-clocks.ts`). What
+  // outlives a frame — the whip back up the cord, the shock through the hull,
+  // the flash of the tear — is `effects.boss.ledger` (`ledger-fx.ts`).
+  drawLedger(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.ledger);
 }

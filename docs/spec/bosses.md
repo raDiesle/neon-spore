@@ -3237,17 +3237,58 @@ stands until the return lands and what a late call costs is the beat. *And
 with no body behind it (`fleet.ts`, `mirror-round.ts`), because a return is
 damage on a cord and there is nothing falling to size.
 
-**What is not built.** The look, all of it: the tall split body, the violet
-cord drawn full length, the bead descending it on the pilot's screen, the
-socket's white target lock on the navigator's, the seam carrying the ammunition
-colour, the cord going taut and whipping, and the tear that takes a length of
-the pair's own plating with it. The presentation the design asks the hull for —
-`hull-shock.ts` on the rooting, `ship-nerves.ts` lit along the cord's line — is
-the second lane's too. The eleven events are listed silent in
-`render/src/effects-ingest-silent-boss.ts` and `effects-spark-silent-boss.ts`,
-and `render/test/pixel-frame.test.ts`'s `LOOK_PENDING` does not name it: there
-is no creature body to be unseen. The wave has no film, which
-`content/test/scenes-prose.test.ts` holds by name.
+**The look** (`render/ledger-draw.ts`, `ledger-shape.ts`, `ledger-cord.ts`,
+`ledger-read.ts`, `ledger-fx.ts`). A tall body high in the field, `1.15` tiles
+above its top edge and `0.75` down into it, three columns wide and cut in two
+down the seam's column: each half is a flat face down the cut and a lobed back
+away from it, filled `rockDark` and stroked `rock` — the same metal as THE
+TASTER's blades — and swaying a sixth of a hertz against its own cord. **Health
+is the silhouette and there is no bar**: the two halves stand apart a share of
+`0.42` of a tile per hit down the seam, and the split between them is filled in
+the ammunition colour it is showing and stroked brighter the wider it gets,
+with the same colour lit down each cut face because that is the one surface a
+bolt up the seam's column actually meets. The **cord** runs from the body's
+underside into the plating as a thing and not a line — a cool shadow, the
+hull's violet over it, a hard core down the middle (`.claude/skills/depth`) —
+bowed while the seam is empty and pulled straight as it fills, and violet
+because what travels it is the ship's own damage. It is drawn in fourteen
+segments, and that is the split: **the last stretch above the plating fades out
+on the pilot's screen**, so he is shown the return coming down and never the
+column it is coming down to. The strain of a return's last beat runs *up* the
+cord as per-segment brightness, so a landing is seen in the cord before it is
+felt in the hull. On the navigator's screen the cord passes through a violet
+**grommet** in the plating and her white **lock** brackets the column it is in,
+with a dim chevron for the column the root walks to next — the one mark on
+either screen about a beat that has not happened, and `ledgerWalk` answers it
+rather than the drawer, so the arrow and the cord cannot disagree
+(`sim/test/copies-table.ts`). On the pilot's, every return on the cord is a
+violet bead where the simulation says it is with **the beats left written
+beside it**; the **last** return is bigger, wears a second ring and is drawn on
+**both** screens, which is the design's beat 13 — a payoff one seat cannot see
+is a payoff the pair cannot talk about. *His clock, her column*
+(`showsLedgerBead`, `showsLedgerSocket` — the split *is* the encounter, and it
+is the first in this codebase that cuts one drawn object in half rather than
+keeping a number from a seat). Three moments outlive their frame
+(`ledger-fx.ts`): a warded return **whipping** back up the cord as a violet
+flare over a beat, the field flashing violet for a beat as the cord tears out,
+and `hull-shock.ts` down the plating — on the rooting and on every return the
+pair did not answer, which is the presentation the design asks the hull for in
+place of a camera. All eleven events throw a burst from that same file, aimed
+at the seam or at the socket, because every one of them names a column. Out,
+the cord is gone with the plating, the halves are thrown to `1.5` tiles apart
+and fade over `ledgerOutBeats`. `render/test/ledger-frame.test.ts` proves the
+cord paying out, the seam widening, the faces in the colour they are showing,
+the halves parting and the picture gone, on all three screens — and the split
+in its strongest form: the navigator's screen draws *exactly as many calls*
+with three ordinary returns on the cord as with none, while the pilot's grows
+by them and by the beats written beside each; the socket and its lock are on
+hers and not his; the last return is on both; and the whip and the tear's flash
+are cleared on restart. *Not built of the design's look*: `ship-nerves.ts` is
+not lit along the cord's line — the shock is the plating's answer and a second
+one would be two pictures of one hit; the halves do not fire down their own
+columns, which the simulation dropped for the owner's rule; and the body's
+lobed back is `ledgerHalfPath`'s own rather than a silhouette off the sheet.
+The owner's eye decides all three.
 
 **Never watched at tempo.** What the tests say is the mechanism: it installs
 centred with the cord in the middle column, the seam empty and nothing arriving
@@ -3266,7 +3307,13 @@ announced as itself, tears the cord out when it is let through without failing
 the wave, is refused and re-armed a cadence later when it is warded, and holds
 the wave while the halves part; and the same run fingerprints the same way
 twice and differently from one where a return was warded
-(`sim/test/ledger.test.ts`). Nothing of it has been seen in a frame.
+(`sim/test/ledger.test.ts`), and `render/test/ledger-frame.test.ts` says every
+state of the picture is one a canvas accepts. **What no test can say** is
+whether the plate reaches a socket a column away in the beats the cadence
+leaves, once it is down to `ledgerCadenceMinBeats` — the fight's whole
+difficulty, and a thing an eye sees at tempo. One frame has been sent; the wave
+has no film, which `content/test/scenes-prose.test.ts` holds by name.
+
 ## 11.28 THE SURGE — the boss beaten by letting go
 
 > The one where holding is free and letting go is the entire skill, and

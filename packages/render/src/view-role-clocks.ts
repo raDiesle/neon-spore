@@ -194,3 +194,27 @@ export const showsTasterNext = (role: ViewRole): boolean => role !== "p2";
  */
 export const showsSinewZone = (role: ViewRole): boolean => role !== "p2";
 export const showsSinewSum = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE LEDGER's two, and this split is the first in either file to cut **one
+ * drawn object** in half rather than keeping a fact or a number from a seat.
+ * The cord is the whole mechanism and it is on both screens — but only as far
+ * as the plating, on the pilot's: the last stretch fades out above the hull,
+ * so he is shown the return coming down and never the column it is coming down
+ * to (`ledger-cord.ts`).
+ *
+ * The pilot is shown **the beads**, where each has got to and how many beats
+ * are left of it, because he owns the trigger and the trigger is the only
+ * thing in this fight that answers a return. The navigator is shown **the
+ * socket** — the hole the cord is rooted in, its white lock and the chevron
+ * for the column it walks to next — because she carries the plate, and the
+ * plate has to be in that column on the beat he presses. *His clock, her
+ * column*, which is the design's own sentence for the fight.
+ *
+ * The one exception is in `ledger-read.ts` and not here: the **last** return is
+ * drawn on both screens, because the design's beat 13 asks for both seats to
+ * be shown that bead coming and neither of them asked to stop it. `test` is
+ * both, the usual *one person is holding both seats*.
+ */
+export const showsLedgerBead = (role: ViewRole): boolean => role !== "p2";
+export const showsLedgerSocket = (role: ViewRole): boolean => role !== "p1";

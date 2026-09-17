@@ -1,0 +1,210 @@
+import { type LedgerState, ledgerPhase, type World } from "@neon-spore/sim";
+import { strokeGlow } from "./glow.js";
+import { mixHex, rgba } from "./hex.js";
+import type { Layout } from "./layout.js";
+import { drawLedgerCord, drawLedgerSocket } from "./ledger-cord.js";
+import type { LedgerFx } from "./ledger-fx.js";
+import { drawLedgerBeads, drawLedgerLock } from "./ledger-read.js";
+import {
+  ledgerBodyY,
+  ledgerCordAt,
+  ledgerGap,
+  ledgerHalfPath,
+  ledgerRootPoint,
+  ledgerSeamX,
+  ledgerSocketPoint,
+  ledgerTaut,
+} from "./ledger-shape.js";
+import { PALETTE, STROKE } from "./palette.js";
+import { showsLedgerSocket } from "./view-role-clocks.js";
+
+/**
+ * **THE LEDGER**: a tall split body high in the field on a single thick cord
+ * running down into the pair's own hull, with every hit they land coming back
+ * down it (`sim/ledger.ts`, `docs/spec/bosses.md` §11.27).
+ *
+ * **Everything here is read off the world every frame.** How far the halves
+ * stand apart is the seam; how straight the cord is, is the seam; where every
+ * bead is, is its own landing beat and span; where the cord is rooted is the
+ * socket. What outlives a frame is three moments and they are
+ * `ledger-fx.ts`': the whip going back up, the shock through the plating and
+ * the flash of the tear.
+ *
+ * **The order is the order the eye reads it**: the cord first, so the body
+ * stands on the end of it rather than the cord being laid over the body; then
+ * the two halves; then the seam's colour between them; then what each seat is
+ * shown of the cord (`ledger-read.ts`).
+ *
+ * **Health is the silhouette and there is no bar**: one body, then a body with
+ * a line down it, then two. The seam widens a share of the way per hit and the
+ * halves are thrown apart when the cord comes out.
+ *
+ * **Colour says whose damage it is.** The body is metal — `rockDark` filled,
+ * `rock` stroked, the same material as THE TASTER's blades — the cord and its
+ * beads are the hull's violet, because what travels the cord is the ship's
+ * own, and the seam carries the ammunition colour it is showing. The one white
+ * mark on the field is the navigator's lock, which is interface and not body.
+ */
+
+/** How much of the way down a bead has to be before the cord starts to strain. */
+const STRAIN_FROM = 0.72;
+
+/** The cord's strain, 0..1: the soonest return taking its last stretch. */
+function strainOf(t: LedgerState, beat: number, beatPhase: number): number {
+  let most = 0;
+  for (const b of t.beads) {
+    const left = b.beat - beat - beatPhase;
+    const u = Math.max(0, Math.min(1, 1 - left / Math.max(1, b.span)));
+    if (u > most) most = u;
+  }
+  return Math.max(0, (most - STRAIN_FROM) / (1 - STRAIN_FROM));
+}
+
+/**
+ * One half of the body: metal, with the seam's colour lit down its cut face.
+ *
+ * The colour is on the **face** rather than through the body for THE TASTER's
+ * reason arrived at from the other side: there a blade filled in its own
+ * colour would have read as *shoot me with this* when the rule was the
+ * opposite, and here the rule *is* that colour — so the one surface that
+ * carries it is the one surface a bolt up the seam's column actually meets.
+ */
+function drawHalf(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  seamX: number,
+  side: -1 | 1,
+  gap: number,
+  time: number,
+  hex: string,
+  lit: number,
+): void {
+  const path = ledgerHalfPath(l, seamX, side, gap, time);
+  ctx.save();
+  ctx.fillStyle = PALETTE.background;
+  ctx.fill(path);
+  ctx.fillStyle = rgba(PALETTE.rockDark, 0.85);
+  ctx.fill(path);
+  ctx.strokeStyle = PALETTE.rock;
+  ctx.lineWidth = STROKE.outline;
+  ctx.lineJoin = "round";
+  ctx.stroke(path);
+  ctx.restore();
+  // The cut face, in the colour the seam is showing.
+  const { top, bottom } = ledgerBodyY(l);
+  const face = new Path2D();
+  const x = seamX + side * gap * 0.5;
+  face.moveTo(x, top);
+  face.lineTo(x, bottom);
+  strokeGlow(ctx, face, hex, STROKE.inner, 0.5 + 0.5 * lit);
+}
+
+export function drawLedger(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  t: LedgerState,
+  beat: number,
+  beatPhase: number,
+  time: number,
+  fx: LedgerFx,
+): void {
+  if (l.tile <= 0) return;
+  const { cfg } = world;
+  const phase = ledgerPhase(t, cfg, beat);
+  const seamX = ledgerSeamX(l, cfg, t);
+  const gap = ledgerGap(l, cfg, t, beat, beatPhase);
+  const taut = ledgerTaut(cfg, t);
+  const root = ledgerRootPoint(l, cfg, t);
+  const socket = ledgerSocketPoint(l, t);
+  const strain = strainOf(t, beat, beatPhase);
+  // Out: the halves part and fade over the beats the boss stands before it
+  // goes, and the cord has gone with the ship's plating (`ledgerTear`).
+  const out = phase === "out";
+  const fade = out
+    ? Math.max(0, 1 - (beat - t.outBeat + beatPhase) / Math.max(1, cfg.ledgerOutBeats))
+    : 1;
+  if (fade <= 0) return;
+
+  ctx.save();
+  ctx.globalAlpha = fade;
+  if (!out) {
+    // The cord pays out as it roots, so the first two beats are the thing
+    // arriving rather than a boss that was always there (`ledgerRootBeats`).
+    const paid =
+      phase === "rooting"
+        ? Math.min(1, (beat - t.rootBeat + beatPhase) / Math.max(1, cfg.ledgerRootBeats))
+        : 1;
+    const end =
+      paid >= 1 ? socket : ledgerCordAt(l, root, socket, taut, time, Math.max(0.02, paid));
+    drawLedgerCord(ctx, l, root, end, taut, time, showsLedgerSocket(l.role), strain);
+    if (paid >= 1 && showsLedgerSocket(l.role)) drawLedgerSocket(ctx, l, socket, taut);
+    drawWhip(ctx, l, root, socket, taut, time, fx.whipU);
+  }
+
+  const hex = t.want === "red" ? PALETTE.red : PALETTE.cyan;
+  const rim = t.want === "red" ? PALETTE.redRim : PALETTE.cyanRim;
+  const lit = phase === "rooting" ? 0 : 1;
+  drawHalf(ctx, l, seamX, -1, gap, time, hex, lit);
+  drawHalf(ctx, l, seamX, 1, gap, time, hex, lit);
+  // And what is between them, once there is anything between them: the split
+  // itself, lit in the colour that widens it, brighter the wider it is.
+  if (gap > l.tile * 0.02 && !out) drawSeam(ctx, l, seamX, gap, rim, taut);
+
+  if (!out) {
+    drawLedgerBeads(ctx, l, t, root, socket, taut, time, beat, beatPhase);
+    drawLedgerLock(ctx, l, cfg, t, socket, beatPhase);
+  }
+  ctx.restore();
+}
+
+/** The split between the halves: the one place a bolt can reach the body. */
+function drawSeam(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  seamX: number,
+  gap: number,
+  rim: string,
+  taut: number,
+): void {
+  const { top, bottom } = ledgerBodyY(l);
+  const slot = new Path2D();
+  slot.rect(seamX - gap * 0.5, top, gap, bottom - top);
+  ctx.save();
+  ctx.fillStyle = rgba(mixHex(PALETTE.background, rim, 0.25), 0.9);
+  ctx.fill(slot);
+  ctx.restore();
+  const line = new Path2D();
+  line.moveTo(seamX, top);
+  line.lineTo(seamX, bottom);
+  strokeGlow(ctx, line, rim, STROKE.inner, 0.45 + 0.4 * taut);
+}
+
+/**
+ * **The whip**: a warded return going back up the cord, which is the one thing
+ * on this screen that travels the other way.
+ *
+ * Drawn here rather than in `ledger-fx.ts` because the cord's geometry is the
+ * drawer's — the transient keeps only how far up it has got, the way THE
+ * SINEW's keeps only how far the mass has swung (`ledger-fx.ts`, `whipU`).
+ */
+function drawWhip(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  root: { x: number; y: number },
+  socket: { x: number; y: number },
+  taut: number,
+  time: number,
+  u: number,
+): void {
+  if (u < 0) return;
+  const at = ledgerCordAt(l, root, socket, taut, time, u);
+  const r = l.tile * 0.2 * (1 - u * 0.4);
+  const flare = new Path2D();
+  flare.arc(at.x, at.y, r, 0, Math.PI * 2);
+  ctx.save();
+  ctx.fillStyle = rgba(PALETTE.hullRim, 0.4 * u);
+  ctx.fill(flare);
+  ctx.restore();
+  strokeGlow(ctx, flare, PALETTE.hullRim, STROKE.inner, 0.7 * u);
+}

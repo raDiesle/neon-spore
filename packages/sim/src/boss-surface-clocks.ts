@@ -83,7 +83,26 @@ export {
   // leaning on is on the screen already, in every edge the fan has set, and
   // the colour the beam has to be is the one thing in this fight nobody is
   // shown (`taster-draw.ts`).
+  // THE LEDGER's entry, which authors nothing — the director's own guard
+  // narrows on it (`tools/director/src/boss-nothing.ts`) — and then the cord
+  // itself, which two screens read different halves of: where the body is and
+  // how far its seam is open, where the cord is rooted and where that root
+  // walks to next, which colour widens the split, and how far down the cord
+  // every return has got. `ledgerWalk` is the one a *picture* asks about a
+  // beat that has not happened: the navigator is shown a chevron on the column
+  // the plate will be needed in, and that answer has to be the step's own
+  // answer (`test/copies-table.ts`, `render/ledger-read.ts`).
+  type LedgerBead,
   type LedgerEntry,
+  type LedgerPhase,
+  type LedgerState,
+  ledgerBoss,
+  ledgerCovers,
+  ledgerLetThrough,
+  ledgerNext,
+  ledgerPhase,
+  ledgerSeamCol,
+  ledgerWalk,
   NO_RING,
   ORRERY_PHASES,
   ORRERY_RINGS,

@@ -59,6 +59,11 @@ export function drawOnShip(
   // And THE SINEW's snap-back running down the same plating: the mass is
   // whipped and the ship feels it, for a beat (`sinew-fx.ts`).
   held.effects.boss.sinew.drawShock(ctx, l, surfaceY, view.time);
+  // And THE LEDGER's, on the same plating and for the design's own reason: the
+  // presentation of that fight is the hull reacting rather than the frame
+  // moving, on the beat the cord roots in the ship and on every return the
+  // pair did not answer (`ledger-fx.ts`).
+  held.effects.boss.ledger.drawShock(ctx, l, surfaceY, view.time);
   // And a gum splashing across the ship, on the same membrane and over the
   // same finished hull: the smear where it landed and the ripples running
   // out from it (`gum-splash.ts`).

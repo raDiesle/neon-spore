@@ -679,4 +679,17 @@ export const COPIES: Copy[] = [
     owner: "packages/sim/src/spend.ts",
     pattern: /spentOver\([^;\n]*spentOver\(|red\s*[<>]\s*cyan|cyan\s*[<>]\s*red/,
   },
+  {
+    // **Where THE LEDGER's root goes next** — one column along the hull, turned
+    // at the wall. Two readers ask it and they have to agree: the step moves
+    // the root by it on the beat a return lands, and the navigator is shown a
+    // chevron pointing at the same column a cadence early, which is the one
+    // sentence that fight is played with (`docs/spec/bosses.md` 11.27). The
+    // hand-written form got the wall wrong by a beat — flipping *at* the edge
+    // rather than past it — so the chevron pointed away from the column the
+    // plate was about to be needed in.
+    call: "ledgerWalk",
+    owner: "packages/sim/src/ledger.ts",
+    pattern: /socket\s*[+-][^;\n]*ledgerSocketStep|ledgerSocketStep[^;\n]*walk/,
+  },
 ];

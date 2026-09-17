@@ -141,12 +141,12 @@ export const SILENT_BOSS = [
   "sinewSwing",
   "sinewOut",
   "sinewCrush",
-  // THE LEDGER's eleven, silent **until the look lane draws it**: nothing of
-  // the cord is on the screen yet, so a burst where a return landed would be
-  // a picture of nothing. Every one has a sound (`bind-ledger.ts`), and the
-  // boss's state carries the seam, the socket and every bead on the cord, so
-  // this list is exactly what the second lane reaches for: the root going in,
-  // the whip, the bill, the tear (`bosses.md` §11.27).
+  // THE LEDGER's eleven, silent **here** because all eleven are thrown by
+  // `ledger-fx.ts` instead: every one of them names a column, which is the boss
+  // itself, so the family is read above the loop where one `burst` can be
+  // aimed at the socket or the seam without eleven rows in a table that is at
+  // its limit — THE GORGE's, THE CURTAIN's and THE TASTER's arrangement
+  // (`bosses.md` §11.27).
   "ledgerRoot",
   "ledgerSeam",
   "ledgerRefused",

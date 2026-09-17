@@ -9127,3 +9127,22 @@ with the grip still down, and it has to start far enough from the mouth that a
 beat of flight is seen before the choke — neither of which the act format says.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — claude/ledger-look — THE LEDGER's look: one drawn object cut in half
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `sinew-draw.ts` and `sinew-fx.ts` as the pattern, `tether-cord.ts` on what makes a cord read as rooted, `taster-read.ts` on a per-seat read, the two silent lists and `view-role-clocks.ts` |
+| deciding | 25 | how to draw a split that is neither a number nor a hidden fact: the cord's last stretch faded out on the pilot's screen, with the last bead on both |
+| writing | 80 | five render files, the two `showsLedger*` predicates and their paragraph, the branch in `boss-draw-clocks.ts`, the `LedgerFx` field and its four verbs, the shock on the finished ship, `ledger-frame.test.ts`' seventeen cases, §11.27's *The look* |
+| friction | 30 | the chevron re-derived the socket walk and pointed at the wall a beat early — `ledgerWalk` added to `sim/ledger.ts`, called from both, and a `copies-table.ts` row; `bun run land` refused with five conflicts against a main that had landed THE SINEW's look and two document totals; a `ledgerCadence` the package surface does not carry, and an `outBeat` before beat 0 that is not *out* at all |
+| landing | 20 | `bun run index`, `bunx biome check --write`, this entry, `check:fast`, the commit, `bun run land` |
+
+The bottleneck was the chevron, and it was the lane's one real defect: written
+out a second time it flipped **at** the wall rather than past it, so the mark
+pointed away from the column the plate was about to be needed in — the one
+sentence this fight is played with, wrong at exactly the moment it is hardest
+to say. The rule is `ledgerWalk` now, called by `slide` and by the drawer, and
+the purity table carries the row so it cannot be written a third time.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

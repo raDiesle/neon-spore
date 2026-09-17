@@ -177,6 +177,28 @@ export function ledgerNext(t: LedgerState): LedgerBead | null {
 }
 
 /**
+ * **Where the root goes with the next return** — the column, and which way it
+ * is walking to get there.
+ *
+ * One reader for the rule because two screens ask it: `ledger-step.ts`'s
+ * `slide` moves the root by it on the beat a return lands, and the navigator
+ * is shown a chevron pointing at it a cadence early, which is the whole of
+ * her job getting easier (`render/ledger-read.ts`). Written out twice, the
+ * chevron pointed at the wall a beat before the cord turned away from it, and
+ * the one sentence this fight is played with would have been wrong at exactly
+ * the moment it was hardest to say. `test/copies-table.ts` carries the row.
+ *
+ * It turns rather than wrapping, because a cord that jumped the width of the
+ * ship would be a column nobody could carry the plate to in two beats.
+ */
+export function ledgerWalk(t: LedgerState, cfg: SimConfig): { col: number; walk: number } {
+  const next = t.socket + t.walk * cfg.ledgerSocketStep;
+  if (next >= 0 && next <= cfg.cols - 1) return { col: next, walk: t.walk };
+  const turned = t.socket - t.walk * cfg.ledgerSocketStep;
+  return { col: Math.max(0, Math.min(cfg.cols - 1, turned)), walk: -t.walk };
+}
+
+/**
  * **The one return the pair is asked not to ward**, and the whole payoff of the
  * fight: the fifth bill is the one that tears the cord out of the ship.
  *

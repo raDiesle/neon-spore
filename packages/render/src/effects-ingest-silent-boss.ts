@@ -127,10 +127,13 @@ export const INGEST_SILENT_BOSS = [
   "tasterClose",
   "tasterRefused",
   "tasterOut",
-  // THE LEDGER's eleven, silent because nothing draws the boss yet: its look is
-  // the second lane (`docs/spec/bosses.md` §11.27), which will read the family
-  // above the loop in a `ledger-fx.ts` of its own — a return reaching the
-  // socket is a moment and not a state.
+  // THE LEDGER's eleven, read above the loop by `ledger-fx.ts` the way THE
+  // TASTER's are. The body, the seam's width, where the cord is rooted and how
+  // far down it every return has got are all on the boss and drawn off it every
+  // frame (`ledger-draw.ts`). Three of the eleven are moments the world keeps
+  // nothing of — a warded return thrown back *up* the cord, the shock the
+  // plating takes, and the flash of the tear — and that file keeps those
+  // (`docs/spec/bosses.md` §11.27).
   "ledgerRoot",
   "ledgerSeam",
   "ledgerRefused",

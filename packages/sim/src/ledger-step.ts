@@ -2,7 +2,13 @@ import { markMoment } from "./balance.js";
 import { midCol } from "./config.js";
 import { breachHull } from "./hull-damage.js";
 import { guardArmed } from "./hull-guard.js";
-import { type LedgerBead, type LedgerState, ledgerCadence, ledgerWhips } from "./ledger.js";
+import {
+  type LedgerBead,
+  type LedgerState,
+  ledgerCadence,
+  ledgerWalk,
+  ledgerWhips,
+} from "./ledger.js";
 import { tearCord, widenSeam } from "./ledger-bead.js";
 import { nextInt } from "./rng.js";
 import { openSlow } from "./slow.js";
@@ -55,13 +61,12 @@ export function installLedger(world: World): LedgerState {
  * of the ship would be a column nobody could carry the plate to in two beats.
  */
 function slide(world: World, t: LedgerState): void {
-  const step = world.cfg.ledgerSocketStep;
-  let next = t.socket + t.walk * step;
-  if (next < 0 || next > world.cfg.cols - 1) {
-    t.walk = -t.walk;
-    next = t.socket + t.walk * step;
-  }
-  t.socket = Math.max(0, Math.min(world.cfg.cols - 1, next));
+  // Where it goes is `ledgerWalk`'s, not this function's: the navigator is
+  // shown a chevron pointing at the same column a cadence early, and the two
+  // answers have to be one answer (`ledger.ts`, `test/copies-table.ts`).
+  const next = ledgerWalk(t, world.cfg);
+  t.socket = next.col;
+  t.walk = next.walk;
   world.events.push({ type: "ledgerSocket", col: t.socket });
 }
 

@@ -1199,6 +1199,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/pulse-shape.ts` | What an arrow in THE PULSE is made of: its hue, its heading and its contour |
 | `packages/render/src/lance-flash.ts` | The whole screen going white, then the ammunition colour, then nothing |
 | `packages/render/src/label-box.ts` | The box a guide writes in: a solid ground, a two-pixel edge in the pod's colour, sixteen-point Courier |
+| `packages/render/src/ledger-cord.ts` | **The cord**, and the one hole in the ship it goes into |
+| `packages/render/src/ledger-draw.ts` | **THE LEDGER**: a tall split body high in the field on a single thick cord running down into the pair's own… |
+| `packages/render/src/ledger-fx.ts` | What THE LEDGER leaves behind a frame: the pulse a warded return throws back **up** the cord |
+| `packages/render/src/ledger-read.ts` | **What is written about the cord, and which seat is shown it** — *his clock, her column* |
+| `packages/render/src/ledger-shape.ts` | **Where THE LEDGER is**, in field pixels: the two halves of the body, the cord between it and the hull |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
 | `packages/render/src/body-inset.ts` | what is inside a living body is clipped to the body drawn a sixth smaller, so an interior borrowed from one contour never crosses another's rim |

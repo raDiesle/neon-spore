@@ -104,6 +104,7 @@ export {
   ledgerNext,
   ledgerPhase,
   ledgerSeamCol,
+  ledgerWalk,
   ledgerWhips,
 } from "./ledger.js";
 export {

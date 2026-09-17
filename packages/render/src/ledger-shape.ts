@@ -1,0 +1,162 @@
+import {
+  type LedgerBead,
+  type LedgerState,
+  ledgerPhase,
+  ledgerSeamCol,
+  type SimConfig,
+} from "@neon-spore/sim";
+import { type Layout, tileCX } from "./layout.js";
+import { splinePath } from "./spline.js";
+
+/**
+ * **Where THE LEDGER is**, in field pixels: the two halves of the body, the
+ * cord between it and the hull, and every point on that cord a return has got
+ * to.
+ *
+ * Its own file for `sinew-shape.ts`' reason, said about a cord instead of a
+ * tendon: the halves are drawn from it (`ledger-draw.ts`), the bead and the
+ * socket's lock are drawn *on* it by seat (`ledger-read.ts`), and the fx throws
+ * its particles along it (`ledger-fx.ts`). A cord worked out in three files
+ * would be a bead travelling one line and landing on another.
+ *
+ * **Nothing here reads the wall clock except the body's own wobble.** Where a
+ * bead is has to be where the simulation says it is, so its place is the beat,
+ * the phase and the bead's own span, and nothing else — the same discipline
+ * `baton-draw.ts` keeps about a bead in flight.
+ */
+
+export interface Point {
+  x: number;
+  y: number;
+}
+
+/** Tiles the body stands above the grid's top edge, and reaches below it. */
+const RISE = 1.15;
+const DROP = 0.75;
+/** A half's width, in tiles. The body is tall and narrow: that is the design. */
+const HALF_W = 0.8;
+/** How far apart the halves stand at a full seam, and once the cord is out. */
+const GAP_MAX = 0.42;
+const PART_MAX = 1.5;
+/** The cord's bow while it is slack, in tiles, and how fast it sways. */
+const BOW = 0.55;
+const SWAY_HZ = 0.16;
+
+/** The body's line: its top, its underside and the middle between them. */
+export function ledgerBodyY(l: Layout): { top: number; bottom: number; mid: number; ry: number } {
+  const top = l.gridTop - l.tile * RISE;
+  const bottom = l.gridTop + l.tile * DROP;
+  return { top, bottom, mid: (top + bottom) * 0.5, ry: (bottom - top) * 0.5 };
+}
+
+/** The column the seam runs down, in pixels: the one column a shot can hurt. */
+export function ledgerSeamX(l: Layout, cfg: SimConfig, t: LedgerState): number {
+  return tileCX(l, ledgerSeamCol(t, cfg));
+}
+
+/**
+ * **How far apart the two halves stand**, in pixels — which is this boss's
+ * health and the whole of it. No bar: one body, then a body with a line down
+ * it, then two.
+ *
+ * The seam opens a share of `GAP_MAX` per hit and is thrown to `PART_MAX` once
+ * the cord has torn out, so the last thing the picture does is the thing the
+ * fight was for.
+ */
+export function ledgerGap(
+  l: Layout,
+  cfg: SimConfig,
+  t: LedgerState,
+  beat: number,
+  beatPhase: number,
+): number {
+  const open = Math.min(1, t.seam / Math.max(1, cfg.ledgerSeamHits));
+  if (ledgerPhase(t, cfg, beat) !== "out") return l.tile * GAP_MAX * open;
+  const gone = Math.min(1, (beat - t.outBeat + beatPhase) / Math.max(1, cfg.ledgerOutBeats));
+  return l.tile * (GAP_MAX + (PART_MAX - GAP_MAX) * gone);
+}
+
+/**
+ * One half of the body: a flat face down the seam and a lobed back.
+ *
+ * Bilateral by construction rather than by mirroring a whole blob and hoping
+ * — the seam is a *cut*, so the inner side is the two straight points the cut
+ * left and the outer side is the contour that was always there. `side` is -1
+ * for the half to the left of the seam and 1 for the other.
+ */
+export function ledgerHalfPath(
+  l: Layout,
+  seamX: number,
+  side: -1 | 1,
+  gap: number,
+  time: number,
+): Path2D {
+  const { top, bottom, mid, ry } = ledgerBodyY(l);
+  const inner = seamX + side * gap * 0.5;
+  const w = l.tile * HALF_W;
+  const breathe = 1 + 0.04 * Math.sin(time * 1.1 + (side > 0 ? 1.7 : 0));
+  const pts: Point[] = [
+    { x: inner, y: top },
+    { x: inner + side * w * 0.72 * breathe, y: top + ry * 0.28 },
+    { x: inner + side * w * breathe, y: mid - ry * 0.22 },
+    { x: inner + side * w * 0.66 * breathe, y: mid + ry * 0.34 },
+    { x: inner + side * w * 0.84 * breathe, y: bottom - ry * 0.22 },
+    { x: inner + side * w * 0.3, y: bottom },
+    { x: inner, y: bottom },
+  ];
+  return splinePath(pts, true);
+}
+
+/** Where the cord goes into the ship: the socket's column, at the hull line. */
+export function ledgerSocketPoint(l: Layout, t: LedgerState): Point {
+  return { x: tileCX(l, t.socket), y: l.hullY };
+}
+
+/** Where the cord leaves the body: the underside, between the two halves. */
+export function ledgerRootPoint(l: Layout, cfg: SimConfig, t: LedgerState): Point {
+  return { x: ledgerSeamX(l, cfg, t), y: ledgerBodyY(l).bottom };
+}
+
+/**
+ * **How taut the cord is**, 0..1 — a share of the seam, so it goes straight as
+ * the fight is won. The design's own beat 12: at four of five it is taut
+ * enough to be drawn as a straight line for the first time.
+ */
+export function ledgerTaut(cfg: SimConfig, t: LedgerState): number {
+  return Math.min(1, t.seam / Math.max(1, cfg.ledgerSeamHits - 1));
+}
+
+/** The cord's one control point: a bow that straightens as the seam fills. */
+function bendOf(l: Layout, from: Point, to: Point, taut: number, time: number): Point {
+  const bow = l.tile * BOW * (1 - taut) * Math.sin(time * SWAY_HZ * Math.PI * 2);
+  return { x: (from.x + to.x) * 0.5 + bow, y: (from.y + to.y) * 0.5 };
+}
+
+/** A point `u` of the way down the cord, 0 at the body and 1 at the socket. */
+export function ledgerCordAt(
+  l: Layout,
+  from: Point,
+  to: Point,
+  taut: number,
+  time: number,
+  u: number,
+): Point {
+  const c = bendOf(l, from, to, taut, time);
+  const k = 1 - u;
+  return {
+    x: k * k * from.x + 2 * u * k * c.x + u * u * to.x,
+    y: k * k * from.y + 2 * u * k * c.y + u * u * to.y,
+  };
+}
+
+/**
+ * **How far down the cord a return has got**, 0..1, off the beat and the phase.
+ *
+ * Read from the bead's own span rather than from the config's cadence, because
+ * the cadence shortens as the seam widens and a bead that started at four
+ * beats is still a four-beat bead (`sim/ledger.ts`, `LedgerBead`).
+ */
+export function ledgerBeadU(b: LedgerBead, beat: number, beatPhase: number): number {
+  const left = b.beat - beat - beatPhase;
+  return Math.max(0, Math.min(1, 1 - left / Math.max(1, b.span)));
+}

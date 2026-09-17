@@ -4,6 +4,7 @@ import { CurtainFx } from "./curtain-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
 import type { Layout, ViewRole } from "./layout.js";
+import { LedgerFx } from "./ledger-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
 import { MirrorFx } from "./simon-fx.js";
 import { SinewFx } from "./sinew-fx.js";
@@ -74,6 +75,11 @@ export class BossTransients {
    * field and the shock down the plating, and its receipts' bursts — asked
    * for the whip by the drawer (`sinew-fx.ts`, `sinew-draw.ts`). */
   readonly sinew = new SinewFx();
+  /** THE LEDGER's three moments: the whip a warded return throws back up the
+   * cord, the shock the ship takes from the rooting and from a return nobody
+   * answered, and the flash of the tear — asked for the whip by the drawer
+   * (`ledger-fx.ts`, `ledger-draw.ts`). */
+  readonly ledger = new LedgerFx();
 
   /** `role` is the layout's: a flash lights only the screen whose control
    * made it (`after-image.ts`). */
@@ -92,6 +98,7 @@ export class BossTransients {
     this.curtain.ingest(events, l, cfg, beatSeconds, burst);
     this.taster.ingest(events, l, beatSeconds, burst);
     this.sinew.ingest(events, l, cfg, beatSeconds, burst);
+    this.ledger.ingest(events, l, cfg, beatSeconds, burst);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
   }
@@ -107,6 +114,7 @@ export class BossTransients {
     this.curtain.update(dt);
     this.taster.update(dt);
     this.sinew.update(dt);
+    this.ledger.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
@@ -119,6 +127,7 @@ export class BossTransients {
     this.curtain.draw(ctx, l);
     this.taster.draw(ctx, l);
     this.sinew.draw(ctx, l);
+    this.ledger.draw(ctx, l);
   }
 
   clear(): void {
@@ -131,6 +140,7 @@ export class BossTransients {
     this.curtain.clear();
     this.taster.clear();
     this.sinew.clear();
+    this.ledger.clear();
   }
 }
 
