@@ -547,19 +547,6 @@ kind sits in `LOOK_PENDING` in the test, which goes red the moment the look
 lands, so that lane deletes the line. A look with no shipped alternative, the
 second exemption, so it lands on the field.
 
-## The imports test spawns biome under bun's five-second default
-
-- **Found:** 2026-09-17, claude/render-tests-draw-real-pixels
-- **Taken:** 2026-09-17, claude/queue-the-imports-test-spawns-biome-under-buns-five-se
-- **Files:** `tools/imports/test/imports.test.ts`
-
-"a file with a move's leftovers in it" spawns `bunx biome lint` once per case
-and took 5059 ms on a busy machine under `bun run land`, going red for nothing
-in the code; the landing was rerun and passed. A case that runs a child
-process needs its own cap — `setDefaultTimeout` at the top of the file, the
-way the frame tests take `FRAME_TIMEOUT_MS` — or one spawn for the file with
-the cases reading its output.
-
 ## Nine more tests spawn a child process under bun's five-second default
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
