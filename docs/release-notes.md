@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 7c545544 — THE GORGE's rehearsal: the sack eats every shot, and the pair feeds one part of it on purpose
+
+The wave's guide was prose only. Its film is thirteen pages over 3180 ticks: a shot at nothing swallowed as a bead — the stray the rest of the film pays for; the count only player 1 sees; a column picked and filled in cyan; a red taking a bead back out, the one authored mistake; four going clear and the fifth through; a second column filled and pierced; and the sack, twice pierced, spitting the stray back down the middle column, where player 1 slides under it and its own colour breaks it. It ends two ruptures short of the mouth: the film is the restraint, the mouth is the prose.
+
 ## 2026-09-17 · 7e379daa — THE CANDLE's rehearsal: the field goes black, and the pair fights by the light of its own shots
 
 The wave's guide was prose only. Its film is twelve pages over one loop of 2400 ticks: player 2 fires and the glow dims; it drifts and player 1 follows it — every slide under it an `atBoss` act, aimed off the glow's own column, which is the rng's and not an author's — until it starts eating; only player 1 sees its face; the one authored slide in the film goes to the column it faces and the shot from there is eaten, costing nothing; player 1 slides clear, two clean fires stop it, and the beam's one step puts it out.
