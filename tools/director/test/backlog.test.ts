@@ -24,8 +24,8 @@ describe("buildBacklog", () => {
 
     // Nothing built is on any page. The BESTIARY tab went on 11 September
     // 2026 once every row of bestiary.md 10.1 and 10.2 was built, and the
-    // creature ideas read on the mechanics page; a built creature is in the
-    // palette and nowhere here.
+    // creature ideas read on the mechanics page until the last one kept
+    // there was built; a built creature is in the palette and nowhere here.
     const everything = Object.values(backlog).flatMap((gs) => names(gs as BacklogGroup[]));
     for (const built of [
       "Slick",
@@ -65,7 +65,10 @@ describe("buildBacklog", () => {
     // and `concept-places.test.ts` names all five in one message. Exactly, not "contains": a fifth appearing unasked is the
     // page creeping back to what the owner cut it down from.
     expect(names([group(backlog.mechanics, "SYSTEMS")])).toEqual(["Destruction and damage"]);
-    expect(names([group(backlog.mechanics, "CREATURE IDEAS")])).toEqual(["Husk"]);
+    // CREATURE IDEAS went with its last name, the Husk, on 17 September 2026:
+    // an empty group reads "all of it is built", and the creature ideas left
+    // in `ideas.md` are not — they are simply off the shortlist.
+    expect(backlog.mechanics.map((g) => g.title)).not.toContain("CREATURE IDEAS");
   });
 
   test("the couplings and the assist forms are off the page entirely", async () => {
@@ -129,10 +132,10 @@ describe("buildBacklog", () => {
     expect(names(backlog.mechanics)).toContain("Interference");
     expect(names(backlog.mechanics)).toContain("Inverted instructions");
 
-    // The creature ideas are the cut group, and these two are the proof that
-    // it is cut rather than emptied by a parse that stopped finding the
-    // heading: they are in `ideas.md`, the shapes drawn at them are still on
-    // GRAPHICS, and the page does not draw them.
+    // The creature ideas are off the page, and these two are the proof that
+    // they are off it by decision rather than by a parse that stopped finding
+    // the heading: they are in `ideas.md`, the shapes drawn at them are still
+    // on GRAPHICS, and the page does not draw them.
     expect(names(backlog.mechanics)).not.toContain("Prism");
     expect(names(backlog.mechanics)).not.toContain("Wave gate");
 

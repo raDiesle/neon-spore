@@ -6,8 +6,9 @@ import type { Scene } from "../scene.js";
  * Every one of these is a question the card could not ask. A cluster parts and
  * comes back together, which is unmistakable at 132 px and may be nothing at
  * all at a lane's width; a barb points at a column, which means nothing until
- * there is a column for it to point at; a husk has to pass for a pod, which is
- * a claim about two shapes side by side and not about either one alone.
+ * there is a column for it to point at; a body offered beside the one the
+ * game already draws is a claim about two shapes side by side and not about
+ * either one alone.
  *
  * So the placements are chosen to *lose* the argument if the argument is
  * wrong. A draft standing alone in the middle of an empty field always looks
@@ -56,18 +57,6 @@ export const CREATURE_SCENES: Scene[] = [
       { kind: "scar", col: 1, note: "the damage already done" },
       { kind: "lane", col: 1, note: "the column both are steering for" },
     ],
-  },
-  {
-    suggests: "Husk",
-    role: "p1",
-    crop: "ship",
-    claim:
-      "a husk has to pass for a pod on the way down or refusing one is free — the real pod the game draws, and both drafts beside it, at the size the maw is offered them",
-    bodies: [
-      { shape: "HUSK 1", col: 5, row: 11, tint: "pod", label: "sag" },
-      { shape: "HUSK 2", col: 7, row: 11, tint: "pod", label: "sag + dent" },
-    ],
-    spawns: [{ what: "pod", col: 3, row: 11 }],
   },
   {
     suggests: "Herald",

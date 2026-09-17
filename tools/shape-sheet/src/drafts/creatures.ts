@@ -1,18 +1,6 @@
-import { POD } from "@neon-spore/content";
 import type { CatalogueEntry } from "../catalogue.js";
-import { cluster, glyphed, heeled, hooked, sac, slab, slumped } from "../forms/index.js";
-import {
-  CANT,
-  DRIFT,
-  HEAVE,
-  LURCH,
-  SAG,
-  SHIVER,
-  SLITHER,
-  SWELL,
-  TURN,
-  TWITCH,
-} from "../motions.js";
+import { cluster, glyphed, heeled, hooked, sac, slab } from "../forms/index.js";
+import { CANT, DRIFT, HEAVE, LURCH, SHIVER, SLITHER, SWELL, TURN, TWITCH } from "../motions.js";
 import { blob, crystal } from "../subjects.js";
 
 /**
@@ -171,36 +159,5 @@ export const CREATURE_DRAFTS: CatalogueEntry[] = [
     suggests: "Notch",
     owner:
       "the same commitment on the same beats, said with the whole body instead: fat on the leading side, lean behind, nothing small enough to be lost at creature size. Its risk is the opposite one — the bulb already sways and the slick already tilts, so a lopsided blob may read as one more of those rather than as a claim about the next column",
-  },
-  {
-    subject: sac("HUSK 1", "the pod's contour, its mass gone to the bottom", 0.3, POD.rx, POD.ry, {
-      lobes: POD.lobes,
-      depth: POD.depth,
-      wobble: POD.wobble,
-      seed: POD.seed,
-    }),
-    motion: SAG,
-    status: "draft",
-    slot: "creature",
-    suggests: "Husk",
-    owner:
-      "the quiet answer: the POD card's own lobes, depth, wobble and seed with the mass moved down and nothing else touched, so every difference on the page is the sag. It changes a proportion and no landmark, which is why an eye may have nothing to point at",
-  },
-  {
-    subject: slumped(
-      "HUSK 2",
-      "the same sag, and one shoulder fallen in",
-      0.3,
-      0.26,
-      POD.rx,
-      POD.ry,
-      { lobes: POD.lobes, depth: POD.depth, wobble: POD.wobble, seed: POD.seed },
-    ),
-    motion: SAG,
-    status: "draft",
-    slot: "creature",
-    suggests: "Husk",
-    owner:
-      "the loud answer: the same sag with a dent cut where an intact body has a crown, off-centre so it reads as damage rather than as a shape the thing was built with. Far easier to see — and that is the risk, because a husk legible while it still hangs is one nobody ever has to gamble on",
   },
 ];

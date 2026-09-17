@@ -53,7 +53,7 @@ describe("roster", () => {
     expect(strand?.built).toBe(true);
 
     // Every row left in both tables is built: the tables are a record now,
-    // and the NOT BUILT YET page draws its creature ideas from ideas.md alone.
+    // and the creature ideas left are text in ideas.md and on no page.
     // The row this used to be about — the one thing the bestiary listed and
     // `CREATURES` did not — was the strand, then the choke, then the glyph,
     // and the last of them was retired rather than built (#28).

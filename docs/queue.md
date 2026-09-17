@@ -464,32 +464,6 @@ narrow common shape (`{ col, row, span }`) both arrays are read through. The
 second is smaller and is how `occupiesLane` is already written; the first is
 what every other boss that touches pods has done.
 
-## THE HUSK is built and still on the NOT BUILT YET sheet
-
-- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-17, claude/queue-the-husk-is-built-and-still-on-the-not-built-yet
-- **Where:** local
-- **Files:** `docs/spec/ideas.md`, `docs/asset-catalogue.md`, `tools/shape-sheet/src/drafts/creatures.ts`, `tools/shape-sheet/src/scenes/creatures.ts`, `tools/director/src/backlog.ts`
-- **Answered:** 2026-09-17, by the owner — **They move to VERSUS**, as a second look for the shipped husk mark — the sagging dead-core body offered against the flag on the pod. Then the bullet comes off NOT BUILT YET and the catalogue's count is fixed.
-
-The husk ships: the flag, the wave, the seat-split mark, the deflation, the two
-sounds. Its bullet is still under ◇ NOT BUILT YET in `docs/spec/ideas.md`, and
-that entry describes something else — a fourth `PodKind` whose tell is a dead
-core and a sagging body. What shipped is a flag on a pod with a white frame on
-player 2's screen alone (`packages/render/src/husk-mark.ts`).
-
-Taking the bullet out was tried in the lane that built it and put back:
-`concept-places.test.ts` then reports two orphans, a shape draft and a scene
-both suggesting "Husk" with nothing in the spec left to name. Those are HUSK 1
-and HUSK 2 in `tools/shape-sheet/src/drafts/creatures.ts` — the same capsule
-with its mass moved down, at two strengths — and deleting a look draft nobody
-has voted on is the thing `docs/looks.md` is for refusing. Hence the ask.
-
-What to do once it is answered: take the bullet out, repoint or retire the two
-drafts and the scene, fix the `**Status:` draft count and the HUSK paragraphs in
-`docs/asset-catalogue.md`, and check `tools/director/src/backlog.ts` no longer
-shows it. `bun run check` proves all of it.
-
 ## Four drawn bosses still owe their rehearsal film
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff

@@ -9,5 +9,7 @@ import type { Variant } from "../variant.js";
 import { LOST_BLEEDOUT } from "./lost-screen/bleedout/index.js";
 import { LOST_HOLD } from "./lost-screen/hold/index.js";
 import { LOST_SPALL } from "./lost-screen/spall/index.js";
+import { HUSK_DENT } from "./pod-husk-tell/dent/index.js";
+import { HUSK_SAG } from "./pod-husk-tell/sag/index.js";
 
-export const VARIANTS: Variant[] = [LOST_BLEEDOUT, LOST_HOLD, LOST_SPALL];
+export const VARIANTS: Variant[] = [LOST_BLEEDOUT, LOST_HOLD, LOST_SPALL, HUSK_DENT, HUSK_SAG];

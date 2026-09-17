@@ -154,13 +154,20 @@ describe("a tile crop is centred on a body as it is drawn", () => {
       // deliberately centres a tile off its body (the queen's), passes both
       // ways, because for it the two distances are the same.
       const gap = (col: number, row: number) => Math.hypot(col - at!.col, row - at!.row);
-      const nearest = w.creatures
-        .map((c) => ({
+      // A pod is a body too — `pod:husk-tell` is judged on one hanging alone
+      // — and it is drawn where it is, so its two distances are one.
+      const pods = w.pods.map((p) => {
+        const d = gap(p.colMilli / 1000, p.rowMilli / 1000);
+        return { drawn: d, target: d };
+      });
+      const nearest = [
+        ...w.creatures.map((c) => ({
           drawn: gap(drawnCol(c, phase), drawnRow(c, phase)),
           target: gap(c.col, c.row),
-        }))
-        .sort((a, b) => a.drawn - b.drawn)[0];
-      expect(nearest, `${pose.name}: no creature on the field`).toBeDefined();
+        })),
+        ...pods,
+      ].sort((a, b) => a.drawn - b.drawn)[0];
+      expect(nearest, `${pose.name}: no body on the field`).toBeDefined();
       expect(
         nearest!.drawn,
         `${pose.name}: the window is centred nearer where its body is going than where it is drawn`,

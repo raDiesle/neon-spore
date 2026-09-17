@@ -108,23 +108,29 @@ function deferredGroup(deferred: Idea[]): BacklogGroup {
  * three creatures nobody has built. The rest of both is still in `docs/spec/`,
  * word for word, and is read there.
  *
- * **A list, not a rule, and therefore checked.** Nothing derives these four
- * from the spec — they are the ones he named — so `test/backlog.test.ts`
- * asserts each group holds exactly them, and a heading renamed in `ideas.md`
- * or `systems.md` fails there rather than quietly emptying a column. When one
- * of the four is built its lane takes the name out of here, the same way it
- * cuts the bullet that described it.
+ * **A list, not a rule, and therefore checked.** Nothing derives these from
+ * the spec — they are the ones he named — so `test/backlog.test.ts` asserts
+ * the group holds exactly them, and a heading renamed in `systems.md` fails
+ * there rather than quietly emptying a column. When one of them is built its
+ * lane takes the name out of here, the same way it cuts the bullet that
+ * described it.
  */
 const KEPT_SYSTEMS = ["Destruction and damage"];
-// THE MINE came off this list on 16 September 2026, the day it was built:
-// the bullet that described it is out of `ideas.md` and the creature is in
-// the palette, which is the rule two paragraphs up said it would be. Moulting
-// came off the same day and the same way — and it is the one case where the
-// bullet went without being *implemented*, because the owner redesigned the
-// creature before anybody built it: what shipped is a rock and a cargo by
-// turns off the wave's own beat, and the shell-and-soft-body paragraph that
-// used to be here described something else entirely.
-const KEPT_CREATURES = ["Husk"];
+// THE MINE came off the creatures' list on 16 September 2026, the day it was
+// built: the bullet that described it is out of `ideas.md` and the creature is
+// in the palette, which is the rule two paragraphs up said it would be.
+// Moulting came off the same day and the same way — and it is the one case
+// where the bullet went without being *implemented*, because the owner
+// redesigned the creature before anybody built it: what shipped is a rock and
+// a cargo by turns off the wave's own beat, and the shell-and-soft-body
+// paragraph that used to be here described something else entirely. The Husk
+// was the last name on that list, and it went on 17 September 2026 the odd
+// way round: the creature had been built for a day and its bullet was still
+// on the page, because the bullet described a tell the shipped husk does not
+// use. The tell went to VERSUS (`tools/versus/candidates/pod-husk-tell/`),
+// the bullet left, and with nothing left on the list the CREATURE IDEAS group
+// came off the page with it — an empty group would have said "all of it is
+// built", and the nine creature ideas still in `ideas.md` are not.
 
 // Whether a section's heading tail claims the thing exists. Not a string
 // equality test — "built", but also "the pod, built" — and "not built" /
@@ -208,13 +214,6 @@ export function buildBacklog(systems: string, ideas: string): Backlog {
         "what is missing from a rule the field already half plays by — systems.md carries the built half",
         sheet.systems,
         KEPT_SYSTEMS,
-      ),
-      fromIdeas(
-        "CREATURE IDEAS",
-        "the three bodies with work written down for them — ideas.md holds the rest; the shape drawn for each is on GRAPHICS",
-        sheet,
-        "Creatures",
-        KEPT_CREATURES,
       ),
       fromIdeas("MECHANIC IDEAS", "accepted in principle, not worked out", sheet, "Mechanics"),
       fromIdeas(

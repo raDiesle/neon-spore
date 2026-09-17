@@ -1,6 +1,6 @@
 # The asset catalogue
 
-> **Status: twenty-four drafts, four claimed and thirteen set free so far.** A draft is a picture
+> **Status: twenty-two drafts, four claimed, thirteen set free and two moved to VERSUS so far.** A draft is a picture
 > offered to an idea, not a decision about it. Nothing on this page is in the
 > game until it is claimed — its parameters moving into `packages/content`, or
 > into `packages/render` where what was drawn is a mechanism rather than a
@@ -146,14 +146,18 @@ ordinary column (`packages/render/src/reach-arm.ts`) — which is the clearest
 case this page has that what a card is worth is the form and never the fiction
 around it.
 
-**Two ideas carry two drafts each**, which is new. Every other entry here is one
+**One idea carries two drafts**, which is new. Every other entry here is one
 picture offered to one idea, and that works while the open question is *what*
-should be drawn. The Notch and the Husk are past that: what each is has been
-worked out, and what is left is a question with two candidate answers that only
-an eye can settle. A single draft in that position quietly becomes the answer by
-being the only thing on the page, so both go up, numbered, turning on the same
-clock — NOTCH 1 and NOTCH 2, HUSK 1 and HUSK 2. The section on where the drafts
-fall short says what each pair is asking.
+should be drawn. The Notch is past that: what it is has been worked out, and
+what is left is a question with two candidate answers that only an eye can
+settle. A single draft in that position quietly becomes the answer by being the
+only thing on the page, so both go up, numbered, turning on the same clock —
+NOTCH 1 and NOTCH 2. The section on where the drafts fall short says what the
+pair is asking. The Husk carried a pair the same way until 17 September 2026,
+when the creature shipped with a different tell — a frame on player 2's screen
+— and the two cards left for VERSUS, where the sag is drawn on the field
+against that frame (`tools/versus/candidates/pod-husk-tell/`); a look with
+something shipped in its place is offered there, never here.
 
 **Sixty parts and twenty-two bodies grown out of them**, which is a second
 unit and not more shapes. Everything else on this page is a whole contour
@@ -207,7 +211,8 @@ between them is where the direction is carried.
 `hanging.ts` holds the two for a body whose mass has **given way**: `sac` (the
 original, now taking an optional skin so it can be cut from somebody else's
 lobes) and `slumped` (the same sag with one shoulder fallen in). THE WEIGHT uses
-the first; the two HUSK cards are one of each.
+the first; the two HUSK cards were one of each, and the VERSUS candidates they
+became draw the same two contours from `sacPoints` directly.
 
 `cluster.ts` and `pile.ts` are a field walked on a grid, which is how a contour
 comes apart into more than one loop. They agree on the machinery and disagree
@@ -236,7 +241,8 @@ TWITCH, TURN, DRIFT, TOLL, SWELL, LURCH, HEAVE, SLITHER, CANT, SAG — written t
 be told apart at 26 px rather than to differ by a frequency. SAG is the one
 deliberate exception: it is HEAVE with the asymmetry the other way round,
 because whether those two can be told apart at 26 px *is* the question the HUSK
-was drawn to ask.
+was drawn to ask — asked on the field now, by the candidates the HUSK cards
+became.
 
 ## Own-motion is now data
 
@@ -311,16 +317,15 @@ Said plainly, because a catalogue that oversells itself is worse than none.
 - **None of them has colour, glow or detail.** The cards are outlines. The
   field draws fills, rims, cores and halos, and a silhouette that reads bare
   can still fail dressed.
-- **The HUSK pair has to *fail* to be readable, a little.** A husk that
-  announces itself while it still hangs is free to ignore, and free to ignore is
-  not a decision — so these two are not trying to be legible, they are trying to
-  find the point where legibility starts. HUSK 1 is the POD card's own lobes,
-  depth, wobble and seed with the mass moved down: a proportion changed and no
-  landmark, so an eye may have nothing to point at. HUSK 2 cuts one landmark, a
-  dent 26% of the radius deep across 23% of the outline, off-centre so it reads
-  as damage rather than as design. Put both beside the POD card. If neither
-  separates, the dead core carries the whole tell alone; if HUSK 2 separates and
-  HUSK 1 does not, the line runs between them and that is the measurement.
+- **The HUSK pair had to *fail* to be readable, a little**, and that question
+  is VERSUS's now. A husk that announces itself while it still hangs is free to
+  ignore, and free to ignore is not a decision — so the two cards were not
+  trying to be legible, they were trying to find the point where legibility
+  starts: HUSK 1 the POD card's own lobes with the mass moved down and no
+  landmark touched, HUSK 2 one shoulder cut in. The creature shipped on 17
+  September 2026 with a frame round the pod on player 2's screen instead, so
+  the two are `sag` and `dent` on `pod:husk-tell`, drawn on a hanging husk
+  against that frame, where the measurement can be made at the size it matters.
 - **The NOTCH pair asks where a direction can live.** Both commit on the same
   clock and both carry CANT, which holds a lean instead of rocking through it,
   so the contour is the only variable. NOTCH 1 says it with a barb — one feature

@@ -8675,3 +8675,19 @@ that settled it was skipping the draw altogether — eight waves red at once.
 The bottleneck was nothing; the owner's answer was one field and a sentence.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — husk-drafts-to-versus — the HUSK drafts become a VERSUS slot
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `pods.ts`, `husk-mark.ts`, the two drafts, `sacPoints`, the pose kit and a `lost:screen` candidate for the shape |
+| deciding | 5 | a record both files read, in its own file, because `husk-mark.ts` imports `pods.ts` and neither could hold it |
+| writing | 10 | `husk-look.ts`, the two candidates, the pose and its row, the drafts and scene out, the bullet out, the catalogue and the backlog |
+| friction | 5 | the crop-follow test counted creatures only, so a pose with one pod on it was "no body on the field" |
+| landing | 5 | `check:fast`, one PNG through `versus:shot`, the commit, `bun run land` |
+
+The bottleneck was the tallies: two drafts leaving the sheet moved four counted
+numbers in three tests and the catalogue's status line, each with a paragraph
+saying why it stood where it did.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

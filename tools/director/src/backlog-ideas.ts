@@ -11,23 +11,21 @@ function toIdeaEntry(i: Idea): BacklogEntry {
 }
 
 /**
- * One `###` group of `ideas.md`, whole — or cut to `kept`, the shortlist the
- * owner named for CREATURE IDEAS on 16 September 2026 (`backlog.ts`).
+ * One `###` group of `ideas.md`, whole: MECHANIC, CONTROL and WEAPON IDEAS
+ * are all of them, because none of them is built at all.
  *
- * Optional rather than required, because it is the exception: MECHANIC,
- * CONTROL and WEAPON IDEAS are all of them, and a group that has to be handed
- * its own contents would make the ordinary case look like the odd one.
+ * It took a shortlist once — the names the owner kept for CREATURE IDEAS on
+ * 16 September 2026 — and that group left the page with its last name, the
+ * Husk, on 17 September 2026 (`backlog.ts`). The `### Creatures` bullets stay
+ * in `ideas.md` as text, and the shape drawn for each is on GRAPHICS.
  */
 export function fromIdeas(
   title: string,
   note: string,
   sheet: ConceptSheet,
   group: string,
-  kept?: string[],
 ): BacklogGroup {
-  const rows = sheet.ideas.filter(
-    (i) => i.group === group && (kept === undefined || kept.includes(i.name)),
-  );
+  const rows = sheet.ideas.filter((i) => i.group === group);
   return { title, note, builtHidden: 0, entries: rows.map(toIdeaEntry) };
 }
 

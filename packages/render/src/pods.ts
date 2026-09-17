@@ -1,6 +1,7 @@
 import { blobPoints, POD } from "@neon-spore/content";
 import type { Pod, PodKind } from "@neon-spore/sim";
 import { halo, strokeGlow } from "./glow.js";
+import { HUSK_LOOK } from "./husk-look.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
@@ -53,6 +54,7 @@ export function drawPods(
     // Deterministic variation: the id is the same on both devices.
     const t = time + (p.id % 7) * 0.83;
     if (p.loose) drawWreck(ctx, l, x, y, t, p.kind);
+    else if (p.husk && HUSK_LOOK.body) HUSK_LOOK.body(ctx, l, x, y, t, p);
     else drawMoored(ctx, l, x, y, t, p.kind);
   }
 }
@@ -64,8 +66,10 @@ function podPath(t: number): Path2D {
   );
 }
 
-/** Hanging: a slow bob, a steady pulse, a wide calm halo. */
-function drawMoored(
+/** Hanging: a slow bob, a steady pulse, a wide calm halo. Exported so a
+ * look offered for the husk (`husk-look.ts`) can draw the pod it claims to be
+ * on the screen that must not be able to tell. */
+export function drawMoored(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   x: number,
@@ -184,8 +188,11 @@ export function drawPodCore(
  * `ward` is a shield — the three read at a glance and borrow nothing from
  * each other, because a pair chasing a pod down the field has to name the
  * kind before they decide whether it is worth chasing.
+ *
+ * Exported for a core drawn at its own brightness rather than this file's —
+ * a husk look whose light has gone out still carries the mark (`husk-look.ts`).
  */
-function glyph(ctx: CanvasRenderingContext2D, kind: PodKind): void {
+export function glyph(ctx: CanvasRenderingContext2D, kind: PodKind): void {
   const r = POD.rx;
   if (kind === "purge") {
     ctx.arc(0, r * 0.12, r * 0.4, 0, Math.PI * 2);

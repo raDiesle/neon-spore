@@ -74,7 +74,7 @@ import { drawnSize, FLOOR_HI, FLOOR_LO, isWide } from "../src/drawn-size.js";
 const SQUARE = CATALOGUE.filter((e) => !isWide(e));
 
 describe("drawn size against the 20-26 px floor", () => {
-  it("has the 102 square cards the catalogue now holds", () => {
+  it("has the 105 square cards the catalogue now holds", () => {
     // Two changes on 8 September 2026 that cancelled out. SLICK left: its
     // lobes went onto its long axis, and `depth` 0.52 with an apex at 0° and
     // another at 180° stretches the contour to 209 x 60 where the bean it drew
@@ -113,7 +113,11 @@ describe("drawn size against the 20-26 px floor", () => {
     // (`content/silhouettes-mine.ts`) and its draft card left the sheet the
     // same hour, because the shipped body is drawn here under the creature's
     // name and the two together would be one picture twice.
-    expect(SQUARE.length).toBe(107);
+    // 105 on 17 September 2026: HUSK 1 and HUSK 2 left the sheet for VERSUS
+    // (`tools/versus/candidates/pod-husk-tell/`), where the sag is drawn on
+    // the field against the shipped mark rather than on a card against the
+    // POD's.
+    expect(SQUARE.length).toBe(105);
   });
 
   it("clears the floor for every square card at the 92 px frame it actually gets", () => {

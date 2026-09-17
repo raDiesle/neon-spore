@@ -109,7 +109,10 @@ describe("the catalogue's long axes", () => {
     // by this measure — four blunt arms on a circle stay a circle — and its
     // draft card left the sheet in the same commit, so the tally did not move
     // while the shape crossed from one list to the other.
-    expect(axes.length).toBe(122);
+    // 120 on 17 September 2026: HUSK 1 and HUSK 2, both tall, left the sheet
+    // for VERSUS (`tools/versus/candidates/pod-husk-tell/`), so the tall
+    // count below is eleven and THE VEER the eleventh.
+    expect(axes.length).toBe(120);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own
     // column at each end, which is what makes a run of them one animal with no
@@ -121,16 +124,16 @@ describe("the catalogue's long axes", () => {
     // against always was.
     expect(count("x")).toBe(43);
     expect(count(null)).toBe(66);
-    // THE VEER is the thirteenth tall card and the only one made tall by
+    // THE VEER is the last tall card and the only one made tall by
     // something *on* a body rather than by the body: the stone under it is
     // round, and the rider's hat carries the box half as far again above it.
     // Which is the finding the grown bodies above make from the other side —
     // a part changes what a body looks like and not which way round it is —
     // reaching the opposite answer, because this part stands straight up.
-    expect(count("y")).toBe(13);
+    expect(count("y")).toBe(11);
   });
 
-  it("names the thirteen tall ones", () => {
+  it("names the eleven tall ones", () => {
     expect(
       axes
         .filter((e) => e.long === "y")
@@ -139,8 +142,6 @@ describe("the catalogue's long axes", () => {
     ).toEqual([
       "COMB",
       "GHOST",
-      "HUSK 1",
-      "HUSK 2",
       "LANTERN",
       "POD",
       "RIBBON",

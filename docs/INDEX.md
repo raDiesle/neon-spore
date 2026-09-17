@@ -1233,6 +1233,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hull-mood.ts` | what the ship is doing this frame — `HullMood`, the eased state of its membrane, and `LobePositions`, where its lobes stand — re-exported from `hull-frame.ts` |
 | `packages/render/src/husk-deflate.ts` | **A husk refused: a balloon let go.** The owner asked for this by name on 15 September 2026 |
 | `packages/render/src/husk-mark.ts` |  |
+| `packages/render/src/husk-look.ts` | How a husk is told from a pod — the one record VERSUS can offer a second answer through |
 | `packages/render/src/splash-trail.ts` | **Slime off the end of a mouse** — the ink a desk's pointer leaves, as blobs that swell, sag and add up |
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
@@ -1853,6 +1854,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-link.ts` | The two states a candidate for something that **joins two things** is judged on |
 | `tools/director/src/poses-hold.ts` | The two bodies that hold a control and **go off if it stands still** — THE LIMPET on the plate |
 | `tools/director/src/poses-handover.ts` | the state `handover:notice` is judged on — the pilot's screen a beat before THE HANDOVER warns, replayed once a window |
+| `tools/director/src/poses-husk.ts` | The state a candidate for `pod:husk-tell` is judged on |
 | `tools/director/src/poses-guide.ts` | A page of a tutorial's film, on player 1's phone |
 | `tools/director/src/versus-app.ts` | `versus.html` — the page a VERSUS door opens into, and the whole of its routing |
 | `tools/director/src/versus-advance.ts` | **One tick of a pose's world**, and the one thing four tests and the seat probe want out of `versus-pair.ts`… |

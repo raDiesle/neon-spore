@@ -1,4 +1,5 @@
 import type { Pod, World } from "@neon-spore/sim";
+import { HUSK_LOOK } from "./husk-look.js";
 import type { Layout } from "./layout.js";
 import { podCenter } from "./pods.js";
 import { drawTargetLock } from "./target-lock.js";
@@ -28,6 +29,10 @@ import { drawTargetLock } from "./target-lock.js";
  * Its own file rather than a branch inside `pods.ts` for the reason
  * `lure-alarm.ts` is beside `creatures.ts`: nothing that draws a body should
  * have to know which seat it is running on.
+ *
+ * **And it is one of two answers.** `husk-look.ts` is the record a candidate
+ * offers the other through: a body that carries the tell itself, with this
+ * frame turned off (`HUSK_LOOK.marked`). The shipped look is this file.
  */
 
 /** The colour of *leave that one alone*, shared with `lure-alarm.ts` by being
@@ -68,7 +73,7 @@ export function drawHuskMarks(
    * out against the screen's own edge and arrive torn in half in a crop. */
   bare = false,
 ): void {
-  if (!showsHuskMark(l)) return;
+  if (!showsHuskMark(l) || !HUSK_LOOK.marked) return;
   for (const p of husks(world)) {
     const { x, y, r } = podCenter(l, p);
     const half = r * BOX_MUL;
