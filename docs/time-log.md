@@ -9146,3 +9146,21 @@ to say. The rule is `ledgerWalk` now, called by `slide` and by the drawer, and
 the purity table carries the row so it cannot be written a third time.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-four-drawn-bosses-still-owe-their-rehearsal-film — THE UNDERTOW's rehearsal film
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | §11.20, `undertow.ts`, `undertow-step.ts`, `undertow-press.ts`, `boss-answer.ts`, the wave's guide |
+| deciding | 10 | one lobe scarred, two taken, a pair split between the maw and the plate; the seed picked by scanning sixty for a pair standing in columns the shield's strip can reach |
+| writing | 5 | the film, two probes under `tools/probe/scratch/`, the test, the wiring, the prose count |
+| friction | 5 | the maw did not take the lobe under it because the plate starts on the same column and keeps the maw out; a section mark on a `Files:` line fails `doc-drift` |
+| landing | 5 | `check:fast`, `bun run index`, this entry, the commit, `bun run land` |
+
+The bottleneck was the shield's column: `atBoss` aims the cannon at the first
+breach but a plate is authored in seven columns, so the far lobe of a pair has
+to come up in one of them and the seed was chosen to make it — and the film
+found that a breach left alone withdraws at 300 of the 400 it needs to widen,
+which is a queue item rather than a page.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

@@ -61,11 +61,6 @@ const STILL_PROSE = [
   // mark drawn on one seat's screen and not the other's, so the film has to be
   // shot twice and read as one lesson.
   "THE HUSK",
-  // And THE UNDERTOW, whose floor is drawn now and whose film is queued with
-  // the three above it (`docs/queue.md`, "Four drawn bosses still owe their
-  // rehearsal film"). It is a plate of hull bowing on one screen and not the
-  // other, and a maw opened under a lobe.
-  "THE UNDERTOW",
   // And THE ORRERY, owed by the lane that draws the three orbits. Its film
   // would have to show the same ring drawn true on one screen and as solid
   // armour on the other, which is the whole boss and not a thumb landing

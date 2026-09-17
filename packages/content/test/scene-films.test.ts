@@ -310,3 +310,31 @@ describe("the rehearsal for THE THROAT", () => {
     expect(boss.phase).toBe("slide");
   });
 });
+
+describe("the rehearsal for THE UNDERTOW", () => {
+  it("scars one lobe left alone, takes three with the maw, and plates the far one of a pair", () => {
+    const wave = WAVES.findIndex((w) => w.guide?.scene === "theUndertow");
+    const run = new SceneRun(sceneScript("theUndertow", wave, DEFAULT_CONFIG));
+    const seen: string[] = [];
+    for (let t = 0; t < SCENES.theUndertow.ticks - 1; t++) {
+      run.advance([]);
+      for (const e of run.world.events) {
+        if (e.type === "undertowTaken" || e.type === "undertowScar") {
+          seen.push(`${e.type} ${e.col} @${run.world.beat}`);
+        }
+      }
+    }
+    // The first lobe is nobody's and scars; the next two are taken the beat
+    // they stand, the cannon slid under each by `atBoss`; of the pair the maw
+    // takes the near one and the plated far one withdraws.
+    expect(seen).toEqual([
+      "undertowScar 9 @10",
+      "undertowTaken 7 @16",
+      "undertowTaken 5 @22",
+      "undertowTaken 3 @28",
+      "undertowScar 7 @32",
+    ]);
+    expect(run.world.shieldCol).toBe(7);
+    expect(run.world.cannonCol).toBe(3);
+  });
+});
