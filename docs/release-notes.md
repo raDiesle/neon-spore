@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · c6255361 — THE BATON has a rehearsal film: one launch nobody answers, then three handovers
+
+The arm unfolds a socket a beat; player 1 pulls the trigger and the bead flies three beats and, unshot, lands back in its socket. Then the pair passes it: player 2 fires its colour through it in the air, it lands a socket down and flips, and the seat that acted greys for the beat after — three times, red, cyan, red.
+
 ## 2026-09-17 · 90a85552 — THE DIASTOLE has a rehearsal film, and a strip act can aim at the boss
 
 The first of the four drawn bosses' films. Player 1 sees the left chamber beat in threes and fires on its contractions; the cannon then goes to the bridge and the hold lands the lance on the beat both chambers meet on.
