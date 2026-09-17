@@ -135,6 +135,31 @@ export const showsThroatLock = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsUndertowBow = (role: ViewRole): boolean => role !== "p2";
 /**
+ * *Whether this screen sees that ring of THE ORRERY true.* The outer ring on
+ * both, the middle on the pilot's alone and the inner on the navigator's — and
+ * the one a seat does not own is drawn as an unbroken arc with **no gap in it
+ * at all** (`orrery-draw.ts`).
+ *
+ * The second symmetric split in this list after THE DIASTOLE's chambers, and
+ * the sharper of the two. There, each seat is kept from one count. Here each
+ * seat is kept from one count *and given a third they share*, which is what
+ * makes the fight a conversation rather than two monologues: the outer ring is
+ * the common ground both of them can point at while they argue about the two
+ * they cannot both see. Take it away and there is nothing to calibrate against;
+ * give them all three and there is nothing to say.
+ *
+ * A ring drawn solid is not a lie, and that matters more here than anywhere
+ * else in this file: an arc with no gap is exactly what an orbit you cannot
+ * resolve looks like, and the seat that owns it is being asked for the one fact
+ * — *three out, coming back* — rather than for a picture.
+ *
+ * `test` sees every ring true, the usual *one person is holding both seats*
+ * answer, and here it is also the only honest one: a screen that greyed a ring
+ * would be hiding a count from the only pair there is.
+ */
+export const showsOrreryRing = (role: ViewRole, ring: number): boolean =>
+  ring === 0 || role === "test" || (ring === 1 ? role === "p1" : role === "p2");
+/**
  * THE CANDLE's three, the deepest split in this list: **the same dark field,
  * lit differently on the two phones.** Every other entry keeps a fact about
  * a lit field from one seat; these light the field itself, and a flash is

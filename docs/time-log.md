@@ -8291,3 +8291,22 @@ pane — where the field is limited by its height, `gridTop` is the radar's own
 viewports in the new test are, and why the phone's own frame does not move.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+## 2026-09-17 — orrery-look — three orbits, and the two a seat cannot count
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `diastole-frame.test.ts` as the template for a per-seat picture, `view-role.ts` end to end, `boss-draw.ts`, `light-shafts.ts` — which turned out to be the wrong tool and was not used |
+| writing | 40 | `orrery-shape.ts`, `orrery-draw.ts`, `orrery-shaft.ts`, `showsOrreryRing`, the `boss-draw.ts` branch, nine names onto `boss-surface-clocks.ts`, twenty-three tests, five new paragraphs in `bosses.md` §11.21 |
+| looking | 0 | never watched at tempo, and said so in §11.21 and in the report |
+| friction | 10 | the composition: `orreryReach` spans the field's width and the space above row 0 is a tile deep, so the first two attempts were a circle that could not be drawn and one whose near and far sides were a few pixels apart |
+| landing | 10 | a re-derived smoothstep caught by `copies.test.ts`, a missing `setDefaultTimeout`, the index, `check:fast` |
+
+The bottleneck was the geometry, and it is the lane's one real decision: the
+flattening is not decoration but the only arrangement in which the thing the
+rules care about — which side of a ring a gap is on, and whether it is the
+side a shot can reach — is visible at all. The test that earned its minutes is
+the one with two rings broken: counting organs cannot tell the two seats apart
+(7+5+4 and 7+6+3 are both 16), so only a state where the single standing ring
+is the navigator's can prove the pilot's screen leaks nothing.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

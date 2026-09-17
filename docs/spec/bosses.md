@@ -2130,13 +2130,13 @@ the body has passed, and the same run fingerprints the same way twice
 
 ## 11.21 THE ORRERY — three orbits, and neither of you can see all three
 
-*Simulation built 17 September 2026, and the hand on the ring the same day.
-The design is [bosses-choreographed](bosses-choreographed.md) §2, and this
-section is the record of what shipped — including five places where it shipped
-differently from the design, each said here by name. The picture is not drawn
-yet; it is the last lane, named on that page's own table before any of this
-was started, and it carries the one piece of the hand a simulation may not
-have.*
+*Simulation built 17 September 2026, the hand on the ring the same day, and
+the picture the same day after it. The design is
+[bosses-choreographed](bosses-choreographed.md) §2, and this section is the
+record of what shipped — including five places where it shipped differently
+from the design, each said here by name. What is still out is the **handle**:
+the circle a real thumb takes hold of, which is the one piece of the hand a
+simulation may not have.*
 
 > The one where you each see two of the three rings.
 
@@ -2194,8 +2194,13 @@ has to be done out loud, in halves, by two people who can each check exactly
 one third of the other's work. That is the design's `PerSeatTruth`, and it is
 the one part of this boss that is entirely the picture's: the simulation knows
 where every gap is and says so to anybody who asks, exactly as it does for
-THE QUEEN's two marks. The split lives in `render/view-role.ts` when the look
-lands.
+THE QUEEN's two marks. The split is `showsOrreryRing` in
+`render/view-role.ts`, and it is **the sharper of the game's two symmetric
+splits**: THE DIASTOLE keeps each seat from one of two chambers, and this keeps
+each seat from one of three rings *and gives them a third they share*. The
+outer ring is true on both screens on purpose — a pair with nothing in common
+have nothing to calibrate against, and the ring they can both count is what
+makes the other two worth saying out loud.
 
 **Health is the rings, outermost first.** A landed shot takes the outermost
 ring still standing (`orreryBreak`), so the arithmetic gets *easier* as the
@@ -2315,16 +2320,58 @@ devices agree about where every gap is exactly when they agree about `from` and
 `anchorBeat`, and one beat out is a pair firing into armour on one screen and
 into the core on the other.
 
-**Nothing drawn and nothing sounded.** The picture is the last lane on the
-choreographed page's table; until it lands, wave 70 shows a boss with no body,
-which is what every boss on that page looked like between its landings — and
-**the hand cannot yet be laid on the ring by a real thumb**, because a
-hit-test is a circle in pixels and nothing in `packages/sim` may know one. The
-rule, the wire and the fingerprint are shipped and tested; the circle, the
-`touch.ts` branch and the row in `docs/spec/controls.md` are the look's, which
-is said in that page's claim row rather than found out twice. It makes no sound either, and that is queued rather than quietly
-skipped: the state carries the edges a mixer would want — `brokeBeat`,
-`spatBeat`, `phaseBeat` — so nothing needs an event added to find them.
+**The orbits are flattened, and that is the whole of the composition**
+(`render/orrery-shape.ts`). `orreryReach` already says a ring spans most of
+the field's width, and the space above row 0 is a tile deep, so a circle of
+that width could not be drawn at all — and a circle squeezed into that height
+would put a ring's near side and its far side within a few pixels of each
+other, when the near side is the only one a shot can reach. At
+`ORRERY_FLATTEN` 0.3 the outer ring's bottom and top are three rows apart,
+which is what makes *three out, coming back* a thing an eye can follow. Slot 0
+is drawn at the bottom over the core's own column, which is the sim's
+convention read straight off, and the picture goes through `fieldX` — so a
+turned seat sees the whole orrery mirrored, and the pilot's *three out to the
+right* is the navigator's three out to the left.
+
+**A ring arrives in a rhythm rather than at a speed.** An organ leaves its
+socket and is at the next one in a little under half a beat, then sits
+(`STEP_PHASE`, eased through `render/ease.ts`). A ring gliding evenly would
+give the pair three speeds to compare and nobody can compare three speeds
+while talking; three rings that snap and wait give them three *rhythms*, and
+the difference between eight beats round and six is then something you can
+hear in your own counting. **The strain on the ring the pilot is turning is
+never drawn as rotation**, for the boss's own reason: what he buys is a
+detent, and a ring shown creeping under his thumb would be a gap moving
+between two slots it can never be in.
+
+**A broken ring is not erased** (`render/orrery-draw.ts`). Its orbit stays as
+a dashed grey line with its organs gone: the pair have been counting against
+it for a minute, and a fight that deleted the thing they were counting would
+take the count with it. The near organs are drawn after the core and the far
+ones before it, so the ring passes in front of the core and behind it, and the
+near arc is brighter — position says which side a gap is on, and brightness
+says it a second time. Violet is *a ring this screen can count* and rock grey
+is *a ring you have to be told about*, which is the per-seat split made a
+colour.
+
+**The shaft is a corridor of light down the core's column**
+(`render/orrery-shaft.ts`), dim and one column wide, on the beats a shot could
+reach the core and on no others. The design credits `light-shafts.ts` and that
+is the wrong tool twice over: it hashes over wall-clock time where this is a
+fact about a beat, and it is bright where this has to be readable without
+being mistaken for the lance. It is the one mark in the fight that says *now*
+to both seats at once, and it says nothing about the two rings a seat cannot
+see.
+
+**It makes no sound**, and that is queued rather than quietly skipped: the
+state carries the edges a mixer would want — `brokeBeat`, `spatBeat`,
+`phaseBeat` — so nothing needs an event added to find them. **And the hand
+cannot yet be laid on the ring by a real thumb**, because a hit-test is a
+circle in pixels and nothing in `packages/sim` may know one. The rule, the
+wire, the fingerprint and now the circle itself are shipped; the `touch.ts`
+branch, the `FIELD_CONTROLS` entry and the row in `docs/spec/controls.md` are
+the handle's, which is said in the choreographed page's claim row rather than
+found out twice.
 
 **Never watched at tempo.** What the tests say is the mechanism: the three
 orbits come round on their own counts, the anchors put the first alignment
@@ -2340,7 +2387,21 @@ later, that the bank survives a lift and moves nothing on its own, that
 turning back gives up exactly what turning in bought, that it is player 1's
 alone, that a turned ring still comes round on its own count, and that four
 organs of the outer ring turn a twelve-beat wait into this beat
-(`sim/test/orrery-hand.test.ts`).
+(`sim/test/orrery-hand.test.ts`). The picture is tested where it has a right
+answer rather than a nice one: that slot 0 is drawn at the bottom over the
+core's column and the slot opposite it at the top, that the three rings nest
+and every one is flattened the same way, that a quarter turn out mirrors for
+the turned seat, that a ring only ever crosses one organ over a beat and never
+past the one it is arriving at (`render/test/orrery-shape.test.ts`), and that
+every phase draws on every screen, the flare and the shaft each cost something
+on the beat they are open and nothing on the beat after, and **a state with
+only the inner ring standing puts violet on the navigator's screen and none
+anywhere on the pilot's** (`render/test/orrery-frame.test.ts`). **No eye has
+seen it and no pair has fought it**: whether three flattened arcs of organs
+read as three cadences at 26 pixels, and whether a turn and a half an organ is
+heavy enough to be a decision and light enough to be worth making with a rock
+coming down the same column every four beats, are things a person sees at
+tempo.
 
 ## 11.22 THE CANDLE — the boss fought in the dark
 

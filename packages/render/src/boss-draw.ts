@@ -12,6 +12,7 @@ import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawMaze } from "./maze-draw.js";
 import { drawMirror } from "./mirror.js";
+import { drawOrrery } from "./orrery-draw.js";
 import { drawQueen } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { drawReprise } from "./reprise-draw.js";
@@ -129,6 +130,17 @@ export function drawBoss(
   // each screen is shown one chamber beating and one still (`diastole-draw.ts`).
   if (boss.kind === "diastole") {
     drawDiastole(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
+    return;
+  }
+
+  // THE ORRERY: a core in the middle column inside three flattened orbits,
+  // above and across the top of the field rather than on it — nothing of it is
+  // among the creatures, for THE VANE's reason. Two of the three rings are
+  // drawn solid on any one screen, which is the encounter rather than a trick
+  // of the drawing, and the corridor of light down the middle is the one beat
+  // a shot can reach the core (`orrery-draw.ts`).
+  if (boss.kind === "orrery") {
+    drawOrrery(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
     return;
   }
 

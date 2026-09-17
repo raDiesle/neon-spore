@@ -877,6 +877,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/guide-play.ts` | The clock a rehearsal runs on, and the page it is running |
 | `packages/render/src/guide-plate.ts` | The body under the tutorial's corner plate: the panel's button recipe stretched to a plate, split from `guide-switch.ts` |
 | `packages/render/src/opening-fx.ts` | The two things a wave's opening remembers between frames: how long the page that is up has been up |
+| `packages/render/src/orrery-draw.ts` | THE ORRERY, drawn: a core in the middle column held inside three flattened orbits of organs |
+| `packages/render/src/orrery-shaft.ts` | **The shaft**: a corridor of light straight down the core's column, on the one beat a shot can reach the core |
+| `packages/render/src/orrery-shape.ts` | **Where THE ORRERY's three orbits are on the screen**, and nothing about how they are painted |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
