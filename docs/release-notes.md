@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 654928c6 — Park THE HIVE's look: the simulation landed, the second lane not started
+
+The session stops before the look lane begins, so the plan for it — the files, the two seat predicates, the picture as decided — goes in docs/parked.md where bun run queue hands it to the next sitting first.
+
 ## 2026-09-17 · 7f2da3a2 — Four answered queue entries carry their answers, and one carries a correction
 
 The owner answered all five of the queue's `ASKS THE OWNER` entries. Two landed as work in their own commits; these four are written back into `docs/queue.md` so the answers are read by whoever runs `bun run queue` rather than lost with the session that asked. THE STARE's two are decided and need nothing further: the tell goes to **7 beats** (4.38s), the first value that meets `latency.md`'s own four-second rule so no exemption has to be argued, and **`stareLookGrowBeats` 3** makes the looks 6, 9, 12 so the third is the ceiling and the wave as authored reaches it.
