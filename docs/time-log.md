@@ -8385,3 +8385,5 @@ that could not see the picture at all. The stub records both now.
 
 The bottleneck was reading rather than doing: the question was whether a tool
 was missing, and the answer took a survey of five tools to be sure of.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
