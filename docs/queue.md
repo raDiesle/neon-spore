@@ -293,6 +293,7 @@ cut. The line cap stays; the two are different runs.
 ## `reconcile-repo.test.ts` clones into the checkout when its hook times out
 
 - **Found:** 2026-09-17, claude/queue-four-drawn-bosses-still-owe-their-rehearsal-film
+- **Taken:** 2026-09-17, claude/queue-reconcile-repo-test-ts-clones-into-the-checkout
 - **Files:** `tools/land/test/reconcile-repo.test.ts`
 
 `diverged` puts its temp directory in a module-level `dir` and reads it back
