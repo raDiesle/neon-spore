@@ -450,3 +450,23 @@ supposed to be written unbacktickedly. One extra line under the drift list,
 naming the convention, is the whole fix.
 
 The row itself was repaired in this lane's commit to get the trunk green again.
+
+## The bosses page says nothing is in hand while THE INSTAR's look is
+
+- **Found:** 2026-09-17, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `docs/spec/bosses.md`, `tools/director/src/backlog-bosses.ts`
+
+`bosses.md`'s `## Still in hand` reads *Nothing, as of 17 September 2026*, and
+the choreographed ledger's §16 row says THE INSTAR's simulation landed that day
+and **the look is the next lane**. Both were written the same day by different
+lanes and only one of them is right.
+
+The cost is not the sentence, it is the director: STILL IN HAND is the first
+column of the NOT BUILT YET sheet's one remaining page, and it is built by
+reading the bosses under that heading (`backlog-bosses.ts`). An empty heading
+renders an empty column, so the sheet currently tells a session that every look
+has landed. `backlog.test.ts` exempts that group from its populated check on
+purpose — an empty column is a legitimate outcome — so nothing is red.
+
+Move THE INSTAR under `## Still in hand` with the one line the ledger already
+has for it, and take it back out when its look lands.

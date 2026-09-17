@@ -42,7 +42,12 @@ a costume on, and a field boss that stops the field is a round.
   beads. Say what part of the outline goes away and how many there are.
 - **A step is a `Command` or it does not exist.** A gesture not in
   `DragTarget` or `Hold["kind"]` is a wish. Add the member, in `sim`.
-- **Nothing is written for the pair to read aloud.** The words are theirs.
+- **Nothing is written for the pair to read aloud.** The words are theirs —
+  a *script* is forbidden, a *verb* is not. Since `docs/decisions.md` #34 the
+  field may say one word beside the mark where the action is wanted, with the
+  kind of action over it, on the seat that can act: `render/src/boss-cue.ts`
+  is the reading and a new boss adds its own arm to it. It never says a
+  column, a colour or a count — that is the sentence the pair has to say.
 - **A round is never repeated.** Eleven rounds, eleven acts, each thrown away.
 - **Presentation is the hull's reaction, not the frame's.** No split screen,
   no zoom, no camera.

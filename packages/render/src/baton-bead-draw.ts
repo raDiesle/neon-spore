@@ -51,6 +51,33 @@ const PUPIL_FILL = "#0B0614";
 const MERGED = 1.3;
 
 /**
+ * Where a bead is on this tick, bow and all.
+ *
+ * Exported because the cue hangs off it: `LAUNCH` and `FIRE` are drawn beside
+ * the bead they are about (`boss-cue.ts`), and a frame that read the row off
+ * the simulation but not the bow would sit a fifth of a tile beside the thing
+ * it is pointing at on every flight.
+ */
+export function beadPoint(
+  l: Layout,
+  cfg: SimConfig,
+  b: BatonState,
+  bead: BatonBead,
+  tick: number,
+): { x: number; y: number } {
+  const rowMilli = batonBeadRowMilli(cfg, bead, tick);
+  const y = l.gridTop + (rowMilli / 1000) * l.tile + l.tile / 2;
+  let x = tileCX(l, batonBeadCol(cfg, b, bead, tick));
+  if (bead.flying) {
+    const span = Math.max(1, batonLandTick(cfg, bead) - bead.flightTick);
+    const f = Math.min(1, Math.max(0, (tick - bead.flightTick) / span));
+    const side = b.handovers % 2 === 0 ? 1 : -1;
+    x += side * Math.sin(f * Math.PI) * l.tile * ARC;
+  }
+  return { x, y };
+}
+
+/**
  * The bead: sitting in its socket, or in the air between two.
  *
  * A flight bows sideways rather than going straight down the spine, one side
@@ -71,16 +98,8 @@ export function drawBead(
   beatPhase: number,
   time: number,
 ): void {
-  const rowMilli = batonBeadRowMilli(cfg, bead, tick);
-  const y = l.gridTop + (rowMilli / 1000) * l.tile + l.tile / 2;
-  let x = tileCX(l, batonBeadCol(cfg, b, bead, tick));
+  const { x, y } = beadPoint(l, cfg, b, bead, tick);
   const flying = bead.flying;
-  if (flying) {
-    const span = Math.max(1, batonLandTick(cfg, bead) - bead.flightTick);
-    const f = Math.min(1, Math.max(0, (tick - bead.flightTick) / span));
-    const side = b.handovers % 2 === 0 ? 1 : -1;
-    x += side * Math.sin(f * Math.PI) * l.tile * ARC;
-  }
   const twin = b.beads.length > 1 && bead !== batonLead(b);
   const merged = b.merged && b.beads.length === 1;
   const hex = bead.color === "red" ? PALETTE.red : PALETTE.cyan;

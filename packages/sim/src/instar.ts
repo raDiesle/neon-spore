@@ -29,8 +29,10 @@ import type { World } from "./world.js";
  * on the `instarMark` target with `id` naming the mark, and the six gestures
  * are read off the fields a drag already carries — `on` for a press and a
  * lift, `fromYMilli` for a pull and a swipe, `fromMilli` as a bearing for a
- * turn, the way the crank reads it (`instar-hand.ts`). Nothing is written for
- * the pair to read aloud; the mark's own picture is the instruction.
+ * turn, the way the crank reads it (`instar-hand.ts`). No *script* is written
+ * for the pair to read aloud — though since `docs/decisions.md` #34 the field
+ * may say the **verb** beside the mark, which is render's own reading of this
+ * state and nothing here (`render/src/boss-cue.ts`).
  *
  * **Together means together.** A step with a mark for each seat lands only
  * when both are done inside `instarTogetherBeats` of each other. One that

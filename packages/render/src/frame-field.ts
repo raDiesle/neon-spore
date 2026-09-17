@@ -1,5 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { drawBeatboxMarks } from "./beatbox-marks.js";
+import { drawBossCue } from "./boss-cue-draw.js";
 import { drawBoss } from "./boss-draw.js";
 import { drawBullets } from "./bullets.js";
 import { drawChoirArrows } from "./choir-arrows.js";
@@ -230,6 +231,9 @@ export function drawBodies(
   // (`lock-mark.ts`).
   drawLockMarks(ctx, l, world, cannonCol, view.beatPhase, view.time);
   drawBoss(ctx, l, view, effects, skinY);
+  // And over it, the one word it is asking for — on the seat that can answer,
+  // beside the mark where the answer goes (`boss-cue.ts`, `decisions.md` #34).
+  drawBossCue(ctx, l, world, view.time, skinY);
   drawPods(ctx, l, world.pods, view.time);
   // And over one of them, on one screen: the frame that says this pod is a lie
   // (`husk-mark.ts`). It is drawn after the pods rather than inside them for

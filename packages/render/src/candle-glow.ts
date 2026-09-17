@@ -35,6 +35,17 @@ import { showsCandleFace } from "./view-role-clocks.js";
 
 /** Tiles above the middle of row 0 the flame hangs. THE DIASTOLE's shelf. */
 const HANG = 0.52;
+/**
+ * Where the flame hangs this frame, on the line above row 0 THE DIASTOLE's
+ * lobe uses. Exported because the cue asks it too: the one word the field
+ * says about this boss is drawn beside the light, and a second copy of this
+ * arithmetic in `boss-cue-read.ts` would drift off the picture the moment the
+ * shelf moved (`boss-cue.ts`).
+ */
+export function candleGlowY(l: Layout): number {
+  return tileCY(l, 0) - l.tile * HANG;
+}
+
 /** The halo's reach in tiles at full glow, and at nothing. */
 const REACH_FULL = 2.4;
 const REACH_OUT = 0.8;
@@ -59,7 +70,7 @@ export function drawCandleGlow(
   if (c.glow <= 0 || c.phase === "out") return;
   const share = c.glow / cfg.candleGlowSteps;
   const x = tileCX(l, c.col);
-  const y = tileCY(l, 0) - l.tile * HANG;
+  const y = candleGlowY(l);
   const throb = 1 - THROB * (0.5 + 0.5 * Math.sin(time * THROB_HZ * 2 * Math.PI));
   const reach = Math.round(l.tile * (REACH_OUT + (REACH_FULL - REACH_OUT) * share));
 

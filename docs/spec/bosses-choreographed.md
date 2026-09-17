@@ -2098,6 +2098,39 @@ and only one of them is a boss.
    answers a softer version of it with the slip, and the hard version is still
    not built.
 
+### The cue, as built
+
+*17 September 2026, the same day.* The rule of item 1 is now a picture, and it
+is deliberately a **reading** rather than machinery: `render/src/boss-cue.ts`
+is a pure function from the `World` the simulation already keeps to at most one
+cue, so nothing was added to `packages/sim`, to `hashWorld` or to the wire. The
+readings are `boss-cue-read.ts` and `boss-cue-read-b.ts`, the hand is
+`boss-cue-draw.ts` — THE CHOIR's target lock in `PALETTE.rock` with the verb
+under it and the kind of action over it — and `frame-field.ts` draws it over
+the boss, on every seat that can act.
+
+**One at a time, and only when something is owed.** The readings return their
+cues most urgent first and the screen shows the first one this seat may see.
+THE GORGE is the proof that the second half of that sentence matters: it is
+silent for the whole feeding movement, because the fight is *stop shooting* and
+a word over a sack that wants to be left alone would be the boss asking for its
+own dinner.
+
+| Boss | The pilot is told | The navigator is told |
+|---|---|---|
+| THE CANDLE | `MOVE` (carry) when he is sitting in the column the flame is eating | `FIRE` (press) on the glow |
+| THE GORGE | nothing — he fires nothing here | `PIERCE` (press) on an intake come full; `BURN` (hold) on the mouth |
+| THE CURTAIN | `SHOVE` (carry) — the carry is either seat's | `SHOVE`, and `FIRE` (press) on the core once it is bare |
+| THE TASTER | nothing | `SHEAR` (press) while the fan stands; `BURN` (hold) once it closes |
+| THE UNDERTOW | `OPEN` (hold) on a standing lobe, `MOVE` (carry) off a seat that has come up under him | `BURN` (hold) on a tall lobe, `MOVE` (carry) off a shield keeping the maw out |
+| THE BATON | `LAUNCH` (press) on the bead that is sitting | `FIRE` (press) on the bead in the air |
+
+**Not yet:** the other choreographed bosses — THE THROAT, THE LEDGER, THE LEAD,
+THE SCUTTLE, THE DIASTOLE, THE ORRERY — and the kind line over the handle hints
+THE SINEW, THE SURGE and THE ANTIPHON already draw (`handle-draw.ts` says the
+verb and not the grammar). And the other half of #34: the rehearsal pages that
+exist only to name a gesture the fight now names have not been pruned yet.
+
 ### The brief's own worked encounter, read against this engine
 
 THE HOLLOW WARDEN is the sheet's eight-step example and the clearest statement

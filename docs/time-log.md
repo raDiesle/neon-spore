@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-hints — the field says one word, on six bosses
+
+`decisions.md` #34 turned into a picture. A pure reading of `World` —
+`boss-cue.ts` and its two readings — a `target-lock` frame in rock grey with
+the verb under it and the kind of action over it, drawn from `frame-field.ts`
+on the seat that can act, for THE CANDLE, THE GORGE, THE CURTAIN, THE TASTER,
+THE UNDERTOW and THE BATON. Nothing was added to `packages/sim`, to `hashWorld`
+or to the wire.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the six bosses' state and predicates, their `showsX` splits, the geometry each mark had to hang off, `choir-prompt.ts` and `roles.md` for whose thumb is whose |
+| writing | 45 | four render files, two small exports refactored out of existing draws (`candleGlowY`, `beadPoint`), nineteen test cases, the spec's *cue, as built* table, the skill and `instar.ts`'s reversed refusal |
+| looking | 5 | one frame of THE CURTAIN on the navigator's screen: `CARRY` over the frame, `SHOVE` under it |
+| friction | 5 | `import`s unsorted and `docs/INDEX.md` out of date — both the standing two-command fix, neither a surprise |
+| landing | 10 | `check:fast` twice, the queue entry, the commit, `bun run land --keep` |
+
+The bottleneck was reading six fights well enough to know *which* beat wants a
+word: the cue is only worth having where something is owed, and THE GORGE — a
+boss whose whole rule is *stop shooting* — had to be read twice before it was
+clear that its cue must be silent for a whole movement.
+
 ## 2026-09-17 — boss-hints — the second brief, read against the engine
 
 A twenty-boss brief from the same source as the first, arriving after fourteen
