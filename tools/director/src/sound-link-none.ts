@@ -73,6 +73,9 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.batonRelit": "the bead landing back where it was, untouched. Same argument.",
   "boss.batonSettled":
     "the bead going back to the top of the arm after a missed turn. Same argument.",
+  "boss.batonTwin":
+    "a second bead lighting in the top socket of the arm. Same argument — and the twin has no look of its own yet.",
+  "boss.batonMerged": "two beads becoming one in the last socket. Same argument.",
   "boss.batonShed":
     "a dark socket parting from the arm. What falls is a meteor, which has a card; what it fell *from* is the arm, which does not.",
   "boss.batonDown":

@@ -431,7 +431,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/balloon.ts` | THE BALLOON: the first body in this game that does not come down |
 | `packages/sim/src/baton-hash.ts` | What THE BATON puts into `hashWorld`, and nothing else |
 | `packages/sim/src/baton-press.ts` | THE BATON's presses: the launch, the strike, the take and the lock |
+| `packages/sim/src/baton-pair.ts` | THE BATON's second bead: its lighting and the merge that ends it |
 | `packages/sim/src/baton-step.ts` | THE BATON's clock: the unfold, the landing, the settle, the shed and the fold |
+| `packages/sim/src/baton-bead.ts` | Where a bead of THE BATON is on a tick |
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
 | `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |

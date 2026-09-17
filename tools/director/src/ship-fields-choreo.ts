@@ -56,6 +56,7 @@ export const CHOREO_FIELD_GROUP = {
   batonSwingAfter: "THE BATON — a bead passed down an arm, one seat a beat",
   batonShedAfter: "THE BATON — a bead passed down an arm, one seat a beat",
   batonShedBeats: "THE BATON — a bead passed down an arm, one seat a beat",
+  batonTwinAfter: "THE BATON — a bead passed down an arm, one seat a beat",
   batonDownBeats: "THE BATON — a bead passed down an arm, one seat a beat",
   // ThroatConfig — five rings, a mouth a third of the way down, the inhale
   // and what it tightens to, and how far the mouth steps between inhales.

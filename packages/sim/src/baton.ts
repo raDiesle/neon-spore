@@ -1,7 +1,5 @@
-import { beatStartTick } from "./beat-clock.js";
-import { midCol, type SimConfig, ticksPerBeat } from "./config.js";
+import { midCol, type SimConfig } from "./config.js";
 import type { Color } from "./types.js";
-import { MILLI } from "./world.js";
 
 /**
  * THE BATON: whose turn is it.
@@ -33,9 +31,19 @@ import { MILLI } from "./world.js";
  * last handover drops the bead out of the bottom of the arm as a loose pod:
  * the fight ends the way a pod does, in the maw, with player 1 under it.
  *
+ * **A second bead**, once `batonTwinAfter` sockets are dark: it lights in the
+ * top socket wearing the other colour, and from then on the one trigger
+ * launches whichever bead sits lowest and the one shot takes whichever
+ * unstruck bead the bolt reaches first — two beads on one alternation, which
+ * is the design's step 9 (`docs/spec/bosses-choreographed.md` §10). The
+ * bead that reaches the last socket first **waits** there, unlaunchable and
+ * unsettling, until the other lands in the socket above it; then the two
+ * merge into one, and that one's next flight is the drop.
+ *
  * The clock, the launch and the landing are `baton-step.ts`, the fingerprint
- * is `baton-hash.ts`, the numbers are `config-baton.ts`. This file is the
- * shape, the geometry and the questions asked of both.
+ * is `baton-hash.ts`, the numbers are `config-baton.ts`, and where a bead is
+ * on a tick is `baton-bead.ts`. This file is the shape and the questions
+ * asked of it.
  */
 
 /**
@@ -45,13 +53,13 @@ import { MILLI } from "./world.js";
  * into `hashWorld` as its index, so the order is a wire value.
  *
  * - `unfolding` — the arm unfolds downward, one socket a beat. Nothing to press yet.
- * - `sitting` — the bead is in a socket and player 1 may launch it.
- * - `flying` — the bead is in the air between two sockets, and player 2 may
- *   strike it.
+ * - `passing` — beads are being passed down the arm: each is sitting in a
+ *   socket, where player 1 may launch it, or in the air between two, where
+ *   player 2 may strike it (`BatonBead.flying`).
  * - `falling` — the bead has dropped out of the last socket as a loose pod.
  * - `down` — the pod was taken. The arm folds away and the boss is spent.
  */
-export const BATON_STAGES = ["unfolding", "sitting", "flying", "falling", "down"] as const;
+export const BATON_STAGES = ["unfolding", "passing", "falling", "down"] as const;
 
 /** Where the fight is. */
 export type BatonStage = (typeof BATON_STAGES)[number];
@@ -64,29 +72,52 @@ export const BATON_SOCKET_LIT = 0;
 export const BATON_SOCKET_DARK = 1;
 export const BATON_SOCKET_SHED = 2;
 
+/** One bead on the arm: sitting in a socket, or in the air below it. */
+export interface BatonBead {
+  /** In the air between two sockets. Otherwise sitting in `socket`. */
+  flying: boolean;
+  /** `world.beat` it last came to rest on — the settle clock counts from here. */
+  satBeat: number;
+  /** The socket it is in, or is flying out of. */
+  socket: number;
+  /** `world.tick` the flight began on, -1 while it is not in the air. */
+  flightTick: number;
+  /** Whether a shot of the right colour has gone through it this flight. */
+  struck: boolean;
+  /** The colour it carries, which is the colour that takes it. */
+  color: Color;
+  /** The column it is landing in. Read only while it flies: sitting, its column is its socket's (`batonSocketCol`). */
+  col: number;
+  /** The column it left from. The same as `col` unless the arm swung for this flight. */
+  fromCol: number;
+}
+
 /** Everything THE BATON remembers between beats. */
 export interface BatonState {
   kind: "baton";
   stage: BatonStage;
   /** `world.beat` the current stage began on. */
   stageBeat: number;
-  /** The column the arm hangs in — and the one the bead is landing in. */
+  /** The column the arm hangs in — the lead bead's, and where a shed shell falls. */
   col: number;
-  /** The column the bead left from. The same as `col` until the arm swings. */
-  fromCol: number;
   /**
    * One entry per socket, base first: `BATON_SOCKET_LIT`, `_DARK` or
    * `_SHED`. The silhouette is the health bar.
    */
   sockets: number[];
-  /** The socket the bead is in, or is flying out of. */
-  socket: number;
-  /** `world.tick` the flight began on, -1 while it is not in the air. */
-  flightTick: number;
-  /** Whether a shot of the right colour has gone through it this flight. */
-  struck: boolean;
-  /** The colour the bead carries, which is the colour that takes it. */
-  color: Color;
+  /** The beads on the arm, in the order they lit: one, then two, then the merged one. */
+  beads: BatonBead[];
+  /** Whether the two beads have already become one, so a third never lights. */
+  merged: boolean;
+  /**
+   * `world.beat` the arm last went still on — the last landing, or the end
+   * of the unfold. A sitting bead's turn is counted from here or from its own
+   * landing, whichever is later, and never while another bead is in the air:
+   * the turn is the pilot's to take *once the arm is still*, and a bead the
+   * arm shook home while he was watching the other one fly would be a turn
+   * he was never given.
+   */
+  stillBeat: number;
   /** Sockets passed so far. Decides when the turn tightens and where the arm swings. */
   handovers: number;
   /** Times the arm shook a sitting bead back to the base. */
@@ -130,37 +161,44 @@ export function batonLocked(b: BatonState, player: 1 | 2, beat: number): boolean
 }
 
 /**
- * The tick a flight that began on `flightTick` lands on: `batonFlightBeats`
- * whole beats from the top of the beat the launch was in. Counted from the
- * beat's start rather than from the press, so a bead launched late in a beat
- * still lands on a beat — the landing is a thing the pair counts to.
+ * The bead furthest down the arm — the one the fight is about, and the one
+ * the picture bends the arm at. The first lit wins a tie, so with one bead it
+ * is that bead and with two in the top socket it is the original. `null`
+ * only once the last one has dropped.
  */
-export function batonLandTick(cfg: SimConfig, flightTick: number): number {
-  return beatStartTick(cfg, flightTick) + cfg.batonFlightBeats * ticksPerBeat(cfg);
+export function batonLead(b: BatonState): BatonBead | null {
+  let lead: BatonBead | null = null;
+  for (const bead of b.beads) if (lead === null || bead.socket > lead.socket) lead = bead;
+  return lead;
 }
 
 /**
- * Where the bead is, in thousandths of a row down from the top, on this tick.
- *
- * Sitting, it is on its socket's row. Flying, it is between the socket it left
- * and the one below, by how much of the flight has passed — a straight line,
- * because a bead that eased would be a bead whose position on a given tick
- * the two seats could not both count out loud.
+ * A bead in the last socket with another still on the arm is **waiting**: it
+ * cannot be launched, because out of that socket there is only the drop and
+ * the drop is the merged bead's; and it does not settle, because the design
+ * hangs it there *by a thread* until the other arrives
+ * (`docs/spec/bosses-choreographed.md` §10, step 12).
  */
-export function batonBeadRowMilli(cfg: SimConfig, b: BatonState, tick: number): number {
-  const from = batonSocketRow(cfg, b.socket) * MILLI;
-  if (b.stage !== "flying") return from;
-  const land = batonLandTick(cfg, b.flightTick);
-  const span = Math.max(1, land - b.flightTick);
-  const gone = Math.min(span, Math.max(0, tick - b.flightTick));
-  return from + Math.round((gone * MILLI) / span);
+export function batonWaiting(cfg: SimConfig, b: BatonState, bead: BatonBead): boolean {
+  return b.beads.length > 1 && !bead.flying && bead.socket === cfg.batonSockets - 1;
 }
 
-/** The column the bead is over on this tick: `fromCol` for the first half of a flight, `col` after. */
-export function batonBeadCol(cfg: SimConfig, b: BatonState, tick: number): number {
-  if (b.stage !== "flying" || b.fromCol === b.col) return b.col;
-  const land = batonLandTick(cfg, b.flightTick);
-  return tick - b.flightTick < (land - b.flightTick) / 2 ? b.fromCol : b.col;
+/**
+ * The bead player 1's trigger sends: of the beads sitting and not waiting,
+ * the one that has sat longest, and the lower one when two sat down on the
+ * same beat. Longest-sitting, so two beads take turns under one trigger —
+ * the lead goes, and while it is in the air the trigger's next press is the
+ * other's — which is what puts two beads in the air at once for player 2
+ * to tell apart. With one bead on the arm it is that bead or nothing.
+ */
+export function batonLaunchable(cfg: SimConfig, b: BatonState): BatonBead | null {
+  let pick: BatonBead | null = null;
+  for (const bead of b.beads) {
+    if (bead.flying || batonWaiting(cfg, b, bead)) continue;
+    if (pick === null || bead.satBeat < pick.satBeat) pick = bead;
+    else if (bead.satBeat === pick.satBeat && bead.socket > pick.socket) pick = bead;
+  }
+  return pick;
 }
 
 /** The other colour. A bead struck lands wearing the colour it was not. */

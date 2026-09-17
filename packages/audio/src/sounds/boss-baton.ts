@@ -1,6 +1,6 @@
 /**
- * THE BATON's seven, in a file of their own for the reason `boss.ts` is at its
- * limit: one boss is seven sounds, and the next one will be a file too.
+ * THE BATON's nine, in a file of their own for the reason `boss.ts` is at its
+ * limit: one boss is nine sounds, and the next one will be a file too.
  *
  * The fight is a metronome — one seat a beat, and the bead passed down the arm
  * on the alternation — so what these have to do is **be heard as a count**. A
@@ -104,6 +104,47 @@ export const BOSS_BATON_SOUNDS: SoundDef[] = [
         noise(0.4, { type: "bandpass", freq: 3400, toFreq: 6800, q: 1.2 }, 0.02, 0.35, 0.3),
       ),
       after(0.34, tick(0.45, 0, 3600)),
+    ],
+  },
+  {
+    id: "boss.batonTwin",
+    family: "boss",
+    blurb:
+      "A second bead lighting at the top of the arm: a bloom in the other colour, held a moment.",
+    status: "bound",
+    use: "THE BATON's second bead lighting in the top socket, wearing the colour the first is not.",
+    level: 0.4,
+    layers: [
+      // The launch's rising line a fifth up, so it is heard as the same
+      // family and a new voice in it, and a soft body under it that stays.
+      {
+        source: "sine",
+        freq: 780,
+        toFreq: 1140,
+        gain: 0.26,
+        attack: 0.01,
+        hold: 0.06,
+        release: 0.2,
+      },
+      after(0.05, glint(3800, 0.2, 0.12)),
+      after(0.02, sub(84, 0.3, 0.32)),
+    ],
+  },
+  {
+    id: "boss.batonMerged",
+    family: "boss",
+    blurb:
+      "Two beads becoming one in the last socket: two knocks landing on each other, and one tone left.",
+    status: "bound",
+    use: "THE BATON's two beads merging in the lowest socket — the last flight, the drop, is next.",
+    level: 0.46,
+    layers: [
+      // Two knocks and the tone left are all below the speech band: the
+      // merge is the fight's turn, and the pair is talking when it comes.
+      thud(240, 90, 0.2, 0.5),
+      after(0.04, thud(240, 90, 0.2, 0.5)),
+      after(0.08, { source: "sine", freq: 220, gain: 0.3, attack: 0.01, hold: 0.12, release: 0.3 }),
+      after(0.1, sub(64, 0.4, 0.36)),
     ],
   },
   {

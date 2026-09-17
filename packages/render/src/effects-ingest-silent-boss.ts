@@ -45,7 +45,7 @@ export const INGEST_SILENT_BOSS = [
   // own `breach` goes up in the same tick, so a caught press is not invisible
   // while this row stands; it is only unnamed.
   "stareCaught",
-  // THE BATON's seven, silent because its picture is read off its state
+  // THE BATON's nine, silent because its picture is read off its state
   // every frame rather than off an event: the arm, a socket going dark, the
   // bead in flight and the grey panel under the seat whose turn it is not are
   // all in `baton-draw.ts` and `band-lock.ts` already, and a burst on top of
@@ -56,6 +56,8 @@ export const INGEST_SILENT_BOSS = [
   "batonLanded",
   "batonRelit",
   "batonSettled",
+  "batonTwin",
+  "batonMerged",
   "batonShed",
   "batonDown",
   // THE UNDERTOW's nine, silent for now rather than for ever: the plate

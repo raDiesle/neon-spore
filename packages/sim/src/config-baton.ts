@@ -64,6 +64,13 @@ export interface BatonConfig {
   /** Beats between one shed socket and the next. */
   batonShedBeats: number;
   /**
+   * Dark sockets before the second bead lights in the top socket, wearing
+   * the other colour (the design's step 9). Three: before the swing and the
+   * shed, so the pair meets the second colour on a still arm and the arm
+   * moves under a rhythm they already have two beads in.
+   */
+  batonTwinAfter: number;
+  /**
    * Beats the arm takes to fold away once the maw has taken the bead, before
    * the wave may end under it. The picture's, and hashed like every other
    * clock here.
@@ -88,5 +95,6 @@ export const BATON_DEFAULTS: BatonConfig = {
   batonSwingAfter: 4,
   batonShedAfter: 6,
   batonShedBeats: 8,
+  batonTwinAfter: 3,
   batonDownBeats: 4,
 };

@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE BATON, the second bead
+
+The design's step 9 as a simulation lane: after `batonTwinAfter` dark
+sockets a second bead lights in the top socket in the other colour, the one
+trigger sends whichever bead has sat longest (`batonLaunchable`), a bolt
+takes the lowest unstruck bead in its column, the lead alone swings the arm
+and the other rides it, a bead in the last socket waits for the one above it
+and the two merge. `BatonState.beads` in place of the arm-level bead fields,
+`stillBeat` so a turn is never counted while the other bead flies, two events
+and their sounds, `baton-bead.ts` and `baton-pair.ts` split off the two files
+that went over, nine new tests and §11.18's paragraph.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the design's steps 9–13, `baton-step.ts`, the frame test's helpers |
+| writing | 10 | the bead list, the launch order, the lead's column model, the twin, the merge, the tests, the paragraph |
+| looking | 0 | nothing visible moved — the twin is drawn as the first is, one socket up |
+| friction | 5 | the sitting bead settling home during the other's flight, found with a probe; a merge sound in the speech band; two files over 250 |
+| landing | 5 | `check:fast` three times, the index, the commit, `bun run land --keep` |
+
+The bottleneck was the turn clock: with two beads the shipped settle rule
+made a fight that could not be won, and it took a probe printing every
+handover to see the two beads ping-pong between the top two sockets.
+
 ## 2026-09-17 — boss-implementation — THE BATON, the shot is the act
 
 The two smallest of §11.18's *not built*, as one simulation lane: the design's

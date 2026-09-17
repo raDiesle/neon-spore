@@ -21,16 +21,18 @@ export {
   BATON_SOCKET_LIT,
   BATON_SOCKET_SHED,
   BATON_STAGES,
+  type BatonBead,
   type BatonStage,
   type BatonState,
   batonBaseCol,
-  batonBeadCol,
-  batonBeadRowMilli,
   batonDark,
-  batonLandTick,
+  batonLaunchable,
+  batonLead,
   batonLocked,
   batonSocketRow,
+  batonWaiting,
 } from "./baton.js";
+export { batonBeadCol, batonBeadRowMilli, batonLandTick, batonSocketCol } from "./baton-bead.js";
 export { batonBoss } from "./baton-step.js";
 // From THE SCUTTLE on, the second page (`bosses-clocks-b.ts`).
 export * from "./bosses-clocks-b.js";

@@ -1,12 +1,14 @@
 import { metColor, missedColor } from "./balance.js";
 import {
+  type BatonBead,
   type BatonState,
   batonBaseCol,
-  batonBeadCol,
-  batonBeadRowMilli,
   batonDark,
+  batonLaunchable,
+  batonLead,
   batonLocked,
 } from "./baton.js";
+import { batonBeadCol, batonBeadRowMilli, batonSocketCol } from "./baton-bead.js";
 import { batonBoss } from "./baton-step.js";
 import { clampCol } from "./config-derived.js";
 import { reachesShip } from "./ship-verbs.js";
@@ -29,11 +31,11 @@ function enter(world: World, b: BatonState, stage: BatonState["stage"]): void {
 }
 
 /**
- * **Player 1's trigger, while the bead sits.** Called from `commands.ts` on
+ * **Player 1's trigger, while a bead sits.** Called from `commands.ts` on
  * the `guard` press beside `armShield`, which still runs — a dome coming up
  * under a bead in flight costs nothing and the trigger is the one verb that
  * seat has with nothing under it while the arm hangs. A no-op unless THE
- * BATON is installed and the bead is sitting.
+ * BATON is installed and a bead is there to send (`batonLaunchable`).
  *
  * Once enough sockets are dark the arm swings: the bead lands a column off
  * the one it left, so the flight crosses a column and the cannon has to
@@ -41,35 +43,67 @@ function enter(world: World, b: BatonState, stage: BatonState["stage"]): void {
  */
 export function batonLaunch(world: World): void {
   const b = batonBoss(world);
-  if (b === null || b.stage !== "sitting") return;
+  if (b === null || b.stage !== "passing") return;
   const cfg = world.cfg;
-  b.fromCol = b.col;
-  if (batonDark(b) >= cfg.batonSwingAfter) {
+  const bead = batonLaunchable(cfg, b);
+  if (bead === null) return;
+  bead.fromCol = batonSocketCol(b, bead.socket);
+  bead.col = bead.fromCol;
+  // Only the lead bead swings the arm: the other flies straight down the
+  // column of the socket it sat in, riding the arm wherever the lead is.
+  if (bead === batonLead(b) && batonDark(b) >= cfg.batonSwingAfter) {
     // Right, back, left, back — from the first swung flight on, so the first
     // one *is* a swing and the pair meets it the beat the arm starts moving.
-    const swing = [1, 0, -1, 0][(b.handovers - cfg.batonSwingAfter) % 4] ?? 0;
-    b.col = clampCol(cfg, batonBaseCol(cfg) + swing);
+    // Counted in dark sockets rather than handovers: only the lead darkens a
+    // new one, so the twin's turns in between do not skip the arm a step.
+    const swing = [1, 0, -1, 0][(batonDark(b) - cfg.batonSwingAfter) % 4] ?? 0;
+    bead.col = clampCol(cfg, batonBaseCol(cfg) + swing);
+    b.col = bead.col;
   }
-  b.flightTick = world.tick;
-  b.struck = false;
-  enter(world, b, "flying");
+  bead.flying = true;
+  bead.flightTick = world.tick;
+  bead.struck = false;
   b.lockUntil[0] = world.beat + cfg.batonLockBeats;
-  world.events.push({ type: "batonLaunch", col: b.fromCol, socket: b.socket });
+  world.events.push({ type: "batonLaunch", col: bead.fromCol, socket: bead.socket });
 }
 
 /**
- * Where the bead is in this bolt's column and sweep, in thousandths of a row,
- * or -1 when the bolt cannot meet it this tick. Asked by `bullets.ts` beside
+ * The bead a bolt in `col` at `milli` is going through: the lowest one in
+ * the air there, not yet struck this flight, between `to` and `from`.
+ */
+function beadAlong(
+  world: World,
+  b: BatonState,
+  col: number,
+  from: number,
+  to: number,
+): BatonBead | null {
+  let pick: BatonBead | null = null;
+  let pickMilli = -1;
+  for (const bead of b.beads) {
+    if (!bead.flying || bead.struck || batonBeadCol(world.cfg, b, bead, world.tick) !== col)
+      continue;
+    const milli = batonBeadRowMilli(world.cfg, bead, world.tick);
+    if (milli < to || milli > from || milli <= pickMilli) continue;
+    pick = bead;
+    pickMilli = milli;
+  }
+  return pick;
+}
+
+/**
+ * Where a bead is in this bolt's column and sweep, in thousandths of a row,
+ * or -1 when the bolt cannot meet one this tick. Asked by `bullets.ts` beside
  * the bodies and pods in the same segment, so the lowest of the three is the
  * one the shot reaches first. A sitting bead is not there for a shot at all,
- * and neither is one already struck this flight.
+ * and neither is one already struck this flight; with two in the air in one
+ * column it is the lower, which is the one the bolt reaches first.
  */
 export function batonBeadAlong(world: World, bullet: Bullet, from: number, to: number): number {
   const b = batonBoss(world);
-  if (b === null || b.stage !== "flying" || b.struck) return -1;
-  if (bullet.col !== batonBeadCol(world.cfg, b, world.tick)) return -1;
-  const milli = batonBeadRowMilli(world.cfg, b, world.tick);
-  return milli >= to && milli <= from ? milli : -1;
+  if (b === null || b.stage !== "passing") return -1;
+  const bead = beadAlong(world, b, bullet.col, from, to);
+  return bead === null ? -1 : batonBeadRowMilli(world.cfg, bead, world.tick);
 }
 
 /**
@@ -90,9 +124,10 @@ export function batonShotSpends(world: World): void {
 }
 
 /**
- * **Player 2's shot, through the bead in flight.** The bolt is spent either
+ * **Player 2's shot, through a bead in flight.** The bolt is spent either
  * way, and so was her turn when it left (`batonShotSpends`); the bead's
- * colour decides whether it took. Right, and the handover is made. Wrong,
+ * colour decides whether it took — and with two in the air, *which* bead the
+ * bolt met decides which colour was right. Right, and the handover is made. Wrong,
  * and it is a miss like any other: the bead is still in the air, player 1 is
  * still locked, and the flight is longer than her lock, so the next shot is
  * still hers.
@@ -100,14 +135,16 @@ export function batonShotSpends(world: World): void {
 export function batonStruck(world: World, bullet: Bullet, milli: number): void {
   const b = batonBoss(world);
   if (b === null) return;
-  if (bullet.color !== b.color) {
+  const bead = beadAlong(world, b, bullet.col, milli, milli);
+  if (bead === null) return;
+  if (bullet.color !== bead.color) {
     missedColor(world);
     world.events.push({ type: "reject", col: bullet.col, row: Math.round(milli / MILLI) });
     return;
   }
-  b.struck = true;
+  bead.struck = true;
   metColor(world);
-  world.events.push({ type: "batonStruck", col: bullet.col, socket: b.socket });
+  world.events.push({ type: "batonStruck", col: bullet.col, socket: bead.socket });
 }
 
 /**

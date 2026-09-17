@@ -1759,10 +1759,31 @@ is still hers, one beat later than it was. And the beam meets the bead the way
 a bolt does (`burnColumn`), the third thing in a column a beam can stop at:
 struck or rejected, it ends there.
 
-**What is not built**, each of them a lane on its own: the second bead the
-design page starts at step 9, and the eleven-act final flight and the merge
-(steps 12–13), which want the second bead first. The base is fixed to the
-middle column rather than authored, for THE VANE's reason.
+**The second bead** — the design's step 9, as of 17 September 2026. After
+`batonTwinAfter` (3) sockets are dark a second bead lights in the top socket
+in the colour the first is not (`batonTwin`), and from then the one trigger
+sends whichever bead has sat longest (`batonLaunchable`, ties to the lower
+one), so the pilot's *going* has to say which — and player 2's shot has to
+carry the colour of the bead it will reach, which with two in one column is
+the lower. The lead bead alone swings the arm; the second rides the arm and
+flies straight down its own socket's column. Three departures from the page,
+each because the shipped rules would have made a fight that could not be
+won. *The turn is counted from the arm going still* (`stillBeat`): a bead's
+`batonTurnBeats` run from the last landing and never while the other is in
+the air, or the pilot's turn with one would shake the other home every
+handover. *A bead in the top socket is not shaken* — there is nowhere to
+shake it to. *The tightening waits*: `batonTightTurnBeats` applies while
+there is one bead only; a one-beat turn with two beads to send is a turn the
+pilot cannot see. The swing is counted in dark sockets rather than handovers,
+because only the lead darkens a new one. Reaching the last socket, the lead
+waits there (`batonWaiting`) while the second catches up to the one above it,
+and the two become one bead (`batonMerged`), which is the one that drops.
+
+**What is not built**, each of them a lane on its own: the second bead's own
+look — it is drawn as the first is, one row up — and the eleven-act final
+flight of the merged bead (steps 12–13): as built, the merged bead is
+launched once more like any other and drops out of the last socket. The base
+is fixed to the middle column rather than authored, for THE VANE's reason.
 
 **What it draws** (`render/src/baton-draw.ts`, `render/src/band-lock.ts`): the
 arm as a rock spine from above row 0 down the socket rows, one socket shown

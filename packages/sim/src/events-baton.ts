@@ -12,7 +12,7 @@
  * asked to become.
  */
 
-/** A socket's worth of THE BATON, for the four events that name one. */
+/** A socket's worth of THE BATON, for the seven events that name one. */
 interface BatonSocketEvent {
   /** The column the bead is over. */
   col: number;
@@ -31,6 +31,10 @@ export type BatonEvent =
   | ({ type: "batonRelit" } & BatonSocketEvent)
   /** A bead that sat too long was shaken back to the top socket. */
   | ({ type: "batonSettled" } & BatonSocketEvent)
+  /** The second bead lit in the top socket, wearing the other colour. */
+  | ({ type: "batonTwin" } & BatonSocketEvent)
+  /** The two beads became one, in the last socket. Its next flight is the drop. */
+  | ({ type: "batonMerged" } & BatonSocketEvent)
   /** A dead socket let go of its shell, which is now a rock at `col`, `row`. */
   | { type: "batonShed"; col: number; row: number }
   /** The maw took the bead. The arm folds away. */

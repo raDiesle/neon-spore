@@ -3,6 +3,7 @@ import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   BATON_SOCKET_DARK,
   BATON_SOCKET_SHED,
+  type BatonBead,
   type BatonState,
   batonBoss,
   batonLocked,
@@ -55,10 +56,17 @@ function arm(world: World): BatonState {
   return b;
 }
 
+/** The one bead on the arm — every picture here is one short of the twin. */
+function bead(world: World): BatonBead {
+  const first = arm(world).beads[0];
+  if (first === undefined) throw new Error("the arm has no bead");
+  return first;
+}
+
 /** The arm unfolded and the bead sitting, which is the first press's picture. */
 function sitting(world: World): void {
   for (let i = 0; i < (CFG.batonSockets + 1) * TPB; i++) step(world, []);
-  if (arm(world).stage !== "sitting") throw new Error("the bead never sat");
+  if (arm(world).stage !== "passing" || bead(world).flying) throw new Error("the bead never sat");
 }
 
 /** Player 1 under the bead, then the trigger: the bead is in the air. */
@@ -69,7 +77,11 @@ function launched(world: World): void {
     { tick: world.tick, player: 1, command: { kind: "cannonCol", col: b.col } },
     { tick: world.tick, player: 1, command: { kind: "guard" } },
   ]);
-  if (b.stage !== "flying") throw new Error("the trigger launched nothing");
+  if (!bead(world).flying) throw new Error("the trigger launched nothing");
+}
+
+function hexOf(world: World): string {
+  return bead(world).color === "red" ? PALETTE.red : PALETTE.cyan;
 }
 
 /** Every colour and fill a screen set over a run of frames, as one string. */
@@ -90,13 +102,13 @@ describe("the baton", () => {
       const world = opened();
       const { calls } = drawn(world, role, (CFG.batonSockets + 2) * TPB);
       expect(calls).toBeGreaterThan(500);
-      expect(arm(world).stage).toBe("sitting");
+      expect(arm(world).stage).toBe("passing");
     });
 
     it(`draws the bead in flight in its own colour for ${role}`, () => {
       const world = opened();
       launched(world);
-      const hex = arm(world).color === "red" ? PALETTE.red : PALETTE.cyan;
+      const hex = hexOf(world);
       const { text } = drawn(world, role, TPB);
       expect(text).toContain(hex);
     });
@@ -107,7 +119,7 @@ describe("the baton", () => {
       const b = arm(world);
       b.sockets[0] = BATON_SOCKET_SHED;
       b.sockets[1] = BATON_SOCKET_DARK;
-      b.socket = 2;
+      bead(world).socket = 2;
       const worn = drawn(world, role, TPB).calls;
       b.stage = "down";
       b.stageBeat = world.beat;
@@ -151,7 +163,9 @@ describe("the baton", () => {
     // lock on the same beat the pilot's ends. A beat into the flight, then
     // the shot, then on past the pilot's lock: the only grey left is hers.
     for (let i = 0; i < TPB; i++) step(world, []);
-    step(world, [{ tick: world.tick, player: 2, command: { kind: "fire", color: b.color } }]);
+    step(world, [
+      { tick: world.tick, player: 2, command: { kind: "fire", color: bead(world).color } },
+    ]);
     if (!batonLocked(b, 2, world.beat)) throw new Error("the shot locked nobody");
     while (batonLocked(b, 1, world.beat)) step(world, []);
     if (!batonLocked(b, 2, world.beat)) throw new Error("her lock ended with his");
@@ -165,7 +179,7 @@ describe("the baton", () => {
     // navigator's shot depends on — reaches the navigator's phone as it is.
     const p1 = opened();
     launched(p1);
-    const hex = arm(p1).color === "red" ? PALETTE.red : PALETTE.cyan;
+    const hex = hexOf(p1);
     expect(drawn(p1, "p1", 3).text).toContain(hex);
     const p2 = opened();
     launched(p2);

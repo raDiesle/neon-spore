@@ -281,7 +281,7 @@ describe("the rehearsal for THE BATON", () => {
       "batonLaunch 2",
     ]);
     const boss = run.world.boss;
-    expect(boss?.kind === "baton" && boss.struck).toBe(true);
+    expect(boss?.kind === "baton" && boss.beads.length === 1 && boss.beads[0]?.struck).toBe(true);
   });
 });
 

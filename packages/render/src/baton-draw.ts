@@ -2,10 +2,12 @@ import { blobPoints, circleSubpath, type Point } from "@neon-spore/content";
 import {
   BATON_SOCKET_DARK,
   BATON_SOCKET_LIT,
+  type BatonBead,
   type BatonState,
   batonBeadCol,
   batonBeadRowMilli,
   batonLandTick,
+  batonSocketCol,
   batonSocketRow,
   type SimConfig,
 } from "@neon-spore/sim";
@@ -84,14 +86,18 @@ export function drawBaton(
     if (grow <= 0) break;
     drawSocket(ctx, l, cfg, b, i, grow, beatPhase, time);
   }
-  if (b.stage === "sitting" || b.stage === "flying")
-    drawBead(ctx, l, cfg, b, tick, beatPhase, time);
+  if (b.stage === "passing")
+    for (const bead of b.beads) drawBead(ctx, l, cfg, b, bead, tick, beatPhase, time);
   ctx.restore();
 }
 
-/** The column a socket hangs in: the one the bead left from above it, the one it lands in below. */
+/**
+ * The column a socket hangs in: the one the lead bead left from above it,
+ * the one it lands in below. The arm bends at the bead furthest down it —
+ * the second bead, higher up, rides the arm wherever the first has taken it.
+ */
 function socketX(l: Layout, b: BatonState, socket: number): number {
-  return tileCX(l, socket <= b.socket ? b.fromCol : b.col);
+  return tileCX(l, batonSocketCol(b, socket));
 }
 
 /**
@@ -186,38 +192,39 @@ function drawBead(
   l: Layout,
   cfg: SimConfig,
   b: BatonState,
+  bead: BatonBead,
   tick: number,
   beatPhase: number,
   time: number,
 ): void {
-  const rowMilli = batonBeadRowMilli(cfg, b, tick);
+  const rowMilli = batonBeadRowMilli(cfg, bead, tick);
   const y = l.gridTop + (rowMilli / 1000) * l.tile + l.tile / 2;
-  let x = tileCX(l, batonBeadCol(cfg, b, tick));
-  const flying = b.stage === "flying";
+  let x = tileCX(l, batonBeadCol(cfg, b, bead, tick));
+  const flying = bead.flying;
   if (flying) {
-    const span = Math.max(1, batonLandTick(cfg, b.flightTick) - b.flightTick);
-    const f = Math.min(1, Math.max(0, (tick - b.flightTick) / span));
+    const span = Math.max(1, batonLandTick(cfg, bead.flightTick) - bead.flightTick);
+    const f = Math.min(1, Math.max(0, (tick - bead.flightTick) / span));
     const side = b.handovers % 2 === 0 ? 1 : -1;
     x += side * Math.sin(f * Math.PI) * l.tile * ARC;
   }
-  const hex = b.color === "red" ? PALETTE.red : PALETTE.cyan;
-  const rim = b.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
+  const hex = bead.color === "red" ? PALETTE.red : PALETTE.cyan;
+  const rim = bead.color === "red" ? PALETTE.redRim : PALETTE.cyanRim;
   // Sitting, it pulses on the beat: the two beats it is given are the two the
   // pilot has to press in, and a bead that sat still would not say the clock
   // was running. Struck, it burns: the navigator's turn is spent and the
   // landing is owed.
   const pulse = flying ? 0 : (1 - beatPhase) * (1 - beatPhase);
   const r = l.tile * BEAD_R * (1 + 0.12 * pulse);
-  halo(ctx, x, y, r * (b.struck ? 4 : 2.6), hex, b.struck ? 0.7 : 0.3 + 0.25 * pulse);
+  halo(ctx, x, y, r * (bead.struck ? 4 : 2.6), hex, bead.struck ? 0.7 : 0.3 + 0.25 * pulse);
   const body = splinePath(blobPoints(x, y, r, r, 3, 0.1, 0.05, time * 1.4, 11, 20), true);
   ctx.save();
   ctx.fillStyle = hex;
   ctx.fill(body);
   ctx.restore();
-  strokeGlow(ctx, body, rim, STROKE.inner, b.struck ? 1 : 0.5 + 0.4 * pulse);
+  strokeGlow(ctx, body, rim, STROKE.inner, bead.struck ? 1 : 0.5 + 0.4 * pulse);
   // A struck bead wears a ring round it for the rest of the flight — the
   // receipt both seats get for a shot the pilot never saw leave.
-  if (b.struck) {
+  if (bead.struck) {
     const ring = new Path2D(circleSubpath(x, y, r * 1.8));
     strokeGlow(ctx, ring, rim, STROKE.inner, 0.6);
   }

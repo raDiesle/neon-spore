@@ -2,19 +2,23 @@ import {
   BATON_SOCKET_DARK,
   BATON_SOCKET_LIT,
   BATON_SOCKET_SHED,
+  type BatonBead,
   type BatonState,
   batonBaseCol,
   batonDark,
   batonFlip,
-  batonLandTick,
+  batonLead,
   batonSocketRow,
+  batonWaiting,
 } from "./baton.js";
+import { batonLandTick } from "./baton-bead.js";
+import { batonMerge, batonTwin } from "./baton-pair.js";
 import { NO_SHELL } from "./shell.js";
 import { MILLI, type World } from "./world.js";
 
 /**
  * THE BATON's clock: the unfold, the landing, the settle, the shed and the
- * fold.
+ * fold. The second bead and the merge are next door in `baton-pair.ts`.
  *
  * Everything that changes a socket happens **on the beat** and from
  * `stepBoss`: a landing, a settle and a shed are all things the pair counts
@@ -26,6 +30,21 @@ import { MILLI, type World } from "./world.js";
  * going.
  */
 
+/** A bead at rest in `socket`, the colour it starts in. */
+export function bead(world: World, socket: number, color: BatonBead["color"]): BatonBead {
+  const col = batonBaseCol(world.cfg);
+  return {
+    flying: false,
+    satBeat: world.beat,
+    socket,
+    flightTick: -1,
+    struck: false,
+    color,
+    col,
+    fromCol: col,
+  };
+}
+
 /** Install it from the wave's own `boss:` entry. There is nothing to author. */
 export function installBaton(world: World): BatonState {
   const sockets: number[] = [];
@@ -35,14 +54,12 @@ export function installBaton(world: World): BatonState {
     stage: "unfolding",
     stageBeat: world.beat,
     col: batonBaseCol(world.cfg),
-    fromCol: batonBaseCol(world.cfg),
     sockets,
-    socket: 0,
-    flightTick: -1,
-    struck: false,
     // Red first, and it alternates from there: the colour language teaches
     // the alternation for free (`docs/spec/bosses-choreographed.md` §10).
-    color: "red",
+    beads: [bead(world, 0, "red")],
+    merged: false,
+    stillBeat: world.beat,
     handovers: 0,
     settles: 0,
     lockUntil: [-1, -1],
@@ -62,10 +79,16 @@ function enter(world: World, b: BatonState, stage: BatonState["stage"]): void {
   b.stageBeat = world.beat;
 }
 
-/** Beats a sitting bead is given before the arm shakes it home. */
+/**
+ * Beats a sitting bead is given before the arm shakes it home. Tight only
+ * while there is one bead: two on one alternation are already a press every
+ * beat, and a tight turn on top would shake one home while the other's
+ * launch still has player 1 locked.
+ */
 function turnBeats(world: World, b: BatonState): number {
   const cfg = world.cfg;
-  return b.handovers >= cfg.batonTightenAfter ? cfg.batonTightTurnBeats : cfg.batonTurnBeats;
+  const tight = b.handovers >= cfg.batonTightenAfter && b.beads.length === 1;
+  return tight ? cfg.batonTightTurnBeats : cfg.batonTurnBeats;
 }
 
 /** One beat of the arm. */
@@ -79,12 +102,26 @@ export function stepBaton(world: World, b: BatonState): void {
     return;
   }
   if (b.stage === "unfolding") {
-    if (since >= cfg.batonSockets) enter(world, b, "sitting");
+    if (since >= cfg.batonSockets) {
+      enter(world, b, "passing");
+      b.stillBeat = world.beat;
+      for (const bead of b.beads) bead.satBeat = world.beat;
+    }
     return;
   }
+  if (b.stage !== "passing") return;
   shed(world, b);
-  if (b.stage === "flying" && world.tick >= batonLandTick(cfg, b.flightTick)) land(world, b);
-  else if (b.stage === "sitting" && since >= turnBeats(world, b)) settle(world, b);
+  for (const bead of [...b.beads])
+    if (bead.flying && world.tick >= batonLandTick(cfg, bead.flightTick)) land(world, b, bead);
+  if (b.stage === "passing" && !b.beads.some((bead) => bead.flying)) {
+    const turn = turnBeats(world, b);
+    for (const bead of b.beads) {
+      if (batonWaiting(cfg, b, bead)) continue;
+      if (world.beat - Math.max(bead.satBeat, b.stillBeat) >= turn) settle(world, b, bead);
+    }
+  }
+  batonTwin(world, b);
+  batonMerge(world, b);
 }
 
 /**
@@ -97,31 +134,33 @@ export function stepBaton(world: World, b: BatonState): void {
  * the socket relights — and if the arm had swung, it lands in the column it
  * left, because the arm swung *for* that flight and the flight did not take.
  */
-function land(world: World, b: BatonState): void {
+function land(world: World, b: BatonState, bead: BatonBead): void {
   const cfg = world.cfg;
-  b.flightTick = -1;
-  if (!b.struck) {
-    b.col = b.fromCol;
-    enter(world, b, "sitting");
-    world.events.push({ type: "batonRelit", col: b.col, socket: b.socket });
+  bead.flying = false;
+  bead.flightTick = -1;
+  bead.satBeat = world.beat;
+  b.stillBeat = world.beat;
+  if (!bead.struck) {
+    bead.col = bead.fromCol;
+    b.col = batonLead(b)?.col ?? bead.col;
+    world.events.push({ type: "batonRelit", col: bead.col, socket: bead.socket });
     return;
   }
-  b.sockets[b.socket] = BATON_SOCKET_DARK;
-  b.socket += 1;
+  b.sockets[bead.socket] = BATON_SOCKET_DARK;
+  bead.socket += 1;
   b.handovers += 1;
-  b.color = batonFlip(b.color);
-  b.fromCol = b.col;
-  world.events.push({ type: "batonLanded", col: b.col, socket: b.socket });
-  if (b.socket < cfg.batonSockets) {
-    enter(world, b, "sitting");
-    return;
-  }
+  bead.color = batonFlip(bead.color);
+  bead.fromCol = bead.col;
+  b.col = batonLead(b)?.col ?? bead.col;
+  world.events.push({ type: "batonLanded", col: bead.col, socket: bead.socket });
+  if (bead.socket < cfg.batonSockets) return;
   enter(world, b, "falling");
+  b.beads = [];
   const id = world.nextId++;
   b.podId = id;
   world.pods.push({
     id,
-    colMilli: b.col * MILLI,
+    colMilli: bead.col * MILLI,
     rowMilli: cfg.batonSockets * MILLI,
     driftMilli: 0,
     loose: true,
@@ -132,16 +171,22 @@ function land(world: World, b: BatonState): void {
   });
 }
 
-/** The arm shook a bead that sat too long back to the top socket. The dark sockets stay dark. */
-function settle(world: World, b: BatonState): void {
-  b.socket = 0;
+/**
+ * The arm shook a bead that sat too long back to the top socket. The dark
+ * sockets stay dark. A bead already in the top socket is left as it is,
+ * clock and all: it has nowhere to go, and its clock is what ranks it
+ * against the other bead for the trigger (`batonLaunchable`).
+ */
+function settle(world: World, b: BatonState, bead: BatonBead): void {
+  if (bead.socket === 0) return;
+  bead.socket = 0;
+  bead.satBeat = world.beat;
   b.settles += 1;
-  enter(world, b, "sitting");
-  world.events.push({ type: "batonSettled", col: b.col, socket: 0 });
+  world.events.push({ type: "batonSettled", col: bead.col, socket: 0 });
 }
 
 /**
- * A dead segment lets go: the topmost dark socket the bead is not sitting in
+ * A dead segment lets go: the topmost dark socket no bead is sitting in
  * drops its shell down the arm's own column as a rock.
  *
  * This is the one thing on the page a boss puts on the field by itself, and
@@ -155,7 +200,8 @@ function shed(world: World, b: BatonState): void {
   const cfg = world.cfg;
   if (batonDark(b) < cfg.batonShedAfter) return;
   if (b.shedBeat >= 0 && world.beat - b.shedBeat < cfg.batonShedBeats) return;
-  const socket = b.sockets.findIndex((s, i) => s === BATON_SOCKET_DARK && i !== b.socket);
+  const sat = (i: number): boolean => b.beads.some((bead) => !bead.flying && bead.socket === i);
+  const socket = b.sockets.findIndex((s, i) => s === BATON_SOCKET_DARK && !sat(i));
   if (socket < 0) return;
   b.sockets[socket] = BATON_SOCKET_SHED;
   b.shedBeat = world.beat;

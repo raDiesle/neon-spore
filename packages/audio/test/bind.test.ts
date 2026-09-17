@@ -131,6 +131,8 @@ const SAMPLES: Record<string, SimEvent> = {
   batonLanded: { type: "batonLanded", col: 3, socket: 3 },
   batonRelit: { type: "batonRelit", col: 3, socket: 2 },
   batonSettled: { type: "batonSettled", col: 3, socket: 0 },
+  batonTwin: { type: "batonTwin", col: 3, socket: 0 },
+  batonMerged: { type: "batonMerged", col: 3, socket: 10 },
   batonShed: { type: "batonShed", col: 3, row: 1 },
   batonDown: { type: "batonDown", col: 3 },
   undertowBow: { type: "undertowBow", col: 4 },

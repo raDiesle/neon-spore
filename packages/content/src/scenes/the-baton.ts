@@ -19,8 +19,9 @@ import type { GuideScene } from "../scene-types.js";
  * column, and the arm does not swing until four sockets are dark, which this
  * film never reaches. A bead left sitting two beats is shaken back to the top
  * (`batonTurnBeats`); every launch here is on the second beat of its sit, and
- * the two settles the unanswered launch leaves behind move a bead that is
- * already in the top socket, so they show nothing.
+ * a bead already in the top socket is not shaken at all, so the unanswered
+ * launch leaves no settle behind. Three handovers is one short of the twin
+ * (`batonTwinAfter`), so the film shows one bead only.
  */
 export const THE_BATON: GuideScene = {
   ticks: 1740,
