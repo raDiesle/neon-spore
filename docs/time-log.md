@@ -8603,3 +8603,5 @@ the other twenty-six.
 The bottleneck was proving the test can fail: a body forced to alpha 0 still
 marked the picture, because every body draw sets its own alpha, and the probe
 that settled it was skipping the draw altogether — eight waves red at once.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
