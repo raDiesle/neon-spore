@@ -8069,3 +8069,5 @@ its last tick and the tap destroys the mine the instant it lands, so a tap in
 the middle of the page left it resting on nothing — no body, and so no count,
 no ring and no caption, since every one of those is read off the body — and the
 film had to be re-timed so the finger lands on the tick the page ends.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

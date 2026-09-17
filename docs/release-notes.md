@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 59398f8a — THE MINE has a rehearsal, and an act may land a finger on a bare square
+
+A new film for a wave that had none — the second look exemption, a look with no shipped alternative — so nothing the game already draws changes. `SceneAct.tile` is the fifth gesture that is not a press on a control: the seat is authored, because which seat is blind to a mine is the arrival's (`SpawnEntry.sees`) rather than the kind's, `col` goes through `mapCol` like every column and `row` stands as written. `sceneCommands` turns it into the one `tapTile`, and the ghost hand for it is the one placed from the act rather than from the world (`tileThumb`), because on the blind seat's field there is nothing to place it from — which is the creature.
+
 ## 2026-09-17 · 978b0e83 — THE UNDERTOW's floor: the plate bowing on the pilot's screen alone, the lobe up through the plating, the body taken in
 
 The look half of THE UNDERTOW (`docs/spec/bosses-choreographed.md` §13). The boss is on both sides of the hull line, so it is drawn in two passes: the lobes and the body go down with the field's bodies and start below the skin, so the ship drawn over them hides their root and they read as things that have come up through the plating; the plating itself — the plate bowing, the seam-light, the breach parted with its flaps, the whole edge lifting before the last lobe, the seat's column lit while the cannon is unseated — is drawn on the finished ship where nothing can cover it. A plate bowing is on player 1's screen and not player 2's (`showsUndertowBow`); the breach is on both the moment the lobe stands; the last rise, which has no column to call, is on both. A tall lobe alone wears the beam's cyan and red. The nine receipts stay silent in `render/`: a breach that opens is drawn open.
