@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 8be1c9fe — THE BATON spends her turn on any shot, and the beam meets the bead
+
+The design's step 7, built: a shot at a creature is her turn spent. It is the shot leaving that spends it, not the hit — a bolt at a creature, a bolt at nothing, the wrong colour through the bead and the beam she filled all lock player 2 for `batonLockBeats` from the tick the shot goes out (`batonShotSpends` in `sim/baton-press.ts`, called from `bullets.ts` and `lance-burn.ts`), and nothing before the bead first sits or after the arm is down. A creature answered while the bead sits is a launch watched through a grey panel, which is the choice the step puts to her. The lock is shorter than the flight, so a wrong colour is still a miss like any other and the next shot is still hers, a beat later. And the lance beam now meets the bead in flight the way a bolt does — the third thing in a column a beam can stop at, struck or rejected.
+
 ## 2026-09-17 · 219717d8 — THE SCOUT's first arena is clocked against a measured flight, not against nothing
 
 The first arena was authored at 40 beats and nobody had flown it. An autopilot that points, burns and coasts banks all four of its motes in twelve, so the clock comes to 18 — half again the flight, six beats for the talking a rig does not do. At 40 the round's second failure, `ranOut`, could only fire for a pair who had stopped flying altogether; at 18 it is a pressure.
