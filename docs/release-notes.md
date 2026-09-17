@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 1a7f70d9 — QUIT stops looking like the other button on the lost screen
+
+The owner, 17 September 2026: *the "quit" button, we should do less prominent maybe reduce size of button or move it somewhere else, as player might accidently press it.* It was a plate identical to RETRY WAVE eighteen pixels under it, told apart by the word on the face and a glow, which is nothing to a thumb coming down on a screen that has just been lost — and leaving a wave ends the run for both phones on one press, so the slip is not one a pair can undo.
+
 ## 2026-09-17 · b6f815da — THE THROAT holds, hauls and swallows a pod, which is its design's step 10
 
 A loose pod in the mouth's column was falling past a throat that should have been fighting player 1's maw for it. Now it is held by the same rule a body is: the hold is asked of a place rather than of a body (`Standing`), and both arrays are read through the one predicate — a creature by its span, a pod by the tile it is nearest. A held pod stops where it is, is hauled a tile an inhale, and standing in the mouth is swallowed and re-tightens a ring; that is the design's own fail cell and it does not lose the wave. The maw answers by reach: a loose pod within `podHomeTiles` of the hull is steering for the cannon and the throat has lost it. `pod-arrive.ts` is the receipt at the hull, cut out of `pods.ts` when the hold put it over its limit.
