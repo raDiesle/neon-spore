@@ -224,6 +224,7 @@ what the rest of this file holds.
 ## THE THROAT does not haul a pod, and step 10 of its design wants it to
 
 - **Found:** 2026-09-16, claude/neon-spore-boss-design-26ee5e
+- **Taken:** 2026-09-17, claude/queue-the-throat-does-not-haul-a-pod-and-step-10-of-it
 - **Where:** local
 - **Files:** `packages/sim/src/throat-pull.ts`, `packages/sim/src/throat-step.ts`, `packages/sim/src/pods.ts`, `packages/sim/src/span.ts`, `packages/sim/test/throat.test.ts`, `docs/spec/bosses.md`
 
