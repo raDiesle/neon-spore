@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 64e2a881 — A flaky shape-fit test is queued, and a duplicate lost-plates candidate is dropped
+
+`tools/director/test/shape-fit.test.ts` went red once under a sharded `check:fast` on a lane that touched nothing it reads, and green alone and on the next run; the queue entry says what to look at. The lane it happened on was building the lost screen's closing plates as a VERSUS candidate, and `bun run land` found `shut` (c7775047) already on `main` from another session with the item marked done — so that candidate is not landed, and the time-log says where the time went.
+
 ## 2026-09-17 · 64335006 — THE TASTER grows its armour in the colour you have been spending
 
 The first boss in this game with a memory of the players. A crest hangs over the field and grows eleven blades out of itself, middle outward; each blade takes its edge from whichever colour the pair has fired more of over the last thirty beats, and a blade is struck off only by the colour it is *not*. Its own colour thickens it instead. This is the game's one inverted colour rule, and the wave that introduces it says so in its guide. This is the simulation lane; nothing is drawn yet.
