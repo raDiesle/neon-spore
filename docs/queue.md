@@ -627,6 +627,7 @@ shows it. `bun run check` proves all of it.
 ## A delay that straddles the end of a slow window is short by two thirds
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-a-delay-that-straddles-the-end-of-a-slow-window
 - **Where:** local
 - **Files:** `apps/game/src/link-run.ts`, `apps/game/src/tick-rate.ts`, `packages/net/src/delay.ts`
 
