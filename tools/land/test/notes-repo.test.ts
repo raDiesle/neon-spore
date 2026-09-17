@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { gitIn, repoTimeout } from "../../test/repo-time.js";
 import type { LandState } from "../land.js";
 import { writeNotes } from "../note-commit.js";
 import { type Landed, PREAMBLE } from "../notes.js";
@@ -25,17 +26,14 @@ let root = "";
 /** The lane's own commit, so an `--unverified` entry can name a real range. */
 let work = "";
 
+/** One `git` in the temporary trunk, unless another tree is named. */
 async function run(args: string[], cwd = root): Promise<void> {
-  const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
-  const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
+  await gitIn(args, cwd);
 }
 
+/** The same, for a command whose output is the answer. */
 async function capture(args: string[]): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
-  const [out, code] = await Promise.all([new Response(proc.stdout).text(), proc.exited]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")} failed`);
-  return out.trim();
+  return await gitIn(args, root);
 }
 
 /** The fields `writeNotes` reads. The rest of a `LandState` says nothing here. */
@@ -85,21 +83,25 @@ afterAll(async () => {
 });
 
 describe("a release note in a clone with no worktrees", () => {
-  test("writes the file, commits it, and brings the trunk up to it", async () => {
-    await writeNotes(cloneState(), LANDED, "main", root);
+  test(
+    "writes the file, commits it, and brings the trunk up to it",
+    async () => {
+      await writeNotes(cloneState(), LANDED, "main", root);
 
-    const notes = await Bun.file(join(root, "docs/release-notes.md")).text();
-    expect(notes).toContain("A landing from a clone writes a release note");
-    expect(notes).toContain("The sentence a reader gets.");
+      const notes = await Bun.file(join(root, "docs/release-notes.md")).text();
+      expect(notes).toContain("A landing from a clone writes a release note");
+      expect(notes).toContain("The sentence a reader gets.");
 
-    expect(await capture(["log", "-1", "--format=%s", "HEAD"])).toBe(
-      "Release notes for one landing",
-    );
-    // The whole point: `main` is the commit carrying the note, not the one
-    // before it. A push of `main:main` would otherwise send everything except
-    // the note it just wrote.
-    expect(await capture(["rev-parse", "main"])).toBe(await capture(["rev-parse", "HEAD"]));
-  });
+      expect(await capture(["log", "-1", "--format=%s", "HEAD"])).toBe(
+        "Release notes for one landing",
+      );
+      // The whole point: `main` is the commit carrying the note, not the one
+      // before it. A push of `main:main` would otherwise send everything except
+      // the note it just wrote.
+      expect(await capture(["rev-parse", "main"])).toBe(await capture(["rev-parse", "HEAD"]));
+    },
+    repoTimeout(25),
+  );
 });
 
 /**
@@ -112,25 +114,29 @@ describe("a release note in a clone with no worktrees", () => {
  * note and the entry one bookkeeping step instead of two.
  */
 describe("what a landing could not check", () => {
-  test("goes into docs/queue.md, in the commit that carries the note", async () => {
-    const before = await capture(["rev-parse", "HEAD"]);
-    const landed: Landed[] = [{ ...LANDED[0]!, full: work, sha: work.slice(0, 7) }];
+  test(
+    "goes into docs/queue.md, in the commit that carries the note",
+    async () => {
+      const before = await capture(["rev-parse", "HEAD"]);
+      const landed: Landed[] = [{ ...LANDED[0]!, full: work, sha: work.slice(0, 7) }];
 
-    await writeNotes(cloneState(), landed, "main", root, [
-      "--unverified",
-      "THE GRATE's timing at tempo",
-    ]);
+      await writeNotes(cloneState(), landed, "main", root, [
+        "--unverified",
+        "THE GRATE's timing at tempo",
+      ]);
 
-    const queue = await Bun.file(join(root, "docs/queue.md")).text();
-    expect(queue).toContain("- THE GRATE's timing at tempo");
-    // Off the diff, not off the session: `readme.md` is what the lane changed.
-    expect(queue).toContain("`readme.md`");
+      const queue = await Bun.file(join(root, "docs/queue.md")).text();
+      expect(queue).toContain("- THE GRATE's timing at tempo");
+      // Off the diff, not off the session: `readme.md` is what the lane changed.
+      expect(queue).toContain("`readme.md`");
 
-    const touched = await capture(["show", "--name-only", "--format=", "HEAD"]);
-    expect(touched).toContain("docs/release-notes.md");
-    expect(touched).toContain("docs/queue.md");
-    expect(await capture(["rev-parse", "HEAD^"])).toBe(before);
-  });
+      const touched = await capture(["show", "--name-only", "--format=", "HEAD"]);
+      expect(touched).toContain("docs/release-notes.md");
+      expect(touched).toContain("docs/queue.md");
+      expect(await capture(["rev-parse", "HEAD^"])).toBe(before);
+    },
+    repoTimeout(25),
+  );
 });
 
 /**
@@ -144,29 +150,33 @@ describe("what a landing could not check", () => {
  * directories is most of what the commit does.
  */
 describe("an entry after a landing that deleted files", () => {
-  test("names what the commit left standing, never what it took away", async () => {
-    await writeFile(join(root, "gone.md"), "here for now\n");
-    await run(["add", "gone.md"]);
-    await run(["commit", "-q", "-m", "a file that will go"]);
-    await run(["rm", "-q", "gone.md"]);
-    await writeFile(join(root, "kept.md"), "still here\n");
-    await run(["add", "kept.md"]);
-    await run(["commit", "-q", "-m", "take it away again"]);
-    const removal = await capture(["rev-parse", "HEAD"]);
-    await run(["branch", "--force", "main", "HEAD"]);
+  test(
+    "names what the commit left standing, never what it took away",
+    async () => {
+      await writeFile(join(root, "gone.md"), "here for now\n");
+      await run(["add", "gone.md"]);
+      await run(["commit", "-q", "-m", "a file that will go"]);
+      await run(["rm", "-q", "gone.md"]);
+      await writeFile(join(root, "kept.md"), "still here\n");
+      await run(["add", "kept.md"]);
+      await run(["commit", "-q", "-m", "take it away again"]);
+      const removal = await capture(["rev-parse", "HEAD"]);
+      await run(["branch", "--force", "main", "HEAD"]);
 
-    await writeNotes(
-      cloneState(),
-      [{ ...LANDED[0]!, full: removal, sha: removal.slice(0, 7) }],
-      "main",
-      root,
-      ["--unverified", "whether the thing that replaced it reads"],
-    );
+      await writeNotes(
+        cloneState(),
+        [{ ...LANDED[0]!, full: removal, sha: removal.slice(0, 7) }],
+        "main",
+        root,
+        ["--unverified", "whether the thing that replaced it reads"],
+      );
 
-    const queue = await Bun.file(join(root, "docs/queue.md")).text();
-    expect(queue).toContain("`kept.md`");
-    expect(queue).not.toContain("`gone.md`");
-  });
+      const queue = await Bun.file(join(root, "docs/queue.md")).text();
+      expect(queue).toContain("`kept.md`");
+      expect(queue).not.toContain("`gone.md`");
+    },
+    repoTimeout(25),
+  );
 });
 
 /**
@@ -178,48 +188,56 @@ describe("an entry after a landing that deleted files", () => {
  * mean "this lane's" rather than whoever wrote last.
  */
 describe("what the lane actually took", () => {
-  test("is stamped under the entry, in the commit that carries the note", async () => {
-    await writeFile(
-      join(root, "docs", "time-log.md"),
-      "# Where the minutes went\n\n## 2026-09-16 — a-lane — something\n\nBottleneck: reading.\n",
-    );
-    await run(["add", "docs/time-log.md"]);
-    await run(["commit", "-q", "-m", "the lane, with its rows"]);
-    const logged = await capture(["rev-parse", "HEAD"]);
-    await run(["branch", "--force", "main", "HEAD"]);
+  test(
+    "is stamped under the entry, in the commit that carries the note",
+    async () => {
+      await writeFile(
+        join(root, "docs", "time-log.md"),
+        "# Where the minutes went\n\n## 2026-09-16 — a-lane — something\n\nBottleneck: reading.\n",
+      );
+      await run(["add", "docs/time-log.md"]);
+      await run(["commit", "-q", "-m", "the lane, with its rows"]);
+      const logged = await capture(["rev-parse", "HEAD"]);
+      await run(["branch", "--force", "main", "HEAD"]);
 
-    await writeNotes(
-      cloneState(),
-      [{ ...LANDED[0]!, full: logged, sha: logged.slice(0, 7) }],
-      "main",
-      root,
-    );
+      await writeNotes(
+        cloneState(),
+        [{ ...LANDED[0]!, full: logged, sha: logged.slice(0, 7) }],
+        "main",
+        root,
+      );
 
-    const ledger = await Bun.file(join(root, "docs/time-log.md")).text();
-    expect(ledger).toContain("*Measured:");
-    // The rows the session wrote are untouched above it.
-    expect(ledger).toContain("Bottleneck: reading.");
-    expect(await capture(["show", "--name-only", "--format=", "HEAD"])).toContain(
-      "docs/time-log.md",
-    );
-  });
+      const ledger = await Bun.file(join(root, "docs/time-log.md")).text();
+      expect(ledger).toContain("*Measured:");
+      // The rows the session wrote are untouched above it.
+      expect(ledger).toContain("Bottleneck: reading.");
+      expect(await capture(["show", "--name-only", "--format=", "HEAD"])).toContain(
+        "docs/time-log.md",
+      );
+    },
+    repoTimeout(25),
+  );
 
-  test("is not stamped at all by a landing that logged nothing", async () => {
-    const before = await Bun.file(join(root, "docs/time-log.md")).text();
-    await writeFile(join(root, "readme.md"), "three\n");
-    await run(["commit", "-q", "--only", "readme.md", "-m", "a lane with no rows"]);
-    const quiet = await capture(["rev-parse", "HEAD"]);
-    await run(["branch", "--force", "main", "HEAD"]);
+  test(
+    "is not stamped at all by a landing that logged nothing",
+    async () => {
+      const before = await Bun.file(join(root, "docs/time-log.md")).text();
+      await writeFile(join(root, "readme.md"), "three\n");
+      await run(["commit", "-q", "--only", "readme.md", "-m", "a lane with no rows"]);
+      const quiet = await capture(["rev-parse", "HEAD"]);
+      await run(["branch", "--force", "main", "HEAD"]);
 
-    await writeNotes(
-      cloneState(),
-      [{ ...LANDED[0]!, full: quiet, sha: quiet.slice(0, 7) }],
-      "main",
-      root,
-    );
+      await writeNotes(
+        cloneState(),
+        [{ ...LANDED[0]!, full: quiet, sha: quiet.slice(0, 7) }],
+        "main",
+        root,
+      );
 
-    // Byte for byte: a measurement under somebody else's rows is worse than
-    // none, and this file is a record.
-    expect(await Bun.file(join(root, "docs/time-log.md")).text()).toBe(before);
-  });
+      // Byte for byte: a measurement under somebody else's rows is worse than
+      // none, and this file is a record.
+      expect(await Bun.file(join(root, "docs/time-log.md")).text()).toBe(before);
+    },
+    repoTimeout(25),
+  );
 });

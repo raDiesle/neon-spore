@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { repoTimeout } from "../../test/repo-time.js";
 import { gitIn } from "../git.js";
 import { parseItems } from "../queue.js";
 import { existsIn, foundDate, staleLine, staleness, substantive, type Trunk } from "../stale.js";
@@ -73,7 +74,9 @@ let root = "";
 
 function git(...args: string[]): string {
   const r = gitIn(root, ...args);
-  if (!r.ok) throw new Error(`git ${args.join(" ")}: ${r.err}`);
+  // The directory too: a bare `git add .` with an empty stderr says nothing a
+  // reader of a red shard can act on (`tools/test/repo-time.ts`).
+  if (!r.ok) throw new Error(`git ${args.join(" ")} in ${root}: ${r.err || "(said nothing)"}`);
   return r.out;
 }
 
@@ -86,7 +89,7 @@ function commitOn(date: string, subject: string): void {
     cwd: root,
     env: { ...process.env, ...env },
   });
-  if (r.exitCode !== 0) throw new Error(r.stderr.toString());
+  if (r.exitCode !== 0) throw new Error(`git commit in ${root}: ${r.stderr.toString().trim()}`);
 }
 
 beforeAll(async () => {
@@ -114,11 +117,11 @@ beforeAll(async () => {
   await writeFile(join(root, "docs", "queue.md"), "two\n");
   git("add", "docs");
   commitOn("2026-09-13", "Release notes for one landing");
-});
+}, repoTimeout(11));
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true });
-});
+}, repoTimeout(2));
 
 function trunk(): Trunk {
   return {

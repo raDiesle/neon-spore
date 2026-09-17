@@ -2,6 +2,7 @@ import { beforeEach, expect, test } from "bun:test";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { gitIn, repoTimeout } from "../../test/repo-time.js";
 import { commitMessage, commitWaves } from "../src/waves-commit.js";
 
 /**
@@ -36,44 +37,55 @@ test("one file is not called '1 files'", () => {
   expect(commitMessage(1, ["packages/content/src/waves/act-1.ts"])).toContain("one file");
 });
 
-test("nothing at all is committed when the environment says not to", async () => {
-  const was = process.env.DIRECTOR_NO_COMMIT;
-  process.env.DIRECTOR_NO_COMMIT = "1";
-  try {
-    // A path that does not exist would make `git diff` complain; the opt-out
-    // is checked first, so it never runs.
-    expect(await commitWaves(["nowhere/at/all.ts"], 1, process.cwd())).toBeNull();
-  } finally {
-    if (was === undefined) delete process.env.DIRECTOR_NO_COMMIT;
-    else process.env.DIRECTOR_NO_COMMIT = was;
-  }
-});
+test(
+  "nothing at all is committed when the environment says not to",
+  async () => {
+    const was = process.env.DIRECTOR_NO_COMMIT;
+    process.env.DIRECTOR_NO_COMMIT = "1";
+    try {
+      // A path that does not exist would make `git diff` complain; the opt-out
+      // is checked first, so it never runs.
+      expect(await commitWaves(["nowhere/at/all.ts"], 1, process.cwd())).toBeNull();
+    } finally {
+      if (was === undefined) delete process.env.DIRECTOR_NO_COMMIT;
+      else process.env.DIRECTOR_NO_COMMIT = was;
+    }
+  },
+  repoTimeout(1),
+);
 
-test("the message names the files that moved, not the files it might have written", async () => {
-  const dir = await repo();
-  try {
-    await writeFile(join(dir, "act.ts"), "two\n");
-    // `other.ts` is offered and unchanged: a save may write six act files and
-    // move one, and the release note must not claim the other five.
-    expect(await commitWaves(["act.ts", "other.ts"], 7, dir)).toBeNull();
-    const body = await git(["log", "-1", "--format=%b"], dir);
-    expect(body).toContain("one file");
-    expect(body).toContain("- act.ts");
-    expect(body).not.toContain("other.ts");
-  } finally {
-    await rm(dir, { recursive: true, force: true });
-  }
-});
+test(
+  "the message names the files that moved, not the files it might have written",
+  async () => {
+    const dir = await repo();
+    try {
+      await writeFile(join(dir, "act.ts"), "two\n");
+      // `other.ts` is offered and unchanged: a save may write six act files and
+      // move one, and the release note must not claim the other five.
+      expect(await commitWaves(["act.ts", "other.ts"], 7, dir)).toBeNull();
+      const body = await git(["log", "-1", "--format=%b"], dir);
+      expect(body).toContain("one file");
+      expect(body).toContain("- act.ts");
+      expect(body).not.toContain("other.ts");
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  },
+  repoTimeout(12),
+);
 
 test("a save that wrote no files is not a commit", async () => {
   expect(await commitWaves([], 0, process.cwd())).toBeNull();
 });
 
-async function git(args: string[], cwd: string): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
-  const [out] = await Promise.all([new Response(proc.stdout).text(), proc.exited]);
-  return out.trim();
-}
+/**
+ * The shared runner rather than a local one, and the difference is the exit
+ * code: this file's own `git` threw the output away and returned it silently
+ * whatever git thought of the command, so a `rev-parse` against a repository
+ * that had never been made compared `""` with `""` and passed
+ * (`tools/test/repo-time.ts`).
+ */
+const git = (args: string[], cwd: string): Promise<string> => gitIn(args, cwd);
 
 /**
  * A repository of its own, because the thing under test writes history and a
@@ -91,33 +103,41 @@ async function repo(): Promise<string> {
   return dir;
 }
 
-test("a changed file is committed, and nothing else in the tree is", async () => {
-  const dir = await repo();
-  try {
-    await writeFile(join(dir, "act.ts"), "two\n");
-    // A half-finished edit sitting beside it, of the kind another lane leaves.
-    await writeFile(join(dir, "other.ts"), "somebody else's afternoon\n");
+test(
+  "a changed file is committed, and nothing else in the tree is",
+  async () => {
+    const dir = await repo();
+    try {
+      await writeFile(join(dir, "act.ts"), "two\n");
+      // A half-finished edit sitting beside it, of the kind another lane leaves.
+      await writeFile(join(dir, "other.ts"), "somebody else's afternoon\n");
 
-    expect(await commitWaves(["act.ts"], 7, dir)).toBeNull();
+      expect(await commitWaves(["act.ts"], 7, dir)).toBeNull();
 
-    expect(await git(["log", "-1", "--format=%s"], dir)).toBe(
-      "The wave list as the director saved it",
-    );
-    expect(await git(["show", "--name-only", "--format=", "HEAD"], dir)).toBe("act.ts");
-    // Still dirty, still theirs.
-    expect(await git(["status", "--porcelain"], dir)).toBe("M other.ts");
-  } finally {
-    await rm(dir, { recursive: true, force: true });
-  }
-});
+      expect(await git(["log", "-1", "--format=%s"], dir)).toBe(
+        "The wave list as the director saved it",
+      );
+      expect(await git(["show", "--name-only", "--format=", "HEAD"], dir)).toBe("act.ts");
+      // Still dirty, still theirs.
+      expect(await git(["status", "--porcelain"], dir)).toBe("M other.ts");
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  },
+  repoTimeout(14),
+);
 
-test("a save that changed no byte leaves no commit behind", async () => {
-  const dir = await repo();
-  try {
-    const before = await git(["rev-parse", "HEAD"], dir);
-    expect(await commitWaves(["act.ts"], 7, dir)).toBeNull();
-    expect(await git(["rev-parse", "HEAD"], dir)).toBe(before);
-  } finally {
-    await rm(dir, { recursive: true, force: true });
-  }
-});
+test(
+  "a save that changed no byte leaves no commit behind",
+  async () => {
+    const dir = await repo();
+    try {
+      const before = await git(["rev-parse", "HEAD"], dir);
+      expect(await commitWaves(["act.ts"], 7, dir)).toBeNull();
+      expect(await git(["rev-parse", "HEAD"], dir)).toBe(before);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  },
+  repoTimeout(11),
+);

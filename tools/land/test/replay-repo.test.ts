@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { mkdtemp, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { gitIn, repoTimeout } from "../../test/repo-time.js";
 import { replay } from "../replay.js";
 
 /**
@@ -21,10 +22,9 @@ import { replay } from "../replay.js";
 
 let root = "";
 
+/** Every call in this file runs in the one repository `beforeAll` built. */
 async function git(args: string[]): Promise<void> {
-  const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
-  const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
+  await gitIn(args, root);
 }
 
 const PREAMBLE = "# Where a session's time goes\n\nOne `##` entry per lane.\n";
@@ -54,39 +54,45 @@ beforeAll(async () => {
   await git(["switch", "main", "--quiet"]);
   await ledger(PREAMBLE + entry("their-lane"), "their lane, landed first");
   await git(["switch", "lane", "--quiet"]);
-});
+}, repoTimeout(14));
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true }).catch(() => {});
-});
+}, repoTimeout(2));
 
 describe("two lanes appending to the ledger in the same hour", () => {
-  test("replays without stopping, and says which file it settled", async () => {
-    const out = await replay(root, "main");
-    expect(out.ok).toBe(true);
-    expect(out.conflicted).toEqual([]);
-    // Named, not silent: a landing that resolved a record should say so.
-    expect(out.resolved).toContain("docs/time-log.md");
-  });
+  test(
+    "replays without stopping, and says which file it settled",
+    async () => {
+      const out = await replay(root, "main");
+      expect(out.ok).toBe(true);
+      expect(out.conflicted).toEqual([]);
+      // Named, not silent: a landing that resolved a record should say so.
+      expect(out.resolved).toContain("docs/time-log.md");
+    },
+    repoTimeout(12),
+  );
 
-  test("keeps both entries, the trunk's first", async () => {
-    const text = await Bun.file(join(root, "docs", "time-log.md")).text();
-    expect(text).toContain("their-lane");
-    expect(text).toContain("my-lane");
-    expect(text.indexOf("their-lane")).toBeLessThan(text.indexOf("my-lane"));
-    // The preamble survived a merge that touched neither end of it.
-    expect(text.startsWith(PREAMBLE)).toBe(true);
-  });
+  test(
+    "keeps both entries, the trunk's first",
+    async () => {
+      const text = await Bun.file(join(root, "docs", "time-log.md")).text();
+      expect(text).toContain("their-lane");
+      expect(text).toContain("my-lane");
+      expect(text.indexOf("their-lane")).toBeLessThan(text.indexOf("my-lane"));
+      // The preamble survived a merge that touched neither end of it.
+      expect(text.startsWith(PREAMBLE)).toBe(true);
+    },
+    repoTimeout(2),
+  );
 
-  test("leaves the lane on top of the trunk, with both commits in history", async () => {
-    const proc = Bun.spawn(["git", "log", "--oneline", "main..HEAD"], {
-      cwd: root,
-      stdout: "pipe",
-      stderr: "pipe",
-    });
-    const log = await new Response(proc.stdout).text();
-    await proc.exited;
-    expect(log).toContain("my lane");
-    expect(log).not.toContain("their lane");
-  });
+  test(
+    "leaves the lane on top of the trunk, with both commits in history",
+    async () => {
+      const log = await gitIn(["log", "--oneline", "main..HEAD"], root);
+      expect(log).toContain("my lane");
+      expect(log).not.toContain("their lane");
+    },
+    repoTimeout(2),
+  );
 });

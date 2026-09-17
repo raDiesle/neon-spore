@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { gitIn, repoTimeout } from "../../test/repo-time.js";
 import { branchFor } from "../claim.js";
 import { markTaken } from "../edit.js";
 import { commitOnRef } from "../git.js";
@@ -43,16 +44,8 @@ Queued and worked in one sitting.
 
 let root = "";
 
-async function run(args: string[]): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
-  const [out, err, code] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-    proc.exited,
-  ]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
-  return out.trim();
-}
+/** Every call in this file runs in the one repository `beforeAll` built. */
+const run = (args: string[]): Promise<string> => gitIn(args, root);
 
 function itemNamed(md: string, title: string): Item {
   const item = parseItems(md, "queue").find((i) => i.title === title);
@@ -78,18 +71,22 @@ beforeAll(async () => {
   await run(["checkout", "-q", "-b", "lane"]);
   await writeFile(join(root, "docs", "queue.md"), ON_MAIN + ONLY_HERE);
   await run(["commit", "-q", "-am", "queue what the lane found"]);
-});
+}, repoTimeout(8));
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true });
-});
+}, repoTimeout(2));
 
 describe("trunkHas", () => {
-  it("sees the entry main carries and not the one only the lane has", () => {
-    const md = ON_MAIN + ONLY_HERE;
-    expect(trunkHas(itemNamed(md, "Split the wave editor's cell panel"), root)).toBe(true);
-    expect(trunkHas(itemNamed(md, "Name the thing the lane found"), root)).toBe(false);
-  });
+  it(
+    "sees the entry main carries and not the one only the lane has",
+    () => {
+      const md = ON_MAIN + ONLY_HERE;
+      expect(trunkHas(itemNamed(md, "Split the wave editor's cell panel"), root)).toBe(true);
+      expect(trunkHas(itemNamed(md, "Name the thing the lane found"), root)).toBe(false);
+    },
+    repoTimeout(4),
+  );
 });
 
 describe("a claim on an entry only the lane has", () => {
@@ -98,24 +95,36 @@ describe("a claim on an entry only the lane has", () => {
 
   beforeAll(() => {
     branch = claim(item, root);
-  });
+  }, repoTimeout(6));
 
-  it("makes the branch, which is the gate the other worktrees read", async () => {
-    expect(branch).toBe(branchFor(item));
-    expect(await branches()).toContain(branch);
-  });
+  it(
+    "makes the branch, which is the gate the other worktrees read",
+    async () => {
+      expect(branch).toBe(branchFor(item));
+      expect(await branches()).toContain(branch);
+    },
+    repoTimeout(2),
+  );
 
-  it("writes the Taken: line into the working copy", async () => {
-    const md = await readFile(join(root, "docs", "queue.md"), "utf8");
-    const marked = parseItems(md, "queue").find((i) => i.title === item.title);
-    expect(marked?.taken).toMatch(new RegExp(`^\\d{4}-\\d{2}-\\d{2}, ${branch}$`));
-  });
+  it(
+    "writes the Taken: line into the working copy",
+    async () => {
+      const md = await readFile(join(root, "docs", "queue.md"), "utf8");
+      const marked = parseItems(md, "queue").find((i) => i.title === item.title);
+      expect(marked?.taken).toMatch(new RegExp(`^\\d{4}-\\d{2}-\\d{2}, ${branch}$`));
+    },
+    repoTimeout(1),
+  );
 
-  it("leaves main exactly as it was, uncommitted and unpushed", async () => {
-    expect(await run(["show", "main:docs/queue.md"])).toBe(ON_MAIN.trim());
-    expect(await run(["rev-list", "--count", "main"])).toBe("1");
-    expect(await run(["status", "--porcelain"])).toBe("M docs/queue.md");
-  });
+  it(
+    "leaves main exactly as it was, uncommitted and unpushed",
+    async () => {
+      expect(await run(["show", "main:docs/queue.md"])).toBe(ON_MAIN.trim());
+      expect(await run(["rev-list", "--count", "main"])).toBe("1");
+      expect(await run(["status", "--porcelain"])).toBe("M docs/queue.md");
+    },
+    repoTimeout(4),
+  );
 });
 
 describe("a claim that cannot write its line", () => {
@@ -130,10 +139,14 @@ describe("a claim that cannot write its line", () => {
       (md) => markTaken(md, item.title, "2026-09-09, claude/queue-somebody-else"),
       "somebody else's claim",
     );
-  });
+  }, repoTimeout(6));
 
-  it("throws, and takes the branch it made back down with it", async () => {
-    expect(() => claim(item, root)).toThrow(/already taken/);
-    expect(await branches()).not.toContain(branchFor(item));
-  });
+  it(
+    "throws, and takes the branch it made back down with it",
+    async () => {
+      expect(() => claim(item, root)).toThrow(/already taken/);
+      expect(await branches()).not.toContain(branchFor(item));
+    },
+    repoTimeout(6),
+  );
 });

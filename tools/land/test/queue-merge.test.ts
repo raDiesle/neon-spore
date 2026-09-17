@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { gitIn, repoTimeout } from "../../test/repo-time.js";
 import { mergeQueue, join as rejoin, split } from "../queue-merge.js";
 import { replay } from "../replay.js";
 
@@ -76,53 +77,51 @@ describe("merging a queue file", () => {
 describe("replaying a lane that drained an item", () => {
   let root = "";
 
+  const WHO = {
+    GIT_AUTHOR_NAME: "t",
+    GIT_AUTHOR_EMAIL: "t@t",
+    GIT_COMMITTER_NAME: "t",
+    GIT_COMMITTER_EMAIL: "t@t",
+  };
+
   async function run(args: string[]): Promise<void> {
-    const proc = Bun.spawn(["git", ...args], {
-      cwd: root,
-      stdout: "pipe",
-      stderr: "pipe",
-      env: {
-        ...process.env,
-        GIT_AUTHOR_NAME: "t",
-        GIT_AUTHOR_EMAIL: "t@t",
-        GIT_COMMITTER_NAME: "t",
-        GIT_COMMITTER_EMAIL: "t@t",
-      },
-    });
-    const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
-    if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
+    await gitIn(args, root, WHO);
   }
 
   async function write(md: string): Promise<void> {
     await writeFile(join(root, "docs", "queue.md"), md);
   }
 
-  test("the take on main and the done in the lane merge without a hand on them", async () => {
-    root = await mkdtemp(join(tmpdir(), "queue-merge-"));
-    try {
-      await run(["init", "-b", "main"]);
-      await run(["config", "user.email", "t@t"]);
-      await run(["config", "user.name", "t"]);
-      await Bun.write(join(root, "docs", "parked.md"), "# Parked\n");
-      await write(file(A, B));
-      await run(["add", "-A"]);
-      await run(["commit", "-m", "the queue"]);
+  test(
+    "the take on main and the done in the lane merge without a hand on them",
+    async () => {
+      root = await mkdtemp(join(tmpdir(), "queue-merge-"));
+      try {
+        await run(["init", "-b", "main"]);
+        await run(["config", "user.email", "t@t"]);
+        await run(["config", "user.name", "t"]);
+        await Bun.write(join(root, "docs", "parked.md"), "# Parked\n");
+        await write(file(A, B));
+        await run(["add", "-A"]);
+        await run(["commit", "-m", "the queue"]);
 
-      await run(["checkout", "-b", "lane"]);
-      await write(file(B));
-      await run(["commit", "-am", "one item out of the list"]);
+        await run(["checkout", "-b", "lane"]);
+        await write(file(B));
+        await run(["commit", "-am", "one item out of the list"]);
 
-      await run(["checkout", "main"]);
-      await write(file(A_TAKEN, B));
-      await run(["commit", "-am", "mark it taken"]);
+        await run(["checkout", "main"]);
+        await write(file(A_TAKEN, B));
+        await run(["commit", "-am", "mark it taken"]);
 
-      await run(["checkout", "lane"]);
-      const out = await replay(root, "main");
-      expect(out.ok).toBe(true);
-      expect(out.resolved).toEqual(["docs/queue.md"]);
-      expect(await Bun.file(join(root, "docs", "queue.md")).text()).toBe(file(B));
-    } finally {
-      await rm(root, { recursive: true, force: true });
-    }
-  }, 20_000);
+        await run(["checkout", "lane"]);
+        const out = await replay(root, "main");
+        expect(out.ok).toBe(true);
+        expect(out.resolved).toEqual(["docs/queue.md"]);
+        expect(await Bun.file(join(root, "docs", "queue.md")).text()).toBe(file(B));
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    },
+    repoTimeout(16),
+  );
 });

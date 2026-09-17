@@ -2,6 +2,7 @@ import { afterEach, describe, expect, test } from "bun:test";
 import { mkdtemp, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { repoTimeout, gitIn as run } from "../../test/repo-time.js";
 import { reconcile } from "../reconcile.js";
 
 /**
@@ -23,17 +24,6 @@ const PREAMBLE = "# Release notes\n\nWhat each landing changed, newest first.\n"
 
 function note(sha: string, subject: string): string {
   return `\n## 2026-09-16 · ${sha} — ${subject}\n\nWhat it did.\n`;
-}
-
-async function run(args: string[], cwd: string): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
-  const [out, err, code] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-    proc.exited,
-  ]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
-  return out.trim();
 }
 
 let dir = "";
@@ -91,60 +81,82 @@ afterEach(async () => {
 });
 
 describe("two sessions that both pushed", () => {
-  test("replays the trunk onto origin's and settles the release notes", async () => {
-    const ours = await diverged("ours, landed here", "theirs, pushed first");
-    const out = await reconcile(ours, "main");
-    expect(out.ok, out.lines.join("\n")).toBe(true);
-    expect(out.lines.join("\n")).toContain("docs/release-notes.md");
+  test(
+    "replays the trunk onto origin's and settles the release notes",
+    async () => {
+      const ours = await diverged("ours, landed here", "theirs, pushed first");
+      const out = await reconcile(ours, "main");
+      expect(out.ok, out.lines.join("\n")).toBe(true);
+      expect(out.lines.join("\n")).toContain("docs/release-notes.md");
 
-    const text = await Bun.file(join(ours, "docs", "release-notes.md")).text();
-    expect(text).toContain("ours, landed here");
-    expect(text).toContain("theirs, pushed first");
-    // Newest first: this trunk's entry sits above the one origin already had.
-    expect(text.indexOf("ccccccc")).toBeLessThan(text.indexOf("bbbbbbb"));
-    expect(text.startsWith(PREAMBLE)).toBe(true);
-  });
+      const text = await Bun.file(join(ours, "docs", "release-notes.md")).text();
+      expect(text).toContain("ours, landed here");
+      expect(text).toContain("theirs, pushed first");
+      // Newest first: this trunk's entry sits above the one origin already had.
+      expect(text.indexOf("ccccccc")).toBeLessThan(text.indexOf("bbbbbbb"));
+      expect(text.startsWith(PREAMBLE)).toBe(true);
+      // `diverged` is twenty-one `git` calls and `reconcile` is a rebase over
+      // two commits; the rest of the count is slack (`repo-time.ts`).
+    },
+    repoTimeout(30),
+  );
 
-  test("leaves the trunk one commit ahead of origin and none behind", async () => {
-    const ours = await diverged("ours", "theirs");
-    expect((await reconcile(ours, "main")).ok).toBe(true);
-    expect(await run(["rev-list", "--count", "origin/main..main"], ours)).toBe("1");
-    expect(await run(["rev-list", "--count", "main..origin/main"], ours)).toBe("0");
-  });
+  test(
+    "leaves the trunk one commit ahead of origin and none behind",
+    async () => {
+      const ours = await diverged("ours", "theirs");
+      expect((await reconcile(ours, "main")).ok).toBe(true);
+      expect(await run(["rev-list", "--count", "origin/main..main"], ours)).toBe("1");
+      expect(await run(["rev-list", "--count", "main..origin/main"], ours)).toBe("0");
+    },
+    repoTimeout(30),
+  );
 
-  test("stops on a conflict nobody can settle, and the trunk does not move", async () => {
-    // Both sides rewrote the same line of the same source file, which is a
-    // real disagreement and is a person's.
-    const ours = await diverged("ours", "theirs", ["code.ts", "export const n = 2;\n"]);
-    const them = join(dir, "them");
-    await Bun.write(join(them, "code.ts"), "export const n = 3;\n");
-    await run(["commit", "-qam", "theirs, again"], them);
-    await run(["push", "--quiet", "origin", "main"], them);
-    await run(["fetch", "--quiet", "origin", "main"], ours);
-    const was = await run(["rev-parse", "main"], ours);
+  test(
+    "stops on a conflict nobody can settle, and the trunk does not move",
+    async () => {
+      // Both sides rewrote the same line of the same source file, which is a
+      // real disagreement and is a person's.
+      const ours = await diverged("ours", "theirs", ["code.ts", "export const n = 2;\n"]);
+      const them = join(dir, "them");
+      await Bun.write(join(them, "code.ts"), "export const n = 3;\n");
+      await run(["commit", "-qam", "theirs, again"], them);
+      await run(["push", "--quiet", "origin", "main"], them);
+      await run(["fetch", "--quiet", "origin", "main"], ours);
+      const was = await run(["rev-parse", "main"], ours);
 
-    const out = await reconcile(ours, "main");
-    expect(out.ok).toBe(false);
-    expect(out.lines.join("\n")).toContain("code.ts");
-    expect(await run(["rev-parse", "main"], ours)).toBe(was);
-    // And no rebase was left half-done for the next command to trip over.
-    expect(await run(["status", "--porcelain"], ours)).toBe("");
-  });
+      const out = await reconcile(ours, "main");
+      expect(out.ok).toBe(false);
+      expect(out.lines.join("\n")).toContain("code.ts");
+      expect(await run(["rev-parse", "main"], ours)).toBe(was);
+      // And no rebase was left half-done for the next command to trip over.
+      expect(await run(["status", "--porcelain"], ours)).toBe("");
+    },
+    repoTimeout(35),
+  );
 
-  test("refuses while the trunk's own worktree has uncommitted work", async () => {
-    const ours = await diverged("ours", "theirs");
-    await Bun.write(join(ours, "code.ts"), "export const n = 9;\n");
-    const out = await reconcile(ours, "main");
-    expect(out.ok).toBe(false);
-    expect(out.lines.join("\n")).toContain("code.ts");
-    expect(await run(["rev-list", "--count", "main..origin/main"], ours)).toBe("1");
-  });
+  test(
+    "refuses while the trunk's own worktree has uncommitted work",
+    async () => {
+      const ours = await diverged("ours", "theirs");
+      await Bun.write(join(ours, "code.ts"), "export const n = 9;\n");
+      const out = await reconcile(ours, "main");
+      expect(out.ok).toBe(false);
+      expect(out.lines.join("\n")).toContain("code.ts");
+      expect(await run(["rev-list", "--count", "main..origin/main"], ours)).toBe("1");
+    },
+    repoTimeout(30),
+  );
 
-  test("refuses when no worktree has the trunk checked out", async () => {
-    const ours = await diverged("ours", "theirs");
-    await run(["checkout", "--quiet", "--detach", "HEAD"], ours);
-    const out = await reconcile(ours, "main");
-    expect(out.ok).toBe(false);
-    expect(out.lines.join("\n")).toContain("checked out");
-  });
+  test(
+    "refuses when no worktree has the trunk checked out",
+    async () => {
+      const ours = await diverged("ours", "theirs");
+      await run(["checkout", "--quiet", "--detach", "HEAD"], ours);
+      const out = await reconcile(ours, "main");
+      expect(out.ok).toBe(false);
+      expect(out.lines.join("\n")).toContain("checked out");
+    },
+    repoTimeout(30),
+  );
 });

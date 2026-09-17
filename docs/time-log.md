@@ -8114,3 +8114,26 @@ rings are anchored off one number, `orreryFirstBeats`, and the first window is
 placed rather than hoped for.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — queue-two-tools-land-tests-time-out — a timeout that is measured
+
+Eleven test files that drive a real repository, and three that read the whole
+tree off disk, had a flat five-second `it` timeout and went red the minute a
+second session ran its own check beside them. The limit is now a multiple of
+a baseline measured in the test process itself — `git init --bare`, timed
+three times at import — so it rises with the machine; and the one `git`
+runner they now share names the command, the temporary repository and the
+exit code, which the eleven copies it replaced did not.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the queue entry's two remedies, then every local `run`/`git`/`capture` in `tools/land/test`, `tools/queue/test` and `tools/director/test` — fourteen files, four different shapes |
+| writing | 25 | `tools/test/repo-time.ts` — the baseline, `repoTimeout`, `loadedTimeout` and `gitIn` — and the conversion of eleven files, counting each one's git calls |
+| looking | 0 | nothing here is drawn |
+| friction | 5 | Biome wraps a three-argument `it` across four lines, so `format` and `imports:sort` had to run before the check would go green |
+| landing | 15 | two full `bun run check` runs at 108s each, the ledger, the commit |
+
+The bottleneck was counting: a timeout that scales is arithmetic, but every
+one of the eleven files needed its own `ops` number, and the only honest way
+to get it is to read the test and add up the calls its helpers make as well as
+its own. Fourteen minutes of the writing row is that, not the helper.

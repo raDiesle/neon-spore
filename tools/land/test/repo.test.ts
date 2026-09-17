@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 import { mkdir, mkdtemp, realpath, rm, utimes, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
+import { gitIn, repoTimeout } from "../../test/repo-time.js";
 import { idleDays } from "../idle.js";
 import { orphanWorktrees } from "../orphans.js";
 import { isDirty, removeWorktree } from "../worktree.js";
@@ -28,18 +29,12 @@ import { isDirty, removeWorktree } from "../worktree.js";
 let root = "";
 let lane = "";
 
+/** Discard the output; `capture` is the same call when the answer is wanted. */
 async function run(args: string[], cwd: string): Promise<void> {
-  const proc = Bun.spawn(["git", ...args], { cwd, stdout: "pipe", stderr: "pipe" });
-  const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
+  await gitIn(args, cwd);
 }
 
-async function capture(args: string[]): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
-  const [out, code] = await Promise.all([new Response(proc.stdout).text(), proc.exited]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")} failed`);
-  return out.trim();
-}
+const capture = (args: string[]): Promise<string> => gitIn(args, root);
 
 beforeAll(async () => {
   root = await realpath(await mkdtemp(join(tmpdir(), "ns-land-")));
@@ -56,39 +51,55 @@ beforeAll(async () => {
   await mkdir(join(root, ".claude", "worktrees"), { recursive: true });
   lane = join(root, ".claude", "worktrees", "lane");
   await run(["worktree", "add", "--quiet", lane, "-b", "lane"], root);
-});
+}, repoTimeout(8));
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true }).catch(() => {});
-});
+}, repoTimeout(2));
 
 describe("against a repository git actually made", () => {
-  test("a registered worktree is not an orphan", async () => {
-    expect(await orphanWorktrees(root)).toEqual([]);
-  });
+  test(
+    "a registered worktree is not an orphan",
+    async () => {
+      expect(await orphanWorktrees(root)).toEqual([]);
+    },
+    repoTimeout(4),
+  );
 
-  test("a directory git never heard of is reported, and is not dirty", async () => {
-    const stray = join(root, ".claude", "worktrees", "stray");
-    await mkdir(stray);
-    try {
-      const found = await orphanWorktrees(root);
-      expect(found.length).toBe(1);
-      expect(resolve(found[0]?.path ?? "").toLowerCase()).toBe(resolve(stray).toLowerCase());
-      expect(found[0]?.dirty).toBe(false);
-    } finally {
-      await rm(stray, { recursive: true, force: true });
-    }
-  });
+  test(
+    "a directory git never heard of is reported, and is not dirty",
+    async () => {
+      const stray = join(root, ".claude", "worktrees", "stray");
+      await mkdir(stray);
+      try {
+        const found = await orphanWorktrees(root);
+        expect(found.length).toBe(1);
+        expect(resolve(found[0]?.path ?? "").toLowerCase()).toBe(resolve(stray).toLowerCase());
+        expect(found[0]?.dirty).toBe(false);
+      } finally {
+        await rm(stray, { recursive: true, force: true });
+      }
+    },
+    repoTimeout(6),
+  );
 
-  test("a worktree made a moment ago has been idle for no days", async () => {
-    const idle = await idleDays(lane);
-    expect(idle).toBeGreaterThanOrEqual(0);
-    expect(idle).toBeLessThan(1);
-  });
+  test(
+    "a worktree made a moment ago has been idle for no days",
+    async () => {
+      const idle = await idleDays(lane);
+      expect(idle).toBeGreaterThanOrEqual(0);
+      expect(idle).toBeLessThan(1);
+    },
+    repoTimeout(3),
+  );
 
-  test("a path that is not a checkout at all reads as idle for no days", async () => {
-    expect(await idleDays(join(root, "nowhere"))).toBe(0);
-  });
+  test(
+    "a path that is not a checkout at all reads as idle for no days",
+    async () => {
+      expect(await idleDays(join(root, "nowhere"))).toBe(0);
+    },
+    repoTimeout(3),
+  );
 
   /**
    * The defect this measure replaced. `.git/worktrees/<name>/` is rewritten by
@@ -98,47 +109,58 @@ describe("against a repository git actually made", () => {
    * `KEEP_DAYS` was unreachable. `logs/HEAD` moves when the ref moves and at no
    * other time, which is what these two ask git to demonstrate.
    */
-  test("a command that only reads does not reset the clock", async () => {
-    const admin = await capture(["-C", lane, "rev-parse", "--path-format=absolute", "--git-dir"]);
-    const threeDaysAgo = new Date(Date.now() - 3 * 86_400_000);
-    await utimes(join(admin, "logs", "HEAD"), threeDaysAgo, threeDaysAgo);
+  test(
+    "a command that only reads does not reset the clock",
+    async () => {
+      const admin = await capture(["-C", lane, "rev-parse", "--path-format=absolute", "--git-dir"]);
+      const threeDaysAgo = new Date(Date.now() - 3 * 86_400_000);
+      await utimes(join(admin, "logs", "HEAD"), threeDaysAgo, threeDaysAgo);
 
-    await capture(["-C", lane, "status", "--porcelain"]);
-    await capture(["-C", lane, "rev-parse", "HEAD"]);
+      await capture(["-C", lane, "status", "--porcelain"]);
+      await capture(["-C", lane, "rev-parse", "HEAD"]);
 
-    expect(await idleDays(lane)).toBeGreaterThan(2.9);
-  });
+      expect(await idleDays(lane)).toBeGreaterThan(2.9);
+    },
+    repoTimeout(6),
+  );
 
-  test("and a commit does reset it", async () => {
-    await writeFile(join(lane, "moved.txt"), "work\n");
-    await run(["-C", lane, "add", "moved.txt"], root);
-    await run(["-C", lane, "commit", "-q", "-m", "work"], root);
-    expect(await idleDays(lane)).toBeLessThan(1);
-  });
+  test(
+    "and a commit does reset it",
+    async () => {
+      await writeFile(join(lane, "moved.txt"), "work\n");
+      await run(["-C", lane, "add", "moved.txt"], root);
+      await run(["-C", lane, "commit", "-q", "-m", "work"], root);
+      expect(await idleDays(lane)).toBeLessThan(1);
+    },
+    repoTimeout(5),
+  );
 
-  test("uncommitted work stops a removal, and the tree is still there after", async () => {
-    const wip = join(lane, "wip.txt");
-    await writeFile(wip, "half a thought\n");
-    expect(await isDirty(root, lane)).toBe(true);
-    await expect(removeWorktree(root, lane)).rejects.toThrow(/uncommitted work/);
-    expect(await Bun.file(wip).exists()).toBe(true);
-    await rm(wip);
-  });
+  test(
+    "uncommitted work stops a removal, and the tree is still there after",
+    async () => {
+      const wip = join(lane, "wip.txt");
+      await writeFile(wip, "half a thought\n");
+      expect(await isDirty(root, lane)).toBe(true);
+      await expect(removeWorktree(root, lane)).rejects.toThrow(/uncommitted work/);
+      expect(await Bun.file(wip).exists()).toBe(true);
+      await rm(wip);
+    },
+    repoTimeout(6),
+  );
 
-  test("a clean one goes, and git stops listing it", async () => {
-    expect(await isDirty(root, lane)).toBe(false);
-    await removeWorktree(root, lane);
-    expect(await Bun.file(join(lane, ".git")).exists()).toBe(false);
-    const proc = Bun.spawn(["git", "worktree", "list", "--porcelain"], {
-      cwd: root,
-      stdout: "pipe",
-    });
-    const listing = await new Response(proc.stdout).text();
-    await proc.exited;
-    expect(listing.toLowerCase()).not.toContain("lane");
-    // The directory goes before the registry entry does, so the two can never
-    // be out of step in the direction that leaves an orphan behind: nothing is
-    // deregistered until there is nothing left on disk to deregister.
-    expect(await orphanWorktrees(root)).toEqual([]);
-  });
+  test(
+    "a clean one goes, and git stops listing it",
+    async () => {
+      expect(await isDirty(root, lane)).toBe(false);
+      await removeWorktree(root, lane);
+      expect(await Bun.file(join(lane, ".git")).exists()).toBe(false);
+      const listing = await capture(["worktree", "list", "--porcelain"]);
+      expect(listing.toLowerCase()).not.toContain("lane");
+      // The directory goes before the registry entry does, so the two can never
+      // be out of step in the direction that leaves an orphan behind: nothing is
+      // deregistered until there is nothing left on disk to deregister.
+      expect(await orphanWorktrees(root)).toEqual([]);
+    },
+    repoTimeout(8),
+  );
 });

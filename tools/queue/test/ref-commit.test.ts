@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { gitIn, repoTimeout } from "../../test/repo-time.js";
 import { markTaken } from "../edit.js";
 import { commitOnRef } from "../git.js";
 import { parseItems } from "../queue.js";
@@ -36,16 +37,8 @@ const MARK = "2026-09-10, claude/queue-split-the-wave-editors-cell-panel";
 let root = "";
 let first = "";
 
-async function run(args: string[]): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
-  const [out, err, code] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-    proc.exited,
-  ]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
-  return out.trim();
-}
+/** Every call in this file runs in the one repository `beforeAll` built. */
+const run = (args: string[]): Promise<string> => gitIn(args, root);
 
 beforeAll(async () => {
   root = await mkdtemp(join(tmpdir(), "ns-queue-ref-"));
@@ -64,66 +57,82 @@ beforeAll(async () => {
   await writeFile(join(root, "readme.md"), "two\n");
   await run(["commit", "-q", "--only", "readme.md", "-m", "the work"]);
   await writeFile(join(root, "docs", "queue.md"), `${ENTRY}\nA line the session typed.\n`);
-});
+}, repoTimeout(9));
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true });
-});
+}, repoTimeout(2));
 
 describe("commitOnRef", () => {
-  it("puts the line on main as one commit over the old tip, from a lane", async () => {
-    const made = commitOnRef(
-      root,
-      "main",
-      "docs/queue.md",
-      (md) => markTaken(md, TITLE, MARK),
-      "Mark it taken",
-    );
-    expect(await run(["rev-parse", "main"])).toBe(made);
-    expect(await run(["rev-parse", "main~1"])).toBe(first);
-    expect(await run(["log", "-1", "--format=%s", "main"])).toBe("Mark it taken");
-    const onMain = await run(["show", "main:docs/queue.md"]);
-    expect(parseItems(`${onMain}\n`, "queue")[0]?.taken).toBe(MARK);
-    // The rest of the tree rode along unchanged.
-    expect(await run(["show", "main:readme.md"])).toBe("one");
-  });
-
-  it("leaves the lane, its index and its working tree exactly as they were", async () => {
-    expect(await run(["rev-parse", "--abbrev-ref", "HEAD"])).toBe("lane");
-    expect(await run(["log", "-1", "--format=%s"])).toBe("the work");
-    expect(await run(["status", "--porcelain"])).toMatch(/^ ?M docs\/queue\.md$/);
-    expect(await readFile(join(root, "docs", "queue.md"), "utf8")).toBe(
-      `${ENTRY}\nA line the session typed.\n`,
-    );
-  });
-
-  it("refuses a branch this clone does not have, rather than claiming on nothing", () => {
-    expect(() => commitOnRef(root, "trunk", "docs/queue.md", (md) => md, "Mark it taken")).toThrow(
-      /no such branch here/,
-    );
-  });
-
-  it("refuses to overwrite a main that moved under it", async () => {
-    // A second claim on the same entry is what `markTaken` itself refuses; a
-    // moved ref is a race this guards with the old tip, so the check is on a
-    // different edit of the same file.
-    const before = await run(["rev-parse", "main"]);
-    await run(["update-ref", "refs/heads/main", first]);
-    expect(await run(["rev-parse", "main"])).toBe(first);
-    // Move it back to the marked commit *during* the edit, so the tip read at
-    // the start is stale by the time the ref is written.
-    expect(() =>
-      commitOnRef(
+  it(
+    "puts the line on main as one commit over the old tip, from a lane",
+    async () => {
+      const made = commitOnRef(
         root,
         "main",
         "docs/queue.md",
-        (md) => {
-          Bun.spawnSync(["git", "update-ref", "refs/heads/main", before], { cwd: root });
-          return `${md}\nmoved\n`;
-        },
-        "Racing",
-      ),
-    ).toThrow(/could not move main/);
-    expect(await run(["rev-parse", "main"])).toBe(before);
-  });
+        (md) => markTaken(md, TITLE, MARK),
+        "Mark it taken",
+      );
+      expect(await run(["rev-parse", "main"])).toBe(made);
+      expect(await run(["rev-parse", "main~1"])).toBe(first);
+      expect(await run(["log", "-1", "--format=%s", "main"])).toBe("Mark it taken");
+      const onMain = await run(["show", "main:docs/queue.md"]);
+      expect(parseItems(`${onMain}\n`, "queue")[0]?.taken).toBe(MARK);
+      // The rest of the tree rode along unchanged.
+      expect(await run(["show", "main:readme.md"])).toBe("one");
+    },
+    repoTimeout(12),
+  );
+
+  it(
+    "leaves the lane, its index and its working tree exactly as they were",
+    async () => {
+      expect(await run(["rev-parse", "--abbrev-ref", "HEAD"])).toBe("lane");
+      expect(await run(["log", "-1", "--format=%s"])).toBe("the work");
+      expect(await run(["status", "--porcelain"])).toMatch(/^ ?M docs\/queue\.md$/);
+      expect(await readFile(join(root, "docs", "queue.md"), "utf8")).toBe(
+        `${ENTRY}\nA line the session typed.\n`,
+      );
+    },
+    repoTimeout(4),
+  );
+
+  it(
+    "refuses a branch this clone does not have, rather than claiming on nothing",
+    () => {
+      expect(() =>
+        commitOnRef(root, "trunk", "docs/queue.md", (md) => md, "Mark it taken"),
+      ).toThrow(/no such branch here/);
+    },
+    repoTimeout(3),
+  );
+
+  it(
+    "refuses to overwrite a main that moved under it",
+    async () => {
+      // A second claim on the same entry is what `markTaken` itself refuses; a
+      // moved ref is a race this guards with the old tip, so the check is on a
+      // different edit of the same file.
+      const before = await run(["rev-parse", "main"]);
+      await run(["update-ref", "refs/heads/main", first]);
+      expect(await run(["rev-parse", "main"])).toBe(first);
+      // Move it back to the marked commit *during* the edit, so the tip read at
+      // the start is stale by the time the ref is written.
+      expect(() =>
+        commitOnRef(
+          root,
+          "main",
+          "docs/queue.md",
+          (md) => {
+            Bun.spawnSync(["git", "update-ref", "refs/heads/main", before], { cwd: root });
+            return `${md}\nmoved\n`;
+          },
+          "Racing",
+        ),
+      ).toThrow(/could not move main/);
+      expect(await run(["rev-parse", "main"])).toBe(before);
+    },
+    repoTimeout(12),
+  );
 });

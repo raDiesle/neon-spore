@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "bun:test";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { gitIn, repoTimeout } from "../../test/repo-time.js";
 import { clearTaken, markTaken } from "../edit.js";
 import { commitOnRef } from "../git.js";
 import { type Item, parseItems } from "../queue.js";
@@ -36,16 +37,8 @@ const MARK = "2026-09-15, claude/queue-split-the-wave-editors-cell-panel";
 
 let root = "";
 
-async function run(args: string[]): Promise<string> {
-  const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
-  const [out, err, code] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-    proc.exited,
-  ]);
-  if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
-  return out.trim();
-}
+/** Every call in this file runs in the one repository `beforeAll` built. */
+const run = (args: string[]): Promise<string> => gitIn(args, root);
 
 function itemNamed(md: string, title: string): Item {
   const item = parseItems(md, "queue").find((i) => i.title === title);
@@ -72,22 +65,30 @@ beforeAll(async () => {
   // The claim a cloud `take` makes: onto the ref, with the working tree left
   // exactly as it was.
   commitOnRef(root, "main", "docs/queue.md", (md) => markTaken(md, TITLE, MARK), "taken");
-});
+}, repoTimeout(12));
 
 afterAll(async () => {
   await rm(root, { recursive: true, force: true });
-});
+}, repoTimeout(2));
 
 describe("the mark on the trunk", () => {
-  it("is found although this checkout's own copy has no such line", async () => {
-    expect(itemNamed(await here(), TITLE).taken).toBe("");
-    expect(trunkTaken(itemNamed(await here(), TITLE), root)).toBe(MARK);
-  });
+  it(
+    "is found although this checkout's own copy has no such line",
+    async () => {
+      expect(itemNamed(await here(), TITLE).taken).toBe("");
+      expect(trunkTaken(itemNamed(await here(), TITLE), root)).toBe(MARK);
+    },
+    repoTimeout(3),
+  );
 
-  it("is nothing for an item nobody has taken", () => {
-    const item = { ...itemNamed(ENTRY, TITLE), title: "Something else entirely" };
-    expect(trunkTaken(item, root)).toBe("");
-  });
+  it(
+    "is nothing for an item nobody has taken",
+    () => {
+      const item = { ...itemNamed(ENTRY, TITLE), title: "Something else entirely" };
+      expect(trunkTaken(item, root)).toBe("");
+    },
+    repoTimeout(3),
+  );
 });
 
 describe("the same edit in this checkout's copy", () => {

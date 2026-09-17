@@ -5,6 +5,7 @@ import { DEFAULT_CONFIG } from "../../packages/sim/src/config.js";
 import { parseItems } from "../queue/queue.js";
 import { existsIn } from "../queue/stale.js";
 import { docFiles, ignoredByGit, namesAFile, pathClaimsIn, ROOT, TREE } from "./doc-paths.js";
+import { loadedTimeout } from "./repo-time.js";
 
 /**
  * Document drift, as a test.
@@ -68,26 +69,33 @@ const RECORDS = new Set(["docs/release-notes.md", "docs/time-log.md", "docs/teac
 const KNOWN_GONE = new Set(["packages/render/test/tell-frame.test.ts"]);
 
 describe("a path a document names", () => {
-  it("is a file this repository has", () => {
-    const found: { doc: string; mention: string }[] = [];
-    let claims = 0;
-    for (const doc of docFiles()) {
-      if (RECORDS.has(doc)) continue;
-      for (const mention of pathClaimsIn(doc)) {
-        claims++;
-        if (!namesAFile(mention) && !KNOWN_GONE.has(mention)) found.push({ doc, mention });
+  it(
+    "is a file this repository has",
+    () => {
+      const found: { doc: string; mention: string }[] = [];
+      let claims = 0;
+      for (const doc of docFiles()) {
+        if (RECORDS.has(doc)) continue;
+        for (const mention of pathClaimsIn(doc)) {
+          claims++;
+          if (!namesAFile(mention) && !KNOWN_GONE.has(mention)) found.push({ doc, mention });
+        }
       }
-    }
-    // A build output a document names is not drift: `docs/skins.md` says of one
-    // of these, in the same sentence, that it is gitignored.
-    const ignored = ignoredByGit([...new Set(found.map((f) => f.mention))]);
-    const drift = found
-      .filter((f) => !ignored.has(f.mention))
-      .map((f) => `${f.doc} → ${f.mention}`);
-    // A run that checked nothing would pass. It was 2,211 on the day this landed.
-    expect(claims).toBeGreaterThan(1500);
-    expect([...new Set(drift)].sort()).toEqual([]);
-  });
+      // A build output a document names is not drift: `docs/skins.md` says of one
+      // of these, in the same sentence, that it is gitignored.
+      const ignored = ignoredByGit([...new Set(found.map((f) => f.mention))]);
+      const drift = found
+        .filter((f) => !ignored.has(f.mention))
+        .map((f) => `${f.doc} → ${f.mention}`);
+      // A run that checked nothing would pass. It was 2,211 on the day this landed.
+      expect(claims).toBeGreaterThan(1500);
+      expect([...new Set(drift)].sort()).toEqual([]);
+      // Every document read, two thousand paths asked about, and a `git
+      // check-ignore` at the end of it: a third of a second alone and minutes
+      // under another session's check (`tools/test/repo-time.ts`).
+    },
+    loadedTimeout(350),
+  );
 });
 
 describe("a field of SimConfig", () => {

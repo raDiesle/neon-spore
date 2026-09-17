@@ -743,38 +743,3 @@ needed one where the state was enough for the picture. Three sounds: a ring
 parting at its gap, the core spitting, the core going out from the centre
 outward. `sound-link-none.ts` is where a moment with no card on the sheet is
 named instead.
-
-## Two `tools/land` tests time out when two lanes check at once
-
-- **Found:** 2026-09-17, claude/boss-orrery
-- **Taken:** 2026-09-17, claude/queue-two-tools-land-tests-time-out-when-two-lanes-che
-- **Files:** tools/land/test/reconcile-repo.test.ts, tools/land/test/notes-repo.test.ts, tools/index/test/index.test.ts, tools/check/shard.ts
-
-`bun run land` refused twice in a row with six red tests across three shards,
-every one of them a 5-second `it` timeout around a `git init`, `git clone` or
-`git commit` in a temporary repository — and the same files passed in 8.5
-seconds when run on their own a minute later. What is actually happening is
-load: the shard runner puts fourteen `bun test` processes on the machine and
-another session's `bun run check` was doing the same, so a subprocess that
-normally takes 200 ms takes six seconds. `docs/INDEX.md`'s own completeness
-test took 48 s against a 30 s limit for the same reason.
-
-A landing that is red for a reason the diff cannot cause is worse than a slow
-one: it teaches a session to re-run `land` until it is green, which is exactly
-the habit that lets a real failure through. What to do: give the tests that
-shell out to `git` a timeout that is a multiple of a measured baseline rather
-than a flat 5000 ms — `bun test`'s per-`it` timeout takes a number, and these
-files know they are doing repository work — or serialise the repo-backed files
-onto one shard and give that shard room.
-
-**Seen a third time the same day, with a worse shape.** The failure was not a
-timeout but an *unhandled error between tests*: `git reset --hard --quiet
-HEAD~1` in `reconcile-repo.test.ts`'s `diverged` helper threw with an empty
-stderr, and the shard reported `1 error` beside `0 fail` — so the count of
-failed tests was zero and the run was red anyway. The same file passed alone in
-3.7 s a minute later. A fix that only raises `it` timeouts does not reach this
-one: the helper's `run` throws outside any `it`'s own frame, so whatever the
-timeout is, the error escapes the test that caused it and lands on the shard.
-Whichever way it is fixed, the repo-backed helpers need to say which git
-command failed *and* in which temporary repository, because an empty stderr
-from `git reset` says nothing a reader can act on.

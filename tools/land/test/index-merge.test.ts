@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { gitIn, repoTimeout } from "../../test/repo-time.js";
 import { keepLaneRows } from "../index-merge.js";
 import { replay } from "../replay.js";
 
@@ -67,54 +68,56 @@ describe("replaying two lanes that each added a file", () => {
   let root = "";
 
   async function run(args: string[]): Promise<void> {
-    const proc = Bun.spawn(["git", ...args], { cwd: root, stdout: "pipe", stderr: "pipe" });
-    const [err, code] = await Promise.all([new Response(proc.stderr).text(), proc.exited]);
-    if (code !== 0) throw new Error(`git ${args.join(" ")}: ${err.trim()}`);
+    await gitIn(args, root);
   }
 
-  test("the landing goes through with the table regenerated", async () => {
-    root = await mkdtemp(join(tmpdir(), "index-merge-"));
-    try {
-      await mkdir(join(root, "tools"), { recursive: true });
-      await mkdir(join(root, "docs"), { recursive: true });
-      await writeFile(
-        join(root, "tools", "one.ts"),
-        "/** The first tool */\nexport const a = 1;\n",
-      );
-      await writeFile(join(root, "docs", "INDEX.md"), indexFile(ONE));
-      await run(["init", "-b", "main"]);
-      await run(["config", "user.email", "t@t"]);
-      await run(["config", "user.name", "t"]);
-      await run(["add", "-A"]);
-      await run(["commit", "-m", "one tool"]);
+  test(
+    "the landing goes through with the table regenerated",
+    async () => {
+      root = await mkdtemp(join(tmpdir(), "index-merge-"));
+      try {
+        await mkdir(join(root, "tools"), { recursive: true });
+        await mkdir(join(root, "docs"), { recursive: true });
+        await writeFile(
+          join(root, "tools", "one.ts"),
+          "/** The first tool */\nexport const a = 1;\n",
+        );
+        await writeFile(join(root, "docs", "INDEX.md"), indexFile(ONE));
+        await run(["init", "-b", "main"]);
+        await run(["config", "user.email", "t@t"]);
+        await run(["config", "user.name", "t"]);
+        await run(["add", "-A"]);
+        await run(["commit", "-m", "one tool"]);
 
-      // The lane adds a file and writes its own line for it.
-      await run(["checkout", "-b", "lane"]);
-      const mine = "| `tools/three.ts` | Words only this lane knows |";
-      await writeFile(join(root, "tools", "three.ts"), "/** Derived. */\nexport const c = 3;\n");
-      await writeFile(join(root, "docs", "INDEX.md"), indexFile(ONE, mine));
-      await run(["add", "-A"]);
-      await run(["commit", "-m", "a third tool"]);
+        // The lane adds a file and writes its own line for it.
+        await run(["checkout", "-b", "lane"]);
+        const mine = "| `tools/three.ts` | Words only this lane knows |";
+        await writeFile(join(root, "tools", "three.ts"), "/** Derived. */\nexport const c = 3;\n");
+        await writeFile(join(root, "docs", "INDEX.md"), indexFile(ONE, mine));
+        await run(["add", "-A"]);
+        await run(["commit", "-m", "a third tool"]);
 
-      // The trunk adds one of its own in the same place.
-      await run(["checkout", "main"]);
-      await writeFile(
-        join(root, "tools", "two.ts"),
-        "/** The second tool */\nexport const b = 2;\n",
-      );
-      await writeFile(join(root, "docs", "INDEX.md"), indexFile(ONE, TWO));
-      await run(["add", "-A"]);
-      await run(["commit", "-m", "a second tool"]);
+        // The trunk adds one of its own in the same place.
+        await run(["checkout", "main"]);
+        await writeFile(
+          join(root, "tools", "two.ts"),
+          "/** The second tool */\nexport const b = 2;\n",
+        );
+        await writeFile(join(root, "docs", "INDEX.md"), indexFile(ONE, TWO));
+        await run(["add", "-A"]);
+        await run(["commit", "-m", "a second tool"]);
 
-      await run(["checkout", "lane"]);
-      const out = await replay(root, "main");
-      expect(out.ok).toBe(true);
-      expect(out.resolved).toEqual(["docs/INDEX.md"]);
-      const landed = await Bun.file(join(root, "docs", "INDEX.md")).text();
-      expect(landed).toContain(TWO);
-      expect(landed).toContain(mine);
-    } finally {
-      await rm(root, { recursive: true, force: true });
-    }
-  }, 20_000);
+        await run(["checkout", "lane"]);
+        const out = await replay(root, "main");
+        expect(out.ok).toBe(true);
+        expect(out.resolved).toEqual(["docs/INDEX.md"]);
+        const landed = await Bun.file(join(root, "docs", "INDEX.md")).text();
+        expect(landed).toContain(TWO);
+        expect(landed).toContain(mine);
+      } finally {
+        await rm(root, { recursive: true, force: true });
+      }
+    },
+    repoTimeout(18),
+  );
 });
