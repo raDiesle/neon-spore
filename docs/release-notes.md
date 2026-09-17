@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 3b81c040 — The second brief, read against the engine, and the field may say one word
+
+A twenty-boss brief from the same source as the first, arriving after fourteen of the fifteen had already shipped. Most of it is confirmation — the interaction surface is the boss itself, which is THE INSTAR — and four things in it are not on the page.
+
 ## 2026-09-17 · 0f71b620 — THE TASTER's rehearsal: the arithmetic is authored so every edge sets red, and the second blade is reached by atBoss
 
 The fourth boss film written after its look (`packages/content/src/scenes/the-taster.ts`, ten pages over 1920 ticks): a blade growing while red is fired at it, the edge setting red, a fourth red thickening it, a cyan paring and a second shearing it off, player 1's column and the next blade sheared too, three growing at once with player 2's two counts. No arrivals, so every bolt loads the ledger, and the reds and cyans are spaced so the two counts are never level over the window — the seed decides nothing. The second blade stands over a column no authored strip reaches, so `boss-answer.ts` now answers THE TASTER's first set blade and the film's shot at it is an `atBoss` act. It takes no hit; the hurrying, the crest cut and the beam are the prose.
