@@ -316,28 +316,6 @@ somebody and the reason is written down nowhere, so finding out what it was
 guarding against is the first half of this item.
 - **Asks:** Should `format` sort imports, should `lint` stop asking, or should the incantation get a script of its own?
 
-## `effects-spark-silent.ts` is at 250 lines and the next boss cannot be added
-
-- **Found:** 2026-09-17, claude/boss-taster
-- **Taken:** 2026-09-17, claude/queue-effects-spark-silent-ts-is-at-250-lines-and-the
-- **Files:** `packages/render/src/effects-spark-silent.ts`, `packages/render/src/effects-ingest-silent-boss.ts`
-
-The file's own header says what happened the last time it filled up: THE
-CHUTE's one case pushed it over, and the only way to land was to reword two
-comments belonging to other creatures. THE TASTER's twelve names put it at 252
-and it was paid for the same way — by cutting two lines of the taster's own
-paragraph, which is the better half of a bad trade but still prose edited for
-arithmetic rather than for meaning.
-
-The ingest half has already been split along the seam that works: the boss
-events live in `effects-ingest-silent-boss.ts` and the creatures stay behind.
-Doing the same here moves the eight bosses' runs — the baton's, the undertow's,
-the candle's, the gorge's, the curtain's, the fleet's, the maze's and the
-taster's — into a boss file beside it and spreads `SILENT` out of the two
-arrays, which leaves the type guard and its `assertNever` exactly as they are
-because `SILENT` is still one `as const` at the end. Fifteen lines of work and
-the next boss lands without touching anybody's comment.
-
 ## `briefing.test.ts` went red under `check:fast` while another session ran `check`
 
 - **Found:** 2026-09-17, claude/queue-play-is-a-list-of-partners-to-continue-with-and

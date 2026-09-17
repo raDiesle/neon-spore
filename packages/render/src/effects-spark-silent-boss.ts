@@ -1,22 +1,90 @@
 import type { SimEvent } from "@neon-spore/sim";
 
 /**
- * **The choreographed bosses' events that are deliberately not a burst**, the
- * part of `effects-spark-silent.ts`'s list that grows by a family at a time.
+ * **The bosses' events that are deliberately not a burst**, the part of
+ * `effects-spark-silent.ts`'s list that grows by a family at a time.
  *
- * A field boss's events are one family: either read above the loop by a
+ * A boss's events are one family: either read above the loop by a
  * `<boss>-fx.ts` of its own, which throws whatever bursts the boss wants on
  * the frame it wants them, or — between the lane that built the boss and the
  * lane that draws it — answered by nothing at all, because a transient about
  * a thing nobody can see is a picture of nothing. Either way the row here is
  * the same, and its comment says which of the two it is. THE SINEW's family
  * was the one that put the other file over its 250 lines, after THE GORGE's,
- * THE CURTAIN's and THE TASTER's had each added a dozen; the property that had
- * to survive the split is the same one that file explains — `SILENT` keeps
- * its literal member types through the spread, so `isSilent` still narrows
- * and `burstFor`'s `assertNever` still catches an event named in neither.
+ * THE CURTAIN's and THE TASTER's had each added a dozen, and the older
+ * bosses followed on 17 September 2026 so the seam is the one
+ * `effects-ingest-silent-boss.ts` cut: every boss here, every creature
+ * there, and the next boss lands without touching anybody's comment. The
+ * property that had to survive the split is the same one that file explains
+ * — `SILENT` keeps its literal member types through the spread, so `isSilent`
+ * still narrows and `burstFor`'s `assertNever` still catches an event named
+ * in neither.
  */
 export const SILENT_BOSS = [
+  // THE STARE's catch, and it is silent for now rather than for ever: the eye,
+  // its turn, the seat it settles on and the flash on the button somebody
+  // pressed anyway are the look half of that boss and are not drawn yet
+  // (`docs/spec/bosses.md`). The hull's own `breach` lands in the same tick,
+  // so the pair is not left wondering whether anything happened.
+  "stareCaught",
+  // THE BATON's seven: the arm, the bead and the locked seat's grey are drawn
+  // from the boss's state every frame (`baton-draw.ts`, `band-lock.ts`), and
+  // a spark on a landing would be a look on top of a shipped one. A shed
+  // socket is a meteor and the last drop is a pod, and both burst on their own.
+  "batonLaunch",
+  "batonStruck",
+  "batonLanded",
+  "batonRelit",
+  "batonSettled",
+  "batonShed",
+  "batonDown",
+  // THE UNDERTOW's nine: the hull lifting and the lobe in it are the look
+  // half, not drawn yet (`docs/spec/bosses.md`); the scar it leaves and the
+  // hull's own `breach` at the end land on the field by themselves.
+  "undertowBow",
+  "undertowLobe",
+  "undertowTaken",
+  "undertowScar",
+  "undertowWidened",
+  "undertowUnseated",
+  "undertowRise",
+  "undertowSwallowed",
+  "undertowThrough",
+  // THE CANDLE's seven: the dark is a mask read off the world every frame
+  // (`candle-dark.ts`), and a spark in it would be a light the design forbids.
+  "candleDark",
+  "candleDim",
+  "candleMove",
+  "candleTurn",
+  "candleFed",
+  "candleLast",
+  "candleOut",
+  // THE MIRROR's four: the ghost shot, the echo, the verdict and the fall —
+  // `simon-fx.ts` owns the whole sequence.
+  "mirrorShow",
+  "mirrorEcho",
+  "mirrorVerdict",
+  "mirrorDown",
+  // THE MAZE, all four of them: the shot going down the tangle is the whole
+  // picture and it is not a spark on the field. Silent until the lane that
+  // draws the lattice says otherwise.
+  "mazeCommit",
+  "mazeProbe",
+  "mazeVerdict",
+  "mazeDown",
+  // THE FLEET's five, and none of them throws anything from here. A salvo is
+  // not resolved where it is pressed: the shell arcs out of the cannon and
+  // takes `FLEET_SHELL_BEATS` to reach the square, so a burst thrown on the
+  // tick of the event would land a second and a quarter before anything got
+  // there. `FleetFx` holds the flight and throws the same three sizes — 6
+  // cyan, 14 red, 26 ember — on the frame the shell arrives (`fleet-fx.ts`).
+  // The last of them never threw one: the sinking that rides beside it on the
+  // same tick is the picture, and `fleetSunk` has already thrown for it.
+  "fleetSalvo",
+  "fleetSplash",
+  "fleetHit",
+  "fleetSunk",
+  "fleetDown",
   // THE GORGE's nine: one family, read above the loop by `gorge-fx.ts` —
   // the bursts are thrown there, and the beads leaving are its transient.
   "gorgeSettle",

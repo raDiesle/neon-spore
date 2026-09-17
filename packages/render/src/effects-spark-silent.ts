@@ -29,10 +29,9 @@ import { SILENT_BOSS } from "./effects-spark-silent-boss.js";
  * type is still refused here rather than silently never matching.
  */
 export const SILENT = [
-  // The choreographed bosses whose events are one family each, read above
-  // the loop by a `<boss>-fx.ts` of their own or by nothing yet: next door,
-  // because four of them put this file over its 250 lines
-  // (`effects-spark-silent-boss.ts`).
+  // Every boss's family, whether read above the loop by a `<boss>-fx.ts` of
+  // its own or by nothing yet: next door, on the seam `effects-ingest-silent-boss.ts`
+  // already cut — what is left here is a body on the field doing something.
   ...SILENT_BOSS,
   // THE PUSH's lane change. The body is drawn gliding into its new column by
   // `fromCol` the way any stepped body is, so the picture already carries the
@@ -118,44 +117,6 @@ export const SILENT = [
   "waveStart", // The banner, not a burst — `banner.ts`, driven by the host.
   "needWave", // Bookkeeping between the host and the sim; nothing on the field.
   "waveFailed", // The breach that failed it has its own burst; the field then holds.
-  // THE STARE's catch, and it is silent for now rather than for ever: the eye,
-  // its turn, the seat it settles on and the flash on the button somebody
-  // pressed anyway are the look half of that boss and are not drawn yet
-  // (`docs/spec/bosses.md`). The hull's own `breach` lands in the same tick,
-  // so the pair is not left wondering whether anything happened.
-  "stareCaught",
-  // THE BATON's seven: the arm, the bead and the locked seat's grey are drawn
-  // from the boss's state every frame (`baton-draw.ts`, `band-lock.ts`), and
-  // a spark on a landing would be a look on top of a shipped one. A shed
-  // socket is a meteor and the last drop is a pod, and both burst on their own.
-  "batonLaunch",
-  "batonStruck",
-  "batonLanded",
-  "batonRelit",
-  "batonSettled",
-  "batonShed",
-  "batonDown",
-  // THE UNDERTOW's nine: the hull lifting and the lobe in it are the look
-  // half, not drawn yet (`docs/spec/bosses.md`); the scar it leaves and the
-  // hull's own `breach` at the end land on the field by themselves.
-  "undertowBow",
-  "undertowLobe",
-  "undertowTaken",
-  "undertowScar",
-  "undertowWidened",
-  "undertowUnseated",
-  "undertowRise",
-  "undertowSwallowed",
-  "undertowThrough",
-  // THE CANDLE's seven: the dark is a mask read off the world every frame
-  // (`candle-dark.ts`), and a spark in it would be a light the design forbids.
-  "candleDark",
-  "candleDim",
-  "candleMove",
-  "candleTurn",
-  "candleFed",
-  "candleLast",
-  "candleOut",
   "quit", // The run ending is the menu opening (`apps/game`), not a mark on the field.
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.
@@ -165,17 +126,6 @@ export const SILENT = [
   "breach", // `effects.ts` waits for a falling rock before it bursts anything.
   "tether", // The rim's own colour is read off the world every frame.
   "eyeOpen", // The hatch's openness is the rope's tension, not an event.
-  "mirrorShow", // THE MIRROR's ghost shot — `simon-fx.ts` owns the whole sequence.
-  "mirrorEcho",
-  "mirrorVerdict",
-  "mirrorDown",
-  // THE MAZE, all four of them: the shot going down the tangle is the whole
-  // picture and it is not a spark on the field. Silent until the lane that
-  // draws the lattice says otherwise.
-  "mazeCommit",
-  "mazeProbe",
-  "mazeVerdict",
-  "mazeDown",
   // And the one event in the union that carries no position at all, so a spark
   // could not be put anywhere even if this creature wanted one.
   "wispHop",
@@ -186,19 +136,6 @@ export const SILENT = [
   // burrow causes throw the ordinary hull burst beside it.
   "crawlerBeam",
   "crawlerBurrow",
-  // THE FLEET's five, and none of them throws anything from here. A salvo is
-  // not resolved where it is pressed: the shell arcs out of the cannon and
-  // takes `FLEET_SHELL_BEATS` to reach the square, so a burst thrown on the
-  // tick of the event would land a second and a quarter before anything got
-  // there. `FleetFx` holds the flight and throws the same three sizes — 6
-  // cyan, 14 red, 26 ember — on the frame the shell arrives (`fleet-fx.ts`).
-  // The last of them never threw one: the sinking that rides beside it on the
-  // same tick is the picture, and `fleetSunk` has already thrown for it.
-  "fleetSalvo",
-  "fleetSplash",
-  "fleetHit",
-  "fleetSunk",
-  "fleetDown",
 ] as const satisfies readonly SimEvent["type"][];
 
 /** One of the above, as a type — what the guard narrows the union by. */

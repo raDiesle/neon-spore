@@ -8914,3 +8914,20 @@ look (2a78763c) emptied `LOOK_PENDING` and never marked the entry done, so
 it stood in the queue as free work for a day.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-effects-spark-silent-ts-is-at-250-lines-and-the — every boss family moves to `effects-spark-silent-boss.ts`
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, both spark files, `effects-ingest-silent-boss.ts` for the seam it cut |
+| deciding | 0 | the entry named the seam and the ingest half had already cut it: every boss next door |
+| writing | 5 | seven blocks moved by one script, two headers reworded |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, this entry, the commit, `bun run land` |
+
+The bottleneck was finding that the split had half-happened already: THE
+SINEW's lane had made the boss file for the four newest families, so the
+work was the older seven and the header that says why the seam is the
+ingest half's, not the one the entry described.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*
