@@ -274,6 +274,7 @@ measures. Arena one's 40 → 18 can land on its own, today, and should.
 ## Three bosses went round `sim/entries.ts` and `sim/events.ts`, both full
 
 - **Found:** 2026-09-17, claude/shared-list-bosses-f7ff91
+- **Taken:** 2026-09-17, claude/queue-three-bosses-went-round-sim-entries-ts-and-sim-e
 - **Files:** `packages/sim/src/entries.ts`, `packages/sim/src/events.ts`, `packages/sim/src/boss-entries.ts`, `packages/sim/src/events-bosses.ts`, `packages/sim/src/bosses-clocks-b.ts`
 
 `entries.ts` is at 250 lines and `events.ts` at 247, and neither is about
