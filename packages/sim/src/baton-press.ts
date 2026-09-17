@@ -14,12 +14,13 @@ import type { Bullet, TimedCommand } from "./types.js";
 import { MILLI, type World } from "./world.js";
 
 /**
- * THE BATON's presses: the launch, the strike, the take and the lock.
+ * THE BATON's presses: the launch, the shot, the strike, the take and the
+ * lock.
  *
- * All four happen on the **tick**, from wherever the press arrives —
- * `commands.ts`, `bullets.ts`, `pods.ts` — because a press that waited for
- * the next beat would put a queue between *going* and the going. The clock
- * that answers them is `baton-step.ts`.
+ * All five happen on the **tick**, from wherever the press arrives —
+ * `commands.ts`, `bullets.ts`, `lance-burn.ts`, `pods.ts` — because a press
+ * that waited for the next beat would put a queue between *going* and the
+ * going. The clock that answers them is `baton-step.ts`.
  */
 
 function enter(world: World, b: BatonState, stage: BatonState["stage"]): void {
@@ -72,11 +73,29 @@ export function batonBeadAlong(world: World, bullet: Bullet, from: number, to: n
 }
 
 /**
+ * **Player 2's shot, wherever it went.** The act is the shot leaving, not
+ * the hit: a bolt at a creature is her turn spent, the beam she filled is
+ * her turn spent, and so is a bolt that meets nothing (the design's step 7 —
+ * *answering one **is** the act*). Called from `bullets.ts` and
+ * `lance-burn.ts` on the tick the shot goes out, so a seat that fires at
+ * the field while the bead sits has to watch the launch through a grey
+ * panel: that is the choice the step puts to her, the bead or the field.
+ * A no-op while there is no turn to spend — before the bead first sits and
+ * once the arm is down, the two stages `batonLocks` ignores too.
+ */
+export function batonShotSpends(world: World): void {
+  const b = batonBoss(world);
+  if (b === null || b.stage === "unfolding" || b.stage === "down") return;
+  b.lockUntil[1] = Math.max(b.lockUntil[1], world.beat + world.cfg.batonLockBeats);
+}
+
+/**
  * **Player 2's shot, through the bead in flight.** The bolt is spent either
- * way; the bead's colour decides whether it took. Right, and the handover is
- * made and she is locked out for the beat after — the other half of the turn.
- * Wrong, and it is a miss like any other: the bead is still in the air and
- * player 1 is still locked, so the next shot is still hers.
+ * way, and so was her turn when it left (`batonShotSpends`); the bead's
+ * colour decides whether it took. Right, and the handover is made. Wrong,
+ * and it is a miss like any other: the bead is still in the air, player 1 is
+ * still locked, and the flight is longer than her lock, so the next shot is
+ * still hers.
  */
 export function batonStruck(world: World, bullet: Bullet, milli: number): void {
   const b = batonBoss(world);
@@ -88,7 +107,6 @@ export function batonStruck(world: World, bullet: Bullet, milli: number): void {
   }
   b.struck = true;
   metColor(world);
-  b.lockUntil[1] = world.beat + world.cfg.batonLockBeats;
   world.events.push({ type: "batonStruck", col: bullet.col, socket: b.socket });
 }
 

@@ -186,6 +186,70 @@ describe("THE BATON", () => {
     expect(world.events.some((e) => e.type === "batonRelit")).toBe(true);
   });
 
+  it("spends her turn on a shot at anything, not only one through the bead", () => {
+    const world = open();
+    until(world, "sitting");
+    // The cannon a column off the arm: the bolt meets nothing and the bead is
+    // not in the air anyway. The act is the shot leaving.
+    step(world, [cmd(world, 1, { kind: "cannonCol", col: MID + 2 })]);
+    expect(batonLocked(arm(world), 2, world.beat)).toBe(false);
+    step(world, [cmd(world, 2, { kind: "fire", color: "cyan" })]);
+    expect(world.bullets.length).toBe(1);
+    expect(batonLocked(arm(world), 2, world.beat)).toBe(true);
+    expect(batonLocked(arm(world), 1, world.beat)).toBe(false);
+    beats(world, CFG.batonLockBeats + 1);
+    expect(batonLocked(arm(world), 2, world.beat)).toBe(false);
+  });
+
+  it("spends nothing on a shot before the bead first sits", () => {
+    const world = open();
+    expect(arm(world).stage).toBe("unfolding");
+    step(world, [cmd(world, 2, { kind: "fire", color: "cyan" })]);
+    expect(world.bullets.length).toBe(1);
+    expect(batonLocked(arm(world), 2, world.beat)).toBe(false);
+  });
+
+  it("costs her the beat on the wrong colour too, and gives it back before the bead lands", () => {
+    const world = open();
+    launch(world);
+    const launchBeat = world.beat;
+    step(world, [cmd(world, 2, { kind: "fire", color: "cyan" })]);
+    const b = arm(world);
+    expect(batonLocked(b, 2, world.beat)).toBe(true);
+    // Her lock is shorter than the flight, so the next shot is still hers.
+    beats(world, CFG.batonLockBeats + 1);
+    expect(b.stage).toBe("flying");
+    expect(world.beat).toBeLessThan(launchBeat + CFG.batonFlightBeats);
+    expect(batonLocked(b, 2, world.beat)).toBe(false);
+  });
+
+  it("meets the bead with the beam, which stops there and spends her turn", () => {
+    const world = open();
+    until(world, "sitting");
+    // The fill is as long as the flight, so it starts a beat before the launch
+    // and tops out with the bead two-thirds of the way down its socket.
+    step(world, [
+      cmd(world, 1, { kind: "cannonCol", col: arm(world).col }),
+      cmd(world, 2, { kind: "prime", on: true, color: "red" }),
+    ]);
+    beats(world, 1);
+    step(world, [cmd(world, 1, { kind: "guard" })]);
+    expect(arm(world).stage).toBe("flying");
+    for (let i = 0; i < CFG.lancePrimeBeats * TPB && world.beam === null; i++) step(world, []);
+    const beam = world.beam;
+    if (beam === null) throw new Error("the lobe never fired");
+    const b = arm(world);
+    expect(b.stage).toBe("flying");
+    expect(b.struck).toBe(true);
+    expect(batonLocked(b, 2, world.beat)).toBe(true);
+    expect(world.events.some((e) => e.type === "batonStruck")).toBe(true);
+    // The beam ends at the bead: nothing above it in the column was reached.
+    expect(beam.topMilli).toBeGreaterThan(0);
+    until(world, "sitting");
+    expect(b.socket).toBe(1);
+    expect(b.handovers).toBe(1);
+  });
+
   it("shakes a bead that sat too long back to the base, and the dark sockets stay dark", () => {
     const world = open();
     handover(world);

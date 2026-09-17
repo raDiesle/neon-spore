@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE BATON, the shot is the act
+
+The two smallest of §11.18's *not built*, as one simulation lane: the design's
+step 7 — *a shot at a creature is her turn spent* — and the beam meeting the
+bead. `batonShotSpends` locks player 2 from the tick any shot of hers leaves
+(`bullets.ts`, `lance-burn.ts`), so the wrong colour and a bolt at nothing
+cost the beat too and the strike no longer sets the lock itself; `burnColumn`
+asks `batonBeadAlong` beside the body and the pod, the way a bolt does. Four
+tests, the §11.18 paragraph, the director's note, the ledger claim on `main`.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the design's beat list, `baton-press.ts`, the bullet sweep and the beam's, the lance test's prime helper |
+| writing | 15 | the spend, the two call sites, the beam's third stop, four tests, §11.18, the note |
+| looking | 0 | nothing visible moved — the grey panel already draws the lock |
+| friction | 5 | the render test that had the lock spent on the hit, which `check:fast` did not reach and `land` did |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep` twice |
+
+The bottleneck was deciding where the act *is* — the press, the bolt leaving
+or the hit — before a line was written; the code followed in a quarter hour.
+
 ## 2026-09-17 — boss-implementation — THE ANTIPHON, the turn under a hand
 
 The third lane of the boss that grows a thing nobody has a word for: the

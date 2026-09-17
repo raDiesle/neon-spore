@@ -1,5 +1,5 @@
 import { antiphonStruck } from "./antiphon-shot.js";
-import { batonBeadAlong, batonStruck } from "./baton-press.js";
+import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { resolve } from "./bullet-hit.js";
 import { candleEats, candleStruck } from "./candle-step.js";
 import { shotMeans } from "./codex.js";
@@ -44,6 +44,10 @@ export function fire(world: World, color: Color): void {
   // a beat cannot both come out on the same grid point.
   if (laying(world)) return;
   world.lastFireTick = world.tick;
+  // THE BATON hears the shot leave, whatever it is aimed at: a bolt is the
+  // navigator's act and her turn is spent on it (`baton-press.ts`). A no-op
+  // unless that boss is installed.
+  batonShotSpends(world);
   // Always an ordinary bolt. A lance is not fired by a press at all any more:
   // the hold fills the lobe and the lobe fires itself at the top of the fill
   // (`releaseLance`), so the two weapons no longer share a moment and a tap

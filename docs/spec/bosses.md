@@ -1745,12 +1745,24 @@ bead drops as a loose pod and the fight ends the way a pod does, in the maw
 with player 1 under it (`batonBeadTaken`). Then `batonDownBeats` (4) of the arm
 folding before the boss is nulled and the wave may close under it.
 
-**What is not built**, each of them a lane on its own once the look is in:
-the second bead the design page starts at step 9, the eleven-act final flight
-and the merge (steps 12–13), *a shot at a creature is her turn spent* (step 7 —
-today only a shot through the bead spends it), and the lance beam, which does
-not touch the bead at all. The base is fixed to the middle column rather than
-authored, for THE VANE's reason.
+**The shot is the act.** The design's step 7 — *answering one **is** the act;
+a shot at a creature is her turn spent* — is the rule as of 17 September 2026,
+and it is the shot *leaving* that spends the turn, not the hit: a bolt at a
+creature, a bolt at nothing, the wrong colour through the bead and the beam
+she filled all lock player 2 for `batonLockBeats` from the tick the shot goes
+out (`batonShotSpends` in `sim/baton-press.ts`, called from `bullets.ts` and
+`lance-burn.ts`), and nothing before the bead first sits or after the arm is
+down. That is the choice the field puts to her: a creature answered while the
+bead sits is a launch watched through a grey panel. The lock is shorter than
+the flight, so a wrong colour is still a miss like any other — the next shot
+is still hers, one beat later than it was. And the beam meets the bead the way
+a bolt does (`burnColumn`), the third thing in a column a beam can stop at:
+struck or rejected, it ends there.
+
+**What is not built**, each of them a lane on its own: the second bead the
+design page starts at step 9, and the eleven-act final flight and the merge
+(steps 12–13), which want the second bead first. The base is fixed to the
+middle column rather than authored, for THE VANE's reason.
 
 **What it draws** (`render/src/baton-draw.ts`, `render/src/band-lock.ts`): the
 arm as a rock spine from above row 0 down the socket rows, one socket shown

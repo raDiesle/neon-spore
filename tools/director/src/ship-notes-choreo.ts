@@ -46,7 +46,9 @@ export const CHOREO_NOTES = {
     "batonFlightBeats — THE DRAG, not THE SLOW: the clock never bends, the " +
     "bead is slow — during which a shot of its colour up its column from " +
     "player 2 lands it a socket lower and darkens the one it left. The seat " +
-    "that acted is locked out of every control for batonLockBeats. A bead " +
+    "that acted is locked out of every control for batonLockBeats: his on the " +
+    "trigger, hers on any shot that leaves — at the bead, at a creature, at " +
+    "nothing, or the beam, which meets the bead the way a bolt does. A bead " +
     "nobody hits lands back where it was and relights the socket; a bead left " +
     "sitting batonTurnBeats (batonTightTurnBeats once batonTightenAfter " +
     "handovers are made) settles back to the top. After batonSwingAfter dark " +

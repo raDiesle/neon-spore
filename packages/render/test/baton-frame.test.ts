@@ -146,14 +146,15 @@ describe("the baton", () => {
     const world = opened();
     launched(world);
     const b = arm(world);
+    // The turn is spent the tick the bolt leaves the lobe, whatever it meets
+    // (`batonShotSpends`), so a shot on the launch's own beat would end its
+    // lock on the same beat the pilot's ends. A beat into the flight, then
+    // the shot, then on past the pilot's lock: the only grey left is hers.
+    for (let i = 0; i < TPB; i++) step(world, []);
     step(world, [{ tick: world.tick, player: 2, command: { kind: "fire", color: b.color } }]);
-    // The lock is spent when the bolt meets the bead, not when it leaves the
-    // lobe (`batonStruck`): a shot in the air is a turn not yet taken. Then
-    // on past the pilot's own lock, so the only grey left is the shot's.
-    for (let i = 0; i < 2 * TPB && !b.struck; i++) step(world, []);
-    if (!b.struck) throw new Error("the bolt never met the bead");
+    if (!batonLocked(b, 2, world.beat)) throw new Error("the shot locked nobody");
     while (batonLocked(b, 1, world.beat)) step(world, []);
-    if (!batonLocked(b, 2, world.beat)) throw new Error("the strike locked nobody");
+    if (!batonLocked(b, 2, world.beat)) throw new Error("her lock ended with his");
     expect(drawn(world, "p2", 3).text).toContain(GREY);
     expect(drawn(world, "p1", 3).text).not.toContain(GREY);
   });

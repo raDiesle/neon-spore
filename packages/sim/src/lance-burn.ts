@@ -1,4 +1,5 @@
 import { antiphonStruck } from "./antiphon-shot.js";
+import { batonBeadAlong, batonShotSpends, batonStruck } from "./baton-press.js";
 import { isBeatTick } from "./beat-clock.js";
 import { resolve } from "./bullet-hit.js";
 import { candleStruck } from "./candle-step.js";
@@ -91,6 +92,9 @@ export function releaseLance(world: World): void {
   ledgerBills(world);
   world.events.push({ type: "lanceFull", col });
   world.events.push({ type: "fire", col, color, lance: true });
+  // And THE BATON's turn: the beam is the navigator's act as much as a bolt
+  // is, and it spends her turn the same way (`baton-press.ts`).
+  batonShotSpends(world);
   world.beam = { col, color, left: beamTicks(world.cfg), topMilli: burnColumn(world, col, color) };
   // And the floor of the column, which nothing else reaches: the only answer
   // to THE UNDERTOW's tall lobes. A no-op unless that boss is installed.
@@ -130,8 +134,20 @@ function burnColumn(world: World, col: number, color: Color): number {
   for (;;) {
     const hit = firstAlong(world, b, from, 0);
     const pod = firstPodAlong(world, b.col, from, 0);
-    // Both can be standing in the beam. It reaches whichever is lower in the
-    // column first, exactly as a bolt sweeping the same segment would.
+    // All three can be standing in the beam — a body, a pod, THE BATON's
+    // bead in flight. It reaches whichever is lower in the column first,
+    // exactly as a bolt sweeping the same segment would (`bullets.ts`), and
+    // the bead stops it the way a pod does: struck or rejected, the beam
+    // ends there.
+    const bead = batonBeadAlong(world, b, from, 0);
+    if (
+      bead >= 0 &&
+      (!hit || bead >= creatureMilli(world, hit)) &&
+      (!pod || bead >= pod.rowMilli)
+    ) {
+      batonStruck(world, b, bead);
+      return bead;
+    }
     if (pod && (!hit || pod.rowMilli > creatureMilli(world, hit))) {
       freePod(world, pod);
       return pod.rowMilli;
