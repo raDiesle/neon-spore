@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 64335006 — THE TASTER grows its armour in the colour you have been spending
+
+The first boss in this game with a memory of the players. A crest hangs over the field and grows eleven blades out of itself, middle outward; each blade takes its edge from whichever colour the pair has fired more of over the last thirty beats, and a blade is struck off only by the colour it is *not*. Its own colour thickens it instead. This is the game's one inverted colour rule, and the wave that introduces it says so in its guide. This is the simulation lane; nothing is drawn yet.
+
 ## 2026-09-17 · 1e3451d2 — Mark the lost screen's plates done
 
 The other way round is a candidate in the lost:screen slot now, which is the answer the owner gave.
