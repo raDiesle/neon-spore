@@ -1,4 +1,6 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
+import type { SimConfig } from "./config.js";
+import { ticksPerBeat } from "./config-derived.js";
 import { ORRERY_RINGS, type OrreryState, orreryBoss, orreryOrbit } from "./orrery.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -70,6 +72,29 @@ export const NO_RING = -1;
  */
 export function orreryHandRing(b: OrreryState): number {
   return b.broken >= ORRERY_RINGS ? NO_RING : b.broken;
+}
+
+/**
+ * How far a bearing advances in one tick for a hand that is **not a hand**:
+ * the desk keyboard, `bun run frames`'s press line, and a rehearsal's ghost
+ * thumb.
+ *
+ * None of the three can go round a circle, so the rig turns for them — at
+ * **one organ a beat**, which is the ring's own drift and is the honest
+ * stand-in for exactly the reason the crank's is (`windPerTickMilli`): the
+ * outer ring comes round in eight beats and has eight organs on it, so a key
+ * held down is worth precisely the cadence the picture is already going at.
+ * What that buys a reader is the one comparison the fight is about — the same
+ * key held on the *middle* ring, which runs the other way (`orreryDir`), holds
+ * a gap still, and the rig shows that without a number being chosen for it.
+ *
+ * Read off the two numbers that already say it rather than a constant of its
+ * own, so a change to the gearing or to the tempo reaches all three rigs in
+ * the same edit (`packages/sim/test/copies-table.ts` carries a row against the
+ * second copy).
+ */
+export function orreryTurnPerTickMilli(cfg: SimConfig): number {
+  return Math.max(1, Math.round(cfg.orreryHandMilliPerOrgan / ticksPerBeat(cfg)));
 }
 
 /** Whether a hand is on it at all, which is what the picture asks. */

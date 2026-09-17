@@ -1,8 +1,5 @@
 import { afterEach, describe, expect, it } from "bun:test";
-import { type ControlSetId, controlSet, DEFAULT_CONTROL_SET_ID } from "@neon-spore/content";
-import type { Layout } from "@neon-spore/render";
-import { type Command, DEFAULT_CONFIG } from "@neon-spore/sim";
-import { bindKeys } from "../src/keys.js";
+import { desk } from "./desk-keys.js";
 
 /**
  * The desk's half of the ready gate, driven rather than read.
@@ -11,64 +8,14 @@ import { bindKeys } from "../src/keys.js";
  * DOM in this runner. That is not enough here: the bug this file exists for is
  * a key that sends the hold and never the release, which reads perfectly well
  * in the source and leaves a PC player's circle filling with nobody's finger on
- * it. `bindKeys` only ever touches `window.addEventListener`, so a six-line
- * stub is enough to press a key for real and watch what comes out.
+ * it. The rig that types for real is `desk-keys.ts`, shared with the file that
+ * drives the two keys which turn something.
  */
-
-interface Listeners {
-  [type: string]: ((e: unknown) => void)[];
-}
 
 const real = (globalThis as { window?: unknown }).window;
 afterEach(() => {
   (globalThis as { window?: unknown }).window = real;
 });
-
-/**
- * The panel the rig is played on. The default one unless a test says
- * otherwise, because that is the panel almost every wave carries — and the
- * keyboard is gated by it now, so a rig that named none would answer nothing
- * (`content/src/control-sets-keys.ts`).
- */
-function desk(guideUp: boolean, panel: ControlSetId = DEFAULT_CONTROL_SET_ID) {
-  const listeners: Listeners = {};
-  (globalThis as { window?: unknown }).window = {
-    addEventListener(type: string, fn: (e: unknown) => void) {
-      listeners[type] ??= [];
-      listeners[type].push(fn);
-    },
-  };
-  const sent: { player: 1 | 2; command: Command }[] = [];
-  bindKeys({
-    buffer: {
-      push(player: 1 | 2, command: Command) {
-        sent.push({ player, command });
-      },
-    } as never,
-    layout: () => ({ cols: DEFAULT_CONFIG.cols }) as Layout,
-    cfg: DEFAULT_CONFIG,
-    isOver: () => false,
-    creatures: () => [],
-    guideHolds: () => guideUp,
-    onPauseToggle: () => {},
-    onWaveStep: () => {},
-    onGuideReplay: () => {},
-    controls: () => controlSet(panel),
-  });
-  const fire = (type: string, code: string): void => {
-    for (const fn of listeners[type] ?? []) fn({ code, preventDefault() {} });
-  };
-  return {
-    sent,
-    down: (code: string) => fire("keydown", code),
-    up: (code: string) => fire("keyup", code),
-    /** Every `brief` sent for one seat, in order, as its `on` flags. */
-    briefs: (player: 1 | 2) =>
-      sent
-        .filter((c) => c.player === player && c.command.kind === "brief")
-        .map((c) => (c.command as { on?: boolean }).on),
-  };
-}
 
 describe("holding the ready gate at a desk", () => {
   it("sends the hold down and the release up, for both seats, on Space", () => {

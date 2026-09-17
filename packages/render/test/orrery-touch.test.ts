@@ -14,6 +14,8 @@ import {
   step,
   type World,
 } from "@neon-spore/sim";
+import { handleThumb } from "../src/guide-hand.js";
+import { handleCircle } from "../src/handles.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import { orreryCorePoint, orreryPoint } from "../src/orrery-shape.js";
 import { type Field, type Hold, touchDown, touchMove, touchUp } from "../src/touch.js";
@@ -232,5 +234,66 @@ describe("THE ORRERY's ring, end to end", () => {
     // One organ, and exactly one: the bank keeps the rest of the thumb's travel
     // against the next detent rather than paying part of one out.
     expect(orreryGapSlot(CFG, b, 0, 40)).toBe((was + 1) % orbit);
+  });
+});
+
+/**
+ * **Where the ghost hand of a rehearsal stands on the ring**, which is the one
+ * question a real thumb never asks: a finger knows where it is, and a film's
+ * hand has to be told.
+ *
+ * `handleCircle` answers it for every handle in the game, and every other one
+ * of them is a small circle hanging off a body — so the branch this drives is
+ * the only one that has to turn a *bearing* back into a point. A hand drawn at
+ * a bearing the finger would have missed is exactly the disagreement
+ * `orrery-grab.ts` exists to make impossible, so the two halves are asserted
+ * against each other rather than against numbers typed here.
+ */
+describe("the hand a film puts on THE ORRERY's ring", () => {
+  it("stands at the bottom of the ring before anything has hold of it", () => {
+    const l = layout();
+    const world = opened();
+    // Slot 0, which is the only slot a shot passes and where every synthetic
+    // hand starts from (`scene-turn.ts`, `keys-turn.ts`, `frames/ring.ts`).
+    const at = handleCircle(l, world, "orreryRing", 0);
+    const bottom = on(l, 0, 0);
+    expect(at?.x).toBeCloseTo(bottom.x, 6);
+    expect(at?.y).toBeCloseTo(bottom.y, 6);
+  });
+
+  it("rides the bearing the simulation recorded, wherever round the ring it is", () => {
+    const l = layout();
+    const world = opened();
+    const b = rings(world);
+    const orbit = orreryOrbit(CFG, 0);
+    b.handAtMilli = BEARING_TURN / 4;
+    const quarter = on(l, 0, orbit / 4);
+    const at = handleCircle(l, world, "orreryRing", 0);
+    expect(at?.x).toBeCloseTo(quarter.x, 6);
+    expect(at?.y).toBeCloseTo(quarter.y, 6);
+  });
+
+  it("moves inward with the hand as the rings come off, and is gone with the last", () => {
+    const l = layout();
+    const world = opened();
+    const b = rings(world);
+    b.broken = 1;
+    const middle = handleCircle(l, world, "orreryRing", 0);
+    expect(middle?.x).toBeCloseTo(on(l, 1, 0).x, 6);
+    b.broken = 3;
+    expect(handleCircle(l, world, "orreryRing", 0)).toBeNull();
+  });
+
+  it("is the pilot's hand, and is drawn only while one is on the ring", () => {
+    const l = layout();
+    const world = opened();
+    const b = rings(world);
+    // No bearing on record is no hand at all on this control — a thumb off the
+    // ring and a thumb with no reference yet are one state
+    // (`sim/orrery-hand.ts`) — so there is nothing for a page to draw.
+    expect(handleThumb(l, world, 1, 0)).toBeNull();
+    b.handAtMilli = 0;
+    expect(handleThumb(l, world, 1, 0)).not.toBeNull();
+    expect(handleThumb(l, world, 2, 0)).toBeNull();
   });
 });

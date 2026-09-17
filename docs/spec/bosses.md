@@ -2130,8 +2130,8 @@ the body has passed, and the same run fingerprints the same way twice
 
 ## 11.21 THE ORRERY — three orbits, and neither of you can see all three
 
-*Built 17 September 2026 in four lanes — the rings, the hand, the picture and
-the handle. The design is [bosses-choreographed](bosses-choreographed.md) §2,
+*Built 17 September 2026 in five lanes — the rings, the hand, the picture, the
+handle and the three rigs that turn it with no finger. The design is [bosses-choreographed](bosses-choreographed.md) §2,
 and this section is the record of what shipped, including five places where it
 shipped differently from the design, each said here by name. **Never watched at
 tempo**, which is the last paragraph.*
@@ -2398,10 +2398,45 @@ outer two are gone, and that is the point rather than an oversight: a picture
 that put the grip only where he could see what he was doing would have quietly
 taken the last third of this boss away (`showsOrreryGrip`).
 
-**What is still out is two of the three hands that are not hands** — the desk
-keyboard, `bun run frames`'s `--press` spelling and a rehearsal's ghost thumb —
-and **it makes no sound**. Both are queued rather than quietly skipped, and the
-state carries the edges a mixer would want: `brokeBeat`, `spatBeat`,
+**And the three hands that are not hands are in**, which is what makes the
+control reachable by anything but a phone: the desk keyboard, `bun run
+frames`'s `--press` spelling, and a rehearsal's ghost thumb. All three turn at
+`orreryTurnPerTickMilli`, which is **one organ a beat** — the ring's own
+drift — and is derived from the gearing and the tempo rather than chosen, so a
+change to either reaches all three in the same edit
+(`sim/test/copies-table.ts` carries the row). That rate is the honest
+stand-in for the same reason the crank's is, and it says something the fight is
+about for free: the same key held on the *middle* ring, which runs the other
+way, holds a gap still.
+
+At a desk the ring is **O**, with shift for the other way round. A letter of
+its own, which almost nothing in this game gets — the rule is that a panel
+borrows the keys that are already there — and THE CHOIR's shake on K is the
+precedent: the ring is not a button on any panel, so `deskKeys` has no slot to
+put it in, and it is a gesture a desk cannot make at all. On a field with no
+orrery the simulation does nothing with the `drag` it sends, so there is
+nothing to gate (`apps/game/src/keys-turn.ts`, which is the crank's old file
+under a name that fits two).
+
+`--press 200:1:orreryRing=3` turns it three organs from tick 200, negative for
+the other way. **Organs rather than turns**, which is the one place this parts
+from the crank's spelling: a turn of the drum is the thing a player of THE CLAW
+feels, and an organ is the thing this pair *counts*. A film authors it as the
+handle it is — `{ tick, drag: "orreryRing", until }`, with `dir` for which way
+round and never a distance — and the ghost hand is placed from the bearing the
+simulation recorded, so a thumb in a rehearsal stands where the ring says the
+hand is (`content/src/scene-turn.ts`, `render/orrery-grab.ts`).
+
+That last one was the piece with a defect rather than a gap. `scene-drag.ts`'s
+`pullsDown` answered **true** for `orreryRing` for a day, so a film that had
+authored one would have sent a stream of downward pixels at a control reading
+thousandths of a turn — nothing would have thrown, and the ring would have
+turned by whatever those numbers happened to mean. It is the fourth exception
+in that predicate and the reason the predicate is now asked as a question
+(`turnsRound`) rather than compared at the call site.
+
+**It still makes no sound**, which is queued rather than quietly skipped, and
+the state carries the edges a mixer would want: `brokeBeat`, `spatBeat`,
 `phaseBeat`.
 
 **Never watched at tempo.** What the tests say is the mechanism: the three
@@ -2438,6 +2473,18 @@ seat is the pilot's, the hand moves inward with the breaks, each quarter of the
 way round reports a quarter of a turn, a turned screen mirrors it, a finger
 wandered in to the core has no bearing at all — and, end to end through `step`,
 a turn and a half of the thumb moves the gap exactly one organ
+(`render/test/orrery-touch.test.ts`). The three rigs are held where each of
+them can be: the desk key opens with a bare grab and then one bearing a tick,
+turns the other way with a shift, sends nothing before it is pressed and
+nothing after it is let go, and a beat of it is exactly one organ
+(`apps/game/test/keys-turn.test.ts`); the press line carries a whole organ's
+travel per organ asked for and never a bearing outside one turn
+(`tools/frames/test/ring.test.ts`); and a film's hand, run against a real
+orrery, moves the anchor by whole organs, exactly as far the other way when
+`dir` says so, lets go before the loop ends and **never sends a
+y-displacement** (`content/test/scene-drag.test.ts`). The ghost thumb stands at
+the bottom of the ring before anything has hold of it, rides the recorded
+bearing round, moves inward with the breaks and is gone with the last of them
 (`render/test/orrery-touch.test.ts`).
 
 ## 11.22 THE CANDLE — the boss fought in the dark

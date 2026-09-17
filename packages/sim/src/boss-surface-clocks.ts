@@ -83,6 +83,9 @@ export {
   orreryRingBroken,
   orreryRingOpen,
   orreryShaftOpen,
+  // And the rate the three rigs with no finger turn a ring at, asked for in
+  // all three rather than chosen in any (`orrery-hand.ts`).
+  orreryTurnPerTickMilli,
   STARE_PHASES,
   type StareEntry,
   type StarePhase,

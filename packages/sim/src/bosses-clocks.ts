@@ -98,7 +98,13 @@ export { orreryGapCol, orreryReach } from "./orrery-gap.js";
 // which ring answers a thumb, and how far it is wound against its next
 // detent — which is a strain to be drawn and never a rotation
 // (`orrery-hand.ts`).
-export { NO_RING, orreryHandHolds, orreryHandRing, orreryWoundMilli } from "./orrery-hand.js";
+export {
+  NO_RING,
+  orreryHandHolds,
+  orreryHandRing,
+  orreryTurnPerTickMilli,
+  orreryWoundMilli,
+} from "./orrery-hand.js";
 export {
   STARE_PHASES,
   type StarePhase,

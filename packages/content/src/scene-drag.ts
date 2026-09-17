@@ -1,13 +1,7 @@
-import {
-  BEARING_TURN,
-  type DragTarget,
-  NO_BEARING,
-  type SceneCommand,
-  type SimConfig,
-  windPerTickMilli,
-} from "@neon-spore/sim";
+import type { DragTarget, SceneCommand, SimConfig } from "@neon-spore/sim";
 import type { SceneAct } from "./scene-act-types.js";
 import { actCol } from "./scene-script.js";
+import { ringCommands, turnsRound } from "./scene-turn.js";
 
 /**
  * **A hand carrying a handle**, turned into the stream of `drag` messages a
@@ -18,6 +12,10 @@ import { actCol } from "./scene-script.js";
  * is one command and at most one release; this is the one act that is a dozen,
  * and the only one that has to know anything about the handles themselves —
  * how far each of them goes, and which way.
+ *
+ * **A handle that is turned is `scene-turn.ts`'s**, and a carry stops at the
+ * door: a bearing has no destination and no axis, so nothing below it has an
+ * answer for one. `dragCommands` hands those straight over.
  */
 
 /**
@@ -66,6 +64,12 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
  */
 function pullsDown(target: DragTarget): boolean {
   return (
+    // And never a ring, which is the one handle that is not carried anywhere at
+    // all: it is turned, and this predicate answered `true` for it for a day —
+    // a film would have sent a stream of downward pixels at a control reading
+    // thousandths of a turn, which does not throw and does not show
+    // (`scene-turn.ts`, and `docs/queue.md` for how it was found).
+    !turnsRound(target) &&
     target !== "mazeString" &&
     target !== "gripBody" &&
     target !== "choirLeft" &&
@@ -116,6 +120,9 @@ function byColumn(target: DragTarget): boolean {
 
 export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   const target = act.drag as DragTarget;
+  // A ring is turned, and everything below this line is about a distance and
+  // an axis (`scene-turn.ts`).
+  if (turnsRound(target)) return ringCommands(act, cfg);
   const player = dragSeat(target);
   const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
   const until = act.until ?? act.tick;
@@ -165,49 +172,3 @@ function carry(target: DragTarget, milli: number): { fromMilli: number; fromYMil
     ? { fromMilli: 0, fromYMilli: milli }
     : { fromMilli: milli, fromYMilli: 0 };
 }
-
-/**
- * A hand **turning** rather than carrying: THE CLAW's crank, wound for as long
- * as the act lasts.
- *
- * The film has no finger, so the rehearsal turns the crank on the ghost hand's
- * behalf, at `windPerTickMilli` — the same rate the desk keyboard turns it at,
- * asked for in both places rather than chosen twice (`sim/crank.ts`). What
- * comes out is the grab, a bearing every few ticks, and the hand coming off.
- *
- * It is authored as an ordinary press on the crank (`{ tick, control: "crank",
- * until }`) rather than as a `drag`, and that is deliberate: the ghost hand is
- * placed from `act.control` (`render/guide-thumb.ts`), so a film that authored
- * this as a handle would wind the arm home with no hand anywhere on the
- * screen — a page about a gesture, showing nobody making it.
- */
-export function crankCommands(act: SceneAct, player: 1 | 2, cfg: SimConfig): SceneCommand[] {
-  const until = act.until ?? act.tick + SAMPLE_TICKS;
-  const grab = { kind: "drag", target: "crank", on: true, fromMilli: NO_BEARING } as const;
-  const out: SceneCommand[] = [{ tick: act.tick, player, command: grab }];
-  const step = windPerTickMilli(cfg) * SAMPLE_TICKS;
-  let at = 0;
-  for (let tick = act.tick; tick <= until; tick += SAMPLE_TICKS) {
-    out.push({
-      tick,
-      player,
-      command: { kind: "drag", target: "crank", on: true, fromMilli: at },
-    });
-    at = (at + step) % BEARING_TURN;
-  }
-  out.push({
-    tick: until,
-    player,
-    command: { kind: "drag", target: "crank", on: false, fromMilli: NO_BEARING },
-  });
-  return out;
-}
-
-/**
- * How often the film reports where the hand has got to, in ticks.
- *
- * Few enough that one sample is nowhere near the half turn the ratchet reads
- * as a hand jumping backwards (`sim/crank.ts`), and enough of them that the
- * arm comes down smoothly rather than in steps a pair can count.
- */
-const SAMPLE_TICKS = 6;

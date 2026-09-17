@@ -24,7 +24,10 @@ export const ORRERY_CONTROLS: readonly FieldControlDef[] = [
       "function of the beat and player 2's readout stays answerable — the " +
       "alignment can be brought forward rather than waited for. The knurl " +
       "across the ring says which one a hand answers, and lights while it is " +
-      "held (sim/orrery-hand.ts, render/orrery-grab.ts).",
+      "held (sim/orrery-hand.ts, render/orrery-grab.ts). At a desk it is O, " +
+      "with shift for the other way round: a rig with no finger turns it one " +
+      "organ a beat, which is the ring's own drift, so the same key held on " +
+      "the middle ring holds a gap still (orreryTurnPerTickMilli).",
     source: "handles.ts — orreryRingUnder() under handleUnder(); orrery-grab.ts on the move",
     holdKind: "drag",
     dragTarget: "orreryRing",

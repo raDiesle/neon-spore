@@ -478,6 +478,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes.ts` | you are authoring or retiming the rehearsal a guide shows — arrivals, tempo and the acts a ghost thumb plays |
 | `packages/content/src/scene-script.ts` | A rehearsal turned into the two things the runner takes: a command track and a whole `SceneScript` |
 | `packages/content/src/scene-types.ts` | The shapes a rehearsal is written in |
+| `packages/content/src/scene-turn.ts` | **A hand that turns rather than carries**, and there are two of them: THE CLAW's crank on the panel |
 | `packages/content/src/scenes/first-step.ts` | FIRST STEP's rehearsal: the game's first exchange, in eleven seconds |
 | `packages/content/src/scenes/the-hand.ts` | THE HAND's rehearsal: the one verb neither seat owns |
 | `packages/content/src/scenes/the-handover.ts` | THE HANDOVER's rehearsal: the panels trade while the pair is watching |
@@ -1402,13 +1403,13 @@ place — the generator keeps whatever is there.
 | `apps/game/src/menu-toggles.ts` | SETTINGS' switches: the three things about this device a person may turn on and off |
 | `apps/game/src/keys-grip.ts` | what the desk rig's grip key takes hold of, and how it carries it |
 | `apps/game/src/keys-slide.ts` | The desk keys that slide a swelling, and keep sliding while held |
+| `apps/game/src/keys-turn.ts` | The desk keyboard's two keys that stand in for a hand **going round in a circle** |
 | `apps/game/src/shake.ts` | the device being shaken, which is THE CHOIR's control and the only input that is not a finger on the glass |
 | `apps/game/src/sign-in-config.ts` | The Firebase project the game signs in against — the owner's to paste |
 | `apps/game/src/sign-in-standin.ts` | A signed-in person with no Google behind them, so a check can be one |
 | `apps/game/src/sign-in.ts` | Who is holding this phone, proved by Google or by an email link |
 | `apps/game/src/scout.ts` | The host's half of THE SCOUT: the three thumbs that fly it and the one that catches what it brings home |
 | `apps/game/src/rounds.ts` | Every round that is not the field, bound to the canvas at once |
-| `apps/game/src/keys-crank.ts` | The desk key that turns THE CLAW's crank, which no key can do by itself |
 | `apps/game/src/trail.ts` | The surface the mouse's ink is drawn on, over every sheet, and nothing at all on a phone |
 | `apps/game/src/tick-rate.ts` |  |
 | `apps/game/src/quit.ts` | Who pressed QUIT on the lost screen, for the menu to say |
@@ -1952,6 +1953,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/reach.ts` | **How the first picture's tick is reached** — the presses on their way |
 | `tools/frames/room-shot.ts` | `bun run room-shot <out-prefix> [--size 390x844] [--scale 2] [--names "ADA,BEN"]` |
 | `tools/frames/room-phones.ts` | A PHONE IN A ROOM, as `room-shot.ts` and a throwaway probe both drive one |
+| `tools/frames/ring.ts` | **A turn of THE ORRERY's ring, written on the press line.** The crank's own case, one boss over |
 | `tools/frames/shot-usage.ts` | What `bun run shot` prints when it is called with nothing to photograph |
 | `tools/frames/shot-state.ts` | Getting the page into the state that is worth photographing |
 | `tools/frames/shot-flags.ts` | READING `bun run shot`'s COMMAND LINE — every flag it takes |

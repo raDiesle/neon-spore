@@ -693,35 +693,6 @@ leg is. Changing where a three-tile body stands changes which lane the shield
 has to be armed under, so `crystal.test.ts` and the frame test both move with
 it, and the wave's one-sentence test has to still read true afterwards.
 
-## Nothing but a real thumb can turn THE ORRERY's ring
-
-- **Found:** 2026-09-17, claude/orrery-hand
-- **Taken:** 2026-09-17, claude/queue-nothing-but-a-real-thumb-can-turn-the-orrerys-ri
-- **Files:** apps/game/src/keys-crank.ts, tools/frames/crank.ts, packages/content/src/scene-drag.ts, packages/sim/src/orrery-hand.ts
-
-A bearing control is not a press and not a distance: what turns anything is
-the *step between two bearings*, so a stream of a few dozen of them is the
-gesture. THE CLAW's crank has three senders of that stream and each asks the
-simulation for the rate rather than choosing one — the desk keyboard, `bun run
-frames`'s `--press …:1:crank=2`, and a rehearsal's ghost hand. THE ORRERY's
-ring, landed today, has none of the three. So the control cannot be exercised
-on a desk, cannot be photographed, and cannot be shown in a guide, and the
-lane that draws the rings will want all three on the day it starts.
-
-Worse than absent: `scene-drag.ts`'s `pullsDown` answers **true** for
-`orreryRing`, so a film that authored `drag: "orreryRing"` today would send a
-hand pulling the ring *downward* — a stream of y-displacements at a target
-that reads its `fromMilli` as an angle. It would not throw; it would turn the
-ring by whatever those numbers happened to mean. Three of the four names in
-that predicate are already exceptions, and this is the fourth.
-
-What to do: give the ring the crank's three senders. A turn rate for a hand
-that is not a hand belongs beside `orreryHandMilliPerOrgan` — the honest
-stand-in is one organ per beat, the ring's own drift, so a key held down holds
-a gap still — and `pullsDown` gets its fourth exception in the same edit. The
-`--press` spelling can follow the crank's: organs rather than turns, since
-organs are what the pair counts.
-
 ## A frame test cannot say whether the thing it drew is visible
 
 - **Found:** 2026-09-17, claude/queue-render-tests-draw-real-pixels

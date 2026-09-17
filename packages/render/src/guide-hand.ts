@@ -1,5 +1,12 @@
 import { actCol, control, type GuideScene } from "@neon-spore/content";
-import { type Creature, gripsCreature, lidIsHeld, occupiesCol, type World } from "@neon-spore/sim";
+import {
+  type Creature,
+  gripsCreature,
+  lidIsHeld,
+  occupiesCol,
+  orreryHandHolds,
+  type World,
+} from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { handleCircle } from "./handles.js";
 import { fieldX, type Layout, tileCY } from "./layout.js";
@@ -214,6 +221,12 @@ export function handleThumb(
   }
   if (world.boss?.kind === "warden" && world.boss.pulling) {
     return handleCircle(l, world, "wardenTether", beatPhase);
+  }
+  // THE ORRERY's ring, which is held for as long as a bearing is on record
+  // rather than by a flag of its own: a hand off the ring and a hand with no
+  // reference yet are one state on this control (`sim/orrery-hand.ts`).
+  if (world.boss?.kind === "orrery" && orreryHandHolds(world.boss)) {
+    return handleCircle(l, world, "orreryRing", beatPhase);
   }
   return null;
 }

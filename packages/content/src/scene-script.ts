@@ -4,7 +4,8 @@ import { controlSetForWave, setLance } from "./control-sets.js";
 import { type ControlId, control } from "./controls.js";
 import { bossFromWave, mapCol, podsFromWave, queueFromWave } from "./queue.js";
 import type { SceneAct } from "./scene-act-types.js";
-import { crankCommands, dragCommands } from "./scene-drag.js";
+import { dragCommands } from "./scene-drag.js";
+import { crankCommands } from "./scene-turn.js";
 import { guideScene, type SceneId } from "./scenes.js";
 import { placedFaults } from "./wave-faults.js";
 

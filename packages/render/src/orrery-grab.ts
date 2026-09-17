@@ -86,6 +86,47 @@ function bearing(l: Layout, cx: number, cy: number, x: number, y: number): numbe
 }
 
 /**
+ * The screen point of a bearing on a ring — the inverse of the function above,
+ * and the one piece of arithmetic in this file with two callers.
+ *
+ * The hit test needs it to ask *is the finger near the line at the slot it
+ * claims*, and the ghost hand needs it to stand where the ring says the hand
+ * is. Written once, because a hand drawn at a bearing the finger would have
+ * missed is exactly the disagreement this file exists to make impossible.
+ */
+function pointAt(l: Layout, cfg: SimConfig, ring: number, at: number): { x: number; y: number } {
+  const orbit = Math.max(1, orreryOrbit(cfg, ring));
+  return orreryPoint(l, cfg, ring, (at * orbit) / BEARING_TURN);
+}
+
+/**
+ * **Where a hand on the ring is standing**, for the ghost thumb of a rehearsal
+ * and for a caption pointing at it (`handle-place.ts`).
+ *
+ * Every other handle in the game answers this with the place it hangs, held or
+ * not. A ring has no such place — the line is the whole control — so what this
+ * answers is the **bearing the simulation has recorded**, which is where the
+ * hand that is on it last reported itself (`orreryRingHeard`). With no hand on
+ * it, the bottom: slot 0 is the only slot a shot passes and is where every
+ * synthetic hand starts from, so a thumb about to go on is drawn where it is
+ * about to go on rather than at a corner of the ellipse nothing is about.
+ *
+ * Null once every ring is off the boss, which is the same answer the hit test
+ * gives and for the same reason: there is nothing left to take hold of.
+ */
+export function orreryRingCircle(
+  l: Layout,
+  cfg: SimConfig,
+  b: OrreryState,
+): { x: number; y: number; r: number } | null {
+  const ring = orreryHandRing(b);
+  if (ring === NO_RING) return null;
+  const at = orreryHandHolds(b) ? b.handAtMilli : 0;
+  const on = pointAt(l, cfg, ring, at);
+  return { x: on.x, y: on.y, r: orreryGrabR(l) };
+}
+
+/**
  * A thumb going on the ring, and only the pilot's: the hand is his every beat
  * of the fight (`orreryRingHeard`), so a press from her seat falls through to
  * whatever is behind the line.
@@ -109,8 +150,7 @@ export function orreryRingUnder(l: Layout, x: number, y: number, field: Field): 
   const core = orreryCorePoint(l, field.cfg);
   const at = bearing(l, core.x, core.y, x, y);
   if (at === NO_BEARING) return null;
-  const orbit = Math.max(1, orreryOrbit(field.cfg, ring));
-  const on = orreryPoint(l, field.cfg, ring, (at * orbit) / BEARING_TURN);
+  const on = pointAt(l, field.cfg, ring, at);
   const r = orreryGrabR(l);
   if ((x - on.x) ** 2 + (y - on.y) ** 2 > r * r) return null;
   return {

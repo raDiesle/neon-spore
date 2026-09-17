@@ -8467,3 +8467,24 @@ cannon on the hull and the cannon on the panel there were 36 px of screen that
 answered nothing at all.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — orrery-hands-not-hands — the three rigs that turn the ring with no finger
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the crank's three senders end to end — `keys-crank.ts`, `tools/frames/crank.ts`, `crankCommands` — plus `PRESS_KINDS`' seat check and `handleThumb`'s three branches |
+| writing | 10 | `orreryTurnPerTickMilli` and its `COPIES` row, `keys-turn.ts` (the crank's file renamed for two rigs), `tools/frames/ring.ts`, `scene-turn.ts` cut out of `scene-drag.ts` with `pullsDown`'s fourth exception, the `orreryRing` branches in `handleCircle` and `handleThumb`, four test files, §11.21, the design sheet, `controls.md` |
+| looking | 0 | no picture moved: three rigs that stand in for a thumb, and the boss has still never been watched at tempo |
+| friction | 5 | the rename stranded two documented paths, which `doc-drift.test.ts` caught and `bun run index` fixed; one `Object is possibly undefined` in a test's `.filter(Boolean)` |
+| landing | 5 | `check:fast` twice, the index, the commit |
+
+The bottleneck was a line count rather than a decision. `keys.ts` was at 244 of
+its 250 lines, so a second binding beside `cranking` would not fit — and the
+honest answer was better than the workaround: the crank and the ring are one
+trick (a grab with no bearing, a bearing a tick, a release, at a rate the rules
+name), so they are one file and one binding now, and `keys.ts` grew by nothing
+at all. The same shape repeated in `content`: `scene-drag.ts` had no room for a
+stream, and a bearing has no axis and no destination, so the turning half moved
+out whole.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

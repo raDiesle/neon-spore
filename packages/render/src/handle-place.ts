@@ -13,6 +13,7 @@ import { fieldPoint, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout } from "./layout.js";
 import { lidCordCircle, lidHandlePoint } from "./lid-string.js";
 import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
+import { orreryRingCircle } from "./orrery-grab.js";
 
 /**
  * **Where a handle is standing**, as against where a finger may grab it.
@@ -45,9 +46,10 @@ import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
  * one. A thumb drawn at the rest while the cord it is holding swings away is a
  * hand that has visibly let go.
  *
- * Each of the three comes out of the file that draws it, so the hand cannot
+ * Each answer comes out of the file that draws that handle, so the hand cannot
  * stand where the handle is not. Null wherever the handle is not on the field:
- * the wheel between rounds, a warden with no line, a wave with no eye in it.
+ * the wheel between rounds, a warden with no line, a wave with no eye in it, an
+ * orrery with every ring already off.
  */
 export function handleCircle(
   l: Layout,
@@ -90,6 +92,14 @@ export function handleCircle(
     if (m === null || m.phase !== "read") return null;
     const rest = mazeStringCircle(l, cfg);
     return { x: mazeStringHandle(l, cfg, m).x, y: rest.y, r: rest.r };
+  }
+  if (target === "orreryRing") {
+    // The one handle that is not a circle hanging off a body: it is a whole
+    // ellipse the width of the field, and where a hand on it *is* is the
+    // bearing the simulation recorded (`orrery-grab.ts`). Null on a field with
+    // no orrery, and on one whose rings are all off.
+    const b = world.boss?.kind === "orrery" ? world.boss : null;
+    return b === null ? null : orreryRingCircle(l, cfg, b);
   }
   if (target === "wardenTether") {
     const b = world.boss?.kind === "warden" ? world.boss : null;

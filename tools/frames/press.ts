@@ -1,6 +1,7 @@
 import { CONTROLS, controlPress, controlSetForWave } from "@neon-spore/content";
 import { crankPresses, parseTurns } from "./crank.js";
 import { commandFor } from "./press-command.js";
+import { parseOrgans, ringPresses } from "./ring.js";
 import type { PressSpec } from "./spec.js";
 
 /**
@@ -87,7 +88,7 @@ import type { PressSpec } from "./spec.js";
  * is decided here.
  *
  * Everything else is a control on somebody's panel and is asked of the wave
- * being captured (`seatsOnPanel`). These four are not:
+ * being captured (`seatsOnPanel`). These five are not:
  *
  * - `fire` is the shot itself. The panel's own colour buttons send `prime`,
  *   and the shot is what *lifting* one says (`content/src/control-command.ts`),
@@ -100,12 +101,17 @@ import type { PressSpec } from "./spec.js";
  * - `shake` is THE CHOIR's, and is not a thumb at all — the *device* moved
  *   (`sim/choir-gesture.ts`). The pilot's, for the reason every handle on this
  *   field is: the navigator carries both colours and fires.
+ * - `orreryRing` is a **handle on the field**, an ellipse the width of it
+ *   (`render/orrery-grab.ts`), so there is no panel it could be a button on.
+ *   The pilot's for the same reason, and the simulation checks that rather
+ *   than trusting it (`orreryRingHeard`).
  */
 const OFF_PANEL_SEAT: Record<string, 1 | 2 | "either"> = {
   fire: 2,
   grip: "either",
   tap: 2,
   shake: 1,
+  orreryRing: 1,
 };
 
 /**
@@ -113,10 +119,11 @@ const OFF_PANEL_SEAT: Record<string, 1 | 2 | "either"> = {
  * reported against.
  *
  * Listed rather than derived from the panels, and deliberately: a press is a
- * thing a person types, and two of them — `mawTake` and `crank` — are named
- * for the button rather than for the command it sends. A reader who has just
- * been told `mawTake` is unknown, because the wave they picked has no maw, has
- * been told the wrong thing.
+ * thing a person types, and three of them are named for the thing under the
+ * thumb rather than for the command it sends — `mawTake` and `crank` for a
+ * button, `orreryRing` for a handle on the field. A reader who has just been
+ * told `mawTake` is unknown, because the wave they picked has no maw, has been
+ * told the wrong thing.
  */
 const PRESS_KINDS = [
   "cannonCol",
@@ -136,6 +143,7 @@ const PRESS_KINDS = [
   "latch",
   "launch",
   "crank",
+  "orreryRing",
 ];
 
 /** The command a press sends where its own name is the button's rather than
@@ -212,9 +220,15 @@ function parseOnePress(one: string, whole: string, wave: number): PressSpec[] {
         "nothing in it and no error anywhere",
     );
   }
-  // The one control that is a stream rather than a command, and the only place
-  // this function answers with more than one press (`crank.ts`).
+  // The two controls that are a stream rather than a command, and the only
+  // place this function answers with more than one press. Both are turned and
+  // both say a *bearing*; what a turn of one is worth is the mechanism's, and
+  // so is the spelling — turns of the drum for the crank, organs of the ring
+  // for the pair that counts them (`crank.ts`, `ring.ts`).
   if (kind === "crank") return crankPresses(tick, player, parseTurns(argument, one, whole));
+  if (kind === "orreryRing") {
+    return ringPresses(tick, player, parseOrgans(argument, one, whole));
+  }
   const pick =
     (kind === "grip" || kind === "tap") && argument !== undefined ? PICKS[argument] : undefined;
   // The id is filled in by the page, so the command carries a placeholder here
