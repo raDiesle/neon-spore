@@ -90,6 +90,7 @@ not built.
 ## bosses.md is reordered; the other two boss pages and the director are not
 
 - **Found:** 2026-09-17, claude/boss-docs-pages-3710e1
+- **Taken:** 2026-09-17, claude/queue-bosses-md-is-reordered-the-other-two-boss-pages
 - **Files:** `docs/spec/bosses.md`, `docs/spec/bosses-choreographed.md`,
   `docs/spec/transfers-bosses.md`, `docs/spec/README.md`, `docs/INDEX.md`,
   `docs/spec/transfers.md`, `tools/director/src/backlog.ts`,
