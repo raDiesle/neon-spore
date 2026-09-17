@@ -1810,7 +1810,7 @@ launch locks one seat and not the other, the right colour hands over and the
 wrong one relights, the arm settles, swings and sheds on the counts the
 numbers say, the last drop is a pod the maw takes, and the same run
 fingerprints the same way twice (`sim/test/baton.test.ts`).
-<<<<<<< HEAD
+
 ## 11.19 THE THROAT — the boss you answer by feeding it
 
 *Built 16–17 September 2026 in three pieces: the simulation, the gullet, then
@@ -2025,9 +2025,8 @@ function of the beat and never stands still against a wall, that the inhale
 counts from its phase's own origin, that the pull holds and a braking hand stops
 it, that a swallow re-tightens and a fling chokes, and that the phases go one
 way (`sim/test/throat.test.ts`).
-=======
 
-## 11.19 THE UNDERTOW — the boss under the floor, answered downward
+## 11.20 THE UNDERTOW — the boss under the floor, answered downward
 
 > The one that comes up through the floor, so the shield faces down and the
 > maw is the only thing pointing the right way.
@@ -2100,4 +2099,3 @@ one is beam-only, the seat under the cannon is swallowed and the shield's is
 not, the last lobe is held down or comes through, the wave stays open until
 the body has passed, and the same run fingerprints the same way twice
 (`sim/test/undertow.test.ts`).
->>>>>>> abd82791 (THE UNDERTOW: the attack comes up through the floor, and the pair answers it downward)
