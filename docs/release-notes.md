@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 7e379daa — THE CANDLE's rehearsal: the field goes black, and the pair fights by the light of its own shots
+
+The wave's guide was prose only. Its film is twelve pages over one loop of 2400 ticks: player 2 fires and the glow dims; it drifts and player 1 follows it — every slide under it an `atBoss` act, aimed off the glow's own column, which is the rng's and not an author's — until it starts eating; only player 1 sees its face; the one authored slide in the film goes to the column it faces and the shot from there is eaten, costing nothing; player 1 slides clear, two clean fires stop it, and the beam's one step puts it out.
+
 ## 2026-09-17 · f3cfb7f7 — THE CANDLE's dark comes in from the corner light's side, column by column
 
 The design's step 1, *the field goes black over four beats, corner light first*: the black is no longer an even fade but a front that starts at the side the sky's corner light stands on and rolls across the field over the same four beats, each column taking half the count, so the corner is black while the far edge is still lit and the boss's own glow is what is left. The margins beside the grid go with the column beside them. A look the owner asked for by name (the design page's step 1). THE SLOW over the flash beat is not built and is put to the owner in the queue as a question: slow every flash beat, the first alone, or leave it at tempo.
