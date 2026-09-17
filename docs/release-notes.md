@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 207ee267 — The last lane's ledger rows say twenty minutes, which is what it took
+
+Its five rows added to sixty against a nineteen-minute wall — the claim commit at 06:14 and the landing at 06:33, with two `bun run check` runs of 108 seconds inside that. The landing's own stamp said two minutes from first commit to trunk, which is the part of the span it can see; the rest is read off the reflog. Estimating three times the clock is the exact distortion `docs/lane-speed.md` was written to correct, and a ledger that carries it is worse than no ledger, because the shape of the distribution is the whole point of keeping one.
+
 ## 2026-09-17 · dbd50c85 — A test that drives a repository gets a timeout the machine decides
 
 Fourteen test files shell out to `git` or read the whole tree off disk, and every one of them had bun's flat five-second `it` timeout. On 17 September 2026 `bun run land` refused twice in a row with six red tests across three shards — all of them timeouts around a `git init`, `clone` or `commit` — and the same files passed in 8.5 seconds run alone a minute later. The cause was load: the shard runner puts fourteen `bun test` processes on the machine, and another session was doing the same.
