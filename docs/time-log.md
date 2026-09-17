@@ -10231,3 +10231,5 @@ The bottleneck was the muzzle against the beat: a bolt takes a beat to reach
 the crest and the cannon will not fire twice in half of one, so three reds
 that had to land before the first edge set could only be found by moving
 presses and rereading the events.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

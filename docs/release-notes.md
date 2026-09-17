@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 0f71b620 — THE TASTER's rehearsal: the arithmetic is authored so every edge sets red, and the second blade is reached by atBoss
+
+The fourth boss film written after its look (`packages/content/src/scenes/the-taster.ts`, ten pages over 1920 ticks): a blade growing while red is fired at it, the edge setting red, a fourth red thickening it, a cyan paring and a second shearing it off, player 1's column and the next blade sheared too, three growing at once with player 2's two counts. No arrivals, so every bolt loads the ledger, and the reds and cyans are spaced so the two counts are never level over the window — the seed decides nothing. The second blade stands over a column no authored strip reaches, so `boss-answer.ts` now answers THE TASTER's first set blade and the film's shot at it is an `atBoss` act. It takes no hit; the hurrying, the crest cut and the beam are the prose.
+
 ## 2026-09-17 · b6fcf1a0 — MECHANICS comes off NOT BUILT YET, and the sheet is the bosses
 
 The owner asked for the page to go. What it drew was a second rendering of `systems.md` and `ideas.md` — one half-built system and three groups of ideas — and both files are read whole in the SPEC room next door, so keeping it was keeping two pages in step to say one thing. Every word of it is still in `docs/spec/`; nothing left the design.
