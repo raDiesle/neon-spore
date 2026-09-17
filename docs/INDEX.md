@@ -1085,6 +1085,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/hull-shock.ts` | The whole ship conducting for a moment after a wall earthed through the dome |
 | `packages/render/src/hull-sheen.ts` | what the ship's skin is made of, as a record — the five sheen passes as one material a candidate ship can replace |
 | `packages/render/src/hull-skin.ts` | the colours a ship is painted in — `HullSkin`, the player's own and THE MIRROR's; a seat's is `seat-skin.ts` |
+| `packages/render/src/hull-splash.ts` | What the thing that broke the hull left on it: a splash, in its own colour, that stays for the rest of the run |
 | `packages/render/src/bolt.ts` | **One discharge drawn between two points**, and the one place the shape of a bolt in this game is decided |
 | `packages/render/src/coil-jump.ts` | The charge leaving a dome that has just failed and crossing the field to the next one |
 | `packages/render/src/coil-look.ts` | THE ONE RECORD A CANDIDATE **COIL** LOOK PATCHES |

@@ -17,6 +17,7 @@ import {
 import { HULL_LIGHT } from "./hull-light.js";
 import { HULL_SHEEN } from "./hull-sheen.js";
 import { type HullSkin, OWN_SKIN } from "./hull-skin.js";
+import { drawHullSplashes } from "./hull-splash.js";
 import type { Layout } from "./layout.js";
 import { drawCharge, drawChew, drawInhale } from "./maw.js";
 import { drawMuzzle } from "./muzzle.js";
@@ -166,6 +167,11 @@ export function drawHull(
   const openCraters = allCraters.filter((c) => craterVisible(c.x));
   strokeHullRim(ctx, l, body, openCraters, skin_.rim, skin_.rimAlpha ?? 1);
 
+  // What the thing that broke the hull left on it, in its own colour, under
+  // the cracks: the tear is the sharpest thing about a breach and reads over
+  // the paint rather than through it. Meteors are exempt — a rock leaves the
+  // hole below instead (`hull-splash.ts`).
+  drawHullSplashes(ctx, l, scars, (x) => surface(f, x), filled);
   // Cracks first, each rock's dent after: its opaque fill paints over whatever
   // a crack drew across that patch, so the crack reads as staying in the skin
   // around the crater rather than running into it. `crackArrived` is a rock's

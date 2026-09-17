@@ -510,6 +510,11 @@ export class StubContext {
     nums("ellipse", [x, y, rx, ry, rotation, from, to]);
     if (rx < 0 || ry < 0) fail("ellipse", `radius ${rx < 0 ? rx : ry} is negative`);
     this.calls++;
+    // Marked like `arc` above, which it is with a second radius. It was
+    // counted and not recorded until 17 September 2026, so a picture made of
+    // ellipses read as an empty log and a test that asked where it drew got
+    // nothing back (`hull-splash.test.ts`).
+    this.mark("ellipse", undefined, [x, y, rx, ry, rotation, from, to]);
   }
   /** The one call that must not be scaled by the transform on the context —
    * `render/surface-clear.ts` says why, and `surface-clear.test.ts` reads the

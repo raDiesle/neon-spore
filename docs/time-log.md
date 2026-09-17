@@ -8348,3 +8348,27 @@ restraint means on a field where every breach fails the wave took longer than
 any file did.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — creature-bite-collision — a hit splashes its colour on the hull (second half)
+
+| Step | Minutes | What |
+|---|---|---|
+| reading | 10 | `hull.ts`'s membrane, `scars.ts`, `breachHue`, and `.claude/skills/destruction` |
+| writing | 20 | `hull-splash.ts` — the wash, the heart and the drops — and its five cases |
+| looking | 35 | four rounds of `bun run frames --wave 3 --until breach` and `bun run crop` |
+| friction | 15 | four failing versions of the reach case, all of them about what the canvas stub records |
+| landing | 10 | `bun run index`, `check:fast`, the whole render package once for the stub change |
+
+The bottleneck was the looking, and it earned every minute: round one drew even
+round discs that read as `sparks.ts` recoloured — the exact failure the skill
+warns about — round two was one flat tone with no value range in it, round
+three's highlight took half a drop and read as a hole through the hull, which
+in this game means a rock came through. Each round found a different defect, so
+none of them was tuning.
+
+The friction is worth its own line. `StubContext.ellipse` counted a call and
+recorded nothing, where `arc` beside it recorded everything, so the drops
+changing from arcs to ellipses between rounds turned a passing test into one
+that could not see the picture at all. The stub records both now.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*
