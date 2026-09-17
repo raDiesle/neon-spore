@@ -39,6 +39,19 @@ import { type Layout, tileCX } from "./layout.js";
  */
 const KEPT_SECONDS = 6;
 
+/**
+ * The number two hits in one wave differ by, and two devices do not.
+ *
+ * The column and the beat as one number, which is `sparks.ts`'s own trick and
+ * is what `breach-either.ts` tosses to pick a tear or a blow. It is a function
+ * rather than an expression in this file because the lost screen replays the
+ * hit that ended the wave and has to toss the same coin — a second copy of
+ * `col * 97 + beat` would be two pictures of one hit (`lost-screen.ts`).
+ */
+export function strikeSeed(col: number, beat: number): number {
+  return col * 97 + beat;
+}
+
 interface Strike {
   readonly col: number;
   readonly beat: number;
@@ -67,7 +80,7 @@ export class BreachStrike {
         beat: e.beat,
         span: e.span,
         hex: breachHue(e.kind, e.color),
-        seed: e.col * 97 + e.beat,
+        seed: strikeSeed(e.col, e.beat),
         age: 0,
         wardable: isWardable(e.kind),
       });

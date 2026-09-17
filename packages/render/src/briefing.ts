@@ -51,6 +51,9 @@ import { drawIntroduction } from "./wave-intro.js";
 export interface OpeningView {
   /** Which of the two screens this is, or both at once while testing. */
   role: ViewRole;
+  /** The membrane the frame under this drew, where there was one — a lost
+   * screen may replay the breach on the ship's own surface (`lost-look.ts`). */
+  surfaceY?: (x: number) => number;
   /** A rehearsal the caller owns and has already brought up to this frame. */
   scene?: GuideStage;
   /** Seconds since the page opened, for anything with own-motion. */
@@ -82,7 +85,11 @@ export function drawWaveOpening(
   // A lost wave's screen stands where an opening would: the field is held
   // under it, and the pair's answer is what opens the next page (`lost-screen.ts`).
   if (lostAsks(world)) {
-    drawLostScreen(ctx, l, world, { age: fx?.age ?? SETTLED_AGE, pointer: view.pointer });
+    drawLostScreen(ctx, l, world, {
+      age: fx?.age ?? SETTLED_AGE,
+      pointer: view.pointer,
+      surfaceY: view.surfaceY,
+    });
     return;
   }
   if (introHolds(world)) {

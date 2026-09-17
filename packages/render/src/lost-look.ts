@@ -54,6 +54,27 @@ export interface LostPaint {
   /** The hull's own line, so a hole can be cut around the place rather than
    * around the column. */
   readonly hullY: number;
+  /**
+   * **What broke it**, or null on the waves that scar nothing — the same case
+   * `breachX` has and always the same answer as it.
+   *
+   * The three numbers `StrikePaint` takes that are facts about the hit rather
+   * than about the frame it is drawn on, so an answer can replay the breach
+   * where it happened: how wide the thing was, the colour it arrives in
+   * (`breach-hue.ts`) and the seed that decides a tear from a blow
+   * (`breach-either.ts`). The fourth, `t`, is the answer's own — the point of
+   * replaying it here is that this screen runs a clock the field's strike
+   * does not, and one may want the char held for the whole minute the pair
+   * spend looking at it.
+   */
+  readonly breach: { readonly span: number; readonly hex: string; readonly seed: number } | null;
+  /**
+   * The ship's drawn surface, sampled at any x — `hull-shock.ts`'s one
+   * decision, which every breach picture already rides. Flat at `hullY` when
+   * the caller has no membrane to hand, which is the takeover's case and the
+   * tests'.
+   */
+  readonly surfaceY: (x: number) => number;
   /** The top of whatever is drawn under the answer: the buttons' own box. An
    * answer must leave this alone (`lost-screen.ts`). */
   readonly buttonsY: number;

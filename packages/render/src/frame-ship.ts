@@ -193,6 +193,7 @@ export function drawOverlays(
   // anything worth seeing.
   drawWaveOpening(ctx, l, world, {
     role: view.role,
+    surfaceY,
     scene,
     time: view.time,
     fx,

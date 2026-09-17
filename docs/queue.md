@@ -690,3 +690,70 @@ record, which is why `shutters` was taken by hand. `docs/looks.md` is the rule
 and `.claude/skills/destruction` is the one to work under: the four layers of
 a hit, and *permanent damage is read for the rest of a run, a burst for half a
 second*.
+
+## `bun run versus new` scaffolds a candidate that cannot compile
+
+- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Where:** local
+- **Files:** `tools/versus/scaffold.ts`, `tools/versus/registry.ts`
+
+The template it prints reaches five levels up as four: it writes
+`../../../../packages/render/...` and `../../variant.js`, which were right when
+a candidate was one file at `candidates/<name>.ts`. A candidate is a directory
+now — `candidates/<slot>/<name>/index.ts` — so every generated import is one
+level short and `bunx tsc --noEmit` is red the moment the file is saved. The
+`lost:screen`/`hold` candidate was written by hand against the paths the tool
+printed and then fixed, which is a minute spent on a command that is supposed
+to save one.
+
+Fix the strings in the generator and add a test that the scaffold it prints
+type-checks — or, cheaper and better, that its relative prefix matches the
+depth of the path it is about to write to, computed rather than spelled.
+
+`bun run versus index` next door has a smaller version of the same problem: it
+writes a one-entry `VARIANTS` across three lines, which Biome collapses, so the
+first run after a slot is emptied leaves `bun run lint` red on a generated
+file. Print the array the way the formatter would, or run the formatter on what
+it wrote.
+
+## A scar does not remember what colour hit the ship
+
+- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Where:** local
+- **Files:** `packages/sim/src/hull-types.ts`, `packages/sim/src/hash.ts`, `packages/render/src/breach-hue.ts`, `packages/render/src/lost-screen.ts`, `packages/render/src/scars.ts`
+
+`breachHue` takes a kind **and a colour**, because a body that is not a rock,
+a fence or a gum is drawn in what it was shot with — cyan or red. A `Scar`
+holds `col`, `beat`, `kind` and `span`, and no colour at all. So the lost
+screen, which replays the breach that ended the wave off the last scar, has to
+hand `breachHue` a `null` and gets red for every cyan body. The two halves of
+one hit disagree about what hit the ship, which is the exact thing
+`breach-hue.ts`'s own header says must not happen — the live strike is right
+and the replay a second later is wrong.
+
+Either put the `Color | null` on the `Scar` — a new field, so `hashWorld` gains
+a row and `hash-coverage.test.ts` is what checks it — or decide in writing that
+a remembered hit is drawn by kind alone and take the `color` argument off the
+call in `lost-screen.ts` with a sentence saying so. The first is the honest
+answer; the second is cheap and has to be argued, not assumed.
+
+## Four frame tests draw under bun's five-second default and go red at random
+
+- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Where:** local
+- **Files:** `packages/render/test/briefing.test.ts`, `packages/render/test/path-text.test.ts`, `packages/render/test/husk-look.test.ts`, `packages/render/test/pulse-frame.test.ts`, `packages/render/test/frame-harness.ts`
+
+`frame-harness.ts` exports `FRAME_TIMEOUT_MS` and says in its own header that
+**each file calls `setDefaultTimeout` for itself**, because bun applies the
+call to the file it is in and a module is evaluated once. These four draw
+frames and never make the call, so they run on bun's five seconds. Three
+consecutive `check:fast` runs on this machine failed three *different* tests
+across two of them — `briefing.test.ts:224` at 5000 ms, `path-text.test.ts:37`
+at 10861 ms — and every one of them passes in 14 s for both files run alone.
+That is a red check that says nothing about the diff, which is the failure the
+constant was introduced to end.
+
+Add `setDefaultTimeout(FRAME_TIMEOUT_MS)` to each of the four. Then make it
+hard to forget: a test that walks `packages/render/test/*.ts`, takes the files
+that import the harness or step a world into a canvas, and fails the ones with
+no call — the list above was found with a `grep` any test can run.

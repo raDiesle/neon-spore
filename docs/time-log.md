@@ -8015,3 +8015,20 @@ old button never touched. Nothing in the tests could see it — the line was
 still drawn, still at the same y, and half of it was off the side of the phone.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — creature-bite-collision — the lost screen can replay the hit that ended the wave
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the queue entry's own split, `breach-strike.ts`, `breach-hammer.ts`, `breach-rend.ts`, `lost-look.ts` and what `StrikePaint` actually takes |
+| writing | 30 | `strikeSeed` shared out, `breach` and `surfaceY` onto `LostPaint`, the three callers that fill them, and the `hold` candidate |
+| looking | 15 | `versus:shot` at 2.0 s and again at 0.30 s, cropped to the hull, to see a crest that is over in 0.55 s |
+| friction | 15 | `bun run versus new` printed a scaffold one directory level short, so every import in the new candidate was wrong before it was written; the distinct-candidates test then rejected the sentence for having no dash in it |
+| landing | 10 | `check:fast`, the two queue entries, the commit |
+
+The bottleneck was friction, and both halves of it were tools disagreeing with
+the tree rather than the work being hard: the scaffold is written for a layout
+`candidates/` left behind, and a candidate's sentence has a shape only its test
+knows about. The scaffold is queued.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

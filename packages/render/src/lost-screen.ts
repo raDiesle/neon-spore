@@ -1,6 +1,9 @@
-import type { World } from "@neon-spore/sim";
+import { spanOf, type World } from "@neon-spore/sim";
+import { breachHue } from "./breach-hue.js";
+import { strikeSeed } from "./breach-strike.js";
 import { inside, type NavBox } from "./guide-nav.js";
 import { wordPlate } from "./guide-tide-plate.js";
+import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { LOST_LOOK } from "./lost-look.js";
 import { PALETTE } from "./palette.js";
@@ -65,6 +68,9 @@ export interface LostView {
   age: number;
   /** Where a mouse is resting, in stage coordinates. Absent on a phone. */
   pointer?: { x: number; y: number };
+  /** The membrane the frame drew, for an answer that replays the breach on it.
+   * Absent where there is no ship under the screen at all (`briefing.ts`). */
+  surfaceY?: SurfaceY;
 }
 
 export function drawLostScreen(
@@ -84,6 +90,21 @@ export function drawLostScreen(
     tries: Math.max(1, world.waveTries),
     retries: world.retries,
     breachX: scarred === undefined ? null : tileCX(l, scarred.col),
+    // **The colour is the kind's and not the shot's.** A `Scar` remembers what
+    // hit the ship and not what colour it was wearing, so a body that was shot
+    // cyan replays in the red `breachHue` gives a colourless one — the colour
+    // WAVE LOST is already written in. Everything whose hue is a fact about
+    // the thing rather than about the shot — a rock, a torch, a wall, a gum —
+    // comes back exact. `docs/queue.md` carries the finding.
+    breach:
+      scarred === undefined
+        ? null
+        : {
+            span: spanOf(scarred),
+            hex: breachHue(scarred.kind, null),
+            seed: strikeSeed(scarred.col, scarred.beat),
+          },
+    surfaceY: v.surfaceY ?? (() => l.hullY),
     hullY: l.hullY,
     buttonsY: lostButtons(l).retry.y,
   };
