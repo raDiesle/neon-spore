@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 1e3451d2 — Mark the lost screen's plates done
+
+The other way round is a candidate in the lost:screen slot now, which is the answer the owner gave.
+
 ## 2026-09-17 · c7775047 — SHUT — the lost screen's plates, going the way its sentence said
 
 The shutters were picked on a sentence that described the opposite motion: plates that *slide in over the field from the top and the foot and close on everything but the column it hit*. What `lost-shutters.ts` draws is the reverse — both plates cover their halves at `age` 0 and draw back over half a second, leaving one plate across the top and the field open below it. The tear, which is the thing that slot exists to argue about, is only on screen while they are moving.
