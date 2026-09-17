@@ -360,6 +360,7 @@ one that changes what a pair feels, and the third is the only one that is free.
 ## The tree-walking tests read `tools/probe/scratch/`, which is git-ignored
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
+- **Taken:** 2026-09-17, claude/queue-the-tree-walking-tests-read-tools-probe-scratch
 - **Files:** `packages/sim/test/source-scan.ts`, `packages/sim/test/copies.test.ts`, `packages/sim/test/purity.test.ts`, `apps/game/test/pointer-conversion.test.ts`
 
 The lane that landed `tools/probe/scratch` into `tsconfig.json`'s `exclude`
