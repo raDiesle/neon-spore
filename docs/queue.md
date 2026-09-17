@@ -327,29 +327,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## ship-notes.ts is one line under its limit, and it grows with every creature
-
-- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-17, claude/queue-ship-notes-ts-is-one-line-under-its-limit-and-it
-- **Files:** `tools/director/src/ship-notes.ts`, `tools/director/src/ship-groups.ts`, `tools/director/src/ship-fields.ts`
-
-THE MOULT's note took this file to **249 lines of its 250**, so the next
-creature that wants a paragraph in the director's ship panel fails
-`packages/sim/test/limits.test.ts` before it has said anything. It is legal
-today and it has no headroom at all, which is the one state worth writing down:
-whoever adds the next note will otherwise spend the first half of their lane
-doing this refactor with an unrelated diff already open.
-
-The seam the file already has is its own `GROUP_NOTE` spread: `HIDDEN_NOTES`
-and `MOULT_NOTE` are each a const built somewhere and folded in at the bottom,
-so the cut is to take a group of notes out whole rather than to split the file
-down the middle. Nothing here is decided by the shape of the code — every note
-is a paragraph about one group of fields — so the only question is which
-grouping reads best next door, and any of them is an improvement on none.
-
-Do it with the next creature that needs a note, not before: a refactor of prose
-with no new prose to place is a diff nobody can review against anything.
-
 ## Unverified at ce8a2324: THE SCOUT's arenas were never watched at tempo — the fl…
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
