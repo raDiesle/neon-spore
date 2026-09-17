@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 6205a665 — THE LEAD, the simulation: a body pacing the top of the field, shot where it will be rather than where it is
+
+Lane one of §11 THE LEAD off the choreographed-boss list. A body paces along the top of the field a column a beat, turning at the walls, with a stalk of five segments that leans the way it goes next. A bolt that leaves through the top hangs a beat in the air and is judged against the column the body is in *then*: a segment off the stalk if it is there, and a beat on which every shot missed turns the body round. From the fourth segment it runs at two a beat and litters the field — a torch behind, a rock in the column a shot has to go to; from the second the lean forecasts the wall turn a beat early; on the last it stops dead, unhittable, and makes a pass at three a beat that only the beam standing in a column it goes through ends. Wave 79, act page `act-7e.ts`, fourteen events with a sound each, the director's sheet, nineteen tests, `docs/spec/bosses.md` §11.29 with every departure argued. The split — the lean on the pilot's screen, the column on the navigator's — is the look lane's, and every event is listed silent until it draws them.
+
 ## 2026-09-17 · bbef7a80 — A red run's closing message is capped by width as well as by lines
 
 The block under the counts printed the first failure's message twelve lines deep, and a case matching a file's source put the whole file on one `Received:` line — two hundred and forty lines' worth in one. `closingLines` in `junit.ts` caps each line at two hundred characters as well, says how much it cut, and is what `shard.ts` prints.
