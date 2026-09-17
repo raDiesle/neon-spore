@@ -19,11 +19,10 @@ import type { Wave } from "../wave-types.js";
  * ones whose answer is a hand.
  *
  * The gums are authored one lane either side of the mouth at first and out at
- * the walls later, and the reason is the arithmetic rather than the difficulty:
- * a gum falls a row a beat, so one dropped in authored column 2 is on the
- * mouth's row five beats later and a swipe from there crosses `gumFlingCols`
- * into the mouth on the next beat. A gum at the wall gives the pair three beats
- * of flight to talk over and a moved mouth: the same lesson said at length.
+ * the walls later, for the arithmetic rather than the difficulty: a gum falls
+ * a row a beat, so one dropped in authored column 2 is on the mouth's row five
+ * beats later and a swipe from there crosses `gumFlingCols` into the mouth on
+ * the next beat. A gum at the wall gives three beats of flight and a moved mouth.
  *
  * **Nothing is placed against the inhale's own count**, for THE DIASTOLE's
  * reason one page up: which beat the tube tightens on depends on when the pair
@@ -234,6 +233,7 @@ export const WAVES_ACT_7D: Wave[] = [
       both: "A bulb hangs dead centre with its seam shut. A thumb from either seat on it charges it, two thumbs charge it twice as fast, and with none on it it leaks. Let go together inside the band and a notch of the seam opens and the bulb sinks a row; let go over the band, or reach the top, and it bursts gums down its columns. Five notches and it turns inside out.",
       p1: "Only you see the seam and where the band sits on the gauge — it climbs a notch at a time. Say when the field slows: that is the band. Then count her down — three, two, one, off — and never let go alone.",
       p2: "Only you see the pressure as a number. Read it out every beat; he has the band. When he counts, take your thumb off on the word, the same instant as his. Over the band it bursts, so the count is not a suggestion.",
+      scene: "theSurge",
     },
     entries: [
       { beat: 14, col: 1, kind: "meteor", color: null },

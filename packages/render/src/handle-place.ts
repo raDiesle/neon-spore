@@ -15,6 +15,7 @@ import { lidCordCircle, lidHandlePoint } from "./lid-string.js";
 import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
 import { orreryRingCircle } from "./orrery-grab.js";
 import { sinewHandleAt } from "./sinew-handles.js";
+import { surgeBulbCircle } from "./surge-shape.js";
 
 /**
  * **Where a handle is standing**, as against where a finger may grab it.
@@ -111,6 +112,15 @@ export function handleCircle(
     const s = world.boss?.kind === "sinew" ? world.boss : null;
     if (s === null) return null;
     return sinewHandleAt(l, cfg, s, world.beat, beatPhase, target === "sinewLeft" ? -1 : 1, 0);
+  }
+  if (target === "surgeBulb") {
+    // THE SURGE's one handle, held by both seats: the bulb itself, on the row
+    // it hangs at — a row lower per notch open — and the same circle a thumb
+    // is hit-tested against (`surge-grip.ts`). It does not travel under a
+    // hand: the thumb charges it and the lift is the gesture. Null with no
+    // bulb on the field.
+    const s = world.boss?.kind === "surge" ? world.boss : null;
+    return s === null ? null : surgeBulbCircle(l, cfg, s);
   }
   if (target === "wardenTether") {
     const b = world.boss?.kind === "warden" ? world.boss : null;

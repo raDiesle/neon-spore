@@ -140,6 +140,17 @@ export interface SceneAct {
    */
   drag?: DragTarget;
   /**
+   * Whose thumb this is, on the one handle both seats hold.
+   *
+   * THE SURGE's bulb is one `DragTarget` and either seat's `drag` on it is
+   * that seat's thumb on the glass (`sim/surge-hand.ts`), so the target
+   * cannot say the seat the way every other handle's does — and which seat
+   * lifts first is the whole boss. So a film about it writes the hand, the
+   * way a `tile` act writes the seat. Read only on `surgeBulb`; on every
+   * other handle the seat is the target's (`dragSeat`), and this is ignored.
+   */
+  hand?: 1 | 2;
+  /**
    * How far the hand carries it, in thousandths of a tile — the units every
    * draggable control speaks (`Command` in `sim/command-types.ts`).
    *

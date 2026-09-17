@@ -645,3 +645,54 @@ describe("the rehearsal for THE LEDGER", () => {
     expect(run.world.boss?.kind).toBe("ledger");
   });
 });
+
+describe("the rehearsal for THE SURGE", () => {
+  it("vents two notches with both thumbs off together, and loses the charge between them to a thumb off alone", () => {
+    const wave = WAVES.findIndex((w) => w.guide?.scene === "theSurge");
+    const run = new SceneRun(sceneScript("theSurge", wave, DEFAULT_CONFIG));
+    const seen: string[] = [];
+    for (let t = 0; t < SCENES.theSurge.ticks - 1; t++) {
+      run.advance([]);
+      for (const e of run.world.events) {
+        if (e.type === "surgeGrip" || e.type === "surgeRelease")
+          seen.push(`${e.type} ${e.player} @${run.world.beat}`);
+        else if (e.type === "surgeVent")
+          seen.push(`vent ${e.notches} row ${e.row} @${run.world.beat}`);
+        else if (e.type === "surgeNear" || e.type === "surgeLost")
+          seen.push(`${e.type} @${run.world.beat}`);
+        else if (
+          e.type === "surgeBurst" ||
+          e.type === "surgeGum" ||
+          e.type === "surgeEvert" ||
+          e.type === "breach" ||
+          e.type === "waveFailed"
+        )
+          seen.push(e.type);
+      }
+    }
+    // The pilot's thumb, then the navigator's; the pressure enters the first
+    // band at 700 and the field slows; both off eight ticks apart at 1100,
+    // the first notch. The second hold the pilot leaves alone at 800, the
+    // navigator two beats later — lost. The third is the first again at the
+    // second notch, 1400. No burst, no gum, no eversion, no hull.
+    expect(seen).toEqual([
+      "surgeGrip 1 @2",
+      "surgeGrip 2 @3",
+      "surgeNear @6",
+      "surgeRelease 1 @8",
+      "surgeRelease 2 @8",
+      "vent 1 row 4 @8",
+      "surgeGrip 1 @12",
+      "surgeGrip 2 @12",
+      "surgeRelease 1 @16",
+      "surgeRelease 2 @18",
+      "surgeLost @18",
+      "surgeGrip 1 @19",
+      "surgeGrip 2 @19",
+      "surgeNear @25",
+      "surgeRelease 1 @26",
+      "surgeRelease 2 @26",
+      "vent 2 row 5 @26",
+    ]);
+  });
+});

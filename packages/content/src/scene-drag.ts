@@ -49,6 +49,9 @@ function tautMilli(target: DragTarget, cfg: SimConfig): number {
   // land inside a zone, so a page writes `toMilli` for each hand. Left out,
   // it is one hand at the band's limit — the last fibre's own number.
   if (target === "sinewLeft" || target === "sinewRight") return cfg.sinewReachMilli;
+  // THE SURGE's bulb is not carried at all: a thumb on the glass charges it
+  // and the lift is the gesture (`sim/surge-hand.ts` reads neither distance).
+  if (target === "surgeBulb") return 0;
   return cfg.mazeTurnMilli;
 }
 
@@ -106,7 +109,10 @@ function pullsDown(target: DragTarget): boolean {
  * the target here, the way a press reads its seat off `ControlDef.player`,
  * rather than being a field a film could get wrong.
  */
-export function dragSeat(target: DragTarget): 1 | 2 {
+export function dragSeat(target: DragTarget, hand?: 1 | 2): 1 | 2 {
+  // THE SURGE's bulb is the one handle both seats hold, so the target cannot
+  // say and the act does (`SceneAct.hand`); the pilot's when it does not.
+  if (target === "surgeBulb") return hand ?? 1;
   // And THE SINEW's right handle, the second: one handle per seat, each
   // pulled down, and the sum is the two of them (`sim/sinew-hand.ts`).
   return target === "balloonRight" || target === "sinewRight" ? 2 : 1;
@@ -131,7 +137,7 @@ export function dragCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
   // A ring is turned, and everything below this line is about a distance and
   // an axis (`scene-turn.ts`).
   if (turnsRound(target)) return ringCommands(act, cfg);
-  const player = dragSeat(target);
+  const player = dragSeat(target, act.hand);
   const to = act.toMilli ?? tautMilli(target, cfg) * (act.dir ?? 1);
   const until = act.until ?? act.tick;
   // The carry and the letting go are two clocks, not one. A film about a lid

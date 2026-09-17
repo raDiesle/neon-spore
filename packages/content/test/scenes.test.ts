@@ -285,12 +285,13 @@ describe("the rehearsals a guide can show", () => {
       for (const act of SCENES[id].acts) {
         // A drag and a shake are not authored: a shake is the pilot's, and a
         // handle's seat is read off the target — every one of them the
-        // pilot's but a balloon's right, which is the one handle the
-        // navigator holds (`scene-drag.ts`).
+        // pilot's but a balloon's right and a sinew's, which the navigator
+        // holds — except THE SURGE's bulb, which both hold and the act says
+        // whose thumb it is (`scene-drag.ts`).
         const seat =
           act.grip ??
           (act.drag
-            ? dragSeat(act.drag)
+            ? dragSeat(act.drag, act.hand)
             : act.shake
               ? 1
               : // A tap is the navigator's alone, which is the creature: the

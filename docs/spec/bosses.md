@@ -3656,6 +3656,28 @@ gums and a jolt; the slits do not gape wider with the pressure; the
 eversion is a fold of the outline, not a second body turned out of the
 first. The owner's eye decides all three.
 
+**The rehearsal** (`content/src/scenes/the-surge.ts`, 17 September 2026,
+eleven pages over 2040 ticks): three holds on the bulb. The first is the
+lesson — the pilot's thumb, then the navigator's, the field slowing as the
+pressure comes into the first band (`surgeNear` opens THE SLOW), a count, and
+both off eight ticks apart at 1100, the first notch vented and the bulb a row
+lower. The second is the mistake: the pilot's thumb off alone at 800, the
+navigator's still on for two beats more, and the second lift a beat and a
+half late — the charge lost. The third is the first again against the band
+the vent moved up the gauge, and the second notch vents at 1400. The bulb is
+one `DragTarget` for either thumb (`surgeHeard`), so each act says whose hand
+it is — `SceneAct.hand`, the first film that needs it (`scene-drag.ts`
+`dragSeat`) — and the thumb is carried nowhere: the landing and the lift are
+the gesture, so every carry is one command at its tick and `tautMilli` is
+nought on the bulb. Nothing is rolled, so every lift is at a number the film
+names. Each caption points at the bulb (`render/handle-place.ts` answers
+`surgeBulb` with `surgeBulbCircle`, a row lower per notch), and each seat's
+thumb is the grip mark on its flank (`surge-grip.ts`); no ghost thumb rides
+the handle, as none does THE BALLOON's or THE SINEW's. The burst and its gums
+and the eversion at the fifth notch are the last two pages' words and
+otherwise the prose; the film takes no hit and points at no retries.
+`content/test/scene-films.test.ts` holds the sequence.
+
 **Never watched at tempo.** What the tests say is the mechanism: it installs
 dead centre with the seam shut, no pressure and no thumb, and sends nothing;
 a thumb from either seat charges it a step a beat and two thumbs two; no

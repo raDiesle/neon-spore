@@ -10276,6 +10276,28 @@ outside it that a boss is a name in, each found by a test going red.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-17 — boss-implementation — THE SURGE, the rehearsal
+
+The seventh boss film written after its look, and the first on a handle both
+seats hold: eleven pages over 2040 ticks, three holds on the bulb — the
+first vented, the second lost to a thumb off alone, the third vented at the
+higher band. The same lane gave `SceneAct` its `hand` — the bulb is one
+`DragTarget` for either thumb, so the seat cannot be read off the target —
+and `handle-place.ts` its `surgeBulb` branch, so a caption can point at the
+bulb where `surgeBulbCircle` draws it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `surge.ts`, `surge-hand.ts`, `surge-seam.ts`, `config-surge.ts`, `scene-drag.ts` for how a target names its seat, `handle-place.ts`, `surge-grip.ts` and `guide-hand.ts` for what a held thumb shows |
+| writing | 10 | the `hand` field, `dragSeat`, the anchor branch and its four tests, the scene, the registry, the wave's `scene`, the prose list, the film test, §3.2, the §11.28 paragraph |
+| looking | 5 | the acts run through a probe until both vents and the lost lift fell on written beats |
+| friction | 5 | every navigator's drag landing as the pilot's until the target's seat was made an authored field; the wave file at 251 lines twice before a paragraph folded to five |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the seat: every other handle says whose it is by its
+name, and the one handle both seats hold had no way to say it, so the film
+could not have a navigator's thumb until the act type grew a field for one.
+
 ## 2026-09-17 — boss-implementation — THE LEDGER, the rehearsal
 
 The sixth boss film written after its look, and the first whose `atBoss`

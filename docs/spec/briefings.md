@@ -300,18 +300,18 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are seventy of them now**, one per guided wave bar seventeen, and
+**There are seventy-one of them now**, one per guided wave bar sixteen, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The seventeen that are still the three strings
+rather than a page of prose. The sixteen that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
 CODEX, THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE ORRERY, THE
-SURGE, THE LEAD, THE SCUTTLE, THE ANTIPHON, THE HIVE and THE INSTAR** — and
+LEAD, THE SCUTTLE, THE ANTIPHON, THE HIVE and THE INSTAR** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those seventeen is a film nobody has written, and from THE
+**Every one of those sixteen is a film nobody has written, and from THE
 SCOUT's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
@@ -339,7 +339,12 @@ the colours are the seed's, the second socket is a column no authored strip
 reaches and the plate is carried there by `atBoss` — the one boss answered
 with the plate rather than the cannon — and the bill for every shot and the
 fifth return the plate must step out from under are the prose, because a
-thumb lifting off is the one gesture a film shows badly.
+thumb lifting off is the one gesture a film shows badly. THE SURGE's, the
+same day, is three holds on one handle both seats hold — the first film
+whose acts say whose hand each is (`SceneAct.hand`), because the bulb is one
+`DragTarget` for either thumb — and the middle hold is the mistake, a thumb
+off alone with the charge lost under the other; the burst, its gums and the
+eversion at the fifth notch are the last two pages' words and the prose.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square
