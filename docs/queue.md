@@ -274,6 +274,7 @@ measures. Arena one's 40 → 18 can land on its own, today, and should.
 ## THE STARE's warning is under the spec's own four-second rule
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
+- **Taken:** 2026-09-17, claude/queue-the-stares-warning-is-under-the-specs-own-four-s
 - **Files:** `packages/sim/src/config-stare.ts`, `docs/spec/bosses.md`, `docs/spec/latency.md`
 - **Answered:** 17 September 2026 — **7 beats** (4.38s), the first value that meets `latency.md`'s rule as written, so no exemption has to be argued. The cycle becomes an odd length.
 
