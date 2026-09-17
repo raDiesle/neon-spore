@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · bfe1bbcb — THE CURTAIN, the simulation: a fabric both hands shove aside, and the core it hides
+
+The boss that is in the way (docs/spec/bosses-choreographed.md §6), built as a field boss in its first lane. The fabric is a seven-column boss body at `curtainRow` that the ordinary carry moves as a whole — one column a shove, two once four lobes are gone, off the wall as far as `curtainKeepCols`, two thumbs opposite cancelling — and the core behind it is a column and a colour with no body: covered while the fabric hangs over its column, bare once shoved clear, hurt by a shot in its own colour leaving the top of its column (the nearest lobe drops and it drifts back under cover in a fresh colour), answering the other colour with a torch. A bolt into the fabric takes a soft lobe off; a bare hem tears on the next shove and the naked core fires faster; the third hit puts it out with the wave held two beats after. Player 1 is shown the soft lobes, player 2 the shadow and its colour; both push. Wave 74, THE CURTAIN, fills its own wave. Written up as `docs/spec/bosses.md` §11.24 with six departures from the design argued by name; the look is the next lane, and the ten events are silent until it draws them. Wave 74 went into the baseline unweighed.
+
 ## 2026-09-17 · 0db930b3 — The owner's answers to eight queue asks, and the two that needed nothing built
 
 Every entry that asked the owner something is answered in place, on an
