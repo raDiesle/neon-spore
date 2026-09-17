@@ -466,6 +466,7 @@ what every other boss that touches pods has done.
 ## THE HUSK is built and still on the NOT BUILT YET sheet
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-the-husk-is-built-and-still-on-the-not-built-yet
 - **Where:** local
 - **Files:** `docs/spec/ideas.md`, `docs/asset-catalogue.md`, `tools/shape-sheet/src/drafts/creatures.ts`, `tools/shape-sheet/src/scenes/creatures.ts`, `tools/director/src/backlog.ts`
 - **Answered:** 2026-09-17, by the owner — **They move to VERSUS**, as a second look for the shipped husk mark — the sagging dead-core body offered against the flag on the pod. Then the bullet comes off NOT BUILT YET and the catalogue's count is fixed.
