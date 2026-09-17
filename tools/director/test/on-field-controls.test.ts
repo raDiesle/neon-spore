@@ -79,10 +79,10 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
  * is a place on the screen and `source` is a branch of `touch.ts`, and neither
  * existed while the ring was a bearing with nothing drawn to take hold of.
  *
- * `sinewLeft` and `sinewRight` are at the same point the ring was: the
- * simulation hears them (`sim/sinew-hand.ts`) and nothing is drawn yet to
- * take hold of, so their entry comes with the look
- * (`docs/spec/bosses.md` §11.26).
+ * `sinewLeft` and `sinewRight` went the same way one lane later: heard by
+ * `sim/sinew-hand.ts` with nothing drawn to take hold of, then given their
+ * rows with the look (`field-controls-sinew.ts`, `docs/spec/bosses.md`
+ * §11.26).
  */
 function documentedDragTarget(target: DragTarget): DragTarget {
   switch (target) {
@@ -123,7 +123,15 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
   // target a `drag` can name, whatever hold names it.
   test("every DragTarget has its own FIELD_CONTROLS entry", () => {
     const targets: DragTarget[] = (
-      ["mazeString", "wardenTether", "lidString", "gripBody", "orreryRing"] as const
+      [
+        "mazeString",
+        "wardenTether",
+        "lidString",
+        "gripBody",
+        "orreryRing",
+        "sinewLeft",
+        "sinewRight",
+      ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {
       expect(
@@ -192,6 +200,7 @@ const FIELD: Field = {
   maze: null,
   warden: null,
   orrery: null,
+  sinew: null,
   controls: controlSetForWave(0),
   faults: [],
   well: false,

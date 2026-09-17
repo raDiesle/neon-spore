@@ -2,11 +2,13 @@ import type { World } from "@neon-spore/sim";
 import { drawBaton } from "./baton-draw.js";
 import { drawCurtain } from "./curtain-draw.js";
 import { drawDiastole } from "./diastole-draw.js";
+import type { Effects } from "./effects.js";
 import { drawGorge } from "./gorge-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawOrrery } from "./orrery-draw.js";
 import type { ViewState } from "./renderer.js";
+import { drawSinew } from "./sinew-draw.js";
 import { drawTaster } from "./taster-draw.js";
 import { drawThroat } from "./throat-draw.js";
 import { drawUndertowLobes } from "./undertow-lobe.js";
@@ -44,6 +46,7 @@ const CLOCK_KINDS = [
   "gorge",
   "curtain",
   "taster",
+  "sinew",
 ] as const;
 
 export type ClockBoss = Extract<Installed, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -65,6 +68,8 @@ export function drawClockBoss(
   /** The plating without the cannon on it, for the one that comes up through
    * it (`undertow-lobe.ts`). */
   skinY: SurfaceY,
+  /** For the one whose snap outlives a frame (`effects-boss.ts`). */
+  effects: Effects,
 ): void {
   const { world } = view;
 
@@ -143,5 +148,14 @@ export function drawClockBoss(
   // among the creatures, for THE VANE's reason. Both screens see every blade;
   // what differs is the one number each seat is given about them
   // (`taster-draw.ts`, `taster-read.ts`).
-  drawTaster(ctx, l, world, boss, view.beatPhase, view.time);
+  if (boss.kind === "taster") {
+    drawTaster(ctx, l, world, boss, view.beatPhase, view.time);
+    return;
+  }
+
+  // THE SINEW: a tendon from the top edge down to a mass, with a handle on
+  // each side of the mass — one per seat — and the strain band across the
+  // tendon read by seat. What outlives a frame — the snap's whip and its
+  // flash — is `effects.boss.sinew` (`sinew-draw.ts`, `sinew-fx.ts`).
+  drawSinew(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.sinew);
 }

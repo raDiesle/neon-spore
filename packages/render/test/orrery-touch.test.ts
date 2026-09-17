@@ -70,6 +70,7 @@ function field(world: World, seat: 1 | 2 = 1): Field {
     maze: null,
     warden: null,
     orrery: rings(world),
+    sinew: null,
     controls: STANDARD,
     faults: [],
     well: false,

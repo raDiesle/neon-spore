@@ -42,6 +42,7 @@ function field(seat: 1 | 2, controls: ControlSet = STANDARD, cols?: [number, num
     maze: null,
     warden: null,
     orrery: null,
+    sinew: null,
     controls,
     faults: [],
     well: false,

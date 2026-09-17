@@ -76,12 +76,14 @@ describe("parseHold", () => {
     expect(() => parseHold("wardenTether=900,id=3")).toThrow(/hangs off a body/);
   });
 
-  it("takes THE BALLOON's two, and puts the right one in the navigator's hand", () => {
+  it("takes THE BALLOON's two and THE SINEW's, and puts each right one in the navigator's hand", () => {
     // The first handle here that is not the pilot's. Both sides of one body
     // held at once is the only state this creature can be photographed giving
     // in, and it needs two seats to reach (`sim/balloon-pull.ts`).
     expect(parseHold("balloonLeft=-1600,id=4").map((h) => h.player)).toEqual([1, 1]);
     expect(parseHold("balloonRight=1600,id=4").map((h) => h.player)).toEqual([2, 2]);
+    expect(parseHold("sinewLeft=0,y=900").map((h) => h.player)).toEqual([1, 1]);
+    expect(parseHold("sinewRight=0,y=500").map((h) => h.player)).toEqual([2, 2]);
     expect(() => parseHold("balloonLeft=-1600")).toThrow(/id=N/);
   });
 

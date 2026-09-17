@@ -127,10 +127,10 @@ export const INGEST_SILENT_BOSS = [
   "tasterClose",
   "tasterRefused",
   "tasterOut",
-  // THE SINEW's thirteen are silent because nothing draws the boss yet: its
-  // look is the second lane (`docs/spec/bosses.md` §11.26), which reads the
-  // family above the loop in a `sinew-fx.ts` of its own, the way the two
-  // above are.
+  // THE SINEW's thirteen are read as one family above the loop by
+  // `sinew-fx.ts` (`Effects.sinew`), the way the two above are: a burst per
+  // event at the mass or the handle, the flash on a snap, the hull's shock
+  // on a landing.
   "sinewSettle",
   "sinewGrip",
   "sinewRelease",

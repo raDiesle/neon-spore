@@ -126,9 +126,8 @@ export const SILENT_BOSS = [
   "tasterClose",
   "tasterRefused",
   "tasterOut",
-  // THE SINEW's thirteen: nothing draws the boss until its look lands
-  // (`docs/spec/bosses.md` §11.26), and then they are one family read above
-  // the loop by a `sinew-fx.ts`, never rows here.
+  // THE SINEW's thirteen are one family read above the loop by
+  // `sinew-fx.ts`, never rows here (`docs/spec/bosses.md` §11.26).
   "sinewSettle",
   "sinewGrip",
   "sinewRelease",

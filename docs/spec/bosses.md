@@ -3066,17 +3066,56 @@ is the look's; what the simulation keeps of it is the `sinewSnapBeats` no
 hand can be taken, and a finger that never left the glass is a hand again
 when they are over.
 
-**What is not built.** The look, all of it: the tendon as a bundle of fibres
-that go taut, thin and part; the strain band, white, half on each screen; the
-mass swinging with lag and overshoot; the fall walked sideways; the
-full-frame flash and `hull-shock.ts` on a snap. The handles are heard and
-drawn nowhere, so on the shipped field this boss is played from the keys
-(`apps/game/src/keys-grip.ts` sends `fromYMilli`) until the second lane hits
-them on the glass. The thirteen events are listed silent in
-`render/src/effects-ingest-silent-boss.ts` and `effects-spark-silent-boss.ts` —
-the second split off `effects-spark-silent.ts` in this lane, the fourth boss
-family having put it over 250 lines. `render/test/pixel-frame.test.ts`'s
-`LOOK_PENDING` does not name it: there is no creature body to be unseen.
+**The look** (`render/sinew-draw.ts`, `sinew-shape.ts`, `sinew-fibres.ts`,
+`sinew-band.ts`, `sinew-handles.ts`, `sinew-fx.ts`). A root a fifth of a
+tile above the field's top in the middle column, and from it a fan of
+`sinewFibres` fibres in the hull's violet down to a five-lobed mass
+(`blobPath`) three columns wide and a row deep, hung at `sinewMassRow` and a
+row lower per fibre parted, its sag capped at the hull's row. The fibres
+straighten and brighten toward the hull's rim with the sum — strain is a
+colour and a line, never a number — and ripple as a damped wave while the
+sum is low; a parted fibre is two curled stubs in grey, the outermost first
+so the bundle thins from its edges in; a sheath between the fibres fills at
+an alpha that follows the strain. The **band** is a collar on the tendon
+under the root, a rounded rect the tendon runs through: the pilot's screen
+fills the zone on it in the green the game already spends on *good* with its
+rim stroked, and never the sum; the navigator's fills the sum up the collar
+in ember with the marker line in its rim, and never the zone; the test screen
+has both (`showsSinewZone`, `showsSinewSum` — the split *is* the encounter).
+The collar's own rim brightens while the hold is counting and its
+`sinewHoldBeats` pips fill one a beat, on both screens, because the hold
+counting is the one fact of the band neither seat is denied. The two
+**handles** hang off the mass's flanks on the shipped SINEW tether
+(`tether-sinew.ts`), the pilot's on the left and the navigator's on the
+right, yours bright and theirs dim; each rests a tile and a half outside the
+mass's edge and is carried down by its own pull and sideways by its own
+sway, and the ring is the game's own handle ring (`handle-draw.ts`) with the
+axis under it in a word — *PULL ▼* while a fibre stands, *◀ SWAY ▶* once the
+mass is falling — gone while the hand is on. On a snap the handles go ember
+and whip with a decaying sine for `sinewSnapBeats`, the field flashes in the
+hull's rim for a beat, and nothing answers a press — `sinewHandleUnder`
+tests the press against the **rest** circle, so a handle mid-whip is still
+where it is grabbed from. The fall lowers the mass a row a beat between rows
+(`sinewMassRowNow`), the sway carries it, and landed clear it settles into
+the hull's surface and fades over `sinewOutBeats`; landed on the ship it
+goes ember and stays. The thirteen events are one family read above
+`Effects`' loop (`sinew-fx.ts`): a burst per event in its column — the hand's
+at its side of the mass, the tendon's at the mass — the flash on a snap and
+`hull-shock.ts` on either landing, cleared on restart. The pair is on both
+screens as THE BALLOON's pair is (`sinew-handles.ts`, `controls.md`, the
+director's ON THE FIELD tab with the pose *SINEW · BOTH HANDS ON THE PULL*),
+and each seat's press is answered by its own handle only.
+`render/test/sinew-frame.test.ts` proves the picture hung, pulled, held in
+the zone, worn, slack, swinging, falling, out and crushed on all three
+screens, the zone on the pilot's alone, the sum on the navigator's alone,
+and the flash's reset; `sinew-touch.test.ts` proves the handles are answered
+where they are drawn, by their own seat only, and that a hand carried down a
+tile reports the reach. *Not built of the design's look*: the band is a
+collar on the tendon rather than a white bar half on each screen — the
+tendon is what strains, so the strain is drawn on it; the mass's swing has
+no lag or overshoot beyond the snap's whip, its sag is a curve of the sum;
+THE SLOW on a part is wired by the simulation and nothing in the look marks
+it beyond the hull's shock. The owner's eye decides all three.
 
 **Never watched at tempo.** What the tests say is the mechanism: it installs
 with six fibres, the mass over the middle and nothing arriving from it; the

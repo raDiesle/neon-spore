@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE SINEW, the look
+
+Lane two of the fifth boss off the choreographed list, the same afternoon as
+its simulation. A fan of fibres from the top edge down to a lobed mass, a
+collar of strain band the tendon runs through with the zone on the pilot's
+screen and the sum on the navigator's, a handle either side on the shipped
+SINEW tether, the snap's whip and flash, the fall and the two landings; the
+hit test for the pair; the director's two rows and their pose; `--hold` for
+the frames tool.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | THE CURTAIN's draw, fx and frame test as the pattern, `handle-draw.ts`, `tether-sinew.ts`, the balloon's rows and pose |
+| writing | 10 | seven render files, an arm in `boss-draw-clocks.ts`, a transient in `effects-boss.ts`, the Field's thirteenth field and its sites, two tests, two director rows, a pose, the spec |
+| looking | 5 | one frame with both hands on the pull |
+| friction | 5 | the mass built its outline from a text spline and `path-text.test.ts` refused it; `--hold` did not know the pair, so the tool learned it |
+| landing | 10 | `check:fast` twice, the index, the commit; then a rebase onto a `main` that had split `view-role.ts` and `effects.ts` under the lane, and the look moved to the new seams |
+
+The bottleneck was the one that was not the boss: a `Field` grew a field and
+thirteen sites had to be told, before a line of the look could typecheck —
+and then `main` cut `boss-draw.ts` along the same line this lane had, one
+commit earlier, so the cut was thrown away and the arm re-hung on theirs.
+
 ## 2026-09-17 — queue-band-axes — a grid axis gets out from under the plate
 
 Half one of the split the owner answered on 17 September: a chart drops as a

@@ -6,6 +6,7 @@ import { GorgeFx } from "./gorge-fx.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { RepriseFx } from "./reprise-fx.js";
 import { MirrorFx } from "./simon-fx.js";
+import { SinewFx } from "./sinew-fx.js";
 import { TasterFx } from "./taster-fx.js";
 import { WardenFx } from "./warden-fx.js";
 
@@ -69,6 +70,10 @@ export class BossTransients {
   /** THE TASTER's blades tumbling off the crest, the shiver down the fan as it
    * re-edges, and the colour each blade wore when it went (`taster-fx.ts`). */
   readonly taster = new TasterFx();
+  /** THE SINEW's snap: the whip it leaves in the mass, the flash over the
+   * field and the shock down the plating, and its receipts' bursts — asked
+   * for the whip by the drawer (`sinew-fx.ts`, `sinew-draw.ts`). */
+  readonly sinew = new SinewFx();
 
   /** `role` is the layout's: a flash lights only the screen whose control
    * made it (`after-image.ts`). */
@@ -86,6 +91,7 @@ export class BossTransients {
     this.gorge.ingest(events, l, burst);
     this.curtain.ingest(events, l, cfg, beatSeconds, burst);
     this.taster.ingest(events, l, beatSeconds, burst);
+    this.sinew.ingest(events, l, cfg, beatSeconds, burst);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
   }
@@ -100,16 +106,19 @@ export class BossTransients {
     this.gorge.update(dt);
     this.curtain.update(dt);
     this.taster.update(dt);
+    this.sinew.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
-  /** The three drawn under the hull with everything else. The mirror, the
-   * warden, the fleet and the reprise are drawn by the boss pass, and the
-   * after-image by the renderer between the bodies and the ship. */
+  /** The four drawn under the hull with everything else. The mirror, the
+   * warden, the fleet and the reprise are drawn by the boss pass, the
+   * after-image by the renderer between the bodies and the ship, and the
+   * sinew's shock on the finished ship (`frame-on-ship.ts`). */
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
     this.gorge.draw(ctx, l);
     this.curtain.draw(ctx, l);
     this.taster.draw(ctx, l);
+    this.sinew.draw(ctx, l);
   }
 
   clear(): void {
@@ -121,6 +130,7 @@ export class BossTransients {
     this.gorge.clear();
     this.curtain.clear();
     this.taster.clear();
+    this.sinew.clear();
   }
 }
 

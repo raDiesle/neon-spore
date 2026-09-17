@@ -5,6 +5,7 @@ import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeStringCircle } from "./maze-string.js";
 import { orreryRingUnder } from "./orrery-grab.js";
+import { sinewHandleUnder } from "./sinew-handles.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 
@@ -21,6 +22,10 @@ import type { Field, Touch } from "./touch.js";
  * about what a miss falls through to: the ring hangs over the top rows where
  * this boss's own rocks come in, and a thumb that misses the line should find
  * the rock behind it exactly as it would with no ring there.
+ *
+ * THE SINEW's pair is the seventh and lives with its drawing in
+ * `sinew-handles.ts` for THE ORRERY's reason: the rest a thumb is answered at
+ * is the rest the ring is drawn from, and one file keeps them one fact.
  *
  * There are five of them here — THE MAZE's string, THE WARDEN's rope, THE LID's
  * cord, THE CHOIR's two arrows and THE BALLOON's two handles — and that is why
@@ -53,6 +58,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     lidCordUnder(l, x, y, field) ??
     balloonHandleUnder(l, x, y, field) ??
     choirArrowUnder(l, x, y, field) ??
+    sinewHandleUnder(l, x, y, field) ??
     orreryRingUnder(l, x, y, field)
   );
 }

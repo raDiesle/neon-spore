@@ -122,7 +122,7 @@ export function drawBoss(
   // TASTER's took it over its limit, and they are the half of this list that
   // grows — the page they come from has nine more designed.
   if (isClockBoss(boss)) {
-    drawClockBoss(ctx, l, view, boss, skinY);
+    drawClockBoss(ctx, l, view, boss, skinY, effects);
     return;
   }
 

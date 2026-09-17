@@ -180,3 +180,17 @@ export const showsCurtainShadow = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsTasterTally = (role: ViewRole): boolean => role !== "p1";
 export const showsTasterNext = (role: ViewRole): boolean => role !== "p2";
+
+/**
+ * THE SINEW's two, on the strain band alone: both seats see the tendon,
+ * the mass and both handles, and each is shown one thing on the band the
+ * other is not. The pilot is shown **the zone** — where on the band a fibre
+ * parts — because his hand is the first on and the seat that knows where to
+ * go is the seat that can say *pull to here*. The navigator is shown **the
+ * sum** — where both pulls together have got to — because the seat that
+ * knows where they are is the seat that can say *more* or *ease off*.
+ * Neither number is on the other's screen; the hold counting is on both
+ * (`sinew-band.ts`, `sim/sinew.ts`). `test` is both.
+ */
+export const showsSinewZone = (role: ViewRole): boolean => role !== "p2";
+export const showsSinewSum = (role: ViewRole): boolean => role !== "p1";

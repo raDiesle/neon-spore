@@ -17,6 +17,8 @@ import type { HoldSpec } from "./spec.js";
  *   --hold choirLeft=-2000          THE CHOIR: the left arrow carried outward
  *   --hold balloonLeft=-1600,id=1   THE BALLOON: the pilot's hand on body 1
  *   --hold balloonRight=1600,id=1   and the navigator's on the same one
+ *   --hold sinewLeft=0,y=900        THE SINEW: the pilot's hand, pulled 0.9 down
+ *   --hold sinewRight=0,y=500       and the navigator's, half a tile
  *
  * THE CHOIR's two are the only handles here whose **sign** is the whole of the
  * gesture rather than a direction the picture happens to take: the left arrow
@@ -90,7 +92,8 @@ export function parseHold(value: string): HoldSpec[] {
   // whole of that creature's coupling (`sim/balloon-pull.ts`). So a hold
   // carries the seat as well as the target, and a capture can stand a frame
   // with one hand on a body or with both.
-  const SEAT: Record<string, 1 | 2> = { balloonRight: 2 };
+  // THE SINEW's pair sits the same way, and is pulled **down** (`y=`).
+  const SEAT: Record<string, 1 | 2> = { balloonRight: 2, sinewRight: 2 };
   // And they take an `id` for THE LID's reason: a wave puts several on the
   // field at once on purpose.
   const NEEDS_ID = ["lidString", "balloonLeft", "balloonRight"];
@@ -102,6 +105,8 @@ export function parseHold(value: string): HoldSpec[] {
     "choirRight",
     "balloonLeft",
     "balloonRight",
+    "sinewLeft",
+    "sinewRight",
   ];
   if (!DRAGS.includes(target)) {
     throw new Error(`--hold ${value}: unknown control. One of prime=red|cyan, ${DRAGS.join(", ")}`);

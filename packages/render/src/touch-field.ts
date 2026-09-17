@@ -5,6 +5,7 @@ import type {
   OrreryState,
   PlacedFault,
   SimConfig,
+  SinewState,
   WardenState,
 } from "@neon-spore/sim";
 
@@ -85,6 +86,14 @@ export interface Field {
    * biggest control in the game onto the rocks behind it.
    */
   orrery: OrreryState | null;
+  /**
+   * THE SINEW, if it is the boss running, `null` otherwise. **Required, and
+   * stated rather than defaulted**, for the reason the three above are, and
+   * for THE BALLOON's: it is a handle per seat, and a caller that quietly
+   * meant `null` would leave one seat pressing a ring that is drawn and
+   * answers nothing while the other seat's pull counts (`sinew-handles.ts`).
+   */
+  sinew: SinewState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

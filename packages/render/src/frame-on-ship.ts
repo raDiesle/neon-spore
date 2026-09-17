@@ -56,6 +56,9 @@ export function drawOnShip(
   // the hull still conducting from it. Both sit *on* the rim `drawHull` has
   // just lit, so neither can go down with the field pass (`fence-strike.ts`).
   held.fenceStrike.draw(ctx, l, at, surfaceY, view.time);
+  // And THE SINEW's snap-back running down the same plating: the mass is
+  // whipped and the ship feels it, for a beat (`sinew-fx.ts`).
+  held.effects.boss.sinew.drawShock(ctx, l, surfaceY, view.time);
   // And a gum splashing across the ship, on the same membrane and over the
   // same finished hull: the smear where it landed and the ripples running
   // out from it (`gum-splash.ts`).

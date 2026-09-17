@@ -771,6 +771,12 @@ place — the generator keeps whatever is there.
 | `packages/render/src/siren-seats.ts` | The two chips that flank the siren: which seat, and what that seat has to do about the thing on the field |
 | `packages/render/src/siren-dial.ts` | the siren's dial — housing, ticks, the ring that breathes, two bars and the turning core — beside `siren-seats.ts` |
 | `packages/render/src/siren.ts` | The warning siren, top right of the field beside the strip, and the two seats' jobs under it |
+| `packages/render/src/sinew-band.ts` | **The strain band**: a collar around the tendon on its way down, and the one place the split is drawn |
+| `packages/render/src/sinew-draw.ts` | **THE SINEW**: a tendon from the top edge down to a mass, a handle on each side of the mass — one per seat |
+| `packages/render/src/sinew-fibres.ts` | **The tendon**: a bundle of fibres from the root to the mass, inside a translucent sheath |
+| `packages/render/src/sinew-fx.ts` | What THE SINEW leaves behind a frame: the whip a snap-back puts through the mass and its handles |
+| `packages/render/src/sinew-handles.ts` | **THE SINEW's two handles**, one either side of the mass and one per seat |
+| `packages/render/src/sinew-shape.ts` | **Where THE SINEW is**, in field pixels: the root the tendon hangs from, the mass on the end of it |
 | `packages/render/src/slabs.ts` | The other kind of panel: slabs, for a round that has taken the field away |
 | `packages/render/src/slime-look.ts` | WHAT HANGS OFF THE MEMBRANE INTO THE CHAMBER, AS A RECORD |
 | `packages/render/src/sprite-burst.ts` | A baked animation, played from an atlas, over the field |
@@ -1952,6 +1958,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-orrery.ts` | THE ORRERY's ring, as a row of the ON THE FIELD tab — its own file for `field-controls-balloon.ts`'s reason |
+| `tools/director/src/field-controls-sinew.ts` | THE SINEW's two handles, in a file of their own |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |

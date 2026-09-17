@@ -2,6 +2,7 @@ import type { FieldControlDef } from "./field-control-def.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
+import { SINEW_CONTROLS } from "./field-controls-sinew.js";
 import { tetherExamples } from "./field-controls-tether.js";
 
 /**
@@ -214,6 +215,9 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   // controls because it is the newest and the largest: a whole orbit rather
   // than a circle on a body (`field-controls-orrery.ts`).
   ...ORRERY_CONTROLS,
+  // THE SINEW's two, the pair that adds into one sum rather than holding a
+  // side each (`field-controls-sinew.ts`).
+  ...SINEW_CONTROLS,
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

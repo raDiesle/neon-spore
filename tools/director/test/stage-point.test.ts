@@ -143,6 +143,7 @@ describe("the stage's pointer conversion", () => {
         maze: mazeRound(world),
         warden: null,
         orrery: null,
+        sinew: null,
         controls: controlSet(undefined),
         faults: [],
         well: false,
