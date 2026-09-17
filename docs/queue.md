@@ -358,6 +358,7 @@ what the rest of this file holds.
 ## THE SPLICE's clock is under the guide's band
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-the-splices-clock-is-under-the-guides-band
 - **Files:** `packages/render/src/splice-draw.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/round-header.ts`
 
 **One third of a split, and the only third that is decided.** The round writes
