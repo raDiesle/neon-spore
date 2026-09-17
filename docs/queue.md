@@ -276,6 +276,7 @@ than a scar, and its test's first event moves.
 ## A red run's closing message is capped by lines, and one line can be a whole file
 
 - **Found:** 2026-09-17, claude/queue-four-drawn-bosses-still-owe-their-rehearsal-film
+- **Taken:** 2026-09-17, claude/queue-a-red-runs-closing-message-is-capped-by-lines-an
 - **Files:** `tools/check/shard.ts`, `tools/check/test/junit.test.ts`
 
 `shard.ts` prints the first failure's message under its name, twelve lines at
