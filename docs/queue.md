@@ -240,37 +240,13 @@ those, on purpose. Measured by flying the shipped
 arenas in `tools/probe/`; nothing here was watched, because nothing of the
 round is drawn yet (`docs/spec/interludes.md`).
 
-## THE SCOUT's arenas give three to five times the beats a flight takes
-
-- **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
-- **Taken:** 2026-09-17, claude/queue-the-scouts-arenas-give-three-to-five-times-the-b
-- **Files:** `packages/content/src/scout-arenas.ts`, `docs/spec/interludes.md`
-- **Answered:** 17 September 2026 — bring them to 18 and 24. **18 is measured and 24 is not**; see below.
-
-The first arena is authored at 40 beats and the second at 56. An autopilot
-that points, burns and coasts collects all four of the first arena's motes and
-banks them in 7 to 14 beats depending on where the hazard is when it sets off,
-and 9 to 16 when it waits the hazard out. So the clock is three to five times
-the flight, and `ranOut` in `sim/scout-arena.ts` — one of the two ways this
-round breaks the hull, and half of what the spec's section promises — can only
-fire for a pair who have stopped flying altogether.
-
-The options the answer picks between: bring the two numbers down to about
-twice a clean flight, 18 and 24, so the clock is a thing that can be felt and
-the round has the second failure the spec describes; leave them and say in
-§*THE SCOUT, the round that flies* that the clock is a backstop against a pair
-who are lost rather than a pressure, which is a true sentence about the
-numbers as they stand; or leave the first generous and tighten only the
-second, which is where the difficulty is meant to be. Whichever it is, the
-figure wants to be chosen against a measured flight rather than against
-nothing, which is what it was chosen against.
-
-**The owner picked 18 and 24 on 17 September 2026, and only 18 stands on a
-measurement.** The 7-to-16-beat flight this entry quotes is the *first* arena's;
-the autopilot never cleared the second at all, which is the other SCOUT entry's
-whole subject. So 24 is twice a flight nobody has flown. The two entries are
-coupled: fix the second arena's geometry, fly it, and take 24 from what it
-measures. Arena one's 40 → 18 can land on its own, today, and should.
+**This entry now also owns the second arena's clock.** Arena one's was brought
+from 40 to 18 on 17 September 2026 against a measured twelve-beat flight
+(`packages/content/test/scout-flight.test.ts`), and the owner's 24 for arena
+two was set aside because the autopilot has never cleared arena two to measure
+it — which is the geometry above. Whoever answers the `Asks:` fixes the
+geometry, points the same rig at arena one's sibling, and takes the clock from
+what it measures; 56 stands until then.
 
 ## Act seven has no room for another wave and no letter to put a page under
 

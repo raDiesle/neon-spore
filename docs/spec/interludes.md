@@ -316,6 +316,17 @@ mote still owed: both break the hull through `breachHull`, and since 12
 September 2026 every hit fails the wave (`sim/wave-fail.ts`). The round has no
 second try of its own, for the reason SNAKE's section gives one page up.
 
+**The first arena's clock is 18 beats, and the figure comes off a flight.** An
+autopilot that points, burns and coasts banks all four of its motes in twelve
+(`packages/content/test/scout-flight.test.ts`), so the clock is half again the
+flight — six beats for the talking a rig does not do. It was 40, which is more
+than three times, and at that figure the second of the two failures above could
+only fire for a pair who had stopped flying altogether: the clock was a backstop
+and not a pressure. The second arena is still at 56 against a flight nobody has
+timed, because the autopilot cannot clear it at all — five of its six motes sit
+one tile from a hazard's row and a touch reaches 0.88 of one, which is an open
+question in `docs/queue.md` rather than a figure waiting to be set.
+
 **What is not built yet is the picture.** The round plays, the fingerprint
 covers it and `packages/sim/test/scout.test.ts` holds the flying; nothing of
 the little ship, the motes or the mother ship's mouth is drawn, and its

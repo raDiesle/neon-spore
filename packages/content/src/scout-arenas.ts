@@ -41,9 +41,17 @@ export const SCOUT_ARENAS: ScoutArena[] = [
    * the hazard crosses in two beats and is back in four — so the pair's first
    * real sentence is "go now" rather than "go there", and the thing that ends
    * the attempt is visible from the moment it opens.
+   *
+   * **Eighteen beats, which is half again the flight.** An autopilot that
+   * points, burns and coasts banks all four motes in twelve
+   * (`test/scout-flight.test.ts`, which measures it rather than restating it),
+   * so the clock leaves six beats for the talking a rig does not do. It was 40
+   * — more than three times the flight — and at that figure `ranOut`, one of
+   * the two ways this round breaks the hull, could only fire for a pair who had
+   * stopped flying altogether.
    */
   {
-    beats: 40,
+    beats: 18,
     startColMilli: 3_500,
     startRowMilli: 11_000,
     startHeadingMilli: 0,

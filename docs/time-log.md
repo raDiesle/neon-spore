@@ -9863,3 +9863,23 @@ thing's write-up, in each section's own words — and the group that reads it is
 the largest one on the sheet.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — task-queue-work — THE SCOUT's first arena is clocked against a measured flight
+
+The first arena was authored at 40 beats against nothing. An autopilot that
+points, burns and coasts banks all four of its motes in twelve, so the clock is
+now 18 — half again the flight, and a figure `ranOut` can actually reach. The
+rig is a test, so the next author who moves a mote finds out.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the two SCOUT entries, `scout-arenas.ts`, `scout-arena.ts`'s commands and `ScoutState`'s fields |
+| writing | 25 | the autopilot rig — bearing, shortest turn, burn-and-coast, the maw on seat two — plus the arena comment and the spec paragraph |
+| looking | 10 | reading the rig's beat counts back: a `wait` parameter that turned out to measure nothing, since the arena is fully deterministic |
+| friction | 5 | a `scout.index` that is `scout.arena`, a patch anchor that did not match, and `lint` asking for a sort `format` will not do |
+| landing | 10 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was the rig measuring its own noise: the first version swept a
+start offset and got eight different answers, which looked like the hazard's
+phase and was the autopilot's own turn cost. The arena has no randomness at
+all, so one flight is the whole measurement, and the sweep came back out.
