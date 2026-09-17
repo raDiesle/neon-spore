@@ -276,6 +276,7 @@ than a scar, and its test's first event moves.
 ## `apps/game/src/shell.ts` is two lines under the ceiling
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-apps-game-src-shell-ts-is-two-lines-under-the-ce
 - **Files:** `apps/game/src/shell.ts`, `apps/game/src/menu-bindings.ts`, `apps/game/test/menu.test.ts`
 
 248 of the 250 lines `packages/sim/test/limits.test.ts` allows. The lane that
