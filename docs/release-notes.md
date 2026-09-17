@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · e6f7f808 — THE SINEW's rehearsal: two holds authored as sums against the seed's zone, the snap, and the plate under the rock it sheds
+
+The fifth boss film written after its look and the second with a hand on both phones at once: ten pages over 2160 ticks. Each seat's handle, the zone on the pilot's screen and the sum on the navigator's, 600 and 700 parting the first fibre, 800 and 900 the second, then both hands at their whole reach over the top — the snap, both hands thrown off, one rock shed at the mass's right, and the plate carried under it by `atBody` with the trigger on the shield's row. Every pull is carried to a written `toMilli` rather than to taut (`scene-drag.ts` now knows the sinew's reach and seat), and `handleCircle` gains a sinew branch off the drawing's own place, so a caption can point at either handle (`render/test/sinew-anchor.test.ts`). The fall, the sway and the decay stay the guide's prose. Proved in `content/test/scene-films.test.ts` as the grips, enters, parts, releases, the snap, the rock and the deflect in order.
+
 ## 2026-09-17 · 362074c6 — Ledger: THE INSTAR's look is b4fda399 on main, the sha the rebase gave it
 
 ## 2026-09-17 · 849fecd1 — Mark §16 THE INSTAR built on the ledger, both lanes
