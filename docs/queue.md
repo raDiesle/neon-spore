@@ -193,21 +193,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## Unverified at 805b6376: THE STARE's rhythm was never watched at tempo: whether…
-
-- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Taken:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
-- **Files:** `docs/INDEX.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind.ts`, `packages/audio/src/sounds/boss.ts`, `packages/audio/test/bind.test.ts`
-
-*THE STARE: something is watching, and the one it watches has to sit on their hands* landed from a session that could not look at it. The commit touched 42 more files. What went unchecked:
-
-- THE STARE's rhythm was never watched at tempo: whether four beats of warning is long enough to say it is you, and whether the looks grow into something survivable, are figures an eye and a pair have to judge
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## `bun run format` cannot fix what `bun run lint` reports about import order
 
 - **Found:** 2026-09-17, claude/boss-taster
@@ -315,3 +300,84 @@ numbers as they stand; or leave the first generous and tighten only the
 second, which is where the difficulty is meant to be. Whichever it is, the
 figure wants to be chosen against a measured flight rather than against
 nothing, which is what it was chosen against.
+
+## THE STARE's warning is under the spec's own four-second rule
+
+- **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
+- **Files:** `packages/sim/src/config-stare.ts`, `docs/spec/bosses.md`, `docs/spec/latency.md`
+- **Asks:** Should the tell be six beats, seven, or four with the reason it is exempt written down?
+
+`stareTellBeats` is 4, and at 96 bpm a beat is 0.625s, so the warning is 2.50
+seconds. `config-stare.ts` called it three and `docs/spec/bosses.md` said the
+same; both now say two and a half. What the figure has to clear is on one page:
+`docs/spec/latency.md` puts the announcement chain at 2.1–3.6 seconds and then
+sets a rule — *every creature whose defeat requires an announcement needs at
+least 4 seconds from becoming visible to impact, better 5–6*. The tell requires
+an announcement by construction: the seat is rolled at the top of the turn and
+shown only to the seat that is **not** about to be frozen, so the whole of the
+warning is one player saying YOU or THEM. At 2.50s a pair at the slow end of
+their own band has not finished the sentence when the look lands.
+
+The options the answer picks between: **6 beats**, which is 3.75s — the top of
+the exchange band, still under the four-second rule, and one bar of the game's
+own counting; **7 beats**, 4.38s, which is the first value that meets the rule
+as written and makes the cycle an odd length; or **4 beats kept**, with a
+sentence in `latency.md` saying why a freeze is exempt from a rule written for
+a body that has to be shot — the honest case being that nothing is aimed at
+here and a seat that hears the word late loses a press rather than the hull.
+The last is a real answer and the one that costs nothing, but it has to be
+written down rather than left as the silence it is now.
+
+## THE STARE's longest look is a number no pair has seen
+
+- **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
+- **Files:** `packages/sim/src/config-stare.ts`, `packages/content/src/waves/act-7c.ts`
+- **Asks:** Lengthen the wave, grow the look faster, or bring `stareLookMaxBeats` down to ten?
+
+The looks are 6, then 8, then 10, then 12 and 12 thereafter, and the eye turns
+on beats 12, 36, 62 and 90 — a cycle is 18 beats plus its own look, so it
+lengthens as it goes. THE STARE's wave sends its last rock on beat 72 and a
+rock falls a tile a beat from row 0 to the hull's 14, so the wave is over by
+about beat 86. The fourth look begins at 94. **`stareLookMaxBeats` is a number
+the shipped game never reaches**, and the comment that set it — *reaches the
+maximum in four looks, which is about the length of a wave* — was out by about
+twenty beats.
+
+The looks that do happen are survivable, and that was the other half of what
+this entry's own unverified item asked: every rock the wave sends is authored
+inside a look and every colour inside a working window, and the tightest of
+them, the rock on beat 67 under the ten-beat look, still has six clear beats
+after the eye turns away.
+
+The options the answer picks between: **lengthen the wave** past beat 94 with
+two or three more arrivals, so the longest look is a thing a pair meets and the
+wave earns its ceiling; **grow faster** — `stareLookGrowBeats` 3 makes the
+looks 6, 9 and 12, so the third look is the ceiling and the wave as authored
+reaches it; or **bring the ceiling down to 10**, which changes nothing about
+how the game plays and makes the config describe it. The middle one is the only
+one that changes what a pair feels, and the third is the only one that is free.
+
+## The tree-walking tests read `tools/probe/scratch/`, which is git-ignored
+
+- **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
+- **Files:** `packages/sim/test/source-scan.ts`, `packages/sim/test/copies.test.ts`, `packages/sim/test/purity.test.ts`, `apps/game/test/pointer-conversion.test.ts`
+
+The lane that landed `tools/probe/scratch` into `tsconfig.json`'s `exclude`
+fixed one half of this. The other half turned up an hour later: a probe in that
+directory used `60 / cfg.bpm` and `packages/sim/test/copies.test.ts` failed with
+*Call beatSeconds from packages/sim/src/config-derived.ts in:
+tools/probe/scratch/stare-rhythm.ts*. The `COPIES` table is a rule about
+shipped code, and a throwaway script is held to it because whatever enumerates
+the tree does not know the directory is ignored — the same shape as the
+typecheck, one layer along.
+
+The three tests that walk the tree — `copies.test.ts`, `purity.test.ts` and
+`pointer-conversion.test.ts` — all reach it through `source-scan.ts`, which
+already owns `ROOT` and `stripNonCode` so that two guards cannot disagree about
+what counts as code. Give it the third thing they should not disagree about: a
+list of paths a guard never reads, with `tools/probe/scratch` in it, and have
+each caller filter its glob through that rather than deciding for itself. Then
+look for any other test that globs the tree without going through this file,
+because both halves of this were found by being bitten rather than by looking.
+Proof is the same as the last one's: a deliberately loose probe left in the
+directory while `bun run check` runs green.

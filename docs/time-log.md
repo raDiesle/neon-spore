@@ -22,6 +22,33 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — queue-unverified-stare — THE STARE's rhythm counted rather than watched
+
+The second unverified entry from a cloud session's landings, asking whether
+four beats of warning is long enough to say *it is you* and whether the looks
+grow into something survivable. Nothing of the eye is drawn either, so the
+questions were put to the wave instead: the cycle walked out beat by beat
+against the arrivals in `act-7c.ts`, and a rock's fall measured rather than
+assumed. Survivable, with six beats to spare in the worst case. The warning is
+2.50 seconds and not the three the config and the spec both claimed, which puts
+it under `latency.md`'s own four-second rule for anything that has to be
+announced — and the tell is nothing but an announcement. That went to the queue
+with its options rather than into the number, along with a ceiling no wave is
+long enough to reach.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `config-stare.ts`, `stare-step.ts`, §11.16, `latency.md`, THE STARE's wave |
+| writing | 15 | the probe, five comment corrections, the spec's two, three queue entries |
+| looking | 10 | three probe runs and the cycle read against the wave's fifteen arrivals |
+| friction | 5 | the fall trace stopped at the first body that landed, because a lost wave freezes the field; `copies.test.ts` failed on the probe's own `60 / cfg.bpm` |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was the same one as the lane before it: with no picture, every
+question an eye would have answered at a glance had to be turned into a
+measurement first, and the measurement needs a wave that does not stop at the
+first mistake.
+
 ## 2026-09-17 — queue-scratch-typecheck — the scratch directory taken out of the typecheck
 
 The queue item the lane before it wrote, found by being bitten: `tsconfig.json`

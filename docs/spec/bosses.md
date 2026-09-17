@@ -1594,13 +1594,17 @@ author wrote, and the wave is won the ordinary way — by answering all of them.
 |---|---|---|
 | away | `stareAwayBeats` (12) | the working window. Nothing is forbidden and nobody is chosen |
 | turning | `stareTellBeats` (4) | the warning, and the whole fairness of the boss |
-| looking | `stareLookBeats` (6), plus `stareLookGrowBeats` (2) each time, to `stareLookMaxBeats` (12) | one seat may press nothing at all |
+| looking | `stareLookBeats` (6), plus `stareLookGrowBeats` (2) each time, to `stareLookMaxBeats` (12) — a wave holds three looks, so 12 is never reached | one seat may press nothing at all |
 | back | `stareTurnBackBeats` (2) | the eye turning away again, which is the picture's and not the rule's |
 
-**Four beats of warning is one spoken sentence.** `docs/spec/latency.md` puts a
-spoken exchange at 2.1–3.6 seconds, and the tell is three: long enough to say
-*it is you*, and nothing more. Shorter and the pair is being asked to react
-rather than to talk, which is the one thing this game is not.
+**Four beats of warning is one spoken sentence** — two and a half seconds, and
+not the three it was written as. `docs/spec/latency.md` puts a spoken exchange
+at 2.1–3.6 seconds, so the tell is inside that band and near its floor; the
+same page's rule that anything needing an announcement gets four seconds is not
+met, and the tell needs one, because only the other seat is told who. The queue
+carries the question, with 6 beats and 7 as the two answers it picks between.
+Shorter and the pair is being asked to react rather than to talk, which is the
+one thing this game is not.
 
 **It looks at one of you, and the other one is told which.** The seat is rolled
 from the seeded rng at the top of the turn — the only roll in the boss — and
