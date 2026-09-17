@@ -282,3 +282,20 @@ these headers were written the way they are to avoid.
 
 The first is the only one that gives act seven somewhere to grow. It wants
 deciding before the next boss lands rather than during it.
+
+## `names.test.ts` times out under the full check's fifteen shards
+
+- **Found:** 2026-09-17, claude/versus-page-pod-husk-tell-1f227a
+- **Files:** `apps/server/test/names.test.ts`, `apps/server/test/relay.ts`, `tools/check/shard.ts`
+
+`bun run land` went red on shard 8 of 15: every one of the fourteen tests in
+`names.test.ts` hit the 5000 ms default timeout, with a diff that touched
+nothing under `apps/server`. Run alone the file passes in under a second. The
+file raises a real workerd through `relay.ts` before its first test, and
+under fifteen shards on one machine that raise takes longer than a test is
+allowed — so the timeout is on the first `dispatchFetch`, and every test after
+it inherits the wait. The lane worked around it by running `land` a second
+time, which is the tax this entry exists to stop. Either give the file (and
+`room.test.ts`, which raises a workerd the same way) a timeout that covers a
+cold workerd under load, or have `tools/check/shard.ts` keep the two
+workerd files off a shard that carries anything else.
