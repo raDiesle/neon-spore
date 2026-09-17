@@ -9590,3 +9590,5 @@ minutes of full `check` after the work looked done, and then a second full run
 to prove the re-timing. The widening test had also been passing on a stretched
 config (`undertowStandBeats: 40`), so nothing in the suite knew the shipped
 figures never reached the rule.
+
+*Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

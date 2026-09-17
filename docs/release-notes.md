@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · b0f52e30 — A breach nobody plates now reaches the width that breeds a second lobe
+
+`undertowStandBeats` goes from 4 to 5, the owner's pick of the three numbers this could have been. A breach with a lobe standing in it widens 100 a beat while the plate is elsewhere, and `undertowWideMilli` is 400: at four beats it was taken away at 300 and the second lobe next door — §11.20's own sentence, and half of why the plate exists in part one — could not happen in the shipped game. At five it is at 400 on the fourth beat and breeds there, and withdraws on the fifth.
+
 ## 2026-09-17 · 8aeaa941 — THE ANTIPHON, the simulation: the boss that grows a thing nobody has a word for
 
 A body over the top of the field grows an organ every cycle — a contour by index, which the pilot alone is to be shown — and lays a rail of candidates with a colour and a column each, which the navigator alone is to be shown; the organ's colour fired into its column shrivels it to a pit, a decoy's colour in the decoy's column hardens the cycle and widens every rail after, and an organ left alone sinks back healed — or, from the fourth pit, fires a body down its column first. From the second pit the decoys are the organ's own family, a lobe apart; from the third the candidates a pit rejected fall as bodies; from the fourth two organs grow at once; from the fifth a shape already killed comes back. With six pits the surface goes still and grows their own ship among ships subtly wrong, and the right one bursts every pit at once. Wave 82, "THE ANTIPHON", in act 7e, with no entries of its own: everything that falls is what the pair got wrong. Designed as §12 of docs/spec/bosses-choreographed.md, written up as §11.31 of docs/spec/bosses.md with every departure argued by name; the look — the body, the sixteen contours, the two rails, the pits, the eruption, the split — is the second lane and nothing of it is drawn yet.
