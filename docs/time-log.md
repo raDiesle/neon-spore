@@ -9164,3 +9164,20 @@ found that a breach left alone withdraws at 300 of the 400 it needs to widen,
 which is a queue item rather than a page.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — creature-bite-collision — the ☰ reaches the road a tester walks
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | where the ☰ already is (every route but `?play`), `shell.ts`'s ordering, `menu-door.ts`, and the three source-shape tests that pin the wiring |
+| writing | 10 | the bind lifted out of the branch, the gate turned into an early return, the door's docstring, a test that pins the new order |
+| looking | 10 | `?play` opened in the preview, the chip pressed, and one captured frame cropped to the corner to see what `bun run frames` now photographs |
+| friction | 5 | the rename the lift forced — `hold` was already the room's card — broke three assertions that quote the line verbatim |
+| landing | 5 | the index, `check:fast`, this entry, the commit |
+
+The bottleneck was that the shell's `?play` branch and its menu branch shared a
+name: lifting `bindMainMenu` above the gate put a second `hold` in scope, and
+the rename that fixed it is quoted character-for-character by three tests in
+two files, so a four-line move cost three test edits.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

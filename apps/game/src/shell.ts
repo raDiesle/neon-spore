@@ -188,53 +188,61 @@ export function bindShell(p: ShellParts): Link {
   /**
    * The menu is the front door: a plain address lands on it and the field is
    * one press away. `?play` is the way past it — for `tools/frames` and for a
-   * tester opening one wave — and that build binds no menu at all, so nothing
-   * of it is on the screen either.
+   * tester opening one wave — and it goes straight to the field.
+   *
+   * **The menu is bound on both roads**, since 17 September 2026. It used to
+   * be bound on this one only, so the ☰ — the whole of the way out of a field
+   * on a phone, there being no Escape and no browser chrome worth the name —
+   * was missing from exactly the road a tester takes. What `?play` skips is
+   * the opening: no intro, no name, no menu in front of the field.
    */
-  if (opensOnMenu(location.href)) {
-    const demos: DemoRow[] = demoRows();
-    menu = bindMainMenu({
-      jumpToWave: p.jumpToWave,
-      run: p.run,
-      wave: () => p.world.wave,
-      seat: p.seat,
-      setSeat: p.setSeat,
-      openRoom: () => joinScreen?.open(true),
-      // The way back into a room the pair already share (`pairing.ts`). The
-      // room screen opens with it, because the pair still have to press START.
-      joinRoom: (room) => {
-        joinScreen?.open(true);
-        link.join(room);
+  const demos: DemoRow[] = demoRows();
+  menu = bindMainMenu({
+    jumpToWave: p.jumpToWave,
+    run: p.run,
+    wave: () => p.world.wave,
+    seat: p.seat,
+    setSeat: p.setSeat,
+    openRoom: () => joinScreen?.open(true),
+    // The way back into a room the pair already share (`pairing.ts`). The
+    // room screen opens with it, because the pair still have to press START.
+    joinRoom: (room) => {
+      joinScreen?.open(true);
+      link.join(room);
+    },
+    leaveRoom,
+    settings: {
+      setSound: p.setSound,
+      // The animations are CSS, so the switch is a class. `data-motion` and
+      // not a plain class, so it can win in *both* directions against the
+      // phone's own `prefers-reduced-motion` — a player who asked their
+      // phone for less motion and wants this one to move must be able to.
+      setMotion: (on) => {
+        document.body.dataset.motion = on ? "on" : "off";
       },
-      leaveRoom,
-      settings: {
-        setSound: p.setSound,
-        // The animations are CSS, so the switch is a class. `data-motion` and
-        // not a plain class, so it can win in *both* directions against the
-        // phone's own `prefers-reduced-motion` — a player who asked their
-        // phone for less motion and wants this one to move must be able to.
-        setMotion: (on) => {
-          document.body.dataset.motion = on ? "on" : "off";
-        },
-        install: () => installer?.offer(),
-        canInstall: () => installer?.available() ?? false,
-      },
-      openTuning: p.openTuning,
-      openIntro: (back) => p.intro.open(back),
-      demos,
-      openDemo: p.openDemo,
-    });
-    // A room link lands on the room screen rather than on the menu behind it,
-    // and `invite` has already put that up by the time this runs.
-    if (roomRequested(location.href)) return link;
-    // The first visit reads the intro, is asked what it is called, and lands on
-    // the menu; every visit after lands straight on it. Each step is skipped on
-    // its own terms and hands on to the next rather than being sequenced here.
-    const hold = (on: boolean): void => p.run.hold("menu", on);
-    const onward = (): void => openHello(hold, () => menu?.open());
-    if (opensIntro(readIntroSeen(), true)) p.intro.open(onward);
-    else onward();
-  }
+      install: () => installer?.offer(),
+      canInstall: () => installer?.available() ?? false,
+    },
+    openTuning: p.openTuning,
+    openIntro: (back) => p.intro.open(back),
+    demos,
+    openDemo: p.openDemo,
+  });
+
+  // On the road that skips the opening, that is the whole of it.
+  if (!opensOnMenu(location.href)) return link;
+  // A room link lands on the room screen rather than on the menu behind it,
+  // and `invite` has already put that up by the time this runs.
+  if (roomRequested(location.href)) return link;
+  // The first visit reads the intro, is asked what it is called, and lands on
+  // the menu; every visit after lands straight on it. Each step is skipped on
+  // its own terms and hands on to the next rather than being sequenced here.
+  // `holdForMenu` rather than `hold`: the block this came out of had one of
+  // its own, and the file already has a `hold` — the room's card (`hold.ts`).
+  const holdForMenu = (on: boolean): void => p.run.hold("menu", on);
+  const onward = (): void => openHello(holdForMenu, () => menu?.open());
+  if (opensIntro(readIntroSeen(), true)) p.intro.open(onward);
+  else onward();
 
   return link;
 }

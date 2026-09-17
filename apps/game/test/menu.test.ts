@@ -1,4 +1,5 @@
 import { describe, expect, test } from "bun:test";
+import { readFileSync } from "node:fs";
 import { opensOnMenu } from "../src/menu.js";
 
 /**
@@ -38,5 +39,35 @@ describe("opensOnMenu", () => {
     expect(opensOnMenu("http://localhost:4173/#play")).toBe(false);
     // The flag a capture appends to a URL that already carries one.
     expect(opensOnMenu("http://localhost:4173/?raster=1&play=1")).toBe(false);
+  });
+});
+
+/**
+ * **What `?play` skips is the opening, and not the menu itself.**
+ *
+ * `bindMainMenu` stood inside the `opensOnMenu` branch until 17 September
+ * 2026, so the road a tester takes had no ☰ in the corner — and on a phone
+ * that chip is the whole of the way out of a field, there being no Escape key
+ * and no browser chrome worth the name. The owner asked for the chip on that
+ * road too. Read off the source, because nothing here can drive a document.
+ */
+describe("the way the shell reads it", () => {
+  const shell = readFileSync(new URL("../src/shell.ts", import.meta.url), "utf8");
+
+  test("binds the menu before it asks which road this is", () => {
+    const bind = shell.indexOf("menu = bindMainMenu({");
+    const gate = shell.indexOf("if (!opensOnMenu(location.href)) return link;");
+    expect(bind).toBeGreaterThan(-1);
+    expect(gate).toBeGreaterThan(-1);
+    expect(bind).toBeLessThan(gate);
+  });
+
+  test("puts nothing in front of the field on that road", () => {
+    // The gate returns rather than branching, so the intro, the name and the
+    // front page are all below it and none of them can be reached from here.
+    const after = shell.slice(shell.indexOf("if (!opensOnMenu(location.href)) return link;"));
+    for (const step of ["p.intro.open(onward)", "openHello(", "menu?.open()"]) {
+      expect(after, `${step} stands after the gate`).toContain(step);
+    }
   });
 });

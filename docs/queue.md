@@ -316,3 +316,24 @@ What to do, once the answer is picked: change the one number (`undertowStandBeat
 widening test on the shipped config rather than a stretched one, and say in
 §11.20 which it was. The film's first page then shows a second lobe rather
 than a scar, and its test's first event moves.
+
+## `apps/game/src/shell.ts` is two lines under the ceiling
+
+- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Files:** `apps/game/src/shell.ts`, `apps/game/src/menu-bindings.ts`, `apps/game/test/menu.test.ts`
+
+248 of the 250 lines `packages/sim/test/limits.test.ts` allows. The lane that
+put the ☰ on the `?play` road had to trim a docstring it had just written to
+get under it — the next sentence anybody adds to this file fails the check, and
+the file is the one every screen around the field is wired in, so it is a file
+that gets edited.
+
+The cut is already drawn: the `bindMainMenu({ … })` argument is ~45 lines of
+wiring — the room hooks, the four settings hooks, the demo list — with nothing
+in it that reads the shell's own closure except `joinScreen`, `link`,
+`installer` and `leaveRoom`. Lift it to `menuWiring(p, deps)` returning a
+`MenuBindings` (the type already exists, in `menu-bindings.ts`), beside the
+shell rather than inside it, and `bindShell` keeps the order that is the whole
+reason the file is one knot. What must not move: the link is built first, the
+three screens exist before it reports, and the `opensOnMenu` gate stays below
+the bind — `apps/game/test/menu.test.ts` pins that last one.

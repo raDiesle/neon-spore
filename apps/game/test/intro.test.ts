@@ -93,7 +93,9 @@ describe("the way it is wired", () => {
     // what it is called and opens the menu itself afterwards (`hello.test.ts`).
     // The intro's own half is unchanged: it opens, and it hands on.
     expect(shell).toMatch(/opensIntro\(readIntroSeen\(\), true\)\)\s*p\.intro\.open\(onward\)/);
-    expect(shell).toContain("const onward = (): void => openHello(hold, () => menu?.open());");
+    expect(shell).toContain(
+      "const onward = (): void => openHello(holdForMenu, () => menu?.open());",
+    );
   });
 });
 

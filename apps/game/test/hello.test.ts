@@ -46,7 +46,9 @@ describe("when the first meeting opens", () => {
 
 describe("the way it is wired", () => {
   it("stands between the intro and the menu, and hands the menu on", () => {
-    expect(shell).toContain("const onward = (): void => openHello(hold, () => menu?.open());");
+    expect(shell).toContain(
+      "const onward = (): void => openHello(holdForMenu, () => menu?.open());",
+    );
     expect(shell).toMatch(/p\.intro\.open\(onward\)/);
     // And on a visit with no intro to play, the same door: a device that has
     // seen the scene and has no name is still asked for one.
@@ -72,7 +74,11 @@ describe("the way it is wired", () => {
     // The screen waits on a person rather than on a clock, and the field ran
     // behind it for as long as they took. The menu's own hold, so the three
     // screens in front of the game all mean the same thing (`run-state.ts`).
-    expect(shell).toContain('const hold = (on: boolean): void => p.run.hold("menu", on);');
+    //
+    // `holdForMenu` and not `hold`: the shell binds the menu on both roads
+    // since 17 September 2026, and the block this line came out of moved next
+    // to the room's own card, which is called `hold` (`shell.ts`, `hold.ts`).
+    expect(shell).toContain('const holdForMenu = (on: boolean): void => p.run.hold("menu", on);');
     expect(source).toContain("hold(true);");
     // And lets go on the one way off the screen, not beside it.
     const closing = source.slice(source.indexOf("const close = (): void => {"));
