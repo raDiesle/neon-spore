@@ -5,6 +5,7 @@ import { curtainHashParts } from "./curtain-hash.js";
 import { diastoleHashParts } from "./diastole-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
+import { sinewHashParts } from "./sinew-hash.js";
 import { stareHashParts } from "./stare-hash.js";
 import { tasterHashParts } from "./taster-hash.js";
 import { throatHashParts } from "./throat-hash.js";
@@ -72,6 +73,10 @@ export function clockHashParts(boss: BossState): number[] {
     for (const n of gorgeHashParts(boss)) out.push(n);
   }
   // THE CURTAIN: the hem, the soft set, the core and its clocks (`curtain-hash.ts`).
+  // THE SINEW: the two hands, the slack, the zone and its clocks (`sinew-hash.ts`).
+  if (boss.kind === "sinew") {
+    for (const n of sinewHashParts(boss)) out.push(n);
+  }
   if (boss.kind === "curtain") {
     for (const n of curtainHashParts(boss)) out.push(n);
   }

@@ -42,9 +42,6 @@ export {
   candleEating,
   candleMoving,
 } from "./candle.js";
-// THE CURTAIN keeps a clock for each of the roll-back, the soft set and the
-// core's fire, and the one number the pair wants off it is where the fabric
-// is not (`curtainCoreBare`).
 export {
   type CurtainState,
   curtainBody,
@@ -117,6 +114,28 @@ export {
   orreryTurnPerTickMilli,
   orreryWoundMilli,
 } from "./orrery-hand.js";
+// THE CURTAIN keeps a clock for each of the roll-back, the soft set and the
+// core's fire, and the one number the pair wants off it is where the fabric
+// is not (`curtainCoreBare`).
+// THE SINEW keeps a clock for each of the hold, the snap-back and the fall,
+// and the two numbers the seats are shown are the sum and the zone.
+export {
+  type SinewState,
+  sinewBandMilli,
+  sinewBoss,
+  sinewDecaying,
+  sinewGone,
+  sinewHeld,
+  sinewInZone,
+  sinewMassLeft,
+  sinewMassRow,
+  sinewPull,
+  sinewSum,
+  sinewSwinging,
+  sinewWalked,
+  sinewZone,
+  sinewZoneWidth,
+} from "./sinew.js";
 export {
   STARE_PHASES,
   type StarePhase,

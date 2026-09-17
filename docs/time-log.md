@@ -8816,3 +8816,25 @@ veil off the hull it is describing and draws a rectangle's edge across the
 middle of the field. No test could see it and one frame did.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — THE SINEW, the simulation — two pulls add into one sum
+
+The boss that asks how hard rather than when (`docs/spec/bosses-choreographed.md`
+§8), built as a fixture with no body: two handles, one a seat, whose pulls add
+into a sum the pair has to hold inside a zone one of them sees while the other
+sees the sum. Six fibres, a snap that throws the hands off, a slack that
+creeps from the fourth, and a fall walked clear of the hull or not.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | THE BALLOON's pair of handles, THE CURTAIN's landing for the list of receipts, the design's beat list |
+| writing | 15 | the state, the step, the hands, the hash, thirteen events, seventeen tests, the wave, the sounds, the director's sheet, §11.26 |
+| looking | 0 | nothing is drawn yet; the look is the next lane |
+| friction | 5 | the step file went over 250 and the hands came out of it; the wire's `DRAG_TARGETS` silently dropped the two handles until the codec test said so; two sounds twanged inside the speech band |
+| landing | 20 | `check:fast`, the commit, and a rebase over THE TASTER's landing from the other session — thirty-two files conflicted at the same seams, every one resolved as taster then sinew, and the section renumbered to §11.26 |
+
+The bottleneck was the receipt list itself: a field boss is a name in some
+forty files, and the one the skill's table did not name — `net/src/command-fields.ts` —
+is the one that would have failed silently on the wire.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

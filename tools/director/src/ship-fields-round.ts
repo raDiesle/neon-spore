@@ -177,6 +177,30 @@ export const ROUND_FIELD_GROUP = {
     "THE TASTER — the boss that grows its armour in the colour you have been spending",
   tasterOutBeats:
     "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  // SinewConfig — how many fibres, how far a handle pulls, how wide the band
+  // is and how much it narrows per fibre, where it can sit, how long a hold
+  // takes, how long a snap throws the hands off and how many rocks it sheds,
+  // where the mass hangs and how wide it is, when the slack starts and how
+  // fast it creeps, THE SLOW on a part, the fall, the sway, the columns that
+  // count as clear and how long it holds the wave after (`config-sinew.ts`).
+  sinewFibres: "THE SINEW — the boss that asks how hard, not when",
+  sinewReachMilli: "THE SINEW — the boss that asks how hard, not when",
+  sinewZoneMilli: "THE SINEW — the boss that asks how hard, not when",
+  sinewZoneNarrowMilli: "THE SINEW — the boss that asks how hard, not when",
+  sinewZoneLowMilli: "THE SINEW — the boss that asks how hard, not when",
+  sinewHoldBeats: "THE SINEW — the boss that asks how hard, not when",
+  sinewSnapBeats: "THE SINEW — the boss that asks how hard, not when",
+  sinewSnapRocks: "THE SINEW — the boss that asks how hard, not when",
+  sinewSnapRocksLast: "THE SINEW — the boss that asks how hard, not when",
+  sinewMassRow: "THE SINEW — the boss that asks how hard, not when",
+  sinewMassCols: "THE SINEW — the boss that asks how hard, not when",
+  sinewDecayFibres: "THE SINEW — the boss that asks how hard, not when",
+  sinewDecayMilli: "THE SINEW — the boss that asks how hard, not when",
+  sinewPartSlowBeats: "THE SINEW — the boss that asks how hard, not when",
+  sinewFallBeats: "THE SINEW — the boss that asks how hard, not when",
+  sinewSwayMilli: "THE SINEW — the boss that asks how hard, not when",
+  sinewClearCols: "THE SINEW — the boss that asks how hard, not when",
+  sinewOutBeats: "THE SINEW — the boss that asks how hard, not when",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

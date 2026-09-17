@@ -159,3 +159,13 @@ export interface CurtainEntry {
 export interface TasterEntry {
   kind: "taster";
 }
+
+/**
+ * What a wave authors when it wants THE SINEW: nothing, the tenth. The
+ * tendon hangs dead centre with every fibre whole; where the strain zone
+ * sits for each fibre is the seeded rng's, so a wave cannot author the
+ * number the pair has to say (`sinew.ts`, `config-sinew.ts`).
+ */
+export interface SinewEntry {
+  kind: "sinew";
+}

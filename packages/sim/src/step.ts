@@ -22,6 +22,7 @@ import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { orreryRingHeard } from "./orrery-hand.js";
 import { advancePods } from "./pods.js";
 import { stepReach } from "./reach.js";
+import { sinewHeard } from "./sinew-hand.js";
 import { stepRound } from "./step-round.js";
 import type { TimedCommand } from "./types.js";
 import { stepWardenTether, wardenTetherHeard } from "./warden-rope.js";
@@ -131,6 +132,11 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // it rather than on the tick after.
   for (const c of commands) balloonHeard(world, c.player, c.command);
   rubBalloons(world);
+  // THE SINEW's two handles, read on the tick for the balloon's reason with
+  // the other half of it: the sum of the two pulls is player 2's only readout
+  // of a thumb on another phone, and a depth that waited for the beat would
+  // be a number said out loud a beat late (`sinew-hand.ts`).
+  for (const c of commands) sinewHeard(world, c.player, c.command);
   // And the two hands on THE WEIGHT, which is not a command at all: the press
   // is the ordinary `grip` and `applyCommand` has already recorded it, so what
   // runs here is the clock over it. On the tick with the balloon's rub above

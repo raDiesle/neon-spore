@@ -15,6 +15,7 @@ import { installPulse } from "./pulse-round.js";
 import { installReprise } from "./reprise-state.js";
 import { installScout } from "./scout-round.js";
 import { NO_SHELL } from "./shell.js";
+import { installSinew } from "./sinew-step.js";
 import { installSnake } from "./snake-round.js";
 import { installSplice } from "./splice-round.js";
 import { installStare } from "./stare-step.js";
@@ -183,6 +184,11 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // of blades standing out of it, none of which falls. What it answers is
     // what the pair has spent answering the wave (`taster-step.ts`).
     world.boss = installTaster(world);
+  } else if (boss?.kind === "sinew") {
+    // No creature and no row: a tendon above the grid with a mass on it that
+    // the cannon cannot touch, and falls only what the pair's own snap-backs
+    // shake out of it — until the last fibre drops the mass (`sinew-step.ts`).
+    world.boss = installSinew(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

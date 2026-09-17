@@ -1,4 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { SILENT_BOSS } from "./effects-spark-silent-boss.js";
 
 /**
  * **The events that are deliberately not a burst**, and why each one is not.
@@ -28,6 +29,11 @@ import type { SimEvent } from "@neon-spore/sim";
  * type is still refused here rather than silently never matching.
  */
 export const SILENT = [
+  // The choreographed bosses whose events are one family each, read above
+  // the loop by a `<boss>-fx.ts` of their own or by nothing yet: next door,
+  // because four of them put this file over its 250 lines
+  // (`effects-spark-silent-boss.ts`).
+  ...SILENT_BOSS,
   // THE PUSH's lane change. The body is drawn gliding into its new column by
   // `fromCol` the way any stepped body is, so the picture already carries the
   // move; the *cue* is the new thing and it is in `packages/audio`. Whether a
@@ -150,29 +156,6 @@ export const SILENT = [
   "candleFed",
   "candleLast",
   "candleOut",
-  // THE GORGE's nine: one family, read above the loop by `gorge-fx.ts` —
-  // the bursts are thrown there, and the beads leaving are its transient.
-  "gorgeSettle",
-  "gorgeSwallow",
-  "gorgeEmptied",
-  "gorgeFull",
-  "gorgeRupture",
-  "gorgeVent",
-  "gorgeSpit",
-  "gorgeMouth",
-  "gorgeOut",
-  // THE CURTAIN's ten: one family, read above the loop by `curtain-fx.ts`
-  // the way THE GORGE's is.
-  "curtainUnroll",
-  "curtainShadow",
-  "curtainSoft",
-  "curtainShove",
-  "curtainReroll",
-  "curtainLobeOff",
-  "curtainCoreHit",
-  "curtainFire",
-  "curtainTear",
-  "curtainOut",
   "quit", // The run ending is the menu opening (`apps/game`), not a mark on the field.
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.
@@ -216,24 +199,6 @@ export const SILENT = [
   "fleetHit",
   "fleetSunk",
   "fleetDown",
-  // THE TASTER's twelve, silent **until the look lane draws it**: nothing of
-  // the fan is on the screen yet, so a transient about a blade shearing would
-  // be a picture of nothing. Every one has a sound (`bind-taster.ts`), and the
-  // boss's state carries what each blade is and how far the crest is cut, so
-  // this list is exactly what the second lane reaches for: the edge
-  // crystallising, the shear, the shiver, the interlock (`bosses.md` §11.25).
-  "tasterRise",
-  "tasterGrow",
-  "tasterSet",
-  "tasterThick",
-  "tasterPare",
-  "tasterShear",
-  "tasterCrest",
-  "tasterLift",
-  "tasterTaste",
-  "tasterClose",
-  "tasterRefused",
-  "tasterOut",
 ] as const satisfies readonly SimEvent["type"][];
 
 /** One of the above, as a type — what the guard narrows the union by. */

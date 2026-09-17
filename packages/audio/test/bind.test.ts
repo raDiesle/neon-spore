@@ -72,6 +72,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-gorge.ts", "export type GorgeEvent ="],
     ["packages/sim/src/events-curtain.ts", "export type CurtainEvent ="],
     ["packages/sim/src/events-taster.ts", "export type TasterEvent ="],
+    ["packages/sim/src/events-sinew.ts", "export type SinewEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -174,6 +175,19 @@ const SAMPLES: Record<string, SimEvent> = {
   tasterClose: { type: "tasterClose", col: 2, left: 2 },
   tasterRefused: { type: "tasterRefused", col: 2 },
   tasterOut: { type: "tasterOut", col: 2, color: "cyan" },
+  sinewSettle: { type: "sinewSettle", col: 5, fibres: 6, row: 5 },
+  sinewGrip: { type: "sinewGrip", col: 4, player: 1 },
+  sinewRelease: { type: "sinewRelease", col: 6, player: 2 },
+  sinewEnter: { type: "sinewEnter", col: 5 },
+  sinewLoose: { type: "sinewLoose", col: 5 },
+  sinewPart: { type: "sinewPart", col: 5, fibres: 5, row: 6 },
+  sinewSnap: { type: "sinewSnap", col: 5, rocks: 1 },
+  sinewRock: { type: "sinewRock", col: 5, row: 6 },
+  sinewSlack: { type: "sinewSlack", col: 5, slackMilli: 60 },
+  sinewFall: { type: "sinewFall", col: 5, row: 11 },
+  sinewSwing: { type: "sinewSwing", col: 4, dir: -1 },
+  sinewOut: { type: "sinewOut", col: 2 },
+  sinewCrush: { type: "sinewCrush", col: 5 },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

@@ -63,6 +63,10 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // rock — is dropped for exactly that, and this page's own ruling says so:
   // *a boss on this page is fed by its wave, not by itself*
   // (`docs/spec/bosses-choreographed.md`).
+  // THE SINEW is the eleventh, and the one whose hands-off beat is the point: a
+  // tendon the cannon cannot touch, that falls only what the pair's own
+  // snap-backs shake out of it (`sinew-step.ts`). The arrivals under it are
+  // authored, so that letting go of the handles to shoot is a decision.
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -73,7 +77,8 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
     kind !== "throat" &&
     kind !== "undertow" &&
     kind !== "gorge" &&
-    kind !== "taster"
+    kind !== "taster" &&
+    kind !== "sinew"
   );
 }
 
@@ -145,4 +150,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "gorge",
   "curtain",
   "taster",
+  "sinew",
 ];

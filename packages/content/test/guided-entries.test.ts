@@ -95,6 +95,13 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // where clearing it is what grows the armour, and the lesson would read as
   // the game being unfair rather than as the boss counting.
   "THE TASTER": ["meteor"],
+  // THE SINEW introduces no creature either — what is new is a sum the two
+  // hands make against a zone one of them cannot see — and every arrival on
+  // it is a kept kind, there so that letting go is a decision. The rock is
+  // the one body the guard answers rather than the cannon: a hand off the
+  // rope to shield is the whole cost of step 7, and a wave with nothing but
+  // colours under the mass would let the navigator shoot without letting go.
+  "THE SINEW": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

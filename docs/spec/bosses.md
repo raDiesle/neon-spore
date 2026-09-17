@@ -2902,3 +2902,126 @@ the wave its last beats and takes nothing after the beam, and the same run
 fingerprints the same way twice (`sim/test/taster.test.ts`, `spend.test.ts`).
 Nothing of it has been seen in a frame, and the wave went into
 `tools/perf/baseline.json` unweighed.
+
+## 11.26 THE SINEW — the boss that asks how hard, not when
+
+> The one where the answer is a magnitude, and neither of you can see the
+> whole gauge.
+
+Designed as §8 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: every sentence this pair has ever said to each other is a
+column or a beat, and not one is a *quantity*. This boss asks for "more",
+"less" and "hold it there", which is a vocabulary the game has never made them
+build — and it is the one boss on that page the cannon cannot hurt at all.
+
+**It is a fixture, not a body.** Nothing of it is in `world.creatures`: the
+state (`sim/sinew.ts`, hashed in `sim/sinew-hash.ts`) is the column the mass
+hangs over, the `fibres` left, each seat's pull and sway in thousandths of a
+tile (a pull of −1 is a hand off), the slack the rope has crept, where this
+fibre's zone sits, and four beat stamps — the hold began, the last snap, the
+fall began, out. There are `sinewFibres` (6) to part. The mass hangs at `sinewMassRow` (5) plus one row per fibre
+gone, `sinewMassCols` (3) wide, and hurts nothing until it falls. It does not
+fill its wave (`bossFillsWave`): `act-7d.ts`'s "THE SINEW" carries its own
+arrivals, because step 7 — *let go, shoot, take hold again* — is a decision
+only if something arrives while both hands are on the rope.
+
+**The rule, in one sentence.** Each seat has one handle (`sinewLeft` is player
+1's, `sinewRight` player 2's, a `drag` whose `fromYMilli` is the pull, up to
+`sinewReachMilli` (1000), and whose `fromMilli` is the sway; `sim/sinew-hand.ts`
+hears them on the tick), the two pulls **add** into one sum less the slack,
+and the fibre being held **parts** when that sum has sat inside a **zone**
+for `sinewHoldBeats` (4) beats on end. The zone is `sinewZoneMilli` (480)
+wide less `sinewZoneNarrowMilli` (80) per fibre gone, never narrower than one
+step, rolled fresh from the rng for every fibre from `sinewZoneLowMilli` (600)
+up to the band's top (twice a handle's reach). A sum over the zone's top is a
+**snap** (`sinewSnap`): both hands are thrown off, no handle can be taken for
+`sinewSnapBeats` (2), and `sinewSnapRocks` (1) meteor comes out of the mass
+into a column of its span — `sinewSnapRocksLast` (3) on the last fibre. A sum
+out of the zone the other way, or a hand lifted, restarts the count
+(`sinewLoose`). Each part sinks the mass a row and opens THE SLOW for
+`sinewPartSlowBeats` (2). From `sinewDecayFibres` (4) gone the rope **creeps
+slack** under a held hand by `sinewDecayMilli` (60) a beat, so the same two
+thumbs read less every beat, until both hands come off and the slack is
+gone. The last fibre's zone is the one step under the band's top. When it
+parts the mass **falls** (`sinewFall`) over `sinewFallBeats` (4), and on every
+beat of the fall both handles swayed `sinewSwayMilli` (300) the same way walk
+it a column that way (`sinewSwing`); `sinewClearCols` (3) columns from the
+middle it lands **clear** (`sinewOut`, the boss held `sinewOutBeats` (2) more
+and then gone), fewer and it lands **on the hull** (`sinewCrush`): a heavy
+breach in its column, which fails the wave (12 September 2026).
+
+**The split is the eyes.** Player 1 is shown the **zone** — where on the band
+the sum has to sit — and nothing of the sum; player 2 is shown the **sum**
+and nothing of the zone. Each pulls one handle. So the one who knows where to
+go cannot see where they are, and the one who can see where they are does not
+know where to go — the design's own sentence, and the first time the split
+has been put on a scalar. The sentence between them is *harder — a little —
+stop — hold* and then a count.
+
+**Where this departs from the design, and why.** Nine places, each argued by
+name. *THE SLOW opens on the part, not on entering the zone*: the design's
+"the moment the sum enters the zone is a SLOW" would fire every time a wobble
+re-entered it — a slow the pair trips over rather than earns — and the part
+is the beat with something to see slowly, the fibre letting go
+(`decisions.md` #33, both screens together). *The sum is read on the beat*:
+step 5's "a thumb slackens and the hold is given back" is judged where the
+clock is, so a wobble between two beats is forgiven, and a snap is a number
+held wrong long enough to hear. *The decay resets only when both hands are
+off*, and never on the last fibre: step 10 says the sum decays toward slack
+every beat, and a decay that came back as soon as the sum was corrected would
+be no decay at all; making re-grip the verb turns step 7's "let go, shoot,
+take hold again" into the same gesture, and on the last fibre — both hands
+at the limit — a creeping slack would make step 13 impossible rather than
+hard. *The last zone is the step under the top, not the top itself*: step 12
+puts the sliver "at the very top of the band" and step 13 says the hands go
+to their limit — but a zone touching the top is a zone that cannot be
+over-pulled, and step 13's own "a snap-back at full strain throws three rocks"
+needs a sum past it to exist; so the part is one hand at the limit and the
+other all but, and both at the limit is the three-rock snap (argued again at
+`rollZone`). *Step 9's "a third as wide" is a step per fibre*: 480 down by 80
+a fibre is 240 at the fourth and 80 at the last, which is the narrowing
+without a second rule for when it happens. *Step 11's halved ward window is
+not built*: a rock is a meteor down its column like every other, from the
+mass's row — which is lower every fibre, so the design's "from two rows up"
+is what the sinking mass already does — and the guard's window is the
+guard's, one number the pair already knows. *Step 8's lobes reaching the
+field are not built*: a mass that hurt bodies in the middle rows would be a
+second mechanic on a boss whose one mechanic is the sum; it is a rock until
+it falls. *Nothing is timed on a call*: steps 3 and 6 give 900 ms for the
+zone to be said, and the game never evaluates speech (`CLAUDE.md` rule 5) —
+the zone stands until the fibre parts, and what a late call costs is the
+beats it takes. *The mass does not swing on a snap*: the swing after a snap
+is the look's; what the simulation keeps of it is the `sinewSnapBeats` no
+hand can be taken, and a finger that never left the glass is a hand again
+when they are over.
+
+**What is not built.** The look, all of it: the tendon as a bundle of fibres
+that go taut, thin and part; the strain band, white, half on each screen; the
+mass swinging with lag and overshoot; the fall walked sideways; the
+full-frame flash and `hull-shock.ts` on a snap. The handles are heard and
+drawn nowhere, so on the shipped field this boss is played from the keys
+(`apps/game/src/keys-grip.ts` sends `fromYMilli`) until the second lane hits
+them on the glass. The thirteen events are listed silent in
+`render/src/effects-ingest-silent-boss.ts` and `effects-spark-silent-boss.ts` —
+the second split off `effects-spark-silent.ts` in this lane, the fourth boss
+family having put it over 250 lines. `render/test/pixel-frame.test.ts`'s
+`LOOK_PENDING` does not name it: there is no creature body to be unseen.
+
+**Never watched at tempo.** What the tests say is the mechanism: it installs
+with six fibres, the mass over the middle and nothing arriving from it; the
+zone differs by seed and sits inside the band; a seat's handle answers that
+seat and not the other; a pull is never a height and is cut to the reach;
+two pulls add, less the slack, and a hand off is nothing; a hold in the zone
+parts the fibre after four beats, drops the mass a row, narrows the zone and
+opens THE SLOW; leaving the zone restarts the count; a sum over the top
+snaps — both hands off, one rock from the mass's row in its span, no grab
+for two beats, then a grab; the slack creeps from the fourth fibre gone
+while a hand is on and goes only when both are off, and never before the
+fourth nor on the last; the last zone's top is one step under the band's and
+it is one step wide; the last snap throws three; the last part starts the
+fall with the hands still on; a fall swings one column a beat only with both
+hands swayed the same way past the threshold; three columns walked lands
+clear, the boss is gone two beats later and the wave wants its next; fewer
+lands on the hull with a breach; and the same run fingerprints the same way
+twice and differently for another seed (`sim/test/sinew.test.ts`). Nothing of
+it has been seen in a frame.

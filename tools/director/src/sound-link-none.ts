@@ -151,6 +151,23 @@ export const NO_SUBJECT: Record<string, string> = {
     "a single bolt turned away by the interlock. What it marks is nothing happening.",
   "boss.tasterOut":
     "the fan thrown open by the beam. Like boss.gorgeOut, what this marks is a frame with nothing under its top — an absence rather than a thing standing anywhere.",
+  // THE SINEW's thirteen. The boss is a rope the sheet has no card for, and
+  // what these mark is a pull, a hold and a fall, never a body standing anywhere.
+  "boss.sinewSettle":
+    "the tendon taking the mass's weight over the middle column. It is a rope, which is not a card (`sim/sinew.ts`).",
+  "boss.sinewGrip": "a hand closing on its handle. Same argument.",
+  "boss.sinewRelease": "a hand off its handle. Same argument.",
+  "boss.sinewEnter": "the sum coming into the band. Same argument.",
+  "boss.sinewLoose": "the sum slipping out of the band. Same argument.",
+  "boss.sinewPart": "a fibre parting under a hold kept. Same argument.",
+  "boss.sinewSnap": "the rope whipping back and the hands thrown off. Same argument.",
+  "boss.sinewRock": "a rock shaken out of the mass. Same argument.",
+  "boss.sinewSlack": "the rope creeping slack under a held hand. Same argument.",
+  "boss.sinewFall": "the last fibre gone and the mass falling. Same argument.",
+  "boss.sinewSwing": "the falling mass walked a column. Same argument.",
+  "boss.sinewOut":
+    "the mass down at the wall. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
+  "boss.sinewCrush": "the mass down on the hull. Same argument, with a breach under it.",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",

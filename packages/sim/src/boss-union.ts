@@ -13,6 +13,7 @@ import type { PulseState } from "./pulse.js";
 import type { RepriseState } from "./reprise-state.js";
 import type { ScoutState } from "./scout.js";
 import type { MirrorState } from "./simon.js";
+import type { SinewState } from "./sinew.js";
 import type { SnakeState } from "./snake.js";
 import type { SpliceState } from "./splice.js";
 import type { StareState } from "./stare.js";
@@ -74,4 +75,5 @@ export type BossState =
   | CandleState
   | GorgeState
   | CurtainState
-  | TasterState;
+  | TasterState
+  | SinewState;

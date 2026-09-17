@@ -218,6 +218,7 @@ export type {
   QueenEntry,
   RepriseEntry,
   ScoutEntry,
+  SinewEntry,
   SnakeEntry,
   SpliceEntry,
   StareEntry,

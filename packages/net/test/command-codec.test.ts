@@ -37,6 +37,10 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "balloonRight", on: true, fromMilli: 1400, id: 4 },
   // THE CLAW's crank, whose `fromMilli` is a bearing round a circle rather
   // than a distance, and whose press carries `NO_BEARING` instead of one.
+  // THE SINEW's two handles, one per seat, whose pull is on the *y* and
+  // whose sway is the `fromMilli` — the one drag whose depth is the number.
+  { kind: "drag", target: "sinewLeft", on: true, fromMilli: -120, fromYMilli: 640 },
+  { kind: "drag", target: "sinewRight", on: true, fromMilli: 90, fromYMilli: 1000 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -131,6 +135,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   choirRight: true,
   balloonLeft: true,
   balloonRight: true,
+  sinewLeft: true,
+  sinewRight: true,
   crank: true,
   orreryRing: true,
 };

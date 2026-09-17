@@ -2,6 +2,7 @@ import type { BatonEvent } from "./events-baton.js";
 import type { CandleEvent } from "./events-candle.js";
 import type { CurtainEvent } from "./events-curtain.js";
 import type { GorgeEvent } from "./events-gorge.js";
+import type { SinewEvent } from "./events-sinew.js";
 import type { SpliceEvent } from "./events-splice.js";
 import type { StareEvent } from "./events-stare.js";
 import type { TasterEvent } from "./events-taster.js";
@@ -35,12 +36,14 @@ export type BossEvent =
   | CandleEvent
   | GorgeEvent
   | CurtainEvent
-  | TasterEvent;
+  | TasterEvent
+  | SinewEvent;
 
 export type { BatonEvent } from "./events-baton.js";
 export type { CandleEvent } from "./events-candle.js";
 export type { CurtainEvent } from "./events-curtain.js";
 export type { GorgeEvent } from "./events-gorge.js";
+export type { SinewEvent } from "./events-sinew.js";
 export type { SpliceEvent } from "./events-splice.js";
 export type { StareEvent } from "./events-stare.js";
 export type { TasterEvent } from "./events-taster.js";

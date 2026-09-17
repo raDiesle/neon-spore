@@ -134,6 +134,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // `tasterBlades` lets it be, so a fan authored on seven columns opens over
   // eleven with the same blade in the middle (`sim/taster-step.ts`).
   if (boss.kind === "taster") return { ...boss };
+  // THE SINEW hangs its mass over `midCol` of whatever field is played and
+  // the mass walks from there, so there is nothing authored to remap
+  // (`sim/sinew-step.ts`).
+  if (boss.kind === "sinew") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

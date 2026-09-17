@@ -38,6 +38,7 @@ export {
   type PulseEntry,
   type RepriseEntry,
   type ScoutEntry,
+  type SinewEntry,
   type SnakeEntry,
   type SpliceEntry,
   type StareEntry,

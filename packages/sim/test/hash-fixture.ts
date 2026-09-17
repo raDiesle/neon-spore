@@ -208,6 +208,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // (`config-taster.ts`), and every edge is read off what the pair has spent
   // by the time the fixture's world is fingerprinted (`taster-hash.ts`).
   taster: { kind: "taster" },
+  // THE SINEW authors nothing either: the fibres, the reach and the zone's
+  // width are tuning (`config-sinew.ts`), and how deep each hand has pulled,
+  // how slack it has gone and where the zone was rolled are what the
+  // fixture's world has moved by the time it is fingerprinted (`sinew-hash.ts`).
+  sinew: { kind: "sinew" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -570,5 +575,19 @@ function patchBoss(world: World): void {
     boss.liftBeat = 3;
     boss.edgeBeat = 2;
     boss.outBeat = 4;
+  }
+  if (boss.kind === "sinew") {
+    // Both hands on and carried, some slack, and every clock that only a
+    // hold, a snap, the last fibre or the landing sets given a beat — the
+    // walk cannot flip a `-1` it never sees change.
+    boss.pullP1Milli = 300;
+    boss.pullP2Milli = 400;
+    boss.swayP1Milli = -50;
+    boss.swayP2Milli = 60;
+    boss.slackMilli = 20;
+    boss.holdBeat = 2;
+    boss.snapBeat = 3;
+    boss.fallBeat = 4;
+    boss.outBeat = 5;
   }
 }

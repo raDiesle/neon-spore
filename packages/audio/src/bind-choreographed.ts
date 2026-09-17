@@ -4,6 +4,7 @@ import { candleCue } from "./bind-candle.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
 import { gorgeCue } from "./bind-gorge.js";
+import { sinewCue } from "./bind-sinew.js";
 import { tasterCue } from "./bind-taster.js";
 import { undertowCue } from "./bind-undertow.js";
 
@@ -28,7 +29,8 @@ type ChoreographedEvent = Extract<
       | `candle${string}`
       | `gorge${string}`
       | `curtain${string}`
-      | `taster${string}`;
+      | `taster${string}`
+      | `sinew${string}`;
   }
 >;
 
@@ -84,6 +86,20 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "tasterRefused":
     case "tasterOut":
       return tasterCue(e, cols);
+    case "sinewSettle":
+    case "sinewGrip":
+    case "sinewRelease":
+    case "sinewEnter":
+    case "sinewLoose":
+    case "sinewPart":
+    case "sinewSnap":
+    case "sinewRock":
+    case "sinewSlack":
+    case "sinewFall":
+    case "sinewSwing":
+    case "sinewOut":
+    case "sinewCrush":
+      return sinewCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

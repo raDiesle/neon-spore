@@ -166,6 +166,23 @@ export const ROUND_NOTES = {
     "have spent least of opens it, holding the wave tasterOutBeats more. " +
     "Nothing about it is authored per wave. See sim/taster.ts, " +
     "sim/spend.ts, sim/config-taster.ts.",
+  "THE SINEW — the boss that asks how hard, not when":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §8: " +
+    "the boss whose question is a magnitude. A mass sinewMassCols wide hangs " +
+    "at sinewMassRow on sinewFibres fibres with a handle either side; each " +
+    "seat pulls its own up to sinewReachMilli and the two add into one sum. " +
+    "The fibre parts when the sum sits in a band sinewZoneMilli wide, less " +
+    "sinewZoneNarrowMilli per fibre gone, rolled from sinewZoneLowMilli up, " +
+    "for sinewHoldBeats; over it the fibre snaps, throws the hands off for " +
+    "sinewSnapBeats and sheds sinewSnapRocks rocks — sinewSnapRocksLast on " +
+    "the last. From sinewDecayFibres gone the rope creeps sinewDecayMilli " +
+    "slack a beat under a held hand until both come off. A part opens THE " +
+    "SLOW sinewPartSlowBeats. The last part drops the mass over " +
+    "sinewFallBeats; both handles swayed sinewSwayMilli the same way walk it " +
+    "a column a beat, and sinewClearCols from the middle it lands clear, " +
+    "holding the wave sinewOutBeats more; fewer and it lands on the hull. " +
+    "Nothing about it is authored per wave. See sim/sinew.ts, " +
+    "sim/config-sinew.ts.",
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

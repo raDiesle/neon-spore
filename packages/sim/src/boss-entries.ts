@@ -5,6 +5,7 @@ import type {
   DiastoleEntry,
   GorgeEntry,
   OrreryEntry,
+  SinewEntry,
   StareEntry,
   TasterEntry,
   ThroatEntry,
@@ -180,9 +181,10 @@ export type BossEntry =
   | CandleEntry
   | GorgeEntry
   | CurtainEntry
-  | TasterEntry;
+  | TasterEntry
+  | SinewEntry;
 
-// The nine that are a clock and author nothing (`boss-entries-clocks.ts`).
+// The ten that are a clock and author nothing (`boss-entries-clocks.ts`).
 export type {
   BatonEntry,
   CandleEntry,
@@ -190,6 +192,7 @@ export type {
   DiastoleEntry,
   GorgeEntry,
   OrreryEntry,
+  SinewEntry,
   StareEntry,
   TasterEntry,
   ThroatEntry,

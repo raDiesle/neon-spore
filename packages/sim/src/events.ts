@@ -236,6 +236,7 @@ export type {
   CandleEvent,
   CurtainEvent,
   GorgeEvent,
+  SinewEvent,
   SpliceEvent,
   StareEvent,
   TasterEvent,

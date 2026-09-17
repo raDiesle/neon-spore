@@ -180,4 +180,25 @@ export const WAVES_ACT_7D: Wave[] = [
     ],
     boss: { kind: "taster" },
   },
+  {
+    id: "theSinew",
+    name: "THE SINEW",
+    sentence: "The one that asks how hard, not when, and only the two of you together can say.",
+    guide: {
+      both: "A mass hangs on a rope of six fibres, a handle either side. Each of you pulls one handle down and the two pulls add into one sum. Hold the sum in the fibre's band four beats and it parts; over the band it snaps and throws a rock; slip out and the hold restarts. From the fourth fibre the rope creeps slack under your hands — let go together and grip again. When the last parts the mass falls: sway both handles the same way to walk it clear of the hull.",
+      p1: "Only you see the band the sum must sit in, and it narrows every fibre. Say harder or softer and by how much, against her number, and when the count begins. When the mass falls, say which way you are both swaying.",
+      p2: "Only you see the sum of the two pulls as a number, and his hand's half of it. Say it out loud every beat as it changes; he has the band. Match your pull to his on the fall, and say when it is level.",
+    },
+    entries: [
+      { beat: 16, col: 1, color: "red" },
+      { beat: 24, col: 5, color: "cyan" },
+      { beat: 34, col: 2, kind: "meteor", color: null },
+      { beat: 42, col: 4, color: "red" },
+      { beat: 52, col: 0, color: "cyan" },
+      { beat: 60, col: 6, kind: "meteor", color: null },
+      { beat: 70, col: 1, color: "cyan" },
+      { beat: 80, col: 5, color: "red" },
+    ],
+    boss: { kind: "sinew" },
+  },
 ];

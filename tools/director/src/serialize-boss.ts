@@ -117,6 +117,9 @@ export function serializeBoss(boss: BossEntry): string {
   // the field allows; no health, the fan is eleven blades and every one of
   // their colours is read off what the pair has spent (`sim/config-taster.ts`).
   if (boss.kind === "taster") return '{ kind: "taster" }';
+  // And THE SINEW, the eleventh: no column, the mass hangs over the middle; no
+  // health, the fibres are it (`sim/config-sinew.ts`).
+  if (boss.kind === "sinew") return '{ kind: "sinew" }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

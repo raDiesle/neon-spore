@@ -78,6 +78,11 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
  * one lane after the rule did — the row's own fields are why it had to: `where`
  * is a place on the screen and `source` is a branch of `touch.ts`, and neither
  * existed while the ring was a bearing with nothing drawn to take hold of.
+ *
+ * `sinewLeft` and `sinewRight` are at the same point the ring was: the
+ * simulation hears them (`sim/sinew-hand.ts`) and nothing is drawn yet to
+ * take hold of, so their entry comes with the look
+ * (`docs/spec/bosses.md` §11.26).
  */
 function documentedDragTarget(target: DragTarget): DragTarget {
   switch (target) {
@@ -91,6 +96,8 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "choirRight":
     case "balloonLeft":
     case "balloonRight":
+    case "sinewLeft":
+    case "sinewRight":
       return target;
     default:
       return assertNever(target);

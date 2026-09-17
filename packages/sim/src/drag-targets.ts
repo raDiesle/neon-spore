@@ -29,7 +29,9 @@ export type DragTarget =
   | "balloonLeft"
   | "balloonRight"
   | "crank"
-  | "orreryRing";
+  | "orreryRing"
+  | "sinewLeft"
+  | "sinewRight";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -95,4 +97,16 @@ export type DragTarget =
  * lift that opens the maw are one hold and two controls. `id` says which body,
  * for THE LID's reason: a wave may have several on the field and either seat
  * may have a hand on a different one.
+ */
+
+/**
+ * `sinewLeft` and `sinewRight` are the eleventh and twelfth, and they are the
+ * balloon's pair put on a fixture: one gesture in two **seats**, player 1's
+ * on the left of THE SINEW's mass and player 2's on the right, always
+ * (`sinew-hand.ts`). What is new is the axis — these are pulled **down**, and
+ * `fromYMilli` is the depth, the first handle in this list to be read on the
+ * y — and what the two report is **added**: a sum on a band neither seat can
+ * read whole, which is the first magnitude the pair has ever had to say to
+ * each other. No `id`, for `orreryRing`'s reason: there is one tendon, and it
+ * is the boss.
  */

@@ -36,6 +36,7 @@ export type GroupName =
   | "THE GORGE — the boss you hurt by not shooting"
   | "THE CURTAIN — the boss that is in the way"
   | "THE TASTER — the boss that grows its armour in the colour you have been spending"
+  | "THE SINEW — the boss that asks how hard, not when"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -116,6 +117,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE GORGE — the boss you hurt by not shooting",
   "THE CURTAIN — the boss that is in the way",
   "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  "THE SINEW — the boss that asks how hard, not when",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",
@@ -193,6 +195,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE GORGE — the boss you hurt by not shooting",
   "THE CURTAIN — the boss that is in the way",
   "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  "THE SINEW — the boss that asks how hard, not when",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",
@@ -232,6 +235,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   gorge: "THE GORGE — the boss you hurt by not shooting",
   curtain: "THE CURTAIN — the boss that is in the way",
   taster: "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  sinew: "THE SINEW — the boss that asks how hard, not when",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

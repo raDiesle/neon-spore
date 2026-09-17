@@ -8,6 +8,7 @@ import type {
   GorgeEntry,
   OrreryEntry,
   ScoutEntry,
+  SinewEntry,
   StareEntry,
   TasterEntry,
   ThroatEntry,
@@ -74,6 +75,11 @@ import type {
  *   along its hem are the health so there is no number, and how far a shove
  *   carries it and how soon it re-rolls are the pair's cadence
  *   (`sim/config-curtain.ts`).
+ * - **THE SINEW** asks for nothing for the same reasons once more: the mass
+ *   hangs over `midCol` so there is no column, the six fibres are the health
+ *   so there is no number, and **the band the sum must sit in is rolled from
+ *   the rng** — a wave that authored the number the pair has to find would
+ *   be a boss with its answer printed on it (`sim/config-sinew.ts`).
  *
  * - **THE TASTER** asks for nothing, and it is the one where the *absence* is
  *   the boss: the crest is centred so there is no column, the fan is the
@@ -101,7 +107,8 @@ export function bossAuthorsNothing(
   | CandleEntry
   | GorgeEntry
   | CurtainEntry
-  | TasterEntry {
+  | TasterEntry
+  | SinewEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -119,6 +126,7 @@ export function bossAuthorsNothing(
     kind === "candle" ||
     kind === "gorge" ||
     kind === "curtain" ||
-    kind === "taster"
+    kind === "taster" ||
+    kind === "sinew"
   );
 }

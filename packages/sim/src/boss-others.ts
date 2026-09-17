@@ -10,6 +10,7 @@ import { stepGorge } from "./gorge-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
 import { stepOrrery } from "./orrery-step.js";
+import { stepSinew } from "./sinew-step.js";
 import { stepSplice } from "./splice-round.js";
 import { stepStare } from "./stare-step.js";
 import { stepTaster } from "./taster-step.js";
@@ -123,6 +124,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // `bullets.ts` and `lance-burn.ts` (`taster-shot.ts`).
   if (boss.kind === "taster") {
     stepTaster(world, boss);
+    return;
+  }
+  // THE SINEW on the beat is the tendon's clock: the sum read against the
+  // zone, the hold, the part, the snap-back, the slack, the fall. The two
+  // hands are on the tick (`sinew-hand.ts`, from `step.ts`).
+  if (boss.kind === "sinew") {
+    stepSinew(world, boss);
     return;
   }
   if (boss.kind === "vane") {

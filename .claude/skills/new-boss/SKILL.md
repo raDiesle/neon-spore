@@ -75,7 +75,8 @@ a round adds its own `*-round.ts` and its controls, a scene its beat list.
 | `content/src/waves/act-*.ts`, `queue-boss.ts`, `mechanics-bosses.ts`, `mechanics-table.ts`, `waves-demo.ts` | the wave with its guide (each half ≤ 220 characters), the one-sentence mechanic |
 | `content/test/guided-entries.test.ts` `THE_LESSON_KEEPS` | every kind the guide does not introduce, with the reason |
 | `audio/src/bind-<boss>.ts`, `sounds/boss-<boss>.ts`, `bind-choreographed.ts`, `catalogue.ts`; `test/bind.test.ts` SAMPLES, `test/catalogue.test.ts` WIRING | one cue per event, panned to its column; every sound under `VOICE_BUDGET_SECONDS` in the 300–3000 Hz band — sweeps above ~4200 Hz or below ~300 Hz |
-| `render/src/effects-ingest-silent-boss.ts`, `effects-spark-silent.ts` | every event listed silent **until the look lane draws it** |
+| `render/src/effects-ingest-silent-boss.ts`, `effects-spark-silent-boss.ts` | every event listed silent **until the look lane draws it** — the boss families live in the `-boss` files, the field's own lists are at their limit |
+| `net/src/command-fields.ts` `DRAG_TARGETS`, `net/test/command-codec.test.ts` `EVERY_TARGET` + one accepted example; `tools/director/test/on-field-controls.test.ts` `documentedDragTarget` | if the boss adds a `DragTarget`: the wire **drops a target it does not list, silently** — the codec test is what says so (THE SINEW, `command-fields.ts`) |
 | `tools/director/src/boss-nothing.ts`, `serialize-boss.ts`, `ship-fields-round.ts`, `ship-groups.ts`, `ship-notes-round.ts`, `sound-link-none.ts` | the director's sheet: the group, the fields, the notes, the sounds with no subject |
 | `docs/spec/bosses.md` §11.n, `docs/spec/audio.md` counts, `docs/spec/briefings.md`, `tools/perf/baseline.json` (`bun run baseline:blank`) | the write-up: the rule in one sentence, **every departure from the design argued by name**, *What is not built*, *Never watched at tempo* |
 

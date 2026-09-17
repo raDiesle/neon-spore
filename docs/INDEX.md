@@ -106,6 +106,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/grip.ts` | THE GRIP: a hand held on a rock, and how much it slows |
 | `packages/sim/src/boss.ts` | the Bulb Queen, and which boss a beat belongs to |
 | `packages/sim/src/simon.ts` | THE MIRROR's vocabulary: what a step is, what it remembers |
+| `packages/sim/src/sinew-hand.ts` | **The two hands on THE SINEW**, off the wire, on the tick |
+| `packages/sim/src/sinew-hash.ts` | What THE SINEW puts into `hashWorld`, and nothing else |
+| `packages/sim/src/sinew-step.ts` | THE SINEW's clock — the hold, the part, the snap-back, the slack, the fall |
+| `packages/sim/src/sinew.ts` | THE SINEW: how hard, not when |
 | `packages/sim/src/mirror.ts` | THE MIRROR's choreography: count in, perform, listen |
 | `packages/sim/src/mirror-round.ts` | how a round ends: the echo strike, the break, the bait |
 | `packages/sim/src/entries.ts` | what a wave hands the sim: spawns, pods, either boss |
@@ -264,10 +268,12 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-stare.ts` | THE STARE's numbers — how long the eye is turned away, how much warning a turn gives |
 | `packages/sim/src/config-scout.ts` | THE SCOUT's numbers — how the little ship flies |
 | `packages/sim/src/config-slow.ts` | THE SLOW's two numbers — the fraction of wall-clock rate a slowed tick is consumed at, and how long an ordinary window runs |
+| `packages/sim/src/config-sinew.ts` | THE SINEW's numbers — how many fibres the tendon has, how deep a hand may pull |
 | `packages/sim/src/creature-state-strand.ts` | **THE STRAND's three fields**, and the whole of what one bead remembers |
 | `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
 | `packages/sim/src/events-stare.ts` | **Everything THE STARE does that neither screen already says**, as one event |
 | `packages/sim/src/events-splice.ts` | **Everything THE SPLICE does that neither screen already says**, as events |
+| `packages/sim/src/events-sinew.ts` | **Everything THE SINEW does that neither screen already says**, as events |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
 | `packages/sim/src/creature-state-veer.ts` | **THE VEER's two fields**, a side and a width |
@@ -1034,6 +1040,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/intro-mouth.ts` | **A MOUTH, AND NOTHING BUT A MOUTH.** The owner, 16 September 2026, on the intro's two people |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
+| `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
 | `packages/render/src/effects-spark-worn.ts` | The bursts for a covering coming off a body that is still there (shell, clasp, coil, carom, crystal, volley), each colour argued against the others |
 | `packages/render/src/maze-fall.ts` | THE MAZE coming apart, which is what a dead end looks like |
@@ -1333,6 +1340,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
+| `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |

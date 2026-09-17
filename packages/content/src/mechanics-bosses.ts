@@ -26,6 +26,7 @@ type BossId = Extract<
   | "gorge"
   | "curtain"
   | "taster"
+  | "sinew"
 >;
 
 /**
@@ -123,6 +124,10 @@ export const BOSS_MECHANICS = {
   },
   taster: {
     what: "The one boss that watches what you spend. A crest hangs across the top of the field and grows eleven blades out of itself, middle outward, and the blades are its health. Every blade takes its edge from whichever colour the pair has fired more of over the last thirty beats — and a blade is only struck off by the colour it is not. Its own colour thickens it instead, so the answer to a red edge is cyan, and the harder you lean on one colour the more of the fan you cannot touch. The column of a sheared blade is left soft and swallows a shot for nothing. The majority flipping re-edges every standing blade at once, until the crest itself is cut through four times — after which it can never taste again. With two blades left they fold over the body and refuse every single bolt: only the beam, held in the colour the fan is not, opens them.",
+    reach: "spawn",
+  },
+  sinew: {
+    what: "The one boss that asks how hard rather than when. A mass hangs over the middle column on a rope of six fibres, with a handle either side of it, and each of you pulls one handle down; the two pulls add into one sum, and the fibre being held parts when that sum sits inside a band for four beats. Only the pilot sees the band, and it narrows with every fibre gone; only the navigator sees the sum. A sum over the band snaps the fibre off the pair's hands and throws a rock out of the mass; a sum out of the band restarts the four beats. From the fourth fibre the rope creeps slack under a held hand, so the same pull reads less every beat until both hands come off and grip again. Each fibre parted sinks the mass a row and opens THE SLOW. The last fibre's band is one step under the rope's limit and its snap throws three rocks; when it parts the mass falls over four beats, and both handles swayed the same way walk it a column a beat — three columns clear of the middle and it lands beside the hull, fewer and it lands on it.",
     reach: "spawn",
   },
   undertow: {
