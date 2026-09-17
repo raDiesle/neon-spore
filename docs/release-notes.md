@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 2c6a393b — Mark the two timeout entries done
+
+Both landed in bfb0a35d. "Nine more tests spawn a child process under bun's five-second default" is closed with eight files capped and three of its nine already answered by `tools/test/repo-time.ts`, which landed the same afternoon it was written. "`shape-fit.test.ts` went red once under the sharded check, then green" asked which of two things it was, and the answer is in that commit: the clock, not a rest box that is not deterministic.
+
 ## 2026-09-17 · bfb0a35d — Eight test files get a cap that scales with the machine
 
 Every one of them spawns a child process, or does enough work of its own to sit near bun's five-second default, and none of them said anything about a timeout — so each was one busy machine away from a landing that is red for a reason the diff cannot cause, which teaches a session that a red check is something you run again. They take `setDefaultTimeout(loadedTimeout(n))` now, with `n` the milliseconds the file's heaviest case costs when it is the only thing running and the reason written beside it: 50 for `guard.test.ts`'s four payloads on the hook's stdin, 150 for `format-script.test.ts`'s three biome runs, 200 for `registry.test.ts`'s biome-per-case, 300 for `here.test.ts` and `supervise-stop.test.ts`, 1200 for `dev-stop.test.ts`'s wrangler, 2000 for `shape-fit.test.ts`.
