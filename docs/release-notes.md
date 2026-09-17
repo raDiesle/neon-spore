@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 194b4c8a — THE BATON's merged bead crosses the whole arm in eleven beats, an act a beat in turn
+
+The design's step 13 (`docs/spec/bosses-choreographed.md` §10). The merged bead's one flight out of the last socket is the crossing, `batonFinalBeats` (11) beats long, and it owes an act a beat: his trigger launches it, her shot of its colour is the next, his trigger the next, and each act flips the colour and locks the seat for the beat the other's act is due in. A beat that goes by without its act is a miss: the bead is back in the top socket and every socket of the arm is lit again. Eleven acts made and the bead drops out of the last socket as the pod the maw takes, with both locks opened so the catch is his. Two sounds, `boss.batonAct` and `boss.batonMissed`, out of the speech band; six tests; §11.18 argues the three departures. The bead is now drawn on the crossing as well as while passing — a fix to something wrong, since the flight would otherwise have been invisible.
+
 ## 2026-09-17 · eecd2c25 — Queue: names.test.ts times out under the full check's fifteen shards
 
 Found while landing the pod:husk-tell drop — shard 8 of 15 red on fourteen timeouts in a file the diff never touched, green alone in under a second.
