@@ -532,35 +532,6 @@ parting at its gap, the core spitting, the core going out from the centre
 outward. `sound-link-none.ts` is where a moment with no card on the sheet is
 named instead.
 
-## THE CRYSTAL's join is not visible from below, and it moves on a diagonal
-
-- **Found:** 2026-09-17, queue-four-from-the-owner
-- **Taken:** 2026-09-17, claude/queue-the-crystals-join-is-not-visible-from-below-and
-- **Files:** packages/render/src/crystal.ts, packages/render/src/crystal-craft.ts, packages/sim/src/crystal.ts, packages/sim/src/config-crystal.ts, packages/content/src/creatures-joined.ts
-
-The owner, 17 September 2026, on two separate things about the same body.
-
-**The colour is on the wrong side.** *"Right now middle top is only red or
-cyan, but we need to also colour the bottom of the ship middle in the same
-colour, because it is where the cannon must hit."* The canopy over the middle
-carries the join's colour (`drawCanopy` in `crystal-craft.ts`) and the
-underside does not — and the shot comes from underneath, so the one fact the
-picture has to tell a player aiming at it is the one fact they cannot see from
-where they are. A look the owner asked for by name, which is the first
-exemption.
-
-**The movement should be one axis at a time.** *"Change the animation so that
-it stays in a column, then quickly moves around two beats 2 tiles horizontal,
-then again vertical. So either vertical or horizontal."* Today it is THE
-CAROM's diagonal: `crystalCols: 1` and `crystalRows: 1` a beat through
-`crossField`, turning at the walls. What is asked for is a stepped crossing —
-fall straight for some beats, then two tiles sideways over two beats with no
-fall, then straight again — which is a different rule rather than a different
-pair of numbers, so `crystalCols`/`crystalRows` are replaced by how long each
-leg is. Changing where a three-tile body stands changes which lane the shield
-has to be armed under, so `crystal.test.ts` and the frame test both move with
-it, and the wave's one-sentence test has to still read true afterwards.
-
 ## THE CURTAIN is on the field and drawn nowhere
 
 - **Found:** 2026-09-17, claude/render-tests-draw-real-pixels
