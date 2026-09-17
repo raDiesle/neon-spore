@@ -242,29 +242,6 @@ printed, so the shard runner swallowing everything but the first failure's
 *name* is the other half of it (`tools/check/shard.ts`). Until one of those is
 fixed a rerun is the only tool, which is the habit these entries exist to stop.
 
-## Four drawn bosses still owe their rehearsal film
-
-- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Taken:** 2026-09-17, claude/queue-four-drawn-bosses-still-owe-their-rehearsal-film
-- **Where:** local
-- **Files:** `packages/content/test/scenes-prose.test.ts`, `packages/content/src/scenes.ts`, `packages/content/src/scene-script.ts`, `packages/content/src/scenes/`, `docs/spec/briefings.md`
-
-`STILL_PROSE` carries THE DIASTOLE, THE BATON, THE THROAT and THE UNDERTOW
-with a comment each saying the film is owed by the lane that draws the boss —
-and all four looks have landed (`bosses.md` §11.17–§11.20) without one. The
-excuse each comment gives is gone: the chambers, the arm, the gullet and the
-floor are on the field, so there is something to choreograph against.
-
-What to do: one film per boss under `scenes/`, written the way THE HUSK's and
-the other filmed bosses' were (a thumb on a named control, one seat at a time,
-`controlPress`), and the four names off `STILL_PROSE` as each lands — the test
-fails the other way for a film left on the list. THE UNDERTOW's is the plate
-bowing on player 1's screen alone (`showsUndertowBow`), the maw opened under
-the standing lobe on his, and the plate stood on a breach on hers; the seat
-split means it is shot twice and read as one lesson, which is THE HUSK's
-comment already. Four separate lanes, one boss each, in the order the sections
-are numbered.
-
 ## `bun run format` cannot fix what `bun run lint` reports about import order
 
 - **Found:** 2026-09-17, claude/boss-taster
