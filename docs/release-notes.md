@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · b30e534a — Every boss family's silent rows move to effects-spark-silent-boss.ts
+
+THE SINEW's lane had made the boss file for the four newest families and left the older seven — THE STARE, THE BATON, THE UNDERTOW, THE CANDLE, THE MIRROR, THE MAZE, THE FLEET — in `effects-spark-silent.ts`, which stood at 215. They go next door now, on the seam `effects-ingest-silent-boss.ts` already cut: every boss in the `-boss` file, every creature in the field's own list, so the next boss lands without rewording anybody's comment. `SILENT` still spreads the boss list in place, keeps its literal member types, and `isSilent` and `burstFor`'s `assertNever` are untouched; 152 and 145 lines.
+
 ## 2026-09-17 · 98937910 — THE CURTAIN's queue entry closes: the look landed at 2a78763c
 
 The entry said wave 74's curtain body was on the field and drawn nowhere. `curtain-draw.ts` has been in the tree since 2a78763c, `living-look.ts` sends the kind there, and `pixel-frame.test.ts`'s `LOOK_PENDING` is empty with a comment saying so — the pixel test passes for `theCurtain` on both seats. No code moved; the entry comes out of the queue.
