@@ -8160,3 +8160,5 @@ found again, because THE ORRERY's lane had added its own line to every one
 of them between this lane's commit and its landing: twenty-three files in
 conflict, each resolved by taking `main`'s copy and re-adding the candle's
 line under the orrery's.
+
+*Measured: 51 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
