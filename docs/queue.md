@@ -377,6 +377,7 @@ line when it is done; its header carries the list.
 ## A round's picture is under the guide's band on eight rehearsals
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-a-rounds-picture-is-under-the-guides-band-on-eig
 - **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/coord-grid.ts`, `packages/render/src/beatbox-marks.ts`, `packages/render/src/lost-shutters.ts`, `packages/render/src/round-header.ts`
 
 **The rest of a split, and the original entry's one-line answer — "`headerTop`
