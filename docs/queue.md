@@ -660,6 +660,7 @@ shows it. `bun run check` proves all of it.
 ## The lost screen is asked for more answers, and the ship has to read as damaged
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-the-lost-screen-is-asked-for-more-answers-and-th
 - **Where:** local
 - **Files:** `packages/render/src/lost-look.ts`, `packages/render/src/lost-blood.ts`, `packages/render/src/lost-shutters.ts`, `packages/render/src/lost-screen.ts`, `packages/render/src/breach-rend.ts`, `packages/render/src/breach-hammer.ts`, `packages/render/src/breach-look.ts`, `tools/versus/candidates/`, `tools/director/src/versus-pose.ts`
 
