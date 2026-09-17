@@ -356,40 +356,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A round's picture is under the guide's band on eight rehearsals
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-17, claude/queue-a-rounds-picture-is-under-the-guides-band-on-eig
-- **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/coord-grid.ts`, `packages/render/src/beatbox-marks.ts`, `packages/render/src/lost-shutters.ts`, `packages/render/src/round-header.ts`
-
-**The rest of a split, and the original entry's one-line answer — "`headerTop`
-at each site" — is wrong for all of it.** The first part landed on 16
-September 2026 (TORCH's call and THE MAGNET's, which hang off the siren and
-drop with it); the second is the entry above. What is left is not a readout in
-a header at all, and three different things were in one list:
-
-**A label glued to a body that happens to stand high.** THE BEATBOX's count at
-192,87, THE VEER's at 191,20, THE JAM's `LURE` at 293,25. `drawCount` in
-`beatbox-marks.ts` takes the mark's own centre, so a header clearance would
-tear each label off the thing it names.
-
-**A grid axis.** THE FLEET's chart — the row number at 381,86 and the square
-name at 347,83 — and THE WISP's coordinate grid, the row number at 3,83 and
-the whole letter row A..K at y 98, on three of its four pages.
-`drawFleetChart` already has a `leftCovered` that moves the numbers to the
-*other* edge; that was an answer while the plate was a corner and is not one
-now the band is full-width. An axis cannot drop without its grid.
-
-**A whole screen used as a page's subject.** BULB QUEEN, THE COIL, THE LURE
-and TORCH each have a page whose picture is the lost screen, which stamps WAVE
-LOST at 16% of the play height — 114,73.
-
-- **Answered:** 2026-09-17, by the owner — **A label on a body stays as it is**, glued to the thing it names; **a chart drops as a block** the way THE PULSE moves its header (`headerLift`); **the lost screen is drawn shrunk inside the page.**
-
-`packages/render/test/guide-plate-room.test.ts` was narrowed to the round's
-name and the run's line on the day this was found, and its header carries the
-same list — widen it back as each site is fixed.
-
 ## THE THROAT does not haul a pod, and step 10 of its design wants it to
 
 - **Found:** 2026-09-16, claude/neon-spore-boss-design-26ee5e
