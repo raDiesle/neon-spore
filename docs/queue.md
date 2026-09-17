@@ -638,33 +638,6 @@ parting at its gap, the core spitting, the core going out from the centre
 outward. `sound-link-none.ts` is where a moment with no card on the sheet is
 named instead.
 
-## A wave in the phone's list opens nothing — no details, no map
-
-- **Found:** 2026-09-17, queue-four-from-the-owner
-- **Taken:** 2026-09-17, claude/queue-a-wave-in-the-phones-list-opens-nothing-no-detai
-- **Files:** tools/director/src/mobile-menu.ts, tools/director/src/rail.ts, tools/director/src/rail-steps.ts, tools/director/src/director-phone.css
-
-The owner, 17 September 2026: *"when on mobile, I want to be able from the list
-of waves for each wave to directly open the wave details or map editor."*
-
-On a phone the director is three views — WAVE, GAME, MAP — switched from the
-header menu (`mobile-menu.ts`), and the wave list lives inside WAVE. Picking a
-wave in the rail changes the selection and leaves the view where it was, so
-getting from a wave to its map is: tap the wave, tap ≡, tap MAP. Three taps and
-two of them are the menu, which is the thing the menu exists to keep out of the
-way.
-
-What to do: give each row in the rail a way out on the row itself, so a wave
-and the view it should open in are one press. The two destinations the owner
-named are the two the phone already has — the wave's own fields, which is where
-WAVE lands, and the map — so this is routing rather than a new screen:
-`applyView` is exported-shaped already and the selection is `state.ts`'s. The
-open question a lane should answer in the commit is whether the row's main tap
-changes, or whether it keeps selecting and the row grows two small targets;
-the second is the safer default because the rail is also how a desk user
-scrolls the list, and it is the one that does not need `?view=` to stay
-honest.
-
 ## THE CRYSTAL's join is not visible from below, and it moves on a diagonal
 
 - **Found:** 2026-09-17, queue-four-from-the-owner
