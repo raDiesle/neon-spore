@@ -41,7 +41,7 @@ export interface VaneStage {
 }
 
 /**
- * The cycle, and the only place it is written. `docs/spec/transfers-bosses.md`
+ * The cycle, and the only place it is written. `docs/spec/bosses.md` §11.5
  * describes it and points here; `tools/director` renders this array rather than
  * a table typed beside it, so a retune shows up in the editor without anybody
  * remembering to go and change it.

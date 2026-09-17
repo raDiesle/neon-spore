@@ -35,7 +35,7 @@ export const WARDEN_COLS = 5;
  * the one figure that came back narrower than the drawing, and the thing that
  * narrowed it is the rule that page cares about more: *a unit is a rock at the
  * size the game already draws one*, not a boss-sized lump that shrinks on the
- * way out (`docs/spec/transfers-bosses.md`). The game's largest rock is the
+ * way out (`docs/spec/bosses.md` §11.11). The game's largest rock is the
  * two-tile one (`RockSize`), and seven of those stacked four, two and one come
  * to a little over five tiles across — so the pile is five columns wide or the
  * rocks are not rocks. The picture was kept and the number moved.

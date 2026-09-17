@@ -1,12 +1,21 @@
 # Choreographed bosses — A Way Out, read against this engine
 
-> **Status: not built, and nothing here is accepted.** Fifteen boss concepts
-> and a primitive library, written 16 September 2026 from the owner's brief for
-> encounters that read as *interactive action scenes* rather than arcade
-> fights, with Hazelight's A Way Out named as the reference. It is the third
-> boss-idea page: [transfers-bosses](transfers-bosses.md) mines Spaceteam and
-> Lovers in a Dangerous Spacetime, [bosses](bosses.md) holds the worked and
-> built designs, and this one mines a game that has **no enemies at all**.
+> **Status: all fifteen are in the game, and this page is now read for what is
+> left rather than for what to start.** They were written on 16
+> September 2026 from the owner's brief for encounters that read as
+> *interactive action scenes* rather than arcade fights, with Hazelight's A Way
+> Out named as the reference, and every one of them was built inside two days —
+> the ledger below names the lane, the wave and the §11 write-up for each.
+> The last of them, §12 THE ANTIPHON, finished on 17 September 2026. What is
+> unbuilt on this page is therefore no longer a concept; it is the *Not built*
+> clause at the end of a built concept's row, and the primitive library two
+> thirds down.
+>
+> It is the second boss-idea page rather than the third: the one that read the
+> same two reference games at boss scale was deleted on 17 September 2026 as
+> boss ideas older than the owner keeps.
+> [bosses](bosses.md) holds the worked and built designs, and this one mines a
+> game that has **no enemies at all**.
 >
 > The brief arrived with a twelve-card sheet drawn by another model. Four of
 > its premises need correcting against this engine and are corrected below by
@@ -15,6 +24,44 @@
 > (`docs/decisions.md` #33), which reversed this page's own first answer; six of its twelve cards are re-skins of
 > bosses already shipped and are [refused by name](#refused-by-name). What
 > survives is worth the page.
+
+## Contents
+
+The fifteen, by what is left to do rather than by the number each was
+written at. **The `§n` numbers are not in sequence down the page, on**
+**purpose:** `tools/director/src/ship-notes-choreo.ts` and half of
+[bosses](bosses.md)'s own write-ups cite a concept by its number, and
+reordering the page without keeping them would break every one of them.
+
+**Still in hand — the simulation landed, the look is not written**
+
+Nothing, since 17 September 2026: §12 THE ANTIPHON was the last, and its
+look landed the same day. What is unbuilt on this page is the *Not built*
+clause at the end of a built concept's ledger row, and the primitive
+library two thirds down.
+
+**Built — and what is left on each is in its row of the ledger below**
+
+- **[THE THROAT](#1-the-throat--what-you-feed-it)** · §1 — what you feed it
+- **[THE ORRERY](#2-the-orrery--whether-you-can-agree-on-when)** · §2 — whether you can agree on when
+- **[THE GORGE](#3-the-gorge--what-not-to-do)** · §3 — what not to do
+- **[THE TASTER](#4-the-taster--what-you-have-already-spent)** · §4 — what you have already spent
+- **[THE LEDGER](#5-the-ledger--whose-body-takes-it)** · §5 — whose body takes it
+- **[THE CURTAIN](#6-the-curtain--what-it-is-standing-in-front-of)** · §6 — what it is standing in front of
+- **[THE DIASTOLE](#7-the-diastole--two-clocks-at-once)** · §7 — two clocks at once
+- **[THE SINEW](#8-the-sinew--how-hard-not-when)** · §8 — how hard, not when
+- **[THE SURGE](#9-the-surge--whether-you-can-stop)** · §9 — whether you can stop
+- **[THE BATON](#10-the-baton--whose-turn-is-it)** · §10 — whose turn is it
+- **[THE LEAD](#11-the-lead--where-it-will-be)** · §11 — where it will be
+- **[THE ANTIPHON](#12-the-antiphon--describing-a-thing-that-has-no-name)** · §12 — describing a thing that has no name
+- **[THE UNDERTOW](#13-the-undertow--where-you-are-being-hit-from)** · §13 — where you are being hit from
+- **[THE CANDLE](#14-the-candle--whether-you-can-act-in-the-dark)** · §14 — whether you can act in the dark
+- **[THE SCUTTLE](#15-the-scuttle--a-boss-racing-you-to-its-own-death)** · §15 — a boss racing you to its own death
+
+**Neither** — [what the engine says back to the brief](#the-four-things-the-engine-says-back-to-the-brief),
+[the filter these had to pass](#the-filter-these-fifteen-had-to-pass),
+[refused by name](#refused-by-name),
+[the reusable boss mechanic library](#the-reusable-boss-mechanic-library).
 
 ## Who is building what, so two sessions do not collide
 
@@ -130,7 +177,7 @@ the hands instead of the eyes.** What is still forbidden is a single frame
 containing both hulls, and a gesture that needs to see the other thumb land.
 
 **2. A boss has no health bar, ever.** Every card on the sheet carries a
-`BOSS HP` meter across its top. [transfers-bosses](transfers-bosses.md#the-filter-on-top-of-the-other-five)
+`BOSS HP` meter across its top. [bosses](bosses.md#the-three-filters-a-boss-has-to-pass)
 already forbids it: *"Its health is its silhouette. Petals, plates, a pupil
 that ends up permanently wide. No bar, ever."* Each concept below therefore
 says what part of its outline goes away, and how many there are.
@@ -273,10 +320,9 @@ line below obeys that.
 ## The filter these fifteen had to pass
 
 [transfers](transfers.md#the-filter)'s five, then
-[transfers-bosses](transfers-bosses.md#the-filter-on-top-of-the-other-five)'s
-three — a fourth boss asks a fourth question, a boss holds a row or is a
-fixture, its health is its silhouette — and then two this page adds, both of
-which killed drafts:
+[bosses](bosses.md#the-three-filters-a-boss-has-to-pass)'s three — a fourth
+boss asks a fourth question, a boss holds a row or is a fixture, its health
+is its silhouette — and then two this page adds, both of which killed drafts:
 
 9. **A step is a `Command` or it does not exist.** A gesture that is not in
    `DragTarget` or `Hold["kind"]` is not a control, it is a wish
@@ -294,10 +340,10 @@ which killed drafts:
 One thing the brief asks for is refused outright by an existing design, and it
 is worth saying so rather than pretending the conflict away. *"Authored
 sequence, not player choice"* is the brief's loudest rule, and
-[THE TITHE](transfers-bosses.md#the-tithe--it-always-takes-something-you-choose-what)
-is a worked boss whose entire content is a choice made under a clock, three
-demands and two hands. Both are good. They are not the same boss and neither
-should be built as the other: a choreographed boss is a scene, a tithe is a
+THE TITHE — a boss whose entire content was a choice made under a clock,
+three demands and two hands — was the worked design that argued with it. It
+was deleted with its page on 17 September 2026 and the tension is worth
+keeping anyway, because the next boss that wants a choice will meet it: a choreographed boss is a scene, a tithe is a
 sentence about what you are willing to lose. This page builds the first kind.
 
 ## The fifteen
@@ -315,6 +361,8 @@ and none of those is under 900 ms (`guardWindowMs`, and the reason is in
 [roles](roles.md#the-raster-model)).
 
 ---
+
+### Built
 
 ### 1. THE THROAT — what you feed it
 
@@ -2020,7 +2068,9 @@ of it is worth starting, and all three are named rather than guessed at:
   picture triples at exactly the moment the drama peaks. It has to be
   re-derived against the rate, and whoever builds `Slow` owns that or the
   first window will feel broken rather than dramatic.
-- **How many of the fifteen are wanted.** [transfers-bosses](transfers-bosses.md)
-  already holds THE TITHE and THE WEIGHT unbuilt, [bosses](bosses.md) holds THE
-  MOTHER and THE VESSEL waiting on machinery, and the act structure has empty
-  slots rather than a shortage of designs. Fifteen more is a store, not a plan.
+- **Answered, and by building them.** Fourteen of the fifteen were built
+  inside two days of being written, so the question of how many were wanted
+  turned out to be *all of them*. What that leaves open is the reverse: the
+  act structure still has empty slots, and nothing on this page is queued to
+  fill one.
+

@@ -42,7 +42,7 @@ export interface BossConfig {
   /**
    * Rocks in the pile when a wave does not say. **Seven**, which is the number
    * the shape was drawn at: four, two and one, so the courses line up and
-   * the eye can count them without being told (`docs/spec/transfers-bosses.md`).
+   * the eye can count them without being told (`docs/spec/bosses.md` §11.11).
    * It is also the length of the fight — every unit is a body the pair has to
    * ward — and seven at the shed clock below is a little under a minute if
    * they do nothing at all, which is about as long as a boss in this game ever

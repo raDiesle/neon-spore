@@ -9713,3 +9713,29 @@ writing the test that now holds it, which is the only reason the re-authoring
 could be trusted.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — boss-pages-next — the choreographed page ordered, and a third boss page deleted
+
+The second of the three things asked for, and the one with the links in it.
+`bosses-choreographed.md` got `bosses.md`'s treatment — a `## Contents` menu
+and an ordering by state — and its status block stopped claiming nothing on it
+was built when every one of the fifteen is. §12 THE ANTIPHON was in hand when
+this was written and finished during the rebase, which is the whole argument
+for a page generated from `BOSS_KINDS` rather than kept by hand. Then `transfers-bosses.md` went whole, on
+the owner's answer: twenty-one links had to move first, and the three that were
+load-bearing are now `bosses.md`'s own `## The three filters a boss has to
+pass`. `bosses.md` also gained a group it should have had on the first pass —
+THE HIVE and THE ANTIPHON have a simulation and no look, which the first pass
+filed as *built*.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the ledger's sixteen rows against `BOSS_KINDS`, which bosses `render/` draws nothing for, the twenty-one link sites |
+| writing | 25 | two ordering scripts, the three filters, the status blocks, twelve code comments, `weightCrushMs`'s home in the bestiary |
+| looking | 0 | nothing drawn |
+| friction | 20 | a hook refused a heredoc with doubled backslashes, so the script went through the Write tool; a first regroup swallowed the group headings into the section bodies; deleting the page orphaned `weightCrushMs`, which only that page had named; THE ANTIPHON's look landed mid-lane and both orderings had to be re-applied |
+| landing | 10 | `bun run index`, `check:fast` three times, the commit, the rebase onto a boss that finished under it |
+
+The bottleneck was the link sites: a page nobody reads is still cited by nine
+files in `sim`, and each citation had to be read to know whether it wanted THE
+VANE's write-up, THE CAIRN's, or the filter it was really standing on.

@@ -993,7 +993,7 @@ condition that makes the objection wrong:
 
 **He is right, and the refusal conflated two different things.** What cannot
 exist is a *tempo bend*: the beat meaning something different on one phone than
-on the other, which is what [The Conductor (30)](spec/transfers-bosses.md) was
+on the other, which is what The Conductor (30) was
 deferred for and what `docs/spec/latency.md` protects. A **symmetric slow** is
 the opposite of that. The pair counts beats, both of them count the same ones,
 and a beat that takes three times as long in wall clock means the voice delay

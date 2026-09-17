@@ -128,7 +128,11 @@ its pulls on both phones, so each player can read a thumb they cannot see and
 what the pair has to say is *which balloon*. A weight brightens under your own
 thumb and on nothing your partner is shown, so there is nothing to read and
 nothing to infer — and the only thing that gets two thumbs onto one body at once
-is one of you counting it out loud (`sim/weight.ts`).
+is one of you counting it out loud (`sim/weight.ts`). Its one number is
+`weightCrushMs`, 600 ms: how long both hands have to be on it before it gives,
+a little under a beat at 96 BPM on purpose, so *on the three* buys the press
+and a press that outlasted a beat would be a stopwatch rather than a moment the
+two of them agree on (`sim/config-weight.ts`).
 
 **THE CAIRN is the first boss the table sorts as `shield`, and that is the
 whole of what it is.** Nothing fired reaches the pile and nothing fired is

@@ -41,7 +41,6 @@ and record why in `docs/decisions.md`.
 | [transfers.md](transfers.md) | what the two reference games do, and what of it survives the trip | not built |
 | [transfers-hazelight.md](transfers-hazelight.md) | It Takes Two and Split Fiction: what a co-op game made of short rounds has to say to this one | not built |
 | [interludes.md](interludes.md) | a round that is not the field — what one is, where it sits, what failing costs | not built |
-| [transfers-bosses.md](transfers-bosses.md) | the same two games at boss scale, and a picture for each act slot | not built |
 | [bosses-choreographed.md](bosses-choreographed.md) | A Way Out at boss scale: an authored scene instead of a loop, fifteen concepts and the primitives they share | not built |
 
 ## What is not here

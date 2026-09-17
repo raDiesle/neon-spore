@@ -20,7 +20,7 @@ import {
 import { colSpan } from "../src/types.js";
 
 /**
- * THE VANE's cycle, held to the promises `docs/spec/transfers-bosses.md` makes
+ * THE VANE's cycle, held to the promises `docs/spec/bosses.md` §11.5 makes
  * about it — the ones a pair has to be able to learn on their first turn.
  *
  * Everything here is arithmetic on a beat count, so it needs no world at all.

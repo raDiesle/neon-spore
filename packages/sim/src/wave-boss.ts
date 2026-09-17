@@ -83,7 +83,7 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
   } else if (boss?.kind === "vane") {
     // No creature and no row. THE VANE hangs off the top edge rather than
     // standing on the grid, so there is nothing of it for the fall loop, the
-    // hull or a hand to find (docs/spec/transfers-bosses.md).
+    // hull or a hand to find (docs/spec/bosses.md §11.5).
     world.boss = installVane(world, boss);
   } else if (boss?.kind === "well") {
     // Less than any of them: no creature, no row, no state and no rule. THE

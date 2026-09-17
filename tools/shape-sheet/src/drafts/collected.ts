@@ -4,8 +4,10 @@ import { LURCH, SHIVER, TOLL, TWITCH } from "../motions.js";
 
 /**
  * The three bosses collected by reading Spaceteam and Lovers in a Dangerous
- * Spacetime at boss scale — `docs/spec/transfers-bosses.md`, section
- * "Collected" — rather than by working forward from the idea store.
+ * Spacetime at boss scale rather than by working forward from the idea store.
+ * The page that collected them was deleted on 17 September 2026; two of the
+ * three were built by then (THE VANE, THE CAIRN) and the third, THE TITHE,
+ * is a shape with no design left behind it.
  *
  * They are filed apart from `bosses.ts` because they came from somewhere else,
  * and because that file is the Warden plus the encounters that lost the slot

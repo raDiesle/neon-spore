@@ -232,8 +232,11 @@ round.
 
 Nothing was promoted as a boss either, and that was this page's blind spot
 rather than a finding — a boss is where a shape is spent, and both games keep
-their best pictures at that size. [transfers-bosses](transfers-bosses.md) fills
-it in, and promoted three more.
+their best pictures at that size. A page of its own filled that in on 27
+August 2026 and promoted three more — THE VANE, THE CAIRN and THE WEIGHT,
+all three since built — and was deleted on 17 September 2026 once the rest
+of it was boss ideas older than the owner keeps. What outlived it is in
+[bosses](bosses.md#the-three-filters-a-boss-has-to-pass).
 
 ## Refused, with the reason
 

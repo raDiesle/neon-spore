@@ -166,7 +166,7 @@ function letGo(world: World, body: Creature, b: CairnState, col: number): void {
     // **The two-tile rock, which is the one the pile is stacked from.** A unit
     // is drawn at `rockRadius(l, 2)` and leaves at the same width, so nothing
     // shrinks on the way out — the whole fiction rests on the parts being
-    // ordinary rocks before anything is pulled (`docs/spec/transfers-bosses.md`),
+    // ordinary rocks before anything is pulled (`docs/spec/bosses.md` §11.11),
     // and a lump that halved as it came away would say the opposite.
     span: 2,
     col: clampSpanCol(col, world.cfg.cols, 2),

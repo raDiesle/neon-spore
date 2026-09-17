@@ -27,7 +27,7 @@ import type { World } from "./world.js";
  * space, and hands them the only thing that works: a column named against the
  * arm rather than against the grid.
  *
- * `docs/spec/transfers-bosses.md` is the design, `vane-cycle.ts` is the
+ * `docs/spec/bosses.md` §11.5 is the design, `vane-cycle.ts` is the
  * clock and `vane-arm.ts` is the fold in columns; this is only what moves.
  */
 

@@ -39,8 +39,9 @@ export const BOSS_SCENES: Scene[] = [
    * before it forces, so the sequence is the argument: sinking costs nothing
    * and wins nothing, holding costs everything and wins nothing, and the only
    * thing that wins is the state the pair least wants to be in.
-   * `docs/spec/transfers-bosses.md` is the prose; these are the pictures it
-   * refers to.
+   * The prose was on the page that read Spaceteam and Lovers
+   * at boss scale, deleted on 17 September 2026; these are the pictures it
+   * referred to, and they outlive it.
    */
   {
     role: "p1",

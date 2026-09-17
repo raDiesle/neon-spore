@@ -176,7 +176,7 @@ function sweep(world: World, b: Bullet): boolean {
   // and THE DIASTOLE's twin lobe, the two things in the game that are not on
   // the grid at all. Every other shot that gets here is simply spent; both
   // calls are no-ops unless their own boss is installed and its own window is
-  // open (docs/spec/transfers-bosses.md, `diastole.ts`).
+  // open (docs/spec/bosses.md §11.5, `diastole.ts`).
   if (to < 0) {
     vaneStruck(world, b);
     diastoleStruck(world, b, world.beat);

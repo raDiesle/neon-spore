@@ -2,7 +2,8 @@ import { describe, expect, it } from "bun:test";
 import { CATALOGUE } from "../src/catalogue.js";
 
 /**
- * The three bosses collected in `transfers-bosses.md`, and the two claims
+ * The three bosses collected at boss scale from the two reference games, and
+ * the two claims
  * their drawings make that an eye cannot settle.
  *
  * `drafts.test.ts` already proves every shape in the catalogue is *drawn* — no

@@ -33,7 +33,7 @@ import { colSpan } from "../src/types.js";
  * and most of what is checked here is that sentence staying true and staying
  * the *only* one. A field that moved a second time, or moved something already
  * standing on it, would not be a harder boss, it would be a radar the pair
- * cannot believe, and `docs/spec/transfers-bosses.md` says that is the failure
+ * cannot believe, and `docs/spec/bosses.md` §11.5 says that is the failure
  * mode this design is one edit away from.
  */
 
