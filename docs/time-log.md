@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-hints — the other six bosses, and what the cue must not say
+
+The second half of #34's picture: THE THROAT, THE LEDGER, THE LEAD, THE
+SCUTTLE, THE DIASTOLE and THE ORRERY. Half the work was deciding where the cue
+has to stay **silent** — all six are fights whose difficulty is a number the
+pair says out loud, and a word on the right beat would answer it — so three of
+the eleven new cases assert that nothing is drawn at all.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | six design headers, their states, and each one's `showsX` split — the question every time was which half of the picture this seat was given |
+| writing | 35 | `boss-cue-read-c.ts`, the switch that replaced the narrower chain, `BossCue.framed`, two geometry exports (`diastoleY`, `scuttleLockBox`), eleven cases, the spec's second table |
+| looking | 10 | THE SCUTTLE twice: the first frame drew a second lock over the one her screen already had, and the word landed inside it |
+| friction | 5 | an unused parameter warning and `bun run crop` refusing a fractional zoom |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the picture, and it earned its ten minutes: nothing in the
+code could have told me THE SCUTTLE already wears a target lock on exactly the
+column the cue wanted to mark. One frame, and the fix — `framed: false`, borrow
+the box that is already there — is now the rule for every boss that marks its
+own places.
+
 ## 2026-09-17 — boss-hints — the field says one word, on six bosses
 
 `decisions.md` #34 turned into a picture. A pure reading of `World` —

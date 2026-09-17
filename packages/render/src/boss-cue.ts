@@ -1,14 +1,14 @@
 import type { World } from "@neon-spore/sim";
-import {
-  batonBoss,
-  candleBoss,
-  curtainBoss,
-  gorgeBoss,
-  tasterBoss,
-  undertowBoss,
-} from "@neon-spore/sim";
 import { candleCues, curtainCues, gorgeCues } from "./boss-cue-read.js";
 import { batonCues, tasterCues, undertowCues } from "./boss-cue-read-b.js";
+import {
+  diastoleCues,
+  leadCues,
+  ledgerCues,
+  orreryCues,
+  scuttleCues,
+  throatCues,
+} from "./boss-cue-read-c.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";
@@ -78,6 +78,15 @@ export interface BossCue {
   /** Spreads the frame's interference, so two cues in a wave are not one
    * object blinking (`target-lock.ts`). */
   seed: number;
+  /**
+   * Whether the cue draws its own scan frame. `false` where the boss's own
+   * picture already puts one around this place — THE SCUTTLE locks the column
+   * of the next throw on the navigator's screen — because a second frame
+   * around one place is exactly the four-pictures-for-one-idea mistake
+   * `target-lock.ts` records the owner ending. The half-extents are still
+   * read: they are what the two lines of text are hung off.
+   */
+  framed?: boolean;
 }
 
 /** Whether this screen is the one being asked. */
@@ -88,27 +97,55 @@ export function cueSeen(cue: BossCue, role: ViewRole): boolean {
 
 const NONE: readonly BossCue[] = [];
 
-/** Every cue this boss would give, most urgent first. */
-function cuesOf(l: Layout, world: World, skinY: SurfaceY): readonly BossCue[] {
-  if (world.boss === null) return NONE;
-  const candle = candleBoss(world);
-  if (candle !== null) return candleCues(l, world, candle);
-  const gorge = gorgeBoss(world);
-  if (gorge !== null) return gorgeCues(l, world, gorge);
-  const curtain = curtainBoss(world);
-  if (curtain !== null) return curtainCues(l, world, curtain);
-  const taster = tasterBoss(world);
-  if (taster !== null) return tasterCues(l, world, taster);
-  const undertow = undertowBoss(world);
-  if (undertow !== null) return undertowCues(l, world, undertow, skinY);
-  const baton = batonBoss(world);
-  if (baton !== null) return batonCues(l, world, baton);
-  return NONE;
+/**
+ * Every cue this boss would give, most urgent first.
+ *
+ * A switch on the kind rather than the twelve `xxxBoss` narrowers next door in
+ * `packages/sim`: `boss-draw-clocks.ts` reads the union exactly this way, and
+ * twelve imported guards whose whole body is `boss.kind === "x"` would be the
+ * same list written twice.
+ */
+function cuesOf(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): readonly BossCue[] {
+  const boss = world.boss;
+  if (boss === null) return NONE;
+  switch (boss.kind) {
+    case "candle":
+      return candleCues(l, world, boss);
+    case "gorge":
+      return gorgeCues(l, world, boss);
+    case "curtain":
+      return curtainCues(l, world, boss);
+    case "taster":
+      return tasterCues(l, world, boss);
+    case "undertow":
+      return undertowCues(l, world, boss, skinY);
+    case "baton":
+      return batonCues(l, world, boss);
+    case "throat":
+      return throatCues(l, world, boss, beatPhase);
+    case "ledger":
+      return ledgerCues(l, world, boss, beatPhase);
+    case "lead":
+      return leadCues(l, world, boss);
+    case "scuttle":
+      return scuttleCues(l, world, boss);
+    case "diastole":
+      return diastoleCues(l, world, boss);
+    case "orrery":
+      return orreryCues(l, world, boss);
+    default:
+      return NONE;
+  }
 }
 
 /** The one cue this screen is owed on this frame, or nothing. */
-export function bossCue(l: Layout, world: World, skinY: SurfaceY): BossCue | null {
-  for (const cue of cuesOf(l, world, skinY)) {
+export function bossCue(
+  l: Layout,
+  world: World,
+  beatPhase: number,
+  skinY: SurfaceY,
+): BossCue | null {
+  for (const cue of cuesOf(l, world, beatPhase, skinY)) {
     if (cueSeen(cue, l.role)) return cue;
   }
   return null;

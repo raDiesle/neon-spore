@@ -2125,11 +2125,40 @@ own dinner.
 | THE UNDERTOW | `OPEN` (hold) on a standing lobe, `MOVE` (carry) off a seat that has come up under him | `BURN` (hold) on a tall lobe, `MOVE` (carry) off a shield keeping the maw out |
 | THE BATON | `LAUNCH` (press) on the bead that is sitting | `FIRE` (press) on the bead in the air |
 
-**Not yet:** the other choreographed bosses — THE THROAT, THE LEDGER, THE LEAD,
-THE SCUTTLE, THE DIASTOLE, THE ORRERY — and the kind line over the handle hints
-THE SINEW, THE SURGE and THE ANTIPHON already draw (`handle-draw.ts` says the
-verb and not the grammar). And the other half of #34: the rehearsal pages that
-exist only to name a gesture the fight now names have not been pruned yet.
+The other six followed the same day (`boss-cue-read-c.ts`), and **half of what
+that file does is keep quiet**: these are the fights whose difficulty is a
+number the pair says out loud, so the cue names the moment a *verb changes* and
+never the number.
+
+| Boss | The pilot is told | The navigator is told |
+|---|---|---|
+| THE THROAT | `FLING` (carry) on a gum still on the field — the one verb in the game that exists nowhere else | nothing |
+| THE LEDGER | `GUARD` (press) on the return coming down the cord, which is his half of the picture | `MOVE` (carry) onto the socket, and only while the plate is not already there |
+| THE LEAD | nothing | `BURN` (hold) on the last pass, when the trigger has quietly stopped working |
+| THE SCUTTLE | nothing | `FIRE` (press) on the live part, and `BURN` (hold) on the wind-up |
+| THE DIASTOLE | nothing | `BURN` (hold) from the beat a single-chamber hit stops landing |
+| THE ORRERY | nothing | `BURN` (hold) once every ring is off |
+
+**Three silences are load-bearing and each has a test of its own.** THE ORRERY
+says nothing while its rings turn — a word on the beat the shaft opens would
+*be* the boss. THE DIASTOLE says nothing about either count. THE LEDGER says
+nothing about the last return, which is the one bill the pair must not answer
+and the payoff the whole fight trains them for. `decisions.md` #34's own
+*reconsider if* is what those cases hold shut.
+
+**And THE SCUTTLE draws no frame**, because her screen already locks the column
+the next throw lands in: the cue borrows that box and adds the word. That is
+what `BossCue.framed` is for, and it is the right default for any boss whose
+own picture already marks the place.
+
+**Not yet.** The handle bosses — THE SINEW, THE SURGE, THE ANTIPHON — are
+deliberately left alone: `handle-draw.ts` already writes `PULL`, `HOLD` and
+`TURN` beside each handle while it is unheld, and those words are the verb and
+the kind at once. A kind line reading `CARRY` over `PULL`, or `HOLD` over
+`HOLD`, is a second line saying the first one again, and #34 asks for one word
+and not for a form to fill in. What is genuinely left is the other half of
+#34: the rehearsal pages that exist only to name a gesture the fight now names
+have not been pruned.
 
 ### The brief's own worked encounter, read against this engine
 

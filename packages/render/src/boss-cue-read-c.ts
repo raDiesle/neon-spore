@@ -1,0 +1,214 @@
+import {
+  type DiastoleState,
+  diastoleBridgeCol,
+  gumIsFlung,
+  type LeadState,
+  type LedgerState,
+  leadPassing,
+  ledgerNext,
+  ledgerPhase,
+  type OrreryState,
+  type ScuttleState,
+  scuttleShootable,
+  scuttleSocketCol,
+  scuttleWinding,
+  type ThroatState,
+  type World,
+} from "@neon-spore/sim";
+import type { BossCue } from "./boss-cue.js";
+import { creatureCenter } from "./creature-place.js";
+import { diastoleY } from "./diastole-draw.js";
+import { type Layout, tileCX } from "./layout.js";
+import { leadRidgeY } from "./lead-shape.js";
+import {
+  ledgerBeadU,
+  ledgerCordAt,
+  ledgerRootPoint,
+  ledgerSocketPoint,
+  ledgerTaut,
+} from "./ledger-shape.js";
+import { orreryCorePoint } from "./orrery-shape.js";
+import { scuttleLockBox } from "./scuttle-draw.js";
+import { scuttleRowY } from "./scuttle-shape.js";
+
+/**
+ * **What THE THROAT, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE and THE
+ * ORRERY are asking for** — page three of the readings, on the seam the two
+ * before it draw.
+ *
+ * These six are the older half of the choreographed page and the half whose
+ * whole difficulty is a **number the pair says out loud**: which beat the gaps
+ * line up, where the cord will root next, where the body will be when the shot
+ * gets there. So the rule that decides almost every line below is #34's third:
+ * **it says the verb and never the answer.**
+ *
+ * That is why three of them are quieter than their fights are busy. THE ORRERY
+ * is told nothing at all while its rings turn — a word appearing on the beat
+ * the shaft opens would *be* the boss, and there would be nothing left to
+ * agree about. THE DIASTOLE says nothing about either count. THE LEAD says
+ * nothing about where the body will be. What each of them is given instead is
+ * the moment its **verb changes** and nothing on the panel says so: the
+ * trigger stops working and only the beam lands. A pair that has learned the
+ * fight needs that sentence once and never needs to be told the number.
+ */
+
+/** THE CHOIR's frame, in tiles, and the lift a mark takes over a hull line. */
+const HALF_W = 0.72;
+const HALF_H = 0.66;
+
+function markAt(
+  seat: BossCue["seat"],
+  kind: BossCue["kind"],
+  word: string,
+  x: number,
+  y: number,
+  l: Layout,
+  seed: number,
+  wide = 1,
+): BossCue {
+  return { seat, kind, word, x, y, halfW: l.tile * HALF_W * wide, halfH: l.tile * HALF_H, seed };
+}
+
+/**
+ * THE THROAT. One word, and it is the one verb in this game that exists
+ * nowhere else: the gum is **thrown into the mouth**, and a pair meeting this
+ * boss with the habit of eleven acts behind them will shoot it instead.
+ *
+ * The pilot's, because the fling is his — the row the gum is on when his thumb
+ * lifts is the line it flies along (`gum.ts`) — and the mark is on the gum,
+ * which is an ordinary body on the field and drawn to both screens. It says
+ * nothing about *when*, which is the arithmetic sentence this fight is: a gum
+ * falls a row a beat, the mouth steps a column a beat, and which beat to let
+ * go is theirs.
+ */
+export function throatCues(
+  l: Layout,
+  world: World,
+  _b: ThroatState,
+  beatPhase: number,
+): readonly BossCue[] {
+  for (const c of world.creatures) {
+    if (c.kind !== "gum" || gumIsFlung(c)) continue;
+    const at = creatureCenter(l, world, c, beatPhase);
+    return [markAt(1, "CARRY", "FLING", at.x, at.y, l, 51)];
+  }
+  return [];
+}
+
+/**
+ * THE LEDGER. The fight is *act, consequence, answer the consequence*, and
+ * both halves of the answer are cued because neither seat's half is on the
+ * panel.
+ *
+ * `GUARD` stands on the return coming down the cord, which is **the pilot's**
+ * picture (`showsLedgerBead`) and the beat he has to press on. `MOVE` stands
+ * on the socket, which is **hers** (`showsLedgerSocket`), and only while the
+ * plate is not already in that column — a word over a shield that is standing
+ * where it should be is a word that teaches the pair to stop reading it.
+ *
+ * **The last return is not cued at all**, and that is deliberate: the one
+ * moment this fight is built for is the bill the pair must *not* answer
+ * (`ledgerLetThrough`), and a field that said so would take the payoff of ten
+ * minutes' training and hand it over in a word.
+ */
+export function ledgerCues(
+  l: Layout,
+  world: World,
+  t: LedgerState,
+  beatPhase: number,
+): readonly BossCue[] {
+  const cfg = world.cfg;
+  const phase = ledgerPhase(t, cfg, world.beat);
+  if (phase === "out" || phase === "rooting") return [];
+  const next = ledgerNext(t);
+  if (next === null || next.last) return [];
+  const out: BossCue[] = [];
+  if (world.shieldCol !== t.socket) {
+    const at = ledgerSocketPoint(l, t);
+    out.push(markAt(2, "CARRY", "MOVE", at.x, at.y, l, 52));
+  }
+  const from = ledgerRootPoint(l, cfg, t);
+  const to = ledgerSocketPoint(l, t);
+  const u = ledgerBeadU(next, world.beat, beatPhase);
+  const bead = ledgerCordAt(l, from, to, ledgerTaut(cfg, t), 0, u);
+  out.push(markAt(1, "PRESS", "GUARD", bead.x, bead.y, l, 53));
+  return out;
+}
+
+/**
+ * THE LEAD. Silent for the whole of the fight it is named for — *where it will
+ * be* is a number the pair computes out of her column and his lean, and a cue
+ * anywhere near it would be the arithmetic done for them.
+ *
+ * One word, on the pass: with one segment left the body stops dead, then runs
+ * for the wall, and **only the beam standing in its column** ends it. Nothing
+ * on the panel says that the trigger has stopped working, and a pair firing
+ * ordinary shots at a body that cannot be hurt by them is a pair who thinks
+ * they are missing.
+ */
+export function leadCues(l: Layout, _world: World, s: LeadState): readonly BossCue[] {
+  if (!leadPassing(s)) return [];
+  return [markAt(2, "HOLD", "BURN", tileCX(l, s.col), leadRidgeY(l).mid, l, 54)];
+}
+
+/**
+ * THE SCUTTLE. A boss racing the pair to its own death, so both of its words
+ * are about **the window**, never about which socket: the live part is the
+ * navigator's own picture (`showsScuttleLive`) and it is the only thing a shot
+ * can strike, so a mark on it says *now* and nothing she was not already shown.
+ *
+ * `BURN` replaces it for the last part, which is not thrown at all — the frame
+ * winds up, and only the beam standing in that column before the throw ends
+ * the fight. The verb changing is the whole of what the cue is for.
+ */
+export function scuttleCues(l: Layout, world: World, s: ScuttleState): readonly BossCue[] {
+  if (s.downBeat >= 0) return [];
+  const cfg = world.cfg;
+  if (scuttleWinding(s)) {
+    const i = s.parts.findIndex((p) => p !== null);
+    if (i < 0) return [];
+    return [
+      markAt(2, "HOLD", "BURN", tileCX(l, scuttleSocketCol(cfg, i)), scuttleRowY(l, cfg, i), l, 55),
+    ];
+  }
+  if (!scuttleShootable(s)) return [];
+  // **No frame of its own.** Her screen already locks the column the next
+  // throw lands in (`scuttle-draw.ts`), which is the live part's own column,
+  // so the cue borrows that box and adds the one thing it does not say.
+  const box = scuttleLockBox(l, cfg, s);
+  if (box === null) return [];
+  return [{ seat: 2, kind: "PRESS", word: "FIRE", ...box, seed: 56, framed: false }];
+}
+
+/**
+ * THE DIASTOLE. Two counts, one each, and neither is ever cued — that is the
+ * boss, and `diastole-bridge.ts` already refuses to say when the coincidence
+ * is for the same reason.
+ *
+ * What is cued is the sentence the fight turns on: from the beat the right
+ * chamber wakes, **a single-chamber hit stops landing** and only the beam in
+ * the bridge's column takes anything at all. The bridge is the one part of
+ * this body both screens read the same, so the mark is on it, and the word is
+ * hers because the lance is filled by holding a colour.
+ */
+export function diastoleCues(l: Layout, world: World, b: DiastoleState): readonly BossCue[] {
+  if (b.phase !== "two" && b.phase !== "alone") return [];
+  const x = tileCX(l, diastoleBridgeCol(world.cfg));
+  return [markAt(2, "HOLD", "BURN", x, diastoleY(l), l, 57)];
+}
+
+/**
+ * THE ORRERY. **Nothing while the rings turn.** The fight is which beat every
+ * gap stands at the bottom at once, neither seat can see all three rings, and
+ * a cue that lit on the open beat would answer the only question this boss
+ * asks. `orreryShaftOpen` is deliberately not read in this file.
+ *
+ * One word, once every ring is off: the core underneath takes nothing but the
+ * lance (`orrery-shot.ts`). The rings are gone by then, so there is no longer
+ * a prediction to spoil — what is left is a verb the panel does not name.
+ */
+export function orreryCues(l: Layout, world: World, b: OrreryState): readonly BossCue[] {
+  if (b.phase !== "naked") return [];
+  const at = orreryCorePoint(l, world.cfg);
+  return [markAt(2, "HOLD", "BURN", at.x, at.y, l, 58)];
+}

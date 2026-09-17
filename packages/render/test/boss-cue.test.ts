@@ -71,13 +71,13 @@ function opened(kind: Parameters<typeof waveWith>[0], beats = 1): World {
 /** The word this seat is given, or nothing. */
 function word(world: World, role: ViewRole): string | null {
   const l = LAYOUT[role];
-  return bossCue(l, world, HULL(l))?.word ?? null;
+  return bossCue(l, world, 0, HULL(l))?.word ?? null;
 }
 
 /** The whole cue this seat is given. */
 function cue(world: World, role: ViewRole): BossCue | null {
   const l = LAYOUT[role];
-  return bossCue(l, world, HULL(l));
+  return bossCue(l, world, 0, HULL(l));
 }
 
 function boss<T>(found: T | null, what: string): T {

@@ -66,6 +66,15 @@ function squeeze(b: DiastoleState, beat: number, beatPhase: number, side: Diasto
   return f * f * f;
 }
 
+/**
+ * The line both chambers and the bridge hang on. Exported for the cue, which
+ * stands on the bridge and must stand on it exactly (`boss-cue.ts`): a second
+ * copy of this shelf would drift off the picture the first time it moved.
+ */
+export function diastoleY(l: Layout): number {
+  return tileCY(l, 0) - l.tile * HANG;
+}
+
 export function drawDiastole(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -75,7 +84,7 @@ export function drawDiastole(
   beatPhase: number,
   time: number,
 ): void {
-  const y = tileCY(l, 0) - l.tile * HANG;
+  const y = diastoleY(l);
   drawBridge(ctx, l, cfg, b, y, beat, beatPhase, time);
   for (const side of DIASTOLE_SIDES) {
     drawChamber(ctx, l, cfg, b, side, y, beat, beatPhase, time);

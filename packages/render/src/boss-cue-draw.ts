@@ -44,14 +44,18 @@ export function drawBossCue(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   world: World,
+  beatPhase: number,
   time: number,
   /** The plating without the cannon on it, for the one boss whose marks stand
    * on lobes coming up through it (`undertow-lobe.ts`). */
   skinY: SurfaceY = () => l.hullY,
 ): void {
-  const cue = bossCue(l, world, skinY);
+  const cue = bossCue(l, world, beatPhase, skinY);
   if (cue === null) return;
-  drawTargetLock(ctx, cue.x, cue.y, cue.halfW, cue.halfH, PALETTE.rock, time, 0.85, cue.seed);
+  // Only where nothing already marks the place: `BossCue.framed`.
+  if (cue.framed !== false) {
+    drawTargetLock(ctx, cue.x, cue.y, cue.halfW, cue.halfH, PALETTE.rock, time, 0.85, cue.seed);
+  }
   ctx.save();
   ctx.textAlign = "center";
   ctx.fillStyle = PALETTE.rock;

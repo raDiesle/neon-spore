@@ -186,6 +186,31 @@ function drawLivePart(
   strokeGlow(ctx, p, faded(rim, fade), STROKE.outline, (0.8 + 0.2 * Math.sin(time * 6)) * fade);
 }
 
+/**
+ * **Where the lock on the next throw's column stands**, or null when nothing
+ * hangs — the box, not the drawing.
+ *
+ * Exported because the cue hangs its word off this exact box (`boss-cue.ts`):
+ * this screen already wears a frame around the place, and a second frame
+ * around the same place is the mistake `target-lock.ts` records the owner
+ * ending. So the cue draws no frame here and only says the verb, which means
+ * it has to know where the frame it is borrowing actually is.
+ */
+export function scuttleLockBox(
+  l: Layout,
+  cfg: SimConfig,
+  s: ScuttleState,
+): { x: number; y: number; halfW: number; halfH: number } | null {
+  const col = scuttleNextCol(s, cfg);
+  if (col < 0) return null;
+  return {
+    x: tileCX(l, col),
+    y: l.gridTop - l.tile * 0.12,
+    halfW: l.tile * 0.46,
+    halfH: l.tile * 0.22,
+  };
+}
+
 /** The lock on the column the next throw lands in, dimmed while nothing hanging can be shot. */
 function drawLock(
   ctx: CanvasRenderingContext2D,
@@ -195,18 +220,18 @@ function drawLock(
   time: number,
   fade: number,
 ): void {
-  const col = scuttleNextCol(s, cfg);
-  if (col < 0) return;
+  const box = scuttleLockBox(l, cfg, s);
+  if (box === null) return;
   const hot = scuttleShootable(s) && !scuttleWinding(s);
   drawTargetLock(
     ctx,
-    tileCX(l, col),
-    l.gridTop - l.tile * 0.12,
-    l.tile * 0.46,
-    l.tile * 0.22,
+    box.x,
+    box.y,
+    box.halfW,
+    box.halfH,
     PALETTE.shieldRim,
     time,
     (hot ? 1 : 0.5) * fade,
-    col + 7,
+    scuttleNextCol(s, cfg) + 7,
   );
 }
