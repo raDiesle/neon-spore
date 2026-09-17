@@ -344,6 +344,7 @@ what the rest of this file holds.
 ## The balloon's pop now falls harder than a struck body's break
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-the-balloons-pop-now-falls-harder-than-a-struck
 - **Files:** `packages/render/src/balloon-burst.ts`,
   `packages/render/src/break-look.ts`,
   `packages/render/test/balloon-burst.test.ts`
