@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · bb01b142 — THE UNDERTOW's taken plate is a hole in the hull's outline, and a cannon slid off in time closes the plate
+
+The two columns a tall lobe takes (`Scar.plate`) were drawn as the crack every scar is. Now they are a gap: the rim is cut out over them the way it is over a crater's mouth, the ship's deepest colour fills to a jittered floor, and the rim colour runs down both walls and along it, so the outline visibly dips two columns (`plate-gap.ts`, `hull.ts`, `scars.ts`). A look with no shipped alternative.
+
 ## 2026-09-17 · feb3b703 — THE UNDERTOW's tall lobe takes the plate with it: two columns of hull gone, marked on the scar and hashed
 
 A tall lobe withdrawing untaken no longer tears the plating, it takes it — its own column's and the neighbour's (`undertowPlateBeside`, the same rule the widening uses for which column is next door) — and the scar it leaves carries `Scar.plate`, the plating gone rather than cracked, for the rest of the run. The design's steps 9 and 10: the hull four columns shorter after the hard phase. It is in the hash through `scarHashParts`, and the `undertowScar` event says `tall`. The first of two halves; the picture — a hole in the outline rather than a crack — is the second.
