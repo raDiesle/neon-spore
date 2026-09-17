@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 7286b64f — One list of what a guard never reads, so the probe's scratch directory is out of all four walks rather than one
+
+The lane that put `tools/probe/scratch` into `tsconfig.json`'s `exclude` fixed the half it had been bitten by. The other half turned up an hour later: a probe wrote `60 / cfg.bpm` and `packages/sim/test/copies.test.ts` failed a lane over a re-derived rule in a file `git status` cannot show. Four walks reach this tree and each carried its own chain of exclusions, which is why the same defect was found twice.
+
 ## 2026-09-17 · 1f1860f7 — THE STARE's looks are survivable and its warning is half a second short of the spec's own rule
 
 The second unverified entry asked whether four beats of warning is long enough to say it is you, and whether the looks grow into something survivable. Nothing of the eye is drawn, so the questions went to the wave: the cycle walked out against the fifteen arrivals in `act-7c.ts`, and a rock's fall measured.
