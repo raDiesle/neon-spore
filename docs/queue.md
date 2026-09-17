@@ -619,6 +619,7 @@ named instead.
 ## THE CRYSTAL's join is not visible from below, and it moves on a diagonal
 
 - **Found:** 2026-09-17, queue-four-from-the-owner
+- **Taken:** 2026-09-17, claude/queue-the-crystals-join-is-not-visible-from-below-and
 - **Files:** packages/render/src/crystal.ts, packages/render/src/crystal-craft.ts, packages/sim/src/crystal.ts, packages/sim/src/config-crystal.ts, packages/content/src/creatures-joined.ts
 
 The owner, 17 September 2026, on two separate things about the same body.
