@@ -1,6 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import { resolve } from "../src/bullet-hit.js";
 import {
+  crystalCycle,
+  crystalFalling,
   crystalHeading,
   crystalHeld,
   crystalMiddleCol,
@@ -29,7 +31,8 @@ import type { Bullet, Creature } from "../src/types.js";
 
 /**
  * THE CRYSTAL: a slick and a bulb joined at a thin middle and armoured all
- * round, crossing on the carom's diagonal. What is worth pinning is the half a
+ * round, crossing **one axis at a time** — four beats down a column, two beats
+ * across with no fall, round again. What is worth pinning is the half a
  * reader of `crystal.ts` cannot check by eye — that the middle is a column and
  * not a seam, that the shield alone does nothing and the shot alone does
  * nothing, that a wrong shot costs nothing but the shot, that the middle a
@@ -75,13 +78,39 @@ function run(queue: SpawnEntry[], ticks: number, inputs: TimedCommand[] = []): W
   return world;
 }
 
-/** The tick a crystal entered at beat 0 is standing on a row (`carom.test.ts`). */
-const tickAtRow = (row: number): number => TPB * (row / CFG.crystalRows + 1);
+/**
+ * The beats a crystal takes to reach a row. Not the row count any more: it
+ * falls only on the fall legs, so every whole leg it finishes costs it
+ * `crystalSlideBeats` beats in which it does not descend at all.
+ */
+function beatsToRow(row: number): number {
+  if (row <= 0) return 0;
+  const legs = Math.floor((row - 1) / (CFG.crystalFallBeats * CFG.crystalRows));
+  return legs * crystalCycle(CFG) + (row - legs * CFG.crystalFallBeats * CFG.crystalRows);
+}
 
-/** A crystal standing on a row, and the world it is standing in. */
+/** The tick a crystal entered at beat 0 is standing on a row (`carom.test.ts`).
+ * One beat for the arrival, then the beats the descent takes. */
+const tickAtRow = (row: number): number => TPB * (beatsToRow(row) + 1);
+
+/** A crystal standing on a row, and the world it is standing in. One tick into
+ * the beat after the one that brought it there — which is always a beat of the
+ * fall, so the body is gliding down its column and not across. */
 function standing(row: number, color: "red" | "cyan" = "red"): { world: World; body: Creature } {
   const world = createWorld({ ...CFG }, 0, [crystal(0, color)]);
   for (let t = 0; t < tickAtRow(row) + 1; t++) step(world, []);
+  world.events.length = 0;
+  return { world, body: world.creatures[0]! };
+}
+
+/**
+ * The same, one tick after a beat of the **slide**: the body has just crossed a
+ * column and is drawn part-way between the two. The arrival, then the whole
+ * fall leg, then one beat of the slide.
+ */
+function sliding(color: "red" | "cyan" = "red"): { world: World; body: Creature } {
+  const world = createWorld({ ...CFG }, 0, [crystal(0, color)]);
+  for (let t = 0; t < TPB * (CFG.crystalFallBeats + 2) + 1; t++) step(world, []);
   world.events.length = 0;
   return { world, body: world.creatures[0]! };
 }
@@ -123,25 +152,54 @@ describe("the crossing", () => {
     expect(Number.isInteger(crystalMiddleCol(body))).toBe(true);
   });
 
-  it("drops crystalRows and crosses crystalCols a beat, away from the nearer wall", () => {
+  it("falls down one column, then crosses without falling, and never both at once", () => {
+    // The owner, 17 September 2026: *either vertical or horizontal*. The whole
+    // of the rule is that no beat is ever both, which the diagonal it used to
+    // take was on every beat.
+    const world = createWorld({ ...CFG }, 0, [crystal(0)]);
+    for (let t = 0; t < TPB; t++) step(world, []);
+    const body = world.creatures[0]!;
+    const seen: { fell: number; crossed: number }[] = [];
+    for (let beat = 0; beat < crystalCycle(CFG) * 2; beat++) {
+      const was = { row: body.row, col: body.col };
+      for (let t = 0; t < TPB; t++) step(world, []);
+      seen.push({ fell: body.row - was.row, crossed: Math.abs(body.col - was.col) });
+    }
+    for (const beat of seen) expect(beat.fell === 0 || beat.crossed === 0).toBe(true);
+    // And in that order: the fall leg first, so the pair is handed a column to
+    // name before the body is handed anywhere to go.
+    expect(seen.slice(0, CFG.crystalFallBeats)).toEqual(
+      Array.from({ length: CFG.crystalFallBeats }, () => ({ fell: CFG.crystalRows, crossed: 0 })),
+    );
+    expect(seen.slice(CFG.crystalFallBeats, crystalCycle(CFG))).toEqual(
+      Array.from({ length: CFG.crystalSlideBeats }, () => ({ fell: 0, crossed: CFG.crystalCols })),
+    );
+  });
+
+  it("sets off away from the nearer wall", () => {
     const { body } = standing(2);
     expect(body.row).toBe(CFG.crystalRows * 2);
-    expect(body.col).toBe(CFG.crystalCols * 2);
+    expect(body.col).toBe(0);
     expect(crystalHeading(body)).toBe(1);
     const far = run([crystal(CFG.cols - 3)], TPB + 1).creatures[0]!;
     expect(crystalHeading(far)).toBe(-1);
   });
 
   it("turns on the walls and never leaves the field", () => {
-    const world = createWorld({ ...CFG }, 0, [crystal(0)]);
+    // On a long slide, because the shipped one no longer reaches a wall: three
+    // slides of two columns is six of the eleven, and that is the crossing
+    // rather than a gap in it. A slide long enough to cross the field proves
+    // the turn is still the turn, and that `crossField` is what does it.
+    const cfg = { ...CFG, crystalSlideBeats: CFG.cols };
+    const world = createWorld(cfg, 0, [crystal(0)]);
     let bounces = 0;
     for (let t = 0; t < tickAtRow(HULL - 1); t++) {
       step(world, []);
       bounces += of(world, "crystalBounce").length;
-      const body = world.creatures[0];
-      if (!body) continue;
-      expect(body.col).toBeGreaterThanOrEqual(0);
-      expect(body.col + spanOf(body)).toBeLessThanOrEqual(CFG.cols);
+      const live = world.creatures[0];
+      if (!live) continue;
+      expect(live.col).toBeGreaterThanOrEqual(0);
+      expect(live.col + spanOf(live)).toBeLessThanOrEqual(CFG.cols);
     }
     expect(bounces).toBeGreaterThanOrEqual(1);
   });
@@ -213,8 +271,9 @@ describe("what opens it", () => {
     // One tick into a beat the body is still drawn in the lane it is leaving
     // (`creatureLane`), and that is the lane a bolt is found against — so the
     // join it can open is that lane's middle, one column behind `col`'s.
-    const { world, body } = standing(4);
+    const { world, body } = sliding();
     hold(world, body);
+    expect(crystalFalling(CFG, body)).toBe(false);
     const drawn = crystalMiddleLane(world, body);
     expect(drawn).toBe(crystalMiddleCol(body) - CFG.crystalCols);
     expect(crystalStruck(world, bolt(body, crystalMiddleCol(body), "red"), body)).toBe(false);
@@ -260,7 +319,7 @@ describe("what a whole one costs", () => {
     // the whole way — the carom test's arrangement, so the failure cannot be
     // blamed on aim or timing. Regeneration off, so the number is the blow.
     const inputs: TimedCommand[] = [];
-    for (let beat = 0; beat <= HULL / CFG.crystalRows + 1; beat++) {
+    for (let beat = 0; beat <= beatsToRow(HULL) + 2; beat++) {
       for (let col = 0; col < CFG.cols; col++) inputs.push(shield(TPB * beat, col));
       inputs.push(guard(TPB * beat));
     }

@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — queue-the-crystal-steps — one axis at a time
+
+The craft crossed on a diagonal, a column and a row every beat, which is the
+carom's motion and reads as drift rather than as a machine holding station. It
+holds a column for four beats and crosses two in two now (`crystalFallBeats`,
+`crystalSlideBeats`), so the plate the pair agreed on stays true for four beats
+and the move off it is a dash rather than a slide nobody called.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `crystal.ts`'s step, `crossField`, the hash chain's position seam, and what `scene-pages.test.ts` asks of a body-anchored page |
+| writing | 45 | the two fields, the leg counter, the hash tail, the wave's spacing, the rehearsal's retiming, and the tests that move with all of it |
+| looking | 15 | a strip of eight beats and a probe of twenty-two: four down, two across, and the hull on beat twenty-one |
+| friction | 20 | `hash-creature-late.ts` went five lines over the ceiling and had to be cut before the field could go in; the director's wave serializer then silently dropped the comment I had written inside the wave object |
+| landing | 20 | `check:fast` three times — the index, the bestiary's stale numbers, and one timeout under load that passed alone |
+
+The bottleneck was that this one field could not simply be added: the file it
+belonged in was full, and the file it was *about* — a wave — is generated, so
+the reasoning had to find a third home before anything would go green.
+
 ## 2026-09-16 — queue-frames-until — a capture can be asked for a moment
 
 `--ticks` is an absolute `world.tick`, which is the right primitive and the

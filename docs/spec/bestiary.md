@@ -848,10 +848,15 @@ full turn of the red-cyan-armour cycle and most of a second. `crawlerStepBeats`
 is the beats between one column of walking and the next, two, so the column the
 pair just agreed on stays true for a whole beat.
 
-**THE CRYSTAL** (`packages/sim/src/config-crystal.ts`). `crystalCols` is the
-columns it crosses each beat, one, so the plate that found it is still under it
-when the shot is loaded. `crystalRows` is the rows it drops each beat, one, so
-the crossing is fourteen beats for the longest exchange in the game.
+**THE CRYSTAL** (`packages/sim/src/config-crystal.ts`). It moves on one axis at
+a time, and the four numbers are that. `crystalFallBeats` is the beats it holds
+a column and drops straight, four, which is the window the pair has to line the
+plate and the cannon up in. `crystalSlideBeats` is the beats it crosses without
+falling, two, short enough that the lane it is about to stand in is already
+guessable. `crystalRows` is the rows it drops on each beat of a fall, one, and
+`crystalCols` is the columns it crosses on each beat of a slide, one — so an
+arrival takes twenty beats to reach the ship, the longest exchange in the
+game.
 
 **THE ECHO** (`packages/sim/src/config-creatures.ts`). `echoFallBeats` is the
 beats between one step down and the next, two, which is the whole of "half as

@@ -60,6 +60,7 @@ const creature = (): Required<Creature> => ({
   recoilBounces: 2,
   caromDir: -1,
   crystalDir: -1,
+  crystalLeg: 5,
   clingStuck: true,
   clingLastCol: 4,
   // THE WEIGHT: ticks both hands have been on it. Non-zero, so a fixture that

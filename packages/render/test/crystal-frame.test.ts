@@ -44,26 +44,28 @@ describe("a crystal on the field", () => {
   }
 
   it("paints the beat it is opened on and the two bodies after it", () => {
-    // Entered at column 0, it stands on columns 3..5 through the fourth beat
-    // with its middle on 4; the shield goes under its left lane and the cannon
-    // under the middle, then the guard and the shot land on the first tick of
-    // that beat, and the bolt meets the join before the body moves on
+    // Entered at column 0, it holds a column for four beats, crosses two
+    // without falling, and holds again (`crystal.ts`) — so on the ninth beat
+    // it stands on columns 2..4 with its middle on 3, mid-*fall*, which is the
+    // one place the lane it is drawn in and the lane written on it are the
+    // same. The shield goes under its left lane and the cannon under the
+    // middle, then the guard and the shot land on the first tick of that beat
     // (`sim/test/crystal.test.ts` has the rule; this only has to paint the
     // held craft, the split and the two bodies after it).
-    const at = TPB * 3 + 1;
+    const at = TPB * 9 + 1;
     const inputs: TimedCommand[] = [
-      { tick: at - 10, player: 2, command: { kind: "shieldCol", col: 3 } },
-      { tick: at - 10, player: 1, command: { kind: "cannonCol", col: 4 } },
+      { tick: at - 10, player: 2, command: { kind: "shieldCol", col: 2 } },
+      { tick: at - 10, player: 1, command: { kind: "cannonCol", col: 3 } },
       { tick: at, player: 1, command: { kind: "guard" } },
       { tick: at, player: 2, command: { kind: "fire", color: "red" } },
     ];
-    expect(paint("p1", TPB * 8, inputs)).toBeGreaterThan(0);
+    expect(paint("p1", TPB * 13, inputs)).toBeGreaterThan(0);
   });
 
   it("paints the field open while the shield stands armed under it", () => {
     const at = TPB * 3 + 1;
     const inputs: TimedCommand[] = [
-      { tick: at - 10, player: 2, command: { kind: "shieldCol", col: 5 } },
+      { tick: at - 10, player: 2, command: { kind: "shieldCol", col: 1 } },
       { tick: at, player: 1, command: { kind: "guard" } },
     ];
     expect(paint("p2", TPB * 4, inputs)).toBeGreaterThan(0);
@@ -74,7 +76,8 @@ describe("the link the ship's arcs read", () => {
   it("is on under any of the three lanes and off just outside them", () => {
     // Stepped to the last tick of a beat, where the body is drawn in the lane
     // the simulation has written (`creatureLane`); a tick later it would be
-    // drawn one lane back, and the link would follow it there.
+    // drawn one lane back on a beat of the slide, and the link would follow it
+    // there.
     const world = createWorld(CFG, 1, [crystal(0)]);
     for (let t = 0; t < TPB * 3 - 1; t++) step(world, []);
     const body = world.creatures[0]!;

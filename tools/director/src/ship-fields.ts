@@ -106,6 +106,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   rockCrossCols: "A CROSSING ROCK — a route any rock can be put on",
   caromCols: "THE CAROM — a rock with something alive in it",
   caromRows: "THE CAROM — a rock with something alive in it",
+  crystalFallBeats: "THE CRYSTAL — two bodies in one shell, broken at the middle",
+  crystalSlideBeats: "THE CRYSTAL — two bodies in one shell, broken at the middle",
   crystalCols: "THE CRYSTAL — two bodies in one shell, broken at the middle",
   crystalRows: "THE CRYSTAL — two bodies in one shell, broken at the middle",
   crawlerSegments: "THE CRAWLER — a worm that walks the ship instead of falling",

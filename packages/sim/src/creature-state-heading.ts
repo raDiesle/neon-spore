@@ -81,6 +81,20 @@ export interface HeadingState {
    */
   crystalDir?: CrystalDir;
   /**
+   * How many beats THE CRYSTAL is into its **leg**, counted round the whole
+   * fall-then-slide cycle (`crystalFallBeats` + `crystalSlideBeats`) and
+   * therefore never larger than it. It decides the one thing a beat of this
+   * body can be: a row down the column it is holding, or a column sideways
+   * with no fall at all.
+   *
+   * Read it through `crystalFalling`, never directly, for `crystalHeading`'s
+   * reason: absent means the first beat of a fall, the two halves it breaks
+   * into carry none — `crystalStruck` clears it — and a second copy of that
+   * fallback is how the lane render draws and the lane the step writes come
+   * to disagree.
+   */
+  crystalLeg?: number;
+  /**
    * THE COIL's two, and `coil.ts` is the whole of what they mean. `coilDir` is
    * which way across the field this one is crossing (`-1` left, which is where
    * every coil sets off) and `coilLit` is the **beat the charge from another

@@ -13,10 +13,29 @@ import type { World } from "./world.js";
  * arrival that asks for **all four hands at one moment**.
  *
  * It is a slick and a bulb joined at a thin middle tile and armoured all the
- * way round — an hourglass lying on its side. The two ends steer it: it comes
- * in on THE CAROM's diagonal (`crystalCols` columns and `crystalRows` rows a
- * beat) and turns at the side walls the way a carom does, through the same
- * `crossField`. Nothing about the crossing is new; what is new is the answer.
+ * way round — an hourglass lying on its side. The two ends steer it, and they
+ * steer it **one axis at a time**: `crystalFallBeats` beats straight down the
+ * column it is standing in, then `crystalSlideBeats` beats sideways with no
+ * fall at all, turning at the side walls through the same `crossField` a carom
+ * turns at, and round again.
+ *
+ * It used to take THE CAROM's diagonal, a lane *and* a row on every beat. The
+ * owner, 17 September 2026: *"Change the animation so that it stays in a
+ * column, then quickly moves around two beats 2 tiles horizontal, then again
+ * vertical. So either vertical or horizontal."* The diagonal is the crossing
+ * this body can least afford, and the sentence below says why: four hands have
+ * to agree on one lane, and on a diagonal the lane they agreed on expired on
+ * the beat they agreed it. A column held for four beats is a lane there is
+ * time to say out loud, and the two beats of sideways are the beats the pair
+ * spends watching rather than talking.
+ *
+ * **THE CRYSTAL's own wave moved with the rule.** A crossing that spends two
+ * beats in six not descending takes twenty beats to reach the ship where it
+ * used to take fourteen, so its four arrivals went from fourteen beats apart
+ * to twenty. The shape is unchanged — three alone, then a pair six apart at
+ * the end — and the spacing is what keeps *alone* true: two of these at once
+ * is two three-tile bodies on eleven columns, each wanting the plate and the
+ * cannon on the same beat, and the wave's own sentence is singular.
  *
  * **Only the middle can be broken, and only while the ship's shield stands
  * armed under the body.** The middle is authored one colour per wave, red or
@@ -64,8 +83,34 @@ export function crystalOnSpawn(
   cfg: SimConfig,
   col: number,
   span: number,
-): { crystalDir: CrystalDir } {
-  return { crystalDir: crossAwayFromWall(cfg.cols, col, span) };
+): { crystalDir: CrystalDir; crystalLeg: number } {
+  // Leg nought, which is the first beat of a fall: a body arrives holding a
+  // column, so the pair is given a lane to name before it is given a move.
+  return { crystalDir: crossAwayFromWall(cfg.cols, col, span), crystalLeg: 0 };
+}
+
+/**
+ * Whether the next beat of this one is a row down rather than a column across.
+ * Read the leg through this, never `crystalLeg` by hand — `crystalHeading`'s
+ * reason: render draws the fall and the step writes it, and two copies of the
+ * fallback is how the picture and the world come to disagree about which of
+ * the two a beat was.
+ */
+export function crystalFalling(cfg: SimConfig, c: Creature): boolean {
+  return crystalLegOf(cfg, c) < cfg.crystalFallBeats;
+}
+
+/** How many beats into the cycle it is, folded into the cycle's own range so
+ * an absent leg and a body that has just come round read alike. */
+function crystalLegOf(cfg: SimConfig, c: Creature): number {
+  const cycle = crystalCycle(cfg);
+  return (((c.crystalLeg ?? 0) % cycle) + cycle) % cycle;
+}
+
+/** The whole fall-then-slide cycle, in beats. At least one, so a config with
+ * both legs at nought leaves a body falling rather than looping forever. */
+export function crystalCycle(cfg: SimConfig): number {
+  return Math.max(1, cfg.crystalFallBeats + cfg.crystalSlideBeats);
 }
 
 /**
@@ -114,10 +159,28 @@ export function crystalHeld(world: World, c: Creature): boolean {
   return guardArmed(world) && crystalUnder(world, c);
 }
 
-/** One beat of it, in place of the fall: `stepCarom`'s arrangement exactly. */
+/**
+ * One beat of it, in place of the fall — and it is **one or the other**, never
+ * both. A beat of a fall drops `crystalRows` and touches no column; a beat of
+ * a slide crosses `crystalCols` and touches no row.
+ *
+ * The leg is advanced first and read before it is advanced, so the beat a body
+ * arrives on is the first beat of its fall and not the second.
+ *
+ * A slide that reaches a wall turns there rather than reflecting off it
+ * (`crossField`), which means a slide begun against a wall spends its first
+ * beat turning and covers a tile rather than two. That is the crossing rule
+ * the whole field is built on — a body between two columns is a body neither
+ * player can name — and not a case to special-case out.
+ */
 export function stepCrystal(world: World, c: Creature): void {
   const cfg = world.cfg;
-  c.row += cfg.crystalRows;
+  const falling = crystalFalling(cfg, c);
+  c.crystalLeg = (crystalLegOf(cfg, c) + 1) % crystalCycle(cfg);
+  if (falling) {
+    c.row += cfg.crystalRows;
+    return;
+  }
   const step = crossField(cfg.cols, c.col, spanOf(c), crystalHeading(c), cfg.crystalCols);
   c.col = step.col;
   c.crystalDir = step.dir;
@@ -176,5 +239,6 @@ export function crystalStruck(world: World, b: Bullet, hit: Creature): boolean {
   hit.kind = livingKindForColor("red");
   hit.color = "red";
   hit.crystalDir = undefined;
+  hit.crystalLeg = undefined;
   return false;
 }

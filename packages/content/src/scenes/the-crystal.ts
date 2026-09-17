@@ -13,38 +13,46 @@ import type { GuideScene } from "../scene-types.js";
  * **One crystal and nothing else**, for THE CAROM's reason: the wave sends
  * four and a plain body between them, and the film is about the join.
  *
+ * **The shot lands inside a fall leg, never inside a slide.** The craft only
+ * crosses on two beats in six now, and on those two the lane it is drawn in is
+ * not the lane written on it (`crystalMiddleLane`) — a rehearsal that fired
+ * there would be teaching the pair the one case the game punishes. So the
+ * shield goes under it, and the bolt goes up, while it is holding a column.
+ *
  * **The film ends on the two halves falling apart**, before either reaches
  * the ship. What the last page has to say is that the hard shot bought two
  * easy ones, and two ordinary bodies falling their own lanes say that in a
  * few beats; shooting them would be teaching a slick again.
  */
 export const THE_CRYSTAL: GuideScene = {
-  ticks: 1200,
+  ticks: 1400,
   bpm: 80,
   seed: 1,
   entries: [{ beat: 0, col: 0, kind: "crystal", color: "red" }],
   acts: [
-    { tick: 720, control: "shield", col: 1, atBody: true },
-    { tick: 740, control: "cannon", col: 1, atBody: true },
-    { tick: 850, control: "guard" },
-    { tick: 850, control: "fireRed" },
+    { tick: 830, control: "shield", col: 1, atBody: true },
+    { tick: 850, control: "cannon", col: 1, atBody: true },
+    { tick: 1020, control: "guard" },
+    { tick: 1020, control: "fireRed" },
   ],
   steps: [
-    // Seven beats at eighty: the crystal comes down its diagonal and holds on
-    // row six, in the middle of the screen.
+    // Nine beats at eighty, not seven: the craft holds its column for four
+    // beats and crosses for two without falling (`crystal.ts`), so it reaches
+    // the middle of the screen two beats later than it did on the diagonal —
+    // and this page has to hold until it is there (`scene-pages.test.ts`).
     { tick: 0, seat: 1, text: "ONLY THE MIDDLE BREAKS", anchor: { at: "body" } },
     {
-      tick: 630,
+      tick: 810,
       seat: 2,
       text: "SHIELD UNDER THE CRAFT",
       anchor: { at: "control", control: "shield" },
     },
     {
-      tick: 810,
+      tick: 1000,
       seat: 1,
       text: "GUARD AND SHOT, ONE BEAT",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 1010, seat: 2, text: "TWO PLAIN BODIES NOW", anchor: { at: "body" } },
+    { tick: 1200, seat: 2, text: "TWO PLAIN BODIES NOW", anchor: { at: "body" } },
   ],
 };

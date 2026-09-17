@@ -353,6 +353,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/creature-state-heading.ts` | the four kinds that carry a direction, and the beats attached to it |
 | `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
+| `packages/sim/src/hash-creature-tail.ts` | **The end of one body's fingerprint**, from THE BALLOON's eight to THE CRYSTAL's leg |
 | `packages/sim/src/hash-faults.ts` | the fault half of the world fingerprint |
 | `packages/sim/src/hash-pods.ts` | The pods on the field, folded into the world hash |
 | `packages/sim/src/fence-crack.ts` |  |
