@@ -256,6 +256,7 @@ can run it. `.claude/skills/net-change` has the flags and why, and
 - A new creature is one entry in `packages/content/src/creatures.ts`; a wave
   shows the union of its creatures' control groups. `.claude/skills/new-creature`.
 - A new wave must pass the one-sentence test. `.claude/skills/new-wave`.
+- A new boss is one of three kinds, and two lanes. `.claude/skills/new-boss`.
 - A wave's **tutorial** is the game's own screen, not a card over it.
   `.claude/skills/new-tutorial`.
 - Silhouettes are judged through `tools/shape-sheet`, never by screenshotting

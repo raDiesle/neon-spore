@@ -8426,3 +8426,23 @@ screen and not the other when the ring's colour is also every bead's, which
 took setting the field so that one cyan rim could only be the ring.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — boss-implementation — the new-boss skill
+
+The owner asked, mid-turn, for an instruction file on how bosses are built —
+the three kinds he named, and what he likes and does not. Written as
+`.claude/skills/new-boss`, with one pointer line in `CLAUDE.md`.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the other skills' shape, `bosses-choreographed.md`'s filters and its A Way Out table, `interludes.md`'s rounds, THE GORGE's two landings for the file list, and every *the owner said* in `bosses.md` — THE TELL's removal above all |
+| deciding | 10 | a skill and not a `docs/` page, because it is a rule for one kind of work; three kinds in one table with the third named as the one not yet shipped whole; the likes seeded only from the record, in his words where he gave them, with an open list for his feedback |
+| writing | 15 | the skill's six sections, the pointer line |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, the commit, the landing |
+
+The bottleneck was reading: the owner's verdicts are spread across three
+spec pages and are quoted nowhere together, which is what the skill's sixth
+section now is.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

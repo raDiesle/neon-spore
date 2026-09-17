@@ -1,0 +1,151 @@
+---
+name: new-boss
+description: Build a boss for Neon Spore — which of the three kinds it is, the claim on the table, the simulation lane then the look lane, every file a boss is a name in, and what the owner has said he likes and does not. Use when designing, building, changing or reviewing a boss, a round or a choreographed scene.
+---
+
+# Building a boss
+
+A boss is the one thing in a run the pair remembers, and it is built in two
+lanes that land separately: **the simulation, then the look** (`CLAUDE.md`,
+`docs/lane-speed.md`). Work through this in order. Stop at step 1 if the boss
+is not one of the three kinds below, or if it asks a question a shipped boss
+already asks (`docs/spec/bosses-choreographed.md`, filter 8).
+
+## 1. Which of the three kinds it is
+
+Say it in the first line of the design, because the three are built out of
+different machinery and the owner judges them by different standards.
+
+| Kind | What it is | The field | Controls | Shipped examples |
+|---|---|---|---|---|
+| **A round** | a minigame with rules of its own, over in ninety seconds, never met again | **gone** — not paused, not re-skinned | its own, drawn in the default set's style, with the ship and its panel still in the frame | THE GAUGE, SNAKE, PINBALL, THE PULSE, THE TELL, THE WELL, THE MAZE — `docs/spec/interludes.md` |
+| **A field boss** | the ordinary field with a body or a fixture standing over it, answered with the cannon, the shield and the two colours — and possibly one handle on the field as well | the ordinary field, falling | the default set, plus at most one `DragTarget` or `Hold` on the screen (a tether, a ring, a grip) | THE WARDEN, THE CAIRN, THE ORRERY, THE DIASTOLE, THE THROAT, THE CANDLE, THE GORGE — `docs/spec/bosses.md` §11 |
+| **A choreographed scene** | an authored beat list the scene will not advance past until the beat is performed — pull the hand off, push the weapon back, open the vault — with the boss's own picture answering every gesture, the way A Way Out does it | usually gone or still; the boss *is* the picture | several gestures in sequence — press, drag, swipe, hold, turn — each a `Command`, each with an animation of its own | none shipped whole yet. The fifteen on `docs/spec/bosses-choreographed.md` were designed as this kind; the ones built so far lean on the field |
+
+The third kind is the one the owner asked for by name (17 September 2026) and
+the one with the least machinery under it. What it needs, and where the design
+page already puts it: a beat list authored in `packages/content` and read by
+`sim/` by index (filter 10, `BossSequenceStep`); every gesture a member of
+`DragTarget` or `Hold["kind"]` (filter 9, `sim/drag-targets.ts`,
+`render/touch-hold.ts`); THE SLOW for the dramatic beat (`docs/decisions.md`
+#33 — it slows `tickMs`, never `ticksPerBeat`); and the hull's reaction in
+place of a camera move (`hull-shock.ts`, `breach-strike.ts`, THE CHOIR's
+shake). A scene that only fires the cannon at a picture is a field boss with
+a costume on, and a field boss that stops the field is a round.
+
+## 2. What every kind must pass
+
+- **Every boss splits something**, the eyes or the hands. Both seats may see
+  the same field; then they must be given different jobs in it, at the same
+  time or one after the other. A boss both seats could play alone is a wave.
+- **No health bar, ever.** Its health is its silhouette: petals, plates, lobes,
+  beads. Say what part of the outline goes away and how many there are.
+- **A step is a `Command` or it does not exist.** A gesture not in
+  `DragTarget` or `Hold["kind"]` is a wish. Add the member, in `sim`.
+- **Nothing is written for the pair to read aloud.** The words are theirs.
+- **A round is never repeated.** Eleven rounds, eleven acts, each thrown away.
+- **Presentation is the hull's reaction, not the frame's.** No split screen,
+  no zoom, no camera.
+- **It asks a question no shipped boss asks.** Read §11 before designing.
+
+## 3. Claim it on the table, on local `main`
+
+`docs/spec/bosses-choreographed.md` § *Who is building what* is the ledger two
+sessions share. Before a line is written: read `main`'s copy fresh (another
+session may have taken it), refuse to touch it while
+`git -C <main> status --porcelain -- docs/spec/bosses-choreographed.md` is
+non-empty, edit the row to **taken** with both lanes named, commit it with
+`git -C <main> commit --only docs/spec/bosses-choreographed.md`, and
+`git merge --ff-only main` in the lane. Mark it **built** the same way when
+the second lane lands, with the shas, the §11 number and the wave number, and
+what of the design is *not* built — the owner's eye.
+
+## 4. Lane one: the simulation, and the receipts
+
+Every file a field boss is a name in, from THE GORGE's landing (`fb63f2ab`);
+a round adds its own `*-round.ts` and its controls, a scene its beat list.
+
+| Where | What |
+|---|---|
+| `sim/src/<boss>.ts`, `<boss>-step.ts`, `<boss>-hash.ts`, `config-<boss>.ts`, `events-<boss>.ts` | the state, the step, its hash, its `SimConfig` fields (`*_DEFAULTS`), its events — every tunable a named field, never a literal |
+| `sim/src/boss-kinds.ts`, `boss-union.ts`, `boss-entries.ts`, `boss-others.ts`, `bosses.ts`, `wave-boss.ts`, `entries.ts`, `events.ts` | the kind, the union, install, step dispatch, the events union — `events.ts` is at 250 lines, so a comment goes for every line added |
+| `sim/src/boss-surface-clocks.ts`, `boss-entries-clocks.ts`, `bosses-clocks.ts`, `config-boss-clocks.ts`, `hash-boss-clocks.ts` | the clock tables, if the boss has a beat count |
+| `sim/src/bullets.ts`, `lance-burn.ts` | the hook, if a shot leaving the top of the field answers it |
+| `sim/test/<boss>.test.ts`, `hash-fixture.ts` `patchBoss` | one test per receipt, the wave held, hash determinism, install; every nullable boss field given a value in the fixture or `hash-coverage` fails |
+| `content/src/waves/act-*.ts`, `queue-boss.ts`, `mechanics-bosses.ts`, `mechanics-table.ts`, `waves-demo.ts` | the wave with its guide (each half ≤ 220 characters), the one-sentence mechanic |
+| `content/test/guided-entries.test.ts` `THE_LESSON_KEEPS` | every kind the guide does not introduce, with the reason |
+| `audio/src/bind-<boss>.ts`, `sounds/boss-<boss>.ts`, `bind-choreographed.ts`, `catalogue.ts`; `test/bind.test.ts` SAMPLES, `test/catalogue.test.ts` WIRING | one cue per event, panned to its column; every sound under `VOICE_BUDGET_SECONDS` in the 300–3000 Hz band — sweeps above ~4200 Hz or below ~300 Hz |
+| `render/src/effects-ingest-silent-boss.ts`, `effects-spark-silent.ts` | every event listed silent **until the look lane draws it** |
+| `tools/director/src/boss-nothing.ts`, `serialize-boss.ts`, `ship-fields-round.ts`, `ship-groups.ts`, `ship-notes-round.ts`, `sound-link-none.ts` | the director's sheet: the group, the fields, the notes, the sounds with no subject |
+| `docs/spec/bosses.md` §11.n, `docs/spec/audio.md` counts, `docs/spec/briefings.md`, `tools/perf/baseline.json` (`bun run baseline:blank`) | the write-up: the rule in one sentence, **every departure from the design argued by name**, *What is not built*, *Never watched at tempo* |
+
+The purity test's table of rules that must be **called, not re-derived** is
+what catches `livingKindForColor` written as a ternary; the hash-coverage test
+catches a `null` the fixture never changed; the briefing test catches a guide
+half over 220. Run `bun run check:fast`, commit by path, `bun run land --keep`.
+
+## 5. Lane two: the look
+
+A new boss's look is **a look with no shipped alternative** — say so in the
+commit. The shape of it, from THE DIASTOLE, THE CANDLE and THE GORGE:
+
+- `render/src/<boss>-draw.ts` reads the boss off `world` every frame and keeps
+  nothing; split a `<boss>-lobe.ts` or `<boss>-shape.ts` off before 250.
+- One `showsX(role)` predicate per fact one seat is shown, in `view-role.ts`,
+  with the reason it is that seat's — the split is the encounter.
+- Anything that outlives a frame is a class in `Effects` (`effects.ts`),
+  walked by all four verbs in `effects-frame.ts`; `restart.test.ts` proves the
+  reset. A family of events is read above the loop (`<boss>-fx.ts`, the way
+  THE MIRROR's and THE GORGE's are) rather than as rows in a spark table at
+  its limit.
+- The branch in `boss-draw.ts` is short; the file is near 250.
+- Take the events out of the two silent lists' *reason*, if not the lists.
+- `render/test/<boss>-frame.test.ts`: every state of the picture on all three
+  screens, set rather than waited for, and the split proved both ways.
+- `docs/spec/bosses.md` §11.n gets *The look* and loses *What is not built*.
+- **Send one PNG** — `bun run frames . --wave "THE X" --seat p1 --press …` —
+  and never a description. Then `bun run land --keep`, and tell the owner the
+  boss is ready to test; his eye is the check nothing here runs.
+
+## 6. What the owner has said he likes, and does not
+
+On record, with where. **This list is his to grow — add a line every time
+feedback on a boss says one, with the date, in his words where he gave them.**
+
+- **Dislikes, in his words:** THE TELL, built and removed on 11 September
+  2026 — *"I do not like it and its hard to understand for players. too far
+  away from the actual game setup and how it should feel."* A rule table
+  drawn on the boss is still a rule table; a boss the pair has to be taught
+  three symbols for before the first beat means anything is not a boss of
+  this game (`bosses.md` §11.9). **Every new boss is read against this.**
+- **Likes** the field to look like the field: the ship, the band and the
+  background stay in a round, the controls are drawn in the default set's
+  style — THE PULSE was rebuilt to this, PINBALL made the cannon the
+  mechanism (`interludes.md`, §11.7–11.8).
+- **Likes** the beat list that will not advance until the beat is performed,
+  and the two players given different jobs in the same beat — A Way Out's
+  co-op minus its camera (`bosses-choreographed.md`); and asked for the third
+  kind above by name on 17 September 2026 — pulling a hand off, pushing a
+  weapon back, opening a vault — *with very nice animations and graphics*.
+- **Likes** one meter that is *ours* over two that are mine and theirs, and
+  what fails to fall through the picture — *let the arrows who were incorrect
+  fall inside the ship like meteors do* — over a number going down (§11.8).
+- **Likes** the boss to announce itself — *indicated when he will look next
+  with some nice animation* (THE STARE, §11.16); a handle that reads as
+  something to pull (THE WARDEN, §11.4); a thing bursting like what it is —
+  a ring under pressure bursts like a sac (`effects-spark.ts`).
+- **Likes** the two seats coupled in the verbs alone when the picture is
+  better shared: PINBALL's table is on both screens, against advice (§11.7).
+  A split is the encounter, not a decoration.
+- **Likes** a colour spent when the picture needs one, over a rule kept — the
+  clown's nose (`palette.ts`); and slow motion on the dramatic action, if
+  both screens start and end it together (`decisions.md` #33).
+- **Rules he set:** every hull damage fails the whole wave (12 September
+  2026, `wave-fail.ts`); a round is never repeated; no health bar; nothing
+  written for the pair to read aloud; a look is never changed under him
+  unasked (`docs/looks.md`); a picture is sent, never described; nobody asks
+  him whether to push.
+- **Open, for his feedback:** which of the three kinds the next one should be;
+  how many gestures a scene may ask for in a row; whether a scene's gesture
+  may be a swipe or a turn the default set does not have yet; and every boss
+  he tests — one line here per verdict.
