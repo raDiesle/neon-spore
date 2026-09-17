@@ -297,6 +297,7 @@ guarding against is the first half of this item.
 ## `ship-notes-round.ts` is at 249 lines and the next boss has nowhere to write
 
 - **Found:** 2026-09-17, claude/boss-ledger
+- **Taken:** 2026-09-17, claude/queue-ship-notes-round-ts-is-at-249-lines-and-the-next
 - **Files:** `tools/director/src/ship-notes-round.ts`, `tools/director/src/ship-groups.ts`
 
 Every boss lane writes the director one paragraph — what the mechanic is, in
