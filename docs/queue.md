@@ -289,24 +289,3 @@ What to do: cap each printed line's width as well — around the terminal's,
 with an ellipsis and the count of characters cut — and give `junit.test.ts` or
 a `shard` case a message whose one line is longer than the cap, expecting the
 cut. The line cap stays; the two are different runs.
-
-## `reconcile-repo.test.ts` clones into the checkout when its hook times out
-
-- **Found:** 2026-09-17, claude/queue-four-drawn-bosses-still-owe-their-rehearsal-film
-- **Taken:** 2026-09-17, claude/queue-reconcile-repo-test-ts-clones-into-the-checkout
-- **Files:** `tools/land/test/reconcile-repo.test.ts`
-
-`diverged` puts its temp directory in a module-level `dir` and reads it back
-after every `await` (`join(dir, "them")`, `join(dir, "ours")`). When a case
-times out under load — `bun run land`'s full check did, at 13:21, with a
-second session's check on the same machine — `afterEach` removes the
-directory and sets `dir` to `""` while the case's own `diverged` is still
-running, and its next `join("", "ours")` clones into the *current directory*.
-The landing then refused for `ours/` and `them/` lying uncommitted in the
-worktree root.
-
-What to do: keep the path in a local (`const root = await mkdtemp(…)`) and
-assign the module-level `dir` only for the hook to remove, so a case that
-outlives its hook still writes under `tmpdir()`; and give the file a case
-that calls `diverged` with `dir` cleared under it, expecting nothing in
-`process.cwd()`.

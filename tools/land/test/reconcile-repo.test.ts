@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, test } from "bun:test";
+import { existsSync } from "node:fs";
 import { mkdtemp, realpath, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -26,6 +27,7 @@ function note(sha: string, subject: string): string {
   return `\n## 2026-09-16 · ${sha} — ${subject}\n\nWhat it did.\n`;
 }
 
+/** The directory the hook removes. Only the hook reads it — see `diverged`. */
 let dir = "";
 
 /**
@@ -35,14 +37,22 @@ let dir = "";
  *
  * `ours` gets the trunk with a release note on top and, optionally, a file of
  * its own; `theirs` is already pushed. Returns where `ours` is.
+ *
+ * The path is a local, and `dir` is written once for the hook: this read the
+ * module's `dir` back after every `await` until 17 September 2026, and a case
+ * that timed out under load — `afterEach` had removed the directory and set
+ * `dir` to `""` while its clones were still being made — went on with
+ * `join("", "ours")`, which is the checkout, and `bun run land` then refused
+ * for `ours/` and `them/` lying in the worktree root (`docs/queue.md`).
  */
 async function diverged(mine: string, theirs: string, file?: [string, string]): Promise<string> {
-  dir = await realpath(await mkdtemp(join(tmpdir(), "ns-reconcile-")));
-  const origin = join(dir, "origin.git");
-  await run(["init", "--bare", "-b", "main", "--quiet", origin], dir);
+  const root = await realpath(await mkdtemp(join(tmpdir(), "ns-reconcile-")));
+  dir = root;
+  const origin = join(root, "origin.git");
+  await run(["init", "--bare", "-b", "main", "--quiet", origin], root);
 
-  const seed = join(dir, "seed");
-  await run(["clone", "--quiet", origin, seed], dir);
+  const seed = join(root, "seed");
+  await run(["clone", "--quiet", origin, seed], root);
   await run(["config", "user.email", "test@example.com"], seed);
   await run(["config", "user.name", "Test"], seed);
   await Bun.write(join(seed, "docs", "release-notes.md"), PREAMBLE);
@@ -51,8 +61,8 @@ async function diverged(mine: string, theirs: string, file?: [string, string]): 
   await run(["commit", "-q", "-m", "the record, and something to build on"], seed);
   await run(["push", "--quiet", "origin", "main"], seed);
 
-  const them = join(dir, "them");
-  await run(["clone", "--quiet", origin, them], dir);
+  const them = join(root, "them");
+  await run(["clone", "--quiet", origin, them], root);
   await run(["config", "user.email", "them@example.com"], them);
   await run(["config", "user.name", "Them"], them);
   await Bun.write(join(them, "docs", "release-notes.md"), PREAMBLE + note("bbbbbbb", theirs));
@@ -60,8 +70,8 @@ async function diverged(mine: string, theirs: string, file?: [string, string]): 
   await run(["commit", "-q", "-m", theirs], them);
   await run(["push", "--quiet", "origin", "main"], them);
 
-  const ours = join(dir, "ours");
-  await run(["clone", "--quiet", origin, ours], dir);
+  const ours = join(root, "ours");
+  await run(["clone", "--quiet", origin, ours], root);
   await run(["config", "user.email", "us@example.com"], ours);
   await run(["config", "user.name", "Us"], ours);
   // Rewound to the seed, so this clone is a session that landed before the
@@ -118,7 +128,7 @@ describe("two sessions that both pushed", () => {
       // Both sides rewrote the same line of the same source file, which is a
       // real disagreement and is a person's.
       const ours = await diverged("ours", "theirs", ["code.ts", "export const n = 2;\n"]);
-      const them = join(dir, "them");
+      const them = join(ours, "..", "them");
       await Bun.write(join(them, "code.ts"), "export const n = 3;\n");
       await run(["commit", "-qam", "theirs, again"], them);
       await run(["push", "--quiet", "origin", "main"], them);
@@ -133,6 +143,25 @@ describe("two sessions that both pushed", () => {
       expect(await run(["status", "--porcelain"], ours)).toBe("");
     },
     repoTimeout(35),
+  );
+
+  test(
+    "keeps its clones under its own directory after the hook has let go of it",
+    async () => {
+      const started = diverged("ours", "theirs");
+      // What `afterEach` does behind a case that timed out: the module's
+      // handle is cleared while the clones are still being made.
+      await new Promise((settle) => setTimeout(settle, 50));
+      const root = dir;
+      dir = "";
+      const ours = await started;
+      expect(root).not.toBe("");
+      expect(ours.startsWith(root)).toBe(true);
+      expect(existsSync(join(process.cwd(), "ours")), "a clone in the checkout").toBe(false);
+      expect(existsSync(join(process.cwd(), "them")), "a clone in the checkout").toBe(false);
+      await rm(root, { recursive: true, force: true });
+    },
+    repoTimeout(30),
   );
 
   test(

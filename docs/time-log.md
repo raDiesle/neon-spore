@@ -9272,3 +9272,19 @@ spelling rather than a fact, so a lift that moved no behaviour cost two test
 edits and a second `check:fast`.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-four-drawn-bosses-still-owe-their-rehearsal-film — `reconcile-repo.test.ts` clones into the checkout when its hook times out
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the two `ours/` and `them/` the last landing refused for, their git log, `diverged` and its `afterEach` |
+| deciding | 0 | the path becomes a local and `dir` is written once for the hook; the case clears `dir` under a running `diverged` |
+| writing | 5 | the local, the case, the third test's `them` reached from `ours` rather than from `dir` |
+| friction | 0 | — |
+| landing | 5 | the case run against the old shape to see it red, `check:fast`, this entry, the commit, `bun run land` |
+
+The bottleneck was seeing the cause at all: the litter was in the worktree
+root and the timed-out case was in a temp directory, and only the clone's
+own log — its commit spelled "ours" at 13:21 — tied the two together.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*
