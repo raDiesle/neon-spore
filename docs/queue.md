@@ -641,6 +641,7 @@ named instead.
 ## A wave in the phone's list opens nothing — no details, no map
 
 - **Found:** 2026-09-17, queue-four-from-the-owner
+- **Taken:** 2026-09-17, claude/queue-a-wave-in-the-phones-list-opens-nothing-no-detai
 - **Files:** tools/director/src/mobile-menu.ts, tools/director/src/rail.ts, tools/director/src/rail-steps.ts, tools/director/src/director-phone.css
 
 The owner, 17 September 2026: *"when on mobile, I want to be able from the list
