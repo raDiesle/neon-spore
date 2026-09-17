@@ -7997,3 +7997,21 @@ eversion showed the last remaining ring drawn as a flat line across the field,
 which no test was ever going to catch.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — the lost screen's buttons are the tutorial's
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `guide-tide-plate.ts`, how the TIDE bar spends `wordPlate`, and what `lost-screen.ts` drew instead |
+| writing | 10 | the two calls, the dead `wordButton` out, the baked row moved |
+| looking | 10 | one capture at `--until waveFailed`, which found the caption running off the edge |
+| friction | 5 | the first capture was 60 ticks after the fail and still the held field: the screen waits `waveFailBeats` |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was looking, and it earned its minutes: `wordPlate` leaves the
+canvas's text alignment where its own callers want it, which is left, and the
+one line this screen draws *after* its buttons was relying on the centre the
+old button never touched. Nothing in the tests could see it — the line was
+still drawn, still at the same y, and half of it was off the side of the phone.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

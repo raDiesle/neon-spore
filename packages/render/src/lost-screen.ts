@@ -1,10 +1,10 @@
 import type { World } from "@neon-spore/sim";
 import { inside, type NavBox } from "./guide-nav.js";
+import { wordPlate } from "./guide-tide-plate.js";
 import { type Layout, tileCX } from "./layout.js";
 import { LOST_LOOK } from "./lost-look.js";
-import { drawBeads, drawNavBody } from "./nav-button.js";
 import { PALETTE } from "./palette.js";
-import { type SeatSkin, seatSkin } from "./seat-skin.js";
+import { seatSkin } from "./seat-skin.js";
 
 /**
  * A lost wave stops on a friendly screen: RETRY WAVE or QUIT.
@@ -33,7 +33,9 @@ import { type SeatSkin, seatSkin } from "./seat-skin.js";
 
 const BTN_H = 52;
 const BTN_GAP = 18;
-const WORD = '700 15px "Courier New",monospace';
+const WORD = '700 18px "Courier New",monospace';
+/** The arrow beside a word, as a radius. The guide's big button uses eleven. */
+const SIGN = 9;
 
 export interface LostButtons {
   retry: NavBox;
@@ -103,48 +105,54 @@ export function drawLostScreen(
     const over = (box: NavBox): boolean =>
       v.pointer !== undefined && inside(box, v.pointer.x, v.pointer.y);
     ctx.globalAlpha = shown;
-    wordButton(ctx, b.retry, "RETRY WAVE", {
-      hex: PALETTE.pod,
-      glow: 0.45 + 0.35 * Math.abs(Math.sin(v.age * 2.2)),
-      hover: over(b.retry),
-      dpr: l.dpr,
-      lip: skin.lip,
-    });
-    wordButton(ctx, b.quit, "QUIT", {
-      hex: PALETTE.hull,
-      glow: 0,
-      hover: over(b.quit),
-      dpr: l.dpr,
-      lip: skin.lip,
-    });
+    // **The tutorial's own plates** (`guide-tide-plate.ts`), asked for by the
+    // owner on 17 September 2026 — *make sure buttons of "wave end" looks like
+    // the new buttons of tutorial guide*. They were the guide bar's grown
+    // bodies, which is what that bar drew until TIDE replaced it, so these two
+    // were the last pair in the game still wearing the shape it left behind.
+    // RETRY takes NEXT's forward arrow and QUIT takes BACK's, which is the
+    // same reading TIDE made of the two: one goes on, one leaves.
+    wordPlate(
+      ctx,
+      {
+        ...b.retry,
+        hex: PALETTE.pod,
+        glow: 0.45 + 0.35 * Math.abs(Math.sin(v.age * 2.2)),
+        live: true,
+        hover: over(b.retry),
+        dpr: l.dpr,
+        lip: skin.lip,
+      },
+      "RETRY WAVE",
+      1,
+      WORD,
+      SIGN,
+    );
+    wordPlate(
+      ctx,
+      {
+        ...b.quit,
+        hex: PALETTE.hull,
+        glow: 0,
+        live: true,
+        hover: over(b.quit),
+        dpr: l.dpr,
+        lip: skin.lip,
+      },
+      "QUIT",
+      -1,
+      WORD,
+      SIGN,
+    );
     ctx.globalAlpha = shown * 0.72;
+    // Centred again: `wordPlate` leaves the alignment where every other caller
+    // of it wants it, which is left, and the line under the buttons is the one
+    // thing on this screen drawn after them.
+    ctx.textAlign = "center";
     ctx.font = '11px "Courier New",monospace';
     ctx.fillStyle = PALETTE.dim;
     ctx.fillText("One press answers for both phones.", mid, b.quit.y + b.quit.h + 26);
     ctx.globalAlpha = 1;
   }
   ctx.textAlign = "left";
-}
-
-interface WordPaint {
-  hex: string;
-  glow: number;
-  hover: boolean;
-  dpr: number;
-  lip: SeatSkin["lip"];
-}
-
-/** The bar's button with a word on its face, and the bead the sign would have had. */
-function wordButton(ctx: CanvasRenderingContext2D, box: NavBox, word: string, p: WordPaint): void {
-  drawNavBody(ctx, { ...box, ...p, live: true });
-  const lit = p.hover || p.glow > 0;
-  const cx = box.x + box.w / 2;
-  const cy = box.y + box.h / 2;
-  ctx.font = WORD;
-  ctx.fillStyle = lit ? "#F4ECFF" : p.hex;
-  ctx.textBaseline = "middle";
-  ctx.fillText(word, cx, cy);
-  ctx.textBaseline = "alphabetic";
-  const w = ctx.measureText(word).width;
-  drawBeads(ctx, cx + w / 2 + 5, cy + 7, 10);
 }

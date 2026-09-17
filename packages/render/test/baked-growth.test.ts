@@ -77,7 +77,13 @@ function entriesAfter(role: "p1" | "p2"): number {
 // because the rivulets' heads all glow at the same `HALO` radius: written at
 // each head's own thickness it was thirteen sprites, and this test is what
 // said so.
-const HELD = { p1: 44, p2: 53 } as const;
+// Four fewer on each seat from 17 September 2026, when the lost screen's two
+// buttons became the tutorial's plates (`guide-tide-plate.ts`), which the
+// owner asked for by name. Four of the five the entry above counts were the
+// grown body and its beads; a plate is a rounded rectangle, a gradient and a
+// crest, and none of that is a sprite. The one that is left is the halo under
+// RETRY's glow.
+const HELD = { p1: 40, p2: 49 } as const;
 
 describe("what the renderer keeps between frames", () => {
   for (const role of ["p1", "p2"] as const) {
