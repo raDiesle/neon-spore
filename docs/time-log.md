@@ -9019,3 +9019,19 @@ it pushed `lost-screen.ts` sixteen lines past the limit, so the split had to
 come with it.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-the-orrery-makes-no-sound — THE ORRERY is heard off its clocks
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, `bind-choreographed.ts` and a boss's cue file, `mixer.ts`, `mixer-boss.ts`, `memory.ts`, `events-undertow.ts`' rule, the orrery's step and shot, the sound-link test |
+| deciding | 5 | state or events: the mixer already hears the queen's armour and THE MIRROR's count-in frame against frame, and every orrery edge is a field a frame later — so state, and the shaft's opening is never one of them |
+| writing | 15 | three sounds, `soundOrrery`, three memory fields, the sound-sheet excuses, five tests, two spec paragraphs |
+| friction | 5 | the audio spec's family counts and the spare total are checked against the catalogue and had to be bumped by hand |
+| landing | 5 | `check:fast`, this entry, the commit, `bun run land` |
+
+The bottleneck was reading enough of the mixer to see the state path already
+existed; once `mixer-boss.ts` was open the entry's question had its answer in
+the file's own header.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

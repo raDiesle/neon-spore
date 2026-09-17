@@ -171,7 +171,7 @@ export class Mixer {
     if (world.over && !m.over) this.play("hull.dead");
     m.over = world.over;
 
-    soundBoss(world, cols, first, this.mem, (id, pan) => this.play(id, pan));
+    soundBoss(world, cols, first, this.mem, (id, pan, pitch) => this.play(id, pan, pitch));
     // THE PULSE is the one round that makes a sound on a schedule rather than
     // because something happened — the chart is the song (`mixer-pulse.ts`).
     soundPulse(world, first, this.mem, (id, pan) => this.play(id, pan));

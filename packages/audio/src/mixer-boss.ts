@@ -13,14 +13,25 @@
  * of the remembered frame. `catalogue.test.ts` reads this file for sound ids
  * along with `bind.ts` and the mixer, so a boss cue that stops being played
  * still fails the `bound` check.
+ *
+ * **THE ORRERY is heard the same way, and it is the first boss of the
+ * choreographed page that is.** Every one of the others reports its edges as
+ * events; the orrery shipped without a single one, deliberately, because
+ * each edge a mixer would want is a beat on its state a frame later —
+ * `brokeBeat`, `spatBeat`, `phaseBeat` — and `events-undertow.ts`' own rule
+ * says an event is for what is *not* in the world a frame later. An
+ * `OrreryEvent` arm would have been three events restating three fields so
+ * that `bind.ts` could hear them, and this file already exists for exactly
+ * that: a boss's clock, compared frame to frame out of `Memory`
+ * (`soundOrrery`, and `docs/spec/audio.md` §6).
  */
 
-import type { Creature, World } from "@neon-spore/sim";
+import { type Creature, orreryCoreCol, type World } from "@neon-spore/sim";
 import { panForCol } from "./bind.js";
 import type { Memory } from "./memory.js";
 
 /** The mixer's own `play`, handed over so nothing here needs an engine. */
-export type Play = (id: string, pan?: number) => void;
+export type Play = (id: string, pan?: number, pitch?: number) => void;
 
 /** Whichever boss is installed, and the two things each of them does on a clock. */
 export function soundBoss(world: World, cols: number, first: boolean, m: Memory, play: Play): void {
@@ -48,6 +59,9 @@ export function soundBoss(world: World, cols: number, first: boolean, m: Memory,
     m.bossCol = -1;
     m.queenOpen = false;
     m.mirrorPhase = "";
+    m.orreryBrokeBeat = -1;
+    m.orrerySpatBeat = -1;
+    m.orreryPhase = "";
   }
 
   if (boss?.kind === "queen") {
@@ -69,6 +83,8 @@ export function soundBoss(world: World, cols: number, first: boolean, m: Memory,
     m.mirrorPhase = boss.phase;
   }
 
+  if (boss?.kind === "orrery") soundOrrery(world, cols, first, m, play);
+
   // A torch is the one arrival too fast to be talked about, so it announces
   // itself twice: the alarm, and the weight of the thing falling.
   if (!first && torches > m.torches) {
@@ -76,4 +92,30 @@ export function soundBoss(world: World, cols: number, first: boolean, m: Memory,
     play("boss.torchDrop", panForCol(firstTorch?.col ?? 0, cols));
   }
   m.torches = torches;
+}
+
+/**
+ * THE ORRERY's three moments, each read off the clock the state keeps for it.
+ *
+ * None of them is the shaft opening: that beat is the whole fight and the ear
+ * is not told it any more than either screen is (`sim/orrery.ts`). What
+ * sounds is what a beat already spent did — a ring off, pitched up a step for
+ * every ring gone so the count can be kept by ear; the core spitting, panned
+ * to the core because the spit is the core's and the rock's own fall is heard
+ * as a rock; and the core going out, unpanned because what goes is the whole
+ * picture. `first` keeps a resumed frame from replaying a ring that came off
+ * before the mixer was listening, as it does for the cannon's column.
+ */
+function soundOrrery(world: World, cols: number, first: boolean, m: Memory, play: Play): void {
+  const b = world.boss;
+  if (b?.kind !== "orrery") return;
+  const pan = panForCol(orreryCoreCol(world.cfg), cols);
+  if (!first && b.brokeBeat >= 0 && b.brokeBeat !== m.orreryBrokeBeat) {
+    play("boss.orreryBreak", pan, 1 + (b.broken - 1) * 0.15);
+  }
+  if (!first && b.spatBeat >= 0 && b.spatBeat !== m.orrerySpatBeat) play("boss.orrerySpit", pan);
+  if (!first && b.phase === "out" && m.orreryPhase !== "out") play("boss.orreryOut");
+  m.orreryBrokeBeat = b.brokeBeat;
+  m.orrerySpatBeat = b.spatBeat;
+  m.orreryPhase = b.phase;
 }

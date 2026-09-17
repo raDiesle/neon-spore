@@ -2443,9 +2443,19 @@ turned by whatever those numbers happened to mean. It is the fourth exception
 in that predicate and the reason the predicate is now asked as a question
 (`turnsRound`) rather than compared at the call site.
 
-**It still makes no sound**, which is queued rather than quietly skipped, and
-the state carries the edges a mixer would want: `brokeBeat`, `spatBeat`,
-`phaseBeat`.
+**It is heard off its state, not off events, and it is the first boss of
+this page that is.** The simulation shipped without an event of its own, on
+`events-undertow.ts`' rule — an event is for an edge that is *not* in the
+world a frame later, and every edge here is: `brokeBeat`, `spatBeat`,
+`phase`. So the mixer reads them the way it reads the queen's armour and THE
+MIRROR's count-in, frame against remembered frame (`audio/mixer-boss.ts`,
+`soundOrrery`): a ring off, pitched up a step for every ring gone so the count
+can be kept by ear; the core spitting, on the core's column; the core going
+out, unpanned, over the five beats the picture takes. **The shaft opening is
+not one of them**, and must never be — that beat is the fight, and the ear is
+told it no more than either screen is. An `OrreryEvent` arm would have been
+three events restating three fields; the file the mixer already had for a
+boss's clock was the honest place (`docs/spec/audio.md` §6).
 
 **Never watched at tempo.** What the tests say is the mechanism: the three
 orbits come round on their own counts, the anchors put the first alignment

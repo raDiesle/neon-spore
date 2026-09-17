@@ -264,28 +264,6 @@ split means it is shot twice and read as one lesson, which is THE HUSK's
 comment already. Four separate lanes, one boss each, in the order the sections
 are numbered.
 
-## THE ORRERY makes no sound
-
-- **Found:** 2026-09-17, claude/boss-orrery
-- **Taken:** 2026-09-17, claude/queue-the-orrery-makes-no-sound
-- **Files:** packages/sim/src/orrery.ts, packages/sim/src/orrery-step.ts, packages/audio/src/bind-choreographed.ts, tools/director/src/sound-link-none.ts, docs/spec/bosses.md
-
-The simulation shipped without a single event of its own, deliberately: every
-edge a mixer would want is already a field on the state — `brokeBeat` when a
-ring comes off, `spatBeat` when the core fires, `phaseBeat` when it goes out —
-and THE UNDERTOW's own `events-undertow.ts` says an event is for an edge that
-is *not* in the world a frame later. So nothing needed adding to find them.
-But nothing binds them either, and a ring of organs breaking in silence is the
-one part of this fight the pair cannot hear coming.
-
-What to do: decide whether the three moments are read off the state in
-`audio/` the way `bind-choreographed.ts` reads a beat, or whether they earn an
-`OrreryEvent` arm after all — and if they do, say in that file why this boss
-needed one where the state was enough for the picture. Three sounds: a ring
-parting at its gap, the core spitting, the core going out from the centre
-outward. `sound-link-none.ts` is where a moment with no card on the sheet is
-named instead.
-
 ## `bun run format` cannot fix what `bun run lint` reports about import order
 
 - **Found:** 2026-09-17, claude/boss-taster

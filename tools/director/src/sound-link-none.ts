@@ -168,6 +168,15 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.sinewOut":
     "the mass down at the wall. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
   "boss.sinewCrush": "the mass down on the hull. Same argument, with a breach under it.",
+  // THE ORRERY's three. The boss is a core inside three orbits of organs
+  // drawn by arithmetic (render/orrery-draw.ts), and the sheet has no card for
+  // an orbit — what these mark is a ring gone, a core answering and a core out.
+  "boss.orreryBreak":
+    "a ring of organs parting at its gap. What comes off is an orbit, which is a circle the arithmetic draws and not a body the sheet has a contour for; the organs it sheds fall as rocks, and a rock already has a card.",
+  "boss.orrerySpit":
+    "the core letting an organ go down a column. The subject is the core, which is drawn as a blob in the middle of three orbits and has no card of its own; the rock is heard as a rock when it lands.",
+  "boss.orreryOut":
+    "the core going out from the centre outward. Like boss.gorgeOut, what this marks is a frame with nothing under its top — an absence rather than a thing standing anywhere.",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",
