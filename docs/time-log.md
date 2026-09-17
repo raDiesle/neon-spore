@@ -7969,3 +7969,5 @@ so the rebase kept its two files and dropped this lane's. `bind.ts`' split was
 the one that changed a shape — `cueFor` now hands the choreographed bosses'
 events to a `default` narrowed by every case above it, rather than naming
 sixteen cases it has no room for.
+
+*Measured: 9 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

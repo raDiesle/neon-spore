@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 622eb22b — THE UNDERTOW: the attack comes up through the floor, and the pair answers it downward
+
+The simulation half of §13 of docs/spec/bosses-choreographed.md, wave 69 of act 7c. A plate of hull bows for four beats and a lobe stands through it for four; the maw opened over the breach from the cannon's own column takes it, a tall one is the lance beam's alone, and one left standing withdraws and the column is a scar. Three pushes alone, two in pairs four columns apart so the maw reaches one and the pair have to say which, two tall, one under the cannon's own column that has two beats to slide off or has every press swallowed for four, then the whole edge lifts and the last lobe rises in the middle: the maw held under it for six beats takes the body down through the breach, ten beats standing and it comes through the other way. Nothing is drawn yet; the look is the next lane.
+
 ## 2026-09-17 · 4e707ae6 — Queue the lost screen's next answers: the ship has to read as damaged
 
 The owner asked on 17 September 2026 for more VERSUS answers to the screen a lost wave stops on — the structure is right and the picture is thin. Four things in one entry: WAVE LOST moved down off the top plate, alternatives to the violet rivulets in particular, the breach replayed where it happened with the crest running once and the char held for the whole screen, and a heavy red answer bleeding out across the field.
