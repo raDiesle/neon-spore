@@ -620,6 +620,7 @@ are numbered.
 ## A mine's press reads the column with no fold, so a mine on THE FLIP misreads it
 
 - **Found:** 2026-09-17, claude/queue-a-rehearsal-cannot-show-a-finger-on-a-bare-tile
+- **Taken:** 2026-09-17, claude/queue-a-mines-press-reads-the-column-with-no-fold-so-a
 - **Where:** local
 - **Files:** `packages/render/src/mine-tap.ts`, `packages/render/src/field-flip.ts`, `packages/render/test/mine-frame.test.ts`
 
