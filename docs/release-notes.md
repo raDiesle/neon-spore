@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 4e707ae6 — Queue the lost screen's next answers: the ship has to read as damaged
+
+The owner asked on 17 September 2026 for more VERSUS answers to the screen a lost wave stops on — the structure is right and the picture is thin. Four things in one entry: WAVE LOST moved down off the top plate, alternatives to the violet rivulets in particular, the breach replayed where it happened with the crest running once and the char held for the whole screen, and a heavy red answer bleeding out across the field.
+
 ## 2026-09-17 · 66280e33 — NEXT INHALE: the column the mouth will be in, on the navigator's screen alone — and the throat turning inside out
 
 THE THROAT is whole. The navigator gets the one readout in this game about a beat that has not happened: the column the mouth will be standing in when it next takes something, and a bar filling toward that beat. It is `queen-drop.ts`'s picture, which the design asks for by name, and it is why the mouth's column is a pure function of the beat rather than a position stepped once a beat — a stepper could not have answered the question at all. The pilot sees none of it. He has the whole gullet, which is where the mouth is now, and now is what a fling this beat is swept against; where to let go for a gum that lands in four beats' time is the sentence the pair has to say out loud.
