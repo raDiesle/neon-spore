@@ -887,9 +887,13 @@ not what is left to do.
 and a boss idea on the page still says which one it wants — "Slot: The Heart
 (60)" is a pillar's label now, not a boss's. The designs stay where they are
 worth keeping: The Mother's rule that a boss reacts to *what* was destroyed
-and never to *how well* (11.1) is cited by THE VANE and THE WARDEN; The
-Vessel's argument for the information split (11.2) is the clearest the spec
-has; THE TELL (11.9) was kept as an idea by the owner earlier the same day.
+and never to *how well* is cited by THE VANE and THE WARDEN; The Vessel's
+argument for the information split is the clearest the spec has; THE TELL
+(11.9) was kept as an idea by the owner earlier the same day. **Both designs
+themselves were cut on 17 September 2026** — the owner keeps no boss idea
+older than three days on the page — and what was worth keeping outlived them:
+the rule is `bosses.md`'s own *fixed and learnable* section, and The Vessel's
+argument is `systems.md` 5.2's.
 `packages/audio`'s planned cues keep their names as history. The director's
 group shows its empty line.
 

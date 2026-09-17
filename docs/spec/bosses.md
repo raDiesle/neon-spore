@@ -1,17 +1,27 @@
 # Bosses
 
-> **Status: the act order names only what is built.** The Bulb Queen, THE
-> VANE (in the slot once called The Conductor), THE CHOIR, The Warden and
-> THE MIRROR are in the game, and so are THE FLEET, THE GAUGE, SNAKE, PINBALL, THE
-> PULSE, THE CAIRN and THE WELL, none of which is on the list below. The seven names that once held
+> **Status: this page is ordered by what is left to do.** What is still to
+> build stands first, what is in the game follows it, and a design that shipped
+> and was taken out again is last. **The `11.n` numbers are not in sequence
+> down the page, on purpose:** thirty-odd files in `sim`, `docs` and the
+> director cite a boss by its number, and reordering the page without keeping
+> them would break every one of them. Read the contents list, not the numbers.
+>
+> Two designs left this page on 17 September 2026 — **The Mother** (11.1) and
+> **The Vessel** (11.2) — as boss ideas older than the owner keeps on the page.
+> What was worth keeping out of them is two sentences rather than two designs:
+> [fixed and learnable](#fixed-and-learnable), which four files in `sim` cite,
+> and The Vessel's argument that a boss can be built which does not work at all
+> on one shared screen, which is
+> [systems 5.2](systems.md#52-information-split--partly-built)'s own.
+>
+> **The act order names only what is built.** The seven names that once held
 > the empty slots — Strand Nest, The Conductor, The Heart, The Mother, The
-> Codex, The Echoes, The Kernel, The Vessel — and THE TELL, built and taken
-> out again, left the
-> order on 11 September 2026 (`decisions.md` #30). The slots themselves are
-> the act structure's, in [wave-design 8.4](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built),
-> and a boss idea on the NOT BUILT YET page names the one it would fit. Two
-> designs below hold no slot: The Mother (11.1) waits on destruction tracking,
-> The Vessel (11.2) on a second device; THE TELL's design is 11.9.
+> Codex, The Echoes, The Kernel, The Vessel — and THE TELL, built and taken out
+> again, left the order on 11 September 2026 (`decisions.md` #30). The slots
+> themselves are the act structure's, in
+> [wave-design 8.4](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built),
+> and a boss idea names the one it would fit.
 
 Order, following [the act structure](wave-design.md#84-the-ten-pillars-as-an-act-structure--not-built):
 
@@ -20,9 +30,9 @@ The Mirror (built) · The Splice (built).
 
 THE MIRROR holds no slot in the act structure yet — 11.3 says where it would
 fit if one is ever given to it, and THE SPLICE (11.13) holds none either: it
-was asked for by name rather than dropped into a gap. Every other slot is empty and unnamed: what
-goes in it comes from the boss ideas, each of which says which slot it wants,
-and arrives here as a numbered section when it is built.
+was asked for by name rather than dropped into a gap. Every other slot is empty
+and unnamed: what goes in it comes from the boss ideas, each of which says
+which slot it wants, and arrives here as a numbered section when it is built.
 
 **Every boss in this file is a loop, and that is now written down as a gap
 rather than a property.** A cadence the pair learns and then executes until the
@@ -32,14 +42,76 @@ round after round. None of them has a second act.
 A Way Out at the owner's ask on 16 September 2026 — fifteen concepts whose
 content is an **authored sequence** rather than a cadence, the four corrections
 this engine makes to that brief, and the four primitives a scene needs before
-any of them can be built. Nothing on it is accepted.
+any of them can be built.
 
-The five that exist ask five different questions. The Queen is about **what you
-know**, THE MIRROR about **what you remember**, The Warden about **what your
-hands are free to do**, THE VANE about **what you can still say when the words
-no longer line up**, and THE FLEET about **giving directions** — which is why
-none of them is a re-skin of another, and why the sixth one built should be
-asked the same question before it is started.
+The five that were built first ask five different questions. The Queen is about
+**what you know**, THE MIRROR about **what you remember**, The Warden about
+**what your hands are free to do**, THE VANE about **what you can still say
+when the words no longer line up**, and THE FLEET about **giving directions** —
+which is why none of them is a re-skin of another, and why the next one built
+should be asked the same question before it is started.
+
+## Contents
+
+[Fixed and learnable](#fixed-and-learnable) — the rule every section below obeys.
+
+**Still to build**
+
+Nothing, as of 17 September 2026. Every design on this page is in the game or was taken out of it again, and the two that were only ever ideas were cut. What is left undone is **inside** the built sections, each under its own *What is not built* paragraph, and the director's `◇ NOT BUILT YET` sheet is where those are read together.
+
+**Built — and what is still left on each is inside its own section**
+
+- **[The Bulb Queen](#110-the-bulb-queen--armoured-everywhere-but-the-mark)** · 11.0 — armoured everywhere but the mark
+- **[THE MIRROR](#113-the-mirror--your-own-ship-asking-for-your-moves-back)** · 11.3 — your own ship, asking for your moves back
+- **[The Warden](#114-the-warden--the-gate-one-of-you-holds-open)** · 11.4 — the gate one of you holds open
+- **[THE VANE](#115-the-vane--the-arm-that-decides-where-you-are-hit)** · 11.5 — the arm that decides where you are hit
+- **[THE FLEET](#116-the-fleet--one-of-you-has-the-map-the-other-has-the-sights)** · 11.6 — one of you has the map, the other has the sights
+- **[PINBALL](#117-pinball--the-thing-you-fire-from-is-the-thing-you-catch-it-with)** · 11.7 — the thing you fire from is the thing you catch it with
+- **[THE PULSE](#118-the-pulse--the-same-song-and-neither-of-you-can-read-all-of-it)** · 11.8 — the same song, and neither of you can read all of it
+- **[THE MAZE](#1110-the-maze--the-wheel-in-its-numbers)** · 11.10 — the wheel, in its numbers
+- **[THE CAIRN](#1111-the-cairn--the-boss-you-take-apart-with-your-hands)** · 11.11 — the boss you take apart with your hands
+- **[THE WELL](#1112-the-well--the-field-turned-inside-out-on-one-phone)** · 11.12 — the field turned inside out, on one phone
+- **[THE SPLICE](#1113-the-splice--straws-fed-in-the-order-the-numbers-say)** · 11.13 — straws fed in the order the numbers say
+- **[THE HIVE](#1114-the-hive--the-boss-you-seal-and-every-breach-you-have-not-sealed-yet-is-spilling)** · 11.14 — the boss you seal, and every breach you have not sealed yet is spilling
+- **[THE REPRISE](#1115-the-reprise--the-wave-you-have-just-beaten-sent-again-unseen)** · 11.15 — the wave you have just beaten, sent again unseen
+- **[THE STARE](#1116-the-stare--the-thing-that-looks-and-the-hands-that-must-not-move)** · 11.16 — the thing that looks, and the hands that must not move
+- **[THE DIASTOLE](#1117-the-diastole--two-hearts-on-two-cadences-one-each)** · 11.17 — two hearts on two cadences, one each
+- **[THE BATON](#1118-the-baton--a-bead-passed-down-an-arm-one-seat-a-beat)** · 11.18 — a bead passed down an arm, one seat a beat
+- **[THE THROAT](#1119-the-throat--the-boss-you-answer-by-feeding-it)** · 11.19 — the boss you answer by feeding it
+- **[THE UNDERTOW](#1120-the-undertow--the-boss-under-the-floor-answered-downward)** · 11.20 — the boss under the floor, answered downward
+- **[THE ORRERY](#1121-the-orrery--three-orbits-and-neither-of-you-can-see-all-three)** · 11.21 — three orbits, and neither of you can see all three
+- **[THE CANDLE](#1122-the-candle--the-boss-fought-in-the-dark)** · 11.22 — the boss fought in the dark
+- **[THE GORGE](#1123-the-gorge--the-boss-you-hurt-by-not-shooting)** · 11.23 — the boss you hurt by not shooting
+- **[THE CURTAIN](#1124-the-curtain--the-boss-that-is-in-the-way)** · 11.24 — the boss that is in the way
+- **[THE TASTER](#1125-the-taster--the-boss-that-grows-armour-in-the-colour-you-spend)** · 11.25 — the boss that grows armour in the colour you spend
+- **[THE SINEW](#1126-the-sinew--the-boss-that-asks-how-hard-not-when)** · 11.26 — the boss that asks how hard, not when
+- **[THE LEDGER](#1127-the-ledger--the-boss-that-bills-your-own-hull-for-every-shot)** · 11.27 — the boss that bills your own hull for every shot
+- **[THE SURGE](#1128-the-surge--the-boss-beaten-by-letting-go)** · 11.28 — the boss beaten by letting go
+- **[THE LEAD](#1129-the-lead--the-boss-you-shoot-where-it-will-be)** · 11.29 — the boss you shoot where it will be
+- **[THE SCUTTLE](#1130-the-scuttle--the-boss-racing-you-to-its-own-death)** · 11.30 — the boss racing you to its own death
+- **[THE ANTIPHON](#1131-the-antiphon--the-boss-that-grows-a-thing-nobody-has-a-word-for)** · 11.31 — the boss that grows a thing nobody has a word for
+
+**Retired — shipped and taken out again, kept for the verdict**
+
+- **[THE TELL](#119-the-tell--rock-paper-scissors-and-half-the-tell-on-each-screen)** · 11.9 — rock, paper, scissors, and half the tell on each screen
+
+## Fixed and learnable
+
+**The one rule every boss on this page obeys**, and the one thing worth keeping
+out of The Mother's design after it was cut on 17 September 2026. A boss may
+react to **what** the pair did — which colour they spent, what they destroyed,
+how hard they pulled — and never to **how well** they did it; the mapping from
+that to what the boss does is fixed, written down and learnable, so a pair can
+predict the next encounter from this one. What shifts is *which* control group
+is loaded, never *how heavily*.
+
+It is cited by name rather than re-derived: THE VANE's cycle, THE WARDEN's
+table, THE CAIRN's eight-beat announcement and THE TASTER's ledger
+(`sim/spend.ts`, `sim/taster.ts`, `sim/taster-step.ts`, `sim/cairn.ts`) all
+stand on this sentence. Until The Mother was cut it was numbered 11.1, and that
+is the number the older citations used.
+
+## Built
 
 ## 11.0 The Bulb Queen — armoured everywhere but the mark
 
@@ -111,8 +183,8 @@ the beat the picture hands over from the egg to the creature. From the next
 beat it falls at the torch's own speed, the fastest thing in the field, the
 whole way down: nothing of her reaches below a wing tip, so there is nothing
 to slide clear of first. Nothing about the cadence reads *how well* the pair
-is playing — it is fixed and learnable from the very start, exactly as 11.1
-demands of The Mother.
+is playing — it is fixed and learnable from the very start, exactly as *fixed and
+learnable* demands (see above).
 
 **Which wing is player 2's to call, and it is a clock rather than a ring.**
 The flank the next torch comes off wears NEXT TO FALL on player 2's screen and
@@ -139,32 +211,6 @@ row she holds at full health, and she sinks a tile for every petal lost.
 `queenEggGrowShare` is the share of a beat she takes to grow a torch back into
 the socket the last one broke off from — 1 is the whole beat, 0 is it simply
 being there again — and only the picture reads it.
-
-## 11.1 The Mother — reactive, but announced
-
-She reacts to what the pair destroyed in the previous act, and brings it back.
-So that this does not become a hidden difficulty adjustment, three conditions:
-
-1. The reaction refers to **what was destroyed, not to performance**. She
-   reacts to *what* the pair did, never to *how well*.
-2. The mapping is fixed and learnable: meteor → warding pressure, slick → colour
-   pressure, spared runts → stronger growth. A pair should be able to predict
-   its next encounter.
-3. Overall difficulty stays the same. What shifts is **which** control group is
-   loaded, not **how heavily**.
-
-The choreography therefore stays fixed — it simply has several written-out
-versions, between which the pair's behaviour visibly chooses.
-
-## 11.2 The Vessel
-
-The navigator sees the target combination, the pilot only the individual
-current states. That makes it no longer an arithmetic puzzle under time
-pressure, but an announcement under time pressure.
-
-This is the clearest single argument for the
-[information split](systems.md#52-information-split--partly-built): the boss does
-not work at all on one shared screen.
 
 ## 11.3 THE MIRROR — your own ship, asking for your moves back
 
@@ -526,8 +572,8 @@ never the floor itself.
 
 **The cycle is fixed and learnable, and it is written once.** Held at one end,
 across, held at the other, back — the same lengths in every phase, so a pair
-that learned it on its first turn has learned it for the fight, exactly as 11.1
-demands of The Mother. It is `VANE_CYCLE` in `packages/sim/src/vane-cycle.ts`,
+that learned it on its first turn has learned it for the fight, exactly as *fixed and
+learnable* demands (see above). It is `VANE_CYCLE` in `packages/sim/src/vane-cycle.ts`,
 and the director's boss panel renders that array. It is deliberately **not**
 repeated here: the Warden's table above is already written twice, and a third
 copy is how a spec starts lying. What is worth saying in prose is the one thing
@@ -1047,224 +1093,6 @@ window is not a free pass. `pulseMissMilli` is what a missed note takes off, and
 than waiting costs, so a seat that cannot read its own arrow cannot hold all
 four buttons down through the bar and never be wrong.
 
-## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
-
-> The one where the boss shows you what it is about to throw, and only one of
-> you can see it.
-
-**Built and taken out.** It shipped on wave 60 on 8 September 2026 and the
-owner removed it on 11 September 2026: "I do not like it and its hard to
-understand for players. too far away from the actual game setup and how it
-should feel." Everything it was — the sim's ladder and ring, the render's
-three-lobed body and its nine scenes, the reduced panel, the guide scene and
-the wave — was deleted whole rather than switched off; `git log -S tellRound`
-finds it. What follows is the design as it was argued, kept because the
-argument (an odd ring, a split tell, a boss that answers your last throw) may
-be worth having again in a form the pair can read at a glance. Any second try
-has to start from the objection: a rule table drawn on the boss is still a
-rule table, and a round the pair has to be taught three arrows for is not a
-round of this game.
-
-Asked for by the owner on 8 September 2026, with most of it already decided in
-the asking: a boss at the top of the field that reveals at the same moment the
-pair does, a rule table that is on the screen the whole time, several rungs, a
-lost rung starting the ladder again, and a field that looks like the field.
-What was put to this page were two questions — how many throws a ring can hold,
-and how a round of chance is kept from being decided by chance. The answers are
-below and neither of them is a matter of taste.
-
-**The ring is the game's own physics, so two thirds of it needs no teaching.**
-Three throws: BOLT, PLATE, MAW.
-
-| Throw | Beats | Because |
-|---|---|---|
-| PLATE | BOLT | it is what a plate has done in every wave since the first |
-| BOLT | MAW | a mouth open when a bolt arrives swallows it |
-| MAW | PLATE | a plate is a charge, and the maw is the cannon lobe turned inside out — `intake` already empties a lance fill (`packages/sim/src/lance.ts`) |
-
-A pair walks in already knowing the first arrow and guessing the second. Only
-the third has to be shown, and it is shown once, by being done to them.
-
-**Three, five or seven, and never four.** A ring is balanced only where every
-throw beats exactly as many as it loses to — anything else is a throw that is
-simply better, and a throw that is simply better is the only throw. With `n`
-throws each beating `k` and losing to `k`, every throw meets `n - 1` others and
-`n - 1 = 2k`, so **`n` is odd**. Four throws cannot be balanced and neither can
-six. Five is possible and is refused here for the screen rather than for the
-maths: five throws is ten arrows, and ten arrows is a diagram somebody reads
-instead of a rule somebody knows.
-
-**So nothing comes off the panel.** The owner's own proposal was that three
-throws would mean dropping a button, the shield for instance; it would cost the
-ring its best arrow and leave two throws, which is not a ring. The panel is the
-standard set drawn as slabs — the same four labels the pair has held all game —
-and the fourth button is not spare, because **RED and CYAN are both BOLT**. The
-boss wears one of the two colours on its skin, a bolt in the boss's colour
-lands, and a bolt in the other one splashes off and the exchange is a
-stand-off, even where BOLT would have won. That is colour armour
-([systems](systems.md)) asked as a question instead of as a filter, and it is
-what makes player 2's two buttons two decisions rather than one drawn twice.
-
-**One ship, one throw, two seats.** The standard split is untouched and it does
-the whole of the work: player 1 holds SHIELD and SUCK, so he throws PLATE and
-MAW and can never throw BOLT; player 2 holds the two colours, so she throws
-BOLT and nothing else. Which of them is throwing has to be said out loud before
-either presses, because the ship throws once. That is a round's third condition
-([interludes](interludes.md)) satisfied by the panel the game already has,
-without a verb being invented for it.
-
-**The tell is what stops it being a coin toss, and it is split in half.** Every
-rung the boss draws breath for `tellBeats` and shows what it is about to throw:
-one of its three lobes fills. That fill is drawn **on player 1's screen only**.
-The colour it is wearing is drawn **on player 2's screen only**. Neither half
-is a decision — he can see what to beat and cannot throw a bolt, she can throw
-the bolt and cannot see whether a bolt is the right throw at all. Every rung is
-two sentences and one thumb, and the only thing the `Rng` decides is which
-sentence the pair has to say.
-
-**The boss is not drawing out of a bag, it is answering you**, and this is the
-larger half of the same answer. For the opening rungs it throws whatever would
-have beaten the pair's *last* throw — so a pair that notices can steer it: throw
-MAW, and the next thing it throws is BOLT, so throw PLATE. The tell then
-confirms something they had already worked out rather than being the only
-information in the round, and a pair is rewarded for holding a model of its
-opponent, which is what this game is about when two people play it in a bar.
-How many rungs it answers for before it starts mixing is the difficulty curve
-in one integer.
-
-**Five rungs, and a lost rung starts the ladder again.** That is the owner's
-rule and it is the one thing here that needs no argument; what needs an
-argument is why starting again is bearable. The ladder is drawn from the seeded
-`Rng` **once**, when the round opens, and is not drawn again on a restart:
-rungs one to three are the same throws in the same order, so a pair that died
-on rung four comes back through what it already knows in fifteen seconds. It
-costs nothing, because the round is deterministic anyway, and the repetition is
-the reward for having learnt it rather than a tax for having failed. A lost
-rung takes `damageThrowRepeat` off the hull and running the round's clock out
-takes `damageThrow` — SNAKE's two numbers for SNAKE's reason
-([interludes](interludes.md)).
-
-**It gets harder three ways and none of them is luck.** The window shortens
-down the ladder — `tellBeats` at 4, 4, 3, 3, 2 — so the sentence has to get
-shorter, which is the thing a pair actually improves at. From rung four the
-boss **feints**: the fill starts on one lobe and moves to another on the last
-beat, and a feinting boss always shivers first, one beat of the contour going
-tight, so a pair that knows the tell can still be right and a pair that called
-early is wrong for a reason it can name. And the last rung has no guess in it
-at all — three throws on three consecutive beats, every one of them shown
-outright, no feint: the pair finding out whether it can say three words in four
-seconds without talking over itself. A ladder that ends on a coin toss ends on
-somebody else's decision.
-
-**A tie is a bonk, not a re-roll.** The two shapes meet in the middle of the
-field, bounce back wobbling, the rung stands where it was — and the next tell
-is one beat shorter. Mirroring the boss is survivable twice and not three
-times, and no beat of the round is spent on nothing having happened.
-
-**The rules are drawn on the boss, which is why they can always be on screen.**
-Three lobes in a triangle with the three arrows between them: the boss *is* the
-rule table, so it takes no strip of a portrait phone away from the field, and
-the lobe that fills during a tell is one of the ring's own nodes. The instant a
-seat locks, the node for the ship's throw lights **on both screens** — the ship
-has committed and both of them can see to what, which is the owner's second
-sentence about visibility and is also the only way the seat that did not throw
-finds out what its partner did. The boss's node stays dark until the reveal,
-and both nodes light on the same beat.
-
-**Nine little scenes, and not one new noun.** PLATE beating BOLT is the bolt
-crossing the gap and bursting on a plate that snaps up and rings
-(`packages/render/src/hull-shock.ts`, played as a win instead of a hit). BOLT
-beating MAW is the bolt going straight down an open mouth: the boss swells like
-a balloon, holds a beat with every lobe stiff, and vents sparks out of every
-notch at once. MAW beating PLATE is the boss's plate peeling off its own skin
-and going down our mouth in one long slurp, and the boss patting the bare patch
-where it was. The three losses are the same three scenes with the ship and the
-boss swapped — which is how the ring is taught, by having it done to you — and
-the three ties are the bonk.
-
-**The field looks like the field, and this is where that is settled.** It keeps
-the hull, the scars, the cannon, the plate, the backdrop and the HUD, and the
-boss holds the top rows the way every boss does. That is THE PULSE's answer to
-a round's first condition carried one step further, and it is what the owner
-asked for. What it does not keep is the bodies coming down the columns: nothing
-falls, no column is named, and neither the hull nor the boss moves sideways all
-round, so the no-travel rule is not even in the room (`docs/decisions.md` #21).
-
-**The lattice is drawn and the coordinates are not**, which is the owner's
-answer to the one place his wish and the first condition touch. He was given
-three — the grid faint with no numbers on it, no grid at all, or the grid
-exactly as a wave draws it — and took the first. The reasoning he was given for
-it holds: the room the pair is standing in should be the room they know, and a
-lattice carrying coordinates would be inviting them to say "column four" in a
-round where the phrase means nothing. The round's own picture drew it at just
-over half strength, with `drawGrid`'s coordinate argument at nought.
-
-**What it cost** was what [interludes](interludes.md) says a round costs, and
-the forecast held: five files in `packages/sim` (the state, the ring pure over
-its arguments, the clock, the hash and two config numbers), a ladder file and
-one control-set row in `packages/content`, and four files in `packages/render`
-for the picture. Every field of it was in `hashWorld` under the boss tag, and
-a sim test held the ring, the seat split, the ladder and the fingerprint. All
-of it is gone from the tree.
-
-**The panel was a reduction of the standard one**, which is the part that cost
-nothing at all: `{ id: "tell", reduces: "default", controls: ["guard",
-"intake", "fireRed", "fireCyan"] }`. No new `ControlDef`, no new `Command`, no
-slab. `reduces` is what the numbered STANDARDs use to hold a button on the
-pixel it will keep for the rest of the game, and here it holds all four exactly
-where the pair last held them and leaves both strips empty. Every round before
-this needed verbs of its own; this one is the first where reusing the ship's is
-not a shortcut but the encounter itself.
-
-**It was the fifth round, and the fifth copy of one branch.** `step.ts` carried
-THE GAUGE, SNAKE, PINBALL and THE PULSE as four hand-written early returns
-differing in three identifiers; this one would have been a fifth and nine more
-are designed, so they are a table in `packages/sim/src/step-round.ts` now. Four
-other files were sitting exactly on the 250-line ceiling and paying for it —
-`config.ts`, `bosses.ts`, `queue.ts` and the director's `ship-notes.ts` — and
-each was split along the seam this repository has now cut five times for the
-same growth: the rounds are the half that grows. The table and the splits
-outlived the round that caused them.
-
-**The three rules the owner settled**, on 8 September 2026, each between named
-options and each in the code while it stood:
-
-- **Both seats pressing inside the same window loses the rung.** Not a race
-  won by the first thumb: the ship throws once, so who is throwing has to be
-  said out loud before either of them presses, and a first-past-the-post rule
-  would make the round a thing two thumbs do instead of a thing two people say.
-  `tellRoundHeard` cancels the throw outright; the same seat pressing twice is
-  a stutter and changes nothing.
-- **A bolt in the wrong colour turns a win into a stand-off and leaves a loss
-  a loss.** The colour can never help. The alternative — wrong colour always
-  loses — was refused because it makes player 2's half of the tell the only
-  mistake that counts; this version makes it a second chance to be right rather
-  than a second way to be wrong. Were a wrong colour to *excuse* a loss instead,
-  throwing the wrong one into PLATE would be better than throwing the right one,
-  which is the reading `tellResolve` exists to rule out.
-- **The lattice is drawn faint, without coordinates**, as above.
-
-Slot: it stood on wave 60, at the end of act eight, which is where a new wave
-lands rather than a pillar it was designed for. Wave 60 is The Heart's slot
-again.
-
-**What was never built**, and it is one thing: the ladder's last rung was
-designed as *three throws on three consecutive beats, all shown outright* — a
-rung with no guess in it at all, where the difficulty is the pair saying three
-words in four seconds without talking over each other. Every rung the code had
-asked for one throw.
-
-**Why it went**, in the owner's words: hard for players to understand, and too
-far from the actual game setup and how it should feel. Read against this page,
-that is the first condition of a round failing even though the field looked
-like the field: the pair was asked to learn a ring of three arrows and a
-two-screen tell before the first rung meant anything, and nothing in the
-fifty-nine waves before it had taught either. If it is ever tried again, the
-ring has to be one the pair already knows from playing — the plate stopping a
-bolt is the only arrow the game teaches by itself — and the tell has to be a
-thing the game already shows, not a lobe filling on a body built for the
-purpose.
-
 ## 11.10 THE MAZE — the wheel, in its numbers
 
 The fight itself is written where it is built, `packages/sim/src/maze-round.ts`
@@ -1322,7 +1150,8 @@ seeded rng drew — and **that column is drawn on player 1's screen and on nothi
 player 2 is shown**. The seat that can see where the next rock is coming from is
 the seat with no shield, so the second sentence of this fight is a number said
 across the voice delay, which is THE GHOST's ask arriving in a boss. Announced a
-full eight beats ahead, fixed and learnable, as 11.1 requires of every boss here.
+full eight beats ahead, *fixed and learnable*, as this page requires of every
+boss on it.
 A pair who have learnt the creature never see the clock run out, because a pull
 resets it — which is the other half of what the mark teaches.
 
@@ -2903,6 +2732,7 @@ third hit puts it out with the wave held two beats after and cleared once it
 is gone; and the same run fingerprints the same way twice and differently for
 another seed (`sim/test/curtain.test.ts`). The look has been seen in a frame
 and never at tempo.
+
 ## 11.25 THE TASTER — the boss that grows armour in the colour you spend
 
 > The one where the colour you keep firing is the colour that stops working.
@@ -2921,8 +2751,9 @@ colour leaves the muzzle — `launch` in `bullets.ts` and `releaseLance` in
 (`spendHashParts`). It is read as a pure function of `world.beat` through
 `spentOver` and `spendLean` and never as a position anything steps, which is
 the discipline `throat.ts` argues for a moving mouth. It is a field of the
-world rather than of this boss because the design page says THE MOTHER (§11.1)
-has been waiting for exactly this, and `spendLean` carries a row in
+world rather than of this boss because it is the ledger *fixed and learnable*
+allows any boss to read — a count of **what** the pair spent and never of how
+well they played — and `spendLean` carries a row in
 `sim/test/copies-table.ts` so the second reader asks rather than re-derives.
 A slot is stale by the beat it carries, which is also what makes it safe
 across `resetClock`.
@@ -4042,3 +3873,224 @@ the ship grows again with no second still; and the same run fingerprints
 the same way twice (`sim/test/antiphon.test.ts`, eighteen). Nothing was
 drawn, nothing was watched, and whether fourteen beats is a conversation
 or a wait is the owner's.
+
+## Retired
+
+## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen
+
+> The one where the boss shows you what it is about to throw, and only one of
+> you can see it.
+
+**Built and taken out.** It shipped on wave 60 on 8 September 2026 and the
+owner removed it on 11 September 2026: "I do not like it and its hard to
+understand for players. too far away from the actual game setup and how it
+should feel." Everything it was — the sim's ladder and ring, the render's
+three-lobed body and its nine scenes, the reduced panel, the guide scene and
+the wave — was deleted whole rather than switched off; `git log -S tellRound`
+finds it. What follows is the design as it was argued, kept because the
+argument (an odd ring, a split tell, a boss that answers your last throw) may
+be worth having again in a form the pair can read at a glance. Any second try
+has to start from the objection: a rule table drawn on the boss is still a
+rule table, and a round the pair has to be taught three arrows for is not a
+round of this game.
+
+Asked for by the owner on 8 September 2026, with most of it already decided in
+the asking: a boss at the top of the field that reveals at the same moment the
+pair does, a rule table that is on the screen the whole time, several rungs, a
+lost rung starting the ladder again, and a field that looks like the field.
+What was put to this page were two questions — how many throws a ring can hold,
+and how a round of chance is kept from being decided by chance. The answers are
+below and neither of them is a matter of taste.
+
+**The ring is the game's own physics, so two thirds of it needs no teaching.**
+Three throws: BOLT, PLATE, MAW.
+
+| Throw | Beats | Because |
+|---|---|---|
+| PLATE | BOLT | it is what a plate has done in every wave since the first |
+| BOLT | MAW | a mouth open when a bolt arrives swallows it |
+| MAW | PLATE | a plate is a charge, and the maw is the cannon lobe turned inside out — `intake` already empties a lance fill (`packages/sim/src/lance.ts`) |
+
+A pair walks in already knowing the first arrow and guessing the second. Only
+the third has to be shown, and it is shown once, by being done to them.
+
+**Three, five or seven, and never four.** A ring is balanced only where every
+throw beats exactly as many as it loses to — anything else is a throw that is
+simply better, and a throw that is simply better is the only throw. With `n`
+throws each beating `k` and losing to `k`, every throw meets `n - 1` others and
+`n - 1 = 2k`, so **`n` is odd**. Four throws cannot be balanced and neither can
+six. Five is possible and is refused here for the screen rather than for the
+maths: five throws is ten arrows, and ten arrows is a diagram somebody reads
+instead of a rule somebody knows.
+
+**So nothing comes off the panel.** The owner's own proposal was that three
+throws would mean dropping a button, the shield for instance; it would cost the
+ring its best arrow and leave two throws, which is not a ring. The panel is the
+standard set drawn as slabs — the same four labels the pair has held all game —
+and the fourth button is not spare, because **RED and CYAN are both BOLT**. The
+boss wears one of the two colours on its skin, a bolt in the boss's colour
+lands, and a bolt in the other one splashes off and the exchange is a
+stand-off, even where BOLT would have won. That is colour armour
+([systems](systems.md)) asked as a question instead of as a filter, and it is
+what makes player 2's two buttons two decisions rather than one drawn twice.
+
+**One ship, one throw, two seats.** The standard split is untouched and it does
+the whole of the work: player 1 holds SHIELD and SUCK, so he throws PLATE and
+MAW and can never throw BOLT; player 2 holds the two colours, so she throws
+BOLT and nothing else. Which of them is throwing has to be said out loud before
+either presses, because the ship throws once. That is a round's third condition
+([interludes](interludes.md)) satisfied by the panel the game already has,
+without a verb being invented for it.
+
+**The tell is what stops it being a coin toss, and it is split in half.** Every
+rung the boss draws breath for `tellBeats` and shows what it is about to throw:
+one of its three lobes fills. That fill is drawn **on player 1's screen only**.
+The colour it is wearing is drawn **on player 2's screen only**. Neither half
+is a decision — he can see what to beat and cannot throw a bolt, she can throw
+the bolt and cannot see whether a bolt is the right throw at all. Every rung is
+two sentences and one thumb, and the only thing the `Rng` decides is which
+sentence the pair has to say.
+
+**The boss is not drawing out of a bag, it is answering you**, and this is the
+larger half of the same answer. For the opening rungs it throws whatever would
+have beaten the pair's *last* throw — so a pair that notices can steer it: throw
+MAW, and the next thing it throws is BOLT, so throw PLATE. The tell then
+confirms something they had already worked out rather than being the only
+information in the round, and a pair is rewarded for holding a model of its
+opponent, which is what this game is about when two people play it in a bar.
+How many rungs it answers for before it starts mixing is the difficulty curve
+in one integer.
+
+**Five rungs, and a lost rung starts the ladder again.** That is the owner's
+rule and it is the one thing here that needs no argument; what needs an
+argument is why starting again is bearable. The ladder is drawn from the seeded
+`Rng` **once**, when the round opens, and is not drawn again on a restart:
+rungs one to three are the same throws in the same order, so a pair that died
+on rung four comes back through what it already knows in fifteen seconds. It
+costs nothing, because the round is deterministic anyway, and the repetition is
+the reward for having learnt it rather than a tax for having failed. A lost
+rung takes `damageThrowRepeat` off the hull and running the round's clock out
+takes `damageThrow` — SNAKE's two numbers for SNAKE's reason
+([interludes](interludes.md)).
+
+**It gets harder three ways and none of them is luck.** The window shortens
+down the ladder — `tellBeats` at 4, 4, 3, 3, 2 — so the sentence has to get
+shorter, which is the thing a pair actually improves at. From rung four the
+boss **feints**: the fill starts on one lobe and moves to another on the last
+beat, and a feinting boss always shivers first, one beat of the contour going
+tight, so a pair that knows the tell can still be right and a pair that called
+early is wrong for a reason it can name. And the last rung has no guess in it
+at all — three throws on three consecutive beats, every one of them shown
+outright, no feint: the pair finding out whether it can say three words in four
+seconds without talking over itself. A ladder that ends on a coin toss ends on
+somebody else's decision.
+
+**A tie is a bonk, not a re-roll.** The two shapes meet in the middle of the
+field, bounce back wobbling, the rung stands where it was — and the next tell
+is one beat shorter. Mirroring the boss is survivable twice and not three
+times, and no beat of the round is spent on nothing having happened.
+
+**The rules are drawn on the boss, which is why they can always be on screen.**
+Three lobes in a triangle with the three arrows between them: the boss *is* the
+rule table, so it takes no strip of a portrait phone away from the field, and
+the lobe that fills during a tell is one of the ring's own nodes. The instant a
+seat locks, the node for the ship's throw lights **on both screens** — the ship
+has committed and both of them can see to what, which is the owner's second
+sentence about visibility and is also the only way the seat that did not throw
+finds out what its partner did. The boss's node stays dark until the reveal,
+and both nodes light on the same beat.
+
+**Nine little scenes, and not one new noun.** PLATE beating BOLT is the bolt
+crossing the gap and bursting on a plate that snaps up and rings
+(`packages/render/src/hull-shock.ts`, played as a win instead of a hit). BOLT
+beating MAW is the bolt going straight down an open mouth: the boss swells like
+a balloon, holds a beat with every lobe stiff, and vents sparks out of every
+notch at once. MAW beating PLATE is the boss's plate peeling off its own skin
+and going down our mouth in one long slurp, and the boss patting the bare patch
+where it was. The three losses are the same three scenes with the ship and the
+boss swapped — which is how the ring is taught, by having it done to you — and
+the three ties are the bonk.
+
+**The field looks like the field, and this is where that is settled.** It keeps
+the hull, the scars, the cannon, the plate, the backdrop and the HUD, and the
+boss holds the top rows the way every boss does. That is THE PULSE's answer to
+a round's first condition carried one step further, and it is what the owner
+asked for. What it does not keep is the bodies coming down the columns: nothing
+falls, no column is named, and neither the hull nor the boss moves sideways all
+round, so the no-travel rule is not even in the room (`docs/decisions.md` #21).
+
+**The lattice is drawn and the coordinates are not**, which is the owner's
+answer to the one place his wish and the first condition touch. He was given
+three — the grid faint with no numbers on it, no grid at all, or the grid
+exactly as a wave draws it — and took the first. The reasoning he was given for
+it holds: the room the pair is standing in should be the room they know, and a
+lattice carrying coordinates would be inviting them to say "column four" in a
+round where the phrase means nothing. The round's own picture drew it at just
+over half strength, with `drawGrid`'s coordinate argument at nought.
+
+**What it cost** was what [interludes](interludes.md) says a round costs, and
+the forecast held: five files in `packages/sim` (the state, the ring pure over
+its arguments, the clock, the hash and two config numbers), a ladder file and
+one control-set row in `packages/content`, and four files in `packages/render`
+for the picture. Every field of it was in `hashWorld` under the boss tag, and
+a sim test held the ring, the seat split, the ladder and the fingerprint. All
+of it is gone from the tree.
+
+**The panel was a reduction of the standard one**, which is the part that cost
+nothing at all: `{ id: "tell", reduces: "default", controls: ["guard",
+"intake", "fireRed", "fireCyan"] }`. No new `ControlDef`, no new `Command`, no
+slab. `reduces` is what the numbered STANDARDs use to hold a button on the
+pixel it will keep for the rest of the game, and here it holds all four exactly
+where the pair last held them and leaves both strips empty. Every round before
+this needed verbs of its own; this one is the first where reusing the ship's is
+not a shortcut but the encounter itself.
+
+**It was the fifth round, and the fifth copy of one branch.** `step.ts` carried
+THE GAUGE, SNAKE, PINBALL and THE PULSE as four hand-written early returns
+differing in three identifiers; this one would have been a fifth and nine more
+are designed, so they are a table in `packages/sim/src/step-round.ts` now. Four
+other files were sitting exactly on the 250-line ceiling and paying for it —
+`config.ts`, `bosses.ts`, `queue.ts` and the director's `ship-notes.ts` — and
+each was split along the seam this repository has now cut five times for the
+same growth: the rounds are the half that grows. The table and the splits
+outlived the round that caused them.
+
+**The three rules the owner settled**, on 8 September 2026, each between named
+options and each in the code while it stood:
+
+- **Both seats pressing inside the same window loses the rung.** Not a race
+  won by the first thumb: the ship throws once, so who is throwing has to be
+  said out loud before either of them presses, and a first-past-the-post rule
+  would make the round a thing two thumbs do instead of a thing two people say.
+  `tellRoundHeard` cancels the throw outright; the same seat pressing twice is
+  a stutter and changes nothing.
+- **A bolt in the wrong colour turns a win into a stand-off and leaves a loss
+  a loss.** The colour can never help. The alternative — wrong colour always
+  loses — was refused because it makes player 2's half of the tell the only
+  mistake that counts; this version makes it a second chance to be right rather
+  than a second way to be wrong. Were a wrong colour to *excuse* a loss instead,
+  throwing the wrong one into PLATE would be better than throwing the right one,
+  which is the reading `tellResolve` exists to rule out.
+- **The lattice is drawn faint, without coordinates**, as above.
+
+Slot: it stood on wave 60, at the end of act eight, which is where a new wave
+lands rather than a pillar it was designed for. Wave 60 is The Heart's slot
+again.
+
+**What was never built**, and it is one thing: the ladder's last rung was
+designed as *three throws on three consecutive beats, all shown outright* — a
+rung with no guess in it at all, where the difficulty is the pair saying three
+words in four seconds without talking over each other. Every rung the code had
+asked for one throw.
+
+**Why it went**, in the owner's words: hard for players to understand, and too
+far from the actual game setup and how it should feel. Read against this page,
+that is the first condition of a round failing even though the field looked
+like the field: the pair was asked to learn a ring of three arrows and a
+two-screen tell before the first rung meant anything, and nothing in the
+fifty-nine waves before it had taught either. If it is ever tried again, the
+ring has to be one the pair already knows from playing — the plate stopping a
+bolt is the only arrow the game teaches by itself — and the tell has to be a
+thing the game already shows, not a lobe filling on a body built for the
+purpose.
+

@@ -105,7 +105,7 @@ export function vaneStageStart(index: number): number {
  * the same bargain the Bulb Queen makes when she sinks a tile per petal. The
  * timing never moves: holds and sweeps are the same length in every phase, so a
  * pair that learned the cycle on its first turn has learned it for the whole
- * fight (`docs/spec/bosses.md` 11.1). `above` reads as `WARDEN_PHASES` does.
+ * fight (`docs/spec/bosses.md`'s *fixed and learnable*). `above` reads as `WARDEN_PHASES` does.
  */
 export interface VanePhase {
   name: string;

@@ -105,7 +105,7 @@ trademark search is still outstanding either way.
 - **Idle tapping** → the Reserve, tied to slow motion.
   [assists](assists.md#61-the-three-forms).
 - **The Vessel as an arithmetic task** → re-read as an announcement.
-  [bosses](bosses.md#112-the-vessel).
+  [systems 5.2](systems.md#52-information-split--partly-built).
 - **Randomness in the prototype** → waves are drawn from a generator seeded
   with the wave index: same wave, same run. Only what one knows and the other
   does not stays random. [structure](structure.md#73-the-randomness-rule--built).

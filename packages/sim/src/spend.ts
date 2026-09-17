@@ -8,7 +8,7 @@ import type { World } from "./world.js";
  * Nothing in this game has ever remembered the *players* before. Every boss
  * and every creature remembers itself — its phase, its cadence, its beads —
  * and is answered inside its own cycle. This is one number about the two of
- * them, and it is the machinery `docs/spec/bosses.md` §11.1 has been asking
+ * them, and it is the machinery `docs/spec/bosses.md`'s *fixed and learnable* has been asking
  * for since THE MOTHER was designed: a boss may react to the pair, but only
  * to **what they spent** and never to *how well they played*, and only where
  * the reaction is announced a full cycle ahead. A ledger of colours spent is

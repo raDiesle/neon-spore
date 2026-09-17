@@ -126,7 +126,7 @@ export function cairnState(world: World): CairnState | null {
  * out, and that is the whole of the tell: there is something to say for the
  * `cairnShedBeats` before it happens, which is what makes it an announcement
  * instead of a surprise. Every boss in this game is reactive but announced
- * (`docs/spec/bosses.md` 11.1).
+ * (`docs/spec/bosses.md`'s *fixed and learnable*).
  */
 function pickSettle(world: World, body: Creature): number {
   // Any of the pile's columns a two-tile rock still fits in — four of the
@@ -224,7 +224,7 @@ export function pullFromCairn(
  * and that is the seam the whole creature sits on. A pull is a gesture and
  * arrives whenever the finger has travelled far enough; a shed is a *clock*,
  * and a clock the pair is counting against has to land on the beats they are
- * counting. `docs/spec/bosses.md` 11.1 is the rule it obeys — announced a full
+ * counting. `docs/spec/bosses.md`'s *fixed and learnable* is the rule it obeys — announced a full
  * cycle ahead, fixed, and learnable.
  */
 export function stepCairn(world: World, b: CairnState): void {

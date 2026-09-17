@@ -663,7 +663,7 @@ the silhouette records the pair's own colour habits as a shape.
 its next blade in the **majority** colour — and a blade is only struck off by
 the colour it is **not**. That is the whole rule, it is fixed and learnable and
 announced a full cycle ahead, which is what
-[11.1](bosses.md#111-the-mother--reactive-but-announced) demands of any boss
+[*fixed and learnable*](bosses.md#fixed-and-learnable) demands of any boss
 that reacts to the pair at all. It never reacts to *how well* they played, only
 to *what* they spent — the other condition from the same section.
 
@@ -1959,7 +1959,7 @@ documentation guarantee in the repository and the reason this table is short.
 |---|---|---|---|
 | **`StepBack`** — **build first** | A missed step that returns the scene to the previous index rather than losing the wave. The brief's clearest ask — *"FAILURE should usually NOT immediately mean YOU LOSE"* — and the thing the game most conspicuously lacks: `wave-fail.ts` loses the whole wave on a hull hit, and THE MIRROR's own design says a wrong step *"is the wave lost… the whole wave is played again from the top"* | nothing. This is real new machinery and it is what separates a scene from a fight | all fifteen |
 | **`Breach`** | A hull column that is open, widening and answerable — a place, not just a scar | `hull-damage.ts`, `scars.ts`, `hull-break.ts` | 13, and THE HIVE (11.14) |
-| **`SpendLedger`** | A rolling per-colour count of the pair's own commands, hashed | nothing — and **THE MOTHER (11.1) has been waiting for exactly this since it was designed** | 4, and 11.1 |
+| **`SpendLedger`** | A rolling per-colour count of the pair's own commands, hashed | nothing — and **THE TASTER is what it was built for** — the ledger *fixed and learnable* allows a boss to read | 4 |
 | **`SpentBody`** | A boss whose arrivals come out of its own health, so its life and the pair's time are one number | nothing | 15 |
 | **`Occluder`** | A body that changes how the bodies behind it are drawn. `render/` has no z-concept for "dimmer, behind a membrane" | `veil-look.ts` comes closest and does not occlude | 6 |
 | **`InvertedWeakPoint`** | A body vulnerable to the colour it is **not** | `colour-armour.ts` says which colour hurts a body; this says which does not | 4 |

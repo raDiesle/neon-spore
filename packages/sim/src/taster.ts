@@ -28,7 +28,7 @@ import type { World } from "./world.js";
  * is the flat opposite of a warding call: *you are nine red to four, give me
  * cyan for the next eight.*
  *
- * It reacts to the pair, which `docs/spec/bosses.md` §11.1 allows on exactly
+ * It reacts to the pair, which `docs/spec/bosses.md`'s *fixed and learnable* allows on exactly
  * two conditions and both are held here: it reads **what they spent** and never
  * how well they played — the ledger cannot tell a hit from a miss — and every
  * blade announces itself a full cycle ahead, because it stands there growing,

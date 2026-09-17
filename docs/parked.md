@@ -86,3 +86,58 @@ the owner (`bun run frames . --wave "THE HIVE" --seat p1`), the commit says
 "a look with no shipped alternative", `bun run land --keep`, and the ledger
 row is marked **built** on `main` with the shas and what of the design is
 not built.
+
+## bosses.md is reordered; the other two boss pages and the director are not
+
+- **Found:** 2026-09-17, claude/boss-docs-pages-3710e1
+- **Files:** `docs/spec/bosses.md`, `docs/spec/bosses-choreographed.md`,
+  `docs/spec/transfers-bosses.md`, `docs/spec/README.md`, `docs/INDEX.md`,
+  `docs/spec/transfers.md`, `tools/director/src/backlog.ts`,
+  `tools/director/src/backlog-api.ts`, `tools/director/src/backlog-tabs.ts`,
+  `tools/director/index.html`, `tools/director/test/backlog.test.ts`
+
+The owner asked, on 17 September 2026, for three things at once, and the first
+of them landed alone. **What is done:** `bosses.md` is cut and reordered — The
+Mother (11.1) and The Vessel (11.2) are gone as boss ideas older than three
+days; what was worth keeping out of them is the new `## Fixed and learnable`
+section, which four files in `sim` and two in `docs/spec` now cite by name
+instead of by number. The page carries a `## Contents` jump menu and three
+groups — *Still to build*, *Built*, *Retired* — and the `11.n` numbers are
+deliberately out of sequence down the page, on the owner's ruling, so that
+every citation elsewhere in the tree still resolves. *Still to build* is empty:
+THE HIVE landed while this lane ran, so every design on the page is now built
+or retired, and what is left undone is inside the built sections.
+
+**What is not done, in the order it should be picked up.**
+
+1. **`bosses-choreographed.md` gets the same treatment**: a `## Contents` jump
+   menu at the top, and its fifteen concepts ordered by state rather than by
+   the number they were written at — §12 THE ANTIPHON and anything still
+   *taken* first, the built ones after. Its `§n` numbers are cited by
+   `tools/director/src/ship-notes-choreo.ts` and must not be renumbered, for
+   the same reason `bosses.md`'s were not.
+2. **`transfers-bosses.md` is deleted whole**, on the owner's answer of the
+   same day: it is boss ideas from 27 August 2026, and two of its four
+   concepts shipped as something else. Every link into it has to move first —
+   `docs/INDEX.md`, `docs/spec/README.md`, `docs/spec/transfers.md`,
+   `docs/spec/bosses.md` (THE DIASTOLE's paragraph), `docs/spec/bosses-
+   choreographed.md` (four), `docs/decisions.md`, and eight comments in
+   `packages/sim/src` and `packages/sim/test` that cite it as THE VANE's and
+   THE CAIRN's design. THE VANE's and THE CAIRN's designs are the two worth
+   rehoming rather than dropping: both are shipped bosses whose §11 section
+   points at that page for the argument. `tools/shape-sheet` names it in three
+   places too, and `tools/shape-sheet/test/collected.test.ts` holds the claims
+   its drafts make about it.
+3. **The director gets a BOSSES page on the `◇ NOT BUILT YET` sheet**, read off
+   `bosses.md` and `bosses-choreographed.md` the way MECHANICS is read off
+   `systems.md` and `ideas.md`. The tab came *off* the sheet on 16 September
+   2026 and the comment saying so is in `tools/director/src/backlog.ts` — that
+   comment is the thing to rewrite, not to work around. Three groups are worth
+   drawing and the third is the one with the content: the unbuilt designs
+   (THE HIVE alone, today); the choreographed concepts not yet taken; and
+   **what is left on each built boss**, which is every §11 section's own
+   *What is not built* paragraph, extracted the way `unbuiltRemainder` in
+   `backlog.ts` already extracts `systems.md`'s. `backlog-api.ts` reads two
+   spec files today and would read four. `isBuilt` in `backlog-api.ts` already
+   answers the built question off `BOSS_KINDS`, which is the only honest
+   source for it — do not keep a list.

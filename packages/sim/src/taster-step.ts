@@ -22,7 +22,7 @@ import type { World } from "./world.js";
  * **Nothing here reads how well the pair played.** Every decision this file
  * makes is `spendLean` over a window, which counts colours out of the muzzle
  * and cannot see what any of them hit (`spend.ts`) — the condition
- * `docs/spec/bosses.md` §11.1 puts on a boss that reacts to the pair at all.
+ * `docs/spec/bosses.md`'s *fixed and learnable* puts on a boss that reacts to the pair at all.
  */
 
 /** Install it from the wave's own `boss:` entry. There is nothing to author. */

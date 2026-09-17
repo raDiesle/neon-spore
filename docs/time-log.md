@@ -9638,3 +9638,28 @@ nothing — the ten minutes that found it would have been ten minutes in the
 lane that tried to build it instead.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — boss-docs-pages — the boss page reordered by what is left to do
+
+The owner asked for three things: a director page off the two boss spec files,
+every boss idea older than three days deleted, and — mid-turn — a jump menu
+with the unbuilt first and the built last. Two questions were worth asking
+before a line was cut, because both readings were plausible and one of them
+would have deleted the write-ups a built boss is required to have: what counts
+as an idea, and how the reorder meets the `11.n` numbers thirty files cite. The
+answers made the lane small. The Mother and The Vessel are gone; the rule four
+`sim` files were citing as §11.1 outlived the design it was written in, as a
+`## Fixed and learnable` section they now cite by name.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | dating every §11 section off `git log -S`, `BOSS_KINDS` as the only honest built list, the director's backlog parsers, who links to what |
+| writing | 20 | the preamble, the contents menu, three group headings, the rule's new section, twelve citations across `sim` and `docs`, the parked entry |
+| looking | 0 | nothing drawn |
+| friction | 15 | a worktree with no `bun install`, so the first typecheck failed on `@napi-rs/canvas`; a parked title three characters over the 80 the queue test allows; THE HIVE landed on `main` mid-lane and the reorder had to be re-applied to main's copy rather than merged |
+| landing | 10 | `check:fast` twice, the commit, the rebase |
+
+The bottleneck was reading rather than writing, and it was the right place to
+spend it: the page's own status block named five bosses as built and the
+simulation had thirty-two, so every classification had to come off
+`BOSS_KINDS` instead.
