@@ -70,6 +70,7 @@ export const WAVES_ACT_7D: Wave[] = [
       both: "A gullet hangs from the top of the field, five rings stacked, ending in a mouth one column wide that slides along its own row. No shot touches it. Every few beats it inhales: whatever stands in its mouth is swallowed and everything else in that column is hauled a row closer. Anything it swallows makes it stronger. The one thing that hurts it is a gum thrown level along the mouth's row, into the mouth.",
       p1: "The gums are yours and so is the fling. A thumb carried sideways sends one out of its lane and it flies level along the row it was on, so get it down to the mouth's row first. Nothing else you have touches it.",
       p2: "You see the mouth's column and the beats to its next inhale, and he sees neither. Say both, every time. Anything it swallows heals it, so clear that column before the count runs out — his dome, your trigger.",
+      scene: "theThroat",
     },
     entries: [
       { beat: 2, col: 4, kind: "gum", color: null },

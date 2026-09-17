@@ -54,10 +54,6 @@ const STILL_PROSE = [
   // wave's whole content is that one of those two screens is a mirror, which
   // a film has to show by turning and then by being believed.
   "THE FLIP",
-  // And THE THROAT, owed by the lane that draws the gullet. A film of it would
-  // have to show a mouth sliding along a row and a bar filling under it, and
-  // neither is drawn yet; until they are there is nothing to choreograph.
-  "THE THROAT",
   // And THE HUSK, owed by the lane that films it. A rehearsal is a thumb
   // landing on a named control, and half of this wave's answer is a thumb that
   // must **not** land — the maw left shut while a pod arrives, which is THE

@@ -49,6 +49,7 @@ import { THE_ROCK } from "./scenes/the-rock.js";
 import { THE_SPLICE } from "./scenes/the-splice.js";
 import { THE_STRAND } from "./scenes/the-strand.js";
 import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
+import { THE_THROAT } from "./scenes/the-throat.js";
 import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
 import { THE_VANE } from "./scenes/the-vane.js";
@@ -145,7 +146,8 @@ export type SceneId =
   | "theMoult"
   | "theMine"
   | "theDiastole"
-  | "theBaton";
+  | "theBaton"
+  | "theThroat";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -210,6 +212,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theMine: THE_MINE,
   theDiastole: THE_DIASTOLE,
   theBaton: THE_BATON,
+  theThroat: THE_THROAT,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

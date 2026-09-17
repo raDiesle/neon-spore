@@ -9111,3 +9111,19 @@ and a two-beat sit leave no place for a settle to be captioned after a
 handover, so the film shows the settle nowhere and says the rule in the guide.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-four-drawn-bosses-still-owe-their-rehearsal-film — THE THROAT's rehearsal film
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | §11.19, `throat.ts`, `throat-step.ts`, `gum.ts`, `carry-grips.ts`, the wave's guide |
+| deciding | 10 | a still-phase lesson in six pages — stop, shoot, swallow, fling, choke, slide — with every body page on the hull, because a body held in the mouth stands on row five and the page rule wants six |
+| writing | 10 | the film, a probe under `tools/probe/scratch/` until the fling landed, the test, the wiring, the prose count |
+| friction | 10 | the first drag flung nothing: a carry settles on the beat, so `by` has to sit on a beat boundary with the hand still held past it; and a gum three columns off chokes on the fling beat with no flight shown |
+| landing | 5 | `check:fast`, `bun run index`, this entry, the commit, `bun run land` |
+
+The bottleneck was the fling: the gum's carry has to finish exactly on a beat
+with the grip still down, and it has to start far enough from the mouth that a
+beat of flight is seen before the choke — neither of which the act format says.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*
