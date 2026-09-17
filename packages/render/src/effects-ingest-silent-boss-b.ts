@@ -42,9 +42,10 @@ export const INGEST_SILENT_BOSS_B = [
   "hiveSeal",
   "hiveDown",
   "hiveOut",
-  // THE INSTAR's eleven: silent until the look lane draws the body, its
-  // poses and its marks — a scene with no picture yet has nothing for a
-  // frame to answer (`docs/spec/bosses.md` §11.32, *What is not built*).
+  // THE INSTAR's eleven: the pose, the marks and how far each has got are
+  // read off the boss every frame, and the bursts, the jolt, the flinch and
+  // the lash are `instar-fx.ts`'s, read above the loop as one family the
+  // way THE HIVE's are (`docs/spec/bosses.md` §11.32).
   "instarEnter",
   "instarMorph",
   "instarShow",

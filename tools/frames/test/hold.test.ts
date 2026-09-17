@@ -87,6 +87,26 @@ describe("parseHold", () => {
     expect(() => parseHold("balloonLeft=-1600")).toThrow(/id=N/);
   });
 
+  it("takes THE INSTAR's marks by id, the navigator's under its own name on the one target", () => {
+    // Both seats send `instarMark`, and which mark of the step is `id`
+    // (`sim/instar-hand.ts`); a mark wants one seat, so a name per thumb.
+    const his = parseHold("instarMark=0,y=750,id=0");
+    expect(his.map((h) => h.player)).toEqual([1, 1]);
+    expect(his[1]?.command).toEqual({
+      kind: "drag",
+      target: "instarMark",
+      on: true,
+      fromMilli: 0,
+      fromYMilli: 750,
+      id: 0,
+    });
+    const hers = parseHold("instarMark2=0,y=-750,id=1");
+    expect(hers.map((h) => h.player)).toEqual([2, 2]);
+    expect(hers[1]?.command.target).toBe("instarMark");
+    expect(hers[1]?.command.id).toBe(1);
+    expect(() => parseHold("instarMark=0")).toThrow(/id=N/);
+  });
+
   it("a control that does not exist names the ones that do", () => {
     expect(() => parseHold("wheel=900")).toThrow(/mazeString/);
   });

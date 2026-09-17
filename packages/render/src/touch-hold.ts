@@ -112,6 +112,12 @@ export type Hold =
    * middle the finger now is (`touch-drag.ts`). A crank is a lobe on the band
    * rather than a handle on the field, so nothing else about this hold
    * changes: the lift is the ordinary drag's lift.
+   *
+   * `turns` is THE INSTAR's `turn` mark asking for the crank's reading on a
+   * ring on the field: the origin is the mark's centre and every move
+   * reports a bearing round it (`instar-marks.ts`, `touch-drag.ts`
+   * `turnAbout`). Settled at the press, like everything else here, because
+   * the drawing does not get to decide what a move means.
    */
   | {
       kind: "drag";
@@ -120,6 +126,7 @@ export type Hold =
       originX: number;
       originY: number;
       id?: number;
+      turns?: true;
     };
 
 export interface Touch {

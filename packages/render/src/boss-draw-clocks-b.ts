@@ -2,6 +2,7 @@ import type { World } from "@neon-spore/sim";
 import { drawAntiphon } from "./antiphon-draw.js";
 import type { Effects } from "./effects.js";
 import { drawHive } from "./hive-draw.js";
+import { drawInstar } from "./instar-draw.js";
 import type { Layout } from "./layout.js";
 import { drawLead } from "./lead-draw.js";
 import { drawLedger } from "./ledger-draw.js";
@@ -40,6 +41,7 @@ export const FX_KINDS = [
   "scuttle",
   "antiphon",
   "hive",
+  "instar",
 ] as const;
 
 export type FxBoss = Extract<Installed, { kind: (typeof FX_KINDS)[number] }>;
@@ -133,5 +135,16 @@ export function drawFxBoss(
   // swell of the next site on the navigator's. What outlives a frame — the
   // clench of a wrong colour, the jolt of a seal — is `effects.boss.hive`
   // (`hive-draw.ts`, `hive-fx.ts`).
-  drawHive(ctx, l, world, boss, beat, beatPhase, time, effects.boss.hive);
+  if (boss.kind === "hive") {
+    drawHive(ctx, l, world, boss, beat, beatPhase, time, effects.boss.hive);
+    return;
+  }
+
+  // THE INSTAR: a larva hung head-down over the field on a chain of plates,
+  // morphing pose by pose into the thing the script's next marks undo. Both
+  // screens see the same body; the split is whose thumb each mark wants
+  // (`view-role-clocks-b.ts`). What outlives a frame — the jolt of a landing,
+  // the flinch at a wrong thumb, the lash of a strike — is
+  // `effects.boss.instar` (`instar-draw.ts`, `instar-fx.ts`).
+  drawInstar(ctx, l, world, boss, beat, beatPhase, time, effects.boss.instar);
 }

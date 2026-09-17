@@ -60,7 +60,7 @@ section below had to pass before it was written.
 
 **Still in hand**
 
-- **[THE INSTAR](#1132-the-instar--the-boss-with-no-panel-marked-where-it-will-hurt-you)** · 11.32 — the boss with no panel, marked where it will hurt you. The simulation landed 17 September 2026; the look is the next lane, and the owner's brief for it is quoted under *What is not built*
+- **[THE INSTAR](#1132-the-instar--the-boss-with-no-panel-marked-where-it-will-hurt-you)** · 11.32 — the boss with no panel, marked where it will hurt you. Built whole 17 September 2026, both lanes
 
 Everything else on this page is in the game or was taken out of it again. What is left undone there is **inside** the built sections, each under its own *What is not built* paragraph, and the director's `◇ NOT BUILT YET` sheet is where those are read together.
 
@@ -4307,6 +4307,419 @@ choreographed page — the ruling that *a boss on this page is fed by its
 wave* is about a boss that reads the wave, and this one reads nothing
 but its own script.
 
+**The look.** Landed 17 September 2026, the same day as the simulation,
+under the exemption for *a look with no shipped alternative*. The owner's
+brief: *detailed and nice graphics like the bulb queen or the warden, and
+the enemy transforms and moves and changes perspective and appearance
+during the animations*, and then, mid-lane: *hints and one or two words
+help what to do in the right moment of time … in one word with this
+scanner box next to the red circle, and above it what kind of action is
+required; what is explained during the boss wave must be skipped in the
+briefing*. Both are in the picture.
+
+- **A larva the size of the field, hung head-down over the ship** on a
+  chain of four plated segments that runs up out of the top of the frame
+  (`render/instar-draw.ts`): a lobed head with two eyes pooled in its
+  fluid and a toothed mouth between two jaws; two hands on jointed arms
+  with three claws each; pose by pose a club in a hand, a clutch of eggs
+  on the flank, a tongue out and coiled, a barbed tail swung over the
+  hull, the head thrust at the ship (`instar-limbs.ts`). Every part is
+  drawn **at its mark's place in thousandths** (`instar-shape.ts`), so a
+  mark on a hand sits on the hand because the hand is drawn there.
+- **A pose is a figure and a morph is a lerp** (`instar-poses.ts`): the
+  five poses are five figures, the body between two is the eased blend
+  over `morphBeats`, and every morph starts from the last pose *with its
+  marks done* so nothing snaps back into the hand. *Turned* is the change
+  of perspective the owner asked for: the face goes, the spine of
+  knuckles down the back of the head comes, the tail is out over the hull.
+  *Moulted* hangs the shed husk under the body. While the marks are up the
+  figure is **deformed by how far each is along** — the jaw at the depth
+  the thumb has it, a club slipping from a hand slapped four of six, one
+  egg fewer per swipe, the tongue winding in with the turn, the tail
+  lifting, the head pushed back by the hold.
+- **The marks** (`instar-marks.ts`): a breathing red ring at each, with a
+  **glyph** in it saying the gesture — an arrow for a pull, a dot in a
+  flaring ring for a tap, three chevrons for the swipe, a three-quarter
+  arc for the turn, two thumbs for the hold (`instar-glyphs.ts`); a
+  progress arc round it filling as the part gives; a **dot** once done;
+  and over each a **word in a scanner box** — PULL DOWN, PULL UP, TAP TAP,
+  SWIPE DOWN, TURN, HOLD BOTH — bright and the gesture's on the seat whose
+  it is, dim and *PILOT'S* or *NAVIGATOR'S* on the other
+  (`instar-word.ts`, `instarMarkIsMine` in `view-role-clocks-b.ts`). The
+  split of this boss is the hands, not the eyes: **both screens see the
+  same body**, and the only thing a seat is told is which marks are its
+  own.
+- **The window is shown, not said**: a second ring outside each mark
+  **closes on it** over `windowBeats`, brightening as it shrinks, and the
+  marks **grow out of their parts** over the last two fifths of the morph,
+  faint, so the eye is already on the place when the window opens.
+- **Every landing is THE SLOW** (`instarSlowBeats`, `decisions.md` #33),
+  not only the last: the part giving is the beat the pair earned and the
+  field runs at a third for two beats of it, on both screens together.
+- **What outlives a frame** is `effects.boss.instar` (`instar-fx.ts`,
+  `effects-boss.ts`): a jolt of the whole body on a landing and the fall,
+  a flinch at a refused or slipped mark, a red lash from the striking part
+  to the hull's column, and a burst at the mark or the head for each of
+  the eleven events, which are read above the loop and out of the two
+  silent lists' reasons.
+- **The thumb finds a mark** through `instarMarkUnder` in
+  `render/handles.ts`, last in the chain: a `drag` on `instarMark` with
+  the mark's `id`, held as a `drag` hold that carries `turns` for a turn
+  mark so every move is a bearing off the mark (`turnAbout`, `touch-drag.ts`).
+  The director has the row, its pose (*THE JAW HALF PULLED*) and the
+  [controls](controls.md) row.
+- **The briefing says less**: the guide names the rule — the body says
+  what to do and where, in red, one step at a time, before the ring closes
+  — and whose mark is bright, and leaves every gesture to the word over it.
+
+**Never watched at tempo.** What the tests say is the mechanism: it comes
+in full with its pods sown and nothing on the field; it holds its wave and
+fills it; it looks for `scuttleLookBeats` before the first part comes
+loose; a part hangs for the cadence and is thrown down its column as what
+it is, with the next already hanging; a rock is a meteor and a pod a pod
+at `scuttlePodRow`; a bolt in the live part's column and colour takes it
+off and the next comes loose a beat later; the other colour is said and
+another column is not; the beam is nothing while a part hangs; two come
+loose from `scuttleTwinParts` with one live; the cadence tightens from
+`scuttleFastParts` and the live part crosses the field; a pod taken adds
+`scuttlePodSlackBeats` to every cadence after; the last part winds up under
+THE SLOW for the lance's fill and a beat, refuses a bolt, and then costs
+the wave through the hull; the beam in its column takes it down and the
+frame is gone `scuttleOutBeats` later with the wave not lost; and the same
+run fingerprints the same way twice (`sim/test/scuttle.test.ts`, fourteen).
+The picture was drawn on both seats at a tick and never watched at tempo,
+and whether three beats of a part hanging reads as a window or as a
+decoration is the owner's.
+
+## 11.31 THE ANTIPHON — the boss that grows a thing nobody has a word for
+
+> The one that grows an organ nobody has ever seen, so there is no word for
+> it and you have to invent one.
+
+Designed as §12 of [bosses-choreographed](bosses-choreographed.md), where
+the argument for it is: [couplings](couplings.md) 3 — **announcing** — is
+the one coupling still unbuilt, and this is the boss that spends it. A
+body over the top of the field grows an organ the game has never drawn
+before; one seat is shown its shape and nothing else, the other a rail of
+candidates one of which it is, and the whole mechanic is a sentence that
+does not exist yet. The game never listens and never scores the words
+(`CLAUDE.md` rule 5, untouched): it arranges for the pair to have to build
+a vocabulary in real time and gives them nothing to build it out of.
+
+**It is a fixture, not a body.** Nothing of it is in `world.creatures`: the
+state (`sim/antiphon.ts`, hashed in `sim/antiphon-hash.ts`) is the
+**organs** standing now — none between cycles, one, or two — each a shape
+index under `antiphonShapes` (16) with a colour, a column and the beat it
+began pushing out on; the **rail** of candidates, each a shape, a colour
+and a column, the organs among them in the seed's order; the **pits**, the
+shapes described so far, which are the health and the record; the
+**extra** candidates wrong answers have added to every rail since; and
+three beat stamps — the cycle began, the surface went still, the right
+ship was fired. Like THE SCUTTLE it **fills its wave** (`bossFillsWave`):
+`act-7e.ts`'s "THE ANTIPHON" has no entries at all, because every arrival
+in the fight is a candidate the pair rejected or an organ they left alone.
+
+**The rule, in one sentence.** After `antiphonRestBeats` (2) with nothing
+standing, an organ pushes out of the surface (`antiphonGrow`, with its
+shape and how many grow) over `antiphonGrowBeats` (4), during which
+nothing counts, and then stands its window — `antiphonWindowBeats` (14),
+or `antiphonTightWindowBeats` (8) from `antiphonTightPits` (2) and for the
+ship — on a rail of `antiphonRail` (3) candidates laid the same beat
+(`sim/antiphon-rail.ts`: shapes, then columns, then colours, then the
+rail's own shuffle, all through `nextInt` in that order, with every column
+and every shape distinct across the rail so a column names one candidate
+and the contour he describes is on it once). A bolt that nothing on the
+field stopped and that leaves through the top (`sim/antiphon-shot.ts`,
+from `bullets.ts` and `lance-burn.ts` beside `scuttleStruck`) in the
+organ's column *and* its colour shrivels it to a pit (`antiphonPit`, with
+the count) and the cycle ends; a decoy's colour in the decoy's column
+**hardens** the cycle (`antiphonHarden`, with the next rail's width) — the
+organ sinks unpitted and every rail after is one candidate wider, to
+`antiphonRailMax` (6); the organ's column in the other colour, or a column
+that names no candidate, is nothing, unsaid. An organ whose window runs
+out **sinks back healed** (`antiphonSink`), and from `antiphonFirePits`
+(4) fires a body in its colour down its own column first (`spawnOne`,
+`livingKindForColor`). From `antiphonTightPits` (2) the decoys are the
+organ's own **family** — the `antiphonFamily` (4) consecutive indices a
+lobe apart, `antiphonFamilyOf` — so he describes a difference rather than
+a shape; from `antiphonSpillPits` (3) every candidate a pit rejected
+arrives as a body in its colour down its column (`antiphonSpill`), so a
+wrong description is also a wrong field read; from `antiphonTwinPits` (4)
+two organs grow at once on a rail two wider and the cycle ends with the
+second; from `antiphonEchoPits` (5) one organ a cycle is a shape already
+killed, and for once the pair has a name. At `antiphonPits` (6) the
+surface goes **still** once (`antiphonStill`) for `antiphonStillBeats`
+(4) and then grows the last organ, **their own ship** (`antiphonShip`,
+shape `ANTIPHON_SHIP`), on a rail of `antiphonShipRail` (3) ships; the
+right one **bursts** every pit at once (`antiphonBurst`, with the count)
+and the body is gone `antiphonOutBeats` (3) later (`antiphonOut`, the boss
+nulled, the wave allowed to end); a wrong ship hardens like any decoy and
+the ship grows again after the rest, with no second still.
+
+**The split is the eyes, and it is the look lane's.** Player 1 is to be
+shown the organ's shape and nothing of its colour or column; player 2 the
+rail — shapes, colours, columns — and never which is the organ. Nothing
+in the simulation depends on it: the organs and the rail are two fields on
+one state, and which screen draws which is `render/view-role-clocks-b.ts`'
+to say. The sentence between them is *three lobes, the bottom one long —
+four, red*, said in both directions at once.
+
+**Where this departs from the design, and why.** Eight places, each argued
+by name. *An organ is an index and not a contour*: the simulation never
+sees a shape — the design's fresh contour from `tools/shape-sheet` is a
+table of `antiphonShapes` in `packages/content`, the look lane's, and a
+family is consecutive indices in it, so that *variants of one contour a
+lobe apart* (step 6) is a fact about the table's order and not about the
+rules. *There is no beam*: the design has none, and a beam that took an
+organ would take it without a colour, which is half the description; a
+beam up any column burns the column and touches nothing. *Nothing counts
+while it grows*: the rail is laid the beat the growth begins, for the
+screens, but a bolt into a contour still resolving is a guess and not a
+description, so the window opens when the organ is all the way out. *The
+window is one number a phase, not six beats called and six beats called
+and 900 ms and two beats*: steps 2 to 5 are one conversation with the cannon
+at the end of it, and the pair is given the whole of it at once — fourteen
+beats while the pits are few, eight once the rail has closed in — because
+a window cut into named pieces would be a rule table on the boss, which
+the owner does not like (§11.9). *An organ fires from the fourth pit, not
+"after eight beats"*: step 10's shot is the price of leaving an organ
+alone, and in the first phase — *generous time* — nothing falls at all; so
+the shot is the window running out, from `antiphonFirePits`, and the
+warded answer is the ordinary field's. *A wrong candidate widens the rail
+by one, capped*: step 5's *hardens all three, and the next cycle gives
+four* is kept whole for the first wrong answer, and a rail that grew
+without limit would be a rail nobody could read on a phone, so
+`antiphonRailMax` holds it. *The still happens once*: step 12 is a
+pause before the payoff, and a pause repeated after every wrong ship would
+be the payoff going flat; a wrong ship costs the rest and the rail's
+width, like any wrong answer. *The rotation under a hand is not built*:
+the design's one time effect is a second viewing angle, and a hand that
+turns the organ is a `Hold` the default set does not have yet — it is the
+look lane's to add, or the owner's to decline (`new-boss` skill §6, open).
+
+**The look** (`render/antiphon-draw.ts`, `antiphon-shape.ts`,
+`antiphon-fx.ts`; the table `content/antiphon-contours.ts`). A smooth
+violet **body** hangs above row 0 the whole width of the columns — its top
+arched, its flanks breathing, its underside swelling in slow waves one a
+pair of columns — filled in the hull's violet over the background, dark,
+and rimmed in the hull and its rim; not the rock of THE SCUTTLE's slab
+next door but the thing that is *soft*. The **table** is sixteen contours
+in four families, each family one draft off the shape sheet taken whole
+and three that differ from it by the one thing a sentence can say:
+REVERB (three lobes; the bottom one long; pinched; four), SMOKE (six soft
+lobes; five; cut deep; wide), PRISM (three facets; four; sharp; tall) and
+MOULT (eleven facets; nine; shallow; squat) — a radius multiplier at an
+angle like every body's, and an aspect for the tall and the wide, so the
+tight rail is a rail where the difference has to be described rather than
+the shape. An **organ** hangs off the underside at `PERCH_RISE` of a tile,
+its contour pushing out over `antiphonGrowBeats` (eased, so it slows as it
+arrives) and breathing once it is out. **Who is shown what is the split**
+(`showsAntiphonOrgan`, `showsAntiphonRail`, `view-role-clocks-b.ts`): the
+pilot's screen has the organ under the *middle* of the body whatever its
+column, in the body's own violet with the hull's rim — no column under it,
+no colour on it — and twins a `TWIN_GAP` apart by index; the navigator's
+has the **rail**, every candidate at its column at `RAIL_R` in its colour
+with that colour's rim, the whole rail pushing out together so the organ
+is not the one that grows, nothing marking it, and under them the
+**window**: a thread in the shield's rim along the underside, shortening
+from both ends as the beats run out — the count, hers; the test screen has
+both. A **pit** is the shape that made it sunk into the body small and
+dark at `PIT_R`, rimmed dim, spread across the body in the order taken.
+Their own **ship** is a closed hull contour — `HULL`'s twelve lobes with
+the cannon's bump on top — drawn true on the pilot's screen and true for
+the organ on the rail, while every decoy hull is drawn with the *wrong
+number of lobes* (`antiphonDecoyLobes`: ten, fourteen, nine…), subtly, so
+*ours has twelve* is a thing he can say and she can count. With every pit
+there the body goes **still**: the breathing stops, the fill and the rim
+go glassy-bright. **Down**, the body closes in on its middle and fades
+over `antiphonOutBeats` — in the colour, since `strokeGlow` owns the alpha
+— while the ten events, one family read above `Effects`' loop
+(`antiphon-fx.ts`), do the rest: the drawer tells the transient the pits
+every frame, and the burst makes every one an **eruption**, its contour
+pushing out from pit size to over a tile and thinning to nothing over the
+beats the body has left; and every burst is placed by what the screen is
+allowed to know — a growth and the ship burst at the organ's column on
+the screens shown the rail and under the middle on the pilot's, since his
+screen keeps the column from him, and everything after a shot at the
+column the shot went up, which both know. Nothing of it is a sprite.
+`render/test/antiphon-frame.test.ts` proves the body on all three screens,
+the organ drawn on the pilot's and not the navigator's — and the same
+picture there whichever column it stands over — the rail drawn on the
+navigator's and not the pilot's — and the same picture there whichever
+candidate is the organ — twins, the pits, the still, the ship, the fade,
+the gone, and the eruption's reset (nineteen).
+
+**The turn under a hand.** The design's one concept that wants no time
+effect: *while either seat rests a hand on the organ, it turns slowly in
+place and stops when the hand lifts — a rotation, not a rate*, a second
+viewing angle bought rather than a second. Built as a third lane, and as
+the default set's first **turn**. `antiphonOrgan` is a `DragTarget`
+(`sim/drag-targets.ts`) heard by `sim/antiphon-hand.ts` from either seat:
+`on` is that seat's thumb on the glass (`heldP1`, `heldP2`), and while
+either is on and an organ stands, `turnTicks` counts — one whole turn in
+`antiphonTurnBeats` (8), read as `antiphonTurnMilli`, the angle in
+thousandths of a turn. A thumb lifted stops it where it is; the next organ
+grows upright, since `turnTicks` is zeroed on the grow; twins turn
+together; and nothing else reads it — the turn changes no window, sinks
+no organ, names no shape, and `sim/test/antiphon-hand.test.ts` proves it
+changes nothing about the fight and is in the hash. On the screen it is
+`antiphonContourPath`'s `turn`, the contour's own points faced another
+way so the lobes and the hull's cannon bump keep their count, drawn on
+the organ only (`render/antiphon-draw.ts`) and never on the rail — a rail
+that turned with his thumb would put his hand on her screen. The handle
+is the organ's own circle (`antiphonOrganCircle`, one place for the
+drawing and the hit test), a grip mark on its lower flank that fills
+while a thumb is on and the word TURN under it while none is
+(`render/antiphon-grip.ts`), and it is **on one screen only**: the
+navigator is shown the rail and nothing to hold, so her press falls
+through to the field as if no organ hung — the first handle in the game
+that is not on both screens, which is the one departure from the design's
+*either seat*: the simulation hears both, the picture offers one. The
+desk and a film reach it as `--hold antiphonOrgan=0` (`tools/frames/hold.ts`),
+and `FIELD_CONTROLS`, [controls](controls.md) and a gallery pose carry it.
+*Not built*: the design's step 8, where the organ begins turning **on its
+own** as an escalation so the description has to say which way up — that
+is a rate, and the one this paragraph refuses.
+
+**Never watched at tempo.** What the tests say is the mechanism: it rises
+smooth with nothing on the rail and nothing on the field; it holds its
+wave and fills it; it rests and grows one organ on a rail of distinct
+columns and shapes; nothing counts while the organ is still pushing out;
+the organ's colour in its column is a pit and the cycle ends with nothing
+falling; the other colour in its column is nothing; a decoy's colour in
+its column hardens, and the next rail is one wider, to the cap; a column
+that names no candidate is nothing, and so is the beam; the window runs
+out and the organ sinks with nothing falling in the first phase, and fires
+a body down its column from `antiphonFirePits`; the rail closes on the
+family from `antiphonTightPits`; every rejected candidate falls from
+`antiphonSpillPits`; two grow from `antiphonTwinPits` on a rail two wider
+and the cycle ends with the second; a pit grows again from
+`antiphonEchoPits`; with every pit taken it goes still, grows the ship on
+a rail of ships, and the right one bursts it; the wrong ship hardens and
+the ship grows again with no second still; and the same run fingerprints
+the same way twice (`sim/test/antiphon.test.ts`, eighteen). Nothing was
+drawn, nothing was watched, and whether fourteen beats is a conversation
+or a wait is the owner's.
+
+## 11.32 THE INSTAR — the boss with no panel, marked where it will hurt you
+
+> The one with no buttons. Its body is marked in red where it is about to
+> hurt the ship, and the mark says whose thumb it wants.
+
+Designed as §16 of [bosses-choreographed](bosses-choreographed.md), from
+the owner's ask of 17 September 2026: a boss with **no control set**, only
+actions on the screen — one seat acting while the other watches and can
+see whose it is, both at once in two places succeeding inside the same
+moment, or both on the one spot — and *a pause with an animation, then
+the action shown, then the animation, then the action again*. It is the
+third of the three kinds in `.claude/skills/new-boss`, the choreographed
+scene, and the first one built whole: the field under it is still (wave
+`theInstar`'s `entries` are empty and it **fills its wave**,
+`bossFillsWave`), and the boss *is* the picture. It is also the boss that
+built the engine every scene of that kind was waiting for —
+`BossSequenceStep`, the step machinery the choreographed page said to
+build first.
+
+**It is a script, not a body.** Nothing of it is in `world.creatures`: the
+state (`sim/instar.ts`, hashed in `sim/instar-hash.ts`) is the **script**
+copied in from `packages/content/src/instar-script.ts` so content is never
+written to, the **cursor** — which step the scene is on, `steps.length`
+once the last has landed — the **phase** it is in and the beat it began,
+and four lists sized to the current step's marks: how far each is along in
+its own unit, the beat each reached its need (`-1` while it has not), the
+hand's reference for a turn's bearing or an armed swipe, and which seats'
+thumbs are on it as two bits. A step is a **pose** the body morphs into,
+up to two **marks** on it, and three clocks that are the step's own and
+not tuning — `morphBeats` with the marks hidden, `windowBeats` with them
+up, `landBeats` of the part giving before the next morph. The script is
+five poses: *gape*, *armed*, *moulted*, *turned*, *lunge*.
+
+**The rule, in one sentence.** The body morphs into a pose over its
+`morphBeats` (`instarMorph`, `instarShow` when the marks come up), and
+every mark on it must be done — by the seat it names, with the gesture it
+names, to the amount it names — with the step's marks done inside
+`instarTogetherBeats` (2) of each other, before `windowBeats` have run;
+then the beat is landed (`instarLand`), the body settles for `landBeats`
+and morphs into the next, and after the last it goes down under THE SLOW
+(`instarDown`, `instarSlowBeats` 2) and is out `instarOutBeats` (3) later
+(`instarOut`), which is when the wave may end (`bossHoldsWave`).
+
+**A mark is one `Command`.** Every gesture is a `drag` on the `instarMark`
+target with `id` naming the mark, and the six gestures are read off what a
+drag already carries (`sim/instar-hand.ts`): the **grab** is the first
+`on` from a seat whose thumb was not on the mark, a **move** every `on`
+after it, the **lift** `on: false`. A `tap` counts grabs, so a thumb held
+down is one slap and not a slap a tick. A `pullDown` or `pullUp` **stands
+at** the depth `fromYMilli` carries the part in its own direction, the
+other direction is nought, and a lift before the step lands lets the part
+go — back to nought. A `swipeDown` arms on a carry past `instarSwipeMilli`
+(600) and counts on the lift that follows: an egg is off when the thumb
+comes away. A `turn` winds clockwise like the crank, `fromMilli` a bearing
+and the step between two bearings up to half a turn the progress, said
+once a quarter turn so the sound is a ratchet. A `hold` is both thumbs on
+the one mark, counted a unit a beat by the clock (`sim/instar-step.ts`),
+and either thumb off before it is done is the hold broken. Every unit is
+`instarAnswer`; the need reached is `instarDone`, the part giving. **The
+wrong seat is refused** (`instarRefuse`), once per press, and moves
+nothing: the mark's place on the body says whose it is first, and this is
+what happens when that was not read.
+
+**Together means together.** A step with two marks lands only when both
+are done inside `instarTogetherBeats` of each other. A count reached alone
+and left waiting longer than that **slips** (`instarSlip`) back to nought
+with a sound, and the pair starts the beat again inside the same window.
+A pull or a hold never slips for waiting, because its *done* is a state
+the thumb keeps — letting go is what undoes it, and a partner already at
+depth slips with it on the beat. The slip is judged on the beat and not
+the tick, so a hand two ticks late on the other phone is not two ticks
+late: the window the pair is given is in beats, the unit they can hear.
+
+**The window closing is the wave.** A mark still undone when the window
+runs out is the part doing what the mark was there to stop — the weapon
+on the hull, the eggs hatched, the tongue's poison, the tail's blow — and
+that is `instarStrike` and one `breachHull` at the mark's column, which
+under the owner's rule of 12 September 2026 is the wave lost
+(`wave-fail.ts`). A strike is never two: the failed field is held from
+the next tick and this clock does not run under a hold; the invulnerable
+hull skips the loss and still says the strike.
+
+**The split is the marks.** Both seats see the whole body and every mark,
+and every mark is the same red — the owner asked for *red circles*, and
+this game's rule is that geometry says whose, not colour, so a mark on the
+left of the body is player 1's, on the right player 2's, one in the
+middle wants both. On the *gape* he pulls the lower jaw down and she the
+upper jaw up, one and a half tiles each, and both must be at depth at
+once. On *armed* he slaps the hand six times and she swipes the eggs off
+three times, downward, and the last of each has to fall inside two beats
+of the other. On *moulted* the sides swap — the morph is six beats,
+because the pair is meant to watch it: she slaps the second hand eight
+times and he winds the tongue back in, a turn and a half. On *turned* she
+alone pulls the tail up two tiles and he has nothing to do but watch and
+say when she has it. On the *lunge* both thumbs on the head for four
+beats. The guide says the rule in two halves and no more
+(`waves/act-7e.ts`), and the wave's control set is `scene` — no cannon, no
+shield, no colours, nothing on the band.
+
+**Where this departs from the owner's sequence, and why.** Four places,
+each argued by name. **The circles are not two colours**: every mark is
+red, and whose it is is where it is drawn, because a colour on a mark
+would be a third colour rule for the pair to learn and the choreographed
+page's own rule is that geometry says whose. **The eggs do not hatch into
+bees**: nothing this boss does spawns a creature, because it fills its
+wave and a scripted body with free bees under it is two waves; undone
+eggs are a strike like every other undone mark. **A missed beat is the
+wave and not a step back**: the owner's sequence says *else it damages
+the hull* at every step and hull damage is the wave by his own rule, so
+`StepBack` stays unbuilt and the brief's *failure should not mean you
+lose* is answered by the slip — a beat missed by a hair costs the beat,
+not the wave. **The sequence is five steps**: the four he named and the
+lunge that ends it; his *and so on* is one more entry in the script, and
+nothing else has to change for it. And one thing that is not a departure
+but a judgment: **it fills its wave**, which is THE SCUTTLE's case on the
+choreographed page — the ruling that *a boss on this page is fed by its
+wave* is about a boss that reads the wave, and this one reads nothing
+but its own script.
+
 **What is not built.** The look, whole — this is the first of the two
 lanes. The owner's brief for the second, in his words: *detailed and nice
 graphics like the bulb queen or the warden, and the enemy transforms and
@@ -4338,9 +4751,13 @@ mark with one strike and the wave is lost; it never strikes twice; the
 invulnerable hull is still told; the last landing is THE SLOW, the body
 down, then out, and the wave cleared; the wave is held open until the
 body is out; and the same script and thumbs fingerprint the same way
-twice (`sim/test/instar.test.ts`, nineteen). Nothing was drawn, nothing
-was watched, and whether twelve beats is a window or a wait is the
-owner's.
+twice (`sim/test/instar.test.ts`, nineteen); and the picture is drawn in
+every pose mid-morph and acting, the marks up only while the window is
+open, a mark half pulled and one done, the same body on both screens with
+the words differing by seat, the fall and the fade, and the jolt reset
+between runs (`render/test/instar-frame.test.ts`). Whether twelve beats
+is a window or a wait, and whether the body reads as *the bulb queen or
+the warden*, is the owner's eye.
 
 ## Retired
 

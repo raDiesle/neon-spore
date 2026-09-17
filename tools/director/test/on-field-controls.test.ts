@@ -110,11 +110,11 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // pilot's screen and never the navigator's (`docs/spec/bosses.md` §11.31).
     case "antiphonOrgan":
       return target;
-    // `instarMark` is the first target with no hold behind it yet: heard by
-    // `sim/instar-hand.ts` from the seat the mark names, and answered nowhere
-    // in `touch.ts` until the look lane draws the body and its marks — the
-    // row here, its pose and its hit test land with that lane
-    // (`docs/spec/bosses.md` §11.32, *What is not built*).
+    // `instarMark` is one target that is six gestures: `id` names the mark
+    // and the mark's own `gesture` says what the thumb on it means, heard by
+    // `sim/instar-hand.ts` and answered by `instarMarkUnder` under
+    // `handleUnder()` — a turn mark through `turnAbout`, the crank's reading
+    // about the ring (`render/instar-marks.ts`, `docs/spec/bosses.md` §11.32).
     case "instarMark":
       return target;
     default:
@@ -221,6 +221,7 @@ const FIELD: Field = {
   sinew: null,
   surge: null,
   antiphon: null,
+  instar: null,
   controls: controlSetForWave(0),
   faults: [],
   well: false,

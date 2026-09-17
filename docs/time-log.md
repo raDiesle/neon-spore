@@ -10254,3 +10254,22 @@ that had to land before the first edge set could only be found by moving
 presses and rereading the events.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — tutorial-boss-onscreen-actions — THE INSTAR, the look
+
+The body over the ship: five poses as figures blended over each morph and
+deformed by the thumbs, the marks with a glyph, a word in a scanner box and
+a window ring closing on each, the hit test with a bearing for the turn, the
+transients, every landing THE SLOW, the frame test, the director row.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `hive-draw.ts` and `hive-frame.test.ts` as the pattern, `touch.ts`'s chain and `bearingOn`, `handles.ts`, `effects-boss.ts`, the harness's canvas log, `slow.ts` |
+| writing | 40 | `instar-shape.ts`, `-poses.ts`, `-draw.ts`, `-limbs.ts`, `-marks.ts`, `-glyphs.ts`, `-word.ts`, `-fx.ts`, `turnAbout`, the `turns` hold, the predicate, the slow on every landing, the guide cut, the director's two files, the frame test, §11.32 |
+| looking | 5 | one PNG off `bun run frames` |
+| friction | 5 | `instar-shape.ts` over 250 until the poses were split off; `FieldControlDef.gesture` has three words and a mark has six; a per-package `tsc -p` has no tsconfig; the lunge frame is not byte-equal across seats because each seat's frame is in its own colours |
+| landing | 10 | `check:fast`, `format`, `imports:sort`, the commit, `bun run land --keep`, the ledger mark |
+
+The bottleneck was the picture's surface area: a body with eight parts,
+six glyphs, a word and two rings per mark is eight files, and each one is
+its own hundred lines before anything can be drawn at all.

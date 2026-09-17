@@ -3,6 +3,7 @@ import type { Layout } from "@neon-spore/render";
 import type {
   AntiphonState,
   Creature,
+  InstarState,
   MazeState,
   OrreryState,
   PlacedFault,
@@ -90,6 +91,9 @@ export interface Bindings {
   /** THE ANTIPHON, when it is the boss up: the organ, on the screen shown it
    * (`render/antiphon-grip.ts`). */
   antiphon: () => AntiphonState | null;
+  /** THE INSTAR, when it is the boss up: its marks, while they are up
+   * (`render/instar-marks.ts`). */
+  instar: () => InstarState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

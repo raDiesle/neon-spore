@@ -8,6 +8,7 @@ import {
   instarStep,
   NOT_DONE,
 } from "./instar.js";
+import { openSlow } from "./slow.js";
 import type { World } from "./world.js";
 
 /**
@@ -40,11 +41,18 @@ export function armMarks(s: InstarState): void {
  * Every mark of the step done: the beat is landed, and the body settles for
  * `landBeats` before the next morph. Reached the moment the last mark gets
  * there, so the landing is on the tick the pair earned it.
+ *
+ * **Every landing is THE SLOW** (`docs/decisions.md` #33), not only the
+ * last: the owner asked for the dramatic beat on each action of the scene —
+ * the jaw giving, the club dropping, the tail lifting — and a landing is
+ * where the body answers the pair. The window is `instarSlowBeats`, and
+ * both devices open it on the same tick because both land the step there.
  */
 export function landStep(world: World, s: InstarState): void {
   if (s.phase !== "act" || !instarAllDone(s)) return;
   s.phase = "land";
   s.phaseBeat = world.beat;
+  openSlow(world, world.cfg.instarSlowBeats);
   world.events.push({ type: "instarLand", step: s.cursor, col: midCol(world.cfg) });
 }
 

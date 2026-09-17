@@ -112,9 +112,9 @@ export const WAVES_ACT_7E: Wave[] = [
     sentence:
       "The one with no panel: its body is marked where it will hurt you, and whose thumb the mark wants.",
     guide: {
-      both: "No buttons this time. The body over the field is marked in red where it is about to hurt the ship. Do what the mark shows, where it is, before it closes — and a mark done alone slips back if the other one is late.",
-      p1: "A mark on your side of the body is yours; one in the middle wants both thumbs. When the mark is hers, watch, and say when she has it.",
-      p2: "A mark on your side of the body is yours; one in the middle wants both thumbs. When the mark is his, watch, and say when he has it.",
+      both: "No buttons this time. The body over the field says what to do and where, in red, one step at a time. Do it before the ring closes on it.",
+      p1: "A bright mark with a word over it is yours. A dim one is hers: watch it, and say when she has it.",
+      p2: "A bright mark with a word over it is yours. A dim one is his: watch it, and say when he has it.",
     },
     entries: [],
     boss: { kind: "instar", steps: INSTAR_SCRIPT },

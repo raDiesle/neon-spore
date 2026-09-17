@@ -125,6 +125,7 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     sinew: () => (world.boss?.kind === "sinew" ? world.boss : null),
     surge: () => (world.boss?.kind === "surge" ? world.boss : null),
     antiphon: () => (world.boss?.kind === "antiphon" ? world.boss : null),
+    instar: () => (world.boss?.kind === "instar" ? world.boss : null),
     // Which panel is up follows from the wave (`content/control-sets.ts`).
     controls: () => controlSetForWave(world.wave),
     faults: () => faultsNow(world),

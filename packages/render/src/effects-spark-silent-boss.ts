@@ -230,7 +230,8 @@ export const SILENT_BOSS = [
   "hiveSeal",
   "hiveDown",
   "hiveOut",
-  // THE INSTAR's eleven wait on the look lane; nothing is drawn for them yet.
+  // THE INSTAR's eleven are one family read above the loop by
+  // `instar-fx.ts`, never rows here (`docs/spec/bosses.md` §11.32).
   "instarEnter",
   "instarMorph",
   "instarShow",

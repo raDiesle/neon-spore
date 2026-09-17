@@ -1129,6 +1129,14 @@ place — the generator keeps whatever is there.
 | `packages/render/src/intro-controls.ts` | THE TWO CONTROLS A SHOUT ASKS FOR, and the thumb landing on them |
 | `packages/render/src/intro-ear.ts` | **AN EAR, AND NOTHING BUT AN EAR.** The other half of the owner's instruction of 16 September 2026 |
 | `packages/render/src/intro-mouth.ts` | **A MOUTH, AND NOTHING BUT A MOUTH.** The owner, 16 September 2026, on the intro's two people |
+| `packages/render/src/instar-draw.ts` | **THE INSTAR**: a larva the size of the field |
+| `packages/render/src/instar-fx.ts` | What THE INSTAR leaves behind a frame: the **jolt** of a landing and of the last |
+| `packages/render/src/instar-glyphs.ts` | **The gesture, drawn inside the ring** — one glyph per member of `INSTAR_GESTURES` |
+| `packages/render/src/instar-limbs.ts` | **What THE INSTAR holds and grows**, pose by pose: the two arms and their clawed hands |
+| `packages/render/src/instar-marks.ts` | **THE INSTAR's marks: the only control on the screen.** A red ring on the part the script wants moved |
+| `packages/render/src/instar-poses.ts` | **THE INSTAR's poses**, one `Figure` each: the body as it enters, the five the script names |
+| `packages/render/src/instar-shape.ts` | **Where THE INSTAR is**, as one figure of numbers: the head, the jaws, the two hands and what they hold |
+| `packages/render/src/instar-word.ts` | **The word over a mark, in a scanner box** — one or two words naming the gesture the ring under it wants |
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
@@ -1717,6 +1725,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-field-controls.ts` | The states the ON THE FIELD tab needed a picture of and the gallery did not have |
 | `tools/director/src/poses-field-controls-surge.ts` | THE SURGE with both thumbs on the bulb and the pressure climbing |
 | `tools/director/src/poses-field-controls-antiphon.ts` | THE ANTIPHON with the pilot's thumb on the organ, a quarter turn in |
+| `tools/director/src/poses-field-controls-instar.ts` | THE INSTAR in its first pose, the gape, with the pilot's thumb halfway down the lower jaw |
 | `tools/director/src/poses-mechanics.ts` | What those hands add up to on the field: a hand on something falling, a shot in the air |
 | `tools/director/src/poses-ship.ts` | What a player's own hands put the ship into |
 | `tools/director/src/poses-surface.ts` | The states a candidate for a **surface** is judged on |
@@ -2071,6 +2080,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-sinew.ts` | THE SINEW's two handles, in a file of their own |
 | `tools/director/src/field-controls-surge.ts` | THE SURGE's one handle, in a file of its own |
 | `tools/director/src/field-controls-antiphon.ts` | THE ANTIPHON's one handle, in a file of its own |
+| `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |

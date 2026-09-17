@@ -147,6 +147,9 @@ describe("a step with a mark for each seat", () => {
     seen = runTo(world, u + 2, [thumb(u, 2, 1, true, 0), thumb(u + 1, 2, 1, true, -1000)]);
     expect(seen.has("instarLand")).toBe(true);
     expect(s.phase).toBe("land");
+    // Every landing is THE SLOW, opened on the tick the step landed.
+    expect(world.slowFromBeat).toBe(world.beat);
+    expect(world.slowToBeat).toBe(world.beat + CFG.instarSlowBeats);
     seen = runTo(world, world.tick + TPB * LAND + TPB);
     expect(seen.has("instarMorph")).toBe(true);
     expect(s.cursor).toBe(1);

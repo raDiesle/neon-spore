@@ -14,7 +14,7 @@ export type { Field } from "./touch-field.js";
 export type { Hold, Touch } from "./touch-hold.js";
 
 import { bandUnder } from "./touch-band.js";
-import { crankTurn, dragging } from "./touch-drag.js";
+import { crankTurn, dragging, turnAbout } from "./touch-drag.js";
 import type { Field } from "./touch-field.js";
 import { sucksOnLift, swipeColor } from "./touch-hand.js";
 import type { Hold, Touch } from "./touch-hold.js";
@@ -140,6 +140,9 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     // that is mirrored for a turned seat — the finger is following a body
     // round rather than pointing at a column (`orrery-grab.ts`).
     if (hold.target === "orreryRing") return orreryRingTurn(l, hold, x, y);
+    // **And THE INSTAR's `turn` mark**, a crank drawn on the body: the press
+    // flagged the hold, so the reading is the crank's about the mark's centre.
+    if (hold.turns) return turnAbout(hold, x, y);
     // Both axes now: the owner asked for a handle to be carriable any way at
     // all, so what a move reports is a displacement rather than a distance
     // across. Where it is allowed to end up is the simulation's

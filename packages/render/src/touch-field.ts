@@ -2,6 +2,7 @@ import type { ControlSet } from "@neon-spore/content";
 import type {
   AntiphonState,
   Creature,
+  InstarState,
   MazeState,
   OrreryState,
   PlacedFault,
@@ -116,6 +117,16 @@ export interface Field {
    * (`antiphon-grip.ts`).
    */
   antiphon: AntiphonState | null;
+  /**
+   * THE INSTAR, if it is the boss running, `null` otherwise. **Required,
+   * and stated rather than defaulted**, for the reason the six above are,
+   * with the sharpest version of it yet: this boss has no panel at all, so
+   * its marks are the *only* control on the screen — a caller that quietly
+   * meant `null` would leave a wave with nothing on it that answers a thumb,
+   * and a window that closes on the hull whatever the pair did
+   * (`instar-marks.ts`).
+   */
+  instar: InstarState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

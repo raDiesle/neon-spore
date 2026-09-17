@@ -1,3 +1,4 @@
+import type { InstarSeat } from "@neon-spore/sim";
 import type { ViewRole } from "./view-role.js";
 
 /**
@@ -70,3 +71,18 @@ export const showsAntiphonRail = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsHiveColor = (role: ViewRole): boolean => role !== "p2";
 export const showsHiveSwell = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE INSTAR's one, and the split is **the hands, not the eyes**: both
+ * screens see the same body in the same pose, and every mark on it, because
+ * a mark is only worth anything if the seat that is *not* asked for it can
+ * watch it being answered and say so. What differs is which of the marks a
+ * screen calls its own: on that seat the ring is bright and the word over
+ * it is the gesture; on the other the ring is dim and the word is the
+ * owner's name. The simulation refuses the wrong thumb regardless
+ * (`sim/instar-hand.ts`) — this is only how the picture says whose it is
+ * before anyone finds out the hard way (`instar-marks.ts`). `both` is
+ * everyone's, and `test` is both seats.
+ */
+export const instarMarkIsMine = (role: ViewRole, seat: InstarSeat): boolean =>
+  role === "test" || seat === "both" || (role === "p1") === (seat === "p1");

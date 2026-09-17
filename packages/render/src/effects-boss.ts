@@ -5,6 +5,7 @@ import { CurtainFx } from "./curtain-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
 import { HiveFx } from "./hive-fx.js";
+import { InstarFx } from "./instar-fx.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { LeadFx } from "./lead-fx.js";
 import { LedgerFx } from "./ledger-fx.js";
@@ -108,6 +109,10 @@ export class BossTransients {
    * event's column, an opening in its colour only where the colour is drawn
    * (`hive-fx.ts`, `hive-draw.ts`). */
   readonly hive = new HiveFx();
+  /** THE INSTAR's jolt, flinch and lash, and its receipts' bursts — told the
+   * marks' places by the drawer every frame, so a burst lands on the part
+   * the event names (`instar-fx.ts`, `instar-draw.ts`). */
+  readonly instar = new InstarFx();
   /** THE UNDERTOW's one transient: the plate closing under a cannon slid off
    * in time, drawn on the finished ship where the bow itself is
    * (`undertow-fx.ts`, `frame-on-ship.ts`). */
@@ -136,6 +141,7 @@ export class BossTransients {
     this.scuttle.ingest(events, l, cfg, beatSeconds, role, burst);
     this.antiphon.ingest(events, l, cfg, beatSeconds, role, burst);
     this.hive.ingest(events, l, role, burst);
+    this.instar.ingest(events, l, burst);
     this.undertow.ingest(events, l, cfg, beatSeconds, role);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
@@ -158,11 +164,12 @@ export class BossTransients {
     this.scuttle.update(dt);
     this.antiphon.update(dt);
     this.hive.update(dt);
+    this.instar.update(dt);
     this.undertow.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
-  /** The six drawn under the hull with everything else. The mirror, the
+  /** The ten drawn under the hull with everything else. The mirror, the
    * warden, the fleet and the reprise are drawn by the boss pass, the
    * after-image by the renderer between the bodies and the ship, and the
    * sinew's shock on the finished ship (`frame-on-ship.ts`). */
@@ -176,6 +183,7 @@ export class BossTransients {
     this.lead.draw(ctx, l);
     this.scuttle.draw(ctx, l);
     this.antiphon.draw(ctx, l);
+    this.instar.draw(ctx, l);
   }
 
   clear(): void {
@@ -194,6 +202,7 @@ export class BossTransients {
     this.scuttle.clear();
     this.antiphon.clear();
     this.hive.clear();
+    this.instar.clear();
     this.undertow.clear();
   }
 }

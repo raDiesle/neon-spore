@@ -22,6 +22,8 @@ import type { HoldSpec } from "./spec.js";
  *   --hold surgeBulb=0              THE SURGE: the pilot's thumb on the bulb
  *   --hold surgeBulb2=0             and the navigator's, on the same bulb
  *   --hold antiphonOrgan=0          THE ANTIPHON: the pilot's thumb on the organ
+ *   --hold instarMark=0,y=750,id=0  THE INSTAR: the pilot's thumb on mark 0, half a jaw down
+ *   --hold instarMark2=0,y=-750,id=1  and the navigator's on mark 1, pulled up
  *
  * THE CHOIR's two are the only handles here whose **sign** is the whole of the
  * gesture rather than a direction the picture happens to take: the left arrow
@@ -100,12 +102,19 @@ export function parseHold(value: string): HoldSpec[] {
   // the navigator's thumb is named here as `surgeBulb2` and sent as
   // `surgeBulb` from seat 2: a name per thumb, the way every other row is,
   // rather than a seat flag the rest of the field would have to refuse.
-  const SEAT: Record<string, 1 | 2> = { balloonRight: 2, sinewRight: 2, surgeBulb2: 2 };
-  const TARGET: Record<string, string> = { surgeBulb2: "surgeBulb" };
+  // THE INSTAR's marks are one target both seats send too, and `id` is which
+  // mark of the step (`sim/instar-hand.ts`).
+  const SEAT: Record<string, 1 | 2> = {
+    balloonRight: 2,
+    sinewRight: 2,
+    surgeBulb2: 2,
+    instarMark2: 2,
+  };
+  const TARGET: Record<string, string> = { surgeBulb2: "surgeBulb", instarMark2: "instarMark" };
   const target = TARGET[name0] ?? name0;
   // And they take an `id` for THE LID's reason: a wave puts several on the
   // field at once on purpose.
-  const NEEDS_ID = ["lidString", "balloonLeft", "balloonRight"];
+  const NEEDS_ID = ["lidString", "balloonLeft", "balloonRight", "instarMark"];
   const DRAGS = [
     "mazeString",
     "wardenTether",
@@ -119,6 +128,8 @@ export function parseHold(value: string): HoldSpec[] {
     "surgeBulb",
     "surgeBulb2",
     "antiphonOrgan",
+    "instarMark",
+    "instarMark2",
   ];
   if (!DRAGS.includes(name0)) {
     throw new Error(`--hold ${value}: unknown control. One of prime=red|cyan, ${DRAGS.join(", ")}`);

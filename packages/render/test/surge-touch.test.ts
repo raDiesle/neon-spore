@@ -59,6 +59,7 @@ function field(world: World, seat: 1 | 2, surge: SurgeState | null = bulb(world)
     sinew: null,
     surge,
     antiphon: null,
+    instar: null,
     controls: STANDARD,
     faults: [],
     well: false,

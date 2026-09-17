@@ -14,7 +14,7 @@ export interface InstarConfig {
   instarTogetherBeats: number;
   /** Thousandths of a tile a thumb must carry a mark before the lift counts a swipe. */
   instarSwipeMilli: number;
-  /** Beats the field runs at a third rate from the last step landing (THE SLOW). */
+  /** Beats the field runs at a third rate from every step landing, and from the last (THE SLOW). */
   instarSlowBeats: number;
   /** Beats the beaten body hangs before the wave may end. */
   instarOutBeats: number;

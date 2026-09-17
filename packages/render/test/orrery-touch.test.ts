@@ -73,6 +73,7 @@ function field(world: World, seat: 1 | 2 = 1): Field {
     sinew: null,
     surge: null,
     antiphon: null,
+    instar: null,
     controls: STANDARD,
     faults: [],
     well: false,

@@ -12,9 +12,8 @@ import { bindKeys } from "./keys.js";
 import { ShipHandWatch } from "./ship-hand.js";
 
 export type { Bindings } from "./input-bindings.js";
-// Two things lifted out when this file reached its length limit, re-exported
-// so nothing that reached for either through here had to move: the queue every
-// listener in the app writes into, and the shape this one is handed.
+// Lifted out when this file reached its length limit and re-exported so nothing
+// reaching for it through here had to move: the queue every listener writes into.
 export { InputBuffer } from "./input-buffer.js";
 
 /**
@@ -57,6 +56,7 @@ export function bindControls({
   sinew,
   surge,
   antiphon,
+  instar,
   creatures,
   cannonCol,
   shieldCol,
@@ -97,6 +97,7 @@ export function bindControls({
     sinew: sinew(),
     surge: surge(),
     antiphon: antiphon(),
+    instar: instar(),
     controls: controls(),
     // The faults in force this beat, so a button one has taken over is refused
     // where it is drawn dead — the same argument `controls` makes one line up

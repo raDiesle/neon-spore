@@ -35,6 +35,24 @@ export function crankTurn(hold: Extract<Hold, { kind: "drag" }>, x: number, y: n
 }
 
 /**
+ * THE INSTAR's `turn` mark, read the crank's way round the mark's own centre
+ * — the hold's origin, which `instarMarkUnder` set to the ring rather than
+ * the press for this. The `id` rides along, because the mark has to know
+ * which of the step's rings is being wound (`sim/instar-hand.ts`).
+ */
+export function turnAbout(hold: Extract<Hold, { kind: "drag" }>, x: number, y: number): Touch {
+  const { target, id } = hold;
+  const command = {
+    kind: "drag",
+    target,
+    on: true,
+    fromMilli: bearingOn(hold, x, y),
+    ...(id === undefined ? {} : { id }),
+  } as const;
+  return { player: hold.player, command, hold };
+}
+
+/**
  * Where round a crank the finger is, in thousandths of a turn clockwise from
  * the top — or `NO_BEARING` for a finger too close to the middle to have a
  * bearing at all.
