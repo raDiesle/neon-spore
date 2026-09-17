@@ -385,6 +385,7 @@ the next boss lands without touching anybody's comment.
 ## `shape-fit.test.ts` went red once under the sharded check, then green
 
 - **Found:** 2026-09-17, claude/shape-fit-flake-queued
+- **Taken:** 2026-09-17, claude/queue-shape-fit-test-ts-went-red-once-under-the-sharde
 - **Files:** `tools/director/test/shape-fit.test.ts`
 
 The lane that offered the lost screen's closing plates touched nothing this
