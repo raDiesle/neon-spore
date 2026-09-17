@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 6661cc41 — The probe's scratch directory is out of the typecheck, so a throwaway left behind is nobody else's red check
+
+`tools/probe/run.ts` promised a probe left behind was "neither committed nor in anybody's way", and only the first half held. `.gitignore` hides `tools/probe/scratch/*`, but `tsconfig.json` includes `tools/**/*.ts` and excluded nothing under it, so `bunx tsc --noEmit` read every probe anybody had ever left there — and a throwaway written against `noUncheckedIndexedAccess` is red ten times over. The lane that found this inherited nine errors from its own probe, in a file `git status` cannot show, which is the worst shape a failure has: invisible in the diff and inherited by whoever works in the tree next.
+
 ## 2026-09-17 · a862deed — THE SCOUT's arenas flown at tempo: the remap put the scout down beside its own mother ship, and four stated feel figures were not the shipped ones
 
 The unverified entry from THE SCOUT's landing asked for the flight's feel, its beat counts and its hazard timings to be seen at tempo. Nothing of the round is drawn, so nothing could be watched; the shipped arenas were flown in a probe instead and the figures read off a running world. `mapColMilli` was scaling a length by `mapCol`'s ratio, which is a column index's — so the middle of a seven-column arena landed at 5 833 on an eleven-column field where `scoutHome` is 5 500, and the arena's right-hand wall mapped 667 past the field's. It now scales by the span, which sends both walls to both walls and the middle to the middle, and `packages/content/test/queue.test.ts` holds it there; the function had no test at all, which is how the ratio slipped.
