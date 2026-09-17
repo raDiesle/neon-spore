@@ -2748,14 +2748,36 @@ rules where one is the mechanic, and the stride is a count of lobes gone.
 `torch` in no colour (`spawnOne`), the fastest thing the field already has,
 because the guard is the answer and the guard already knows it.
 
-**What is not built.** The look: the fabric, the shadow dimmed through it, the
-hem's spring, the sheet falling over four beats, and the occlusion — render has
-no z-order for "drawn dimmer behind a membrane" and this lane adds none. THE
-SLOW on the shove (`decisions.md` #33) is not wired; nothing here needs a
-`Milli` field for it and the beat it would slow is the look lane's to argue.
-The ten events are sparks in the silent lists until the look lane draws them
-(`effects-spark-silent.ts`), and the ten cues are bound
-(`audio/src/bind-curtain.ts`) but have no picture to sit under.
+**The look** (`render/curtain-draw.ts`, `curtain-sheet.ts`, `curtain-fx.ts`).
+A translucent membrane in the hull's violet at a third of its alpha, hung
+from a straight rail across seven columns at `curtainRow`, a fold swaying in
+every column and a scalloped hem with a grey lobe weighing each scallop; where
+a lobe has come off the hem lifts. It is a creature, so a shove carries it
+the way every glide is carried (`drawnCol`), and the hem trails the rail by a
+third of a tile through the beat — a sheet moved by its top edge. The core is
+drawn first and the fabric over it, which is the whole of the occlusion: no
+z-order was added, a covered core is a colour through a grey. Covered, it is
+a halo and a dimmed disc in its colour; bare, a five-lobed blob rimmed in its
+colour with a bright centre; naked (torn), the same blob pulsing, because it
+is firing faster; going out, the blob fading over `curtainOutBeats`. The hand
+ring is drawn here over the sheet, THE CAIRN's reason (`grip.ts` skips a body
+whose hand means "pull"), closing on the middle of whatever part of the
+fabric is on the field, so a sheet shoved mostly off the wall still has a
+place to hold it by. The split is the eyes (`showsCurtainSoft`,
+`showsCurtainShadow`): the pilot's screen lights the soft lobes in the hull's
+rim with a breathing halo and shows nothing of a covered core; the
+navigator's shows the shadow and every lobe the same grey; a bare core is
+plain on both. The ten events are one family read above `Effects`' loop
+(`curtain-fx.ts`): each throws its burst in its column, and `curtainTear`
+keeps the sheet — its width, where it hung — falling and crumpling out of the
+picture over four beats after the body is gone from the world, the one thing
+about this boss that outlives a frame, cleared on restart.
+`render/test/curtain-frame.test.ts` proves the fabric, the covered core, the
+bare core, the held ring, the tear and the fade on all three screens, the
+soft lobes lit on the pilot's alone, the shadow on the navigator's alone, and
+the transient's reset. THE SLOW on the shove (`decisions.md` #33) is not
+wired: the shove is a glide over one beat and nothing in it has a beat worth
+slowing yet; the owner's eye decides.
 
 **Never watched at tempo.** What the tests say is the mechanism: it unrolls
 seven wide and centred with the core under it and two soft lobes drawn; the
@@ -2770,4 +2792,5 @@ nothing; a bare hem tears on the next shove and the naked core fires faster;
 a sheet nobody holds rolls back a column on its count and not while held; the
 third hit puts it out with the wave held two beats after and cleared once it
 is gone; and the same run fingerprints the same way twice and differently for
-another seed (`sim/test/curtain.test.ts`). Nothing of it has been drawn.
+another seed (`sim/test/curtain.test.ts`). The look has been seen in a frame
+and never at tempo.

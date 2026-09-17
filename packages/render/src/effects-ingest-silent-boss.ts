@@ -94,10 +94,9 @@ export const INGEST_SILENT_BOSS = [
   "gorgeSpit",
   "gorgeMouth",
   "gorgeOut",
-  // THE CURTAIN's ten, silent until the look lane draws the fabric: the
-  // sheet, its lobes and the shadow behind it are read off the boss every
-  // frame, and the tear — the one thing that outlives its frame — will be
-  // `curtain-fx.ts`'s the way THE GORGE's beads leaving are `gorge-fx.ts`'s.
+  // THE CURTAIN's ten, read above the loop by `curtain-fx.ts` the way THE
+  // GORGE's are: the sheet, its lobes and the shadow behind it are drawn off
+  // the boss every frame, and the tear is the one that outlives its frame.
   "curtainUnroll",
   "curtainShadow",
   "curtainSoft",

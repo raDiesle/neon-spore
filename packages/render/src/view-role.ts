@@ -205,3 +205,18 @@ export const showsCandleFace = (role: ViewRole): boolean => role !== "p2";
  */
 export const showsGorgeTally = (role: ViewRole): boolean => role !== "p2";
 export const showsGorgeNearest = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE CURTAIN's two, and here the split is the eyes rather than a sentence
+ * written over a shared picture: both seats see the fabric and both hands
+ * move it, and each is shown one thing behind it the other is not. The pilot
+ * is shown **which lobes are soft** — he owns the cannon, so the seat that
+ * has to put a shot into the fourth lobe is the seat given the fourth lobe
+ * lit. The navigator is shown **the core's shadow and its colour** through
+ * the fabric — she owns the colours, so the seat that has to say *red, two
+ * columns left of the middle* is the seat given the shadow. Once the core is
+ * bare it is a body on the field and both see it (`curtain-draw.ts`,
+ * `sim/curtain.ts`). `test` is both.
+ */
+export const showsCurtainSoft = (role: ViewRole): boolean => role !== "p2";
+export const showsCurtainShadow = (role: ViewRole): boolean => role !== "p1";

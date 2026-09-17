@@ -1244,6 +1244,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/cairn-pile.ts` | THE CAIRN's pile as the game draws it: seven live fires under one clip |
 | `packages/render/src/cairn-units.ts` | Where THE CAIRN's stones stand, and the outline they make together |
 | `packages/render/src/cairn.ts` | THE CAIRN, drawn: the field's own two-tile rocks stacked in courses, clipped to one silhouette so the seams between them stay countable |
+| `packages/render/src/curtain-draw.ts` | THE CURTAIN, drawn: a translucent violet-grey membrane hung across seven columns at `curtainRow` |
+| `packages/render/src/curtain-fx.ts` | What THE CURTAIN leaves behind a frame: the sheet falling once it is torn off the rail |
+| `packages/render/src/curtain-sheet.ts` | THE CURTAIN's two shapes: the membrane with its hem, and the core |
 | `packages/render/src/effects-frame.ts` | **What `Effects` does with a frame**, as opposed to what it owns |
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 | `packages/render/src/surface-clear.ts` | **Wiping an overlay whatever transform is on it** — a `clearRect` under a ratio below one misses the right edge |

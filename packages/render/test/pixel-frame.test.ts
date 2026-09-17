@@ -49,9 +49,8 @@ const SEATS: ViewRole[] = ["p1", "p2"];
  * test goes red the moment a kind listed here is drawn, which is the reminder.
  */
 const LOOK_PENDING = new Set<string>([
-  // THE CURTAIN, simulation landed 17 September 2026 (`docs/spec/bosses.md`
-  // §11.24); `living-look.ts` answers `null` and `curtain-draw.ts` is not written.
-  "curtain",
+  // Empty on 17 September 2026: THE CURTAIN's look landed the same day its
+  // simulation did (`docs/spec/bosses.md` §11.24, `curtain-draw.ts`).
 ]);
 
 /** A body and where it is drawn on a given seat's layout. */

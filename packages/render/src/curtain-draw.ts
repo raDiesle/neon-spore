@@ -1,0 +1,104 @@
+import {
+  CURTAIN_COLS,
+  type CurtainState,
+  curtainBody,
+  curtainCoreBare,
+  gripsCreature,
+  type World,
+} from "@neon-spore/sim";
+import { drawCurtainCore, drawCurtainSheet } from "./curtain-sheet.js";
+import { drawnCol } from "./depth.js";
+import { drawHandAt } from "./grip.js";
+import { type Layout, tileCX, tileCY } from "./layout.js";
+import type { SeatNames } from "./seat-name.js";
+import { showsCurtainShadow, showsCurtainSoft } from "./view-role.js";
+
+/**
+ * THE CURTAIN, drawn: a translucent violet-grey membrane hung across seven
+ * columns at `curtainRow`, weighted lobes along its hem, and behind it the
+ * core — seen through the fabric as a shadow, or naked once the fabric has
+ * been shoved off it or torn away (`sim/curtain.ts`).
+ *
+ * **Everything here is read off the world every frame.** Where the fabric
+ * hangs is its body's column, carried across a shove by `drawnCol` the way
+ * every creature's glide is; which lobes stand and which are soft are the
+ * state's; where the core is and whether it can be seen are the state's and
+ * `curtainCoreBare`. The one thing that outlives a frame — the sheet falling
+ * off the rail — is `curtain-fx.ts`'s.
+ *
+ * **The order is the occlusion.** The core is drawn first and the fabric
+ * over it, so a covered core is a colour *through* the membrane and a bare
+ * one is a body in plain sight. There is no z-order in this renderer and
+ * this does not add one: the fabric is translucent, and what it covers is
+ * dimmed by being drawn under it, which is the whole of what "occluded"
+ * means on this field.
+ *
+ * **Two seats, two facts.** The pilot is shown which lobes are soft — lit,
+ * the way a torch is lit — and, while the core is covered, nothing of it;
+ * the navigator is shown the core's shadow and its colour through the
+ * fabric, and every lobe the same grey (`showsCurtainSoft`,
+ * `showsCurtainShadow`). Both see the fabric move under both hands.
+ *
+ * **The hand ring is drawn here, over the sheet.** The field's grip pass
+ * skips a body whose hand means "pull" (`grip.ts`), for THE CAIRN's reason:
+ * a ring behind a sheet seven columns wide would be a ring nobody saw. It
+ * closes on the middle of whatever part of the fabric is on the field, so a
+ * fabric shoved mostly off the wall still has a place to hold it by.
+ */
+export function drawCurtain(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  world: World,
+  c: CurtainState,
+  beat: number,
+  beatPhase: number,
+  time: number,
+  /** The two people's names, for the word under the ring (`grip.ts`). */
+  names?: SeatNames,
+): void {
+  if (l.tile <= 0) return;
+  const { cfg } = world;
+  const body = curtainBody(world, c);
+  const bare = curtainCoreBare(world, c);
+  const cy = tileCY(l, cfg.curtainRow);
+
+  // The core first, so the fabric is over it: plain on both screens once it
+  // is bare, a shadow on the navigator's while it is covered, and nothing on
+  // the pilot's — his eyes are the hem's.
+  if (bare || showsCurtainShadow(l.role)) {
+    const out = c.outBeat >= 0 ? (beat - c.outBeat + beatPhase) / cfg.curtainOutBeats : 0;
+    const naked = c.tornBeat >= 0;
+    drawCurtainCore(ctx, l, tileCX(l, c.coreCol), cy, c.coreColor, bare, naked, out, time);
+  }
+
+  if (body === undefined) return; // Torn off the rail: the core hangs alone.
+  const at = drawnCol(body, beatPhase);
+  const x0 = tileCX(l, at) - l.tile * 0.5;
+  // The hem trails the rail through a shove: what a sheet does when it is
+  // carried by its top edge.
+  const lag = ((body.fromCol ?? body.col) - at) * l.tile * 0.35;
+  const soft = showsCurtainSoft(l.role) ? c.soft : [];
+  drawCurtainSheet(ctx, l, x0, cy, c.lobes, soft, lag, time);
+
+  const p1 = gripsCreature(world, 1, body.id);
+  const p2 = gripsCreature(world, 2, body.id);
+  if (!p1 && !p2) return;
+  // The ring closes on the part of the sheet that is on the field.
+  const left = Math.max(x0, tileCX(l, 0) - l.tile * 0.5);
+  const right = Math.min(x0 + CURTAIN_COLS * l.tile, tileCX(l, cfg.cols - 1) + l.tile * 0.5);
+  if (right <= left) return;
+  drawHandAt(
+    ctx,
+    l,
+    world,
+    body,
+    "pull",
+    p1,
+    p2,
+    (left + right) / 2,
+    cy,
+    l.tile * 0.8,
+    time,
+    names,
+  );
+}

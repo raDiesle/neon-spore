@@ -3,6 +3,7 @@ import { drawBaton } from "./baton-draw.js";
 import { cairnBody, drawCairn } from "./cairn.js";
 import { drawPileHand } from "./cairn-hand.js";
 import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
+import { drawCurtain } from "./curtain-draw.js";
 import { drawDiastole } from "./diastole-draw.js";
 import type { Effects } from "./effects.js";
 import { chartOf, drawFleetChart } from "./fleet-chart.js";
@@ -111,12 +112,9 @@ export function drawBoss(
     return;
   }
 
-  // THE REPRISE, and it is the whole of what either seat is given while an
-  // echo is running: how many bodies are still owed, and a swallow as each one
-  // goes. No body among the creatures for the vane's reason — the mechanism
-  // hangs above row 0 and nothing of it is on the grid — and the count is read
-  // off the world every frame while the swallow is the one thing the picture
-  // has to remember for itself (`reprise-fx.ts`).
+  // THE REPRISE: how many bodies are still owed, read off the world, and a
+  // swallow as each one goes — the one thing the picture has to remember for
+  // itself (`reprise-fx.ts`). No body among the creatures, for the vane's reason.
   if (boss.kind === "reprise") {
     const echo = effects.reprise;
     echo.note(boss.at < 0 ? -1 : boss.left);
@@ -181,11 +179,17 @@ export function drawBoss(
   // (`candle-dark.ts`, `candle-glow.ts`).
   if (boss.kind === "candle") return;
 
-  // THE GORGE: a sack across seven columns above row 0, for THE DIASTOLE's
-  // reason, with the seat read off the layout inside — the pilot's tally and
-  // the navigator's nearest lobe are the split (`gorge-draw.ts`).
+  // THE GORGE: a sack across seven columns above row 0, the seat read off
+  // the layout inside (`gorge-draw.ts`).
   if (boss.kind === "gorge") {
     drawGorge(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
+    return;
+  }
+
+  // THE CURTAIN: a body among the creatures and its hand ring over it, for
+  // THE CAIRN's reason, and the core behind it read by seat (`curtain-draw.ts`).
+  if (boss.kind === "curtain") {
+    drawCurtain(ctx, l, world, boss, world.beat, view.beatPhase, view.time, view.names);
     return;
   }
 

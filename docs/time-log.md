@@ -8573,6 +8573,23 @@ they could be put in a sentence each.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-17 — boss-implementation — THE CURTAIN, the look
+
+| Step | Minutes | What |
+|---|---|---|
+| reading | 5 | `gorge-draw.ts`, `gorge-fx.ts` and their wiring as the template; `cairn-hand.ts` for a ring drawn over a body the grip pass skips; `drawnCol` for the glide |
+| writing | 5 | `curtain-draw.ts`, `curtain-sheet.ts`, `curtain-fx.ts`, two seat predicates, the branch, the four verbs, fifteen frame tests, §11.24's look |
+| looking | 5 | two frames, one a seat: the hem's right edge had no side and was closed; the shadow reads cyan through the grey on the navigator's and the lobes light on the pilot's |
+| friction | 5 | `boss-draw.ts` at 253 and two comments trimmed to 250; `not.toContain` on a colour the cannon also names, rewritten as counts; an `outBeat` set negative by a test one beat in |
+| landing | 5 | typecheck, `check:fast`, the commit, the landing |
+
+The bottleneck was the frame test's assertions: a colour is never the boss's
+alone on a field with a cannon in it, so every "not on this screen" is a
+count on one screen against the other, and three of them had to be rewritten
+that way before they said anything.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*
+
 ## 2026-09-17 — boss-implementation — THE CURTAIN, the simulation
 
 | Step | Minutes | What |

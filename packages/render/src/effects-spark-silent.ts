@@ -161,8 +161,8 @@ export const SILENT = [
   "gorgeSpit",
   "gorgeMouth",
   "gorgeOut",
-  // THE CURTAIN's ten: silent until the look lane draws the fabric, and then
-  // one family read above the loop by `curtain-fx.ts` the way THE GORGE's is.
+  // THE CURTAIN's ten: one family, read above the loop by `curtain-fx.ts`
+  // the way THE GORGE's is.
   "curtainUnroll",
   "curtainShadow",
   "curtainSoft",

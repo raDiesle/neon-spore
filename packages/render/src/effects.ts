@@ -8,6 +8,7 @@ import { ClaspFrames } from "./clasp-frames.js";
 import { CoilFlightFx } from "./coil-flight.js";
 import { CoordGrid } from "./coord-grid.js";
 import { CrawlerFx } from "./crawler-fx.js";
+import { CurtainFx } from "./curtain-fx.js";
 import { Debris } from "./debris.js";
 import { DeflectFx } from "./deflect.js";
 import { BodyTransients } from "./effects-body.js";
@@ -170,6 +171,9 @@ export class Effects {
    * on the way there — read above the loop, the way the mirror's are
    * (`gorge-fx.ts`). */
   readonly gorge = new GorgeFx();
+  /** THE CURTAIN's sheet coming down once torn, and its receipts' bursts
+   * (`curtain-fx.ts`). */
+  readonly curtain = new CurtainFx();
 
   /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {
