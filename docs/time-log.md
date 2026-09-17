@@ -8269,3 +8269,5 @@ weapons as the light in it, and the glow drawn in five steps.
 The bottleneck was the after-image: the design says *the frame stays*, and
 the honest answer is that nothing in this renderer can keep a frame — so the
 decision about what the after-image *is* took longer than drawing it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · eb67a276 — THE CANDLE's dark: the field black under a glow of five steps, and the pair's own weapons as the only light in it
+
+The second half of the third boss. One pass between the bodies and the ship (`render/candle-dark.ts`) lays black over the field from the beat the boss arrives, with holes where a light stands: a shot's flash three columns wide for a beat on player 2's screen, the guard window and the beam on player 1's, a breach two columns either way on both. The after-image is a per-column light rather than a kept frame (`after-image.ts`) — there is no offscreen field to keep, and bodies go on falling under a still picture — and it shortens as the glow dims. The glow is two halos and a flame at one of five integer reaches (`candle-glow.ts`), with a cone to the column it faces on player 1's screen only. Once out, the frame is black for the two beats the boss stays; when the sim takes it away the black lifts over a beat.
+
 ## 2026-09-17 · 21a178f6 — Claim THE ORRERY's look, the last of its three lanes
 
 The hand landed; the row says what it shipped and which two of §2's claims it shipped against. The look takes the circle the thumb lands on with it.
