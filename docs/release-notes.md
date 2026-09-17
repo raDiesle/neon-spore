@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 2b4b7614 — THE LEDGER's rehearsal: two hits of the seed's colours up the seam, both returns warded in the socket, and the plate carried to the walked socket by `atBoss`
+
+The sixth boss film written after its look (`content/src/scenes/the-ledger.ts`, ten pages over 1860 ticks). The navigator loads the colour the seam shows and fires it up the middle column; the pilot sees the bead coming down the cord with its beats beside it and triggers on the beat it lands; the socket walks a column, the navigator says it and carries the plate there — column 6, which no authored strip reaches, so the strip is `atBoss` — and the second return, warded, whips the seam a third notch for nothing. The bill for every shot and the fifth return the plate must step out from under are the last two pages' words and the prose.
+
 ## 2026-09-17 · ff451355 — The field says one word, beside the mark, on the seat that can answer it
 
 Six bosses now say what to do at the moment they want it: a target-lock frame on the mark, one verb under it, the kind of action over it, drawn only on the phone whose thumb the simulation will accept. THE CANDLE, THE GORGE, THE CURTAIN, THE TASTER, THE UNDERTOW and THE BATON, per `docs/decisions.md` #34.
