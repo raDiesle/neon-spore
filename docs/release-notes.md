@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · f87f3ea5 — The ☰ reaches the road that skips the menu
+
+`?play` is the tester's door and what `tools/frames` drives, and it bound no menu at all — so on that road the ☰ in the corner was missing, and on a phone that chip is the whole of the way out of a field: no Escape key, no browser chrome worth the name. A door that locked behind whoever walked through it, on exactly the road walked most often. The owner asked for it, 17 September 2026.
+
 ## 2026-09-17 · 29ad903a — Mark "Four drawn bosses still owe their rehearsal film" done
 
 All four films landed: THE DIASTOLE, THE BATON, THE THROAT and THE UNDERTOW.
