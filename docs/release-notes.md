@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 5293d340 — Mark "A round's picture is under the guide's band on eight rehearsals" done
+
+Both halves landed: the grid axes in 747fd801, the lost screen used as a page's subject in 5cd63ad6. The entry's third part, the labels glued to bodies that happen to stand high, was answered by the owner as a no-change — a label on a body stays as it is — and the note saying so is in the header of `guide-plate-room.test.ts`, where the sweep it belongs to lives.
+
 ## 2026-09-17 · 5cd63ad6 — The lost screen fits inside a rehearsal's page
 
 Four rehearsals have a page whose picture is the lost screen — TORCH, BULB QUEEN, THE LURE and THE COIL — and a film draws the game's screens at the film's own size, so WAVE LOST was stamped 73 pixels down with the tutorial plate sitting on top of it. The screen now fits itself under the band: foot pinned, top lifted to the plate's own foot, centred across. On the game, which has no band, not a pixel moves.
