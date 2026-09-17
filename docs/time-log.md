@@ -8617,3 +8617,5 @@ that settled it was skipping the draw altogether — eight waves red at once.
 | landing | 5 | `check:fast`, the commit, `bun run land` |
 
 The bottleneck was nothing; the owner's answer was one field and a sentence.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

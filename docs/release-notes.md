@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 705a37ed — THE BALLOON's pop follows the break: the shreds open and fade in the air
+
+`BALLOON_SKIN.gravityTiles` goes from 11 to 0.6 and `skid` from 0.5 to 0, so a popped skin's shreds hang in the lane and fade there like a struck body's pieces, and nothing in the game settles on the hull any more. Since the ordinary break's pull dropped to 1 on 16 September the light thing had been falling and the heavy thing floating; the owner chose to turn it round on 17 September. The "bigger, faster and lighter" test has its third clause back as a real claim. A look the owner asked for by name — the first exemption — and the queue entry is done.
+
 ## 2026-09-17 · a3eac87d — A pixel harness beside the stub, and a test that every wave's bodies can be seen
 
 `packages/render/test/pixel-harness.ts` draws a frame through Skia (`@napi-rs/canvas`, a devDependency of render) into real pixels, in-process and with no browser, at a phone at dpr 1. `pixel-frame.test.ts` draws every wave's peak frame on both seats, once with its bodies and once without, and holds that where each creature or pod stands the two pictures differ — the one thing the stub canvas cannot say. A body carrying `unseen` (THE REPRISE) or standing off the field is outside the claim, and a body counts as seen on either seat. Skipping the body draw turns eight waves red. Its first run against the trunk found THE CURTAIN on the field and drawn nowhere — its look is the next lane — so the kind is named in `LOOK_PENDING` and queued. The entry "A frame test cannot say whether the thing it drew is visible" is done.
