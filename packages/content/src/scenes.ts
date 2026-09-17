@@ -36,6 +36,7 @@ import { THE_LID } from "./scenes/the-lid.js";
 import { THE_LURE } from "./scenes/the-lure.js";
 import { THE_MAGNET } from "./scenes/the-magnet.js";
 import { THE_MAZE } from "./scenes/the-maze.js";
+import { THE_MINE } from "./scenes/the-mine.js";
 import { THE_MIRROR } from "./scenes/the-mirror.js";
 import { THE_MOULT } from "./scenes/the-moult.js";
 import { THE_PULSE } from "./scenes/the-pulse.js";
@@ -139,7 +140,8 @@ export type SceneId =
   | "theWell"
   | "theHandover"
   | "theSplice"
-  | "theMoult";
+  | "theMoult"
+  | "theMine";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -201,6 +203,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theHandover: THE_HANDOVER,
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
+  theMine: THE_MINE,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

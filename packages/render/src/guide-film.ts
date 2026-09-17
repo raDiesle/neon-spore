@@ -1,6 +1,13 @@
 import type { ControlSet, GuideScene } from "@neon-spore/content";
 import type { SceneRun, SimConfig } from "@neon-spore/sim";
-import { drawGripThumb, fieldThumb, gripThumb, handleThumb, tapThumb } from "./guide-hand.js";
+import {
+  drawGripThumb,
+  fieldThumb,
+  gripThumb,
+  handleThumb,
+  tapThumb,
+  tileThumb,
+} from "./guide-hand.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { drawGhostThumb, thumbAnchors } from "./guide-thumb.js";
 import { computeLayout, computeStage, type Layout, type Stage, type ViewRole } from "./layout.js";
@@ -43,8 +50,9 @@ export function seatRole(seat: 1 | 2): ViewRole {
 }
 
 /**
- * The hands: the ghost thumb the script places, and the four read off the
- * world — a grip, a press on the ship, a hand on a cord and a thumb on a box.
+ * The hands: the ghost thumb the script places, the four read off the world —
+ * a grip, a press on the ship, a hand on a cord and a thumb on a box — and the
+ * one on a bare square, placed from the act because nothing is drawn under it.
  */
 export function drawHands(
   ctx: CanvasRenderingContext2D,
@@ -73,4 +81,8 @@ export function drawHands(
   // three above it so it lands on the body the command lands on.
   const onBox = tapThumb(l, run.world, scene, run.tick, seat, phase);
   if (onBox) drawGripThumb(ctx, onBox, l.lobeR);
+  // And the finger on a bare square (`SceneAct.tile`), the one hand placed
+  // from the act: the seat pressing is the seat with nothing drawn to press.
+  const onTile = tileThumb(l, scene, run.tick, seat);
+  if (onTile) drawGripThumb(ctx, onTile, l.lobeR);
 }

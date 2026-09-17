@@ -300,25 +300,29 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are fifty-nine of them now**, one per guided wave bar fifteen, and each
+**There are sixty of them now**, one per guided wave bar fourteen, and each
 is authored in `packages/content/src/scenes/` as a page of choreography rather
-than a page of prose. The fifteen that are still the three strings and the two
-circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE CODEX, THE MINE,
-THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE DIASTOLE, THE BATON, THE
-THROAT, THE HUSK and THE UNDERTOW** — and that list is held by `test/scenes-prose.test.ts`
-rather than by this paragraph, so a film written for one of them fails a test
-here instead of leaving a sentence quietly wrong, which is what happened to the
-line this one replaced.
+than a page of prose. The fourteen that are still the three strings and the two
+circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE CODEX, THE
+SCOUT, THE REPRISE, THE STARE, THE FLIP, THE DIASTOLE, THE BATON, THE THROAT,
+THE HUSK and THE UNDERTOW** — and that list is held by
+`test/scenes-prose.test.ts` rather than by this paragraph, so a film written
+for one of them fails a test here instead of leaving a sentence quietly wrong,
+which is what happened to the line this one replaced.
 
-**Nine of those fifteen are films nobody has written, THE SCOUT's, THE
+**Five of those fourteen are films nobody has written, and THE SCOUT's, THE
 REPRISE's, THE STARE's, THE FLIP's, THE DIASTOLE's, THE BATON's, THE THROAT's,
-THE HUSK's and THE UNDERTOW's are owed by the lanes that draw them, and THE MINE is the one
-that cannot have one.** Every act of a rehearsal is a thumb landing on a *named*
-control (`scene-script.ts`, `controlPress`), and that creature's whole answer
-is a finger on a bare square of the field — not a control, with no name to
-press. A film for it would have to show a hand coming down on nothing, which
-teaches the opposite of the thing: that the tile is somewhere in particular
-and the picture knows where.
+THE HUSK's and THE UNDERTOW's are owed by the lanes that draw them.** THE MINE
+stood on this list as the one that *could not* have a film — every act of a
+rehearsal was a thumb landing on a named control (`scene-script.ts`,
+`controlPress`), and that creature's whole answer is a finger on a bare square
+of the field. Since 17 September 2026 an act may be a **tile** — a column, a
+row and the seat whose finger it is, the one gesture whose seat is authored
+because which seat is blind to a mine is the arrival's (`SceneAct.tile`) — and
+the ghost hand for it is placed from the act rather than from the world,
+because on the seat that presses there is nothing drawn to place it by. The
+hand coming down on nothing turned out to be the picture, not the problem: it
+is what the blind seat's screen looks like.
 
 A wave with a film keeps its prose as well: the three strings are what the pair
 reads on a phone that has already watched the film once.

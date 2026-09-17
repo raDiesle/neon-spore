@@ -20,7 +20,7 @@ import type { ControlId } from "./controls.js";
  * as a column and a span of ticks rather than as a creature, because a scene
  * is written before a world exists and ids are dealt out by the simulation —
  * the runner finds what is standing in that column at the moment the hand goes
- * down (`sim/scene.ts`). Exactly one of `control` and `grip` is ever set;
+ * down (`sim/scene.ts`). Exactly one gesture is ever set on an act;
  * `test/scenes.test.ts` holds that.
  */
 export interface SceneAct {
@@ -79,6 +79,29 @@ export interface SceneAct {
    * comes down.
    */
   tap?: true;
+  /**
+   * A **finger on a bare square of the field**, from the seat that cannot see
+   * what is standing on it — THE MINE's answer (`sim/mine.ts`), and the fifth
+   * gesture that is not a press on a button.
+   *
+   * The value is the **seat**, and it is authored, which no other gesture's
+   * is: a tap is always the navigator's and a shake always the pilot's because
+   * the creature is, but which seat is blind to a mine is the *arrival's*
+   * (`SpawnEntry.sees`), so the film has to say whose finger this is the way
+   * the wave said whose eyes those were. `col` goes through `mapCol` like
+   * every other column; `row` is written as it stands, because the field's
+   * rows are the same on the authored grid and the shipped one.
+   *
+   * Nothing is resolved by the runner. A grip and a tap name a column and let
+   * `SceneRun` find the body, because the hand lands on a body; this lands on
+   * a square, and the square is the whole of the command (`tapTile`). That is
+   * also why the ghost hand for it is the one placed from the act rather than
+   * from the world (`render/guide-hand.ts`) — there is nothing on the blind
+   * seat's field to place it from, which is the creature.
+   */
+  tile?: 1 | 2;
+  /** The row a `tile` act lands in. Only a tile carries one. */
+  row?: number;
   /**
    * A hand on a **cord, a string or a rope** — the third gesture that is not a
    * press on a button, and the one that had no way of being written down.

@@ -42,6 +42,19 @@ export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
       { tick: act.tick, player: 2, command: { kind: "tap", id: 0 }, tapCol: actCol(act, cfg.cols) },
     ];
   }
+  // A finger on a bare square: the one gesture whose seat is authored, because
+  // which seat is blind to a mine is the arrival's rather than the kind's
+  // (`SpawnEntry.sees`). The square is the whole command, so nothing is left
+  // for the runner to fill in — the hand lands on a place, not on a body.
+  if (act.tile !== undefined) {
+    return [
+      {
+        tick: act.tick,
+        player: act.tile,
+        command: { kind: "tapTile", col: actCol(act, cfg.cols), row: act.row ?? 0 },
+      },
+    ];
+  }
   if (act.drag !== undefined) return dragCommands(act, cfg);
   // The device shaken: one command carrying nothing, and nothing to let go of.
   // The pilot's, unauthored, exactly as a drag's seat is.

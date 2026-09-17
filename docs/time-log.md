@@ -8053,3 +8053,19 @@ runs of the suite. The conflict markers were the sim half's, not this
 lane's, and they took a commit of their own.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — queue-a-rehearsal-cannot-show-a-finger-on-a-bare-tile — THE MINE's film, and the act that lands on a square
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry, `scene-act-types.ts`, `scene-script.ts`'s tap branch, `guide-hand.ts`, `sim/mine.ts` for the fuse and the four squares beside |
+| writing | 10 | `SceneAct.tile` and `row`, the `tapTile` branch, `tileThumb`, the tile checks in `scenes.test.ts`, `the-mine.ts`, the wave's `scene`, §3.2 and `STILL_PROSE` |
+| looking | 10 | four strips of the three pages and the browser pane; the first of page 2 rested on an empty field |
+| friction | 0 | — |
+| landing | 5 | `bun run index`, `check:fast`, two queue entries, the commit |
+
+The bottleneck was the resting frame rather than the gesture: a page stands on
+its last tick and the tap destroys the mine the instant it lands, so a tap in
+the middle of the page left it resting on nothing — no body, and so no count,
+no ring and no caption, since every one of those is read off the body — and the
+film had to be re-timed so the finger lands on the tick the page ends.

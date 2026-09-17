@@ -55,14 +55,15 @@ describe("the rehearsals a guide can show", () => {
   it("gives every act exactly one gesture", () => {
     // Five gestures are not presses on the panel: a finger held on the field,
     // a hand carrying a cord, a string or a rope since THE LID's, the *device*
-    // being shaken since THE CHOIR's, and — since THE BEATBOX's — a thumb on a
-    // body, which is the one press in the game that lands on the field. So an
-    // act carries exactly one of `control`, `grip`, `drag`, `shake` and `tap`,
-    // never two and never none. `sceneCommands` throws on the empty case rather
-    // than dropping it silently, and this is what keeps it from being thrown.
+    // being shaken since THE CHOIR's, since THE BEATBOX's a thumb on a body,
+    // and — since THE MINE's — a finger on a bare square, the one press that
+    // lands where nothing is drawn. So an act carries exactly one of
+    // `control`, `grip`, `drag`, `shake`, `tap` and `tile`, never two and
+    // never none. `sceneCommands` throws on the empty case rather than
+    // dropping it silently, and this is what keeps it from being thrown.
     for (const id of SCENE_IDS) {
       for (const act of SCENES[id].acts) {
-        const gestures = [act.control, act.grip, act.drag, act.shake, act.tap].filter(
+        const gestures = [act.control, act.grip, act.drag, act.shake, act.tap, act.tile].filter(
           (g) => g !== undefined,
         ).length;
         expect(gestures, `${id} has an act at tick ${act.tick} with ${gestures} gestures`).toBe(1);
@@ -99,6 +100,18 @@ describe("the rehearsals a guide can show", () => {
           expect(act.until, `${id}: a tap at tick ${act.tick} lets go`).toBeUndefined();
           continue;
         }
+        // A finger on a square says both halves of the square and nothing
+        // else: a tile is the whole command (`tapTile`), and a row only a
+        // tile carries — on any other act it would be a number nothing reads.
+        if (act.tile !== undefined) {
+          expect(act.col, `${id}: a tile at tick ${act.tick} has no column`).toBeGreaterThanOrEqual(
+            0,
+          );
+          expect(act.row, `${id}: a tile at tick ${act.tick} has no row`).toBeGreaterThanOrEqual(0);
+          expect(act.until, `${id}: a tile at tick ${act.tick} lets go`).toBeUndefined();
+          continue;
+        }
+        expect(act.row, `${id}: an act at tick ${act.tick} names a row`).toBeUndefined();
         if (act.grip === undefined && act.drag !== "lidString") {
           // And a hold on an ordinary control only makes sense on one a thumb
           // stays on — the lance, the gauge's two valve slabs and the bucket's
@@ -280,7 +293,9 @@ describe("the rehearsals a guide can show", () => {
                 // (`sim/beatbox-round.ts`).
                 act.tap
                 ? 2
-                : control(act.control!).player);
+                : // A tile's is authored, because which seat is blind to a
+                  // mine is the arrival's (`SpawnEntry.sees`).
+                  (act.tile ?? control(act.control!).player));
         const sent = script.commands.filter((c) => c.tick === act.tick && c.player === seat);
         expect(sent.length, `${id}: nothing sent for the act at tick ${act.tick}`).toBeGreaterThan(
           0,

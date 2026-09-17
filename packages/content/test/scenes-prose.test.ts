@@ -23,11 +23,11 @@ import { SCENES } from "../src/scenes.js";
 /**
  * The guided waves whose opening is the three strings and the two circles.
  *
- * Five of them are films nobody has written yet. **THE MINE is the one that
- * cannot have one**: every act of a rehearsal is a thumb on a named control
- * (`scene-script.ts`, `controlPress`), and that creature's whole answer is a
- * finger on a bare square of the field, which is not a control and has no
- * name to press. A film for it would have to show a hand landing on nothing.
+ * Five of them are films nobody has written yet. THE MINE stood here as *the
+ * one that cannot have one* — every act was a thumb on a named control and
+ * its answer is a finger on a bare square — until the act grew a `tile`
+ * gesture that names the square and the seat (`scene-act-types.ts`), and the
+ * hand landing on nothing turned out to be exactly the picture.
  */
 const STILL_PROSE = [
   "THE COUNT",
@@ -35,7 +35,6 @@ const STILL_PROSE = [
   "THE LIMPET",
   "THE LEECH",
   "THE CODEX",
-  "THE MINE",
   // THE SCOUT's film is owed rather than impossible: the round is built and
   // nothing of it is drawn yet, so the rehearsal has nothing to choreograph.
   // It comes off this list with the lane that draws the little ship.
@@ -93,9 +92,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts fifty-nine films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts sixty films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Fifty-nine, which is the number in the section. A film with no wave
+    // Sixty, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);

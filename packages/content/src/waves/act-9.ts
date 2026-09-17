@@ -192,6 +192,7 @@ export const WAVES_ACT_9: Wave[] = [
       both: "Something is standing still on a tile, and only one of your screens has it. No shot touches it — a bolt bounces off — and the only thing that answers it is the other one's finger on that exact square. The lettered grid is on for both of you. Miss by one tile and the hull goes; miss by more and the count on it drops by one.",
       p1: "First one, you are the finger: take the letter and the number and press that square on the field itself. The cannon has nothing to do with this. Second one is yours to see — say the square, then say it again.",
       p2: "First one is yours to see and not to touch: say the square at once, letter then number, and read the count on it — that is how long they have. Second one you press blind. Go straight there; feeling around costs a beat.",
+      scene: "theMine",
     },
     entries: [
       { beat: 0, col: 3, kind: "mine", color: "cyan", row: 6, sees: 2 },

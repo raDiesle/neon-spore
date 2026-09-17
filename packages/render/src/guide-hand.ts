@@ -2,13 +2,14 @@ import { actCol, control, type GuideScene } from "@neon-spore/content";
 import { type Creature, gripsCreature, lidIsHeld, occupiesCol, type World } from "@neon-spore/sim";
 import { creatureCenter, creatureRadius } from "./creature-place.js";
 import { handleCircle } from "./handles.js";
-import type { Layout } from "./layout.js";
+import { fieldX, type Layout, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { shipCircle } from "./touch-ship.js";
 
 /**
  * The hands that are **not** on the panel: one held on something falling, one
- * pressed against the ship itself, and one carrying a cord.
+ * pressed against the ship itself, one carrying a cord, one on a box, and one
+ * on a bare square.
  *
  * Its own file beside `guide-thumb.ts`, split when that one reached the length
  * ceiling, along the seam it always had. Next door places a thumb from the
@@ -120,6 +121,38 @@ export function tapThumb(
     if (!on) continue;
     const at = creatureCenter(l, world, on, beatPhase);
     return { x: at.x, y: at.y, r: creatureRadius(l, world, on, beatPhase) };
+  }
+  return null;
+}
+
+/**
+ * And the fifth: a **finger on a bare square**, THE MINE's answer
+ * (`sim/mine.ts`), and the one hand here that is placed from the act rather
+ * than from the world.
+ *
+ * Every other hand on the field rides something drawn — a body, a swelling, a
+ * handle — because the world knows where that thing is and the author does
+ * not. This one lands where nothing is drawn, on purpose: the seat pressing is
+ * the seat the body is hidden from, so there is no body on this screen to
+ * place a thumb by, and the square itself is the only fact there is. So the
+ * hand goes to the tile the act names, through the same `actCol` the command
+ * went through, and cannot be over a square the command did not press.
+ *
+ * `fieldX` and not `tileCX`: a square on the field is the field's, and turns
+ * with it under a fold (`field-flip.ts`). Only this seat's, and only for the
+ * short flight the panel's own thumb gets, because a tap is instant.
+ */
+export function tileThumb(
+  l: Layout,
+  scene: GuideScene,
+  tick: number,
+  seat: 1 | 2,
+): { x: number; y: number; r: number } | null {
+  for (const act of scene.acts) {
+    if (act.tile !== seat) continue;
+    if (tick < act.tick - LEAD_TICKS || tick > act.tick + TRAIL_TICKS) continue;
+    const col = actCol(act, l.cols);
+    return { x: fieldX(l, col), y: tileCY(l, act.row ?? 0), r: l.tile * 0.5 };
   }
   return null;
 }

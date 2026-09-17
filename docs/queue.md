@@ -327,36 +327,6 @@ holds the store's shape; `join-words.test.ts` holds every sentence on the
 room screen. Prove with `bun run check`, and for step 4 the two-browser run,
 sending one PNG of the shared ready step.
 
-## A rehearsal cannot show a finger on a bare tile, so THE MINE has no film
-
-- **Found:** 2026-09-16, claude/queued-tasks-51d8f9
-- **Taken:** 2026-09-17, claude/queue-a-rehearsal-cannot-show-a-finger-on-a-bare-tile
-- **Files:** `packages/content/src/scene-script.ts`, `packages/content/src/scene-types.ts`, `packages/content/src/scenes/`, `packages/render/src/guide-hand.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
-
-Every act a film can carry is a thumb on something the panel draws: a control
-press (`controlPress`), a hold, a drag, a turn, a shake, or `tap` — which is
-THE BEATBOX's and is fixed to the navigator and named by column alone. There
-is no act that says **a finger on a square of the field**, which is the whole
-of THE MINE's answer (`packages/sim/src/mine.ts`, the `tapTile` command), so
-that wave shipped with the three strings and the two circles and no rehearsal
-at all. It is the only guided wave in the game that cannot have one rather
-than merely not having one yet, and `scenes-prose.test.ts` and §3.2 of
-`briefings.md` both say so in those words today.
-
-What it needs is one more act shape: a **tile** act carrying `col`, `row` and
-the **seat** — unlike `tap`, whose seat is fixed, because which seat is blind
-is the wave's on this creature (`SpawnEntry.sees`) — producing a `tapTile`
-command; and the ghost hand drawn at the tile's centre rather than at a
-control's, which is the part `guide-hand.ts` has no case for. The film itself
-is then the ordinary five acts: the body standing on one screen, the other
-screen empty, the count coming down, the hand landing on the square, the
-contour closing.
-
-Worth doing only if the creature survives being played. Do it with the wave
-in front of you, not before. When it lands, take THE MINE out of
-`STILL_PROSE`, off §3.2's list and out of the paragraph under it — all three
-are named in the test's own failure message.
-
 ## ship-notes.ts is one line under its limit, and it grows with every creature
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
@@ -779,3 +749,42 @@ the standing lobe on his, and the plate stood on a breach on hers; the seat
 split means it is shot twice and read as one lesson, which is THE HUSK's
 comment already. Four separate lanes, one boss each, in the order the sections
 are numbered.
+
+## A mine's press reads the column with no fold, so a mine on THE FLIP misreads it
+
+- **Found:** 2026-09-17, claude/queue-a-rehearsal-cannot-show-a-finger-on-a-bare-tile
+- **Where:** local
+- **Files:** `packages/render/src/mine-tap.ts`, `packages/render/src/field-flip.ts`, `packages/render/test/mine-frame.test.ts`
+
+`mineUnder` turns a press into a `tapTile` with `colFromX`, which is the
+layout's arithmetic and knows nothing about the fold. Every other press on the
+field goes through `fieldCol` (`field-flip.ts`), which puts a mirrored screen's
+x back into the world's column. So a mine on a wave whose field is flipped on
+one seat would be pressed on the screen's square and answered on the world's,
+one column mirrored away — an exact press rejected and every fuse on the field
+docked a beat. No shipped wave sends a mine on a flipped field, which is why
+nothing fails today; THE FLIP is a boss without a rehearsal and the mine is
+act 9's, so the pairing is one wave away. Read the column through `fieldCol`
+where the row is read through `rowFromY`, and add the flipped case to
+`mine-frame.test.ts`, which is where the press is tested today. `docs/spec/briefings.md` §3.2 keeps
+its sentence about THE FLIP's film being owed; nothing there changes.
+
+## The fuse count is drawn under the siren dial, on its centre at its radius
+
+- **Found:** 2026-09-17, claude/queue-a-rehearsal-cannot-show-a-finger-on-a-bare-tile
+- **Where:** local
+- **Files:** `packages/render/src/mine.ts`, `packages/render/src/siren.ts`, `packages/render/src/ship-top-rows.ts`, `packages/render/test/frame.test.ts`
+
+`drawMineFuses` puts the blind seat's ring of pips at the middle of the field,
+`gridTop + r * 1.3` with `r = tile * 0.42` — on an eleven-column phone that is
+a fifteen-pixel ring centred exactly where `drawCommsSiren` puts its dial,
+`DIAL_R = 15`, and the mine is a `TALKER` kind, so the dial is always lit
+while a mine stands. THE MINE's rehearsal shows it: on player 1's page the six
+pips are a dashed rim around the dial's red disc and read as its decoration,
+and the count — the one thing the blind seat has to read the clock off — is
+not a thing on the screen. This is a fix to something wrong rather than
+unlovely (the third exemption), so it lands: give the fuses a row of their own
+under the duty word through `ship-top-rows.ts`, the way the word itself made
+room under the dial, and hold in `frame.test.ts` that no fuse ring's centre is
+within `DIAL_R` of the siren's. The film needs no change; it draws the real
+screen and will show the row where it lands.
