@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 219717d8 — THE SCOUT's first arena is clocked against a measured flight, not against nothing
+
+The first arena was authored at 40 beats and nobody had flown it. An autopilot that points, burns and coasts banks all four of its motes in twelve, so the clock comes to 18 — half again the flight, six beats for the talking a rig does not do. At 40 the round's second failure, `ranOut`, could only fire for a pair who had stopped flying altogether; at 18 it is a pressure.
+
 ## 2026-09-17 · dd23a0c8 — The director gets a BOSSES page, read off the two boss spec pages
 
 What is left to do on a boss, on the `◇ NOT BUILT YET` sheet, in three groups: the one boss whose simulation landed and whose look nobody has written, the **What is not built** paragraph at the foot of eleven finished bosses, and the library rows on `bosses-choreographed.md` with no shipped ancestor. That middle group is the largest pool of decided, sized, unstarted work in the repository and nothing drew it — it is not where a backlog usually keeps such a thing, because it is the last paragraph of a *finished* design's write-up.
