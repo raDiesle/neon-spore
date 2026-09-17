@@ -8838,3 +8838,20 @@ forty files, and the one the skill's table did not name — `net/src/command-fie
 is the one that would have failed silently on the wire.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-play-is-a-list-of-partners-to-continue-with-and — CONTINUE comes off the PLAY page
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `room-start.ts`'s two-press restart, `link-ask.ts`'s `ready()`, `link-refusal.ts`'s `turnedAway`, the shell's desync edge, `quit.ts` |
+| deciding | 0 | the owner had: the room screen on a parting, the holds as the mend, the chip as the way out, no row |
+| writing | 5 | `mayHold` and `over` through the circles, the row and its binding out of four menu files, the shell's two routes, the tests |
+| friction | 5 | the PLAY page photographed to a path outside the scratchpad and shot again |
+| landing | 5 | `check:fast`, the picture, this entry, the commit, `bun run land` |
+
+The bottleneck was proving the mend needs no piece on the wire: reading the
+room and the link until it was certain that two READY presses already restart
+a stamped run and that `ready()` still sends after a parting — so the
+`net-change` skill and the relay check were not owed.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

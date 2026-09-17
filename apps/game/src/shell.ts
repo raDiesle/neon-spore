@@ -118,28 +118,33 @@ export function bindShell(p: ShellParts): Link {
       hold.update(status);
       // **The two worlds have parted.** Nothing either phone is looking at is
       // the game the other one is playing, so the field is not worth drawing
-      // over any more: the menu comes up on the PLAY page, where CONTINUE is,
-      // and the pair start again together the moment both of them press it
-      // (`menu.ts`, `link-run.ts`). It happens on both phones because both
-      // exchange fingerprints and both notice.
+      // over any more: the room screen comes up — it opens itself on a fault,
+      // this one included (`join.ts`) — and the pair start again together the
+      // moment both of them hold READY there (`join-room.ts`, `link-run.ts`).
+      // It happens on both phones because both exchange fingerprints and both
+      // notice. The owner's call, 17 September 2026, over a CONTINUE row on
+      // the menu, which is gone.
       //
-      // On the *edge* and not on the state, so a menu the player then closed to
-      // look at the field does not come straight back up under their thumb.
-      // The room screen goes down first: it sits over the menu, and a pair
-      // who had it up would be looking at a START that cannot be pressed with
-      // the press that can under it.
-      if (status.state === "desync" && parted !== true) {
-        joinScreen?.open(false);
-        menu?.open("play");
-      }
+      // The menu goes down on the *edge* and not on the state, so one the
+      // player then opened to LEAVE ROOM is not taken from under their thumb.
+      if (status.state === "desync" && parted !== true) menu?.close();
       parted = status.state === "desync";
     },
   });
   // **One seat pressed QUIT on a lost wave.** The same door as the parted run,
   // for the same reason: there is no field worth looking at under it any more,
-  // on either phone, and the PLAY page is where the way back in is — with the
-  // room's line saying whose press it was (`quit.ts`, `menu-link.ts`).
-  onQuit(() => menu?.open("play"));
+  // on either phone. In a room that door is the room screen, whose two READY
+  // holds start the pair again with the line saying whose press it was
+  // (`quit.ts`, `join.ts`); off the wire it is the PLAY page, where the way
+  // back in is (`menu-link.ts`).
+  onQuit(() => {
+    if (link.status().state === "solo") {
+      menu?.open("play");
+      return;
+    }
+    menu?.close();
+    joinScreen?.open(true);
+  });
 
   /**
    * Somebody said they were done, so there is nothing to offer them back into.
@@ -170,6 +175,7 @@ export function bindShell(p: ShellParts): Link {
     pickSeat: (seat) => link.pickSeat(seat),
     setLevel,
     level,
+    wave: () => p.world.wave,
     back: () => menu?.open(),
   });
 
@@ -201,10 +207,6 @@ export function bindShell(p: ShellParts): Link {
         link.join(room);
       },
       leaveRoom,
-      // CONTINUE in a room is the room's own START, sent through the same door
-      // the room screen's button uses — the only press on one phone that may
-      // begin a wave on two (`menu.ts`, `link.ts`).
-      ready: () => link.ready(),
       settings: {
         setSound: p.setSound,
         // The animations are CSS, so the switch is a class. `data-motion` and

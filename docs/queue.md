@@ -193,141 +193,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## PLAY is a list of partners to continue with, and the room is a step-by-step
-
-- **Found:** 2026-09-14, claude/queued-items-cbcbd8
-- **Taken:** 2026-09-17, claude/queue-play-is-a-list-of-partners-to-continue-with-and
-- **Files:** `apps/game/src/menu-entries.ts`, `apps/game/src/menu-view.ts`, `apps/game/src/menu-seats.ts`, `apps/game/src/menu-rejoin.ts`, `apps/game/src/menu-link.ts`, `apps/game/src/menu.ts`, `apps/game/src/pairing.ts`, `apps/game/src/progress.ts`, `apps/game/src/join.ts`, `apps/game/src/join-steps.ts`, `apps/game/src/join-step-view.ts`, `apps/game/src/join-words.ts`, `apps/game/src/join-link.ts`, `apps/game/src/join-name.ts`, `apps/game/index.html`, `apps/game/src/link-ask.ts`, `apps/game/src/link-report.ts`, `apps/server/src/room-seat.ts`, `apps/game/test/menu.test.ts`, `apps/game/test/pairing.test.ts`, `apps/game/test/join-words.test.ts`
-
-The owner asked for this on 14 September 2026 — the first exemption under *A
-look is offered, never replaced*; say so in the commit. It is one workflow but
-several green pieces; land each as it goes green rather than holding the
-branch (`docs/git-and-landing.md`). Seat choice reaching the other phone
-touches the wire: `.claude/skills/net-change` before that piece.
-
-**The stepping itself — step 4's first four pages — landed on 15 September
-2026.** The room screen is `join-steps.ts`'s four steps and each asks one
-thing: JOIN or CREATE, the name, the code, the room. SEND LINK and WHAT THIS
-IS are gone, markup and bindings both, and `shareRoom`/`roomLink` with them —
-a link *into* a room still opens one, because somebody was sent one yesterday.
-`bun run menu-shot out.png --page "PLAY > NEW GAME > CREATE" --element
-"#joinScreen"` photographs the creator's code page; the trail walks off the
-menu onto the screen a press opened now (`tools/frames/menu-press.ts`), which
-it could not before. **What is left of 4 is the shared room page itself** —
-the creator's seat and difficulty reaching the other phone, and the two
-READY circle holds in place of START — and that is the half that wants two
-browsers against a wrangler.
-
-**Steps 1, 3 and the gear half of 2 landed on 15 September 2026.** The PLAY
-page is the list, NEW GAME is under it, REJOIN is gone, a partner is a record
-of a name, the wave the two of them reached and the tempo they played it at
-(`apps/game/src/partners.ts`), the seat cards are off the page, and every
-partner's row carries a gear that opens the three tempi *for that pair*
-(`bun run menu-shot out.png --page "PLAY > ⚙" --partners "Ada:6"` photographs
-it). **Step 4 is what is left**, plus step 2's other half — the difficulty offered
-while a game is being *created* — which has no home until 4 builds the room
-screen. It wants a session that can put two devices in one room against a
-wrangler, and **a cloud session is now one**: `bun run relay:check:all` starts
-the relay and stops it again, and 5 below was found and fixed that way on 15
-September 2026 (`docs/cloud-session.md`).
-
-**What the gear turned out to need, for whoever works 4.** A tempo is not a
-thing a device holds. The room keeps its own level in Durable Object storage
-(`room-tally.ts`) and hands it to both phones on `welcome`, and `onStart` uses
-*that* and not `b.level()` — so a choice made on the PLAY page, where there is
-no socket, is a wish until somebody carries it in. `link.join(room, wanted)`
-is where it is carried: the tempo travels with the join and is sent once, on
-the welcome, and only when it differs from what the room holds
-(`apps/game/test/pair-tempo.test.ts`). The creator's pick on the room screen
-is the same shape and should use the same door rather than a second one.
-
-**Behind PLAY, today** (`playEntries`): the partners, each with a gear, then
-NEW GAME and CONTINUE. **What he wants:**
-
-1. ~~**The PLAY page is first a list of the people this device has played
-   with**~~ — landed. ~~DIFFICULTY still sits under the list~~ — left on 15
-   September 2026, with step 4. **CONTINUE is still there**, and only a third
-   of it has a home: its START answer is the READY hold on the room screen
-   now, but its other two — the way back to a field open under the menu, and
-   the mend of a parted run, which `shell.ts` brings the menu up for and
-   `join-words.ts`'s desync sentence sends people to — have none. Two ways:
-   the room screen opens on a parting too and the circles mend it, and a
-   menu opened over a running field closes on its own chip, so CONTINUE goes;
-   or the row stays under NEW GAME with those two answers and a new name.
-   `menu.ts` `carryOn`, `menu-link.ts` `continueLine`, `shell.ts`, and the
-   CONTINUE cases in `menu-front.test.ts`.
-   - **Answered:** 2026-09-17, by the owner — **It leaves.** The room screen opens on a parting too and the READY circles mend it; a menu opened over a running field closes on its own chip; CONTINUE comes off the PLAY page. `.claude/skills/net-change` before the piece that reaches the wire.
-2. ~~**Difficulty is chosen when creating a new game**, on the room screen~~
-   — landed on 15 September 2026: three tempi on step 4, the host's to press
-   (`join-room-step.ts`), the other phone reading the pick off its welcome.
-   ~~And for an existing partner behind a
-   gear icon on the right end of that partner's row, opening the three-level
-   list for that pair~~ — landed: the gear is a second press target beside the
-   row's own button (`menu-rows.ts`'s `aside`; a button inside a button is not
-   a thing), the page it opens says TEMPO WITH ADA and marks that pair's level,
-   and the answer goes to their record (`menu-tempo.ts`, `pairing.ts`).
-3. ~~**No seat on the PLAY page.**~~ — landed. The cards (`menu-seats.ts`) are
-   drawn under the rig's rows now, which is where the one person who can press
-   them is; a pair reads its seat off the room screen's own pills
-   (`join-words.ts` `seatWord`), and BOTH was never offered to a pair at all.
-4. **The TWO DEVICES / room screen becomes steps** (`index.html` `#joinScreen`,
-   `join.ts`). ~~Remove SEND LINK (`#joinShare`, `shareRoom` in
-   `join-link.ts`) and WHAT THIS IS (`#joinWhat`) — both, everywhere on this
-   screen.~~ — done. Then:
-   - ~~**Step 1**: two buttons only, **JOIN** or **CREATE**.~~ — done.
-   - ~~**Step 2**: the nickname (`#joinName`, `join-name.ts`), asked once the
-     choice is made, skipped when the device already has one.~~ — done, and it
-     is asked over the top of a room rather than before one: the device that
-     reaches that field walked in on a link and never passed the menu.
-   - ~~**Step 3, creator**: the code, large, and one sentence: *be on a voice
-     call and read this out*. **Step 3, joiner**: the code field
-     (`#joinEnter`) and *type in the code you were told*.~~ — done. The two
-     modes leave step 3 at different moments and that is the design: a joiner
-     leaves on the join, a creator on the second seat arriving.
-   - **Step 4** — *the page is there, and what is on it is not*. Waiting for
-     the other phone; then, **on the same screen for
-     both**, the room's state: both names, and the creator picks **the seat**
-     and **the difficulty** there — the joiner sees the choice made and takes
-     the other seat — and each says READY with **the circle hold the guides
-     use** (`briefing.ts`, `render/ready-circles.ts`), not a START button
-     (`#joinStart`, `startButton` in `join-words.ts`). ~~Who holds which seat is
-     today the server's arrival order (`seat.ts`, `link.ts:202`); the
-     creator's pick has to reach the other phone, which is one new message or
-     a swap — the net-change skill's files move together.~~ **The wire half
-     landed on 15 September 2026**: a `seat` message (`protocol.ts`), honoured
-     only from the host and before beat zero (`apps/server/src/room-seat.ts`),
-     turns one persisted swap bit that every seat lookup reads through
-     (`seat.ts` `seatTag`); the welcome carries `host` and is re-sent to both
-     on a swap and on a `level`, so the joiner sees the pick made; the client
-     has `Link.pickSeat` and `LinkStatus.host` (`link-ask.ts`,
-     `link-report.ts`). Proved by `apps/server/test/room-seat.test.ts` and
-     `relay:check:all`. **The screen half landed the same day**: the pills are
-     the host's presses (`join-room.ts` `mayShape`), the three tempi sit under
-     them, and two READY circles in DOM replace `#joinStart` — the own one
-     fills under a thumb over `readyHoldMs`, both are drawn on both phones,
-     the one waiting on this phone breathes (`join-room-step.ts`,
-     `join-room.test.ts`). `tools/frames/room-phones.ts` `holdReady` is the
-     press a walk cannot do. Seen on two browsers against a wrangler: the
-     swap, the joiner's press ignored, HARD on both, both holds, beat zero at
-     120 bpm on both.
-   - The joiner's pages mirror it: JOIN → name → code → the same shared step 4.
-5. ~~**The wait for the other player gives up too soon.**~~ — landed on 15
-   September 2026, and **it was neither of the two timers this entry named**.
-   Reproduced against a live relay: `SEAT_SILENT_MS` never fires, because the
-   room only evicts while it is computing its seats and a silent seat with
-   nobody else pinging is never looked at — a device was left silent for 24
-   seconds and kept its seat. `HOLD_AFTER_MS` cannot fire either: `troubleOf`
-   answers only for `lost` and `stalled`, and a phone waiting for a partner is
-   `waiting`. What fired is `RECONNECT_TRIES` (6) at `RECONNECT_MS` (900) in
-   `link-socket.ts` — the client gives up **5.4 seconds** after its line goes,
-   and abandons a seat the room holds for ten. It is patient until a welcome
-   says the room is full now (`WAITING_TRIES`, 108 s).
-
-`menu.test.ts` and `menu-front.test.ts` read the rows; `pairing.test.ts`
-holds the store's shape; `join-words.test.ts` holds every sentence on the
-room screen. Prove with `bun run check`, and for step 4 the two-browser run,
-sending one PNG of the shared ready step.
-
 ## Unverified at ce8a2324: THE SCOUT's arenas were never watched at tempo — the fl…
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
@@ -535,3 +400,31 @@ whether it is the five-second default that goes, and if it is give it a named
 constant with the reason beside it, `FRAME_TIMEOUT_MS`'s way; if it is the
 assertion, the catalogue has an entry whose rest box is not deterministic,
 and that is the real finding.
+
+## `briefing.test.ts` went red under `check:fast` while another session ran `check`
+
+- **Found:** 2026-09-17, claude/queue-play-is-a-list-of-partners-to-continue-with-and
+- **Files:** `packages/render/test/briefing.test.ts`, `packages/render/test/canvas-stub.ts`, `tools/check/shard.ts`, `tools/index/test/drift.test.ts`
+
+`check:fast` for the CONTINUE lane reported *a wave's opening on the stage >
+draws a rehearsal, through every page of it, for test* at line 228 and two
+more, in a run whose eight shards took 237 seconds of wall against 96 on the
+rerun a minute later, which was green. The load average was 50: the other
+session's `bun run check` had fourteen shards up at the same time. The file
+alone runs its fifteen tests in 26 seconds on a quiet machine, so one test
+under `FRAME_TIMEOUT_MS` (30 s) is not far from the cap when two checks share
+the cores — and the runner prints only the first failure's name, so the other
+two are not in what was seen. Either the shard runner reads the load and
+holds back shards when another check is running (`tools/check/shard.ts`
+knows `cpus()`), or `FRAME_TIMEOUT_MS` says "a busy machine is not a failure"
+and should be sized for two checks, not one. Prove it by starting `bun run
+check` in a second worktree and `check:fast` here, twice.
+
+**The same landing, on `bun run land`'s full check**: `tools/index/test/drift.test.ts`
+line 43 — *no row names something its file does not have, or counts it
+differently* — timed out at 12.4 s under bun's five-second default, with
+fourteen shards up here and the other session's check still running. It reads
+every file `docs/INDEX.md` names, spawns nothing, and sets no timeout: the
+shape the entry above calls *a file whose own work is near the default*. It
+wants a named cap with the reason beside it, or the rows read once for the
+file.

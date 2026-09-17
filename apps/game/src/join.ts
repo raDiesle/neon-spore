@@ -14,12 +14,15 @@ import { bindStepView } from "./join-step-view.js";
 import { type JoinMode, joinStep } from "./join-steps.js";
 import { chipText, explain, lastTimeLine } from "./join-words.js";
 import { partnerIn, rememberFrom, startOverWith } from "./pairing.js";
+import { quitBy, quitLine } from "./quit.js";
 
 /** The link, as this screen asks things of it. Step 4's own asks — READY,
  * the seat, the tempo — are `RoomStepBindings` (`join-room-step.ts`). */
 export interface JoinBindings extends RoomStepBindings {
   join: (room: string) => void;
   leave: () => void;
+  /** The wave the field is on, for the line that says which wave was quit. */
+  wave: () => number;
   /** The way out of this screen, which is the menu it was opened from. */
   back: () => void;
 }
@@ -124,7 +127,10 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     nameField.paint();
     showStep(joinStep(mode, !nameField.asking(), last), mode, last);
     if (codeEl) codeEl.textContent = last.room || "————";
-    if (stateEl) stateEl.textContent = explain(last);
+    // A QUIT that stands is said here in a room, with whose press it was: the
+    // two holds under it are what start the pair again (`quit.ts`).
+    const quit = quitBy() !== 0 && last.state !== "solo" ? quitLine(last, b.wave()) : "";
+    if (stateEl) stateEl.textContent = quit || explain(last);
     // What the two of you got to last time, when the room remembers a time.
     if (lastEl) lastEl.textContent = lastTimeLine(last);
     room.paint(last);
@@ -201,10 +207,12 @@ export function bindJoinScreen(b: JoinBindings): JoinScreen {
     if (!changed && screen?.style.display !== "block") return;
     paint();
     // A fault is the one thing that opens the screen by itself: the game has
-    // stopped and the words for why are only in here. **Except a parting**, whose
-    // door is the menu's CONTINUE (`shell.ts`): opened here too, this screen
-    // stood over that menu, a dead START on top of the press that mends it.
-    if (changed && linkIsFault(status.state) && status.state !== "desync") open(true);
+    // stopped and the words for why are only in here. A parting included, since
+    // 17 September 2026: the two READY holds on step 4 are what mend it
+    // (`join-room.ts`), and the shell takes the menu down under this
+    // (`shell.ts`). It was the menu's CONTINUE before, and this screen stayed
+    // shut so as not to stand over it.
+    if (changed && linkIsFault(status.state)) open(true);
   };
 
   update(last);

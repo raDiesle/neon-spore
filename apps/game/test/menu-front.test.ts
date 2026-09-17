@@ -25,7 +25,6 @@ import { newPartner, PARTNERS_KEPT } from "../src/partners.js";
  */
 
 const actions: EntryActions = {
-  carryOn: () => {},
   play: () => {},
   close: () => {},
   show: () => {},
@@ -58,8 +57,16 @@ describe("the front page", () => {
     expect(labels(play)).not.toContain("TESTING");
   });
 
-  it("carries no RESUME row, because CONTINUE is the one row that means both", () => {
-    for (const list of [front, play, rig]) expect(keys(list)).not.toContain("resume");
+  it("carries no RESUME row and no CONTINUE row: the chip is the way back to the field", () => {
+    // RESUME went first, into CONTINUE; CONTINUE went on 17 September 2026,
+    // the owner's call. A menu opened over a running field closes on its own
+    // chip, and the two presses that begin a wave on two phones are the READY
+    // holds on the room screen (`join-room.ts`).
+    for (const list of [front, play, rig]) {
+      expect(keys(list)).not.toContain("resume");
+      expect(keys(list)).not.toContain("continue");
+      expect(labels(list)).not.toContain("CONTINUE");
+    }
   });
 
   it("carries no WHAT THIS IS row: the intro is asked for from SETTINGS", () => {
@@ -101,10 +108,10 @@ describe("the page behind PLAY", () => {
 
   /** DIFFICULTY left when the room screen took it: a new game's tempo is the
    * host's pick on step 4 (`join-room-step.ts`) and a pair's is behind their
-   * gear. CONTINUE is still the way back to an open field and the mend of a
-   * parted run (`docs/queue.md`). */
-  it("keeps CONTINUE at the bottom and no DIFFICULTY row", () => {
-    expect(labels(play).slice(PARTNERS_KEPT)).toEqual(["NEW GAME", "CONTINUE"]);
+   * gear. CONTINUE left on 17 September 2026 (`menu-entries.ts` says where
+   * each of its three answers went). */
+  it("ends on NEW GAME, with no CONTINUE and no DIFFICULTY row under it", () => {
+    expect(labels(play).slice(PARTNERS_KEPT)).toEqual(["NEW GAME"]);
   });
 
   it("presses a row by where it is, not by who was on it when it was built", () => {
@@ -180,97 +187,47 @@ const david = newPartner("David");
 const status = (over: Partial<LinkStatus>): LinkStatus =>
   ({ state: "playing", room: "ABCD", player: 1, peers: 2, ...over }) as LinkStatus;
 
-describe("CONTINUE", () => {
-  it("is off the page with no room at all", () => {
-    const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairs: [], held: "", opened: false, wave: 0 });
-    expect(r.on.get("continue")).toBe(false);
-  });
-
-  it("is off the page while the other phone is still missing", () => {
-    // The room's own head count, not a guess from the state: one phone in a
-    // room is a pair that cannot start anything together (`LinkStatus.peers`).
-    const r = recorder();
-    paintLink({
-      dom: r.dom,
-      link: status({ peers: 1 }),
-      pairs: [],
-      held: "",
-      opened: false,
-      wave: 0,
-    });
-    expect(r.on.get("continue")).toBe(false);
-  });
-
-  it("is offered once both phones are in the room", () => {
-    const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairs: [], held: "", opened: false, wave: 0 });
-    expect(r.on.get("continue")).toBe(true);
-    expect(r.desc.get("continue")).toContain("Both of you press it");
-  });
-
-  it("says it is the way back when a field is already open under the menu", () => {
-    const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairs: [], held: "", opened: true, wave: 6 });
-    expect(r.desc.get("continue")).toBe("Back to wave 7.");
-  });
-
-  it("says what this phone is waiting for once it has pressed", () => {
-    // The press is half of a start, so the menu stays up and the row is what
-    // says so — there is nothing else on either screen that could.
-    const r = recorder();
-    paintLink({
-      dom: r.dom,
-      link: status({ readyHere: true, readyThere: false }),
-      pairs: [],
-      held: "",
-      opened: false,
-      wave: 0,
-    });
-    expect(r.desc.get("continue")).toContain("Waiting for the other phone");
-  });
-
-  it("is the way out of a parted run, and says so instead", () => {
-    // The one case where a field is open under the menu and going back to it is
-    // worth nothing: the world on the other phone is no longer this one
-    // (`link-run.ts`'s fingerprints). Both press it and the room stamps a fresh
-    // beat zero on the wave the pair got to.
-    const r = recorder();
-    paintLink({
-      dom: r.dom,
-      link: status({ state: "desync" }),
-      pairs: [],
-      held: "",
-      opened: true,
-      wave: 6,
-    });
-    expect(r.on.get("continue")).toBe(true);
-    expect(r.desc.get("continue")).toContain("out of step");
-    expect(r.desc.get("continue")).toContain("Both press it");
+describe("the row CONTINUE used to be", () => {
+  it("is painted nowhere, in a room or out of one", () => {
+    // `paintLink` names every row it touches by key; a key it still reached
+    // for would be a row it believes exists.
+    for (const link of [null, status({}), status({ state: "desync" })]) {
+      const r = recorder();
+      paintLink({ dom: r.dom, link, pairs: [], held: "", wave: 6 });
+      expect(r.on.has("continue")).toBe(false);
+      expect(r.desc.has("continue")).toBe(false);
+    }
   });
 });
 
 const shell = await Bun.file(Bun.fileURLToPath(new URL("../src/shell.ts", import.meta.url))).text();
 const menu = await Bun.file(Bun.fileURLToPath(new URL("../src/menu.ts", import.meta.url))).text();
+const bindings = await Bun.file(
+  Bun.fileURLToPath(new URL("../src/menu-bindings.ts", import.meta.url)),
+).text();
 const steps = await Bun.file(
   Bun.fileURLToPath(new URL("../src/menu-steps.ts", import.meta.url)),
 ).text();
 
 describe("what a parted run does to the two phones", () => {
-  it("brings the menu up on the PLAY page, on the edge and not on the state", () => {
+  it("takes the menu down, on the edge and not on the state", () => {
     // Both phones notice, because both exchange fingerprints — and it fires
-    // once, so a menu the player closed to look at the field does not come
-    // straight back up under their thumb.
-    expect(shell).toContain('status.state === "desync" && parted !== true');
-    expect(shell).toContain('menu?.open("play")');
+    // once, so a menu the player then opened to LEAVE ROOM is not taken from
+    // under their thumb. The room screen opens itself on the fault
+    // (`join.ts`), and its READY holds are the mend.
+    expect(shell).toContain('if (status.state === "desync" && parted !== true) menu?.close();');
+    expect(shell).not.toContain('joinScreen?.open(false);\n        menu?.open("play")');
   });
 
-  it("makes CONTINUE the room's START rather than the way back to the field", () => {
-    expect(menu).toContain('link?.state === "desync"');
-    expect(menu).toContain("if (opened && !broken())");
-    expect(menu).toContain("b.ready()");
-    // And leaves the menu up on that press: half a start is not a start.
-    expect(menu).toContain("b.ready();\n        paintLink();");
+  it("asks nothing of the menu: no ready binding, no CONTINUE press", () => {
+    expect(menu).not.toContain("b.ready()");
+    expect(menu).not.toContain("carryOn");
+    expect(bindings).not.toContain("ready:");
+  });
+
+  it("sends a QUIT in a room to the room screen, and one off the wire to PLAY", () => {
+    expect(shell).toContain('if (link.status().state === "solo") {\n      menu?.open("play");');
+    expect(shell).toContain("menu?.close();\n    joinScreen?.open(true);");
   });
 });
 
@@ -327,7 +284,7 @@ describe("SINGLE PLAYER", () => {
   it("is the rig's row and is off while there is a room", () => {
     expect(keys(rig)[0]).toBe("single");
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairs: [], held: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: status({}), pairs: [], held: "", wave: 0 });
     expect(r.on.get("single")).toBe(false);
   });
 });
@@ -345,7 +302,7 @@ describe("SINGLE PLAYER", () => {
 describe("the top button", () => {
   it("offers the room this device was just in, with no partner and no name", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairs: [], held: "ACDE", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairs: [], held: "ACDE", wave: 0 });
     expect(r.rejoin()).toBe("ACDE");
     // And the list, which is the other question, is still empty without a partner.
     expect(r.on.get("pair0")).toBe(false);
@@ -353,7 +310,7 @@ describe("the top button", () => {
 
   it("is off the page with nothing to go back to", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairs: [], held: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairs: [], held: "", wave: 0 });
     expect(r.rejoin()).toBe("");
   });
 
@@ -362,7 +319,7 @@ describe("the top button", () => {
     // underneath it, and a button offering the room you are in is a button
     // that says the game is somewhere else.
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairs: [], held: "ACDE", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: status({}), pairs: [], held: "ACDE", wave: 0 });
     expect(r.rejoin()).toBe("");
   });
 
@@ -370,7 +327,7 @@ describe("the top button", () => {
     // They answer different questions — where you just were, and who you play
     // with — and a pair who reload mid-session are owed both.
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairs: [david], held: "ACDE", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairs: [david], held: "ACDE", wave: 0 });
     expect(r.rejoin()).toBe("ACDE");
     expect(r.on.get("pair0")).toBe(true);
   });
@@ -388,7 +345,7 @@ describe("the list of partners", () => {
 
   it("says who and how far, in the owner's own sentence", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairs: [ada], held: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairs: [ada], held: "", wave: 0 });
     expect(r.on.get("pair0")).toBe(true);
     expect(r.label.get("pair0")).toBe("CONTINUE GAME WITH ADA · WAVE 7");
     expect(r.desc.get("pair0")).toContain("Hard");
@@ -397,13 +354,13 @@ describe("the list of partners", () => {
 
   it("says no wave for somebody an older build remembered as a name", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairs: [david], held: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairs: [david], held: "", wave: 0 });
     expect(r.label.get("pair0")).toBe("CONTINUE GAME WITH DAVID");
   });
 
   it("leaves the rows it has nobody for off the page", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: null, pairs: [ada, david], held: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: null, pairs: [ada, david], held: "", wave: 0 });
     expect(r.on.get("pair1")).toBe(true);
     expect(r.on.get("pair2")).toBe(false);
     expect(r.label.get("pair2")).toBeUndefined();
@@ -411,7 +368,7 @@ describe("the list of partners", () => {
 
   it("is off in a room, where the pair are already together", () => {
     const r = recorder();
-    paintLink({ dom: r.dom, link: status({}), pairs: [ada], held: "", opened: false, wave: 0 });
+    paintLink({ dom: r.dom, link: status({}), pairs: [ada], held: "", wave: 0 });
     expect(r.on.get("pair0")).toBe(false);
   });
 });

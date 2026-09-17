@@ -50,14 +50,14 @@ export function explain(status: LinkStatus): string {
       return `Room ${status.room} already has two people in it. Your line is fine — the room is not free.`;
     // Two ways here, found in two different places: a peer that broke the
     // model, or two worlds that drifted apart. Saying which saves the next hour.
-    // And then the way out, because the menu's CONTINUE is it (`menu-link.ts`)
-    // and this screen is the one place a player might be reading instead.
+    // And then the way out, which is the two READY circles under this line
+    // (`join-room.ts`): this screen opens itself on a parting for them.
     case "desync": {
       const why =
         status.brokenPromises > 0
           ? `The other phone sent ${status.brokenPromises} inputs it had promised not to send.`
           : `The two worlds parted at tick ${status.desyncTick}.`;
-      return `${why} This is a bug, not a lag spike. Both press CONTINUE on the menu, and the wave starts again together.`;
+      return `${why} This is a bug, not a lag spike. Both hold READY, and the wave starts again together.`;
     }
   }
 }

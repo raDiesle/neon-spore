@@ -5,12 +5,14 @@ import type { LinkStatus, PlayerId } from "@neon-spore/net";
  *
  * The press is a command, so the simulation is what knows who gave it: the
  * `quit` event carries the seat (`sim/wave-fail.ts`). The run is over on both
- * phones the same tick, and the menu comes up on PLAY on both — the owner's
- * decision, 13 September 2026 — with the room's greeting saying whose press it
- * was, because the phone that did not press it is otherwise looking at a menu
- * it never asked for. Held here, on its own, the way a sign-in is
+ * phones the same tick, and a screen comes up on both saying whose press it
+ * was, because the phone that did not press it is otherwise looking at a
+ * screen it never asked for: in a room the room screen, whose two READY holds
+ * start the pair again (`join-room.ts` `mayHold`); off the wire the menu on
+ * PLAY, where the way back in is — the owner's decisions of 13 and 17
+ * September 2026. Held here, on its own, the way a sign-in is
  * (`sign-in.ts`): the wave progression hears the event, the shell opens the
- * menu, and the menu's link page reads the name — three files, one fact.
+ * screen, and the screen reads the name — three files, one fact.
  *
  * Cleared the moment a wave opens, on any path: a run that has started is not
  * one anybody quit.
@@ -51,7 +53,7 @@ export function quitLine(link: LinkStatus | null, wave: number): string {
   const who = mine ? "You" : name;
   const next =
     link !== null && link.state !== "solo"
-      ? "The room is still open: both press CONTINUE to start again."
+      ? "The room is still open: both hold READY, and it starts again."
       : "PLAY starts it again.";
   return `${who} pressed QUIT on wave ${wave + 1}. The run is over. ${next}`;
 }

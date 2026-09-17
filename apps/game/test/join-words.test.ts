@@ -111,15 +111,19 @@ describe("a parting", () => {
     }
   });
 
-  test("names the way out, which is the menu's CONTINUE and not this screen's START", () => {
+  test("names the way out, which is the two READY holds under it", () => {
     // The first two phones driven through a parting found this screen standing
-    // over the menu with a START that could not be pressed. It no longer opens
-    // itself on a parting (`join.ts`), and when it is up it says where to press.
+    // over a menu whose CONTINUE was the mend. The row is gone (the owner, 17
+    // September 2026): this screen opens itself on a parting like any other
+    // fault (`join.ts`), the shell takes the menu down under it (`shell.ts`),
+    // and the holds are the press.
     for (const over of [{ brokenPromises: 2 }, { desyncTick: 60 }]) {
-      expect(explain(at({ ...inRoom, state: "desync", ...over }))).toContain("CONTINUE");
+      const line = explain(at({ ...inRoom, state: "desync", ...over }));
+      expect(line).toContain("hold READY");
+      expect(line).not.toContain("CONTINUE");
     }
-    expect(join).toContain('linkIsFault(status.state) && status.state !== "desync"');
-    expect(shell).toContain('joinScreen?.open(false);\n        menu?.open("play")');
+    expect(join).toContain("if (changed && linkIsFault(status.state)) open(true);");
+    expect(shell).toContain('if (status.state === "desync" && parted !== true) menu?.close();');
   });
 });
 

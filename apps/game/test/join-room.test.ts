@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { type LinkStatus, SOLO_STATUS } from "@neon-spore/net";
-import { circleLook, holdFraction, mayShape } from "../src/join-room.js";
+import { circleLook, holdFraction, mayHold, mayShape } from "../src/join-room.js";
 import { readyLine, seatWord } from "../src/join-words.js";
 
 /**
@@ -51,6 +51,29 @@ describe("the READY circle", () => {
     const status = at({ state: "countdown", peers: 2, player: 1, countdownMs: 800 });
     expect(circleLook(status, 1).word).toBe("1");
     expect(circleLook(status, 2).done).toBe(true);
+  });
+
+  test("can be held again once the worlds have parted, which is the mend", () => {
+    // The owner's call, 17 September 2026: the room screen opens on a parting
+    // and the same two holds start the pair again — the room stamps a fresh
+    // beat zero on two presses whatever it was doing (`room-start.ts`). It
+    // was the menu's CONTINUE before, and that row is gone.
+    const parted = at({ ...bothHere, state: "desync" });
+    expect(circleLook(parted, 1).holdable).toBe(true);
+    expect(circleLook(parted, 1).calling).toBe(true);
+    expect(circleLook(parted, 2).holdable).toBe(false);
+    expect(circleLook(at({ ...parted, readyHere: true }), 1).done).toBe(true);
+  });
+
+  test("can be held again while a QUIT stands, and not under a run that is running", () => {
+    // Whether a QUIT stands is `quit.ts`'s fact, not the link's, so it is
+    // handed in: a live run with nobody quit is a field, not a room screen.
+    const live = at({ ...bothHere, state: "live" });
+    expect(circleLook(live, 1).holdable).toBe(false);
+    expect(circleLook(live, 1, true).holdable).toBe(true);
+    expect(circleLook(at({ ...live, state: "stalled" }), 1, true).holdable).toBe(true);
+    expect(mayHold(at({ ...live, peers: 1 }), true)).toBe(false);
+    expect(mayHold(at({ ...live, state: "lost" }), true)).toBe(false);
   });
 
   test("fills over the hold and empties when the thumb lifts early", () => {

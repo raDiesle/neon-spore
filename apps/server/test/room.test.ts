@@ -148,7 +148,7 @@ describe("a room hands out two seats", () => {
   });
 
   test("two more presses restart a run that is already stamped", async () => {
-    // The answer to two phones whose worlds have parted: both press CONTINUE,
+    // The answer to two phones whose worlds have parted: both hold READY,
     // and the room stamps a *second* beat zero over the first. It used to
     // refuse a press outright once a run existed, which left a pair that had
     // gone out of step with nothing to do but leave the room

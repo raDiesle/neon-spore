@@ -1,7 +1,8 @@
 import type { LinkStatus, PlayerId } from "@neon-spore/net";
 import { DEFAULT_CONFIG, DEFAULT_DIFFICULTY, type Difficulty, isDifficulty } from "@neon-spore/sim";
-import { circleLook, holdFraction, mayShape } from "./join-room.js";
+import { circleLook, holdFraction, mayHold, mayShape } from "./join-room.js";
 import { seatWord } from "./join-words.js";
+import { quitBy } from "./quit.js";
 
 /** What step 4 can ask of the link — the room-shaping half of `JoinBindings`. */
 export interface RoomStepBindings {
@@ -23,6 +24,10 @@ export interface RoomStepBindings {
  * down, the arc fills over `readyHoldMs`, and lifting early empties it. It is
  * a wall-clock hold rather than a ticked one because there is no world yet on
  * this screen to tick it; the length is the same number so it feels the same.
+ *
+ * The same two holds start a run again that is over — parted, or quit on a
+ * lost wave (`mayHold`). Whether a QUIT stands is read off `quit.ts` here, the
+ * way the menu reads it, because the link does not carry it.
  *
  * Split from `join.ts` for the reason `join-steps.ts` was: that file is the
  * sheet, at its line ceiling, and this is one step of it.
@@ -52,10 +57,12 @@ export function bindRoomStep(b: RoomStepBindings): { paint: (status: LinkStatus)
     if (ring) ring.style.strokeDashoffset = `${100 * (1 - fill)}`;
   };
 
+  const over = (): boolean => quitBy() !== 0;
+
   const paintCircles = (status: LinkStatus): void => {
     for (const [seat, node] of circleEls) {
       if (!node) continue;
-      const look = circleLook(status, seat);
+      const look = circleLook(status, seat, over());
       const mine = status.player === seat;
       const held = mine && downAt !== null;
       const full = look.done || (mine && sent);
@@ -75,7 +82,7 @@ export function bindRoomStep(b: RoomStepBindings): { paint: (status: LinkStatus)
   const paint = (status: LinkStatus): void => {
     // The room has answered, or the run is somewhere else: the local full
     // circle has nothing left to bridge.
-    if (status.readyHere || status.state !== "ready") sent = false;
+    if (status.readyHere || !mayHold(status, over())) sent = false;
     last = status;
     const shaping = mayShape(status);
     seatsEl?.classList.toggle("pick", shaping);
@@ -129,7 +136,7 @@ export function bindRoomStep(b: RoomStepBindings): { paint: (status: LinkStatus)
   };
   for (const [seat, node] of circleEls) {
     node?.addEventListener("pointerdown", (e) => {
-      if (!last || !circleLook(last, seat).holdable || sent) return;
+      if (!last || !circleLook(last, seat, over()).holdable || sent) return;
       e.preventDefault();
       downAt = performance.now();
       paintCircles(last);

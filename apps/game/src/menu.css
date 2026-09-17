@@ -120,8 +120,8 @@
 :is(#menu, #hello).on {
   display: block;
 }
-/* An entry that does not apply right now — CONTINUE before both phones are in
-   the room, LEAVE ROOM while there is no room. Hidden rather than disabled: a
+/* An entry that does not apply right now — a partner's row in a room, LEAVE
+   ROOM while there is no room. Hidden rather than disabled: a
    greyed-out row is still a row to read past. */
 #menu .entry.off {
   display: none;

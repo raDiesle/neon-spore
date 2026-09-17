@@ -21,6 +21,22 @@ import type { LinkStatus } from "@neon-spore/net";
  * Pure, for `join-steps.ts`'s reason: `join.ts` is the sheet, this is a rule.
  */
 
+/**
+ * Whether a READY can be held now: both here and the clocks agreed, waiting on
+ * the press before beat zero — or a run that is over, which the same two holds
+ * start again. A run is over when the worlds have parted, and when one seat
+ * pressed QUIT on a lost wave (`over`, which is `quit.ts`'s word and not the
+ * link's). Two presses from two seats are the pair agreeing, and the room
+ * answers them with a fresh beat zero on the wave the pair got to
+ * (`apps/server/src/room-start.ts`). The owner chose the holds over a CONTINUE
+ * row on the menu, 17 September 2026.
+ */
+export function mayHold(status: LinkStatus, over: boolean): boolean {
+  if (status.peers < 2) return false;
+  if (status.state === "ready" || status.state === "desync") return true;
+  return over && (status.state === "live" || status.state === "stalled");
+}
+
 /** Whether this phone may pick the seat and the tempo: the host's, and only
  * before beat zero — a seat swapped under a stamped start is two phones
  * disagreeing about which hull is whose. */
@@ -43,13 +59,14 @@ export interface CircleLook {
 /**
  * One circle, from this phone's side. The own circle can be held only once
  * the clocks agree: a press that stamped a beat zero the two devices place
- * differently is the whole failure the clock sync exists to prevent.
+ * differently is the whole failure the clock sync exists to prevent. `over`
+ * is whether a QUIT stands on this run (`mayHold`).
  */
-export function circleLook(status: LinkStatus, seat: 1 | 2): CircleLook {
+export function circleLook(status: LinkStatus, seat: 1 | 2, over = false): CircleLook {
   const mine = status.player === seat;
   const counting = status.state === "countdown";
   const done = counting || (mine ? status.readyHere : status.readyThere);
-  const holdable = mine && status.state === "ready" && !done;
+  const holdable = mine && mayHold(status, over) && !done;
   return {
     done,
     holdable,

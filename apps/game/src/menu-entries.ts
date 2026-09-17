@@ -11,7 +11,8 @@ import { PARTNERS_KEPT } from "./partners.js";
  * link and the seat, and puts the two-step in front of LEAVE ROOM. This file
  * is only the words and where each one goes — which is the part that keeps
  * growing as the menu learns to be the front door, and what pushed `menu.ts`
- * past its line limit the day CONTINUE arrived.
+ * past its line limit the day CONTINUE arrived — a row that has since left
+ * again (`playEntries`).
  *
  * Every row is here even when it does not apply: `setEntry(key, { on })` takes
  * one off the page rather than this list being rebuilt, so a key that exists
@@ -23,7 +24,7 @@ import { PARTNERS_KEPT } from "./partners.js";
  * September 2026: what it described, the intro now shows, and the way to ask
  * for that again is a row on SETTINGS (`menu-settings.ts`). `playEntries` is
  * the page behind PLAY, where the two of you actually meet: the people this
- * device has played with, the room and CONTINUE. The seat cards were under
+ * device has played with, and the room. The seat cards were under
  * them until 15 September 2026 and are the rig's now — a pair is dealt its
  * seats by the room, so there was nothing there to press.
  * `testingEntries` is the rig — one person at a desk with both seats, jumping at
@@ -40,16 +41,6 @@ import { PARTNERS_KEPT } from "./partners.js";
  */
 
 export interface EntryActions {
-  /**
-   * CONTINUE, which is one row and three answers (`menu.ts`): back to the field
-   * when one is open under the menu, the room's own START when there is a room
-   * and nothing has been played yet, and otherwise a fresh run at the furthest
-   * wave this device has reached. The owner asked for one row where there were
-   * two — RESUME and CONTINUE are the same sentence to the person holding the
-   * phone — so which of the three it is, is said in the row's description and
-   * decided where the menu already knows.
-   */
-  carryOn: () => void;
   /** Start at a wave: a fresh run, with the menu closed behind it. */
   play: (wave: number) => void;
   close: () => void;
@@ -111,10 +102,13 @@ export function menuEntries(a: EntryActions): MenuEntry[] {
  * on this menu is under, and it is what lets the words be a fact about storage
  * while the page stays a pure function of its actions.
  *
- * CONTINUE is still here and half of it has left: the room's START is the
- * READY hold on the room screen now (`join-room-step.ts`), and what the row
- * still answers is the way back to a field open under the menu and the mend
- * of a parted run (`docs/queue.md`). **Nothing here chooses a tempo**, and that
+ * **CONTINUE is gone** — the owner, 17 September 2026. It was one row with
+ * three answers, and each has a home that is not a row: the room's START is
+ * the READY hold on the room screen (`join-room-step.ts`); a field open under
+ * the menu is one press of the chip away, since the chip is the way out as
+ * well as the way in (`menu.ts`); and a run that has parted, or been quit, is
+ * mended on the room screen by the same two holds, which the shell opens for
+ * it (`shell.ts`, `join-room.ts`). **Nothing here chooses a tempo**, and that
  * is the owner's rule of 15 September 2026: a game that already exists does not
  * change its difficulty. It is picked once, by the host, on the room screen
  * while the game is being made (`join-room-step.ts`), and the way to another is
@@ -137,12 +131,6 @@ export function playEntries(a: EntryActions): MenuEntry[] {
         a.close();
         a.openRoom();
       },
-    },
-    {
-      key: "continue",
-      label: "CONTINUE",
-      desc: "From the furthest wave this device has reached.",
-      run: () => a.carryOn(),
     },
   ];
 }

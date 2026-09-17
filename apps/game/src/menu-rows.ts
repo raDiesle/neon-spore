@@ -26,8 +26,8 @@ export interface MenuRows {
 
 export function entryRows(): MenuRows {
   // One map over all three lists: a key is a key wherever its row is drawn, so
-  // `setEntry("continue", …)` goes on reaching CONTINUE after it moved behind
-  // PLAY. No key is on two lists, and `menu-entries.ts` is where that is kept
+  // `setEntry("leave", …)` reaches LEAVE ROOM without saying which page it is
+  // on. No key is on two lists, and `menu-entries.ts` is where that is kept
   // true — the rig's first row is `single` because `play` is the front page's.
   // `off` is the row itself. It was the row *and* whatever stood beside it
   // while a partner's row carried a gear, and that came off on 15 September

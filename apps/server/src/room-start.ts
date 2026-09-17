@@ -48,12 +48,13 @@ export interface StartRoom extends RoomFacts {
  * left with no answer at all: two phones whose worlds have parted
  * (`packages/net`'s fingerprints) are each holding a game the other is not
  * playing, and the only way out was for somebody to leave the room. Now both
- * press CONTINUE and the room stamps a fresh beat zero, with `best` on the
- * welcome so the two of them come back on the same wave.
+ * hold READY on the room screen and the room stamps a fresh beat zero, with
+ * `best` on the welcome so the two of them come back on the same wave.
  *
- * The guard against a stray thumb is on the phone rather than here: CONTINUE is
- * drawn only while both seats are connected, and it sends this only when the
- * run has parted or has not started (`apps/game/src/menu.ts`).
+ * The guard against a stray thumb is on the phone rather than here: a READY
+ * circle can be held only while both seats are connected, and only when the
+ * run has not started, has parted, or was quit
+ * (`apps/game/src/join-room.ts` `mayHold`).
  */
 export async function pressStart(
   gate: StartGate,

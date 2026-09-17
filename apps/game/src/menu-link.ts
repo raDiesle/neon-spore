@@ -29,30 +29,6 @@ export function inRoom(link: LinkStatus | null): boolean {
   return link !== null && link.state !== "solo";
 }
 
-/**
- * CONTINUE's own sentence, which is the row saying which of its three answers
- * this press will be (`menu.ts`).
- *
- * The parted run comes first and not last: it is the one case where a field is
- * open under the menu and going back to it is worth nothing, because the world
- * on the other phone is no longer this one. The pair is told what happened in
- * the words the rest of the game uses for it — *out of step* — and what the two
- * of them have to do about it, which is press the same thing at the same time.
- */
-function continueLine(link: LinkStatus | null, opened: boolean, wave: number): string {
-  // Pressed here and not yet there: the row is the only thing on either screen
-  // that can say what this phone is waiting for, which is why the press leaves
-  // the menu up (`menu.ts`).
-  if (link?.readyHere && !link.readyThere) {
-    return "Waiting for the other phone. The wave starts the moment they press it too.";
-  }
-  if (link?.state === "desync") {
-    return "The two phones have gone out of step. Both press it, and the wave starts again together.";
-  }
-  if (opened) return `Back to wave ${wave + 1}.`;
-  return "Both of you press it, and the wave starts on the two phones together.";
-}
-
 /** The level in a word, for a line that is already saying something else. */
 const LEVEL_NAME: Record<Difficulty, string> = { easy: "Easy", medium: "Medium", hard: "Hard" };
 
@@ -91,15 +67,12 @@ export interface LinkPaint {
    * second is the one a reload is about.
    */
   held: string;
-  /** Whether anything has been played yet — which of CONTINUE's three answers
-   * this press is, and therefore what its line says. */
-  opened: boolean;
-  /** The wave the field is on, for CONTINUE's line while one is open. */
+  /** The wave the field is on, for the line that says which wave was quit. */
   wave: number;
 }
 
 /** Cheap, so it is redone rather than diffed. */
-export function paintLink({ dom, link, pairs, held, opened, wave }: LinkPaint): void {
+export function paintLink({ dom, link, pairs, held, wave }: LinkPaint): void {
   const room = inRoom(link);
   dom.setEntry("single", { on: !room });
   // How far this device has got, under the title. Off in a room, where the wave
@@ -110,19 +83,9 @@ export function paintLink({ dom, link, pairs, held, opened, wave }: LinkPaint): 
   // nothing to say, and on the room's row in a room (`quit.ts`).
   const quit = quitBy() !== 0 ? quitLine(link, wave) : "";
   dom.setProgress(room ? "" : quit || progressLine(far));
-  // **CONTINUE is offered only while both phones are in the room**, which is the
-  // owner's rule and is about what a press can honestly do: the wave belongs to
-  // two devices, so one of them starting it alone is two people playing two
-  // different games. Until then the room's own line says who is missing, and a
-  // device on its own reaches the field through the room or through the rig.
-  //
-  // Its sentence is which of CONTINUE's three answers this press will be
-  // (`menu.ts`): back to a field that is already running, the room's START, or —
-  // off the wire, where the row is not drawn — the furthest wave reached here.
-  dom.setEntry("continue", {
-    on: room && (link?.peers ?? 0) >= 2,
-    desc: continueLine(link, opened, wave),
-  });
+  // No CONTINUE row to paint: it left on 17 September 2026, and a press that
+  // begins a wave on two phones is the READY hold on the room screen now
+  // (`menu-entries.ts` says where each of its answers went).
   // **The list of people to carry on with**, which is what the PLAY page opens
   // on. Off in a room, where the pair is already together, and off before the
   // first meeting — a pair who have never played have no row and the
