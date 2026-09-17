@@ -355,6 +355,7 @@ the next boss lands without touching anybody's comment.
 ## `briefing.test.ts` went red under `check:fast` while another session ran `check`
 
 - **Found:** 2026-09-17, claude/queue-play-is-a-list-of-partners-to-continue-with-and
+- **Taken:** 2026-09-17, claude/queue-briefing-test-ts-went-red-under-check-fast-while
 - **Files:** `packages/render/test/briefing.test.ts`, `packages/render/test/canvas-stub.ts`, `tools/check/shard.ts`, `tools/index/test/drift.test.ts`
 
 `check:fast` for the CONTINUE lane reported *a wave's opening on the stage >
