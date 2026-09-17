@@ -302,6 +302,7 @@ written down rather than left as the silence it is now.
 ## THE STARE's longest look is a number no pair has seen
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
+- **Taken:** 2026-09-17, claude/queue-the-stares-longest-look-is-a-number-no-pair-has
 - **Files:** `packages/sim/src/config-stare.ts`, `packages/content/src/waves/act-7c.ts`
 - **Answered:** 17 September 2026 — **`stareLookGrowBeats` 3**, so the looks run 6, 9, 12 and the third look is the ceiling; the wave as authored then reaches it, with no new arrivals to author or balance.
 
