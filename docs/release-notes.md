@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · b95375a4 — Four the owner found on his phone go on the queue
+
+A splash in the enemy's colour on the hull and a field that really stops when the hull breaks; the cannon slider missing presses on a phone where the buttons never do; a wave in the director's phone list that opens nothing; and THE CRYSTAL, whose join is invisible from the one side a shot comes from and whose crossing should be one axis at a time.
+
 ## 2026-09-17 · 207ee267 — The last lane's ledger rows say twenty minutes, which is what it took
 
 Its five rows added to sixty against a nineteen-minute wall — the claim commit at 06:14 and the landing at 06:33, with two `bun run check` runs of 108 seconds inside that. The landing's own stamp said two minutes from first commit to trunk, which is the part of the span it can see; the rest is read off the reflog. Estimating three times the clock is the exact distortion `docs/lane-speed.md` was written to correct, and a ledger that carries it is worse than no ledger, because the shape of the distribution is the whole point of keeping one.
