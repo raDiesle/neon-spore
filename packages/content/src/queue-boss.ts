@@ -126,6 +126,9 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // wide as `gorgeIntakes` lets it be, so there is nothing to remap
   // (`sim/gorge-step.ts`).
   if (boss.kind === "gorge") return { ...boss };
+  // THE CURTAIN unrolls centred on whatever field is played and its core is
+  // rolled behind it, so there is nothing authored to remap (`sim/curtain-step.ts`).
+  if (boss.kind === "curtain") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

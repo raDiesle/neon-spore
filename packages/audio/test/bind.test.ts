@@ -70,6 +70,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-undertow.ts", "export type UndertowEvent ="],
     ["packages/sim/src/events-candle.ts", "export type CandleEvent ="],
     ["packages/sim/src/events-gorge.ts", "export type GorgeEvent ="],
+    ["packages/sim/src/events-curtain.ts", "export type CurtainEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -150,6 +151,16 @@ const SAMPLES: Record<string, SimEvent> = {
   gorgeSpit: { type: "gorgeSpit", col: 3, color: "cyan" },
   gorgeMouth: { type: "gorgeMouth", col: 5, color: "cyan" },
   gorgeOut: { type: "gorgeOut", col: 5, beads: 23 },
+  curtainUnroll: { type: "curtainUnroll", col: 2, width: 7 },
+  curtainShadow: { type: "curtainShadow", col: 5, color: "red" },
+  curtainSoft: { type: "curtainSoft", col: 3 },
+  curtainShove: { type: "curtainShove", col: 3, dir: 1, stride: 2 },
+  curtainReroll: { type: "curtainReroll", col: 2, dir: -1 },
+  curtainLobeOff: { type: "curtainLobeOff", col: 3, left: 6 },
+  curtainCoreHit: { type: "curtainCoreHit", col: 5, left: 2 },
+  curtainFire: { type: "curtainFire", col: 5 },
+  curtainTear: { type: "curtainTear", col: 5 },
+  curtainOut: { type: "curtainOut", col: 5 },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

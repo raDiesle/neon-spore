@@ -198,6 +198,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // (`config-gorge.ts`), and what its intakes hold is what the fixture's world
   // has fired into them by the time it is fingerprinted (`gorge-hash.ts`).
   gorge: { kind: "gorge" },
+  // THE CURTAIN authors nothing either: its width and its stride are tuning
+  // (`config-curtain.ts`), and where its core hides, which lobes are soft and
+  // how far it has been shoved are what the fixture's world has moved by the
+  // time it is fingerprinted (`curtain-hash.ts`).
+  curtain: { kind: "curtain" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -534,5 +539,13 @@ function patchBoss(world: World): void {
       first.fullBeat = 2;
     }
     boss.swallowed = 1;
+  }
+  if (boss.kind === "curtain") {
+    // One lobe off, one hit in, and both clocks that only a tear or an end
+    // set given a beat — the walk cannot flip a zero it never sees change.
+    boss.lobes[0] = false;
+    boss.coreHits = 1;
+    boss.tornBeat = 3;
+    boss.outBeat = 4;
   }
 }

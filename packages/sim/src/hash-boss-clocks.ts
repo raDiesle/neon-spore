@@ -1,6 +1,7 @@
 import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-union.js";
 import { candleHashParts } from "./candle-hash.js";
+import { curtainHashParts } from "./curtain-hash.js";
 import { diastoleHashParts } from "./diastole-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
@@ -68,6 +69,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE GORGE: every intake's tally, colour and state (`gorge-hash.ts`).
   if (boss.kind === "gorge") {
     for (const n of gorgeHashParts(boss)) out.push(n);
+  }
+  // THE CURTAIN: the hem, the soft set, the core and its clocks (`curtain-hash.ts`).
+  if (boss.kind === "curtain") {
+    for (const n of curtainHashParts(boss)) out.push(n);
   }
   return out;
 }

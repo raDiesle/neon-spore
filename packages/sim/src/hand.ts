@@ -86,6 +86,11 @@ export function handMeans(kind: CreatureKind, player: 1 | 2): HandMeans | null {
   // game that cannot be answered any other way — a hand dragging at a fall
   // that does not exist, while the pile stood whole (`cairn.ts`).
   if (kind === "cairn") return "pull";
+  // **THE CURTAIN's fabric is the sixth, and it is the pile's rule with the
+  // body itself moving.** Either seat, worth nothing while the thumb rests,
+  // spent on the sideways travel — and what it buys is the whole fabric a
+  // column over, so the core behind it can be shot (`curtain-step.ts`).
+  if (kind === "curtain") return "pull";
   // **THE GUM is the fifth, and it is the cairn's answer said about the body
   // itself.** Either seat; nothing while the thumb rests on it — the gum goes
   // on falling under the finger, un-braked — and the carry is spent once, on

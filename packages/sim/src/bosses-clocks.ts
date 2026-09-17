@@ -42,6 +42,20 @@ export {
   candleEating,
   candleMoving,
 } from "./candle.js";
+// THE CURTAIN keeps a clock for each of the roll-back, the soft set and the
+// core's fire, and the one number the pair wants off it is where the fabric
+// is not (`curtainCoreBare`).
+export {
+  type CurtainState,
+  curtainBody,
+  curtainBoss,
+  curtainCoreBare,
+  curtainCovers,
+  curtainLobesLeft,
+  curtainReach,
+  curtainSoftAt,
+  curtainStride,
+} from "./curtain.js";
 export {
   DIASTOLE_PHASES,
   DIASTOLE_SIDES,

@@ -1,5 +1,6 @@
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 import { CANDLE_DEFAULTS, type CandleConfig } from "./config-candle.js";
+import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
 import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
@@ -45,7 +46,8 @@ export interface BossClockConfig
     UndertowConfig,
     OrreryConfig,
     CandleConfig,
-    GorgeConfig {}
+    GorgeConfig,
+    CurtainConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -56,4 +58,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...ORRERY_DEFAULTS,
   ...CANDLE_DEFAULTS,
   ...GORGE_DEFAULTS,
+  ...CURTAIN_DEFAULTS,
 };

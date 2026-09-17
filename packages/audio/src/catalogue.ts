@@ -14,6 +14,7 @@ import { BEAT_SOUNDS } from "./sounds/beat.js";
 import { BOSS_SOUNDS } from "./sounds/boss.js";
 import { BOSS_BATON_SOUNDS } from "./sounds/boss-baton.js";
 import { BOSS_CANDLE_SOUNDS } from "./sounds/boss-candle.js";
+import { BOSS_CURTAIN_SOUNDS } from "./sounds/boss-curtain.js";
 import { BOSS_GORGE_SOUNDS } from "./sounds/boss-gorge.js";
 import { BOSS_PLANNED_SOUNDS } from "./sounds/boss-planned.js";
 import { BOSS_UNDERTOW_SOUNDS } from "./sounds/boss-undertow.js";
@@ -49,6 +50,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_UNDERTOW_SOUNDS,
   ...BOSS_CANDLE_SOUNDS,
   ...BOSS_GORGE_SOUNDS,
+  ...BOSS_CURTAIN_SOUNDS,
   ...BOSS_PLANNED_SOUNDS,
   ...FLEET_SOUNDS,
   ...SPLICE_SOUNDS,

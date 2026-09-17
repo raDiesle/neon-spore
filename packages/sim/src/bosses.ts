@@ -28,6 +28,7 @@ export {
   bossFillsWave,
   type CairnEntry,
   type CandleEntry,
+  type CurtainEntry,
   type DiastoleEntry,
   type FleetEntry,
   type GaugeEntry,

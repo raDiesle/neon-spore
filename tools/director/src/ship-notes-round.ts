@@ -134,6 +134,22 @@ export const ROUND_NOTES = {
     "colour while it is full ends it, holding the wave gorgeOutBeats more. " +
     "gorgeSinkPer is the look's: a bead of sag per that many held. Nothing " +
     "about it is authored per wave. See sim/gorge.ts, sim/config-gorge.ts.",
+  "THE CURTAIN — the boss that is in the way":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §6: " +
+    "the boss that is not the threat but the thing hiding it. A sheet seven " +
+    "columns wide hangs at curtainRow with a lobe under each column and the " +
+    "core behind one of them, firing a torch down its column every " +
+    "curtainFireBeats while it is bare. A hand carried across the fabric " +
+    "moves the whole sheet a column, opposite hands hold it, and at least " +
+    "curtainKeepCols of it stay on the field; left unheld curtainRerollBeats " +
+    "it rolls a column back over the core. Every curtainSoftBeats, " +
+    "curtainSoftCount lobes go soft and a shot into one takes it off; at " +
+    "curtainLightLobes off it slides two columns a shove. A bare core hit in " +
+    "its colour drops its nearest lobe and drifts; the wrong colour fires at " +
+    "once; curtainCoreHits end it, holding the wave curtainOutBeats more. A " +
+    "hem with no lobe left tears off at the next shove and the naked core " +
+    "fires every curtainNakedFireBeats. Nothing about it is authored per " +
+    "wave. See sim/curtain.ts, sim/config-curtain.ts.",
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

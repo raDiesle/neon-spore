@@ -2669,3 +2669,105 @@ pierced there by a bolt, is emptied a bead by the wrong beam and ended by the
 right one with the wave held two beats after, and the same run fingerprints
 the same way twice (`sim/test/gorge.test.ts`). The skin has been seen in one
 frame and never breathing.
+
+## 11.24 THE CURTAIN — the boss that is in the way
+
+> The one that is not the threat; it is the thing hiding the threat, and the
+> two of you shove it aside a column at a time.
+
+Designed as §6 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: nothing in this game occludes — every body is drawn where
+it is and answered where it is drawn — and a boss whose only property is that
+it is **in the way** asks the pair a question about the field rather than
+about itself. It is the nearest of the eight on that page to the third kind
+the owner asked for on 17 September 2026: both hands on the boss's own body,
+shoving it.
+
+**It is a body and a fixture at once.** The fabric is a creature of kind
+`"curtain"` (`sim/kinds.ts`, a boss body like THE CAIRN's pile, so the fall
+loop leaves it alone and it is never a bolt's target), `CURTAIN_COLS` (7)
+wide at `curtainRow` (1), grippable by either seat, and the hand on it means
+*pull* (`sim/hand.ts`). The core is no creature: a column and a colour in the
+state (`sim/curtain.ts`, hashed in `sim/curtain-hash.ts`), with seven `lobes`
+along the hem, the indexes of the `soft` ones this cycle, the hits taken, and
+five beat stamps — soft set drawn, last fire, last moved or held, torn, out.
+It fills its wave (`bossFillsWave`): `act-7d.ts`'s "THE CURTAIN" has no
+arrivals and nothing falls but what the core fires.
+
+**The rule, in one sentence.** A hand carried across the fabric moves the
+**whole sheet** a column the way the hand went — THE PUSH itself
+(`grip-push.ts`, `curtainShoved`): the same one-column-then-`gripPushPauseBeats`
+cadence, the same two-thumbs-opposite-cancel, and off the field's edge as far
+as `curtainKeepCols` (2) columns still hanging over it (`curtainReach`), because
+uncovering the core is the point and the wall is not where it stops. The core
+is **covered** while the fabric hangs over its column and cannot be touched;
+**bare**, a shot leaving the top of its column (`bullets.ts`, `lance-burn.ts`,
+through `curtainStruck`) in its own colour is a **hit**: the lobe nearest it
+drops, and it **drifts** to another column under the fabric in a colour drawn
+fresh, so it is covered again and the shadow has to be read again. The other
+colour is a **rock** down the column at once, and a bare core fires one on
+its own count anyway — every `curtainFireBeats` (4). A bolt into the fabric
+itself (`bullet-refused.ts`, `curtainHemStruck`) takes a **soft** lobe off,
+`curtainSoftCount` (2) of them redrawn every `curtainSoftBeats` (6) from the
+lobes still over the field; every other lobe is cloth and bounces it. With
+`curtainLightLobes` (4) lobes gone the sheet is light and a shove takes two
+columns. Nobody holding it for `curtainRerollBeats` (4) rolls it a column
+back toward its middle over the core. A **bare hem** cannot hold its rail:
+the next shove **tears** the sheet off (`curtainTear`, the creature gone), the
+core hangs naked and fires every `curtainNakedFireBeats` (2). The
+`curtainCoreHits`-th (3) hit in its colour puts it **out**, and the boss stays
+installed `curtainOutBeats` (2) more so the wave cannot end on the beat the
+core does.
+
+**The split is the eyes.** Player 1 is shown which lobes are soft and nothing
+of the core while it is covered; player 2 is shown the core's shadow and its
+colour through the fabric and nothing of the lobes. Both push. So the sentence
+is *left, three — now shoot the fourth — red*, and it has to be said before
+the roll-back makes it stale (`render/duty.ts`: SAY THE LOBE, SAY THE SIDE).
+
+**Where this departs from the design, and why.** Six places, each argued by
+name. *A held curtain does not sag*: step 3's "pulling opposite ways holds it,
+and a held curtain sags a row" would be a second rule on a cancel that is
+already the mechanic ([assists](assists.md) 6.5), and a row of sag on a
+seven-column body is a row the fall loop would have to know about; the cancel
+holds it, and that is the whole coupling. *There is no decoy*: step 9's second
+shadow is a rule table drawn on the boss — the pair would be told to tell a
+core from a decoy by how each moves, which is exactly the kind of symbol THE
+TELL was removed for (§11.9); the core's own drift after every hit already
+makes the shadow something to read twice. *The core does not fire through the
+fabric*: step 11's hole would be a sight line the pair did not earn, in the
+design's own words, and a covered core that could be shot through a hole is a
+core the shove is no longer the only answer to; a covered core counts nothing
+and fires nothing. *The tear comes on any shove with a bare hem*, not on one
+"all the way to the wall": the wall is where the pair may already be, and a
+bare hem that only tore at one column would be a sheet the pair could keep
+sliding for as long as they liked. *Lightness is the whole sheet's*, never one
+end's (step 8): a stride that differed by which end was pushed would be two
+rules where one is the mechanic, and the stride is a count of lobes gone.
+*Rock, not torch by name*: the design says "a rock"; what comes down is a
+`torch` in no colour (`spawnOne`), the fastest thing the field already has,
+because the guard is the answer and the guard already knows it.
+
+**What is not built.** The look: the fabric, the shadow dimmed through it, the
+hem's spring, the sheet falling over four beats, and the occlusion — render has
+no z-order for "drawn dimmer behind a membrane" and this lane adds none. THE
+SLOW on the shove (`decisions.md` #33) is not wired; nothing here needs a
+`Milli` field for it and the beat it would slow is the look lane's to argue.
+The ten events are sparks in the silent lists until the look lane draws them
+(`effects-spark-silent.ts`), and the ten cues are bound
+(`audio/src/bind-curtain.ts`) but have no picture to sit under.
+
+**Never watched at tempo.** What the tests say is the mechanism: it unrolls
+seven wide and centred with the core under it and two soft lobes drawn; the
+soft set is redrawn on its count; a hand carried across it moves the whole
+sheet a column and cannot walk it further on one beat; two thumbs opposite
+hold it; it goes off the wall exactly as far as its keep and uncovers the
+core past its column; a light sheet takes two; a soft lobe comes off to a
+bolt and a hard one bounces it; a covered core is nothing; its own colour
+drops the nearest lobe and drifts it back under cover; the other colour is a
+rock down the column; a bare core fires on its count and a covered one counts
+nothing; a bare hem tears on the next shove and the naked core fires faster;
+a sheet nobody holds rolls back a column on its count and not while held; the
+third hit puts it out with the wave held two beats after and cleared once it
+is gone; and the same run fingerprints the same way twice and differently for
+another seed (`sim/test/curtain.test.ts`). Nothing of it has been drawn.

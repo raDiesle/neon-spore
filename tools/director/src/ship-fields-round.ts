@@ -134,6 +134,21 @@ export const ROUND_FIELD_GROUP = {
   gorgeMouthRuptures: "THE GORGE — the boss you hurt by not shooting",
   gorgeSinkPer: "THE GORGE — the boss you hurt by not shooting",
   gorgeOutBeats: "THE GORGE — the boss you hurt by not shooting",
+  // CurtainConfig — where the sheet hangs, how much of it must stay on the
+  // field, how often the hem softens and how many lobes at a time, when it
+  // is light, how often the core fires covered and naked, how soon it
+  // re-rolls, how many hits end it and how long it holds the wave after
+  // (`config-curtain.ts`).
+  curtainRow: "THE CURTAIN — the boss that is in the way",
+  curtainKeepCols: "THE CURTAIN — the boss that is in the way",
+  curtainSoftBeats: "THE CURTAIN — the boss that is in the way",
+  curtainSoftCount: "THE CURTAIN — the boss that is in the way",
+  curtainLightLobes: "THE CURTAIN — the boss that is in the way",
+  curtainFireBeats: "THE CURTAIN — the boss that is in the way",
+  curtainNakedFireBeats: "THE CURTAIN — the boss that is in the way",
+  curtainRerollBeats: "THE CURTAIN — the boss that is in the way",
+  curtainCoreHits: "THE CURTAIN — the boss that is in the way",
+  curtainOutBeats: "THE CURTAIN — the boss that is in the way",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

@@ -128,6 +128,10 @@ const LIVING_LOOK = {
   // round draws that as a lumpy boulder with no seams in it — which is the
   // whole of what there is to count (`render/cairn.ts`).
   cairn: null,
+  // THE CURTAIN, for the same reason again: one long slack contour across
+  // seven columns with a bead of mass in each lobe of its hem, drawn from
+  // `world.boss` and never from a radius (`render/curtain-draw.ts`).
+  curtain: null,
   tether: null,
   // THE BALLOON, THE GUM and THE WEIGHT — the bodies two hands answer, and three
   // different answers to "is this a body of its own". `living-look-handed.ts`

@@ -171,5 +171,8 @@ const UNGRIPPABLE: readonly CreatureKind[] = [
  */
 export function isGrippable(kind: CreatureKind): boolean {
   if (kind === "cairn") return true;
+  // THE CURTAIN's fabric for the pile's reason: a hand on it is a shove, and
+  // the shove is the one thing that uncovers the core (`curtain.ts`).
+  if (kind === "curtain") return true;
   return !isBossBody(kind) && !UNGRIPPABLE.includes(kind);
 }

@@ -186,7 +186,7 @@ export function fallTilesPerBeat(kind: CreatureKind): number {
  * one named out of it, and `grippable.ts` carries the argument.
  */
 export function isBossBody(kind: CreatureKind): boolean {
-  return kind === "queen" || kind === "warden" || kind === "cairn";
+  return kind === "queen" || kind === "warden" || kind === "cairn" || kind === "curtain";
 }
 
 // **Whether a hand may be put on a body** — `isGrippable` and the kinds

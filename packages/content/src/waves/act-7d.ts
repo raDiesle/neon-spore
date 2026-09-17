@@ -46,6 +46,10 @@ import type { Wave } from "../wave-types.js";
  * *let them reach the hull* is not authored, because a hull hit fails the
  * wave (`sim/wave-fail.ts`); what is authored is a field the restraint is
  * against.
+ *
+ * **THE CURTAIN's wave is empty**, THE ORRERY's case one wave up: what falls
+ * is the core's own fire, from a column the pair uncovered, on a beat they
+ * left it bare — neither writable by an author (`sim/curtain-step.ts`).
  */
 export const WAVES_ACT_7D: Wave[] = [
   {
@@ -130,5 +134,17 @@ export const WAVES_ACT_7D: Wave[] = [
       { beat: 82, col: 1, color: "cyan" },
     ],
     boss: { kind: "gorge" },
+  },
+  {
+    id: "theCurtain",
+    name: "THE CURTAIN",
+    sentence: "The one that is in the way, and the two of you shove it aside a column at a time.",
+    guide: {
+      both: "A membrane hangs across the top of the field with a core hiding behind it, firing down its own column. No shot reaches it through the fabric. Take hold of the membrane and carry your thumb sideways and it slides one column; pull opposite ways and it holds; leave it four beats and it rolls back over the core. Bare the core and shoot it in its colour, three times.",
+      p1: "You see which lobes on the hem are soft — a shot into one takes it off, and four off makes it slide two columns a shove. Say which side is coming away. When she says the core is bare, put the cannon in its column.",
+      p2: "You see the core's shadow through the fabric and the colour it is, and he sees neither. Say which way to shove and how far, load its colour, and fire the beat it is bare. The wrong colour makes it fire back.",
+    },
+    entries: [],
+    boss: { kind: "curtain" },
   },
 ];

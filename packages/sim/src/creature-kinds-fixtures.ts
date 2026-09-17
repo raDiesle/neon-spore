@@ -59,4 +59,17 @@ export type FixtureKind =
    * out loud. `Creature` carries none of this: `CairnState` is the whole of
    * it and `cairn.ts` the whole of what it means.
    */
-  | "cairn";
+  | "cairn"
+  /**
+   * **THE CURTAIN's fabric: a boss body the pair moves rather than beats.**
+   *
+   * A membrane seven columns wide hung at `curtainRow`, and behind it a core
+   * that is no creature at all. It never falls; a bolt into it takes a soft
+   * lobe off the hem or is spent on cloth (`bullet-refused.ts`); and **both
+   * hands carried sideways** shove it a column, so the core behind it can be
+   * shot — the ordinary carry, `handMeans` calling it `"pull"`, at boss
+   * scale. It may hang partly off either wall (`curtainReach`), which no
+   * other body may. `CurtainState` is the rest of it and `curtain.ts` the
+   * whole of what it means.
+   */
+  | "curtain";

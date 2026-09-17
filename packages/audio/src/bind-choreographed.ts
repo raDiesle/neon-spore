@@ -2,6 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { batonCue } from "./bind-baton.js";
 import { candleCue } from "./bind-candle.js";
 import type { Cue } from "./bind-cue.js";
+import { curtainCue } from "./bind-curtain.js";
 import { gorgeCue } from "./bind-gorge.js";
 import { undertowCue } from "./bind-undertow.js";
 
@@ -19,7 +20,14 @@ import { undertowCue } from "./bind-undertow.js";
  */
 type ChoreographedEvent = Extract<
   SimEvent,
-  { type: `baton${string}` | `undertow${string}` | `candle${string}` | `gorge${string}` }
+  {
+    type:
+      | `baton${string}`
+      | `undertow${string}`
+      | `candle${string}`
+      | `gorge${string}`
+      | `curtain${string}`;
+  }
 >;
 
 export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
@@ -50,6 +58,17 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "gorgeMouth":
     case "gorgeOut":
       return gorgeCue(e, cols);
+    case "curtainUnroll":
+    case "curtainShadow":
+    case "curtainSoft":
+    case "curtainShove":
+    case "curtainReroll":
+    case "curtainLobeOff":
+    case "curtainCoreHit":
+    case "curtainFire":
+    case "curtainTear":
+    case "curtainOut":
+      return curtainCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

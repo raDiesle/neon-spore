@@ -3,6 +3,7 @@ import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
 import { stepCairn } from "./cairn.js";
 import { stepCandle } from "./candle-step.js";
+import { stepCurtain } from "./curtain-step.js";
 import { stepDiastole } from "./diastole-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepGorge } from "./gorge-step.js";
@@ -106,6 +107,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // `bullets.ts` and `lance-burn.ts` (`gorge-step.ts`).
   if (boss.kind === "gorge") {
     stepGorge(world, boss);
+    return;
+  }
+  // THE CURTAIN on the beat is the fabric's clock: the soft lobes redrawn,
+  // the roll-back, the core's fire. The shove is the carry's, before this
+  // (`grip-push.ts`), and the shots are on the tick (`curtain-shot.ts`).
+  if (boss.kind === "curtain") {
+    stepCurtain(world, boss);
     return;
   }
   if (boss.kind === "vane") {

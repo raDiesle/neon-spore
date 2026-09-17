@@ -54,6 +54,7 @@ export const CREATURES: Record<CreatureKind, CreatureDef> = {
   queen: FIXTURE_CREATURES.queen,
   warden: FIXTURE_CREATURES.warden,
   cairn: FIXTURE_CREATURES.cairn,
+  curtain: FIXTURE_CREATURES.curtain,
   // The four bodies drawn as something else live next door, in
   // `creatures-worn.ts` — named one by one rather than spread, so this table
   // still reads in the order the bestiary has always had it. See that file for

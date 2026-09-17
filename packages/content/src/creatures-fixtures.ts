@@ -59,6 +59,23 @@ export const FIXTURE_CREATURES = {
     blurb:
       "Seven of the field's own rocks stacked four, two and one, held in one outline five columns wide, standing still. No shot reaches it and the shield has nothing to turn. Either of you takes hold of the pile and carries the thumb sideways: one rock comes out of that side and falls down that lane as an ordinary rock, to be warded like any other. Every answer you give it is a rock in the air, so the whole fight is how many the other one can be under at once — and a pile left alone for eight beats lets one go itself, into a column only the pilot is shown.",
   },
+  curtain: {
+    kind: "curtain",
+    // **Both groups, and both at once**: the hem is shot at by the pilot's
+    // cannon in the navigator's colours, a torch out of the core is the
+    // dome's, and the fabric itself is carried by any hand — so a wave
+    // carrying one asks for the whole default set, and the panel says so.
+    controls: ["aim", "guard"],
+    // No colour: the fabric takes any bolt and the core's colour is the
+    // boss's own state, rolled and re-rolled behind it (`sim/curtain.ts`).
+    color: null,
+    // Nobody's strip. It unrolls where it hangs rather than arriving from
+    // above, and a membrane seven columns wide is its own announcement.
+    installed: true,
+    radar: "none",
+    blurb:
+      "A membrane seven columns wide hung a row below the top of the field, with weighted lobes along its hem and a core hiding somewhere behind it, firing torches down its own column. No shot reaches the core through the fabric. Either of you takes hold of the membrane and carries the thumb sideways: it slides one column, the two of you pulling opposite ways hold it still, and left alone it rolls back over the core. The hem's lobes are its health — a shot into a soft one takes it off, and a lighter curtain slides two columns a shove. Bare the core and shoot it in its own colour, three times; a hem with no lobes left tears the whole sheet off the rail.",
+  },
   tether: {
     kind: "tether",
     // The first `special`: answered by neither cannon nor shield. A hand is
@@ -76,4 +93,4 @@ export const FIXTURE_CREATURES = {
     blurb:
       "A rope lowered out of the middle of THE WARDEN's rim, with a handle on the end of it. Cannot be shot and cannot be warded, and it never falls — the pilot takes the handle and pulls it aside, and the hatch over the eye opens as far as the rope is taut.",
   },
-} satisfies Record<"queen" | "warden" | "cairn" | "tether", CreatureDef>;
+} satisfies Record<"queen" | "warden" | "cairn" | "curtain" | "tether", CreatureDef>;

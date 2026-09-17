@@ -1,5 +1,6 @@
 import { pullFromCairn } from "./cairn.js";
 import { hullRow } from "./config.js";
+import { curtainShoved } from "./curtain-step.js";
 import { gripsCreature } from "./grip.js";
 import { carryDir, spend } from "./grip-push-dir.js";
 import { gumIsFlung, gumSwiped } from "./gum.js";
@@ -153,6 +154,15 @@ export function carryGrips(world: World): void {
     if (c.kind === "cairn") {
       c.pushBeat = world.beat;
       pulls.push({ body: c, dir, paid: spend(world, c, dir) });
+      continue;
+    }
+    // **THE CURTAIN is carried and moves as a whole.** The same gesture and
+    // the same pause, and the column it earns is the fabric's own — one or
+    // two of them, and off the wall's clamp, because uncovering the core is
+    // the point and the field's edge is not where it stops (`curtain-step.ts`).
+    if (c.kind === "curtain") {
+      c.pushBeat = world.beat;
+      curtainShoved(world, c, dir, spend(world, c, dir));
       continue;
     }
     // **THE GUM is carried once and flies.** The same gesture again, and the

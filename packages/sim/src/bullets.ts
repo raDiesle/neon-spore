@@ -3,6 +3,7 @@ import { resolve } from "./bullet-hit.js";
 import { candleEats, candleStruck } from "./candle-step.js";
 import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
+import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { steerShot } from "./lock.js";
@@ -172,6 +173,8 @@ function sweep(world: World, b: Bullet): boolean {
     candleStruck(world, b);
     // And THE GORGE's sack, which swallows the shot as a bead (`gorge-step.ts`).
     gorgeStruck(world, b);
+    // And THE CURTAIN's core, if the fabric is shoved clear of it (`curtain-shot.ts`).
+    curtainStruck(world, b);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

@@ -90,6 +90,9 @@ const STILL_PROSE = [
   // And THE GORGE, owed by the lane that draws the sack: seven intakes, the
   // beads inside them and a rupture at a size nothing has asked for yet.
   "THE GORGE",
+  // And THE CURTAIN, owed by the lane that draws the membrane: a sheet seven
+  // columns wide with a shadow behind it, shoved by two hands at once.
+  "THE CURTAIN",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -115,9 +118,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says seventy-seven of eighty-six";
-    expect(guided.length, fix).toBe(77);
-    expect(WAVES.length, fix).toBe(86);
+    const fix = "update §1 of docs/spec/briefings.md, which says seventy-eight of eighty-seven";
+    expect(guided.length, fix).toBe(78);
+    expect(WAVES.length, fix).toBe(87);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

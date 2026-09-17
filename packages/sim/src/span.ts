@@ -47,6 +47,14 @@ export const WARDEN_COLS = 5;
 export const CAIRN_COLS = 5;
 
 /**
+ * How wide THE CURTAIN's fabric is: seven, the design's number
+ * (`docs/spec/bosses-choreographed.md` §6), and wide enough that with two
+ * columns kept on the field it can be shoved clear of a core anywhere under
+ * it (`curtainReach`). One lobe hangs in every column of it (`curtain.ts`).
+ */
+export const CURTAIN_COLS = 7;
+
+/**
  * How wide a rock arrives, in tiles. Two is a rock that fills a 2x2 square —
  * the same geometry the torch has always had, offered to the plain tiers as an
  * authored choice rather than as a sixth kind.
@@ -77,6 +85,8 @@ export function colSpan(kind: CreatureKind): number {
   // is what makes a hand carried across the pile a thing that has somewhere to
   // come out (`cairn.ts`).
   if (kind === "cairn") return CAIRN_COLS;
+  // THE CURTAIN is seven, a solid block the same way: cloth in every column.
+  if (kind === "curtain") return CURTAIN_COLS;
   // THE SHELL's width and its number of pieces are the same number, and
   // `shell.ts` owns it: every column of the body carries exactly one piece, so
   // a width set here and a count set there could disagree and leave a column

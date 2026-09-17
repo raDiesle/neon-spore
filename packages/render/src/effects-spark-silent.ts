@@ -161,6 +161,18 @@ export const SILENT = [
   "gorgeSpit",
   "gorgeMouth",
   "gorgeOut",
+  // THE CURTAIN's ten: silent until the look lane draws the fabric, and then
+  // one family read above the loop by `curtain-fx.ts` the way THE GORGE's is.
+  "curtainUnroll",
+  "curtainShadow",
+  "curtainSoft",
+  "curtainShove",
+  "curtainReroll",
+  "curtainLobeOff",
+  "curtainCoreHit",
+  "curtainFire",
+  "curtainTear",
+  "curtainOut",
   "quit", // The run ending is the menu opening (`apps/game`), not a mark on the field.
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.

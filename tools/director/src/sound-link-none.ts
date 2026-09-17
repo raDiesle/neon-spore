@@ -120,6 +120,20 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.gorgeMouth": "the last whole intake becoming the mouth. Same argument.",
   "boss.gorgeOut":
     "the sack ruptured along its width by the beam. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
+  // THE CURTAIN's ten. The boss is a sheet the sheet has no card for, and
+  // what these mark is fabric moving, never a body standing anywhere.
+  "boss.curtainUnroll":
+    "the sheet unrolling across the top of the frame. It is seven columns wide, which is not a card (`sim/curtain.ts`).",
+  "boss.curtainShadow": "the core settling behind the fabric, seen by one seat. Same argument.",
+  "boss.curtainSoft": "a lobe on the hem going soft for a cycle. Same argument.",
+  "boss.curtainShove": "the whole sheet carried a column by two hands. Same argument.",
+  "boss.curtainReroll": "the sheet rolling a column back over the core, unheld. Same argument.",
+  "boss.curtainLobeOff": "a lobe dropping out of the hem. Same argument.",
+  "boss.curtainCoreHit": "the bare core rung in its own colour. Same argument.",
+  "boss.curtainFire": "the core letting a torch go down its column. Same argument.",
+  "boss.curtainTear": "the sheet tearing off its rail. Same argument.",
+  "boss.curtainOut":
+    "the core going out. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",

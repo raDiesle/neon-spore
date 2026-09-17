@@ -43,6 +43,7 @@ export { POD_KINDS, type Pod, type PodKind } from "./pod-types.js";
 export {
   bodyCenterCol,
   CAIRN_COLS,
+  CURTAIN_COLS,
   clampSpanCol,
   colSpan,
   occupiesCol,

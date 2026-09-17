@@ -137,3 +137,13 @@ export interface CandleEntry {
 export interface GorgeEntry {
   kind: "gorge";
 }
+
+/**
+ * What a wave authors when it wants THE CURTAIN: nothing, the eighth. The
+ * fabric is seven columns wide and centred, its hem full; where the core
+ * hangs behind it and in what colour is the seeded rng's, so a wave cannot
+ * author the answer the pair has to say (`curtain.ts`, `config-curtain.ts`).
+ */
+export interface CurtainEntry {
+  kind: "curtain";
+}

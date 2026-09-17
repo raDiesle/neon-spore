@@ -2,6 +2,7 @@ import { installBaton } from "./baton-step.js";
 import { clampQueenCol, initialDropSide } from "./boss.js";
 import { installCairn } from "./cairn.js";
 import { installCandle } from "./candle-step.js";
+import { installCurtain } from "./curtain-step.js";
 import { installDiastole } from "./diastole-step.js";
 import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
@@ -171,6 +172,11 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // pair fires past the field, and falls only what they overfed it with
     // (`gorge-step.ts`).
     world.boss = installGorge(world);
+  } else if (boss?.kind === "curtain") {
+    // A creature *and* a fixture: the fabric is a boss body the carry moves,
+    // at `curtainRow`, and the core behind it is a column and a colour with
+    // no body at all (`curtain-step.ts`).
+    world.boss = installCurtain(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

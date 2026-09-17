@@ -1,3 +1,4 @@
+import { curtainHemStruck } from "./curtain-shot.js";
 import type { Bullet, Creature } from "./types.js";
 import type { World } from "./world.js";
 
@@ -40,7 +41,7 @@ const BOUNCES_A_BOLT: ReadonlySet<Creature["kind"]> = new Set([
 
 /** Whether a bolt that meets this kind is spent on it with no effect. */
 export function refusesABolt(kind: Creature["kind"]): boolean {
-  return kind === "cairn" || BOUNCES_A_BOLT.has(kind);
+  return kind === "cairn" || kind === "curtain" || BOUNCES_A_BOLT.has(kind);
 }
 
 /**
@@ -59,6 +60,11 @@ export function refuseBolt(world: World, b: Bullet, hit: Creature): void {
   if (hit.kind === "cairn") {
     hit.holes = Math.min(world.cfg.maxHoles, hit.holes + 1);
     world.events.push({ type: "hole", col: hit.col, row: hit.row });
+    return;
+  }
+  // THE CURTAIN's fabric takes a soft lobe off the hem, or is cloth (`curtain-shot.ts`).
+  if (hit.kind === "curtain") {
+    curtainHemStruck(world, b, hit);
     return;
   }
   world.events.push({ type: "bounce", col: hit.col, row: hit.row, color: b.color });

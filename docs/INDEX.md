@@ -367,8 +367,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/choke.ts` | THE CHOKE: the cannon strip dead and the cannon walking wall to wall by itself, a column every few beats, for the whole wave |
 | `packages/sim/src/config-choir.ts` | THE CHOIR's numbers: how far a hand has to carry an arrow, how long the pair has between the two of them |
 | `packages/sim/src/config-choke.ts` | THE CHOKE's one number: how many beats the steer fault takes per column of the cannon's walk |
+| `packages/sim/src/config-curtain.ts` | THE CURTAIN's numbers — the row the fabric hangs at, how much of it must stay on the field |
 | `packages/sim/src/events-choir.ts` | **THE CHOIR's three**: an arrow out, both in, and the window gone |
 | `packages/sim/src/events-cling.ts` | **Everything THE LIMPET and THE LEECH do**, as events: one takes hold of a control, is shaken a move looser |
+| `packages/sim/src/events-curtain.ts` | **Everything THE CURTAIN does that neither screen already says**, as events |
 | `packages/sim/src/command-round.ts` | **The rounds' own verbs**, as their half of the `Command` union |
 | `packages/sim/src/command-locks.ts` | **Every way a press is refused before it is read**, in one place |
 | `packages/sim/src/config-pulse.ts` | THE PULSE's numbers — the step grid, the two windows a press is judged in |
@@ -419,6 +421,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-orrery.ts` | **THE ORRERY's numbers**: three orbits, the beat they first come together on |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
+| `packages/sim/src/curtain-hash.ts` | What THE CURTAIN puts into `hashWorld`, and nothing else |
+| `packages/sim/src/curtain-shot.ts` | The two moments a shot meets THE CURTAIN, both on the **tick**: a bolt into the fabric |
+| `packages/sim/src/curtain-step.ts` | THE CURTAIN's clock — the soft lobes redrawn, the roll-back, the core's fire, the beats after the last hit |
+| `packages/sim/src/curtain.ts` | THE CURTAIN: what it is standing in front of |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/stare-hash.ts` | What THE STARE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/stare-step.ts` | THE STARE's clock, and the one press that costs the hull |
@@ -1298,6 +1304,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-pod.ts` | **What the one thing on the field that is *taken* sounds like** |
 | `packages/audio/src/bind-coil.ts` | **THE COIL's two, as sounds**: a dome coming off, and the charge it was holding leaving for the next one |
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
+| `packages/audio/src/bind-curtain.ts` | THE CURTAIN's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |

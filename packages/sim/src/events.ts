@@ -1,6 +1,7 @@
 import type { BatonEvent } from "./events-baton.js";
 import type { CandleEvent } from "./events-candle.js";
 import type { CreatureEvent } from "./events-creature.js";
+import type { CurtainEvent } from "./events-curtain.js";
 import type { FleetEvent } from "./events-fleet.js";
 import type { GorgeEvent } from "./events-gorge.js";
 import type { SpliceEvent } from "./events-splice.js";
@@ -225,12 +226,9 @@ export type SimEvent =
   | { type: "mazeDown"; col: number }
   | CreatureEvent
   /**
-   * A salvo into open water on THE FLEET's chart, in the chart's own
-   * coordinates, which are the field's. Its own event and not a `reject`: the
-   * ear has to tell "that did nothing" from "that was a square, and it was
-   * empty" — a splash spends the square and the rest, a press onto a square
-   * already fired at spends neither. Both seats hear it — the chart is the one
-   * thing in this fight the two share. THE FLEET's five: `events-fleet.ts`.
+   * A salvo into open water on THE FLEET's chart, in the field's coordinates.
+   * Its own event and not a `reject`: a splash spends the square, a press onto
+   * a square already fired at spends nothing. THE FLEET's five: `events-fleet.ts`.
    */
   | FleetEvent
   // The bosses' own arms, next door: this file keeps hitting its 250-line limit.
@@ -239,10 +237,12 @@ export type SimEvent =
   | BatonEvent
   | UndertowEvent
   | CandleEvent
-  | GorgeEvent;
+  | GorgeEvent
+  | CurtainEvent;
 
 export type { BatonEvent } from "./events-baton.js";
 export type { CandleEvent } from "./events-candle.js";
+export type { CurtainEvent } from "./events-curtain.js";
 export type { FleetEvent } from "./events-fleet.js";
 export type { GorgeEvent } from "./events-gorge.js";
 export type { SpliceEvent } from "./events-splice.js";

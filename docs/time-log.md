@@ -8572,3 +8572,20 @@ The bottleneck was the asking itself: eight questions read in full before
 they could be put in a sentence each.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — boss-implementation — THE CURTAIN, the simulation
+
+| Step | Minutes | What |
+|---|---|---|
+| reading | 20 | §6 of the design page, THE GORGE's landing as the file list, `grip-push.ts` and `carryDir` for what a shove already is, `bullet-refused.ts` for where a bolt meets a boss body |
+| writing | 25 | the five sim files and the shot file, the twenty-nine wiring files down THE GORGE's list, the wave, ten cues and ten sounds, eighteen tests, §11.24 |
+| looking | 5 | the test's own reads: the drift lands under the fabric, so an "out" run has to tear first |
+| friction | 5 | `curtain-step.ts` went over 250 and the shots came out as `curtain-shot.ts`; `ControlGroup` has no `"fire"`; `world.events` is one tick's, so the test's runner collects them |
+| landing | 10 | typecheck, `check:fast`, the commit, the landing |
+
+The bottleneck was the wiring: a field boss is a name in some thirty files
+and every one of them is a paragraph saying why, which is the receipts and
+not the mechanism — the mechanism was four files and an hour of it went on
+the other twenty-six.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

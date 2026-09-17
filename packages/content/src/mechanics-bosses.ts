@@ -24,6 +24,7 @@ type BossId = Extract<
   | "orrery"
   | "candle"
   | "gorge"
+  | "curtain"
 >;
 
 /**
@@ -113,6 +114,10 @@ export const BOSS_MECHANICS = {
   },
   gorge: {
     what: "The one boss you hurt by not shooting. A sack hangs across the top of the field, seven columns wide, with an intake under each, and every shot that reaches the top of the field without meeting a body is swallowed and hangs inside it as a bead. An intake fills on four beads of one colour and goes clear; one more shot then pierces it for good, but a full intake nobody pierces vents a torch down its column after four beats and is empty again. A wrong colour takes a bead back out. After two ruptures the sack spits beads back as bodies of their colour, from the emptiest intake that holds one, every three beats; after four, the intake nearest the centre becomes the mouth and fills itself, and the beam in its colour standing in its column while it is full ends the fight, every bead leaving at once. The sack sinking under what it holds is the picture's and not the rule's.",
+    reach: "spawn",
+  },
+  curtain: {
+    what: "The one boss that is in the way. A membrane seven columns wide hangs a row below the top of the field with weighted lobes along its hem, and behind it a core hides in one column and fires torches down it. No shot reaches the core through the fabric; the membrane is shoved aside instead, one column per hand carried across it, the two of you pulling opposite ways holding it still, and left alone four beats it rolls back over the core. The hem is its health: every six beats two lobes go soft, only the pilot sees which, and a shot into a soft one takes it off — four gone and it slides two columns a shove. The core's column and colour are the navigator's alone while it is covered. Bared, it takes a shot in its own colour, drops its nearest lobe and drifts to a new column and colour; the wrong colour fires a torch at once. Three hits end it. A hem with no lobes left tears off the rail at the next shove, and the naked core fires every second beat until it is put out.",
     reach: "spawn",
   },
   undertow: {

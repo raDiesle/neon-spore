@@ -2,6 +2,7 @@ import { isBeatTick } from "./beat-clock.js";
 import { resolve } from "./bullet-hit.js";
 import { candleStruck } from "./candle-step.js";
 import { hullRow } from "./config.js";
+import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
@@ -141,5 +142,6 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE GORGE, where the beam in the mouth is what ends the fight
   // (`gorge-step.ts`).
   gorgeStruck(world, b);
+  curtainStruck(world, b);
   return 0;
 }

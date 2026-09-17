@@ -2,6 +2,7 @@ import type { BatonState } from "./baton.js";
 import type { FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 import type { CairnState } from "./cairn.js";
 import type { CandleState } from "./candle.js";
+import type { CurtainState } from "./curtain.js";
 import type { DiastoleState } from "./diastole.js";
 import type { GaugeState } from "./gauge.js";
 import type { GorgeState } from "./gorge.js";
@@ -70,4 +71,5 @@ export type BossState =
   | UndertowState
   | OrreryState
   | CandleState
-  | GorgeState;
+  | GorgeState
+  | CurtainState;
