@@ -10210,3 +10210,24 @@ quarter of the time and the other three quarters were the fourteen files
 outside it that a boss is a name in, each found by a test going red.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — boss-implementation — THE TASTER, the rehearsal
+
+The fourth boss film written after its look, and the first whose arithmetic
+is authored: ten pages over 1920 ticks, a blade grown and tasted, the edge
+set, thickened, pared and sheared, the second blade reached by `atBoss`, three
+growing at once. The same lane found the film's frame hides what stands over
+row 0 (`docs/queue.md`).
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `taster.ts`, `taster-step.ts`, the ledger's window and the dead heat, `boss-answer.ts` |
+| writing | 5 | the scene, the `atBoss` line and its test, the registry, the prose list, the film test, §3.2, the §11.25 paragraph |
+| looking | 5 | the acts run through a probe and read off the blade row, two frames, and the crest missing from the film's page traced through `guide-film.ts` and `layout.ts` |
+| friction | 5 | three reds pressed within half a beat firing as two, two reds fired after the edge had set, captions over twenty-eight |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the muzzle against the beat: a bolt takes a beat to reach
+the crest and the cannon will not fire twice in half of one, so three reds
+that had to land before the first edge set could only be found by moving
+presses and rereading the events.

@@ -193,6 +193,30 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
+## A rehearsal's frame hides what stands over row 0 of the field
+
+- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Files:** `packages/render/src/guide-film.ts`, `packages/render/src/guide-scene.ts`, `packages/render/src/layout.ts`, `packages/render/src/taster-draw.ts`, `packages/render/src/gorge-draw.ts`
+
+A film is laid out in the box less the nav bar's height (`filmLayout`), and
+`computeLayout` anchors the field to the band at the bottom with a tile bound
+by the width on a phone — so the field's top sits about the bar's height
+higher in a page of film than in the wave, under the corner plate, whose foot
+the seat draw only hands the HUD (`clearTop: GUIDE_LOOK.bandFoot`). A fixture
+drawn above row 0 is drawn there and then covered: THE TASTER's crest and fan
+(`tasterCrestY`, 0.42 tiles over row 0) are not in any page of its film, and
+THE GORGE's sack is not in the first page of its landed one — rendered and
+compared against the same waves' own frames, where both stand clear at the
+top. THE THROAT's ring and anything else hung over the field will be the same.
+It is a look, so it was not changed unattended. The options: lay the film out
+with a narrower stage so the tile shrinks and the field's top clears the
+plate (which is close to what the owner refused on 12 September 2026, the
+field short of the box); or take the plate's foot off the film's playable
+height the way the bar's already is, so the field is squeezed rather than
+slid; or start the film's field under the plate and let a page's caption say
+what the plate covers. `render/test/guide-plate-room.test.ts` should then assert a
+boss fixture over row 0 lands below the band's foot on both seats.
+
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne

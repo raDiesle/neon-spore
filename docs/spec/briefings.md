@@ -300,18 +300,18 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are sixty-seven of them now**, one per guided wave bar twenty, and
+**There are sixty-eight of them now**, one per guided wave bar nineteen, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The twenty that are still the three strings
+rather than a page of prose. The nineteen that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
 CODEX, THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE ORRERY, THE
-TASTER, THE SINEW, THE LEDGER, THE SURGE, THE LEAD, THE SCUTTLE, THE ANTIPHON,
-THE HIVE and THE INSTAR** — and that list is held by
+SINEW, THE LEDGER, THE SURGE, THE LEAD, THE SCUTTLE, THE ANTIPHON, THE HIVE
+and THE INSTAR** — and that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those twenty is a film nobody has written, and from THE
+**Every one of those nineteen is a film nobody has written, and from THE
 SCOUT's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
@@ -323,7 +323,13 @@ again, is the first film whose every act is the pilot's hand on the boss —
 the grip and the carry (`gripBody`) — with the cannon standing still the
 whole way; its seed is the one thing about it that is chosen rather than
 authored, because the core has to start under the cannon and the lobe over
-it has to be soft when the film says so.
+it has to be soft when the film says so. THE TASTER's, the same day, is the
+first whose arithmetic is authored: no arrivals, so every bolt loads the
+ledger, and the reds and cyans are spaced so the count is never level and
+every edge sets red — the seed decides nothing. The second blade stands over
+a column no authored strip reaches, so its shot is an `atBoss` act
+(`boss-answer.ts`); the film takes no hit, and the hurrying, the crest cut
+and the beam are the prose.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square

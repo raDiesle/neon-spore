@@ -7,8 +7,7 @@ import type { Wave } from "../wave-types.js";
  *
  * **`7d` and not `9`, for the reason `act-7c.ts` gives about `7c`**: an act
  * file is a page and not a chapter, and the order of the waves is the order of
- * the game. It started one wave long, and it is filling: THE ORRERY and THE
- * CANDLE landed on it within the hour, from two lanes.
+ * the game. It started one wave long and is full (`docs/queue.md`).
  *
  * **THE THROAT is the only wave in this game authored to be *eaten*.** The
  * gullet hangs from the top down to `throatMouthRow` with its mouth in authored
@@ -169,6 +168,7 @@ export const WAVES_ACT_7D: Wave[] = [
       both: "A crest hangs over the field and grows eleven blades out of itself, middle outward, and the blades are its health. Every blade takes its edge from whichever colour the two of you have fired more of lately — and a blade is only struck off by the colour it is not. Its own colour thickens it instead. The column of a blade already gone is soft and swallows a shot for nothing. Shear all but two and they fold over the body and refuse every single shot: only the beam opens them.",
       p1: "You see the edge on every blade. Say its colour and hold the cannon on its column — the answer is always the other one. Never fire into a column whose blade is already gone.",
       p2: "You see what the pair has been spending, which is the colour the next blade grows in. Load against him and keep the two counts level, or the whole fan comes up in the colour you have most of.",
+      scene: "theTaster",
     },
     entries: [
       { beat: 16, col: 1, kind: "meteor", color: null },

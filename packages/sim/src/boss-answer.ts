@@ -1,6 +1,7 @@
 import { candleBoss, candleEating } from "./candle.js";
 import { diastoleBridgeCol, diastoleChamberCol } from "./diastole.js";
 import { diastoleBoss } from "./diastole-step.js";
+import { type TasterState, tasterBoss, tasterOrder, tasterPhase } from "./taster.js";
 import { undertowBoss } from "./undertow.js";
 import type { World } from "./world.js";
 
@@ -16,8 +17,10 @@ import type { World } from "./world.js";
  * off the middle, and no authored column rounds to it. THE UNDERTOW's first
  * lobe comes up wherever the seeded rng says, in any of the eleven, and the
  * film cannot know which until the world does. THE CANDLE's glow drifts a
- * column at a time off the same rng. So a strip may say `atBoss` instead of
- * a column, and this is the one reading of what that means.
+ * column at a time off the same rng. THE TASTER's fan opens from the middle
+ * outward and its second blade stands over column 6, which no authored
+ * column reaches either. So a strip may say `atBoss` instead of a column,
+ * and this is the one reading of what that means.
  *
  * **It is the boss's own answer, not the picture's.** Each line here asks the
  * boss's file the question the pair is meant to be asking — where does the
@@ -53,6 +56,26 @@ export function bossAnswerCol(world: World): number | null {
     // answer is to leave it (`candleEats`) and no column is the answer.
     if (c.phase === "dark" || c.phase === "out") return null;
     return candleEating(c) && c.faceCol === c.col ? null : c.col;
+  }
+  const t = tasterBoss(world);
+  if (t !== null) return tasterAnswerCol(world, t);
+  return null;
+}
+
+/**
+ * The blade to answer: the first in the fan's own order (`tasterOrder`) that
+ * is standing with its edge set — the one that has been there longest, and
+ * the one the pilot's guide says to hold the column of. Nothing while no
+ * blade has decided, because a shot at a growing blade is only spent; and
+ * nothing once the fan is closed or out, when every column under the crest
+ * is the interlock and the beam is the answer, not a column.
+ */
+function tasterAnswerCol(world: World, t: TasterState): number | null {
+  const phase = tasterPhase(t, world.cfg);
+  if (phase === "closed" || phase === "out") return null;
+  for (const i of tasterOrder(t.blades.length)) {
+    const k = t.blades[i];
+    if (k !== undefined && !k.shorn && k.setBeat >= 0) return t.col + i;
   }
   return null;
 }

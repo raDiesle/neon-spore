@@ -3107,6 +3107,23 @@ hand, because no hand reaches this boss; the notch is one sheen for all the
 gaps rather than a depth each; and the wave's guide is prose rather than a film
 (`content/test/scenes-prose.test.ts`). Those four are the owner's eye.
 
+**The rehearsal** (`content/src/scenes/the-taster.ts`, 17 September 2026,
+ten pages over 1920 ticks): a blade growing while red is fired at it, two
+more reds and the edge setting red, a fourth red thickening it, a cyan paring
+and a second cyan shearing it off, player 1's column and the next blade — the
+one over the column no authored strip reaches, so the cannon is sent by
+`atBoss` (`sim/boss-answer.ts`) — sheared by cyan too, and three growing at
+once, all red, with player 2's two counts. There are no arrivals, so every
+bolt loads the ledger, and the film's arithmetic is authored so the two
+colours are never level over the window: every edge sets red and the seed
+decides nothing. A red pressed twice within half a beat is one shot, and a
+bolt takes a beat to reach the crest, so the three reds that have to be in the
+muzzle before the first edge sets are spread across two pages. The film takes
+no hit and ends before the first shot leaves the window; the hurrying, the
+crest cut and the beam are the guide's prose. Proved in
+`content/test/scene-films.test.ts` as the grows, sets, fires, the thickening,
+the pare and both shears in order, with no cut, no close and nothing out.
+
 **Never watched at tempo.** What the tests say is the mechanism: it arrives
 centred with nothing out of the crest, opens from the middle outward one blade
 at a time, sets an edge to the colour the pair has been leaning on and slows

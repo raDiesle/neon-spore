@@ -5,6 +5,7 @@ import { DEFAULT_CONFIG, midCol, type SimConfig, ticksPerBeat } from "../src/con
 import { diastoleChamberCol } from "../src/diastole.js";
 import { diastoleBoss } from "../src/diastole-step.js";
 import { step } from "../src/step.js";
+import { tasterBoss } from "../src/taster.js";
 import { undertowBoss } from "../src/undertow.js";
 import { startWave } from "../src/wave-start.js";
 import { createWorld, type World } from "../src/world.js";
@@ -87,6 +88,28 @@ describe("the column a boss is answered from", () => {
     c.faceCol = c.col;
     expect(bossAnswerCol(world)).toBeNull();
     c.phase = "out";
+    expect(bossAnswerCol(world)).toBeNull();
+  });
+
+  it("is THE TASTER's first blade once its edge has set, and nothing while it grows or once the fan closes", () => {
+    const world = open({ kind: "taster" });
+    const t = tasterBoss(world);
+    if (t === null) throw new Error("no fan");
+    // The middle blade is out of the crest and growing: a shot at it is spent.
+    expect(bossAnswerCol(world)).toBeNull();
+    beats(world, CFG.tasterGrowBeats + 1);
+    expect(t.blades[5]?.setBeat).toBeGreaterThanOrEqual(0);
+    expect(bossAnswerCol(world)).toBe(t.col + 5);
+    // Struck off, the answer is the next one the fan opened — over column 6,
+    // which no authored column reaches, and the reason the line exists.
+    const k = t.blades[5];
+    if (k === undefined) throw new Error("no blade");
+    k.shorn = true;
+    t.shorn = 1;
+    beats(world, CFG.tasterGrowBeats + 1);
+    expect(bossAnswerCol(world)).toBe(t.col + 6);
+    // Closed over the body: every column is the interlock, the beam the answer.
+    t.shorn = t.blades.length - CFG.tasterClosedBlades;
     expect(bossAnswerCol(world)).toBeNull();
   });
 });
