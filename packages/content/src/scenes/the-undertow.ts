@@ -5,8 +5,10 @@ import type { GuideScene } from "../scene-types.js";
  *
  * Nothing falls in it. The boss is a fixture in the hull and the field stays
  * empty, so the film is the pushes and the two answers, in the order the
- * fight asks them: a first lobe nobody touches, which stands its four beats,
- * withdraws and leaves the column a scar (`scarHull`); a second the cannon is
+ * fight asks them: a first lobe nobody touches, whose breach widens 100 a beat
+ * with no plate on it, reaches `undertowWideMilli` on its fourth beat and puts
+ * **a second lobe up next door**, both of which then withdraw and leave two
+ * columns scarred (`scarHull`); a second the cannon is
  * slid under while the plate is still bowing and the maw is opened over as it
  * comes through — a maw already open on the beat the lobe stands takes it
  * that beat (`through` → `undertowTake`), which is the guide's *open the maw
@@ -28,59 +30,60 @@ import type { GuideScene } from "../scene-types.js";
  * (`showsUndertowBow`), which is the first page.
  */
 export const THE_UNDERTOW: GuideScene = {
-  ticks: 2040,
+  ticks: 2400,
   bpm: 120,
   seed: 36,
   entries: [],
   boss: { kind: "undertow" },
   acts: [
-    { tick: 810, control: "cannon", col: 3, atBoss: true },
-    { tick: 940, control: "intake" },
     { tick: 1110, control: "cannon", col: 3, atBoss: true },
-    { tick: 1140, control: "shield", col: 0 },
-    { tick: 1300, control: "intake" },
-    { tick: 1470, control: "cannon", col: 3, atBoss: true },
-    { tick: 1665, control: "intake" },
-    { tick: 1840, control: "shield", col: 4 },
+    { tick: 1240, control: "intake" },
+    { tick: 1410, control: "cannon", col: 3, atBoss: true },
+    { tick: 1440, control: "shield", col: 0 },
+    { tick: 1600, control: "intake" },
+    { tick: 1770, control: "cannon", col: 3, atBoss: true },
+    { tick: 1965, control: "intake" },
+    { tick: 2140, control: "shield", col: 4 },
   ],
   steps: [
     { tick: 0, seat: 1, text: "ONLY PLAYER 1 SEES THE BOW", anchor: { at: "hull" } },
     { tick: 180, seat: 1, text: "A PLATE BOWS FOUR BEATS", anchor: { at: "hull" } },
     { tick: 360, seat: 2, text: "A LOBE STANDS · NOBODY MOVES", anchor: { at: "hull" } },
-    { tick: 540, seat: 2, text: "LEFT ALONE · IT SCARS", anchor: { at: "hull" } },
+    { tick: 540, seat: 2, text: "LEFT ALONE · IT WIDENS", anchor: { at: "hull" } },
+    { tick: 720, seat: 2, text: "A SECOND LOBE · BOTH SCAR", anchor: { at: "hull" } },
     {
-      tick: 720,
+      tick: 1020,
       seat: 1,
       text: "PLAYER 1 SLIDES UNDER IT",
       anchor: { at: "control", control: "cannon" },
     },
     {
-      tick: 900,
+      tick: 1200,
       seat: 1,
       text: "MAW OPEN AS IT COMES THROUGH",
       anchor: { at: "control", control: "intake" },
     },
     {
-      tick: 1080,
+      tick: 1380,
       seat: 2,
       text: "PLAYER 2 MOVES THE PLATE OFF",
       anchor: { at: "control", control: "shield" },
     },
     {
-      tick: 1260,
+      tick: 1560,
       seat: 1,
       text: "THE MAW TAKES IT AGAIN",
       anchor: { at: "control", control: "intake" },
     },
-    { tick: 1440, seat: 2, text: "TWO AT ONCE · FOUR APART", anchor: { at: "hull" } },
+    { tick: 1740, seat: 2, text: "TWO AT ONCE · FOUR APART", anchor: { at: "hull" } },
     {
-      tick: 1620,
+      tick: 1920,
       seat: 1,
       text: "THE MAW TAKES THE NEAR ONE",
       anchor: { at: "control", control: "intake" },
     },
     {
-      tick: 1800,
+      tick: 2100,
       seat: 2,
       text: "PLAYER 2 PLATES THE FAR ONE",
       anchor: { at: "control", control: "shield" },

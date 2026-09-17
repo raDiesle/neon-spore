@@ -2062,7 +2062,7 @@ false`), and the arrivals around it are the wave's own
 design page's step 8 asks).
 
 **The rule, in one sentence.** A plate bows for `undertowBowBeats` (4) and a
-lobe stands through it for `undertowStandBeats` (4); the maw opened under it
+lobe stands through it for `undertowStandBeats` (5); the maw opened under it
 takes it (`undertowTake`, asked from `intake` before the pods are), a tall one
 is the beam's alone (`releaseLance` → `undertowBurned`), and one left standing
 withdraws and **the column is a scar** — `scarHull`, cut out of `breachHull`
@@ -2070,7 +2070,12 @@ so a scar can be laid without the wave being lost — and `undertowRestBeats`
 (2) of empty field pass before the next plate bows. While a lobe stands its
 breach widens `undertowWidenMilli` (100) a beat unless the shield is on its
 column, and at `undertowWideMilli` (400) a second lobe comes through next
-door, already standing.
+door, already standing. **The stand is five beats so that this can happen at
+all**: an unplated breach is at 400 on its fourth beat and breeds there, and
+withdraws on its fifth. At four it withdrew at 300 and the second lobe was a
+sentence on this page the game never performed — `undertow.test.ts` reached it
+only by setting `undertowStandBeats` to 40, and now runs on the shipped
+figures.
 
 **The four parts.** `undertowSingles` (3) pushes alone; `undertowPairs` (2)
 in pairs `undertowPairGap` (4) columns apart, so the maw reaches one and the

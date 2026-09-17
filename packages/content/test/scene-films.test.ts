@@ -324,15 +324,19 @@ describe("the rehearsal for THE UNDERTOW", () => {
         }
       }
     }
-    // The first lobe is nobody's and scars; the next two are taken the beat
-    // they stand, the cannon slid under each by `atBoss`; of the pair the maw
-    // takes the near one and the plated far one withdraws.
+    // The first lobe is nobody's: its breach widens to `undertowWideMilli` on
+    // the fourth beat and puts a second lobe up next door, and both withdraw
+    // and scar — the film's first lesson is the spread and not one column. The
+    // next two are taken the beat they stand, the cannon slid under each by
+    // `atBoss`; of the pair the maw takes the near one and the plated far one
+    // withdraws.
     expect(seen).toEqual([
-      "undertowScar 9 @10",
-      "undertowTaken 7 @16",
-      "undertowTaken 5 @22",
-      "undertowTaken 3 @28",
-      "undertowScar 7 @32",
+      "undertowScar 9 @11",
+      "undertowScar 10 @15",
+      "undertowTaken 7 @21",
+      "undertowTaken 5 @27",
+      "undertowTaken 3 @33",
+      "undertowScar 7 @38",
     ]);
     expect(run.world.shieldCol).toBe(7);
     expect(run.world.cannonCol).toBe(3);

@@ -27,7 +27,13 @@ export interface UndertowConfig {
   undertowTalls: number;
   /** Beats a plate bows before the lobe comes through it. */
   undertowBowBeats: number;
-  /** Beats a lobe stands in its breach before it withdraws and the breach is a scar. */
+  /**
+   * Beats a lobe stands in its breach before it withdraws and the breach is a
+   * scar. **Five, so that an unplated breach reaches `undertowWideMilli` on
+   * the fourth beat and lets a second lobe through on it** — at four it
+   * withdrew at 300 of the 400 it needed and the second lobe was a rule the
+   * game could not perform (`docs/spec/bosses.md` §11.20).
+   */
   undertowStandBeats: number;
   /** Beats of empty field between one push resolving and the next bow beginning. */
   undertowRestBeats: number;
@@ -72,7 +78,7 @@ export const UNDERTOW_DEFAULTS: UndertowConfig = {
   undertowPairGap: 4,
   undertowTalls: 2,
   undertowBowBeats: 4,
-  undertowStandBeats: 4,
+  undertowStandBeats: 5,
   undertowRestBeats: 2,
   undertowWidenMilli: 100,
   undertowWideMilli: 400,

@@ -129,9 +129,14 @@ describe("THE UNDERTOW", () => {
     expect(floor(world).breaches).toHaveLength(1);
   });
 
+  // The plate stands on the column throughout: it stops the breach widening but
+  // not the stand clock, so the lobe still withdraws untaken and still scars.
+  // Left unplated the breach now breeds a second lobe on its fourth beat, which
+  // is the next test and would be noise in this one.
   it("scars the hull when a lobe withdraws untaken, and does not cost the wave", () => {
     const world = open();
     const col = untilLobe(world);
+    step(world, [cmd(world, 2, { kind: "shieldCol", col })]);
     const seen = beats(world, CFG.undertowStandBeats + 1);
     const u = floor(world);
     expect(u.breaches).toHaveLength(0);
@@ -142,11 +147,17 @@ describe("THE UNDERTOW", () => {
     expect(seen.has("waveFailed")).toBe(false);
   });
 
+  // On the shipped config and not a stretched one: the point of the figures is
+  // that a breach reaches `undertowWideMilli` before `undertowStandBeats` takes
+  // it away, and a test that lengthens the stand proves the widening arithmetic
+  // while hiding whether the game ever gets to run it. It did not, until
+  // `undertowStandBeats` went to 5.
   it("widens a breach nobody plates until a second lobe stands beside it", () => {
-    const world = open(3, { ...CFG, undertowStandBeats: 40 });
+    const world = open(3);
     const col = untilLobe(world);
     const need = Math.ceil(CFG.undertowWideMilli / CFG.undertowWidenMilli);
-    const seen = beats(world, need + 1);
+    expect(need).toBeLessThan(CFG.undertowStandBeats);
+    const seen = beats(world, need);
     const u = floor(world);
     expect(u.breaches).toHaveLength(2);
     expect(u.breaches.some((b) => b.col !== col && b.stage === "standing")).toBe(true);

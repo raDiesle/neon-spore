@@ -9569,3 +9569,24 @@ five packages, and two of them were at 250 lines and had to be given a
 second page before the name would fit.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — task-queue-work — THE UNDERTOW's second lobe can happen
+
+The owner picked `undertowStandBeats` 5 out of the three numbers the queue
+entry offered, so an unplated breach reaches `undertowWideMilli` on its fourth
+beat and breeds there, and withdraws on its fifth.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `config-undertow.ts`'s figures, `undertow-step.ts`'s `widen`, `withdraw` and the per-beat standing branch, §11.20, the rehearsal film and the tutorial skill |
+| writing | 20 | the one number and its reason, two sim test cases, §11.20's widening sentence, the film's acts and pages, its doc comment, the film test |
+| looking | 10 | walking the `since` counter by hand; then measuring the film's event list against the real run three times as the acts moved |
+| friction | 20 | two tests broke as consequences rather than mistakes — the scar test, whose breach now leaves a bred neighbour standing, and the rehearsal, which lost its fourth lesson off the end when every push slid five beats later |
+| landing | 15 | `check:fast`, the full `check` twice, the commit, `land --keep` |
+
+The bottleneck was that `check:fast` does not reach `packages/content`'s film
+tests, so the rehearsal's breakage only appeared inside `bun run land` — three
+minutes of full `check` after the work looked done, and then a second full run
+to prove the re-timing. The widening test had also been passing on a stretched
+config (`undertowStandBeats: 40`), so nothing in the suite knew the shipped
+figures never reached the rule.

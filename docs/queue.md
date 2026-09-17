@@ -193,30 +193,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## A breach never widens to a second lobe with the shipped numbers
-
-- **Found:** 2026-09-17, claude/queue-four-drawn-bosses-still-owe-their-rehearsal-film
-- **Taken:** 2026-09-17, claude/queue-a-breach-never-widens-to-a-second-lobe-with-the
-- **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/undertow-step.ts`, `packages/sim/test/undertow.test.ts`, `docs/spec/bosses.md`
-- **Asks:** Should a lobe stand longer, widen faster, or need less width — or is the second lobe a rule the design gives up?
-
-`widen` adds `undertowWidenMilli` (100) on each beat a lobe stands short of
-`undertowStandBeats` (4), and `withdraw` fires on the fourth: a breach nobody
-plates reaches 300 and withdraws, and `undertowWideMilli` is 400. So the
-second lobe next door — the guide's *a wide enough breach lets a second lobe
-through*, and the reason the plate exists in part one — cannot happen in the
-game. `undertow.test.ts` only reaches `undertowWidened` by setting
-`undertowStandBeats: 40`, which is how it went unnoticed (§11.20 of `bosses.md`
-says the rule as if it held); THE UNDERTOW's film
-found it by leaving a lobe alone and watching it scar at 300.
-
-What to do, once the answer is picked: change the one number (`undertowStandBeats`
-5 reaches 400 on the fourth beat and withdraws on the fifth; `undertowWidenMilli`
-150 reaches it on the third; `undertowWideMilli` 300 on the third), run the
-widening test on the shipped config rather than a stretched one, and say in
-§11.20 which it was. The film's first page then shows a second lobe rather
-than a scar, and its test's first event moves.
-
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
