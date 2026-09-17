@@ -10405,3 +10405,5 @@ wire.
 The bottleneck was that the director and the game each had their own copy of
 whose hand the mouse is, and neither imports the other: the rule had to move
 to render before either could change.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
