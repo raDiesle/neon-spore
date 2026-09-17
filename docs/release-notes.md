@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 7ddf7964 — The lost screen's queue item is done
+
+Both halves landed: the record can say where the ship was hit, and the slot carries three answers — the hit held, the red bleed-out and the screen in slabs.
+
 ## 2026-09-17 · eca5e61e — Two more answers for the lost screen, and the fluid comes out of the seam
 
 The shipped `veil` called the falling violet from inside itself, so an answer that wanted to argue about *what runs down the lost screen* — the one thing the owner asked for alternatives to by name — had to retype the two plates in order to leave it out, and would then have been asking him two questions and getting one answer. `plates` and `bleed` are separate now and `veil` is the two of them; `wordsAt` takes the height the stack starts at, so a candidate that wants the words lower does not carry a fourth copy of the wording. Not one pixel of the shipped screen moves.
