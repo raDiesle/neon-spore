@@ -12,13 +12,15 @@ import {
   batonWaiting,
 } from "./baton.js";
 import { batonLandTick } from "./baton-bead.js";
+import { batonCrossBeat } from "./baton-cross.js";
 import { batonMerge, batonTwin } from "./baton-pair.js";
 import { NO_SHELL } from "./shell.js";
-import { MILLI, type World } from "./world.js";
+import type { World } from "./world.js";
 
 /**
  * THE BATON's clock: the unfold, the landing, the settle, the shed and the
- * fold. The second bead and the merge are next door in `baton-pair.ts`.
+ * fold. The second bead and the merge are next door in `baton-pair.ts`, and
+ * the merged bead's last flight and the drop in `baton-cross.ts`.
  *
  * Everything that changes a socket happens **on the beat** and from
  * `stepBoss`: a landing, a settle and a shed are all things the pair counts
@@ -42,6 +44,7 @@ export function bead(world: World, socket: number, color: BatonBead["color"]): B
     color,
     col,
     fromCol: col,
+    final: false,
   };
 }
 
@@ -59,6 +62,7 @@ export function installBaton(world: World): BatonState {
     // the alternation for free (`docs/spec/bosses-choreographed.md` §10).
     beads: [bead(world, 0, "red")],
     merged: false,
+    acts: 0,
     stillBeat: world.beat,
     handovers: 0,
     settles: 0,
@@ -109,10 +113,15 @@ export function stepBaton(world: World, b: BatonState): void {
     }
     return;
   }
+  if (b.stage === "crossing") {
+    const bead = b.beads[0];
+    if (bead !== undefined) batonCrossBeat(world, b, bead);
+    return;
+  }
   if (b.stage !== "passing") return;
   shed(world, b);
   for (const bead of [...b.beads])
-    if (bead.flying && world.tick >= batonLandTick(cfg, bead.flightTick)) land(world, b, bead);
+    if (bead.flying && world.tick >= batonLandTick(cfg, bead)) land(world, b, bead);
   if (b.stage === "passing" && !b.beads.some((bead) => bead.flying)) {
     const turn = turnBeats(world, b);
     for (const bead of b.beads) {
@@ -128,14 +137,13 @@ export function stepBaton(world: World, b: BatonState): void {
  * The bead comes down in the next socket, or back in the one it left.
  *
  * Struck, the socket it left goes dark for good, the bead wears the other
- * colour, and the handover counts. Out of the last socket there is nothing
- * to land in: the bead drops as a loose pod, and from here the fight is the
- * maw's (`pods.ts`, `batonBeadTaken`). Not struck, it lands where it was and
- * the socket relights — and if the arm had swung, it lands in the column it
+ * colour, and the handover counts. Not struck, it lands where it was and the
+ * socket relights — and if the arm had swung, it lands in the column it
  * left, because the arm swung *for* that flight and the flight did not take.
+ * A flight out of the last socket never lands here: it is the crossing
+ * (`baton-cross.ts`), and its end is the drop.
  */
 function land(world: World, b: BatonState, bead: BatonBead): void {
-  const cfg = world.cfg;
   bead.flying = false;
   bead.flightTick = -1;
   bead.satBeat = world.beat;
@@ -153,22 +161,6 @@ function land(world: World, b: BatonState, bead: BatonBead): void {
   bead.fromCol = bead.col;
   b.col = batonLead(b)?.col ?? bead.col;
   world.events.push({ type: "batonLanded", col: bead.col, socket: bead.socket });
-  if (bead.socket < cfg.batonSockets) return;
-  enter(world, b, "falling");
-  b.beads = [];
-  const id = world.nextId++;
-  b.podId = id;
-  world.pods.push({
-    id,
-    colMilli: bead.col * MILLI,
-    rowMilli: cfg.batonSockets * MILLI,
-    driftMilli: 0,
-    loose: true,
-    kind: "purge",
-    // A bead is a real cargo. THE BATON's arm is beaten by taking it in.
-    husk: false,
-    crossMilli: 0,
-  });
 }
 
 /**

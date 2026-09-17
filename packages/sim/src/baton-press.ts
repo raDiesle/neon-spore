@@ -9,6 +9,7 @@ import {
   batonLocked,
 } from "./baton.js";
 import { batonBeadCol, batonBeadRowMilli, batonSocketCol } from "./baton-bead.js";
+import { batonAct, batonActor, batonCrossLaunch, batonCrossStruck } from "./baton-cross.js";
 import { batonBoss } from "./baton-step.js";
 import { clampCol } from "./config-derived.js";
 import { reachesShip } from "./ship-verbs.js";
@@ -43,15 +44,26 @@ function enter(world: World, b: BatonState, stage: BatonState["stage"]): void {
  */
 export function batonLaunch(world: World): void {
   const b = batonBoss(world);
-  if (b === null || b.stage !== "passing") return;
+  if (b === null) return;
   const cfg = world.cfg;
+  // On the crossing the trigger is his act, when it is his; out of turn it
+  // is a press on nothing.
+  if (b.stage === "crossing") {
+    if (batonActor(b) !== 1) return;
+    batonAct(world, b);
+    b.lockUntil[0] = world.beat + cfg.batonLockBeats;
+    return;
+  }
+  if (b.stage !== "passing") return;
   const bead = batonLaunchable(cfg, b);
   if (bead === null) return;
   bead.fromCol = batonSocketCol(b, bead.socket);
   bead.col = bead.fromCol;
+  // The merged bead's flight out of the last socket is the crossing.
+  if (b.merged && bead.socket === cfg.batonSockets - 1) batonCrossLaunch(world, b, bead);
   // Only the lead bead swings the arm: the other flies straight down the
   // column of the socket it sat in, riding the arm wherever the lead is.
-  if (bead === batonLead(b) && batonDark(b) >= cfg.batonSwingAfter) {
+  else if (bead === batonLead(b) && batonDark(b) >= cfg.batonSwingAfter) {
     // Right, back, left, back — from the first swung flight on, so the first
     // one *is* a swing and the pair meets it the beat the arm starts moving.
     // Counted in dark sockets rather than handovers: only the lead darkens a
@@ -101,7 +113,7 @@ function beadAlong(
  */
 export function batonBeadAlong(world: World, bullet: Bullet, from: number, to: number): number {
   const b = batonBoss(world);
-  if (b === null || b.stage !== "passing") return -1;
+  if (b === null || (b.stage !== "passing" && b.stage !== "crossing")) return -1;
   const bead = beadAlong(world, b, bullet.col, from, to);
   return bead === null ? -1 : batonBeadRowMilli(world.cfg, bead, world.tick);
 }
@@ -140,6 +152,10 @@ export function batonStruck(world: World, bullet: Bullet, milli: number): void {
   if (bullet.color !== bead.color) {
     missedColor(world);
     world.events.push({ type: "reject", col: bullet.col, row: Math.round(milli / MILLI) });
+    return;
+  }
+  if (b.stage === "crossing") {
+    batonCrossStruck(world, b, bead);
     return;
   }
   bead.struck = true;

@@ -71,6 +71,13 @@ export interface BatonConfig {
    */
   batonTwinAfter: number;
   /**
+   * Beats the merged bead's last flight takes, out of the last socket — and
+   * the acts the pair owe it, one a beat, alternating, with no miss: the
+   * design's step 13, *the length of the whole arm in one crossing*. Eleven,
+   * one for each socket the arm had.
+   */
+  batonFinalBeats: number;
+  /**
    * Beats the arm takes to fold away once the maw has taken the bead, before
    * the wave may end under it. The picture's, and hashed like every other
    * clock here.
@@ -96,5 +103,6 @@ export const BATON_DEFAULTS: BatonConfig = {
   batonShedAfter: 6,
   batonShedBeats: 8,
   batonTwinAfter: 3,
+  batonFinalBeats: 11,
   batonDownBeats: 4,
 };

@@ -76,7 +76,7 @@ export function drawBead(
   let x = tileCX(l, batonBeadCol(cfg, b, bead, tick));
   const flying = bead.flying;
   if (flying) {
-    const span = Math.max(1, batonLandTick(cfg, bead.flightTick) - bead.flightTick);
+    const span = Math.max(1, batonLandTick(cfg, bead) - bead.flightTick);
     const f = Math.min(1, Math.max(0, (tick - bead.flightTick) / span));
     const side = b.handovers % 2 === 0 ? 1 : -1;
     x += side * Math.sin(f * Math.PI) * l.tile * ARC;

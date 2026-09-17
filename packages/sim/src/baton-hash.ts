@@ -30,9 +30,12 @@ export function batonHashParts(b: BatonState): number[] {
       bead.color === "red" ? 1 : 2,
       bead.col,
       bead.fromCol,
+      bead.final ? 1 : 0,
     );
   out.push(
     b.merged ? 1 : 0,
+    // The crossing's count: a device one act behind would lock the wrong seat.
+    b.acts,
     b.stillBeat,
     b.handovers,
     b.settles,

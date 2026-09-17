@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE BATON's nine, in a file of their own because `bind.ts` is at its
+ * THE BATON's eleven, in a file of their own because `bind.ts` is at its
  * limit — and along the seam the fight itself has: every one of these is a
  * handover, or a handover missed, and the bead is always in a column.
  *
@@ -23,6 +23,8 @@ export function batonCue(
         | "batonSettled"
         | "batonTwin"
         | "batonMerged"
+        | "batonAct"
+        | "batonMissed"
         | "batonShed"
         | "batonDown";
     }
@@ -48,6 +50,12 @@ export function batonCue(
       return { id: "boss.batonTwin", pan };
     case "batonMerged":
       return { id: "boss.batonMerged", pan };
+    case "batonAct":
+      // A step higher for every act made, the landing's arrangement: the
+      // crossing is heard climbing to the drop.
+      return { id: "boss.batonAct", pan, pitch: 1 + e.act * 0.04 };
+    case "batonMissed":
+      return { id: "boss.batonMissed", pan };
     case "batonShed":
       return { id: "boss.batonShed", pan };
     case "batonDown":

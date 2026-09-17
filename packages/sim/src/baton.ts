@@ -38,7 +38,10 @@ import type { Color } from "./types.js";
  * is the design's step 9 (`docs/spec/bosses-choreographed.md` §10). The
  * bead that reaches the last socket first **waits** there, unlaunchable and
  * unsettling, until the other lands in the socket above it; then the two
- * merge into one, and that one's next flight is the drop.
+ * merge into one, and that one's next flight is **the crossing**: eleven
+ * beats long, an act a beat, alternating — his trigger, her shot, his
+ * trigger — and one beat missed puts the bead back at the top of an arm
+ * whose sockets have all grown back (step 13, `baton-cross.ts`).
  *
  * The clock, the launch and the landing are `baton-step.ts`, the fingerprint
  * is `baton-hash.ts`, the numbers are `config-baton.ts`, and where a bead is
@@ -56,10 +59,12 @@ import type { Color } from "./types.js";
  * - `passing` — beads are being passed down the arm: each is sitting in a
  *   socket, where player 1 may launch it, or in the air between two, where
  *   player 2 may strike it (`BatonBead.flying`).
+ * - `crossing` — the merged bead is on its last flight, out of the last
+ *   socket, and the pair owe it an act a beat (`BatonState.acts`).
  * - `falling` — the bead has dropped out of the last socket as a loose pod.
  * - `down` — the pod was taken. The arm folds away and the boss is spent.
  */
-export const BATON_STAGES = ["unfolding", "passing", "falling", "down"] as const;
+export const BATON_STAGES = ["unfolding", "passing", "crossing", "falling", "down"] as const;
 
 /** Where the fight is. */
 export type BatonStage = (typeof BATON_STAGES)[number];
@@ -90,6 +95,8 @@ export interface BatonBead {
   col: number;
   /** The column it left from. The same as `col` unless the arm swung for this flight. */
   fromCol: number;
+  /** On the crossing: this flight is `batonFinalBeats` long, not `batonFlightBeats`. */
+  final: boolean;
 }
 
 /** Everything THE BATON remembers between beats. */
@@ -109,6 +116,12 @@ export interface BatonState {
   beads: BatonBead[];
   /** Whether the two beads have already become one, so a third never lights. */
   merged: boolean;
+  /**
+   * Acts made on the crossing so far, the launch being the first. Act `n` is
+   * player 1's when `n` is even and player 2's when it is odd, and it is due
+   * inside beat `n` of the crossing (`baton-cross.ts`). 0 off the crossing.
+   */
+  acts: number;
   /**
    * `world.beat` the arm last went still on — the last landing, or the end
    * of the unfold. A sitting bead's turn is counted from here or from its own

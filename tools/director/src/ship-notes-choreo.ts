@@ -54,9 +54,13 @@ export const CHOREO_NOTES = {
     "handovers are made) settles back to the top. After batonSwingAfter dark " +
     "sockets the arm swings a column either side of the middle; after " +
     "batonShedAfter it sheds its topmost dark socket as a rock every " +
-    "batonShedBeats. Out of the last socket the bead falls as a pod, the maw " +
-    "takes it, and the arm folds away in batonDownBeats. Nothing about it is " +
-    "authored per wave. See sim/baton.ts, sim/config-baton.ts.",
+    "batonShedBeats. After batonTwinAfter dark sockets a second bead lights " +
+    "at the top in the other colour, and the two merge in the last socket. " +
+    "The merged bead's flight out of it is the crossing, batonFinalBeats " +
+    "long, owing an act a beat in turn — a miss sends it back to the top of " +
+    "a relit arm. Made whole, the bead falls as a pod, the maw takes it, and " +
+    "the arm folds away in batonDownBeats. Nothing about it is authored per " +
+    "wave. See sim/baton.ts, sim/baton-cross.ts, sim/config-baton.ts.",
   "THE THROAT — the boss you answer by feeding it":
     "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §1, " +
     "and the only boss in the game answered by GIVING it something. A gullet " +

@@ -78,7 +78,8 @@ export function drawBaton(
     if (grow <= 0) break;
     drawSocket(ctx, l, cfg, b, i, grow, beatPhase, time);
   }
-  if (b.stage === "passing")
+  // The crossing is the last flight, and the bead is the whole of it.
+  if (b.stage === "passing" || b.stage === "crossing")
     for (const bead of b.beads) drawBead(ctx, l, cfg, b, bead, tick, beatPhase, time);
   ctx.restore();
 }

@@ -55,6 +55,8 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "batonSettled":
     case "batonTwin":
     case "batonMerged":
+    case "batonAct":
+    case "batonMissed":
     case "batonShed":
     case "batonDown":
       return batonCue(e, cols);

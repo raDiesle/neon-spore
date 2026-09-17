@@ -434,6 +434,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/baton-pair.ts` | THE BATON's second bead: its lighting and the merge that ends it |
 | `packages/sim/src/baton-step.ts` | THE BATON's clock: the unfold, the landing, the settle, the shed and the fold |
 | `packages/sim/src/baton-bead.ts` | Where a bead of THE BATON is on a tick |
+| `packages/sim/src/baton-cross.ts` | THE BATON's crossing: the merged bead's last flight |
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
 | `packages/sim/src/config-balloon.ts` | THE BALLOON's numbers: how long one swells before it moves, how fast it climbs |
 | `packages/sim/src/config-baton.ts` | THE BATON's numbers — how many sockets the arm has, how long a bead is in the air |

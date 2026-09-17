@@ -1779,10 +1779,33 @@ because only the lead darkens a new one. Reaching the last socket, the lead
 waits there (`batonWaiting`) while the second catches up to the one above it,
 and the two become one bead (`batonMerged`), which is the one that drops.
 
-**What is not built**, a lane on its own: the eleven-act final flight of the
-merged bead (steps 12–13): as built, the merged bead is launched once more
-like any other and drops out of the last socket. The base is fixed to the
-middle column rather than authored, for THE VANE's reason.
+**The crossing** — the design's step 13, as of 17 September 2026. The merged
+bead's one flight out of the last socket is `batonFinalBeats` (11) long, the
+length of the whole arm in one crossing (`sim/baton-cross.ts`, the stage
+`crossing`), and it owes an act a beat: player 1's trigger is act 0 and the
+launch, her shot of the bead's colour act 1, his trigger act 2, and so on,
+`acts` counting up and `batonActor` saying whose the next is — his when the
+count is even, hers when it is odd. Each act flips the bead's colour and the
+beat lock is the alternation: the seat that acted is locked for the beat the
+other's act is due in. On every beat `batonCrossBeat` asks whether the act
+due inside the beat before was made; one not made is a miss (`batonMissed`),
+and the bead is back at the top of an arm every socket of which is lit again
+— the whole descent to earn back, as the page says. Eleven acts made and the
+bead drops out of the last socket as a pod (`drop`), `handovers` kept. Three
+departures from the page. *The two beads become one at the merge* (§ above),
+not at the top of the crossing: the design has step 12 and 13 as one moment,
+and the shipped merge is the beat the second bead catches up. *The arm does
+not shed during the crossing*, because a rock down the bead's own column
+inside a beat the pair has to act in would be the fight lost by the arm and
+not by them. *Both locks open at the drop*: the last act is his and would
+have locked him through the beat the pod falls in, and the catch under it is
+his (step 14). A shed socket grows back with the rest on a miss, which the
+page does not say and the line *grown its sockets back* allows.
+
+**What is not built**: the picture of step 12, the arm one segment long and
+hanging by a thread; the crossing as built draws the bead's descent past the
+dark sockets and nothing about the arm changes for it. The base is fixed to
+the middle column rather than authored, for THE VANE's reason.
 
 **What it draws** (`render/src/baton-draw.ts`, `render/src/baton-bead-draw.ts`,
 `render/src/band-lock.ts`): the arm as a rock spine from above row 0 down the
@@ -1805,15 +1828,18 @@ outer ring — and without the pupil, since there is no other bead to tell it
 from (the design's step 13, *twice as bright*).
 
 **What it does not draw**: a trail the flight leaves, a shake on the settle —
-the bead simply sits in the top socket again — and anything from the list
-above.
+the bead simply sits in the top socket again — the acts of the crossing
+beyond the bead's colour flipping, the miss beyond the bead sitting at the
+top again and the arm relit, and anything from the list above.
 
 **Never watched at tempo.** Whether *going — got it* fits inside three beats
 at 96 BPM with a word between is a thing a person finds out with another
 person. What the tests say is the mechanism: the unfold is a socket a beat, a
 launch locks one seat and not the other, the right colour hands over and the
 wrong one relights, the arm settles, swings and sheds on the counts the
-numbers say, the last drop is a pod the maw takes, and the same run
+numbers say, the crossing owes an act a beat in turn and a beat without one
+sends the bead back up a relit arm, the last drop is a pod the maw takes, and
+the same run
 fingerprints the same way twice (`sim/test/baton.test.ts`).
 
 ## 11.19 THE THROAT — the boss you answer by feeding it

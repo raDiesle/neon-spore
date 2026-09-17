@@ -28,9 +28,8 @@ export function batonTwin(world: World, b: BatonState): void {
 /**
  * Two beads at rest in the last two sockets become one, in the last: the
  * one that waited there takes the other in, and its next flight — the only
- * one left out of that socket — is the drop. The design's step 12
- * (`docs/spec/bosses-choreographed.md` §10); the eleven-beat flight it
- * describes for the merged bead is not built.
+ * one left out of that socket — is the crossing (`baton-cross.ts`). The
+ * design's step 12 (`docs/spec/bosses-choreographed.md` §10).
  */
 export function batonMerge(world: World, b: BatonState): void {
   const cfg = world.cfg;

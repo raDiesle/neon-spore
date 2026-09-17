@@ -12,13 +12,15 @@ import { MILLI } from "./world.js";
  */
 
 /**
- * The tick a flight that began on `flightTick` lands on: `batonFlightBeats`
- * whole beats from the top of the beat the launch was in. Counted from the
- * beat's start rather than from the press, so a bead launched late in a beat
- * still lands on a beat — the landing is a thing the pair counts to.
+ * The tick a bead's flight lands on: `batonFlightBeats` whole beats from the
+ * top of the beat the launch was in — `batonFinalBeats` on the crossing.
+ * Counted from the beat's start rather than from the press, so a bead
+ * launched late in a beat still lands on a beat — the landing is a thing the
+ * pair counts to.
  */
-export function batonLandTick(cfg: SimConfig, flightTick: number): number {
-  return beatStartTick(cfg, flightTick) + cfg.batonFlightBeats * ticksPerBeat(cfg);
+export function batonLandTick(cfg: SimConfig, bead: BatonBead): number {
+  const beats = bead.final ? cfg.batonFinalBeats : cfg.batonFlightBeats;
+  return beatStartTick(cfg, bead.flightTick) + beats * ticksPerBeat(cfg);
 }
 
 /**
@@ -32,7 +34,7 @@ export function batonLandTick(cfg: SimConfig, flightTick: number): number {
 export function batonBeadRowMilli(cfg: SimConfig, bead: BatonBead, tick: number): number {
   const from = batonSocketRow(cfg, bead.socket) * MILLI;
   if (!bead.flying) return from;
-  const land = batonLandTick(cfg, bead.flightTick);
+  const land = batonLandTick(cfg, bead);
   const span = Math.max(1, land - bead.flightTick);
   const gone = Math.min(span, Math.max(0, tick - bead.flightTick));
   return from + Math.round((gone * MILLI) / span);
@@ -58,6 +60,6 @@ export function batonSocketCol(b: BatonState, socket: number): number {
 export function batonBeadCol(cfg: SimConfig, b: BatonState, bead: BatonBead, tick: number): number {
   if (!bead.flying) return batonSocketCol(b, bead.socket);
   if (bead.fromCol === bead.col) return bead.col;
-  const land = batonLandTick(cfg, bead.flightTick);
+  const land = batonLandTick(cfg, bead);
   return tick - bead.flightTick < (land - bead.flightTick) / 2 ? bead.fromCol : bead.col;
 }

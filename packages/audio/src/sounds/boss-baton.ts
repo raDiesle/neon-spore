@@ -1,6 +1,6 @@
 /**
- * THE BATON's nine, in a file of their own for the reason `boss.ts` is at its
- * limit: one boss is nine sounds, and the next one will be a file too.
+ * THE BATON's eleven, in a file of their own for the reason `boss.ts` is at
+ * its limit: one boss is eleven sounds, and the next one will be a file too.
  *
  * The fight is a metronome — one seat a beat, and the bead passed down the arm
  * on the alternation — so what these have to do is **be heard as a count**. A
@@ -145,6 +145,45 @@ export const BOSS_BATON_SOUNDS: SoundDef[] = [
       after(0.04, thud(240, 90, 0.2, 0.5)),
       after(0.08, { source: "sine", freq: 220, gain: 0.3, attack: 0.01, hold: 0.12, release: 0.3 }),
       after(0.1, sub(64, 0.4, 0.36)),
+    ],
+  },
+  {
+    id: "boss.batonAct",
+    family: "boss",
+    blurb: "One act of the crossing counted: a click above the voice, and a knock under it.",
+    status: "bound",
+    use: "THE BATON's last flight — an act made in turn, one a beat, eleven of them to the drop.",
+    level: 0.4,
+    layers: [
+      // A count, not a hit: the click is the launch's click and the knock is
+      // the landing's floor, so the crossing is heard as the whole fight said
+      // once at tempo. Both keep clear of the band — the pair is counting aloud.
+      tick(0.5, 0, 4400),
+      after(0.02, sub(80, 0.14, 0.34)),
+    ],
+  },
+  {
+    id: "boss.batonMissed",
+    family: "boss",
+    blurb:
+      "A beat of the crossing gone by unanswered: the bead thrown back up the arm and every socket growing back.",
+    status: "bound",
+    use: "THE BATON's crossing missed — the bead back in the top socket, the arm whole again.",
+    level: 0.5,
+    layers: [
+      // The settle's rise, longer and lower, for the same reason: the arm
+      // took the bead back. The rattle above it is the sockets relighting.
+      {
+        source: "sine",
+        freq: 70,
+        toFreq: 240,
+        gain: 0.34,
+        attack: 0.02,
+        hold: 0.14,
+        release: 0.36,
+      },
+      after(0.06, burst(glint(4300, 0.2, 0.12), 5, 0.09, 0.8, 3)),
+      after(0.3, sub(56, 0.5, 0.4)),
     ],
   },
   {

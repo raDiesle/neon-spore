@@ -22,6 +22,24 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE BATON, the crossing
+
+The merged bead's final flight, the design's step 13: `baton-cross.ts`, the
+`crossing` stage eleven beats long owing an act a beat in turn, the miss that
+sends the bead back up a relit arm, the drop that opens both locks, two
+sounds, six tests, §11.18's paragraph and its three departures.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | the files were open from the look lane |
+| writing | 5 | the crossing file, the press and step branches, the sounds, the tests |
+| looking | 0 | nothing visible moved: the bead is drawn as it was, only longer in the air |
+| friction | 5 | four tests red — `world.events` is cleared every tick, so a count is kept on the state instead; and the launch lock held player 1 through the pod's fall, so the drop opens both locks |
+| landing | 5 | `check:fast`, the index, the commit, `bun run land --keep` |
+
+The bottleneck was the lock outliving the crossing: his last act locked him
+for the beat the pod fell in, and the maw could not open under it.
+
 ## 2026-09-17 — boss-implementation — THE BATON, the second bead's look
 
 The look half of the second bead: `baton-bead-draw.ts` split off
