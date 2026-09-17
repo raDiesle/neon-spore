@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 98937910 — THE CURTAIN's queue entry closes: the look landed at 2a78763c
+
+The entry said wave 74's curtain body was on the field and drawn nowhere. `curtain-draw.ts` has been in the tree since 2a78763c, `living-look.ts` sends the kind there, and `pixel-frame.test.ts`'s `LOOK_PENDING` is empty with a comment saying so — the pixel test passes for `theCurtain` on both seats. No code moved; the entry comes out of the queue.
+
 ## 2026-09-17 · 5987da4b — THE TASTER's fan is drawn, and each seat is given one number off it
 
 A low crest over row 0 with eleven blades standing out of it, each edged in the ammunition colour the pair has been leaning on and broken only by the colour it is not. A blade is metal and it is drawn like one: rockDark filled, rock stroked, and the only colour on it is the lit edge, because a blade filled in its colour would say shoot me with this, which is the flat opposite of the rule. Thickness is a second edge line inside the first, growth is the same shape short and colourless and shimmering, a struck-off blade leaves a notch that sheens with the crest's count, the interlock is the last blades leaning across each other carrying both colours at once, and the beam throws that lean the other way as the fan fades.
