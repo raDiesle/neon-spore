@@ -12,8 +12,9 @@ import {
 import { Effects } from "../src/effects.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { LedgerFx } from "../src/ledger-fx.js";
+import { drawLedgerRoot } from "../src/ledger-root.js";
 import { PALETTE } from "../src/palette.js";
-import type { TextBox } from "./canvas-stub.js";
+import { stubCanvas, type TextBox } from "./canvas-stub.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -254,6 +255,32 @@ describe("THE LEDGER's cord", () => {
     const seen = perSeat((w) => rooted(w), PALETTE.text);
     expect(seen.p2).toBeGreaterThan(seen.p1);
     expect(seen.test).toBeGreaterThan(seen.p1);
+  });
+
+  it("puts the navigator's lock on the plating and not on the hull line", () => {
+    // **The defect this file could not have caught before it was a file.** Both
+    // of her marks were drawn with the body, in the field pass, and the ship
+    // pass paints over that — so the lock was recorded as drawn and buried
+    // under the plating it is about (`ledger-root.ts`). It is on the finished
+    // ship now, sitting on the surface it is a hole in, which is a thing the
+    // log can be asked: every coordinate of it is at the plate this hands it
+    // and nowhere near the hull line the cord is drawn to.
+    const world = open();
+    rooted(world);
+    const l = computeLayout(VIEWPORT, CFG, "p2");
+    const plate = l.hullY - l.tile * 2;
+    const log: string[] = [];
+    const { ctx } = stubCanvas();
+    ctx.log = log;
+    drawLedgerRoot(ctx as unknown as CanvasRenderingContext2D, l, world, 0, () => plate);
+    expect(log.join("|")).toContain(PALETTE.text);
+    const ys = log.flatMap((one) => {
+      const args = /^Path2D[.](?:moveTo|lineTo|ellipse|arc)\(([^)]*)\)$/.exec(one);
+      const y = Number(args?.[1]?.split(",")[1]);
+      return Number.isFinite(y) ? [y] : [];
+    });
+    expect(ys.length).toBeGreaterThan(6);
+    for (const y of ys) expect(Math.abs(y - plate)).toBeLessThan(l.tile);
   });
 
   it("whips a warded return back up the cord, and keeps nothing of it", () => {

@@ -2,9 +2,9 @@ import { type LedgerState, ledgerPhase, type World } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { mixHex, rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
-import { drawLedgerCord, drawLedgerSocket } from "./ledger-cord.js";
+import { drawLedgerCord } from "./ledger-cord.js";
 import type { LedgerFx } from "./ledger-fx.js";
-import { drawLedgerBeads, drawLedgerLock } from "./ledger-read.js";
+import { drawLedgerBeads } from "./ledger-read.js";
 import {
   ledgerBodyY,
   ledgerCordAt,
@@ -138,7 +138,6 @@ export function drawLedger(
     const end =
       paid >= 1 ? socket : ledgerCordAt(l, root, socket, taut, time, Math.max(0.02, paid));
     drawLedgerCord(ctx, l, root, end, taut, time, showsLedgerSocket(l.role), strain);
-    if (paid >= 1 && showsLedgerSocket(l.role)) drawLedgerSocket(ctx, l, socket, taut);
     drawWhip(ctx, l, root, socket, taut, time, fx.whipU);
   }
 
@@ -151,10 +150,10 @@ export function drawLedger(
   // itself, lit in the colour that widens it, brighter the wider it is.
   if (gap > l.tile * 0.02 && !out) drawSeam(ctx, l, seamX, gap, rim, taut);
 
-  if (!out) {
-    drawLedgerBeads(ctx, l, t, root, socket, taut, time, beat, beatPhase);
-    drawLedgerLock(ctx, l, cfg, t, socket, beatPhase);
-  }
+  // And the pilot's read. **Hers is not here**: the grommet and the lock are
+  // drawn on the finished ship, because this pass is painted over by it
+  // (`ledger-root.ts`).
+  if (!out) drawLedgerBeads(ctx, l, t, root, socket, taut, time, beat, beatPhase);
   ctx.restore();
 }
 

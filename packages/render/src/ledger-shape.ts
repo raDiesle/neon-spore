@@ -31,10 +31,21 @@ export interface Point {
 }
 
 /** Tiles the body stands above the grid's top edge, and reaches below it. */
-const RISE = 1.15;
-const DROP = 0.75;
-/** A half's width, in tiles. The body is tall and narrow: that is the design. */
-const HALF_W = 0.8;
+const RISE = 2.1;
+const DROP = 1.2;
+/**
+ * A half's width, in tiles — **half of `ledgerCols`, and not a look choice.**
+ *
+ * The simulation refuses a bolt up either flanking column because the body's
+ * plating is over it (`ledgerCovers`, `ledgerRefused`), so the drawing has to
+ * cover exactly the columns it refuses from or the refusal happens against
+ * nothing the pair can see. It was `0.8` for one capture, which drew a body
+ * half the width of the one the rules were being applied to.
+ *
+ * *Tall and narrow* is the design's word for it and it still holds against
+ * these: three columns of eleven, and taller than it is wide.
+ */
+const HALF_W = 1.5;
 /** How far apart the halves stand at a full seam, and once the cord is out. */
 const GAP_MAX = 0.42;
 const PART_MAX = 1.5;

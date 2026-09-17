@@ -9198,3 +9198,23 @@ scan is deterministic on a still tree and nothing in the shards writes under
 says which file — and left the cause to the next time it says one.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — claude/ledger-lock — the navigator's lock, dug out from under the plating
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the pass order in `frame-on-ship.ts` and `surfaceSampler`'s two samplers, the design's own word for the body's silhouette |
+| deciding | 5 | whether a mark on the plating belongs in the field pass at all: it does not, and `ledger-root.ts` is where THE UNDERTOW's and THE SINEW's already are |
+| writing | 25 | `ledger-root.ts`, the two calls out of `ledger-draw.ts`, the body's three constants, the placement test, §11.27 |
+| friction | 10 | four captures to find it, then the stub's path-builder log is `Path2D.moveTo` and not `moveTo` |
+| landing | 10 | `check:fast`, this entry, the commit, `bun run land`, the frame |
+
+The bottleneck was that nothing in the suite could have said it. The stub
+canvas records that a call was made, and every call *was* made — the lock was
+drawn, in the field pass, and the ship pass painted the plating over it. It
+took one real capture to see that her half of the split was invisible, which
+is exactly what the owner's eye is for and the argument for sending the frame
+before saying a boss is ready. The body's width came out of the same capture:
+it was drawn half the width of the body the rules were being applied to.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

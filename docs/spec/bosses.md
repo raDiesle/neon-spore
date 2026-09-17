@@ -3238,9 +3238,11 @@ with no body behind it (`fleet.ts`, `mirror-round.ts`), because a return is
 damage on a cord and there is nothing falling to size.
 
 **The look** (`render/ledger-draw.ts`, `ledger-shape.ts`, `ledger-cord.ts`,
-`ledger-read.ts`, `ledger-fx.ts`). A tall body high in the field, `1.15` tiles
-above its top edge and `0.75` down into it, three columns wide and cut in two
-down the seam's column: each half is a flat face down the cut and a lobed back
+`ledger-read.ts`, `ledger-root.ts`, `ledger-fx.ts`). A tall body high in the
+field, `2.1` tiles above its top edge and `1.2` down into it, **exactly its
+`ledgerCols` wide** because the flanking columns are where a bolt is refused
+and a body narrower than its own rules would refuse from nothing, and cut in
+two down the seam's column: each half is a flat face down the cut and a lobed back
 away from it, filled `rockDark` and stroked `rock` — the same metal as THE
 TASTER's blades — and swaying a sixth of a hertz against its own cord. **Health
 is the silhouette and there is no bar**: the two halves stand apart a share of
@@ -3258,7 +3260,10 @@ column it is coming down to. The strain of a return's last beat runs *up* the
 cord as per-segment brightness, so a landing is seen in the cord before it is
 felt in the hull. On the navigator's screen the cord passes through a violet
 **grommet** in the plating and her white **lock** brackets the column it is in,
-with a dim chevron for the column the root walks to next — the one mark on
+with a dim chevron for the column the root walks to next — both drawn on the
+**finished ship** and on the plating's real surface (`ledger-root.ts`), because
+the ship pass paints over the field and the first capture of this boss had her
+one mark buried under the plating it is about — the one mark on
 either screen about a beat that has not happened, and `ledgerWalk` answers it
 rather than the drawer, so the arrow and the cord cannot disagree
 (`sim/test/copies-table.ts`). On the pilot's, every return on the cord is a

@@ -9,6 +9,7 @@ import { drawHarpoonMarks } from "./harpoon-mark.js";
 import { heldHarpoons } from "./harpoon-place.js";
 import type { HullFrame, LobePositions, SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
+import { drawLedgerRoot } from "./ledger-root.js";
 import type { ViewState } from "./renderer.js";
 import { drawUndertowHull } from "./undertow-draw.js";
 
@@ -94,6 +95,10 @@ export function drawOnShip(
   const harpooned = heldHarpoons(l, world, hull.cannonX, shieldX, surfaceY, view.beatPhase);
   held.effects.harpoonLine.draw(ctx, l, harpooned, view.time);
   drawHarpoonMarks(ctx, world, harpooned, view.time);
+  // And THE LEDGER's other half: the grommet the cord is rooted in and the
+  // white lock around that column, which is the navigator's whole job and was
+  // painted over while it was drawn with the body (`ledger-root.ts`).
+  drawLedgerRoot(ctx, l, world, view.beatPhase, surfaceY);
   // And THE UNDERTOW's plating: the plate bowing, the seams lit, the breach
   // parted round its lobe and the whole edge rising — the hull's own skin
   // doing something, over the rim the ship pass just lit (`undertow-draw.ts`).
