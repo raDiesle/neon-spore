@@ -3845,7 +3845,7 @@ rig lost its row: three presses on the spore over the wordmark open it. About
 | writing | 25 | the three lists and their keys, the PLAY page, the spore's counter, `paintLink`'s new rules, `menu-door.ts` to get `menu.ts` back under 250 lines, and 14 tests that drive the real lists rather than reading them |
 | looking | 0 | none — a cloud session cannot see the page, which is what this item's own note says |
 | friction | 5 | `menu.ts` was at 264 lines after the edit and had to be split before anything would build |
-| landing | 10 | `check:fast`, the commit, `bun run land` |
+| landing | 15 | `check:fast`, the commit, `bun run land` — once red on THE CURTAIN, landed that morning with no look yet |
 
 Bottleneck: **writing** — the six changes are one shape, so they land together or
 not at all, and the keys are what hold the whole thing up: a row is addressed by
@@ -3930,7 +3930,7 @@ About 70 min.
 | writing | 30 | the wave on `onStart`, the room's mark actually being kept, the restart in `pressStart`, the menu opening on the parting's edge, CONTINUE's three lines, `menu-bindings.ts` to get `menu.ts` back under 250, and six tests across the app and the real Durable Object |
 | looking | 0 | none — a cloud session cannot open two phones, which is what this item's own note says |
 | friction | 10 | a room code with a B in it is not a room code (the alphabet drops every lookalike), which read as a hung test and took the shared relay down with it; and a wait counted off one phone's message tally applied to the other's |
-| landing | 10 | `check:fast`, the commit, `bun run land` |
+| landing | 15 | `check:fast`, the commit, `bun run land` — once red on THE CURTAIN, landed that morning with no look yet |
 
 Bottleneck: **reading** — the change is small in every file it touches and the
 question underneath it is not: *what may one phone's press do to two worlds*.
@@ -6795,7 +6795,7 @@ fail*, found by the lane before this one while it was taking its own picture.
 | writing | 10 | one guard, one usage line, a page that records presses and four tests |
 | looking | 5 | the shot that failed this morning, run again with both flags |
 | friction | 0 | — |
-| landing | 10 | `check:fast`, the commit, `bun run land` |
+| landing | 15 | `check:fast`, the commit, `bun run land` — once red on THE CURTAIN, landed that morning with no look yet |
 
 The bottleneck was writing, and only because the fix wanted a test and
 `shot-state.ts` had never had one: the presses are four lines each, but a page
@@ -6813,7 +6813,7 @@ found when it timed out on the landing check of the lane two before this one.
 | writing | 5 | the read turned into one `Promise.all`, and the paragraph saying why |
 | looking | 10 | a bench script timing the walk and both reads, run both orders round, then the file timed again and an offender planted to prove it still catches one |
 | friction | 0 | — |
-| landing | 10 | `check:fast`, the commit, `bun run land` |
+| landing | 15 | `check:fast`, the commit, `bun run land` — once red on THE CURTAIN, landed that morning with no look yet |
 
 The bottleneck was looking, and it was the right place to spend it: the entry
 proposed a `Glob` and that would have been the wrong fix — the walk is 25 ms of
@@ -8589,3 +8589,17 @@ not the mechanism — the mechanism was four files and an hour of it went on
 the other twenty-six.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — render-tests-draw-real-pixels — a pixel harness beside the stub, and every wave's bodies seen
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `canvas-stub.ts`, `frame-harness.ts`, the placement files (`creature-place.ts`, `crawler-place.ts`, `pods.ts`), `unseen.ts` |
+| deciding | 10 | a phone at dpr 1 rather than the stub's viewport; seen on either seat, not each; off-field and `unseen` bodies outside the claim |
+| writing | 25 | `pixel-harness.ts`, `pixel-frame.test.ts`, the `@napi-rs/canvas` dependency |
+| friction | 20 | five waves red on bodies placed off the field or by the crawler's own call; a sanity patch at `globalAlpha` 0 that the body draws overwrote, so it proved nothing until the body draw was skipped outright |
+| landing | 15 | `check:fast`, the commit, `bun run land` — once red on THE CURTAIN, landed that morning with no look yet |
+
+The bottleneck was proving the test can fail: a body forced to alpha 0 still
+marked the picture, because every body draw sets its own alpha, and the probe
+that settled it was skipping the draw altogether — eight waves red at once.

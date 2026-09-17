@@ -592,47 +592,29 @@ leg is. Changing where a three-tile body stands changes which lane the shield
 has to be armed under, so `crystal.test.ts` and the frame test both move with
 it, and the wave's one-sentence test has to still read true afterwards.
 
-## A frame test cannot say whether the thing it drew is visible
+## THE CURTAIN is on the field and drawn nowhere
 
-- **Found:** 2026-09-17, claude/queue-render-tests-draw-real-pixels
-- **Taken:** 2026-09-17, claude/queue-a-frame-test-cannot-say-whether-the-thing-it-dre
-- **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/test/frame-harness.ts`, `packages/render/package.json`, `tools/frames/pixels.ts`, `tools/frames/svg.ts`
-- **Answered:** 2026-09-17, by the owner — **Yes — the pixel harness.** A second harness beside `frame-harness.ts` drawing through a native Skia canvas, and a visibility test over every wave's peak frame and every seat.
+- **Found:** 2026-09-17, claude/render-tests-draw-real-pixels
+- **Files:** `packages/render/test/pixel-frame.test.ts`, `packages/content/src/living-look.ts`, `docs/spec/bosses.md`
 
-The stub canvas checks every *argument* a frame hands the canvas — a colour
-that does not parse, a NaN, a negative radius — and is silent about the
-*result*. A body drawn at `globalAlpha` 0, a glow entirely under the backdrop,
-a shape drawn outside its clip, a highlight in the backdrop's own colour: all
-of those pass every test in `packages/render/test/` and draw nothing on the
-phone. Today the only thing that catches them is a person looking at a frame,
-and a lane working unattended is not one.
+The pixel test's first run against the trunk, the morning THE CURTAIN's
+simulation landed: wave 74's peak frame has a `curtain` body on the field and
+the picture with it is the picture without it, on both seats. `living-look.ts`
+answers `null` for the kind and names a `curtain-draw.ts` that is not written —
+the look is the lane the simulation's commit promised next, and this is the
+one place the gap is visible without a person looking. Until it is drawn the
+kind sits in `LOOK_PENDING` in the test, which goes red the moment the look
+lands, so that lane deletes the line. A look with no shipped alternative, the
+second exemption, so it lands on the field.
 
-The owner asked on 17 September 2026 whether any tooling would make the
-Canvas 2D work more beautiful or better tested; this is the one candidate that
-survived looking. Measured in this worktree: `@napi-rs/canvas` 1.0.9 installs
-under Bun 1.4.2 with no build step (27 MB of prebuilt binary, macOS, Linux and
-Windows), and draws a phone-sized frame with a radial gradient, a shadow blur,
-a `Path2D` and text in 7 ms, with `getImageData` and `toBuffer("image/png")`
-both answering. For comparison `bun run png` boots Chrome for 1.4 s per
-picture.
+## The imports test spawns biome under bun's five-second default
 
-The options the answer picks between. **A pixel harness** — a second harness
-beside `frame-harness.ts` that draws a world through `Canvas2DRenderer` into
-the native canvas, installs `document.createElement("canvas")` and `Path2D`
-from the same package the way `installCanvasGlobals` does for the stub, and
-hands back a `Picture` in the shape `tools/frames/pixels.ts` already decodes,
-so the same region checks serve a screenshot and a test. Its first test holds,
-for every wave's `peakWorld` and every seat, that the field region is not the
-backdrop alone and that each body's centre sits on a pixel that is not the
-backdrop's — the visibility check the stub cannot make. It also gives the look
-loop a still of the renderer alone without Chrome, though `bun run frames` stays
-the picture of the real screen because the HUD buttons are DOM. **Nothing** —
-the stub's own preamble says pixels are not assertable, the visibility failures
-above have not yet cost a landing, and 27 MB of native code is a new thing every
-fresh worktree and every cloud session installs and Windows has to be trusted to
-load. Text is the one place the two would disagree: Skia here has no system
-fonts on a bare Linux box, so a pixel test never reads glyphs.
+- **Found:** 2026-09-17, claude/render-tests-draw-real-pixels
+- **Files:** `tools/imports/test/imports.test.ts`
 
-Nothing is blocked on this. `bun run png` is not made faster either way; if
-that loop ever waits on Chrome, `@resvg/resvg-js` rasterises a sheet in
-milliseconds and is the smaller change.
+"a file with a move's leftovers in it" spawns `bunx biome lint` once per case
+and took 5059 ms on a busy machine under `bun run land`, going red for nothing
+in the code; the landing was rerun and passed. A case that runs a child
+process needs its own cap — `setDefaultTimeout` at the top of the file, the
+way the frame tests take `FRAME_TIMEOUT_MS` — or one spawn for the file with
+the cases reading its output.
