@@ -73,6 +73,10 @@ export interface OpeningView {
   /** The wave's guide, stated by a host whose `world.wave` does not index the
    * shipped `WAVES` — see `ViewState.guide`. */
   guide?: WaveGuide | null;
+  /** The foot of a band this drawing must keep out of, when it is being drawn
+   * inside something else: a rehearsal's film under the tutorial plate
+   * (`ViewState.clearTop`). Absent on the game itself, which has no band. */
+  clearTop?: number;
 }
 
 export function drawWaveOpening(
@@ -89,6 +93,11 @@ export function drawWaveOpening(
       age: fx?.age ?? SETTLED_AGE,
       pointer: view.pointer,
       surfaceY: view.surfaceY,
+      // A page of a rehearsal whose world has lost the wave draws this whole
+      // screen at the film's size, so its stamp lands in the band the tutorial
+      // plate stands in. The screen answers by fitting itself
+      // (`lost-screen.ts`); on the game, where there is no band, this is absent.
+      clearTop: view.clearTop,
     });
     return;
   }

@@ -71,6 +71,47 @@ export interface LostView {
   /** The membrane the frame drew, for an answer that replays the breach on it.
    * Absent where there is no ship under the screen at all (`briefing.ts`). */
   surfaceY?: SurfaceY;
+  /** The foot of a band this screen is being drawn under, when it is being
+   * drawn inside something else. Absent on the game, which has no band. */
+  clearTop?: number;
+}
+
+/**
+ * What a screen drawn inside a page does about the page's own band.
+ *
+ * A rehearsal plays the game inside a film, and the game's screens are part of
+ * the game — so a page whose world has lost the wave draws this one at the
+ * film's full size, and WAVE LOST landed 73 pixels down with the tutorial
+ * plate on top of it. TORCH, BULB QUEEN, THE LURE and THE COIL each have such
+ * a page (`docs/queue.md`, 16 September 2026). The owner's answer of 17
+ * September 2026: **the lost screen is drawn shrunk inside the page.**
+ *
+ * Shrunk, rather than rearranged, because nothing on it can step aside on its
+ * own the way a header or a chart does: the words are a candidate's to place
+ * (`lost-look.ts`), and the buttons are hit-tested at the coordinates they are
+ * drawn at (`apps/game/src/lost.ts`), so an answer that moved them *would move
+ * the picture and not the thumb*. Under a transform they stay one screen, and
+ * with no band there is no transform and not a pixel moves.
+ *
+ * **The veil is not in it.** The dimming and the tear are what the screen says
+ * about the field *under* it, registered with that field's own hull — fitted
+ * with the rest, they stop short of the hull and leave a lit margin round
+ * three sides with a rectangle's edge across the middle of the picture, which
+ * is what the first cut of this drew. So the field greys whole and what is
+ * read is what moves.
+ */
+function fitted(
+  ctx: CanvasRenderingContext2D,
+  l: Layout,
+  clearTop: number,
+  draw: () => void,
+): void {
+  const k = (l.height - clearTop) / l.height;
+  ctx.save();
+  ctx.translate((l.width * (1 - k)) / 2, clearTop);
+  ctx.scale(k, k);
+  draw();
+  ctx.restore();
 }
 
 export function drawLostScreen(
@@ -110,8 +151,20 @@ export function drawLostScreen(
     buttonsY: lostButtons(l).retry.y,
   };
   LOST_LOOK.veil(ctx, paint);
+  const under = v.clearTop;
+  if (under !== undefined && under > 0) {
+    fitted(ctx, l, under, () => {
+      LOST_LOOK.words(ctx, paint);
+      drawLostAnswer(ctx, l, v);
+    });
+    return;
+  }
   LOST_LOOK.words(ctx, paint);
+  drawLostAnswer(ctx, l, v);
+}
 
+/** The two buttons and the line under them: what the pair does about it. */
+function drawLostAnswer(ctx: CanvasRenderingContext2D, l: Layout, v: LostView): void {
   // The buttons arrive after the words, and not by falling: a thing to be
   // pressed should be still by the time a thumb reaches it.
   //

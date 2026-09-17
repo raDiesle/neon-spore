@@ -8799,3 +8799,20 @@ The bottleneck was my own probe: proving the sweep goes red without the drop
 cost more than the drop did.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — creature-bite-collision — the lost screen fits inside a rehearsal's page
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `briefing.ts`'s opening branch, `guide-seat.ts`'s recursion note, `lost-screen.ts`'s draw order |
+| deciding | 5 | shrink the screen, not rearrange it — and then, after looking, leave the veil out of the shrink |
+| writing | 10 | `fitted` and the answer split out of `drawLostScreen`, `clearTop` down two calls, a sweep cut by the buttons |
+| looking | 10 | two frames of BULB QUEEN page 3, the first of which showed the seam the whole-screen shrink left |
+| landing | 5 | `check:fast`, the frame, the commit, `bun run land` |
+
+The bottleneck was the picture: the fix passed its own test on the first cut
+and was still wrong, because a uniform shrink of the whole screen pulls the
+veil off the hull it is describing and draws a rectangle's edge across the
+middle of the field. No test could see it and one frame did.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

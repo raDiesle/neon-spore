@@ -51,13 +51,20 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * most of them were under the narrower band too. They are in `docs/queue.md`,
  * with the list, because they are a lane and not a line.
  *
- * **Two of them are done and are not swept here.** TORCH's call and THE
+ * **Some of them are done and are not swept here.** TORCH's call and THE
  * MAGNET's are the ship's own chrome rather than a round's, so they are on
  * every wave that sends one and on none of the boss waves this sweep walks —
  * a word added to the filter below would never have matched. They hang off
- * the siren and drop with it now, held by `alarm-room.test.ts`. What is left
- * in the queue is what a *round* draws: two chart axes, a clock, three labels
- * on bodies, and the lost screen as a page's subject.
+ * the siren and drop with it now, held by `alarm-room.test.ts`. THE WISP's
+ * lattice is an ordinary wave's, outside this net for the same reason, and is
+ * held by `guide-grid-room.test.ts`. The lost screen used as a page's subject
+ * is on four waves of which only BULB QUEEN is a boss, and its words are a
+ * record a candidate may rewrite, so it is found by its buttons rather than by
+ * a word in the filter below: `guide-lost-room.test.ts`. What is left is the
+ * three labels glued to bodies that happen to stand high — THE BEATBOX's
+ * count, THE VEER's, THE JAM's `LURE` — and they are left on purpose: the
+ * owner's answer of 17 September 2026 is that a label on a body **stays as it
+ * is**, because clearance would tear it off the thing it names.
  *
  * **THE SPLICE's clock is swept here since 17 September 2026**: `1 OF 2 · 26`
  * on the seat shown the tangle is a readout at a fixed offset from the top,

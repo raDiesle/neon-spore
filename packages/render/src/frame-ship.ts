@@ -208,6 +208,7 @@ export function drawOverlays(
     names: view.names,
     pointer: view.pointer,
     guide: view.guide,
+    clearTop: view.clearTop,
   });
 }
 
