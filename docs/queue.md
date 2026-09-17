@@ -579,6 +579,7 @@ the question already asked rather than ask it again.
 ## `bun run frames` cannot stand a boss in a state a press cannot reach
 
 - **Found:** 2026-09-17, claude/throat-look
+- **Taken:** 2026-09-17, claude/queue-bun-run-frames-cannot-stand-a-boss-in-a-state-a
 - **Where:** local
 - **Files:** `tools/frames/hold.ts`, `tools/frames/flags.ts`, `tools/frames/run.ts`, `docs/commands.md`
 
