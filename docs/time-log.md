@@ -9739,3 +9739,5 @@ filed as *built*.
 The bottleneck was the link sites: a page nobody reads is still cited by nine
 files in `sim`, and each citation had to be read to know whether it wanted THE
 VANE's write-up, THE CAIRN's, or the filter it was really standing on.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

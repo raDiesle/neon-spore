@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 4c2f3f44 — The choreographed page is ordered by state, and the third boss page is deleted
+
+`bosses-choreographed.md` gets what `bosses.md` got yesterday: a `## Contents` jump menu, and its fifteen ordered by what is left to do rather than by the number each was written at — **§12 THE ANTIPHON first**, because its simulation landed and its look did not, then the fourteen that are finished. Its status block said *not built, and nothing here is accepted* while fourteen of the fifteen were in the game, which is the sort of lie a status block tells when nobody revisits it. The `§n` numbers stay put for the same reason `bosses.md`'s did: `ship-notes-choreo.ts` and half the §11 write-ups cite a concept by number.
+
 ## 2026-09-17 · 3e66b794 — THE STARE warns for long enough to say it, and reaches its ceiling inside a wave
 
 `stareTellBeats` goes from 4 to 7 and `stareLookGrowBeats` from 2 to 3, the owner's two picks. The tell was 2.50s at 96 bpm, under `docs/spec/latency.md`'s floor of four seconds for anything whose answer needs announcing — and the tell's answer needs one by construction, because the seat is rolled at the top of the turn and shown only to the seat that is *not* about to be frozen, so the whole warning is one player saying YOU or THEM. At 7 beats it is 4.38s, the first value that clears the floor without an exemption having to be argued. The growth makes the looks 6, 9, 12 instead of 6, 8, 10, 12, so `stareLookMaxBeats` is reached on the third look rather than on a fourth that began after the wave was over.
