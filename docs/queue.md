@@ -319,6 +319,7 @@ guarding against is the first half of this item.
 ## `effects-spark-silent.ts` is at 250 lines and the next boss cannot be added
 
 - **Found:** 2026-09-17, claude/boss-taster
+- **Taken:** 2026-09-17, claude/queue-effects-spark-silent-ts-is-at-250-lines-and-the
 - **Files:** `packages/render/src/effects-spark-silent.ts`, `packages/render/src/effects-ingest-silent-boss.ts`
 
 The file's own header says what happened the last time it filled up: THE
