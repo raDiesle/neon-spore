@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 5ce57a13 — `reconcile-repo.test.ts` keeps its clones in its own directory when a hook lets go
+
+`diverged` read the module-level `dir` back after every `await`, so a case that timed out under load — `afterEach` had removed the directory and cleared `dir` while the clones were still being made — went on with `join("", "ours")` and cloned into the checkout, which the next `bun run land` refused for. The path is a local now and `dir` is written once for the hook; a case clears `dir` under a running `diverged` and expects nothing in the current directory.
+
 ## 2026-09-17 · f4e43954 — The menu's wiring stands beside the shell, not inside it
 
 `bindShell` handed `bindMainMenu` forty-five lines of hooks in a file two lines under its ceiling. They are now `menuWiring(p, deps)` in `apps/game/src/shell-menu.ts`, returning the `MenuBindings` the type file already named; the shell keeps its order — the link first, the three screens before it reports, the `opensOnMenu` gate below the bind — and is 219 lines. The two tests that read the shell's source follow the wiring to its file.
