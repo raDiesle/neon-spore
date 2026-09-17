@@ -638,37 +638,6 @@ parting at its gap, the core spitting, the core going out from the centre
 outward. `sound-link-none.ts` is where a moment with no card on the sheet is
 named instead.
 
-## The cannon slider misses presses on a phone; the buttons never do
-
-- **Found:** 2026-09-17, queue-four-from-the-owner
-- **Taken:** 2026-09-17, claude/queue-the-cannon-slider-misses-presses-on-a-phone-the
-- **Files:** apps/game/src/input.ts, packages/render/src/touch-ship.ts, packages/render/src/layout.ts, tools/director/src/stage-touch.ts, tools/director/src/tuning.ts
-
-The owner, 17 September 2026, testing on his phone: *"the slider control often
-does not work, but the shoot buttons always work and the animations are
-fluent. I assume it's likely because of heavy CPU load or the area of snapping
-slider control might be not big enough."*
-
-The animations being fluent is the useful half of that report: a page dropping
-frames does not draw smoothly, so load is the less likely of his two guesses
-and the grab area is the more likely. `CANNON_R` is 0.7 tiles and `hitCircle`
-answers a ring 30% wider, so on an eleven-column portrait phone the target is
-roughly 28 px across where the platform guidelines ask for 44. A button is a
-tap and forgives a near miss by being a rectangle; the cannon needs a
-`pointerdown` *inside a small circle* before `pointermove` means anything, and
-a press that lands outside it is not a slow slider but no slider at all — which
-is exactly the shape of "often does not work".
-
-Three things to measure before changing one, all of them in `input.ts` and
-`touch-ship.ts`: what fraction of `pointerdown`s inside the hull band fall
-outside the circle; whether `inStage` is dropping presses near the edges;
-and whether a press that misses should fall through to the nearest lobe within
-some slack rather than being discarded. `getCoalescedEvents` is unread, which
-is the load half of the guess and is worth a look once the miss rate is known.
-The director's own sliders are reported the same way and are a different
-mechanism — `stage-touch.ts` and `tuning.ts` — so measure them separately
-rather than assuming one cause.
-
 ## A wave in the phone's list opens nothing — no details, no map
 
 - **Found:** 2026-09-17, queue-four-from-the-owner
