@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · dcf966e1 — The bodies a landed answer does not finish move out of ship-notes.ts
+
+That file had sat at 249 lines of its 250 since THE MOULT's paragraph, so the next creature wanting a note in the director's ship panel would have failed the limit before it had said anything. Eight notes move to `ship-notes-twice.ts` and it is back to 203.
+
 ## 2026-09-17 · 436f0c74 — Mark the phone list's two ways out done
 
 ## 2026-09-17 · bc68009d — A row in the phone's wave list opens that wave, in the view it names
