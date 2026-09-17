@@ -9614,3 +9614,5 @@ The bottleneck was deciding the seat split, which was decided twice: the
 first split — navigator sees colour, pilot sees swell — put each fact on the
 seat that could act on it alone, and the fight needed no words, so it was
 flipped before the content was written.
+
+*Measured: 13 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

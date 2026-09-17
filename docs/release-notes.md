@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 58e1e0b9 — THE HIVE, the simulation: nine breaches on a clock nothing slows, sealed by colour
+
+The sixteenth boss and the first taken off `docs/spec/bosses.md` §11.14 rather than the choreographed page, whose ledger was built or taken to the last row. A mass over the top of the field with nine sites sown across the inner columns by the seed, each with a colour rolled; after four beats one opens, then one more every eight, two at once from the fifth; every open breach spills a rock down its own column every three beats, warded and never shot. A bolt out of the top in an open breach's column and colour seals it for good, the wrong colour brings every open breach's next spill two beats sooner, and the skin between swallows a shot. Sealing never slows the clock — what the pair's speed buys is how many breaches spill at once. The pilot alone is to be shown the colours and cannot fire; the navigator alone the swell before an opening and cannot move the cannon. The last seal opens THE SLOW; wave 81 "THE HIVE" in act 7e carries it with no entries. The four questions the design left open are answered by name in §11.14; the look is lane two.
+
 ## 2026-09-17 · b0f52e30 — A breach nobody plates now reaches the width that breeds a second lobe
 
 `undertowStandBeats` goes from 4 to 5, the owner's pick of the three numbers this could have been. A breach with a lobe standing in it widens 100 a beat while the plate is elsewhere, and `undertowWideMilli` is 400: at four beats it was taken away at 300 and the second lobe next door — §11.20's own sentence, and half of why the plate exists in part one — could not happen in the shipped game. At five it is at 400 on the fourth beat and breeds there, and withdraws on the fifth.
