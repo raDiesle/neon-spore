@@ -11,6 +11,7 @@
  * honestly is not. THE PULSE's twelve share one answer and are next door
  * (`sound-link-pulse.ts`); everything here is a one-off.
  */
+import { NO_SUBJECT_B } from "./sound-link-none-b.js";
 import { PULSE_NO_SUBJECT } from "./sound-link-pulse.js";
 
 export const NO_SUBJECT: Record<string, string> = {
@@ -236,4 +237,6 @@ export const NO_SUBJECT: Record<string, string> = {
   // THE PULSE's twelve, which are next door: a song has no bodies in it at all
   // (`sound-link-pulse.ts`).
   ...PULSE_NO_SUBJECT,
+  // From THE SCUTTLE on, the second page (`sound-link-none-b.ts`).
+  ...NO_SUBJECT_B,
 };

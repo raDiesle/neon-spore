@@ -20,6 +20,11 @@ import type { Wave } from "../wave-types.js";
  * middle of the wave rather than thickening. Nothing is placed against the
  * body's own column, for THE DIASTOLE's reason: where it is on a beat
  * depends on which shots the pair has landed, which no author can know.
+ *
+ * **THE SCUTTLE authors nothing.** Every body that falls in its wave is a
+ * part of the frame thrown down its own column, and which part goes next
+ * is the frame's clock; the wave is the frame (`sim/scuttle-step.ts`,
+ * `bossFillsWave`) — THE ORRERY's shape, one page back.
  */
 export const WAVES_ACT_7E: Wave[] = [
   {
@@ -42,5 +47,17 @@ export const WAVES_ACT_7E: Wave[] = [
       { beat: 84, col: 6, color: "red" },
     ],
     boss: { kind: "lead" },
+  },
+  {
+    id: "theScuttle",
+    name: "THE SCUTTLE",
+    sentence: "The one that throws itself at you, a part at a time, and each part is a window.",
+    guide: {
+      both: "A frame of twenty-one parts hangs over the middle of the field: rocks and bodies of both colours, and two pods. Every few beats a part comes loose and hangs in its socket, then is thrown down its column. A bolt in its column and its colour while it hangs takes it off the frame instead. A pod thrown is a pod to take, and taken it slows the next throw a beat. Under eight parts left it throws faster and from the far side; under twelve, two at a time, one of them live. The last part winds up — hold the beam under it.",
+      p1: "Only you see which hanging part is live and its colour: say the column and the colour the beat it comes loose, and slide the cannon under it. On the last one, keep the cannon in its column and hold.",
+      p2: "Only you see the count under a hanging part: say it down each beat so the shot is in the air before it is thrown. When a pod drops, take it. On the last part, hold the beam in its colour when he says the column.",
+    },
+    entries: [],
+    boss: { kind: "scuttle" },
   },
 ];

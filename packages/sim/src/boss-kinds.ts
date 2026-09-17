@@ -80,6 +80,13 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // nothing of itself on the grid, that falls only what its run drops behind
   // and ahead of itself (`lead-step.ts`). The arrivals under it are authored,
   // so that a shot put ahead of the body is a shot not put into the wave.
+  // THE SCUTTLE is the fifteenth, and the one that goes the other way: it is
+  // **not** on the list, because it fills its wave — every body that falls in
+  // it is a part of the frame thrown down as a meteor, a slick, a bulb or a
+  // pod (`scuttle-step.ts`), and which socket goes next is the frame's own
+  // clock, not an author's. It is THE ORRERY's case on the choreographed page
+  // — the ruling there that *a boss on this page is fed by its wave* is about
+  // a boss that reads the wave, and this one reads nothing.
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -170,4 +177,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "ledger",
   "surge",
   "lead",
+  "scuttle",
 ];

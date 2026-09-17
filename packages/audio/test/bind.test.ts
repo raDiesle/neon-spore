@@ -75,6 +75,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-sinew.ts", "export type SinewEvent ="],
     ["packages/sim/src/events-surge.ts", "export type SurgeEvent ="],
     ["packages/sim/src/events-lead.ts", "export type LeadEvent ="],
+    ["packages/sim/src/events-scuttle.ts", "export type ScuttleEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -216,6 +217,16 @@ const SAMPLES: Record<string, SimEvent> = {
   leadWall: { type: "leadWall", col: 10 },
   leadDown: { type: "leadDown", col: 7 },
   leadOut: { type: "leadOut", col: 7 },
+  scuttleEnter: { type: "scuttleEnter", col: 5, parts: 21 },
+  scuttleLoose: { type: "scuttleLoose", col: 4, socket: 8, live: true, throwBeat: 12 },
+  scuttleThrow: { type: "scuttleThrow", col: 4, socket: 8, left: 19 },
+  scuttleStruck: { type: "scuttleStruck", col: 4, socket: 8, left: 18 },
+  scuttleRebuff: { type: "scuttleRebuff", col: 4 },
+  scuttleSlack: { type: "scuttleSlack", col: 6, slack: 1 },
+  scuttleWind: { type: "scuttleWind", col: 7, socket: 3, throwBeat: 40 },
+  scuttleLast: { type: "scuttleLast", col: 7 },
+  scuttleDown: { type: "scuttleDown", col: 7 },
+  scuttleOut: { type: "scuttleOut", col: 5 },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

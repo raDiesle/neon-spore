@@ -92,4 +92,21 @@ export const CHOREO_FIELD_GROUP_B = {
   leadRockEveryBeats: "THE LEAD — the boss you shoot where it will be",
   leadSlowBeats: "THE LEAD — the boss you shoot where it will be",
   leadOutBeats: "THE LEAD — the boss you shoot where it will be",
+  // ScuttleConfig — the frame's size and how many of its parts are pods, the
+  // look before the first throw, the two cadences and the counts they switch
+  // on, what a pod taken and the beam's priming buy, where a pod hangs, THE
+  // SLOW on the wind-up and how long the wave holds after (`config-scuttle.ts`).
+  scuttleRows: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttleCols: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttlePods: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttleLookBeats: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttleThrowBeats: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttleFastBeats: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttleTwinParts: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttleFastParts: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttlePodSlackBeats: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttleWindSlackBeats: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttlePodRow: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttleSlowBeats: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttleOutBeats: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
 } satisfies Record<string, GroupName>;

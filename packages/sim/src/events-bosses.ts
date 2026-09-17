@@ -4,6 +4,7 @@ import type { CurtainEvent } from "./events-curtain.js";
 import type { GorgeEvent } from "./events-gorge.js";
 import type { LeadEvent } from "./events-lead.js";
 import type { LedgerEvent } from "./events-ledger.js";
+import type { ScuttleEvent } from "./events-scuttle.js";
 import type { SinewEvent } from "./events-sinew.js";
 import type { SpliceEvent } from "./events-splice.js";
 import type { StareEvent } from "./events-stare.js";
@@ -43,7 +44,8 @@ export type BossEvent =
   | LedgerEvent
   | SinewEvent
   | SurgeEvent
-  | LeadEvent;
+  | LeadEvent
+  | ScuttleEvent;
 
 export type { BatonEvent } from "./events-baton.js";
 export type { CandleEvent } from "./events-candle.js";
@@ -51,6 +53,7 @@ export type { CurtainEvent } from "./events-curtain.js";
 export type { GorgeEvent } from "./events-gorge.js";
 export type { LeadEvent } from "./events-lead.js";
 export type { LedgerEvent } from "./events-ledger.js";
+export type { ScuttleEvent } from "./events-scuttle.js";
 export type { SinewEvent } from "./events-sinew.js";
 export type { SpliceEvent } from "./events-splice.js";
 export type { StareEvent } from "./events-stare.js";

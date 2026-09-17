@@ -3,6 +3,7 @@ import { msToTicks, type SimConfig } from "./config.js";
 import { mirrorBaitTaken } from "./mirror-round.js";
 import { purge, ward } from "./pod-effects.js";
 import type { Pod, PodKind } from "./pod-types.js";
+import { scuttlePodTaken } from "./scuttle-step.js";
 import { failWave } from "./wave-fail.js";
 import { MILLI, type World } from "./world.js";
 
@@ -64,6 +65,8 @@ export function takeCargo(world: World, col: number, kind: PodKind): void {
   }
   // A boss may have been hanging this out as bait — see `mirrorBaitTaken`.
   mirrorBaitTaken(world);
+  // Or throwing it as a part of itself — see `scuttlePodTaken`.
+  scuttlePodTaken(world, col);
   world.events.push({ type: "podTaken", col, kind });
 }
 

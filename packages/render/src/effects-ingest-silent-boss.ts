@@ -196,6 +196,22 @@ export const INGEST_SILENT_BOSS = [
   "leadWall",
   "leadDown",
   "leadOut",
+  // THE SCUTTLE's ten are silent **until the look lane draws it**: the
+  // frame, its sockets, the part hanging and the count under it are read
+  // off the state every frame, and what outlives a frame — a part creaking
+  // loose, the whip of the throw, the crack of a strike — will be one
+  // family read above the loop by a `scuttle-fx.ts`, never rows here
+  // (`docs/spec/bosses.md` §11.30).
+  "scuttleEnter",
+  "scuttleLoose",
+  "scuttleThrow",
+  "scuttleStruck",
+  "scuttleRebuff",
+  "scuttleSlack",
+  "scuttleWind",
+  "scuttleLast",
+  "scuttleDown",
+  "scuttleOut",
   "tether",
   "eyeOpen",
   "wardenDown",

@@ -264,10 +264,15 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/scout-hash.ts` | What THE SCOUT puts into `hashWorld`, and nothing else |
 | `packages/sim/src/scout-round.ts` | THE SCOUT's clock: the three phases, the way in and the way out |
 | `packages/sim/src/scout.ts` | THE SCOUT: the ship puts something small out into the dark, and only one of you is holding it |
+| `packages/sim/src/scuttle-hash.ts` | What THE SCUTTLE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/scuttle-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE SCUTTLE |
+| `packages/sim/src/scuttle-step.ts` | THE SCUTTLE's clock — the count, the detachment, the throw, the wind-up and the collapse |
+| `packages/sim/src/scuttle.ts` | THE SCUTTLE: a boss racing you to its own death |
 | `packages/sim/src/boss-round.ts` | Stand the boss on a numbered round, through that fight's own way into one |
 | `packages/sim/src/config-strand.ts` | THE STRAND's three numbers: the default length of a thread, and what a bead and a whole thread are worth |
 | `packages/sim/src/config-stare.ts` | THE STARE's numbers — how long the eye is turned away, how much warning a turn gives |
 | `packages/sim/src/config-scout.ts` | THE SCOUT's numbers — how the little ship flies |
+| `packages/sim/src/config-scuttle.ts` | THE SCUTTLE's numbers — how many sockets the frame has and how many of the parts in them are pods |
 | `packages/sim/src/config-slow.ts` | THE SLOW's two numbers — the fraction of wall-clock rate a slowed tick is consumed at, and how long an ordinary window runs |
 | `packages/sim/src/config-sinew.ts` | THE SINEW's numbers — how many fibres the tendon has, how deep a hand may pull |
 | `packages/sim/src/config-surge.ts` | THE SURGE's numbers — how many notches the seam has, how fast a hand charges the bulb and how fast it leaks |
@@ -277,6 +282,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-splice.ts` | **Everything THE SPLICE does that neither screen already says**, as events |
 | `packages/sim/src/events-sinew.ts` | **Everything THE SINEW does that neither screen already says**, as events |
 | `packages/sim/src/events-surge.ts` | **Everything THE SURGE does that neither screen already says**, as events |
+| `packages/sim/src/events-scuttle.ts` | **Everything THE SCUTTLE does that neither screen already says**, as events |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
 | `packages/sim/src/creature-state-veer.ts` | **THE VEER's two fields**, a side and a width |
@@ -443,6 +449,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
 | `packages/sim/src/bosses-clocks.ts` | **The bosses that are a clock**, as their half of the boss barrel |
+| `packages/sim/src/bosses-clocks-b.ts` | **The bosses that are a clock, the second page** — the clock half of the boss barrel from THE SCUTTLE on |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
@@ -1401,6 +1408,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-surge.ts` | THE SURGE's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
@@ -1988,6 +1996,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/ship-fields-round.ts` | The rounds' own dials, sorted into their cards |
 | `tools/director/src/sound-link-pulse.ts` | Why none of THE PULSE's twelve sounds has a picture |
 | `tools/director/src/sound-link-none.ts` | The sounds that are wired up and have nothing to draw, with the reason |
+| `tools/director/src/sound-link-none-b.ts` | The sounds wired up with nothing to draw, the second page — from THE SCUTTLE on |
 | `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |

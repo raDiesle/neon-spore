@@ -12,6 +12,7 @@ import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
+import { scuttleStruck } from "./scuttle-shot.js";
 import { chargeDue, chargePartTicks, endCharge, laying, layShot } from "./shot-charge.js";
 import { firstAlong } from "./shot-reach.js";
 import { spendShot } from "./spend.js";
@@ -196,6 +197,9 @@ function sweep(world: World, b: Bullet): boolean {
     // And THE LEAD's air: a bolt out of the top is put in flight above the
     // field, to be judged against the body on a later beat (`lead-shot.ts`).
     leadStruck(world, b);
+    // And THE SCUTTLE's live part, struck off its socket while it hangs if
+    // the bolt is in its column and its colour (`scuttle-shot.ts`).
+    scuttleStruck(world, b);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

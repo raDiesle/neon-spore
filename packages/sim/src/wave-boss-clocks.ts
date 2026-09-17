@@ -6,6 +6,7 @@ import { installGorge } from "./gorge-step.js";
 import { installLead } from "./lead-step.js";
 import { installLedger } from "./ledger-step.js";
 import { installOrrery } from "./orrery-step.js";
+import { installScuttle } from "./scuttle-step.js";
 import { installSinew } from "./sinew-step.js";
 import { installSurge } from "./surge-step.js";
 import { installTaster } from "./taster-step.js";
@@ -50,6 +51,7 @@ const CLOCK_KINDS = [
   "sinew",
   "surge",
   "lead",
+  "scuttle",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -137,11 +139,15 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // No creature and no row: a bulb over the middle columns the cannon cannot
     // touch, charged by thumbs and vented by their lifting (`surge-step.ts`).
     world.boss = installSurge(world);
-  } else {
-    // THE LEAD, the last kind in the list and so the branch with no test on
-    // it — the next boss goes in above it, with its `kind` on the list. No
-    // creature and no row: a body pacing the top of the field, ahead of which
-    // a shot is put; it drops only what its run drops (`lead-step.ts`).
+  } else if (boss.kind === "lead") {
+    // No creature and no row: a body pacing the top of the field, ahead of
+    // which a shot is put; it drops only what its run drops (`lead-step.ts`).
     world.boss = installLead(world);
+  } else {
+    // THE SCUTTLE, the last kind in the list and so the branch with no test
+    // on it — the next boss goes in above it, with its `kind` on the list. No
+    // creature and no row: a frame of sockets over the top of the field, and
+    // everything that falls in its wave is a part it threw (`scuttle-step.ts`).
+    world.boss = installScuttle(world);
   }
 }

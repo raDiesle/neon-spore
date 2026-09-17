@@ -201,3 +201,13 @@ export interface SurgeEntry {
 export interface LeadEntry {
   kind: "lead";
 }
+
+/**
+ * What a wave authors when it wants THE SCUTTLE: nothing, the fourteenth.
+ * The frame comes in full over the middle columns; which sockets hold pods
+ * and which parts are rock is the seed's, and how many parts there are and
+ * the cadence they go on is tuning (`scuttle.ts`, `config-scuttle.ts`).
+ */
+export interface ScuttleEntry {
+  kind: "scuttle";
+}

@@ -94,6 +94,10 @@ const STILL_PROSE = [
   // segments, a lean and a column read by seat, and a shot hanging over the
   // top of the field, none of which is drawn yet.
   "THE LEAD",
+  // And THE SCUTTLE, owed by the lane that draws the frame: a rack of
+  // sockets over the field, a part hanging and the count under it read by
+  // seat, none of which is drawn yet.
+  "THE SCUTTLE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -120,8 +124,8 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix = "update §1 of docs/spec/briefings.md, which says eighty-two of ninety-one";
-    expect(guided.length, fix).toBe(83);
-    expect(WAVES.length, fix).toBe(92);
+    expect(guided.length, fix).toBe(84);
+    expect(WAVES.length, fix).toBe(93);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

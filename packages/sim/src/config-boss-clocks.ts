@@ -6,6 +6,7 @@ import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
 import { LEAD_DEFAULTS, type LeadConfig } from "./config-lead.js";
 import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
 import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
+import { SCUTTLE_DEFAULTS, type ScuttleConfig } from "./config-scuttle.js";
 import { SINEW_DEFAULTS, type SinewConfig } from "./config-sinew.js";
 import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 import { SURGE_DEFAULTS, type SurgeConfig } from "./config-surge.js";
@@ -57,7 +58,8 @@ export interface BossClockConfig
     SinewConfig,
     LedgerConfig,
     SurgeConfig,
-    LeadConfig {}
+    LeadConfig,
+    ScuttleConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -74,4 +76,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...LEDGER_DEFAULTS,
   ...SURGE_DEFAULTS,
   ...LEAD_DEFAULTS,
+  ...SCUTTLE_DEFAULTS,
 };

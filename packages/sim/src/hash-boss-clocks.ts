@@ -7,6 +7,7 @@ import { gorgeHashParts } from "./gorge-hash.js";
 import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
+import { scuttleHashParts } from "./scuttle-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
 import { stareHashParts } from "./stare-hash.js";
 import { surgeHashParts } from "./surge-hash.js";
@@ -87,6 +88,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE LEAD: the column, the way, the lean, the stalk and every shot in the air (`lead-hash.ts`).
   if (boss.kind === "lead") {
     for (const n of leadHashParts(boss)) out.push(n);
+  }
+  // THE SCUTTLE: every socket's part, which hang, which is live, the slack and the clocks (`scuttle-hash.ts`).
+  if (boss.kind === "scuttle") {
+    for (const n of scuttleHashParts(boss)) out.push(n);
   }
   if (boss.kind === "curtain") {
     for (const n of curtainHashParts(boss)) out.push(n);

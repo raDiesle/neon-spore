@@ -145,6 +145,14 @@ export {
   // And the rate the three rigs with no finger turn a ring at, asked for in
   // all three rather than chosen in any (`orrery-hand.ts`).
   orreryTurnPerTickMilli,
+  // THE SCUTTLE's entry, which authors nothing, and the frame the screens
+  // read: which sockets still hold a part, which hang and which one is live,
+  // and the beat the live one goes on — the count one seat says and the
+  // other shoots against (`scuttle.ts`).
+  type ScuttleEntry,
+  type ScuttlePart,
+  type ScuttlePartKind,
+  type ScuttleState,
   type SinewEntry,
   type SinewState,
   STARE_PHASES,
@@ -153,6 +161,19 @@ export {
   type StareState,
   type SurgeEntry,
   type SurgeState,
+  scuttleAttached,
+  scuttleBoss,
+  scuttleCadence,
+  scuttleFast,
+  scuttleLeft,
+  scuttleLeftCol,
+  scuttleShootable,
+  scuttleSocketCol,
+  scuttleSocketRow,
+  scuttleThrowBeat,
+  scuttleTwins,
+  scuttleWindBeats,
+  scuttleWinding,
   sinewBandMilli,
   sinewBoss,
   sinewDecaying,

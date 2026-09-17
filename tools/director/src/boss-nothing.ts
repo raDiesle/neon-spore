@@ -10,6 +10,7 @@ import type {
   LedgerEntry,
   OrreryEntry,
   ScoutEntry,
+  ScuttleEntry,
   SinewEntry,
   StareEntry,
   SurgeEntry,
@@ -94,6 +95,11 @@ import type {
  *   where it is on any beat is what the pair has hit and missed — a wave
  *   that authored its path would be a boss with its sum printed on it
  *   (`sim/config-lead.ts`).
+ * - **THE SCUTTLE** asks for nothing for THE ORRERY's reason: the frame hangs
+ *   over `midCol` so there is no column, its parts are the health so there
+ *   is no number, and which socket holds a pod and which a rock is the
+ *   seed's — a wave that authored the frame would be a boss with its throws
+ *   printed on it (`sim/config-scuttle.ts`).
  *
  * - **THE TASTER** asks for nothing, and it is the one where the *absence* is
  *   the boss: the crest is centred so there is no column, the fan is the
@@ -132,7 +138,8 @@ export function bossAuthorsNothing(
   | SinewEntry
   | LedgerEntry
   | SurgeEntry
-  | LeadEntry {
+  | LeadEntry
+  | ScuttleEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -154,6 +161,7 @@ export function bossAuthorsNothing(
     kind === "sinew" ||
     kind === "ledger" ||
     kind === "surge" ||
-    kind === "lead"
+    kind === "lead" ||
+    kind === "scuttle"
   );
 }

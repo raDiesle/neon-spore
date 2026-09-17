@@ -12,6 +12,7 @@ import { stepLedger } from "./ledger-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
 import { stepOrrery } from "./orrery-step.js";
+import { stepScuttle } from "./scuttle-step.js";
 import { stepSinew } from "./sinew-step.js";
 import { stepSplice } from "./splice-round.js";
 import { stepStare } from "./stare-step.js";
@@ -157,6 +158,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // shot leaving the top of the field is on the tick (`lead-shot.ts`).
   if (boss.kind === "lead") {
     stepLead(world, boss);
+    return;
+  }
+  // THE SCUTTLE on the beat is the frame's clock: the count, the throw, the
+  // next part loose, the wind-up and the collapse. A shot striking a hanging
+  // part off is on the tick (`scuttle-shot.ts`).
+  if (boss.kind === "scuttle") {
+    stepScuttle(world, boss);
     return;
   }
   if (boss.kind === "vane") {

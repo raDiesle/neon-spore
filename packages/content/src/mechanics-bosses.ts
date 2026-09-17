@@ -30,6 +30,7 @@ type BossId = Extract<
   | "ledger"
   | "surge"
   | "lead"
+  | "scuttle"
 >;
 
 /**
@@ -143,6 +144,10 @@ export const BOSS_MECHANICS = {
   },
   lead: {
     what: "The one boss shot where it will be, not where it is. A body paces along the top of the field on a stalk of five segments, a column a beat, turning at the walls, and the stalk is its health. A bolt out of the top of the field is not judged where it leaves but a beat later, against the column the body is in then — so the column to fire from is the column it will be in, which is the sum the pair is doing out loud. A hit takes a segment, one a beat at most however many arrive; a beat on which every shot in the air missed turns it round, so a wrong sum costs the next one too. The pilot alone sees the stalk lean where it goes next; the navigator alone sees the column it stands in. From the fourth segment it runs two columns a beat and litters the field — a torch in the column it left, a rock in the column a shot has to go to. From the second the lean says the turn a beat early. Every judged beat opens THE SLOW. On the last segment it stops dead and nothing reaches it; on the still's last beat the stalk leans the way it will go, then it crosses to the farther wall three columns a beat, and a wall is another still and a pass back. Only the beam standing in a column the pass goes through takes the last segment, and the wave ends.",
+    reach: "spawn",
+  },
+  scuttle: {
+    what: "The one that throws itself at you, a part at a time. A frame of twenty-one parts hangs over the middle of the field — rock, bodies of both colours, and two pods, sown by the seed — and the parts are its health and its ammunition both. Every three beats a part comes loose and hangs in its socket, then is thrown down its own column as what it is: a meteor, a slick, a bulb, or a pod. A bolt out of the top of the field in that column and that colour while it hangs takes it off the frame with no throw, and the next part comes loose the beat after; the wrong colour is a rebuff. Only the pilot sees which hanging part is live and its colour; only the navigator sees the count under it. A pod thrown is a real pod, and taken it slackens the next window a beat. Under twelve parts it lets two go at once, one of them live; under eight it throws every two beats and from the far side of the frame. The last part winds up for the beam's priming and a beat, under THE SLOW, and only the beam standing in its column takes it — thrown, it hits the hull and the wave is lost.",
     reach: "spawn",
   },
   undertow: {

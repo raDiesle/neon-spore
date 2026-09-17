@@ -83,4 +83,20 @@ export const CHOREO_NOTES_B = {
     "standing in a column the pass goes through takes it, and the wave " +
     "holds leadOutBeats more. Nothing about it is authored per wave. See " +
     "sim/lead.ts, sim/config-lead.ts.",
+  "THE SCUTTLE — the boss that throws itself at you, a part at a time":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §15: " +
+    "the boss whose body is its ammunition. A frame of scuttleRows by " +
+    "scuttleCols sockets hangs over the middle, sown by the seed with rock, " +
+    "bodies of both colours and scuttlePods pods. After scuttleLookBeats a " +
+    "part comes loose and hangs, and every scuttleThrowBeats it is thrown " +
+    "down its column as what it is; a bolt in its column and colour while " +
+    "it hangs takes it off instead, and the wrong colour is a rebuff. A pod " +
+    "thrown is a real pod, and taken it slackens the next window " +
+    "scuttlePodSlackBeats. From scuttleTwinParts left two come loose at " +
+    "once, one live; from scuttleFastParts it throws every " +
+    "scuttleFastBeats and from the far side. The last part winds up for the " +
+    "beam's priming plus scuttleWindSlackBeats under THE SLOW " +
+    "scuttleSlowBeats; only the beam in its column takes it, and thrown it " +
+    "breaches the hull. The frame comes down over scuttleOutBeats. Nothing " +
+    "about it is authored per wave. See sim/scuttle.ts, sim/config-scuttle.ts.",
 } satisfies Partial<Record<GroupName, string>>;

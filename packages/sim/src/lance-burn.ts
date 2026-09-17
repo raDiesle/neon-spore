@@ -11,6 +11,7 @@ import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { orreryStruck } from "./orrery-shot.js";
 import { firstPodAlong, freePod } from "./pods.js";
+import { scuttleStruck } from "./scuttle-shot.js";
 import { firstAlong } from "./shot-reach.js";
 import { spendShot } from "./spend.js";
 import { tasterStruck } from "./taster-shot.js";
@@ -162,5 +163,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE LEAD's last pass, which only a beam standing in its column ends
   // (`lead-shot.ts`).
   leadStruck(world, b);
+  // And THE SCUTTLE's wind-up, which only a beam standing in the last part's
+  // column ends (`scuttle-shot.ts`).
+  scuttleStruck(world, b);
   return 0;
 }

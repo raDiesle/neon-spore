@@ -3653,3 +3653,131 @@ never for a beat at tempo: whether the lean's overshoot reads as a lean or
 as a wobble, whether a stalk in the middle of the pilot's screen reads as
 an instrument or as a body he cannot find, and whether the flight's climb
 is long enough for the pair to see it judged are the owner's.
+
+## 11.30 THE SCUTTLE — the boss racing you to its own death
+
+> The one that is killing itself, and if it finishes first, you lose.
+
+Designed as §15 of [bosses-choreographed](bosses-choreographed.md), where
+the argument for it is: every boss in this game is a body the pair empties,
+and this one empties itself, on a cadence, in plain sight — so the pair is
+not outlasting it but **racing** it, and the clock is drawn as a
+silhouette. Its health and its ammunition are one number, which is why the
+bar the rule forbids is impossible even to want: the parts still attached
+are the count.
+
+**It is a fixture, not a body.** Nothing of it is in `world.creatures`: the
+state (`sim/scuttle.ts`, hashed in `sim/scuttle-hash.ts`) is a **frame** of
+sockets over the top of the field, `scuttleRows` (3) by `scuttleCols` (7),
+centred on `midCol` and each holding a **part** — a rock, a body in one of
+the two colours, or a pod — sown by the wave's seed at install
+(`installScuttle`), with `scuttlePods` (2) of them pods and never the last
+socket the seed would leave; the sockets whose parts hang **loose**, the
+one of them that is **live**, the live socket of the cycle before, the beat
+the cycle began, the **slack** the taken pods have added, and two beat
+stamps — the wind-up began, the beam took it. Unlike every clock boss
+before it except THE ORRERY it **fills its wave** (`bossFillsWave`, not on
+the exclusion list): `act-7e.ts`'s "THE SCUTTLE" has no entries at all,
+because every arrival in the fight is a part the frame threw, and an author
+cannot write a column the seed decides.
+
+**The rule, in one sentence.** After `scuttleLookBeats` (4) of looking, a
+part comes loose (`scuttleLoose`, said with the beat it will be thrown on),
+hangs for the cadence — `scuttleThrowBeats` (3), plus the slack — and is
+then thrown down its column as the arrival it is (`scuttleThrow`,
+`spawnOne`: a rock as a meteor, a body as `livingKindForColor` in its
+colour, a pod as a `ward` pod at `scuttlePodRow` (4)) while the next comes
+loose on the same beat, so from the first throw to the last there is always
+one part hanging and **the cadence the pair counts is the window they
+have**. A bolt that nothing on the field stopped and that leaves through
+the top (`sim/scuttle-shot.ts`, called from `bullets.ts` and `lance-burn.ts`
+beside `leadStruck`) in the live part's column *and* its colour takes it
+off the frame without a throw (`scuttleStruck`, with the count left) and
+the next comes loose the beat after — the beat a strike buys; the other
+colour is said (`scuttleRebuff`) and any other column is nothing, unsaid.
+From `scuttleTwinParts` (12) left, two come loose a cycle with one of them
+live (the second never the last part); from `scuttleFastParts` (7) the
+cadence is `scuttleFastBeats` (2) and the live part is the attached one
+farthest from the last, so the cannon crosses the field between them. A
+thrown pod taken adds `scuttlePodSlackBeats` (1) to every cadence after
+(`scuttleSlack`, from `takeCargo`). With one part left it does not throw:
+it **winds up** (`scuttleWind`) for `lancePrimeBeats` and
+`scuttleWindSlackBeats` (1) more, opening THE SLOW for `scuttleSlowBeats`
+(4), and only **the beam standing in that column** before the throw ends it
+(`scuttleDown`), after which the frame is gone `scuttleOutBeats` (3) later
+(`scuttleOut`, the boss nulled, the wave allowed to end). The last part
+thrown goes straight through the hull as a heavy breach (`scuttleLast`,
+`breachHull`), and the wave is lost to it.
+
+**The split is the eyes, and it is the look lane's.** Player 1 is to be
+shown the parts still attached — the count, which is the time — and never
+which of them is live; player 2 the live part and the column the next throw
+lands in, and never the count (`showsScuttleCount`, `showsScuttleLive` in
+`render/view-role-clocks.ts`, unbuilt). Nothing in the simulation depends
+on it: `live` is a field on the state the navigator's drawer reads, and the
+parts are the pilot's. The sentence between them is *nine left — four,
+red, now*.
+
+**Where this departs from the design, and why.** Nine places, each argued
+by name. *The loss is one breach, not "the field closing over the hull"*:
+step 13's missed column has the run end to the volume of debris nobody had
+time for, but every hull damage already fails the whole wave (12 September
+2026, `wave-fail.ts`), so a field that fills is a wave already lost several
+times over and the volume would never be reached; the last part thrown is
+the one hit that loses it, heavy, in its own column. *The pod is a real
+pod, and a pod not taken loses the wave*: step 8's "it falls through" has no
+meaning under the same rule — a pod that falls through breaches the hull —
+so the pod among the parts is what the design says it is, the one thing
+that gives time back, and a threat with a beat inside it. *The window is
+the cadence, not "three beats" by name*: the design writes the detachment
+and the throw as the same three beats and they are, until the frame is
+fast, when both are two, and every cadence is longer by the slack; the
+window is `scuttleCadence`, so what the pair counts is always what they
+have. *The beam is the last part's alone*: a beam up the live part's column
+before the wind-up would take a part with no window in it, and a beam that
+could shorten the fight by a cycle would make the wind-up one more cycle;
+so the hanging parts are for bolts, and a beam before the last part burns
+its column and touches nothing. *The wind-up is `lancePrimeBeats` and a
+beat, not "six beats is exactly `lancePrimeBeats`"*: the lance takes three
+beats to fill in this tree, not six, and a fill started on the wind-up's
+own beat has to be standing before the throw; one beat of slack is the
+difference between a hold begun on the call and a hold begun the beat
+before it. *The twins never include the last part*: two loose with one
+attached would throw the fight's last part without a wind-up, and step 13
+is the payoff. *A strike buys a beat*: the design has the cadence not wait,
+but a part struck off leaves nothing hanging, and the next coming loose
+on the beat after rather than the same one is the one reward the fight has
+for the harder answer, and it is the length of a word. *The pods are sown
+by the seed, not placed by an author*: the wave has no entries, and a frame
+whose pods were always in the same sockets would be a frame the pair
+learns rather than counts. *The frame is a fixture with no `creature-body.ts`
+sockets*: the design's cost note has the thinning body as socket work at
+boss scale, and that is the look's — the simulation's frame is a list of
+what is in it, and the picture decides what a socket is.
+
+**What is not built.** The look — the frame, the parts, the thread a part
+hangs by, the live part in the ammunition colour, the wind-up and the
+collapse — is the second lane's, and until it lands every one of the ten
+events is on the silent lists and nothing of THE SCUTTLE is drawn
+(`effects-ingest-silent-boss.ts`, `effects-spark-silent-boss.ts`). Nothing
+is timed on a call (`CLAUDE.md` rule 5): steps 1, 3 and 13 give 900 ms for a
+number or a column to be said, and the frame counts whether or not
+anything is. The split is a pair of predicates the look lane owes.
+
+**Never watched at tempo.** What the tests say is the mechanism: it comes
+in full with its pods sown and nothing on the field; it holds its wave and
+fills it; it looks for `scuttleLookBeats` before the first part comes
+loose; a part hangs for the cadence and is thrown down its column as what
+it is, with the next already hanging; a rock is a meteor and a pod a pod
+at `scuttlePodRow`; a bolt in the live part's column and colour takes it
+off and the next comes loose a beat later; the other colour is said and
+another column is not; the beam is nothing while a part hangs; two come
+loose from `scuttleTwinParts` with one live; the cadence tightens from
+`scuttleFastParts` and the live part crosses the field; a pod taken adds
+`scuttlePodSlackBeats` to every cadence after; the last part winds up under
+THE SLOW for the lance's fill and a beat, refuses a bolt, and then costs
+the wave through the hull; the beam in its column takes it down and the
+frame is gone `scuttleOutBeats` later with the wave not lost; and the same
+run fingerprints the same way twice (`sim/test/scuttle.test.ts`, fourteen).
+The picture does not exist yet, and whether three beats of a part hanging
+reads as a window or as a decoration is the owner's, once it does.

@@ -228,6 +228,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // stalk and every shot in the air are what the fixture's world has moved
   // by the time it is fingerprinted (`lead-hash.ts`).
   lead: { kind: "lead" },
+  // THE SCUTTLE authors nothing either: the frame's size and its cadences
+  // are tuning (`config-scuttle.ts`), which sockets hold what is the seed's,
+  // and every part, the hanging ones, the live one, the slack and the clocks
+  // are its own by the time it is fingerprinted (`scuttle-hash.ts`).
+  scuttle: { kind: "scuttle" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -644,5 +649,22 @@ function patchBoss(world: World): void {
     boss.stillBeat = 2;
     boss.passBeat = 3;
     boss.downBeat = 4;
+  }
+  if (boss.kind === "scuttle") {
+    // One socket empty, one hanging and live, a throw on the clock, a beat
+    // of slack bought, and the wind-up and the end given a beat.
+    boss.parts = [
+      { kind: "rock", color: "red" },
+      null,
+      { kind: "pod", color: "cyan" },
+      { kind: "body", color: "cyan" },
+    ];
+    boss.loose = [3];
+    boss.live = 3;
+    boss.lastLive = 0;
+    boss.cycleBeat = 6;
+    boss.slack = 1;
+    boss.windBeat = 7;
+    boss.downBeat = 8;
   }
 }

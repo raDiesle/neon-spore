@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE SCUTTLE, the simulation
+
+Lane one of the eighth boss off the choreographed list: a frame of
+twenty-one sockets over the top of the field, a part coming loose on a
+cadence and thrown as an ordinary arrival, the live part struck off while it
+hangs, twins and a faster cadence as the frame thins, a pod that buys a beat,
+the wind-up under THE SLOW that only the standing beam ends, and the collapse.
+Every event silent until the look lane draws it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | §15 of the design, THE LEAD's files as the pattern, `pod-intake.ts`, `spawn.ts`, `hull-damage.ts` for the three hooks |
+| writing | 45 | six sim files and eleven wirings, the audio family, the director's sheet, the content, the fixture, fourteen tests, §11.30 |
+| looking | 0 | nothing visible moved |
+| friction | 10 | three files at the ceiling (`bosses-clocks.ts`, `sound-link-none.ts`, `entries.ts`) each wanted a second page or a re-export before a line would fit; a wind sound over the speech-band budget; `tsc -p packages/sim` with no tsconfig there |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was the ceiling: a fifteenth boss is a line in twenty files,
+and three of them had no line left, so a third of the writing was pages cut
+rather than boss written.
+
 ## 2026-09-17 — boss-implementation — three boss tables cut before the next boss
 
 The queue item THE LEAD's landing found: the director's choreographed field

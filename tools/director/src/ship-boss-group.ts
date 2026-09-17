@@ -43,6 +43,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   ledger: "THE LEDGER — the boss that bills your own hull for every shot",
   surge: "THE SURGE — the boss beaten by letting go",
   lead: "THE LEAD — the boss you shoot where it will be",
+  scuttle: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider
