@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · bbef7a80 — A red run's closing message is capped by width as well as by lines
+
+The block under the counts printed the first failure's message twelve lines deep, and a case matching a file's source put the whole file on one `Received:` line — two hundred and forty lines' worth in one. `closingLines` in `junit.ts` caps each line at two hundred characters as well, says how much it cut, and is what `shard.ts` prints.
+
 ## 2026-09-17 · 5ce57a13 — `reconcile-repo.test.ts` keeps its clones in its own directory when a hook lets go
 
 `diverged` read the module-level `dir` back after every `await`, so a case that timed out under load — `afterEach` had removed the directory and cleared `dir` while the clones were still being made — went on with `join("", "ours")` and cloned into the checkout, which the next `bun run land` refused for. The path is a local now and `dir` is written once for the hook; a case clears `dir` under a running `diverged` and expects nothing in the current directory.
