@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 954a65ed — THE INSTAR: the boss with no panel, and the step engine every choreographed scene runs on
+
+A body over a still field that morphs between five poses and will not move on until the pair has done what its own marks ask: pull the jaws apart together, slap the hand while the eggs are swiped off, wind the tongue in, pull the tail up, both thumbs on the head. No control set — the marks are the only thing on the screen, every one the same red, and where it sits on the body says whose thumb it wants. A step's marks must be done inside two beats of each other or the finished one slips back; a window that closes on an undone mark is the part striking the hull, which is the wave. `BossSequenceStep` is the primitive the choreographed page said to build first: a beat list authored in content and read by index in sim, the cursor hashed. Wave 83 THE INSTAR (act 7e, control set `scene`), written up as bosses.md §11.32 and bosses-choreographed.md §16. The simulation and its receipts only: the look — the body that transforms, moves and changes perspective between poses, which the owner asked for by name — is the next lane, and the wave went into the perf baseline unweighed.
+
 ## 2026-09-17 · bb01b142 — THE UNDERTOW's taken plate is a hole in the hull's outline, and a cannon slid off in time closes the plate
 
 The two columns a tall lobe takes (`Scar.plate`) were drawn as the crack every scar is. Now they are a gap: the rim is cut out over them the way it is over a crater's mouth, the ship's deepest colour fills to a jittered floor, and the rim colour runs down both walls and along it, so the outline visibly dips two columns (`plate-gap.ts`, `hull.ts`, `scars.ts`). A look with no shipped alternative.

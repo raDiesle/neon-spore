@@ -10115,3 +10115,5 @@ as the wave, the wave, the sounds, the director's sheet, the write-ups.
 The bottleneck was the receipts, not the mechanism: the sim was done in a
 quarter of the time and the other three quarters were the fourteen files
 outside it that a boss is a name in, each found by a test going red.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
