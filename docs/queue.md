@@ -224,6 +224,7 @@ what the rest of this file holds.
 ## `loop-once.test.ts` found a second fixed-timestep loop once, then did not
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-loop-once-test-ts-found-a-second-fixed-timestep
 - **Files:** `tools/director/test/loop-once.test.ts`, `tools/check/shard.ts`
 
 `check:fast` reported *only stage-loop.ts accumulates a fixed-timestep carry*
