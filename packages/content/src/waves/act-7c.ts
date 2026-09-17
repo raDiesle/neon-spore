@@ -27,14 +27,23 @@ import type { Wave } from "../wave-types.js";
  * know at authoring time.
  *
  * **THE STARE's arrivals are placed against the eye's own cycle**, which is
- * twenty-four beats at the opening rhythm: twelve to play in, four of warning,
- * six watched, two turning back. The rocks are deliberately *inside* the
- * looks — a rock is answered by the dome, which is player 1's, and a colour by
- * the trigger, which is player 2's — so a look that takes one seat is a look
+ * twenty-seven beats at the opening rhythm: twelve to play in, seven of
+ * warning, six watched, two turning back. The rocks are deliberately *inside*
+ * the looks — a rock is answered by the dome, which is player 1's, and a colour
+ * by the trigger, which is player 2's — so a look that takes one seat is a look
  * the pair can still play through if the other control was parked before it
  * landed. The colours sit in the windows, where both seats are free. The looks
  * grow (`stareLookGrowBeats`), so the last window is the short one and the
- * last rock falls with the eye already open. */
+ * last rock falls with the eye already open.
+ *
+ * **Windows 0-12, 27-39, 57-69; looks 19-25, 46-55, 76-88**, measured off the
+ * eye rather than derived — and written up here because the director
+ * round-trips `entries` and a comment inside that array does not survive a save.
+ * Every beat below was re-authored on 17 September 2026, when the tell went
+ * from 4 beats to 7 and the growth from 2 to 3: both moved every window and
+ * every look, and the old rows would have left all six rocks outside theirs.
+ * `stare-windows.test.ts` exists to catch exactly that, because until then the
+ * placement was a sentence in this comment and nothing checked it. */
 export const WAVES_ACT_7C: Wave[] = [
   {
     id: "theScout",
@@ -56,26 +65,26 @@ export const WAVES_ACT_7C: Wave[] = [
     sentence:
       "The one where something is watching, and the one it is watching has to sit on their hands.",
     guide: {
-      both: "An eye over the field. It turns towards one of you for four beats — and only the other seat is told which — then it watches, and that player may not press anything at all until it looks away. Touch a button under it and the hull breaks and the wave starts again. The looks get longer.",
-      p1: "You have the column and the dome, and the four beats of the turn are for parking both. If it is watching you, take your hands off and read the field out. If it is watching them, you can still slide — but nothing fires.",
+      both: "An eye over the field. It turns towards one of you for seven beats — and only the other seat is told which — then it watches, and that player may not press anything at all until it looks away. Touch a button under it and the hull breaks and the wave starts again. The looks get longer.",
+      p1: "You have the column and the dome, and the seven beats of the turn are for parking both. If it is watching you, take your hands off and read the field out. If it is watching them, you can still slide — but nothing fires.",
       p2: "Only your screen says who it has chosen, so say it: THEM or YOU, every time it turns. If it is watching you, the triggers are dead and they have the dome. If not, fire up whatever column they parked in.",
     },
     entries: [
       { beat: 3, col: 2, color: "red" },
       { beat: 6, col: 4, color: "cyan" },
       { beat: 9, col: 1, color: "cyan" },
-      { beat: 17, col: 3, kind: "meteor", color: null },
       { beat: 20, col: 3, kind: "meteor", color: null },
-      { beat: 26, col: 5, color: "red" },
-      { beat: 29, col: 0, color: "red" },
-      { beat: 32, col: 6, color: "cyan" },
-      { beat: 41, col: 2, kind: "meteor", color: null },
-      { beat: 44, col: 4, kind: "meteor", color: null },
-      { beat: 52, col: 3, color: "red" },
-      { beat: 55, col: 1, color: "cyan" },
-      { beat: 58, col: 5, color: "red" },
-      { beat: 67, col: 3, kind: "meteor", color: null },
-      { beat: 72, col: 3, kind: "meteor", color: null },
+      { beat: 23, col: 3, kind: "meteor", color: null },
+      { beat: 29, col: 5, color: "red" },
+      { beat: 32, col: 0, color: "red" },
+      { beat: 35, col: 6, color: "cyan" },
+      { beat: 47, col: 2, kind: "meteor", color: null },
+      { beat: 51, col: 4, kind: "meteor", color: null },
+      { beat: 59, col: 3, color: "red" },
+      { beat: 62, col: 1, color: "cyan" },
+      { beat: 65, col: 5, color: "red" },
+      { beat: 80, col: 3, kind: "meteor", color: null },
+      { beat: 85, col: 3, kind: "meteor", color: null },
     ],
     boss: { kind: "stare" },
   },

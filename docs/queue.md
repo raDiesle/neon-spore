@@ -271,64 +271,6 @@ whole subject. So 24 is twice a flight nobody has flown. The two entries are
 coupled: fix the second arena's geometry, fly it, and take 24 from what it
 measures. Arena one's 40 → 18 can land on its own, today, and should.
 
-## THE STARE's warning is under the spec's own four-second rule
-
-- **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
-- **Taken:** 2026-09-17, claude/queue-the-stares-warning-is-under-the-specs-own-four-s
-- **Files:** `packages/sim/src/config-stare.ts`, `docs/spec/bosses.md`, `docs/spec/latency.md`
-- **Answered:** 17 September 2026 — **7 beats** (4.38s), the first value that meets `latency.md`'s rule as written, so no exemption has to be argued. The cycle becomes an odd length.
-
-`stareTellBeats` is 4, and at 96 bpm a beat is 0.625s, so the warning is 2.50
-seconds. `config-stare.ts` called it three and `docs/spec/bosses.md` said the
-same; both now say two and a half. What the figure has to clear is on one page:
-`docs/spec/latency.md` puts the announcement chain at 2.1–3.6 seconds and then
-sets a rule — *every creature whose defeat requires an announcement needs at
-least 4 seconds from becoming visible to impact, better 5–6*. The tell requires
-an announcement by construction: the seat is rolled at the top of the turn and
-shown only to the seat that is **not** about to be frozen, so the whole of the
-warning is one player saying YOU or THEM. At 2.50s a pair at the slow end of
-their own band has not finished the sentence when the look lands.
-
-The options the answer picks between: **6 beats**, which is 3.75s — the top of
-the exchange band, still under the four-second rule, and one bar of the game's
-own counting; **7 beats**, 4.38s, which is the first value that meets the rule
-as written and makes the cycle an odd length; or **4 beats kept**, with a
-sentence in `latency.md` saying why a freeze is exempt from a rule written for
-a body that has to be shot — the honest case being that nothing is aimed at
-here and a seat that hears the word late loses a press rather than the hull.
-The last is a real answer and the one that costs nothing, but it has to be
-written down rather than left as the silence it is now.
-
-## THE STARE's longest look is a number no pair has seen
-
-- **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
-- **Taken:** 2026-09-17, claude/queue-the-stares-longest-look-is-a-number-no-pair-has
-- **Files:** `packages/sim/src/config-stare.ts`, `packages/content/src/waves/act-7c.ts`
-- **Answered:** 17 September 2026 — **`stareLookGrowBeats` 3**, so the looks run 6, 9, 12 and the third look is the ceiling; the wave as authored then reaches it, with no new arrivals to author or balance.
-
-The looks are 6, then 8, then 10, then 12 and 12 thereafter, and the eye turns
-on beats 12, 36, 62 and 90 — a cycle is 18 beats plus its own look, so it
-lengthens as it goes. THE STARE's wave sends its last rock on beat 72 and a
-rock falls a tile a beat from row 0 to the hull's 14, so the wave is over by
-about beat 86. The fourth look begins at 94. **`stareLookMaxBeats` is a number
-the shipped game never reaches**, and the comment that set it — *reaches the
-maximum in four looks, which is about the length of a wave* — was out by about
-twenty beats.
-
-The looks that do happen are survivable, and that was the other half of what
-this entry's own unverified item asked: every rock the wave sends is authored
-inside a look and every colour inside a working window, and the tightest of
-them, the rock on beat 67 under the ten-beat look, still has six clear beats
-after the eye turns away.
-
-The options the answer picks between: **lengthen the wave** past beat 94 with
-two or three more arrivals, so the longest look is a thing a pair meets and the
-wave earns its ceiling; **grow faster** — `stareLookGrowBeats` 3 makes the
-looks 6, 9 and 12, so the third look is the ceiling and the wave as authored
-reaches it; or **bring the ceiling down to 10**, which changes nothing about
-how the game plays and makes the config describe it. The middle one is the only
-one that changes what a pair feels, and the third is the only one that is free.
-
 ## Three bosses went round `sim/entries.ts` and `sim/events.ts`, both full
 
 - **Found:** 2026-09-17, claude/shared-list-bosses-f7ff91
@@ -348,3 +290,25 @@ surface (one `export * from "./boss-entries.js"` in `index.ts` where the
 block's names are re-exported today), do the same for `events.ts` and
 `events-bosses.ts`, and take the three stray re-exports out of
 `bosses-clocks-b.ts`. `bun run typecheck` proves the surface unchanged.
+
+## `act-7c.ts` is two lines under the 250-line ceiling and cannot take another wave
+
+- **Found:** 2026-09-17, claude/task-queue-progress-abb7a3
+- **Files:** `packages/content/src/waves/act-7c.ts`
+
+The file is at 248 lines. It exists at all because THE STARE took `act-7b.ts`
+twenty-one lines over the same ceiling and the page was cut; it is now one
+paragraph or one wave from the same wall, and the next lane to touch act seven
+will meet it mid-task rather than at the start.
+
+Nothing is wrong with the file — the three waves on it are a coherent page,
+which is the rule an act file is held to ("a page rather than a chapter"). What
+is needed is the cut made deliberately rather than under a red check. THE
+DIASTOLE is the natural one to move: it is the only wave on the page with no
+relation to the other two, it closes the act, and its own doc comment is the
+longest of the three. A new page takes it, `7d` by the same naming rule that
+produced `7c`, and the remaining file drops to about 150 lines with room for
+the boss work act seven still has queued against it.
+
+Proved with `bun run check` — `packages/sim/test/limits.test.ts` holds the
+ceiling and `packages/content/test/waves.test.ts` holds the act ordering.

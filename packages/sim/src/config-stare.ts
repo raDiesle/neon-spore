@@ -27,16 +27,20 @@ export interface StareConfig {
   /**
    * Beats of warning between the eye beginning to turn and the look landing.
    *
-   * **The tell is the whole fairness of the boss**, and 4 beats is two and a
-   * half seconds rather than the three it was chosen as. That is inside
-   * `docs/spec/latency.md`'s 2.1–3.6s for a spoken exchange and under the same
-   * page's floor of four seconds for anything whose answer needs announcing —
-   * which the tell's answer does, because only the other seat is told who. 6
-   * beats would be 3.75s and 7 would be 4.4s; the queue holds the question
-   * rather than this comment, because it is a change to how the boss plays.
-   * Shorter still and the pair is being asked to react rather than to talk,
-   * which is the one thing this game is not; longer and the freeze stops being
-   * a surprise the field can punish.
+   * **The tell is the whole fairness of the boss**, and 7 beats is 4.38s at the
+   * 96 bpm the game ships at. That is the **first value that clears
+   * `docs/spec/latency.md`'s floor** of four seconds for anything whose answer
+   * needs announcing — which the tell's answer does by construction, because
+   * the seat is rolled at the top of the turn and shown only to the seat that
+   * is *not* about to be frozen, so the whole of the warning is one player
+   * saying YOU or THEM. It was 4, which is 2.50s: a pair at the slow end of
+   * that page's own 2.1–3.6s exchange band had not finished the sentence when
+   * the look landed. 6 beats (3.75s) would have been one bar of the game's own
+   * counting and still short of the floor, so it would have needed an
+   * exemption written down; 7 needs none, and costs an odd-length cycle.
+   * Shorter and the pair is being asked to react rather than to talk, which is
+   * the one thing this game is not; longer and the freeze stops being a
+   * surprise the field can punish.
    */
   stareTellBeats: number;
   /**
@@ -58,19 +62,22 @@ export interface StareConfig {
    *
    * The wave tightens rather than repeating: a pair that has learned the
    * rhythm has learned a rhythm that is getting longer, so the last look of a
-   * wave is the one that costs something. 2 beats a look reaches
-   * `stareLookMaxBeats` on the fourth look, which begins at beat 94.
+   * wave is the one that costs something. **3 and not 2**, so the looks run 6,
+   * 9, 12 and reach `stareLookMaxBeats` on the *third* look. At 2 they ran 6,
+   * 8, 10, 12 and the ceiling arrived on a fourth look that began after the
+   * wave was over — a number the shipped game never reached.
    */
   stareLookGrowBeats: number;
   /**
    * The ceiling on that growth. A look nobody could survive is not a look.
    *
-   * **No pair has ever seen it.** THE STARE's wave sends its last rock on beat
-   * 72 and that rock is at the hull by 86, so the wave is over before the
-   * fourth look begins — the three looks a wave actually holds are 6, 8 and
-   * 10, and 12 is a number the shipped game never reaches. The queue holds
-   * what to do about it, because lengthening a wave, growing faster and
-   * lowering this number are three different bosses.
+   * **A wave reaches it on its third look**, which is what
+   * `stareLookGrowBeats` was moved to 3 for. It used to be unreachable: at a
+   * growth of 2 the looks ran 6, 8, 10 and the fourth — the first one this
+   * ceiling would have capped — began after the wave was over, so 12 was a
+   * number the shipped game never produced. The other two ways out were
+   * lengthening the wave and lowering this number to 10; the owner picked the
+   * growth, because it is the only one that changes what a pair feels.
    */
   stareLookMaxBeats: number;
   /**
@@ -86,22 +93,24 @@ export interface StareConfig {
 /**
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
- * Read as one cycle: twelve beats to play, four of warning, six frozen, two
- * turning back — twenty-four beats, which is two bars of the game's own
- * counting and the length a wave's entries are already written against.
+ * Read as one cycle: twelve beats to play, seven of warning, six frozen, two
+ * turning back — twenty-seven beats. **It is deliberately not a whole number
+ * of bars.** It was twenty-four, which was two of them, and the tell had to
+ * grow to 7 to clear `latency.md`'s four-second floor; a rhythm that sat on
+ * the bar would be one the pair could stop listening for, so the odd length
+ * is a cost worth paying rather than a thing to tune back out.
  *
- * **Only the first cycle is twenty-four**, because the look is the part that
- * grows: the second is twenty-six and the third twenty-eight, so the eye
- * turns on beats 12, 36 and 62 rather than every twenty-four. That drift is
- * the boss rather than a flaw in it — a rhythm that stayed on the bar would
- * be a rhythm the pair could stop listening for — but it is the reason a
- * wave's rocks cannot simply be written every twenty-four beats.
+ * **And only the first cycle is twenty-seven**, because the look is the part
+ * that grows: the second is twenty-nine and the third thirty-one, so the eye
+ * turns on beats 12, 39 and 68 rather than on any fixed step. That drift is
+ * the boss rather than a flaw in it, and it is the reason a wave's rocks
+ * cannot simply be written every so many beats.
  */
 export const STARE_DEFAULTS: StareConfig = {
   stareAwayBeats: 12,
-  stareTellBeats: 4,
+  stareTellBeats: 7,
   stareLookBeats: 6,
-  stareLookGrowBeats: 2,
+  stareLookGrowBeats: 3,
   stareLookMaxBeats: 12,
   stareTurnBackBeats: 2,
 };

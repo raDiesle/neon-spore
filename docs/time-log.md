@@ -9689,3 +9689,25 @@ simulation had thirty-two, so every classification had to come off
 `BOSS_KINDS` instead.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — task-queue-work — THE STARE's rhythm, and the wave re-authored under it
+
+Both of THE STARE's queue entries in one lane, because they could not be
+split: the tell going from 4 beats to 7 and the growth from 2 to 3 each move
+every window and every look, and the wave's fifteen arrivals are authored
+against those. Re-authoring twice would have been the same work done twice.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `config-stare.ts`'s six numbers, `stare.test.ts`'s harness, `act-7c.ts`'s entries, §11.16, `latency.md` |
+| writing | 30 | the two numbers and four comments, fifteen re-authored beats, `stare-windows.test.ts`, §11.16, `latency.md`'s new section, a queue entry |
+| looking | 15 | a probe stepping an empty wave to record the eye's phases beat by beat, then the same figures again after the growth changed |
+| friction | 15 | the director's serializer drops a comment written inside `entries`, so the note had to move to the file's doc comment — and that pushed `act-7c.ts` to 253 lines, three over the ceiling, and it had to be written tighter |
+| landing | 15 | `check:fast`, `check`, the commit, `land --keep` |
+
+The bottleneck was that the invariant the wave is built on — a rock inside a
+look, a colour inside a window — lived in a comment and in nothing else, so
+moving the two config numbers left all six rocks outside their looks with every
+test still green. Fifteen minutes went to measuring the cycle properly and
+writing the test that now holds it, which is the only reason the re-authoring
+could be trusted.

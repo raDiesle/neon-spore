@@ -1504,18 +1504,30 @@ author wrote, and the wave is won the ordinary way — by answering all of them.
 | phase | beats | what it is |
 |---|---|---|
 | away | `stareAwayBeats` (12) | the working window. Nothing is forbidden and nobody is chosen |
-| turning | `stareTellBeats` (4) | the warning, and the whole fairness of the boss |
-| looking | `stareLookBeats` (6), plus `stareLookGrowBeats` (2) each time, to `stareLookMaxBeats` (12) — a wave holds three looks, so 12 is never reached | one seat may press nothing at all |
+| turning | `stareTellBeats` (7) | the warning, and the whole fairness of the boss |
+| looking | `stareLookBeats` (6), plus `stareLookGrowBeats` (3) each time, to `stareLookMaxBeats` (12) — so a wave's three looks are 6, 9 and 12, and the third is the ceiling | one seat may press nothing at all |
 | back | `stareTurnBackBeats` (2) | the eye turning away again, which is the picture's and not the rule's |
 
-**Four beats of warning is one spoken sentence** — two and a half seconds, and
-not the three it was written as. `docs/spec/latency.md` puts a spoken exchange
-at 2.1–3.6 seconds, so the tell is inside that band and near its floor; the
-same page's rule that anything needing an announcement gets four seconds is not
-met, and the tell needs one, because only the other seat is told who. The queue
-carries the question, with 6 beats and 7 as the two answers it picks between.
-Shorter and the pair is being asked to react rather than to talk, which is the
-one thing this game is not.
+**Seven beats of warning is one spoken sentence with room to finish it** —
+4.38 seconds at 96 bpm. It was four, which is 2.50s: inside
+`docs/spec/latency.md`'s 2.1–3.6s band for a spoken exchange but under the same
+page's rule that anything needing an announcement gets at least four seconds,
+better five or six. The tell needs one by construction, because only the other
+seat is told who, so a pair at the slow end of their own band had not finished
+saying YOU or THEM when the look landed. Seven is the first value that clears
+the floor; six would have been 3.75s and one bar of the game's own counting,
+and would have needed an exemption written down instead. Shorter and the pair
+is being asked to react rather than to talk, which is the one thing this game
+is not.
+
+**The cycle is deliberately not a whole number of bars.** Twelve, seven, six
+and two is twenty-seven beats, where it used to be twenty-four; and only the
+first is twenty-seven, because the look grows. The eye turns on beats 12, 39
+and 68, and a wave's arrivals are authored against those measured windows
+rather than against a fixed step — `packages/content/test/stare-windows.test.ts`
+measures the eye and holds every row of the wave inside the right phase, which
+is a thing that was a comment until 17 September 2026 and drifted the moment
+these two numbers moved.
 
 **It looks at one of you, and the other one is told which.** The seat is rolled
 from the seeded rng at the top of the turn — the only roll in the boss — and
@@ -1537,7 +1549,7 @@ be a pair who could not put the phone down.
 **The seat that is not watched plays on, alone.** That is the difference
 between this boss and a cutscene, and it is what the wave is authored around:
 a rock is answered by the dome, which is player 1's, and a colour by the
-trigger, which is player 2's, so the four beats of warning are four beats for
+trigger, which is player 2's, so the seven beats of warning are seven beats for
 *parking* both controls as well as for saying whose hands come off.
 
 **What it does not draw yet**, and it is the lane after this one: the eye

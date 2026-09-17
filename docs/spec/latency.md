@@ -25,6 +25,23 @@ tile size: two devices that disagree about the height of the field disagree
 about when a creature reaches the hull. The tile shrinks to fit instead. See
 `hullRow()` in `packages/sim/src/config.ts`.
 
+## The other place the rule applies: a boss's tell
+
+**The geometry is not the only clock the four seconds has to fit inside.** A
+boss whose warning is shown to one seat and acted on by the other runs the same
+announcement chain as a falling creature, and it does not get the 14 beats the
+field gives for free — it gets whatever its own tell is authored at. That was
+missed once: THE STARE's `stareTellBeats` was 4, which is 2.50 s, so a pair at
+the slow end of the 2.1–3.6 s band had not finished saying YOU or THEM when the
+freeze landed. It is 7 now, which is 4.38 s (`packages/sim/src/config-stare.ts`).
+
+So the rule reads, in full: **anything a pair has to say out loud before they
+can answer it needs four seconds from the moment the first of them can see it**
+— whether that clock is the field's height or a number in a boss's config. A
+tell shorter than that needs a sentence on this page saying why it is exempt,
+and "the seat that hears late loses a press rather than the hull" is the kind
+of reason that would count. Silence is not.
+
 ## Still to measure
 
 The 900 ms trigger window (`guardWindowMs`) decides whether the shared defence
