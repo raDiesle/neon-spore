@@ -763,6 +763,7 @@ it, and the wave's one-sentence test has to still read true afterwards.
 ## Nothing but a real thumb can turn THE ORRERY's ring
 
 - **Found:** 2026-09-17, claude/orrery-hand
+- **Taken:** 2026-09-17, claude/queue-nothing-but-a-real-thumb-can-turn-the-orrerys-ri
 - **Files:** apps/game/src/keys-crank.ts, tools/frames/crank.ts, packages/content/src/scene-drag.ts, packages/sim/src/orrery-hand.ts
 
 A bearing control is not a press and not a distance: what turns anything is
