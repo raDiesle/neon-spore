@@ -221,4 +221,20 @@ export const CHOREO_FIELD_GROUP = {
   surgeNearSlowBeats: "THE SURGE — the boss beaten by letting go",
   surgeEvertBeats: "THE SURGE — the boss beaten by letting go",
   surgeOutBeats: "THE SURGE — the boss beaten by letting go",
+  // LeadConfig — how many segments, how long a shot hangs, the three paces,
+  // from which segment it runs and from which the lean says the turn early,
+  // how long the last still is, the run's two cadences, THE SLOW on the
+  // judged beat, and how long the wave holds after (`config-lead.ts`).
+  leadSegments: "THE LEAD — the boss you shoot where it will be",
+  leadFlightBeats: "THE LEAD — the boss you shoot where it will be",
+  leadPaceCols: "THE LEAD — the boss you shoot where it will be",
+  leadFastCols: "THE LEAD — the boss you shoot where it will be",
+  leadPassCols: "THE LEAD — the boss you shoot where it will be",
+  leadFastSegments: "THE LEAD — the boss you shoot where it will be",
+  leadForecastSegments: "THE LEAD — the boss you shoot where it will be",
+  leadStillBeats: "THE LEAD — the boss you shoot where it will be",
+  leadTorchEveryBeats: "THE LEAD — the boss you shoot where it will be",
+  leadRockEveryBeats: "THE LEAD — the boss you shoot where it will be",
+  leadSlowBeats: "THE LEAD — the boss you shoot where it will be",
+  leadOutBeats: "THE LEAD — the boss you shoot where it will be",
 } satisfies Record<string, GroupName>;

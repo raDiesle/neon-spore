@@ -76,6 +76,10 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // cannon cannot touch, that throws nothing but what its own bursts throw
   // (`surge-seam.ts`) — and from its second notch the wave's arrivals are
   // its food, so shooting them is the other thing the hands are for.
+  // THE LEAD is the fourteenth: a body pacing over the top of the field with
+  // nothing of itself on the grid, that falls only what its run drops behind
+  // and ahead of itself (`lead-step.ts`). The arrivals under it are authored,
+  // so that a shot put ahead of the body is a shot not put into the wave.
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -89,7 +93,8 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
     kind !== "taster" &&
     kind !== "sinew" &&
     kind !== "ledger" &&
-    kind !== "surge"
+    kind !== "surge" &&
+    kind !== "lead"
   );
 }
 
@@ -164,4 +169,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "sinew",
   "ledger",
   "surge",
+  "lead",
 ];

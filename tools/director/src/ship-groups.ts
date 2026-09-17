@@ -31,6 +31,7 @@ export type GroupName =
   | "THE SINEW — the boss that asks how hard, not when"
   | "THE LEDGER — the boss that bills your own hull for every shot"
   | "THE SURGE — the boss beaten by letting go"
+  | "THE LEAD — the boss you shoot where it will be"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -114,6 +115,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE SINEW — the boss that asks how hard, not when",
   "THE LEDGER — the boss that bills your own hull for every shot",
   "THE SURGE — the boss beaten by letting go",
+  "THE LEAD — the boss you shoot where it will be",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",
@@ -194,6 +196,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE SINEW — the boss that asks how hard, not when",
   "THE LEDGER — the boss that bills your own hull for every shot",
   "THE SURGE — the boss beaten by letting go",
+  "THE LEAD — the boss you shoot where it will be",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",

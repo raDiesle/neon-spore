@@ -6,6 +6,7 @@ import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { gorgeStruck } from "./gorge-step.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
+import { leadStruck } from "./lead-shot.js";
 import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { orreryStruck } from "./orrery-shot.js";
@@ -158,5 +159,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   tasterStruck(world, b);
   // And THE LEDGER's seam, which the beam widens like a bolt would.
   ledgerStruck(world, b);
+  // And THE LEAD's last pass, which only a beam standing in its column ends
+  // (`lead-shot.ts`).
+  leadStruck(world, b);
   return 0;
 }

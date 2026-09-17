@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE LEAD, the simulation
+
+Lane one of the seventh boss off the choreographed list, straight after THE
+SURGE's look. A body pacing the top of the field with a stalk of five
+segments; a bolt out of the top hangs a beat in the air and is judged against
+the column the body is in *then*, one segment a hit, a turn-round on a beat
+every shot missed; a run with a torch behind and a rock ahead from the
+fourth segment, the lean forecasting the wall turn from the second, a still
+on the last and a pass only the standing beam ends. Six sim files and
+fourteen wired in, a new act page, fourteen sounds, the director's sheet,
+nineteen tests, §11.29.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the design's §11, THE SURGE's and THE LEDGER's sim files as the pattern, `bullets.ts` and `lance-burn.ts` for where a bolt leaves the top, the audio band test |
+| writing | 60 | six sim files, the wiring across sixteen, the wave and its guide, the sounds and their binder, the director's fields and notes, nineteen tests, the write-up |
+| looking | 0 | nothing to look at: a fixture with no picture yet |
+| friction | 20 | a test helper that placed the body where a running body no longer was, three times; the down's sound over the speech band twice; `wave-boss.ts` and `bosses-clocks.ts` each over the ceiling by a handful of lines; a context compaction mid-lane |
+| landing | 10 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was the ceilings: two barrels and an installer at 250 lines
+each cost a cut or a shortened comment before a boss with six files of its
+own could be wired in, and the director's two tables are next.
+
 ## 2026-09-17 — boss-implementation — THE SURGE, the look
 
 Lane two of the sixth boss: a ribbed bulb over the middle of the field with a

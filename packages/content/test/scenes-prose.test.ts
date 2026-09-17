@@ -90,6 +90,10 @@ const STILL_PROSE = [
   // notches, a gauge with a band on it and two thumbs on one glass, none of
   // which is drawn yet.
   "THE SURGE",
+  // And THE LEAD, owed by the lane that draws the body: a stalk of five
+  // segments, a lean and a column read by seat, and a shot hanging over the
+  // top of the field, none of which is drawn yet.
+  "THE LEAD",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -116,8 +120,8 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix = "update §1 of docs/spec/briefings.md, which says eighty-two of ninety-one";
-    expect(guided.length, fix).toBe(82);
-    expect(WAVES.length, fix).toBe(91);
+    expect(guided.length, fix).toBe(83);
+    expect(WAVES.length, fix).toBe(92);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

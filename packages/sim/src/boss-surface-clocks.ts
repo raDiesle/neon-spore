@@ -83,6 +83,16 @@ export {
   // leaning on is on the screen already, in every edge the fan has set, and
   // the colour the beam has to be is the one thing in this fight nobody is
   // shown (`taster-draw.ts`).
+  // THE LEAD's entry, which authors nothing — the director's own guard
+  // narrows on it (`tools/director/src/boss-nothing.ts`) — and then the body,
+  // which two screens read different halves of: the column and the lean.
+  // `leadAim` and `leadHeading` are the ones a *picture* asks about a beat
+  // that has not happened, and neither screen draws the answer: they are
+  // for the test that proves the sum the pair is doing comes out
+  // (`lead.ts`, `render/lead-draw.ts`).
+  type LeadEntry,
+  type LeadFlight,
+  type LeadState,
   // THE LEDGER's entry, which authors nothing — the director's own guard
   // narrows on it (`tools/director/src/boss-nothing.ts`) — and then the cord
   // itself, which two screens read different halves of: where the body is and
@@ -96,6 +106,16 @@ export {
   type LedgerEntry,
   type LedgerPhase,
   type LedgerState,
+  leadAim,
+  leadBoss,
+  leadForecasts,
+  leadHeading,
+  leadLast,
+  leadPace,
+  leadPassing,
+  leadRunning,
+  leadShootable,
+  leadStill,
   ledgerBoss,
   ledgerCovers,
   ledgerLetThrough,

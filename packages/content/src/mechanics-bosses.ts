@@ -29,6 +29,7 @@ type BossId = Extract<
   | "sinew"
   | "ledger"
   | "surge"
+  | "lead"
 >;
 
 /**
@@ -138,6 +139,10 @@ export const BOSS_MECHANICS = {
   },
   surge: {
     what: "The one boss beaten by letting go. A bulb hangs over the middle column with its seam shut, and a thumb from either seat on it charges it a step a beat, two thumbs two steps, none at all and it leaks. Its seam has five notches, and a notch opens only when both thumbs come off inside a band round the notch's pressure, the second lift within a beat of the first; the pilot alone sees the seam and where the band sits, the navigator alone sees the pressure, and the field slows as the pressure comes into the band. A second lift a beat late, or one thumb alone, loses the charge. A lift over the band, or the pressure reaching the top of the gauge on the beat, bursts it: both thumbs thrown off, three gums thrown down its columns, two beats in which nothing takes hold, and from the third notch a notch closed again. Every notch open sinks the bulb a row, sets the next notch higher and its band no wider; from the second it holds its charge with no thumb on it and eats whatever falls into its columns, and from the third a thumb charges it at double. The last notch's band ends one under the burst; vented, the bulb turns inside out and the wave ends.",
+    reach: "spawn",
+  },
+  lead: {
+    what: "The one boss shot where it will be, not where it is. A body paces along the top of the field on a stalk of five segments, a column a beat, turning at the walls, and the stalk is its health. A bolt out of the top of the field is not judged where it leaves but a beat later, against the column the body is in then — so the column to fire from is the column it will be in, which is the sum the pair is doing out loud. A hit takes a segment, one a beat at most however many arrive; a beat on which every shot in the air missed turns it round, so a wrong sum costs the next one too. The pilot alone sees the stalk lean where it goes next; the navigator alone sees the column it stands in. From the fourth segment it runs two columns a beat and litters the field — a torch in the column it left, a rock in the column a shot has to go to. From the second the lean says the turn a beat early. Every judged beat opens THE SLOW. On the last segment it stops dead and nothing reaches it; on the still's last beat the stalk leans the way it will go, then it crosses to the farther wall three columns a beat, and a wall is another still and a pass back. Only the beam standing in a column the pass goes through takes the last segment, and the wave ends.",
     reach: "spawn",
   },
   undertow: {

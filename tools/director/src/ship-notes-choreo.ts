@@ -209,6 +209,23 @@ export const CHOREO_NOTES = {
     "a burst shuts a notch. The last vent everts it over surgeEvertBeats and " +
     "holds the wave surgeOutBeats more. Nothing about it is authored per " +
     "wave. See sim/surge.ts, sim/config-surge.ts.",
+  "THE LEAD — the boss you shoot where it will be":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §11: " +
+    "the boss the pair has to shoot where it is not yet. A body on a stalk of " +
+    "leadSegments segments comes in over the middle and paces leadPaceCols a " +
+    "beat, turning at the walls. A shot out of the top hangs leadFlightBeats " +
+    "and is judged against the column the body is in then; a hit takes a " +
+    "segment, one a beat at most, and a beat every shot missed turns it " +
+    "round. Every judged beat opens THE SLOW leadSlowBeats. From " +
+    "leadFastSegments it runs leadFastCols a beat, dropping a torch behind " +
+    "every leadTorchEveryBeats and a rock ahead every leadRockEveryBeats; " +
+    "from leadForecastSegments the lean says the beat after next. The last " +
+    "segment stops it leadStillBeats, unhittable, the lean giving the pass " +
+    "away on the last of them; then it crosses to the farther wall " +
+    "leadPassCols a beat, and a wall is another still. Only the beam " +
+    "standing in a column the pass goes through takes it, and the wave " +
+    "holds leadOutBeats more. Nothing about it is authored per wave. See " +
+    "sim/lead.ts, sim/config-lead.ts.",
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

@@ -6,6 +6,7 @@ import { hullRow, ticksPerBeat } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { gorgeStruck } from "./gorge-step.js";
+import { leadStruck } from "./lead-shot.js";
 import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
@@ -192,6 +193,9 @@ function sweep(world: World, b: Bullet): boolean {
     // And THE LEDGER's seam, which only the middle column of it is, and only
     // in the colour it is showing (`ledger-shot.ts`).
     ledgerStruck(world, b);
+    // And THE LEAD's air: a bolt out of the top is put in flight above the
+    // field, to be judged against the body on a later beat (`lead-shot.ts`).
+    leadStruck(world, b);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

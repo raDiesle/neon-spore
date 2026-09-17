@@ -4,6 +4,7 @@ import { candleCue } from "./bind-candle.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
 import { gorgeCue } from "./bind-gorge.js";
+import { leadCue } from "./bind-lead.js";
 import { ledgerCue } from "./bind-ledger.js";
 import { sinewCue } from "./bind-sinew.js";
 import { surgeCue } from "./bind-surge.js";
@@ -34,7 +35,8 @@ type ChoreographedEvent = Extract<
       | `taster${string}`
       | `ledger${string}`
       | `sinew${string}`
-      | `surge${string}`;
+      | `surge${string}`
+      | `lead${string}`;
   }
 >;
 
@@ -129,6 +131,21 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "surgeEvert":
     case "surgeOut":
       return surgeCue(e, cols);
+    case "leadEnter":
+    case "leadPace":
+    case "leadTurn":
+    case "leadFlight":
+    case "leadHit":
+    case "leadMiss":
+    case "leadReverse":
+    case "leadTorch":
+    case "leadRock":
+    case "leadStill":
+    case "leadPass":
+    case "leadWall":
+    case "leadDown":
+    case "leadOut":
+      return leadCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

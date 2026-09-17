@@ -212,6 +212,22 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.surgeEvert": "the last notch gone and the sac turning inside out. Same argument.",
   "boss.surgeOut":
     "the bulb gone. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
+  "boss.leadEnter":
+    "the body taking its place over the middle column. It is a walker on a stalk, which is not a card (`sim/lead.ts`).",
+  "boss.leadPace": "one pace along the top of the field. Same argument.",
+  "boss.leadTurn": "the body turning at a wall. Same argument.",
+  "boss.leadFlight": "a shot hanging over the top of the field. Same argument.",
+  "boss.leadHit": "a segment coming off the stalk. Same argument.",
+  "boss.leadMiss": "a shot judged against an empty column. Same argument.",
+  "boss.leadReverse": "the body turning on a beat every shot missed. Same argument.",
+  "boss.leadTorch": "a torch dropped behind. Same argument.",
+  "boss.leadRock": "a rock let go ahead. Same argument.",
+  "boss.leadStill": "the body stopping dead on its last segment. Same argument.",
+  "boss.leadPass": "the pass to the farther wall. Same argument.",
+  "boss.leadWall": "the pass hitting the wall. Same argument.",
+  "boss.leadDown": "the last segment taken by the beam. Same argument.",
+  "boss.leadOut":
+    "the body gone. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",

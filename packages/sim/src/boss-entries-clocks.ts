@@ -191,3 +191,13 @@ export interface LedgerEntry {
 export interface SurgeEntry {
   kind: "surge";
 }
+
+/**
+ * What a wave authors when it wants THE LEAD: nothing, the thirteenth. The
+ * body comes in over the middle column facing right with every segment on
+ * the stalk; how far ahead a shot has to be put is tuning, and where it
+ * will be is the pair's sum (`lead.ts`, `config-lead.ts`).
+ */
+export interface LeadEntry {
+  kind: "lead";
+}

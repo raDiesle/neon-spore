@@ -74,6 +74,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-taster.ts", "export type TasterEvent ="],
     ["packages/sim/src/events-sinew.ts", "export type SinewEvent ="],
     ["packages/sim/src/events-surge.ts", "export type SurgeEvent ="],
+    ["packages/sim/src/events-lead.ts", "export type LeadEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -201,6 +202,20 @@ const SAMPLES: Record<string, SimEvent> = {
   surgeClose: { type: "surgeClose", col: 5, notches: 2 },
   surgeEvert: { type: "surgeEvert", col: 5, row: 8 },
   surgeOut: { type: "surgeOut", col: 5 },
+  leadEnter: { type: "leadEnter", col: 5, dir: 1 },
+  leadPace: { type: "leadPace", col: 6, dir: 1, lean: 1 },
+  leadTurn: { type: "leadTurn", col: 10, dir: -1 },
+  leadFlight: { type: "leadFlight", col: 7, dueBeat: 12 },
+  leadHit: { type: "leadHit", col: 7, segments: 4 },
+  leadMiss: { type: "leadMiss", col: 3 },
+  leadReverse: { type: "leadReverse", col: 7, dir: -1 },
+  leadTorch: { type: "leadTorch", col: 5 },
+  leadRock: { type: "leadRock", col: 9 },
+  leadStill: { type: "leadStill", col: 4 },
+  leadPass: { type: "leadPass", col: 4, dir: 1 },
+  leadWall: { type: "leadWall", col: 10 },
+  leadDown: { type: "leadDown", col: 7 },
+  leadOut: { type: "leadOut", col: 7 },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

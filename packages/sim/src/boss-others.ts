@@ -7,6 +7,7 @@ import { stepCurtain } from "./curtain-step.js";
 import { stepDiastole } from "./diastole-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepGorge } from "./gorge-step.js";
+import { stepLead } from "./lead-step.js";
 import { stepLedger } from "./ledger-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
@@ -149,6 +150,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // judged by are on the tick (`surge-hand.ts`, from `step.ts`).
   if (boss.kind === "surge") {
     stepSurge(world, boss);
+    return;
+  }
+  // THE LEAD on the beat is the body's clock: the pace, the shots judged
+  // against where it now is, the run's litter, the still and the pass. The
+  // shot leaving the top of the field is on the tick (`lead-shot.ts`).
+  if (boss.kind === "lead") {
+    stepLead(world, boss);
     return;
   }
   if (boss.kind === "vane") {

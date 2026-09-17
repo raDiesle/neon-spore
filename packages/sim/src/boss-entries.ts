@@ -4,6 +4,7 @@ import type {
   CurtainEntry,
   DiastoleEntry,
   GorgeEntry,
+  LeadEntry,
   LedgerEntry,
   OrreryEntry,
   SinewEntry,
@@ -186,7 +187,8 @@ export type BossEntry =
   | TasterEntry
   | SinewEntry
   | LedgerEntry
-  | SurgeEntry;
+  | SurgeEntry
+  | LeadEntry;
 
 // The eleven that are a clock and author nothing (`boss-entries-clocks.ts`).
 export type {
@@ -195,6 +197,7 @@ export type {
   CurtainEntry,
   DiastoleEntry,
   GorgeEntry,
+  LeadEntry,
   LedgerEntry,
   OrreryEntry,
   SinewEntry,

@@ -118,6 +118,12 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // would otherwise have to let go to guard against. A field of colours alone
   // would let the navigator shoot without a thumb coming off.
   "THE SURGE": ["meteor"],
+  // THE LEAD introduces no creature either — what is new is a shot judged a
+  // beat after it leaves, against a column the body has walked to — and the
+  // rock is on it for the shield's sake: a body under the lead costs a shot
+  // fired at where something *is*, and a rock is the one body the pilot can
+  // answer without the cannon leaving the column the pair has agreed on.
+  "THE LEAD": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

@@ -7,6 +7,7 @@ import { installDiastole } from "./diastole-step.js";
 import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
 import { installGorge } from "./gorge-step.js";
+import { installLead } from "./lead-step.js";
 import { installLedger } from "./ledger-step.js";
 import { installMaze } from "./maze-state.js";
 import { installMirror } from "./mirror.js";
@@ -198,10 +199,13 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // shake out of it — until the last fibre drops the mass (`sinew-step.ts`).
     world.boss = installSinew(world);
   } else if (boss?.kind === "surge") {
-    // No creature and no row: a bulb over the middle columns that the
-    // cannon cannot touch, charged by thumbs and vented by their lifting,
-    // and throws nothing but what its bursts throw (`surge-step.ts`).
+    // No creature and no row: a bulb over the middle columns the cannon cannot
+    // touch, charged by thumbs and vented by their lifting (`surge-step.ts`).
     world.boss = installSurge(world);
+  } else if (boss?.kind === "lead") {
+    // No creature and no row: a body pacing the top of the field, ahead of
+    // which a shot is put; it drops only what its run drops (`lead-step.ts`).
+    world.boss = installLead(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

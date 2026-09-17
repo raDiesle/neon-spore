@@ -172,4 +172,21 @@ export const SILENT_BOSS = [
   "surgeClose",
   "surgeEvert",
   "surgeOut",
+  // THE LEAD's fourteen, silent until the look lane draws the body: what
+  // sparks will be one family read above the loop by `lead-fx.ts`, never
+  // rows here (`docs/spec/bosses.md` §11.29).
+  "leadEnter",
+  "leadPace",
+  "leadTurn",
+  "leadFlight",
+  "leadHit",
+  "leadMiss",
+  "leadReverse",
+  "leadTorch",
+  "leadRock",
+  "leadStill",
+  "leadPass",
+  "leadWall",
+  "leadDown",
+  "leadOut",
 ] as const satisfies readonly SimEvent["type"][];

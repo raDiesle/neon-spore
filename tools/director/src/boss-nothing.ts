@@ -6,6 +6,7 @@ import type {
   DiastoleEntry,
   GaugeEntry,
   GorgeEntry,
+  LeadEntry,
   LedgerEntry,
   OrreryEntry,
   ScoutEntry,
@@ -87,6 +88,12 @@ import type {
  *   health so there is no number, and where every notch sits is the same
  *   gauge on every wave — the pair's whole skill is the timing, not the
  *   finding (`sim/config-surge.ts`).
+ * - **THE LEAD** asks for nothing for THE THROAT's reason said about a body
+ *   rather than a mouth: it comes in over `midCol` so there is no column, the
+ *   five segments of its stalk are the health so there is no number, and
+ *   where it is on any beat is what the pair has hit and missed — a wave
+ *   that authored its path would be a boss with its sum printed on it
+ *   (`sim/config-lead.ts`).
  *
  * - **THE TASTER** asks for nothing, and it is the one where the *absence* is
  *   the boss: the crest is centred so there is no column, the fan is the
@@ -124,7 +131,8 @@ export function bossAuthorsNothing(
   | TasterEntry
   | SinewEntry
   | LedgerEntry
-  | SurgeEntry {
+  | SurgeEntry
+  | LeadEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -145,6 +153,7 @@ export function bossAuthorsNothing(
     kind === "taster" ||
     kind === "sinew" ||
     kind === "ledger" ||
-    kind === "surge"
+    kind === "surge" ||
+    kind === "lead"
   );
 }

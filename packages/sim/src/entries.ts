@@ -210,6 +210,7 @@ export type {
   FleetEntry,
   GaugeEntry,
   GorgeEntry,
+  LeadEntry,
   LedgerEntry,
   MazeEntry,
   MirrorEntry,

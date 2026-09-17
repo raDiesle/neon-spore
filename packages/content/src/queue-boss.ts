@@ -146,6 +146,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // is as wide as `surgeBulbCols` lets it be, so there is nothing to remap
   // (`sim/surge-step.ts`).
   if (boss.kind === "surge") return { ...boss };
+  // THE LEAD comes in over `midCol` of whatever field is played and walks
+  // between whatever walls it has, so there is nothing to remap
+  // (`sim/lead-step.ts`).
+  if (boss.kind === "lead") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

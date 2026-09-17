@@ -223,6 +223,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // are what the fixture's world has moved by the time it is fingerprinted
   // (`surge-hash.ts`).
   surge: { kind: "surge" },
+  // THE LEAD authors nothing either: the segments, the paces and the flight
+  // are tuning (`config-lead.ts`), and the column, the way, the lean, the
+  // stalk and every shot in the air are what the fixture's world has moved
+  // by the time it is fingerprinted (`lead-hash.ts`).
+  lead: { kind: "lead" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -627,5 +632,17 @@ function patchBoss(world: World): void {
     boss.burstBeat = 3;
     boss.evertBeat = 4;
     boss.outBeat = 5;
+  }
+  if (boss.kind === "lead") {
+    // Off the middle and turned, leaning, a segment down, one shot in the
+    // air, and every clock that only the last movement sets given a beat.
+    boss.col = 3;
+    boss.dir = -1;
+    boss.lean = -1;
+    boss.segments = 4;
+    boss.flights = [{ col: 2, dueBeat: 7 }];
+    boss.stillBeat = 2;
+    boss.passBeat = 3;
+    boss.downBeat = 4;
   }
 }

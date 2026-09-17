@@ -156,6 +156,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   ledger: { wave: "theLedger" },
   sinew: { wave: "theSinew" },
   surge: { wave: "theSurge" },
+  lead: { wave: "theLead" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "firstStep", config: { briefings: true } },

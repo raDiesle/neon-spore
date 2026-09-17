@@ -33,6 +33,7 @@ export {
   type FleetEntry,
   type GaugeEntry,
   type GorgeEntry,
+  type LeadEntry,
   type LedgerEntry,
   type OrreryEntry,
   type PinballEntry,
@@ -79,6 +80,26 @@ export {
   shipRow,
   shipSunk,
 } from "./fleet-board.js";
+// THE LEAD is a boss with a *place* and no clock — a column, a way and a
+// lean — which is why it is here and not among the counts next door
+// (`lead.ts`, `config-lead.ts`).
+export {
+  type LeadFlight,
+  type LeadState,
+  leadAim,
+  leadBoss,
+  leadCrossed,
+  leadForecasts,
+  leadHeading,
+  leadLast,
+  leadPace,
+  leadPassDir,
+  leadPassing,
+  leadRunning,
+  leadShootable,
+  leadStill,
+  leadWalk,
+} from "./lead.js";
 export {
   MAZE_PHASES,
   MAZE_TURN,

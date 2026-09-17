@@ -3477,3 +3477,138 @@ it is out five beats later, the boss gone two after and the wave wants its
 next; and the same run fingerprints the same way twice and differently for
 another seed (`sim/test/surge.test.ts`). Nothing of it has been seen in a
 frame.
+
+## 11.29 THE LEAD — the boss you shoot where it will be
+
+> The one where you fire at where it is going, and only one of you knows
+> which way that is.
+
+Designed as §11 of [bosses-choreographed](bosses-choreographed.md), where
+the argument for it is: a shot in this game climbs its column tile by tile
+and every boss so far has held still long enough not to care. This one makes
+the flight time the whole mechanic, and then splits the two terms of the sum
+across the two phones — her column, his direction — so that the lead is a
+number the pair has to say. It is the one concept on that page whose split
+is arithmetic rather than occlusion, and its design depends on a refusal
+already in the game: `grippable.ts` refuses a hand on a boss body, which is
+the only reason THE LOCK does not solve it outright.
+
+**It is a fixture, not a body.** Nothing of it is in `world.creatures`: the
+state (`sim/lead.ts`, hashed in `sim/lead-hash.ts`) is the column it stands
+over, the way it faces, the **lean** its stalk shows, the `segments` left on
+the stalk (`leadSegments`, 5), the shots in the air above the field with the beat each comes
+due, and three beat stamps — stopped dead, the pass began, down. It paces
+along the top of the field, above row 0, at `leadPaceCols` (1) a beat and
+turns at the walls (`leadWalk`: stop at the wall, face away from it), and
+enters at `midCol` facing right. It does not fill its wave
+(`bossFillsWave`): `act-7e.ts`'s "THE LEAD" carries its own arrivals, thin
+and never in the body's own column, because every body under it costs a
+shot fired at where something *is*.
+
+**The rule, in one sentence.** A bolt that nothing on the field stopped and
+that leaves through the top (`sim/lead-shot.ts`, called from `bullets.ts`
+and `lance-burn.ts` beside `ledgerStruck`) is put into the air
+(`leadFlight`) due `leadFlightBeats` (1) later, and on that beat — after the
+body has moved — it is **judged** against the body's column: a segment off
+the stalk if it is there (`leadHit`, one a beat however many arrive), a
+**miss** if not (`leadMiss`), and a beat on which every judged shot missed
+turns the body round (`leadReverse`), so a wrong sum costs the pair the next
+one as well. THE SLOW opens for `leadSlowBeats` (1) on every judged beat,
+hit or miss. With the climb up the field, which is about a beat at
+`bulletTilesPerBeat`, the pair's lead at a walk is two columns — the
+design's own number. From `leadFastSegments` (4) left it **runs**
+(`leadFastCols`, 2 a beat), and drops a torch in the column it just left
+every `leadTorchEveryBeats` (3) and a rock in the column a shot has to be
+put in every `leadRockEveryBeats` (4) (`leadTorch`, `leadRock`,
+`spawnOne`); from `leadForecastSegments` (2) the lean says where it goes
+the *beat after next* rather than next — the wall turn a beat early
+(`leadHeading`). On the fourth hit it **stops dead** (`leadStill`), stalk
+upright, for `leadStillBeats` (4): nothing touches it, the shots still in
+the air are nothing, and a bolt out of the top is not even put into the
+air. On the still's last beat the stalk gives the pass away, and it goes
+toward the farther wall (`leadPass`, `leadPassDir`: the middle goes right)
+at `leadPassCols` (3) a beat, ending only where **the beam is standing the
+whole way up a column it goes through** on that beat (`beamAcross`,
+`world.beam.topMilli === 0`), or where a beam is fired up its own column
+during the pass — `leadDown`, and `leadOut` with the boss gone
+`leadOutBeats` (3) later. A pass that reaches the wall is another still
+(`leadWall`) and a pass back the other way. A beam before the last segment
+burns its column and touches nothing.
+
+**The split is the eyes, and it is the look lane's.** Player 1 is to be
+shown the lean and never the column; player 2 the column (the aim radar is
+hers) and never the lean (`showsLeadLean`, `showsLeadCol` in
+`render/view-role-clocks.ts`, unbuilt). Nothing in the simulation depends
+on it: `lean` is a field on the state the pilot's drawer reads, and the
+column is the state's own. The sentence between them is *six, going left,
+lead it two* — and when the stalk is short, *going left, and it turns next
+beat*.
+
+**Where this departs from the design, and why.** Eight places, each argued
+by name. *The flight is one beat above the field rather than "two beats"*:
+the design counts the lead from the cannon, and a bolt already takes about
+a beat to climb fifteen rows at `bulletTilesPerBeat`, so one beat in the
+air over the top makes the lead two at a walk and four at a run, which are
+the design's steps 2 and 6 exactly; two beats over the top would have made
+it three and six. *Nothing is timed on a call*: steps 2, 3 and 10 give
+900 ms for a number or an angle to be called, and the game never evaluates
+speech (`CLAUDE.md` rule 5) — the body paces whether or not anything is
+said, and what a late call costs is the sum being one beat staler. *Wall
+turns are the walk's own, not an eight-beat circuit*: step 11's "the full
+width and back in eight beats" is a pace fixed to the field's width, and
+the field is eleven columns; the body stops at the wall and faces away
+(`leadWalk`), at whatever pace it has, and the forecast lean from the
+second segment is what makes step 9's *the lean lies, once* — it does not
+lie, it predicts. *It stops dead where it is hit, not "in the middle of the
+field"*: a body that walked to the middle before standing still would be
+telling the navigator its column for free on the beats the design wants
+honest and invulnerable, and the still is honest enough with the stalk
+upright. *The pass goes to the farther wall, and a wall is another still*:
+step 14's "the beam burns an empty column and it reaches the wall" is
+written as the fight lost, but every hull damage already fails the whole
+wave (12 September 2026, `wave-fail.ts`) and a pass missed is not a scar;
+so the wall is a second still and a pass back — the pair gets the sum again
+with the sign flipped, and gets it until they have it. *Ordinary bolts do
+nothing from the last segment on*: step 13–14 have the beam as the answer
+to the last segment, and a bolt that could take it too would make the hold
+a formality; so a bolt out of the top on the still or the pass is not even
+put into the air, and a beam before the last segment is likewise nothing. *The
+torch and the rock are on a cadence, not one each pace*: step 7's "a torch
+off its trailing end" every beat at two columns a beat would be a torch a
+column across the whole run, a wall rather than a hazard, and the shield is
+one seat's other hand; every third beat and every fourth, offset, is a
+field the pair can still fire through. *The stalk's spring, the whip, the
+target lock and the bolt's drawn trail are the look's*: the design's
+presentation is entirely in the drawing, and this lane hangs nothing on it
+— `leadPace` carries the lean each beat, `leadReverse` carries the flip,
+and the look decides what the stalk does between two beats.
+
+**What is not built.** The picture: no body, no stalk, no lean drawn either
+way; every one of the fourteen events is listed silent
+(`effects-ingest-silent-boss.ts`, `effects-spark-silent-boss.ts`) with the
+look lane named as the reason, and the wave plays on the ordinary field
+with the boss unseen. The split above is unbuilt with it. The sounds are
+built (`audio/bind-lead.ts`, `sounds/boss-lead.ts`): every event cued in
+its column, the hit dropping a semitone's worth with every segment gone.
+
+**Never watched at tempo.** What the tests say is the mechanism: it
+installs over the middle facing right with every segment on the stalk and
+sends `leadEnter`; it is a fixture that holds its wave and, walking, falls
+nothing of its own; it moves one column a beat with the stalk leaning where
+it goes next, turns at the wall with the lean flipping on the beat it gets
+there, and walks by the rule the pair is told; a bolt out of the top is put
+into the air due one flight later; a shot put where the body will be takes
+a segment and opens THE SLOW; a beat every shot missed turns it round and
+the lean flips with it; one segment a beat however many arrive, and a hit
+beside a miss is a hit; from the fourth segment it runs at the fast pace
+and drops a torch in the column it left and a rock where a shot has to go;
+from the second segment it leans the wall turn a beat early; on the fourth
+hit it stops dead, stalk upright, and lets nothing through to it; it gives
+the pass away on the still's last beat and then goes toward the farther
+wall; it stands still again at the wall and passes back; it is ended by the
+beam standing in a column the pass goes through, and the wave ends after;
+it is ended by a beam fired up its own column on the pass; it walks past a
+beam that something on the field stopped short of the top; and the same
+run fingerprints the same way twice, and moves with a shot in the air
+(`sim/test/lead.test.ts`, nineteen). Nothing of it has been seen in a
+frame.

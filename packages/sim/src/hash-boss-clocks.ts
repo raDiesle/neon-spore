@@ -4,6 +4,7 @@ import { candleHashParts } from "./candle-hash.js";
 import { curtainHashParts } from "./curtain-hash.js";
 import { diastoleHashParts } from "./diastole-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
+import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
@@ -82,6 +83,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE SURGE: the notches, the pressure, the two thumbs and the lift's tick (`surge-hash.ts`).
   if (boss.kind === "surge") {
     for (const n of surgeHashParts(boss)) out.push(n);
+  }
+  // THE LEAD: the column, the way, the lean, the stalk and every shot in the air (`lead-hash.ts`).
+  if (boss.kind === "lead") {
+    for (const n of leadHashParts(boss)) out.push(n);
   }
   if (boss.kind === "curtain") {
     for (const n of curtainHashParts(boss)) out.push(n);
