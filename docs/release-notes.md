@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 62b7340f — The clock bosses' halves and the boss transients each get a file of their own
+
+`view-role.ts` and `effects.ts` were both at 250 lines, and the next boss would have paid for its line by shortening somebody else's paragraph. Two seams the tree had already cut elsewhere: the fourteen `showsX` predicates from THE DIASTOLE onward move to `view-role-clocks.ts`, on the seam `sim/bosses-clocks.ts` and `boss-draw-clocks.ts` share, and the eight transients that belong to one boss — the mirror, the warden, the fleet, the reprise, the after-image, the gorge, the curtain, the taster — become `BossTransients` in `effects-boss.ts`, held as `effects.boss` and walked by its own four verbs, the way `effects-body.ts` already is. `view-role.ts` is 96 lines and `effects.ts` 209; nothing drawn changes.
+
 ## 2026-09-17 · b30e534a — Every boss family's silent rows move to effects-spark-silent-boss.ts
 
 THE SINEW's lane had made the boss file for the four newest families and left the older seven — THE STARE, THE BATON, THE UNDERTOW, THE CANDLE, THE MIRROR, THE MAZE, THE FLEET — in `effects-spark-silent.ts`, which stood at 215. They go next door now, on the seam `effects-ingest-silent-boss.ts` already cut: every boss in the `-boss` file, every creature in the field's own list, so the next boss lands without rewording anybody's comment. `SILENT` still spreads the boss list in place, keeps its literal member types, and `isSilent` and `burstFor`'s `assertNever` are untouched; 152 and 145 lines.
