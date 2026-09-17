@@ -15,6 +15,7 @@
  * `registry.ts` is generated from the directories by `bun run versus index`.
  */
 
+import { posix } from "node:path";
 import { quoted, wrap } from "./text.js";
 
 /** `creature:torch` -> `creature-torch`, the directory a slot's answers share. */
@@ -35,13 +36,31 @@ export function symbolFor(slot: string, name: string): string {
   return `${base}_${name}`.toUpperCase().replace(/[^A-Z0-9_]/g, "_");
 }
 
+/**
+ * The specifier a file in `dir` writes to reach `target`, both repo-relative.
+ *
+ * Computed and not spelled, because the spelling was wrong for as long as the
+ * layout has been what it is: a candidate used to be one file at
+ * `candidates/<name>.ts` and the template still carried that file's four
+ * levels up, so every import in a scaffolded candidate was one directory short
+ * and the file did not typecheck the moment it was saved (17 September 2026,
+ * the `lost:screen` answers). A depth is a fact about a path and there is a
+ * function for it.
+ */
+function from(dir: string, target: string): string {
+  const rel = posix.relative(dir, target);
+  return rel.startsWith(".") ? rel : `./${rel}`;
+}
+
 export function template(slot: string, name: string): string[] {
   const dir = `tools/versus/candidates/${slotDir(slot)}/${name}`;
+  const look = from(dir, "packages/render/src/<file>.js");
+  const variant = from(dir, "tools/versus/variant.js");
   return [
     `  ${dir}/index.ts`,
     "",
-    ...`import * as look from "../../../../packages/render/src/<file>.js";
-import { patch, type Variant } from "../../variant.js";
+    ...`import * as look from "${look}";
+import { patch, type Variant } from "${variant}";
 
 export const ${symbolFor(slot, name)}: Variant = {
   slot: "${slot}",

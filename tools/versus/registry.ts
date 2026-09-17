@@ -95,17 +95,24 @@ function exportedVariant(src: string): string | undefined {
   return /export\s+const\s+([A-Z][A-Z0-9_]*)\s*:\s*Variant\b/.exec(src)?.[1];
 }
 
+/** Biome's `lineWidth`, from `biome.json`. The one number this file shares
+ * with the formatter it has to agree with. */
+const LINE_WIDTH = 100;
+
 /** The whole of `candidates/registry.ts`, as it should read right now. */
 export function registryText(found: readonly Registered[]): string {
   const imports = found.map((f) => `import { ${f.symbol} } from "./${f.path}/index.js";`);
   const entries = found.map((f) => `  ${f.symbol},`);
-  // An empty list is `[]` on the one line, which is the form Biome prints: a
-  // tree with every slot decided (12 September 2026 was the first) passes
-  // `bun run lint` without a hand touching a generated file.
+  // **Printed the way Biome would print it, because this file is linted.** An
+  // array that fits on one line is collapsed onto one line by the formatter,
+  // so a generator that always spread it made `bun run lint` red on a
+  // generated file every time a slot came down to a single answer — which is
+  // how the empty case came to be special-cased here on 12 September 2026 and
+  // how the one-entry case was found red on 17 September. The rule is the
+  // formatter's own and covers every count, the empty list included.
+  const one = `export const VARIANTS: Variant[] = [${found.map((f) => f.symbol).join(", ")}];`;
   const list =
-    entries.length === 0
-      ? [`export const VARIANTS: Variant[] = [];`]
-      : [`export const VARIANTS: Variant[] = [`, ...entries, `];`];
+    one.length <= LINE_WIDTH ? [one] : [`export const VARIANTS: Variant[] = [`, ...entries, `];`];
   return [HEAD, `import type { Variant } from "../variant.js";`, ...imports, "", ...list, ""].join(
     "\n",
   );

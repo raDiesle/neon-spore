@@ -1,7 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { VARIANTS } from "../candidates/index.js";
-import { discover, registryText } from "../registry.js";
-import { CANDIDATES } from "../root.js";
+import { discover, type Registered, registryText } from "../registry.js";
+import { CANDIDATES, ROOT } from "../root.js";
 
 /**
  * The registry is generated, so the failure worth catching is the one where
@@ -31,5 +31,41 @@ describe("the registry matches the directories", () => {
       const path = v.dir.replace("tools/versus/candidates/", "./");
       expect(text.split(`from "${path}/index.js"`).length).toBe(2);
     }
+  });
+
+  /**
+   * **The generator prints what the formatter would print.** This file is
+   * generated *and* linted, so a shape Biome would rewrite is a red
+   * `bun run lint` on a file no hand touched — which is what happened on 17
+   * September 2026 when the `lost:screen` slot came down to one answer and the
+   * spread-out array was collapsed onto one line. The empty list had already
+   * been special-cased here for the same reason; the rule is the formatter's
+   * and this asks the formatter rather than guessing at it.
+   */
+  const asBiomeWouldPrint = (text: string): string => {
+    const run = Bun.spawnSync(["bunx", "biome", "format", "--stdin-file-path=registry.ts"], {
+      cwd: ROOT,
+      stdin: Buffer.from(text),
+    });
+    return new TextDecoder().decode(run.stdout);
+  };
+
+  const fake = (n: number): Registered[] =>
+    Array.from({ length: n }, (_, i) => ({
+      symbol: `SLOT_ANSWER_${i}`,
+      path: `slot/answer-${i}`,
+      dir: `tools/versus/candidates/slot/answer-${i}`,
+    }));
+
+  for (const n of [0, 1, 2, 9]) {
+    it(`prints ${n} candidates the way Biome would`, () => {
+      const text = registryText(fake(n));
+      expect(text).toBe(asBiomeWouldPrint(text));
+    });
+  }
+
+  it("prints the real tree the way Biome would", () => {
+    const text = registryText(discover(CANDIDATES));
+    expect(text).toBe(asBiomeWouldPrint(text));
   });
 });

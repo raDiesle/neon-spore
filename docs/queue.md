@@ -595,32 +595,6 @@ drafts and the scene, fix the `**Status:` draft count and the HUSK paragraphs in
 `docs/asset-catalogue.md`, and check `tools/director/src/backlog.ts` no longer
 shows it. `bun run check` proves all of it.
 
-## `bun run versus new` scaffolds a candidate that cannot compile
-
-- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-17, claude/queue-bun-run-versus-new-scaffolds-a-candidate-that-ca
-- **Where:** local
-- **Files:** `tools/versus/scaffold.ts`, `tools/versus/registry.ts`
-
-The template it prints reaches five levels up as four: it writes
-`../../../../packages/render/...` and `../../variant.js`, which were right when
-a candidate was one file at `candidates/<name>.ts`. A candidate is a directory
-now — `candidates/<slot>/<name>/index.ts` — so every generated import is one
-level short and `bunx tsc --noEmit` is red the moment the file is saved. The
-`lost:screen`/`hold` candidate was written by hand against the paths the tool
-printed and then fixed, which is a minute spent on a command that is supposed
-to save one.
-
-Fix the strings in the generator and add a test that the scaffold it prints
-type-checks — or, cheaper and better, that its relative prefix matches the
-depth of the path it is about to write to, computed rather than spelled.
-
-`bun run versus index` next door has a smaller version of the same problem: it
-writes a one-entry `VARIANTS` across three lines, which Biome collapses, so the
-first run after a slot is emptied leaves `bun run lint` red on a generated
-file. Print the array the way the formatter would, or run the formatter on what
-it wrote.
-
 ## A scar does not remember what colour hit the ship
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307

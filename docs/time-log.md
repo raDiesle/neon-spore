@@ -8162,3 +8162,21 @@ conflict, each resolved by taking `main`'s copy and re-adding the candle's
 line under the orrery's.
 
 *Measured: 51 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — the versus scaffold prints a candidate that compiles
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `scaffold.ts`, `registry.ts` and the existing registry test, which says in its own header why it does not compare the file's bytes |
+| writing | 20 | `posix.relative` for the two specifiers, Biome's line rule in the generator, and the two test files |
+| looking | 5 | `bun run versus new lost:screen tryout` printed and read |
+| friction | 5 | `queue release 2` refuses a position and says so — it wants the title in words |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was writing, and most of it went on the one decision worth
+making: whether a test should re-derive Biome's rule or ask Biome. Spawning the
+formatter over the generated text costs a tenth of a second and cannot drift
+from the formatter the check runs, and re-deriving the rule is how the bug got
+here in the first place.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*
