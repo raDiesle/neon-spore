@@ -269,11 +269,13 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-scout.ts` | THE SCOUT's numbers — how the little ship flies |
 | `packages/sim/src/config-slow.ts` | THE SLOW's two numbers — the fraction of wall-clock rate a slowed tick is consumed at, and how long an ordinary window runs |
 | `packages/sim/src/config-sinew.ts` | THE SINEW's numbers — how many fibres the tendon has, how deep a hand may pull |
+| `packages/sim/src/config-surge.ts` | THE SURGE's numbers — how many notches the seam has, how fast a hand charges the bulb and how fast it leaks |
 | `packages/sim/src/creature-state-strand.ts` | **THE STRAND's three fields**, and the whole of what one bead remembers |
 | `packages/sim/src/events-strand.ts` | THE STRAND's three: a bead shrivelling, a raisin swelling back, and the thread itself parting |
 | `packages/sim/src/events-stare.ts` | **Everything THE STARE does that neither screen already says**, as one event |
 | `packages/sim/src/events-splice.ts` | **Everything THE SPLICE does that neither screen already says**, as events |
 | `packages/sim/src/events-sinew.ts` | **Everything THE SINEW does that neither screen already says**, as events |
+| `packages/sim/src/events-surge.ts` | **Everything THE SURGE does that neither screen already says**, as events |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
 | `packages/sim/src/creature-state-veer.ts` | **THE VEER's two fields**, a side and a width |
@@ -453,6 +455,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/stare-hash.ts` | What THE STARE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/stare-step.ts` | THE STARE's clock, and the one press that costs the hull |
 | `packages/sim/src/stare.ts` | THE STARE: a thing in the sky that looks at one of you, and whatever it catches the hull pays for |
+| `packages/sim/src/surge-hand.ts` | **The two thumbs on THE SURGE**, off the wire, on the tick |
+| `packages/sim/src/surge-hash.ts` | What THE SURGE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/surge-seam.ts` | **The three ends of a charge**: the vent, the burst and the loss |
+| `packages/sim/src/surge-step.ts` | THE SURGE's clock — the charge, the leak, the feeding, the burst at the top of the gauge, the eversion |
+| `packages/sim/src/surge.ts` | THE SURGE: whether you can stop |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
@@ -1368,6 +1375,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-surge.ts` | THE SURGE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
@@ -1977,6 +1985,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/ship-notes-hidden.ts` | The paragraph under each card for a **body one seat is not drawn at all**: THE WISP |
 | `tools/director/src/ship-notes-boss.ts` | The paragraph under each **boss's** card — the ones played on the field |
 | `tools/director/src/ship-notes-twice.ts` | The paragraph under each card for a **body one landed answer does not finish**: THE ECHO, THE RIND |
+| `tools/director/src/ship-notes-choreo.ts` | The paragraph under each **choreographed boss's** card |
+| `tools/director/src/ship-boss-group.ts` | **The boss group each `BossEntry` kind shows.** It arrived in `ship-groups.ts` with THE CLAW |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
 | `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |
 | `tools/style-guide/src/form.ts` | the drawn panels: the stroke build-up, the size ladder down to 11 px, and the five living silhouettes |

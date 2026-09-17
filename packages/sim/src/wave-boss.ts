@@ -20,6 +20,7 @@ import { installSinew } from "./sinew-step.js";
 import { installSnake } from "./snake-round.js";
 import { installSplice } from "./splice-round.js";
 import { installStare } from "./stare-step.js";
+import { installSurge } from "./surge-step.js";
 import { installTaster } from "./taster-step.js";
 import { installThroat } from "./throat-step.js";
 import { installUndertow } from "./undertow-step.js";
@@ -196,6 +197,11 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // the cannon cannot touch, and falls only what the pair's own snap-backs
     // shake out of it — until the last fibre drops the mass (`sinew-step.ts`).
     world.boss = installSinew(world);
+  } else if (boss?.kind === "surge") {
+    // No creature and no row: a bulb over the middle columns that the
+    // cannon cannot touch, charged by thumbs and vented by their lifting,
+    // and throws nothing but what its bursts throw (`surge-step.ts`).
+    world.boss = installSurge(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

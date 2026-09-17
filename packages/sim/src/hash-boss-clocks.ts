@@ -8,6 +8,7 @@ import { ledgerHashParts } from "./ledger-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
 import { sinewHashParts } from "./sinew-hash.js";
 import { stareHashParts } from "./stare-hash.js";
+import { surgeHashParts } from "./surge-hash.js";
 import { tasterHashParts } from "./taster-hash.js";
 import { throatHashParts } from "./throat-hash.js";
 import { undertowHashParts } from "./undertow-hash.js";
@@ -77,6 +78,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE SINEW: the two hands, the slack, the zone and its clocks (`sinew-hash.ts`).
   if (boss.kind === "sinew") {
     for (const n of sinewHashParts(boss)) out.push(n);
+  }
+  // THE SURGE: the notches, the pressure, the two thumbs and the lift's tick (`surge-hash.ts`).
+  if (boss.kind === "surge") {
+    for (const n of surgeHashParts(boss)) out.push(n);
   }
   if (boss.kind === "curtain") {
     for (const n of curtainHashParts(boss)) out.push(n);

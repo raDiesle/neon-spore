@@ -294,29 +294,25 @@ somebody and the reason is written down nowhere, so finding out what it was
 guarding against is the first half of this item.
 - **Asks:** Should `format` sort imports, should `lint` stop asking, or should the incantation get a script of its own?
 
-## `ship-notes-round.ts` is at 249 lines and the next boss has nowhere to write
+## `baseline:blank` leaves the rows behind an inserted wave a number stale
 
-- **Found:** 2026-09-17, claude/boss-ledger
-- **Taken:** 2026-09-17, claude/queue-ship-notes-round-ts-is-at-249-lines-and-the-next
-- **Files:** `tools/director/src/ship-notes-round.ts`, `tools/director/src/ship-groups.ts`
+- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Files:** `tools/perf/blank.ts`, `tools/perf/unmeasured.ts`, `tools/perf/test/baseline.test.ts`
 
-Every boss lane writes the director one paragraph — what the mechanic is, in
-the sheet's own voice, keyed by the group title (`.claude/skills/new-boss`,
-step 4). THE LEDGER's put this file at 249 lines, so the next boss cannot add
-its paragraph without rewording another boss's, which is the same tax
-`effects-spark-silent.ts` and `view-role.ts` are already queued for and the
-same answer: the file has a seam and it has been cut along it next door in
-this very lane. `ship-fields-round.ts` went over in the same turn and became
-`ship-fields-choreo.ts` — the dials of the bosses on
-`docs/spec/bosses-choreographed.md`, nine of them for THE LEDGER alone — and
-the notes divide the same way, because the notes and the dials are keyed by
-the same `GroupName`.
+`fillUnmeasured` renumbers every row to today's wave list (`renumber.ts`),
+but `blank.ts` writes the file only when a row was *added* or *blanked* — so
+a baseline that already has a row for the new wave, at whatever number it was
+written under, and rows behind it that have all moved up one, is answered with
+"the baseline already describes the waves the game ships — nothing to mark"
+and left as it is. `baseline.test.ts` then fails on THE BEATBOX's number. It
+happened on this lane's rebase: THE LEDGER had landed at wave 77 under a
+branch that had written THE SURGE's row at 77, the conflict was resolved to
+both rows, and the tool had nothing to say about the twelve rows after them.
+The work-around was `git checkout main -- tools/perf/baseline.json` and
+running it again, which added the row and renumbered in the same write.
 
-What to do: cut the choreographed bosses' notes into a `ship-notes-choreo.ts`
-beside the fields file, re-export it from `ship-notes-round.ts` the way
-`ship-groups.ts` re-exports `GROUP_NOTE` today, and leave the rounds' own
-notes where they are. The record's type is what holds it together, so the
-exhaustiveness the tests check (`tools/director/test/ship-fields.test.ts`,
-`ship-notes.test.ts`) survives the move unchanged — the same property the
-fields split kept, and the reason that one took twenty minutes rather than an
-afternoon.
+What to do: have `blank.ts` compare the renumbered run against the file it
+read and write when *anything* differs, saying which rows moved; and give
+`unmeasured.test.ts` a fixture with a row already present at a stale number
+and rows behind it, expecting the renumbering to be reported rather than
+swallowed.

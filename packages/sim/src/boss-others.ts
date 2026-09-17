@@ -14,6 +14,7 @@ import { stepOrrery } from "./orrery-step.js";
 import { stepSinew } from "./sinew-step.js";
 import { stepSplice } from "./splice-round.js";
 import { stepStare } from "./stare-step.js";
+import { stepSurge } from "./surge-step.js";
 import { stepTaster } from "./taster-step.js";
 import { stepThroat } from "./throat-step.js";
 import { stepUndertow } from "./undertow-step.js";
@@ -141,6 +142,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // hands are on the tick (`sinew-hand.ts`, from `step.ts`).
   if (boss.kind === "sinew") {
     stepSinew(world, boss);
+    return;
+  }
+  // THE SURGE on the beat is the bulb's clock: the charge, the leak, the
+  // feeding, the burst at the top. The two thumbs and the lift they are
+  // judged by are on the tick (`surge-hand.ts`, from `step.ts`).
+  if (boss.kind === "surge") {
+    stepSurge(world, boss);
     return;
   }
   if (boss.kind === "vane") {

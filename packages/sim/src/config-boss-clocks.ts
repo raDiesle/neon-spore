@@ -7,6 +7,7 @@ import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
 import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
 import { SINEW_DEFAULTS, type SinewConfig } from "./config-sinew.js";
 import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
+import { SURGE_DEFAULTS, type SurgeConfig } from "./config-surge.js";
 import { TASTER_DEFAULTS, type TasterConfig } from "./config-taster.js";
 import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
 import { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
@@ -53,7 +54,8 @@ export interface BossClockConfig
     CurtainConfig,
     TasterConfig,
     SinewConfig,
-    LedgerConfig {}
+    LedgerConfig,
+    SurgeConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -68,4 +70,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...TASTER_DEFAULTS,
   ...SINEW_DEFAULTS,
   ...LEDGER_DEFAULTS,
+  ...SURGE_DEFAULTS,
 };

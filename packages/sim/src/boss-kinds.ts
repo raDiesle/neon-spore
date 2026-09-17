@@ -72,6 +72,10 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // falls has to be the wave's own or the boss would be posting itself the
   // bills it then makes them ward (`ledger.ts`). The arrivals are authored for
   // the one decision the design asks for — *choose what to shoot at all*.
+  // THE SURGE is the thirteenth, for the same reason turned round: a bulb the
+  // cannon cannot touch, that throws nothing but what its own bursts throw
+  // (`surge-seam.ts`) — and from its second notch the wave's arrivals are
+  // its food, so shooting them is the other thing the hands are for.
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -84,7 +88,8 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
     kind !== "gorge" &&
     kind !== "taster" &&
     kind !== "sinew" &&
-    kind !== "ledger"
+    kind !== "ledger" &&
+    kind !== "surge"
   );
 }
 
@@ -158,4 +163,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "taster",
   "sinew",
   "ledger",
+  "surge",
 ];

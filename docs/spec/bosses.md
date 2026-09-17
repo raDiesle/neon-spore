@@ -3267,3 +3267,125 @@ the wave, is refused and re-armed a cadence later when it is warded, and holds
 the wave while the halves part; and the same run fingerprints the same way
 twice and differently from one where a return was warded
 (`sim/test/ledger.test.ts`). Nothing of it has been seen in a frame.
+## 11.28 THE SURGE — the boss beaten by letting go
+
+> The one where holding is free and letting go is the entire skill, and
+> you both have to let go together.
+
+Designed as §9 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: every hold in this game is rewarded for lasting — the
+grip, the lance's fill, the ready gate, the warden's tether — and this one
+punishes the last beat of a hold that went one beat too long, which inverts
+the most practised gesture in the pair's hands. It is THE SINEW's split at
+the other verb, and the design says the two should be built together or one
+of them should not be built.
+
+**It is a fixture, not a body.** Nothing of it is in `world.creatures`: the
+state (`sim/surge.ts`, hashed in `sim/surge-hash.ts`) is the `notches` open,
+the `pressureMilli`, which seat's thumb is on the glass, the tick the first
+of a pair of lifts happened on, and four beat stamps — the pressure came
+into the band, the last burst, the eversion began, out. There are
+`surgeNotches` (5) to open. The bulb hangs at `surgeBulbRow` (3) plus one row
+per notch open, never as low as the hull, `surgeBulbCols` (3) wide over
+`midCol`, and hurts nothing itself. It does not fill its wave
+(`bossFillsWave`): `act-7d.ts`'s "THE SURGE" carries its own arrivals,
+because from its second notch it eats what falls into its columns, and a
+bulb with nothing to eat would be a bulb whose third phase never happens.
+
+**The rule, in one sentence.** Both seats have the **same** handle
+(`surgeBulb`, a `drag` either player sends; `sim/surge-hand.ts` hears it on
+the tick), a thumb on it charges the pressure `surgeChargeMilli` (100) a
+beat, two thumbs twice that, no thumb leaks it `surgeDecayMilli` (150) a
+beat, and a notch **opens** (`surgeVent`) when both thumbs come off with the
+pressure inside that notch's **band** and the second lift within
+`ticksPerBeat` of the first. Notch *k* sits at `surgeNotchMilli` (900) plus
+*k* × `surgeNotchStepMilli` (450), its band `surgeWindowMilli` (250) either
+side, and the pressure coming into the band opens THE SLOW for
+`surgeNearSlowBeats` (2) (`surgeNear`). A second lift a beat late, one thumb
+lifted alone, or a pair of lifts short of the band is the charge **lost**
+(`surgeLost`): the pressure spent, nothing else. A pair of lifts over the
+band, or the pressure reaching `surgeBurstMilli` (3000) on the beat, is a
+**burst** (`surgeBurst`): both thumbs thrown off, nothing takes hold for
+`surgeBurstBeats` (2), `surgeBurstGums` (3) gums thrown from under the bulb
+down columns of its span (`surgeGum`), and from `surgeCloseNotches` (3) open
+a notch **closes** again (`surgeClose`). Every vent sinks the bulb a row.
+From `surgeHoldNotches` (2) open the bulb **holds** its charge with no thumb
+on it — a lost release leaves the pressure standing — and every body that
+falls to its row inside its columns is **absorbed** for `surgeAbsorbMilli`
+(450) (`surgeAbsorb`); from `surgeDoubleNotches` (3) a thumb charges it at
+double. The last notch sits at `surgeBurstMilli` less `surgeWindowMilli`
+less one, so its band ends one under the burst: no margin over. When it
+vents the bulb **everts** (`surgeEvert`) over `surgeEvertBeats` (5) with THE
+SLOW open, nothing takes hold of it, and it is out (`surgeOut`) and the boss
+held `surgeOutBeats` (2) more and then gone.
+
+**The split is the eyes.** Player 1 is shown the **seam** — how many notches
+are open and where the next one's band sits on the gauge — and nothing of
+the pressure; player 2 is shown the **pressure** and nothing of the seam.
+Both thumbs are on one glass. So the one who knows when cannot see where
+they are, and the one who can see where they are does not know when — and
+neither can do the thing alone, because the verb is two lifts within a beat.
+The sentence between them is a number every beat one way and a count the
+other, and the count is *let go on the four*, which is the word
+[couplings](couplings.md) says can never work — except said against the beat,
+with the beat three seconds long.
+
+**Where this departs from the design, and why.** Seven places, each argued
+by name. *A burst throws gums down the bulb's columns, not across the ship*:
+the design's splash on the hull "the hull takes it, no scar" was written
+before every hull damage failed the wave (12 September 2026, `wave-fail.ts`),
+and a punishment that ends the wave is not a punishment the pair plays
+through and looks at; three gums falling from under the bulb are three bodies
+the pair has to swipe while the glass will not take a thumb, which is the
+same *keep playing through it* the design wanted. *The bulb sinks a row from
+the first notch, not step 8's second*: the design's "closer every time"
+needs a row a notch to be read, and a first vent that moved nothing would
+be a vent the pair could not see they had earned. *Nothing is timed on a
+call*: steps 3, 6 and 11 give 900 ms for the beat to be called, and the game
+never evaluates speech (`CLAUDE.md` rule 5) — the band stands as long as the
+pressure is in it, and what a late call costs is the pressure climbing out
+the far side. *Step 7's ward is the field's own*: a rock on this wave falls
+down its column as every rock does and the guard's window is the guard's;
+what the design asks for — let go, guard, take hold again — is exactly what
+two thumbs on the glass and a rock over the hull already demand, with the
+lost charge as the price. *THE SLOW opens on the band, not on the vent*: the
+design's own case for it is the release window made visible as tissue, and
+the vent is a beat already spent; a pressure that leaves the band and comes
+back opens it again, because the window is what is slowed. *The inner body
+is not built*: steps 10, 12 and 14 grow a second bulb inside the first and
+leave it standing as a second encounter, and that is a second boss — a §11
+of its own if it is ever wanted — not a phase of this one; here the eversion
+ends the wave. *Feeding happens thumbs on or off*: step 9 has the bulb eat
+only "with no hands on it", but a rule that turned the eating off under a
+thumb would make the safest play two thumbs held on the glass for ever, on
+the one boss whose whole question is whether you can stop.
+
+**What is not built.** The look: nothing of the bulb, the seam, the gauge,
+the band, the thumbs, the burst's spray or the eversion is drawn. The twelve
+events are listed silent in `effects-ingest-silent-boss.ts` and
+`effects-spark-silent-boss.ts` until the look lane takes them, and
+`surgeBulb` has no hit test in `touch.ts` — a `drag` on it can be sent by
+the director's ON THE FIELD tab and by nothing a thumb can find. The split
+(`showsSurgeNotches`, `showsSurgePressure`) is the look lane's to draw.
+
+**Never watched at tempo.** What the tests say is the mechanism: it installs
+dead centre with the seam shut, no pressure and no thumb, and sends nothing;
+a thumb from either seat charges it a step a beat and two thumbs two; no
+thumb leaks it and never under nought; the first band sits round the first
+notch and the pressure coming into it opens THE SLOW; no charge step at any
+rate is wider than a band; both thumbs off inside the band within a beat of
+each other opens a notch, spends the pressure, sinks the bulb a row and
+raises the next notch, whichever seat lifts first; a second lift a beat
+late, a lift alone or a lift short of the band is the charge lost; a thumb
+that went back on makes the pair again; a lift over the band bursts —
+thumbs off, three gums from under the bulb in its columns, no grip for two
+beats, then a grip; the top of the gauge on the beat bursts with no lift;
+from the third notch a burst closes one; from the second the charge holds
+under no thumb and through a lost release, and a rock that reaches the bulb
+in its columns is eaten and one beside it is not; from the third a thumb
+charges double; the last band ends one under the burst and the bulb is
+still above the hull; the last vent everts it, a thumb takes nothing of it,
+it is out five beats later, the boss gone two after and the wave wants its
+next; and the same run fingerprints the same way twice and differently for
+another seed (`sim/test/surge.test.ts`). Nothing of it has been seen in a
+frame.

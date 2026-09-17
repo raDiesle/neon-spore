@@ -43,6 +43,7 @@ export {
   type SnakeEntry,
   type SpliceEntry,
   type StareEntry,
+  type SurgeEntry,
   type TasterEntry,
   type ThroatEntry,
   type UndertowEntry,

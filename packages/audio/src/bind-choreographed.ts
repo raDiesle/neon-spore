@@ -6,6 +6,7 @@ import { curtainCue } from "./bind-curtain.js";
 import { gorgeCue } from "./bind-gorge.js";
 import { ledgerCue } from "./bind-ledger.js";
 import { sinewCue } from "./bind-sinew.js";
+import { surgeCue } from "./bind-surge.js";
 import { tasterCue } from "./bind-taster.js";
 import { undertowCue } from "./bind-undertow.js";
 
@@ -32,7 +33,8 @@ type ChoreographedEvent = Extract<
       | `curtain${string}`
       | `taster${string}`
       | `ledger${string}`
-      | `sinew${string}`;
+      | `sinew${string}`
+      | `surge${string}`;
   }
 >;
 
@@ -114,6 +116,19 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "sinewOut":
     case "sinewCrush":
       return sinewCue(e, cols);
+    case "surgeSettle":
+    case "surgeGrip":
+    case "surgeRelease":
+    case "surgeNear":
+    case "surgeVent":
+    case "surgeBurst":
+    case "surgeGum":
+    case "surgeLost":
+    case "surgeAbsorb":
+    case "surgeClose":
+    case "surgeEvert":
+    case "surgeOut":
+      return surgeCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

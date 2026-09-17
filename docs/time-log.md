@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE SURGE, the simulation
+
+Lane one of the sixth boss off the choreographed list, straight after THE
+SINEW's look. A bulb under the field with a thumb-glass per seat: both thumbs
+on feed it, one lifts and it leaks, both lifted inside `surgeWindowMilli` of
+each other vent it a notch down the seam; the pressure band narrows a notch at
+a time, a burst over it sends gums down the bulb's columns and throws both
+hands off, from the third notch it holds what it has and the two windows have
+to agree twice; the last notch everts it and the wave is done. Twelve events,
+a wave, the audio, the director's sheet, the silent lists, §11.27.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | THE SINEW's own files as the pattern, one lane earlier, and the design's twelve steps |
+| writing | 10 | seven sim files and their threading, nineteen tests, the wave and its guide, twelve sounds, eighteen dials, the write-up |
+| looking | 0 | nothing to see yet |
+| friction | 5 | a doc edit aimed at a test file and stopped short; one sound's noise sat in the speech band; two stale counts in `audio.md` |
+| landing | 20 | `check:fast`, the index, the commit, `land --keep`; then a rebase onto a `main` that had landed THE LEDGER under the lane — twenty-six files conflicted, every one the same list grown from both ends, and the two director files the pair of bosses had pushed over 250 were cut along the seam the other lane had already used |
+
+The bottleneck was two bosses landing on the same lists an hour apart, and then a third landing (THE BATON's film) under the resolved tree before `land` had finished checking it, so the same two documents were resolved twice:
+twenty-six files that each wanted both names, none of them hard, all of them
+by hand — and §11.27 and wave 77 belonged to the other one by the time this
+one arrived, so every number the write-up had was one off.
+
 ## 2026-09-17 — boss-implementation — THE SINEW, the look
 
 Lane two of the fifth boss off the choreographed list, the same afternoon as

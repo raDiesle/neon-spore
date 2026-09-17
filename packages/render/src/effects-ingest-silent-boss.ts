@@ -159,6 +159,23 @@ export const INGEST_SILENT_BOSS = [
   "sinewSwing",
   "sinewOut",
   "sinewCrush",
+  // THE SURGE's twelve are silent **until the look lane draws it**: the
+  // bulb, its seam, the gauge and the band are all on the boss and will be
+  // drawn off it every frame; the burst's spray and the eversion are the two
+  // that outlive a frame, and they will be a family above the loop the way
+  // THE SINEW's is (`docs/spec/bosses.md` §11.28).
+  "surgeSettle",
+  "surgeGrip",
+  "surgeRelease",
+  "surgeNear",
+  "surgeVent",
+  "surgeBurst",
+  "surgeGum",
+  "surgeLost",
+  "surgeAbsorb",
+  "surgeClose",
+  "surgeEvert",
+  "surgeOut",
   "tether",
   "eyeOpen",
   "wardenDown",

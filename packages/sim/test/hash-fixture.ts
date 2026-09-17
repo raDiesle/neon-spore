@@ -218,6 +218,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // how slack it has gone and where the zone was rolled are what the
   // fixture's world has moved by the time it is fingerprinted (`sinew-hash.ts`).
   sinew: { kind: "sinew" },
+  // THE SURGE authors nothing either: the notches and the gauge are tuning
+  // (`config-surge.ts`), and the pressure, the thumbs and the lift's tick
+  // are what the fixture's world has moved by the time it is fingerprinted
+  // (`surge-hash.ts`).
+  surge: { kind: "surge" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -608,6 +613,19 @@ function patchBoss(world: World): void {
     boss.holdBeat = 2;
     boss.snapBeat = 3;
     boss.fallBeat = 4;
+    boss.outBeat = 5;
+  }
+  if (boss.kind === "surge") {
+    // A notch open, some pressure, both thumbs on, and every clock that only
+    // a lift, the band, a burst, the last notch or the end sets given a beat.
+    boss.notches = 1;
+    boss.pressureMilli = 700;
+    boss.heldP1 = true;
+    boss.heldP2 = true;
+    boss.liftTick = 12;
+    boss.nearBeat = 2;
+    boss.burstBeat = 3;
+    boss.evertBeat = 4;
     boss.outBeat = 5;
   }
 }

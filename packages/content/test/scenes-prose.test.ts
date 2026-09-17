@@ -95,6 +95,10 @@ const STILL_PROSE = [
   // And THE LEDGER, owed by the lane that draws the cord: the split body, the
   // cord itself and the bead coming down it, none of which is drawn yet.
   "THE LEDGER",
+  // And THE SURGE, owed by the lane that draws the bulb: a seam of five
+  // notches, a gauge with a band on it and two thumbs on one glass, none of
+  // which is drawn yet.
+  "THE SURGE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -120,9 +124,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says eighty-one of ninety";
-    expect(guided.length, fix).toBe(81);
-    expect(WAVES.length, fix).toBe(90);
+    const fix = "update §1 of docs/spec/briefings.md, which says eighty-two of ninety-one";
+    expect(guided.length, fix).toBe(82);
+    expect(WAVES.length, fix).toBe(91);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

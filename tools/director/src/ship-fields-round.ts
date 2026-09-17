@@ -38,7 +38,7 @@ export const ROUND_FIELD_GROUP = {
   scoutHomeRadiusMilli: "THE SCOUT — a little ship one of you flies",
   scoutLeadBeats: "THE SCOUT — a little ship one of you flies",
   scoutVerdictBeats: "THE SCOUT — a little ship one of you flies",
-  // The eleven bosses of the choreographed page, and THE STARE with them
+  // The twelve bosses of the choreographed page, and THE STARE with them
   // (`ship-fields-choreo.ts`).
   ...CHOREO_FIELD_GROUP,
   // SnakeConfig

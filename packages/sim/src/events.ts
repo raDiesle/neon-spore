@@ -239,6 +239,7 @@ export type {
   SinewEvent,
   SpliceEvent,
   StareEvent,
+  SurgeEvent,
   TasterEvent,
   UndertowEvent,
 } from "./events-bosses.js";

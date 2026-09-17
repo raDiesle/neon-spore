@@ -28,6 +28,7 @@ type BossId = Extract<
   | "taster"
   | "sinew"
   | "ledger"
+  | "surge"
 >;
 
 /**
@@ -133,6 +134,10 @@ export const BOSS_MECHANICS = {
   },
   sinew: {
     what: "The one boss that asks how hard rather than when. A mass hangs over the middle column on a rope of six fibres, with a handle either side of it, and each of you pulls one handle down; the two pulls add into one sum, and the fibre being held parts when that sum sits inside a band for four beats. Only the pilot sees the band, and it narrows with every fibre gone; only the navigator sees the sum. A sum over the band snaps the fibre off the pair's hands and throws a rock out of the mass; a sum out of the band restarts the four beats. From the fourth fibre the rope creeps slack under a held hand, so the same pull reads less every beat until both hands come off and grip again. Each fibre parted sinks the mass a row and opens THE SLOW. The last fibre's band is one step under the rope's limit and its snap throws three rocks; when it parts the mass falls over four beats, and both handles swayed the same way walk it a column a beat — three columns clear of the middle and it lands beside the hull, fewer and it lands on it.",
+    reach: "spawn",
+  },
+  surge: {
+    what: "The one boss beaten by letting go. A bulb hangs over the middle column with its seam shut, and a thumb from either seat on it charges it a step a beat, two thumbs two steps, none at all and it leaks. Its seam has five notches, and a notch opens only when both thumbs come off inside a band round the notch's pressure, the second lift within a beat of the first; the pilot alone sees the seam and where the band sits, the navigator alone sees the pressure, and the field slows as the pressure comes into the band. A second lift a beat late, or one thumb alone, loses the charge. A lift over the band, or the pressure reaching the top of the gauge on the beat, bursts it: both thumbs thrown off, three gums thrown down its columns, two beats in which nothing takes hold, and from the third notch a notch closed again. Every notch open sinks the bulb a row, sets the next notch higher and its band no wider; from the second it holds its charge with no thumb on it and eats whatever falls into its columns, and from the third a thumb charges it at double. The last notch's band ends one under the burst; vented, the bulb turns inside out and the wave ends.",
     reach: "spawn",
   },
   undertow: {

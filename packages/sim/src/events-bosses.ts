@@ -6,6 +6,7 @@ import type { LedgerEvent } from "./events-ledger.js";
 import type { SinewEvent } from "./events-sinew.js";
 import type { SpliceEvent } from "./events-splice.js";
 import type { StareEvent } from "./events-stare.js";
+import type { SurgeEvent } from "./events-surge.js";
 import type { TasterEvent } from "./events-taster.js";
 import type { UndertowEvent } from "./events-undertow.js";
 
@@ -39,7 +40,8 @@ export type BossEvent =
   | CurtainEvent
   | TasterEvent
   | LedgerEvent
-  | SinewEvent;
+  | SinewEvent
+  | SurgeEvent;
 
 export type { BatonEvent } from "./events-baton.js";
 export type { CandleEvent } from "./events-candle.js";
@@ -49,5 +51,6 @@ export type { LedgerEvent } from "./events-ledger.js";
 export type { SinewEvent } from "./events-sinew.js";
 export type { SpliceEvent } from "./events-splice.js";
 export type { StareEvent } from "./events-stare.js";
+export type { SurgeEvent } from "./events-surge.js";
 export type { TasterEvent } from "./events-taster.js";
 export type { UndertowEvent } from "./events-undertow.js";

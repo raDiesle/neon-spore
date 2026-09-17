@@ -11,6 +11,7 @@ import type {
   ScoutEntry,
   SinewEntry,
   StareEntry,
+  SurgeEntry,
   TasterEntry,
   ThroatEntry,
   UndertowEntry,
@@ -81,6 +82,11 @@ import type {
  *   so there is no number, and **the band the sum must sit in is rolled from
  *   the rng** — a wave that authored the number the pair has to find would
  *   be a boss with its answer printed on it (`sim/config-sinew.ts`).
+ * - **THE SURGE** asks for nothing for THE SINEW's reasons: the bulb hangs
+ *   over `midCol` so there is no column, the five notches of its seam are the
+ *   health so there is no number, and where every notch sits is the same
+ *   gauge on every wave — the pair's whole skill is the timing, not the
+ *   finding (`sim/config-surge.ts`).
  *
  * - **THE TASTER** asks for nothing, and it is the one where the *absence* is
  *   the boss: the crest is centred so there is no column, the fan is the
@@ -117,7 +123,8 @@ export function bossAuthorsNothing(
   | CurtainEntry
   | TasterEntry
   | SinewEntry
-  | LedgerEntry {
+  | LedgerEntry
+  | SurgeEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -137,6 +144,7 @@ export function bossAuthorsNothing(
     kind === "curtain" ||
     kind === "taster" ||
     kind === "sinew" ||
-    kind === "ledger"
+    kind === "ledger" ||
+    kind === "surge"
   );
 }

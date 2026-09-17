@@ -181,3 +181,13 @@ export interface SinewEntry {
 export interface LedgerEntry {
   kind: "ledger";
 }
+
+/**
+ * What a wave authors when it wants THE SURGE: nothing, the twelfth. The
+ * bulb hangs dead centre with its seam shut; where the notches sit on the
+ * gauge is tuning, and what the pair lifts on is the number the beat left
+ * (`surge.ts`, `config-surge.ts`).
+ */
+export interface SurgeEntry {
+  kind: "surge";
+}

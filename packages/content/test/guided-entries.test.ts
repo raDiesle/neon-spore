@@ -111,6 +111,13 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // kills them, and the pair would read the bill as unfair rather than as a
   // choice about what to shoot at all.
   "THE LEDGER": ["meteor"],
+  // THE SURGE introduces no creature either — what is new is a release both
+  // thumbs make inside a band only one seat sees — and the rock is on it for
+  // the bulb's sake: from its second notch the bulb eats what falls into its
+  // columns, and a rock is the one body a pair with both thumbs on the glass
+  // would otherwise have to let go to guard against. A field of colours alone
+  // would let the navigator shoot without a thumb coming off.
+  "THE SURGE": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

@@ -18,6 +18,7 @@ import type { SinewState } from "./sinew.js";
 import type { SnakeState } from "./snake.js";
 import type { SpliceState } from "./splice.js";
 import type { StareState } from "./stare.js";
+import type { SurgeState } from "./surge.js";
 import type { TasterState } from "./taster.js";
 import type { ThroatState } from "./throat.js";
 import type { UndertowState } from "./undertow.js";
@@ -78,4 +79,5 @@ export type BossState =
   | CurtainState
   | TasterState
   | LedgerState
-  | SinewState;
+  | SinewState
+  | SurgeState;

@@ -165,6 +165,25 @@ export {
   stareWatches,
 } from "./stare.js";
 export { stareBoss } from "./stare-step.js";
+// THE SURGE keeps a clock for each of the lift, the burst and the eversion,
+// and the two numbers the seats are shown are the pressure and the notches.
+export {
+  type SurgeState,
+  surgeBand,
+  surgeBoss,
+  surgeBulbLeft,
+  surgeBulbRow,
+  surgeBulbSpan,
+  surgeChargePerHand,
+  surgeCovers,
+  surgeEverting,
+  surgeHands,
+  surgeHeld,
+  surgeHoldsCharge,
+  surgeInBand,
+  surgeNotchMilli,
+  surgeSealing,
+} from "./surge.js";
 // THE TASTER keeps no clock but the growth and the re-edge: what it holds is
 // a fan of eleven blades, and the colour of every one of them was read off
 // what the pair had spent by the beat it set (`taster.ts`, `spend.ts`).

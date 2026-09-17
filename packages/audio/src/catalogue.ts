@@ -20,6 +20,7 @@ import { BOSS_LEDGER_SOUNDS } from "./sounds/boss-ledger.js";
 import { BOSS_ORRERY_SOUNDS } from "./sounds/boss-orrery.js";
 import { BOSS_PLANNED_SOUNDS } from "./sounds/boss-planned.js";
 import { BOSS_SINEW_SOUNDS } from "./sounds/boss-sinew.js";
+import { BOSS_SURGE_SOUNDS } from "./sounds/boss-surge.js";
 import { BOSS_TASTER_SOUNDS } from "./sounds/boss-taster.js";
 import { BOSS_UNDERTOW_SOUNDS } from "./sounds/boss-undertow.js";
 import { CREATURE_SOUNDS } from "./sounds/creature.js";
@@ -59,6 +60,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_LEDGER_SOUNDS,
   ...BOSS_SINEW_SOUNDS,
   ...BOSS_ORRERY_SOUNDS,
+  ...BOSS_SURGE_SOUNDS,
   ...BOSS_PLANNED_SOUNDS,
   ...FLEET_SOUNDS,
   ...SPLICE_SOUNDS,

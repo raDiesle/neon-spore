@@ -41,6 +41,10 @@ const ACCEPTED: Command[] = [
   // whose sway is the `fromMilli` — the one drag whose depth is the number.
   { kind: "drag", target: "sinewLeft", on: true, fromMilli: -120, fromYMilli: 640 },
   { kind: "drag", target: "sinewRight", on: true, fromMilli: 90, fromYMilli: 1000 },
+  // THE SURGE's bulb, one handle for both seats, whose press reports nothing
+  // and whose *lift* is the command (`surge-hand.ts`).
+  { kind: "drag", target: "surgeBulb", on: true, fromMilli: 0 },
+  { kind: "drag", target: "surgeBulb", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -137,6 +141,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   balloonRight: true,
   sinewLeft: true,
   sinewRight: true,
+  surgeBulb: true,
   crank: true,
   orreryRing: true,
 };

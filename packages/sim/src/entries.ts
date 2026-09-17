@@ -223,6 +223,7 @@ export type {
   SnakeEntry,
   SpliceEntry,
   StareEntry,
+  SurgeEntry,
   TasterEntry,
   ThroatEntry,
   UndertowEntry,

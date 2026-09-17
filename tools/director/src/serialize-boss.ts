@@ -124,6 +124,9 @@ export function serializeBoss(boss: BossEntry): string {
   // the cord's socket walks from under it; no health, the seam is it
   // (`sim/config-ledger.ts`).
   if (boss.kind === "ledger") return '{ kind: "ledger" }';
+  // And THE SURGE, the thirteenth: no column, the bulb hangs over the middle; no
+  // health, the notches are it (`sim/config-surge.ts`).
+  if (boss.kind === "surge") return '{ kind: "surge" }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

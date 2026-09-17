@@ -1,0 +1,51 @@
+import type { BossEntry } from "@neon-spore/sim";
+import type { GroupName } from "./ship-groups.js";
+
+/**
+ * **The boss group each `BossEntry` kind shows.** It arrived in
+ * `ship-groups.ts` with THE CLAW, because the file before that had run out of
+ * room and a map from a boss kind to a group is a statement about *groups*
+ * rather than about `SimConfig` fields; and it left that file on 17 September
+ * 2026 when THE SURGE's name took it past 250 lines, for the reason it was
+ * always going to: it grows by a boss where `GroupName` grows by a mechanic,
+ * and twenty-seven bosses in, the two had filled up together. `Record` over
+ * the kind keeps the guard — a boss added to `sim` and left off here is a
+ * compile error, not a card that never shows.
+ */
+/** A wave that carries `warden` shows WARDEN, and nothing else changes because
+ * of it: `ship.ts` reads this to decide what belongs beside the wave being
+ * edited rather than beside the ship, the split the SHIP-column brief asked for. */
+export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
+  pinball: "PINBALL — a table the ship's cannon fires up into",
+  pulse: "THE PULSE — the same song on two screens",
+  splice: "THE SPLICE — straws fed in the order the numbers say",
+  queen: "QUEEN",
+  warden: "WARDEN",
+  cairn: "THE CAIRN — a pile of rocks taken apart by hand",
+  mirror: "MIRROR",
+  vane: "VANE",
+  maze: "MAZE",
+  gauge: "THE GAUGE — a round with no field in it",
+  fleet: "THE FLEET — a chart only one of you can read",
+  snake: "SNAKE — a round the ship is the body of",
+  scout: "THE SCOUT — a little ship one of you flies",
+  stare: "THE STARE — an eye that freezes whoever it looks at",
+  diastole: "THE DIASTOLE — two hearts on two cadences, one each",
+  baton: "THE BATON — a bead passed down an arm, one seat a beat",
+  throat: "THE THROAT — the boss you answer by feeding it",
+  undertow: "THE UNDERTOW — the boss under the floor, answered downward",
+  orrery: "THE ORRERY — three orbits, and neither of you can see all three",
+  candle: "THE CANDLE — the boss fought in the dark",
+  gorge: "THE GORGE — the boss you hurt by not shooting",
+  curtain: "THE CURTAIN — the boss that is in the way",
+  taster: "THE TASTER — the boss that grows its armour in the colour you have been spending",
+  sinew: "THE SINEW — the boss that asks how hard, not when",
+  ledger: "THE LEDGER — the boss that bills your own hull for every shot",
+  surge: "THE SURGE — the boss beaten by letting go",
+  // The one group with no dial in it, and deliberately: everything about THE
+  // WELL is the shape of a picture, and a number that changed how a picture
+  // reads belongs in a VERSUS candidate rather than on a slider
+  // (`render/src/well.ts`, `docs/versus.md`). The card says so.
+  well: "THE WELL — the field drawn inside out on one screen",
+  reprise: "THE REPRISE — the wave sent again unseen",
+};

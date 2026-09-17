@@ -222,4 +222,25 @@ export const WAVES_ACT_7D: Wave[] = [
     ],
     boss: { kind: "ledger" },
   },
+  {
+    id: "theSurge",
+    name: "THE SURGE",
+    sentence: "The one you beat by letting go, and only if you both let go at once.",
+    guide: {
+      both: "A bulb hangs dead centre with its seam shut. A thumb from either seat on it charges it, two thumbs charge it twice as fast, and with none on it it leaks. Let go together inside the band and a notch of the seam opens and the bulb sinks a row; let go over the band, or reach the top, and it bursts gums down its columns. Five notches and it turns inside out.",
+      p1: "Only you see the seam and where the band sits on the gauge — it climbs a notch at a time. Say when the field slows: that is the band. Then count her down — three, two, one, off — and never let go alone.",
+      p2: "Only you see the pressure as a number. Read it out every beat; he has the band. When he counts, take your thumb off on the word, the same instant as his. Over the band it bursts, so the count is not a suggestion.",
+    },
+    entries: [
+      { beat: 14, col: 1, kind: "meteor", color: null },
+      { beat: 22, col: 5, color: "red" },
+      { beat: 30, col: 3, kind: "meteor", color: null },
+      { beat: 40, col: 0, color: "cyan" },
+      { beat: 48, col: 4, kind: "meteor", color: null },
+      { beat: 58, col: 6, color: "red" },
+      { beat: 66, col: 2, color: "cyan" },
+      { beat: 76, col: 3, kind: "meteor", color: null },
+    ],
+    boss: { kind: "surge" },
+  },
 ];

@@ -1,5 +1,3 @@
-import type { BossEntry } from "@neon-spore/sim";
-
 /**
  * The cards the ship's dials are divided into: their names, the order they are read
  * in, and the paragraph under each heading that says what the group *is*.
@@ -13,12 +11,6 @@ import type { BossEntry } from "@neon-spore/sim";
  * a dial of its own arrives here as one name and one paragraph, and nobody
  * reads it top to bottom. The same split `mechanics.ts` and
  * `mechanics-table.ts` already use, for the same reason.
- *
- * **`BOSS_GROUP` is here too**, and it arrived with THE CLAW: the file next
- * door had run out of room, and a map from a boss kind to a group is a
- * statement about *groups* rather than about `SimConfig` fields, which is
- * everything that file is. It grows by a boss where `FIELD_GROUP` grows by a
- * mechanic, so the two were never going to fill up at the same rate.
  *
  * Every name is re-exported from `ship-fields.ts`, so nothing that already
  * reaches for one through that file had to move.
@@ -38,6 +30,7 @@ export type GroupName =
   | "THE TASTER — the boss that grows its armour in the colour you have been spending"
   | "THE SINEW — the boss that asks how hard, not when"
   | "THE LEDGER — the boss that bills your own hull for every shot"
+  | "THE SURGE — the boss beaten by letting go"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -120,6 +113,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE TASTER — the boss that grows its armour in the colour you have been spending",
   "THE SINEW — the boss that asks how hard, not when",
   "THE LEDGER — the boss that bills your own hull for every shot",
+  "THE SURGE — the boss beaten by letting go",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",
@@ -199,6 +193,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE TASTER — the boss that grows its armour in the colour you have been spending",
   "THE SINEW — the boss that asks how hard, not when",
   "THE LEDGER — the boss that bills your own hull for every shot",
+  "THE SURGE — the boss beaten by letting go",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",
@@ -208,42 +203,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
 /** The ship's own dials — the same on every wave, and one click away on the topbar. */
 export const SHIP_GROUPS: GroupName[] = GROUP_ORDER.filter((g) => !WAVE_ONLY_GROUPS.has(g));
 
-/**
- * The boss group each `BossEntry` kind shows — a wave that carries `warden`
- * shows WARDEN, and nothing else here changes because of it. `ship.ts` reads
- * this to decide what belongs beside the wave being edited rather than beside
- * the ship, which is the split the SHIP-column brief asked for.
- */
-export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
-  pinball: "PINBALL — a table the ship's cannon fires up into",
-  pulse: "THE PULSE — the same song on two screens",
-  splice: "THE SPLICE — straws fed in the order the numbers say",
-  queen: "QUEEN",
-  warden: "WARDEN",
-  cairn: "THE CAIRN — a pile of rocks taken apart by hand",
-  mirror: "MIRROR",
-  vane: "VANE",
-  maze: "MAZE",
-  gauge: "THE GAUGE — a round with no field in it",
-  fleet: "THE FLEET — a chart only one of you can read",
-  snake: "SNAKE — a round the ship is the body of",
-  scout: "THE SCOUT — a little ship one of you flies",
-  stare: "THE STARE — an eye that freezes whoever it looks at",
-  diastole: "THE DIASTOLE — two hearts on two cadences, one each",
-  baton: "THE BATON — a bead passed down an arm, one seat a beat",
-  throat: "THE THROAT — the boss you answer by feeding it",
-  undertow: "THE UNDERTOW — the boss under the floor, answered downward",
-  orrery: "THE ORRERY — three orbits, and neither of you can see all three",
-  candle: "THE CANDLE — the boss fought in the dark",
-  gorge: "THE GORGE — the boss you hurt by not shooting",
-  curtain: "THE CURTAIN — the boss that is in the way",
-  taster: "THE TASTER — the boss that grows its armour in the colour you have been spending",
-  sinew: "THE SINEW — the boss that asks how hard, not when",
-  ledger: "THE LEDGER — the boss that bills your own hull for every shot",
-  // The one group with no dial in it, and deliberately: everything about THE
-  // WELL is the shape of a picture, and a number that changed how a picture
-  // reads belongs in a VERSUS candidate rather than on a slider
-  // (`render/src/well.ts`, `docs/versus.md`). The card says so.
-  well: "THE WELL — the field drawn inside out on one screen",
-  reprise: "THE REPRISE — the wave sent again unseen",
-};
+// A boss kind to its group. Cut out when THE SURGE's name took this file past
+// 250 (`ship-boss-group.ts`), and re-exported so nothing that reached for it
+// here had to move.
+export { BOSS_GROUP } from "./ship-boss-group.js";

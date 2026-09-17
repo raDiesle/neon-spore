@@ -158,4 +158,18 @@ export const SILENT_BOSS = [
   "ledgerLast",
   "ledgerHeld",
   "ledgerTear",
+  // THE SURGE's twelve, silent until the look lane draws it — then one family
+  // above the loop, never rows here (`docs/spec/bosses.md` §11.28).
+  "surgeSettle",
+  "surgeGrip",
+  "surgeRelease",
+  "surgeNear",
+  "surgeVent",
+  "surgeBurst",
+  "surgeGum",
+  "surgeLost",
+  "surgeAbsorb",
+  "surgeClose",
+  "surgeEvert",
+  "surgeOut",
 ] as const satisfies readonly SimEvent["type"][];

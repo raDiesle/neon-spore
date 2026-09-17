@@ -197,4 +197,28 @@ export const CHOREO_FIELD_GROUP = {
   sinewSwayMilli: "THE SINEW — the boss that asks how hard, not when",
   sinewClearCols: "THE SINEW — the boss that asks how hard, not when",
   sinewOutBeats: "THE SINEW — the boss that asks how hard, not when",
+  // SurgeConfig — how many notches, what a thumb charges and a beat leaks,
+  // where the top of the gauge is, where each notch sits and how wide its
+  // band is, from which notch it holds, doubles and closes, what a burst
+  // throws and for how long nothing takes hold, where the bulb hangs and how
+  // wide it is, THE SLOW on the band and the eversion, and how long the wave
+  // holds after (`config-surge.ts`).
+  surgeNotches: "THE SURGE — the boss beaten by letting go",
+  surgeChargeMilli: "THE SURGE — the boss beaten by letting go",
+  surgeDecayMilli: "THE SURGE — the boss beaten by letting go",
+  surgeBurstMilli: "THE SURGE — the boss beaten by letting go",
+  surgeNotchMilli: "THE SURGE — the boss beaten by letting go",
+  surgeNotchStepMilli: "THE SURGE — the boss beaten by letting go",
+  surgeWindowMilli: "THE SURGE — the boss beaten by letting go",
+  surgeHoldNotches: "THE SURGE — the boss beaten by letting go",
+  surgeDoubleNotches: "THE SURGE — the boss beaten by letting go",
+  surgeCloseNotches: "THE SURGE — the boss beaten by letting go",
+  surgeAbsorbMilli: "THE SURGE — the boss beaten by letting go",
+  surgeBurstGums: "THE SURGE — the boss beaten by letting go",
+  surgeBurstBeats: "THE SURGE — the boss beaten by letting go",
+  surgeBulbRow: "THE SURGE — the boss beaten by letting go",
+  surgeBulbCols: "THE SURGE — the boss beaten by letting go",
+  surgeNearSlowBeats: "THE SURGE — the boss beaten by letting go",
+  surgeEvertBeats: "THE SURGE — the boss beaten by letting go",
+  surgeOutBeats: "THE SURGE — the boss beaten by letting go",
 } satisfies Record<string, GroupName>;

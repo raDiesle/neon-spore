@@ -31,7 +31,8 @@ export type DragTarget =
   | "crank"
   | "orreryRing"
   | "sinewLeft"
-  | "sinewRight";
+  | "sinewRight"
+  | "surgeBulb";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -109,4 +110,15 @@ export type DragTarget =
  * read whole, which is the first magnitude the pair has ever had to say to
  * each other. No `id`, for `orreryRing`'s reason: there is one tendon, and it
  * is the boss.
+ */
+
+/**
+ * `surgeBulb` is the thirteenth, and the first handle **both seats** take
+ * hold of at once and the first whose gesture is the *lift*. A thumb
+ * anywhere on THE SURGE's bulb charges it, from either phone, and the wire
+ * says whose (`Command.player`); the press reports nothing — no depth, no
+ * sway — and the `on: false` a lift already sends is the whole command
+ * (`surge-hand.ts`): the second lift inside a beat of the first is what the
+ * pressure is judged on. No `id`, for `orreryRing`'s reason: one bulb, and
+ * it is the boss.
  */

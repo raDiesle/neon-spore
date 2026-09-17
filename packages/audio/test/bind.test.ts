@@ -73,6 +73,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-curtain.ts", "export type CurtainEvent ="],
     ["packages/sim/src/events-taster.ts", "export type TasterEvent ="],
     ["packages/sim/src/events-sinew.ts", "export type SinewEvent ="],
+    ["packages/sim/src/events-surge.ts", "export type SurgeEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -188,6 +189,18 @@ const SAMPLES: Record<string, SimEvent> = {
   sinewSwing: { type: "sinewSwing", col: 4, dir: -1 },
   sinewOut: { type: "sinewOut", col: 2 },
   sinewCrush: { type: "sinewCrush", col: 5 },
+  surgeSettle: { type: "surgeSettle", col: 5, row: 3 },
+  surgeGrip: { type: "surgeGrip", col: 5, player: 1 },
+  surgeRelease: { type: "surgeRelease", col: 5, player: 2 },
+  surgeNear: { type: "surgeNear", col: 5 },
+  surgeVent: { type: "surgeVent", col: 5, notches: 1, row: 4 },
+  surgeBurst: { type: "surgeBurst", col: 5, gums: 3 },
+  surgeGum: { type: "surgeGum", col: 4, row: 4 },
+  surgeLost: { type: "surgeLost", col: 5 },
+  surgeAbsorb: { type: "surgeAbsorb", col: 5, row: 4 },
+  surgeClose: { type: "surgeClose", col: 5, notches: 2 },
+  surgeEvert: { type: "surgeEvert", col: 5, row: 8 },
+  surgeOut: { type: "surgeOut", col: 5 },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },
