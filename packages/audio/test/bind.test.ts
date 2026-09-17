@@ -140,7 +140,7 @@ const SAMPLES: Record<string, SimEvent> = {
   undertowBow: { type: "undertowBow", col: 4 },
   undertowLobe: { type: "undertowLobe", col: 4, tall: false },
   undertowTaken: { type: "undertowTaken", col: 4 },
-  undertowScar: { type: "undertowScar", col: 4 },
+  undertowScar: { type: "undertowScar", col: 4, tall: false },
   undertowWidened: { type: "undertowWidened", col: 5 },
   undertowUnseated: { type: "undertowUnseated", col: 2 },
   undertowRise: { type: "undertowRise", col: 5 },

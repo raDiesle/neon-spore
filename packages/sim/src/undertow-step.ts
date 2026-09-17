@@ -8,6 +8,7 @@ import {
   type UndertowPhase,
   type UndertowState,
   undertowLastCol,
+  undertowPlateBeside,
 } from "./undertow.js";
 import { undertowTake } from "./undertow-press.js";
 import type { World } from "./world.js";
@@ -155,14 +156,16 @@ function through(world: World, u: UndertowState, b: UndertowBreach): void {
 /**
  * A lobe withdraws untaken. **A scar and not a lost wave**: nothing reached
  * the ship, something left it and took plating with it (`undertow.ts`). A
- * tall one takes the plating next door as well — it was too big for the
- * column it came up.
+ * tall one **takes the plate** — its own column's and the neighbour's, since
+ * it was too big for the column it came up — and the hull is two columns
+ * shorter for the rest of the run (`Scar.plate`, the design's steps 9 and
+ * 10); an ordinary one tears the plating and leaves it.
  */
 function withdraw(world: World, u: UndertowState, b: UndertowBreach): void {
-  scarHull(world, b.col, "slick");
-  if (b.tall) scarHull(world, b.col + 1 < world.cfg.cols ? b.col + 1 : b.col - 1, "slick");
+  scarHull(world, b.col, "slick", null, b.tall);
+  if (b.tall) scarHull(world, undertowPlateBeside(world.cfg, b.col), "slick", null, true);
   u.scars += 1;
-  world.events.push({ type: "undertowScar", col: b.col });
+  world.events.push({ type: "undertowScar", col: b.col, tall: b.tall });
   remove(u, b);
 }
 
@@ -173,7 +176,7 @@ function widen(world: World, u: UndertowState, b: UndertowBreach): void {
   b.widthMilli += cfg.undertowWidenMilli;
   if (b.widthMilli < cfg.undertowWideMilli || b.widened) return;
   b.widened = true;
-  const side = b.col + 1 < cfg.cols ? b.col + 1 : b.col - 1;
+  const side = undertowPlateBeside(cfg, b.col);
   if (u.breaches.some((o) => o.col === side)) return;
   u.breaches.push({
     col: side,

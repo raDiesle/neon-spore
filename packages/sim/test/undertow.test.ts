@@ -13,6 +13,7 @@ import {
   undertowBoss,
   undertowLastCol,
   undertowLobeAt,
+  undertowPlateBeside,
   undertowUnseated,
   type World,
 } from "../src/index.js";
@@ -201,6 +202,37 @@ describe("THE UNDERTOW", () => {
     expect(world.beam).not.toBeNull();
     expect(u.breaches).toHaveLength(0);
     expect(u.taken).toBe(CFG.undertowSingles + CFG.undertowPairs * 2 + 1);
+  });
+
+  // The plate stands on the tall lobe's column so the breach cannot breed a
+  // second lobe next door — the neighbour is the column the plate goes from,
+  // and a lobe standing there would be a second withdrawal in the count.
+  it("takes the plate with it when a tall lobe withdraws untaken: two columns, marked as gone", () => {
+    const world = open();
+    takeAll(world, "hard");
+    const col = untilLobe(world);
+    step(world, [cmd(world, 2, { kind: "shieldCol", col })]);
+    let tallScar = false;
+    for (let i = 0; i < (CFG.undertowStandBeats + 1) * TPB; i++) {
+      step(world, []);
+      if (world.events.some((e) => e.type === "undertowScar" && e.tall)) tallScar = true;
+    }
+    const u = floor(world);
+    expect(u.breaches).toHaveLength(0);
+    expect(u.scars).toBe(1);
+    expect(tallScar).toBe(true);
+    const plates = world.scars.filter((s) => s.plate === true).map((s) => s.col);
+    expect(plates.sort()).toEqual([col, undertowPlateBeside(CFG, col)].sort());
+    expect(failHolds(world)).toBe(false);
+  });
+
+  it("tears the plating and leaves it when an ordinary lobe withdraws", () => {
+    const world = open();
+    const col = untilLobe(world);
+    step(world, [cmd(world, 2, { kind: "shieldCol", col })]);
+    beats(world, CFG.undertowStandBeats + 1);
+    expect(world.scars.some((s) => s.col === col)).toBe(true);
+    expect(world.scars.some((s) => s.plate === true)).toBe(false);
   });
 
   it("unseats a pilot who stays on the floor bowing under the cannon", () => {

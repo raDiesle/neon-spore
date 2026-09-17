@@ -44,6 +44,16 @@ export interface Scar {
    * `breachHue` reads absent exactly as it reads `null`.
    */
   color?: Color;
+  /**
+   * **The plating itself is gone here**, not cracked. One maker: a tall lobe
+   * of THE UNDERTOW withdrawing untaken takes a plate of hull with it, its own
+   * column's and the neighbour's (`undertow-step.ts`, the design's step 9).
+   * Absent for every other scar, which is a tear in plating still there. The
+   * picture reads it as a hole in the outline rather than a crack on it, and
+   * it is in the hash because two devices that disagreed about it would draw
+   * two different hulls for the rest of the run.
+   */
+  plate?: true;
 }
 
 export interface GuardStats {
@@ -71,5 +81,10 @@ export interface GuardStats {
  */
 export function scarHashParts(scar: Scar): number[] {
   // Absent is its own value and is not the same as either colour.
-  return [scar.col, scar.beat, scar.color === undefined ? 0 : scar.color === "red" ? 1 : 2];
+  return [
+    scar.col,
+    scar.beat,
+    scar.color === undefined ? 0 : scar.color === "red" ? 1 : 2,
+    scar.plate === true ? 1 : 0,
+  ];
 }

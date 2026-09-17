@@ -26,8 +26,8 @@ export type UndertowEvent =
   | ({ type: "undertowLobe"; tall: boolean } & UndertowColEvent)
   /** The maw closed over a lobe, or the beam burned one; the plate closes behind it. */
   | ({ type: "undertowTaken" } & UndertowColEvent)
-  /** A lobe withdrew untaken. The breach is a scar in the pair's own hull. */
-  | ({ type: "undertowScar" } & UndertowColEvent)
+  /** A lobe withdrew untaken. The breach is a scar in the pair's own hull — and a tall one took the plate with it (`Scar.plate`). */
+  | ({ type: "undertowScar"; tall: boolean } & UndertowColEvent)
   /** A breach nobody plated got wide enough for a second lobe, now standing at `col`. */
   | ({ type: "undertowWidened" } & UndertowColEvent)
   /** The floor bowed under the cannon and it was not slid off in time: player 1's seat is unseated. */

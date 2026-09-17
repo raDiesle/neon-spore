@@ -72,8 +72,16 @@ export function scarHull(
   /** The body's own colour, kept so a remembered hit is drawn in what made it
    * (`Scar.color`). Null for every caller that breaks the hull without one. */
   color: Color | null = null,
+  /** The plating taken rather than torn (`Scar.plate`): THE UNDERTOW's tall lobe, and nothing else. */
+  plate = false,
 ): void {
-  world.scars.push({ col, beat: world.beat, kind, ...(color ? { color } : {}) });
+  world.scars.push({
+    col,
+    beat: world.beat,
+    kind,
+    ...(color ? { color } : {}),
+    ...(plate ? { plate: true as const } : {}),
+  });
   if (world.scars.length > world.cfg.maxScars) world.scars.shift();
 }
 

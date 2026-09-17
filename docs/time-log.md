@@ -22,6 +22,22 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE UNDERTOW, the plate taken
+
+Steps 9 and 10 as a fact: a tall lobe withdrawing takes the plate, its
+column's and the neighbour's, marked on the scar and hashed.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the design's beat list, `undertow.ts`, `undertow-step.ts`, `hull-damage.ts`, `hull-types.ts`, the scar fixture, `craters.ts`'s header for what a hole in the outline already is |
+| writing | 10 | `Scar.plate`, the hash part, `scarHull`'s flag, `undertowPlateBeside` called from both the widening and the withdrawal, the event's `tall`, two tests, the write-up |
+| looking | 0 | nothing moved on screen |
+| friction | 5 | the new export missing from `boss-surface.ts` as well as the barrel; the event check written after `beats()` had cleared it |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was deciding where a plate lives: on the boss it would go
+with the boss, and the design says the rest of the run, so it is a scar.
+
 ## 2026-09-17 — boss-implementation — THE BATON, the thread
 
 Step 12's picture: the arm one segment long, hanging by a thread. The sim

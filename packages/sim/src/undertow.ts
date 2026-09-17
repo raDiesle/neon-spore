@@ -113,6 +113,16 @@ export function undertowLastCol(cfg: SimConfig): number {
   return midCol(cfg);
 }
 
+/**
+ * The second column a tall lobe takes the plate of when it withdraws: the
+ * one to its right, or to its left at the hull's edge. The same rule the
+ * widening uses for where a second lobe comes through (`undertow-step.ts`),
+ * so the two never disagree about which neighbour a column has.
+ */
+export function undertowPlateBeside(cfg: SimConfig, col: number): number {
+  return col + 1 < cfg.cols ? col + 1 : col - 1;
+}
+
 /** The breach in that column, if the boss is pushing at it. */
 export function undertowBreachAt(u: UndertowState, col: number): UndertowBreach | null {
   for (const b of u.breaches) if (b.col === col) return b;

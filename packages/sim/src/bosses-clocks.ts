@@ -236,6 +236,7 @@ export {
   undertowBreachAt,
   undertowLastCol,
   undertowLobeAt,
+  undertowPlateBeside,
   undertowUnseated,
 } from "./undertow.js";
 export { undertowBowBeats } from "./undertow-step.js";

@@ -2136,10 +2136,22 @@ and the wave lost. The rise and the body passing each open `undertowSlowBeats`
 and a hole it withdraws from is a scar in the pair's own hull for the rest of
 the run. `taken` and `scars` are the two counts, and nothing else is.
 
-**What is not built**: a creature through a breach worth two (step 8's
-*missed*), a tall lobe taking a plate of hull with it when it withdraws (step
-9's — today it scars the column and its neighbour), and the plate closing
-under a cannon slid off in time as a picture rather than a fact.
+**The plate taken** — the design's steps 9 and 10, as of 17 September 2026.
+A tall lobe withdrawing untaken does not tear the plating, it takes it: the
+scar it leaves in its own column and in the neighbour's
+(`undertowPlateBeside`, the widening's own rule for which column is next
+door) carries `Scar.plate`, the plating gone rather than cracked, and the
+hull is two columns shorter for the rest of the run — four after the phase,
+the design's step 10. It is in the hash (`scarHashParts`), because a hull two
+devices disagreed about would be two hulls. The `undertowScar` event says
+`tall` for it. **Step 8's *worth two* is not built, on purpose**: the owner's
+rule is that a body reaching the hull costs the wave, whatever it came
+through, so a creature through a breach is the wave lost like any other and
+there is nothing for it to be worth twice.
+
+**What is not built**: the plate's picture — a scar with `plate` is drawn as
+the crack every scar is, not yet as a hole in the outline — and the plate
+closing under a cannon slid off in time as a picture rather than a fact.
 
 **Drawn, in two passes, because the boss is on both sides of the hull line.**
 The lobes and the body are drawn in the field pass with the other bosses
