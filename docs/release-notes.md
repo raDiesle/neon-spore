@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · cae4a8b9 — THE BATON hangs by a thread: step 12's picture, the arm one segment long once every socket but the last is dark
+
+The beat a landing leaves one lit socket the sim remembers as `threadBeat` (`batonOneSegment`); a miss, which relights the arm, clears it. The look reads it and nothing else: over `batonThreadBeats` everything above the last socket thins to a thread a fifth of the spine's width, sways looser, loses its glow, and every dark socket on it shrinks to a husk, while the last segment keeps its width and its lit socket its glow. The crossing runs exactly as it did. Exemption: a look with no shipped alternative — step 12 had no picture at all.
+
 ## 2026-09-17 · 3a3306cf — THE SCOUT is drawn: the little ship on the field's columns, the real hull's mouth as home, four lobes on the band
 
 The round's look, a look with no shipped alternative. The arena is the field's own columns from the top of the play area to the hull's surface; the mother ship the little one flies home to is the real hull, whose intake opens off `scoutMawOpen` for the beat the navigator's press holds it; a mote is a pod and a hazard is a burning rock; the little ship is one lobed contour of the hull's violet at a tile's scale. The four presses are lobes in THE CLAW's sockets on the band — the panel the design named — so the app's and the director's slab listeners are deleted and `touch-lobe.ts` holds player 1's three and taps player 2's mouth. Player 1's buttons carry the nose the ship is actually pointed at; player 2's is the mouth, drawn by the ship's own intake call. The split is `showsScoutArena` and `showsScoutNose` in `view-role.ts`, and eight frame tests draw every phase on all three screens and prove it both ways.
