@@ -9663,3 +9663,5 @@ The bottleneck was reading rather than writing, and it was the right place to
 spend it: the page's own status block named five bosses as built and the
 simulation had thirty-two, so every classification had to come off
 `BOSS_KINDS` instead.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

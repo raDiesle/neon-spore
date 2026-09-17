@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 7ea3fa40 — The boss page is ordered by what is left to do, and two ideas older than three days are gone
+
+The owner keeps no boss idea on the page longer than three days, so The Mother (11.1) and The Vessel (11.2) are cut — written 23 August 2026, never built, one waiting on destruction tracking and the other on a second device. What was worth keeping outlived both designs rather than dying with them: a new `## Fixed and learnable` section carries the rule that a boss reacts to *what* the pair did and never to *how well*, and the five places in `sim` and `docs/spec` that were citing it as §11.1 now cite it by name. The Vessel's argument was already `systems.md` 5.2's.
+
 ## 2026-09-17 · 654928c6 — Park THE HIVE's look: the simulation landed, the second lane not started
 
 The session stops before the look lane begins, so the plan for it — the files, the two seat predicates, the picture as decided — goes in docs/parked.md where bun run queue hands it to the next sitting first.
