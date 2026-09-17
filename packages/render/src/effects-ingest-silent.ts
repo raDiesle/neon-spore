@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { INGEST_SILENT_BOSS } from "./effects-ingest-silent-boss.js";
+import { INGEST_SILENT_BOSS_B } from "./effects-ingest-silent-boss-b.js";
 
 /**
  * **The events that leave nothing behind in `Effects`**, and why each one does
@@ -30,6 +31,7 @@ export const INGEST_SILENT = [
   // 250-line ceiling and grows by one row per event
   // (`effects-ingest-silent-boss.ts`).
   ...INGEST_SILENT_BOSS,
+  ...INGEST_SILENT_BOSS_B,
   // THE BEATBOX's tap, and only its tap. The green rings a counted beat throws
   // are world state, redrawn from the creature every frame off the tick the
   // simulation stamped on it (`beatbox-air.ts`), so nothing about a press

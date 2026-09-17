@@ -1,4 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { antiphonCue } from "./bind-antiphon.js";
 import { batonCue } from "./bind-baton.js";
 import { candleCue } from "./bind-candle.js";
 import type { Cue } from "./bind-cue.js";
@@ -38,7 +39,8 @@ type ChoreographedEvent = Extract<
       | `sinew${string}`
       | `surge${string}`
       | `lead${string}`
-      | `scuttle${string}`;
+      | `scuttle${string}`
+      | `antiphon${string}`;
   }
 >;
 
@@ -159,6 +161,17 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "scuttleDown":
     case "scuttleOut":
       return scuttleCue(e, cols);
+    case "antiphonEnter":
+    case "antiphonGrow":
+    case "antiphonPit":
+    case "antiphonHarden":
+    case "antiphonSink":
+    case "antiphonSpill":
+    case "antiphonStill":
+    case "antiphonShip":
+    case "antiphonBurst":
+    case "antiphonOut":
+      return antiphonCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

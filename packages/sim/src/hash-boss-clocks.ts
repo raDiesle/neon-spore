@@ -1,3 +1,4 @@
+import { antiphonHashParts } from "./antiphon-hash.js";
 import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-union.js";
 import { candleHashParts } from "./candle-hash.js";
@@ -92,6 +93,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE SCUTTLE: every socket's part, which hang, which is live, the slack and the clocks (`scuttle-hash.ts`).
   if (boss.kind === "scuttle") {
     for (const n of scuttleHashParts(boss)) out.push(n);
+  }
+  // THE ANTIPHON: the organs, the rail, the pits, and the clocks (`antiphon-hash.ts`).
+  if (boss.kind === "antiphon") {
+    for (const n of antiphonHashParts(boss)) out.push(n);
   }
   if (boss.kind === "curtain") {
     for (const n of curtainHashParts(boss)) out.push(n);

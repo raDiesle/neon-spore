@@ -11,12 +11,33 @@
  *
  * THE SCUTTLE is a clock in the plainest sense on the page: its whole
  * difficulty is the beats a part hangs before it is thrown, which is a count
- * one seat says out loud and the other shoots on (`scuttle.ts`).
+ * one seat says out loud and the other shoots on (`scuttle.ts`). THE
+ * ANTIPHON's clock is the window an organ stands for, which the seat who
+ * can see it is counting down to the seat who cannot (`antiphon.ts`).
  */
 
+export {
+  ANTIPHON_SHIP,
+  type AntiphonCandidate,
+  type AntiphonOrgan,
+  type AntiphonState,
+  antiphonBoss,
+  antiphonDown,
+  antiphonFamilyOf,
+  antiphonFull,
+  antiphonGrown,
+  antiphonIsOrgan,
+  antiphonOrganAt,
+  antiphonRailSize,
+  antiphonShipUp,
+  antiphonSinkBeat,
+  antiphonTight,
+  antiphonTwins,
+  antiphonWindow,
+} from "./antiphon.js";
 // The entry is next door to the other entries; `entries.ts` is at 250 lines
 // exactly, so it is re-exported from the file that declares it instead.
-export type { ScuttleEntry } from "./boss-entries.js";
+export type { AntiphonEntry, ScuttleEntry } from "./boss-entries.js";
 export {
   type ScuttlePart,
   type ScuttlePartKind,

@@ -11,6 +11,8 @@
  * `packages/sim` imports, and `bun run typecheck` says so either way.
  */
 
+// From THE ANTIPHON on, the second page (`boss-surface-clocks-b.ts`).
+export * from "./boss-surface-clocks-b.js";
 export {
   BATON_SOCKET_DARK,
   BATON_SOCKET_LIT,

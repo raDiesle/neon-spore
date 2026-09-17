@@ -98,6 +98,10 @@ const STILL_PROSE = [
   // sockets over the field, a part hanging and the count under it read by
   // seat, none of which is drawn yet.
   "THE SCUTTLE",
+  // And THE ANTIPHON, owed by the lane that draws the body: an organ read
+  // by one seat and a rail by the other, and the pits, none of which is
+  // drawn yet.
+  "THE ANTIPHON",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -124,8 +128,8 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
     const fix = "update §1 of docs/spec/briefings.md, which says eighty-two of ninety-one";
-    expect(guided.length, fix).toBe(84);
-    expect(WAVES.length, fix).toBe(93);
+    expect(guided.length, fix).toBe(85);
+    expect(WAVES.length, fix).toBe(94);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

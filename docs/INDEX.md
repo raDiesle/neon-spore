@@ -211,6 +211,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — how wide the sack is, how many beads fill an intake |
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/boss-surface-clocks.ts` | **The clock bosses' half of the surface**, written out the same way |
+| `packages/sim/src/boss-surface-clocks-b.ts` | **The clock bosses' half of the surface, the second page** — from THE ANTIPHON on |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
 | `packages/sim/src/wave-fail.ts` | A hit fails the wave, and the wave is played again; the clock and retries text |
@@ -445,6 +446,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-taster.ts` | **Everything THE TASTER does that neither screen already says**, as events |
 | `packages/sim/src/events-ledger.ts` | **Everything THE LEDGER does that neither screen already says**, as events |
 | `packages/sim/src/events-lead.ts` | **Everything THE LEAD does that neither screen already says**, as events |
+| `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -459,6 +461,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-orrery.ts` | **THE ORRERY's numbers**: three orbits, the beat they first come together on |
 | `packages/sim/src/config-ledger.ts` | THE LEDGER's numbers — how wide the body stands, how many hits part it |
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
+| `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/curtain-hash.ts` | What THE CURTAIN puts into `hashWorld`, and nothing else |
@@ -482,6 +485,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's presses: the maw, the beam and the unseat |
 | `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the push, the bow, the lobe coming through, the widening, the withdrawal |
 | `packages/sim/src/undertow.ts` | THE UNDERTOW: where you are being hit from |
+| `packages/sim/src/antiphon-hash.ts` | What THE ANTIPHON puts into `hashWorld`, and nothing else |
+| `packages/sim/src/antiphon-rail.ts` | **What grows and what she is shown beside it** — one cycle's organs and the rail they are hidden on |
+| `packages/sim/src/antiphon-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE ANTIPHON |
+| `packages/sim/src/antiphon-step.ts` | THE ANTIPHON's clock — the rise, the growth, the window, the sinking, the still and the ship, and the collapse |
+| `packages/sim/src/antiphon.ts` | THE ANTIPHON: describing a thing that has no name |
 
 ### packages/content
 
@@ -1147,6 +1155,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/splice-straws.ts` | THE SPLICE's straws, as geometry and as lines |
 | `packages/render/src/effects-ingest-silent.ts` | **The events that leave nothing behind in `Effects`**, and why each one does not |
 | `packages/render/src/effects-ingest-silent-boss.ts` | **The bosses' half of the silent list**, and nothing else |
+| `packages/render/src/effects-ingest-silent-boss-b.ts` | **The bosses' half of the silent list, the second page** — from THE ANTIPHON on |
 | `packages/render/src/effects-ingest-pod.ts` | **What the mouth leaves on screen**, for the two cargoes that leave anything |
 | `packages/render/src/malfunction-look.ts` | **What a broken control looks like**, and what the button that holds it off looks like beside it |
 | `packages/render/src/magnet-break.ts` | A magnet coming apart: the two arms thrown the way the bolt was going, and the plate falling loose |
@@ -1417,6 +1426,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
 
 ### apps/game
 

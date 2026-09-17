@@ -99,4 +99,22 @@ export const CHOREO_NOTES_B = {
     "scuttleSlowBeats; only the beam in its column takes it, and thrown it " +
     "breaches the hull. The frame comes down over scuttleOutBeats. Nothing " +
     "about it is authored per wave. See sim/scuttle.ts, sim/config-scuttle.ts.",
+  "THE ANTIPHON — the boss that grows a thing nobody has a word for":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §12: " +
+    "the boss that is a question about describing a thing with no name. A " +
+    "smooth body over the middle grows one organ a cycle from a table of " +
+    "antiphonShapes contours in families of antiphonFamily, and only the " +
+    "pilot sees it; only the navigator sees a rail of antiphonRail " +
+    "candidates with a column and a colour each, the organ among them. A " +
+    "bolt in the organ's column and colour makes a pit; a decoy's column and " +
+    "colour hardens it and adds one to every rail after, up to " +
+    "antiphonRailMax. An organ grows for antiphonGrowBeats and stands " +
+    "antiphonWindowBeats, then sinks. antiphonPits end it. From " +
+    "antiphonTightPits the rail is the organ's family and the window " +
+    "antiphonTightWindowBeats; from antiphonSpillPits the rejected fall as " +
+    "bodies; from antiphonTwinPits two grow; from antiphonFirePits a sinking " +
+    "organ fires; from antiphonEchoPits a pit grows again. Full, it is still " +
+    "antiphonStillBeats and grows the ship on a rail of antiphonShipRail; " +
+    "the right one bursts it over antiphonOutBeats. See sim/antiphon.ts, " +
+    "sim/config-antiphon.ts.",
 } satisfies Partial<Record<GroupName, string>>;

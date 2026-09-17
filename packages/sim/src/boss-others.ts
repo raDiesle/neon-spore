@@ -1,3 +1,4 @@
+import { stepAntiphon } from "./antiphon-step.js";
 import { stepBaton } from "./baton-step.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
@@ -165,6 +166,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // part off is on the tick (`scuttle-shot.ts`).
   if (boss.kind === "scuttle") {
     stepScuttle(world, boss);
+    return;
+  }
+  // THE ANTIPHON on the beat is the body's clock: the rest, the growth, the
+  // window run out, the still and the ship, the collapse. A shot naming an
+  // organ or a decoy is on the tick (`antiphon-shot.ts`).
+  if (boss.kind === "antiphon") {
+    stepAntiphon(world, boss);
     return;
   }
   if (boss.kind === "vane") {

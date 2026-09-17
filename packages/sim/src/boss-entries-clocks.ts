@@ -211,3 +211,14 @@ export interface LeadEntry {
 export interface ScuttleEntry {
   kind: "scuttle";
 }
+
+/**
+ * What a wave authors when it wants THE ANTIPHON: nothing, the fifteenth.
+ * The body rises smooth over the middle columns; which shape stands where,
+ * in which colour, beside which decoys, is the seed's, and how many organs
+ * it has and how long each stands is tuning (`antiphon.ts`,
+ * `config-antiphon.ts`).
+ */
+export interface AntiphonEntry {
+  kind: "antiphon";
+}

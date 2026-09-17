@@ -31,6 +31,7 @@ type BossId = Extract<
   | "surge"
   | "lead"
   | "scuttle"
+  | "antiphon"
 >;
 
 /**
@@ -148,6 +149,10 @@ export const BOSS_MECHANICS = {
   },
   scuttle: {
     what: "The one that throws itself at you, a part at a time. A frame of twenty-one parts hangs over the middle of the field — rock, bodies of both colours, and two pods, sown by the seed — and the parts are its health and its ammunition both. Every three beats a part comes loose and hangs in its socket, then is thrown down its own column as what it is: a meteor, a slick, a bulb, or a pod. A bolt out of the top of the field in that column and that colour while it hangs takes it off the frame with no throw, and the next part comes loose the beat after; the wrong colour is a rebuff. Only the pilot sees which hanging part is live and its colour; only the navigator sees the count under it. A pod thrown is a real pod, and taken it slackens the next window a beat. Under twelve parts it lets two go at once, one of them live; under eight it throws every two beats and from the far side of the frame. The last part winds up for the beam's priming and a beat, under THE SLOW, and only the beam standing in its column takes it — thrown, it hits the hull and the wave is lost.",
+    reach: "spawn",
+  },
+  antiphon: {
+    what: "The one boss that is a question about describing a thing with no name. A smooth body over the top of the field grows one organ at a time — a contour nobody has a word for — and only the pilot sees it. Only the navigator sees a rail of three candidates, each with a column and a colour, and the organ is one of them. The pilot describes; the navigator names a column and a colour; a bolt out of the top of the field in that column and that colour takes the organ to a pit, the wrong colour there is nothing, and the wrong candidate hardens the organ and puts one more on every rail after. An organ stands fourteen beats, then sinks back healed. Six pits. From two the rail is the organ's own family and the window is eight; from three every candidate rejected falls as a body in its colour; from four two grow at once and an organ left standing fires a body down its column; from five a pit grows again. With every pit taken the surface goes still, and the last organ is their own ship on a rail of ships — the right one erupts every pit, the wrong one hardens.",
     reach: "spawn",
   },
   undertow: {

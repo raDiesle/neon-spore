@@ -3818,3 +3818,140 @@ run fingerprints the same way twice (`sim/test/scuttle.test.ts`, fourteen).
 The picture was drawn on both seats at a tick and never watched at tempo,
 and whether three beats of a part hanging reads as a window or as a
 decoration is the owner's.
+
+## 11.31 THE ANTIPHON — the boss that grows a thing nobody has a word for
+
+> The one that grows an organ nobody has ever seen, so there is no word for
+> it and you have to invent one.
+
+Designed as §12 of [bosses-choreographed](bosses-choreographed.md), where
+the argument for it is: [couplings](couplings.md) 3 — **announcing** — is
+the one coupling still unbuilt, and this is the boss that spends it. A
+body over the top of the field grows an organ the game has never drawn
+before; one seat is shown its shape and nothing else, the other a rail of
+candidates one of which it is, and the whole mechanic is a sentence that
+does not exist yet. The game never listens and never scores the words
+(`CLAUDE.md` rule 5, untouched): it arranges for the pair to have to build
+a vocabulary in real time and gives them nothing to build it out of.
+
+**It is a fixture, not a body.** Nothing of it is in `world.creatures`: the
+state (`sim/antiphon.ts`, hashed in `sim/antiphon-hash.ts`) is the
+**organs** standing now — none between cycles, one, or two — each a shape
+index under `antiphonShapes` (16) with a colour, a column and the beat it
+began pushing out on; the **rail** of candidates, each a shape, a colour
+and a column, the organs among them in the seed's order; the **pits**, the
+shapes described so far, which are the health and the record; the
+**extra** candidates wrong answers have added to every rail since; and
+three beat stamps — the cycle began, the surface went still, the right
+ship was fired. Like THE SCUTTLE it **fills its wave** (`bossFillsWave`):
+`act-7e.ts`'s "THE ANTIPHON" has no entries at all, because every arrival
+in the fight is a candidate the pair rejected or an organ they left alone.
+
+**The rule, in one sentence.** After `antiphonRestBeats` (2) with nothing
+standing, an organ pushes out of the surface (`antiphonGrow`, with its
+shape and how many grow) over `antiphonGrowBeats` (4), during which
+nothing counts, and then stands its window — `antiphonWindowBeats` (14),
+or `antiphonTightWindowBeats` (8) from `antiphonTightPits` (2) and for the
+ship — on a rail of `antiphonRail` (3) candidates laid the same beat
+(`sim/antiphon-rail.ts`: shapes, then columns, then colours, then the
+rail's own shuffle, all through `nextInt` in that order, with every column
+and every shape distinct across the rail so a column names one candidate
+and the contour he describes is on it once). A bolt that nothing on the
+field stopped and that leaves through the top (`sim/antiphon-shot.ts`,
+from `bullets.ts` and `lance-burn.ts` beside `scuttleStruck`) in the
+organ's column *and* its colour shrivels it to a pit (`antiphonPit`, with
+the count) and the cycle ends; a decoy's colour in the decoy's column
+**hardens** the cycle (`antiphonHarden`, with the next rail's width) — the
+organ sinks unpitted and every rail after is one candidate wider, to
+`antiphonRailMax` (6); the organ's column in the other colour, or a column
+that names no candidate, is nothing, unsaid. An organ whose window runs
+out **sinks back healed** (`antiphonSink`), and from `antiphonFirePits`
+(4) fires a body in its colour down its own column first (`spawnOne`,
+`livingKindForColor`). From `antiphonTightPits` (2) the decoys are the
+organ's own **family** — the `antiphonFamily` (4) consecutive indices a
+lobe apart, `antiphonFamilyOf` — so he describes a difference rather than
+a shape; from `antiphonSpillPits` (3) every candidate a pit rejected
+arrives as a body in its colour down its column (`antiphonSpill`), so a
+wrong description is also a wrong field read; from `antiphonTwinPits` (4)
+two organs grow at once on a rail two wider and the cycle ends with the
+second; from `antiphonEchoPits` (5) one organ a cycle is a shape already
+killed, and for once the pair has a name. At `antiphonPits` (6) the
+surface goes **still** once (`antiphonStill`) for `antiphonStillBeats`
+(4) and then grows the last organ, **their own ship** (`antiphonShip`,
+shape `ANTIPHON_SHIP`), on a rail of `antiphonShipRail` (3) ships; the
+right one **bursts** every pit at once (`antiphonBurst`, with the count)
+and the body is gone `antiphonOutBeats` (3) later (`antiphonOut`, the boss
+nulled, the wave allowed to end); a wrong ship hardens like any decoy and
+the ship grows again after the rest, with no second still.
+
+**The split is the eyes, and it is the look lane's.** Player 1 is to be
+shown the organ's shape and nothing of its colour or column; player 2 the
+rail — shapes, colours, columns — and never which is the organ. Nothing
+in the simulation depends on it: the organs and the rail are two fields on
+one state, and which screen draws which is `render/view-role-clocks-b.ts`'
+to say. The sentence between them is *three lobes, the bottom one long —
+four, red*, said in both directions at once.
+
+**Where this departs from the design, and why.** Eight places, each argued
+by name. *An organ is an index and not a contour*: the simulation never
+sees a shape — the design's fresh contour from `tools/shape-sheet` is a
+table of `antiphonShapes` in `packages/content`, the look lane's, and a
+family is consecutive indices in it, so that *variants of one contour a
+lobe apart* (step 6) is a fact about the table's order and not about the
+rules. *There is no beam*: the design has none, and a beam that took an
+organ would take it without a colour, which is half the description; a
+beam up any column burns the column and touches nothing. *Nothing counts
+while it grows*: the rail is laid the beat the growth begins, for the
+screens, but a bolt into a contour still resolving is a guess and not a
+description, so the window opens when the organ is all the way out. *The
+window is one number a phase, not six beats called and six beats called
+and 900 ms and two beats*: steps 2 to 5 are one conversation with the cannon
+at the end of it, and the pair is given the whole of it at once — fourteen
+beats while the pits are few, eight once the rail has closed in — because
+a window cut into named pieces would be a rule table on the boss, which
+the owner does not like (§11.9). *An organ fires from the fourth pit, not
+"after eight beats"*: step 10's shot is the price of leaving an organ
+alone, and in the first phase — *generous time* — nothing falls at all; so
+the shot is the window running out, from `antiphonFirePits`, and the
+warded answer is the ordinary field's. *A wrong candidate widens the rail
+by one, capped*: step 5's *hardens all three, and the next cycle gives
+four* is kept whole for the first wrong answer, and a rail that grew
+without limit would be a rail nobody could read on a phone, so
+`antiphonRailMax` holds it. *The still happens once*: step 12 is a
+pause before the payoff, and a pause repeated after every wrong ship would
+be the payoff going flat; a wrong ship costs the rest and the rail's
+width, like any wrong answer. *The rotation under a hand is not built*:
+the design's one time effect is a second viewing angle, and a hand that
+turns the organ is a `Hold` the default set does not have yet — it is the
+look lane's to add, or the owner's to decline (`new-boss` skill §6, open).
+
+**What is not built.** The picture: the body, the organ pushing out of it
+(`body-inset.ts`, `metaball-spread.ts`), the table of sixteen contours
+from `tools/shape-sheet/src/drafts/` and their families, the navigator's
+rail, the pits, the ship among ships, the eruption; the split, which is a
+pair of predicates in `render/view-role-clocks-b.ts`; the turn under a
+hand. Every event is on the silent lists
+(`render/effects-ingest-silent-boss-b.ts`, `effects-spark-silent-boss.ts`)
+until the look lane draws it. The sounds are bound
+(`audio/bind-antiphon.ts`, `sounds/boss-antiphon.ts`), one a cue, panned to
+the column.
+
+**Never watched at tempo.** What the tests say is the mechanism: it rises
+smooth with nothing on the rail and nothing on the field; it holds its
+wave and fills it; it rests and grows one organ on a rail of distinct
+columns and shapes; nothing counts while the organ is still pushing out;
+the organ's colour in its column is a pit and the cycle ends with nothing
+falling; the other colour in its column is nothing; a decoy's colour in
+its column hardens, and the next rail is one wider, to the cap; a column
+that names no candidate is nothing, and so is the beam; the window runs
+out and the organ sinks with nothing falling in the first phase, and fires
+a body down its column from `antiphonFirePits`; the rail closes on the
+family from `antiphonTightPits`; every rejected candidate falls from
+`antiphonSpillPits`; two grow from `antiphonTwinPits` on a rail two wider
+and the cycle ends with the second; a pit grows again from
+`antiphonEchoPits`; with every pit taken it goes still, grows the ship on
+a rail of ships, and the right one bursts it; the wrong ship hardens and
+the ship grows again with no second still; and the same run fingerprints
+the same way twice (`sim/test/antiphon.test.ts`, eighteen). Nothing was
+drawn, nothing was watched, and whether fourteen beats is a conversation
+or a wait is the owner's.

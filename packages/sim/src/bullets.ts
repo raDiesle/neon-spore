@@ -1,3 +1,4 @@
+import { antiphonStruck } from "./antiphon-shot.js";
 import { batonBeadAlong, batonStruck } from "./baton-press.js";
 import { resolve } from "./bullet-hit.js";
 import { candleEats, candleStruck } from "./candle-step.js";
@@ -200,6 +201,9 @@ function sweep(world: World, b: Bullet): boolean {
     // And THE SCUTTLE's live part, struck off its socket while it hangs if
     // the bolt is in its column and its colour (`scuttle-shot.ts`).
     scuttleStruck(world, b);
+    // And THE ANTIPHON's rail: a bolt out of the top is a colour in a column,
+    // which is one candidate or none (`antiphon-shot.ts`).
+    antiphonStruck(world, b);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

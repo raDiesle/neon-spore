@@ -1,3 +1,4 @@
+import { ANTIPHON_DEFAULTS, type AntiphonConfig } from "./config-antiphon.js";
 import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 import { CANDLE_DEFAULTS, type CandleConfig } from "./config-candle.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
@@ -59,7 +60,8 @@ export interface BossClockConfig
     LedgerConfig,
     SurgeConfig,
     LeadConfig,
-    ScuttleConfig {}
+    ScuttleConfig,
+    AntiphonConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -77,4 +79,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...SURGE_DEFAULTS,
   ...LEAD_DEFAULTS,
   ...SCUTTLE_DEFAULTS,
+  ...ANTIPHON_DEFAULTS,
 };

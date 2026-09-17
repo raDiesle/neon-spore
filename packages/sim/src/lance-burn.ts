@@ -1,3 +1,4 @@
+import { antiphonStruck } from "./antiphon-shot.js";
 import { isBeatTick } from "./beat-clock.js";
 import { resolve } from "./bullet-hit.js";
 import { candleStruck } from "./candle-step.js";
@@ -166,5 +167,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE SCUTTLE's wind-up, which only a beam standing in the last part's
   // column ends (`scuttle-shot.ts`).
   scuttleStruck(world, b);
+  // And THE ANTIPHON, to which a beam is nothing — said there, once
+  // (`antiphon-shot.ts`).
+  antiphonStruck(world, b);
   return 0;
 }

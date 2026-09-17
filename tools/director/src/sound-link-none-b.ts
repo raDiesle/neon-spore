@@ -27,4 +27,22 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.scuttleDown": "the last part taken by the beam in the wind-up. Same argument.",
   "boss.scuttleOut":
     "the frame gone. What this marks is a field with nothing over its top — an absence like ui.waveClear rather than a thing standing anywhere.",
+  // THE ANTIPHON's ten share it too: the boss is a body that grows contours
+  // no card has — that is the whole question of it — and what falls off its
+  // rail is a slick or a bulb, which have their cards (`sim/antiphon.ts`).
+  "boss.antiphonEnter":
+    "the body rising over the middle columns. It is a surface with nothing on it yet, which is not a card (`sim/antiphon.ts`).",
+  "boss.antiphonGrow":
+    "an organ pushing out of the surface. Its contour is one nobody has a word for, which is the point; a card would name it.",
+  "boss.antiphonPit": "an organ shrivelling to a pit. Same argument.",
+  "boss.antiphonHarden": "the organ hardening on a wrong answer. Same argument.",
+  "boss.antiphonSink": "an organ drawing back under the surface. Same argument.",
+  "boss.antiphonSpill":
+    "a rejected candidate falling as a body. What falls is a slick or a bulb, with its own card; the spill is the rail's.",
+  "boss.antiphonStill": "the surface going still with every pit taken. Same argument.",
+  "boss.antiphonShip":
+    "their own ship grown out of the body. It is the hull, which is the ship's and not a card's.",
+  "boss.antiphonBurst": "every pit erupting at once. Same argument.",
+  "boss.antiphonOut":
+    "the body gone. An absence like ui.waveClear rather than a thing standing anywhere.",
 };

@@ -87,6 +87,9 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // clock, not an author's. It is THE ORRERY's case on the choreographed page
   // — the ruling there that *a boss on this page is fed by its wave* is about
   // a boss that reads the wave, and this one reads nothing.
+  // THE ANTIPHON is the sixteenth and reads nothing either: what falls in it
+  // is what the pair got wrong — a candidate a pit rejected, an organ left
+  // to sink — and the design says *nothing else arrives* (`antiphon-step.ts`).
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -178,4 +181,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "surge",
   "lead",
   "scuttle",
+  "antiphon",
 ];

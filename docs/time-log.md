@@ -9544,3 +9544,26 @@ entries ask the owner something — so the lane's time went to proving that one
 of the six was not a question.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — boss-implementation — THE ANTIPHON, the simulation
+
+The first lane of the twelfth choreographed boss, the one that spends the
+announcing coupling: a body that grows an organ a cycle from a table of
+contours it never sees, a rail of candidates one of which it is, a pit for
+the right colour in the right column, a wider rail for the wrong candidate,
+an organ sinking healed or firing when its window runs out, the rejected
+candidates falling as bodies, a killed shape coming back, and their own
+ship as the last organ on a rail of ships. Written to THE SCUTTLE's shape
+file for file, with two second pages cut where the first was at its limit.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | §12 of the design, THE SCUTTLE's seven files and §11.30, the surface and silent lists at their limits |
+| writing | 15 | seven sim files and eighteen tests, the wave, the ten sounds and cues, the director's sheet, §11.31 |
+| looking | 0 | nothing drawn — the look is the second lane |
+| friction | 5 | a `grep && cat >` chain that skipped the write; two tests reading events a helper had already cleared; the ship's sound a tenth over the speech band twice |
+| landing | 5 | the audio and briefing counts, `baseline:blank`, `index`, biome, `check:fast` twice |
+
+The bottleneck was the wiring: a boss is a name in twenty-six files across
+five packages, and two of them were at 250 lines and had to be given a
+second page before the name would fit.

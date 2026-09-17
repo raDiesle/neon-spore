@@ -1,3 +1,4 @@
+import type { AntiphonEvent } from "./events-antiphon.js";
 import type { BatonEvent } from "./events-baton.js";
 import type { CandleEvent } from "./events-candle.js";
 import type { CurtainEvent } from "./events-curtain.js";
@@ -45,8 +46,10 @@ export type BossEvent =
   | SinewEvent
   | SurgeEvent
   | LeadEvent
-  | ScuttleEvent;
+  | ScuttleEvent
+  | AntiphonEvent;
 
+export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
 export type { CandleEvent } from "./events-candle.js";
 export type { CurtainEvent } from "./events-curtain.js";

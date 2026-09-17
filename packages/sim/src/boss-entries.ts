@@ -1,4 +1,5 @@
 import type {
+  AntiphonEntry,
   BatonEntry,
   CandleEntry,
   CurtainEntry,
@@ -190,10 +191,12 @@ export type BossEntry =
   | LedgerEntry
   | SurgeEntry
   | LeadEntry
-  | ScuttleEntry;
+  | ScuttleEntry
+  | AntiphonEntry;
 
 // The eleven that are a clock and author nothing (`boss-entries-clocks.ts`).
 export type {
+  AntiphonEntry,
   BatonEntry,
   CandleEntry,
   CurtainEntry,

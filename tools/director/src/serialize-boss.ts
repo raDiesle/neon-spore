@@ -133,6 +133,9 @@ export function serializeBoss(boss: BossEntry): string {
   // And THE SCUTTLE, the fifteenth: no column, the frame hangs over the
   // middle; no health, the parts are it (`sim/config-scuttle.ts`).
   if (boss.kind === "scuttle") return '{ kind: "scuttle" }';
+  // And THE ANTIPHON, the sixteenth: no column, the body rises over the
+  // middle; no health, the pits are it (`sim/config-antiphon.ts`).
+  if (boss.kind === "antiphon") return '{ kind: "antiphon" }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

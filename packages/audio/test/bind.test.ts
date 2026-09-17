@@ -76,6 +76,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-surge.ts", "export type SurgeEvent ="],
     ["packages/sim/src/events-lead.ts", "export type LeadEvent ="],
     ["packages/sim/src/events-scuttle.ts", "export type ScuttleEvent ="],
+    ["packages/sim/src/events-antiphon.ts", "export type AntiphonEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -227,6 +228,16 @@ const SAMPLES: Record<string, SimEvent> = {
   scuttleLast: { type: "scuttleLast", col: 7 },
   scuttleDown: { type: "scuttleDown", col: 7 },
   scuttleOut: { type: "scuttleOut", col: 5 },
+  antiphonEnter: { type: "antiphonEnter", col: 5 },
+  antiphonGrow: { type: "antiphonGrow", col: 4, shape: 7, organs: 1 },
+  antiphonPit: { type: "antiphonPit", col: 4, shape: 7, pits: 3 },
+  antiphonHarden: { type: "antiphonHarden", col: 8, rail: 4 },
+  antiphonSink: { type: "antiphonSink", col: 4, fired: true },
+  antiphonSpill: { type: "antiphonSpill", col: 2, color: "cyan" },
+  antiphonStill: { type: "antiphonStill", col: 5 },
+  antiphonShip: { type: "antiphonShip", col: 6 },
+  antiphonBurst: { type: "antiphonBurst", col: 6, pits: 6 },
+  antiphonOut: { type: "antiphonOut", col: 5 },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

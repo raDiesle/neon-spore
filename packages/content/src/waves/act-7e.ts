@@ -25,6 +25,10 @@ import type { Wave } from "../wave-types.js";
  * part of the frame thrown down its own column, and which part goes next
  * is the frame's clock; the wave is the frame (`sim/scuttle-step.ts`,
  * `bossFillsWave`) — THE ORRERY's shape, one page back.
+ *
+ * **THE ANTIPHON authors nothing either.** What falls in its wave is what
+ * the pair got wrong — a candidate a pit rejected, an organ left to sink —
+ * and the design says nothing else arrives (`sim/antiphon-step.ts`).
  */
 export const WAVES_ACT_7E: Wave[] = [
   {
@@ -59,5 +63,18 @@ export const WAVES_ACT_7E: Wave[] = [
     },
     entries: [],
     boss: { kind: "scuttle" },
+  },
+  {
+    id: "theAntiphon",
+    name: "THE ANTIPHON",
+    sentence:
+      "The one that grows a thing nobody has a word for, and one of you has to say it anyway.",
+    guide: {
+      both: "A smooth body over the field grows one organ at a time, and the organ is one of the candidates on a rail — each with a column and a colour. Describe it; name it; a bolt in its column and its colour takes it to a pit. The wrong candidate hardens it and the next rail is wider; the wrong colour is nothing. Six pits, and the rail closes in as you go. Last, the body grows your own ship among ships: the right one erupts every pit.",
+      p1: "Only you see the organ. Say its shape in whatever words you have — lobes, leaning, hollow — and keep saying it until she names a column; then put the cannon there and fire her colour. The count under it is hers.",
+      p2: "Only you see the rail: the candidates, their columns and colours. Listen, and say the column and the colour of the one he is describing; if he cannot, ask what would tell them apart. Say the beats left before it sinks.",
+    },
+    entries: [],
+    boss: { kind: "antiphon" },
   },
 ];

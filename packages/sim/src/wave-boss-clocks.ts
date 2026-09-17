@@ -1,3 +1,4 @@
+import { installAntiphon } from "./antiphon-step.js";
 import { installBaton } from "./baton-step.js";
 import { installCandle } from "./candle-step.js";
 import { installCurtain } from "./curtain-step.js";
@@ -52,6 +53,7 @@ const CLOCK_KINDS = [
   "surge",
   "lead",
   "scuttle",
+  "antiphon",
 ] as const;
 
 export type ClockEntry = Extract<BossEntry, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -143,11 +145,15 @@ export function installClockBoss(world: World, boss: ClockEntry): void {
     // No creature and no row: a body pacing the top of the field, ahead of
     // which a shot is put; it drops only what its run drops (`lead-step.ts`).
     world.boss = installLead(world);
-  } else {
-    // THE SCUTTLE, the last kind in the list and so the branch with no test
-    // on it — the next boss goes in above it, with its `kind` on the list. No
-    // creature and no row: a frame of sockets over the top of the field, and
-    // everything that falls in its wave is a part it threw (`scuttle-step.ts`).
+  } else if (boss.kind === "scuttle") {
+    // No creature and no row: a frame of sockets over the top of the field,
+    // and everything that falls in its wave is a part it threw (`scuttle-step.ts`).
     world.boss = installScuttle(world);
+  } else {
+    // THE ANTIPHON, the last kind in the list and so the branch with no test
+    // on it — the next boss goes in above it, with its `kind` on the list. No
+    // creature and no row: a body over the top of the field that grows organs
+    // for one seat to describe and the other to name (`antiphon-step.ts`).
+    world.boss = installAntiphon(world);
   }
 }

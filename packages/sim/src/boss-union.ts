@@ -1,3 +1,4 @@
+import type { AntiphonState } from "./antiphon.js";
 import type { BatonState } from "./baton.js";
 import type { FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
 import type { CairnState } from "./cairn.js";
@@ -84,4 +85,5 @@ export type BossState =
   | SinewState
   | SurgeState
   | LeadState
-  | ScuttleState;
+  | ScuttleState
+  | AntiphonState;

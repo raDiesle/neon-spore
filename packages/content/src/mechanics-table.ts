@@ -135,6 +135,7 @@ export const MECHANICS = {
   surge: BOSS_MECHANICS.surge,
   lead: BOSS_MECHANICS.lead,
   scuttle: BOSS_MECHANICS.scuttle,
+  antiphon: BOSS_MECHANICS.antiphon,
   vane: {
     what: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in.",
     reach: "spawn",

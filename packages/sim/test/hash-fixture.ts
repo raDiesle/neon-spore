@@ -233,6 +233,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // and every part, the hanging ones, the live one, the slack and the clocks
   // are its own by the time it is fingerprinted (`scuttle-hash.ts`).
   scuttle: { kind: "scuttle" },
+  // THE ANTIPHON authors nothing: how many organs and how long they stand is
+  // tuning (`config-antiphon.ts`), which shape stands where is the seed's,
+  // and the organs, the rail, the pits and the clocks are its own by the
+  // time it is fingerprinted (`antiphon-hash.ts`).
+  antiphon: { kind: "antiphon" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -665,6 +670,21 @@ function patchBoss(world: World): void {
     boss.cycleBeat = 6;
     boss.slack = 1;
     boss.windBeat = 7;
+    boss.downBeat = 8;
+  }
+  if (boss.kind === "antiphon") {
+    // One organ standing on a rail of three, one pit taken, one wrong answer
+    // on record, and every clock given a beat.
+    boss.organs = [{ shape: 5, color: "red", col: 3, grownBeat: 6 }];
+    boss.rail = [
+      { shape: 7, color: "cyan", col: 1 },
+      { shape: 5, color: "red", col: 3 },
+      { shape: 4, color: "red", col: 5 },
+    ];
+    boss.pits = [2];
+    boss.extra = 1;
+    boss.cycleBeat = 6;
+    boss.stillBeat = 7;
     boss.downBeat = 8;
   }
 }
