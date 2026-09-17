@@ -45,7 +45,17 @@ function slid(age: number): number {
   return Math.max(0, Math.min(1, age / CLOSE));
 }
 
-export function veil(ctx: CanvasRenderingContext2D, p: LostPaint): void {
+/**
+ * The plates alone, with nothing running down them.
+ *
+ * Split out of `veil` on 17 September 2026 and not one pixel moved: the fluid
+ * used to be the last four lines of this function, so an answer that wanted to
+ * argue about *what runs down the lost screen* — which is the one thing the
+ * owner asked for alternatives to by name — had to retype the plates in order
+ * to leave it out, and would then have been asking him two questions and
+ * getting one answer. A candidate composes these two now.
+ */
+export function plates(ctx: CanvasRenderingContext2D, p: LostPaint): void {
   const k = slid(p.age);
   const seam = p.l.playHeight * SEAM;
   const top = -(1 - k) * seam;
@@ -97,19 +107,37 @@ export function veil(ctx: CanvasRenderingContext2D, p: LostPaint): void {
     }
     strokeGlow(ctx, hot, PALETTE.ember, Math.max(1, p.l.tile * 0.04), 1.1);
   }
+}
 
+/** The shipped screen: the plates, and the ship bleeding down them. */
+export function veil(ctx: CanvasRenderingContext2D, p: LostPaint): void {
+  plates(ctx, p);
   // Last, so it runs over the plate and over the open field alike — the owner
   // asked for it across the full width and a curtain that stopped at the seam
   // would be a curtain on the plate (`lost-blood.ts`).
   bleed(ctx, p);
 }
 
-export function words(ctx: CanvasRenderingContext2D, p: LostPaint): void {
+/**
+ * Where the stack starts, as a share of the play area: as far up the upper
+ * plate as the plate goes, so it reads as a sign on a bulkhead rather than as
+ * a caption floating over a picture.
+ */
+const TOP = 0.16;
+
+/**
+ * The words, starting at `top` of the play area.
+ *
+ * A parameter rather than the constant, for the same reason the plates and the
+ * fluid came apart: the owner asked on 17 September 2026 for *text of "wave
+ * lost" more down near the game screen*, and a candidate that argued it by
+ * copying all four lines out would be four copies of the wording to keep in
+ * step. `words` below is this at the shipped number and is what ships.
+ */
+export function wordsAt(ctx: CanvasRenderingContext2D, p: LostPaint, top: number): void {
   const mid = p.l.width / 2;
   ctx.textAlign = "center";
-  // Stamped on the upper plate, as far up it as the plate goes: a sign on a
-  // bulkhead rather than a caption floating over a picture.
-  let y = p.l.playHeight * 0.16;
+  let y = p.l.playHeight * top;
   drop(ctx, mid, y, p.age, 1, 0, () => {
     ctx.font = '700 30px "Courier New",monospace';
     ctx.fillStyle = PALETTE.red;
@@ -142,4 +170,9 @@ export function words(ctx: CanvasRenderingContext2D, p: LostPaint): void {
     ctx.fillText(`THIS RUN · ${retriesText(p.retries)}`, 0, 0);
   });
   ctx.textAlign = "left";
+}
+
+/** The shipped stack, where it has always been. */
+export function words(ctx: CanvasRenderingContext2D, p: LostPaint): void {
+  wordsAt(ctx, p, TOP);
 }

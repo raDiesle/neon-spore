@@ -1,10 +1,7 @@
 import { HAMMER_SECONDS, hammer } from "../../../../../packages/render/src/breach-hammer.js";
 import { REND_SECONDS, rend } from "../../../../../packages/render/src/breach-rend.js";
 import type { LostPaint } from "../../../../../packages/render/src/lost-look.js";
-import { veil } from "../../../../../packages/render/src/lost-shutters.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
-import { drop } from "../../../../../packages/render/src/text-drop.js";
-import { retriesText } from "../../../../../packages/sim/src/index.js";
+import { veil, wordsAt } from "../../../../../packages/render/src/lost-shutters.js";
 
 /**
  * The shipped plates, and the hit still burning under them.
@@ -65,32 +62,5 @@ const TOP = 0.26;
 
 /** The shipped words, moved down the plate. Nothing else about them changes. */
 export function holdWords(ctx: CanvasRenderingContext2D, p: LostPaint): void {
-  const mid = p.l.width / 2;
-  ctx.textAlign = "center";
-  let y = p.l.playHeight * TOP;
-  drop(ctx, mid, y, p.age, 1, 0, () => {
-    ctx.font = '700 30px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.red;
-    ctx.fillText("WAVE LOST", 0, 0);
-  });
-  y += 24;
-  drop(ctx, mid, y, p.age, 2, 0, () => {
-    ctx.font = '600 12px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.pod;
-    ctx.fillText(`WAVE ${p.wave} · TRY ${p.tries} · RUN IT AGAIN`, 0, 0);
-  });
-  y += 22;
-  drop(ctx, mid, y, p.age, 3, 0, () => {
-    ctx.font = '13px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.dim;
-    ctx.fillText("The tear is where it came in.", 0, 0);
-  });
-  y += 20;
-  drop(ctx, mid, y, p.age, 4, 0, () => {
-    ctx.font = '11px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.dim;
-    ctx.globalAlpha *= 0.8;
-    ctx.fillText(`THIS RUN · ${retriesText(p.retries)}`, 0, 0);
-  });
-  ctx.textAlign = "left";
+  wordsAt(ctx, p, TOP);
 }

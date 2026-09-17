@@ -8071,3 +8071,22 @@ no ring and no caption, since every one of those is read off the body — and th
 film had to be re-timed so the finger lands on the tick the page ends.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — creature-bite-collision — two more answers for the lost screen
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `lost-shutters.ts`, `lost-blood.ts` and `shatter.ts`'s two ways of spending a cut |
+| writing | 25 | the `plates`/`wordsAt` split, and the `bleedout` and `spall` candidates |
+| looking | 45 | seven shots: three to get a bleed that is not a firework, four to get a break that is not a beam, a rectangle or a sunburst |
+| friction | 5 | the generated registry failed lint again on its one-entry array |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was looking, by a factor of two over everything else, and every
+minute of it changed the picture: the first cut of each candidate was wrong in
+a way no amount of reading the numbers would have shown. `bleedout` was a
+firework until the arms were made to sag nine tiles and wobble; `spall` was a
+beam, then a window frame, then a sunburst. Four of the seven shots were
+distinct defects and the last was the tuning that says stop.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*
