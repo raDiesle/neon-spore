@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 0df228c3 — Mark THE CRYSTAL's join and its diagonal done
+
+Both halves landed: the keel port under the middle, and the stepped crossing that holds a column for four beats and crosses two in two.
+
 ## 2026-09-17 · 70c92d70 — THE CRYSTAL holds a column for four beats, then crosses two in two
 
 It moved a column and a row every beat, which is THE CAROM's diagonal and reads as drift — a body sliding away from the lane the pair just called. It moves on one axis at a time now: four beats holding a column and falling straight, then two beats crossing two columns without falling, over again. The plate that found it stays true for four beats, and the move off it is a dash the pair can see coming rather than a lane quietly changing underneath a shot. The owner asked for this motion by name, which is the first exemption in `docs/looks.md`.
