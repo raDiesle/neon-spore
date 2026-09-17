@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 90a85552 — THE DIASTOLE has a rehearsal film, and a strip act can aim at the boss
+
+The first of the four drawn bosses' films. Player 1 sees the left chamber beat in threes and fires on its contractions; the cannon then goes to the bridge and the hold lands the lance on the beat both chambers meet on.
+
 ## 2026-09-17 · 72fa7811 — THE LEDGER's simulation: the boss that bills your own hull for every shot
 
 The first boss in this game whose damage travels the other way. A tall split body stands over three columns on a cord rooted in the pair's own hull; a bolt of the colour the seam is showing, up the seam's own column, widens the split and starts a return down the cord, and the return lands in the socket four beats later and is warded exactly the way a rock is — the plate in that column, the trigger on that beat. The socket walks a column with every return, so the sentence between the two seats is the same one with a new number in it every few beats, and from the second hit the cord bills every shot the cannon takes, whatever it was fired at: not shooting becomes a move. Five hits part the halves. §5 of docs/spec/bosses-choreographed.md, written up as §11.27 of docs/spec/bosses.md, played as wave 77, "THE LEDGER".
