@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · c0117f9e — Cut the clock-boss dispatch in two at THE HIVE's arm
+
+`boss-draw-clocks.ts` was at 239 lines, and every boss after it is a branch with a paragraph over it. It is cut on the seam the bosses themselves have: the nine drawn off the world alone stay, and the seven whose picture keeps a transient — SINEW, LEDGER, SURGE, LEAD, SCUTTLE, ANTIPHON, HIVE, each taking its own field of `effects.boss` — are `boss-draw-clocks-b.ts`'s, with their own kind list, guard and `drawFxBoss`, handed across in one guarded call the way `view-role-clocks-b.ts` continues `view-role-clocks.ts`. `CLOCK_KINDS` is still the whole list, so `boss-draw.ts` changes nothing. Not a look: every frame is drawn by the same call it was.
+
 ## 2026-09-17 · 8be1c9fe — THE BATON spends her turn on any shot, and the beam meets the bead
 
 The design's step 7, built: a shot at a creature is her turn spent. It is the shot leaving that spends it, not the hit — a bolt at a creature, a bolt at nothing, the wrong colour through the bead and the beam she filled all lock player 2 for `batonLockBeats` from the tick the shot goes out (`batonShotSpends` in `sim/baton-press.ts`, called from `bullets.ts` and `lance-burn.ts`), and nothing before the bead first sits or after the arm is down. A creature answered while the bead sits is a launch watched through a grey panel, which is the choice the step puts to her. The lock is shorter than the flight, so a wrong colour is still a miss like any other and the next shot is still hers, a beat later. And the lance beam now meets the bead in flight the way a bolt does — the third thing in a column a beam can stop at, struck or rejected.

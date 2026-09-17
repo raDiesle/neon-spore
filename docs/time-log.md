@@ -9926,3 +9926,5 @@ transient are `boss-draw-clocks-b.ts`'s, handed across in one guarded call.
 The bottleneck was the reading: the shared list is fully built, and proving
 there is nothing on it unclaimed took forty-five minutes against fifteen of
 code — the one technical finding on the way was the file over its limit.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
