@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · b6f815da — THE THROAT holds, hauls and swallows a pod, which is its design's step 10
+
+A loose pod in the mouth's column was falling past a throat that should have been fighting player 1's maw for it. Now it is held by the same rule a body is: the hold is asked of a place rather than of a body (`Standing`), and both arrays are read through the one predicate — a creature by its span, a pod by the tile it is nearest. A held pod stops where it is, is hauled a tile an inhale, and standing in the mouth is swallowed and re-tightens a ring; that is the design's own fail cell and it does not lose the wave. The maw answers by reach: a loose pod within `podHomeTiles` of the hull is steering for the cannon and the throat has lost it. `pod-arrive.ts` is the receipt at the hull, cut out of `pods.ts` when the hold put it over its limit.
+
 ## 2026-09-17 · 26ee2134 — Mark "`briefing.test.ts` went red under `check:fast` while another session ran `check`" done
 
 Both halves landed in fbf64003: the frame cap reads the load average per core now, and `drift.test.ts` has one of its own. The runner was left alone, which was the entry's other option.
