@@ -3,6 +3,7 @@ import type { Body } from "./creature-body-in.js";
 import { contourClock } from "./creature-place.js";
 import { CANOPY_R, drawCanopy, drawCraftHull, drawEnginePod, HULL_RY } from "./crystal-craft.js";
 import { drawCrystalField } from "./crystal-field.js";
+import { drawKeelPort } from "./crystal-keel.js";
 import { hazed } from "./depth.js";
 import { halo } from "./glow.js";
 import { tileCX } from "./layout.js";
@@ -28,7 +29,9 @@ import { PALETTE } from "./palette.js";
  *    the underside, the broken ends sparking either side of the middle —
  *    that hole is the beat the shot has to land in;
  * 4. the canopy over the middle wears the join's colour, brighter through
- *    the hole: the one tile, in the one colour, on both screens.
+ *    the hole: the one tile, in the one colour, on both screens — and the
+ *    keel port under the middle wears it too (`crystal-keel.ts`), because a
+ *    player aiming up a column reads the belly and never the roof.
  */
 
 /** The hull's reach past the outer lanes, as a share of a tile each side. */
@@ -89,7 +92,12 @@ export function drawCrystalBody(b: Body): void {
   const t = contourClock(c.id, time);
   drawCraftHull(ctx, x, y, halfW, tile, t, { metal, dark, rim }, heldMul);
   const jc = joinColor(c.color);
-  drawCanopy(ctx, x, y, tile, hazed(cfg, jc.hex, near), hazed(cfg, jc.rim, near), heldMul);
+  const jhex = hazed(cfg, jc.hex, near);
+  const jrim = hazed(cfg, jc.rim, near);
+  drawCanopy(ctx, x, y, tile, jhex, jrim, heldMul);
+  // And the same join under the middle, because that is the side the shot
+  // comes from (`crystal-keel.ts`). Before the field, so the arcs cross it.
+  drawKeelPort(ctx, x, y, tile, jhex, jrim, heldMul);
 
   // The field last, round all of it. The hole is as wide as the middle tile,
   // measured on the ellipse's underside: the canopy's own width and a little.

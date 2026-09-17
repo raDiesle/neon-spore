@@ -8534,3 +8534,26 @@ next note pays for this with an unrelated diff already open — is the stronger
 argument. 249 lines to 203.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — creature-bite-collision — THE CRYSTAL's join, seen from below
+
+| Step | Minutes | What |
+|---|---|---|
+| reading | 10 | the entry, `crystal.ts`, `crystal-craft.ts` and what the canopy already does |
+| writing | 15 | `crystal-keel.ts` and the four lines that hang it on the craft |
+| looking | 25 | four frames: the craft far up the field, twice at 3x and 4x, and one with the field held open over the shield |
+| friction | 0 | none |
+| landing | 10 | `bun run index`, `check:fast` |
+
+The bottleneck was the looking, and it earned its twenty-five minutes twice.
+The first drawing was the canopy mirrored exactly about the deck line — same
+radius, same half-circle — and at a tile's size, with both halos additive over
+a dark hull, the two read as **one red ball skewered through the saucer**: the
+craft stopped being a craft. Flattening the port to 0.6 of its width fixed half
+of it and the frame said so; hanging it off the bottom of the hull instead of
+off the deck line fixed the rest, because a band of dark plating between the
+two is the whole difference between a port *under* something and a sphere
+*through* it. Neither was visible in the numbers, and no test in the tree would
+have failed on either.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

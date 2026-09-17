@@ -1191,6 +1191,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/crystal.ts` | THE CRYSTAL: a craft three tiles wide with an electric field round it — the order its parts go on in |
 | `packages/render/src/crystal-craft.ts` | THE CRYSTAL's craft: the `SHELL` saucer, the red and cyan engine pods and the canopy over the middle |
 | `packages/render/src/crystal-field.ts` | THE CRYSTAL's electric field: arcs crawling round the whole craft, and the hole they open underneath while the shield stands there |
+| `packages/render/src/crystal-keel.ts` | THE CRYSTAL's keel: the join's colour on the **underside** of the middle |
 | `packages/render/src/touch-drag.ts` | What a hand that already has hold of something says when it moves — a handle carried, a crank turned |
 | `packages/render/src/touch-well.ts` | THE WELL's screen as a control: the same two questions `touch.ts` asks of the flat field |
 | `packages/render/src/touch-band.ts` | A press on the panel below the field: the buttons, and the two strips |
