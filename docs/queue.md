@@ -743,3 +743,124 @@ needed one where the state was enough for the picture. Three sounds: a ring
 parting at its gap, the core spitting, the core going out from the centre
 outward. `sound-link-none.ts` is where a moment with no card on the sheet is
 named instead.
+
+## A hit splashes the enemy's colour on the hull, and the field really stops
+
+- **Found:** 2026-09-17, queue-four-from-the-owner
+- **Files:** packages/sim/src/hull-types.ts, packages/sim/src/hull-damage.ts, packages/sim/src/hash.ts, packages/render/src/scars.ts, packages/render/src/breach-hue.ts, packages/render/src/depth.ts, packages/render/src/lost-screen.ts, packages/sim/src/wave-fail.ts
+
+The owner asked for two things on 17 September 2026, and they are one lane
+because they are the same moment seen twice: *"when an enemy hits the hull
+(except meteors) have some splash in the colour of the enemy on top of the
+hull skin, which also remains for the wave game over screen"*, and *"everything
+on the game area should stay at their current position in the moment hull took
+damage, and neither disappear nor continue falling"*.
+
+**The splash is a look the owner asked for by name** — the first of the three
+exemptions in `docs/looks.md` — so it goes onto the field rather than to
+VERSUS, and the commit says which exemption it used.
+
+**The colour is not in the world yet.** `Scar` carries `col`, `beat`, `kind`
+and `span` and no colour at all (`hull-types.ts`), while `breachHue(kind,
+color)` needs the creature's colour and is handed it only at the instant of
+the hit — `effects-breach.ts` and `breach-strike.ts` both read it from the
+body while the body still exists. A splash that has to be there on the lost
+screen, seconds later, cannot be drawn from a body that has gone. So the scar
+gains a colour, which is rule 4: a new field of `World` is a new part in
+`hashWorld` and a row in `hash-coverage.test.ts`. Meteors keep the crater they
+already get — the exception the owner named, and `isMeteorKind` is the
+question already asked.
+
+**The field does stop, and the picture does not.** `step.ts` returns early
+under `failHolds` — nothing falls, nothing fires — so the simulation is
+already exactly what was asked for. What keeps moving is the glide:
+`drawnRow(c, beatPhase)` interpolates a body from `fromRow` to `row` across
+the beat, and the hold goes on counting `world.tick`, so `beatPhase` runs on
+after the hit. Every body finishes the step it was halfway through and the
+hull's own breathing carries on under it. The fix is one question asked in one
+place — what phase a held field is drawn at — and then `frame.test.ts` proving
+that two frames a beat apart during a hold are the same picture.
+
+## The cannon slider misses presses on a phone; the buttons never do
+
+- **Found:** 2026-09-17, queue-four-from-the-owner
+- **Files:** apps/game/src/input.ts, packages/render/src/touch-ship.ts, packages/render/src/layout.ts, tools/director/src/stage-touch.ts, tools/director/src/tuning.ts
+
+The owner, 17 September 2026, testing on his phone: *"the slider control often
+does not work, but the shoot buttons always work and the animations are
+fluent. I assume it's likely because of heavy CPU load or the area of snapping
+slider control might be not big enough."*
+
+The animations being fluent is the useful half of that report: a page dropping
+frames does not draw smoothly, so load is the less likely of his two guesses
+and the grab area is the more likely. `CANNON_R` is 0.7 tiles and `hitCircle`
+answers a ring 30% wider, so on an eleven-column portrait phone the target is
+roughly 28 px across where the platform guidelines ask for 44. A button is a
+tap and forgives a near miss by being a rectangle; the cannon needs a
+`pointerdown` *inside a small circle* before `pointermove` means anything, and
+a press that lands outside it is not a slow slider but no slider at all — which
+is exactly the shape of "often does not work".
+
+Three things to measure before changing one, all of them in `input.ts` and
+`touch-ship.ts`: what fraction of `pointerdown`s inside the hull band fall
+outside the circle; whether `inStage` is dropping presses near the edges;
+and whether a press that misses should fall through to the nearest lobe within
+some slack rather than being discarded. `getCoalescedEvents` is unread, which
+is the load half of the guess and is worth a look once the miss rate is known.
+The director's own sliders are reported the same way and are a different
+mechanism — `stage-touch.ts` and `tuning.ts` — so measure them separately
+rather than assuming one cause.
+
+## A wave in the phone's list opens nothing — no details, no map
+
+- **Found:** 2026-09-17, queue-four-from-the-owner
+- **Files:** tools/director/src/mobile-menu.ts, tools/director/src/rail.ts, tools/director/src/rail-steps.ts, tools/director/src/director-phone.css
+
+The owner, 17 September 2026: *"when on mobile, I want to be able from the list
+of waves for each wave to directly open the wave details or map editor."*
+
+On a phone the director is three views — WAVE, GAME, MAP — switched from the
+header menu (`mobile-menu.ts`), and the wave list lives inside WAVE. Picking a
+wave in the rail changes the selection and leaves the view where it was, so
+getting from a wave to its map is: tap the wave, tap ≡, tap MAP. Three taps and
+two of them are the menu, which is the thing the menu exists to keep out of the
+way.
+
+What to do: give each row in the rail a way out on the row itself, so a wave
+and the view it should open in are one press. The two destinations the owner
+named are the two the phone already has — the wave's own fields, which is where
+WAVE lands, and the map — so this is routing rather than a new screen:
+`applyView` is exported-shaped already and the selection is `state.ts`'s. The
+open question a lane should answer in the commit is whether the row's main tap
+changes, or whether it keeps selecting and the row grows two small targets;
+the second is the safer default because the rail is also how a desk user
+scrolls the list, and it is the one that does not need `?view=` to stay
+honest.
+
+## THE CRYSTAL's join is not visible from below, and it moves on a diagonal
+
+- **Found:** 2026-09-17, queue-four-from-the-owner
+- **Files:** packages/render/src/crystal.ts, packages/render/src/crystal-craft.ts, packages/sim/src/crystal.ts, packages/sim/src/config-crystal.ts, packages/content/src/creatures-joined.ts
+
+The owner, 17 September 2026, on two separate things about the same body.
+
+**The colour is on the wrong side.** *"Right now middle top is only red or
+cyan, but we need to also colour the bottom of the ship middle in the same
+colour, because it is where the cannon must hit."* The canopy over the middle
+carries the join's colour (`drawCanopy` in `crystal-craft.ts`) and the
+underside does not — and the shot comes from underneath, so the one fact the
+picture has to tell a player aiming at it is the one fact they cannot see from
+where they are. A look the owner asked for by name, which is the first
+exemption.
+
+**The movement should be one axis at a time.** *"Change the animation so that
+it stays in a column, then quickly moves around two beats 2 tiles horizontal,
+then again vertical. So either vertical or horizontal."* Today it is THE
+CAROM's diagonal: `crystalCols: 1` and `crystalRows: 1` a beat through
+`crossField`, turning at the walls. What is asked for is a stepped crossing —
+fall straight for some beats, then two tiles sideways over two beats with no
+fall, then straight again — which is a different rule rather than a different
+pair of numbers, so `crystalCols`/`crystalRows` are replaced by how long each
+leg is. Changing where a three-tile body stands changes which lane the shield
+has to be armed under, so `crystal.test.ts` and the frame test both move with
+it, and the wave's one-sentence test has to still read true afterwards.
