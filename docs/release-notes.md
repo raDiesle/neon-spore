@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 978b0e83 — THE UNDERTOW's floor: the plate bowing on the pilot's screen alone, the lobe up through the plating, the body taken in
+
+The look half of THE UNDERTOW (`docs/spec/bosses-choreographed.md` §13). The boss is on both sides of the hull line, so it is drawn in two passes: the lobes and the body go down with the field's bodies and start below the skin, so the ship drawn over them hides their root and they read as things that have come up through the plating; the plating itself — the plate bowing, the seam-light, the breach parted with its flaps, the whole edge lifting before the last lobe, the seat's column lit while the cannon is unseated — is drawn on the finished ship where nothing can cover it. A plate bowing is on player 1's screen and not player 2's (`showsUndertowBow`); the breach is on both the moment the lobe stands; the last rise, which has no column to call, is on both. A tall lobe alone wears the beam's cyan and red. The nine receipts stay silent in `render/`: a breach that opens is drawn open.
+
+## 2026-09-17 · 4c7e762c — Take the conflict markers out of bosses.md and give THE UNDERTOW its own number, §11.20
+
+The landing of THE UNDERTOW's simulation (622eb22b) rebased its new section over THE THROAT's, which had taken §11.19 first, and the resolution left the three markers in the file with both sections between them. Both sections were whole; nothing was lost. The markers are gone and THE UNDERTOW is §11.20, which is the number the next section after THE THROAT's was always going to be.
+
 ## 2026-09-17 · b2ea3995 — The lost screen can say where the ship was hit
 
 The record the lost screen is drawn from could name the column the breach landed in and nothing else about it, so an answer that wanted to replay the hit had no colour, no width and no seed to replay it with. `LostPaint` gains `breach` — the span, the hue and the toss that picks a tear from a blow — and `surfaceY`, the membrane's own line, which is what a strike is drawn along. `strikeSeed` moves out of `breach-strike.ts` as a function so the screen and the field toss the same coin rather than two copies of one expression. Not one pixel of the shipped screen moves: the shipped `veil` never reads any of it.

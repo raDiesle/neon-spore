@@ -8051,3 +8051,5 @@ The bottleneck was the copies test and the index, each a whole `check:fast`
 to find out about: one private easing and three files with no row cost two
 runs of the suite. The conflict markers were the sim half's, not this
 lane's, and they took a commit of their own.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
