@@ -267,6 +267,7 @@ are numbered.
 ## THE ORRERY makes no sound
 
 - **Found:** 2026-09-17, claude/boss-orrery
+- **Taken:** 2026-09-17, claude/queue-the-orrery-makes-no-sound
 - **Files:** packages/sim/src/orrery.ts, packages/sim/src/orrery-step.ts, packages/audio/src/bind-choreographed.ts, tools/director/src/sound-link-none.ts, docs/spec/bosses.md
 
 The simulation shipped without a single event of its own, deliberately: every
