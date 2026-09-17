@@ -125,3 +125,12 @@ export const showsDiastoleBeat = (role: ViewRole, seat: 1 | 2): boolean =>
  * `test` shows it, the usual *one person is holding both seats* answer.
  */
 export const showsThroatLock = (role: ViewRole): boolean => role !== "p1";
+/**
+ * THE UNDERTOW's bow — the plate rising before a lobe comes through it. The
+ * pilot's, because the floor is his half the way the rocks are: he owns the
+ * maw and the cannon's column, so the seat that has to answer a breach is the
+ * seat that is shown where the next one is pushing. The navigator is shown
+ * the breach the moment it opens, and the plate she has to stand on it, and
+ * nothing of the four beats before (`undertow-draw.ts`).
+ */
+export const showsUndertowBow = (role: ViewRole): boolean => role !== "p2";

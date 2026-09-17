@@ -177,6 +177,7 @@ export {
   type UndertowPhase,
   type UndertowState,
   undertowBoss,
+  undertowBowBeats,
   undertowBreachAt,
   undertowLastCol,
   undertowLobeAt,

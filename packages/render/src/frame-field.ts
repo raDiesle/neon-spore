@@ -229,7 +229,7 @@ export function drawBodies(
   // frame are two statements and only one of them is about a shot
   // (`lock-mark.ts`).
   drawLockMarks(ctx, l, world, cannonCol, view.beatPhase, view.time);
-  drawBoss(ctx, l, view, effects);
+  drawBoss(ctx, l, view, effects, skinY);
   drawPods(ctx, l, world.pods, view.time);
   // And over one of them, on one screen: the frame that says this pod is a lie
   // (`husk-mark.ts`). It is drawn after the pods rather than inside them for

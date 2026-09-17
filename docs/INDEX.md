@@ -1207,6 +1207,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/splash-blob.ts` | ONE BLOB OF THE MOUSE'S INK — its size, its sag, and how it is put down |
 | `packages/render/src/surface-clear.ts` | **Wiping an overlay whatever transform is on it** — a `clearRect` under a ratio below one misses the right edge |
 | `packages/render/src/unseen.ts` | **A frame with the bodies neither screen may draw taken out of it** — once, for every pass under it |
+| `packages/render/src/undertow-draw.ts` | THE UNDERTOW, on the ship: the plate bowing, the seams lit, the breach parted |
+| `packages/render/src/undertow-lobe.ts` | THE UNDERTOW's lobes and, once, its body — the half of the boss that is *above* the hull line |
+| `packages/render/src/undertow-shape.ts` | THE UNDERTOW's geometry: how far a plate has risen, how high a lobe stands, how wide a breach is |
 
 ### packages/net
 

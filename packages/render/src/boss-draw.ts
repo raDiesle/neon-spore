@@ -8,6 +8,7 @@ import type { Effects } from "./effects.js";
 import { chartOf, drawFleetChart } from "./fleet-chart.js";
 import { drawFleetHulls } from "./fleet-hulls.js";
 import { drawFleetMarks, drawFleetSights } from "./fleet-marks.js";
+import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawMaze } from "./maze-draw.js";
 import { drawMirror } from "./mirror.js";
@@ -17,6 +18,7 @@ import { drawReprise } from "./reprise-draw.js";
 import { drawSplice } from "./splice-draw.js";
 import { drawTether } from "./tether.js";
 import { drawThroat } from "./throat-draw.js";
+import { drawUndertowLobes } from "./undertow-lobe.js";
 import { drawVane } from "./vane-draw.js";
 import { drawWarden, wardenRopeAnchor } from "./warden.js";
 
@@ -33,6 +35,9 @@ export function drawBoss(
   l: Layout,
   view: ViewState,
   effects: Effects,
+  /** The plating without the cannon on it, for the one boss that comes up
+   * through it (`undertow-lobe.ts`). Absent, the flat hull line. */
+  skinY: SurfaceY = () => l.hullY,
 ): void {
   const { world } = view;
   const boss = world.boss;
@@ -145,6 +150,15 @@ export function drawBoss(
   // (`throat-draw.ts`).
   if (boss.kind === "throat") {
     drawThroat(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
+    return;
+  }
+
+  // THE UNDERTOW: the half of it that is above the hull line — a lobe standing
+  // in its breach, and once, the body — drawn here so the ship pass paints
+  // over where it came from. The plate it came up through, the seams and the
+  // rise are on the finished ship instead (`undertow-draw.ts`).
+  if (boss.kind === "undertow") {
+    drawUndertowLobes(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time, skinY);
     return;
   }
 

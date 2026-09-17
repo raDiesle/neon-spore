@@ -74,9 +74,10 @@ const STILL_PROSE = [
   // mark drawn on one seat's screen and not the other's, so the film has to be
   // shot twice and read as one lesson.
   "THE HUSK",
-  // And THE UNDERTOW, owed by the lane that draws the floor. Its film is a
-  // plate of hull bowing on one screen and not the other, and a maw opened
-  // under a lobe; until the hull is drawn lifting there is nothing to show.
+  // And THE UNDERTOW, whose floor is drawn now and whose film is queued with
+  // the three above it (`docs/queue.md`, "Four drawn bosses still owe their
+  // rehearsal film"). It is a plate of hull bowing on one screen and not the
+  // other, and a maw opened under a lobe.
   "THE UNDERTOW",
 ];
 

@@ -60,8 +60,13 @@ function pushesIn(cfg: SimConfig, phase: UndertowPhase): number {
   }
 }
 
-/** Beats the floor bows in this phase before the lobe is through. */
-function bowBeats(cfg: SimConfig, phase: UndertowPhase): number {
+/**
+ * Beats the floor bows in this phase before the lobe is through. Exported for
+ * the picture: how far a plate has risen is this count read against the beat,
+ * and a render-side copy of which phase takes which count would be the rule
+ * re-derived (`purity.test.ts`).
+ */
+export function undertowBowBeats(cfg: SimConfig, phase: UndertowPhase): number {
   if (phase === "seat") return cfg.undertowUnseatBeats;
   if (phase === "last") return cfg.undertowRiseBeats;
   return cfg.undertowBowBeats;
@@ -226,7 +231,7 @@ export function stepUndertow(world: World, u: UndertowState): void {
   for (const b of [...u.breaches]) {
     const since = world.beat - b.stageBeat;
     if (b.stage === "bowing") {
-      if (since >= bowBeats(cfg, u.phase)) through(world, u, b);
+      if (since >= undertowBowBeats(cfg, u.phase)) through(world, u, b);
     } else if (u.phase === "last") {
       last(world, u, b);
     } else if (since >= cfg.undertowStandBeats) {

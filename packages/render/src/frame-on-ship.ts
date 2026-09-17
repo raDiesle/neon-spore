@@ -10,6 +10,7 @@ import { heldHarpoons } from "./harpoon-place.js";
 import type { HullFrame, LobePositions, SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import type { ViewState } from "./renderer.js";
+import { drawUndertowHull } from "./undertow-draw.js";
 
 /**
  * **The fifth pass: what is stuck to the finished ship.** Drawn after
@@ -85,4 +86,8 @@ export function drawOnShip(
   const harpooned = heldHarpoons(l, world, hull.cannonX, shieldX, surfaceY, view.beatPhase);
   held.effects.harpoonLine.draw(ctx, l, harpooned, view.time);
   drawHarpoonMarks(ctx, world, harpooned, view.time);
+  // And THE UNDERTOW's plating: the plate bowing, the seams lit, the breach
+  // parted round its lobe and the whole edge rising — the hull's own skin
+  // doing something, over the rim the ship pass just lit (`undertow-draw.ts`).
+  drawUndertowHull(ctx, l, world, view.role, view.beatPhase, view.time, surfaceY, hull.cannonX);
 }

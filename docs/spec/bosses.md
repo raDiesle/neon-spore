@@ -2083,13 +2083,41 @@ the run. `taken` and `scars` are the two counts, and nothing else is.
 9's — today it scars the column and its neighbour), and the plate closing
 under a cannon slid off in time as a picture rather than a fact.
 
-**Nothing is drawn yet.** The look is the next lane: the plate bowing on
-player 1's screen alone, the seam-light, the lobe in its breach, the whole
-edge lifting, and the body passing through a hole narrower than it is. Until
-it lands the boss plays invisible — a scar appears where a lobe withdrew, the
-hull's own breach lands at the end, and the nine events are silent in
-`render/` (`effects-ingest-silent-boss.ts`, `effects-spark-silent.ts`) and
-sounded in `audio/` (`bind-undertow.ts`, `sounds/boss-undertow.ts`).
+**Drawn, in two passes, because the boss is on both sides of the hull line.**
+The lobes and the body are drawn in the field pass with the other bosses
+(`boss-draw.ts` → `undertow-lobe.ts`), and they start *below* the skin, so the
+ship drawn over them hides their root and what shows is a thing that has come
+up through the plating rather than one sitting on it. Everything that is the
+plating itself — the plate bowing, the seams lit, the breach parted with its
+two flaps, the whole edge lifting before the last lobe — is drawn on the
+finished ship (`frame-on-ship.ts` → `undertow-draw.ts`), where nothing
+between it and the eye can cover it. The numbers are one file with no canvas
+in it (`undertow-shape.ts`): a bow is `smoothstep` over `undertowBowBeats`
+for the phase, a lobe rises over a beat (half a beat for a tall one) and
+holds, the last one grows over `undertowLastBeats`, and the body's height is
+a half-sine over `undertowDownBeats`.
+
+**The bow is player 1's, and the breach is everyone's.** A plate bowing is
+drawn on the pilot's screen and not on the navigator's (`showsUndertowBow`)
+— the column the next lobe is pushing at is the whole of his first part of
+this fight, and a copy of it on her phone would leave the pair nothing to
+say. The moment the lobe stands the breach is on both screens, since her plate
+has to stand on it and his maw has to open over it. The one bow that is not
+his alone is the last: every seam lit at once has no column to call, so the
+edge lifting is drawn for both. The seat's column is lit under the cannon on
+his screen while it is unseated.
+
+**The colours are the design's.** The seam-light is the hull's violet
+(`PALETTE.hull`) as additive light between the raised plate and the skin; the
+flaps and the plate keep the hull's rim; a lobe is rock — `rockDark` under a
+`rock` outline — because it is not a creature and has nothing to say. A tall
+lobe alone carries the beam's two colours, cyan at its top and red at its
+base, which is the sentence *only the beam takes this* said in paint rather
+than told. The body is the sheen's own deep violet, pinched to the plate's
+width at the hull line and swelling above it. The nine events are still
+silent in `render/` (`effects-ingest-silent-boss.ts`,
+`effects-spark-silent.ts`): a breach that opens is drawn open, and a spark on
+top of it would be the same fact said twice.
 
 **Never watched at tempo.** What the tests say is the mechanism: a plate bows
 for four beats and a lobe stands for four, the maw takes it and the plate does

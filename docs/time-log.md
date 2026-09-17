@@ -8032,3 +8032,22 @@ the tree rather than the work being hard: the scaffold is written for a layout
 knows about. The scaffold is queued.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — boss-implementation — THE UNDERTOW's look
+
+The second half of the second boss, claimed on `main`'s copy of the
+choreographed page before it was started. Nothing was drawn for this boss
+before it, so it is a look with no shipped alternative and lands as one.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | §13's picture, `throat-draw.ts` and `throat-shape.ts` as the template, `frame-field.ts`/`frame-on-ship.ts` for where the hull line is drawn, `hull-frame.ts`' samplers, `scars.ts` |
+| deciding | 10 | two passes rather than one — the lobes under the ship, the plating over it; the bow on player 1's screen alone and the standing breach on both; the beam's two colours on a tall lobe only |
+| writing | 45 | `undertow-shape.ts`, `undertow-lobe.ts`, `undertow-draw.ts`, `showsUndertowBow`, the `boss-draw` branch and the `skinY` it now takes, `undertowBowBeats` exported from the sim, two test files, `bosses.md` §11.20's second half |
+| friction | 15 | `undertowBowBeats` reached the barrel only through `boss-surface.ts`; a private smoothstep the copies test caught; the session compacted mid-lane; three timeouts on a busy machine that passed alone; the sim half's landing had left conflict markers in `bosses.md` |
+| landing | 5 | `check:fast`, the index, the queue entry, the commit |
+
+The bottleneck was the copies test and the index, each a whole `check:fast`
+to find out about: one private easing and three files with no row cost two
+runs of the suite. The conflict markers were the sim half's, not this
+lane's, and they took a commit of their own.
