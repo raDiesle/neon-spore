@@ -20,6 +20,7 @@ type BossId = Extract<
   | "diastole"
   | "baton"
   | "throat"
+  | "undertow"
 >;
 
 /**
@@ -97,6 +98,10 @@ export const BOSS_MECHANICS = {
   },
   baton: {
     what: "A segmented arm hanging from the top of the middle lane, eleven sockets long, with one bright bead standing in the topmost. The bead is safe in a socket and can only be hurt while it is moving between two — and it only moves when the pilot pulls the trigger. The seat that acts is locked out of its own phone for the next beat, so the bead is passed down the arm by strict alternation: he launches it, she shoots it in the air, he launches it again. A launched bead nobody hits lands back where it was; a bead nobody launches in time settles, and a settled bead goes back to the top. Each socket it leaves goes dark for good, the dark ones start dropping off the arm as rocks, the arm starts swinging, and out of the last socket the bead falls as a pod for the maw.",
+    reach: "spawn",
+  },
+  undertow: {
+    what: "The one boss that comes up through the floor. A plate of the hull bows for four beats — only the pilot sees which, on his own screen — and then a lobe stands up through it into the field. A standing lobe is taken by the maw opened under it, from the cannon's own column; a lobe too tall for the maw is taken by the beam alone. One that stands its four beats untaken withdraws and leaves the breach as a scar, and while it stands the breach widens each beat the plate is not standing on it, until a second lobe comes through next door — the first time in the game the shield faces down. Two come up four columns apart, so the maw can reach one and the pair have to agree which. Then the floor bows under the cannon itself, and the pilot has two beats to slide off or his seat is swallowed. Last, the whole edge lights and one lobe rises in the middle column: the maw held open under it for six beats takes the body down through the breach; ten beats standing and it comes through the other way.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

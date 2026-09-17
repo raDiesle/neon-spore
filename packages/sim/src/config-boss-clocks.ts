@@ -2,11 +2,13 @@ import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 import { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
+import { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
 
 export { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 export { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 export { STARE_DEFAULTS, type StareConfig } from "./config-stare.js";
 export { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
+export { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
 
 /**
  * **The bosses that are a clock**, as one block of `SimConfig`.
@@ -19,7 +21,8 @@ export { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
  * The seam is not "the newest four". Every one of these bosses is a *beat
  * count the pair says out loud* — how long the eye takes to turn, how far
  * apart two cadences that never divide each other are, how many beats a
- * handover is in the air, how many beats until the next inhale — and that is
+ * handover is in the air, how many beats until the next inhale, how many a
+ * plate bows before the lobe comes through it — and that is
  * why each of them got a file of its own rather than a field in
  * `config-boss.ts` next door. That file is where a boss's *place* lives: the
  * queen's row, the Warden's row, the pile's. A place can be read off the
@@ -27,15 +30,21 @@ export { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
  * several different bosses wearing one name.
  *
  * `SimConfig` extends `BossClockConfig` rather than nesting it, exactly as it
- * extended the four separately: every call site still reads `cfg.stareTurnBeats`
+ * extended the five separately: every call site still reads `cfg.stareTurnBeats`
  * and `cfg.throatInhaleBeats`, and nothing outside this file learns there is a
  * grouping at all.
  */
-export interface BossClockConfig extends StareConfig, DiastoleConfig, BatonConfig, ThroatConfig {}
+export interface BossClockConfig
+  extends StareConfig,
+    DiastoleConfig,
+    BatonConfig,
+    ThroatConfig,
+    UndertowConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
   ...DIASTOLE_DEFAULTS,
   ...BATON_DEFAULTS,
   ...THROAT_DEFAULTS,
+  ...UNDERTOW_DEFAULTS,
 };

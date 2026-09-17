@@ -1,16 +1,16 @@
-import { batonLaunch, batonLocks } from "./baton-press.js";
+import { batonLaunch } from "./baton-press.js";
 import { beatboxTapped } from "./beatbox-round.js";
 import { fire } from "./bullets.js";
 import { choirShaken } from "./choir-gesture.js";
+import { pressRefused } from "./command-locks.js";
 import { clampCol } from "./config-derived.js";
 import { closeGauge } from "./gauge-round.js";
 import { gripsCreature, setGrip } from "./grip.js";
 import { armShield } from "./hull-guard.js";
 import { endPrime, primeChargeMilli, priming, spillPrime, startPrime } from "./lance.js";
-import { faultSwallows } from "./malfunction.js";
 import { mazeHeard } from "./maze-controls.js";
 import { mineTapped } from "./mine.js";
-import { mirrorHeard, mirrorHoldsControls } from "./mirror.js";
+import { mirrorHeard } from "./mirror.js";
 import { closePinball } from "./pinball-round.js";
 import { reachHeard, reachOut } from "./reach.js";
 import { resetRun } from "./run.js";
@@ -18,8 +18,8 @@ import { endCharge } from "./shot-charge.js";
 import { fireStep } from "./simon.js";
 import { closeSnake } from "./snake-round.js";
 import { spliceHeard } from "./splice-round.js";
-import { stareBreaks } from "./stare-step.js";
 import { bodyCenterCol, type Color, type TimedCommand } from "./types.js";
+import { undertowIntake } from "./undertow-press.js";
 import type { World } from "./world.js";
 
 /**
@@ -66,24 +66,10 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     world.events.push({ type: "needWave", wave: 0 });
     return;
   }
-  // Nothing at all reaches the ship while THE MIRROR is presenting.
-  if (mirrorHoldsControls(world)) return;
-  // A control this wave's fault has taken over answers nobody. Checked here,
-  // above the switch, so every way into the command is closed at once — the
-  // lobe, the gesture on the hull, a rehearsal's ghost thumb and the wire
-  // (`malfunction.ts`).
-  if (faultSwallows(world, c)) return;
-  // **THE STARE does not swallow a press, it charges for one.** A fault eats
-  // the command because the button is broken and nothing happens; here the
-  // button works, the pair was warned for four beats, and a watched seat that
-  // pressed anyway breaks the hull — which is the wave lost. Checked in the
-  // same place and for the same reason: every door into a command is closed at
-  // once, the lobe, the swipe on the hull, a rehearsal's ghost thumb and the
-  // wire (`stare-step.ts`).
-  if (stareBreaks(world, timed)) return;
-  // **THE BATON swallows a press and says nothing**: the seat was told *not
-  // yet*, and the grey panel is the whole of the telling (`baton-press.ts`).
-  if (batonLocks(world, timed)) return;
+  // Every lock a boss or a fault puts on a press, asked once, above the
+  // switch: a door into a command that one of them forgot would be a control
+  // that works from the wire and not the lobe (`command-locks.ts`).
+  if (pressRefused(world, timed)) return;
 
   switch (c.kind) {
     case "cannonCol": {
@@ -148,6 +134,9 @@ export function applyCommand(world: World, timed: TimedCommand): void {
     case "intake":
       world.intakeTick = world.tick;
       mirrorHeard(world, "intake");
+      // And THE UNDERTOW, whose lobes the maw takes: after `intakeTick`, so
+      // `mawOpen` reads true for it. A no-op unless that boss is installed.
+      undertowIntake(world);
       // And THE SPLICE, whose whole fight is this one press: the entrance
       // under the cannon, if there is one, and the number at the far end of
       // its straw on its way down (`splice-round.ts`).

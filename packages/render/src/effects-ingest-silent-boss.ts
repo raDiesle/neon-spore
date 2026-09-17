@@ -58,6 +58,20 @@ export const INGEST_SILENT_BOSS = [
   "batonSettled",
   "batonShed",
   "batonDown",
+  // THE UNDERTOW's nine, silent for now rather than for ever: the plate
+  // bowing, the lobe standing in its breach and the body passing through are
+  // the look half of that boss and are not drawn yet (`docs/spec/bosses.md`).
+  // What it does to the hull it does through `scarHull` and `breachHull`, so
+  // a scar and the last lobe's breach are on the field the same tick.
+  "undertowBow",
+  "undertowLobe",
+  "undertowTaken",
+  "undertowScar",
+  "undertowWidened",
+  "undertowUnseated",
+  "undertowRise",
+  "undertowSwallowed",
+  "undertowThrough",
   "tether",
   "eyeOpen",
   "wardenDown",

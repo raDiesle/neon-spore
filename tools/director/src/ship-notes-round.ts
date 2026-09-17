@@ -76,6 +76,25 @@ export const ROUND_NOTES = {
     "Shots pass through the tube on purpose: that is player 2's answer to a " +
     "creature about to be eaten. Nothing is authored per wave. " +
     "See sim/throat.ts, sim/config-throat.ts, sim/throat-pull.ts.",
+  "THE UNDERTOW — the boss under the floor, answered downward":
+    "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §13: " +
+    "the one boss that comes up through the hull. A plate bows for " +
+    "undertowBowBeats — seen on player 1's screen alone — and a lobe stands " +
+    "through it for undertowStandBeats. The maw opened under it from the " +
+    "cannon's own column takes it; a tall one only the LANCE beam takes; one " +
+    "left standing withdraws and the column is a scar. While it stands the " +
+    "breach widens undertowWidenMilli a beat with no plate on it, and at " +
+    "undertowWideMilli a second lobe comes through next door. It pushes " +
+    "undertowSingles times alone, undertowPairs times in pairs " +
+    "undertowPairGap apart, undertowTalls times tall, then once under the " +
+    "cannon, which has undertowUnseatBeats to slide off or is unseated for " +
+    "undertowUnseatedBeats. Last, the whole edge lifts for undertowRiseBeats " +
+    "and one lobe rises in the middle: the maw held open under it for " +
+    "undertowHoldBeats takes the body down in undertowDownBeats, and " +
+    "undertowLastBeats standing sends it through the hull instead. " +
+    "undertowRestBeats of quiet sit between pushes; the rise and the body " +
+    "passing through each open undertowSlowBeats of THE SLOW. Nothing about " +
+    "it is authored per wave. See sim/undertow.ts, sim/config-undertow.ts.",
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

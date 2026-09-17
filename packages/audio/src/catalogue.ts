@@ -14,6 +14,7 @@ import { BEAT_SOUNDS } from "./sounds/beat.js";
 import { BOSS_SOUNDS } from "./sounds/boss.js";
 import { BOSS_BATON_SOUNDS } from "./sounds/boss-baton.js";
 import { BOSS_PLANNED_SOUNDS } from "./sounds/boss-planned.js";
+import { BOSS_UNDERTOW_SOUNDS } from "./sounds/boss-undertow.js";
 import { CREATURE_SOUNDS } from "./sounds/creature.js";
 import { CREATURE_GHOST_SOUNDS } from "./sounds/creature-ghost.js";
 import { CREATURE_IDEA_SOUNDS } from "./sounds/creature-ideas.js";
@@ -43,6 +44,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...POD_SOUNDS,
   ...BOSS_SOUNDS,
   ...BOSS_BATON_SOUNDS,
+  ...BOSS_UNDERTOW_SOUNDS,
   ...BOSS_PLANNED_SOUNDS,
   ...FLEET_SOUNDS,
   ...SPLICE_SOUNDS,

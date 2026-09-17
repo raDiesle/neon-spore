@@ -7,6 +7,7 @@ import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { firstPodAlong, freePod } from "./pods.js";
 import { firstAlong } from "./shot-reach.js";
 import type { Bullet, Color } from "./types.js";
+import { undertowBurned } from "./undertow-press.js";
 import { vaneStruck } from "./vane.js";
 import type { World } from "./world.js";
 
@@ -73,6 +74,9 @@ export function releaseLance(world: World): void {
   world.events.push({ type: "lanceFull", col });
   world.events.push({ type: "fire", col, color, lance: true });
   world.beam = { col, color, left: beamTicks(world.cfg), topMilli: burnColumn(world, col, color) };
+  // And the floor of the column, which nothing else reaches: the only answer
+  // to THE UNDERTOW's tall lobes. A no-op unless that boss is installed.
+  undertowBurned(world, col);
 }
 
 /**

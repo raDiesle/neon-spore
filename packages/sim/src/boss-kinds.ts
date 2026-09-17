@@ -47,6 +47,10 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // creature it swallows re-tightens a slack ring (`throat-step.ts`). A throat
   // that spawned its own dinner would be a boss healing off bodies its author
   // never wrote, which is to say a boss whose difficulty nobody set.
+  // THE UNDERTOW is the eighth, and the one that is underneath the field
+  // rather than above it: a fixture in the hull that pushes up through the
+  // floor and falls nothing at all (`undertow.ts`). What comes down over it
+  // is the wave's own.
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -54,7 +58,8 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
     kind !== "stare" &&
     kind !== "diastole" &&
     kind !== "baton" &&
-    kind !== "throat"
+    kind !== "throat" &&
+    kind !== "undertow"
   );
 }
 
@@ -120,4 +125,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "diastole",
   "baton",
   "throat",
+  "undertow",
 ];

@@ -129,6 +129,18 @@ export const SILENT = [
   "batonSettled",
   "batonShed",
   "batonDown",
+  // THE UNDERTOW's nine: the hull lifting and the lobe in it are the look
+  // half, not drawn yet (`docs/spec/bosses.md`); the scar it leaves and the
+  // hull's own `breach` at the end land on the field by themselves.
+  "undertowBow",
+  "undertowLobe",
+  "undertowTaken",
+  "undertowScar",
+  "undertowWidened",
+  "undertowUnseated",
+  "undertowRise",
+  "undertowSwallowed",
+  "undertowThrough",
   "quit", // The run ending is the menu opening (`apps/game`), not a mark on the field.
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.

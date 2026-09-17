@@ -110,6 +110,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // the gullet is centred on eleven columns as exactly as on the seven it was
   // authored against (`sim/throat.ts`).
   if (boss.kind === "throat") return { ...boss };
+  // THE UNDERTOW has nothing to remap: every column it comes up through is
+  // drawn from the field being played, and the last one is `midCol` of it
+  // (`sim/undertow-step.ts`).
+  if (boss.kind === "undertow") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

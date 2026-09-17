@@ -136,6 +136,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/gauge-round.ts` | THE GAUGE's clock: the three phases, the way in and the way out |
 | `packages/sim/src/gauge.ts` | THE GAUGE: one needle, two marks, one of you reading and the other turning |
 | `packages/sim/src/hash-boss.ts` | the boss half of the world fingerprint |
+| `packages/sim/src/hash-boss-clocks.ts` | The fingerprint's share of **the bosses that are a clock** — THE STARE, THE DIASTOLE, THE BATON |
 | `packages/sim/src/hull-types.ts` | what the hull remembers: where it broke, and how the pair have been doing at stopping it breaking |
 | `packages/sim/src/hull.ts` | the row the shield answers a rock on: one above the ship's own |
 | `packages/sim/src/kinds.ts` | what a `CreatureKind` *means*: colour, fall speed, width, whether a hand may be put on it |
@@ -268,12 +269,13 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/strand-shape.ts` | THE STRAND's shape, as arithmetic |
 | `packages/sim/src/strand-spawn.ts` | How a thread comes onto the field: one queue entry in, two to five bodies out |
 | `packages/sim/src/throb.ts` | the throb's clockwise turn, which half a shot met, and what it costs |
-| `packages/sim/src/throat-hash.ts` | What THE THROAT puts into `hashWorld`: the anchor two devices have to agree about |
-| `packages/sim/src/throat-pull.ts` | The pull: a body in the mouth's column stops falling, and a braking hand stops the climb |
-| `packages/sim/src/throat-step.ts` | THE THROAT's clock, and the two opposite gestures — a fling chokes a ring, a swallow tightens one |
-| `packages/sim/src/throat.ts` | THE THROAT: the boss answered by feeding it, and the mouth's column derived from the beat |
+| `packages/sim/src/throat-hash.ts` | What THE THROAT puts into `hashWorld`, and nothing else |
+| `packages/sim/src/throat-pull.ts` | **The pull**: what standing in THE THROAT's column does to a body |
+| `packages/sim/src/throat-step.ts` | THE THROAT's clock, and the two things that change its health |
+| `packages/sim/src/throat.ts` | THE THROAT: the one boss you answer by **giving it something** |
 | `packages/sim/src/boss-entries.ts` | **What a wave authors when it wants a boss** — twelve shapes, the union of them |
 | `packages/sim/src/boss-entries-round.ts` | **What a wave authors when it wants a round** — the bosses that take the panel away |
+| `packages/sim/src/boss-entries-clocks.ts` | **What a wave authors when it wants a boss that is a clock** |
 | `packages/sim/src/boss-kinds.ts` | a tool asks which bosses exist, or whether one is the whole wave — `BOSS_KINDS`, a wire value appended never inserted, and `bossFillsWave` |
 | `packages/sim/src/boss-others.ts` | **One beat of whichever boss is not the queen**, which is now thirteen of the fourteen |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
@@ -351,6 +353,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-choir.ts` | **THE CHOIR's three**: an arrow out, both in, and the window gone |
 | `packages/sim/src/events-cling.ts` | **Everything THE LIMPET and THE LEECH do**, as events: one takes hold of a control, is shaken a move looser |
 | `packages/sim/src/command-round.ts` | **The rounds' own verbs**, as their half of the `Command` union |
+| `packages/sim/src/command-locks.ts` | **Every way a press is refused before it is read**, in one place |
 | `packages/sim/src/config-pulse.ts` | THE PULSE's numbers — the step grid, the two windows a press is judged in |
 | `packages/sim/src/pulse-chart.ts` | THE PULSE's chart, as arithmetic: where a note is in time, which note a press is aimed at |
 | `packages/sim/src/pulse-controls.ts` | The four verbs of the round — and the first round in the game where both seats have all of them |
@@ -386,6 +389,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/diastole.ts` | THE DIASTOLE's shape and its questions — which column, which colour, which seat, and whether a chamber is contracting on a given beat |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
+| `packages/sim/src/events-undertow.ts` | **Everything THE UNDERTOW does that neither screen already says**, as events |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -393,7 +397,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
-| `packages/sim/src/config-throat.ts` | THE THROAT's numbers: five rings, a mouth a third down, and the inhale the pair counts |
+| `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how many times it pushes up through the floor in each part of the fight |
+| `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth hangs |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
@@ -403,6 +408,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
+| `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
+| `packages/sim/src/undertow-press.ts` | THE UNDERTOW's presses: the maw, the beam and the unseat |
+| `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the push, the bow, the lobe coming through, the widening, the withdrawal |
+| `packages/sim/src/undertow.ts` | THE UNDERTOW: where you are being hit from |
 
 ### packages/content
 
@@ -1252,6 +1261,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
+| `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |
 | `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-gum.ts`'s pattern |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
@@ -1264,6 +1274,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
+| `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 
 ### apps/game
 

@@ -213,4 +213,24 @@ export const WAVES_ACT_7C: Wave[] = [
     ],
     boss: { kind: "baton" },
   },
+  {
+    id: "theUndertow",
+    name: "THE UNDERTOW",
+    sentence:
+      "The one that comes up through the floor, so the shield faces down and the maw is the only thing pointing the right way.",
+    guide: {
+      both: "The field is empty. A plate of your own hull bows upward for four beats, then a lobe stands up through it. Nothing shoots it: the maw opened under it, from the cannon's column, takes it in and the plate closes. One left standing withdraws and leaves the breach as a scar. While a lobe stands, its breach widens every beat the plate is not on it, and a wide enough breach lets a second lobe through next door. Later two come up four columns apart, then one too tall for the maw that only the beam reaches. At the end the whole edge lights and the last lobe rises in the middle: hold the maw open under it and the body follows it down.",
+      p1: "Only you see the floor bow: say the column, slide under it, open the maw as the lobe comes through. When it bows under you, slide off within two beats or your seat is swallowed. On the last lobe, hold the maw open.",
+      p2: "You see the breach as it opens. Stand the plate on one he cannot reach and it stops widening; move it off when he comes for the lobe. The tall one is the beam's: hold a colour and let him keep the column.",
+    },
+    entries: [
+      { beat: 54, col: 1, color: "red" },
+      { beat: 62, col: 5, color: "cyan" },
+      { beat: 70, col: 0, color: "cyan" },
+      { beat: 78, col: 6, color: "red" },
+      { beat: 86, col: 2, color: "red" },
+      { beat: 94, col: 4, color: "cyan" },
+    ],
+    boss: { kind: "undertow" },
+  },
 ];

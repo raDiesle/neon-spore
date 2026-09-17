@@ -1,0 +1,54 @@
+import { batonHashParts } from "./baton-hash.js";
+import type { BossState } from "./boss-state.js";
+import { diastoleHashParts } from "./diastole-hash.js";
+import { stareHashParts } from "./stare-hash.js";
+import { throatHashParts } from "./throat-hash.js";
+import { undertowHashParts } from "./undertow-hash.js";
+
+/**
+ * The fingerprint's share of **the bosses that are a clock** — THE STARE, THE
+ * DIASTOLE, THE BATON, THE THROAT and THE UNDERTOW.
+ *
+ * Split out of `hash-boss.ts` when THE UNDERTOW took that file four lines over
+ * its 250-line limit, along the seam `bosses-clocks.ts`,
+ * `config-boss-clocks.ts` and `boss-entries-clocks.ts` already cut: what is
+ * left next door is a boss with a place on the field, and everything here is
+ * one whose state is a beat count the pair says out loud. Each already
+ * gathers its own numbers beside its own state (`*-hash.ts`); this file is
+ * only the five branches, so `bossHashParts` stays one list a reader can
+ * hold, and the contract is that file's — a flat list in a fixed order,
+ * nothing folded here.
+ *
+ * Returns nothing for any other boss, so the caller can push it unconditionally.
+ */
+export function clockHashParts(boss: BossState): number[] {
+  const out: number[] = [];
+  if (boss.kind === "stare") {
+    for (const n of stareHashParts(boss)) out.push(n);
+  }
+  // THE DIASTOLE, gathered beside the boss like the six above it — and the one
+  // whose numbers are *two clocks and the origin they run from*, which is why
+  // they matter as much as any board (`diastole-hash.ts`).
+  if (boss.kind === "diastole") {
+    for (const n of diastoleHashParts(boss)) out.push(n);
+  }
+  // THE BATON, gathered beside the boss like the seven above it — and the one
+  // whose numbers are *two locks*, one per seat, which decide who may touch
+  // their own phone this beat (`baton-hash.ts`).
+  if (boss.kind === "baton") {
+    for (const n of batonHashParts(boss)) out.push(n);
+  }
+  // THE THROAT, and its two anchor fields are the mouth's position rather than
+  // its setup — a device that disagreed about either would judge a fling
+  // against a different column (`throat-hash.ts`).
+  if (boss.kind === "throat") {
+    for (const n of throatHashParts(boss)) out.push(n);
+  }
+  // THE UNDERTOW, whose numbers are *which columns of the hull are open* —
+  // the one thing two devices must not disagree on when one seat is being
+  // asked to answer a hole and the other to plate it (`undertow-hash.ts`).
+  if (boss.kind === "undertow") {
+    for (const n of undertowHashParts(boss)) out.push(n);
+  }
+  return out;
+}

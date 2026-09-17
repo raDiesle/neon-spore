@@ -3,6 +3,7 @@ import type { CreatureEvent } from "./events-creature.js";
 import type { FleetEvent } from "./events-fleet.js";
 import type { SpliceEvent } from "./events-splice.js";
 import type { StareEvent } from "./events-stare.js";
+import type { UndertowEvent } from "./events-undertow.js";
 import type { BreachWeight } from "./hull-damage.js";
 import type { MazeVerdictReason } from "./maze-verdict.js";
 import type { MirrorStep, MirrorVerdictReason } from "./simon.js";
@@ -239,9 +240,11 @@ export type SimEvent =
   // worth four lines of it (`events-splice.ts`, `events-stare.ts`).
   | SpliceEvent
   | StareEvent
-  | BatonEvent;
+  | BatonEvent
+  | UndertowEvent;
 
 export type { BatonEvent } from "./events-baton.js";
 export type { FleetEvent } from "./events-fleet.js";
 export type { SpliceEvent } from "./events-splice.js";
 export type { StareEvent } from "./events-stare.js";
+export type { UndertowEvent } from "./events-undertow.js";

@@ -6,6 +6,7 @@ import type {
   ScoutEntry,
   StareEntry,
   ThroatEntry,
+  UndertowEntry,
   WellEntry,
 } from "@neon-spore/sim";
 
@@ -52,6 +53,10 @@ import type {
  *   there is no number, and the wave underneath is the wave its author wrote.
  *   Every beat it keeps — the flight, the turn, the lock — is the pair's
  *   cadence rather than a per-wave decision (`sim/config-baton.ts`).
+ * - **THE UNDERTOW** asks for nothing for the same reasons again: every
+ *   column it comes up through is drawn from the rng and the last is
+ *   `midCol`, the lobes it has to lose are its health, and how many of each
+ *   push and how long each takes are the pair's cadence (`sim/config-undertow.ts`).
  *
  * - **THE THROAT** asks for nothing for the same three reasons said about a
  *   tube: the gullet hangs dead centre so there is no column, the five rings
@@ -73,7 +78,8 @@ export function bossAuthorsNothing(
   | StareEntry
   | DiastoleEntry
   | BatonEntry
-  | ThroatEntry {
+  | ThroatEntry
+  | UndertowEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -85,6 +91,7 @@ export function bossAuthorsNothing(
     kind === "stare" ||
     kind === "diastole" ||
     kind === "baton" ||
-    kind === "throat"
+    kind === "throat" ||
+    kind === "undertow"
   );
 }

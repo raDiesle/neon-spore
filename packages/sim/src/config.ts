@@ -34,8 +34,8 @@ import { WEIGHT_DEFAULTS, type WeightConfig } from "./config-weight.js";
 export { BALLOON_DEFAULTS, type BalloonConfig } from "./config-balloon.js";
 export { BEATBOX_DEFAULTS, type BeatboxConfig } from "./config-beatbox.js";
 export { BOSS_DEFAULTS, type BossConfig } from "./config-boss.js";
-// The four bosses that are a clock are one block now, the way the rounds
-// are: `config-boss-clocks.ts` is where a fifth is added, and nothing
+// The five bosses that are a clock are one block now, the way the rounds
+// are: `config-boss-clocks.ts` is where a sixth is added, and nothing
 // outside this package has ever asked for one of them by name.
 export { BOSS_CLOCK_DEFAULTS, type BossClockConfig } from "./config-boss-clocks.js";
 export { CAROM_DEFAULTS, type CaromConfig } from "./config-carom.js";

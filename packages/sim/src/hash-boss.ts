@@ -1,9 +1,8 @@
-import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-state.js";
-import { diastoleHashParts } from "./diastole-hash.js";
 import { BOSS_KINDS } from "./entries.js";
 import { FLEET_DIRS } from "./fleet-board.js";
 import { GAUGE_PHASES } from "./gauge.js";
+import { clockHashParts } from "./hash-boss-clocks.js";
 import { mazeHashParts } from "./maze-hash.js";
 import { pinballHashParts } from "./pinball-board.js";
 import { pulseHashParts } from "./pulse-hash.js";
@@ -12,8 +11,6 @@ import { scoutHashParts } from "./scout-hash.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 import { snakeHashParts } from "./snake-hash.js";
 import { spliceHashParts } from "./splice-hash.js";
-import { stareHashParts } from "./stare-hash.js";
-import { throatHashParts } from "./throat-hash.js";
 
 /**
  * The boss half of the world fingerprint.
@@ -159,33 +156,17 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.lastRow);
     push(boss.lastHit ? 1 : 0);
   }
-  // SNAKE, gathered beside the boss for the same reason and with the most in
-  // it of the four: the body, the arena it is driving round, and everything
-  // already spent off both (`snake-hash.ts`).
-  if (boss !== null && boss.kind === "stare") {
-    for (const n of stareHashParts(boss)) push(n);
-  }
-  // THE DIASTOLE, gathered beside the boss like the six above it — and the one
-  // whose numbers are *two clocks and the origin they run from*, which is why
-  // they matter as much as any board (`diastole-hash.ts`).
-  if (boss !== null && boss.kind === "diastole") {
-    for (const n of diastoleHashParts(boss)) push(n);
-  }
-  // THE BATON, gathered beside the boss like the seven above it — and the one
-  // whose numbers are *two locks*, one per seat, which decide who may touch
-  // their own phone this beat (`baton-hash.ts`).
-  if (boss !== null && boss.kind === "baton") {
-    for (const n of batonHashParts(boss)) push(n);
-  }
-  // THE THROAT, and its two anchor fields are the mouth's position rather than
-  // its setup — a device that disagreed about either would judge a fling
-  // against a different column (`throat-hash.ts`).
-  if (boss !== null && boss.kind === "throat") {
-    for (const n of throatHashParts(boss)) push(n);
-  }
+  // The five bosses that are a clock, gathered one file along and for the
+  // same reason each of them was gathered beside its own state: what they
+  // hash is a beat count, and a count two devices disagree about is a word
+  // one of them says wrong (`hash-boss-clocks.ts`).
+  if (boss !== null) for (const n of clockHashParts(boss)) push(n);
   if (boss !== null && boss.kind === "scout") {
     for (const n of scoutHashParts(boss)) push(n);
   }
+  // SNAKE, gathered beside the boss for the same reason and with the most in
+  // it of the four: the body, the arena it is driving round, and everything
+  // already spent off both (`snake-hash.ts`).
   if (boss !== null && boss.kind === "snake") {
     for (const n of snakeHashParts(boss)) push(n);
   }

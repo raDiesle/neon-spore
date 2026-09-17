@@ -1810,6 +1810,7 @@ launch locks one seat and not the other, the right colour hands over and the
 wrong one relights, the arm settles, swings and sheds on the counts the
 numbers say, the last drop is a pod the maw takes, and the same run
 fingerprints the same way twice (`sim/test/baton.test.ts`).
+<<<<<<< HEAD
 ## 11.19 THE THROAT — the boss you answer by feeding it
 
 *Built 16–17 September 2026 in three pieces: the simulation, the gullet, then
@@ -2024,3 +2025,79 @@ function of the beat and never stands still against a wall, that the inhale
 counts from its phase's own origin, that the pull holds and a braking hand stops
 it, that a swallow re-tightens and a fling chokes, and that the phases go one
 way (`sim/test/throat.test.ts`).
+=======
+
+## 11.19 THE UNDERTOW — the boss under the floor, answered downward
+
+> The one that comes up through the floor, so the shield faces down and the
+> maw is the only thing pointing the right way.
+
+Designed as §13 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: every threat in the game comes down the field and is
+answered upward, and this is the one that asks where the pair is being hit
+from. The cannon fires up its column and the lobe is *in* the column's floor,
+so the only two things that reach it are the maw, opened over the breach from
+the cannon's own column, and the lance beam, which burns its whole column
+standing.
+
+**The shape.** Nothing above the hull line, most of the time: the field is
+empty and the boss exists only where it breaks through. A **breach** is a
+place rather than a scar — a column, a stage (`bowing`, `standing`), a beat
+count, a width in thousandths and whether it was widened into — and the list
+of them is the whole of the state (`sim/undertow.ts`, hashed in
+`sim/undertow-hash.ts`). It is a fixture, not a body (`bossFillsWave ===
+false`), and the arrivals around it are the wave's own
+(`content/src/waves/act-7c.ts`, plain slicks from the fourth push on, as the
+design page's step 8 asks).
+
+**The rule, in one sentence.** A plate bows for `undertowBowBeats` (4) and a
+lobe stands through it for `undertowStandBeats` (4); the maw opened under it
+takes it (`undertowTake`, asked from `intake` before the pods are), a tall one
+is the beam's alone (`releaseLance` → `undertowBurned`), and one left standing
+withdraws and **the column is a scar** — `scarHull`, cut out of `breachHull`
+so a scar can be laid without the wave being lost — and `undertowRestBeats`
+(2) of empty field pass before the next plate bows. While a lobe stands its
+breach widens `undertowWidenMilli` (100) a beat unless the shield is on its
+column, and at `undertowWideMilli` (400) a second lobe comes through next
+door, already standing.
+
+**The four parts.** `undertowSingles` (3) pushes alone; `undertowPairs` (2)
+in pairs `undertowPairGap` (4) columns apart, so the maw reaches one and the
+pair have to say which; `undertowTalls` (2) tall; then one under the cannon's
+own column, which has `undertowUnseatBeats` (2) to slide off — if it does not,
+every press from that seat is swallowed for `undertowUnseatedBeats` (4)
+(`undertowUnseats`, in the lock chain `command-locks.ts` now holds for THE
+MIRROR, THE MALFUNCTION, THE STARE and THE BATON as well). Last, the whole
+edge lifts for `undertowRiseBeats` (4) and one lobe rises in `midCol`: the maw
+held open under it for `undertowHoldBeats` (6), counted on the beat, takes
+the body down through the breach in `undertowDownBeats` (4); `undertowLastBeats`
+(10) standing and it comes through the other way, a heavy breach at the middle
+and the wave lost. The rise and the body passing each open `undertowSlowBeats`
+(2) of THE SLOW.
+
+**Health is the hull.** Every hole it punches is also a hole to reach into,
+and a hole it withdraws from is a scar in the pair's own hull for the rest of
+the run. `taken` and `scars` are the two counts, and nothing else is.
+
+**What is not built**: a creature through a breach worth two (step 8's
+*missed*), a tall lobe taking a plate of hull with it when it withdraws (step
+9's — today it scars the column and its neighbour), and the plate closing
+under a cannon slid off in time as a picture rather than a fact.
+
+**Nothing is drawn yet.** The look is the next lane: the plate bowing on
+player 1's screen alone, the seam-light, the lobe in its breach, the whole
+edge lifting, and the body passing through a hole narrower than it is. Until
+it lands the boss plays invisible — a scar appears where a lobe withdrew, the
+hull's own breach lands at the end, and the nine events are silent in
+`render/` (`effects-ingest-silent-boss.ts`, `effects-spark-silent.ts`) and
+sounded in `audio/` (`bind-undertow.ts`, `sounds/boss-undertow.ts`).
+
+**Never watched at tempo.** What the tests say is the mechanism: a plate bows
+for four beats and a lobe stands for four, the maw takes it and the plate does
+not, a lobe left standing scars without failing the wave, a breach widens to a
+second lobe and a plate on it stops that, a pair comes up four apart, a tall
+one is beam-only, the seat under the cannon is swallowed and the shield's is
+not, the last lobe is held down or comes through, the wave stays open until
+the body has passed, and the same run fingerprints the same way twice
+(`sim/test/undertow.test.ts`).
+>>>>>>> abd82791 (THE UNDERTOW: the attack comes up through the floor, and the pair answers it downward)

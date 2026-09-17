@@ -8,6 +8,7 @@ import { stepMirror } from "./mirror.js";
 import { stepSplice } from "./splice-round.js";
 import { stepStare } from "./stare-step.js";
 import { stepThroat } from "./throat-step.js";
+import { stepUndertow } from "./undertow-step.js";
 import { stepVane } from "./vane.js";
 import { stepWarden } from "./warden.js";
 import type { World } from "./world.js";
@@ -69,6 +70,14 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // else in the column a row closer (`throat-step.ts`).
   if (boss.kind === "throat") {
     stepThroat(world, boss);
+    return;
+  }
+  // THE UNDERTOW on the beat is the floor's own clock: a push, a plate
+  // parting, a breach widening, a lobe withdrawing, the hold counted. The
+  // two answers — the maw and the beam — arrive on the tick, from
+  // `commands.ts` and `lance-burn.ts` (`undertow-press.ts`).
+  if (boss.kind === "undertow") {
+    stepUndertow(world, boss);
     return;
   }
   if (boss.kind === "vane") {

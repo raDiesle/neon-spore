@@ -67,6 +67,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-fleet.ts", "export type FleetEvent ="],
     ["packages/sim/src/events-stare.ts", "export type StareEvent ="],
     ["packages/sim/src/events-baton.ts", "export type BatonEvent ="],
+    ["packages/sim/src/events-undertow.ts", "export type UndertowEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -122,6 +123,15 @@ const SAMPLES: Record<string, SimEvent> = {
   batonSettled: { type: "batonSettled", col: 3, socket: 0 },
   batonShed: { type: "batonShed", col: 3, row: 1 },
   batonDown: { type: "batonDown", col: 3 },
+  undertowBow: { type: "undertowBow", col: 4 },
+  undertowLobe: { type: "undertowLobe", col: 4, tall: false },
+  undertowTaken: { type: "undertowTaken", col: 4 },
+  undertowScar: { type: "undertowScar", col: 4 },
+  undertowWidened: { type: "undertowWidened", col: 5 },
+  undertowUnseated: { type: "undertowUnseated", col: 2 },
+  undertowRise: { type: "undertowRise", col: 5 },
+  undertowSwallowed: { type: "undertowSwallowed", col: 5 },
+  undertowThrough: { type: "undertowThrough", col: 5 },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

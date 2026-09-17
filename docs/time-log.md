@@ -7947,3 +7947,25 @@ already written correctly and the code still did the wrong thing — the comment
 said "not on the mouth" and the two happened to coincide.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — boss-implementation — THE UNDERTOW's simulation
+
+The second boss of the run, claimed on `main`'s copy of the choreographed
+page before it was started. This is the simulation half; the look is the next
+lane.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | §13 of the design page, THE BATON's own diff as the template, `hull-damage.ts`, `commands.ts`' lock chain, `lance-burn.ts` |
+| writing | 25 | `undertow*.ts` (six files), `scarHull` out of `breachHull`, `command-locks.ts` out of `commands.ts`, the undertow's names into `bosses-clocks.ts` and its dials into `config-boss-clocks.ts`, `bind-choreographed.ts` out of `bind.ts`, the wave, the director's group and dials, nine sounds, 14 tests |
+| looking | 0 | — nothing drawn changed |
+| friction | 20 | an import cycle between the step and the press; three files at their limit in one lane; events cleared each tick so a test reading them a beat late saw none; four sounds in the speech band; the session compacted mid-lane; a rebase over THE THROAT, THE HUSK and thirty-seven other commits that touched twenty-six of the same files |
+| landing | 5 | `check:fast`, the index, the baseline, the commit |
+
+The bottleneck was the files at their limit: `commands.ts`, `bosses.ts` and
+`bind.ts` each needed a split before a line could go in — and the other
+session had cut `bosses.ts` and `config.ts` along the same seam the same day,
+so the rebase kept its two files and dropped this lane's. `bind.ts`' split was
+the one that changed a shape — `cueFor` now hands the choreographed bosses'
+events to a `default` narrowed by every case above it, rather than naming
+sixteen cases it has no room for.

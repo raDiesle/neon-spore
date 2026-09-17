@@ -52,9 +52,22 @@ export function breachHull(
    * a rock, and the rounds that cost the hull from off the field. */
   color: Color | null = null,
 ): void {
+  scarHull(world, col, kind);
+  breachUnscarred(world, col, kind, fromRow, weight, color);
+}
+
+/**
+ * **A scar with no hit in front of it**: the plating torn and the wave still
+ * running. One caller besides `breachHull` itself, and it is the boss the
+ * distinction was written for: a lobe of THE UNDERTOW withdrawing untaken
+ * takes a piece of the hull with it, and nothing reached the ship — the
+ * owner's rule is that a *hit* costs the wave, and something leaving is not
+ * one (`undertow-step.ts`). The cap is the same cap, so the oldest scar goes
+ * whichever way the newest was made.
+ */
+export function scarHull(world: World, col: number, kind: Creature["kind"]): void {
   world.scars.push({ col, beat: world.beat, kind });
   if (world.scars.length > world.cfg.maxScars) world.scars.shift();
-  breachUnscarred(world, col, kind, fromRow, weight, color);
 }
 
 /**

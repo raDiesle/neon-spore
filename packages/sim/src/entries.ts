@@ -218,6 +218,7 @@ export type {
   SpliceEntry,
   StareEntry,
   ThroatEntry,
+  UndertowEntry,
   VaneEntry,
   WardenEntry,
   WellEntry,

@@ -74,6 +74,10 @@ const STILL_PROSE = [
   // mark drawn on one seat's screen and not the other's, so the film has to be
   // shot twice and read as one lesson.
   "THE HUSK",
+  // And THE UNDERTOW, owed by the lane that draws the floor. Its film is a
+  // plate of hull bowing on one screen and not the other, and a maw opened
+  // under a lobe; until the hull is drawn lifting there is nothing to show.
+  "THE UNDERTOW",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -97,11 +101,11 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   });
 
   it("counts the guided waves the opening section names", () => {
-    // "seventy-three of the eighty-two waves today" — the one figure in §1
+    // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says seventy-three of eighty-two";
-    expect(guided.length, fix).toBe(73);
-    expect(WAVES.length, fix).toBe(82);
+    const fix = "update §1 of docs/spec/briefings.md, which says seventy-four of eighty-three";
+    expect(guided.length, fix).toBe(74);
+    expect(WAVES.length, fix).toBe(83);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

@@ -13,11 +13,11 @@
 
 import type { SimEvent } from "@neon-spore/sim";
 import { balloonCue } from "./bind-balloon.js";
-import { batonCue } from "./bind-baton.js";
 import { beatboxCue } from "./bind-beatbox.js";
 import { breachCue } from "./bind-breach.js";
 import { caromCue } from "./bind-carom.js";
 import { choirCue } from "./bind-choir.js";
+import { choreographedCue } from "./bind-choreographed.js";
 import { clingCue } from "./bind-cling.js";
 import { coilCue } from "./bind-coil.js";
 import { crawlerCue } from "./bind-crawler.js";
@@ -133,15 +133,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     // to look somewhere — the one thing that is not what went wrong.
     case "stareCaught":
       return { id: "boss.stareCaught" };
-    // THE BATON's seven, in `bind-baton.ts`: handovers, each panned to its lane.
-    case "batonLaunch":
-    case "batonStruck":
-    case "batonLanded":
-    case "batonRelit":
-    case "batonSettled":
-    case "batonShed":
-    case "batonDown":
-      return batonCue(e, cols);
     case "queenDown":
       return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
     // THE MIRROR's four and THE MAZE's four, in `bind-mirror.ts`: the two
@@ -246,5 +237,10 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "volleyReturn":
     case "volleyHatch":
       return volleyCue(e, cols, rows);
+    // THE BATON's seven and THE UNDERTOW's nine, in `bind-choreographed.ts`:
+    // the branch is narrowed by every case above it, so an event this switch
+    // does not name and that file does not take fails to type.
+    default:
+      return choreographedCue(e, cols);
   }
 }

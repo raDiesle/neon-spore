@@ -76,6 +76,25 @@ export const NO_SUBJECT: Record<string, string> = {
     "a dark socket parting from the arm. What falls is a meteor, which has a card; what it fell *from* is the arm, which does not.",
   "boss.batonDown":
     "the last drop taken and the arm coming off at every joint. What this marks is a field with no arm left over it — an absence like ui.waveClear rather than a thing standing anywhere.",
+  // THE UNDERTOW's nine. Every one of them happens to the *hull* — a plate
+  // bowing, parting, scarring, closing — and the hull's own edge is drawn,
+  // but not yet lifting (`docs/spec/bosses.md`); the sheet has cards for
+  // bodies on the field, and this boss is never a body on it.
+  "boss.undertowBow":
+    "a plate of the hull bowing upward. What lifts is the hull's own edge, which no sheet has a card for (`sim/undertow.ts`).",
+  "boss.undertowLobe": "a lobe standing up through the plate. Same argument.",
+  "boss.undertowTaken": "the lobe drawn into the maw and the plate closing. Same argument.",
+  "boss.undertowScar":
+    "the lobe withdrawing and the breach staying. What is left is a scar, which is drawn on the hull rather than standing on the field.",
+  "boss.undertowWidened": "a breach grown wide enough for a second lobe. Same argument.",
+  "boss.undertowUnseated":
+    "the floor coming up under the cannon. What it happens to is the cannon's mount, not a body.",
+  "boss.undertowRise":
+    "the whole edge lifting at once. What lifts is every column of hull, which is the ship and not a card.",
+  "boss.undertowSwallowed":
+    "the body following its lobe down through the hole. What this marks is a hull closed over a thing inside it — an absence like ui.waveClear rather than a thing standing anywhere.",
+  "boss.undertowThrough":
+    "the last lobe coming through the other way. What gives is the hull, and the wave with it.",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",

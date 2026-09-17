@@ -81,6 +81,25 @@ export const ROUND_FIELD_GROUP = {
   throatSlideCols: "THE THROAT — the boss you answer by feeding it",
   throatQuickCols: "THE THROAT — the boss you answer by feeding it",
   throatEvertBeats: "THE THROAT — the boss you answer by feeding it",
+  // UndertowConfig — how often it comes up, and how long each part of a push
+  // takes. Every beat is a call: a bow is a column said, a stand is a maw
+  // opened or a plate moved on a word (`config-undertow.ts`).
+  undertowSingles: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowPairs: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowPairGap: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowTalls: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowBowBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowStandBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowRestBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowWidenMilli: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowWideMilli: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowUnseatBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowUnseatedBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowRiseBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowHoldBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowLastBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowDownBeats: "THE UNDERTOW — the boss under the floor, answered downward",
+  undertowSlowBeats: "THE UNDERTOW — the boss under the floor, answered downward",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

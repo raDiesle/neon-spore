@@ -97,6 +97,9 @@ export function serializeBoss(boss: BossEntry): string {
   // And THE THROAT, the fourth of the same length, and for the reason its own
   // entry gives: the clocks are the boss (`sim/config-throat.ts`).
   if (boss.kind === "throat") return '{ kind: "throat" }';
+  // And THE UNDERTOW, the fifth of that length: no column, because it draws its own; no
+  // health, because the pushes are counted (`sim/config-undertow.ts`).
+  if (boss.kind === "undertow") return '{ kind: "undertow" }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

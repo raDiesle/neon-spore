@@ -15,6 +15,7 @@ import { installSnake } from "./snake-round.js";
 import { installSplice } from "./splice-round.js";
 import { installStare } from "./stare-step.js";
 import { installThroat } from "./throat-step.js";
+import { installUndertow } from "./undertow-step.js";
 import { installVane } from "./vane.js";
 import { installWarden } from "./warden-start.js";
 import { installWell } from "./well.js";
@@ -139,6 +140,14 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // The arrivals underneath are the wave author's, and they are also the
     // boss's dinner (`throat.ts`, `bossFillsWave`).
     world.boss = installThroat(world);
+  } else if (boss?.kind === "undertow") {
+    // No creature and no row, and for the first time nothing *above* the
+    // hull either: the whole of it is underneath, so the fall loop and a
+    // hand find nothing, and the hull meets it only as its own scars — a lobe
+    // withdrawn untaken is written straight into `world.scars`, and the last
+    // lobe not held is `breachHull` like any other hit (`undertow-step.ts`).
+    // The arrivals over it are the wave's own (`bossFillsWave`).
+    world.boss = installUndertow(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

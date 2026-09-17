@@ -14,6 +14,7 @@ import type { SpliceState } from "./splice.js";
 import type { StareState } from "./stare.js";
 import type { ThroatState } from "./throat.js";
 import type { Color } from "./types.js";
+import type { UndertowState } from "./undertow.js";
 import type { WellState } from "./well.js";
 
 /**
@@ -221,10 +222,9 @@ export interface FleetState {
  *
  * `GaugeState` is in here and its fields are in `gauge.ts` rather than beside
  * the other four, for the reason the maze's and the mirror's are in theirs:
- * one file owns a fight's state and nothing else writes it. `CairnState` is
- * the newest to be kept that way, and it is the first that left this file
- * rather than never arriving in it — THE CAIRN's four integers took the file
- * over its 250-line limit, and the rule it broke against was one this page
+ * one file owns a fight's state and nothing else writes it. `CairnState` was
+ * the first to *leave* this file rather than never arrive in it — THE CAIRN's
+ * four integers took it over its 250-line limit, against a rule this page
  * already states.
  */
 export type BossState =
@@ -246,4 +246,5 @@ export type BossState =
   | StareState
   | DiastoleState
   | BatonState
-  | ThroatState;
+  | ThroatState
+  | UndertowState;

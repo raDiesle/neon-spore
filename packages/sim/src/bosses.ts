@@ -15,7 +15,7 @@
 
 export { clampQueenCol, QUEEN_FLANK_TILES, queenHalfCols, queenTorchCol } from "./boss.js";
 export type { BossState, FleetState, QueenState, VaneState, WardenState } from "./boss-state.js";
-// And the four bosses that are a clock, whole, for that file's reason said
+// And the five bosses that are a clock, whole, for that file's reason said
 // about beats rather than about pictures (`bosses-clocks.ts`).
 export * from "./bosses-clocks.js";
 // The six rounds are next door and re-exported whole (`bosses-round.ts`).
@@ -37,6 +37,7 @@ export {
   type SpliceEntry,
   type StareEntry,
   type ThroatEntry,
+  type UndertowEntry,
   type VaneEntry,
   type WardenEntry,
   type WellEntry,

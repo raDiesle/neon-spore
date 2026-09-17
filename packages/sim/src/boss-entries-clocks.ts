@@ -1,0 +1,102 @@
+/**
+ * **What a wave authors when it wants a boss that is a clock** — the five
+ * from `docs/spec/bosses-choreographed.md` and THE STARE before them, and
+ * every one of them authors nothing at all.
+ *
+ * Cut out of `boss-entries.ts` when THE UNDERTOW took that file nine lines
+ * over its limit, along the seam `bosses-clocks.ts` and
+ * `config-boss-clocks.ts` cut the same day: next door is a boss with a
+ * *place* a wave has to give it — a column, a wheel, a row — and this is a
+ * boss whose whole difficulty is a beat count the pair says out loud, which
+ * is tuning rather than authoring. Five interfaces of one line each and a
+ * paragraph over every one saying why the line is all there is; the
+ * paragraphs are the file, and they are what would not fit.
+ *
+ * Every name is re-exported from `boss-entries.ts` and from `entries.ts`
+ * after it, so nothing that already reached for one through either had to
+ * move.
+ */
+
+/**
+ * What a wave authors when it wants THE STARE, which is nothing at all — THE
+ * WELL's entry one boss along, and for a related reason.
+ *
+ * No column: the eye is in the sky rather than in a lane, and one placed over
+ * a column would be a boss the pair could answer by standing somewhere else.
+ * No health and no rounds: there is nothing to shoot. And no length either,
+ * because the wave underneath is the wave its author wrote — the eye bends
+ * what that wave costs rather than being the encounter (`bossFillsWave`), so
+ * how long it runs is how long the entries take.
+ *
+ * Everything about its rhythm is tuning (`config-stare.ts`): a wave whose
+ * warning was authored per encounter would be several different bosses
+ * wearing one name, and the length of the warning is the whole fairness of it.
+ */
+export interface StareEntry {
+  kind: "stare";
+}
+
+/**
+ * What a wave authors when it wants THE DIASTOLE, which is nothing at all —
+ * THE STARE's entry one boss along, and for three reasons rather than one.
+ *
+ * No column: the twin lobe hangs dead centre above the grid, and one placed off
+ * centre would have a long side and a short one, so the cannon would be a
+ * different distance from the bridge depending on which way it came — the one
+ * thing this fight must not add to its arithmetic (`diastoleBridgeCol`).
+ *
+ * No health: it is two chambers of `diastoleChamberHits` each, and the number
+ * is the fight's shape rather than its length — the left gives two of them up
+ * to ordinary shots before the right ever wakes, which is how the pair learns
+ * that a cadence has to be counted rather than watched.
+ *
+ * And no cadences, which is the one that had to be argued: **they are the boss
+ * and they are tuning anyway** (`config-diastole.ts`). Three against five is a
+ * coincidence every fifteen beats and on no beat between; a wave that authored
+ * its own pair would be several different bosses wearing one name, and worse
+ * than that, a boss nobody could ever have learned to count.
+ */
+export interface DiastoleEntry {
+  kind: "diastole";
+}
+
+/**
+ * What a wave authors when it wants THE BATON, which is nothing at all —
+ * THE STARE's entry one boss along. No column: the arm hangs dead centre for
+ * THE DIASTOLE's reason. No health: it is `batonSockets` sockets and the
+ * fight's length is the pair's own alternation. And no cadence, because the
+ * cadence *is* the boss and is tuning (`config-baton.ts`): a wave that
+ * authored its own flight length would be several different bosses wearing
+ * one name.
+ */
+export interface BatonEntry {
+  kind: "baton";
+}
+
+/**
+ * What a wave authors when it wants THE THROAT, which is nothing at all — THE
+ * DIASTOLE's entry one boss along, and for its three reasons said about a tube.
+ *
+ * No column: the gullet hangs dead centre and its mouth walks the field from
+ * there (`throatHomeCol`). No health: it is `throatRings` ring muscles, and the
+ * count is the silhouette rather than a difficulty dial. And no clocks — the
+ * inhale and the mouth's stride are the two numbers the pair *says out loud*,
+ * so a wave that authored its own pair would be a boss nobody could ever have
+ * learned to talk about (`config-throat.ts`).
+ */
+export interface ThroatEntry {
+  kind: "throat";
+}
+
+/**
+ * What a wave authors when it wants THE UNDERTOW, which is nothing at all —
+ * the fourth boss in a row to author nothing. No column: it pushes where the
+ * seeded rng says and, once, where the cannon is standing. No health: the
+ * fight is a fixed number of pushes and the last of them is a hold, not a
+ * hit (`undertow.ts`). Every count is tuning (`config-undertow.ts`), for
+ * THE BATON's reason: a boss whose pushes differed by wave would be several
+ * bosses wearing one name, and none of them learnable.
+ */
+export interface UndertowEntry {
+  kind: "undertow";
+}
