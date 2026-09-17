@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · eca5e61e — Two more answers for the lost screen, and the fluid comes out of the seam
+
+The shipped `veil` called the falling violet from inside itself, so an answer that wanted to argue about *what runs down the lost screen* — the one thing the owner asked for alternatives to by name — had to retype the two plates in order to leave it out, and would then have been asking him two questions and getting one answer. `plates` and `bleed` are separate now and `veil` is the two of them; `wordsAt` takes the height the stack starts at, so a candidate that wants the words lower does not carry a fourth copy of the wording. Not one pixel of the shipped screen moves.
+
 ## 2026-09-17 · 59398f8a — THE MINE has a rehearsal, and an act may land a finger on a bare square
 
 A new film for a wave that had none — the second look exemption, a look with no shipped alternative — so nothing the game already draws changes. `SceneAct.tile` is the fifth gesture that is not a press on a control: the seat is authored, because which seat is blind to a mine is the arrival's (`SpawnEntry.sees`) rather than the kind's, `col` goes through `mapCol` like every column and `row` stands as written. `sceneCommands` turns it into the one `tapTile`, and the ghost hand for it is the one placed from the act rather than from the world (`tileThumb`), because on the blind seat's field there is nothing to place it from — which is the creature.
