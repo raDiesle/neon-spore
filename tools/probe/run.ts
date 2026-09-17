@@ -13,6 +13,16 @@
  * script in a session's scratch directory cannot import one however it is run —
  * which is the whole finding this package answers. `scratch/` is git-ignored,
  * so a probe left behind is neither committed nor in anybody's way.
+ *
+ * **And it is not typechecked**, which is the other half of that sentence and
+ * was not true until 17 September 2026. `tsconfig.json` includes `tools/**`,
+ * so for a while `bunx tsc --noEmit` read every probe anybody had left behind
+ * — and a throwaway script written against `noUncheckedIndexedAccess` is red
+ * ten times over, in a file `git status` cannot show. A lane inherited nine
+ * such errors from its own probe and spent them as friction. `scratch` is in
+ * that file's `exclude` now. A probe asserts nothing, is run by nothing and is
+ * checked by nothing: a question worth asking twice is a test in the package
+ * that owns the answer.
  */
 
 import { existsSync } from "node:fs";

@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — queue-scratch-typecheck — the scratch directory taken out of the typecheck
+
+The queue item the lane before it wrote, found by being bitten: `tsconfig.json`
+includes `tools/**` and nothing excluded `tools/probe/scratch`, so a probe left
+behind failed the typecheck in a file `git status` cannot show. One line in the
+`exclude` list, the sentence in `tools/probe/run.ts` that was half true made
+whole, and two tests in the probe package's own suite so that tidying the list
+cannot quietly undo it. Proved the way the entry asked: a deliberately red
+probe — an unguarded index, an implicit any, an unused import — left in the
+directory while `bunx tsc --noEmit` and `bun run check:fast` both ran green.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `tsconfig.json`, `.gitignore`, `run.ts`'s header, the probe package's existing test |
+| writing | 10 | the exclude line, the comment, two tests, the deliberately loose probe |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was nothing; the item was written with its own proof in it,
+which is what made it a fifteen-minute lane rather than a rediscovery.
+
 ## 2026-09-17 — boss-implementation — THE SCUTTLE, the simulation
 
 Lane one of the eighth boss off the choreographed list: a frame of

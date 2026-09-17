@@ -314,26 +314,3 @@ numbers as they stand; or leave the first generous and tighten only the
 second, which is where the difficulty is meant to be. Whichever it is, the
 figure wants to be chosen against a measured flight rather than against
 nothing, which is what it was chosen against.
-
-## A probe left in `tools/probe/scratch/` reddens every later typecheck
-
-- **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
-- **Taken:** 2026-09-17, claude/queue-a-probe-left-in-tools-probe-scratch-reddens-ever
-- **Files:** `tsconfig.json`, `tools/probe/run.ts`, `.gitignore`
-
-`tools/probe/run.ts` says a scratch probe is "neither committed nor in
-anybody's way", and `.gitignore` holds up the first half: `tools/probe/scratch/*`
-is ignored. The second half is not true. `tsconfig.json` includes
-`tools/**/*.ts` with no exclusion under it, so `bunx tsc --noEmit` reads every
-probe anybody has left behind — and a probe is a throwaway script written
-against `noUncheckedIndexedAccess`, so it is red about ten times over. This
-lane's own probe failed `bun run check:fast` with nine errors in a file that
-git cannot see, which is the worst shape a failure can have: invisible in the
-diff, and inherited by whoever works in the tree next.
-
-Add `tools/probe/scratch` to `tsconfig.json`'s `exclude`, and say in
-`tools/probe/run.ts`'s comment that a probe is not typechecked — which is the
-other half of it being a rig rather than a test, and is worth writing down
-beside the sentence that already says `bun run check` never sees it. Then leave
-a deliberately loose probe in the directory and check that `bun run check` is
-still green with it there.

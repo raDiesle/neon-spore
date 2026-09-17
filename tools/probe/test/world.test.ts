@@ -2,6 +2,8 @@ import { describe, expect, it } from "bun:test";
 import { WAVES } from "@neon-spore/content";
 import { beats, field, waveWorld } from "../world.js";
 
+const ROOT = new URL("../../../", import.meta.url);
+
 /**
  * The rig itself, which is the one part of this package worth a test.
  *
@@ -44,5 +46,28 @@ describe("a probe's world", () => {
 
   it("says so plainly when there is nothing on the field", () => {
     expect(field(waveWorld("theCoil"))).toContain("(empty)");
+  });
+});
+
+/**
+ * The scratch directory is git-ignored *and* unchecked, and the second half
+ * was missing until 17 September 2026: `tsconfig.json` includes `tools/**`, so
+ * `bunx tsc --noEmit` read every probe anybody had left behind and a lane
+ * inherited nine errors from a file `git status` cannot show.
+ *
+ * Held here rather than trusted to the comment in `run.ts`, because the thing
+ * that would undo it is somebody tidying an `exclude` list they have no reason
+ * to connect to a directory two packages away.
+ */
+describe("the scratch directory", () => {
+  it("is outside the typecheck, so a probe left behind is nobody's problem", async () => {
+    const tsconfig = await Bun.file(new URL("tsconfig.json", ROOT)).text();
+    const exclude = (JSON.parse(tsconfig) as { exclude: string[] }).exclude;
+    expect(exclude).toContain("tools/probe/scratch");
+  });
+
+  it("is git-ignored, which is the half that was always true", async () => {
+    const ignore = await Bun.file(new URL(".gitignore", ROOT)).text();
+    expect(ignore).toContain("tools/probe/scratch/*");
   });
 });
