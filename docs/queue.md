@@ -196,6 +196,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A breach never widens to a second lobe with the shipped numbers
 
 - **Found:** 2026-09-17, claude/queue-four-drawn-bosses-still-owe-their-rehearsal-film
+- **Taken:** 2026-09-17, claude/queue-a-breach-never-widens-to-a-second-lobe-with-the
 - **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/undertow-step.ts`, `packages/sim/test/undertow.test.ts`, `docs/spec/bosses.md`
 - **Asks:** Should a lobe stand longer, widen faster, or need less width — or is the second lobe a rule the design gives up?
 
