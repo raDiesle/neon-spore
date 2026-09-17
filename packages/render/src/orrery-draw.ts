@@ -8,6 +8,7 @@ import {
 } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import type { Layout } from "./layout.js";
+import { drawOrreryGrip } from "./orrery-grab.js";
 import { drawOrreryShaft } from "./orrery-shaft.js";
 import {
   orreryAt,
@@ -65,6 +66,10 @@ export function drawOrrery(
   drawOrreryShaft(ctx, l, cfg, b, beat, beatPhase);
   drawCore(ctx, l, cfg, b, beat, beatPhase, time);
   drawOrgans(ctx, l, cfg, b, beat, beatPhase, core.y, true);
+  // Over the organs, because it is the pilot's *control* rather than part of
+  // the body: a knurl behind an organ would be a handle you can see except
+  // where you would put your thumb (`orrery-grab.ts`).
+  drawOrreryGrip(ctx, l, cfg, b);
   drawBroke(ctx, l, cfg, b, beat, beatPhase);
 }
 

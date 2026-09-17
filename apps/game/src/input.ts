@@ -53,6 +53,7 @@ export function bindControls({
   controls,
   faults,
   warden,
+  orrery,
   creatures,
   cannonCol,
   shieldCol,
@@ -89,6 +90,7 @@ export function bindControls({
     cfg,
     maze: maze(),
     warden: warden(),
+    orrery: orrery(),
     controls: controls(),
     // The faults in force this beat, so a button one has taken over is refused
     // where it is drawn dead — the same argument `controls` makes one line up

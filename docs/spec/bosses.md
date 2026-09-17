@@ -2130,13 +2130,11 @@ the body has passed, and the same run fingerprints the same way twice
 
 ## 11.21 THE ORRERY — three orbits, and neither of you can see all three
 
-*Simulation built 17 September 2026, the hand on the ring the same day, and
-the picture the same day after it. The design is
-[bosses-choreographed](bosses-choreographed.md) §2, and this section is the
-record of what shipped — including five places where it shipped differently
-from the design, each said here by name. What is still out is the **handle**:
-the circle a real thumb takes hold of, which is the one piece of the hand a
-simulation may not have.*
+*Built 17 September 2026 in four lanes — the rings, the hand, the picture and
+the handle. The design is [bosses-choreographed](bosses-choreographed.md) §2,
+and this section is the record of what shipped, including five places where it
+shipped differently from the design, each said here by name. **Never watched at
+tempo**, which is the last paragraph.*
 
 > The one where you each see two of the three rings.
 
@@ -2363,15 +2361,48 @@ being mistaken for the lance. It is the one mark in the fight that says *now*
 to both seats at once, and it says nothing about the two rings a seat cannot
 see.
 
-**It makes no sound**, and that is queued rather than quietly skipped: the
-state carries the edges a mixer would want — `brokeBeat`, `spatBeat`,
-`phaseBeat` — so nothing needs an event added to find them. **And the hand
-cannot yet be laid on the ring by a real thumb**, because a hit-test is a
-circle in pixels and nothing in `packages/sim` may know one. The rule, the
-wire, the fingerprint and now the circle itself are shipped; the `touch.ts`
-branch, the `FIELD_CONTROLS` entry and the row in `docs/spec/controls.md` are
-the handle's, which is said in the choreographed page's claim row rather than
-found out twice.
+**And a real thumb can turn it** (`render/orrery-grab.ts`). The ring is
+answered where it is drawn, which is this game's standing rule and is at its
+sharpest here: the control is not a circle on a body like every other handle
+(`handles.ts`) but **an ellipse the width of the field**, so the hit test and
+the mark that says it turns live in one file, and a hand takes hold anywhere on
+the line — the ring turns as a whole, and nothing on it is more of a handle
+than the rest.
+
+**The ellipse is unsquashed before the angle is read**, and that is the one
+piece of arithmetic the control could not do without. The rings are drawn
+flattened, so a finger tracing the line an eye follows would race through
+quadrants across the top and crawl up the sides if its bearing came off the
+pixels. Divide the vertical offset by the flattening first and what comes out
+is the **slot** under the finger — the same parameter an organ is drawn at — so
+a thumb that tracks an organ round the ring turns the ring at exactly the rate
+the picture says it is going. One turn of the thumb is one lap of whichever
+ring it is on, so `orreryHandMilliPerOrgan` gets *lighter* as the rings come
+off and the pair's information gets worse.
+
+**The fold reaches the finger here, and nowhere else in the game.** A strip is
+answered by column and never mirrored, because a seat whose finger turns with
+its eye is a seat for which nothing has happened (`render/field-flip.ts`). But
+this hand is following a *body* rather than pointing at a column, so on a
+turned screen the bearing is mirrored with the organs and a thumb chasing one
+chases the one it can see. What goes on the wire is still the ring's own slot,
+identical on both devices.
+
+**The knurl is the only feedback it has**: ticks across the ring the hand
+answers, drawn on the pilot's screen alone and lit while a hand is on it —
+`PALETTE.hullRim` at rest and `PALETTE.pod` held, which is THE MAZE's string's
+own arrangement. The control is silent until a whole organ has been paid for,
+so without the knurl a pilot turning short of a detent would have no way to
+know his thumb was being heard. It is drawn on a ring he cannot read once the
+outer two are gone, and that is the point rather than an oversight: a picture
+that put the grip only where he could see what he was doing would have quietly
+taken the last third of this boss away (`showsOrreryGrip`).
+
+**What is still out is two of the three hands that are not hands** — the desk
+keyboard, `bun run frames`'s `--press` spelling and a rehearsal's ghost thumb —
+and **it makes no sound**. Both are queued rather than quietly skipped, and the
+state carries the edges a mixer would want: `brokeBeat`, `spatBeat`,
+`phaseBeat`.
 
 **Never watched at tempo.** What the tests say is the mechanism: the three
 orbits come round on their own counts, the anchors put the first alignment
@@ -2401,7 +2432,13 @@ seen it and no pair has fought it**: whether three flattened arcs of organs
 read as three cadences at 26 pixels, and whether a turn and a half an organ is
 heavy enough to be a decision and light enough to be worth making with a rock
 coming down the same column every four beats, are things a person sees at
-tempo.
+tempo. The handle is tested where it can be: the ring answers a press on its
+line and nothing in the open space behind it, the grab carries no bearing, the
+seat is the pilot's, the hand moves inward with the breaks, each quarter of the
+way round reports a quarter of a turn, a turned screen mirrors it, a finger
+wandered in to the core has no bearing at all — and, end to end through `step`,
+a turn and a half of the thumb moves the gap exactly one organ
+(`render/test/orrery-touch.test.ts`).
 
 ## 11.22 THE CANDLE — the boss fought in the dark
 

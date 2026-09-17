@@ -8372,7 +8372,6 @@ changing from arcs to ellipses between rounds turned a passing test into one
 that could not see the picture at all. The stub records both now.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
-
 ## 2026-09-17 — queue-render-tests-draw-real-pixels — whether the render tests should draw real pixels
 
 | activity | minutes | what it was |
@@ -8387,3 +8386,23 @@ The bottleneck was reading rather than doing: the question was whether a tool
 was missing, and the answer took a survey of five tools to be sure of.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — orrery-handle — a real thumb on the ring
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `touch.ts`, `touch-drag.ts`, `handles.ts` and `touch-lobe.ts`'s crank case end to end, then `field-controls-page.ts` and a pose beside it — the four places a control has to appear before it exists |
+| writing | 35 | `orrery-grab.ts`, the knurl, `showsOrreryGrip`, `orreryPoint`'s spread, the `Field` field and its ten callers, eight touch tests, a per-seat knurl test, the director row, the pose, the row in `controls.md`, `bosses.md` §11.21 |
+| looking | 0 | never watched at tempo, and said so in §11.21 |
+| friction | 10 | the gesture's own arithmetic: a bearing off the pixels would race through quadrants across the flattened top of the ring, so the ellipse is unsquashed first and the thumb reports the slot |
+| landing | 10 | `stage.ts` one line over its limit — `stage-field.ts` is the split — `bun run imports` for what that stranded, the index, `check:fast` |
+
+The bottleneck was deciding what the bearing is *of*. The crank turns about a
+button, so its angle is the pixels' own; this ring is an ellipse the width of
+the field, and reading the pixel angle would have made a thumb tracking an
+organ turn the ring at a rate that changed with where round it the organ was.
+Unsquashing first makes the reported number the slot itself, which is also
+what let the fold be applied to a finger for the first time in this game: the
+hand is chasing a body, not pointing at a column.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

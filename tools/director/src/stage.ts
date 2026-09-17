@@ -1,9 +1,7 @@
-import { Canvas2DRenderer, handedLayout, showsWell, type ViewRole } from "@neon-spore/render";
+import { Canvas2DRenderer, handedLayout, type ViewRole } from "@neon-spore/render";
 import {
   createWorld,
-  faultsNow,
   framePhase,
-  mazeRound,
   type SimConfig,
   type SimEvent,
   step,
@@ -14,13 +12,14 @@ import { bindKeyHelp } from "./key-help.js";
 import { bindKeys, type Keys } from "./keys.js";
 import { bindStageAfterRun } from "./stage-afterrun.js";
 import { draftControlSet, draftGuide } from "./stage-draft.js";
+import { stageField } from "./stage-field.js";
 import { exposeStageHandle } from "./stage-handle.js";
 import { runStageLoopWhileSeen } from "./stage-loop.js";
 import type { StagePanel } from "./stage-panel.js";
 import { stageGeometry } from "./stage-point.js";
 import { bindStageRepeat } from "./stage-repeat.js";
 import { bindStageRounds } from "./stage-rounds.js";
-import { bindStageTouch, pointerSeat } from "./stage-touch.js";
+import { bindStageTouch } from "./stage-touch.js";
 import { bindStageTrail } from "./stage-trail.js";
 import { bindStageTransport } from "./stage-transport.js";
 import { buildStageWorld } from "./stage-world.js";
@@ -76,21 +75,8 @@ export function bindStage(
     canvas,
     at,
     layout: () => handedLayout(layout(), world), // answered where it is drawn.
-    field: () => ({
-      creatures: world.creatures,
-      // The ship answers a finger where it is drawn (`render/touch-ship.ts`).
-      cannonCol: world.cannonCol,
-      shieldCol: world.shieldCol,
-      beatPhase: framePhase(world),
-      beat: world.beat,
-      seat: pointerSeat(role),
-      cfg,
-      maze: mazeRound(world),
-      warden: world.boss?.kind === "warden" ? world.boss : null,
-      controls: currentControlSet(),
-      faults: faultsNow(world),
-      well: world.boss?.kind === "well" && showsWell(role),
-    }),
+    // What a hit test is handed, read fresh on every press (`stage-field.ts`).
+    field: () => stageField(world, role, currentControlSet(), cfg),
     push: keys.push,
     world: () => world,
     role: () => role,

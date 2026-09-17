@@ -1,6 +1,7 @@
 import type { FieldControlDef } from "./field-control-def.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
+import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
 import { tetherExamples } from "./field-controls-tether.js";
 
 /**
@@ -209,6 +210,10 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   // and before the guide's hold, which is not a field control at all.
   ...BALLOON_CONTROLS,
   ...GUM_CONTROLS,
+  // THE ORRERY's ring, next door for the same reason, and last of the field's
+  // controls because it is the newest and the largest: a whole orbit rather
+  // than a circle on a body (`field-controls-orrery.ts`).
+  ...ORRERY_CONTROLS,
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

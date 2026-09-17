@@ -1,5 +1,12 @@
 import type { ControlSet } from "@neon-spore/content";
-import type { Creature, MazeState, PlacedFault, SimConfig, WardenState } from "@neon-spore/sim";
+import type {
+  Creature,
+  MazeState,
+  OrreryState,
+  PlacedFault,
+  SimConfig,
+  WardenState,
+} from "@neon-spore/sim";
 
 /**
  * **What a hit test is handed**: the field as the control scheme needs to see
@@ -69,6 +76,15 @@ export interface Field {
    * to prevent.
    */
   warden: WardenState | null;
+  /**
+   * THE ORRERY, if it is the boss running, `null` otherwise. **Required, and
+   * stated rather than defaulted**, for the reason `maze` and `warden` are,
+   * and with the widest version of it: the ring a thumb takes hold of is an
+   * ellipse the width of the field (`orrery-grab.ts`), so a caller that
+   * quietly meant `null` would leave the pilot's hand falling through the
+   * biggest control in the game onto the rocks behind it.
+   */
+  orrery: OrreryState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

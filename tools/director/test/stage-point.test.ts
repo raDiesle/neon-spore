@@ -142,6 +142,7 @@ describe("the stage's pointer conversion", () => {
         cfg,
         maze: mazeRound(world),
         warden: null,
+        orrery: null,
         controls: controlSet(undefined),
         faults: [],
         well: false,

@@ -4,6 +4,7 @@ import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeStringCircle } from "./maze-string.js";
+import { orreryRingUnder } from "./orrery-grab.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 
@@ -11,7 +12,17 @@ import type { Field, Touch } from "./touch.js";
  * The handles: the things drawn **on the field** that a hand takes hold of and
  * carries, as opposed to the strips and lobes below the band.
  *
- * There are five of them now — THE MAZE's string, THE WARDEN's rope, THE LID's
+ * **THE ORRERY's ring is the sixth and it is not in this file**, because it is
+ * not a circle: it is an ellipse the width of the field, hit-tested by bearing
+ * and drawn with the mark that says it turns, and both halves of that live
+ * together in `orrery-grab.ts` for the reason the header there gives. It is
+ * asked **last**, which is not a decision about which control wins — a wave
+ * with the orrery in it has no maze, no warden, no lid and no balloon — but
+ * about what a miss falls through to: the ring hangs over the top rows where
+ * this boss's own rocks come in, and a thumb that misses the line should find
+ * the rock behind it exactly as it would with no ring there.
+ *
+ * There are five of them here — THE MAZE's string, THE WARDEN's rope, THE LID's
  * cord, THE CHOIR's two arrows and THE BALLOON's two handles — and that is why
  * they are here rather than in `touch.ts` next door. The last pair is the one
  * that is not the pilot's: a balloon has a handle for each seat, and which
@@ -41,7 +52,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     wardenRopeUnder(l, x, y, field) ??
     lidCordUnder(l, x, y, field) ??
     balloonHandleUnder(l, x, y, field) ??
-    choirArrowUnder(l, x, y, field)
+    choirArrowUnder(l, x, y, field) ??
+    orreryRingUnder(l, x, y, field)
   );
 }
 

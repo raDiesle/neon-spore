@@ -129,12 +129,23 @@ export function orreryPoint(
   cfg: SimConfig,
   ring: number,
   at: number,
+  /**
+   * How far out the point is as a share of the ring's own radii — 1 on the
+   * line, less inside it, more outside.
+   *
+   * One argument rather than a second function, and it has exactly one caller:
+   * the knurl on the ring the pilot's hand is on is a tick *across* the line,
+   * so it needs the two points either side of the same slot
+   * (`orrery-grab.ts`). A caller that worked them out itself would be a second
+   * copy of this arithmetic, and a mark drawn off the ring it belongs to.
+   */
+  spread = 1,
 ): { x: number; y: number } {
   const orbit = Math.max(1, orreryOrbit(cfg, ring));
   const th = (2 * Math.PI * at) / orbit;
   return {
-    x: fieldX(l, orreryCoreCol(cfg) + orreryRx(cfg, ring) * Math.sin(th)),
-    y: tileCY(l, ORRERY_ROW + orreryRy(cfg, ring) * Math.cos(th)),
+    x: fieldX(l, orreryCoreCol(cfg) + orreryRx(cfg, ring) * spread * Math.sin(th)),
+    y: tileCY(l, ORRERY_ROW + orreryRy(cfg, ring) * spread * Math.cos(th)),
   };
 }
 

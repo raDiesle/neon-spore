@@ -1,6 +1,13 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { Layout } from "@neon-spore/render";
-import type { Creature, MazeState, PlacedFault, SimConfig, WardenState } from "@neon-spore/sim";
+import type {
+  Creature,
+  MazeState,
+  OrreryState,
+  PlacedFault,
+  SimConfig,
+  WardenState,
+} from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
 
 /**
@@ -64,6 +71,13 @@ export interface Bindings {
    * is drawn and answers nothing.
    */
   warden: () => WardenState | null;
+  /**
+   * THE ORRERY, if it is the boss running. Read fresh for the same reason, and
+   * the miss it prevents is the largest one on this list: the ring a thumb
+   * takes hold of is an ellipse the width of the field
+   * (`render/orrery-grab.ts`).
+   */
+  orrery: () => OrreryState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

@@ -74,14 +74,10 @@ function documentedHoldKind(kind: Hold["kind"]): "panel" | "field" {
  * one switch up — to keep this exhaustive, so a target invented tomorrow still
  * fails to compile — and not given a `FIELD_CONTROLS` entry.
  *
- * `orreryRing` is on the field and has no entry **yet**, which is the one
- * case of that in this list and is a seam rather than an omission: the rule
- * and the wire are shipped (`sim/orrery-hand.ts`) and the circle a thumb
- * lands on is not, because a hit-test is a radius in pixels and nothing in
- * `packages/sim` may know one. The row's own fields say why it has to wait —
- * `where` is a place on the screen and `source` is a branch of `touch.ts` —
- * so it is written by THE ORRERY's look lane, which the claim row in
- * `docs/spec/bosses-choreographed.md` §2 hands the handle to by name.
+ * `orreryRing` has its entry now (`field-controls-orrery.ts`), and it came
+ * one lane after the rule did — the row's own fields are why it had to: `where`
+ * is a place on the screen and `source` is a branch of `touch.ts`, and neither
+ * existed while the ring was a bearing with nothing drawn to take hold of.
  */
 function documentedDragTarget(target: DragTarget): DragTarget {
   switch (target) {
@@ -120,7 +116,7 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
   // target a `drag` can name, whatever hold names it.
   test("every DragTarget has its own FIELD_CONTROLS entry", () => {
     const targets: DragTarget[] = (
-      ["mazeString", "wardenTether", "lidString", "gripBody"] as const
+      ["mazeString", "wardenTether", "lidString", "gripBody", "orreryRing"] as const
     ).map(documentedDragTarget);
     for (const target of targets) {
       expect(
@@ -188,6 +184,7 @@ const FIELD: Field = {
   cfg: CFG,
   maze: null,
   warden: null,
+  orrery: null,
   controls: controlSetForWave(0),
   faults: [],
   well: false,

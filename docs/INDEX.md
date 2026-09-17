@@ -885,6 +885,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/orrery-draw.ts` | THE ORRERY, drawn: a core in the middle column held inside three flattened orbits of organs |
 | `packages/render/src/orrery-shaft.ts` | **The shaft**: a corridor of light straight down the core's column, on the one beat a shot can reach the core |
 | `packages/render/src/orrery-shape.ts` | **Where THE ORRERY's three orbits are on the screen**, and nothing about how they are painted |
+| `packages/render/src/orrery-grab.ts` | **The ring under the pilot's thumb**: where he may take hold of it, what a turn of it says |
 | `packages/render/src/ready-page.ts` | The last page of a stepped guide: the wave's own name, and the button that says this seat has finished reading |
 | `packages/render/src/ready-words.ts` | **The words on the ready page**: what a circle is called, the question over them |
 | `packages/render/src/rock-drift.ts` | **How a rock leaves the ship it broke** — the waiting and the rolling, and the arithmetic of both |
@@ -1899,6 +1900,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
+| `tools/director/src/field-controls-orrery.ts` | THE ORRERY's ring, as a row of the ON THE FIELD tab — its own file for `field-controls-balloon.ts`'s reason |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |
@@ -1960,6 +1962,7 @@ place — the generator keeps whatever is there.
 | `tools/frames/until.ts` | **Stopping on the tick something happened, instead of on a number.** `--ticks` is an absolute `world.tick` |
 | `tools/director/src/stage-trail.ts` | THE MOUSE'S OWN INK, ON THE DIRECTOR'S FIELD |
 | `tools/director/src/stage-draft.ts` | **What the wave being edited says about itself**, read fresh on every call |
+| `tools/director/src/stage-field.ts` | **What the stage hands a hit test**, and nothing else |
 | `tools/director/src/splice-editor.ts` | THE SPLICE's rounds, which are one number each |
 | `tools/check/installed.ts` | Whether this worktree's install is still the one the tree needs |
 | `tools/check/run.ts` | The preflight `bun run check` runs before the typecheck |

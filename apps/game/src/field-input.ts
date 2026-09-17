@@ -118,6 +118,10 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     // on the field, and a hit test that did not know the boss was up would leave
     // the pilot pressing something that answers nothing.
     warden: () => (world.boss?.kind === "warden" ? world.boss : null),
+    // And THE ORRERY's rings, which the pilot turns by hand: the outermost one
+    // still standing is a control on the field, and the hit test cannot find
+    // it without the boss (`render/orrery-grab.ts`).
+    orrery: () => (world.boss?.kind === "orrery" ? world.boss : null),
     // Which panel is up follows from the wave (`content/control-sets.ts`).
     controls: () => controlSetForWave(world.wave),
     faults: () => faultsNow(world),

@@ -5,6 +5,7 @@ import { creatureAt } from "./creature-under.js";
 import { handleUnder } from "./handles.js";
 import { colFromX, type Layout, showsCannon, showsShield } from "./layout.js";
 import { mineUnder } from "./mine-tap.js";
+import { orreryRingTurn } from "./orrery-grab.js";
 
 // What a hit test is handed, and what it hands back: both lifted out when this
 // file went over its limit, and re-exported so nothing reaching for a `Field`,
@@ -170,6 +171,12 @@ export function touchMove(l: Layout, hold: Hold, x: number, y: number): Touch | 
     // **The crank is not carried anywhere, it is turned**, and what a turn
     // reports is an angle rather than a distance (`touch-drag.ts`).
     if (hold.target === "crank") return crankTurn(hold, x, y);
+    // **And THE ORRERY's ring, which is turned about the core.** Its own
+    // function rather than the crank's: the ring is an ellipse, so the angle
+    // is read off unsquashed offsets, and it is the one gesture in the game
+    // that is mirrored for a turned seat — the finger is following a body
+    // round rather than pointing at a column (`orrery-grab.ts`).
+    if (hold.target === "orreryRing") return orreryRingTurn(l, hold, x, y);
     // Both axes now: the owner asked for a handle to be carriable any way at
     // all, so what a move reports is a displacement rather than a distance
     // across. Where it is allowed to end up is the simulation's

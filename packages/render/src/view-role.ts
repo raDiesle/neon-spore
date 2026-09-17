@@ -160,6 +160,21 @@ export const showsUndertowBow = (role: ViewRole): boolean => role !== "p2";
 export const showsOrreryRing = (role: ViewRole, ring: number): boolean =>
   ring === 0 || role === "test" || (ring === 1 ? role === "p1" : role === "p2");
 /**
+ * *Whether this screen draws the grip on the ring the pilot's hand can turn.*
+ *
+ * His, like every other handle on the field, and the mark is on his screen
+ * only: a knurl drawn on the navigator's would be a control she is being shown
+ * and cannot use (`orrery-grab.ts`).
+ *
+ * **It is drawn on a ring he cannot read, and that is the point.** The hand
+ * moves inward as the rings come off (`orreryHandRing`), so at the end of the
+ * fight the knurl is on the inner ring — grey on his screen, gapless, the one
+ * ring that is hers — and he is turning it on her word alone. A picture that
+ * put the grip only where he could see what he was doing would have quietly
+ * taken the last third of this boss away.
+ */
+export const showsOrreryGrip = (role: ViewRole): boolean => role !== "p2";
+/**
  * THE CANDLE's three, the deepest split in this list: **the same dark field,
  * lit differently on the two phones.** Every other entry keeps a fact about
  * a lit field from one seat; these light the field itself, and a flash is

@@ -88,6 +88,20 @@ function organColours(role: ViewRole, into: (b: OrreryState) => void): boolean {
   return log.join("|").includes(PALETTE.wisp);
 }
 
+/** Whether a colour reaches the canvas for a state, on one screen, in one
+ * frame. `organColours`'s reason for going straight to `drawOrrery`. */
+function paints(role: ViewRole, hex: string, into: (b: OrreryState) => void): boolean {
+  const world = opened();
+  const b = rings(world);
+  into(b);
+  const l = computeLayout(VIEWPORT, CFG, role);
+  const log: string[] = [];
+  const { ctx } = stubCanvas();
+  ctx.log = log;
+  drawOrrery(ctx as unknown as CanvasRenderingContext2D, l, CFG, b, b.phaseBeat, 0, 0);
+  return log.join("|").includes(hex);
+}
+
 describe("the orrery", () => {
   for (const role of ROLES) {
     for (const phase of ORRERY_PHASES) {
@@ -148,6 +162,27 @@ describe("the orrery", () => {
     // And a single screen sees it, the usual *one person is holding both
     // seats* answer (`showsOrreryRing`).
     expect(organColours("test", inner)).toBe(true);
+  });
+
+  it("puts the knurl on the pilot's screen only, and lights it under his thumb", () => {
+    const nobody = (b: OrreryState) => {
+      b.phase = "spitting";
+      b.broken = 1;
+    };
+    const holding = (b: OrreryState) => {
+      nobody(b);
+      // A bearing on the state is a hand on the ring (`orreryHandHolds`).
+      b.handAtMilli = 120;
+    };
+    expect(paints("p1", PALETTE.hullRim, nobody)).toBe(true);
+    // Not hers: a knurl drawn on the navigator's screen would be a control she
+    // is being shown and cannot use (`showsOrreryGrip`).
+    expect(paints("p2", PALETTE.hullRim, nobody)).toBe(false);
+    expect(paints("p2", PALETTE.pod, holding)).toBe(false);
+    // And it lights under a thumb, which is the only feedback this control
+    // has: the ring says nothing until a whole organ has been paid for.
+    expect(paints("p1", PALETTE.pod, nobody)).toBe(false);
+    expect(paints("p1", PALETTE.pod, holding)).toBe(true);
   });
 
   it("shows the pilot the middle ring and the navigator nothing of it", () => {
