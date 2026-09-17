@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 1be9341a — Claim THE ORRERY's hand on the ring, and give the handle to the look
+
+A hit-test is a radius in pixels and the simulation is forbidden one, so the drag lane ships the rule and the wire and the look lane ships the circle the thumb lands on. Said in the row rather than found out twice.
+
 ## 2026-09-17 · 06c18a70 — The versus scaffold prints a candidate that compiles
 
 `bun run versus new` printed `../../../../packages/…` and `../../variant.js`, which were right when a candidate was one file at `candidates/<name>.ts` and one directory short of the `candidates/<slot>/<name>/index.ts` layout that replaced it. Every import in a freshly scaffolded candidate was wrong the moment the file was saved, and nothing said so — the template is printed for a person to paste, so no compiler ever sees it. Both specifiers are now `posix.relative` from the directory the template itself names, and a test takes them back out of the printed text, resolves them against that directory and asks the tree what is there.
