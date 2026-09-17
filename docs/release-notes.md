@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · feb3b703 — THE UNDERTOW's tall lobe takes the plate with it: two columns of hull gone, marked on the scar and hashed
+
+A tall lobe withdrawing untaken no longer tears the plating, it takes it — its own column's and the neighbour's (`undertowPlateBeside`, the same rule the widening uses for which column is next door) — and the scar it leaves carries `Scar.plate`, the plating gone rather than cracked, for the rest of the run. The design's steps 9 and 10: the hull four columns shorter after the hard phase. It is in the hash through `scarHashParts`, and the `undertowScar` event says `tall`. The first of two halves; the picture — a hole in the outline rather than a crack — is the second.
+
 ## 2026-09-17 · cae4a8b9 — THE BATON hangs by a thread: step 12's picture, the arm one segment long once every socket but the last is dark
 
 The beat a landing leaves one lit socket the sim remembers as `threadBeat` (`batonOneSegment`); a miss, which relights the arm, clears it. The look reads it and nothing else: over `batonThreadBeats` everything above the last socket thins to a thread a fifth of the spine's width, sways looser, loses its glow, and every dark socket on it shrinks to a husk, while the last segment keeps its width and its lit socket its glow. The crossing runs exactly as it did. Exemption: a look with no shipped alternative — step 12 had no picture at all.
