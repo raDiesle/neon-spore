@@ -82,8 +82,29 @@ function guided(waveIndex: number): World {
 
 /** The run's line in the corner: a clock, and the retries once there are any. */
 const RUN_LINE = /^\d+:\d{2}( ·|$)/;
-/** THE SPLICE's own clock: which number of how many, and the beats left. */
-const SPLICE_CLOCK = /^\d+ OF \d+ · \d+$/;
+
+/**
+ * What else a round's page must keep out of the band, wave by wave.
+ *
+ * The sweep was narrowed to the round's name and the run's line on 16
+ * September 2026, when it first ran with the transform applied and turned up a
+ * whole class of collisions older than it. `docs/queue.md` carries the list,
+ * and the instruction in this file's header is to widen it back a site at a
+ * time as each is fixed — so a row here is a site that is done and is held
+ * done, and the ones still missing are the ones still in the queue.
+ *
+ * **THE FLEET**: the chart's axis, which is a letter across the foot and a
+ * number down the gutter, and the square names the marks and the sights write
+ * on it — a letter and a digit together. The whole chart drops under the band
+ * now rather than moving its numbers to the other edge (`fleet-chart.ts`).
+ *
+ * **THE SPLICE**: its own clock — which number of how many, and the beats
+ * left — which drops under the plate with the rest of its header.
+ */
+const ALSO: Record<string, RegExp> = {
+  "THE FLEET": /^[A-K]$|^[A-K][0-9]{1,2}$|^[0-9]{1,2}$/,
+  "THE SPLICE": /^[0-9]+ OF [0-9]+ · [0-9]+$/,
+};
 
 /** Whether a word's box crosses the band the chrome stands in. */
 function inPlateBand(t: TextBox): boolean {
@@ -115,7 +136,7 @@ describe("the tutorial plate and a round's header", () => {
             const name = WAVES[i]?.name ?? "";
             const under = ctx.texts.filter(
               (t) =>
-                (t.text === name || RUN_LINE.test(t.text) || SPLICE_CLOCK.test(t.text)) &&
+                (t.text === name || RUN_LINE.test(t.text) || ALSO[name]?.test(t.text) === true) &&
                 inPlateBand(t),
             );
             expect(

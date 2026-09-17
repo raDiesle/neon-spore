@@ -795,6 +795,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/touch-lobe.ts` | What pressing a lobe says |
 | `packages/render/src/dart-query.ts` | Player 1's half of THE DART: two arrows and a question mark |
 | `packages/render/src/coord-grid.ts` | you are changing the lettered grid, its axes, or what brings it up |
+| `packages/render/src/coord-axes.ts` | THE NAMES ON THE LATTICE: what a column and a row are called, and the two axes that write them on the field |
 | `packages/render/src/wisp.ts` | you are timing a wisp's jump against the beat, or deciding which screen sees one |
 | `packages/render/src/ghost-glitch.ts` | THE GHOST's camouflage: the thing it is wearing instead of being invisible |
 | `packages/render/src/ghost-release.ts` | A ghost let go of, and the one moment both screens carry this creature |

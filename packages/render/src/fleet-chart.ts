@@ -3,6 +3,7 @@ import { drawFleetClock } from "./fleet-clock.js";
 import { drawChartWater } from "./fleet-water.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { headerLift } from "./round-header.js";
 
 /**
  * THE FLEET's chart: the lattice of squares the whole fight is named against.
@@ -35,10 +36,26 @@ export interface Chart {
   rows: number;
 }
 
-export function chartOf(l: Layout, world: World): Chart {
+/**
+ * How far the whole chart drops when something stands over the top of the
+ * screen — a rehearsal's plate.
+ *
+ * **The chart moves as a block**, the way THE PULSE's header does
+ * (`round-header.ts`), and that is the owner's answer of 17 September 2026 to
+ * a sweep that found the row numbers and the square names under the band. It
+ * replaced an earlier one: `drawAxis` used to put the numbers down the
+ * *other* edge when the corner was covered, which was a real answer while the
+ * plate was a corner and stopped being one when the band went full-width. An
+ * axis cannot leave its grid, so the grid is what moves.
+ */
+export function chartLift(l: Layout, clearTop: number | undefined): number {
+  return headerLift({ clearTop }, l.gridTop);
+}
+
+export function chartOf(l: Layout, world: World, clearTop?: number): Chart {
   return {
     left: l.gridLeft,
-    top: l.gridTop,
+    top: l.gridTop + chartLift(l, clearTop),
     tile: l.tile,
     cols: fleetCols(world.cfg),
     rows: fleetRows(world.cfg),
@@ -108,16 +125,16 @@ export function drawFleetChart(
   boss: FleetState,
   beatPhase: number,
   time: number,
-  /** Whether something stands over the chart's top-left corner — a
-   * rehearsal's plate — so the row numbers go down the other edge. */
-  leftCovered = false,
+  /** The foot of whatever stands over the top of the screen — a rehearsal's
+   * plate — which the whole chart drops under (`chartLift`). */
+  clearTop?: number,
 ): void {
   // Loud on the beat and gone well before the next one. Derived from the
   // phase rather than handed down, because this is the only lattice in the
   // game that is drawn per boss and the field's own `flash` belongs to a pass
   // this one is not part of (`field.ts`).
   const flash = Math.max(0, 1 - beatPhase * 4);
-  const c = chartOf(l, world);
+  const c = chartOf(l, world, clearTop);
   const w = c.cols * c.tile;
   const h = c.rows * c.tile;
   if (w <= 0 || h <= 0) return;
@@ -176,7 +193,7 @@ export function drawFleetChart(
   ctx.strokeRect(c.left + 0.75, c.top + 0.75, w - 1.5, h - 1.5);
   ctx.globalAlpha = 1;
 
-  drawAxis(ctx, c, leftCovered);
+  drawAxis(ctx, c);
   drawFleetClock(ctx, c, world, boss, beatPhase);
   ctx.restore();
 }
@@ -190,15 +207,15 @@ export function drawFleetChart(
  * (`computeStage`). The gutter carries its own dark band so a digit never has
  * to be read off a square that has a hull under it.
  *
- * Inside the **right** edge when the left one is covered: a rehearsal's plate
- * stands over the top-left corner of the screen, and rows 1 and 2 were
- * numbered under it. The chart is symmetric and the digit reads the same from
- * either side, which is why this is a side and not a second axis.
+ * **Always the left edge.** It went down the right one for a while, when a
+ * rehearsal's plate stood over the top-left corner and rows 1 and 2 were
+ * numbered under it. The band is full-width now, so there is no other side to
+ * move to and the chart drops instead (`chartLift`).
  */
-function drawAxis(ctx: CanvasRenderingContext2D, c: Chart, leftCovered: boolean): void {
+function drawAxis(ctx: CanvasRenderingContext2D, c: Chart): void {
   const g = gutter(c);
   const h = c.rows * c.tile;
-  const gx = leftCovered ? c.left + c.cols * c.tile - g : c.left;
+  const gx = c.left;
   ctx.fillStyle = "rgba(4,8,20,.8)";
   ctx.fillRect(gx, c.top, g, h);
 

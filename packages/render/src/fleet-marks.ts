@@ -37,8 +37,9 @@ export function drawFleetMarks(
   world: World,
   boss: FleetState,
   fx: FleetFx,
+  clearTop?: number,
 ): void {
-  const c = chartOf(l, world);
+  const c = chartOf(l, world, clearTop);
   if (c.tile <= 0) return;
   ctx.save();
   for (const at of boss.struck) {
@@ -116,8 +117,9 @@ export function drawFleetSights(
   world: World,
   boss: FleetState,
   beatPhase: number,
+  clearTop?: number,
 ): void {
-  const c = chartOf(l, world);
+  const c = chartOf(l, world, clearTop);
   if (c.tile <= 0) return;
   const x = chartX(c, boss.aimCol);
   const y = chartY(c, boss.aimRow);

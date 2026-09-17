@@ -78,8 +78,9 @@ export function drawFleetHulls(
   boss: FleetState,
   beatPhase: number,
   fx: FleetFx,
+  clearTop?: number,
 ): void {
-  const c = chartOf(l, world);
+  const c = chartOf(l, world, clearTop);
   if (c.tile <= 0) return;
   const seen = showsFleetHulls(l.role);
   for (let at = 0; at < boss.ships.length; at++) {

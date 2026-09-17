@@ -81,7 +81,7 @@ export function drawFieldBack(
   // and under everything a player has to read (`ship-air.ts`).
   drawShipAir(ctx, l, view.time, seatSkin(view.role));
   drawRadar(ctx, l, world, view.time);
-  drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase, grid);
+  drawGrid(ctx, l, world.cannonCol, flash, view.beatPhase, grid, view.clearTop);
 }
 
 /** Everything that lives on the field between the two hulls. */

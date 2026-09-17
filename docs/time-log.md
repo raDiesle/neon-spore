@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — queue-band-axes — a grid axis gets out from under the plate
+
+Half one of the split the owner answered on 17 September: a chart drops as a
+block, a label on a body stays where it is, and the lost screen shrinks inside
+its page. THE FLEET's chart drops under the band now the way THE PULSE's header
+does, and THE WISP's lattice — which *is* the field and cannot drop — moves its
+letters to the first row that clears the plate and leaves the numbers above it
+undrawn. The lost screen is half two and is not in this commit.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the entry and its answer, `headerLift`, the four chart drawers, `drawAxes`, and how a film's layout relates to the stage's band |
+| writing | 40 | the lift threaded through the chart, the axes moved inside the lattice, a sweep widened for THE FLEET, a new one written for THE WISP, and `coord-axes.ts` cut off the end of a file that went two lines over |
+| looking | 15 | both rehearsals photographed — the chart clear of the plate with its clock still in open water, and the letters hanging off row two |
+| friction | 10 | the sweep stops at the first failure and its first failure is the chrome's own words, so a throwaway pass that collected everything was needed before anything could be fixed |
+| landing | 10 | `check:fast` twice, the index, the commit |
+
+The bottleneck was that the axes cleared the plate by the wrong measure first:
+the condition compared a baseline where the eye reads a cap, so the letters
+stayed exactly where they were and the test went on failing with the code
+already right.
+
 ## 2026-09-17 — queue-lost-shut — the sentence the screen was picked on, drawn
 
 The shipped lost screen's plates draw *back* off the field; the sentence the
