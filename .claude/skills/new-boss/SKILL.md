@@ -68,7 +68,7 @@ a round adds its own `*-round.ts` and its controls, a scene its beat list.
 | Where | What |
 |---|---|
 | `sim/src/<boss>.ts`, `<boss>-step.ts`, `<boss>-hash.ts`, `config-<boss>.ts`, `events-<boss>.ts` | the state, the step, its hash, its `SimConfig` fields (`*_DEFAULTS`), its events — every tunable a named field, never a literal |
-| `sim/src/boss-kinds.ts`, `boss-union.ts`, `boss-entries.ts`, `boss-others.ts`, `bosses.ts`, `wave-boss.ts`, `entries.ts`, `events.ts` | the kind, the union, install, step dispatch, the events union — `events.ts` is at 250 lines, so a comment goes for every line added |
+| `sim/src/boss-kinds.ts`, `boss-union.ts`, `boss-entries.ts`, `boss-others.ts`, `bosses.ts`, `wave-boss-clocks.ts`, `entries.ts`, `events.ts` | the kind, the union, install (a clock boss's branch and its `kind` on `CLOCK_KINDS` there, not in `wave-boss.ts`), step dispatch, the events union — `events.ts` is at 250 lines, so a comment goes for every line added |
 | `sim/src/boss-surface-clocks.ts`, `boss-entries-clocks.ts`, `bosses-clocks.ts`, `config-boss-clocks.ts`, `hash-boss-clocks.ts` | the clock tables, if the boss has a beat count |
 | `sim/src/bullets.ts`, `lance-burn.ts` | the hook, if a shot leaving the top of the field answers it |
 | `sim/test/<boss>.test.ts`, `hash-fixture.ts` `patchBoss` | one test per receipt, the wave held, hash determinism, install; every nullable boss field given a value in the fixture or `hash-coverage` fails |

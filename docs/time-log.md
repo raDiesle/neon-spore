@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — three boss tables cut before the next boss
+
+The queue item THE LEAD's landing found: the director's choreographed field
+and note tables at 240 lines each and `sim/wave-boss.ts` at 250 exactly, with
+the next boss's dozen fields, paragraph and branch about to land on the wall.
+Each cut along a seam the tree already had — a second page from THE LEDGER
+on for the two tables, spread in place so the readers and the exhaustiveness
+checks are untouched; the choreographed bosses' install branches to
+`wave-boss-clocks.ts` behind a `CLOCK_KINDS` guard, `boss-draw-clocks.ts`'s
+shape made for entries. A refactor, not a look.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the two tables' block boundaries, `wave-boss.ts`, `boss-draw-clocks.ts` for the guard's shape |
+| writing | 15 | the two `-b` pages and the spreads, `wave-boss-clocks.ts` and the guard, the header comments, the skill's file table, the spec pointer, three index lines |
+| looking | 0 | nothing visible moved |
+| friction | 5 | `bun run queue done 3` refused a number for a taken item and asked for the title; a first cut returned a boolean and lost the union's narrowing for the queen's branch below it |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was the guard: a function that installs and returns whether it
+did is one line at the call site and gives the branches under it a widened
+type — a type predicate over a kinds list costs twelve lines and keeps them.
+
 ## 2026-09-17 — boss-implementation — THE LEAD, the look
 
 Lane two of the seventh boss: a long rock ridge above row 0, a stalk of

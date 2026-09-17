@@ -1,0 +1,86 @@
+import type { GroupName } from "./ship-groups.js";
+
+/**
+ * The paragraph under each **choreographed boss's** card, the second page —
+ * THE LEDGER and every boss built after it.
+ *
+ * Cut out of `ship-notes-choreo.ts` on 17 September 2026 when THE LEAD's
+ * paragraph put that file at 240 lines and the next boss's would have landed
+ * on the 250-line wall, along the seam `ship-fields-choreo-b.ts` cut the
+ * same hour: the order they were built in, which nothing depends on. Spread
+ * into `CHOREO_NOTES` in place, so the totality guard over `ROUND_NOTES` is
+ * unchanged — a card added to `GroupName` and left without a paragraph on
+ * *any* page is the same compile error it always was. The next boss's
+ * paragraph goes here.
+ */
+export const CHOREO_NOTES_B = {
+  "THE LEDGER — the boss that bills your own hull for every shot":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §5: " +
+    "the first boss whose damage travels the other way. A body ledgerCols " +
+    "wide stands over the middle of the field with a cord out of its " +
+    "underside rooted in the hull, and the seam down its middle takes " +
+    "ledgerSeamHits hits — each one in the colour the seam is showing, and " +
+    "each one sending the same damage back down the cord into the socket " +
+    "ledgerCadenceBeats beats later, one beat less per hit and never under " +
+    "ledgerCadenceMinBeats. The plate in the socket's column with the " +
+    "trigger on that beat wards it; nobody there and the hull takes it, " +
+    "which loses the wave. Every return walks the root ledgerSocketStep " +
+    "columns along the hull. From ledgerWhipSeam hits the cord bills every " +
+    "shot the cannon takes and a warded return is thrown back up it, " +
+    "widening the seam for nothing. The last return is the one to let " +
+    "through: unwarded it tears the cord out and the halves part over " +
+    "ledgerOutBeats. Nothing about it is authored per wave. See " +
+    "sim/ledger.ts, sim/config-ledger.ts.",
+  "THE SINEW — the boss that asks how hard, not when":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §8: " +
+    "the boss whose question is a magnitude. A mass sinewMassCols wide hangs " +
+    "at sinewMassRow on sinewFibres fibres with a handle either side; each " +
+    "seat pulls its own up to sinewReachMilli and the two add into one sum. " +
+    "The fibre parts when the sum sits in a band sinewZoneMilli wide, less " +
+    "sinewZoneNarrowMilli per fibre gone, rolled from sinewZoneLowMilli up, " +
+    "for sinewHoldBeats; over it the fibre snaps, throws the hands off for " +
+    "sinewSnapBeats and sheds sinewSnapRocks rocks — sinewSnapRocksLast on " +
+    "the last. From sinewDecayFibres gone the rope creeps sinewDecayMilli " +
+    "slack a beat under a held hand until both come off. A part opens THE " +
+    "SLOW sinewPartSlowBeats. The last part drops the mass over " +
+    "sinewFallBeats; both handles swayed sinewSwayMilli the same way walk it " +
+    "a column a beat, and sinewClearCols from the middle it lands clear, " +
+    "holding the wave sinewOutBeats more; fewer and it lands on the hull. " +
+    "Nothing about it is authored per wave. See sim/sinew.ts, " +
+    "sim/config-sinew.ts.",
+  "THE SURGE — the boss beaten by letting go":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §9: " +
+    "the boss whose answer is a release. A bulb surgeBulbCols wide hangs at " +
+    "surgeBulbRow with a seam of surgeNotches notches; a thumb from either " +
+    "seat charges it surgeChargeMilli a beat, no thumb leaks surgeDecayMilli, " +
+    "and surgeBurstMilli is the top of the gauge. Notch k sits at " +
+    "surgeNotchMilli plus k times surgeNotchStepMilli, the last one under the " +
+    "top less surgeWindowMilli, each with a band surgeWindowMilli either side " +
+    "that opens THE SLOW surgeNearSlowBeats as the pressure comes in. Both " +
+    "thumbs off inside it within a beat of each other opens the notch and " +
+    "sinks the bulb a row; late, alone or short is the charge lost; over it, " +
+    "or the top on the beat, bursts — surgeBurstGums gums down its columns " +
+    "and surgeBurstBeats in which nothing takes hold. From surgeHoldNotches " +
+    "it holds its charge and eats what falls in for surgeAbsorbMilli each, " +
+    "from surgeDoubleNotches a thumb charges double, from surgeCloseNotches " +
+    "a burst shuts a notch. The last vent everts it over surgeEvertBeats and " +
+    "holds the wave surgeOutBeats more. Nothing about it is authored per " +
+    "wave. See sim/surge.ts, sim/config-surge.ts.",
+  "THE LEAD — the boss you shoot where it will be":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §11: " +
+    "the boss the pair has to shoot where it is not yet. A body on a stalk of " +
+    "leadSegments segments comes in over the middle and paces leadPaceCols a " +
+    "beat, turning at the walls. A shot out of the top hangs leadFlightBeats " +
+    "and is judged against the column the body is in then; a hit takes a " +
+    "segment, one a beat at most, and a beat every shot missed turns it " +
+    "round. Every judged beat opens THE SLOW leadSlowBeats. From " +
+    "leadFastSegments it runs leadFastCols a beat, dropping a torch behind " +
+    "every leadTorchEveryBeats and a rock ahead every leadRockEveryBeats; " +
+    "from leadForecastSegments the lean says the beat after next. The last " +
+    "segment stops it leadStillBeats, unhittable, the lean giving the pass " +
+    "away on the last of them; then it crosses to the farther wall " +
+    "leadPassCols a beat, and a wall is another still. Only the beam " +
+    "standing in a column the pass goes through takes it, and the wave " +
+    "holds leadOutBeats more. Nothing about it is authored per wave. See " +
+    "sim/lead.ts, sim/config-lead.ts.",
+} satisfies Partial<Record<GroupName, string>>;

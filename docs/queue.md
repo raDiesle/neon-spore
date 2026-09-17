@@ -221,24 +221,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The director's choreographed field and note tables are near the ceiling
-
-- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Taken:** 2026-09-17, claude/queue-the-directors-choreographed-field-and-note-table
-- **Files:** `tools/director/src/ship-fields-choreo.ts`, `tools/director/src/ship-notes-choreo.ts`, `tools/director/src/ship-boss-group.ts`
-
-THE LEAD's twelve fields and its paragraph put both files at 240 lines, and
-the next choreographed boss — THE ANTIPHON or THE SCUTTLE, whichever is
-taken first — brings a dozen fields and a paragraph of its own, so it lands
-on a wall. Cut each along the seam `ship-fields-round.ts` already cut off
-`ship-fields.ts`: a second page from THE LEDGER on (`ship-fields-choreo-b.ts`,
-`ship-notes-choreo-b.ts`, or named for the act), with `ship-boss-group.ts`
-reading both, and the tests that walk the fields by group unchanged. Do it
-before the next boss's lane one rather than inside it. `packages/sim/src/wave-boss.ts`
-is at 250 exactly for the same reason and its next branch needs a cut too —
-its comments were shortened to fit THE LEAD's arm, which is the wrong fix
-twice.
-
 ## `bun run format` cannot fix what `bun run lint` reports about import order
 
 - **Found:** 2026-09-17, claude/boss-taster

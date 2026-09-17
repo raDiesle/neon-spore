@@ -214,7 +214,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
 | `packages/sim/src/wave-fail.ts` | A hit fails the wave, and the wave is played again; the clock and retries text |
-| `packages/sim/src/wave-boss.ts` | you are adding a boss and need the one place a wave's `boss:` entry becomes installed state |
+| `packages/sim/src/wave-boss.ts` | you are adding a round or a boss with a place and need where a wave's `boss:` entry becomes installed state — and what each leaves on the field |
+| `packages/sim/src/wave-boss-clocks.ts` | you are adding a choreographed boss and need where its `boss:` entry becomes installed state — its branch and its `kind` on `CLOCK_KINDS` go here |
 | `packages/sim/src/warden-rope.ts` | you are working on THE WARDEN's line — the hand on it, how taut it is, and when it is lowered or cut |
 | `packages/sim/src/warden-start.ts` | THE WARDEN takes the field where it stands and never leaves it: dead centre, at `wardenRow`, five columns wide |
 | `packages/sim/src/snake-open.ts` | Opening a round and starting an attempt over — the two places a `SnakeState` is written from nothing |
@@ -2007,12 +2008,14 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-surge.ts` | THE SURGE's one handle, in a file of its own |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
+| `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |
 | `tools/director/src/ship-notes-round.ts` | The paragraph under each **round's** card |
 | `tools/director/src/ship-notes-hold.ts` | The paragraph under each card for a **body that has a control of the ship's** — THE GUM on the plating |
 | `tools/director/src/ship-notes-hidden.ts` | The paragraph under each card for a **body one seat is not drawn at all**: THE WISP |
 | `tools/director/src/ship-notes-boss.ts` | The paragraph under each **boss's** card — the ones played on the field |
 | `tools/director/src/ship-notes-twice.ts` | The paragraph under each card for a **body one landed answer does not finish**: THE ECHO, THE RIND |
 | `tools/director/src/ship-notes-choreo.ts` | The paragraph under each **choreographed boss's** card |
+| `tools/director/src/ship-notes-choreo-b.ts` | The paragraph under each **choreographed boss's** card, the second page |
 | `tools/director/src/ship-boss-group.ts` | **The boss group each `BossEntry` kind shows.** It arrived in `ship-groups.ts` with THE CLAW |
 | `tools/style-guide/src/colour.ts` | the swatch grid and the hue dial — every colour under its rule, and the twelve body hues at their measured angles |
 | `tools/style-guide/src/families.ts` | Every swatch in `PALETTE`, filed under the rule it belongs to |

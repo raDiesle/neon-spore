@@ -2158,7 +2158,7 @@ count is also the beats it takes to come round, one organ a beat, so the count
 `orreryInnerOrgans` 4. Nothing of it is a body — no creature, no row — so the
 fall loop, the hull and a hand find nothing of it, and the only thing that
 ever reaches it is a shot that left the top of a column (`sim/orrery.ts`,
-`sim/wave-boss.ts`).
+`sim/wave-boss-clocks.ts`).
 
 **The column is never in question, and that is the first departure.** The
 rings are concentric about the core, so a shot that passes all three gaps
