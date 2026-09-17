@@ -35,7 +35,6 @@ import { POSE_GROUPS } from "./poses.js";
  */
 const SLOT_POSE: Record<string, string> = {
   "lost:screen": "LOST · THE WAVE GONE",
-  "pod:husk-tell": "HUSK · HANGING ON PLAYER 2's SCREEN",
 };
 
 /** The pose a slot gets when nothing in `SLOT_POSE` names it. */

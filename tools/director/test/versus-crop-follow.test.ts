@@ -154,8 +154,8 @@ describe("a tile crop is centred on a body as it is drawn", () => {
       // deliberately centres a tile off its body (the queen's), passes both
       // ways, because for it the two distances are the same.
       const gap = (col: number, row: number) => Math.hypot(col - at!.col, row - at!.row);
-      // A pod is a body too — `pod:husk-tell` is judged on one hanging alone
-      // — and it is drawn where it is, so its two distances are one.
+      // A pod is a body too — `pod:husk-tell` was judged on one hanging
+      // alone — and it is drawn where it is, so its two distances are one.
       const pods = w.pods.map((p) => {
         const d = gap(p.colMilli / 1000, p.rowMilli / 1000);
         return { drawn: d, target: d };

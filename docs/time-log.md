@@ -9972,3 +9972,22 @@ there is nothing on it unclaimed took forty-five minutes against fifteen of
 code — the one technical finding on the way was the file over its limit.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — versus-page-pod-husk-tell — `pod:husk-tell` closed with nothing taken
+
+The owner rejected both `sag` and `dent`; `bun run versus drop` removed the
+slot, and the six comments that pointed at its directory now point at
+`DECIDED.md` instead. `husk-look.ts` stays: it is the seam, not the look.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `docs/versus.md`'s decide section, the two candidates, the opening commit |
+| writing | 5 | the drop reason and the six comment rewrites |
+| looking | 0 | nothing drawn moved |
+| friction | 5 | `check:fast` failed on `@napi-rs/canvas` until the worktree had its own `bun install` |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was the install: a fresh worktree without `bun install` fails
+the typecheck before the work is even looked at.
+
+*Measured: — from this lane's first commit to the trunk moving, by `bun run land`.*

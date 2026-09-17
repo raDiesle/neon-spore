@@ -1043,3 +1043,11 @@ The other answers offered were `coach`, `console`, `rail`, `ribbon` and
 `spotlight`; they went with the slot, and `word-button.ts` with them — its
 `arrow` came across into `guide-tide-plate.ts`, which was the only thing TIDE
 ever used from it.
+
+## `pod:husk-tell` — nothing taken, 2026-09-17
+
+The owner looked at the pair on 17 September 2026 and rejected both: the
+shipped mark — a flag on the pod with a white frame on player 2's screen —
+stays. Neither sag nor dent is taken.
+
+The other answers offered were `dent` and `sag`; they went with the slot.

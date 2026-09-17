@@ -114,9 +114,10 @@ describe("drawn size against the 20-26 px floor", () => {
     // same hour, because the shipped body is drawn here under the creature's
     // name and the two together would be one picture twice.
     // 105 on 17 September 2026: HUSK 1 and HUSK 2 left the sheet for VERSUS
-    // (`tools/versus/candidates/pod-husk-tell/`), where the sag is drawn on
-    // the field against the shipped mark rather than on a card against the
-    // POD's.
+    // (`pod:husk-tell`), where the sag was drawn on the field against the
+    // shipped mark rather than on a card against the POD's. The owner
+    // rejected both the same day (`tools/versus/DECIDED.md`); the cards do
+    // not come back, because the look they describe has been looked at.
     expect(SQUARE.length).toBe(105);
   });
 

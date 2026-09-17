@@ -133,8 +133,8 @@ const KEPT_SYSTEMS = ["Destruction and damage"];
 // was the last name on that list, and it went on 17 September 2026 the odd
 // way round: the creature had been built for a day and its bullet was still
 // on the page, because the bullet described a tell the shipped husk does not
-// use. The tell went to VERSUS (`tools/versus/candidates/pod-husk-tell/`),
-// the bullet left, and with nothing left on the list the CREATURE IDEAS group
+// use. The tell went to VERSUS (`pod:husk-tell`, rejected the same day —
+// `tools/versus/DECIDED.md`), the bullet left, and with nothing left on the list the CREATURE IDEAS group
 // came off the page with it — an empty group would have said "all of it is
 // built", and the nine creature ideas still in `ideas.md` are not.
 

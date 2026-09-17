@@ -1,7 +1,9 @@
 import { fresh, type Pose, run, POSE_TPB as TPB } from "./pose-kit.js";
 
 /**
- * The state a candidate for `pod:husk-tell` is judged on.
+ * The state a candidate for `pod:husk-tell` was judged on. The slot closed
+ * with nothing taken on 17 September 2026 (`tools/versus/DECIDED.md`); the
+ * pose stays in the gallery, the way every decided slot's does.
  *
  * Its own file because `poses-versus.ts` is at its length. One pose: a husk
  * hanging alone, on player 2's screen — the seat the tell is drawn for. Both

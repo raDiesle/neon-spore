@@ -110,8 +110,9 @@ describe("the catalogue's long axes", () => {
     // draft card left the sheet in the same commit, so the tally did not move
     // while the shape crossed from one list to the other.
     // 120 on 17 September 2026: HUSK 1 and HUSK 2, both tall, left the sheet
-    // for VERSUS (`tools/versus/candidates/pod-husk-tell/`), so the tall
-    // count below is eleven and THE VEER the eleventh.
+    // for VERSUS (`pod:husk-tell`, rejected the same day —
+    // `tools/versus/DECIDED.md`), so the tall count below is eleven and THE
+    // VEER the eleventh.
     expect(axes.length).toBe(120);
     // One ring of THE CRAWLER is the thirty-ninth wide card, and it is wide by
     // more than any other: a ring reaches nearly a full tile past its own

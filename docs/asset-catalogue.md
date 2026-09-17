@@ -162,8 +162,9 @@ NOTCH 1 and NOTCH 2. The section on where the drafts fall short says what the
 pair is asking. The Husk carried a pair the same way until 17 September 2026,
 when the creature shipped with a different tell — a frame on player 2's screen
 — and the two cards left for VERSUS, where the sag is drawn on the field
-against that frame (`tools/versus/candidates/pod-husk-tell/`); a look with
-something shipped in its place is offered there, never here.
+against that frame (`pod:husk-tell`). The owner rejected both the same day
+(`tools/versus/DECIDED.md`): the frame stays. A look with something shipped
+in its place is offered there, never here.
 
 **Sixty parts and twenty-two bodies grown out of them**, which is a second
 unit and not more shapes. Everything else on this page is a whole contour
@@ -330,8 +331,9 @@ Said plainly, because a catalogue that oversells itself is worse than none.
   starts: HUSK 1 the POD card's own lobes with the mass moved down and no
   landmark touched, HUSK 2 one shoulder cut in. The creature shipped on 17
   September 2026 with a frame round the pod on player 2's screen instead, so
-  the two are `sag` and `dent` on `pod:husk-tell`, drawn on a hanging husk
-  against that frame, where the measurement can be made at the size it matters.
+  the two went up as `sag` and `dent` on `pod:husk-tell`, drawn on a hanging
+  husk against that frame, where the measurement could be made at the size it
+  matters — and the owner kept the frame (`tools/versus/DECIDED.md`).
 - **The NOTCH pair asks where a direction can live.** Both commit on the same
   clock and both carry CANT, which holds a lean instead of rocking through it,
   so the contour is the only variable. NOTCH 1 says it with a barb — one feature
