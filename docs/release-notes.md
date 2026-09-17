@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 849fecd1 — Mark §16 THE INSTAR built on the ledger, both lanes
+
+The simulation (954a65ed) and the look (30bf5110), landed separately; nothing of the design is left unbuilt, and the fight has never been watched at tempo.
+
+## 2026-09-17 · b4fda399 — THE INSTAR's look: a larva over the ship that morphs pose to pose, with a word beside every mark
+
+The second lane of the boss with no panel, under the exemption for a look with no shipped alternative. A larva the size of the field hangs head-down over the ship on a chain of plated segments, with pooled eyes, a toothed mouth between two jaws, two clawed hands, and pose by pose a club, a clutch of eggs, a coiled tongue, a barbed tail and the head thrust at the ship; five poses as five figures blended over each morph, deformed by how far each thumb has got, the back turned and the face gone at *turned*, the husk hung under *moulted*. Every mark is a red ring with the gesture's glyph in it, a progress arc round it, a second ring closing on it over the window, and a word in a scanner box beside it — PULL DOWN, TAP TAP, SWIPE DOWN, TURN, HOLD BOTH — bright and the gesture's on the seat whose mark it is, dim and PILOT'S or NAVIGATOR'S on the other. Both screens see the same body; the split is the hands. Every landing is THE SLOW, not only the last, and the briefing is cut to the rule and whose mark is bright, because what the marks say during the wave is not said before it.
+
 ## 2026-09-17 · 3b81c040 — The second brief, read against the engine, and the field may say one word
 
 A twenty-boss brief from the same source as the first, arriving after fourteen of the fifteen had already shipped. Most of it is confirmation — the interaction surface is the boss itself, which is THE INSTAR — and four things in it are not on the page.

@@ -10273,3 +10273,5 @@ transients, every landing THE SLOW, the frame test, the director row.
 The bottleneck was the picture's surface area: a body with eight parts,
 six glyphs, a word and two rings per mark is eight files, and each one is
 its own hundred lines before anything can be drawn at all.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
