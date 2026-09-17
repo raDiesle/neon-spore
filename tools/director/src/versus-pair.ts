@@ -1,5 +1,5 @@
 import type { ViewRole, ViewState } from "@neon-spore/render";
-import { beatPhase, type SimEvent, type World } from "@neon-spore/sim";
+import { framePhase, type SimEvent, type World } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { type Applied, apply, restore, type Variant } from "../../versus/variant.js";
 import { cadenceElapsed, type Pose } from "./pose-kit.js";
@@ -136,7 +136,7 @@ export function startPair(opts: PairOptions, hooks: PairHooks): Pair {
     view.world = world;
     // The window before the frame, off the same world both sides are drawn from.
     crop.follow(world);
-    view.beatPhase = beatPhase(world.cfg, world.tick);
+    view.beatPhase = framePhase(world);
     view.time = clock;
     view.dt = dt;
     view.events = events;

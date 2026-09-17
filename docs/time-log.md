@@ -8310,3 +8310,21 @@ the one with two rings broken: counting organs cannot tell the two seats apart
 is the navigator's can prove the pilot's screen leaks nothing.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — creature-bite-collision — the held field really stops (first half)
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `wave-fail.ts`, `step.ts`, and every place in the repo that works a beat phase out from a tick |
+| writing | 25 | `heldTick`, `framePhase`, nine callers pointed at it, and `held-field.test.ts` |
+| looking | 0 | the claim is arithmetic and is read through `creatureCenter` |
+| friction | 5 | the first version of the test compared two frames exactly a beat apart and passed on the drift it was written for |
+| landing | 10 | `check:fast` twice, an import order and one newly-unused local |
+
+The bottleneck was that friction, and it is worth writing down: the hull is
+resolved *on* a beat, so the phase at the hit is zero and the phase a beat
+later is zero again. A test sampling only those two moments is blind to the
+whole glide between them. It compares tick by tick now, and reverting the fix
+fails it on the first tick.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

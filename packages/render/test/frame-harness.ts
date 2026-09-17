@@ -10,6 +10,7 @@ import {
 import {
   createWorld,
   DEFAULT_CONFIG,
+  framePhase,
   type SimEvent,
   startWave,
   step,
@@ -230,7 +231,6 @@ export function runFrames(
   // The world's own configuration, not `DEFAULT_CONFIG`: a subject built on
   // `PAIR_ON` or a charged shot runs at whatever tempo it was created with.
   const cfg = world.cfg;
-  const tpb = ticksPerBeat(cfg);
   const all: SimEvent[] = [];
   let events: SimEvent[] = [];
   let frame = 0;
@@ -244,7 +244,7 @@ export function runFrames(
     if (tick % every !== phase) continue;
     renderer.draw({
       world,
-      beatPhase: (world.tick % tpb) / tpb,
+      beatPhase: framePhase(world),
       role,
       time: tick / cfg.tickHz,
       dt: every / cfg.tickHz,

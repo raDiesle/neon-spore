@@ -1,5 +1,5 @@
 import { Canvas2DRenderer, type ViewRole, type ViewState } from "@neon-spore/render";
-import { beatPhase } from "@neon-spore/sim";
+import { framePhase } from "@neon-spore/sim";
 import { seedRandom } from "../../versus/seed.js";
 import { apply, restore, type Variant } from "../../versus/variant.js";
 import type { Pose } from "./pose-kit.js";
@@ -118,7 +118,7 @@ function diffSequence(pose: Pose, role: ViewRole, variant: Variant): Probe {
       events = next.events;
       if (tick % every !== 0) continue;
       view.world = world;
-      view.beatPhase = beatPhase(world.cfg, world.tick);
+      view.beatPhase = framePhase(world);
       view.time = tick / world.cfg.tickHz;
       view.events = events;
 

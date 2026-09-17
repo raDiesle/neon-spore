@@ -2,10 +2,10 @@ import { kindForColor } from "@neon-spore/content";
 import { drawnCol, drawnRow } from "@neon-spore/render";
 import {
   type BossEntry,
-  beatPhase,
   type Color,
   createWorld,
   DEFAULT_CONFIG,
+  framePhase,
   type PlacedFault,
   type PodEntry,
   type SimConfig,
@@ -94,7 +94,7 @@ export const firstOfKind =
   (w: World): { col: number; row: number } => {
     const c = w.creatures.find((x) => x.kind === kind) ?? w.creatures[0];
     if (!c) return { col: 5, row: 7 };
-    const phase = beatPhase(w.cfg, w.tick);
+    const phase = framePhase(w);
     return { col: drawnCol(c, phase), row: drawnRow(c, phase) };
   };
 

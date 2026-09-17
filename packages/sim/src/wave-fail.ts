@@ -1,3 +1,4 @@
+import { beatPhase } from "./beat-clock.js";
 import type { TimedCommand } from "./command-types.js";
 import { ticksPerBeat } from "./config-derived.js";
 import { endRun } from "./run.js";
@@ -51,7 +52,31 @@ export function failWave(world: World): void {
   if (world.cfg.hullInvulnerable || world.over) return;
   if (world.failTick !== NOT_FAILED) return;
   world.failTick = world.tick;
+  world.heldTick = world.tick;
   world.events.push({ type: "waveFailed", wave: world.wave });
+}
+
+/**
+ * The phase of the beat a frame of this world is drawn at — and the whole of
+ * what makes the held field *look* held.
+ *
+ * `step` already returns early under `failHolds`: nothing falls, nothing
+ * fires, nothing spawns. The picture went on moving anyway, because the tick
+ * still counts and `drawnRow` eases a body from `fromRow` to `row` across the
+ * phase of the beat. So every body finished the step it was halfway through
+ * after the hull was struck, and a rock caught mid-fall slid on down its
+ * column under a screen saying the wave was lost. The owner, 17 September
+ * 2026: *everything on the game area should stay at their current position in
+ * the moment hull took damage, and neither disappear nor continue falling.*
+ *
+ * Asked here rather than by each caller, because the answer is a fact about
+ * the world and there are eight places that draw one. Own-motion — a sway, a
+ * wobble, a shimmer — runs off the renderer's own `time` and is deliberately
+ * not frozen: it is per device already, it moves nothing anywhere, and a field
+ * that stopped breathing as well would read as a dropped frame.
+ */
+export function framePhase(world: World): number {
+  return beatPhase(world.cfg, failHolds(world) ? world.heldTick : world.tick);
 }
 
 /** Whether a hit is holding the field — the pause, and the wait for the host after it. */

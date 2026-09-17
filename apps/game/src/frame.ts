@@ -1,6 +1,6 @@
 import type { RunMark } from "@neon-spore/net";
 import type { Canvas2DRenderer } from "@neon-spore/render";
-import { type SimEvent, slowing, step, ticksPerBeat, type World } from "@neon-spore/sim";
+import { failHolds, type SimEvent, slowing, step, ticksPerBeat, type World } from "@neon-spore/sim";
 import type { GameAudio } from "./audio.js";
 import type { InputBuffer } from "./input.js";
 import { interpolatedBeatPhase } from "./interpolate.js";
@@ -117,8 +117,12 @@ export function startFrames(p: FrameParts): Frames {
       // slow windows before this boss — CLAUDE.md's *a look with no shipped
       // alternative*, and the cleanest path onto the field this flag will get
       // (`interpolate.ts`, `docs/decisions.md` #33).
+      // …and off while a hit holds the field, whatever either says: the whole
+      // point of the hold is that the picture stands where it was struck, and
+      // an interpolated phase would carry every body on past it exactly as the
+      // plain one used to (`sim/wave-fail.ts`).
       beatPhase:
-        p.interpolate || slowing(p.world)
+        (p.interpolate || slowing(p.world)) && !failHolds(p.world)
           ? interpolatedBeatPhase(p.world.tick, frameAlpha, tpb)
           : p.beatPhase(),
       role: p.role(),

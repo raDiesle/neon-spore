@@ -153,6 +153,16 @@ export interface World extends ShipState {
    * has, and a second sentinel once the retry is asked for (`wave-fail.ts`).
    */
   failTick: number;
+  /**
+   * The tick the field froze on, `NOT_FAILED` while nothing holds it.
+   *
+   * `failTick` cannot answer this: it is the same number for the length of the
+   * pause and then becomes a sentinel, and the field is still held after that
+   * — through the lost screen and the wait for the host. What reads it is
+   * `framePhase`, so that a body struck halfway through its glide is drawn
+   * where it was struck rather than finishing the step (`wave-fail.ts`).
+   */
+  heldTick: number;
   /** How many times a wave has been gone again, over the whole run. */
   retries: number;
   /** Ticks the pair has spent with a wave live, over the whole run. */
@@ -207,6 +217,7 @@ export function createWorld(
     podSpawned: 0,
     restBeat: 0,
     failTick: NOT_FAILED,
+    heldTick: NOT_FAILED,
     retries: 0,
     playTicks: 0,
     waveTries: 0,

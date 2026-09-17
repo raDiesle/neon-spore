@@ -68,6 +68,7 @@ export {
   clockText,
   failHolds,
   failWave,
+  framePhase,
   lostAsks,
   playSeconds,
   retriesText,

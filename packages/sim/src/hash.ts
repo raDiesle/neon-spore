@@ -172,6 +172,9 @@ export function hashWorld(world: World): number {
   // whether the field is held after a hit, or about how many times the pair
   // has gone again, are not playing one run (`wave-fail.ts`).
   push(world.failTick);
+  // And the tick the picture froze on: two devices that disagree about it draw
+  // the struck field at two different points of one glide (`wave-fail.ts`).
+  push(world.heldTick);
   push(world.retries);
   push(world.playTicks);
   push(world.waveTries);

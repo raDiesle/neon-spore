@@ -1,8 +1,8 @@
 import { Canvas2DRenderer, handedLayout, showsWell, type ViewRole } from "@neon-spore/render";
 import {
-  beatPhase,
   createWorld,
   faultsNow,
+  framePhase,
   mazeRound,
   type SimConfig,
   type SimEvent,
@@ -81,7 +81,7 @@ export function bindStage(
       // The ship answers a finger where it is drawn (`render/touch-ship.ts`).
       cannonCol: world.cannonCol,
       shieldCol: world.shieldCol,
-      beatPhase: beatPhase(cfg, world.tick),
+      beatPhase: framePhase(world),
       beat: world.beat,
       seat: pointerSeat(role),
       cfg,
@@ -149,7 +149,7 @@ export function bindStage(
   const paint = (dt: number): void => {
     renderer.draw({
       world,
-      beatPhase: beatPhase(cfg, world.tick),
+      beatPhase: framePhase(world),
       role,
       time: performance.now() / 1000,
       dt,

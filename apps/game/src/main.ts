@@ -5,8 +5,8 @@ import {
   DEFAULT_CONFIG,
   DIFFICULTY_BPM,
   type Difficulty,
+  framePhase,
   PAIR_ON,
-  beatPhase as phaseOfBeat,
   resetClock,
 } from "@neon-spore/sim";
 import { mountBuildStamp } from "../../../tools/build-stamp.js";
@@ -69,8 +69,10 @@ const audio = bindAudio(canvas, () => view.role());
 // The same frame's events the mixer gets, read for the two a hand should feel
 // rather than hear (`haptics.ts`). Off unless a player has asked for it.
 const haptics = bindHaptics();
-/** 0..1 within the beat. Both the picture and a finger on the field need it. */
-const beatPhase = (): number => phaseOfBeat(cfg, world.tick);
+/** 0..1 within the beat. Both the picture and a finger on the field need it —
+ * and both stop while a hit holds the field, which is what `framePhase` is:
+ * a press should answer for the body where it is drawn (`sim/wave-fail.ts`). */
+const beatPhase = (): number => framePhase(world);
 
 const view = bindViewSwitch(() => {
   // Nothing to rebuild: the layout is derived per frame and per event.

@@ -64,6 +64,7 @@ export function startWave(
     world.retries += 1;
   }
   world.failTick = NOT_FAILED;
+  world.heldTick = NOT_FAILED;
   world.queue = queue;
   world.podQueue = podQueue;
   world.podSpawned = 0;

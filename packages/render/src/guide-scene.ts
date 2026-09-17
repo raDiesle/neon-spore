@@ -1,5 +1,5 @@
 import type { ControlSet, GuideScene, SceneStep } from "@neon-spore/content";
-import { beatPhase, type World } from "@neon-spore/sim";
+import { framePhase, type World } from "@neon-spore/sim";
 import type { OpeningView } from "./briefing.js";
 import { smoothstep } from "./ease.js";
 import { drawHands, filmLayout, seatRole } from "./guide-film.js";
@@ -179,7 +179,7 @@ export class GuideStage {
     if (from !== null && k < 1) drawSwitchSeam(ctx, l, l.width * (1 - k));
     ctx.restore();
 
-    const phase = beatPhase(cfg, run.world.tick);
+    const phase = framePhase(run.world);
     GUIDE_LOOK.caption(ctx, l, run.world, set, step, run.tick, phase, names);
     drawHands(ctx, l, run, scene, set, shown, phase);
     GUIDE_LOOK.band(ctx, l, {
@@ -213,12 +213,11 @@ export class GuideStage {
   ): void {
     const run = this.play.run;
     if (!run) return;
-    const cfg = run.world.cfg;
     ctx.save();
     ctx.translate(dx, 0);
     this.seats[seat - 1]!.draw(ctx, l, {
       world: run.world,
-      beatPhase: beatPhase(cfg, run.world.tick),
+      beatPhase: framePhase(run.world),
       role: seatRole(seat),
       time,
       // A frame's own seconds, so a lobe eases at the speed it eases at on a
