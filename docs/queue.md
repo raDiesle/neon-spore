@@ -224,6 +224,7 @@ what the rest of this file holds.
 ## The director's choreographed field and note tables are near the ceiling
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Taken:** 2026-09-17, claude/queue-the-directors-choreographed-field-and-note-table
 - **Files:** `tools/director/src/ship-fields-choreo.ts`, `tools/director/src/ship-notes-choreo.ts`, `tools/director/src/ship-boss-group.ts`
 
 THE LEAD's twelve fields and its paragraph put both files at 240 lines, and
