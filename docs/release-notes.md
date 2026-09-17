@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 2abe6443 — The field a hit stopped stops in the picture too
+
+`step` has held the world after a hull breach since the lost screen was written: nothing falls, nothing fires, nothing spawns. The picture went on moving anyway. The tick keeps counting through the hold, and `drawnRow` eases a body from `fromRow` to `row` across the phase of the beat, so every body finished the step it was halfway through — a rock caught mid-fall slid on down its column under a screen saying the wave was lost. The owner, 17 September 2026: *everything on the game area should stay at their current position in the moment hull took damage, and neither disappear nor continue falling.*
+
 ## 2026-09-17 · 6b1e7ac5 — THE ORRERY drawn: three orbits, and the two a seat cannot count
 
 The boss has had rules since this morning and no body. It has one now: a core in the middle column inside three flattened orbits of organs, each with one gap, and the per-seat blindness that is the whole fight made a colour.
