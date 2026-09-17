@@ -67,6 +67,9 @@ export class FakeEl {
     add: (name: string): void => {
       this.classes.add(name);
     },
+    remove: (name: string): void => {
+      this.classes.delete(name);
+    },
     toggle: (name: string, on: boolean): void => {
       if (on) this.classes.add(name);
       else this.classes.delete(name);
@@ -88,6 +91,10 @@ export class FakeEl {
     this.attrs[name] = value;
   }
 
+  getAttribute(name: string): string | null {
+    return this.attrs[name] ?? null;
+  }
+
   addEventListener(type: string, fn: (e: Fired) => void): void {
     const held = this.on.get(type) ?? [];
     held.push(fn);
@@ -99,8 +106,12 @@ export class FakeEl {
     for (const fn of [...(this.on.get(type) ?? [])]) fn(event);
   }
 
+  /** A press, carrying the one method a listener on a nested control calls —
+   * a button inside a row that is itself a button stops the press there
+   * (`director/src/rail-open.ts`). Nothing here propagates, so the method has
+   * nothing to do; what matters is that it exists to be called. */
   click(): void {
-    this.fire("click");
+    this.fire("click", { stopPropagation: () => {} });
   }
 
   /** Somebody typing into a field: what they typed, and the event that says so. */

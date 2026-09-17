@@ -164,12 +164,30 @@ section.collapsed .column-body {
   gap: 2px;
   margin-bottom: 10px;
 }
+/* A row is the wave's own button and the two ways out of it (`rail-open.ts`).
+   The name takes the width and the two openers take only what their word
+   needs, so a desktop list reads exactly as it did before they existed — see
+   the `display: none` under them. */
+.wave-row {
+  display: flex;
+  gap: 2px;
+  min-width: 0;
+}
+.wave-row > button:first-child {
+  flex: 1;
+  min-width: 0;
+}
 #waveList button {
   text-align: left;
   border-color: transparent;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+/* Nothing on a desktop, where all four columns are on screen at once and
+   there is nowhere to go. The phone stylesheet turns them on. */
+#waveList .row-open {
+  display: none;
 }
 #waveList button.on {
   border-color: var(--gold);

@@ -1866,6 +1866,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/rail-filter.ts` | The filter over the wave list: one field above it, matching a wave's prose and everything it sends |
 | `tools/director/src/rail-steps.ts` | **The two arrows over the WAVE column**, and the two keys that are the same step without the mouse |
 | `tools/director/src/rail-symbols.ts` | **THE ROW OF SYMBOLS OVER THE FILTER**: the rail's own four marks, made pressable |
+| `tools/director/src/rail-list.ts` | ONE ROW OF THE WAVE LIST, AND WHAT IS ON IT |
+| `tools/director/src/rail-open.ts` | THE TWO WAYS OUT OF A ROW IN THE WAVE LIST |
 | `tools/director/src/reprise-editor.ts` | THE REPRISE's panel, which is one number |
 | `tools/director/src/cell-config-pod.ts` | The rows under the selected cell that configure the **pod** in it: the row it hangs at |
 | `tools/director/src/cell-config-mine.ts` | **THE MINE's two rows under the selected cell** |
@@ -1895,6 +1897,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |
+| `tools/director/src/phone-view.ts` | WHICH OF THE THREE VIEWS THE PHONE IS SHOWING, AS ONE OWNER |
 | `tools/director/src/versus-crop.ts` | One side of a VERSUS pair: a whole phone, drawn, shown through the window its pose's own `crop` cuts in it |
 | `tools/director/src/versus-diff.ts` | How two pictures of the same frame are compared — the pixel arithmetic behind `versus-seat.ts` |
 | `tools/hooks/after-svg-edit.ts` | A drawn picture is the one thing a session cannot check by reading it back |

@@ -53,6 +53,10 @@ export interface FakeDom {
    * — call this in a `finally`.
    */
   restore(): void;
+  /** `document.body`, which the phone's menu and its views write a class on. */
+  body: FakeEl;
+  /** What was put in `localStorage`, for a test about what is remembered. */
+  stored(key: string): string | null;
 }
 
 export interface DomSpec {
@@ -67,13 +71,27 @@ export interface DomSpec {
   bars?: Record<string, FakeEl[]>;
   /** Elements `getElementById` should find, keyed by id. */
   ids?: Record<string, FakeEl>;
+  /**
+   * What `matchMedia` answers — whether this is a narrow screen. The director
+   * asks exactly one question of it, *is this a phone*, and three files act on
+   * the answer (`phone-view.ts`, `rail-open.ts`, `columns.ts`).
+   */
+  phone?: boolean;
 }
 
 /** Installs a `window`/`document` pair over `spec` and hands back the undo. */
 export function installDom(spec: DomSpec = {}): FakeDom {
-  const { search = "", bars = {}, ids = {} } = spec;
-  const had = { document: globalThis.document, window: globalThis.window };
+  const { search = "", bars = {}, ids = {}, phone = false } = spec;
+  const had = {
+    document: globalThis.document,
+    window: globalThis.window,
+    matchMedia: globalThis.matchMedia,
+    localStorage: globalThis.localStorage,
+  };
   let href = `/${search}`;
+  const body = new FakeEl();
+  body.tagName = "BODY";
+  const store = new Map<string, string>();
 
   // A selector written out whole, answered from `bars` as given; failing that,
   // a bar's buttons, optionally narrowed by `.on` or a `data-tab` value.
@@ -94,6 +112,8 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     /** What has focus, which is how a global listener asks whether somebody is
      * typing (`src/typing.ts`). Nothing, until a press says otherwise. */
     activeElement: null,
+    /** The one element the phone's menu and its three views write on. */
+    body,
     querySelector: (selector: string) => pick(selector)[0] ?? null,
     querySelectorAll: (selector: string) => pick(selector),
     getElementById: (id: string) => ids[id] ?? null,
@@ -132,10 +152,30 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     },
   };
 
-  const global = globalThis as { document?: unknown; window?: unknown };
+  // Both of these are read bare — `matchMedia(...)`, `localStorage.getItem` —
+  // so they go on the global rather than on `win`, and come off it again in
+  // `restore`: `bun test` shares one process across files.
+  const global = globalThis as {
+    document?: unknown;
+    window?: unknown;
+    matchMedia?: unknown;
+    localStorage?: unknown;
+  };
   global.document = doc;
   global.window = win;
+  global.matchMedia = (query: string) => ({ matches: phone && query.includes("700px") });
+  global.localStorage = {
+    getItem: (k: string) => store.get(k) ?? null,
+    setItem: (k: string, v: string) => {
+      store.set(k, v);
+    },
+    removeItem: (k: string) => {
+      store.delete(k);
+    },
+  };
   return {
+    body,
+    stored: (key: string) => store.get(key) ?? null,
     url: () => href,
     press: (key: string, target: unknown = null) => {
       doc.activeElement = target;
@@ -144,6 +184,8 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     restore: () => {
       global.document = had.document;
       global.window = had.window;
+      global.matchMedia = had.matchMedia;
+      global.localStorage = had.localStorage;
     },
   };
 }

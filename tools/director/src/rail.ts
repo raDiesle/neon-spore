@@ -8,7 +8,7 @@ import { renderControlSetNote } from "./control-set-note.js";
 import { bindFaultFields } from "./fault-fields.js";
 import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields.js";
 import { bindRailFilter } from "./rail-filter.js";
-import { waveMarks } from "./rail-marks.js";
+import { renderRows } from "./rail-list.js";
 import { bindWaveSteps } from "./rail-steps.js";
 import { bindRailSymbols } from "./rail-symbols.js";
 import { copyWave, currentWave, emptyWave, type Store } from "./state.js";
@@ -72,37 +72,17 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
     }
   }
 
+  /** The one way a row changes which wave is open, pressed or opened. */
+  const select = (i: number): void => {
+    store.index = i;
+    onSelect();
+  };
+
   const renderList = (): void => {
     if (!list) return;
-    list.replaceChildren();
-    let matched = 0;
-    for (const [i, wave] of store.waves.entries()) {
-      const hit = filter.passes(store.waves, i) && symbols.passes(store.waves, i);
-      if (hit) matched++;
-      // The wave being edited stays in the list whatever the filter says: the
-      // whole column beside it is that wave's own fields, and a list that hid
-      // the row they belong to would leave the editor pointing at nothing a
-      // person can see. Dimmed, so it is plain it is there for that reason and
-      // not because it answered.
-      if (!hit && i !== store.index) continue;
-      const button = document.createElement("button");
-      button.type = "button";
-      const marks = [i === store.index ? "on" : "", hit ? "" : "off-filter"].filter(Boolean);
-      button.className = marks.join(" ");
-      const n = document.createElement("span");
-      n.className = "n";
-      n.textContent = String(i + 1).padStart(2, "0");
-      button.append(n);
-      // A boss, a panel the pair has not held before, a guide (`rail-marks.ts`).
-      button.append(...waveMarks(store.waves, i));
-      button.append(document.createTextNode(wave.name || "— unnamed —"));
-      button.addEventListener("click", () => {
-        store.index = i;
-        onSelect();
-      });
-      list.appendChild(button);
-    }
-    filter.report(matched, store.waves.length, symbols.active());
+    const passes = (waves: Store["waves"], i: number): boolean =>
+      filter.passes(waves, i) && symbols.passes(waves, i);
+    filter.report(renderRows(list, store, passes, select), store.waves.length, symbols.active());
   };
 
   const renderFields = (): void => {

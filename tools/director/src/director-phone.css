@@ -114,6 +114,29 @@
   #brushCol {
     width: auto;
   }
+  /* **THE TWO WAYS OUT OF A ROW**, which exist only here: on a phone the
+     three views are one at a time, so a wave and the view it should open in
+     have to be one press. Getting from a wave to its map was three, and two
+     of them were the menu (`rail-open.ts`). 44px wide, which is the platform
+     guideline for a target a thumb has to hit — the same number the game's own
+     panel is measured against — and the height comes from the row it sits in,
+     which is taller than that already.
+
+     Smaller than the wave's own name and tracked out, because the word is a
+     destination and not part of the list: 86 rows each ending in two labels
+     would read as a second column of names at the list's own size. */
+  #waveList .row-open {
+    display: block;
+    flex: 0 0 auto;
+    min-width: 44px;
+    text-align: center;
+    padding: 0 4px;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    color: var(--dim);
+    border-color: var(--line);
+  }
+
   /* A column never collapses on a phone — one section already fills
      the screen, and columns.ts skips the relayout that would
      otherwise fight this block's own grid-template-columns. */

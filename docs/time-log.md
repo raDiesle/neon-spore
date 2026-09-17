@@ -8488,3 +8488,26 @@ stream, and a bearing has no axis and no destination, so the turning half moved
 out whole.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — creature-bite-collision — a wave in the phone's list opens where it should
+
+| Step | Minutes | What |
+|---|---|---|
+| reading | 15 | `rail.ts`, `mobile-menu.ts`, the phone sheet and the markup's four sections |
+| writing | 30 | `phone-view.ts`, `rail-open.ts`, `rail-list.ts`, the two sheets and five cases |
+| looking | 20 | the list at 375 px, the openers pressed, the glyph pair thrown away for words |
+| friction | 15 | `rail.ts` went ten lines over its limit; the fake DOM had no body, no `matchMedia`, no `localStorage` and no `classList.remove` |
+| landing | 10 | `bun run index`, the three packages, `check:fast` |
+
+The bottleneck was the friction, but the looking is what the lane got for its
+twenty minutes. `.claude/launch.json` carries no `cwd`, so `director-here`
+would have served the **main** checkout and shown the list exactly as it was;
+`bun run here` is the answer to that and it already exists — it writes
+`.git/neon-spore-here` and `supervise.ts --here` reads it, so the preview
+served this worktree. The first pair of openers was ▤ and ▦, and at 375 px they
+came out as two almost identical small blocks beside a row that already carries
+three or four marks of its own. They are the words WAVE and MAP now, which is
+what the header calls the two views. Nothing but an eye was going to say that:
+the tests were green over the glyphs.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

@@ -30,9 +30,13 @@ function page(query: string): {
   return { list, note, restore: dom.restore };
 }
 
-/** The list's rows, as the text each one ends with — the wave's name. */
+/** The list's rows, as all the text in each one — the number, the marks and
+ * the wave's name, and since 17 September 2026 the two words that open the
+ * wave in a view (`rail-open.ts`). Walked rather than read one level down,
+ * because a row is a wrapper now and the name is inside its first button. */
 function names(list: FakeEl): string[] {
-  return list.children.map((row) => row.children.map((c) => c.textContent).join(""));
+  const text = (el: FakeEl): string => el.textContent + el.children.map(text).join("");
+  return list.children.map(text);
 }
 
 function store(index: number): Store {
