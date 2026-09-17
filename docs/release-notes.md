@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 5987da4b — THE TASTER's fan is drawn, and each seat is given one number off it
+
+A low crest over row 0 with eleven blades standing out of it, each edged in the ammunition colour the pair has been leaning on and broken only by the colour it is not. A blade is metal and it is drawn like one: rockDark filled, rock stroked, and the only colour on it is the lit edge, because a blade filled in its colour would say shoot me with this, which is the flat opposite of the rule. Thickness is a second edge line inside the first, growth is the same shape short and colourless and shimmering, a struck-off blade leaves a notch that sheens with the crest's count, the interlock is the last blades leaning across each other carrying both colours at once, and the beam throws that lean the other way as the fan fades.
+
 ## 2026-09-17 · 2c6a393b — Mark the two timeout entries done
 
 Both landed in bfb0a35d. "Nine more tests spawn a child process under bun's five-second default" is closed with eight files capped and three of its nine already answered by `tools/test/repo-time.ts`, which landed the same afternoon it was written. "`shape-fit.test.ts` went red once under the sharded check, then green" asked which of two things it was, and the answer is in that commit: the clock, not a rest box that is not deterministic.
