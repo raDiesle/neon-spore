@@ -45,7 +45,7 @@
 import { readdirSync, statSync } from "node:fs";
 import { cpus, tmpdir } from "node:os";
 import { join, relative } from "node:path";
-import { firstFailure, mergeJunit, tallyOf } from "./junit.js";
+import { closingLines, firstFailure, mergeJunit, tallyOf } from "./junit.js";
 import {
   binCount,
   MAX_FILES_PER_SHARD,
@@ -169,11 +169,12 @@ if (first) {
   const more = total.failures > 1 ? ` (+${total.failures - 1} more)` : "";
   console.log(`  first failure: ${where}${first.name}${more}`);
   // And its message, indented under the name: the `expect` line and the diff,
-  // which is where a case that lists what it found puts the list. Capped so a
-  // snapshot's worth of diff does not push the counts off the screen.
-  const said = first.message.trimEnd().split("\n");
-  for (const line of said.slice(0, FAILURE_LINES)) console.log(line ? `    ${line}` : "");
-  if (said.length > FAILURE_LINES) console.log(`    … ${said.length - FAILURE_LINES} more lines`);
+  // which is where a case that lists what it found puts the list. Capped both
+  // ways (`closingLines`), so neither a snapshot's diff nor a whole file on
+  // one `Received:` line pushes the counts off the screen.
+  for (const line of closingLines(first.message, FAILURE_LINES)) {
+    console.log(line ? `    ${line}` : "");
+  }
 }
 if (junit) await Bun.write(junit, merged);
 for (let i = 0; i < bins.length; i++)

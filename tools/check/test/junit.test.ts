@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { firstFailure, mergeJunit, tallyOf } from "../junit.js";
+import { closingLines, firstFailure, mergeJunit, tallyOf } from "../junit.js";
 import { parseJunit } from "../profile-report.js";
 
 /**
@@ -125,5 +125,41 @@ describe("the failing case a red run closes with", () => {
   it("has nothing to say about a green run, or about no report at all", () => {
     expect(firstFailure(SHARD_B)).toBeNull();
     expect(firstFailure("")).toBeNull();
+  });
+});
+
+/**
+ * **What of the message the closing block prints.** Two caps, for two
+ * different runs: lines for a snapshot's diff, width for a case whose
+ * `Received:` is a whole file on one line — `last-room.test.ts` matching
+ * `shell.ts`'s source, 17 September 2026, printed two hundred and forty lines'
+ * worth of text as one line under the counts.
+ */
+describe("the closing block's lines", () => {
+  it("prints a short message whole, blank lines included", () => {
+    expect(closingLines("expect(a).toBe(b)\n\n- 1\n+ 2\n")).toEqual([
+      "expect(a).toBe(b)",
+      "",
+      "- 1",
+      "+ 2",
+    ]);
+  });
+
+  it("stops at the line cap and says how many it cut", () => {
+    const diff = Array.from({ length: 20 }, (_, i) => `+ ${i}`).join("\n");
+    const lines = closingLines(diff, 12);
+    expect(lines).toHaveLength(13);
+    expect(lines[11]).toBe("+ 11");
+    expect(lines[12]).toBe("… 8 more lines");
+  });
+
+  it("cuts a line wider than the terminal and says how much", () => {
+    // The shape bun prints for a string with newlines: escaped, on one line.
+    const file = `Received: "${"import x from y;\\n".repeat(40)}"`;
+    const lines = closingLines(file, 12, 60);
+    expect(lines).toHaveLength(1);
+    expect(lines[0]).toBe(`${file.slice(0, 60)}… ${file.length - 60} more characters`);
+    // A line exactly at the cap is not touched.
+    expect(closingLines("x".repeat(60), 12, 60)).toEqual(["x".repeat(60)]);
   });
 });

@@ -87,6 +87,27 @@ function readEntities(attr: string): string {
     .replace(/&amp;/g, "&");
 }
 
+/**
+ * The failure's message as the closing block prints it: at most `lines` of it,
+ * each at most `width` wide, and a line saying what was cut.
+ *
+ * Two caps, because they are two different runs. The line cap keeps a
+ * snapshot's diff from pushing the counts off the screen. The width cap is
+ * for a case that matched a regex against a file's *source* — `last-room.test.ts`
+ * on `shell.ts`, 17 September 2026 — whose `Received:` is the whole file on
+ * one line with its newlines escaped: two hundred and forty lines' worth of
+ * text in one, which the line cap counted as one and printed whole.
+ */
+export function closingLines(message: string, lines = 12, width = 200): string[] {
+  const said = message.trimEnd().split("\n");
+  const kept = said.slice(0, lines).map((line) => {
+    if (line.length <= width) return line;
+    return `${line.slice(0, width)}… ${line.length - width} more characters`;
+  });
+  if (said.length > lines) kept.push(`… ${said.length - lines} more lines`);
+  return kept;
+}
+
 export function tallyOf(xml: string): Tally {
   const attrs = xml.match(HEADER)?.[1] ?? "";
   return {

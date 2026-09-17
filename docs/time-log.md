@@ -9288,3 +9288,18 @@ root and the timed-out case was in a temp directory, and only the clone's
 own log — its commit spelled "ours" at 13:21 — tied the two together.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-four-drawn-bosses-still-owe-their-rehearsal-film — A red run's closing message is capped by lines, and one line can be a whole file
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | the closing block in `shard.ts`, written by this session an hour before |
+| deciding | 0 | a pure `closingLines(message, lines, width)` in `junit.ts`, so the caps are tested where `firstFailure` is |
+| writing | 5 | the helper, the loop in `shard.ts` reduced to printing it, three cases |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, this entry, the commit, `bun run land` |
+
+The bottleneck was nothing: the finding was this session's own and the fix
+was where the finding said.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

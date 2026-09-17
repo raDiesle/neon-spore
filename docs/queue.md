@@ -272,21 +272,3 @@ What to do, once the answer is picked: change the one number (`undertowStandBeat
 widening test on the shipped config rather than a stretched one, and say in
 §11.20 which it was. The film's first page then shows a second lobe rather
 than a scar, and its test's first event moves.
-
-## A red run's closing message is capped by lines, and one line can be a whole file
-
-- **Found:** 2026-09-17, claude/queue-four-drawn-bosses-still-owe-their-rehearsal-film
-- **Taken:** 2026-09-17, claude/queue-a-red-runs-closing-message-is-capped-by-lines-an
-- **Files:** `tools/check/shard.ts`, `tools/check/test/junit.test.ts`
-
-`shard.ts` prints the first failure's message under its name, twelve lines at
-most (`FAILURE_LINES`). The cap counts newlines, and a case that matched a
-regex against a file's source — `last-room.test.ts` on `shell.ts` — puts the
-whole file on the `Received:` line with its newlines escaped, so the closing
-block was one line of two hundred and forty lines' worth of text, which is
-worse than the name alone.
-
-What to do: cap each printed line's width as well — around the terminal's,
-with an ellipsis and the count of characters cut — and give `junit.test.ts` or
-a `shard` case a message whose one line is longer than the cap, expecting the
-cut. The line cap stays; the two are different runs.
