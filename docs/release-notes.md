@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 73fd1b5a — THE SURGE, the simulation: a bulb fed by two thumbs and vented only by both lifting at once
+
+The sixth boss off the choreographed list, its rule and nothing of its look. A bulb sits under the field with a thumb-glass for each seat: both thumbs on feed the pressure, one alone leaks it, and the only way down is the pair lifting inside `surgeWindowMilli` of each other, which vents it a notch along the seam. The band the pressure has to be in when they let go narrows with every notch, and a pressure over the band bursts the bulb instead — gums down the bulb's own columns and both hands thrown off — while from the third notch the bulb holds what it has and the two lifts have to agree twice. The last notch everts it and the wave ends. The split is the eyes: the pilot is shown the seam and how far along it the pair is, the navigator the pressure, and neither the other's, so the count-down is spoken. Twelve events, each with a cue; wave 77 in act 7 with its guide; nineteen tests; the director's sheet; the silent lists; §11.27 in `docs/spec/bosses.md` with the seven departures from the design argued by name, and the wave went into the perf baseline unweighed.
+
 ## 2026-09-17 · c6255361 — THE BATON has a rehearsal film: one launch nobody answers, then three handovers
 
 The arm unfolds a socket a beat; player 1 pulls the trigger and the bead flies three beats and, unshot, lands back in its socket. Then the pair passes it: player 2 fires its colour through it in the air, it lands a socket down and flips, and the seat that acted greys for the beat after — three times, red, cyan, red.
