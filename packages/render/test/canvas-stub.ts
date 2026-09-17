@@ -14,6 +14,7 @@
  * `Path2D`.
  */
 
+import { cpuTimeout } from "../../../tools/test/cpu-time.js";
 import { clearBakedCaches } from "../src/baked.js";
 
 /**
@@ -34,8 +35,28 @@ import { clearBakedCaches } from "../src/baked.js";
  * It is deliberately far above what any of these files take, because it is not
  * a budget — `frame-budget.test.ts` is the budget, and an op is not a
  * millisecond. This one only says "a busy machine is not a failure".
+ *
+ * **And a flat number cannot say that.** It was thirty seconds until 17
+ * September 2026, when `briefing.test.ts` went red at *draws a rehearsal,
+ * through every page of it* under a `check:fast` whose eight shards took 237
+ * seconds against 96 on the green rerun a minute later: a second session had
+ * fourteen shards of its own up, the load average was 50, and a case that
+ * costs 2.4 s alone did not finish in thirty. Thirty is right for one machine
+ * under one load and for no other.
+ *
+ * So the machine says instead. `cpuTimeout` takes what the heaviest case here
+ * costs on a quiet machine — 2.4 s for that rehearsal, rounded to three — and
+ * allows three times that, times how much slower this machine is *computing*
+ * than a quiet one (`tools/test/cpu-time.ts`).
+ *
+ * **Computing, and not forking.** The first cut of this scaled off
+ * `repo-time.ts`, whose baseline is `git init --bare`, and that reads a quiet
+ * mac as ten times loaded because macOS spawns slowly — which pinned this cap
+ * at the three-minute ceiling on the machine it was written on, where it says
+ * nothing at all. A frame drawn through this canvas spawns nothing, so the
+ * unit is runnable work per core and the lot of it is in `cpu-time.ts`.
  */
-export const FRAME_TIMEOUT_MS = 30_000;
+export const FRAME_TIMEOUT_MS: number = cpuTimeout(3_000);
 
 const COLOR = /^#([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$|^rgba?\([^)]+\)$/i;
 

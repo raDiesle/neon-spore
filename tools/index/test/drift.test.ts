@@ -1,8 +1,17 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, setDefaultTimeout, test } from "bun:test";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
+import { loadedTimeout } from "../../test/repo-time.js";
 import { countsIn, driftInRow, headerCommentText } from "../drift.js";
 import { parseRows } from "../index.js";
+
+// What this file is allowed to take, scaled to how busy the machine is
+// (`tools/test/repo-time.ts`). It spawns nothing and reads every file
+// `docs/INDEX.md` names; the heaviest case costs 390 ms alone and timed out at
+// 12.4 s on bun's flat five-second default on 17 September 2026, with fourteen
+// shards up here and another session's whole check still running. Its sibling
+// `index.test.ts` was given the same treatment and this file was missed.
+setDefaultTimeout(loadedTimeout(500));
 
 const ROOT = join(import.meta.dirname, "..", "..", "..");
 // `.claude` holds `worktrees/`, and a worktree is a full copy of the repository

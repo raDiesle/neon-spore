@@ -8947,3 +8947,20 @@ had already cut three times over, and the time went into finding every file
 that named a moved predicate or field and turning each one by hand.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — creature-bite-collision — a frame's cap reads the load average instead of a constant
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry's two halves, `canvas-stub.ts`'s thirty seconds, `drift.test.ts`, `repo-time.ts`'s baseline |
+| measuring | 20 | every render file that uses the cap, to find the heaviest case; then three load sensors against a machine under spinners, because the first two were wrong |
+| writing | 10 | `cpu-time.ts`, the cap in `canvas-stub.ts`, `drift.test.ts`'s own, `shape-fit.test.ts` moved onto the right sensor |
+| friction | 10 | the first cut pinned at the ceiling on a mac; the second was blind to load; a director test went red once and green on the rerun and is queued |
+| landing | 5 | `check:fast` twice, this entry, the commit, `bun run land` |
+
+The bottleneck was that both obvious sensors were wrong and only a measurement
+said so: scaling off `git init --bare` reads a quiet mac as ten times loaded,
+and timing an arithmetic loop in-process read 1.07 with thirty-two spinners up
+because macOS keeps handing the foreground process a performance core.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

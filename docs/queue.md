@@ -221,6 +221,27 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
+## `loop-once.test.ts` found a second fixed-timestep loop once, then did not
+
+- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Files:** `tools/director/test/loop-once.test.ts`, `tools/check/shard.ts`
+
+`check:fast` reported *only stage-loop.ts accumulates a fixed-timestep carry*
+as its first failure in one run of eight shards, and the same diff came back
+green on the next run a minute later with nothing changed and the working tree
+identical. The file runs in 83 ms alone, so this is not the timeout shape the
+two entries above it were: the assertion says a file under `tools/director`
+matched `carry +=`, and the runner prints only the failure's name, so *which*
+file it named is not in what was seen.
+
+It scans the directory off disk with `new Glob("**/*.ts").scanSync(SRC)` while
+eight shards of the same checkout are running, which is the one thing about it
+that is not deterministic. What to do: make the failure say which file it
+found — the message is `expect(carriers).toEqual([])` and the received array is
+printed, so the shard runner swallowing everything but the first failure's
+*name* is the other half of it (`tools/check/shard.ts`). Until one of those is
+fixed a rerun is the only tool, which is the habit these entries exist to stop.
+
 ## THE THROAT does not haul a pod, and step 10 of its design wants it to
 
 - **Found:** 2026-09-16, claude/neon-spore-boss-design-26ee5e
