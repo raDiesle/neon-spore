@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 36535696 — SHUT is the lost screen: the plates close in and leave one lit slot where it came through
+
+`lost:screen` / `shut`, the owner's pick on the VERSUS page on 17 September 2026 — a look he asked for by name. The two plates now slide in over the held field from the top and the foot and meet at the seam, closing on everything but the column the ship was hit in, which is left as a ragged lit slot with the hole in the hull seen through it. The other three answers, `bleedout`, `hold` and `spall`, are cleared with the slot.
+
 ## 2026-09-17 · 194b4c8a — THE BATON's merged bead crosses the whole arm in eleven beats, an act a beat in turn
 
 The design's step 13 (`docs/spec/bosses-choreographed.md` §10). The merged bead's one flight out of the last socket is the crossing, `batonFinalBeats` (11) beats long, and it owes an act a beat: his trigger launches it, her shot of its colour is the next, his trigger the next, and each act flips the colour and locks the seat for the beat the other's act is due in. A beat that goes by without its act is a miss: the bead is back in the top socket and every socket of the arm is lit again. Eleven acts made and the bead drops out of the last socket as the pod the maw takes, with both locks opened so the catch is his. Two sounds, `boss.batonAct` and `boss.batonMissed`, out of the speech band; six tests; §11.18 argues the three departures. The bead is now drawn on the crossing as well as while passing — a fix to something wrong, since the flight would otherwise have been invisible.
