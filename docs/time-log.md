@@ -8127,15 +8127,15 @@ exit code, which the eleven copies it replaced did not.
 
 | activity | minutes | what it was |
 |---|---|---|
-| reading | 15 | the queue entry's two remedies, then every local `run`/`git`/`capture` in `tools/land/test`, `tools/queue/test` and `tools/director/test` — fourteen files, four different shapes |
-| writing | 25 | `tools/test/repo-time.ts` — the baseline, `repoTimeout`, `loadedTimeout` and `gitIn` — and the conversion of eleven files, counting each one's git calls |
+| reading | 5 | the queue entry's two remedies, then every local `run`/`git`/`capture` in `tools/land/test`, `tools/queue/test` and `tools/director/test` — fourteen files, four different shapes |
+| writing | 10 | `tools/test/repo-time.ts` — the baseline, `repoTimeout`, `loadedTimeout` and `gitIn` — and the conversion of eleven files, counting each one's git calls |
 | looking | 0 | nothing here is drawn |
-| friction | 5 | Biome wraps a three-argument `it` across four lines, so `format` and `imports:sort` had to run before the check would go green |
-| landing | 15 | two full `bun run check` runs at 108s each, the ledger, the commit |
+| friction | 0 | Biome wraps a three-argument `it` across four lines, but `format` and `imports:sort` answered in seconds |
+| landing | 5 | two full `bun run check` runs at 108s each, the ledger, the commit |
 
 The bottleneck was counting: a timeout that scales is arithmetic, but every
 one of the eleven files needed its own `ops` number, and the only honest way
 to get it is to read the test and add up the calls its helpers make as well as
-its own. Fourteen minutes of the writing row is that, not the helper.
+its own. Most of the writing row is that, not the helper.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
