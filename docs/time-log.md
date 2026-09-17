@@ -9906,3 +9906,23 @@ phase and was the autopilot's own turn cost. The arena has no randomness at
 all, so one flight is the whole measurement, and the sweep came back out.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — shared-list-bosses — the clock-boss dispatch is cut in two
+
+THE HIVE's arm had `boss-draw-clocks.ts` at 239 lines, and every boss after it
+is a branch with a paragraph over it. It is cut on the seam the bosses have:
+the nine drawn off the world alone stay, and the seven whose picture keeps a
+transient are `boss-draw-clocks-b.ts`'s, handed across in one guarded call.
+`CLOCK_KINDS` is still the whole list, so `boss-draw.ts` did not move.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 45 | the whole ledger and every §11 it points at, `bosses.md`'s not-built lines, THE BATON's sim and content, `main`'s ledger fresh — twice |
+| writing | 15 | the page-two file, the trim, the queue item |
+| looking | 5 | the two files' line counts and the INDEX rows |
+| friction | 10 | a `grep --include` zsh refused and a repo grep that read `dist/`; THE BATON's remainder planned and found claimed on a fresh read of `main` |
+| landing | 10 | `bun run index`, `check:fast`, the commit, `land --keep` |
+
+The bottleneck was the reading: the shared list is fully built, and proving
+there is nothing on it unclaimed took forty-five minutes against fifteen of
+code — the one technical finding on the way was the file over its limit.

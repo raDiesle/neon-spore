@@ -1,20 +1,14 @@
 import type { World } from "@neon-spore/sim";
-import { drawAntiphon } from "./antiphon-draw.js";
 import { drawBaton } from "./baton-draw.js";
+import { drawFxBoss, FX_KINDS, isFxBoss } from "./boss-draw-clocks-b.js";
 import { drawCurtain } from "./curtain-draw.js";
 import { drawDiastole } from "./diastole-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGorge } from "./gorge-draw.js";
-import { drawHive } from "./hive-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
-import { drawLead } from "./lead-draw.js";
-import { drawLedger } from "./ledger-draw.js";
 import { drawOrrery } from "./orrery-draw.js";
 import type { ViewState } from "./renderer.js";
-import { drawScuttle } from "./scuttle-draw.js";
-import { drawSinew } from "./sinew-draw.js";
-import { drawSurge } from "./surge-draw.js";
 import { drawTaster } from "./taster-draw.js";
 import { drawThroat } from "./throat-draw.js";
 import { drawUndertowLobes } from "./undertow-lobe.js";
@@ -31,8 +25,10 @@ import { drawUndertowLobes } from "./undertow-lobe.js";
  * creatures, a warden on its rope, a pile of stone, a whole second ship — and
  * every one of these hangs over the top of the field with nothing of itself on
  * the grid, is read straight off its own state every frame, and is one call.
- * That is also why they are the half that grows: nine more of them are
- * designed, and each is a branch with a paragraph over it.
+ * That is also why they are the half that grows: each is a branch with a
+ * paragraph over it, and at THE HIVE's the page was cut once more, on the
+ * seam `effects-boss.ts` draws — the seven whose picture keeps a transient
+ * are `boss-draw-clocks-b.ts`'s, handed across in one guarded call below.
  *
  * **The order inside is the order they were built in** and nothing depends on
  * it: every arm returns, and no two of these bosses are ever installed at once.
@@ -52,13 +48,7 @@ const CLOCK_KINDS = [
   "gorge",
   "curtain",
   "taster",
-  "sinew",
-  "ledger",
-  "surge",
-  "lead",
-  "scuttle",
-  "antiphon",
-  "hive",
+  ...FX_KINDS,
 ] as const;
 
 export type ClockBoss = Extract<Installed, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -80,7 +70,7 @@ export function drawClockBoss(
   /** The plating without the cannon on it, for the one that comes up through
    * it (`undertow-lobe.ts`). */
   skinY: SurfaceY,
-  /** For the one whose snap outlives a frame (`effects-boss.ts`). */
+  /** For the seven whose picture keeps a transient (`boss-draw-clocks-b.ts`). */
   effects: Effects,
 ): void {
   const { world } = view;
@@ -165,75 +155,7 @@ export function drawClockBoss(
     return;
   }
 
-  // THE SINEW: a tendon from the top edge down to a mass, with a handle on
-  // each side of the mass — one per seat — and the strain band across the
-  // tendon read by seat. What outlives a frame — the snap's whip and its
-  // flash — is `effects.boss.sinew` (`sinew-draw.ts`, `sinew-fx.ts`).
-  if (boss.kind === "sinew") {
-    drawSinew(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.sinew);
-    return;
-  }
-
-  // THE LEDGER: a tall split body high in the field on one thick cord running
-  // down into the ship's own plating, and the field is drawn *through* it the
-  // way THE THROAT's gullet is. Both screens see the body, the seam and the
-  // cord — and only the navigator's sees where the cord is rooted, which is
-  // this boss's whole split (`ledger-draw.ts`, `view-role-clocks.ts`). What
-  // outlives a frame — the whip back up the cord, the shock through the hull,
-  // the flash of the tear — is `effects.boss.ledger` (`ledger-fx.ts`).
-  if (boss.kind === "ledger") {
-    drawLedger(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.ledger);
-    return;
-  }
-
-  // THE SURGE: a ribbed bulb hung over the middle of the field with a seam
-  // round its equator, a grip mark on each flank for the two thumbs that
-  // share it, and the gauge along the seam read by seat — the notches on
-  // the pilot's screen, the pressure on the navigator's. What outlives a
-  // frame — the sink after a vent, the jolt of a burst, the jet — is
-  // `effects.boss.surge` (`surge-draw.ts`, `surge-fx.ts`).
-  if (boss.kind === "surge") {
-    drawSurge(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.surge);
-    return;
-  }
-
-  // THE LEAD: a ridge across the top of the field above row 0 with a stalk of
-  // beads pacing along it, and the shots hanging in the air over it until they
-  // are judged. Not a clock — a *place* — but it hangs over the field with
-  // nothing of itself on the grid, like every arm here. The stalk stands at
-  // its column on the navigator's screen and in the middle of the pilot's,
-  // where it leans instead, which is the whole split. What outlives a frame —
-  // the spring the lean rides, the whip, the bead that tumbles off — is
-  // `effects.boss.lead` (`lead-draw.ts`, `lead-fx.ts`).
-  if (boss.kind === "lead") {
-    drawLead(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.lead);
-    return;
-  }
-
-  // THE SCUTTLE: a slab of a frame over the top of the field plated with its
-  // parts, the loose ones sliding out of their sockets on threads over the
-  // cadence. The sockets — plated or open, the count — are on the pilot's
-  // screen; the live part in its colour and the lock on the column of the
-  // next throw are on the navigator's, which is the whole split. What
-  // outlives a frame — the jolt of a throw, the plate that tumbles off on a
-  // strike — is `effects.boss.scuttle` (`scuttle-draw.ts`, `scuttle-fx.ts`).
-  if (boss.kind === "scuttle") {
-    drawScuttle(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.scuttle);
-    return;
-  }
-
-  // THE ANTIPHON: a smooth body over the top of the field, pitted with the
-  // shapes already named, the organ it has grown under its middle on the
-  // pilot's screen and the whole rail under its columns on the navigator's,
-  // which is the whole split. What outlives a frame — the eruption of every
-  // pit — is `effects.boss.antiphon` (`antiphon-draw.ts`, `antiphon-fx.ts`).
-  if (boss.kind === "antiphon") {
-    drawAntiphon(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.antiphon);
-    return;
-  }
-
-  // THE HIVE: a waxen mass over the top of the field with a site in every
-  // lobe of its underside. The breach's colour is on the pilot's screen, the
-  // swell of the next site on the navigator's (`hive-draw.ts`, `hive-fx.ts`).
-  drawHive(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.hive);
+  // The seven since THE SINEW, each with a transient of its own, are page
+  // two's (`boss-draw-clocks-b.ts`).
+  if (isFxBoss(boss)) drawFxBoss(ctx, l, view, boss, effects);
 }
