@@ -290,6 +290,7 @@ named instead.
 ## THE CURTAIN is on the field and drawn nowhere
 
 - **Found:** 2026-09-17, claude/render-tests-draw-real-pixels
+- **Taken:** 2026-09-17, claude/queue-the-curtain-is-on-the-field-and-drawn-nowhere
 - **Files:** `packages/render/test/pixel-frame.test.ts`, `packages/content/src/living-look.ts`, `docs/spec/bosses.md`
 
 The pixel test's first run against the trunk, the morning THE CURTAIN's
