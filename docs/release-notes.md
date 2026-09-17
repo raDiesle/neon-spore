@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · bc68009d — A row in the phone's wave list opens that wave, in the view it names
+
+On a phone the director shows one of three views at a time, so getting from a wave in the list to its map was three presses and two of them were the menu. Every row now ends in two small buttons, WAVE and MAP, and each is select-and-go in one press: the wave becomes the selected one and the view it names comes up on it. The row's own press still only selects, because the list is also how the campaign is read down and a row that navigated would make scanning it a series of departures.
+
 ## 2026-09-17 · 99011cd0 — THE ORRERY's ring is turned by a key, a press line and a film
 
 The ring landed with a real thumb and nothing else: it could not be turned at a desk, could not be photographed, and could not be shown in a guide. THE CLAW's crank has three senders of that stream and each asks the simulation for the rate rather than choosing one; this gives the ring the same three.
