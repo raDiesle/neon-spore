@@ -765,3 +765,15 @@ shell out to `git` a timeout that is a multiple of a measured baseline rather
 than a flat 5000 ms — `bun test`'s per-`it` timeout takes a number, and these
 files know they are doing repository work — or serialise the repo-backed files
 onto one shard and give that shard room.
+
+**Seen a third time the same day, with a worse shape.** The failure was not a
+timeout but an *unhandled error between tests*: `git reset --hard --quiet
+HEAD~1` in `reconcile-repo.test.ts`'s `diverged` helper threw with an empty
+stderr, and the shard reported `1 error` beside `0 fail` — so the count of
+failed tests was zero and the run was red anyway. The same file passed alone in
+3.7 s a minute later. A fix that only raises `it` timeouts does not reach this
+one: the helper's `run` throws outside any `it`'s own frame, so whatever the
+timeout is, the error escapes the test that caused it and lands on the shard.
+Whichever way it is fixed, the repo-backed helpers need to say which git
+command failed *and* in which temporary repository, because an empty stderr
+from `git reset` says nothing a reader can act on.
