@@ -598,6 +598,7 @@ shows it. `bun run check` proves all of it.
 ## A scar does not remember what colour hit the ship
 
 - **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Taken:** 2026-09-17, claude/queue-a-scar-does-not-remember-what-colour-hit-the-shi
 - **Where:** local
 - **Files:** `packages/sim/src/hull-types.ts`, `packages/sim/src/hash.ts`, `packages/render/src/breach-hue.ts`, `packages/render/src/lost-screen.ts`, `packages/render/src/scars.ts`
 
