@@ -620,6 +620,7 @@ are numbered.
 ## The fuse count is drawn under the siren dial, on its centre at its radius
 
 - **Found:** 2026-09-17, claude/queue-a-rehearsal-cannot-show-a-finger-on-a-bare-tile
+- **Taken:** 2026-09-17, claude/queue-the-fuse-count-is-drawn-under-the-siren-dial-on
 - **Where:** local
 - **Files:** `packages/render/src/mine.ts`, `packages/render/src/siren.ts`, `packages/render/src/ship-top-rows.ts`, `packages/render/test/frame.test.ts`
 
