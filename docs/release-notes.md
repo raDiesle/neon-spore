@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 26ee2134 — Mark "`briefing.test.ts` went red under `check:fast` while another session ran `check`" done
+
+Both halves landed in fbf64003: the frame cap reads the load average per core now, and `drift.test.ts` has one of its own. The runner was left alone, which was the entry's other option.
+
 ## 2026-09-17 · fbf64003 — A frame's cap reads the load average instead of a constant
 
 `FRAME_TIMEOUT_MS` was a flat thirty seconds, and on 17 September 2026 `briefing.test.ts` went red at *draws a rehearsal, through every page of it* under a `check:fast` whose eight shards took 237 seconds against 96 on the green rerun a minute later — a second session had fourteen shards of its own up and the load average was 50. A case that costs 2.4 s alone did not finish in thirty. It is `cpuTimeout(3_000)` now, and `tools/index/test/drift.test.ts`, the entry's other half, gets `loadedTimeout(500)` for the 390 ms case that timed out at 12.4 s on bun's flat default.
