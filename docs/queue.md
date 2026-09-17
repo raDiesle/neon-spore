@@ -318,6 +318,7 @@ nothing, which is what it was chosen against.
 ## A probe left in `tools/probe/scratch/` reddens every later typecheck
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
+- **Taken:** 2026-09-17, claude/queue-a-probe-left-in-tools-probe-scratch-reddens-ever
 - **Files:** `tsconfig.json`, `tools/probe/run.ts`, `.gitignore`
 
 `tools/probe/run.ts` says a scratch probe is "neither committed nor in
