@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · fbf64003 — A frame's cap reads the load average instead of a constant
+
+`FRAME_TIMEOUT_MS` was a flat thirty seconds, and on 17 September 2026 `briefing.test.ts` went red at *draws a rehearsal, through every page of it* under a `check:fast` whose eight shards took 237 seconds against 96 on the green rerun a minute later — a second session had fourteen shards of its own up and the load average was 50. A case that costs 2.4 s alone did not finish in thirty. It is `cpuTimeout(3_000)` now, and `tools/index/test/drift.test.ts`, the entry's other half, gets `loadedTimeout(500)` for the 390 ms case that timed out at 12.4 s on bun's flat default.
+
 ## 2026-09-17 · 62b7340f — The clock bosses' halves and the boss transients each get a file of their own
 
 `view-role.ts` and `effects.ts` were both at 250 lines, and the next boss would have paid for its line by shortening somebody else's paragraph. Two seams the tree had already cut elsewhere: the fourteen `showsX` predicates from THE DIASTOLE onward move to `view-role-clocks.ts`, on the seam `sim/bosses-clocks.ts` and `boss-draw-clocks.ts` share, and the eight transients that belong to one boss — the mirror, the warden, the fleet, the reprise, the after-image, the gorge, the curtain, the taster — become `BossTransients` in `effects-boss.ts`, held as `effects.boss` and walked by its own four verbs, the way `effects-body.ts` already is. `view-role.ts` is 96 lines and `effects.ts` 209; nothing drawn changes.
