@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 2f9f78b2 — THE THROAT's gullet: five rings, the slack ones hanging limp, and a contraction that climbs away from the field
+
+THE THROAT played and was invisible for one landing; now the gullet hangs down the frame. Five ring muscles between the top edge and the mouth's row, the tube filled dark behind them, and a mouth one column wide with a venom lip that gapes on the inhale. A ring a gum has choked goes slack for good and is drawn limp inside its own station rather than left out — the silhouette is this boss's whole health bar, so a worn gullet has to read as weaker and never as shorter. The tube leans toward the mouth, and how far up the lean reaches is the slack, so a spent one sags across the field.
+
 ## 2026-09-17 · ff9f305f — A wait that crosses the end of a slow window is walked, not divided
 
 The delay became milliseconds this morning and the tick count is asked for at the rate in force, which is right for every wait spent entirely at one rate. A wait that crosses a boundary was still short: a thumb inside one of THE SLOW's windows asked for eight ticks because a tick was worth 25 ms there, and if the window closed two ticks later the remaining six were worth 8⅓ ms each and the press was answered after 70 ms rather than the 195 the link asked for. Short is the direction that costs the run — the peer's promise may not have arrived, and the pair gets a breath of `stalled` on the beat after the drama.
