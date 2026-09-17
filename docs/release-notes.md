@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 7619264a — THE ORRERY's ring answers a real thumb, anywhere round it
+
+The hand landed this morning as a rule with nothing to take hold of. It has a handle now, and it is unlike every other one on the field: not a small circle hanging off a body but an ellipse the width of the field, so the hit test and the mark that says it turns live in one file — `orrery-grab.ts` — because `layout.ts`'s rule that a control is never drawn in one place and answered in another has never had this much room to be broken in.
+
 ## 2026-09-17 · be4f391f — Queue: whether the render tests should draw a frame into real pixels
 
 The stub canvas checks every argument a frame hands the canvas and nothing about the result, so a body at alpha 0, a glow under the backdrop or a shape outside its clip passes every test and draws nothing on the phone. The one tool that would close that — a native Skia canvas under Bun, measured at 7 ms a frame with no build step — is 27 MB every worktree and cloud session would install, so it is put to the owner as a queue entry rather than added. A Python SVG rasteriser, which the question was about, touches neither the Canvas 2D game nor the tests, and the entry says why.
