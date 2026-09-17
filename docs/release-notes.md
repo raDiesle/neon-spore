@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 5cd63ad6 — The lost screen fits inside a rehearsal's page
+
+Four rehearsals have a page whose picture is the lost screen — TORCH, BULB QUEEN, THE LURE and THE COIL — and a film draws the game's screens at the film's own size, so WAVE LOST was stamped 73 pixels down with the tutorial plate sitting on top of it. The screen now fits itself under the band: foot pinned, top lifted to the plate's own foot, centred across. On the game, which has no band, not a pixel moves.
+
 ## 2026-09-17 · 747fd801 — A grid axis gets out from under the tutorial plate
 
 THE FLEET's chart was numbered under the band — row 1 at the top of the gutter, the square names beside it — and the answer it carried was a `leftCovered` that moved the numbers to the *other* edge. That was a real answer while the plate was a corner and stopped being one when the band went full width. The owner's answer, 17 September 2026: a chart drops as a block. So the whole chart does, by `headerLift`, the way THE PULSE moves its header — and the marks, the sights and the shells in the air drop with it, because they are drawn off the chart's own square.
