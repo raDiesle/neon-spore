@@ -205,7 +205,7 @@ export function drawBoss(
   // and, on one screen of the two, the whole tangle over them
   // (`splice-draw.ts`).
   if (boss.kind === "splice") {
-    drawSplice(ctx, l, world.cfg, boss, world.cannonCol, world.beat, view.beatPhase);
+    drawSplice(ctx, l, world.cfg, boss, world.cannonCol, world.beat, view.beatPhase, view.clearTop);
     return;
   }
 

@@ -8762,3 +8762,18 @@ here was thrown away because a second copy of one question is not a vote.
 stop it — the other lane worked it under a different branch.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — splice-clock-under-the-plate — THE SPLICE's clock drops under the tutorial plate
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `round-header.ts`, `splice-draw.ts`'s clock, `boss-draw.ts`'s one call, the room test's sweep |
+| deciding | 0 | the queue entry had decided it: `headerTop` at `drawClock`, the clearance carried down from `boss-draw.ts` |
+| writing | 5 | one parameter through `drawSplice`, `headerTop` at the readout, the clock's pattern in the sweep |
+| friction | 5 | a `git checkout` meant to undo a one-line probe undid the file, and the edit was applied twice |
+| landing | 5 | `check:fast`, the frame, the commit, `bun run land` |
+
+The bottleneck was my own probe: proving the sweep goes red without the drop
+cost more than the drop did.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

@@ -58,6 +58,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * the siren and drop with it now, held by `alarm-room.test.ts`. What is left
  * in the queue is what a *round* draws: two chart axes, a clock, three labels
  * on bodies, and the lost screen as a page's subject.
+ *
+ * **THE SPLICE's clock is swept here since 17 September 2026**: `1 OF 2 · 26`
+ * on the seat shown the tangle is a readout at a fixed offset from the top,
+ * and it drops under the plate off `headerTop` the way a name does
+ * (`splice-draw.ts`).
  */
 
 const CFG = { ...DEFAULT_CONFIG, briefings: true };
@@ -77,6 +82,8 @@ function guided(waveIndex: number): World {
 
 /** The run's line in the corner: a clock, and the retries once there are any. */
 const RUN_LINE = /^\d+:\d{2}( ·|$)/;
+/** THE SPLICE's own clock: which number of how many, and the beats left. */
+const SPLICE_CLOCK = /^\d+ OF \d+ · \d+$/;
 
 /** Whether a word's box crosses the band the chrome stands in. */
 function inPlateBand(t: TextBox): boolean {
@@ -107,7 +114,9 @@ describe("the tutorial plate and a round's header", () => {
           if (plate.length > 0) {
             const name = WAVES[i]?.name ?? "";
             const under = ctx.texts.filter(
-              (t) => (t.text === name || RUN_LINE.test(t.text)) && inPlateBand(t),
+              (t) =>
+                (t.text === name || RUN_LINE.test(t.text) || SPLICE_CLOCK.test(t.text)) &&
+                inPlateBand(t),
             );
             expect(
               under.map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),

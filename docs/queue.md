@@ -355,26 +355,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE SPLICE's clock is under the guide's band
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-17, claude/queue-the-splices-clock-is-under-the-guides-band
-- **Files:** `packages/render/src/splice-draw.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/round-header.ts`
-
-**One third of a split, and the only third that is decided.** The round writes
-`1 OF 2 · 26` at 159,94 on the seat shown the tangle, placed off
-`spliceTopY(l, cfg) - l.tile * 0.7`, and the rehearsal's band reaches 104. It
-is a readout at a fixed offset from the top of the screen, which is exactly
-what `round-header.ts` exists for: `headerTop(view, own)` at `drawClock`.
-
-`drawSplice` takes a `Layout` and the boss's own state today, so the clearance
-has to be carried down from `boss-draw.ts:140`, where the `ViewState` is
-already in hand. Nothing else in the file moves — the straws, the mouths and
-the numbers are on the field, not in the strip.
-
-Widen `packages/render/test/guide-plate-room.test.ts` to sweep the clock's
-line when it is done; its header carries the list.
-
 ## A round's picture is under the guide's band on eight rehearsals
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307
