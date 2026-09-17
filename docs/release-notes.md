@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · f0c9e934 — Every boss entry type reaches a caller by one road, and two full files lose 36 lines
+
+`entries.ts` sat at 250 lines of 250 and `events.ts` at 247, and in both the only reason was a block re-exporting a neighbour's boss types. Both are gone — 225 and 236 — and the asymmetry that made them worth deleting is gone with them: THE SCUTTLE, THE ANTIPHON and THE HIVE had each added a boss without touching `entries.ts`, so three of the thirty-three entry types reached the surface by a different road and a reader following `entries.ts` could not find them. All thirty-three now come out of `boss-entries.ts`, where they are declared.
+
 ## 2026-09-17 · c7902d99 — THE HIVE has its look: a waxen mass over row 0, the breach's colour on the pilot's screen and the swell on the navigator's
 
 The second lane of the boss from `docs/spec/bosses.md` §11.14. A mass of wax hangs over the top of the field, its underside scalloped into a lobe a site: a lobe shut, a lobe swelling through the three beats before it opens (the navigator's screen alone, and two at once from the fifth opening), a breach open in its colour (the pilot's screen alone; wax-grey on the navigator's), a scar stitched over a sealed one. A wrong colour clenches the mass, a seal jolts it, and the last seal closes it on its middle and fades it over `hiveOutBeats`. **A look with no shipped alternative.**

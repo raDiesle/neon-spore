@@ -9808,3 +9808,5 @@ written — the three strays were in `boss-surface-clocks*.ts` rather than
 `bosses-clocks-b.ts`, and its proposed `export * from "./boss-entries.js"` in
 `index.ts` described a surface that does not work that way. Fifteen minutes
 went to mapping the real one before anything could be deleted safely.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
