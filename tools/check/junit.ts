@@ -44,15 +44,24 @@ function attribute(attrs: string, name: string): number {
  * so "first" is the earliest failure of the earliest red shard rather than
  * whichever one happened to finish first.
  *
+ * **And what it said**, since 17 September 2026: `message` is the failure's
+ * own text — the `expect` line and the diff under it — because a name alone
+ * was still a rerun. `loop-once.test.ts` went red once in eight shards with
+ * *only stage-loop.ts accumulates a fixed-timestep carry*, and which file it
+ * had found was in the received array the case printed, in the shard's block,
+ * and nowhere in the line a reader had (`docs/queue.md`, 17 September 2026).
+ *
  * Null when nothing failed, which is every green run.
  */
-export function firstFailure(xml: string): { file: string; line: number; name: string } | null {
+export function firstFailure(
+  xml: string,
+): { file: string; line: number; name: string; message: string } | null {
   // The `<failure>` is a child of the `<testcase>` that failed, so the case is
   // the last opening tag before it. Matched as "a testcase tag, then anything
   // that is not another testcase tag, then a failure" rather than by parsing:
   // one shape, written by one reporter, and a parser here would be a second
   // thing to keep up with `bun test`'s output.
-  const hit = /<testcase\b([^>]*)>(?:(?!<testcase\b)[\s\S])*?<failure\b/.exec(xml);
+  const hit = /<testcase\b([^>]*)>(?:(?!<testcase\b)[\s\S])*?<failure\b([^>]*)>/.exec(xml);
   if (!hit) return null;
   const attrs = hit[1] ?? "";
   const text = (name: string): string => attrs.match(new RegExp(` ${name}="([^"]*)"`))?.[1] ?? "";
@@ -64,7 +73,18 @@ export function firstFailure(xml: string): { file: string; line: number; name: s
     // `classname` is the `describe` a case sits in, and it is the half that
     // says what the case was about; a case written at the top level has none.
     name: group && group !== own ? `${group} > ${own}` : own,
+    message: readEntities((hit[2] ?? "").match(/ message="([^"]*)"/)?.[1] ?? ""),
   };
+}
+
+/** The five entities the reporter writes into an attribute, read back. */
+function readEntities(attr: string): string {
+  return attr
+    .replace(/&#(\d+);/g, (_, n: string) => String.fromCharCode(Number(n)))
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
 }
 
 export function tallyOf(xml: string): Tally {

@@ -9181,3 +9181,20 @@ the rename that fixed it is quoted character-for-character by three tests in
 two files, so a four-line move cost three test edits.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-four-drawn-bosses-still-owe-their-rehearsal-film — `loop-once.test.ts` found a second fixed-timestep loop once, then did not
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry, `loop-once.test.ts`, `junit.ts`, `shard.ts`, what `bun test --reporter=junit` writes into a `<failure>` |
+| deciding | 5 | the message is in the report's `message` attribute already, so the runner reads it out rather than the test writing anywhere else; a cap of twelve lines under the name |
+| writing | 5 | `firstFailure` carries the message, `shard.ts` prints it, the loop test names its files in the assertion, a case for the entities |
+| friction | 0 | — |
+| landing | 5 | a red run staged with a copied loop to see the shape, `check:fast`, this entry, the commit, `bun run land` |
+
+The bottleneck was that the flake itself could not be made to happen: the
+scan is deterministic on a still tree and nothing in the shards writes under
+`tools/director`, so the lane fixed what the entry asked for — the next red
+says which file — and left the cause to the next time it says one.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

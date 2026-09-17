@@ -29,7 +29,10 @@ test("only stage-loop.ts accumulates a fixed-timestep carry", async () => {
     const source = await Bun.file(join(SRC, file)).text();
     if (/\bcarry\s*\+=/.test(source)) carriers.push(rel);
   }
-  expect(carriers).toEqual([]);
+  // Named in the message as well as in the diff: a red run's closing line
+  // carries the message, and the one time this went red the file it found
+  // was the whole question (`docs/queue.md`, 17 September 2026).
+  expect(carriers, `a fixed-timestep carry outside ${HOME}: ${carriers.join(", ")}`).toEqual([]);
 });
 
 test("the one that does is the one everything else calls", async () => {

@@ -162,11 +162,18 @@ console.log(
 // **And what failed, under the counts.** A red run is read from the bottom,
 // and until 14 September 2026 the bottom said only how many — the case's name
 // was in its shard's own block, hundreds of lines up (`firstFailure`).
+const FAILURE_LINES = 12;
 const first = firstFailure(merged);
 if (first) {
   const where = first.file ? `${first.file}${first.line ? `:${first.line}` : ""} — ` : "";
   const more = total.failures > 1 ? ` (+${total.failures - 1} more)` : "";
   console.log(`  first failure: ${where}${first.name}${more}`);
+  // And its message, indented under the name: the `expect` line and the diff,
+  // which is where a case that lists what it found puts the list. Capped so a
+  // snapshot's worth of diff does not push the counts off the screen.
+  const said = first.message.trimEnd().split("\n");
+  for (const line of said.slice(0, FAILURE_LINES)) console.log(line ? `    ${line}` : "");
+  if (said.length > FAILURE_LINES) console.log(`    … ${said.length - FAILURE_LINES} more lines`);
 }
 if (junit) await Bun.write(junit, merged);
 for (let i = 0; i < bins.length; i++)

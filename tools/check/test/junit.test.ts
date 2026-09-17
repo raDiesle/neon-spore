@@ -97,7 +97,20 @@ describe("the failing case a red run closes with", () => {
       file: "packages/sim/test/step.test.ts",
       line: 7,
       name: "a group > fails on purpose",
+      message: "expect(received).toBe(expected)",
     });
+  });
+
+  it("carries what the case said, with the reporter's entities read back", () => {
+    // The shape bun writes for `expect([...]).toEqual([])`: the diff is in
+    // the attribute, newlines as `&#10;` and the strings' quotes as `&quot;`.
+    const xml = SHARD_BARE.replace(
+      'message="expect(received).toBe(expected)"',
+      'message="expect(received).toEqual(expected)&#10;&#10;- []&#10;+ [&#10;+   &quot;src/a.ts&quot;,&#10;+ ]&#10;"',
+    );
+    expect(firstFailure(xml)?.message).toBe(
+      'expect(received).toEqual(expected)\n\n- []\n+ [\n+   "src/a.ts",\n+ ]\n',
+    );
   });
 
   it("says just the case where there is no describe over it", () => {
