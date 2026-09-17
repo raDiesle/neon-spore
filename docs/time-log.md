@@ -9861,3 +9861,5 @@ The bottleneck was that the honest "not built" content on these pages is not
 where a backlog usually keeps it — it is the last paragraph of a *finished*
 thing's write-up, in each section's own words — and the group that reads it is
 the largest one on the sheet.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
