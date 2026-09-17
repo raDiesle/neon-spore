@@ -10296,6 +10296,29 @@ outside it that a boss is a name in, each found by a test going red.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-17 — boss-implementation — THE LEAD, the rehearsal
+
+The eighth boss film written after its look, and the first whose `atBoss`
+strip is a prediction: eight pages over 1500 ticks, a shot at where the body
+is and four at where it will be, the run's two torches and its rock warded,
+the beam held early and standing in the pass. The same lane gave
+`boss-answer.ts` its lead line — `leadLead`, the column two beats on — and
+`lead.ts` the `leadAhead` walk that `leadAim`, `leadHeading` and the new
+line all read.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `lead.ts`, `lead-step.ts`, `lead-shot.ts`, `config-lead.ts`, `lance-burn.ts` for when a beam stands, `hull.ts` for when a torch is warded, `kinds.ts` for how long a rock stands in a column |
+| writing | 10 | `leadAhead` and `leadLead`, the answer line and its test, the scene, the registry, the wave's `scene`, the prose list, the film test, §3.2, the §11.29 paragraph, the queue item's line |
+| looking | 10 | four runs of the acts through a probe: the fire a beat after the strip missing, the rock dropped in the very column the next shot leaves by, the torches' ward beat, the beam's window against the pass |
+| friction | 5 | the run's rock stands in its column fourteen beats and blocks every later shot through it, so the whole second half was laid out again around the rock's columns |
+| landing | 5 | `check:fast`, the sort, the index, the commit, `bun run land --keep` |
+
+The bottleneck was the litter: the run drops a rock in exactly the column
+the next correct shot has to leave by, and it stands there for fourteen
+beats, so a film of the correct sum is a film of the sum laid around the
+rocks — which is the boss, but took the probe to see.
+
 ## 2026-09-17 — boss-implementation — THE SURGE, the rehearsal
 
 The seventh boss film written after its look, and the first on a handle both

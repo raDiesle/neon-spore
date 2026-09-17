@@ -127,19 +127,30 @@ export function leadWalk(
   return { col: to, dir: turned };
 }
 
-/** The way it will be moving `ahead` beats from now, at its pace, walls and all — what the stalk leans. */
-export function leadHeading(s: LeadState, cfg: SimConfig, ahead: number): -1 | 1 {
+/** Where it is `ahead` beats from now at its pace, walls and all, and the way it faces then. */
+export function leadAhead(
+  s: LeadState,
+  cfg: SimConfig,
+  ahead: number,
+): { col: number; dir: -1 | 1 } {
   let at = { col: s.col, dir: s.dir };
   for (let i = 0; i < ahead; i++) at = leadWalk(at.col, at.dir, leadPace(s, cfg), cfg);
-  return at.dir;
+  return at;
+}
+
+/** The way it will be moving `ahead` beats from now — what the stalk leans. */
+export function leadHeading(s: LeadState, cfg: SimConfig, ahead: number): -1 | 1 {
+  return leadAhead(s, cfg, ahead).dir;
 }
 
 /** The column a shot leaving the top of the field this beat has to be put in — where the body is on the beat it is judged. */
 export function leadAim(s: LeadState, cfg: SimConfig): number {
-  let at = { col: s.col, dir: s.dir };
-  for (let i = 0; i < cfg.leadFlightBeats; i++)
-    at = leadWalk(at.col, at.dir, leadPace(s, cfg), cfg);
-  return at.col;
+  return leadAhead(s, cfg, cfg.leadFlightBeats).col;
+}
+
+/** The column a shot *pressed* this beat has to be put in: the beat it climbs the field, then the beats it hangs above it — the pair's sum. */
+export function leadLead(s: LeadState, cfg: SimConfig): number {
+  return leadAhead(s, cfg, cfg.leadFlightBeats + 1).col;
 }
 
 /** The way a pass from `col` goes: toward the farther wall, the middle going right. */

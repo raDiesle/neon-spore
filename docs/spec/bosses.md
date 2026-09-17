@@ -3850,6 +3850,27 @@ the ridge does not show the walls it turns at; the torch and the rock are
 the field's own creatures with a burst over the column and no fall drawn
 out of the body. The owner's eye decides all three.
 
+**The rehearsal** (`content/src/scenes/the-lead.ts`, 17 September 2026,
+eight pages over 1500 ticks): the mistake first — a shot at column 7, where
+the body stands on beat 2, judged on beat 4 against column 9, a miss and the
+double back — then four shots at where it will be, every one an `atBoss`
+strip: `sim/boss-answer.ts` answers THE LEAD with `leadLead`, the column the
+body is in two beats on, one walk for the climb up the field and one for the
+beat in the air, and nothing while it stands dead still or passes. The
+strip and the fire sit in one beat, five and twenty ticks in, because the
+bolt's sixty-five ticks to the top must fall in the next beat and not the
+one after. The walk's lead is two and the run's four, as the design says,
+and nothing is rolled. The run's litter is laid around rather than through:
+a rock stands in its column for the fourteen beats of its fall, so no shot
+is judged the beat after one and the body is hit on columns no rock is in;
+the two torches are warded where they land and the rock at 2 after the body
+is down. With one segment it stops at the right wall; the cannon is put in
+8 and a colour held three beats early, so the beam is standing when the
+pass comes through at three a beat, 10 to 7. Every page is on a control or
+the hull — the body is a fixture and no anchor names one, the gauge item in
+`docs/queue.md`. The film takes no hit and points at no retries.
+`content/test/scene-films.test.ts` holds the sequence.
+
 **Never watched at tempo.** What the tests say is the mechanism: it
 installs over the middle facing right with every segment on the stalk and
 sends `leadEnter`; it is a fixture that holds its wave and, walking, falls

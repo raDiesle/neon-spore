@@ -300,18 +300,18 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are seventy-one of them now**, one per guided wave bar sixteen, and
+**There are seventy-two of them now**, one per guided wave bar fifteen, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The sixteen that are still the three strings
+rather than a page of prose. The fifteen that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
 CODEX, THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE ORRERY, THE
-LEAD, THE SCUTTLE, THE ANTIPHON, THE HIVE and THE INSTAR** — and
+SCUTTLE, THE ANTIPHON, THE HIVE and THE INSTAR** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those sixteen is a film nobody has written, and from THE
+**Every one of those fifteen is a film nobody has written, and from THE
 SCOUT's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
@@ -345,6 +345,12 @@ whose acts say whose hand each is (`SceneAct.hand`), because the bulb is one
 `DragTarget` for either thumb — and the middle hold is the mistake, a thumb
 off alone with the charge lost under the other; the burst, its gums and the
 eversion at the fifth notch are the last two pages' words and the prose.
+THE LEAD's, the same day, is the mistake first — a shot at where the body
+is, missed and turned round — and then four at where it will be, every one
+an `atBoss` strip answered by the sum itself (`leadLead`, two beats on);
+the run's litter is laid around, since a rock stands in its column for the
+fourteen beats of its fall, and the beam is held three beats early so it is
+standing when the pass comes through.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square

@@ -196,7 +196,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A caption has no anchor for a boss's own gauge, so it points at the hull
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`
+- **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`
 
 `SceneAnchor` names a body, a control, a handle, the hull, the radar, the
 ship and the retries — nothing that is a boss's fixture. THE SINEW's film has
@@ -209,7 +209,10 @@ own point of interest — `{ at: "boss", part?: string }` answered by a
 per-kind line in `caption-anchor.ts` off the boss's draw file, the way
 `handle` is answered off each handle's — and move those five pages onto it.
 `render/test/choir-anchor.test.ts` is the pattern for proving the anchor
-lands where the fixture is drawn.
+lands where the fixture is drawn. THE LEAD's film (17 September 2026) is
+the same shape again: eight pages about a body pacing the ridge, three of
+them on the hull because nothing names the body, when the stalk
+(`render/lead-draw.ts`) is what every one of them is about.
 
 ## A rehearsal's frame hides what stands over row 0 of the field
 

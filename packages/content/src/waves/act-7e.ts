@@ -56,6 +56,7 @@ export const WAVES_ACT_7E: Wave[] = [
       both: "A body paces along the top of the field on a stalk of five segments, a column a beat, turning at the walls. A shot out of the top hangs a beat in the air and is judged against the column it is in then — so aim where it will be. A hit takes a segment; a beat every shot missed turns it round. From the fourth segment it runs, dropping a torch behind and a rock ahead. On the last segment it stops dead, and only the beam standing in a column it then passes through ends it.",
       p1: "Only you see which way the stalk leans: where it goes next, and from the second segment the turn a beat early. Say it every beat, left or right, and slide the cannon under the column it will be in, not the one it is in.",
       p2: "Only you see the column it stands in. Read it out every beat; he has where it goes next. Fire the beat he says the cannon is under where it will be: the shot takes a beat to get there. On the last segment, hold the beam.",
+      scene: "theLead",
     },
     entries: [
       { beat: 10, col: 2, kind: "meteor", color: null },

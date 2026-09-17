@@ -1,6 +1,7 @@
 import { candleBoss, candleEating } from "./candle.js";
 import { diastoleBridgeCol, diastoleChamberCol } from "./diastole.js";
 import { diastoleBoss } from "./diastole-step.js";
+import { leadBoss, leadLead, leadShootable, leadStill } from "./lead.js";
 import { ledgerBoss } from "./ledger.js";
 import { type TasterState, tasterBoss, tasterOrder, tasterPhase } from "./taster.js";
 import { undertowBoss } from "./undertow.js";
@@ -21,8 +22,10 @@ import type { World } from "./world.js";
  * column at a time off the same rng. THE TASTER's fan opens from the middle
  * outward and its second blade stands over column 6, which no authored
  * column reaches either. THE LEDGER's socket walks a column along the hull
- * per return, into every column there is. So a strip may say `atBoss`
- * instead of a column, and this is the one reading of what that means.
+ * per return, into every column there is. THE LEAD is never where it is: the
+ * column to stand under is the one it will be in two beats on, and it paces
+ * through all eleven. So a strip may say `atBoss` instead of a column, and
+ * this is the one reading of what that means.
  *
  * **It is the boss's own answer, not the picture's.** Each line here asks the
  * boss's file the question the pair is meant to be asking — where does the
@@ -71,6 +74,15 @@ export function bossAnswerCol(world: World): number | null {
     // which is the one the plate must *not* stand under (`ledgerLetThrough`).
     if (g.outBeat >= 0 || g.beads.some((b) => b.last)) return null;
     return g.socket;
+  }
+  const l = leadBoss(world);
+  if (l !== null) {
+    // The sum itself: where the body will be when a shot pressed now is
+    // judged — the beat it climbs the field and the beats it hangs above it
+    // (`leadLead`). Nothing while it stands dead still or passes, when no
+    // shot touches it and the beam standing in its way is the answer.
+    if (!leadShootable(l) || leadStill(l)) return null;
+    return leadLead(l, world.cfg);
   }
   return null;
 }

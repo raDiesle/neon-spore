@@ -4,6 +4,7 @@ import { candleBoss } from "../src/candle.js";
 import { DEFAULT_CONFIG, midCol, type SimConfig, ticksPerBeat } from "../src/config.js";
 import { diastoleChamberCol } from "../src/diastole.js";
 import { diastoleBoss } from "../src/diastole-step.js";
+import { leadBoss, leadLead } from "../src/lead.js";
 import { ledgerBoss } from "../src/ledger.js";
 import { step } from "../src/step.js";
 import { tasterBoss } from "../src/taster.js";
@@ -128,6 +129,28 @@ describe("the column a boss is answered from", () => {
     expect(bossAnswerCol(world)).toBeNull();
     g.beads = [];
     g.outBeat = world.beat;
+    expect(bossAnswerCol(world)).toBeNull();
+  });
+
+  it("is where THE LEAD will be two beats on, and nothing while it stands dead still or passes", () => {
+    const world = open({ kind: "lead" });
+    const l = leadBoss(world);
+    if (l === null) throw new Error("no body");
+    // Installed in the middle facing right at a walk: two columns on, which
+    // is the sum the pair says — the column, plus the lean, twice.
+    expect(bossAnswerCol(world)).toBe(midCol(CFG) + 2);
+    expect(bossAnswerCol(world)).toBe(leadLead(l, CFG));
+    // At the run it is four, and a wall turns the sum round inside it.
+    l.segments = CFG.leadFastSegments;
+    expect(bossAnswerCol(world)).toBe(midCol(CFG) + 4);
+    l.col = CFG.cols - 2;
+    expect(bossAnswerCol(world)).toBe(CFG.cols - 3);
+    // Stopped dead with the last segment: no shot touches it, the beam does.
+    l.segments = 1;
+    l.stillBeat = world.beat;
+    expect(bossAnswerCol(world)).toBeNull();
+    l.stillBeat = -1;
+    l.passBeat = world.beat;
     expect(bossAnswerCol(world)).toBeNull();
   });
 });
