@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · b97a312a — THE BATON lights a second bead, and the two take turns under one trigger
+
+The design's step 9 (`docs/spec/bosses-choreographed.md` §10), as a simulation lane. After `batonTwinAfter` (3) sockets are dark a second bead lights in the top socket wearing the colour the first is not; from then the pilot's trigger sends whichever bead has sat longest, so *going* has to say which, and player 2's shot takes the lowest unstruck bead in its column, so the colour has to be the one the bolt will reach. Only the lead bead swings the arm; the other rides it. The lead waits in the last socket for the one above it, and the two become one bead, which is the one that drops.
+
 ## 2026-09-17 · c0117f9e — Cut the clock-boss dispatch in two at THE HIVE's arm
 
 `boss-draw-clocks.ts` was at 239 lines, and every boss after it is a branch with a paragraph over it. It is cut on the seam the bosses themselves have: the nine drawn off the world alone stay, and the seven whose picture keeps a transient — SINEW, LEDGER, SURGE, LEAD, SCUTTLE, ANTIPHON, HIVE, each taking its own field of `effects.boss` — are `boss-draw-clocks-b.ts`'s, with their own kind list, guard and `drawFxBoss`, handed across in one guarded call the way `view-role-clocks-b.ts` continues `view-role-clocks.ts`. `CLOCK_KINDS` is still the whole list, so `boss-draw.ts` changes nothing. Not a look: every frame is drawn by the same call it was.
