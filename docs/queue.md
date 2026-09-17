@@ -751,3 +751,47 @@ stand-in is one organ per beat, the ring's own drift, so a key held down holds
 a gap still — and `pullsDown` gets its fourth exception in the same edit. The
 `--press` spelling can follow the crank's: organs rather than turns, since
 organs are what the pair counts.
+
+## A frame test cannot say whether the thing it drew is visible
+
+- **Found:** 2026-09-17, claude/queue-render-tests-draw-real-pixels
+- **Files:** `packages/render/test/canvas-stub.ts`, `packages/render/test/frame-harness.ts`, `packages/render/package.json`, `tools/frames/pixels.ts`, `tools/frames/svg.ts`
+- **Asks:** Should the render tests be able to draw a frame into real pixels in-process — a native Skia canvas as a dev dependency of `packages/render` — or stay on the stub and leave visibility to the eye?
+
+The stub canvas checks every *argument* a frame hands the canvas — a colour
+that does not parse, a NaN, a negative radius — and is silent about the
+*result*. A body drawn at `globalAlpha` 0, a glow entirely under the backdrop,
+a shape drawn outside its clip, a highlight in the backdrop's own colour: all
+of those pass every test in `packages/render/test/` and draw nothing on the
+phone. Today the only thing that catches them is a person looking at a frame,
+and a lane working unattended is not one.
+
+The owner asked on 17 September 2026 whether any tooling would make the
+Canvas 2D work more beautiful or better tested; this is the one candidate that
+survived looking. Measured in this worktree: `@napi-rs/canvas` 1.0.9 installs
+under Bun 1.4.2 with no build step (27 MB of prebuilt binary, macOS, Linux and
+Windows), and draws a phone-sized frame with a radial gradient, a shadow blur,
+a `Path2D` and text in 7 ms, with `getImageData` and `toBuffer("image/png")`
+both answering. For comparison `bun run png` boots Chrome for 1.4 s per
+picture.
+
+The options the answer picks between. **A pixel harness** — a second harness
+beside `frame-harness.ts` that draws a world through `Canvas2DRenderer` into
+the native canvas, installs `document.createElement("canvas")` and `Path2D`
+from the same package the way `installCanvasGlobals` does for the stub, and
+hands back a `Picture` in the shape `tools/frames/pixels.ts` already decodes,
+so the same region checks serve a screenshot and a test. Its first test holds,
+for every wave's `peakWorld` and every seat, that the field region is not the
+backdrop alone and that each body's centre sits on a pixel that is not the
+backdrop's — the visibility check the stub cannot make. It also gives the look
+loop a still of the renderer alone without Chrome, though `bun run frames` stays
+the picture of the real screen because the HUD buttons are DOM. **Nothing** —
+the stub's own preamble says pixels are not assertable, the visibility failures
+above have not yet cost a landing, and 27 MB of native code is a new thing every
+fresh worktree and every cloud session installs and Windows has to be trusted to
+load. Text is the one place the two would disagree: Skia here has no system
+fonts on a bare Linux box, so a pixel test never reads glyphs.
+
+Nothing is blocked on this. `bun run png` is not made faster either way; if
+that loop ever waits on Chrome, `@resvg/resvg-js` rasterises a sheet in
+milliseconds and is the smaller change.

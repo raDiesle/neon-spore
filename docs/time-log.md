@@ -8372,3 +8372,16 @@ changing from arcs to ellipses between rounds turned a passing test into one
 that could not see the picture at all. The stub records both now.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — queue-render-tests-draw-real-pixels — whether the render tests should draw real pixels
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `tools/frames/svg.ts`, `pixels.ts`, `canvas-stub.ts`, `frame-harness.ts`, the queue, `docs/commands.md` — what the tree already rasterises, counts and compares |
+| deciding | 5 | that a Python rasteriser helps nothing here; that the one gap is visibility, and that it is the owner's call rather than a lane's |
+| writing | 10 | a scratch `@napi-rs/canvas` trial under Bun, one timed `bun run png`, the queue entry |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit |
+
+The bottleneck was reading rather than doing: the question was whether a tool
+was missing, and the answer took a survey of five tools to be sure of.
