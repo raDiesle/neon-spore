@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 41f50952 — THE GORGE's skin: the translucent sack breathing above the field, its lobes filling, going transparent, rupturing and feeding the mouth, the pilot's tally and the navigator's nearest lobe, and every bead leaving at once
+
+The look half of THE GORGE (`docs/spec/bosses.md` §11.23), a look with no shipped alternative — the sack's nine events were silent in render until now.
+
 ## 2026-09-17 · 7619264a — THE ORRERY's ring answers a real thumb, anywhere round it
 
 The hand landed this morning as a rule with nothing to take hold of. It has a handle now, and it is unlike every other one on the field: not a small circle hanging off a body but an ellipse the width of the field, so the hit test and the mark that says it turns live in one file — `orrery-grab.ts` — because `layout.ts`'s rule that a control is never drawn in one place and answered in another has never had this much room to be broken in.
