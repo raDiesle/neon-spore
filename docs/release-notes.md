@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · fb6242dc — THE SINEW, the look: a tendon that strains in colour, a band split down the middle, two handles on one number
+
+A look with no shipped alternative (Wave 76, `docs/spec/bosses.md` §11.26). A fan of fibres hangs from a root above the field down to a five-lobed mass three columns wide; the fibres straighten and brighten toward the hull's rim with the sum, ripple while it is low, and part from the outside in to curled grey stubs. The strain band is a collar on the tendon: the pilot's screen fills the zone on it in green and never the sum, the navigator's fills the sum in ember and never the zone, and the hold's pips count on both. A handle hangs off each flank on the shipped SINEW tether, the left the pilot's and the right the navigator's, carried down to pull and sideways to sway, with the axis under it in a word. A snap whips the handles, flashes the field and shocks the hull; the fall lowers the mass a row a beat; landed clear it settles into the hull and fades, landed on the ship it goes ember and stays.
+
 ## 2026-09-17 · 1a7f70d9 — QUIT stops looking like the other button on the lost screen
 
 The owner, 17 September 2026: *the "quit" button, we should do less prominent maybe reduce size of button or move it somewhere else, as player might accidently press it.* It was a plate identical to RETRY WAVE eighteen pixels under it, told apart by the word on the face and a glow, which is nothing to a thumb coming down on a screen that has just been lost — and leaving a wave ends the run for both phones on one press, so the slip is not one a pair can undo.
