@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 60b7b3c3 — Take §2 THE ORRERY on the choreographed-bosses page, in three named lanes
+
+The page is the only place that knows which concept is already under a hand, and the row goes in before the first line of code. THE ORRERY is too big for one sitting and is split before it is started rather than asked about: the rings and the shaft, then the hand on the outermost ring, then the look.
+
 ## 2026-09-17 · 5a9a8a8a — The lost screen's two buttons are the tutorial's plates
 
 The owner asked for it by name on 17 September 2026 — *make sure buttons of "wave end" looks like the new buttons of tutorial guide* — which is the first of the three look exemptions. RETRY WAVE and QUIT were the guide bar's grown bodies, drawn through `drawNavBody`, and that bar has been TIDE's cut plates since 16 September: these two were the last pair in the game still wearing the shape it left behind.
