@@ -43,10 +43,16 @@ export const THE_BATON: GuideScene = {
   steps: [
     { tick: 0, seat: 1, text: "AN ARM UNFOLDS · ONE A BEAT", anchor: { at: "hull" } },
     { tick: 360, seat: 2, text: "THE BEAD IS SAFE IN A SOCKET", anchor: { at: "hull" } },
+    // This page said PLAYER 1 PULLS THE TRIGGER until 17 September 2026: the
+    // fight writes PRESS over the bead in its socket and LAUNCH under it
+    // whenever one is his to send (`decisions.md` #34). The launch at 750 is
+    // his and both neighbours are hers, so the page keeps his screen and says
+    // the rule the cue cannot — that acting costs him the next beat, which is
+    // the whole of why this boss has to be passed back and forth.
     {
       tick: 660,
       seat: 1,
-      text: "PLAYER 1 PULLS THE TRIGGER",
+      text: "PLAYER 1 GREYS FOR A BEAT",
       anchor: { at: "control", control: "guard" },
     },
     {

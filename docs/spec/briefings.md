@@ -465,6 +465,52 @@ same reason.
 Text is as short as it will go. `SLICK`, `P1 · SLIDE TO ITS COLUMN`,
 `P2 · FIRE RED`, `MISS ONE`, `AND THE HULL TAKES IT`.
 
+#### A page the fight now speaks for loses its verb
+
+*17 September 2026.* Twelve of the choreographed bosses carry a **cue** in the
+fight itself: a scan frame on the mark where the action is wanted, one word
+beside it — the verb — and above it whether that is a press, a carry, a turn or
+a hold (`render/src/boss-cue.ts`, `docs/decisions.md` #34). The owner's rule
+came with it: *what is explained during the boss game wave must be skipped in
+the tutorial briefing of the boss wave.*
+
+So a rehearsal page whose whole payload is a gesture the fight names at that
+same moment is teaching the player what they are about to be told. **The verb
+comes out; the page only comes out with it when the film can spare the seat.**
+That second half is not a softening, it is the film's own machinery: the page's
+`seat` is which screen the film is showing, and a ghost hand is drawn only for
+acts belonging to that seat (`guide-hand.ts`). Take a pilot's page away between
+two of the navigator's and his slide, his grip or his trigger still happens —
+on her screen, with no hand on it and no cue either, because the cue is drawn on
+the seat that can act. The gesture would not have been handed to the fight; it
+would have been deleted.
+
+Five pages across the nine films had nothing but a verb in them. Four kept their
+tick, their seat and their anchor and were rewritten to the half a cue may never
+carry; one came out whole, because the page before it is the same seat and the
+hand still draws.
+
+| Film | What it said | What it says now | The cue that took the verb |
+|---|---|---|---|
+| THE CANDLE | `PLAYER 1 SLIDES CLEAR OF IT` | `PLAYER 1 CALLS ITS COLUMN` | `CARRY` / `MOVE` on the cannon while it is eating his column |
+| THE CURTAIN | `PLAYER 1 SHOVES IT ONE OVER` | `A SHOVE IS ONE COLUMN` | `CARRY` / `SHOVE` on the membrane |
+| THE UNDERTOW | `PLAYER 2 MOVES THE PLATE OFF` | `THE COLUMN IS HIS TO REACH` | `CARRY` / `MOVE` on the plate standing where the maw is coming |
+| THE BATON | `PLAYER 1 PULLS THE TRIGGER` | `PLAYER 1 GREYS FOR A BEAT` | `PRESS` / `LAUNCH` on the bead in its socket |
+| THE LEDGER | `GUARD AS IT LANDS` | — the page is gone | `PRESS` / `GUARD` on the bead riding down the cord |
+
+**Four other films of the twelve had nothing to take, and that is the useful
+half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
+their pages on a colour, a count or which screen holds which half — `FOUR CYAN ·
+IT GOES CLEAR`, `THE OTHER COLOUR · ALWAYS`, `ONLY PLAYER 2 SEES THE COUNT`,
+`PLAYER 2 HOLDS RED · ON 15` — and a cue may never say any of those (#34's
+*reconsider if*). A film that reads as unprunable against this rule is a film
+already teaching the split rather than the verb, which is what the checklist's
+first question has been asking for all along.
+
+THE LEAD, THE SCUTTLE and THE ORRERY carry a cue and have no film yet; their
+prose halves were left whole, because every sentence in them that names the beam
+names the column or the colour with it.
+
 #### The ghost thumb is derived, never authored
 
 A scene names a control and, for a strip, a column. Where that control *is*

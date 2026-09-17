@@ -91,10 +91,17 @@ export const THE_CANDLE: GuideScene = {
       text: "SHOT FROM ITS FACE · EATEN",
       anchor: { at: "control", control: "fireRed" },
     },
+    // This page said PLAYER 1 SLIDES CLEAR OF IT until 17 September 2026. The
+    // fight writes CARRY over the cannon and MOVE under it the moment he is
+    // standing in the column it is eating (`decisions.md` #34), so the verb
+    // came out — but the page did not, because the slide at 1410 is his and
+    // the pages either side are hers: take the page away and his screen is
+    // never shown on the beat he acts. What is left is the half a cue may
+    // never carry, which is the column and who says it.
     {
       tick: 1320,
       seat: 1,
-      text: "PLAYER 1 SLIDES CLEAR OF IT",
+      text: "PLAYER 1 CALLS ITS COLUMN",
       anchor: { at: "control", control: "cannon" },
     },
     {

@@ -78,7 +78,12 @@ export const THE_CURTAIN: GuideScene = {
       text: "SHOOT A SOFT ONE · IT DROPS",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 900, seat: 1, text: "PLAYER 1 SHOVES IT ONE OVER", anchor: { at: "held" } },
+    // This page said PLAYER 1 SHOVES IT ONE OVER until 17 September 2026: the
+    // fight writes CARRY over the membrane and SHOVE under it for as long as
+    // the core is behind the cloth (`decisions.md` #34). The grip goes down at
+    // 930 and is the pilot's, so the page stays on his screen and says the
+    // one thing the cue may not — how far a shove gets.
+    { tick: 900, seat: 1, text: "A SHOVE IS ONE COLUMN", anchor: { at: "held" } },
     // Five beats: the hand is off at beat nineteen and the sheet rolls back
     // at twenty-three.
     { tick: 1140, seat: 1, text: "LET GO · IT ROLLS BACK", anchor: { at: "body" } },

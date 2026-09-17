@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-hints — the briefings give the words back
+
+The other half of #34: what the fight now says, the rehearsal stops saying.
+Nine boss films read page by page against the twelve cues; five pages turned
+out to hold nothing but a verb. Four kept their tick and their seat and were
+rewritten, one came out, and four whole films had nothing to take.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the nine films' pages and acts, `scenes.test.ts` and `scene-pages.test.ts` for what a removal would break, `guide-hand.ts` for what a page's seat actually is |
+| writing | 25 | the five sites and their comments, `briefings.md`'s new section and table, the skill's new rule and checklist line, the ledger paragraph, a queue entry |
+| looking | 5 | one PNG of THE BATON's rewritten page |
+| friction | 10 | the first pass deleted all five pages, and four of them would have dropped a pilot's grip or trigger onto the navigator's screen where no hand is drawn — found by reading `guide-hand.ts`, not by a test |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was a rule that reads simpler than it is: *a page that only
+names a gesture comes out* is true of the words and false of the page, because
+a page's seat is which screen the film shows. Nothing in `packages/content`
+says so, and every test stayed green through the wrong version of the change.
+
 ## 2026-09-17 — boss-hints — the other six bosses, and what the cue must not say
 
 The second half of #34's picture: THE THROAT, THE LEDGER, THE LEAD, THE

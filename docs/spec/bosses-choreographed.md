@@ -2156,9 +2156,24 @@ deliberately left alone: `handle-draw.ts` already writes `PULL`, `HOLD` and
 `TURN` beside each handle while it is unheld, and those words are the verb and
 the kind at once. A kind line reading `CARRY` over `PULL`, or `HOLD` over
 `HOLD`, is a second line saying the first one again, and #34 asks for one word
-and not for a form to fill in. What is genuinely left is the other half of
-#34: the rehearsal pages that exist only to name a gesture the fight now names
-have not been pruned.
+and not for a form to fill in.
+
+**And the briefings gave the words back.** The other half of #34 — *what is
+explained during the boss game wave must be skipped in the tutorial briefing* —
+found five rehearsal pages with nothing in them but a verb: THE CANDLE's
+`PLAYER 1 SLIDES CLEAR OF IT`, THE CURTAIN's `PLAYER 1 SHOVES IT ONE OVER`, THE
+UNDERTOW's `PLAYER 2 MOVES THE PLATE OFF`, THE BATON's `PLAYER 1 PULLS THE
+TRIGGER` and THE LEDGER's `GUARD AS IT LANDS`. THE LEDGER's came out whole;
+the other four kept their tick and their seat and were rewritten, because a
+page's seat is which screen the film shows and a hand is drawn only for that
+seat's acts — deleting a pilot's page between two of the navigator's does not
+hand his trigger to the fight, it deletes it from the film. Each site carries a
+comment saying which cue took the verb, so a later session does not put it back.
+THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE had nothing to take — every
+page of those four carries a colour, a count or a split, which is exactly what a
+cue may not say — and THE LEAD, THE SCUTTLE and THE ORRERY have no film yet.
+The table and the reasoning: `docs/spec/briefings.md`, *A page the fight now
+speaks for loses its verb*.
 
 ### The brief's own worked encounter, read against this engine
 

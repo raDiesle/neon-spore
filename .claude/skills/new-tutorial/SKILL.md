@@ -147,6 +147,33 @@ At most 28 characters (checked). The voice is
 say what they do, no `P1 ·` shorthand and no imperative aimed at one of the two
 readers.
 
+### A gesture the fight names itself is not a page
+
+> *What is explained during the boss game wave, it must be skipped in the
+> tutorial briefing of the boss wave.*
+
+Twelve choreographed bosses now write the verb on the field: a scan frame on
+the mark, one word beside it and the kind of action above it
+(`render/src/boss-cue.ts`, `docs/decisions.md` #34). A page whose whole payload
+is one of those verbs at the moment its cue is up teaches the player what the
+fight is about to tell them. `PLAYER 1 PULLS THE TRIGGER` went; `CYAN NOW ·
+PLAYER 1 TRIGGERS` stayed, because the colour is the lesson.
+
+**Take the verb out, not always the page.** The page's `seat` is which screen
+the film is showing, and a ghost hand is only ever drawn for that seat's acts
+(`guide-hand.ts`). Delete a pilot's page standing between two of the
+navigator's and his grip still happens — on her screen, with no hand and no cue
+on it, because a cue is drawn on the seat that can act. So the page comes out
+only when its neighbour is the same seat; otherwise it keeps its tick, its seat
+and its anchor, and is rewritten.
+
+**What a cue may never say is the list of what a page is for**: a column, a
+colour, a count, which screen holds which half, what a mistake costs, and the
+word one seat has to say to the other. Four pages were rewritten and one came
+out across the nine boss films, and four of those films had nothing to take
+(`docs/spec/briefings.md`, *A page the fight now speaks for loses its verb*) —
+a film with nothing to cut is a film already written against question 1 below.
+
 ### The last page is the gate, and it says as little as possible
 
 Wave number, name, sentence, then two circles. *Shorten text to a minimum.* The
@@ -230,6 +257,8 @@ coordinate. `packages/render/src/caption-anchor.ts` is the list.
 
 1. What **one** thing does this wave teach that the wave before it did not? If
    there is no answer, the wave carries prose or nothing — not a rehearsal.
+   On a boss, the answer is never a verb the fight's own cue writes on the
+   mark — check `render/src/boss-cue.ts` for that boss before authoring.
 2. Which half of it is on **which** screen? A page that either player could
    watch on either phone is the page to cut.
 3. Three or four pages. Every one belongs to a seat, except at most one that

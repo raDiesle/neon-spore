@@ -63,10 +63,16 @@ export const THE_UNDERTOW: GuideScene = {
       text: "MAW OPEN AS IT COMES THROUGH",
       anchor: { at: "control", control: "intake" },
     },
+    // This page said PLAYER 2 MOVES THE PLATE OFF until 17 September 2026: the
+    // fight writes CARRY over the plate and MOVE under it exactly while it
+    // stands in the column the maw is coming for (`decisions.md` #34). The
+    // plate at 1440 is hers and both neighbours are his, so the page keeps her
+    // screen and says the reason instead of the verb. MAW OPEN AS IT COMES
+    // THROUGH above stays: its subject is the beat, not the gesture.
     {
       tick: 1380,
       seat: 2,
-      text: "PLAYER 2 MOVES THE PLATE OFF",
+      text: "THE COLUMN IS HIS TO REACH",
       anchor: { at: "control", control: "shield" },
     },
     {

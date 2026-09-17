@@ -73,12 +73,10 @@ export const THE_LEDGER: GuideScene = {
       anchor: { at: "control", control: "fireCyan" },
     },
     { tick: 540, seat: 1, text: "THE HIT COMES BACK · 4 BEATS", anchor: { at: "hull" } },
-    {
-      tick: 720,
-      seat: 1,
-      text: "GUARD AS IT LANDS",
-      anchor: { at: "control", control: "guard" },
-    },
+    // GUARD AS IT LANDS stood here and came out (`decisions.md` #34): the
+    // fight writes PRESS over the bead riding down the cord and GUARD under
+    // it, and the bead's own position is the four beats this page counted.
+    // THE FIFTH · LET IT LAND below stays, because the cue is silent there.
     { tick: 900, seat: 2, text: "IT WALKS A COLUMN · SAY IT", anchor: { at: "hull" } },
     {
       tick: 1080,

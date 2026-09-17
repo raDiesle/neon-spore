@@ -470,3 +470,27 @@ purpose — an empty column is a legitimate outcome — so nothing is red.
 
 Move THE INSTAR under `## Still in hand` with the one line the ledger already
 has for it, and take it back out when its look lands.
+
+## The boss cue's kind line has no clearance and a rehearsal draws it
+
+- **Found:** 2026-09-17, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/boss-cue-draw.ts`,
+  `packages/render/test/guide-plate-room.test.ts`, `packages/render/src/round-header.ts`
+
+`drawBossCue` puts the kind line at `Math.max(TOP_EDGE, cue.y - halfH - KIND_GAP)`
+with `TOP_EDGE = 10`, which is the top of the canvas and not the top of the
+*picture*. On the field that is the HUD's own row; in a rehearsal it is the
+tutorial band, which is 77 to 104 pixels deep depending on which `GUIDE_LOOK`
+is voted in. A rehearsal draws the cue like anything else — `guide-seat.ts`
+calls `drawBodies`, and `drawBossCue` is the last pass of it — so any boss whose
+mark stands near the top of the field can put `PRESS` or `HOLD` under the band:
+THE BATON's bead in the top socket, THE CANDLE's glow, THE GORGE's intakes, THE
+SCUTTLE's lock at `gridTop`.
+
+`guide-plate-room.test.ts` does not catch it. Its sweep is a filter of named
+words — a round's name, the run line, THE SPLICE's clock — and the four cue
+words are not in it. Nothing is red, and the collision is a frame away.
+
+Clamp the kind line to `ViewState.clearTop` rather than to the canvas, the way
+`round-header.ts` drops a round's whole block, and add `PRESS`, `HOLD`, `CARRY`
+and `TURN` to the sweep's filter so the next one is caught rather than seen.
