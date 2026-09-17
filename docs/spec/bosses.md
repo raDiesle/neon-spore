@@ -2789,6 +2789,21 @@ thing about this boss that outlives a frame, cleared on restart.
 screens, the tally on the pilot's alone, the ring on the navigator's alone,
 and the transient's reset.
 
+**The rehearsal** (`content/src/scenes/the-gorge.ts`, 17 September 2026,
+thirteen pages over 3180 ticks): a shot at nothing, swallowed — the stray
+the rest of the film pays for; the count only player 1 is shown; a column
+picked and filled in cyan; a red taking a bead back out, the film's one
+authored mistake; four going clear and the fifth through; a second column
+filled in red and pierced; and the sack, twice pierced, spitting the stray
+back down the middle column, where player 1 slides under it and its own
+colour breaks it two thirds of the way down. It ends two ruptures short of
+the mouth: what it teaches is the restraint, and the mouth and the beam are
+the guide's prose. Every column is authored — the sack does not move — and
+the seed matters to nothing. No page is anchored at `retries` and the film
+takes no hit. Proved in `content/test/scene-films.test.ts` as the seventeen
+swallows, emptyings, fulls, ruptures, the spit and the break, beat by beat,
+with nothing venting and no mouth.
+
 **Never watched at tempo.** What the tests say is the mechanism: it arrives
 centred and empty, swallows in its columns and nowhere else, lets a bead go
 for the wrong colour and counts the miss, is full at four once and holds no

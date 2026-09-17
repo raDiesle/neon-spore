@@ -132,6 +132,7 @@ export const WAVES_ACT_7D: Wave[] = [
       both: "A sack hangs across the top of the field with an intake under each of seven columns. Every shot that reaches the top is swallowed and hangs inside as a bead. An intake fills on four beads of one colour and goes clear; one more shot then pierces it for good, but it vents a torch after four beats if nobody does. A wrong colour takes a bead back out. Pierce two and it starts spitting beads back as bodies; pierce four and the one left fills itself — hold the beam in its colour on its column when it is full.",
       p1: "Only you see how many beads each intake holds. Pick a column, say it, and hold the cannon there while she fills it: four of one colour, then one more. A shot past a missed body is a bead in the wrong place.",
       p2: "You see which intake is nearest full and the colour it wants. Load that colour and fire only up the column he holds. When it clears, say so and fire once more. When the last fills itself, hold its colour for the beam.",
+      scene: "theGorge",
     },
     entries: [
       { beat: 20, col: 1, kind: "meteor", color: null },

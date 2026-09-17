@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE GORGE, the rehearsal
+
+The second boss film written after its look, and the one that cut the scene
+list in two: thirteen pages over 3180 ticks, a stray bead, a wrong colour,
+two intakes pierced and the stray spat back and broken.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `gorge.ts` and `gorge-step.ts` for what a shot does at each count, the spit rule, `mapCol`, the body-page rule in `scene-pages.test.ts` |
+| writing | 10 | the scene, `scenes-choreographed.ts` and the split, the film test, §3.2's count, the §11.23 paragraph |
+| looking | 5 | one probe against the scene's own run, two frames off `bun run frames --opening guide` |
+| friction | 5 | two captions a character over, a page about the spat body that had to run six beats for the body to reach the middle of the screen, a blank line the director's round-trip refused, `scenes.ts` at its 250th line |
+| landing | 5 | `check:fast`, `bun run index` for two rows, the commit, `bun run land --keep` |
+
+The bottleneck was the tests catching the small things one at a time — the
+caption length, the body's row, the blank line — each a run of the suite.
+
 ## 2026-09-17 — boss-implementation — THE CANDLE, the rehearsal
 
 The wave's guide had been prose only since the boss landed. A twelve-page

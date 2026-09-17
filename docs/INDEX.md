@@ -642,6 +642,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-fence.ts` | THE FENCE's rehearsal: a wall the width of the field, and the one thing that has to be true when it lands |
 | `packages/content/src/scenes/the-gap.ts` | THE GAP's rehearsal: the wall moves its opening, and only one of them can see where it went |
 | `packages/content/src/scenes/the-gum.ts` | THE GUM's rehearsal: a still thumb moves nothing, a swipe flings it out, and one nobody takes splashes on the ship |
+| `packages/content/src/scenes/the-gorge.ts` | THE GORGE's rehearsal: the sack eats every shot, and the pair feeds one part of it on purpose |
 | `packages/content/src/control-sets-keys.ts` | Whether a panel answers a command — what the desk keyboard is gated by |
 | `packages/content/src/control-sets-groups.ts` | **The panel half of the coverage rule**, and nothing else |
 | `packages/content/src/waves/act-7b.ts` | The second half of act seven, cut off `act-7.ts` when THE COIL was split into two waves and that file reached… |
@@ -663,6 +664,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-baton.ts` | THE BATON's rehearsal: a launch nobody answers, then three handovers |
 | `packages/content/src/scenes/the-beatbox.ts` | THE BEATBOX's rehearsal: the tap you do not make is the one that counts |
 | `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, and the pair answers it downward |
+| `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
 | `packages/content/src/pulse-stages.ts` | THE PULSE's stages — the charts, and so far there is one of them |
 | `packages/content/src/pulse-steps.ts` | A chart, written as bars of text, and the reader that turns one into notes |
 | `packages/content/src/mechanics-rounds.ts` | The rounds that are not the field, as mechanic rows |

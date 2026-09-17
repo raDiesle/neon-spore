@@ -7,10 +7,8 @@ import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
 import { THE_BALLOON } from "./scenes/the-balloon.js";
-import { THE_BATON } from "./scenes/the-baton.js";
 import { THE_BEATBOX } from "./scenes/the-beatbox.js";
 import { THE_CAIRN } from "./scenes/the-cairn.js";
-import { THE_CANDLE } from "./scenes/the-candle.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
 import { THE_CHOIR } from "./scenes/the-choir.js";
 import { THE_CLASP } from "./scenes/the-clasp.js";
@@ -21,7 +19,6 @@ import { THE_CROSSING } from "./scenes/the-crossing.js";
 import { THE_CRYSTAL } from "./scenes/the-crystal.js";
 import { THE_CUT } from "./scenes/the-cut.js";
 import { THE_DART } from "./scenes/the-dart.js";
-import { THE_DIASTOLE } from "./scenes/the-diastole.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
 import { THE_FENCE } from "./scenes/the-fence.js";
 import { THE_FLEET } from "./scenes/the-fleet.js";
@@ -50,10 +47,8 @@ import { THE_ROCK } from "./scenes/the-rock.js";
 import { THE_SPLICE } from "./scenes/the-splice.js";
 import { THE_STRAND } from "./scenes/the-strand.js";
 import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
-import { THE_THROAT } from "./scenes/the-throat.js";
 import { THE_THROB } from "./scenes/the-throb.js";
 import { THE_TORCH } from "./scenes/the-torch.js";
-import { THE_UNDERTOW } from "./scenes/the-undertow.js";
 import { THE_VANE } from "./scenes/the-vane.js";
 import { THE_VEER } from "./scenes/the-veer.js";
 import { THE_VEIL } from "./scenes/the-veil.js";
@@ -64,6 +59,7 @@ import { THE_WEIGHT } from "./scenes/the-weight.js";
 import { THE_WELL } from "./scenes/the-well.js";
 import { THE_WISP } from "./scenes/the-wisp.js";
 import { TWO_ROCKS } from "./scenes/two-rocks.js";
+import { type ChoreographedSceneId, SCENES_CHOREOGRAPHED } from "./scenes-choreographed.js";
 
 /**
  * Every rehearsal a guide can show, and where a page of one begins and ends.
@@ -84,6 +80,11 @@ import { TWO_ROCKS } from "./scenes/two-rocks.js";
  * questions everything else asks it — *which film does this wave show* and
  * *where does page `n` start and stop*. The shapes a film is written in are
  * `scene-types.ts`; `.claude/skills/new-tutorial` is how to write one.
+ *
+ * **The choreographed bosses' films are next door** (`scenes-choreographed.ts`):
+ * THE GORGE's took this list to its 250th line, and the fifteen designs on
+ * `docs/spec/bosses-choreographed.md` are one page of the spec, so their
+ * films are one file of the list. A new film for one of them goes there.
  */
 
 export type SceneId =
@@ -147,11 +148,7 @@ export type SceneId =
   | "theSplice"
   | "theMoult"
   | "theMine"
-  | "theDiastole"
-  | "theBaton"
-  | "theThroat"
-  | "theUndertow"
-  | "theCandle";
+  | ChoreographedSceneId;
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -214,11 +211,9 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
   theMine: THE_MINE,
-  theDiastole: THE_DIASTOLE,
-  theBaton: THE_BATON,
-  theThroat: THE_THROAT,
-  theUndertow: THE_UNDERTOW,
-  theCandle: THE_CANDLE,
+  // The choreographed bosses' films are listed next door, one file for the
+  // page they were designed on (`scenes-choreographed.ts`).
+  ...SCENES_CHOREOGRAPHED,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";
