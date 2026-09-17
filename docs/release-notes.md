@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · fab8685b — The land flake has a second shape: an error that escapes the test
+
+Same contention, but this time git reset threw outside any it's frame, so the shard was red with zero failed tests. Noted on the existing item, because a fix that only raises timeouts would not reach it.
+
+## 2026-09-17 · e07a2ebc — Mark THE ORRERY's simulation built, and leave its two lanes free to be taken
+
+The page is the only place that knows which concept is under a hand, so the row says what landed, where it is written up, which four of §2's own claims it shipped against — and that neither the hand on the ring nor the look is taken by anybody.
+
 ## 2026-09-17 · 5ab1dd49 — THE ORRERY: three orbits, and the one beat neither of you can work out alone
 
 A core in the middle column inside three rings of orbiting organs, each ring with one gap. A shot up that column reaches the core only on a beat every unbroken ring has its gap at the bottom of its orbit — and the outer ring is true on both screens, the middle on the pilot's alone and the inner on the navigator's alone, so the arithmetic has to be done out loud, in halves, by two people who can each check one third of the other's work. Every landed shot takes the outermost ring still standing, so the counting gets easier as the fight goes on while the blindness gets worse: the last gap left is one the pilot cannot see at all, and he fires on her word.
