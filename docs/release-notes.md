@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · e7320f29 — The other six bosses get their word, and three of them get their silence
+
+THE THROAT, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE and THE ORRERY, finishing the cue `docs/decisions.md` #34 asked for. These six are the fights whose whole difficulty is a number the pair says out loud, so the reading is built around the rule that a cue says the verb and never the answer: it names the moment a **verb changes** — the trigger has quietly stopped working and only the beam lands — and never the number.
+
 ## 2026-09-17 · 2b4b7614 — THE LEDGER's rehearsal: two hits of the seed's colours up the seam, both returns warded in the socket, and the plate carried to the walked socket by `atBoss`
 
 The sixth boss film written after its look (`content/src/scenes/the-ledger.ts`, ten pages over 1860 ticks). The navigator loads the colour the seam shows and fires it up the middle column; the pilot sees the bead coming down the cord with its beats beside it and triggers on the beat it lands; the socket walks a column, the navigator says it and carries the plate there — column 6, which no authored strip reaches, so the strip is `atBoss` — and the second return, warded, whips the seam a third notch for nothing. The bill for every shot and the fifth return the plate must step out from under are the last two pages' words and the prose.
