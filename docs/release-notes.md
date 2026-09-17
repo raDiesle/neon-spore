@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 0db930b3 — The owner's answers to eight queue asks, and the two that needed nothing built
+
+Every entry that asked the owner something is answered in place, on an
+
 ## 2026-09-17 · 7f4c6a27 — THE CRYSTAL wears its join on the belly, where the shot comes from
 
 The owner, 17 September 2026: "Right now middle top is only red or cyan, but we need to also colour the bottom of the ship middle in the same colour, because it is where the cannon must hit." The canopy said which colour opens the craft and it said it on the roof — to a player at the bottom of their own screen, aiming up a column, the one fact the picture had to tell them was the one fact they could not see from where they were. So there is a port on the belly of the middle tile now, in the same colour, on the same clock: both swell and brighten together while the field stands broken open.
