@@ -22,6 +22,25 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — queue-imports-timeout — a cap for the case that spawns
+
+`tools/imports/test/imports.test.ts` hands a pruned file to three `bunx biome`
+children and ran under bun's five-second default, so a busy machine turned it
+red with nothing wrong in the code. It has a `SPAWN_TIMEOUT_MS` of its own now,
+thirty seconds, the number `canvas-stub.ts` chose for the same reason.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, the file, and `canvas-stub.ts`'s note on why each file calls `setDefaultTimeout` for itself |
+| writing | 10 | the constant, the call, and the paragraph saying which failure it is for |
+| looking | 0 | nothing is drawn |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, the commit |
+
+The bottleneck was not the fix but the sweep after it: nine more tests spawn a
+child with no cap, which is a queue entry rather than this lane, because a git
+call and a wrangler do not want the same number.
+
 ## 2026-09-17 — queue-the-crystal-steps — one axis at a time
 
 The craft crossed on a diagonal, a column and a row every beat, which is the

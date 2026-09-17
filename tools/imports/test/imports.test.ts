@@ -1,7 +1,25 @@
-import { afterAll, describe, expect, it } from "bun:test";
+import { afterAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { mkdirSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { pruneImports } from "../imports.js";
+
+/**
+ * The cap this file runs under, because one of its cases is not really a test
+ * of a function at all: it writes a file and hands it to three `bunx biome`
+ * child processes, and what those cost is what the machine happens to be doing.
+ * It took 5059 ms under a `bun run land` on 17 September 2026 and went red on
+ * bun's five-second default, with nothing wrong in the code; the landing was
+ * rerun and passed, which is the worst shape a failure can have — it teaches
+ * whoever meets it that a red check is something you run again.
+ *
+ * Thirty seconds is the same number `packages/render/test/canvas-stub.ts`
+ * chose for the same reason. A cap that generous catches a hang and nothing
+ * else, which is all a cap is for here: the pruning cases above it run in
+ * single-digit milliseconds and would not notice a cap of any size.
+ */
+const SPAWN_TIMEOUT_MS = 30_000;
+
+setDefaultTimeout(SPAWN_TIMEOUT_MS);
 
 describe("pruneImports", () => {
   it("takes a stranded name out of a list and leaves the comment above it", () => {

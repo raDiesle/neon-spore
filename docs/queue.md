@@ -559,3 +559,25 @@ in the code; the landing was rerun and passed. A case that runs a child
 process needs its own cap — `setDefaultTimeout` at the top of the file, the
 way the frame tests take `FRAME_TIMEOUT_MS` — or one spawn for the file with
 the cases reading its output.
+
+## Nine more tests spawn a child process under bun's five-second default
+
+- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
+- **Files:** `tools/test/line-endings.test.ts`, `tools/imports/test/format-script.test.ts`, `tools/hooks/test/guard.test.ts`, `tools/queue/test/ref-commit.test.ts`, `tools/queue/test/stale.test.ts`, `tools/dev/test/supervise-stop.test.ts`, `tools/dev/test/here.test.ts`, `tools/versus/test/registry.test.ts`, `apps/server/test/dev-stop.test.ts`
+
+The lane that capped `tools/imports/test/imports.test.ts` swept for the same
+shape and found these: every one spawns a child and none calls
+`setDefaultTimeout`, so each is one busy machine away from the failure that
+entry describes — red for nothing in the code, green when it is run again,
+which teaches whoever meets it that a red check is something you rerun. The
+heavy ones are the ones to start from: `format-script.test.ts` and
+`registry.test.ts` run biome, `dev-stop.test.ts` starts a wrangler,
+`supervise-stop.test.ts` and `guard.test.ts` spawn bun once per case.
+
+Not one cap for all nine: a git call that takes a second and a wrangler that
+takes ten want different numbers, and a cap so generous that nothing can ever
+reach it has stopped saying anything. Read what each file spawns, give it a
+named constant with the reason beside it — `canvas-stub.ts`'s
+`FRAME_TIMEOUT_MS` is the pattern, and `imports.test.ts` is the worked example
+— and where a file spawns the same command once per case, consider one spawn
+for the file with the cases reading its output instead.
