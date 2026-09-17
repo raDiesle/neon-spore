@@ -196,6 +196,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## Unverified at 805b6376: THE STARE's rhythm was never watched at tempo: whether…
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
+- **Taken:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
 - **Files:** `docs/INDEX.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/audio/src/bind.ts`, `packages/audio/src/sounds/boss.ts`, `packages/audio/test/bind.test.ts`
 
 *THE STARE: something is watching, and the one it watches has to sit on their hands* landed from a session that could not look at it. The commit touched 42 more files. What went unchecked:
