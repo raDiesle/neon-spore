@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 3658ef8b — A strip on the panel answers its share of the band
+
+The cannon slider was reported as often not working on a phone while the buttons beside it always did. The grab area is not the reason, which is the first thing measured: the strip's slab was 48 px tall and the full width of the stage, and the cannon's swelling on the hull is 65 px across, both over the 44 px the platform guidelines ask for.
+
 ## 2026-09-17 · 5b70a9f0 — A skill for building a boss: the three kinds, the two lanes, every file it is a name in, and what the owner likes and does not
 
 `.claude/skills/new-boss` — asked for by the owner on 17 September 2026 so a boss is built the way he wants one built and judged the way he judges one. It names the three kinds he named (a round with rules of its own, a field boss on the default set with at most one handle, a choreographed scene of gestures in A Way Out's manner, which no shipped boss is yet), the rules every kind must pass, the claim on the shared table, the simulation lane's file list from THE GORGE's landing, the look lane's shape, and — quoted from the record, THE TELL's removal above all — what he has said he likes and does not, with an open list for the feedback each tested boss brings back. One pointer line in `CLAUDE.md`'s conventions.
