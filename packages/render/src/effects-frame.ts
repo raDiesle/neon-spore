@@ -61,6 +61,8 @@ export function ingestAll(
   };
   fx.mirror.ingest(events);
   fx.warden.ingest(events);
+  // The seat is the layout's: a flash lights only the screen whose control made it.
+  fx.afterImage.ingest(events, l.role, time, spb);
   fx.fleet.ingest(events, spb);
   fx.bodies.ingest(events, l, cfg, spb, time);
   fx.recoilLeap.ingest(events, spb);
@@ -189,4 +191,5 @@ export function resetAll(e: Effects): void {
   e.beatboxWaves.clear();
   e.beatboxSilences.clear();
   e.reprise.clear();
+  e.afterImage.clear();
 }

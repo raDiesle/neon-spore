@@ -134,3 +134,21 @@ export const showsThroatLock = (role: ViewRole): boolean => role !== "p1";
  * nothing of the four beats before (`undertow-draw.ts`).
  */
 export const showsUndertowBow = (role: ViewRole): boolean => role !== "p2";
+/**
+ * THE CANDLE's three, the deepest split in this list: **the same dark field,
+ * lit differently on the two phones.** Every other entry keeps a fact about
+ * a lit field from one seat; these light the field itself, and a flash is
+ * drawn only on the screen of the seat whose control made it
+ * (`candle-dark.ts`, `after-image.ts`).
+ *
+ * The muzzle flash is the navigator's — she fires, and three columns light on
+ * her screen for a beat. The guard window is the pilot's — he pulls the
+ * trigger, and the plate's column lights on his. The beam is both seats',
+ * because it takes both to make: her colour held, his column kept. And the
+ * column the glow *faces*, the one it eats flashes from, is the pilot's alone,
+ * for the reason it is in the rule: the seat that fires cannot see which
+ * column not to fire from, and has to be told (`sim/candle.ts`).
+ */
+export const showsCandleMuzzle = (role: ViewRole): boolean => role !== "p1";
+export const showsCandleGuard = (role: ViewRole): boolean => role !== "p2";
+export const showsCandleFace = (role: ViewRole): boolean => role !== "p2";

@@ -1,4 +1,5 @@
 import { guardArmed, mawOpen, mineOnField, ticksPerBeat, wispOnField } from "@neon-spore/sim";
+import { drawCandleField } from "./candle-dark.js";
 import { drawTakeover } from "./canvas2d-takeover.js";
 import type { ClaspFrames } from "./clasp-frames.js";
 import {
@@ -113,8 +114,7 @@ export class Canvas2DRenderer implements Renderer {
     // The stage depends on the band, and the band on the role: sized per frame, like the layout.
     const stage = computeStage(this.viewport, world.cfg, view.role);
     // A hidden tab reports a zero-sized window, and a field with no width
-    // divides by zero on its way into the hull contour. There is nothing to
-    // draw into either way, so leave the canvas alone until a size arrives.
+    // divides by zero in the hull contour: leave the canvas alone until a size arrives.
     if (stage.width < 1 || stage.height < 1) return;
     const l = this.layoutFor(view, stage);
 
@@ -171,13 +171,12 @@ export class Canvas2DRenderer implements Renderer {
     );
     this.held.effects.update(view.dt, l);
     // The one transient this renderer holds outside `Effects`: it is drawn
-    // over the ship rather than under it, so it is fed and drawn here
-    // (`render-state.ts` says why it is not next door).
+    // over the ship rather than under it (`render-state.ts` says why).
     this.held.frame(view.events, l, view.dt);
     // The lettered grid, eased toward whether anything on the field has to be
-    // named by tile. Read straight off the world every frame rather than fed
-    // by an event: a wisp arriving, being shot, or a wave being restarted
-    // underneath one are three ways in, and the world answers all three.
+    // named by tile. Read off the world every frame rather than fed by an
+    // event: a wisp arriving, shot, or a wave restarted under one are three
+    // ways in, and the world answers all three.
     this.held.effects.coordGrid.update(view.dt, wispOnField(world) || mineOnField(world));
 
     // The beat is loud at the moment of the beat and gone before the next one.
@@ -210,13 +209,14 @@ export class Canvas2DRenderer implements Renderer {
 
     drawFieldBack(ctx, l, world, view, flash, this.held.effects.coordGrid.shown);
     drawBodies(ctx, l, world, view, this.held.effects, at.cannon, surfaceY, skinY);
-    // The pieces a bolt knocked out of a wall, over the field and under the
-    // hull, because that is where the wall is (`fence-shards.ts`).
+    // The pieces a bolt knocked out of a wall, under the hull (`fence-shards.ts`).
     this.held.fenceShards.draw(ctx, l);
+    // THE CANDLE: the field goes black here, over every body on it and under
+    // the ship, whose own glow is a light the dark leaves (`candle-dark.ts`).
+    drawCandleField(ctx, l, view, this.held.effects);
 
     drawShip(ctx, l, world, view, this.held.effects, mood, at, hull);
-    // Over the finished ship, what is stuck to it: the fence's burn, a gum's
-    // splash, the choke's coils, the clingers (`frame-on-ship.ts`).
+    // Over the finished ship, what is stuck to it (`frame-on-ship.ts`).
     drawOnShip(ctx, l, world, view, this.held, hull, at, surfaceY);
     drawOverlays(ctx, l, world, view, {
       armed: isArmed,
@@ -226,11 +226,11 @@ export class Canvas2DRenderer implements Renderer {
     });
     // Over the field and over the ship both, because it is about the second one:
     // a lure shot by mistake, and the hull broken in three places for it
-    // (`lure-blast.ts`). Everything else goes down in the field pass instead.
+    // (`lure-blast.ts`).
     this.held.lureBlast.draw(ctx, l);
     this.held.lanceFlash.draw(ctx, l);
     // Last, over everything: the wave arriving, once the pair has crossed the
-    // gate. There is no opening left to draw it inside by then (`opening-fx.ts`).
+    // gate — there is no opening left to draw it inside (`opening-fx.ts`).
     if (this.held.effects.opening.launching) {
       this.held.effects.opening.drawLaunch(ctx, l.width, l.height, l.playHeight * 0.4);
     }

@@ -8252,3 +8252,20 @@ rather than built — a gap that moves with nobody's hand on it is the one
 thing this boss's central rule forbids.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — boss-implementation — THE CANDLE's dark
+
+The second half of the third boss: the field going black, the pair's own
+weapons as the light in it, and the glow drawn in five steps.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | §14's beat list, `canvas2d.ts`' pass order for where a mask over the field goes, `glow.ts`' halo cache and its integer-radius key, `view-role.ts` for the seat predicates, `undertow-frame.test.ts` as the test's shape |
+| deciding | 10 | the after-image as a per-column light rather than a kept frame (no offscreen field, the stub has no pixels, bodies keep falling); the guard and beam read off the world each frame with no hold, the flash ingested; a breach lighting two columns either way on both seats; five integer reaches so the halo cache stays five discs; the wave-end light as a fade from `AfterImage.darkAt` |
+| writing | 15 | `after-image.ts`, `candle-dark.ts`, `candle-glow.ts`, three seat predicates, the roster line and its reset, the pass in `canvas2d.ts`, eight frame tests, `bosses.md` §11.22 |
+| friction | 5 | the session compacted between the wiring and the test; `canvas2d.ts` sat three lines over its limit and gave up comments; the face test first compared whole logs, and the log keeps a path's fill but not its points |
+| landing | 5 | `check:fast`, the index, the commit |
+
+The bottleneck was the after-image: the design says *the frame stays*, and
+the honest answer is that nothing in this renderer can keep a frame — so the
+decision about what the after-image *is* took longer than drawing it.

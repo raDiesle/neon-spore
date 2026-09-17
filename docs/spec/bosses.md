@@ -2355,7 +2355,7 @@ different columns and the field is only whole in the talking.
 
 **The simulation does not know the field is dark.** That is the whole of the
 split: darkness, the after-image, the per-seat light are the look's
-(`render/`, not drawn yet — the second half of this lane, *the dark*). What
+(`render/candle-dark.ts`, below). What
 `packages/sim` holds is a **glow**: `candleGlowSteps` (5) of health, a column
 it stands in, a column it faces, and a phase — `dark`, `full`, `eating`,
 `last`, `out` (`sim/candle.ts`, hashed in `sim/candle-hash.ts`). It is a
@@ -2382,11 +2382,37 @@ beats*.
 and no scar: a candle that eats a shot is a candle that lasts longer, and the
 pair's whole cost is beats.
 
-**What is not built**: the field being dark, the flash on the seat that made
-it, the after-image of a column just lit, the glow drawn in five steps, and
-the wave-end light coming back — all of which is the look half. THE SLOW over
-the flash beat (the design's step 6) is not built either: whether a shot's
-light should hang is the owner's eye.
+**The dark is a mask, not a frame buffer.** `render/candle-dark.ts` is one
+pass between the bodies and the ship (`canvas2d.ts`): the field is drawn as it
+always is, then black is laid over it from the top of the field to the hull,
+coming down over `candleDarkBeats` from the beat the boss arrives, with holes
+where a light stands. The design's after-image — *the frame the flash lit
+stays, dimming* — is **not** a kept picture of the field: there is no offscreen
+field to keep, the test canvas has no pixels, and bodies go on falling under
+a still picture, which would put a rock two rows from where the pair would
+shoot it. It is a **per-column light** (`render/after-image.ts`): which
+columns were lit, by what, and how long ago; a lit column is the field as it
+is, dim, through a wash of the colour that lit it, and the fade shortens with
+the glow (`AFTER_BEATS` at full, half that at the last step — the design's
+step 8). Three lights, each on the seat whose control made it
+(`view-role.ts`): a shot's flash three columns wide for a beat on player 2's
+screen; the guard window on the plate's column for as long as it is armed,
+and the beam on its own for as long as it stands, on player 1's — both read
+off the world every frame rather than ingested, so they hold exactly as long
+as the sim says. A breach lights its own neighbourhood two columns either way
+for two beats on both screens (*a scar is a light source*). The glow is two
+halos and a flame in ember and amber over the boss's column, at one of five
+integer reaches (`render/candle-glow.ts`), with a dim cone from the flame to
+the top of the column it faces on player 1's screen only, and only while it
+moves. Once `out`, the frame is black and nothing else for the two beats the
+boss stays installed; when the sim takes it away the black lifts over one
+beat — the design's wave-end light coming up on a field the pair never saw.
+Proved on both screens in `render/test/candle-frame.test.ts`.
+
+**What is not built**: THE SLOW over the flash beat (the design's step 6) —
+whether a shot's light should hang is the owner's eye — and *the corner light
+first*, the ship's own glow being the last thing to go dark, which is a beat
+of choreography over the opening and not a mechanism.
 
 **Never watched at tempo.** What the tests say is the mechanism: it arrives
 full at the middle column facing its own, cannot be struck and does not move

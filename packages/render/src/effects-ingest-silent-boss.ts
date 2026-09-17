@@ -73,7 +73,8 @@ export const INGEST_SILENT_BOSS = [
   "undertowSwallowed",
   "undertowThrough",
   // THE CANDLE's seven, silent for the same reason: the dark, the glow and
-  // the swallowed flash are the look half and are not drawn yet.
+  // its face are read off the world every frame (`candle-dark.ts`), and the
+  // one light an event makes — the shot's flash — is the `fire` next door.
   "candleDark",
   "candleDim",
   "candleMove",

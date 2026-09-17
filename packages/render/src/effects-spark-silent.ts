@@ -141,7 +141,8 @@ export const SILENT = [
   "undertowRise",
   "undertowSwallowed",
   "undertowThrough",
-  // THE CANDLE's seven: the look half, not drawn yet (`docs/spec/bosses.md`).
+  // THE CANDLE's seven: the dark is a mask read off the world every frame
+  // (`candle-dark.ts`), and a spark in it would be a light the design forbids.
   "candleDark",
   "candleDim",
   "candleMove",

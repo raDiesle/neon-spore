@@ -1,4 +1,5 @@
 import type { SimConfig, SimEvent, World } from "@neon-spore/sim";
+import { AfterImage } from "./after-image.js";
 import { Arrivals } from "./arrivals.js";
 import { BeatboxSilences } from "./beatbox-silence.js";
 import { BeatboxWaves } from "./beatbox-wave.js";
@@ -159,6 +160,11 @@ export class Effects {
   /** And its silencings, which are the same picture with nowhere to go
    * (`beatbox-silence.ts`). */
   readonly beatboxSilences = new BeatboxSilences();
+  /** THE CANDLE's after-image: which columns of the dark field were lit, by
+   * what, and how long ago. Public and drawn by the renderer between the
+   * bodies and the ship rather than here — it is a mask over the field, not
+   * a thing on it (`after-image.ts`, `candle-dark.ts`). */
+  readonly afterImage = new AfterImage();
 
   /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {

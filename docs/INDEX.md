@@ -1149,6 +1149,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/choke-strip.ts` | **Player 1's cannon strip while THE CHOKE has the cannon.** Drawn over the strip the band has just drawn |
 | `packages/render/src/choke-hull.ts` | THE CHOKE's grip on the cannon over the finished hull — the loops round the swelling while the steer fault has it, and the pilot's light toward the next column |
 | `packages/render/src/action-face.ts` | Player 1's action buttons, showing the ship doing the thing instead of spelling its name |
+| `packages/render/src/after-image.ts` | **THE CANDLE's after-image**: which columns of a dark field were lit, by what |
 | `packages/render/src/beatbox-marks.ts` | THE BEATBOX's two half-pictures: the **count** over the box on player 1's screen |
 | `packages/render/src/beatbox-tap.ts` | **Player 2's thumb on a soundbox**, and the first press in this game that lands on a *body* and is over the… |
 | `packages/render/src/beatbox-wave.ts` | **The wave of sound a miscounted box sends at the ship**, and the picture this creature is named for |
@@ -1212,6 +1213,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/beatbox-count.ts` | **What the counter over a soundbox is saying**, as a shape rather than as a drawing — how many slots |
 | `packages/render/src/beatbox-silence.ts` | **A soundbox going quiet**, which is the one thing on this creature that goes right and until now was the… |
 | `packages/render/src/canvas2d-takeover.ts` | **The two frames that are not the field**, and the clocks that run whether or not one of them is up |
+| `packages/render/src/candle-dark.ts` | **THE CANDLE's dark**: the field going black |
+| `packages/render/src/candle-glow.ts` | **THE CANDLE's glow**: its health, and the only steady light in the field |
 | `packages/render/src/cairn-settle.ts` | The lane THE CAIRN is about to drop a rock into, drawn on player 1's screen and on nothing player 2 is shown |
 | `packages/render/src/cairn-hand.ts` | The hand on THE CAIRN, drawn over the stack by the boss pass — the ordinary ring closed round every stone still standing, and the word PULL |
 | `packages/render/src/cairn-look.ts` | THE ONE RECORD A CANDIDATE **PILE** PATCHES |

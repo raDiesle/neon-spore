@@ -162,6 +162,12 @@ export function drawBoss(
     return;
   }
 
+  // THE CANDLE draws nothing among the bodies: it is a light, and a light
+  // goes *over* the dark, so the glow is drawn by the same pass that lays
+  // the black on the field — after every body and before the ship
+  // (`candle-dark.ts`, `candle-glow.ts`).
+  if (boss.kind === "candle") return;
+
   if (boss.kind === "vane") {
     // No body among the creatures: the arm hangs off the top edge, so there is
     // nothing of it on the grid to find.
