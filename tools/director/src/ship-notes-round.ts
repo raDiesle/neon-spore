@@ -121,6 +121,19 @@ export const ROUND_NOTES = {
     "candleLastSteps it stops moving, turning and eating, and the last shot " +
     "puts it out, holding the wave candleOutBeats more. Nothing about it is " +
     "authored per wave. See sim/candle.ts, sim/config-candle.ts.",
+  "THE GORGE — the boss you hurt by not shooting":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §3: " +
+    "the one boss whose health runs backwards. A sack gorgeIntakes wide sits " +
+    "under the top of the frame and swallows every shot that reaches it, one " +
+    "bead per shot, in the colour of the first; the wrong colour lets a bead " +
+    "go. At gorgeFullBeads an intake is full, and the next shot into it " +
+    "ruptures it for good — or, left gorgeVentBeats, it vents a torch down " +
+    "its column. From gorgeSpitRuptures ruptures it spits a swallowed bead " +
+    "back as a body every gorgeSpitBeats; at gorgeMouthRuptures the last " +
+    "whole intake becomes the mouth, fills itself, and only the beam in its " +
+    "colour while it is full ends it, holding the wave gorgeOutBeats more. " +
+    "gorgeSinkPer is the look's: a bead of sag per that many held. Nothing " +
+    "about it is authored per wave. See sim/gorge.ts, sim/config-gorge.ts.",
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

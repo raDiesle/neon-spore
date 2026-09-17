@@ -203,6 +203,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/lid.ts` | you are working on the armoured eye — the cord, how far the plates have parted, and what a shot into it does |
 | `packages/sim/src/config-ghost.ts` | THE GHOST's numbers: what one is worth, the row a crossing one prowls along, how far it goes each beat, how |
 | `packages/sim/src/config-gum.ts` | THE GUM's numbers: how far a swipe has to carry it, and how far it flies a beat once swiped |
+| `packages/sim/src/config-gorge.ts` | THE GORGE's numbers — how wide the sack is, how many beads fill an intake |
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/boss-surface-clocks.ts` | **The clock bosses' half of the surface**, written out the same way |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
@@ -293,6 +294,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-crystal.ts` | **Everything THE CRYSTAL does**, as events: it turns at a wall, its shell catches a wrong shot, the right one breaks it in two |
 | `packages/sim/src/events-ghost.ts` | THE GHOST's three: the body letting go, a wall turned at, and the dive |
 | `packages/sim/src/events-gum.ts` | **Everything THE GUM does**, as events: it is flung — its landing is a `breach` |
+| `packages/sim/src/events-gorge.ts` | **Everything THE GORGE does that neither screen already says**, as events |
 | `packages/sim/src/kind-code.ts` | **A kind as a number**, and the compile-time proof that every kind has one |
 | `packages/sim/src/lure-exit.ts` | **THE LURE leaving on its own**, which is the one thing in this game a body does at the end of a beat for no… |
 | `packages/sim/src/config-crystal.ts` | THE CRYSTAL's numbers: how it crosses the field, what splitting one is worth, what a whole one costs |
@@ -315,6 +317,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-magnet.ts` | **What THE MAGNET does**, as events: a bolt turned away by the plate slung under the body |
 | `packages/sim/src/grip-push.ts` | THE PUSH: the hand on a rock, carried sideways — one column, then a beat of quiet |
 | `packages/sim/src/grip-push-dir.ts` | **Which way a carried body has been earned a column** |
+| `packages/sim/src/gorge-hash.ts` | What THE GORGE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/gorge-step.ts` | THE GORGE's clock — the vent, the spit, the mouth feeding itself and the beats after the beam |
+| `packages/sim/src/gorge.ts` | THE GORGE: what not to do |
 | `packages/sim/src/hash-creature-held.ts` | **The fields a hand writes**, folded into the fingerprint |
 | `packages/sim/src/config-claw.ts` | THE CLAW's numbers — the rail, the clock, and what a bad grab costs |
 | `packages/sim/src/config-cling.ts` | THE LIMPET's and THE LEECH's numbers: how many beats a control may stand still with one on it before it goes… |
@@ -1294,6 +1299,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-baton.ts` | THE BATON's seven, in a file of their own because `bind.ts` is at its limit |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
+| `packages/audio/src/bind-gorge.ts` | THE GORGE's nine, in a file of their own for `bind-candle.ts`' reason |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |

@@ -127,3 +127,13 @@ export interface OrreryEntry {
 export interface CandleEntry {
   kind: "candle";
 }
+
+/**
+ * What a wave authors when it wants THE GORGE, which is nothing at all — the
+ * seventh. No column: the sack is seven intakes wide and centred. No health:
+ * it starts empty, and the pair's own shots are what fill it
+ * (`gorge.ts`, `config-gorge.ts`).
+ */
+export interface GorgeEntry {
+  kind: "gorge";
+}

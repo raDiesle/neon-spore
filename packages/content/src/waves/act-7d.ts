@@ -36,6 +36,16 @@ import type { Wave } from "../wave-types.js";
  * in the dark, and a field with bodies in it is a field the pair has to light
  * to read; four slicks at the walls, one every twelve beats, are enough to
  * make the muzzle flash worth something without making the wave about them.
+ *
+ * **THE GORGE's arrivals are what the pair must answer without missing.** The
+ * sack swallows every shot that reaches the top of the field, so the cost of
+ * a body on this wave is the shot fired at where it *was*: rocks for the
+ * shield, so the cannon can stay on its column, and a few slicks and bulbs
+ * of both colours — some in the middle column on purpose, where a body
+ * standing in the fill takes the bead meant for the intake. The design's
+ * *let them reach the hull* is not authored, because a hull hit fails the
+ * wave (`sim/wave-fail.ts`); what is authored is a field the restraint is
+ * against.
  */
 export const WAVES_ACT_7D: Wave[] = [
   {
@@ -96,5 +106,29 @@ export const WAVES_ACT_7D: Wave[] = [
       { beat: 54, col: 6, color: "red" },
     ],
     boss: { kind: "candle" },
+  },
+  {
+    id: "theGorge",
+    name: "THE GORGE",
+    sentence:
+      "The one that eats your shots, and the only way to hurt it is to overfeed exactly one part of it.",
+    guide: {
+      both: "A sack hangs across the top of the field with an intake under each of seven columns. Every shot that reaches the top is swallowed and hangs inside as a bead. An intake fills on four beads of one colour and goes clear; one more shot then pierces it for good, but it vents a torch after four beats if nobody does. A wrong colour takes a bead back out. Pierce two and it starts spitting beads back as bodies; pierce four and the one left fills itself — hold the beam in its colour on its column when it is full.",
+      p1: "Only you see how many beads each intake holds. Pick a column, say it, and hold the cannon there while she fills it: four of one colour, then one more. A shot past a missed body is a bead in the wrong place.",
+      p2: "You see which intake is nearest full and the colour it wants. Load that colour and fire only up the column he holds. When it clears, say so and fire once more. When the last fills itself, hold its colour for the beam.",
+    },
+    entries: [
+      { beat: 20, col: 1, kind: "meteor", color: null },
+      { beat: 28, col: 5, kind: "meteor", color: null },
+      { beat: 34, col: 3, color: "red" },
+      { beat: 40, col: 0, color: "cyan" },
+      { beat: 46, col: 6, kind: "meteor", color: null },
+      { beat: 52, col: 3, color: "cyan" },
+      { beat: 60, col: 2, kind: "meteor", color: null },
+      { beat: 66, col: 4, color: "red" },
+      { beat: 74, col: 3, kind: "meteor", color: null },
+      { beat: 82, col: 1, color: "cyan" },
+    ],
+    boss: { kind: "gorge" },
   },
 ];

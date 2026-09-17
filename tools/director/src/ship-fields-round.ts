@@ -123,6 +123,17 @@ export const ROUND_FIELD_GROUP = {
   candleEatSteps: "THE CANDLE — the boss fought in the dark",
   candleLastSteps: "THE CANDLE — the boss fought in the dark",
   candleOutBeats: "THE CANDLE — the boss fought in the dark",
+  // GorgeConfig — how wide the sack is, how many beads fill an intake, how
+  // long a full one holds before venting, and when it spits and gorges
+  // (`config-gorge.ts`).
+  gorgeIntakes: "THE GORGE — the boss you hurt by not shooting",
+  gorgeFullBeads: "THE GORGE — the boss you hurt by not shooting",
+  gorgeVentBeats: "THE GORGE — the boss you hurt by not shooting",
+  gorgeSpitRuptures: "THE GORGE — the boss you hurt by not shooting",
+  gorgeSpitBeats: "THE GORGE — the boss you hurt by not shooting",
+  gorgeMouthRuptures: "THE GORGE — the boss you hurt by not shooting",
+  gorgeSinkPer: "THE GORGE — the boss you hurt by not shooting",
+  gorgeOutBeats: "THE GORGE — the boss you hurt by not shooting",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

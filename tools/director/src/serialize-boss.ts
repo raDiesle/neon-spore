@@ -107,6 +107,9 @@ export function serializeBoss(boss: BossEntry): string {
   // And THE CANDLE, the seventh: no column, it starts in the middle and
   // drifts; no health, the glow is five steps (`sim/config-candle.ts`).
   if (boss.kind === "candle") return '{ kind: "candle" }';
+  // And THE GORGE, the eighth: no column, the sack is centred and as wide as
+  // the field allows; no health, it runs backwards (`sim/config-gorge.ts`).
+  if (boss.kind === "gorge") return '{ kind: "gorge" }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

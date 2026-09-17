@@ -61,6 +61,21 @@ export {
   diastoleStanding,
 } from "./diastole.js";
 export { diastoleBoss } from "./diastole-step.js";
+// THE GORGE keeps no clock of its own but the vent and the spit: what it
+// holds is the pair's own shots, seven tallies wide.
+export {
+  GORGE_PHASES,
+  type GorgeIntake,
+  type GorgePhase,
+  type GorgeState,
+  gorgeBeads,
+  gorgeBoss,
+  gorgeFull,
+  gorgeIntakeAt,
+  gorgeNearestFull,
+  gorgePhase,
+  gorgeSink,
+} from "./gorge.js";
 // THE ORRERY is three clocks rather than one, and the only number the pair
 // ever wants off it is a beat that has not happened yet (`orreryNextOpen`).
 export {

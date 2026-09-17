@@ -5,6 +5,7 @@ import { installCandle } from "./candle-step.js";
 import { installDiastole } from "./diastole-step.js";
 import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
+import { installGorge } from "./gorge-step.js";
 import { installMaze } from "./maze-state.js";
 import { installMirror } from "./mirror.js";
 import { installOrrery } from "./orrery-step.js";
@@ -165,6 +166,11 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // No creature and no row: a glow above the grid that nothing on the field
     // touches, in a dark the sim does not know about (`candle-step.ts`).
     world.boss = installCandle(world);
+  } else if (boss?.kind === "gorge") {
+    // No creature and no row: a sack above the grid that swallows what the
+    // pair fires past the field, and falls only what they overfed it with
+    // (`gorge-step.ts`).
+    world.boss = installGorge(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

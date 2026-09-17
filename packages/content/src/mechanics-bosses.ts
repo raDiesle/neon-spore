@@ -23,6 +23,7 @@ type BossId = Extract<
   | "undertow"
   | "orrery"
   | "candle"
+  | "gorge"
 >;
 
 /**
@@ -108,6 +109,10 @@ export const BOSS_MECHANICS = {
   },
   candle: {
     what: "The one boss you fight in the dark. The field goes black over four beats and the only steady light left is the boss's own glow, high over one column — and that glow is its health: five steps, one lost to every shot up its column, either colour, and the fight is over when the last goes out. It drifts a column every few beats, so the column to fire up has to be found again. It faces a column, which only the pilot sees, and once it is down to two steps it eats a flash fired from that column: no bolt leaves the muzzle, nothing is lit, and the swallowed light puts a step back on its glow. The beam is never eaten. At the last step it stops moving and stops eating, and the last shot is the pair's to take. The dark itself, the flashes and the after-images are the picture's and not the rule's.",
+    reach: "spawn",
+  },
+  gorge: {
+    what: "The one boss you hurt by not shooting. A sack hangs across the top of the field, seven columns wide, with an intake under each, and every shot that reaches the top of the field without meeting a body is swallowed and hangs inside it as a bead. An intake fills on four beads of one colour and goes clear; one more shot then pierces it for good, but a full intake nobody pierces vents a torch down its column after four beats and is empty again. A wrong colour takes a bead back out. After two ruptures the sack spits beads back as bodies of their colour, from the emptiest intake that holds one, every three beats; after four, the intake nearest the centre becomes the mouth and fills itself, and the beam in its colour standing in its column while it is full ends the fight, every bead leaving at once. The sack sinking under what it holds is the picture's and not the rule's.",
     reach: "spawn",
   },
   undertow: {

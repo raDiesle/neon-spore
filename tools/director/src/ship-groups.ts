@@ -33,6 +33,7 @@ export type GroupName =
   | "THE UNDERTOW — the boss under the floor, answered downward"
   | "THE ORRERY — three orbits, and neither of you can see all three"
   | "THE CANDLE — the boss fought in the dark"
+  | "THE GORGE — the boss you hurt by not shooting"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -110,6 +111,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE UNDERTOW — the boss under the floor, answered downward",
   "THE ORRERY — three orbits, and neither of you can see all three",
   "THE CANDLE — the boss fought in the dark",
+  "THE GORGE — the boss you hurt by not shooting",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",
@@ -184,6 +186,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE UNDERTOW — the boss under the floor, answered downward",
   "THE ORRERY — three orbits, and neither of you can see all three",
   "THE CANDLE — the boss fought in the dark",
+  "THE GORGE — the boss you hurt by not shooting",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",
@@ -220,6 +223,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   undertow: "THE UNDERTOW — the boss under the floor, answered downward",
   orrery: "THE ORRERY — three orbits, and neither of you can see all three",
   candle: "THE CANDLE — the boss fought in the dark",
+  gorge: "THE GORGE — the boss you hurt by not shooting",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

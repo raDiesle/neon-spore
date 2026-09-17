@@ -4,6 +4,7 @@ import { candleEats, candleStruck } from "./candle-step.js";
 import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import { diastoleStruck } from "./diastole-step.js";
+import { gorgeStruck } from "./gorge-step.js";
 import { steerShot } from "./lock.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { orreryStruck } from "./orrery-shot.js";
@@ -169,6 +170,8 @@ function sweep(world: World, b: Bullet): boolean {
     orreryStruck(world, b, world.beat);
     // And THE CANDLE's glow, a step dimmer for any colour up its own column.
     candleStruck(world, b);
+    // And THE GORGE's sack, which swallows the shot as a bead (`gorge-step.ts`).
+    gorgeStruck(world, b);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

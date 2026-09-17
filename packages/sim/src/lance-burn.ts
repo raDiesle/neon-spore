@@ -3,6 +3,7 @@ import { resolve } from "./bullet-hit.js";
 import { candleStruck } from "./candle-step.js";
 import { hullRow } from "./config.js";
 import { diastoleStruck } from "./diastole-step.js";
+import { gorgeStruck } from "./gorge-step.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
 import { bulletMilli, creatureMilli } from "./mid-beat.js";
 import { orreryStruck } from "./orrery-shot.js";
@@ -137,5 +138,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   orreryStruck(world, b, beamBeat(world));
   // And THE CANDLE, which the beam dims like a shot would (`candle-step.ts`).
   candleStruck(world, b);
+  // And THE GORGE, where the beam in the mouth is what ends the fight
+  // (`gorge-step.ts`).
+  gorgeStruck(world, b);
   return 0;
 }

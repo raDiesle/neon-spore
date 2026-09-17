@@ -2,6 +2,7 @@ import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-union.js";
 import { candleHashParts } from "./candle-hash.js";
 import { diastoleHashParts } from "./diastole-hash.js";
+import { gorgeHashParts } from "./gorge-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
 import { stareHashParts } from "./stare-hash.js";
 import { throatHashParts } from "./throat-hash.js";
@@ -63,6 +64,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE CANDLE: the glow, where it stands, where it faces (`candle-hash.ts`).
   if (boss.kind === "candle") {
     for (const n of candleHashParts(boss)) out.push(n);
+  }
+  // THE GORGE: every intake's tally, colour and state (`gorge-hash.ts`).
+  if (boss.kind === "gorge") {
+    for (const n of gorgeHashParts(boss)) out.push(n);
   }
   return out;
 }

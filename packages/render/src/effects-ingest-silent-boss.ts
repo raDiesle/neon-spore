@@ -82,6 +82,17 @@ export const INGEST_SILENT_BOSS = [
   "candleFed",
   "candleLast",
   "candleOut",
+  // THE GORGE's nine, silent for the same reason: the sack, the beads and
+  // the rupture are the look half and are not drawn yet.
+  "gorgeSettle",
+  "gorgeSwallow",
+  "gorgeEmptied",
+  "gorgeFull",
+  "gorgeRupture",
+  "gorgeVent",
+  "gorgeSpit",
+  "gorgeMouth",
+  "gorgeOut",
   "tether",
   "eyeOpen",
   "wardenDown",

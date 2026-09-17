@@ -208,6 +208,7 @@ export type {
   DiastoleEntry,
   FleetEntry,
   GaugeEntry,
+  GorgeEntry,
   MazeEntry,
   MirrorEntry,
   OrreryEntry,

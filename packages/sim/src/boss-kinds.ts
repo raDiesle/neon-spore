@@ -51,6 +51,11 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // rather than above it: a fixture in the hull that pushes up through the
   // floor and falls nothing at all (`undertow.ts`). What comes down over it
   // is the wave's own.
+  // THE GORGE is the ninth, and the one that sends bodies *because* of the
+  // wave's own: a sack that swallows every shot nobody aimed at a creature,
+  // and falls only what the pair overfed it with — a vented torch, a spat
+  // bead (`gorge-step.ts`). The arrivals the pair must not shoot at are
+  // authored, or there is nothing for the restraint to be against.
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -59,7 +64,8 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
     kind !== "diastole" &&
     kind !== "baton" &&
     kind !== "throat" &&
-    kind !== "undertow"
+    kind !== "undertow" &&
+    kind !== "gorge"
   );
 }
 
@@ -128,4 +134,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "undertow",
   "orrery",
   "candle",
+  "gorge",
 ];

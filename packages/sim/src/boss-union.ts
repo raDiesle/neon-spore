@@ -4,6 +4,7 @@ import type { CairnState } from "./cairn.js";
 import type { CandleState } from "./candle.js";
 import type { DiastoleState } from "./diastole.js";
 import type { GaugeState } from "./gauge.js";
+import type { GorgeState } from "./gorge.js";
 import type { MazeState } from "./maze-state.js";
 import type { OrreryState } from "./orrery.js";
 import type { PinballState } from "./pinball.js";
@@ -68,4 +69,5 @@ export type BossState =
   | ThroatState
   | UndertowState
   | OrreryState
-  | CandleState;
+  | CandleState
+  | GorgeState;

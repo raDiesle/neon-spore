@@ -194,6 +194,10 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // (`config-candle.ts`), and where it hangs and what it faces are what the
   // fixture's world has moved by the time it is fingerprinted (`candle-hash.ts`).
   candle: { kind: "candle" },
+  // THE GORGE authors nothing either: the sack's width and fill are tuning
+  // (`config-gorge.ts`), and what its intakes hold is what the fixture's world
+  // has fired into them by the time it is fingerprinted (`gorge-hash.ts`).
+  gorge: { kind: "gorge" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -519,5 +523,16 @@ function patchBoss(world: World): void {
     boss.scars = [scar()];
     boss.verdict = 1;
     boss.verdictCol = 2;
+  }
+  if (boss.kind === "gorge") {
+    // One bead held, so the intake's colour is a value and not the null an
+    // empty sack starts with — the walk cannot flip a null.
+    const first = boss.intakes[0];
+    if (first !== undefined) {
+      first.beads = 1;
+      first.color = "red";
+      first.fullBeat = 2;
+    }
+    boss.swallowed = 1;
   }
 }

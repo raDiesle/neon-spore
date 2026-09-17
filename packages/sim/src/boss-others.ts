@@ -5,6 +5,7 @@ import { stepCairn } from "./cairn.js";
 import { stepCandle } from "./candle-step.js";
 import { stepDiastole } from "./diastole-step.js";
 import { stepFleet } from "./fleet.js";
+import { stepGorge } from "./gorge-step.js";
 import { stepMaze } from "./maze-round.js";
 import { stepMirror } from "./mirror.js";
 import { stepOrrery } from "./orrery-step.js";
@@ -98,6 +99,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // the tick, from `bullets.ts` and `lance-burn.ts` (`candle-step.ts`).
   if (boss.kind === "candle") {
     stepCandle(world, boss);
+    return;
+  }
+  // THE GORGE on the beat is the sack's clock: the vent, the spit, the mouth
+  // feeding itself. The one moment a shot meets it is on the tick, from
+  // `bullets.ts` and `lance-burn.ts` (`gorge-step.ts`).
+  if (boss.kind === "gorge") {
+    stepGorge(world, boss);
     return;
   }
   if (boss.kind === "vane") {

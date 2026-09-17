@@ -81,6 +81,13 @@ const THE_LESSON_KEEPS: Record<string, readonly WaveKind[]> = {
   // shot answers: it is player 1's to brake out of the pull, which is what
   // makes THE DRAG legible in a wave where everything else is a colour.
   "THE THROAT": ["meteor", "gum"],
+  // THE GORGE introduces no creature at all — what is new is a boss that
+  // swallows every shot that goes past a body, so the lesson is the miss —
+  // and every arrival on it is a kept kind. The rock is what gives the pair
+  // something to answer *without* firing: a rock is the dome's, and a wave
+  // with nothing under the sack but colours would be a wave where every
+  // answer feeds it.
+  "THE GORGE": ["meteor"],
 };
 
 describe("a guided wave's entries", () => {

@@ -8328,3 +8328,23 @@ whole glide between them. It compares tick by tick now, and reverting the fix
 fails it on the first tick.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — boss-implementation — THE GORGE's sack
+
+The first half of the fourth boss: the sack that swallows every shot, its
+intakes filling, rupturing, venting and spitting, and the mouth the beam ends.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | §3's beat list and its eight steps, `candle-step.ts` and `candle.test.ts` as the shape, `bullets.ts` and `lance-burn.ts` for the top-of-field hook, `spawn.ts` for a body placed mid-wave, the audio and director wiring the last two bosses left |
+| deciding | 15 | five departures from the design, each argued in §11.23: a spat bead broken by its own colour, restraint against the miss rather than the breach (every hull damage fails the wave), spitting from the emptiest intake and never a full one, the mouth ended by the beam alone while full, the sink derived and not a rule |
+| writing | 25 | `gorge.ts`, `gorge-step.ts`, `gorge-hash.ts`, `config-gorge.ts`, `events-gorge.ts`, twenty wiring sites across sim, content, audio, render and the director, the wave in `act-7d.ts`, nine sounds, thirteen tests, `bosses.md` §11.23 |
+| friction | 5 | the session compacted between the audio wiring and the test; two grain signatures guessed wrong and caught by the typecheck; the spit test counted one spit where the count allowed two |
+| landing | 5 | `baseline:blank`, `check:fast`, the index, the commit |
+
+The bottleneck was the design's step 7: *a creature reaching the hull* as the
+correct play is exactly the thing the owner's rule forbids, and deciding what
+restraint means on a field where every breach fails the wave took longer than
+any file did.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

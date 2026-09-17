@@ -107,6 +107,19 @@ export const NO_SUBJECT: Record<string, string> = {
   "boss.candleLast": "the glow down to its last step and standing still. Same argument.",
   "boss.candleOut":
     "the last step gone. What this marks is a field with no light in it — an absence like ui.waveClear rather than a thing standing anywhere.",
+  // THE GORGE's nine. The boss is a sack the sheet has no card for, and
+  // what these mark is fluid moving in and out of it, never a body standing.
+  "boss.gorgeSettle":
+    "the sack settling into the top of the frame. It is as wide as seven columns, which is not a card (`sim/gorge.ts`).",
+  "boss.gorgeSwallow": "a shot swallowed, one bead in. Same argument.",
+  "boss.gorgeEmptied": "a bead let go for the wrong colour. Same argument.",
+  "boss.gorgeFull": "an intake at four beads, clear and about to vent. Same argument.",
+  "boss.gorgeRupture": "a full intake pierced for good. Same argument.",
+  "boss.gorgeVent": "a full intake nobody pierced, venting a torch. Same argument.",
+  "boss.gorgeSpit": "a swallowed bead spat back as a body. Same argument.",
+  "boss.gorgeMouth": "the last whole intake becoming the mouth. Same argument.",
+  "boss.gorgeOut":
+    "the sack ruptured along its width by the beam. What this marks is a frame with nothing under its top — an absence like ui.waveClear rather than a thing standing anywhere.",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",

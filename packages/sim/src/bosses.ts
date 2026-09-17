@@ -31,6 +31,7 @@ export {
   type DiastoleEntry,
   type FleetEntry,
   type GaugeEntry,
+  type GorgeEntry,
   type OrreryEntry,
   type PinballEntry,
   type PulseEntry,

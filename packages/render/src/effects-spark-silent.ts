@@ -150,6 +150,16 @@ export const SILENT = [
   "candleFed",
   "candleLast",
   "candleOut",
+  // THE GORGE's nine: the look half, not drawn yet (`docs/spec/bosses.md`).
+  "gorgeSettle",
+  "gorgeSwallow",
+  "gorgeEmptied",
+  "gorgeFull",
+  "gorgeRupture",
+  "gorgeVent",
+  "gorgeSpit",
+  "gorgeMouth",
+  "gorgeOut",
   "quit", // The run ending is the menu opening (`apps/game`), not a mark on the field.
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.

@@ -2482,3 +2482,88 @@ drifts within the field and turns on its count, eats the faced column's shot
 and no other and never past full, the beam dims it while it eats, the last
 step stands still, the wave stays open for the two beats after, and the same
 run fingerprints the same way twice (`sim/test/candle.test.ts`).
+
+## 11.23 THE GORGE — the boss you hurt by not shooting
+
+> The one that eats your shots, and the only way to hurt it is to overfeed
+> exactly one part of it.
+
+Designed as §3 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: every other fight rewards a shot, and this is the one that
+asks *what not to do* — a sack under the top of the frame that swallows
+everything the pair fires, so that health runs backwards and the fight is
+won by the shot withheld and the one placed.
+
+**It is a fixture, not a body.** `bossFillsWave === false`, so the wave's own
+arrivals fall under it (`content/src/waves/act-7d.ts`, "THE GORGE") — rocks
+for the shield, a few shootable bodies, some of them in the sack's middle
+column where a *miss* feeds the mouth. What `packages/sim` holds is the sack
+(`sim/gorge.ts`, hashed in `sim/gorge-hash.ts`): `gorgeIntakes` (7) intakes
+centred on the field, each with a bead count, a colour, the beat it filled
+and whether it has ruptured; the running total of beads swallowed; how many
+intakes are gone; which is the mouth; and the four phases — `feeding`,
+`spitting`, `gorged`, `out` — **derived** from those counts rather than
+stored (`gorgePhase`), because each is a consequence of a number the pair
+can read off the sack.
+
+**The rule, in one sentence.** A shot that leaves the top of the field under
+an intake — a bullet in `bullets.ts`, or the beam burning its column in
+`lance-burn.ts`, both through `gorgeStruck` — is a **bead**: the intake's own
+colour, or its first, fills it a step and counts as a colour met; the other
+colour takes a bead back out and counts as one missed, so the balance reads a
+wrong bead as the wrong shot it was. At `gorgeFullBeads` (4) an intake is
+**full** (`gorgeFull`), and the next shot of any colour, bolt or beam,
+**ruptures** it for good: it hangs open, shots pass through it, and nothing
+goes in again. A full intake nobody pierces within `gorgeVentBeats` (4)
+**vents** — a torch down its column and the intake empty. From
+`gorgeSpitRuptures` (2) ruptures the sack **spits**: every `gorgeSpitBeats`
+(3) one bead goes back down its own column as a body of its colour — a slick
+for red, a bulb for cyan — from the emptiest intake that holds one, so *what
+comes back is what the pair threw away*. At `gorgeMouthRuptures` (4)
+ruptures, or when one intake is all that stands, the whole intake nearest
+the centre becomes the **mouth** (`gorgeMouth`), in the colour it holds or one
+of the sack's own choosing: it feeds itself a bead every `gorgeSpitBeats`,
+is never pierced by a bolt, and never vents. **The beam in its colour, while
+it is full, is the one thing that ends the fight** (`gorgeOut`); a beam in
+the other colour empties it a bead like any wrong shot. The boss stays
+installed `gorgeOutBeats` (2) more so the wave cannot end on the beat the sack
+does — the design's beads leaving upward.
+
+**Where this departs from the design, and why.** Five places, each argued
+by name. *A spat bead is a body of its own colour, broken by its own colour*:
+the design has it "broken only by the other colour", and the game has one
+colour rule (`docs/spec/systems.md`), which a second would contradict on the
+wave that most needs the pair reading colours right; the penalty for the
+wrong colour is that the intake refills instead. *The breach is not the
+correct play*: the design's step 7 has "a creature reaching the hull" as what
+the pair does instead of shooting, and every hull damage fails the wave
+(`wave-fail.ts`, the owner's rule of 12 September 2026), so restraint here is
+against the *miss* — the wave's arrivals are rocks for the shield and bodies
+to hit, and it is the shot that goes past one that feeds the sack. *Spitting
+comes from the emptiest intake*, never a full one: a spit from a full intake
+would close the window the fill just opened, and the fill is the whole
+mechanism. *The mouth is ended by the beam alone, in its colour, while full*:
+the design's "beam in the mouth's colour" said nothing about beads, and a
+mouth the beam could end while empty is a mouth with no reason to feed
+itself. *The sink is derived* (`gorgeSink`, a step per `gorgeSinkPer` beads
+held) and is no rule: it is the picture of the sack getting heavier, for
+render to ask for. And, small fields being a fact the config allows, *the
+mouth also opens when one intake is all that stands*.
+
+**What is not built**: the look — the sack under the top of the frame, its
+seven intakes and the beads in them, the fill's translucence, the rupture's
+skin giving and the shots passing through it, the sink, THE SLOW over the
+pierce, and the payoff burst of every bead leaving upward. The nine events
+(`sim/events-gorge.ts`) are bound to sound (`audio/bind-gorge.ts`) and silent
+in render's two lists until the skin is drawn, in its own lane.
+
+**Never watched at tempo.** What the tests say is the mechanism: it arrives
+centred and empty, swallows in its columns and nowhere else, lets a bead go
+for the wrong colour and counts the miss, is full at four once and holds no
+more, ruptures on the next shot with shots passing through afterwards, vents a
+torch on its count, spits nothing before two ruptures and then one bead a
+count from the emptiest intake as a body of its colour, opens the mouth at
+four ruptures nearest the centre and feeds it to full without venting, is not
+pierced there by a bolt, is emptied a bead by the wrong beam and ended by the
+right one with the wave held two beats after, and the same run fingerprints
+the same way twice (`sim/test/gorge.test.ts`).
