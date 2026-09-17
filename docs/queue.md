@@ -302,36 +302,6 @@ kind sits in `LOOK_PENDING` in the test, which goes red the moment the look
 lands, so that lane deletes the line. A look with no shipped alternative, the
 second exemption, so it lands on the field.
 
-## Nine more tests spawn a child process under bun's five-second default
-
-- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-17, claude/queue-nine-more-tests-spawn-a-child-process-under-buns
-- **Files:** `tools/test/line-endings.test.ts`, `tools/imports/test/format-script.test.ts`, `tools/hooks/test/guard.test.ts`, `tools/queue/test/ref-commit.test.ts`, `tools/queue/test/stale.test.ts`, `tools/dev/test/supervise-stop.test.ts`, `tools/dev/test/here.test.ts`, `tools/versus/test/registry.test.ts`, `apps/server/test/dev-stop.test.ts`
-
-The lane that capped `tools/imports/test/imports.test.ts` swept for the same
-shape and found these: every one spawns a child and none calls
-`setDefaultTimeout`, so each is one busy machine away from the failure that
-entry describes — red for nothing in the code, green when it is run again,
-which teaches whoever meets it that a red check is something you rerun. The
-heavy ones are the ones to start from: `format-script.test.ts` and
-`registry.test.ts` run biome, `dev-stop.test.ts` starts a wrangler,
-`supervise-stop.test.ts` and `guard.test.ts` spawn bun once per case.
-
-Not one cap for all nine: a git call that takes a second and a wrangler that
-takes ten want different numbers, and a cap so generous that nothing can ever
-reach it has stopped saying anything. Read what each file spawns, give it a
-named constant with the reason beside it — `canvas-stub.ts`'s
-`FRAME_TIMEOUT_MS` is the pattern, and `imports.test.ts` is the worked example
-— and where a file spawns the same command once per case, consider one spawn
-for the file with the cases reading its output instead.
-
-**And one that spawns nothing.** `tools/director/test/shape-fit.test.ts` timed
-out twice under `bun run check:fast` on 17 September 2026 — 779 assertions
-laying out every rest pose, green in 1.7 s on its own and past five seconds
-when eight shards are on the machine at once. So the shape to look for is not
-only a child process: it is a file whose own work is near the default, and that
-one wants the cap rather than a faster test.
-
 ## `bun run format` cannot fix what `bun run lint` reports about import order
 
 - **Found:** 2026-09-17, claude/boss-taster
@@ -381,26 +351,6 @@ taster's — into a boss file beside it and spreads `SILENT` out of the two
 arrays, which leaves the type guard and its `assertNever` exactly as they are
 because `SILENT` is still one `as const` at the end. Fifteen lines of work and
 the next boss lands without touching anybody's comment.
-
-## `shape-fit.test.ts` went red once under the sharded check, then green
-
-- **Found:** 2026-09-17, claude/shape-fit-flake-queued
-- **Taken:** 2026-09-17, claude/queue-shape-fit-test-ts-went-red-once-under-the-sharde
-- **Files:** `tools/director/test/shape-fit.test.ts`
-
-The lane that offered the lost screen's closing plates touched nothing this
-file reads, and `check:fast` reported its first failure at line 65 — *a
-figure's layout > draws every rest pose inside the frame it fitted* — in one
-run of eight shards, then passed it alone in 1.7 seconds and passed the whole
-sharded check on the next run. The sharded runner prints only the first
-failure's name, so whether it was the assertion or the clock is not in what
-was seen; the file walks every catalogue entry through `FIT_TIMES` twice over
-and sets no timeout of its own, which is the shape of the entry above this
-one. Run it under the sharded check a few times on a busy machine, read
-whether it is the five-second default that goes, and if it is give it a named
-constant with the reason beside it, `FRAME_TIMEOUT_MS`'s way; if it is the
-assertion, the catalogue has an entry whose rest box is not deterministic,
-and that is the real finding.
 
 ## `briefing.test.ts` went red under `check:fast` while another session ran `check`
 
