@@ -331,6 +331,7 @@ sending one PNG of the shared ready step.
 ## A rehearsal cannot show a finger on a bare tile, so THE MINE has no film
 
 - **Found:** 2026-09-16, claude/queued-tasks-51d8f9
+- **Taken:** 2026-09-17, claude/queue-a-rehearsal-cannot-show-a-finger-on-a-bare-tile
 - **Files:** `packages/content/src/scene-script.ts`, `packages/content/src/scene-types.ts`, `packages/content/src/scenes/`, `packages/render/src/guide-hand.ts`, `packages/content/test/scenes-prose.test.ts`, `docs/spec/briefings.md`
 
 Every act a film can carry is a thumb on something the panel draws: a control
