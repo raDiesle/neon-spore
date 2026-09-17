@@ -8980,3 +8980,19 @@ maw "answers" a pod the throat has hold of, when the built pull freezes a body
 outright — settled as the maw's own reach, which is a rule the pod already had.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — creature-bite-collision — QUIT stops looking like the other button
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `lostButtons` and everything that reads it — `apps/game/src/lost.ts`, `stage-opening.ts`, `briefing.test.ts` — and `wordPlate`'s crest |
+| deciding | 5 | three changes rather than one, and not a confirmation step, because the screen prints that one press answers |
+| writing | 10 | the geometry, the dimmer pass, and the split when the file went to 266 lines |
+| looking | 5 | one frame of CYAN played to its loss, and a crop of the plate |
+| landing | 5 | `check:fast`, the frame, the commit, `bun run land` |
+
+The bottleneck was the file's length: the change itself is four constants, and
+it pushed `lost-screen.ts` sixteen lines past the limit, so the split had to
+come with it.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*

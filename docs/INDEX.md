@@ -1036,6 +1036,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lost-shutters.ts` | Two heavy plates slide in over the field, one from the top and one from the foot |
 | `packages/render/src/lost-look.ts` | THE ONE RECORD A CANDIDATE **LOST SCREEN** PATCHES |
 | `packages/render/src/lost-blood.ts` | What runs down the lost screen: the ship's own fluid, from the top edge to the foot |
+| `packages/render/src/lost-answer.ts` | What the pair does about a lost wave: RETRY WAVE, QUIT, and the line saying either phone answers for both |
 | `packages/render/src/creature-tint.ts` | The three colours a body carries, and what they are mid-turn |
 | `packages/render/src/recoil-ribs.ts` | One rib of THE RECOIL's cage, and the piece of hoop it carries |
 | `packages/render/src/recoil-look.ts` | THE ONE RECORD A CANDIDATE **RECOIL** PATCHES |

@@ -1,13 +1,10 @@
 import { spanOf, type World } from "@neon-spore/sim";
 import { breachHue } from "./breach-hue.js";
 import { strikeSeed } from "./breach-strike.js";
-import { inside, type NavBox } from "./guide-nav.js";
-import { wordPlate } from "./guide-tide-plate.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
+import { drawLostAnswer, lostButtons } from "./lost-answer.js";
 import { LOST_LOOK } from "./lost-look.js";
-import { PALETTE } from "./palette.js";
-import { seatSkin } from "./seat-skin.js";
 
 /**
  * A lost wave stops on a friendly screen: RETRY WAVE or QUIT.
@@ -33,35 +30,6 @@ import { seatSkin } from "./seat-skin.js";
  * opening's clock: `openingKey` names this screen as a page of its own, so
  * the drop replays every time the wave is lost and never while it is held.
  */
-
-const BTN_H = 52;
-const BTN_GAP = 18;
-const WORD = '700 18px "Courier New",monospace';
-/** The arrow beside a word, as a radius. The guide's big button uses eleven. */
-const SIGN = 9;
-
-export interface LostButtons {
-  retry: NavBox;
-  quit: NavBox;
-}
-
-/** Where the two buttons are, for the hand that presses them (`apps/game/src/lost.ts`). */
-export function lostButtons(l: Layout): LostButtons {
-  const w = Math.min(l.width - 72, 260);
-  const x = (l.width - w) / 2;
-  const y = l.playHeight * 0.52;
-  return {
-    retry: { x, y, w, h: BTN_H },
-    quit: { x, y: y + BTN_H + BTN_GAP, w, h: BTN_H },
-  };
-}
-
-export function lostHit(l: Layout, x: number, y: number): "retry" | "quit" | null {
-  const b = lostButtons(l);
-  if (inside(b.retry, x, y)) return "retry";
-  if (inside(b.quit, x, y)) return "quit";
-  return null;
-}
 
 export interface LostView {
   /** Seconds the screen has been up; the words fall in over the first of them. */
@@ -163,71 +131,4 @@ export function drawLostScreen(
   drawLostAnswer(ctx, l, v);
 }
 
-/** The two buttons and the line under them: what the pair does about it. */
-function drawLostAnswer(ctx: CanvasRenderingContext2D, l: Layout, v: LostView): void {
-  // The buttons arrive after the words, and not by falling: a thing to be
-  // pressed should be still by the time a thumb reaches it.
-  //
-  // Centred here rather than inherited: the words above are a candidate's to
-  // draw and an answer that left the alignment anywhere would hang both button
-  // faces off the side of their own bodies (`lost-look.ts`).
-  const mid = l.width / 2;
-  ctx.textAlign = "center";
-  const shown = Math.max(0, Math.min(1, (v.age - 0.55) / 0.3));
-  if (shown > 0) {
-    const b = lostButtons(l);
-    const skin = seatSkin(l.role);
-    const over = (box: NavBox): boolean =>
-      v.pointer !== undefined && inside(box, v.pointer.x, v.pointer.y);
-    ctx.globalAlpha = shown;
-    // **The tutorial's own plates** (`guide-tide-plate.ts`), asked for by the
-    // owner on 17 September 2026 — *make sure buttons of "wave end" looks like
-    // the new buttons of tutorial guide*. They were the guide bar's grown
-    // bodies, which is what that bar drew until TIDE replaced it, so these two
-    // were the last pair in the game still wearing the shape it left behind.
-    // RETRY takes NEXT's forward arrow and QUIT takes BACK's, which is the
-    // same reading TIDE made of the two: one goes on, one leaves.
-    wordPlate(
-      ctx,
-      {
-        ...b.retry,
-        hex: PALETTE.pod,
-        glow: 0.45 + 0.35 * Math.abs(Math.sin(v.age * 2.2)),
-        live: true,
-        hover: over(b.retry),
-        dpr: l.dpr,
-        lip: skin.lip,
-      },
-      "RETRY WAVE",
-      1,
-      WORD,
-      SIGN,
-    );
-    wordPlate(
-      ctx,
-      {
-        ...b.quit,
-        hex: PALETTE.hull,
-        glow: 0,
-        live: true,
-        hover: over(b.quit),
-        dpr: l.dpr,
-        lip: skin.lip,
-      },
-      "QUIT",
-      -1,
-      WORD,
-      SIGN,
-    );
-    ctx.globalAlpha = shown * 0.72;
-    // Centred again: `wordPlate` leaves the alignment where every other caller
-    // of it wants it, which is left, and the line under the buttons is the one
-    // thing on this screen drawn after them.
-    ctx.textAlign = "center";
-    ctx.font = '11px "Courier New",monospace';
-    ctx.fillStyle = PALETTE.dim;
-    ctx.fillText("One press answers for both phones.", mid, b.quit.y + b.quit.h + 26);
-    ctx.globalAlpha = 1;
-  }
-  ctx.textAlign = "left";
-}
+export { type LostButtons, lostButtons, lostHit } from "./lost-answer.js";
