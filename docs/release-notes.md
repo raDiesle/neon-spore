@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · c8f4eb15 — THE UNDERTOW has a rehearsal film: a lobe scarred, two taken by the maw, a pair split between maw and plate
+
+Eleven pages over the first four pushes: a lobe nobody answers stands its four beats and scars the column; the cannon slides under the next by `atBoss` and the maw is open as it comes through; the third bows under the plate, so player 2 moves off before player 1 answers; and of the pair the maw takes the near lobe while the plate stands on the far one. Seed 36 is the one whose pair stands in columns the shield's strip can reach. Eighteen guided waves are still prose. Queued: with the shipped numbers a breach withdraws at 300 of the 400 it needs to widen, so the second lobe never comes.
+
 ## 2026-09-17 · 6b819d7d — THE LEDGER's look: one drawn object, cut in half between the two screens
 
 A tall split body high in the field on a single thick cord running down into the pair's own plating, with every hit they land coming back down it. The halves are metal — `rockDark` filled, `rock` stroked — cut down the seam's column with the ammunition colour lit along each cut face, and health is the silhouette: the two stand apart a share of a tile per hit and are thrown apart when the cord tears out. The cord is drawn as a thing and not a line — a cool shadow, the hull's violet, a hard core — bowed while the seam is empty and pulled straight as it fills, with the strain of a landing running back *up* it.
