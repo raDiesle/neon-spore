@@ -5,7 +5,7 @@ import {
   type GuideScene,
   type SceneAct,
 } from "@neon-spore/content";
-import { arrivingFirst, atBodyCol, type World } from "@neon-spore/sim";
+import { arrivingFirst, atBodyCol, bossAnswerCol, type World } from "@neon-spore/sim";
 import { smoothstep } from "./ease.js";
 import { bandLobes, type Layout, tileCX, type ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -121,10 +121,13 @@ function pointOn(
 }
 
 /** Where a strip act lands: the authored column, or the body's when the act
- * says so and there is one on the field to answer. */
+ * says so and there is one on the field to answer — or the boss's, read off
+ * the same function the press asks (`bossAnswerCol`). */
 function stripCol(act: SceneAct, cols: number, world: World | null): number {
   const body = act.atBody && world ? arrivingFirst(world) : null;
-  return body ? atBodyCol(body) : actCol(act, cols);
+  if (body) return atBodyCol(body);
+  const boss = act.atBoss && world ? bossAnswerCol(world) : null;
+  return boss ?? actCol(act, cols);
 }
 
 /**

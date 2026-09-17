@@ -1,0 +1,48 @@
+import { diastoleBridgeCol, diastoleChamberCol } from "./diastole.js";
+import { diastoleBoss } from "./diastole-step.js";
+import { undertowBoss } from "./undertow.js";
+import type { World } from "./world.js";
+
+/**
+ * **The column the boss is answered from, this beat** — or none, when the
+ * boss standing is not one whose answer moves.
+ *
+ * A rehearsal's strip is authored in seven columns and `mapCol` reaches seven
+ * of the game's eleven with them: 0, 2, 3, 5, 7, 8 and 10 and nothing else
+ * (`content/src/queue.ts`). A body in a column outside that list is what
+ * `atBody` was written for (`scene-aim.ts`), and two bosses are the same hole
+ * with no body to find. THE DIASTOLE's left chamber hangs over column 4 — one
+ * off the middle, and no authored column rounds to it. THE UNDERTOW's first
+ * lobe comes up wherever the seeded rng says, in any of the eleven, and the
+ * film cannot know which until the world does. So a strip may say `atBoss`
+ * instead of a column, and this is the one reading of what that means.
+ *
+ * **It is the boss's own answer, not the picture's.** Each line here asks the
+ * boss's file the question the pair is meant to be asking — where does the
+ * cannon have to stand *now* — so that a phase changing the answer changes
+ * the film with it, and a film authored against last week's column cannot go
+ * quietly wrong the way a shot that stopped landing would (`scenes.test.ts`).
+ * A boss with no line is `null`, and the press is left as it was written:
+ * every other boss stands where an author can name (THE BATON's arm is the
+ * middle lane), and a switch that answered for all of them would be a second
+ * copy of each boss's geometry.
+ */
+export function bossAnswerCol(world: World): number | null {
+  const d = diastoleBoss(world);
+  if (d !== null) {
+    // The left chamber while it beats alone; the bridge from the moment the
+    // right wakes, which is the rule in `diastoleStruck` read as a column.
+    if (d.phase === "burst") return null;
+    return d.phase === "one" ? diastoleChamberCol(world.cfg, -1) : diastoleBridgeCol(world.cfg);
+  }
+  const u = undertowBoss(world);
+  if (u !== null) {
+    // The breach the maw answers: the first one up. Two come up four apart in
+    // phase `two` and the maw reaches one of them; the film takes the left,
+    // which is the pair's own choice made once. The `seat` push is under the
+    // cannon itself and the answer is to leave, so it has no column here.
+    if (u.phase === "seat") return null;
+    return u.breaches[0]?.col ?? null;
+  }
+  return null;
+}

@@ -296,6 +296,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-kinds.ts` | a tool asks which bosses exist, or whether one is the whole wave — `BOSS_KINDS`, a wire value appended never inserted, and `bossFillsWave` |
 | `packages/sim/src/boss-others.ts` | **One beat of whichever boss is not the queen**, which is now thirteen of the fourteen |
 | `packages/sim/src/boss-union.ts` | The boss a wave installed, whichever one it is |
+| `packages/sim/src/boss-answer.ts` | **The column the boss is answered from, this beat** — or none |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
 | `packages/sim/src/crawler-round.ts` |  |
@@ -514,6 +515,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-rock.ts` | THE ROCK's rehearsal: the first thing in the game neither of them can do alone |
 | `packages/content/src/scenes/the-torch.ts` | TORCH's rehearsal: the warning strip, and the fact that only one of them has it |
 | `packages/content/src/scenes/the-dart.ts` | THE DART's rehearsal: the column you were given is the column it has already left |
+| `packages/content/src/scenes/the-diastole.ts` | THE DIASTOLE's rehearsal: a count said out loud, and then two of them |
 | `packages/content/src/scenes/the-lure.ts` | THE LURE's rehearsal: the shot you are waiting for must never come |
 | `packages/content/src/scenes/the-throb.ts` | THE THROB's rehearsal: the wave where firing on sight is the miss |
 | `packages/content/src/scenes/the-veil.ts` | THE VEIL's rehearsal: the colour you were given goes stale while you are loading it |

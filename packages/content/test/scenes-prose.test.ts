@@ -54,10 +54,6 @@ const STILL_PROSE = [
   // wave's whole content is that one of those two screens is a mirror, which
   // a film has to show by turning and then by being believed.
   "THE FLIP",
-  // And THE DIASTOLE, owed by the lane that draws the two chambers. A film of
-  // it would have to show a pulse the watching seat cannot see, which is the
-  // boss; until the chambers are drawn there is nothing to choreograph against.
-  "THE DIASTOLE",
   // And THE BATON, owed by the lane that draws the arm. Its film is a bead in
   // the air and a panel going grey under a thumb that must not land — the same
   // "not touching" THE STARE's needs, with the arm drawn to give it a reason.

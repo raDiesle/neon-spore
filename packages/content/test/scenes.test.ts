@@ -82,11 +82,16 @@ describe("the rehearsals a guide can show", () => {
         // A strip that answers a body rather than a column is still a press on
         // a strip. On anything else there is no column to replace, and the
         // flag would read as a promise the runner never keeps.
-        if (act.atBody) {
+        if (act.atBody || act.atBoss) {
+          const aim = act.atBody ? "atBody" : "atBoss";
           expect(
             act.control === "shield" || act.control === "cannon",
-            `${id}: an act at tick ${act.tick} is atBody but presses ${act.control ?? "no control"}`,
+            `${id}: an act at tick ${act.tick} is ${aim} but presses ${act.control ?? "no control"}`,
           ).toBe(true);
+          expect(
+            act.atBody && act.atBoss,
+            `${id}: an act at tick ${act.tick} is aimed at a body and at the boss`,
+          ).toBeFalsy();
         }
         // Both holds say where and both say when they let go. A hold with no
         // end is a hand still down on a world about to be rebuilt, and a hold

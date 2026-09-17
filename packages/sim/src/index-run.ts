@@ -18,6 +18,7 @@ export {
   isBeatTick,
   nearestBeatTick,
 } from "./beat-clock.js";
+export { bossAnswerCol } from "./boss-answer.js";
 export { setBossRound } from "./boss-round.js";
 export {
   ackBriefing,

@@ -300,13 +300,13 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are sixty of them now**, one per guided wave bar twenty-one, and each
+**There are sixty-one of them now**, one per guided wave bar twenty, and each
 is authored in `packages/content/src/scenes/` as a page of choreography rather
-than a page of prose. The twenty-one that are still the three strings and the two
+than a page of prose. The twenty that are still the three strings and the two
 circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE CODEX, THE
-SCOUT, THE REPRISE, THE STARE, THE FLIP, THE DIASTOLE, THE BATON, THE THROAT,
-THE HUSK, THE UNDERTOW, THE ORRERY, THE CANDLE, THE GORGE, THE CURTAIN, THE
-TASTER, THE SINEW and THE LEDGER** — and that list is held by
+SCOUT, THE REPRISE, THE STARE, THE FLIP, THE BATON, THE THROAT, THE HUSK, THE
+UNDERTOW, THE ORRERY, THE CANDLE, THE GORGE, THE CURTAIN, THE TASTER, THE
+SINEW and THE LEDGER** — and that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.

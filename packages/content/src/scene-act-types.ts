@@ -41,6 +41,16 @@ export interface SceneAct {
    * strips take it, which `test/scenes.test.ts` holds.
    */
   atBody?: true;
+  /**
+   * **Put the strip where the boss is answered from**, for the same hole and
+   * with no body to find: THE DIASTOLE's left chamber hangs over a column
+   * `mapCol` never reaches, and THE UNDERTOW's first lobe comes up wherever
+   * the rng put it. `SceneRun` asks `bossAnswerCol` at the moment the thumb
+   * goes down (`sim/boss-answer.ts`), which is the boss's own reading of where
+   * the cannon has to stand this phase; `col` is what a boss with no answer
+   * falls back to. Only the two strips take it, as `atBody`.
+   */
+  atBoss?: true;
   /** A hand on the field instead of on the panel: which seat's. The column is
    * `col`, which a grip always carries. */
   grip?: 1 | 2;

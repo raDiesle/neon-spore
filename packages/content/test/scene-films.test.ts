@@ -1,6 +1,8 @@
 import { describe, expect, it } from "bun:test";
 import {
+  type BossEntry,
   DEFAULT_CONFIG,
+  diastoleChamberCol,
   primeChargeMilli,
   SceneRun,
   type SimEvent,
@@ -86,6 +88,52 @@ describe("a strip act aimed at a body", () => {
     const scene = run([{ beat: 0, col: UNREACHABLE, kind: "slick", color: "red" }], false, 2);
     advanceTo(scene, PRESS + 1);
     expect(scene.world.shieldCol).toBe(2);
+  });
+});
+
+/**
+ * **A strip that goes where the boss is answered from** — the same hole in
+ * `mapCol`, with no body on the field to find. THE DIASTOLE's left chamber
+ * hangs over column 4, which no authored column reaches, and its film is a
+ * cannon under that chamber; `bossAnswerCol` (`sim/boss-answer.ts`) is what
+ * the press and the ghost thumb both ask. One half each: it lands on the
+ * boss's column, and a boss with no answer leaves the press as written.
+ */
+describe("a strip act aimed at the boss", () => {
+  function run(boss: BossEntry | null, atBoss: boolean, authored: number): SceneRun {
+    const cfg = { ...DEFAULT_CONFIG, briefings: false };
+    return new SceneRun({
+      cfg,
+      seed: 1,
+      wave: 0,
+      queue: [],
+      pods: [],
+      hasLance: true,
+      faults: [],
+      boss,
+      commands: [
+        {
+          tick: 100,
+          player: 1,
+          command: { kind: "cannonCol", col: authored },
+          ...(atBoss ? { atBoss: true as const } : {}),
+        },
+      ],
+      ticks: 600,
+    });
+  }
+
+  it("lands under THE DIASTOLE's left chamber, a column no authored one reaches", () => {
+    const scene = run({ kind: "diastole" }, true, 2);
+    for (let i = 0; i <= 101; i++) scene.advance([]);
+    expect(scene.world.cannonCol).toBe(diastoleChamberCol(DEFAULT_CONFIG, -1));
+    expect(scene.world.cannonCol).toBe(4);
+  });
+
+  it("leaves the press where it was written under a boss with no answer", () => {
+    const scene = run({ kind: "baton" }, true, 2);
+    for (let i = 0; i <= 101; i++) scene.advance([]);
+    expect(scene.world.cannonCol).toBe(2);
   });
 });
 
@@ -180,5 +228,30 @@ describe("the rehearsal for THE LEAK", () => {
     // Three bodies, three shots — which is the page the pilot reads last.
     expect(seen.filter((e) => e.type === "destroy")).toHaveLength(3);
     expect(run.world.creatures).toHaveLength(0);
+  });
+});
+
+/**
+ * THE DIASTOLE's film is a count against the boss's own clock: two red shots
+ * on the left's contractions, then a beam held to land on the fifteenth beat
+ * of the count that starts when the right wakes. Every one of those ticks is
+ * arithmetic written in the file as a comment, and a comment is not a
+ * mechanism — a bolt that got slower or a fill that got longer would leave
+ * the pages saying things the picture no longer does, silently.
+ */
+describe("the rehearsal for THE DIASTOLE", () => {
+  it("takes the left twice on its own count, then both at once off the bridge", () => {
+    const wave = WAVES.findIndex((w) => w.guide?.scene === "theDiastole");
+    const run = new SceneRun(sceneScript("theDiastole", wave, DEFAULT_CONFIG));
+    const phases: string[] = [];
+    for (let t = 0; t < SCENES.theDiastole.ticks - 1; t++) {
+      run.advance([]);
+      const boss = run.world.boss;
+      if (boss === null || boss.kind !== "diastole") throw new Error("no twin lobe");
+      const now = `${boss.phase} ${boss.leftHits}/${boss.rightHits}`;
+      if (phases[phases.length - 1] !== now) phases.push(now);
+    }
+    // The phase turns on the beat after the hit that earns it, both times.
+    expect(phases).toEqual(["one 3/3", "one 2/3", "one 1/3", "two 1/3", "two 0/2", "alone 0/2"]);
   });
 });

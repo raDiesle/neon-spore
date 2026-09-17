@@ -1,3 +1,4 @@
+import { bossAnswerCol } from "./boss-answer.js";
 import { gripOf, NO_GRIP } from "./grip.js";
 import { bodyCenterCol, occupiesCol } from "./span.js";
 import type { Command, Creature } from "./types.js";
@@ -80,6 +81,15 @@ export interface SceneCommand {
    * on an empty column is.
    */
   atBody?: true;
+  /**
+   * A strip press whose column is **the boss's**, found the same way and for
+   * the same hole in `mapCol` — with no body on the field to find. THE
+   * DIASTOLE's left chamber hangs over a column no author can write, and THE
+   * UNDERTOW's first lobe comes up wherever the rng put it; `bossAnswerCol` is
+   * the one reading of where the cannon has to stand, per boss and per phase
+   * (`boss-answer.ts`). A boss with no answer leaves the press as written.
+   */
+  atBoss?: true;
 }
 
 /**
@@ -120,6 +130,10 @@ export function aimed(world: World, c: SceneCommand): Command {
     // rather than be quietly corrected into a column nobody chose.
     const body = arrivingFirst(world);
     return body === null ? c.command : { ...c.command, col: atBodyCol(body) };
+  }
+  if (c.atBoss && (c.command.kind === "shieldCol" || c.command.kind === "cannonCol")) {
+    const col = bossAnswerCol(world);
+    return col === null ? c.command : { ...c.command, col };
   }
   if (c.tapCol !== undefined && c.command.kind === "tap") {
     const on = lowestIn(world, c.tapCol);

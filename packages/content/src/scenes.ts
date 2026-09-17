@@ -19,6 +19,7 @@ import { THE_CROSSING } from "./scenes/the-crossing.js";
 import { THE_CRYSTAL } from "./scenes/the-crystal.js";
 import { THE_CUT } from "./scenes/the-cut.js";
 import { THE_DART } from "./scenes/the-dart.js";
+import { THE_DIASTOLE } from "./scenes/the-diastole.js";
 import { THE_ECHO } from "./scenes/the-echo.js";
 import { THE_FENCE } from "./scenes/the-fence.js";
 import { THE_FLEET } from "./scenes/the-fleet.js";
@@ -141,7 +142,8 @@ export type SceneId =
   | "theHandover"
   | "theSplice"
   | "theMoult"
-  | "theMine";
+  | "theMine"
+  | "theDiastole";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -204,6 +206,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
   theMine: THE_MINE,
+  theDiastole: THE_DIASTOLE,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

@@ -160,6 +160,7 @@ export const WAVES_ACT_7C: Wave[] = [
       both: "Two chambers above the top of the field, one lane apart, with a bridge of vessels between them. They beat on different counts and each of you sees only your own beating true — the other one is a still grey mass on your screen. A chamber can only be hurt while it is contracting. Once both of them are beating, nothing single reaches either: the only answer is the lance standing in the middle lane on a beat they contract on together.",
       p1: "The left chamber is yours, and it is threes. Say every contraction out loud. The lance is yours too: cannon in the middle lane, held still three beats. An ordinary shot goes a beat early — a bolt is a beat from the top.",
       p2: "The right chamber is yours, and it is fives. Count it aloud and take their threes off it: the beat both meet on comes round once in fifteen. Your thumb starts the fill and may not lift. Then the right goes to sevens.",
+      scene: "theDiastole",
     },
     entries: [
       { beat: 4, col: 0, color: "red" },

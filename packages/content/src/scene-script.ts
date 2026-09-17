@@ -77,6 +77,7 @@ export function sceneCommands(act: SceneAct, cfg: SimConfig): SceneCommand[] {
     // `SceneRun` replaces it with the body's at the moment the thumb goes down
     // (`aimed` in `sim/scene.ts`), for the reason `gripCol` exists.
     ...(act.atBody ? { atBody: true as const } : {}),
+    ...(act.atBoss ? { atBoss: true as const } : {}),
   };
   // A thumb that stays on a *control* rather than on a handle: the two colours,
   // the gauge's two valve slabs and the bucket's two. What lifting sends is the

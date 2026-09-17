@@ -9056,4 +9056,18 @@ one they are told to let go of, which tears the cord out instead of holing the
 ship. Warding that last one is refused rather than fatal, so the fight holds
 open until they take their hands off it. Everything after that was typing.
 
+## 2026-09-17 — queue-four-drawn-bosses-still-owe-their-rehearsal-film — THE DIASTOLE's rehearsal film
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `scenes/the-mine.ts` and two other filmed bosses, `scene-aim.ts`, `scene-script.ts`, `scenes.test.ts`' rules, `diastole*.ts`, `queue.ts`'s `mapCol`, `guide-thumb.ts` |
+| deciding | 10 | the left chamber stands in game column 4 and `mapCol` reaches 0,2,3,5,7,8,10 only — so no authored column aims at it, and the film needed an `atBoss` act the way it has an `atBody` one, answered by the sim per boss and phase |
+| writing | 30 | `boss-answer.ts` and its test, `atBoss` through the act type, the script and the thumb, the film itself, the film test's phase sequence, prose count and list |
+| friction | 15 | `diastoleBoss` lives in `diastole-step.ts` not `diastole.ts`; the phase turns the beat *after* the hit; a scratch probe from the scratchpad cannot resolve the workspace; the director serialises `guide.scene` after `p2` |
+| landing | 10 | `check:fast` three times, `bun run index`, this entry, the commit, `bun run land` |
+
+The bottleneck was the column: the film's cannon has to stand under a chamber
+in column 4 and nothing an author can write maps there, which turned a film
+into a small aiming feature before the first act could be timed.
+
 *Measured: this lane's own estimate, off the session's own timestamps.*
