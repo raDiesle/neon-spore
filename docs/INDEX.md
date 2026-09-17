@@ -1096,7 +1096,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/veer-rider.ts` | **The shipped rider**: the colours, the light and the order THE VEER's clown is drawn in |
 | `packages/render/src/lock-mark.ts` | THE LOCK, drawn: the frame that says *the cannon has this one* |
 | `packages/render/src/lost-screen.ts` | A lost wave stops on a friendly screen: RETRY WAVE or QUIT |
-| `packages/render/src/lost-shutters.ts` | Two heavy plates slide in over the field, one from the top and one from the foot |
+| `packages/render/src/lost-shutters.ts` | The words of the lost screen: WAVE LOST and the three lines under it |
+| `packages/render/src/lost-shut.ts` | The lost screen: plates that shut, and a lit slot where the hull was broken |
 | `packages/render/src/lost-look.ts` | THE ONE RECORD A CANDIDATE **LOST SCREEN** PATCHES |
 | `packages/render/src/lost-blood.ts` | What runs down the lost screen: the ship's own fluid, from the top edge to the foot |
 | `packages/render/src/lost-answer.ts` | What the pair does about a lost wave: RETRY WAVE, QUIT, and the line saying either phone answers for both |

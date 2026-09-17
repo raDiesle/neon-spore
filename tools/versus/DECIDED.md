@@ -1051,3 +1051,27 @@ shipped mark — a flag on the pod with a white frame on player 2's screen —
 stays. Neither sag nor dent is taken.
 
 The other answers offered were `dent` and `sag`; they went with the slot.
+
+## `lost:screen` / `shut` — taken by hand, 2026-09-17
+
+SHUT into `packages/render/src/lost-shut.ts`, with `LOST_LOOK.veil` pointing
+at its `shutVeil`. The owner read the page on 17 September 2026 and said
+which: the plates slide in over the field from the top and the foot and close
+on everything but the column it hit, which is left as a ragged lit slot.
+
+**It is the sentence `shutters` was picked on, drawn the right way round.**
+The screen taken the day before drew the plates going *out* — both over the
+field at `age` 0, drawing back to leave the lower half open, the tear seen
+only in transit — and its own header said so. This one was opened as a
+question rather than a correction, because a different screen is a different
+screen, and it was answered the same day.
+
+`adopt` refused it, rightly: its `words` is the shipped stack itself, imported
+from `lost-shutters.ts` and not from a sibling file, and the command has no
+way to know a field it cannot move is a field that did not change. So the
+paint moved by hand, its imports rewritten for where it stands, and
+`lost-shutters.ts` lost `plates` and `veil` — nothing reads them now — and
+keeps `words` and `wordsAt`, which every answer in the slot shared.
+
+The other answers offered were `bleedout`, `hold` and `spall`; they went with
+the slot.

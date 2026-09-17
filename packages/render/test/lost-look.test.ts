@@ -79,8 +79,9 @@ describe("the lost screen is told where it got through", () => {
  * wrong side of zero, an unparseable colour out of an alpha over one.
  *
  * Three ages, because the screen is three different pictures: the instant it
- * arrives with the plates still over everything, the half second the lower one
- * is drawing back through its tear, and the settled state the pair reads.
+ * arrives with the field still open, the half second the plates are sliding
+ * in from both edges, and the settled state the pair reads — shut, with one
+ * lit slot in the breach column.
  */
 describe("the lost screen's own paint survives a canvas that refuses what a real one does", () => {
   for (const age of [0, 0.25, 2.5]) {

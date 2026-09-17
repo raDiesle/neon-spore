@@ -1,5 +1,6 @@
 import type { Layout } from "./layout.js";
-import { veil, words } from "./lost-shutters.js";
+import { shutVeil } from "./lost-shut.js";
+import { words } from "./lost-shutters.js";
 
 /**
  * THE ONE RECORD A CANDIDATE **LOST SCREEN** PATCHES.
@@ -9,18 +10,17 @@ import { veil, words } from "./lost-shutters.js";
  * every answer to "what does this screen look like" redraws the screen rather
  * than retuning it.
  *
- * **What ships here is `shutters`**, which the owner took on 16 September 2026
- * out of the three the slot was opened with: two heavy plates slide in over
+ * **What ships here is `shut`**, which the owner took on 17 September 2026
+ * out of the four the slot was reopened with: two heavy plates slide in over
  * the field, one from the top and one from the foot, and they close on
- * everything except the column the ship was hit in, where the lower plate is
- * torn open and the tear is lit. The record used to carry the flat cold veil
- * and the card of type this replaced; that is what `lost-screen.ts` drew from
- * the day the screen existed, and it is in the git history rather than here.
- *
- * `lost-shutters.ts` holds both halves. It moved out of the candidate whole
- * rather than being retyped, which is how a function is taken — a `paint`
- * cannot be written back into a record by `versus adopt`, because `toString`
- * hands back what the transpiler made and not how the file spells it.
+ * everything except the column the ship was hit in, which is left as a ragged
+ * lit slot. It replaced `shutters`, taken the day before, which drew the same
+ * sentence the other way round — plates drawing *back* to leave the lower half
+ * open — and whose words still ship: `lost-shutters.ts` holds the stack, and
+ * `lost-shut.ts` the plates. Both moved out of their candidates whole rather
+ * than being retyped, which is how a function is taken — a `paint` cannot be
+ * written back into a record by `versus adopt`, because `toString` hands back
+ * what the transpiler made and not how the file spells it.
  *
  * **The tension every answer in this slot has to resolve** is the one
  * `lost-screen.ts`'s own header states: the field stays under this screen,
@@ -87,4 +87,4 @@ export interface LostLook {
   readonly words: (ctx: CanvasRenderingContext2D, p: LostPaint) => void;
 }
 
-export const LOST_LOOK: LostLook = { veil, words };
+export const LOST_LOOK: LostLook = { veil: shutVeil, words };

@@ -299,3 +299,23 @@ time, which is the tax this entry exists to stop. Either give the file (and
 `room.test.ts`, which raises a workerd the same way) a timeout that covers a
 cold workerd under load, or have `tools/check/shard.ts` keep the two
 workerd files off a shard that carries anything else.
+
+## `versus drop` cannot run while a function is being taken by hand
+
+- **Found:** 2026-09-17, claude/fervent-nash-e1e7ff
+- **Files:** `tools/versus/decide.ts`, `tools/versus/run.ts`, `tools/versus/test/registry.test.ts`
+
+`drop` imports the registry, which imports every candidate in the slot, before
+it removes any of them. The by-hand path `adopt` prints when it refuses a
+function — move the paint, rewrite the record, delete what nothing reads, then
+`drop` — leaves the tree in exactly the state that import fails in: the moved
+`paint.js` is gone from the candidate, and the shipped module it took from
+has lost the exports the *other* candidates in the slot were composing
+(`plates` out of `lost-shutters.ts`, 17 September 2026). Taking `lost:screen`
+/ `shut` hit both, and ran `drop` against the shipped file restored for the
+length of the command. `drop` reads nothing off a candidate but its
+`sentence` and `name`, which the directory names already carry; derive the
+slot's candidates from the directories the way `index` does, or `git show
+HEAD:` the registry's inputs, so the by-hand sequence the tool itself
+prescribes can end in the tool. A test: move a candidate's paint out, run
+`drop`, expect the slot gone.

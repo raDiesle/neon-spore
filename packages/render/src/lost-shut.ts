@@ -1,37 +1,32 @@
-import { strokeGlow } from "../../../../../packages/render/src/glow.js";
-import { signedHash } from "../../../../../packages/render/src/hash.js";
-import { bleed } from "../../../../../packages/render/src/lost-blood.js";
-import type { LostPaint } from "../../../../../packages/render/src/lost-look.js";
-import { PALETTE } from "../../../../../packages/render/src/palette.js";
+import { strokeGlow } from "./glow.js";
+import { signedHash } from "./hash.js";
+import { bleed } from "./lost-blood.js";
+import type { LostPaint } from "./lost-look.js";
+import { PALETTE } from "./palette.js";
 
 /**
- * Plates that really shut, and a lit slot where the hull was broken.
+ * The lost screen: plates that shut, and a lit slot where the hull was broken.
  *
- * **The shipped screen goes the other way, and its own sentence says so.** The
- * candidate the owner picked on 16 September 2026 was offered as plates that
- * *slide in over the field from the top and the foot and close on everything
- * but the column it hit*, and what `lost-shutters.ts` draws is the reverse: at
- * `age` 0 both plates cover their halves and over 0.45 seconds they draw back,
- * the upper one to the seam and the lower one off the foot entirely. The
- * settled picture is one plate across the top with the field open under it —
- * a good picture, and the one that was chosen, but not the one the words
- * described. The tear, which is the thing the slot exists to argue about, is
- * only on screen during the half second of transit: at rest the lower plate
- * has no height left for a tear to be in.
+ * **What ships**, taken out of the `lost:screen` slot on 17 September 2026 as
+ * the `shut` candidate. The plates come in from off both edges over `CLOSE`
+ * seconds and meet at the seam, and what is left is one vertical slot in the
+ * breach column, ragged and lit, with the field and the hole in the hull seen
+ * through it. Nothing else on the screen is field any more.
  *
- * **This is the sentence, drawn.** The plates come in from off both edges and
- * meet at the seam, and what is left is one vertical slot in the breach
- * column, ragged and lit, with the field and the hole in the hull seen through
- * it. Nothing else on the screen is field any more.
+ * **It is the sentence the owner first picked, drawn the right way round.**
+ * The screen this replaced (`shutters`, 16 September 2026) was offered as
+ * plates that *slide in over the field from the top and the foot and close on
+ * everything but the column it hit*, and drew the reverse: both plates over
+ * the field at `age` 0, drawing back over half a second to leave the lower
+ * half open. He read the file, found it disagreeing with its own words, and
+ * had the other way round put beside it on the VERSUS page rather than onto
+ * the field; then chose it, and cleared the three answers offered beside it.
  *
- * **How it can lose.** A closed screen is a screen that takes the field away,
- * and `lost-look.ts` states the tension every answer here has to resolve: the
- * pair are meant to look at where it got through, and a full-screen statement
- * that covers it takes the lesson away. This answers that with one hole and
- * bets the hole is louder for being the only one — which is exactly the bet
- * that fails if the slot reads as a decorative stripe rather than as a look at
- * the field. It is also the darker screen of the two, and the words and the
- * buttons now stand on plate rather than on the ship.
+ * **The tension it resolves, and how.** `lost-look.ts` says the pair are meant
+ * to look at where it got through, and a full-screen statement that covers it
+ * takes the lesson away. This answers with one hole and bets the hole is
+ * louder for being the only one. It is the darker of the two screens, and the
+ * words and the buttons stand on plate rather than on the ship.
  *
  * **On a wave that scars nothing** (`breachX` null — a wall earths through the
  * dome and leaves no mark) there is no column to leave open, and the plates
@@ -39,7 +34,7 @@ import { PALETTE } from "../../../../../packages/render/src/palette.js";
  * got through the skin, so there is nothing to point at.
  */
 
-/** How long the plates take to shut, seconds. The shipped number, reversed. */
+/** How long the plates take to shut, seconds. */
 const CLOSE = 0.45;
 
 /** Where the two plates meet, as a share of the play area. */
@@ -59,7 +54,7 @@ const BITE = 0.3;
  * It is a tear and not a channel: the thing came in at the hull, so the rip is
  * widest there and closes as it runs up the plates. A slot of one width top to
  * bottom was the first drawing of this and it read as two neon rails down the
- * screen — a stripe, which is the way `index.ts` says this answer loses.
+ * screen — a stripe, which is the one way this screen fails at what it is for.
  */
 const NARROW = 0.42;
 
@@ -192,10 +187,8 @@ function shutPlates(ctx: CanvasRenderingContext2D, p: LostPaint): void {
  * The plates, and the ship bleeding down them.
  *
  * `bleed` is the shipped fluid, imported and not retyped: what this answer
- * argues is one thing — which way the plates go — and a candidate that redrew
- * the blood in order to reverse them would be asking the owner two questions
- * and getting one answer (`lost-shutters.ts` says the same about the split
- * that made this possible).
+ * decided was one thing — which way the plates go — and the fluid was split
+ * out so that an answer could argue that alone (`lost-blood.ts`).
  */
 export function shutVeil(ctx: CanvasRenderingContext2D, p: LostPaint): void {
   shutPlates(ctx, p);

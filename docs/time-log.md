@@ -22,6 +22,23 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — versus — the lost screen's plates shut
+
+`lost:screen` / `shut` onto the field, by the owner's pick; `bleedout`, `hold`
+and `spall` cleared with the slot.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `docs/versus.md`'s adopt section, the README's by-hand steps, `lost-look.ts`, both paints |
+| writing | 15 | the move, the record, three headers, the ledger entry, the test's comment |
+| looking | 10 | the STATES card — the `--tab STATES` guess failed, `--open "▣ DOCUMENTATION" --inner STATES` is the way in |
+| friction | 10 | `adopt` refused on the shipped `words`; `drop` failed twice, on the moved file and on the three siblings importing `plates`, and ran against the shipped `lost-shutters.ts` restored for its length |
+| landing | 10 | `bun run index`, `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was `drop` loading a registry that no longer resolved: taking
+a function by hand means the tree is mid-move when the command runs, and it
+imports every candidate in the slot before it removes any of them.
+
 ## 2026-09-17 — boss-implementation — THE BATON, the crossing
 
 The merged bead's final flight, the design's step 13: `baton-cross.ts`, the
