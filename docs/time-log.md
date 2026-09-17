@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE BATON, the second bead's look
+
+The look half of the second bead: `baton-bead-draw.ts` split off
+`baton-draw.ts`, the twin drawn a little smaller and with a dark pupil so
+which bead is going is a shape and what to shoot is a colour, the merged bead
+a third larger with a second halo and an outer ring, two frame tests per
+screen, a PNG with both beads lit, §11.18's *What it draws*.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 0 | the drawing file was already open from the sim lane |
+| writing | 5 | the bead file, the two tests, the paragraph |
+| looking | 5 | a probe to find launch ticks that reach the twin, one PNG |
+| friction | 5 | the first probe's shots struck nothing; a second probe over every launch phase showed every one strikes, so the fault was the probe's and not the game's |
+| landing | 5 | `check:fast`, the index, the commit, `bun run land --keep` |
+
+The bottleneck was reaching the twin in a frame at all: the press list has
+to make three real handovers first, and the first attempt at it struck
+nothing.
+
 ## 2026-09-17 — boss-implementation — THE BATON, the second bead
 
 The design's step 9 as a simulation lane: after `batonTwinAfter` dark

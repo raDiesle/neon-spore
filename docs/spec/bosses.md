@@ -1779,24 +1779,30 @@ because only the lead darkens a new one. Reaching the last socket, the lead
 waits there (`batonWaiting`) while the second catches up to the one above it,
 and the two become one bead (`batonMerged`), which is the one that drops.
 
-**What is not built**, each of them a lane on its own: the second bead's own
-look — it is drawn as the first is, one row up — and the eleven-act final
-flight of the merged bead (steps 12–13): as built, the merged bead is
-launched once more like any other and drops out of the last socket. The base
-is fixed to the middle column rather than authored, for THE VANE's reason.
+**What is not built**, a lane on its own: the eleven-act final flight of the
+merged bead (steps 12–13): as built, the merged bead is launched once more
+like any other and drops out of the last socket. The base is fixed to the
+middle column rather than authored, for THE VANE's reason.
 
-**What it draws** (`render/src/baton-draw.ts`, `render/src/band-lock.ts`): the
-arm as a rock spine from above row 0 down the socket rows, one socket shown
-per beat while it unfolds; a lit socket as a dark disc under a hull-coloured
-glow that breathes with the beat, a dark one as bare rock, a shed one as a gap
-in the spine; the bead in its colour, sitting in its socket or on its way to
-the next one along a sideways arc that swaps side each handover, and a wider
-halo with a ring round it once the bolt has met it; the swung arm's sockets
-above the bead in the column it left; the fold as the whole picture going out
-over `batonDownBeats`; and the locked seat's grey — over the whole band on a
-solo phone, over that seat's strip and lobes on the test screen — for as long
-as `batonLocked` says so. Both screens see the bead's colour, because both
-players need it: one to read what to shoot, the other to say it.
+**What it draws** (`render/src/baton-draw.ts`, `render/src/baton-bead-draw.ts`,
+`render/src/band-lock.ts`): the arm as a rock spine from above row 0 down the
+socket rows, one socket shown per beat while it unfolds; a lit socket as a
+dark disc under a hull-coloured glow that breathes with the beat, a dark one
+as bare rock, a shed one as a gap in the spine; the bead in its colour,
+sitting in its socket or on its way to the next one along a sideways arc that
+swaps side each handover, and a wider halo with a ring round it once the bolt
+has met it; the swung arm's sockets above the bead in the column it left; the
+fold as the whole picture going out over `batonDownBeats`; and the locked
+seat's grey — over the whole band on a solo phone, over that seat's strip and
+lobes on the test screen — for as long as `batonLocked` says so. Both screens
+see the bead's colour, because both players need it: one to read what to
+shoot, the other to say it. **The second bead** is the one with the eye: a
+little smaller than the lead and with a dark pupil at its centre, in its own
+colour, so *which* bead is going is told by a shape and *what to shoot* by a
+colour, and neither has to wait for the other. **The merged bead** is drawn
+once, brighter than either was — a third again larger, a second halo and an
+outer ring — and without the pupil, since there is no other bead to tell it
+from (the design's step 13, *twice as bright*).
 
 **What it does not draw**: a trail the flight leaves, a shake on the settle —
 the bead simply sits in the top socket again — and anything from the list

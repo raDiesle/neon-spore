@@ -35,13 +35,16 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * end are each a run of handovers deep — `sim/test/baton.test.ts` proves those
  * and this file only asks whether every branch of the picture is drawn. The
  * one thing here nothing else in the suite could catch is the grey panel: it
- * has to land on the locked seat's screen and on no other.
+ * has to land on the locked seat's screen and on no other. The second bead
+ * and the merged one are set, three handovers being a run deep.
  */
 
 beforeAll(installCanvasGlobals);
 
 const TPB = ticksPerBeat(CFG);
 const GREY = "rgba(60,63,73,.62)";
+/** The second bead's pupil fill (`baton-bead-draw.ts`), which nothing else on the arm uses. */
+const TWIN_PUPIL = "#0B0614";
 
 function opened(): World {
   const world = createWorld(CFG, 3);
@@ -127,6 +130,45 @@ describe("the baton", () => {
       const folding = drawn(world, role, TPB).calls;
       expect(worn).toBeGreaterThan(500);
       expect(folding).toBeGreaterThan(500);
+    });
+  }
+
+  /** A second bead lit in the top socket, the lead three sockets down. */
+  function twinned(world: World): BatonBead {
+    sitting(world);
+    const b = arm(world);
+    const first = bead(world);
+    first.socket = 3;
+    const twin: BatonBead = { ...first, socket: 0, color: first.color === "red" ? "cyan" : "red" };
+    b.beads.push(twin);
+    return twin;
+  }
+
+  for (const role of ROLES) {
+    it(`draws the second bead with a pupil the first has not, in its own colour, for ${role}`, () => {
+      const world = opened();
+      const twin = twinned(world);
+      const { text } = drawn(world, role, 3);
+      expect(text).toContain(TWIN_PUPIL);
+      expect(text).toContain(twin.color === "red" ? PALETTE.red : PALETTE.cyan);
+      expect(text).toContain(hexOf(world));
+      const alone = opened();
+      sitting(alone);
+      expect(drawn(alone, role, 3).text).not.toContain(TWIN_PUPIL);
+    });
+
+    it(`draws the merged bead brighter than one, and without the pupil, for ${role}`, () => {
+      const one = opened();
+      sitting(one);
+      bead(one).socket = CFG.batonSockets - 1;
+      const plain = drawn(one, role, 3);
+      const merged = opened();
+      sitting(merged);
+      bead(merged).socket = CFG.batonSockets - 1;
+      arm(merged).merged = true;
+      const bright = drawn(merged, role, 3);
+      expect(bright.calls).toBeGreaterThan(plain.calls);
+      expect(bright.text).not.toContain(TWIN_PUPIL);
     });
   }
 
