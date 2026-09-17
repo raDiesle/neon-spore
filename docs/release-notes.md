@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 84ce592d — A scar remembers what colour hit the ship
+
+`breachHue` takes a kind and a colour, because a body that is not a rock, a fence or a gum is drawn in what it was shot with. A `Scar` held the kind and not the colour, so anything replaying a remembered hit had to hand it a `null` and got red for every cyan body — the live strike and its own replay a second later disagreeing about what broke the hull, which is the one thing `breach-hue.ts`'s own header says must not happen. The lost screen replays the breach that ended the wave and is where it showed.
+
 ## 2026-09-17 · c2e3d6e3 — A test that draws a frame states its own timeout
 
 `frame-harness.ts` exported the cap and also applied it, at the top of the module — and that call was never true of more than one file at a time. Bun applies `setDefaultTimeout` to the file the call is *in*, and a module is evaluated once, by whichever test imports it first, so every other file that drew frames was quietly running on bun's five-second default. The header said so in as many words and the code had said the opposite since it was written.
