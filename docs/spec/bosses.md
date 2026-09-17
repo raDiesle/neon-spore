@@ -2875,16 +2875,73 @@ scoring it either way would make the pilot's job read as a mistake.
 colour the shot **is** rather than the one pressed, so THE CODEX's swap is a
 real lean, because what a boss tastes is what went past it (`codex.ts`).
 
-**What is not built.** Everything the pair would see. There is no picture of
-the crest, of a blade, of an edge thickening or of the fan unlocking: the
-twelve events are listed silent in `render/src/effects-ingest-silent-boss.ts`
-and `effects-spark-silent.ts` until the look lane draws them, the wave's guide
-is prose rather than a film (`content/test/scenes-prose.test.ts`), and neither
-seat is yet shown anything the other is not — the split the guide promises,
-the edges on one screen and the ledger on the other, is a `showsX` predicate
-the second lane owes. The twelve sounds are bound and panned
-(`audio/src/bind-taster.ts`, `sounds/boss-taster.ts`) and every one of them is
-in `sound-link-none.ts`, because there is no card to hang them on yet.
+**The look.** A low crest hugs the top of the field across its whole width,
+`HANG` (0.42) tiles above row 0 and breathing on the beat, with a fan of blades
+standing out of it — one per column, `BLADE_TILES` (0.92) tiles tall at full
+growth, because the space over row 0 is about one tile deep, which is the
+constraint THE ORRERY's lane ran into and argued (§11.21). Nothing of the boss
+is among the creatures, THE GORGE's arrangement (`render/src/taster-draw.ts`,
+`taster-blade.ts`, `taster-crest.ts`).
+
+**A blade is metal, and the only colour on it is the edge.** The body is
+`rockDark` filled and `rock` stroked, and what carries the colour is a lit rim
+down the leading side in the ammunition colour it grew toward — the one colour
+that cannot break it. A blade *filled* in its colour would read as *shoot me
+with this*, which is the flat opposite of the rule and the one thing this
+picture must not say. Thickness is a second edge line inside the first rather
+than a heavier stroke, which is the style guide's own rule about glow said
+about a blade that is literally thicker. A blade still growing is short,
+colourless and shimmering: the four beats of warning drawn as *not decided yet*
+rather than as a small blade.
+
+**The crest carries the damage.** A struck-off blade leaves a notch, sheened in
+the hull's violet because the gap is the one target in this fight with no
+colour of its own, and the sheen brightens with `crest` — the count of shots
+into all of them, so the picture is the fight's progress and never a per-gap
+depth the simulation does not keep. The crest cut through is a lit seam the
+whole width of it, drawn for the rest of the fight rather than thrown as a
+transient: the pair bought that with four shots and has to be able to see at
+any later moment that the shiver is not coming back. The interlock is the last
+blades leaning in across each other over the body, each carrying the other
+colour on its back edge — no single bolt of either is the right one, and the
+shape says so before the bolt is fired — and the beam throws that lean the
+other way as the fan unlocks and fades over `tasterOutBeats`.
+
+**Two seats, two numbers** (`render/src/taster-read.ts`, `view-role.ts`), and
+this is the first split in the game that is arithmetic rather than occlusion:
+both screens see the whole fan, every blade and every edge. The navigator is
+shown **the ledger** — the two counts over the window the fan is tasting, in
+their own colours, which shortens from thirty beats to twelve with the fight —
+written on the ridge itself, above row 0, where nothing falling can cross the
+one readout of this fight that has to be read. It is the raw pair of numbers
+with no bar, no winner marked and no colour named, because which of them is
+larger is the sentence she says out loud. The
+pilot is shown **where the crest opens next**, a chevron on the ridge under the
+column `tasterOrder` will grow into, one blade ahead of anything the world
+draws. Neither seat is ever shown the colour the beam has to be: it is the
+other side of her own count, and a picture that named it would answer the
+fight.
+
+**Two things outlive a frame** (`render/src/taster-fx.ts`): a blade tumbling
+off the crest and falling onto the field it stood over, and the shiver — a lit
+band running the width of the crest as every standing blade re-edges, which is
+the one moment in this fight the pair most needs to see *arrive*. That file
+also keeps the renderer's only memory of a colour the simulation has cleared:
+what each blade was wearing when it went, off `tasterSet` and `tasterTaste`,
+because `tasterShear` carries the column and not the edge — and a blade has to
+fall in the colour the pair was looking at. Both are cleared in
+`Effects.reset()` (`render/test/restart.test.ts`).
+
+**`boss-draw.ts` was full**, so the nine bosses from the choreographed page
+that hang over the field with nothing on the grid moved into
+`render/src/boss-draw-clocks.ts` — the seam `packages/sim` already cuts three
+files along, and the half of that dispatch that grows.
+
+**What the look does not have.** THE SLOW's beat has no picture of its own
+beyond the glint the edge throws as it sets; a blade does not lean under a
+hand, because no hand reaches this boss; the notch is one sheen for all the
+gaps rather than a depth each; and the wave's guide is prose rather than a film
+(`content/test/scenes-prose.test.ts`). Those four are the owner's eye.
 
 **Never watched at tempo.** What the tests say is the mechanism: it arrives
 centred with nothing out of the crest, opens from the middle outward one blade
@@ -2900,8 +2957,14 @@ bolts at the interlock for nothing, opens to the beam in the weak colour and
 refuses it in the fed one, has no weak colour at all on an even ledger, holds
 the wave its last beats and takes nothing after the beam, and the same run
 fingerprints the same way twice (`sim/test/taster.test.ts`, `spend.test.ts`).
-Nothing of it has been seen in a frame, and the wave went into
-`tools/perf/baseline.json` unweighed.
+What the frame tests say is that every state of the picture is one a canvas
+accepts on all three screens — growing, edged, thickened, shorn, cut through,
+interlocked, fading — that the ledger is on the navigator's screen and the
+next column on the pilot's and neither on the other, that the interlock names
+both colours at once, and that a blade shorn off is a transient the next run
+does not inherit (`render/test/taster-frame.test.ts`). One still frame of the
+fight has been looked at; **nothing of it has been watched at tempo**, and the
+wave went into `tools/perf/baseline.json` unweighed.
 
 ## 11.26 THE SINEW — the boss that asks how hard, not when
 

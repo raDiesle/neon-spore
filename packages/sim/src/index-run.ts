@@ -63,6 +63,15 @@ export { arrivingFirst, atBodyCol, type SceneCommand } from "./scene-aim.js";
 // the stack is `apps/game/src/loop.ts`, so the simulation says *which beats are
 // slowed* and the app says *how long a tick is worth* (`docs/decisions.md` #33).
 export { NO_SLOW, slowing, slowRateMilli } from "./slow.js";
+// **The spend ledger's one reader outside the simulation**, and the narrowest
+// one there is: how many shots of a colour the pair has spent over a window,
+// which is the number the navigator is shown on THE TASTER's wave and has to
+// say out loud (`taster-draw.ts`, `spend.ts`). `spendLean` stays inside: a
+// screen that worked out for itself which side of the ledger is winning is a
+// second copy of the boss's own rule, which is the row `copies-table.ts`
+// carries — what the picture shows is the two counts, and the reading of them
+// is the pair's.
+export { spentOver } from "./spend.js";
 export { roundSpent } from "./wave-end.js";
 export {
   clockText,

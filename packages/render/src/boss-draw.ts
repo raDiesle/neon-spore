@@ -1,27 +1,21 @@
 import { repriseEchoing, repriseLeft, wardenPullMilli, wardenTether } from "@neon-spore/sim";
-import { drawBaton } from "./baton-draw.js";
+import { drawClockBoss, isClockBoss } from "./boss-draw-clocks.js";
 import { cairnBody, drawCairn } from "./cairn.js";
 import { drawPileHand } from "./cairn-hand.js";
 import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
-import { drawCurtain } from "./curtain-draw.js";
-import { drawDiastole } from "./diastole-draw.js";
 import type { Effects } from "./effects.js";
 import { chartOf, drawFleetChart } from "./fleet-chart.js";
 import { drawFleetHulls } from "./fleet-hulls.js";
 import { drawFleetMarks, drawFleetSights } from "./fleet-marks.js";
-import { drawGorge } from "./gorge-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawMaze } from "./maze-draw.js";
 import { drawMirror } from "./mirror.js";
-import { drawOrrery } from "./orrery-draw.js";
 import { drawQueen } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { drawReprise } from "./reprise-draw.js";
 import { drawSplice } from "./splice-draw.js";
 import { drawTether } from "./tether.js";
-import { drawThroat } from "./throat-draw.js";
-import { drawUndertowLobes } from "./undertow-lobe.js";
 import { drawVane } from "./vane-draw.js";
 import { drawWarden, wardenRopeAnchor } from "./warden.js";
 
@@ -122,74 +116,13 @@ export function drawBoss(
     drawReprise(ctx, l, world.cfg, seen, repriseLeft(world), echo.swallow, view.time);
     return;
   }
-
-  // THE DIASTOLE, and it is above row 0 for THE VANE's reason: the twin lobe
-  // hangs off the top edge, so there is no body of it among the creatures. The
-  // seat is read off the layout inside, because the split here is symmetric —
-  // each screen is shown one chamber beating and one still (`diastole-draw.ts`).
-  if (boss.kind === "diastole") {
-    drawDiastole(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
-    return;
-  }
-
-  // THE ORRERY: a core in the middle column inside three flattened orbits,
-  // above and across the top of the field rather than on it — nothing of it is
-  // among the creatures, for THE VANE's reason. Two of the three rings are
-  // drawn solid on any one screen, which is the encounter rather than a trick
-  // of the drawing, and the corridor of light down the middle is the one beat
-  // a shot can reach the core (`orrery-draw.ts`).
-  if (boss.kind === "orrery") {
-    drawOrrery(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
-    return;
-  }
-
-  // THE BATON: an arm down the middle column with the bead in it, the same on
-  // both screens — the split is on the band, where the seat that just acted
-  // is greyed for a beat (`band-lock.ts`). Off the tick and not only the
-  // beat, because the bead's flight is three beats long and a shot has to
-  // meet it where the simulation says it is (`baton-draw.ts`).
-  if (boss.kind === "baton") {
-    drawBaton(ctx, l, world.cfg, boss, world.tick, world.beat, view.beatPhase, view.time);
-    return;
-  }
-
-  // THE THROAT: a gullet down the middle of the frame with its mouth walking
-  // one row of it, the same on both screens. It is above and across the field
-  // rather than on it — nothing of it is among the creatures, for THE VANE's
-  // reason — and it is the first boss the field is drawn *through*: shots pass
-  // up the tube and bodies are hauled up the column under the mouth
-  // (`throat-draw.ts`).
-  if (boss.kind === "throat") {
-    drawThroat(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
-    return;
-  }
-
-  // THE UNDERTOW: the half of it that is above the hull line — a lobe standing
-  // in its breach, and once, the body — drawn here so the ship pass paints
-  // over where it came from. The plate it came up through, the seams and the
-  // rise are on the finished ship instead (`undertow-draw.ts`).
-  if (boss.kind === "undertow") {
-    drawUndertowLobes(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time, skinY);
-    return;
-  }
-
-  // THE CANDLE draws nothing among the bodies: it is a light, and a light
-  // goes *over* the dark, so the glow is drawn by the same pass that lays
-  // the black on the field — after every body and before the ship
-  // (`candle-dark.ts`, `candle-glow.ts`).
-  if (boss.kind === "candle") return;
-
-  // THE GORGE: a sack across seven columns above row 0, the seat read off
-  // the layout inside (`gorge-draw.ts`).
-  if (boss.kind === "gorge") {
-    drawGorge(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
-    return;
-  }
-
-  // THE CURTAIN: a body among the creatures and its hand ring over it, for
-  // THE CAIRN's reason, and the core behind it read by seat (`curtain-draw.ts`).
-  if (boss.kind === "curtain") {
-    drawCurtain(ctx, l, world, boss, world.beat, view.beatPhase, view.time, view.names);
+  // The clock bosses next door: nine of them hang over the top of the field
+  // with nothing of themselves on the grid, and each is one call read off its
+  // own state (`boss-draw-clocks.ts`). They were arms of this file until THE
+  // TASTER's took it over its limit, and they are the half of this list that
+  // grows — the page they come from has nine more designed.
+  if (isClockBoss(boss)) {
+    drawClockBoss(ctx, l, view, boss, skinY);
     return;
   }
 

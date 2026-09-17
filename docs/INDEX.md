@@ -654,6 +654,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/simon-glyph.ts` | one control, drawn small enough for a row of six |
 | `packages/render/src/controls.ts` | the band's buttons, drawn at any size — band and sequence share them |
 | `packages/render/src/boss-draw.ts` | whichever boss is on the field, drawn among the creatures |
+| `packages/render/src/boss-draw-clocks.ts` | **The clock bosses, drawn** — the ones from `docs/spec/bosses-choreographed.md` whose whole difficulty is a… |
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |
 | `packages/render/src/pods.ts` | the pod, hanging and as a burning wreck |
@@ -832,6 +833,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gyre-wheel.ts` | **One wheel, drawn**: the membrane around it, the two rim bands through the six bodies |
 | `packages/render/src/gyre.ts` | you are drawing the wheel under THE GYRE's six bodies — membrane, rim, bowed spokes and the organelle they meet at, behind everything they carry |
 | `packages/render/src/target-lock.ts` | THE TARGET LOCK: the one marking in this game that means *an instrument has picked this body out, and it |
+| `packages/render/src/taster-blade.ts` | **One blade of THE TASTER's fan**, as a shape and as a paint |
+| `packages/render/src/taster-crest.ts` | **The ridge THE TASTER's blades stand out of**, and the two things the pair can do to it |
+| `packages/render/src/taster-draw.ts` | THE TASTER, drawn: a low crest hugging the top of the field with a fan of blades standing out of it |
+| `packages/render/src/taster-fx.ts` | What THE TASTER leaves behind a frame: a blade coming off the crest |
+| `packages/render/src/taster-read.ts` | **What is written about THE TASTER's fan, and which seat is shown it.** Its own file beside `taster-draw.ts` |
 | `packages/render/src/wisp-body.ts` | you are drawing the wisp's bell — its contour, its spectrum fill, its core, and how the jump squashes it |
 | `packages/render/src/wisp-ground.ts` | you are drawing what a jumping wisp leaves on the field — its pool of light, its dotted arc, the tile it will land on |
 | `packages/render/src/wisp-land.ts` | you are drawing the gather before a wisp leaves a tile or the shock that goes out when it lands on one |

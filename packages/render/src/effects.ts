@@ -29,6 +29,7 @@ import { RockImpactFx } from "./rock-impact.js";
 import { MirrorFx } from "./simon-fx.js";
 import { Sparks } from "./sparks.js";
 import { SpriteBursts } from "./sprite-burst.js";
+import { TasterFx } from "./taster-fx.js";
 import { VolleyShardsFx } from "./volley-shards.js";
 import { WardenFx } from "./warden-fx.js";
 
@@ -174,6 +175,9 @@ export class Effects {
   /** THE CURTAIN's sheet coming down once torn, and its receipts' bursts
    * (`curtain-fx.ts`). */
   readonly curtain = new CurtainFx();
+  /** THE TASTER's blades tumbling off the crest, the shiver down the fan as it
+   * re-edges, and the colour each blade wore when it went (`taster-fx.ts`). */
+  readonly taster = new TasterFx();
 
   /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {

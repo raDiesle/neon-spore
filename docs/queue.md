@@ -381,3 +381,32 @@ every file `docs/INDEX.md` names, spawns nothing, and sets no timeout: the
 shape the entry above calls *a file whose own work is near the default*. It
 wants a named cap with the reason beside it, or the rows read once for the
 file.
+
+## `view-role.ts` and `effects.ts` are both at the ceiling a boss has to add to
+
+- **Found:** 2026-09-17, claude/taster-look
+- **Files:** `packages/render/src/view-role.ts`, `packages/render/src/effects.ts`
+
+Every boss with a look adds a line to both: one `showsX` predicate per fact a
+seat is shown, and one field for whatever outlives a frame. THE TASTER's look
+put `view-role.ts` at 245 lines and `effects.ts` at exactly 250, so the next
+one cannot add either without rewording somebody else's paragraph — the trade
+`effects-spark-silent.ts` is already queued for, in the two files a boss lane
+is *told* to edit (`.claude/skills/new-boss`, step 5).
+
+Both have the same seam and `packages/sim` has already cut it three times
+(`bosses-clocks.ts`, `config-boss-clocks.ts`, `boss-entries-clocks.ts`), and
+`boss-draw-clocks.ts` was cut along it in the lane that found this. The clock
+bosses' predicates are the eight from THE DIASTOLE onward — diastole, throat,
+undertow, orrery, candle, gorge, curtain, taster, sixteen predicates and their
+paragraphs — and moving them leaves `view-role.ts` at about 110 with the
+ship's own splits, the queen's, the fleet's and the splice's. In `effects.ts`
+the same set is nine fields.
+
+The one decision in it: the moved predicates have eleven import sites between
+them (`after-image.ts`, `candle-dark.ts`, `candle-glow.ts`, `curtain-draw.ts`,
+`diastole-draw.ts`, `gorge-draw.ts`, `orrery-draw.ts`, `orrery-grab.ts`,
+`throat-lock.ts`, `undertow-draw.ts` and two frame tests), so either each one
+is repointed — a one-line change in each, and no cycle — or `view-role.ts`
+re-exports them and the two files import each other, which is why it was not
+done in passing. Repointing is the answer; it is only tedious.

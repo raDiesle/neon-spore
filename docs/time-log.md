@@ -8871,4 +8871,30 @@ instruction was *not one cap for all nine*, and the only way to hold to that is
 to time each case, which costs more than typing nine identical constants would
 have.
 
+## 2026-09-17 — taster-look — THE TASTER's fan, and the numbers it is read by
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `taster.ts`, `taster-step.ts` and `taster-shot.ts` for what the state actually holds, `curtain-draw.ts` and `gorge-draw.ts` as the two precedents for a boss above row 0, `curtain-fx.ts` for a transient, `curtain-frame.test.ts` for the shape of the test, and §11.21 for how much room there is over row 0 |
+| deciding | 10 | that the split is **arithmetic** rather than occlusion — both seats see the whole fan, and each gets one number — and that neither seat is shown the beam's colour, because it is the other side of the navigator's own count |
+| writing | 35 | `taster-draw.ts`, `taster-blade.ts`, `taster-crest.ts`, `taster-read.ts`, `taster-fx.ts`, the two predicates, the `Effects` field and its four verbs, `boss-draw-clocks.ts` and the dispatch that replaced nine arms, the surface exports, `taster-frame.test.ts`, and §11.25's *The look* |
+| looking | 20 | six `bun run frames` of wave 75 on both seats and two crops of the crest, which caught both defects below |
+| friction | 20 | `boss-draw.ts` was at exactly 250 lines and `effects.ts` two off it, so the dispatch had to be split before the branch could be written; the fade could not be proved by counting a hex, because a faded blade names the same colour; and an `outBeat` counted backwards from beat 1 is a negative number, which is `-1`'s own meaning and not *out* at all |
+| landing | 10 | `check:fast` four times, the index, the commit |
+
+The bottleneck was the one thing only an eye could have caught, and it took
+the eye four frames to catch it: **`cyanRim` is a near-white, and so is the
+`rock` a blade's body is stroked in**, so five cyan-edged blades and one that
+had not decided yet were the same picture — in a fight whose entire subject is
+which of two colours you have been spending. The edge is now the saturated hue
+with the rim inside it as a highlight, which is where a whetted edge has one
+anyway. Nothing in the suite could have failed on it: every test that asks
+about a colour asks whether the hex is named, and both hexes were.
+
+The second defect the frames caught was cheaper: the navigator's two counts
+were written *under* the crest, in the middle column, which is where the
+arrivals converge, so the one readout of this fight was over a falling slick
+every few beats. They are on the ridge now, and nothing on the field can
+reach above row 0.
+
 *Measured: this lane's own estimate, off the session's own timestamps.*

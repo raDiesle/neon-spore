@@ -40,12 +40,12 @@ export const SILENT_BOSS = [
   "curtainFire",
   "curtainTear",
   "curtainOut",
-  // THE TASTER's twelve, silent **until the look lane draws it**: nothing of
-  // the fan is on the screen yet, so a transient about a blade shearing would
-  // be a picture of nothing. Every one has a sound (`bind-taster.ts`), and the
-  // boss's state carries what each blade is and how far the crest is cut, so
-  // this list is exactly what the second lane reaches for: the edge
-  // crystallising, the shear, the shiver, the interlock (`bosses.md` §11.25).
+  // THE TASTER's twelve, read above the loop by `taster-fx.ts` the way THE
+  // GORGE's and THE CURTAIN's are: the crest, the fan and every edge on it are
+  // drawn off the boss each frame, and the two that outlive a frame are a
+  // blade tumbling off and the shiver down the crest when the fan re-edges.
+  // The bursts are thrown there in the blade's own colour, which this table
+  // could not do — a shear does not carry one (`bosses.md` §11.25).
   "tasterRise",
   "tasterGrow",
   "tasterSet",

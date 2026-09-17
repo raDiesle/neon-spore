@@ -220,3 +220,26 @@ export const showsGorgeNearest = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsCurtainSoft = (role: ViewRole): boolean => role !== "p2";
 export const showsCurtainShadow = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE TASTER's two, and this split is neither the eyes nor a sentence over a
+ * shared picture: **both seats see the whole fan**, every blade and every
+ * edge, and each is given one *number* the other has not got. It is the first
+ * boss whose split is arithmetic rather than occlusion, because the fight is
+ * arithmetic — what the two of them have been spending (`sim/spend.ts`).
+ *
+ * The navigator is shown **the ledger**: the two counts over the window the
+ * fan is tasting, in their own colours, which is the *nine red to four, give
+ * me cyan* she has to say. Hers because she owns the colours. The pilot is
+ * shown **where the crest opens next**, one column ahead of anything the
+ * world draws, which is what he answers with. His because he owns the column,
+ * and because a blade that has already started growing is on both screens —
+ * so the mark tells him nothing she could not also see, only sooner.
+ *
+ * Neither is shown the colour the beam has to be: that is the other side of
+ * her own count, and a picture that named it would answer the fight
+ * (`taster-read.ts`). `test` is both, the usual *one person is holding both
+ * seats*.
+ */
+export const showsTasterTally = (role: ViewRole): boolean => role !== "p1";
+export const showsTasterNext = (role: ViewRole): boolean => role !== "p2";

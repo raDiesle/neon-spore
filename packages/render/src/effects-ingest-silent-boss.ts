@@ -107,14 +107,14 @@ export const INGEST_SILENT_BOSS = [
   "curtainFire",
   "curtainTear",
   "curtainOut",
-  // THE TASTER's twelve, silent **until the look lane draws it**: nothing of
-  // the fan is on the screen yet, so a transient about a blade shearing would
-  // be a picture of nothing. Every one of them has a sound
-  // (`packages/audio/src/bind-taster.ts`), and the boss's own state carries
-  // what each blade is and how far the crest is cut, so this list is exactly
-  // the moments the second lane will reach for: the edge crystallising, the
-  // shear, the shiver along the crest, the interlock opening
-  // (`docs/spec/bosses.md` §11.25).
+  // THE TASTER's twelve, read above the loop by `taster-fx.ts` the way THE
+  // CURTAIN's are. What the fan is — which blades stand, what each edge is,
+  // how thick it is, which gaps are soft and how wet — is on the boss and is
+  // drawn off it every frame (`taster-draw.ts`). The two that are not in the
+  // world a frame later are a blade coming off the crest and the shiver when
+  // every standing blade re-edges, and that file keeps both, along with the
+  // one memory in the renderer of a colour the simulation has cleared: what
+  // each blade was wearing when it went (`docs/spec/bosses.md` §11.25).
   "tasterRise",
   "tasterGrow",
   "tasterSet",
