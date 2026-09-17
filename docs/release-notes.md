@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 747fd801 — A grid axis gets out from under the tutorial plate
+
+THE FLEET's chart was numbered under the band — row 1 at the top of the gutter, the square names beside it — and the answer it carried was a `leftCovered` that moved the numbers to the *other* edge. That was a real answer while the plate was a corner and stopped being one when the band went full width. The owner's answer, 17 September 2026: a chart drops as a block. So the whole chart does, by `headerLift`, the way THE PULSE moves its header — and the marks, the sights and the shells in the air drop with it, because they are drawn off the chart's own square.
+
 ## 2026-09-17 · 922173b3 — THE SPLICE's clock drops under the tutorial plate
 
 `1 OF 2 · 26` on the seat shown the tangle sat at a fixed offset from the top of the screen, and the rehearsal's plate stood over it. It goes through `headerTop` now like every round's name does, with the clearance handed down from `boss-draw.ts`, and `guide-plate-room.test.ts` sweeps the clock's line with the names. The third exemption: a fix to something wrong — two things in one band, neither legible — not to something unlovely, and it moves only on a rehearsal, where the plate is.
