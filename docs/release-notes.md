@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · b2ea3995 — The lost screen can say where the ship was hit
+
+The record the lost screen is drawn from could name the column the breach landed in and nothing else about it, so an answer that wanted to replay the hit had no colour, no width and no seed to replay it with. `LostPaint` gains `breach` — the span, the hue and the toss that picks a tear from a blow — and `surfaceY`, the membrane's own line, which is what a strike is drawn along. `strikeSeed` moves out of `breach-strike.ts` as a function so the screen and the field toss the same coin rather than two copies of one expression. Not one pixel of the shipped screen moves: the shipped `veil` never reads any of it.
+
 ## 2026-09-17 · 60b7b3c3 — Take §2 THE ORRERY on the choreographed-bosses page, in three named lanes
 
 The page is the only place that knows which concept is already under a hand, and the row goes in before the first line of code. THE ORRERY is too big for one sitting and is split before it is started rather than asked about: the rings and the shaft, then the hand on the outermost ring, then the look.
