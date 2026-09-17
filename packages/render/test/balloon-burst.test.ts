@@ -69,17 +69,16 @@ describe("the cut a balloon's skin comes apart on", () => {
     }
   });
 
-  it("is bigger and faster than the break a struck body gets", () => {
+  it("is bigger, faster and lighter than the break a struck body gets", () => {
     expect(BALLOON_SKIN.wedges).toBeGreaterThan(BREAK_LOOK.wedges);
     expect(BALLOON_SKIN.speedTiles).toBeGreaterThan(BREAK_LOOK.speedTiles);
-    // **It was "and lighter" until 16 September 2026**, when the owner took
-    // `creature:debris` / `drift` and the ordinary break's pull went from 14
-    // tiles per second squared to 1. The pop's is still 11, so the two have
-    // swapped: the skin now falls and the struck body hangs. That is not a
-    // relationship anybody chose, so the clause is gone rather than reversed —
-    // a test asserting the new order would make an accident into a rule. The
-    // question of whether the pop should follow the break is the owner's, and
-    // it is in `docs/queue.md`.
+    // "And lighter" was lost on 16 September 2026, when `creature:debris` /
+    // `drift` took the ordinary break's pull from 14 to 1 and left the pop's
+    // at 11 — the skin fell and the struck body hung, an order nobody chose.
+    // The owner chose on 17 September: the pop follows the break, and a shred
+    // never lands, so the clause is a real claim again and the skid is none.
+    expect(BALLOON_SKIN.gravityTiles).toBeLessThan(BREAK_LOOK.gravityTiles);
+    expect(BALLOON_SKIN.skid).toBe(0);
   });
 });
 

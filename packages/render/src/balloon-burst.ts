@@ -12,7 +12,7 @@ import { tileSeed } from "./tile-seed.js";
 
 /**
  * **THE BALLOON popping**: the skin the pair stretched, torn into shreds that
- * fly outward and fall onto the ship.
+ * fly outward and fade in the air.
  *
  * The owner asked for this by name on 14 September 2026 — *realistic, like a
  * balloon becoming many pieces blowing up* — and it is the one point of that
@@ -22,9 +22,9 @@ import { tileSeed } from "./tile-seed.js";
  * nothing whatever of the body two people had just spent a hold on.
  *
  * **It is a break, not a new machine.** `Debris` already cuts a contour into
- * pieces, throws them along the ray they were cut on, falls them under gravity
- * and lands them on the hull (`shatter.ts`, `shatter-fall.ts`), and every one
- * of those verbs is what a popping balloon does. What this file adds is the
+ * pieces, throws them along the ray they were cut on and lets them fall and
+ * fade (`shatter.ts`, `shatter-fall.ts`), and every one of those verbs is
+ * what a popping balloon does. What this file adds is the
  * two things that are *this body's*: which contour is cut, and what a piece of
  * skin looks like as opposed to a piece of body.
  *
@@ -137,8 +137,17 @@ export function shred(ctx: CanvasRenderingContext2D, p: PiecePaint): void {
  * Every figure that differs differs because skin is not meat. It leaves
  * faster, because a pop is the release of everything two hands put into it and
  * a body's break is a shot arriving; it falls slower, because a scrap of
- * rubber is light; it turns faster and keeps more of its speed along the
- * plating, because a shred that lands flat slides.
+ * rubber is light; it turns faster, because a shred has no mass to steady it.
+ *
+ * **It follows the break, and nothing settles on the hull.** Until 17
+ * September 2026 the pull here was 11 tiles a second squared with half the
+ * speed kept on landing, so the shreds fell to the plating and slid along it —
+ * which was the heavier picture of the two once `creature:debris` / `drift`
+ * took the ordinary break's pull down to 1, the light thing falling and the
+ * heavy thing floating. The owner chose that a pop opens and fades in the air
+ * like everything else (`docs/queue.md`, "The balloon's pop now falls harder
+ * than a struck body's break"), so the pull is under the break's and `skid` is
+ * 0: a shred never lands.
  *
  * `sparkScale` is the one field that is not about the shreds at all. The
  * `destroy` on the same tick still throws the ordinary kill's squares, and
@@ -152,10 +161,10 @@ export const BALLOON_SKIN: BreakLook = {
   innerAt: INNER,
   speedTiles: 2.3,
   spin: 12,
-  gravityTiles: 11,
+  gravityTiles: 0.6,
   life: 1.1,
   fade: 0.5,
-  skid: 0.5,
+  skid: 0,
   sparkScale: 0.3,
   // No slivers off a skin: what a balloon is made of tears, and a tear has no
   // face to splinter off (`splinter.ts`).

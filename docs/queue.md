@@ -341,39 +341,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## The balloon's pop now falls harder than a struck body's break
-
-- **Found:** 2026-09-16, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-17, claude/queue-the-balloons-pop-now-falls-harder-than-a-struck
-- **Files:** `packages/render/src/balloon-burst.ts`,
-  `packages/render/src/break-look.ts`,
-  `packages/render/test/balloon-burst.test.ts`
-- **Answered:** 2026-09-17, by the owner — **Follow the break.** `BALLOON_SKIN.gravityTiles` down to about 1 and `skid` to 0, so a pop opens and fades in the air; the old "and lighter" clause comes back as a real claim. A look the owner asked for by name — the first exemption — so it lands.
-
-Taking `creature:debris` / `drift` dropped `BREAK_LOOK.gravityTiles` from 14 to
-1, so a struck body's pieces hang in the lane and fade there. `BALLOON_SKIN`
-was not part of that slot and still pulls at 11 with `skid: 0.5`, so the skin
-of a balloon lands on the plating and slides along it. The two have swapped
-places: the light thing falls and the heavy thing floats, and the test that
-held the old order — a pop is "bigger, faster and lighter" than a break — lost
-its third clause rather than gaining a reversed one, because nobody chose the
-new order.
-
-The answer picks between two, and both are one field:
-
-- **Follow the break.** `BALLOON_SKIN.gravityTiles` down to about 1 and `skid`
-  to 0, so a pop opens and fades in the air like everything else, and nothing
-  in the game settles on the hull any more. Restores the old "and lighter"
-  clause as a real claim, since the pop keeps the higher speed and the larger
-  count.
-- **Keep the fall, and say why.** A skin is a thing with weight and a body
-  coming apart is not, so the pop is deliberately the heavier picture. Then the
-  clause stays gone and `balloon-burst.ts` grows a paragraph saying the
-  inversion is on purpose.
-
-Whichever it is, it is a look and goes to the owner rather than onto the field
-unattended.
-
 ## The lost screen's plates open, and their own sentence says they close
 
 - **Found:** 2026-09-16, claude/creature-bite-collision-f96307

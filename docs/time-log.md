@@ -8605,3 +8605,15 @@ marked the picture, because every body draw sets its own alpha, and the probe
 that settled it was skipping the draw altogether — eight waves red at once.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — balloon-pop-follows-the-break — the pop follows the break
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the queue entry, `BALLOON_SKIN`, the test's dropped clause |
+| deciding | 5 | 0.6 rather than 1 for the pull, so "lighter" is a strict claim against the break's 1 |
+| writing | 5 | two fields, the paragraph saying why, the clause, the file's header and its index row |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, the commit, `bun run land` |
+
+The bottleneck was nothing; the owner's answer was one field and a sentence.
