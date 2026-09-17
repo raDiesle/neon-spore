@@ -638,44 +638,6 @@ parting at its gap, the core spitting, the core going out from the centre
 outward. `sound-link-none.ts` is where a moment with no card on the sheet is
 named instead.
 
-## A hit splashes the enemy's colour on the hull, and the field really stops
-
-- **Found:** 2026-09-17, queue-four-from-the-owner
-- **Taken:** 2026-09-17, claude/queue-a-hit-splashes-the-enemys-colour-on-the-hull-and
-- **Files:** packages/sim/src/hull-types.ts, packages/sim/src/hull-damage.ts, packages/sim/src/hash.ts, packages/render/src/scars.ts, packages/render/src/breach-hue.ts, packages/render/src/depth.ts, packages/render/src/lost-screen.ts, packages/sim/src/wave-fail.ts
-
-The owner asked for two things on 17 September 2026, and they are one lane
-because they are the same moment seen twice: *"when an enemy hits the hull
-(except meteors) have some splash in the colour of the enemy on top of the
-hull skin, which also remains for the wave game over screen"*, and *"everything
-on the game area should stay at their current position in the moment hull took
-damage, and neither disappear nor continue falling"*.
-
-**The splash is a look the owner asked for by name** — the first of the three
-exemptions in `docs/looks.md` — so it goes onto the field rather than to
-VERSUS, and the commit says which exemption it used.
-
-**The colour is not in the world yet.** `Scar` carries `col`, `beat`, `kind`
-and `span` and no colour at all (`hull-types.ts`), while `breachHue(kind,
-color)` needs the creature's colour and is handed it only at the instant of
-the hit — `effects-breach.ts` and `breach-strike.ts` both read it from the
-body while the body still exists. A splash that has to be there on the lost
-screen, seconds later, cannot be drawn from a body that has gone. So the scar
-gains a colour, which is rule 4: a new field of `World` is a new part in
-`hashWorld` and a row in `hash-coverage.test.ts`. Meteors keep the crater they
-already get — the exception the owner named, and `isMeteorKind` is the
-question already asked.
-
-**The field does stop, and the picture does not.** `step.ts` returns early
-under `failHolds` — nothing falls, nothing fires — so the simulation is
-already exactly what was asked for. What keeps moving is the glide:
-`drawnRow(c, beatPhase)` interpolates a body from `fromRow` to `row` across
-the beat, and the hold goes on counting `world.tick`, so `beatPhase` runs on
-after the hit. Every body finishes the step it was halfway through and the
-hull's own breathing carries on under it. The fix is one question asked in one
-place — what phase a held field is drawn at — and then `frame.test.ts` proving
-that two frames a beat apart during a hold are the same picture.
-
 ## The cannon slider misses presses on a phone; the buttons never do
 
 - **Found:** 2026-09-17, queue-four-from-the-owner
