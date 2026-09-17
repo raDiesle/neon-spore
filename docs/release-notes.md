@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 922173b3 — THE SPLICE's clock drops under the tutorial plate
+
+`1 OF 2 · 26` on the seat shown the tangle sat at a fixed offset from the top of the screen, and the rehearsal's plate stood over it. It goes through `headerTop` now like every round's name does, with the clearance handed down from `boss-draw.ts`, and `guide-plate-room.test.ts` sweeps the clock's line with the names. The third exemption: a fix to something wrong — two things in one band, neither legible — not to something unlovely, and it moves only on a rehearsal, where the plate is.
+
 ## 2026-09-17 · 64e2a881 — A flaky shape-fit test is queued, and a duplicate lost-plates candidate is dropped
 
 `tools/director/test/shape-fit.test.ts` went red once under a sharded `check:fast` on a lane that touched nothing it reads, and green alone and on the next run; the queue entry says what to look at. The lane it happened on was building the lost screen's closing plates as a VERSUS candidate, and `bun run land` found `shut` (c7775047) already on `main` from another session with the item marked done — so that candidate is not landed, and the time-log says where the time went.
