@@ -8,6 +8,7 @@ import { LedgerFx } from "./ledger-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
 import { MirrorFx } from "./simon-fx.js";
 import { SinewFx } from "./sinew-fx.js";
+import { SurgeFx } from "./surge-fx.js";
 import { TasterFx } from "./taster-fx.js";
 import { WardenFx } from "./warden-fx.js";
 
@@ -80,6 +81,11 @@ export class BossTransients {
    * answered, and the flash of the tear — asked for the whip by the drawer
    * (`ledger-fx.ts`, `ledger-draw.ts`). */
   readonly ledger = new LedgerFx();
+  /** THE SURGE's vent and burst: the row the bulb sinks through, the jolt
+   * through the body, the jet out of the seam, and its receipts' bursts —
+   * asked for the sink and the jolt by the drawer (`surge-fx.ts`,
+   * `surge-draw.ts`). */
+  readonly surge = new SurgeFx();
 
   /** `role` is the layout's: a flash lights only the screen whose control
    * made it (`after-image.ts`). */
@@ -99,6 +105,7 @@ export class BossTransients {
     this.taster.ingest(events, l, beatSeconds, burst);
     this.sinew.ingest(events, l, cfg, beatSeconds, burst);
     this.ledger.ingest(events, l, cfg, beatSeconds, burst);
+    this.surge.ingest(events, l, cfg, beatSeconds, burst);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
   }
@@ -115,10 +122,11 @@ export class BossTransients {
     this.taster.update(dt);
     this.sinew.update(dt);
     this.ledger.update(dt);
+    this.surge.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
-  /** The four drawn under the hull with everything else. The mirror, the
+  /** The five drawn under the hull with everything else. The mirror, the
    * warden, the fleet and the reprise are drawn by the boss pass, the
    * after-image by the renderer between the bodies and the ship, and the
    * sinew's shock on the finished ship (`frame-on-ship.ts`). */
@@ -128,6 +136,7 @@ export class BossTransients {
     this.taster.draw(ctx, l);
     this.sinew.draw(ctx, l);
     this.ledger.draw(ctx, l);
+    this.surge.draw(ctx, l);
   }
 
   clear(): void {
@@ -141,6 +150,7 @@ export class BossTransients {
     this.taster.clear();
     this.sinew.clear();
     this.ledger.clear();
+    this.surge.clear();
   }
 }
 

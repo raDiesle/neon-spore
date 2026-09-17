@@ -6,6 +6,7 @@ import { lidCordCircle } from "./lid-string.js";
 import { mazeStringCircle } from "./maze-string.js";
 import { orreryRingUnder } from "./orrery-grab.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
+import { surgeBulbUnder } from "./surge-grip.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 
@@ -26,6 +27,8 @@ import type { Field, Touch } from "./touch.js";
  * THE SINEW's pair is the seventh and lives with its drawing in
  * `sinew-handles.ts` for THE ORRERY's reason: the rest a thumb is answered at
  * is the rest the ring is drawn from, and one file keeps them one fact.
+ * THE SURGE's bulb is the eighth and the first taken by both seats at
+ * once, in `surge-grip.ts` for the same reason.
  *
  * There are five of them here — THE MAZE's string, THE WARDEN's rope, THE LID's
  * cord, THE CHOIR's two arrows and THE BALLOON's two handles — and that is why
@@ -59,6 +62,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     balloonHandleUnder(l, x, y, field) ??
     choirArrowUnder(l, x, y, field) ??
     sinewHandleUnder(l, x, y, field) ??
+    surgeBulbUnder(l, x, y, field) ??
     orreryRingUnder(l, x, y, field)
   );
 }

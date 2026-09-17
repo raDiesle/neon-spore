@@ -10,6 +10,7 @@ import { drawLedger } from "./ledger-draw.js";
 import { drawOrrery } from "./orrery-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawSinew } from "./sinew-draw.js";
+import { drawSurge } from "./surge-draw.js";
 import { drawTaster } from "./taster-draw.js";
 import { drawThroat } from "./throat-draw.js";
 import { drawUndertowLobes } from "./undertow-lobe.js";
@@ -49,6 +50,7 @@ const CLOCK_KINDS = [
   "taster",
   "sinew",
   "ledger",
+  "surge",
 ] as const;
 
 export type ClockBoss = Extract<Installed, { kind: (typeof CLOCK_KINDS)[number] }>;
@@ -171,5 +173,16 @@ export function drawClockBoss(
   // this boss's whole split (`ledger-draw.ts`, `view-role-clocks.ts`). What
   // outlives a frame — the whip back up the cord, the shock through the hull,
   // the flash of the tear — is `effects.boss.ledger` (`ledger-fx.ts`).
-  drawLedger(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.ledger);
+  if (boss.kind === "ledger") {
+    drawLedger(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.ledger);
+    return;
+  }
+
+  // THE SURGE: a ribbed bulb hung over the middle of the field with a seam
+  // round its equator, a grip mark on each flank for the two thumbs that
+  // share it, and the gauge along the seam read by seat — the notches on
+  // the pilot's screen, the pressure on the navigator's. What outlives a
+  // frame — the sink after a vent, the jolt of a burst, the jet — is
+  // `effects.boss.surge` (`surge-draw.ts`, `surge-fx.ts`).
+  drawSurge(ctx, l, world, boss, world.beat, view.beatPhase, view.time, effects.boss.surge);
 }

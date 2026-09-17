@@ -6,6 +6,7 @@ import type {
   PlacedFault,
   SimConfig,
   SinewState,
+  SurgeState,
   WardenState,
 } from "@neon-spore/sim";
 
@@ -94,6 +95,16 @@ export interface Field {
    * answers nothing while the other seat's pull counts (`sinew-handles.ts`).
    */
   sinew: SinewState | null;
+  /**
+   * THE SURGE, if it is the boss running, `null` otherwise. **Required, and
+   * stated rather than defaulted**, for the reason the four above are, and
+   * with the one twist this boss has: the bulb is one handle both seats
+   * take, so a caller that quietly meant `null` would leave *both* thumbs
+   * falling through the boss onto the rocks behind it — and a wave whose
+   * whole verb is two thumbs coming off together would have none on
+   * (`surge-grip.ts`).
+   */
+  surge: SurgeState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-implementation — THE SURGE, the look
+
+Lane two of the sixth boss: a ribbed bulb over the middle of the field with a
+seam round its equator, the gauge on the seam read by seat — notches on the
+pilot's screen, pressure on the navigator's — a grip mark on each flank, the
+whole bulb one hit circle for both thumbs, the pinch on a burst, the fold
+through the equator on the last vent. Five render files, the family of twelve
+read above the loop, the field's `surge` slot threaded through the game, the
+director and the frames tool, two tests, §11.28.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | THE SINEW's five render files and two tests as the pattern, the handle ring and hint, `hold.ts` |
+| writing | 15 | five render files, the predicate pair, the field slot in eleven test literals and four fillers, the pose and the control card, two tests, the write-up |
+| looking | 5 | one frame with both thumbs on |
+| friction | 5 | `hold.ts` read a table before it was declared, twice; a context compaction between the source and its tests |
+| landing | 15 | `check:fast`, the row `controls.md` was missing, the commit, `land --keep`; then a rebase onto a `main` that had landed THE LEDGER's look under the lane — three render files, each the same three lists grown from both ends |
+
+The bottleneck was the field's `surge` slot: a nullable field on `Field` is
+a literal in eleven test files and four fillers, every one edited by hand
+for a boss whose hit test is one function.
+
 ## 2026-09-17 — boss-implementation — THE SURGE, the simulation
 
 Lane one of the sixth boss off the choreographed list, straight after THE

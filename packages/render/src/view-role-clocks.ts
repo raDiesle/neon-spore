@@ -218,3 +218,18 @@ export const showsSinewSum = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsLedgerBead = (role: ViewRole): boolean => role !== "p2";
 export const showsLedgerSocket = (role: ViewRole): boolean => role !== "p1";
+
+/**
+ * THE SURGE's two, on the seam alone: both seats see the bulb and both
+ * thumbs on it, and each is shown one thing on the seam the other is not.
+ * The pilot is shown **the notches** — how many are open and where the
+ * next one's band sits on the gauge — because the seat that knows *where*
+ * is the seat that can say *let go on the four*. The navigator is shown
+ * **the pressure** — where the charge has climbed to — because the seat
+ * that knows *how much* is the seat that can count it there out loud.
+ * Neither mark is on the other's screen, and neither body swells with a
+ * number the seat is not shown (`surge-gauge.ts`, `surge-draw.ts`,
+ * `sim/surge.ts`). `test` is both.
+ */
+export const showsSurgeNotches = (role: ViewRole): boolean => role !== "p2";
+export const showsSurgePressure = (role: ViewRole): boolean => role !== "p1";

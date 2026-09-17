@@ -19,6 +19,7 @@ import {
   POSE_TPB as TPB,
   until,
 } from "./pose-kit.js";
+import { SURGE_HOLD } from "./poses-field-controls-surge.js";
 
 /**
  * The states the ON THE FIELD tab needed a picture of and the gallery did not
@@ -227,5 +228,7 @@ const SINEW_PULL: Pose = {
 export const FIELD_CONTROL_GROUP: PoseGroup = {
   title: "ON THE FIELD",
   note: "the moment a control touched on the field itself is answered in — controls.md, and the CONTROLS tab's ON THE FIELD page",
-  poses: [TETHER_TAUT, BALLOON_HELD, GUM_FLUNG, ORRERY_RING, SINEW_PULL, GUIDE_HOLD],
+  // THE SURGE's is next door: this file was at its limit
+  // (`poses-field-controls-surge.ts`).
+  poses: [TETHER_TAUT, BALLOON_HELD, GUM_FLUNG, ORRERY_RING, SINEW_PULL, SURGE_HOLD, GUIDE_HOLD],
 };

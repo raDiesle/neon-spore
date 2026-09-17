@@ -158,8 +158,8 @@ export const SILENT_BOSS = [
   "ledgerLast",
   "ledgerHeld",
   "ledgerTear",
-  // THE SURGE's twelve, silent until the look lane draws it — then one family
-  // above the loop, never rows here (`docs/spec/bosses.md` §11.28).
+  // THE SURGE's twelve are one family read above the loop by
+  // `surge-fx.ts`, never rows here (`docs/spec/bosses.md` §11.28).
   "surgeSettle",
   "surgeGrip",
   "surgeRelease",

@@ -55,6 +55,7 @@ export function bindControls({
   warden,
   orrery,
   sinew,
+  surge,
   creatures,
   cannonCol,
   shieldCol,
@@ -93,6 +94,7 @@ export function bindControls({
     warden: warden(),
     orrery: orrery(),
     sinew: sinew(),
+    surge: surge(),
     controls: controls(),
     // The faults in force this beat, so a button one has taken over is refused
     // where it is drawn dead — the same argument `controls` makes one line up

@@ -3412,13 +3412,49 @@ only "with no hands on it", but a rule that turned the eating off under a
 thumb would make the safest play two thumbs held on the glass for ever, on
 the one boss whose whole question is whether you can stop.
 
-**What is not built.** The look: nothing of the bulb, the seam, the gauge,
-the band, the thumbs, the burst's spray or the eversion is drawn. The twelve
-events are listed silent in `effects-ingest-silent-boss.ts` and
-`effects-spark-silent-boss.ts` until the look lane takes them, and
-`surgeBulb` has no hit test in `touch.ts` — a `drag` on it can be sent by
-the director's ON THE FIELD tab and by nothing a thumb can find. The split
-(`showsSurgeNotches`, `showsSurgePressure`) is the look lane's to draw.
+**The look** (`render/surge-draw.ts`, `surge-shape.ts`, `surge-gauge.ts`,
+`surge-grip.ts`, `surge-fx.ts`). A seven-lobed bulb (`blobPath`) three
+columns wide and a row and a half deep, hung at `surgeBulbRow` over the
+middle column and a row lower per notch vented, its outline in the hull's
+violet and its rim in the hull's rim, with three ribs curved inside it
+clipped to the body and an inner glow while the charge holds. The **seam**
+is a dark curve across its equator, and the gauge is drawn on the seam
+by seat: the pilot's screen shows the **notches** — the next one as a band
+across the seam filled in white with its mark stroked, every vented one as
+a slit in white, the ones still to come as grey ticks — and never the
+pressure; the navigator's shows the **pressure** as one mark in the hull's
+rim sliding left to right, and never a notch; the test screen has both
+(`showsSurgeNotches`, `showsSurgePressure` — the split *is* the encounter).
+The body **swells** with the pressure only on the screen shown the pressure;
+on the pilot's it throbs with the count of thumbs on it and nothing more,
+so that a bulb visibly fuller is never the pilot's way round the split. The
+two **grips** are marks on the bulb's flanks, low, the pilot's on the left
+and the navigator's on the right, yours bright and theirs grey, drawn with
+the game's own handle ring (`handle-draw.ts`) and the word *HOLD* under
+each until a thumb is on — and the whole bulb is the hit test, one circle
+for both seats (`surgeBulbCircle`), the first handle in the game taken by
+both at once: the grips are where the thumbs are shown, not where they
+must land. A **burst** pinches the bulb dim and shut for `surgeBurstBeats`
+with the grips greyed and wordless; the last **vent** everts it, the body
+folding through its own equator over `surgeEvertBeats` with the inside
+coming out pale, and then it fades over `surgeOutBeats`. The twelve events
+are one family read above `Effects`' loop (`surge-fx.ts`): a burst per
+event in its column — the grip's at its flank, the vent's and the burst's
+at the bulb, the gum's and the absorbed rock's at their row — a **sink** of
+a row over a beat on a vent, a **jet** blown out of the seam with it, and
+a **jolt** shaking the bulb for a beat and a half on a burst, all cleared
+on restart. The bulb is on both screens (`controls.md`, the director's ON
+THE FIELD tab with the pose *SURGE · BOTH THUMBS ON THE BULB*), and
+`bun run frames` takes the navigator's thumb as `--hold surgeBulb2=0`.
+`render/test/surge-frame.test.ts` proves the picture hung, held, in the
+band, notched, sealing, everting and out on all three screens, the notches
+on the pilot's alone, the pressure on the navigator's alone, and the sink's
+reset; `surge-touch.test.ts` proves the bulb is answered where it is
+drawn, by both seats at the same place, and not beside it. *Not built of
+the design's look*: the spray of a burst across the whole ship is three
+gums and a jolt; the slits do not gape wider with the pressure; the
+eversion is a fold of the outline, not a second body turned out of the
+first. The owner's eye decides all three.
 
 **Never watched at tempo.** What the tests say is the mechanism: it installs
 dead centre with the seam shut, no pressure and no thumb, and sends nothing;

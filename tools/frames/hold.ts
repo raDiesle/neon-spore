@@ -19,6 +19,8 @@ import type { HoldSpec } from "./spec.js";
  *   --hold balloonRight=1600,id=1   and the navigator's on the same one
  *   --hold sinewLeft=0,y=900        THE SINEW: the pilot's hand, pulled 0.9 down
  *   --hold sinewRight=0,y=500       and the navigator's, half a tile
+ *   --hold surgeBulb=0              THE SURGE: the pilot's thumb on the bulb
+ *   --hold surgeBulb2=0             and the navigator's, on the same bulb
  *
  * THE CHOIR's two are the only handles here whose **sign** is the whole of the
  * gesture rather than a direction the picture happens to take: the left arrow
@@ -55,7 +57,7 @@ import type { HoldSpec } from "./spec.js";
 export function parseHold(value: string): HoldSpec[] {
   const parts = value.split(",");
   const [name = "", ...rest] = parts;
-  const [target = "", milliText] = name.split("=");
+  const [name0 = "", milliText] = name.split("=");
 
   let id: number | undefined;
   let yMilli: number | undefined;
@@ -73,7 +75,7 @@ export function parseHold(value: string): HoldSpec[] {
     if (!Number.isInteger(id)) throw new Error(`--hold ${value}: id must be a whole number`);
   }
 
-  if (target === "prime") {
+  if (name0 === "prime") {
     if (id !== undefined || yMilli !== undefined) {
       throw new Error("--hold prime: a thumb on a colour takes no distance and no id");
     }
@@ -93,7 +95,13 @@ export function parseHold(value: string): HoldSpec[] {
   // carries the seat as well as the target, and a capture can stand a frame
   // with one hand on a body or with both.
   // THE SINEW's pair sits the same way, and is pulled **down** (`y=`).
-  const SEAT: Record<string, 1 | 2> = { balloonRight: 2, sinewRight: 2 };
+  // THE SURGE has **one** target both seats send (`sim/surge-hand.ts`), so
+  // the navigator's thumb is named here as `surgeBulb2` and sent as
+  // `surgeBulb` from seat 2: a name per thumb, the way every other row is,
+  // rather than a seat flag the rest of the field would have to refuse.
+  const SEAT: Record<string, 1 | 2> = { balloonRight: 2, sinewRight: 2, surgeBulb2: 2 };
+  const TARGET: Record<string, string> = { surgeBulb2: "surgeBulb" };
+  const target = TARGET[name0] ?? name0;
   // And they take an `id` for THE LID's reason: a wave puts several on the
   // field at once on purpose.
   const NEEDS_ID = ["lidString", "balloonLeft", "balloonRight"];
@@ -107,8 +115,10 @@ export function parseHold(value: string): HoldSpec[] {
     "balloonRight",
     "sinewLeft",
     "sinewRight",
+    "surgeBulb",
+    "surgeBulb2",
   ];
-  if (!DRAGS.includes(target)) {
+  if (!DRAGS.includes(name0)) {
     throw new Error(`--hold ${value}: unknown control. One of prime=red|cyan, ${DRAGS.join(", ")}`);
   }
   const fromMilli = milliText === undefined ? 1000 : Number(milliText);
@@ -133,7 +143,7 @@ export function parseHold(value: string): HoldSpec[] {
     grab.id = id;
     command.id = id;
   }
-  const player = SEAT[target] ?? 1;
+  const player = SEAT[name0] ?? 1;
   return [
     { player, command: grab },
     { player, command },

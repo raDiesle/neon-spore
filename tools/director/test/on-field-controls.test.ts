@@ -99,9 +99,9 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "sinewLeft":
     case "sinewRight":
       return target;
-    // `surgeBulb` is the same again, one lane later: heard by `sim/surge-hand.ts`
-    // with nothing drawn to take hold of, until the look lane draws the bulb
-    // (`docs/spec/bosses.md` §11.28).
+    // `surgeBulb` is the same again, and the first one target both seats
+    // send: heard by `sim/surge-hand.ts`, answered anywhere on the bulb by
+    // `render/surge-grip.ts` (`docs/spec/bosses.md` §11.28).
     case "surgeBulb":
       return target;
     default:
@@ -206,6 +206,7 @@ const FIELD: Field = {
   warden: null,
   orrery: null,
   sinew: null,
+  surge: null,
   controls: controlSetForWave(0),
   faults: [],
   well: false,

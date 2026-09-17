@@ -123,6 +123,7 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     // it without the boss (`render/orrery-grab.ts`).
     orrery: () => (world.boss?.kind === "orrery" ? world.boss : null),
     sinew: () => (world.boss?.kind === "sinew" ? world.boss : null),
+    surge: () => (world.boss?.kind === "surge" ? world.boss : null),
     // Which panel is up follows from the wave (`content/control-sets.ts`).
     controls: () => controlSetForWave(world.wave),
     faults: () => faultsNow(world),

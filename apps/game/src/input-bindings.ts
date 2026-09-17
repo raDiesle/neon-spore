@@ -7,6 +7,7 @@ import type {
   PlacedFault,
   SimConfig,
   SinewState,
+  SurgeState,
   WardenState,
 } from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
@@ -82,6 +83,9 @@ export interface Bindings {
   /** THE SINEW, when it is the boss up: a handle per seat beside the mass
    * (`render/sinew-handles.ts`). */
   sinew: () => SinewState | null;
+  /** THE SURGE, when it is the boss up: one bulb both seats take
+   * (`render/surge-grip.ts`). */
+  surge: () => SurgeState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

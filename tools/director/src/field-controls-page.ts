@@ -3,6 +3,7 @@ import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
+import { SURGE_CONTROLS } from "./field-controls-surge.js";
 import { tetherExamples } from "./field-controls-tether.js";
 
 /**
@@ -218,6 +219,8 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   // THE SINEW's two, the pair that adds into one sum rather than holding a
   // side each (`field-controls-sinew.ts`).
   ...SINEW_CONTROLS,
+  // THE SURGE's one, the first taken by both seats (`field-controls-surge.ts`).
+  ...SURGE_CONTROLS,
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

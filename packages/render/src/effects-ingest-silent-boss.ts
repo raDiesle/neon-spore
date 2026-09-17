@@ -162,11 +162,10 @@ export const INGEST_SILENT_BOSS = [
   "sinewSwing",
   "sinewOut",
   "sinewCrush",
-  // THE SURGE's twelve are silent **until the look lane draws it**: the
-  // bulb, its seam, the gauge and the band are all on the boss and will be
-  // drawn off it every frame; the burst's spray and the eversion are the two
-  // that outlive a frame, and they will be a family above the loop the way
-  // THE SINEW's is (`docs/spec/bosses.md` §11.28).
+  // THE SURGE's twelve are read as one family above the loop by
+  // `surge-fx.ts` (`Effects.surge`), the way THE SINEW's are: a burst per
+  // event at the bulb or the grip, the sink and the jet on a vent, the jolt
+  // on a burst.
   "surgeSettle",
   "surgeGrip",
   "surgeRelease",

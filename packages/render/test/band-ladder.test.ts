@@ -48,6 +48,7 @@ function field(seat: 1 | 2, controls: ControlSet): Field {
     warden: null,
     orrery: null,
     sinew: null,
+    surge: null,
     controls,
     faults: [],
     well: false,
