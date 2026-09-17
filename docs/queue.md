@@ -747,6 +747,7 @@ named instead.
 ## Two `tools/land` tests time out when two lanes check at once
 
 - **Found:** 2026-09-17, claude/boss-orrery
+- **Taken:** 2026-09-17, claude/queue-two-tools-land-tests-time-out-when-two-lanes-che
 - **Files:** tools/land/test/reconcile-repo.test.ts, tools/land/test/notes-repo.test.ts, tools/index/test/index.test.ts, tools/check/shard.ts
 
 `bun run land` refused twice in a row with six red tests across three shards,
