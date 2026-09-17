@@ -12,6 +12,11 @@
  * silhouettes of bodies. What it throws *is* a body — a meteor, a slick, a
  * bulb, a pod — and those have their cards already; the throw itself is the
  * frame's moment, not the part's (`sim/scuttle.ts`).
+ *
+ * THE HIVE's nine share it again: the boss is a mass over the top of the
+ * field with breaches in its underside, and what a breach spills is a
+ * meteor, which has its card already; the spill is the breach's moment,
+ * not the rock's (`sim/hive.ts`).
  */
 export const NO_SUBJECT_B: Record<string, string> = {
   "boss.scuttleEnter":
@@ -45,4 +50,16 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.antiphonBurst": "every pit erupting at once. Same argument.",
   "boss.antiphonOut":
     "the body gone. An absence like ui.waveClear rather than a thing standing anywhere.",
+  "boss.hiveEnter":
+    "the mass settling over the top of the field, every site shut. It is an underside with sites in it, which is not a card (`sim/hive.ts`).",
+  "boss.hiveSwell": "a site swelling before it opens. Same argument.",
+  "boss.hiveOpen": "a site opening into a breach. Same argument.",
+  "boss.hiveSpill":
+    "a breach spilling a rock down its column. The rock has its own card; the spill is the breach's moment. Same argument.",
+  "boss.hiveSkin": "a bolt going dull against the shut skin between breaches. Same argument.",
+  "boss.hiveWrong": "the mass clenching at a bolt of the wrong colour. Same argument.",
+  "boss.hiveSeal": "a breach sealed for good by a bolt of its colour. Same argument.",
+  "boss.hiveDown": "the last breach sealed under THE SLOW. Same argument.",
+  "boss.hiveOut":
+    "the mass gone. What this marks is a field with nothing over its top — an absence like ui.waveClear rather than a thing standing anywhere.",
 };

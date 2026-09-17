@@ -130,4 +130,25 @@ export const CHOREO_FIELD_GROUP_B = {
   antiphonStillBeats: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonShipRail: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   antiphonOutBeats: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  // HiveConfig — how many sites, the look before the first opens and the
+  // cadence after, the swell's warning, the spill's cadence, the opening
+  // twins come from, what a wrong colour provokes, THE SLOW on the last seal
+  // and how long the wave holds after (`config-hive.ts`).
+  hiveSites: "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveLookBeats:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveOpenBeats:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveSwellBeats:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveSpillBeats:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveTwinFrom:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveProvokeBeats:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveSlowBeats:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
+  hiveOutBeats:
+    "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
 } satisfies Record<string, GroupName>;

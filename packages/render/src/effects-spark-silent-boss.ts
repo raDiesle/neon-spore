@@ -213,4 +213,16 @@ export const SILENT_BOSS = [
   "antiphonShip",
   "antiphonBurst",
   "antiphonOut",
+  // THE HIVE's nine are silent until the look lane draws it; then they are
+  // one family read above the loop by `hive-fx.ts`, never rows here
+  // (`docs/spec/bosses.md` §11.14).
+  "hiveEnter",
+  "hiveSwell",
+  "hiveOpen",
+  "hiveSpill",
+  "hiveSkin",
+  "hiveWrong",
+  "hiveSeal",
+  "hiveDown",
+  "hiveOut",
 ] as const satisfies readonly SimEvent["type"][];

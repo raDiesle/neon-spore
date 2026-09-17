@@ -34,6 +34,7 @@ export type GroupName =
   | "THE LEAD — the boss you shoot where it will be"
   | "THE SCUTTLE — the boss that throws itself at you, a part at a time"
   | "THE ANTIPHON — the boss that grows a thing nobody has a word for"
+  | "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling"
   | "THE SPLICE — straws fed in the order the numbers say"
   | "THE REPRISE — the wave sent again unseen"
   | "AIM — colour and column"
@@ -120,6 +121,7 @@ export const GROUP_ORDER: GroupName[] = [
   "THE LEAD — the boss you shoot where it will be",
   "THE SCUTTLE — the boss that throws itself at you, a part at a time",
   "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THROB — red one side, cyan the other, turning",
@@ -203,6 +205,7 @@ export const WAVE_ONLY_GROUPS: ReadonlySet<GroupName> = new Set([
   "THE LEAD — the boss you shoot where it will be",
   "THE SCUTTLE — the boss that throws itself at you, a part at a time",
   "THE ANTIPHON — the boss that grows a thing nobody has a word for",
+  "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   "PINBALL — a table the ship's cannon fires up into",
   "THE PULSE — the same song on two screens",
   "THE SPLICE — straws fed in the order the numbers say",

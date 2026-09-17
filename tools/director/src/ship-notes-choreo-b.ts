@@ -117,4 +117,18 @@ export const CHOREO_NOTES_B = {
     "antiphonStillBeats and grows the ship on a rail of antiphonShipRail; " +
     "the right one bursts it over antiphonOutBeats. See sim/antiphon.ts, " +
     "sim/config-antiphon.ts.",
+  "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling":
+    "Designed on 16 September 2026 in docs/spec/bosses.md §11.14: the boss " +
+    "you seal, on a clock nothing slows. hiveSites sites are sown across the " +
+    "inner columns by the seed, each with a colour rolled. After " +
+    "hiveLookBeats one opens, and one more every hiveOpenBeats; from the " +
+    "hiveTwinFrom-th opening, two at once. hiveSwellBeats before a site " +
+    "opens it swells, and only the navigator is shown where; only the pilot " +
+    "is shown a breach's colour. Every open breach spills a meteor down its " +
+    "column every hiveSpillBeats — warded, never shot. A bolt out of the top " +
+    "in an open breach's column and colour seals it for good; the wrong " +
+    "colour brings every open breach's next spill hiveProvokeBeats sooner; " +
+    "the skin between them swallows a shot. The last seal opens THE SLOW " +
+    "hiveSlowBeats and the wave holds hiveOutBeats more. Nothing about it " +
+    "is authored per wave. See sim/hive.ts, sim/config-hive.ts.",
 } satisfies Partial<Record<GroupName, string>>;

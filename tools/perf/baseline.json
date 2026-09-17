@@ -850,8 +850,18 @@
       "unmeasured": true
     },
     {
-      "id": "theBeatbox",
+      "id": "theHive",
       "wave": 82,
+      "name": "THE HIVE",
+      "bodies": 0,
+      "typical": 0,
+      "mean": 0,
+      "p90": 0,
+      "unmeasured": true
+    },
+    {
+      "id": "theBeatbox",
+      "wave": 83,
       "name": "THE BEATBOX",
       "bodies": 0,
       "typical": 0,
@@ -861,7 +871,7 @@
     },
     {
       "id": "theWeight",
-      "wave": 83,
+      "wave": 84,
       "name": "THE WEIGHT",
       "bodies": 0,
       "typical": 0,
@@ -871,7 +881,7 @@
     },
     {
       "id": "theCairn",
-      "wave": 84,
+      "wave": 85,
       "name": "THE CAIRN",
       "bodies": 0,
       "typical": 0,
@@ -881,7 +891,7 @@
     },
     {
       "id": "theCodex",
-      "wave": 85,
+      "wave": 86,
       "name": "THE CODEX",
       "bodies": 0,
       "typical": 0,
@@ -891,7 +901,7 @@
     },
     {
       "id": "theWell",
-      "wave": 86,
+      "wave": 87,
       "name": "THE WELL",
       "bodies": 0,
       "typical": 0,
@@ -901,7 +911,7 @@
     },
     {
       "id": "theHandover",
-      "wave": 87,
+      "wave": 88,
       "name": "THE HANDOVER",
       "bodies": 0,
       "typical": 0,
@@ -911,7 +921,7 @@
     },
     {
       "id": "theLeak",
-      "wave": 88,
+      "wave": 89,
       "name": "THE LEAK",
       "bodies": 0,
       "typical": 0,
@@ -921,7 +931,7 @@
     },
     {
       "id": "theSplice",
-      "wave": 89,
+      "wave": 90,
       "name": "THE SPLICE",
       "bodies": 0,
       "typical": 0,
@@ -931,7 +941,7 @@
     },
     {
       "id": "theMine",
-      "wave": 90,
+      "wave": 91,
       "name": "THE MINE",
       "bodies": 0,
       "typical": 0,
@@ -941,7 +951,7 @@
     },
     {
       "id": "theMoult",
-      "wave": 91,
+      "wave": 92,
       "name": "THE MOULT",
       "bodies": 0,
       "typical": 0,
@@ -951,7 +961,7 @@
     },
     {
       "id": "theReprise",
-      "wave": 92,
+      "wave": 93,
       "name": "THE REPRISE",
       "bodies": 0,
       "typical": 0,
@@ -961,7 +971,7 @@
     },
     {
       "id": "theFlip",
-      "wave": 93,
+      "wave": 94,
       "name": "THE FLIP",
       "bodies": 0,
       "typical": 0,
@@ -971,7 +981,7 @@
     },
     {
       "id": "theHusk",
-      "wave": 94,
+      "wave": 95,
       "name": "THE HUSK",
       "bodies": 0,
       "typical": 0,

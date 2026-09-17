@@ -90,6 +90,10 @@ export function bossFillsWave(kind: BossEntry["kind"]): boolean {
   // THE ANTIPHON is the sixteenth and reads nothing either: what falls in it
   // is what the pair got wrong — a candidate a pit rejected, an organ left
   // to sink — and the design says *nothing else arrives* (`antiphon-step.ts`).
+  // THE HIVE is the seventeenth and THE SCUTTLE's case again: not on the list,
+  // because everything that falls in its wave is a rock an open breach
+  // spilled (`hive-step.ts`), and a wave authored beside it would be a
+  // spill nobody could seal.
   return (
     kind !== "vane" &&
     kind !== "well" &&
@@ -182,4 +186,5 @@ export const BOSS_KINDS: readonly BossEntry["kind"][] = [
   "lead",
   "scuttle",
   "antiphon",
+  "hive",
 ];

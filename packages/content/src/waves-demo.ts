@@ -159,6 +159,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   lead: { wave: "theLead" },
   scuttle: { wave: "theScuttle" },
   antiphon: { wave: "theAntiphon" },
+  hive: { wave: "theHive" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "firstStep", config: { briefings: true } },

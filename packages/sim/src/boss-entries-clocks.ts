@@ -222,3 +222,13 @@ export interface ScuttleEntry {
 export interface AntiphonEntry {
   kind: "antiphon";
 }
+
+/**
+ * What a wave authors when it wants THE HIVE: nothing, the sixteenth. The
+ * body comes in over the field with every site shut; which column opens
+ * next and in what colour is the seed's, and how many sites there are and
+ * the clock they open on is tuning (`hive.ts`, `config-hive.ts`).
+ */
+export interface HiveEntry {
+  kind: "hive";
+}

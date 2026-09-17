@@ -136,6 +136,9 @@ export function serializeBoss(boss: BossEntry): string {
   // And THE ANTIPHON, the sixteenth: no column, the body rises over the
   // middle; no health, the pits are it (`sim/config-antiphon.ts`).
   if (boss.kind === "antiphon") return '{ kind: "antiphon" }';
+  // And THE HIVE, the seventeenth: no column, the sites are sown by the seed;
+  // no health, the unsealed sites are it (`sim/config-hive.ts`).
+  if (boss.kind === "hive") return '{ kind: "hive" }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

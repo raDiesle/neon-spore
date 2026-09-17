@@ -7,6 +7,7 @@ import { hullRow, ticksPerBeat } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { gorgeStruck } from "./gorge-step.js";
+import { hiveStruck } from "./hive-shot.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
 import { steerShot } from "./lock.js";
@@ -204,6 +205,9 @@ function sweep(world: World, b: Bullet): boolean {
     // And THE ANTIPHON's rail: a bolt out of the top is a colour in a column,
     // which is one candidate or none (`antiphon-shot.ts`).
     antiphonStruck(world, b);
+    // And THE HIVE's underside: an open breach in the bolt's column and
+    // colour is sealed, the wrong colour provokes it (`hive-shot.ts`).
+    hiveStruck(world, b);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

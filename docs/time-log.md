@@ -9592,3 +9592,25 @@ config (`undertowStandBeats: 40`), so nothing in the suite knew the shipped
 figures never reached the rule.
 
 *Measured: 7 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — shared-list-bosses — THE HIVE, the simulation
+
+Lane one of the sixteenth boss, the first taken off `docs/spec/bosses.md`
+rather than the choreographed page, since every row of that page's ledger
+was built or taken: nine sites sown by the seed, a fixed opening clock with
+a swell before each opening and twins from the fifth, a spill of rocks from
+every open breach, a seal that is a bolt of the breach's colour out of the
+top of the field, a wrong colour that provokes, and the end under THE SLOW.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the ledger, §11.14, THE SCUTTLE's landing as the file list, `scuttle.test.ts` as the test pattern |
+| writing | 15 | the six sim files and the thirteen tests, the content, audio, director and silent-list wiring, §11.14 |
+| looking | 0 | nothing to look at yet — the look is lane two |
+| friction | 5 | `hash-coverage` on the two array lengths the hash did not carry; spilled rocks reaching the hull inside a test helper; two sounds in the speech band |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was deciding the seat split, which was decided twice: the
+first split — navigator sees colour, pilot sees swell — put each fact on the
+seat that could act on it alone, and the fight needed no words, so it was
+flipped before the content was written.

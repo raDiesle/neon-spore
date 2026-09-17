@@ -34,3 +34,22 @@ export {
   antiphonTwins,
   antiphonWindow,
 } from "./bosses.js";
+
+export {
+  // THE HIVE's entry, which authors nothing, and the underside the screens
+  // read different halves of: what colour each open site is for the
+  // pilot, which site is swelling next for the navigator (`hive.ts`).
+  type HiveEntry,
+  type HiveState,
+  hiveBoss,
+  hiveDown,
+  hiveLeft,
+  hiveNext,
+  hiveNextBeat,
+  hiveOpen,
+  hiveOpenAt,
+  hiveOpenCount,
+  hiveSiteCols,
+  hiveSwelling,
+  hiveTwins,
+} from "./bosses-clocks-b.js";

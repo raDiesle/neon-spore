@@ -102,6 +102,10 @@ const STILL_PROSE = [
   // by one seat and a rail by the other, and the pits, none of which is
   // drawn yet.
   "THE ANTIPHON",
+  // And THE HIVE, owed by the lane that draws the mass: nine sites on an
+  // underside, a breach open or sealed, a colour and a swell read by seat,
+  // none of which is drawn yet.
+  "THE HIVE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -127,9 +131,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says eighty-two of ninety-one";
-    expect(guided.length, fix).toBe(85);
-    expect(WAVES.length, fix).toBe(94);
+    const fix = "update §1 of docs/spec/briefings.md, which says eighty-five of ninety-four";
+    expect(guided.length, fix).toBe(86);
+    expect(WAVES.length, fix).toBe(95);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

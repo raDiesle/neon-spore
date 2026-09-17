@@ -4,6 +4,7 @@ import { CANDLE_DEFAULTS, type CandleConfig } from "./config-candle.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
+import { HIVE_DEFAULTS, type HiveConfig } from "./config-hive.js";
 import { LEAD_DEFAULTS, type LeadConfig } from "./config-lead.js";
 import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
 import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
@@ -61,7 +62,8 @@ export interface BossClockConfig
     SurgeConfig,
     LeadConfig,
     ScuttleConfig,
-    AntiphonConfig {}
+    AntiphonConfig,
+    HiveConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -80,4 +82,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...LEAD_DEFAULTS,
   ...SCUTTLE_DEFAULTS,
   ...ANTIPHON_DEFAULTS,
+  ...HIVE_DEFAULTS,
 };

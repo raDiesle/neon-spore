@@ -7,6 +7,7 @@ import type {
   DiastoleEntry,
   GaugeEntry,
   GorgeEntry,
+  HiveEntry,
   LeadEntry,
   LedgerEntry,
   OrreryEntry,
@@ -106,6 +107,11 @@ import type {
  *   is no number, and which contour grows where, in which colour, beside
  *   which decoys, is the seed's — a wave that authored the rail would be a
  *   boss with its answers printed on it (`sim/config-antiphon.ts`).
+ * - **THE HIVE** asks for nothing for the same reason: the sites are sown
+ *   across the inner columns by the seed so there is no column, the unsealed
+ *   sites are the health so there is no number, and a wave that authored
+ *   which site opens next would be a boss with its swell printed on it
+ *   (`sim/config-hive.ts`).
  *
  * - **THE TASTER** asks for nothing, and it is the one where the *absence* is
  *   the boss: the crest is centred so there is no column, the fan is the
@@ -146,7 +152,8 @@ export function bossAuthorsNothing(
   | SurgeEntry
   | LeadEntry
   | ScuttleEntry
-  | AntiphonEntry {
+  | AntiphonEntry
+  | HiveEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -170,6 +177,7 @@ export function bossAuthorsNothing(
     kind === "surge" ||
     kind === "lead" ||
     kind === "scuttle" ||
-    kind === "antiphon"
+    kind === "antiphon" ||
+    kind === "hive"
   );
 }

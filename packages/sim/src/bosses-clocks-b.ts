@@ -37,7 +37,23 @@ export {
 } from "./antiphon.js";
 // The entry is next door to the other entries; `entries.ts` is at 250 lines
 // exactly, so it is re-exported from the file that declares it instead.
-export type { AntiphonEntry, ScuttleEntry } from "./boss-entries.js";
+export type { AntiphonEntry, HiveEntry, ScuttleEntry } from "./boss-entries.js";
+// THE HIVE's clock is the opening: a site every `hiveOpenBeats`, swelling
+// first on one screen and coloured on the other (`hive.ts`).
+export {
+  type HiveState,
+  hiveBoss,
+  hiveDown,
+  hiveLeft,
+  hiveNext,
+  hiveNextBeat,
+  hiveOpen,
+  hiveOpenAt,
+  hiveOpenCount,
+  hiveSiteCols,
+  hiveSwelling,
+  hiveTwins,
+} from "./hive.js";
 export {
   type ScuttlePart,
   type ScuttlePartKind,

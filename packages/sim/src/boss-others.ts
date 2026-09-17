@@ -8,6 +8,7 @@ import { stepCurtain } from "./curtain-step.js";
 import { stepDiastole } from "./diastole-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepGorge } from "./gorge-step.js";
+import { stepHive } from "./hive-step.js";
 import { stepLead } from "./lead-step.js";
 import { stepLedger } from "./ledger-step.js";
 import { stepMaze } from "./maze-round.js";
@@ -173,6 +174,12 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // organ or a decoy is on the tick (`antiphon-shot.ts`).
   if (boss.kind === "antiphon") {
     stepAntiphon(world, boss);
+    return;
+  }
+  // THE HIVE on the beat is the underside's clock: the swell, the openings
+  // and the spill. The bolt that seals a breach is on the tick (`hive-shot.ts`).
+  if (boss.kind === "hive") {
+    stepHive(world, boss);
     return;
   }
   if (boss.kind === "vane") {

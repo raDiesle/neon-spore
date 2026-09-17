@@ -29,6 +29,12 @@ import type { Wave } from "../wave-types.js";
  * **THE ANTIPHON authors nothing either.** What falls in its wave is what
  * the pair got wrong — a candidate a pit rejected, an organ left to sink —
  * and the design says nothing else arrives (`sim/antiphon-step.ts`).
+ *
+ * **THE HIVE authors nothing either, and THE SCUTTLE's way.** Every body that falls in its wave is
+ * a rock an open breach spilled down its own column, on the breach's clock,
+ * and a wave authored beside it would be a spill nobody could seal
+ * (`sim/hive-step.ts`). What the pair's speed buys is how many breaches are
+ * spilling at once, never whether one is.
  */
 export const WAVES_ACT_7E: Wave[] = [
   {
@@ -76,5 +82,17 @@ export const WAVES_ACT_7E: Wave[] = [
     },
     entries: [],
     boss: { kind: "antiphon" },
+  },
+  {
+    id: "theHive",
+    name: "THE HIVE",
+    sentence: "The one you seal, and every breach you have not sealed yet is spilling.",
+    guide: {
+      both: "Nine sites lie across the underside of a mass over the field, each with a colour of its own. Four beats to look, then one opens, then another every eight beats — two at once from the fifth. Nothing you do slows that. Every open breach spills a rock down its column every three beats; rocks are for the shield. A bolt in an open breach's column and its colour seals it for good; the wrong colour makes every open breach spill sooner; the skin between them swallows a shot. Seal all nine.",
+      p1: "Only you see a breach's colour, and you cannot fire. Say it as each one opens — three is red, seven is cyan — and slide the cannon under the one she names. When she says where the next swells, be there before it opens.",
+      p2: "Only you see the swell where the next breach opens, three beats early, and you cannot move the cannon. Say its column ahead. Fire the colour he gives you for the breach the cannon is under, and ward the rocks.",
+    },
+    entries: [],
+    boss: { kind: "hive" },
   },
 ];

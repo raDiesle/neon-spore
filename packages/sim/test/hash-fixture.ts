@@ -238,6 +238,11 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // and the organs, the rail, the pits and the clocks are its own by the
   // time it is fingerprinted (`antiphon-hash.ts`).
   antiphon: { kind: "antiphon" },
+  // THE HIVE authors nothing either: how many sites and the clock they open
+  // on are tuning (`config-hive.ts`), the order and the colours are the
+  // seed's, and which are open, sealed and spilling are its own by the time
+  // it is fingerprinted (`hive-hash.ts`).
+  hive: { kind: "hive" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -685,6 +690,17 @@ function patchBoss(world: World): void {
     boss.extra = 1;
     boss.cycleBeat = 6;
     boss.stillBeat = 7;
+    boss.downBeat = 8;
+  }
+  if (boss.kind === "hive") {
+    // Three sites: one sealed, one open and one still shut, the clocks on
+    // beats of their own, and the end given a beat.
+    boss.cols = [2, 5, 8];
+    boss.colors = ["red", "cyan", "red"];
+    boss.sealed = [true, false, false];
+    boss.opened = 2;
+    boss.openBeat = 6;
+    boss.spillBeat = 7;
     boss.downBeat = 8;
   }
 }

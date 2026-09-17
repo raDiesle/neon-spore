@@ -6,6 +6,7 @@ import { hullRow } from "./config.js";
 import { curtainStruck } from "./curtain-shot.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { gorgeStruck } from "./gorge-step.js";
+import { hiveStruck } from "./hive-shot.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
 import { leadStruck } from "./lead-shot.js";
 import { ledgerBills, ledgerStruck } from "./ledger-shot.js";
@@ -170,5 +171,8 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE ANTIPHON, to which a beam is nothing — said there, once
   // (`antiphon-shot.ts`).
   antiphonStruck(world, b);
+  // And THE HIVE's breach, which the beam seals like a bolt held there
+  // (`hive-shot.ts`).
+  hiveStruck(world, b);
   return 0;
 }

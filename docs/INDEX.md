@@ -383,6 +383,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/hand.ts` | you are deciding what a finger on the field is worth — a brake on a rock, an aim on anything living, nothing where it would be neither |
 | `packages/sim/src/handover.ts` | **THE HANDOVER's clock, and nothing else**: when the two panels change screens, how long they stay changed, and how many beats of warning first — no state, nothing hashed, no command swallowed |
 | `packages/sim/src/harpoon.ts` | **THE LEECH and THE LIMPET as malfunctions** |
+| `packages/sim/src/hive-hash.ts` | What THE HIVE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/hive-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE HIVE |
+| `packages/sim/src/hive-step.ts` | THE HIVE's clock — the look, the swell, the openings and the spill |
+| `packages/sim/src/hive.ts` | THE HIVE: close the source, not the spill |
 | `packages/sim/src/coil-state.ts` | **What a coil is right now**: which way it is going, whether it is still wearing its dome |
 | `packages/sim/src/config-rock-cross.ts` | **A crossing rock's two numbers**: how far along its row it goes each beat |
 | `packages/sim/src/rock-cross.ts` | **A rock authored to cross the field instead of holding its lane** |
@@ -447,6 +451,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-ledger.ts` | **Everything THE LEDGER does that neither screen already says**, as events |
 | `packages/sim/src/events-lead.ts` | **Everything THE LEAD does that neither screen already says**, as events |
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
+| `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -462,6 +467,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-ledger.ts` | THE LEDGER's numbers — how wide the body stands, how many hits part it |
 | `packages/sim/src/config-lead.ts` | THE LEAD's numbers — how many segments the stalk has, how far ahead of the body a shot has to be put |
 | `packages/sim/src/config-antiphon.ts` | THE ANTIPHON's numbers — how many contours the body can grow and how they fall into families |
+| `packages/sim/src/config-hive.ts` | THE HIVE's numbers — how many breach sites the underside has, how long it hangs before the first opens |
 | `packages/sim/src/countdown.ts` | THE COUNT: a body that can only be hit on **zero**, and only the pilot can read the count |
 | `packages/sim/src/codex.ts` | **THE CODEX: the fault that takes nothing away and changes what everything means.** The other three faults… |
 | `packages/sim/src/curtain-hash.ts` | What THE CURTAIN puts into `hashWorld`, and nothing else |
@@ -1418,6 +1424,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's nine, in a file of their own for `bind-candle.ts`' reason |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
 | `packages/audio/src/bind-handed.ts` | The bodies a hand answers, heard: a weight giving between two thumbs and a pile losing a rock, pulled or shed |
+| `packages/audio/src/bind-hive.ts` | THE HIVE's nine, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-splice.ts` | **What THE SPLICE sounds like**: a straw drawn on, and what comes down it |
 | `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-surge.ts` | THE SURGE's twelve, in a file of their own for `bind-gorge.ts`' reason |

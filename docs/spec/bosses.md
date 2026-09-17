@@ -1470,24 +1470,106 @@ MIRROR each found after writing one. It is kept for the single caller that can
 still reach it, a held hull (`hullInvulnerable`), which is how the director and
 the frame tests watch a round go wrong without ending the wave.
 
-## 11.14 THE HIVE — breaches in something alive, and what comes out of them
+## 11.14 THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling
 
-> **Not built.** The owner's design, 16 September 2026.
+> The one on a clock nothing slows: what your speed buys is how many are
+> spilling at once, never whether one is.
 
-**One creature, nearly the width of the screen.** It hangs over the field alive
-rather than as a mechanism, and what it does is **open**. Breaches appear along
-its underside, and out of each one small insects fly, steering for the ship to
-damage it. Every breach carries a colour — cyan or red — and a bolt of that
-colour into it **closes it for good**: no more insects come out of that one.
-Left open, it goes on spilling, and more breaches open over time, so a pair
-that falls behind is answering two problems at once.
+The owner's design of 16 September 2026, kept above in its own words until
+this lane built it on 17 September 2026. The argument for it is the one the
+design already made: every boss in this game is a body the pair empties, and
+this one is a body that **opens** — the pair is not taking something off it
+but closing something in it, and a breach closed is closed for good.
 
-**Unworked out**, and each of these is a decision rather than a detail: whether
-an insect can be shot on its way down or only warded; whether a breach's colour
-is drawn on both screens or is one seat's read (which is the thing that would
-make it this game's fight rather than a shooting gallery); what the opening
-clock is, and whether closing one slows it; whether the body has health of its
-own at all, or is only ever beaten by closing every breach it has.
+**It is a fixture, not a body.** Nothing of it is in `world.creatures`: the
+state (`sim/hive.ts`, hashed in `sim/hive-hash.ts`) is a list of
+`hiveSites` (9) **sites** along the underside of a mass over the top of the
+field — each a distinct inner column (`hiveSiteCols`: never a wall column,
+so a shot into one is a shot the beam could not have been), in an order and
+with a colour the wave's seed sows at install (`installHive`, a Fisher–Yates
+over the columns and a coin per site) — with which of them are **sealed**,
+how many have **opened** (the sites open in the seed's order, so *opened*
+is a count), the beat of the last opening, the beat of the last spill and
+the beat the last seal was made. It **fills its wave** (`bossFillsWave`, not
+on the exclusion list, THE SCUTTLE's case): `act-7e.ts`'s "THE HIVE" has no
+entries at all, because every arrival in the fight is a rock a breach
+spilled, and a body authored beside it would be a spill nobody could seal.
+
+**The rule, in one sentence.** After `hiveLookBeats` (4) the first site
+**opens** (`hiveOpen`, said with its column and colour), then one more every
+`hiveOpenBeats` (8), and from the `hiveTwinFrom`-th (5th) opening **two at
+once**; `hiveSwellBeats` (3) before a site opens it **swells** (`hiveSwell`,
+said once with the column); and every `hiveSpillBeats` (3) **every open
+breach spills** a plain `meteor` at the top of its own column (`hiveSpill`,
+`spawnOne`), which the shield turns and the cannon cannot. A bolt that
+nothing on the field stopped and that leaves through the top
+(`sim/hive-shot.ts`, called from `bullets.ts` and `lance-burn.ts` beside
+`scuttleStruck`) in an open breach's column *and* its colour **seals** it for
+good (`hiveSeal`, with the count left); the other colour **provokes** the
+body — every open breach's next spill comes `hiveProvokeBeats` (2) sooner
+(`hiveWrong`); a column with no open breach over it — skin, a sealed scar
+or a site not yet open — swallows the shot (`hiveSkin`). The beam seals
+exactly as a bolt does. The last seal opens THE SLOW for `hiveSlowBeats`
+(1) (`hiveDown`), and the body is gone `hiveOutBeats` (3) later (`hiveOut`,
+the boss nulled, the wave allowed to end). **Nothing slows the opening
+clock**: sealing a breach the beat it opens and sealing it seven beats later
+both leave the next opening where it was; the difference is fourteen rocks.
+
+**The split is the eyes, and it is the look lane's.** Both seats are shown
+which sites are open and which are sealed. **Player 1 alone is shown a
+breach's colour** — and he cannot fire, so the colour is a thing he has to
+say; **player 2 alone is shown the swell** where the next site opens — and
+she cannot move the cannon, so the column is a thing she has to say
+(`showsHiveColor`, `showsHiveSwell`, to come in `render/view-role.ts`).
+Nothing in the simulation depends on it: `colors` is a field on the state
+the pilot's drawer reads, and `hiveSwelling` is a question the navigator's
+asks. The sentence between them is *four is red — and the next one is at
+seven*. The split was flipped once before a line of the look was drawn: with
+the colour on the navigator's screen and the swell on the pilot's, she could
+fire what she saw and he could slide to what he saw, and nobody needed to
+say anything at all.
+
+**Where this departs from the design, and why.** The design left four
+things open and called each a decision rather than a detail; here is each,
+by name. *An insect is a rock, warded and never shot*: a body the cannon
+could answer would give the cannon two jobs — clear the spill or seal the
+source — and the pair would clear the spill, because it is the one in front
+of them; a rock gives the cannon one job, and the shield one, so the two
+seats' hands are split as cleanly as their eyes (the ruling of 14 September
+2026 that a rock is never shot already stands, `isWardable`). The look lane
+owes it a body of its own; the simulation owes it a column and a tier. *A
+breach's colour is one seat's read*, the design's own preference, and the
+seat is the one that cannot fire; the swell is the other seat's, so the
+split is symmetric and each has one word the other needs. *The opening
+clock is fixed and sealing does not slow it*: a clock the pair could slow is
+a clock they could stop, and then the fight has no length; with the clock
+fixed the fight is nine sites long whatever they do, and what their speed
+buys is how many breaches are open at once — two rocks a cycle for the pair
+that seals as it opens, four and then six for the pair that does not. The
+twins from the fifth opening are the design's *more breaches open over
+time*. *It has no health of its own*: the design's last question, answered
+no, because a body that could be shot down would make the sealing optional,
+and the sealing is the fight. Its health is its underside — nine sites, and
+a scar where each was. And one thing the design did not ask: *a wrong
+colour provokes rather than merely misses*, because a bolt into an open
+breach is the one shot the pair aimed on purpose, and a miss that cost
+nothing would make the colour a guess worth taking.
+
+**What is not built.** The look: the mass, its underside, a site shut, a
+site swelling, a breach open in its colour on one screen and blind on the
+other, a scar. THE MOTHER's *reactive, but announced* is here as the swell
+— three beats of warning before every opening — and the owner's *nice
+animation* for it is the look lane's. The insect as a body of its own: a
+rock stands in for it.
+
+**Never watched at tempo.** Thirteen tests in `sim/test/hive.test.ts` prove
+the sites distinct and inner, the order the seed's, the wave held and
+filled, the look–swell–open cadence, the spill from open sites alone, the
+twins from the fifth opening, the seal for good and the skin after it, the
+provoke, the beam, the end under THE SLOW and the hash's determinism; no
+eye has seen nine breaches spilling into one shield at eight beats an
+opening. `hiveOpenBeats`, `hiveSpillBeats` and `hiveTwinFrom` are the
+three dials, and they are on the director's sheet.
 
 ## 11.15 THE REPRISE — the wave you have just beaten, sent again unseen
 

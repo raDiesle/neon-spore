@@ -32,6 +32,7 @@ type BossId = Extract<
   | "lead"
   | "scuttle"
   | "antiphon"
+  | "hive"
 >;
 
 /**
@@ -153,6 +154,10 @@ export const BOSS_MECHANICS = {
   },
   antiphon: {
     what: "The one boss that is a question about describing a thing with no name. A smooth body over the top of the field grows one organ at a time — a contour nobody has a word for — and only the pilot sees it. Only the navigator sees a rail of three candidates, each with a column and a colour, and the organ is one of them. The pilot describes; the navigator names a column and a colour; a bolt out of the top of the field in that column and that colour takes the organ to a pit, the wrong colour there is nothing, and the wrong candidate hardens the organ and puts one more on every rail after. An organ stands fourteen beats, then sinks back healed. Six pits. From two the rail is the organ's own family and the window is eight; from three every candidate rejected falls as a body in its colour; from four two grow at once and an organ left standing fires a body down its column; from five a pit grows again. With every pit taken the surface goes still, and the last organ is their own ship on a rail of ships — the right one erupts every pit, the wrong one hardens.",
+    reach: "spawn",
+  },
+  hive: {
+    what: "The one you seal, and every breach you have not sealed yet is spilling. Nine sites lie sown across the underside of a mass over the field, each with a colour the seed rolled. Four beats to look, then one opens, then one more every eight beats — and from the fifth opening, two at once. Nothing slows that clock. Every open breach spills a rock down its own column every three beats, and the rocks are the wave: warded, never shot. A bolt out of the top of the field in an open breach's column and its colour seals it for good; the wrong colour provokes every open breach to spill two beats sooner; the skin between them swallows a shot. Only the pilot sees a breach's colour, and he cannot fire; only the navigator sees the swell where the next one opens, three beats before it does, and she cannot move the cannon. So the pair race the clock: the breaches open on schedule whatever they do, and what their speed buys is how many are spilling at once. The ninth sealed under THE SLOW, the mass closes and the wave ends.",
     reach: "spawn",
   },
   undertow: {

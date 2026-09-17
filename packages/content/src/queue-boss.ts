@@ -158,6 +158,10 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // drops nothing but what the pair got wrong — nothing to remap
   // (`sim/antiphon-rail.ts`).
   if (boss.kind === "antiphon") return { ...boss };
+  // THE HIVE sows its sites across the inner columns of whatever field is
+  // played (`sim/hive.ts` `hiveSiteCols`) and spills nothing but rocks from
+  // them — so there is nothing to remap (`sim/hive-step.ts`).
+  if (boss.kind === "hive") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

@@ -5,6 +5,7 @@ import { candleCue } from "./bind-candle.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
 import { gorgeCue } from "./bind-gorge.js";
+import { hiveCue } from "./bind-hive.js";
 import { leadCue } from "./bind-lead.js";
 import { ledgerCue } from "./bind-ledger.js";
 import { scuttleCue } from "./bind-scuttle.js";
@@ -40,7 +41,8 @@ type ChoreographedEvent = Extract<
       | `surge${string}`
       | `lead${string}`
       | `scuttle${string}`
-      | `antiphon${string}`;
+      | `antiphon${string}`
+      | `hive${string}`;
   }
 >;
 
@@ -172,6 +174,16 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "antiphonBurst":
     case "antiphonOut":
       return antiphonCue(e, cols);
+    case "hiveEnter":
+    case "hiveSwell":
+    case "hiveOpen":
+    case "hiveSpill":
+    case "hiveSkin":
+    case "hiveWrong":
+    case "hiveSeal":
+    case "hiveDown":
+    case "hiveOut":
+      return hiveCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

@@ -77,6 +77,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-lead.ts", "export type LeadEvent ="],
     ["packages/sim/src/events-scuttle.ts", "export type ScuttleEvent ="],
     ["packages/sim/src/events-antiphon.ts", "export type AntiphonEvent ="],
+    ["packages/sim/src/events-hive.ts", "export type HiveEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -238,6 +239,15 @@ const SAMPLES: Record<string, SimEvent> = {
   antiphonShip: { type: "antiphonShip", col: 6 },
   antiphonBurst: { type: "antiphonBurst", col: 6, pits: 6 },
   antiphonOut: { type: "antiphonOut", col: 5 },
+  hiveEnter: { type: "hiveEnter", col: 5 },
+  hiveSwell: { type: "hiveSwell", col: 3 },
+  hiveOpen: { type: "hiveOpen", col: 3, color: "red" },
+  hiveSpill: { type: "hiveSpill", col: 3 },
+  hiveSkin: { type: "hiveSkin", col: 4 },
+  hiveWrong: { type: "hiveWrong", col: 3 },
+  hiveSeal: { type: "hiveSeal", col: 3, left: 8 },
+  hiveDown: { type: "hiveDown", col: 7 },
+  hiveOut: { type: "hiveOut", col: 5 },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

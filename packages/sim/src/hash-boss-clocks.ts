@@ -5,6 +5,7 @@ import { candleHashParts } from "./candle-hash.js";
 import { curtainHashParts } from "./curtain-hash.js";
 import { diastoleHashParts } from "./diastole-hash.js";
 import { gorgeHashParts } from "./gorge-hash.js";
+import { hiveHashParts } from "./hive-hash.js";
 import { leadHashParts } from "./lead-hash.js";
 import { ledgerHashParts } from "./ledger-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
@@ -97,6 +98,10 @@ export function clockHashParts(boss: BossState): number[] {
   // THE ANTIPHON: the organs, the rail, the pits, and the clocks (`antiphon-hash.ts`).
   if (boss.kind === "antiphon") {
     for (const n of antiphonHashParts(boss)) out.push(n);
+  }
+  // THE HIVE: every site's column, colour and seal, the count opened and the clocks (`hive-hash.ts`).
+  if (boss.kind === "hive") {
+    for (const n of hiveHashParts(boss)) out.push(n);
   }
   if (boss.kind === "curtain") {
     for (const n of curtainHashParts(boss)) out.push(n);
