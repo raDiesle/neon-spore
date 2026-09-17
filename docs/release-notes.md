@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 53d21977 — Mark the cannon slider's reach done
+
 ## 2026-09-17 · 3658ef8b — A strip on the panel answers its share of the band
 
 The cannon slider was reported as often not working on a phone while the buttons beside it always did. The grab area is not the reason, which is the first thing measured: the strip's slab was 48 px tall and the full width of the stage, and the cannon's swelling on the hull is 65 px across, both over the 44 px the platform guidelines ask for.
