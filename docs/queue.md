@@ -245,6 +245,7 @@ fixed a rerun is the only tool, which is the habit these entries exist to stop.
 ## Four drawn bosses still owe their rehearsal film
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Taken:** 2026-09-17, claude/queue-four-drawn-bosses-still-owe-their-rehearsal-film
 - **Where:** local
 - **Files:** `packages/content/test/scenes-prose.test.ts`, `packages/content/src/scenes.ts`, `packages/content/src/scene-script.ts`, `packages/content/src/scenes/`, `docs/spec/briefings.md`
 
