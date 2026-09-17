@@ -550,6 +550,7 @@ second exemption, so it lands on the field.
 ## The imports test spawns biome under bun's five-second default
 
 - **Found:** 2026-09-17, claude/render-tests-draw-real-pixels
+- **Taken:** 2026-09-17, claude/queue-the-imports-test-spawns-biome-under-buns-five-se
 - **Files:** `tools/imports/test/imports.test.ts`
 
 "a file with a move's leftovers in it" spawns `bunx biome lint` once per case
