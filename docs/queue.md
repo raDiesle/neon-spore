@@ -294,6 +294,7 @@ block's names are re-exported today), do the same for `events.ts` and
 ## `act-7c.ts` is two lines under the 250-line ceiling and cannot take another wave
 
 - **Found:** 2026-09-17, claude/task-queue-progress-abb7a3
+- **Taken:** 2026-09-17, claude/queue-act-7c-ts-is-two-lines-under-the-250-line-ceilin
 - **Files:** `packages/content/src/waves/act-7c.ts`
 
 The file is at 248 lines. It exists at all because THE STARE took `act-7b.ts`
