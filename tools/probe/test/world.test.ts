@@ -1,5 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { WAVES } from "@neon-spore/content";
+import { read } from "../../../packages/sim/test/source-scan.ts";
+import { counted } from "../../hooks/file-size.ts";
 import { beats, field, waveWorld } from "../world.js";
 
 const ROOT = new URL("../../../", import.meta.url);
@@ -69,5 +71,18 @@ describe("the scratch directory", () => {
   it("is git-ignored, which is the half that was always true", async () => {
     const ignore = await Bun.file(new URL(".gitignore", ROOT)).text();
     expect(ignore).toContain("tools/probe/scratch/*");
+  });
+
+  it("is outside the guards that read source, which was the half found an hour later", () => {
+    expect(read("tools/probe/scratch/anything.ts")).toBe(false);
+    expect(read("tools\\probe\\scratch\\anything.ts")).toBe(false);
+    // And the rest of the tree still is read, or the guards pass vacuously.
+    expect(read("packages/sim/src/step.ts")).toBe(true);
+    expect(read("tools/probe/world.ts")).toBe(true);
+  });
+
+  it("is outside the line ceiling, so a long throwaway is not asked to be split", () => {
+    expect(counted("tools/probe/scratch/anything.ts")).toBe(false);
+    expect(counted("tools/probe/world.ts")).toBe(true);
   });
 });

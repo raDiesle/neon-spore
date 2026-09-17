@@ -2,7 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { join, relative } from "node:path";
 import { Glob } from "bun";
 import { COPIES } from "./copies-table.js";
-import { ROOT, stripNonCode } from "./source-scan.js";
+import { ROOT, read, stripNonCode } from "./source-scan.js";
 
 /**
  * The table lives next door in `copies-table.ts`, because it grows by a row
@@ -25,10 +25,9 @@ function allSourceFiles(): string[] {
       // one: a git worktree lives under `.claude/worktrees/`, so an absolute
       // test threw away every file in the tree and the whole guard passed
       // vacuously wherever it mattered most — in the copy work is done in.
-      const rel = f.replaceAll("\\", "/");
-      if (!rel.includes("node_modules") && !rel.includes("dist") && !rel.includes(".claude")) {
-        all.push(join(ROOT, f));
-      }
+      // What counts as unread is `source-scan.ts`'s list, not this chain: it
+      // had lost the scratch directory the other two walks also have to skip.
+      if (read(f)) all.push(join(ROOT, f));
     }
   }
   return all;

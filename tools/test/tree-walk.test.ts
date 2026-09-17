@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Glob } from "bun";
+import { read } from "../../packages/sim/test/source-scan.ts";
 
 /**
  * **A worktree is a full copy of the repository sitting inside the
@@ -76,9 +77,10 @@ async function sources(paths: readonly string[]): Promise<string[]> {
 }
 
 describe("a walk of the repository", () => {
-  const files = [...new Glob("{packages,apps,tools}/**/*.ts").scanSync(ROOT)].filter(
-    (f) => !f.includes("node_modules") && !f.includes("dist"),
-  );
+  // The same list every other walk over this tree asks, rather than a fourth
+  // copy of it: `node_modules`, `dist`, `.claude` and the probe's scratch
+  // directory (`packages/sim/test/source-scan.ts` says why the last one).
+  const files = [...new Glob("{packages,apps,tools}/**/*.ts").scanSync(ROOT)].filter(read);
 
   it("finds source to look at, so a moved glob cannot pass this vacuously", () => {
     expect(files.length).toBeGreaterThan(100);

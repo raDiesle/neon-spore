@@ -356,29 +356,3 @@ looks 6, 9 and 12, so the third look is the ceiling and the wave as authored
 reaches it; or **bring the ceiling down to 10**, which changes nothing about
 how the game plays and makes the config describe it. The middle one is the only
 one that changes what a pair feels, and the third is the only one that is free.
-
-## The tree-walking tests read `tools/probe/scratch/`, which is git-ignored
-
-- **Found:** 2026-09-17, claude/queue-unverified-at-805b6376-the-stares-rhythm-was-nev
-- **Taken:** 2026-09-17, claude/queue-the-tree-walking-tests-read-tools-probe-scratch
-- **Files:** `packages/sim/test/source-scan.ts`, `packages/sim/test/copies.test.ts`, `packages/sim/test/purity.test.ts`, `apps/game/test/pointer-conversion.test.ts`
-
-The lane that landed `tools/probe/scratch` into `tsconfig.json`'s `exclude`
-fixed one half of this. The other half turned up an hour later: a probe in that
-directory used `60 / cfg.bpm` and `packages/sim/test/copies.test.ts` failed with
-*Call beatSeconds from packages/sim/src/config-derived.ts in:
-tools/probe/scratch/stare-rhythm.ts*. The `COPIES` table is a rule about
-shipped code, and a throwaway script is held to it because whatever enumerates
-the tree does not know the directory is ignored — the same shape as the
-typecheck, one layer along.
-
-The three tests that walk the tree — `copies.test.ts`, `purity.test.ts` and
-`pointer-conversion.test.ts` — all reach it through `source-scan.ts`, which
-already owns `ROOT` and `stripNonCode` so that two guards cannot disagree about
-what counts as code. Give it the third thing they should not disagree about: a
-list of paths a guard never reads, with `tools/probe/scratch` in it, and have
-each caller filter its glob through that rather than deciding for itself. Then
-look for any other test that globs the tree without going through this file,
-because both halves of this were found by being bitten rather than by looking.
-Proof is the same as the last one's: a deliberately loose probe left in the
-directory while `bun run check` runs green.

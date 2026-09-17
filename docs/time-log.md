@@ -22,6 +22,32 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — queue-scratch-guards — the scratch directory out of the guards too
+
+The second half of the typecheck item, queued an hour after the first landed
+and found the same way: a probe wrote `60 / cfg.bpm` and `copies.test.ts`
+failed the lane over a re-derived rule in a git-ignored throwaway. Three walks
+reached the directory and each had its own chain of exclusions. `source-scan.ts`
+— which already owns `ROOT` and `stripNonCode` so two guards cannot disagree
+about what counts as code — now owns the list of what they never read, and
+`copies.test.ts` and `tree-walk.test.ts` both ask it. `counted` in the size
+hook, which `limits.test.ts` and the after-edit warning share, skips the
+directory for its own reason: a throwaway asked to split at 250 lines is a
+warning at the worst possible moment.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the four walkers, `counted`, `tree-walk.test.ts`'s `.claude` guard, which of them reach `tools/**` |
+| writing | 10 | `UNREAD` and `read`, three call sites, two tests in the probe package |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, then the whole `bun run check` with the awful probe still there, the commit, `land --keep` |
+
+The bottleneck was that the first fix was aimed at the symptom — one config
+file — rather than at the shape: four walks over one tree, each deciding for
+itself what it does not read, is a defect that was always going to be found
+twice.
+
 ## 2026-09-17 — queue-unverified-stare — THE STARE's rhythm counted rather than watched
 
 The second unverified entry from a cloud session's landings, asking whether

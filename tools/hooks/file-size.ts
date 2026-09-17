@@ -84,11 +84,20 @@ export function mark(rel: string): number {
  * way the thing it tests is read — a fixture that lists one of everything is
  * long because the thing it lists is long, and splitting it would only hide
  * that.
+ *
+ * **A probe under `tools/probe/scratch` is exempt for a different reason**: it
+ * is a throwaway nobody will ever read, git-ignored, run by nothing and
+ * asserting nothing. Holding one to the ceiling told a session to split a
+ * script it was about to delete, and the warning arrives at the moment the
+ * session is furthest from wanting it. `packages/sim/test/source-scan.ts`
+ * keeps the same directory out of the guards that read source; this is the
+ * half the hook and `limits.test.ts` share.
  */
 export function counted(rel: string): boolean {
   const p = rel.replaceAll("\\", "/");
   if (!p.endsWith(".ts") || p.endsWith(".test.ts")) return false;
   if (p.includes("node_modules/") || p.includes("dist/") || p.includes("/test/")) return false;
+  if (p.includes("tools/probe/scratch/")) return false;
   return /^(packages|apps|tools)\//.test(p);
 }
 

@@ -12,6 +12,39 @@ import { fileURLToPath } from "node:url";
 export const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "..");
 
 /**
+ * Directories no guard over this tree reads, as they appear inside a
+ * repository-relative path.
+ *
+ * The first three are the ones every walk has always skipped: what was
+ * installed, what was built, and a lane's own checkout under `.claude`, which
+ * is a whole second copy of the repository and would double every guard.
+ *
+ * **`tools/probe/scratch` is the fourth, and it is the one worth a paragraph.**
+ * A probe there is a throwaway a session writes to ask a running world a
+ * question — git-ignored by design, run by nothing, asserting nothing. On 17
+ * September 2026 it turned out that saying so was not the same as arranging
+ * it: `tsconfig.json` read the directory until that day, and `copies.test.ts`
+ * read it for an hour longer, failing a lane over `60 / cfg.bpm` written in a
+ * scratch file nobody could see in the diff. A guard that reads a throwaway
+ * holds a session's rough working to the standard of shipped code, which is
+ * the opposite of what a scratch directory is for.
+ */
+export const UNREAD = ["node_modules", "dist", ".claude", "tools/probe/scratch"] as const;
+
+/**
+ * Whether a guard reads this path, given relative to the root.
+ *
+ * Every walk that reaches the whole tree asks this rather than writing its own
+ * chain of `includes`, which is how the four grew apart in the first place.
+ * Slashes are normalised first: a Windows checkout hands a glob back with
+ * backslashes, and `tools/probe/scratch` matches neither spelling by accident.
+ */
+export function read(rel: string): boolean {
+  const p = rel.replaceAll("\\", "/");
+  return !UNREAD.some((skip) => p.includes(skip));
+}
+
+/**
  * Comments and string literals are not code. Stripping them keeps the guards
  * honest: `purity.test.ts` names `Math.random` in a ban and must not fail
  * itself, and a message that explains a rule may quote it.
