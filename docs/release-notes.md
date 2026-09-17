@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · e958bfc1 — THE SURGE's rehearsal: three holds on the one bulb both seats hold, two vented with both thumbs off together and one lost to a thumb off alone
+
+The seventh boss film written after its look, and the first on a handle both seats hold: eleven pages over 2040 ticks. The first hold is the lesson — the pilot's thumb, then the navigator's, the field slowing as the pressure enters the band, and both off eight ticks apart at the first notch. The second is the mistake, the pilot's thumb off alone and the charge lost under the navigator's. The third is the first again at the second notch. The burst and its gums and the eversion at the fifth notch are the last two pages' words and the prose; the film takes no hit.
+
 ## 2026-09-17 · e7320f29 — The other six bosses get their word, and three of them get their silence
 
 THE THROAT, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE and THE ORRERY, finishing the cue `docs/decisions.md` #34 asked for. These six are the fights whose whole difficulty is a number the pair says out loud, so the reading is built around the rule that a cue says the verb and never the answer: it names the moment a **verb changes** — the trigger has quietly stopped working and only the beam lands — and never the number.
