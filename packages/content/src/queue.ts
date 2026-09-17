@@ -32,14 +32,23 @@ export function mapCol(col: number, cols: number): number {
  * THE SCOUT is the one boss authored between the columns rather than on them
  * (`queue-boss.ts`), and rounding its motes to whole columns would move every
  * one of them by up to half a tile — on an arena where half a tile is the
- * difference between collecting a mote and flying past it. So the ratio is the
- * one `mapCol` uses and the rounding happens once, at the end, in the units
- * the round actually stores. Clamped to the field rather than to its last
- * column, because a thing at the right-hand edge is at `cols * 1000` and not
- * at `(cols - 1) * 1000`.
+ * difference between collecting a mote and flying past it. So the rounding
+ * happens once, at the end, in the units the round actually stores.
+ *
+ * **The ratio is not `mapCol`'s**, and that is the whole of this function.
+ * `mapCol` maps a column *index* — 0..6 onto 0..`cols - 1` — and a place
+ * between the columns is a length along a span that is `AUTHORED_COLS` tiles
+ * wide, not an index. Scaling a length by `(cols - 1) / 6` puts the middle of
+ * a seven-column arena at 5 833 on an eleven-column field, where the middle is
+ * 5 500 and `scoutHome` is: THE SCOUT was put down a third of a tile beside
+ * its own mother ship, and the arena's right-hand wall mapped 667 past the
+ * field's. `cols / AUTHORED_COLS` sends both walls to both walls and the
+ * middle to the middle, which is what `packages/content/test/queue.test.ts`
+ * holds it to. The clamp was already written against that reading — a thing at
+ * the right-hand edge is at `cols * 1000` and not at `(cols - 1) * 1000`.
  */
 export function mapColMilli(colMilli: number, cols: number): number {
-  const mapped = Math.round((colMilli * (cols - 1)) / AUTHORED_COL_MAX);
+  const mapped = Math.round((colMilli * cols) / AUTHORED_COLS);
   return Math.max(-cols * 1000, Math.min(cols * 1000, mapped));
 }
 

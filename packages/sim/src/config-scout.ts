@@ -20,19 +20,22 @@ export interface ScoutConfig {
    * How far the nose swings in a tick while the crank is turning, in
    * thousandths of a degree.
    *
-   * 9 000 is nine degrees a tick, so a whole turn takes forty ticks — about
-   * two thirds of a beat at the usual tempo. Fast enough that "point it at the
-   * top left" is one movement and not a sentence with a pause in it, slow
-   * enough that a thumb can stop on a heading rather than hunting past it.
+   * 9 000 is nine degrees a tick, so a whole turn takes forty ticks — a little
+   * over half a beat at the tempo the game ships at, where a beat is seventy-
+   * five ticks. Fast enough that "point it at the top left" is one movement and
+   * not a sentence with a pause in it, slow enough that a thumb can stop on a
+   * heading rather than hunting past it.
    */
   scoutTurnMilliDeg: number;
   /**
    * What one tick of burn adds to the speed, in thousandths of a tile a beat.
    *
    * The scout is not thrown: it is leaned on. At 240 a burn held for half a
-   * beat is about three tiles a beat of new speed, so a pair that wants to
-   * cross the arena presses and waits rather than tapping — and a pair that
-   * overcooked it has the same half beat to lean the other way.
+   * beat is about six tiles a beat of new speed — most of the ceiling — so a
+   * pair that wants to cross the arena presses and waits rather than tapping,
+   * and a pair that overcooked it has the same half beat to lean the other
+   * way. The drag takes its share on the same tick, so the figure is not
+   * 240 × 37 but the balance the two settle at.
    */
   scoutBurnMilli: number;
   /**
@@ -42,9 +45,9 @@ export interface ScoutConfig {
    * **This is the whole feel of the round.** At 1000 the ship is on ice and
    * two people spend the wave apologising; at 900 it stops dead the moment the
    * thumb comes off and the flight is a series of hops. 976 keeps about a
-   * fifth of a burn alive across a beat: the ship coasts, which is what makes
-   * it read as a ship, and it comes to rest inside two beats, which is what
-   * makes it easy.
+   * sixth of a burn alive across a beat: the ship coasts, which is what makes
+   * it read as a ship, and it is down to a fortieth of its speed by the end of
+   * the second beat, which is what makes it easy.
    */
   scoutDragMilli: number;
   /**
@@ -99,10 +102,12 @@ export interface ScoutConfig {
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
  * The three that decide the feel — turn, burn and drag — were chosen against
- * each other rather than one at a time: at this drag a single burn is worth
- * about a tile and a half of travel, so a mote two tiles away is one press and
- * a mote across the arena is three, and the difference between those two is a
- * thing the seat that cannot see the arena can be *told*.
+ * each other rather than one at a time. What a press is worth, burn and coast
+ * together, is roughly a tile for every eighth of a beat it is held: a mote two
+ * tiles away is a press of about a fifth of a beat, and the whole width of an
+ * eleven-column arena is one press of about three quarters of one. So the
+ * difference between the two is a *length of press*, which is the thing the
+ * seat that cannot see the arena can be told — "a short one" against "hold it".
  */
 export const SCOUT_DEFAULTS: ScoutConfig = {
   scoutTurnMilliDeg: 9_000,

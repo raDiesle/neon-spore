@@ -193,21 +193,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## Unverified at ce8a2324: THE SCOUT's arenas were never watched at tempo — the fl…
-
-- **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
-- **Taken:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
-- **Files:** `apps/game/src/rounds.ts`, `apps/game/src/scout.ts`, `docs/INDEX.md`, `docs/spec/briefings.md`, `docs/spec/interludes.md`, `docs/time-log.md`, `packages/content/src/control-aim.ts`, `packages/content/src/control-command.ts`
-
-*THE SCOUT: the ship puts a little one out, and only one of you can see where it is going* landed from a session that could not look at it. The commit touched 49 more files. What went unchecked:
-
-- THE SCOUT's arenas were never watched at tempo — the flight's feel, its beat counts and the hazard timings are arithmetic and tests only
-
-Open each one on a machine that can, and then either take this entry out
-with `bun run queue done` or write what you found as an entry of its own.
-Nothing here is owed to anybody: it is work nobody has started, which is
-what the rest of this file holds.
-
 ## Unverified at 805b6376: THE STARE's rhythm was never watched at tempo: whether…
 
 - **Found:** 2026-09-16, claude/task-performance-optimization-f1bfqf
@@ -273,3 +258,81 @@ What to do, once the answer is picked: change the one number (`undertowStandBeat
 widening test on the shipped config rather than a stretched one, and say in
 §11.20 which it was. The film's first page then shows a second lobe rather
 than a scar, and its test's first event moves.
+
+## THE SCOUT's second arena leaves the scout nowhere to stop
+
+- **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
+- **Files:** `packages/content/src/scout-arenas.ts`, `packages/sim/src/config-scout.ts`
+- **Asks:** Move the motes off the hazards' rows, move the hazards, or make a hazard's touch smaller?
+
+Five of the second arena's six motes sit exactly one tile from a hazard's row
+— motes on rows 8.5, 6.5, 4.5 and 2.5 against hazards on 7.5 and 3.5 — and a
+touch reaches `scoutRadiusMilli + scoutHazardRadiusMilli`, which is 0.88 of a
+tile. So a scout parked on any of the five has 0.12 of a tile of room when the
+hazard sweeps underneath it, and a scout coasting on to one has none: rows are
+not remapped, so those figures are the shipped ones on any field.
+
+The first arena has 2.12 tiles of room on every mote, which is what the
+difference looks like. An autopilot that points, burns and coasts cleared the
+first arena eight times out of eight when it waited hazards out, and the second
+none out of eight — it is caught on the approach every time, at every one of
+the eight beats it was started on. That is not proof a pair cannot fly it,
+because a pair crosses between sweeps rather than stopping on the mote; it is
+proof that *stopping on a mote is never safe here*, which is the one thing the
+arena's own comment assumes when it says the column of motes is the line a
+ship takes on its own.
+
+The options the answer picks between: move the five motes half a tile off the
+hazards' rows, which keeps both hazards where they are and costs the tidy
+two-tile spacing; move the two hazards to rows nothing is on — 9.5 and 5.5 are
+free — which keeps the motes' column and changes which gap the pair is
+waiting for; or cut `scoutHazardRadiusMilli` from 460, which is a change to
+every arena and to any arena written later. Measured by flying the shipped
+arenas in `tools/probe/`; nothing here was watched, because nothing of the
+round is drawn yet (`docs/spec/interludes.md`).
+
+## THE SCOUT's arenas give three to five times the beats a flight takes
+
+- **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
+- **Files:** `packages/content/src/scout-arenas.ts`, `docs/spec/interludes.md`
+- **Asks:** Should the two arena clocks come down to something a pair can run out of?
+
+The first arena is authored at 40 beats and the second at 56. An autopilot
+that points, burns and coasts collects all four of the first arena's motes and
+banks them in 7 to 14 beats depending on where the hazard is when it sets off,
+and 9 to 16 when it waits the hazard out. So the clock is three to five times
+the flight, and `ranOut` in `sim/scout-arena.ts` — one of the two ways this
+round breaks the hull, and half of what the spec's section promises — can only
+fire for a pair who have stopped flying altogether.
+
+The options the answer picks between: bring the two numbers down to about
+twice a clean flight, 18 and 24, so the clock is a thing that can be felt and
+the round has the second failure the spec describes; leave them and say in
+§*THE SCOUT, the round that flies* that the clock is a backstop against a pair
+who are lost rather than a pressure, which is a true sentence about the
+numbers as they stand; or leave the first generous and tighten only the
+second, which is where the difficulty is meant to be. Whichever it is, the
+figure wants to be chosen against a measured flight rather than against
+nothing, which is what it was chosen against.
+
+## A probe left in `tools/probe/scratch/` reddens every later typecheck
+
+- **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
+- **Files:** `tsconfig.json`, `tools/probe/run.ts`, `.gitignore`
+
+`tools/probe/run.ts` says a scratch probe is "neither committed nor in
+anybody's way", and `.gitignore` holds up the first half: `tools/probe/scratch/*`
+is ignored. The second half is not true. `tsconfig.json` includes
+`tools/**/*.ts` with no exclusion under it, so `bunx tsc --noEmit` reads every
+probe anybody has left behind — and a probe is a throwaway script written
+against `noUncheckedIndexedAccess`, so it is red about ten times over. This
+lane's own probe failed `bun run check:fast` with nine errors in a file that
+git cannot see, which is the worst shape a failure can have: invisible in the
+diff, and inherited by whoever works in the tree next.
+
+Add `tools/probe/scratch` to `tsconfig.json`'s `exclude`, and say in
+`tools/probe/run.ts`'s comment that a probe is not typechecked — which is the
+other half of it being a rig rather than a test, and is worth writing down
+beside the sentence that already says `bun run check` never sees it. Then leave
+a deliberately loose probe in the directory and check that `bun run check` is
+still green with it there.

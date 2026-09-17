@@ -30,14 +30,17 @@ import type { ScoutArena } from "@neon-spore/sim";
  */
 export const SCOUT_ARENAS: ScoutArena[] = [
   /**
-   * The first: four motes at the corners of a square, one hazard crossing the
-   * middle of it.
+   * The first: four motes at the corners of a rectangle four columns wide and
+   * six rows tall, one hazard crossing the middle of it.
    *
-   * It is the shape the round teaches itself with. Every mote is reachable in
-   * one burn from the one before, the hazard's line is the diameter of the
-   * square, and it crosses in four beats — so the pair's first real sentence
-   * is "go now" rather than "go there", and the thing that ends the attempt is
-   * visible from the moment it opens.
+   * It reads as a square on the field it is played on rather than on the one
+   * it is authored on: the columns stretch and the rows do not, so on eleven
+   * columns the four sit about six and a third tiles apart each way. It is the
+   * shape the round teaches itself with. Every mote is one press from the one
+   * before, the hazard's line is the horizontal through the middle of it, and
+   * the hazard crosses in two beats and is back in four — so the pair's first
+   * real sentence is "go now" rather than "go there", and the thing that ends
+   * the attempt is visible from the moment it opens.
    */
   {
     beats: 40,
@@ -59,9 +62,11 @@ export const SCOUT_ARENAS: ScoutArena[] = [
    * The column of motes is deliberately the one line a ship coasting upwards
    * takes on its own, so the flying is easy and the *timing* is the whole of
    * it: the two hazards are out of step with each other, so the gap the pair
-   * is waiting for opens at a different place every time round. Nothing here
-   * is faster than the first arena's hazard — what changed is how much there
-   * is to say before the ship is committed.
+   * is waiting for opens at a different place every time round. The one going
+   * left is a little faster than the first arena's, the one going right a
+   * little slower, and they are out of step because of it — three and a half
+   * beats round against four and three quarters. What changed against the
+   * first arena is how much there is to say before the ship is committed.
    */
   {
     beats: 56,

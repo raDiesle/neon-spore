@@ -9395,3 +9395,29 @@ The bottleneck was nothing: the finding was this session's own and the fix
 was where the finding said.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-unverified-scout — THE SCOUT's arenas flown rather than watched
+
+The unverified entry from THE SCOUT's landing, which asked for the flight's
+feel, its beat counts and its hazard timings to be seen at tempo. Nothing of
+the round is drawn yet, so nothing could be watched; what could be done was
+to fly the shipped arenas in a probe and read the figures off a running
+world. Four of the config's stated feel figures were out — a whole turn is
+half a beat and not two thirds, a half-beat burn is six tiles a beat and not
+three — and `mapColMilli` was scaling a length by a column index's ratio,
+which put the middle of an arena a third of a tile beside `scoutHome`. The
+two design questions the flight raised went to the queue rather than into
+the numbers.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `scout-fly.ts`, `scout-arena.ts`, `scout-round.ts`, the config, the arenas, the interludes section, `queue-boss.ts`'s remap |
+| writing | 20 | the probe and its autopilot, the `mapColMilli` fix and its three tests, five comment corrections, three queue entries |
+| looking | 10 | four probe runs and the numbers read off them — the nearest thing to an eye a round with no picture has |
+| friction | 10 | the scratch probe failed `check:fast` with nine errors in a git-ignored file; `@napi-rs/canvas` was missing from this worktree until a second `bun install`; `queue done 1` refused a number for a taken item |
+| landing | 5 | `check:fast`, the commit, `land --keep` |
+
+The bottleneck was that the verification the entry asked for cannot be done
+at all yet: an eye at tempo needs a picture, so half an hour went on building
+a rig to ask the arithmetic the questions an eye would have answered in two
+minutes once the round is drawn.
