@@ -8,6 +8,7 @@ import type { Effects } from "./effects.js";
 import { chartOf, drawFleetChart } from "./fleet-chart.js";
 import { drawFleetHulls } from "./fleet-hulls.js";
 import { drawFleetMarks, drawFleetSights } from "./fleet-marks.js";
+import { drawGorge } from "./gorge-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawMaze } from "./maze-draw.js";
@@ -179,6 +180,14 @@ export function drawBoss(
   // the black on the field — after every body and before the ship
   // (`candle-dark.ts`, `candle-glow.ts`).
   if (boss.kind === "candle") return;
+
+  // THE GORGE: a sack across seven columns above row 0, for THE DIASTOLE's
+  // reason, with the seat read off the layout inside — the pilot's tally and
+  // the navigator's nearest lobe are the split (`gorge-draw.ts`).
+  if (boss.kind === "gorge") {
+    drawGorge(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
+    return;
+  }
 
   if (boss.kind === "vane") {
     // No body among the creatures: the arm hangs off the top edge, so there is

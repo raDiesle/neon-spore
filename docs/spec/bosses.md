@@ -2587,12 +2587,29 @@ held) and is no rule: it is the picture of the sack getting heavier, for
 render to ask for. And, small fields being a fact the config allows, *the
 mouth also opens when one intake is all that stands*.
 
-**What is not built**: the look — the sack under the top of the frame, its
-seven intakes and the beads in them, the fill's translucence, the rupture's
-skin giving and the shots passing through it, the sink, THE SLOW over the
-pierce, and the payoff burst of every bead leaving upward. The nine events
-(`sim/events-gorge.ts`) are bound to sound (`audio/bind-gorge.ts`) and silent
-in render's two lists until the skin is drawn, in its own lane.
+**The look** (`render/gorge-draw.ts`, `gorge-lobe.ts`, `gorge-fx.ts`). A
+violet-grey translucent sack across the seven columns above row 0, THE
+DIASTOLE's arrangement, breathing a third of a tile on the beat and hanging a
+row lower for every four beads it holds (`gorgeSink`, read and never stored).
+A lobe over every column with a puckered intake under it, and the beads
+stacked up the lobe in the colour it fills with, drifting against each other
+so the body reads as fluid: the beads are the health bar, and both screens see
+the same ones. THE SLOW is the beat a lobe comes full — the wash goes off it
+and the stack rises to the top over three beats, the only warning before a
+one-beat pierce. A ruptured lobe is two grey flaps hanging open; the mouth is
+ringed in the fire's colour; after the beam the skin alone is left, grey, going
+out over `gorgeOutBeats`. The split is in what is written about the beads
+(`showsGorgeTally`, `showsGorgeNearest`): the pilot's screen carries a violet
+count under every standing lobe, the navigator's a ring around the lobe
+nearest full in the colour it needs and no number. The nine events are one
+family read above `Effects`' loop the way THE MIRROR's are (`gorge-fx.ts`):
+each throws its burst there, and `gorgeOut` throws the payoff — up to eighty
+beads leaving straight up through the top of the frame, half red and half
+cyan by hash because the sack keeps a count and not fifty colours — the one
+thing about this boss that outlives a frame, cleared on restart.
+`render/test/gorge-frame.test.ts` proves every lobe state on all three
+screens, the tally on the pilot's alone, the ring on the navigator's alone,
+and the transient's reset.
 
 **Never watched at tempo.** What the tests say is the mechanism: it arrives
 centred and empty, swallows in its columns and nowhere else, lets a bead go
@@ -2603,4 +2620,5 @@ count from the emptiest intake as a body of its colour, opens the mouth at
 four ruptures nearest the centre and feeds it to full without venting, is not
 pierced there by a bolt, is emptied a bead by the wrong beam and ended by the
 right one with the wave held two beats after, and the same run fingerprints
-the same way twice (`sim/test/gorge.test.ts`).
+the same way twice (`sim/test/gorge.test.ts`). The skin has been seen in one
+frame and never breathing.

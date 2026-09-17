@@ -150,7 +150,8 @@ export const SILENT = [
   "candleFed",
   "candleLast",
   "candleOut",
-  // THE GORGE's nine: the look half, not drawn yet (`docs/spec/bosses.md`).
+  // THE GORGE's nine: one family, read above the loop by `gorge-fx.ts` —
+  // the bursts are thrown there, and the beads leaving are its transient.
   "gorgeSettle",
   "gorgeSwallow",
   "gorgeEmptied",

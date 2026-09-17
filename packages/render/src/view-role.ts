@@ -192,3 +192,16 @@ export const showsOrreryGrip = (role: ViewRole): boolean => role !== "p2";
 export const showsCandleMuzzle = (role: ViewRole): boolean => role !== "p1";
 export const showsCandleGuard = (role: ViewRole): boolean => role !== "p2";
 export const showsCandleFace = (role: ViewRole): boolean => role !== "p2";
+/**
+ * THE GORGE's two, symmetric the way THE DIASTOLE's chambers are: the same
+ * beads on both screens, and a different sentence written about them on each.
+ * The pilot is shown the **count** in every lobe, a violet tally under it —
+ * he owns the column and the trigger, so the seat that has to hold a lobe at
+ * three and say *one more* is the seat given the three. The navigator is
+ * shown **which** lobe is nearest full and the colour it fills with, and no
+ * number — she owns the colours, so the seat that has to answer *which one,
+ * which colour* is the seat given the ring (`gorge-draw.ts`, `sim/gorge.ts`).
+ * `test` is both, the usual *one person is holding both seats* answer.
+ */
+export const showsGorgeTally = (role: ViewRole): boolean => role !== "p2";
+export const showsGorgeNearest = (role: ViewRole): boolean => role !== "p1";

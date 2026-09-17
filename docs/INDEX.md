@@ -1112,6 +1112,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fault-beam-ends.ts` | Where the fault's beam lands on this screen — GUARD or the dome, the colour lobes or the muzzle, the cannon strip's node for THE CHOKE |
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 | `packages/render/src/grip-beam.ts` | The beam of a brake — the one part of a hand on a rock that is visible from across the room |
+| `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
+| `packages/render/src/gorge-fx.ts` | What THE GORGE leaves behind a frame: the beads leaving at the end |
+| `packages/render/src/gorge-lobe.ts` | One lobe of THE GORGE: the intake puckered under it, the beads hanging in it |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |
 | `packages/render/src/strand-fuse-draw.ts` | The three pictures a burning thread is made of (`strand-fuse.ts`): a front eating its way along the line |

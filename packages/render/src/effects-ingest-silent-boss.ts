@@ -82,8 +82,9 @@ export const INGEST_SILENT_BOSS = [
   "candleFed",
   "candleLast",
   "candleOut",
-  // THE GORGE's nine, silent for the same reason: the sack, the beads and
-  // the rupture are the look half and are not drawn yet.
+  // THE GORGE's nine, read above the loop by `gorge-fx.ts` the way the
+  // mirror's are: the bursts and the beads leaving are its; the sack, the
+  // lobes and the beads in them are drawn off the boss every frame.
   "gorgeSettle",
   "gorgeSwallow",
   "gorgeEmptied",

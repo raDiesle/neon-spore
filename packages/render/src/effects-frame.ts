@@ -61,6 +61,7 @@ export function ingestAll(
   };
   fx.mirror.ingest(events);
   fx.warden.ingest(events);
+  fx.gorge.ingest(events, l, burst);
   // The seat is the layout's: a flash lights only the screen whose control made it.
   fx.afterImage.ingest(events, l.role, time, spb);
   fx.fleet.ingest(events, spb);
@@ -130,6 +131,7 @@ export function updateAll(e: Effects, dt: number, l: Layout): void {
   e.beatboxWaves.update(dt);
   e.beatboxSilences.update(dt);
   e.reprise.update(dt);
+  e.gorge.update(dt);
   // A salvo's particles are thrown from here on the frame it lands, not from
   // `burstFor` on the frame the event arrived — a second and a quarter
   // earlier (`fleet-fx.ts`).
@@ -158,6 +160,7 @@ export function drawAll(
   e.huskDeflates.draw(ctx, l);
   e.beatboxWaves.draw(ctx, l);
   e.beatboxSilences.draw(ctx, l);
+  e.gorge.draw(ctx, l);
   e.bodies.drawOnBodies(ctx, l, world, beatPhase, e.recoilLeap);
 }
 
@@ -192,4 +195,5 @@ export function resetAll(e: Effects): void {
   e.beatboxSilences.clear();
   e.reprise.clear();
   e.afterImage.clear();
+  e.gorge.clear();
 }

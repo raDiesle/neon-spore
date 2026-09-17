@@ -15,6 +15,7 @@ import { drawAll, ingestAll, resetAll, updateAll } from "./effects-frame.js";
 import { ShipMoods } from "./effects-ship.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GhostTrail } from "./ghost-trail.js";
+import { GorgeFx } from "./gorge-fx.js";
 import { HarpoonLineFx } from "./harpoon-line.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { HuskDeflates } from "./husk-deflate.js";
@@ -165,6 +166,10 @@ export class Effects {
    * bodies and the ship rather than here — it is a mask over the field, not
    * a thing on it (`after-image.ts`, `candle-dark.ts`). */
   readonly afterImage = new AfterImage();
+  /** THE GORGE's beads leaving at the end, and the bursts its receipts throw
+   * on the way there — read above the loop, the way the mirror's are
+   * (`gorge-fx.ts`). */
+  readonly gorge = new GorgeFx();
 
   /** Per-creature grey flash after a wrong-colour hit, by creature id. */
   get blocked(): ReadonlyMap<number, number> {

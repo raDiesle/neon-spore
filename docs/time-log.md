@@ -8406,3 +8406,23 @@ what let the fold be applied to a finger for the first time in this game: the
 hand is chasing a body, not pointing at a column.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — boss-implementation — THE GORGE's skin
+
+The second half of the fourth boss: the sack drawn, breathing and sinking,
+its lobes in every state, the beads in them, the two seats' marks and the
+beads leaving at the end.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `diastole-draw.ts` as the shape of a boss above row 0 with a symmetric split, `warden-fx.ts` for a boss transient, `effects-frame.ts` for the four verbs, `candle-frame.test.ts` for a frame test that sets states, the stub's `texts` for reading a tally |
+| deciding | 10 | the beads as the health bar on both screens with the split in what is written about them; the payoff's colours dealt by hash because the sack keeps a count; the nine bursts read above the loop in one family rather than nine rows in a spark table at its limit |
+| writing | 25 | `gorge-draw.ts`, `gorge-lobe.ts`, `gorge-fx.ts`, two predicates, the branch, the roster and its four verbs, six frame tests, §11.23's look paragraph |
+| friction | 0 | none — the typecheck and the frame tests were green first time |
+| landing | 5 | `check:fast`, the index, the commit, one frame |
+
+The bottleneck was the frame test's third case: proving a ring is on one
+screen and not the other when the ring's colour is also every bead's, which
+took setting the field so that one cyan rim could only be the ring.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*
