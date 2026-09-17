@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 6b819d7d — THE LEDGER's look: one drawn object, cut in half between the two screens
+
+A tall split body high in the field on a single thick cord running down into the pair's own plating, with every hit they land coming back down it. The halves are metal — `rockDark` filled, `rock` stroked — cut down the seam's column with the ammunition colour lit along each cut face, and health is the silhouette: the two stand apart a share of a tile per hit and are thrown apart when the cord tears out. The cord is drawn as a thing and not a line — a cool shadow, the hull's violet, a hard core — bowed while the seam is empty and pulled straight as it fills, with the strain of a landing running back *up* it.
+
 ## 2026-09-17 · 36339f9d — THE THROAT has a rehearsal film: a body shot clear, one swallowed, then a gum flung into the mouth
 
 The still phase in eight pages: a red creature stops in the mouth's column and player 2 shoots it before the count runs out; a rock left alone is taken on the inhale at beat 18; a gum swiped level from the leftmost column flies a beat and chokes a ring, and the last two pages are the mouth sliding a column a beat. Every page about a held body is anchored at the hull, because a body in the mouth stands on row five. Eighteen guided waves are still prose.
