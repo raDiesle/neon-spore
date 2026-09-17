@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · c7902d99 — THE HIVE has its look: a waxen mass over row 0, the breach's colour on the pilot's screen and the swell on the navigator's
+
+The second lane of the boss from `docs/spec/bosses.md` §11.14. A mass of wax hangs over the top of the field, its underside scalloped into a lobe a site: a lobe shut, a lobe swelling through the three beats before it opens (the navigator's screen alone, and two at once from the fifth opening), a breach open in its colour (the pilot's screen alone; wax-grey on the navigator's), a scar stitched over a sealed one. A wrong colour clenches the mass, a seal jolts it, and the last seal closes it on its middle and fades it over `hiveOutBeats`. **A look with no shipped alternative.**
+
 ## 2026-09-17 · 1b53d565 — Act seven's page problem is a question about the convention, not a split to make
 
 An entry written earlier in this session said `act-7c.ts` was two lines under the 250-line ceiling with three waves on it, and proposed cutting a new `7d` off the end. Claiming it found every figure wrong: the page holds nine waves, `7d` and `7e` have existed for days, and `7d` is itself at 247. The entry is rewritten as the thing it actually is — a question the owner has to answer before the next boss lands on act seven.

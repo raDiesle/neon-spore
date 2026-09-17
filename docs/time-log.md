@@ -9785,3 +9785,5 @@ The bottleneck was the two stops: a lane that would have been one sitting
 was three, and the parked entry — written under the doc-drift test's rule
 that a document names no file that does not exist — is what made the third
 one cheap.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
