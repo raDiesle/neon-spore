@@ -1,6 +1,7 @@
 import { installBaton } from "./baton-step.js";
 import { clampQueenCol, initialDropSide } from "./boss.js";
 import { installCairn } from "./cairn.js";
+import { installCandle } from "./candle-step.js";
 import { installDiastole } from "./diastole-step.js";
 import { installFleet } from "./fleet.js";
 import { installGauge } from "./gauge-round.js";
@@ -160,6 +161,10 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
     // author, because both are decided by when the pair managed to agree
     // (`orrery-step.ts`, `bossFillsWave`).
     world.boss = installOrrery(world);
+  } else if (boss?.kind === "candle") {
+    // No creature and no row: a glow above the grid that nothing on the field
+    // touches, in a dark the sim does not know about (`candle-step.ts`).
+    world.boss = installCandle(world);
   } else if (boss?.kind === "warden") {
     installWarden(world, boss);
   } else if (boss) {

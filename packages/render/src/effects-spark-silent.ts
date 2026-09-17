@@ -141,6 +141,14 @@ export const SILENT = [
   "undertowRise",
   "undertowSwallowed",
   "undertowThrough",
+  // THE CANDLE's seven: the look half, not drawn yet (`docs/spec/bosses.md`).
+  "candleDark",
+  "candleDim",
+  "candleMove",
+  "candleTurn",
+  "candleFed",
+  "candleLast",
+  "candleOut",
   "quit", // The run ending is the menu opening (`apps/game`), not a mark on the field.
   "fire", // The bolt leaving is drawn as a bolt, over the beats it travels.
   "lanceFull", // The lobe's own fill reads the mark; nothing else to add.

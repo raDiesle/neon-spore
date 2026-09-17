@@ -1,5 +1,6 @@
 import { batonBeadAlong, batonStruck } from "./baton-press.js";
 import { resolve } from "./bullet-hit.js";
+import { candleEats, candleStruck } from "./candle-step.js";
 import { shotMeans } from "./codex.js";
 import { hullRow, ticksPerBeat } from "./config.js";
 import { diastoleStruck } from "./diastole-step.js";
@@ -56,6 +57,9 @@ function launch(world: World, color: Color): void {
   // the bolt that leaves the muzzle is the colour the navigator asked for and
   // the secret is kept (`codex.ts`).
   const means = shotMeans(world, color);
+  // THE CANDLE eats a flash fired from the column it faces: no bolt, no
+  // `fire`, nothing lit — the press is spent on its glow (`candle-step.ts`).
+  if (candleEats(world, world.cannonCol)) return;
   world.bullets.push({
     id: world.nextId++,
     col: world.cannonCol,
@@ -163,6 +167,8 @@ function sweep(world: World, b: Bullet): boolean {
     // beat every gap is at the bottom of its orbit takes the outermost ring
     // still standing (`orrery-shot.ts`).
     orreryStruck(world, b, world.beat);
+    // And THE CANDLE's glow, a step dimmer for any colour up its own column.
+    candleStruck(world, b);
     return false;
   }
   b.row = Math.ceil(to / MILLI);

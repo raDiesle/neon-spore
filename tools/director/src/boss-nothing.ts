@@ -1,6 +1,7 @@
 import type {
   BatonEntry,
   BossEntry,
+  CandleEntry,
   DiastoleEntry,
   GaugeEntry,
   OrreryEntry,
@@ -81,7 +82,8 @@ export function bossAuthorsNothing(
   | BatonEntry
   | ThroatEntry
   | UndertowEntry
-  | OrreryEntry {
+  | OrreryEntry
+  | CandleEntry {
   // A guard rather than a boolean over the kind, so the caller's chain still
   // narrows: next door the four have to be *out* of the union before the
   // queen's own form reads a column off what is left.
@@ -95,6 +97,7 @@ export function bossAuthorsNothing(
     kind === "baton" ||
     kind === "throat" ||
     kind === "undertow" ||
-    kind === "orrery"
+    kind === "orrery" ||
+    kind === "candle"
   );
 }

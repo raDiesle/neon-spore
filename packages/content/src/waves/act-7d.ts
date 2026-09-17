@@ -7,7 +7,8 @@ import type { Wave } from "../wave-types.js";
  *
  * **`7d` and not `9`, for the reason `act-7c.ts` gives about `7c`**: an act
  * file is a page and not a chapter, and the order of the waves is the order of
- * the game. This page is one wave long, which is honest — it will fill.
+ * the game. It started one wave long, and it is filling: THE ORRERY and THE
+ * CANDLE landed on it within the hour, from two lanes.
  *
  * **THE THROAT is the only wave in this game authored to be *eaten*.** The
  * gullet hangs from the top down to `throatMouthRow` with its mouth in authored
@@ -30,6 +31,11 @@ import type { Wave } from "../wave-types.js";
  * reason one page up: which beat the tube tightens on depends on when the pair
  * chokes its second ring, so an arrival laid inside a particular window would
  * be laid against a beat nobody can know at authoring time.
+ *
+ * **THE CANDLE's arrivals are few and far apart, on purpose.** The fight is
+ * in the dark, and a field with bodies in it is a field the pair has to light
+ * to read; four slicks at the walls, one every twelve beats, are enough to
+ * make the muzzle flash worth something without making the wave about them.
  */
 export const WAVES_ACT_7D: Wave[] = [
   {
@@ -72,5 +78,23 @@ export const WAVES_ACT_7D: Wave[] = [
     },
     entries: [],
     boss: { kind: "orrery" },
+  },
+  {
+    id: "theCandle",
+    name: "THE CANDLE",
+    sentence:
+      "The one you fight in the dark, where the only light is what your own shots throw and the boss eats the ones it is facing.",
+    guide: {
+      both: "The field goes black. The boss is a glow at the top, and every shot, plate and beam lights the column it was made in for a beat. Any colour dims the glow a step; five steps and it goes out. When it is down to two it turns and swallows the flashes from the column it faces, and a swallowed shot brightens it again. Down to one it stops, and the last shot puts it out: two black beats, then the light comes back.",
+      p1: "Only you see which column it faces. Say it, and keep the cannon off it while it is eating. It drifts a column at a time — call the new one every time it moves.",
+      p2: "You see where it is, not where it looks. Say the column it stands in every time it drifts, and fire when he says the way is clear. The beam dims it too: hold a colour on its column when the cannon cannot get there.",
+    },
+    entries: [
+      { beat: 18, col: 1, color: "red" },
+      { beat: 30, col: 5, color: "cyan" },
+      { beat: 42, col: 0, color: "cyan" },
+      { beat: 54, col: 6, color: "red" },
+    ],
+    boss: { kind: "candle" },
   },
 ];

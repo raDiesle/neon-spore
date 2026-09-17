@@ -119,6 +119,9 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // whatever the field is, because the rings are concentric about it
   // (`sim/orrery.ts`).
   if (boss.kind === "orrery") return { ...boss };
+  // THE CANDLE starts at `midCol` of whatever field is played and drifts from
+  // there, so there is no authored column to remap (`sim/candle-step.ts`).
+  if (boss.kind === "candle") return { ...boss };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

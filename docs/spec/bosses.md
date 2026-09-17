@@ -2276,3 +2276,57 @@ off the beat costs nothing, the wrong colour is a colour miss, the organs come
 off, the core spits and never down its own column, the naked core refuses a
 bolt and takes the beam, and the same run fingerprints the same way twice
 (`sim/test/orrery.test.ts`).
+
+## 11.22 THE CANDLE — the boss fought in the dark
+
+> The one you fight in the dark, where the only light is what your own shots
+> throw and the boss eats the ones it is facing.
+
+Designed as §14 of [bosses-choreographed](bosses-choreographed.md), where the
+argument for it is: every other fight is lit, and this is the one where the
+pair's own instruments are the light — a muzzle flash, a plate flashing, the
+beam — each drawn on the seat that made it, so the two phones light two
+different columns and the field is only whole in the talking.
+
+**The simulation does not know the field is dark.** That is the whole of the
+split: darkness, the after-image, the per-seat light are the look's
+(`render/`, not drawn yet — the second half of this lane, *the dark*). What
+`packages/sim` holds is a **glow**: `candleGlowSteps` (5) of health, a column
+it stands in, a column it faces, and a phase — `dark`, `full`, `eating`,
+`last`, `out` (`sim/candle.ts`, hashed in `sim/candle-hash.ts`). It is a
+fixture, not a body (`bossFillsWave === false`), and the arrivals around it
+are the wave's own (`content/src/waves/act-7c.ts`, "THE CANDLE").
+
+**The rule, in one sentence.** Any colour up its own column dims it a step —
+a bullet reaching the top of the field (`bullets.ts`) or the beam burning the
+column (`lance-burn.ts`), both through `candleStruck`, which counts as a
+colour met (`metColor`) so the balance cannot tell it from a kill — and five
+steps put it out. It arrives dark for `candleDarkBeats` (4), unstrikable and
+still; then drifts one column every `candleMoveBeats` (3), reversing at the
+edges, and turns to face a column every `candleTurnBeats` (4), which is the
+one thing player 1 sees and player 2 does not. At `candleEatSteps` (2) left
+it **eats**: a shot fired from the column it faces never becomes a bullet —
+`candleEats`, asked from `launch` before the bullet is laid — and the glow
+comes back a step (`candleFed`), never past full. At `candleLastSteps` (1)
+it stops moving, turning and eating (`candleLast`), and the last shot puts it
+out (`candleOut`): the boss stays installed `candleOutBeats` (2) more so the
+wave cannot end on the beat the light does, which is the design's *two black
+beats*.
+
+**Health is the glow, and nothing else is.** There is no hull damage in it
+and no scar: a candle that eats a shot is a candle that lasts longer, and the
+pair's whole cost is beats.
+
+**What is not built**: the field being dark, the flash on the seat that made
+it, the after-image of a column just lit, the glow drawn in five steps, and
+the wave-end light coming back — all of which is the look half. THE SLOW over
+the flash beat (the design's step 6) is not built either: whether a shot's
+light should hang is the owner's eye.
+
+**Never watched at tempo.** What the tests say is the mechanism: it arrives
+full at the middle column facing its own, cannot be struck and does not move
+while dark, dims a step for either colour with the other column untouched,
+drifts within the field and turns on its count, eats the faced column's shot
+and no other and never past full, the beam dims it while it eats, the last
+step stands still, the wave stays open for the two beats after, and the same
+run fingerprints the same way twice (`sim/test/candle.test.ts`).

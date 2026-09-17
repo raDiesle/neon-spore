@@ -1,5 +1,6 @@
 import type { SimEvent } from "@neon-spore/sim";
 import { batonCue } from "./bind-baton.js";
+import { candleCue } from "./bind-candle.js";
 import type { Cue } from "./bind-cue.js";
 import { undertowCue } from "./bind-undertow.js";
 
@@ -15,7 +16,10 @@ import { undertowCue } from "./bind-undertow.js";
  * *here* leaves a switch without an ending return. Either is a type
  * error, and `test/bind.test.ts` plays one of each as well.
  */
-type ChoreographedEvent = Extract<SimEvent, { type: `baton${string}` | `undertow${string}` }>;
+type ChoreographedEvent = Extract<
+  SimEvent,
+  { type: `baton${string}` | `undertow${string}` | `candle${string}` }
+>;
 
 export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
   switch (e.type) {
@@ -27,6 +31,14 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "batonShed":
     case "batonDown":
       return batonCue(e, cols);
+    case "candleDark":
+    case "candleDim":
+    case "candleMove":
+    case "candleTurn":
+    case "candleFed":
+    case "candleLast":
+    case "candleOut":
+      return candleCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

@@ -221,11 +221,16 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/gum.ts` | **THE GUM**: a sticky mass that falls straight down one lane, cannot be shot, is not stopped by the shield, and has to be swiped away in the air |
 | `packages/sim/src/carom.ts` | THE CAROM: a slick or a bulb sealed inside a hurtling rock crust |
 | `packages/sim/src/cairn.ts` | THE CAIRN: a pile of seven rocks nothing fired reaches, taken apart by a hand carried sideways, and the clock that drops one itself into a lane only player 1 is shown |
+| `packages/sim/src/candle-hash.ts` | What THE CANDLE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/candle-step.ts` | THE CANDLE's clock — the drift, the turn, the last step and the black frame |
+| `packages/sim/src/candle.ts` | THE CANDLE: whether you can act in the dark |
 | `packages/sim/src/config-carom.ts` | THE CAROM's numbers: how steeply it crosses the field, what cracking one open is worth |
+| `packages/sim/src/config-candle.ts` | THE CANDLE's numbers — how many steps its glow has, how long the field takes to go black |
 | `packages/sim/src/impact.ts` | **How heavy one body lands when it reaches the hull**, for everything the shield was never offered — the weight picks the sound, and a hit costs the wave whatever hit |
 | `packages/sim/src/creature-state.ts` | **The state one kind carries and no other does.** Every field here is optional |
 | `packages/sim/src/chute.ts` | THE CHUTE: the slick or the bulb thrown clear of a cracked carom |
 | `packages/sim/src/events-carom.ts` | **Everything THE CAROM and the body it throws out do**, as events |
+| `packages/sim/src/events-candle.ts` | **Everything THE CANDLE does that neither screen already says**, as events |
 | `packages/sim/src/config-pod.ts` | THE POD's numbers: how a capsule shot loose falls, how it steers itself into the maw |
 | `packages/sim/src/config-volley.ts` | THE VOLLEY's numbers: how steeply it comes in, how far a ward throws it back up the field |
 | `packages/sim/src/cross.ts` | **A body crossing the field and turning at its side walls** |
@@ -1260,6 +1265,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/music/themes.ts` | Nine pieces of music, none of which the game plays — the six below, and the three `deep.ts` adds |
 | `packages/audio/src/mixer-boss.ts` | the bosses' clocks, heard by comparing frames rather than by an event |
 | `packages/audio/src/bind-carom.ts` | **What THE CAROM and the body it throws out sound like**: a wall, a crack, an ejection and a canopy |
+| `packages/audio/src/bind-candle.ts` | THE CANDLE's seven, in a file of their own for `bind-undertow.ts`' reason |
 | `packages/audio/src/bind-volley.ts` | **What THE VOLLEY sounds like**: a ward that sends it back |
 | `packages/audio/src/bind-fleet.ts` | **What THE FLEET sounds like**: a salvo leaving the cannon, and the water |
 | `packages/audio/src/bind-breach.ts` | What a hull breach sounds like, split by what it cost rather than by what hit |

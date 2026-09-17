@@ -1,4 +1,5 @@
 import type { BatonEvent } from "./events-baton.js";
+import type { CandleEvent } from "./events-candle.js";
 import type { CreatureEvent } from "./events-creature.js";
 import type { FleetEvent } from "./events-fleet.js";
 import type { SpliceEvent } from "./events-splice.js";
@@ -225,25 +226,24 @@ export type SimEvent =
   /**
    * A salvo into open water on THE FLEET's chart. `col` and `row` are the
    * square, in the chart's own coordinates — which are the field's, because
-   * the chart stands on the grid rather than beside it.
-   *
-   * Its own event and not a `reject`, because the ear has to tell "that did
-   * nothing" from "that was a square, and it was empty": a splash spends the
-   * square and the rest between two salvoes, and a press onto a square already
-   * fired at spends neither. Both seats hear it — the chart is the one thing
-   * in this fight the two of them share.
+   * the chart stands on the grid rather than beside it. Its own event and not
+   * a `reject`, because the ear has to tell "that did nothing" from "that was
+   * a square, and it was empty": a splash spends the square and the rest
+   * between two salvoes, and a press onto a square already fired at spends
+   * neither. Both seats hear it — the chart is the one thing in this fight
+   * the two of them share. THE FLEET's five are next door (`events-fleet.ts`).
    */
-  // THE FLEET's five are next door as well (`events-fleet.ts`).
   | FleetEvent
-  // Two bosses' own arms, gathered next door rather than spelled out here,
-  // because this file keeps coming back to its 250-line limit and a boss is
-  // worth four lines of it (`events-splice.ts`, `events-stare.ts`).
+  // The bosses' own arms, gathered next door rather than spelled out here,
+  // because this file keeps coming back to its 250-line limit (`events-splice.ts`).
   | SpliceEvent
   | StareEvent
   | BatonEvent
-  | UndertowEvent;
+  | UndertowEvent
+  | CandleEvent;
 
 export type { BatonEvent } from "./events-baton.js";
+export type { CandleEvent } from "./events-candle.js";
 export type { FleetEvent } from "./events-fleet.js";
 export type { SpliceEvent } from "./events-splice.js";
 export type { StareEvent } from "./events-stare.js";

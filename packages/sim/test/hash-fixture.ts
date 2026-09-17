@@ -190,6 +190,10 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
   // columns are open and how wide — is what the fixture's world has moved by
   // the time it is fingerprinted (`undertow-hash.ts`).
   undertow: { kind: "undertow" },
+  // THE CANDLE authors nothing: the glow's five steps are tuning
+  // (`config-candle.ts`), and where it hangs and what it faces are what the
+  // fixture's world has moved by the time it is fingerprinted (`candle-hash.ts`).
+  candle: { kind: "candle" },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).

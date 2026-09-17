@@ -68,6 +68,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-stare.ts", "export type StareEvent ="],
     ["packages/sim/src/events-baton.ts", "export type BatonEvent ="],
     ["packages/sim/src/events-undertow.ts", "export type UndertowEvent ="],
+    ["packages/sim/src/events-candle.ts", "export type CandleEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -132,6 +133,13 @@ const SAMPLES: Record<string, SimEvent> = {
   undertowRise: { type: "undertowRise", col: 5 },
   undertowSwallowed: { type: "undertowSwallowed", col: 5 },
   undertowThrough: { type: "undertowThrough", col: 5 },
+  candleDark: { type: "candleDark" },
+  candleDim: { type: "candleDim", col: 3, left: 4 },
+  candleMove: { type: "candleMove", col: 4 },
+  candleTurn: { type: "candleTurn", col: 1 },
+  candleFed: { type: "candleFed", col: 1, left: 3 },
+  candleLast: { type: "candleLast", col: 4 },
+  candleOut: { type: "candleOut" },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

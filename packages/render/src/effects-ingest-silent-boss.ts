@@ -72,6 +72,15 @@ export const INGEST_SILENT_BOSS = [
   "undertowRise",
   "undertowSwallowed",
   "undertowThrough",
+  // THE CANDLE's seven, silent for the same reason: the dark, the glow and
+  // the swallowed flash are the look half and are not drawn yet.
+  "candleDark",
+  "candleDim",
+  "candleMove",
+  "candleTurn",
+  "candleFed",
+  "candleLast",
+  "candleOut",
   "tether",
   "eyeOpen",
   "wardenDown",

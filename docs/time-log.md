@@ -8139,3 +8139,24 @@ to get it is to read the test and add up the calls its helpers make as well as
 its own. Most of the writing row is that, not the helper.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — boss-implementation — THE CANDLE's simulation
+
+The first half of the third boss, claimed on `main`'s copy of the
+choreographed page before it was started. The sim does not know the field is
+dark; the dark is the second half.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | §14's rule, THE UNDERTOW's landing (`622eb22b`) as the file list, `bullets.ts`' top-of-field block and `launch` for where a shot is swallowed |
+| deciding | 5 | a glow of five steps as the whole health; a swallowed shot never becoming a bullet rather than one that turns back; the two black beats as beats the boss stays installed |
+| writing | 10 | `candle.ts`, `candle-step.ts`, `candle-hash.ts`, `events-candle.ts`, `config-candle.ts`, the wiring through the eleven boss lists, eighteen tests, the wave, seven sounds, the director's note and dials, `bosses.md` §11.22 |
+| friction | 5 | the owner's restart landed mid-wiring, so the half was parked uncommitted and the stop hook asked for a green typecheck first; `boss.candleDark`'s fall went through the speech band twice before it stayed above it |
+| landing | 5 | `check:fast`, the index, the commit |
+
+The bottleneck was the eleven lists a boss kind has to be added to across
+four packages, each found by the typecheck one file at a time — and then
+found again, because THE ORRERY's lane had added its own line to every one
+of them between this lane's commit and its landing: twenty-three files in
+conflict, each resolved by taking `main`'s copy and re-adding the candle's
+line under the orrery's.

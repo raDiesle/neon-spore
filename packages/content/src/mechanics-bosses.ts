@@ -22,6 +22,7 @@ type BossId = Extract<
   | "throat"
   | "undertow"
   | "orrery"
+  | "candle"
 >;
 
 /**
@@ -103,6 +104,10 @@ export const BOSS_MECHANICS = {
   },
   orrery: {
     what: "Three rings of organs turning about a core in the middle of the field, each ring with one gap in it. A shot up the middle column reaches the core only on a beat every ring still standing has its gap at the bottom of its orbit — and the outer ring is drawn true on both screens, the middle on the pilot's alone and the inner on the navigator's alone, so neither of you can work that beat out by yourself. The rings come round every eight, six and four beats and first meet twelve beats in. A shot that lands in the colour the core is showing takes the outermost ring still standing; the colour changes every time one comes off, three organs come loose and fall as rocks, and the core starts firing a rock of its own down a column every four beats. With every ring gone the core takes nothing but the beam, which means she holds a colour while he keeps the cannon still in a column being shot at.",
+    reach: "spawn",
+  },
+  candle: {
+    what: "The one boss you fight in the dark. The field goes black over four beats and the only steady light left is the boss's own glow, high over one column — and that glow is its health: five steps, one lost to every shot up its column, either colour, and the fight is over when the last goes out. It drifts a column every few beats, so the column to fire up has to be found again. It faces a column, which only the pilot sees, and once it is down to two steps it eats a flash fired from that column: no bolt leaves the muzzle, nothing is lit, and the swallowed light puts a step back on its glow. The beam is never eaten. At the last step it stops moving and stops eating, and the last shot is the pair's to take. The dark itself, the flashes and the after-images are the picture's and not the rule's.",
     reach: "spawn",
   },
   undertow: {

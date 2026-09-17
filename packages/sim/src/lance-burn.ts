@@ -1,5 +1,6 @@
 import { isBeatTick } from "./beat-clock.js";
 import { resolve } from "./bullet-hit.js";
+import { candleStruck } from "./candle-step.js";
 import { hullRow } from "./config.js";
 import { diastoleStruck } from "./diastole-step.js";
 import { beamTicks, lanceReady, primeColor, spendPrime } from "./lance.js";
@@ -134,5 +135,7 @@ function burnColumn(world: World, col: number, color: Color): number {
   // And THE ORRERY, where the beam is the only thing that finishes the fight:
   // a naked core takes the lance and nothing else (`orrery-shot.ts`).
   orreryStruck(world, b, beamBeat(world));
+  // And THE CANDLE, which the beam dims like a shot would (`candle-step.ts`).
+  candleStruck(world, b);
   return 0;
 }

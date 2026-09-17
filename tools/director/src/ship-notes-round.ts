@@ -109,6 +109,18 @@ export const ROUND_NOTES = {
     "undertowRestBeats of quiet sit between pushes; the rise and the body " +
     "passing through each open undertowSlowBeats of THE SLOW. Nothing about " +
     "it is authored per wave. See sim/undertow.ts, sim/config-undertow.ts.",
+  "THE CANDLE — the boss fought in the dark":
+    "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §14: " +
+    "the one boss fought in the dark. The sim does not know the field is " +
+    "black — darkness and the per-seat light are the look's. The boss is a " +
+    "glow of candleGlowSteps that any colour dims a step, from the cannon's " +
+    "column or the beam's. It arrives dark for candleDarkBeats, then drifts " +
+    "a column every candleMoveBeats and turns to face a column every " +
+    "candleTurnBeats, seen by player 1 alone. At candleEatSteps left it eats " +
+    "the shot from the column it faces and re-brightens a step; at " +
+    "candleLastSteps it stops moving, turning and eating, and the last shot " +
+    "puts it out, holding the wave candleOutBeats more. Nothing about it is " +
+    "authored per wave. See sim/candle.ts, sim/config-candle.ts.",
   "THE STARE — an eye that freezes whoever it looks at":
     "The owner asked for this on 16 September 2026: when the boss looks at " +
     "you, you may not shoot, move or use the shield. The eye is away for " +

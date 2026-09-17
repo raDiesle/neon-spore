@@ -204,6 +204,7 @@ export type {
   BatonEntry,
   BossEntry,
   CairnEntry,
+  CandleEntry,
   DiastoleEntry,
   FleetEntry,
   GaugeEntry,

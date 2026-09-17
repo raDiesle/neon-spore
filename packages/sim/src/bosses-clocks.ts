@@ -32,6 +32,16 @@ export {
   batonSocketRow,
 } from "./baton.js";
 export { batonBoss } from "./baton-step.js";
+// THE CANDLE keeps the shortest clock of the six: a glow that drifts and
+// turns on counts the pair says out loud, in a dark the sim does not know.
+export {
+  CANDLE_PHASES,
+  type CandlePhase,
+  type CandleState,
+  candleBoss,
+  candleEating,
+  candleMoving,
+} from "./candle.js";
 export {
   DIASTOLE_PHASES,
   DIASTOLE_SIDES,

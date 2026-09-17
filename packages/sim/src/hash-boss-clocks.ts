@@ -1,5 +1,6 @@
 import { batonHashParts } from "./baton-hash.js";
 import type { BossState } from "./boss-union.js";
+import { candleHashParts } from "./candle-hash.js";
 import { diastoleHashParts } from "./diastole-hash.js";
 import { orreryHashParts } from "./orrery-hash.js";
 import { stareHashParts } from "./stare-hash.js";
@@ -58,6 +59,10 @@ export function clockHashParts(boss: BossState): number[] {
   // (`orrery-hash.ts`).
   if (boss.kind === "orrery") {
     for (const n of orreryHashParts(boss)) out.push(n);
+  }
+  // THE CANDLE: the glow, where it stands, where it faces (`candle-hash.ts`).
+  if (boss.kind === "candle") {
+    for (const n of candleHashParts(boss)) out.push(n);
   }
   return out;
 }

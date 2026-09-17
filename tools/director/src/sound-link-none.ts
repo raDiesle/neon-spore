@@ -95,6 +95,18 @@ export const NO_SUBJECT: Record<string, string> = {
     "the body following its lobe down through the hole. What this marks is a hull closed over a thing inside it — an absence like ui.waveClear rather than a thing standing anywhere.",
   "boss.undertowThrough":
     "the last lobe coming through the other way. What gives is the hull, and the wave with it.",
+  // THE CANDLE's seven. The boss is a glow in a dark the sheet has no card
+  // for, and none of these is a body standing anywhere: a light going down a
+  // step, drifting, turning, brightening, going out.
+  "boss.candleDark":
+    "the field going black as the boss arrives. What changes is the whole field, which is not a card (`sim/candle.ts`).",
+  "boss.candleDim": "the glow losing a step to a shot or the beam. Same argument.",
+  "boss.candleMove": "the glow drifting a column. Same argument.",
+  "boss.candleTurn": "the glow turning to face a column, seen on one seat. Same argument.",
+  "boss.candleFed": "a flash swallowed and the glow brightening a step. Same argument.",
+  "boss.candleLast": "the glow down to its last step and standing still. Same argument.",
+  "boss.candleOut":
+    "the last step gone. What this marks is a field with no light in it — an absence like ui.waveClear rather than a thing standing anywhere.",
   "assist.handOver":
     "THE HANDOVER trading the panels. What changes is the whole band — the other seat's buttons in the other seat's colours — and the hull above it does not move for it; the sheet has cards for bodies and there is no body in a screen changing hands.",
   "assist.takeOver": "the same panels coming back. Same argument.",

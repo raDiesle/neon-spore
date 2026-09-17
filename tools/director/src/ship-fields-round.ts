@@ -111,6 +111,16 @@ export const ROUND_FIELD_GROUP = {
   orreryDebris: "THE ORRERY — three orbits, and neither of you can see all three",
   orrerySlowBeats: "THE ORRERY — three orbits, and neither of you can see all three",
   orreryOutBeats: "THE ORRERY — three orbits, and neither of you can see all three",
+  // CandleConfig — how many steps the glow has, how long the dark takes to
+  // fall, and the counts it drifts, turns, eats and goes out on. Every one a
+  // count the pair says aloud in the dark (`config-candle.ts`).
+  candleGlowSteps: "THE CANDLE — the boss fought in the dark",
+  candleDarkBeats: "THE CANDLE — the boss fought in the dark",
+  candleMoveBeats: "THE CANDLE — the boss fought in the dark",
+  candleTurnBeats: "THE CANDLE — the boss fought in the dark",
+  candleEatSteps: "THE CANDLE — the boss fought in the dark",
+  candleLastSteps: "THE CANDLE — the boss fought in the dark",
+  candleOutBeats: "THE CANDLE — the boss fought in the dark",
   // SnakeConfig
   snakeCols: "SNAKE — a round the ship is the body of",
   snakeRows: "SNAKE — a round the ship is the body of",

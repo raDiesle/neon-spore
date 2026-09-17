@@ -149,6 +149,7 @@ export const DEMONSTRATIONS: Record<MechanicId, Demonstration> = {
   throat: { wave: "theThroat" },
   undertow: { wave: "theUndertow" },
   orrery: { wave: "theOrrery" },
+  candle: { wave: "theCandle" },
   // A fresh pair meeting the slick, which is the first card the game ever
   // raises and the shortest wave to raise one.
   briefing: { wave: "firstStep", config: { briefings: true } },

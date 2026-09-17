@@ -117,3 +117,13 @@ export interface UndertowEntry {
 export interface OrreryEntry {
   kind: "orrery";
 }
+
+/**
+ * What a wave authors when it wants THE CANDLE, which is nothing at all —
+ * the sixth. No column: the glow starts dead centre and drifts where the
+ * seeded rng says. No health: the glow is five steps and five is the number
+ * a pair can tell apart in the dark (`candle.ts`, `config-candle.ts`).
+ */
+export interface CandleEntry {
+  kind: "candle";
+}

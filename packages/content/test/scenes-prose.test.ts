@@ -83,6 +83,10 @@ const STILL_PROSE = [
   // armour on the other, which is the whole boss and not a thumb landing
   // anywhere; until the rings are drawn there is nothing to shoot it against.
   "THE ORRERY",
+  // And THE CANDLE, owed by the lane that draws the dark. Its film is a black
+  // field lit a column at a time by the pair's own shots, and a glow that
+  // turns to face one seat's column — nothing of which is drawn yet.
+  "THE CANDLE",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -108,9 +112,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says seventy-five of eighty-four";
-    expect(guided.length, fix).toBe(75);
-    expect(WAVES.length, fix).toBe(84);
+    const fix = "update §1 of docs/spec/briefings.md, which says seventy-six of eighty-five";
+    expect(guided.length, fix).toBe(76);
+    expect(WAVES.length, fix).toBe(85);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

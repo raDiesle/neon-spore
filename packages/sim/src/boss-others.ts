@@ -2,6 +2,7 @@ import { stepBaton } from "./baton-step.js";
 import type { QueenState } from "./boss-state.js";
 import type { BossState } from "./boss-union.js";
 import { stepCairn } from "./cairn.js";
+import { stepCandle } from "./candle-step.js";
 import { stepDiastole } from "./diastole-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepMaze } from "./maze-round.js";
@@ -90,6 +91,13 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // (`orrery-shot.ts`).
   if (boss.kind === "orrery") {
     stepOrrery(world, boss);
+    return;
+  }
+  // THE CANDLE on the beat is the glow's clock: the drift, the turn, and the
+  // black beats after the last step. The two moments a shot meets it are on
+  // the tick, from `bullets.ts` and `lance-burn.ts` (`candle-step.ts`).
+  if (boss.kind === "candle") {
+    stepCandle(world, boss);
     return;
   }
   if (boss.kind === "vane") {
