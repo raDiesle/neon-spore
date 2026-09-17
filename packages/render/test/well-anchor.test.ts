@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave, step, type World } from "@neon-spore/sim";
 import { anchorPoint } from "../src/caption-anchor.js";
@@ -6,7 +6,11 @@ import { creatureCenter, flatCenter } from "../src/creature-place.js";
 import { glidePhase } from "../src/depth.js";
 import { computeLayout } from "../src/layout.js";
 import { wellBodyAt } from "../src/well-body.js";
-import { waveWith } from "./frame-harness.js";
+import { FRAME_TIMEOUT_MS, waveWith } from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * WHERE A CAPTION ABOUT A BODY POINTS ON THE WELL.

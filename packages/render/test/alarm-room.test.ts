@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildQueue, WAVES, waveGuideSteps } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave, type World } from "@neon-spore/sim";
 import { GUIDE_LOOK } from "../src/guide-look.js";
@@ -7,7 +7,11 @@ import { drawMagnetAlarm } from "../src/magnet-alarm.js";
 import { alarmRows } from "../src/ship-top-rows.js";
 import { sirenCentre, sirenFoot } from "../src/siren.js";
 import { drawTorchAlarm } from "../src/torch-alarm.js";
-import { installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The two calls the ship's own chrome writes, under a rehearsal's plate.

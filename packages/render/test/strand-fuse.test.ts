@@ -1,8 +1,18 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { SimEvent } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
 import { fuseFronts, StrandFuseFx, sampleThread } from "../src/strand-fuse.js";
-import { CFG, installCanvasGlobals, stubCanvas, VIEWPORT } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  stubCanvas,
+  VIEWPORT,
+} from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The owner's ask, 11 September 2026: *when all bulb and slick are destroyed

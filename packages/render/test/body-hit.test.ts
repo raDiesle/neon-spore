@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { SimEvent } from "@neon-spore/sim";
 import {
   BODY_HIT,
@@ -16,7 +16,17 @@ import { BodyStrikeFx } from "../src/body-strike.js";
 import { BREAK_LOOK } from "../src/break-look.js";
 import { breakSparks } from "../src/effects-break.js";
 import { computeLayout } from "../src/layout.js";
-import { CFG, installCanvasGlobals, stubCanvas, VIEWPORT } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  stubCanvas,
+  VIEWPORT,
+} from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The hit seam (`body-hit.ts`): a record per body, reached by the kind a

@@ -1,9 +1,13 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type Creature, hullRow, NO_SHELL } from "@neon-spore/sim";
 import { CoilFlightFx } from "../src/coil-flight.js";
 import { computeLayout, tileCX, tileCY } from "../src/layout.js";
 import { StubContext } from "./canvas-stub.js";
-import { CFG, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, VIEWPORT } from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The owner's ask, 11 September 2026: *the torches must release from the

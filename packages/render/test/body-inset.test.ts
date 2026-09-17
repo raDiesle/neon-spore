@@ -1,8 +1,18 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type Creature, NO_SHELL } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
 import { drawLiving } from "../src/living-draw.js";
-import { CFG, installCanvasGlobals, stubCanvas, VIEWPORT } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  stubCanvas,
+  VIEWPORT,
+} from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The owner's report of 11 September 2026: *the inner animation of the red

@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue, controlSet } from "@neon-spore/content";
 import {
   createWorld,
@@ -13,12 +13,17 @@ import {
 import type { ViewRole } from "../src/layout.js";
 import {
   CFG,
+  FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
   runFrames,
   stripsDrawn,
   waveWith,
 } from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE PULSE over the whole stage, played rather than watched.

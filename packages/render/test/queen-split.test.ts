@@ -1,10 +1,14 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type Creature, DEFAULT_CONFIG, NO_SHELL, type QueenState } from "@neon-spore/sim";
 import { computeLayout, showsQueenHint, showsQueenShape, type ViewRole } from "../src/layout.js";
 import { PALETTE } from "../src/palette.js";
 import { innerLockHalf, markOutline } from "../src/queen-glyph.js";
 import { ballShare, drawMark, markGlow } from "../src/queen-weakpoint.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The Bulb Queen's whole design is an information split: player 1 is told

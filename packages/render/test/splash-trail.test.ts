@@ -1,7 +1,11 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { FIELD_TRAIL_SCALE, neonHue } from "../src/splash-blob.js";
 import { SplashTrail } from "../src/splash-trail.js";
-import { installCanvasGlobals, stubCanvas } from "./frame-harness.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The mouse's ink, through a canvas that refuses what a real one refuses.

@@ -1,8 +1,12 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { WAVES, waveGuideSteps } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, startWave, type World } from "@neon-spore/sim";
 import { GuideStage } from "../src/guide-scene.js";
-import { installCanvasGlobals } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * A REHEARSAL'S CLOCK, WHICH IS THE FRAME CLOCK AND NOT THE WORLD'S.

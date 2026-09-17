@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { DEFAULT_CONFIG, type Scar, type SimEvent } from "@neon-spore/sim";
 import { Arrivals } from "../src/arrivals.js";
 import { craters } from "../src/craters.js";
@@ -6,7 +6,11 @@ import { ingestBreach } from "../src/effects-breach.js";
 import { computeLayout } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { drawScars } from "../src/scars.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * A volley nobody warded arrives as the rock it looks like.

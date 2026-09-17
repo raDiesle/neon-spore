@@ -16,6 +16,27 @@
 
 import { clearBakedCaches } from "../src/baked.js";
 
+/**
+ * The cap a test that draws through this canvas runs under.
+ *
+ * **Each file calls `setDefaultTimeout(FRAME_TIMEOUT_MS)` for itself**, and the
+ * number lives here — beside the thing that makes those tests slow — so there
+ * is still only one of it. It sat in `frame-harness.ts`, which also *called*
+ * it at the top of the module, and that call was never true of more than one
+ * file at a time: bun applies it to the file it is in, and a module is
+ * evaluated once, by whichever test imports it first. Everything after that
+ * one was quietly on bun's five-second default. It surfaced twice — as
+ * `crawler-frame.test.ts` failing at 5017 ms inside a check it passes in 4.4 s
+ * alone (7 September 2026), and again on 17 September when three consecutive
+ * runs of one green diff failed three *different* tests across two files that
+ * had never made the call. The side effect is gone; every file makes the call.
+ *
+ * It is deliberately far above what any of these files take, because it is not
+ * a budget — `frame-budget.test.ts` is the budget, and an op is not a
+ * millisecond. This one only says "a busy machine is not a failure".
+ */
+export const FRAME_TIMEOUT_MS = 30_000;
+
 const COLOR = /^#([0-9a-f]{3}|[0-9a-f]{4}|[0-9a-f]{6}|[0-9a-f]{8})$|^rgba?\([^)]+\)$/i;
 
 class StubFail extends Error {}

@@ -1,6 +1,10 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { clearSurface } from "../src/surface-clear.js";
-import { installCanvasGlobals, stubCanvas } from "./frame-harness.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * A wipe that misses a strip is a wipe that leaves a picture on the glass.

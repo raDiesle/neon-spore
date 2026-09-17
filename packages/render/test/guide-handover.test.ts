@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { controlSetForWave, placedFaults, WAVES, waveGuideSteps } from "@neon-spore/content";
 import {
   createWorld,
@@ -14,7 +14,11 @@ import { GuideStage } from "../src/guide-scene.js";
 import { handedSeat } from "../src/handover.js";
 import { bandLobes, computeLayout } from "../src/layout.js";
 import { OpeningFx } from "../src/opening-fx.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE HANDOVER's rehearsal trades the panel and keeps the phone.**

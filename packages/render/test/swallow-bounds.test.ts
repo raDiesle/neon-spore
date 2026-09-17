@@ -1,9 +1,13 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { hullBottom } from "../src/band-seam.js";
 import { drawHull, type HullMood } from "../src/hull.js";
 import { computeLayout } from "../src/layout.js";
-import { installCanvasGlobals, StubContext } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, StubContext } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The bug this guards: the maw is the one shape on the hull with *negative*

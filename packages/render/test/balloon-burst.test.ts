@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { BALLOON, balloonOutline } from "@neon-spore/content";
 import { balloonPopSkin } from "../src/balloon.js";
 import { BALLOON_SKIN, balloonShreds, balloonTear } from "../src/balloon-burst.js";
@@ -8,7 +8,17 @@ import { Debris } from "../src/debris.js";
 import { breakSparks } from "../src/effects-break.js";
 import { computeLayout } from "../src/layout.js";
 import { shatter } from "../src/shatter.js";
-import { CFG, installCanvasGlobals, stubCanvas, VIEWPORT } from "./frame-harness.js";
+import {
+  CFG,
+  FRAME_TIMEOUT_MS,
+  installCanvasGlobals,
+  stubCanvas,
+  VIEWPORT,
+} from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE BALLOON's pop, as a **break** (`balloon-burst.ts`).

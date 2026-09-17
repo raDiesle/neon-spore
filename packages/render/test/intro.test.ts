@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import {
   INTRO_ANSWER,
   INTRO_BEATS,
@@ -12,7 +12,11 @@ import { introPlayer } from "../src/intro-player.js";
 import { drawIntroScene, introOver, playBox } from "../src/intro-scene.js";
 import { answered, readingNow, shoutNow } from "../src/intro-shout.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The one scene a pair meets before they have chosen anything, through the

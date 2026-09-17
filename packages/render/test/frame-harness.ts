@@ -1,4 +1,3 @@
-import { setDefaultTimeout } from "bun:test";
 import {
   buildBoss,
   buildPods,
@@ -40,36 +39,12 @@ import { stubCanvas } from "./canvas-stub.js";
  * canvas is one a canvas accepts.
  */
 
-export { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
-
 /**
- * The cap a test that draws frames runs under, stated here because this is
- * where the cost is.
- *
- * A run of `runFrames` is a whole wave of frames through a canvas that checks
- * every value, and a file holds a handful of them: seconds, by construction,
- * and none of them wrong. bun's default is five, which the fence's crack test
- * crossed on 7 September 2026 at 5126 ms inside `bun run check` and then
- * cleared on its own in less than four for the whole file. What tipped it was
- * the rest of the suite running beside it — so the next session reads one red
- * test on a green tree and spends its first minutes re-running the check to
- * find out it was nothing.
- *
- * **Each file calls `setDefaultTimeout(FRAME_TIMEOUT_MS)` for itself**, and the
- * number is exported here so there is still only one of it. Importing this
- * module used to be what applied the cap, and that was never true of more than
- * one file at a time: bun applies the call to the file it is *in*, and a module
- * is evaluated once — by whichever frame test imports it first — so everything
- * after that one was quietly running on bun's five-second default. It surfaced
- * on 7 September 2026 as `crawler-frame.test.ts` failing at 5017 ms inside a
- * check it passes in 4.4 s on its own, which is the exact case this constant
- * was written for.
- * It is deliberately far above what any of these files take, because it is not
- * a budget — `frame-budget.test.ts` is the budget, and an op is not a
- * millisecond. This one only says "a busy machine is not a failure".
+ * Re-exported so a file that draws frames imports its cap from whichever of
+ * these two it already reaches for. The constant's own home, and why it is not
+ * applied from here, is `canvas-stub.ts`.
  */
-export const FRAME_TIMEOUT_MS = 30_000;
-setDefaultTimeout(FRAME_TIMEOUT_MS);
+export { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
 
 export const CFG = DEFAULT_CONFIG;
 export const ROLES: ViewRole[] = ["p1", "p2", "test"];

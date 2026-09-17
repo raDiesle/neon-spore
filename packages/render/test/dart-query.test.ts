@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -10,7 +10,11 @@ import {
 import { creatureCenter, creatureRadius } from "../src/creature-place.js";
 import { drawDartQueries } from "../src/dart-query.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **Player 1's mark must say "ask" and it must never say "left".**

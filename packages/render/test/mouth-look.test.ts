@@ -1,11 +1,15 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { DEFAULT_CONFIG, type SimEvent } from "@neon-spore/sim";
 import { LAY_LOOK } from "../src/cannon-maw.js";
 import { Effects } from "../src/effects.js";
 import { computeLayout } from "../src/layout.js";
 import { MOUTH_LOOK, type MouthFrame } from "../src/muzzle.js";
 import { PALETTE } from "../src/palette.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The fire opening, now that it is a record two things patch rather than four

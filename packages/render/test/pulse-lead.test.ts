@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
@@ -16,7 +16,11 @@ import { drawArrivals } from "../src/pulse-fall.js";
 import type { PulseField } from "../src/pulse-lane.js";
 import type { ViewState } from "../src/renderer.js";
 import { stubCanvas } from "./canvas-stub.js";
-import { CFG, installCanvasGlobals, waveWith } from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS, installCanvasGlobals, waveWith } from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE PULSE's picture runs ahead of the simulation by this device's own input

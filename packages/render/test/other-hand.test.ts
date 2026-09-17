@@ -1,8 +1,12 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { createWorld, DEFAULT_CONFIG, step } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
 import { drawOtherHand } from "../src/other-hand.js";
-import { installCanvasGlobals, StubContext } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, StubContext } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE OTHER HAND: presence, not progress. A thumb resting on a colour is the

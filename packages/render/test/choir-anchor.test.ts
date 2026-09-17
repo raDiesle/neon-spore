@@ -1,11 +1,15 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { controlSet } from "@neon-spore/content";
 import { createWorld, DEFAULT_CONFIG, type SpawnEntry, step } from "@neon-spore/sim";
 import { anchorPoint } from "../src/caption-anchor.js";
 import { choirArrowCircle } from "../src/choir-arrows.js";
 import { handleCircle } from "../src/handles.js";
 import { computeLayout } from "../src/layout.js";
-import { installCanvasGlobals } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * WHERE A CAPTION ABOUT THE TWO ARROWS POINTS.

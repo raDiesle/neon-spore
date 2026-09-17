@@ -1,10 +1,14 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { clearBakedCaches } from "../src/baked.js";
 import { DeflectFx } from "../src/deflect.js";
 import { DEFLECT_LOOK } from "../src/deflect-look.js";
 import { drawRockBody } from "../src/meteor.js";
 import { PALETTE } from "../src/palette.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The bug this guards: a bounce drawn somewhere other than where the rock

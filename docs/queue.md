@@ -616,28 +616,6 @@ a remembered hit is drawn by kind alone and take the `color` argument off the
 call in `lost-screen.ts` with a sentence saying so. The first is the honest
 answer; the second is cheap and has to be argued, not assumed.
 
-## Four frame tests draw under bun's five-second default and go red at random
-
-- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-17, claude/queue-four-frame-tests-draw-under-buns-five-second-def
-- **Where:** local
-- **Files:** `packages/render/test/briefing.test.ts`, `packages/render/test/path-text.test.ts`, `packages/render/test/husk-look.test.ts`, `packages/render/test/pulse-frame.test.ts`, `packages/render/test/frame-harness.ts`
-
-`frame-harness.ts` exports `FRAME_TIMEOUT_MS` and says in its own header that
-**each file calls `setDefaultTimeout` for itself**, because bun applies the
-call to the file it is in and a module is evaluated once. These four draw
-frames and never make the call, so they run on bun's five seconds. Three
-consecutive `check:fast` runs on this machine failed three *different* tests
-across two of them — `briefing.test.ts:224` at 5000 ms, `path-text.test.ts:37`
-at 10861 ms — and every one of them passes in 14 s for both files run alone.
-That is a red check that says nothing about the diff, which is the failure the
-constant was introduced to end.
-
-Add `setDefaultTimeout(FRAME_TIMEOUT_MS)` to each of the four. Then make it
-hard to forget: a test that walks `packages/render/test/*.ts`, takes the files
-that import the harness or step a world into a canvas, and fails the ones with
-no call — the list above was found with a `grep` any test can run.
-
 ## Four drawn bosses still owe their rehearsal film
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff

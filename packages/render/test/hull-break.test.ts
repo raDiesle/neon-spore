@@ -1,11 +1,15 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { DEFAULT_CONFIG, type Scar } from "@neon-spore/sim";
 import { craters } from "../src/craters.js";
 import { drawHullBreaks } from "../src/hull-break.js";
 import { gape } from "../src/hull-break-gape.js";
 import { HULL_BREAK_LOOK, type HullBreakPaint } from "../src/hull-break-look.js";
 import { computeLayout } from "../src/layout.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The seam the ship's own damage is offered through.

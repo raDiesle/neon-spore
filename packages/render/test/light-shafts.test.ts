@@ -1,9 +1,13 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { KEY } from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { computeLayout } from "../src/layout.js";
 import { drawLightShafts } from "../src/light-shafts.js";
-import { installCanvasGlobals } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * `drawLightShafts` is the one call `backdrop.ts` adds for the owner's

@@ -1,9 +1,13 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { either, STRIKE_SECONDS } from "../src/breach-either.js";
 import { HAMMER_SECONDS } from "../src/breach-hammer.js";
 import { computeLayout } from "../src/layout.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **The two pictures a breach gets, and which hit gets which.**

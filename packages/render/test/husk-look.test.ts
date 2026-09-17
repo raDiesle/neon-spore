@@ -1,15 +1,20 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { castHuskFlight, HuskDeflates } from "../src/husk-deflate.js";
 import { drawHuskMarks, husks, showsHuskMark } from "../src/husk-mark.js";
 import { computeLayout } from "../src/layout.js";
 import {
   CFG,
+  FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   peakWorld,
   type ROLES,
   stubCanvas,
   VIEWPORT,
 } from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE HUSK's two pictures: the frame one seat sees round it, and the flight it

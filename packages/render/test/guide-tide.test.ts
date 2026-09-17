@@ -1,9 +1,13 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { badgeBox, band } from "../src/guide-tide.js";
 import { crest } from "../src/guide-tide-plate.js";
 import { computeLayout } from "../src/layout.js";
-import { installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The two things the owner asked TIDE for after he had taken it, 16 September

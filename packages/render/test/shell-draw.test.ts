@@ -1,4 +1,4 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import {
   createWorld,
   DEFAULT_CONFIG,
@@ -16,7 +16,11 @@ import { rgba } from "../src/hex.js";
 import { computeLayout } from "../src/layout.js";
 import { drawShellArmour, plateLightShift } from "../src/shell-draw.js";
 import { PLATE_RIM } from "../src/shell-plate.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The pass that draws the plating — see `shell-draw.ts`'s own doc for why it

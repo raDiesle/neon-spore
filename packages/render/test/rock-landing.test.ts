@@ -1,10 +1,14 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type Creature, DEFAULT_CONFIG, hullRow } from "@neon-spore/sim";
 import { computeLayout, tileCY } from "../src/layout.js";
 import { RockImpactFx } from "../src/rock-impact.js";
 import { rockLandingY } from "../src/rock-landing.js";
 import { rockRadius } from "../src/rock-size.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * The owner's report of 11 September 2026: *the meteor hits the ship and

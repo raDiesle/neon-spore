@@ -1,9 +1,13 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { INTRO_LINES, INTRO_TITLE } from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { drawIntroScene } from "../src/intro-scene.js";
 import { computeLayout } from "../src/layout.js";
-import { installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **THE WORDS ON THE FIRST SCREEN, MEASURED RATHER THAN JUDGED.**

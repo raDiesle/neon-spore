@@ -1,11 +1,15 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import type { MirrorStep } from "@neon-spore/sim";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { computeLayout, type ViewRole } from "../src/layout.js";
 import { P1_SKIN, P2_SKIN } from "../src/seat-skin.js";
 import { drawShowRow } from "../src/simon-row.js";
 import { VerdictFx } from "../src/simon-verdict.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE MIRROR's glyphs are the panel's own buttons, so they are the seat's own

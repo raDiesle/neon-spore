@@ -1,6 +1,7 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { FRAME_TIMEOUT_MS } from "./canvas-stub.js";
 
 /**
  * A `Path2D` drawn per frame is built from numbers, not from text.
@@ -22,6 +23,12 @@ import { join } from "node:path";
  */
 
 const SRC = join(import.meta.dir, "..", "src");
+// This one draws nothing and is slow for its own reason: it reads and scans
+// every source file in the package, and was seen at 10.9 s inside a full
+// check — over bun's five-second default, on a green diff. The same number
+// says the same thing here (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
+
 const TEXT_FORMS = /\b(openSmoothPath|blobPath|catmullRomToBezierPath)\s*\(/;
 
 /** The files allowed a text form, and why. */

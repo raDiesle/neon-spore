@@ -8180,3 +8180,20 @@ from the formatter the check runs, and re-deriving the rule is how the bug got
 here in the first place.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — creature-bite-collision — a test that draws states its own timeout
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `frame-harness.ts`'s own header, which had described this trap correctly for two years, and a count of who was actually covered |
+| writing | 25 | the constant moved to `canvas-stub.ts`, the side-effect call deleted, 53 files given the call by script, and the guard test |
+| looking | 0 | nothing visible moved |
+| friction | 5 | the queue entry said four files; the honest count was 52, because the first sweep looked for `runFrames` and the tell is the *stub* |
+| landing | 10 | `bun run index`, `check:fast`, the commit |
+
+The bottleneck was writing, and only because the fix is 53 files wide. The
+minute that mattered was the one spent widening the search: the entry named the
+four files that had been seen to fail, and the rule they broke was being broken
+by fifty-two.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*

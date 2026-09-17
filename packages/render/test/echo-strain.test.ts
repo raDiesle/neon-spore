@@ -1,7 +1,11 @@
-import { beforeAll, describe, expect, it } from "bun:test";
+import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { type Creature, DEFAULT_CONFIG, ECHO_AXES } from "@neon-spore/sim";
 import { drawEchoSeam, echoStretch } from "../src/echo.js";
-import { installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stub.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * THE ECHO's warning, which is the only thing separating it from an ordinary

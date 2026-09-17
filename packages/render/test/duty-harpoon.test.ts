@@ -1,4 +1,4 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import {
   createWorld,
   startWave,
@@ -8,7 +8,11 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { dutyWord } from "../src/duty.js";
-import { CFG } from "./frame-harness.js";
+import { CFG, FRAME_TIMEOUT_MS } from "./frame-harness.js";
+
+// The cap, applied per file because bun applies it to the file it is in
+// (`canvas-stub.ts`).
+setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
  * **MOVE CANNON! and MOVE SHIELD!**, the two words the owner asked for on 14
