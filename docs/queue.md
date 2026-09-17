@@ -243,6 +243,7 @@ round is drawn yet (`docs/spec/interludes.md`).
 ## THE SCOUT's arenas give three to five times the beats a flight takes
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
+- **Taken:** 2026-09-17, claude/queue-the-scouts-arenas-give-three-to-five-times-the-b
 - **Files:** `packages/content/src/scout-arenas.ts`, `docs/spec/interludes.md`
 - **Answered:** 17 September 2026 — bring them to 18 and 24. **18 is measured and 24 is not**; see below.
 
