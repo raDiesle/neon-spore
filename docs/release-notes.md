@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · c2e3d6e3 — A test that draws a frame states its own timeout
+
+`frame-harness.ts` exported the cap and also applied it, at the top of the module — and that call was never true of more than one file at a time. Bun applies `setDefaultTimeout` to the file the call is *in*, and a module is evaluated once, by whichever test imports it first, so every other file that drew frames was quietly running on bun's five-second default. The header said so in as many words and the code had said the opposite since it was written.
+
 ## 2026-09-17 · 1be9341a — Claim THE ORRERY's hand on the ring, and give the handle to the look
 
 A hit-test is a radius in pixels and the simulation is forbidden one, so the drag lane ships the rule and the wire and the look lane ships the circle the thumb lands on. Said in the row rather than found out twice.
