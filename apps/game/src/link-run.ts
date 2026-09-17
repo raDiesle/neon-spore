@@ -15,7 +15,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { CommandSource } from "./relay.js";
-import { tickMs } from "./tick-rate.js";
+import { ticksAhead } from "./tick-rate.js";
 
 /** Beats between fingerprint exchanges. Often enough to catch a split within a breath. */
 const HASH_EVERY_BEATS = 4;
@@ -117,7 +117,7 @@ export function createRun(o: RunOptions): Run {
       // stall the first bar of it before a frame could correct anything.
       lockstep = new Lockstep({
         player: player as PlayerId,
-        delayTicks: delay.ticksAt(tickMs(o.world)),
+        delayTicks: ticksAhead(delay, o.world),
         aheadLimitTicks: o.cfg.tickHz * AHEAD_LIMIT_SECONDS,
         send: o.send,
       });
@@ -140,9 +140,9 @@ export function createRun(o: RunOptions): Run {
       // **The tick count is recomputed every frame, not only when the link
       // moves.** What `InputDelay` holds is milliseconds, and how many ticks
       // that is changes the moment a boss opens one of THE SLOW's windows —
-      // with nothing about the link having changed at all (`tick-rate.ts`).
-      // The same question the loop asks to draw at the right rate.
-      lockstep?.setDelayTicks(delay.ticksAt(tickMs(o.world)));
+      // with nothing about the link having changed at all — and again for
+      // every tick the window has left to run (`tick-rate.ts`).
+      lockstep?.setDelayTicks(ticksAhead(delay, o.world));
     },
 
     pump(dtMs) {

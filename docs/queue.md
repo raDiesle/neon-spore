@@ -623,39 +623,3 @@ What to do once it is answered: take the bullet out, repoint or retire the two
 drafts and the scene, fix the `**Status:` draft count and the HUSK paragraphs in
 `docs/asset-catalogue.md`, and check `tools/director/src/backlog.ts` no longer
 shows it. `bun run check` proves all of it.
-
-## A delay that straddles the end of a slow window is short by two thirds
-
-- **Found:** 2026-09-17, claude/creature-bite-collision-f96307
-- **Taken:** 2026-09-17, claude/queue-a-delay-that-straddles-the-end-of-a-slow-window
-- **Where:** local
-- **Files:** `apps/game/src/link-run.ts`, `apps/game/src/tick-rate.ts`, `packages/net/src/delay.ts`
-
-The delay is milliseconds now and the tick count is asked for at the rate in
-force, which is right for every press whose whole wait is at one rate. It is
-not right for a press whose wait *crosses a boundary*. A thumb inside one of
-THE SLOW's windows is scheduled eight ticks ahead because a tick is worth 25 ms
-there; if the window closes two ticks later, the remaining six are worth 8⅓ ms
-each and the press is answered after about 70 ms rather than the 195 the link
-asked for. Under-delayed is the direction that costs the run: the peer's
-promise may not have arrived, and the pair gets a breath of `stalled` on the
-beat after the drama.
-
-How much: a window is `slowBeats` long, 120–240 ticks, against a tail of at
-most the delay itself — four ticks at the ordinary floor, eight on a bad link.
-So a few per cent of the presses made during a window that is itself rare. The
-other direction, a press made just before a window opens, is over-delayed and
-harmless.
-
-What to do: schedule against the *wall clock the ticks will actually take*
-rather than the rate at the instant of the press — walk forward from the head
-beat by beat, spending each tick at the rate its own beat is played at, until
-the milliseconds are used up. The boundaries are `world.slowFromBeat` and
-`world.slowToBeat`, both hashed, so both devices walk the same ladder; the walk
-belongs beside `tickMs` in `apps/game/src/tick-rate.ts`, because
-`packages/net` may not import `packages/sim`.
-
-The choice the work picks between: the exact walk above, or simply refusing to
-lower the tick count while a window is open — which over-delays inside the
-window and never under-delays, costs three lines, and is what a lane should
-take if the walk turns out to want the beat schedule.

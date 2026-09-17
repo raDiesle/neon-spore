@@ -7880,3 +7880,23 @@ different tick, and the row moved in both directions at once, which is the sort
 of thing a session will invent a wrong explanation for if it does not measure.
 
 *Measured: this lane's own estimate, off file modification times and the tools' durations.*
+
+## 2026-09-17 — creature-bite-collision — a wait is walked, not divided
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `beat-clock.ts`'s refusal to turn a label back into a position, and what that leaves derivable |
+| writing | 20 | `ticksAhead` and `ticksLeftSlow`, five cases and the property one |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 15 | `check:fast`, `relay:check:all`, the commit |
+
+The bottleneck was reading, and it was one sentence: **`world.beat` is a label,
+not a position.** The obvious walk — multiply the beats left by
+`ticksPerBeat` — is the exact arithmetic `beat-clock.ts` was written to refuse,
+because a wave's opening adds ticks with no beat under them and the label falls
+permanently behind. What saves it is that the *distance* between two labels is
+still whole beats, so the sum counts forward from the tick line instead and the
+label is only ever subtracted from itself.
+
+*Measured: this lane's own estimate, off file modification times and the tools' durations.*
