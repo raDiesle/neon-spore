@@ -443,7 +443,13 @@
         <button type="button" id="backlogClose">✕ CLOSE</button>
       </header>
       <div id="backlogTabs">
-        <button type="button" data-tab="mechanics" class="on">MECHANICS</button>
+        <!-- MECHANICS was the first tab here until 17 September 2026, when the
+             owner asked for the page to go. It held what is not implemented
+             yet of the rules the field plays by: one half-built system, and
+             the mechanic, control and weapon ideas out of ideas.md. All of it
+             is still in docs/spec/, word for word, and the SPEC room under
+             DOCUMENTATION reads those files whole — so nothing was lost, only
+             a second rendering of them. -->
         <!-- BOSSES was the first tab here until 16 September 2026, when the
              owner took it off: *its not relevant for me any longer*. That one
              held THE ACT ORDER — the bosses the game HAS, read off bosses.md —
@@ -454,7 +460,7 @@
              nobody has written, and the "what is not built" paragraph at the
              foot of every finished one. What is left of the rounds is still
              text in ideas.md; it is simply not drawn anywhere. -->
-        <button type="button" data-tab="bosses">BOSSES</button>
+        <button type="button" data-tab="bosses" class="on">BOSSES</button>
         <!-- BESTIARY was a tab here until 11 September 2026, when the owner
              took it off: every creature it listed is built, and the creature
              ideas read on the MECHANICS page now, each beside the contour drawn
@@ -590,31 +596,7 @@
             <div id="shapesBuild"></div>
           </div>
         </div>
-        <div class="sheetpage on" id="sheet-mechanics">
-          <p class="pagewhat">
-            Rules the field would play by, what would fall, and what a player's
-            own hands would do differently — one page, because a control is a
-            rule that happens to live in a hand and a creature is a rule that
-            falls. <strong>Only what is not implemented yet.</strong> The
-            systems group is a rule the field already half plays by, shown as
-            the part still missing; the three creatures are the bodies with
-            work written down for them, and the frame beside each holds the
-            shape drawn for it, the same shape that is on GRAPHICS. The
-            mechanic, control and weapon ideas below are whole — none of them
-            is built at all. The couplings, the assist forms and the other nine
-            creature ideas came off on 16 September 2026 and are read in
-            <code>docs/spec/</code>, where they are written.
-          </p>
-          <button type="button" class="expand" data-expand="#backlogMechanics">EXPAND ALL</button>
-          <!-- The contents menu: the headings this page draws, each one a jump
-               to it, read off the page when the menu opens so it cannot go
-               stale. `data-contents` names the element to read; the button and
-               the list inside are built by `tabs.ts`. Any page past a screen or
-               two gets one by typing this line. -->
-          <nav class="contents" data-contents="backlogMechanics"></nav>
-          <div id="backlogMechanics" class="columns reading"></div>
-        </div>
-        <div class="sheetpage" id="sheet-bosses">
+        <div class="sheetpage on" id="sheet-bosses">
           <p class="pagewhat">
             What is left to do on a boss. <strong>Not the act order</strong> —
             that is the page this one replaced, and it listed the bosses the

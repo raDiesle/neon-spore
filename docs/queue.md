@@ -386,3 +386,25 @@ flash of the fight only**, the one that shows the pair the field is still
 there, and none after; or **leave it at tempo** and take the design's
 paragraph out of §14 as argued. Any of the first two is a config field, a
 line in the step, a receipt, and `bun run check`.
+
+## A ledger claim naming the file it will write turns the trunk red
+
+- **Found:** 2026-09-17, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `tools/test/doc-drift.test.ts`, `docs/spec/bosses-choreographed.md`
+
+`e2c4b2c7` — a *take* commit, adding one clause to THE TASTER's ledger row —
+left `main` red on `doc-drift.test.ts`, because the clause named the scene file
+the claiming lane had not written yet in backticks. `docs/queue.md`'s own
+preamble already states the rule that would have prevented it (*a file an entry
+proposes to create is described in the body, unbackticked*), and it is stated
+there only about queue entries; the boss ledger is the other place a session
+routinely writes down work it is about to do, and nothing told it.
+
+Two things to do. Say the rule where the ledger is written — the table's own
+preamble in `bosses-choreographed.md` — in one sentence. And make the failure
+teach it: `doc-drift.test.ts`'s message is a bare `doc → path` list, so a
+session meeting it learns that a path is missing and not that a claim is
+supposed to be written unbacktickedly. One extra line under the drift list,
+naming the convention, is the whole fix.
+
+The row itself was repaired in this lane's commit to get the trunk green again.

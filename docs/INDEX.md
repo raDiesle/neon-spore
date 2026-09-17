@@ -1652,7 +1652,6 @@ place — the generator keeps whatever is there.
 | `tools/director/server.ts` | The director's server |
 | `tools/director/shapes-page.ts` | Build the shape catalogue into one self-contained page |
 | `tools/director/shapes-still.ts` | Draw a skin without starting anything |
-| `tools/director/src/backlog-ideas.ts` | The "accepted in principle, not worked out" half of the backlog — split out of `backlog.ts` on line count |
 | `tools/director/src/backlog-tabs.ts` | The tabs of the NOT BUILT YET sheet that are drawn on first sight rather than on first open |
 | `tools/director/src/backlog-entry.ts` | One card on the NOT BUILT YET page: the name, its frame, the plain-English rows |
 | `tools/director/src/backlog-bosses.ts` | The BOSSES page of the NOT BUILT YET sheet: what is left to do on a boss |

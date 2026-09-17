@@ -29,7 +29,7 @@ import { mountVersusTab } from "./versus-tab.js";
  */
 export function mountLazyTabs(): void {
   // It has to be mounted before `bindTabs` runs, so a click on it is wired
-  // exactly the way a click on MECHANICS or GRAPHICS is.
+  // exactly the way a click on BOSSES or GRAPHICS is.
   mountVersusTab();
   bindTabs("#backlogTabs", "sheetpage", "sheet-");
 

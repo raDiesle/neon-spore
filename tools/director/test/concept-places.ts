@@ -16,6 +16,16 @@
  * keep their own cases: this does not replace a single one of them, it only
  * arrives first and says everything.
  *
+ * **It was five places until 17 September 2026**, and the fifth was *the
+ * director's NOT BUILT YET page*: the MECHANICS tab kept a hand-written
+ * shortlist of names (`KEPT_SYSTEMS`) and a set of `###` headings it looked
+ * for, so a concept renamed in `ideas.md` emptied a column there silently.
+ * The owner took that page off, and the sheet's one remaining page derives
+ * every entry from a `##` heading it has just read — there is no hand-kept
+ * copy of a name left on it to drift. The row went with the page it was
+ * about; the count below moved with it, deliberately and in this sentence,
+ * because a place deleted quietly is the failure this list exists to end.
+ *
  * **Pure, over a record of what the tree holds.** The reading is the test
  * file's job, so a place can be exercised with one row missing without a spec
  * file being edited to make it happen — which is the only way to prove that
@@ -36,8 +46,6 @@ export interface Tree {
   readonly drafts: number;
   /** The number the `**Status:` line of `docs/asset-catalogue.md` says, or null. */
   readonly draftsSaid: number | null;
-  /** Every name the director's NOT BUILT YET page shows. */
-  readonly backlogNames: readonly string[];
 }
 
 /** One place, and what it is for — the `where` is what a lane goes and edits. */
@@ -84,14 +92,6 @@ export const PLACES: readonly Place[] = [
       if (t.draftsSaid === t.drafts) return [];
       return [`it says ${t.draftsSaid} drafts and the catalogue holds ${t.drafts}`];
     },
-  },
-  {
-    where: "the director's NOT BUILT YET page",
-    missing: (t) =>
-      unknown(t, t.backlogNames).map(
-        (n) =>
-          `the page shows "${n}" and the spec names nothing like it — a rename emptied a column`,
-      ),
   },
 ];
 

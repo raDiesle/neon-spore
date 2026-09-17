@@ -1,11 +1,10 @@
 import { describe, expect, test } from "bun:test";
 import { CATALOGUE, SCENES } from "@neon-spore/shape-sheet";
-import { buildBacklog } from "../src/backlog.js";
 import { missingPlaces, PLACES, type Tree } from "./concept-places.js";
 import { specNames } from "./spec-names.js";
 
 /**
- * The five places one new concept has to reach, met in one run.
+ * The four places one new concept has to reach, met in one run.
  *
  * `concept-places.ts` has the argument. The short of it: each of these was
  * already checked, correctly, in a file of its own, and a lane adding a
@@ -70,12 +69,6 @@ function wordsToNumber(words: string): number | null {
 }
 
 async function realTree(): Promise<Tree> {
-  const backlog = buildBacklog(
-    await read("docs/spec/systems.md"),
-    await read("docs/spec/ideas.md"),
-    await read("docs/spec/bosses.md"),
-    await read("docs/spec/bosses-choreographed.md"),
-  );
   const page = await read("docs/asset-catalogue.md");
   const said = /\*\*Status:\s+([a-z-]+)\s+drafts/.exec(page);
   const drafts = CATALOGUE.filter((e) => e.status === "draft");
@@ -86,7 +79,6 @@ async function realTree(): Promise<Tree> {
     draftsOfferedToNothing: drafts.filter((e) => !e.suggests).map((e) => e.subject.name),
     drafts: drafts.length,
     draftsSaid: said === null ? null : wordsToNumber(said[1] ?? ""),
-    backlogNames: backlog.mechanics.flatMap((g) => g.entries.map((e) => e.name)),
   };
 }
 
@@ -95,7 +87,7 @@ describe("every place one concept has to reach", () => {
     expect(missingPlaces(await realTree())).toEqual([]);
   });
 
-  test("is five, and a place added here is a place a lane is told about", () => {
+  test("is four, and a place added here is a place a lane is told about", () => {
     // The count is the guard: a check that becomes a fifth copy of one fact
     // belongs on this list, and one deleted from it silently is the failure
     // the list exists to end.
@@ -104,32 +96,30 @@ describe("every place one concept has to reach", () => {
       "docs/spec/ideas.md or docs/spec/bosses.md, for the scenes",
       "tools/shape-sheet/src/drafts/",
       "docs/asset-catalogue.md, the **Status:** line",
-      "the director's NOT BUILT YET page",
     ]);
   });
 });
 
 /**
  * The fixture, and it is the case the whole lane is about: a concept that
- * reached **one** of the five. The old arrangement answered with the first
- * place it happened to run; this has to answer with the other four.
+ * reached **one** of the four. The old arrangement answered with the first
+ * place it happened to run; this has to answer with the other three.
  */
 describe("a concept that reached one place and not the rest", () => {
   const halfDone: Tree = {
-    // The spec never learned the name, so both joins and the page fail on it.
+    // The spec never learned the name, so both joins fail on it.
     specNames: new Set(["husk"]),
     draftSuggests: ["Fathom"],
     sceneSuggests: ["Fathom"],
     draftsOfferedToNothing: ["FATHOM 2"],
     drafts: 26,
     draftsSaid: 25,
-    backlogNames: ["Husk", "Fathom"],
   };
 
   test("names every place it is missing from, in one message", () => {
     const missing = missingPlaces(halfDone);
-    expect(missing).toHaveLength(5);
-    // On the whole prefix including the dash: two of the five name the same
+    expect(missing).toHaveLength(4);
+    // On the whole prefix including the dash: two of the four name the same
     // pair of spec files, and one of them is the other's prefix.
     for (const where of PLACES.map((p) => p.where)) {
       expect(missing.filter((line) => line.startsWith(`${where} — `))).toHaveLength(1);
@@ -142,7 +132,6 @@ describe("a concept that reached one place and not the rest", () => {
     expect(missing[1]).toContain("a scene is a picture");
     expect(missing[2]).toContain("FATHOM 2");
     expect(missing[3]).toContain("says 25 drafts and the catalogue holds 26");
-    expect(missing[4]).toContain("emptied a column");
   });
 
   test("says a name once however many shapes claim it", () => {
@@ -158,7 +147,6 @@ describe("a concept that reached one place and not the rest", () => {
       draftsOfferedToNothing: [],
       drafts: 26,
       draftsSaid: 26,
-      backlogNames: ["Husk", "Fathom"],
     };
     expect(missingPlaces(done)).toEqual([]);
   });

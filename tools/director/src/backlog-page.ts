@@ -7,10 +7,11 @@
  * what the next wave is for, and a 300 px column is the wrong shape for a
  * paragraph. The stage keeps running behind it.
  *
- * Grouped by what a thing would become — creatures, shapes, mechanics — not
- * by which spec file it was written in. `backlog.ts` does that grouping on
- * the server, out of the spec's own headings. BOSSES was the first of those
- * pages until 16 September 2026, when the owner took the tab off.
+ * Grouped by what a thing would become, not by which spec file it was written
+ * in. `backlog.ts` does that grouping on the server, out of the spec's own
+ * headings. BOSSES was the first of those pages until 16 September 2026, when
+ * the owner took the tab off; it came back on 17 September 2026 and is now the
+ * only one of them, MECHANICS having gone the same day.
  */
 
 import { type BacklogEntry, renderEntry } from "./backlog-entry.js";
@@ -30,7 +31,6 @@ interface BacklogGroup {
 }
 
 interface Backlog {
-  mechanics: BacklogGroup[];
   bosses: BacklogGroup[];
 }
 
@@ -92,7 +92,6 @@ async function load(): Promise<void> {
   if (!res.ok) throw new Error(res.statusText);
   const backlog = (await res.json()) as Backlog;
 
-  fill("backlogMechanics", backlog.mechanics);
   fill("backlogBosses", backlog.bosses);
   loaded = true;
 }
@@ -127,7 +126,7 @@ export function bindBacklog(): void {
 
   function onceOpen(): void {
     load().catch(() => {
-      const failed = document.getElementById("backlogMechanics");
+      const failed = document.getElementById("backlogBosses");
       if (!failed) return;
       failed.replaceChildren();
       const msg = document.createElement("p");

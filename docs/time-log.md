@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-17 — boss-hints — MECHANICS off NOT BUILT YET
+
+The owner asked for the page to go. It was a second rendering of `systems.md`
+and `ideas.md`, both of which the SPEC room already reads whole, and taking it
+off took three parsers, one API read, four tests and the fifth of the five
+places a new concept has to reach — that place existed because the page kept a
+hand-written shortlist, and the boss page derives every entry from a heading it
+has just read.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `backlog.ts` and its four callers, `concept-places.ts`'s argument for the five, the tab wiring in `backlog-tabs.ts` |
+| writing | 10 | the page's removal, the idea group deleted, `buildBacklog` down to two arguments, the four tests |
+| looking | 5 | the sheet opened on BOSSES in the browser pane, one frame |
+| friction | 10 | the trunk was already red — `e2c4b2c7` named a scene file no lane has written — repaired here and queued |
+| landing | 5 | `check:fast`, `bun run index`, the commit, `bun run land --keep` |
+
+The bottleneck was inherited rather than earned: `bun run check:fast` failed on
+somebody else's ledger row before it said anything about this lane's diff, and
+the first reading of that failure was spent proving it was not mine.
+
 ## 2026-09-17 — boss-implementation — THE CURTAIN, the rehearsal
 
 The third boss film written after its look, and the first whose every act is

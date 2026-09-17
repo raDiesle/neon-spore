@@ -49,6 +49,8 @@ describe("the backlog sheet", () => {
    * room under the other room's name. It was worth adding on 16 September
    * 2026, when the owner took BOSSES off and the lead passed to MECHANICS —
    * two edits in two places, and this sheet had no test holding them together.
+   * It earned its keep on 17 September 2026, when MECHANICS went and the lead
+   * passed back.
    */
   it("starts on the same page its bar says it is on", () => {
     const bar = html.indexOf('id="backlogTabs"');
@@ -60,9 +62,9 @@ describe("the backlog sheet", () => {
   it("gives every filled group a container to be filled into", () => {
     const ids = matches(pageSource, /\bfill\("([^"]+)"/g);
 
-    // `backlogMechanics` and not `backlogBosses`: the BOSSES page went on
-    // 16 September 2026 and MECHANICS is the sheet's only filled page now.
-    expect(ids).toContain("backlogMechanics");
+    // `backlogBosses` and not `backlogMechanics`: the MECHANICS page went on
+    // 17 September 2026 and BOSSES is the sheet's only filled page now.
+    expect(ids).toContain("backlogBosses");
     for (const id of ids) expect(html).toContain(`id="${id}"`);
   });
 });
