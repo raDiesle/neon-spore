@@ -54,10 +54,6 @@ const STILL_PROSE = [
   // wave's whole content is that one of those two screens is a mirror, which
   // a film has to show by turning and then by being believed.
   "THE FLIP",
-  // And THE BATON, owed by the lane that draws the arm. Its film is a bead in
-  // the air and a panel going grey under a thumb that must not land — the same
-  // "not touching" THE STARE's needs, with the arm drawn to give it a reason.
-  "THE BATON",
   // And THE THROAT, owed by the lane that draws the gullet. A film of it would
   // have to show a mouth sliding along a row and a bar filling under it, and
   // neither is drawn yet; until they are there is nothing to choreograph.
@@ -65,7 +61,7 @@ const STILL_PROSE = [
   // And THE HUSK, owed by the lane that films it. A rehearsal is a thumb
   // landing on a named control, and half of this wave's answer is a thumb that
   // must **not** land — the maw left shut while a pod arrives, which is THE
-  // STARE's and THE BATON's problem a third time — with the other half being a
+  // STARE's problem a second time — with the other half being a
   // mark drawn on one seat's screen and not the other's, so the film has to be
   // shot twice and read as one lesson.
   "THE HUSK",

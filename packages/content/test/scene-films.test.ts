@@ -255,3 +255,32 @@ describe("the rehearsal for THE DIASTOLE", () => {
     expect(phases).toEqual(["one 3/3", "one 2/3", "one 1/3", "two 1/3", "two 0/2", "alone 0/2"]);
   });
 });
+
+describe("the rehearsal for THE BATON", () => {
+  it("launches once unanswered, then passes the bead three sockets down", () => {
+    const wave = WAVES.findIndex((w) => w.guide?.scene === "theBaton");
+    const run = new SceneRun(sceneScript("theBaton", wave, DEFAULT_CONFIG));
+    const seen: string[] = [];
+    for (let t = 0; t < SCENES.theBaton.ticks - 1; t++) {
+      run.advance([]);
+      for (const e of run.world.events) {
+        if (e.type === "batonLaunch" || e.type === "batonRelit" || e.type === "batonLanded") {
+          seen.push(`${e.type} ${e.socket}`);
+        }
+      }
+    }
+    // The first launch comes back to the socket it left; the three after it
+    // each land one lower, and the film ends with the last still in the air.
+    expect(seen).toEqual([
+      "batonLaunch 0",
+      "batonRelit 0",
+      "batonLaunch 0",
+      "batonLanded 1",
+      "batonLaunch 1",
+      "batonLanded 2",
+      "batonLaunch 2",
+    ]);
+    const boss = run.world.boss;
+    expect(boss?.kind === "baton" && boss.struck).toBe(true);
+  });
+});

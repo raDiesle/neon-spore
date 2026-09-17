@@ -7,6 +7,7 @@ import { PINBALL } from "./scenes/pinball.js";
 import { SALVAGE } from "./scenes/salvage.js";
 import { SNAKE } from "./scenes/snake.js";
 import { THE_BALLOON } from "./scenes/the-balloon.js";
+import { THE_BATON } from "./scenes/the-baton.js";
 import { THE_BEATBOX } from "./scenes/the-beatbox.js";
 import { THE_CAIRN } from "./scenes/the-cairn.js";
 import { THE_CAROM } from "./scenes/the-carom.js";
@@ -143,7 +144,8 @@ export type SceneId =
   | "theSplice"
   | "theMoult"
   | "theMine"
-  | "theDiastole";
+  | "theDiastole"
+  | "theBaton";
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -207,6 +209,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theMoult: THE_MOULT,
   theMine: THE_MINE,
   theDiastole: THE_DIASTOLE,
+  theBaton: THE_BATON,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

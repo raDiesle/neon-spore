@@ -300,19 +300,19 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are sixty-one of them now**, one per guided wave bar twenty, and each
-is authored in `packages/content/src/scenes/` as a page of choreography rather
-than a page of prose. The twenty that are still the three strings and the two
-circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE CODEX, THE
-SCOUT, THE REPRISE, THE STARE, THE FLIP, THE BATON, THE THROAT, THE HUSK, THE
+**There are sixty-two of them now**, one per guided wave bar nineteen, and
+each is authored in `packages/content/src/scenes/` as a page of choreography
+rather than a page of prose. The nineteen that are still the three strings and
+the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE CODEX,
+THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE THROAT, THE HUSK, THE
 UNDERTOW, THE ORRERY, THE CANDLE, THE GORGE, THE CURTAIN, THE TASTER, THE
 SINEW and THE LEDGER** — and that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those twenty-one is a film nobody has written, and THE SCOUT's, THE
-REPRISE's, THE STARE's, THE FLIP's, THE DIASTOLE's, THE BATON's, THE THROAT's,
+**Every one of those nineteen is a film nobody has written, and THE SCOUT's, THE
+REPRISE's, THE STARE's, THE FLIP's, THE THROAT's,
 THE HUSK's, THE UNDERTOW's, THE ORRERY's, THE CANDLE's, THE GORGE's, THE
 CURTAIN's, THE TASTER's, THE SINEW's and THE LEDGER's are owed by the lanes that
 draw them.**

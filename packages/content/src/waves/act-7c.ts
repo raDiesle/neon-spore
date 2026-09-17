@@ -191,6 +191,7 @@ export const WAVES_ACT_7C: Wave[] = [
       both: "An arm hangs from the top of the middle lane, eleven sockets long, with one bright bead in the topmost. The bead is safe in a socket and can only be hurt in the air between two. He launches it with the trigger; she shoots it while it flies; it lands a socket lower and the one it left goes dark. Whoever acts is locked out of their own phone for the next beat, so it can only be passed by taking turns. A launched bead nobody hits lands back where it was. A bead left sitting too long settles, and a settled bead goes back to the top.",
       p1: "The trigger is yours alone: press it, and your phone greys for a beat while she shoots. Say the colour — it flips on every landing. Once four sockets are dark the arm swings, so be under the bead before you press.",
       p2: "The shot is yours: the bead's colour, up the bead's lane, while it flies and not before. After every shot your phone greys for a beat. Say the colour back as it lands. Dark sockets drop as rocks: the plate is yours.",
+      scene: "theBaton",
     },
     entries: [
       { beat: 14, col: 0, color: "red" },

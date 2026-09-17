@@ -9071,3 +9071,19 @@ in column 4 and nothing an author can write maps there, which turned a film
 into a small aiming feature before the first act could be timed.
 
 *Measured: this lane's own estimate, off the session's own timestamps.*
+
+## 2026-09-17 — queue-four-drawn-bosses-still-owe-their-rehearsal-film — THE BATON's rehearsal film
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | §11.18, `baton.ts`, `baton-press.ts`, `baton-step.ts`, the wave's guide, the tutorial skill's page rules |
+| deciding | 10 | a page cannot split a launch from its shot — 50 ticks apart, pages three beats long, a bead shaken back after two — so each handover is one page, and the first launch goes unanswered to earn *it lands back* a page of its own |
+| writing | 5 | the film, its test, the wiring, the prose list and count |
+| friction | 5 | `bun run format` leaves the import order to `biome check --write`, again |
+| landing | 5 | `check:fast`, `bun run index`, this entry, the commit, `bun run land` |
+
+The bottleneck was the page arithmetic: three-beat pages, a three-beat flight
+and a two-beat sit leave no place for a settle to be captioned after a
+handover, so the film shows the settle nowhere and says the rule in the guide.
+
+*Measured: this lane's own estimate, off the session's own timestamps.*
