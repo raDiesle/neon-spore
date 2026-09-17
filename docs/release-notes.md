@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 43b216f4 — The fuse count comes off the siren's dial
+
+The blind seat's mine count stood at `gridTop + r * 1.3` — a row measured off the top of the field rather than asked for from the stack every other thing at the top of the screen is in. On a phone the field is limited by its width and begins 150 pixels down, so the two never met. On any screen limited by its height instead — a laptop window under about 730 tall, a rehearsal's pane — `gridTop` is the radar's own 34 and the ring of pips landed at 53, with the siren's dial at 39 and a radius of 15. A mine is a `TALKER` kind, so that dial is lit for as long as one stands: the pips read as a dashed rim around its red disc and the count — the one thing the blind seat has to read the clock off — was not a thing on the screen.
+
 ## 2026-09-17 · eb67a276 — THE CANDLE's dark: the field black under a glow of five steps, and the pair's own weapons as the only light in it
 
 The second half of the third boss. One pass between the bodies and the ship (`render/candle-dark.ts`) lays black over the field from the beat the boss arrives, with holes where a light stands: a shot's flash three columns wide for a beat on player 2's screen, the guard window and the beam on player 1's, a breach two columns either way on both. The after-image is a per-column light rather than a kept frame (`after-image.ts`) — there is no offscreen field to keep, and bodies go on falling under a still picture — and it shortens as the glow dims. The glow is two halos and a flame at one of five integer reaches (`candle-glow.ts`), with a cone to the column it faces on player 1's screen only. Once out, the frame is black for the two beats the boss stays; when the sim takes it away the black lifts over a beat.
