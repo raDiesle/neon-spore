@@ -1630,6 +1630,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/backlog-ideas.ts` | The "accepted in principle, not worked out" half of the backlog — split out of `backlog.ts` on line count |
 | `tools/director/src/backlog-tabs.ts` | The tabs of the NOT BUILT YET sheet that are drawn on first sight rather than on first open |
 | `tools/director/src/backlog-entry.ts` | One card on the NOT BUILT YET page: the name, its frame, the plain-English rows |
+| `tools/director/src/backlog-bosses.ts` | The BOSSES page of the NOT BUILT YET sheet: what is left to do on a boss |
 | `tools/director/src/boss-cycles.ts` | The two boss panels that are mostly a cycle, and the chrome all of them share |
 | `tools/director/src/boss-nothing.ts` | **The bosses with nothing on this panel to author**, and the reason for each |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |

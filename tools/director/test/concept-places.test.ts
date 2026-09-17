@@ -73,6 +73,8 @@ async function realTree(): Promise<Tree> {
   const backlog = buildBacklog(
     await read("docs/spec/systems.md"),
     await read("docs/spec/ideas.md"),
+    await read("docs/spec/bosses.md"),
+    await read("docs/spec/bosses-choreographed.md"),
   );
   const page = await read("docs/asset-catalogue.md");
   const said = /\*\*Status:\s+([a-z-]+)\s+drafts/.exec(page);

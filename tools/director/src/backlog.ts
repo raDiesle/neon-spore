@@ -13,6 +13,7 @@
  * heading in `docs/spec/ideas.md`, so moving one is an edit to the spec.
  */
 
+import { fromBosses } from "./backlog-bosses.js";
 import { fromIdeas } from "./backlog-ideas.js";
 import { type Concept, type Idea, parseConcepts } from "./concepts.js";
 import type { PlainRow } from "./plain-words.js";
@@ -56,13 +57,18 @@ export interface Backlog {
   /** Rules the field plays by, what would fall, and what a player's hands
    * would do — one page. */
   mechanics: BacklogGroup[];
-  // BOSSES was a page until 16 September 2026, when the owner took the tab
-  // off: *its not relevant for me any longer*. It held THE ACT ORDER — the
-  // built bosses read straight off `bosses.md` — and the boss and round
-  // ideas, and the boss ideas had gone the day before with THE SPLICE. The
-  // roster is still parsed, by the two tests that hold a drawn shape to the
-  // name it was drawn at (`concept-art.test.ts`, `scenes.test.ts`); nothing
-  // draws it. The `### Rounds` ideas stay in `ideas.md` as text.
+  /**
+   * What is left to do on a boss — `backlog-bosses.ts`.
+   *
+   * A page of this name came off the sheet on 16 September 2026, and it held
+   * the opposite of this one: THE ACT ORDER, which is the bosses the game
+   * *has*, plus a group of boss ideas that had gone the day before with THE
+   * SPLICE. Both spec pages were reordered by state on 17 September 2026 and
+   * the owner asked for a page reading them, so what this draws is a boss
+   * half-built and the *What is not built* paragraph at the foot of every
+   * finished one. The `### Rounds` ideas stay in `ideas.md` as text.
+   */
+  bosses: BacklogGroup[];
   // DESIGNS was a third page until 12 September 2026: `docs/versus.md`,
   // `teaching.md` and `alive.md` read section by section as backlog. The
   // owner took it off — VERSUS is built and its file is a manual now, THE
@@ -196,10 +202,16 @@ function fromConcepts(
   return { title, note, builtHidden: 0, entries };
 }
 
-export function buildBacklog(systems: string, ideas: string): Backlog {
+export function buildBacklog(
+  systems: string,
+  ideas: string,
+  bosses: string,
+  choreo: string,
+): Backlog {
   const sheet = parseConcepts(systems, ideas);
 
   return {
+    bosses: fromBosses(bosses, choreo),
     // The controls used to be a tab of their own, holding two idea groups. A
     // control is a rule the field plays by that happens to live in a hand, and
     // two groups is not a page — so they read on down this one. The creature

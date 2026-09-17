@@ -24,16 +24,20 @@ export async function backlogState(): Promise<Response> {
   // no group here asks git anything — every one of them is a read of a file
   // this module can find on its own.
   const base = new URL(import.meta.url);
-  // Two spec files, not six. `bestiary.md` and `bosses.md` were read for the
-  // roster the BOSSES tab drew, and that tab went on 16 September 2026;
-  // `couplings.md` and `assists.md` went the same day, when the owner cut the
-  // MECHANICS page down to what is not implemented yet and every section of
-  // both turned out to be built or half built.
-  const [systems, ideas] = await Promise.all([
+  // Four spec files. `couplings.md` and `assists.md` went on 16 September
+  // 2026, when the owner cut the MECHANICS page down to what is not
+  // implemented yet and every section of both turned out to be built or half
+  // built; `bestiary.md` went with the roster the old BOSSES tab drew. The two
+  // boss pages came back on 17 September 2026 for the opposite reason: the
+  // owner asked for a page of what is *left* on a boss, and both files were
+  // reordered by state that day so they can be read for it.
+  const [systems, ideas, bosses, choreo] = await Promise.all([
     Bun.file(specFile(base, "systems.md")).text(),
     Bun.file(specFile(base, "ideas.md")).text(),
+    Bun.file(specFile(base, "bosses.md")).text(),
+    Bun.file(specFile(base, "bosses-choreographed.md")).text(),
   ]);
 
-  const backlog = buildBacklog(systems, ideas);
+  const backlog = buildBacklog(systems, ideas, bosses, choreo);
   return Response.json(backlog, { headers: noCache });
 }

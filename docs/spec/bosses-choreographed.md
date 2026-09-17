@@ -1959,7 +1959,7 @@ above cannot exist without.
 | **`BossSequenceStep`** — **build first** | One beat of an authored scene: which seat, which gesture, which target, the window in beats, the landed branch, the missed branch, and the next index. Data in `packages/content`, read by index in `sim/`, with the cursor a hashed field the way `spawned` is (`decisions.md` #23) | `scene-script.ts` and `scene-step-types.ts` already do this for a guide's pages; `pulse-steps.ts` and `pulse-stages.ts` do it for a round | all fifteen |
 | **`SequentialAction`** | A step that may not be entered until the previous one landed. Falls out of the above for free | `simon.ts`'s step cursor | all fifteen |
 | **`SimultaneousAction`** | Two commands inside one window from two seats. The window, not the tick, is the unit — a shared *instant* is what [latency](latency.md) forbids | SYNC in `balance.ts`; THE BALLOON's two handles | 6, 8, 9, 10 |
-| **`Alternation`** | A step list that requires the acting seat to change, and refuses a repeat | nothing | 10 |
+| **`Alternation`** | A step list that requires the acting seat to change, and refuses a repeat | `baton.ts` — THE BATON is whose turn it is, and the refusal is the fight | 10, built |
 | **`TurnLock`** | A seat forbidden from sending commands for N beats, drawn as a grey panel | THE WARDEN's clamp, THE MALFUNCTION; `guard-lapse.ts` and `malfunction-look.ts` draw it | 10 |
 | **`RestraintGate`** | A step passed by sending *no* command for N beats. The input layer has never had to express an absence | nothing — `world.prime` is the closest thing, and it is a presence | 3 |
 
@@ -1997,8 +1997,8 @@ documentation guarantee in the repository and the reason this table is short.
 |---|---|---|---|
 | **`PerSeatTruth`** | The same body drawn true on one screen and armoured, still or upright on the other, with a test that holds **both** halves shut | the Queen's two marks, and `queen-split.test.ts` is the test to copy | 2, 7, 8, 11, 12, 15 — the most-wanted primitive on the page |
 | **`SplitTerms`** | Two facts, one per seat, that must be combined **arithmetically** rather than just reported. THE VESSEL (11.2) asked for this and never got it | `radarOwner`, `showsRadar` | 11, 12, 15 |
-| **`SplitGauge`** | A quantity whose value is on one screen and whose target is on the other | nothing | 8, 9 |
-| **`DescribedTarget`** | One seat shown a shape, the other shown candidates, and no channel but the voice. This **is** [announcing](couplings.md#3-announcing--partly-built), the third coupling, still unbuilt | nothing | 12 |
+| **`SplitGauge`** | A quantity whose value is on one screen and whose target is on the other | `sinew.ts`, the strain band: the pilot has the zone, the navigator the sum, and neither the other's. `surge-seam.ts` does it again at the other verb | 8, 9, both built |
+| **`DescribedTarget`** | One seat shown a shape, the other shown candidates, and no channel but the voice. This **is** [announcing](couplings.md#3-announcing--partly-built), the third coupling | `antiphon-rail.ts` — THE ANTIPHON spends it, and it is the one boss built for a coupling rather than for a question | 12, built |
 | **`PerSeatLight`** / **`Darkness`** | A field-wide light budget where flashes are the only sources, and the same world lit differently on two phones | `key-light.ts`, `corner-light.ts`, `unseen.ts` | 14 |
 
 ### Consequence
@@ -2007,8 +2007,8 @@ documentation guarantee in the repository and the reason this table is short.
 |---|---|---|---|
 | **`StepBack`** — **build first** | A missed step that returns the scene to the previous index rather than losing the wave. The brief's clearest ask — *"FAILURE should usually NOT immediately mean YOU LOSE"* — and the thing the game most conspicuously lacks: `wave-fail.ts` loses the whole wave on a hull hit, and THE MIRROR's own design says a wrong step *"is the wave lost… the whole wave is played again from the top"* | nothing. This is real new machinery and it is what separates a scene from a fight | all fifteen |
 | **`Breach`** | A hull column that is open, widening and answerable — a place, not just a scar | `hull-damage.ts`, `scars.ts`, `hull-break.ts` | 13, and THE HIVE (11.14) |
-| **`SpendLedger`** | A rolling per-colour count of the pair's own commands, hashed | nothing — and **THE TASTER is what it was built for** — the ledger *fixed and learnable* allows a boss to read | 4 |
-| **`SpentBody`** | A boss whose arrivals come out of its own health, so its life and the pair's time are one number | nothing | 15 |
+| **`SpendLedger`** | A rolling per-colour count of the pair's own commands, hashed | `spend.ts`, a field of `World` rather than of THE TASTER, which is the boss it was built for: the ledger *fixed and learnable* allows any boss to read | 4, built |
+| **`SpentBody`** | A boss whose arrivals come out of its own health, so its life and the pair's time are one number | `scuttle-step.ts` — every body THE SCUTTLE throws is a part off its own frame | 15, built |
 | **`Occluder`** | A body that changes how the bodies behind it are drawn. `render/` has no z-concept for "dimmer, behind a membrane" | `veil-look.ts` comes closest and does not occlude | 6 |
 | **`InvertedWeakPoint`** | A body vulnerable to the colour it is **not** | `colour-armour.ts` says which colour hurts a body; this says which does not | 4 |
 

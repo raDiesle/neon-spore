@@ -9834,3 +9834,30 @@ written — the three strays were in `boss-surface-clocks*.ts` rather than
 went to mapping the real one before anything could be deleted safely.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-17 — director-bosses-page — the director gets a BOSSES page
+
+The third of the three things asked for, and the only one with code in it. The
+two spec pages were reordered by state in the two lanes before this; this one
+reads that order. `sections.ts` learned what plain `##` heading a numbered
+section stands under, so nothing here classifies a boss — a look that lands
+moves one by being moved in the spec, which is the rule `ideas.md`'s `###`
+groups already followed. Three groups: the one boss whose simulation landed and
+whose look is not written, the *What is not built* paragraph at the foot of
+eleven finished bosses, and the library rows on the choreographed page with no
+shipped ancestor. The parked entry asked for *choreographed, not taken* as the
+middle group; there are no such rows, and the primitives are what that file
+actually still owes.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `backlog.ts`'s group shape, `backlog-page.ts`'s `fill`, `backlog-entry.ts`'s reading mode, the ledger and library tables |
+| writing | 20 | `backlog-bosses.ts`, the `group` field on `Section`, the sheet page and its jump menu, two tests, five corrected library rows |
+| looking | 10 | the page in a browser, then `bun run shot` for the owner's PNG |
+| friction | 10 | the library table called five primitives unbuilt that had shipped, so the group showed eight stale rows; a reading group prints the whole section under the note, so a lead lifted off the top of the body was that paragraph twice |
+| landing | 10 | `bun run index`, `check:fast`, the commit, `land --keep` |
+
+The bottleneck was that the honest "not built" content on these pages is not
+where a backlog usually keeps it — it is the last paragraph of a *finished*
+thing's write-up, in each section's own words — and the group that reads it is
+the largest one on the sheet.

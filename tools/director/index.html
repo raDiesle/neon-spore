@@ -443,13 +443,18 @@
         <button type="button" id="backlogClose">✕ CLOSE</button>
       </header>
       <div id="backlogTabs">
-        <!-- BOSSES was the first tab here until 16 September 2026, when the
-             owner took it off: *its not relevant for me any longer*. It held
-             THE ACT ORDER — the built bosses, read off bosses.md — and the
-             boss and round ideas, and the ideas went with THE SPLICE the day
-             before. What is left of the rounds is still text in ideas.md; it
-             is simply not drawn anywhere. -->
         <button type="button" data-tab="mechanics" class="on">MECHANICS</button>
+        <!-- BOSSES was the first tab here until 16 September 2026, when the
+             owner took it off: *its not relevant for me any longer*. That one
+             held THE ACT ORDER — the bosses the game HAS, read off bosses.md —
+             and a group of boss ideas that had gone the day before with THE
+             SPLICE. This is not that page. It came back on 17 September 2026,
+             asked for by name, once both boss spec files were reordered by
+             state: it draws a boss whose simulation landed and whose look
+             nobody has written, and the "what is not built" paragraph at the
+             foot of every finished one. What is left of the rounds is still
+             text in ideas.md; it is simply not drawn anywhere. -->
+        <button type="button" data-tab="bosses">BOSSES</button>
         <!-- BESTIARY was a tab here until 11 September 2026, when the owner
              took it off: every creature it listed is built, and the creature
              ideas read on the MECHANICS page now, each beside the contour drawn
@@ -608,6 +613,26 @@
                two gets one by typing this line. -->
           <nav class="contents" data-contents="backlogMechanics"></nav>
           <div id="backlogMechanics" class="columns reading"></div>
+        </div>
+        <div class="sheetpage" id="sheet-bosses">
+          <p class="pagewhat">
+            What is left to do on a boss. <strong>Not the act order</strong> —
+            that is the page this one replaced, and it listed the bosses the
+            game has. This one lists a boss whose simulation landed and whose
+            look nobody has written, then what every finished boss still owes,
+            in the words its own section uses: a beat with no picture of its
+            own, a call window the game cannot judge, a fight nobody has
+            watched at tempo. It is the largest pool of decided, sized,
+            unstarted work in the repository, and until now nothing drew it.
+            The last group is the other file — the primitives a choreographed
+            scene would need and has no shipped ancestor for. Which group a
+            boss is in is the heading it stands under in
+            <code>docs/spec/bosses.md</code>, so a look that lands moves it by
+            being moved in the spec.
+          </p>
+          <button type="button" class="expand" data-expand="#backlogBosses">EXPAND ALL</button>
+          <nav class="contents" data-contents="backlogBosses"></nav>
+          <div id="backlogBosses" class="columns reading"></div>
         </div>
       </div>
     </div>

@@ -5,7 +5,12 @@ const ROOT = new URL("../../../", import.meta.url);
 const read = (rel: string) => Bun.file(Bun.fileURLToPath(new URL(rel, ROOT))).text();
 
 async function realBacklog(): Promise<Backlog> {
-  return buildBacklog(await read("docs/spec/systems.md"), await read("docs/spec/ideas.md"));
+  return buildBacklog(
+    await read("docs/spec/systems.md"),
+    await read("docs/spec/ideas.md"),
+    await read("docs/spec/bosses.md"),
+    await read("docs/spec/bosses-choreographed.md"),
+  );
 }
 
 const names = (groups: BacklogGroup[]): string[] =>
@@ -26,7 +31,11 @@ describe("buildBacklog", () => {
     // 2026 once every row of bestiary.md 10.1 and 10.2 was built, and the
     // creature ideas read on the mechanics page until the last one kept
     // there was built; a built creature is in the palette and nowhere here.
-    const everything = Object.values(backlog).flatMap((gs) => names(gs as BacklogGroup[]));
+    // The BOSSES page is deliberately outside this: **its second group is
+    // built bosses**, listed for what each of them still owes rather than for
+    // itself, which is the one place in the sheet where a built name is the
+    // point. Its own claims are made below, against the groups by name.
+    const everything = names(backlog.mechanics);
     for (const built of [
       "Slick",
       "Bulb",
@@ -47,12 +56,42 @@ describe("buildBacklog", () => {
     expect(everything).not.toContain("Glyph");
     expect(everything).not.toContain("The Jammer");
     expect(backlog).not.toHaveProperty("bestiary");
-    // And no BOSSES page at all since 16 September 2026, when the owner took
-    // the tab off: THE ACT ORDER drew the built bosses straight off
-    // `bosses.md` and the ideas beside it had gone the day before with THE
-    // SPLICE. `bosses.md` is still parsed — by the two tests that hold a drawn
-    // shape to the name it was drawn at — and nothing renders it.
-    expect(backlog).not.toHaveProperty("bosses");
+  });
+
+  test("the bosses page is what is left on a boss, and reads it off the spec", async () => {
+    const backlog = await realBacklog();
+
+    expect(backlog.bosses.map((g) => g.title)).toEqual([
+      "STILL IN HAND",
+      "LEFT ON A BUILT BOSS",
+      "PRIMITIVES A SCENE STILL NEEDS",
+    ]);
+
+    // **Not a list of names.** Which group a boss is in is the `##` heading it
+    // stands under in `bosses.md`, so a look that lands moves it by being
+    // moved in the spec. What this holds is that the reading works at all: the
+    // retired one is on no group, and the two that carry an act order — the
+    // preamble's own `·` paragraph — are not read as sections.
+    const every = names(backlog.bosses);
+    expect(every).not.toContain("THE TELL");
+    expect(every.length).toBeGreaterThan(5);
+
+    // Every entry of the second group says what it still owes, in the spec's
+    // own words. A group of built bosses with nothing under them would be an
+    // act order, which is the page the owner took off.
+    const left = group(backlog.bosses, "LEFT ON A BUILT BOSS");
+    for (const entry of left.entries) expect(entry.note).toMatch(/not built/i);
+
+    // STILL IN HAND is the one group that is *right* to be empty — it holds a
+    // boss whose simulation landed and whose look nobody has written, and on
+    // the day every look has landed there is nothing in it. So its drift guard
+    // cannot be "it has entries"; it is that the two headings
+    // `backlog-bosses.ts` matches on are still the headings in the file.
+    // Rename one in the spec and this fails instead of a column quietly
+    // emptying.
+    const spec = await read("docs/spec/bosses.md");
+    expect(spec).toContain("\n## Still in hand\n");
+    expect(spec).toContain("\n## Built\n");
   });
 
   test("the page is the shortlist the owner named, spelled the spec's way", async () => {
@@ -183,6 +222,11 @@ describe("buildBacklog", () => {
         // A group with no entries is a heading the parser no longer finds, now
         // that nothing on this page is hidden for being built: the two cut
         // groups are checked by name above, and the rest are whole.
+        //
+        // Except STILL IN HAND, which is empty on a day when every boss's look
+        // has landed — an outcome, not a broken parser. Its heading is held by
+        // name in the bosses test above instead.
+        if (group.title === "STILL IN HAND") continue;
         const found = group.entries.length > 0;
         expect({ title: group.title, found }).toEqual({ title: group.title, found: true });
       }

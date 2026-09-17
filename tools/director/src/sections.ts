@@ -10,15 +10,29 @@ export interface Section {
   title: string;
   /** Text after the em dash in the heading, e.g. "built", "not built". */
   tail: string;
+  /**
+   * The plain `##` heading this section stands under — "Still in hand",
+   * "Built", "Retired" — or "" in a file that groups nothing.
+   *
+   * `bosses.md` is ordered by state rather than by number since 17 September
+   * 2026, and the state is a heading in the file rather than a list kept
+   * here. That is the same rule `ideas.md`'s `###` groups already follow: a
+   * boss whose look lands moves by being moved in the spec, and the director
+   * finds out by reading it again.
+   */
+  group: string;
   /** Every line between this heading and the next, unfiltered. */
   lines: string[];
 }
 
 const HEADING_RE = /^##\s+([\d.]+)\s+(.+?)(?:\s+—\s+(.*))?$/;
+/** A `##` that opens no numbered section: the group the ones below it are in. */
+const GROUP_RE = /^##\s+(?![\d.]+\s)(.+)$/;
 
 export function parseNumberedSections(text: string): Section[] {
   const sections: Section[] = [];
   let current: Section | null = null;
+  let group = "";
 
   for (const line of text.split(/\r?\n/)) {
     const match = line.match(HEADING_RE);
@@ -27,9 +41,16 @@ export function parseNumberedSections(text: string): Section[] {
         number: match[1]!,
         title: match[2]!.trim(),
         tail: (match[3] ?? "").trim(),
+        group,
         lines: [],
       };
       sections.push(current);
+      continue;
+    }
+    const heading = line.match(GROUP_RE);
+    if (heading) {
+      group = heading[1]!.trim();
+      current = null;
       continue;
     }
     current?.lines.push(line);

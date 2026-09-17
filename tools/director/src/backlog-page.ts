@@ -31,6 +31,7 @@ interface BacklogGroup {
 
 interface Backlog {
   mechanics: BacklogGroup[];
+  bosses: BacklogGroup[];
 }
 
 /**
@@ -92,6 +93,7 @@ async function load(): Promise<void> {
   const backlog = (await res.json()) as Backlog;
 
   fill("backlogMechanics", backlog.mechanics);
+  fill("backlogBosses", backlog.bosses);
   loaded = true;
 }
 
