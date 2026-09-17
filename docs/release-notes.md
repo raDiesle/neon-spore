@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · aafa606f — `baseline:blank` writes a renumbering, and says which rows moved
+
+`blank.ts` wrote the file only when a row was added or blanked, so a baseline that already carried an inserted wave's row at yesterday's number, with every row behind it one out, was answered with "nothing to mark" and left failing `baseline.test.ts`. It now writes whenever the renumbered run differs from the file it read, and `fillUnmeasured` reports `moved` (old → new) and `renumber`'s `dropped` beside `added` and `blanked`, so the tool names what it did. A case in `baseline.test.ts` pins the stale-number shape.
+
 ## 2026-09-17 · dd33e924 — THE LEDGER: the navigator's lock was under the plating, and the body was half its own width
 
 Two defects the first capture of the boss found, both of them wrong rather than unlovely.
