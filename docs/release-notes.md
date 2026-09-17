@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-17 · 6afec4e0 — Mark the hull splash done
+
 ## 2026-09-17 · 64c6f27a — What broke the hull leaves its colour on it
 
 A creature that reaches the ship now splashes the hull in its own colour, and the splash stays there: a ragged wash spreading two tiles either side of the column it landed on, a dark heart where it struck, and a scatter of drops with lit upper edges and runs trailing down off some of them. It comes off the scar rather than off the body, so it is still on the ship a minute later and it is on the wave-lost screen behind the words. Meteors are exempt — a rock leaves a hole, and a hole does not bleed.
