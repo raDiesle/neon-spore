@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · ca31c78c — The BOSSES category poses the states a taking and a handle bring on
+
+The STATES sheet's BOSSES category owed the drag and hold bosses' states — the ones only a hand on the controls reaches. Nineteen cards close it: THE CAIRN leaving and settled, THE SPLICE's verdict and pass, THE REPRISE echoing and held, THE UNDERTOW taken, THE ANTIPHON still and down, THE SINEW held, swinging, falling and out, THE SURGE in the band, sealing, everting and out, THE INSTAR landed and down. Each is the boss's own wave run with a `Hand` reading the field every tick — a carry across the pile, the maw at the wanted straw, the maw held under the last lobe, the organ's colour up its column, both pulls summed into the zone, both thumbs lifted on one tick, every mark of a step answered in its own gesture — and `OWED` in `test/boss-states.test.ts` is down to THE HIVE's `down`, which waits on the queue's HIVE item.
+
 ## 2026-09-18 · c319928d — THE HUSK has its rehearsal: a mark drawn on one seat's screen and not the other's, and a thumb that must not land
 
 Three pods hang from the first beat, two of them hollow, framed in white on the navigator's screen alone; the first two pages are the same beat from each side, and since the rehearsal draws every page on the seat whose screen it is, the frame's absence from the pilot's page is the picture. The maw left shut is THE STARE's problem a second time and takes its answer: the real one named, shot and taken at an open maw; the framed one shot and left, the pilot's hand off the intake while it deflates against the shut maw; and last the one nobody named, shot and opened for, swallowed, and the wave with it. `scene-husk.test.ts` is the receipt for what the maw was doing when each pod arrived.
