@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 338374d2 — The compaction window has a check that answers in one line
+
+`claude -p "/autocompact"` prints the window and where it came from, and it is the only thing that distinguishes a pin that holds from one that was thrown away: the string form answers `1m tokens (default for this model)`, the integer answers `200k tokens (from settings)`. Both were run. `docs/token-budget.md` carries the command and says that a default for every other checkout on a machine is a separate thing in the user settings file, which this repository's own settings outrank.
+
 ## 2026-09-18 · bb3e8eb5 — The 200k compaction window is written as an integer, so it applies at all
 
 `autoCompactWindow` has been `"200k"` in `.claude/settings.json` since 11 September and has pinned nothing: the setting is validated as a whole number between 100000 and 1000000 and a value that fails is discarded with no warning, so every session since has compacted at the model's own ~967k instead. The string form is what `/autocompact` and `--autocompact` accept on the command line, not what the file takes. It is now the integer `200000`; the hook test asserts the number and carries the reason, and `docs/token-budget.md` names the validator's range and the one thing that outranks the file, `CLAUDE_CODE_AUTO_COMPACT_WINDOW`, which takes a plain count and no suffix.
