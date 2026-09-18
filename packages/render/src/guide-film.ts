@@ -1,5 +1,6 @@
 import type { ControlSet, GuideScene } from "@neon-spore/content";
-import type { SceneRun, SimConfig } from "@neon-spore/sim";
+import type { SceneRun, SimConfig, World } from "@neon-spore/sim";
+import { flippedLayout } from "./field-flip.js";
 import {
   drawGripThumb,
   fieldThumb,
@@ -47,6 +48,24 @@ export function filmLayout(box: Layout, cfg: SimConfig, seat: 1 | 2): { film: St
 
 export function seatRole(seat: 1 | 2): ViewRole {
   return seat === 1 ? "p1" : "p2";
+}
+
+/**
+ * The film's layout as one seat's screen would carry it: that seat's role,
+ * and the fold on it when this is the screen THE FLIP has turned.
+ *
+ * The seat drawn is not always the seat laid out for — during the slide the
+ * outgoing screen is drawn in the incoming one's rectangle — so the role is
+ * set here rather than trusted. And the fold is applied here rather than in
+ * `filmLayout`, because a film's caption and hands are laid on the same
+ * layout as its bodies, and a ring pointed at a body has to turn with the
+ * body it points at. Until 18 September 2026 no film folded at all: the
+ * phone mirrored (`canvas2d.ts`) and the rehearsal of the same wave did not,
+ * which taught the one wave about a turned screen on a screen that stayed.
+ */
+export function seatLayout(l: Layout, seat: 1 | 2, world: World): Layout {
+  const role = seatRole(seat);
+  return flippedLayout(l.role === role ? l : { ...l, role, flip: false }, world);
 }
 
 /**

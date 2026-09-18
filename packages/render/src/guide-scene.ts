@@ -2,7 +2,7 @@ import type { ControlSet, GuideScene, SceneStep } from "@neon-spore/content";
 import { framePhase, type World } from "@neon-spore/sim";
 import type { OpeningView } from "./briefing.js";
 import { smoothstep } from "./ease.js";
-import { drawHands, filmLayout, seatRole } from "./guide-film.js";
+import { drawHands, filmLayout, seatLayout } from "./guide-film.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { ScenePlay, type Stated } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
@@ -46,17 +46,14 @@ import type { Layout, ViewRole } from "./layout.js";
  *
  * It is render state that outlives a frame, so it lives where the renderer can
  * clear it, and it clears both seats' `Effects` every time the world underneath
- * is rebuilt — which a rebuilt world needs, because `beat`, `tick` and `nextId`
- * all start at 0 again (CLAUDE.md, `test/restart.test.ts`).
+ * is rebuilt — `beat`, `tick` and `nextId` start at 0 again (`restart.test.ts`).
  */
 
 /** Ticks the slide from one screen to the other takes. */
 const SWITCH_TICKS = 26;
-/**
- * And how long the corner goes on saying so after it. Longer than the slide,
+/** And how long the corner goes on saying so after it. Longer than the slide,
  * deliberately: the slide is over before an eye that was reading the words has
- * looked up, and the corner is the thing it looks up *at*.
- */
+ * looked up, and the corner is the thing it looks up *at*. */
 const FLASH_TICKS = 40;
 
 export class GuideStage {
@@ -159,9 +156,12 @@ export class GuideStage {
     // wave carrying THE HANDOVER the panels trade for a window, and a film that
     // went on drawing the page's own half would be the one picture of this
     // fault that does not show it (`handover.ts`). The corner plate keeps
-    // saying which phone this is, which is what makes the trade legible.
+    // saying which phone this is, which is what makes the trade legible. And
+    // folded when THE FLIP has turned this screen (`seatLayout`): the words
+    // and the hands below stand on the layout the bodies are drawn with.
     const shown = handedSeat(step.seat, run.world);
-    const { film, l } = filmLayout(box, cfg, shown);
+    const { film, l: laid } = filmLayout(box, cfg, shown);
+    const l = seatLayout(laid, shown, run.world);
 
     // Everything down to the corner plate is drawn in the film's rectangle;
     // only the nav bar under it is laid across the whole box.
@@ -215,10 +215,11 @@ export class GuideStage {
     if (!run) return;
     ctx.save();
     ctx.translate(dx, 0);
-    this.seats[seat - 1]!.draw(ctx, l, {
+    const own = seatLayout(l, seat, run.world); // the outgoing seat's own fold
+    this.seats[seat - 1]!.draw(ctx, own, {
       world: run.world,
       beatPhase: framePhase(run.world),
-      role: seatRole(seat),
+      role: own.role,
       time,
       // A frame's own seconds, so a lobe eases at the speed it eases at on a
       // phone rather than at the speed the rehearsal's ticks happen to arrive.

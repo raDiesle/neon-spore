@@ -88,6 +88,7 @@ export const WAVES_ACT_10: Wave[] = [
       both: "Six beats in, something over the field takes the pilot's screen and turns it about its middle. From then on their field is a mirror of itself: a body falling down the left wall is really falling down the right one, on the same row, at the same speed, in the same colour, and nothing about it says so. Every button on both panels still works and both strips still slide where they are told — it is the picture that turned, not the ship. The two walls light up on the screen it happened to, and stay lit while it holds.",
       p1: "Your field is backwards and your cannon is not. A body against your left wall is one to shoot against your right — count from the wall it is not near. Only the middle column stayed put. Trust their number, not your eyes.",
       p2: "Yours is the only true picture left, so the columns are all yours. Say every one early, and again while they aim — they can see the body perfectly and cannot believe where it is. Answer a repeated column with a number.",
+      scene: "theFlip",
     },
     entries: [
       { beat: 0, col: 3, color: "red" },

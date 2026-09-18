@@ -28,7 +28,6 @@ import { THE_GHOST } from "./scenes/the-ghost.js";
 import { THE_GUM } from "./scenes/the-gum.js";
 import { THE_GYRE } from "./scenes/the-gyre.js";
 import { THE_HAND } from "./scenes/the-hand.js";
-import { THE_HANDOVER } from "./scenes/the-handover.js";
 import { THE_JAM } from "./scenes/the-jam.js";
 import { THE_LANCE } from "./scenes/the-lance.js";
 import { THE_LEAK } from "./scenes/the-leak.js";
@@ -62,6 +61,7 @@ import { THE_WELL } from "./scenes/the-well.js";
 import { THE_WISP } from "./scenes/the-wisp.js";
 import { TWO_ROCKS } from "./scenes/two-rocks.js";
 import { type ChoreographedSceneId, SCENES_CHOREOGRAPHED } from "./scenes-choreographed.js";
+import { type FaultSceneId, SCENES_FAULTS } from "./scenes-faults.js";
 
 /**
  * Every rehearsal a guide can show, and where a page of one begins and ends.
@@ -146,13 +146,13 @@ export type SceneId =
   | "theWeight"
   | "theCairn"
   | "theWell"
-  | "theHandover"
   | "theSplice"
   | "theMoult"
   | "theMine"
   | "theReprise"
   | "theStare"
-  | ChoreographedSceneId;
+  | ChoreographedSceneId
+  | FaultSceneId;
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -211,15 +211,16 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theWeight: THE_WEIGHT,
   theCairn: THE_CAIRN,
   theWell: THE_WELL,
-  theHandover: THE_HANDOVER,
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
   theMine: THE_MINE,
   theReprise: THE_REPRISE,
   theStare: THE_STARE,
   // The choreographed bosses' films are listed next door, one file for the
-  // page they were designed on (`scenes-choreographed.ts`).
+  // page they were designed on (`scenes-choreographed.ts`), and the faults'
+  // beside them (`scenes-faults.ts`).
   ...SCENES_CHOREOGRAPHED,
+  ...SCENES_FAULTS,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

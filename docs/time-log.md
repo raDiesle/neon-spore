@@ -10851,3 +10851,22 @@ the renderer's four passes without the one line before them that takes the
 unseen out.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE FLIP, the rehearsal
+
+THE FLIP's film: a screen that turns, shown by turning and then by being
+believed — and the rehearsal's stage taught to fold the turned seat's
+layout, which no film had ever done.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `sim/flip.ts`, `field-flip.ts`, `flipsField`, `guide-scene.ts`'s `draw` and `seat`, `filmLayout`, where `bodyRing` places a ring, `canvas2d.ts`'s `layoutFor` beside them |
+| writing | 40 | `seatLayout` in `guide-film.ts`, the two lines in `guide-scene.ts`, `guide-flip.test.ts`, `scenes/the-flip.ts`, the wiring, `scene-flip.test.ts`, §3.2 |
+| looking | 10 | page 1 on the pilot's screen at tick 330 and at tick 500 through `bun run frames --opening guide`: the body on the left wall, then on the right |
+| friction | 15 | `guide-scene.ts` was two lines over the ceiling after the fix and two comments were folded; a body page's held frame needs its body still standing, so the middle's page rings the cannon instead; a body that enters on beat *n* is on the field from *n + 1* |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep`, the ledger |
+
+The bottleneck was the gap under the film: like THE REPRISE's the day's
+first fault film found the rehearsal's stage drawing the raw world — laid
+out for a seat, never asked whose screen was folded — so the film's one
+claim was the one thing it could not show until `seatLayout` existed.

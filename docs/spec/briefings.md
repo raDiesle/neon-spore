@@ -300,19 +300,19 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are seventy-eight of them now**, one per guided wave bar nine, and
+**There are seventy-nine of them now**, one per guided wave bar eight, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The nine that are still the three strings
+rather than a page of prose. The eight that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE FLIP, THE HUSK, THE HIVE and
+CODEX, THE HUSK, THE HIVE and
 THE INSTAR** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those nine is a film nobody has written, and from THE
-FLIP's on they are owed by the lanes that draw them.** THE CANDLE's was the
+**Every one of those eight is a film nobody has written, and from THE
+HUSK's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
 slide under it an `atBoss` act, the one authored column the mistake. THE
@@ -401,6 +401,20 @@ beat somebody counted — the kill drawn whole over nothing (`render/unseen.ts`)
 The third is the one nobody said, and it lands with the tear already shut,
 which is the last page; `scene-reprise.test.ts` is the receipt that the two
 kills after the dark are of bodies nothing drew.
+THE FLIP's, the same day, is a screen that turns, shown by turning: a cyan
+body comes down the pilot's second column and on the seventh beat is against
+the far wall instead, same row, still falling, the walls lit; then the
+navigator's page says the true column, the pilot carries the cannon to that
+number and not the one their eyes give and the bolt lands; the middle is
+shot to say the fold has a centre; and last, on the pilot's own page, a
+body drawn in the second column is fired at in the second column and lands
+in the sixth. Writing it found that no film folded at all — `guide-scene.ts`
+laid its seats out without asking whose screen was turned — so the film of
+the mirror was a film of nothing happening; `guide-film.ts`'s `seatLayout`
+now folds the turned seat's layout, caption and hands with it
+(`render/test/guide-flip.test.ts`), and `scene-flip.test.ts` is the receipt
+that the bolt sent to the called column lands and the one sent to the seen
+column does not.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square
