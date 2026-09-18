@@ -1,4 +1,5 @@
-import type { World } from "@neon-spore/sim";
+import { queenGesture, type World } from "@neon-spore/sim";
+import { queenHand } from "./boss-hands-shots.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
@@ -45,6 +46,39 @@ export const QUEEN_POSES: Pose[] = [
     "open",
     "A bloom. One of the two marks under her is real and the other is a lie that looks identical — one player is told which side, the other which colour, and neither can fire on their half alone.",
     { crop: "tile", span: 8, at: queenAt, want: (w) => Boolean(queen(w)?.color), hold: 6 },
+  ),
+  // BROOD: P1 presses the real mark to open it. P2 says which.
+  bossPose("queen", "pried", "P1: press the real mark — a ring on both. P2: say which side.", {
+    lookAt:
+      "the ring on each mark and the armour thrown off the one just pried — whether the pried one reads as opened by a thumb rather than by her",
+    crop: "tile",
+    span: 8,
+    at: queenAt,
+    hand: queenHand,
+    want: (w) => w.boss?.kind === "queen" && w.boss.pryBeat !== -1 && Boolean(queen(w)?.color),
+    hold: 4,
+    budgetBeats: 90,
+  }),
+  // SCREAM: P1 holds the real mark to keep it open. P2 fires.
+  bossPose(
+    "queen",
+    "held",
+    "P1: hold the real mark — she shuts in a beat otherwise. P2: fire its colour.",
+    {
+      lookAt:
+        "the filled ring on the held mark and the dial closing round it — whether the beats left read off it without a number",
+      crop: "tile",
+      span: 8,
+      at: queenAt,
+      hand: queenHand,
+      want: (w) =>
+        w.boss?.kind === "queen" &&
+        queenGesture(w.boss) === "hold" &&
+        w.boss.holdSide === w.boss.weakSide &&
+        Boolean(queen(w)?.color),
+      hold: 12,
+      budgetBeats: 140,
+    },
   ),
   bossPose(
     "queen",

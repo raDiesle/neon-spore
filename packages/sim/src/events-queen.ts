@@ -12,6 +12,8 @@ export type QueenEvent = {
   type: "queenFlinch";
   /** The column of the mark that was pressed. */
   col: number;
+  /** Her row, which is the row the mark hangs under (`render/queen-figure.ts`). */
+  row: number;
   /** Which of her two marks it was, -1 left, 1 right. */
   side: -1 | 1;
 };

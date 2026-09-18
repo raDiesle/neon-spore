@@ -2,6 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import type { Burst } from "./effects-spark.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import { QUEEN_FIGURE } from "./queen-figure.js";
 
 /**
  * The bursts for the bodies answered by hands alone (`creatures-handed.ts`),
@@ -25,7 +26,8 @@ export function handedBurst(
         | "clingBlast"
         | "weightCrushed"
         | "cairnPulled"
-        | "cairnShed";
+        | "cairnShed"
+        | "queenFlinch";
     }
   >,
   l: Layout,
@@ -76,6 +78,18 @@ export function handedBurst(
     // has to be noticed without a thumb on it.
     case "cairnShed":
       return at(l, e.col, e.row, 14, PALETTE.rock);
+    // THE BULB QUEEN flinching: player 1's thumb on the mark that was not the
+    // real one under BROOD, and the window shut before it opened
+    // (`sim/queen-hand.ts`). Rock grey and the cairn's few — nothing opened,
+    // a thumb bounced off armour — and thrown from the mark itself, which
+    // hangs `weakCy` under her row (`queen-figure.ts`), not from the tile.
+    case "queenFlinch":
+      return {
+        x: tileCX(l, e.col),
+        y: tileCY(l, e.row) + QUEEN_FIGURE.weakCy * l.tile,
+        n: 8,
+        hex: PALETTE.rock,
+      };
   }
 }
 

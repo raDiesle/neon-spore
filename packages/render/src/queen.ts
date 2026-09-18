@@ -1,10 +1,11 @@
 import { crystalPath, QUEEN_SHELL } from "@neon-spore/content";
-import type { Creature, QueenState } from "@neon-spore/sim";
+import type { Creature, QueenState, SimConfig } from "@neon-spore/sim";
 import { halo } from "./glow.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { drawEgg, drawSideHint } from "./queen-egg.js";
 import { QUEEN_FIGURE, queenMarkCenter } from "./queen-figure.js";
+import { drawQueenGrip } from "./queen-grip.js";
 import { QUEEN_LOOK } from "./queen-look.js";
 import { drawMark, markGlow } from "./queen-weakpoint.js";
 
@@ -42,6 +43,7 @@ export const TORCH_TREMOR_HZ: readonly [number, number] = [11, 14];
 export function drawQueen(
   ctx: CanvasRenderingContext2D,
   l: Layout,
+  cfg: SimConfig,
   queen: Creature,
   boss: QueenState,
   beat: number,
@@ -94,6 +96,9 @@ export function drawQueen(
     time,
     healthShare,
   );
+  // The rings player 1's thumb answers with, over the shell's lip, and the
+  // pry and the hold read off the beat (`queen-grip.ts`).
+  drawQueenGrip(ctx, l, cfg, queen, boss, beat, beatPhase, time, ox, oy);
 
   // One offset, read by both calls below — never one seeded per side. The two
   // torches must move as a single tremor, or the eye reads whichever one

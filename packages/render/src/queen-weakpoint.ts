@@ -1,4 +1,4 @@
-import type { Color, Creature, QueenState } from "@neon-spore/sim";
+import { type Color, type Creature, type QueenState, queenGesture } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
 import { type Layout, showsQueenShape } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -53,9 +53,15 @@ function isRevealed(side: -1 | 1, queen: Creature, boss: QueenState): boolean {
   return queen.color != null && boss.weakSide === side;
 }
 
-/** A bloom is named and has a clock on it, but has not opened yet. */
+/**
+ * A bloom is named and has a clock on it, but has not opened yet. Under
+ * BROOD's pry it does not open by itself, so the tell stays at full strength
+ * for the whole window rather than falling back to *pending* on the beat she
+ * would have opened on: the mark is still coming, and it is waiting for a thumb.
+ */
 function isAnnounced(queen: Creature, boss: QueenState, beat: number): boolean {
-  return queen.color == null && boss.openBeat !== -1 && beat < boss.openBeat;
+  if (queen.color != null || boss.openBeat === -1) return false;
+  return beat < boss.openBeat || queenGesture(boss) === "pry";
 }
 
 const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));

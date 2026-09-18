@@ -7,6 +7,7 @@ import type {
   MazeState,
   OrreryState,
   PlacedFault,
+  QueenState,
   SimConfig,
   SinewState,
   StareState,
@@ -144,6 +145,14 @@ export interface Field {
    * answers nothing while the other sits frozen (`stare-lid.ts`).
    */
   stare: StareState | null;
+  /**
+   * THE BULB QUEEN, if she is the boss running, `null` otherwise. Required
+   * and stated, for the reason the nine above are: two of her three phases
+   * are answered on her marks and nowhere on the panel, so a caller that
+   * quietly meant `null` would leave BROOD's window with nothing that pries
+   * it and SCREAM's with nothing that holds it (`queen-grip.ts`).
+   */
+  queen: QueenState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

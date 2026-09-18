@@ -51,7 +51,12 @@ function pryMark(world: World, boss: QueenState, side: -1 | 1, on: boolean): voi
     return;
   }
   boss.closeBeat = world.beat;
-  world.events.push({ type: "queenFlinch", col: queenMarkCol(queen.col, side), side });
+  world.events.push({
+    type: "queenFlinch",
+    col: queenMarkCol(queen.col, side),
+    row: queen.row,
+    side,
+  });
 }
 
 /** The thumb landing on, or leaving, a mark under `hold`. */

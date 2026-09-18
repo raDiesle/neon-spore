@@ -132,9 +132,8 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "stareLid":
       return target;
     // `queenMark` is THE BULB QUEEN's two marks under player 1's thumb —
-    // pried open under BROOD, held open under SCREAM (`sim/queen-hand.ts`).
-    // The simulation half landed first; the on-field entry and the row in
-    // `docs/spec/controls.md` are the look lane's (`docs/parked.md`).
+    // pried open under BROOD, held open under SCREAM (`sim/queen-hand.ts`,
+    // `field-controls-queen.ts`).
     case "queenMark":
       return target;
     default:
@@ -245,6 +244,7 @@ const FIELD: Field = {
   instar: null,
   filament: null,
   stare: null,
+  queen: null,
   controls: controlSetForWave(0),
   faults: [],
   well: false,

@@ -46,6 +46,7 @@ export function drawBoss(
     drawQueen(
       ctx,
       l,
+      world.cfg,
       queen,
       boss,
       world.beat,

@@ -851,6 +851,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/other-hand.ts` | THE OTHER HAND: the cheapest presence a two-device co-op game can show — not what a control is doing, only |
 | `packages/render/src/queen-egg.ts` | Never quite zero — a degenerate radius is what `frame.test.ts` exists to catch |
 | `packages/render/src/queen-glyph.ts` | Points around the contour — the same count `blobPath` itself walks |
+| `packages/render/src/queen-grip.ts` | **THE BULB QUEEN's marks as a control**, for the two phases that ask a thumb for them (`QUEEN_GESTURES` |
 | `packages/render/src/queen-weakpoint.ts` | Breath speed at full health, out of bloom |
 | `packages/render/src/queen.ts` | How much faster the outer body's wobble gets by her last petal |
 | `packages/render/src/raster-caps.ts` | What the browser in front of us can actually do with a baked animation |
@@ -2152,6 +2153,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-antiphon.ts` | THE ANTIPHON's one handle, in a file of its own |
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |
+| `tools/director/src/field-controls-queen.ts` | THE BULB QUEEN's marks, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |

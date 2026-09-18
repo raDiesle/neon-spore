@@ -62,6 +62,7 @@ function field(world: World, seat: 1 | 2, surge: SurgeState | null = bulb(world)
     instar: null,
     filament: null,
     stare: null,
+    queen: null,
     controls: STANDARD,
     faults: [],
     well: false,

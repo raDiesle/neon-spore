@@ -55,34 +55,3 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
-
-## BULB QUEEN's pry and hold have no picture: the look half of §6.2
-
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-18, claude/queue-bulb-queens-pry-and-hold-have-no-picture-the-loo
-- **Files:** `packages/render/src/queen.ts`, `packages/render/src/queen-figure.ts`, `packages/render/src/queen-weakpoint.ts`, `packages/render/src/handles.ts`, `tools/director/src/field-controls-page.ts`, `tools/director/src/poses-bosses-queen.ts`, `tools/director/test/boss-states.test.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
-
-The simulation half of the queue item *BULB QUEEN changes state more than
-once, and asks for more than one gesture* landed: three phases, three
-gestures, the `queenMark` drag target (`id` 0 left, 1 right, player 1's),
-`pryBeat` and `holdSide` on `QueenState`, the `queenFlinch` event and the
-pilot's `PRESS · OPEN` / `HOLD · OPEN` cues on her column
-(`packages/sim/src/queen-hand.ts`, `queen-mark.ts`, `docs/spec/bosses.md`
-§11.0 *Three phases, three gestures*). Nothing sends the command yet and
-nothing draws it, so the item stays taken until this lands:
-
-- hit-test the two marks on player 1's screen and send `queenMark` with the
-  mark's `id`, press and lift, the way `instarMark` is sent (`handles.ts`, `instar-marks.ts`) — under BROOD
-  and SCREAM only, since CROWN reads no thumb;
-- the `FIELD_CONTROLS` entry and the `docs/spec/controls.md` row
-  (`tools/director/test/on-field-controls.test.ts` already carries the case);
-- the pried mark (opened by a thumb, `pryBeat`), the held mark (`holdSide ===
-  weakSide` while open) and the flinch (`queenFlinch`, a shut before an
-  open) drawn — then take `queenFlinch` out of `effects-ingest-silent-boss-b.ts`
-  and `effects-spark-silent-boss-b.ts`;
-- the `pried` and `held` poses in `poses-bosses-queen.ts`, and the two
-  struck from `OWED.queen` in `boss-states.test.ts`;
-- `bun run queue done "BULB QUEEN changes state more than once, and asks for more than one gesture"`.
-
-A look with no shipped alternative — say so in the commit.
-

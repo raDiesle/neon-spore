@@ -254,10 +254,31 @@ talking:
   from the opening. Lifting shuts her on the next beat. Player 2 calls the
   side during the tell so the thumb is there when it opens.
 
-The three states of her bloom are then `shut`, `open`, `pried` and `held`
-on the director's sheet, and the picture of the last two — the thumb on the
-mark, the flinch, the on-field handle — is the look lane's
-(`docs/parked.md`). *The pry and the hold were never watched at tempo.*
+The four states of her bloom are `shut`, `open`, `pried` and `held` on the
+director's sheet, with a pose each (`tools/director/src/poses-bosses-queen.ts`,
+played by `queenHand`). *The pry and the hold were never watched at tempo.*
+
+**The look of the thumb** (`packages/render/src/queen-grip.ts`, drawn after
+her shell in `queen.ts`; the hit test is `queenMarkUnder` under
+`handleUnder()` in `handles.ts`, player 1's seat only; the on-field entry is
+`tools/director/src/field-controls-queen.ts` and the row is in
+`docs/spec/controls.md`). While a BROOD or SCREAM window is up, **both marks
+wear a faint breathing ring** on player 1's screen and on the test screen —
+never on player 2's, who is shown the real one bare and has no thumb to
+answer with. The ring is where the handle is, not which one is real: that is
+still the other seat's to say. **A pried mark throws its ring off** — a
+rock-coloured ring flung out from the mark over a beat, on every screen, the
+moment `pryBeat` is set — so the opening reads as done by a hand rather than
+by her. **A held mark fills its ring** and wears a dial round it that empties
+over `queenHoldBeats` from the opening, so what is left of the hold is read
+off the picture and not off a count. **A flinch** is a burst in the same
+rock colour at the wrong mark and a shudder of the hull (`queenFlinch`, in
+the handed burst table in `effects-spark-handed.ts`, and `ship.shudder()` in
+`effects-ingest.ts`) — the one gesture in the fight that is answered with
+the hull's reaction, because it is the one that was wrong. The wrong mark
+under BROOD is also what `isAnnounced` in `queen-weakpoint.ts` keeps
+armoured until the press: under `pry` she is *announced* and not *open* for
+the whole window, so the tell's picture stands until the thumb takes it.
 
 **Her torches are on their own clock, not tied to the bloom or her health.**
 Every 8 beats, from her first beat to her last, the torch riding one of her

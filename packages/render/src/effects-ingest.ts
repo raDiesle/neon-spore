@@ -168,7 +168,9 @@ export function ingestOne(e: SimEvent, ctx: IngestOneCtx): void {
       // the burst, not in place of it (`effects-break.ts`).
       breakBody(ctx.debris, ctx.l, ctx.time, e);
       break;
+    // A flinch is a shudder too: a thumb bounced off her armour (`queen-hand.ts`).
     case "petal":
+    case "queenFlinch":
       ctx.ship.shudder();
       break;
     case "fire":

@@ -45,6 +45,7 @@ export function stageField(
     instar: world.boss?.kind === "instar" ? world.boss : null,
     filament: world.boss?.kind === "filament" ? world.boss : null,
     stare: world.boss?.kind === "stare" ? world.boss : null,
+    queen: world.boss?.kind === "queen" ? world.boss : null,
     controls,
     faults: faultsNow(world),
     well: world.boss?.kind === "well" && showsWell(role),

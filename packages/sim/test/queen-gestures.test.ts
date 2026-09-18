@@ -110,7 +110,12 @@ describe("BROOD: a pry", () => {
     step(world, [{ tick: world.tick, player: 1, command: press(wrong, true) }]);
     expect(queenAt(world).color).toBeNull();
     expect(q.closeBeat).toBe(world.beat);
-    expect(world.events).toContainEqual({ type: "queenFlinch", col, side: wrong });
+    expect(world.events).toContainEqual({
+      type: "queenFlinch",
+      col,
+      row: queenAt(world).row,
+      side: wrong,
+    });
     stepBeats(world, 1);
     expect(queenOf_(world).openBeat).toBe(-1);
     expect(queenAt(world).color).toBeNull();

@@ -76,6 +76,7 @@ function field(world: World, seat: 1 | 2 = 1): Field {
     instar: null,
     filament: null,
     stare: null,
+    queen: null,
     controls: STANDARD,
     faults: [],
     well: false,

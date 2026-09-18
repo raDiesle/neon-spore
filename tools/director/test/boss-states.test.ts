@@ -30,10 +30,6 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   // THE HIVE's down: a breach that has spilled once cannot be sealed, so
   // the hand cannot bring it on (`docs/queue.md`, the HIVE item).
   hive: ["down"],
-  // THE BULB QUEEN's pried and held blooms: the simulation half landed
-  // first, and the poses come with the look lane that draws the thumb on
-  // her marks (`docs/parked.md`, the BULB QUEEN item).
-  queen: ["pried", "held"],
 };
 
 describe("the BOSSES category", () => {

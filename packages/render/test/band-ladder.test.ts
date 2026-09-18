@@ -53,6 +53,7 @@ function field(seat: 1 | 2, controls: ControlSet): Field {
     instar: null,
     filament: null,
     stare: null,
+    queen: null,
     controls,
     faults: [],
     well: false,

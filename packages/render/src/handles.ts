@@ -8,6 +8,7 @@ import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeStringCircle } from "./maze-string.js";
 import { orreryRingUnder } from "./orrery-grab.js";
+import { queenMarkUnder } from "./queen-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
 import { stareLidUnder } from "./stare-lid.js";
 import { surgeBulbUnder } from "./surge-grip.js";
@@ -72,7 +73,9 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     orreryRingUnder(l, x, y, field) ??
     instarMarkUnder(l, x, y, field) ??
     filamentGrabUnder(l, x, y, field) ??
-    stareLidUnder(l, x, y, field)
+    stareLidUnder(l, x, y, field) ??
+    // THE BULB QUEEN's two marks, under BROOD and SCREAM (`queen-grip.ts`).
+    queenMarkUnder(l, x, y, field)
   );
 }
 

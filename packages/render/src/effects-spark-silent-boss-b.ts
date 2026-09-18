@@ -29,8 +29,4 @@ export const SILENT_BOSS_B = [
   "filamentPulled",
   "filamentDown",
   "filamentOut",
-  // THE BULB QUEEN's flinch — player 1's thumb on the wrong mark under
-  // BROOD, the window shut before it opened (`queen-hand.ts`). Silent until
-  // the look lane draws the pry, the hold and the flinch (`docs/parked.md`).
-  "queenFlinch",
 ] as const satisfies readonly SimEvent["type"][];

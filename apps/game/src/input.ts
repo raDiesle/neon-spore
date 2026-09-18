@@ -12,8 +12,7 @@ import { bindKeys } from "./keys.js";
 import { ShipHandWatch } from "./ship-hand.js";
 
 export type { Bindings } from "./input-bindings.js";
-// Lifted out when this file reached its length limit and re-exported so nothing
-// reaching for it through here had to move: the queue every listener writes into.
+// Lifted out at the length limit and re-exported: the queue every listener writes into.
 export { InputBuffer } from "./input-buffer.js";
 
 /**
@@ -59,6 +58,7 @@ export function bindControls({
   instar,
   filament,
   stare,
+  queen,
   creatures,
   cannonCol,
   shieldCol,
@@ -102,10 +102,10 @@ export function bindControls({
     instar: instar(),
     filament: filament(),
     stare: stare(),
+    queen: queen(),
     controls: controls(),
-    // The faults in force this beat: a taken button is refused where it is drawn dead.
+    // The faults in force this beat; the well's clock is one seat's (`render/well.ts`).
     faults: faults(),
-    // The well depends on the seat too: its clock is on one screen (`render/well.ts`).
     well: well(),
   });
 

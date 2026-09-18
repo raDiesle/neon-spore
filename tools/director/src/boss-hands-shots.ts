@@ -3,6 +3,8 @@ import {
   candleBoss,
   candleEating,
   orreryCoreCol,
+  queenGesture,
+  queenMarkCol,
   type TimedCommand,
   vaneColor,
   vaneOpen,
@@ -108,3 +110,42 @@ export const candleHand: Hand = (w) => {
   if (candleEating(c) && c.faceCol === c.col) return [];
   return free(w) ? [fire("red")] : [];
 };
+
+/**
+ * THE BULB QUEEN: the cannon under the real mark and her open colour up it,
+ * every phase — and, from BROOD, player 1's thumb on that mark as well
+ * (`sim/queen-hand.ts`): pressed while a window is up and nothing is pried,
+ * which is what opens it; held from the announcement under SCREAM, which is
+ * what keeps it open. The hand knows the side, which the pair only knows
+ * once player 2 has said it; it is played straight otherwise, and a shot
+ * that lands is what closes the bloom.
+ */
+export const queenHand: Hand = (w) => {
+  const b = w.boss;
+  if (b === null || b.kind !== "queen") return [];
+  const q = w.creatures.find((c) => c.id === b.creatureId);
+  if (q === undefined) return [];
+  const col = queenMarkCol(q.col, b.weakSide);
+  const out: Press[] = [aim(col)];
+  const gesture = queenGesture(b);
+  const asked = b.openBeat !== -1 && q.color === null && b.pryBeat === -1;
+  if (gesture === "pry" && asked) out.push(mark(b.weakSide));
+  if (gesture === "hold" && b.openBeat !== -1 && b.holdSide !== b.weakSide) {
+    out.push(mark(b.weakSide));
+  }
+  if (q.color !== null && free(w) && w.cannonCol === col) out.push(fire(q.color));
+  return out;
+};
+
+/** Player 1's thumb landing on one of her marks, `id` 0 the left and 1 the right. */
+const mark = (side: -1 | 1): Press => ({
+  player: 1,
+  command: {
+    kind: "drag",
+    target: "queenMark",
+    on: true,
+    fromMilli: 0,
+    fromYMilli: 0,
+    id: side === -1 ? 0 : 1,
+  },
+});

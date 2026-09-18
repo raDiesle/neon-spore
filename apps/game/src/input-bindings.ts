@@ -8,6 +8,7 @@ import type {
   MazeState,
   OrreryState,
   PlacedFault,
+  QueenState,
   SimConfig,
   SinewState,
   StareState,
@@ -102,6 +103,9 @@ export interface Bindings {
   /** THE STARE, when it is the boss up: the lid's ring on the eye's brow, for
    * the seat it is not looking at (`render/stare-lid.ts`). */
   stare: () => StareState | null;
+  /** THE BULB QUEEN, when she is the boss up: her two marks, under BROOD and
+   * SCREAM (`render/queen-grip.ts`). */
+  queen: () => QueenState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

@@ -5,6 +5,7 @@ import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
+import { QUEEN_CONTROLS } from "./field-controls-queen.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
 import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
@@ -18,13 +19,12 @@ import { tetherExamples } from "./field-controls-tether.js";
  * of these, because a wave does not pick them by name the way it picks a
  * panel.
  *
- * The list that used to sit under it, of controls tried and set aside, is next
- * door in `tried-controls-page.ts`: this file went over its own limit in turn,
- * and those two lists only ever shared a tab. What one row *is* went the same
- * way when THE PUSH arrived — `field-control-def.ts`, re-exported below so
- * nothing that reached for a `FieldControlDef` through here had to move. And
- * how a row is *drawn* went to `field-controls-rows.ts` when every row got a
- * picture (12 September 2026): each names the gallery pose it is shown by.
+ * The list that used to sit under it, of controls tried and set aside, is in
+ * `tried-controls-page.ts`: this file went over its own limit in turn, and the
+ * two lists only ever shared a tab. What one row *is* went the same way when
+ * THE PUSH arrived — `field-control-def.ts`, re-exported below so nothing that
+ * reached for a `FieldControlDef` through here had to move — and how a row is
+ * *drawn* to `field-controls-rows.ts` (12 September 2026): each names its pose.
  */
 
 export type { FieldControlDef } from "./field-control-def.js";
@@ -228,10 +228,10 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...ANTIPHON_CONTROLS,
   // THE INSTAR's marks, one target that is six gestures (`field-controls-instar.ts`).
   ...INSTAR_CONTROLS,
-  // THE FILAMENT's line, the first that is a trace (`field-controls-filament.ts`).
+  // THE FILAMENT's line, the first that is a trace; THE BULB QUEEN's marks, whose seat is not told.
   ...FILAMENT_CONTROLS,
-  // THE STARE's lid, the first on a boss that is not its body (`field-controls-stare.ts`).
-  ...STARE_CONTROLS,
+  ...STARE_CONTROLS, // THE STARE's lid, the first on a boss that is not its body.
+  ...QUEEN_CONTROLS,
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

@@ -11437,3 +11437,25 @@ field's own pass carried them, and the gap only shows as a frame with nothing
 in it.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — BULB QUEEN's pry and hold get their picture: the look half
+
+The `queenMark` hit test on player 1's screen, a breathing ring on both marks
+under BROOD and SCREAM, the ring thrown off a pried mark, the dial round a
+held one, the flinch as a rock-coloured burst and a shudder
+(`render/src/queen-grip.ts`); `queenHand` and the `pried` and `held` poses;
+the on-field control and its row.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `handles.ts`, `instar-marks.ts`, `queen-weakpoint.ts`, `handle-draw.ts`, the handed burst table, `Field` and its eleven test fixtures, the poses kit, `field-controls-filament.ts` |
+| writing | 45 | `queen-grip.ts` and its eleven tests, `queen` on `Field` in fourteen files, `row` on the flinch event, the burst and the shudder, `queenHand`, two poses, `field-controls-queen.ts`, the controls row, §11.0's look paragraph |
+| looking | 5 | the frame test on all three roles; the PNG after landing |
+| friction | 10 | `strokeGlow` resets alpha so the fade needed plain strokes; `PHASES` not exported to render; `input.ts` and `field-controls-page.ts` each a line or two over 250 |
+| landing | 5 | `check:fast` three times, the commit, `bun run land --keep` |
+
+The bottleneck was threading one boss onto `Field`: every touch test builds
+its own fixture, so a new member is a line in fourteen files before the
+first test of the new file runs.
+
+*Measured: 0 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
