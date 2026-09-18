@@ -162,8 +162,16 @@ on the web image, and `bun run queue` reads it: an entry the owner marked
 `- **Where:** local` — a wave to watch at tempo, a frame to measure — is
 listed `LOCAL ONLY`, passed over by `next`, and refused by name to `take`;
 one marked `Where: cloud` is kept for a session like this one, and a local
-session is refused it the same way. Most entries carry no line and are
-anybody's (`tools/queue/where.ts`).
+session is refused it the same way (`tools/queue/where.ts`).
+
+**The list was dealt on 18 September 2026** and nearly every entry carries a
+line, so `bun run queue next` here now hands out something this kind of session
+can finish rather than something it can only half-do and queue unverified: the
+simulation half of every boss, the words a field says, the refactors, the
+tooling and the tests. What is kept back is what needs an eye — a picture that
+should look like something real, a cue placed on a frame, a pose in the
+director's gallery. The handful still unmarked are the ones that `ASKS THE
+OWNER`, which no machine unblocks.
 
 **A technical finding goes in `docs/queue.md`, not in the report.** A refactor
 the session stepped around, a slow path, a missing test, a document that no

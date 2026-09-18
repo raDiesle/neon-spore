@@ -9362,3 +9362,21 @@ The bottleneck was the events cleared per step: three tests written against
 a helper that keeps what every tick said.
 
 *Measured: the rows above are the session's own estimate, read off the previous landing's timestamp; the compaction in the middle of the lane is not in them.*
+
+## 2026-09-18 — boss-hints-mechanics — the rest of the queue dealt, and a fence closed
+
+Three entries had been invisible to `bun run queue` since they were written, and the eleven non-boss items now say which machine can finish them.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `tools/queue/where.ts`, the `Where:` paragraphs in both docs, the sixteen entries the boss sweep had left unmarked |
+| writing | 15 | eleven `Where:` lines, the preamble paragraph saying what the test was, the note in the cloud doc |
+| looking | 0 | none — nothing visible moved |
+| friction | 20 | a sweep of the same list landed on `main` mid-lane and this one was reset onto it and redone; the fence took a count that disagreed by three to find |
+| landing | 10 | `check:fast`, the commit, the land |
+
+The bottleneck was the collision: two lanes dealt the same list in the same
+hour, and the second one's work was thrown away rather than merged — which was
+cheaper, but only because the first had landed before the rebase.
+
+*Measured: the rows above are the session's own estimate, read off the previous landing's timestamp.*

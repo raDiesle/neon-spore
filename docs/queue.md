@@ -177,11 +177,11 @@ fields, and a title that shouts one carries it twice — into the string `take`,
 question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
-```
 ## `tools/director/test/loop-once.test.ts` times out under a loaded shard
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `tools/director/test/loop-once.test.ts`, `tools/check/shard.ts`
+- **Where:** cloud
 
 `bun run land` went red on it once with `test timed out`, on the shard that
 also carries nine other files; the same file run on its own is green in 441ms
@@ -198,13 +198,14 @@ the frame tests give themselves rather than raising the global one.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `docs/commands.md`
+- **Where:** cloud
 
 The file is 250 lines and about 170 of them are one doc comment: a paragraph
 per flag, arguing why each exists. `--boss-json` fitted only after two of its
 three lines were folded into the paragraph above them, and the next flag will
 not fit at all. The body underneath is short and does one thing. Either the
 flag catalogue moves — to `docs/commands.md`, which already carries a line per
-script, or to a `tools/frames/flags.md` the usage line points at — or it splits
+script, or to a flags.md beside it that the usage line points at — or it splits
 by subject, the way `boss.ts` and `fault.ts` each carry their own flag's
 argument in their own header. The second is the shape the tree already uses:
 `--boss`'s reasoning is in `boss.ts` and repeated in `run.ts`, which is the
@@ -214,6 +215,7 @@ duplication that makes this file grow twice per flag.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
+- **Where:** local
 
 `drawBossCue` runs in the **field** pass (`frame-field.ts`), and the ship is
 drawn after it. `drawCueText` hangs the verb `halfH + 18` below the mark's
@@ -234,6 +236,7 @@ smaller and the first is what the file already argues for upward; either way
 one frame per boss is the proof, and `render/test/frame-budget.test.ts` is
 where the cost lands.
 
+```
 ## A button says two words where a sentence was asked for
 
 - **Found:** 2026-09-06, claude/some-lane
@@ -253,8 +256,19 @@ his own machine stays free. The listing marks such an entry `CLOUD ONLY` or
 `LOCAL ONLY`, `bun run queue next` passes over one kept for the other kind,
 and `next <n>` or `take <n>` naming it is refused with the reason. A session
 knows which kind it is by `CLAUDE_CODE_REMOTE`, the signal the web image sets
-(`tools/queue/where.ts`). Without the line an entry is anybody's, which is
-still what nearly every entry is.
+(`tools/queue/where.ts`). Without the line an entry is anybody's.
+
+**The list was dealt on 18 September 2026**, the day he left for two days of
+working it from a phone, and nearly every entry carries a line now. The per-boss
+families went first: the words (`.claude/skills/new-boss` section 6.1) and the
+states (6.2) to a cloud session, the pictures (6.3) kept local for an eye. The
+rest were dealt on the same test — **can a session with no screen prove it with
+`bun test` and the typecheck?** So the refactors, the file-ceiling splits, the
+test timeouts and THE GAUGE's missing events are `cloud`; a catch that washes a
+panel, sixteen films that put a page on the hull, a frame tool that cannot reach
+a boss and a pose missing from the gallery are `local`. What is left unmarked is
+the handful that `ASKS THE OWNER`: nobody's machine is the thing they are
+waiting on.
 
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
@@ -1523,6 +1537,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-implementation-e3cfff
 - **Files:** `packages/render/src/stare-fx.ts`, `packages/render/src/band-lobes.ts`, `packages/sim/src/events-stare.ts`, `packages/render/test/stare-frame.test.ts`
+- **Where:** local
 
 `stareCaught` names the command's `kind` (`cannonCol`, `guard`, `fire`, …) and
 the look washes the caught seat's panel red from the band's top down, because
@@ -1540,6 +1555,7 @@ field, a `DragTarget`), and the test's wash count becomes a circle count.
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
 - **Files:** `packages/render/src/caption-anchor-boss.ts`, `packages/render/src/caption-anchor-boss-b.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-baton.ts`, `packages/content/src/scenes/the-claw.ts`, `packages/content/src/scenes/the-diastole.ts`, `packages/content/src/scenes/the-gorge.ts`, `packages/content/src/scenes/the-fleet.ts`, `packages/content/src/scenes/the-mirror.ts`, `packages/content/src/scenes/the-stare.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`
+- **Where:** local
 
 `{ at: "boss", part? }` is answered for seven bosses — THE SINEW, THE TASTER,
 THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY, THE SCOUT — the ones the
@@ -1560,6 +1576,7 @@ anchor rather than a boss part.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/test/limits.test.ts`, `packages/sim/test/copies.test.ts`, `tools/dev/test/supervise-stop.test.ts`, `apps/server/test/dev-stop.test.ts`
+- **Where:** cloud
 
 The lane that put every compute-bound test on `tools/test/cpu-time.ts`
 deliberately left these four, because they are not compute: `limits.test.ts`
@@ -1576,6 +1593,7 @@ did.
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
 - **Files:** `tools/frames/boss.ts`, `tools/frames/hold.ts`, `packages/sim/src/boss.ts`, `apps/game/src/handle.ts`
+- **Where:** local
 
 Her phase is read off her petals every beat (`enterPhase` in `sim/boss.ts`),
 and petals are a field of the creature, not the boss — so `--boss
@@ -1601,6 +1619,7 @@ nothing about the hand.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/boss-cue-read-c.ts`, `packages/render/src/boss-cue.ts`
+- **Where:** cloud
 
 Page three of the readings carries six bosses — THE THROAT, THE LEDGER, THE
 LEAD, THE SCUTTLE, THE DIASTOLE, THE ORRERY — and THE DIASTOLE's widening on
@@ -1617,6 +1636,7 @@ check` proves it; no test names the file.
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
 - **Files:** `tools/test/tree-walk.test.ts`, `tools/test/repo-time.ts`
+- **Where:** cloud
 
 `bun run check` inside `bun run land` once failed on "skips `.claude`,
 wherever it recurses into directories" with *test timed out*, at line 89,
@@ -1635,6 +1655,7 @@ will not reproduce on demand.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/events.ts`, `packages/sim/src/gauge.ts`, `packages/sim/src/gauge-hand.ts`, `packages/audio/src/catalogue.ts`, `packages/audio/test/bind.test.ts`, `packages/render/src/effects-ingest-silent-boss.ts`
+- **Where:** cloud
 
 The round emits no `SimEvent` at all, so `packages/audio` has nothing to bind
 and the whole of THE GAUGE is silent — a call that lands, a call that misses,
@@ -1652,6 +1673,7 @@ column, and take them off the silent list or draw them.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue.ts`
+- **Where:** cloud
 
 THE MIRROR, THE MAZE and THE GAUGE share the file, and THE GAUGE's reading
 grew from one arm to three when the round gained its two states. The next
@@ -1668,6 +1690,7 @@ the new page.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `tools/director/src/poses-bosses-rounds.ts`, `tools/director/src/field-controls-gauge.ts`, `tools/director/src/boss-states.ts`
+- **Where:** local
 
 Both ON THE FIELD rows for THE GAUGE name `THE GAUGE · PLAY`, which is the
 phase the jam and the bind live inside rather than a picture of either — so
