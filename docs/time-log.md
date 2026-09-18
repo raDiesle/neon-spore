@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — the cue's words come out from under the plate
+
+The kind line stopped at the top of the canvas, which in a rehearsal is 94
+pixels inside the tutorial band, so a boss whose mark stands high drew PRESS or
+HOLD under the plate. The clamp is `headerTop`'s, the same drop a round's header
+takes — and the fix turned out to be bigger than the entry: on four bosses the
+*mark itself* is in the band, so pushing the kind line clear put it below its
+own verb, and on three of those the verb was under the plate as well. Both lines
+take the floor now, and the kind line goes under the verb when there is no room
+over it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `boss-cue-draw.ts`, `round-header.ts`, `guide-scene.ts`'s `clearTop`, `guide-film.ts`, and the sweep's own header for the rule about labels on bodies |
+| writing | 30 | the two-line clamp and its reasoning, three cases in `boss-cue.test.ts`, the sweep widened to all fourteen cue words with the two handle hints named |
+| looking | 10 | THE SCUTTLE's second page shot twice, which is what showed PRESS alone under the plate with its verb still hidden and sent the clamp back for a second pass |
+| friction | 5 | the sweep turned up a wave at a time — SCUTTLE, then ANTIPHON, then DIASTOLE, then CANDLE — because a text filter cannot tell whose word it is |
+| landing | 10 | `format` after lint, `check:fast`, `queue done`, the commit, `bun run land --keep` |
+
+The bottleneck was the picture: three arrangements passed every test and only
+the frame showed which one a pair could actually read — a lone PRESS under the
+plate with its verb behind it is green and wrong.
+
 ## 2026-09-18 — boss-hints — two prose reasons that were about the wrong thing
 
 `STILL_PROSE` carries a reason per unfilmed wave and no test reads one, so they

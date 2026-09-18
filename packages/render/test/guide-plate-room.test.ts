@@ -91,6 +91,47 @@ function guided(waveIndex: number): World {
 const RUN_LINE = /^\d+:\d{2}( ·|$)/;
 
 /**
+ * And the boss cue: the verb under the mark and the kind of action over it,
+ * which is what the field says instead of the briefing (`boss-cue-draw.ts`,
+ * `docs/decisions.md` #34).
+ *
+ * It is on every boss wave rather than on one, so it is here beside the run's
+ * line rather than in `ALSO` below, and both lines are swept. It went in on 18
+ * September 2026 with the clamp it holds: the kind line used to stop at the
+ * top of the *canvas*, which on a rehearsal is 94 pixels inside the plate, and
+ * a film draws the cue like anything else (`guide-seat.ts` → `drawBodies`).
+ * Four bosses put a word under the band — THE GORGE's intakes had the kind
+ * line in it, and THE CANDLE's glow, THE DIASTOLE's bridge and THE SCUTTLE's
+ * borrowed lock box stand in the band with their marks, so the verb was in it
+ * too. The kind line drops off `headerTop` now and goes under the verb when
+ * there is no room over it, and the verb takes the same floor.
+ *
+ * **A word the plate covers is the tutorial covering the one thing the field
+ * was built to say for it**, which is why these move and THE BEATBOX's count
+ * does not: the count describes a body and the cue is the machine asking for
+ * something.
+ */
+const CUE_WORD =
+  /^(PRESS|HOLD|CARRY|TURN|BURN|FIRE|FLING|GUARD|LAUNCH|MOVE|OPEN|PIERCE|SHEAR|SHOVE)$/;
+
+/**
+ * Two of those words are drawn by something that is not the cue: a handle's
+ * own hint under the body it hangs off — THE ANTIPHON writes `TURN` under
+ * every standing organ (`antiphon-grip.ts`) and THE SURGE writes `HOLD` under
+ * its head (`surge-grip.ts`). THE ANTIPHON's organs stand at the top of its
+ * field, so the word is in the band, and it stays there under the rule the
+ * owner set on 17 September 2026 about THE BEATBOX's count and THE JAM's
+ * `LURE`: a label on a body stays as it is, because clearance tears it off the
+ * thing it names. The handles' words and the cue's become one thing
+ * eventually — that is an entry of its own in `docs/queue.md` — and until they
+ * do, this sweep must not read a handle's word as a cue's.
+ */
+const ON_A_BODY: Record<string, RegExp> = {
+  "THE ANTIPHON": /^TURN$/,
+  "THE SURGE": /^HOLD$/,
+};
+
+/**
  * What else a round's page must keep out of the band, wave by wave.
  *
  * The sweep was narrowed to the round's name and the run's line on 16
@@ -143,7 +184,10 @@ describe("the tutorial plate and a round's header", () => {
             const name = WAVES[i]?.name ?? "";
             const under = ctx.texts.filter(
               (t) =>
-                (t.text === name || RUN_LINE.test(t.text) || ALSO[name]?.test(t.text) === true) &&
+                (t.text === name ||
+                  RUN_LINE.test(t.text) ||
+                  (CUE_WORD.test(t.text) && ON_A_BODY[name]?.test(t.text) !== true) ||
+                  ALSO[name]?.test(t.text) === true) &&
                 inPlateBand(t),
             );
             expect(
