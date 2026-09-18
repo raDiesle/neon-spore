@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 039cdde3 — The frames header indexes its flags instead of arguing them twice
+
+`tools/frames/run.ts` stood at the 250-line ceiling with about 170 of them in one doc comment: a paragraph per flag saying why the flag exists. Every one of those paragraphs already existed in the file that implements the flag — `--boss`'s in `boss.ts`, `--fault`'s in `fault.ts`, `--until`'s in `until.ts` — so the header grew twice per flag, and `--boss-json` fitted only after two of its three lines were folded into the paragraph above them.
+
 ## 2026-09-18 · 20a42766 — The director's loop-once test asks for the clock its work needs
 
 It reads every `.ts` under `tools/director` that is not a test — 392 of them — off disk one await at a time and regexes each, and it did that on bun's five-second default. `bun run land` went red on it once with *test timed out*, on a shard carrying nine other files, while the same file alone was green in 441 ms; the work-around was running `land` again, which is a full check paid to learn the trunk was never broken.
