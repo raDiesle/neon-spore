@@ -1399,3 +1399,24 @@ each wants its idle cost measured before a number is written, the way
 `90_000`, flat, which is right for one machine under one load and for no other.
 None of them has failed a landing yet; they are the same shape as the four that
 did.
+
+## `bun run frames` cannot reach BULB QUEEN's BROOD, and `--hold` lacks her marks
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `tools/frames/boss.ts`, `tools/frames/hold.ts`, `packages/sim/src/boss.ts`, `apps/game/src/handle.ts`
+
+Her phase is read off her petals every beat (`enterPhase` in `sim/boss.ts`),
+and petals are a field of the creature, not the boss — so `--boss
+phase=1,openBeat=now` is undone on the first beat after the write, and the
+ring on her marks (`render/queen-grip.ts`) cannot be photographed from the
+game at all; the picture the look lane sent was the director's PRIED pose
+via `bun run shot`. Two things to do. First, a way to write a creature's
+fields the way `--boss` writes a boss's — `--creature petals=6` on the
+boss's creature, or a `petals` key `installBoss` forwards to
+`boss.creatureId` — applied after the jump, before the opening lets go.
+Second, `--hold`'s `DRAGS` list stops at `instarMark2`: `queenMark`
+(`id` 0 or 1, player 1), `filament` and `stareLid` are not in it, so none of
+the three newest handles can be held for a frame. Add the three rows with
+their seats, and the proof is `bun run frames . --wave "BULB QUEEN" --seat
+p1 --creature petals=6 --ticks 200 --boss openBeat=now,closeBeat=99` showing
+the ring on both marks.
