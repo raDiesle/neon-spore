@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — two prose reasons that were about the wrong thing
+
+`STILL_PROSE` carries a reason per unfilmed wave and no test reads one, so they
+go stale quietly. THE ORRERY's had already been rewritten by the lane that
+filmed it; THE HIVE's and THE INSTAR's still said the look was undrawn, and both
+are drawn. What is actually in the way is different in each case, and neither
+was the look: THE HIVE cannot be won as it stands, so no honest film of it can
+be stepped, and THE INSTAR's body says its own verbs, so the open question is
+whether it wants a film at all. The two stale counts in the file's own comments
+went with them.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue entry against the tree — THE ORRERY was already done, `render/` has nine INSTAR files and three HIVE files, `bosses.md` §11.14 for what the film waits on |
+| writing | 10 | the two reasons, the two counts in the opening comments |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, `queue done`, the commit, `bun run land --keep` |
+
+The bottleneck was that a third of the entry was already stale when it was
+claimed, because the lane that filmed THE ORRERY landed between the entry being
+written and being taken — a per-wave reason is worth re-derived before it is
+rewritten.
+
 ## 2026-09-18 — boss-hints — THE INSTAR's page catches up with THE INSTAR
 
 Two queue entries, one page. `docs/spec/bosses.md` said nothing of the boss was

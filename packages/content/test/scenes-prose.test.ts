@@ -14,7 +14,7 @@ import { SCENES } from "../src/scenes.js";
  * (`sim/test/copies-table.ts`). So the numbers in that section are here, in the
  * package that owns them.
  *
- * Both directions matter. A film written for one of the six below fails this
+ * Both directions matter. A film written for one of the ten below fails this
  * and the failure says to update the section; a guide that loses its film fails
  * it the other way. Neither is a defect in the film — it is the document being
  * asked to keep up, which is the only thing that was ever wrong with it.
@@ -23,7 +23,9 @@ import { SCENES } from "../src/scenes.js";
 /**
  * The guided waves whose opening is the three strings and the two circles.
  *
- * Four of them are films nobody has written yet. THE MINE stood here as *the
+ * Most of them are films nobody has written yet, and the reason is written
+ * beside each — the two at the end are the other case, where the picture exists
+ * and something else is in the way. THE MINE stood here as *the
  * one that cannot have one* — every act was a thumb on a named control and
  * its answer is a finger on a bare square — until the act grew a `tile`
  * gesture that names the square and the seat (`scene-act-types.ts`), and the
@@ -57,12 +59,22 @@ const STILL_PROSE = [
   // mark drawn on one seat's screen and not the other's, so the film has to be
   // shot twice and read as one lesson.
   "THE HUSK",
-  // And THE HIVE, owed by the lane that draws the mass: nine sites on an
-  // underside, a breach open or sealed, a colour and a swell read by seat,
-  // none of which is drawn yet.
+  // And THE HIVE, which is drawn — the mass, the nine sites, a breach open or
+  // sealed and the swell read by seat are all in `render/hive-draw.ts`,
+  // `hive-shape.ts` and `hive-fx.ts`. What its film waits on is that the wave
+  // cannot be won as it stands (`bosses.md` §11.14): two of the nine sites open
+  // on a spill beat for every seed, and a film is a world stepped by the real
+  // rules, so there is no honest film of a fight nobody can finish. Three
+  // answers are in `docs/queue.md` (*THE HIVE cannot be won*) and the film
+  // follows the one the owner picks.
   "THE HIVE",
-  // And THE INSTAR, owed by the lane that draws the body: five poses and the
-  // marks on them, none of which is drawn yet.
+  // And THE INSTAR, which is drawn too, and is the picture every other boss's
+  // is now measured against (`render/instar-draw.ts` and the eight files beside
+  // it). Its guide names the rule and leaves the gestures to the body: each
+  // mark carries its own word in a scanner box with the kind of action over it,
+  // which is the case `docs/decisions.md` #34 says a briefing gives its words
+  // back to. So this one may stay prose — the lane to open is not a film but
+  // the question of whether a boss that says its own verbs wants one.
   "THE INSTAR",
 ];
 

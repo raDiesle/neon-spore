@@ -608,29 +608,6 @@ most urgent first. The test is the interesting part: the handle's word is drawn
 while the handle is *unheld*, and a cue is silent where nothing is owed, so the
 two rules have to be reconciled rather than one of them deleted.
 
-## Three bosses are listed as having no look, and they have one
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-three-bosses-are-listed-as-having-no-look-and-th
-- **Files:** `packages/content/test/scenes-prose.test.ts`,
-  `packages/render/src/orrery-draw.ts`, `packages/render/src/hive-draw.ts`,
-  `packages/render/src/instar-draw.ts`
-
-`STILL_PROSE` carries a reason per wave, and three of them say the look has not
-landed: THE ORRERY *until the rings are drawn there is nothing to shoot it
-against*, THE HIVE *none of which is drawn yet*, THE INSTAR *five poses and the
-marks on them, none of which is drawn yet*. All three are drawn — THE INSTAR's
-look landed the same day as its simulation and is the reference every other
-boss's picture is now measured against.
-
-The test passes because it only asserts those waves carry no film; the reasons
-are prose and no test reads them, which is how four of them went stale in three
-days and were rewritten by the lanes that filmed THE LEAD, THE SCUTTLE and THE
-SURGE. Rewrite the three that are left to say what is actually outstanding —
-and read them against the per-boss *field says the word* entries below, because
-a boss whose fight now says its own verbs may be a boss that should never get a
-film at all.
-
 ## BULB QUEEN: the field says the word, and the briefing comes down
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
