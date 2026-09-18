@@ -520,6 +520,14 @@ Whichever it is, `hive.test.ts` gains a run that fires real bolts and wins the
 wave, and the film — a `the-hive` scene under `packages/content/src/scenes/`
 — is authored against it.
 
+The director's STATES sheet owes the same answer: the BOSSES category's
+hand on THE HIVE (`tools/director/src/boss-hands-field.ts` `hiveHand`,
+18 September 2026) takes the first open breach whose column is clear of
+rocks and seals six of the nine at the shipped seed — the three that spilled
+before a bolt could reach them stay open for good — so `hive: ["down"]` is
+the one allowance left in `tools/director/test/boss-states.test.ts`'s
+`OWED` for a field boss, struck the commit the answer lands.
+
 ## The handle bosses' own words and the boss cue become one thing
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

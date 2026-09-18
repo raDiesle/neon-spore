@@ -10872,3 +10872,25 @@ out for a seat, never asked whose screen was folded — so the film's one
 claim was the one thing it could not show until `seatLayout` existed.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — the BOSSES category's field and clock states
+
+The second half of the states a hand has to bring on, split in two because
+sixteen bosses is not one sitting: **B2a**, the field's bosses and the
+clocks' — THE FLEET, THE GORGE, THE CURTAIN, THE SCUTTLE, THE HIVE's spill,
+THE TASTER, THE LEDGER, THE LEAD — twenty-three cards; **B2b**, the drag and
+hold bosses, is the next landing. Each card is the boss's own wave run with a
+`Hand` reading the pre-step world every tick.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | eight bosses' step and shot files for the press that takes a ship, an intake, a lobe, a part, a breach, a fan, a rope, a segment |
+| writing | 15 | the eight hands in two files, the twenty-three poses in two more, the OWED strikes, the parked entry |
+| looking | 5 | THE LEAD's group through `bun run shot` |
+| friction | 10 | THE LEAD's fire landing on the beat tick before the cannon had stepped; the straight fight never showing a pass, so `leadHandLate`; THE CURTAIN's lobes carried off the field where no bolt reaches; a rock re-derived where `isMeteorKind` and `occupiesCol` should be called |
+| landing | 5 | `check:fast`, the index, the commit, `bun run land --keep` |
+
+The bottleneck was THE LEAD: a fire pressed on the beat tick goes before the
+cannon has stepped, and the fight played straight puts the beam on the first
+pass beat and downs it in the same beat, so the pass is never seen — the
+hand has to stand the beam a pass late to pose it.

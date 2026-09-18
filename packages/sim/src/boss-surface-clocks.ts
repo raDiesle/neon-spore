@@ -119,11 +119,16 @@ export {
   leadForecasts,
   leadHeading,
   leadLast,
+  // `leadLead`, `leadPassDir` and `leadWalk` are the director's hand doing
+  // the pair's sum: the column a shot pressed this beat goes in, the pass.
+  leadLead,
   leadPace,
+  leadPassDir,
   leadPassing,
   leadRunning,
   leadShootable,
   leadStill,
+  leadWalk,
   ledgerBoss,
   ledgerCovers,
   ledgerLetThrough,

@@ -30,22 +30,17 @@ const OWED: Partial<Record<BossKind, readonly string[]>> = {
   // The rounds' played states: a verdict needs the pair to answer.
   maze: ["travel"],
   gauge: ["verdict", "spent"],
-  // The field and clock bosses' states the pair's hands bring on.
-  fleet: ["struck", "sunk"],
+  // The drag and hold bosses' states the pair's hands bring on.
   cairn: ["leaving", "settled"],
   splice: ["passed", "verdict"],
   reprise: ["echoing", "held"],
   undertow: ["taken"],
-  gorge: ["spitting", "gorged", "out"],
-  curtain: ["soft", "bare", "torn", "out"],
-  taster: ["fanning", "hurrying", "closed", "out"],
   sinew: ["held", "swinging", "falling", "out"],
-  ledger: ["paying", "whipping", "taut", "out"],
   surge: ["band", "sealing", "everting", "out"],
-  lead: ["running", "still", "passing", "down"],
-  scuttle: ["winding", "down"],
   antiphon: ["still", "down"],
-  hive: ["spilling", "down"],
+  // THE HIVE's down: a breach that has spilled once cannot be sealed, so
+  // the hand cannot bring it on (`docs/queue.md`, the HIVE item).
+  hive: ["down"],
   instar: ["land", "down"],
 };
 

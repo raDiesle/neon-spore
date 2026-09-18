@@ -36,6 +36,9 @@ export {
   fleetOnBoard,
   fleetRows,
   fleetShipAt,
+  // A square already fired at: the director's hand on the sights reads it
+  // to walk past the splashes, the way the pair reads the chart's marks.
+  fleetStruck,
   GAUGE_FULL,
   GAUGE_LEAD_BEATS,
   type GaugeEntry,

@@ -1691,6 +1691,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
 | `tools/director/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE DIASTOLE, THE BATON, THE THROAT |
 | `tools/director/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN, THE VANE, THE ORRERY, THE CANDLE |
+| `tools/director/src/boss-hands-clocks.ts` | **The pair's hands on the bosses that keep a ledger of their own** — THE TASTER, THE LEDGER, THE LEAD |
+| `tools/director/src/boss-hands-field.ts` | **The pair's hands on the bosses of the field** — THE FLEET, THE GORGE, THE CURTAIN, THE SCUTTLE, THE HIVE |
 | `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
 | `tools/director/src/brush-category.ts` | Which brush categories (`BRUSH_GROUPS` in brush-groups.ts — CANNON, SHIELD, MIXED |
@@ -2028,6 +2030,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-bosses-rounds.ts` | **The rounds' states** — the bosses that take the field away and hand the pair a screen of their own… |
 | `tools/director/src/poses-bosses-hands-beats.ts` | **The states a beat earns** — THE DIASTOLE's chambers, THE BATON's crossing, THE THROAT's inhale |
 | `tools/director/src/poses-bosses-hands-shots.ts` | **The states a shot earns** on the clock bosses — THE WARDEN's plates, THE VANE's pins, THE ORRERY's rings |
+| `tools/director/src/poses-bosses-hands-clocks.ts` | **The states the pair's hands bring on the bosses that keep a ledger of their own** — THE TASTER's fan |
+| `tools/director/src/poses-bosses-hands-field.ts` | **The states the pair's hands bring on the bosses of the field** — THE FLEET's chart, THE GORGE's mouth |
 | `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |

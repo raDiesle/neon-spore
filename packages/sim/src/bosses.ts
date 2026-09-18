@@ -95,6 +95,7 @@ export {
   leadForecasts,
   leadHeading,
   leadLast,
+  leadLead,
   leadPace,
   leadPassDir,
   leadPassing,
