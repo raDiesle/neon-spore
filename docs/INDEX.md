@@ -1947,6 +1947,7 @@ place — the generator keeps whatever is there.
 | `tools/versus/scaffold.ts` | `bun run versus new <slot> <name>` — the candidate, spelled out |
 | `tools/versus/variant.ts` | VERSUS — the place a second answer to an existing shape can live |
 | `tools/versus/decide.ts` | What happens after the owner has looked |
+| `tools/versus/decided-md.ts` | `DECIDED.md` — the answers, after the slot they were given to has gone |
 | `tools/versus/list.ts` | `bun run versus` — which slots are open, and what deciding one would reach |
 | `tools/versus/text.ts` | How a value and a paragraph are spelled where VERSUS talks to a person |
 | `tools/versus/take-function-fs.ts` | Taking a function-valued field, the half that looks at the tree: which sibling files move where, the plan `adopt` writes in one go, and whether anything still imports what the record used to point at |

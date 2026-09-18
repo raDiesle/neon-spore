@@ -127,3 +127,58 @@ export function writeRegistry(candidatesDir: string): { changed: boolean; count:
   if (changed) writeFileSync(file, next);
   return { changed, count: found.length };
 }
+
+/** `creature:torch` -> `creature-torch`, the directory a slot's answers share. */
+export function slotDir(slot: string): string {
+  return slot.replace(":", "-");
+}
+
+/**
+ * `creature-torch` -> `creature:torch`, the way back. A slot name carries one
+ * colon and its directory carries a dash in that one place, so the *first* dash
+ * is the one that was a colon and the rest belong to the name:
+ * `panel-ship-join` is `panel:ship-join`.
+ */
+export function slotOfDir(dir: string): string {
+  return dir.replace("-", ":");
+}
+
+/** One candidate, as its directory names it — all a slot being closed needs. */
+export interface OnDisk {
+  /** This answer, one word, which is its directory's name. */
+  readonly name: string;
+  /** Repo-relative, the way `Variant.dir` spells it. */
+  readonly dir: string;
+}
+
+/**
+ * One slot's candidates, read off the directory names and nothing else.
+ *
+ * `discover` opens every `index.ts`, because a registry has to name the symbol
+ * inside it. This opens nothing, and that is the whole of its job. `drop`
+ * closes a slot after the by-hand sequence `adopt` prints when it refuses a
+ * function — move the paint into the package, rewrite the record, delete what
+ * nothing reads — and that sequence leaves the slot's modules unimportable:
+ * the moved file is gone from the candidate that had it, and the shipped
+ * module it came from has lost exports the *other* candidates were composing.
+ * A `drop` that had to import them could not run at the one moment it is
+ * prescribed for (`lost:screen` / `shut`, 17 September 2026).
+ *
+ * A slot with no directory and a directory with nothing in it are the same
+ * answer — no candidates — and the caller says so in its own words.
+ */
+export function candidatesIn(candidatesDir: string, slot: string): OnDisk[] {
+  const dir = slotDir(slot);
+  let names: string[];
+  try {
+    names = dirsIn(join(candidatesDir, dir));
+  } catch {
+    return [];
+  }
+  return names.map((name) => ({ name, dir: `tools/versus/candidates/${dir}/${name}` }));
+}
+
+/** Every slot with a directory under `candidates/`, named the way it is asked for. */
+export function slotsOnDisk(candidatesDir: string): string[] {
+  return dirsIn(candidatesDir).map(slotOfDir);
+}

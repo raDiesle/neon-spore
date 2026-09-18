@@ -16,12 +16,10 @@
  */
 
 import { posix } from "node:path";
+// The slot-to-directory spelling lives with the tree it names, because closing
+// a slot has to read that tree without importing a candidate (`registry.ts`).
+import { slotDir } from "./registry.js";
 import { quoted, wrap } from "./text.js";
-
-/** `creature:torch` -> `creature-torch`, the directory a slot's answers share. */
-export function slotDir(slot: string): string {
-  return slot.replace(":", "-");
-}
 
 /**
  * `creature:torch` + `flare` -> `TORCH_FLARE`, the way the standing candidates

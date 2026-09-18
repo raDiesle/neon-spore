@@ -220,7 +220,10 @@ in the tree imports it, is deleted. A function written **inline** in the
 candidate's `index.ts` is still a refusal, because there is no file to move —
 keep the implementation in `paint.ts` and import it. So is a name the record
 file already uses. Take those by hand and then `drop` the slot with a reason
-saying so.
+saying so: **`drop` reads the slot off its directory names and imports nothing**,
+so it runs on the tree those steps leave behind — where the paint has moved out
+of the candidate that held it and the shipped module it came from no longer
+exports what the *other* candidates in the slot were composing.
 
 Afterwards, `bun run check`. The record moved and the tests that draw it have
 not been run.

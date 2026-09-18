@@ -78,7 +78,7 @@ if (command === "index") {
   const as = flag === -1 ? undefined : need("file base after --as", rest[flag + 1], usage);
   const words = flag === -1 ? rest.slice(2) : rest.slice(2, flag);
   const { adopt } = await import("./decide.js");
-  for (const line of adopt(slot, name, words.join(" "), as)) console.log(line);
+  for (const line of await adopt(slot, name, words.join(" "), as)) console.log(line);
 } else if (command === "drop") {
   const usage = 'usage: bun run versus drop <slot> "<why not>"';
   const slot = need("slot", rest[0], usage);

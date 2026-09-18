@@ -31,38 +31,41 @@
 import { readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { byHand } from "./by-hand.js";
-import { VARIANTS } from "./candidates/index.js";
+import { type FileEdit, recordDecision } from "./decided-md.js";
 import { removePoseRow } from "./pose-row.js";
-import { type Edit, isRefusal, rewriteRecord } from "./record-edit.js";
-import { writeRegistry } from "./registry.js";
+import { isRefusal, rewriteRecord } from "./record-edit.js";
+import { candidatesIn, type OnDisk, slotsOnDisk, writeRegistry } from "./registry.js";
 import { CANDIDATES, ROOT } from "./root.js";
 import { type FunctionTake, planFunctionTake } from "./take-function-fs.js";
 import { quoted, wrap } from "./text.js";
 import { currentValues, slots, type Variant } from "./variant.js";
 
-const DECIDED = join(ROOT, "tools", "versus", "DECIDED.md");
-
-/** Everything one file gets written in one adoption. */
-interface FileEdit {
-  readonly file: string;
-  readonly symbol: string;
-  readonly text: string;
-  readonly edits: readonly Edit[];
-  /** The function-valued fields, taken by moving their file. */
-  readonly taken?: FunctionTake;
+/**
+ * **The registry is loaded by `adopt` and by nothing else.**
+ *
+ * A candidate's values are what `adopt` writes into the record, so it has no
+ * way to work without the modules that hold them. `drop` writes none of them,
+ * and importing this at the top of the file made it pay for them anyway — see
+ * `candidatesIn` for the state that costs.
+ */
+async function slotOf(name: string): Promise<{ slot: string; candidates: readonly Variant[] }> {
+  const { VARIANTS } = await import("./candidates/index.js");
+  const found = slots(VARIANTS).find((s) => s.slot === name);
+  if (!found)
+    throw noSlot(
+      name,
+      slots(VARIANTS).map((s) => s.slot),
+    );
+  return found;
 }
 
-function slotOf(name: string): { slot: string; candidates: readonly Variant[] } {
-  const found = slots(VARIANTS).find((s) => s.slot === name);
-  if (!found) {
-    const open = slots(VARIANTS).map((s) => s.slot);
-    throw new Error(
-      open.length === 0
-        ? `no slot is open, so there is nothing called ${JSON.stringify(name)} to decide`
-        : `no slot called ${JSON.stringify(name)} — open right now: ${quoted(open)}`,
-    );
-  }
-  return found;
+/** Said the same way whichever half of the tool was asked. */
+function noSlot(name: string, open: readonly string[]): Error {
+  return new Error(
+    open.length === 0
+      ? `no slot is open, so there is nothing called ${JSON.stringify(name)} to decide`
+      : `no slot called ${JSON.stringify(name)} — open right now: ${quoted(open)}`,
+  );
 }
 
 /**
@@ -117,8 +120,13 @@ function planFor(won: Variant, as?: string): FileEdit[] {
 
 /** The winner into the game, and the slot off the page. `as` names the base of
  * a moved implementation file, when the default is not wanted. */
-export function adopt(slotName: string, winner: string, reason: string, as?: string): string[] {
-  const { slot, candidates } = slotOf(slotName);
+export async function adopt(
+  slotName: string,
+  winner: string,
+  reason: string,
+  as?: string,
+): Promise<string[]> {
+  const { slot, candidates } = await slotOf(slotName);
   const won = candidates.find((c) => c.name === winner);
   if (!won) {
     throw new Error(
@@ -151,7 +159,7 @@ export function adopt(slotName: string, winner: string, reason: string, as?: str
     }
   }
   out.push("", ...removeSlot(slot, candidates), "");
-  writeDecided(decidedEntry(slot, won, candidates, reason, plan));
+  recordDecision(slot, won, candidates, reason, plan);
   out.push(
     "  tools/versus/DECIDED.md — the answer, so the next slot on this record can read it",
     "",
@@ -162,10 +170,11 @@ export function adopt(slotName: string, winner: string, reason: string, as?: str
 
 /** No answer taken: the slot goes, the game is untouched, the reason is kept. */
 export function drop(slotName: string, reason: string): string[] {
-  const { slot, candidates } = slotOf(slotName);
-  const out = [`${slot} — nothing taken. The game draws what it drew.`, ""];
-  out.push(...removeSlot(slot, candidates), "");
-  writeDecided(decidedEntry(slot, null, candidates, reason, []));
+  const candidates = candidatesIn(CANDIDATES, slotName);
+  if (candidates.length === 0) throw noSlot(slotName, slotsOnDisk(CANDIDATES));
+  const out = [`${slotName} — nothing taken. The game draws what it drew.`, ""];
+  out.push(...removeSlot(slotName, candidates), "");
+  recordDecision(slotName, null, candidates, reason, []);
   out.push("  tools/versus/DECIDED.md — the reason, which is the only thing left of the slot");
   return out;
 }
@@ -178,7 +187,7 @@ export function drop(slotName: string, reason: string): string[] {
  * arrangement exists to prevent. The row goes for the reason `pose-row.ts`
  * gives — its pose stays in the gallery, the row was only the slot's way to it.
  */
-function removeSlot(slot: string, candidates: readonly Variant[]): string[] {
+function removeSlot(slot: string, candidates: readonly OnDisk[]): string[] {
   for (const c of candidates) rmSync(join(ROOT, c.dir), { recursive: true, force: true });
   const { count } = writeRegistry(CANDIDATES);
   return [
@@ -186,57 +195,4 @@ function removeSlot(slot: string, candidates: readonly Variant[]): string[] {
     `  rewrote  tools/versus/candidates/registry.ts — ${count} candidate${count === 1 ? "" : "s"} left`,
     removePoseRow(ROOT, slot),
   ];
-}
-
-/** Append, never rewrite: the file is a record of answers and nothing edits an old one. */
-function writeDecided(entry: string): void {
-  const md = readFileSync(DECIDED, "utf8").replace(/\s+$/, "");
-  writeFileSync(DECIDED, `${md}\n\n${entry}\n`);
-}
-
-function decidedEntry(
-  slot: string,
-  won: Variant | null,
-  candidates: readonly Variant[],
-  reason: string,
-  plan: readonly FileEdit[],
-): string {
-  const today = new Date().toISOString().slice(0, 10);
-  const others = candidates.filter((c) => c !== won).map((c) => c.name);
-  const lines = [
-    won
-      ? `## \`${slot}\` / \`${won.name}\` — taken, ${today}`
-      : `## \`${slot}\` — nothing taken, ${today}`,
-    "",
-    wrap(reason.trim() || "(no reason written down, which is worse than a short one.)"),
-  ];
-  if (won) {
-    lines.push("", wrap(won.sentence));
-    for (const f of plan) {
-      const written = f.edits.map((e) => e.field);
-      if (written.length > 0) {
-        lines.push("", wrap(`Written into \`${f.file}\`, \`${f.symbol}\`: ${quoted(written)}.`));
-      }
-      for (const t of f.taken?.fields ?? []) {
-        lines.push(
-          "",
-          wrap(
-            `\`${f.symbol}.${t.field}\` is \`${t.ident}\`, moved from \`${t.from}\` to \`${t.to}\`.`,
-          ),
-        );
-      }
-      for (const r of f.taken?.retired ?? []) lines.push("", wrap(`${r.note}.`));
-    }
-  }
-  lines.push(
-    "",
-    wrap(
-      others.length === 0
-        ? "It was the only answer offered."
-        : `The other ${others.length === 1 ? "answer" : "answers"} offered ${
-            others.length === 1 ? "was" : "were"
-          } ${quoted(others)}; ${others.length === 1 ? "it went" : "they went"} with the slot.`,
-    ),
-  );
-  return lines.join("\n");
 }

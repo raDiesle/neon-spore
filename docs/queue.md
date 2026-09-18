@@ -349,27 +349,6 @@ these headers were written the way they are to avoid.
 The first is the only one that gives act seven somewhere to grow. It wants
 deciding before the next boss lands rather than during it.
 
-## `versus drop` cannot run while a function is being taken by hand
-
-- **Found:** 2026-09-17, claude/fervent-nash-e1e7ff
-- **Taken:** 2026-09-18, claude/queue-versus-drop-cannot-run-while-a-function-is-being
-- **Files:** `tools/versus/decide.ts`, `tools/versus/run.ts`, `tools/versus/test/registry.test.ts`
-
-`drop` imports the registry, which imports every candidate in the slot, before
-it removes any of them. The by-hand path `adopt` prints when it refuses a
-function — move the paint, rewrite the record, delete what nothing reads, then
-`drop` — leaves the tree in exactly the state that import fails in: the moved
-`paint.js` is gone from the candidate, and the shipped module it took from
-has lost the exports the *other* candidates in the slot were composing
-(`plates` out of `lost-shutters.ts`, 17 September 2026). Taking `lost:screen`
-/ `shut` hit both, and ran `drop` against the shipped file restored for the
-length of the command. `drop` reads nothing off a candidate but its
-`sentence` and `name`, which the directory names already carry; derive the
-slot's candidates from the directories the way `index` does, or `git show
-HEAD:` the registry's inputs, so the by-hand sequence the tool itself
-prescribes can end in the tool. A test: move a candidate's paint out, run
-`drop`, expect the slot gone.
-
 ## `hash-fixture.ts` is three times its limit and every boss adds a branch to it
 
 - **Found:** 2026-09-17, claude/tutorial-boss-onscreen-actions-07cc80

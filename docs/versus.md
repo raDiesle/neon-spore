@@ -167,7 +167,11 @@ function written inline in the candidate's `index.ts`, which has no file to
 move, and a field it cannot find at the top level of the literal, which is
 refused rather than written to a nested field of the same name. Those are
 taken by hand, and then the slot is closed with `drop` and a reason saying it
-was.
+was. `drop` reads the slot off its directory names and loads no candidate, so
+it can run on the tree those by-hand steps leave: the moved paint is gone from
+the candidate that held it, and the module it came from has lost the exports
+the other candidates were composing. Only `adopt` reaches the registry, because
+only `adopt` writes a candidate's own values.
 
 The registry moved for the same reason the command exists. `candidates/index.ts`
 used to hold the array, and every lane that opened a slot added an import and a

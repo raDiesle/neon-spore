@@ -1,8 +1,9 @@
 import { describe, expect, it } from "bun:test";
 import { existsSync } from "node:fs";
 import { posix, resolve } from "node:path";
+import { slotDir } from "../registry.js";
 import { ROOT } from "../root.js";
-import { slotDir, symbolFor, template } from "../scaffold.js";
+import { symbolFor, template } from "../scaffold.js";
 
 /**
  * The scaffold is printed for a person to paste, so nothing type-checks it and

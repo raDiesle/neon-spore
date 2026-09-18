@@ -1,7 +1,20 @@
-import { describe, expect, it, setDefaultTimeout } from "bun:test";
+import { afterAll, beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
+import { mkdirSync, readFileSync } from "node:fs";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { pathToFileURL } from "node:url";
 import { loadedTimeout } from "../../test/repo-time.js";
 import { VARIANTS } from "../candidates/index.js";
-import { discover, type Registered, registryText } from "../registry.js";
+import {
+  candidatesIn,
+  discover,
+  type Registered,
+  registryText,
+  slotDir,
+  slotOfDir,
+  slotsOnDisk,
+} from "../registry.js";
 import { CANDIDATES, ROOT } from "../root.js";
 
 // What this file is allowed to take, scaled to how busy the machine is
@@ -74,5 +87,74 @@ describe("the registry matches the directories", () => {
   it("prints the real tree the way Biome would", () => {
     const text = registryText(discover(CANDIDATES));
     expect(text).toBe(asBiomeWouldPrint(text));
+  });
+});
+
+/**
+ * **Closing a slot reads the directory names and opens nothing.**
+ *
+ * `drop` is the last step of the by-hand sequence `adopt` prints when it
+ * refuses a function: move the paint into the package, rewrite the record,
+ * delete what nothing reads, then close the slot. That sequence leaves the
+ * slot's own modules unimportable — the moved file is gone from the candidate
+ * that had it, and the shipped module it came from has lost the exports the
+ * *other* candidates were composing — so a `drop` that imported the registry
+ * could not run at the one moment it is prescribed for (`lost:screen` / `shut`,
+ * 17 September 2026, run against the shipped file restored for the length of
+ * the command). The first case here builds exactly that tree and shows both
+ * halves of it: the candidate will not import, and the slot is read anyway.
+ */
+describe("a slot is closed off its directories", () => {
+  let tree = "";
+  const SHUT = "lost-screen/shut/index.ts";
+
+  beforeAll(async () => {
+    tree = await mkdtemp(join(tmpdir(), "ns-versus-"));
+    for (const path of [SHUT, "lost-screen/keep/index.ts", "panel-ship-join/seam/index.ts"]) {
+      mkdirSync(join(tree, path, ".."), { recursive: true });
+      // The paint this candidate composed has been moved into the package and
+      // the export it took is gone: an import of this file throws.
+      await writeFile(
+        join(tree, path),
+        'import { plates } from "./paint.js";\nexport const SHUT_X = plates;\n',
+      );
+    }
+  });
+
+  afterAll(async () => {
+    await rm(tree, { recursive: true, force: true });
+  });
+
+  it("names a candidate whose own module will not import", async () => {
+    await expect(import(pathToFileURL(join(tree, SHUT)).href)).rejects.toThrow();
+    expect(candidatesIn(tree, "lost:screen").map((c) => c.name)).toEqual(["keep", "shut"]);
+  });
+
+  it("gives each one the repo-relative directory a removal takes", () => {
+    expect(candidatesIn(tree, "lost:screen").map((c) => c.dir)).toEqual([
+      "tools/versus/candidates/lost-screen/keep",
+      "tools/versus/candidates/lost-screen/shut",
+    ]);
+  });
+
+  it("has nothing for a slot with no directory, which is how `drop` refuses a name", () => {
+    expect(candidatesIn(tree, "torch:veil")).toEqual([]);
+  });
+
+  it("names the open slots the way they are asked for, a dash in the name kept", () => {
+    expect(slotsOnDisk(tree)).toEqual(["lost:screen", "panel:ship-join"]);
+    expect(slotOfDir(slotDir("panel:ship-join"))).toBe("panel:ship-join");
+  });
+
+  /**
+   * The defect was one line: a top-level `import { VARIANTS }` in `decide.ts`
+   * loaded every candidate in the tree before `drop` removed any of them.
+   * `adopt` writes a candidate's own values and cannot work without them, so
+   * the registry is reached where it is needed and nowhere above it.
+   */
+  it("reaches the registry from `adopt` alone", () => {
+    const src = readFileSync(join(ROOT, "tools/versus/decide.ts"), "utf8");
+    expect(src).not.toMatch(/^import .*candidates\/index\.js/m);
+    expect(src).toContain('await import("./candidates/index.js")');
   });
 });

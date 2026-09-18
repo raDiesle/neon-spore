@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — `versus drop` reads the directories
+
+`drop` imported the registry, which imports every candidate in the slot, before
+it removed any of them — so the last step of the by-hand sequence `adopt` itself
+prints could not run on the tree those steps leave. The slot is now read off its
+directory names (`candidatesIn`), `adopt` loads the registry where it needs it,
+and `DECIDED.md`'s prose moved into `decided-md.ts` because the file was over
+the ceiling.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, `decide.ts` whole, `registry.ts`'s `discover`, `run.ts`'s lazy imports, where `slotDir` lived |
+| writing | 30 | `candidatesIn`/`slotsOnDisk`/`slotOfDir`, the lazy `slotOf`, the `decided-md.ts` split, five tests, two doc paragraphs |
+| looking | 0 | nothing the game draws moved |
+| friction | 5 | the heredoc guard on a doubled backslash, rewritten through `chr(92)` |
+| landing | 10 | `bun run index` for the new file's row, `check:fast` twice, the commit, `bun run land --keep` |
+
+**The bottleneck was writing**, and most of it was the split: the fix is four
+functions, but `decide.ts` came out of it at 258 lines and the honest seam was
+the half that writes prose about a decision rather than source.
+
 ## 2026-09-18 — boss-hints — a boss's list can be photographed
 
 `--boss` writes scalars and refuses arrays by design, so the states that most
