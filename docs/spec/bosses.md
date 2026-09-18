@@ -916,6 +916,85 @@ pair either have a vocabulary by then or they never will.
 from the rng: the sweep, the openings, the colours and the fold all follow from
 the wave's beat and the pins. `vane.test.ts` holds the seed to that.
 
+### Three phases, three gestures
+
+The fight as first built was one shot up one column, repeated five times, and a
+pair that had learned it on the first opening had learned the whole of it
+(`docs/queue.md`, *THE VANE changes state more than once, and asks for more
+than one gesture*). Since 18 September 2026 every pair of pins adds a hand, and
+both of the new ones are **on the picture** rather than on the panel — on the
+arm itself, which is the only part of this boss there has ever been. The table
+is `VANE_PHASES` in `vane-cycle.ts`; `asks` is the column that is new, and
+`vane-open.ts` is the one place that reads it into *where the arm is standing*
+and *whether the bearing is open*.
+
+| Phase | Pins left | Reach | The bearing asks for | Whose hand |
+|---|---|---|---|---|
+| SWING | 5–4 | two columns | nothing new: the housing splits at each end of the sweep | the pilot stands the cannon, the navigator fires |
+| VEER | 3–2 | four | **the arm pinned under a thumb** (`vaneArm`). The ends split nothing any more; a window is a held arm, and the fold line holds still with it | the pilot pins, the navigator fires |
+| SEIZE | 1 | the width | the pin **and the seized housing hauled off it** (`vaneHousing`, `vaneHaulMilli`) | the pilot pins, the navigator hauls and then fires |
+
+**The pin is the trade this boss was always going to have to offer.** §11.5's
+own argument for the two beats at each end of the sweep is that *a fold line
+that is moving cannot be named across a voice delay* — so the holds are the
+encounter and everything between them is unsayable. From VEER the holds stop
+giving the pair a window, and what gives them one instead is the pilot putting a
+thumb on the arm: it stops in the column it was in, the housing splits on the
+side away from the load exactly as it does at an end, and **every arrival while
+the thumb is down folds about the column the pair are both looking at**. He
+pays for it with the hand he carries the cannon with, so the column he pins in
+is a column he then has to reach — which is the sentence VEER makes him say.
+A pin lasts `vanePinBeats`, four, and the sweep tears it out of his thumb after
+that; a lift ends it sooner. One shot per hold, as one shot per opening.
+
+**Under SEIZE the bearing jams**, and a pinned arm is no longer a window, only
+the chance of one. The navigator carries the housing off it — a lift whose
+travel is at least `vaneHaulMilli`, a tile and a half, the same gesture THE
+WARDEN's hatch asks for — and it stands open for the rest of his pin. A housing
+on a *moving* arm cannot be hauled at all, so the last pin needs his hand and
+hers on the picture at the same time and her shot after them. The haul goes
+when the pin goes: a window this boss gave the pair is never one the pair can
+leave standing.
+
+**The colour is the cycle's in every phase.** The housing has worn it since the
+arm stopped, and a pinned arm is an arm that has stopped, so `vaneOpeningNow`
+answers with the opening the cycle is on or the one it is on its way to. The
+alternation goes on at the rate the pair learned under SWING and the arm never
+carries a colour of its own.
+
+**Three departures, argued.** The cycle's own openings **stop** from VEER, and
+§11.5 above says the cycle is fixed and learnable: it still is — the sweep, the
+holds and the colours are the table they always were, and what changes is who
+opens the housing standing at the end of it. **The phase table now carries a
+gesture**, which this section did not have a column for; the queue item is the
+owner asking for more than one, and the WARDEN's `asks` (§11.4) is the shape it
+takes. And **an arrival can now be folded about a column the pair chose**,
+which is the closest this design has come to relaxing *it touches an arrival
+once and never again* — it does not: a body still folds once, at row 0, about
+wherever the arm is on that beat, and the one thing that has changed is that
+the pair can hold the arm still. Nothing standing on the field ever moves.
+
+**Nothing new can hurt the pair.** A thumb lifted early, a haul on a sweeping
+arm, a shot after the arm tore free — each is a window lost and nothing more.
+THE VANE is still the boss that attacks nobody.
+
+**Where the hands live.** `vane-hand.ts` hears both, on the tick (`step.ts`,
+beside THE WARDEN's): a thumb on a sweeping arm has to stop it where the pair
+saw it stop. `VaneState` gained `pinBeat`, `pinCol`, `pinSide`, `hauled` and
+`spentPin`, all hashed in `vane-hash.ts`. `config-vane.ts` holds the two new
+numbers, in `BossClockConfig` with the other counts a pair says out loud. The
+three events — `vanePin`, `vaneSlip`, `vaneHaul` — are `events-vane.ts`, the
+boss's first, cued by `bind-vane.ts` and voiced by `sounds/boss-vane.ts`.
+
+**What is not built** (sim lane, 18 September 2026): the picture. The arm is
+still drawn off the cycle on every screen, so a pinned arm draws sweeping on;
+no ring answers `vaneArm` or `vaneHousing`; the three events are on the silent
+lists. The look lane draws the arm off `vaneTipNow`, the pilot's ring on the
+tip under VEER and the navigator's on the housing under SEIZE, the split off
+`vaneSplitCol`, and the slip. *Never watched at tempo*: whether four beats is a
+hold a pair can spend a sentence inside, and whether a thumb on the arm and a
+thumb on the cannon are comfortable on one phone.
+
 **What the field says** (`render/src/boss-cue-read-b.ts`, 18 September 2026,
 `docs/decisions.md` #34). Two words, one per seat, and **nothing whatever about
 the fold**. `CARRY` / `MOVE` on the cannon where it stands, the pilot's, while
@@ -949,7 +1028,10 @@ is a question about motion at tempo.
 Its one number in `packages/sim/src/config-boss.ts` is `vanePins`, the pins
 holding the bearing: one comes out per opening answered and the arm slips a
 phase further out each time, so it is both how long the fight is and how much of
-the field it ends up folding.
+the field it ends up folding. Its two in `packages/sim/src/config-vane.ts` are
+the hands above — `vanePinBeats`, how long the pilot's thumb holds the arm
+before the sweep tears it free, and `vaneHaulMilli`, how far the navigator's
+has to carry the seized housing for the lift to count as a haul.
 
 ## 11.6 THE FLEET — one of you has the map, the other has the sights
 

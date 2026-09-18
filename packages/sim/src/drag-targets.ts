@@ -9,6 +9,8 @@
  * `command-types.ts` re-exports `DragTarget`, so nothing moved.
  */
 
+import type { DragTargetB } from "./drag-targets-b.js";
+
 /** The draggable elements: one name per thing a hand may take hold of. A closed
  * list rather than a creature id, because THE MAZE's string is not a creature —
  * a drag that could only name one could not reach the first thing that wanted
@@ -42,9 +44,9 @@ export type DragTarget =
   | "gaugeBand"
   | "wardenEye"
   | "wardenHatch"
-  | "fleetBreach"
-  | "fleetRake"
-  | "fleetWreck";
+  // THE FLEET's three and THE VANE's two, argued beside themselves: this union
+  // is the half that grows, and it is cut in two pages.
+  | DragTargetB;
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -235,9 +237,7 @@ export type DragTarget =
  * while his hand is on the string (`maze-hand.ts`). No `id`: one heart.
  * `wardenEye` and `wardenHatch` are the twenty-fifth and -sixth: a gesture per
  * phase — player 2's thumb on the eye, player 1's swipe (`warden-hand.ts`).
- * `fleetBreach`, `fleetRake` and `fleetWreck` are THE FLEET's three, one a
- * state: her hold on the plume, his rake along the hull, her pull on the
- * wreck (`fleet-hand.ts`). No `id`: one hull is holed at a time.
+ * THE FLEET's three and THE VANE's two: `drag-targets-b.ts`.
  */
 
 /**

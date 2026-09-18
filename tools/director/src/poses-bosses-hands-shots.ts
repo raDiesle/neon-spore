@@ -40,7 +40,7 @@ export const SHOT_HAND_POSES: Pose[] = [
   bossPose(
     "vane",
     "veer",
-    "Two pins out and the sweep leaning: the reach is the same two columns but they no longer stand either side of the pivot, so the split shows where the pair has to guess it will.",
+    "Two pins out and the ends of the sweep splitting nothing: the only window now is the arm held still under the pilot's thumb, which stops the fold line with it and puts the split on the side away from the load.",
     {
       hand: vaneHand,
       want: (w) => w.boss?.kind === "vane" && vanePhase(w.boss.pins).name === "VEER",
@@ -50,7 +50,7 @@ export const SHOT_HAND_POSES: Pose[] = [
   bossPose(
     "vane",
     "seize",
-    "One pin holding and the vane seized in place: no swing, a split that never moves, and the last shot into it with every creature it can no longer throw falling straight.",
+    "One pin holding and the bearing seized: the arm pinned under his thumb is no longer a window on its own, and the navigator has to haul the housing off it before the last shot counts.",
     {
       hand: vaneHand,
       want: (w) => w.boss?.kind === "vane" && vanePhase(w.boss.pins).name === "SEIZE",

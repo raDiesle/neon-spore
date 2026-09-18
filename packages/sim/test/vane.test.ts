@@ -16,8 +16,10 @@ import {
   vaneFold,
   vaneOpen,
   vaneOpening,
+  vaneOpeningNow,
   vanePhase,
   vanePivotCol,
+  vaneSplitCol,
   vaneTipCol,
   vaneWeakCol,
   type World,
@@ -225,9 +227,36 @@ describe("the bearing", () => {
     expect(vane(world).pins).toBe(CFG.vanePins);
   });
 
+  it("is split at the ends only while its first phase lasts", () => {
+    // From VEER the stops have worn: the cycle's own openings are gone and a
+    // window is something the pair makes with a thumb (`vane-open.ts`).
+    const world = beats(open(3), 1);
+    expect(vanePhase(vane(world).pins).name).toBe("VEER");
+    expect(vaneOpen(world)).toBe(false);
+    shoot(world, vaneWeakCol(CFG, 1), vaneColor(vaneOpening(1)));
+    expect(vane(world).pins).toBe(3);
+  });
+
   it("goes down on its last pin and lets the wave finish", () => {
+    // SEIZE: the arm pinned under the pilot's thumb, the seized housing hauled
+    // off it by the navigator, and then the shot (`vane-hand.test.ts`).
     const world = beats(open(1), 1);
-    shoot(world, vaneWeakCol(CFG, world.waveBeat), vaneColor(vaneOpening(world.waveBeat)));
+    const at = world.tick;
+    beats(world, 1, [
+      { tick: at, player: 1, command: { kind: "drag", target: "vaneArm", on: true, fromMilli: 0 } },
+      {
+        tick: at + 1,
+        player: 2,
+        command: {
+          kind: "drag",
+          target: "vaneHousing",
+          on: false,
+          fromMilli: 0,
+          fromYMilli: CFG.vaneHaulMilli,
+        },
+      },
+    ]);
+    shoot(world, vaneSplitCol(world, vane(world)), vaneColor(vaneOpeningNow(world.waveBeat)));
     expect(world.boss).toBeNull();
   });
 });
@@ -357,10 +386,18 @@ describe("a full cycle, pinned", () => {
     ]);
   });
 
-  it("answers all three openings", () => {
+  /**
+   * The cycle's own openings answer only while SWING lasts, which is the first
+   * two pins. The third shot of the run is fired at an end of the sweep the
+   * housing no longer splits at — the arm is in VEER by then and wants a thumb
+   * on it — so it costs a colour miss and nothing else (`vane-hand.test.ts`
+   * takes the third pin the way the pair now has to).
+   */
+  it("answers the openings its first phase has, and no more", () => {
     const { world } = play(1);
-    expect(vane(world).pins).toBe(CFG.vanePins - 3);
-    expect(world.balance.colorHits).toBe(3);
+    expect(vane(world).pins).toBe(CFG.vanePins - 2);
+    expect(vanePhase(vane(world).pins).name).toBe("VEER");
+    expect(world.balance.colorHits).toBe(2);
     expect(vane(world).throwBeat).toBeGreaterThan(0);
   });
 

@@ -118,6 +118,14 @@ export {
   NO_GRAB,
   NOT_DONE,
   NOT_DRAWN,
+  // THE VANE's arm once a thumb is on it, and its bearing under all three
+  // phases — read, never re-derived from the cycle (`vane-open.ts`).
+  vaneBearingOpen,
+  vaneOpeningSpent,
+  vanePinned,
+  vanePinSide,
+  vaneSplitCol,
+  vaneTipNow,
   walkFilament,
   // THE WARDEN's openness under its three phases, for the picture and the
   // cues — read, never re-derived from the rope (`warden-open.ts`).

@@ -125,6 +125,11 @@ export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
     boss.throwBeat = 6;
   }
   if (boss.kind === "vane") {
+    boss.pinBeat = 9;
+    boss.pinCol = 2;
+    boss.pinSide = -1;
+    boss.hauled = true;
+    boss.spentPin = 9;
     boss.spentOpening = 2;
     boss.throwBeat = 5;
     boss.throwCol = 4;

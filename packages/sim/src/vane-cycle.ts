@@ -98,27 +98,56 @@ export function vaneStageStart(index: number): number {
 }
 
 /**
+ * **What a phase asks of the pair that the one before did not** — the gesture
+ * the pins add (`docs/spec/bosses.md` §11.5, *Three phases, three gestures*).
+ *
+ * - `shoot`: the bearing as it was built. The housing splits at each end of
+ *   the sweep, on this table's own clock, and the shot is the whole answer.
+ * - `pin`: the stops have worn. The housing no longer splits at the ends at
+ *   all; the pilot's thumb on the arm holds it where it stands, and *that* is
+ *   what splits the housing — which also stops the fold line moving for as
+ *   long as he keeps it there (`vane-open.ts`).
+ * - `haul`: the bearing has seized. A pinned arm is no longer enough — the
+ *   housing is jammed, and the navigator has to haul it open with her other
+ *   hand before the shot counts (`vane-hand.ts`).
+ */
+export type VaneGesture = "shoot" | "pin" | "haul";
+
+/**
  * A phase, which follows from the pins and nothing else.
  *
  * The reach is the health bar. Every pin taken out of the bearing lets the arm
  * slip further out, so the boss answers damage by folding *more* of the field —
  * the same bargain the Bulb Queen makes when she sinks a tile per petal. The
  * timing never moves: holds and sweeps are the same length in every phase, so a
- * pair that learned the cycle on its first turn has learned it for the whole
- * fight (`docs/spec/bosses.md`'s *fixed and learnable*). `above` reads as `WARDEN_PHASES` does.
+ * pair that learned the cycle on its first turn has learned the *cycle* for the
+ * whole fight (`docs/spec/bosses.md`'s *fixed and learnable*). What does move,
+ * since 18 September 2026, is **what the bearing asks for**: the first gesture
+ * is never taken away, and each pair of pins puts another beside it.
+ * `above` reads as `WARDEN_PHASES` does.
  */
 export interface VanePhase {
   name: string;
   above: number;
   /** Columns the tip stands out from the bearing at the end of a sweep. */
   reach: number;
+  asks: VaneGesture;
 }
 
 export const VANE_PHASES: readonly VanePhase[] = [
-  { name: "SWING", above: 3, reach: 2 },
-  { name: "VEER", above: 1, reach: 4 },
-  { name: "SEIZE", above: -1, reach: 5 },
+  { name: "SWING", above: 3, reach: 2, asks: "shoot" },
+  { name: "VEER", above: 1, reach: 4, asks: "pin" },
+  { name: "SEIZE", above: -1, reach: 5, asks: "haul" },
 ];
+
+/**
+ * Whether the housing still splits on the cycle's own clock this phase. Only
+ * SWING's does: from VEER on, an opening is something the pair makes with a
+ * thumb rather than something the table hands them (`vane-open.ts`).
+ */
+export function vaneSplitsOnCycle(phase: VanePhase): boolean {
+  return phase.asks === "shoot";
+}
 
 /** The phase these pins put it in. Never stored — pins are the whole of it. */
 export function vanePhase(pins: number): VanePhase {
@@ -177,6 +206,27 @@ export function vaneOpening(waveBeat: number): number {
   for (let i = 0; i < stage; i++) if (VANE_CYCLE[i]!.open) nth += 1;
   const perCycle = VANE_CYCLE.filter((s) => s.open).length;
   return vaneCycle(waveBeat) * perCycle + nth;
+}
+
+/**
+ * **Which opening the housing's colour follows, on any beat**: the cycle's own
+ * number while it is in one, and the number of the cycle's *next* one while it
+ * is not. Never -1, so the housing always has a colour to have worn.
+ *
+ * It is the cycle's clock even in the phases whose openings the pair make
+ * themselves (`vane-open.ts`): a pin under VEER splits a housing that has been
+ * wearing the colour of the opening it is on its way to, so the alternation
+ * goes on at the rate the pair learned under SWING and the arm never has to
+ * carry a colour of its own.
+ */
+export function vaneOpeningNow(waveBeat: number): number {
+  const at = vaneOpening(waveBeat);
+  if (at !== -1) return at;
+  for (let ahead = 1; ahead <= VANE_CYCLE_BEATS; ahead++) {
+    const next = vaneOpening(waveBeat + ahead);
+    if (next !== -1) return next;
+  }
+  return 0;
 }
 
 /**

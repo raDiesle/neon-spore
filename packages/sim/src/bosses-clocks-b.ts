@@ -137,6 +137,18 @@ export {
   scuttleWindBeats,
   scuttleWinding,
 } from "./scuttle.js";
+// THE VANE's two hands (18 September 2026): where the arm is standing once a
+// thumb has pinned it, and whether the bearing is open under each of its three
+// phases. A clock on this page's terms — the pin runs for `vanePinBeats` and
+// the window goes with it (`vane-open.ts`).
+export {
+  vaneBearingOpen,
+  vaneOpeningSpent,
+  vanePinned,
+  vanePinSide,
+  vaneSplitCol,
+  vaneTipNow,
+} from "./vane-open.js";
 // THE WARDEN's three phases, read as one openness: the eye under the rope,
 // under the rope and a thumb, and under a thrown hatch (`warden-open.ts`).
 export {

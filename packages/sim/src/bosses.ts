@@ -214,20 +214,23 @@ export {
   spliceRound,
 } from "./splice-round.js";
 export { spliceSpreadCol } from "./splice-tangle.js";
-export { vaneOpen } from "./vane.js";
+export { vaneOpen } from "./vane.js"; // `vaneBearingOpen` and the pinned arm: `bosses-clocks-b.ts`.
 export { vaneFold, vanePivotCol, vaneReach, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
 export {
   VANE_CYCLE,
   VANE_CYCLE_BEATS,
   VANE_PHASES,
+  type VaneGesture,
   type VanePhase,
   type VaneStage,
   vaneColor,
   vaneCycle,
   vaneCycleBeat,
   vaneOpening,
+  vaneOpeningNow,
   vanePhase,
   vaneReachMilli,
+  vaneSplitsOnCycle,
   vaneStageIndex,
   vaneStageStart,
 } from "./vane-cycle.js";

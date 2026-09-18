@@ -13,6 +13,7 @@ import { scoutHashParts } from "./scout-hash.js";
 import { MIRROR_PHASES, MIRROR_STEPS } from "./simon.js";
 import { snakeHashParts } from "./snake-hash.js";
 import { spliceHashParts } from "./splice-hash.js";
+import { hashVane } from "./vane-hash.js";
 
 /**
  * The boss half of the world fingerprint.
@@ -110,12 +111,7 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.leftBeat);
     push(boss.settleCol);
   }
-  if (boss !== null && boss.kind === "vane") {
-    push(boss.pins);
-    push(boss.spentOpening);
-    push(boss.throwBeat);
-    push(boss.throwCol);
-  }
+  if (boss !== null && boss.kind === "vane") hashVane(push, boss);
   if (boss !== null && boss.kind === "maze") {
     // Gathered beside the boss rather than spelled out here: `mazeHashParts`
     // says what is in it and why, the authored wheel included.

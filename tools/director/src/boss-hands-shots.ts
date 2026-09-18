@@ -8,8 +8,10 @@ import {
   type TimedCommand,
   vaneColor,
   vaneOpen,
-  vaneOpening,
-  vaneWeakCol,
+  vaneOpeningNow,
+  vanePhase,
+  vanePinned,
+  vaneSplitCol,
   type World,
   wardenColor,
   wardenCycle,
@@ -85,16 +87,39 @@ export const wardenHand: Hand = (w) => {
   return out;
 };
 
+/** The pilot's thumb landing on the arm: it stops where it stands. */
+const pinArm: Press = {
+  player: 1,
+  command: { kind: "drag", target: "vaneArm", on: true, fromMilli: 0 },
+};
+/** The navigator's carry off the seized housing: the lift, and how far it went. */
+const haul = (milli: number): Press => ({
+  player: 2,
+  command: { kind: "drag", target: "vaneHousing", on: false, fromMilli: 0, fromYMilli: milli },
+});
+
 /**
- * THE VANE: the bearing splits at each end of the sweep, in one column and
- * one colour, and the shot goes up that column in that colour while the
- * split is there (`vaneOpen`, `vaneWeakCol`, `vaneColor`).
+ * THE VANE: the bearing opens in one column and one colour, and the shot goes
+ * up that column in that colour while it is open (`vaneOpen`, `vaneSplitCol`,
+ * `vaneColor`). Under SWING the cycle opens it at each end of the sweep; from
+ * VEER the pilot's thumb on the arm does, and under SEIZE the navigator hauls
+ * the seized housing off the pinned arm as well (`sim/vane-hand.ts`).
  */
 export const vaneHand: Hand = (w) => {
-  if (!vaneOpen(w)) return [];
-  const col = vaneWeakCol(w.cfg, w.waveBeat);
-  const out: Press[] = [aim(col)];
-  if (free(w) && w.cannonCol === col) out.push(fire(vaneColor(vaneOpening(w.waveBeat))));
+  const b = w.boss;
+  if (b === null || b.kind !== "vane") return [];
+  const asks = vanePhase(b.pins).asks;
+  const out: Press[] = [];
+  if (asks !== "shoot") {
+    if (!vanePinned(w, b)) return [pinArm];
+    if (asks === "haul" && !b.hauled) out.push(haul(w.cfg.vaneHaulMilli));
+  }
+  if (!vaneOpen(w) && out.length === 0) return [];
+  const col = vaneSplitCol(w, b);
+  if (col === -1) return out;
+  out.push(aim(col));
+  if (vaneOpen(w) && free(w) && w.cannonCol === col)
+    out.push(fire(vaneColor(vaneOpeningNow(w.waveBeat))));
   return out;
 };
 

@@ -116,4 +116,13 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "player 1's swipe throwing the hatch open under GLARE, when no line comes down — three beats to fire. Same argument.",
   "boss.wardenSlam":
     "the thrown hatch shutting of its own weight when its window ran out. Same argument.",
+  // THE VANE's two hands. Nothing of this boss is a body at all — it is a
+  // mechanism hung off the top edge, and the sheet's cards are for creatures
+  // and fixtures on the grid (`sim/vane-hand.ts`, `docs/spec/bosses.md` §11.5).
+  "boss.vanePin":
+    "player 1's thumb landing on the sweeping arm under VEER: it stops in the column it was in, and the fold line stops with it. The arm's, and nothing of the arm is on the grid.",
+  "boss.vaneSlip":
+    "the arm let go, or torn out of the thumb when its beats ran out, sweeping on from wherever the cycle has got to. Same argument.",
+  "boss.vaneHaul":
+    "player 2 carrying the seized housing off a pinned arm under SEIZE, which is the only way the last pin can be answered. Same argument.",
 };

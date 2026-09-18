@@ -175,6 +175,13 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "fleetRake":
     case "fleetWreck":
       return target;
+    // THE VANE's two hands on its own mechanism — the pilot's thumb pinning
+    // the sweeping arm under VEER, the navigator's carry off the seized
+    // housing under SEIZE (`sim/vane-hand.ts`). Sim lane only so far, as THE
+    // WARDEN's and THE FLEET's above.
+    case "vaneArm":
+    case "vaneHousing":
+      return target;
     default:
       return assertNever(target);
   }

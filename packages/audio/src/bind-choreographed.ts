@@ -16,6 +16,7 @@ import { sinewCue } from "./bind-sinew.js";
 import { surgeCue } from "./bind-surge.js";
 import { tasterCue } from "./bind-taster.js";
 import { undertowCue } from "./bind-undertow.js";
+import { vaneCue } from "./bind-vane.js";
 import { wardenHandCue } from "./bind-warden-hand.js";
 
 /**
@@ -53,7 +54,11 @@ type ChoreographedEvent = Extract<
       // Named one by one: `wardenDown` and the rope's three are `bind.ts`'s.
       | "wardenHold"
       | "wardenThrow"
-      | "wardenSlam";
+      | "wardenSlam"
+      // And THE VANE's two hands: the boss's only events, all three its own.
+      | "vanePin"
+      | "vaneSlip"
+      | "vaneHaul";
   }
 >;
 
@@ -232,6 +237,10 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "wardenThrow":
     case "wardenSlam":
       return wardenHandCue(e, cols);
+    case "vanePin":
+    case "vaneSlip":
+    case "vaneHaul":
+      return vaneCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

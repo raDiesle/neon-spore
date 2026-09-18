@@ -425,24 +425,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE VANE changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-vane-changes-state-more-than-once-and-asks-f
-- **Files:** `packages/sim/src/vane-arm.ts`, `packages/sim/src/vane-cycle.ts`, `packages/sim/src/vane.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-
-It is answered today on the ordinary panel, over 3 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE VANE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1736,3 +1718,24 @@ recommendation, because the fifteen are designed and claimed on a ledger
 and the twenty are not yet. Build nothing until the owner answers; the
 answer is one word. A cloud session can take this: it is a document, and
 `bun run check` holds it to naming no path that does not exist.
+
+## THE VANE's arm is drawn sweeping while a thumb is holding it still
+
+- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Files:** `packages/render/src/vane-draw.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/test/vane-frame.test.ts`, `docs/spec/bosses.md`
+
+The simulation half of §6.2 landed on 18 September 2026 and the picture did
+not. `vane-draw.ts` reads the arm off `vaneTipCol(cfg, pins, waveBeat)` — the
+cycle's own answer — so from VEER on, where a pin is the only thing that opens
+the housing, **the arm on both screens sweeps on while the arm in the world is
+standing still under the pilot's thumb**. Every arrival for the length of that
+hold folds about a column neither screen is drawing. It is not a look that is
+unlovely, it is a look that is wrong.
+
+The fix is `vaneTipNow(world, boss)` in place of `vaneTipCol` and
+`vaneSplitCol(world, boss)` in place of `vaneWeakCol` — both are exported and
+both are what the cue was already moved to. The rest is the look lane proper
+and wants an eye: a ring on the tip that says a thumb may stop it, the
+navigator's on the housing under SEIZE, the pin's remaining beats read off the
+arm rather than off a bar, and the slip. *What is not built* under §11.5 lists
+them; the three events are on both silent lists until they are drawn.

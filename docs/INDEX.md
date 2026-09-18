@@ -160,6 +160,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/step.ts` | advance exactly one tick |
 | `packages/sim/src/vane-cycle.ts` | THE VANE's cycle, as arithmetic |
 | `packages/sim/src/vane-arm.ts` | THE VANE's arm laid over a field — the tip's column, the fold, the split's column — the five that take a `SimConfig` |
+| `packages/sim/src/vane-hand.ts` | **THE VANE's two hands on the picture**, on the tick |
+| `packages/sim/src/vane-hash.ts` | THE VANE in the fingerprint |
+| `packages/sim/src/vane-open.ts` | **Where THE VANE's arm is standing and whether the bearing is open** — one place, read by the fold, the shot |
 | `packages/sim/src/vane.ts` | THE VANE's whole choreography: the boss that bends the field instead of the beat |
 | `packages/sim/src/veil.ts` | THE VEIL: a thundercloud with a body inside it, the first creature hidden from player 2 |
 | `packages/sim/src/warden-cycle.ts` | THE WARDEN's cycle, as arithmetic |
@@ -350,6 +353,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-maze-grip.ts` | THE MAZE's grip: the heart holding the right shot until it is torn out by hand (`maze-hand.ts` |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
+| `packages/sim/src/config-vane.ts` | **THE VANE's second and third gestures**: how long a thumb may hold the arm before the sweep tears it free |
 | `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/fault-clock.ts` | The beat a fault is on and how often it acts — the one clock every malfunction reads and none of them keeps |
 | `packages/sim/src/fault-placed.ts` | **A FAULT IS A PENCIL ON THE MAP**: a kind, the beat it enters the wave on, and the number of beats it holds |
@@ -402,6 +406,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/creature-kinds-standing.ts` | **The two bodies that stand on a tile**, and the only two whose answer is a square rather than a column |
 | `packages/sim/src/creature-state-heading.ts` | the four kinds that carry a direction, and the beats attached to it |
 | `packages/sim/src/events-veil.ts` | THE VEIL's three events: the turn, the rebuff and the tear |
+| `packages/sim/src/events-vane.ts` | **What THE VANE's second and third hands do that neither screen already says** |
 | `packages/sim/src/hash-creature-late.ts` | the tail of one body's fingerprint, cut at a position and never a subject |
 | `packages/sim/src/hash-creature-tail.ts` | **The end of one body's fingerprint**, from THE BALLOON's eight to THE CRYSTAL's leg |
 | `packages/sim/src/hash-faults.ts` | the fault half of the world fingerprint |
@@ -469,6 +474,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/creature-state-balloon.ts` | **THE BALLOON's six**, and the seventh group carried out of `creature-state.ts` along the seam that file's… |
 | `packages/sim/src/creature-state-mine.ts` | **THE MINE's two fields**, a count and a seat, and between them they are the whole of a body that never moves |
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
+| `packages/sim/src/drag-targets-b.ts` | **Every thing on this field a hand may take hold of, the second page** — the names from THE FLEET's chart on |
 | `packages/sim/src/difficulty.ts` | **EASY, MEDIUM and HARD**, and the one number they move: the tempo, which on this field is the falling speed of everything |
 | `packages/sim/src/diastole-hash.ts` | what THE DIASTOLE puts into the world fingerprint, and nothing else |
 | `packages/sim/src/diastole-hand.ts` | **The one hand on THE DIASTOLE**: the clamp, player 1's thumb on the right chamber while it beats alone |
@@ -1540,6 +1546,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
 | `packages/audio/src/bind-curtain.ts` | THE CURTAIN's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-veil.ts` | THE VEIL's three, as sounds |
+| `packages/audio/src/bind-vane.ts` | THE VANE's two hands on its own mechanism, in a file of their own for `bind-warden-hand.ts`' reason |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |
 | `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-gum.ts`'s pattern |

@@ -77,6 +77,12 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "fleetBreach", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "fleetRake", on: true, fromMilli: 2000, fromYMilli: 0 },
   { kind: "drag", target: "fleetWreck", on: true, fromMilli: 0, fromYMilli: 1500 },
+  // THE VANE's arm and housing: the pilot's thumb resting on the arm, which
+  // stops it and with it the fold line, and the navigator's carry off the
+  // seized housing (`sim/vane-hand.ts`). A codec that dropped either would
+  // leave one device folding arrivals about a column the other has pinned.
+  { kind: "drag", target: "vaneArm", on: true, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "vaneHousing", on: false, fromMilli: 0, fromYMilli: 1500 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -190,6 +196,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   fleetBreach: true,
   fleetRake: true,
   fleetWreck: true,
+  vaneArm: true,
+  vaneHousing: true,
   crank: true,
   orreryRing: true,
 };

@@ -51,4 +51,8 @@ export const SILENT_BOSS_B = [
   "fleetRake",
   "fleetPlug",
   "fleetWreck",
+  // THE VANE's two hands, no burst until the look lane draws them.
+  "vanePin",
+  "vaneSlip",
+  "vaneHaul",
 ] as const satisfies readonly SimEvent["type"][];

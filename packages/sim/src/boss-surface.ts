@@ -226,6 +226,7 @@ export {
   vaneFold,
   vaneOpen,
   vaneOpening,
+  vaneOpeningNow,
   vanePhase,
   vanePivotCol,
   vaneReach,

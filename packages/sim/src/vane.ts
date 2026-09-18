@@ -2,8 +2,16 @@ import { metColor, missedColor } from "./balance.js";
 import type { VaneEntry } from "./boss-entries.js";
 import type { VaneState } from "./boss-state.js";
 import { type Bullet, spanOf } from "./types.js";
-import { vaneFold, vaneTipCol, vaneWeakCol } from "./vane-arm.js";
-import { vaneColor, vaneOpening } from "./vane-cycle.js";
+import { vaneFold } from "./vane-arm.js";
+import {
+  vaneColor,
+  vaneOpening,
+  vaneOpeningNow,
+  vanePhase,
+  vaneSplitsOnCycle,
+} from "./vane-cycle.js";
+import { stepVanePin } from "./vane-hand.js";
+import { vaneBearingOpen, vaneOpeningSpent, vaneSplitCol, vaneTipNow } from "./vane-open.js";
 import type { World } from "./world.js";
 
 /**
@@ -27,6 +35,14 @@ import type { World } from "./world.js";
  * space, and hands them the only thing that works: a column named against the
  * arm rather than against the grid.
  *
+ * **And since 18 September 2026 the bearing asks for more than a shot.** Every
+ * pair of pins adds a hand on the picture: under VEER the ends of the sweep
+ * stop splitting the housing and the pilot's thumb on the arm does it instead,
+ * which also holds the fold line still; under SEIZE the bearing jams on top of
+ * that and the navigator has to haul the housing off a pinned arm before a
+ * shot counts. `vane-hand.ts` hears both and `vane-open.ts` is the one place
+ * that reads a phase into *where the arm is* and *whether the bearing is open*.
+ *
  * `docs/spec/bosses.md` §11.5 is the design, `vane-cycle.ts` is the
  * clock and `vane-arm.ts` is the fold in columns; this is only what moves.
  */
@@ -39,6 +55,11 @@ export function installVane(world: World, entry: VaneEntry): VaneState {
     spentOpening: -1,
     throwBeat: -1,
     throwCol: -1,
+    pinBeat: -1,
+    pinCol: -1,
+    pinSide: 0,
+    hauled: false,
+    spentPin: -1,
   };
 }
 
@@ -51,7 +72,11 @@ export function installVane(world: World, entry: VaneEntry): VaneState {
  */
 export function stepVane(world: World, b: VaneState): void {
   const cfg = world.cfg;
-  const tip = vaneTipCol(cfg, b.pins, world.waveBeat);
+  // The pin's clock first: an arm torn out of the thumb this beat folds this
+  // beat's arrivals from wherever the sweep has got to, not from where it was
+  // being held (`vane-hand.ts`).
+  stepVanePin(world, b);
+  const tip = vaneTipNow(world, b);
   for (const c of world.creatures) {
     // An arrival, and only an arrival. `fromRow` is negative for exactly the
     // one beat a body glides in from above the field, so this is the beat the
@@ -73,11 +98,13 @@ export function stepVane(world: World, b: VaneState): void {
  * of field, and a no-op unless THE VANE is the boss.
  *
  * Three things have to line up, and the pair holds them between them: the
- * housing has to be split, which happens at each end of the sweep and nowhere
- * else; the shot has to be in the column the split is on, which is the pilot's
- * to stand in; and it has to carry the housing's colour, which is the
- * navigator's to load. A second shot inside the same opening does nothing —
- * a spray must not be allowed to skip a pin.
+ * housing has to be split, which under SWING happens at each end of the sweep
+ * and from VEER on is the pair's own thumb (`vane-open.ts`); the shot has to be
+ * in the column the split is on, which is the pilot's to stand in; and it has
+ * to carry the housing's colour, which is the navigator's to load. A second
+ * shot inside the same opening does nothing — a spray must not be allowed to
+ * skip a pin, and that holds for an opening the pair made as much as for one
+ * the cycle handed them.
  *
  * The column also has to be *clear*, and that is not a rule, it is the field:
  * a shot stops at the first body in its way, so the pair are firing up a lane
@@ -86,23 +113,34 @@ export function stepVane(world: World, b: VaneState): void {
 export function vaneStruck(world: World, bullet: Bullet): void {
   const b = world.boss;
   if (b === null || b.kind !== "vane") return;
-  const opening = vaneOpening(world.waveBeat);
-  if (opening === -1 || opening === b.spentOpening) return;
-  if (bullet.col !== vaneWeakCol(world.cfg, world.waveBeat)) return;
-  if (bullet.color !== vaneColor(opening)) {
-    // The housing has carried this colour since the arm stopped, on both
-    // screens. Getting it wrong is a colour miss and nothing else.
+  if (!vaneBearingOpen(world, b) || vaneOpeningSpent(world, b)) return;
+  if (bullet.col !== vaneSplitCol(world, b)) return;
+  // The colour is the cycle's in every phase: the housing has worn it since
+  // the arm stopped, and a pinned arm is an arm that has stopped. Under VEER
+  // and SEIZE the opening number is the one the cycle would have been on, so
+  // the colour goes on alternating at the rate the pair already learned
+  // (`vane-cycle.ts`).
+  if (bullet.color !== vaneColor(vaneOpeningNow(world.waveBeat))) {
     missedColor(world);
     world.events.push({ type: "reject", col: bullet.col, row: 0 });
     return;
   }
 
   metColor(world);
-  b.spentOpening = opening;
+  spendOpening(world, b);
   b.pins -= 1;
   if (b.pins > 0) return;
 
   world.boss = null;
+}
+
+/** One hit per opening, whichever kind of opening this phase has. */
+function spendOpening(world: World, b: VaneState): void {
+  if (vaneSplitsOnCycle(vanePhase(b.pins))) {
+    b.spentOpening = vaneOpening(world.waveBeat);
+    return;
+  }
+  b.spentPin = b.pinBeat;
 }
 
 /**
@@ -112,5 +150,5 @@ export function vaneStruck(world: World, bullet: Bullet): void {
 export function vaneOpen(world: World): boolean {
   const b = world.boss;
   if (b === null || b.kind !== "vane") return false;
-  return vaneOpening(world.waveBeat) !== -1 && vaneOpening(world.waveBeat) !== b.spentOpening;
+  return vaneBearingOpen(world, b) && !vaneOpeningSpent(world, b);
 }

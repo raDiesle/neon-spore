@@ -8,7 +8,7 @@ import {
   type UndertowState,
   undertowUnseated,
   vaneOpen,
-  vaneWeakCol,
+  vaneSplitCol,
   type World,
 } from "@neon-spore/sim";
 import { beadPoint } from "./baton-bead-draw.js";
@@ -196,15 +196,21 @@ export function batonCues(l: Layout, world: World, b: BatonState): readonly Boss
  * first body in its way, which is the boss defending itself with what it
  * threw, and it is the film's remaining page about her half that says so.
  *
- * **It takes no `VaneState`**, alone among the readings. Whether the housing is
- * open is `vaneOpen`'s answer and it reads the boss off the world itself, and
- * the rule — a stage of the cycle, less the opening already spent — is one that
- * must be called rather than written out a second time here
- * (`sim/test/purity.test.ts`).
+ * **Every rule here is called rather than written out a second time**: whether
+ * the housing is open is `vaneOpen`'s answer and which column it is on is
+ * `vaneSplitCol`'s, and both of those read a phase — the cycle's own ends under
+ * SWING, the pilot's pinned arm from VEER (`sim/test/purity.test.ts`). It took
+ * no `VaneState` at all until 18 September 2026, when the second of those
+ * started needing one.
  */
 export function vaneCues(l: Layout, world: World): readonly BossCue[] {
-  if (!vaneOpen(world)) return [];
-  const weak = vaneWeakCol(world.cfg, world.waveBeat);
+  const b = world.boss;
+  if (b === null || b.kind !== "vane" || !vaneOpen(world)) return [];
+  // `vaneSplitCol` and not `vaneWeakCol`: from VEER the housing splits under
+  // the pilot's thumb rather than at the ends of the sweep, and the cycle's own
+  // answer is -1 there — which would take the two words off the field for two
+  // thirds of the fight (`sim/vane-open.ts`, `docs/spec/bosses.md` §11.5).
+  const weak = vaneSplitCol(world, b);
   if (weak === -1) return [];
   const out: BossCue[] = [];
   if (world.cannonCol !== weak) {

@@ -171,6 +171,25 @@ export interface VaneState {
   throwBeat: number;
   /** The column that arrival was thrown into, -1 before the first. render/ only. */
   throwCol: number;
+  /**
+   * The beat the pilot's thumb landed on the arm, or -1 while nothing is
+   * pinned. From VEER on this is the whole of an opening: the housing splits
+   * because the arm is standing still, and it stands still for
+   * `vanePinBeats` before the sweep tears it free (`vane-open.ts`).
+   */
+  pinBeat: number;
+  /** The column the tip was in when it was pinned — the fold line while the
+   * thumb holds it, and the one thing a pin buys the pair. -1 for none. */
+  pinCol: number;
+  /** Which way the arm was loaded when it was pinned, -1, 0 or 1: the split
+   * falls on the side away from it, as it does at the ends of the sweep. */
+  pinSide: number;
+  /** Whether the navigator has hauled the seized housing open under this pin.
+   * Nothing under SWING or VEER, where the pin is the opening (`vane-hand.ts`). */
+  hauled: boolean;
+  /** The `pinBeat` whose one shot has been spent, -1 for none. `spentOpening`
+   * says the same thing about an opening the cycle handed them. */
+  spentPin: number;
 }
 
 export type { FleetState } from "./fleet-state.js";

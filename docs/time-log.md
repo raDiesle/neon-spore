@@ -9422,3 +9422,27 @@ deletion is safe here is to open all twelve files and find the sentence being
 deleted already written in one of them.
 
 *Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
+
+## 2026-09-18 — queue-task-processing-cloud — THE VANE asks for two hands on its own arm
+
+The §6.2 sim lane. VEER takes the cycle's openings away and gives the pilot a
+thumb on the arm instead — which stops the fold line, which is the thing this
+boss has never let the pair have; SEIZE jams the housing on top of that and the
+navigator has to haul it off a pinned arm. Two `DragTarget`s, five hashed
+fields, three events with their cues and sounds, and three file splits the
+lane's own weight forced.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 45 | the entry and `.claude/skills/new-boss` §6.2, §11.5 end to end, `vane.ts`, `vane-cycle.ts`, `vane-arm.ts`, then THE WARDEN's whole sim lane as the model — `warden-hand.ts`, `warden-open.ts`, the config, the events, the audio, the director's hand — and every list a `DragTarget` is a name in |
+| writing | 70 | `vane-open.ts`, `vane-hand.ts`, `events-vane.ts`, `config-vane.ts`, `vane-hash.ts`, `drag-targets-b.ts`, `bind-vane.ts`, `sounds/boss-vane.ts`, seventeen cases in a new test file, the wire, the guide, the director's hand and two cards, §11.5's *Three phases, three gestures* |
+| looking | 0 | none — the picture is the look lane's, and it is queued because it now disagrees with the world |
+| friction | 25 | `pinBeat` was written before `pinCol`, so `vaneTipNow` answered the arm its own uninitialised column and folded every arrival about -1; three files went over 250 lines in turn (`hash-boss.ts`, `bosses.ts`, `drag-targets.ts`) and each had to be split before the next could be seen; `boss.vaneHaul`'s sawtooth put a fifth of a second in the speech band |
+| landing | 20 | `format`, `imports:sort` and its diff read, `index`, `check:fast` three times, the queue entry for the picture, the commit, the land |
+
+The bottleneck was reading: the lane is a hundred lines of simulation and
+thirty files it has to be a name in, and the only way to find all thirty is to
+read the last boss that did the same thing end to end. The typechecker found
+five of them for free, which is the argument for the closed lists.
+
+*Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
