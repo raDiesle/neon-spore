@@ -356,6 +356,7 @@ prescribes can end in the tool. A test: move a candidate's paint out, run
 ## `frames --boss` cannot reach a boss state that lives in an array
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Taken:** 2026-09-18, claude/queue-frames-boss-cannot-reach-a-boss-state-that-lives
 - **Files:** `tools/frames/boss.ts`, `tools/frames/opening.ts`, `tools/frames/test/boss-flag.test.ts`
 
 `--boss key=value` writes scalar fields of `world.boss` and refuses arrays
