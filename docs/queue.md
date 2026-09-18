@@ -337,6 +337,7 @@ of the three over 250.
 ## `effects-spark-silent-boss.ts` has no room for the next boss's events
 
 - **Found:** 2026-09-17, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-18, claude/queue-effects-spark-silent-boss-ts-has-no-room-for-the
 - **Files:** `packages/render/src/effects-spark-silent-boss.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`
 
 The spark's silent list is at 242 lines after THE INSTAR's eleven events;
