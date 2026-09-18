@@ -92,6 +92,11 @@ export function bossHashParts(boss: BossState | null): number[] {
     // of the field, so one can reach taut where the other cannot.
     push(boss.pullAnchorX);
     push(boss.pullAnchorY);
+    // The other two gestures. A thumb on the eye is whether the lids are
+    // parted under NARROW; the throw beat is whether the hatch stands open
+    // under GLARE — each is whether the next shot counts.
+    push(boss.eyeHeld ? 1 : 0);
+    push(boss.throwBeat);
   }
   if (boss !== null && boss.kind === "cairn") {
     push(boss.creatureId);

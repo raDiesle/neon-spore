@@ -560,14 +560,87 @@ rope.
 
 **Phases follow the plates and nothing else.** The ring wears `wardenPlates` and
 drops one per hit, leaving a gap that never fills, so the silhouette says how far
-in you are without a bar. Only how hard the pupil is to name and reach tightens;
-the rope, the pull and the hatch never do.
+in you are without a bar. What tightens is how hard the pupil is to name and
+reach — and, since 18 September 2026, **what the hatch asks for**.
 
-| Phase | Plates left | Pupil drift |
-|---|---|---|
-| WATCH | 5–4 | a column a beat |
-| NARROW | 3–2 | two a beat |
-| GLARE | 1 | two a beat |
+### Three phases, three gestures
+
+The fight as first built was one rope repeated five times, and a pair that had
+learned it on the first line had learned the whole of it (`docs/queue.md`,
+*THE WARDEN changes state more than once, and asks for more than one
+gesture*). Now each pair of plates adds a hand. The first gesture is never
+taken away — the block and tackle is the fight, and the owner chose it over a
+hold-to-tear (below) — a second is put beside it, and the last plate replaces
+the rope with a door that has to be thrown. The table is `WARDEN_PHASES` in
+`warden-cycle.ts`; `asks` is the column that is new, and `warden-open.ts` is
+the one place that reads it into *whether the eye shows*.
+
+| Phase | Plates left | Pupil | The hatch asks for | Whose hand |
+|---|---|---|---|---|
+| WATCH | 5–4 | a column a beat | the rope, pulled taut (`wardenTether`) | player 1 |
+| NARROW | 3–2 | two a beat, **still under a thumb** | the rope taut **and** a thumb resting on the eye (`wardenEye`) | player 1 pulls, player 2 holds |
+| GLARE | 1 | nought; it stares from the middle | **no rope.** A swipe across the hatch throws it open for `wardenThrowBeats`, then it slams (`wardenHatch`) | player 1 swipes, player 2 fires inside the window |
+
+**Under NARROW the lids behind the hatch are shut**, and they part only while
+player 2 keeps a thumb on the eye (`eyeHeld`). The rope still opens the hatch
+by degrees, exactly as under WATCH; the eye behind it shows only with both
+hands on — the line taut and the thumb down, in either order — and either one
+lifted shuts it (`wardenEyeOpen`, `warden-open.ts`). While the thumb stays the
+pupil stands still under it, which is what the thumb buys: under WATCH the eye
+walks and the column has to be named, under NARROW the navigator pins the
+column with one hand and fires with the other, while the pilot holds a rope
+whose opening is half theirs. It is the rope's coupling doubled — two seats
+each holding half of an opening the other cannot feel — and the thumb goes
+with the line the way the hand does: a hit cuts both (`cutTether`), and a
+finger still on the glass has to land again on the next line.
+
+**Under GLARE no line comes down.** `wardenLowersRope` refuses the attach; the
+pupil goes to the middle column and stops. The hatch is thrown by player 1's
+**swipe** across it — a lift whose travel is at least `wardenThrowMilli`, a
+tile and a half, so a tap on it is nothing — and it stands open, all or
+nothing, for `wardenThrowBeats`, three beats, then slams of its own weight
+(`stepWardenThrow`). The lids are wide the whole phase: the eye is glaring.
+Player 2 fires the rim's colour inside the window. Where the rope was *held*
+this is *timed*: the throw is said, and the shot has three beats to answer. A
+second swipe while it stands open does nothing; a shot after the slam is the
+ordinary `reject`. The hatch's colour still cycles, so the last plate is
+still a colour the pair has to name.
+
+**Two departures from the design, argued.** The queue item asked for several
+states with a different gesture each and at least one on the picture; it did
+not ask for the rope to go. It goes under GLARE because a rope *and* a thrown
+door on one hatch is two openings for one eye and no reason to use either,
+and because the owner's own retired *falling line* (below) was a threat that
+had to be answered under time — this is that concept kept as he asked, with
+nobody hurt: a window rather than a hazard. And the phase table now carries a
+gesture, which §11.4 said it never would ("the rope, the pull and the hatch
+never do"): that sentence was true of a fight with one gesture, and the queue
+item is the owner asking for more than one.
+
+**Nothing new can hurt the pair.** A thumb lifted early, a swipe too short, a
+shot after the slam — each is a window lost and nothing more, and the rule
+above that no clock or hazard is invented here still holds: the throw's
+window is a clock on the *door*, and it costs the hull nothing when it runs
+out.
+
+**Where the hands live.** `warden-hand.ts` hears all three, on the tick
+(`step.ts`, where the rope's call was): `wardenHeard` dispatches the rope to
+`warden-rope.ts` and answers the eye and the hatch itself. `WardenState`
+gained `eyeHeld` and `throwBeat`, both hashed. `config-warden.ts` holds the
+two new numbers, in `BossClockConfig` with the other counts a pair says out
+loud. The three events — `wardenHold`, `wardenThrow`, `wardenSlam` — are
+`events-warden.ts`, cued by `bind-warden-hand.ts` and voiced by
+`sounds/boss-warden.ts`; the rope's four stay where they were.
+
+**What is not built** (sim lane, 18 September 2026): the picture. The lids
+still follow the hatch on every screen, no ring answers `wardenEye` or
+`wardenHatch`, the three events are on the silent lists, and the cue speaks
+only the rope's words. The look lane draws the lids off `wardenLidsMilli`,
+the hatch off `wardenHatchMilli`, the thumb's ring on the eye for player 2
+under NARROW, the swipe's ring across the hatch for player 1 under GLARE, and
+the slam. *Never watched at tempo*: whether three beats is a window a pair
+can hit across a voice delay, and whether a thumb on the eye and a thumb on
+the colour are comfortable on one phone.
 
 **Nothing about it is random.** Like THE MIRROR it never draws from the rng —
 colour and phase both follow from counters both devices already agree about.

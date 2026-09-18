@@ -17,6 +17,7 @@ import type { StareEvent } from "./events-stare.js";
 import type { SurgeEvent } from "./events-surge.js";
 import type { TasterEvent } from "./events-taster.js";
 import type { UndertowEvent } from "./events-undertow.js";
+import type { WardenEvent } from "./events-warden.js";
 
 /**
  * **The choreographed bosses' arms of `SimEvent`**, as one union.
@@ -57,7 +58,8 @@ export type BossEvent =
   | InstarEvent
   | FilamentEvent
   | QueenEvent
-  | DiastoleEvent;
+  | DiastoleEvent
+  | WardenEvent;
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
@@ -78,3 +80,4 @@ export type { StareEvent } from "./events-stare.js";
 export type { SurgeEvent } from "./events-surge.js";
 export type { TasterEvent } from "./events-taster.js";
 export type { UndertowEvent } from "./events-undertow.js";
+export type { WardenEvent } from "./events-warden.js";

@@ -133,6 +133,19 @@ export interface WardenState {
    */
   pullAnchorX: number;
   pullAnchorY: number;
+  /**
+   * Whether player 2's thumb is resting on the eye. Under NARROW the lids
+   * behind the hatch only part while it is (`warden-open.ts`), and the pupil
+   * stands still under it. Cleared with the line, the way `pulling` is: a
+   * fresh line asks for a fresh thumb (`warden-hand.ts`).
+   */
+  eyeHeld: boolean;
+  /**
+   * The beat player 1 threw the hatch on under GLARE, or -1 while it is shut.
+   * Open until `wardenThrowBeats` have passed, then slammed by `stepWarden`.
+   * There is no line under GLARE, so this is the only way the eye shows.
+   */
+  throwBeat: number;
 }
 
 /**

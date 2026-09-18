@@ -162,6 +162,14 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "gaugeNeedle":
     case "gaugeBand":
       return target;
+    // `wardenEye` and `wardenHatch` are THE WARDEN's second and third hands —
+    // player 2's thumb resting on the eye under NARROW, player 1's swipe
+    // across the hatch under GLARE (`sim/warden-hand.ts`). Sim lane only so
+    // far: no ring answers them yet, so they are not in the list below until
+    // the look lane lands `field-controls-warden.ts` rows for them.
+    case "wardenEye":
+    case "wardenHatch":
+      return target;
     default:
       return assertNever(target);
   }

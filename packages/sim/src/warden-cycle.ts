@@ -20,10 +20,24 @@ import type { Color } from "./types.js";
 export const NO_TETHER = 0;
 
 /**
- * A phase, which follows from the plates and nothing else. Only how hard the
- * eye is to name and reach tightens; the line, the pull and the hatch never do,
- * so a pair that learned the fight on its first line has learned it for the
- * whole fight.
+ * **What a phase asks of the pair that the one before did not** — the gesture
+ * the plates add (`docs/spec/bosses.md` §11.4, *Three phases, three gestures*).
+ *
+ * - `pull`: the rope, player 1's — the block and tackle as it was built.
+ * - `hold`: the rope still, and the lids behind the hatch shut until player
+ *   2 rests a thumb on the eye and keeps it there (`warden-hand.ts`).
+ * - `throw`: no rope at all. The eye glares, wide and still, and the hatch is
+ *   thrown open by player 1's swipe across it for `wardenThrowBeats`, then
+ *   slams.
+ */
+export type WardenGesture = "pull" | "hold" | "throw";
+
+/**
+ * A phase, which follows from the plates and nothing else. What tightens is
+ * how hard the eye is to name and reach, and **what the hatch asks for**: the
+ * first gesture is never taken away, a second is put beside it, and the last
+ * plate replaces the rope with a door that has to be thrown. A pair that
+ * learned the fight on its first line has learned its first third.
  *
  * `above` is read the way `PHASES` in `queen-mark.ts` reads it: the first row
  * whose bound the plates are still over.
@@ -31,15 +45,21 @@ export const NO_TETHER = 0;
 export interface WardenPhase {
   name: string;
   above: number;
-  /** Columns the pupil slides each beat. */
+  /** Columns the pupil slides each beat. Nought under GLARE: it stares. */
   drift: number;
+  asks: WardenGesture;
 }
 
 export const WARDEN_PHASES: readonly WardenPhase[] = [
-  { name: "WATCH", above: 3, drift: 1 },
-  { name: "NARROW", above: 1, drift: 2 },
-  { name: "GLARE", above: -1, drift: 2 },
+  { name: "WATCH", above: 3, drift: 1, asks: "pull" },
+  { name: "NARROW", above: 1, drift: 2, asks: "hold" },
+  { name: "GLARE", above: -1, drift: 0, asks: "throw" },
 ];
+
+/** Whether a line comes down this phase. GLARE hauls it up and keeps it. */
+export function wardenLowersRope(phase: WardenPhase): boolean {
+  return phase.asks !== "throw";
+}
 
 /** The phase these plates put it in. Never stored — plates are the whole of it. */
 export function wardenPhase(plates: number): WardenPhase {

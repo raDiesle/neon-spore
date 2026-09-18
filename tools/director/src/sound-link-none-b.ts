@@ -108,4 +108,12 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "player 2's thumb prying the mouth open — a window of gorgePryBeats the beam ends the fight in. Same argument.",
   "boss.gorgeClench":
     "the mouth clenching on a beam nobody pried it open for, or on a thumb held past its window, thrown off with a bead. Same argument.",
+  // THE WARDEN's second and third hands. The ring is a fixture the sheet has
+  // a card for, but these are the hatch's, not the ring's (`sim/warden-hand.ts`).
+  "boss.wardenHold":
+    "player 2's thumb landing on the eye under NARROW: the lids behind the hatch part while it stays. The hatch's, and the sheet has no card for the hatch.",
+  "boss.wardenThrow":
+    "player 1's swipe throwing the hatch open under GLARE, when no line comes down — three beats to fire. Same argument.",
+  "boss.wardenSlam":
+    "the thrown hatch shutting of its own weight when its window ran out. Same argument.",
 };

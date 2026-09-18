@@ -1,9 +1,10 @@
 import type { WardenState } from "./boss-state.js";
 import { removeCreature } from "./field.js";
-import { clampPull, pullIsTaut, pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
+import { clampPull, pullOpenMilli, tileCentreMilli } from "./handle-pull.js";
 import { NO_SHELL } from "./shell.js";
 import { type Command, type Creature, WARDEN_COLS } from "./types.js";
 import { NO_TETHER, wardenColor, wardenCycle } from "./warden-cycle.js";
+import { wardenEyeOpen } from "./warden-open.js";
 import type { World } from "./world.js";
 
 /**
@@ -30,9 +31,9 @@ export function wardenTether(world: World): Creature | null {
 }
 
 /**
- * How taut the line is, 0..1000 — and so how far open the hatch and the eyelids
- * stand, because they are the same number drawn twice (`handle-pull.ts` on why
- * nothing between the rule and the picture may ease it).
+ * How taut the line is, 0..1000 — and so how far open the hatch stands while
+ * there is a line (`handle-pull.ts` on why nothing between the rule and the
+ * picture may ease it). What stands open in each phase is `warden-open.ts`.
  */
 export function wardenPullMilli(world: World, b: WardenState): number {
   return pullOpenMilli({ x: b.pullMilli, y: b.pullYMilli }, world.cfg.wardenTautMilli);
@@ -52,13 +53,6 @@ export function wardenHandleMilli(world: World, b: WardenState): { x: number; y:
 function ropeRest(world: World, b: WardenState): { x: number; y: number } {
   const cfg = world.cfg;
   return tileCentreMilli(b.pupilCol, cfg.wardenRow + cfg.wardenHangRows);
-}
-
-/** Whether the core is exposed this instant: the only window a shot counts in,
- * and the hatch is the sole way to it. */
-export function wardenEyeOpen(world: World, b: WardenState): boolean {
-  if (b.tetherId === NO_TETHER) return false;
-  return pullIsTaut({ x: b.pullMilli, y: b.pullYMilli }, world.cfg.wardenTautMilli);
 }
 
 /**
@@ -115,13 +109,21 @@ export function wardenTetherHeard(world: World, player: 1 | 2, command: Command)
   );
   b.pullMilli = pulled.x;
   b.pullYMilli = pulled.y;
-  if (!was && wardenEyeOpen(world, b)) {
-    world.events.push({
-      type: "eyeOpen",
-      col: b.pupilCol,
-      color: wardenColor(wardenCycle(world.cfg, world.waveBeat)),
-    });
-  }
+  noteEyeOpened(world, b, was);
+}
+
+/**
+ * The `eyeOpen` event, once, on the edge: whichever hand completed the
+ * opening fires it — the rope reaching taut, or under NARROW the thumb
+ * landing on the eye with the rope already taut (`warden-hand.ts`).
+ */
+export function noteEyeOpened(world: World, b: WardenState, was: boolean): void {
+  if (was || !wardenEyeOpen(world, b)) return;
+  world.events.push({
+    type: "eyeOpen",
+    col: b.pupilCol,
+    color: wardenColor(wardenCycle(world.cfg, world.waveBeat)),
+  });
 }
 
 /**
@@ -198,6 +200,10 @@ export function attach(world: World, b: WardenState, body: Creature): void {
 /** The line off the field and the tension with it, however it ended. */
 export function cutTether(world: World, b: WardenState): void {
   slacken(b);
+  // The thumb on the eye goes with the line, as the hand on the rope does: a
+  // fresh line asks for a fresh thumb, and a finger still on the glass after
+  // a hit has to land again to count.
+  b.eyeHeld = false;
   if (b.tetherId === NO_TETHER) return;
   const id = b.tetherId;
   b.tetherId = NO_TETHER;

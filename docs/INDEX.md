@@ -226,6 +226,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/wave-boss-clocks.ts` | you are adding a choreographed boss and need where its `boss:` entry becomes installed state — its branch and its `kind` on `CLOCK_KINDS` go here |
 | `packages/sim/src/warden-rope.ts` | you are working on THE WARDEN's line — the hand on it, how taut it is, and when it is lowered or cut |
 | `packages/sim/src/warden-start.ts` | THE WARDEN takes the field where it stands and never leaves it: dead centre, at `wardenRow`, five columns wide |
+| `packages/sim/src/warden-hand.ts` | THE WARDEN's three hands on the tick: the rope, player 2's thumb on the eye under NARROW, player 1's swipe across the hatch under GLARE, and the slam that ends the window |
+| `packages/sim/src/warden-open.ts` | Whether THE WARDEN's eye shows, and how far the hatch and the lids stand open — one place that reads the phase's gesture, for the shot and the picture |
 | `packages/sim/src/snake-open.ts` | Opening a round and starting an attempt over — the two places a `SnakeState` is written from nothing |
 | `packages/sim/src/scene.ts` | you are changing what a guide's rehearsal is — a small world, built from a script and looped |
 | `packages/sim/src/ready-gate.ts` | you are changing the two circles a guide ends on — what fills one, what empties it, and how long the hold is |
@@ -481,6 +483,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
 | `packages/sim/src/events-diastole.ts` | **What THE DIASTOLE's clamp does that neither screen already says**, as two events (`diastole-hand.ts`) |
+| `packages/sim/src/events-warden.ts` | THE WARDEN's hold, throw and slam events — what the second and third hands do that neither screen already says |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -489,6 +492,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
+| `packages/sim/src/config-warden.ts` | THE WARDEN's throw: how far the swipe has to travel and how many beats the hatch stands open |
 | `packages/sim/src/config-undertow.ts` | THE UNDERTOW's numbers — how many times it pushes up through the floor in each part of the fight |
 | `packages/sim/src/config-throat.ts` | **THE THROAT's numbers**: how many rings the gullet has, where its mouth hangs |
 | `packages/sim/src/config-taster.ts` | THE TASTER's numbers — how many blades the fan holds |
@@ -1547,6 +1551,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-instar.ts` | THE INSTAR's eleven, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |
+| `packages/audio/src/bind-warden-hand.ts` | THE WARDEN's hold, throw and slam, cued at the hatch's column |
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |

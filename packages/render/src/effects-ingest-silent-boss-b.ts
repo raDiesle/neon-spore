@@ -91,4 +91,11 @@ export const INGEST_SILENT_BOSS_B = [
   // ring it throws is `maze-grip-fx.ts`, read above the loop, and the
   // filled ring under her thumb is read off `gripThumb` every frame.
   "mazeGrip",
+  // THE WARDEN's second and third hands, silent until the look lane draws
+  // them: the thumb on the eye and the thrown hatch are world state, read off
+  // `eyeHeld` and `throwBeat` every frame (`sim/warden-open.ts`); the slam
+  // will be a burst and nothing kept.
+  "wardenHold",
+  "wardenThrow",
+  "wardenSlam",
 ] as const satisfies readonly SimEvent["type"][];

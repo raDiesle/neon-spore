@@ -137,3 +137,11 @@ export {
   scuttleWindBeats,
   scuttleWinding,
 } from "./scuttle.js";
+// THE WARDEN's three phases, read as one openness: the eye under the rope,
+// under the rope and a thumb, and under a thrown hatch (`warden-open.ts`).
+export {
+  wardenEyeOpen,
+  wardenHatchMilli,
+  wardenLidsMilli,
+  wardenThrown,
+} from "./warden-open.js";

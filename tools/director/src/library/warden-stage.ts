@@ -63,6 +63,8 @@ const STATE: WardenState = {
   pullYMilli: 0,
   pullAnchorX: 0,
   pullAnchorY: 0,
+  eyeHeld: false,
+  throwBeat: -1,
 };
 
 /** Where the hole stands, beat by beat: centre, right, centre, left. */

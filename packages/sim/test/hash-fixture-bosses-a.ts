@@ -121,6 +121,8 @@ export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
     boss.pulling = true;
     boss.pullOriginMilli = 400;
     boss.pullMilli = -250;
+    boss.eyeHeld = true;
+    boss.throwBeat = 6;
   }
   if (boss.kind === "vane") {
     boss.spentOpening = 2;

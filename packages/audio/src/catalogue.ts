@@ -30,6 +30,7 @@ import { BOSS_SINEW_SOUNDS } from "./sounds/boss-sinew.js";
 import { BOSS_SURGE_SOUNDS } from "./sounds/boss-surge.js";
 import { BOSS_TASTER_SOUNDS } from "./sounds/boss-taster.js";
 import { BOSS_UNDERTOW_SOUNDS } from "./sounds/boss-undertow.js";
+import { BOSS_WARDEN_SOUNDS } from "./sounds/boss-warden.js";
 import { CREATURE_SOUNDS } from "./sounds/creature.js";
 import { CREATURE_GHOST_SOUNDS } from "./sounds/creature-ghost.js";
 import { CREATURE_IDEA_SOUNDS } from "./sounds/creature-ideas.js";
@@ -75,6 +76,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_INSTAR_SOUNDS,
   ...BOSS_FILAMENT_SOUNDS,
   ...BOSS_DIASTOLE_SOUNDS,
+  ...BOSS_WARDEN_SOUNDS,
   ...BOSS_PLANNED_SOUNDS,
   ...FLEET_SOUNDS,
   ...SPLICE_SOUNDS,

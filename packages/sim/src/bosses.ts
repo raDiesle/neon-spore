@@ -234,16 +234,14 @@ export {
 export {
   NO_TETHER,
   WARDEN_PHASES,
+  type WardenGesture,
   type WardenPhase,
   wardenColor,
   wardenCycle,
   wardenCycleBeat,
+  wardenLowersRope,
   wardenPhase,
 } from "./warden-cycle.js";
-export {
-  wardenEyeOpen,
-  wardenHandleMilli,
-  wardenPullMilli,
-  wardenTether,
-} from "./warden-rope.js";
+// `wardenEyeOpen` and the hatch's and lids' openness: `bosses-clocks-b.ts`.
+export { wardenHandleMilli, wardenPullMilli, wardenTether } from "./warden-rope.js";
 export { installWell, type WellState } from "./well.js";

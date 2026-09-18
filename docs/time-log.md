@@ -9206,3 +9206,22 @@ files and the director before a ring was on the screen, and `handles.ts`
 took two tries to hold under 250 lines.
 
 *Measured: the rows above are the session's own estimate, read off the previous landing's timestamp; the compaction in the middle of the lane is not in them.*
+
+## 2026-09-18 — boss-implementation — THE WARDEN changes state more than once: the simulation
+
+The first lane of the §6.2 item: the phase table gains a gesture, the
+NARROW thumb on the eye, the GLARE swipe on the hatch with its window and
+slam, three events, their cues, the guide and §11.4. Most of the writing
+was moving *whether the eye shows* out of the rope's file into one place
+that reads the phase, so the three gestures answer one predicate.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `warden.ts`, `warden-rope.ts`, `warden-cycle.ts`, THE GORGE's hand file as the model, §11.4 |
+| writing | 40 | `warden-open.ts`, `warden-hand.ts`, `config-warden.ts`, `events-warden.ts`, the audio, the guide, the test, §11.4 |
+| looking | 0 | nothing on the picture yet |
+| friction | 10 | the attach beat is `waveBeat ≡ 1 (mod 12)`, not 0, and the rim's colour changes per cycle — the whole-fight test had to wait for a line rather than count |
+| landing | 10 | `check:fast`, the index, the commit, the land |
+
+The bottleneck was the whole-fight test's clock: a boss whose rope comes
+down on a cycle and whose colour changes with it is traced, not counted.

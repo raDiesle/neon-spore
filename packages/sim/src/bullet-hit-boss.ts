@@ -2,7 +2,7 @@ import { metColor, missedColor } from "./balance.js";
 import { removeCreature, removeCreatures } from "./field.js";
 import type { Bullet, Creature } from "./types.js";
 import { wardenColor, wardenCycle } from "./warden-cycle.js";
-import { wardenEyeOpen } from "./warden-rope.js";
+import { wardenEyeOpen } from "./warden-open.js";
 import type { World } from "./world.js";
 
 /**

@@ -234,12 +234,13 @@ export {
   vaneTipCol,
   vaneWeakCol,
   WARDEN_PHASES,
+  type WardenGesture,
   type WardenState,
   type WellEntry,
   wardenColor,
   wardenCycle,
-  wardenEyeOpen,
   wardenHandleMilli,
+  wardenLowersRope,
   // The phase its plates put it in, for the STATES sheet's pose of each
   // (`tools/director/src/poses-bosses-clocks.ts`) — read, never re-derived.
   wardenPhase,

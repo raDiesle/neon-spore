@@ -1,6 +1,7 @@
 import type { WardenState } from "./boss-state.js";
 import { type Creature, WARDEN_COLS } from "./types.js";
-import { NO_TETHER, wardenCycleBeat, wardenPhase } from "./warden-cycle.js";
+import { NO_TETHER, wardenCycleBeat, wardenLowersRope, wardenPhase } from "./warden-cycle.js";
+import { stepWardenThrow } from "./warden-hand.js";
 import { attach, cutTether, wardenTether } from "./warden-rope.js";
 import type { World } from "./world.js";
 
@@ -25,6 +26,11 @@ import type { World } from "./world.js";
  * and the plates, so the fight is the same fight on both devices without a
  * single draw from the rng.
  *
+ * That is the first of its three phases. The plates change what the hatch
+ * asks for: under NARROW the lids behind it are player 2's thumb as well, and
+ * under GLARE no line comes down at all and the hatch is thrown by a swipe
+ * (`warden-cycle.ts` for the table, `warden-hand.ts` for the hands).
+ *
  * `docs/spec/bosses.md` 11.4 is the design; this is only the clock. **The hand
  * and the line are `warden-rope.ts`**, which was cut out of here along the seam
  * the boss actually has: a clock answers on the beat and a control answers on
@@ -39,8 +45,13 @@ export function stepWarden(world: World, b: WardenState): void {
   // rather than at the next attach matters because `resetClock` puts `nextId`
   // back to 1: a stale id is a live id again the moment a run starts over.
   if (b.tetherId !== NO_TETHER && wardenTether(world) === null) cutTether(world, b);
-  if (wardenCycleBeat(world.cfg, world.waveBeat) === 0) attach(world, b, body);
-  drift(b, body, wardenPhase(b.plates).drift);
+  const phase = wardenPhase(b.plates);
+  if (wardenCycleBeat(world.cfg, world.waveBeat) === 0 && wardenLowersRope(phase)) {
+    attach(world, b, body);
+  }
+  stepWardenThrow(world, b);
+  // A thumb on the eye pins the pupil: that is what the thumb is for.
+  if (!b.eyeHeld) drift(b, body, phase.drift);
 }
 
 /**
@@ -51,10 +62,18 @@ export function stepWarden(world: World, b: WardenState): void {
  * open for as long as they like would otherwise ask nothing of player 2 at all;
  * with the eye still walking, the shot is a column the two of them have to name
  * to each other across a voice delay while one of them holds the rope.
+ *
+ * A step of nought is GLARE: the pupil goes to the middle column and stares
+ * from it, because on the last plate the column is known and the *moment* is
+ * what the pair has to name.
  */
 function drift(b: WardenState, body: Creature, step: number): void {
   const lo = body.col;
   const hi = body.col + WARDEN_COLS - 1;
+  if (step === 0) {
+    b.pupilCol = body.col + Math.floor(WARDEN_COLS / 2);
+    return;
+  }
   let col = b.pupilCol + b.pupilDir * step;
   if (col < lo || col > hi) {
     b.pupilDir = b.pupilDir === 1 ? -1 : 1;

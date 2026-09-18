@@ -119,4 +119,10 @@ export {
   NOT_DONE,
   NOT_DRAWN,
   walkFilament,
+  // THE WARDEN's openness under its three phases, for the picture and the
+  // cues — read, never re-derived from the rope (`warden-open.ts`).
+  wardenEyeOpen,
+  wardenHatchMilli,
+  wardenLidsMilli,
+  wardenThrown,
 } from "./bosses-clocks-b.js";

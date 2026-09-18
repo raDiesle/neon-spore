@@ -331,8 +331,25 @@ describe("the shot into the eye", () => {
     expect(warden(shut.world).plates).toBe(CFG.wardenPlates);
   });
 
-  it("goes down on its last plate, and takes its rope with it", () => {
-    const run = taut(1);
+  it("goes down on its last plate, and leaves no rope behind", () => {
+    // The last plate is GLARE, and no line comes down: the hatch is thrown
+    // by a swipe (`warden-hand.test.ts`) and the shot lands inside its window.
+    const run = open(1);
+    beats(run, 1);
+    tick(run, {
+      player: 1,
+      command: { kind: "drag", target: "wardenHatch", on: true, fromMilli: 0, fromYMilli: 0 },
+    });
+    tick(run, {
+      player: 1,
+      command: {
+        kind: "drag",
+        target: "wardenHatch",
+        on: false,
+        fromMilli: CFG.wardenThrowMilli,
+        fromYMilli: 0,
+      },
+    });
     shoot(run, warden(run.world).pupilCol, rimColor());
     expect(run.world.boss).toBeNull();
     expect(run.world.creatures.filter((c) => c.kind === "tether")).toHaveLength(0);

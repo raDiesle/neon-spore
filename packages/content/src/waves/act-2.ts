@@ -87,9 +87,9 @@ export const WAVES_ACT_2: Wave[] = [
     sentence:
       "The one where he holds the door open and she has to be quick enough to shoot through it.",
     guide: {
-      both: "Open the hatch and shoot the eye. One plate off the rim per hit. Five hits.",
-      p1: "1. Slide the cannon under the eye.\n2. Take the handle on the rope and pull it aside. Keep pulling.\n3. Say OPEN when the hatch is all the way over, and hold.",
-      p2: "1. Load the rim's colour.\n2. Wait for OPEN.\n3. Fire once, up the eye's column.\n4. Say HIT. The rope snaps back: start again.",
+      both: "Open the hatch and shoot the eye. One plate off the rim per hit. Five hits, and the hatch asks for a new hand as they go.",
+      p1: "1. Slide the cannon under the eye.\n2. Take the rope's handle and pull it aside. Keep pulling.\n3. Say OPEN when the hatch is all the way over, and hold.\n4. Last plate, no rope: swipe across the hatch and say NOW.",
+      p2: "1. Load the rim's colour.\n2. Wait for OPEN.\n3. Fire once, up the eye's column. Say HIT.\n4. From the third plate, rest a thumb on the eye too, or the lids stay shut.\n5. Last plate: fire on NOW, fast.",
       scene: "theWarden",
     },
     entries: [],

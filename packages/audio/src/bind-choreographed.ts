@@ -16,6 +16,7 @@ import { sinewCue } from "./bind-sinew.js";
 import { surgeCue } from "./bind-surge.js";
 import { tasterCue } from "./bind-taster.js";
 import { undertowCue } from "./bind-undertow.js";
+import { wardenHandCue } from "./bind-warden-hand.js";
 
 /**
  * The choreographed bosses' events (`docs/spec/bosses-choreographed.md`),
@@ -48,7 +49,11 @@ type ChoreographedEvent = Extract<
       | `hive${string}`
       | `instar${string}`
       | `filament${string}`
-      | `diastole${string}`;
+      | `diastole${string}`
+      // Named one by one: `wardenDown` and the rope's three are `bind.ts`'s.
+      | "wardenHold"
+      | "wardenThrow"
+      | "wardenSlam";
   }
 >;
 
@@ -223,6 +228,10 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "diastoleClamp":
     case "diastoleSpasm":
       return diastoleCue(e, cols);
+    case "wardenHold":
+    case "wardenThrow":
+    case "wardenSlam":
+      return wardenHandCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

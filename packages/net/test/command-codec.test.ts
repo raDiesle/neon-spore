@@ -72,6 +72,8 @@ const ACCEPTED: Command[] = [
   // points round the dial (`sim/bearing.ts`).
   { kind: "drag", target: "gaugeNeedle", on: true, fromMilli: 812, fromYMilli: 0 },
   { kind: "drag", target: "gaugeBand", on: true, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "wardenEye", on: true, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "wardenHatch", on: false, fromMilli: 1500, fromYMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -180,6 +182,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   mazeHeart: true,
   gaugeNeedle: true,
   gaugeBand: true,
+  wardenEye: true,
+  wardenHatch: true,
   crank: true,
   orreryRing: true,
 };

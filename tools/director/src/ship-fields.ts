@@ -170,6 +170,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   wardenHangRows: "WARDEN",
   wardenTautMilli: "WARDEN",
   wardenPlates: "WARDEN",
+  wardenThrowMilli: "WARDEN",
+  wardenThrowBeats: "WARDEN",
   cairnRow: "THE CAIRN — a pile of rocks taken apart by hand",
   cairnUnits: "THE CAIRN — a pile of rocks taken apart by hand",
   cairnShedBeats: "THE CAIRN — a pile of rocks taken apart by hand",

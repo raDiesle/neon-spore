@@ -26,7 +26,8 @@ import { stepReach } from "./reach.js";
 import { sinewHeard } from "./sinew-hand.js";
 import { stepRound } from "./step-round.js";
 import type { TimedCommand } from "./types.js";
-import { stepWardenTether, wardenTetherHeard } from "./warden-rope.js";
+import { wardenHeard } from "./warden-hand.js";
+import { stepWardenTether } from "./warden-rope.js";
 import { progressWave } from "./wave-end.js";
 import { countPlay, failHolds, stepFailHold } from "./wave-fail.js";
 import { stepWeights } from "./weight.js";
@@ -85,10 +86,10 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // turns with — one held verb, one seat, one vocabulary.
   for (const c of commands) mazeStringHeard(world, c.player, c.command);
   stepMazeTurn(world);
-  // THE WARDEN's rope, read on the tick for the same reason: how far the hand
-  // has carried the handle is how far the hatch stands open, and a gate that
-  // only answered on the beat would feel like a queue (`warden.ts`).
-  for (const c of commands) wardenTetherHeard(world, c.player, c.command);
+  // THE WARDEN's three hands, read on the tick for the same reason: how far
+  // the hand has carried the handle is how far the hatch stands open, and a
+  // gate that only answered on the beat would feel like a queue (`warden.ts`).
+  for (const c of commands) wardenHeard(world, c.player, c.command);
   // THE LID's cord, on the tick for the same reason and one step further: the
   // plates part in proportion to the pull and shut the instant the hand lifts,
   // so a gate answered on the beat would open after the moment the pair had

@@ -43,7 +43,9 @@ export type DragTarget =
   | "gorgeLobe"
   | "mazeHeart"
   | "gaugeNeedle"
-  | "gaugeBand";
+  | "gaugeBand"
+  | "wardenEye"
+  | "wardenHatch";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -233,6 +235,8 @@ export type DragTarget =
  * THE SINEW's is read) and the shot the heart is holding tears out when
  * the pull reaches `mazeHeartPullMilli` while his hand is on the string
  * (`maze-hand.ts`). No `id`, for `mazeString`'s reason: there is one heart.
+ * `wardenEye` and `wardenHatch` are the twenty-fifth and -sixth: a gesture per
+ * phase — player 2's thumb on the eye, player 1's swipe (`warden-hand.ts`).
  */
 
 /**

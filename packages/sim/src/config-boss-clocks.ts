@@ -19,6 +19,7 @@ import { SURGE_DEFAULTS, type SurgeConfig } from "./config-surge.js";
 import { TASTER_DEFAULTS, type TasterConfig } from "./config-taster.js";
 import { THROAT_DEFAULTS, type ThroatConfig } from "./config-throat.js";
 import { UNDERTOW_DEFAULTS, type UndertowConfig } from "./config-undertow.js";
+import { WARDEN_HAND_DEFAULTS, type WardenHandConfig } from "./config-warden.js";
 
 export { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 export { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
@@ -71,7 +72,8 @@ export interface BossClockConfig
     InstarConfig,
     FilamentConfig,
     MirrorConfig,
-    MazeGripConfig {}
+    MazeGripConfig,
+    WardenHandConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -95,4 +97,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...FILAMENT_DEFAULTS,
   ...MIRROR_DEFAULTS,
   ...MAZE_GRIP_DEFAULTS,
+  ...WARDEN_HAND_DEFAULTS,
 };
