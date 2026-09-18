@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 64bf22c8 — THE DIASTOLE's two words follow the thumb
+
+The field had said BURN on the bridge for the whole of the endgame, which is one lane of the fight and not the fight: alone, the beam lands only under a clamp, so for most of that phase the word stood over a lance that was refusing. The reading now follows the clamp. With no thumb on the chamber the pilot is asked for one — HOLD / CLAMP on the ring — and the navigator is told nothing at all. With the thumb down inside its window the word is hers and his goes out: what the fight wants of his thumb then is let go before the dial closes, and a HOLD on the ring would be the field asking for the spasm, which the ring's own dial already counts down. Window lapsed with the thumb still held: both screens quiet, and the spasm announces itself.
+
 ## 2026-09-18 · 354e16d4 — SNAKE gets the ship, the band and a body that comes out of the mouth
 
 The round is drawn the way THE SCOUT, PINBALL and THE PULSE are: the hull stands on the screen with its scars, the four presses are lobes on the band in the default set's sockets — the head itself on player 1's shot and mouth, the nose and the arc of the turn on player 2's — and the dark plate and the ember box round the arena are gone, the arena grown to the field's whole width and down to the hull's surface. The opening no longer folds the hull into the body: the cannon's slot opens into the throat and the body pushes out of it in three surges with slime holding its flanks, then the mouth shuts behind the tail. A look the owner asked for by name, 18 September 2026.
