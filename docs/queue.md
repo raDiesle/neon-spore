@@ -456,6 +456,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## PINBALL changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-pinball-changes-state-more-than-once-and-asks-fo
 - **Files:** `packages/sim/src/config-pinball.ts`, `packages/sim/src/pinball-board.ts`, `packages/sim/src/pinball-contact.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
