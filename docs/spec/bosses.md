@@ -1442,6 +1442,21 @@ eye has seen nine breaches spilling into one shield at eight beats an
 opening. `hiveOpenBeats`, `hiveSpillBeats` and `hiveTwinFrom` are the
 three dials, and they are on the director's sheet.
 
+**And it cannot be won as it stands** — found on 18 September 2026 by the
+rehearsal lane, which could not author a film that wins it. A bolt stops at
+the first body in its column and a rock takes a crater from it
+(`struckWithoutKilling`), a plain `meteor` is thirteen beats from row 0 to
+the shield's row, and an open breach spills one every three: from its first
+spill a breach's column is never empty, so *a breach is sealed between its
+spills* above is true only of the two beats between an opening and the
+cadence. The cadence is one clock for every breach and `open` runs before
+`spill`, so the second site and the fifth open on a spill beat and can never
+be sealed, for any seed; and two open breaches spill on one beat into a
+shield that stands in one column, and the second rock sinks. The thirteen
+tests never fire a bolt up a column. The three answers, and what each costs,
+are in `docs/queue.md` (*THE HIVE cannot be won*), and the film waits on the
+one the owner picks.
+
 ## 11.15 THE REPRISE — the wave you have just beaten, sent again unseen
 
 > The one where the wave you have just beaten comes back with nothing to see.

@@ -522,3 +522,46 @@ words are not in it. Nothing is red, and the collision is a frame away.
 Clamp the kind line to `ViewState.clearTop` rather than to the canvas, the way
 `round-header.ts` drops a round's whole block, and add `PRESS`, `HOLD`, `CARRY`
 and `TURN` to the sweep's filter so the next one is caught rather than seen.
+
+## THE HIVE cannot be won: its own rock stops the bolt that seals a breach
+
+- **Found:** 2026-09-18, claude/boss-implementation-e3cfff
+- **Files:** `packages/sim/src/hive-step.ts`, `packages/sim/src/hive-shot.ts`, `packages/sim/src/config-hive.ts`, `packages/sim/test/hive.test.ts`, `packages/content/src/waves/act-7e.ts`, `packages/render/src/hive-draw.ts`, `docs/spec/bosses.md`
+- **Asks:** Is the spill the design's insect, a body in the breach's colour a bolt of that colour takes on its way down; or a rock of the fastest tier on a longer cadence of its own per breach; or a bolt of the breach's own colour that passes the breach's own spill?
+
+The rehearsal lane found it authoring the film, and no test had: a bolt
+stops at the first body in its column, a rock takes a crater from it
+(`struckWithoutKilling`) and a plain `meteor` falls a tile a beat — thirteen
+beats from row 0 to the shield's row — while an open breach spills one every
+`hiveSpillBeats` (3). So from its first spill a breach's column is never
+empty again, and `hive-shot.ts`' *a breach is sealed between its spills* is
+not true at the shipped numbers: a seal is possible in the two beats between
+an opening and the cadence, and never after. Worse, the cadence is one clock
+for every open breach, counted from the install, and `open` runs before
+`spill` on the beat — so the second site (beat 12) and the fifth (beat 36)
+spill on the beat they open, and nothing can ever seal them, for any seed;
+and two open breaches spill on the same beat, their rocks reach the one-column
+shield (`occupiesCol(c, world.shieldCol)`) on the same beat, and the second
+sinks into the hull, which fails the wave — which the twins from the fifth
+opening make certain. `hive.test.ts` calls `hiveStruck` on a made bullet and
+never fires one up a column, and no run goes past the first opening. The
+probe: a red bolt fired on beat 7 at the seed-1 breach over column 3, spilled
+on beat 6, is `hole` at row 2; fired on beat 4 it is `hiveSeal`.
+
+The three the answer picks between. **The insect**: `spill` spawns
+`livingKindForColor(colors[i])` in place of the rock — the design's own body,
+shot on its way down in the colour the pilot has already said, so the seal is
+two shots inside one cadence; both seats see the colour once it has spilled,
+and the pilot's read is what seals a breach *before* it does. The guide's
+*rocks are for the shield* goes, the shield has no part, and the look draws a
+slick or a bulb it already has. **The fast rock**: `meteorFastest` (five tiles
+a beat, under three beats in the column) on `hiveSpillBeats` of four or more,
+each breach on its own clock from its own opening so no two reach the shield
+on one beat — the rock stays the shield's and the cannon has the beat and a
+half the column is empty; three dials on the director's sheet and a per-site
+`spillBeat`. **The pass**: `firstAlong` lets a bolt of the breach's colour
+through a rock the same breach spilled — the smallest change, and against the
+owner's rule of 14 September 2026 that a shot never goes through a body.
+Whichever it is, `hive.test.ts` gains a run that fires real bolts and wins the
+wave, and the film — a `the-hive` scene under `packages/content/src/scenes/`
+— is authored against it.

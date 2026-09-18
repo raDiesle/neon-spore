@@ -10296,6 +10296,28 @@ outside it that a boss is a name in, each found by a test going red.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-18 — boss-implementation — THE HIVE, the rehearsal that could not be written
+
+The eleventh film taken on, and the first not written: the generator's first
+run put a bolt up a spilled column and it cratered the rock, and the arithmetic
+after that — a tile a beat against a spill every three, one clock for every
+breach, a shield one column wide — says no film wins the wave and no pair
+can. The finding went to the queue with the owner's three options, §11.14
+says so under its tests, and the lane moved on to THE ORRERY.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `hive.ts`, `hive-step.ts`, `hive-shot.ts`, `config-hive.ts`, `events-hive.ts`, §11.14 and the design it replaced, `bullets.ts` and `bullet-hit-shut.ts` for what a bolt does to a rock, `hull.ts` for the shield's one column, `kinds.ts` for the tiers |
+| writing | 15 | the queue item and its `Asks:`, the §11.14 paragraph, this entry, the ledger |
+| looking | 10 | the probe: the first breach sealed on beat 4 and cratered on beat 7, the second site spilling on the beat it opened |
+| friction | 0 | nothing failed; the fight did |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was deciding not to decide: three fixes were sized and any of
+them would have let the film be written today, and every one is a design
+choice the other lane argued the opposite of — so it is a question, not a
+lane.
+
 ## 2026-09-18 — boss-implementation — THE ANTIPHON, the rehearsal
 
 The tenth boss film written after its look, and the second grown by a
