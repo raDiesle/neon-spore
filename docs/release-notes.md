@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 4002438d — The row a fault enters on says which fault it is
+
+The stripe down the beat column said a malfunction holds over these rows and nothing said which one, which is half an answer: an author scanning a map for the place THE HANDOVER starts had to click a row to find out. The name is written at the end of the row it enters on now, in gold, with the whole list on hover when two enter together.
+
 ## 2026-09-18 · fbe2c69c — Mark "THE DIASTOLE changes state more than once, and asks for more than one gesture" done
 
 Both lanes landed: the simulation in bbbcf095, the look in f5a13cbc.
