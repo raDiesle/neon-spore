@@ -100,6 +100,12 @@ export interface UndertowState {
   unseatedUntil: number;
   /** Beats the maw has been open under the last lobe, counted on the beat. */
   hold: number;
+  /** The column player 2's thumb is pinning, or -1: her second plate (`undertow-hand.ts`). */
+  pinCol: number;
+  /** Whether her thumb is on the unseated pilot's column right now. */
+  freeHeld: boolean;
+  /** Beats she has held it there, counted on the beat, as the maw's hold is. */
+  freed: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than six. */
@@ -127,6 +133,17 @@ export function undertowPlateBeside(cfg: SimConfig, col: number): number {
 export function undertowBreachAt(u: UndertowState, col: number): UndertowBreach | null {
   for (const b of u.breaches) if (b.col === col) return b;
   return null;
+}
+
+/**
+ * Whether her thumb is holding that column shut. The same question the shield
+ * answers with `world.shieldCol`, asked of the hand instead — and asked in the
+ * two places the plate is asked about, so the pin and the plate can never
+ * disagree about what covering a breach means (`undertow-step.ts`,
+ * `undertow-press.ts`).
+ */
+export function undertowPinned(u: UndertowState, col: number): boolean {
+  return u.pinCol === col;
 }
 
 /** Whether player 1's seat is unseated on this beat: the floor came up under the cannon and he did not move. */

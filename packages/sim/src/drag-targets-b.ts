@@ -23,7 +23,9 @@ export type DragTargetB =
   | "scoutLine"
   | "scoutPrime"
   | "pulseMeter"
-  | "batonSocket";
+  | "batonSocket"
+  | "undertowPin"
+  | "undertowFree";
 
 /**
  * `fleetBreach`, `fleetRake` and `fleetWreck` are the twenty-seventh, -eighth
@@ -99,4 +101,27 @@ export type DragTargetB =
  * player 1's on the upper and player 2's on the one that waited, and only both
  * at once draw them into one (`baton-hand.ts`). It carries nothing but `on` and
  * `id`: where on a socket a thumb landed says nothing the fight wants.
+ */
+
+/**
+ * `undertowPin` and `undertowFree` are the fortieth and forty-first, and the
+ * first pair on a boss that is **under** the floor: both are the navigator's,
+ * and both are on the hull itself rather than on her panel, because the hull
+ * is the only part of that fight either seat can point at
+ * (`undertow-hand.ts`).
+ *
+ * `undertowPin` is a second plate, made of a thumb. Held on a lobe standing
+ * in the hull it stops that breach widening exactly as the shield does, and —
+ * for the same reason the shield does — **keeps the maw out of the column**,
+ * so the pair has to say *let go* before he can take it. `id` is the column,
+ * which is the whole of what the hand says; there is one pin, and a thumb
+ * landing on a second lobe moves it.
+ *
+ * `undertowFree` is the one hand in this game that **gives a seat back**. The
+ * floor comes up under the cannon and a pilot who did not slide off is dead
+ * for `undertowUnseatedBeats`; her thumb held on his column for
+ * `undertowFreeBeats` hauls the plate off him and he is his own again. It
+ * carries nothing but `on`, for `pulseMeter`'s reason — the column is the one
+ * the cannon is stuck in, and where on it her thumb landed says nothing the
+ * fight wants.
  */

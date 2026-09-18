@@ -79,4 +79,8 @@ export const SILENT_BOSS_B = [
   "batonRefused",
   "batonHeld",
   "batonParted",
+  // THE UNDERTOW's two thumbs, no burst until the look lane draws them: the
+  // pin stands on a lobe the field is already drawing.
+  "undertowPinned",
+  "undertowFreed",
 ] as const satisfies readonly SimEvent["type"][];

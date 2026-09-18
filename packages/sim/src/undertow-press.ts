@@ -6,6 +6,7 @@ import {
   type UndertowState,
   undertowBoss,
   undertowLobeAt,
+  undertowPinned,
   undertowUnseated,
 } from "./undertow.js";
 import type { World } from "./world.js";
@@ -26,8 +27,11 @@ import type { World } from "./world.js";
  *
  * **The plate covers the breach.** A shield standing on the column stops it
  * widening and, for the same reason, keeps the maw out of it: the pair has to
- * decide which seat has the column, which is the whole of part two. A tall
- * lobe is the beam's alone.
+ * decide which seat has the column, which is the whole of part two. **Her
+ * thumb is the same plate** (`undertowPinned`, `undertow-hand.ts`) — which is
+ * what makes the pin a sentence rather than a free win, because the column she
+ * is holding shut is a column he cannot take until she says so. A tall lobe is
+ * the beam's alone.
  *
  * The last lobe is not taken, it is *held*: `undertow-step.ts` counts the
  * beats the maw is open under it.
@@ -40,8 +44,8 @@ export function undertowTake(
 ): boolean {
   if (u.phase === "last") return false;
   if (!beam) {
-    if (b.tall || world.shieldCol === b.col || world.cannonCol !== b.col || !mawOpen(world))
-      return false;
+    if (b.tall || world.shieldCol === b.col || undertowPinned(u, b.col)) return false;
+    if (world.cannonCol !== b.col || !mawOpen(world)) return false;
   }
   const i = u.breaches.indexOf(b);
   if (i >= 0) u.breaches.splice(i, 1);

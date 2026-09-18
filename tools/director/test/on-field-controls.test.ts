@@ -211,6 +211,13 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // `render/baton-grip.ts`, `field-controls-baton.ts`).
     case "batonSocket":
       return target;
+    // THE UNDERTOW's two thumbs, both the navigator's and both on the hull
+    // itself: a pin is a second plate on a standing lobe, and the free hauls
+    // the plate off a pilot the floor unseated (`sim/undertow-hand.ts`). Sim
+    // lane only so far, as the twelve above.
+    case "undertowPin":
+    case "undertowFree":
+      return target;
     default:
       return assertNever(target);
   }

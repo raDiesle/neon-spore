@@ -148,4 +148,10 @@ export const INGEST_SILENT_BOSS_B = [
   "batonRefused",
   "batonHeld",
   "batonParted",
+  // THE UNDERTOW's two thumbs on the hull, silent until the look lane draws
+  // them: which lobe she is pinning and how long she has held his column are
+  // state, read off `pinCol` and `freed` every frame (`sim/undertow-hand.ts`).
+  // Her other ten are on the first page, with the floor they answer.
+  "undertowPinned",
+  "undertowFreed",
 ] as const satisfies readonly SimEvent["type"][];

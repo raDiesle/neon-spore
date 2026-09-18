@@ -8,8 +8,10 @@ import {
   type UndertowPhase,
   type UndertowState,
   undertowLastCol,
+  undertowPinned,
   undertowPlateBeside,
 } from "./undertow.js";
+import { stepUndertowHands, undertowHandsFresh } from "./undertow-hand.js";
 import { undertowTake } from "./undertow-press.js";
 import type { World } from "./world.js";
 
@@ -41,6 +43,7 @@ export function installUndertow(world: World): UndertowState {
     scars: 0,
     unseatedUntil: -1,
     hold: 0,
+    ...undertowHandsFresh(),
   };
 }
 
@@ -164,10 +167,10 @@ function withdraw(world: World, u: UndertowState, b: UndertowBreach): void {
   remove(u, b);
 }
 
-/** A breach no plate stands on spreads, and wide enough lets a second lobe through beside it. */
+/** A breach no plate — or thumb (`undertow-hand.ts`) — stands on spreads, and wide enough lets a second lobe through beside it. */
 function widen(world: World, u: UndertowState, b: UndertowBreach): void {
   const cfg = world.cfg;
-  if (world.shieldCol === b.col) return;
+  if (world.shieldCol === b.col || undertowPinned(u, b.col)) return;
   b.widthMilli += cfg.undertowWidenMilli;
   if (b.widthMilli < cfg.undertowWideMilli || b.widened) return;
   b.widened = true;
@@ -220,6 +223,7 @@ function last(world: World, u: UndertowState, b: UndertowBreach): void {
 /** One beat of the floor. */
 export function stepUndertow(world: World, u: UndertowState): void {
   const cfg = world.cfg;
+  stepUndertowHands(world, u); // What her two thumbs came to, counted where they are heard.
   if (u.phase === "taken") {
     // Nulled here rather than at the swallow, so the picture has the whole of
     // the body going in before the wave is allowed to end (`bossHoldsWave`).

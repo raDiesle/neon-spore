@@ -39,4 +39,8 @@ export type UndertowEvent =
   /** The maw was held open long enough: the body follows the lobe in, and the boss is beaten. */
   | ({ type: "undertowSwallowed" } & UndertowColEvent)
   /** The last lobe was not held. It came through, and so did the hull. */
-  | ({ type: "undertowThrough" } & UndertowColEvent);
+  | ({ type: "undertowThrough" } & UndertowColEvent)
+  /** Player 2's thumb landed on a standing lobe, or left it: her second plate, on or off (`undertow-hand.ts`). */
+  | ({ type: "undertowPinned"; on: boolean } & UndertowColEvent)
+  /** She held his column long enough: the plate comes off the cannon and the pilot has his seat back. */
+  | ({ type: "undertowFreed" } & UndertowColEvent);

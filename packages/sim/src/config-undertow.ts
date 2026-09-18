@@ -53,6 +53,13 @@ export interface UndertowConfig {
   undertowUnseatBeats: number;
   /** Beats the cannon is unseated — every press from that seat swallowed — when he did not. */
   undertowUnseatedBeats: number;
+  /**
+   * Beats player 2's thumb has to stay on his column to haul the plate off him
+   * and give the seat back, counted on the beat as the maw's hold is. Two of
+   * the four: half the dead time is hers to win back, and she cannot have all
+   * of it or the unseat would cost nothing at all (`undertow-hand.ts`).
+   */
+  undertowFreeBeats: number;
   /** Beats every seam lights and the whole edge bows before the last lobe comes up. */
   undertowRiseBeats: number;
   /** Beats the maw has to be open under the last lobe, counted on the beat, for the body to follow it in. */
@@ -84,6 +91,7 @@ export const UNDERTOW_DEFAULTS: UndertowConfig = {
   undertowWideMilli: 400,
   undertowUnseatBeats: 2,
   undertowUnseatedBeats: 4,
+  undertowFreeBeats: 2,
   undertowRiseBeats: 4,
   undertowHoldBeats: 6,
   undertowLastBeats: 10,

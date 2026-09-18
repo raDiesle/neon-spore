@@ -11,6 +11,11 @@ import { type Cue, panForCol } from "./bind.js";
  * pilot's screen alone, and a bow heard in a lane is the one tell she gets
  * before the lobe stands. `undertowRise` is the whole edge at once and has no
  * column to be in — no pan, like `boss.stareCaught`.
+ *
+ * Twelve events on those nine sounds: the plate closing is the take quieter,
+ * and **her two hands are the ship's grip** rather than the floor's — a thumb
+ * on a lobe is a hand landing on something falling, which is the sound the
+ * game already has for exactly that (`sounds/grip.ts`, `bind-fleet.ts`).
  */
 export function undertowCue(
   e: Extract<
@@ -26,7 +31,9 @@ export function undertowCue(
         | "undertowClosed"
         | "undertowRise"
         | "undertowSwallowed"
-        | "undertowThrough";
+        | "undertowThrough"
+        | "undertowPinned"
+        | "undertowFreed";
     }
   >,
   cols: number,
@@ -55,5 +62,14 @@ export function undertowCue(
       return { id: "boss.undertowSwallowed", pan: panForCol(e.col, cols) };
     case "undertowThrough":
       return { id: "boss.undertowThrough", pan: panForCol(e.col, cols) };
+    case "undertowPinned":
+      // Her thumb taking a lobe and leaving it, in THE FLEET's words for the
+      // same pair of moments: the pin is a plate made of a hand, and what the
+      // pilot needs off it is *which column, and is it still held*.
+      return { id: e.on ? "ship.gripTake" : "ship.gripSlip", pan: panForCol(e.col, cols) };
+    case "undertowFreed":
+      // The plate hauled off the cannon: weight dragged by a hand, which is
+      // what `ship.gripCarry` is, here in his lane rather than hers.
+      return { id: "ship.gripCarry", pan: panForCol(e.col, cols) };
   }
 }

@@ -548,6 +548,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
 | `packages/sim/src/bearing.ts` | **A bearing**: where a hand is round a circle, in thousandths of a turn clockwise from the top |
 | `packages/sim/src/undertow-hash.ts` | What THE UNDERTOW puts into `hashWorld`, and nothing else |
+| `packages/sim/src/undertow-hand.ts` | THE UNDERTOW's two hands, both the navigator's: a pin that plates a lobe, and the thumb that gives an unseated pilot his seat back |
 | `packages/sim/src/undertow-press.ts` | THE UNDERTOW's presses: the maw, the beam and the unseat |
 | `packages/sim/src/undertow-step.ts` | THE UNDERTOW's clock: the push, the bow, the lobe coming through, the widening, the withdrawal |
 | `packages/sim/src/undertow.ts` | THE UNDERTOW: where you are being hit from |

@@ -3099,6 +3099,31 @@ not, the last lobe is held down or comes through, the wave stays open until
 the body has passed, and the same run fingerprints the same way twice
 (`sim/test/undertow.test.ts`).
 
+**Her two hands on the hull** (`sim/undertow-hand.ts`, 18 September 2026 — the
+simulation; the handle on the picture is its own lane). The fight shipped
+answered entirely from the panel: the maw, the beam, the shield's column and
+the slide off are four presses and a carriage, and none of them is a hand on
+the boss itself. The boss itself is the hull, which is the one part of this
+fight either seat can point at — so both new hands are the **navigator's**,
+because his are the cannon and the maw and they are full.
+
+*The pin* is a second plate, made of a thumb. Held on a lobe standing in the
+hull it stops that breach widening exactly as the shield does and — for the
+same reason the shield does — **keeps the maw out of that column**, so the pair
+has to say *let go* before he can take it. There is one pin; a thumb landing on
+a second lobe moves it; a pin whose lobe leaves the world comes off by itself.
+It is refused on a bow, which is not yet a hole, and in **last**, where
+`undertowTake` refuses anyway and a pin would only spoil his hold.
+
+*The free* is the one hand in this game that **gives a seat back**. The floor
+comes up under the cannon and a pilot who did not slide off is swallowed for
+`undertowUnseatedBeats` (4); her thumb held on his column for
+`undertowFreeBeats` (2) hauls the plate off him and he is his own again. Two of
+the four, because half the dead time is hers to win back and she cannot have
+all of it or the unseat would cost nothing at all. Lifted off part way the
+count keeps, for the same reason the maw's hold under the last lobe keeps
+(`docs/spec/latency.md`).
+
 **What the field says** (`render/src/boss-cue-read-j.ts`, 18 September 2026,
 `docs/decisions.md` #34). Four words across all five phases, and the one that
 decides the reading is the column: the maw takes from the cannon's own column

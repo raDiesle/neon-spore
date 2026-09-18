@@ -207,6 +207,7 @@ export {
   undertowBreachAt,
   undertowLastCol,
   undertowLobeAt,
+  undertowPinned,
   undertowPlateBeside,
   undertowUnseated,
   VANE_CYCLE,

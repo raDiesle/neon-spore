@@ -31,6 +31,6 @@ export function undertowHashParts(u: UndertowState): number[] {
       b.widened ? 1 : 0,
     );
   }
-  out.push(u.taken, u.scars, u.unseatedUntil, u.hold);
+  out.push(u.taken, u.scars, u.unseatedUntil, u.hold, u.pinCol, u.freeHeld ? 1 : 0, u.freed);
   return out;
 }

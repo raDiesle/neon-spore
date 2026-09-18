@@ -239,6 +239,7 @@ export {
   undertowBreachAt,
   undertowLastCol,
   undertowLobeAt,
+  undertowPinned,
   undertowPlateBeside,
   undertowUnseated,
 } from "./undertow.js";

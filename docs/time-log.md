@@ -9749,3 +9749,29 @@ and the frame's call count — measured something else, and both were only caugh
 by taking the draw call out and watching the case stay green.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — task-queue-work-ym2eim — THE UNDERTOW's two hands, and a count that keeps
+
+The simulation half of the §6.2 ask: the fight had five phases and five answers
+and every one of them was on the panel, so the two new gestures are both the
+navigator's and both on the hull itself — a pin that plates a standing lobe and
+stops it widening and keeps the maw out of it, and a thumb on the unseated
+pilot's column that hauls the plate off him. The writing was two small
+functions and eleven places the project makes you name a new target, which is
+the point of them: the wire, the audio bind, the two silent lists, the codec's
+record, the director's switch and the config map each refused the build until
+the hand was written down there too.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | §11.20's whole record, `fleet-hand.ts` and `baton-hand.ts` as the model, `undertow-press.ts` for where the plate is asked about, and the four silent lists |
+| writing | 35 | `undertow-hand.ts`, the state and config fields, the two events, `undertow-hands.test.ts`'s twelve cases, and §11.20's new two paragraphs |
+| looking | 0 | none: a cloud session, and nothing of these hands is drawn yet |
+| friction | 15 | `undertow-step.ts` one line over its limit twice, a missing surface export, and a test that asserted the opposite of the rule the fight already ships |
+| landing | 15 | `check:fast` four times, the index line, the commit, the land |
+
+**The bottleneck was writing a test before reading the rule beside it.** The
+free's count was asserted to reset when her thumb lifts, and the maw's hold ten
+lines away in the same fight keeps its count across exactly that slip, for a
+latency reason that applies to both — the code was right and the case was
+wrong, and the fix was a comment pointing at the rule it was copying.
