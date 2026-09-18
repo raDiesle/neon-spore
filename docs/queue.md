@@ -512,6 +512,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE BATON changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-baton-changes-state-more-than-once-and-asks
 - **Files:** `packages/sim/src/baton-bead.ts`, `packages/sim/src/baton-cross.ts`, `packages/sim/src/baton-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
