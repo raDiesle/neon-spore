@@ -417,6 +417,7 @@ the one allowance left in `tools/director/test/boss-states.test.ts`'s
 ## THE MIRROR changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-mirror-changes-state-more-than-once-and-asks
 - **Files:** `packages/sim/src/mirror-round.ts`, `packages/sim/src/mirror.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 
 It is answered today on the ordinary panel, over 2 files of simulation. Give it
