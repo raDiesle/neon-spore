@@ -11374,3 +11374,24 @@ answer — that it shows both seats everything and splits the verbs instead —
 is three paragraphs of one header and nothing in any type.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — BULB QUEEN pries and holds: the simulation half
+
+Three phases, three gestures: CROWN shot on the panel, BROOD's mark pried
+open by player 1's thumb, SCREAM's held open by it — the `queenMark` drag
+target, `pryBeat` and `holdSide`, the `queenFlinch` event and the pilot's
+`OPEN` cue on her own column (`sim/src/queen-hand.ts`). The look half is
+parked.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | §11.0, `queen-mark.ts`, `boss.ts`, `instar.ts` and the two hand files, the drag-target and codec tests, the bind and silent lists, the director's states and OWED, the queen cue test |
+| writing | 40 | the gesture table, the hand file, `holdBloom`, the event and its bind, the target in four files, the two state fields with their hash and fixture, the two cues and their tests, nine sim tests, §11.0, the parked entry |
+| looking | 0 | nothing visible moved: the look half is the parked lane's |
+| friction | 10 | `bind.ts` one line over 250, cut to `bind-warden.ts`; `queenGesture` missing from `boss-surface.ts`; `stepBoss` runs on the beat, so a one-tick test read CROWN; two paths in the parked entry the tree did not have |
+| landing | 5 | `check:fast` twice, the commit, `bun run land --keep` |
+
+The bottleneck was the wiring: one target and one event touch fourteen files
+across four packages before a test can run.
+
+*Measured: 0 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

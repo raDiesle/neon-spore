@@ -23,6 +23,14 @@ export interface BossConfig {
    */
   queenEggGrowShare: number;
   /**
+   * Beats a SCREAM bloom may be held open in all, counted from its opening,
+   * under player 1's thumb (`holdBloom` in `queen-mark.ts`). Four: the one
+   * beat she stands open by herself and three more — a torch cycle is eight,
+   * so a hold that ran the cap would meet the next drop with the thumb that
+   * guards it still on her, which is the cost the gesture is meant to have.
+   */
+  queenHoldBeats: number;
+  /**
    * The row the Warden's ring holds. It never walks and never sinks, so this
    * is the only row it ever has — and it is what makes its two clocks line up:
    * a plain meteor takes exactly `wardenCycleBeats` to reach the hull from
@@ -211,6 +219,7 @@ export interface BossConfig {
 export const BOSS_DEFAULTS: BossConfig = {
   queenRow: 2,
   queenEggGrowShare: 0.5,
+  queenHoldBeats: 4,
   wardenRow: 2,
   wardenCycleBeats: 12,
   cairnRow: 2,

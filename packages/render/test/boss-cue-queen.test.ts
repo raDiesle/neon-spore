@@ -10,7 +10,8 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
-import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
+import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
+import { queenMarkCenter } from "../src/queen-figure.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
@@ -93,6 +94,36 @@ describe("BULB QUEEN", () => {
     expect(cue(world, "p2")?.x).toBeLessThan(right);
   });
 
+  it("asks the pilot to open her, on her own column, in the two phases his thumb answers", () => {
+    const world = opened();
+    clearTorches(world);
+    const q = queen(world);
+    const her = body(world);
+    q.openBeat = world.beat + 1;
+    her.color = null;
+    // BROOD: a press, while the pry is still waiting; gone once she is open.
+    q.phase = 1;
+    expect(word(world, "p1")).toBe("OPEN");
+    expect(cue(world, "p1")?.kind).toBe("PRESS");
+    for (const side of [-1, 1] as const) {
+      q.weakSide = side;
+      const his = cue(world, "p1");
+      expect(his?.x).not.toBe(queenMarkCenter(LAYOUT.p1, her, side).x);
+    }
+    her.color = "cyan";
+    expect(word(world, "p1")).toBe("MOVE");
+    // SCREAM: a hold, from the tell through the bloom, so the thumb is there.
+    q.phase = 2;
+    her.color = null;
+    expect(word(world, "p1")).toBe("OPEN");
+    expect(cue(world, "p1")?.kind).toBe("HOLD");
+    her.color = "cyan";
+    expect(cue(world, "p1")?.kind).toBe("HOLD");
+    // CROWN asks nothing of his thumb on her.
+    q.phase = 0;
+    expect(word(world, "p1")).toBe("MOVE");
+  });
+
   it("never puts a mark on either of her marks on the pilot's screen", () => {
     const world = opened();
     clearTorches(world);
@@ -103,10 +134,14 @@ describe("BULB QUEEN", () => {
       for (const color of [null, "cyan"] as const) {
         her.color = color;
         q.openBeat = color === null ? -1 : world.beat;
-        const his = cue(world, "p1");
-        if (his === null) continue;
-        // The only place his word is allowed to stand is his own hull line.
-        expect(his.y).toBe(LAYOUT.p1.hullY);
+        for (const phase of [0, 1, 2]) {
+          q.phase = phase;
+          const his = cue(world, "p1");
+          if (his === null) continue;
+          // His word stands on his own hull line, or on her own column — the
+          // gap between the marks — and never over one of the two.
+          if (his.y !== LAYOUT.p1.hullY) expect(his.x).toBe(tileCX(LAYOUT.p1, her.col));
+        }
       }
     }
   });

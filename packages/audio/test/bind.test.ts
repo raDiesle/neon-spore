@@ -66,6 +66,7 @@ async function eventTypes(): Promise<string[]> {
     // unheard, which is what the comment at the top of this list is about.
     ["packages/sim/src/events-fleet.ts", "export type FleetEvent ="],
     ["packages/sim/src/events-stare.ts", "export type StareEvent ="],
+    ["packages/sim/src/events-queen.ts", "export type QueenEvent ="],
     ["packages/sim/src/events-baton.ts", "export type BatonEvent ="],
     ["packages/sim/src/events-undertow.ts", "export type UndertowEvent ="],
     ["packages/sim/src/events-candle.ts", "export type CandleEvent ="],
@@ -130,6 +131,7 @@ const SAMPLES: Record<string, SimEvent> = {
   stareCaught: { type: "stareCaught", player: 1, control: "fire" },
   stareShut: { type: "stareShut", player: 2 },
   stareOpen: { type: "stareOpen", player: 2, forced: true },
+  queenFlinch: { type: "queenFlinch", col: 3, side: -1 },
   batonLaunch: { type: "batonLaunch", col: 3, socket: 2 },
   batonStruck: { type: "batonStruck", col: 3, socket: 2 },
   batonLanded: { type: "batonLanded", col: 3, socket: 3 },

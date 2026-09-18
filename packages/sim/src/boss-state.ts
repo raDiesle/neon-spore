@@ -43,6 +43,20 @@ export interface QueenState {
   openBeat: number;
   /** The first beat it is closed again, -1 for none. */
   closeBeat: number;
+  /**
+   * The beat player 1's thumb pried the real mark open, -1 while none has —
+   * the one moment of a `pry` bloom the picture cannot read off `openBeat`,
+   * because under that gesture the opening is his and not the clock's
+   * (`queen-hand.ts`). Forgotten with the rest of the timing.
+   */
+  pryBeat: number;
+  /**
+   * The mark player 1's thumb is resting on: -1 left, 1 right, 0 none. Only
+   * `hold` reads it — a thumb on the real mark is what keeps a SCREAM bloom
+   * open past its one beat (`holdBloom`) — and it is stored rather than
+   * derived for THE WARDEN's reason below: a finger held still sends nothing.
+   */
+  holdSide: -1 | 0 | 1;
   /** Petals she started the fight with, so a drop in petals can be measured. */
   startPetals: number;
   /** The side her next scripted rock will emerge from: -1 left, 1 right, 0 none pending. */

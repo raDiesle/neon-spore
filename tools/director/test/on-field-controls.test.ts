@@ -131,6 +131,12 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // the lid's look (`docs/spec/bosses.md` §11.16).
     case "stareLid":
       return target;
+    // `queenMark` is THE BULB QUEEN's two marks under player 1's thumb —
+    // pried open under BROOD, held open under SCREAM (`sim/queen-hand.ts`).
+    // The simulation half landed first; the on-field entry and the row in
+    // `docs/spec/controls.md` are the look lane's (`docs/parked.md`).
+    case "queenMark":
+      return target;
     default:
       return assertNever(target);
   }

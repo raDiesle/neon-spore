@@ -31,6 +31,8 @@ function bossAt(releaseBeat: number, dropSide: -1 | 0 | 1): QueenState {
     spentSide: 0,
     openBeat: -1,
     closeBeat: -1,
+    pryBeat: -1,
+    holdSide: 0,
     startPetals: 9,
     dropSide,
     releaseBeat,

@@ -149,7 +149,14 @@ export {
   mazeSweep,
 } from "./maze-wheel.js";
 export { mirrorHoldsControls } from "./mirror.js";
-export { queenMarkCol, queenOccupiesCol, ROCK_CYCLE } from "./queen-mark.js";
+export {
+  QUEEN_GESTURES,
+  type QueenGesture,
+  queenGesture,
+  queenMarkCol,
+  queenOccupiesCol,
+  ROCK_CYCLE,
+} from "./queen-mark.js";
 export {
   type RepriseState,
   repriseEchoing,

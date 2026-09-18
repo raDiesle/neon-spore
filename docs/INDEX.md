@@ -149,6 +149,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/maze-wheel.ts` | THE MAZE's drum as a *written-down thing*: its circles, walls and openings, and what is wrong with them if they were typed wrong |
 | `packages/sim/src/maze.ts` | THE MAZE's wheel, as arithmetic |
 | `packages/sim/src/queen-mark.ts` | the mark itself: the two vulnerable spots cradled under her middle, only one ever real |
+| `packages/sim/src/queen-hand.ts` | **Player 1's thumb on THE BULB QUEEN's marks**, off the wire, on the tick |
 | `packages/sim/src/run.ts` | the run, as opposed to the beat |
 | `packages/sim/src/shell-round.ts` | the round the pair plays against THE SHELL, which is two rounds and the turn between them |
 | `packages/sim/src/shell.ts` | THE SHELL's armour, as arithmetic |
@@ -467,6 +468,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-antiphon.ts` | **Everything THE ANTIPHON does that neither screen already says**, as events |
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer |
+| `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |

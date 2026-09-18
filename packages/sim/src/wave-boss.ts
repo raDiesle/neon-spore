@@ -152,6 +152,8 @@ export function installWaveBoss(world: World, boss: BossEntry | null): void {
       spentSide: 0,
       openBeat: -1,
       closeBeat: -1,
+      pryBeat: -1,
+      holdSide: 0,
       startPetals: boss.petals,
       dropSide: initialDropSide(world),
       releaseBeat: -1,

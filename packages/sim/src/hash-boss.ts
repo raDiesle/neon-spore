@@ -57,6 +57,8 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.spentSide);
     push(boss.openBeat);
     push(boss.closeBeat);
+    push(boss.pryBeat);
+    push(boss.holdSide);
     push(boss.dropSide);
     push(boss.releaseBeat);
     push(boss.releaseSide);

@@ -5,6 +5,7 @@ import {
   announce,
   closeBloom,
   forget,
+  holdBloom,
   openBloom,
   PHASES,
   pickNextBloom,
@@ -88,6 +89,7 @@ export function stepBoss(world: World): void {
   descend(world, boss, queen);
   const plan = PHASES[boss.phase] ?? PHASES[0]!;
 
+  holdBloom(world, boss, queen);
   closeBloom(world, boss, queen);
   openBloom(world, boss, queen);
   announce(world, boss, queen, plan);

@@ -55,20 +55,50 @@ const ROCK_MID = ROCK_CYCLE / 2;
  * spacing. It is gone: the mark now always opens at `ROCK_MID`, so only
  * `tell` and `openBeats` are still a phase's to set.
  */
-interface Phase {
+/**
+ * **What a phase asks of a thumb**, and each phase asks something different
+ * — the owner's ask of 18 September 2026 (`.claude/skills/new-boss` §6.2),
+ * that a boss change state more than once and not answer to one gesture on
+ * the panel the whole way down. `shoot` is the panel: the mark opens on its
+ * own clock and the pair fires. `pry` and `hold` are on **her picture**, and
+ * both are player 1's, because he is the seat that is *not* shown which
+ * mark is real — a thumb from the seat that knows the side would answer the
+ * bloom with nobody speaking (`queen-hand.ts`).
+ */
+export const QUEEN_GESTURES = ["shoot", "pry", "hold"] as const;
+export type QueenGesture = (typeof QUEEN_GESTURES)[number];
+
+export interface Phase {
   /** She is in this phase while her petals are above this number. */
   above: number;
   /** Beats between the announcement and the opening. */
   tell: number;
-  /** Beats a bloom stands open. */
+  /** Beats a bloom stands open — under `hold`, by herself, before a thumb has to keep it. */
   openBeats: number;
+  /** What opens the mark, or keeps it open, in this phase. */
+  gesture: QueenGesture;
 }
 
+/**
+ * CROWN, BROOD, SCREAM. The third stands open one beat on its own: a bloom
+ * that short is hers to snap shut, and a thumb held on the real mark is what
+ * keeps it from doing so (`holdBloom`), up to `queenHoldBeats` in all.
+ */
 export const PHASES: readonly Phase[] = [
-  { above: 7, tell: 2, openBeats: 2 },
-  { above: 4, tell: 2, openBeats: 2 },
-  { above: 0, tell: 1, openBeats: 2 },
+  { above: 7, tell: 2, openBeats: 2, gesture: "shoot" },
+  { above: 4, tell: 2, openBeats: 2, gesture: "pry" },
+  { above: 0, tell: 1, openBeats: 1, gesture: "hold" },
 ];
+
+/** The phase she is in, read the way `boss.ts` reads it — her first beat, at `-1`, is the crown's. */
+export function queenPhase(boss: QueenState): Phase {
+  return PHASES[boss.phase] ?? PHASES[0]!;
+}
+
+/** What her current phase asks of the thumb. */
+export function queenGesture(boss: QueenState): QueenGesture {
+  return queenPhase(boss).gesture;
+}
 
 /** Blooms announced so far. Decides the colour, which alternates cyan first. */
 const BLOOMS = 0;
@@ -99,6 +129,7 @@ export function forget(boss: QueenState): void {
   boss.tellCol = -1;
   boss.openBeat = -1;
   boss.closeBeat = -1;
+  boss.pryBeat = -1;
 }
 
 /**
@@ -139,10 +170,30 @@ export function closeBloom(world: World, boss: QueenState, queen: Creature): voi
   pickNextBloom(world, boss);
 }
 
-/** She opens. That is all this beat does now — the mark, nothing riding on it. */
+/**
+ * She opens. That is all this beat does now — the mark, nothing riding on it.
+ * Under `pry` she does not: the clock still runs, from the announcement to
+ * `closeBeat`, but the mark stays armoured until a thumb has it open
+ * (`pryMark`), and a window nobody pried is a miss like any other.
+ */
 export function openBloom(world: World, boss: QueenState, queen: Creature): void {
   if (world.beat !== boss.openBeat) return;
+  if (queenGesture(boss) === "pry") return;
   queen.color = boss.tellColor;
+}
+
+/**
+ * Under `hold`, an open mark stays open one more beat for as long as player
+ * 1's thumb is on the real one — and not past `queenHoldBeats` from the
+ * opening, so a thumb that never lifts is not a bloom that never closes.
+ * Read before `closeBloom` on the beat, so the beat the window would have
+ * closed on is the beat the hold is asked for.
+ */
+export function holdBloom(world: World, boss: QueenState, queen: Creature): void {
+  if (queenGesture(boss) !== "hold" || queen.color === null) return;
+  if (boss.holdSide !== boss.weakSide) return;
+  if (world.beat >= boss.openBeat + world.cfg.queenHoldBeats) return;
+  if (boss.closeBeat <= world.beat) boss.closeBeat = world.beat + 1;
 }
 
 /**

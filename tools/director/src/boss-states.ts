@@ -24,8 +24,10 @@ export type BossKind = BossEntry["kind"];
  */
 const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // Armoured and still, then a bloom for two beats, and every eight a torch
-  // out of one wing (`queen-mark.ts`, `queen-torch.ts`).
-  queen: ["shut", "open", "torch"],
+  // out of one wing (`queen-mark.ts`, `queen-torch.ts`). Under BROOD the
+  // bloom is pried open by player 1's thumb, under SCREAM it is held open
+  // by it (`queen-hand.ts`) — two states the look lane owes a pose.
+  queen: ["shut", "open", "pried", "held", "torch"],
   // Whole, one ship hit, one ship sunk (`fleetAfloat`, `fleetStruck`).
   fleet: ["afloat", "struck", "sunk"],
   // The pile stands, a unit is on its way down, the last is settled

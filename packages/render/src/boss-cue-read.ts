@@ -12,6 +12,7 @@ import {
   gorgePhase,
   occupiesCol,
   type QueenState,
+  queenGesture,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
@@ -186,6 +187,19 @@ export function queenCues(
   const out: BossCue[] = [];
   if (torch !== undefined && !occupiesCol(torch, world.shieldCol)) {
     out.push(markAt(2, "CARRY", "MOVE", tileCX(l, world.shieldCol), l.hullY, l, 37));
+  }
+  // The two phases answered on her picture (`queen-hand.ts`): the pilot's
+  // word stands on her own column, in the gap between the marks — never on
+  // one, because which of the two is real is the fight, and his thumb is
+  // the one that has to be told. PRESS while a pry is waiting; HOLD for the
+  // whole of a SCREAM bloom, from its tell, so the thumb is there when it opens.
+  const gesture = queenGesture(q);
+  if (gesture === "pry" && q.openBeat !== -1 && queen.color === null) {
+    const y = queenMarkCenter(l, queen, 1).y;
+    out.push(markAt(1, "PRESS", "OPEN", tileCX(l, queen.col), y, l, 41));
+  } else if (gesture === "hold" && q.openBeat !== -1) {
+    const y = queenMarkCenter(l, queen, 1).y;
+    out.push(markAt(1, "HOLD", "OPEN", tileCX(l, queen.col), y, l, 42));
   }
   if (q.openBeat !== -1) {
     out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 38));

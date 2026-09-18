@@ -55,6 +55,9 @@ const ACCEPTED: Command[] = [
   // THE STARE's lid: a depth on the y, the way THE SINEW's are (`sim/stare-hand.ts`).
   { kind: "drag", target: "stareLid", on: true, fromMilli: 0, fromYMilli: 600 },
   { kind: "drag", target: "stareLid", on: false, fromMilli: 0 },
+  // THE BULB QUEEN's marks: `id` 0 is the left, 1 the right, and what the
+  // press is worth is her phase's (`sim/queen-hand.ts`).
+  { kind: "drag", target: "queenMark", on: true, fromMilli: 250, fromYMilli: 400, id: 1 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -156,6 +159,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   instarMark: true,
   filament: true,
   stareLid: true,
+  queenMark: true,
   crank: true,
   orreryRing: true,
 };

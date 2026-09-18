@@ -5,10 +5,14 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
  * THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past
  * its 250-line limit — along the seam the boss already has: a rope, a door, a
  * plate, and the last plate. Moved whole; every comment is the one that stood
- * beside its case before.
+ * beside its case before. THE BULB QUEEN's two joined them when her flinch
+ * took `bind.ts` past the limit again: the two bosses already share a sound.
  */
 export function wardenCue(
-  e: Extract<SimEvent, { type: "tether" | "eyeOpen" | "plate" | "wardenDown" }>,
+  e: Extract<
+    SimEvent,
+    { type: "tether" | "eyeOpen" | "plate" | "wardenDown" | "queenDown" | "queenFlinch" }
+  >,
   cols: number,
   rows: number,
 ): Cue {
@@ -29,6 +33,12 @@ export function wardenCue(
         pitch: pitchForRow(e.row, rows),
       };
     case "wardenDown":
+    case "queenDown":
       return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
+    case "queenFlinch":
+      // Her flinch is her shut, a beat early and on the wrong mark: the same
+      // sound the mixer plays when a bloom closes (`mixer-boss.ts`), because
+      // what happened is that it closed.
+      return { id: "boss.queenShut", pan: panForCol(e.col, cols) };
   }
 }

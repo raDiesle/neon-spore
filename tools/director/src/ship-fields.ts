@@ -164,6 +164,7 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   // BossConfig
   queenRow: "QUEEN",
   queenEggGrowShare: "QUEEN",
+  queenHoldBeats: "QUEEN",
   wardenRow: "WARDEN",
   wardenCycleBeats: "WARDEN",
   wardenHangRows: "WARDEN",

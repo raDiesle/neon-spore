@@ -78,6 +78,8 @@ function bossState(overrides: Partial<QueenState> = {}): QueenState {
     spentSide: 0,
     openBeat: 6,
     closeBeat: 8,
+    pryBeat: -1,
+    holdSide: 0,
     startPetals: 9,
     dropSide: 1,
     releaseBeat: -1,

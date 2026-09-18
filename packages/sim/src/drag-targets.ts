@@ -36,7 +36,8 @@ export type DragTarget =
   | "antiphonOrgan"
   | "instarMark"
   | "filament"
-  | "stareLid";
+  | "stareLid"
+  | "queenMark";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -170,4 +171,16 @@ export type DragTarget =
  * *not* caught for (`stareForbids`) — because the eye reopens on the seat
  * that shut it, and a thumb still on the lid at that moment is not a press.
  * No `id`: one eye, one lid, and it is the boss.
+ */
+
+/**
+ * `queenMark` is the eighteenth, and THE BULB QUEEN's — the first field
+ * boss of §11 to be given a handle on its picture after shipping, for the
+ * owner's ask that a boss change state more than once and ask a different
+ * gesture in each (`.claude/skills/new-boss` §6.2). Two of her marks, `id`
+ * 0 the left and 1 the right, and two gestures on the one name read off
+ * `on`: under BROOD a press pries the real mark open, under SCREAM a thumb
+ * held there keeps it open (`queen-hand.ts`). Player 1's alone, because he
+ * is the seat not shown which mark is real; the other seat's press is
+ * dropped without a sound, since his screen never draws the handle.
  */

@@ -24,6 +24,7 @@ import { stepMalfunction } from "./malfunction.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { orreryRingHeard } from "./orrery-hand.js";
 import { advancePods } from "./pods.js";
+import { queenHeard } from "./queen-hand.js";
 import { stepReach } from "./reach.js";
 import { sinewHeard } from "./sinew-hand.js";
 import { stareLidHeard } from "./stare-hand.js";
@@ -159,6 +160,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // THE FILAMENT's two thumbs, on the tick: a tile is lit when the thumb
   // reaches it, and the beat only says whether that was too soon (`filament-hand.ts`).
   for (const c of commands) filamentHeard(world, c.player, c.command);
+  // THE BULB QUEEN's marks under player 1's thumb, on the tick because a pry
+  // is a press when it lands and a hold is where the thumb is now (`queen-hand.ts`).
+  for (const c of commands) queenHeard(world, c.player, c.command);
   // And the two hands on THE WEIGHT, which is not a command at all: the press
   // is the ordinary `grip` and `applyCommand` has already recorded it, so what
   // runs here is the clock over it. On the tick with the balloon's rub above
