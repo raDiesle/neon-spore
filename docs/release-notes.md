@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 906fba94 — Mark "THE MIRROR changes state more than once, and asks for more than one gesture" done
+
+## 2026-09-18 · 9820b180 — THE MIRROR's lobes are a control: the look half of §6.2
+
+A look with no shipped alternative. Under the last round the pair's thumbs land on THE MIRROR's own two lobes: player 1 slides its cannon, taps it and presses its shield, player 2 swipes its cannon left for red and right for cyan; under the pin, one lobe each, held together. The rings on the lobes are the seat's own under listen and nobody's otherwise, the hand cup is drawn upside down on the boss with the sim's carry threshold as its readout, the lobe under this seat's thumb fills, the count runs on both lobes on every screen, and the pin landing throws a ring off both. The director gets a hand that answers every round and then pins, a HOLD pose, and the control's row; the field-controls page and the controls spec get the row too.
+
 ## 2026-09-18 · 4002438d — The row a fault enters on says which fault it is
 
 The stripe down the beat column said a malfunction holds over these rows and nothing said which one, which is half an answer: an author scanning a map for the place THE HANDOVER starts had to click a row to find out. The name is written at the end of the row it enters on now, in gold, with the whole list on hover when two enter together.
