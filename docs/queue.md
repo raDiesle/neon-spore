@@ -321,6 +321,7 @@ deciding before the next boss lands rather than during it.
 ## `hash-fixture.ts` is three times its limit and every boss adds a branch to it
 
 - **Found:** 2026-09-17, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-18, claude/queue-hash-fixture-ts-is-three-times-its-limit-and-eve
 - **Files:** `packages/sim/test/hash-fixture.ts`, `packages/sim/test/hash-coverage.test.ts`
 
 The fixture stands at 738 lines: one `BOSS_ENTRIES` entry and one `patchBoss`
