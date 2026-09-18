@@ -36,14 +36,63 @@ import { computeLayout, computeStage, type Layout, type Stage, type ViewRole } f
  * top-right (the owner, 12 September 2026). On a phone the box is the phone
  * and the rectangle is the box, less the nav bar's height.
  */
-export function filmLayout(box: Layout, cfg: SimConfig, seat: 1 | 2): { film: Stage; l: Layout } {
+export function filmLayout(box: Layout, cfg: SimConfig, seat: 1 | 2): FilmLayout {
   const role = seatRole(seat);
   const film = computeStage(
     { width: box.width, height: Math.max(1, box.height - GUIDE_LOOK.navHeight), dpr: 1 },
     cfg,
     role,
   );
-  return { film, l: computeLayout({ width: film.width, height: film.height, dpr: 1 }, cfg, role) };
+  const size = { width: film.width, dpr: 1 };
+  return {
+    film,
+    page: computeLayout({ ...size, height: film.height }, cfg, role),
+    l: computeLayout(
+      { ...size, height: Math.max(1, film.height - GUIDE_LOOK.bandFoot) },
+      cfg,
+      role,
+    ),
+    top: GUIDE_LOOK.bandFoot,
+  };
+}
+
+/**
+ * The film's two layouts, and where the picture stands in the page.
+ *
+ * `page` is the whole rectangle: the band across the top, the rim round it and
+ * the bar's own geometry are laid out in it, and it is what they were always
+ * laid out in. `l` is the **picture** — the phone screen the pair is being
+ * shown — and it is shorter by the band's foot and drawn `top` below it.
+ *
+ * **They were one layout until 18 September 2026, and the band covered the top
+ * of the field.** A page is the box less the bar's height and the field is
+ * anchored to the panel at the bottom, so row 0 stood about the bar's height
+ * higher in a page of film than in the wave — under the band, whose foot the
+ * seat draw only ever handed the HUD (`ViewState.clearTop`). Anything hung
+ * *over* row 0 was drawn there and then covered: THE TASTER's crest and fan in
+ * every page of its film, THE GORGE's sack in the first page of its, THE
+ * ANTIPHON's body and the navigator's rail in all of its, THE ORRERY's top arc
+ * so that its *three rings* showed two and a half — and the boss cue on the
+ * marks that stand high (`boss-cue-draw.ts`). A film that hides the thing the
+ * page is about is the one picture of it that does not show it.
+ *
+ * The band's foot comes off the playable height the way the bar's already
+ * does, so the picture is **squeezed rather than slid**: nothing moves out of
+ * the page and the tile shrinks by the same share the bar already costs it.
+ * The other two answers are worse. A narrower stage is close to what the owner
+ * refused on 12 September 2026 — the field short of the box on both sides —
+ * and starting the field under the band and letting a caption say what is
+ * covered is a rehearsal explaining its own furniture.
+ */
+export interface FilmLayout {
+  /** Where the page stands on the stage, and how wide it is. */
+  film: Stage;
+  /** The page: the band, the rim and the bar are laid out in this. */
+  page: Layout;
+  /** The picture: the phone screen being shown, `top` below the page's top. */
+  l: Layout;
+  /** How far under the page's top the picture starts — the band's foot. */
+  top: number;
 }
 
 export function seatRole(seat: 1 | 2): ViewRole {

@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — a rehearsal's picture starts under the band
+
+A film was laid out in the whole box less the nav bar, so the corner plate stood
+*over* row 0 and everything hung off it — THE ORRERY's top arc, THE TASTER's
+crest, a boss cue's word — was drawn behind the band. The band's foot now comes
+off the film's playable height the way the bar's already did, so the picture is
+squeezed rather than slid, and `filmLayout` returns two layouts: the page, which
+the band still spans whole, and the picture, which starts below it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `guide-film.ts`, `layout.ts`'s `computeStage`/`computeLayout`, `guide-look.ts`, `round-header.ts`, and which fixtures hang over row 0 |
+| writing | 40 | the split layout and its reasoning, the translate in `guide-scene.ts`, the geometry test on both seats, and `pageSwitch` when the file went over the ceiling |
+| looking | 25 | `bun run frames` on THE TASTER and THE ORRERY, twice each — only the PNG showed that the first clamp had inverted the cue on THE SCUTTLE |
+| friction | 10 | the line limit twice: the first trim of comments bought one line at a time before the real seam, the switch's own clock, was taken |
+| landing | 15 | `format`, `check:fast` twice, `queue done`, the commit, `bun run land --keep` |
+
+**The bottleneck was looking.** Nothing in the tests could say the picture was
+whole — a clamp that reads correctly puts a word in the band on one boss and
+upside down on another — so every attempt cost a render and an eye.
+
 ## 2026-09-18 — boss-hints — every boss wave says which kind of boss it is
 
 One authored field beside `boss`, two values, on all thirty-three boss waves: a

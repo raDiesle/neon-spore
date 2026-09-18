@@ -205,6 +205,45 @@ describe("the tutorial plate and a round's header", () => {
 });
 
 /**
+ * **The band covers nothing, because the picture starts under it.**
+ *
+ * Until 18 September 2026 a page was the box less the bar's height and the
+ * field was anchored to the panel at the bottom, so row 0 stood about the bar's
+ * height higher in a film than in the wave — under the band. Anything a boss
+ * hangs *over* row 0 was drawn there and then covered: THE TASTER's crest and
+ * fan, THE GORGE's sack, THE ANTIPHON's body and rail, THE ORRERY's top arc.
+ * The band's foot comes off the playable height now, the way the bar's already
+ * did (`guide-film.ts`), and this is the geometry of that: the picture begins
+ * at the band's foot, and row 0 with the deepest overhang any boss draws over
+ * it still begins below it.
+ *
+ * The overhang is THE TASTER's, which is the deepest measured when the fault
+ * was found: `tasterCrestY`, 0.42 tiles over row 0. It is written here rather
+ * than imported because what is being held is *room*, not that one boss's
+ * number — a boss that wanted more than this much would be a page of film to
+ * look at again.
+ */
+const OVERHANG = 0.42;
+
+describe("the film's picture and the band over it", () => {
+  for (const role of ROLES) {
+    it(`leaves the band to itself, for ${role}`, () => {
+      const seat = role === "p1" ? 1 : 2;
+      const box = computeLayout(PHONE, CFG, role);
+      const { page, l, top } = filmLayout(box, CFG, seat);
+      expect(top, "the picture does not start at the band's foot").toBe(GUIDE_LOOK.bandFoot);
+      const row0 = top + l.gridTop;
+      expect(
+        row0 - OVERHANG * l.tile,
+        "what a boss hangs over row 0 is drawn inside the band",
+      ).toBeGreaterThan(GUIDE_LOOK.bandFoot);
+      // And it still ends above the bar: the two are taken off one height.
+      expect(top + l.height, "the picture runs past the page").toBeLessThanOrEqual(page.height);
+    });
+  }
+});
+
+/**
  * THE HANDOVER's countdown plate and the caption of the page over it.
  *
  * The fault's plate sits on the lip of the band, and a caption anchored on a

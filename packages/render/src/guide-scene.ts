@@ -1,12 +1,11 @@
-import type { ControlSet, GuideScene, SceneStep } from "@neon-spore/content";
+import type { ControlSet } from "@neon-spore/content";
 import { framePhase, type World } from "@neon-spore/sim";
 import type { OpeningView } from "./briefing.js";
-import { smoothstep } from "./ease.js";
 import { drawHands, filmLayout, seatLayout } from "./guide-film.js";
 import { GUIDE_LOOK } from "./guide-look.js";
 import { ScenePlay, type Stated } from "./guide-play.js";
 import { SeatView } from "./guide-seat.js";
-import { drawSwitchSeam } from "./guide-switch.js";
+import { drawSwitchSeam, pageSwitch } from "./guide-switch.js";
 import { handedSeat } from "./handover.js";
 import type { Layout, ViewRole } from "./layout.js";
 
@@ -17,11 +16,10 @@ import type { Layout, ViewRole } from "./layout.js";
  * ## One screen at a time, and a switch you can follow
  *
  * The first version drew both devices side by side as two thumbnails above a
- * block of prose. The owner's answer was the shape of this file: give the
- * tutorial the whole screen so the text and the graphics are not tiny, show
- * **one** device at a time so it is unmistakable whose it is, and when the film
- * moves to the other seat, *slide* there so the pair can follow the move
- * instead of finding themselves somewhere new.
+ * block of prose. The owner's answer was the shape of this file: the whole
+ * screen, so text and graphics are not tiny; **one** device at a time, so it is
+ * unmistakable whose it is; and a *slide* to the other seat, so the pair follow
+ * the move instead of finding themselves somewhere new.
  *
  * So a step owns a seat (`SceneStep`), and a change of seat is a horizontal
  * slide with a banner naming the screen that has arrived (`guide-switch.ts`).
@@ -34,27 +32,19 @@ import type { Layout, ViewRole } from "./layout.js";
  * A page is one step of the film. It plays once, stands on its last frame, and
  * plays again only when the seat reading it presses REPLAY — NEXT is what moves
  * on. That clock is `guide-play.ts` next door; what is here is the picture it
- * produces, and the bar the pages are turned by (`guide-nav.ts`). The band,
- * the bar and the caption are read off `GUIDE_LOOK` rather than called by
- * name, so a VERSUS candidate can stand in for them (`guide-look.ts`).
+ * produces, and the bar the pages are turned by (`guide-nav.ts`). The band, the
+ * bar and the caption are read off `GUIDE_LOOK`, so a VERSUS candidate can
+ * stand in for them (`guide-look.ts`).
  *
  * ## It is a real simulation, and this draws only what it is given
  *
  * The rules are `SceneRun`'s, in `packages/sim`: a rehearsal is a real world
- * stepped by the real `step`, so the fall, the shot, the hit and the hull bar
- * dropping are the game's own and not a picture of them.
+ * stepped by the real `step`, so the fall, the shot and the hit are the game's.
  *
  * It is render state that outlives a frame, so it lives where the renderer can
  * clear it, and it clears both seats' `Effects` every time the world underneath
  * is rebuilt — `beat`, `tick` and `nextId` start at 0 again (`restart.test.ts`).
  */
-
-/** Ticks the slide from one screen to the other takes. */
-const SWITCH_TICKS = 26;
-/** And how long the corner goes on saying so after it. Longer than the slide,
- * deliberately: the slide is over before an eye that was reading the words has
- * looked up, and the corner is the thing it looks up *at*. */
-const FLASH_TICKS = 40;
 
 export class GuideStage {
   private readonly seats: readonly [SeatView, SeatView] = [new SeatView(), new SeatView()];
@@ -141,14 +131,9 @@ export class GuideStage {
     // The page, not the tick: a page is what is being watched, and it holds its
     // own words through the pause on the end of it.
     const step = scene.steps[Math.max(0, Math.min(scene.steps.length - 1, page))]!;
-    // A page asked for again is not a page arrived at: REPLAY re-runs the film
-    // on the screen the seat is already looking at, so there is nothing to
-    // slide from, no seam to travel and no arrival for the corner to flare at.
-    // The owner asked for exactly that — *when I press reset, skip the switch
-    // player animation* — and it is read off the play rather than remembered
-    // here, so the drawing still holds no state a rebuild would have to clear.
-    const from = this.play.repeated ? null : previousSeat(scene, step);
-    const k = from === null ? 1 : smoothstep(Math.min(1, (run.tick - step.tick) / SWITCH_TICKS));
+    // Where this page is in its move from the seat before it, and how loudly
+    // the corner is still saying so (`guide-switch.ts`).
+    const { from, k, flash } = pageSwitch(scene, step, run.tick, this.play.repeated);
     // Phone-shaped and centred, whatever the stage is (`guide-film.ts`).
     const cfg = run.world.cfg;
     // **A page is a device, and the panel on it is whichever one that device is
@@ -160,13 +145,17 @@ export class GuideStage {
     // folded when THE FLIP has turned this screen (`seatLayout`): the words
     // and the hands below stand on the layout the bodies are drawn with.
     const shown = handedSeat(step.seat, run.world);
-    const { film, l: laid } = filmLayout(box, cfg, shown);
+    const { film, page: sheet, l: laid, top } = filmLayout(box, cfg, shown);
     const l = seatLayout(laid, shown, run.world);
 
     // Everything down to the corner plate is drawn in the film's rectangle;
     // only the nav bar under it is laid across the whole box.
     ctx.save();
     ctx.translate(film.left, 0);
+    ctx.save();
+    // **The picture starts under the band** (`top`, `guide-film.ts`), so
+    // nothing hung over row 0 is drawn behind the plate.
+    ctx.translate(0, top);
     ctx.save();
     ctx.beginPath();
     ctx.rect(0, 0, l.width, l.height);
@@ -182,13 +171,12 @@ export class GuideStage {
     const phase = framePhase(run.world);
     GUIDE_LOOK.caption(ctx, l, run.world, set, step, run.tick, phase, names);
     drawHands(ctx, l, run, scene, set, shown, phase);
-    GUIDE_LOOK.band(ctx, l, {
+    ctx.restore();
+    // The band and the rim are the page's, not the picture's.
+    GUIDE_LOOK.band(ctx, sheet, {
       seat: step.seat,
       names,
-      // Only a page that actually changed seat flares, and it flares off the
-      // page's own tick — so a page replayed flares again, and nothing about it
-      // survives a frame.
-      flash: from === null ? 0 : Math.max(0, 1 - (run.tick - step.tick) / FLASH_TICKS),
+      flash,
       age: this.play.shown,
     });
     ctx.restore();
@@ -227,23 +215,10 @@ export class GuideStage {
       events: this.play.events,
       running: true,
       controls: set,
-      // The corner plate stands over the top of this screen for as long as the
-      // guide is up, so a round's header and the HUD's lower rows go under it
-      // (`round-header.ts`). Its foot, plus the slime hanging off it.
-      clearTop: GUIDE_LOOK.bandFoot,
+      // **Nothing stands over this screen**: since 18 September 2026 the
+      // picture is laid out below the band (`guide-film.ts`), so a round's
+      // header no longer has to drop under it (`round-header.ts`).
     });
     ctx.restore();
   }
-}
-
-/**
- * The seat the film is sliding away from, or null when this page is not a
- * switch. Read off the page before rather than remembered, so the drawing holds
- * no state a rebuild would have to clear.
- */
-function previousSeat(scene: GuideScene, step: SceneStep): 1 | 2 | null {
-  const i = scene.steps.indexOf(step);
-  const before = i > 0 ? scene.steps[i - 1] : undefined;
-  if (!before || before.seat === step.seat) return null;
-  return before.seat;
 }

@@ -88,6 +88,18 @@ at the moment the work reaches `main`. If a handed-out item is never started,
 `bun run queue release <n|title>` gives it back — the line comes off `main` and
 the branch is deleted.
 
+**The trunk comes up before each item, not once at the top of the sitting.**
+The owner, 18 September 2026, on a session that drained five in a row: *before
+starting a new task from queue, make sure to be up to date from main.*
+`git fetch origin main && git merge --ff-only origin/main`, then
+`git merge --ff-only main` in the lane, between one `queue done` and the next
+`take`. It is not the same rule as `CLAUDE.md`'s *bring the trunk up before you
+start*, which is about a lane: a sitting that drains several items lasts hours,
+and in that time other lanes land. Three entries in one morning were read
+against a tree that had moved — one was a third stale before it was claimed,
+one had its files rewritten under a landing that was already checking, and both
+cost more than the fetch would have.
+
 **Marking one ongoing without opening a lane.** A session already in a worktree
 that picks an item up itself — draining several in one sitting, rather than
 being handed one — says `bun run queue take <n|title>`. That makes the same
@@ -221,37 +233,6 @@ SCOUT's (the same day) puts three of seven on the hull for the arena, the
 hazard crossing and the second arena opening (`render/scout-draw.ts`) —
 and its pilot's pages have nowhere to point either, because the little
 ship on the pilot's screen is a boss part too.
-
-## A rehearsal's frame hides what stands over row 0 of the field
-
-- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Taken:** 2026-09-18, claude/queue-a-rehearsals-frame-hides-what-stands-over-row-0
-- **Files:** `packages/render/src/guide-film.ts`, `packages/render/src/guide-scene.ts`, `packages/render/src/layout.ts`, `packages/render/src/taster-draw.ts`, `packages/render/src/gorge-draw.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/orrery-draw.ts`
-
-A film is laid out in the box less the nav bar's height (`filmLayout`), and
-`computeLayout` anchors the field to the band at the bottom with a tile bound
-by the width on a phone — so the field's top sits about the bar's height
-higher in a page of film than in the wave, under the corner plate, whose foot
-the seat draw only hands the HUD (`clearTop: GUIDE_LOOK.bandFoot`). A fixture
-drawn above row 0 is drawn there and then covered: THE TASTER's crest and fan
-(`tasterCrestY`, 0.42 tiles over row 0) are not in any page of its film, and
-THE GORGE's sack is not in the first page of its landed one — rendered and
-compared against the same waves' own frames, where both stand clear at the
-top. THE THROAT's ring and anything else hung over the field will be the same
-— and THE ANTIPHON's body, its organ and the navigator's rail
-(`render/antiphon-draw.ts`) are, in every page of its film (18 September
-2026): a frame of the twins page shows the cannon under an organ no page
-draws. THE ORRERY's outer ring (`render/orrery-draw.ts`) is the same in
-every page of its film (18 September 2026): its top arc and the organ at
-the top of the orbit sit under the plate's foot on both seats, so the
-first page's *three rings* shows two and a half. It is a look, so it was not changed unattended. The options: lay the film out
-with a narrower stage so the tile shrinks and the field's top clears the
-plate (which is close to what the owner refused on 12 September 2026, the
-field short of the box); or take the plate's foot off the film's playable
-height the way the bar's already is, so the field is squeezed rather than
-slid; or start the film's field under the plate and let a page's caption say
-what the plate covers. `render/test/guide-plate-room.test.ts` should then assert a
-boss fixture over row 0 lands below the band's foot on both seats.
 
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 

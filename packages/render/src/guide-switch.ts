@@ -1,3 +1,5 @@
+import type { SceneStep } from "@neon-spore/content";
+import { smoothstep } from "./ease.js";
 import type { Layout } from "./layout.js";
 import type { SeatNames } from "./seat-name.js";
 
@@ -51,4 +53,50 @@ export interface CornerPlate {
   flash?: number;
   /** Seconds the page has been up, for the slime. */
   age?: number;
+}
+
+/** Ticks the slide from one screen to the other takes. */
+const SWITCH_TICKS = 26;
+/**
+ * And how long the corner goes on saying so after it. Longer than the slide,
+ * deliberately: the slide is over before an eye that was reading the words has
+ * looked up, and the corner is the thing it looks up *at*.
+ */
+const FLASH_TICKS = 40;
+
+/** Where a page is in its move from the seat before it — all three clocks. */
+export interface PageSwitch {
+  /** The seat being slid away from, or null when this page is not a switch. */
+  from: 1 | 2 | null;
+  /** 0 at the join's start, 1 once the incoming screen has arrived. */
+  k: number;
+  /** What the corner plate is told: 1 the instant it arrived, falling to 0. */
+  flash: number;
+}
+
+/**
+ * Read off the page before rather than remembered, so the drawing holds no
+ * state a rebuild would have to clear.
+ *
+ * **A page asked for again is not a page arrived at.** REPLAY re-runs the film
+ * on the screen the seat is already on, so there is nothing to slide from and
+ * no arrival for the corner to flare at — the owner's *when I press reset, skip
+ * the switch player animation*. `repeated` is the play's own answer to that.
+ */
+export function pageSwitch(
+  scene: { steps: readonly SceneStep[] },
+  step: SceneStep,
+  tick: number,
+  repeated: boolean,
+): PageSwitch {
+  const i = scene.steps.indexOf(step);
+  const before = i > 0 ? scene.steps[i - 1] : undefined;
+  const from = repeated || !before || before.seat === step.seat ? null : before.seat;
+  if (from === null) return { from: null, k: 1, flash: 0 };
+  const since = tick - step.tick;
+  return {
+    from,
+    k: smoothstep(Math.min(1, since / SWITCH_TICKS)),
+    flash: Math.max(0, 1 - since / FLASH_TICKS),
+  };
 }
