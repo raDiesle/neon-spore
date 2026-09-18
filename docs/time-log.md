@@ -10539,3 +10539,25 @@ whose hand the mouse is, and neither imports the other: the rule had to move
 to render before either could change.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-states — the STATES sheet's BOSSES category
+
+The owner's ask: every boss's states documented on the director's STATES
+sheet in a category of their own, and the documentation forced to follow the
+bosses. One phase table on the sim's surface (`BOSS_PHASES`), one table of
+names for the bosses that store no phase, a `boss` tag on `Pose`, sixty-four
+poses each run to its state, and a test that is red for a state with no card.
+The states a hand has to bring on are two parked lanes.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | which of the thirty-three bosses store a phase and under what name — a probe over every wave, 120 beats each; `states-page.ts`, `tabs.ts`'s heading rule, the predicates the phaseless bosses export |
+| writing | 45 | the sim table, the director's states table, the kit, four pose files, the categories on the page, the coverage test, the skill row, two parked entries |
+| looking | 10 | the sheet in the browser pane, then `bun run shot` of the category |
+| friction | 10 | `placedFaults` takes the wave's faults and not its index; `POSE_CONFIG.ticksPerBeat` is a function; `bun run shot` cannot clip a 34,000 px element — the category got a block of its own so it could be shot alone |
+| landing | 10 | `check:fast` three times — a parked title over 80 characters, a test file named from memory (`maze.test.ts` is `maze-round.test.ts`) — the commit, `bun run land --keep` |
+
+The bottleneck was that no two bosses call their state the same thing — a
+`phase`, a `stage`, a derived function, a handful of predicates — so the
+table of states had to be assembled by hand from twenty files before a line
+of the category could be drawn.

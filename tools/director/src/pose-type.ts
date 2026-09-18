@@ -1,5 +1,5 @@
 import type { ViewRole } from "@neon-spore/render";
-import type { TimedCommand, World } from "@neon-spore/sim";
+import type { BossEntry, TimedCommand, World } from "@neon-spore/sim";
 
 /**
  * What a pose *is* — the shape of one, and the two things a caller can ask of
@@ -100,6 +100,15 @@ export interface Pose {
    * default rest lands under it. See `EVENT_CADENCE_SECONDS`.
    */
   cadenceSeconds?: number;
+  /**
+   * The boss state this pose documents, for the STATES sheet's BOSSES
+   * category (`boss-states.ts`). `kind` is the boss and `state` is one of
+   * the names `BOSS_STATES` lists for it; `test/boss-states.test.ts` refuses
+   * a state no pose carries and a pose whose state the list does not know,
+   * which is what keeps the sheet in step with the simulation when a boss
+   * gains a phase.
+   */
+  boss?: { kind: BossEntry["kind"]; state: string };
 }
 
 /**

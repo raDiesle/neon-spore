@@ -55,3 +55,41 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
+
+## The BOSSES category owes the field and clock states a hand brings on
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `tools/director/src/poses-bosses-clocks.ts`, `tools/director/src/poses-bosses-first.ts`, `tools/director/test/boss-states.test.ts`
+
+The STATES sheet's BOSSES category (the owner, 18 September 2026: every
+boss's states, documented, kept in step with the bosses) landed with every
+state that arrives on its own — the rounds' phases, the clocks' first beats,
+each field boss stood up. What is left is every state a hand has to bring on,
+and `OWED` in `test/boss-states.test.ts` is the exact list: warden narrow and
+glare, vane veer and seize, fleet struck and sunk, cairn leaving and settled,
+splice passed and verdict, reprise echoing and held, diastole two/alone/burst,
+baton crossing/falling/down, throat slide/quick/open/everts, undertow taken,
+orrery spitting/naked/out, candle eating/last/out, gorge spitting/gorged/out,
+curtain soft/bare/torn/out, taster fanning/hurrying/closed/out, sinew
+held/swinging/falling/out, ledger paying/whipping/taut/out, surge
+band/sealing/everting/out, lead running/still/passing/down, scuttle winding
+and down, antiphon still and down, hive spilling and down, instar land and
+down. Each is one `bossPose(kind, state, note, { cmds, want, budgetBeats })`
+in `poses-bosses-clocks.ts` (split a `poses-bosses-hands.ts` off before 250
+lines) with the pair's commands as `TimedCommand`s — the drags and holds the
+boss's own `sim/test/<boss>.test.ts` already sends are the script to copy —
+and the state struck from `OWED` in the same commit; the test refuses an
+allowance a pose already spends. `bossWorld` gives the boss its own wave;
+the hull is invulnerable, so a state past a hit still holds the frame.
+
+## The BOSSES category owes the rounds' played states
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `tools/director/src/poses-bosses-rounds.ts`, `tools/director/test/boss-states.test.ts`
+
+The other half of the same allowance, the rounds: THE MAZE's `travel` (the
+route drawn and the pair moving along it) and THE GAUGE's `verdict` and
+`spent` (a needle answered), which never arrive unattended — the round waits
+for the pair. Same shape as the entry above: one `bossPose` each with the
+round's commands (`sim/test/maze-round.test.ts` and `gauge.test.ts` send them), struck
+from `OWED` in the same commit.

@@ -306,6 +306,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-others.ts` | **One beat of whichever boss is not the queen**, which is now thirteen of the fourteen |
 | `packages/sim/src/boss-union.ts` | The boss a wave installed, whichever one it is |
 | `packages/sim/src/boss-answer.ts` | **The column the boss is answered from, this beat** — or none |
+| `packages/sim/src/boss-phases.ts` | **Every boss's phases, in one table**, for the director's STATES sheet |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
 | `packages/sim/src/crawler-round.ts` |  |
@@ -1678,6 +1679,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/backlog-bosses.ts` | The BOSSES page of the NOT BUILT YET sheet: what is left to do on a boss |
 | `tools/director/src/boss-cycles.ts` | The two boss panels that are mostly a cycle, and the chrome all of them share |
 | `tools/director/src/boss-nothing.ts` | **The bosses with nothing on this panel to author**, and the reason for each |
+| `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
 | `tools/director/src/brush-category.ts` | Which brush categories (`BRUSH_GROUPS` in brush-groups.ts — CANNON, SHIELD, MIXED |
 | `tools/director/src/brush-frame.ts` | The frame a brush's specimen is photographed through, and the places a crop can be centred on |
@@ -2007,6 +2009,12 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-versus.ts` | The states a candidate look is judged on — one per slot that had none |
 | `tools/director/src/poses-volley.ts` | THE VOLLEY, warded three times by a hand that never misses |
 | `tools/director/src/poses-bodies.ts` | The pose a candidate for a *body* is judged on, as opposed to one for a mechanism firing |
+| `tools/director/src/poses-bosses-clocks.ts` | **The clock bosses' states** — a body or a fixture over the ordinary field |
+| `tools/director/src/poses-bosses-first.ts` | **The state every field boss opens in**, and the one or two that come on their own after it |
+| `tools/director/src/poses-bosses-kit.ts` | **How a boss state is posed**: its own wave, run until the state arrives |
+| `tools/director/src/poses-bosses-queen.ts` | THE BULB QUEEN's three states — the oldest boss |
+| `tools/director/src/poses-bosses-rounds.ts` | **The rounds' states** — the bosses that take the field away and hand the pair a screen of their own… |
+| `tools/director/src/poses-bosses.ts` | **The BOSSES category of the STATES sheet**: one group per boss, in the order the simulation numbers them |
 | `tools/director/src/poses-casing.ts` | The states a candidate for what a body **wears** is judged on |
 | `tools/director/src/poses-cage.ts` | The pose a candidate for THE RECOIL's cage is judged on |
 | `tools/director/src/poses-cairn.ts` | THE CAIRN standing whole, before the pair has pulled anything off it |

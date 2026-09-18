@@ -28,6 +28,7 @@ export {
   type FleetEntry,
   type FleetShip,
   type FleetState,
+  fleetAfloat,
   fleetBeatsLeft,
   fleetCols,
   fleetFault,
@@ -214,6 +215,9 @@ export {
   wardenCycle,
   wardenEyeOpen,
   wardenHandleMilli,
+  // The phase its plates put it in, for the STATES sheet's pose of each
+  // (`tools/director/src/poses-bosses-clocks.ts`) — read, never re-derived.
+  wardenPhase,
   wardenPullMilli,
   wardenTether,
 } from "./bosses.js";

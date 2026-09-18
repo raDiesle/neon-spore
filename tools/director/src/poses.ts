@@ -1,4 +1,5 @@
 import type { Pose, PoseGroup } from "./pose-kit.js";
+import { BOSS_GROUPS } from "./poses-bosses.js";
 import { CASING_GROUP } from "./poses-casing.js";
 import { FIELD_GROUPS } from "./poses-field.js";
 import { FIELD_CONTROL_GROUP } from "./poses-field-controls.js";
@@ -24,8 +25,21 @@ import { VERSUS_GROUP } from "./poses-versus.js";
  * being a lie. Those are the sentences a picture settles and a paragraph does
  * not. `pose-kit.ts` says what a pose is and why it is a run of the
  * simulation rather than a screenshot somebody took.
+ *
+ * **Two categories since 18 September 2026.** THE GAME is the sheet as it
+ * was; BOSSES is one group per boss, every state of it, held to the
+ * simulation's own phase tables by `test/boss-states.test.ts`
+ * (`poses-bosses.ts`). `POSE_GROUPS` is still the flat list of every group,
+ * for everything that walks the poses without caring which category one is
+ * in — the test that builds them all, the VERSUS slot map, `poseNamed`.
  */
-export const POSE_GROUPS: PoseGroup[] = [
+export interface PoseCategory {
+  title: string;
+  note: string;
+  groups: PoseGroup[];
+}
+
+const GAME_GROUPS: PoseGroup[] = [
   {
     title: "CONTROLS",
     note: "what a player's own hands put the ship into — roles.md",
@@ -45,6 +59,21 @@ export const POSE_GROUPS: PoseGroup[] = [
   CASING_GROUP,
   ROUND_GROUP,
 ];
+
+export const POSE_CATEGORIES: PoseCategory[] = [
+  {
+    title: "THE GAME",
+    note: "the controls, the mechanics, the creatures, the surfaces — what a wave is made of",
+    groups: GAME_GROUPS,
+  },
+  {
+    title: "BOSSES",
+    note: "every boss, every state it can be in, in the order the simulation numbers them — bosses.md §11; a group with no cards names the states still owed",
+    groups: BOSS_GROUPS,
+  },
+];
+
+export const POSE_GROUPS: PoseGroup[] = POSE_CATEGORIES.flatMap((c) => c.groups);
 
 /**
  * A pose by its name, for a page that shows one beside a row of its own — the

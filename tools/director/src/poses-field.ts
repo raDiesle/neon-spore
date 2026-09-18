@@ -1,4 +1,3 @@
-import type { World } from "@neon-spore/sim";
 import {
   aim,
   firstOfKind as at,
@@ -14,20 +13,16 @@ import {
 } from "./pose-kit.js";
 
 /**
- * The states of the things a wave puts on the field: the creatures, and the
- * two bosses that exist.
+ * The states of the things a wave puts on the field: the creatures. The
+ * bosses stood here too, as the two that existed, until 18 September 2026,
+ * when every boss got a group of its own in the BOSSES category
+ * (`poses-bosses.ts`).
  *
  * A creature is mostly one state — it falls, and the only question is which
  * silhouette and which colour, both of which the brush palette already shows.
  * The rows worth a picture are the ones where a creature is *in* something: a
  * rock full of craters is the rule "a rock cannot be broken" as a picture
- * rather than as a sentence, and the queen's two marks are the whole of her
- * fight.
- *
- * The bosses are posed by running their own clocks forward until the phase
- * arrives. Nothing here writes a boss field: a queen whose mark was opened by
- * hand is a queen the game cannot produce, and a reference picture of an
- * impossible frame is worse than none.
+ * rather than as a sentence.
  */
 
 const COL = 5;
@@ -91,114 +86,10 @@ const CREATURES: Pose[] = [
   },
 ];
 
-/**
- * Her own column, a tile below her row. Her marks hang under her middle and
- * her wings reach two columns either side, so the frame is centred on the
- * whole reach rather than on the body.
- */
-const queenAt = (w: World): { col: number; row: number } => {
-  const q = w.creatures.find((c) => c.kind === "queen");
-  return { col: q ? q.col : COL, row: (q ? q.row : 2) + 1 };
-};
-
-/** A queen fight, from its first beat. Nothing else is on the field. */
-function queen(): World {
-  return fresh([], [], { kind: "queen", col: COL, petals: 6 });
-}
-
-const BOSSES: Pose[] = [
-  // `creature:queen` is judged shut: the armour is the whole of her while both
-  // marks are blank, and it is the one state where nothing under it is asking
-  // to be looked at instead.
-  {
-    name: "QUEEN · SHUT",
-    note: "Armoured, holding her row, both marks blank. Nothing that reaches her while she is like this takes a petal.",
-    lookAt:
-      "the armour across her back, between the two marks under her and the two rocks on her wings — whether it has a near side, and whether anything on it moves",
-    crop: "tile",
-    span: 8,
-    at: queenAt,
-    build: () => {
-      const w = queen();
-      run(w, TPB * 2);
-      return w;
-    },
-  },
-  {
-    name: "QUEEN · OPEN",
-    note: "A bloom. One of the two marks under her is real and the other is a lie that looks identical — one player is told which side, the other which colour, and neither can fire on their half alone.",
-    crop: "tile",
-    span: 8,
-    at: queenAt,
-    build: () => {
-      const w = queen();
-      runUntil(w, "an open bloom", [], (x) =>
-        Boolean(x.creatures.find((c) => c.kind === "queen")?.color),
-      );
-      run(w, 6);
-      return w;
-    },
-  },
-  {
-    name: "QUEEN · A TORCH DROPS",
-    note: "Every eight beats a torch falls straight out of its socket on one wing, and a new one grows in behind it. The fight is a boss and a rock at the same time.",
-    crop: "tile",
-    span: 9,
-    at: queenAt,
-    build: () => {
-      const w = queen();
-      runUntil(w, "a torch off the wing", [], (x) => x.creatures.some((c) => c.kind === "torch"));
-      run(w, 10);
-      return w;
-    },
-  },
-  {
-    name: "MIRROR · PERFORMING",
-    note: "The ship upside down and in the wrong colours, doing a sequence with the band locked. Watching is the only thing either player can do, which is the fight.",
-    crop: "full",
-    build: () => {
-      const w = mirror();
-      runUntil(w, "a sequence being shown", [], (x) =>
-        Boolean(x.boss?.kind === "mirror" && x.boss.phase === "show" && x.boss.shown > 0),
-      );
-      return w;
-    },
-  },
-  {
-    name: "MIRROR · LISTENING",
-    note: "The band is back and the row above it says how much of the sequence has been answered. The steps are controls, drawn as the same buttons the band draws.",
-    crop: "full",
-    build: () => {
-      const w = mirror();
-      runUntil(w, "a round being listened to", [], (x) =>
-        Boolean(x.boss?.kind === "mirror" && x.boss.phase === "listen"),
-      );
-      run(w, 10);
-      return w;
-    },
-  },
-];
-
-/** A short mirror fight — two rounds is enough to reach every phase. */
-function mirror(): World {
-  return fresh([], [], {
-    kind: "mirror",
-    rounds: [
-      ["fireRed", "guard"],
-      ["cannonLeft", "fireCyan", "intake"],
-    ],
-  });
-}
-
 export const FIELD_GROUPS: PoseGroup[] = [
   {
     title: "CREATURES",
     note: "what a wave puts in a column, and the state worth a picture — bestiary.md",
     poses: CREATURES,
-  },
-  {
-    title: "BOSSES",
-    note: "the two that exist, at the moment each fight turns on — bosses.md",
-    poses: BOSSES,
   },
 ];

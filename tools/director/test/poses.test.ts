@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { hashWorld } from "@neon-spore/sim";
 import { POSE_GROUPS } from "../src/poses.js";
+import { BOSS_GROUPS } from "../src/poses-bosses.js";
 
 /**
  * Every pose, built.
@@ -19,9 +20,15 @@ import { POSE_GROUPS } from "../src/poses.js";
 const ALL = POSE_GROUPS.flatMap((g) => g.poses.map((p) => [g.title, p] as const));
 
 describe("every pose", () => {
-  test("there are some, in every group", () => {
+  test("there are some, in every group of the game's", () => {
     expect(POSE_GROUPS.length).toBeGreaterThan(3);
-    for (const g of POSE_GROUPS) expect(g.poses.length, g.title).toBeGreaterThan(1);
+    // A boss's group may stand empty while its states are owed — that is
+    // `boss-states.test.ts`'s allowance to grant, not this one's.
+    const bosses = new Set(BOSS_GROUPS);
+    for (const g of POSE_GROUPS) {
+      if (bosses.has(g)) continue;
+      expect(g.poses.length, g.title).toBeGreaterThan(1);
+    }
   });
 
   for (const [group, pose] of ALL) {

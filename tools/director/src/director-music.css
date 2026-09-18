@@ -112,3 +112,15 @@
   font-size: 0.95rem;
   margin: 18px 0 2px;
 }
+/* A category over the STATES sheet's groups: THE GAME, then BOSSES. */
+.sheetpage .states-category h1 {
+  color: var(--ink);
+  letter-spacing: 4px;
+  font-size: 1.1rem;
+  margin: 8px 0 0;
+}
+.sheetpage .states-category + .states-category {
+  margin-top: 34px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+}

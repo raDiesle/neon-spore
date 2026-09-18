@@ -1,6 +1,6 @@
 import { poseArt } from "./pose-art.js";
-import type { Pose } from "./pose-kit.js";
-import { POSE_GROUPS } from "./poses.js";
+import type { Pose, PoseGroup } from "./pose-kit.js";
+import { POSE_CATEGORIES } from "./poses.js";
 import { mountSheet } from "./session.js";
 import { bindTabs } from "./tabs.js";
 import { renderWordings } from "./wordings-page.js";
@@ -90,25 +90,45 @@ function renderStates(): void {
   drawn = true;
   body.replaceChildren();
 
-  for (const group of POSE_GROUPS) {
-    const section = document.createElement("section");
+  // A category is an `h1`: the contents menu lists the shallowest heading
+  // level with more than one entry (`tabs.ts` `listedHeadings`), and the
+  // groups are what a reader jumps to — two category rows would hide them.
+  for (const category of POSE_CATEGORIES) {
+    const block = document.createElement("div");
+    block.className = "states-category";
 
-    const h2 = document.createElement("h2");
-    h2.textContent = group.title;
-    section.appendChild(h2);
+    const head = document.createElement("h1");
+    head.textContent = category.title;
+    block.appendChild(head);
 
-    const note = document.createElement("p");
-    note.className = "note";
-    note.textContent = group.note;
-    section.appendChild(note);
+    const what = document.createElement("p");
+    what.className = "note";
+    what.textContent = category.note;
+    block.appendChild(what);
 
-    const row = document.createElement("div");
-    row.className = "states-row";
-    for (const pose of group.poses) row.appendChild(card(pose));
-    section.appendChild(row);
-
-    body.appendChild(section);
+    for (const group of category.groups) block.appendChild(section(group));
+    body.appendChild(block);
   }
+}
+
+/** One group: its heading, its note, its row of cards — a boss's states, or the creatures'. */
+function section(group: PoseGroup): HTMLElement {
+  const el = document.createElement("section");
+
+  const h2 = document.createElement("h2");
+  h2.textContent = group.title;
+  el.appendChild(h2);
+
+  const note = document.createElement("p");
+  note.className = "note";
+  note.textContent = group.note;
+  el.appendChild(note);
+
+  const row = document.createElement("div");
+  row.className = "states-row";
+  for (const pose of group.poses) row.appendChild(card(pose));
+  el.appendChild(row);
+  return el;
 }
 
 /** The STATES room's own lazy render, bound with the rest of them

@@ -14,6 +14,9 @@
  * is not (`antiphon.ts`).
  */
 
+// Every boss's phase table in one place, for the director's STATES sheet
+// (`boss-phases.ts` says why one table rather than nineteen).
+export { BOSS_PHASES } from "./boss-phases.js";
 // THE HIVE's entry, which authors nothing, and THE INSTAR's, which authors
 // its script: both travel out of `boss-entries.ts` through `bosses.ts`.
 export type { HiveEntry, InstarEntry } from "./bosses.js";
