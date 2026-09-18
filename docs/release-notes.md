@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 2c3b9ca4 — Mark "THE MAZE changes state more than once, and asks for more than one gesture" done
+
+## 2026-09-18 · 27ce0e4d — THE MAZE's heart under the navigator's thumb: the look half
+
+Under `grip` the heart's room is a handle for player 2 alone: a ring on it that breathes until her thumb lands and fills once it has, PULL over it, and round it on both screens the dial of `mazeGripBeats` running out. The shot is held in the middle and the muscle is carried down under it by the pull, veins stretching from the wall; the pilot's string keeps its handle as the brace, with HOLD over it. `mazeGrip` throws a ring off the heart (`effects.boss.maze`). Two rows on the director's CONTROLS tab, the string's moved out beside the heart's. A look with no shipped alternative.
+
 ## 2026-09-18 · 7379d7f9 — One boss on the hit test, and not thirteen fields
 
 `Field` carried one nullable state per boss a thumb can reach — `maze`, `warden`, `orrery`, `sinew`, `surge`, `antiphon`, `instar`, `filament`, `stare`, `queen`, `diastole`, `mirror`, `gorge` — and every one of them was written down four more times in `apps/game`: the `Bindings` getter, the destructure in `bindControls`, the `field()` builder, and the narrowing in `field-input.ts`. `input.ts` reached its 250-line limit on the twelfth and folded two comments to fit the thirteenth, so the fourteenth boss with a handle could not be added at all — which is what this lane was claimed to unblock.
