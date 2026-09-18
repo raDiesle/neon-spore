@@ -71,7 +71,10 @@ export {
   pinballHolds,
   pinballRound,
 } from "./pinball-round.js";
-export { launchBall, pinRestingBall, resetShot } from "./pinball-shot.js";
+// Whether a cannon in this column would take a ball at this place: the round
+// asks it at the floor, the field's cue asks it every tick of a flight
+// (`pinball-shot.ts`).
+export { launchBall, pinCaught, pinRestingBall, resetShot } from "./pinball-shot.js";
 
 export {
   PULSE_COUNT_BEATS,

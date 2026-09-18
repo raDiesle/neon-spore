@@ -1,11 +1,12 @@
+import type { SimConfig } from "./config.js";
 import type { PinballState } from "./pinball.js";
 import { pinCannonMilli, pinHeightMilli, pinLaunchVelocity } from "./pinball-board.js";
 import type { PinBall } from "./pinball-contact.js";
 import type { World } from "./world.js";
 
 /**
- * One shot of PINBALL: where the ball waits, what firing it does, and putting
- * the loop back to the start.
+ * One shot of PINBALL: where the ball waits, what firing it does, whether the
+ * cannon would take it back, and putting the loop back to the start.
  *
  * Split out of `pinball.ts` on line count, along the seam that file already
  * had: next door is the **round** — its phases, its boards and everything it
@@ -19,6 +20,27 @@ import type { World } from "./world.js";
  * a launch in the round would close that cycle over the one function both of
  * them want.
  */
+
+/**
+ * Whether a ball at this place across the table would be taken by a cannon in
+ * this column.
+ *
+ * **One rule, and the two things that ask it ask it from opposite ends of a
+ * flight.** The round asks it once, at the floor, to decide whether the hull
+ * pays (`pinball-round.ts`); the field's cue asks it every tick of the flight,
+ * to decide whether the pilot is owed the word `MOVE`
+ * (`render/boss-cue-read-h.ts`). Written as a comparison in the round, the
+ * second caller would have had to write it again — and a cue that went out
+ * half a tile before the catch does would be the field lying about a catch the
+ * simulation is about to allow. It is extracted rather than copied and then
+ * caught, which is the only reason `test/copies-table.ts` has no row for it.
+ *
+ * It says nothing at all about where the ball is *going*: that is the round's
+ * whole difficulty and the pair's to work out.
+ */
+export function pinCaught(cfg: SimConfig, xMilli: number, col: number): boolean {
+  return Math.abs(xMilli - pinCannonMilli(cfg, col)) <= cfg.pinballCatchMilli;
+}
 
 /**
  * The shot back to the start of its own loop: needle at one end, bar empty,

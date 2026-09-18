@@ -116,6 +116,7 @@ export {
   pinballHolds,
   pinballRound,
   pinCannonMilli,
+  pinCaught,
   pinHeightMilli,
   pinLaneFloorMilli,
   pinLaunchVelocity,

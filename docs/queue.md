@@ -178,6 +178,22 @@ question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
 ```
+## `tools/director/test/loop-once.test.ts` times out under a loaded shard
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `tools/director/test/loop-once.test.ts`, `tools/check/shard.ts`
+
+`bun run land` went red on it once with `test timed out`, on the shard that
+also carries nine other files; the same file run on its own is green in 441ms
+and the landing passed on the retry. So the work-around was *run land again*,
+which is the tax this list exists to stop: every session that meets it pays a
+full `bun run check` — minutes — to find out the trunk was never broken.
+
+Either the file's own clock is too tight for a shard running eleven test files
+against one CPU, or it is doing real work in a `setDefaultTimeout` it never
+set. Read what the two cases actually wait on, and give the file the timeout
+the frame tests give themselves rather than raising the global one.
+
 ## `tools/frames/run.ts` is at the ceiling, and every flag adds a paragraph
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -551,18 +567,6 @@ The brief: `.claude/skills/new-boss` section 6.2.
 not a picture per state.
 
 The brief: `.claude/skills/new-boss` section 6.3.
-
-## PINBALL: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-pinball-the-field-says-the-word-and-the-briefing
-- **Files:** `packages/content/src/waves/act-4.ts`, `packages/content/src/scenes/pinball.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-
-It says nothing on the field at all.
-Its briefing is a 5-page rehearsal (`packages/content/src/scenes/pinball.ts`).
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
 
 ## PINBALL changes state more than once, and asks for more than one gesture
 

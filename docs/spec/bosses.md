@@ -1070,6 +1070,28 @@ predicate anyway, so the seam is one line — if the aim turns out to be too eas
 to agree on, the seat holding the cannon keeps the board and the seat opening
 the sweep is talked onto it, which is THE FLEET's split exactly.
 
+**What the field says** (`render/src/boss-cue-read-h.ts`, 18 September 2026,
+`docs/decisions.md` #34). One word, the pilot's, and the navigator gets none.
+`CARRY` / `MOVE` stands on the cannon, lifted clear of the plating so the verb
+can be read, for every tick of a flight the cannon is **not** under the ball —
+asked of `pinCaught`, the rule the floor itself is judged by, so the word and
+the catch cannot disagree by half a tile. It is asked of the ball where it *is*
+and never of where it is going: leading the ball would hand over the round's
+whole difficulty, and it says nothing about which way to carry the cannon
+either. Nothing in `aim` or `power`, when the cannon is where the shot is being
+aimed from and the sweep is the conversation.
+
+**The reason it is one word is this round's own, and it is new.** PINBALL is
+the only boss in the game that already writes a whole sentence, addressed, on
+both screens, every tick — *you fire on the bar*, *they stop the needle*, *get
+the cannon under it*. So a cue naming a verb the sentence has already named
+would be the same idea drawn twice, three tiles lower; the pilot's word
+survives because the sentence stands from the first tick of a flight to the
+last whether he is under it or not, and the cue comes out only while he is
+wrong. The navigator's does not: her whole seat is one press in one phase, the
+sentence names it for every tick of that phase, and the only thing left to add
+would be *when*, which is the answer (`docs/spec/briefings.md`).
+
 **Only the lit pieces have to go.** Peggle's orange rule. A board is a picture
 of pegs and blocks, a handful of them marked, and the rest is scenery that
 still bounces and still vanishes. Without it the round runs until the last peg

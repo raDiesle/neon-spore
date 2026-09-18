@@ -8876,3 +8876,29 @@ test fixtures and two stage builders before the first line of the look, and
 that is the price the file's own header says it charges on purpose.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-hints — PINBALL says MOVE, and the round was already talking
+
+The first boss whose reading was decided by something it already draws: its
+header writes a whole sentence, addressed, on both screens, every tick — *you
+fire on the bar*, *they stop the needle*, *get the cannon under it*. So the
+question was not which verb to write but which one the sentence cannot say, and
+there is one: the sentence stands for the whole of a flight whether the cannon
+is under the ball or not, and `CARRY` / `MOVE` comes out only while it is not.
+The navigator gets nothing, for a reason no earlier lane used — not a half of
+the picture she is not shown, but a half the round has said out loud already.
+`pinCaught` came out of the catch so the word and the floor cannot disagree.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `pinball.ts`, `pinball-controls.ts`, `pinball-round.ts` for `waiting`, `pinball-aim.ts` for the bar |
+| writing | 20 | the extraction, page eight, seven cases, the film's first page, two spec passages |
+| looking | 10 | a probe with three presses in it, because a round nobody plays never reaches a flight |
+| friction | 5 | `pinball-board.ts` went over 250 with the new rule in it and the rule moved to `pinball-shot.ts` |
+| landing | 10 | `check:fast` three times, the index, the commit, the land |
+
+The bottleneck was deciding that a cue may be silent where a boss is loud: half
+the lane was reading `waiting` and working out which of its three sentences
+leaves anything for a word to add.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

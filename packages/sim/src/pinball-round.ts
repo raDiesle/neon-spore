@@ -9,17 +9,10 @@ import {
   pinballCurrent,
   pinTargetsLeft,
 } from "./pinball.js";
-import {
-  pinCannonMilli,
-  pinFieldCol,
-  pinHeightMilli,
-  pinPhysics,
-  pinPower,
-  pinSweep,
-} from "./pinball-board.js";
+import { pinFieldCol, pinHeightMilli, pinPhysics, pinPower, pinSweep } from "./pinball-board.js";
 import { pinballHeard } from "./pinball-controls.js";
 import { stepBall } from "./pinball-physics.js";
-import { resetShot } from "./pinball-shot.js";
+import { pinCaught, resetShot } from "./pinball-shot.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -151,9 +144,7 @@ function flyBall(world: World, state: PinballState): void {
   // costs nothing: the pair is given it back and the round's own clock is the
   // only thing that was spent.
   if (!stuck) {
-    const half = world.cfg.pinballCatchMilli;
-    const mouth = pinCannonMilli(world.cfg, world.cannonCol);
-    const caught = Math.abs(state.ball.xMilli - mouth) <= half;
+    const caught = pinCaught(world.cfg, state.ball.xMilli, world.cannonCol);
     if (caught) state.catchBeat = world.beat;
     else {
       state.drops += 1;

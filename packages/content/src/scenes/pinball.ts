@@ -20,6 +20,11 @@ import type { GuideScene } from "../scene-types.js";
  * of one particular board; showing the drop teaches what the catch is for.
  *
  * The film's one page about what both screens share is spent on it.
+ *
+ * **Five pages still, and the first one changed on 18 September 2026.** The
+ * field now says `MOVE` on the cannon while a ball is coming down somewhere
+ * else, so the page that named his gesture carries the round's own doubling
+ * instead — the one rule neither screen states (`docs/spec/briefings.md`).
  */
 export const PINBALL: GuideScene = {
   ticks: 1320,
@@ -47,7 +52,14 @@ export const PINBALL: GuideScene = {
     { tick: 1010, control: "pinLaunch" },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "PLAYER 1 SLIDES THE CANNON", anchor: { at: "hull" } },
+    // PLAYER 1 SLIDES THE CANNON stood here and is the cue's now: the field
+    // writes `CARRY` / `MOVE` on the cannon, on his screen alone, for every
+    // tick of a flight the cannon is not under (`decisions.md` #34,
+    // `render/boss-cue-read-h.ts`). Page two teaches the slide itself and the
+    // band says whose screen this is, so what the first page had left was the
+    // round's own design, which nothing on either screen draws: the thing you
+    // fire from is the thing you have to catch it with.
+    { tick: 0, seat: 1, text: "THE CANNON ALSO CATCHES", anchor: { at: "hull" } },
     {
       tick: 360,
       seat: 1,

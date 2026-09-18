@@ -597,6 +597,7 @@ hand still draws.
 | THE FLEET | `PLAYER 1 FIRES THE SALVO` | `THE SHELL IS THE RELOAD` | `PRESS` / `FIRE` on the sights, his alone, while they stand on a hull nobody has fired at |
 | THE VANE | `PLAYER 2 FIRES RED` | `THE COLUMN MUST BE CLEAR` | `PRESS` / `FIRE` on the mouth of the split, hers, and `CARRY` / `MOVE` on his cannon |
 | SNAKE | `AND THE NEXT ONE` | `A METEOR STOPS THE SHOT` | `PRESS` / `FIRE` on a reachable enemy and `PRESS` / `OPEN` on the next point, his alone |
+| PINBALL | `PLAYER 1 SLIDES THE CANNON` | `THE CANNON ALSO CATCHES` | `CARRY` / `MOVE` on the cannon, his alone, while a ball in the air is coming down somewhere else |
 
 **Four other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
@@ -688,6 +689,18 @@ was the second shot; what it says now is why a shot needs the steering at all,
 which is the rule underneath both of his words and the one thing neither screen
 draws. Its other three pages are what each seat holds and her turn — no cue
 takes any of them, because the field says nothing to the driver.
+
+PINBALL's one row is the same day and is the first where the **round itself
+already talks**: its header writes a whole sentence, addressed, on both
+screens, every tick — *you fire on the bar*, *they stop the needle*, *get the
+cannon under it*. So the page that came down is not one the cue repeats but one
+it makes redundant from the other end: `PLAYER 1 SLIDES THE CANNON` was the
+seat named on a screen whose own band already names it, over a gesture the next
+page teaches and the field now writes `MOVE` on. What stands there instead is
+the round's own design, which neither screen states — the thing you fire from
+is the thing you have to catch it with. The navigator's page stays and is the
+only thing that tells her anything: the sentence says her verb for every tick
+of her phase, so a cue could only add *when*, and *when* is the answer.
 
 #### The ghost thumb is derived, never authored
 
