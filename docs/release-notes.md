@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · de43c621 — THE GAUGE says CALL on the needle, and says nothing at all to the pilot
+
+The third round to carry the cue of `docs/decisions.md` #34, and the first where half the brief is answered with a silence that is argued rather than a gap left open. `PRESS` / `CALL` on the end of the needle, on the navigator's screen, while it stands between the two marks and the call is not resting — a word over a button that is refusing would be an invitation to press nothing.
+
 ## 2026-09-18 · 121cc246 — BULB QUEEN pries and holds: three phases, three gestures, the simulation half
 
 CROWN is shot on the panel as before. BROOD's mark no longer opens by itself: player 1's thumb pries the real one open on her picture (`queenMark`, id 0 left, 1 right), and a press on the other mark is a flinch that shuts her a beat early with nothing fired. SCREAM opens by herself for one beat, and stands open up to `queenHoldBeats` while his thumb holds the real mark. The pilot's screen says PRESS · OPEN and HOLD · OPEN on her own column, never on a mark. A look the owner asked for by name (`.claude/skills/new-boss` §6.2); the look half — hit-testing the marks, the pried and held poses, the flinch drawn — is parked, so the queue item stays taken.
