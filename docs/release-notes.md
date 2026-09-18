@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · f33aea95 — Throw a ring off THE FLEET's wound for each of its five moments
+
+The flood, the thumb on the plume, each square raked, the plug and the wreck were world state with nothing thrown for them. Each now throws a ring off the holed square, and which way it runs is what tells them apart on a screen with no word on it: the three that open something run outward — the flood wide in the shield's colour, the thumb a small white one, the rake tight and red inside its square — and the two that close something fall inward, the plug shutting over the wound and the unbreach shrinking where the thumb was. The wreck is the widest, in ember. Four of the five throw particles at the square too, the wreck's twenty against the rake's five; the thumb throws none, a thumb being no impact. Every ring stands on both screens, because each moment is one seat doing something the other cannot see.
+
 ## 2026-09-18 · b6f46254 — THE FLEET's wound answers three thumbs and says which is yours
 
 A hit no longer sinks a hull, it holes one, and until now nothing on the picture handed the simulation any of the three gestures that follow. The holed square is one wound both seats are looking at: the plume stands out of it on both screens with the state's own window draining under it, and each screen carries one ring with one word on it, because the seats split by state. The navigator holds the plume open under the flood and drags the wreck under after it; the pilot rakes the hull, grabbing anywhere along it and carrying from the wound rather than from where he grabbed, so the square the round reads is the square under his thumb. Nothing moves on the chart when `flood` becomes `wreck` — each of them simply finds a different word under the same ring.

@@ -9747,3 +9747,5 @@ thing that can put a call on that canvas.
 of the first assertions written for the ring — its radius off the canvas log,
 and the frame's call count — measured something else, and both were only caught
 by taking the draw call out and watching the case stay green.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
