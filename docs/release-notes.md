@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 8d4fed4c — THE WARDEN says PULL, then HOLD, and FIRE on the pupil
+
+The first cue for a boss whose handle is on the field, and that is what decides when it may speak. The rope already draws its own PULL while nobody is holding it (`handle-draw.ts`), so the field says nothing until the grab: then CARRY / PULL on the handle while the line is short, HOLD once it is taut — the word and the kind at once, because what the fight wants of him then is a hand that does nothing — and PRESS / FIRE on the pupil, hers, for exactly the beats the eye stands open. Nothing on either seat once the opening has taken its hit, and nothing anywhere says the colour: the rim wears the cycle's own in front of both of them.
+
 ## 2026-09-18 · d9ac58d1 — Mark "BULB QUEEN changes state more than once, and asks for more than one gesture" done
 
 Both halves landed: the simulation in 121cc246, the look in fb3c2384.
