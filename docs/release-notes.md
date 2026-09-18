@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 228ba3ac — A rehearsal's picture starts under the band, so nothing over row 0 is drawn behind the plate
+
+A film was laid out in the whole box less the nav bar's height, and `computeLayout` anchors the field to the bottom — so the field's top sat about the bar's height higher in a page of film than in the wave, under the corner plate. Everything a wave hangs over row 0 was drawn behind it: THE ORRERY's outer ring showed two and a half of its three rings on the page that says *three rings*, THE TASTER's crest and fan were in no page of its film, and four bosses' cues had their word in the band.
+
 ## 2026-09-18 · ca31c78c — The BOSSES category poses the states a taking and a handle bring on
 
 The STATES sheet's BOSSES category owed the drag and hold bosses' states — the ones only a hand on the controls reaches. Nineteen cards close it: THE CAIRN leaving and settled, THE SPLICE's verdict and pass, THE REPRISE echoing and held, THE UNDERTOW taken, THE ANTIPHON still and down, THE SINEW held, swinging, falling and out, THE SURGE in the band, sealing, everting and out, THE INSTAR landed and down. Each is the boss's own wave run with a `Hand` reading the field every tick — a carry across the pile, the maw at the wanted straw, the maw held under the last lobe, the organ's colour up its column, both pulls summed into the zone, both thumbs lifted on one tick, every mark of a step answered in its own gesture — and `OWED` in `test/boss-states.test.ts` is down to THE HIVE's `down`, which waits on the queue's HIVE item.
