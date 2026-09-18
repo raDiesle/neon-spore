@@ -175,8 +175,13 @@ export {
   shipRow,
   snakeCrashed,
   snakeHolds,
+  // What is standing on a tile and where a shot would stop: the field's own
+  // word for this round is read off these two rather than off a second walk
+  // of the arena (`render/boss-cue-read-g.ts`).
+  snakePointAt,
   snakeResting,
   snakeRound,
+  snakeShotStop,
   spliceCurrent,
   spliceEntranceRow,
   spliceNumberAt,

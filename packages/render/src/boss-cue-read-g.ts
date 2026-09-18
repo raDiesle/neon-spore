@@ -1,11 +1,23 @@
-import { type FleetState, fleetShipAt, fleetStruck, type World } from "@neon-spore/sim";
+import {
+  type FleetState,
+  fleetShipAt,
+  fleetStruck,
+  type SnakeState,
+  snakeCrashed,
+  snakePointAt,
+  snakeResting,
+  snakeShotStop,
+  type World,
+} from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { chartOf, chartX, chartY } from "./fleet-chart.js";
 import type { Layout } from "./layout.js";
+import { headerLift } from "./round-header.js";
+import { type Arena, arenaX, arenaY, snakeArena } from "./snake-draw.js";
 
 /**
  * **What the rounds drawn as a chart are asking for** — page seven of the
- * readings, opened for THE FLEET.
+ * readings: THE FLEET, SNAKE.
  *
  * A chart round has no field and no body: the picture is a grid of squares and
  * a cursor standing in one of them, and what the pair is arguing about is
@@ -23,6 +35,15 @@ import type { Layout } from "./layout.js";
 /** THE FLEET's sights, in chart squares: the brackets the verb hangs off, read
  * from `drawFleetSights` rather than guessed at. */
 const SIGHTS_HALF = 0.46;
+
+/** SNAKE's mark, in arena tiles: a shade inside the tile it stands on, so the
+ * frame reads as being *on* that square and not between two of them. */
+const TILE_HALF = 0.44;
+
+/** The header SNAKE's own round draws above the arena, in play heights — the
+ * number `snake-round.ts` passes `headerLift`, and it must be the same one or
+ * the mark stands a header off the tile it means. */
+const ARENA_OWN = 0.09;
 
 /**
  * THE FLEET. One word, the pilot's, and the navigator gets none — the same
@@ -83,4 +104,69 @@ export function fleetCues(
       framed: false,
     },
   ];
+}
+
+/** The middle of an arena tile, which is where every mark in SNAKE stands. */
+function tileMid(a: Arena, col: number, row: number): { x: number; y: number } {
+  return { x: arenaX(a, col) + a.tile / 2, y: arenaY(a, row) + a.tile / 2 };
+}
+
+/**
+ * SNAKE. Two words, both the pilot's, and the driver is told nothing at all.
+ *
+ * **She cannot be told anything true.** Her screen is the body and the
+ * meteors; the enemies and the points are not drawn on it
+ * (`showsSnakeFood`), so the only word the field could put on her wheel is
+ * `TURN`, and everything that would make it come out — an enemy ahead, a
+ * point ahead, a wall coming — is either the half she is not shown or the one
+ * thing she is: *which way* is the answer, and it is his to say. A cue that
+ * turned her would be a second driver, and there is only one round in here.
+ *
+ * **He is told his own two verbs, each at the moment it will land**, and both
+ * marks stand on things drawn on his screen and on no other.
+ *
+ * - `PRESS` / `OPEN` on a point standing in the tile the head is about to
+ *   step onto. The mouth is a window rather than a hold and the rest is at
+ *   least as long as the window (`snake-controls.ts`), so the word comes out
+ *   on the last step before it is owed and never earlier: a mark that stood
+ *   over a point three tiles out would be an invitation to spend the window
+ *   before the body arrives.
+ * - `PRESS` / `FIRE` on the enemy a shot taken this instant would actually
+ *   reach — `snakeShotStop`'s answer, which is the round's own walk and not a
+ *   second copy of it, so the word cannot promise a hit a meteor would take.
+ *   It goes out while the trigger is resting, which is the argument every cue
+ *   over a refusing button makes.
+ *
+ * The point comes first because it expires first: the head is one step from
+ * it, and an enemy inside the reach is still inside the reach next step.
+ *
+ * Nothing at all outside `play` — the fold is a picture, the verdict is over,
+ * and a crashed body has no head to spit out of.
+ */
+export function snakeCues(
+  l: Layout,
+  world: World,
+  s: SnakeState,
+  clearTop: number | undefined,
+): readonly BossCue[] {
+  if (s.phase !== "play" || snakeCrashed(s)) return [];
+  const head = s.body[0];
+  if (head === undefined) return [];
+  const a = snakeArena(l, world.cfg, headerLift({ clearTop }, l.playHeight * ARENA_OWN));
+  if (a.tile <= 0) return [];
+  const half = a.tile * TILE_HALF;
+  const out: BossCue[] = [];
+
+  const next = { col: head.col + s.dirCol, row: head.row + s.dirRow };
+  if (snakePointAt(s, next.col, next.row) !== -1) {
+    const at = tileMid(a, next.col, next.row);
+    out.push({ seat: 1, kind: "PRESS", word: "OPEN", ...at, halfW: half, halfH: half, seed: 75 });
+  }
+
+  const stop = snakeShotStop(world, s);
+  if (stop !== null && stop.enemy !== -1 && !snakeResting(world, s)) {
+    const at = tileMid(a, stop.col, stop.row);
+    out.push({ seat: 1, kind: "PRESS", word: "FIRE", ...at, halfW: half, halfH: half, seed: 76 });
+  }
+  return out;
 }

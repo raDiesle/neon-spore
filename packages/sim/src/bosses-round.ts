@@ -114,6 +114,9 @@ export {
   type SnakeTile,
 } from "./snake.js";
 
-export { snakeCrashed } from "./snake-arena.js";
+export { snakeCrashed, snakePointAt } from "./snake-arena.js";
 export { snakeResting } from "./snake-controls.js";
+// Where a shot taken this instant would stop: the cue asks, so that the word
+// `FIRE` and the shot itself cannot disagree (`snake-move.ts`).
+export { snakeShotStop } from "./snake-move.js";
 export { SNAKE_MORPH_BEATS, SNAKE_VERDICT_BEATS, snakeHolds, snakeRound } from "./snake-round.js";

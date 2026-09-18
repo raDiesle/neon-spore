@@ -8787,3 +8787,30 @@ audio, render and the director before the simulation's own tests are worth
 running.
 
 *Measured: 0 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-hints — SNAKE says two words, both of them his
+
+The round where neither seat can see the other's half, so the reading is
+settled by what is drawn on which screen: the driver is shown the body and the
+meteors and nothing else, so the only word the field could put on her wheel is
+`TURN` — and *which way* is his answer, said out loud. She gets nothing. He
+gets `PRESS` / `OPEN` on a point the head is one step from and `PRESS` / `FIRE`
+on the enemy a shot taken now would actually reach. The second of those needed
+the round's own walk in render without a second copy of it, so `snakeShotStop`
+came out of `fireSnake` and onto the sim's curated surface. The film's last
+page went from naming his verb to the rule nothing draws: a meteor stops the
+shot.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, `snake.ts`, `snake-arena.ts`, `snake-move.ts`, `snake-draw.ts` for the arena's geometry |
+| writing | 20 | the extraction, page seven's second reading, six cases, the film's last page, two spec passages |
+| looking | 10 | four frames landed in `morph` or after the crash before a probe found the tick that has a cue |
+| friction | 5 | `snakeCurrent` is not on the sim's surface, so the test reads the round off the state |
+| landing | 10 | `check:fast`, the commit, the land |
+
+The bottleneck was the picture, not the code: SNAKE crashes early when nobody
+steers, so every frame taken by guessing a tick showed either the fold or the
+verdict.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

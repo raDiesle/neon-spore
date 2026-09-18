@@ -17,6 +17,15 @@ import { SNAKE_ROUNDS } from "../snake-rounds.js";
  * tile, the spit carries its authored three tiles, and both enemies are the
  * ones round one is written with.
  *
+ * **Four pages still, and the last one changed on 18 September 2026.** The
+ * field writes `PRESS` / `FIRE` on an enemy a shot would actually reach and
+ * `PRESS` / `OPEN` on a point the head is one step from, on player 1's screen
+ * and nowhere else (`decisions.md` #34, `render/boss-cue-read-g.ts`) — so the
+ * page that was the second shot says the rule behind both of them instead: a
+ * meteor stops the spit, and the only answer to one is the steering. It could
+ * not simply come out, because that shot is the film's last act and a page is
+ * what puts his screen in front of the reader (`docs/spec/briefings.md`).
+ *
  * **The turn is late on its page, and that is the lesson.** Every other film
  * puts its press a beat and a half after the words; this one waits nearly four
  * seconds, because the body is already moving and the moment to turn is the
@@ -62,7 +71,7 @@ export const SNAKE: GuideScene = {
     {
       tick: 780,
       seat: 1,
-      text: "AND THE NEXT ONE",
+      text: "A METEOR STOPS THE SHOT",
       anchor: { at: "control", control: "snakeFire" },
     },
   ],

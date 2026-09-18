@@ -596,6 +596,7 @@ hand still draws.
 | THE WARDEN | `ONLY WHILE IT IS OPEN` | `THE SHOT IS THE RIM'S COLOUR` | `PRESS` / `FIRE` on the pupil, hers alone, for exactly the beats the eye stands open |
 | THE FLEET | `PLAYER 1 FIRES THE SALVO` | `THE SHELL IS THE RELOAD` | `PRESS` / `FIRE` on the sights, his alone, while they stand on a hull nobody has fired at |
 | THE VANE | `PLAYER 2 FIRES RED` | `THE COLUMN MUST BE CLEAR` | `PRESS` / `FIRE` on the mouth of the split, hers, and `CARRY` / `MOVE` on his cannon |
+| SNAKE | `AND THE NEXT ONE` | `A METEOR STOPS THE SHOT` | `PRESS` / `FIRE` on a reachable enemy and `PRESS` / `OPEN` on the next point, his alone |
 
 **Four other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
@@ -680,6 +681,13 @@ So the page carries the half of the shot nothing draws: the bearing hangs above
 the field, the bolt has to leave through the split to reach it, and a shot
 stops at the first body in its way. Its other two pages are about the fold,
 which is the one thing the field will never say a word about.
+
+SNAKE's one row is the same day and is the third page in a row that stayed
+because a film's last act belongs to the seat whose page it is. What it said
+was the second shot; what it says now is why a shot needs the steering at all,
+which is the rule underneath both of his words and the one thing neither screen
+draws. Its other three pages are what each seat holds and her turn — no cue
+takes any of them, because the field says nothing to the driver.
 
 #### The ghost thumb is derived, never authored
 

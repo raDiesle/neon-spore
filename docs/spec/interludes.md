@@ -241,6 +241,23 @@ is the sentence the round is for. The picture says so — the venom lands in
 mid-air when it found nothing, which is the pair being told the reach ran out
 rather than the aim did.
 
+**What the field says** (`render/src/boss-cue-read-g.ts`, 18 September 2026,
+`docs/decisions.md` #34). Two words, both player 1's, and the driver is told
+nothing at all. `PRESS` / `OPEN` on a point standing in the tile the head is
+about to step onto — the mouth is a window rather than a hold, so the word
+comes out on the last step before it is owed and never earlier — and `PRESS` /
+`FIRE` on the enemy a shot taken this instant would actually reach, which is
+`snakeShotStop`'s answer and not a second walk of the arena, so the word cannot
+promise a hit a meteor would take. The point comes first, because it expires
+first. Both marks stand on things drawn on his screen alone
+(`showsSnakeFood`), and both go out with the phase.
+
+**The driver gets no word, and that is the reading rather than a gap in it.**
+Her screen is the body and the meteors, so everything that would make a `TURN`
+come out is either the half she is not shown or the one thing she is: *which
+way* is the answer, and it is his to say. A cue that turned her would be a
+second driver.
+
 **The rest of its numbers are in `packages/sim/src/config-snake.ts`.**
 `snakeCols` and `snakeRows` are the arena in tiles, and have nothing to do with
 the field's `cols`, because the field is gone. `snakeStartTiles` is how long the
