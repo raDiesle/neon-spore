@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 4143f4c4 — A task per boss wave, three times over, and the three briefs written once
+
+The owner's answer of 18 September 2026: THE INSTAR, THE STARE and THE REPRISE are all **normal**. That settles what the tag is about — the shape of play and not the panel, since THE INSTAR has a control set of its own and is still an ordinary boss — so `special` is reserved for a round with rules of its own, and the table is ten special and twenty-three normal.
+
 ## 2026-09-18 · 7dfc0932 — THE ORRERY could not be won as built: a ring off shed three rocks on one beat and the shield is one column wide, so the organs now come off one a beat, and the wave has its rehearsal
 
 A ring taken off THE ORRERY dropped its three organs as rocks on the same beat, into three columns, and every hull damage fails the wave, so no pair could take a ring and survive it — though `config-orrery.ts` said three was what the shield can answer. The organs now come off one a beat, each from the column its orbit slot stands over, and the core holds its own fire while a ring is shedding, so the rocks arrive one a beat with a guard window each. A fix to something wrong rather than unlovely, in the sim, with two tests.
