@@ -2,6 +2,8 @@ import {
   type DiastoleState,
   diastoleBridgeCol,
   diastoleChamberCol,
+  diastoleClamped,
+  diastoleClampHolds,
   gumIsFlung,
   type LeadState,
   type LedgerState,
@@ -192,10 +194,27 @@ export function scuttleCues(l: Layout, world: World, s: ScuttleState): readonly 
  * this body both screens read the same, so the mark is on it, and the word is
  * hers because the lance is filled by holding a colour.
  *
- * Alone, the pilot gets a second one, on the grey chamber: CLAMP, since the
- * beat now has to be held under a thumb as well as found (`diastole-clamp.ts`).
- * It says *where* and *what* and never *when* — the when is still the
- * navigator's to say. A spasm cues nothing: there is nothing to hold for
+ * **Alone, the two words follow the thumb**, which is the half this reading
+ * was missing until 18 September 2026: it wrote both of them for the whole of
+ * the phase, and for most of the phase neither was true.
+ *
+ * - No thumb on the chamber: `HOLD` / `CLAMP` on the ring, his — the beat now
+ *   has to be held as well as found (`diastole-clamp.ts`) — and **nothing at
+ *   all to her**. The beam lands only under the clamp (`diastoleOpen`), so a
+ *   word over the bridge before there is one is a word over a lance that is
+ *   refusing, which is the objection THE MAZE's reading makes about a handle
+ *   the ship has taken away.
+ * - The clamp on and its window open: `HOLD` / `BURN` on the bridge, hers, and
+ *   **nothing to him**. What the fight wants of his thumb then is *let go
+ *   before the dial closes* — a clamp held past its window spasms the chamber
+ *   — so `HOLD` would be the field asking for the failure, and the ring's own
+ *   dial is the whole of what is left to say (`handle-draw.ts`).
+ * - The window lapsed with the thumb still down: nothing on either screen. He
+ *   is late, the dial has closed, and the next thing the round does is the
+ *   spasm.
+ *
+ * It says *where* and *what* and never *when* — the when is the navigator's to
+ * say, in both phases. A spasm cues nothing: there is nothing to hold for
  * eight beats, and the chamber's shudder is the whole of the announcement.
  */
 export function diastoleCues(l: Layout, world: World, b: DiastoleState): readonly BossCue[] {
@@ -203,8 +222,10 @@ export function diastoleCues(l: Layout, world: World, b: DiastoleState): readonl
   const y = diastoleY(l);
   const burn = markAt(2, "HOLD", "BURN", tileCX(l, diastoleBridgeCol(world.cfg)), y, l, 57);
   if (b.phase !== "alone") return [burn];
-  const clamp = markAt(1, "HOLD", "CLAMP", tileCX(l, diastoleChamberCol(world.cfg, 1)), y, l, 73);
-  return [clamp, burn];
+  if (!diastoleClamped(b)) {
+    return [markAt(1, "HOLD", "CLAMP", tileCX(l, diastoleChamberCol(world.cfg, 1)), y, l, 79)];
+  }
+  return diastoleClampHolds(b, world.beat) ? [burn] : [];
 }
 
 /**

@@ -9017,6 +9017,32 @@ The bottleneck was making sure the silence was a finding and not a shortcut:
 most of the lane was spent looking for a state in the round where a word would
 not be either the lane or the moment, and there is not one.
 
+## 2026-09-18 — boss-hints — THE DIASTOLE's two words follow the thumb
+
+The entry asked for the whole fight and the reading had one lane of it: `BURN`
+on the bridge, written for every tick of `alone`, when for most of `alone` the
+beam lands on nothing. The widening is not a second word but a rule — the words
+follow the clamp. No thumb, and the pilot is asked for one and she is told
+nothing, because the lance is refusing until there is one; thumb down inside
+its window, and the word is hers and his goes out, because what the fight wants
+of his thumb then is *let go* and a `HOLD` on the ring would be the field
+asking for the spasm. Window lapsed with the thumb still down: both quiet. No
+page of the film comes down — all six are counts and colours — and saying that
+plainly in the spec is half of what landed.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `diastole.ts`, `diastole-open.ts`, `diastole-clamp.ts`, `handle-draw.ts`, the film's six pages |
+| writing | 20 | the reading, its doc, three cases, two spec passages |
+| looking | 5 | one frame of the ring with `CLAMP` over it |
+| friction | 5 | a lapsed-window case written at beat 0, where `beat - clampBeats` is the sentinel `-1` |
+| landing | 10 | `check:fast`, the commit, the land |
+
+The bottleneck was the third state: a clamp held past its window is neither
+clamped-and-open nor unclamped, and the first version of the case built it by
+subtracting the window from beat 0 and got `-1`, which the simulation reads as
+*no clamp at all*.
+
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
 ## 2026-09-18 — tutorial-boss-onscreen-actions — THE MIRROR's picture looks like something real

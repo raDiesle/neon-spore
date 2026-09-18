@@ -196,11 +196,41 @@ describe("THE DIASTOLE", () => {
     const b = installed<DiastoleState>(world, "diastole");
     b.phase = "alone";
     b.leftHits = 0;
+    b.clampBeat = -1;
+    b.clampUntil = -1;
     expect(word(world, "p1")).toBe("CLAMP");
     expect(cue(world, "p1")?.kind).toBe("HOLD");
-    expect(word(world, "p2")).toBe("BURN");
+    // And nothing to her yet: the beam lands only under the clamp, so a word
+    // over the bridge before there is one is a word over a refusing lance.
+    expect(word(world, "p2")).toBeNull();
     // A spasm has nothing to hold for eight beats, and the chamber says so itself.
     b.phase = "spasm";
+    expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p2")).toBeNull();
+  });
+
+  it("hands the word to her the moment the thumb lands, and takes his away", () => {
+    const world = opened("diastole");
+    const b = installed<DiastoleState>(world, "diastole");
+    b.phase = "alone";
+    b.leftHits = 0;
+    b.clampBeat = world.beat;
+    b.clampUntil = world.beat + world.cfg.diastoleClampBeats;
+    expect(word(world, "p2")).toBe("BURN");
+    // Nothing to him: what the fight wants now is a thumb that comes off
+    // before the dial closes, and `HOLD` would be asking for the spasm.
+    expect(word(world, "p1")).toBeNull();
+  });
+
+  it("goes quiet on both once the clamp has outlived its window", () => {
+    const world = opened("diastole");
+    const b = installed<DiastoleState>(world, "diastole");
+    b.phase = "alone";
+    b.leftHits = 0;
+    // A thumb that came down a whole window ago and has never come off.
+    world.beat = 20;
+    b.clampBeat = world.beat - world.cfg.diastoleClampBeats;
+    b.clampUntil = world.beat;
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBeNull();
   });

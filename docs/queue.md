@@ -610,19 +610,6 @@ not a picture per state.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE DIASTOLE: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-diastole-the-field-says-the-word-and-the-bri
-- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes/the-diastole.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-
-It says `BURN` on the bridge, which is
-what one lane could reach and not the whole fight.
-Its briefing is a 6-page rehearsal (`packages/content/src/scenes/the-diastole.ts`).
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE DIASTOLE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1357,3 +1344,19 @@ and THE MIRROR's line cost it a comment. Replace the eleven with one
 already does — the getters were only ever `world.boss?.kind === k ? world.boss : null`.
 `bun run check` proves it; the `Field` literals in `packages/render/test`
 and `tools/director/test` lose ten lines each.
+
+## `boss-cue-read-c.ts` is at 245 lines, and the sixth boss on it grew
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/boss-cue-read-c.ts`, `packages/render/src/boss-cue.ts`
+
+Page three of the readings carries six bosses — THE THROAT, THE LEDGER, THE
+LEAD, THE SCUTTLE, THE DIASTOLE, THE ORRERY — and THE DIASTOLE's widening on
+18 September 2026 took it to 245 of the 250 `packages/sim/test/limits.test.ts`
+allows. The next lane to widen any of the six has nowhere to put the argument,
+and the argument is the point of these files. Split along the seam the header
+already names: the three that are about a *count* nobody may be given (THE
+DIASTOLE, THE ORRERY, THE LEAD) from the three that are about a thing on the
+field (THE THROAT, THE LEDGER, THE SCUTTLE), as `boss-cue-read-c.ts` and a new
+`-i.ts`, with `cuesOf`'s switch in `boss-cue.ts` pointed at both. `bun run
+check` proves it; no test names the file.

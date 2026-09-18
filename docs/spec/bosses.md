@@ -2113,7 +2113,7 @@ right chamber, on player 1's screen alone, from the beat the left collapses:
 the pilot is the seat shown that chamber grey, so the ring is on the one screen
 that cannot see the beat, and it breathes off the wall clock, which is nobody's
 count. It says *this, and your thumb*, and the word over it is CLAMP
-(`boss-cue-read-c.ts`); the when is still the navigator's to say. Under the
+(`boss-cue-read-c.ts`, below); the when is still the navigator's to say. Under the
 thumb it fills and a dial runs the two-beat window out. The chamber under it is
 **squeezed shut on every screen** while the clamp holds — the contraction,
 kept — with the handle's white as its inner rim on the screen that sees it grey
@@ -2126,6 +2126,30 @@ each frame, so nothing outlives a frame and there is no `Effects` field to
 clear. A frame test sets each state on all three screens and proves the ring
 reaches only the pilot's and the squeeze reaches every one
 (`render/test/diastole-clamp.test.ts`).
+
+**What the field says** (`render/src/boss-cue-read-c.ts`, 18 September 2026,
+`docs/decisions.md` #34). Two words, one a seat, and in `alone` **they follow
+the thumb** — which is the half the first reading was missing: it wrote both of
+them for the whole of the phase, and for most of the phase neither was true.
+While the two chambers beat, `HOLD` / `BURN` stands on the bridge, hers, and
+nothing on his. Alone, with no thumb on the chamber, `HOLD` / `CLAMP` stands on
+the ring, his, and she is told **nothing at all**: the beam lands only under a
+clamp (`diastoleOpen`), so a word over the bridge before there is one is a word
+over a lance that is refusing. With the thumb down and the window open it
+swaps — `BURN` to her, nothing to him — because what the fight wants of his
+thumb then is *let go before the dial closes*, and a `HOLD` on the ring would be
+the field asking for the spasm; the ring's own dial is the whole of what is left
+to say. Once the window has lapsed under a thumb still held, both screens go
+quiet: he is late and the next thing the round does is the spasm. The spasm
+itself cues nothing, for the reason it has no ring.
+
+**Neither word is ever a count, and no page of the film comes down for them.**
+Where and what, never when — the when is the navigator's to say in both phases,
+and her own film page is `PLAYER 2 HOLDS RED · ON 15`, a colour and a number,
+which is exactly what a cue may not carry (`docs/spec/briefings.md`). THE
+DIASTOLE stays one of the films that read as unprunable, and the widened cue did
+not change that: a fight whose pages are all counts has nothing a verb can
+replace.
 
 **What it still does not draw**: the hull's own pulse. A light that beat in each
 seat's colour from inside the ship would be a change to something the game

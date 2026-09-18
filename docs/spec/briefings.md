@@ -724,6 +724,15 @@ it once*. It is the fifth film to read as unprunable against this rule and the
 first where the reason is the round rather than the prose
 ([bosses](bosses.md) §11.8).
 
+THE DIASTOLE's cue was **widened** on 18 September 2026 and still takes no page
+([bosses](bosses.md) §11.17). It had said `BURN` on the bridge for the whole of
+the endgame; it now follows the pilot's thumb — `CLAMP` to him with no clamp on,
+`BURN` to her under an open window, nothing to either once the window has
+lapsed. Every page of its film is a count or a colour, so there was nothing for
+a wider verb to take, and that is the second way this rule can come back empty:
+the first is a film already teaching the split, and this is a fight whose whole
+content is the number neither cue may say.
+
 #### The ghost thumb is derived, never authored
 
 A scene names a control and, for a strip, a column. Where that control *is*
