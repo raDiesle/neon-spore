@@ -85,4 +85,4 @@ export interface GuideScene {
 // line: `scene-act-types.ts`. Both re-exported so nothing that reached for
 // either through this file had to move.
 export type { SceneAct } from "./scene-act-types.js";
-export type { SceneAnchor, SceneStep } from "./scene-step-types.js";
+export type { BossPart, SceneAnchor, SceneStep } from "./scene-step-types.js";

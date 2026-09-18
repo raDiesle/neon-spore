@@ -103,6 +103,22 @@ function looks(world: World, t: TasterState, tile: number, beatPhase: number): B
   return fan;
 }
 
+/**
+ * The ridge this frame: its top, its breath and how thick it is drawn — the
+ * three numbers both marks on it hang off (`taster-read.ts`), asked once
+ * here so a caption's ring (`caption-anchor-boss.ts`) reads the same ridge
+ * the drawing does.
+ */
+export function tasterRidge(
+  l: Layout,
+  t: TasterState,
+  cfg: SimConfig,
+  beatPhase: number,
+): { y: number; breath: number; thick: number } {
+  const breath = tasterPhase(t, cfg) === "out" ? 0 : breathOf(beatPhase);
+  return { y: tasterCrestY(l), breath, thick: l.tile * (0.34 + 0.04 * breath) };
+}
+
 export function drawTaster(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -113,11 +129,9 @@ export function drawTaster(
 ): void {
   if (l.tile <= 0) return;
   const { cfg } = world;
-  const y = tasterCrestY(l);
-  const breath = tasterPhase(t, cfg) === "out" ? 0 : breathOf(beatPhase);
+  const { y, breath, thick } = tasterRidge(l, t, cfg, beatPhase);
   const left = tileCX(l, t.col) - l.tile * 0.5;
   const right = tileCX(l, t.col + t.blades.length - 1) + l.tile * 0.5;
-  const thick = l.tile * (0.34 + 0.04 * breath);
 
   // The ridge first, so every blade stands out of it rather than on top of it.
   const crest = crestPath(left, right, y, thick, l.tile, time);
@@ -154,3 +168,19 @@ export function drawTaster(
 
 /** The height a full blade reaches over row 0, in tiles: the fan's reach. */
 export const TASTER_FAN_TILES = BLADE_TILES + HANG;
+
+/**
+ * The whole fan as one box — every blade's column, from the crest's top to a
+ * full blade's tip — for a caption about the blades rather than about one
+ * of the two marks on the ridge (`caption-anchor-boss.ts`).
+ */
+export function tasterFanBox(
+  l: Layout,
+  t: TasterState,
+): { x: number; y: number; rx: number; ry: number } {
+  const y = tasterCrestY(l);
+  const left = tileCX(l, t.col) - l.tile * 0.5;
+  const right = tileCX(l, t.col + t.blades.length - 1) + l.tile * 0.5;
+  const ry = (l.tile * BLADE_TILES) / 2;
+  return { x: (left + right) / 2, y: y - ry, rx: (right - left) / 2, ry };
+}

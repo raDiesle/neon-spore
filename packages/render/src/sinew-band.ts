@@ -9,7 +9,7 @@ import { strokeGlow } from "./glow.js";
 import { rgba } from "./hex.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
-import type { Point } from "./sinew-shape.js";
+import { type Point, sinewAnchor, sinewMassCentre } from "./sinew-shape.js";
 import { showsSinewSum, showsSinewZone } from "./view-role-clocks.js";
 
 /**
@@ -40,6 +40,40 @@ const HALF_H = 1.05;
 const PIP_R = 0.07;
 const PIP_OUT = 0.18;
 
+/** The collar's centre and half-sizes, on the tendon between root and mass. */
+export interface CollarBox {
+  x: number;
+  y: number;
+  rx: number;
+  ry: number;
+}
+
+function collarBetween(l: Layout, root: Point, mass: Point): CollarBox {
+  return {
+    x: root.x + (mass.x - root.x) * ALONG,
+    y: root.y + (mass.y - root.y) * ALONG,
+    rx: HALF_W * l.tile,
+    ry: HALF_H * l.tile,
+  };
+}
+
+/**
+ * Where the collar stands, asked without a whip: the caption's question
+ * (`caption-anchor-boss.ts`), answered off the same tendon the drawing hangs
+ * it on, so a page about the zone or the sum rings the gauge they are on and
+ * not the hull under it. No swing, for `sinewHandleAt`'s reason: a film's
+ * page about the snap points at the rock.
+ */
+export function sinewCollarBox(
+  l: Layout,
+  cfg: SimConfig,
+  s: SinewState,
+  beat: number,
+  beatPhase: number,
+): CollarBox {
+  return collarBetween(l, sinewAnchor(l, cfg), sinewMassCentre(l, cfg, s, beat, beatPhase));
+}
+
 function rounded(x: number, y: number, w: number, h: number, r: number): Path2D {
   const p = new Path2D();
   p.moveTo(x + r, y);
@@ -66,10 +100,7 @@ export function drawSinewBand(
   beatPhase: number,
   time: number,
 ): void {
-  const cx = root.x + (mass.x - root.x) * ALONG;
-  const cy = root.y + (mass.y - root.y) * ALONG;
-  const hw = HALF_W * l.tile;
-  const hh = HALF_H * l.tile;
+  const { x: cx, y: cy, rx: hw, ry: hh } = collarBetween(l, root, mass);
   const band = Math.max(1, sinewBandMilli(cfg));
   const yOf = (milli: number) => cy + hh - (Math.min(band, Math.max(0, milli)) / band) * hh * 2;
   const holding = s.holdBeat >= 0;

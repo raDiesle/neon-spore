@@ -1,5 +1,6 @@
 import { type ControlSet, control, type SceneAnchor } from "@neon-spore/content";
 import { type Creature, gripCount, type World } from "@neon-spore/sim";
+import { bossAnchor } from "./caption-anchor-boss.js";
 import { creatureHalfAxes } from "./creature-axes.js";
 import { creatureCenter } from "./creature-place.js";
 import { glidePhase } from "./depth.js";
@@ -163,6 +164,9 @@ export function anchorPoint(
     const col = anchor.control === "shield" ? world.shieldCol : world.cannonCol;
     return { x: tileCX(l, col), y: strip.y, r: strip.height * 0.7, clear: CLEAR_STRIP };
   }
+  // A boss's own fixture, per kind — the one branch that is a file of its
+  // own, because every boss answers it differently (`caption-anchor-boss.ts`).
+  if (anchor.at === "boss") return bossAnchor(l, world, anchor.part, beatPhase);
   if (anchor.at === "hull") return { x: l.width / 2, y: l.hullY, r: l.tile, clear: CLEAR };
   // The run's line in the corner, where a hit shows as the retry count going
   // up. `drawHud` owns where it is; this asks it rather than knowing — and

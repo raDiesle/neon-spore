@@ -62,7 +62,7 @@ export const THE_TASTER: GuideScene = {
       text: "TWICE MORE · IT TASTES THEM",
       anchor: { at: "control", control: "fireRed" },
     },
-    { tick: 420, seat: 1, text: "THE EDGE SETS RED · SAY IT", anchor: { at: "hull" } },
+    { tick: 420, seat: 1, text: "THE EDGE SETS RED · SAY IT", anchor: { at: "boss" } },
     {
       tick: 600,
       seat: 2,
@@ -93,7 +93,12 @@ export const THE_TASTER: GuideScene = {
       text: "THE OTHER COLOUR · ALWAYS",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 1500, seat: 1, text: "THREE GROW AT ONCE · ALL RED", anchor: { at: "hull" } },
-    { tick: 1680, seat: 2, text: "PLAYER 2 SEES BOTH COUNTS", anchor: { at: "hull" } },
+    { tick: 1500, seat: 1, text: "THREE GROW AT ONCE · ALL RED", anchor: { at: "boss" } },
+    {
+      tick: 1680,
+      seat: 2,
+      text: "PLAYER 2 SEES BOTH COUNTS",
+      anchor: { at: "boss", part: "tally" },
+    },
   ],
 };

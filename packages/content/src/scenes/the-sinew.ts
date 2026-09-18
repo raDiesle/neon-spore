@@ -90,13 +90,13 @@ export const THE_SINEW: GuideScene = {
       tick: 540,
       seat: 1,
       text: "YOU SEE THE ZONE · SAY IT",
-      anchor: { at: "hull" },
+      anchor: { at: "boss" },
     },
     {
       tick: 720,
       seat: 2,
       text: "YOU SEE THE SUM · SAY IT",
-      anchor: { at: "hull" },
+      anchor: { at: "boss" },
     },
     {
       tick: 900,
@@ -108,7 +108,7 @@ export const THE_SINEW: GuideScene = {
       tick: 1140,
       seat: 2,
       text: "NEW ZONE · NEW NUMBERS",
-      anchor: { at: "hull" },
+      anchor: { at: "boss" },
     },
     {
       tick: 1440,

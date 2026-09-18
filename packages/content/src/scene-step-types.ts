@@ -20,6 +20,15 @@ import type { ControlId } from "./controls.js";
  * the field, a control on the band, the ship, the hull bar — which means a
  * caption cannot drift away from its subject when the layout changes.
  */
+/**
+ * The parts of a boss a page can be about, beyond its main fixture. Grown a
+ * name at a time, each answered by a line in `render/caption-anchor-boss.ts`
+ * that asks the boss's draw file where it is.
+ */
+export type BossPart =
+  /** THE TASTER's two counts on the ridge, the navigator's readout. */
+  "tally";
+
 export type SceneAnchor =
   | { at: "body" }
   | { at: "control"; control: ControlId }
@@ -57,6 +66,15 @@ export type SceneAnchor =
    * absence.
    */
   | { at: "radar" }
+  /**
+   * A boss's own fixture — the collar on THE SINEW's tendon, the fan on THE
+   * TASTER's crest — answered per kind in `render/caption-anchor-boss.ts` off
+   * the boss's draw file, the way `handle` is off each handle's. `part` names
+   * which, where a boss draws more than one thing a page can be about; left
+   * off, the boss's main fixture. A film about a boss's own gauge pointed at
+   * the hull before this, because nothing else was nameable.
+   */
+  | { at: "boss"; part?: BossPart }
   | { at: "hull" }
   /** The run's line in the corner — the retry count, which a hit puts up.
    * It was `health`, the hull bar, until the hull lost its points. */

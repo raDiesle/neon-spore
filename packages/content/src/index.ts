@@ -136,6 +136,7 @@ export {
 } from "./queue.js";
 export { actCol, sceneCommands, sceneScript } from "./scene-script.js";
 export {
+  type BossPart,
   type GuideScene,
   guideScene,
   SCENES,

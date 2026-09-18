@@ -221,7 +221,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   ...SCENES_OWED,
 };
 
-export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";
+export type { BossPart, GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";
 
 export function guideScene(id: SceneId): GuideScene {
   const found = SCENES[id];

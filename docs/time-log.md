@@ -11030,3 +11030,24 @@ it just made (`breakDetent`), so the hand had to be read as press once per
 click and wait, which is how the fixture plays it too.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — a caption on a boss's own gauge, half 1 of 2
+
+The queue's "a caption has no anchor for a boss's own gauge": `{ at: "boss",
+part? }` on `SceneAnchor`, answered per kind in `caption-anchor-boss.ts`, and
+THE SINEW's three pages and THE TASTER's three moved off the hull onto the
+collar, the fan and the navigator's tally. Half 2 is the five other films.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `caption-anchor.ts` at its limit, the collar's placement in `sinew-band.ts`, the ridge and tally in `taster-draw.ts`/`taster-read.ts`, the two films' hull pages |
+| writing | 20 | the anchor type, the boss resolver, the collar and fan boxes lifted out of the draw calls, six pages retargeted, five tests |
+| looking | 5 | THE SINEW's zone page through `bun run frames` |
+| friction | 5 | `docs/INDEX.md` red for the new file's row; Biome reformatting `taster-draw.ts` under the edit |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was reading: the caption resolver had no room for a boss
+branch, so the collar and the fan had to be lifted out of the draw calls into
+boxes both the drawing and the anchor read, before the anchor could be a line.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

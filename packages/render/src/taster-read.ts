@@ -42,6 +42,16 @@ import { showsTasterNext, showsTasterTally } from "./view-role-clocks.js";
  * the fight: the same two numbers over twelve beats instead of thirty, which
  * is the third movement arriving in her hands rather than in a message.
  */
+/**
+ * Where the two counts are written: the ridge's middle column, on the ridge.
+ * The drawing and the caption's ring ask the same question
+ * (`caption-anchor-boss.ts`), so a page about the counts stands on them.
+ */
+export function tasterTallyAt(l: Layout, t: TasterState, y: number, thick: number) {
+  const size = Math.max(8, Math.min(13, l.tile * 0.36));
+  return { x: tileCX(l, t.col + Math.floor(t.blades.length / 2)), y: y + thick * 0.5, size };
+}
+
 export function drawTasterTally(
   ctx: CanvasRenderingContext2D,
   l: Layout,
@@ -56,8 +66,7 @@ export function drawTasterTally(
   const beats = tasterWindow(t, world.cfg);
   const red = spentOver(world, beats, "red");
   const cyan = spentOver(world, beats, "cyan");
-  const size = Math.max(8, Math.min(13, l.tile * 0.36));
-  const x = tileCX(l, t.col + Math.floor(t.blades.length / 2));
+  const { x, y: mid, size } = tasterTallyAt(l, t, y, thick);
   ctx.save();
   ctx.font = `600 ${Math.round(size)}px "Courier New",monospace`;
   // On the ridge rather than under it. Under it was the first drawing, and one
@@ -66,7 +75,6 @@ export function drawTasterTally(
   // every few beats — in the one readout of this fight that has to be read.
   // The band is above row 0, so nothing on the field can cross them there.
   ctx.textBaseline = "middle";
-  const mid = y + thick * 0.5;
   ctx.textAlign = "right";
   ctx.fillStyle = PALETTE.red;
   ctx.fillText(String(red), x - size * 0.3, mid);
