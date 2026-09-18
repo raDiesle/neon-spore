@@ -59,6 +59,7 @@ on.
 ## The BOSSES category owes the field and clock states a hand brings on
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-18, claude/queue-the-bosses-category-owes-the-field-and-clock-sta
 - **Files:** `tools/director/src/poses-bosses-clocks.ts`, `tools/director/src/poses-bosses-first.ts`, `tools/director/test/boss-states.test.ts`
 
 The STATES sheet's BOSSES category (the owner, 18 September 2026: every
