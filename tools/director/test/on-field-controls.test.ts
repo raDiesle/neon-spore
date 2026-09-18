@@ -204,6 +204,12 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // at once (`sim/pulse-hand.ts`). Sim lane only so far, as the nine above.
     case "pulseMeter":
       return target;
+    // THE BATON's own arm, the one handle whose seat the *beat* decides: the
+    // locked-out seat strips a swelling socket, and under `merging` a thumb
+    // each draws the two beads into one (`sim/baton-hand.ts`,
+    // `render/baton-grip.ts`, `field-controls-baton.ts`).
+    case "batonSocket":
+      return target;
     default:
       return assertNever(target);
   }
@@ -246,6 +252,7 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
         "gaugeBand",
         "wardenEye",
         "wardenHatch",
+        "batonSocket",
       ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {

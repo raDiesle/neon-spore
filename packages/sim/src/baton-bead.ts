@@ -4,11 +4,14 @@ import { type SimConfig, ticksPerBeat } from "./config.js";
 import { MILLI } from "./world.js";
 
 /**
- * Where a bead of THE BATON is on a tick — the row and the column a bolt
- * has to meet it at and the picture draws it at. Split off `baton.ts` when
- * the second bead arrived and that file went over its limit; every answer
- * here is a pure function of the state and the tick, so two devices asking
- * on the same tick get the same bead in the same place.
+ * Where a bead of THE BATON is on a tick, and which bead the trigger is for —
+ * the row and the column a bolt has to meet it at and the picture draws it at,
+ * and the reading that ranks two beads against one press. Split off `baton.ts`
+ * when the second bead arrived and that file went over its limit, and the two
+ * readings at the foot came the same way when the arm was given a thumb of its
+ * own (`baton-hand.ts`); every answer here is a pure function of the state and
+ * the tick, so two devices asking on the same tick get the same bead in the
+ * same place.
  */
 
 /**
@@ -62,4 +65,33 @@ export function batonBeadCol(cfg: SimConfig, b: BatonState, bead: BatonBead, tic
   if (bead.fromCol === bead.col) return bead.col;
   const land = batonLandTick(cfg, bead);
   return tick - bead.flightTick < (land - bead.flightTick) / 2 ? bead.fromCol : bead.col;
+}
+
+/**
+ * A bead in the last socket with another still on the arm is **waiting**: it
+ * cannot be launched, because out of that socket there is only the drop and
+ * the drop is the merged bead's; and it does not settle, because the design
+ * hangs it there *by a thread* until the other arrives
+ * (`docs/spec/bosses-choreographed.md` §10, step 12).
+ */
+export function batonWaiting(cfg: SimConfig, b: BatonState, bead: BatonBead): boolean {
+  return b.beads.length > 1 && !bead.flying && bead.socket === cfg.batonSockets - 1;
+}
+
+/**
+ * The bead player 1's trigger sends: of the beads sitting and not waiting,
+ * the one that has sat longest, and the lower one when two sat down on the
+ * same beat. Longest-sitting, so two beads take turns under one trigger —
+ * the lead goes, and while it is in the air the trigger's next press is the
+ * other's — which is what puts two beads in the air at once for player 2
+ * to tell apart. With one bead on the arm it is that bead or nothing.
+ */
+export function batonLaunchable(cfg: SimConfig, b: BatonState): BatonBead | null {
+  let pick: BatonBead | null = null;
+  for (const bead of b.beads) {
+    if (bead.flying || batonWaiting(cfg, b, bead)) continue;
+    if (pick === null || bead.satBeat < pick.satBeat) pick = bead;
+    else if (bead.satBeat === pick.satBeat && bead.socket > pick.socket) pick = bead;
+  }
+  return pick;
 }

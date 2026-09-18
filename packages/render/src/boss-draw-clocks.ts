@@ -1,5 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { drawBaton } from "./baton-draw.js";
+import { drawBatonGrip } from "./baton-grip.js";
 import { drawFxBoss, FX_KINDS, isFxBoss } from "./boss-draw-clocks-b.js";
 import { drawCurtain } from "./curtain-draw.js";
 import { drawDiastoleClamp } from "./diastole-clamp.js";
@@ -108,6 +109,9 @@ export function drawClockBoss(
   // meet it where the simulation says it is (`baton-draw.ts`).
   if (boss.kind === "baton") {
     drawBaton(ctx, l, world.cfg, boss, world.tick, world.beat, view.beatPhase, view.time);
+    // And the two rings the arm itself asks for, after it, so they stand on
+    // the sockets and nothing stands on them (`baton-grip.ts`).
+    drawBatonGrip(ctx, l, world.cfg, boss, l.role, world.beat, view.beatPhase, view.time);
     return;
   }
 

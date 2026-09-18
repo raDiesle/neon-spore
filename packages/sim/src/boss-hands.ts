@@ -1,4 +1,5 @@
 import { antiphonHeard, stepAntiphonTurn } from "./antiphon-hand.js";
+import { batonHeard } from "./baton-hand.js";
 import { diastoleHeard } from "./diastole-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
@@ -70,4 +71,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // where the thumb is now and the pull sinks the wreck the tick it reaches
   // (`fleet-hand.ts`). The arrows and the trigger stay in `step.ts`.
   for (const c of commands) fleetHandsHeard(world, c.player, c.command);
+  // THE BATON's thumb on its own arm, on the tick because the seat that may
+  // strip is the seat the *beat* locked out, and a strip that waited for the
+  // next beat would be answered against a lock that had already moved
+  // (`baton-hand.ts`). The trigger and the shot stay where they were.
+  for (const c of commands) batonHeard(world, c.player, c.command);
 }

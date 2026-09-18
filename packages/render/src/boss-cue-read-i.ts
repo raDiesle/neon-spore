@@ -4,12 +4,16 @@ import {
   batonActor,
   batonBeadCol,
   batonBeadRowMilli,
+  batonDrawing,
   batonLaunchable,
   batonLead,
   batonLocked,
+  batonMayStrip,
+  batonMergeSocket,
   type World,
 } from "@neon-spore/sim";
 import { beadPoint } from "./baton-bead-draw.js";
+import { socketPoint } from "./baton-socket-draw.js";
 import type { BossCue } from "./boss-cue.js";
 import { type Layout, tileCX } from "./layout.js";
 import { podCenter } from "./pods.js";
@@ -31,16 +35,20 @@ import { podCenter } from "./pods.js";
  * whole of why the reading is a switch:
  *
  * - `unfolding` — eleven beats of arm and nothing to press. No word.
- * - `passing` — the arm's own alternation: his trigger, her shot, and the
- *   cannon he has to have under the flight for her shot to meet it.
+ * - `passing` — the arm's own alternation: his trigger, her shot, the cannon
+ *   he has to have under the flight for her shot to meet it, and — on the arm
+ *   itself — the shell coming away that the locked-out seat may strip.
+ * - `merging` — a thumb each on the two beads, and neither of them the ship's.
  * - `crossing` — one act a beat, in turn, and the turn is `batonActor`.
  * - `falling` — the bead is a pod, the catch is his, and both locks are open
  *   (`sim/baton-cross.ts`, `drop`).
  *
- * **What is deliberately never marked** is the shed shell (`batonShed`): a
- * dark socket falls off the arm and down its column as a rock, and a rock is
- * warded by the ship's ordinary two hands, taught eleven waves before this
- * one. A frame around it would be the field marking the field.
+ * **What is deliberately never marked** is the shell once it has *fallen*
+ * (`batonShed`): it is a rock down the arm's column then, and a rock is warded
+ * by the ship's ordinary two hands, taught eleven waves before this one. A
+ * frame around it would be the field marking the field. The socket it is
+ * coming off, before it falls, is a different thing — it is a handle, on one
+ * screen, for one beat at a time (`sim/baton-hand.ts`).
  */
 
 /** THE CHOIR's frame, in tiles — the same as the eight pages before. */
@@ -127,6 +135,36 @@ function passing(l: Layout, world: World, b: BatonState): readonly BossCue[] {
     const { x, y } = beadPoint(l, cfg, b, sitting, world.tick);
     out.push(markAt(1, "PRESS", "LAUNCH", x, y, l, 48 + sitting.socket));
   }
+  // **`STRIP` is the locked seat's, and it is last.** A shell coming away is
+  // the only thing on this field that seat may touch, and it is also the least
+  // urgent thing on the screen: a rock is warded, and a handover missed is a
+  // socket back. The mark is drawn on whichever of them the beat locked out,
+  // which is what makes it move from phone to phone as the turn does — and on
+  // a beat neither of them acted in, nobody is locked and nobody is asked.
+  for (const seat of [1, 2] as const) {
+    if (!batonMayStrip(b, seat, world.beat)) continue;
+    const at = socketPoint(l, cfg, b, b.swellSocket);
+    out.push(markAt(seat, "PRESS", "STRIP", at.x, at.y, l, 90 + seat));
+  }
+  return out;
+}
+
+/**
+ * The drawing together: one word on each screen, on the bead that seat's thumb
+ * is for, and gone from a screen whose thumb is already down.
+ *
+ * `HOLD` and not `PRESS`, because the count runs only while **both** are down
+ * and either letting go puts it back to nought (`sim/baton-pair.ts`). Neither
+ * mark says whether the other is down — that is the one sentence this fight
+ * has never made them say, and the state exists to make them say it.
+ */
+function merging(l: Layout, world: World, b: BatonState): readonly BossCue[] {
+  const out: BossCue[] = [];
+  for (const seat of [1, 2] as const) {
+    if (batonDrawing(b, seat)) continue;
+    const at = socketPoint(l, world.cfg, b, batonMergeSocket(world.cfg, seat));
+    out.push(markAt(seat, "HOLD", "HOLD", at.x, at.y, l, 92 + seat));
+  }
   return out;
 }
 
@@ -182,6 +220,8 @@ export function batonCues(l: Layout, world: World, b: BatonState): readonly Boss
   switch (b.stage) {
     case "passing":
       return passing(l, world, b);
+    case "merging":
+      return merging(l, world, b);
     case "crossing":
       return crossing(l, world, b);
     case "falling":

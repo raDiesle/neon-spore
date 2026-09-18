@@ -22,7 +22,8 @@ export type DragTargetB =
   | "pinTable"
   | "scoutLine"
   | "scoutPrime"
-  | "pulseMeter";
+  | "pulseMeter"
+  | "batonSocket";
 
 /**
  * `fleetBreach`, `fleetRake` and `fleetWreck` are the twenty-seventh, -eighth
@@ -84,4 +85,18 @@ export type DragTargetB =
  * anything back into it (`pulse-hand.ts`). It carries nothing but `on`, for
  * `gaugeBand`'s reason — where on the bar a thumb landed says nothing the
  * round wants.
+ */
+
+/**
+ * `batonSocket` is the thirty-ninth, and the first handle whose **seat is
+ * decided by the beat**. THE BATON locks the seat that just acted out of the
+ * ship for a beat, and that beat was empty; now it is the only beat in which
+ * that seat may reach the arm. `id` names the socket, and the stage says what
+ * a thumb there means: under `passing` a press on the socket whose shell is
+ * swelling strips it off clean, and only from the locked seat — the other's is
+ * refused with a sound, since both screens draw the arm and the seat can see
+ * what it was refused. Under `merging` it is a thumb on one of the two beads,
+ * player 1's on the upper and player 2's on the one that waited, and only both
+ * at once draw them into one (`baton-hand.ts`). It carries nothing but `on` and
+ * `id`: where on a socket a thumb landed says nothing the fight wants.
  */

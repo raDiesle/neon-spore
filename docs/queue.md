@@ -509,32 +509,17 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE BATON changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-baton-changes-state-more-than-once-and-asks
-- **Files:** `packages/sim/src/baton-bead.ts`, `packages/sim/src/baton-cross.ts`, `packages/sim/src/baton-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-
-It is answered today on the ordinary panel, over 9 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE BATON's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/render/src/baton-bead-draw.ts`, `packages/render/src/baton-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Files:** `packages/render/src/baton-bead-draw.ts`, `packages/render/src/baton-draw.ts`, `packages/render/src/baton-socket-draw.ts`, `packages/render/src/baton-grip.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
 - **Where:** local
 
-2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
-not a picture per state.
+4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state. Two of those states arrived on 18 September 2026 with
+the §6.2 lane and were drawn by a session with no eye: a swelling socket is the
+husk grown half again and shaking, and the two handle rings are the shipped
+ones. Both want the same look pass as the rest of the arm.
 
 The owner, 18 September 2026: a picture is judged by an eye on a real frame,
 which a cloud session does not have — his own machine takes it.

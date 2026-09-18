@@ -12,7 +12,7 @@
  * asked to become.
  */
 
-/** A socket's worth of THE BATON, for the eight events that name one. */
+/** A socket's worth of THE BATON, for the twelve events that name one. */
 interface BatonSocketEvent {
   /** The column the bead is over. */
   col: number;
@@ -41,5 +41,15 @@ export type BatonEvent =
   | ({ type: "batonMissed" } & BatonSocketEvent)
   /** A dead socket let go of its shell, which is now a rock at `col`, `row`. */
   | { type: "batonShed"; col: number; row: number }
+  /** A dead socket's shell began coming away: `batonSwellBeats` to strip it. */
+  | ({ type: "batonSwell" } & BatonSocketEvent)
+  /** The locked-out seat's thumb took a swelling shell off clean. No rock. */
+  | ({ type: "batonStripped" } & BatonSocketEvent)
+  /** A thumb on the arm that was not this seat's to give: refused, and said. */
+  | ({ type: "batonRefused" } & BatonSocketEvent)
+  /** A thumb came down on one of the two beads under `merging`. */
+  | ({ type: "batonHeld"; player: 1 | 2 } & BatonSocketEvent)
+  /** The merge window closed with the pair short of it: the waiting bead is home. */
+  | ({ type: "batonParted" } & BatonSocketEvent)
   /** The maw took the bead. The arm folds away. */
   | { type: "batonDown"; col: number };

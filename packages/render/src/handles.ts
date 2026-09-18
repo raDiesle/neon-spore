@@ -1,11 +1,11 @@
 import { NO_TETHER } from "@neon-spore/sim";
 import { antiphonOrganUnder } from "./antiphon-grip.js";
-import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
-import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
+import { batonSocketUnder } from "./baton-grip.js";
 import { diastoleClampUnder } from "./diastole-clamp.js";
 import { filamentGrabUnder } from "./filament-grip.js";
 import { gaugeGripUnder } from "./gauge-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
+import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
 import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
@@ -43,15 +43,16 @@ import { wardenGripUnder } from "./warden-grip.js";
  * `surge-grip.ts` for the same reason. THE ANTIPHON's organ is the ninth, on
  * the one screen that shows it, in `antiphon-grip.ts`.
  *
- * There are five of them here — THE MAZE's string, THE WARDEN's rope, THE LID's
- * cord, THE CHOIR's two arrows and THE BALLOON's two handles — and that is why
- * they are here rather than in `touch.ts` next door. The last pair is the one
- * that is not the pilot's: a balloon has a handle for each seat, and which side
- * belongs to whom is `balloonHandleSeat`'s (`balloon-handles.ts`). Both answer
- * the same shape of question (is this seat allowed, is this round running, is the
- * press inside the resting circle) and neither is a creature, so the file that
- * owns the decision table for the whole control scheme was carrying two copies
- * of one idea and had reached its length limit doing it.
+ * There are three of them here — THE MAZE's string, THE WARDEN's rope and THE
+ * LID's cord — and that is why they are here rather than in `touch.ts` next
+ * door: each answers the same shape of question (is this seat allowed, is this
+ * round running, is the press inside the resting circle) and none is a
+ * creature, so the file that owns the decision table for the whole control
+ * scheme was carrying three copies of one idea and had reached its length
+ * limit doing it. **The two that come in pairs** — THE CHOIR's arrows and THE
+ * BALLOON's handles — went next door to `handles-pairs.ts` when THE BATON's
+ * socket took this file over the same limit again; nothing about the order
+ * they are asked in moved with them.
  *
  * **Asked before anything else on the field**, because a handle hangs over the
  * field the creatures fall through and a hand on it is not a hand on whatever
@@ -86,76 +87,9 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     mirrorLobeUnder(l, x, y, field) ?? // THE MIRROR's two lobes, its last round and its pin (`mirror-grip.ts`).
     gorgeGripUnder(l, x, y, field) ?? // THE GORGE's pinch and pry, the full intakes and the mouth (`gorge-grip.ts`).
     mazeHeartUnder(l, x, y, field) ?? // THE MAZE's heart under `grip`, the navigator's tear (`maze-grip.ts`).
-    gaugeGripUnder(l, x, y, field) // THE GAUGE's jammed needle and wound band (`gauge-grip.ts`).
+    gaugeGripUnder(l, x, y, field) ?? // THE GAUGE's jammed needle and wound band (`gauge-grip.ts`).
+    batonSocketUnder(l, x, y, field) // THE BATON's swelling socket and its two beads (`baton-grip.ts`).
   );
-}
-
-/**
- * THE BALLOON's handles, and the first on this field that are **not** the
- * pilot's — one each. Which side belongs to which seat is
- * `balloonHandleSeat`'s and is asked here rather than decided here, so the
- * circle a finger is answered at and the circle the picture draws are one
- * fact (`balloon-handles.ts`).
- *
- * The nearest wins when two overlap, which is `lidCordUnder`'s rule and
- * `creatureAt`'s before it: a thumb covers more than a handle, and the body a
- * player meant is the one they put their thumb closest to. It matters more
- * here than it ever has — a wave puts several of these up at once on purpose,
- * and grabbing the wrong one is grabbing a body the other seat is not on.
- */
-function balloonHandleUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const side = field.seat === 1 ? -1 : 1;
-  if (balloonHandleSeat(side) !== field.seat) return null;
-  let best: number | null = null;
-  let bestDist = Number.POSITIVE_INFINITY;
-  for (const c of field.creatures) {
-    if (c.kind !== "balloon") continue;
-    const circle = balloonHandleCircle(l, field.cfg, c, field.beat, field.beatPhase, side);
-    if (!hitCircle(circle, x, y)) continue;
-    const d = Math.hypot(x - circle.x, y - circle.y);
-    if (d >= bestDist) continue;
-    best = c.id;
-    bestDist = d;
-  }
-  if (best === null) return null;
-  const target = side === -1 ? "balloonLeft" : "balloonRight";
-  return {
-    player: field.seat,
-    command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0, id: best },
-    hold: { kind: "drag", target, player: field.seat, originX: x, originY: y, id: best },
-  };
-}
-
-/**
- * THE CHOIR's two arrows, and only the pilot's for the fourth time and the
- * same reason: player 2 is the seat that fires and carries both colours, so a
- * membrane either of them could open would be a creature one phone could play.
- *
- * The **last** handle asked, and the ordering is deliberate. These two sit
- * against the walls of the field, where nothing else in the game is drawn and
- * where a body could still be falling behind one — so a thumb that finds an
- * arrow was reaching for an arrow, and a thumb that misses one falls through
- * to whatever is behind it exactly as it would if no membrane were up.
- *
- * Their resting circle *is* their grab circle: an arrow does not travel, it is
- * a switch a hand throws, and the whole gesture is how far the hand has come
- * from where it took hold (`choirArrowHeard`).
- *
- * `showsChoirArrows` is the one gate, shared with the drawing, so an arrow
- * can never be answered where none was drawn.
- */
-function choirArrowUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  if (field.seat !== 1 || !showsChoirArrows(l, field.creatures)) return null;
-  for (const side of [-1, 1] as const) {
-    if (!hitCircle(choirArrowCircle(l, side), x, y)) continue;
-    const target = side === -1 ? "choirLeft" : "choirRight";
-    return {
-      player: 1,
-      command: { kind: "drag", target, on: true, fromMilli: 0, fromYMilli: 0 },
-      hold: { kind: "drag", target, player: 1, originX: x, originY: y },
-    };
-  }
-  return null;
 }
 
 /**

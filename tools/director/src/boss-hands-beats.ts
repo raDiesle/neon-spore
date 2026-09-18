@@ -4,6 +4,8 @@ import {
   batonBeadCol,
   batonBoss,
   batonLaunchable,
+  batonMayStrip,
+  batonMergeSocket,
   batonSocketCol,
   type Color,
   diastoleBoss,
@@ -116,10 +118,34 @@ export const diastoleSpasmHand: Hand = (w) => {
  * because the pair has none, and plays the regrown arm through to the
  * crossing the column is clear for. Falling, the maw under the pod
  * (`batonBeadTaken`).
+ *
+ * It also plays the arm's own two thumbs (`sim/baton-hand.ts`): whichever seat
+ * the beat locked out strips the shell that is coming away, and under
+ * `merging` both thumbs go down on their own bead, which is the only way past
+ * that stage. `batonDrawHand` below is the same hand with one thumb kept off,
+ * so the state can be posed instead of walked through.
  */
-export const batonHand: Hand = (w) => {
+export const batonHand: Hand = (w) => draws(w, [1, 2]);
+
+/** The same, with only the pilot's thumb on his bead: `merging` holds open. */
+export const batonDrawHand: Hand = (w) => draws(w, [1]);
+
+function draws(w: World, seats: readonly (1 | 2)[]): Press[] {
   const b = batonBoss(w);
   if (b === null || b.stage === "unfolding" || b.stage === "down") return [];
+  if (b.stage === "merging") {
+    return seats.map((player) => ({
+      player,
+      command: {
+        kind: "drag" as const,
+        target: "batonSocket" as const,
+        on: true,
+        fromMilli: 0,
+        fromYMilli: 0,
+        id: batonMergeSocket(w.cfg, player),
+      },
+    }));
+  }
   if (b.stage === "falling") {
     const pod = w.pods.find((p) => p.id === b.podId);
     if (pod === undefined) return [];
@@ -133,12 +159,34 @@ export const batonHand: Hand = (w) => {
     if (b.acts % 2 === 1) return shot(w, b, bead);
     return [aim(batonSocketCol(b, bead.socket)), trigger()];
   }
+  const out: Press[] = strip(w, b);
   const flying = b.beads.find((bead) => bead.flying && !bead.struck);
-  if (flying !== undefined) return shot(w, b, flying);
+  if (flying !== undefined) return [...out, ...shot(w, b, flying)];
   const next = batonLaunchable(w.cfg, b);
-  if (next === null) return [];
-  return [aim(batonSocketCol(b, next.socket)), trigger()];
-};
+  if (next === null) return out;
+  return [...out, aim(batonSocketCol(b, next.socket)), trigger()];
+}
+
+/** The shell coming away, taken by whichever seat the beat locked out. */
+function strip(w: World, b: BatonState): Press[] {
+  for (const player of [1, 2] as const) {
+    if (!batonMayStrip(b, player, w.beat)) continue;
+    return [
+      {
+        player,
+        command: {
+          kind: "drag",
+          target: "batonSocket",
+          on: true,
+          fromMilli: 0,
+          fromYMilli: 0,
+          id: b.swellSocket,
+        },
+      },
+    ];
+  }
+  return [];
+}
 
 /** The cannon under a bead in flight, and the bolt in its colour once it is. */
 function shot(w: World, b: BatonState, bead: BatonBead): Press[] {

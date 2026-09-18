@@ -2564,22 +2564,67 @@ piece of arm the bead has left is the one piece still drawn as arm. Nothing
 in the rules changes with it: the crossing runs as it did, and the thread is
 only what the arm looks like once the pair have taken all of it but one.
 
+**The arm under a thumb** — the standing §6.2 brief, as of 18 September 2026
+(`.claude/skills/new-boss`). Everything above is the trigger and the shot, one
+seat a beat, and the beat the lock takes the ship off a seat was a beat with
+nothing in it. Two states now put something there, both on the arm itself and
+neither on the panel (`sim/baton-hand.ts`, the `batonSocket` target, `id` the
+socket).
+
+*The strip.* A dead socket no longer lets go all at once: it **swells** for
+`batonSwellBeats` (3) first (`BATON_SOCKET_SWELL`), and only then drops its
+shell down the column as the rock it always dropped. Inside that window a press
+takes the shell off clean and nothing falls — and the press has to be **the
+locked seat's**. Which seat that is, is the metronome's own answer, so the ring
+and the word stand on the phone of whoever just acted and cross to the other
+when the turn does; on a beat neither of them acted in, nobody is locked and
+nobody may strip. The other seat's press is refused with a sound rather than
+dropped in silence, because both screens draw the arm and the seat can see what
+it was refused (THE INSTAR's rule). The window is **carved out of**
+`batonShedBeats` and not added to it: the next swell begins
+`batonShedBeats - batonSwellBeats` after the last shell left, so a pair who
+never reach for the arm meet the same rocks on the same counts they always did.
+
+*The draw.* Two beads at rest in the last two sockets no longer become one by
+arriving: the arm enters a stage of its own, `merging`, and the pair has
+`batonMergeWindowBeats` (6) to draw them together with a thumb each — player 1
+on the upper bead, player 2 on the one that waited, by geometry and never by
+colour. The count runs only while **both** are down and goes back to nought the
+moment either lifts (`batonMergeBeats`, 2): THE INSTAR's *together means
+together*, arriving in the one fight whose whole content is that the two of
+them may never act on the same beat. The window closing short shakes the bead
+that waited back to the top socket (`batonParted`) and the dark sockets stay
+dark, so what a failed draw costs is one bead's run and not the arm. It is put
+exactly where the design hangs the arm by a thread (step 12), and it is the one
+beat of this fight the pair may act on together.
+
+Neither gesture is swallowed by the lock it depends on: a `drag` at
+`batonSocket` is not a verb reaching the ship, and `batonLocks` says so by name
+— without that the only seat allowed to strip would be the one every verb is
+being taken off.
+
 **What is not built**: the fold at step 14 still fades the whole picture
 rather than parting the eleven segments the design describes, and no sound
 marks the beat the arm comes down to one. The base is fixed to the middle
 column rather than authored, for THE VANE's reason.
 
-**What it draws** (`render/src/baton-draw.ts`, `render/src/baton-bead-draw.ts`,
-`render/src/band-lock.ts`): the arm as a rock spine from above row 0 down the
-socket rows, one socket shown per beat while it unfolds; a lit socket as a
-dark disc under a hull-coloured glow that breathes with the beat, a dark one
-as bare rock, a shed one as a gap in the spine; the bead in its colour,
+**What it draws** (`render/src/baton-draw.ts`,
+`render/src/baton-socket-draw.ts`, `render/src/baton-bead-draw.ts`,
+`render/src/baton-grip.ts`, `render/src/band-lock.ts`): the arm as a rock spine
+from above row 0 down the socket rows, one socket shown per beat while it
+unfolds; a lit socket as a dark disc under a hull-coloured glow that breathes
+with the beat, a dark one as bare rock, a **swelling** one as that husk grown
+half again over `batonSwellBeats` and shaking harder the nearer it is to
+letting go, a shed one as a gap in the spine; the bead in its colour,
 sitting in its socket or on its way to the next one along a sideways arc that
 swaps side each handover, and a wider halo with a ring round it once the bolt
 has met it; the swung arm's sockets above the bead in the column it left; the
 fold as the whole picture going out over `batonDownBeats`; the arm above
 the last socket as a thread with husks on it once one socket is all that is
-lit (`threadBeat`); and the locked
+lit (`threadBeat`); the handle rings — one on the swelling socket, on the
+screen of whichever seat the beat has locked out, and one on each of the two
+beads under `merging`, one per screen, each with the window running out round
+it as a dial (`baton-grip.ts`); and the locked
 seat's grey — over the whole band on a solo phone, over that seat's strip and
 lobes on the test screen — for as long as `batonLocked` says so. Both screens
 see the bead's colour, because both players need it: one to read what to
@@ -2597,7 +2642,7 @@ beyond the bead's colour flipping, the miss beyond the bead sitting at the
 top again and the arm relit, and anything from the list above.
 
 **What the field says** (`render/src/boss-cue-read-i.ts`, 18 September 2026,
-`docs/decisions.md` #34). Five words across three of the four stages, and the
+`docs/decisions.md` #34). Seven words across four of the five stages, and the
 reading is a switch on the stage because every stage of this fight is a
 different pair of thumbs. While the arm is **passing**: `PRESS` / `LAUNCH` on a
 bead sitting in its socket and `CARRY` / `MOVE` on the cannon, both the
@@ -2616,9 +2661,17 @@ bead is a loose pod and the last two hands are his: `MOVE` until he is under
 it, then `PRESS` / `OPEN` on the pod for as long as he is — never at the moment
 it arrives, because that moment is the one clock this game leaves in a thumb.
 
-No word says a colour, and the shed shell is never marked: a dark socket falls
-down the arm's column as an ordinary rock, warded by the two hands every wave
-before this one taught. The film came down to four pages with the same lane
+Under **merging** each screen carries `HOLD` on its own bead, and it goes from
+a screen whose thumb is already down; neither says whether the other's is,
+which is the sentence the state exists to make them say. And while a shell is
+coming away, `PRESS` / `STRIP` stands on the swelling socket, on the screen of
+whichever seat the beat has locked out — last, because it is the least urgent
+thing either of them is being asked for.
+
+No word says a colour, and the shell is never marked once it has *fallen*: it
+is an ordinary rock down the arm's column then, warded by the two hands every
+wave before this one taught. The socket it is coming off, before it falls, is a
+different thing — a handle, on one screen, for one beat at a time. The film came down to four pages with the same lane
 (`content/src/scenes/the-baton.ts`) — the alternation, and what each seat's own
 turn costs it, which is what no mark on the field may say.
 
@@ -2630,7 +2683,14 @@ wrong one relights, the arm settles, swings and sheds on the counts the
 numbers say, the crossing owes an act a beat in turn and a beat without one
 sends the bead back up a relit arm, the last drop is a pod the maw takes, and
 the same run
-fingerprints the same way twice (`sim/test/baton.test.ts`).
+fingerprints the same way twice (`sim/test/baton.test.ts`); and, for the two
+thumbs on the arm, that a shell swells before it drops and the rock is the same
+count away, that the strip is the locked seat's and the other's press is
+refused out loud, that the lock the strip depends on does not swallow it, that
+one thumb on a bead never counts however long it is held, that both merge and
+either lifting puts the count back to nought, and that the window closing short
+shakes the bead that waited home and leaves every dark socket dark
+(`sim/test/baton-hand.test.ts`).
 
 ## 11.19 THE THROAT — the boss you answer by feeding it
 

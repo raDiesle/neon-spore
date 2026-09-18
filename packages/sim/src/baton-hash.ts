@@ -46,6 +46,13 @@ export function batonHashParts(b: BatonState): number[] {
     b.lockUntil[1],
     b.podId,
     b.shedBeat,
+    // The swell and the thumbs on it: which socket is coming away decides
+    // where one seat's only reachable thing on the arm is, and a device that
+    // disagreed about the count of a hold would merge the beads on its own.
+    b.swellSocket,
+    b.swellBeat,
+    b.mergeThumbs,
+    b.mergeHeld,
     b.threadBeat,
   );
   return out;

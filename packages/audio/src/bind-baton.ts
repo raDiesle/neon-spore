@@ -2,9 +2,10 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE BATON's eleven, in a file of their own because `bind.ts` is at its
+ * THE BATON's sixteen, in a file of their own because `bind.ts` is at its
  * limit — and along the seam the fight itself has: every one of these is a
- * handover, or a handover missed, and the bead is always in a column.
+ * handover, or a handover missed, or the arm giving way under a thumb, and the
+ * bead is always in a column.
  *
  * All of them are panned, which is the opposite of THE STARE's decision and
  * for the opposite reason: the bead *is* somewhere, and once the arm swings
@@ -26,6 +27,11 @@ export function batonCue(
         | "batonAct"
         | "batonMissed"
         | "batonShed"
+        | "batonSwell"
+        | "batonStripped"
+        | "batonRefused"
+        | "batonHeld"
+        | "batonParted"
         | "batonDown";
     }
   >,
@@ -58,6 +64,16 @@ export function batonCue(
       return { id: "boss.batonMissed", pan };
     case "batonShed":
       return { id: "boss.batonShed", pan };
+    case "batonSwell":
+      return { id: "boss.batonSwell", pan };
+    case "batonStripped":
+      return { id: "boss.batonStripped", pan };
+    case "batonRefused":
+      return { id: "boss.batonRefused", pan };
+    case "batonHeld":
+      return { id: "boss.batonHeld", pan };
+    case "batonParted":
+      return { id: "boss.batonParted", pan };
     case "batonDown":
       return { id: "boss.batonDown", pan };
   }

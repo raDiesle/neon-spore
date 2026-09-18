@@ -1,4 +1,10 @@
-import { batonHand, diastoleHand, diastoleSpasmHand, throatHand } from "./boss-hands-beats.js";
+import {
+  batonDrawHand,
+  batonHand,
+  diastoleHand,
+  diastoleSpasmHand,
+  throatHand,
+} from "./boss-hands-beats.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
@@ -40,6 +46,12 @@ export const BEAT_HAND_POSES: Pose[] = [
     "burst",
     "The second chamber burst under the beam: the heart still, both columns clear, and the wave's own creatures coming down through where it hung.",
     { hand: diastoleHand, hold: 6 },
+  ),
+  bossPose(
+    "baton",
+    "merging",
+    "Both beads at rest in the last two sockets and the arm one segment long: the pair owes it a thumb each, and the count runs only while both are down. One ring is filled here and the other is not, which is the whole of what the two of them have to say.",
+    { hand: batonDrawHand, hold: 6, budgetBeats: 110 },
   ),
   bossPose(
     "baton",

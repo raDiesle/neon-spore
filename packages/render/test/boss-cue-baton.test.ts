@@ -1,6 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
+  BATON_SOCKET_SWELL,
   type BatonBead,
   type BatonState,
   batonBoss,
@@ -11,6 +12,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
+import { batonCues } from "../src/boss-cue-read-i.js";
 import { computeLayout, type Layout, tileCX, type ViewRole } from "../src/layout.js";
 import { podCenter } from "../src/pods.js";
 import {
@@ -24,7 +26,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE BATON, and the word each of its four stages says**
+ * **THE BATON, and the word each of its five stages says**
  * (`render/src/boss-cue-read-i.ts`).
  *
  * The arm's own two — `LAUNCH` on a bead in its socket and `FIRE` on one in
@@ -84,6 +86,20 @@ function cue(world: World, role: ViewRole): BossCue | null {
 
 function word(world: World, role: ViewRole): string | null {
   return cue(world, role)?.word ?? null;
+}
+
+/**
+ * Every word this screen is offered this frame, not only the first. `bossCue`
+ * picks one; the reading returns them in order, and a word ranked below
+ * another still has to be the right word on the right screen.
+ */
+function words(world: World, role: ViewRole): string[] {
+  const l = LAYOUT[role];
+  const b = batonBoss(world);
+  if (b === null) return [];
+  return batonCues(l, world, b)
+    .filter((c) => c.seat === (role === "p1" ? 1 : 2))
+    .map((c) => c.word);
 }
 
 /** A column the cannon is not standing in. */
@@ -218,7 +234,7 @@ describe("the drop, which is the fight", () => {
 describe("what the whole fight may say", () => {
   it("is five verbs, and never a colour, a column or a count", () => {
     const seen = new Set<string>();
-    const stages = ["passing", "crossing", "falling"] as const;
+    const stages = ["passing", "merging", "crossing", "falling"] as const;
     for (const stage of stages) {
       for (const acts of [0, 1]) {
         for (const flying of [false, true]) {
@@ -231,6 +247,11 @@ describe("what the whole fight may say", () => {
             world.cannonCol = cannonCol;
             if (flying) fly(world, bead, 3);
             else bead.flying = false;
+            if (stage === "merging") {
+              bead.flying = false;
+              bead.socket = CFG.batonSockets - 1;
+              b.beads = [bead, { ...bead, socket: CFG.batonSockets - 2, color: "cyan" }];
+            }
             if (stage === "falling") {
               b.beads = [];
               b.podId = world.nextId++;
@@ -255,10 +276,46 @@ describe("what the whole fight may say", () => {
     }
     expect([...seen].sort()).toEqual([
       "CARRY·MOVE·1",
+      "HOLD·HOLD·1",
+      "HOLD·HOLD·2",
       "PRESS·FIRE·2",
       "PRESS·LAUNCH·1",
       "PRESS·OPEN·1",
       "PRESS·SEND·1",
     ]);
+  });
+
+  it("puts STRIP on the seat the beat locked out, and on neither otherwise", () => {
+    const { world, b } = opened();
+    only(b).flying = false;
+    b.sockets[1] = BATON_SOCKET_SWELL;
+    b.swellSocket = 1;
+    b.swellBeat = world.beat;
+    // Nobody locked: nobody may reach the arm, so nobody is asked.
+    expect(words(world, "p2")).not.toContain("STRIP");
+    b.lockUntil = [-1, world.beat];
+    expect(words(world, "p2")).toContain("STRIP");
+    expect(words(world, "p1")).not.toContain("STRIP");
+  });
+
+  it("gives each seat HOLD on its own bead while the two are drawn together", () => {
+    const { world, b } = opened();
+    const bead = only(b);
+    bead.flying = false;
+    bead.socket = CFG.batonSockets - 1;
+    b.beads = [bead, { ...bead, socket: CFG.batonSockets - 2, color: "cyan" }];
+    b.stage = "merging";
+    b.stageBeat = world.beat;
+    expect(word(world, "p1")).toBe("HOLD");
+    expect(word(world, "p2")).toBe("HOLD");
+    // The pilot's is a socket above the navigator's: geometry says whose bead
+    // is whose, never colour (`sim/baton-hand.ts`).
+    const his = cue(world, "p1");
+    const hers = cue(world, "p2");
+    expect(his?.y ?? 0).toBeLessThan(hers?.y ?? 0);
+    // A thumb already down asks for nothing more.
+    b.mergeThumbs = 1;
+    expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p2")).toBe("HOLD");
   });
 });

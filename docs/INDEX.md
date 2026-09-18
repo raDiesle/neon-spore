@@ -470,9 +470,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/balloon-entry.ts` | **WHERE A BALLOON COMES IN**, which the owner rewrote on 14 September 2026 |
 | `packages/sim/src/balloon.ts` | THE BALLOON: the first body in this game that does not come down |
 | `packages/sim/src/baton-hash.ts` | What THE BATON puts into `hashWorld`, and nothing else |
+| `packages/sim/src/baton-hand.ts` | **THE BATON's two thumbs on its own arm** |
 | `packages/sim/src/baton-press.ts` | THE BATON's presses: the launch, the strike, the take and the lock |
 | `packages/sim/src/baton-pair.ts` | THE BATON's second bead: its lighting and the merge that ends it |
-| `packages/sim/src/baton-step.ts` | THE BATON's clock: the unfold, the landing, the settle, the shed and the fold |
+| `packages/sim/src/baton-step.ts` | THE BATON's clock: the unfold, the landing, the settle and the fold |
+| `packages/sim/src/baton-shed.ts` | **THE BATON's arm giving way** — the swell, the shell that drops and the rock it becomes |
 | `packages/sim/src/baton-bead.ts` | Where a bead of THE BATON is on a tick |
 | `packages/sim/src/baton-cross.ts` | THE BATON's crossing: the merged bead's last flight |
 | `packages/sim/src/baton.ts` | THE BATON: whose turn is it |
@@ -886,6 +888,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gland-tube.ts` | A TUBE AND A CURVE — the two pieces of vector arithmetic every grown thing on VERSUS is drawn out of |
 | `packages/render/src/gland-wet.ts` | WET SKIN — the ship as a clear, light-reflecting surface, with **no grain** |
 | `packages/render/src/handles.ts` | The handles: the things drawn **on the field** that a hand takes hold of and carries, as opposed to the |
+| `packages/render/src/handles-pairs.ts` | **The two handles that come in pairs** — THE CHOIR's arrows against the two walls |
 | `packages/render/src/hex.ts` | Two `#rrggbb` colours mixed, as a `#rrggbb` colour |
 | `packages/render/src/hull-frame.ts` | The hull's shape for one frame — split out of `hull.ts` so the geometry model (this file) and the drawing |
 | `packages/render/src/key-light.ts` | THE KEY LIGHT, ON A CANVAS |
@@ -1456,6 +1459,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/balloon-burst.ts` | **THE BALLOON popping**: the skin the pair stretched, torn into shreds that fly outward and fade in the air |
 | `packages/render/src/baton-draw.ts` | THE BATON, drawn: an arm of sockets hanging down the middle column |
 | `packages/render/src/baton-bead-draw.ts` | THE BATON's bead — and its second, and the one the two become |
+| `packages/render/src/baton-grip.ts` | **THE BATON's own arm as a control**: the shell a thumb strips off a swelling socket |
+| `packages/render/src/baton-socket-draw.ts` | **One socket of THE BATON's arm**, drawn |
 | `packages/render/src/pulse-wash.ts` | **The whole ship lit, by the one body that got past.** A body answered too late is not answered |
 | `packages/render/src/pinball-blast.ts` | PINBALL's two loud moments: a ball that hit the ship, and a target taken |
 | `packages/render/src/pinball-button.ts` | PINBALL's two presses, as faces on the band's own lobes |
@@ -1571,7 +1576,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
 | `packages/audio/src/bind-beatbox.ts` | THE BEATBOX's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
 | `packages/audio/src/bind-balloon.ts` | THE BALLOON's three, in a file of its own — `bind-choir.ts` is the pattern and this is the fourth of them |
-| `packages/audio/src/bind-baton.ts` | THE BATON's seven, in a file of their own because `bind.ts` is at its limit |
+| `packages/audio/src/bind-baton.ts` | THE BATON's sixteen, in a file of their own because `bind.ts` is at its limit |
 | `packages/audio/src/bind-gum.ts` | THE GUM's one, in a file of its own on `bind-balloon.ts`'s pattern |
 | `packages/audio/src/bind-gorge.ts` | THE GORGE's nine, in a file of their own for `bind-candle.ts`' reason |
 | `packages/audio/src/bind-mirror.ts` | THE MIRROR's four and THE MAZE's four |
@@ -2209,6 +2214,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/entry-fields-mine.ts` | **THE MINE's two per-arrival facts**, and the first pair in this game that are not about how a body moves or… |
 | `tools/director/src/entry-fields-moult.ts` | **THE MOULT's one per-arrival fact**: what it is carrying for the beats it is wearing its cargo rather than… |
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
+| `tools/director/src/field-controls-baton.ts` | THE BATON's two thumbs on its own arm, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |

@@ -1,15 +1,9 @@
-import { blobPoints, type Point } from "@neon-spore/content";
-import {
-  BATON_SOCKET_DARK,
-  BATON_SOCKET_LIT,
-  type BatonState,
-  batonSocketCol,
-  batonSocketRow,
-  type SimConfig,
-} from "@neon-spore/sim";
+import type { Point } from "@neon-spore/content";
+import { type BatonState, batonSocketRow, type SimConfig } from "@neon-spore/sim";
 import { drawBead } from "./baton-bead-draw.js";
+import { drawSocket, socketX } from "./baton-socket-draw.js";
 import { strokeGlow } from "./glow.js";
-import { type Layout, tileCX, tileCY } from "./layout.js";
+import { type Layout, tileCY } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { splinePath } from "./spline.js";
 
@@ -52,17 +46,11 @@ import { splinePath } from "./spline.js";
 /** The arm's spine is this share of a tile wide. */
 const SPINE = 0.16;
 
-/** A socket's ring, as a share of a tile. */
-const SOCKET_R = 0.3;
-
 /** How far above row 0 the arm's root hangs, in tiles. */
 const ROOT = 0.6;
 
 /** How much of the spine's width the thread keeps, at the end of its thinning. */
 const THREAD_WIDTH = 0.18;
-
-/** How much of a dead socket's ring a husk on the thread keeps. */
-const HUSK = 0.5;
 
 /**
  * How far along its thinning the thread is, 0 to 1 — and 0 for as long as
@@ -103,21 +91,12 @@ export function drawBaton(
   for (let i = 0; i < b.sockets.length; i++) {
     const grow = Math.max(0, Math.min(1, shown - i));
     if (grow <= 0) break;
-    drawSocket(ctx, l, cfg, b, i, grow, thread, beatPhase, time);
+    drawSocket(ctx, l, cfg, b, i, grow, thread, beat, beatPhase, time);
   }
   // The crossing is the last flight, and the bead is the whole of it.
   if (b.stage === "passing" || b.stage === "crossing")
     for (const bead of b.beads) drawBead(ctx, l, cfg, b, bead, tick, beatPhase, time);
   ctx.restore();
-}
-
-/**
- * The column a socket hangs in: the one the lead bead left from above it,
- * the one it lands in below. The arm bends at the bead furthest down it —
- * the second bead, higher up, rides the arm wherever the first has taken it.
- */
-function socketX(l: Layout, b: BatonState, socket: number): number {
-  return tileCX(l, batonSocketCol(b, socket));
 }
 
 /**
@@ -172,47 +151,4 @@ function drawSpine(
   }
   ctx.restore();
   strokeGlow(ctx, upper, PALETTE.rock, STROKE.inner, 0.3);
-}
-
-/**
- * One socket: a violet ring while the bead has yet to pass it, a dark husk
- * once it has, and a gap where the shell has already fallen off the arm. The
- * lit ones breathe on the beat, all together, which is the metronome the
- * fight is — the pair keeps time off the arm without counting. On the
- * thread a dark one shrivels to a husk, half its ring and fainter.
- */
-function drawSocket(
-  ctx: CanvasRenderingContext2D,
-  l: Layout,
-  cfg: SimConfig,
-  b: BatonState,
-  socket: number,
-  grow: number,
-  thread: number,
-  beatPhase: number,
-  time: number,
-): void {
-  const state = b.sockets[socket];
-  if (state !== BATON_SOCKET_LIT && state !== BATON_SOCKET_DARK) return;
-  const x = socketX(l, b, socket);
-  const y = tileCY(l, batonSocketRow(cfg, socket));
-  const lit = state === BATON_SOCKET_LIT;
-  const breath = lit ? (1 - beatPhase) * (1 - beatPhase) : 0;
-  const husk = lit ? 0 : thread;
-  const r = l.tile * SOCKET_R * grow * (1 + 0.08 * breath) * (1 - (1 - HUSK) * husk);
-  const ring = splinePath(
-    blobPoints(x, y, r, r * 0.92, 4, 0.06, 0.03, time * 0.5, socket + 3, 20),
-    true,
-  );
-  ctx.save();
-  ctx.fillStyle = lit ? "#1A0B2A" : PALETTE.rockDark;
-  ctx.fill(ring);
-  ctx.restore();
-  strokeGlow(
-    ctx,
-    ring,
-    lit ? PALETTE.hull : PALETTE.rock,
-    STROKE.outline,
-    lit ? 0.45 + 0.4 * breath : 0.25 * (1 - 0.5 * husk),
-  );
 }

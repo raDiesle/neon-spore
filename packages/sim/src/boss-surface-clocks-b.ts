@@ -12,6 +12,11 @@
  * outside `packages/sim` imports — every one of THE ANTIPHON's is read by a
  * screen, because its whole split is what one seat is shown and the other
  * is not (`antiphon.ts`).
+ *
+ * **THE BATON's five arm-hand names are here too**, out of order, for the
+ * reason `bosses-clocks-b.ts` carries the same five: they arrived on 18
+ * September 2026 with the §6.2 lane and page one was exactly at its limit.
+ * The rest of the arm's names are still there.
  */
 
 // Every boss's phase table in one place, for the director's STATES sheet
@@ -20,6 +25,9 @@ export { BOSS_PHASES } from "./boss-phases.js";
 // THE HIVE's entry, which authors nothing, and THE INSTAR's, which authors
 // its script: both travel out of `boss-entries.ts` through `bosses.ts`.
 export type { HiveEntry, InstarEntry } from "./bosses.js";
+// THE BATON's arm as a control: which socket is coming away, whose thumb may
+// take it, and whose bead is whose while the two are drawn together — all four
+// read by `render/baton-grip.ts` and the cue beside it (`baton-hand.ts`).
 export {
   ANTIPHON_SHIP,
   type AntiphonCandidate,
@@ -41,6 +49,11 @@ export {
   antiphonTurnMilli,
   antiphonTwins,
   antiphonWindow,
+  BATON_SOCKET_SWELL,
+  batonDrawing,
+  batonMayStrip,
+  batonMergeSocket,
+  batonSwelling,
   // THE STARE's lid (18 September 2026): three questions the first page had
   // no room for. The lid's own picture reads them the way the eye's reads
   // `stareLooking`, and the director's STATES sheet reads them too.

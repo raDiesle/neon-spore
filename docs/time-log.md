@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — queue-the-baton — the arm's two thumbs
+
+The §6.2 lane for THE BATON, and the one boss on the list where the brief's
+*a gesture reached on the picture* had an obvious owner: the beat the lock
+takes the ship off a seat was a beat with nothing in it. So the strip belongs
+to whoever is locked — the handle whose seat the beat decides, which nothing
+else in the game does — and the draw is the opposite, the one beat of this
+fight the pair may act on together, put where the design already hangs the arm
+by a thread.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 45 | the entry and §6.2, the nine baton files, `instar.ts` as the shape, `drag-targets.ts`, `queen-hand.ts` and `diastole-clamp.ts` as the pattern, the DIASTOLE and PULSE lanes' file sets, `on-field-controls.test.ts` |
+| writing | 80 | the hand and the shed page, the merging stage, the config, the hash, five events with their sounds, the wire, the ring, two cue arms, the director's two hands and the pose, 13 sim receipts and 8 render ones, the spec |
+| looking | 0 | none: a cloud session has no eye, and the picture half is queued |
+| friction | 25 | three file splits forced mid-lane by the 250-line limit (`baton.ts`, `baton-step.ts`, `baton-draw.ts`); a swell cancelled under a settled bead, written and then taken out again; a test wave failed by an unwarded shed rock, which cost a second helper |
+| landing | 20 | `lint`, `imports:sort`, `check:fast`, the commit, `bun run land` |
+
+**The bottleneck was writing, and most of it was not the mechanic.** The two
+gestures are about sixty lines of simulation; the rest of the eighty minutes
+was the boilerplate a new `DragTarget` costs — the wire list, the codec
+example, both silent lists, the director's control row, the spec table, the
+sound link — which is the same tax every §6.2 lane on this list will pay
+again.
+
 ## 2026-09-18 — boss-hints — BULB QUEEN says four words
 
 The first of the per-boss cue lanes, and the hardest of them to get right: her

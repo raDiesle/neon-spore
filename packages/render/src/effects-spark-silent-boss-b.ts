@@ -71,4 +71,11 @@ export const SILENT_BOSS_B = [
   "pulseBrace",
   "pulseSlip",
   "pulseArrest",
+  // THE BATON's arm under a thumb: no burst, for the same reason its eleven
+  // next door throw none — the arm is read off the boss every frame.
+  "batonSwell",
+  "batonStripped",
+  "batonRefused",
+  "batonHeld",
+  "batonParted",
 ] as const satisfies readonly SimEvent["type"][];

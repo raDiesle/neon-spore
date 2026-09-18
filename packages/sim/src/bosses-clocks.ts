@@ -20,20 +20,20 @@ export {
   BATON_SOCKET_DARK,
   BATON_SOCKET_LIT,
   BATON_SOCKET_SHED,
+  BATON_SOCKET_SWELL,
   BATON_STAGES,
   type BatonBead,
   type BatonStage,
   type BatonState,
   batonBaseCol,
   batonDark,
-  batonLaunchable,
   batonLead,
   batonLocked,
   batonOneSegment,
   batonSocketRow,
-  batonWaiting,
 } from "./baton.js";
-export { batonBeadCol, batonBeadRowMilli, batonLandTick, batonSocketCol } from "./baton-bead.js";
+// biome-ignore format: one line, so a reading added to the arm does not cost this page a row
+export { batonBeadCol, batonBeadRowMilli, batonLandTick, batonLaunchable, batonSocketCol, batonWaiting } from "./baton-bead.js";
 export { batonActor } from "./baton-cross.js";
 export { batonBoss } from "./baton-step.js";
 // From THE SCUTTLE on, the second page (`bosses-clocks-b.ts`).

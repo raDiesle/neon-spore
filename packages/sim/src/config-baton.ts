@@ -64,6 +64,30 @@ export interface BatonConfig {
   /** Beats between one shed socket and the next. */
   batonShedBeats: number;
   /**
+   * Beats a dead socket's shell swells on the arm before it drops — and the
+   * window the seat the beat has locked out has to strip it off clean
+   * (`baton-hand.ts`).
+   *
+   * **Carved out of `batonShedBeats` and not added to it**: the next swell
+   * begins `batonShedBeats - batonSwellBeats` after the last shell left, so a
+   * pair who never touches the arm meets exactly the rocks it met before, on
+   * the same count. Three, which is one flight — long enough that the seat who
+   * just acted can see it come up and reach it before their turn comes round.
+   */
+  batonSwellBeats: number;
+  /**
+   * Beats both thumbs have to be on the two beads together before they become
+   * one (`merging`). Two: long enough that it is a thing said and answered,
+   * short enough that it is not a hold through a rock.
+   */
+  batonMergeBeats: number;
+  /**
+   * Beats the pair has to find that hold before the bead that waited is shaken
+   * back to the top socket — the same price a bead that sat too long pays
+   * anywhere else on the arm (`settle`). Six: two goes at it.
+   */
+  batonMergeWindowBeats: number;
+  /**
    * Dark sockets before the second bead lights in the top socket, wearing
    * the other colour (the design's step 9). Three: before the swing and the
    * shed, so the pair meets the second colour on a still arm and the arm
@@ -108,6 +132,9 @@ export const BATON_DEFAULTS: BatonConfig = {
   batonSwingAfter: 4,
   batonShedAfter: 6,
   batonShedBeats: 8,
+  batonSwellBeats: 3,
+  batonMergeBeats: 2,
+  batonMergeWindowBeats: 6,
   batonTwinAfter: 3,
   batonFinalBeats: 11,
   batonDownBeats: 4,

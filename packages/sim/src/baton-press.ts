@@ -4,11 +4,10 @@ import {
   type BatonState,
   batonBaseCol,
   batonDark,
-  batonLaunchable,
   batonLead,
   batonLocked,
 } from "./baton.js";
-import { batonBeadCol, batonBeadRowMilli, batonSocketCol } from "./baton-bead.js";
+import { batonBeadCol, batonBeadRowMilli, batonLaunchable, batonSocketCol } from "./baton-bead.js";
 import { batonAct, batonActor, batonCrossLaunch, batonCrossStruck } from "./baton-cross.js";
 import { batonBoss } from "./baton-step.js";
 import { clampCol } from "./config-derived.js";
@@ -187,5 +186,10 @@ export function batonLocks(world: World, timed: TimedCommand): boolean {
   const b = batonBoss(world);
   if (b === null || b.stage === "unfolding" || b.stage === "down") return false;
   if (!batonLocked(b, timed.player, world.beat)) return false;
+  // **The arm is not the ship.** A thumb on a swelling socket is the one thing
+  // the locked seat is *for* — the lock is what says which of them may strip
+  // it — so a rule that swallowed it would take the gesture away from the only
+  // seat allowed to make it (`baton-hand.ts`).
+  if (timed.command.kind === "drag" && timed.command.target === "batonSocket") return false;
   return reachesShip(timed.command);
 }

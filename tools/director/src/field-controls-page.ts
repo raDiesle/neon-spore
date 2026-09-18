@@ -1,6 +1,7 @@
 import type { FieldControlDef } from "./field-control-def.js";
 import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
+import { BATON_CONTROLS } from "./field-controls-baton.js";
 import { DIASTOLE_CONTROLS } from "./field-controls-diastole.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
@@ -222,6 +223,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...STARE_CONTROLS, // THE STARE's lid, the first on a boss that is not its body.
   ...QUEEN_CONTROLS,
   ...DIASTOLE_CONTROLS, // THE DIASTOLE's clamp, the second whose seat is not told.
+  ...BATON_CONTROLS, // THE BATON's arm, the first whose seat the beat decides.
   ...MIRROR_CONTROLS, // THE MIRROR's lobes, two gestures on one target (`field-controls-mirror.ts`).
   ...GORGE_CONTROLS, // THE GORGE's pinch and pry, one target whose seat says the gesture.
   ...MAZE_CONTROLS, // THE MAZE's string and its heart, the brace and the tear (`field-controls-maze.ts`).

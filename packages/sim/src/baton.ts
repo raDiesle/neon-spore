@@ -43,6 +43,12 @@ import type { Color } from "./types.js";
  * trigger — and one beat missed puts the bead back at the top of an arm
  * whose sockets have all grown back (step 13, `baton-cross.ts`).
  *
+ * **Two of its states ask for a thumb on the arm itself** rather than on the
+ * panel (`.claude/skills/new-boss` §6.2, `baton-hand.ts`): a dead socket
+ * swells before it lets go, and the seat the beat has locked out is the one
+ * who may strip it off clean; and the two beads are drawn into one under a
+ * thumb each, the one beat of this fight that asks for both at once.
+ *
  * The clock, the launch and the landing are `baton-step.ts`, the fingerprint
  * is `baton-hash.ts`, the numbers are `config-baton.ts`, and where a bead is
  * on a tick is `baton-bead.ts`. This file is the shape and the questions
@@ -59,23 +65,36 @@ import type { Color } from "./types.js";
  * - `passing` — beads are being passed down the arm: each is sitting in a
  *   socket, where player 1 may launch it, or in the air between two, where
  *   player 2 may strike it (`BatonBead.flying`).
+ * - `merging` — both beads are at rest in the last two sockets and the pair
+ *   is drawing them together, a thumb each, the one beat of this fight that
+ *   asks for both at once (`baton-hand.ts`).
  * - `crossing` — the merged bead is on its last flight, out of the last
  *   socket, and the pair owe it an act a beat (`BatonState.acts`).
  * - `falling` — the bead has dropped out of the last socket as a loose pod.
  * - `down` — the pod was taken. The arm folds away and the boss is spent.
  */
-export const BATON_STAGES = ["unfolding", "passing", "crossing", "falling", "down"] as const;
+export const BATON_STAGES = [
+  "unfolding",
+  "passing",
+  "merging",
+  "crossing",
+  "falling",
+  "down",
+] as const;
 
 /** Where the fight is. */
 export type BatonStage = (typeof BATON_STAGES)[number];
 
 /**
- * What a socket is. `lit` has not been passed yet, `dark` has, and `shed` is
- * a dark socket whose shell has already fallen off the arm (`batonShed`).
+ * What a socket is. `lit` has not been passed yet, `dark` has, `swell` is a
+ * dark one whose shell is coming away and has not let go yet, and `shed` is
+ * one whose shell is gone — dropped down the arm as a rock (`batonShed`) or
+ * taken off clean by a thumb (`baton-hand.ts`).
  */
 export const BATON_SOCKET_LIT = 0;
 export const BATON_SOCKET_DARK = 1;
 export const BATON_SOCKET_SHED = 2;
+export const BATON_SOCKET_SWELL = 3;
 
 /** One bead on the arm: sitting in a socket, or in the air below it. */
 export interface BatonBead {
@@ -108,8 +127,8 @@ export interface BatonState {
   /** The column the arm hangs in — the lead bead's, and where a shed shell falls. */
   col: number;
   /**
-   * One entry per socket, base first: `BATON_SOCKET_LIT`, `_DARK` or
-   * `_SHED`. The silhouette is the health bar.
+   * One entry per socket, base first: `BATON_SOCKET_LIT`, `_DARK`, `_SWELL`
+   * or `_SHED`. The silhouette is the health bar.
    */
   sockets: number[];
   /** The beads on the arm, in the order they lit: one, then two, then the merged one. */
@@ -144,6 +163,14 @@ export interface BatonState {
   podId: number;
   /** `world.beat` the arm last shed a shell on, -1 before the first. */
   shedBeat: number;
+  /** The socket whose shell is coming away, or -1 while none is (`baton-hand.ts`). */
+  swellSocket: number;
+  /** `world.beat` that swell began on, -1 while there is none. */
+  swellBeat: number;
+  /** Whose thumbs are on the two beads under `merging`: bit 1 player 1's, bit 2 player 2's. */
+  mergeThumbs: number;
+  /** Beats both thumbs have been down together, running. Reset by either letting go. */
+  mergeHeld: number;
   /**
    * `world.beat` the arm came down to one segment on — every socket but the
    * last gone dark or shed, the design's step 12 — and -1 while it is
@@ -199,35 +226,6 @@ export function batonLead(b: BatonState): BatonBead | null {
   let lead: BatonBead | null = null;
   for (const bead of b.beads) if (lead === null || bead.socket > lead.socket) lead = bead;
   return lead;
-}
-
-/**
- * A bead in the last socket with another still on the arm is **waiting**: it
- * cannot be launched, because out of that socket there is only the drop and
- * the drop is the merged bead's; and it does not settle, because the design
- * hangs it there *by a thread* until the other arrives
- * (`docs/spec/bosses-choreographed.md` §10, step 12).
- */
-export function batonWaiting(cfg: SimConfig, b: BatonState, bead: BatonBead): boolean {
-  return b.beads.length > 1 && !bead.flying && bead.socket === cfg.batonSockets - 1;
-}
-
-/**
- * The bead player 1's trigger sends: of the beads sitting and not waiting,
- * the one that has sat longest, and the lower one when two sat down on the
- * same beat. Longest-sitting, so two beads take turns under one trigger —
- * the lead goes, and while it is in the air the trigger's next press is the
- * other's — which is what puts two beads in the air at once for player 2
- * to tell apart. With one bead on the arm it is that bead or nothing.
- */
-export function batonLaunchable(cfg: SimConfig, b: BatonState): BatonBead | null {
-  let pick: BatonBead | null = null;
-  for (const bead of b.beads) {
-    if (bead.flying || batonWaiting(cfg, b, bead)) continue;
-    if (pick === null || bead.satBeat < pick.satBeat) pick = bead;
-    else if (bead.satBeat === pick.satBeat && bead.socket > pick.socket) pick = bead;
-  }
-  return pick;
 }
 
 /** The other colour. A bead struck lands wearing the colour it was not. */

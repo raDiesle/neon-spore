@@ -9,6 +9,12 @@
  * re-exports the whole of it, so nothing that reaches for a name through
  * `@neon-spore/sim` knows there are two pages.
  *
+ * **THE BATON's arm-hand readings are here too**, out of order, and that is
+ * the one thing on this page the seam above does not explain: they arrived on
+ * 18 September 2026 with the §6.2 lane (`baton-hand.ts`) and page one was
+ * exactly at its limit, so the choice was this page or a third. The rest of
+ * the arm's names are still next door.
+ *
  * THE SCUTTLE is a clock in the plainest sense on the page: its whole
  * difficulty is the beats a part hangs before it is thrown, which is a count
  * one seat says out loud and the other shoots on (`scuttle.ts`). THE
@@ -37,6 +43,13 @@ export {
   antiphonTwins,
   antiphonWindow,
 } from "./antiphon.js";
+export {
+  batonDrawing,
+  batonDrawn,
+  batonMayStrip,
+  batonMergeSocket,
+  batonSwelling,
+} from "./baton-hand.js";
 // THE DIASTOLE's clamp (18 September 2026): the hurt window the beam asks,
 // which the clamp moved off `diastole.ts`, and the seat whose thumb it is.
 export {

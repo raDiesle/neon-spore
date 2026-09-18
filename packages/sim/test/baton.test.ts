@@ -3,6 +3,7 @@ import {
   BATON_SOCKET_DARK,
   BATON_SOCKET_LIT,
   BATON_SOCKET_SHED,
+  BATON_SOCKET_SWELL,
   type BatonBead,
   type BatonState,
   batonBaseCol,
@@ -13,6 +14,7 @@ import {
   batonLaunchable,
   batonLead,
   batonLocked,
+  batonMergeSocket,
   batonOneSegment,
   batonSocketCol,
   batonWaiting,
@@ -125,9 +127,31 @@ function handover(world: World): void {
   landed(world);
 }
 
-/** Handovers until the two beads are one, sitting in the last socket. */
+/** This seat's thumb on its own bead, under `merging` (`sim/baton-hand.ts`). */
+function thumb(world: World, player: 1 | 2, on: boolean): TimedCommand {
+  return cmd(world, player, {
+    kind: "drag",
+    target: "batonSocket",
+    on,
+    fromMilli: 0,
+    fromYMilli: 0,
+    id: batonMergeSocket(CFG, player),
+  });
+}
+
+/** Both thumbs down until the two beads are one, or the window closes. */
+function drawTogether(world: World): void {
+  for (let i = 0; i < 40 * TPB && arm(world).stage === "merging"; i++) {
+    step(world, [thumb(world, 1, true), thumb(world, 2, true)]);
+  }
+}
+
+/** Handovers, and the draw when it is asked for, until the two beads are one. */
 function merged(world: World): void {
-  for (let i = 0; i < 40 && !arm(world).merged; i++) handover(world);
+  for (let i = 0; i < 40 && !arm(world).merged; i++) {
+    if (arm(world).stage === "merging") drawTogether(world);
+    else handover(world);
+  }
   expect(arm(world).merged).toBe(true);
 }
 
@@ -362,16 +386,24 @@ describe("THE BATON", () => {
     for (let i = 0; i < 20 && batonDark(arm(world)) < CFG.batonShedAfter; i++) handover(world);
     expect(batonDark(arm(world))).toBe(CFG.batonShedAfter);
     // On the beat after the sixth landing, not on it: a shed is a thing the
-    // arm does on its own count.
+    // arm does on its own count. It **swells** first now, for the window a
+    // thumb has to take it off clean (`sim/baton-hand.ts`); the rock is
+    // `batonSwellBeats` later, which is the same count it always came on.
     beats(world, 1);
     const b = arm(world);
-    const shedAt = b.sockets.indexOf(BATON_SOCKET_SHED);
+    const shedAt = b.swellSocket;
     expect(shedAt).toBeGreaterThanOrEqual(0);
+    expect(b.sockets[shedAt]).toBe(BATON_SOCKET_SWELL);
+    expect(world.creatures.some((c) => c.kind === "meteor")).toBe(false);
+    expect(world.events.some((e) => e.type === "batonSwell")).toBe(true);
     // The topmost dark socket no bead sits in.
     for (let i = 0; i < shedAt; i++) {
       expect(b.sockets[i] === BATON_SOCKET_DARK).toBe(true);
       expect(b.beads.some((bead) => !bead.flying && bead.socket === i)).toBe(true);
     }
+    beats(world, CFG.batonSwellBeats);
+    expect(b.sockets[shedAt]).toBe(BATON_SOCKET_SHED);
+    expect(b.swellSocket).toBe(-1);
     const rock = world.creatures.find((c) => c.kind === "meteor");
     expect(rock?.col).toBe(b.col);
     expect(rock?.row).toBe(shedAt);

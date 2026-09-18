@@ -138,4 +138,13 @@ export const INGEST_SILENT_BOSS_B = [
   "pulseBrace",
   "pulseSlip",
   "pulseArrest",
+  // THE BATON's arm under a thumb: every one of them leaves nothing behind for
+  // the next frame, because the arm *is* the state — which socket is swelling
+  // and whose thumbs are on the two beads are read off `swellSocket` and
+  // `mergeThumbs` every frame (`sim/baton-hand.ts`, `baton-draw.ts`).
+  "batonSwell",
+  "batonStripped",
+  "batonRefused",
+  "batonHeld",
+  "batonParted",
 ] as const satisfies readonly SimEvent["type"][];

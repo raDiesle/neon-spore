@@ -1,27 +1,24 @@
 import {
   BATON_SOCKET_DARK,
   BATON_SOCKET_LIT,
-  BATON_SOCKET_SHED,
   type BatonBead,
   type BatonState,
   batonBaseCol,
-  batonDark,
   batonFlip,
   batonLead,
   batonOneSegment,
-  batonSocketRow,
-  batonWaiting,
 } from "./baton.js";
-import { batonLandTick } from "./baton-bead.js";
+import { batonLandTick, batonWaiting } from "./baton-bead.js";
 import { batonCrossBeat } from "./baton-cross.js";
-import { batonMerge, batonTwin } from "./baton-pair.js";
-import { NO_SHELL } from "./shell.js";
+import { batonMerge, batonTwin, stepBatonMerge } from "./baton-pair.js";
+import { stepBatonShed } from "./baton-shed.js";
 import type { World } from "./world.js";
 
 /**
- * THE BATON's clock: the unfold, the landing, the settle, the shed and the
- * fold. The second bead and the merge are next door in `baton-pair.ts`, and
- * the merged bead's last flight and the drop in `baton-cross.ts`.
+ * THE BATON's clock: the unfold, the landing, the settle and the fold. The
+ * arm giving way is next door in `baton-shed.ts`, the second bead and the
+ * merge in `baton-pair.ts`, and the merged bead's last flight and the drop in
+ * `baton-cross.ts`.
  *
  * Everything that changes a socket happens **on the beat** and from
  * `stepBoss`: a landing, a settle and a shed are all things the pair counts
@@ -70,6 +67,10 @@ export function installBaton(world: World): BatonState {
     lockUntil: [-1, -1],
     podId: -1,
     shedBeat: -1,
+    swellSocket: -1,
+    swellBeat: -1,
+    mergeThumbs: 0,
+    mergeHeld: 0,
     threadBeat: -1,
   };
 }
@@ -115,13 +116,17 @@ export function stepBaton(world: World, b: BatonState): void {
     }
     return;
   }
+  if (b.stage === "merging") {
+    stepBatonMerge(world, b);
+    return;
+  }
   if (b.stage === "crossing") {
     const bead = b.beads[0];
     if (bead !== undefined) batonCrossBeat(world, b, bead);
     return;
   }
   if (b.stage !== "passing") return;
-  shed(world, b);
+  stepBatonShed(world, b);
   for (const bead of [...b.beads])
     if (bead.flying && world.tick >= batonLandTick(cfg, bead)) land(world, b, bead);
   if (b.stage === "passing" && !b.beads.some((bead) => bead.flying)) {
@@ -180,41 +185,4 @@ function settle(world: World, b: BatonState, bead: BatonBead): void {
   bead.satBeat = world.beat;
   b.settles += 1;
   world.events.push({ type: "batonSettled", col: bead.col, socket: 0 });
-}
-
-/**
- * A dead segment lets go: the topmost dark socket no bead is sitting in
- * drops its shell down the arm's own column as a rock.
- *
- * This is the one thing on the page a boss puts on the field by itself, and
- * the ruling in `docs/spec/bosses-choreographed.md` asks it to say why the
- * wave's author cannot: the column is wherever the arm has swung to, the row
- * is whichever socket went dark first, and the beat is the one the pair's own
- * handovers reached the sixth dark socket on — three numbers decided during
- * the fight by the pair, and none of them writable in advance.
- */
-function shed(world: World, b: BatonState): void {
-  const cfg = world.cfg;
-  if (batonDark(b) < cfg.batonShedAfter) return;
-  if (b.shedBeat >= 0 && world.beat - b.shedBeat < cfg.batonShedBeats) return;
-  const sat = (i: number): boolean => b.beads.some((bead) => !bead.flying && bead.socket === i);
-  const socket = b.sockets.findIndex((s, i) => s === BATON_SOCKET_DARK && !sat(i));
-  if (socket < 0) return;
-  b.sockets[socket] = BATON_SOCKET_SHED;
-  b.shedBeat = world.beat;
-  const row = batonSocketRow(cfg, socket);
-  world.creatures.push({
-    id: world.nextId++,
-    kind: "meteor",
-    span: 1,
-    col: b.col,
-    row,
-    fromRow: row,
-    color: null,
-    holes: 0,
-    petals: 0,
-    dragMilli: 0,
-    shell: NO_SHELL,
-  });
-  world.events.push({ type: "batonShed", col: b.col, row });
 }

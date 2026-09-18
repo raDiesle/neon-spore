@@ -160,4 +160,17 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "the same thumb coming off, which puts that seat back in the song. Same argument.",
   "boss.pulseArrest":
     "both thumbs on an arrested bar at once, the one moment in the round neither seat can reach alone. Same argument.",
+  // THE BATON's arm under a thumb. The subject is the arm itself — a swelling
+  // socket, two beads being drawn into one — and the arm is the fixture over
+  // the field whose look half is still owed (`sim/baton-hand.ts`).
+  "boss.batonSwell":
+    "a dead socket beginning to let go of its shell, which is the window a thumb has to take it off clean. What it is attached to is THE BATON's arm, a fixture hanging from the top of the field that no sheet has a card for yet.",
+  "boss.batonStripped":
+    "the locked-out seat taking that shell off, so no rock falls. Same argument.",
+  "boss.batonRefused":
+    "a thumb on the arm from the seat whose beat it is not. Same argument — and what it marks is a refusal, which stands nowhere at all.",
+  "boss.batonHeld":
+    "a thumb landing on one of the two beads the pair is drawing together. Same argument.",
+  "boss.batonParted":
+    "the drawing-together window closed short, and the bead that waited shaken back to the top of the arm. Same argument.",
 };

@@ -106,6 +106,11 @@ const ACCEPTED: Command[] = [
   // dropped one would leave the two devices disagreeing about whether the
   // stage is being saved (`sim/pulse-hand.ts`).
   { kind: "drag", target: "pulseMeter", on: true, fromMilli: 0, fromYMilli: 0 },
+  // THE BATON's own arm: the socket is the whole of what the hand says, so a
+  // codec that dropped the `id` would strip the wrong shell on one device and
+  // hold the wrong bead on the other (`sim/baton-hand.ts`).
+  { kind: "drag", target: "batonSocket", on: true, fromMilli: 0, fromYMilli: 0, id: 4 },
+  { kind: "drag", target: "batonSocket", on: false, fromMilli: 0, fromYMilli: 0, id: 10 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -228,6 +233,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   scoutLine: true,
   scoutPrime: true,
   pulseMeter: true,
+  batonSocket: true,
   crank: true,
   orreryRing: true,
 };

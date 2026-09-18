@@ -92,6 +92,12 @@ function miss(world: World, b: BatonState, bead: BatonBead): void {
   b.col = col;
   for (let i = 0; i < b.sockets.length; i++) b.sockets[i] = BATON_SOCKET_LIT;
   b.threadBeat = -1;
+  // And any shell that was coming away when the crossing began goes with them:
+  // the socket under it is lit again, and a swell left pointing at a lit socket
+  // would drop a shell off a part of the arm the bead has yet to pass
+  // (`baton-shed.ts`).
+  b.swellSocket = -1;
+  b.swellBeat = -1;
   bead.flying = false;
   bead.final = false;
   bead.flightTick = -1;
