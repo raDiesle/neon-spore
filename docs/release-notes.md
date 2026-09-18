@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 64fdc7e5 — THE WARDEN changes state more than once: the simulation
+
+Each pair of plates now adds a hand. WATCH is the rope as it was. NARROW shuts the lids behind the hatch until player 2 rests a thumb on the eye (`wardenEye`), which also pins the pupil; the eye shows only with the line taut and the thumb down, and a hit cuts both. GLARE lowers no rope: the pupil stops in the middle column and player 1 swipes the hatch open (`wardenHatch`, `wardenThrowMilli`) for `wardenThrowBeats` beats, then it slams. Nothing new can hurt the pair — a window lost is all a miss costs.
+
 ## 2026-09-18 · 8236dda2 — THE GAUGE jams and binds: two more states, the simulation half
 
 A miss sticks the valve and the needle becomes the pilot's own hand on it, read as a bearing round the dial; every other mark winds the band tight and the navigator's thumb holds it open, at the price of the call she cannot make while it is down. Both states are entered by the pair's own last answer, so the round is never in one the two of them did not just put it in.

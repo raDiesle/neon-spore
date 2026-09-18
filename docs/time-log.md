@@ -9225,3 +9225,5 @@ that reads the phase, so the three gestures answer one predicate.
 
 The bottleneck was the whole-fight test's clock: a boss whose rope comes
 down on a cycle and whose colour changes with it is traced, not counted.
+
+*Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
