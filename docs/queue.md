@@ -442,6 +442,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## SNAKE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-snake-changes-state-more-than-once-and-asks-for
 - **Files:** `packages/sim/src/config-snake.ts`, `packages/sim/src/snake-arena.ts`, `packages/sim/src/snake-controls.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
