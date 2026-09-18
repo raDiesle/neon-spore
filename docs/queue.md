@@ -213,7 +213,7 @@ loses *What is not built*".
 ## A caption has no anchor for a boss's own gauge, so it points at the hull
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`
+- **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/src/scenes/the-scout.ts`
 
 `SceneAnchor` names a body, a control, a handle, the hull, the radar, the
 ship and the retries — nothing that is a boss's fixture. THE SINEW's film has
@@ -234,7 +234,11 @@ THE SCUTTLE's (18 September 2026) puts seven of thirteen on the hull for
 the frame and its count (`render/scuttle-draw.ts`), and THE ANTIPHON's
 (the same day) nine of twenty for the organ, the rail, the pits and the
 still (`render/antiphon-draw.ts`), and THE ORRERY's (the same day) five
-of thirteen for the rings and the core (`render/orrery-draw.ts`).
+of thirteen for the rings and the core (`render/orrery-draw.ts`). THE
+SCOUT's (the same day) puts three of seven on the hull for the arena, the
+hazard crossing and the second arena opening (`render/scout-draw.ts`) —
+and its pilot's pages have nowhere to point either, because the little
+ship on the pilot's screen is a boss part too.
 
 ## A rehearsal's frame hides what stands over row 0 of the field
 
@@ -320,6 +324,14 @@ two was set aside because the autopilot has never cleared arena two to measure
 it — which is the geometry above. Whoever answers the `Asks:` fixes the
 geometry, points the same rig at arena one's sibling, and takes the clock from
 what it measures; 56 stands until then.
+
+The rehearsal (`content/src/scenes/the-scout.ts`, 18 September 2026) is the
+same finding a third way: its legs were searched for — every wait up to
+seven beats and every burn from eight to forty-eight ticks — and the search
+banked three of the column (rows 10.5, 9.5, 8.5) and found no leg at all to
+the fourth, on the hazard's own row 7.5, that did not end in the hazard
+within seventy ticks. The film ends with the three banked and the fourth
+left hanging.
 
 ## Act seven has no room for another wave and no letter to put a page under
 

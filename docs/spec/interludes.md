@@ -356,9 +356,13 @@ both the place, home, the walls and the count. Nothing outlives a frame.
 `packages/render/test/scout-frame.test.ts` draws every phase on all three
 screens, set rather than waited for, and proves the split both ways.
 
-**What is not built:** nobody has watched it at tempo, and its rehearsal is
-still the three strings (§3.2 of [briefings](briefings.md)). Whether a nose
-on a button and a ship with none reads as *point it at two o'clock* across a
+**The rehearsal** (`content/src/scenes/the-scout.ts`, 18 September 2026)
+flies the first arena whole and the second's first trip, its legs searched
+for rather than authored (§3.2 of [briefings](briefings.md)); the pilot's
+pages are the nose and the burn, the navigator's the hull and the maw.
+
+**What is not built:** nobody has watched it at tempo. Whether a nose on a
+button and a ship with none reads as *point it at two o'clock* across a
 table is the owner's eye.
 
 ## Where they sit in the run

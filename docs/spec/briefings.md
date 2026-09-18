@@ -300,19 +300,19 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are seventy-five of them now**, one per guided wave bar twelve, and
+**There are seventy-six of them now**, one per guided wave bar eleven, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The twelve that are still the three strings
+rather than a page of prose. The eleven that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE HIVE and
+CODEX, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE HIVE and
 THE INSTAR** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those twelve is a film nobody has written, and from THE
-SCOUT's on they are owed by the lanes that draw them.** THE CANDLE's was the
+**Every one of those eleven is a film nobody has written, and from THE
+REPRISE's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
 slide under it an `atBoss` act, the one authored column the mistake. THE
@@ -374,6 +374,17 @@ a guard after it, because the seed puts them in columns no authored strip
 reaches. Writing it found the boss unwinnable as built — three organs let
 go on one beat land on one beat in three columns — and the shed is one a
 beat since (`sim/orrery-step.ts`). The pilot's hand on a ring is not in it.
+THE SCOUT's, the same day, is the first film of a round flown rather than
+shot, and the first whose acts were searched for rather than authored: a
+burn is a push that keeps going and a turn does nothing to the drift, so
+each leg — a wait, a turn, a burn of so many ticks — was found by re-running
+the film and keeping the first that reached its mote and did not drift into
+the hazard after. The first arena is flown whole, four motes in a loop and
+home with the maw tapped on the tick the hull is touched; the second opens
+and its first trip comes back with three, and the mote hanging on the
+hazard's own row (`docs/queue.md`) is left where it is. Every page is a
+seat's control or the hull, because the arena the navigator reads has no
+anchor; the pilot's pages never say where a mote is.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square

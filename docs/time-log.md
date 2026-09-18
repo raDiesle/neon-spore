@@ -10339,6 +10339,29 @@ outside it that a boss is a name in, each found by a test going red.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-18 — boss-implementation — THE SCOUT, the rehearsal
+
+The thirteenth film taken on and the first of a round flown rather than
+shot. A rehearsal's acts are ticks and controls, and a flight's position at
+any tick is the sum of every burn before it, so the acts could not be
+authored the way a shot on a column is: a generator in `tools/probe/`
+re-ran the film after every leg — a wait, a turn, a burn — and kept the
+first that reached its mote and did not drift into the hazard after. Arena
+one flown whole, then the second arena's first trip.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `scout-round.ts`, `scout-fly.ts`, `scout-arena.ts`, `config-scout.ts`, the autopilot in `scout-flight.test.ts`, the maze film for the shape of a round's scene |
+| writing | 40 | the generator three times over, the scene, the film test, `scenes-prose.test.ts`, briefings §3.2, `interludes.md`, the queue's two items, this entry |
+| looking | 25 | the beat log of six generator runs, the frames on seat 2 at the crossing and the maw and on seat 1 at the burn |
+| friction | 30 | the first generator popped the burn on a catch and re-added a turn each loop, sixty one-tick turns and no burn; the second reached every mote and drifted into the hazard from the third of arena two's column, so a leg now has to survive seventy ticks of drift to count |
+| landing | 10 | `check:fast`, `format`, `index`, the commit, `bun run land --keep`, the ledger mark |
+
+The bottleneck was the drift: a leg that reaches its mote is not a leg if
+the momentum that got it there carries it into the hazard's row before the
+next turn can begin, and that was found by watching the film fail rather
+than by reasoning about it.
+
 ## 2026-09-18 — boss-implementation — THE ORRERY, the rehearsal
 
 The twelfth film taken on, written after a finding in the sim: a ring off

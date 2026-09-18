@@ -667,6 +667,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-sinew.ts` | THE SINEW's rehearsal: two hands pulling one tendon, and a number only one of them can see |
 | `packages/content/src/scenes/the-surge.ts` | THE SURGE's rehearsal: three holds on one bulb |
 | `packages/content/src/scenes/the-scuttle.ts` | THE SCUTTLE's rehearsal: one part let go, nineteen struck where they hang |
+| `packages/content/src/scenes/the-scout.ts` | THE SCOUT's rehearsal: one of them flies blind and the other reads the map |
 | `packages/content/src/scenes/the-jam.ts` | THE JAM's rehearsal: the trigger is gone and the aim is all that is left |
 | `packages/content/src/scenes/the-balloon.ts` | THE BALLOON's rehearsal: two hands on one body, or nothing at all |
 | `packages/content/src/scenes/the-baton.ts` | THE BATON's rehearsal: a launch nobody answers, then three handovers |

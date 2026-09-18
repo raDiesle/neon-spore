@@ -23,7 +23,7 @@ import { SCENES } from "../src/scenes.js";
 /**
  * The guided waves whose opening is the three strings and the two circles.
  *
- * Five of them are films nobody has written yet. THE MINE stood here as *the
+ * Four of them are films nobody has written yet. THE MINE stood here as *the
  * one that cannot have one* — every act was a thumb on a named control and
  * its answer is a finger on a bare square — until the act grew a `tile`
  * gesture that names the square and the seat (`scene-act-types.ts`), and the
@@ -35,17 +35,13 @@ const STILL_PROSE = [
   "THE LIMPET",
   "THE LEECH",
   "THE CODEX",
-  // THE SCOUT's film is owed rather than impossible: the round is built and
-  // nothing of it is drawn yet, so the rehearsal has nothing to choreograph.
-  // It comes off this list with the lane that draws the little ship.
-  "THE SCOUT",
-  // THE REPRISE is owed for the same reason and comes off with the lane that
-  // draws the mechanism at the top of the field. Its rehearsal has something
+  // THE REPRISE is owed by the lane that draws the mechanism at the top of
+  // the field, the way THE SCOUT's film was owed until the little ship was. Its rehearsal has something
   // harder than usual to choreograph, too: what the film has to show is a
   // stretch of field the pair can no longer see.
   "THE REPRISE",
   // And THE STARE, owed by the lane that draws the eye. Its rehearsal is the
-  // hardest of the three to choreograph: a film is a thumb landing on a named
+  // hardest of the two to choreograph: a film is a thumb landing on a named
   // control, and what this boss teaches is a thumb **not** landing — which
   // needs an eye on the screen to not touch anything under.
   "THE STARE",
@@ -82,9 +78,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-five films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-six films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Seventy-five, which is the number in the section. A film with no wave
+    // Seventy-six, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);
