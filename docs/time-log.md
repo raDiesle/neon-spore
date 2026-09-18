@@ -11288,6 +11288,25 @@ who is the answer.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-18 — boss-implementation — THE STARE gets a lid, the look
+
+The second lane of the queue's §6.2 item for THE STARE: the lid drawn as a
+flap of the cowl's rock over the socket on every screen, the handle ring on
+the seat the eye is not looking at, `SHUT` as that seat's cue, the two events
+out of the silent lists, the director's row, and the guide's third step.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `stare-draw.ts`, `handle-draw.ts`, the filament's field row and `handles.ts`' chain, the two stare tests |
+| writing | 15 | `stare-lid.ts`, `stareLidDrop`, the cue, the fx, the `Field` slot through eleven constructors, the director row, five tests, the docs |
+| looking | 5 | one frame at half pull on player 2's screen |
+| friction | 5 | the ring's presence had to be counted by its gauge arc's start angle: the palette's rock is also the cue's colour, and the renderer's layout is not the test's |
+| landing | 5 | `check:fast`, the land |
+
+The bottleneck was the `Field` slot: a nullable boss field per handle boss
+means every test that builds a `Field` by hand — eleven of them — is touched
+for a handle none of them will ever answer.
+
 ## 2026-09-18 — boss-implementation — THE STARE gets a lid, the simulation
 
 The queue's §6.2 item for THE STARE — *changes state more than once, and asks

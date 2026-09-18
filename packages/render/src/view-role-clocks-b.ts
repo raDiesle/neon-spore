@@ -104,6 +104,15 @@ export const showsStareTarget = (role: ViewRole, watching: 1 | 2): boolean =>
   role === "test" || role !== `p${watching}`;
 export const showsStareWatched = (role: ViewRole, watching: 1 | 2): boolean =>
   role === "test" || role === `p${watching}`;
+/**
+ * And the lid's handle, on the screen of the seat whose thumb it is: the one
+ * the eye is *not* looking at, which is the screen already told who. The lid
+ * itself — how far down it is — is on every screen, since a watched seat has
+ * to see the lid come down to know it is free; only the ring and its word
+ * are the puller's (`stare-lid.ts`, `sim/stare.ts` `stareLidFree`).
+ */
+export const showsStareLid = (role: ViewRole, watching: 1 | 2): boolean =>
+  showsStareTarget(role, watching);
 
 /**
  * THE FILAMENT's two, and the split is the eyes, each way, on **one line**:

@@ -10,6 +10,7 @@ import type {
   PlacedFault,
   SimConfig,
   SinewState,
+  StareState,
   SurgeState,
   WardenState,
 } from "@neon-spore/sim";
@@ -98,6 +99,9 @@ export interface Bindings {
   /** THE FILAMENT, when it is the boss up: the two rings on its line, while
    * a filament is being traced (`render/filament-grip.ts`). */
   filament: () => FilamentState | null;
+  /** THE STARE, when it is the boss up: the lid's ring on the eye's brow, for
+   * the seat it is not looking at (`render/stare-lid.ts`). */
+  stare: () => StareState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

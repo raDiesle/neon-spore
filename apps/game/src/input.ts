@@ -58,6 +58,7 @@ export function bindControls({
   antiphon,
   instar,
   filament,
+  stare,
   creatures,
   cannonCol,
   shieldCol,
@@ -100,12 +101,11 @@ export function bindControls({
     antiphon: antiphon(),
     instar: instar(),
     filament: filament(),
+    stare: stare(),
     controls: controls(),
-    // The faults in force this beat, so a button one has taken over is refused
-    // where it is drawn dead (`content/src/control-fault.ts`, `sim/fault-placed.ts`).
+    // The faults in force this beat: a taken button is refused where it is drawn dead.
     faults: faults(),
-    // The well depends on the seat as well as the world: the clock is drawn
-    // on one screen of the two (`render/well.ts`).
+    // The well depends on the seat too: its clock is on one screen (`render/well.ts`).
     well: well(),
   });
 

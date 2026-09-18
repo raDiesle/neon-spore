@@ -9,6 +9,7 @@ import { lidCordCircle } from "./lid-string.js";
 import { mazeStringCircle } from "./maze-string.js";
 import { orreryRingUnder } from "./orrery-grab.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
+import { stareLidUnder } from "./stare-lid.js";
 import { surgeBulbUnder } from "./surge-grip.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
@@ -70,7 +71,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     antiphonOrganUnder(l, x, y, field) ??
     orreryRingUnder(l, x, y, field) ??
     instarMarkUnder(l, x, y, field) ??
-    filamentGrabUnder(l, x, y, field)
+    filamentGrabUnder(l, x, y, field) ??
+    stareLidUnder(l, x, y, field)
   );
 }
 

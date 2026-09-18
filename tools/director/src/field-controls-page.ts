@@ -6,6 +6,7 @@ import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
+import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
 import { tetherExamples } from "./field-controls-tether.js";
 
@@ -210,9 +211,8 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     sends: ["drag"],
     pose: "CHOIR · TWO VOICES",
   },
-  // THE BALLOON's two, next door in `field-controls-balloon.ts` — spread in at
-  // the position they belong in, after the four handles that are the pilot's
-  // and before the guide's hold, which is not a field control at all.
+  // THE BALLOON's two, next door in `field-controls-balloon.ts` — spread in
+  // after the four handles that are the pilot's, before the guide's hold.
   ...BALLOON_CONTROLS,
   ...GUM_CONTROLS,
   // THE ORRERY's ring, next door for the same reason, and last of the field's
@@ -230,6 +230,8 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...INSTAR_CONTROLS,
   // THE FILAMENT's line, the first that is a trace (`field-controls-filament.ts`).
   ...FILAMENT_CONTROLS,
+  // THE STARE's lid, the first on a boss that is not its body (`field-controls-stare.ts`).
+  ...STARE_CONTROLS,
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

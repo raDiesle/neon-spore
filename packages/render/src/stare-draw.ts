@@ -6,6 +6,7 @@ import { drawInstarWord } from "./instar-word.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { StareFx } from "./stare-fx.js";
+import { drawStareLid } from "./stare-lid.js";
 import {
   cowlPath,
   type StareEye,
@@ -34,7 +35,9 @@ import { showsStareTarget, showsStareWatched } from "./view-role-clocks-b.js";
  * look ends; and, once the look has landed, the gaze itself falling on the
  * watched seat's field, red from the eye down over the first rows, which is
  * the picture's *hands off* to the one pair of hands it is about
- * (`view-role-clocks-b.ts`). The word is `instar-word.ts`'s scanner box,
+ * (`view-role-clocks-b.ts`). **And the lid**, since 18 September 2026, on
+ * every screen, with its ring on the screen of the seat that may pull it
+ * (`stare-lid.ts`). The word is `instar-word.ts`'s scanner box,
  * because it is the same kind of mark — the body's own label on a part,
  * bright when it is a job — and a second box would be a second vocabulary.
  *
@@ -68,7 +71,9 @@ export function drawStare(
     hex: mixHex(mixHex(PALETTE.dim, PALETTE.red, heat), PALETTE.text, flash),
     rim: mixHex(mixHex(PALETTE.hullRim, PALETTE.redRim, heat), PALETTE.text, flash),
   };
-  const told = boss.watching !== 0 && (boss.phase === "turning" || boss.phase === "looking");
+  // Told from the turn to the end of the look, and under the lid too: whose
+  // look the lid shut is still the name beside the eye.
+  const told = boss.watching !== 0 && boss.phase !== "away" && boss.phase !== "back";
 
   // The gaze first, under everything else of the boss: it is light on the
   // field and the eye stands in front of its own light.
@@ -85,6 +90,8 @@ export function drawStare(
   ctx.restore();
 
   drawEye(ctx, eye, f.face, f.lean, f.open, ink, time, beat + beatPhase);
+  // The lid over it, and its ring for the seat whose thumb it is (`stare-lid.ts`).
+  drawStareLid(ctx, l, cfg, boss, l.role, beat, beatPhase, time, ink.rim);
 
   // The count, while the eye is turning: one pip a beat of the tell.
   const left = stareTellLeft(boss, beat, cfg.stareTellBeats);

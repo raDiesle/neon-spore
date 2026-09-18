@@ -36,6 +36,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * watched one's, that the **gaze** is on the watched seat's and not the
  * other's, and that the flash of a catch is a transient the next run does
  * not inherit.
+ *
+ * **The lid** (`stare-lid.ts`) is the same arrangement: the flap is on every
+ * screen, the ring on the one seat whose thumb the simulation hears, and the
+ * two events it leaves behind are transients of `Effects`.
  */
 
 beforeAll(() => {
@@ -86,6 +90,23 @@ function looking(world: World, who: 1 | 2 = 1): StareState {
   s.phaseBeat = world.beat - 1;
   s.watching = who;
   s.lookBeats = CFG.stareLookBeats;
+  return s;
+}
+
+/** The look on `who`, with the lid half down under `lidSeat`'s thumb — or nobody's. */
+function lidded(world: World, who: 1 | 2, lidSeat: 0 | 1 | 2): StareState {
+  const s = looking(world, who);
+  s.lidSeat = lidSeat;
+  s.lidMilli = lidSeat === 0 ? 0 : CFG.stareLidPullMilli / 2;
+  return s;
+}
+
+/** The lid shut by `who`'s partner, a beat in, or on its way up again. */
+function lidPhase(world: World, phase: "shut" | "opening", who: 1 | 2): StareState {
+  const s = looking(world, who);
+  s.phase = phase;
+  s.lidSeat = who === 1 ? 2 : 1;
+  s.lidMilli = phase === "shut" ? CFG.stareLidPullMilli : 0;
   return s;
 }
 
@@ -172,6 +193,54 @@ describe("THE STARE's eye", () => {
     expect(gaze("p2", 2)).toBeGreaterThan(gaze("p2", 1));
     expect(gaze("test", 1)).toBe(gaze("test", 2));
     expect(gaze("test", 1)).toBeGreaterThan(gaze("p1", 2));
+  });
+
+  it.each(ROLES)("brings the lid down over the eye on %s, wherever the thumb is", (role) => {
+    // The flap is one more fill of the cowl's rock, and it is on every
+    // screen: a watched seat has to see the lid come down to know it is free.
+    const open = frame(role, (w) => lidded(w, 1, 0));
+    const half = frame(role, (w) => lidded(w, 1, 2));
+    expect(count(half.text, PALETTE.rockDark)).toBeGreaterThan(count(open.text, PALETTE.rockDark));
+    // Shut is another picture than half down, and opening another than shut.
+    const shut = frame(role, (w) => lidPhase(w, "shut", 1));
+    const rising = frame(role, (w) => lidPhase(w, "opening", 1));
+    expect(shut.text).not.toBe(half.text);
+    expect(rising.text).not.toBe(shut.text);
+  });
+
+  it("draws the lid's ring on the seat the eye is not on, and never the watched one", () => {
+    // The ring under a thumb sweeps a gauge round itself from the top,
+    // clockwise — the one arc in the picture that starts at twelve — so the
+    // screens that draw the ring are the screens that draw that arc.
+    const gauge = (role: ViewRole, arrange: (w: World) => void) =>
+      count(frame(role, arrange).text, ", -1.571, ");
+    expect(gauge("p2", (w) => lidded(w, 1, 2))).toBeGreaterThan(0);
+    expect(gauge("p1", (w) => lidded(w, 1, 2))).toBe(0);
+    expect(gauge("p1", (w) => lidded(w, 2, 1))).toBeGreaterThan(0);
+    expect(gauge("p2", (w) => lidded(w, 2, 1))).toBe(0);
+    // Both seats on one screen is both: a ring for either look.
+    expect(gauge("test", (w) => lidded(w, 1, 2))).toBeGreaterThan(0);
+    expect(gauge("test", (w) => lidded(w, 2, 1))).toBeGreaterThan(0);
+    // While the eye is forcing the lid up there is no ring for anyone: the
+    // eye has it, not a thumb.
+    expect(gauge("p2", (w) => lidPhase(w, "opening", 1))).toBe(0);
+    expect(gauge("test", (w) => lidPhase(w, "opening", 1))).toBe(0);
+  });
+
+  it("keeps the lid's landing and the eye's strain as transients the next run does not inherit", () => {
+    const fx = new Effects();
+    fx.ingest([{ type: "stareShut", player: 2 }], L, 0, () => 0, CFG);
+    // A puff of rock, and no flash: nothing was caught.
+    expect(fx.boss.stare.flash).toBe(0);
+    expect(fx).not.toEqual(new Effects());
+    fx.ingest([{ type: "stareOpen", player: 2, forced: true }], L, 0, () => 0, CFG);
+    fx.update(1 / 60, L);
+    // The strain is a lesser flash with no seat under it, so no panel lights.
+    expect(fx.boss.stare.flash).toBeGreaterThan(0);
+    expect(fx.boss.stare.flash).toBeLessThan(0.6);
+    expect(fx.boss.stare.caught).toBe(0);
+    fx.reset();
+    expect(fx).toEqual(new Effects());
   });
 
   it("keeps the flash of a catch as a transient the next run does not inherit", () => {

@@ -126,9 +126,9 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "filament":
       return target;
     // `stareLid` is heard by `sim/stare-hand.ts` — a depth on the y from the
-    // seat the eye is not looking at — and, like the sinew's pair before it,
-    // is a target with nothing drawn to take hold of yet. Its row comes with
-    // the lid's look (`docs/spec/bosses.md` §11.16).
+    // seat the eye is not looking at — answered by `stareLidUnder` under
+    // `handleUnder()` at the ring only that seat's screen draws
+    // (`render/stare-lid.ts`, `docs/spec/bosses.md` §11.16).
     case "stareLid":
       return target;
     // `queenMark` is THE BULB QUEEN's two marks under player 1's thumb —
@@ -169,6 +169,7 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
         "orreryRing",
         "sinewLeft",
         "sinewRight",
+        "stareLid",
       ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {
@@ -243,6 +244,7 @@ const FIELD: Field = {
   antiphon: null,
   instar: null,
   filament: null,
+  stare: null,
   controls: controlSetForWave(0),
   faults: [],
   well: false,

@@ -29,6 +29,12 @@ import { showsStareWatched } from "./view-role-clocks-b.js";
  *
  * The burst goes out of the eye rather than the hull, on both screens: it is
  * the eye that caught the thumb.
+ *
+ * **The lid's two are read here as well** (18 September 2026): the lid
+ * landing is a puff of rock off the brow, and the eye forcing it up is a
+ * lesser flash with no seat — both transients, both on both screens, since
+ * the lid itself is. A lid let go is no event of the picture's at all: the
+ * ring empties and the flap rises, and that is read off the state.
  */
 
 /** How fast the flash falls away — a beat and a bit at the game's tempo. */
@@ -57,11 +63,21 @@ export class StareFx {
     burst: (x: number, y: number, n: number, hex: string) => void,
   ): void {
     for (const e of events) {
-      if (e.type !== "stareCaught") continue;
-      this.flashNow = 1;
-      this.seat = e.player;
-      const eye = stareEye(l, cfg);
-      burst(eye.cx, eye.cy, 18, PALETTE.red);
+      if (e.type === "stareCaught") {
+        this.flashNow = 1;
+        this.seat = e.player;
+        const eye = stareEye(l, cfg);
+        burst(eye.cx, eye.cy, 18, PALETTE.red);
+      } else if (e.type === "stareShut") {
+        // The lid landing: a puff of the cowl's own rock off the brow, on
+        // both screens, and no seat — nothing was caught.
+        const eye = stareEye(l, cfg);
+        burst(eye.cx, eye.cy - eye.ry, 8, PALETTE.rock);
+      } else if (e.type === "stareOpen" && e.forced) {
+        // The eye forcing the lid up goes white, half as hard as a catch and
+        // with no panel under it: the strain is the eye's, not a seat's.
+        this.flashNow = Math.max(this.flashNow, 0.5);
+      }
     }
   }
 

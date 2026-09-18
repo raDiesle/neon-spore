@@ -11,6 +11,7 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
+import { stareLidRest } from "../src/stare-lid.js";
 import { stareGazeFootY } from "../src/stare-shape.js";
 import {
   CFG,
@@ -33,6 +34,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * ever, on both while it looks away — and the one case that lights is the
  * word on the watched seat once the look has landed, where the gaze already
  * is (`decisions.md` #34, `view-role-clocks-b.ts`).
+ *
+ * **And since the lid, the other seat is told one thing**: SHUT, on the lid's
+ * ring, while the look is on and no thumb has it yet. It is the one cue this
+ * boss shows the seat that is free to move, and it goes the moment the lid is
+ * taken, so a hand already on it is not told to take it.
  */
 
 beforeAll(installCanvasGlobals);
@@ -83,11 +89,48 @@ describe("THE STARE's cue", () => {
     // The mark stands at the foot of the gaze, which is the one thing on the
     // watched seat's field the eye has already drawn.
     expect(mine?.y).toBe(stareGazeFootY(LAYOUT[`p${who}`]));
-    // The other seat is playing on, and is told nothing.
-    expect(cue(world, who === 1 ? "p2" : "p1")).toBeNull();
+    // The other seat is playing on, and is told nothing of the look itself.
+    expect(cue(world, who === 1 ? "p2" : "p1")?.word).not.toBe("STILL");
     // One person holding both seats is the watched one too.
     expect(cue(world, "test")?.word).toBe("STILL");
   });
+
+  it.each([1, 2] as const)(
+    "says SHUT on the lid's ring on the seat the eye is not on, %d",
+    (who) => {
+      const world = hung();
+      const other = who === 1 ? 2 : 1;
+      set(world, "looking", other);
+      const role = `p${who}` as const;
+      const mine = cue(world, role);
+      expect(mine?.word).toBe("SHUT");
+      expect(mine?.kind).toBe("CARRY");
+      expect(mine?.seat).toBe(who);
+      // It stands on the ring, which is where the thumb has to go.
+      const rest = stareLidRest(LAYOUT[role], CFG);
+      expect(mine?.x).toBe(rest.x);
+      expect(mine?.y).toBe(rest.y);
+      // Once a thumb has the lid there is nothing left to say to it.
+      eye(world).lidSeat = who;
+      expect(cue(world, role)).toBeNull();
+      // And the watched seat is never told there is a lid to pull.
+      expect(cue(world, `p${other}`)?.word).toBe("STILL");
+    },
+  );
+
+  it.each(["p1", "p2", "test"] as const)(
+    "says nothing on %s while the lid is shut or rising",
+    (role) => {
+      // Shut, both seats are free and the lid is the whole of the picture;
+      // opening, the seat about to be looked at has known since it pulled.
+      const world = hung();
+      set(world, "shut", 1);
+      eye(world).lidSeat = 2;
+      expect(cue(world, role)).toBeNull();
+      set(world, "opening", 1);
+      expect(cue(world, role)).toBeNull();
+    },
+  );
 
   it.each(["p1", "p2", "test"] as const)("says nothing on %s while the eye turns", (role) => {
     // The tell is the fight: a cue on the watched seat during the turn would

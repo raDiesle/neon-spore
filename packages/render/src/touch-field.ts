@@ -9,6 +9,7 @@ import type {
   PlacedFault,
   SimConfig,
   SinewState,
+  StareState,
   SurgeState,
   WardenState,
 } from "@neon-spore/sim";
@@ -135,6 +136,14 @@ export interface Field {
    * nobody can draw (`filament-grip.ts`).
    */
   filament: FilamentState | null;
+  /**
+   * THE STARE, if it is the boss running, `null` otherwise. Required and
+   * stated, for the reason every boss above is, with this one's own twist:
+   * the lid's ring is drawn for the seat the eye is not looking at, and a
+   * caller that meant `null` would leave that seat's thumb on a ring that
+   * answers nothing while the other sits frozen (`stare-lid.ts`).
+   */
+  stare: StareState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

@@ -93,13 +93,38 @@ export function stareFace(
   let p: number;
   if (s.phase === "away") p = 0;
   else if (s.phase === "turning") p = smoothstep(into / cfg.stareTellBeats);
-  else if (s.phase === "looking") p = 1;
+  // Square under the lid and square as it rises: a shut eye is still facing
+  // the pair, and the lid is the whole of what says it cannot see them.
+  else if (s.phase === "looking" || s.phase === "shut" || s.phase === "opening") p = 1;
   else p = 1 - smoothstep(into / cfg.stareTurnBackBeats);
   return {
     face: FACE_AWAY + (1 - FACE_AWAY) * p,
     open: OPEN_AWAY + (1 - OPEN_AWAY) * p,
     lean: LEAN * (1 - p),
   };
+}
+
+/**
+ * How far down the lid is, zero to one — what the lid's picture and its
+ * handle are placed by (`stare-lid.ts`).
+ *
+ * While the eye is looking it is the thumb's depth, straight off `lidMilli`
+ * over `stareLidPullMilli`; shut it is the bottom, whatever the thumb does;
+ * opening it rises over `stareReopenBeats`, eased, because the eye forcing
+ * a lid up is a strain and a strain is not linear. Any other phase and there
+ * is no lid to see.
+ */
+export function stareLidDrop(
+  s: StareState,
+  cfg: SimConfig,
+  beat: number,
+  beatPhase: number,
+): number {
+  if (s.phase === "looking") return Math.min(1, s.lidMilli / Math.max(1, cfg.stareLidPullMilli));
+  if (s.phase === "shut") return 1;
+  if (s.phase !== "opening") return 0;
+  const into = beat - s.phaseBeat + beatPhase;
+  return 1 - smoothstep(into / cfg.stareReopenBeats);
 }
 
 /** How far the eye has come round, zero to one — what the ink warms on. */

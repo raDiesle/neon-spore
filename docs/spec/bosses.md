@@ -1737,11 +1737,6 @@ watched seat's own thumb on the lid is nothing, not a catch and not a pull
 opening under a thumb that had not yet let go. Eight tests hold every branch
 of it in `sim/test/stare.test.ts`.
 
-**What is not built**: the lid's look. It is not drawn, it has no hit test on
-the eye, and the unwatched seat gets no cue for it — the look lane draws the
-lid on the cowl, puts `CARRY` over it for the seat that may pull it, and
-takes `stareShut` and `stareOpen` out of the silent lists.
-
 **The look** (`render/stare-draw.ts`, `stare-shape.ts`, `stare-fx.ts`): a
 **cowled eye** — THE LID's almond eye set into a mound of rock the size of THE
 CAIRN's, standing on the top edge of the field over the middle column. A new
@@ -1777,6 +1772,27 @@ press that ignores it, which makes a thumb kept off the glass something the
 fight can tell was done. It is its own word rather than `HOLD`: a player told
 to hold would hold the trigger. Proved on all three screens, and the silences
 with it: `render/test/boss-cue-stare.test.ts`.
+
+**The lid's look** (`render/stare-lid.ts`, 18 September 2026) is a flap of
+the cowl's own rock coming down over the socket from its brow, its edge lit
+in the eye's ink at that beat's heat, so what the lid covers is seen to be
+covered; it follows the thumb's depth straight off `lidMilli`, sits at the
+bottom while shut, and rises eased over `stareReopenBeats` while the eye
+forces it. **The flap is on every screen and the ring on one**: a watched
+seat has to see the lid come down to know the look is over, and the ring —
+the shipped handle look (`handle-draw.ts`), resting at the brow, riding the
+edge down under a thumb with its gauge closing round it — is drawn only for
+the seat the eye is *not* looking at (`showsStareLid`), which is the one seat
+the simulation hears. It is not drawn at all while the lid is rising: the eye
+has it then, not a thumb. The cue on that seat is `SHUT`, a `CARRY` on the
+ring, until a thumb takes it; the watched seat is never told there is a lid.
+The lid landing is a puff of rock off the brow and the eye forcing it up a
+lesser white with no panel under it (`stare-fx.ts`), both on both screens.
+The first handle on a boss that is not the boss's body
+(`docs/spec/controls.md`, THE STARE'S LID). Proved on all three screens, the
+ring both ways and the two events transients: `render/test/stare-frame.test.ts`,
+`boss-cue-stare.test.ts`. *Never watched at tempo*: the lid's feel under a
+thumb — whether 600 thousandths reads as a decision — is the owner's eye.
 
 **The rehearsal** (`content/src/scenes/the-stare.ts`) is shaped around the
 seat that is *not* watched, because the film's machinery is a thumb landing

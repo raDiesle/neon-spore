@@ -46,7 +46,7 @@ export const INGEST_SILENT_BOSS = [
   // ever sees it, the way THE MIRROR's four are. The hull's own `breach` goes
   // up in the same tick.
   "stareCaught",
-  "stareShut", // The lid, read off `lidMilli` every frame, until the look lane.
+  "stareShut", // And the lid's two, read above the loop by the same file.
   "stareOpen",
   // THE BATON's eleven, silent because its picture is read off its state
   // every frame rather than off an event: the arm, a socket going dark, the
