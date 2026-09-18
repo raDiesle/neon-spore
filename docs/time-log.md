@@ -10675,3 +10675,5 @@ The bottleneck was the catch: the one moment of the look that matters most is
 the one the frames tool cannot reach, so it is proved by a test and never seen
 — and the flash the design asked for on *the button* is on the panel instead,
 queued, because the event names a kind and the band names a control.
+
+*Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

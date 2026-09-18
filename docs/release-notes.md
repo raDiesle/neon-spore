@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 2a1ea1c5 — THE STARE has its look: a cowled eye whose turn is the warning, the watched seat's name on the other screen and its gaze on the watched one, and a catch that washes the caught panel red
+
+The second of THE STARE's two lanes, a look with no shipped alternative — nothing drew the boss before this. THE LID's almond eye set into a mound of rock at the top of the field ("the cowled eye", a combination by the rule): edge-on and grey while the boss is away, swinging round to face the pair over the seven-beat tell with the lids opening and the ink warming to red, seven pips under the cowl counting the tell on both screens. The split drawn both ways: the seat that is not watched sees the watched seat's name in THE INSTAR's scanner frame beside the eye; the watched seat sees a red gaze widening down its field and never a name. A catch flares the eye white, bursts red out of it on both screens and washes the caught seat's panel red over everything, from `canvas2d.ts`.
+
 ## 2026-09-18 · 6b30dbab — THE INSTAR's page stops saying its look is not built
 
 `docs/spec/bosses.md` carried two claims the look had already disproved. The contents listed THE INSTAR under *Still in hand* and under *Built* at once, because the first lane added the row when the look was the next lane and the second landed the same day without taking it down; §11.32's tail still asked for the look whole, the `instarMark` hit test and its bearing, the `FIELD_CONTROLS` row with its pose and the controls row, and the eleven events out of the two silent lists. Every one of those is in the tree — `instarMarkUnder` in `render/handles.ts`, the director's `field-controls-instar.ts` and its pose, `docs/spec/controls.md`'s THE INSTAR'S MARKS row — and the events are on the silent lists for the other reason, as one family read above the loop by `instar-fx.ts` the way THE HIVE's are.
