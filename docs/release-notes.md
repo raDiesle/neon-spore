@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · dfbbf1eb — Nine lanes for the bosses, and the look standard THE INSTAR set
+
+The owner's four asks of 18 September 2026, sized and queued rather than started: a special/normal tag on every boss wave, the one-or-two-word prompt extended until the guides can go, boss states that change several times with a different gesture in each, gestures that are not on the panel, and a graphics task per recent boss with THE INSTAR as the reference.
+
 ## 2026-09-18 · 75f9479e — THE HIVE cannot be won: its own rock stops the bolt that seals a breach, and the rehearsal waits on which of three fixes the owner wants
 
 Found authoring the wave's film. A bolt stops at the first body in its column and a rock takes a crater from it, a plain rock is thirteen beats from the top to the shield's row, and an open breach spills one every three — so from its first spill a breach's column is never empty and it can never be sealed; the cadence is one clock for every breach and an opening runs before the spill on its beat, so the second site and the fifth spill on the beat they open and no seed can win; and two open breaches spill on one beat into a shield one column wide. The finding is a queue item that asks the owner to choose — the design's insect shot on its way down, a fast rock on a per-breach cadence, or a bolt of the breach's colour passing its own spill — and §11.14 says so under its tests.
