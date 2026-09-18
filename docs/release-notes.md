@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 38d20f0d — THE PULSE's bar is a state, and holding it is one of you carrying the other
+
+The round splits nothing in its verbs — both panels carry the same four arrows and a press is judged the same way whichever thumb it came from — so the state it gained is not a seat's. It is the meter's: the one number that was already the whole of whether a stage is lost, and the one object in this game the pair owns together.
+
 ## 2026-09-18 · 2a510c36 — THE SCOUT's load is a state, and hoarding is what it costs
 
 The round asked the same four things of the pair from the first mote to the last, and the seat that could see the arena had one press in it. It has a second state now and it is the **load** — how many motes are aboard, which is the number the pair is already deciding about every time they pass one, because a mote is not had until it is banked.
