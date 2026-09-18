@@ -2,6 +2,7 @@ import type { SimConfig } from "./config.js";
 import { ticksPerBeat } from "./config.js";
 import { MAZE_TURN, mazeCosMilli, mazeSinMilli, mazeWrap } from "./maze.js";
 import type { ScoutState } from "./scout.js";
+import { scoutPrimed, stepScoutReel } from "./scout-hand.js";
 
 /**
  * One tick of the flight, and the four things that decide how it feels.
@@ -58,12 +59,23 @@ function speedSq(scout: ScoutState): number {
  * of it. A pair that flew into the edge has lost the time, which is the whole
  * of the punishment — the owner's rule is that the *enemies* cost the hull.
  */
-export function stepScoutFlight(cfg: SimConfig, scout: ScoutState): void {
+export function stepScoutFlight(cfg: SimConfig, scout: ScoutState, tick: number): void {
+  // The line first, and it replaces the flight rather than adding to it: a
+  // ship being reeled home is not one player 1 is flying, so his turn and his
+  // burn do nothing until her thumb comes off (`scout-hand.ts`).
+  if (stepScoutReel(cfg, scout, tick)) {
+    const tpbReel = ticksPerBeat(cfg);
+    scout.colMilli += Math.round(scout.vColMilli / tpbReel);
+    scout.rowMilli += Math.round(scout.vRowMilli / tpbReel);
+    bounce(cfg, scout);
+    return;
+  }
+
   if (scout.turn !== 0) {
     scout.headingMilli = mazeWrap(scout.headingMilli + scout.turn * cfg.scoutTurnMilliDeg);
   }
 
-  if (scout.burning) {
+  if (scout.burning && scoutPrimed(cfg, scout, tick)) {
     const nose = scoutNose(scout.headingMilli);
     scout.vColMilli += Math.round((nose.colMilli * cfg.scoutBurnMilli) / 1000);
     scout.vRowMilli += Math.round((nose.rowMilli * cfg.scoutBurnMilli) / 1000);

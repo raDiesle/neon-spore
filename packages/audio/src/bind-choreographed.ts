@@ -240,6 +240,9 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "pinWind":
     case "pinNudge":
     case "pinTilt":
+    case "scoutReel":
+    case "scoutSlip":
+    case "scoutPrime":
       return handCue(e, cols);
     default:
       return undertowCue(e, cols);

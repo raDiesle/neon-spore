@@ -2,8 +2,9 @@ import type { SimConfig } from "./config.js";
 import { midCol } from "./config.js";
 import { breachHull } from "./hull.js";
 import type { ScoutPoint, ScoutState } from "./scout.js";
-import { scoutCleared, scoutCurrent, scoutHome, scoutMawOpen, scoutStand } from "./scout.js";
+import { scoutCleared, scoutCurrent, scoutMawOpen } from "./scout.js";
 import { stepScoutFlight, stepScoutHazards } from "./scout-fly.js";
+import { scoutHome, scoutStand } from "./scout-open.js";
 import type { World } from "./world.js";
 
 /**
@@ -93,7 +94,7 @@ export function stepScoutArena(world: World, scout: ScoutState): boolean | null 
   if (scoutCleared(scout)) return openNextArena(world, scout);
   if (world.beat - scout.arenaBeat >= scoutCurrent(scout).beats) return ranOut(world, scout);
 
-  stepScoutFlight(cfg, scout);
+  stepScoutFlight(cfg, scout, world.tick);
   stepScoutHazards(cfg, scout);
 
   const caught = scoutHazardAt(cfg, scout);

@@ -109,7 +109,12 @@ export interface ScoutConfig {
  * difference between the two is a *length of press*, which is the thing the
  * seat that cannot see the arena can be told — "a short one" against "hold it".
  */
-export const SCOUT_DEFAULTS: ScoutConfig = {
+export const SCOUT_DEFAULTS: ScoutConfig & ScoutHandConfig = {
+  scoutLadenMotes: 3,
+  scoutHeavyMotes: 4,
+  scoutReelMilli: 2600,
+  scoutPrimeMilli: 1500,
+  scoutPrimeTicks: 180,
   scoutTurnMilliDeg: 9_000,
   scoutBurnMilli: 240,
   scoutDragMilli: 976,
@@ -123,3 +128,62 @@ export const SCOUT_DEFAULTS: ScoutConfig = {
   scoutLeadBeats: 4,
   scoutVerdictBeats: 5,
 };
+
+/**
+ * **THE SCOUT's two hands on its own picture**: the loads its three states
+ * begin at, the line player 2 reels it home on, and the prime player 1 has to
+ * give a labouring thruster (`scout-hand.ts`, `docs/spec/interludes.md`, THE
+ * SCOUT's *Three loads, three hands*).
+ *
+ * Beside the ship's feel rather than in a file of their own: `config.ts` is at
+ * 243 lines of 250 and a sixth round-shaped import would be the diff that
+ * pushed it over — and everything here is still about how the ship handles,
+ * which is what this file is.
+ */
+export interface ScoutHandConfig {
+  /**
+   * Motes aboard before the ship reads as **laden**, so the load after this is
+   * the first one that is.
+   *
+   * 3, which is the whole of the first arena. **The loads are the price of
+   * hoarding**: a pair that banks each mote as it takes it never leaves
+   * `light`, and a pair that sweeps the arena before going home meets both of
+   * the other two. That is the decision this round is already about — go home
+   * or go on — with a cost on the second answer instead of only a risk.
+   */
+  scoutLadenMotes: number;
+  /**
+   * And before it reads as **heavy**. 4, which the first arena cannot reach at
+   * all — it has four motes — and the second can, with six. So the last load
+   * is the second arena's, which is the harder one and the one authored for a
+   * pair that has already flown the first.
+   */
+  scoutHeavyMotes: number;
+  /**
+   * How fast the line pulls the scout toward home while player 2's thumb is on
+   * it, in thousandths of a tile a beat.
+   *
+   * 2600, which is under half `scoutMaxSpeedMilli`: a reeled ship is slower
+   * than a flown one, so the line is a way *back* and never a way *there*. It
+   * is also why the line is not flying — she chooses when, and home is the
+   * only place it goes.
+   */
+  scoutReelMilli: number;
+  /**
+   * How far player 1's thumb has to carry the ship to prime a labouring
+   * thruster, in thousandths of a tile.
+   *
+   * 1500: a tile and a half, the travel every swipe in this game asks for
+   * (`wardenThrowMilli`, `vaneHaulMilli`, `snakeJawsMilli`, `pinballWindMilli`).
+   */
+  scoutPrimeMilli: number;
+  /**
+   * How many ticks one prime lasts. Outside it a **heavy** ship's burn does
+   * nothing at all.
+   *
+   * 180, which is about a beat and a half: long enough for the burn that the
+   * prime was called for, short enough that a heavy ship cannot be flown with
+   * one hand the way a light one can.
+   */
+  scoutPrimeTicks: number;
+}

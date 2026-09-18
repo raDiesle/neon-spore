@@ -467,24 +467,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE SCOUT changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-scout-changes-state-more-than-once-and-asks
-- **Files:** `packages/sim/src/config-scout.ts`, `packages/sim/src/scout-arena.ts`, `packages/sim/src/scout-fly.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-
-It is answered today on its own panel (`scout`), over 6 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE SCOUT's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1745,3 +1727,26 @@ into an `act-4b.ts` beside it, spread in sequence by `waves.ts`. Act seven's
 own entry above is the same question asked where the answer is expensive
 because the page that filled is not the last one; this one is still the last
 one, and it costs a file and a line.
+
+## THE SCOUT's laden and heavy have no card, because no hand flies the little ship
+
+- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Files:** `tools/director/test/boss-states.test.ts`, `tools/director/src/poses-bosses-rounds-b.ts`, `tools/director/src/boss-hands-rounds.ts`, `packages/content/test/scout-flight.test.ts`
+
+The §6.2 sim lane gave THE SCOUT a second axis of state — what the motes
+aboard have made of the little ship (`scoutLoad`) — and `BOSS_PHASES` now names
+all three. Only `light` has a pose: an arena opens with the ship carrying
+nothing.
+
+`laden` is four motes aboard and `heavy` five, and the gallery has no hand that
+flies the ship to a mote at all. Both are on `OWED` with that reason, which is
+an allowance and not an answer, and it is the same allowance SNAKE's two took
+the same day.
+
+**The autopilot already exists**, which is what makes this cheap: the rig in
+`packages/content/test/scout-flight.test.ts` points the nose, burns and coasts
+and banks all four motes of the first arena in twelve beats. It is a test
+helper rather than a `Hand`, so it cannot be spread into the gallery as it
+stands — the work is lifting it beside `gaugeHand` and `mazeHand` and giving it
+the world's own tick instead of its own loop. Whoever does takes both names off
+`OWED`, and SNAKE's sibling entry above is the same job on a different round.

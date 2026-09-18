@@ -100,6 +100,26 @@ export interface ScoutArena {
  */
 export const SCOUT_PHASES = ["lead", "play", "verdict", "spent"] as const;
 
+/**
+ * **What the little ship has become, which is a second state and not a second
+ * clock** (`docs/spec/interludes.md`, THE SCOUT's *Three loads, three hands*).
+ *
+ * The phases above are the round's clock — the lead, the flight, the verdict,
+ * the picture held. This is the **load**, and it follows from how many motes
+ * are aboard and nothing else: the number the pair is already deciding about
+ * every time they pass one, because a mote is not had until it is banked.
+ *
+ * - `light`: the three verbs and the mouth as the round was built.
+ * - `laden`: past `scoutLadenMotes` the ship is heavy on the turn, and player
+ *   2 may put a line on it (`scoutLine`) and reel it home — straight, slowly,
+ *   and with player 1's hands dead while it runs.
+ * - `heavy`: past `scoutHeavyMotes` the thruster labours, and a burn does
+ *   nothing at all unless player 1 has primed it (`scoutPrime`) inside the
+ *   last `scoutPrimeTicks`.
+ */
+export const SCOUT_LOADS = ["light", "laden", "heavy"] as const;
+export type ScoutLoad = (typeof SCOUT_LOADS)[number];
+
 /** The three phases and the one after them, the shape `SnakePhase` has. */
 export type ScoutPhase = (typeof SCOUT_PHASES)[number];
 
@@ -171,6 +191,20 @@ export interface ScoutState {
    * went wrong wants to be told the same thing the picture says.
    */
   caughtBy: number;
+  /**
+   * Whether player 2's thumb is on the line, under `laden`.
+   *
+   * While it is, the ship is pulled straight toward home at `scoutReelMilli`
+   * and player 1's turn and burn do nothing — so the line is a way *back* and
+   * never a way *there*, which is the whole of why it does not break the
+   * round's split (`scout-hand.ts`).
+   */
+  reeling: boolean;
+  /**
+   * `world.tick` player 1 last primed the thruster, or -1. Under `heavy` a
+   * burn does nothing outside `scoutPrimeTicks` of it.
+   */
+  primeTick: number;
 }
 
 /** The arena being flown, or the last one when the round is over. */
@@ -197,45 +231,4 @@ export function scoutLeft(scout: ScoutState): number {
 /** Whether the mother ship's mouth is open on this tick. */
 export function scoutMawOpen(scout: ScoutState, tick: number, mawTicks: number): boolean {
   return scout.mawTick >= 0 && tick - scout.mawTick < mawTicks;
-}
-
-/**
- * Where the mother ship sits, in thousandths of a tile: the bottom middle of
- * the arena, which is where the hull has always been.
- *
- * Read off the field's own size rather than authored, for `mazeCenterMilli`'s
- * reason: a home an author could move would be a different round on a narrow
- * field, and the one thing every arena has in common is where home is.
- */
-export function scoutHome(cols: number, rows: number): ScoutPoint {
-  return { colMilli: cols * 500, rowMilli: rows * 1000 - 1_000 };
-}
-
-/**
- * Stand the scout at the start of one arena, everything back as authored.
- *
- * `boss-round.ts` calls this to reach an arena nothing headless could win to,
- * and `scout-arena.ts` calls it when an arena is cleared — which is what makes
- * the second arena the same arena either way round (`boss-round.ts` says why
- * that matters).
- */
-export function scoutStand(scout: ScoutState, index: number, beat: number): void {
-  scout.arena = Math.max(0, Math.min(index, scout.arenas.length - 1));
-  const arena = scoutCurrent(scout);
-  scout.arenaBeat = beat;
-  scout.colMilli = arena.startColMilli;
-  scout.rowMilli = arena.startRowMilli;
-  scout.vColMilli = 0;
-  scout.vRowMilli = 0;
-  scout.headingMilli = arena.startHeadingMilli;
-  scout.turn = 0;
-  scout.burning = false;
-  scout.carrying = [];
-  scout.banked = [];
-  scout.mawTick = -1;
-  // Copied out rather than referenced: the hazards move, and content is never
-  // written to (`SnakeState.rounds` says the same thing one round along).
-  scout.hazards = arena.hazards.map((h) => ({ ...h }));
-  scout.caughtTick = -1;
-  scout.caughtBy = -1;
 }

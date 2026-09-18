@@ -142,4 +142,13 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "player 2 shoving the table through a flight, which moves the ball the way she shoved and is the one thing she has while it falls. Same argument.",
   "boss.pinTilt":
     "the shove after the last one she had: the table tilts and her hand is dead for the rest of the flight. Same argument.",
+  // THE SCOUT's two hands. The subject is a little ship in an arena of its
+  // own, and the sheet's cards are for the creatures and fixtures of a field
+  // this round has put away (`sim/scout-hand.ts`).
+  "boss.scoutReel":
+    "player 2 putting a line on a laden scout and pulling it straight home, with player 1's turn and burn dead while it runs. The little ship's, and the sheet has no card for it.",
+  "boss.scoutSlip":
+    "the same line coming off, which hands the ship back to player 1 wherever it has got to. Same argument.",
+  "boss.scoutPrime":
+    "player 1 priming a thruster three motes have made labour, without which a heavy scout's burn does nothing at all. Same argument.",
 };

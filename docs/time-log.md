@@ -9493,3 +9493,24 @@ and a state field, and the files those are names in were sized for the boss
 before this brief existed.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — queue-task-processing-cloud — THE SCOUT's load is a state, and hoarding is what it costs
+
+The §6.2 sim lane for the round that flies. The load is the number the pair is
+already deciding about every time they pass a mote, so the states are the price
+of hoarding: bank as you go and the round is what it was, sweep an arena and
+player 2 gets a line home and player 1 has to prime a labouring thruster.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the entry, THE SCOUT's whole section in `interludes.md`, `scout.ts`, `scout-round.ts`, `scout-fly.ts`, `scout-arena.ts`, and the flight rig in `content/test/scout-flight.test.ts` to find out what the shipped twelve-beat figure depends on |
+| writing | 55 | `scout-hand.ts` with the two readings and the reel step, five config fields, `events-scout.ts`, `bind-scout-hand.ts`, `sounds/boss-scout-hand.ts`, eleven cases in a new test file, the wire, the guide, the `light` card, and *Three loads, three hands* |
+| looking | 0 | none — the picture is the look lane's |
+| friction | 30 | the first thresholds (2 and 3) killed the burn on the autopilot's way home and took the shipped flight figure with it; raising them to 3 and 4 is the better design as well as the compatible one, because it makes the loads the price of hoarding rather than a tax on flying. Then four files over 250 in turn: `scout.ts` split into shape, open and hand, and `bosses.ts` twice — once trimmed, once cut properly onto `bosses-scout.ts`. And a `scoutTurn` written with SNAKE's `dir: "left"` put a NaN in the heading that three assertions passed straight over, because `Object.is(NaN, NaN)` is true |
+| landing | 15 | `format`, `imports:sort` and its diff read, `index`, `check:fast` four times — three of them on one guide half two characters too long — the queue entry, the commit, the land |
+
+The bottleneck was the thresholds: the numbers looked like a free choice and
+were the one decision in the lane that could quietly invalidate a measured
+figure somebody else had written down.
+
+*Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*

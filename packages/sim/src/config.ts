@@ -22,7 +22,7 @@ import { RECOIL_DEFAULTS, type RecoilConfig } from "./config-recoil.js";
 import { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.js";
 import { ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
 import { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
-import { SCOUT_DEFAULTS, type ScoutConfig } from "./config-scout.js";
+import { SCOUT_DEFAULTS, type ScoutConfig, type ScoutHandConfig } from "./config-scout.js";
 import { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 import { SLOW_DEFAULTS, type SlowConfig } from "./config-slow.js";
 import { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
@@ -63,7 +63,7 @@ export { ROCK_CROSS_DEFAULTS, type RockCrossConfig } from "./config-rock-cross.j
 // needs it to delay a splash.
 export { FLEET_SHELL_BEATS, ROUND_DEFAULTS, type RoundConfig } from "./config-rounds.js";
 export { RUN_DEFAULTS, type RunConfig } from "./config-run.js";
-export { SCOUT_DEFAULTS, type ScoutConfig } from "./config-scout.js";
+export { SCOUT_DEFAULTS, type ScoutConfig, type ScoutHandConfig } from "./config-scout.js";
 export { SHOT_DEFAULTS, type ShotConfig } from "./config-shot.js";
 export { SLOW_DEFAULTS, type SlowConfig } from "./config-slow.js";
 export { STRAND_DEFAULTS, type StrandConfig } from "./config-strand.js";
@@ -85,6 +85,7 @@ export interface SimConfig
     ChoirConfig,
     ClawConfig,
     ScoutConfig,
+    ScoutHandConfig,
     BossClockConfig,
     SlowConfig,
     CrawlerConfig,

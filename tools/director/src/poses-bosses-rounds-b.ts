@@ -1,3 +1,4 @@
+import { scoutLoad } from "@neon-spore/sim";
 import { pinballHand } from "./boss-hands-rounds.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
@@ -113,6 +114,17 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
     "play",
     "The scout under way in the arena, steered by one seat on what the other seat can see. Nobody steers here, so it flies straight.",
     { ...FULL, hold: 12 },
+  ),
+  bossPose(
+    "scout",
+    "light",
+    "The little ship carrying nothing, which is how every arena opens and how a pair that banks each mote as it takes it flies the whole round. The three verbs and the mouth, and no hand on the picture at all.",
+    {
+      ...FULL,
+      want: (w) =>
+        w.boss?.kind === "scout" && w.boss.phase === "play" && scoutLoad(w.cfg, w.boss) === "light",
+      hold: 12,
+    },
   ),
   bossPose(
     "scout",

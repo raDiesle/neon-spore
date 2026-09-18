@@ -19,7 +19,9 @@ export type DragTargetB =
   | "snakeJaws"
   | "snakeTail"
   | "pinPlunger"
-  | "pinTable";
+  | "pinTable"
+  | "scoutLine"
+  | "scoutPrime";
 
 /**
  * `fleetBreach`, `fleetRake` and `fleetWreck` are the twenty-seventh, -eighth
@@ -59,4 +61,15 @@ export type DragTargetB =
  * (`fromMilli`, whose **sign is the direction** — the one place in this union
  * a carry's direction is the whole of what it says), once, and a second shove
  * tilts it (`pinball-hand.ts`). No `id`: one plunger and one table.
+ */
+
+/**
+ * `scoutLine` and `scoutPrime` are the thirty-sixth and -seventh, and the pair
+ * that comes closest to breaking a round's own split without doing it. Player
+ * 2 cannot move the little ship by a thousandth of a tile and still cannot:
+ * her thumb on the line pulls it **straight home** and nowhere else, at under
+ * half its own top speed, with player 1's hands dead while it runs. His is a
+ * carry on the ship itself (`fromYMilli` against `scoutPrimeMilli`) that lights
+ * a thruster three motes have made labour (`scout-hand.ts`). No `id`: one ship
+ * and one line onto it.
  */

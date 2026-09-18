@@ -58,9 +58,9 @@ export const WAVES_ACT_7C: Wave[] = [
     sentence:
       "The one where the ship puts something small out into the dark, and only one of you can see where it is going.",
     guide: {
-      both: "Fly the little ship to every mote. Touch nothing that moves.",
-      p1: "1. Hold ◀ or ▶ to swing the nose to the o'clock your partner gives.\n2. BURN for as long as they say. The ship keeps drifting after.\n3. Ask what is crossing before every burn.",
-      p2: "1. Say an o'clock for the nearest mote, and how long to burn.\n2. Say what is moving across the way before they burn.\n3. Open the MAW when the little ship is home, so the mote comes off.",
+      both: "Fly the little ship to every mote. Touch nothing that moves. Carrying more than three makes it heavy.",
+      p1: "1. Hold ◀ or ▶ to swing the nose to the o'clock they give.\n2. BURN for as long as they say. It keeps drifting after.\n3. Ask what is crossing before every burn.\n4. Heavy ship: drag it to prime, or the burn does nothing.",
+      p2: "1. Say an o'clock for the nearest mote, and how long to burn.\n2. Say what is moving across before they burn.\n3. Open the MAW when it is home.\n4. Four aboard: a thumb on it reels it home. Check the line first.",
       scene: "theScout",
     },
     entries: [],

@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
 import { pinballHandCue } from "./bind-pinball-hand.js";
+import { scoutHandCue } from "./bind-scout-hand.js";
 import { snakeBodyCue } from "./bind-snake-body.js";
 import { vaneCue } from "./bind-vane.js";
 import { wardenHandCue } from "./bind-warden-hand.js";
@@ -37,7 +38,11 @@ export type HandEvent = Extract<
       // And PINBALL's two, the second round to get a hand on its picture.
       | "pinWind"
       | "pinNudge"
-      | "pinTilt";
+      | "pinTilt"
+      // And THE SCOUT's two, the third round to get a hand on its picture.
+      | "scoutReel"
+      | "scoutSlip"
+      | "scoutPrime";
   }
 >;
 
@@ -55,7 +60,11 @@ export function handCue(e: HandEvent, cols: number): Cue {
     case "snakeLift":
     case "snakeDrop":
       return snakeBodyCue(e, cols);
-    default:
+    case "pinWind":
+    case "pinNudge":
+    case "pinTilt":
       return pinballHandCue(e, cols);
+    default:
+      return scoutHandCue(e);
   }
 }

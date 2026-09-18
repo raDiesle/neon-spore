@@ -95,6 +95,12 @@ const ACCEPTED: Command[] = [
   // dropped it would send the ball the other way on one device.
   { kind: "drag", target: "pinPlunger", on: false, fromMilli: 0, fromYMilli: 1500 },
   { kind: "drag", target: "pinTable", on: false, fromMilli: -1200, fromYMilli: 0 },
+  // THE SCOUT's two hands: player 2's line, which pulls the little ship
+  // straight home and nowhere else, and player 1's carry on the ship to prime
+  // a labouring thruster (`sim/scout-hand.ts`). A codec that dropped the line
+  // would leave one device flying a ship the other one is hauling.
+  { kind: "drag", target: "scoutLine", on: true, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "scoutPrime", on: false, fromMilli: 0, fromYMilli: 1500 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -214,6 +220,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   snakeTail: true,
   pinPlunger: true,
   pinTable: true,
+  scoutLine: true,
+  scoutPrime: true,
   crank: true,
   orreryRing: true,
 };

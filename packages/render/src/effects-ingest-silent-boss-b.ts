@@ -126,4 +126,10 @@ export const INGEST_SILENT_BOSS_B = [
   "pinWind",
   "pinNudge",
   "pinTilt",
+  // THE SCOUT's two hands on its picture, silent until the look lane draws
+  // them: a line on the ship and a primed thruster are state, read off
+  // `reeling` and `primeTick` every frame (`sim/scout-hand.ts`).
+  "scoutReel",
+  "scoutSlip",
+  "scoutPrime",
 ] as const satisfies readonly SimEvent["type"][];

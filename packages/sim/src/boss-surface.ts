@@ -176,6 +176,8 @@ export {
   scoutHolds,
   scoutHome,
   scoutLeft,
+  // What the motes aboard have made of the little ship (`scout-hand.ts`).
+  scoutLoad,
   scoutMawOpen,
   scoutNose,
   scoutOpenRound,

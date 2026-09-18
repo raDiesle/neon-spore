@@ -12,7 +12,7 @@ import { MAZE_PHASES } from "./maze.js";
 import { ORRERY_PHASES } from "./orrery.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
 import { PULSE_PHASES } from "./pulse.js";
-import { SCOUT_PHASES } from "./scout.js";
+import { SCOUT_LOADS, SCOUT_PHASES } from "./scout.js";
 import type { MirrorPhase } from "./simon.js";
 import { SNAKE_GRIPS, SNAKE_PHASES } from "./snake.js";
 import { STARE_PHASES } from "./stare.js";
@@ -62,7 +62,10 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   // as well (`pinball.ts`).
   pinball: [...PINBALL_PHASES, ...PIN_SHOTS],
   pulse: PULSE_PHASES,
-  scout: SCOUT_PHASES,
+  // Both of THE SCOUT's axes, as SNAKE's and PINBALL's are: the round's
+  // clock, and what the motes aboard have made of the little ship. The
+  // second is the one the pair puts it in (`scout.ts`).
+  scout: [...SCOUT_PHASES, ...SCOUT_LOADS],
   stare: STARE_PHASES,
   diastole: DIASTOLE_PHASES,
   baton: BATON_STAGES,

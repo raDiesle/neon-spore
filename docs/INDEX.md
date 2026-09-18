@@ -282,7 +282,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/scout-arena.ts` | What the scout is touching, and the two ways an arena ends badly |
 | `packages/sim/src/scout-fly.ts` | One tick of the flight, and the four things that decide how it feels |
 | `packages/sim/src/scout-hash.ts` | What THE SCOUT puts into `hashWorld`, and nothing else |
+| `packages/sim/src/scout-hand.ts` | The two counts `scoutLoad` reads, as little of `SimConfig` as it needs |
 | `packages/sim/src/scout-round.ts` | THE SCOUT's clock: the three phases, the way in and the way out |
+| `packages/sim/src/scout-open.ts` | **Standing THE SCOUT up**: where home is, and one arena set out as authored |
 | `packages/sim/src/scout.ts` | THE SCOUT: the ship puts something small out into the dark, and only one of you is holding it |
 | `packages/sim/src/scuttle-hash.ts` | What THE SCUTTLE puts into `hashWorld`, and nothing else |
 | `packages/sim/src/scuttle-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE SCUTTLE |
@@ -303,6 +305,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-sinew.ts` | **Everything THE SINEW does that neither screen already says**, as events |
 | `packages/sim/src/events-surge.ts` | **Everything THE SURGE does that neither screen already says**, as events |
 | `packages/sim/src/events-scuttle.ts` | **Everything THE SCUTTLE does that neither screen already says**, as events |
+| `packages/sim/src/events-scout.ts` | **What THE SCOUT's two hands on its picture do that neither screen already says** |
 | `packages/sim/src/events-snake.ts` | **What SNAKE's two hands on the body do that neither screen already says** |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
@@ -503,6 +506,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
 | `packages/sim/src/bosses-clocks.ts` | **The bosses that are a clock**, as their half of the boss barrel |
 | `packages/sim/src/bosses-clocks-b.ts` | **The bosses that are a clock, the second page** — the clock half of the boss barrel from THE SCUTTLE on |
+| `packages/sim/src/bosses-scout.ts` | **THE SCOUT's names**, cut off `bosses.ts` the day the round gained a second axis of state and took that… |
 | `packages/sim/src/config-rounds.ts` | The rounds' numbers, as one block of `SimConfig` |
 | `packages/sim/src/config-run.ts` | The run's own numbers: the rest after a wave, the pause after a hit |
 | `packages/sim/src/config-weight.ts` | THE WEIGHT's one number |
@@ -1573,6 +1577,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-surge.ts` | THE SURGE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-scout-hand.ts` | THE SCOUT's two hands on its picture, in a file of their own for `bind-pinball-hand.ts`' reason |
 | `packages/audio/src/bind-stare.ts` | THE STARE's three, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-snake-body.ts` | SNAKE's two hands on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |

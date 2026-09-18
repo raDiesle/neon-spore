@@ -601,8 +601,68 @@ only time. `scoutRadiusMilli`, `scoutMoteRadiusMilli`, `scoutHazardRadiusMilli`
 and `scoutHomeRadiusMilli` are what counts as touching each of the four things
 in the arena, and home's is the largest because it is the one thing the pair is
 aiming at. `scoutMawTicks` is how long the mother ship's mouth stands open on a
-press. `scoutLeadBeats` is the quiet before the ship is let go, and
+press. `scoutLadenMotes` and `scoutHeavyMotes` are the loads above,
+`scoutReelMilli` is how fast the line pulls, and `scoutPrimeMilli` and
+`scoutPrimeTicks` are how far a prime is carried and how long it lasts. `scoutLeadBeats` is the quiet before the ship is let go, and
 `scoutVerdictBeats` is how long the result stands.
+
+**Three loads, three hands** (18 September 2026, `.claude/skills/new-boss`
+§6.2; the simulation is `packages/sim/src/scout-hand.ts`). The round asked the
+same four things of the pair from the first mote to the last, and the seat that
+could see the arena had one press in it. It has a second state now, and it is
+the **load** — how many motes are aboard, which is the number the pair is
+already deciding about every time they pass one, because a mote is not had
+until it is banked.
+
+| Load | Motes aboard | What is new | Whose hand |
+|---|---|---|---|
+| `light` | 0–3 | the three verbs and the mouth as the round was built | both, on the panel |
+| `laden` | 4 | **the line.** Player 2 may put a thumb on the little ship (`scoutLine`) and it is pulled straight home at `scoutReelMilli`, with player 1's turn and burn dead while it runs | player 2, on the picture |
+| `heavy` | 5+ | **the prime.** The thruster labours, and a burn does nothing at all outside `scoutPrimeTicks` of a carry on the ship (`scoutPrime`) | player 1, on the picture |
+
+**The loads are the price of hoarding**, which is the decision this round was
+always about. A pair that banks each mote as it takes it never leaves `light`
+and plays the round it always played; a pair that sweeps an arena before going
+home meets both of the others. The first arena has four motes, so it can reach
+`laden` and can never reach `heavy`; the second has six and can reach both.
+
+**The line does not break the split.** Player 2 cannot move the ship by a
+thousandth of a tile and still cannot: the line goes **home** and nowhere else,
+at under half the ship's own top speed, so she chooses *when* and never
+*where*. What makes it a sentence rather than a button is that it drags the
+ship along a straight line through whatever is in the way — and she is the only
+one who can see what that is.
+
+**The prime is the pilot's**, on the one thing his screen shows him. Three
+motes aboard and the burn stops answering until he has carried the ship; it
+costs him the hand that holds the burn, on the load where every burn matters
+most.
+
+**Nothing new can lose an arena.** A carry too short, a line on a ship that is
+not laden, a prime on one that is not heavy — each does nothing, and the wave
+is still lost only by a hazard's touch and by the clock.
+
+**And the shipped figures did not move.** The first arena's twelve-beat flight
+and its clock of eighteen are what they were: an autopilot that sweeps all four
+motes goes `laden` on the way home, which takes nothing away, and never reaches
+`heavy` at all (`packages/content/test/scout-flight.test.ts`).
+
+**Where the hands live.** `scout-hand.ts` hears both and carries `scoutLoad`
+and `scoutPrimed`, the two readings the flight and the picture must not
+disagree about; `stepScoutReel` runs from `stepScoutFlight` and replaces it on
+the ticks the line is on. `ScoutState` gained `reeling` and `primeTick`, both
+hashed. The three events — `scoutReel`, `scoutSlip`, `scoutPrime` — are
+`events-scout.ts`, the round's first, cued by `bind-scout-hand.ts` and voiced
+by `sounds/boss-scout-hand.ts`.
+
+**What is not built** (sim lane, 18 September 2026): the picture. Nothing marks
+the ship as a thing a thumb may take hold of, a line is drawn nowhere, a heavy
+ship's thruster looks the same primed or cold, and the three events are on both
+silent lists. The director's STATES sheet has a card for `light` and owes two —
+no hand flies the little ship to a mote — so `laden` and `heavy` are on `OWED`.
+*Never watched at tempo*: whether a reeled ship reads as being pulled or as
+being flown badly, and whether a prime is a gesture a thumb can make while the
+other hand is on the crank.
 
 **A hazard's touch is the wave lost**, and so is the clock running out with a
 mote still owed: both break the hull through `breachHull`, and since 12

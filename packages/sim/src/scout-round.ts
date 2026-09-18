@@ -1,6 +1,7 @@
 import type { ScoutArena, ScoutPhase, ScoutState } from "./scout.js";
-import { scoutStand } from "./scout.js";
 import { stepScoutArena } from "./scout-arena.js";
+import { scoutHandHeard } from "./scout-hand.js";
+import { scoutStand } from "./scout-open.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -72,6 +73,8 @@ export function installScout(world: World, arenas: readonly ScoutArena[]): Scout
     hazards: [],
     caughtTick: -1,
     caughtBy: -1,
+    reeling: false,
+    primeTick: -1,
   };
   scoutStand(state, 0, world.beat);
   return state;
@@ -149,6 +152,10 @@ export function closeScout(world: World): void {
 export function scoutRoundHeard(world: World, player: 1 | 2, command: Command): void {
   const round = scoutRound(world);
   if (round === null || round.phase !== "play") return;
+  // The two hands on the picture, one per seat and one per load past the
+  // first (`scout-hand.ts`). Heard before the seat split below, because each
+  // of them is already refused to the seat it does not belong to.
+  scoutHandHeard(world, round, player, command);
   if (player === 2) {
     scoutMawHeard(round, world, command);
     return;

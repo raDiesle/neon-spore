@@ -63,4 +63,8 @@ export const SILENT_BOSS_B = [
   "pinWind",
   "pinNudge",
   "pinTilt",
+  // THE SCOUT's two hands, no burst until the look lane draws them.
+  "scoutReel",
+  "scoutSlip",
+  "scoutPrime",
 ] as const satisfies readonly SimEvent["type"][];

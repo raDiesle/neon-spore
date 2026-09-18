@@ -54,6 +54,8 @@ export type { BossState } from "./boss-union.js";
 export * from "./bosses-clocks.js";
 // The six rounds are next door and re-exported whole (`bosses-round.ts`).
 export * from "./bosses-round.js";
+// THE SCOUT, whole, and re-exported (`bosses-scout.ts`).
+export * from "./bosses-scout.js";
 export { type CairnState, cairnState, cairnWaited } from "./cairn.js";
 export { BOSS_KINDS, bossFillsWave } from "./entries.js";
 export {
@@ -163,25 +165,6 @@ export {
   repriseHeld,
   repriseLeft,
 } from "./reprise-state.js";
-export {
-  SCOUT_PHASES,
-  type ScoutArena,
-  type ScoutHazard,
-  type ScoutMote,
-  type ScoutPhase,
-  type ScoutPoint,
-  type ScoutState,
-  scoutCleared,
-  scoutCurrent,
-  scoutHome,
-  scoutLeft,
-  scoutMawOpen,
-} from "./scout.js";
-// Whether the little ship is on the mother ship's mouth: the round asks at
-// the bank, the field's cue asks every tick (`scout-arena.ts`).
-export { scoutAtHome } from "./scout-arena.js";
-export { scoutNose } from "./scout-fly.js";
-export { enterScoutPhase, scoutHolds, scoutOpenRound, scoutRound } from "./scout-round.js";
 export {
   fireStep,
   MIRROR_GESTURES,

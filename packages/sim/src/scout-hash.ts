@@ -44,6 +44,12 @@ export function scoutHashParts(b: ScoutState): number[] {
   // What has been collected, and where everything is now. The hazards move, so
   // their positions are the play rather than the map.
   push(b.mawTick);
+  // The two hands on the picture. A line on the ship is whether player 1's
+  // controls do anything at all, and a prime is whether his burn does — so a
+  // device that disagreed about either would be flying a different ship
+  // (`scout-hand.ts`).
+  push(b.reeling ? 1 : 0);
+  push(b.primeTick);
   // Carried and banked are two lists and both are the fight: a device that
   // thinks one more mote is aboard is a device drawing a different arena for
   // the seat that can see it.

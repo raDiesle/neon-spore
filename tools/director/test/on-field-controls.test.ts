@@ -194,6 +194,12 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "pinPlunger":
     case "pinTable":
       return target;
+    // THE SCOUT's two hands — player 2's line home on a laden ship, player 1's
+    // carry priming a thruster three motes have made labour
+    // (`sim/scout-hand.ts`). Sim lane only so far, as the seven above.
+    case "scoutLine":
+    case "scoutPrime":
+      return target;
     default:
       return assertNever(target);
   }

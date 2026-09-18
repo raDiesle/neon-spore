@@ -26,6 +26,7 @@ import { BOSS_LEDGER_SOUNDS } from "./sounds/boss-ledger.js";
 import { BOSS_ORRERY_SOUNDS } from "./sounds/boss-orrery.js";
 import { BOSS_PINBALL_HAND_SOUNDS } from "./sounds/boss-pinball-hand.js";
 import { BOSS_PLANNED_SOUNDS } from "./sounds/boss-planned.js";
+import { BOSS_SCOUT_HAND_SOUNDS } from "./sounds/boss-scout-hand.js";
 import { BOSS_SCUTTLE_SOUNDS } from "./sounds/boss-scuttle.js";
 import { BOSS_SINEW_SOUNDS } from "./sounds/boss-sinew.js";
 import { BOSS_SNAKE_BODY_SOUNDS } from "./sounds/boss-snake-body.js";
@@ -83,6 +84,7 @@ export const CATALOGUE: readonly SoundDef[] = [
   ...BOSS_VANE_SOUNDS,
   ...BOSS_SNAKE_BODY_SOUNDS,
   ...BOSS_PINBALL_HAND_SOUNDS,
+  ...BOSS_SCOUT_HAND_SOUNDS,
   ...BOSS_PLANNED_SOUNDS,
   ...FLEET_SOUNDS,
   ...SPLICE_SOUNDS,
