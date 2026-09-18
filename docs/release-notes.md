@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 354e16d4 — SNAKE gets the ship, the band and a body that comes out of the mouth
+
+The round is drawn the way THE SCOUT, PINBALL and THE PULSE are: the hull stands on the screen with its scars, the four presses are lobes on the band in the default set's sockets — the head itself on player 1's shot and mouth, the nose and the arc of the turn on player 2's — and the dark plate and the ember box round the arena are gone, the arena grown to the field's whole width and down to the hull's surface. The opening no longer folds the hull into the body: the cannon's slot opens into the throat and the body pushes out of it in three surges with slime holding its flanks, then the mouth shuts behind the tail. A look the owner asked for by name, 18 September 2026.
+
 ## 2026-09-18 · 21ae9b0d — THE GORGE asks for a pinch and a pry: the simulation
 
 THE GORGE changed state three times and asked for a shot in every one; it now asks for a thumb in two, and a different seat's each time, on one name. Player 1's thumb on a full intake is a pinch: the vent waits while it stays and counts again from the lift. Player 2's thumb on the mouth is a pry: a four-beat window in which the beam in the mouth's colour ends the fight — unpried, the mouth clenches on the beam and it goes in as nothing; held past the window, it clenches on the thumb, throws the pry off and spits a bead. Three sounds, both thumbs in the hash, no picture yet: the look is the second lane of the same queue item.
