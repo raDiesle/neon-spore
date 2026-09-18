@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 3e377c69 — THE BATON says its own verbs, in three of its four stages
+
+The arm's two words were a third of the fight. What the field never said was the cannon: the navigator's bolt goes up the column the cannon stands in, so a flight the pilot is not under is a flight she cannot meet, and once four sockets are dark the arm swings the landing a column off the one it left — his guide's fourth line, nowhere on the field. Two more stages had nothing at all: the crossing, whose whole reading is whose act is due, and the drop, where the bead is a loose pod and the last two hands are his.
+
 ## 2026-09-18 · 43233317 — Queue: the phone's GAME view opens on the strip, and the list has no way there
 
 The owner asked for a wave in the list to open the field in one press, and for ↺ WAVE and BRIEFINGS to be in reach while it is up. `rail-open.ts`'s two ways out of a row are `wave` and `map`; the field is in neither, and arriving from the menu does not show it either — GAME is two sections, RUN is the earlier of them in the markup, and the phone block stacks them in document order, so the view opens on ten rows of transport with the picture a scroll below.
