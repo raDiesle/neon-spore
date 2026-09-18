@@ -663,6 +663,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-crossing.ts` | THE CROSSING's rehearsal: the lane you are aiming up is only yours until something walks across it |
 | `packages/content/src/scenes/the-crystal.ts` | THE CRYSTAL's rehearsal: a lane, a light, and four thumbs at once |
 | `packages/content/src/scenes/the-strand.ts` | THE STRAND's rehearsal: two beads, and neither seat can name one alone |
+| `packages/content/src/scenes/the-stare.ts` | THE STARE's rehearsal: two looks played right, and a thumb landing under the third |
 | `packages/content/src/scenes/the-splice.ts` | THE SPLICE's rehearsal: the number is at the other end of the straw, and only one of you can see it |
 | `packages/content/src/scenes/the-sinew.ts` | THE SINEW's rehearsal: two hands pulling one tendon, and a number only one of them can see |
 | `packages/content/src/scenes/the-surge.ts` | THE SURGE's rehearsal: three holds on one bulb |

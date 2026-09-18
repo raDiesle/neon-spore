@@ -1627,8 +1627,19 @@ the *panel's* and not the button's, because the event names the command's
 kind and not a lobe, and a kind-to-lobe map would be a second copy of the
 band's plan (`docs/queue.md`). Every angle on all three screens, the seat
 word and the gaze proved both ways, and the flash proved a transient the
-next run does not inherit: `render/test/stare-frame.test.ts`. Its rehearsal
-is still the three strings ([briefings](briefings.md) §3.2).
+next run does not inherit: `render/test/stare-frame.test.ts`.
+
+**The rehearsal** (`content/src/scenes/the-stare.ts`) is shaped around the
+seat that is *not* watched, because the film's machinery is a thumb landing
+on a named control and this boss's whole lesson is a thumb that must not
+land. Two looks, mirrored: the pilot is watched first and the navigator
+fires up a column parked under the tell; then the navigator is watched and
+the pilot guards a rock with the dome. The cost is the last page — the
+navigator's trigger under the eye, the wash on their panel and the retries
+row — because a caught press stops the world and a page after it would hold
+on nothing. The seed decides who is watched, so the film's seed is held by
+`content/test/scene-stare.test.ts`, which runs it and expects the two looks,
+the deflect and the catch on their beats ([briefings](briefings.md) §3.2).
 
 ## 11.17 THE DIASTOLE — two hearts on two cadences, one each
 

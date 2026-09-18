@@ -69,6 +69,7 @@ export const WAVES_ACT_7C: Wave[] = [
       both: "An eye over the field. It turns towards one of you for seven beats — and only the other seat is told which — then it watches, and that player may not press anything at all until it looks away. Touch a button under it and the hull breaks and the wave starts again. The looks get longer.",
       p1: "You have the column and the dome, and the seven beats of the turn are for parking both. If it is watching you, take your hands off and read the field out. If it is watching them, you can still slide — but nothing fires.",
       p2: "Only your screen says who it has chosen, so say it: THEM or YOU, every time it turns. If it is watching you, the triggers are dead and they have the dome. If not, fire up whatever column they parked in.",
+      scene: "theStare",
     },
     entries: [
       { beat: 3, col: 2, color: "red" },

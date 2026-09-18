@@ -300,18 +300,18 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are seventy-six of them now**, one per guided wave bar eleven, and
+**There are seventy-seven of them now**, one per guided wave bar ten, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The eleven that are still the three strings
+rather than a page of prose. The ten that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE HIVE and
+CODEX, THE REPRISE, THE FLIP, THE HUSK, THE HIVE and
 THE INSTAR** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those eleven is a film nobody has written, and from THE
+**Every one of those ten is a film nobody has written, and from THE
 REPRISE's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
@@ -384,7 +384,15 @@ home with the maw tapped on the tick the hull is touched; the second opens
 and its first trip comes back with three, and the mote hanging on the
 hazard's own row (`docs/queue.md`) is left where it is. Every page is a
 seat's control or the hull, because the arena the navigator reads has no
-anchor; the pilot's pages never say where a mote is.
+anchor; the pilot's pages never say where a mote is. THE STARE's, the same
+day, is the film of a thumb **not** landing, which the list above said was
+the hardest to choreograph: a rehearsal is a thumb on a named control, so
+the film is shaped around what the *other* seat does while one is frozen,
+and the frozen seat's page carries no act — the pilot watched and the
+navigator firing up the column the pilot parked under, then the navigator
+watched and the pilot guarding a rock alone. Which look is whose is the
+rng's, so the seed is chosen and held by a test (`scene-stare.test.ts`);
+the cost is the last page, because a caught press stops the world.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square

@@ -42,11 +42,6 @@ const STILL_PROSE = [
   // harder than usual to choreograph, too: what the film has to show is a
   // stretch of field the pair can no longer see.
   "THE REPRISE",
-  // And THE STARE, owed by the lane that draws the eye. Its rehearsal is the
-  // hardest of the two to choreograph: a film is a thumb landing on a named
-  // control, and what this boss teaches is a thumb **not** landing — which
-  // needs an eye on the screen to not touch anything under.
-  "THE STARE",
   // And THE FLIP's, owed by the lane that finishes it. A rehearsal is the
   // game's own screen played at full size, one device at a time — and this
   // wave's whole content is that one of those two screens is a mirror, which
@@ -55,7 +50,8 @@ const STILL_PROSE = [
   // And THE HUSK, owed by the lane that films it. A rehearsal is a thumb
   // landing on a named control, and half of this wave's answer is a thumb that
   // must **not** land — the maw left shut while a pod arrives, which is THE
-  // STARE's problem a second time — with the other half being a
+  // STARE's problem a second time, and its film's answer is the one THE
+  // STARE's took: the other seat's page, and the cost last — with the other half being a
   // mark drawn on one seat's screen and not the other's, so the film has to be
   // shot twice and read as one lesson.
   "THE HUSK",
@@ -90,9 +86,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-six films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-seven films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Seventy-six, which is the number in the section. A film with no wave
+    // Seventy-seven, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);

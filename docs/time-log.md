@@ -10745,3 +10745,21 @@ The bottleneck was the button's display: an `all: unset` button is an
 inline-block, which a wrapped caption's list number lines up under.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE STARE, the rehearsal
+
+THE STARE's film: two mirrored looks, the other seat's page each time, and
+the catch as the last page.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `scene-act-types.ts`, the page rules in `scene-pages.test.ts`, THE HUSK's and THE MINE's notes in `scenes-prose.test.ts`, `sim/stare.ts` for the cycle |
+| writing | 45 | `scenes/the-stare.ts`, the wiring, `scene-stare.test.ts`, §3.2, §11.16 |
+| looking | 10 | page 4 on p1 through `bun run frames --opening guide` |
+| friction | 30 | the seat is rolled off the rng at the top of each turn, so the seed had to be searched with the real acts (a search without acts froze at beat 12 on a breach); the catch's command kind is `prime`, not `fire`; a caption over 28, a last page under 1.5 s, a body page holding at row 5 |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep`, the ledger |
+
+The bottleneck was that the film's two facts are decided by things the
+author does not write: which seat the eye picks is the seed's, and where
+the cost can go is the hold's — a caught press stops the world, so the
+catch is the last page or no page.
