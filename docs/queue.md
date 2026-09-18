@@ -426,6 +426,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE MAZE: the field says the word, and the briefing comes down
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-maze-the-field-says-the-word-and-the-briefin
 - **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
 
 It says nothing on the field at all.
