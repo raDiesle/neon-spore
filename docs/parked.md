@@ -59,6 +59,7 @@ on.
 ## BULB QUEEN's pry and hold have no picture: the look half of §6.2
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-18, claude/queue-bulb-queens-pry-and-hold-have-no-picture-the-loo
 - **Files:** `packages/render/src/queen.ts`, `packages/render/src/queen-figure.ts`, `packages/render/src/queen-weakpoint.ts`, `packages/render/src/handles.ts`, `tools/director/src/field-controls-page.ts`, `tools/director/src/poses-bosses-queen.ts`, `tools/director/test/boss-states.test.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
 
 The simulation half of the queue item *BULB QUEEN changes state more than
