@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 0648ba7c — Mark "THE GORGE changes state more than once, and asks for more than one gesture" done
+
+Both lanes landed: 21ae9b0d the simulation, 7d6848a4 the look.
+
 ## 2026-09-18 · 7d6848a4 — THE GORGE's two thumbs: the look
 
 The second lane of the queue's §6.2 item for THE GORGE. A ring stands in every lobe a seat's thumb could take this beat, on that seat's screen alone: the pilot's in every full intake that is not the mouth, the navigator's in the mouth once there is one. The ring is THE BULB QUEEN's and THE MIRROR's, breathing until a thumb lands and filled once one has; the pry's carries the dial of its four-beat window. The press is answered at the circle the ring is drawn from, with the intake's index on it. The pinch, the pry and the clench throw bursts with the sack's other nine; the cue says PINCH to the pilot beside PIERCE, and on the mouth BURN, then PRY once a lobe is filling, then BURN under the pry. Two rows on the director's CONTROLS tab. A look with no shipped alternative.
