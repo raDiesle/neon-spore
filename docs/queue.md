@@ -1332,6 +1332,7 @@ the ring on both marks.
 ## Every boss on the field is a name in `input.ts`, and the file is full
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-18, claude/queue-every-boss-on-the-field-is-a-name-in-input-ts-an
 - **Files:** `apps/game/src/input.ts`, `apps/game/src/input-bindings.ts`, `apps/game/src/field-input.ts`, `packages/render/src/touch-field.ts`, `tools/director/src/stage-field.ts`
 
 `Field` carries one nullable field per boss that a thumb can touch — `maze`,
