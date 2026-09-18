@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 4cd94190 — THE STARE says STILL on the watched seat, and its briefing comes down
+
+The field now writes the one word this boss asks for: STILL, on the watched seat alone, at the foot of the gaze, from the beat the look lands until it lifts — and nothing during the tell, on any screen, because who the eye chose is the answer and the other seat's to say. It is the fifth kind of cue and the only one that is not a gesture: the simulation refuses and charges the press that ignores it, so a thumb kept off the glass is something the fight can tell was done. Two rehearsal pages that were the cue's word alone came out, one in the tell was rewritten to what a cue may never say, and the guide halves lost "hands off" for what a touch costs and which screen is warned. A look the owner asked for by name (decision #34).
+
 ## 2026-09-18 · d7736c61 — A machine-wide width for `bun test` shards, and smaller bins
 
 `pool` bounds the shards of one check. The owner does not run one check: eight lanes out of nine worktrees each started a pool eight wide, every one of them inside its own budget, and the machine went to 22.7 GB of swap. Two shards of forty render tests stood at 10.7 GB and 11.5 GB resident; four held about 26 GB between them. Nothing was over a limit, because the limit was per run and the quantity that mattered was per machine.
