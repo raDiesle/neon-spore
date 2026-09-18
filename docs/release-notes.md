@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 7dfc0932 — THE ORRERY could not be won as built: a ring off shed three rocks on one beat and the shield is one column wide, so the organs now come off one a beat, and the wave has its rehearsal
+
+A ring taken off THE ORRERY dropped its three organs as rocks on the same beat, into three columns, and every hull damage fails the wave, so no pair could take a ring and survive it — though `config-orrery.ts` said three was what the shield can answer. The organs now come off one a beat, each from the column its orbit slot stands over, and the core holds its own fire while a ring is shedding, so the rocks arrive one a beat with a guard window each. A fix to something wrong rather than unlovely, in the sim, with two tests.
+
 ## 2026-09-18 · f91d7660 — The STATES sheet gets a BOSSES category: every boss, every state it can be in, held to the simulation by a test
 
 The owner asked (18 September 2026) that every boss's states be documented on the director's DOCUMENTATION → STATES sheet, in a category of their own, and that the documentation be forced to change whenever a boss does. The sheet now has two categories — THE GAME, as it was, and BOSSES: one group per boss in the simulation's order, thirty-three of them, with a card per state and a note naming the states still owed.
