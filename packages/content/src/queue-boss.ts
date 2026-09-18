@@ -166,6 +166,14 @@ export function bossFromWave(wave: Pick<Wave, "boss">, cols: number): BossEntry 
   // height, which is already a fraction of whatever field is played — so
   // there is nothing to remap (`sim/instar.ts`).
   if (boss.kind === "instar") return { ...boss };
+  // THE FILAMENT's filaments hang from a free end, and the free end is a
+  // column like any other; the word after it is the line's own shape and is
+  // not bent to the field (`sim/filament.ts`).
+  if (boss.kind === "filament")
+    return {
+      ...boss,
+      filaments: boss.filaments.map((f) => ({ ...f, col: mapCol(f.col, cols) })),
+    };
   // THE SCOUT is authored in the arena's own thousandths of a tile, which is
   // the field's width in the units the little ship flies in — so it is the
   // only boss whose places are remapped as *fractions* rather than as columns.

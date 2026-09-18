@@ -47,6 +47,7 @@ export const BOSS_GROUP: Record<BossEntry["kind"], GroupName> = {
   antiphon: "THE ANTIPHON — the boss that grows a thing nobody has a word for",
   hive: "THE HIVE — the boss you seal, and every breach you have not sealed yet is spilling",
   instar: "THE INSTAR — the boss with no panel: its own body is marked where it will hurt you",
+  filament: "THE FILAMENT — the boss whose line one of you draws while the other follows it",
   // The one group with no dial in it, and deliberately: everything about THE
   // WELL is the shape of a picture, and a number that changed how a picture
   // reads belongs in a VERSUS candidate rather than on a slider

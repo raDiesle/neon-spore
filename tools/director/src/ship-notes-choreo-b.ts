@@ -146,4 +146,18 @@ export const CHOREO_NOTES_B = {
     "one strike on the hull, which is the wave. The last landing opens THE " +
     "SLOW instarSlowBeats and the body hangs instarOutBeats more. See " +
     "sim/instar.ts, sim/instar-hand.ts, sim/config-instar.ts.",
+  "THE FILAMENT — the boss whose line one of you draws while the other follows it":
+    "Designed on 18 September 2026 in docs/spec/bosses-choreographed.md §17 " +
+    "and docs/spec/bosses.md §11.33: the one boss that is a trace, and the " +
+    "trace is not fixed. Seven filaments (packages/content/src/filament-" +
+    "script.ts), each a path of tiles from a free end to its root. One is " +
+    "armed filamentArmBeats, then both thumbs are one drag on filament: the " +
+    "pilot draws it a tile a beat from the free end, the navigator follows " +
+    "on the lit part behind him. Two tiles in a beat snap it; her thumb on " +
+    "his tile is a recoil; a gap past filamentGapTiles is the filament going " +
+    "dark — each starts that filament again from its free end. Her thumb on " +
+    "the root pulls the filament out over filamentPullBeats; the seventh " +
+    "opens THE SLOW filamentSlowBeats and the body hangs filamentOutBeats " +
+    "more. Nothing strikes the hull. See sim/filament.ts, sim/filament-" +
+    "hand.ts, sim/config-filament.ts.",
 } satisfies Partial<Record<GroupName, string>>;

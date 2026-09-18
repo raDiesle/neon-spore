@@ -11,6 +11,7 @@ import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
 import { wardCoils } from "./coil.js";
 import { applyCommand } from "./commands.js";
 import { crankHeard } from "./crank.js";
+import { filamentHeard } from "./filament-hand.js";
 import { fleetHeard } from "./fleet.js";
 import { dropLostGrips } from "./grip.js";
 import { gripPushHeard } from "./grip-push.js";
@@ -151,6 +152,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // THE INSTAR's marks, on the tick because a tap is a tap when it lands and
   // a pull is where the thumb is now (`instar-hand.ts`).
   for (const c of commands) instarHeard(world, c.player, c.command);
+  // THE FILAMENT's two thumbs, on the tick: a tile is lit when the thumb
+  // reaches it, and the beat only says whether that was too soon (`filament-hand.ts`).
+  for (const c of commands) filamentHeard(world, c.player, c.command);
   // And the two hands on THE WEIGHT, which is not a command at all: the press
   // is the ordinary `grip` and `applyCommand` has already recorded it, so what
   // runs here is the clock over it. On the tick with the balloon's rub above

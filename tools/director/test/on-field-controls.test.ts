@@ -117,6 +117,14 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // about the ring (`render/instar-marks.ts`, `docs/spec/bosses.md` §11.32).
     case "instarMark":
       return target;
+    // `filament` is the first target that is a **trace**: no `id`, both
+    // seats, and the grab is at a tile the simulation already holds — the
+    // head for player 1, the tail for player 2 — so the displacement
+    // resolves to a tile (`sim/filament-hand.ts`). Heard with nothing drawn
+    // to take hold of; its row comes with the look (`docs/spec/bosses.md`
+    // §11.33).
+    case "filament":
+      return target;
     default:
       return assertNever(target);
   }

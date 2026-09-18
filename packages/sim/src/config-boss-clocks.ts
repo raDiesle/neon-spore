@@ -3,6 +3,7 @@ import { BATON_DEFAULTS, type BatonConfig } from "./config-baton.js";
 import { CANDLE_DEFAULTS, type CandleConfig } from "./config-candle.js";
 import { CURTAIN_DEFAULTS, type CurtainConfig } from "./config-curtain.js";
 import { DIASTOLE_DEFAULTS, type DiastoleConfig } from "./config-diastole.js";
+import { FILAMENT_DEFAULTS, type FilamentConfig } from "./config-filament.js";
 import { GORGE_DEFAULTS, type GorgeConfig } from "./config-gorge.js";
 import { HIVE_DEFAULTS, type HiveConfig } from "./config-hive.js";
 import { INSTAR_DEFAULTS, type InstarConfig } from "./config-instar.js";
@@ -65,7 +66,8 @@ export interface BossClockConfig
     ScuttleConfig,
     AntiphonConfig,
     HiveConfig,
-    InstarConfig {}
+    InstarConfig,
+    FilamentConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -86,4 +88,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...ANTIPHON_DEFAULTS,
   ...HIVE_DEFAULTS,
   ...INSTAR_DEFAULTS,
+  ...FILAMENT_DEFAULTS,
 };

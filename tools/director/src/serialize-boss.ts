@@ -143,6 +143,9 @@ export function serializeBoss(boss: BossEntry): string {
   // reason: a beat list of poses, marks and clocks is authored to be read
   // down a page (`packages/content/src/instar-script.ts`).
   if (boss.kind === "instar") return '{ kind: "instar", steps: INSTAR_SCRIPT }';
+  // THE FILAMENT's paths are words a hand walks (`sim/filament.ts`), named
+  // for the same reason (`packages/content/src/filament-script.ts`).
+  if (boss.kind === "filament") return '{ kind: "filament", filaments: FILAMENT_SCRIPT }';
   // THE SPLICE authors one number a round and the tangle is laid from the rng,
   // so a round is short enough to read on one line — and the list of them is
   // the whole fight, which is why it is written out here rather than named

@@ -139,4 +139,10 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "The marks up and the window open: each ring on the part it moves, the pilot's bright on his screen and the navigator's on hers, the window ring closing in.",
     { hold: 6 },
   ),
+  bossPose(
+    "filament",
+    "arm",
+    "The bundle over the field, one filament lit at its free end and no further: the tile the pilot's thumb lands on, the tile the navigator's waits behind.",
+    { hold: 6 },
+  ),
 ];

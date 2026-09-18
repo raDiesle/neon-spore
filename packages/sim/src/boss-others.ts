@@ -6,6 +6,7 @@ import { stepCairn } from "./cairn.js";
 import { stepCandle } from "./candle-step.js";
 import { stepCurtain } from "./curtain-step.js";
 import { stepDiastole } from "./diastole-step.js";
+import { stepFilament } from "./filament-step.js";
 import { stepFleet } from "./fleet.js";
 import { stepGorge } from "./gorge-step.js";
 import { stepHive } from "./hive-step.js";
@@ -186,6 +187,11 @@ export function stepOtherBoss(world: World, boss: Exclude<BossState, QueenState>
   // THE INSTAR on the beat is the script's clock; the thumbs are on the tick (`instar-hand.ts`).
   if (boss.kind === "instar") {
     stepInstar(world, boss);
+    return;
+  }
+  // THE FILAMENT on the beat is the pauses between filaments; the thumbs are on the tick (`filament-hand.ts`).
+  if (boss.kind === "filament") {
+    stepFilament(world, boss);
     return;
   }
   if (boss.kind === "vane") {

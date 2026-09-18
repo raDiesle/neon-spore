@@ -5,6 +5,7 @@ import type { CairnState } from "./cairn.js";
 import type { CandleState } from "./candle.js";
 import type { CurtainState } from "./curtain.js";
 import type { DiastoleState } from "./diastole.js";
+import type { FilamentState } from "./filament.js";
 import type { GaugeState } from "./gauge.js";
 import type { GorgeState } from "./gorge.js";
 import type { HiveState } from "./hive.js";
@@ -90,4 +91,5 @@ export type BossState =
   | ScuttleState
   | AntiphonState
   | HiveState
-  | InstarState;
+  | InstarState
+  | FilamentState;

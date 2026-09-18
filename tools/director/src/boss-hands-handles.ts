@@ -1,11 +1,17 @@
 import {
   BEARING_TURN,
+  type FilamentState,
+  filamentBoss,
+  filamentTileAt,
+  filamentTiles,
+  filamentTracing,
   type InstarMark,
   instarActing,
   instarBoss,
   instarMarkDone,
   instarSeatHears,
   instarStep,
+  NO_GRAB,
   sinewBoss,
   sinewInZone,
   sinewSwinging,
@@ -149,4 +155,35 @@ function gesture(w: World, player: 1 | 2, id: number, mark: InstarMark): Press {
     case "hold":
       return drag(true);
   }
+}
+
+/**
+ * THE FILAMENT's, the trace played right: the pilot grabs the lit end and is
+ * carried to the next tile once a beat, the navigator grabs behind him and
+ * takes the tile behind his — only ever one behind, so the two never meet
+ * before the root, where her arriving is the pull (`sim/filament-hand.ts`).
+ * A carry is the whole displacement from the grab's tile, the way a device
+ * reports a drag, so the same command sent every tick moves nothing twice.
+ */
+export const filamentHand: Hand = (w) => {
+  const s = filamentBoss(w);
+  if (s === null || !filamentTracing(s)) return [];
+  const last = (filamentTiles(s)?.length ?? 0) - 1;
+  const out: Press[] = [];
+  const pilotTo = s.headBeat === w.beat || s.head >= last ? s.head : s.head + 1;
+  out.push(carry(s, 1, s.grab[0], pilotTo));
+  const behind = s.tail + 1 < s.head || (s.tail + 1 === s.head && s.head === last);
+  out.push(carry(s, 2, s.grab[1], behind ? s.tail + 1 : s.tail));
+  return out;
+};
+
+/** One thumb's press: a grab where there is none, else the carry to tile `to`. */
+function carry(s: FilamentState, player: 1 | 2, grab: number, to: number): Press {
+  const from = filamentTileAt(s, grab);
+  const tile = filamentTileAt(s, to);
+  const fromMilli =
+    grab === NO_GRAB || from === null || tile === null ? 0 : (tile.col - from.col) * 1000;
+  const fromYMilli =
+    grab === NO_GRAB || from === null || tile === null ? 0 : (tile.row - from.row) * 1000;
+  return { player, command: { kind: "drag", target: "filament", on: true, fromMilli, fromYMilli } };
 }

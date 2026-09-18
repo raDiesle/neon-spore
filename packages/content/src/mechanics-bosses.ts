@@ -34,6 +34,7 @@ type BossId = Extract<
   | "antiphon"
   | "hive"
   | "instar"
+  | "filament"
 >;
 
 /**
@@ -167,6 +168,10 @@ export const BOSS_MECHANICS = {
   },
   instar: {
     what: "The one boss with no control set: the panel is its body. It hangs over an empty field and morphs, pose by pose, and in each pose red marks come up on the parts of it that are about to hurt the ship — a jaw, a hand with a weapon in it, a clutch of eggs, a tongue, a tail, the head — and where a mark sits says whose thumb it wants. One seat acts while the other watches and says so; or both act at once in two places and the last of the two must land inside two beats of the other, or the first slips back to nought; or both thumbs hold the one mark. A pull is held at its depth, a slap is counted, an egg is swiped off, a tongue is wound in, a head is held. Every mark done together lands the beat, the body settles and morphs to the next pose; a window that closes with a mark undone is the part striking the hull, which is the wave. Nothing is written for the pair to read: the mark is the instruction. Five poses, and the last lands under THE SLOW.",
+    reach: "spawn",
+  },
+  filament: {
+    what: "The one boss whose question is whether you can follow a line the other of you is still drawing. A body over the top of the field hangs seven loose filaments, and they are its health: each traced end to end is pulled out and the body narrows, the last the width of it. One at a time a filament lights at its free end. The pilot draws it — his thumb carried up the line, one tile a beat, lighting the tiles it has passed and no others; faster snaps it. The navigator follows on the lit part behind him, never more than three tiles back and never on his tile: her thumb reaching his is the two colliding and the filament recoils; the gap opening past three is the filament going dark. Any of the three is the filament back to its free end. Only he sees how far ahead he is; only she sees how far behind. Her thumb on the root, the last tile, is the filament pulled, under THE SLOW. Nothing strikes the hull.",
     reach: "spawn",
   },
 } as const satisfies Record<BossId, Mechanic>;

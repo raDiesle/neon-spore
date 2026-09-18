@@ -4633,6 +4633,135 @@ between runs (`render/test/instar-frame.test.ts`). Whether twelve beats
 is a window or a wait, and whether the body reads as *the bulb queen or
 the warden*, is the owner's eye.
 
+## 11.33 THE FILAMENT — the boss whose line one of you draws while the other follows it
+
+> The one that is a trace, and the trace is not fixed. One thumb lays the
+> line a tile a beat; the other has to follow it without catching up and
+> without falling behind.
+
+Designed as §17 of [bosses-choreographed](bosses-choreographed.md), out of
+the second brief's one absent category: trace is the only gesture on
+either brief with no ancestor anywhere in this game, and the reason to want
+it is not the gesture — it is that **a line has two ends and a phone has
+one thumb**. Every trace mechanic elsewhere is one finger on a fixed
+glowing path, a dexterity test and not a conversation. It is the third of
+the three kinds in `.claude/skills/new-boss`, a choreographed scene: the
+field under it is still (wave `theFilament`'s `entries` are empty and it
+**fills its wave**, `bossFillsWave`), and the boss *is* the picture.
+
+**It is seven lines, not a body.** The state (`sim/filament.ts`, hashed in
+`sim/filament-hash.ts`) is the **filaments** copied in at install from
+`packages/content/src/filament-script.ts` — each authored as a free end
+and a word of `U`, `D`, `L`, `R` steps toward its root, walked into tiles
+by `walkFilament`, and `content/test/filament-script.test.ts` refuses a
+word a hand could not follow — the **cursor** naming which is armed, the
+**phase** and the beat it began, the **head** and the **tail** as indices
+along the armed filament, the beat the head last moved, and the two
+**grabs**. Its health is the filaments: each traced end to end is pulled
+out and gone, seven in the script, and no bar.
+
+**The rule, in one sentence.** A filament arms for `filamentArmBeats` (2)
+lit at its free end (`filamentArm`); then the pilot's thumb **draws** it,
+lighting the next tile and only the next, a tile a beat (`filamentDrawn`),
+and the navigator's **follows** along the lit part behind his
+(`filamentFollowed`), never further behind than `filamentGapTiles` (3)
+and never on his tile — until his is the root, when her thumb arriving
+there is the filament traced end to end and **pulled** out over
+`filamentPullBeats` (3) under THE SLOW (`filamentPulled`,
+`filamentSlowBeats` 2); the seventh pulled is the body down
+(`filamentDown`) and out `filamentOutBeats` (3) later (`filamentOut`),
+which is when the wave may end (`bossHoldsWave`).
+
+**Three things undo a filament**, and each is the filament back to its
+free end with both grabs let go (`restartFilament`): two tiles lit in one
+beat, or a tile skipped, is the **snap** (`filamentSnap`) — the pilot
+carried faster than a tile a beat; her thumb reaching his before the root
+is the two thumbs colliding and the **recoil** (`filamentRecoil`); a tile
+lit that leaves her more than `filamentGapTiles` behind is the filament
+going **dark** (`filamentDark`) — he drew what she could not keep up with,
+the slip §11.32 already has. A thumb still down after any of them has to
+lift and grab again, because its grab was at a tile no longer lit.
+
+**Both thumbs are one `Command`.** Each is the `drag` at the `filament`
+target — `TraceDrag`, the fourth gesture primitive on `sim/drag-targets.ts`
+and the only one that is a boss rather than a convenience. A drag carries
+its displacement from where it grabbed in thousandths of a tile; what
+makes this a *trace* is that the **grab** is at a tile the simulation
+already knows — the head for the pilot, the tail for the navigator — so
+every move resolves to the nearest tile of the field, and that tile is
+either the next on the filament or it is nothing (`sim/filament-hand.ts`).
+A thumb resting, wandering off the line or going back does nothing; the
+lift lets the grab go. The wrong seat's thumb is nothing, silently: there
+is no mark to be refused on, only a line, and the line each seat is shown
+says whose it is.
+
+**The split is the gap.** Both seats see the same field and the same
+filament, and the one number neither can read whole is how far apart the
+thumbs are: he has the distance ahead of him and she has the distance
+behind her, and neither has both. *Three tiles, two, next to you* is the
+sentence this boss exists to make them say. The guide says so and no more
+— a tile a beat, never more than three apart, never on each other's tile
+except the last — and leaves the count to the pair.
+
+**Where this departs from the design, and why.** Five places. *The path
+lit so far is two indices, not a list of tiles*: the design asked for
+`TraceDrag`'s progress to be stored as the tiles it has passed; the
+filament's tiles are already state, hashed whole, so the tiles passed are
+`0..head` of it and the list would be a copy — the fingerprint carries the
+same fact in two numbers. *The grab is at the head or the tail*, not
+wherever the thumb lands: a drag's displacement has to be from somewhere,
+and the only somewhere the simulation can agree on across two devices is a
+tile it already knows. *A tile skipped is a snap too*: the design named
+only carrying faster than a tile a beat; a move that arrives two tiles on
+in one gesture never drew the tile between, which is the same fault by a
+shorter road. *The collision at the root is the pull*: the design said a
+gap closed to nothing is the recoil and did not say how a filament comes
+out; her thumb arriving on his at the last tile is *pull the filament out
+together* said as a rule, and it gives the pull a beat both hands are on.
+*Every pull is THE SLOW*, not only the last, the way §11.32's every landing
+is (`decisions.md` #33): a filament coming out of the body is the beat the
+pair earned.
+
+**What is not built** is the look and the cue: the body of loose
+filaments, the lit part and the dark, the grab a thumb finds
+(`render/handles.ts`, a `filament` row in `FIELD_CONTROLS`), the *DRAW*
+and *FOLLOW* words of `decisions.md` #34 over the lit end on his screen
+and the last lit tile on hers, and the film — the ten events are on both
+silent lists until the look lane draws them (`effects-ingest-silent-boss-b.ts`,
+`effects-spark-silent-boss-b.ts`), the guide is prose
+(`content/test/scenes-prose.test.ts`, `STILL_PROSE`), and the director has
+the group, its fields, its note, the sounds and all four states posed,
+three of them by a hand that plays the trace right (`boss-hands-handles.ts`). **One figure is the owner's**: nothing
+here strikes the hull. The design has no strike in it — what a fault costs
+is the filament, back to its free end, and the wave is the time it takes —
+and every other boss on this page can lose the pair the wave. Whether a
+boss that can only be slowed and never lost is a boss of this game, or
+wants a strike after some count of snaps, is his call, and it is a
+`filamentStrikes` field and one branch in `filament-hand.ts` either way.
+
+**The sounds are bound** (`audio/bind-filament.ts`): a cue per event, panned
+to the tile's column, a tile drawn or followed pitched higher the further
+up the field it is, the pull pitched up per filament.
+
+**Never watched at tempo.** What the tests say is the mechanism: it comes in
+over the middle with its filaments walked into tiles and the first arming,
+and a thumb before the arm is nothing; the pilot lights the next tile a
+tile a beat and the grab itself moves nothing; a half-tile carry is still
+the grab's tile; two tiles in one beat snap it back to its free end with
+the grabs let go, and a tile skipped snaps it and the thumb has to grab
+again; a thumb resting, going back or off the line is nothing; a tile lit
+past the window is the filament dark; the navigator follows the lit part
+and never onto what is not lit; her thumb reaching his before the root is
+the recoil; a filament traced end to end is pulled under THE SLOW and the
+next armed after the pull; no thumb is heard while it is pulled; the last
+is the body down, then out, and the wave cleared; and the same thumbs
+fingerprint the same way twice and differently once a tile is lit
+(`sim/test/filament.test.ts`, fourteen); and the seven filaments of the
+script are each walkable, each longer than the last, the first straight
+and every root above its free end (`content/test/filament-script.test.ts`).
+Whether a tile a beat is a pace or a crawl, and whether three tiles is a
+window or a leash, is the owner's eye.
+
 ## Retired
 
 ## 11.9 THE TELL — rock, paper, scissors, and half the tell on each screen

@@ -47,6 +47,11 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "surgeBulb", on: false, fromMilli: 0 },
   { kind: "drag", target: "antiphonOrgan", on: true, fromMilli: 0 },
   { kind: "drag", target: "instarMark", on: true, fromMilli: 250, fromYMilli: 800, id: 1 },
+  // THE FILAMENT's trace: a displacement from the grab in both axes, no id,
+  // and a lift — the grab origin is the sim's own head or tail
+  // (`sim/filament-hand.ts`), so the tile is in the numbers and nothing else.
+  { kind: "drag", target: "filament", on: true, fromMilli: -1000, fromYMilli: -2000 },
+  { kind: "drag", target: "filament", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -146,6 +151,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   surgeBulb: true,
   antiphonOrgan: true,
   instarMark: true,
+  filament: true,
   crank: true,
   orreryRing: true,
 };

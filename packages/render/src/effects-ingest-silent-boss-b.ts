@@ -57,4 +57,18 @@ export const INGEST_SILENT_BOSS_B = [
   "instarStrike",
   "instarDown",
   "instarOut",
+  // THE FILAMENT's ten are silent **until the look lane draws them**: the
+  // lit tiles, the two thumbs and the gap are read off the boss every frame,
+  // and the snap, the recoil and the dark will be a family of their own
+  // read above the loop (`docs/spec/bosses.md` §11.33).
+  "filamentEnter",
+  "filamentArm",
+  "filamentDrawn",
+  "filamentFollowed",
+  "filamentSnap",
+  "filamentRecoil",
+  "filamentDark",
+  "filamentPulled",
+  "filamentDown",
+  "filamentOut",
 ] as const satisfies readonly SimEvent["type"][];

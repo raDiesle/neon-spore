@@ -2,6 +2,7 @@ import { BATON_STAGES } from "./baton.js";
 import type { BossEntry } from "./boss-entries.js";
 import { CANDLE_PHASES } from "./candle.js";
 import { DIASTOLE_PHASES } from "./diastole.js";
+import { FILAMENT_PHASES } from "./filament.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { GORGE_PHASES } from "./gorge.js";
 import { INSTAR_PHASES } from "./instar.js";
@@ -65,4 +66,5 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   taster: TASTER_PHASES,
   ledger: LEDGER_PHASES,
   instar: INSTAR_PHASES,
+  filament: FILAMENT_PHASES,
 };

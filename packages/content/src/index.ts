@@ -50,6 +50,7 @@ export {
   radarOwner,
   showsRadar,
 } from "./creatures.js";
+export { FILAMENT_SCRIPT } from "./filament-script.js";
 export * from "./index-shapes.js";
 export { INSTAR_SCRIPT } from "./instar-script.js";
 export {

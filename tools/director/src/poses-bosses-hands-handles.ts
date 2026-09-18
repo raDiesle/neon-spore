@@ -1,5 +1,6 @@
 import { sinewHeld, sinewSwinging, surgeInBand, surgeSealing, type World } from "@neon-spore/sim";
 import {
+  filamentHand,
   instarHand,
   sinewHand,
   sinewSnapHand,
@@ -30,6 +31,10 @@ const surge =
     w.boss?.kind === "surge" && p(w, w.boss);
 const instarIn = (phase: string) => (w: World) =>
   w.boss?.kind === "instar" && w.boss.phase === phase;
+const filamentIn =
+  (phase: string, head = 0) =>
+  (w: World) =>
+    w.boss?.kind === "filament" && w.boss.phase === phase && w.boss.head >= head;
 
 export const HANDLE_HAND_POSES: Pose[] = [
   bossPose(
@@ -113,5 +118,23 @@ export const HANDLE_HAND_POSES: Pose[] = [
     "down",
     "The last step landed and the instar down: the lunge answered by both thumbs held on the head, the body spent, three beats before it is gone.",
     { hand: instarHand, want: instarIn("down"), hold: 6, budgetBeats: 150 },
+  ),
+  bossPose(
+    "filament",
+    "trace",
+    "Both thumbs on the armed filament: the pilot's three tiles up from the free end, lighting the line as it goes, the navigator's a tile behind his on the lit part — the gap between them the one number neither can see whole.",
+    { hand: filamentHand, want: filamentIn("trace", 3), hold: 6 },
+  ),
+  bossPose(
+    "filament",
+    "pull",
+    "The first filament traced end to end — her thumb arriving on his at the root — and pulled out of the body under the slow, the bundle a strand narrower.",
+    { hand: filamentHand, want: filamentIn("pull"), hold: 6 },
+  ),
+  bossPose(
+    "filament",
+    "down",
+    "The seventh filament pulled and the body down: nothing left to draw, three beats before it is gone.",
+    { hand: filamentHand, want: filamentIn("down"), hold: 6, budgetBeats: 240 },
   ),
 ];

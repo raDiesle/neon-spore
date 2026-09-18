@@ -272,6 +272,17 @@ export const BOSS_ENTRIES: Record<BossEntry["kind"], BossEntry> = {
       },
     ],
   },
+  // THE FILAMENT authors the filaments whole, as words walked into tiles at
+  // install: two short ones, because the fingerprint's job is every tile of
+  // every filament and the two indices along the armed one, not the seven
+  // (`filament-hash.ts`).
+  filament: {
+    kind: "filament",
+    filaments: [
+      { col: 5, row: 2, moves: "DDR" },
+      { col: 3, row: 4, moves: "LD" },
+    ],
+  },
   // THE STARE authors nothing at all: the eye's whole state is its own clock
   // and the seat it rolled, both of which the fixture's world will have moved
   // by the time it is fingerprinted (`stare-hash.ts`).
@@ -741,5 +752,15 @@ function patchBoss(world: World): void {
     boss.doneBeat = [-1, 5];
     boss.ref = [-1, 250];
     boss.thumbs = [1, 2];
+  }
+  if (boss.kind === "filament") {
+    // The first filament being traced: three tiles lit, the navigator one
+    // behind, the pilot's thumb grabbed at the head and hers at the tail.
+    boss.phase = "trace";
+    boss.phaseBeat = 3;
+    boss.head = 2;
+    boss.tail = 1;
+    boss.headBeat = 5;
+    boss.grab = [2, 1];
   }
 }

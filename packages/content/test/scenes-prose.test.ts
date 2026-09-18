@@ -14,7 +14,7 @@ import { SCENES } from "../src/scenes.js";
  * (`sim/test/copies-table.ts`). So the numbers in that section are here, in the
  * package that owns them.
  *
- * Both directions matter. A film written for one of the seven below fails this
+ * Both directions matter. A film written for one of the eight below fails this
  * and the failure says to update the section; a guide that loses its film fails
  * it the other way. Neither is a defect in the film — it is the document being
  * asked to keep up, which is the only thing that was ever wrong with it.
@@ -54,6 +54,11 @@ const STILL_PROSE = [
   // back to. So this one may stay prose — the lane to open is not a film but
   // the question of whether a boss that says its own verbs wants one.
   "THE INSTAR",
+  // And THE FILAMENT, whose simulation landed 18 September 2026 with its look
+  // still the next lane (`bosses.md` §11.33): a film of it would be two thumbs
+  // on a line nobody has drawn yet. The film is owed by the lane that draws
+  // it, the way THE HIVE's and THE INSTAR's are.
+  "THE FILAMENT",
 ];
 
 const guided = WAVES.filter((w) => w.guide);
@@ -79,9 +84,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
   it("counts the guided waves the opening section names", () => {
     // "seventy-four of the eighty-three waves today" — the one figure in §1
     // that goes stale the same way, and it went stale at sixteen of twenty-six.
-    const fix = "update §1 of docs/spec/briefings.md, which says eighty-seven of ninety-six";
-    expect(guided.length, fix).toBe(87);
-    expect(WAVES.length, fix).toBe(96);
+    const fix = "update §1 of docs/spec/briefings.md, which says eighty-eight of ninety-seven";
+    expect(guided.length, fix).toBe(88);
+    expect(WAVES.length, fix).toBe(97);
   });
 
   it("keeps the prose beside a film rather than instead of it", () => {

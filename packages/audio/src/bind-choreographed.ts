@@ -4,6 +4,7 @@ import { batonCue } from "./bind-baton.js";
 import { candleCue } from "./bind-candle.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
+import { filamentCue } from "./bind-filament.js";
 import { gorgeCue } from "./bind-gorge.js";
 import { hiveCue } from "./bind-hive.js";
 import { instarCue } from "./bind-instar.js";
@@ -44,7 +45,8 @@ type ChoreographedEvent = Extract<
       | `scuttle${string}`
       | `antiphon${string}`
       | `hive${string}`
-      | `instar${string}`;
+      | `instar${string}`
+      | `filament${string}`;
   }
 >;
 
@@ -202,6 +204,17 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "instarDown":
     case "instarOut":
       return instarCue(e, cols);
+    case "filamentEnter":
+    case "filamentArm":
+    case "filamentDrawn":
+    case "filamentFollowed":
+    case "filamentSnap":
+    case "filamentRecoil":
+    case "filamentDark":
+    case "filamentPulled":
+    case "filamentDown":
+    case "filamentOut":
+      return filamentCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

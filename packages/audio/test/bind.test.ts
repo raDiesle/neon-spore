@@ -79,6 +79,7 @@ async function eventTypes(): Promise<string[]> {
     ["packages/sim/src/events-antiphon.ts", "export type AntiphonEvent ="],
     ["packages/sim/src/events-hive.ts", "export type HiveEvent ="],
     ["packages/sim/src/events-instar.ts", "export type InstarEvent ="],
+    ["packages/sim/src/events-filament.ts", "export type FilamentEvent ="],
   ] as const) {
     const src = await Bun.file(join(ROOT, file)).text();
     const start = src.indexOf(decl);
@@ -265,6 +266,16 @@ const SAMPLES: Record<string, SimEvent> = {
   instarStrike: { type: "instarStrike", col: 7, part: "eggs" },
   instarDown: { type: "instarDown", col: 5 },
   instarOut: { type: "instarOut", col: 5 },
+  filamentEnter: { type: "filamentEnter", col: 5 },
+  filamentArm: { type: "filamentArm", col: 5, index: 0 },
+  filamentDrawn: { type: "filamentDrawn", col: 5, row: 6 },
+  filamentFollowed: { type: "filamentFollowed", col: 5, row: 7 },
+  filamentSnap: { type: "filamentSnap", col: 5 },
+  filamentRecoil: { type: "filamentRecoil", col: 5 },
+  filamentDark: { type: "filamentDark", col: 5 },
+  filamentPulled: { type: "filamentPulled", col: 5, index: 2 },
+  filamentDown: { type: "filamentDown", col: 5 },
+  filamentOut: { type: "filamentOut", col: 5 },
   waveFailed: { type: "waveFailed", wave: 2 },
   quit: { type: "quit", player: 2 },
   mirrorShow: { type: "mirrorShow", step: "guard", index: 1, of: 3, col: 3 },

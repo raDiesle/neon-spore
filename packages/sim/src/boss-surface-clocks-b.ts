@@ -47,6 +47,22 @@ export {
   // step under the cursor, by the seat it belongs to, and the content that
   // authors a script needs the step's shape and the closed lists it is written in.
   type BossSequenceStep,
+  FILAMENT_PHASES,
+  type FilamentEntry,
+  type FilamentPath,
+  type FilamentPhase,
+  type FilamentState,
+  type FilamentTile,
+  filamentBoss,
+  filamentCol,
+  filamentDown,
+  filamentGap,
+  filamentIndexOf,
+  filamentsLeft,
+  filamentTileAt,
+  filamentTiles,
+  filamentTracing,
+  filamentWalkable,
   // The underside the screens read different halves of: what colour each open
   // site is for the pilot, which site is swelling next for the navigator.
   type HiveState,
@@ -83,5 +99,8 @@ export {
   instarSeatHears,
   instarStep,
   instarStrikeBeat,
+  NO_GRAB,
   NOT_DONE,
+  NOT_DRAWN,
+  walkFilament,
 } from "./bosses-clocks-b.js";

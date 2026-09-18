@@ -26,6 +26,7 @@ import type {
   SnakeEntry,
   SpliceEntry,
 } from "./boss-entries-round.js";
+import type { FilamentEntry } from "./filament.js";
 import type { InstarEntry } from "./instar.js";
 import type { MazeWheel } from "./maze-wheel.js";
 import type { MirrorStep } from "./simon.js";
@@ -197,7 +198,9 @@ export type BossEntry =
   | AntiphonEntry
   | HiveEntry
   // The one that authors a script: the beat list a scene is (`instar.ts`).
-  | InstarEntry;
+  | InstarEntry
+  // The one that authors a line: the filaments a pair draws and follows (`filament.ts`).
+  | FilamentEntry;
 
 // The eleven that are a clock and author nothing (`boss-entries-clocks.ts`).
 export type {
@@ -228,4 +231,5 @@ export type {
   SnakeEntry,
   SpliceEntry,
 } from "./boss-entries-round.js";
+export type { FilamentEntry } from "./filament.js";
 export type { InstarEntry } from "./instar.js";

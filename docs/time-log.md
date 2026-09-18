@@ -11073,3 +11073,23 @@ branch, so the collar and the fan had to be lifted out of the draw calls into
 boxes both the drawing and the anchor read, before the anchor could be a line.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE FILAMENT, the simulation
+
+THE FILAMENT's first lane: a `drag` at a `filament` target whose grab is a
+tile the simulation knows, the draw a tile a beat, the follow inside the
+window, the snap, the recoil and the dark, seven filaments pulled out.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | §17 of the choreographed page, THE INSTAR's four sim files and its hand for the drag shape, `drag-targets.ts`, `slow.ts`, the director's sheet files a boss is a name in |
+| writing | 75 | six sim files and the eleven they are wired into, the script and its test, the wave, the ten sounds and their binding, the silent rows, the codec's target, the director's group, fields, note, sounds and pose, `filament.test.ts`, §11.33, §3.2 |
+| looking | 0 | nothing drawn yet — the look is the next lane |
+| friction | 20 | `effects-spark-silent-boss.ts` at 256 lines and a second page cut; a tuple's length outside the hash; the navigator able to step past the head onto unlit tiles, caught by the receipts; the pull's slide over the speech budget |
+| landing | 10 | `check:fast` twice, the index, the commit, `bun run land --keep`, the ledger |
+
+The bottleneck was the count of files a boss is a name in: nineteen wiring
+edits across five packages and the director for one new kind, each a line
+or a row, before a single receipt could run.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

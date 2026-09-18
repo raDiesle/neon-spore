@@ -200,6 +200,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pod-types.ts` | you need what a pod *is* rather than what one does — the shape, lifted out of `types.ts` beside `hull-types.ts` |
 | `packages/sim/src/hash-creature.ts` | you added a field to `Creature` and have to put it in the fingerprint |
 | `packages/sim/src/field.ts` | taking a body off the field — the counterpart to `spawn.ts` |
+| `packages/sim/src/filament-hand.ts` | Two thumbs on THE FILAMENT: the pilot's drawing it, the navigator's following |
+| `packages/sim/src/filament-hash.ts` | What THE FILAMENT puts into `hashWorld`, and nothing else |
+| `packages/sim/src/filament-step.ts` | THE FILAMENT's clock: the arm, the pull, the next filament, the end |
+| `packages/sim/src/filament.ts` | THE FILAMENT: a body over the field made of loose filaments, the way a nerve is a bundle |
 | `packages/sim/src/config-derived.ts` | what the config implies: ticks per beat, ms to ticks, the hull row, the middle column |
 | `packages/sim/src/config-diastole.ts` | THE DIASTOLE's five numbers — the two cadences, which must stay coprime, and what a chamber and a burst are worth |
 | `packages/sim/src/bullet-hit-boss.ts` | a shot met the queen or the warden and you want to know which half of the pair a rejection is charged to |
@@ -324,9 +328,11 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/grippable.ts` | **Whether a hand may be put on a body at all**, and the fourteen refusals that answer it |
 | `packages/sim/src/hull-damage.ts` | **A breach: the scar, the weight and the wave lost.** The hull has no points; a hit fails the wave (`wave-fail.ts`) |
 | `packages/sim/src/config-fence.ts` | THE FENCE's two numbers: how wide each way through it is |
+| `packages/sim/src/config-filament.ts` | THE FILAMENT's tuning: the window between the thumbs, and the clocks around a filament rather than along it |
 | `packages/sim/src/creature-state-fence.ts` | **THE FENCE's two fields**, and both of them are sets of columns: the ways through the wave authored |
 | `packages/sim/src/events-fence.ts` | **What THE FENCE does**, as events: the wire going over the ship, and a bolt cutting a way through it |
 | `packages/sim/src/events-fleet.ts` | **Everything THE FLEET does that neither screen already says**, as events |
+| `packages/sim/src/events-filament.ts` | What THE FILAMENT says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
@@ -714,6 +720,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/studded.ts` | A body whose whole rim is broken by the same feature repeated: knobs, spines or hairs — the contour alone |
 | `packages/content/src/rooted.ts` | A bulb held down by roots: a round body with narrow tendrils reaching from its underside |
 | `packages/content/src/antiphon-contours.ts` | **THE ANTIPHON's table of contours** — the sixteen shapes the body can grow |
+| `packages/content/src/filament-script.ts` | THE FILAMENT's seven filaments: where each hangs, and the line it makes |
 
 ### packages/render
 
@@ -1166,6 +1173,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/creature-body.ts` | Which body draw a kind gets, as a lookup a stray statement cannot sever |
 | `packages/render/src/effects-spark-silent.ts` | The events that are deliberately not a burst, and why each one is not |
 | `packages/render/src/effects-spark-silent-boss.ts` | The choreographed bosses' events that are deliberately not a burst, a family at a time |
+| `packages/render/src/effects-spark-silent-boss-b.ts` | **The bosses' half of the not-a-burst list, the second page** — from THE FILAMENT on |
 | `packages/render/src/effects-spark-handed.ts` | The bursts for the bodies answered by hands alone (`creatures-handed.ts`) |
 | `packages/render/src/effects-spark-worn.ts` | The bursts for a covering coming off a body that is still there (shell, clasp, coil, carom, crystal, volley), each colour argued against the others |
 | `packages/render/src/maze-fall.ts` | THE MAZE coming apart, which is what a dead end looks like |
@@ -1474,6 +1482,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-ledger.ts` | THE LEDGER's eleven, in a file of their own for `bind-taster.ts`' reason |
 | `packages/audio/src/bind-lead.ts` | THE LEAD's fourteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-fence.ts` | **What THE FENCE sounds like**: the wire going over the ship, and a bolt cutting a way through it |
+| `packages/audio/src/bind-filament.ts` | THE FILAMENT's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
 | `packages/audio/src/bind-pod.ts` | **What the one thing on the field that is *taken* sounds like** |
 | `packages/audio/src/bind-coil.ts` | **THE COIL's two, as sounds**: a dome coming off, and the charge it was holding leaving for the next one |

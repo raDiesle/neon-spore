@@ -1,3 +1,4 @@
+import { FILAMENT_SCRIPT } from "../filament-script.js";
 import type { Wave } from "../wave-types.js";
 
 /**
@@ -56,6 +57,20 @@ import type { Wave } from "../wave-types.js";
  * one frame, which is a tell nobody has to be told about. The middle column
  * opens the wave and closes it on purpose: it is the one column the mirror
  * leaves where it is, and a pair that notices that has found their landmark.
+ */
+/**
+ * **THE FILAMENT authors its filaments and nothing that falls.** The body is
+ * the wave (`filament-script.ts`, `bossFillsWave`), and nothing in it strikes
+ * the hull: what a fault costs is the filament, back to its free end, so the
+ * wave is as long as the pair take over it and cannot be lost. The design
+ * has no strike, and none is invented here (`docs/spec/bosses.md` §11).
+ *
+ * **Its guide is the only place the window is a number.** The pilot's screen
+ * shows how far ahead he is and the navigator's how far behind she is, and
+ * neither shows the other's, so *three* is what the pair has to carry in
+ * their heads — the guide says it once and the picture never does again.
+ * The panel is empty (`controls: "scene"`): there is no cannon to fire at a
+ * line and no colour to load, only two thumbs on the field.
  */
 export const WAVES_ACT_10: Wave[] = [
   {
@@ -123,5 +138,19 @@ export const WAVES_ACT_10: Wave[] = [
       { beat: 0, col: 3, row: 4, kind: "purge", husk: true },
       { beat: 6, col: 5, row: 3, kind: "purge" },
     ],
+  },
+  {
+    id: "theFilament",
+    name: "THE FILAMENT",
+    sentence: "The one where you follow a line the other of you is still drawing.",
+    guide: {
+      both: "One of you draws the line, the other follows it. A tile a beat and never faster; never more than three tiles apart; never on each other's tile, except the last. Seven filaments.",
+      p1: "1. Put your thumb on the lit end and draw up the filament, one tile a beat.\n2. You see how far ahead you are. Say your next tile before you take it.\n3. Faster than a beat snaps it. Wait for your partner.",
+      p2: "1. Put your thumb on the lit end and follow the lit tiles behind your partner's.\n2. You see how far behind you are: say it. Past three, it goes dark.\n3. Never land on their tile, until the last one.",
+    },
+    entries: [],
+    boss: { kind: "filament", filaments: FILAMENT_SCRIPT },
+    bossType: "normal",
+    controls: "scene",
   },
 ];

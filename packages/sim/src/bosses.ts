@@ -21,6 +21,7 @@ export type {
   CandleEntry,
   CurtainEntry,
   DiastoleEntry,
+  FilamentEntry,
   FleetEntry,
   GaugeEntry,
   GorgeEntry,

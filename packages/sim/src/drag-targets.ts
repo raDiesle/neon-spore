@@ -34,7 +34,8 @@ export type DragTarget =
   | "sinewRight"
   | "surgeBulb"
   | "antiphonOrgan"
-  | "instarMark";
+  | "instarMark"
+  | "filament";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -146,4 +147,15 @@ export type DragTarget =
  * not six: the hand reports what it did, and the mark decides what that was
  * worth. Which seat may send which is the mark's too, and the wrong one is
  * refused with a sound rather than dropped in silence.
+ */
+
+/**
+ * `filament` is the sixteenth, and the first that is a **trace**: a drag
+ * whose grab is at a tile the simulation already knows — THE FILAMENT's head
+ * for the pilot, its tail for the navigator — so the displacement it carries
+ * resolves to a tile of the field, and the tile is either the next one on
+ * the filament or nothing (`filament-hand.ts`). No `id`, because there is
+ * one line lit at a time and both thumbs are on it; which seat is which is
+ * the seat's. `TraceDrag` on the design page is this member and the head
+ * and tail it is read against, hashed (`filament-hash.ts`).
  */

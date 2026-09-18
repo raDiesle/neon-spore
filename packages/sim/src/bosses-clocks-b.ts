@@ -37,6 +37,30 @@ export {
   antiphonTwins,
   antiphonWindow,
 } from "./antiphon.js";
+// THE FILAMENT's clock is the pauses between filaments; the line itself is
+// the thumbs' (`filament.ts`), and every name here is one a screen or a
+// content test reads — the tiles lit, the two indices, the words walked.
+export {
+  FILAMENT_PHASES,
+  type FilamentEntry,
+  type FilamentPath,
+  type FilamentPhase,
+  type FilamentState,
+  type FilamentTile,
+  filamentBoss,
+  filamentCol,
+  filamentDown,
+  filamentGap,
+  filamentIndexOf,
+  filamentsLeft,
+  filamentTileAt,
+  filamentTiles,
+  filamentTracing,
+  filamentWalkable,
+  NO_GRAB,
+  NOT_DRAWN,
+  walkFilament,
+} from "./filament.js";
 // THE HIVE's clock is the opening: a site every `hiveOpenBeats`, swelling
 // first on one screen and coloured on the other (`hive.ts`).
 export {

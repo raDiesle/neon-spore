@@ -76,4 +76,16 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.instarDown": "the last step landed under THE SLOW. Same argument.",
   "boss.instarOut":
     "the body gone. An absence like ui.waveClear rather than a thing standing anywhere.",
+  "boss.filamentEnter":
+    "the bundle settling over the field. It is a body of lines nobody can see whole, which no card is (`sim/filament.ts`).",
+  "boss.filamentArm": "a filament lit at its free end. The filament's, not a card's.",
+  "boss.filamentDrawn": "the pilot's thumb lighting the next tile. Same argument.",
+  "boss.filamentFollowed": "the navigator's thumb taking the tile behind his. Same argument.",
+  "boss.filamentSnap": "a filament snapping under a thumb carried too fast. Same argument.",
+  "boss.filamentRecoil": "the two thumbs meeting and the filament recoiling. Same argument.",
+  "boss.filamentDark": "the lit part going dark behind a gap too wide. Same argument.",
+  "boss.filamentPulled": "a filament pulled out whole and the body narrowing. Same argument.",
+  "boss.filamentDown": "the last filament out under THE SLOW. Same argument.",
+  "boss.filamentOut":
+    "the body gone. An absence like ui.waveClear rather than a thing standing anywhere.",
 };
