@@ -10722,3 +10722,5 @@ column a pupil drifted to or the beat two counts next meet on.
 The bottleneck was THE BATON's miss: a crossing a fixed hand cannot save and
 a trace that looked at locks and act counts before it looked at what else was
 in the column.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 0fa6cb89 — The BOSSES category poses the states a shot or a beat earns, with a hand on the controls
+
+Twenty-two more cards on the STATES sheet: THE WARDEN narrow and glare, THE VANE veer and seize, THE ORRERY spitting, naked and out, THE CANDLE eating, last and out, THE DIASTOLE two, alone and burst, THE BATON crossing, falling and down, THE THROAT slide, quick, open and everts. Each is the boss's own wave run with a `Hand` — a function of the world called every tick, its presses sent on that tick — until the state comes, because what these states need is a fact read off the field: the column the pupil drifted to, the colour the core shows, the beat two counts next meet on. The hands are `boss-hands-shots.ts` and `boss-hands-beats.ts`; the poses `poses-bosses-hands-*.ts`; `OWED` in the test shrinks by the same twenty-two.
+
 ## 2026-09-18 · 62ae2cfc — THE HIVE's and THE INSTAR's reasons for having no film are not their looks
 
 `STILL_PROSE` says why each guided wave still opens on the three strings, and two of the reasons were written before the looks landed: THE HIVE's said the mass, the nine sites and the swell read by seat were not drawn, THE INSTAR's said five poses and their marks were not. THE HIVE is drawn in `render/hive-draw.ts`, `hive-shape.ts` and `hive-fx.ts`; THE INSTAR is drawn in nine files and is the picture every other boss's is now measured against.
