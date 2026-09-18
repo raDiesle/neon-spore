@@ -57,6 +57,12 @@ export interface FakeDom {
   body: FakeEl;
   /** What was put in `localStorage`, for a test about what is remembered. */
   stored(key: string): string | null;
+  /**
+   * Tells every `MutationObserver` watching `el` that its children changed —
+   * `FakeEl` does not notice its own appends, so a test that draws a page
+   * says so here, the way the browser would on the next frame.
+   */
+  mutated(el: FakeEl): void;
 }
 
 export interface DomSpec {
@@ -87,6 +93,8 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     window: globalThis.window,
     matchMedia: globalThis.matchMedia,
     localStorage: globalThis.localStorage,
+    MutationObserver: globalThis.MutationObserver,
+    requestAnimationFrame: globalThis.requestAnimationFrame,
   };
   let href = `/${search}`;
   const body = new FakeEl();
@@ -160,10 +168,27 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     window?: unknown;
     matchMedia?: unknown;
     localStorage?: unknown;
+    MutationObserver?: unknown;
+    requestAnimationFrame?: unknown;
   };
   global.document = doc;
   global.window = win;
   global.matchMedia = (query: string) => ({ matches: phone && query.includes("700px") });
+  // An observer that fires when the test says its target changed (`mutated`),
+  // and a frame that runs at once: what is under test is what the callback
+  // does, not when the browser would schedule it.
+  const watchers: Array<{ target: FakeEl; fn: () => void }> = [];
+  global.MutationObserver = class {
+    constructor(private readonly fn: () => void) {}
+    observe(target: FakeEl): void {
+      watchers.push({ target, fn: this.fn });
+    }
+    disconnect(): void {}
+  };
+  global.requestAnimationFrame = (fn: (t: number) => void): number => {
+    fn(0);
+    return 0;
+  };
   global.localStorage = {
     getItem: (k: string) => store.get(k) ?? null,
     setItem: (k: string, v: string) => {
@@ -177,6 +202,9 @@ export function installDom(spec: DomSpec = {}): FakeDom {
     body,
     stored: (key: string) => store.get(key) ?? null,
     url: () => href,
+    mutated: (el: FakeEl) => {
+      for (const w of watchers) if (w.target === el) w.fn();
+    },
     press: (key: string, target: unknown = null) => {
       doc.activeElement = target;
       for (const fn of [...keys]) fn({ key, target, preventDefault: () => {} });
@@ -186,6 +214,8 @@ export function installDom(spec: DomSpec = {}): FakeDom {
       global.window = had.window;
       global.matchMedia = had.matchMedia;
       global.localStorage = had.localStorage;
+      global.MutationObserver = had.MutationObserver;
+      global.requestAnimationFrame = had.requestAnimationFrame;
     },
   };
 }

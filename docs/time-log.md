@@ -8814,3 +8814,22 @@ steers, so every frame taken by guessing a tick showed either the fold or the
 verdict.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — director-contents-auto-expand — the contents menu stands open
+
+The owner asked for the director's contents menus to be there already, the
+list itself and not a CONTENTS button that opens one. The opener goes; a
+`MutationObserver` on the page refills the list as the page draws.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `tabs.ts`, the sheets' CSS, the test and the fake DOM, and how the four pages draw |
+| writing | 15 | `bindContents` without its opener, the observer, the label's style, the fake observer and frame, the test |
+| looking | 5 | one picture of WORDINGS under DOCUMENTATION through `bun run shot` |
+| friction | 5 | `--tab MECHANICS` is not the flag for a sheet; a first `check:fast` timed out one unrelated test on a busy machine and went green on the rerun |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the fake DOM: no `MutationObserver` and no frame, so both
+had to be given to it before the always-open list could be tested at all.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

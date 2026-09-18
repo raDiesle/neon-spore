@@ -190,18 +190,19 @@
    here is pending, so none of that has anything to be. */
 
 /* The contents menu, on the sheet pages that run past a screen — NOT BUILT
-   YET's three and DOCUMENTATION's three. A closed button and an open list
-   rather than a standing column of links: these pages are prose first, and a
-   list of nine headings above the first paragraph would be the first thing
-   read every time and wanted once. `tabs.ts` builds both halves. */
+   YET's and DOCUMENTATION's. A standing list under a label, not a button that
+   opens one: it was the button first, and the owner asked on 18 September
+   2026 for the list itself, there to be clicked without a press to reveal it.
+   Its height is capped so a long page's menu is still a menu and not the
+   page. `tabs.ts` builds both halves. */
 nav.contents {
   margin: 0 0 10px;
 }
-nav.contents .contents-open::before {
-  content: "▸ ";
-}
-nav.contents .contents-open.on::before {
-  content: "▾ ";
+nav.contents .contents-label {
+  display: block;
+  color: var(--dim);
+  font-size: 0.7rem;
+  letter-spacing: 2px;
 }
 .contents-list {
   list-style: none;

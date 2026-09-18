@@ -59,10 +59,16 @@ export function bindExpanders(): void {
  * appear and naming the element whose headings it lists, so a new long page
  * gets one by typing a line rather than by being wired through a module.
  *
- * **The list is built when the menu opens, never kept.** The pages under it
- * draw themselves lazily and some of them redraw, so a list made at binding
- * time would be empty on the first open and stale on every later one. Reading
- * the headings off the page each time is also the whole reason this cannot
+ * **The list stands open, always.** It began as a button that opened a list,
+ * and on 18 September 2026 the owner asked for the list itself, there to be
+ * clicked without a press to reveal it first. So there is no opener: the
+ * label is a label, and a jump leaves the list where it was.
+ *
+ * **The list is read off the page, never kept.** The pages under it draw
+ * themselves lazily and some of them redraw, so a list made once at binding
+ * time would be empty for a page drawn on first sight of its tab and stale
+ * after every redraw. A `MutationObserver` on the page refills it each time
+ * the page's children change, which is also the whole reason this cannot
  * disagree with what is under it: there is no second list to keep.
  */
 export function bindContents(): void {
@@ -70,25 +76,27 @@ export function bindContents(): void {
     const container = document.getElementById(nav.dataset.contents ?? "");
     if (!container) continue;
 
-    const opener = document.createElement("button");
-    opener.type = "button";
-    opener.className = "contents-open";
-    opener.textContent = "CONTENTS";
+    const label = document.createElement("span");
+    label.className = "contents-label";
+    label.textContent = "CONTENTS";
 
     const list = document.createElement("ol");
     list.className = "contents-list";
-    list.hidden = true;
-    nav.replaceChildren(opener, list);
+    nav.replaceChildren(label, list);
 
-    // `on` and nothing else, the way a tab marks itself: the shell already
-    // draws `button.on` as the open thing, and a second marking would have to
-    // be kept in step with it.
-    opener.addEventListener("click", () => {
-      const open = !opener.classList.contains("on");
-      opener.classList.toggle("on", open);
-      list.hidden = !open;
-      if (open) fillContents(list, container, opener);
-    });
+    fillContents(nav, list, container);
+    // Coalesced to one refill per frame: a page that appends its sections one
+    // by one would otherwise rebuild the list once per section.
+    let due = false;
+    const refill = (): void => {
+      if (due) return;
+      due = true;
+      requestAnimationFrame(() => {
+        due = false;
+        fillContents(nav, list, container);
+      });
+    };
+    new MutationObserver(refill).observe(container, { childList: true, subtree: true });
   }
 }
 
@@ -142,20 +150,14 @@ export function whereOnPage(index: number, count: number): string {
   return "near the end";
 }
 
-function fillContents(list: HTMLElement, container: HTMLElement, opener: HTMLElement): void {
+function fillContents(nav: HTMLElement, list: HTMLElement, container: HTMLElement): void {
   const headings = listedHeadings(container);
   list.replaceChildren();
 
-  // Said rather than shown empty: the pages here are drawn on first sight of
-  // their own tab, and a menu opened before that has nothing to list and no
-  // fault to report.
-  if (headings.length === 0) {
-    const none = document.createElement("li");
-    none.className = "note";
-    none.textContent = "nothing to list — the page has not been drawn yet.";
-    list.appendChild(none);
-    return;
-  }
+  // Hidden rather than shown empty: the pages here are drawn on first sight
+  // of their own tab, and a label over a page with nothing on it yet is not
+  // a fault to report — the observer shows it when the page arrives.
+  nav.hidden = headings.length === 0;
 
   for (const [index, heading] of headings.entries()) {
     const item = document.createElement("li");
@@ -170,10 +172,6 @@ function fillContents(list: HTMLElement, container: HTMLElement, opener: HTMLEle
 
     jump.addEventListener("click", () => {
       heading.scrollIntoView({ behavior: "smooth", block: "start" });
-      // Shut behind the jump: the menu is a way to somewhere, and one left
-      // open over the place it took you is the next thing to be closed.
-      opener.classList.toggle("on", false);
-      list.hidden = true;
     });
 
     item.appendChild(jump);

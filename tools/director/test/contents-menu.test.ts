@@ -8,9 +8,9 @@ import { FakeEl, installDom } from "./fake-dom.js";
  * The two things worth holding are the two that would go wrong silently: the
  * level of heading a page's sections are written at — a whole document titled
  * in an `h3` and sectioned in `h4`s would otherwise offer a menu of one — and
- * that the list is read when the menu opens, since every page under it is
- * drawn on first sight of its own tab and a list made at binding time would be
- * empty on the first open.
+ * that the list follows the page, since every page under it is drawn on first
+ * sight of its own tab and a list made once at binding time would stand empty
+ * over the page for good.
  */
 
 function heading(tag: string, text: string): FakeEl {
@@ -20,15 +20,20 @@ function heading(tag: string, text: string): FakeEl {
   return el;
 }
 
-/** A page with a `<nav data-contents>` over a container, bound and shut. */
-function page(container: FakeEl): { nav: FakeEl; opener: FakeEl; list: FakeEl; restore(): void } {
+/** A page with a `<nav data-contents>` over a container, bound. */
+function page(container: FakeEl): {
+  nav: FakeEl;
+  list: FakeEl;
+  drawn(): void;
+  restore(): void;
+} {
   const nav = new FakeEl();
   nav.tagName = "NAV";
   nav.dataset.contents = "body";
   const dom = installDom({ bars: { "nav[data-contents]": [nav] }, ids: { body: container } });
   bindContents();
-  const [opener, list] = nav.children as [FakeEl, FakeEl];
-  return { nav, opener: opener!, list: list!, restore: dom.restore };
+  const [, list] = nav.children as [FakeEl, FakeEl];
+  return { nav, list: list!, drawn: () => dom.mutated(container), restore: dom.restore };
 }
 
 /** The words on one row, the heading's own text and no more. */
@@ -71,60 +76,49 @@ describe("the level a page's sections are written at", () => {
 });
 
 describe("the menu", () => {
-  test("reads the page when it opens, not when it is bound", () => {
+  test("stands open, and follows the page as it is drawn", () => {
     const body = new FakeEl();
-    const { opener, list, restore } = page(body);
+    const { nav, list, drawn, restore } = page(body);
     try {
-      expect(list.hidden).toBe(true);
+      // Nothing drawn yet, so nothing shown: not a label over an empty box.
+      expect(nav.hidden).toBe(true);
       // Drawn after binding, the way every room here is drawn on first sight
       // of its own tab.
       body.append(heading("H2", "WORDS"), heading("H2", "COLOURS"));
-      opener.click();
+      drawn();
+      expect(nav.hidden).toBe(false);
       expect(list.hidden).toBe(false);
-      expect(opener.classList.contains("on")).toBe(true);
       expect(rows(list)).toEqual(["WORDS", "COLOURS"]);
     } finally {
       restore();
     }
   });
 
-  test("lists what the page says now, not what it said at the last open", () => {
+  test("lists what the page says now, not what it said at the last draw", () => {
     const body = new FakeEl();
-    const { opener, list, restore } = page(body);
+    const { list, drawn, restore } = page(body);
     try {
       body.append(heading("H2", "WORDS"));
-      opener.click();
-      opener.click();
+      drawn();
       body.append(heading("H2", "COLOURS"));
-      opener.click();
+      drawn();
       expect(rows(list)).toEqual(["WORDS", "COLOURS"]);
     } finally {
       restore();
     }
   });
 
-  test("jumps to the heading and shuts behind itself", () => {
+  test("jumps to the heading and stays where it is", () => {
     const body = new FakeEl();
     const wanted = heading("H2", "COLOURS");
     body.append(heading("H2", "WORDS"), wanted);
-    const { opener, list, restore } = page(body);
+    const { nav, list, restore } = page(body);
     try {
-      opener.click();
+      expect(nav.hidden).toBe(false);
       list.children[1]?.children[0]?.click();
       expect(wanted.scrolledIntoView).toBe(true);
-      expect(list.hidden).toBe(true);
-      expect(opener.classList.contains("on")).toBe(false);
-    } finally {
-      restore();
-    }
-  });
-
-  test("says so when the page has not been drawn yet", () => {
-    const { opener, list, restore } = page(new FakeEl());
-    try {
-      opener.click();
-      expect(list.children).toHaveLength(1);
-      expect(list.children[0]?.textContent).toContain("not been drawn");
+      expect(nav.hidden).toBe(false);
+      expect(rows(list)).toEqual(["WORDS", "COLOURS"]);
     } finally {
       restore();
     }
