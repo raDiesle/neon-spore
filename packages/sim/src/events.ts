@@ -203,6 +203,8 @@ export type SimEvent =
   /** A round is settled — right or wrong, why, and where it landed. */
   | { type: "mirrorVerdict"; right: boolean; col: number; reason: MirrorVerdictReason }
   | { type: "mirrorDown"; col: number }
+  /** Both thumbs landed on the mirror's lobes (`on`), or one left (`mirror-hand.ts`). */
+  | { type: "mirrorGrip"; col: number; on: boolean }
   /**
    * The pair fired into one of THE MAZE's three mouths. `col` is the column
    * that mouth hangs over, which is where the shot went in and — if the strand

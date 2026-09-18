@@ -141,6 +141,11 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // simulation half landed first; the on-field entry and the row in
     // `docs/spec/controls.md` are the look lane's.
     case "diastoleChamber":
+    // `mirrorLobe` is THE MIRROR's own ship under both thumbs — the last
+    // round reflected on it, then pinned (`sim/mirror-hand.ts`). The
+    // simulation half landed first; the on-field entry and the row in
+    // `docs/spec/controls.md` are the look lane's (`docs/parked.md`).
+    case "mirrorLobe":
       return target;
     default:
       return assertNever(target);

@@ -144,6 +144,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "mirrorEcho":
     case "mirrorVerdict":
     case "mirrorDown":
+    case "mirrorGrip":
     case "mazeCommit":
     case "mazeProbe":
     case "mazeVerdict":

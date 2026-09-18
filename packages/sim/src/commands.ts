@@ -83,7 +83,7 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       const from = world.cannonCol;
       world.cannonCol = clampCol(world.cfg, c.col);
       if (world.cannonCol !== from) {
-        mirrorHeard(world, world.cannonCol > from ? "cannonRight" : "cannonLeft");
+        mirrorHeard(world, world.cannonCol > from ? "cannonRight" : "cannonLeft", "panel");
         // The mark is on a column. A cannon that leaves the column it was
         // filling in has nothing left to have marked, so the fill drops to
         // nothing and starts again — which is the whole reason a fill costs
@@ -110,7 +110,7 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       break;
     }
     case "guard":
-      mirrorHeard(world, "guard");
+      mirrorHeard(world, "guard", "panel");
       // And THE BATON's launch, which is this trigger while the bead sits;
       // the dome still comes up. A no-op unless that boss is installed.
       batonLaunch(world);
@@ -133,7 +133,7 @@ export function applyCommand(world: World, timed: TimedCommand): void {
       break;
     case "intake":
       world.intakeTick = world.tick;
-      mirrorHeard(world, "intake");
+      mirrorHeard(world, "intake", "panel");
       // And THE UNDERTOW, whose lobes the maw takes: after `intakeTick`, so
       // `mawOpen` reads true for it. A no-op unless that boss is installed.
       undertowIntake(world);
@@ -225,7 +225,7 @@ function firePress(world: World, color: Color): void {
   // can be told from one that was already in the air up the same column.
   const before = world.nextId;
   fire(world, color);
-  mirrorHeard(world, fireStep(color));
+  mirrorHeard(world, fireStep(color), "panel");
   // And THE MAZE hears it too. When a gap is standing on the cannon's
   // column the drum *takes* the shot: the bullet this press produced is
   // dropped, and from there the whole journey — up the field, in through

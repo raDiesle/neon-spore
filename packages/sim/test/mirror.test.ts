@@ -118,15 +118,31 @@ test("with the hull held, a wrong step ends the round", () => {
   expect(world.pods).toEqual([]);
 });
 
-test("answering every round brings it down and lets the wave end", () => {
+test("answering every round, then pinning it, brings it down and lets the wave end", () => {
   const world = install();
   answer(world, [{ kind: "fire", color: "red" }, { kind: "guard" }]);
   runTo(world, world.tick + TPB * 4);
-  const seen = answer(world, [
-    { kind: "cannonCol", col: 4 },
-    { kind: "cannonCol", col: 5 },
-  ]);
+  // The last round is given back on its own ship, not on the panel
+  // (`mirror-hand.ts`): its cannon carried left, then right, by player 1.
+  const carry = (fromMilli: number): Command => ({
+    kind: "drag",
+    target: "mirrorLobe",
+    on: false,
+    fromMilli,
+    id: 0,
+  });
+  const seen = answer(world, [carry(-600), carry(600)]);
   expect(seen.some((e) => e.type === "mirrorVerdict" && e.right)).toBe(true);
+  runTo(world, world.tick + TPB * 4);
+  expect(mirrorOf(world).phase).toBe("hold");
+  expect(mirrorOf(world).hullMilli).toBe(0);
+  // It stands at no hull until both thumbs are on it, together.
+  const pin = (player: 1 | 2, id: 0 | 1): TimedCommand => ({
+    tick: world.tick,
+    player,
+    command: { kind: "drag", target: "mirrorLobe", on: true, fromMilli: 0, id },
+  });
+  step(world, [pin(1, 0), pin(2, 1)]);
   const after = runTo(world, world.tick + TPB * 10);
   expect(after.some((e) => e.type === "mirrorDown")).toBe(true);
   expect(world.boss).toBeNull();
@@ -269,8 +285,9 @@ test("a correct shot that also frees the bait loses the round as bait", () => {
 test("a correct SUCK that also swallows the bait loses the round as bait", () => {
   // Not a one-step round: a SUCK that completes the sequence settles it as a
   // win before the pod has finished being swallowed, and then there is no
-  // round left for the bait to take.
-  const world = install([["intake", "guard"]]);
+  // round left for the bait to take. Nor the last round: that one is answered
+  // on the mirror's own ship, and a SUCK on the panel is wrong before the pod is.
+  const world = install([["intake", "guard"], ["guard"]]);
   toListen(world);
   const pod = world.pods[0]!;
   pod.loose = true;

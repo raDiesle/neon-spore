@@ -31,6 +31,7 @@ const VERDICT_WORDS: Record<MirrorVerdictReason | "won", readonly [string, strin
   step: ["WRONG", "TRY AGAIN"],
   silence: ["TOO SLOW", "TRY AGAIN"],
   bait: ["FOOLED", "THE POD WAS BAIT"],
+  panel: ["ON ITS SHIP", "TRY AGAIN"],
 };
 
 /** How long one glyph takes to cross from the row to the hull it is aimed at. */

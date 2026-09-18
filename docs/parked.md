@@ -55,3 +55,39 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
+
+## THE MIRROR's reflect and hold have no picture: the look half of §6.2
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `packages/render/src/mirror.ts`, `packages/render/src/touch-ship.ts`, `packages/render/src/handles.ts`, `packages/render/src/simon-fx.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`, `tools/director/src/field-controls-page.ts`, `tools/director/src/poses-bosses-rounds.ts`, `tools/director/test/boss-states.test.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
+
+The simulation half of the queue item *THE MIRROR changes state more than
+once, and asks for more than one gesture* landed: three gestures
+(`MIRROR_GESTURES`), the last round given back on the mirror's own ship
+through the `mirrorLobe` drag target (`id` 0 its cannon, 1 its shield, read
+by seat the way `touch-ship.ts` reads the pair's own), the `hold` phase with
+`holdThumbs` and `holdBeat`, the `mirrorGrip` event, the `panel` verdict and
+the `CARRY · REPEAT` and `PIN` cues (`packages/sim/src/mirror-hand.ts`,
+`config-mirror.ts`, `docs/spec/bosses.md` §11.3 *Three gestures*). Nothing
+sends the command yet and nothing draws it, so the item stays taken until
+this lands:
+
+- hit-test the mirror's two lobes on both screens and send `mirrorLobe`
+  with the lobe's `id`, press, move and lift, with `fromMilli` the carry —
+  the pilot's and navigator's reading of the pair's own hull in
+  `touch-ship.ts` (`pilot()`, `navigator()`) turned upside down at
+  `mirrorHullY`, under `reflect` and `hold` only (`mirrorGesture`);
+- the `FIELD_CONTROLS` entry "THE MIRROR'S LOBES" and the
+  `docs/spec/controls.md` row, notes in short words of what player 1 and
+  player 2 do (`tools/director/test/on-field-controls.test.ts` already
+  carries the case);
+- the rings on its lobes under `reflect`, the two thumbs and the count
+  draining over `mirrorHoldBeats` under `hold`, the grip and the lift
+  (`mirrorGrip`) — then take the event out of both silent lists;
+- the `hold` pose in `poses-bosses-rounds.ts`, and it struck from
+  `OWED.mirror` in `boss-states.test.ts`;
+- `packages/render/test/mirror-frame.test.ts` or the existing frame test:
+  every state on all three screens;
+- `bun run queue done "THE MIRROR changes state more than once, and asks for more than one gesture"`.
+
+A look with no shipped alternative — say so in the commit.

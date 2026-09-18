@@ -381,14 +381,54 @@ sequence did not ask for is a wrong step. Nothing implements that — it falls
 out of the alphabet, which is the argument for the alphabet being the controls
 rather than a vocabulary of its own.
 
+**Three gestures, and the last two are on its own ship** (18 September
+2026, the owner's ask that a boss change state more than once and not answer
+to one gesture on the panel the whole way down — `.claude/skills/new-boss`
+§6.2, `MIRROR_GESTURES` in `packages/sim/src/simon.ts`):
+
+- **`answer`** — every round but the last, on the panel, as above.
+- **`reflect`** — the last round is given back **on the mirror's own ship**.
+  Its cannon and its shield are the nineteenth `DragTarget`, `mirrorLobe`
+  (`id` 0 the cannon, 1 the shield), read exactly as `touch-ship.ts` reads
+  the pair's own: player 1 carries its cannon past `mirrorCarryMilli` for
+  LEFT and RIGHT, lifts short of that for SUCK, presses its shield for
+  SHIELD; player 2 swipes its muzzle left for RED and right for CYAN
+  (`packages/sim/src/mirror-hand.ts`). The same six steps, the same split
+  between the seats, only the picture is the boss. A step made on the panel
+  is the wrong answer, and the verdict says *where* rather than *what*
+  (`panel`, ON ITS SHIP). Under an ordinary round a thumb on its lobes is
+  nothing, right or wrong, because no ring is drawn there.
+- **`hold`** — the last round answered leaves it standing at no hull, and it
+  does not fall until **both thumbs pin it**: player 1's on its cannon,
+  player 2's on its shield, together, for `mirrorHoldBeats`. One thumb is
+  not a pin, the other seat's thumb on a lobe is not either, and a lift
+  restarts the count; `mirrorGrip` sounds both thumbs landing and one
+  leaving. A pair that never pins it inside `mirrorHoldWindowBeats` has
+  answered with silence, the same silence a round is lost to.
+
+A wave with one round reflects it and holds: `reflect` is *the last round*,
+not *the second*. The three numbers are `packages/sim/src/config-mirror.ts`.
+
 **What the field says.** One word, `REPEAT`, over the mirror's cannon for the
 whole of `listen`, on both screens (`render/src/boss-cue-read-e.ts`,
-`docs/decisions.md` #34) — and nothing while it performs, when the band is
-drawn dead, or during the verdict. The cue is read off the phase and never off
-the step the mirror is waiting for: which move comes next, whose thumb it is
-on and whether it is a press or a slide are the answer, and the memory game is
-built to make the pair say it. The rehearsal came down to two pages the same
-day (`docs/spec/briefings.md`).
+`docs/decisions.md` #34) — a flat `PRESS` under `answer` and a `CARRY` under
+`reflect`, since the answer has moved onto the picture and a carry is what
+the first of its lobes takes; still never the step nor the seat. Under `hold`
+each seat is asked to `PIN` its own lobe of it. Nothing while it performs,
+when the band is drawn dead, or during the verdict. The cue is read off the
+phase and never off the step the mirror is waiting for: which move comes
+next, whose thumb it is on and whether it is a press or a slide are the
+answer, and the memory game is built to make the pair say it. The rehearsal
+came down to two pages the same day (`docs/spec/briefings.md`).
+
+**What is not built.** The look of the two gestures on its ship: the lobes
+are not yet hit-tested on either screen (`render/touch-ship.ts` reads only
+the pair's own hull), no ring is drawn on them, the pin's two thumbs and its
+count are not drawn, and the `hold` pose is owed
+(`tools/director/test/boss-states.test.ts`). The simulation answers a
+`mirrorLobe` command today from the wire and from the tests
+(`packages/sim/test/mirror-gestures.test.ts`); the look lane is parked
+(`docs/parked.md`).
 
 **Where it lives.** The rounds are authored in the director and carried by the
 wave `THE MIRROR`; the choreography is `packages/sim/src/mirror.ts` and the
@@ -398,8 +438,9 @@ is the same fight on both devices without a single draw from the rng.
 If the act structure ever wants it, its slot is The Echoes (90): a boss whose
 whole subject is repetition is the one the ninth pillar is already reaching for.
 
-Its one number in `packages/sim/src/config-boss.ts` is `mirrorRow`, the row its
-own hull surface sits on — the ship's, upside down.
+Its number in `packages/sim/src/config-boss.ts` is `mirrorRow`, the row its
+own hull surface sits on — the ship's, upside down; the thumb's three are in
+`packages/sim/src/config-mirror.ts`.
 
 ## 11.4 The Warden — the gate one of you holds open
 

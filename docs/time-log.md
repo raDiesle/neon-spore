@@ -8764,3 +8764,26 @@ beat before, and that rule was found by the end-to-end test rather than the
 design.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — THE MIRROR reflects and holds: three gestures, the simulation half
+
+Three gestures for one boss (`.claude/skills/new-boss` §6.2): the sequence
+answered on the pair's own panel, the last round given back on the mirror's
+own ship through a new `mirrorLobe` target, and a `hold` phase at no hull
+that both thumbs pin together — with the target on the wire, the phase in the
+hash, the cue per arm, the grip's sound and the director's group. The look
+is parked.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `simon.ts`, `mirror.ts`, `mirror-round.ts`, the queen's hand as the pattern for a lobe read per seat |
+| writing | 50 | `config-mirror.ts`, `mirror-hand.ts`, the `hold` phase, the `panel` reason, the receipts across net, audio, render and the director, 11 gesture tests |
+| looking | 0 | nothing drawn this lane |
+| friction | 10 | `step.ts` at 251 lines; two gesture tests written past the hold window; a single-round bait test that became a reflect round |
+| landing | 10 | index, format, check, commit, land |
+
+Bottleneck: the receipts — one new target and one new phase each touch net,
+audio, render and the director before the simulation's own tests are worth
+running.
+
+*Measured: 0 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

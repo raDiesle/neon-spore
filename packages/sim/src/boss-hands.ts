@@ -2,6 +2,7 @@ import { antiphonHeard, stepAntiphonTurn } from "./antiphon-hand.js";
 import { diastoleHeard } from "./diastole-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { instarHeard } from "./instar-hand.js";
+import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
 import { stareLidHeard } from "./stare-hand.js";
 import { surgeHeard } from "./surge-hand.js";
@@ -49,4 +50,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // clamp that waited for the beat would catch the beat after the one that
   // was said (`diastole-hand.ts`).
   for (const c of commands) diastoleHeard(world, c.player, c.command);
+  // THE MIRROR's lobes under both thumbs, on the tick because a step given
+  // back on its ship lands when the thumb lifts, and the pin is where both
+  // thumbs are now (`mirror-hand.ts`).
+  for (const c of commands) mirrorLobeHeard(world, c.player, c.command);
 }

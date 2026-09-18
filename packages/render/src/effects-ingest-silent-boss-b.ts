@@ -77,4 +77,8 @@ export const INGEST_SILENT_BOSS_B = [
   // look lane draws the ring, the held chamber and the spasm.
   "diastoleClamp",
   "diastoleSpasm",
+  // THE MIRROR's pin: both thumbs landing on its lobes, or one leaving. The
+  // sound is the audio's; the look lane draws the two thumbs and the count
+  // off the boss every frame (`docs/spec/bosses.md` §11.3, *What is not built*).
+  "mirrorGrip",
 ] as const satisfies readonly SimEvent["type"][];

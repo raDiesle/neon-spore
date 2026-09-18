@@ -3,6 +3,7 @@ import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   createWorld,
   type MirrorState,
+  mirrorGesture,
   mirrorHoldsControls,
   startWave,
   step,
@@ -98,18 +99,52 @@ describe("THE MIRROR", () => {
     expect(cue(world, "p2")).toBeNull();
   });
 
-  it("never reads the next step: the word and the kind do not change with the round", () => {
+  it("never reads the next step: the word and the kind do not change with the step", () => {
     const { world, m } = opened();
     m.phase = "listen";
-    const seen = new Set<string>();
     for (let round = 0; round < m.rounds.length; round++) {
       m.round = round;
+      const seen = new Set<string>();
       for (let matched = 0; matched < (m.rounds[round]?.length ?? 0); matched++) {
         m.matched = matched;
         const c = cue(world, "p2");
         seen.add(`${c?.kind}·${c?.word}·${c?.seat}`);
       }
+      expect([...seen], `round ${round}`).toEqual([
+        round === m.rounds.length - 1 ? "CARRY·REPEAT·null" : "PRESS·REPEAT·null",
+      ]);
     }
-    expect([...seen]).toEqual(["PRESS·REPEAT·null"]);
+  });
+
+  it("says CARRY, never the step, when the last round is answered on its own ship", () => {
+    const { world, m } = opened();
+    m.phase = "listen";
+    m.round = m.rounds.length - 1;
+    expect(mirrorGesture(m)).toBe("reflect");
+    for (const role of ["p1", "p2"] as const) {
+      const c = cue(world, role);
+      expect(c?.kind, role).toBe("CARRY");
+      expect(c?.word, role).toBe("REPEAT");
+      expect(c?.seat, role).toBeNull();
+      expect(c?.x, role).toBe(tileCX(LAYOUT[role], m.cannonCol));
+    }
+  });
+
+  it("asks each seat to PIN its own lobe under hold: player 1 the cannon, player 2 the shield", () => {
+    const { world, m } = opened();
+    m.phase = "hold";
+    m.cannonCol = 2;
+    world.shieldCol = 6;
+    const p1 = cue(world, "p1");
+    expect(p1?.word).toBe("PIN");
+    expect(p1?.kind).toBe("HOLD");
+    expect(p1?.seat).toBe(1);
+    expect(p1?.x).toBe(tileCX(LAYOUT.p1, 2));
+    const p2 = cue(world, "p2");
+    expect(p2?.word).toBe("PIN");
+    expect(p2?.kind).toBe("HOLD");
+    expect(p2?.seat).toBe(2);
+    expect(p2?.x).toBe(tileCX(LAYOUT.p2, 6));
+    expect(p2?.y).toBe(mirrorHullY(LAYOUT.p2, CFG));
   });
 });

@@ -289,6 +289,7 @@ const SAMPLES: Record<string, SimEvent> = {
   mirrorEcho: { type: "mirrorEcho", step: "guard", index: 2, of: 3 },
   mirrorVerdict: { type: "mirrorVerdict", right: false, col: 3, reason: "bait" },
   mirrorDown: { type: "mirrorDown", col: 3 },
+  mirrorGrip: { type: "mirrorGrip", col: 3, on: true },
   mazeCommit: { type: "mazeCommit", mouth: 1, col: 5 },
   mazeProbe: { type: "mazeProbe", ring: 1, angleMilli: 2000, of: 3 },
   mazeVerdict: { type: "mazeVerdict", right: false, col: 5, reason: "silence" },

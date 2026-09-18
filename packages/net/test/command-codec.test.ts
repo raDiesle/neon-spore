@@ -62,6 +62,7 @@ const ACCEPTED: Command[] = [
   // chamber is left by then (`sim/diastole-hand.ts`).
   { kind: "drag", target: "diastoleChamber", on: true, fromMilli: 0 },
   { kind: "drag", target: "diastoleChamber", on: false, fromMilli: 0 },
+  { kind: "drag", target: "mirrorLobe", on: false, fromMilli: -600, fromYMilli: 0, id: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -165,6 +166,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   stareLid: true,
   queenMark: true,
   diastoleChamber: true,
+  mirrorLobe: true,
   crank: true,
   orreryRing: true,
 };

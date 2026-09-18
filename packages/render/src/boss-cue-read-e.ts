@@ -4,6 +4,7 @@ import {
   type MazeState,
   type MirrorState,
   mazeCurrent,
+  mirrorGesture,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
@@ -48,7 +49,8 @@ function markAt(
 
 /**
  * THE MIRROR. It performs a sequence of the pair's own moves and wants the
- * whole of it back, in order, and that is the only thing it ever asks for.
+ * whole of it back, in order — on the panel, then on its own ship, then
+ * pinned (`MIRROR_GESTURES`, `sim/simon.ts`): three arms, one a gesture.
  *
  * `REPEAT` stands over its cannon lobe — the thing that just performed — for
  * the beats of `listen`, on **both** screens, because the mirror is drawn on
@@ -60,16 +62,30 @@ function markAt(
  * kind line is not drawn for a word it equals, and here it is a stand-in
  * that says only *now*.
  *
+ * The last round is `reflect` — the same word, the kind `CARRY`, because the
+ * answer has moved onto the picture and a carry is what the first of its
+ * lobes takes; still neither the step nor the seat. `hold` is the one arm
+ * that is a gesture and not a round: `PIN` on each seat's own lobe of it,
+ * player 1's cannon and player 2's shield, the pin being both or nothing.
+ *
  * Nothing in `lead` or `show`: the band is drawn dead while the mirror holds
  * the controls (`mirrorHoldsControls`, `band.ts`), and a cue over a thumb the
  * ship is refusing would be worse than none. Nothing in `verdict` either —
  * the echo or the scar is the field's answer, and it needs no word.
  */
 export function mirrorCues(l: Layout, world: World, m: MirrorState): readonly BossCue[] {
+  const y = mirrorHullY(l, world.cfg);
+  const gesture = mirrorGesture(m);
+  if (gesture === "hold") {
+    return [
+      markAt(1, "HOLD", "PIN", tileCX(l, m.cannonCol), y, l, 64),
+      markAt(2, "HOLD", "PIN", tileCX(l, world.shieldCol), y, l, 65),
+    ];
+  }
   if (m.phase !== "listen") return [];
-  return [
-    markAt(null, "PRESS", "REPEAT", tileCX(l, m.cannonCol), mirrorHullY(l, world.cfg), l, 62),
-  ];
+  if (gesture === "reflect")
+    return [markAt(null, "CARRY", "REPEAT", tileCX(l, m.cannonCol), y, l, 63)];
+  return [markAt(null, "PRESS", "REPEAT", tileCX(l, m.cannonCol), y, l, 62)];
 }
 
 /**

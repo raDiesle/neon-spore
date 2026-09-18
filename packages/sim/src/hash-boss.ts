@@ -220,6 +220,8 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.hullMilli);
     push(boss.verdict);
     push(boss.verdictCol);
+    push(boss.holdThumbs);
+    push(boss.holdBeat);
     push(boss.scars.length);
     // The hull's own list and this one go through one function, so a field
     // added to a `Scar` is not something to find twice (`hull-types.ts`).

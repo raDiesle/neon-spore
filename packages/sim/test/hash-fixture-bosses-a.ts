@@ -242,5 +242,7 @@ export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
     boss.scars = [scar()];
     boss.verdict = 1;
     boss.verdictCol = 2;
+    boss.holdThumbs = 3;
+    boss.holdBeat = 5;
   }
 }

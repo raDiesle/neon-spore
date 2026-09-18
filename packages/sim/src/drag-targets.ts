@@ -38,7 +38,8 @@ export type DragTarget =
   | "filament"
   | "stareLid"
   | "queenMark"
-  | "diastoleChamber";
+  | "diastoleChamber"
+  | "mirrorLobe";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -197,4 +198,12 @@ export type DragTarget =
  * it: the other seat's press is dropped without a sound, since his screen
  * is the one that draws the chamber beating and never draws the ring. No
  * `id`: one chamber is left by then, and it is the boss.
+ * `mirrorLobe` is the twentieth, and THE MIRROR's — the third shipped
+ * boss given a handle on its picture for the same ask as the queen's, and
+ * the first whose handle is **the pair's own ship, upside down**. Two lobes,
+ * `id` 0 its cannon and 1 its shield, read exactly as `touch-ship.ts` reads
+ * the pair's: player 1 carries the cannon or taps it, presses the shield;
+ * player 2 swipes the muzzle for a colour. Under the last round those are
+ * the six steps, given back on the boss (`mirror-hand.ts`); under `hold`
+ * they are where the thumbs are, and the pin is both seats at once.
  */

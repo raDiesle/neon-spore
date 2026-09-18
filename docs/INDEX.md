@@ -111,6 +111,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/sinew.ts` | THE SINEW: how hard, not when |
 | `packages/sim/src/mirror.ts` | THE MIRROR's choreography: count in, perform, listen |
 | `packages/sim/src/mirror-round.ts` | how a round ends: the echo strike, the break, the bait |
+| `packages/sim/src/mirror-hand.ts` | **A thumb on THE MIRROR's own ship**, off the wire, on the tick |
 | `packages/sim/src/entries.ts` | what a wave hands the sim: spawns, pods, either boss |
 | `packages/sim/src/bullets.ts` | firing and tile-wise travel |
 | `packages/sim/src/bullet-hit.ts` | what a shot does when it meets something, and whether it goes on |
@@ -337,6 +338,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-filament.ts` | What THE FILAMENT says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
+| `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/fault-clock.ts` | The beat a fault is on and how often it acts — the one clock every malfunction reads and none of them keeps |

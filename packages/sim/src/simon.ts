@@ -45,13 +45,33 @@ export function fireStep(color: Color): MirrorStep {
  * pair's turn, `verdict` is the pause that shows how it went.
  */
 /**
- * Why a round was lost. The pair can fail three different ways and only one of
+ * Why a round was lost. The pair can fail four different ways and only one of
  * them is "you pressed the wrong thing" — being told which is the difference
- * between learning the fight and resenting it.
+ * between learning the fight and resenting it. `panel` is the last round's
+ * own: a step made on the pair's ship when the mirror wanted it on *its*
+ * (`MIRROR_GESTURES`).
  */
-export type MirrorVerdictReason = "step" | "silence" | "bait";
+export type MirrorVerdictReason = "step" | "silence" | "bait" | "panel";
 
-export type MirrorPhase = "lead" | "show" | "listen" | "verdict";
+/**
+ * `hold` is the fifth, after the last round is answered: the mirror stands
+ * at no hull and does not fall until both thumbs pin it (`mirror-hand.ts`).
+ */
+export type MirrorPhase = "lead" | "show" | "listen" | "verdict" | "hold";
+
+/**
+ * **What the fight asks of a thumb, and where** — the owner's ask of 18
+ * September 2026 (`.claude/skills/new-boss` §6.2) that a boss change state
+ * more than once and not answer to one gesture on the panel the whole way
+ * down. `answer` is today's Simon: the sequence given back on the pair's own
+ * panel. `reflect` is the last round, given back **on the mirror's own
+ * ship**: its cannon carried, its shield pressed, its maw tapped, its muzzle
+ * swiped — the same six steps, on the picture (`mirrorLobe`), and a step
+ * made on the panel is the wrong answer. `hold` is the end: both thumbs on
+ * its two lobes, held together, are what bring it down.
+ */
+export const MIRROR_GESTURES = ["answer", "reflect", "hold"] as const;
+export type MirrorGesture = (typeof MIRROR_GESTURES)[number];
 
 /**
  * Beats of quiet before a sequence is performed, and so the length of the
@@ -93,7 +113,7 @@ export function mirrorListenBeats(steps: number): number {
  * number. `hashWorld` needs an integer for every field it covers, and an
  * index into this list is the one that cannot drift from the type above.
  */
-export const MIRROR_PHASES: readonly MirrorPhase[] = ["lead", "show", "listen", "verdict"];
+export const MIRROR_PHASES: readonly MirrorPhase[] = ["lead", "show", "listen", "verdict", "hold"];
 
 /**
  * The mirror: an exact copy of the ship, upside down at the top of the field,
@@ -131,6 +151,16 @@ export interface MirrorState {
   verdict: -1 | 0 | 1;
   /** The column that verdict landed in — where the echo hit, or where it broke. */
   verdictCol: number;
+  /** Under `hold`: which thumbs are on it, bit 1 player 1 on its cannon, bit 2 player 2 on its shield. */
+  holdThumbs: number;
+  /** The beat both thumbs landed, `-1` while they have not (`mirror-hand.ts`). */
+  holdBeat: number;
+}
+
+/** What the mirror asks of a thumb now: the phase's own under `hold`, the round's otherwise. */
+export function mirrorGesture(m: MirrorState): MirrorGesture {
+  if (m.phase === "hold") return "hold";
+  return m.round >= m.rounds.length - 1 ? "reflect" : "answer";
 }
 
 /** The steps of the round being played, or nothing past the last one. */
@@ -154,6 +184,7 @@ export function enterPhase(
 ): void {
   m.phase = phase;
   m.phaseBeat = beat;
+  m.holdBeat = -1;
   if (phase === "lead") {
     m.matched = 0;
     m.shown = 0;

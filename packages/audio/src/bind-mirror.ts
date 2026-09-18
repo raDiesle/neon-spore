@@ -20,6 +20,7 @@ export function mirrorCue(
         | "mirrorEcho"
         | "mirrorVerdict"
         | "mirrorDown"
+        | "mirrorGrip"
         | "mazeCommit"
         | "mazeProbe"
         | "mazeVerdict"
@@ -48,6 +49,13 @@ export function mirrorCue(
       };
     case "mirrorDown":
       return { id: "mirror.down", pan: panForCol(e.col, cols) };
+    case "mirrorGrip":
+      // The pin: both thumbs landing is the echo a step higher than any
+      // answered step reaches, and one lifting is the same echo sagging late
+      // — `mirror.echoLate`, written for a step off the beat, bound at last
+      // to the one thing in the fight that *is* off the beat.
+      if (e.on) return { id: "mirror.echo", pitch: 1.3, pan: panForCol(e.col, cols) };
+      return { id: "mirror.echoLate", pan: panForCol(e.col, cols) };
     case "mazeCommit":
       // The shot going into a mouth. `mirror.handover` is the cue written for
       // "your turn is over, the answer is out of your hands now", which is

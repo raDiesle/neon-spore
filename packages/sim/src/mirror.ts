@@ -1,11 +1,13 @@
-import { releaseBait, right, settle, wrong } from "./mirror-round.js";
+import { mirrorFall, releaseBait, right, settle, wrong } from "./mirror-round.js";
 import {
   currentSteps,
   enterPhase,
   MIRROR_HOLD_BEATS,
   MIRROR_LEAD_BEATS,
+  type MirrorGesture,
   type MirrorState,
   type MirrorStep,
+  mirrorGesture,
   mirrorListenBeats,
 } from "./simon.js";
 import { MILLI, type World } from "./world.js";
@@ -77,10 +79,29 @@ export function stepMirror(world: World, m: MirrorState): void {
       if (since >= mirrorListenBeats(steps.length)) wrong(world, m, "silence");
       return;
     }
+    if (m.phase === "hold") {
+      hold(world, m, since);
+      return;
+    }
     if (since < VERDICT_BEATS) return;
     settle(world, m);
     return;
   }
+}
+
+/**
+ * The pin. Both thumbs on its two lobes for `mirrorHoldBeats` and it falls;
+ * a lift restarts the count (`mirror-hand.ts` clears `holdBeat`), and a pair
+ * that never pins it inside `mirrorHoldWindowBeats` has answered with
+ * silence, the same silence a round is lost to.
+ */
+function hold(world: World, m: MirrorState, since: number): void {
+  if (m.holdBeat !== -1 && world.beat - m.holdBeat >= world.cfg.mirrorHoldBeats) {
+    m.verdictCol = m.cannonCol;
+    mirrorFall(world, m, true);
+    return;
+  }
+  if (since >= world.cfg.mirrorHoldWindowBeats) wrong(world, m, "silence");
 }
 
 /**
@@ -107,19 +128,33 @@ function perform(world: World, m: MirrorState, steps: MirrorStep[]): void {
   });
 }
 
+/** Where a step was made: the pair's own panel, or the mirror's ship (`mirror-hand.ts`). */
+export type MirrorStepFrom = "panel" | "picture";
+
 /**
  * One control, as the world heard it. Called from `applyCommand` for every
  * command that has a step to its name, whether or not the command itself did
  * anything — a shot swallowed by the cooldown was still a shot the pair meant
  * to take, and judging the ship's reaction instead of the player's intent
  * would fail a round for a reason nobody at either screen can see.
+ *
+ * `from` is the round's gesture (`MIRROR_GESTURES`): under `answer` a step
+ * on the picture is nothing, since no ring is drawn there; under `reflect` a
+ * step on the panel is the wrong answer, and `panel` is what the verdict
+ * says, so the pair is told where rather than what.
  */
-export function mirrorHeard(world: World, step: MirrorStep): void {
+export function mirrorHeard(world: World, step: MirrorStep, from: MirrorStepFrom): void {
   const m = world.boss;
   if (m === null || m.kind !== "mirror" || m.phase !== "listen") return;
+  const gesture: MirrorGesture = mirrorGesture(m);
+  if (gesture === "answer" && from === "picture") return;
   const steps = currentSteps(m);
   const want = steps[m.matched];
   if (want === undefined) return;
+  if (gesture === "reflect" && from === "panel") {
+    wrong(world, m, "panel");
+    return;
+  }
   if (step !== want) {
     wrong(world, m, "step");
     return;
@@ -144,6 +179,8 @@ export function installMirror(world: World, rounds: MirrorStep[][]): MirrorState
     scars: [],
     verdict: 0,
     verdictCol: -1,
+    holdThumbs: 0,
+    holdBeat: -1,
   };
 }
 

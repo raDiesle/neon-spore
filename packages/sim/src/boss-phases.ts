@@ -43,7 +43,7 @@ import { WARDEN_PHASES } from "./warden-cycle.js";
  * its row is a record keyed by that union: a name added to the union without
  * one here is a type error on this line.
  */
-const MIRROR_PHASES: Record<MirrorPhase, 0> = { lead: 0, show: 0, listen: 0, verdict: 0 };
+const MIRROR_PHASES: Record<MirrorPhase, 0> = { lead: 0, show: 0, listen: 0, verdict: 0, hold: 0 };
 
 export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> = {
   mirror: Object.keys(MIRROR_PHASES),

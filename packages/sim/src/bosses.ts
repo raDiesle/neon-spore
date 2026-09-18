@@ -181,14 +181,17 @@ export { scoutNose } from "./scout-fly.js";
 export { enterScoutPhase, scoutHolds, scoutOpenRound, scoutRound } from "./scout-round.js";
 export {
   fireStep,
+  MIRROR_GESTURES,
   MIRROR_HOLD_BEATS,
   MIRROR_LEAD_BEATS,
   MIRROR_PHASES,
   MIRROR_STEPS,
+  type MirrorGesture,
   type MirrorPhase,
   type MirrorState,
   type MirrorStep,
   type MirrorVerdictReason,
+  mirrorGesture,
   mirrorListenBeats,
 } from "./simon.js";
 export {

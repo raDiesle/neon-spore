@@ -65,11 +65,25 @@ export function settle(world: World, m: MirrorState): void {
     mirrorOpenRound(world, m, m.round + 1);
     return;
   }
+  // The last round answered leaves it standing at no hull, and it does not
+  // fall until both thumbs pin it (`hold`, `mirror-hand.ts`): the third
+  // gesture the fight asks for, and the one that is nothing but the picture.
+  if (m.verdict === 1) {
+    enterPhase(m, "hold", world.beat, world.cannonCol);
+    return;
+  }
+  mirrorFall(world, m, false);
+}
+
+/**
+ * The mirror comes off the world, its bait with it — a pod hanging holds the
+ * wave open now (`beat.ts`), and this one was never meant to be taken.
+ * `down` is the pin held through: the one way it falls rather than is lost.
+ */
+export function mirrorFall(world: World, m: MirrorState, down: boolean): void {
   world.boss = null;
-  // The bait goes with it. A pod hanging holds the wave open now (`beat.ts`),
-  // and this one was never meant to be taken.
   world.pods = [];
-  if (m.verdict === 1) world.events.push({ type: "mirrorDown", col: m.verdictCol });
+  if (down) world.events.push({ type: "mirrorDown", col: m.verdictCol });
 }
 
 /**
