@@ -1466,26 +1466,6 @@ field (THE THROAT, THE LEDGER, THE SCUTTLE), as `boss-cue-read-c.ts` and a new
 `-i.ts`, with `cuesOf`'s switch in `boss-cue.ts` pointed at both. `bun run
 check` proves it; no test names the file.
 
-## `tools/test/tree-walk.test.ts` reads every source file under the default timeout
-
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-18, claude/queue-tools-test-tree-walk-test-ts-reads-every-source
-- **Files:** `tools/test/tree-walk.test.ts`, `tools/test/repo-time.ts`
-- **Where:** cloud
-
-`bun run check` inside `bun run land` once failed on "skips `.claude`,
-wherever it recurses into directories" with *test timed out*, at line 89,
-under the eight-shard load; run alone the file passes in well under a
-second and the landing was retried and went through. The test reads every
-`.ts` file under `packages`, `apps` and `tools` — the same disk-bound walk as
-`limits.test.ts` — and carries **no** timeout of its own, so it runs on
-Bun's five-second default, which the fifteen-hundred-file read blows
-through when the other seven shards are on the same disk. Give it
-`loadedTimeout` from `tools/test/repo-time.ts`, the unit the readers in the
-item above are meant to move to, and `setDefaultTimeout` it the way the
-frame tests do. `bun run check` proves it; the failure is a load flake and
-will not reproduce on demand.
-
 ## THE GAUGE is the only boss with no events and no sound
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

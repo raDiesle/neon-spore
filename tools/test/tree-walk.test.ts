@@ -1,8 +1,9 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Glob } from "bun";
 import { read } from "../../packages/sim/test/source-scan.ts";
+import { loadedTimeout } from "./repo-time.js";
 
 /**
  * **A worktree is a full copy of the repository sitting inside the
@@ -27,6 +28,25 @@ import { read } from "../../packages/sim/test/source-scan.ts";
  * not walking a tree and is left alone — three of the director's tests do
  * exactly that over a folder of drafts.
  */
+
+/**
+ * **What this file is allowed to take**, scaled to how busy the machine is
+ * (`tools/test/repo-time.ts`), for the whole file the way the frame tests do
+ * it — every case here reads off the same disk, so one number covers them.
+ *
+ * It ran on bun's flat five-second default and went red once inside `bun run
+ * check`, where eight to thirteen shards read the one disk at once, and green
+ * on the re-run with nothing changed. The heaviest case is the walk below:
+ * eighteen hundred files opened sixty-four at a time, 40 ms alone with the
+ * page cache warm and 90 ms with it dropped, on the cloud image on 18
+ * September 2026. The cold figure is the one written down — the claim has to
+ * hold on a machine that has not read these files yet.
+ *
+ * Under an idle machine this is still five seconds, because `loadedTimeout`
+ * floors there and may only ever give a test *more* time. What it buys is the
+ * loaded case, which is the only one that ever failed.
+ */
+setDefaultTimeout(loadedTimeout(90));
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 

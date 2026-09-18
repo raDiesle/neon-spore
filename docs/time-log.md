@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — queue-tree-walk-timeout — a flake with a number behind it
+
+`tools/test/tree-walk.test.ts` read eighteen hundred files on bun's flat
+five-second default and went red once under `bun run check`'s shards, green on
+the re-run with nothing changed. It now takes `loadedTimeout` from
+`tools/test/repo-time.ts` through `setDefaultTimeout`, the way the frame tests
+do, with the heaviest case timed first: 40 ms alone with the page cache warm
+and 90 ms with it dropped. The cold figure is the one written down, because the
+claim has to hold on a machine that has not read the tree yet.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, the file's 136 lines, and the frame tests as the shape a file-wide `setDefaultTimeout` takes |
+| writing | 5 | one import, one call, and the paragraph saying where the number came from |
+| looking | 0 | none: nothing here is drawn |
+| friction | 5 | a hot page cache reads 40 ms and says nothing about a fresh clone, so the measurement had to be taken again with the cache dropped |
+| landing | 15 | `format`, `check:fast` — 11,241 tests across 30 shards, 22 s wall — and the commit |
+
+**The bottleneck was deciding what to measure, not measuring.** The warm number
+was the easy one to take and the wrong one to write down; realising that cost
+more than either run did.
+
 ## 2026-09-18 — queue-four-flat-test-timeouts — measured, not guessed
 
 The four cases `tools/test/cpu-time.ts`'s lane left behind, because they are
