@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test";
+import { antiphonBoss } from "../src/antiphon.js";
 import { bossAnswerCol } from "../src/boss-answer.js";
 import { candleBoss } from "../src/candle.js";
 import { DEFAULT_CONFIG, midCol, type SimConfig, ticksPerBeat } from "../src/config.js";
@@ -168,6 +169,20 @@ describe("the column a boss is answered from", () => {
     s.windBeat = world.beat;
     expect(bossAnswerCol(world)).toBe(scuttleSocketCol(CFG, s.live));
     s.downBeat = world.beat;
+    expect(bossAnswerCol(world)).toBeNull();
+  });
+
+  it("is the column THE ANTIPHON's organ stands over from the beat it grows, and nothing between cycles or once it bursts", () => {
+    const world = open({ kind: "antiphon" });
+    const a = antiphonBoss(world);
+    if (a === null) throw new Error("no body");
+    // The rise: nothing stands, so nothing is answered.
+    expect(bossAnswerCol(world)).toBeNull();
+    beats(world, CFG.antiphonRestBeats);
+    const o = a.organs[0];
+    if (o === undefined) throw new Error("no organ");
+    expect(bossAnswerCol(world)).toBe(o.col);
+    a.downBeat = world.beat;
     expect(bossAnswerCol(world)).toBeNull();
   });
 });

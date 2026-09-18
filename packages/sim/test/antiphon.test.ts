@@ -294,6 +294,20 @@ describe("the second phase", () => {
     expect(s.pits).toHaveLength(CFG.antiphonTwinPits + 2);
   });
 
+  it("spills the decoys when the second twin pits, and never the twin already taken", () => {
+    const world = open();
+    stand(world, [...Array(CFG.antiphonTwinPits).keys()]);
+    const s = body(world);
+    const rejected = decoys(s);
+    const [a, b] = s.organs;
+    if (a === undefined || b === undefined) throw new Error("no twins");
+    antiphonStruck(world, shot(world, a.col, a.color));
+    expect(world.creatures).toEqual([]);
+    antiphonStruck(world, shot(world, b.col, b.color));
+    expect(world.creatures).toHaveLength(rejected.length);
+    expect(world.creatures.find((c) => c.col === a.col)).toBeUndefined();
+  });
+
   it("grows a pit again from antiphonEchoPits", () => {
     const world = open();
     const pits = [...Array(CFG.antiphonEchoPits).keys()];

@@ -66,10 +66,6 @@ const STILL_PROSE = [
   // armour on the other, which is the whole boss and not a thumb landing
   // anywhere; until the rings are drawn there is nothing to shoot it against.
   "THE ORRERY",
-  // And THE ANTIPHON, owed by the lane that draws the body: an organ read
-  // by one seat and a rail by the other, and the pits, none of which is
-  // drawn yet.
-  "THE ANTIPHON",
   // And THE HIVE, owed by the lane that draws the mass: nine sites on an
   // underside, a breach open or sealed, a colour and a swell read by seat,
   // none of which is drawn yet.
@@ -91,9 +87,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-three films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-four films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Seventy-three, which is the number in the section. A film with no wave
+    // Seventy-four, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);

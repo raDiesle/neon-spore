@@ -1,3 +1,4 @@
+import { antiphonBoss } from "./antiphon.js";
 import { candleBoss, candleEating } from "./candle.js";
 import { diastoleBridgeCol, diastoleChamberCol } from "./diastole.js";
 import { diastoleBoss } from "./diastole-step.js";
@@ -26,8 +27,9 @@ import type { World } from "./world.js";
  * per return, into every column there is. THE LEAD is never where it is: the
  * column to stand under is the one it will be in two beats on, and it paces
  * through all eleven. THE SCUTTLE's live part is whichever socket the rng
- * let go, over seven columns two of which no authored column reaches. So a
- * strip may say `atBoss` instead of a column, and
+ * let go, over seven columns two of which no authored column reaches. THE
+ * ANTIPHON's organ grows over any of the eleven the rng laid its rail on. So
+ * a strip may say `atBoss` instead of a column, and
  * this is the one reading of what that means.
  *
  * **It is the boss's own answer, not the picture's.** Each line here asks the
@@ -96,6 +98,15 @@ export function bossAnswerCol(world: World): number | null {
     if (s.downBeat >= 0) return null;
     const col = scuttleNextCol(s, world.cfg);
     return col < 0 ? null : col;
+  }
+  const a = antiphonBoss(world);
+  if (a !== null) {
+    // The column the organ stands over — the first of two while twins grow,
+    // which is the one left once the other is a pit — from the beat it begins
+    // pushing out, so the cannon is under it when it can be taken
+    // (`antiphonStruck`). Nothing between cycles and nothing once it bursts.
+    if (a.downBeat >= 0) return null;
+    return a.organs[0]?.col ?? null;
   }
   return null;
 }

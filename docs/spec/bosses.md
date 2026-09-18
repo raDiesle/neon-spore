@@ -4282,9 +4282,29 @@ and the cycle ends with the second; a pit grows again from
 `antiphonEchoPits`; with every pit taken it goes still, grows the ship on
 a rail of ships, and the right one bursts it; the wrong ship hardens and
 the ship grows again with no second still; and the same run fingerprints
-the same way twice (`sim/test/antiphon.test.ts`, eighteen). Nothing was
+the same way twice (`sim/test/antiphon.test.ts`, nineteen). Nothing was
 drawn, nothing was watched, and whether fourteen beats is a conversation
 or a wait is the owner's.
+
+**The rehearsal** (`content/src/scenes/the-antiphon.ts`, 18 September
+2026, twenty pages over 3,720 ticks, seed 1): the wrong candidate first —
+a decoy's colour in the decoy's column, the body hardened and the rail
+four wide for the rest of the film — then six organs taken where they
+stand, every column an `atBoss` strip because the rail is laid on any of
+the eleven (`sim/boss-answer.ts` answers with the first organ's column
+from the beat it grows, nothing between cycles or once it bursts), the
+fire in the organ's colour the beat it has pushed all the way out. From
+the third pit what the rail rejected falls and is taken by `atBody` two
+beats apart, before the next organ's shot; the twins are taken one and
+then the other, the second strip after the first is a pit; the ship is
+found among ships and every pit erupts. The film showed a defect of the
+twins: the first twin taken, no longer an organ, was counted among the
+rejected when the second pitted and fell as a body — `antiphonPit` now
+reads a candidate whose shape is a pit as described, never rejected
+(`sim/test/antiphon.test.ts`, the nineteenth). Not shown: a sunk organ
+and the body it fires, and a pit grown again — the twins take the fight
+from four pits to six in one cycle. Every page is on a control or on the
+hull (`docs/queue.md`, the gauge item); the film takes no hit.
 
 ## 11.32 THE INSTAR — the boss with no panel, marked where it will hurt you
 

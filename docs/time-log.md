@@ -10296,6 +10296,28 @@ outside it that a boss is a name in, each found by a test going red.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-18 — boss-implementation — THE ANTIPHON, the rehearsal
+
+The tenth boss film written after its look, and the second grown by a
+probe: twenty pages over 3720 ticks, the wrong candidate first, six organs
+taken by `atBoss` strips, fourteen rejected candidates taken where they
+fall by `atBody`, the twins one and then the other, the ship found among
+ships. The same lane gave `boss-answer.ts` its antiphon line and fixed the
+twin already taken falling as a rejected body.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `antiphon.ts`, `antiphon-step.ts`, `antiphon-rail.ts`, `antiphon-shot.ts`, `config-antiphon.ts`, `scene-aim.ts` for which body `atBody` takes |
+| writing | 20 | the answer line and its test, the generator, the scene, the registry, the wave's `scene` and its halves — the pilot's said *fire her colour* when the pilot cannot fire — the prose list, the film test, §3.2, the §11.31 paragraph, the queue |
+| looking | 15 | the generator run over twelve seeds three times: bodies shot a beat apart with the strip landing on the one still falling, the second twin's strip asked of `atBoss` before the first was a pit, and five bodies falling where four decoys were |
+| friction | 10 | the fifth body was the first twin, spilled as rejected because it was no longer an organ: a sim fix under a film lane, argued in §11.31 |
+| landing | 5 | `check:fast`, the sort, the index, the commit, `bun run land --keep` |
+
+The bottleneck was the spacing of the rejected bodies: a strip by `atBody`
+lands on the lowest body, and the one just fired at is still the lowest a
+beat on, so the bodies had to be taken two beats apart and the organ's own
+shot held until the last of them was down.
+
 ## 2026-09-18 — boss-implementation — THE SCUTTLE, the rehearsal
 
 The ninth boss film written after its look, and the first whose acts were

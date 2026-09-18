@@ -1,4 +1,5 @@
 import type { GuideScene } from "./scene-types.js";
+import { THE_ANTIPHON } from "./scenes/the-antiphon.js";
 import { THE_BATON } from "./scenes/the-baton.js";
 import { THE_CANDLE } from "./scenes/the-candle.js";
 import { THE_CURTAIN } from "./scenes/the-curtain.js";
@@ -40,7 +41,8 @@ export type ChoreographedSceneId =
   | "theLedger"
   | "theSurge"
   | "theLead"
-  | "theScuttle";
+  | "theScuttle"
+  | "theAntiphon";
 
 export const SCENES_CHOREOGRAPHED: Record<ChoreographedSceneId, GuideScene> = {
   theDiastole: THE_DIASTOLE,
@@ -56,4 +58,5 @@ export const SCENES_CHOREOGRAPHED: Record<ChoreographedSceneId, GuideScene> = {
   theSurge: THE_SURGE,
   theLead: THE_LEAD,
   theScuttle: THE_SCUTTLE,
+  theAntiphon: THE_ANTIPHON,
 };

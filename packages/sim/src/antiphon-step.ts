@@ -113,10 +113,13 @@ export function antiphonPit(world: World, s: AntiphonState, o: AntiphonOrgan): v
     return;
   }
   const cfg = world.cfg;
-  // The candidates neither organ is, read before the rail goes: from
-  // `antiphonSpillPits` they are what falls when the cycle ends on a pit.
-  const rejected = s.rail.filter((c) => !antiphonIsOrgan(s, c));
   s.pits.push(o.shape);
+  // The candidates neither organ is, read before the rail goes: from
+  // `antiphonSpillPits` they are what falls when the cycle ends on a pit. A
+  // twin already taken this cycle is a pit and no organ, and is not rejected:
+  // shapes are distinct across a rail (`antiphon-rail.ts`), so a candidate
+  // whose shape is a pit is one the pair described, never one it turned down.
+  const rejected = s.rail.filter((c) => !antiphonIsOrgan(s, c) && !s.pits.includes(c.shape));
   s.organs = s.organs.filter((x) => x !== o);
   world.events.push({ type: "antiphonPit", col: o.col, shape: o.shape, pits: s.pits.length });
   if (s.organs.length > 0) return;
