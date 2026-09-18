@@ -42,6 +42,14 @@ import { cannonGrab, shieldGrab } from "./touch-ship.js";
 export interface HandPlace {
   at: Circle;
   turn: number;
+  /**
+   * The swelling is upside down — THE MIRROR's lobes (`mirror-grip.ts`). A
+   * flip about the ring's own horizontal, not a half turn: the cup goes
+   * under the lobe, which is where its top is, and left stays left, so the
+   * red mark is still on the red side and an arrow still points along the
+   * rail the lobe travels.
+   */
+  flip?: true;
 }
 
 export type PlaceHand = (
@@ -90,7 +98,7 @@ export function drawShipHand(
   place: PlaceHand = flatHandPlace,
 ): void {
   if (!hand) return;
-  const { at, turn } = place(l, hand.on, cannonCol, shieldCol);
+  const { at, turn, flip } = place(l, hand.on, cannonCol, shieldCol);
   const alpha = hand.held ? 1 : OVER_ALPHA;
   const r = at.r * RING_MUL[hand.on] * (1 + BREATH * Math.sin(time * BREATH_HZ * Math.PI * 2));
   const base = hand.on === "shield" ? PALETTE.shieldRim : PALETTE.hullRim;
@@ -99,9 +107,10 @@ export function drawShipHand(
   // Turned about the ring's own centre rather than drawn at the origin, so
   // every coordinate below stays the one the press was answered at — a test
   // reading the canvas back finds the cup where the grab circle is.
-  if (turn !== 0) {
+  if (turn !== 0 || flip) {
     ctx.translate(at.x, at.y);
-    ctx.rotate(turn);
+    if (turn !== 0) ctx.rotate(turn);
+    if (flip) ctx.scale(1, -1);
     ctx.translate(-at.x, -at.y);
   }
   halo(ctx, at.x, at.y, r * 1.4, base, 0.1 * alpha);

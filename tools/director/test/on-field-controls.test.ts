@@ -143,9 +143,8 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // `field-controls-diastole.ts`).
     case "diastoleChamber":
     // `mirrorLobe` is THE MIRROR's own ship under both thumbs — the last
-    // round reflected on it, then pinned (`sim/mirror-hand.ts`). The
-    // simulation half landed first; the on-field entry and the row in
-    // `docs/spec/controls.md` are the look lane's (`docs/parked.md`).
+    // round reflected on it, then pinned (`sim/mirror-hand.ts`,
+    // `field-controls-mirror.ts`).
     case "mirrorLobe":
       return target;
     default:
@@ -182,6 +181,8 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
         "sinewRight",
         "stareLid",
         "diastoleChamber",
+        "queenMark",
+        "mirrorLobe",
       ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {
@@ -259,6 +260,7 @@ const FIELD: Field = {
   stare: null,
   queen: null,
   diastole: null,
+  mirror: null,
   controls: controlSetForWave(0),
   faults: [],
   well: false,

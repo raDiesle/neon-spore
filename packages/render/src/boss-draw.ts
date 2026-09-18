@@ -11,9 +11,11 @@ import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawMaze } from "./maze-draw.js";
 import { drawMirror } from "./mirror.js";
+import { drawMirrorGrip, mirrorHandPlace } from "./mirror-grip.js";
 import { drawQueen } from "./queen.js";
 import type { ViewState } from "./renderer.js";
 import { drawReprise } from "./reprise-draw.js";
+import { drawShipHand } from "./ship-hand.js";
 import { drawSplice } from "./splice-draw.js";
 import { drawTether } from "./tether.js";
 import { drawVane } from "./vane-draw.js";
@@ -181,4 +183,19 @@ export function drawBoss(
     charge: 0,
   });
   fx.drawGhosts(ctx, l, world.cfg);
+  // Its lobes as a control, over its rim: the rings the world says, the
+  // thrown ring of a pin landing or leaving, and this device's own hand on
+  // one of them, upside down (`mirror-grip.ts`).
+  drawMirrorGrip(ctx, l, world.cfg, boss, world.shieldCol, world.beat, view.beatPhase, view.time);
+  fx.grip.draw(ctx, l, world.cfg, boss, world.shieldCol);
+  const hand = view.hand?.mirror ? view.hand : undefined;
+  drawShipHand(
+    ctx,
+    l,
+    boss.cannonCol,
+    world.shieldCol,
+    hand,
+    view.time,
+    mirrorHandPlace(world.cfg, boss),
+  );
 }

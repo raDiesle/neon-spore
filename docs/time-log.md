@@ -8922,5 +8922,26 @@ which is HANDOVER and the trash beside it.
 
 The bottleneck was choosing where the name could go: every obvious place on a
 map is already carrying something an author put there.
+## 2026-09-18 — tutorial-boss-onscreen-actions — THE MIRROR's lobes are a control: the look half of §6.2
+
+The picture of the three gestures the simulation half landed: the mirror's
+two lobes hit-tested on both screens as the pair's own grab circles turned
+over, the pair's own hand cup on them flipped with the sim's carry threshold
+on the readout, rings per seat under the last round, the pin and the count
+under `hold`, a ring thrown off both lobes when the pin lands or is lost,
+the director's entry, row, hand and `hold` pose.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `touch-ship.ts`, `touch-hand.ts`, `ship-hand.ts`, the queen's grip and its test as the pattern, `mirror-hand.ts` for the sim's exact rule |
+| writing | 65 | `grip-rings.ts` split off the queen's, `mirror-grip.ts`, `mirror-grip-fx.ts`, the flip on the hand cup, `carryMilli` and `pin` on the hold, the lift that carries, `Field.mirror` in fifteen places, the director's hand, pose, entry and row, 14 render tests |
+| looking | 5 | one frame of each screen |
+| friction | 15 | `mirrorGesture` says `reflect` through `lead` and `show` as well, so the lobes had to be gated on `listen` twice; the two lobes overlap in one column so the seat tests moved the cannon; the `hold` pose's `want` was met before the pin landed |
+| landing | 10 | index, format, check, commit, land |
+
+Bottleneck: the per-device hand. The pair's hand cup carries the render's
+swipe threshold and the sim judges the mirror's own, so the hold had to
+carry `carryMilli` down to the readout, or the ring would have lit a colour
+the sim would not fire.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -64,6 +64,7 @@ function field(world: World, seat: 1 | 2, sinew: SinewState | null = tendon(worl
     stare: null,
     queen: null,
     diastole: null,
+    mirror: null,
     controls: STANDARD,
     faults: [],
     well: false,

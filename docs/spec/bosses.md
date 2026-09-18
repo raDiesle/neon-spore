@@ -421,14 +421,27 @@ next, whose thumb it is on and whether it is a press or a slide are the
 answer, and the memory game is built to make the pair say it. The rehearsal
 came down to two pages the same day (`docs/spec/briefings.md`).
 
-**What is not built.** The look of the two gestures on its ship: the lobes
-are not yet hit-tested on either screen (`render/touch-ship.ts` reads only
-the pair's own hull), no ring is drawn on them, the pin's two thumbs and its
-count are not drawn, and the `hold` pose is owed
-(`tools/director/test/boss-states.test.ts`). The simulation answers a
-`mirrorLobe` command today from the wire and from the tests
-(`packages/sim/test/mirror-gestures.test.ts`); the look lane is parked
-(`docs/parked.md`).
+**The look.** Its two lobes are the pair's own grab circles turned upside
+down at its hull line — the same radius, the same lift off the surface,
+sent the other way (`render/src/mirror-grip.ts`) — and a thumb on one is
+drawn with the pair's own hand cup, flipped, with the same marks: the
+arrows, the maw, and for player 2 the two colours, lit at the boss's own
+threshold (`mirrorCarryMilli`) rather than the pair's swipe distance, so
+what the ring lights is what the sim will hear (`render/src/touch-hand.ts`).
+The rings are read off the world and this screen's seat: under the last
+round's `listen` a breathing ring on each lobe this seat answers — both on
+player 1's screen, the cannon on player 2's — and nothing while it performs,
+since a step made then is dropped; under `hold` this seat's own lobe,
+filled while the sim has its thumb, and the count of `mirrorHoldBeats`
+drawn round both lobes on every screen once both are down. **The other
+seat's thumb is never drawn**: the count starting is the only thing about
+it that is shown, and a ring thrown off both lobes marks the pin landing
+and the pin lost (`render/src/mirror-grip-fx.ts`). The director's `hold`
+pose is played by a hand that answers every round and then pins
+(`tools/director/src/boss-hands-rounds.ts`), and the row is in
+`docs/spec/controls.md`.
+
+*Never watched at tempo*: the two gestures on a phone, on either seat.
 
 **Where it lives.** The rounds are authored in the director and carried by the
 wave `THE MIRROR`; the choreography is `packages/sim/src/mirror.ts` and the

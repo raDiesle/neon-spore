@@ -1,5 +1,5 @@
 import { gaugeRound } from "@neon-spore/sim";
-import { gaugeHand, mazeHand } from "./boss-hands-rounds.js";
+import { gaugeHand, mazeHand, mirrorHand } from "./boss-hands-rounds.js";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
@@ -48,6 +48,13 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "The pause that shows how the round went. Nobody answered here, so it is the lost verdict, with the reason — the pair can fail three ways and only one is the wrong button.",
     { ...FULL, hold: 6 },
   ),
+  bossPose("mirror", "hold", "P1: thumb on its cannon. P2: thumb on its shield. Both, and hold.", {
+    ...FULL,
+    hand: mirrorHand,
+    // Two beats into the count, so the dial is half drained and not yet the fall.
+    want: (w) =>
+      w.boss?.kind === "mirror" && w.boss.holdThumbs === 3 && w.beat - w.boss.holdBeat >= 2,
+  }),
   bossPose(
     "maze",
     "lead",

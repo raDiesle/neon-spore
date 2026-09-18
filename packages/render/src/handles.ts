@@ -8,6 +8,7 @@ import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeStringCircle } from "./maze-string.js";
+import { mirrorLobeUnder } from "./mirror-grip.js";
 import { orreryRingUnder } from "./orrery-grab.js";
 import { queenMarkUnder } from "./queen-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
@@ -78,7 +79,9 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     // THE BULB QUEEN's two marks, under BROOD and SCREAM (`queen-grip.ts`).
     queenMarkUnder(l, x, y, field) ??
     // THE DIASTOLE's clamp on the alone chamber (`diastole-clamp.ts`).
-    diastoleClampUnder(l, x, y, field)
+    diastoleClampUnder(l, x, y, field) ??
+    // THE MIRROR's two lobes, under its last round and its pin (`mirror-grip.ts`).
+    mirrorLobeUnder(l, x, y, field)
   );
 }
 

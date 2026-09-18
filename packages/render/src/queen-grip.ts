@@ -1,4 +1,3 @@
-import { circleSubpath } from "@neon-spore/content";
 import {
   type Creature,
   type QueenGesture,
@@ -6,10 +5,9 @@ import {
   queenGesture,
   type SimConfig,
 } from "@neon-spore/sim";
-import { strokeGlow } from "./glow.js";
+import { drawGripDial, drawGripRing, drawThrownRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout, showsQueenShape } from "./layout.js";
-import { PALETTE, STROKE } from "./palette.js";
 import { queenMarkCenter } from "./queen-figure.js";
 import type { Field, Touch } from "./touch.js";
 
@@ -89,7 +87,8 @@ const clamp01 = (v: number): number => Math.max(0, Math.min(1, v));
 
 /**
  * The rings, drawn after the shell so they stand over its lip. `ox`/`oy` is
- * her shudder, the same one the marks were drawn with.
+ * her shudder, the same one the marks were drawn with. The rings themselves
+ * are `grip-rings.ts`, shared with THE MIRROR's lobes.
  */
 export function drawQueenGrip(
   ctx: CanvasRenderingContext2D,
@@ -114,79 +113,17 @@ export function drawQueenGrip(
     // On every screen, because the mark opening is on every screen.
     if (boss.pryBeat !== -1 && boss.weakSide === side && queen.color !== null) {
       const k = clamp01(beat - boss.pryBeat + beatPhase);
-      if (k < 1) drawPried(ctx, x, y, at.r * (1.2 + 1.6 * k), 1 - k);
+      if (k < 1) drawThrownRing(ctx, x, y, at.r * (1.2 + 1.6 * k), 1 - k);
     }
     if (!mine || asks === null) continue;
     const held = asks === "hold" && boss.holdSide === side;
-    drawRing(ctx, x, y, r, held, time);
+    drawGripRing(ctx, x, y, r, held, time);
     // The dial: how much of the hold is left, on the mark being held, while
     // it is the one that is open. It runs from the opening, not the thumb —
     // `holdBloom` counts from `openBeat` — so it is the beat she shuts on.
     if (held && boss.weakSide === side && queen.color !== null) {
       const left = 1 - clamp01((beat - boss.openBeat + beatPhase) / cfg.queenHoldBeats);
-      drawDial(ctx, x, y, r, left);
+      drawGripDial(ctx, x, y, r, left);
     }
   }
-}
-
-/** The ring: breathing until a thumb lands, filled and steady once one has. */
-function drawRing(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  held: boolean,
-  time: number,
-): void {
-  const breathe = held ? 1 : 1 + 0.08 * Math.sin(time * 4);
-  const p = new Path2D(circleSubpath(x, y, r * breathe));
-  if (held) {
-    ctx.save();
-    ctx.fillStyle = PALETTE.text;
-    ctx.globalAlpha = 0.18;
-    ctx.fill(p);
-    ctx.restore();
-  }
-  strokeGlow(ctx, p, held ? PALETTE.text : PALETTE.dim, STROKE.inner, held ? 1.2 : 0.9);
-}
-
-/** The hold's dial, from the top and clockwise, emptying as the beats run out. */
-function drawDial(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  left: number,
-): void {
-  if (left <= 0) return;
-  ctx.save();
-  ctx.strokeStyle = PALETTE.text;
-  ctx.lineWidth = STROKE.outline * 1.6;
-  ctx.lineCap = "butt";
-  ctx.beginPath();
-  ctx.arc(x, y, r * 1.3, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * left);
-  ctx.stroke();
-  ctx.restore();
-}
-
-/** The armour thrown off a pried mark: a rock-grey ring running outward and fading. */
-function drawPried(
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  r: number,
-  alpha: number,
-): void {
-  // Plain strokes rather than `strokeGlow`, which ends at full alpha: this
-  // ring's whole point is that it goes.
-  const p = new Path2D(circleSubpath(x, y, r));
-  ctx.save();
-  ctx.strokeStyle = PALETTE.rock;
-  ctx.globalAlpha = alpha * 0.35;
-  ctx.lineWidth = STROKE.outline * 3;
-  ctx.stroke(p);
-  ctx.globalAlpha = alpha;
-  ctx.lineWidth = STROKE.inner * 1.4;
-  ctx.stroke(p);
-  ctx.restore();
 }

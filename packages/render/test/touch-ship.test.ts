@@ -50,6 +50,7 @@ function field(seat: 1 | 2, controls: ControlSet = STANDARD, cols?: [number, num
     stare: null,
     queen: null,
     diastole: null,
+    mirror: null,
     controls,
     faults: [],
     well: false,

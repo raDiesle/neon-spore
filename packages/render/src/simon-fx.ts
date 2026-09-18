@@ -9,6 +9,7 @@ import {
 } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { mirrorHullY } from "./mirror.js";
+import { MirrorGripFx } from "./mirror-grip-fx.js";
 import { PALETTE } from "./palette.js";
 import { GhostShots } from "./simon-ghost.js";
 import { stepHex } from "./simon-glyph.js";
@@ -57,6 +58,8 @@ export class MirrorFx {
   private turnFor = 0;
   /** The phase last drawn, so the turn handover can be noticed. */
   private lastPhase: MirrorPhase | null = null;
+  /** The pin landing or lost, thrown off its lobes (`mirror-grip-fx.ts`). */
+  readonly grip = new MirrorGripFx();
 
   /** 0..1 towards the mirror's shield being held open, for its hull's mood. */
   get armed(): number {
@@ -69,6 +72,7 @@ export class MirrorFx {
   }
 
   ingest(events: readonly SimEvent[]): void {
+    this.grip.ingest(events);
     for (const e of events) {
       if (e.type === "mirrorShow") {
         if (e.index === 1) this.chain = [];
@@ -97,6 +101,7 @@ export class MirrorFx {
     this.answerFlash = Math.max(0, this.answerFlash - dt);
     this.turnFor = Math.max(0, this.turnFor - dt);
     this.ghosts.update(dt);
+    this.grip.update(dt);
   }
 
   clear(): void {
@@ -110,6 +115,7 @@ export class MirrorFx {
     this.answerFlash = 0;
     this.turnFor = 0;
     this.lastPhase = null;
+    this.grip.clear();
   }
 
   /** The shots it drops while demonstrating. Under the hull, like every other. */

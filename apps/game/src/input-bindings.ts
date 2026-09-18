@@ -7,6 +7,7 @@ import type {
   FilamentState,
   InstarState,
   MazeState,
+  MirrorState,
   OrreryState,
   PlacedFault,
   QueenState,
@@ -110,6 +111,9 @@ export interface Bindings {
   /** THE DIASTOLE, when it is the boss up: the clamp's ring on the grey right
    * chamber, for the pilot, while it beats alone (`render/diastole-clamp.ts`). */
   diastole: () => DiastoleState | null;
+  /** THE MIRROR, when it is the boss up: its two lobes, under the last round
+   * and the pin (`render/mirror-grip.ts`). */
+  mirror: () => MirrorState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

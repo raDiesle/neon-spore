@@ -29,6 +29,6 @@ export const SILENT_BOSS_B = [
   "filamentPulled",
   "filamentDown",
   "filamentOut",
-  // THE MIRROR's pin throws no burst until the look lane draws the pin itself.
+  // THE MIRROR's pin throws a ring off both lobes, not a burst: `mirror-grip-fx.ts`.
   "mirrorGrip",
 ] as const satisfies readonly SimEvent["type"][];

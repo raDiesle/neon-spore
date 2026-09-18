@@ -6,6 +6,7 @@ import type {
   FilamentState,
   InstarState,
   MazeState,
+  MirrorState,
   OrreryState,
   PlacedFault,
   QueenState,
@@ -162,6 +163,14 @@ export interface Field {
    * at all (`diastole-clamp.ts`, `sim/diastole-open.ts`).
    */
   diastole: DiastoleState | null;
+  /**
+   * THE MIRROR, if it is the boss running, `null` otherwise. Required and
+   * stated, for the reason the eleven above are: its last round is answered on
+   * its own two lobes and nowhere on the panel, and its end is both thumbs
+   * pinning them, so a caller that quietly meant `null` would leave the last
+   * round with no right answer at all (`mirror-grip.ts`).
+   */
+  mirror: MirrorState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

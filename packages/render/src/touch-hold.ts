@@ -127,6 +127,21 @@ export type Hold =
       originY: number;
       id?: number;
       turns?: true;
+      /**
+       * THE MIRROR's lobes, under its last round: how far a carry has to go
+       * before it is one, in thousandths of a tile — `mirrorCarryMilli`,
+       * read off `SimConfig` at the press so the colour the ring lights and
+       * the maw it offers agree with the step the simulation will hear on
+       * the lift (`mirror-grip.ts`, `sim/mirror-hand.ts`). The pair's own
+       * muzzle and maw keep their own two thresholds; this one is the boss's.
+       */
+      carryMilli?: number;
+      /**
+       * The same lobes under `hold`: the thumb is a pin, not a carry, so the
+       * hand on it is drawn with no arrows and no colours, and the count is
+       * the world's (`holdThumbs`), not this device's.
+       */
+      pin?: true;
     };
 
 export interface Touch {

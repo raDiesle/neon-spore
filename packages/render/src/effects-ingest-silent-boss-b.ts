@@ -78,8 +78,7 @@ export const INGEST_SILENT_BOSS_B = [
   // burst in `effects-spark-handed.ts`. The spasm is not here — it is a
   // shudder of the hull as well (`effects-ingest.ts`).
   "diastoleClamp",
-  // THE MIRROR's pin: both thumbs landing on its lobes, or one leaving. The
-  // sound is the audio's; the look lane draws the two thumbs and the count
-  // off the boss every frame (`docs/spec/bosses.md` §11.3, *What is not built*).
+  // THE MIRROR's pin: both thumbs landing on its lobes, or one leaving. Read
+  // above the loop with its other four, by `MirrorFx.grip` (`mirror-grip-fx.ts`).
   "mirrorGrip",
 ] as const satisfies readonly SimEvent["type"][];

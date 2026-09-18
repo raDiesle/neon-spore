@@ -112,6 +112,11 @@ export interface ShipHand {
   color: Color | null;
   /** What this hand would do, in the order the marks are drawn. */
   marks: readonly ShipMark[];
+  /**
+   * The hand is on THE MIRROR's lobe, not the pair's own: drawn upside down
+   * over the boss (`mirror-grip.ts`) and not over the hull (`frame-ship.ts`).
+   */
+  mirror?: true;
 }
 
 /**
@@ -147,5 +152,39 @@ export function shipHand(
   if (hold.kind === "shot") {
     return { on: "muzzle", held, color: swipeColor(l, hold.originX, x, hold.only), marks: [] };
   }
+  if (hold.kind === "drag" && hold.target === "mirrorLobe") return mirrorHand(l, hold, x, held);
   return null;
+}
+
+/**
+ * A hand on one of THE MIRROR's lobes: the same picture the pair's own lobe
+ * gets, because it is the same gesture on the same swelling upside down —
+ * with one threshold for the swipe and the tap alike, the boss's own
+ * (`carryMilli`), so what the ring lights is what the sim will hear. Under
+ * the pin there is nothing to read out: the thumb is there or it is not.
+ */
+function mirrorHand(
+  l: Layout,
+  hold: Extract<Hold, { kind: "drag" }>,
+  x: number,
+  held: boolean,
+): ShipHand {
+  const on: ShipHand["on"] = hold.id === 1 ? "shield" : hold.player === 2 ? "muzzle" : "cannon";
+  if (hold.pin || hold.carryMilli === undefined) {
+    return { on, held, color: null, marks: [], mirror: true };
+  }
+  const carry = (x - hold.originX) * 1000 >= hold.carryMilli * l.tile;
+  const carryBack = (hold.originX - x) * 1000 >= hold.carryMilli * l.tile;
+  if (on === "muzzle") {
+    const color: Color | null = carryBack ? "red" : carry ? "cyan" : null;
+    return { on, held, color, marks: [], mirror: true };
+  }
+  if (on === "shield") return { on, held, color: null, marks: ["guard"], mirror: true };
+  return {
+    on,
+    held,
+    color: null,
+    marks: carry || carryBack ? ["slide"] : ["slide", "suck"],
+    mirror: true,
+  };
 }

@@ -204,7 +204,14 @@ export function touchUp(l: Layout, hold: Hold, field: Field, at?: Point): Touch 
     return up ? { player: hold.player, command: up, hold: null } : null;
   }
   if (hold.kind === "drag") {
-    return { player: hold.player, command: dragging(hold, 0, 0, false), hold: null };
+    // THE MIRROR's lobes are the one drag whose *lift* is the gesture — a
+    // carry past the threshold or a tap short of it, the muzzle's and the
+    // maw's rule on the boss's own ship (`sim/mirror-hand.ts`) — so the lift
+    // says where the hand ended. Every other drag's lift only lets go.
+    const carried = hold.target === "mirrorLobe" && at !== undefined;
+    const dx = carried ? Math.round(((at.x - hold.originX) * 1000) / l.tile) : 0;
+    const dy = carried ? Math.round(((at.y - hold.originY) * 1000) / l.tile) : 0;
+    return { player: hold.player, command: dragging(hold, dx, dy, false), hold: null };
   }
   if (hold.kind !== "grip") return null;
   return { player: field.seat, command: { kind: "grip", id: NO_GRIP }, hold: null };

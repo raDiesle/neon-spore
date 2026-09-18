@@ -742,6 +742,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/field.ts` | background, grid pulse, radar strip |
 | `packages/render/src/hull.ts` | the ship; cannon and shield as lobes of one contour |
 | `packages/render/src/mirror.ts` | the same ship, flipped and in the wrong colours — THE MIRROR |
+| `packages/render/src/mirror-grip-fx.ts` | The pin landing and the pin lost: a ring thrown off both of THE MIRROR's lobes, cleared with `MirrorFx` |
+| `packages/render/src/mirror-grip.ts` | THE MIRROR's two lobes as a control: the pair's grab circles upside down, rings per seat, the pin and its count |
 | `packages/render/src/mine-tap.ts` | **A finger on a bare square of the field**, from the seat that cannot see what is standing on it |
 | `packages/render/src/mine.ts` | THE MINE, drawn: the body on one seat, the **count** on both |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |
@@ -1291,6 +1293,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fault-beam-ends.ts` | Where the fault's beam lands on this screen — GUARD or the dome, the colour lobes or the muzzle, the cannon strip's node for THE CHOKE |
 | `packages/render/src/grip-arrows.ts` | THE PUSH, said before it happens: the two white arrows beside a held rock, and the beat they go out for |
 | `packages/render/src/grip-beam.ts` | The beam of a brake — the one part of a hand on a rock that is visible from across the room |
+| `packages/render/src/grip-rings.ts` | The three rings a thumb on a boss's picture is drawn with: asked for, held, thrown off — the queen's and the mirror's |
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
 | `packages/render/src/gorge-fx.ts` | What THE GORGE leaves behind a frame: the beads leaving at the end |
 | `packages/render/src/gorge-lobe.ts` | One lobe of THE GORGE: the intake puckered under it, the beads hanging in it |
@@ -2164,6 +2167,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |
 | `tools/director/src/field-controls-queen.ts` | THE BULB QUEEN's marks, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-mirror.ts` | THE MIRROR's lobes, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-diastole.ts` | THE DIASTOLE's clamp, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

@@ -5,6 +5,7 @@ import { DIASTOLE_CONTROLS } from "./field-controls-diastole.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
+import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
 import { QUEEN_CONTROLS } from "./field-controls-queen.js";
 import { SINEW_CONTROLS } from "./field-controls-sinew.js";
@@ -216,8 +217,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   // after the four handles that are the pilot's, before the guide's hold.
   ...BALLOON_CONTROLS,
   ...GUM_CONTROLS,
-  // THE ORRERY's ring, next door for the same reason, and the largest: a
-  // whole orbit rather than a circle on a body (`field-controls-orrery.ts`).
+  // THE ORRERY's ring: a whole orbit rather than a circle on a body (`field-controls-orrery.ts`).
   ...ORRERY_CONTROLS,
   // THE SINEW's two, the pair that adds into one sum rather than holding a
   // side each (`field-controls-sinew.ts`).
@@ -231,6 +231,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...STARE_CONTROLS, // THE STARE's lid, the first on a boss that is not its body.
   ...QUEEN_CONTROLS,
   ...DIASTOLE_CONTROLS, // THE DIASTOLE's clamp, the second whose seat is not told.
+  ...MIRROR_CONTROLS, // THE MIRROR's lobes, two gestures on one target (`field-controls-mirror.ts`).
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

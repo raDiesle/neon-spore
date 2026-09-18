@@ -2,17 +2,19 @@ import {
   type Color,
   gaugeRound,
   gaugeSeated,
+  type MirrorStep,
   mazeCoreEntrance,
   mazeCurrent,
   mazeHeartColor,
   mazeRound,
+  mirrorGesture,
   type TimedCommand,
 } from "@neon-spore/sim";
 import type { Hand } from "./poses-bosses-kit.js";
 
 /**
  * **The pair's hands on the rounds a hand has to play** — THE MAZE, THE
- * GAUGE — each a `Hand` (`poses-bosses-kit.ts`). A round's other phases
+ * GAUGE, THE MIRROR's pin — each a `Hand` (`poses-bosses-kit.ts`). A round's other phases
  * arrive with nobody pressing (`poses-bosses-rounds.ts`); these are the two
  * whose played states do not, and each hand is the round's own test rig
  * played straight (`sim/test/maze-fixture.ts`'s `clickOnto` and `fireInto`,
@@ -61,3 +63,65 @@ export const gaugeHand: Hand = (w) => {
   if (gaugeSeated(w, g)) out.push({ player: 2, command: { kind: "call" } });
   return out;
 };
+
+/**
+ * THE MIRROR: the step it is waiting for, one a tick, on the panel under an
+ * ordinary round and on its own lobes under the last (`mirrorGesture`) —
+ * the lift that is a carry past `mirrorCarryMilli`, the press that is a
+ * guard — then both thumbs pinned once it stands at no hull. The hand knows
+ * the sequence, which the pair only knows by having watched it; it plays
+ * it straight otherwise.
+ */
+export const mirrorHand: Hand = (w) => {
+  const m = w.boss;
+  if (m === null || m.kind !== "mirror") return [];
+  const gesture = mirrorGesture(m);
+  if (gesture === "hold") {
+    return m.holdThumbs === 3 ? [] : [lobe(1, 0, true, 0), lobe(2, 1, true, 0)];
+  }
+  if (m.phase !== "listen") return [];
+  const want = m.rounds[m.round]?.[m.matched];
+  if (want === undefined) return [];
+  if (gesture === "answer") return [panelStep(w.cannonCol, want)];
+  const carry = w.cfg.mirrorCarryMilli;
+  switch (want) {
+    case "cannonLeft":
+      return [lobe(1, 0, false, -carry)];
+    case "cannonRight":
+      return [lobe(1, 0, false, carry)];
+    case "intake":
+      return [lobe(1, 0, false, 0)];
+    case "guard":
+      return [lobe(1, 1, true, 0)];
+    case "fireRed":
+      return [lobe(2, 0, false, -carry)];
+    case "fireCyan":
+      return [lobe(2, 0, false, carry)];
+  }
+};
+
+/** A step made on the panel, the way `sim/commands.ts` hears one. */
+function panelStep(cannonCol: number, step: MirrorStep): Press {
+  switch (step) {
+    case "cannonLeft":
+      return aim(cannonCol - 1);
+    case "cannonRight":
+      return aim(cannonCol + 1);
+    case "intake":
+      return { player: 1, command: { kind: "intake" } };
+    case "guard":
+      return { player: 1, command: { kind: "guard" } };
+    case "fireRed":
+      return fire("red");
+    case "fireCyan":
+      return fire("cyan");
+  }
+}
+
+/** A thumb on one of the mirror's lobes: a press, or a lift carried `fromMilli`. */
+function lobe(player: 1 | 2, id: 0 | 1, on: boolean, fromMilli: number): Press {
+  return {
+    player,
+    command: { kind: "drag", target: "mirrorLobe", on, fromMilli, fromYMilli: 0, id },
+  };
+}

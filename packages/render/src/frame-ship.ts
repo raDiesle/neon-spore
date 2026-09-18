@@ -27,6 +27,7 @@ import { seatSkin } from "./seat-skin.js";
 import { drawShipHand } from "./ship-hand.js";
 import { drawCommsSiren } from "./siren.js";
 import { drawTorchAlarm } from "./torch-alarm.js";
+import type { ShipHand } from "./touch-hand.js";
 import { showsCannon, showsShield } from "./view-role.js";
 import { wellShown } from "./well.js";
 import { drawWellShip, wellHandPlace } from "./well-ship.js";
@@ -67,9 +68,10 @@ export function drawShip(
   // (`well-ship.ts`). `drawOverlays` is untouched: the band, the HUD and the
   // wave's opening are the same on both screens. The ring under this phone's
   // own finger is the same call as the flat hull's below, placed by the well.
+  const hand = ownHand(view.hand);
   if (wellShown(l, world)) {
     drawWellShip(ctx, l, view, mood, at);
-    drawShipHand(ctx, l, world.cannonCol, world.shieldCol, view.hand, view.time, wellHandPlace);
+    drawShipHand(ctx, l, world.cannonCol, world.shieldCol, hand, view.time, wellHandPlace);
     return;
   }
   // Whether the swelling player 1 slides is a **hand** rather than a gun. It
@@ -126,7 +128,7 @@ export function drawShip(
   // rather than from `at`, because that is where the press was answered — a
   // ring that followed the eased lobe would drift off its own hit region
   // (`touch-ship.ts`).
-  drawShipHand(ctx, l, world.cannonCol, world.shieldCol, view.hand, view.time);
+  drawShipHand(ctx, l, world.cannonCol, world.shieldCol, hand, view.time);
 }
 
 /** The frame's two windows, and whatever the wave's opening needs drawing. */
@@ -236,4 +238,9 @@ function drawFaultBeams(
   }
   const ends = faultBeamEnds(l, world, lobes, showsCannon(view.role), showsShield(view.role));
   drawFaultBeam(ctx, l, world, ends, view.beatPhase, view.time);
+}
+
+/** The hand on the pair's own ship; one on THE MIRROR's is drawn over the boss instead (`boss-draw.ts`). */
+function ownHand(hand: ShipHand | undefined): ShipHand | undefined {
+  return hand?.mirror ? undefined : hand;
 }

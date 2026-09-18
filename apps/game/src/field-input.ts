@@ -139,6 +139,7 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     stare: () => (world.boss?.kind === "stare" ? world.boss : null),
     queen: () => (world.boss?.kind === "queen" ? world.boss : null),
     diastole: () => (world.boss?.kind === "diastole" ? world.boss : null),
+    mirror: () => (world.boss?.kind === "mirror" ? world.boss : null),
     // Which panel is up follows from the wave (`content/control-sets.ts`).
     controls: () => controlSetForWave(world.wave),
     faults: () => faultsNow(world),

@@ -1382,3 +1382,21 @@ the three newest handles can be held for a frame. Add the three rows with
 their seats, and the proof is `bun run frames . --wave "BULB QUEEN" --seat
 p1 --creature petals=6 --ticks 200 --boss openBeat=now,closeBeat=99` showing
 the ring on both marks.
+
+## Every boss on the field is a name in `input.ts`, and the file is full
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `apps/game/src/input.ts`, `apps/game/src/input-bindings.ts`, `apps/game/src/field-input.ts`, `packages/render/src/touch-field.ts`, `tools/director/src/stage-field.ts`
+
+`Field` carries one nullable field per boss that a thumb can touch — `maze`,
+`warden`, `orrery`, `sinew`, `surge`, `antiphon`, `instar`, `filament`,
+`stare`, `queen`, `mirror` — and each is named four times: the `Bindings`
+getter, the destructure in `bindControls`, the `field()` builder there, and
+`field-input.ts`; then once more in `stage-field.ts` and in every test's
+`Field` literal (fifteen files this lane). `input.ts` stands at 250 lines
+and THE MIRROR's line cost it a comment. Replace the eleven with one
+`boss: () => World["boss"]` on `Bindings` and one `boss: World["boss"]` on
+`Field`, and let each `*Under` narrow it by `kind` the way `field-input.ts`
+already does — the getters were only ever `world.boss?.kind === k ? world.boss : null`.
+`bun run check` proves it; the `Field` literals in `packages/render/test`
+and `tools/director/test` lose ten lines each.
