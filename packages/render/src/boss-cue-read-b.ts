@@ -2,28 +2,25 @@ import {
   type TasterState,
   tasterPhase,
   tasterStanding,
-  type UndertowState,
-  undertowUnseated,
   vaneOpen,
   vaneSplitCol,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
-import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { tasterCrestY } from "./taster-draw.js";
 import { vaneBearingY } from "./vane-draw.js";
 
 /**
- * **What THE TASTER, THE UNDERTOW and THE VANE are asking for** — page two of
- * the readings, on the seam `boss-draw-clocks-b.ts` draws for the same reason:
- * this is the half of the list that grows, and the file next door was written
- * to be read in one sitting.
+ * **What THE TASTER and THE VANE are asking for** — page two of the readings,
+ * on the seam `boss-draw-clocks-b.ts` draws for the same reason: this is the
+ * half of the list that grows, and the file next door was written to be read
+ * in one sitting.
  *
  * Every rule is `boss-cue.ts`'s. The one that does the most work in this
- * file is *a cue is drawn on the seat that can act*: all three of these
- * fights alternate between the two seats beat by beat, so a cue on the wrong
- * phone is not merely noise — it is the fight telling the pilot to do the
+ * file is *a cue is drawn on the seat that can act*: both of these fights
+ * alternate between the two seats beat by beat, so a cue on the wrong phone
+ * is not merely noise — it is the fight telling the pilot to do the
  * navigator's job on the one beat she is waiting to be told to do it.
  *
  * **THE VANE is the third and came later** (18 September 2026), on this page
@@ -33,16 +30,14 @@ import { vaneBearingY } from "./vane-draw.js";
  *
  * **THE BATON was the fourth and has gone** to page nine
  * (`boss-cue-read-i.ts`): it says a word in three of its four stages now, and
- * the reading of it outgrew a share of a page.
+ * the reading of it outgrew a share of a page. **THE UNDERTOW was the second
+ * and has gone the same way**, to page ten (`boss-cue-read-j.ts`), on the day
+ * it learnt to say a word in each of its five phases.
  */
 
 /** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
 const HALF_W = 0.72;
 const HALF_H = 0.66;
-
-/** How far above the plating a lobe's mark stands, in tiles: clear of the
- * hull line, and under the swell of the lobe itself (`undertow-lobe.ts`). */
-const LOBE_LIFT = 0.8;
 
 function markAt(
   seat: BossCue["seat"],
@@ -77,56 +72,6 @@ export function tasterCues(l: Layout, world: World, t: TasterState): readonly Bo
   if (phase === "closed") return [markAt(2, "HOLD", "BURN", x, y, l, 41, 2)];
   if (tasterStanding(t) === 0) return [];
   return [markAt(2, "PRESS", "SHEAR", x, y, l, 42, 2)];
-}
-
-/**
- * THE UNDERTOW. Three things are wanted of this fight and each belongs to one
- * seat: the maw under an ordinary lobe, the beam under a tall one, and the
- * cannon off the plate that has come up under it.
- *
- * `MOVE` is first because it is the one with a hull behind it — the seat is
- * bowing and everything else can wait a beat. It stands on the cannon, which
- * is the pilot's own picture, and says nothing about which way to go.
- *
- * The two lobe words stand on the lobes, which **both** screens are drawn
- * (`undertow-lobe.ts` takes `tall` on either), so neither cue hands a seat
- * the half of the picture the other was given — what is split here is the
- * bow that warns of the push, and no cue is drawn on it (`showsUndertowBow`).
- */
-export function undertowCues(
-  l: Layout,
-  world: World,
-  u: UndertowState,
-  skinY: SurfaceY,
-): readonly BossCue[] {
-  if (u.phase === "taken") return [];
-  const out: BossCue[] = [];
-  if (undertowUnseated(u, world.beat)) {
-    out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 43));
-  }
-  // The shield standing on a lobe's own column keeps the maw off it
-  // (`undertow-press.ts`), and nothing in the picture says so — the pilot
-  // holds the maw open over a lobe that will not come in and neither of them
-  // learns why. It is her thumb that moves the shield, so it is her word.
-  for (const b of u.breaches) {
-    if (b.stage === "standing" && !b.tall && world.shieldCol === b.col) {
-      out.push(markAt(2, "CARRY", "MOVE", tileCX(l, world.shieldCol), l.hullY, l, 49));
-      break;
-    }
-  }
-  for (const b of u.breaches) {
-    if (b.stage !== "standing") continue;
-    const x = tileCX(l, b.col);
-    const y = skinY(x) - l.tile * LOBE_LIFT;
-    // A tall lobe is the beam's and the maw would break on it; every other one
-    // is the maw's, held open under it (`undertow-press.ts`).
-    out.push(
-      b.tall
-        ? markAt(2, "HOLD", "BURN", x, y, l, 44 + b.col)
-        : markAt(1, "HOLD", "OPEN", x, y, l, 44 + b.col),
-    );
-  }
-  return out;
 }
 
 /**

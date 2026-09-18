@@ -2116,7 +2116,9 @@ and only one of them is a boss.
 is deliberately a **reading** rather than machinery: `render/src/boss-cue.ts`
 is a pure function from the `World` the simulation already keeps to at most one
 cue, so nothing was added to `packages/sim`, to `hashWorld` or to the wire. The
-readings are `boss-cue-read.ts` and `boss-cue-read-b.ts`, the hand is
+readings are `boss-cue-read.ts` and the lettered pages beside it —
+`boss-cue-read-b.ts` through `boss-cue-read-j.ts`, a page taken by one boss
+alone once its reading outgrows a share of one — the hand is
 `boss-cue-draw.ts` — THE CHOIR's target lock in `PALETTE.rock` with the verb
 under it and the kind of action over it — and `frame-field.ts` draws it over
 the boss, on every seat that can act.

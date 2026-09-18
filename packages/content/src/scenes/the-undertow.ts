@@ -51,10 +51,21 @@ export const THE_UNDERTOW: GuideScene = {
     { tick: 360, seat: 2, text: "A LOBE STANDS · NOBODY MOVES", anchor: { at: "hull" } },
     { tick: 540, seat: 2, text: "LEFT ALONE · IT WIDENS", anchor: { at: "hull" } },
     { tick: 720, seat: 2, text: "A SECOND LOBE · BOTH SCAR", anchor: { at: "hull" } },
+    // Three pages here said a verb the fight now writes itself, 18 September
+    // 2026 (`boss-cue-read-j.ts`): the slide, and the maw twice. All three
+    // kept their tick, their seat and their anchor, because every one of them
+    // is the only page of its seat over an act of its seat and a deleted one
+    // would hand the ghost hand to the other screen (`new-tutorial`, *take the
+    // verb out, not always the page*).
+    //
+    // This one says the reason the cannon has anywhere to be: the maw and the
+    // beam both fire straight up the column the carriage is in
+    // (`undertow-press.ts`, `lance-burn.ts`), and a cue may never name a
+    // column.
     {
       tick: 1020,
       seat: 1,
-      text: "PLAYER 1 SLIDES UNDER IT",
+      text: "THE MAW REACHES ONE COLUMN",
       anchor: { at: "control", control: "cannon" },
     },
     {
@@ -75,17 +86,26 @@ export const THE_UNDERTOW: GuideScene = {
       text: "THE COLUMN IS HIS TO REACH",
       anchor: { at: "control", control: "shield" },
     },
+    // The beat after her plate was in his way, which is the moment the split
+    // bites: neither seat is drawn the other's carriage (`showsCannon`,
+    // `showsShield`), so the column he needs is a sentence she has to say. The
+    // page said THE MAW TAKES IT AGAIN, which was the film narrating its own
+    // verb a second time.
     {
       tick: 1560,
       seat: 1,
-      text: "THE MAW TAKES IT AGAIN",
+      text: "PLAYER 1 IS SHOWN NO PLATE",
       anchor: { at: "control", control: "intake" },
     },
     { tick: 1740, seat: 2, text: "TWO AT ONCE · FOUR APART", anchor: { at: "hull" } },
+    // Why the last lesson divides at all — one carriage, two lobes, four
+    // columns apart. The cue says `OPEN` on the one he is under and nothing
+    // about the other, because *which* is the pair's own sentence; the page
+    // below answers it on her screen.
     {
       tick: 1920,
       seat: 1,
-      text: "THE MAW TAKES THE NEAR ONE",
+      text: "PLAYER 1 CANNOT REACH BOTH",
       anchor: { at: "control", control: "intake" },
     },
     {

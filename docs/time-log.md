@@ -9662,3 +9662,30 @@ schema in the binary. A setting that fails in silence costs a week before
 anyone looks.
 
 *Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
+
+## 2026-09-18 — queue-cloud — THE UNDERTOW says a word in all five of its phases
+
+The shipped reading said four words at four moments and one of them was said
+where the game refuses the thumb: `MOVE` was drawn only while `undertowUnseated`
+held, which is the four beats when every command of the pilot's that reaches
+the ship is swallowed. The word is owed a phase earlier, at `seat`, while the
+floor is still bowing under him. `OPEN` and `BURN` were drawn on any standing
+lobe, but the maw and the beam both fire up the cannon's own column, so both
+became the pair of words the fight actually has — the verb when he is under it,
+`MOVE` when he is not. Phase `last` had nothing at all.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | `undertow.ts`, `undertow-step.ts`, `undertow-press.ts`, the shipped reading in `boss-cue-read-b.ts`, `boss-cue-baton.test.ts` as the precedent for a boss's own page, `new-tutorial`'s rule for taking a verb out of a page |
+| writing | 55 | `boss-cue-read-j.ts` and its eleven cases, the three rewritten rehearsal pages, §11.20's *What the field says*, the briefings table's three rows |
+| looking | 0 | none — the PNG is unverified, per the item's own note |
+| friction | 15 | two test failures from the wave's own start state (`cannonCol === shieldCol === midCol`), a caption one character over 28, and an import left behind by the move to page ten |
+| landing | 15 | `check:fast` twice, the commit |
+
+The bottleneck was the start state: THE UNDERTOW opens with the cannon and the
+plate in the same column, so a case that means *the plate is elsewhere* has to
+say so, and two cases read as passing arguments when they were reading a
+coincidence. A helper that parks the other carriage would have paid for itself
+in the first case.
+
+*Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*

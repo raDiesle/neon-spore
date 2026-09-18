@@ -14,7 +14,6 @@ import {
   type TasterState,
   tasterBoss,
   ticksPerBeat,
-  type UndertowState,
   undertowBoss,
   type World,
 } from "@neon-spore/sim";
@@ -40,9 +39,10 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * answer it (`render/src/boss-cue.ts`, `docs/decisions.md` #34).
  *
  * THE BATON's own cases went to `boss-cue-baton.test.ts` on 18 September 2026,
- * with the reading they are about (`boss-cue-read-i.ts`); it is still in the
- * sweep at the foot of this file, which is about what a cue may *contain* and
- * wants every boss in it.
+ * with the reading they are about (`boss-cue-read-i.ts`), and THE UNDERTOW's
+ * went to `boss-cue-undertow.test.ts` the same day with
+ * `boss-cue-read-j.ts`; both are still in the sweep at the foot of this file,
+ * which is about what a cue may *contain* and wants every boss in it.
  *
  * The readings are asked **directly** rather than through a frame, for
  * `undertow-frame.test.ts`' reason turned around: what a pixel proves is that
@@ -198,46 +198,6 @@ describe("THE TASTER", () => {
   });
 });
 
-describe("THE UNDERTOW", () => {
-  const stand = (world: World, col: number, tall: boolean): void => {
-    boss(undertowBoss(world), "undertow").breaches.push({
-      col,
-      stage: "standing",
-      stageBeat: world.beat,
-      tall,
-      widthMilli: 0,
-      widened: false,
-    });
-  };
-
-  it("gives the maw to the pilot and the beam to the navigator", () => {
-    const world = opened("undertow");
-    stand(world, 2, false);
-    expect(word(world, "p1")).toBe("OPEN");
-    expect(word(world, "p2")).toBeNull();
-
-    const tall = opened("undertow");
-    stand(tall, 2, true);
-    expect(word(tall, "p2")).toBe("BURN");
-    expect(word(tall, "p1")).toBeNull();
-  });
-
-  it("tells the pilot to slide off a seat that has come up under him", () => {
-    const world = opened("undertow");
-    const u: UndertowState = boss(undertowBoss(world), "undertow");
-    u.unseatedUntil = world.beat + 2;
-    expect(word(world, "p1")).toBe("MOVE");
-  });
-
-  it("tells the navigator to move a shield that is keeping the maw off a lobe", () => {
-    const world = opened("undertow");
-    stand(world, world.shieldCol, false);
-    expect(word(world, "p2")).toBe("MOVE");
-    // The pilot still has his own half of the same beat.
-    expect(word(world, "p1")).toBe("OPEN");
-  });
-});
-
 describe("what a cue may say", () => {
   /** Every cue the six arrangements above produce, on every seat. */
   function every(): BossCue[] {
@@ -258,8 +218,10 @@ describe("what a cue may say", () => {
     t.shorn = t.blades.length - CFG.tasterClosedBlades;
     worlds.push(taster);
     const undertow = opened("undertow");
+    // Under the cannon, so the sweep sees `OPEN` — the word only this fight
+    // says — rather than the `MOVE` a lobe out of reach would give it.
     boss(undertowBoss(undertow), "undertow").breaches.push({
-      col: 2,
+      col: undertow.cannonCol,
       stage: "standing",
       stageBeat: undertow.beat,
       tall: false,

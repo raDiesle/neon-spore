@@ -792,7 +792,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-draw-clocks.ts` | **The clock bosses, drawn** — the ones from `docs/spec/bosses-choreographed.md` whose whole difficulty is a… |
 | `packages/render/src/boss-draw-clocks-b.ts` | **The clock bosses, drawn — page two**: the ones whose picture keeps something that outlives a frame |
 | `packages/render/src/boss-cue-draw.ts` | **The cue this screen is owed, drawn**: the frame on the mark, and the two lines beside it |
-| `packages/render/src/boss-cue-read-b.ts` | **What THE TASTER, THE UNDERTOW and THE BATON are asking for** — page two of the readings |
+| `packages/render/src/boss-cue-read-b.ts` | **What THE TASTER and THE VANE are asking for** — page two of the readings |
 | `packages/render/src/boss-cue-read-c.ts` | **What THE THROAT, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE and THE ORRERY are asking for** |
 | `packages/render/src/boss-cue-read-d.ts` | **What THE STARE is asking for** — page four of the readings |
 | `packages/render/src/boss-cue-read-e.ts` | **What the rounds are asking for** — page five of the readings, starting with THE MIRROR |
@@ -800,6 +800,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-g.ts` | **What the rounds drawn as a chart are asking for** — page seven of the readings, opened for THE FLEET |
 | `packages/render/src/boss-cue-read-h.ts` | **What the round that kept the ship is asking for** — page eight of the readings, opened for PINBALL |
 | `packages/render/src/boss-cue-read-i.ts` | **What THE BATON is asking for** — page nine of the readings |
+| `packages/render/src/boss-cue-read-j.ts` | **What THE UNDERTOW is asking for** — page ten of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE CANDLE, THE GORGE and THE CURTAIN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |

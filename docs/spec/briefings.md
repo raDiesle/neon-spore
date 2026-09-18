@@ -600,6 +600,9 @@ hand still draws.
 | SNAKE | `AND THE NEXT ONE` | `A METEOR STOPS THE SHOT` | `PRESS` / `FIRE` on a reachable enemy and `PRESS` / `OPEN` on the next point, his alone |
 | PINBALL | `PLAYER 1 SLIDES THE CANNON` | `THE CANNON ALSO CATCHES` | `CARRY` / `MOVE` on the cannon, his alone, while a ball in the air is coming down somewhere else |
 | THE SCOUT | `AT HOME, PLAYER 2 OPENS MAW` | `ONLY THE MAW TAKES A MOTE` | `PRESS` / `OPEN` on the mother ship's mouth, hers alone, while the little ship stands on it and the mouth is shut |
+| THE UNDERTOW | `PLAYER 1 SLIDES UNDER IT` | `THE MAW REACHES ONE COLUMN` | `CARRY` / `MOVE` on the cannon, his alone, while a lobe stands in a column he is not in |
+| THE UNDERTOW | `THE MAW TAKES IT AGAIN` | `PLAYER 1 IS SHOWN NO PLATE` | `HOLD` / `OPEN` on the lobe standing over his own column |
+| THE UNDERTOW | `THE MAW TAKES THE NEAR ONE` | `PLAYER 1 CANNOT REACH BOTH` | the same, on the one of the pair he is under — and nothing on the other |
 
 **Four other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
@@ -616,6 +619,16 @@ and its film (18 September 2026) is the same — `NAKED · HOLD RED · THE BEAM`
 names the colour. THE LEAD's, THE SCUTTLE's and THE ANTIPHON's films came on
 17 and 18 September 2026 with no page that is the cue's verb alone: their
 holds name the column or the colour.
+
+THE UNDERTOW's three later rows are 18 September 2026, when its reading grew
+from four moments to all five of the fight's phases (`boss-cue-read-j.ts`) and
+learnt the column the maw and the beam both fire up. Its film kept all twelve
+of its pages: not one of the three could come out, because each is the only
+page of its seat standing over an act of its seat, and a deleted one would have
+left the ghost hand to be drawn on the other screen. What the three say instead
+is the fight's own split said three ways — the column the maw reaches, the plate
+he is not drawn (`showsShield`), and the second lobe one carriage cannot be at.
+The row above them, 17 September 2026, is the same page on her side.
 
 THE STARE's cue came on 18 September 2026 and is the one the four kinds did
 not cover: `STILL`, the non-gesture the fight charges for (`decisions.md`

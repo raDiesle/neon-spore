@@ -1,6 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { candleCues, curtainCues, gorgeCues, queenCues } from "./boss-cue-read.js";
-import { tasterCues, undertowCues, vaneCues } from "./boss-cue-read-b.js";
+import { tasterCues, vaneCues } from "./boss-cue-read-b.js";
 import {
   diastoleCues,
   leadCues,
@@ -15,6 +15,7 @@ import { wardenCues } from "./boss-cue-read-f.js";
 import { fleetCues, snakeCues } from "./boss-cue-read-g.js";
 import { pinballCues, scoutCues } from "./boss-cue-read-h.js";
 import { batonCues } from "./boss-cue-read-i.js";
+import { undertowCues } from "./boss-cue-read-j.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";

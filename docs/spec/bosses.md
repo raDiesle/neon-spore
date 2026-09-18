@@ -3057,6 +3057,33 @@ not, the last lobe is held down or comes through, the wave stays open until
 the body has passed, and the same run fingerprints the same way twice
 (`sim/test/undertow.test.ts`).
 
+**What the field says** (`render/src/boss-cue-read-j.ts`, 18 September 2026,
+`docs/decisions.md` #34). Four words across all five phases, and the one that
+decides the reading is the column: the maw takes from the cannon's own column
+and the beam burns it (`undertow-press.ts`, `lance-burn.ts`), so a lobe he is
+not under is `CARRY` / `MOVE` on his cannon and nothing on her screen at all,
+whichever seat would have answered it from underneath. Under him it is `HOLD` /
+`OPEN` on an ordinary lobe, his, and `HOLD` / `BURN` on a tall one, hers — her
+hold fills the lance, his carriage decides what it burns, one gesture across
+two seats. `CARRY` / `MOVE` is hers as well when her plate is standing on a
+lobe's own column and keeping the maw out of it, and his `OPEN` stands beside
+it rather than waiting for her, because the maw is a window and not a shot. In
+**seat** the bow under the cannon is `MOVE`, first of everything — and once the
+seat has him the reading goes **silent**, because `undertowUnseats` swallows
+every verb of his that reaches the ship and a word there would be the field
+asking for the one thing he cannot do. In **last** the rise is `MOVE` until he
+is in the middle and then `OPEN` for the hold, and she is told nothing, since
+`undertowTake` refuses in that phase and her plate changes no rule.
+
+**And two things the field is deliberately not given.** An ordinary bow in
+phases one, two and hard carries no word: the lobe stands for
+`undertowStandBeats` afterwards and the maw reaches it through all five, so a
+cue on the bow would be the field talking over a fight that has not asked yet,
+and the rehearsal teaches that answer instead. Nor is there a word telling her
+to *put* the plate on a breach to stop it widening — the widening is slow
+pressure rather than a moment, and which of two lobes the plate goes to is the
+pair's own sentence, which is what the last part of this fight is made of.
+
 ## 11.21 THE ORRERY — three orbits, and neither of you can see all three
 
 *Built 17 September 2026 in five lanes — the rings, the hand, the picture, the
