@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 22f9a7a5 — THE UNDERTOW's two hands on the hull
+
+The fight shipped answered entirely from the panel — the maw, the beam, the shield's column and the slide off are four presses and a carriage, and none of them is a hand on the boss itself. The boss itself is the hull, so both new gestures are the navigator's and both are on it: `undertowPin`, her thumb on a standing lobe, which stops that breach widening exactly as her plate does and for the same reason keeps the maw out of that column, so the pair has to say *let go* before he can take it; and `undertowFree`, her thumb held on the column the floor has the cannon stuck in, which after `undertowFreeBeats` hauls the plate off an unseated pilot and gives him his seat back — the one hand in this game that does.
+
 ## 2026-09-18 · f33aea95 — Throw a ring off THE FLEET's wound for each of its five moments
 
 The flood, the thumb on the plume, each square raked, the plug and the wreck were world state with nothing thrown for them. Each now throws a ring off the holed square, and which way it runs is what tells them apart on a screen with no word on it: the three that open something run outward — the flood wide in the shield's colour, the thumb a small white one, the rake tight and red inside its square — and the two that close something fall inward, the plug shutting over the wound and the unbreach shrinking where the thumb was. The wreck is the widest, in ember. Four of the five throw particles at the square too, the wreck's twenty against the rake's five; the thumb throws none, a thumb being no impact. Every ring stands on both screens, because each moment is one seat doing something the other cannot see.

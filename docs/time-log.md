@@ -9775,3 +9775,5 @@ free's count was asserted to reset when her thumb lifts, and the maw's hold ten
 lines away in the same fight keeps its count across exactly that slip, for a
 latency reason that applies to both — the code was right and the case was
 wrong, and the fix was a comment pointing at the rule it was copying.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
