@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 9b95cd9f — Mark "THE FLEET changes state more than once, and asks for more than one gesture" done
+
+## 2026-09-18 · d6a12f02 — THE FLEET holes, floods and wrecks: three states, a gesture on the picture in each
+
+A salvo no longer sinks a hull, it holes it. The hit opens the flood: for fleetFloodBeats the navigator's thumb held on the plume (fleetBreach) with the pilot's carried along the hull from the hole (fleetRake) strikes a square every fleetRakeBeats, both thumbs on the beat. Raked end to end the hull is a wreck on the water, and her pull down its reach (fleetWreck) while his thumb stays sinks it. Either window closing plugs the hull whole again — the one time struck shrinks. The panel is the hunt's and sleeps under the other two. The sim half: fleet-state, fleet-flood, fleet-hand, fleet-hash, the wire, the audio cues, the two silent lists, the cue's two arms (HOLD/RAKE, HOLD/PULL on the hole), the director's hand reaching all three states and three cards for them, and the fleet budget remeasured for the word the field now says during the shell's flight. The look half is parked.
+
 ## 2026-09-18 · ce61029a — The boss queue is dealt between the cloud and this machine
 
 Every unclaimed per-boss item in docs/queue.md carries a Where: line, on the owner's word of 18 September 2026: the words (section 6.1) and the states (section 6.2) go to a cloud session, the pictures (section 6.3) stay local for an eye. The three items already taken are untouched.
