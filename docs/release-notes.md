@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · cfc3bc40 — SNAKE says OPEN and FIRE to the pilot, and nothing at all to the driver
+
+The round's field now carries the cue (`docs/decisions.md` #34) and its film gives up the page that named a verb. The split decides both halves: the driver is shown the body and the meteors and not the enemies or the points (`showsSnakeFood`), so the only word the field could put on her wheel is `TURN` — and which way is his answer, out loud, which is the whole round. She is told nothing. He is told `PRESS` / `OPEN` on a point standing in the tile the head is one step from, and `PRESS` / `FIRE` on the enemy a shot taken this instant would actually reach; the point comes first because it expires first.
+
 ## 2026-09-18 · 78d2291f — THE MIRROR reflects and holds: three gestures, the simulation half
 
 THE MIRROR now changes state more than once and asks for more than one gesture (`.claude/skills/new-boss` §6.2): every round but the last is answered on the pair's own panel as before; the last round is given back on the mirror's own ship — its cannon carried, its shield pressed, its maw tapped, its muzzle swiped, through a new `mirrorLobe` drag target — and a step made on the panel under it is the wrong answer, with its own verdict word; then it stands at no hull in a new `hold` phase until player 1's thumb on its cannon and player 2's on its shield, held together for four beats, bring it down. The target is on the wire, both new fields are hashed, the cue has an arm per gesture, the grip has a sound, and the director owes the `hold` pose. A look the owner asked for by name; its picture is the look half, parked in `docs/parked.md`, so the queue item stays taken.
