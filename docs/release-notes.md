@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 5b3d5a35 — `hash-fixture.ts` is five files, none over 250 lines
+
+The 766-line fixture `hash-coverage.test.ts` walks is cut into pages: the world's own lists (`creature`, `bullet`, `pod`, `scar` and the three singletons, with their `Required<>` gate) in `hash-fixture-fields.ts`; the bosses' entries and `patchBoss` branches on three pages by their stretch of `BOSS_KINDS` — `-a.ts` the first ten, `-b.ts` THE CAIRN to THE SINEW, `-c.ts` THE LEDGER on, where a new boss goes; `hash-fixture.ts` composing them, with the `Record` that says every kind has an entry on one page. `hash-coverage.test.ts` is untouched and green; `.claude/skills/new-boss` names the last page. The queue's two-page plan did not fit: entries and patches are 500 lines between them.
+
 ## 2026-09-18 · 2f8c412e — A silent list that is full says which page the next boss's rows go on
 
 The second page the queue asked for was already cut, by THE FILAMENT's lane and as friction on its way to a boss: `effects-spark-silent-boss-b.ts` carries that boss's ten, the way `effects-ingest-silent-boss-b.ts` has carried THE ANTIPHON's since a boss earlier.
