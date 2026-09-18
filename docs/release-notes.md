@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · fbe2c69c — Mark "THE DIASTOLE changes state more than once, and asks for more than one gesture" done
+
+Both lanes landed: the simulation in bbbcf095, the look in f5a13cbc.
+
 ## 2026-09-18 · 3ae167d1 — PINBALL says MOVE on the cannon, and nothing the round already says
 
 The field now carries PINBALL's cue (`docs/decisions.md` #34), and this is the first boss whose reading was decided by something it already draws: its header writes a whole sentence, addressed, on both screens, every tick — you fire on the bar, they stop the needle, get the cannon under it. A cue naming a verb the sentence has already named would be the same idea drawn twice, three tiles lower, so the one word here is the one the sentence cannot say.
