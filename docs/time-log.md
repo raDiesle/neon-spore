@@ -10317,6 +10317,29 @@ outside it that a boss is a name in, each found by a test going red.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-18 — boss-implementation — THE ORRERY, the rehearsal
+
+The twelfth film taken on, written after a finding in the sim: a ring off
+shed its three organs on one beat into three columns, the shield is one
+column wide, and every hull damage fails the wave — so the wave as built
+could not be won by anyone, though `config-orrery.ts` itself said three was
+what the shield can answer. The shed now comes one organ a beat and the core
+holds its own fire while it does; a fix to something wrong, in the sim, with
+two tests. Then the film: three shots on three alignments, eleven rocks
+warded one a beat, the naked core taken with the beam.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `orrery.ts`, `orrery-step.ts`, `orrery-gap.ts`, `config-orrery.ts`, `lance-burn.ts` for the naked core, §11.21 and the design, `wave-fail.ts` for what a rock through the hull costs |
+| writing | 45 | the shed one a beat and `organCol`, the quiet core, the two tests, the scene, the film test, §11.21's two paragraphs, `briefings.md`, the queue's two items, this entry |
+| looking | 25 | the probe run six times for the alignments and the rocks' beats, the generator laying the guards, the frames at pages 3 and 4 for the core's colour |
+| friction | 10 | `orreryBoss` and `orreryGapCol` not on the sim's index; `--ticks` counts from the page's start, so a picture read as red where the sim said cyan until that was found |
+| landing | 10 | `check:fast`, `format`, the commit, `bun run land --keep`, the ledger mark |
+
+The bottleneck was the finding: the rehearsal was three shots and a beam
+until the first run put three rocks on one beat, and everything after was
+deciding whether that was the film's problem or the wave's.
+
 ## 2026-09-18 — boss-implementation — THE HIVE, the rehearsal that could not be written
 
 The eleventh film taken on, and the first not written: the generator's first

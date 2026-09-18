@@ -2336,6 +2336,19 @@ fight is about. Three organs rather than the ring's whole eight is the fourth
 departure and the smallest: eight rocks arriving on one beat is a wave, and
 this is meant to be a consequence.
 
+**They come off one a beat, and the core is quiet while they do** — found by
+the rehearsal lane on 18 September 2026, the first time the fight was run
+through. As landed, the three let go on the beat the ring broke, fell at one
+rate and reached the plating on one beat in three columns; the shield wards
+one column, and every hull damage fails the wave (12 September 2026), so the
+first ring off was the wave lost, with the shield in the right place. The
+first organ now falls on the break itself and the next two on the beats
+after it, so they land a beat apart in their three columns — which is what
+*three is the number the shield can just about answer* was meant to say. And
+a break counts as the core's own throw for the spit clock: the rock it spat
+on the beat after a break landed under the second organ, one rock more than
+the pair has an answer for (`sim/orrery-step.ts`, `orreryBreak`).
+
 **The core never spits down its own column**, and the rule pays for itself
 twice. A meteor cannot be shot, so a rock spat down the shaft would stand in
 the only column the pair is allowed to fire up, for the fifteen beats it takes
@@ -2607,6 +2620,17 @@ y-displacement** (`content/test/scene-drag.test.ts`). The ghost thumb stands at
 the bottom of the ring before anything has hold of it, rides the recorded
 bearing round, moves inward with the breaks and is gone with the last of them
 (`render/test/orrery-touch.test.ts`).
+
+**The rehearsal** (`packages/content/src/scenes/the-orrery.ts`,
+18 September 2026) is the arithmetic played once: the cannon put in the middle
+column on beat 9 and never moved; cyan fired on beat 11 to be judged on the
+first alignment, 12; red on 23 for 24, the beat six and four next meet with
+the outer ring gone; cyan on 27 for 28, the inner ring alone; red held from
+29 and the beam standing on 32, out over the five after. Every one of the
+eleven rocks — nine shed, two spat on beats 16 and 20 — is warded by an
+`atBody` shield the beat before it lands with a guard after it, because the
+seed decides their columns and none is one an authored strip reaches. Thirteen
+pages, six the navigator's; none on the hand, which the film does not use.
 
 ## 11.22 THE CANDLE — the boss fought in the dark
 

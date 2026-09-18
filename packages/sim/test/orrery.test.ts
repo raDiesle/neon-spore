@@ -194,15 +194,37 @@ describe("the shot that takes a ring", () => {
     expect(b.broken).toBe(0);
   });
 
-  it("sheds organs as ordinary rocks when a ring comes off", () => {
+  it("sheds organs as ordinary rocks when a ring comes off, one a beat", () => {
     const world = open();
     const b = rings(world);
     orreryStruck(world, shot(world, CORE, b.color), b.anchorBeat + CFG.orreryFirstBeats);
-    const rocks = world.creatures.filter((c) => c.kind === "meteor");
-    expect(rocks).toHaveLength(CFG.orreryDebris);
+    // The first on the break itself, the rest on the beats after it. Three let
+    // go on one beat land on one beat in three columns, which is one more
+    // than the shield has (the rehearsal lane, 18 September 2026).
+    const meteors = (): number => world.creatures.filter((c) => c.kind === "meteor").length;
+    expect(meteors()).toBe(1);
+    for (let i = 2; i <= CFG.orreryDebris; i++) {
+      beats(world, 1);
+      expect(meteors()).toBe(i);
+    }
     // Never in the column the cannon has to stand in: an organ was out at the
     // ring's radius, and the middle of a ring is where none of them ever was.
-    for (const rock of rocks) expect(rock.col).not.toBe(CORE);
+    for (const rock of world.creatures) expect(rock.col).not.toBe(CORE);
+    // Distinct rows, because they let go a beat apart: none lands with another.
+    const rows = new Set(world.creatures.map((c) => c.row));
+    expect(rows.size).toBe(CFG.orreryDebris);
+  });
+
+  it("holds the core's own fire until the ring has finished coming off", () => {
+    const world = open();
+    const b = rings(world);
+    orreryStruck(world, shot(world, CORE, b.color), b.anchorBeat + CFG.orreryFirstBeats);
+    // A spit on the beat after a break landed in the same beats as the organs.
+    expect(b.spatBeat).toBe(world.beat);
+    beats(world, CFG.orreryDebris - 1);
+    expect(world.creatures).toHaveLength(CFG.orreryDebris);
+    beats(world, CFG.orrerySpitBeats - CFG.orreryDebris + 1);
+    expect(world.creatures.length).toBeGreaterThan(CFG.orreryDebris);
   });
 });
 

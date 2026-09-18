@@ -73,6 +73,7 @@ export function stepOrrery(world: World, b: OrreryState): void {
     if (world.beat - b.phaseBeat >= cfg.orreryOutBeats) world.boss = null;
     return;
   }
+  shed(world, b);
   spit(world, b);
   // **THE SLOW, opened on the beat before an alignment** and running through
   // it, so a window one beat wide is three seconds of real time for a pair to
@@ -101,6 +102,7 @@ export function stepOrrery(world: World, b: OrreryState): void {
 function spit(world: World, b: OrreryState): void {
   const cfg = world.cfg;
   if (b.phase === "rings") return;
+  if (shedding(world, b)) return;
   if (b.spatBeat >= 0 && world.beat - b.spatBeat < cfg.orrerySpitBeats) return;
   if (b.broken < ORRERY_RINGS && orreryShaftOpen(cfg, b, world.beat)) return;
   const ring = Math.min(b.broken, ORRERY_RINGS - 1);
@@ -127,12 +129,22 @@ export function orreryBreak(world: World, b: OrreryState): void {
   // bank carried inward would hand the next ring a free part-organ the thumb
   // earned against something that is no longer there (`orrery-hand.ts`).
   b.windMilli = 0;
-  shed(world, b, ring);
+  // The break is the core's own throw, and its next rock is a full cadence
+  // on: a spit on the beat after a break landed in the same two beats as the
+  // organs coming off, and that was one rock more than the shield has.
+  b.spatBeat = world.beat;
+  dropOrgan(world, organCol(world, b, ring, 0));
+}
+
+/** Whether a broken ring's organs are still coming off it. */
+function shedding(world: World, b: OrreryState): boolean {
+  return b.broken > 0 && world.beat - b.brokeBeat < world.cfg.orreryDebris;
 }
 
 /**
  * The organs of a broken ring, drifting off the orbit and falling as ordinary
- * rocks.
+ * rocks — **one a beat**, the first on the break itself (`orreryBreak`) and
+ * the rest on the beats after it.
  *
  * `orreryDebris` of them rather than the ring's whole count, which is the
  * design's own number and would be eight rocks on one beat — a wave rather
@@ -140,20 +152,36 @@ export function orreryBreak(world: World, b: OrreryState): void {
  * core's column, which is where they were: an organ was out at the ring's
  * radius, and the middle of the ring is the one place none of them ever
  * stood.
+ *
+ * **A beat apart, because the shield is one column wide.** Three rocks let go
+ * on one beat fall at one rate and land on one beat in three columns, and a
+ * shield that wards one of them is a wave failed by the other two — found by
+ * the rehearsal lane, 18 September 2026, on the first ring off. Falling a
+ * beat apart they land a beat apart, and three is then the number the shield
+ * can just about answer, which is what the number was chosen to be
+ * (`config-orrery.ts`). The core is silent while they come off (`spit`).
  */
-function shed(world: World, b: OrreryState, ring: number): void {
+function shed(world: World, b: OrreryState): void {
+  if (!shedding(world, b)) return;
+  const i = world.beat - b.brokeBeat;
+  if (i < 1) return;
+  dropOrgan(world, organCol(world, b, b.broken - 1, i));
+}
+
+/**
+ * Where the `i`th organ of a broken ring comes down: the slots of its own
+ * orbit, taken evenly, which is the arithmetic that already says where the
+ * ring's organs are.
+ */
+function organCol(world: World, b: OrreryState, ring: number, i: number): number {
   const cfg = world.cfg;
   const core = orreryCoreCol(cfg);
-  const count = Math.max(0, cfg.orreryDebris);
+  const count = Math.max(1, cfg.orreryDebris);
   const orbit = orreryOrbit(cfg, ring);
-  for (let i = 0; i < count; i++) {
-    // Spread across the field by the arithmetic that already says where this
-    // ring's organs are: the slots of its own orbit, taken evenly.
-    const slot = Math.round((i * orbit) / count);
-    let col = orreryGapCol(cfg, b, ring, b.anchorBeat + slot);
-    if (col === core) col = core + (i % 2 === 0 ? 1 : -1);
-    dropOrgan(world, Math.max(0, Math.min(cfg.cols - 1, col)));
-  }
+  const slot = Math.round((i * orbit) / count);
+  let col = orreryGapCol(cfg, b, ring, b.anchorBeat + slot);
+  if (col === core) col = core + (i % 2 === 0 ? 1 : -1);
+  return Math.max(0, Math.min(cfg.cols - 1, col));
 }
 
 /** One organ, falling from the top of the field as the rock it now is. */

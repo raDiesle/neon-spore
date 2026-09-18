@@ -22,7 +22,7 @@ import type { Wave } from "../wave-types.js";
  * the walls later, for the arithmetic rather than the difficulty: a gum falls
  * a row a beat, so one dropped in authored column 2 is on the mouth's row five
  * beats later and a swipe from there crosses `gumFlingCols` into the mouth on
- * the next beat. A gum at the wall gives three beats of flight and a moved mouth.
+ * the next beat; one at the wall gives three beats of flight and a moved mouth.
  *
  * **Nothing is placed against the inhale's own count**, for THE DIASTOLE's
  * reason one page up: which beat the tube tightens on depends on when the pair
@@ -43,9 +43,8 @@ import type { Wave } from "../wave-types.js";
  * wave (`sim/wave-fail.ts`); what is authored is a field the restraint is
  * against.
  *
- * **THE CURTAIN's wave is empty**, THE ORRERY's case one wave up: what falls
- * is the core's own fire, from a column the pair uncovered, on a beat they
- * left it bare — neither writable by an author (`sim/curtain-step.ts`).
+ * **THE CURTAIN's wave is empty**, THE ORRERY's case one wave up: what falls is
+ * the core's own fire, from where and when the pair left it bare (`sim/curtain-step.ts`).
  *
  * **THE TASTER's arrivals are the colours it is counting.** The fan reads what
  * the pair has fired over the last thirty beats, so every body under it costs
@@ -96,6 +95,7 @@ export const WAVES_ACT_7D: Wave[] = [
       both: "A core hangs in the middle of the field inside three rings of turning organs, and each ring has exactly one gap. A shot up the middle column reaches the core only on a beat when every ring still standing has its gap at the bottom of its orbit. The rings come round every eight, six and four beats, and they first come together on beat twelve.",
       p1: "The middle ring is true on your screen and grey on hers, so only you know its gap. Keep the cannon in the middle column, say your gap when she says hers, and pull on the beat you both counted to.",
       p2: "The inner ring is true on your screen alone, and so is the core's colour — load it and say it, because it changes each time a ring comes off. With every ring gone the core takes the beam alone.",
+      scene: "theOrrery",
     },
     entries: [],
     boss: { kind: "orrery" },

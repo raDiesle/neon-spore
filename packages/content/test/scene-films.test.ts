@@ -972,3 +972,53 @@ describe("the rehearsal for THE ANTIPHON", () => {
     ]);
   });
 });
+
+describe("the rehearsal for THE ORRERY", () => {
+  it("takes the three rings on three counted beats, wards every rock the rings shed, and takes the naked core with the beam", () => {
+    const wave = WAVES.findIndex((w) => w.guide?.scene === "theOrrery");
+    const run = new SceneRun(sceneScript("theOrrery", wave, DEFAULT_CONFIG));
+    const seen: string[] = [];
+    for (let t = 0; t < SCENES.theOrrery.ticks - 1; t++) {
+      run.advance([]);
+      const b = run.world.beat;
+      const boss = run.world.boss?.kind === "orrery" ? run.world.boss : null;
+      for (const e of run.world.events) {
+        if (e.type === "fire") {
+          const phase = boss === null ? "gone" : boss.phase;
+          seen.push(`fire ${e.col} ${e.color}${e.lance ? " lance" : ""} @${b} ${phase}`);
+        } else if (e.type === "deflect") seen.push(`deflect ${e.col} @${b}`);
+        else if (
+          e.type === "reject" ||
+          e.type === "hole" ||
+          e.type === "breach" ||
+          e.type === "waveFailed"
+        )
+          seen.push(e.type);
+      }
+    }
+    // Three shots judged on beats 12, 24 and 28 — the phase read on the beat
+    // the shot leaves is the phase the previous one produced — and the beam
+    // standing on beat 32 takes the naked core in the tick it stands, so it is
+    // read already out. Eleven rocks turned, none through the hull, and not
+    // one shot into armour or the wrong colour.
+    expect(seen).toEqual([
+      "fire 5 cyan @11 rings",
+      "fire 5 red @23 spitting",
+      "deflect 6 @27",
+      "fire 5 cyan @27 spitting",
+      "deflect 2 @28",
+      "deflect 8 @29",
+      "deflect 7 @31",
+      "fire 5 red lance @32 out",
+      "deflect 3 @35",
+      "deflect 6 @39",
+      "deflect 3 @40",
+      "deflect 7 @41",
+      "deflect 7 @42",
+      "deflect 6 @43",
+      "deflect 3 @45",
+    ]);
+    expect(run.world.boss).toBeNull();
+    expect(run.world.creatures).toHaveLength(0);
+  });
+});

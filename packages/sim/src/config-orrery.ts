@@ -73,7 +73,9 @@ export interface OrreryConfig {
    * 3 rather than the ring's whole count, which the design asks for: eight
    * rocks arriving on one beat is a wave, and this is meant to be a
    * consequence. Three is the number the shield can just about answer while
-   * the cannon is pinned in the middle column.
+   * the cannon is pinned in the middle column — **one a beat**, which is how
+   * they come off (`orrery-step.ts`): three on one beat land on one beat in
+   * three columns, and the shield is one column wide.
    */
   orreryDebris: number;
   /**

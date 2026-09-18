@@ -300,18 +300,18 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are seventy-four of them now**, one per guided wave bar thirteen, and
+**There are seventy-five of them now**, one per guided wave bar twelve, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The thirteen that are still the three strings
+rather than a page of prose. The twelve that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE ORRERY,
-THE HIVE and THE INSTAR** — and
+CODEX, THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE HIVE and
+THE INSTAR** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those thirteen is a film nobody has written, and from THE
+**Every one of those twelve is a film nobody has written, and from THE
 SCOUT's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
@@ -364,6 +364,16 @@ then six organs taken where they stand, every column an `atBoss` strip
 fire the colour only the navigator is shown; from the third pit what the
 rail rejected falls as bodies and each is taken by `atBody` two beats apart,
 the twins one and then the other, and their own ship last among ships.
+THE ORRERY's (18 September 2026) is the arithmetic and nothing else: the
+cannon in the middle column all fight, three shots on beats 11, 23 and 27
+to be judged on the alignments the anchors give — 12, 24 and 28 — each in
+the colour the core turned to, the beam held from beat 29 and standing by
+32; and eleven rocks, nine shed one a beat from the broken rings and two
+spat, every one warded by an `atBody` shield the beat before it lands with
+a guard after it, because the seed puts them in columns no authored strip
+reaches. Writing it found the boss unwinnable as built — three organs let
+go on one beat land on one beat in three columns — and the shed is one a
+beat since (`sim/orrery-step.ts`). The pilot's hand on a ring is not in it.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square
@@ -526,11 +536,12 @@ IT GOES CLEAR`, `THE OTHER COLOUR · ALWAYS`, `ONLY PLAYER 2 SEES THE COUNT`,
 already teaching the split rather than the verb, which is what the checklist's
 first question has been asking for all along.
 
-THE ORRERY carries a cue and has no film yet; its prose halves were left whole,
-because every sentence in them that names the beam names the column or the
-colour with it. THE LEAD's, THE SCUTTLE's and THE ANTIPHON's films came on 17 and 18
-September 2026 with no page that is the cue's verb alone: their holds name
-the column or the colour.
+THE ORRERY carries a cue; its prose halves were left whole, because every
+sentence in them that names the beam names the column or the colour with it,
+and its film (18 September 2026) is the same — `NAKED · HOLD RED · THE BEAM`
+names the colour. THE LEAD's, THE SCUTTLE's and THE ANTIPHON's films came on
+17 and 18 September 2026 with no page that is the cue's verb alone: their
+holds name the column or the colour.
 
 #### The ghost thumb is derived, never authored
 

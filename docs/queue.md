@@ -214,7 +214,7 @@ loses *What is not built*".
 ## A caption has no anchor for a boss's own gauge, so it points at the hull
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/content/src/scenes/the-antiphon.ts`
+- **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`
 
 `SceneAnchor` names a body, a control, a handle, the hull, the radar, the
 ship and the retries — nothing that is a boss's fixture. THE SINEW's film has
@@ -234,12 +234,13 @@ them on the hull because nothing names the body, when the stalk
 THE SCUTTLE's (18 September 2026) puts seven of thirteen on the hull for
 the frame and its count (`render/scuttle-draw.ts`), and THE ANTIPHON's
 (the same day) nine of twenty for the organ, the rail, the pits and the
-still (`render/antiphon-draw.ts`).
+still (`render/antiphon-draw.ts`), and THE ORRERY's (the same day) five
+of thirteen for the rings and the core (`render/orrery-draw.ts`).
 
 ## A rehearsal's frame hides what stands over row 0 of the field
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Files:** `packages/render/src/guide-film.ts`, `packages/render/src/guide-scene.ts`, `packages/render/src/layout.ts`, `packages/render/src/taster-draw.ts`, `packages/render/src/gorge-draw.ts`, `packages/render/src/antiphon-draw.ts`
+- **Files:** `packages/render/src/guide-film.ts`, `packages/render/src/guide-scene.ts`, `packages/render/src/layout.ts`, `packages/render/src/taster-draw.ts`, `packages/render/src/gorge-draw.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/orrery-draw.ts`
 
 A film is laid out in the box less the nav bar's height (`filmLayout`), and
 `computeLayout` anchors the field to the band at the bottom with a tile bound
@@ -254,7 +255,10 @@ top. THE THROAT's ring and anything else hung over the field will be the same
 — and THE ANTIPHON's body, its organ and the navigator's rail
 (`render/antiphon-draw.ts`) are, in every page of its film (18 September
 2026): a frame of the twins page shows the cannon under an organ no page
-draws. It is a look, so it was not changed unattended. The options: lay the film out
+draws. THE ORRERY's outer ring (`render/orrery-draw.ts`) is the same in
+every page of its film (18 September 2026): its top arc and the organ at
+the top of the orbit sit under the plate's foot on both seats, so the
+first page's *three rings* shows two and a half. It is a look, so it was not changed unattended. The options: lay the film out
 with a narrower stage so the tile shrinks and the field's top clears the
 plate (which is close to what the owner refused on 12 September 2026, the
 field short of the box); or take the plate's foot off the film's playable

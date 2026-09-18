@@ -61,11 +61,6 @@ const STILL_PROSE = [
   // mark drawn on one seat's screen and not the other's, so the film has to be
   // shot twice and read as one lesson.
   "THE HUSK",
-  // And THE ORRERY, owed by the lane that draws the three orbits. Its film
-  // would have to show the same ring drawn true on one screen and as solid
-  // armour on the other, which is the whole boss and not a thumb landing
-  // anywhere; until the rings are drawn there is nothing to shoot it against.
-  "THE ORRERY",
   // And THE HIVE, owed by the lane that draws the mass: nine sites on an
   // underside, a breach open or sealed, a colour and a swell read by seat,
   // none of which is drawn yet.
@@ -87,9 +82,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-four films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-five films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Seventy-four, which is the number in the section. A film with no wave
+    // Seventy-five, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);
