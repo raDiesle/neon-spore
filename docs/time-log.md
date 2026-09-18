@@ -9400,3 +9400,25 @@ is the whole decision in the lane, and both files argue their case at length
 because getting it wrong once already cost a landing.
 
 *Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
+
+## 2026-09-18 — queue-task-processing-cloud — the frames header stops arguing twice
+
+`run.ts` was 250 lines and 170 of them were one doc comment with a paragraph
+per flag, every one of which already existed in the file that implements the
+flag. The paragraphs are gone and a table of ten rows points at the files
+instead; the recipes stay, because a recipe is what a person reaching for the
+command needs and it costs one line.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `run.ts` end to end, then `boss.ts`, `fault.ts`, `until.ts`, `opening.ts`, `guide-film.ts`, `opening-hold.ts`, `crop.ts`, `spec.ts`, `hold.ts`, `hand.ts`, `press.ts` and `wave.ts` to check each paragraph really was said there already |
+| writing | 15 | the index table, the two paragraphs around it, the reorder so the table stands before the recipes, the lines in `docs/commands.md` |
+| looking | 0 | none — the tool takes pictures, it is not one |
+| friction | 0 | none |
+| landing | 10 | `format`, `lint`, the frames suite, `check:fast`, the commit, the land |
+
+The bottleneck was reading: the fix is a deletion, and the only way to know a
+deletion is safe here is to open all twelve files and find the sentence being
+deleted already written in one of them.
+
+*Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*

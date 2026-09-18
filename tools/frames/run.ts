@@ -21,6 +21,31 @@ import { dirname, join } from "node:path";
  * from a commit message would be the same trap in a new place — a frame of the
  * wrong wave proves nothing, and proves it convincingly.
  *
+ * **Where each flag's argument is made.** It is not made here. A flag that
+ * needed explaining used to get a paragraph in this header *as well as* one in
+ * the file that implements it, so the header grew twice per flag and
+ * `--boss-json` fitted only after two of its three lines were folded into the
+ * paragraph above them (`docs/queue.md`, 18 September 2026). The reasoning
+ * lives with the code that acts on it, once, and this is the index:
+ *
+ * | flag | argued in |
+ * |---|---|
+ * | `--fault` | `fault.ts` |
+ * | `--boss`, `--boss-json` | `boss.ts` |
+ * | `--until`, `--until-ticks`, `--events` | `until.ts` |
+ * | `--opening` | `opening.ts`; a rehearsal's own clock in `guide-film.ts` |
+ * | `--guide-page` | `opening-hold.ts` |
+ * | `--at`, `--zoom` | `crop.ts` |
+ * | `--hold` | `hold.ts`; every one of them, not the first, in `flags.ts` |
+ * | `--hand`, `--hand-over` | `hand.ts` |
+ * | `--press` | `press.ts`; the column it names in `press-column.ts` |
+ * | `--settle`, `--boss-round`, `--seat`, `--ticks` | `spec.ts`, on the field each one sets |
+ * | `--wave` | `wave.ts`, which answers it against the right list |
+ *
+ * What is left here is one **recipe** per flag, which is what somebody reaching
+ * for the command needs and not why the flag exists. A next flag costs one more
+ * line of them:
+ *
  *   bun run frames . --wave 19 --boss-round 3    this tree, once, with no pair
  *   bun run frames <sha> --wave 21               wave 21, matching the HUD's W21
  *   bun run frames <sha> --wave "THE SHELL"        a wave by name — what a person has in hand
@@ -49,70 +74,6 @@ import { dirname, join } from "node:path";
  *   bun run frames <sha> --wave 2 --opening guide|intro --frames 8 --stride 6   its opening
  *   bun run frames <sha> --wave 7 --opening guide --guide-page 3   a later page of a rehearsal
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
- *
- * `--guide-page N` turns the rehearsal N pages on before the picture, because a
- * page of a film plays once and then waits for its reader: without it every
- * capture came back with page one, and a lane that added a page to an existing
- * guide could not photograph the thing it had added.
- *
- * `--opening` stands in the wave's opening instead of running past it, which
- * every capture before it did unconditionally. A wave opens on its **guide**
- * and its introduction stands behind that, so `intro` on a guided wave crosses
- * the ready gate on the way (`opening.ts`). On `guide`, `--ticks` and
- * `--stride` are the **rehearsal's** own ticks: a film is a run drawn off the
- * frame clock rather than stepped by the world's, and the page is rewound to
- * its first tick before the strip because a page plays once and then holds on
- * its last frame. A strip taken from past that says `held:` (`guide-film.ts`).
- *
- * `--fault <kind>[:<numbers>]` puts a fault on the wave whether or not the wave
- * carries one — `handover:<at>,<beats>,<every>` is the director's three boxes in
- * that order, `cannon:<colour>[,<every>]` and `shield[:<every>]` name the fault
- * clock a wave leaves to the config, and the other three take no numbers. It is
- * written where `startWave` leaves a wave's own, so the opening reads it. Until
- * it existed, a fault at figures no wave names — THE HANDOVER *repeating* — took
- * a scratch script to photograph, and nobody could take the picture twice
- * (`fault.ts`).
- *
- * `--boss <key>=<value>[,…]` writes the installed boss's own fields, in the
- * same window `--fault` is written in. It is that flag's argument said about
- * the other half of a wave: a boss's later phases are a run of correct presses
- * deep — five gums flung into a walking mouth, a chamber spent on a coincidence
- * beat — so three look lanes in a row landed a picture of a first phase and
- * said in the commit message that the frame that mattered had never been seen.
- * The names are checked **in the page**, against the boss that is actually
- * installed, so there is no second copy of fourteen states here to go stale;
- * a name the boss does not have is refused along with the names it does have.
- * The value's kind follows the field's and `now` means `world.beat`.
- * `--boss-json '{…}'` is the same flag for a field that is a **list or a
- * shape** — THE BATON's sockets, THE UNDERTOW's breaches — written whole, and
- * the two compose (`boss.ts`).
- *
- * `--until <event>` drives the wave until the simulation reports a `SimEvent`
- * of that type and photographs from that tick, with `--frames` and `--stride`
- * counting forward from it. It is the flag `--ticks` could not be: a capture is
- * after *the breach* rather than after tick 1137, and which tick that is
- * changes with the wave, the seat and every retuned speed — the lane that
- * photographed one spent three sweeps of fourteen frames finding it.
- * `--until-ticks N` is how far to look. A name that never fires comes back
- * naming the ones that did, which is `--events` under another name: that flag
- * prints every event the run heard and the tick it first fired on, so a sweep
- * that missed is narrowed without taking another one (`until.ts`).
- *
- * On a pair the two sides stop **at their own ticks**, which is the point of
- * asking for a moment rather than a number: if the change moved when the hull
- * breaks, the two `world.tick`s printed beside the files say so, and both
- * pictures are still of the breach.
- *
- * `--settle N` paints N frames **without stepping the world**, before each
- * picture: the two clocks are separate, so anything living in painted seconds
- * had one frame per photograph however long a capture ran (`FrameSpec.settle`).
- *
- * `--at x,y,w,h` keeps a rectangle of the frame, in its own CSS pixels from the
- * top left of `#stage`, and `--zoom N` opens the page at N times the pixel
- * density. A body is forty pixels across on a phone, so a change to its shape
- * is a handful of them; together these are the same real frame at a size an
- * eye can judge. The `identical:` guard below reads the *whole* frame either
- * way, so a crop can neither hide the only difference nor invent one.
  *
  * **`.` in place of a sha photographs the working tree**, once, with no
  * worktree, no parent and no `identical:` guard. The pair stays the default

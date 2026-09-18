@@ -83,6 +83,10 @@ bun run index          # regenerate the file map in docs/INDEX.md
 
 ```
 bun run frames <sha>   # PNG frames of the game at a sha — tools/frames/
+                       #   --wave N|"NAME" is required; `.` in place of a sha is this
+                       #   tree, once, with no pair. The recipes are `run.ts`'s header;
+                       #   each flag's argument is in the file that acts on it, and that
+                       #   header's table says which (tools/frames/run.ts)
 bun run shot <#sel> <out.png>          # one element of the running director
                        #   --serve starts one of its own and stops it; --port uses one that is up
 bun run menu-shot <out.png>            # a page of the game's menu — starts its own preview

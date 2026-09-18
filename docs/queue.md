@@ -177,24 +177,6 @@ fields, and a title that shouts one carries it twice — into the string `take`,
 question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
-## `tools/frames/run.ts` is at the ceiling, and every flag adds a paragraph
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-tools-frames-run-ts-is-at-the-ceiling-and-every
-- **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `docs/commands.md`
-- **Where:** cloud
-
-The file is 250 lines and about 170 of them are one doc comment: a paragraph
-per flag, arguing why each exists. `--boss-json` fitted only after two of its
-three lines were folded into the paragraph above them, and the next flag will
-not fit at all. The body underneath is short and does one thing. Either the
-flag catalogue moves — to `docs/commands.md`, which already carries a line per
-script, or to a flags.md beside it that the usage line points at — or it splits
-by subject, the way `boss.ts` and `fault.ts` each carry their own flag's
-argument in their own header. The second is the shape the tree already uses:
-`--boss`'s reasoning is in `boss.ts` and repeated in `run.ts`, which is the
-duplication that makes this file grow twice per flag.
-
 ## A cue standing on the hull line has its verb drawn under the ship
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
