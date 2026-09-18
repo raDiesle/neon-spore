@@ -1758,3 +1758,17 @@ the two buttons in reach of a thumb, and the strip where it is. Whoever takes
 it should look at the result on a 375px viewport rather than trusting the
 sheets — `phone-map.test.ts`'s own header is about a phone layout that read
 correctly out of the CSS and was wrong in a browser.
+
+## Unverified at 1028a5b4: THE BATON's swelling socket and its two handle rings, n…
+
+- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/spec/controls.md`, `docs/time-log.md`, `packages/audio/src/bind-baton.ts`, `packages/audio/src/bind-choreographed.ts`
+
+*THE BATON's arm asks for a thumb of its own, in two states* landed from a session that could not look at it. The commit touched 41 more files. What went unchecked:
+
+- THE BATON's swelling socket and its two handle rings, never seen on a real frame: the swell is a husk grown half again and shaking, and the rings are the shipped ones — a cloud session drew both with no eye
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.

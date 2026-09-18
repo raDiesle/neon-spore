@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 1028a5b4 — THE BATON's arm asks for a thumb of its own, in two states
+
+The fight is one seat a beat, and the beat the lock takes the ship off a seat was a beat with nothing in it — he sat and watched. Both gestures here are that beat given something to do, and neither touches the ship.
+
 ## 2026-09-18 · 3e377c69 — THE BATON says its own verbs, in three of its four stages
 
 The arm's two words were a third of the fight. What the field never said was the cannon: the navigator's bolt goes up the column the cannon stands in, so a flight the pilot is not under is a flight she cannot meet, and once four sockets are dark the arm swings the landing a column off the one it left — his guide's fourth line, nowhere on the field. Two more stages had nothing at all: the crossing, whose whole reading is whose act is due, and the drop, where the bead is a loose pod and the last two hands are his.
