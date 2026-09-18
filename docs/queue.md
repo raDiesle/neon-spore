@@ -195,6 +195,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## §11.32 THE INSTAR still says its look is not built, under the look itself
 
 - **Found:** 2026-09-18, claude/boss-implementation-e3cfff
+- **Taken:** 2026-09-18, claude/queue-11-32-the-instar-still-says-its-look-is-not-buil
 - **Files:** `docs/spec/bosses.md`
 
 `b4fda399` (THE INSTAR's look) pasted 419 lines into §11.32 that were *The
