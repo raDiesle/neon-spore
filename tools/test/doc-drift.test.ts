@@ -68,6 +68,16 @@ const RECORDS = new Set(["docs/release-notes.md", "docs/time-log.md", "docs/teac
  */
 const KNOWN_GONE = new Set(["packages/render/test/tell-frame.test.ts"]);
 
+/**
+ * Said under the drift list, because the usual cause is not a typo: a document
+ * that writes down work — a queue entry, a row of the boss ledger — names the
+ * files the work will create, and backticks around one of those are a claim
+ * this tree already has it.
+ */
+const UNWRITTEN =
+  "a file a document proposes to create is named without backticks until it exists — " +
+  "see docs/queue.md's preamble and the ledger table in docs/spec/bosses-choreographed.md";
+
 describe("a path a document names", () => {
   it(
     "is a file this repository has",
@@ -87,9 +97,16 @@ describe("a path a document names", () => {
       const drift = found
         .filter((f) => !ignored.has(f.mention))
         .map((f) => `${f.doc} → ${f.mention}`);
+      // A failure here is read by a session that has just written a document,
+      // and most often by one that wrote down work it has not done yet, so the
+      // list says the convention rather than leaving a missing path to look
+      // like a typo: the take commit `e2c4b2c7` turned `main` red with a ledger
+      // row naming the scene file its own lane was about to write.
+      const missing = [...new Set(drift)].sort();
+      if (missing.length > 0) missing.push(UNWRITTEN);
       // A run that checked nothing would pass. It was 2,211 on the day this landed.
       expect(claims).toBeGreaterThan(1500);
-      expect([...new Set(drift)].sort()).toEqual([]);
+      expect(missing).toEqual([]);
       // Every document read, two thousand paths asked about, and a `git
       // check-ignore` at the end of it: a third of a second alone and minutes
       // under another session's check (`tools/test/repo-time.ts`).

@@ -22,6 +22,26 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — a claim written ahead of the work says so
+
+A take commit turned `main` red by backticking a scene file its own lane had
+not written yet. The rule existed in `docs/queue.md`'s preamble and nowhere the
+boss ledger could be read from, and the failure it caused was a bare `doc →
+path` list that reads like a typo. The ledger's preamble now says it in one
+paragraph, and the drift list carries the convention as its last line.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the entry, `doc-drift.test.ts` whole, the ledger's preamble |
+| writing | 10 | the paragraph, the `UNWRITTEN` line and the comment that dates it |
+| looking | 5 | a throwaway document with one bad path in it, to read the failure a session would meet |
+| friction | 0 | none |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep` |
+
+**The bottleneck was looking**, and it was the right place to spend it: the
+whole fix is a sentence nobody reads until the test fails, so the test had to
+be failed on purpose to see what it actually prints.
+
 ## 2026-09-18 — boss-hints — `versus drop` reads the directories
 
 `drop` imported the registry, which imports every candidate in the slot, before

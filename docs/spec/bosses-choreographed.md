@@ -78,6 +78,14 @@ goes away when the lane lands — the same discipline `docs/queue.md` uses, kept
 here because a boss concept is not a technical finding and does not belong on
 that list (`CLAUDE.md`, *an idea for the game is not collected*).
 
+**A row names a file its lane has not written yet without backticks.** A
+backticked path is a claim this tree holds the file, and
+`tools/test/doc-drift.test.ts` fails on one that does not — which is how the
+take commit `e2c4b2c7` turned `main` red, by naming the scene file its own lane
+was about to write. `docs/queue.md`'s preamble says the same thing about an
+entry; a ledger row is the other place a session writes down work it has not
+done.
+
 | Concept | State | Lane |
 |---|---|---|
 | [§17 THE FILAMENT](#17-the-filament--whether-you-can-follow-a-line-that-is-still-being-drawn) | **taken, 18 September 2026 — the simulation landed** | `claude/boss-implementation-e3cfff` — the simulation is on `main` at `1d4ee041` (wave 97, `bosses.md` §11.33: `TraceDrag` as a `drag` at a `filament` target whose progress is the tiles it has passed, hashed; the seven filaments, the draw a tile a beat, the follow within `filamentGapTiles`, the snap, the collision and the slip); the look is next, in the same lane. `claude/boss-hints-mechanics-5b5a9f` wrote it out of the second brief and did not take it |
