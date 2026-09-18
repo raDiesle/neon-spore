@@ -1,4 +1,5 @@
 import { type SimConfig, type StareState, stareLidFree } from "@neon-spore/sim";
+import { rimBox, rimPoint } from "./eye-rim.js";
 import { strokeGlow } from "./glow.js";
 import { drawHandleRest, drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
@@ -30,8 +31,21 @@ import { showsStareLid } from "./view-role-clocks-b.js";
  * the brow, and the pointer is captured from that press on (`handles.ts`).
  */
 
-/** Where the lid's edge starts, in socket heights above the eye's middle: the brow. */
-const BROW = 0.85;
+/**
+ * Where the lid's edge starts, in socket heights above the eye's middle: the
+ * brow, just clear of the lashes' tips — the film stands 1.45 sockets above
+ * the middle (`eye.ts` `FLUID_MUL`) and the hairs reach most of another.
+ */
+const BROW = 2.3;
+/** Where a shut lid's edge stops: the film's floor, and a little under it. */
+const FLOOR = 0.85;
+/**
+ * The almond the flap is clipped to — the film's, a shade larger, so the
+ * film's own wobble never shows past the lid's edge. Not the socket's inner
+ * rim: what the lid has to cover is the whole of what the eye draws.
+ */
+const COVER_MUL = 1.55;
+const COVER_POINTS = 24;
 
 /** Where the ring rests, with no hand on the lid. */
 export function stareLidRest(l: Layout, cfg: SimConfig): Circle {
@@ -39,9 +53,28 @@ export function stareLidRest(l: Layout, cfg: SimConfig): Circle {
   return { x: e.cx, y: e.cy - e.ry * BROW, r: handleRadius(l, cfg) };
 }
 
-/** The lid's edge, in canvas pixels, for how far down it is. */
-function lidEdgeY(l: Layout, cfg: SimConfig, e: StareEye, drop: number): number {
-  return e.cy - e.ry * BROW + (drop * cfg.stareLidPullMilli * l.tile) / 1000;
+/**
+ * The lid's edge, in canvas pixels, for how far down it is. The drop is the
+ * thumb's share of `stareLidPullMilli`, and the edge travels the eye's whole
+ * height on it rather than the thumb's own pixels: a lid the simulation
+ * calls shut has to look shut, and half a tile of thumb is not an eye's
+ * worth of lid.
+ */
+function lidEdgeY(e: StareEye, brow: number, drop: number): number {
+  return brow + drop * (e.cy + e.ry * FLOOR - brow);
+}
+
+/** The almond the flap fills, as a path. */
+function coverPath(e: StareEye): Path2D {
+  const box = rimBox(e.rx, e.ry, COVER_MUL);
+  const p = new Path2D();
+  for (let i = 0; i <= COVER_POINTS; i++) {
+    const q = rimPoint(box, (i / COVER_POINTS) % 1);
+    if (i === 0) p.moveTo(e.cx + q.x, e.cy + q.y);
+    else p.lineTo(e.cx + q.x, e.cy + q.y);
+  }
+  p.closePath();
+  return p;
 }
 
 /**
@@ -83,20 +116,18 @@ export function drawStareLid(
   const drop = stareLidDrop(s, cfg, beat, beatPhase);
   const e = stareEye(l, cfg);
   const rest = stareLidRest(l, cfg);
-  const edge = lidEdgeY(l, cfg, e, drop);
+  const edge = lidEdgeY(e, rest.y, drop);
   if (drop > 0) {
-    // The flap: the socket's own almond, clipped to what the lid has crossed.
-    const socket = new Path2D(
-      `M ${e.cx - e.rx} ${e.cy} Q ${e.cx - e.rx * 0.4} ${e.cy - e.ry * 1.7} ${e.cx + e.rx} ${e.cy} Q ${e.cx + e.rx * 0.4} ${e.cy + e.ry * 1.3} ${e.cx - e.rx} ${e.cy} Z`,
-    );
+    // The flap: the eye's own almond, filled down to where the lid has come.
+    const w = e.rx * COVER_MUL;
     ctx.save();
-    ctx.clip(socket);
+    ctx.clip(coverPath(e));
     ctx.fillStyle = PALETTE.rockDark;
-    ctx.fillRect(e.cx - e.rx, rest.y - e.ry, e.rx * 2, edge - rest.y + e.ry);
+    ctx.fillRect(e.cx - w, rest.y - e.ry, w * 2, edge - rest.y + e.ry);
     ctx.restore();
     // Its edge, curved like the lid it is, lit in the eye's ink.
     const lip = new Path2D(
-      `M ${e.cx - e.rx * 0.95} ${edge - e.ry * 0.25} Q ${e.cx} ${edge + e.ry * 0.3} ${e.cx + e.rx * 0.95} ${edge - e.ry * 0.25}`,
+      `M ${e.cx - w} ${edge - e.ry * 0.3} Q ${e.cx} ${edge + e.ry * 0.35} ${e.cx + w} ${edge - e.ry * 0.3}`,
     );
     strokeGlow(ctx, lip, rim, STROKE.outline, 0.9);
   }
