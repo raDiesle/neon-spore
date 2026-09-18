@@ -327,7 +327,6 @@ left hanging.
 ## Act seven has no room for another wave and no letter to put a page under
 
 - **Found:** 2026-09-17, claude/task-queue-progress-abb7a3
-- **Taken:** 2026-09-18, claude/queue-act-seven-has-no-room-for-another-wave-and-no-le
 - **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves.ts`
 - **Asks:** When a page in the middle splits, do the later letters shift up, or do waves migrate between pages?
 
