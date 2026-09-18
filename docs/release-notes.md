@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 460249a3 — The three handle bosses speak in the cue's voice, and a kind line never says the verb twice
+
+THE SINEW, THE SURGE and THE ANTIPHON were the three bosses left out of the cue when it landed: `handle-draw.ts` already wrote `PULL`, `HOLD` and `TURN` beside each handle while it was unheld, and those words are the verb and the kind at once. It was the right call for one lane and the wrong shape to leave in the game — the pair met two prompt systems in one fight, with different type, different breathing and different rules about when a word appears.
+
 ## 2026-09-18 · 5895d885 — The BOSSES category poses the rounds' played states
 
 THE MAZE's `travel` and THE GAUGE's `verdict` and `spent` never arrive unattended, so each is posed with a hand on the round's own controls (`tools/director/src/boss-hands-rounds.ts`): the string pulled until the way in clicks onto a column and the shot up it in the heart's colour; the valve turned toward the mark and the call when the needle sits between them. `OWED` is down to THE HIVE's `down`, and the parked entry is gone.
