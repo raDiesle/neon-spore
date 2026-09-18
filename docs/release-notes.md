@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 2f61593b — Write every boss guide as the steps each player takes
+
+The thirty-three boss guides in the director said what the pair would see and how the boss worked; the owner asked for what each player does and nothing else, in plain words, as steps. `both` is now one line saying the goal, and `p1` and `p2` are numbered steps, one per line, with the partner called "your partner". Each half stays under the 220 characters the briefing test allows, and the words stay on the waves that play a film, as the director's own reference.
+
 ## 2026-09-18 · 43b4f9cb — The boss cue's words drop out from under the tutorial plate
 
 `drawBossCue` clamped the kind line to the top of the canvas, which is the top of the picture only in the game. A rehearsal draws the cue like anything else (`guide-seat.ts` → `drawBodies`) with a 104-pixel band across the top, so THE GORGE's HOLD sat inside it. The floor is `headerTop`'s now, the same drop a round's whole header takes.

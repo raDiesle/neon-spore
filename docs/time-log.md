@@ -10806,3 +10806,5 @@ rewritten by hand, and one change in the renderer so a newline is a line.
 The bottleneck was the 220-character ceiling: a step list runs longer than a
 paragraph saying the same thing, and eight halves were cut a word at a time
 to fit.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
