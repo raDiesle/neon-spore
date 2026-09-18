@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · b0b609e9 — Every boss wave says whether its boss is special or normal
+
+The owner asked for the type of boss on every boss wave, in two values: special is a unique control set or a unique gameplay style, different than a predefined sequence of actions and special mechanics like THE MAZE or THE MIRROR. It is one authored field beside `boss` (`Wave.bossType`), a picker in the director under the wave's prose and over its panel, a line in `serialize.ts` directly under the boss, and a table in `docs/spec/bosses.md` — ten special, twenty-three normal.
+
 ## 2026-09-18 · f6e02ba2 — THE REPRISE has its rehearsal: one stretch seen, its echo answered blind, the unsaid third on the hull — and a film no longer draws a body the phone hides
 
 Three bodies fall seen and are taken; the field goes dark on the twelfth beat with the tear counting them; two of the three come back and are taken from what was said and what was counted, the kill drawn whole over nothing; the third, which nobody said, lands with the tear already shut, on the last page. `content/test/scene-reprise.test.ts` is the receipt that the two kills after the dark are of bodies nothing drew.
