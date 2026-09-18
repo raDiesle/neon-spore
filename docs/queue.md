@@ -495,6 +495,7 @@ the one allowance left in `tools/director/test/boss-states.test.ts`'s
 ## The handle bosses' own words and the boss cue become one thing
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-handle-bosses-own-words-and-the-boss-cue-bec
 - **Files:** `packages/render/src/handle-draw.ts`, `packages/render/src/boss-cue.ts`,
   `packages/render/src/boss-cue-draw.ts`, `packages/render/src/boss-cue-read-c.ts`,
   `packages/render/test/boss-cue.test.ts`, `docs/spec/bosses-choreographed.md`
