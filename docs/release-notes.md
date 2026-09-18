@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · df8da939 — Mark "THE MAZE's picture looks like something real" done
+
+## 2026-09-18 · 0497aba0 — THE MAZE's drum as a made thing: bezel, bolts, gloss and the heart's socket
+
+The owner's brief for a boss that looks like something real meets the round's material rule — slabs and glyphs, never blobs — and the answer is a drum that was turned: a lathed bezel outside the rim, lit on the key's shoulder and dark on the other, sixteen bolt heads with the key's highlight on each, a film of gloss across the plate where the light falls, and a bowl in the middle that the heart sits in. One light for all of it. The bezel is cut where the rim is cut and no bolt stands in a cut; every mark goes with its ring when the drum comes apart. Nothing of the sheet moves and nothing here is a new shape. A look the owner asked for by name: the §6.3 brief.
+
 ## 2026-09-18 · 64fdc7e5 — THE WARDEN changes state more than once: the simulation
 
 Each pair of plates now adds a hand. WATCH is the rope as it was. NARROW shuts the lids behind the hatch until player 2 rests a thumb on the eye (`wardenEye`), which also pins the pupil; the eye shows only with the line taut and the thumb down, and a hit cuts both. GLARE lowers no rope: the pupil stops in the middle column and player 1 swipes the hatch open (`wardenHatch`, `wardenThrowMilli`) for `wardenThrowBeats` beats, then it slams. Nothing new can hurt the pair — a window lost is all a miss costs.
