@@ -534,6 +534,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## SNAKE: the field says the word, and the briefing comes down
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-snake-the-field-says-the-word-and-the-briefing-c
 - **Files:** `packages/content/src/waves/act-4.ts`, `packages/content/src/scenes/snake.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
 
 It says nothing on the field at all.
