@@ -168,6 +168,13 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "wardenEye":
     case "wardenHatch":
       return target;
+    // THE FLEET's three thumbs on its chart — the navigator's hold on the
+    // plume, the pilot's rake along the hull, her pull on the wreck
+    // (`sim/fleet-hand.ts`). Sim lane only so far, as THE WARDEN's above.
+    case "fleetBreach":
+    case "fleetRake":
+    case "fleetWreck":
+      return target;
     default:
       return assertNever(target);
   }

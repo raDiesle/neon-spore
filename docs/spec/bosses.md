@@ -1089,6 +1089,37 @@ mouth one square at a time. There is no third moment, so the field keeps quiet
 and her page in the film is the only thing that tells her anything
 (`docs/spec/briefings.md`).
 
+**Three states, and a gesture on the chart in each** (18 September 2026,
+the sim lane; `packages/sim/src/fleet-state.ts`, `fleet-flood.ts`,
+`fleet-hand.ts`). The round as it shipped was one state answered by one
+button, which is the §6.2 ask unmet — a scene is a beat list that will not
+advance until the beat is performed, on the picture. So a salvo no longer
+sinks: it **holes**. `hunt` is the fight above, word for word. A hit opens
+the **`flood`**: a plume stands on the holed square on both screens, and for
+`fleetFloodBeats` the navigator's thumb held on the plume (`fleetBreach`)
+with the pilot's carried along the hull from the hole (`fleetRake`, whole
+tiles from where it grabbed, the hull's own direction) strikes one square
+every `fleetRakeBeats` — both thumbs, on the beat, the pair's one shared
+moment, because he sees the hull and she sees the clock. Raked end to end it
+is a **`wreck`** on the water, and for `fleetWreckBeats` her thumb dragging
+it down its whole reach (`fleetWreck`, `fleetWreckPullMilli`) while his stays
+on the hull sinks it, the way a salvo used to. Either window closing is
+**the plug**: the sea heals, every mark on that hull is taken back and the
+hunt for it begins again — the one time `struck` shrinks, and open water
+does not heal. The panel is the hunt's: under the flood the sights stay
+where they are and the trigger does nothing, so a repeated press on a hull
+is not the `reject` above; the reject is open water's. The seat checks are
+rules of the simulation, as they are on the panel. The field says both
+seats their own verb on the hole — `HOLD` and `RAKE`, then `HOLD` and
+`PULL` — which is not her silence broken: the plume is on both screens, and
+what she is told is what her thumb does, never where the ship lies.
+
+*What is not built:* the look. The plume, the thumb on it, the rake, the
+wreck and the plug are world state read off `phase`, `holeCol` and
+`rakeCol`, silent in both spark lists, and `docs/parked.md` carries the look
+half. *Never watched at tempo*: whether ten beats is a flood a pair can
+rake a five-long hull in while talking.
+
 **Where it lives.** `FleetState` in the `BossState` union, with the chart's
 arithmetic in `packages/sim/src/fleet-board.ts` and the choreography in
 `packages/sim/src/fleet.ts`; its numbers are `packages/sim/src/config-fleet.ts`

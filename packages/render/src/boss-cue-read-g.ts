@@ -79,6 +79,7 @@ export function fleetCues(
   f: FleetState,
   clearTop: number | undefined,
 ): readonly BossCue[] {
+  if (f.phase !== "hunt") return fleetHoleCues(l, world, f, clearTop);
   if (world.beat - f.firedBeat < world.cfg.fleetSalvoRestBeats) return [];
   if (fleetStruck(world, f, f.aimCol, f.aimRow)) return [];
   if (fleetShipAt(f.ships, f.aimCol, f.aimRow) === -1) return [];
@@ -97,6 +98,39 @@ export function fleetCues(
       seed: 72,
       framed: false,
     },
+  ];
+}
+
+/**
+ * **The flood and the wreck, both seats told their own verb on the hole**
+ * (`sim/fleet-state.ts`). Under the flood the navigator holds the plume and
+ * the pilot rakes the hull from it, so she is told `HOLD` and he `RAKE`,
+ * both on the holed square: the rake's direction is the hull's own, which
+ * his screen shows and hers does not, and a word on the next square would
+ * be the answer said out loud (#34). Under the wreck his thumb stays and
+ * hers pulls, so the two words swap seats. The word to the navigator here
+ * is not the hunt's silence broken: the plume is on both screens, and what
+ * she is told is what her thumb does, never where the ship lies.
+ */
+function fleetHoleCues(
+  l: Layout,
+  world: World,
+  f: FleetState,
+  clearTop: number | undefined,
+): readonly BossCue[] {
+  const c = chartOf(l, world, clearTop);
+  if (c.tile <= 0 || f.holed < 0) return [];
+  const half = c.tile * SIGHTS_HALF;
+  const at = { x: chartX(c, f.holeCol), y: chartY(c, f.holeRow), halfW: half, halfH: half };
+  if (f.phase === "flood") {
+    return [
+      { seat: 2, kind: "HOLD", word: "HOLD", ...at, seed: 73, framed: true },
+      { seat: 1, kind: "CARRY", word: "RAKE", ...at, seed: 74, framed: true },
+    ];
+  }
+  return [
+    { seat: 1, kind: "HOLD", word: "HOLD", ...at, seed: 75, framed: true },
+    { seat: 2, kind: "CARRY", word: "PULL", ...at, seed: 76, framed: true },
   ];
 }
 

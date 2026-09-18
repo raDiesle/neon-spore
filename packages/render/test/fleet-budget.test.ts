@@ -119,32 +119,38 @@ type Budget = Partial<
 // `fill` by nine: the spine's cord, its stations as one path and its node, and
 // each organ's bed, are held between frames the way the trough's channel was
 // (`gland-fluid.ts`, `gland-organ.ts`). Remeasured, not padded.
+// Every row moved again on 18 September 2026, when a hit stopped sinking the
+// hull and started the flood (`sim/fleet-state.ts`): the salvo here is a hit,
+// so from the press on the field says a word to each seat on the holed square
+// (`boss-cue-read-g.ts` `fleetHoleCues`) where the rest used to keep it quiet
+// — a cue's frame and its two lines, which is two `fillRect`, three strokes,
+// one save and the text. Remeasured, not padded.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     mid: {
-      fillRect: 59,
+      fillRect: 61,
       // One more stroke and one more clip than before the hull's light became a
       // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
       // to the body. Every row in this file carries the same two.
-      stroke: 62,
+      stroke: 65,
       fill: 54,
       clip: 7,
-      save: 46,
+      save: 47,
       drawImage: 16,
       createLinearGradient: 13,
       createRadialGradient: 5,
       "new Path2D": 20,
-      fillText: 25,
+      fillText: 27,
     },
     hit: {
-      fillRect: 82,
+      fillRect: 84,
       // Two more than mid: the shockwave ring and the fireball's own contour.
-      stroke: 64,
+      stroke: 67,
       fill: 52,
       clip: 7,
       // Eight more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
-      save: 54,
+      save: 55,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
       drawImage: 20,
@@ -153,37 +159,37 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       // The fireball, and the one radial gradient this fight ever builds.
       createRadialGradient: 6,
       "new Path2D": 20,
-      fillText: 25,
+      fillText: 27,
     },
   },
   p2: {
     mid: {
-      fillRect: 62,
+      fillRect: 64,
       // Nine fewer than the pilot's: five hulls, their spines and their scars
       // are the whole of what this seat is not shown (`fleet-hulls.ts`).
-      stroke: 68,
+      stroke: 71,
       fill: 72,
       clip: 7,
-      save: 47,
+      save: 48,
       drawImage: 23,
       createLinearGradient: 16,
       createRadialGradient: 11,
       "new Path2D": 20,
-      fillText: 24,
+      fillText: 25,
     },
     hit: {
-      fillRect: 85,
-      stroke: 69,
+      fillRect: 87,
+      stroke: 71,
       fill: 70,
       clip: 7,
-      save: 55,
+      save: 56,
       drawImage: 26,
       createLinearGradient: 15,
       createRadialGradient: 12,
       "new Path2D": 20,
       // One fewer than the pilot's, every frame: the square's own name is on
       // both screens and the wave's own readouts are not all of them.
-      fillText: 24,
+      fillText: 25,
     },
   },
 };

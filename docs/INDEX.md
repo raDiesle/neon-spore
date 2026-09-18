@@ -170,6 +170,10 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/bosses.ts` | every boss's vocabulary, re-exported by `index.ts` — the seam `hash-boss.ts` already cut |
 | `packages/sim/src/config-fleet.ts` | THE FLEET's numbers: how big the chart is, how long the pair has, and what running out costs |
 | `packages/sim/src/fleet-board.ts` | THE FLEET's chart as arithmetic — where a ship stands, which squares are spent, what makes a fleet |
+| `packages/sim/src/fleet-flood.ts` | **THE FLEET's second and third states, on the beat** — the flood a hit opens |
+| `packages/sim/src/fleet-hand.ts` | **Three thumbs on THE FLEET's picture**, off the wire, on the tick |
+| `packages/sim/src/fleet-hash.ts` | THE FLEET's second and third states in the fingerprint, beside the chart `hash-boss.ts` already pushes |
+| `packages/sim/src/fleet-state.ts` | **THE FLEET's three states, and what the pair does in each.** Moved out of `boss-state.ts` with the second… |
 | `packages/sim/src/fleet.ts` | THE FLEET: one seat holds the map, the other holds the sights, and neither can reach the other's half |
 | `packages/sim/src/flip.ts` | THE FLIP: |
 | `packages/sim/src/config-snake.ts` | SNAKE's numbers — the arena, the mouth's window, what starting over costs |
@@ -1758,6 +1762,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-hands-handles.ts` | **The pair's hands on the bosses a handle answers** — THE SINEW, THE SURGE, THE INSTAR |
 | `tools/director/src/boss-hands-takes.ts` | **The pair's hands on the bosses a taking answers** — THE CAIRN, THE SPLICE, THE UNDERTOW, THE ANTIPHON |
 | `tools/director/src/boss-hands-rounds.ts` | **The pair's hands on the rounds a hand has to play** — THE MAZE, THE GAUGE |
+| `tools/director/src/boss-hand-fleet.ts` | **The pair's hands on THE FLEET**, a `Hand` (`poses-bosses-kit.ts`) |
 | `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
 | `tools/director/src/brush-category.ts` | Which brush categories (`BRUSH_GROUPS` in brush-groups.ts — CANNON, SHIELD, MIXED |

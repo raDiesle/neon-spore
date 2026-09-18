@@ -209,6 +209,10 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   fleetRows: "THE FLEET — a chart only one of you can read",
   fleetRoundBeats: "THE FLEET — a chart only one of you can read",
   fleetSalvoRestBeats: "THE FLEET — a chart only one of you can read",
+  fleetFloodBeats: "THE FLEET — a chart only one of you can read",
+  fleetRakeBeats: "THE FLEET — a chart only one of you can read",
+  fleetWreckBeats: "THE FLEET — a chart only one of you can read",
+  fleetWreckPullMilli: "THE FLEET — a chart only one of you can read",
 };
 
 /** Every field that belongs to `group`, in the order `SimConfig` declares them. */

@@ -55,6 +55,9 @@ export {
   type SimConfig,
   ticksPerBeat,
 } from "./config.js";
+// THE FLEET's family of events, whole: `audio/bind-fleet.ts` reads it by one
+// guard rather than ten cases in a file at its limit.
+export type { FleetEvent } from "./events-fleet.js";
 export { hashWorld } from "./hash.js";
 export { type Replay, record, runReplay } from "./replay.js";
 export { createRng, next, nextInt, type Rng } from "./rng.js";

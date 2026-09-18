@@ -24,7 +24,7 @@ import { crawlerCue } from "./bind-crawler.js";
 import { creatureCue } from "./bind-creatures.js";
 import type { Cue } from "./bind-cue.js";
 import { fenceCue } from "./bind-fence.js";
-import { fleetCue } from "./bind-fleet.js";
+import { fleetCue, isFleetEvent } from "./bind-fleet.js";
 import { gumCue } from "./bind-gum.js";
 import { handedCue } from "./bind-handed.js";
 import { impactCue } from "./bind-impact.js";
@@ -47,6 +47,9 @@ export { panForCol, pitchForRow } from "./bind-place.js";
  * design — the wave it leads to says so itself with `ui.waveOpen`.
  */
 export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
+  // THE FLEET's ten, read by their guard rather than as ten cases here: the
+  // family carries more of the fight than any other and `bind-fleet.ts` is it.
+  if (isFleetEvent(e)) return fleetCue(e, cols, rows);
   switch (e.type) {
     case "beat":
       return { id: e.beat % 4 === 0 ? "beat.accent" : "beat.tick" };
@@ -150,15 +153,6 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "mazeDown":
     case "mazeGrip":
       return mirrorCue(e, cols);
-    // THE FLEET's five, in `bind-fleet.ts`: they carry more of the fight than
-    // any other row in the catalogue, and four of the five are held back by
-    // the shell's flight rather than sounding where they are bound.
-    case "fleetSalvo":
-    case "fleetSplash":
-    case "fleetHit":
-    case "fleetSunk":
-    case "fleetDown":
-      return fleetCue(e, cols, rows);
     case "spliceFeed":
     case "spliceFed":
     case "spliceWrong":

@@ -42,8 +42,8 @@ const F = "full" as const;
 export const FIRST_BOSS_POSES: Pose[] = [
   bossPose(
     "fleet",
-    "afloat",
-    "The chart with every ship whole on it and the sights at rest. The pilot's screen shows where the ships lie; the navigator's shows only the squares and the sights she alone can move.",
+    "hunt",
+    "Every ship whole. P1 sees the ships; P2 sees the squares and moves the sights.",
     {
       crop: F,
       want: (w) => w.boss?.kind === "fleet" && fleetAfloat(w.boss) === w.boss.ships.length,

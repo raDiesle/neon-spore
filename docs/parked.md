@@ -55,3 +55,39 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
+
+## THE FLEET's flood, rake and wreck: the look half
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `packages/render/src/fleet-marks.ts`, `packages/render/src/fleet-fx.ts`, `packages/render/src/fleet-hulls.ts`, `packages/render/src/touch-field.ts`, `packages/render/src/touch-hold.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/test/fleet-frame.test.ts`, `tools/director/src/field-controls-page.ts`, `tools/director/test/on-field-controls.test.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
+
+The simulation half of the queue item "THE FLEET changes state more than
+once, and asks for more than one gesture" landed: `hunt` → `flood` on a hit
+(the navigator's `drag` at `fleetBreach` held on the plume, the pilot's at
+`fleetRake` carried along the hull in whole tiles from the hole, a square
+struck every `fleetRakeBeats` with both thumbs down, `fleetFloodBeats` to do
+it in) → `wreck` when the hull is struck end to end (her `drag` at
+`fleetWreck` pulled down `fleetWreckPullMilli` while his thumb stays,
+`fleetWreckBeats`), either window closing plugging the hull whole again —
+`sim/src/fleet-state.ts`, `fleet-flood.ts`, `fleet-hand.ts`, with
+`sim/test/fleet-gestures.test.ts`, the cue's two arms in
+`render/src/boss-cue-read-g.ts`, the director's hand in
+`tools/director/src/boss-hand-fleet.ts` and its three cards on the STATES
+sheet. Nothing on the picture hands the sim any of the three thumbs, and
+the five events are on both silent lists.
+
+The look half, on the model of THE MIRROR's grip (`render/src/mirror-grip.ts`)
+and THE GAUGE's parked entry above, in a render/src/fleet-grip.ts and its
+test: a plume standing on `holeCol`/`holeRow` on both screens while `phase`
+is not `hunt`, with the window draining under it (the clock's own bar,
+narrowed); `fleetBreachUnder` on the plume for seat 2, a plain on/off `drag`
+at `fleetBreach`; `fleetRakeUnder` on the holed hull for seat 1 while
+`flood`, a `drag` at `fleetRake` whose moves report `fromMilli`/`fromYMilli`
+from the grab in thousandths of a chart tile; the wreck lying on the water
+with `fleetWreckUnder` for seat 2 while `wreck`, a `drag` at `fleetWreck`
+reporting the pull down; the five events taken off the two silent lists and
+thrown from a fleet-grip-fx.ts — the plume up, the thumb on it, each square
+raked, the sea healing, the wreck going under; the three on-field entries and
+the three `docs/spec/controls.md` rows that `documentedDragTarget`'s cases
+are waiting on; §11.6 gets *The look* and loses *What is not built*. A look
+with no shipped alternative.

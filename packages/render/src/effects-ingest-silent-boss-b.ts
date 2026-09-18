@@ -98,4 +98,13 @@ export const INGEST_SILENT_BOSS_B = [
   "wardenHold",
   "wardenThrow",
   "wardenSlam",
+  // THE FLEET's second and third states, silent until the look lane draws
+  // them: the plume, the thumb on it, the rake, the plug and the wreck are
+  // world state read off `phase`, `holeCol` and `rakeCol` every frame
+  // (`sim/fleet-state.ts`), and `docs/parked.md` carries the look half.
+  "fleetFlood",
+  "fleetBreach",
+  "fleetRake",
+  "fleetPlug",
+  "fleetWreck",
 ] as const satisfies readonly SimEvent["type"][];

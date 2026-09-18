@@ -13,8 +13,8 @@ export type BossKind = BossEntry["kind"];
  * A boss whose states are a phase table in the simulation is read off
  * `BOSS_PHASES` (`sim/boss-phases.ts`), so a phase added there is a state
  * here with no pose, and `test/boss-states.test.ts` goes red until one is
- * written. A boss whose states are not a table — THE FLEET's board, THE
- * CAIRN's pile, THE HIVE's seals — is named here by hand, in `BY_HAND`,
+ * written. A boss whose states are not a table — THE CAIRN's pile, THE
+ * HIVE's seals, THE QUEEN's bloom — is named here by hand, in `BY_HAND`,
  * from the predicates its own file exports (`cairnWaited`, `hiveOpen`,
  * `surgeEverting`): the half that cannot be derived, and the half a lane
  * changing one of those bosses owes a line to (`.claude/skills/new-boss`).
@@ -28,8 +28,6 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // bloom is pried open by player 1's thumb, under SCREAM it is held open
   // by it (`queen-hand.ts`) — two states the look lane owes a pose.
   queen: ["shut", "open", "pried", "held", "torch"],
-  // Whole, one ship hit, one ship sunk (`fleetAfloat`, `fleetStruck`).
-  fleet: ["afloat", "struck", "sunk"],
   // The pile stands, a unit is on its way down, the last is settled
   // (`cairnWaited`, `CairnState.settleCol`).
   cairn: ["stacked", "leaving", "settled"],

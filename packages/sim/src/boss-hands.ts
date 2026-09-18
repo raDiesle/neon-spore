@@ -1,6 +1,7 @@
 import { antiphonHeard, stepAntiphonTurn } from "./antiphon-hand.js";
 import { diastoleHeard } from "./diastole-hand.js";
 import { filamentHeard } from "./filament-hand.js";
+import { fleetHandsHeard } from "./fleet-hand.js";
 import { gorgeHeard } from "./gorge-hand.js";
 import { instarHeard } from "./instar-hand.js";
 import { mazeHeartHeard } from "./maze-hand.js";
@@ -65,4 +66,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // is now (`maze-hand.ts`). The string itself stays in `step.ts` with the
   // field's other handles; this is the round's second gesture, not its first.
   for (const c of commands) mazeHeartHeard(world, c.player, c.command);
+  // THE FLEET's three thumbs on the chart, on the tick because a rake is
+  // where the thumb is now and the pull sinks the wreck the tick it reaches
+  // (`fleet-hand.ts`). The arrows and the trigger stay in `step.ts`.
+  for (const c of commands) fleetHandsHeard(world, c.player, c.command);
 }

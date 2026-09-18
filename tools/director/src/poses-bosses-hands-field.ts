@@ -7,10 +7,10 @@ import {
   scuttleWinding,
   type World,
 } from "@neon-spore/sim";
+import { fleetHand } from "./boss-hand-fleet.js";
 import {
   curtainHand,
   curtainHandWith,
-  fleetHand,
   gorgeHand,
   hiveHand,
   scuttleHand,
@@ -35,24 +35,32 @@ import { bossPose } from "./poses-bosses-kit.js";
 export const FIELD_HAND_POSES: Pose[] = [
   bossPose(
     "fleet",
-    "struck",
-    "The first shell on a ship: the sights were opened over one, the pilot's salvo went where they stood, and the chart marks the hit while the ship is still afloat.",
+    "flood",
+    "P2 aims, P1 fires. A hit holes the hull. P2 holds the plume; P1 rakes the hull.",
     {
       hand: fleetHand,
-      want: (w) =>
-        w.boss?.kind === "fleet" &&
-        w.boss.struck.length > 0 &&
-        fleetAfloat(w.boss) === w.boss.ships.length,
       hold: TPB,
     },
   ),
   bossPose(
     "fleet",
-    "sunk",
-    "A ship struck along its whole length and gone under: the navigator walked the sights a square a press past each splash, the pilot fired the salvo on every rest.",
+    "wreck",
+    "Hull raked end to end. P1 keeps a thumb on it; P2 drags the wreck down.",
     {
       hand: fleetHand,
-      want: (w) => w.boss?.kind === "fleet" && fleetAfloat(w.boss) < w.boss.ships.length,
+      hold: TPB,
+    },
+  ),
+  bossPose(
+    "fleet",
+    "hunt",
+    "One ship sunk. P2 walks the sights past the splashes; P1 fires on the rest.",
+    {
+      hand: fleetHand,
+      want: (w) =>
+        w.boss?.kind === "fleet" &&
+        w.boss.phase === "hunt" &&
+        fleetAfloat(w.boss) < w.boss.ships.length,
       hold: TPB,
     },
   ),

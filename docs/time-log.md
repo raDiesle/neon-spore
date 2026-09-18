@@ -9344,3 +9344,21 @@ The bottleneck was the entry's shape: a title, a blank, the bullets, a blank —
 and a script that counted from the wrong line.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — THE FLEET changes state more than once, and asks for more than one gesture
+
+Three states — hunt, flood, wreck — and a thumb on the chart in each, the sim half; the look parked.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `fleet.ts`, `fleet-board.ts`, THE GAUGE's and THE WARDEN's hand files as the model, the cue, the director's hand and poses |
+| writing | 75 | `fleet-state.ts`, `fleet-flood.ts`, `fleet-hand.ts`, `fleet-hash.ts`, the config, the events, the wire, the audio, the two silent lists, the cue's two arms, the director's hand and three cards, five tests, the spec |
+| looking | 0 | nothing on the picture yet |
+| friction | 15 | `world.events` is cleared every step, so a test that steps a window and then asks the events saw the last tick only — the helper now collects them; an import cycle between `fleet.ts` and the flood, cut by moving `fleetStruck` |
+| landing | 15 | the three queue items for the cloud, the parked half, format, lint, index, `check:fast`, the commit, the land |
+
+The bottleneck was the events cleared per step: three tests written against
+`world.events` after a window had to be turned into tests against state, or
+a helper that keeps what every tick said.
+
+*Measured: the rows above are the session's own estimate, read off the previous landing's timestamp; the compaction in the middle of the lane is not in them.*

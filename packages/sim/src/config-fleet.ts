@@ -40,6 +40,30 @@ export interface FleetConfig {
    * air was never a picture of anything.
    */
   fleetSalvoRestBeats: number;
+  /**
+   * Beats a holed hull stays open (`fleet-state.ts`, `flood`). The pilot has
+   * this long to rake the sights along the whole hull with the navigator's
+   * thumb on the plume; when it closes on a hull not wholly raked, the sea
+   * heals — every mark on that hull is taken back (`fleet-flood.ts`, `plug`).
+   */
+  fleetFloodBeats: number;
+  /**
+   * Beats the pilot's thumb rests on a square of the holed hull before it is
+   * struck. One is a rake that marks as fast as the beat: the window above is
+   * what makes it a race, not this.
+   */
+  fleetRakeBeats: number;
+  /**
+   * Beats a raked hull lies on the water before it refloats (`wreck`). The
+   * navigator has this long to drag it under; closing costs the same plug.
+   */
+  fleetWreckBeats: number;
+  /**
+   * How far down the navigator drags the wreck to sink it, in thousandths of
+   * a tile — the same reach THE MAZE's heart asks (`mazeHeartPullMilli`), so
+   * one pull is one pull on every picture that asks for one.
+   */
+  fleetWreckPullMilli: number;
 }
 
 /**
@@ -84,4 +108,12 @@ export const FLEET_DEFAULTS: FleetConfig = {
   // one decision (`FLEET_SHELL_BEATS`), and a pair of 2s here is how they come
   // apart the first time either is turned.
   fleetSalvoRestBeats: FLEET_SHELL_BEATS,
+  // Ten beats for a hull of up to five squares at a square a beat: room for
+  // the drag and one wrong direction, none for a thumb that waits to be told.
+  fleetFloodBeats: 10,
+  fleetRakeBeats: 1,
+  // Half the flood: the wreck is one pull, and the pull is the only thing
+  // left to do.
+  fleetWreckBeats: 5,
+  fleetWreckPullMilli: 1500,
 };

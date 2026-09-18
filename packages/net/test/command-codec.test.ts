@@ -74,6 +74,9 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "gaugeBand", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "wardenEye", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "wardenHatch", on: false, fromMilli: 1500, fromYMilli: 0 },
+  { kind: "drag", target: "fleetBreach", on: true, fromMilli: 0, fromYMilli: 0 },
+  { kind: "drag", target: "fleetRake", on: true, fromMilli: 2000, fromYMilli: 0 },
+  { kind: "drag", target: "fleetWreck", on: true, fromMilli: 0, fromYMilli: 1500 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -184,6 +187,9 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   gaugeBand: true,
   wardenEye: true,
   wardenHatch: true,
+  fleetBreach: true,
+  fleetRake: true,
+  fleetWreck: true,
   crank: true,
   orreryRing: true,
 };

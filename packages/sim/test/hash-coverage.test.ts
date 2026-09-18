@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test";
 import { CREATURE_KINDS } from "../src/creature-kinds.js";
 import { DIASTOLE_PHASES } from "../src/diastole.js";
 import { FLEET_DIRS } from "../src/fleet-board.js";
+import { FLEET_PHASES } from "../src/fleet-state.js";
 import { GAUGE_PHASES } from "../src/gauge.js";
 import { hashWorld } from "../src/hash.js";
 import {
@@ -90,6 +91,7 @@ const FAMILIES: readonly (readonly string[])[] = [
   MIRROR_PHASES,
   GAUGE_PHASES,
   FLEET_DIRS,
+  FLEET_PHASES,
   SNAKE_PHASES,
   PINBALL_PHASES,
   PULSE_LANES,

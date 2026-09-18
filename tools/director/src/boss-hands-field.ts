@@ -6,10 +6,6 @@ import {
   curtainBoss,
   curtainCoreBare,
   curtainSoftAt,
-  fleetOnBoard,
-  fleetRows,
-  fleetShipAt,
-  fleetStruck,
   gorgeBoss,
   gorgeFull,
   gorgePhase,
@@ -27,13 +23,14 @@ import {
 import type { Hand } from "./poses-bosses-kit.js";
 
 /**
- * **The pair's hands on the bosses of the field** — THE FLEET, THE GORGE, THE
- * CURTAIN, THE SCUTTLE, THE HIVE — each a `Hand` (`poses-bosses-kit.ts`).
+ * **The pair's hands on the bosses of the field** — THE GORGE, THE CURTAIN,
+ * THE SCUTTLE, THE HIVE — each a `Hand` (`poses-bosses-kit.ts`); THE FLEET's
+ * grew to three states and a page of its own (`boss-hand-fleet.ts`).
  * Like the shot hands (`boss-hands-shots.ts`), each is the fight's own rule
  * played straight: the cannon under the thing to hit, the colour it is
  * showing, the shot when the cannon is free. What these five add is a second
- * verb beside the shot — the sights walked a square, a thumb held for the
- * beam, the fabric carried a column — and the hand does that the way the
+ * verb beside the shot — a thumb held for the beam, the fabric carried a
+ * column — and the hand does that the way the
  * pair does, one press a tick, reading the field for where it has got to.
  */
 
@@ -48,33 +45,6 @@ const thumb = (on: boolean, color: Color): Press => ({
 
 /** The cannon is free: nothing of the pair's is on its way up. */
 const free = (w: World): boolean => w.bullets.length === 0 && w.beam === null;
-
-/**
- * THE FLEET: the navigator walks the sights a square a tick toward the
- * nearest square of a ship not yet fired at, and the pilot's salvo goes the
- * tick they stand on it. The pair cannot see the ships and plays this by
- * calling squares; the hand reads them, because what it is posing is a hit
- * and a sinking, not the search.
- */
-export const fleetHand: Hand = (w) => {
-  const b = w.boss;
-  if (b === null || b.kind !== "fleet") return [];
-  let best: { col: number; row: number } | null = null;
-  for (let row = 0; row < fleetRows(w.cfg); row++) {
-    for (let col = 0; col < w.cfg.cols; col++) {
-      if (!fleetOnBoard(w.cfg, col, row) || fleetShipAt(b.ships, col, row) === -1) continue;
-      if (fleetStruck(w, b, col, row)) continue;
-      const d = Math.abs(col - b.aimCol) + Math.abs(row - b.aimRow);
-      if (best === null || d < Math.abs(best.col - b.aimCol) + Math.abs(best.row - b.aimRow))
-        best = { col, row };
-    }
-  }
-  if (best === null) return [];
-  const dcol = Math.sign(best.col - b.aimCol) as -1 | 0 | 1;
-  const drow = Math.sign(best.row - b.aimRow) as -1 | 0 | 1;
-  if (dcol !== 0 || drow !== 0) return [{ player: 2, command: { kind: "aim", dcol, drow } }];
-  return [{ player: 1, command: { kind: "salvo" } }];
-};
 
 /** THE GORGE's intakes, outermost first: the order the sack is pierced in. */
 const GORGE_ORDER = [0, 6, 1, 5, 2, 4, 3];

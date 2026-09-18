@@ -165,41 +165,36 @@ describe("a salvo", () => {
     salvo(world);
     expect(b.lastHit).toBe(true);
     expect(fleetAfloat(b)).toBe(2);
-    // The same square again is a press that meant nothing: it costs no rest
-    // and it is not a second hit.
+    expect(b.struck).toHaveLength(1);
+  });
+
+  it("refuses a splash fired at twice: it costs no rest and marks nothing", () => {
+    const world = fleetWorld();
+    const b = fleetRound(world)!;
+    aimAt(world, 4, 4);
+    salvo(world);
     salvo(world);
     expect(b.struck).toHaveLength(1);
     expect(world.events.some((e) => e.type === "reject")).toBe(true);
   });
 
-  it("sinks a ship on its last square and never before", () => {
+  it("holes a hull rather than sinking it: a hit opens the flood", () => {
     const world = fleetWorld();
     const b = fleetRound(world)!;
     aimAt(world, 6, 4);
     salvo(world);
+    expect(b.phase).toBe("flood");
+    expect(b.holed).toBe(1);
+    expect([b.holeCol, b.holeRow]).toEqual([6, 4]);
     expect(b.sunkBeat[1]).toBe(-1);
-    aimAt(world, 6, 5);
+    expect(shipSunk(world.cfg, b.ships[1]!, b.struck)).toBe(false);
+    expect(world.events.some((e) => e.type === "fleetFlood")).toBe(true);
+    // The panel is the hunt's: under the flood the sights stay where they are
+    // and the trigger does nothing.
+    press(world, 2, { kind: "aim", dcol: -1, drow: 0 });
+    expect(b.aimCol).toBe(6);
     salvo(world);
-    expect(shipSunk(world.cfg, b.ships[1]!, b.struck)).toBe(true);
-    expect(b.sunkBeat[1]).toBe(world.beat);
-    expect(fleetAfloat(b)).toBe(1);
-    expect(world.events.some((e) => e.type === "fleetSunk")).toBe(true);
-  });
-
-  it("ends the wave when the last hull goes down, and costs the pair nothing", () => {
-    const world = fleetWorld();
-    for (const [col, row] of [
-      [1, 1],
-      [2, 1],
-      [3, 1],
-      [6, 4],
-      [6, 5],
-    ] as const) {
-      aimAt(world, col, row);
-      salvo(world);
-    }
-    expect(world.boss).toBeNull();
-    expect(world.retries).toBe(0);
+    expect(b.struck).toHaveLength(1);
   });
 });
 

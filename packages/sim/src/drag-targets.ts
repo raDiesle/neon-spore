@@ -3,14 +3,10 @@
  * names, with the argument for each of them beside it.
  *
  * Cut out of `command-types.ts` when THE BALLOON's pair took that file over its
- * 250-line limit, along the seam that file's own header draws one level down:
- * next door is the shape of a **press** — the flat union a replay is a list of
- * — and this is the vocabulary its one draggable arm is written in. It is also
- * the half that grows: the union has not gained a member in a while, and this
- * list has gained one for nearly every creature with a handle on it.
- *
- * `command-types.ts` re-exports `DragTarget`, so nothing that already reached
- * for one through that file had to move.
+ * 250-line limit, along the seam that file's own header draws: next door is
+ * the shape of a **press** — the flat union a replay is a list of — and this
+ * is the vocabulary its one draggable arm is written in, the half that grows.
+ * `command-types.ts` re-exports `DragTarget`, so nothing moved.
  */
 
 /** The draggable elements: one name per thing a hand may take hold of. A closed
@@ -45,7 +41,10 @@ export type DragTarget =
   | "gaugeNeedle"
   | "gaugeBand"
   | "wardenEye"
-  | "wardenHatch";
+  | "wardenHatch"
+  | "fleetBreach"
+  | "fleetRake"
+  | "fleetWreck";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -228,23 +227,24 @@ export type DragTarget =
  */
 
 /**
- * `mazeHeart` is the twenty-second, and THE MAZE's second — the first round
- * to be given a second handle on its picture, for the §6.2 ask. The string
- * is the pilot's and turns the wheel; the heart is the navigator's and
- * finishes it: under `grip` her thumb carries it *down* (`fromYMilli`, as
- * THE SINEW's is read) and the shot the heart is holding tears out when
- * the pull reaches `mazeHeartPullMilli` while his hand is on the string
- * (`maze-hand.ts`). No `id`, for `mazeString`'s reason: there is one heart.
+ * `mazeHeart` is the twenty-second, THE MAZE's second — the first round given
+ * a second handle on its picture, for the §6.2 ask. The string is the pilot's
+ * and turns the wheel; the heart is the navigator's and finishes it: under
+ * `grip` her thumb carries it *down* (`fromYMilli`, as THE SINEW's is read)
+ * and the held shot tears out when the pull reaches `mazeHeartPullMilli`
+ * while his hand is on the string (`maze-hand.ts`). No `id`: one heart.
  * `wardenEye` and `wardenHatch` are the twenty-fifth and -sixth: a gesture per
  * phase — player 2's thumb on the eye, player 1's swipe (`warden-hand.ts`).
+ * `fleetBreach`, `fleetRake` and `fleetWreck` are THE FLEET's three, one a
+ * state: her hold on the plume, his rake along the hull, her pull on the
+ * wreck (`fleet-hand.ts`). No `id`: one hull is holed at a time.
  */
 
 /**
- * `gaugeNeedle` and `gaugeBand` are the twenty-third and twenty-fourth, and
- * the two halves of one dial (`gauge-hand.ts`). `gaugeNeedle` is the third
- * whose `fromMilli` is a **bearing** and not a distance (`bearing.ts`): a hand
- * swinging a needle round a dial is a hand going round a circle, and the
- * needle stands where the finger points. `gaugeBand` carries nothing but `on`
- * — a thumb held on the band keeps it open, and where on it the thumb landed
- * says nothing the round wants to know.
+ * `gaugeNeedle` and `gaugeBand` are the twenty-third and twenty-fourth, the
+ * two halves of one dial (`gauge-hand.ts`). `gaugeNeedle` is the third whose
+ * `fromMilli` is a **bearing**, not a distance (`bearing.ts`): a hand swinging
+ * a needle round a dial goes round a circle, and the needle stands where the
+ * finger points. `gaugeBand` carries nothing but `on` — a thumb held on the
+ * band keeps it open, and where it landed says nothing the round wants.
  */

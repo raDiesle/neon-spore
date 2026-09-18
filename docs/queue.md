@@ -1691,3 +1691,70 @@ coverage test reads, so a `jam` and a `bind` pose need the ledger to say
 whether a state there is a phase or any named condition of the boss. Decide
 that first — it is the same question THE GORGE's pinch and pry will ask — then
 add the two poses and point the two rows at them.
+
+## Every card on the STATES sheet says what P1 and P2 do, in short words
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `tools/director/src/poses-bosses-first.ts`, `tools/director/src/poses-bosses-hands-field.ts`, `tools/director/src/poses-bosses-hands-shots.ts`, `tools/director/src/poses-bosses-clocks.ts`, `tools/director/src/poses-bosses-kit.ts`, `tools/director/src/states-page.ts`, `tools/director/test/boss-states.test.ts`
+
+The owner's rule for every documentation page (18 September 2026): *reduce
+text descriptions to a minimum; only say what player 1 and player 2 have to
+do, in short words.* THE FLEET's three cards and its opening are written to
+it — "P2 holds the plume; P1 rakes the hull." — and every other card on the
+BOSSES category still carries a paragraph of prose. Rewrite every `bossPose`
+note in the `poses-bosses-*.ts` files to the form: one short sentence of
+state, then `P1 <verb> …; P2 <verb> …`, under about 120 characters; a card
+whose state asks nothing of a seat says so in two words ("P2 waits"). Then a
+test in `boss-states.test.ts` that holds every boss-tagged pose's note under
+the length and to naming both seats, so the next card cannot come in long.
+The creatures' and the controls' categories are the same rule and the same
+pass, if the note there is prose. No browser needed: the notes are strings
+and the test is the proof. A cloud session can take this.
+
+## DOCUMENTATION's STATES room draws every card before the first is seen
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `tools/director/src/states-page.ts`, `tools/director/src/documentation-rooms.ts`, `tools/director/src/poses-bosses-kit.ts`, `tools/director/src/poses.ts`, `tools/director/test/boss-states.test.ts`
+
+The owner said the documentation pages open slowly (18 September 2026).
+`renderStates` builds every group of `POSE_CATEGORIES` on the tab's first
+click, and every card runs its pose's world to its state and draws a frame —
+thirty-odd bosses' worth of hands walked to a state, in one synchronous pass,
+before anything is on the page. Two changes, both provable without a browser
+in `bun test tools/director`: (1) render a group when it scrolls into view or
+its heading is clicked, an `IntersectionObserver` over the `section`s with
+the `h2` and note drawn at once and the row of cards filled on entry — the
+lazy room `documentation-rooms.ts` already does per tab, one level down; (2)
+cache a card's built world by its pose name and the hash of the world it
+draws (`hashWorld`), in the module, so a second visit to the room and a
+second tab that draws the same pose reuse the frame rather than walk the
+hand again. The test: a fake-DOM render of the room (`test/fake-dom.ts`)
+builds no pose until its section enters, and builds each pose once across
+two renders. A cloud session can take this; the timing on a real page is the
+owner's eye afterwards and is not what the item asks for.
+
+## Twenty bosses of the third kind: the brief, and where it goes
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `.claude/skills/new-boss/SKILL.md`, `docs/decisions.md`
+- **Asks:** does the brief go on `docs/spec/bosses-choreographed.md` as a second table under its fifteen, or on a page of its own beside it?
+
+The owner asked (18 September 2026) for a design brief of twenty bosses of
+the third kind — the choreographed scene of `.claude/skills/new-boss` §1: a
+beat list that will not advance until the beat is performed on the boss's
+own picture, each gesture a `Command` (`DragTarget` or `Hold["kind"]`), the
+hull's reaction in place of a camera — and said to implement nothing and to
+touch no code. The brief is words: for each of the twenty, the one-sentence
+mechanic, what it splits (eyes or hands), what part of the silhouette goes
+away and how many there are, the beat list with each beat's gesture named
+as the member it is or the member it would need, and which of the eight
+filters on `bosses-choreographed.md` it passes. Every one is read against
+THE TELL's verdict in §6 of the skill (no rule table drawn on the boss, no
+symbol to learn before the first beat). The two places it can go pick
+between one long page that the fifteen already on it will make the longest
+in `docs/spec/`, and a new bosses-cinematic.md page beside it with a line on
+`docs/spec/README.md` and in `docs/INDEX.md` — the second is the
+recommendation, because the fifteen are designed and claimed on a ledger
+and the twenty are not yet. Build nothing until the owner answers; the
+answer is one word. A cloud session can take this: it is a document, and
+`bun run check` holds it to naming no path that does not exist.

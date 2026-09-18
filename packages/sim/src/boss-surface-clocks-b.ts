@@ -126,3 +126,8 @@ export {
   wardenLidsMilli,
   wardenThrown,
 } from "./bosses-clocks-b.js";
+// THE FLEET's second and third states: the phase, the window and the plume
+// for the pictures, the cue and the director's hand — on this page because
+// `boss-surface.ts` is at its limit (`fleet-state.ts`).
+export { fleetWindowLeft } from "./fleet-flood.js";
+export { FLEET_PHASES, type FleetPhase } from "./fleet-state.js";

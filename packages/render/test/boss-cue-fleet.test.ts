@@ -131,4 +131,32 @@ describe("THE FLEET", () => {
     }
     expect([...seen]).toEqual([]);
   });
+
+  it("under the flood tells her to HOLD and him to RAKE, both on the hole", () => {
+    const { world, f } = opened();
+    const hull = squares(f).hull;
+    f.phase = "flood";
+    f.holed = 0;
+    [f.holeCol, f.holeRow] = hull;
+    const p2 = cue(world, "p2");
+    expect([p2?.kind, p2?.word, p2?.seat]).toEqual(["HOLD", "HOLD", 2]);
+    const p1 = cue(world, "p1");
+    expect([p1?.kind, p1?.word, p1?.seat]).toEqual(["CARRY", "RAKE", 1]);
+    const chart = chartOf(LAYOUT.p1, world);
+    expect(p1?.x).toBeCloseTo(chartX(chart, hull[0]), 6);
+    expect(p1?.y).toBeCloseTo(chartY(chart, hull[1]), 6);
+    // And the hunt's word is not under it: the sights on a whole hull say nothing now.
+    aimAt(f, hull);
+    expect(cue(world, "p1")?.word).toBe("RAKE");
+  });
+
+  it("under the wreck swaps them: he holds, she pulls", () => {
+    const { world, f } = opened();
+    f.phase = "wreck";
+    f.holed = 0;
+    [f.holeCol, f.holeRow] = squares(f).hull;
+    expect(cue(world, "p1")?.word).toBe("HOLD");
+    expect(cue(world, "p2")?.word).toBe("PULL");
+    expect(cue(world, "p2")?.kind).toBe("CARRY");
+  });
 });

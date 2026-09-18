@@ -3,6 +3,7 @@ import type { BossEntry } from "./boss-entries.js";
 import { CANDLE_PHASES } from "./candle.js";
 import { DIASTOLE_PHASES } from "./diastole.js";
 import { FILAMENT_PHASES } from "./filament.js";
+import { FLEET_PHASES } from "./fleet-state.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { GORGE_PHASES } from "./gorge.js";
 import { INSTAR_PHASES } from "./instar.js";
@@ -36,8 +37,8 @@ import { WARDEN_PHASES } from "./warden-cycle.js";
  * when a state here has no picture there.
  *
  * **A boss with a phase table is listed here, and a phase added to one is a
- * pose owed on the sheet.** A boss with no table — THE FLEET's board, THE
- * CAIRN's pile, THE HIVE's seals — is absent here and named by hand on the
+ * pose owed on the sheet.** A boss with no table — THE CAIRN's pile, THE
+ * HIVE's seals — is absent here and named by hand on the
  * director's side, which is the half of this that cannot be derived. THE
  * MIRROR is the one boss whose phases are a bare union (`MirrorPhase`), so
  * its row is a record keyed by that union: a name added to the union without
@@ -67,4 +68,5 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   ledger: LEDGER_PHASES,
   instar: INSTAR_PHASES,
   filament: FILAMENT_PHASES,
+  fleet: FLEET_PHASES,
 };

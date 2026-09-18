@@ -1,14 +1,8 @@
 import type { FleetEntry } from "./boss-entries.js";
-import type { FleetState } from "./boss-state.js";
 import { midCol } from "./config.js";
-import {
-  fleetCols,
-  fleetIndex,
-  fleetOnBoard,
-  fleetRows,
-  fleetShipAt,
-  shipSunk,
-} from "./fleet-board.js";
+import { fleetCols, fleetIndex, fleetOnBoard, fleetRows, fleetShipAt } from "./fleet-board.js";
+import { openFlood, stepFleetFlood } from "./fleet-flood.js";
+import { type FleetState, fleetStruck } from "./fleet-state.js";
 import { breachHull } from "./hull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -47,7 +41,10 @@ import type { World } from "./world.js";
  * about which screen is drawing, never about a seed
  * (`docs/spec/structure.md` 7.3).
  *
- * `fleet-board.ts` is the chart; this is only what moves.
+ * `fleet-board.ts` is the chart; this is only what moves — in the **hunt**.
+ * A hit no longer sinks anything on its own: it holes the hull and opens the
+ * flood, and the two states after that are `fleet-flood.ts` on the beat and
+ * `fleet-hand.ts` on the tick (`fleet-state.ts` says why there are three).
  */
 
 /** Before any salvo, far enough back that the first one is never held off. */
@@ -75,6 +72,17 @@ export function installFleet(world: World, entry: FleetEntry): FleetState {
     lastCol: -1,
     lastRow: -1,
     lastHit: false,
+    phase: "hunt",
+    phaseBeat: world.beat,
+    holed: -1,
+    holeCol: -1,
+    holeRow: -1,
+    breachHeld: false,
+    rakeOn: false,
+    rakeCol: -1,
+    rakeRow: -1,
+    rakeBeat: world.beat,
+    wreckPullMilli: 0,
   };
 }
 
@@ -89,26 +97,25 @@ export function fleetBeatsLeft(world: World, b: FleetState): number {
   return Math.max(0, world.cfg.fleetRoundBeats - (world.beat - b.openBeat));
 }
 
-/** Whether that square has already been fired at, hit or splash. */
-export function fleetStruck(world: World, b: FleetState, col: number, row: number): boolean {
-  return b.struck.includes(fleetIndex(world.cfg, col, row));
-}
-
-/** Ships still afloat. The silhouette of the chart is the health bar. */
-export function fleetAfloat(b: FleetState): number {
-  return b.sunkBeat.filter((beat) => beat === -1).length;
-}
+// The two readings of the state itself live beside it, so the flood can ask
+// them without reaching back into the hunt (`fleet-state.ts`).
+export { fleetAfloat, fleetStruck } from "./fleet-state.js";
 
 /**
  * One beat of the boss, dispatched from `stepBoss`.
  *
- * There is exactly one thing on the beat and it is the clock. Everything else
- * about this fight answers a press, on the tick, because a salvo that waited
- * for the next beat would put a queue between the sentence and the shot — and
- * the sentence is the fight.
+ * The hunt has exactly one thing on the beat and it is the clock. Everything
+ * else about it answers a press, on the tick, because a salvo that waited for
+ * the next beat would put a queue between the sentence and the shot — and the
+ * sentence is the fight. The flood and the wreck have their windows and the
+ * rake on the beat as well (`stepFleetFlood`), after the clock, so a round
+ * that ran out ends before a plug goes in.
  */
 export function stepFleet(world: World, b: FleetState): void {
-  if (fleetBeatsLeft(world, b) > 0) return;
+  if (fleetBeatsLeft(world, b) > 0) {
+    stepFleetFlood(world, b);
+    return;
+  }
   // Time is up, and it costs the hull. The middle column, because the chart
   // has columns of its own and the ship does not stand under any of them —
   // the same call THE GAUGE makes for the same reason, and the scar is what
@@ -132,7 +139,11 @@ export function stepFleet(world: World, b: FleetState): void {
  */
 export function fleetHeard(world: World, player: 1 | 2, command: Command): void {
   const b = fleetRound(world);
-  if (b === null) return;
+  // The panel is the hunt's. Under a flood or a wreck the sights are on the
+  // hull and the thumbs are on the picture (`fleet-hand.ts`); an arrow or a
+  // trigger there is a press that means nothing, and it is dropped the way a
+  // pilot's arrow is.
+  if (b === null || b.phase !== "hunt") return;
   if (command.kind === "aim") {
     // The navigator moves. An aim from the pilot is not refused loudly — he
     // has no arrows drawn on his screen at all, so there is nothing to refuse.
@@ -157,7 +168,8 @@ function aim(world: World, b: FleetState, dcol: number, drow: number): void {
 }
 
 /**
- * A salvo into whichever square the sights are standing in.
+ * A salvo into whichever square the sights are standing in. A hull it finds
+ * is holed and floods (`fleet-flood.ts`); open water splashes.
  *
  * Two salvoes in a row cost the rest between them whether the first found
  * anything or not, so a thumb held on the button is slower than a pair who
@@ -195,13 +207,6 @@ function salvo(world: World, b: FleetState): void {
 
   b.lastHit = true;
   world.events.push({ type: "fleetHit", col, row });
-  if (!shipSunk(cfg, b.ships[at]!, b.struck)) return;
-
-  b.sunkBeat[at] = world.beat;
-  const left = fleetAfloat(b);
-  world.events.push({ type: "fleetSunk", col, row, len: b.ships[at]!.len, left });
-  if (left > 0) return;
-
-  world.events.push({ type: "fleetDown", col, row });
-  world.boss = null;
+  // The hull is holed, not sunk: sinking it is the two states after this one.
+  openFlood(world, b, at, col, row);
 }

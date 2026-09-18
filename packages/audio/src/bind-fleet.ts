@@ -1,4 +1,4 @@
-import { FLEET_SHELL_BEATS, type SimEvent } from "@neon-spore/sim";
+import { FLEET_SHELL_BEATS, type FleetEvent, type SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol, pitchForRow } from "./bind.js";
 
 /**
@@ -24,16 +24,26 @@ import { type Cue, panForCol, pitchForRow } from "./bind.js";
  * the pilot would pull a trigger into silence and hear the water close over a
  * shell that was still climbing.
  */
-export function fleetCue(
-  e: Extract<
-    SimEvent,
-    { type: "fleetSalvo" | "fleetSplash" | "fleetHit" | "fleetSunk" | "fleetDown" }
-  >,
-  cols: number,
-  rows: number,
-): Cue {
+/** The family, so `bind.ts` reads one guard rather than ten cases at its limit. */
+export function isFleetEvent(e: SimEvent): e is FleetEvent {
+  return e.type.startsWith("fleet");
+}
+
+export function fleetCue(e: FleetEvent, cols: number, rows: number): Cue {
   const pan = panForCol(e.col, cols);
   if (e.type === "fleetSalvo") return { id: "boss.fleetLaunch", pan };
+  // The second and third states, sounding where they are: the plume stands
+  // up on the tick of the hit, a thumb lands on it, the rake bites, the sea
+  // heals, the wreck settles — nothing here is in the air, so nothing is
+  // held back. The rake is the hit's own clang a square at a time, pitched
+  // to its row for the navigator's ear; the plug is the splash, because that
+  // is what a hull healed back to water sounds like.
+  if (e.type === "fleetFlood") return { id: "ship.gripStrain", pan };
+  if (e.type === "fleetBreach") return { id: e.on ? "ship.gripTake" : "ship.gripSlip", pan };
+  if (e.type === "fleetRake") return { id: "boss.fleetHit", pan, pitch: pitchForRow(e.row, rows) };
+  if (e.type === "fleetPlug")
+    return { id: "boss.fleetSplash", pan, pitch: pitchForRow(e.row, rows) };
+  if (e.type === "fleetWreck") return { id: "ship.gripCarry", pan };
   if (e.type === "fleetSplash") {
     return {
       id: "boss.fleetSplash",

@@ -1,6 +1,7 @@
 import type { BossState } from "./boss-union.js";
 import { BOSS_KINDS } from "./entries.js";
 import { FLEET_DIRS } from "./fleet-board.js";
+import { hashFleetPhase } from "./fleet-hash.js";
 import { GAUGE_PHASES } from "./gauge.js";
 import { clockHashParts } from "./hash-boss-clocks.js";
 import { scarHashParts } from "./hull-types.js";
@@ -172,6 +173,7 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.lastCol);
     push(boss.lastRow);
     push(boss.lastHit ? 1 : 0);
+    hashFleetPhase(push, boss);
   }
   // The five bosses that are a clock, gathered one file along and for the
   // same reason each of them was gathered beside its own state: what they

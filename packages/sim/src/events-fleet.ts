@@ -32,4 +32,21 @@ export type FleetEvent =
    */
   | { type: "fleetSunk"; col: number; row: number; len: number; left: number }
   /** The last ship of the fleet. The chart is clear and the wave is over. */
-  | { type: "fleetDown"; col: number; row: number };
+  | { type: "fleetDown"; col: number; row: number }
+  /**
+   * A hit that holed a hull and let the water in: `flood` opened at this
+   * square (`fleet-state.ts`). Rides beside `fleetHit` on the same tick; the
+   * hit is the mark on the chart, this is the plume that stands up out of it.
+   */
+  | { type: "fleetFlood"; col: number; row: number }
+  /** The navigator's thumb landing on the plume (`on`) or leaving it. */
+  | { type: "fleetBreach"; col: number; row: number; on: boolean }
+  /** A square of the holed hull struck by the pilot's rake. */
+  | { type: "fleetRake"; col: number; row: number }
+  /**
+   * The window closed on a hull not finished: every mark on it is taken back
+   * and the hunt for it starts over. The square is the hole that healed.
+   */
+  | { type: "fleetPlug"; col: number; row: number }
+  /** The hull raked end to end, lying on the water for the navigator to sink. */
+  | { type: "fleetWreck"; col: number; row: number };
