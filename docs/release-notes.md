@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 3ae167d1 — PINBALL says MOVE on the cannon, and nothing the round already says
+
+The field now carries PINBALL's cue (`docs/decisions.md` #34), and this is the first boss whose reading was decided by something it already draws: its header writes a whole sentence, addressed, on both screens, every tick — you fire on the bar, they stop the needle, get the cannon under it. A cue naming a verb the sentence has already named would be the same idea drawn twice, three tiles lower, so the one word here is the one the sentence cannot say.
+
 ## 2026-09-18 · f5a13cbc — THE DIASTOLE's clamp gets its picture: the look
 
 A look with no shipped alternative: the clamp landed in the simulation (bbbcf095) with nothing on any screen answering it. Now, from the beat the left chamber collapses, the pilot's screen rings the grey right chamber (`diastole-clamp.ts`) and a thumb on it sends the clamp; held, the ring fills and a dial runs out over the two-beat window, and the chamber under it is drawn squeezed shut on every screen — white-rimmed for the pilot, who sees it grey, and in its own cyan for the navigator, who owns it. A spasm shudders the chamber off the wall clock, dims it, and shakes the hull. The catch and the miss burst. The cue says HOLD · CLAMP to seat 1 in the alone phase, and nothing in the spasm.
