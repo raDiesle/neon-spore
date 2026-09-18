@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · c3c279a5 — THE VANE changes state more than once: the simulation
+
+Every pair of pins now adds a hand, and both of the new ones are on the arm itself. SWING is the bearing as it was — the housing splits at each end of the sweep and the shot is the whole answer. VEER takes those openings away: the stops have worn, and the only window is the arm held still under player 1's thumb (`vaneArm`), which also stops the fold line for as long as he keeps it there. That is the trade this boss was always going to have to offer — §11.5's own argument is that a moving fold line cannot be named across a voice delay — and he pays for it with the hand that carries the cannon, so the column he pins in is a column he then has to reach. SEIZE jams the housing on top of that: player 2 hauls it off the pinned arm (`vaneHousing`, `vaneHaulMilli`) before the last shot counts, and a housing on a moving arm cannot be hauled at all.
+
 ## 2026-09-18 · 039cdde3 — The frames header indexes its flags instead of arguing them twice
 
 `tools/frames/run.ts` stood at the 250-line ceiling with about 170 of them in one doc comment: a paragraph per flag saying why the flag exists. Every one of those paragraphs already existed in the file that implements the flag — `--boss`'s in `boss.ts`, `--fault`'s in `fault.ts`, `--until`'s in `until.ts` — so the header grew twice per flag, and `--boss-json` fitted only after two of its three lines were folded into the paragraph above them.
