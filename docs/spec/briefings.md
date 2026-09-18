@@ -300,18 +300,18 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are seventy-two of them now**, one per guided wave bar fifteen, and
+**There are seventy-three of them now**, one per guided wave bar fourteen, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The fifteen that are still the three strings
+rather than a page of prose. The fourteen that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
 CODEX, THE SCOUT, THE REPRISE, THE STARE, THE FLIP, THE HUSK, THE ORRERY, THE
-SCUTTLE, THE ANTIPHON, THE HIVE and THE INSTAR** — and
+ANTIPHON, THE HIVE and THE INSTAR** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those fifteen is a film nobody has written, and from THE
+**Every one of those fourteen is a film nobody has written, and from THE
 SCOUT's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
@@ -351,6 +351,12 @@ an `atBoss` strip answered by the sum itself (`leadLead`, two beats on);
 the run's litter is laid around, since a rock stands in its column for the
 fourteen beats of its fall, and the beam is held three beats early so it is
 standing when the pass comes through.
+THE SCUTTLE's, the next day, lets its first part go and is the cost of that
+— a rock thrown, warded thirteen beats on — then strikes nineteen where
+they hang, every column an `atBoss` strip (`scuttleNextCol`) because the
+seed hangs them over columns no authored column reaches; the twins are
+shot at the top of their columns between strikes, the pods struck on the
+frame rather than thrown, and the seed is chosen so that neither is.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square
@@ -513,9 +519,11 @@ IT GOES CLEAR`, `THE OTHER COLOUR · ALWAYS`, `ONLY PLAYER 2 SEES THE COUNT`,
 already teaching the split rather than the verb, which is what the checklist's
 first question has been asking for all along.
 
-THE LEAD, THE SCUTTLE and THE ORRERY carry a cue and have no film yet; their
-prose halves were left whole, because every sentence in them that names the beam
-names the column or the colour with it.
+THE ORRERY carries a cue and has no film yet; its prose halves were left whole,
+because every sentence in them that names the beam names the column or the
+colour with it. THE LEAD's and THE SCUTTLE's films came on 17 and 18
+September 2026 with no page that is the cue's verb alone: their holds name
+the column or the colour.
 
 #### The ghost thumb is derived, never authored
 

@@ -3,6 +3,7 @@ import { diastoleBridgeCol, diastoleChamberCol } from "./diastole.js";
 import { diastoleBoss } from "./diastole-step.js";
 import { leadBoss, leadLead, leadShootable, leadStill } from "./lead.js";
 import { ledgerBoss } from "./ledger.js";
+import { scuttleBoss, scuttleNextCol } from "./scuttle.js";
 import { type TasterState, tasterBoss, tasterOrder, tasterPhase } from "./taster.js";
 import { undertowBoss } from "./undertow.js";
 import type { World } from "./world.js";
@@ -24,7 +25,9 @@ import type { World } from "./world.js";
  * column reaches either. THE LEDGER's socket walks a column along the hull
  * per return, into every column there is. THE LEAD is never where it is: the
  * column to stand under is the one it will be in two beats on, and it paces
- * through all eleven. So a strip may say `atBoss` instead of a column, and
+ * through all eleven. THE SCUTTLE's live part is whichever socket the rng
+ * let go, over seven columns two of which no authored column reaches. So a
+ * strip may say `atBoss` instead of a column, and
  * this is the one reading of what that means.
  *
  * **It is the boss's own answer, not the picture's.** Each line here asks the
@@ -83,6 +86,16 @@ export function bossAnswerCol(world: World): number | null {
     // shot touches it and the beam standing in its way is the answer.
     if (!leadShootable(l) || leadStill(l)) return null;
     return leadLead(l, world.cfg);
+  }
+  const s = scuttleBoss(world);
+  if (s !== null) {
+    // The column the next throw lands in, which is the live part's own while
+    // one hangs and the last part's through the wind-up — the one column a
+    // bolt strikes from and the beam ends it from (`scuttleNextCol`). Nothing
+    // between throws and nothing once it is down.
+    if (s.downBeat >= 0) return null;
+    const col = scuttleNextCol(s, world.cfg);
+    return col < 0 ? null : col;
   }
   return null;
 }

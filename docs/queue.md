@@ -193,10 +193,28 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
+## §11.32 THE INSTAR still says its look is not built, under the look itself
+
+- **Found:** 2026-09-18, claude/boss-implementation-e3cfff
+- **Files:** `docs/spec/bosses.md`
+
+`b4fda399` (THE INSTAR's look) pasted 419 lines into §11.32 that were *The
+look* followed by a second copy of THE SCUTTLE's closing paragraph, all of
+§11.31 and §11.32's own head, so the page carried two ANTIPHONs and two
+INSTARs; the copy came out on 18 September 2026 with THE SCUTTLE's
+rehearsal. What is left is the section's own tail, written for the first
+lane: *What is not built. The look, whole — this is the first of the two
+lanes*, the deferred `instarMark` hit test, the `FIELD_CONTROLS` row and the
+events in the silent lists — every one of which the look landed. Rewrite
+that paragraph to what is *still* not built after `b4fda399` (if anything),
+and take the section out of *Still in hand* at the top of the page if it is
+whole; `.claude/skills/new-boss` §5 says the section "gets *The look* and
+loses *What is not built*".
+
 ## A caption has no anchor for a boss's own gauge, so it points at the hull
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`
+- **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/content/src/scenes/the-scuttle.ts`
 
 `SceneAnchor` names a body, a control, a handle, the hull, the radar, the
 ship and the retries — nothing that is a boss's fixture. THE SINEW's film has
@@ -213,6 +231,8 @@ lands where the fixture is drawn. THE LEAD's film (17 September 2026) is
 the same shape again: eight pages about a body pacing the ridge, three of
 them on the hull because nothing names the body, when the stalk
 (`render/lead-draw.ts`) is what every one of them is about.
+THE SCUTTLE's (18 September 2026) puts seven of thirteen on the hull for
+the frame and its count (`render/scuttle-draw.ts`).
 
 ## A rehearsal's frame hides what stands over row 0 of the field
 

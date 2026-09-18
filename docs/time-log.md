@@ -10296,6 +10296,30 @@ outside it that a boss is a name in, each found by a test going red.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-18 — boss-implementation — THE SCUTTLE, the rehearsal
+
+The ninth boss film written after its look, and the first whose acts were
+grown rather than written: thirteen pages over 2900 ticks, one part let go
+and warded, nineteen struck where they hang by `atBoss` strips, the twins
+shot at the top between strikes, the last held under the beam. The same
+lane gave `boss-answer.ts` its scuttle line — `scuttleNextCol`, the live
+socket's column through the wind-up — and took a duplicated §11.31–11.32
+out of `bosses.md`.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `scuttle*.ts`, `config-scuttle.ts`, `pod-intake.ts` and `pods.ts` for what a thrown pod does, `view-role-clocks-b.ts` for which seat sees what, `boss-cue-read-c.ts` for the verbs a page may not be |
+| writing | 25 | the answer line and its test, a probe that dumps the frame a beat at a time, a generator that grows the act list an event at a time, the scene, the registry, the wave's `scene` and its two halves swapped, the prose list, the film test, §3.2, the §11.30 paragraph, the queue |
+| looking | 30 | the generator run over thirty seeds four times: every strip in column 0 until the answer line existed, a twin's bulb blocking a later strike, a twin pod freed by a strike bolt and lost, two twin bodies breaching after the frame was down |
+| friction | 15 | the generator re-adding the post-down shots every rerun because the down event lands mid-beat and the marker was the beat's first tick; twenty-two of thirty seeds throw a pod or breach, so the seed is chosen |
+| landing | 5 | `check:fast`, the sort, the index, the commit, `bun run land --keep` |
+
+The bottleneck was the seed: a frame that throws whatever is not struck,
+twins included, makes most seeds a film that loses the wave — a pod thrown
+lands where the rng drifts it, which no authored column reaches — so the
+acts had to be grown by a probe and the seed swept for one that keeps both
+pods on the frame.
+
 ## 2026-09-17 — boss-implementation — THE LEAD, the rehearsal
 
 The eighth boss film written after its look, and the first whose `atBoss`

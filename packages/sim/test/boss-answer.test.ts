@@ -6,6 +6,7 @@ import { diastoleChamberCol } from "../src/diastole.js";
 import { diastoleBoss } from "../src/diastole-step.js";
 import { leadBoss, leadLead } from "../src/lead.js";
 import { ledgerBoss } from "../src/ledger.js";
+import { scuttleBoss, scuttleSocketCol } from "../src/scuttle.js";
 import { step } from "../src/step.js";
 import { tasterBoss } from "../src/taster.js";
 import { undertowBoss } from "../src/undertow.js";
@@ -151,6 +152,22 @@ describe("the column a boss is answered from", () => {
     expect(bossAnswerCol(world)).toBeNull();
     l.stillBeat = -1;
     l.passBeat = world.beat;
+    expect(bossAnswerCol(world)).toBeNull();
+  });
+
+  it("is the column THE SCUTTLE's live part hangs over, through the wind-up, and nothing while it looks or once it is down", () => {
+    const world = open({ kind: "scuttle" });
+    const s = scuttleBoss(world);
+    if (s === null) throw new Error("no frame");
+    // Looking: nothing hangs, so nothing is answered.
+    expect(bossAnswerCol(world)).toBeNull();
+    beats(world, CFG.scuttleLookBeats);
+    expect(s.live).toBeGreaterThanOrEqual(0);
+    expect(bossAnswerCol(world)).toBe(scuttleSocketCol(CFG, s.live));
+    // The wind-up keeps the last part's column; down, it answers nothing.
+    s.windBeat = world.beat;
+    expect(bossAnswerCol(world)).toBe(scuttleSocketCol(CFG, s.live));
+    s.downBeat = world.beat;
     expect(bossAnswerCol(world)).toBeNull();
   });
 });

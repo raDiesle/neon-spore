@@ -6,6 +6,7 @@ import { THE_DIASTOLE } from "./scenes/the-diastole.js";
 import { THE_GORGE } from "./scenes/the-gorge.js";
 import { THE_LEAD } from "./scenes/the-lead.js";
 import { THE_LEDGER } from "./scenes/the-ledger.js";
+import { THE_SCUTTLE } from "./scenes/the-scuttle.js";
 import { THE_SINEW } from "./scenes/the-sinew.js";
 import { THE_SURGE } from "./scenes/the-surge.js";
 import { THE_TASTER } from "./scenes/the-taster.js";
@@ -38,7 +39,8 @@ export type ChoreographedSceneId =
   | "theSinew"
   | "theLedger"
   | "theSurge"
-  | "theLead";
+  | "theLead"
+  | "theScuttle";
 
 export const SCENES_CHOREOGRAPHED: Record<ChoreographedSceneId, GuideScene> = {
   theDiastole: THE_DIASTOLE,
@@ -53,4 +55,5 @@ export const SCENES_CHOREOGRAPHED: Record<ChoreographedSceneId, GuideScene> = {
   theLedger: THE_LEDGER,
   theSurge: THE_SURGE,
   theLead: THE_LEAD,
+  theScuttle: THE_SCUTTLE,
 };
