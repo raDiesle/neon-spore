@@ -9,6 +9,12 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · f80fae8c — Mark "THE MIRROR's picture looks like something real" done
+
+## 2026-09-18 · 561398b0 — THE MIRROR's picture looks like something real: the chamber under its hull
+
+The copy was the ship's hull flipped over an empty sky, its belly cut off flat at the row above it. It now has what the pair's own ship has under its membrane — the chamber's tissue, the light falling through into it, the ribs running on, the fluid and the slime — drawn by the band's own passes with the controls left out, in blood matched to player one's violet by value (`MIRROR_SEAT`), under the same flip as the hull, and as deep as the screen has above it. Nothing in it is a new shape. A look the owner asked for by name: the §6.3 brief, "looks like something real".
+
 ## 2026-09-18 · fd51014b — THE PULSE is read against the cue and left silent, on purpose
 
 The first of these lanes to come back with nothing the field may say, and the reason is the round. Its four verbs are four lanes, both seats hold all four, and the only question it ever asks is which lane and now. Both halves are the answer: the lane is the word a veiled seat has to be given out loud, which is the whole reason the round needs two people, and the moment is what the judgement is made of. A `PRESS` written on the line would hand over the round's one skill along with its one sentence. There is no third thing to say either — a cue may not tell a player to speak, and a word aimed at the seat that can read a veiled arrival would be a script rather than a verb.

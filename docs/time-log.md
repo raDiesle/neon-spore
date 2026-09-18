@@ -9033,3 +9033,5 @@ The copy was a hull over an empty sky; it has the ship's chamber under it now.
 
 The bottleneck was reading: five passes each read a different set of layout
 fields, and the flipped layout had to satisfy every one of them.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
