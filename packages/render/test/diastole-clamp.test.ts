@@ -91,6 +91,7 @@ function fieldWith(seat: 1 | 2, boss: DiastoleState | null): Field {
     queen: null,
     diastole: boss,
     mirror: null,
+    gorge: null,
     controls: controlSet("default"),
     faults: [],
     well: false,

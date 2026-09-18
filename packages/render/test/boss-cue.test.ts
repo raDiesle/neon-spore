@@ -136,17 +136,27 @@ describe("THE GORGE", () => {
     k.color = "red";
     k.fullBeat = world.beat;
     expect(word(world, "p2")).toBe("PIERCE");
-    // The pilot fires nothing and is told nothing.
+    // And the pilot for the pinch on it, until his thumb is down.
+    expect(word(world, "p1")).toBe("PINCH");
+    expect(cue(world, "p1")?.kind).toBe("HOLD");
+    g.pinch = 2;
     expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p2")).toBe("PIERCE");
   });
 
-  it("asks for the beam once it is gorged", () => {
+  it("asks for the beam once it is gorged, the pry once the beam is filling", () => {
     const world = opened("gorge");
     const g: GorgeState = boss(gorgeBoss(world), "gorge");
     g.mouth = 3;
     g.ruptures = CFG.gorgeMouthRuptures;
     expect(word(world, "p2")).toBe("BURN");
     expect(cue(world, "p2")?.kind).toBe("HOLD");
+    expect(word(world, "p1")).toBeNull();
+    world.prime = { tick: world.tick, color: "red", spent: false };
+    expect(word(world, "p2")).toBe("PRY");
+    g.pry = 3;
+    g.pryBeat = world.beat;
+    expect(word(world, "p2")).toBe("BURN");
   });
 });
 

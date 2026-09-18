@@ -147,9 +147,8 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // `field-controls-mirror.ts`).
     case "mirrorLobe":
     // `gorgeLobe` is THE GORGE's intakes under one thumb each — player 1's
-    // pinch on a full one, player 2's pry on the mouth (`sim/gorge-hand.ts`).
-    // The simulation half landed first; the on-field entry and the row in
-    // `docs/spec/controls.md` are the look lane's.
+    // pinch on a full one, player 2's pry on the mouth (`sim/gorge-hand.ts`,
+    // `field-controls-gorge.ts`).
     case "gorgeLobe":
       return target;
     default:
@@ -188,6 +187,7 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
         "diastoleChamber",
         "queenMark",
         "mirrorLobe",
+        "gorgeLobe",
       ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {
@@ -266,6 +266,7 @@ const FIELD: Field = {
   queen: null,
   diastole: null,
   mirror: null,
+  gorge: null,
   controls: controlSetForWave(0),
   faults: [],
   well: false,

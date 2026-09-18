@@ -3,6 +3,7 @@ import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { DIASTOLE_CONTROLS } from "./field-controls-diastole.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
+import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
 import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
@@ -213,14 +214,12 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     sends: ["drag"],
     pose: "CHOIR · TWO VOICES",
   },
-  // THE BALLOON's two, next door in `field-controls-balloon.ts` — spread in
-  // after the four handles that are the pilot's, before the guide's hold.
+  // THE BALLOON's two (`field-controls-balloon.ts`), after the pilot's four handles.
   ...BALLOON_CONTROLS,
   ...GUM_CONTROLS,
   // THE ORRERY's ring: a whole orbit rather than a circle on a body (`field-controls-orrery.ts`).
   ...ORRERY_CONTROLS,
-  // THE SINEW's two, the pair that adds into one sum rather than holding a
-  // side each (`field-controls-sinew.ts`).
+  // THE SINEW's two: a pair adding into one sum, not a side each (`field-controls-sinew.ts`).
   ...SINEW_CONTROLS,
   ...SURGE_CONTROLS, // THE SURGE's one, the first taken by both seats.
   ...ANTIPHON_CONTROLS, // THE ANTIPHON's one, the first on one screen only.
@@ -232,6 +231,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...QUEEN_CONTROLS,
   ...DIASTOLE_CONTROLS, // THE DIASTOLE's clamp, the second whose seat is not told.
   ...MIRROR_CONTROLS, // THE MIRROR's lobes, two gestures on one target (`field-controls-mirror.ts`).
+  ...GORGE_CONTROLS, // THE GORGE's pinch and pry, one target whose seat says the gesture.
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

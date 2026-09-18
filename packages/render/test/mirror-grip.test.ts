@@ -85,6 +85,7 @@ function fieldWith(seat: 1 | 2, boss: MirrorState | null): Field {
     queen: null,
     diastole: null,
     mirror: boss,
+    gorge: null,
     controls: controlSet("default"),
     faults: [],
     well: false,

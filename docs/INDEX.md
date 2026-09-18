@@ -1302,6 +1302,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gorge-draw.ts` | THE GORGE, drawn: a translucent sack across seven columns above the top of the field, breathing on the beat |
 | `packages/render/src/gorge-fx.ts` | What THE GORGE leaves behind a frame: the beads leaving at the end |
 | `packages/render/src/gorge-lobe.ts` | One lobe of THE GORGE: the intake puckered under it, the beads hanging in it |
+| `packages/render/src/gorge-grip.ts` | **THE GORGE's two thumbs**: the pinch on a full intake and the pry on the mouth |
 | `packages/render/src/effects-ship.ts` | the ship's own clocks: the swallow, the fire opening, the deflection flash, the queen's shudder |
 | `packages/render/src/strand-still.ts` | One live bead on the navigator's screen that **no shot can answer this instant**: the reel drawn as a grey outline |
 | `packages/render/src/strand-fuse-draw.ts` | The three pictures a burning thread is made of (`strand-fuse.ts`): a front eating its way along the line |
@@ -2160,6 +2161,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/entry-fields-moult.ts` | **THE MOULT's one per-arrival fact**: what it is carrying for the beats it is wearing its cargo rather than… |
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
+| `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-orrery.ts` | THE ORRERY's ring, as a row of the ON THE FIELD tab — its own file for `field-controls-balloon.ts`'s reason |

@@ -3351,11 +3351,32 @@ lifted inside it while the mouth feeds on, is dropped before there is a
 mouth, on any other intake and from the pilot; and the fingerprint carries
 both thumbs.
 
-**What is not built**: the look of both thumbs — the ring on the full intake
-for player 1 and on the mouth for player 2, the clench's burst, the cue
-words — which is the second lane of the same item. Until it lands the two
-gestures answer from the director's hand alone (`boss-hands-field.ts`) and
-no ring is drawn, so the silent lists carry the three events.
+**The look of the two thumbs** (18 September 2026, `render/gorge-grip.ts`):
+a ring stands **in** every lobe a seat's thumb could take this beat, on that
+seat's screen alone — the pilot's in every full intake that is not the
+mouth, the navigator's in the mouth once there is one (`showsGorgePinch`,
+`showsGorgePry`), and `test` both. The ring is THE BULB QUEEN's and THE
+MIRROR's (`grip-rings.ts`): breathing until a thumb lands, filled once one
+has, so a held intake and a held mark read as one gesture. The pry's ring
+carries the dial, `gorgePryBeats` running out from the beat the thumb came
+down, the one readout of the window on the screen that has to fire inside
+it; the pinch has no dial because it has no window. The rings stand above
+the intake line rather than under it, where THE MIRROR's do, because row 0
+is under these lobes and a ring below them would sit on the first creature
+to fall. The press is answered at the circle the ring is drawn from,
+nearest first when two overlap, with the intake's index on the command and
+on the hold (`gorgeGripUnder`, under `handleUnder`). The three events throw
+their bursts with the sack's other nine (`gorge-fx.ts`): the two thumbs
+small and white, the clench in the sack's rock. The cue speaks to the seat
+that owes the gesture (`boss-cue-read.ts`): `PINCH` on the pilot over the
+intake come full until his thumb is down, beside `PIERCE` on the navigator;
+and on the mouth `BURN`, then `PRY` once a lobe is filling and no thumb is
+on it, then `BURN` again under the pry — the order the pry is meant to be
+taken in. Two rows on the director's CONTROLS tab (`field-controls-gorge.ts`,
+`docs/spec/controls.md`). `render/test/gorge-grip.test.ts` proves which
+intakes ring for which seat, the thumb answered and refused, the held ring
+heavier and the dial emptying, and all three screens drawn with a pinch and
+a pry on them. A look with no shipped alternative.
 
 ## 11.24 THE CURTAIN — the boss that is in the way
 

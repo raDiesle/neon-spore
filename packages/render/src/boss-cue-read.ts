@@ -11,6 +11,7 @@ import {
   gorgeNearestFull,
   gorgePhase,
   occupiesCol,
+  priming,
   type QueenState,
   queenGesture,
   type World,
@@ -95,10 +96,15 @@ export function candleCues(l: Layout, world: World, c: CandleState): readonly Bo
  * being fed: there is nothing to do, and a word standing over a sack that
  * wants to be left alone would be the boss asking for its own dinner.
  *
- * It speaks at the two moments something is owed. `PIERCE` over the intake
- * that has come full, and `BURN` over the mouth — both on the navigator, who
- * is the seat that fires, holds the lance, and is already shown which intake
- * is nearest (`showsGorgeNearest`).
+ * It speaks at the moments something is owed, and to the seat that owes it.
+ * An intake come full asks two things at once, one of each seat: `PIERCE`
+ * on the navigator, who fires and is already shown which intake is nearest
+ * (`showsGorgeNearest`), and `PINCH` on the pilot, whose thumb holds the
+ * vent off while she loads — silent once it is down (`sim/gorge-hand.ts`).
+ * The mouth asks the navigator alone, in the order the pry is meant to be
+ * taken: `BURN` first, because a pry taken before the beam is filling is
+ * thrown off; `PRY` once a lobe is filling and no thumb is on the mouth; and
+ * `BURN` again under the pry, for the window it opened (`gorge-grip.ts`).
  */
 export function gorgeCues(l: Layout, world: World, g: GorgeState): readonly BossCue[] {
   const cfg = world.cfg;
@@ -106,12 +112,17 @@ export function gorgeCues(l: Layout, world: World, g: GorgeState): readonly Boss
   if (phase === "out") return [];
   const y = gorgeIntakeY(l, g, cfg);
   if (phase === "gorged" && g.mouth >= 0) {
-    return [markAt(2, "HOLD", "BURN", tileCX(l, g.col + g.mouth), y, l, 33)];
+    const x = tileCX(l, g.col + g.mouth);
+    if (g.pry < 0 && priming(world)) return [markAt(2, "HOLD", "PRY", x, y, l, 75)];
+    return [markAt(2, "HOLD", "BURN", x, y, l, 33)];
   }
   const near = gorgeNearestFull(g);
   const intake = near < 0 ? undefined : g.intakes[near];
   if (intake === undefined || !gorgeFull(intake, cfg)) return [];
-  return [markAt(2, "PRESS", "PIERCE", tileCX(l, g.col + near), y, l, 34)];
+  const x = tileCX(l, g.col + near);
+  const out = [markAt(2, "PRESS", "PIERCE", x, y, l, 34)];
+  if (g.pinch < 0) out.push(markAt(1, "HOLD", "PINCH", x, y, l, 76));
+  return out;
 }
 
 /**

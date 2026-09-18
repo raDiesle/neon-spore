@@ -6,7 +6,7 @@ import { PALETTE } from "./palette.js";
 
 /**
  * What THE GORGE leaves behind a frame: the beads leaving at the end, and the
- * bursts its nine receipts throw on the way there.
+ * bursts its twelve receipts throw on the way there.
  *
  * Everything else about the sack is drawn off the boss every frame
  * (`gorge-draw.ts`). The payoff is the exception, and it is the loudest frame
@@ -26,7 +26,10 @@ import { PALETTE } from "./palette.js";
  *
  * The bursts go through `Sparks` like any other event's, and are here rather
  * than in `effects-spark.ts`'s table because that file is at its limit and the
- * nine are one family: read once, above the loop, the way THE MIRROR's are.
+ * twelve are one family: read once, above the loop, the way THE MIRROR's are.
+ * The two thumbs' bursts are small and white — a thumb landing is the
+ * handle's colour, not the sack's — and the clench is the sack's rock, a
+ * mouth shutting on something.
  */
 
 /** Seconds a bead takes to leave the top of the frame. */
@@ -78,6 +81,15 @@ export class GorgeFx {
           break;
         case "gorgeOut":
           this.release(l, e.col, e.beads, top);
+          break;
+        case "gorgePinch":
+          burst(tileCX(l, e.col), top - l.tile * 0.5, 6, PALETTE.text);
+          break;
+        case "gorgePry":
+          burst(tileCX(l, e.col), top - l.tile * 0.5, 8, PALETTE.text);
+          break;
+        case "gorgeClench":
+          burst(tileCX(l, e.col), top, 14, PALETTE.rock);
           break;
         default:
           break;

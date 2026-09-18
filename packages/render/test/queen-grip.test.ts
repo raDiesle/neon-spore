@@ -100,6 +100,7 @@ function fieldWith(seat: 1 | 2, boss: QueenState | null, queen = queenAt()): Fie
     queen: boss,
     diastole: null,
     mirror: null,
+    gorge: null,
     controls: controlSet("default"),
     faults: [],
     well: false,

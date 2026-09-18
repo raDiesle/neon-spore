@@ -1,4 +1,4 @@
-import { diastoleClampSeat, type InstarSeat } from "@neon-spore/sim";
+import { diastoleClampSeat, gorgePinchSeat, gorgePrySeat, type InstarSeat } from "@neon-spore/sim";
 import type { ViewRole } from "./view-role.js";
 
 /**
@@ -143,3 +143,17 @@ export const showsFilamentBehind = (role: ViewRole): boolean => role !== "p1";
  */
 export const showsDiastoleClamp = (role: ViewRole): boolean =>
   role === "test" || role === `p${diastoleClampSeat}`;
+
+/**
+ * THE GORGE's two thumbs, each on the screen of the seat whose thumb it is,
+ * and the boss says which (`gorgePinchSeat`, `gorgePrySeat`,
+ * `sim/gorge-hand.ts`): the pinch is the pilot's, the seat holding the cannon
+ * on the column and shown the count; the pry is the navigator's, the seat
+ * shown the mouth's colour and loading the beam. The other seat's screen
+ * draws no ring for it, so a press there has nothing to refuse
+ * (`gorge-grip.ts`). `test` is both.
+ */
+export const showsGorgePinch = (role: ViewRole): boolean =>
+  role === "test" || role === `p${gorgePinchSeat}`;
+export const showsGorgePry = (role: ViewRole): boolean =>
+  role === "test" || role === `p${gorgePrySeat}`;

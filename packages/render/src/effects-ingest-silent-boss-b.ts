@@ -82,8 +82,8 @@ export const INGEST_SILENT_BOSS_B = [
   // above the loop with its other four, by `MirrorFx.grip` (`mirror-grip-fx.ts`).
   "mirrorGrip",
   // THE GORGE's pinch, pry and clench: the two thumbs are world state, read
-  // off `pinch` and `pry` every frame once the look lane draws the rings,
-  // and the clench is a burst there and nothing kept (`sim/gorge-hand.ts`).
+  // off `pinch` and `pry` every frame by the rings (`gorge-grip.ts`), and all
+  // three are a burst thrown by `gorge-fx.ts` and nothing kept.
   "gorgePinch",
   "gorgePry",
   "gorgeClench",

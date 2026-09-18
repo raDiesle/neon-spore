@@ -5,6 +5,7 @@ import type {
   Creature,
   DiastoleState,
   FilamentState,
+  GorgeState,
   InstarState,
   MazeState,
   MirrorState,
@@ -114,6 +115,9 @@ export interface Bindings {
   /** THE MIRROR, when it is the boss up: its two lobes, under the last round
    * and the pin (`render/mirror-grip.ts`). */
   mirror: () => MirrorState | null;
+  /** THE GORGE, when it is the boss up: the pinch's ring on a full intake
+   * and the pry's on the mouth, one seat each (`render/gorge-grip.ts`). */
+  gorge: () => GorgeState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

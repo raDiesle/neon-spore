@@ -4,6 +4,7 @@ import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
 import { diastoleClampUnder } from "./diastole-clamp.js";
 import { filamentGrabUnder } from "./filament-grip.js";
+import { gorgeGripUnder } from "./gorge-grip.js";
 import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
@@ -81,7 +82,9 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     // THE DIASTOLE's clamp on the alone chamber (`diastole-clamp.ts`).
     diastoleClampUnder(l, x, y, field) ??
     // THE MIRROR's two lobes, under its last round and its pin (`mirror-grip.ts`).
-    mirrorLobeUnder(l, x, y, field)
+    mirrorLobeUnder(l, x, y, field) ??
+    // THE GORGE's pinch and pry, in the full intakes and the mouth (`gorge-grip.ts`).
+    gorgeGripUnder(l, x, y, field)
   );
 }
 

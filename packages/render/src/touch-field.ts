@@ -4,6 +4,7 @@ import type {
   Creature,
   DiastoleState,
   FilamentState,
+  GorgeState,
   InstarState,
   MazeState,
   MirrorState,
@@ -171,6 +172,14 @@ export interface Field {
    * round with no right answer at all (`mirror-grip.ts`).
    */
   mirror: MirrorState | null;
+  /**
+   * THE GORGE, if it is the boss running, `null` otherwise. Required and
+   * stated, for the reason the twelve above are: the pinch that holds a vent
+   * off and the pry the beam needs are on the intakes and nowhere on the
+   * panel, so a caller that quietly meant `null` would leave the mouth with
+   * nothing that opens it (`gorge-grip.ts`, `sim/gorge-hand.ts`).
+   */
+  gorge: GorgeState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

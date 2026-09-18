@@ -71,6 +71,9 @@ export {
   NOT_DRAWN,
   walkFilament,
 } from "./filament.js";
+// THE GORGE's two thumbs (18 September 2026): whose the pinch and the pry are,
+// so the ring is drawn for the seat the sack will hear (`gorge-hand.ts`).
+export { gorgePinchSeat, gorgePrySeat } from "./gorge-hand.js";
 // THE HIVE's clock is the opening: a site every `hiveOpenBeats`, swelling
 // first on one screen and coloured on the other (`hive.ts`).
 export {

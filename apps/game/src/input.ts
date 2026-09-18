@@ -61,6 +61,7 @@ export function bindControls({
   queen,
   diastole,
   mirror,
+  gorge,
   creatures,
   cannonCol,
   shieldCol,
@@ -79,7 +80,7 @@ export function bindControls({
    * **Who a press is from: this device, always.** `touch.ts` signs a press with
    * the half of the band it landed on, and THE HANDOVER trades which half this
    * screen is drawing — so while the panels are away that signature is the
-   * other player's, and a lockstep refuses a press attributed to the peer
+   * other player's, and a lockstep refuses one attributed to the peer
    * (`Bindings.handed`). A hand on the *field* is already this seat's.
    */
   const from = (t: { player: 1 | 2 }): 1 | 2 => (handed() ? player() : t.player);
@@ -106,6 +107,7 @@ export function bindControls({
     queen: queen(),
     diastole: diastole(),
     mirror: mirror(),
+    gorge: gorge(),
     controls: controls(),
     faults: faults(), // in force this beat; the well's clock is one seat's (`render/well.ts`)
     well: well(),
@@ -139,8 +141,7 @@ export function bindControls({
   const releaseAll = (): void => {
     for (const [id, hold] of holding) {
       holding.delete(id);
-      // No point to report, so a half-finished swipe fires nothing — see
-      // `touchUp`. Losing the window is not a shot the player took.
+      // No point to report, so a half-finished swipe fires nothing (`touchUp`).
       const t = touchUp(layout(), hold, field());
       if (t?.command) buffer.push(from(t), t.command);
     }
@@ -208,8 +209,7 @@ export function bindControls({
   // The window losing focus (alt-tab, a click on another application) and the
   // pointer crossing the outer edge of the document (dragged past the browser
   // chrome) are the two ways a held mouse button actually goes silent on a PC.
-  // Neither can happen with a finger, which is why nothing above already
-  // covers this.
+  // Neither can happen with a finger, which is why nothing above covers this.
   window.addEventListener("blur", releaseAll);
   document.documentElement.addEventListener("pointerleave", releaseAll);
 

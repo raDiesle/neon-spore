@@ -9110,3 +9110,24 @@ The bottleneck was the hull's opacity: the body was drawn twice in the wrong
 place before the clip above the membrane made the throat read as a hole.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE GORGE's two thumbs: the look
+
+The second lane of the §6.2 item: the rings the pinch and the pry are taken
+on, one seat's screen each, the pry's dial, the three bursts, the cue words
+and the director's two rows. Most of the time was the `Field` threading — a
+new boss the hit test reads is a field on the touch record, an accessor on
+the bindings, a line in the stage, and a `null` in fifteen fixtures.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `diastole-clamp.ts` and `mirror-grip.ts` as the models, `grip-rings.ts`, the lobe geometry, the cue reader |
+| writing | 40 | `gorge-grip.ts`, the two predicates, the bursts, the cues, `field-controls-gorge.ts`, the test, §11.23 |
+| looking | 5 | one frame of the pilot's pinch |
+| friction | 15 | threading `gorge` through `Field` and fifteen fixtures; `input.ts` and `field-controls-page.ts` each needed two lines folded to stay at 250 |
+| landing | 15 | `check:fast`, the index, the commit, the land, the queue |
+
+The bottleneck was the `Field` fan-out: a boss the hit test reads costs a
+line in every touch fixture in the suite before its own file is written.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

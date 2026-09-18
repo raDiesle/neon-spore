@@ -50,6 +50,7 @@ function wellField(seat: 1 | 2 = 1, cannonCol = 5): Field {
     queen: null,
     diastole: null,
     mirror: null,
+    gorge: null,
     controls: controlSet("default"),
     faults: [],
     well: true,

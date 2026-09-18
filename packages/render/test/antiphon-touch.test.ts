@@ -73,6 +73,7 @@ function field(world: World, seat: 1 | 2, antiphon: AntiphonState | null = organ
     queen: null,
     diastole: null,
     mirror: null,
+    gorge: null,
     controls: STANDARD,
     faults: [],
     well: false,

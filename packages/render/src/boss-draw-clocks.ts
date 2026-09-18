@@ -6,6 +6,7 @@ import { drawDiastoleClamp } from "./diastole-clamp.js";
 import { drawDiastole } from "./diastole-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGorge } from "./gorge-draw.js";
+import { drawGorgeGrip } from "./gorge-grip.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { drawOrrery } from "./orrery-draw.js";
@@ -140,6 +141,8 @@ export function drawClockBoss(
   // the layout inside (`gorge-draw.ts`).
   if (boss.kind === "gorge") {
     drawGorge(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
+    // And its two thumbs' rings, on the seat's screen each is (`gorge-grip.ts`).
+    drawGorgeGrip(ctx, l, world.cfg, boss, l.role, world.beat, view.beatPhase, view.time);
     return;
   }
 
