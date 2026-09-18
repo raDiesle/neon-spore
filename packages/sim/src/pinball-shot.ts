@@ -55,6 +55,12 @@ export function resetShot(state: PinballState): void {
   state.powerDir = 1;
   state.lit = [];
   state.hitRun = 0;
+  // The nudges go with the flight they were spent on, and so does the tilt: a
+  // table tilted on one ball is a table you may nudge again on the next, which
+  // is the arcade's own rule and the only thing that keeps a tilt a cost
+  // rather than an ending (`pinball-hand.ts`).
+  state.nudges = 0;
+  state.tilted = false;
 }
 
 /**
@@ -86,4 +92,8 @@ export function launchBall(world: World, state: PinballState): void {
   state.ball.vyMilli = v.vyMilli;
   state.shot = "flight";
   state.flightBeat = world.beat;
+  // And what the shot cost the spring. A launch at the top of the bar is the
+  // one that reaches the far corner, so the round charges for it on the shot
+  // after: the bar will not run again until the plunger is wound.
+  state.slack = state.powerMilli >= world.cfg.pinballHardMilli;
 }

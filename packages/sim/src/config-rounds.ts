@@ -1,12 +1,14 @@
 import { FLEET_DEFAULTS, type FleetConfig } from "./config-fleet.js";
 import { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 import { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
+import { PINBALL_HAND_DEFAULTS, type PinballHandConfig } from "./config-pinball-hand.js";
 import { PULSE_DEFAULTS, type PulseConfig } from "./config-pulse.js";
 import { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 
 export { FLEET_DEFAULTS, FLEET_SHELL_BEATS, type FleetConfig } from "./config-fleet.js";
 export { GAUGE_DEFAULTS, type GaugeConfig } from "./config-gauge.js";
 export { PINBALL_DEFAULTS, type PinballConfig } from "./config-pinball.js";
+export { PINBALL_HAND_DEFAULTS, type PinballHandConfig } from "./config-pinball-hand.js";
 export { PULSE_DEFAULTS, type PulseConfig } from "./config-pulse.js";
 export { SNAKE_DEFAULTS, type SnakeConfig } from "./config-snake.js";
 
@@ -35,6 +37,7 @@ export interface RoundConfig
     FleetConfig,
     SnakeConfig,
     PinballConfig,
+    PinballHandConfig,
     PulseConfig {}
 
 export const ROUND_DEFAULTS: RoundConfig = {
@@ -42,5 +45,6 @@ export const ROUND_DEFAULTS: RoundConfig = {
   ...FLEET_DEFAULTS,
   ...SNAKE_DEFAULTS,
   ...PINBALL_DEFAULTS,
+  ...PINBALL_HAND_DEFAULTS,
   ...PULSE_DEFAULTS,
 };

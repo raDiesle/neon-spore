@@ -188,6 +188,12 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "snakeJaws":
     case "snakeTail":
       return target;
+    // PINBALL's two hands on its table — player 1 winding the plunger his own
+    // hard launch left slack, player 2 shoving the cabinet through a flight
+    // (`sim/pinball-hand.ts`). Sim lane only so far, as the five above.
+    case "pinPlunger":
+    case "pinTable":
+      return target;
     default:
       return assertNever(target);
   }

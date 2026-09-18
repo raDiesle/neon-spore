@@ -10,7 +10,7 @@ import { INSTAR_PHASES } from "./instar.js";
 import { LEDGER_PHASES } from "./ledger.js";
 import { MAZE_PHASES } from "./maze.js";
 import { ORRERY_PHASES } from "./orrery.js";
-import { PINBALL_PHASES } from "./pinball.js";
+import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
 import { PULSE_PHASES } from "./pulse.js";
 import { SCOUT_PHASES } from "./scout.js";
 import type { MirrorPhase } from "./simon.js";
@@ -56,7 +56,11 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   // (`snake.ts`). The second is a state the pair meets a new gesture in and
   // the sheet would be lying by omission without it.
   snake: [...SNAKE_PHASES, ...SNAKE_GRIPS],
-  pinball: PINBALL_PHASES,
+  // Both of PINBALL's axes, as SNAKE's are above: the round's clock, and
+  // where one shot has got to. Each of the three shots waits on a different
+  // thumb, and since 18 September 2026 two of them have a hand on the table
+  // as well (`pinball.ts`).
+  pinball: [...PINBALL_PHASES, ...PIN_SHOTS],
   pulse: PULSE_PHASES,
   scout: SCOUT_PHASES,
   stare: STARE_PHASES,

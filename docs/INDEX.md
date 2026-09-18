@@ -190,6 +190,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/snake-arena.ts` | What is standing on a tile, and whether a tile is a tile at all |
 | `packages/sim/src/echo-split.ts` | how an echo comes apart — which way the halves step, how long each generation waits first, and the pass that does it |
 | `packages/sim/src/config-pinball.ts` | PINBALL's numbers — the table, the ball, and what a dropped one costs |
+| `packages/sim/src/config-pinball-hand.ts` | **PINBALL's two hands on the table**: what counts as a hard launch |
 | `packages/sim/src/pinball-board.ts` | The table as arithmetic: how big it is, what a legal board looks like, and what an angle and a power add up to |
 | `packages/sim/src/pinball-contact.ts` | what the ball can touch, how deep it is into one, and the integer square root that answers |
 | `packages/sim/src/pinball-controls.ts` | The three verbs of the round, and the two seats they are split between |
@@ -496,6 +497,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
 | `packages/sim/src/events-diastole.ts` | **What THE DIASTOLE's clamp does that neither screen already says**, as two events (`diastole-hand.ts`) |
 | `packages/sim/src/events-warden.ts` | THE WARDEN's hold, throw and slam events — what the second and third hands do that neither screen already says |
+| `packages/sim/src/events-pinball.ts` | **What PINBALL's two hands on the table do that neither screen already says** |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -531,6 +533,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/surge-step.ts` | THE SURGE's clock — the charge, the leak, the feeding, the burst at the top of the gauge, the eversion |
 | `packages/sim/src/surge.ts` | THE SURGE: whether you can stop |
 | `packages/sim/src/pinball-shot.ts` | One shot of PINBALL: where the ball waits, what firing it does, and putting the loop back to the start |
+| `packages/sim/src/pinball-hand.ts` | **PINBALL's two hands on the table itself**: player 1 winding a spring his own last shot left slack |
+| `packages/sim/src/pinball-hash.ts` | What PINBALL puts into `hashWorld`, and nothing else |
+| `packages/sim/src/pinball-open.ts` | **Standing PINBALL up**: one round opened, the board loaded onto the table |
 | `packages/sim/src/beatbox-picture.ts` | **THE BEATBOX's readings that decide nothing**: how long ago a thumb counted, how long ago one missed |
 | `packages/sim/src/beat-clock.ts` | Converting between the tick line and the beat, in the one place that may |
 | `packages/sim/src/bearing.ts` | **A bearing**: where a hand is round a circle, in thousandths of a turn clockwise from the top |
@@ -1544,6 +1549,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-filament.ts` | THE FILAMENT's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
 | `packages/audio/src/bind-pod.ts` | **What the one thing on the field that is *taken* sounds like** |
+| `packages/audio/src/bind-pinball-hand.ts` | PINBALL's two hands on the table, in a file of their own for `bind-snake-body.ts`' reason |
 | `packages/audio/src/bind-coil.ts` | **THE COIL's two, as sounds**: a dome coming off, and the charge it was holding leaving for the next one |
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
 | `packages/audio/src/bind-curtain.ts` | THE CURTAIN's ten, in a file of their own for `bind-gorge.ts`' reason |
@@ -2108,6 +2114,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/poses-bosses-kit.ts` | **How a boss state is posed**: its own wave, run until the state arrives |
 | `tools/director/src/poses-bosses-queen.ts` | THE BULB QUEEN's three states — the oldest boss |
 | `tools/director/src/poses-bosses-rounds.ts` | **The rounds' states** — the bosses that take the field away and hand the pair a screen of their own… |
+| `tools/director/src/poses-bosses-rounds-b.ts` | **The rounds' states, the second page** — PINBALL's and THE PULSE's |
 | `tools/director/src/poses-bosses-hands-beats.ts` | **The states a beat earns** — THE DIASTOLE's chambers, THE BATON's crossing, THE THROAT's inhale |
 | `tools/director/src/poses-bosses-hands-shots.ts` | **The states a shot earns** on the clock bosses — THE WARDEN's plates, THE VANE's pins, THE ORRERY's rings |
 | `tools/director/src/poses-bosses-hands-clocks.ts` | **The states the pair's hands bring on the bosses that keep a ledger of their own** — THE TASTER's fan |

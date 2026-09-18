@@ -120,4 +120,10 @@ export const INGEST_SILENT_BOSS_B = [
   "snakePrise",
   "snakeLift",
   "snakeDrop",
+  // PINBALL's two hands on the table, silent until the look lane draws them:
+  // a slack spring and a tilted table are state, read off `slack` and
+  // `tilted` every frame (`sim/pinball-hand.ts`).
+  "pinWind",
+  "pinNudge",
+  "pinTilt",
 ] as const satisfies readonly SimEvent["type"][];

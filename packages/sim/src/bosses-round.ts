@@ -46,8 +46,6 @@ export {
   type PinballRound,
   type PinballState,
   type PinShot,
-  pinballCurrent,
-  pinTargetsLeft,
 } from "./pinball.js";
 export {
   pinballFault,
@@ -70,6 +68,8 @@ export {
   type PinPiece,
   type PinPieceKind,
 } from "./pinball-contact.js";
+// Standing a board up and asking what is left on it (`pinball-open.ts`).
+export { pinballCurrent, pinTargetsLeft } from "./pinball-open.js";
 export { type PinPhysics, stepBall } from "./pinball-physics.js";
 export {
   closePinball,

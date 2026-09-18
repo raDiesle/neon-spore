@@ -1,6 +1,5 @@
 import type { SimConfig } from "./config.js";
 import { MAZE_TURN, mazeCosMilli, mazeSinMilli } from "./maze.js";
-import { PIN_SHOTS, PINBALL_PHASES, type PinballState } from "./pinball.js";
 import { PIN_THIN_MILLI, type PinPiece } from "./pinball-contact.js";
 import type { PinPhysics } from "./pinball-physics.js";
 
@@ -190,55 +189,4 @@ export function pinPieceParts(pieces: readonly PinPiece[]): number[] {
 export function pinFieldCol(cfg: SimConfig, xMilli: number): number {
   const col = Math.floor((xMilli * cfg.cols) / pinWidthMilli(cfg));
   return Math.max(0, Math.min(cfg.cols - 1, col));
-}
-
-/**
- * Every number PINBALL contributes to the world fingerprint.
- *
- * Here rather than in `hash-boss.ts` for `mazeHashParts`' reason: the ball is
- * four integers and every one of them is the fight — two devices a thousandth
- * apart on a velocity take the next bounce off a different side of a peg, and
- * by the third they are playing different tables. The authored boards are in
- * for THE FLEET's reason, and `alive` because it is what a board has become.
- *
- * The type is imported for its shape only, so nothing here runs against
- * `pinball.ts` and the two files do not close a cycle.
- */
-export function pinballHashParts(boss: PinballState): number[] {
-  const out: number[] = [];
-
-  out.push(PINBALL_PHASES.indexOf(boss.phase));
-  out.push(boss.phaseBeat);
-  out.push(boss.openBeat);
-  out.push(boss.passed ? 1 : 0);
-  out.push(boss.round);
-  out.push(boss.roundBeat);
-  out.push(PIN_SHOTS.indexOf(boss.shot));
-  out.push(boss.angleMilli);
-  out.push(boss.angleDir);
-  out.push(boss.powerMilli);
-  out.push(boss.powerDir);
-  out.push(boss.ball.xMilli);
-  out.push(boss.ball.yMilli);
-  out.push(boss.ball.vxMilli);
-  out.push(boss.ball.vyMilli);
-  out.push(boss.flightBeat);
-  out.push(boss.drops);
-  out.push(boss.dropBeat);
-  out.push(boss.dropXMilli);
-  out.push(boss.catchBeat);
-  out.push(boss.hitTick);
-  out.push(boss.hitXMilli);
-  out.push(boss.hitYMilli);
-  out.push(boss.hitRun);
-  for (const n of pinPieceParts(boss.pieces)) out.push(n);
-  for (const up of boss.alive) out.push(up ? 1 : 0);
-  out.push(boss.lit.length);
-  for (const i of boss.lit) out.push(i);
-  out.push(boss.rounds.length);
-  for (const round of boss.rounds) {
-    out.push(round.beats);
-    for (const n of pinPieceParts(round.pieces)) out.push(n);
-  }
-  return out;
 }

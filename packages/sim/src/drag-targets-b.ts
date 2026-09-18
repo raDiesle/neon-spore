@@ -17,7 +17,9 @@ export type DragTargetB =
   | "vaneArm"
   | "vaneHousing"
   | "snakeJaws"
-  | "snakeTail";
+  | "snakeTail"
+  | "pinPlunger"
+  | "pinTable";
 
 /**
  * `fleetBreach`, `fleetRake` and `fleetWreck` are the twenty-seventh, -eighth
@@ -46,4 +48,15 @@ export type DragTargetB =
  * `snakeTailTiles` come off the arena while she keeps it there
  * (`snake-controls.ts`). No `id`: there is one body, and both ends of it are
  * named rather than numbered.
+ */
+
+/**
+ * `pinPlunger` and `pinTable` are the thirty-fourth and -fifth, and the second
+ * round to be given hands on its own picture. A launch above
+ * `pinballHardMilli` leaves the spring slack and player 1 has to carry the
+ * plunger back (`fromYMilli` against `pinballWindMilli`) before the bar will
+ * run again; through a flight player 2 may shove the table sideways
+ * (`fromMilli`, whose **sign is the direction** — the one place in this union
+ * a carry's direction is the whole of what it says), once, and a second shove
+ * tilts it (`pinball-hand.ts`). No `id`: one plunger and one table.
  */

@@ -59,4 +59,8 @@ export const SILENT_BOSS_B = [
   "snakePrise",
   "snakeLift",
   "snakeDrop",
+  // PINBALL's two hands, no burst until the look lane draws them.
+  "pinWind",
+  "pinNudge",
+  "pinTilt",
 ] as const satisfies readonly SimEvent["type"][];

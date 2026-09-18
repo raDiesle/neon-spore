@@ -1,5 +1,6 @@
 import { clampCol } from "./config-derived.js";
 import type { PinballState } from "./pinball.js";
+import { pinballDragHeard } from "./pinball-hand.js";
 import { launchBall } from "./pinball-shot.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -57,6 +58,12 @@ export function pinballHeard(
     // other shot, so the needle stops on the tick this arrives.
     if (player !== 1 || state.shot !== "aim") return;
     state.shot = "power";
+    return;
+  }
+  if (command.kind === "drag") {
+    // The two hands on the table itself — the plunger and the nudge, one per
+    // seat and one per shot that has a hand at all (`pinball-hand.ts`).
+    pinballDragHeard(world, state, player, command);
     return;
   }
   if (command.kind !== "launch" || player !== 2) return;

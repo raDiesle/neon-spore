@@ -12,6 +12,7 @@ import { SHOT_HAND_POSES } from "./poses-bosses-hands-shots.js";
 import { TAKE_HAND_POSES } from "./poses-bosses-hands-takes.js";
 import { QUEEN_POSES } from "./poses-bosses-queen.js";
 import { ROUND_BOSS_POSES } from "./poses-bosses-rounds.js";
+import { ROUND_BOSS_POSES_B } from "./poses-bosses-rounds-b.js";
 
 /**
  * **The BOSSES category of the STATES sheet**: one group per boss, in the
@@ -36,6 +37,7 @@ import { ROUND_BOSS_POSES } from "./poses-bosses-rounds.js";
 export const BOSS_POSES: Pose[] = [
   ...QUEEN_POSES,
   ...ROUND_BOSS_POSES,
+  ...ROUND_BOSS_POSES_B,
   ...CLOCK_BOSS_POSES,
   ...FIRST_BOSS_POSES,
   ...SHOT_HAND_POSES,

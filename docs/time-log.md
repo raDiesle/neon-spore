@@ -9469,3 +9469,25 @@ lines of 250 before it started. Each split was ten minutes of choosing a seam
 that would still be the right seam for the next boss.
 
 *Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
+
+## 2026-09-18 — queue-task-processing-cloud — PINBALL gets a hand on its own table
+
+The §6.2 sim lane for the round. It already changed state three times a shot —
+`aim`, `power`, `flight` — and had no hand on the table at all: every verb was
+on the panel or the strip, and through a flight the navigator had nothing. Now
+a hard launch leaves the spring slack and the pilot has to wind the plunger,
+and through a flight she may shove the table once before the next shove tilts
+it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the entry, THE GAUGE's §6.2 section as the model for a round, `pinball.ts`, `pinball-controls.ts`, `pinball-shot.ts`, the power step in `pinball-round.ts`, and the pose kit to find out whether a hand could reach the three shots |
+| writing | 55 | `pinball-hand.ts`, `config-pinball-hand.ts`, `events-pinball.ts`, the slack bar, the reset, `bind-pinball-hand.ts`, `sounds/boss-pinball-hand.ts`, ten cases in a new test file, the wire, `pinballHand` and three pose cards, and *Three shots, three hands* |
+| looking | 0 | none — the picture is the look lane's |
+| friction | 25 | four files over 250 in turn, each needing a real seam: `pinball-hash.ts` off the board, `pinball-open.ts` off the shape, `poses-bosses-rounds-b.ts` off the gallery, and `pinball.ts` trimmed by a paragraph. The test could not import `PIN_ROUNDS` from `content` — `sim` never does — so the board is authored in the file the way `round-end.test.ts` authors one |
+| landing | 15 | `format`, `imports:sort` and its diff read, `index`, `check:fast` three times, the commit, the land |
+
+The bottleneck was the file ceilings again, and it is the third lane in a row
+to say so: every §6.2 lane adds two `DragTarget`s, three events, a config file
+and a state field, and the files those are names in were sized for the boss
+before this brief existed.

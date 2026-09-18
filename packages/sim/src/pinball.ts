@@ -1,5 +1,4 @@
 import type { PinBall, PinPiece } from "./pinball-contact.js";
-import type { World } from "./world.js";
 
 /**
  * PINBALL: the ship's cannon is both the gun and the glove.
@@ -41,10 +40,22 @@ import type { World } from "./world.js";
  * (`docs/decisions.md` #21). What is still at stake is the same hull as ever:
  * `pinball-round.ts` breaks it on a dropped ball and on the clock.
  *
- * This file is the state. The table's arithmetic is `pinball-board.ts`, the
+ * **And since 18 September 2026 each shot asks for a hand on the table**
+ * (`docs/spec/interludes.md`, PINBALL's *Three shots, three hands*): a launch
+ * above `pinballHardMilli` leaves the spring slack and the bar will not run
+ * until player 1 winds the plunger, and through a flight player 2 may nudge
+ * the table once before a second shove tilts it. Both are entered by the
+ * pair's own last answer, which is THE GAUGE's shape for the same brief.
+ *
+ * This file is the shape of it and nothing else. Building one and standing the
+ * board up for a round is `pinball-open.ts`, which is the only half of the
+ * state that needs the world — SNAKE's seam, cut here the day the round gained
+ * two hands and took this file over its limit. The table's arithmetic is
+ * `pinball-board.ts`, the
  * ball itself is `pinball-physics.ts`, one shot of it is `pinball-shot.ts`,
- * the verbs are `pinball-controls.ts`, and the clock the whole thing hangs off
- * is `pinball-round.ts`.
+ * the verbs are `pinball-controls.ts`, the two hands on the table are
+ * `pinball-hand.ts`, and the clock the whole thing hangs off is
+ * `pinball-round.ts`.
  */
 
 /**
@@ -160,64 +171,23 @@ export interface PinballState {
   hitYMilli: number;
   /** How many targets this one shot has taken, counting the one above. */
   hitRun: number;
-}
-
-export function openPinball(world: World, rounds: readonly PinballRound[]): PinballState {
-  // A wave that carries this boss and authors nothing is a round with no way
-  // to end — SNAKE's objection, and it is worth the same throw.
-  if (rounds.length === 0) throw new Error("a pinball wave with no rounds is not a round");
-  const state: PinballState = {
-    kind: "pinball",
-    phase: "morph",
-    phaseBeat: world.beat,
-    openBeat: world.beat,
-    passed: false,
-    rounds: rounds.map((r) => ({ beats: r.beats, pieces: r.pieces.map((p) => ({ ...p })) })),
-    round: 0,
-    roundBeat: world.beat,
-    pieces: [],
-    alive: [],
-    lit: [],
-    shot: "aim",
-    angleMilli: 0,
-    angleDir: 1,
-    powerMilli: 0,
-    powerDir: 1,
-    ball: { xMilli: 0, yMilli: 0, vxMilli: 0, vyMilli: 0 },
-    flightBeat: world.beat,
-    drops: 0,
-    dropBeat: -1,
-    dropXMilli: 0,
-    catchBeat: -1,
-    hitTick: -1,
-    hitXMilli: 0,
-    hitYMilli: 0,
-    hitRun: 0,
-  };
-  loadBoard(state);
-  return state;
-}
-
-/** The round being played. Clamped, so a state read after the last one answers. */
-export function pinballCurrent(state: PinballState): PinballRound {
-  const round = state.rounds[Math.min(state.round, state.rounds.length - 1)];
-  if (round === undefined) throw new Error("a pinball round with no rounds left to play");
-  return round;
-}
-
-/** The current round's board onto the table, everything standing. */
-export function loadBoard(state: PinballState): void {
-  const round = pinballCurrent(state);
-  state.pieces = round.pieces.map((p) => ({ ...p }));
-  state.alive = state.pieces.map(() => true);
-  state.lit = [];
-}
-
-/** Targets still standing. Zero is the round passed. */
-export function pinTargetsLeft(state: PinballState): number {
-  let left = 0;
-  for (let i = 0; i < state.pieces.length; i++) {
-    if (state.alive[i] === true && state.pieces[i]?.target === true) left += 1;
-  }
-  return left;
+  /**
+   * Whether the spring is slack, because the last launch went out above
+   * `pinballHardMilli`.
+   *
+   * While it is, the power bar does not run at all and player 2 has nothing to
+   * launch: player 1 has to wind the plunger first (`pinPlunger`,
+   * `pinball-hand.ts`). It is the round's own bargain with itself — a shot
+   * fired at the top of the bar is the one that reaches the far corner of the
+   * board, and it costs the pair a gesture on the shot after it.
+   */
+  slack: boolean;
+  /**
+   * Nudges spent on this flight. The table takes `pinballNudges` of them and
+   * **tilts** on the next, which kills her hand for the rest of the flight —
+   * the arcade rule, and the one place this round could take it whole.
+   */
+  nudges: number;
+  /** Whether this flight has been tilted. Cleared when the shot resets. */
+  tilted: boolean;
 }

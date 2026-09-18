@@ -133,4 +133,13 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.snakeLift":
     "player 2's thumb lifting the last tiles of the tail clear of the arena under shed, so the head may pass through where they stood. Same argument.",
   "boss.snakeDrop": "the same tail back down when her thumb comes off it. Same argument.",
+  // PINBALL's two hands on the table. The subject is a cabinet, and the sheet
+  // has no card for one — the round throws the field away altogether
+  // (`sim/pinball-hand.ts`, `docs/spec/interludes.md`).
+  "boss.pinWind":
+    "player 1 winding the plunger back after his own hard launch left the spring slack, which is the only thing that starts the bar running again. The plunger's, and the sheet has no card for a cabinet.",
+  "boss.pinNudge":
+    "player 2 shoving the table through a flight, which moves the ball the way she shoved and is the one thing she has while it falls. Same argument.",
+  "boss.pinTilt":
+    "the shove after the last one she had: the table tilts and her hand is dead for the rest of the flight. Same argument.",
 };

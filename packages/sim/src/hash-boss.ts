@@ -6,7 +6,7 @@ import { GAUGE_PHASES } from "./gauge.js";
 import { clockHashParts } from "./hash-boss-clocks.js";
 import { scarHashParts } from "./hull-types.js";
 import { mazeHashParts } from "./maze-hash.js";
-import { pinballHashParts } from "./pinball-board.js";
+import { pinballHashParts } from "./pinball-hash.js";
 import { pulseHashParts } from "./pulse-hash.js";
 import { repriseHashParts } from "./reprise-state.js";
 import { scoutHashParts } from "./scout-hash.js";

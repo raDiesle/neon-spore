@@ -89,6 +89,12 @@ const ACCEPTED: Command[] = [
   // leave one device driving through a tail the other one is standing on.
   { kind: "drag", target: "snakeJaws", on: false, fromMilli: 0, fromYMilli: 1500 },
   { kind: "drag", target: "snakeTail", on: true, fromMilli: 0, fromYMilli: 0 },
+  // PINBALL's two hands on the table: player 1 winding the plunger, player 2
+  // shoving the cabinet — and the shove's `fromMilli` is the one carry in
+  // this list whose **sign** is the whole of what it says, so a codec that
+  // dropped it would send the ball the other way on one device.
+  { kind: "drag", target: "pinPlunger", on: false, fromMilli: 0, fromYMilli: 1500 },
+  { kind: "drag", target: "pinTable", on: false, fromMilli: -1200, fromYMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -206,6 +212,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   vaneHousing: true,
   snakeJaws: true,
   snakeTail: true,
+  pinPlunger: true,
+  pinTable: true,
   crank: true,
   orreryRing: true,
 };

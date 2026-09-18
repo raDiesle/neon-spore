@@ -1,16 +1,9 @@
 import { midCol } from "./config.js";
 import { type BreachWeight, breachHull } from "./hull.js";
-import {
-  loadBoard,
-  openPinball,
-  type PinballPhase,
-  type PinballRound,
-  type PinballState,
-  pinballCurrent,
-  pinTargetsLeft,
-} from "./pinball.js";
+import type { PinballPhase, PinballRound, PinballState } from "./pinball.js";
 import { pinFieldCol, pinHeightMilli, pinPhysics, pinPower, pinSweep } from "./pinball-board.js";
 import { pinballHeard } from "./pinball-controls.js";
+import { loadBoard, openPinball, pinballCurrent, pinTargetsLeft } from "./pinball-open.js";
 import { stepBall } from "./pinball-physics.js";
 import { pinCaught, resetShot } from "./pinball-shot.js";
 import type { Command } from "./types.js";
@@ -94,9 +87,15 @@ export function stepPinballRound(world: World): void {
     state.angleMilli = swept.angleMilli;
     state.angleDir = swept.dir;
   } else if (state.shot === "power") {
-    const bar = pinPower(world.cfg, state.powerMilli, state.powerDir);
-    state.powerMilli = bar.powerMilli;
-    state.powerDir = bar.dir;
+    // A slack spring is a bar that does not run, so there is nothing for
+    // player 2 to launch on until player 1 has wound the plunger
+    // (`pinball-hand.ts`). The needle stays latched where he put it: what the
+    // hard shot cost is the moment and the strength, not the aim.
+    if (!state.slack) {
+      const bar = pinPower(world.cfg, state.powerMilli, state.powerDir);
+      state.powerMilli = bar.powerMilli;
+      state.powerDir = bar.dir;
+    }
   } else {
     flyBall(world, state);
   }

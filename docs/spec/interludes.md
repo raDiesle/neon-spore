@@ -353,6 +353,77 @@ come out is either the half she is not shown or the one thing she is: *which
 way* is the answer, and it is his to say. A cue that turned her would be a
 second driver.
 
+### Three shots, three hands
+
+*18 September 2026, `.claude/skills/new-boss` §6.2. The simulation is
+`packages/sim/src/pinball-hand.ts`, and the two numbers are
+`config-pinball-hand.ts`.*
+
+PINBALL already changed state three times a shot — `aim`, `power`, `flight`,
+each waiting on a different thumb, which is what makes the round a conversation
+rather than three people's worth of buttons on two devices. What it did not
+have was a hand on **the table**: every verb was on the panel or on the strip,
+and through a flight the navigator had nothing at all. Both of the new ones are
+on the picture, and both are entered by the pair's **own last answer** — THE
+GAUGE's shape for the same brief, and for the same reason: the round is never
+in a state the two of them did not just put it in.
+
+| Shot | Waiting on | What is new |
+|---|---|---|
+| `aim` | player 1's latch | nothing: the needle sweeps and the pair talks over it |
+| `power` | player 2's launch | **the spring may be slack.** A launch above `pinballHardMilli` leaves it so, and the bar does not run at all until player 1 carries the plunger back (`pinPlunger`, `pinballWindMilli`) |
+| `flight` | nobody — the ball is out of their hands | **the nudge.** Player 2 may shove the table sideways (`pinTable`, `pinballNudgeMilli`), once, and the ball takes `pinballNudgeShoveMilli` the way she shoved. The shove after that **tilts** it and her hand is dead for the rest of the flight |
+
+**The wind is the price of the shot they just took.** A launch at the top of
+the bar is the one that reaches the far corner of the board, and the top tenth
+is about a tenth of a second wide at each end of a cycle that runs in 2.1 s —
+so it is a thing the pair *aims* for rather than drifts into. The round charges
+for it on the shot after, in the seat that owns *where from*: he wound it, he
+winds it back. The aim is untouched, because the needle is still latched where
+he left it — what a hard shot costs is the moment and the strength, which are
+hers.
+
+**The nudge is the one thing she has while a ball falls.** This round's own
+header says nothing either of them presses reaches a ball in the air, and the
+strip is the only control that answers — which leaves her watching. One shove a
+flight, in a direction and not to a place: `pinballNudgeShoveMilli` is enough
+to move a ball a peg over by the time it has fallen a third of the table and
+nowhere near enough to place it, because a nudge that could aim would make the
+needle and the bar into decoration. `pinballNudges` is how many
+the table takes before the next one tilts it, and it is **one** — two would
+make the nudge a second steering control and nought would make it a rule with
+nothing on the other side. The shove after it is a **tilt**, which is the
+arcade's own rule and the reason the nudge is worth a sentence: *not yet* is
+now a thing the pair has to say to each other.
+
+**Nothing new can hurt them.** A wind too short, a shove too short, a shove
+off a flight, a shove after the tilt — each does nothing. A tilt costs a hand
+and never the hull; the hull is still broken by a dropped ball and by the
+clock, in `pinball-round.ts`, exactly as it was.
+
+**Where the hands live.** `pinball-hand.ts` hears both, from
+`pinball-controls.ts` beside the three verbs, and refuses each to the seat it
+does not belong to — the rule of the simulation those three are already held
+to. `PinballState` gained `slack`, `nudges` and `tilted`, all hashed
+(`pinball-hash.ts`, cut off `pinball-board.ts` the same day for its limit);
+`resetShot` clears the last two, because a table tilted on one ball may be
+nudged again on the next. The three events — `pinWind`, `pinNudge`, `pinTilt`
+— are `events-pinball.ts`, the round's first, cued by `bind-pinball-hand.ts`
+and voiced by `sounds/boss-pinball-hand.ts`. They are the first cues in the
+game with **no column**: the table is drawn whole on both screens and the
+round has thrown the field away.
+
+**The STATES sheet now names all three shots**, with a card and a hand each
+(`poses-bosses-rounds.ts`, `pinballHand`) — the first round whose second axis
+of state is fully posed.
+
+**What is not built** (sim lane, 18 September 2026): the picture. The plunger
+is drawn the same whether the spring is slack or wound, nothing marks the table
+as a thing a thumb may shove, a tilt shows nowhere at all, and the three events
+are on both silent lists. *Never watched at tempo*: whether a shove is a
+gesture a thumb can make on a phone while the other hand is nowhere, and
+whether one nudge is too few.
+
 ### Three bodies, three gestures
 
 The round as first built asked the same four things of the pair from the first

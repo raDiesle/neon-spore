@@ -9,6 +9,7 @@ import type { HiveEvent } from "./events-hive.js";
 import type { InstarEvent } from "./events-instar.js";
 import type { LeadEvent } from "./events-lead.js";
 import type { LedgerEvent } from "./events-ledger.js";
+import type { PinballEvent } from "./events-pinball.js";
 import type { QueenEvent } from "./events-queen.js";
 import type { ScuttleEvent } from "./events-scuttle.js";
 import type { SinewEvent } from "./events-sinew.js";
@@ -63,7 +64,8 @@ export type BossEvent =
   | DiastoleEvent
   | WardenEvent
   | VaneEvent
-  | SnakeEvent;
+  | SnakeEvent
+  | PinballEvent;
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
@@ -76,6 +78,7 @@ export type { HiveEvent } from "./events-hive.js";
 export type { InstarEvent } from "./events-instar.js";
 export type { LeadEvent } from "./events-lead.js";
 export type { LedgerEvent } from "./events-ledger.js";
+export type { PinballEvent } from "./events-pinball.js";
 export type { QueenEvent } from "./events-queen.js";
 export type { ScuttleEvent } from "./events-scuttle.js";
 export type { SinewEvent } from "./events-sinew.js";
