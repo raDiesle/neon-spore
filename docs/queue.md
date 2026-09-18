@@ -390,18 +390,6 @@ before a bolt could reach them stay open for good — so `hive: ["down"]` is
 the one allowance left in `tools/director/test/boss-states.test.ts`'s
 `OWED` for a field boss, struck the commit the answer lands.
 
-## BULB QUEEN changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-bulb-queen-changes-state-more-than-once-and-asks
-- **Files:** `packages/sim/src/queen-mark.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-
-It is answered today on the ordinary panel, over 1 file of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE MIRROR changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
