@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · fb511188 — THE VANE says MOVE and FIRE in the window, and nothing about the fold
+
+Two words, one per seat, for the beats the housing is split: CARRY / MOVE on the cannon where it stands while the pilot is not under the mouth, out again the moment he arrives, and PRESS / FIRE on the mouth itself for as long as the opening stands unspent. Hers does not wait for his cannon to get there — the cannon is not drawn on her screen — so the timing stays where the fight put it, which is in his mouth.
+
 ## 2026-09-18 · c53a6190 — THE FLEET says FIRE on the sights, and says nothing to the navigator
 
 The pilot is told his own verb at the moment it will land: PRESS / FIRE on the sights while they stand in a square that carries a hull and has not been fired at. Both of those are on his screen already (`showsFleetHulls`), so the word says what his thumb does rather than which square it is standing in, and it goes out while the salvo rests — the rest is the shell's own flight, and a word over a trigger that is refusing is an invitation to press nothing. It draws no frame of its own: the sights are four corner brackets, which is the cue's own picture.
