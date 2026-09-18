@@ -9446,3 +9446,26 @@ read the last boss that did the same thing end to end. The typechecker found
 five of them for free, which is the argument for the closed lists.
 
 *Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
+
+## 2026-09-18 — queue-task-processing-cloud — SNAKE's body is a second state
+
+The §6.2 sim lane for the round. The body's length was already the difficulty
+and the health bar; it is the state as well now. Past `snakeGorgeTiles` the
+jaws stick and MAW is a dead button — player 1 prises them apart on the head;
+past `snakeShedTiles` the tail drags and player 2 may lift its last tiles off
+the arena with the hand she steers with.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the entry, §SNAKE in `docs/spec/interludes.md`, `snake.ts`, `snake-controls.ts`, `snake-move.ts`, `snake-arena.ts`, the authored rounds to find lengths the states are actually reached at, and the director's pose kit to find out whether a hand could reach them |
+| writing | 60 | `SNAKE_GRIPS` and `snakeGrip`/`snakeLifted`, four config fields, the two hands in `snake-controls.ts`, `events-snake.ts`, the lifted tail in the step, `bind-snake-body.ts`, `sounds/boss-snake-body.ts`, thirteen cases in a new test file, the wire, the guide, the cue's word, the `crawl` card, and *Three bodies, three gestures* |
+| looking | 0 | none — the picture is the look lane's, and it is named in *What is not built* |
+| friction | 20 | three files over 250 in turn — `boss-surface.ts` and `bind-choreographed.ts` each wanted a real second page, and `drag-targets-b.ts` had been formatted onto one line so the first patch silently did nothing; the tail-lift test was written expecting the lift not to reach the tile ahead and the run said it did, which was the better assertion |
+| landing | 15 | `format`, `imports:sort` and its diff read, `index`, `check:fast` twice, two queue entries, the commit, the land |
+
+The bottleneck was the file ceilings: the lane is one boolean and two
+thresholds, and three of the files it has to be a name in were within a few
+lines of 250 before it started. Each split was ten minutes of choosing a seam
+that would still be the right seam for the next boss.
+
+*Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*

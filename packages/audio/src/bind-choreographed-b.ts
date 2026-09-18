@@ -1,0 +1,52 @@
+import type { SimEvent } from "@neon-spore/sim";
+import type { Cue } from "./bind-cue.js";
+import { snakeBodyCue } from "./bind-snake-body.js";
+import { vaneCue } from "./bind-vane.js";
+import { wardenHandCue } from "./bind-warden-hand.js";
+
+/**
+ * **The hands the §6.2 lanes added to bosses that had already shipped**, cut
+ * off `bind-choreographed.ts` the day SNAKE's two took that file over its
+ * 250-line limit.
+ *
+ * The seam is not arbitrary. Everything next door is a boss's *own* events,
+ * named by prefix because a boss of that page arrives with nine or ten at
+ * once; these are the two or three a **shipped** boss gains when the owner's
+ * standing brief gives it another gesture (`.claude/skills/new-boss` §6.2), and
+ * they have to be named one by one because the rest of that boss's events were
+ * bound in `bind.ts` years of commits earlier. One page per kind of arrival,
+ * and this one grows by three names per boss the brief reaches.
+ */
+export type HandEvent = Extract<
+  SimEvent,
+  {
+    type: // THE WARDEN's second and third: `wardenDown` and the rope's three are
+    // `bind.ts`'s and stay there.
+      | "wardenHold"
+      | "wardenThrow"
+      | "wardenSlam"
+      // THE VANE's two hands, which are the boss's only events at all.
+      | "vanePin"
+      | "vaneSlip"
+      | "vaneHaul"
+      // And SNAKE's two, the first a *round* has had.
+      | "snakePrise"
+      | "snakeLift"
+      | "snakeDrop";
+  }
+>;
+
+export function handCue(e: HandEvent, cols: number): Cue {
+  switch (e.type) {
+    case "wardenHold":
+    case "wardenThrow":
+    case "wardenSlam":
+      return wardenHandCue(e, cols);
+    case "vanePin":
+    case "vaneSlip":
+    case "vaneHaul":
+      return vaneCue(e, cols);
+    default:
+      return snakeBodyCue(e, cols);
+  }
+}

@@ -439,24 +439,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## SNAKE changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-snake-changes-state-more-than-once-and-asks-for
-- **Files:** `packages/sim/src/config-snake.ts`, `packages/sim/src/snake-arena.ts`, `packages/sim/src/snake-controls.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-
-It is answered today on its own panel (`snake`), over 8 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## SNAKE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1740,3 +1722,42 @@ and wants an eye: a ring on the tip that says a thumb may stop it, the
 navigator's on the housing under SEIZE, the pin's remaining beats read off the
 arm rather than off a bar, and the slip. *What is not built* under §11.5 lists
 them; the three events are on both silent lists until they are drawn.
+
+## SNAKE's gorge and shed have no card, because no hand can drive the body to them
+
+- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Files:** `tools/director/test/boss-states.test.ts`, `tools/director/src/poses-bosses-rounds.ts`, `tools/director/src/boss-hands-rounds.ts`, `packages/sim/src/snake.ts`
+
+The §6.2 sim lane gave SNAKE a second axis of state — what the body has become,
+off its own length (`snakeGrip`) — and `BOSS_PHASES` now names all three. Only
+`crawl` has a pose: the body opens at three tiles and is already in it.
+
+`gorge` is two points swallowed and `shed` is four, and round one authors
+three — so `shed` is not reachable at all until the third round, which means
+winning the two before it. Both are on `OWED` with that reason, which is an
+allowance and not an answer: a state nobody can photograph is a state nobody
+reviews.
+
+What it wants is a `snakeHand` beside `gaugeHand` and `mazeHand`: steer toward
+the nearest standing point, prise or press the mouth open on the last step
+before it, and fire at an enemy `snakeShotStop` says is in reach. It does not
+need to be good — a pose runs until the state arrives and throws if it does
+not — but it does need to avoid the meteors and its own tail, which is the
+round. Whoever writes it takes both names off `OWED` in the same commit.
+
+## `packages/content/src/waves/act-4.ts` is ten lines under the ceiling
+
+- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Files:** `packages/content/src/waves/act-4.ts`, `packages/content/src/waves.ts`
+
+240 lines of 250, and `tools/hooks/after-edit-size.ts` asked for the seam to be
+chosen while the diff that found it was still open — it was not, because that
+diff was two lines of a guide and the split is not about it.
+
+The convention act seven is built on is that a full page is cut at its **end**
+and the overflow takes the next letter (`act-7c.ts` → `act-7d.ts`), and act
+four has no letters yet, so the cut here is the cheap one: the tail of the act
+into an `act-4b.ts` beside it, spread in sequence by `waves.ts`. Act seven's
+own entry above is the same question asked where the answer is expensive
+because the page that filled is not the last one; this one is still the last
+one, and it costs a file and a line.

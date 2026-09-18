@@ -45,6 +45,7 @@ export function openSnake(world: World, rounds: readonly SnakeRound[]): SnakeSta
     struck: [],
     taken: [],
     mawTick: LONG_AGO,
+    tailHeld: false,
     shotBeat: LONG_AGO,
     shotCol: -1,
     shotRow: -1,

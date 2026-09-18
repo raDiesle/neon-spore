@@ -67,15 +67,23 @@ export function snakeCleared(snake: SnakeState): boolean {
  * Whether the body is on this tile. `spareTail` is the one tile that is about
  * to be vacated: the tail moves off it on the same step the head moves onto
  * it, so a body going round its own end is a corner and not a bite.
+ *
+ * `lifted` is how many tiles of the tail are off the arena altogether, which
+ * under `shed` is player 2's thumb (`snakeLifted`). Counted from the end, so
+ * what she lifts is always the part furthest from the head — the part she can
+ * afford to and the part in the way.
  */
 export function snakeOccupies(
   snake: SnakeState,
   col: number,
   row: number,
   spareTail = false,
+  lifted = 0,
 ): boolean {
   const last = snake.body.length - 1;
+  const floor = snake.body.length - Math.max(0, lifted);
   for (let i = 0; i < snake.body.length; i++) {
+    if (i >= floor) continue;
     if (spareTail && i === last) continue;
     const tile = snake.body[i];
     if (tile && tile.col === col && tile.row === row) return true;

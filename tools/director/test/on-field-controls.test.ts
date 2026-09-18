@@ -182,6 +182,12 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "vaneArm":
     case "vaneHousing":
       return target;
+    // SNAKE's two hands on its own body — player 1 prising the jaws that have
+    // stuck, player 2 lifting the tail clear of the arena
+    // (`sim/snake-controls.ts`). Sim lane only so far, as the three above.
+    case "snakeJaws":
+    case "snakeTail":
+      return target;
     default:
       return assertNever(target);
   }

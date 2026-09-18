@@ -55,4 +55,8 @@ export const SILENT_BOSS_B = [
   "vanePin",
   "vaneSlip",
   "vaneHaul",
+  // SNAKE's two hands, no burst until the look lane draws them.
+  "snakePrise",
+  "snakeLift",
+  "snakeDrop",
 ] as const satisfies readonly SimEvent["type"][];

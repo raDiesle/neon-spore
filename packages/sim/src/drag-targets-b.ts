@@ -10,7 +10,14 @@
  * unions this in, so `DragTarget` is one name and nothing that reaches for it
  * knows there are two pages.
  */
-export type DragTargetB = "fleetBreach" | "fleetRake" | "fleetWreck" | "vaneArm" | "vaneHousing";
+export type DragTargetB =
+  | "fleetBreach"
+  | "fleetRake"
+  | "fleetWreck"
+  | "vaneArm"
+  | "vaneHousing"
+  | "snakeJaws"
+  | "snakeTail";
 
 /**
  * `fleetBreach`, `fleetRake` and `fleetWreck` are the twenty-seventh, -eighth
@@ -27,4 +34,16 @@ export type DragTargetB = "fleetBreach" | "fleetRake" | "fleetWreck" | "vaneArm"
  * They are the first pair on a boss whose whole body is a *mechanism* rather
  * than a creature, so a hand on either is a hand on the thing deciding where
  * the wave lands — which is why the pin is in `hashWorld` (`vane-hash.ts`).
+ */
+
+/**
+ * `snakeJaws` and `snakeTail` are the thirty-second and -third, and the first
+ * two on a **round** rather than on a field boss: the arena is not the field
+ * and the body is the whole of the picture in it. Past `snakeGorgeTiles` the
+ * jaws stick and player 1 prises them apart on the head (`fromYMilli` against
+ * `snakeJawsMilli`) in place of the MAW press, which from there does nothing;
+ * past `snakeShedTiles` player 2 rests a thumb on the tail and its last
+ * `snakeTailTiles` come off the arena while she keeps it there
+ * (`snake-controls.ts`). No `id`: there is one body, and both ends of it are
+ * named rather than numbered.
  */

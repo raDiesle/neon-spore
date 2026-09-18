@@ -117,11 +117,17 @@ export {
 } from "./pulse-round.js";
 
 export {
+  SNAKE_GRIPS,
   SNAKE_PHASES,
+  type SnakeGrip,
   type SnakePhase,
   type SnakeRound,
   type SnakeState,
   type SnakeTile,
+  // What the body has become, off its own length — read by the STATES sheet
+  // and the picture, never re-derived from `body.length` (`snake.ts`).
+  snakeGrip,
+  snakeLifted,
 } from "./snake.js";
 
 export { snakeCrashed, snakePointAt } from "./snake-arena.js";

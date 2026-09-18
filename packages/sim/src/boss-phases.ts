@@ -14,7 +14,7 @@ import { PINBALL_PHASES } from "./pinball.js";
 import { PULSE_PHASES } from "./pulse.js";
 import { SCOUT_PHASES } from "./scout.js";
 import type { MirrorPhase } from "./simon.js";
-import { SNAKE_PHASES } from "./snake.js";
+import { SNAKE_GRIPS, SNAKE_PHASES } from "./snake.js";
 import { STARE_PHASES } from "./stare.js";
 import { TASTER_PHASES } from "./taster.js";
 import { THROAT_PHASES } from "./throat.js";
@@ -52,7 +52,10 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   vane: VANE_PHASES.map((p) => p.name.toLowerCase()),
   maze: MAZE_PHASES,
   gauge: GAUGE_PHASES,
-  snake: SNAKE_PHASES,
+  // Both of SNAKE's axes: the round's clock, and what the body has become
+  // (`snake.ts`). The second is a state the pair meets a new gesture in and
+  // the sheet would be lying by omission without it.
+  snake: [...SNAKE_PHASES, ...SNAKE_GRIPS],
   pinball: PINBALL_PHASES,
   pulse: PULSE_PHASES,
   scout: SCOUT_PHASES,

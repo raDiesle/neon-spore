@@ -60,6 +60,27 @@
 export const SNAKE_PHASES = ["morph", "play", "verdict", "spent"] as const;
 export type SnakePhase = (typeof SNAKE_PHASES)[number];
 
+/**
+ * **What the body has become, which is a second state and not a second clock**
+ * (`docs/spec/interludes.md`, SNAKE's *Three bodies, three gestures*).
+ *
+ * The phases above are the round's clock — arriving, playing, judged, put
+ * away. This is the *body*, and it follows from how long it is and nothing
+ * else: the thing that already grows a tile per point and is already both the
+ * difficulty and the health bar. So the round escalates on the way to being
+ * won rather than on the way to running out of beats, and the pair can see it
+ * coming on the screen that carries the body.
+ *
+ * - `crawl`: the four verbs as the round was built.
+ * - `gorge`: past `snakeGorgeTiles` the jaws stick. The MAW press does
+ *   nothing; player 1 prises them apart on the head itself (`snakeJaws`).
+ * - `shed`: past `snakeShedTiles` the tail drags, and it is the thing most
+ *   likely to kill them. Player 2 may lift the last `snakeTailTiles` clear
+ *   with a thumb on the tail (`snakeTail`) — with her steering hand.
+ */
+export const SNAKE_GRIPS = ["crawl", "gorge", "shed"] as const;
+export type SnakeGrip = (typeof SNAKE_GRIPS)[number];
+
 /** One tile of the arena. Never a column of the field. */
 export interface SnakeTile {
   col: number;
@@ -143,6 +164,15 @@ export interface SnakeState {
   taken: number[];
   /** `world.tick` the mouth was last opened. It stands for `snakeMawTicks`. */
   mawTick: number;
+  /**
+   * Whether player 2's thumb is resting on the tail, under `shed`.
+   *
+   * While it is, the last `snakeTailTiles` of the body are lifted clear of the
+   * arena and the head may pass through them (`snake-arena.ts`). It is the one
+   * thing in the round that makes the body less dangerous, and it costs her
+   * the hand she steers with — which is the whole of the trade.
+   */
+  tailHeld: boolean;
   /** `world.beat` of the last shot, for the rest between two and for the picture. */
   shotBeat: number;
   /** Where that shot stopped, so the picture can draw the line it took. */
@@ -170,6 +200,37 @@ export interface SnakeState {
    */
   bumpCol: number;
   bumpRow: number;
+}
+
+/**
+ * What the body has become, off its own length. Never stored — the length is
+ * the whole of it, the way `wardenPhase` reads the plates and `vanePhase` the
+ * pins. The first row whose bound the body is still under.
+ */
+export function snakeGrip(cfg: SnakeGripBounds, snake: SnakeState): SnakeGrip {
+  if (snake.body.length > cfg.snakeShedTiles) return "shed";
+  if (snake.body.length > cfg.snakeGorgeTiles) return "gorge";
+  return "crawl";
+}
+
+/** The two lengths `snakeGrip` reads, as little of `SimConfig` as it needs. */
+export interface SnakeGripBounds {
+  snakeGorgeTiles: number;
+  snakeShedTiles: number;
+}
+
+/**
+ * How many tiles of the tail are off the arena this tick: the last
+ * `snakeTailTiles` while her thumb is down under `shed`, and none otherwise.
+ * One place, because the step and the picture must not disagree about which
+ * tiles the head may pass through.
+ */
+export function snakeLifted(
+  cfg: SnakeGripBounds & { snakeTailTiles: number },
+  snake: SnakeState,
+): number {
+  if (!snake.tailHeld || snakeGrip(cfg, snake) !== "shed") return 0;
+  return Math.min(cfg.snakeTailTiles, Math.max(0, snake.body.length - 1));
 }
 
 /** The round being played. Clamped, so a state read after the last one still answers. */

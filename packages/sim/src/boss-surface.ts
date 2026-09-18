@@ -15,6 +15,9 @@
 // And the clock bosses' names, whole — a list of the same kind, cut for the
 // same reason `bosses.ts` was (`boss-surface-clocks.ts`).
 export * from "./boss-surface-clocks.js";
+// And SNAKE's, whole: the round with two axes of state and the only one with
+// a gesture on its own body (`boss-surface-snake.ts`).
+export * from "./boss-surface-snake.js";
 export {
   BOSS_KINDS,
   // The union itself: `render/touch-field.ts` carries one boss rather than one
@@ -162,11 +165,6 @@ export {
   type ScoutPhase,
   type ScoutPoint,
   type ScoutState,
-  SNAKE_MORPH_BEATS,
-  type SnakeEntry,
-  type SnakeRound,
-  type SnakeState,
-  type SnakeTile,
   SPLICE_FIRST_STRAWS,
   SPLICE_SETTLE_BEATS,
   type SpliceEntry,
@@ -185,15 +183,6 @@ export {
   shipCol,
   shipCovers,
   shipRow,
-  snakeCrashed,
-  snakeHolds,
-  // What is standing on a tile and where a shot would stop: the field's own
-  // word for this round is read off these two rather than off a second walk
-  // of the arena (`render/boss-cue-read-g.ts`).
-  snakePointAt,
-  snakeResting,
-  snakeRound,
-  snakeShotStop,
   spliceCurrent,
   spliceEntranceRow,
   spliceNumberAt,

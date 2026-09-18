@@ -36,6 +36,10 @@ export function snakeHashParts(b: SnakeState): number[] {
   push(b.stepTick);
   push(b.grow);
   push(b.mawTick);
+  // Her thumb on the tail. Under `shed` it decides which tiles the head may
+  // pass through, so two devices that disagree about it are two devices with
+  // two different verdicts on the same corner (`snake-arena.ts`).
+  push(b.tailHeld ? 1 : 0);
   push(b.shotBeat);
   push(b.shotCol);
   push(b.shotRow);

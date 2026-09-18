@@ -226,6 +226,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-surface.ts` | Every name the boss code puts on `@neon-spore/sim`'s surface, written out |
 | `packages/sim/src/boss-surface-clocks.ts` | **The clock bosses' half of the surface**, written out the same way |
 | `packages/sim/src/boss-surface-clocks-b.ts` | **The clock bosses' half of the surface, the second page** — from THE ANTIPHON on |
+| `packages/sim/src/boss-surface-snake.ts` | **SNAKE's names on `@neon-spore/sim`'s surface** |
 | `packages/sim/src/handle-pull.ts` | a hand is carrying a handle and you need to know how far it may go — the taut length, the field it may not leave, and how taut is measured |
 | `packages/sim/src/wave-end.ts` | How a wave ends, in one place, because two paths reach it |
 | `packages/sim/src/wave-fail.ts` | A hit fails the wave, and the wave is played again; the clock and retries text |
@@ -301,6 +302,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-sinew.ts` | **Everything THE SINEW does that neither screen already says**, as events |
 | `packages/sim/src/events-surge.ts` | **Everything THE SURGE does that neither screen already says**, as events |
 | `packages/sim/src/events-scuttle.ts` | **Everything THE SCUTTLE does that neither screen already says**, as events |
+| `packages/sim/src/events-snake.ts` | **What SNAKE's two hands on the body do that neither screen already says** |
 | `packages/sim/src/strand-round.ts` | What **happens** to a thread: the shot that meets a bead, and the thread parting once nothing on it is alive |
 | `packages/sim/src/strand.ts` | THE STRAND: what a thread of beads is — where they stand, what colour each carries, and which one may be shot |
 | `packages/sim/src/creature-state-veer.ts` | **THE VEER's two fields**, a side and a width |
@@ -1549,6 +1551,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-vane.ts` | THE VANE's two hands on its own mechanism, in a file of their own for `bind-warden-hand.ts`' reason |
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |
+| `packages/audio/src/bind-choreographed-b.ts` | **The hands the §6.2 lanes added to bosses that had already shipped** |
 | `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-gum.ts`'s pattern |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
@@ -1565,6 +1568,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-surge.ts` | THE SURGE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-stare.ts` | THE STARE's three, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-snake-body.ts` | SNAKE's two hands on its own body, in a file of their own for `bind-vane.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-instar.ts` | THE INSTAR's eleven, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |

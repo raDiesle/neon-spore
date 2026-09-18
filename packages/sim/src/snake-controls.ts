@@ -1,4 +1,4 @@
-import type { SnakeState } from "./snake.js";
+import { type SnakeState, snakeGrip } from "./snake.js";
 import { fireSnake } from "./snake-move.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -36,6 +36,15 @@ export function snakeResting(world: World, snake: SnakeState): boolean {
  * press that counted would be a shot leaving a body that is not on the arena.
  * The wheel is left alone: a turn is queued rather than taken, and the queue
  * is the one thing the pair may usefully agree about while they wait.
+ *
+ * **And since 18 September 2026 the body asks for two more, on itself.** Past
+ * `snakeGorgeTiles` the jaws stick: the MAW press does nothing at all and
+ * player 1 has to prise them apart on the head (`snakeJaws`), a carry of at
+ * least `snakeJawsMilli` that opens the same window the press used to. Past
+ * `snakeShedTiles` the tail drags, and player 2 may lift its last
+ * `snakeTailTiles` clear with a thumb on it (`snakeTail`) — with the hand she
+ * steers with, which is the only reason it is not simply free
+ * (`docs/spec/interludes.md`, SNAKE's *Three bodies, three gestures*).
  */
 
 export function snakeHeard(world: World, snake: SnakeState, player: 1 | 2, command: Command): void {
@@ -54,7 +63,14 @@ export function snakeHeard(world: World, snake: SnakeState, player: 1 | 2, comma
     fireSnake(world, snake);
     return;
   }
+  if (command.kind === "drag") {
+    dragHeard(world, snake, player, command);
+    return;
+  }
   if (command.kind !== "snakeMaw" || player !== 1) return;
+  // The jaws stick once the body is past `snakeGorgeTiles`: from there the
+  // press is a dead button and the mouth is a thing to be pulled open.
+  if (snakeGrip(world.cfg, snake) !== "crawl") return;
   // The mouth is a *window* and not a hold: it opens on the press and shuts on
   // its own a fraction of a step later (`snakeMawTicks`), which is what makes
   // it a thing to time rather than a thing to leave on. The rest is at least
@@ -63,4 +79,47 @@ export function snakeHeard(world: World, snake: SnakeState, player: 1 | 2, comma
   // every tick and nothing more, which is not the same thing at all.
   if (world.tick - snake.mawTick < world.cfg.snakeMawRestTicks) return;
   snake.mawTick = world.tick;
+}
+
+/**
+ * The two hands on the body itself: player 1 prising the jaws and player 2
+ * holding the tail off the arena.
+ *
+ * Both are refused outside the grip that has them, and each is refused to the
+ * other seat — the same rule of the simulation the four verbs above are held
+ * to, and for the same reason: two devices have to agree exactly which presses
+ * counted, and a driver who could also open the mouth would be playing both
+ * halves of a round whose whole content is that she cannot.
+ */
+function dragHeard(
+  world: World,
+  snake: SnakeState,
+  player: 1 | 2,
+  command: Extract<Command, { kind: "drag" }>,
+): void {
+  const grip = snakeGrip(world.cfg, snake);
+  if (command.target === "snakeJaws") {
+    if (player !== 1 || grip === "crawl") return;
+    // The press says nothing; the prise is the lift, and only one that
+    // travelled — a thumb resting on the head is not a mouth being opened.
+    if (command.on) return;
+    if (Math.abs(command.fromYMilli ?? 0) < world.cfg.snakeJawsMilli) return;
+    // The same rest as the press it replaces. A mouth that could be hauled
+    // open again the tick it shut would be a mouth held open all round, which
+    // is the one thing `snakeMawRestTicks` exists to stop.
+    if (world.tick - snake.mawTick < world.cfg.snakeMawRestTicks) return;
+    snake.mawTick = world.tick;
+    const head = snake.body[0];
+    world.events.push({ type: "snakePrise", col: head?.col ?? 0, row: head?.row ?? 0 });
+    return;
+  }
+  if (command.target !== "snakeTail" || player !== 2 || grip !== "shed") return;
+  if (snake.tailHeld === command.on) return;
+  snake.tailHeld = command.on;
+  const tail = snake.body[snake.body.length - 1];
+  world.events.push({
+    type: command.on ? "snakeLift" : "snakeDrop",
+    col: tail?.col ?? 0,
+    row: tail?.row ?? 0,
+  });
 }

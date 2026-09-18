@@ -353,6 +353,63 @@ come out is either the half she is not shown or the one thing she is: *which
 way* is the answer, and it is his to say. A cue that turned her would be a
 second driver.
 
+### Three bodies, three gestures
+
+The round as first built asked the same four things of the pair from the first
+tile to the last, and a pair that had learned it in round one had learned the
+whole of it (`docs/queue.md`, *SNAKE changes state more than once, and asks for
+more than one gesture*). Since 18 September 2026 the **body** is a second state
+beside the clock, and it follows from the one number that was already the
+difficulty and the health bar at once: how long the body is. So the round
+escalates *on the way to being won* — you cannot win without eating the points,
+and the points are what make it harder — rather than on the way to running out
+of beats. `SNAKE_GRIPS` in `snake.ts` is the table and `snakeGrip` reads it.
+
+| Body | Tiles | What is new | Whose hand |
+|---|---|---|---|
+| `crawl` | 3–5 | the four verbs as the round was built | both, on the panel |
+| `gorge` | 6–7 | **the jaws stick.** MAW is a dead button; player 1 prises them apart on the head itself (`snakeJaws`, `snakeJawsMilli`) | player 1, on the body |
+| `shed` | 8+ | **the tail drags.** Player 2 may lift its last `snakeTailTiles` clear with a thumb on it (`snakeTail`); the head passes through where they stood | player 2, on the body |
+
+**The jaws are the same window under another hand.** A prise opens the mouth
+for `snakeMawTicks` and rests for `snakeMawRestTicks`, exactly as the press
+did — what changes is the gesture, from a button on the band to a carry of a
+tile and a half on the head. It costs player 1 the thumb he fires with, so from
+`gorge` the two things he does stop being two taps and start being a choice.
+
+**The tail is the first thing in this round that makes the body less
+dangerous**, and it costs player 2 the hand she steers with. Her screen is the
+whole body and his is both ends of it, so the tiles she lifts are the ones she
+can see and he cannot — which is the round's own split used once more, in the
+direction it had never been used: everything else she does is on his word, and
+this is the one thing she can see and act on alone. Three tiles of eight, never
+more and never the head: a thumb that lifted the whole length would be a thumb
+that turned the round off.
+
+**Nothing new can lose the round.** A prise too short, a prise while the mouth
+is still open, a thumb on the tail while the body is short — each does nothing
+at all. The four ways to crash are the four there were.
+
+**Where the hands live.** `snake-controls.ts` hears both, beside the four
+verbs, and refuses each to the seat it does not belong to — the same rule of
+the simulation, and for the same reason. `SnakeState` gained one field,
+`tailHeld`, hashed in `snake-hash.ts`; `snakeLifted` in `snake.ts` is the one
+place that turns it into a count of tiles, so the step and the picture cannot
+disagree about which tiles the head may pass through. The three events —
+`snakePrise`, `snakeLift`, `snakeDrop` — are `events-snake.ts`, the round's
+first, cued by `bind-snake-body.ts` and voiced by `sounds/boss-snake-body.ts`.
+
+**What is not built** (sim lane, 18 September 2026): the picture. The head is
+drawn with the same jaws whether they stick or not, nothing marks the tail as
+a thing a thumb may take hold of, the lifted tiles are drawn on the arena where
+they no longer are, and the three events are on both silent lists. The look
+lane draws the grip off `snakeGrip` and the lift off `snakeLifted`. The
+director's STATES sheet has a card for `crawl` and owes two: its hand cannot
+drive the body onto four points, so `gorge` and `shed` are on `OWED`
+(`tools/director/test/boss-states.test.ts`). *Never watched at tempo*: whether
+a carry on the head is a gesture a thumb can make while the body is moving at
+under half a second a tile.
+
 **The look, rebuilt 18 September 2026.** SNAKE was the last round but THE
 GAUGE still drawn as a slab panel over a dark plate with an ember box round
 the arena, and the owner asked for it to follow the others: the ship shown,
@@ -398,6 +455,10 @@ smaller share of a tile at a shorter step, so the mouth gets harder to time
 exactly as the body gets faster, with nothing authored to make it so.
 `snakeMawRestTicks` is the ticks between two openings, never shorter than the
 window, or a tapping thumb holds the jaws apart for the whole round.
+`snakeGorgeTiles` and `snakeShedTiles` are the lengths the second and third
+bodies begin at, `snakeJawsMilli` is how far a thumb has to carry the head for
+a prise to count, and `snakeTailTiles` is how much of the tail comes off the
+arena under her thumb.
 
 **A crash is the wave lost, and the round has no second try of its own.** A
 wall, its own body, a touched enemy or a point reached with the mouth shut is a

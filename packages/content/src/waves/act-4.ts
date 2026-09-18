@@ -176,9 +176,9 @@ export const WAVES_ACT_4: Wave[] = [
     name: "SNAKE",
     sentence: "The one where the ship is the body, and the one who can see it cannot steer it.",
     guide: {
-      both: "Shoot the enemies, swallow the points, never touch a meteor. Clear them all and the round is over.",
-      p1: "1. Say where the next thing is, and whether to shoot it or swallow it.\n2. FIRE at an enemy when the head points at it.\n3. Open the MAW before the snake reaches a point.",
-      p2: "1. Steer on your partner's word only: LEFT or RIGHT is a quarter turn.\n2. Turn away from every meteor.\n3. Say when a meteor is ahead: a shot stops dead on it.",
+      both: "Shoot the enemies, swallow the points, never touch a meteor. Clear them all and the round is over. The longer the body gets, the more it asks of you.",
+      p1: "1. Say where the next thing is, and whether to shoot or swallow it.\n2. FIRE when the head points at an enemy.\n3. Open the MAW before a point.\n4. Once the jaws stick, MAW is dead: drag them open on the head.",
+      p2: "1. Steer on their word only: LEFT or RIGHT is a quarter turn.\n2. Turn away from every meteor.\n3. Say when one is ahead: a shot stops dead on it.\n4. Long body: a thumb on the tail takes its last tiles off the board.",
       scene: "snake",
     },
     entries: [],

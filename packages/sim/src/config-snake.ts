@@ -29,6 +29,43 @@ export interface SnakeConfig {
   /** Tiles a point adds. The body is the obstacle, so this is the difficulty. */
   snakeGrowTiles: number;
   /**
+   * Tiles the body has to be past before the jaws stick and MAW stops working
+   * — the length `gorge` begins at (`snakeGrip`).
+   *
+   * 5, which is two points into a round that opens at three: early enough that
+   * the pair meets the second gesture in the first round rather than reading
+   * about it, and late enough that the first two points are the round teaching
+   * the mouth with the press that still answers it.
+   */
+  snakeGorgeTiles: number;
+  /**
+   * And the length `shed` begins at, where the tail starts dragging.
+   *
+   * 7, which is four points in. Round three authors five, so the last state of
+   * the body is on the way to winning the round rather than off the end of it
+   * — and the two rounds before it never reach it, which is what makes the
+   * third one feel like the third one.
+   */
+  snakeShedTiles: number;
+  /**
+   * How far player 1's thumb has to carry the head, in thousandths of a tile,
+   * for the lift to read as prising the jaws rather than brushing them.
+   *
+   * 1500: a tile and a half, the travel every swipe in this game asks for
+   * (`wardenThrowMilli`, `vaneHaulMilli`). It is a *tile* of the arena and not
+   * of the field, because in here there is no field.
+   */
+  snakeJawsMilli: number;
+  /**
+   * Tiles of the tail lifted clear while player 2's thumb is on it, under
+   * `shed`.
+   *
+   * 3, against a body of eight by then: enough that the corner she is about to
+   * cut is passable, and far short of the body — a thumb that lifted the whole
+   * length would be a thumb that turned the round off.
+   */
+  snakeTailTiles: number;
+  /**
    * Ticks the mouth stands open on one press.
    *
    * The one number in this file that decides how the round *feels*, because it
@@ -74,6 +111,10 @@ export const SNAKE_DEFAULTS: SnakeConfig = {
   snakeRows: 11,
   snakeStartTiles: 3,
   snakeGrowTiles: 1,
+  snakeGorgeTiles: 5,
+  snakeShedTiles: 7,
+  snakeJawsMilli: 1500,
+  snakeTailTiles: 3,
   // Seven tenths of a second, against a step of half of one in the first round
   // and under a third by the last. It was half a second, and the owner asked
   // for a mouth that stands open long enough to be seen standing open: at the

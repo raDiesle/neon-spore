@@ -4,6 +4,7 @@ import {
   fleetStruck,
   type SnakeState,
   snakeCrashed,
+  snakeGrip,
   snakePointAt,
   snakeResting,
   snakeShotStop,
@@ -188,7 +189,13 @@ export function snakeCues(
   const next = { col: head.col + s.dirCol, row: head.row + s.dirRow };
   if (snakePointAt(s, next.col, next.row) !== -1) {
     const at = tileMid(a, next.col, next.row);
-    out.push({ seat: 1, kind: "PRESS", word: "OPEN", ...at, halfW: half, halfH: half, seed: 75 });
+    // The word follows the gesture: past `snakeGorgeTiles` the MAW press is a
+    // dead button and the mouth is a thing to be pulled open on the head, so
+    // the kind over the mark changes with the body (`sim/snake-controls.ts`,
+    // `docs/spec/interludes.md`). Saying PRESS there would name a button that
+    // does nothing, which is worse than saying nothing at all.
+    const kind = snakeGrip(world.cfg, s) === "crawl" ? "PRESS" : "CARRY";
+    out.push({ seat: 1, kind, word: "OPEN", ...at, halfW: half, halfH: half, seed: 75 });
   }
 
   const stop = snakeShotStop(world, s);

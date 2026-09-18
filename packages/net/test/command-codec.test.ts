@@ -83,6 +83,12 @@ const ACCEPTED: Command[] = [
   // leave one device folding arrivals about a column the other has pinned.
   { kind: "drag", target: "vaneArm", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "vaneHousing", on: false, fromMilli: 0, fromYMilli: 1500 },
+  // SNAKE's two hands on its own body, and the first a round has had: player
+  // 1 prising the stuck jaws, player 2's thumb lifting the tail clear of the
+  // arena (`sim/snake-controls.ts`). A codec that dropped the second would
+  // leave one device driving through a tail the other one is standing on.
+  { kind: "drag", target: "snakeJaws", on: false, fromMilli: 0, fromYMilli: 1500 },
+  { kind: "drag", target: "snakeTail", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -198,6 +204,8 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   fleetWreck: true,
   vaneArm: true,
   vaneHousing: true,
+  snakeJaws: true,
+  snakeTail: true,
   crank: true,
   orreryRing: true,
 };

@@ -2,6 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { antiphonCue } from "./bind-antiphon.js";
 import { batonCue } from "./bind-baton.js";
 import { candleCue } from "./bind-candle.js";
+import { type HandEvent, handCue } from "./bind-choreographed-b.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
 import { diastoleCue } from "./bind-diastole.js";
@@ -16,8 +17,6 @@ import { sinewCue } from "./bind-sinew.js";
 import { surgeCue } from "./bind-surge.js";
 import { tasterCue } from "./bind-taster.js";
 import { undertowCue } from "./bind-undertow.js";
-import { vaneCue } from "./bind-vane.js";
-import { wardenHandCue } from "./bind-warden-hand.js";
 
 /**
  * The choreographed bosses' events (`docs/spec/bosses-choreographed.md`),
@@ -31,36 +30,32 @@ import { wardenHandCue } from "./bind-warden-hand.js";
  * *here* leaves a switch without an ending return. Either is a type
  * error, and `test/bind.test.ts` plays one of each as well.
  */
-type ChoreographedEvent = Extract<
-  SimEvent,
-  {
-    type:
-      | `baton${string}`
-      | `undertow${string}`
-      | `candle${string}`
-      | `gorge${string}`
-      | `curtain${string}`
-      | `taster${string}`
-      | `ledger${string}`
-      | `sinew${string}`
-      | `surge${string}`
-      | `lead${string}`
-      | `scuttle${string}`
-      | `antiphon${string}`
-      | `hive${string}`
-      | `instar${string}`
-      | `filament${string}`
-      | `diastole${string}`
-      // Named one by one: `wardenDown` and the rope's three are `bind.ts`'s.
-      | "wardenHold"
-      | "wardenThrow"
-      | "wardenSlam"
-      // And THE VANE's two hands: the boss's only events, all three its own.
-      | "vanePin"
-      | "vaneSlip"
-      | "vaneHaul";
-  }
->;
+type ChoreographedEvent =
+  | Extract<
+      SimEvent,
+      {
+        type:
+          | `baton${string}`
+          | `undertow${string}`
+          | `candle${string}`
+          | `gorge${string}`
+          | `curtain${string}`
+          | `taster${string}`
+          | `ledger${string}`
+          | `sinew${string}`
+          | `surge${string}`
+          | `lead${string}`
+          | `scuttle${string}`
+          | `antiphon${string}`
+          | `hive${string}`
+          | `instar${string}`
+          | `filament${string}`
+          | `diastole${string}`;
+      }
+    >
+  // And the hands the §6.2 brief added to bosses that had already shipped,
+  // which have to be named one by one (`bind-choreographed-b.ts`).
+  | HandEvent;
 
 export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
   switch (e.type) {
@@ -236,11 +231,13 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "wardenHold":
     case "wardenThrow":
     case "wardenSlam":
-      return wardenHandCue(e, cols);
     case "vanePin":
     case "vaneSlip":
     case "vaneHaul":
-      return vaneCue(e, cols);
+    case "snakePrise":
+    case "snakeLift":
+    case "snakeDrop":
+      return handCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

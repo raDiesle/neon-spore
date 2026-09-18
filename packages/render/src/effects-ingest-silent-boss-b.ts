@@ -114,4 +114,10 @@ export const INGEST_SILENT_BOSS_B = [
   "vanePin",
   "vaneSlip",
   "vaneHaul",
+  // SNAKE's two hands on its own body, silent until the look lane draws
+  // them: the jaws are the mouth's own window, read off `mawTick` every
+  // frame, and the lifted tail is `tailHeld` (`sim/snake-controls.ts`).
+  "snakePrise",
+  "snakeLift",
+  "snakeDrop",
 ] as const satisfies readonly SimEvent["type"][];

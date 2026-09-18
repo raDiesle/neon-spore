@@ -1,4 +1,4 @@
-import { gaugeRound } from "@neon-spore/sim";
+import { gaugeRound, snakeGrip } from "@neon-spore/sim";
 import { gaugeHand, mazeHand, mirrorHand } from "./boss-hands-rounds.js";
 import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
@@ -124,6 +124,17 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "play",
     "The snake running on the board, turned by one seat and fed by the other's shot. Nobody turns it here, so it runs straight at the wall.",
     { ...FULL, hold: 12 },
+  ),
+  bossPose(
+    "snake",
+    "crawl",
+    "The body as a round opens it: three tiles, and the four verbs answering as they were built. The jaws still open on a press, and the tail is short enough to be nobody's problem.",
+    {
+      ...FULL,
+      want: (w) =>
+        w.boss?.kind === "snake" && w.boss.phase === "play" && snakeGrip(w.cfg, w.boss) === "crawl",
+      hold: 12,
+    },
   ),
   bossPose(
     "snake",
