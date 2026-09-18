@@ -1,0 +1,121 @@
+import {
+  type WardenState,
+  type World,
+  wardenEyeOpen,
+  wardenHandleMilli,
+  wardenPullMilli,
+} from "@neon-spore/sim";
+import type { BossCue } from "./boss-cue.js";
+import { fieldPoint } from "./handle-draw.js";
+import type { SurfaceY } from "./hull-frame.js";
+import type { Layout } from "./layout.js";
+import { wardenEyeCircle } from "./warden.js";
+
+/**
+ * **What the bosses with a handle on the field are asking for** — page six of
+ * the readings, opened for THE WARDEN.
+ *
+ * The five pages before this one mark a body, a lobe, a socket or a door. This
+ * one marks a thing a hand is *already holding*, and that changes what may be
+ * said: a handle draws its own word while nobody has it — `PULL` to the seat
+ * whose it is and `PILOT'S` to the other (`handle-draw.ts`) — so a cue that
+ * repeated it would be the four-pictures-for-one-idea mistake `target-lock.ts`
+ * records the owner ending. What the picture does *not* say is what happens
+ * after the grab, and that is the whole of this page.
+ */
+
+/** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
+const HALF_W = 0.72;
+const HALF_H = 0.66;
+
+/**
+ * **How far above the plating a mark on a handle stops**, in tiles — frame,
+ * gap and word together, which is why it is more than `HALF_H`.
+ *
+ * The rope hangs with seven tiles of field under it and six above once the
+ * app's chrome is off (`bosses.md` §11.4), so the pull that reaches taut is
+ * the downward one and the handle finishes the gesture *on the ship*. The
+ * field is drawn before the hull is, so a mark left where the hand actually
+ * is would have its lower corners and the whole of its verb painted over by
+ * the plating — and a cue nobody can read is the thing #34 built the field to
+ * say, covered over (`boss-cue-text.ts` makes the same argument upward, about
+ * a rehearsal's band). So the mark rides the handle down and stops here. It
+ * is THE UNDERTOW's `LOBE_LIFT` answering the same question from the other
+ * side of the plating (`boss-cue-read-b.ts`).
+ *
+ * The figure is the frame's own half-height and the verb's gap under it, with
+ * the crest's glow left over — measured on the frame rather than reasoned
+ * about, because what has to clear the ship is the *bottom of the word* and
+ * `boss-cue-text.ts` hangs that off the mark. It reads as the mark standing on
+ * the rope just above the hand rather than round the ring, which is the price
+ * of the word being readable at all.
+ */
+const HULL_LIFT = 1.7;
+
+function markAt(
+  seat: BossCue["seat"],
+  kind: BossCue["kind"],
+  word: string,
+  x: number,
+  y: number,
+  l: Layout,
+  seed: number,
+): BossCue {
+  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
+}
+
+/**
+ * THE WARDEN. One hand that must not let go and one shot through what it
+ * holds open, and the field says both halves without saying either seat's
+ * answer.
+ *
+ * **Hers first, because her window shuts.** `PRESS` / `FIRE` on the pupil
+ * while the eye is open and this line has not taken its hit — the pupil is
+ * drawn on every screen (there is no `showsWarden` anything: the split here is
+ * the verbs and not the picture), and the mark stands on the hole rather than
+ * on a column, so it travels with the eye as the eye drifts. The colour is
+ * never said. The rim carries it all cycle, in front of both of them
+ * (`wardenColor`), and a word that named it would be the field answering the
+ * one question this boss asks twice a cycle.
+ *
+ * **His second, and only after the grab.** While the hand is on the rope and
+ * the line is not yet taut it is `CARRY` / `PULL`, on the handle wherever he
+ * has carried it; once it is taut it is `HOLD`, which is the word and the kind
+ * at once, because what the fight wants then is a hand that does nothing.
+ * Nothing at all while the rope hangs free: `drawTether` draws `PULL` on it
+ * itself in that state, loudly, and stops the moment a hand lands — so the two
+ * of them are one word between them, never two at once.
+ *
+ * And nothing on either seat once `eyeSpent`: the opening has taken its hit,
+ * holding it costs him a hand for nothing, and a second shot into it is a
+ * bolt she needed for the next line.
+ */
+export function wardenCues(
+  l: Layout,
+  world: World,
+  b: WardenState,
+  skinY: SurfaceY,
+): readonly BossCue[] {
+  if (b.eyeSpent) return [];
+  const out: BossCue[] = [];
+  const open = wardenEyeOpen(world, b);
+
+  if (open) {
+    const body = world.creatures.find((c) => c.id === b.creatureId);
+    if (body !== undefined) {
+      const eye = wardenEyeCircle(l, body, b, wardenPullMilli(world, b) / 1000);
+      out.push(markAt(2, "PRESS", "FIRE", eye.x, eye.y, l, 69));
+    }
+  }
+
+  if (b.pulling) {
+    const head = fieldPoint(l, wardenHandleMilli(world, b));
+    const y = Math.min(head.y, skinY(head.x) - l.tile * HULL_LIFT);
+    out.push(
+      open
+        ? markAt(1, "HOLD", "HOLD", head.x, y, l, 70)
+        : markAt(1, "CARRY", "PULL", head.x, y, l, 71),
+    );
+  }
+  return out;
+}

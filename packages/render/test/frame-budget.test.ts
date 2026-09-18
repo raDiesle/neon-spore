@@ -373,7 +373,14 @@ function rope(fromYMilli: number) {
 const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
   "THE WARDEN's eye": [
     {
-      fillRect: 55,
+      // **Four ops more on 18 September 2026, when the field learned to say the
+      // word** (`boss-cue-read-f.ts`): one mark stands on this seat's screen
+      // while the eye is open — `HOLD` on the handle — and it is a slab, its
+      // rim, its two shadows, a stroke round it and one `fillText`. Four
+      // `fillRect`, three `stroke`, two `save`, one `fillText`, and it does not
+      // move with the boss's state: the other seat's `FIRE` is on her screen
+      // and never on this one.
+      fillRect: 57,
       // Two more than the plates alone would take: the opening below the eye
       // splits the plate it stands under into the two pieces either side of
       // it, and a plate is a stroke (`render/warden.ts`).
@@ -395,7 +402,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       // each in a lit and a shadowed pass, and the seizing at the eye is a
       // path of its own (`tether-twist.ts`). `save` and `new Path2D` moved
       // with it and `fill` lost the old knot's dot.
-      stroke: 139,
+      stroke: 142,
       // Four more: the two patches of the wet film, the eyelids and their
       // pupils. Flat, whatever the openness.
       fill: 79,
@@ -405,7 +412,7 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       clip: 8,
       // Three of these are the ball: the dome, the iris on its own tangent
       // plane, and the wet point, each in a frame of its own (`eye-ball.ts`).
-      save: 47,
+      save: 48,
       // Two of these are the ball as well, and they are the whole of what it
       // costs: the dome is a sprite baked once per colour and size, and the wet
       // point is `halo`'s. Neither builds a gradient, which is why the two
@@ -420,11 +427,11 @@ const EYE_BUDGETS: Readonly<Record<string, readonly Budget[]>> = {
       fillText: 2,
     },
     {
-      fillRect: 55,
-      stroke: 141,
+      fillRect: 57,
+      stroke: 144,
       fill: 79,
       clip: 8,
-      save: 47,
+      save: 48,
       drawImage: 29,
       createLinearGradient: 12,
       createRadialGradient: 8,

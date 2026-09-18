@@ -11436,6 +11436,28 @@ the stage: THE MIRROR and THE MAZE both hang over the ordinary field, so the
 field's own pass carried them, and the gap only shows as a frame with nothing
 in it.
 
+## 2026-09-18 — boss-hints — THE WARDEN says three words
+
+The first cue for a boss whose handle is **on the field**, which is what made
+it different from the six before it: the rope already draws its own `PULL`
+while nobody holds it, so the cue may only speak after the grab — `CARRY` /
+`PULL` while the line is short, `HOLD` once it is taut, and `PRESS` / `FIRE`
+riding the pupil for the beats the eye stands open. Nothing says the colour.
+The film came down from three pages to two, and the remaining one on her
+screen carries the thing no cue may: the bolt has to be the rim's own.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, `warden-rope.ts` and `handle-pull.ts`, `boss-cue-read-b.ts` for how a mark meets the plating |
+| writing | 20 | page six of the readings, six cases, the film's two pages, the §11.4 paragraph and the briefings rows |
+| looking | 20 | three frames and two crops: the first had the mark's lower half and its whole verb under the ship |
+| friction | 10 | `taut()` opened nothing until the rope was stepped to rather than set — the eye is shut while there is no tether at all — and the budget's `fillRect` row moved |
+| landing | 10 | `check:fast` twice, the commit, the land |
+
+The bottleneck was the picture rather than the rule: the pull that reaches taut
+is the downward one, so the hand finishes on the ship, and the field pass is
+drawn before the hull — which the test could not have caught and one crop did.
+
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
 ## 2026-09-18 — tutorial-boss-onscreen-actions — BULB QUEEN's pry and hold get their picture: the look half

@@ -194,6 +194,30 @@ argument in their own header. The second is the shape the tree already uses:
 `--boss`'s reasoning is in `boss.ts` and repeated in `run.ts`, which is the
 duplication that makes this file grow twice per flag.
 
+## A cue standing on the hull line has its verb drawn under the ship
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
+
+`drawBossCue` runs in the **field** pass (`frame-field.ts`), and the ship is
+drawn after it. `drawCueText` hangs the verb `halfH + 18` below the mark's
+centre, so every cue whose mark stands at `l.hullY` has its lower two corners
+and the whole of its word painted over by the plating: THE CANDLE's `CARRY` /
+`MOVE` on the cannon, THE UNDERTOW's two `MOVE`s and THE MAZE's `MOVE`. Seen in
+a real frame of THE WARDEN, whose handle mark had the same problem and was
+lifted out of it with a constant of its own (`HULL_LIFT`,
+`boss-cue-read-f.ts`) — which is a third place doing the arithmetic rather than
+a fix.
+
+The choice is between a floor of the same shape as `boss-cue-text.ts`'s
+`headerTop` ceiling — the verb climbs above the mark when there is no room
+under it, which moves the op-count rows of the three bosses above — and moving
+the cue's draw out of the field pass to after the ship, which is one line in
+`frame-field.ts` and changes what a cue can be drawn *over*. The second is
+smaller and the first is what the file already argues for upward; either way
+one frame per boss is the proof, and `render/test/frame-budget.test.ts` is
+where the cost lands.
+
 ## A button says two words where a sentence was asked for
 
 - **Found:** 2026-09-06, claude/some-lane
@@ -452,18 +476,6 @@ The brief: `.claude/skills/new-boss` section 6.2.
 not a picture per state.
 
 The brief: `.claude/skills/new-boss` section 6.3.
-
-## THE WARDEN: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-warden-the-field-says-the-word-and-the-brief
-- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/the-warden.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-
-It says nothing on the field at all.
-Its briefing is a 3-page rehearsal (`packages/content/src/scenes/the-warden.ts`).
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
 
 ## THE WARDEN changes state more than once, and asks for more than one gesture
 

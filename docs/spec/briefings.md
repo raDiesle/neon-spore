@@ -592,6 +592,8 @@ hand still draws.
 | THE MAZE | `PLAYER 2 FIRES UP THE COLUMN` | `THE HEART TAKES ONE COLOUR` | `PRESS` / `FIRE` on the lit doorway, hers alone, for as long as one stands |
 | THE GAUGE | `PLAYER 1 TURNS THE VALVE` | — merged into the page above it | none: the field can tell the pilot nothing true, and says so |
 | THE GAUGE | `PLAYER 2 CALLS IT` | `EACH GOOD CALL MOVES THEM` | `PRESS` / `CALL` on the end of the needle, hers alone, while it is seated and the call is armed |
+| THE WARDEN | `PULL IT AND KEEP PULLING` | — the page is gone | `CARRY` / `PULL` on the handle once his hand is on it, then `HOLD` when the line goes taut, his alone |
+| THE WARDEN | `ONLY WHILE IT IS OPEN` | `THE SHOT IS THE RIM'S COLOUR` | `PRESS` / `FIRE` on the pupil, hers alone, for exactly the beats the eye stands open |
 
 **Four other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
@@ -644,6 +646,19 @@ both the split and the slab. He gets no cue at all — the field cannot name a
 direction without saying the thing she is there to say — so his page is the only
 thing that tells him anything, and it tells him the half that matters. Hers lost
 its verb to the cue and gained what a call costs: `EACH GOOD CALL MOVES THEM`.
+
+THE WARDEN's two rows are the same day and are the first for a boss whose
+handle is **on the field**, which is what makes them different from the eleven
+above. A handle already draws a word of its own while nobody is holding it —
+`PULL` on the seat whose it is, `PILOT'S` on the other (`handle-draw.ts`) — so
+his page was the third copy of one word, and it came out whole rather than
+being rewritten: the cue speaks only *after* the grab, `CARRY` / `PULL` while
+the line is short and `HOLD` once it is taut, which is the half no picture was
+saying. Hers said `ONLY WHILE IT IS OPEN`, and the cue says that by appearing
+and going out; what the page carries instead is the one thing a cue may never
+say, that the bolt has to be the rim's own colour. Its first page changed seat
+rather than words — `A RING WITH A HOLE IN IT` moved onto his screen, because
+after the cut he had no page at all.
 
 #### The ghost thumb is derived, never authored
 

@@ -563,6 +563,28 @@ nothing left to derive it from. It is not decoration — the pulling seat cannot
 see the plate go, and the rope leaping back up into the rim is how they learn
 their partner scored.
 
+**What the field says** (`render/src/boss-cue-read-f.ts`, 18 September 2026,
+`docs/decisions.md` #34). Three words, and the first cue for a boss whose
+handle is on the field — which is what decides when it may speak at all. A
+handle draws its own word while nobody is holding it, `PULL` on the seat whose
+it is and `PILOT'S` on the other (`handle-draw.ts`), so the cue says nothing
+until the grab: then `CARRY` / `PULL` on the handle wherever he has carried it
+while the line is short, and `HOLD` — the word and the kind at once — once it
+is taut, because what the fight wants of him then is a hand that does nothing.
+His mark rides the handle down and **stops a tile and a half above the
+plating**: the pull that reaches taut is the downward one, so the hand finishes
+the gesture on the ship, and the field is drawn before the hull is — a mark left
+where the hand actually is has its lower corners and the whole of its verb
+painted over (`HULL_LIFT`, THE UNDERTOW's `LOBE_LIFT` answering the same
+question from the other side of the plating). Hers is `PRESS` / `FIRE` on the
+pupil for exactly the beats the eye stands open, and it rides the hole rather
+than a column, so it drifts as the eye drifts. Nothing on either seat once the opening has taken its hit: holding it
+costs him a hand for nothing and a second bolt into it is one she needs for the
+next rope. **The colour is never said.** The rim wears the cycle's own in front
+of both of them, and naming it would be the field answering the question this
+boss asks twice a cycle — which is what the rehearsal's remaining page about
+her half is now for (`docs/spec/briefings.md`).
+
 **Where it lives.** `WardenState` in the `BossState` union, a `warden` kind with
 `colSpan` 5 and a `tether` kind beside it, and two files: the arithmetic in
 `packages/sim/src/warden-cycle.ts` — the colour and the phase, both *derived* —
