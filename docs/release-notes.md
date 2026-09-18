@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 21ae9b0d — THE GORGE asks for a pinch and a pry: the simulation
+
+THE GORGE changed state three times and asked for a shot in every one; it now asks for a thumb in two, and a different seat's each time, on one name. Player 1's thumb on a full intake is a pinch: the vent waits while it stays and counts again from the lift. Player 2's thumb on the mouth is a pry: a four-beat window in which the beam in the mouth's colour ends the fight — unpried, the mouth clenches on the beam and it goes in as nothing; held past the window, it clenches on the thumb, throws the pry off and spits a bead. Three sounds, both thumbs in the hash, no picture yet: the look is the second lane of the same queue item.
+
 ## 2026-09-18 · f80fae8c — Mark "THE MIRROR's picture looks like something real" done
 
 ## 2026-09-18 · 561398b0 — THE MIRROR's picture looks like something real: the chamber under its hull
