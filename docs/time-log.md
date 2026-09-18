@@ -9777,3 +9777,32 @@ latency reason that applies to both — the code was right and the case was
 wrong, and the fix was a comment pointing at the rule it was copying.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — task-queue-work-ym2eim — Five things the owner asked for, rooted in the tree first
+
+Four findings queued and one raised to the top of the list. None of them was
+written from the owner's words alone: each entry names the line that causes
+what he saw — no `popstate` listener anywhere in `apps/game/src`, `lostAsks`
+asked before `guideHolds` in `briefing.ts`, `#viewSwitch` hidden by the class
+the switch itself sets, and a drop entrance that already ships in
+`text-drop.ts` and is drawn on one page of six. The guide-page work is a look
+and two lanes, and the entry says so rather than leaving a later session to
+find it out after starting.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | `briefing.ts`, `wave-fail.ts`, `view.ts` with `game.css`, `sign-in.ts`, `confirm.ts`, `ready-page.ts`, `wave-intro.ts`, `text-drop.ts`, `wave-end.ts`, `stage-transport.ts` |
+| writing | 30 | five entries, the options each `Asks:` picks between, and the 28 backticked paths checked against the tree |
+| looking | 0 | none: nothing was drawn, and a cloud session sees no frame |
+| friction | 20 | an entry misplaced inside the preamble, then a cut that swallowed a fenced example's opening fence and silently deleted 200 lines from the parse |
+| landing | 10 | `bun run queue` twice, `check:fast`, the commit, the land |
+
+**The bottleneck was editing a file whose parser is fence-sensitive with a
+script that does not read fences.** `stripProse` drops everything between two fence
+lines, so a cut that took a heading out of a fenced example carried the
+opening fence away with it and inverted the parity for the rest of the file:
+the queue came back four items short with no error, and the only tell was the
+count. Reading the parser before the second attempt would have cost two
+minutes.
+
+*Measured: the rows above are the session's own estimate.*

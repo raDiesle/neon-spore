@@ -177,31 +177,6 @@ fields, and a title that shouts one carries it twice — into the string `take`,
 question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
-## A cue standing on the hull line has its verb drawn under the ship
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
-- **Where:** local
-
-`drawBossCue` runs in the **field** pass (`frame-field.ts`), and the ship is
-drawn after it. `drawCueText` hangs the verb `halfH + 18` below the mark's
-centre, so every cue whose mark stands at `l.hullY` has its lower two corners
-and the whole of its word painted over by the plating: THE CANDLE's `CARRY` /
-`MOVE` on the cannon, THE UNDERTOW's two `MOVE`s and THE MAZE's `MOVE`. Seen in
-a real frame of THE WARDEN, whose handle mark had the same problem and was
-lifted out of it with a constant of its own (`HULL_LIFT`,
-`boss-cue-read-f.ts`) — which is a third place doing the arithmetic rather than
-a fix.
-
-The choice is between a floor of the same shape as `boss-cue-text.ts`'s
-`headerTop` ceiling — the verb climbs above the mark when there is no room
-under it, which moves the op-count rows of the three bosses above — and moving
-the cue's draw out of the field pass to after the ship, which is one line in
-`frame-field.ts` and changes what a cue can be drawn *over*. The second is
-smaller and the first is what the file already argues for upward; either way
-one frame per boss is the proof, and `render/test/frame-budget.test.ts` is
-where the cost lands.
-
 ```
 ## A button says two words where a sentence was asked for
 
@@ -239,6 +214,285 @@ waiting on.
 `tools/queue/test/queue.test.ts` holds that format and fails on an entry a cold
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
+
+## The phone's GAME view opens on the strip, and no row in the wave list goes there
+
+- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Files:** `tools/director/src/rail-open.ts`, `tools/director/src/director-phone.css`, `tools/director/index.html`, `tools/director/test/rail-open.test.ts`, `tools/director/test/phone-map.test.ts`, `tools/director/src/director-field.css`
+
+The owner, 18 September 2026: *"on mobile, navigate from list of waves
+directly to game, should open the game screen. Right now it's impossible to
+see it. Navigating from menu to game, opens the wave details. Make it somehow
+possible for mobile, that I can easily switch to the buttons esp. retry wave
+and show briefing during game screen."*
+
+It is the same ask as the one `rail-open.ts` already answers, one view further
+on: that file's `WAYS` is `wave` and `map`, and the field is not in it, so the
+only way to the picture is `#menuToggle` and the GAME item.
+
+**And arriving there does not show it.** GAME is two sections, not one — RUN
+and the stage — and the phone block gives both `display: block` in document
+order (`director-phone.css`). RUN is the earlier of the two in `index.html`, so
+the view opens on ten full-width rows of transport — ⏸, ↺ WAVE, ▣ SHEET,
+DIFFICULTY and its picker and its note, BRIEFINGS, three role buttons, ⌨ KEYS —
+and the field is a scroll below them. Nothing is hidden; the picture is simply
+never the thing on screen, which is the "impossible to see it".
+
+**The two halves land together**, because the first without the second is a row
+that opens on the strip:
+
+1. **A third way out of a row.** One entry in `WAYS` — `game`, the word GAME,
+   `#stageWrap` for the desktop's `scrollIntoView`. The 44px target and both
+   halves of its display are already written for two buttons and take a third
+   without a line (`#waveList .row-open`). What it costs is
+   `rail-open.test.ts`, whose first case asserts `["wave", "map"]` and is
+   titled *and nothing else*: the assertion moves and so does that framing.
+
+2. **Where the buttons are while the field is up.** Three arrangements, and
+   they differ in how much of the 15 September strip they disturb:
+   - **The field first.** One `order` rule in the phone block on the two
+     `data-view="game"` sections. Cheapest by a wide margin, tested the way
+     `phone-map.test.ts` tests its own two rules — and it answers only half the
+     ask: the buttons are still a scroll away, and *"during game screen"* is
+     the half it does not reach.
+   - **The whole strip pinned.** `.transport` sticky at the bottom of the GAME
+     view, which needs it to be a wrapping row again at phone width. That is
+     what it was until 15 September and it was moved out of that on purpose —
+     it cost the field two lines and read as part of the picture. The reason is
+     weaker here, where nothing else is on the screen.
+   - **The two he named.** ↺ WAVE and BRIEFINGS over the field as a two-button
+     bar, the rest of the strip left below it. Answers the ask literally,
+     leaves the 15 September arrangement alone, and is the only one of the
+     three that adds markup rather than moving it.
+
+The last is the recommendation, with the first underneath it: the field above,
+the two buttons in reach of a thumb, and the strip where it is. Whoever takes
+it should look at the result on a 375px viewport rather than trusting the
+sheets — `phone-map.test.ts`'s own header is about a phone layout that read
+correctly out of the CSS and was wrong in a browser.
+
+**And a second ask, 18 September 2026**, which is why this entry is at the top
+of the file: *"Also ensure when I am in game mode, the screen is fully focused
+and nothing else left right top bottom is disturbing to play. Only menu button
+allows me to select another wave."*
+
+It is half 2 above, said harder. Half 2 asks where the buttons go while the
+field is up; this says the answer is **nowhere on the screen** — the field fills
+the phone, and `#menuToggle` is the one thing on top of it. That takes the third
+arrangement off the table, since a two-button bar over the field is two buttons
+over the field, and turns the first from a compromise into the answer: `order`
+puts the stage first, and the phone block then has to give the GAME view a
+height rather than a place in a scroll, so the strip is below the fold instead
+of beside the picture. The wave list stays where it is; the way to another wave
+is the menu, which is what he says.
+
+Whoever takes it should check, on a real 375px viewport rather than on the
+sheets, the three things a "fully focused" screen is usually broken by: the page
+scrolling at all when it should not, the browser's own chrome eating the foot of
+the field, and the header row every other view wants and this one does not.
+
+## The phone's back gesture leaves the game instead of asking
+
+- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/shell.ts`, `apps/game/src/menu.ts`, `apps/game/src/menu-door.ts`, `apps/game/src/menu-parts.ts`, `apps/game/src/confirm.ts`, `apps/game/src/sign-in.ts`
+- **Where:** local
+- **Asks:** Should back open the menu the game already has, or a three-button question of its own over the field?
+
+The owner, 18 September 2026: *"When in game (no director) website I press back
+button, It should not go back to previous website, but open as if menu button
+was pressed, so it should ask: do you want to go back to menu or quit game, or
+continue playing."*
+
+**There is no `popstate` listener anywhere in `apps/game/src`.** The only thing
+the app does with history at all is `sign-in.ts`'s `history.replaceState(null,
+"", location.pathname)`, which scrubs the sign-in's query off the address and
+deliberately adds no entry. So the back gesture on the field is the browser
+leaving the page, mid-run, with the room still open on the other phone — and on
+a phone the gesture is an edge swipe, which is to say it is easy to do by
+accident while both thumbs are on the glass.
+
+The work is one history entry pushed when the field opens and a listener that
+answers it by re-pushing and showing something, and it is small. What it waits
+on is **what it shows**, because the two readings of the sentence above are
+different screens:
+
+- **The menu, as if `#gear` had been pressed.** It is already the three answers
+  the owner names: closing it is *continue*, its own rows are *menu*, and QUIT
+  is one of them. Nothing new is drawn, and `menu-door.ts` already knows how a
+  menu opens over a field. Back while the menu is *up* then pops one page of it
+  — `menu-parts.ts`'s `backButton` is the same move — and back from its root
+  closes it, which is a gesture that reads correctly all the way down.
+- **A question of its own over the field**, three buttons, the way he wrote it.
+  This is the more literal reading and it is the one `confirm.ts` argues
+  against in its own doc — *"A dialog is an overlay to dismiss, it steals the
+  back gesture"* — which is written about a different control but lands exactly
+  here: a dialog that the back gesture opened cannot also be a dialog the back
+  gesture closes without a second entry to burn.
+
+The first is recommended for that reason, and because the second builds a
+screen the game already has under another name. Either way `sign-in.ts`'s
+`replaceState` stays a replace: pushing there would put a sign-in nobody can
+return to in the stack.
+
+## A rehearsal that takes a hit draws the lost screen inside the tutorial plate
+
+- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Files:** `packages/render/src/briefing.ts`, `packages/render/src/lost-screen.ts`, `packages/render/src/guide-play.ts`, `packages/sim/src/scene.ts`, `packages/sim/src/wave-fail.ts`, `packages/render/test/frame-pair.test.ts`
+- **Where:** cloud
+
+The owner, 18 September 2026: *"In game, when on a wave Tutorial/guide it shows
+hull/ship damage, it should not show the 'wave lost'."*
+
+**It is the rehearsal's world, not the pair's.** The field cannot be hit while a
+guide holds — all three opening states stop the wave (`sim/briefing.ts`) — but a
+guide page is a real world of its own, built and stepped by the real `step`
+(`SceneRun`, `scene.ts`), and a script that teaches a breach by letting one
+happen calls `failWave` in that world like any other. Then `drawWaveOpening`
+asks `lostAsks(world)` **before** it asks `guideHolds(world)`, so the whole
+RETRY WAVE / QUIT screen is painted over the film — inside the tutorial plate,
+at the film's size, offering two buttons about a wave nobody is playing.
+
+The behaviour is not an accident that slipped in: `briefing.ts` carries a
+comment saying a rehearsal whose world has lost the wave draws this screen and
+that `clearTop` is how it is made to fit. So the fix is deciding it was the
+wrong answer, not finding a bug.
+
+Two ways, and they differ in what a guide is allowed to show:
+
+- **The rehearsal's world never fails.** A flag on the built world, or `failWave`
+  returning early for a scene — one guard in `scene.ts` or `wave-fail.ts`, and
+  the film simply plays on through the hit. Cheapest, and it costs the guides
+  the one thing a hit teaches best: what the screen does when you are hit.
+- **The drawing skips it while it is inside a rehearsal.** `drawWaveOpening`
+  already receives the signal in all but name — `clearTop` is present on a
+  rehearsal and absent on the game — but reading a layout number as a mode is
+  the kind of thing that goes wrong silently, so a plain `rehearsal: true` on
+  `OpeningView` is the better shape. One line of order, and the held field goes
+  on being drawn under the plate the way it is between pages.
+
+The second is recommended: it leaves the simulation alone, and *the guide may
+show a hit* stays true. Either way the proof is a frame — `frame-pair.test.ts`
+already stands a world up with a guide holding, and the case to add is a
+rehearsal whose world has failed, asserting the lost screen's own marks are not
+in the ops.
+
+## Choosing P1 in the game's view switch hides the switch itself
+
+- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/view.ts`, `apps/game/src/game.css`, `apps/game/src/menu-seats.ts`, `apps/game/src/testing.ts`, `apps/game/src/at-a-desk.ts`, `tools/director/src/stage-transport.ts`
+
+The owner, 18 September 2026: *"When I switch in game test view to p1, I cannot
+switch back to test again. Also make sure in director and for game, when I am in
+solo test mode, I can also test for both players on mobile device."*
+
+**The first half is exact and the cause is two lines.** `view.ts`'s repaint ends
+
+```
+document.body.classList.toggle("player-view", role !== "test");
+```
+
+and `game.css` hides `#viewSwitch` under that class along with `#pauseBtn`,
+`#gear` and `#waveSkip`. So the control that put the page into P1 is the fourth
+thing P1 takes away, and the only way out is `localStorage`. The comment above
+the toggle says the rig belongs to nobody's device, which is right about the
+rig and was never argued about the switch.
+
+Three ways out, cheapest first:
+
+- **Take `#viewSwitch` off the hide list.** One selector. It costs a strip of a
+  player's screen, which is the whole thing `player-view` exists to measure —
+  but a switch small enough to judge the layout around is the ordinary bargain
+  every debug overlay makes.
+- **The menu is the way back.** `menu-seats.ts` already has the card — `test`,
+  BOTH, ONE SCREEN — and `#gear` is hidden by the same rule, so this is only an
+  answer if the back gesture opens the menu (the entry above).
+- **A door on the field**, the way the rig's own is: a press count on something
+  already drawn. Most to write and the least discoverable.
+
+**The second half is a different job**: the seat card's own words are *"for one
+person at a desk"*, and the rig is laid out for one. `at-a-desk.ts` is the
+question the app already asks about the device, asked in one place on purpose,
+and nothing in TEST consults it. What a phone in TEST needs is both bands
+readable at portrait width and the rig reachable without covering the field —
+which is a layout decision, not a flag. The director's side of the same ask is
+smaller: `stage-transport.ts` binds TEST, P1 and P2 and TEST works; what a phone
+cannot do is *reach* that strip, which is the entry at the top of this file.
+
+Split it: the switch that hides itself is one sitting, the phone's TEST layout
+is another.
+
+## No guide page says which wave it is, and the gap before it is empty
+
+- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Files:** `packages/render/src/wave-intro.ts`, `packages/render/src/ready-page.ts`, `packages/render/src/guide-switch.ts`, `packages/render/src/briefing.ts`, `packages/render/src/text-drop.ts`, `packages/sim/src/wave-end.ts`, `packages/render/test/frame.test.ts`
+- **Where:** local
+
+The owner, 18 September 2026: *"On every wave guide/tutorial page, inside or
+somewhere else on s reen, I already want also to see the wave number and wave
+name with a nice animation, e.g. flying in like falling from perspective of user
+down. Right now when a wave is finished to the moment it switches to next wave
+and starts tutorial/guide (if one exists) is very boring, so make sure we have
+some nice fancy success screen if a wave is finished and the tutorial for new
+wave is introduced as something to be excited - so player is thrilled to watch
+the tutorial and understand before staring to play it."*
+
+**This is a look, and it is two of them.** Neither may go straight onto the
+field: a lane that takes either says in its commit which exemption it used, and
+*no shipped alternative* is the honest one for both — there is no wave name on a
+guide page today and no screen at all between waves. Anything drawn is drawn
+again in `frame.test.ts`, and anything that outlives a frame is `Effects`.
+
+**The number and the name on every page.** They are already drawn, once: the
+*last* page of a stepped guide is the wave's own name over the field
+(`ready-page.ts` calling `drawIntroduction`), and the entrance he is describing
+is already written and already approved — `text-drop.ts`, a line falling
+stretched by its own speed, landing, flattening once, over in six tenths of a
+second, with the owner's condition attached in his own emphasis that **the text
+must be well readable**. So the work is not an animation, it is a header: where
+it stands on a page that is mostly film and plate (`guide-switch.ts` owns the
+corner plate's words and is the file that argues about them), and whether it
+drops again on every page turn or only the first time the guide comes up.
+Dropping on every turn is the thing to be careful about — `guide-play.ts` gave
+up its looping film for exactly this reason, that movement at the edge of the
+eye while you are reading is the reader never choosing the moment.
+
+**The screen between the waves.** `wave-end.ts` starts a rest of `waveRestBeats`
+on the beat the field goes clear, and nothing is drawn over it: the pair watches
+an empty field until the host answers `needWave`. The state is already the
+world's — `restBeat`, no new field, nothing to add to `hashWorld` — so a screen
+can be drawn from it the way the lost screen is drawn from `failTick`. What it
+should *be* is the part worth a sheet before it is worth code: the wave just
+cleared, what it cost (the run keeps time and retries, not a score), and the
+hand-off into the next wave's guide as one movement rather than two screens.
+
+Two lanes, and they land separately: the guide header first, since it is a
+header over drawings that exist, and the success screen second, as a
+`docs/spec/` sheet and then a build.
+
+## A cue standing on the hull line has its verb drawn under the ship
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/boss-cue-read.ts`, `packages/render/src/boss-cue-read-b.ts`, `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue-text.ts`, `packages/render/src/frame-field.ts`
+- **Where:** local
+
+`drawBossCue` runs in the **field** pass (`frame-field.ts`), and the ship is
+drawn after it. `drawCueText` hangs the verb `halfH + 18` below the mark's
+centre, so every cue whose mark stands at `l.hullY` has its lower two corners
+and the whole of its word painted over by the plating: THE CANDLE's `CARRY` /
+`MOVE` on the cannon, THE UNDERTOW's two `MOVE`s and THE MAZE's `MOVE`. Seen in
+a real frame of THE WARDEN, whose handle mark had the same problem and was
+lifted out of it with a constant of its own (`HULL_LIFT`,
+`boss-cue-read-f.ts`) — which is a third place doing the arithmetic rather than
+a fix.
+
+The choice is between a floor of the same shape as `boss-cue-text.ts`'s
+`headerTop` ceiling — the verb climbs above the mark when there is no room
+under it, which moves the op-count rows of the three bosses above — and moving
+the cue's draw out of the field pass to after the ship, which is one line in
+`frame-field.ts` and changes what a cue can be drawn *over*. The second is
+smaller and the first is what the file already argues for upward; either way
+one frame per boss is the proof, and `render/test/frame-budget.test.ts` is
+where the cost lands.
 
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
@@ -1650,62 +1904,6 @@ helper rather than a `Hand`, so it cannot be spread into the gallery as it
 stands — the work is lifting it beside `gaugeHand` and `mazeHand` and giving it
 the world's own tick instead of its own loop. Whoever does takes both names off
 `OWED`, and SNAKE's sibling entry above is the same job on a different round.
-
-## The phone's GAME view opens on the strip, and no row in the wave list goes there
-
-- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
-- **Files:** `tools/director/src/rail-open.ts`, `tools/director/src/director-phone.css`, `tools/director/index.html`, `tools/director/test/rail-open.test.ts`, `tools/director/test/phone-map.test.ts`, `tools/director/src/director-field.css`
-
-The owner, 18 September 2026: *"on mobile, navigate from list of waves
-directly to game, should open the game screen. Right now it's impossible to
-see it. Navigating from menu to game, opens the wave details. Make it somehow
-possible for mobile, that I can easily switch to the buttons esp. retry wave
-and show briefing during game screen."*
-
-It is the same ask as the one `rail-open.ts` already answers, one view further
-on: that file's `WAYS` is `wave` and `map`, and the field is not in it, so the
-only way to the picture is `#menuToggle` and the GAME item.
-
-**And arriving there does not show it.** GAME is two sections, not one — RUN
-and the stage — and the phone block gives both `display: block` in document
-order (`director-phone.css`). RUN is the earlier of the two in `index.html`, so
-the view opens on ten full-width rows of transport — ⏸, ↺ WAVE, ▣ SHEET,
-DIFFICULTY and its picker and its note, BRIEFINGS, three role buttons, ⌨ KEYS —
-and the field is a scroll below them. Nothing is hidden; the picture is simply
-never the thing on screen, which is the "impossible to see it".
-
-**The two halves land together**, because the first without the second is a row
-that opens on the strip:
-
-1. **A third way out of a row.** One entry in `WAYS` — `game`, the word GAME,
-   `#stageWrap` for the desktop's `scrollIntoView`. The 44px target and both
-   halves of its display are already written for two buttons and take a third
-   without a line (`#waveList .row-open`). What it costs is
-   `rail-open.test.ts`, whose first case asserts `["wave", "map"]` and is
-   titled *and nothing else*: the assertion moves and so does that framing.
-
-2. **Where the buttons are while the field is up.** Three arrangements, and
-   they differ in how much of the 15 September strip they disturb:
-   - **The field first.** One `order` rule in the phone block on the two
-     `data-view="game"` sections. Cheapest by a wide margin, tested the way
-     `phone-map.test.ts` tests its own two rules — and it answers only half the
-     ask: the buttons are still a scroll away, and *"during game screen"* is
-     the half it does not reach.
-   - **The whole strip pinned.** `.transport` sticky at the bottom of the GAME
-     view, which needs it to be a wrapping row again at phone width. That is
-     what it was until 15 September and it was moved out of that on purpose —
-     it cost the field two lines and read as part of the picture. The reason is
-     weaker here, where nothing else is on the screen.
-   - **The two he named.** ↺ WAVE and BRIEFINGS over the field as a two-button
-     bar, the rest of the strip left below it. Answers the ask literally,
-     leaves the 15 September arrangement alone, and is the only one of the
-     three that adds markup rather than moving it.
-
-The last is the recommendation, with the first underneath it: the field above,
-the two buttons in reach of a thumb, and the strip where it is. Whoever takes
-it should look at the result on a 375px viewport rather than trusting the
-sheets — `phone-map.test.ts`'s own header is about a phone layout that read
-correctly out of the CSS and was wrong in a browser.
 
 ## Unverified at 1028a5b4: THE BATON's swelling socket and its two handle rings, n…
 
