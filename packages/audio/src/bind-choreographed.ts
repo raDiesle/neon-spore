@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { antiphonCue } from "./bind-antiphon.js";
 import { batonCue } from "./bind-baton.js";
 import { candleCue } from "./bind-candle.js";
-import { type HandEvent, handCue } from "./bind-choreographed-b.js";
+import { type HandEvent, handCue, isHandEvent } from "./bind-choreographed-b.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
 import { diastoleCue } from "./bind-diastole.js";
@@ -58,6 +58,10 @@ type ChoreographedEvent =
   | HandEvent;
 
 export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
+  // The hands the §6.2 brief added to bosses that had already shipped, asked
+  // as one question rather than as a `case` each: this file is at its limit
+  // and that list grows by three names per boss (`bind-choreographed-b.ts`).
+  if (isHandEvent(e)) return handCue(e, cols);
   switch (e.type) {
     case "batonLaunch":
     case "batonStruck":
@@ -228,22 +232,6 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "diastoleClamp":
     case "diastoleSpasm":
       return diastoleCue(e, cols);
-    case "wardenHold":
-    case "wardenThrow":
-    case "wardenSlam":
-    case "vanePin":
-    case "vaneSlip":
-    case "vaneHaul":
-    case "snakePrise":
-    case "snakeLift":
-    case "snakeDrop":
-    case "pinWind":
-    case "pinNudge":
-    case "pinTilt":
-    case "scoutReel":
-    case "scoutSlip":
-    case "scoutPrime":
-      return handCue(e, cols);
     default:
       return undertowCue(e, cols);
   }

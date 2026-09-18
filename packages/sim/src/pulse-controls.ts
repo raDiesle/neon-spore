@@ -1,5 +1,6 @@
 import type { PulseLane, PulseState } from "./pulse.js";
 import { pulseAim, pulseJudgeIndex, pulseLaneIndex } from "./pulse-chart.js";
+import { pulseBraced } from "./pulse-hand.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -93,6 +94,10 @@ export function pulseHeard(world: World, state: PulseState, player: 1 | 2, comma
 
 export function pulsePress(world: World, state: PulseState, player: 1 | 2, lane: PulseLane): void {
   const cfg = world.cfg;
+  // A seat holding the bar is out of the song, both ways: its notes are passed
+  // over and nothing it presses counts, so a thumb on the meter is a whole
+  // decision rather than a free extra (`pulse-hand.ts`).
+  if (pulseBraced(cfg, state, player)) return;
   const seat = seatOf(state, player);
   const at = pulseAim(cfg, state.startTick, state.notes, seat.judged, seat.from, lane, world.tick);
   const drawn = pulseLaneIndex(lane);

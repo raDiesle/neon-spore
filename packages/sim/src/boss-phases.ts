@@ -11,7 +11,7 @@ import { LEDGER_PHASES } from "./ledger.js";
 import { MAZE_PHASES } from "./maze.js";
 import { ORRERY_PHASES } from "./orrery.js";
 import { PIN_SHOTS, PINBALL_PHASES } from "./pinball.js";
-import { PULSE_PHASES } from "./pulse.js";
+import { PULSE_HEARTS, PULSE_PHASES } from "./pulse.js";
 import { SCOUT_LOADS, SCOUT_PHASES } from "./scout.js";
 import type { MirrorPhase } from "./simon.js";
 import { SNAKE_GRIPS, SNAKE_PHASES } from "./snake.js";
@@ -61,7 +61,9 @@ export const BOSS_PHASES: Partial<Record<BossEntry["kind"], readonly string[]>> 
   // thumb, and since 18 September 2026 two of them have a hand on the table
   // as well (`pinball.ts`).
   pinball: [...PINBALL_PHASES, ...PIN_SHOTS],
-  pulse: PULSE_PHASES,
+  // Both of THE PULSE's axes, as the three rounds above: the stage's clock,
+  // and what the shared meter has become (`pulse.ts`).
+  pulse: [...PULSE_PHASES, ...PULSE_HEARTS],
   // Both of THE SCOUT's axes, as SNAKE's and PINBALL's are: the round's
   // clock, and what the motes aboard have made of the little ship. The
   // second is the one the pair puts it in (`scout.ts`).

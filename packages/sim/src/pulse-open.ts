@@ -32,6 +32,8 @@ export function openPulse(world: World, stages: readonly PulseStage[]): PulseSta
     startTick: world.tick + PULSE_COUNT_BEATS * ticksPerBeat(world.cfg),
     judged1: [],
     judged2: [],
+    brace1: false,
+    brace2: false,
     from1: 0,
     from2: 0,
     meter: world.cfg.pulseMeterStartMilli,

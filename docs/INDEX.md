@@ -443,6 +443,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/pulse-chart.ts` | THE PULSE's chart, as arithmetic: where a note is in time, which note a press is aimed at |
 | `packages/sim/src/pulse-controls.ts` | The four verbs of the round — and the first round in the game where both seats have all of them |
 | `packages/sim/src/pulse-hash.ts` | What THE PULSE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/pulse-hand.ts` | **THE PULSE's hand on the bar** — the one gesture in this round that is not a step |
 | `packages/sim/src/pulse-round.ts` | THE PULSE's clock: the count-in, the song, and the one way the hull pays |
 | `packages/sim/src/pulse.ts` | THE PULSE: the same song on two screens, and neither of you can read all of it |
 | `packages/sim/src/pulse-open.ts` | Opening a stage, and opening the round — the two places a `PulseState` is written from nothing |
@@ -501,6 +502,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-diastole.ts` | **What THE DIASTOLE's clamp does that neither screen already says**, as two events (`diastole-hand.ts`) |
 | `packages/sim/src/events-warden.ts` | THE WARDEN's hold, throw and slam events — what the second and third hands do that neither screen already says |
 | `packages/sim/src/events-pinball.ts` | **What PINBALL's two hands on the table do that neither screen already says** |
+| `packages/sim/src/events-pulse.ts` | **What THE PULSE's hand on the bar does that neither screen already says**, as three events (`pulse-hand.ts`) |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -1554,6 +1556,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-place.ts` | **Where a sound is**: a column as a stereo position, and a row as a pitch |
 | `packages/audio/src/bind-pod.ts` | **What the one thing on the field that is *taken* sounds like** |
 | `packages/audio/src/bind-pinball-hand.ts` | PINBALL's two hands on the table, in a file of their own for `bind-snake-body.ts`' reason |
+| `packages/audio/src/bind-pulse-hand.ts` | THE PULSE's hand on the bar, in a file of their own for `bind-scout-hand.ts`' reason — `bind.ts` is full |
 | `packages/audio/src/bind-coil.ts` | **THE COIL's two, as sounds**: a dome coming off, and the charge it was holding leaving for the next one |
 | `packages/audio/src/bind-cue.ts` | **What one sound-to-be is**: an id out of the catalogue, where it sits in the stereo field |
 | `packages/audio/src/bind-curtain.ts` | THE CURTAIN's ten, in a file of their own for `bind-gorge.ts`' reason |

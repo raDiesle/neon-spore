@@ -132,4 +132,10 @@ export const INGEST_SILENT_BOSS_B = [
   "scoutReel",
   "scoutSlip",
   "scoutPrime",
+  // THE PULSE's hand on the bar, silent until the look lane draws it: which
+  // seats are holding it is state, read off `brace1` and `brace2` every
+  // frame (`sim/pulse-hand.ts`).
+  "pulseBrace",
+  "pulseSlip",
+  "pulseArrest",
 ] as const satisfies readonly SimEvent["type"][];

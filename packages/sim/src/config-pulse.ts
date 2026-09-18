@@ -65,6 +65,44 @@ export interface PulseConfig {
    * owner's rule is), so mashing costs more per press than waiting costs.
    */
   pulseStrayMilli: number;
+  /**
+   * The meter, in thousandths, below which the bar reads as **fluttering** —
+   * the state a brace is offered in (`pulse-hand.ts`).
+   *
+   * 400 of 1000. Low enough that a pair playing the song well never sees it,
+   * and high enough that it arrives with a bar or two left to do something
+   * about, rather than as an announcement that the stage is already lost.
+   */
+  pulseFlutterMilli: number;
+  /**
+   * And below which it reads as **arrested**: one thumb on the bar is no
+   * longer enough and both of them have to be on it.
+   *
+   * 200. At a miss of `pulseMissMilli` apiece that is a handful of arrows from
+   * nought, which is the point — the last state is one the pair has to spend a
+   * whole bar on, and spending it is the decision.
+   */
+  pulseArrestMilli: number;
+  /**
+   * What a miss costs the seat that is **not** bracing while the other one is,
+   * in thousandths of `pulseMissMilli`.
+   *
+   * 400: a miss under a brace is worth two fifths of one. The seat holding the
+   * bar is out of the song entirely — its own notes are passed over — so what
+   * the pair buys with a brace is one player's arrows at nearly full value
+   * against two players' arrows at none.
+   */
+  pulseBracePermille: number;
+  /**
+   * What both thumbs put back into a bar that is not steady, per beat.
+   *
+   * 18, which is about a miss and a half a beat, and the climb stops at
+   * `pulseFlutterMilli` — where the hand was offered in the first place. So a
+   * bar held by the pair comes back out of danger and never fills: the song is
+   * still the only thing that can fill it, and holding it costs every arrow in
+   * the bars they spend.
+   */
+  pulseArrestGainMilli: number;
 }
 
 export const PULSE_DEFAULTS: PulseConfig = {
@@ -85,4 +123,8 @@ export const PULSE_DEFAULTS: PulseConfig = {
   // is survivable with a dozen mistakes in it and not with thirty.
   pulseMissMilli: 35,
   pulseStrayMilli: 13,
+  pulseFlutterMilli: 400,
+  pulseArrestMilli: 200,
+  pulseBracePermille: 400,
+  pulseArrestGainMilli: 18,
 };

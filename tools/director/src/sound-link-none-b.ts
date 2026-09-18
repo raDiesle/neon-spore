@@ -151,4 +151,13 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "the same line coming off, which hands the ship back to player 1 wherever it has got to. Same argument.",
   "boss.scoutPrime":
     "player 1 priming a thruster three motes have made labour, without which a heavy scout's burn does nothing at all. Same argument.",
+  // THE PULSE's hand on the bar. The subject is a meter, which is a reading
+  // rather than a body, and the round has thrown the field away as the others
+  // have (`sim/pulse-hand.ts`).
+  "boss.pulseBrace":
+    "a seat putting a thumb on the shared meter under flutter, which takes it out of the song and softens what the other one's misses cost. The bar's, and the sheet has no card for a reading.",
+  "boss.pulseSlip":
+    "the same thumb coming off, which puts that seat back in the song. Same argument.",
+  "boss.pulseArrest":
+    "both thumbs on an arrested bar at once, the one moment in the round neither seat can reach alone. Same argument.",
 };

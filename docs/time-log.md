@@ -9514,3 +9514,24 @@ were the one decision in the lane that could quietly invalidate a measured
 figure somebody else had written down.
 
 *Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
+
+## 2026-09-18 — queue-task-processing-cloud — THE PULSE's bar is a state the pair holds
+
+The §6.2 sim lane for the round that splits nothing in its verbs. So the state
+it gained is not a seat's: it is the meter's, the one object the pair owns
+together. Under `flutter` either seat may brace it and carry the other; under
+`arrest` only both thumbs at once put anything back.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `pulse.ts`, `pulse-controls.ts`, `pulse-round.ts` to find where the meter actually falls — which turned out to be misses and strays and no continuous drain at all, and that decided the whole design |
+| writing | 50 | `pulse-hand.ts` with `pulseHeart`, `pulseBraced`, `pulseMissCost` and the arrest step, four config fields, `events-pulse.ts`, `bind-pulse-hand.ts`, `sounds/boss-pulse-hand.ts`, ten cases in a new test file, the wire, the guide, three pose cards, and *Three bars, three hands* |
+| looking | 0 | none — the picture is the look lane's |
+| friction | 20 | the arrest gain was written per beat and run per tick, which climbed the bar out of its own state inside one step and made the third gesture buy nothing; the fix was the beat gate and a cap at `pulseFlutterMilli`, which is the better rule as well. `bind-choreographed.ts` went over 250 for the second time in three lanes and the `case` list was replaced by one `isHandEvent` guard, so the next boss costs that file nothing |
+| landing | 15 | `format`, `imports:sort` and its diff read, `index`, `check:fast` three times, the commit, the land |
+
+The bottleneck was the drain that was not there: the first design slowed a
+drain the round does not have, and reading `expire` rather than assuming it is
+what turned the brace into *one of you stops playing to carry the other*.
+
+*Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*

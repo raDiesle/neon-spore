@@ -85,9 +85,11 @@ export { launchBall, pinCaught, pinRestingBall, resetShot } from "./pinball-shot
 
 export {
   PULSE_COUNT_BEATS,
+  PULSE_HEARTS,
   PULSE_JUDGES,
   PULSE_LANES,
   PULSE_PHASES,
+  type PulseHeart,
   type PulseJudge,
   type PulseLane,
   type PulseNote,
@@ -95,7 +97,6 @@ export {
   type PulseStage,
   type PulseState,
 } from "./pulse.js";
-
 export {
   pulseAim,
   pulseCalls,
@@ -106,6 +107,8 @@ export {
   pulseNoteTick,
   pulseVeiled,
 } from "./pulse-chart.js";
+// What the shared meter has become — read, never re-derived (`pulse-hand.ts`).
+export { pulseBraced, pulseHeart } from "./pulse-hand.js";
 
 export { pulseCurrent } from "./pulse-open.js";
 

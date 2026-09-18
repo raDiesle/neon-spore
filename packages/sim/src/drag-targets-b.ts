@@ -21,7 +21,8 @@ export type DragTargetB =
   | "pinPlunger"
   | "pinTable"
   | "scoutLine"
-  | "scoutPrime";
+  | "scoutPrime"
+  | "pulseMeter";
 
 /**
  * `fleetBreach`, `fleetRake` and `fleetWreck` are the twenty-seventh, -eighth
@@ -72,4 +73,15 @@ export type DragTargetB =
  * carry on the ship itself (`fromYMilli` against `scoutPrimeMilli`) that lights
  * a thruster three motes have made labour (`scout-hand.ts`). No `id`: one ship
  * and one line onto it.
+ */
+
+/**
+ * `pulseMeter` is the thirty-eighth, and the first target **both seats may
+ * take hold of at once**. THE PULSE splits nothing in its verbs, so what it
+ * gained a hand on is the one object in the game the pair owns together: the
+ * meter. Under `flutter` a thumb on it takes that seat out of the song and
+ * softens the other's misses; under `arrest` only both thumbs at once put
+ * anything back into it (`pulse-hand.ts`). It carries nothing but `on`, for
+ * `gaugeBand`'s reason — where on the bar a thumb landed says nothing the
+ * round wants.
  */

@@ -67,4 +67,8 @@ export const SILENT_BOSS_B = [
   "scoutReel",
   "scoutSlip",
   "scoutPrime",
+  // THE PULSE's hand on the bar, no burst until the look lane draws it.
+  "pulseBrace",
+  "pulseSlip",
+  "pulseArrest",
 ] as const satisfies readonly SimEvent["type"][];

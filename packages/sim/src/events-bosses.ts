@@ -10,6 +10,7 @@ import type { InstarEvent } from "./events-instar.js";
 import type { LeadEvent } from "./events-lead.js";
 import type { LedgerEvent } from "./events-ledger.js";
 import type { PinballEvent } from "./events-pinball.js";
+import type { PulseEvent } from "./events-pulse.js";
 import type { QueenEvent } from "./events-queen.js";
 import type { ScoutEvent } from "./events-scout.js";
 import type { ScuttleEvent } from "./events-scuttle.js";
@@ -67,7 +68,8 @@ export type BossEvent =
   | VaneEvent
   | SnakeEvent
   | PinballEvent
-  | ScoutEvent;
+  | ScoutEvent
+  | PulseEvent;
 
 export type { AntiphonEvent } from "./events-antiphon.js";
 export type { BatonEvent } from "./events-baton.js";
@@ -81,6 +83,7 @@ export type { InstarEvent } from "./events-instar.js";
 export type { LeadEvent } from "./events-lead.js";
 export type { LedgerEvent } from "./events-ledger.js";
 export type { PinballEvent } from "./events-pinball.js";
+export type { PulseEvent } from "./events-pulse.js";
 export type { QueenEvent } from "./events-queen.js";
 export type { ScoutEvent } from "./events-scout.js";
 export type { ScuttleEvent } from "./events-scuttle.js";

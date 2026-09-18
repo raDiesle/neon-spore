@@ -101,6 +101,11 @@ const ACCEPTED: Command[] = [
   // would leave one device flying a ship the other one is hauling.
   { kind: "drag", target: "scoutLine", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "scoutPrime", on: false, fromMilli: 0, fromYMilli: 1500 },
+  // THE PULSE's bar, the first target both seats may hold at once: under its
+  // last state only both thumbs put anything back into it, so a codec that
+  // dropped one would leave the two devices disagreeing about whether the
+  // stage is being saved (`sim/pulse-hand.ts`).
+  { kind: "drag", target: "pulseMeter", on: true, fromMilli: 0, fromYMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -222,6 +227,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   pinTable: true,
   scoutLine: true,
   scoutPrime: true,
+  pulseMeter: true,
   crank: true,
   orreryRing: true,
 };

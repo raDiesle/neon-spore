@@ -111,6 +111,29 @@ export const PULSE_PHASES = ["count", "play", "verdict", "spent"] as const;
 export type PulsePhase = (typeof PULSE_PHASES)[number];
 
 /**
+ * **What the bar has become, which is a second state and not a second clock**
+ * (`docs/spec/interludes.md`, THE PULSE's *Three bars, three hands*).
+ *
+ * The phases above are the stage's clock — the count, the song, the verdict,
+ * the picture held. This is the **meter**, and it follows from the one number
+ * that was already the whole of whether the stage is lost. There is one of it
+ * and it belongs to the pair, which is what makes a hand on it the right thing
+ * to give this round: every other gesture in the game is one seat's half of
+ * something, and this one is the only object both of them own.
+ *
+ * - `steady`: the four verbs on both panels, as the round was built.
+ * - `flutter`: under `pulseFlutterMilli` either seat may **brace** the bar
+ *   (`pulseMeter`) — its own notes are then passed over, hit or missed, and
+ *   the other seat's misses cost `pulseBracePermille` of what they did.
+ * - `arrest`: under `pulseArrestMilli` one thumb is not enough to hold on with.
+ *   **Both** on the bar at once put `pulseArrestGainMilli` a beat back into it
+ *   — up to `pulseFlutterMilli` and no further — and neither of them is
+ *   hitting an arrow while they do.
+ */
+export const PULSE_HEARTS = ["steady", "flutter", "arrest"] as const;
+export type PulseHeart = (typeof PULSE_HEARTS)[number];
+
+/**
  * Beats between a stage opening and its first arrow landing. Four, which is
  * the count-in every arcade cabinet gives and one bar of the click the pair
  * are already hearing.
@@ -160,6 +183,15 @@ export interface PulseState {
    */
   judged1: number[];
   judged2: number[];
+  /**
+   * Whether this seat's thumb is on the bar, under `flutter` or `arrest`.
+   *
+   * While it is, the seat is out of the song: its notes are passed over rather
+   * than missed, and a press of its own does nothing. What it buys is on the
+   * other seat's side of the bar (`pulse-hand.ts`).
+   */
+  brace1: boolean;
+  brace2: boolean;
   /**
    * The first note in chart order this seat has not finished with: every index
    * below it is resolved, so a press and the expiry sweep both start here

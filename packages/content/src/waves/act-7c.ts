@@ -143,9 +143,9 @@ export const WAVES_ACT_7C: Wave[] = [
     name: "THE PULSE",
     sentence: "The one where you both play the same song and neither of you can read all of it.",
     guide: {
-      both: "Things fall into four sockets. Press the matching button as each one lands. A grey shape is one only your partner can name.",
-      p1: "1. Press the button for each thing as it lands. Late beats skipped.\n2. A grey shape is your partner's to name: press what they say.\n3. Say what the shape marked CALL is, early and once.",
-      p2: "1. Press the button for each thing as it lands, one bar after your partner.\n2. Say what the shape marked CALL is, early and once.\n3. A grey shape is theirs to name: press what they say.",
+      both: "Things fall into four sockets. Press the matching button as each one lands. A grey shape is one only your partner can name. The bar is yours together.",
+      p1: "1. Press the button for each thing as it lands.\n2. A grey shape is theirs to name: press what they say.\n3. Say what the shape marked CALL is, early and once.\n4. Bar low: a thumb on it carries them, but you stop playing.",
+      p2: "1. Press the button for each thing as it lands.\n2. Say what the shape marked CALL is, early and once.\n3. A grey shape is theirs to name: press what they say.\n4. Bar nearly gone: both thumbs on it, or it keeps falling.",
       scene: "thePulse",
     },
     entries: [],

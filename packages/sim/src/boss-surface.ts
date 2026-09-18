@@ -140,6 +140,8 @@ export {
   pulseCurrent,
   pulseEndTick,
   pulseFault,
+  // What the shared meter has become (`pulse-hand.ts`).
+  pulseHeart,
   pulseHolds,
   pulseLaneIndex,
   pulseNoteAt,

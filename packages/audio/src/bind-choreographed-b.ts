@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
 import { pinballHandCue } from "./bind-pinball-hand.js";
+import { pulseHandCue } from "./bind-pulse-hand.js";
 import { scoutHandCue } from "./bind-scout-hand.js";
 import { snakeBodyCue } from "./bind-snake-body.js";
 import { vaneCue } from "./bind-vane.js";
@@ -42,9 +43,45 @@ export type HandEvent = Extract<
       // And THE SCOUT's two, the third round to get a hand on its picture.
       | "scoutReel"
       | "scoutSlip"
-      | "scoutPrime";
+      | "scoutPrime"
+      // And THE PULSE's one, on the only object the pair owns together.
+      | "pulseBrace"
+      | "pulseSlip"
+      | "pulseArrest";
   }
 >;
+
+/**
+ * Every name above as a set, so the page next door asks one question instead
+ * of carrying a `case` per event. Three names a boss is three lines there and
+ * that file is at its limit; here they are three lines it was going to have
+ * anyway.
+ */
+const HAND_EVENTS = new Set<string>([
+  "wardenHold",
+  "wardenThrow",
+  "wardenSlam",
+  "vanePin",
+  "vaneSlip",
+  "vaneHaul",
+  "snakePrise",
+  "snakeLift",
+  "snakeDrop",
+  "pinWind",
+  "pinNudge",
+  "pinTilt",
+  "scoutReel",
+  "scoutSlip",
+  "scoutPrime",
+  "pulseBrace",
+  "pulseSlip",
+  "pulseArrest",
+]);
+
+/** Whether this is one of the hands above, and not a boss's own event. */
+export function isHandEvent(e: { type: string }): e is HandEvent {
+  return HAND_EVENTS.has(e.type);
+}
 
 export function handCue(e: HandEvent, cols: number): Cue {
   switch (e.type) {
@@ -64,7 +101,11 @@ export function handCue(e: HandEvent, cols: number): Cue {
     case "pinNudge":
     case "pinTilt":
       return pinballHandCue(e, cols);
-    default:
+    case "scoutReel":
+    case "scoutSlip":
+    case "scoutPrime":
       return scoutHandCue(e);
+    default:
+      return pulseHandCue(e);
   }
 }

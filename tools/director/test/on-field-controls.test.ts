@@ -200,6 +200,10 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "scoutLine":
     case "scoutPrime":
       return target;
+    // THE PULSE's meter, the one thing in the game both seats may take hold of
+    // at once (`sim/pulse-hand.ts`). Sim lane only so far, as the nine above.
+    case "pulseMeter":
+      return target;
     default:
       return assertNever(target);
   }

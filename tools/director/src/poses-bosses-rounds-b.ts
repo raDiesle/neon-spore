@@ -1,4 +1,4 @@
-import { scoutLoad } from "@neon-spore/sim";
+import { pulseHeart, scoutLoad } from "@neon-spore/sim";
 import { pinballHand } from "./boss-hands-rounds.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
@@ -102,6 +102,45 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
     "spent",
     "The stage over and only being looked at, held until the next wave replaces it.",
     { ...FULL, hold: 12 },
+  ),
+  bossPose(
+    "pulse",
+    "steady",
+    "The bar full and the song running: the four arrows on both panels, and the only thing either seat cannot read is the arrow the other one has to name.",
+    {
+      ...FULL,
+      want: (w) =>
+        w.boss?.kind === "pulse" &&
+        w.boss.phase === "play" &&
+        pulseHeart(w.cfg, w.boss) === "steady",
+      hold: 6,
+    },
+  ),
+  bossPose(
+    "pulse",
+    "flutter",
+    "The bar under pulseFlutterMilli and a thumb offered on it: a seat that takes it is out of the song, its own arrows passed over, and what the other one's misses cost drops to pulseBracePermille.",
+    {
+      ...FULL,
+      want: (w) =>
+        w.boss?.kind === "pulse" &&
+        w.boss.phase === "play" &&
+        pulseHeart(w.cfg, w.boss) === "flutter",
+      hold: 6,
+    },
+  ),
+  bossPose(
+    "pulse",
+    "arrest",
+    "The bar under pulseArrestMilli, where one thumb buys nothing. Both of them on it put pulseArrestGainMilli a beat back, and neither is hitting an arrow while they do — which is the bar the pair has to agree to spend.",
+    {
+      ...FULL,
+      want: (w) =>
+        w.boss?.kind === "pulse" &&
+        w.boss.phase === "play" &&
+        pulseHeart(w.cfg, w.boss) === "arrest",
+      hold: 4,
+    },
   ),
   bossPose(
     "scout",

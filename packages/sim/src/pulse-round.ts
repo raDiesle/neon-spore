@@ -3,6 +3,7 @@ import { breachHull } from "./hull.js";
 import { PULSE_COUNT_BEATS, type PulsePhase, type PulseStage, type PulseState } from "./pulse.js";
 import { pulseEndTick, pulseExpire, pulseLaneIndex } from "./pulse-chart.js";
 import { pulseHeard, pulseMark } from "./pulse-controls.js";
+import { pulseBraced, pulseHandHeard, pulseMissCost, stepPulseArrest } from "./pulse-hand.js";
 import { loadStage, openPulse, pulseCurrent } from "./pulse-open.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -73,6 +74,10 @@ export function stepPulseRound(world: World): void {
     return;
   }
 
+  // Both thumbs on an arrested bar put something back into it, before the
+  // sweep: a beat the pair spent holding it is a beat the bar climbed, even if
+  // the same beat's arrows go past them (`pulse-hand.ts`).
+  stepPulseArrest(world, state);
   expire(world, state, 1);
   expire(world, state, 2);
 
@@ -94,6 +99,10 @@ export function stepPulseRound(world: World): void {
 /** What this seat has run out of time on, charged to its meter. */
 function expire(world: World, state: PulseState, player: 1 | 2): void {
   const judged = player === 1 ? state.judged1 : state.judged2;
+  // A seat with a thumb on the bar is out of the song: its notes are passed
+  // over rather than missed, so a brace never costs the meter what it was
+  // taken out to save (`pulse-hand.ts`).
+  const braced = pulseBraced(world.cfg, state, player);
   const from = player === 1 ? state.from1 : state.from2;
   const out = pulseExpire(world.cfg, state.startTick, state.notes, judged, from, world.tick);
   if (player === 1) state.from1 = out.from;
@@ -101,11 +110,18 @@ function expire(world: World, state: PulseState, player: 1 | 2): void {
   if (out.missed.length === 0) return;
   let meter = state.meter;
   let lane = player === 1 ? state.lastLane1 : state.lastLane2;
+  const cost = braced ? 0 : pulseMissCost(world, state, player);
   for (const i of out.missed) {
     judged[i] = 3;
-    meter -= world.cfg.pulseMissMilli;
+    meter -= cost;
     const note = state.notes[i];
     if (note !== undefined) lane = pulseLaneIndex(note.lane);
+  }
+  // A passed-over note leaves the combo alone as well: the seat holding the
+  // bar has not broken a run, it has stepped out of one.
+  if (braced) {
+    state.meter = meter;
+    return;
   }
   pulseMark(world, state, player, 3, lane, meter, 0);
 }
@@ -166,6 +182,10 @@ export function pulseRoundHeard(world: World, player: 1 | 2, command: Command): 
   const state = pulseRound(world);
   if (state === null) return;
   if (state.phase !== "play" && state.phase !== "count") return;
+  // The hand on the bar first, and it is heard in the count as well: a stage
+  // opened on a bar the last one left fluttering is one the pair may take hold
+  // of before the first arrow lands (`pulse-hand.ts`).
+  pulseHandHeard(world, state, player, command);
   pulseHeard(world, state, player, command);
 }
 

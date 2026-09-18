@@ -606,6 +606,61 @@ press. `scoutLadenMotes` and `scoutHeavyMotes` are the loads above,
 `scoutPrimeTicks` are how far a prime is carried and how long it lasts. `scoutLeadBeats` is the quiet before the ship is let go, and
 `scoutVerdictBeats` is how long the result stands.
 
+**Three bars, three hands** (18 September 2026, `.claude/skills/new-boss`
+§6.2; the simulation is `packages/sim/src/pulse-hand.ts`). THE PULSE splits
+nothing in its verbs — both panels carry the same four arrows and a press is
+judged the same way whichever thumb it came from — so the state it gained is
+not a seat's. It is the **meter's**: the one number that was already the whole
+of whether a stage is lost, and the one object in this game the pair owns
+together.
+
+| Bar | Meter | What is new | Whose hand |
+|---|---|---|---|
+| `steady` | above `pulseFlutterMilli` | the four arrows on both panels, as the round was built | both, on the panel |
+| `flutter` | under it | **the brace.** Either seat may hold the bar (`pulseMeter`): its own notes are passed over rather than missed, nothing it presses counts, and the other seat's misses cost `pulseBracePermille` of what they did | either seat, on the picture |
+| `arrest` | under `pulseArrestMilli` | one thumb is not enough to hold on with. **Both** at once put `pulseArrestGainMilli` a beat back, up to `pulseFlutterMilli` and no further | both seats, together |
+
+**The brace is one of them carrying the pair**, which is the sentence this
+round has always been about said with a thumb. The seat holding the bar is out
+of the song in both directions — its arrows are not charged and its presses do
+not count — so what the pair buys is *one* player's arrows at nearly full
+value against *two* players' arrows at none. Whether that is worth it depends
+on how the chart is going, which is the only thing either of them can see and
+the thing neither can see all of.
+
+**`arrest` is the first gesture in a round that takes both seats at once**, and
+it is THE INSTAR's *together means together* arriving here. A bar held by the
+pair climbs a beat at a time — on the beat, never on the tick, because a gain
+per tick would fill it inside a step — and stops where the hand was first
+offered. So it buys the stage back out of danger and never fills the bar: the
+song is still the only thing that can, and every beat spent holding it is a
+beat of arrows going past both of them.
+
+**Nothing new can lose a stage.** A thumb on a steady bar does nothing, and a
+brace is never worse than not bracing — what it passes over are notes that seat
+was not going to be judged on either way.
+
+**Where the hand lives.** `pulse-hand.ts` hears it, from `pulse-round.ts`
+beside the four verbs and **in the count as well**, so a stage opened on a bar
+the last one left fluttering is one the pair may take hold of before the first
+arrow lands. `PulseState` gained `brace1` and `brace2`, both hashed;
+`pulseHeart` is the reading and `pulseMissCost` is the one place a miss's price
+is decided. The three events — `pulseBrace`, `pulseSlip`, `pulseArrest` — are
+`events-pulse.ts`, the round's first, cued by `bind-pulse-hand.ts` and voiced
+by `sounds/boss-pulse-hand.ts`.
+
+**All three bars are posed** (`poses-bosses-rounds-b.ts`): a round nobody plays
+drains its own meter, so the gallery reaches `flutter` and `arrest` by waiting
+— which none of the other three rounds' second axes can say.
+
+**What is not built** (sim lane, 18 September 2026): the picture. The bar is
+drawn the same in all three states, nothing marks it as a thing a thumb may
+take hold of, a braced seat's passed-over arrows look like arrows it missed,
+and the three events are on both silent lists. *Never watched at tempo*:
+whether a thumb can be got onto the bar and off it inside a bar of the song,
+and whether a seat that has stopped playing can tell that the other one is
+still going.
+
 **Three loads, three hands** (18 September 2026, `.claude/skills/new-boss`
 §6.2; the simulation is `packages/sim/src/scout-hand.ts`). The round asked the
 same four things of the pair from the first mote to the last, and the seat that

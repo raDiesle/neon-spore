@@ -93,4 +93,8 @@ export const ROUND_FIELD_GROUP = {
   pulseGoodMilli: "THE PULSE — the same song on two screens",
   pulseMissMilli: "THE PULSE — the same song on two screens",
   pulseStrayMilli: "THE PULSE — the same song on two screens",
+  pulseFlutterMilli: "THE PULSE — the same song on two screens",
+  pulseArrestMilli: "THE PULSE — the same song on two screens",
+  pulseBracePermille: "THE PULSE — the same song on two screens",
+  pulseArrestGainMilli: "THE PULSE — the same song on two screens",
 } satisfies Record<string, GroupName>;

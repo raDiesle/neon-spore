@@ -71,6 +71,11 @@ export function pulseHashParts(b: PulseState): number[] {
   for (const note of b.notes) pushNote(push, note);
   // The meter, once, because there is one of it and it belongs to the pair.
   push(b.meter);
+  // The two thumbs on the bar. Each is whether that seat is in the song at
+  // all and what a miss costs the other one, so a device that disagreed
+  // about either would be judging a different stage (`pulse-hand.ts`).
+  push(b.brace1 ? 1 : 0);
+  push(b.brace2 ? 1 : 0);
   for (const seat of [1, 2] as const) {
     const judged = seat === 1 ? b.judged1 : b.judged2;
     push(judged.length);
