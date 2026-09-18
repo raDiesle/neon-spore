@@ -225,6 +225,7 @@ ship on the pilot's screen is a boss part too.
 ## A rehearsal's frame hides what stands over row 0 of the field
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Taken:** 2026-09-18, claude/queue-a-rehearsals-frame-hides-what-stands-over-row-0
 - **Files:** `packages/render/src/guide-film.ts`, `packages/render/src/guide-scene.ts`, `packages/render/src/layout.ts`, `packages/render/src/taster-draw.ts`, `packages/render/src/gorge-draw.ts`, `packages/render/src/antiphon-draw.ts`, `packages/render/src/orrery-draw.ts`
 
 A film is laid out in the box less the nav bar's height (`filmLayout`), and
