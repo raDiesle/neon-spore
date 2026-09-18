@@ -598,6 +598,7 @@ hand still draws.
 | THE VANE | `PLAYER 2 FIRES RED` | `THE COLUMN MUST BE CLEAR` | `PRESS` / `FIRE` on the mouth of the split, hers, and `CARRY` / `MOVE` on his cannon |
 | SNAKE | `AND THE NEXT ONE` | `A METEOR STOPS THE SHOT` | `PRESS` / `FIRE` on a reachable enemy and `PRESS` / `OPEN` on the next point, his alone |
 | PINBALL | `PLAYER 1 SLIDES THE CANNON` | `THE CANNON ALSO CATCHES` | `CARRY` / `MOVE` on the cannon, his alone, while a ball in the air is coming down somewhere else |
+| THE SCOUT | `AT HOME, PLAYER 2 OPENS MAW` | `ONLY THE MAW TAKES A MOTE` | `PRESS` / `OPEN` on the mother ship's mouth, hers alone, while the little ship stands on it and the mouth is shut |
 
 **Four other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
@@ -701,6 +702,16 @@ the round's own design, which neither screen states — the thing you fire from
 is the thing you have to catch it with. The navigator's page stays and is the
 only thing that tells her anything: the sentence says her verb for every tick
 of her phase, so a cue could only add *when*, and *when* is the answer.
+
+THE SCOUT's one row is the same day and is the first where the **navigator**
+is the seat the field speaks to. The rule is the same one as everywhere else —
+a mark stands only on something this seat is shown — and here it points the
+other way: the pilot has three controls and cannot see one mote or one hazard,
+so every word the field could write over his crank is a direction, and the
+direction is hers to say. Her page could not come out, because the tap it sits
+over is the first arena's last act, so it carries the rule underneath her
+thumb that neither screen draws: flying over a mote is not having it. His two
+pages are the nose and the burn, and no cue takes either.
 
 #### The ghost thumb is derived, never authored
 

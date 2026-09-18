@@ -31,6 +31,26 @@ function touching(a: ScoutPoint, aRadius: number, b: ScoutPoint, bRadius: number
 }
 
 /**
+ * Whether the little ship is standing on the mother ship's mouth.
+ *
+ * **One rule, and the two things that ask it want opposite answers from it.**
+ * The round asks it at the bank, to decide whether what is aboard comes off
+ * (`bankAtHome`); the field's cue asks it every tick, to decide whether the
+ * navigator is owed the word `OPEN` (`render/boss-cue-read-h.ts`). Written as
+ * a `touching` call in one of them, the other would have had to write it again
+ * out of two radii and a squared distance — and a word that arrived half a
+ * tile before the bank would be the field promising a press the simulation is
+ * about to refuse.
+ *
+ * It says nothing about what is aboard, and nothing about the arena: a mote,
+ * a hazard and a route are the navigator's screen and the pair's sentence.
+ */
+export function scoutAtHome(cfg: SimConfig, scout: ScoutState): boolean {
+  const home = scoutHome(cfg.cols, cfg.rows);
+  return touching(scout, cfg.scoutRadiusMilli, home, cfg.scoutHomeRadiusMilli);
+}
+
+/**
  * The index of a mote the scout is on top of and is not already holding, or -1.
  *
  * One a tick is enough: two motes close enough to be inside the ship at once
@@ -101,8 +121,7 @@ function bankAtHome(world: World, scout: ScoutState): void {
   if (scout.carrying.length === 0) return;
   const cfg = world.cfg;
   if (!scoutMawOpen(scout, world.tick, cfg.scoutMawTicks)) return;
-  const home = scoutHome(cfg.cols, cfg.rows);
-  if (!touching(scout, cfg.scoutRadiusMilli, home, cfg.scoutHomeRadiusMilli)) return;
+  if (!scoutAtHome(cfg, scout)) return;
   for (const at of scout.carrying) scout.banked.push(at);
   scout.carrying = [];
 }

@@ -177,6 +177,9 @@ export {
   scoutLeft,
   scoutMawOpen,
 } from "./scout.js";
+// Whether the little ship is on the mother ship's mouth: the round asks at
+// the bank, the field's cue asks every tick (`scout-arena.ts`).
+export { scoutAtHome } from "./scout-arena.js";
 export { scoutNose } from "./scout-fly.js";
 export { enterScoutPhase, scoutHolds, scoutOpenRound, scoutRound } from "./scout-round.js";
 export {

@@ -13,7 +13,7 @@ import { stareCues } from "./boss-cue-read-d.js";
 import { gaugeCues, mazeCues, mirrorCues } from "./boss-cue-read-e.js";
 import { wardenCues } from "./boss-cue-read-f.js";
 import { fleetCues, snakeCues } from "./boss-cue-read-g.js";
-import { pinballCues } from "./boss-cue-read-h.js";
+import { pinballCues, scoutCues } from "./boss-cue-read-h.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";
@@ -171,6 +171,8 @@ function cuesOf(
       return snakeCues(l, world, boss, clearTop);
     case "pinball":
       return pinballCues(l, world, boss);
+    case "scout":
+      return scoutCues(l, world, boss);
     default:
       return NONE;
   }

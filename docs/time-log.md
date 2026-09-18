@@ -8964,3 +8964,30 @@ The bottleneck was the flag: a state two thumbs deep has no picture until the
 tool can name both thumbs.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-hints — THE SCOUT says OPEN, and it is the navigator's
+
+The first cue for the seat that cannot move anything. The rule is the same one
+everywhere — a mark stands only on something this seat is shown — and here it
+points the other way: the pilot has three controls and cannot see one mote or
+one hazard, so every word the field could write over his crank is a direction,
+and the direction is hers to say. She gets `PRESS` / `OPEN` on the mother
+ship's mouth while the little ship stands on it with the mouth shut, asked of
+`scoutAtHome`, which came out of the bank so the word cannot promise a press
+the round is about to refuse. It says nothing about what is aboard: a press
+that banks nothing costs nothing, and a cue that came out only for a loaded
+ship would report the pilot's half of the picture to her.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `scout.ts`, `scout-arena.ts`, `scout-round.ts` for the header line, `view-role.ts` for the split |
+| writing | 20 | the extraction, the second reading on page eight, six cases, the film's maw page, two spec passages |
+| looking | 10 | two frames: at 1.9 tiles of lift the home ring's rim cut through the word |
+| friction | 0 | none — the page opened for PINBALL took the round unchanged |
+| landing | 10 | `check:fast`, the commit, the land |
+
+The bottleneck was the lift: the one number in the reading that cannot be
+reasoned about had to be measured twice, because the thing the word must not
+cover is the widest radius in the round.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

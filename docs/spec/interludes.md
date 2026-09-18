@@ -389,6 +389,25 @@ both the place, home, the walls and the count. Nothing outlives a frame.
 `packages/render/test/scout-frame.test.ts` draws every phase on all three
 screens, set rather than waited for, and proves the split both ways.
 
+**What the field says** (`render/src/boss-cue-read-h.ts`, 18 September 2026,
+[`docs/decisions.md`](../decisions.md) #34). One word, the navigator's, and the
+pilot gets none. `PRESS` / `OPEN` stands on the mother ship's mouth while the
+little ship is on it and the mouth is shut — `scoutAtHome`, the rule the bank
+itself is judged by, so the word cannot promise a press the round is about to
+refuse, and it goes while the mouth stands open, because that press has already
+landed and the mouth shuts on its own. Home and the ship's place are drawn on
+all three screens, so the mark stands on nothing she is not shown. It says
+nothing about what is aboard: a ship that arrives empty is asked for the press
+anyway, and the press costs nothing, which is better than a cue whose appearing
+is a report on the pilot's half of the picture.
+
+**The pilot is told nothing, wherever the ship is, and that is the reading
+rather than a gap in it.** His screen is the ship, its nose and what rides its
+rim, and not one mote or hazard; his three controls are two turns and a burn,
+and every word the field could put on them is a direction. The direction is the
+answer and hers to say, an o'clock at a time. It is THE GAUGE's finding with
+the seats swapped, and it is the third round to come to it.
+
 **The rehearsal** (`content/src/scenes/the-scout.ts`, 18 September 2026)
 flies the first arena whole and the second's first trip, its legs searched
 for rather than authored (§3.2 of [briefings](briefings.md)); the pilot's

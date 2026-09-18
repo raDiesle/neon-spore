@@ -26,6 +26,11 @@ import { SCOUT_ARENAS } from "../scout-arenas.js";
  * Player 1 has three controls and cannot see where any of it is; player 2 has
  * one and cannot fly. The captions say which seat does what and never where the
  * motes are — that is the sentence the pair has to say to each other.
+ *
+ * **Seven pages still, and the maw's changed on 18 September 2026.** The field
+ * now says `OPEN` on the mouth at the moment the little ship reaches it, so the
+ * page that named her verb carries the rule underneath it instead
+ * (`docs/spec/briefings.md`).
  */
 export const THE_SCOUT: GuideScene = {
   ticks: 1700,
@@ -74,10 +79,17 @@ export const THE_SCOUT: GuideScene = {
       text: "PLAYER 2 SEES WHAT CROSSES",
       anchor: { at: "boss", part: "hazard" },
     },
+    // AT HOME, PLAYER 2 OPENS MAW stood here and is the cue's now: the field
+    // writes `PRESS` / `OPEN` on the mother ship's mouth, on her screen alone,
+    // for as long as the little ship stands on it with the mouth shut
+    // (`decisions.md` #34, `render/boss-cue-read-h.ts`). The page could not
+    // simply come out — the tap at 992 is the first arena's last act — so it
+    // carries the rule underneath her thumb that no picture on either screen
+    // states: flying over a mote is not having it.
     {
       tick: 960,
       seat: 2,
-      text: "AT HOME, PLAYER 2 OPENS MAW",
+      text: "ONLY THE MAW TAKES A MOTE",
       anchor: { at: "control", control: "scoutMaw" },
     },
     {

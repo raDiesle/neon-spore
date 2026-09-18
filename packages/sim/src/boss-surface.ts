@@ -162,6 +162,7 @@ export {
   type SpliceEntry,
   type SpliceRound,
   type SpliceState,
+  scoutAtHome,
   scoutCleared,
   scoutCurrent,
   scoutHolds,
