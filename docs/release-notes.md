@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · fd51014b — THE PULSE is read against the cue and left silent, on purpose
+
+The first of these lanes to come back with nothing the field may say, and the reason is the round. Its four verbs are four lanes, both seats hold all four, and the only question it ever asks is which lane and now. Both halves are the answer: the lane is the word a veiled seat has to be given out loud, which is the whole reason the round needs two people, and the moment is what the judgement is made of. A `PRESS` written on the line would hand over the round's one skill along with its one sentence. There is no third thing to say either — a cue may not tell a player to speak, and a word aimed at the seat that can read a veiled arrival would be a script rather than a verb.
+
 ## 2026-09-18 · c773f700 — THE SCOUT says OPEN on the mouth, and it is the navigator who is told
 
 The field now carries THE SCOUT's cue (`docs/decisions.md` #34), and it is the first for the seat that cannot move anything. The rule is the same one as everywhere else — a mark stands only on something this seat is shown — and here it points the other way. The pilot has two turns and a burn and is shown the little ship, its nose and what rides its rim and not one mote or hazard, so every word the field could write over his crank is a direction; the direction is the answer and hers to say, an o'clock at a time. He gets nothing. It is THE GAUGE's finding with the seats swapped.
