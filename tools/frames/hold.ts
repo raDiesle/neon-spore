@@ -109,12 +109,19 @@ export function parseHold(value: string): HoldSpec[] {
     sinewRight: 2,
     surgeBulb2: 2,
     instarMark2: 2,
+    mirrorLobe2: 2,
   };
-  const TARGET: Record<string, string> = { surgeBulb2: "surgeBulb", instarMark2: "instarMark" };
+  // THE MIRROR's lobes are one target both seats send as well, `id` 0 its
+  // cannon and 1 its shield (`sim/mirror-hand.ts`).
+  const TARGET: Record<string, string> = {
+    surgeBulb2: "surgeBulb",
+    instarMark2: "instarMark",
+    mirrorLobe2: "mirrorLobe",
+  };
   const target = TARGET[name0] ?? name0;
   // And they take an `id` for THE LID's reason: a wave puts several on the
   // field at once on purpose.
-  const NEEDS_ID = ["lidString", "balloonLeft", "balloonRight", "instarMark"];
+  const NEEDS_ID = ["lidString", "balloonLeft", "balloonRight", "instarMark", "mirrorLobe"];
   const DRAGS = [
     "mazeString",
     "wardenTether",
@@ -130,6 +137,8 @@ export function parseHold(value: string): HoldSpec[] {
     "antiphonOrgan",
     "instarMark",
     "instarMark2",
+    "mirrorLobe",
+    "mirrorLobe2",
   ];
   if (!DRAGS.includes(name0)) {
     throw new Error(`--hold ${value}: unknown control. One of prime=red|cyan, ${DRAGS.join(", ")}`);

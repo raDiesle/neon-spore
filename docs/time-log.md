@@ -8945,3 +8945,20 @@ carry `carryMilli` down to the readout, or the ring would have lit a colour
 the sim would not fire.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — `--hold` reaches THE MIRROR's lobes
+
+The landing's picture needed a thumb on each of the mirror's lobes and
+`bun run frames` had no name for them. Two rows in `hold.ts`, the way THE
+INSTAR's second thumb is named.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `hold.ts`'s seat and target tables, `--boss-json`'s header |
+| writing | 5 | `mirrorLobe`, `mirrorLobe2`, the id rule |
+| looking | 5 | one frame of the pin on player 1's screen, and its crop |
+| friction | 5 | the first crop was taken in the wrong pixels; the picture is 390 wide |
+| landing | 5 | `check:fast`, the commit, the land |
+
+The bottleneck was the flag: a state two thumbs deep has no picture until the
+tool can name both thumbs.
