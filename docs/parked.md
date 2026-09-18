@@ -59,6 +59,7 @@ on.
 ## THE MIRROR's reflect and hold have no picture: the look half of §6.2
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-18, claude/queue-the-mirrors-reflect-and-hold-have-no-picture-the
 - **Files:** `packages/render/src/mirror.ts`, `packages/render/src/touch-ship.ts`, `packages/render/src/handles.ts`, `packages/render/src/simon-fx.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`, `tools/director/src/field-controls-page.ts`, `tools/director/src/poses-bosses-rounds.ts`, `tools/director/test/boss-states.test.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
 
 The simulation half of the queue item *THE MIRROR changes state more than
