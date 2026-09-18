@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 43b4f9cb — The boss cue's words drop out from under the tutorial plate
+
+`drawBossCue` clamped the kind line to the top of the canvas, which is the top of the picture only in the game. A rehearsal draws the cue like anything else (`guide-seat.ts` → `drawBodies`) with a 104-pixel band across the top, so THE GORGE's HOLD sat inside it. The floor is `headerTop`'s now, the same drop a round's whole header takes.
+
 ## 2026-09-18 · 6956041d — THE STARE has its rehearsal: two mirrored looks shaped around the seat that is not watched, and the catch as the last page
 
 A film is a thumb landing on a named control, and THE STARE's lesson is a thumb that must not land — so each look is the other seat's page: the pilot frozen while the navigator fires up a column parked under the tell, then the navigator frozen while the pilot guards a rock with the dome. The cost is last, because a caught press stops the world. The seed decides who is watched, and `content/test/scene-stare.test.ts` holds it by running the film and expecting the two looks, the deflect and the catch on their beats. §3.2 of the briefings counts seventy-seven films and ten guides still in prose; §11.16 says what the rehearsal shows.
