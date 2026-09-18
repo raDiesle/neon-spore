@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · f5a13cbc — THE DIASTOLE's clamp gets its picture: the look
+
+A look with no shipped alternative: the clamp landed in the simulation (bbbcf095) with nothing on any screen answering it. Now, from the beat the left chamber collapses, the pilot's screen rings the grey right chamber (`diastole-clamp.ts`) and a thumb on it sends the clamp; held, the ring fills and a dial runs out over the two-beat window, and the chamber under it is drawn squeezed shut on every screen — white-rimmed for the pilot, who sees it grey, and in its own cyan for the navigator, who owns it. A spasm shudders the chamber off the wall clock, dims it, and shakes the hull. The catch and the miss burst. The cue says HOLD · CLAMP to seat 1 in the alone phase, and nothing in the spasm.
+
 ## 2026-09-18 · 0ba2e51f — A malfunction is authored on the row it is placed on, and nowhere else
 
 The MALFUNCTION picker is off the wave. It sat under the control set as a whole-wave setting — one fault, chosen from a list, hanging beside the boss — and every save through it threw away whatever the map had painted, because the row wrote `wave.faults` as a list of one. The owner settled it: a malfunction is not a setting on the wave, it is a pencil placed on a beat row, it is in force from that point in time, and how many rows it lasts is the author's to say. So the block that says all three is under the map, beside the cell's own rows, where the row you are pointing at already is.
