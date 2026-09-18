@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 7d1343e9 — THE FLIP has its rehearsal: a screen that turns, shown by turning and then by being believed — and a film now folds the seat the fault turned
+
+The wave's film, `packages/content/src/scenes/the-flip.ts`: a cyan body comes down the pilot's second column and on the seventh beat is against the far wall instead, same row, still falling; the navigator's page says the true column; the pilot carries the cannon to that number and not to the one their eyes give, and the bolt lands; the middle is shot to say the fold has a centre; and last, on the pilot's own page, a body drawn in the second column is fired at in the second column and lands in the sixth. `scene-flip.test.ts` is the receipt: the turn on beat seven, the called and the middle bolts landing, the seen one fired at nothing, the breach by the body in the sixth column.
+
 ## 2026-09-18 · b0b609e9 — Every boss wave says whether its boss is special or normal
 
 The owner asked for the type of boss on every boss wave, in two values: special is a unique control set or a unique gameplay style, different than a predefined sequence of actions and special mechanics like THE MAZE or THE MIRROR. It is one authored field beside `boss` (`Wave.bossType`), a picker in the director under the wave's prose and over its panel, a line in `serialize.ts` directly under the boss, and a table in `docs/spec/bosses.md` — ten special, twenty-three normal.

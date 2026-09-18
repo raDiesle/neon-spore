@@ -10870,3 +10870,5 @@ The bottleneck was the gap under the film: like THE REPRISE's the day's
 first fault film found the rehearsal's stage drawing the raw world — laid
 out for a seat, never asked whose screen was folded — so the film's one
 claim was the one thing it could not show until `seatLayout` existed.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
