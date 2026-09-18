@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · bbbcf095 — THE DIASTOLE asks for a clamp: the simulation
+
+The alone chamber's beat has to be held as well as counted. Player 1's thumb on the grey right chamber (`diastoleChamber`, a new `DragTarget`) on its contraction or the beat before catches it and holds it open for `diastoleClampBeats` (2), and only under a clamp does the beam in the bridge land; with no clamp the alone chamber is open on no beat at all. A thumb on any other beat, or held past its window, is a fifth phase, `spasm`, for `diastoleSpasmBeats` (8) in which nothing lands; then the chamber beats again from where it stopped. The seat that sees the beat says now; the other holds it. The first half of the queue's §6.2 item; the look is the second.
+
 ## 2026-09-18 · fb511188 — THE VANE says MOVE and FIRE in the window, and nothing about the fold
 
 Two words, one per seat, for the beats the housing is split: CARRY / MOVE on the cannon where it stands while the pilot is not under the mouth, out again the moment he arrives, and PRESS / FIRE on the mouth itself for as long as the opening stands unspent. Hers does not wait for his cannon to get there — the cannon is not drawn on her screen — so the timing stays where the fight put it, which is in his mouth.
