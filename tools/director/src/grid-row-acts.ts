@@ -4,7 +4,8 @@ import type { Selection } from "./selection.js";
 /**
  * The two row verbs as things you can see: a line between two rows that opens
  * a beat where it is drawn, and a trash button at the right end of a row that
- * takes the row out.
+ * takes the row out — **and, in the same strip as the trash, the name of any
+ * fault that enters on that row**.
  *
  * They were a `+` and a `−` tucked into the beat number's own column, which
  * is where every editor that has them puts them and where the owner never
@@ -31,8 +32,16 @@ import type { Selection } from "./selection.js";
  * nothing to swallow. The line is what the badge means, not what you press.
  */
 export interface RowActs {
-  /** This beat's trash button: the last track of its own row. */
-  del(beat: number): HTMLElement;
+  /**
+   * The last track of this beat's own row: the faults standing on it, named,
+   * and the trash that takes the row out.
+   *
+   * The two are one element because they are one grid cell. The trash comes
+   * and goes with the pointer; the name is there as long as the fault is, and
+   * a fault is what the author is looking for when they scan the map
+   * (`grid-metrics.ts` for why the strip is as wide as it is).
+   */
+  end(beat: number, faults: readonly string[]): HTMLElement;
   /** This beat's two insert lines, one above the row and one below it. */
   rail(beat: number): HTMLElement;
 }
@@ -65,7 +74,21 @@ export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selec
   selection.watch(settle);
 
   return {
-    del(beat) {
+    end(beat, faults) {
+      const strip = document.createElement("div");
+      strip.className = "rowend";
+      strip.dataset.beat = String(beat);
+      if (faults.length > 0) {
+        const tag = document.createElement("span");
+        tag.className = "rowtag";
+        // Joined rather than stacked: two faults entering on one row is rare
+        // and the block under the map is what names them properly. What this
+        // has to do is say *a fault starts here, and it is this one* without
+        // making the row taller than every other row.
+        tag.textContent = faults.join("·");
+        tag.title = `${faults.join(", ")} — enters on beat ${beat}`;
+        strip.appendChild(tag);
+      }
       const button = document.createElement("button");
       button.type = "button";
       button.className = "rowdel";
@@ -73,7 +96,8 @@ export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selec
       button.textContent = "🗑";
       button.title = `Remove beat ${beat}. Every row below moves up one.`;
       button.addEventListener("click", () => verbs.removeRow(beat));
-      return button;
+      strip.appendChild(button);
+      return strip;
     },
     rail(beat) {
       const rail = document.createElement("div");

@@ -2,8 +2,10 @@ import { afterEach, describe, expect, test } from "bun:test";
 import type { Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { faultConfig } from "../src/fault-config.js";
+import { bindRowActs, type RowActs } from "../src/grid-row-acts.js";
 import { faultMarks, paintFault } from "../src/paint-fault.js";
-import { type FakeEl, installDom } from "./fake-dom.js";
+import type { Selection } from "../src/selection.js";
+import { FakeEl, installDom } from "./fake-dom.js";
 
 /**
  * **A malfunction is authored on the row it is placed on, and nowhere else.**
@@ -131,9 +133,12 @@ describe("the malfunction block under the map", () => {
 });
 
 /**
- * The stripe down the beat column (`grid-rows.ts`). A length typed in a box
- * with nothing on the map agreeing with it is a pencil an author can put down
- * and then not find, so the window is drawn as what it is: a run of rows.
+ * What the map says about a fault: the stripe down the beat column
+ * (`grid-rows.ts`) and the name at the end of the row it enters on
+ * (`grid-row-acts.ts`). A length typed in a box with nothing on the map
+ * agreeing with it is a pencil an author can put down and then not find, so
+ * the window is drawn as what it is — a run of rows with its kind written at
+ * the top of it.
  */
 describe("what the map marks", () => {
   test("names the row a fault enters on and every row it holds", () => {
@@ -148,5 +153,44 @@ describe("what the map marks", () => {
     const w = wave();
     paintFault(w, 1, "codex");
     expect(faultMarks(w, 4).map((m) => m.holds)).toEqual([false, true, true, true]);
+  });
+
+  test("names every kind entering on one row", () => {
+    const w = wave();
+    paintFault(w, 3, "steer");
+    paintFault(w, 3, "codex");
+    expect(faultMarks(w, 4)[3]?.enters).toEqual(["STEER", "CODEX"]);
+  });
+});
+
+/**
+ * The strip at the end of the row, which is where that name is written. The
+ * owner asked for it on 18 September 2026 — the stripe said *a fault holds
+ * here* and nothing said *which* — and it goes beside the trash rather than
+ * over the map: a label laid across the cells would hide the arrival the
+ * author is looking at.
+ */
+describe("the end of a row", () => {
+  const acts = (): RowActs => {
+    dom();
+    const grid = new FakeEl();
+    return bindRowActs(
+      grid as unknown as HTMLElement,
+      { insertRow: () => {}, removeRow: () => {} },
+      { at: () => null, set: () => {}, watch: () => {} } as unknown as Selection,
+    );
+  };
+
+  test("writes the fault's kind beside the trash", () => {
+    const strip = acts().end(4, ["HANDOVER"]) as unknown as FakeEl;
+    const tag = strip.children.find((c) => c.classes.has("rowtag"));
+    expect(tag?.textContent).toBe("HANDOVER");
+    expect(tag?.title).toBe("HANDOVER — enters on beat 4");
+    expect(strip.children.some((c) => c.classes.has("rowdel"))).toBe(true);
+  });
+
+  test("writes nothing at all on a row no fault enters on", () => {
+    const strip = acts().end(4, []) as unknown as FakeEl;
+    expect(strip.children.map((c) => c.className)).toEqual(["rowdel"]);
   });
 });

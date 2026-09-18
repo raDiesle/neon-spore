@@ -10,7 +10,7 @@
    stacked above and below the map is capped at it and a stale cap is a column
    that is quietly wider than its own grid. */
 :root {
-  --map-w: 302px;
+  --map-w: 350px;
 }
 
 #grid {
@@ -150,6 +150,33 @@
 }
 #grid .rowrail .ins:hover .line {
   opacity: 0.95;
+}
+/* THE END OF A ROW: WHAT IS TRUE OF THE ROW AND OF NO CELL IN IT.
+
+   A fault's name, and the trash, in one track. The name is a label rather than
+   a control — the block under the map is where a placement is edited — so it
+   takes no pointer and leaves the press to the button beside it. It is
+   ellipsised rather than wrapped: a row that grew taller for a long name would
+   put the map's own rows out of step with the beats they are. */
+#grid .rowend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 3px;
+  min-width: 0;
+}
+#grid .rowend .rowtag {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.85;
+  pointer-events: none;
 }
 /* And the trash, at the other end of the same row, on the same hover. */
 #grid .rowdel {

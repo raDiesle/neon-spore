@@ -150,7 +150,7 @@ export function bindGrid(
     for (let b = 0; b < beats; b++) {
       grid.appendChild(beatLabel(b, onSeek, faults[b]));
       for (let c = 0; c < AUTHORED_COLS; c++) grid.appendChild(cell(wave, b, c));
-      if (acts) grid.appendChild(acts.del(b));
+      if (acts) grid.appendChild(acts.end(b, faults[b]?.enters ?? []));
     }
     // Last, so a rail is drawn over the row it belongs to rather than under
     // it — each one names its own row, so the order here is only paint order.

@@ -8902,3 +8902,25 @@ the lane was reading `waiting` and working out which of its three sentences
 leaves anything for a word to add.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — brush-malfunction-wave-config — and the row says which fault
+
+The stripe said a fault held over these rows and nothing said which one. The
+name goes at the end of the row it enters on, in the strip the trash already
+had, because that strip is the one place on a map where nothing can be under a
+label: the beat column is the number and the `+` badge, and anything laid over
+the cells hides the arrival being authored. The strip went from 22px to 70px,
+which is HANDOVER and the trash beside it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `grid-row-acts.ts`, `grid-metrics.ts`, `map-width.test.ts` for the one number the width is |
+| writing | 10 | the strip, its two children, the CSS, three cases |
+| looking | 5 | two shots — LIMPET on a selected row, HANDOVER on one that is not |
+| friction | 5 | the worktree's dev server had gone with the landing, so the shots went through `--serve` |
+| landing | 5 | `check:fast`, the commit, the land |
+
+The bottleneck was choosing where the name could go: every obvious place on a
+map is already carrying something an author put there.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
