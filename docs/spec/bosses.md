@@ -1321,6 +1321,24 @@ asked. It is drawn from the world alone, the tick a note expires on being fixed
 by the chart, so it holds no state and two devices cannot disagree about it
 (`packages/render/src/pulse-drop.ts`).
 
+**What the field says: nothing, and it is the only boss read and left silent**
+(`render/src/boss-cue.ts`, 18 September 2026,
+[`docs/decisions.md`](../decisions.md) #34). Every other kind with no cue is a
+boss nobody has read yet. This one was read and came back with nothing the
+field may say, because its four verbs *are* four lanes, both seats hold all
+four, and the only question the round ever asks is **which lane, and now**.
+Both halves of that are the answer: the lane is the word a veiled seat has to
+be given out loud, which is the whole reason the round needs two people, and
+the moment is what the judgement is made of — a `PRESS` written on the line
+would hand over the round's one skill along with its one sentence. There is no
+third thing to say either, because a cue may not tell a player to *speak*: the
+game never reads a microphone, and a word aimed at the seat that can see a
+veiled arrival would be a script rather than a verb. None of its four rehearsal
+pages could come down, and they are about the split and the timing rather than
+a verb, which is the shape a film already teaching the split has
+(`docs/spec/briefings.md`). `render/test/boss-cue-pulse.test.ts` is what keeps
+it quiet.
+
 **Where it lives.** The round is `packages/sim/src/pulse.ts`, its clock
 `pulse-round.ts`, its chart arithmetic `pulse-chart.ts` and its one verb
 `pulse-controls.ts`; its numbers are `config-pulse.ts` and its panel is the

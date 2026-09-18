@@ -713,6 +713,17 @@ over is the first arena's last act, so it carries the rule underneath her
 thumb that neither screen draws: flying over a mote is not having it. His two
 pages are the nose and the burn, and no cue takes either.
 
+THE PULSE has **no row, and that is the entry**. It was read on the same day as
+the rest and came back with nothing the field may say: its four verbs are four
+lanes, both seats hold all four, and the round's only question is which lane and
+now — the lane being the word a veiled seat has to be given out loud and the
+moment being what the judgement is made of. So none of its four pages could come
+down, and they are the split and the timing rather than a verb: *press it as it
+lands*, *the same four are yours*, *grey · they must name it*, *say it early, say
+it once*. It is the fifth film to read as unprunable against this rule and the
+first where the reason is the round rather than the prose
+([bosses](bosses.md) §11.8).
+
 #### The ghost thumb is derived, never authored
 
 A scene names a control and, for a strip, a column. Where that control *is*

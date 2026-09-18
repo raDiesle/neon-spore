@@ -173,6 +173,15 @@ function cuesOf(
       return pinballCues(l, world, boss);
     case "scout":
       return scoutCues(l, world, boss);
+    // **THE PULSE is here on purpose, and it is the only one that is.** Every
+    // other kind falling through is a boss nobody has read yet; this one was
+    // read on 18 September 2026 and came back with nothing the field may say.
+    // Its four verbs are four lanes, both seats hold all four, and the only
+    // question the round ever asks is *which lane, and now* — which is the
+    // answer twice over: the lane is what a veiled seat has to be told out
+    // loud, and the moment is what the judgement is made of. A `PRESS` on the
+    // line would be the round played for them (`docs/spec/interludes.md`,
+    // `render/test/boss-cue-pulse.test.ts`).
     default:
       return NONE;
   }

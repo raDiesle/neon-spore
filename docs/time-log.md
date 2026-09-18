@@ -8991,3 +8991,30 @@ reasoned about had to be measured twice, because the thing the word must not
 cover is the widest radius in the round.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-hints — THE PULSE is read and left silent
+
+The first of these lanes to come back with no cue at all, and the answer is the
+round rather than a shortage of effort. Its four verbs *are* four lanes, both
+seats hold all four, and the only question it ever asks is which lane and now —
+the lane being the word a veiled seat has to be given out loud, which is why
+the round needs two people, and the moment being what the judgement is made of.
+A `PRESS` on the line hands over the round's one skill along with its one
+sentence. There is no third thing either: a cue may not tell a player to speak.
+So nothing was added to the picture, the film keeps its four pages, and what
+landed is the argument, in `boss-cue.ts` over `default` and in the spec, with a
+test that keeps the round quiet on all three screens.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `pulse.ts`, `pulse-controls.ts`, `pulse-chart.ts`, the film's four pages |
+| writing | 15 | the comment over `default`, two cases, two spec passages |
+| looking | 0 | none, and none was owed: nothing visible moved |
+| friction | 5 | the round's first phase is `count`, not `lead`, and the case named the other round's |
+| landing | 10 | `check:fast` twice, the commit, the land |
+
+The bottleneck was making sure the silence was a finding and not a shortcut:
+most of the lane was spent looking for a state in the round where a word would
+not be either the lane or the moment, and there is not one.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -599,18 +599,6 @@ not a picture per state.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE PULSE: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-pulse-the-field-says-the-word-and-the-briefi
-- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes/the-pulse.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-
-It says nothing on the field at all.
-Its briefing is a 4-page rehearsal (`packages/content/src/scenes/the-pulse.ts`).
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE PULSE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
