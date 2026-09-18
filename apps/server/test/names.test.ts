@@ -1,6 +1,6 @@
-import { afterAll, expect, test } from "bun:test";
+import { afterAll, beforeAll, expect, test } from "bun:test";
 import { TAKEN_MESSAGE } from "@neon-spore/net";
-import { relay } from "./relay.ts";
+import { OWN_RELAY_MS, relay } from "./relay.ts";
 import { signer } from "./signed.ts";
 
 /**
@@ -15,6 +15,12 @@ import { signer } from "./signed.ts";
 const signed = await signer();
 const mf = relay(signed.vars);
 
+// **Raised here rather than by the first case that asks it something.** The
+// workerd comes up on the first call, and under the full check's shards that
+// boot has gone past the five seconds a case is allowed — which read as all
+// fourteen of these timing out at once (`OWN_RELAY_MS`). The hook has a budget
+// of its own, so the boot is nobody's test.
+beforeAll(() => mf.ready, OWN_RELAY_MS);
 // Disposed, because `bun test` runs every file in one process and a workerd
 // this file left running is one the next file's own has to share a machine
 // with. `room.test.ts` does the same for the same reason.

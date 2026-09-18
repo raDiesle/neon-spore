@@ -72,3 +72,32 @@ export function relay(vars: Record<string, string> = {}): Miniflare {
     }),
   );
 }
+
+/**
+ * **What raising a workerd is allowed to take, and every test that raises one
+ * of its own with it.**
+ *
+ * `relay()` is lazy: the runtime behind it comes up on `mf.ready` or on the
+ * first `dispatchFetch`, and a boot costs a worker start, three socket
+ * handshakes and a few hundred milliseconds of wall clock. On an idle machine
+ * that is comfortably inside bun's five-second default; under a full check it
+ * is not. Twice now: "ends a run nobody came back to" lost that race at
+ * 5000.30 ms with three copies of the suite running at once, and on 17
+ * September 2026 all fourteen cases of `names.test.ts` timed out together on a
+ * diff that touched nothing under `apps/server` — the boot was charged to
+ * whichever case reached the worker first and the rest queued behind it.
+ *
+ * So **the raise is awaited in a `beforeAll` given this budget, in every file
+ * that raises one**, and a case that stands up a second relay of its own is
+ * given it as `test`'s third argument. Written down once rather than as a
+ * longer number in whichever test failed first, and generous because it is not
+ * a deadline anybody is trying to meet: a case that genuinely hangs still
+ * fails, and one that is merely starved still passes.
+ *
+ * The other way out was `tools/check/shard.ts` keeping the workerd files off a
+ * shard that carries anything else. It was not taken: a bin holds its files for
+ * a memory reason, the boot would still be raced by the seven shards beside it,
+ * and it would put a scheduling rule about two named files in a tool that has
+ * never had to know one.
+ */
+export const OWN_RELAY_MS = 20_000;

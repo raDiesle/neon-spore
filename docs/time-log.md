@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — the name registry's workerd is raised before its first case
+
+`names.test.ts` raised a real workerd lazily, so the boot was charged to
+whichever case reached the worker first — and under the full check's shards
+that boot goes past the five seconds a case is allowed, which read as all
+fourteen of them timing out on a diff that touched nothing under
+`apps/server`. The budget the room files already run on moved to `relay.ts`,
+beside the raise it is a budget for, and this file now awaits `mf.ready` in a
+`beforeAll` given it, the way `room.test.ts` and `room-seat.test.ts` do.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `relay.ts`, `shard.ts`'s two numbers, and `phone.ts`, which turned out to have written the rule down already |
+| writing | 10 | the hook, the constant's move and the paragraph saying why the shard-scheduling option was refused |
+| looking | 0 | nothing is drawn |
+| friction | 0 | — |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep` |
+
+**The bottleneck was reading.** The fix was three lines; finding that the
+pattern already existed two files away, under a constant named for phones, was
+the whole of the work.
+
 ## 2026-09-18 — boss-hints — a rehearsal's picture starts under the band
 
 A film was laid out in the whole box less the nav bar, so the corner plate stood

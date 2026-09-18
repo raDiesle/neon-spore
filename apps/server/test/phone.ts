@@ -6,6 +6,7 @@ import {
   VERSION_PARAM,
 } from "@neon-spore/net";
 import type { Miniflare } from "miniflare";
+import { OWN_RELAY_MS } from "./relay.ts";
 
 /**
  * A phone against a relay under test, and the waits that go with one.
@@ -18,26 +19,11 @@ import type { Miniflare } from "miniflare";
  */
 
 /**
- * **What a test that raises its own relay is allowed to take.**
- *
- * Most cases here share the one `mf` below and cost milliseconds. A handful
- * stand up a *second* workerd of their own, so that `SEAT_SILENT_MS` and
- * `RUN_OVER_MS` can be shortened and the test does not have to sit still for
- * the real windows — and those pay for a worker boot, three socket handshakes
- * and several hundred milliseconds of wall clock it then waits out on purpose.
- * On an idle machine that is comfortably inside bun's five-second default; a
- * workerd starting under load is not. "ends a run nobody came back to" lost
- * that race at 5000.30 ms with three copies of the suite running at once, and
- * the three tests beside it were the same race waiting to be lost.
- *
- * So the budget is written down once, here, next to the windows it is a budget
- * for, rather than as a longer number in whichever test failed first. It is
- * generous because it is not a deadline anybody is trying to meet: a case that
- * genuinely hangs still fails, and one that is merely starved still passes.
- * Pass it to `test` as the third argument whenever `relay(...)` is called for
- * a relay of the test's own.
+ * The budget a raise runs on lives beside the raise (`relay.ts`), and is passed
+ * on here because every case that stands up a relay of its own is a phone's,
+ * and the waits below are measured against the same figure.
  */
-export const OWN_RELAY_MS = 20_000;
+export { OWN_RELAY_MS };
 
 /** A phone. Opens the socket, keeps everything the room said, and can hang up. */
 export async function phoneAt(
