@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · d3bd9d6e — Mark "THE WARDEN changes state more than once, and asks for more than one gesture" done
+
 ## 2026-09-18 · 0556a851 — THE WARDEN's thumb and swipe: the look
 
 The second lane of "THE WARDEN changes state more than once, and asks for more than one gesture". The eye is a handle now (`warden-grip.ts`): one circle where the pupil stands, shut, and the phase and the seat say which hand a press is — player 2's thumb rests on it under NARROW, with a ring on her screen that fills while the sim has it, and player 1's swipe throws the hatch under GLARE, with a ring on his until it is thrown and then the window's dial round the eye on both. The lids are drawn off `wardenLidsMilli` and the hatch off `wardenHatchMilli`, so under NARROW the pilot sees the door he opened and the lids still shut behind it: that is what her thumb does. A look with no shipped alternative.
