@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · b6f46254 — THE FLEET's wound answers three thumbs and says which is yours
+
+A hit no longer sinks a hull, it holes one, and until now nothing on the picture handed the simulation any of the three gestures that follow. The holed square is one wound both seats are looking at: the plume stands out of it on both screens with the state's own window draining under it, and each screen carries one ring with one word on it, because the seats split by state. The navigator holds the plume open under the flood and drags the wreck under after it; the pilot rakes the hull, grabbing anywhere along it and carrying from the wound rather than from where he grabbed, so the square the round reads is the square under his thumb. Nothing moves on the chart when `flood` becomes `wreck` — each of them simply finds a different word under the same ring.
+
 ## 2026-09-18 · 1ceb748c — THE UNDERTOW says a word in each of its five phases
 
 The fight's reading moves to its own page, `boss-cue-read-j.ts`, and covers all five phases instead of four moments. `MOVE` was drawn only while the pilot was unseated, which is the four beats the simulation swallows every command of his that reaches the ship; it now comes a phase earlier, at `seat`, while the floor is still bowing under him. `OPEN` and `BURN` were drawn on any standing lobe, but the maw and the beam both fire up the cannon's own column, so each is now the verb when he is under the lobe and `MOVE` when he is not. Phase `last` says `MOVE` on the rise and `OPEN` on the lobe, and says nothing to the navigator, because `undertowTake` refuses there and her plate changes no rule.

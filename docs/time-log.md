@@ -9718,3 +9718,5 @@ it stands rather than count strokes.
 discriminator had to be found by taking the drawing out and diffing the whole
 ordered canvas log, and the first two candidates — the call count and the word
 — both passed with nothing drawn.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
