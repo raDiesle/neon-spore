@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — nine lanes queued off one message, and the look standard
+
+The owner's four asks for the recent bosses turned into queue entries: the
+special/normal tag with its classification and the three it cannot call, the
+cue on the fifteen bosses that have none, states that change between gestures,
+gestures that are not on the panel, the graphics survey against THE INSTAR, the
+first boss to lose its rehearsal, and one stale reason four waves carry.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `wave-types.ts` for where a tag sits, `rail.ts` for the wave details panel, the boss roster with its control sets, §11.32 for what THE INSTAR's look actually has, `scenes-prose.test.ts`'s reasons |
+| writing | 30 | nine queue entries, the five-point look standard in `.claude/skills/new-boss` §5 |
+| looking | 0 | nothing visible moved |
+| friction | 5 | a scratch script under `tools/` cannot resolve `@neon-spore/content`, so the roster came out of a throwaway test file |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was sizing rather than writing: *a graphics task per new boss*
+is twelve lanes, and twelve look briefs cannot be written honestly without
+twelve pictures — so the entry that went in is the survey that takes them and
+leaves the twelve behind it.
+
 ## 2026-09-17 — boss-hints — the briefings give the words back
 
 The other half of #34: what the fight now says, the rehearsal stops saying.

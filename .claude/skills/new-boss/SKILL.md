@@ -111,6 +111,26 @@ commit. The shape of it, from THE DIASTOLE, THE CANDLE and THE GORGE:
 - `render/test/<boss>-frame.test.ts`: every state of the picture on all three
   screens, set rather than waited for, and the split proved both ways.
 - `docs/spec/bosses.md` §11.n gets *The look* and loses *What is not built*.
+**What the picture is measured against: THE INSTAR** (`docs/spec/bosses.md`
+§11.32), which is the owner's reference since 18 September 2026 — *detailed and
+nice graphics like the bulb queen or the warden, and the enemy transforms and
+moves and changes perspective and appearance during the animations*. Five
+things, and a boss's look lane is read against all five:
+
+1. **A body, not a fixture.** A grown contour with lobes, drawn at the size of
+   the field, with parts a mark can sit on — a hand, a clutch, a tongue, a tail.
+2. **A pose per state, and a morph between them is a blend.** The states are
+   figures and the body between two is the eased lerp, never a cut
+   (`instar-poses.ts`). A boss with one silhouette and a colour change has one
+   pose.
+3. **The perspective changes.** At least one state turns the body so a face
+   the pair has been reading goes away and another comes (INSTAR's *turned*).
+4. **The picture is deformed by how far the answer is along** — the part at the
+   depth the thumb has it, one egg fewer per swipe, the tongue winding with the
+   turn. Progress is read off the body, never off a bar.
+5. **The mark says which gesture**: a breathing ring, a glyph inside it, the
+   window closing as a ring, and the cue's word beside it (`boss-cue.ts`).
+
 - **Send one PNG** — `bun run frames . --wave "THE X" --seat p1 --press …` —
   and never a description. Then `bun run land --keep`, and tell the owner the
   boss is ready to test; his eye is the check nothing here runs.

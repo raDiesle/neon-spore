@@ -565,3 +565,209 @@ owner's rule of 14 September 2026 that a shot never goes through a body.
 Whichever it is, `hive.test.ts` gains a run that fires real bolts and wins the
 wave, and the film — a `the-hive` scene under `packages/content/src/scenes/`
 — is authored against it.
+
+## Every boss wave says whether its boss is special or normal
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/wave-types.ts`, `packages/content/src/waves.ts`,
+  `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`,
+  `tools/director/src/rail.ts`, `tools/director/src/serialize.ts`,
+  `packages/content/test/waves.test.ts`, `docs/spec/bosses.md`
+- **Asks:** THE INSTAR, THE STARE and THE REPRISE — special or normal?
+
+The owner, 18 September 2026: *I would like to see the type of boss for every
+boss wave in the wave description details … only distinguish between "special"
+and "normal". A special boss is one which has a unique game control set or a
+unique gameplay style, different than a predefined sequence of actions and
+special mechanics like THE MAZE or THE MIRROR.*
+
+So: one authored field beside `boss` and `controls` on `Wave`, two values, shown
+in the rail under SENTENCE where the control set already is (`rail.ts`), written
+back out by `serialize.ts`, and held by a test that every wave with a `boss` has
+one and no wave without a boss does. **Authored and not derived** — a wave with
+its own `controls` is always special, and a test can hold that much, but THE MAZE
+and THE MIRROR are played on `standard5` and the owner names both as special, so
+the other direction is a judgement and a judgement is written down.
+
+Thirty-three boss waves. The rule decides thirty of them:
+
+- **Special (10)** — THE MIRROR, THE MAZE, THE GAUGE, THE FLEET, SNAKE, PINBALL,
+  THE SCOUT, THE PULSE, THE SPLICE, THE WELL.
+- **Normal (20)** — BULB QUEEN, THE WARDEN, THE VANE, THE CAIRN, THE DIASTOLE,
+  THE BATON, THE UNDERTOW, THE THROAT, THE ORRERY, THE CANDLE, THE GORGE, THE
+  CURTAIN, THE TASTER, THE SINEW, THE LEDGER, THE SURGE, THE LEAD, THE SCUTTLE,
+  THE ANTIPHON, THE HIVE.
+
+The three the rule pulls both ways, which is the ask:
+
+- **THE INSTAR** has a control set of its own (`scene`) — special by the first
+  half of the rule — and *is* a predefined sequence of actions, which the second
+  half excludes. It is the archetype of the category the owner is naming, so the
+  answer decides whether the tag is about the panel or about the shape of play.
+- **THE STARE** is the ordinary panel and the ordinary field, and its style is
+  unique in the one way that matters: one seat may not touch anything at all.
+- **THE REPRISE** is the ordinary panel over a stretch of field the pair can no
+  longer see. Special if hiding the field is a unique style; normal if a boss
+  that changes what you can *see* rather than what you can *press* is ordinary.
+
+## The handle bosses' own words and the boss cue become one thing
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/handle-draw.ts`, `packages/render/src/boss-cue.ts`,
+  `packages/render/src/boss-cue-draw.ts`, `packages/render/src/boss-cue-read-c.ts`,
+  `packages/render/test/boss-cue.test.ts`, `docs/spec/bosses-choreographed.md`
+
+Twelve bosses carry a cue (`decisions.md` #34) and three do not: THE SINEW, THE
+SURGE and THE ANTIPHON were skipped because `handle-draw.ts` already writes
+`PULL`, `HOLD` and `TURN` beside each handle while it is unheld, and those words
+are the verb and the kind at once. That was the right call for one lane and it is
+the wrong shape to leave in the game: the pair now meets two prompt systems with
+different type, different breathing and different rules about when they appear.
+
+Make the handle's word a `BossCue` with `framed: false` — the handle already
+draws its own frame — so all fifteen bosses speak in one voice, one at a time,
+most urgent first. The test is the interesting part: the handle's word is drawn
+while the handle is *unheld*, and a cue is silent where nothing is owed, so the
+two rules have to be reconciled rather than one of them deleted.
+
+## The rounds get a cue, one arm each
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-read.ts`,
+  `packages/render/test/boss-cue.test.ts`, `docs/spec/interludes.md`
+
+The owner wants the one-or-two-word prompt on every boss, not only the recent
+ones: *add the explanations in game screen of 1-2 words, so we can get rid of
+tutorial/guides.* The ten bosses with a panel of their own have none — THE GAUGE,
+SNAKE, PINBALL, THE PULSE, THE WELL, THE MAZE, THE SCOUT, THE SPLICE, THE FLEET,
+THE REPRISE — and they are the ones a pair meets with the least warning, because
+the panel under their thumbs is new as well.
+
+One arm on `cuesOf` each, in a fourth read file so nothing goes past 250 lines,
+and the same three rules: the mark stands on something that seat is already
+shown, the cue is drawn on the seat that can act, and it says the verb and never
+the answer. THE MAZE's wheel and THE SPLICE's straws are the two where the verb
+is easy and the *silence* is the work — both are fights whose difficulty is a
+number one seat reads out.
+
+## The act-two field bosses get a cue
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-read.ts`,
+  `packages/render/test/boss-cue.test.ts`, `docs/spec/bosses.md`
+
+The other half of the same gap: BULB QUEEN, THE WARDEN, THE VANE, THE CAIRN, THE
+MIRROR and THE STARE are played on the ordinary panel and say nothing on the
+field. THE WARDEN's tether and THE CAIRN's grips are the obvious arms; THE STARE
+is the one worth thinking about, because the thing it wants from a seat is *not
+to act*, and a cue that says `WAIT` over a seat's own controls is either the best
+prompt in the game or a contradiction of "a cue is drawn on the seat that can
+act". Decide it in the lane and write down which.
+
+## A boss's states change several times, and each state asks a different gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/instar.ts`, `packages/sim/src/gorge.ts`,
+  `packages/sim/src/gorge-step.ts`, `packages/sim/src/config-gorge.ts`,
+  `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/SKILL.md`
+
+The owner, 18 September 2026: *bosses' states should change several times between
+the different gestures, and have tasks to do some additional gestures on the game
+screen.* The recently added field bosses mostly ask for **one** gesture, repeated
+until a count is reached — THE GORGE is four beads and a pierce, THE TASTER is
+shear and shear, THE DIASTOLE is a beam held twice. THE INSTAR is the shape the
+owner is asking for and it is the only one that has it: five poses, a different
+gesture set in each, and the body changing between them.
+
+This lane decides the pattern and spends it on one boss. The question it answers:
+can a field boss take `BossSequenceStep` — a pose, its marks, its three clocks —
+without becoming THE INSTAR, i.e. while the field still falls and the panel is
+still the panel? THE GORGE is the one to try it on: it already has three phases
+and a gorged state nobody does anything with, so a second gesture there costs no
+new mechanic. The two options the lane picks between are naming the states in the
+boss's own state (a `phase` per gesture, the way `undertow` does) and lifting
+`BossSequenceStep` out of `instar.ts` so any boss can carry a beat list.
+
+## The recent bosses gain a gesture that is not on the panel
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/drag-targets.ts`, `packages/render/src/touch-hold.ts`,
+  `packages/net/src/command-fields.ts`, `packages/content/src/control-sets.ts`,
+  `docs/spec/bosses-choreographed.md`
+
+The second half of the same ask: *additional gestures on the game screen.* Of the
+twelve bosses that landed in the last three days, nine are answered entirely with
+the cannon, the plate and the two triggers — THE CANDLE, THE GORGE, THE TASTER,
+THE BATON, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE, THE ORRERY. The three
+that reach for the field (THE CURTAIN's shove, THE THROAT's fling, THE UNDERTOW's
+maw) are the ones the cue had most to say about, which is not a coincidence.
+
+Give each of the nine one gesture on the picture itself. Every one has to be a
+member of `DragTarget` or `Hold["kind"]` or it does not exist (filter 9), and the
+wire **drops a target it does not list, silently**, so `command-fields.ts` and the
+codec test are part of the lane rather than a follow-up. Do two bosses, not nine,
+and leave the rest as a row each here.
+
+## The twelve recent bosses, looked at against THE INSTAR
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `.claude/skills/new-boss/SKILL.md`, `docs/spec/bosses.md`,
+  `packages/render/src/instar-draw.ts`, `packages/render/src/instar-poses.ts`
+
+The owner asked for a graphics task per recent boss, with THE INSTAR as the
+reference: *tasks for every new boss to improve the graphics, which fit what was
+built.* The standard is now written down in five points in
+`.claude/skills/new-boss` §5 — a body rather than a fixture, a pose per state and
+a blend between them, a change of perspective, a picture deformed by how far the
+answer is along, and the mark saying its own gesture.
+
+**This lane is the survey, not the drawing.** Take one PNG of each of the twelve —
+THE CANDLE, THE GORGE, THE CURTAIN, THE TASTER, THE UNDERTOW, THE BATON, THE
+THROAT, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE, THE ORRERY — in the
+state that matters rather than the first one (`bun run frames . --wave "X"
+--boss …`), read each against the five points, and leave **one entry here per
+boss** naming what its picture is missing and which file draws it. Twelve look
+lanes cannot be written honestly without twelve pictures, and taking twelve
+pictures is a sitting of its own. A look lane that follows one of those entries
+lands under *a look the owner asked for by name* and says so in the commit.
+
+## One boss loses its rehearsal, and the fight is asked to teach it
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes.ts`,
+  `packages/content/src/scenes/the-baton.ts`, `packages/content/test/scenes-prose.test.ts`,
+  `docs/spec/briefings.md`
+
+*Add the explanations in game screen of 1-2 words, so we can get rid of
+tutorial/guides.* That is a direction and not yet a change, and the honest first
+step is one boss, measured. THE BATON is the one to try: its rehearsal is seven
+pages, four of them about the colour and the lockout, and its two cues (`LAUNCH`
+on the bead in its socket, `FIRE` on the bead in the air) cover the whole loop.
+
+Take its `scene` off the guide, put THE BATON on `STILL_PROSE`, and play it. What
+the lane has to come back with is which of the seven pages the fight could not
+replace — the colour that flips on every landing and the beat the acting seat is
+greyed out are the two candidates — because those are the ones that say what a
+guide is still for. **The prose halves stay either way**: the owner decided on 17
+September 2026 that a filmed wave keeps its three lines as the director's own
+reference (`wave-types.ts`), so this is about the film and the ready gate.
+
+## Four bosses are listed as having no look, and they have one
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/test/scenes-prose.test.ts`,
+  `packages/render/src/lead-draw.ts`, `packages/render/src/scuttle-draw.ts`,
+  `packages/render/src/orrery-draw.ts`, `packages/render/src/surge-draw.ts`
+
+`STILL_PROSE` carries a reason per wave, and four of them say the look has not
+landed: THE LEAD *owed by the lane that draws the body*, THE SCUTTLE *owed by the
+lane that draws the frame*, THE ORRERY *until the rings are drawn there is nothing
+to shoot it against*, THE SURGE *none of which is drawn yet*. All four have draw
+files and all four are drawn. The test passes because it only asserts that those
+waves carry no film — the reasons are prose, and prose no test reads goes stale
+in three days.
+
+Rewrite the four reasons to say what is actually left, which on each of them is a
+film nobody has written rather than a body nobody has drawn — and read that
+against the entry above it, because a boss whose fight now says its own verbs may
+be a boss that should never get a film at all.
