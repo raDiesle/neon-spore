@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 6b30dbab — THE INSTAR's page stops saying its look is not built
+
+`docs/spec/bosses.md` carried two claims the look had already disproved. The contents listed THE INSTAR under *Still in hand* and under *Built* at once, because the first lane added the row when the look was the next lane and the second landed the same day without taking it down; §11.32's tail still asked for the look whole, the `instarMark` hit test and its bearing, the `FIELD_CONTROLS` row with its pose and the controls row, and the eleven events out of the two silent lists. Every one of those is in the tree — `instarMarkUnder` in `render/handles.ts`, the director's `field-controls-instar.ts` and its pose, `docs/spec/controls.md`'s THE INSTAR'S MARKS row — and the events are on the silent lists for the other reason, as one family read above the loop by `instar-fx.ts` the way THE HIVE's are.
+
 ## 2026-09-18 · 1b52d7f4 — THE SCOUT has its rehearsal: the first arena flown whole and the second's first trip, with every leg searched for rather than authored
 
 A rehearsal's acts are ticks and controls, and where the little ship is at a tick is the sum of every burn before it, so the film could not be written the way a shot on a column is. A generator re-ran the film after every leg — a wait, a turn, a burn of so many ticks — and kept the first that reached its mote and did not drift into the hazard within seventy ticks after. Four motes in a loop and home with the maw tapped on the tick the hull is touched; then the second arena opens and three of its column come back. The pilot's pages are the nose and the burn, the navigator's the hull and the maw, and no caption says where a mote is.
