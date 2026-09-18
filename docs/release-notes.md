@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · ead08a7c — Six test timeouts a machine can read, and one that says it is a hang
+
+Three landings of one green tree went red on "test timed out" and never on an assertion. `tools/check/slots.ts` has since bounded how many shards a machine runs at once, which is the cure for the load; this is the half that was wrong in the tests themselves.
+
 ## 2026-09-18 · 4c3da15c — THE MIRROR says REPEAT, and its rehearsal comes down to two pages
 
 The first round to carry the cue of `docs/decisions.md` #34: `PRESS` / `REPEAT` on the mirror's own cannon for the whole of `listen`, on both screens, and nothing while it performs — the band is drawn dead there — or during the verdict. The word is read off the phase and never off the step the mirror is waiting for, because which move comes next, whose thumb it is on and whether it is a press or a slide are the answer, and the memory game exists to make the pair say it. The film loses `NOTHING COUNTS YET`, which the dead band and the WATCH count already say, and `NOW GIVE IT BACK IN ORDER` loses its verb to the cue and keeps the order: `THE ORDER IS THE TEST`. Its first page says the split instead of the picture: `CALL EACH MOVE AS IT COMES`.
