@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 6956041d — THE STARE has its rehearsal: two mirrored looks shaped around the seat that is not watched, and the catch as the last page
+
+A film is a thumb landing on a named control, and THE STARE's lesson is a thumb that must not land — so each look is the other seat's page: the pilot frozen while the navigator fires up a column parked under the tell, then the navigator frozen while the pilot guards a rock with the dome. The cost is last, because a caught press stops the world. The seed decides who is watched, and `content/test/scene-stare.test.ts` holds it by running the film and expecting the two looks, the deflect and the catch on their beats. §3.2 of the briefings counts seventy-seven films and ten guides still in prose; §11.16 says what the rehearsal shows.
+
 ## 2026-09-18 · 2cbc0606 — Open the stage on a rehearsal page from its caption in the GUIDE panel
 
 A boss wave with a rehearsal lists its pages in the director's GUIDE panel; each caption is now a button that opens the stage on that page — briefings on, a fresh world, both seats' cursors on it, the film playing that page on the step's seat's screen. The owner asked for it on THE LEDGER: click a step, see that state on the game screen.

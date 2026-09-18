@@ -10763,3 +10763,5 @@ The bottleneck was that the film's two facts are decided by things the
 author does not write: which seat the eye picks is the seed's, and where
 the cost can go is the hold's — a caught press stops the world, so the
 catch is the last page or no page.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
