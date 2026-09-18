@@ -352,6 +352,7 @@ deciding before the next boss lands rather than during it.
 ## `versus drop` cannot run while a function is being taken by hand
 
 - **Found:** 2026-09-17, claude/fervent-nash-e1e7ff
+- **Taken:** 2026-09-18, claude/queue-versus-drop-cannot-run-while-a-function-is-being
 - **Files:** `tools/versus/decide.ts`, `tools/versus/run.ts`, `tools/versus/test/registry.test.ts`
 
 `drop` imports the registry, which imports every candidate in the slot, before
