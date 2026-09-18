@@ -13,6 +13,7 @@ import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
 import { ROUND_DRAWS } from "./round-draw.js";
+import { seenView } from "./unseen.js";
 
 /**
  * One seat's screen inside a guide's rehearsal, drawn through the shipping
@@ -42,7 +43,12 @@ export class SeatView {
     this.pose.reset();
   }
 
-  draw(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
+  draw(ctx: CanvasRenderingContext2D, l: Layout, seen: ViewState): void {
+    // The bodies neither seat may draw, taken out once here as `canvas2d.ts`
+    // takes them out — THE REPRISE's film drew its echo until 18 September
+    // 2026, which taught a wave whose whole content is the dark with the
+    // lights on (`unseen.ts`).
+    const view = seenView(seen);
     const { world } = view;
     this.effects.ingest(view.events, l, view.time, (col, row) => idAt(world, col, row), world.cfg);
     this.effects.update(view.dt, l);

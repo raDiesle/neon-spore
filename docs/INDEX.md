@@ -579,6 +579,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-ward.ts` | THE WARD's rehearsal: the shield answers a rock with nobody triggering it |
 | `packages/content/src/scenes/the-gyre.ts` | THE GYRE's rehearsal: the column you were told is the right one for a single beat |
 | `packages/content/src/scenes/the-recoil.ts` | THE RECOIL's rehearsal: your own shot is what makes the call wrong |
+| `packages/content/src/scenes/the-reprise.ts` | THE REPRISE's rehearsal: a stretch of wave falls seen, and then falls again with nothing drawn |
 | `packages/content/src/scenes/the-vane.ts` | THE VANE's rehearsal: the column you were told is never the column it lands in |
 | `packages/content/src/scenes/the-wisp.ts` | THE WISP's rehearsal: you call the square it is still falling toward |
 | `packages/content/src/scenes/bulb-queen.ts` | BULB QUEEN's rehearsal: the first boss, and the first film with no shot in it |

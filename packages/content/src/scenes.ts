@@ -42,6 +42,7 @@ import { THE_MOULT } from "./scenes/the-moult.js";
 import { THE_PULSE } from "./scenes/the-pulse.js";
 import { THE_PURGE } from "./scenes/the-purge.js";
 import { THE_RECOIL } from "./scenes/the-recoil.js";
+import { THE_REPRISE } from "./scenes/the-reprise.js";
 import { THE_RIND } from "./scenes/the-rind.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
 import { THE_SPLICE } from "./scenes/the-splice.js";
@@ -149,6 +150,7 @@ export type SceneId =
   | "theSplice"
   | "theMoult"
   | "theMine"
+  | "theReprise"
   | "theStare"
   | ChoreographedSceneId;
 
@@ -213,6 +215,7 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
   theMine: THE_MINE,
+  theReprise: THE_REPRISE,
   theStare: THE_STARE,
   // The choreographed bosses' films are listed next door, one file for the
   // page they were designed on (`scenes-choreographed.ts`).

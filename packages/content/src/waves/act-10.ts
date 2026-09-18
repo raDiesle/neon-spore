@@ -66,6 +66,7 @@ export const WAVES_ACT_10: Wave[] = [
       both: "Everything you clear comes again, unseen. Ward and shoot it from memory, in the same order and columns.",
       p1: "1. Count the things as they come the first time.\n2. Say the gaps out loud: two beats, then three.\n3. When the field goes dark, trigger the plate on your count. The tear at the top counts them down.",
       p2: "1. Say each column while it is still lit, in order.\n2. Say them again the moment the field empties.\n3. Move the plate and fire on those columns, in that order, on your partner's count.",
+      scene: "theReprise",
     },
     entries: [
       { beat: 0, col: 1, color: "red" },

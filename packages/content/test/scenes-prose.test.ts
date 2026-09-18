@@ -37,11 +37,6 @@ const STILL_PROSE = [
   "THE LIMPET",
   "THE LEECH",
   "THE CODEX",
-  // THE REPRISE is owed by the lane that draws the mechanism at the top of
-  // the field, the way THE SCOUT's film was owed until the little ship was. Its rehearsal has something
-  // harder than usual to choreograph, too: what the film has to show is a
-  // stretch of field the pair can no longer see.
-  "THE REPRISE",
   // And THE FLIP's, owed by the lane that finishes it. A rehearsal is the
   // game's own screen played at full size, one device at a time — and this
   // wave's whole content is that one of those two screens is a mirror, which
@@ -86,7 +81,7 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-seven films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-eight films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
     // Seventy-seven, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —

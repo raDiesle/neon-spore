@@ -300,19 +300,19 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are seventy-seven of them now**, one per guided wave bar ten, and
+**There are seventy-eight of them now**, one per guided wave bar nine, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The ten that are still the three strings
+rather than a page of prose. The nine that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE REPRISE, THE FLIP, THE HUSK, THE HIVE and
+CODEX, THE FLIP, THE HUSK, THE HIVE and
 THE INSTAR** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those ten is a film nobody has written, and from THE
-REPRISE's on they are owed by the lanes that draw them.** THE CANDLE's was the
+**Every one of those nine is a film nobody has written, and from THE
+FLIP's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
 slide under it an `atBoss` act, the one authored column the mistake. THE
@@ -393,6 +393,14 @@ navigator firing up the column the pilot parked under, then the navigator
 watched and the pilot guarding a rock alone. Which look is whose is the
 rng's, so the seed is chosen and held by a test (`scene-stare.test.ts`);
 the cost is the last page, because a caught press stops the world.
+THE REPRISE's, the same day, is the film of a stretch the pair can no longer
+see: three bodies fall seen and are taken, the field goes dark with the tear
+counting them, and two of the three come back down the same columns at the
+same spacing and are taken by a cannon slid to a column somebody said and a
+beat somebody counted — the kill drawn whole over nothing (`render/unseen.ts`).
+The third is the one nobody said, and it lands with the tear already shut,
+which is the last page; `scene-reprise.test.ts` is the receipt that the two
+kills after the dark are of bodies nothing drew.
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square

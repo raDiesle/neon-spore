@@ -1533,11 +1533,18 @@ The kill is the exception and is drawn whole: it is fed by an event and drawn
 from the outline the body had, so the pair learns it was right by seeing the
 kill and never by seeing the body (`body-hit.ts`).
 
-**What it does not draw yet**, and it is the lane after this one: the mechanism
-itself at the top of the field, the count of bodies still to come in the
-running echo read as a shape rather than a digit, and the twitch that says one
-has just entered. Until that lands the pair has the memory and no tally, and
-`repriseLeft` is the number waiting for a picture.
+**The rehearsal** (`content/src/scenes/the-reprise.ts`) is one stretch and
+its echo: three bodies, one at each wall and one in the middle, fall seen and
+are taken; the field goes dark on the twelfth beat with the tear counting
+them; two of the three come back and are taken blind — a page for the column
+that was said and a page for the gap that was counted, the kill drawn whole
+over nothing — and the third, which nobody said, lands with the tear already
+shut. That is the last page, because the hull stops the world. Nothing in it
+is the seed's: the columns and gaps are authored and the echo replays them,
+which is the boss. `content/test/scene-reprise.test.ts` is the receipt that
+the two kills after the dark are of bodies nothing drew ([briefings](briefings.md)
+§3.2). The paragraph this one replaces said the mechanism was not drawn yet,
+for a day after `reprise-draw.ts` landed.
 
 ## 11.16 THE STARE — the thing that looks, and the hands that must not move
 

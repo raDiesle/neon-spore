@@ -10808,3 +10808,22 @@ paragraph saying the same thing, and eight halves were cut a word at a time
 to fit.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE REPRISE, the rehearsal
+
+THE REPRISE's film: one stretch seen, its echo answered blind, the unsaid
+third on the hull — and the rehearsal's seat view taught to leave an unseen
+body undrawn, which it never had.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `reprise.ts`, `reprise-state.ts`, the wave's guide, THE CANDLE's film, `guide-seat.ts` and `canvas2d.ts` side by side |
+| writing | 40 | `scenes/the-reprise.ts`, the wiring, `scene-reprise.test.ts`, `guide-unseen.test.ts`, the one line in `guide-seat.ts`, §3.2, §11.15 |
+| looking | 10 | page 6 on p1 and page 5 on p2 through `bun run frames --opening guide` — the first showed the echo's body, which is how the seat view's gap was found |
+| friction | 15 | the frames tool's `--guide-page` counts from nought; the guide's seat view runs the four passes on the raw world, so the film drew what the phone hides |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep`, the ledger |
+
+The bottleneck was the picture: the film's one claim is that nothing is
+drawn, and the first frame showed a body, because the rehearsal's screen is
+the renderer's four passes without the one line before them that takes the
+unseen out.
