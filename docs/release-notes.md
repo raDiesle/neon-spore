@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 7d6848a4 — THE GORGE's two thumbs: the look
+
+The second lane of the queue's §6.2 item for THE GORGE. A ring stands in every lobe a seat's thumb could take this beat, on that seat's screen alone: the pilot's in every full intake that is not the mouth, the navigator's in the mouth once there is one. The ring is THE BULB QUEEN's and THE MIRROR's, breathing until a thumb lands and filled once one has; the pry's carries the dial of its four-beat window. The press is answered at the circle the ring is drawn from, with the intake's index on it. The pinch, the pry and the clench throw bursts with the sack's other nine; the cue says PINCH to the pilot beside PIERCE, and on the mouth BURN, then PRY once a lobe is filling, then BURN under the pry. Two rows on the director's CONTROLS tab. A look with no shipped alternative.
+
 ## 2026-09-18 · 64bf22c8 — THE DIASTOLE's two words follow the thumb
 
 The field had said BURN on the bridge for the whole of the endgame, which is one lane of the fight and not the fight: alone, the beam lands only under a clamp, so for most of that phase the word stood over a lance that was refusing. The reading now follows the clamp. With no thumb on the chamber the pilot is asked for one — HOLD / CLAMP on the ring — and the navigator is told nothing at all. With the thumb down inside its window the word is hers and his goes out: what the fight wants of his thumb then is let go before the dial closes, and a HOLD on the ring would be the field asking for the spasm, which the ring's own dial already counts down. Window lapsed with the thumb still held: both screens quiet, and the spasm announces itself.
