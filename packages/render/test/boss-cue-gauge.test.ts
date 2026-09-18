@@ -10,7 +10,7 @@ import {
   type World,
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
-import { gaugeNeedleTip } from "../src/gauge.js";
+import { gaugeBandMid, gaugeNeedleTip } from "../src/gauge.js";
 import { gaugeDial } from "../src/gauge-round.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import {
@@ -24,15 +24,17 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **THE GAUGE, and the one word the field may say about it**
+ * **THE GAUGE, and the three words the field may say about it**
  * (`render/src/boss-cue-read-e.ts`).
  *
  * The round is the sharpest knowledge split in the game — she has the marks
- * and he has the valve — so the interesting half of this file is what is
- * *not* here: the pilot never gets a cue, on any beat, in any state. A lane
- * that made the round \u201cclearer\u201d by writing a direction over his valve would
- * fail the second case, and it would be handing him the sentence she exists
- * to say (`docs/decisions.md` #34).
+ * and he has the valve — so most of this file is about what is *not* said.
+ * While the valve answers, the pilot gets nothing on any beat in any state: a
+ * lane that made the round clearer by writing a direction over his valve
+ * would fail that case, and it would be handing him the sentence she exists
+ * to say (`docs/decisions.md` #34). The one word he does get is about his own
+ * half having stopped working, which she cannot see and he cannot act on
+ * until the field says so.
  */
 
 beforeAll(installCanvasGlobals);
@@ -80,8 +82,9 @@ describe("THE GAUGE", () => {
     expect(c?.y).toBeCloseTo(tip.y, 6);
   });
 
-  it("says nothing at all to the pilot, on any beat of any phase", () => {
+  it("says nothing to the pilot while the valve answers, on any beat of any phase", () => {
     const { world, g } = opened();
+    expect(g.jamBeat).toBe(-1);
     for (const phase of ["lead", "play", "verdict", "spent"] as const) {
       g.phase = phase;
       for (const needle of [0, g.markMilli, 100_000]) {
@@ -119,6 +122,62 @@ describe("THE GAUGE", () => {
       g.phase = phase;
       expect(cue(world, "p2"), phase).toBeNull();
     }
+  });
+
+  it("gives him TURN over the needle once the valve has jammed, and takes it back under his hand", () => {
+    const { world, g } = opened();
+    g.phase = "play";
+    g.jamBeat = world.beat;
+    const c = cue(world, "p1");
+    expect(c?.word).toBe("TURN");
+    expect(c?.kind).toBe("TURN");
+    expect(c?.seat).toBe(1);
+    const tip = gaugeNeedleTip(gaugeDial(LAYOUT.p1, undefined), g);
+    expect(c?.x).toBeCloseTo(tip.x, 6);
+    // And gone while he is swinging it: a word over a needle already under a
+    // thumb is the field narrating him.
+    g.handOn = true;
+    expect(cue(world, "p1")).toBeNull();
+  });
+
+  it("asks her to OPEN the band, on its middle, while it is wound and her thumb is off", () => {
+    const { world, g } = opened();
+    g.phase = "play";
+    g.boundBeat = world.beat;
+    g.needleMilli = 0;
+    const c = cue(world, "p2");
+    expect(c?.word).toBe("OPEN");
+    expect(c?.kind).toBe("HOLD");
+    const mid = gaugeBandMid(gaugeDial(LAYOUT.p2, undefined), g);
+    expect(c?.x).toBeCloseTo(mid.x, 6);
+    expect(c?.y).toBeCloseTo(mid.y, 6);
+    // Her thumb is the answer to it, so it goes the moment she gives it.
+    g.openThumb = true;
+    expect(cue(world, "p2")?.word).not.toBe("OPEN");
+  });
+
+  it("puts the call above the band: a needle seated in the tight window is a mark she can take", () => {
+    const { world, g } = opened();
+    seat(world, g);
+    g.boundBeat = world.beat;
+    expect(gaugeSeated(world, g)).toBe(true);
+    expect(cue(world, "p2")?.word).toBe("CALL");
+  });
+
+  it("holds the call while it would be refused: under her own thumb, and under a settling needle", () => {
+    const { world, g } = opened();
+    seat(world, g);
+    g.boundBeat = world.beat;
+    g.openThumb = true;
+    expect(cue(world, "p2")?.word).not.toBe("CALL");
+    g.openThumb = false;
+    g.boundBeat = -1;
+    expect(cue(world, "p2")?.word).toBe("CALL");
+    // The settle a hand-swung needle costs, from the beat it was lifted.
+    g.liftBeat = world.beat;
+    expect(cue(world, "p2")).toBeNull();
+    g.liftBeat = world.beat - world.cfg.gaugeSettleBeats;
+    expect(cue(world, "p2")?.word).toBe("CALL");
   });
 
   it("reaches the play by being played, and the round has a word in it", () => {

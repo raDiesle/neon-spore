@@ -1,4 +1,5 @@
-import { nextInt } from "./rng.js";
+import { drawBand, driftBand, gaugeSpanNow } from "./gauge-band.js";
+import { gaugeJammed, gaugeSettling } from "./gauge-hand.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -85,6 +86,20 @@ export interface GaugeState {
   calledMilli: number;
   /** Whether that call landed. */
   calledGood: boolean;
+  /**
+   * `world.beat` the valve jammed on, or `-1`. A call that misses jams it and
+   * a call that lands frees it, so the state the round is in is the pair's own
+   * last answer (`gauge-hand.ts`).
+   */
+  jamBeat: number;
+  /** Whether the pilot's hand is on the needle itself. */
+  handOn: boolean;
+  /** `world.beat` his hand came off it, or `-1`: the settle counts from here. */
+  liftBeat: number;
+  /** `world.beat` the band wound tight on, or `-1` while it is free. */
+  boundBeat: number;
+  /** Whether the navigator's thumb is holding the wound band open. */
+  openThumb: boolean;
 }
 
 /** Far enough before any call was made that the first one is never blocked. */
@@ -106,6 +121,11 @@ export function openGauge(world: World): GaugeState {
     calledBeat: NEVER_CALLED,
     calledMilli: -1,
     calledGood: false,
+    jamBeat: -1,
+    handOn: false,
+    liftBeat: -1,
+    boundBeat: -1,
+    openThumb: false,
   };
   drawBand(world, gauge);
   return gauge;
@@ -128,56 +148,26 @@ export function gaugeBeatsLeft(world: World, gauge: GaugeState): number {
  */
 export function stepGauge(world: World, gauge: GaugeState, onBeat: boolean): boolean | null {
   const cfg = world.cfg;
-  if (gauge.valve !== 0) {
+  // A jammed valve is dead, and the needle is the pilot's own hand until a
+  // call lands (`gauge-hand.ts`). The command is still heard and still sets
+  // `valve` — what a seat is holding is a fact about the seat — so the needle
+  // sets off again the instant the jam clears, without a second press.
+  if (gauge.valve !== 0 && !gaugeJammed(gauge)) {
     const next = gauge.needleMilli + gauge.valve * cfg.gaugeTurnMilli;
     gauge.needleMilli = Math.max(0, Math.min(GAUGE_FULL, next));
   }
-  if (onBeat) driftBand(world, gauge);
+  // Her thumb on the band stops it walking. That is the whole of what the
+  // hold buys, and it is bought with the call she cannot make while it is down.
+  if (onBeat && !gauge.openThumb) driftBand(world, gauge);
 
   if (gauge.marks >= cfg.gaugeMarks) return true;
   if (gaugeBeatsLeft(world, gauge) <= 0) return false;
   return null;
 }
 
-/**
- * The band walks one step a beat and turns round at the ends rather than
- * stopping there. A band that parked against an end would hand the pair a
- * target that never moves again, which is the round solving itself.
- */
-function driftBand(world: World, gauge: GaugeState): void {
-  const span = world.cfg.gaugeSpanMilli;
-  const next = gauge.markMilli + gauge.driftDir * world.cfg.gaugeDriftMilli;
-  if (next < span || next > GAUGE_FULL - span) {
-    gauge.driftDir = -gauge.driftDir;
-    gauge.markMilli = Math.max(span, Math.min(GAUGE_FULL - span, gauge.markMilli));
-    return;
-  }
-  gauge.markMilli = next;
-}
-
-/**
- * A fresh band, drawn from the seeded rng — and never within reach of where the
- * needle already is. A draw that landed on the needle would be a mark the pair
- * got without saying anything, which is the one outcome this round must not
- * have.
- */
-function drawBand(world: World, gauge: GaugeState): void {
-  const span = world.cfg.gaugeSpanMilli;
-  const lo = span;
-  const hi = GAUGE_FULL - span;
-  let mark = lo + nextInt(world.rng, hi - lo + 1);
-  const reach = span * 3;
-  if (Math.abs(mark - gauge.needleMilli) < reach) {
-    const away = gauge.needleMilli * 2 > GAUGE_FULL ? -reach : reach;
-    mark = Math.max(lo, Math.min(hi, gauge.needleMilli + away));
-  }
-  gauge.markMilli = mark;
-  gauge.driftDir = nextInt(world.rng, 2) === 0 ? -1 : 1;
-}
-
 /** Whether the needle is between the two marks, which is the whole judgement. */
 export function gaugeSeated(world: World, gauge: GaugeState): boolean {
-  return Math.abs(gauge.needleMilli - gauge.markMilli) <= world.cfg.gaugeSpanMilli;
+  return Math.abs(gauge.needleMilli - gauge.markMilli) <= gaugeSpanNow(world.cfg, gauge);
 }
 
 /**
@@ -200,6 +190,13 @@ export function gaugeHeard(world: World, gauge: GaugeState, player: 1 | 2, comma
   // Two calls in a row cost the rest between them whether the first landed or
   // not, so a thumb held on the button is slower than a pair who talk.
   if (world.beat - gauge.calledBeat < world.cfg.gaugeCallRestBeats) return;
+  // **Refused rather than missed**, twice: while her own thumb is holding the
+  // band open, and while his needle is still settling from his hand. Both are
+  // the round asking for something else at that moment, and a miss would
+  // charge her for a state one of them is in the middle of leaving — the
+  // rest between calls would run as well, so a pair doing exactly what the
+  // round asked would be slowed for it.
+  if (gauge.openThumb || gaugeSettling(world.cfg, gauge, world.beat)) return;
 
   const good = gaugeSeated(world, gauge);
   gauge.calledBeat = world.beat;
@@ -207,9 +204,17 @@ export function gaugeHeard(world: World, gauge: GaugeState, player: 1 | 2, comma
   gauge.calledGood = good;
   if (!good) {
     gauge.misses += 1;
+    // And the valve sticks. A miss is the one thing in this round that was
+    // free — time, and the pair was going to spend that anyway — so what it
+    // costs now is the control itself, until the next call lands.
+    gauge.jamBeat = world.beat;
     return;
   }
   gauge.marks += 1;
+  gauge.jamBeat = -1;
+  // Every other mark winds the band tight, and the one after it lets it go:
+  // the round alternates between the two states rather than ending in one.
+  gauge.boundBeat = gauge.marks % world.cfg.gaugeBindMarks === 0 ? world.beat : -1;
   // A mark spends the band it was made on: the next one is somewhere else and
   // the pair has to find it again from words alone.
   drawBand(world, gauge);

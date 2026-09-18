@@ -41,7 +41,9 @@ export type DragTarget =
   | "diastoleChamber"
   | "mirrorLobe"
   | "gorgeLobe"
-  | "mazeHeart";
+  | "mazeHeart"
+  | "gaugeNeedle"
+  | "gaugeBand";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -231,4 +233,14 @@ export type DragTarget =
  * THE SINEW's is read) and the shot the heart is holding tears out when
  * the pull reaches `mazeHeartPullMilli` while his hand is on the string
  * (`maze-hand.ts`). No `id`, for `mazeString`'s reason: there is one heart.
+ */
+
+/**
+ * `gaugeNeedle` and `gaugeBand` are the twenty-third and twenty-fourth, and
+ * the two halves of one dial (`gauge-hand.ts`). `gaugeNeedle` is the third
+ * whose `fromMilli` is a **bearing** and not a distance (`bearing.ts`): a hand
+ * swinging a needle round a dial is a hand going round a circle, and the
+ * needle stands where the finger points. `gaugeBand` carries nothing but `on`
+ * — a thumb held on the band keeps it open, and where on it the thumb landed
+ * says nothing the round wants to know.
  */

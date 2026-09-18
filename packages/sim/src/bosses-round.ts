@@ -22,6 +22,13 @@ export {
   gaugeSeated,
 } from "./gauge.js";
 
+// The band's two facts the picture has to share with the judgement: how wide
+// it is at this moment, and whether it is wound at all (`gauge-band.ts`).
+export { gaugeBound, gaugeSpanNow } from "./gauge-band.js";
+
+// And the needle's two: dead valve, and a hand that has not settled yet.
+export { gaugeJammed, gaugeSettling } from "./gauge-hand.js";
+
 export {
   closeGauge,
   GAUGE_LEAD_BEATS,

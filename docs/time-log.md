@@ -9170,6 +9170,23 @@ The bottleneck was the receipts: a new `DragTarget` and a new event touch
 the wire, the audio, two silent lists, the cue, the director and four tests
 before the simulation itself is reached.
 
+## 2026-09-18 — boss-hints-mechanics — THE GAUGE jams and binds: the two states, the simulation half
+
+A miss sticks the valve and a mark winds the band, and each is answered by a thumb on the picture.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `gauge.ts` end to end, THE MAZE's sim half as the model, the bearing helpers, the cue page's own argument against saying anything to the pilot |
+| writing | 45 | `gauge-hand.ts`, `gauge-band.ts`, five state fields, three config dials, the two cue arms, seventeen sim cases, four render cases, the spec passage |
+| looking | 0 | none, and none was owed: nothing visible moved but the band's own width |
+| friction | 10 | `gaugeRoundHeard` is not on the package surface, so the test imports the file; a proposed file named in backticks in `docs/parked.md`, caught by the doc-drift test |
+| landing | 10 | `check:fast`, the index, the parked half, two findings, the commit, the land |
+
+The bottleneck was the cue: the existing reading argued at length that the
+pilot could be told nothing true, and the jam makes that half wrong — the
+correction had to be written into the doc, the spec and the test's name
+before a line of the arm was worth keeping.
+
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
 ## 2026-09-18 — tutorial-boss-onscreen-actions — THE MAZE's heart under the navigator's thumb: the look half

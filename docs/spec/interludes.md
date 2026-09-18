@@ -174,21 +174,77 @@ whole of the pressure. `gaugeTurnMilli` is how far the pilot's valve moves the
 needle each tick. `gaugeCallRestBeats` is the beats between two calls, landed or
 not, so a held thumb is slower than talking.
 
+### The two states it changes into, and the two thumbs that answer them
+
+*18 September 2026, `.claude/skills/new-boss` §6.2. The simulation is
+`packages/sim/src/gauge-hand.ts` and `gauge-band.ts`.*
+
+The round shipped with **one** state in it: turn, talk, call, for ninety
+seconds. What it has now is two more, and the point of both is that the pair's
+own last answer is what enters them. The round is never in a state the two of
+them did not just put it in, and neither seat can see the whole of why.
+
+**The jam, his.** A call that misses sticks the valve — `gaugeJammed`, from
+`jamBeat` — and the needle stops answering the thumb he is still holding.
+Until the next call lands, the needle is his hand on the needle itself: a drag
+at `gaugeNeedle`, read as a **bearing** round the dial (`bearing.ts`), so it
+goes where the finger points rather than walking there. That is instant where
+the valve is slow, and what it costs is `gaugeSettleBeats` after he lifts, in
+which a call is *refused*. The sentence stops being *left — less — less* and
+becomes *swing it over — stop — wait — now*. A miss was the one thing in this
+round that was free; what it costs now is the control.
+
+**The bind, hers.** Every `gaugeBindMarks` marks the band winds tight to
+`gaugeBoundSpanMilli` — under a third of its width — and the one after it lets
+go, so the round alternates rather than ending in one state. Her thumb on
+`gaugeBand` holds it open: full width, and the walk stopped, for as long as she
+keeps it there. **She cannot call while it is down.** That is the whole price,
+and it is why the bind is a gesture rather than a button: the pair has to agree
+out loud on the moment she lets go, and that moment is the only thing in the
+round she does not decide alone.
+
+Both refusals are **refusals and not misses**. A call under her own thumb or
+over a needle still settling is turned away without charging her, because both
+are the round asking for something else at that moment and the rest between
+calls would run as well — a pair doing exactly what was asked would be slowed
+for it.
+
+`gaugeSpanNow` is the one number the whole round is judged against, and it is
+**called and never re-derived**: the picture draws the band at the width the
+judgement uses, so the pair can never call a needle the screen shows between
+the marks and be told it was not.
+
 **What the field says** (`render/src/boss-cue-read-e.ts`, 18 September 2026,
-`docs/decisions.md` #34). One word, and only hers: `PRESS` / `CALL` on the end
-of the needle while it stands between the marks and the call is not resting.
-Both marks are drawn on her screen, so the mark stands on something she is
-already shown, and the word says what her thumb does rather than where the
-needle has to go — the hard half of her job is talking him there before it
+`docs/decisions.md` #34). Three words now, two hers and one his.
+
+Hers are her own verbs at the moment each will land: `PRESS` / `CALL` on the
+end of the needle while it stands between the marks, and `HOLD` / `OPEN` on the
+middle of the band while it is wound and her thumb is off. Both the marks and
+the band are drawn on her screen, so each mark stands on something she is
+already shown, and each word says what her thumb does rather than where the
+needle has to go. The call outranks the band: a needle already seated in the
+tight window is a mark she can take without spending the thumb. Neither is the
+round's difficulty — the hard half of her job is talking him there before it
 arrives, and that happens in the beats when there is no cue at all.
 
-**The pilot is told nothing, on any beat, and that is the finding rather than a
-gap.** The two marks are not on his screen (`showsGaugeMarks`), so the only word
-the field could write over his valve is a direction, which is the answer and
-hers to say; and there is no beat when a turn is owed, because the needle is
-parked on purpose while the band walks toward it. He keeps the rehearsal's one
-page about his half, and it is the split rather than the verb
-(`docs/spec/briefings.md`).
+**His is the jam, and it is a correction this reading had to make to itself.**
+While the valve answers he is told nothing, on any beat, in any state: the two
+marks are not on his screen (`showsGaugeMarks`), so the only word over his
+valve would be a direction, which is the answer and hers to say, and there is
+no beat when a turn is owed because the needle is parked on purpose while the
+band walks toward it. A dead valve is different. It is a fact about **his own
+half** — the thing under his thumb has stopped working — which his screen does
+not show him and hers cannot. `TURN` over the needle says that and nothing
+else: not the direction, not the distance, not that a call is close. It goes
+quiet the moment his hand is down, because a word over a needle he is already
+swinging is the field narrating him. He still keeps the rehearsal's one page
+about his half (`docs/spec/briefings.md`).
+
+**What is not built.** The grip rings and the hit tests for the two thumbs are
+the look lane's, and so are the rows in [controls](controls.md) — the
+simulation hears both drags and the wire carries them today. The round has no
+events and no audio binding at all, which the two new states make worth
+fixing; both are in [the queue](../queue.md).
 
 What a round **may** do is give — a pod or two for the act about to start
 ([systems](systems.md#57-power-ups--the-pod-built)). That is not built. Pods are

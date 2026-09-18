@@ -47,9 +47,16 @@ export {
   type GaugeEntry,
   type GaugeState,
   gaugeBeatsLeft,
+  // The two states the round gained, and the width one of them changes: the
+  // cue reads all three, and the dial draws the band at the width the
+  // judgement uses rather than at the one in the config.
+  gaugeBound,
   gaugeHolds,
+  gaugeJammed,
   gaugeRound,
   gaugeSeated,
+  gaugeSettling,
+  gaugeSpanNow,
   installMaze,
   MAZE_APPROACH_BEATS,
   MAZE_REASONS,

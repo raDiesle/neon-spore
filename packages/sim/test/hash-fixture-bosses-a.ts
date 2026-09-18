@@ -162,6 +162,14 @@ export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
     boss.calledBeat = 6;
     boss.calledMilli = 3_100;
     boss.calledGood = true;
+    // The two states the round gained, and the hands on them
+    // (`gauge-hand.ts`): every one of these is in `hashWorld`, so every one
+    // has to be moved off its opening value here or `hash-coverage` says so.
+    boss.jamBeat = 5;
+    boss.handOn = true;
+    boss.liftBeat = 6;
+    boss.boundBeat = 4;
+    boss.openThumb = true;
   }
   if (boss.kind === "pinball") {
     boss.phase = "play";

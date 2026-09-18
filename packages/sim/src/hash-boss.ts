@@ -133,6 +133,15 @@ export function bossHashParts(boss: BossState | null): number[] {
     push(boss.calledBeat);
     push(boss.calledMilli);
     push(boss.calledGood ? 1 : 0);
+    // And the two states the pair's own calls put it in: a jammed valve, a
+    // wound band, and the two thumbs on the dial (`gauge-hand.ts`). A device
+    // that thinks the valve still answers is a device moving a needle the
+    // other one is not.
+    push(boss.jamBeat);
+    push(boss.handOn ? 1 : 0);
+    push(boss.liftBeat);
+    push(boss.boundBeat);
+    push(boss.openThumb ? 1 : 0);
   }
   // THE FLEET. The placement is authored and hashed for the reason THE
   // MIRROR's rounds are: two phones on two builds of `content` would be

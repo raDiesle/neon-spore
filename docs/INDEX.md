@@ -138,6 +138,8 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/dart.ts` | THE DART: the first body that does not hold its lane |
 | `packages/sim/src/events.ts` | everything the simulation reports about a tick, and the whole of what it says to anybody |
 | `packages/sim/src/gauge-round.ts` | THE GAUGE's clock: the three phases, the way in and the way out |
+| `packages/sim/src/gauge-band.ts` | **The band between the two marks**: where it lands, where it walks, and how wide it is at this moment |
+| `packages/sim/src/gauge-hand.ts` | **THE GAUGE's two thumbs on the dial itself** |
 | `packages/sim/src/gauge.ts` | THE GAUGE: one needle, two marks, one of you reading and the other turning |
 | `packages/sim/src/hash-boss.ts` | the boss half of the world fingerprint |
 | `packages/sim/src/hash-boss-clocks.ts` | The fingerprint's share of **the bosses that are a clock** — THE STARE, THE DIASTOLE, THE BATON |

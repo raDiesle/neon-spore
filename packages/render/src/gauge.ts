@@ -1,4 +1,4 @@
-import { GAUGE_FULL, type GaugeState, type SimConfig } from "@neon-spore/sim";
+import { GAUGE_FULL, type GaugeState, gaugeSpanNow, type SimConfig } from "@neon-spore/sim";
 import type { ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -120,7 +120,11 @@ function drawBand(
   cfg: SimConfig,
   gauge: GaugeState,
 ): void {
-  const span = cfg.gaugeSpanMilli;
+  // The width **now**, not the one in the config: the band winds tight every
+  // few marks and her thumb gives it back, and a picture that drew the full
+  // width through the bind would have her calling a needle the screen shows
+  // between the marks and being told it was not (`gauge-band.ts`).
+  const span = gaugeSpanNow(cfg, gauge);
   const lo = Math.max(0, gauge.markMilli - span);
   const hi = Math.min(GAUGE_FULL, gauge.markMilli + span);
   const inner = dial.r * 0.62;
@@ -209,6 +213,17 @@ export function gaugeNeedleTip(dial: Dial, gauge: GaugeState): { x: number; y: n
 
 /** How far up the radius the needle reaches. */
 const NEEDLE_REACH = 0.94;
+
+/**
+ * The middle of the band, out at the rim. Exported for the cue, which frames
+ * it while it is wound tight and asks her to hold it open
+ * (`boss-cue-read-e.ts`): the band is on her screen alone, so the mark stands
+ * on something she is already shown, and a second opinion about where its
+ * middle is would be a frame beside its own band.
+ */
+export function gaugeBandMid(dial: Dial, gauge: GaugeState): { x: number; y: number } {
+  return pointOn(dial, gauge.markMilli, dial.r * 0.81);
+}
 
 function drawNeedle(ctx: CanvasRenderingContext2D, dial: Dial, gauge: GaugeState): void {
   const tip = gaugeNeedleTip(dial, gauge);

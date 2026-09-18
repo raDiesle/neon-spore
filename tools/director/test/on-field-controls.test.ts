@@ -154,6 +154,13 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // while the pilot braces the string (`sim/maze-hand.ts`,
     // `field-controls-maze.ts`).
     case "mazeHeart":
+    // `gaugeNeedle` and `gaugeBand` are THE GAUGE's dial under one thumb each
+    // — his hand swinging the needle while the valve is jammed, her thumb
+    // holding the wound band open (`sim/gauge-hand.ts`). The simulation half
+    // landed first; the rings, the on-field entries and the rows in
+    // `docs/spec/controls.md` are the look lane's.
+    case "gaugeNeedle":
+    case "gaugeBand":
       return target;
     default:
       return assertNever(target);

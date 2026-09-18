@@ -21,6 +21,9 @@ export const ROUND_FIELD_GROUP = {
   gaugeDriftMilli: "THE GAUGE — a round with no field in it",
   gaugeSpanMilli: "THE GAUGE — a round with no field in it",
   gaugeMarks: "THE GAUGE — a round with no field in it",
+  gaugeSettleBeats: "THE GAUGE — a round with no field in it",
+  gaugeBindMarks: "THE GAUGE — a round with no field in it",
+  gaugeBoundSpanMilli: "THE GAUGE — a round with no field in it",
   gaugeRoundBeats: "THE GAUGE — a round with no field in it",
   gaugeCallRestBeats: "THE GAUGE — a round with no field in it",
   // ScoutConfig — every one of them is *feel*, which is why they are dials at

@@ -34,6 +34,19 @@ export interface GaugeConfig {
   gaugeRoundBeats: number;
   /** Beats between two calls, landed or not, so a held thumb is slower than talking. */
   gaugeCallRestBeats: number;
+  /**
+   * Beats a needle that was moved by hand must stand before a call counts. The
+   * whole cost of the jam: the hand is instant where the valve is not, and what
+   * it buys back is that the pair cannot call the moment it arrives.
+   */
+  gaugeSettleBeats: number;
+  /** Landed marks between one winding of the band and the next. */
+  gaugeBindMarks: number;
+  /**
+   * Half the band's width while it is wound tight, in thousandths — narrow
+   * enough that the pair would rather spend the thumb than talk into it.
+   */
+  gaugeBoundSpanMilli: number;
 }
 
 /**
@@ -45,6 +58,16 @@ export interface GaugeConfig {
  * pilot's valve is meant to be the strong one, and a dial that took longer to
  * cross than the voice delay would turn every correction into a conversation
  * the pair had already finished.
+ *
+ * **The three numbers under the two states are set against those two**
+ * (`gauge-hand.ts`, 18 September 2026). `gaugeSettleBeats` at 2 is a little
+ * over a second: long enough that a hand is not simply a faster valve, short
+ * enough that the pair does not stop talking while it runs. `gaugeBindMarks`
+ * at 2 binds the band on the second mark and every other one after it, so the
+ * round alternates rather than ending in one state. `gaugeBoundSpanMilli` at
+ * 18 is under a third of `gaugeSpanMilli`: a band 36 wide against a needle
+ * that crosses 3 a tick is about twelve ticks of window, which is a thing a
+ * pair can hit and not a thing they can talk into.
  */
 export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeTurnMilli: 3,
@@ -53,4 +76,7 @@ export const GAUGE_DEFAULTS: GaugeConfig = {
   gaugeMarks: 5,
   gaugeRoundBeats: 128,
   gaugeCallRestBeats: 2,
+  gaugeSettleBeats: 2,
+  gaugeBindMarks: 2,
+  gaugeBoundSpanMilli: 18,
 };

@@ -442,18 +442,6 @@ not a picture per state.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE GAUGE changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-gauge-changes-state-more-than-once-and-asks
-- **Files:** `packages/sim/src/config-gauge.ts`, `packages/sim/src/gauge-round.ts`, `packages/sim/src/gauge.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-
-It is answered today on its own panel (`gauge`), over 3 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE GAUGE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1344,3 +1332,36 @@ through when the other seven shards are on the same disk. Give it
 item above are meant to move to, and `setDefaultTimeout` it the way the
 frame tests do. `bun run check` proves it; the failure is a load flake and
 will not reproduce on demand.
+
+## THE GAUGE is the only boss with no events and no sound
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/events.ts`, `packages/sim/src/gauge.ts`, `packages/sim/src/gauge-hand.ts`, `packages/audio/src/catalogue.ts`, `packages/audio/test/bind.test.ts`, `packages/render/src/effects-ingest-silent-boss.ts`
+
+The round emits no `SimEvent` at all, so `packages/audio` has nothing to bind
+and the whole of THE GAUGE is silent — a call that lands, a call that misses,
+the valve jamming and the band winding tight all happen without a sound. Every
+other boss has a cue per event (`.claude/skills/new-boss` §4). The two new
+states make it worse, because a jam is the one thing in the round the pilot
+cannot see coming and an ear would tell him instantly.
+
+Add a `gaugeMark`, `gaugeMiss`, `gaugeJam` and `gaugeBind` to the events union
+(`events.ts` is at its limit — a comment per line added), push them from
+`gaugeHeard`, bind one sound each in the catalogue panned to the middle
+column, and take them off the silent list or draw them.
+
+## boss-cue-read-e.ts is at 248 lines with three readings in it
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue.ts`
+
+THE MIRROR, THE MAZE and THE GAUGE share the file, and THE GAUGE's reading
+grew from one arm to three when the round gained its two states. The next
+round to be read has nowhere to go, and neither does a fourth arm on any of
+the three.
+
+Cut it the way the four pages before it were cut: a `boss-cue-read-f.ts` with
+THE GAUGE in it, the `markAt` builder shared rather than copied a sixth time
+(it is identical in all five pages — a row in `copies-table.ts` would be
+better than a comment saying so), and the dispatch in `boss-cue.ts` pointed at
+the new page.

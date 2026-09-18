@@ -2,6 +2,7 @@ import { isBeatTick } from "./beat-clock.js";
 import { midCol } from "./config.js";
 import type { GaugePhase, GaugeState } from "./gauge.js";
 import { gaugeHeard, openGauge, stepGauge } from "./gauge.js";
+import { gaugeHandHeard, releaseGaugeHands } from "./gauge-hand.js";
 import { breachHull } from "./hull.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
@@ -152,9 +153,16 @@ export function gaugeRoundHeard(world: World, player: 1 | 2, command: Command): 
   const round = gaugeRound(world);
   if (round === null || round.phase !== "play") return;
   gaugeHeard(world, round, player, command);
+  // And the two thumbs on the dial itself, under the same gate: the states
+  // they answer only exist inside the play (`gauge-hand.ts`).
+  gaugeHandHeard(world, round, player, command);
 }
 
 export function enterPhase(round: GaugeState, phase: GaugePhase, beat: number): void {
   round.phase = phase;
   round.phaseBeat = beat;
+  // Both hands come off with the phase. A play that ended under a thumb would
+  // leave a band held open and a needle settling into a verdict nobody can
+  // act on (`gauge-hand.ts`).
+  releaseGaugeHands(round);
 }
