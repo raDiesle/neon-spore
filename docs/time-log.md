@@ -11215,3 +11215,5 @@ director's row, and a frame test of every state on all three screens.
 The bottleneck was the plumbing: a boss the thumb can touch is a field on
 `Field`, and that is eleven test fixtures and three app files before the
 first line is drawn.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

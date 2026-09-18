@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · f5ea37af — THE FILAMENT has its look: the bundle over the field, and each screen drawing its own end of the line
+
+A look with no shipped alternative — lane two of §17. A domed bundle hangs over the top of the field with one strand inside it per filament left, a strand narrower every pull. The armed filament hangs from its underside down the field through its tiles, the free end pulsing until a thumb takes it. The split is what of the line each screen draws: the pilot's has the whole path ahead dashed, the lit run to his tile and a red DRAW ring on it; the navigator's has no path ahead — the lit run to one tile past hers and a FOLLOW ring — and the gap between them is on neither screen. A snap or a recoil whips the line sideways, a gap dims the path, a pull slides the whole run up into the body under THE SLOW, and the down fades the body out. The grab is under `handles.ts`, the director has the row, and a frame test proves every state on all three seats and the split both ways. Not built: the film — the guide stays prose. The owner's open figure stands: nothing here strikes the hull.
+
 ## 2026-09-18 · 5b3d5a35 — `hash-fixture.ts` is five files, none over 250 lines
 
 The 766-line fixture `hash-coverage.test.ts` walks is cut into pages: the world's own lists (`creature`, `bullet`, `pod`, `scar` and the three singletons, with their `Required<>` gate) in `hash-fixture-fields.ts`; the bosses' entries and `patchBoss` branches on three pages by their stretch of `BOSS_KINDS` — `-a.ts` the first ten, `-b.ts` THE CAIRN to THE SINEW, `-c.ts` THE LEDGER on, where a new boss goes; `hash-fixture.ts` composing them, with the `Record` that says every kind has an entry on one page. `hash-coverage.test.ts` is untouched and green; `.claude/skills/new-boss` names the last page. The queue's two-page plan did not fit: entries and patches are 500 lines between them.
