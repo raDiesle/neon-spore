@@ -851,6 +851,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gauge-round.ts` | THE GAUGE over the whole stage |
 | `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name and the one sentence that teaches this seat its half |
 | `packages/render/src/gauge-grip.ts` | **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle while the valve is dead |
+| `packages/render/src/gauge-dial-face.ts` | What is **mounted in** THE GAUGE's face plate: the cover glass, the lathed bezel that holds it down |
+| `packages/render/src/gauge-plate.ts` | THE GAUGE's **face plate**: the slab the dial is cut into, milled, lit and bolted |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: a half-round dial, a needle, and two marks that only one of the two screens carries |
 | `packages/render/src/glide.ts` | A spring that chases a value |
 | `packages/render/src/gland-cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |

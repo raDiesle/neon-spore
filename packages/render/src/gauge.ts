@@ -1,4 +1,6 @@
 import { GAUGE_FULL, type GaugeState, gaugeSpanNow, type SimConfig } from "@neon-spore/sim";
+import { drawGaugeBezel, drawGaugeGlass, drawGaugeHub } from "./gauge-dial-face.js";
+import { drawGaugePlate } from "./gauge-plate.js";
 import type { ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
 
@@ -63,9 +65,6 @@ function pointOn(dial: Dial, milli: number, radius: number): { x: number; y: num
   return { x: dial.cx + Math.cos(a) * radius, y: dial.cy + Math.sin(a) * radius };
 }
 
-/** The plate's overhang past the dial's rim, as a share of the radius. */
-export const PLATE_PAD = 0.16;
-
 export function drawGauge(
   ctx: CanvasRenderingContext2D,
   dial: Dial,
@@ -73,39 +72,18 @@ export function drawGauge(
   gauge: GaugeState,
   view: DialView,
 ): void {
-  drawPlate(ctx, dial);
+  // The instrument, outside in: the plate it is set into, the glass sunk in
+  // that, then the dial's own printing, then the bezel over all of it and the
+  // needle on top (`gauge-plate.ts`, `gauge-dial-face.ts`). The order is the
+  // object's: nothing of the scale is washed by the film, and the bezel sits
+  // over the glass because that is what a bezel does.
+  drawGaugePlate(ctx, dial);
+  drawGaugeGlass(ctx, dial);
   if (view.showMarks) drawBand(ctx, dial, cfg, gauge);
   drawScale(ctx, dial);
+  drawGaugeBezel(ctx, dial);
   drawCall(ctx, dial, gauge, view);
   drawNeedle(ctx, dial, gauge);
-}
-
-/**
- * The plate the dial is cut into. A rectangle with its top corners taken off,
- * which is the cheapest shape that reads as *made*: nothing on the field has a
- * straight edge anywhere.
- */
-function drawPlate(ctx: CanvasRenderingContext2D, dial: Dial): void {
-  const pad = dial.r * PLATE_PAD;
-  const left = dial.cx - dial.r - pad;
-  const top = dial.cy - dial.r - pad;
-  const w = (dial.r + pad) * 2;
-  const h = dial.r + pad * 2.8;
-  const cut = pad * 1.4;
-
-  ctx.beginPath();
-  ctx.moveTo(left + cut, top);
-  ctx.lineTo(left + w - cut, top);
-  ctx.lineTo(left + w, top + cut);
-  ctx.lineTo(left + w, top + h);
-  ctx.lineTo(left, top + h);
-  ctx.lineTo(left, top + cut);
-  ctx.closePath();
-  ctx.fillStyle = "rgba(16,11,34,.92)";
-  ctx.fill();
-  ctx.strokeStyle = PALETTE.hull;
-  ctx.lineWidth = 1.6;
-  ctx.stroke();
 }
 
 /**
@@ -133,7 +111,10 @@ function drawBand(
   ctx.arc(dial.cx, dial.cy, dial.r, angleFor(lo), angleFor(hi));
   ctx.arc(dial.cx, dial.cy, inner, angleFor(hi), angleFor(lo), true);
   ctx.closePath();
-  ctx.fillStyle = "rgba(255,194,74,.20)";
+  // Brighter than it was, and it had to be: the glass under it is darker than
+  // the bare plate the round shipped with, and amber at a fifth read as brown
+  // paper against it rather than as the one lit thing on her screen.
+  ctx.fillStyle = "rgba(255,194,74,.30)";
   ctx.fill();
 
   ctx.strokeStyle = PALETTE.podRim;
@@ -199,7 +180,6 @@ function drawCall(
   ctx.restore();
 }
 
-/** The needle itself, and the pin it turns on. */
 /**
  * The end of the needle. Exported because the cue frames it at the moment it
  * is seated (`boss-cue-read-e.ts`): the needle is the only thing on this
@@ -225,6 +205,7 @@ export function gaugeBandMid(dial: Dial, gauge: GaugeState): { x: number; y: num
   return pointOn(dial, gauge.markMilli, dial.r * 0.81);
 }
 
+/** The needle itself; the boss it turns on is `gauge-dial-face.ts`'s. */
 function drawNeedle(ctx: CanvasRenderingContext2D, dial: Dial, gauge: GaugeState): void {
   const tip = gaugeNeedleTip(dial, gauge);
   const tail = pointOn(dial, gauge.needleMilli, -dial.r * 0.12);
@@ -236,11 +217,5 @@ function drawNeedle(ctx: CanvasRenderingContext2D, dial: Dial, gauge: GaugeState
   ctx.lineTo(tip.x, tip.y);
   ctx.stroke();
 
-  ctx.beginPath();
-  ctx.arc(dial.cx, dial.cy, Math.max(1, dial.r * 0.07), 0, Math.PI * 2);
-  ctx.fillStyle = PALETTE.hull;
-  ctx.fill();
-  ctx.strokeStyle = PALETTE.hullRim;
-  ctx.lineWidth = 1.4;
-  ctx.stroke();
+  drawGaugeHub(ctx, dial);
 }

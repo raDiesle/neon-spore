@@ -257,6 +257,27 @@ every time she pressed would read as a fault rather than a rhythm. The rows
 are in [controls](controls.md); the director's are in
 `tools/director/src/field-controls-gauge.ts`.
 
+**The picture, 18 September 2026.** The round shipped with the dial drawn
+straight onto the plate, and the owner's brief is that a boss should look like
+something real (`.claude/skills/new-boss` 6.3). A round's material is slabs and
+glyphs, never blobs, so the answer is a **machine** and not a body, exactly as
+THE MAZE's drum took the same brief: the dial is now an instrument set into a
+milled face plate, with a cover glass sunk into it, a lathed bezel bolted over
+that, and the needle turning on a boss with a chamfer on it
+(`render/gauge-plate.ts`, `gauge-dial-face.ts`).
+
+It is lit **once**, from `KEY` — the plate's sheen, the bezel's shoulder, the
+film on the glass, the chamfer's bright arc and all eleven bolt heads sit on
+the same side. That is the whole of why a dozen separate marks read as one
+object rather than a dozen, and it is what `render/test/gauge-plate.test.ts`
+holds, along with the other half: **not one number of the dial moved**. The
+plate is outside the bezel, the bezel outside the rim, the glass inside it and
+the boss smaller than the band's own inner edge, so every stroke a call is
+made of is where `gauge.ts` has always put it. The one thing that did change
+is the band's fill, raised from a fifth to three tenths: the glass under it is
+darker than the bare plate was, and amber at the old weight read as brown
+paper rather than as the one lit thing on her screen.
+
 **What is not built.** Neither state has a pose of its own in the director's
 gallery — both rows name `THE GAUGE · PLAY`, which is the phase they live
 inside rather than a picture of either. And the round has no events and no

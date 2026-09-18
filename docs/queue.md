@@ -431,17 +431,6 @@ before a bolt could reach them stay open for good — so `hive: ["down"]` is
 the one allowance left in `tools/director/test/boss-states.test.ts`'s
 `OWED` for a field boss, struck the commit the answer lands.
 
-## THE GAUGE's picture looks like something real
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-gauges-picture-looks-like-something-real
-- **Files:** `packages/render/src/gauge-round.ts`, `packages/render/src/gauge-title.ts`, `packages/render/src/gauge.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
-
-3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
-not a picture per state.
-
-The brief: `.claude/skills/new-boss` section 6.3.
-
 ## THE FLEET changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

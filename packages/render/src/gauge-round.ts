@@ -6,8 +6,9 @@ import {
   gaugeJammed,
   gaugeSettling,
 } from "@neon-spore/sim";
-import { type Dial, drawGauge, PLATE_PAD, showsGaugeMarks } from "./gauge.js";
+import { type Dial, drawGauge, showsGaugeMarks } from "./gauge.js";
 import { drawGaugeGrip } from "./gauge-grip.js";
+import { PLATE_PAD } from "./gauge-plate.js";
 import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";

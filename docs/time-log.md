@@ -9304,3 +9304,21 @@ The bottleneck was the frame: the tool had no name for the navigator's
 thumb on the eye, so photographing the state meant teaching it one first.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-hints-mechanics — THE GAUGE's picture looks like something real
+
+The dial is an instrument set into a milled plate now: cover glass, a lathed bezel bolted over it, a boss under the needle, and one light over all of it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the §6.3 brief, the rounds' material rule, `maze-plate.ts` as the precedent, `key-light.ts` |
+| writing | 35 | `gauge-plate.ts`, `gauge-dial-face.ts`, the draw order in `gauge.ts`, five render cases, the spec passage |
+| looking | 10 | three frames — the first said the amber band had gone brown against the new glass |
+| friction | 5 | the plate hit the 250-line ceiling mid-file and was split along the seam the object has |
+| landing | 10 | `check:fast`, the index, the queue, the commit, the land |
+
+The bottleneck was the band: darkening the glass under it was right for the
+instrument and wrong for the one thing on her screen that has to carry a call,
+and only a rendered frame said so.
+
+*Measured: the rows above are the session's own estimate, read off the previous landing's timestamp.*
