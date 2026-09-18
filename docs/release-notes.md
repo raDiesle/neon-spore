@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 56729f18 — THE STARE's lid covers the eye it says it covers
+
+The first frame showed the flap clipped to the socket's inner rim and its brow a quarter of a socket above the middle — inside the film and under the lashes, so a half-pulled lid was a grey patch behind the pupil and the ring sat on the iris. The brow is now above the lashes' tips, the flap is clipped to the film's own almond, and the edge travels the eye's whole height on the thumb's share of the pull rather than the thumb's own pixels, so a lid the simulation calls shut looks shut. A fix to something wrong rather than unlovely, in the look that landed an hour ago.
+
 ## 2026-09-18 · 5778056d — Mark "THE STARE changes state more than once, and asks for more than one gesture" done
 
 ## 2026-09-18 · 24d59a44 — THE STARE gets a lid: the look
