@@ -695,6 +695,7 @@ section 6.1.
 ## THE DIASTOLE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-diastole-changes-state-more-than-once-and-as
 - **Files:** `packages/sim/src/config-diastole.ts`, `packages/sim/src/diastole-hash.ts`, `packages/sim/src/diastole-step.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 
 It is answered today on the ordinary panel, over 4 files of simulation. Give it
