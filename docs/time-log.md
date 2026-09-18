@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — every boss wave says which kind of boss it is
+
+One authored field beside `boss`, two values, on all thirty-three boss waves: a
+picker in the director under the wave's prose, a line in the serializer, and the
+table in `bosses.md` where the judgement can be argued with. The field is
+authored and not derived because both directions of the obvious rule are wrong —
+THE MAZE and THE MIRROR are special on the standard panel and THE INSTAR is
+normal on a panel of its own.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `wave-types.ts`, the rail and its markup, `serialize.ts`, `fault-fields.ts` for the picker pattern, `fake-dom.ts` for how the director is driven in a test |
+| writing | 35 | the field and its reasoning, thirty-three authored lines, the invariant, the serializer line, `boss-type-field.ts` and its four tests, the section in `bosses.md` |
+| looking | 0 | the director's own server starts the main checkout and not this worktree, so the picker is proved by the fake DOM rather than by an eye |
+| friction | 20 | one line per boss wave took three act files over the 250-line ceiling at once, and two of them had to hand a wave to the page after them before anything else could land |
+| landing | 10 | `index`, `format`, `check:fast`, `queue done`, the commit, `bun run land --keep` |
+
+The bottleneck was the ceiling: a field that costs one line per wave costs three
+files a split, and the split has to keep the order of the waves — which is why
+each page handed its last wave to the page after it rather than taking a new
+file.
+
 ## 2026-09-18 — boss-hints — the cue's words come out from under the plate
 
 The kind line stopped at the top of the canvas, which in a rehearsal is 94

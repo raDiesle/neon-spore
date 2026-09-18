@@ -78,6 +78,7 @@ export const WAVES_ACT_10: Wave[] = [
       { beat: 21, col: 6, color: "cyan" },
     ],
     boss: { kind: "reprise", beat: 12 },
+    bossType: "normal",
   },
   {
     id: "theFlip",

@@ -5,6 +5,13 @@ import type { Wave } from "../wave-types.js";
  * BATON landed on it within an hour of each other and took it seventeen lines
  * over the 250-line ceiling.
  *
+ * **It opens on THE UNDERTOW and ends on THE SINEW since 18 September 2026**,
+ * when one line per boss wave — which kind of boss it is (`Wave.bossType`) —
+ * took this page and the two either side of it over the ceiling at once. THE
+ * UNDERTOW came over from `act-7c.ts`, THE LEDGER and THE SURGE went on to
+ * `act-7e.ts`, and the order of the waves is untouched: a page hands its last
+ * wave to the page after it, which is the next wave in the game.
+ *
  * **`7d` and not `9`, for the reason `act-7c.ts` gives about `7c`**: an act
  * file is a page and not a chapter, and the order of the waves is the order of
  * the game. It started one wave long and is full (`docs/queue.md`).
@@ -58,6 +65,28 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_7D: Wave[] = [
   {
+    id: "theUndertow",
+    name: "THE UNDERTOW",
+    sentence:
+      "The one that comes up through the floor, so the shield faces down and the maw is the only thing pointing the right way.",
+    guide: {
+      both: "Lobes rise through your own hull. Swallow each one with the maw as it comes through. Hold the maw open under the last.",
+      p1: "1. Say the column where the floor bows.\n2. Slide the cannon under it and open the maw as the lobe comes through.\n3. If it bows under you, slide off within two beats.\n4. On the last lobe, hold the maw open.",
+      p2: "1. Put the plate on a breach your partner cannot reach, so it stops widening.\n2. Move it off when they come for that lobe.\n3. The tall one: hold a colour for the beam and let them keep the column.",
+      scene: "theUndertow",
+    },
+    entries: [
+      { beat: 54, col: 1, color: "red" },
+      { beat: 62, col: 5, color: "cyan" },
+      { beat: 70, col: 0, color: "cyan" },
+      { beat: 78, col: 6, color: "red" },
+      { beat: 86, col: 2, color: "red" },
+      { beat: 94, col: 4, color: "cyan" },
+    ],
+    boss: { kind: "undertow" },
+    bossType: "normal",
+  },
+  {
     id: "theThroat",
     name: "THE THROAT",
     sentence: "The one where the only thing that hurts it is something you give it.",
@@ -86,6 +115,7 @@ export const WAVES_ACT_7D: Wave[] = [
       { beat: 76, col: 2, kind: "gum", color: null },
     ],
     boss: { kind: "throat" },
+    bossType: "normal",
   },
   {
     id: "theOrrery",
@@ -99,6 +129,7 @@ export const WAVES_ACT_7D: Wave[] = [
     },
     entries: [],
     boss: { kind: "orrery" },
+    bossType: "normal",
   },
   {
     id: "theCandle",
@@ -118,6 +149,7 @@ export const WAVES_ACT_7D: Wave[] = [
       { beat: 54, col: 6, color: "red" },
     ],
     boss: { kind: "candle" },
+    bossType: "normal",
   },
   {
     id: "theGorge",
@@ -143,6 +175,7 @@ export const WAVES_ACT_7D: Wave[] = [
       { beat: 82, col: 1, color: "cyan" },
     ],
     boss: { kind: "gorge" },
+    bossType: "normal",
   },
   {
     id: "theCurtain",
@@ -156,6 +189,7 @@ export const WAVES_ACT_7D: Wave[] = [
     },
     entries: [],
     boss: { kind: "curtain" },
+    bossType: "normal",
   },
   {
     id: "theTaster",
@@ -180,6 +214,7 @@ export const WAVES_ACT_7D: Wave[] = [
       { beat: 80, col: 5, color: "red" },
     ],
     boss: { kind: "taster" },
+    bossType: "normal",
   },
   {
     id: "theSinew",
@@ -202,49 +237,6 @@ export const WAVES_ACT_7D: Wave[] = [
       { beat: 80, col: 5, color: "red" },
     ],
     boss: { kind: "sinew" },
-  },
-  {
-    id: "theLedger",
-    name: "THE LEDGER",
-    sentence: "The one where every hit you land comes back at your own hull.",
-    guide: {
-      both: "Hit the split five times. Every hit comes back down the cord four beats later: ward it in the socket, or lose the wave. Let the last one land.",
-      p1: "1. Stand the cannon on the middle column.\n2. Trigger the plate on the beat the return lands, in the column your partner calls.\n3. Once the split is open, fire at nothing else.\n4. The last return: do not stop it.",
-      p2: "1. Load the colour the split shows.\n2. Say which column the socket has walked to, every time.\n3. Move the plate there before the beat.\n4. On the last return, take the plate out of that column.",
-      scene: "theLedger",
-    },
-    entries: [
-      { beat: 18, col: 1, kind: "meteor", color: null },
-      { beat: 26, col: 5, color: "red" },
-      { beat: 34, col: 3, color: "cyan" },
-      { beat: 44, col: 0, kind: "meteor", color: null },
-      { beat: 52, col: 6, color: "red" },
-      { beat: 62, col: 2, color: "cyan" },
-      { beat: 72, col: 4, kind: "meteor", color: null },
-      { beat: 82, col: 5, color: "cyan" },
-    ],
-    boss: { kind: "ledger" },
-  },
-  {
-    id: "theSurge",
-    name: "THE SURGE",
-    sentence: "The one you beat by letting go, and only if you both let go at once.",
-    guide: {
-      both: "Both thumbs on the bulb charge it. Let go together inside the band. Five notches.",
-      p1: "1. Put your thumb on the bulb and keep it there.\n2. Say when the field slows: that is the band.\n3. Count your partner down: three, two, one, OFF.\n4. Lift on OFF, never alone.",
-      p2: "1. Put your thumb on the bulb and keep it there.\n2. Read the pressure out loud every beat.\n3. Lift your thumb on your partner's OFF, the same instant. Over the band it bursts.",
-      scene: "theSurge",
-    },
-    entries: [
-      { beat: 14, col: 1, kind: "meteor", color: null },
-      { beat: 22, col: 5, color: "red" },
-      { beat: 30, col: 3, kind: "meteor", color: null },
-      { beat: 40, col: 0, color: "cyan" },
-      { beat: 48, col: 4, kind: "meteor", color: null },
-      { beat: 58, col: 6, color: "red" },
-      { beat: 66, col: 2, color: "cyan" },
-      { beat: 76, col: 3, kind: "meteor", color: null },
-    ],
-    boss: { kind: "surge" },
+    bossType: "normal",
   },
 ];

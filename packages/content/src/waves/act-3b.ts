@@ -37,6 +37,7 @@ export const WAVES_ACT_3B: Wave[] = [
       { beat: 9, col: 4, color: "cyan" },
     ],
     boss: { kind: "vane" },
+    bossType: "normal",
     controls: "standard5",
   },
   {

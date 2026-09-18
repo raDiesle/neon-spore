@@ -4,6 +4,7 @@ import {
   controlSet,
   DEFAULT_CONTROL_SET_ID,
 } from "@neon-spore/content";
+import { bindBossTypeField } from "./boss-type-field.js";
 import { renderControlSetNote } from "./control-set-note.js";
 import { bindFaultFields } from "./fault-fields.js";
 import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields.js";
@@ -64,6 +65,9 @@ export function bindRail(
   // it starts. See `guide-fields.ts` for why the three fields are built rather
   // than declared in `index.html`.
   const guideFields = bindGuideFields(document.getElementById("guideFields"), onPage);
+  // Over the control set, for the reason it is over it in the markup: which
+  // kind of boss this is, on the waves that have one (`boss-type-field.ts`).
+  const bossTypeField = bindBossTypeField(document.getElementById("bossTypeField"));
   // Under the control set, for the reason it is under it in the markup: the
   // panel says what buttons the pair has and this says which of them answer.
   const faultFields = bindFaultFields(document.getElementById("faultFields"));
@@ -102,6 +106,7 @@ export function bindRail(
     renderControlSetNote(controlsRoster, active);
 
     guideFields.render(wave);
+    bossTypeField.render(wave);
     faultFields.render(wave);
 
     // A boss wave cannot be copied or deleted (see the two guards in
@@ -147,6 +152,16 @@ export function bindRail(
     wave.controls = picked === DEFAULT_CONTROL_SET_ID ? undefined : picked;
     store.dirty = true;
     onSelect();
+  });
+
+  // Through `onEdit`, unlike the panel: the kind of boss is what the wave says
+  // about itself and changes nothing the stage draws.
+  bossTypeField.onChange((type) => {
+    const wave = currentWave(store);
+    if (!wave?.boss) return;
+    wave.bossType = type;
+    store.dirty = true;
+    onEdit();
   });
 
   // Through `onSelect`, like the panel and for the same reason: a fault

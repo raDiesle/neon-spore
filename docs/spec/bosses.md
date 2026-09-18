@@ -56,7 +56,9 @@ should be asked the same question before it is started.
 
 [Fixed and learnable](#fixed-and-learnable) and
 [the three filters](#the-three-filters-a-boss-has-to-pass) — what every
-section below had to pass before it was written.
+section below had to pass before it was written — and
+[special or normal](#special-or-normal-on-every-boss-wave), which of the two
+kinds each of them is.
 
 **Still in hand: nothing.** THE INSTAR stood here from the morning of 17 September 2026, when its simulation landed and its look was the next lane; the look landed the same day and the row was never taken down, so the page listed it as in hand and as built at once. Everything on this page is in the game or was taken out of it again. What is left undone is **inside** the built sections, each under its own *What is not built* paragraph, and the director's `◇ NOT BUILT YET` sheet is where those are read together.
 
@@ -112,6 +114,38 @@ table, THE CAIRN's eight-beat announcement and THE TASTER's ledger
 (`sim/spend.ts`, `sim/taster.ts`, `sim/taster-step.ts`, `sim/cairn.ts`) all
 stand on this sentence. Until The Mother was cut it was numbered 11.1, and that
 is the number the older citations used.
+
+## Special or normal, on every boss wave
+
+The owner asked for it on 18 September 2026: *I would like to see the type of
+boss for every boss wave in the wave description details … only distinguish
+between "special" and "normal". A special boss is one which has a unique game
+control set or a unique gameplay style, different than a predefined sequence of
+actions and special mechanics like THE MAZE or THE MIRROR.*
+
+It is one authored field beside `boss` on the wave (`Wave.bossType`), shown in
+the director under the wave's prose and over its panel, and **it is the shape of
+play and not the panel**. That is the part the owner settled the same day, asked
+about the three the rule pulled both ways: THE INSTAR has a panel to itself and
+is **normal**, because a predefined sequence of actions is the ordinary kind of
+boss in this game however it is controlled; THE STARE is normal although one
+seat may not act, and THE REPRISE is normal although the field is hidden.
+*Special* is kept for a round with rules of its own — THE MAZE and THE MIRROR
+are the two he named, and both are played on `standard5`.
+
+So it is authored and never derived: a rule read off `controls` would put THE
+MAZE and THE MIRROR in the wrong list at one end and THE INSTAR in the wrong
+list at the other. `packages/content/test/waves.test.ts` holds that every wave
+with a boss carries one and no wave without a boss does; which of the two it is
+is the owner's, and this is the table.
+
+**Special (10)** — THE MIRROR, THE MAZE, THE GAUGE, THE FLEET, SNAKE, PINBALL,
+THE SCOUT, THE PULSE, THE SPLICE, THE WELL.
+
+**Normal (23)** — BULB QUEEN, THE WARDEN, THE VANE, THE STARE, THE CAIRN, THE
+DIASTOLE, THE BATON, THE UNDERTOW, THE THROAT, THE ORRERY, THE CANDLE, THE
+GORGE, THE CURTAIN, THE TASTER, THE SINEW, THE LEDGER, THE SURGE, THE LEAD, THE
+SCUTTLE, THE ANTIPHON, THE HIVE, THE INSTAR, THE REPRISE.
 
 ## The three filters a boss has to pass
 

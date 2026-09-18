@@ -519,50 +519,6 @@ Whichever it is, `hive.test.ts` gains a run that fires real bolts and wins the
 wave, and the film — a `the-hive` scene under `packages/content/src/scenes/`
 — is authored against it.
 
-## Every boss wave says whether its boss is special or normal
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-every-boss-wave-says-whether-its-boss-is-special
-- **Files:** `packages/content/src/wave-types.ts`, `packages/content/src/waves.ts`,
-  `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`,
-  `tools/director/src/rail.ts`, `tools/director/src/serialize.ts`,
-  `packages/content/test/waves.test.ts`, `docs/spec/bosses.md`
-
-The owner, 18 September 2026: *I would like to see the type of boss for every
-boss wave in the wave description details … only distinguish between "special"
-and "normal". A special boss is one which has a unique game control set or a
-unique gameplay style, different than a predefined sequence of actions and
-special mechanics like THE MAZE or THE MIRROR.*
-
-So: one authored field beside `boss` and `controls` on `Wave`, two values, shown
-in the rail under SENTENCE where the control set already is (`rail.ts`), written
-back out by `serialize.ts`, and held by a test that every wave with a `boss` has
-one and no wave without a boss does. **Authored and not derived** — a wave with
-its own `controls` is always special, and a test can hold that much, but THE MAZE
-and THE MIRROR are played on `standard5` and the owner names both as special, so
-the other direction is a judgement and a judgement is written down.
-
-Thirty-three boss waves. The rule decides thirty of them:
-
-- **Special (10)** — THE MIRROR, THE MAZE, THE GAUGE, THE FLEET, SNAKE, PINBALL,
-  THE SCOUT, THE PULSE, THE SPLICE, THE WELL.
-- **Normal (20)** — BULB QUEEN, THE WARDEN, THE VANE, THE CAIRN, THE DIASTOLE,
-  THE BATON, THE UNDERTOW, THE THROAT, THE ORRERY, THE CANDLE, THE GORGE, THE
-  CURTAIN, THE TASTER, THE SINEW, THE LEDGER, THE SURGE, THE LEAD, THE SCUTTLE,
-  THE ANTIPHON, THE HIVE.
-
-**The three the rule pulled both ways are all normal** — the owner, 18
-September 2026, asked directly. THE INSTAR has a panel of its own and is still
-normal, which settles what the tag is about: **the shape of play, not the
-panel.** A predefined sequence of actions is the ordinary kind of boss in this
-game however it is controlled. THE STARE is normal although one seat may not
-act, and THE REPRISE is normal although the field is hidden — so *special* is
-reserved for a round with rules of its own, THE MAZE and THE MIRROR being the
-two the owner named.
-
-So the table is complete: ten special, twenty-three normal, and the three above
-go in the second list.
-
 ## The handle bosses' own words and the boss cue become one thing
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

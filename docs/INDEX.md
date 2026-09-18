@@ -1689,6 +1689,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/boss-states.ts` | **Every state every boss can be in**, by name |
 | `tools/director/src/boss-hands-beats.ts` | **The pair's hands on the bosses a beat answers** — THE DIASTOLE, THE BATON, THE THROAT |
 | `tools/director/src/boss-hands-shots.ts` | **The pair's hands on the bosses a shot answers** — THE WARDEN, THE VANE, THE ORRERY, THE CANDLE |
+| `tools/director/src/boss-type-field.ts` | **Special or normal**, on the waves that carry a boss — the picker and the sentence saying what the pick means |
 | `tools/director/src/brush-art.ts` | A brush's own picture, kept: the body it paints, drawn by the shipping renderer, on nothing |
 | `tools/director/src/brush-category.ts` | Which brush categories (`BRUSH_GROUPS` in brush-groups.ts — CANNON, SHIELD, MIXED |
 | `tools/director/src/brush-frame.ts` | The frame a brush's specimen is photographed through, and the places a crop can be centred on |

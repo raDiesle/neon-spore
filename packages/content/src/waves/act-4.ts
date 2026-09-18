@@ -183,6 +183,7 @@ export const WAVES_ACT_4: Wave[] = [
     },
     entries: [],
     boss: { kind: "snake", rounds: SNAKE_ROUNDS },
+    bossType: "special",
     controls: "snake",
   },
   {
@@ -216,6 +217,7 @@ export const WAVES_ACT_4: Wave[] = [
     },
     entries: [],
     boss: { kind: "pinball", rounds: PINBALL_ROUNDS },
+    bossType: "special",
     controls: "pinball",
   },
   {

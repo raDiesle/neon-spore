@@ -119,6 +119,14 @@ function serializeWave(wave: Wave): string {
     lines.push(`    boss: ${serializeBoss(wave.boss)},`);
   }
 
+  // Directly under the boss, because it is about the boss and about nothing
+  // else: which of the two kinds it is (`Wave.bossType`). A wave with no boss
+  // never carries one — `waves.test.ts` holds both directions — so this line
+  // is written exactly where the field is authored and nowhere else.
+  if (wave.bossType) {
+    lines.push(`    bossType: "${wave.bossType}",`);
+  }
+
   // Last, and only when the wave asks for a panel that is not the ordinary
   // one. A wave that names nothing is played on `DEFAULT_CONTROL_SET_ID`, so
   // writing the default out would put a line in the file that means nothing —

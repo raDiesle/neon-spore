@@ -177,6 +177,7 @@ export const WAVES_ACT_8: Wave[] = [
     },
     entries: [],
     boss: { kind: "cairn" },
+    bossType: "normal",
   },
   {
     id: "theCodex",
@@ -219,6 +220,7 @@ export const WAVES_ACT_8: Wave[] = [
       { beat: 58, col: 3, color: "cyan" },
     ],
     boss: { kind: "well" },
+    bossType: "special",
   },
   {
     id: "theHandover",

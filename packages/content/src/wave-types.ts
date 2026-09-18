@@ -29,6 +29,13 @@ import type { WaveFault } from "./wave-faults.js";
 export type { WaveEntry } from "./wave-entry.js";
 
 /**
+ * The two kinds a boss is, and there are two on purpose: the owner asked for
+ * *only distinguish between special and normal* (18 September 2026). See
+ * `Wave.bossType` for which is which and who decides.
+ */
+export type BossType = "special" | "normal";
+
+/**
  * The help a wave carries: a concrete instruction about a control or a concept
  * the pair is about to meet for the first time.
  *
@@ -137,6 +144,35 @@ export interface Wave {
    * (`bossFillsWave`).
    */
   boss?: BossEntry;
+  /**
+   * Which of the two kinds of boss this is, on a wave that carries one.
+   *
+   * The owner asked for it on 18 September 2026 — *I would like to see the
+   * type of boss for every boss wave* — with two values and no more: *special
+   * is one which has a unique game control set or a unique gameplay style,
+   * different than a predefined sequence of actions and special mechanics like
+   * THE MAZE or THE MIRROR.*
+   *
+   * **It is the shape of play and not the panel**, which is the part the owner
+   * settled the same day when he was asked about the three the rule pulled
+   * both ways: THE INSTAR has a panel of its own and is **normal**, because a
+   * predefined sequence of actions is the ordinary kind of boss in this game
+   * however it is controlled; THE STARE is normal although one seat may not
+   * act, and THE REPRISE is normal although the field is hidden. *Special* is
+   * kept for a round with rules of its own — THE MAZE and THE MIRROR are the
+   * two he named, and both are played on `standard5`.
+   *
+   * **Authored, never derived.** The panel would get it wrong in both
+   * directions, so there is no rule to read it off and a judgement is written
+   * down instead. `waves.test.ts` holds that every wave with a boss carries
+   * one and no wave without a boss does; which of the two it is, is the
+   * owner's, and `docs/spec/bosses.md` carries the table.
+   *
+   * Beside `boss` for the reason `controls` and `faults` are: it is read once
+   * before the first tick, identically on both devices, and costs the tick and
+   * the hash nothing.
+   */
+  bossType?: BossType;
   /**
    * Which panel the pair plays this wave on, if not the ordinary one.
    *

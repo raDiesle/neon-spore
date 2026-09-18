@@ -358,6 +358,28 @@ describe("wave content", () => {
     }
   });
 
+  /**
+   * **Every boss wave says which of the two kinds its boss is, and no other
+   * wave does** (`Wave.bossType`, the owner on 18 September 2026).
+   *
+   * Presence is all a test can hold. Which of the two a boss is, is a
+   * judgement and the owner's — a rule read off the panel gets it wrong in
+   * both directions, because THE MAZE and THE MIRROR are special on
+   * `standard5` and THE INSTAR is normal on a panel of its own — so the table
+   * is in `docs/spec/bosses.md` where a person can be argued with, and what is
+   * checked here is that nobody adds a boss without answering the question.
+   */
+  it("says whether every boss is special or normal, and only on a boss wave", () => {
+    const kinds = ["special", "normal"];
+    for (const w of WAVES) {
+      const has = w.bossType !== undefined;
+      expect(has, `${w.name}: a boss wave with no bossType`).toBe(Boolean(w.boss));
+      if (has) expect(kinds, `${w.name}: ${w.bossType}`).toContain(w.bossType as string);
+    }
+    expect(WAVES.filter((w) => w.bossType === "special").length).toBeGreaterThan(0);
+    expect(WAVES.filter((w) => w.bossType === "normal").length).toBeGreaterThan(0);
+  });
+
   it("builds the same queue every time", () => {
     for (let i = 0; i < WAVES.length; i++) {
       expect(buildQueue(i, 11)).toEqual(buildQueue(i, 11));

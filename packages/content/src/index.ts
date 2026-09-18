@@ -164,6 +164,7 @@ export { SNAKE_ROUNDS } from "./snake-rounds.js";
 export { placedFaults, type WaveFault } from "./wave-faults.js";
 export { freshWaveId } from "./wave-types.js";
 export {
+  type BossType,
   guideSteps,
   PROSE_PAGES,
   WAVES,

@@ -18,7 +18,7 @@ import { WAVES_ACT_8 } from "./waves/act-8.js";
 import { WAVES_ACT_9 } from "./waves/act-9.js";
 import { WAVES_ACT_10 } from "./waves/act-10.js";
 
-export type { Wave, WaveEntry, WaveGuide } from "./wave-types.js";
+export type { BossType, Wave, WaveEntry, WaveGuide } from "./wave-types.js";
 
 /**
  * Every wave in the game, in order. This file used to be the list itself, and

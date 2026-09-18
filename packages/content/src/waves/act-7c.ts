@@ -6,6 +6,13 @@ import type { Wave } from "../wave-types.js";
  * The third page of act seven, cut off `act-7b.ts` when THE STARE took that
  * file twenty-one lines over the 250-line ceiling.
  *
+ * **THE UNDERTOW stood last on this page until 18 September 2026**, when one
+ * line per boss wave — which kind of boss it is (`Wave.bossType`) — took three
+ * act files over at once. It moved to the head of `act-7d.ts`, which is the
+ * next page and therefore the next wave: an act file is a page and the order of
+ * the waves is the order of the game, so a page that fills up hands its last
+ * wave to the one after it rather than keeping it and growing.
+ *
  * **`7c` and not `8`, because the order of the waves is the order of the
  * game** — the rule `act-3b.ts` states and `act-7b.ts` repeats, arrived at the
  * same way each time. An act file is a page rather than a chapter, and this
@@ -58,6 +65,7 @@ export const WAVES_ACT_7C: Wave[] = [
     },
     entries: [],
     boss: { kind: "scout", arenas: SCOUT_ARENAS },
+    bossType: "special",
     controls: "scout",
   },
   {
@@ -89,6 +97,7 @@ export const WAVES_ACT_7C: Wave[] = [
       { beat: 85, col: 3, kind: "meteor", color: null },
     ],
     boss: { kind: "stare" },
+    bossType: "normal",
   },
   {
     id: "theCrossing",
@@ -141,6 +150,7 @@ export const WAVES_ACT_7C: Wave[] = [
     },
     entries: [],
     boss: { kind: "pulse", stages: PULSE_STAGES },
+    bossType: "special",
     controls: "pulse",
   },
   {
@@ -192,6 +202,7 @@ export const WAVES_ACT_7C: Wave[] = [
       { beat: 72, col: 1, color: "cyan" },
     ],
     boss: { kind: "diastole" },
+    bossType: "normal",
   },
   {
     id: "theBaton",
@@ -225,26 +236,6 @@ export const WAVES_ACT_7C: Wave[] = [
       { beat: 102, col: 0, color: "red" },
     ],
     boss: { kind: "baton" },
-  },
-  {
-    id: "theUndertow",
-    name: "THE UNDERTOW",
-    sentence:
-      "The one that comes up through the floor, so the shield faces down and the maw is the only thing pointing the right way.",
-    guide: {
-      both: "Lobes rise through your own hull. Swallow each one with the maw as it comes through. Hold the maw open under the last.",
-      p1: "1. Say the column where the floor bows.\n2. Slide the cannon under it and open the maw as the lobe comes through.\n3. If it bows under you, slide off within two beats.\n4. On the last lobe, hold the maw open.",
-      p2: "1. Put the plate on a breach your partner cannot reach, so it stops widening.\n2. Move it off when they come for that lobe.\n3. The tall one: hold a colour for the beam and let them keep the column.",
-      scene: "theUndertow",
-    },
-    entries: [
-      { beat: 54, col: 1, color: "red" },
-      { beat: 62, col: 5, color: "cyan" },
-      { beat: 70, col: 0, color: "cyan" },
-      { beat: 78, col: 6, color: "red" },
-      { beat: 86, col: 2, color: "red" },
-      { beat: 94, col: 4, color: "cyan" },
-    ],
-    boss: { kind: "undertow" },
+    bossType: "normal",
   },
 ];

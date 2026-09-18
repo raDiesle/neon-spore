@@ -7,7 +7,9 @@ import type { Wave } from "../wave-types.js";
  *
  * **`7e` and not `9`, for the reason `act-7c.ts` gives about `7c`**: an act
  * file is a page and not a chapter, and the order of the waves is the order
- * of the game. It starts one wave long.
+ * of the game. It started one wave long, and THE LEDGER and THE SURGE came
+ * over from `act-7d.ts` on 18 September 2026, when one line per boss wave —
+ * which kind of boss it is (`Wave.bossType`) — took that page over the ceiling.
  *
  * **THE LEAD's arrivals are the shots the pair cannot spare.** The body is
  * hit only by a shot put where it *will* be, a beat after it leaves the top
@@ -49,6 +51,52 @@ import type { Wave } from "../wave-types.js";
  */
 export const WAVES_ACT_7E: Wave[] = [
   {
+    id: "theLedger",
+    name: "THE LEDGER",
+    sentence: "The one where every hit you land comes back at your own hull.",
+    guide: {
+      both: "Hit the split five times. Every hit comes back down the cord four beats later: ward it in the socket, or lose the wave. Let the last one land.",
+      p1: "1. Stand the cannon on the middle column.\n2. Trigger the plate on the beat the return lands, in the column your partner calls.\n3. Once the split is open, fire at nothing else.\n4. The last return: do not stop it.",
+      p2: "1. Load the colour the split shows.\n2. Say which column the socket has walked to, every time.\n3. Move the plate there before the beat.\n4. On the last return, take the plate out of that column.",
+      scene: "theLedger",
+    },
+    entries: [
+      { beat: 18, col: 1, kind: "meteor", color: null },
+      { beat: 26, col: 5, color: "red" },
+      { beat: 34, col: 3, color: "cyan" },
+      { beat: 44, col: 0, kind: "meteor", color: null },
+      { beat: 52, col: 6, color: "red" },
+      { beat: 62, col: 2, color: "cyan" },
+      { beat: 72, col: 4, kind: "meteor", color: null },
+      { beat: 82, col: 5, color: "cyan" },
+    ],
+    boss: { kind: "ledger" },
+    bossType: "normal",
+  },
+  {
+    id: "theSurge",
+    name: "THE SURGE",
+    sentence: "The one you beat by letting go, and only if you both let go at once.",
+    guide: {
+      both: "Both thumbs on the bulb charge it. Let go together inside the band. Five notches.",
+      p1: "1. Put your thumb on the bulb and keep it there.\n2. Say when the field slows: that is the band.\n3. Count your partner down: three, two, one, OFF.\n4. Lift on OFF, never alone.",
+      p2: "1. Put your thumb on the bulb and keep it there.\n2. Read the pressure out loud every beat.\n3. Lift your thumb on your partner's OFF, the same instant. Over the band it bursts.",
+      scene: "theSurge",
+    },
+    entries: [
+      { beat: 14, col: 1, kind: "meteor", color: null },
+      { beat: 22, col: 5, color: "red" },
+      { beat: 30, col: 3, kind: "meteor", color: null },
+      { beat: 40, col: 0, color: "cyan" },
+      { beat: 48, col: 4, kind: "meteor", color: null },
+      { beat: 58, col: 6, color: "red" },
+      { beat: 66, col: 2, color: "cyan" },
+      { beat: 76, col: 3, kind: "meteor", color: null },
+    ],
+    boss: { kind: "surge" },
+    bossType: "normal",
+  },
+  {
     id: "theLead",
     name: "THE LEAD",
     sentence: "The one you shoot where it will be, not where it is.",
@@ -69,6 +117,7 @@ export const WAVES_ACT_7E: Wave[] = [
       { beat: 84, col: 6, color: "red" },
     ],
     boss: { kind: "lead" },
+    bossType: "normal",
   },
   {
     id: "theScuttle",
@@ -82,6 +131,7 @@ export const WAVES_ACT_7E: Wave[] = [
     },
     entries: [],
     boss: { kind: "scuttle" },
+    bossType: "normal",
   },
   {
     id: "theAntiphon",
@@ -96,6 +146,7 @@ export const WAVES_ACT_7E: Wave[] = [
     },
     entries: [],
     boss: { kind: "antiphon" },
+    bossType: "normal",
   },
   {
     id: "theHive",
@@ -108,6 +159,7 @@ export const WAVES_ACT_7E: Wave[] = [
     },
     entries: [],
     boss: { kind: "hive" },
+    bossType: "normal",
   },
   {
     id: "theInstar",
@@ -121,6 +173,7 @@ export const WAVES_ACT_7E: Wave[] = [
     },
     entries: [],
     boss: { kind: "instar", steps: INSTAR_SCRIPT },
+    bossType: "normal",
     controls: "scene",
   },
 ];

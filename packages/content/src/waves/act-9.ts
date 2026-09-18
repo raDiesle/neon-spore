@@ -182,6 +182,7 @@ export const WAVES_ACT_9: Wave[] = [
     },
     entries: [],
     boss: { kind: "splice", rounds: [{ beats: 16 }, { beats: 24 }, { beats: 32 }] },
+    bossType: "special",
     controls: "splice",
   },
   {
