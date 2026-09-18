@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — BULB QUEEN says four words
+
+The first of the per-boss cue lanes, and the hardest of them to get right: her
+whole difficulty is a column one seat can see and the other cannot, so every
+word had to be placed against what its own screen is already shown. `FIRE` on
+the mark that is really open, on the navigator only; `MOVE` on the cannon for
+the whole bloom and never taken away when he is right; `MOVE` on the plate and
+`GUARD` riding the torch down. Her rehearsal lost the page that said the verb
+the field now says.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the entry and the brief, `queen-mark.ts`, `boss.ts`, all three cue readings, `view-role.ts`'s two queen predicates, `queen-figure.ts`, the control table for which seat fires |
+| writing | 35 | the reading with its argument, six cases in a new test file, the page off the film, the spec paragraph |
+| looking | 10 | one frame of her open, cropped to read the two lines |
+| friction | 5 | the op-count budget red on four rows; remeasured with `MEASURE` and moved with the reason |
+| landing | 15 | `format`, `check:fast` twice — a minute each — the commit, `bun run land --keep` |
+
+**The bottleneck was reading.** The code is forty lines; deciding that a word
+must *not* disappear when the pilot is under the right mark took longer than
+writing all of it, and it is the only decision in the lane that could have
+quietly ruined the boss.
+
 ## 2026-09-18 — boss-hints — the full page says which page is not full
 
 The cut this entry asked for had already been made, inside THE FILAMENT's lane

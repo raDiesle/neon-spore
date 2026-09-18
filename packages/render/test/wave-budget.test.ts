@@ -299,6 +299,14 @@ const SCENES: readonly Scene[] = [
     // Each is a two-segment arm stroked once, two joints filled and stroked,
     // and two fingers stroked twice — fourteen strokes and four fills a frame.
     //
+    // Remeasured on 18 September 2026, when the field started saying her
+    // words (`boss-cue-read.ts`, `docs/decisions.md` #34). A cue is one scan
+    // frame and two lines: four more rectangles and three more strokes for the
+    // frame's corners and its sweep, two saves around it, and the two words
+    // themselves. Both seats carry one at this tick — his `MOVE` on the
+    // cannon, her `MOVE` on the plate — so both rows move by the same amount,
+    // which is what says the cost is the cue and not the boss.
+    //
     // Remeasured on 17 September 2026, and **the picture changed rather than
     // the drawing**: this is the one wave of the five with a pod on it, and
     // `peakWorld` used to open every wave with an empty pod queue. So the
@@ -310,54 +318,54 @@ const SCENES: readonly Scene[] = [
     rows: {
       p1: [
         {
-          fillRect: 61,
-          stroke: 139,
+          fillRect: 65,
+          stroke: 142,
           fill: 90,
           clip: 7,
-          save: 52,
+          save: 54,
           drawImage: 113,
           createLinearGradient: 28,
           createRadialGradient: 13,
           "new Path2D": 77,
-          fillText: 4,
+          fillText: 6,
         },
         {
-          fillRect: 61,
-          stroke: 141,
+          fillRect: 65,
+          stroke: 144,
           fill: 90,
           clip: 7,
-          save: 52,
+          save: 54,
           drawImage: 113,
           createLinearGradient: 21,
           createRadialGradient: 8,
           "new Path2D": 50,
-          fillText: 4,
+          fillText: 6,
         },
       ],
       p2: [
         {
-          fillRect: 61,
-          stroke: 135,
+          fillRect: 65,
+          stroke: 138,
           fill: 95,
           clip: 7,
-          save: 52,
+          save: 54,
           drawImage: 111,
           createLinearGradient: 28,
           createRadialGradient: 13,
           "new Path2D": 73,
-          fillText: 4,
+          fillText: 6,
         },
         {
-          fillRect: 61,
-          stroke: 137,
+          fillRect: 65,
+          stroke: 140,
           fill: 95,
           clip: 7,
-          save: 52,
+          save: 54,
           drawImage: 111,
           createLinearGradient: 21,
           createRadialGradient: 8,
           "new Path2D": 48,
-          fillText: 4,
+          fillText: 6,
         },
       ],
     },

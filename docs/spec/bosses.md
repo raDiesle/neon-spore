@@ -253,6 +253,20 @@ jobs — a mark is a *column* to name and a drop is a *clock* to watch, and a ri
 pulsing on its own tempo could never say how much of the warning was left.
 `packages/render/src/queen-drop.ts`.
 
+**The field says four words, and none of them is a column.** `FIRE` stands on
+the mark that is really open — on player 2's screen, which is the seat already
+shown which of the two is real — and on player 1's there is no word over either
+of them, because a frame is a place and the place is the answer this fight is
+about (`docs/decisions.md` #34, `packages/render/src/boss-cue-read.ts`). `MOVE`
+stands on the cannon on his hull line for the whole of a bloom, and is not
+taken away when he happens to be under the right one: a word that went away
+there would answer her by disappearing. The torch takes the other two — `MOVE`
+on the plate while it is not standing in the torch's columns, and `GUARD`
+riding the torch down on the seat that holds the trigger, saying nothing at all
+about *when*. Her rehearsal lost the page that used to say *FIRE THE MARK SHE
+SHOWED* and kept the two the field cannot say: that one of two marks is real,
+and that the torch comes on a count.
+
 **Where she lives.** Her choreography is `packages/sim/src/boss.ts` and
 `packages/sim/src/queen-mark.ts`, carried by the wave `BULB QUEEN`. Everything
 else about her is shared with the rest of the sim: the creature, the petals,

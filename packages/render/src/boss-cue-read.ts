@@ -10,16 +10,20 @@ import {
   gorgeFull,
   gorgeNearestFull,
   gorgePhase,
+  occupiesCol,
+  type QueenState,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { candleGlowY } from "./candle-glow.js";
+import { creatureCenter } from "./creature-place.js";
 import { gorgeIntakeY } from "./gorge-draw.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
+import { queenMarkCenter } from "./queen-figure.js";
 
 /**
- * **What THE CANDLE, THE GORGE and THE CURTAIN are asking for**, read off
- * their own state and turned into at most one word each.
+ * **What THE CANDLE, THE GORGE, THE CURTAIN and BULB QUEEN are asking for**,
+ * read off their own state and turned into at most one word each.
  *
  * The rules every reading here obeys are `boss-cue.ts`'s, and the one worth
  * repeating beside the code is the third: **a mark stands only on something
@@ -133,4 +137,66 @@ export function curtainCues(l: Layout, world: World, c: CurtainState): readonly 
   return [
     markAt(null, "CARRY", "SHOVE", tileCX(l, body.col + (CURTAIN_COLS - 1) / 2), y, l, 36, 2),
   ];
+}
+
+/**
+ * BULB QUEEN. The oldest boss in the game and the one whose whole difficulty
+ * is a **column one seat knows and the other has to be told**, so it is the
+ * sharpest test of #34's third rule there is: every word below stands on
+ * something its own seat is already shown, and not one of them says left or
+ * right.
+ *
+ * `FIRE` stands on the mark that is **really** open, which is the navigator's
+ * picture and hers alone (`showsQueenHint`, `queen-weakpoint.ts`). On the
+ * pilot's screen the same two marks are drawn with nothing to tell them apart,
+ * and there is no word over either.
+ *
+ * `MOVE` stands on the **cannon**, on the hull, for the whole of the bloom —
+ * from the announcement to the close — and it is the pilot's. It says the verb
+ * and stops: which column is the sentence he has to ask her for, and a word
+ * that vanished once he was under the real mark would answer it by
+ * disappearing. So it does not, and it is not suppressed when he is right.
+ *
+ * The torch is the second thing she does, and the ward is two hands: `MOVE` on
+ * the **plate** is the navigator's, silent while the plate already stands in
+ * the torch's columns (`occupiesCol`, the simulation's own rule) for THE
+ * LEDGER's reason — a word over a shield that is where it should be teaches
+ * the pair to stop reading words. `GUARD` rides the torch down and is the
+ * pilot's, who holds the trigger; it says nothing about *when*, which is the
+ * one sentence this fight is built to make them say.
+ *
+ * **The order is per seat, and it is what expires first.** She is open for two
+ * beats and the pilot's `MOVE` goes with it, so the bloom outranks the torch
+ * on his screen; the torch outranks the bloom on hers, because a torch that
+ * lands is a hull breach and a hull breach fails the whole wave, while a mark
+ * missed costs nothing but the beat.
+ */
+export function queenCues(
+  l: Layout,
+  world: World,
+  q: QueenState,
+  beatPhase: number,
+): readonly BossCue[] {
+  const queen = world.creatures.find((c) => c.kind === "queen");
+  if (queen === undefined) return [];
+  const torch = world.creatures.reduce<(typeof world.creatures)[number] | undefined>(
+    (low, c) => (c.kind === "torch" && (low === undefined || c.row > low.row) ? c : low),
+    undefined,
+  );
+  const out: BossCue[] = [];
+  if (torch !== undefined && !occupiesCol(torch, world.shieldCol)) {
+    out.push(markAt(2, "CARRY", "MOVE", tileCX(l, world.shieldCol), l.hullY, l, 37));
+  }
+  if (q.openBeat !== -1) {
+    out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 38));
+  }
+  if (queen.color !== null) {
+    const mark = queenMarkCenter(l, queen, q.weakSide);
+    out.push(markAt(2, "PRESS", "FIRE", mark.x, mark.y, l, 39));
+  }
+  if (torch !== undefined) {
+    const at = creatureCenter(l, world, torch, beatPhase);
+    out.push(markAt(1, "PRESS", "GUARD", at.x, at.y, l, 40));
+  }
+  return out;
 }

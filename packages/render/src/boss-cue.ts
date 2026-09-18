@@ -1,5 +1,5 @@
 import type { World } from "@neon-spore/sim";
-import { candleCues, curtainCues, gorgeCues } from "./boss-cue-read.js";
+import { candleCues, curtainCues, gorgeCues, queenCues } from "./boss-cue-read.js";
 import { batonCues, tasterCues, undertowCues } from "./boss-cue-read-b.js";
 import {
   diastoleCues,
@@ -133,6 +133,8 @@ function cuesOf(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): re
       return diastoleCues(l, world, boss);
     case "orrery":
       return orreryCues(l, world, boss);
+    case "queen":
+      return queenCues(l, world, boss, beatPhase);
     default:
       return NONE;
   }

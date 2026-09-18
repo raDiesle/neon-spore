@@ -18,11 +18,20 @@ import type { GuideScene } from "../scene-types.js";
  * no page's worth of instruction in it, and the film says more in three pages
  * that each name a job than in four where the first one is scenery.
  *
- * **The last page is a real petal coming off her.** It is aimed at her weak
- * side rather than at the mark her middle is showing — those are two different
- * columns, and telling them apart is exactly what the pair has to do — and it
- * is fired on the second of her two open beats, because the third is already
- * shut.
+ * **The shot is still here and the page over it is not.** *FIRE THE MARK SHE
+ * SHOWED* stood over the navigator's trigger until 18 September 2026, and the
+ * field says it now: `FIRE` stands on the mark that is really open, on her
+ * screen, for as long as it is (`render/src/boss-cue-read.ts`). A page that
+ * only names a verb the field is already saying is a page teaching the pair to
+ * read the film instead of the fight. The petal it was written over stays —
+ * aimed at her weak side rather than at the mark her middle is showing, which
+ * are two different columns, and fired on the second of her two open beats
+ * because the third is already shut. It is the film's picture of the fight
+ * being answered, and it no longer needs a caption to be one.
+ *
+ * What is left is the two things the field cannot say: that one of two marks
+ * is real and only one screen knows which, and that the torch comes on a clock
+ * — a count, which a cue may never carry (`docs/decisions.md` #34).
  *
  * The torch is the film's one shared page and it is spent well: it is the
  * thing on her that neither screen owns, it lands while the pair is reading
@@ -50,11 +59,5 @@ export const BULB_QUEEN: GuideScene = {
     // about one of two being real is drawn around neither.
     { tick: 0, seat: 2, text: "ONE MARK IS REAL", anchor: { at: "marks" } },
     { tick: 440, seat: 1, text: "A TORCH EVERY EIGHT BEATS", anchor: { at: "retries" } },
-    {
-      tick: 700,
-      seat: 2,
-      text: "FIRE THE MARK SHE SHOWED",
-      anchor: { at: "control", control: "fireRed" },
-    },
   ],
 };

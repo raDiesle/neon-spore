@@ -390,18 +390,6 @@ before a bolt could reach them stay open for good — so `hive: ["down"]` is
 the one allowance left in `tools/director/test/boss-states.test.ts`'s
 `OWED` for a field boss, struck the commit the answer lands.
 
-## BULB QUEEN: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-bulb-queen-the-field-says-the-word-and-the-brief
-- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/bulb-queen.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-
-It says nothing on the field at all.
-Its briefing is a 3-page rehearsal (`packages/content/src/scenes/bulb-queen.ts`).
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## BULB QUEEN changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
