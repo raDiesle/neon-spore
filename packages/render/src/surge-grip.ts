@@ -1,5 +1,8 @@
 import { type SimConfig, type SurgeState, surgeHeld } from "@neon-spore/sim";
-import { drawHandleHint, drawHandleRing, type HintStyle, handleRadius } from "./handle-draw.js";
+import type { BossCue } from "./boss-cue.js";
+import { cueSeen } from "./boss-cue.js";
+import { drawCueText } from "./boss-cue-text.js";
+import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { type Point, surgeBulbCircle } from "./surge-shape.js";
@@ -35,8 +38,6 @@ const GRIP_OUT = 0.5;
 const GRIP_DOWN = 0.42;
 /** How big a mark is, in handle radii. */
 const GRIP_R = 0.75;
-
-const HINT_SURGE: HintStyle = { fontTiles: 0.22, mine: 0.8, theirs: 0.35 };
 
 /** Which seat owns which side. Asked by the drawing; the hit test asks neither. */
 export function surgeGripSeat(side: -1 | 1): 1 | 2 {
@@ -90,12 +91,23 @@ export function drawSurgeGrips(
       time,
     });
     if (held || refusing) continue;
-    // The word says the gesture, not the owner: both seats hold the same
-    // thing, and the only thing to be told is that a thumb belongs here.
-    drawHandleHint(ctx, l, l.role, x, y + r * 2.2, HINT_SURGE, {
+    // **The cue** (`decisions.md` #34, `boss-cue-text.ts`): the word says the
+    // gesture and the kind says it is a hold, which is the whole of this boss.
+    // On the seat whose mark it is and not on the other's — what the pair must
+    // see of each other here is the *thumb*, and the ring says that by filling.
+    // Built here because the mark rides the bulb's swell and its sink, which
+    // are the drawing's own.
+    const cue: BossCue = {
       seat: player,
-      mine: "HOLD",
-      theirs: "HOLD",
-    });
+      kind: "HOLD",
+      word: "HOLD",
+      x,
+      y,
+      halfW: r,
+      halfH: r,
+      seed: 61 + player,
+      framed: false,
+    };
+    if (cueSeen(cue, l.role)) drawCueText(ctx, cue, time);
   }
 }

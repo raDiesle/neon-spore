@@ -1,5 +1,8 @@
 import { type SimConfig, type SinewState, sinewHeld, sinewPull } from "@neon-spore/sim";
-import { drawHandleHint, drawHandleRing, type HintStyle, handleRadius } from "./handle-draw.js";
+import type { BossCue } from "./boss-cue.js";
+import { cueSeen } from "./boss-cue.js";
+import { drawCueText } from "./boss-cue-text.js";
+import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { type Point, sinewMassCentre, sinewMassRx } from "./sinew-shape.js";
@@ -37,8 +40,6 @@ export function sinewHandleSeat(side: -1 | 1): 1 | 2 {
  * above the mass's centre, in tiles. */
 const REST_OUT = 1.6;
 const REST_UP = 0.35;
-
-const HINT_SINEW: HintStyle = { fontTiles: 0.22, mine: 0.8, theirs: 0.35 };
 
 /** Where one handle rests, with no hand on it, kept on the glass by its radius. */
 export function sinewHandleCircle(
@@ -146,14 +147,29 @@ export function drawSinewHandles(
       time,
     });
     if (held || swinging) continue;
-    // The word says the axis, not the owner: down to pull while the tendon
-    // holds, sideways to steer once the mass is falling.
-    const word = falling ? "◀ SWAY ▶" : "PULL ▼";
-    const y = head.y + head.r * 2.2;
-    drawHandleHint(ctx, l, l.role, head.x, y, HINT_SINEW, {
+    // **The cue, and not a word of this file's own** (`decisions.md` #34,
+    // `boss-cue-text.ts`). The verb is the axis — down to pull while the tendon
+    // holds, sideways to steer once the mass is falling — and the kind is the
+    // carry both of them are. Built here rather than read off `World` next door
+    // because the ring's place is the drawing's: the snap-back's whip is a
+    // transient, and a reading that worked it out again would put the word
+    // where the ring is not.
+    //
+    // **And only on the seat whose thumb it is.** The other seat's ring is
+    // still drawn dim beside its own, which is what says the partner's hand has
+    // landed; the dim *word* under it was the second prompt system this entry
+    // closes, and a cue is owed to whoever can act on it.
+    const cue: BossCue = {
       seat: player,
-      mine: word,
-      theirs: word,
-    });
+      kind: "CARRY",
+      word: falling ? "SWAY" : "PULL",
+      x: head.x,
+      y: head.y,
+      halfW: head.r,
+      halfH: head.r,
+      seed: 59 + player,
+      framed: false,
+    };
+    if (cueSeen(cue, l.role)) drawCueText(ctx, cue, time);
   }
 }

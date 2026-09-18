@@ -287,3 +287,28 @@ describe("THE ANTIPHON's body", () => {
     expect(fx).toEqual(new Effects());
   });
 });
+
+/**
+ * **The organ's word is the field's one cue** (`docs/decisions.md` #34,
+ * `render/src/boss-cue-text.ts`), for `sinew-frame.test.ts`' reason. The seat
+ * is the pilot's twice over: the organ hangs on his screen alone
+ * (`showsAntiphonOrgan`) and the cue asks again before it is drawn, so a screen
+ * that somehow got the body would still not get the instruction.
+ */
+describe("THE ANTIPHON's word", () => {
+  it("says the verb once on the pilot's screen, in the cue's grey", () => {
+    const world = hung();
+    grown(world);
+    const { words, text } = drawn(world, "p1", 3);
+    // Once and not twice: the kind of action here *is* `TURN`, and a kind line
+    // repeating the verb is dropped (`boss-cue-text.ts`).
+    expect(words.filter((w) => w === "TURN").length).toBe(1);
+    expect(text).toContain(PALETTE.rock);
+  });
+
+  it("says nothing at all on the navigator's, who has no organ to turn", () => {
+    const world = hung();
+    grown(world);
+    expect(turnWord(drawn(world, "p2", 3).words)).toBe(false);
+  });
+});

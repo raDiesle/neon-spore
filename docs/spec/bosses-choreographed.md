@@ -2155,12 +2155,40 @@ the next throw lands in: the cue borrows that box and adds the word. That is
 what `BossCue.framed` is for, and it is the right default for any boss whose
 own picture already marks the place.
 
-**Not yet.** The handle bosses — THE SINEW, THE SURGE, THE ANTIPHON — are
-deliberately left alone: `handle-draw.ts` already writes `PULL`, `HOLD` and
-`TURN` beside each handle while it is unheld, and those words are the verb and
-the kind at once. A kind line reading `CARRY` over `PULL`, or `HOLD` over
-`HOLD`, is a second line saying the first one again, and #34 asks for one word
-and not for a form to fill in.
+**And the three handle bosses came in, a day later.** THE SINEW, THE SURGE and
+THE ANTIPHON were left alone at first, because `handle-draw.ts` already wrote
+`PULL`, `HOLD` and `TURN` beside each handle while it was unheld and those
+words are the verb and the kind at once. That was the right call for one lane
+and the wrong shape to leave in the game: the pair met two prompt systems in
+one fight, with different type, different breathing and different rules about
+when a word appears. Since 18 September 2026 the handle's word is a `BossCue`
+with `framed: false` — the ring is a mark already — and all fifteen speak in one
+voice.
+
+Two things had to be settled to do it.
+
+- **The word is built where it is drawn, not read off `World`.** A handle's
+  place is the drawing's own: a snap-back's whip, a bulb's swell, a body
+  sinking. A reading that worked one out a second time would stand the word
+  where the ring is not, so the hand was split off (`boss-cue-text.ts`) and the
+  three files call it with a cue of their own making. `boss-cue.ts` is still the
+  only reading, and still pure.
+- **A kind line that repeats its verb is not drawn.** `HOLD` over `HOLD` and
+  `TURN` over `TURN` were the objection that kept these three out, and this
+  answers it in the hand rather than by keeping a second system for three
+  bosses. THE SINEW gains a real one: `CARRY` over `PULL`, and over `SWAY` once
+  the mass is falling.
+
+| Boss | The pilot is told | The navigator is told |
+|---|---|---|
+| THE SINEW | `PULL` (carry) on his own handle while the tendon holds, `SWAY` once the mass falls | the same, on hers |
+| THE SURGE | `HOLD` on his grip mark | `HOLD` on hers |
+| THE ANTIPHON | `TURN` on every standing organ — one instruction, since a thumb on either turns both | nothing: the organ is not on her screen |
+
+What that cost, and it is the point: each seat is told about **its own** mark
+only. The dim word under the partner's handle is gone, because a cue is owed to
+whoever can act on it — and what the pair actually needs to see of each other
+there is the *thumb*, which the ring says by filling.
 
 **And the briefings gave the words back.** The other half of #34 — *what is
 explained during the boss game wave must be skipped in the tutorial briefing* —

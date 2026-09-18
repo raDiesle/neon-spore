@@ -737,10 +737,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-draw.ts` | whichever boss is on the field, drawn among the creatures |
 | `packages/render/src/boss-draw-clocks.ts` | **The clock bosses, drawn** — the ones from `docs/spec/bosses-choreographed.md` whose whole difficulty is a… |
 | `packages/render/src/boss-draw-clocks-b.ts` | **The clock bosses, drawn — page two**: the ones whose picture keeps something that outlives a frame |
-| `packages/render/src/boss-cue-draw.ts` | **The cue, drawn**: the frame on the mark, the word under it, the kind of action over it |
+| `packages/render/src/boss-cue-draw.ts` | **The cue this screen is owed, drawn**: the frame on the mark, and the two lines beside it |
 | `packages/render/src/boss-cue-read-b.ts` | **What THE TASTER, THE UNDERTOW and THE BATON are asking for** — page two of the readings |
 | `packages/render/src/boss-cue-read-c.ts` | **What THE THROAT, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE and THE ORRERY are asking for** |
 | `packages/render/src/boss-cue-read.ts` | **What THE CANDLE, THE GORGE and THE CURTAIN are asking for** |
+| `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |
 | `packages/render/src/maw.ts` | swallowing a pod: the skin coming apart, then the flash |

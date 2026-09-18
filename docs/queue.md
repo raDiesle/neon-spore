@@ -493,27 +493,6 @@ before a bolt could reach them stay open for good — so `hive: ["down"]` is
 the one allowance left in `tools/director/test/boss-states.test.ts`'s
 `OWED` for a field boss, struck the commit the answer lands.
 
-## The handle bosses' own words and the boss cue become one thing
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-handle-bosses-own-words-and-the-boss-cue-bec
-- **Files:** `packages/render/src/handle-draw.ts`, `packages/render/src/boss-cue.ts`,
-  `packages/render/src/boss-cue-draw.ts`, `packages/render/src/boss-cue-read-c.ts`,
-  `packages/render/test/boss-cue.test.ts`, `docs/spec/bosses-choreographed.md`
-
-Twelve bosses carry a cue (`decisions.md` #34) and three do not: THE SINEW, THE
-SURGE and THE ANTIPHON were skipped because `handle-draw.ts` already writes
-`PULL`, `HOLD` and `TURN` beside each handle while it is unheld, and those words
-are the verb and the kind at once. That was the right call for one lane and it is
-the wrong shape to leave in the game: the pair now meets two prompt systems with
-different type, different breathing and different rules about when they appear.
-
-Make the handle's word a `BossCue` with `framed: false` — the handle already
-draws its own frame — so all fifteen bosses speak in one voice, one at a time,
-most urgent first. The test is the interesting part: the handle's word is drawn
-while the handle is *unheld*, and a cue is silent where nothing is owed, so the
-two rules have to be reconciled rather than one of them deleted.
-
 ## BULB QUEEN: the field says the word, and the briefing comes down
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

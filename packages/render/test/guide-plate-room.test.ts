@@ -115,21 +115,16 @@ const CUE_WORD =
   /^(PRESS|HOLD|CARRY|TURN|BURN|FIRE|FLING|GUARD|LAUNCH|MOVE|OPEN|PIERCE|SHEAR|SHOVE)$/;
 
 /**
- * Two of those words are drawn by something that is not the cue: a handle's
- * own hint under the body it hangs off — THE ANTIPHON writes `TURN` under
- * every standing organ (`antiphon-grip.ts`) and THE SURGE writes `HOLD` under
- * its head (`surge-grip.ts`). THE ANTIPHON's organs stand at the top of its
- * field, so the word is in the band, and it stays there under the rule the
- * owner set on 17 September 2026 about THE BEATBOX's count and THE JAM's
- * `LURE`: a label on a body stays as it is, because clearance tears it off the
- * thing it names. The handles' words and the cue's become one thing
- * eventually — that is an entry of its own in `docs/queue.md` — and until they
- * do, this sweep must not read a handle's word as a cue's.
+ * **There is no longer an exemption in this list.** Two of those words used to
+ * be drawn by something that was not the cue — THE ANTIPHON wrote `TURN` under
+ * every standing organ and THE SURGE wrote `HOLD` under its head, out of
+ * `handle-draw.ts` — so the sweep had to be told not to read a handle's word as
+ * a cue's, and a word standing in the band was allowed to stay there under the
+ * owner's rule of 17 September 2026 about labels on bodies. Those three handle
+ * bosses speak in the cue's own voice since 18 September 2026
+ * (`render/src/boss-cue-text.ts`), which means their words take the cue's floor
+ * like every other, and the sweep holds them to it with nothing excused.
  */
-const ON_A_BODY: Record<string, RegExp> = {
-  "THE ANTIPHON": /^TURN$/,
-  "THE SURGE": /^HOLD$/,
-};
 
 /**
  * What else a round's page must keep out of the band, wave by wave.
@@ -186,7 +181,7 @@ describe("the tutorial plate and a round's header", () => {
               (t) =>
                 (t.text === name ||
                   RUN_LINE.test(t.text) ||
-                  (CUE_WORD.test(t.text) && ON_A_BODY[name]?.test(t.text) !== true) ||
+                  CUE_WORD.test(t.text) ||
                   ALSO[name]?.test(t.text) === true) &&
                 inPlateBand(t),
             );

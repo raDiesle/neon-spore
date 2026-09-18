@@ -216,3 +216,30 @@ describe("THE SURGE's bulb", () => {
     expect(fx).toEqual(new Effects());
   });
 });
+
+/**
+ * **The grip's word is the field's one cue** (`docs/decisions.md` #34,
+ * `render/src/boss-cue-text.ts`), for `sinew-frame.test.ts`' reason: one voice
+ * for every boss that asks for a gesture, and a word on the seat that can
+ * perform it. The bulb is the one handle both seats take, so each screen is
+ * asked about its own mark and shown the other's filling.
+ */
+describe("THE SURGE's word", () => {
+  /** How many marks each screen may be asked about: one each, both on the rig,
+   * which is the screen that is nobody's hands. */
+  const ASKED: Record<ViewRole, number> = { p1: 1, p2: 1, test: 2 };
+  /** A cue is two lines, the verb and its kind — but on this boss they are the
+   * same word, which is what the fight is: the only thing asked of either thumb
+   * is that it stays. The kind line is dropped rather than saying it twice
+   * (`boss-cue-text.ts`), so each mark carries exactly one. */
+  const LINES = 1;
+
+  it.each(ROLES)("stands once on this seat's mark and not on the other's, on %s", (role) => {
+    const { words } = drawn(hung(), role, 3);
+    expect(words.filter((w) => w === "HOLD").length).toBe(ASKED[role] * LINES);
+  });
+
+  it.each(ROLES)("is drawn in the cue's grey, never an ammunition colour, on %s", (role) => {
+    expect(drawn(hung(), role, 3).text).toContain(PALETTE.rock);
+  });
+});

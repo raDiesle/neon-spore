@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — the three handle bosses speak in the cue's voice
+
+THE SINEW, THE SURGE and THE ANTIPHON wrote their own word beside each handle,
+in `handle-draw.ts`'s type at `handle-draw.ts`'s size, under both handles — so
+a pair met two prompt systems in one fight. The word is a `BossCue` now, built
+where the ring is drawn because the ring's place is a whip, a swell and a sink
+no reading can see, and drawn by a hand split out of `boss-cue-draw.ts`. Two
+rules came with it: the cue is only on the seat that can act, and a kind line
+that repeats its verb is not drawn — which is the objection that had kept these
+three out.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the entry, `boss-cue.ts` and its four readings, `decisions.md` #34, the three grip files and where their geometry comes from |
+| writing | 45 | `boss-cue-text.ts`, the three call sites, seven tests across three frame files, the sweep's exemptions deleted, the spec's *Not yet* rewritten |
+| looking | 10 | one SINEW frame: CARRY over PULL on the pilot's handle and nothing on the navigator's |
+| friction | 5 | the first count was wrong twice — a cue is two lines, and on THE SURGE both of them said HOLD |
+| landing | 10 | `index`, `format`, `check:fast`, the commit, `bun run land --keep` |
+
+**The bottleneck was reading.** The entry asked for the word to become a
+`BossCue`, and the whole question was where it could be built without the
+reading guessing at a ring's place — an hour of the tree to decide three lines.
+
 ## 2026-09-18 — boss-hints — the name registry's workerd is raised before its first case
 
 `names.test.ts` raised a real workerd lazily, so the boot was charged to

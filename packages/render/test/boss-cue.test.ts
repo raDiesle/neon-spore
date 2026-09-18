@@ -21,6 +21,7 @@ import {
 } from "@neon-spore/sim";
 import { type BossCue, bossCue } from "../src/boss-cue.js";
 import { drawBossCue } from "../src/boss-cue-draw.js";
+import { drawCueText } from "../src/boss-cue-text.js";
 import { computeLayout, type Layout, type ViewRole } from "../src/layout.js";
 import type { TextBox } from "./canvas-stub.js";
 import {
@@ -362,7 +363,7 @@ describe("the cue on a real frame", () => {
  * 2026. The line drops off `headerTop` now, the way a round's header does —
  * capped by its own verb, so a mark that is itself inside the band keeps its
  * cue whole and goes behind the plate with it rather than leaving a lone
- * PRESS below (`boss-cue-draw.ts`).
+ * PRESS below (`boss-cue-text.ts`).
  */
 describe("the cue and a band over the picture", () => {
   const BAND = 104;
@@ -413,5 +414,49 @@ describe("the cue and a band over the picture", () => {
     const { kind, word } = said(DEEP);
     expect(word.y, "the verb is under the band").toBeGreaterThanOrEqual(DEEP);
     expect(kind.y, "the kind line is over the verb with no room for it").toBeGreaterThan(word.y);
+  });
+});
+
+/**
+ * **The three handle bosses speak in this voice too**, since 18 September 2026.
+ *
+ * THE SINEW, THE SURGE and THE ANTIPHON were left out of the readings on
+ * purpose: their handles already carried a word out of `handle-draw.ts`, and
+ * `bosses-choreographed.md` argued that a kind line reading `HOLD` over `HOLD`
+ * is the verb said twice. The word is a `BossCue` now — built where the ring is
+ * drawn, because the ring's place is a whip, a swell and a sink the reading
+ * cannot see — and the objection is answered by the hand rather than by keeping
+ * a second prompt system: a kind line that repeats its verb is not drawn.
+ *
+ * Which seat is told, and that a screen is told once, is each boss's own frame
+ * test (`sinew-frame.test.ts`, `surge-frame.test.ts`, `antiphon-frame.test.ts`).
+ * What is here is the rule of the hand, asked directly.
+ */
+describe("a kind line that is the verb said twice", () => {
+  function lines(kind: BossCue["kind"], word: string): string[] {
+    const { ctx } = stubCanvas();
+    ctx.texts = [];
+    const cue: BossCue = {
+      seat: 1,
+      kind,
+      word,
+      x: 200,
+      y: 400,
+      halfW: 12,
+      halfH: 12,
+      seed: 1,
+      framed: false,
+    };
+    drawCueText(ctx as unknown as CanvasRenderingContext2D, cue, 0);
+    return ctx.texts.map((t) => t.text);
+  }
+
+  it("is not drawn, so the mark carries one word", () => {
+    expect(lines("HOLD", "HOLD")).toEqual(["HOLD"]);
+    expect(lines("TURN", "TURN")).toEqual(["TURN"]);
+  });
+
+  it("is drawn wherever it says something the verb does not", () => {
+    expect(lines("CARRY", "PULL")).toEqual(["PULL", "CARRY"]);
   });
 });

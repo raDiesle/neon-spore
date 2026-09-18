@@ -251,3 +251,41 @@ describe("THE SINEW's tendon", () => {
     expect(fx).toEqual(new Effects());
   });
 });
+
+/**
+ * **The handle's word is the field's one cue** (`docs/decisions.md` #34,
+ * `render/src/boss-cue-text.ts`). Until 18 September 2026 it was a word of
+ * `handle-draw.ts`'s own, in a second type at a second size, drawn under *both*
+ * handles — yours bright and theirs dim — so a pair met two prompt systems in
+ * one fight. It is a `BossCue` now, which brings the seat rule with it: an
+ * instruction stands on the phone whose thumb can perform it, and the partner's
+ * hand is read off the ring filling, which is what a ring is for.
+ */
+describe("THE SINEW's word", () => {
+  /** How many handles each screen may be asked about: one each, both on the
+   * rig, which is the screen that is nobody's hands. */
+  const ASKED: Record<ViewRole, number> = { p1: 1, p2: 1, test: 2 };
+
+  it.each(ROLES)("stands on this seat's handle and not on the other's, on %s", (role) => {
+    const { words } = drawn(hung(), role, 3);
+    expect(words.filter((w) => w === "PULL").length).toBe(ASKED[role]);
+    expect(words.filter((w) => w === "CARRY").length).toBe(ASKED[role]);
+  });
+
+  it.each(ROLES)("says the kind of action over the verb, in the cue's grey, on %s", (role) => {
+    const { words, text } = drawn(hung(), role, 3);
+    expect(words).toContain("CARRY");
+    expect(text, "the cue is drawn in rock grey, never an ammunition colour").toContain(
+      PALETTE.rock,
+    );
+  });
+
+  it.each(ROLES)("changes the verb and not the kind once the mass falls, on %s", (role) => {
+    const world = hung();
+    falling(world);
+    const { words } = drawn(world, role, 3);
+    expect(words.filter((w) => w === "SWAY").length).toBe(ASKED[role]);
+    expect(words).not.toContain("PULL");
+    expect(words.filter((w) => w === "CARRY").length).toBe(ASKED[role]);
+  });
+});

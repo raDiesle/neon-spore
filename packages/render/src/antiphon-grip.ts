@@ -1,6 +1,9 @@
 import { type AntiphonState, antiphonHeld, type SimConfig } from "@neon-spore/sim";
 import { antiphonOrganCircle } from "./antiphon-shape.js";
-import { drawHandleHint, drawHandleRing, type HintStyle, handleRadius } from "./handle-draw.js";
+import type { BossCue } from "./boss-cue.js";
+import { cueSeen } from "./boss-cue.js";
+import { drawCueText } from "./boss-cue-text.js";
+import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { Field, Touch } from "./touch.js";
@@ -34,11 +37,6 @@ import { showsAntiphonOrgan } from "./view-role-clocks-b.js";
 const GRIP_DOWN = 0.45;
 /** How big the mark is, in handle radii. */
 const GRIP_R = 0.6;
-/** How far under the organ the word hangs, in organ radii. */
-const HINT_DROP = 1.55;
-
-const HINT_ANTIPHON: HintStyle = { fontTiles: 0.22, mine: 0.8, theirs: 0.35 };
-
 /**
  * The press: anywhere on a standing organ, on a screen that shows one.
  * `field.antiphon` is `null` on every wave without the boss, and a press
@@ -86,12 +84,29 @@ export function drawAntiphonGrip(
       time,
     });
     if (held) continue;
-    // The word says the gesture: the organ is the pilot's on this screen
-    // and the test screen's for either, so the seat asked is the pilot.
-    drawHandleHint(ctx, l, l.role, c.x, c.y + c.r * HINT_DROP, HINT_ANTIPHON, {
+    // **The cue** (`decisions.md` #34, `boss-cue-text.ts`). The seat is the
+    // pilot's: the organ hangs on his screen and the test screen alone
+    // (`showsAntiphonOrgan`), and `cueSeen` says so a second time rather than
+    // trusting the caller — a word on the phone whose thumb the game refuses
+    // is worse than none.
+    //
+    // **One word per standing organ, and they are one instruction.** A pit may
+    // grow twins (`antiphonTwinPits`) and a thumb on either turns both — the
+    // turn is `s.turnTicks`, one number for the pair of them — so two marks
+    // here are one thing to do in two places rather than two things at once.
+    // It names no candidate: the turn is how the pilot *looks*, it sinks
+    // nothing and answers nothing, and the answer is on the other screen.
+    const cue: BossCue = {
       seat: 1,
-      mine: "TURN",
-      theirs: "TURN",
-    });
+      kind: "TURN",
+      word: "TURN",
+      x: c.x,
+      y,
+      halfW: r,
+      halfH: r,
+      seed: 64 + i,
+      framed: false,
+    };
+    if (cueSeen(cue, l.role)) drawCueText(ctx, cue, time);
   }
 }
