@@ -1,4 +1,4 @@
-import { type FleetState, fleetCols, fleetRows, type World } from "@neon-spore/sim";
+import { type FleetState, fleetCols, fleetRows, type SimConfig, type World } from "@neon-spore/sim";
 import { drawFleetClock } from "./fleet-clock.js";
 import { drawChartWater } from "./fleet-water.js";
 import type { Layout } from "./layout.js";
@@ -53,12 +53,22 @@ export function chartLift(l: Layout, clearTop: number | undefined): number {
 }
 
 export function chartOf(l: Layout, world: World, clearTop?: number): Chart {
+  return chartFor(l, world.cfg, clearTop);
+}
+
+/**
+ * The same chart from the config alone, for a hit test — which is handed a
+ * `Field` and never a `World` (`touch-field.ts`), and which always asks about
+ * the live screen, where nothing stands over the top and the lift is nought
+ * (`fleet-grip.ts`).
+ */
+export function chartFor(l: Layout, cfg: SimConfig, clearTop?: number): Chart {
   return {
     left: l.gridLeft,
     top: l.gridTop + chartLift(l, clearTop),
     tile: l.tile,
-    cols: fleetCols(world.cfg),
-    rows: fleetRows(world.cfg),
+    cols: fleetCols(cfg),
+    rows: fleetRows(cfg),
   };
 }
 

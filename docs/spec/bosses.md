@@ -1196,11 +1196,30 @@ seats their own verb on the hole — `HOLD` and `RAKE`, then `HOLD` and
 `PULL` — which is not her silence broken: the plume is on both screens, and
 what she is told is what her thumb does, never where the ship lies.
 
-*What is not built:* the look. The plume, the thumb on it, the rake, the
-wreck and the plug are world state read off `phase`, `holeCol` and
-`rakeCol`, silent in both spark lists, and `docs/parked.md` carries the look
-half. *Never watched at tempo*: whether ten beats is a flood a pair can
-rake a five-long hull in while talking.
+**The look** (18 September 2026, the look lane;
+`packages/render/src/fleet-grip.ts`, `fleet-grip-draw.ts`). All three thumbs
+rest on **one circle, the holed square** — not three handles in three places,
+but one wound both of them are looking at, where what a seat may do to it is
+the round's state. That is what makes the hand-over legible: nothing moves on
+the chart when `flood` becomes `wreck`, and each of them simply finds a
+different word under the same ring. The plume stands out of the square on
+both screens, with the state's own window draining under it — the round
+clock's own bar narrowed to a couple of squares, red at the same eighth of
+itself, so a pair who have learnt to read the long one read this one without
+being told. **One ring stands on any one screen**, because the seats split by
+state, and each screen says its own word only: the square would carry two at
+once, and the plume already tells each of them what the other is working on.
+The pilot grabs anywhere along the holed hull rather than the wound alone — a
+carry that has to start in one square is a carry that begins by missing — and
+his ring goes to the square he is striking, which is the one thing on his
+screen that says the rake is landing where he means it to.
+
+*What is not built:* the sound and the five sparks. The plume up, the thumb
+on it, each square raked, the sea healing and the wreck going under are world
+state read off `phase`, `holeCol` and `rakeCol`, still silent in both spark
+lists, and `docs/parked.md` carries that half. *Never watched at tempo*:
+whether ten beats is a flood a pair can rake a five-long hull in while
+talking.
 
 **Where it lives.** `FleetState` in the `BossState` union, with the chart's
 arithmetic in `packages/sim/src/fleet-board.ts` and the choreography in
@@ -1208,7 +1227,10 @@ arithmetic in `packages/sim/src/fleet-board.ts` and the choreography in
 and its panel is the `fleet` control set. The picture is three files —
 `fleet-chart.ts`, `fleet-hulls.ts`, `fleet-marks.ts` — split along the line the
 fight itself is split along: the lattice both seats read, the hulls only one of
-them does, and the record they share. Its wave is `THE FLEET` and its sentence
+them does, and the record they share. The wound is two more beside them,
+`fleet-grip.ts` and `fleet-grip-draw.ts`: the three touches and the picture
+over them, kept apart because the picture is the longer half and a hit test is
+read on its own. Its wave is `THE FLEET` and its sentence
 is the epigraph.
 
 What has **not** been looked at by a human is the shape of player 2's half of

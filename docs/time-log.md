@@ -9689,3 +9689,32 @@ coincidence. A helper that parks the other carriage would have paid for itself
 in the first case.
 
 *Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
+
+## 2026-09-18 — task-queue-work-ym2eim — the wound, and two ways of proving a picture
+
+THE FLEET's flood, rake and wreck, split before it was started into the look
+and the sparks and only the look landed. The picture is two files because the
+drawing is the longer half and a hit test is read on its own. The cost was not
+in either of them: it was in finding an assertion that says the wound is on
+the screen. A held ring draws one more group and drops its word, so the raw
+call count is the same either way; a `Path2D` built from a string logs no
+coordinates, so the ring's centre cannot be read off the canvas; and the panel
+under the chart says RAKE too, at the same horizontal centre, so the first
+frame cases passed with the drawing taken out. What holds it now is the
+window — two rectangles a fixed share of a square wide, centred on the holed
+square and nowhere else on the chart — and, for the ring, arithmetic: its
+centre moved out of the drawing into `fleetRingCentre` so a test can ask where
+it stands rather than count strokes.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the parked entry, `mirror-grip.ts` as the model, `fleet-chart.ts`, `fleet-clock.ts`, `handles.ts` and the simulation's `fleet-hand.ts` for what the three thumbs have to report |
+| writing | 25 | the two source files, `fleet-grip.test.ts`, two frame cases, the director's fleet spread and three `docs/spec/controls.md` rows |
+| looking | 0 | none: a cloud session, and the plume, the window and the ring have not been seen by an eye |
+| friction | 20 | three assertions that could not tell the wound from the panel behind it, and a `sed` that silently matched nothing and made a non-vacuity check say the opposite of the truth |
+| landing | 15 | `check:fast`, the fleet budget remeasured and pinned lower, the commit |
+
+**The bottleneck was proving the picture, not drawing it.** Every honest
+discriminator had to be found by taking the drawing out and diffing the whole
+ordered canvas log, and the first two candidates — the call count and the word
+— both passed with nothing drawn.

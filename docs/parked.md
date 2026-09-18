@@ -56,39 +56,31 @@ count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
 
-## THE FLEET's flood, rake and wreck: the look half
+## THE FLEET's flood, rake and wreck: the sparks half
 
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-18, claude/queue-the-fleets-flood-rake-and-wreck-the-look-half
-- **Files:** `packages/render/src/fleet-marks.ts`, `packages/render/src/fleet-fx.ts`, `packages/render/src/fleet-hulls.ts`, `packages/render/src/touch-field.ts`, `packages/render/src/touch-hold.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/test/fleet-frame.test.ts`, `tools/director/src/field-controls-page.ts`, `tools/director/test/on-field-controls.test.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
+- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Files:** `packages/render/src/effects-spark-silent-boss-b.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/fleet-grip.ts`, `packages/render/src/fleet-grip-draw.ts`, `docs/spec/bosses.md`
 
-The simulation half of the queue item "THE FLEET changes state more than
-once, and asks for more than one gesture" landed: `hunt` → `flood` on a hit
-(the navigator's `drag` at `fleetBreach` held on the plume, the pilot's at
-`fleetRake` carried along the hull in whole tiles from the hole, a square
-struck every `fleetRakeBeats` with both thumbs down, `fleetFloodBeats` to do
-it in) → `wreck` when the hull is struck end to end (her `drag` at
-`fleetWreck` pulled down `fleetWreckPullMilli` while his thumb stays,
-`fleetWreckBeats`), either window closing plugging the hull whole again —
-`sim/src/fleet-state.ts`, `fleet-flood.ts`, `fleet-hand.ts`, with
-`sim/test/fleet-gestures.test.ts`, the cue's two arms in
-`render/src/boss-cue-read-g.ts`, the director's hand in
-`tools/director/src/boss-hand-fleet.ts` and its three cards on the STATES
-sheet. Nothing on the picture hands the sim any of the three thumbs, and
-the five events are on both silent lists.
+**The look landed; the sparks did not.** The wound is drawn and answers all
+three thumbs — `packages/render/src/fleet-grip.ts` has the geometry and the
+hit tests, `fleet-grip-draw.ts` the plume, the state's own window and this
+seat's ring with its word on it, `fleetGripUnder` is last in `handleUnder`,
+the three on-field entries and the three `docs/spec/controls.md` rows are
+written, and §11.6 has *The look*. `packages/render/test/fleet-grip.test.ts`
+and two cases in `fleet-frame.test.ts` hold it. This entry is what the look
+half was split off from, not a thing nobody has started: the halves were
+named when the work began and the first landed on its own.
 
-The look half, on the model of THE MIRROR's grip (`render/src/mirror-grip.ts`)
-and THE GAUGE's parked entry above, in a render/src/fleet-grip.ts and its
-test: a plume standing on `holeCol`/`holeRow` on both screens while `phase`
-is not `hunt`, with the window draining under it (the clock's own bar,
-narrowed); `fleetBreachUnder` on the plume for seat 2, a plain on/off `drag`
-at `fleetBreach`; `fleetRakeUnder` on the holed hull for seat 1 while
-`flood`, a `drag` at `fleetRake` whose moves report `fromMilli`/`fromYMilli`
-from the grab in thousandths of a chart tile; the wreck lying on the water
-with `fleetWreckUnder` for seat 2 while `wreck`, a `drag` at `fleetWreck`
-reporting the pull down; the five events taken off the two silent lists and
-thrown from a fleet-grip-fx.ts — the plume up, the thumb on it, each square
-raked, the sea healing, the wreck going under; the three on-field entries and
-the three `docs/spec/controls.md` rows that `documentedDragTarget`'s cases
-are waiting on; §11.6 gets *The look* and loses *What is not built*. A look
-with no shipped alternative.
+**What is left is the five events.** They are still on both silent lists —
+`effects-spark-silent-boss-b.ts` and `effects-ingest-silent-boss-b.ts` — and
+nothing throws them: the plume up, the thumb on it, each square raked, the
+sea healing, the wreck going under. Take each off its list and throw it from
+a new packages/render/src/fleet-grip-fx.ts hung off `effects-boss.ts`, on
+the model of the boss beside it; read the moment off `phase`, `holeCol`,
+`rakeCol` and `wreckPullMilli` the way the drawing does, and keep nothing
+that outlives a frame outside `Effects` (`restart.test.ts` checks). §11.6's
+*What is not built* paragraph goes when they land.
+
+When it is green: `bun run check`, commit, land. Remove this entry from
+`docs/parked.md` in the same commit — `bun run queue done "THE FLEET's flood,
+rake and wreck: the sparks half"`.

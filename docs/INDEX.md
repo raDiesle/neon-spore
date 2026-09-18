@@ -1256,6 +1256,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fleet-impact.ts` | What a shell does when it arrives: a rocket into a hull, or a column of water where there was nothing |
 | `packages/render/src/fleet-shell.ts` | A salvo in the air: the shell arcing out of the cannon, and its shadow walking the water underneath it |
 | `packages/render/src/fleet-water.ts` | The water THE FLEET's chart stands on, and what closes over a hull that has gone down in it |
+| `packages/render/src/fleet-grip-draw.ts` | **What the wound looks like while it is being worked** — the plume out of it, the state's own clock under it |
+| `packages/render/src/fleet-grip.ts` | **THE FLEET's three thumbs on the chart** — the plume, the rake and the wreck |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |
 | `packages/render/src/frame-on-ship.ts` | a body sticks to the finished ship — the fifth pass, between the ship and the overlays: the fence's burn, the gums, the choke's coils, the clingers, in that order |
@@ -2228,6 +2230,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-antiphon.ts` | THE ANTIPHON's one handle, in a file of its own |
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |
+| `tools/director/src/field-controls-fleet.ts` | **THE FLEET's three thumbs on the chart**, in a file of their own |
 | `tools/director/src/field-controls-queen.ts` | THE BULB QUEEN's marks, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-mirror.ts` | THE MIRROR's lobes, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-maze.ts` | THE MAZE's two handles, in a file of their own — `field-controls-page.ts` is at its limit |

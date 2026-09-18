@@ -11,6 +11,7 @@ import { drawPileHand } from "./cairn-hand.js";
 import { drawCairnSettle, showsCairnSettle } from "./cairn-settle.js";
 import type { Effects } from "./effects.js";
 import { chartOf, drawFleetChart } from "./fleet-chart.js";
+import { drawFleetGrip } from "./fleet-grip-draw.js";
 import { drawFleetHulls } from "./fleet-hulls.js";
 import { drawFleetMarks, drawFleetSights } from "./fleet-marks.js";
 import type { SurfaceY } from "./hull-frame.js";
@@ -185,6 +186,10 @@ export function drawBoss(
     drawFleetHulls(ctx, l, world, boss, view.beatPhase, fleet, view.clearTop);
     drawFleetMarks(ctx, l, world, boss, fleet, view.clearTop);
     drawFleetSights(ctx, l, world, boss, view.beatPhase, view.clearTop);
+    // The wound the flood and the wreck are worked on, over the record and
+    // under the salvoes — a shell in the air still lands on top of it
+    // (`fleet-grip-draw.ts`).
+    drawFleetGrip(ctx, l, world, boss, view.beatPhase, view.time, view.clearTop);
     const chart = chartOf(l, world, view.clearTop);
     fleet.drawFlight(ctx, l, chart, world.cannonCol);
     fleet.drawBursts(ctx, chart);

@@ -24,8 +24,14 @@ import { PALETTE } from "./palette.js";
  * and seconds are what two people in a room mean by "half a minute left".
  */
 
-/** The share of the clock that is drawn as an emergency. */
-const LATE = 0.125;
+/**
+ * The share of a clock that is drawn as an emergency.
+ *
+ * Exported with `drawDrainBar` and for its reason: the plume's window turns
+ * red at the same point in itself that the round's does, so the colour means
+ * one thing on this chart rather than two.
+ */
+export const FLEET_LATE = 0.125;
 
 /** Seconds left, smoothed through the beat so the numeral ticks once a second. */
 function secondsLeft(world: World, boss: FleetState, beatPhase: number): number {
@@ -38,6 +44,31 @@ function clockText(seconds: number): string {
   const whole = Math.ceil(Math.max(0, seconds));
   const mins = Math.floor(whole / 60);
   return `${mins}:${String(whole - mins * 60).padStart(2, "0")}`;
+}
+
+/**
+ * A bar with a share of it left, draining leftward and red when it is nearly
+ * out.
+ *
+ * Exported because THE FLEET has a second clock now and it is the same
+ * instrument: the round's own runs the width of the chart under it, and the
+ * flood's and the wreck's runs a couple of squares wide under the plume
+ * (`fleet-grip.ts`). One drawing rather than two, so a pair who have learnt to
+ * read one of them can read the other without being told.
+ */
+export function drawDrainBar(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  left: number,
+  late: boolean,
+): void {
+  ctx.fillStyle = "rgba(47,224,240,.14)";
+  ctx.fillRect(x, y, w, h);
+  ctx.fillStyle = late ? PALETTE.red : PALETTE.shield;
+  ctx.fillRect(x, y, w * Math.max(0, Math.min(1, left)), h);
 }
 
 /**
@@ -58,16 +89,13 @@ export function drawFleetClock(
 ): void {
   const total = Math.max(1, world.cfg.fleetRoundBeats);
   const left = fleetBeatsLeft(world, boss) / total;
-  const late = left < LATE;
+  const late = left < FLEET_LATE;
   const w = c.cols * c.tile;
   const y = c.top + c.rows * c.tile + Math.max(13, c.tile * 0.6);
   const h = Math.max(2, c.tile * 0.09);
 
   ctx.save();
-  ctx.fillStyle = "rgba(47,224,240,.14)";
-  ctx.fillRect(c.left, y, w, h);
-  ctx.fillStyle = late ? PALETTE.red : PALETTE.shield;
-  ctx.fillRect(c.left, y, w * Math.max(0, Math.min(1, left)), h);
+  drawDrainBar(ctx, c.left, y, w, h, left, late);
 
   // The numeral. Bigger when it is late and pulsing on the beat, because by
   // then it is the only thing on the chart that has changed in ten seconds.

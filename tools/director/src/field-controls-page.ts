@@ -4,6 +4,7 @@ import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { BATON_CONTROLS } from "./field-controls-baton.js";
 import { DIASTOLE_CONTROLS } from "./field-controls-diastole.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
+import { FLEET_CONTROLS } from "./field-controls-fleet.js";
 import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
@@ -227,6 +228,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...MIRROR_CONTROLS, // THE MIRROR's lobes, two gestures on one target (`field-controls-mirror.ts`).
   ...GORGE_CONTROLS, // THE GORGE's pinch and pry, one target whose seat says the gesture.
   ...MAZE_CONTROLS, // THE MAZE's string and its heart, the brace and the tear (`field-controls-maze.ts`).
+  ...FLEET_CONTROLS, // THE FLEET's plume, rake and wreck, on its chart (`field-controls-fleet.ts`).
   ...GAUGE_CONTROLS, // THE GAUGE's needle under a jam and its band under a bind (`field-controls-gauge.ts`).
   ...WARDEN_CONTROLS, // THE WARDEN's thumb and swipe, its second and third hands (`field-controls-warden.ts`).
   {

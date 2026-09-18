@@ -3,6 +3,7 @@ import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { batonSocketUnder } from "./baton-grip.js";
 import { diastoleClampUnder } from "./diastole-clamp.js";
 import { filamentGrabUnder } from "./filament-grip.js";
+import { fleetGripUnder } from "./fleet-grip.js";
 import { gaugeGripUnder } from "./gauge-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
 import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
@@ -88,7 +89,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     gorgeGripUnder(l, x, y, field) ?? // THE GORGE's pinch and pry, the full intakes and the mouth (`gorge-grip.ts`).
     mazeHeartUnder(l, x, y, field) ?? // THE MAZE's heart under `grip`, the navigator's tear (`maze-grip.ts`).
     gaugeGripUnder(l, x, y, field) ?? // THE GAUGE's jammed needle and wound band (`gauge-grip.ts`).
-    batonSocketUnder(l, x, y, field) // THE BATON's swelling socket and its two beads (`baton-grip.ts`).
+    batonSocketUnder(l, x, y, field) ?? // THE BATON's swelling socket and its two beads (`baton-grip.ts`).
+    fleetGripUnder(l, x, y, field) // THE FLEET's wound, under `flood` and `wreck` (`fleet-grip.ts`).
   );
 }
 

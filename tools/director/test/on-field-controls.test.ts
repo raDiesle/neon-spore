@@ -170,15 +170,16 @@ function documentedDragTarget(target: DragTarget): DragTarget {
       return target;
     // THE FLEET's three thumbs on its chart — the navigator's hold on the
     // plume, the pilot's rake along the hull, her pull on the wreck
-    // (`sim/fleet-hand.ts`). Sim lane only so far, as THE WARDEN's above.
+    // (`sim/fleet-hand.ts`, `render/fleet-grip.ts`,
+    // `field-controls-fleet.ts`). All three land on the one square, and
+    // which seat it answers is the state the round is in.
     case "fleetBreach":
     case "fleetRake":
     case "fleetWreck":
       return target;
     // THE VANE's two hands on its own mechanism — the pilot's thumb pinning
     // the sweeping arm under VEER, the navigator's carry off the seized
-    // housing under SEIZE (`sim/vane-hand.ts`). Sim lane only so far, as THE
-    // WARDEN's and THE FLEET's above.
+    // housing under SEIZE (`sim/vane-hand.ts`). Sim lane only so far.
     case "vaneArm":
     case "vaneHousing":
       return target;
@@ -253,6 +254,9 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
         "wardenEye",
         "wardenHatch",
         "batonSocket",
+        "fleetBreach",
+        "fleetRake",
+        "fleetWreck",
       ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {

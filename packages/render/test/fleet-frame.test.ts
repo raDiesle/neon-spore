@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import { createWorld, fleetRows, startWave, step, ticksPerBeat, type World } from "@neon-spore/sim";
-import { chartOf, crossingSize } from "../src/fleet-chart.js";
+import { chartOf, chartX, chartY, crossingSize } from "../src/fleet-chart.js";
 import type { ViewRole } from "../src/layout.js";
 import { computeLayout } from "../src/layout.js";
 import {
@@ -48,6 +48,29 @@ function firstShip(world: World): { col: number; row: number } {
   const ship = boss.ships[0];
   if (!ship) throw new Error("the fleet wave carries no ships");
   return { col: ship.col, row: ship.row };
+}
+
+/** How wide the wound's own window is, in squares (`fleet-grip-draw.ts`). */
+const WINDOW_TILES = 1.8;
+
+/**
+ * The first hull holed at its head and the round set into one of the two
+ * states that answer a thumb — what a burst does in `sim/fleet-hand.ts`, done
+ * from the outside because this rig has no thumb to do it with.
+ */
+function woundOpen(world: World, phase: "flood" | "wreck"): { col: number; row: number } {
+  const boss = world.boss;
+  if (boss?.kind !== "fleet") throw new Error("the fleet wave installed no fleet");
+  const hole = firstShip(world);
+  Object.assign(boss, {
+    phase,
+    phaseBeat: world.beat,
+    holed: 0,
+    holeCol: hole.col,
+    holeRow: hole.row,
+    wreckPullMilli: 0,
+  });
+  return hole;
 }
 
 function fleetFrames(
@@ -161,6 +184,60 @@ describe("the fleet", () => {
     expect(xs.length).toBe(chart.cols + 1);
     expect((xs[1] ?? 0) - (xs[0] ?? 0)).toBeGreaterThan(size);
   });
+
+  /**
+   * **The wound, drawn through the renderer** — the plume out of the holed
+   * square, the state's own window under it and this seat's ring with its word
+   * on it (`fleet-grip-draw.ts`).
+   *
+   * Read off the window rather than off the word. The panel under the chart
+   * carries a RAKE of its own while the flood is open, and it stands close
+   * enough to the hole that a frame with the wound taken out still answers a
+   * test that only asks for the word somewhere near it. The window is the
+   * wound's alone: a bar `fleetFloodBeats` wide in squares, centred on the
+   * holed square, which nothing else on this chart draws.
+   *
+   * Both states are set rather than played. The run above reaches the flood
+   * from the outside, because a shell lands there; raking a hull end to end is
+   * a thumb on the chart and this rig has none.
+   */
+  for (const phase of ["flood", "wreck"] as const) {
+    it(`stands the ${phase}'s plume, window and ring on the holed square`, () => {
+      for (const role of ROLES) {
+        const world = createWorld(CFG, 3);
+        const index = waveWith("fleet");
+        startWave(world, index, buildQueue(index, CFG.cols), [], buildBoss(index, CFG.cols));
+        const hole = woundOpen(world, phase);
+        const log: string[] = [];
+        runFrames(world, role, 1, {
+          every: 1,
+          onCanvas: (c) => {
+            c.log = log;
+          },
+        });
+        const c = chartOf(computeLayout(VIEWPORT, CFG, role), world);
+        const bars = log
+          .filter((line) => line.startsWith("fillRect("))
+          .map((line) => line.slice("fillRect(".length, -1).split(", ").map(Number))
+          // Within a few per cent of the width, because the chart this test
+          // computes and the chart the renderer drew are a fraction of a pixel
+          // apart — the renderer has the world's own configuration and this
+          // has `CFG`, which is what `puts one mark on every crossing` tolerates
+          // too.
+          .filter((r) => Math.abs((r[2] ?? 0) / (c.tile * WINDOW_TILES) - 1) < 0.02);
+        // The trough and what is left to run in it, one over the other.
+        expect(bars.length).toBe(2);
+        for (const bar of bars) {
+          expect(bar[1] ?? 0).toBeGreaterThan(chartY(c, hole.row));
+          expect(bar[1] ?? 0).toBeLessThan(chartY(c, hole.row) + c.tile);
+        }
+        const trough = bars[0] ?? [];
+        expect(
+          Math.abs((trough[0] ?? 0) + (trough[2] ?? 0) / 2 - chartX(c, hole.col)),
+        ).toBeLessThan(c.tile * 0.1);
+      }
+    });
+  }
 
   it("draws a chart with nothing on it, which is the first frame of every run", () => {
     const world = createWorld(CFG, 3);

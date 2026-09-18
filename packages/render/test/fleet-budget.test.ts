@@ -125,32 +125,41 @@ type Budget = Partial<
 // (`boss-cue-read-g.ts` `fleetHoleCues`) where the rest used to keep it quiet
 // — a cue's frame and its two lines, which is two `fillRect`, three strokes,
 // one save and the text. Remeasured, not padded.
+// Every row moved a third time on 18 September 2026, when the wound grew a
+// picture: while a hull is holed both screens carry the plume out of it, the
+// state's own window under it and this seat's ring with its word on it
+// (`fleet-grip-draw.ts`). Both frames here are inside the flood — the shell
+// resolves the beat it is fired at — so both pay for it: two `fillRect` for
+// the window's trough and what is left in it, three strokes for the plume and
+// the ring's own, one save, one path and the word. The `fill` rows come down
+// five and are pinned lower rather than left where they were: a saving that
+// landed elsewhere in the picture, measured here for the first time since.
 const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budget>>>> = {
   p1: {
     mid: {
-      fillRect: 61,
+      fillRect: 63,
       // One more stroke and one more clip than before the hull's light became a
       // barrel: `hull-barrel.ts` strokes the contour with a crown ramp, clipped
       // to the body. Every row in this file carries the same two.
-      stroke: 65,
-      fill: 54,
+      stroke: 72,
+      fill: 49,
       clip: 7,
-      save: 47,
+      save: 50,
       drawImage: 16,
       createLinearGradient: 13,
       createRadialGradient: 5,
-      "new Path2D": 20,
-      fillText: 27,
+      "new Path2D": 21,
+      fillText: 28,
     },
     hit: {
-      fillRect: 84,
+      fillRect: 86,
       // Two more than mid: the shockwave ring and the fireball's own contour.
-      stroke: 67,
-      fill: 52,
+      stroke: 74,
+      fill: 47,
       clip: 7,
       // Eight more: the burst opens one per shard it turns, and the shards are
       // the only thing in this picture drawn in a frame of its own.
-      save: 55,
+      save: 58,
       // Three more: the flash and the fireball are `halo` blits, and the halo
       // the shell was carrying is gone.
       drawImage: 20,
@@ -158,38 +167,38 @@ const BUDGETS: Readonly<Record<"p1" | "p2", Readonly<Record<"mid" | "hit", Budge
       createLinearGradient: 12,
       // The fireball, and the one radial gradient this fight ever builds.
       createRadialGradient: 6,
-      "new Path2D": 20,
-      fillText: 27,
+      "new Path2D": 21,
+      fillText: 28,
     },
   },
   p2: {
     mid: {
-      fillRect: 64,
+      fillRect: 66,
       // Nine fewer than the pilot's: five hulls, their spines and their scars
       // are the whole of what this seat is not shown (`fleet-hulls.ts`).
-      stroke: 71,
-      fill: 72,
+      stroke: 78,
+      fill: 67,
       clip: 7,
-      save: 48,
+      save: 51,
       drawImage: 23,
       createLinearGradient: 16,
       createRadialGradient: 11,
-      "new Path2D": 20,
-      fillText: 25,
+      "new Path2D": 21,
+      fillText: 26,
     },
     hit: {
-      fillRect: 87,
-      stroke: 71,
-      fill: 70,
+      fillRect: 89,
+      stroke: 78,
+      fill: 65,
       clip: 7,
-      save: 56,
+      save: 59,
       drawImage: 26,
       createLinearGradient: 15,
       createRadialGradient: 12,
-      "new Path2D": 20,
+      "new Path2D": 21,
       // One fewer than the pilot's, every frame: the square's own name is on
       // both screens and the wave's own readouts are not all of them.
-      fillText: 25,
+      fillText: 26,
     },
   },
 };
