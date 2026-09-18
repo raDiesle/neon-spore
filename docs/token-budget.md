@@ -21,6 +21,15 @@ and only two levers:
   blurred. The lever is what has been written into the repository by then.
   The threshold is `autoCompactWindow` in `.claude/settings.json`, 200k rather
   than the model's own ~967k, because every turn re-reads everything below it.
+  **It is written as the integer `200000`.** The setting is validated as a
+  whole number between 100000 and 1000000 and a value that fails is discarded
+  without a word, so the `"200k"` string — the form `/autocompact` accepts on
+  the command line, and what this file said until 18 September 2026 — pinned
+  nothing at all, and every session since 11 September had been compacting at
+  the model's own window. The one place that outranks the file is
+  `CLAUDE_CODE_AUTO_COMPACT_WINDOW` in the environment, which takes a plain
+  count and no suffix; a cloud session that does not read this checkout is
+  pinned there instead.
   It was 300k until 11 September 2026; the owner drains the queue in long
   sittings of independent items, and an item hardly ever needs more than
   ~100k of its own context, so the long tail past 200k was being re-read on

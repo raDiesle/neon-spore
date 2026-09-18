@@ -1,5 +1,5 @@
 {
-  "autoCompactWindow": "200k",
+  "autoCompactWindow": 200000,
   "permissions": {
     "allow": ["Bash(aider:*)"]
   },

@@ -9587,3 +9587,28 @@ beat that has an act due in it. Both are one line of code and an hour of
 reading the rule they are against.
 
 *Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
+
+## 2026-09-18 — cloud-compact — The 200k window was a string, so it was never read
+
+The pin had been inert since the day it was written. `autoCompactWindow` is
+validated as a whole number between 100000 and 1000000 and a value that fails
+is dropped with `.catch(undefined)` — no warning, no log line, nothing in
+`/status` — so `"200k"` left every session on the model's own ~967k. The proof
+was not in the documentation, which only says the *command* takes `500k` and
+`1M`; it was in the shipped binary, one grep for the schema.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the settings docs, `model-config`'s precedence section, the three repo files that name the figure, and the validator itself out of `/opt/claude-code/bin/claude` |
+| writing | 10 | the integer in `.claude/settings.json`, the test's expectation and the reason above it, the paragraph in `docs/token-budget.md` |
+| looking | 0 | none — nothing is drawn |
+| friction | 0 | none |
+| landing | 10 | `check:fast`, the commit, the land |
+
+The bottleneck was trusting the documentation: it describes the suffix forms
+the command and the flag accept and says nothing about the setting's own type,
+so the only way to know the string was being thrown away was to read the
+schema in the binary. A setting that fails in silence costs a week before
+anyone looks.
+
+*Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
