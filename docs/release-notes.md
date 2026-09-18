@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · c319928d — THE HUSK has its rehearsal: a mark drawn on one seat's screen and not the other's, and a thumb that must not land
+
+Three pods hang from the first beat, two of them hollow, framed in white on the navigator's screen alone; the first two pages are the same beat from each side, and since the rehearsal draws every page on the seat whose screen it is, the frame's absence from the pilot's page is the picture. The maw left shut is THE STARE's problem a second time and takes its answer: the real one named, shot and taken at an open maw; the framed one shot and left, the pilot's hand off the intake while it deflates against the shut maw; and last the one nobody named, shot and opened for, swallowed, and the wave with it. `scene-husk.test.ts` is the receipt for what the maw was doing when each pod arrived.
+
 ## 2026-09-18 · 04dbc4a7 — The BOSSES category poses the field's and the clocks' states a hand brings on
 
 THE FLEET, THE GORGE, THE CURTAIN, THE SCUTTLE, THE HIVE's spill, THE TASTER, THE LEDGER and THE LEAD: twenty-three more cards on the STATES sheet, each the boss's own wave run with a `Hand` on the controls — the sights walked a square a tick, the thumb held for the beam, the fabric carried a column, the sum done for the column the body will be in. THE HIVE's `down` stays owed: its own rock stops the bolt that seals a breach (the queue's HIVE item).

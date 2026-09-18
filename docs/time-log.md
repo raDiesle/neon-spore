@@ -10915,3 +10915,5 @@ rows a beat and the intake is judged in the 96 ticks before it lands, so
 every intake act had to be placed from the probe's arrival tick rather than
 from the shot, and the first draft lost the real pod to a maw that shut too
 soon.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
