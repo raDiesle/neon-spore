@@ -856,6 +856,7 @@ section 6.1.
 ## THE GORGE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-gorge-changes-state-more-than-once-and-asks
 - **Files:** `packages/sim/src/config-gorge.ts`, `packages/sim/src/events-gorge.ts`, `packages/sim/src/gorge-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 
 It is answered today on the ordinary panel, over 5 files of simulation. Give it
