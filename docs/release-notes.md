@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 1c6b70dd — The name registry's workerd is raised before its first case, not by it
+
+`names.test.ts` built a `Miniflare` at the top of the file and left it lazy, so the runtime came up on whichever case reached it first. A boot costs a worker start, three socket handshakes and a few hundred milliseconds — comfortably inside bun's five-second default alone, and not inside it under the full check's shards, where all fourteen cases timed out together on a diff that touched nothing under `apps/server` and the lane paid for it by running `land` a second time.
+
 ## 2026-09-18 · 228ba3ac — A rehearsal's picture starts under the band, so nothing over row 0 is drawn behind the plate
 
 A film was laid out in the whole box less the nav bar's height, and `computeLayout` anchors the field to the bottom — so the field's top sat about the bar's height higher in a page of film than in the wave, under the corner plate. Everything a wave hangs over row 0 was drawn behind it: THE ORRERY's outer ring showed two and a half of its three rings on the page that says *three rings*, THE TASTER's crest and fan were in no page of its film, and four bosses' cues had their word in the band.
