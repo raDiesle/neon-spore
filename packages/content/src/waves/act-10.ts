@@ -63,9 +63,9 @@ export const WAVES_ACT_10: Wave[] = [
     name: "THE REPRISE",
     sentence: "The one where the wave you have just beaten comes back with nothing to see.",
     guide: {
-      both: "This wave comes down twice. Every stretch of it you get through is sent again from the top — the same bodies, the same columns, the same spacing — and on the second run neither of your screens draws a thing. It is all still there. It still falls at the same speed, the dome still turns it, a bolt of the right colour still takes it, and one that reaches the ship costs you exactly what it would have the first time. While it is running, nothing new arrives: the wave takes up again where it left off once the last of it has gone by. The tear at the top says how many of them are still to come, and nothing whatever about where.",
-      p1: "Keep the order. Count them as they come, and say the gaps out loud — two beats, then three. When the field goes dark the tear counts them down for you; the gaps between them are yours.",
-      p2: "Keep the columns. Say them while they are still lit, in order, and say them again the moment the field empties — a column you did not say out loud is a column neither of you has.",
+      both: "Everything you clear comes again, unseen. Ward and shoot it from memory, in the same order and columns.",
+      p1: "1. Count the things as they come the first time.\n2. Say the gaps out loud: two beats, then three.\n3. When the field goes dark, trigger the plate on your count. The tear at the top counts them down.",
+      p2: "1. Say each column while it is still lit, in order.\n2. Say them again the moment the field empties.\n3. Move the plate and fire on those columns, in that order, on your partner's count.",
     },
     entries: [
       { beat: 0, col: 1, color: "red" },

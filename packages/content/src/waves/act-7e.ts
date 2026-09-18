@@ -53,9 +53,9 @@ export const WAVES_ACT_7E: Wave[] = [
     name: "THE LEAD",
     sentence: "The one you shoot where it will be, not where it is.",
     guide: {
-      both: "A body paces along the top of the field on a stalk of five segments, a column a beat, turning at the walls. A shot out of the top hangs a beat in the air and is judged against the column it is in then — so aim where it will be. A hit takes a segment; a beat every shot missed turns it round. From the fourth segment it runs, dropping a torch behind and a rock ahead. On the last segment it stops dead, and only the beam standing in a column it then passes through ends it.",
-      p1: "Only you see which way the stalk leans: where it goes next, and from the second segment the turn a beat early. Say it every beat, left or right, and slide the cannon under the column it will be in, not the one it is in.",
-      p2: "Only you see the column it stands in. Read it out every beat; he has where it goes next. Fire the beat he says the cannon is under where it will be: the shot takes a beat to get there. On the last segment, hold the beam.",
+      both: "Shoot the walking body where it will be, not where it is. One segment a hit. On the last, hold the beam in its path.",
+      p1: "1. Say LEFT or RIGHT every beat: where it goes next.\n2. From the second segment, say the turn a beat early.\n3. Slide the cannon under the column it will be in.\n4. On the last segment, keep the cannon in its path.",
+      p2: "1. Say the column it stands in, every beat.\n2. Fire the beat your partner says the cannon is under where it will be.\n3. On the last segment, hold a colour for the beam.",
       scene: "theLead",
     },
     entries: [
@@ -75,9 +75,9 @@ export const WAVES_ACT_7E: Wave[] = [
     name: "THE SCUTTLE",
     sentence: "The one that throws itself at you, a part at a time, and each part is a window.",
     guide: {
-      both: "A frame of twenty-one parts hangs over the middle of the field: rocks and bodies of both colours, and two pods. Every few beats a part comes loose and hangs in its socket, then is thrown down its column. A bolt in its column and its colour while it hangs takes it off the frame instead. A pod thrown is a pod to take, and taken it slows the next throw a beat. Under eight parts left it throws faster and from the far side; from twelve, two at a time, one of them live. The last part winds up — hold the beam under it.",
-      p1: "Only you see the count: say it down so the shot is in the air before the throw. Slide the cannon under the column she says, guard the rocks it throws, and take a pod that drops. On the last part keep the cannon under it.",
-      p2: "Only you see which hanging part is live, its colour and its column: say them the beat it comes loose and fire in that colour once the cannon is under it. On the last part, hold that colour until the beam stands.",
+      both: "Shoot each part off the frame while it hangs, in its colour and column, before it is thrown. Hold the beam under the last.",
+      p1: "1. Say the count down to the throw.\n2. Slide the cannon under the column your partner says.\n3. Trigger the plate under thrown rocks. Take a pod that drops.\n4. On the last part, keep the cannon under it.",
+      p2: "1. As a part comes loose, say which one is live, its colour and its column.\n2. Load that colour and fire once the cannon is under it.\n3. Move the plate under thrown rocks.\n4. On the last part, hold its colour: the beam.",
       scene: "theScuttle",
     },
     entries: [],
@@ -89,9 +89,9 @@ export const WAVES_ACT_7E: Wave[] = [
     sentence:
       "The one that grows a thing nobody has a word for, and one of you has to say it anyway.",
     guide: {
-      both: "A smooth body over the field grows one organ at a time, and the organ is one of the candidates on a rail — each with a column and a colour. Describe it; name it; a bolt in its column and its colour takes it to a pit. The wrong candidate hardens it and the next rail is wider; the wrong colour is nothing. Six pits, and the rail closes in as you go. Last, the body grows your own ship among ships: the right one erupts every pit.",
-      p1: "Only you see the organ. Say its shape in whatever words you have — lobes, leaning, hollow — until she names a column, and slide the cannon there; she fires. From three pits what she turned down falls: slide under each.",
-      p2: "Only you see the rail: the candidates, their columns and colours. Say the column and the colour of the one he is describing, and fire that colour once the cannon is there; if he cannot, ask what would tell them apart.",
+      both: "Describe the organ; find it on the rail; shoot it in its column and colour. Six pits.",
+      p1: "1. Say the organ's shape in your own words: lobes, leaning, hollow.\n2. Keep going until your partner names a column.\n3. Slide the cannon there.\n4. From three pits, slide under whatever falls.",
+      p2: "1. Listen, and find the candidate on the rail.\n2. Say its column and its colour. If you cannot tell, ask what would tell them apart.\n3. Load the colour and fire once the cannon is there.",
       scene: "theAntiphon",
     },
     entries: [],
@@ -102,9 +102,9 @@ export const WAVES_ACT_7E: Wave[] = [
     name: "THE HIVE",
     sentence: "The one you seal, and every breach you have not sealed yet is spilling.",
     guide: {
-      both: "Nine sites lie across the underside of a mass over the field, each with a colour of its own. Four beats to look, then one opens, then another every eight beats — two at once from the fifth. Nothing you do slows that. Every open breach spills a rock down its column every three beats; rocks are for the shield. A bolt in an open breach's column and its colour seals it for good; the wrong colour makes every open breach spill sooner; the skin between them swallows a shot. Seal all nine.",
-      p1: "Only you see a breach's colour, and you cannot fire. Say it as each one opens — three is red, seven is cyan — and slide the cannon under the one she names. When she says where the next swells, be there before it opens.",
-      p2: "Only you see the swell where the next breach opens, three beats early, and you cannot move the cannon. Say its column ahead. Fire the colour he gives you for the breach the cannon is under, and ward the rocks.",
+      both: "Seal all nine breaches: a shot in each one's colour, up its column, while it is open. Ward the rocks they spill.",
+      p1: "1. Say each breach's colour as it opens: THREE IS RED.\n2. Slide the cannon under the breach your partner names.\n3. When they say where the next opens, be there before it does.\n4. Trigger the plate on rocks.",
+      p2: "1. Say the column where the next breach swells, three beats ahead.\n2. Load the colour your partner gives for the breach the cannon is under.\n3. Fire.\n4. Move the plate under the rocks.",
     },
     entries: [],
     boss: { kind: "hive" },
@@ -115,9 +115,9 @@ export const WAVES_ACT_7E: Wave[] = [
     sentence:
       "The one with no panel: its body is marked where it will hurt you, and whose thumb the mark wants.",
     guide: {
-      both: "No buttons this time. The body over the field says what to do and where, in red, one step at a time. Do it before the ring closes on it.",
-      p1: "A bright mark with a word over it is yours. A dim one is hers: watch it, and say when she has it.",
-      p2: "A bright mark with a word over it is yours. A dim one is his: watch it, and say when he has it.",
+      both: "No buttons. The body says what to do and where, in red. Do it before the ring closes.",
+      p1: "1. Find the bright mark with a word over it. That one is yours.\n2. Do what the word says, on the mark, before the ring closes.\n3. A dim mark is your partner's: watch it, and say when they have it.",
+      p2: "1. Find the bright mark with a word over it. That one is yours.\n2. Do what the word says, on the mark, before the ring closes.\n3. A dim mark is your partner's: say when they have it, then wait for them to say yours.",
     },
     entries: [],
     boss: { kind: "instar", steps: INSTAR_SCRIPT },

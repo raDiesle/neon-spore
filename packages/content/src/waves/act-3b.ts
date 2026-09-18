@@ -25,9 +25,9 @@ export const WAVES_ACT_3B: Wave[] = [
     name: "THE VANE",
     sentence: "The one where the column you were told is never the column it lands in.",
     guide: {
-      both: "An arm sweeping the top of the field. Everything that comes in under it is folded about the column it is standing in — as far the other side of the arm as it came in. The rocks under it fall two rows a beat, not one.",
-      p1: "Your strip still says where a rock was aimed. Fold it before you say it, or you have named a column nothing lands in.",
-      p2: "Same for what you see coming. Count from the arm, not from the edge — and be in the column early, because there is no time to slide late.",
+      both: "The arm at the top folds every rock to its other side. Ward and shoot where things land, not where they were aimed.",
+      p1: "1. Read the column off your strip.\n2. Fold it across the arm's column before you say it.\n3. Say the folded column and slide there early.",
+      p2: "1. Count the column from the arm, not from the edge.\n2. Say the folded column and the colour early.\n3. Move the plate there before it lands. Rocks under the arm fall twice as fast.",
       scene: "theVane",
     },
     entries: [

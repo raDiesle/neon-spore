@@ -175,9 +175,9 @@ export const WAVES_ACT_9: Wave[] = [
     sentence:
       "The one where the number is at the other end of the straw, and only one of you can see it.",
     guide: {
-      both: "A row of mouths stands two tiles over the plating, and out of each one a straw runs the whole height of the field, tangled through every other. Each straw has a number at its far end. Feed them in order — one, then two, then three — by standing the cannon under a mouth and opening the maw. The number takes two beats to come down before the ship knows whether it was the one wanted. Get it wrong, or let the round's beats run out, and the hull pays.",
-      p1: "The cannon is yours and the mouth is not. Your straws fade out just above the mouths, so where one goes is not yours to know: count the mouths from the left, go where you are sent, and say when you are there.",
-      p2: "The mouth is yours and the cannon is not — you cannot see where it is. Trace the straw down from number one, say which mouth it leaves, counting from the left, and open the maw when they say they are under it.",
+      both: "Feed the straws in order, one, two, three: stand the cannon under the right mouth and open the maw.",
+      p1: "1. Count the mouths from the left.\n2. Slide the cannon under the mouth your partner names.\n3. Say THERE when you are under it.\n4. Wait two beats for the answer, then go to the next.",
+      p2: "1. Trace straw number one down to its mouth.\n2. Say which mouth it leaves, counting from the left.\n3. Open the maw when your partner says THERE.\n4. Then straw two, then three.",
       scene: "theSplice",
     },
     entries: [],

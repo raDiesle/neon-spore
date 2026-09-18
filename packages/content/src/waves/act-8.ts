@@ -170,9 +170,9 @@ export const WAVES_ACT_8: Wave[] = [
     name: "THE CAIRN",
     sentence: "The one where the rock you did not pull is the one that lands.",
     guide: {
-      both: "A pile of seven rocks standing over the field, five columns wide. Nothing you fire touches it — it is rock, and rock cannot be shot — and a bolt is spent where it lands, leaving a crater and nothing else. The shield has nothing to turn, because it is not falling. Either of you takes hold of the pile and drags a thumb sideways: one rock comes out of that side and falls down that lane like any other rock. Every answer you give it is a rock in the air, and there is only one dome.",
-      p1: "Only you can see the lane it is about to drop one into by itself, and it will if you leave it alone. Say that column out loud and keep saying it — your trigger reaches nothing in this fight.",
-      p2: "Yours is the only thing that answers a rock, so the rate is yours to set: say how many you can take and make them pull to your side. A rock you pulled is one you knew about; the one they call out is the one you did not.",
+      both: "Pull rocks out of the pile, one at a time, and ward each one. Nothing you fire touches it.",
+      p1: "1. Say the column the pile is about to drop a rock into by itself. Keep saying it.\n2. When your partner asks, take hold of the pile and drag sideways: a rock comes out on your side.\n3. Trigger the plate under every rock.",
+      p2: "1. Say how many rocks you can take, and which side to pull from.\n2. Move the plate under the rock your partner calls first, then under the one you pulled.\n3. Drag the pile sideways yourself when there is room.",
       scene: "theCairn",
     },
     entries: [],
@@ -204,9 +204,9 @@ export const WAVES_ACT_8: Wave[] = [
     name: "THE WELL",
     sentence: "The one where the lane beside it is the other end of the field.",
     guide: {
-      both: "The same field, drawn two ways. On one screen it is turned inside out: the ship in the middle, the far row a rim around it, and the eleven columns spread round it as the eleven hours of a clock — column four is four o'clock, and the numbers are written on it. Nothing falls differently and nothing fires differently. Only one of you is looking at it.",
-      p1: "Yours is the clock and your cannon is its hand. The gap above the ship is where the field's two walls meet: the hand cannot cross it, so eleven and one o'clock are the two ends of your rail, not neighbours.",
-      p2: "Yours is the flat field and the only dome. Call the column early — they hear an hour and it is your own number. Rows are rings on their screen and crowd together, so how near a thing is, is yours to say.",
+      both: "The same field, drawn as a clock on one screen. Play it as usual: columns are hours.",
+      p1: "1. Your cannon is the clock's hand: slide it to the hour your partner says.\n2. Do not try to cross the gap above the ship: eleven and one are the two ends, not neighbours.\n3. Say the hour you are on.",
+      p2: "1. Say the column early, as a number: they hear it as an hour.\n2. Say how near a thing is: rows are rings on their screen and crowd together.\n3. Move the plate and fire as usual.",
       scene: "theWell",
     },
     entries: [

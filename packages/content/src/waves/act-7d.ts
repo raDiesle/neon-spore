@@ -62,9 +62,9 @@ export const WAVES_ACT_7D: Wave[] = [
     name: "THE THROAT",
     sentence: "The one where the only thing that hurts it is something you give it.",
     guide: {
-      both: "A gullet hangs from the top of the field, five rings stacked, ending in a mouth one column wide that slides along its own row. No shot touches it. Every few beats it inhales: whatever stands in its mouth is swallowed and everything else in that column is hauled a row closer. Anything it swallows makes it stronger. The one thing that hurts it is a gum thrown level along the mouth's row, into the mouth.",
-      p1: "The gums are yours and so is the fling. A thumb carried sideways sends one out of its lane and it flies level along the row it was on, so get it down to the mouth's row first. Nothing else you have touches it.",
-      p2: "You see the mouth's column and the beats to its next inhale, and he sees neither. Say both, every time. Anything it swallows heals it, so clear that column before the count runs out — his dome, your trigger.",
+      both: "Throw a gum level along the mouth's row, into the mouth. Nothing else hurts it. Clear its column before every inhale.",
+      p1: "1. Bring a gum down to the mouth's row.\n2. Carry your thumb sideways to fling it level along that row.\n3. Trigger the plate to clear the mouth's column before the count runs out.",
+      p2: "1. Say the mouth's column every time it moves.\n2. Say the beats until the next inhale.\n3. Fire to clear that column before the inhale. Your partner triggers the plate.",
       scene: "theThroat",
     },
     entries: [
@@ -92,9 +92,9 @@ export const WAVES_ACT_7D: Wave[] = [
     name: "THE ORRERY",
     sentence: "The one where you each see two of the three rings.",
     guide: {
-      both: "A core hangs in the middle of the field inside three rings of turning organs, and each ring has exactly one gap. A shot up the middle column reaches the core only on a beat when every ring still standing has its gap at the bottom of its orbit. The rings come round every eight, six and four beats, and they first come together on beat twelve.",
-      p1: "The middle ring is true on your screen and grey on hers, so only you know its gap. Keep the cannon in the middle column, say your gap when she says hers, and pull on the beat you both counted to.",
-      p2: "The inner ring is true on your screen alone, and so is the core's colour — load it and say it, because it changes each time a ring comes off. With every ring gone the core takes the beam alone.",
+      both: "Shoot the core up the middle column, on a beat when every ring's gap is at the bottom.",
+      p1: "1. Keep the cannon in the middle column.\n2. Say when the middle ring's gap is at the bottom.\n3. Count with your partner to the beat all the gaps meet, and say it.",
+      p2: "1. Load the core's colour and say it. It changes each time a ring comes off.\n2. Say when the inner ring's gap is at the bottom.\n3. Fire on the beat you both counted to.\n4. All rings gone: hold the colour for the beam.",
       scene: "theOrrery",
     },
     entries: [],
@@ -106,9 +106,9 @@ export const WAVES_ACT_7D: Wave[] = [
     sentence:
       "The one you fight in the dark, where the only light is what your own shots throw and the boss eats the ones it is facing.",
     guide: {
-      both: "The field goes black. The boss is a glow at the top, and every shot, plate and beam lights the column it was made in for a beat. Any colour dims the glow a step; five steps and it goes out. When it is down to two it turns and swallows the flashes from the column it faces, and a swallowed shot brightens it again. Down to one it stops, and the last shot puts it out: two black beats, then the light comes back.",
-      p1: "Only you see which column it faces. Say it, and keep the cannon off it while it is eating. It drifts a column at a time — call the new one every time it moves.",
-      p2: "You see where it is, not where it looks. Say the column it stands in every time it drifts, and fire when he says the way is clear. The beam dims it too: hold a colour on its column when the cannon cannot get there.",
+      both: "The field is dark. Any colour dims the glow, five times. Never shoot into the column it faces.",
+      p1: "1. Say the column the glow faces, every time it turns.\n2. Keep the cannon off that column while it eats.\n3. Slide to the column your partner names and say CLEAR.",
+      p2: "1. Say the column the glow stands in, every time it drifts.\n2. Fire when your partner says CLEAR.\n3. Hold a colour on its column for the beam when the cannon cannot get there.",
       scene: "theCandle",
     },
     entries: [
@@ -125,9 +125,9 @@ export const WAVES_ACT_7D: Wave[] = [
     sentence:
       "The one that eats your shots, and the only way to hurt it is to overfeed exactly one part of it.",
     guide: {
-      both: "A sack hangs across the top of the field with an intake under each of seven columns. Every shot that reaches the top is swallowed and hangs inside as a bead. An intake fills on four beads of one colour and goes clear; one more shot then pierces it for good, but it vents a torch after four beats if nobody does. A wrong colour takes a bead back out. Pierce two and it starts spitting beads back as bodies; pierce four and the one left fills itself — hold the beam in its colour on its column when it is full.",
-      p1: "Only you see how many beads each intake holds. Pick a column, say it, and hold the cannon there while she fills it: four of one colour, then one more. A shot past a missed body is a bead in the wrong place.",
-      p2: "You see which intake is nearest full and the colour it wants. Load that colour and fire only up the column he holds. When it clears, say so and fire once more. When the last fills itself, hold its colour for the beam.",
+      both: "Fill one intake with four beads of one colour, then one more shot pierces it. Four intakes.",
+      p1: "1. Pick a column and say it.\n2. Hold the cannon there while your partner fills it.\n3. Say the count: four beads, then one more.\n4. Trigger the plate on bodies: a shot past one is a bead in the wrong place.",
+      p2: "1. Say which intake is nearest full and the colour it wants.\n2. Load it and fire only up the column your partner holds.\n3. When it clears, say so and fire once more.\n4. The last fills itself: hold its colour, the beam.",
       scene: "theGorge",
     },
     entries: [
@@ -149,9 +149,9 @@ export const WAVES_ACT_7D: Wave[] = [
     name: "THE CURTAIN",
     sentence: "The one that is in the way, and the two of you shove it aside a column at a time.",
     guide: {
-      both: "A membrane hangs across the top of the field with a core hiding behind it, firing down its own column. No shot reaches it through the fabric. Take hold of the membrane and carry your thumb sideways and it slides one column; pull opposite ways and it holds; leave it four beats and it rolls back over the core. Bare the core and shoot it in its colour, three times.",
-      p1: "You see which lobes on the hem are soft — a shot into one takes it off, and four off makes it slide two columns a shove. Say which side is coming away. When she says the core is bare, put the cannon in its column.",
-      p2: "You see the core's shadow through the fabric and the colour it is, and he sees neither. Say which way to shove and how far, load its colour, and fire the beat it is bare. The wrong colour makes it fire back.",
+      both: "Shove the curtain aside, bare the core, shoot it in its colour. Three times.",
+      p1: "1. Say which side of the hem is soft, so a shot can take it off.\n2. Shove the curtain the way your partner says.\n3. When they say BARE, put the cannon in the core's column.",
+      p2: "1. Say which way to shove and how far.\n2. Load the core's colour.\n3. Say BARE the beat the core shows, and fire. The wrong colour makes it fire back.",
       scene: "theCurtain",
     },
     entries: [],
@@ -162,9 +162,9 @@ export const WAVES_ACT_7D: Wave[] = [
     name: "THE TASTER",
     sentence: "The one where the colour you keep firing is the colour that stops working.",
     guide: {
-      both: "A crest hangs over the field and grows eleven blades out of itself, middle outward, and the blades are its health. Every blade takes its edge from whichever colour the two of you have fired more of lately — and a blade is only struck off by the colour it is not. Its own colour thickens it instead. The column of a blade already gone is soft and swallows a shot for nothing. Shear all but two and they fold over the body and refuse every single shot: only the beam opens them.",
-      p1: "You see the edge on every blade. Say its colour and hold the cannon on its column — the answer is always the other one. Never fire into a column whose blade is already gone.",
-      p2: "You see what the pair has been spending, which is the colour the next blade grows in. Load against him and keep the two counts level, or the whole fan comes up in the colour you have most of.",
+      both: "Strike each blade off with the colour it is not. Never shoot a column whose blade is gone. The last two only the beam opens.",
+      p1: "1. Say the colour on the next blade.\n2. Hold the cannon on that blade's column.\n3. Never slide to a column whose blade is already gone.\n4. On the last two, hold the column for the beam.",
+      p2: "1. Fire the other colour: always the one the blade is not.\n2. Keep the two colours you have fired level, or the next blade grows in the one you use most.\n3. On the last two, hold a colour for the beam.",
       scene: "theTaster",
     },
     entries: [
@@ -186,9 +186,9 @@ export const WAVES_ACT_7D: Wave[] = [
     name: "THE SINEW",
     sentence: "The one that asks how hard, not when, and only the two of you together can say.",
     guide: {
-      both: "A mass hangs on a rope of six fibres, a handle either side. Each of you pulls one handle down and the two pulls add into one sum. Hold the sum in the fibre's band four beats and it parts; over the band it snaps and throws a rock; slip out and the hold restarts. From the fourth fibre the rope creeps slack under your hands — let go together and grip again. When the last parts the mass falls: sway both handles the same way to walk it clear of the hull.",
-      p1: "Only you see the band the sum must sit in, and it narrows every fibre. Say harder or softer and by how much, against her number, and when the count begins. When the mass falls, say which way you are both swaying.",
-      p2: "Only you see the sum of the two pulls as a number, and his hand's half of it. Say it out loud every beat as it changes; he has the band. Match your pull to his on the fall, and say when it is level.",
+      both: "Pull two handles together and hold the sum in the band, four beats a fibre. Six fibres. Then sway the falling mass clear of the hull.",
+      p1: "1. Pull your handle down.\n2. Say HARDER or SOFTER, and how much, against the number your partner reads.\n3. Say when the count begins.\n4. From the fourth fibre: let go together, grip again.\n5. On the fall, say the way.",
+      p2: "1. Pull your handle down.\n2. Read the sum out loud every beat.\n3. Pull the way your partner says.\n4. From the fourth fibre: let go together, grip again.\n5. On the fall, sway the same way and say when it is level.",
       scene: "theSinew",
     },
     entries: [
@@ -208,9 +208,9 @@ export const WAVES_ACT_7D: Wave[] = [
     name: "THE LEDGER",
     sentence: "The one where every hit you land comes back at your own hull.",
     guide: {
-      both: "A body hangs over the middle of the field on a thick cord rooted in your own hull. Every hit you land on the split down its middle comes back down that cord as damage, landing in the socket four beats later — ward it there the way you ward a rock, or the hull takes it and the wave is lost. Each return slides the socket a column along the ship. Once the split is open the cord charges you for every shot you fire at anything, and a warded return is thrown back up it and widens the split for nothing. Five hits part it.",
-      p1: "You carry the cannon and the trigger. Stand on the middle column to hit the split, and trigger on the beat the return lands — she has the column it is landing in. The last return is not yours to stop.",
-      p2: "You load the colour the split is showing and carry the plate. Say which column the socket has walked to, every time, and get there before the beat. On the last return, take the plate out of that column and let it land.",
+      both: "Hit the split five times. Every hit comes back down the cord four beats later: ward it in the socket, or lose the wave. Let the last one land.",
+      p1: "1. Stand the cannon on the middle column.\n2. Trigger the plate on the beat the return lands, in the column your partner calls.\n3. Once the split is open, fire at nothing else.\n4. The last return: do not stop it.",
+      p2: "1. Load the colour the split shows.\n2. Say which column the socket has walked to, every time.\n3. Move the plate there before the beat.\n4. On the last return, take the plate out of that column.",
       scene: "theLedger",
     },
     entries: [
@@ -230,9 +230,9 @@ export const WAVES_ACT_7D: Wave[] = [
     name: "THE SURGE",
     sentence: "The one you beat by letting go, and only if you both let go at once.",
     guide: {
-      both: "A bulb hangs dead centre with its seam shut. A thumb from either seat on it charges it, two thumbs charge it twice as fast, and with none on it it leaks. Let go together inside the band and a notch of the seam opens and the bulb sinks a row; let go over the band, or reach the top, and it bursts gums down its columns. Five notches and it turns inside out.",
-      p1: "Only you see the seam and where the band sits on the gauge — it climbs a notch at a time. Say when the field slows: that is the band. Then count her down — three, two, one, off — and never let go alone.",
-      p2: "Only you see the pressure as a number. Read it out every beat; he has the band. When he counts, take your thumb off on the word, the same instant as his. Over the band it bursts, so the count is not a suggestion.",
+      both: "Both thumbs on the bulb charge it. Let go together inside the band. Five notches.",
+      p1: "1. Put your thumb on the bulb and keep it there.\n2. Say when the field slows: that is the band.\n3. Count your partner down: three, two, one, OFF.\n4. Lift on OFF, never alone.",
+      p2: "1. Put your thumb on the bulb and keep it there.\n2. Read the pressure out loud every beat.\n3. Lift your thumb on your partner's OFF, the same instant. Over the band it bursts.",
       scene: "theSurge",
     },
     entries: [

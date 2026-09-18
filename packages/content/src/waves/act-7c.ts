@@ -51,9 +51,9 @@ export const WAVES_ACT_7C: Wave[] = [
     sentence:
       "The one where the ship puts something small out into the dark, and only one of you can see where it is going.",
     guide: {
-      both: "The field is gone. The ship opens and a little one drifts out of it, and everything it has to collect is hanging still while everything that would end it is moving. Collect every mote and the wave is over; let one of the moving ones touch it and the hull pays and the wave starts again.",
-      p1: "You fly it and cannot see the arena. ◀ and ▶ swing the nose while held; BURN pushes it that way and it keeps going after you let go. Ask for a heading and how long to burn.",
-      p2: "Your screen has the motes and the moving things; MAW is yours, and a mote only comes off the ship while it is open at home. Give them an o'clock and a moment, and say what is crossing.",
+      both: "Fly the little ship to every mote. Touch nothing that moves.",
+      p1: "1. Hold ◀ or ▶ to swing the nose to the o'clock your partner gives.\n2. BURN for as long as they say. The ship keeps drifting after.\n3. Ask what is crossing before every burn.",
+      p2: "1. Say an o'clock for the nearest mote, and how long to burn.\n2. Say what is moving across the way before they burn.\n3. Open the MAW when the little ship is home, so the mote comes off.",
       scene: "theScout",
     },
     entries: [],
@@ -66,9 +66,9 @@ export const WAVES_ACT_7C: Wave[] = [
     sentence:
       "The one where something is watching, and the one it is watching has to sit on their hands.",
     guide: {
-      both: "An eye over the field. It turns towards one of you for seven beats — and only the other seat is told which — then it watches, and that player may not press anything at all until it looks away. Touch a button under it and the hull breaks and the wave starts again. The looks get longer.",
-      p1: "You have the column and the dome, and the seven beats of the turn are for parking both. If it is watching you, take your hands off and read the field out. If it is watching them, you can still slide — but nothing fires.",
-      p2: "Only your screen says who it has chosen, so say it: THEM or YOU, every time it turns. If it is watching you, the triggers are dead and they have the dome. If not, fire up whatever column they parked in.",
+      both: "An eye watches one of you at a time. The one it watches presses nothing until it looks away. The other keeps playing.",
+      p1: "1. Every time it turns, listen for YOU or THEM.\n2. YOU: hands off everything until it looks away. Say what is falling.\n3. THEM: slide the cannon and trigger the plate. Nothing fires until it looks away.",
+      p2: "1. Say who it picks, every time it turns: YOU or THEM.\n2. YOU: hands off until it looks away. Your partner holds the plate.\n3. THEM: fire up the column they parked the cannon in.",
       scene: "theStare",
     },
     entries: [
@@ -134,9 +134,9 @@ export const WAVES_ACT_7C: Wave[] = [
     name: "THE PULSE",
     sentence: "The one where you both play the same song and neither of you can read all of it.",
     guide: {
-      both: "Slicks, bulbs, rocks and pods fall into four sockets in the hull, and both of you have the same four buttons. Press each one as it lands. Some arrive on your screen as a grey shape you cannot name — those are the ones your partner can read and you cannot.",
-      p1: "A shape between the lanes, cycling, is yours to press and theirs to name. Press on the beat rather than waiting to be sure — a late one counts, and anything you skip goes through the hull.",
-      p2: "The same is true of you, one bar later. When something on your screen is marked CALL, that is the one they are blind to — say what it is early and say it once, because the window is a sixth of a second wide.",
+      both: "Things fall into four sockets. Press the matching button as each one lands. A grey shape is one only your partner can name.",
+      p1: "1. Press the button for each thing as it lands. Late beats skipped.\n2. A grey shape is your partner's to name: press what they say.\n3. Say what the shape marked CALL is, early and once.",
+      p2: "1. Press the button for each thing as it lands, one bar after your partner.\n2. Say what the shape marked CALL is, early and once.\n3. A grey shape is theirs to name: press what they say.",
       scene: "thePulse",
     },
     entries: [],
@@ -168,9 +168,9 @@ export const WAVES_ACT_7C: Wave[] = [
     sentence:
       "The one where you are each counting a different number and neither of you can see the other's.",
     guide: {
-      both: "Two chambers above the top of the field, one lane apart, with a bridge of vessels between them. They beat on different counts and each of you sees only your own beating true — the other one is a still grey mass on your screen. A chamber can only be hurt while it is contracting. Once both of them are beating, nothing single reaches either: the only answer is the lance standing in the middle lane on a beat they contract on together.",
-      p1: "The left chamber is yours, and it is threes. Say every contraction out loud. The lance is yours too: cannon in the middle lane, held still three beats. An ordinary shot goes a beat early — a bolt is a beat from the top.",
-      p2: "The right chamber is yours, and it is fives. Count it aloud and take their threes off it: the beat both meet on comes round once in fifteen. Your thumb starts the fill and may not lift. Then the right goes to sevens.",
+      both: "Two chambers beat on different counts. Hit each while it contracts. Once both beat, lance the middle lane on the beat they share.",
+      p1: "1. Count the left chamber out loud, in threes.\n2. Say which beat both chambers meet on.\n3. Put the cannon in the middle lane and hold it still three beats for the lance. Fire a beat early.",
+      p2: "1. Count the right chamber out loud, in fives. Later it goes to sevens.\n2. Take your partner's threes off it: the shared beat comes once in fifteen.\n3. Hold a colour to fill the lance, and do not lift your thumb.",
       scene: "theDiastole",
     },
     entries: [
@@ -199,9 +199,9 @@ export const WAVES_ACT_7C: Wave[] = [
     sentence:
       "The one where acting locks you out of the next beat, so the two of you have to become a metronome.",
     guide: {
-      both: "An arm hangs from the top of the middle lane, eleven sockets long, with one bright bead in the topmost. The bead is safe in a socket and can only be hurt in the air between two. He launches it with the trigger; she shoots it while it flies; it lands a socket lower and the one it left goes dark. Whoever acts is locked out of their own phone for the next beat, so it can only be passed by taking turns. A launched bead nobody hits lands back where it was. A bead left sitting too long settles, and a settled bead goes back to the top.",
-      p1: "The trigger is yours alone: press it, and your phone greys for a beat while she shoots. Say the colour — it flips on every landing. Once four sockets are dark the arm swings, so be under the bead before you press.",
-      p2: "The shot is yours: the bead's colour, up the bead's lane, while it flies and not before. After every shot your phone greys for a beat. Say the colour back as it lands. Dark sockets drop as rocks: the plate is yours.",
+      both: "Pass the bead down the arm, one socket at a time: launch it, shoot it in the air, take turns.",
+      p1: "1. Slide the cannon under the bead.\n2. Press the trigger to launch it. Your phone greys for a beat.\n3. Say the colour: it flips on every landing.\n4. After four dark sockets the arm swings: be under the bead first.",
+      p2: "1. Load the bead's colour.\n2. Fire up the bead's lane while it flies, not before. Your phone greys for a beat.\n3. Say the colour back as it lands.\n4. Ward the dark sockets that drop as rocks.",
       scene: "theBaton",
     },
     entries: [
@@ -232,9 +232,9 @@ export const WAVES_ACT_7C: Wave[] = [
     sentence:
       "The one that comes up through the floor, so the shield faces down and the maw is the only thing pointing the right way.",
     guide: {
-      both: "The field is empty. A plate of your own hull bows upward for four beats, then a lobe stands up through it. Nothing shoots it: the maw opened under it, from the cannon's column, takes it in and the plate closes. One left standing withdraws and leaves the breach as a scar. While a lobe stands, its breach widens every beat the plate is not on it, and a wide enough breach lets a second lobe through next door. Later two come up four columns apart, then one too tall for the maw that only the beam reaches. At the end the whole edge lights and the last lobe rises in the middle: hold the maw open under it and the body follows it down.",
-      p1: "Only you see the floor bow: say the column, slide under it, open the maw as the lobe comes through. When it bows under you, slide off within two beats or your seat is swallowed. On the last lobe, hold the maw open.",
-      p2: "You see the breach as it opens. Stand the plate on one he cannot reach and it stops widening; move it off when he comes for the lobe. The tall one is the beam's: hold a colour and let him keep the column.",
+      both: "Lobes rise through your own hull. Swallow each one with the maw as it comes through. Hold the maw open under the last.",
+      p1: "1. Say the column where the floor bows.\n2. Slide the cannon under it and open the maw as the lobe comes through.\n3. If it bows under you, slide off within two beats.\n4. On the last lobe, hold the maw open.",
+      p2: "1. Put the plate on a breach your partner cannot reach, so it stops widening.\n2. Move it off when they come for that lobe.\n3. The tall one: hold a colour for the beam and let them keep the column.",
       scene: "theUndertow",
     },
     entries: [

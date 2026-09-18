@@ -10788,3 +10788,21 @@ the cost can go is the hold's — a caught press stops the world, so the
 catch is the last page or no page.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-guide-steps — every boss guide as the steps each player takes
+
+The owner asked for the boss descriptions in the director to say only what
+each player does: plain words, short, as numbered steps. Thirty-three guides
+rewritten by hand, and one change in the renderer so a newline is a line.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the guide type and its tests: the 220-character halves, the three that stay prose, the control set each seat holds, `wrapText` |
+| writing | 5 | the thirty-three guides in one JSON, a script that puts them into the act files, the newline in `wrapText`, its test |
+| looking | 5 | THE LEDGER's fields in the director and THE STARE's pages on the stage, one step per line |
+| friction | 0 | eight halves over 220 trimmed; the new test had to state the frame timeout |
+| landing | 5 | the rebase over THE STARE's new film, `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the 220-character ceiling: a step list runs longer than a
+paragraph saying the same thing, and eight halves were cut a word at a time
+to fit.
