@@ -9,6 +9,7 @@ import { drawLedger } from "./ledger-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawScuttle } from "./scuttle-draw.js";
 import { drawSinew } from "./sinew-draw.js";
+import { drawStare } from "./stare-draw.js";
 import { drawSurge } from "./surge-draw.js";
 
 /**
@@ -42,6 +43,7 @@ export const FX_KINDS = [
   "antiphon",
   "hive",
   "instar",
+  "stare",
 ] as const;
 
 export type FxBoss = Extract<Installed, { kind: (typeof FX_KINDS)[number] }>;
@@ -146,5 +148,17 @@ export function drawFxBoss(
   // (`view-role-clocks-b.ts`). What outlives a frame — the jolt of a landing,
   // the flinch at a wrong thumb, the lash of a strike — is
   // `effects.boss.instar` (`instar-draw.ts`, `instar-fx.ts`).
-  drawInstar(ctx, l, world, boss, beat, beatPhase, time, effects.boss.instar);
+  if (boss.kind === "instar") {
+    drawInstar(ctx, l, world, boss, beat, beatPhase, time, effects.boss.instar);
+    return;
+  }
+
+  // THE STARE: a cowled eye over the middle of the top edge, seen edge-on
+  // while it looks elsewhere and coming round to square over the seven beats
+  // of its tell, with the count under it. The seat it has chosen is named on
+  // the other seat's screen alone, and the gaze falls on the watched seat's
+  // field once the look lands (`view-role-clocks-b.ts`). What outlives a
+  // frame — the flash of a press it caught — is `effects.boss.stare`
+  // (`stare-draw.ts`, `stare-fx.ts`).
+  drawStare(ctx, l, world, boss, beat, beatPhase, time, effects.boss.stare);
 }

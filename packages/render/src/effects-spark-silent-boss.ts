@@ -21,11 +21,10 @@ import type { SimEvent } from "@neon-spore/sim";
  * in neither.
  */
 export const SILENT_BOSS = [
-  // THE STARE's catch, and it is silent for now rather than for ever: the eye,
-  // its turn, the seat it settles on and the flash on the button somebody
-  // pressed anyway are the look half of that boss and are not drawn yet
-  // (`docs/spec/bosses.md`). The hull's own `breach` lands in the same tick,
-  // so the pair is not left wondering whether anything happened.
+  // THE STARE's catch, one event read above the loop by `stare-fx.ts`, which
+  // throws its burst out of the eye itself and lights the caught seat's panel
+  // (`stare-draw.ts` for the rest of that boss, which is read off its state
+  // every frame). The hull's own `breach` lands in the same tick.
   "stareCaught",
   // THE BATON's eleven: the arm, the bead and the locked seat's grey are drawn
   // from the boss's state every frame (`baton-draw.ts`, `band-lock.ts`), and

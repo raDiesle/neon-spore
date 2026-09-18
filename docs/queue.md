@@ -1661,3 +1661,20 @@ The brief: `.claude/skills/new-boss` section 6.2.
 not a picture per state.
 
 The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE STARE's catch washes the whole panel, and the design says the button
+
+- **Found:** 2026-09-18, claude/boss-implementation-e3cfff
+- **Files:** `packages/render/src/stare-fx.ts`, `packages/render/src/band-lobes.ts`, `packages/sim/src/events-stare.ts`, `packages/render/test/stare-frame.test.ts`
+
+`stareCaught` names the command's `kind` (`cannonCol`, `guard`, `fire`, …) and
+the look washes the caught seat's panel red from the band's top down, because
+nothing in `render/` maps a command kind to the lobe that sends it: `bandLobes`
+returns each lobe with its `ControlDef`, and a `ControlDef` names a control,
+not the command kinds it emits. Writing that map in `stare-fx.ts` would be a
+second copy of the band's plan. Either give `ControlDef` (or the lobe) the
+kinds it sends, so the fx can find the circle by the event's `kind` and flash
+it alone — the design's *flash on the button somebody pressed anyway* — or
+put the control's name on the event in `sim/stare-step.ts` where the command
+is read. Then the wash is the fallback for a press with no lobe (a hand on the
+field, a `DragTarget`), and the test's wash count becomes a circle count.

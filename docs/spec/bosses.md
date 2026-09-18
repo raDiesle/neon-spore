@@ -1605,12 +1605,30 @@ a rock is answered by the dome, which is player 1's, and a colour by the
 trigger, which is player 2's, so the seven beats of warning are seven beats for
 *parking* both controls as well as for saying whose hands come off.
 
-**What it does not draw yet**, and it is the lane after this one: the eye
-itself, the turn that warns the pair, which seat it has settled on, and the
-flash on the button somebody pressed anyway. Until that lands the boss plays
-and is invisible — the hull's own breach is the only thing on screen when a
-press is caught — and its rehearsal is still the three strings
-([briefings](briefings.md) §3.2).
+**The look** (`render/stare-draw.ts`, `stare-shape.ts`, `stare-fx.ts`): a
+**cowled eye** — THE LID's almond eye set into a mound of rock the size of THE
+CAIRN's, standing on the top edge of the field over the middle column. A new
+shape by the rule (`docs/looks.md`), named for what it combines. The eye is
+turned edge-on while the boss is away, a grey sliver in the cowl, and **the
+warning is the turn**: over the seven beats it swings to face the pair — the
+almond widening from a sliver to its full width and the lids opening with it,
+which is the one animation the owner asked for — while its ink warms from the
+hull's grey to red. Seven pips under the cowl count the tell down, on both
+screens, because the tell is public and only the seat is not. **Which seat**
+is the split, drawn both ways: the *other* seat's screen carries the watched
+seat's name in THE INSTAR's scanner frame beside the eye, from the first beat
+of the turn until the eye looks away; the watched seat's screen carries the
+**gaze** instead — a red beam from the eye's corners widening down the field,
+breathing with the beat — so the frozen player sees that they are looked at
+and never who else could have been. A catch flares the eye white, throws a
+burst of red out of it on both screens, and washes the caught seat's panel
+red from the band's top down, over everything (`canvas2d.ts`): the flash is
+the *panel's* and not the button's, because the event names the command's
+kind and not a lobe, and a kind-to-lobe map would be a second copy of the
+band's plan (`docs/queue.md`). Every angle on all three screens, the seat
+word and the gaze proved both ways, and the flash proved a transient the
+next run does not inherit: `render/test/stare-frame.test.ts`. Its rehearsal
+is still the three strings ([briefings](briefings.md) §3.2).
 
 ## 11.17 THE DIASTOLE — two hearts on two cadences, one each
 

@@ -86,3 +86,21 @@ export const showsHiveSwell = (role: ViewRole): boolean => role !== "p1";
  */
 export const instarMarkIsMine = (role: ViewRole, seat: InstarSeat): boolean =>
   role === "test" || seat === "both" || (role === "p1") === (seat === "p1");
+
+/**
+ * THE STARE's two, and the split is the eyes, **one way and then the
+ * other**: while the eye turns and while it looks, the seat it has chosen
+ * is named on the *other* seat's screen alone — the one that is not about to
+ * be frozen — because what is random in this boss is what one player knows
+ * and the other does not (`docs/spec/structure.md`), and seven beats of
+ * warning are seven beats in which somebody has to say *it is you*. Once the
+ * look has landed, the seat under it is shown that it is: the gaze falling on
+ * its own field, and the flash on its own panel if it pressed anyway. By then
+ * the telling is over and nothing is given away; what the gaze says is *hands
+ * off*, to the one pair of hands it is about (`stare-draw.ts`, `stare-fx.ts`,
+ * `sim/stare.ts`). `test` is both.
+ */
+export const showsStareTarget = (role: ViewRole, watching: 1 | 2): boolean =>
+  role === "test" || role !== `p${watching}`;
+export const showsStareWatched = (role: ViewRole, watching: 1 | 2): boolean =>
+  role === "test" || role === `p${watching}`;

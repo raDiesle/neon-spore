@@ -13,6 +13,7 @@ import { RepriseFx } from "./reprise-fx.js";
 import { ScuttleFx } from "./scuttle-fx.js";
 import { MirrorFx } from "./simon-fx.js";
 import { SinewFx } from "./sinew-fx.js";
+import { StareFx } from "./stare-fx.js";
 import { SurgeFx } from "./surge-fx.js";
 import { TasterFx } from "./taster-fx.js";
 import { UndertowFx } from "./undertow-fx.js";
@@ -113,6 +114,11 @@ export class BossTransients {
    * marks' places by the drawer every frame, so a burst lands on the part
    * the event names (`instar-fx.ts`, `instar-draw.ts`). */
   readonly instar = new InstarFx();
+  /** THE STARE's one transient: the flash of a press the eye caught, on the
+   * caught seat's panel over everything, drawn last of the frame by
+   * `canvas2d.ts` rather than here — a flash on a button stands on the button
+   * (`stare-fx.ts`). */
+  readonly stare = new StareFx();
   /** THE UNDERTOW's one transient: the plate closing under a cannon slid off
    * in time, drawn on the finished ship where the bow itself is
    * (`undertow-fx.ts`, `frame-on-ship.ts`). */
@@ -142,6 +148,7 @@ export class BossTransients {
     this.antiphon.ingest(events, l, cfg, beatSeconds, role, burst);
     this.hive.ingest(events, l, role, burst);
     this.instar.ingest(events, l, burst);
+    this.stare.ingest(events, l, cfg, burst);
     this.undertow.ingest(events, l, cfg, beatSeconds, role);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
@@ -165,14 +172,16 @@ export class BossTransients {
     this.antiphon.update(dt);
     this.hive.update(dt);
     this.instar.update(dt);
+    this.stare.update(dt);
     this.undertow.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
   /** The ten drawn under the hull with everything else. The mirror, the
    * warden, the fleet and the reprise are drawn by the boss pass, the
-   * after-image by the renderer between the bodies and the ship, and the
-   * sinew's shock on the finished ship (`frame-on-ship.ts`). */
+   * after-image by the renderer between the bodies and the ship, the
+   * sinew's shock on the finished ship (`frame-on-ship.ts`) and the stare's
+   * flash over the band, last of the frame (`canvas2d.ts`). */
   draw(ctx: CanvasRenderingContext2D, l: Layout): void {
     this.gorge.draw(ctx, l);
     this.curtain.draw(ctx, l);
@@ -203,6 +212,7 @@ export class BossTransients {
     this.antiphon.clear();
     this.hive.clear();
     this.instar.clear();
+    this.stare.clear();
     this.undertow.clear();
   }
 }

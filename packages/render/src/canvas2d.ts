@@ -224,10 +224,10 @@ export class Canvas2DRenderer implements Renderer {
       fx: this.held.effects.opening,
       surfaceY,
     });
-    // Over the field and over the ship both, because it is about the second one:
-    // a lure shot by mistake, and the hull broken in three places for it
-    // (`lure-blast.ts`).
+    // Over the ship too, because it is about the ship: a lure shot by mistake (`lure-blast.ts`).
     this.held.lureBlast.draw(ctx, l);
+    // And THE STARE's catch, on the panel of the seat that pressed (`stare-fx.ts`).
+    this.held.effects.boss.stare.drawCaught(ctx, l, view.role);
     this.held.lanceFlash.draw(ctx, l);
     // Last, over everything: the wave arriving, once the pair has crossed the
     // gate — there is no opening left to draw it inside (`opening-fx.ts`).

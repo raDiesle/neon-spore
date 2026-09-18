@@ -10654,3 +10654,24 @@ table of states had to be assembled by hand from twenty files before a line
 of the category could be drawn.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE STARE, the look
+
+The second of THE STARE's two lanes: the cowled eye at the top of the field,
+its turn as the warning, the pips counting the tell, the watched seat's name
+on the other seat's screen and the gaze on the watched one's, and the catch
+as a flare, a burst and a wash over the caught seat's panel. A look with no
+shipped alternative.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | THE LID's eye drawers, THE CAIRN's mound, THE HIVE's fx-and-frame-test pair, `boss-draw-clocks-b.ts`'s dispatch, `canvas2d.ts`'s over-band slot, the frames tool's `--press` |
+| writing | 70 | `stare-shape.ts`, `stare-draw.ts`, `stare-fx.ts`, the two predicates, the branch, the transient, the frame test, §11.16 |
+| looking | 20 | the eye mid-tell on p2 and looking on p1 through `bun run frames`, twice each — the cowl rim too bright, the gaze a rectangle with a hard edge |
+| friction | 20 | `canvas2d.ts` at 251; a catch cannot be photographed with `--press` because the frames tool's wave breaches at the same tick from an unanswered arrival; the catch test counted the burst's sparks on the other screen and had to count the wash by its top |
+| landing | 15 | `check:fast`, the commit, `bun run land --keep`, the ledger |
+
+The bottleneck was the catch: the one moment of the look that matters most is
+the one the frames tool cannot reach, so it is proved by a test and never seen
+— and the flash the design asked for on *the button* is on the panel instead,
+queued, because the event names a kind and the band names a control.

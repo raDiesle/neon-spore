@@ -1046,6 +1046,9 @@ place — the generator keeps whatever is there.
 | `packages/render/src/gum-splash.ts` | **A gum landing on the ship, remembered.** One event — a `breach` carrying the gum's own kind |
 | `packages/render/src/baked.ts` | Every cache in render/ that holds baked work between frames, in one place that can empty them all |
 | `packages/render/src/stage-point.ts` | WHERE A POINTER ON THE CANVAS ACTUALLY LANDS |
+| `packages/render/src/stare-draw.ts` | THE STARE, drawn: the cowled eye over the top of the field, turned away, coming round, looking |
+| `packages/render/src/stare-fx.ts` | What THE STARE leaves behind a frame: the **flash** of a press it caught |
+| `packages/render/src/stare-shape.ts` | **Where THE STARE is, and how far it has turned** — the numbers the drawer |
 | `packages/render/src/intro-parts.ts` | The parts the intro's picture is built out of: a plate, a body, a hull |
 | `packages/render/src/intro-pair.ts` | THE PICTURE THE WHOLE INTRO IS: two people, two phones, and a word crossing between them |
 | `packages/render/src/intro-player.ts` | ONE OF THE TWO PEOPLE IN THE SCENE |

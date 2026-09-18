@@ -38,12 +38,10 @@ export const INGEST_SILENT_BOSS = [
   "spliceWrong",
   "spliceDown",
   "queenDown",
-  // THE STARE's catch. Silent **for now and on purpose**: the boss's whole
-  // picture — the eye, the turn that warns the pair, the seat it settles on
-  // and the flash on the button that was pressed anyway — is the look half of
-  // the work and has not been drawn yet (`docs/spec/bosses.md`). The hull's
-  // own `breach` goes up in the same tick, so a caught press is not invisible
-  // while this row stands; it is only unnamed.
+  // THE STARE's catch, read above the loop by `stare-fx.ts` — the flash on
+  // the caught seat's panel and the burst out of the eye — before this switch
+  // ever sees it, the way THE MIRROR's four are. The hull's own `breach` goes
+  // up in the same tick.
   "stareCaught",
   // THE BATON's eleven, silent because its picture is read off its state
   // every frame rather than off an event: the arm, a socket going dark, the
