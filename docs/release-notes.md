@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · bb3e8eb5 — The 200k compaction window is written as an integer, so it applies at all
+
+`autoCompactWindow` has been `"200k"` in `.claude/settings.json` since 11 September and has pinned nothing: the setting is validated as a whole number between 100000 and 1000000 and a value that fails is discarded with no warning, so every session since has compacted at the model's own ~967k instead. The string form is what `/autocompact` and `--autocompact` accept on the command line, not what the file takes. It is now the integer `200000`; the hook test asserts the number and carries the reason, and `docs/token-budget.md` names the validator's range and the one thing that outranks the file, `CLAUDE_CODE_AUTO_COMPACT_WINDOW`, which takes a plain count and no suffix.
+
 ## 2026-09-18 · 1028a5b4 — THE BATON's arm asks for a thumb of its own, in two states
 
 The fight is one seat a beat, and the beat the lock takes the ship off a seat was a beat with nothing in it — he sat and watched. Both gestures here are that beat given something to do, and neither touches the ship.
