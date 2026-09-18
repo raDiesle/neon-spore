@@ -953,18 +953,6 @@ the picture rather than on the panel.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## THE STARE's picture looks like something real
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-stares-picture-looks-like-something-real
-- **Files:** `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
-
-**Nothing draws it today**, so this is a look with no shipped alternative —
-say which exemption the commit is using. The state it has today is the state to draw — detail,
-not a picture per state.
-
-The brief: `.claude/skills/new-boss` section 6.3.
-
 ## THE PULSE: the field says the word, and the briefing comes down
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
