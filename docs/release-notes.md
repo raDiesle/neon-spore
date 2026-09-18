@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · ef8cd105 — A boss state that lives in a list can be photographed: `frames --boss-json`
+
+`--boss key=value` writes scalars and refuses arrays by design, and the states that most need a picture are arrays: THE BATON's thread, THE UNDERTOW's breaches, THE TASTER's blades, THE GORGE's intakes. Taking one meant the preview page, a world built by hand in a console, a pause the browser never lifted and a canvas pulled out as base64 — a picture nobody could take again, which is the whole thing this tool exists to stop.
+
 ## 2026-09-18 · 15ec7612 — A caption can point at the boss itself: THE SINEW's and THE TASTER's pages leave the hull
 
 `SceneAnchor` gains `{ at: "boss", part? }`, answered per boss kind in `render/caption-anchor-boss.ts`: THE SINEW's collar, THE TASTER's fan, and the tally on the ridge for the navigator's page (`part: "tally"`, null on the pilot's screen, where the tally is not drawn). THE SINEW's three pages that said "you see the zone" and THE TASTER's three that said "the edge sets red" pointed at the hull, because the resolver had no word for the boss; now they point at what they name. Half 1 of 2 of the queue's "A caption has no anchor for a boss's own gauge": half 2 moves THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY and THE SCOUT.
