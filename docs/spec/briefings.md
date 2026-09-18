@@ -300,19 +300,19 @@ RED pressed, the shot taking it, and then a second slick nobody answers, so the
 last thing the pair is shown is the hull bar dropping. About five seconds,
 looping.
 
-**There are seventy-nine of them now**, one per guided wave bar eight, and
+**There are eighty of them now**, one per guided wave bar seven, and
 each is authored in `packages/content/src/scenes/` as a page of choreography
-rather than a page of prose. The eight that are still the three strings
+rather than a page of prose. The seven that are still the three strings
 and the two circles are **THE COUNT, THE CHOKE, THE LIMPET, THE LEECH, THE
-CODEX, THE HUSK, THE HIVE and
+CODEX, THE HIVE and
 THE INSTAR** — and
 that list is held by
 `test/scenes-prose.test.ts` rather than by this paragraph, so a film written
 for one of them fails a test here instead of leaving a sentence quietly wrong,
 which is what happened to the line this one replaced.
 
-**Every one of those eight is a film nobody has written, and from THE
-HUSK's on they are owed by the lanes that draw them.** THE CANDLE's was the
+**Every one of those seven is a film nobody has written, and from THE
+HIVE's on they are owed by the lanes that draw them.** THE CANDLE's was the
 first of the boss films written after its look landed rather than with it
 (17 September 2026): a black field, the glow drifting off the rng and every
 slide under it an `atBoss` act, the one authored column the mistake. THE
@@ -415,6 +415,22 @@ now folds the turned seat's layout, caption and hands with it
 (`render/test/guide-flip.test.ts`), and `scene-flip.test.ts` is the receipt
 that the bolt sent to the called column lands and the one sent to the seen
 column does not.
+THE HUSK's, the same day, is a mark drawn on one seat's screen and not the
+other's, and a thumb that must not land. Three pods hang from the first
+beat, two hollow, framed in white on the navigator's screen alone
+(`render/husk-mark.ts`); the first two pages are the same beat from each
+side, the frame on one and three pods alike on the other, and nothing in
+the film says the mark is missing — the rehearsal draws every page on the
+seat whose screen it is, so the absence is the picture. The maw left shut
+is THE STARE's problem a second time and takes THE STARE's answer: the
+real one is named, shot and taken at an open maw; the framed one is shot
+and left, the pilot's page pointing at the intake with the hand off it, and
+the husk deflates against the shut maw; and last, the one nobody named is
+shot and opened for, swallowed, and the wave with it. `scene-husk.test.ts`
+is the receipt for what the maw was doing when each pod arrived. Its film
+took `scenes.ts` past its limit, so the films this paragraph lists as owed
+now sit in `scenes-owed.ts`, beside the faults' (`scenes-faults.ts`) and
+the choreographed bosses' (`scenes-choreographed.ts`).
 THE MINE stood on this list as the one that *could not* have a film — every act of a
 rehearsal was a thumb landing on a named control (`scene-script.ts`,
 `controlPress`), and that creature's whole answer is a finger on a bare square

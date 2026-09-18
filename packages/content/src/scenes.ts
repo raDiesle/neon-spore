@@ -41,11 +41,9 @@ import { THE_MOULT } from "./scenes/the-moult.js";
 import { THE_PULSE } from "./scenes/the-pulse.js";
 import { THE_PURGE } from "./scenes/the-purge.js";
 import { THE_RECOIL } from "./scenes/the-recoil.js";
-import { THE_REPRISE } from "./scenes/the-reprise.js";
 import { THE_RIND } from "./scenes/the-rind.js";
 import { THE_ROCK } from "./scenes/the-rock.js";
 import { THE_SPLICE } from "./scenes/the-splice.js";
-import { THE_STARE } from "./scenes/the-stare.js";
 import { THE_STRAND } from "./scenes/the-strand.js";
 import { THE_THIRD_SHOT } from "./scenes/the-third-shot.js";
 import { THE_THROB } from "./scenes/the-throb.js";
@@ -62,6 +60,7 @@ import { THE_WISP } from "./scenes/the-wisp.js";
 import { TWO_ROCKS } from "./scenes/two-rocks.js";
 import { type ChoreographedSceneId, SCENES_CHOREOGRAPHED } from "./scenes-choreographed.js";
 import { type FaultSceneId, SCENES_FAULTS } from "./scenes-faults.js";
+import { type OwedSceneId, SCENES_OWED } from "./scenes-owed.js";
 
 /**
  * Every rehearsal a guide can show, and where a page of one begins and ends.
@@ -149,10 +148,9 @@ export type SceneId =
   | "theSplice"
   | "theMoult"
   | "theMine"
-  | "theReprise"
-  | "theStare"
   | ChoreographedSceneId
-  | FaultSceneId;
+  | FaultSceneId
+  | OwedSceneId;
 
 export const SCENES: Record<SceneId, GuideScene> = {
   firstStep: FIRST_STEP,
@@ -214,13 +212,13 @@ export const SCENES: Record<SceneId, GuideScene> = {
   theSplice: THE_SPLICE,
   theMoult: THE_MOULT,
   theMine: THE_MINE,
-  theReprise: THE_REPRISE,
-  theStare: THE_STARE,
   // The choreographed bosses' films are listed next door, one file for the
-  // page they were designed on (`scenes-choreographed.ts`), and the faults'
-  // beside them (`scenes-faults.ts`).
+  // page they were designed on (`scenes-choreographed.ts`), the faults'
+  // beside them (`scenes-faults.ts`), and the films §3.2 listed as owed
+  // (`scenes-owed.ts`).
   ...SCENES_CHOREOGRAPHED,
   ...SCENES_FAULTS,
+  ...SCENES_OWED,
 };
 
 export type { GuideScene, SceneAct, SceneAnchor, SceneStep } from "./scene-types.js";

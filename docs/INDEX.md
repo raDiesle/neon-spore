@@ -558,6 +558,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/first-step.ts` | FIRST STEP's rehearsal: the game's first exchange, in eleven seconds |
 | `packages/content/src/scenes/the-hand.ts` | THE HAND's rehearsal: the one verb neither seat owns |
 | `packages/content/src/scenes/the-handover.ts` | THE HANDOVER's rehearsal: the panels trade while the pair is watching |
+| `packages/content/src/scenes/the-husk.ts` | THE HUSK's rehearsal: a mark drawn on one seat's screen and not the other's, and a thumb that must not land |
 | `packages/content/src/scenes/the-rock.ts` | THE ROCK's rehearsal: the first thing in the game neither of them can do alone |
 | `packages/content/src/scenes/the-torch.ts` | TORCH's rehearsal: the warning strip, and the fact that only one of them has it |
 | `packages/content/src/scenes/the-dart.ts` | THE DART's rehearsal: the column you were given is the column it has already left |
@@ -680,6 +681,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-orrery.ts` | THE ORRERY's rehearsal: three shots on three counted beats, every rock the rings shed guarded one a beat |
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
 | `packages/content/src/scenes-faults.ts` | The rehearsals of the malfunctions — the waves whose lesson is a fault placed on the beat map rather than a… |
+| `packages/content/src/scenes-owed.ts` | The rehearsals that were owed: the films `docs/spec/briefings.md` §3.2 listed as *a film nobody has written* |
 | `packages/content/src/pulse-stages.ts` | THE PULSE's stages — the charts, and so far there is one of them |
 | `packages/content/src/pulse-steps.ts` | A chart, written as bars of text, and the reader that turns one into notes |
 | `packages/content/src/mechanics-rounds.ts` | The rounds that are not the field, as mechanic rows |

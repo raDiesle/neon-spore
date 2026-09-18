@@ -10896,3 +10896,22 @@ pass beat and downs it in the same beat, so the pass is never seen — the
 hand has to stand the beam a pass late to pose it.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE HUSK, the rehearsal
+
+THE HUSK's film: a mark drawn on one seat's screen and not the other's, and
+a thumb that must not land — shot twice, read as one lesson, the cost last.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `sim/pod-types.ts`'s `husk`, `husk.ts`, `render/husk-mark.ts`, `husk-deflate.ts`, `intakeWindowMs`, how a loose pod sinks and wobbles, THE STARE's film for the shut-maw answer |
+| writing | 30 | `scenes/the-husk.ts`, `scenes-owed.ts` cut out of `scenes.ts`, the wiring in `act-10.ts`, `scene-husk.test.ts`, §3.2 |
+| looking | 10 | page 0 on the navigator's screen and page 1 on the pilot's through `bun run frames --opening guide`: the white frame on one, three pods alike on the other |
+| friction | 15 | the first draft's intake landed after the pod did and the maw shut on a real pod — the window is 96 ticks before the arrival, not after the shot; `scenes.ts` went three lines over the ceiling and the owed films moved out |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep`, the ledger |
+
+The bottleneck was the maw's window: a pod cut loose falls about three
+rows a beat and the intake is judged in the 96 ticks before it lands, so
+every intake act had to be placed from the probe's arrival tick rather than
+from the shot, and the first draft lost the real pod to a maw that shut too
+soon.

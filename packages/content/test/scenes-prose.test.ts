@@ -14,7 +14,7 @@ import { SCENES } from "../src/scenes.js";
  * (`sim/test/copies-table.ts`). So the numbers in that section are here, in the
  * package that owns them.
  *
- * Both directions matter. A film written for one of the eight below fails this
+ * Both directions matter. A film written for one of the seven below fails this
  * and the failure says to update the section; a guide that loses its film fails
  * it the other way. Neither is a defect in the film — it is the document being
  * asked to keep up, which is the only thing that was ever wrong with it.
@@ -37,14 +37,6 @@ const STILL_PROSE = [
   "THE LIMPET",
   "THE LEECH",
   "THE CODEX",
-  // And THE HUSK, owed by the lane that films it. A rehearsal is a thumb
-  // landing on a named control, and half of this wave's answer is a thumb that
-  // must **not** land — the maw left shut while a pod arrives, which is THE
-  // STARE's problem a second time, and its film's answer is the one THE
-  // STARE's took: the other seat's page, and the cost last — with the other half being a
-  // mark drawn on one seat's screen and not the other's, so the film has to be
-  // shot twice and read as one lesson.
-  "THE HUSK",
   // And THE HIVE, which is drawn — the mass, the nine sites, a breach open or
   // sealed and the swell read by seat are all in `render/hive-draw.ts`,
   // `hive-shape.ts` and `hive-fx.ts`. What its film waits on is that the wave
@@ -76,9 +68,9 @@ describe("what `docs/spec/briefings.md` §3.2 says about the rehearsals", () => 
 
   it("counts one film per guided wave that carries one, and no film unused", () => {
     const filmed = guided.filter((w) => w.guide?.scene);
-    const fix = "update §3.2 of docs/spec/briefings.md, which counts seventy-nine films";
+    const fix = "update §3.2 of docs/spec/briefings.md, which counts eighty films";
     expect(filmed.length, fix).toBe(guided.length - STILL_PROSE.length);
-    // Seventy-nine, which is the number in the section. A film with no wave
+    // Eighty, which is the number in the section. A film with no wave
     // showing it is `scenes.test.ts`'s own failure; this is the other half —
     // the two counts are the same number only while that holds.
     expect(Object.keys(SCENES).length, fix).toBe(filmed.length);
