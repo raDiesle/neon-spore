@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 5895d885 — The BOSSES category poses the rounds' played states
+
+THE MAZE's `travel` and THE GAUGE's `verdict` and `spent` never arrive unattended, so each is posed with a hand on the round's own controls (`tools/director/src/boss-hands-rounds.ts`): the string pulled until the way in clicks onto a column and the shot up it in the heart's colour; the valve turned toward the mark and the call when the needle sits between them. `OWED` is down to THE HIVE's `down`, and the parked entry is gone.
+
 ## 2026-09-18 · 1c6b70dd — The name registry's workerd is raised before its first case, not by it
 
 `names.test.ts` built a `Miniflare` at the top of the file and left it lazy, so the runtime came up on whichever case reached it first. A boot costs a worker start, three socket handshakes and a few hundred milliseconds — comfortably inside bun's five-second default alone, and not inside it under the full check's shards, where all fourteen cases timed out together on a diff that touched nothing under `apps/server` and the lane paid for it by running `land` a second time.
