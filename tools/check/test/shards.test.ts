@@ -62,6 +62,13 @@ describe("dealing files into shards", () => {
  * cgroup — `exit 137`, no report, and a shard whose whole result went with it,
  * reading as `0 tests, 0 failed` in red. A bin is capped by count now, and the
  * pool below is what keeps the machine from running all of them at once.
+ *
+ * The cap was 40 and is 10 since 18 September 2026, when the same shape came
+ * back on the owner's own machine rather than the web image: two shards of
+ * forty render tests at 10.7 GB and 11.5 GB resident. Forty had bounded the
+ * files and not the bytes. What keeps *several checks* from running all of
+ * their shards at once is a third figure and a different file —
+ * `tools/check/slots.ts`, whose own tests are beside these.
  */
 describe("how many bins the suite is dealt into", () => {
   it("never fills one past the cap, however few processes there are", () => {
@@ -77,9 +84,12 @@ describe("how many bins the suite is dealt into", () => {
   });
 
   it("is the cap when that is the larger, so a small machine gets small bins", () => {
-    // The four-core web image: two processes, and the suite as it stands.
-    expect(binCount(384, 2)).toBe(10);
-    expect(binCount(153, 2)).toBe(4);
+    // The four-core web image: two processes, and the suite as it stands. The
+    // figures moved when the cap went from 40 files to 10 on 18 September
+    // 2026 — 384 files is 39 bins at ten apiece rather than 10 at forty, and
+    // the point of the change is that it is a great many small processes.
+    expect(binCount(384, 2)).toBe(39);
+    expect(binCount(153, 2)).toBe(16);
   });
 
   it("deals a suite of very unequal files into bins no bigger than the cap", () => {

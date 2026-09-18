@@ -11240,3 +11240,26 @@ The bottleneck was the plumbing: a boss the thumb can touch is a field on
 first line is drawn.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — shard-memory-bound — the machine gets a width of its own
+
+The owner's machine was 22.7 GB into swap with nothing open but sessions, and
+the cause was this repository's own check: eight lanes out of nine worktrees
+each ran a pool eight wide, every one of them correctly inside its budget. Two
+shards of forty render tests stood at 10.7 GB and 11.5 GB. The bound existed
+and was a bound on one run. `slots.ts` puts the width where the runs can all
+see it — a directory of claims under `tmpdir()`, one file per slot, taken with
+`open(…, "wx")` — and the cap on a bin came down from forty files to ten so
+each process hands its heap back sooner.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `shard.ts`, `shards.ts`, `fast.ts`, `docs/queue.md`'s format, the neighbouring index rows |
+| writing | 20 | `slots.ts` and its six tests, the wiring in `shard.ts`, the cap and its arithmetic in `shards.test.ts`, three stale doc paragraphs |
+| looking | 10 | two concurrent runs measured twice — once wrongly, once at the slot directory |
+| friction | 10 | the first proof counted `bun test` processes with a `ps` scan that took seconds per sample while ten-file shards churned, and reported a peak of 11 against a budget of 8 that was never real; the second reads the claim directory, which is one `readdir` and therefore a moment |
+| landing | 10 | `bun run index` for the new file's row, `check:fast`, the commit, `bun run land` |
+
+The bottleneck was measuring it: the mechanism was right an hour before it
+could be shown to be right, and a sampler slower than the thing it samples
+reports numbers that look exactly like a bug.

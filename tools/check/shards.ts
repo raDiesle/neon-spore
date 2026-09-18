@@ -114,7 +114,21 @@ export function partition(
  * with room over. A bin is still filled longest-processing-time first within
  * that; this only says how many there are.
  */
-export const MAX_FILES_PER_SHARD = 40;
+export const MAX_FILES_PER_SHARD = 10;
+
+/**
+ * **40 until 18 September 2026, and it was still a memory figure read off the
+ * wrong quantity.** Forty files was "a little over half the count that died",
+ * which bounded the *files* a process was given and not the bytes it then
+ * took: on the owner's machine that day two shards of forty render tests
+ * reached 10.7 GB and 11.5 GB resident, and the cap had done exactly what it
+ * said it would. A shard of ten is not a claim that ten is safe — it is that
+ * a process which exits four times as often hands its heap back four times as
+ * often, and the leak underneath (canvas stubs and frames held across files
+ * that never share a process when run alone) stops being the machine's
+ * problem while it is still somebody's. `tools/check/slots.ts` bounds how many
+ * such processes exist at once; this bounds how large one gets.
+ */
 
 /**
  * **How many bins to deal into, which is no longer how many run at once.**

@@ -13,13 +13,24 @@
  * writer takes a `mkdtemp` of its own — so they are dealt into bins and run
  * together.
  *
- * **Two numbers, not one.** How many bins there are is a memory figure and is
- * the cap's (`MAX_FILES_PER_SHARD`); how many run at once is the machine's
- * (`defaultShards`, or `--shards`). They were one number until 15 September
- * 2026, and that arrangement gave a machine with *fewer* cores *more* files
- * per process — so the four-core web image dealt two shards of seventy-five,
- * and the heavier of them was killed by the memory cgroup every time. A bin is
- * bounded now and the pool is as wide as the cores, whatever the suite's size.
+ * **Three numbers, not one.** How many bins there are is a memory figure and is
+ * the cap's (`MAX_FILES_PER_SHARD`); how many of them this run starts at once
+ * is the machine's throughput (`defaultShards`, or `--shards`); and how many
+ * shards exist on the machine at once, over every worktree together, is
+ * `tools/check/slots.ts`.
+ *
+ * The first two were one number until 15 September 2026, and that arrangement
+ * gave a machine with *fewer* cores *more* files per process — so the four-core
+ * web image dealt two shards of seventy-five, and the heavier of them was
+ * killed by the memory cgroup every time. A bin is bounded now and the pool is
+ * as wide as the cores, whatever the suite's size.
+ *
+ * The third was missing until 18 September 2026, and it is the one the owner's
+ * machine found: both of the others are about *a* run, and eight lanes ran
+ * eight checks, each correctly eight wide. Nothing was over its budget and the
+ * machine was 26 GB into swap. A run's width is this file's; the machine's
+ * width is not something a run can know, so it is kept where the runs can all
+ * see it — a directory of claims under `tmpdir()`.
  *
  * **Ports.** Two files start a server: `opening.test.ts` builds and serves
  * the game, `room.test.ts` raises workerd. Neither takes the port a tree
@@ -55,6 +66,7 @@ import {
   type Weighed,
   weigh,
 } from "./shards.js";
+import { withSlot } from "./slots.js";
 
 const ROOT = join(import.meta.dirname, "..", "..");
 
@@ -104,33 +116,51 @@ const shards = Number(flag(argv, "--shards")) || defaultShards();
 const filters = argv;
 
 const files = testFiles().filter((f) => selected(f.file, filters));
-// Two numbers now, and `shards` is the smaller of them: how many run at once.
-// How big a bin may be is a memory figure and belongs to the cap in
-// `shards.ts`, because a process that is given too many files is killed rather
-// than slowed.
+// `shards` is this run's width: how many of its bins it starts at once. How
+// big a bin may be is a memory figure and belongs to the cap in `shards.ts`,
+// because a process that is given too many files is killed rather than slowed.
 const bins = partition(files, binCount(files.length, shards), MAX_FILES_PER_SHARD);
 const width = Math.min(shards, bins.length);
+// The third number, and the only one that is not this run's: how many shards
+// the *machine* may have out at once, over every worktree at once. `--shards`
+// is still this run's ceiling; this is the ceiling they share. It stays
+// `defaultShards()` whatever `--shards` says, because a lane asking for fewer
+// is asking about itself and a lane asking for more is exactly the case the
+// budget exists for.
+const budget = defaultShards();
 const stamp = `${process.pid}-${Date.now()}`;
 const reportOf = (i: number): string => join(tmpdir(), `neon-spore-shard-${stamp}-${i}.xml`);
 
 console.log(
   `bun test — ${files.length} files in ${bins.length} shard${bins.length === 1 ? "" : "s"}` +
     (width < bins.length ? `, ${width} at a time` : "") +
+    // Said out loud, because a shard that is waiting on another worktree's
+    // check looks exactly like a shard that is slow.
+    `, ${budget} machine-wide` +
     (filters.length > 0 ? ` (${filters.join(" ")})` : ""),
 );
 
 const started = performance.now();
 const results = await pool(bins.length, width, async (i) => {
   const bin = bins[i] ?? [];
-  const proc = Bun.spawn(
-    ["bun", "test", ...bin, "--reporter=junit", `--reporter-outfile=${reportOf(i)}`],
-    { cwd: ROOT, stdout: "pipe", stderr: "pipe", env: { ...process.env, FORCE_COLOR: "0" } },
-  );
-  const [out, err, code] = await Promise.all([
-    new Response(proc.stdout).text(),
-    new Response(proc.stderr).text(),
-    proc.exited,
-  ]);
+  // **And the machine's own width, outside this run.** `pool` bounds the
+  // shards of one check; `withSlot` bounds the shards of every check running
+  // on this machine, which is the figure that was missing while eight lanes
+  // each kept to a width of eight. A shard waits here for a slot before it
+  // spawns anything, so what waits is cheap — a promise — and what is bounded
+  // is the expensive thing.
+  const { out, err, code, signalCode } = await withSlot(budget, async () => {
+    const proc = Bun.spawn(
+      ["bun", "test", ...bin, "--reporter=junit", `--reporter-outfile=${reportOf(i)}`],
+      { cwd: ROOT, stdout: "pipe", stderr: "pipe", env: { ...process.env, FORCE_COLOR: "0" } },
+    );
+    const [out, err, code] = await Promise.all([
+      new Response(proc.stdout).text(),
+      new Response(proc.stderr).text(),
+      proc.exited,
+    ]);
+    return { out, err, code, signalCode: proc.signalCode };
+  });
   const seconds = ((performance.now() - started) / 1000).toFixed(1);
   const xml = await Bun.file(reportOf(i))
     .text()
@@ -141,7 +171,7 @@ const results = await pool(bins.length, width, async (i) => {
   // without this line a `SIGKILL` reads as `0 tests, 0 failed` in red — which
   // is what a whole afternoon was spent on before the cap above existed, and
   // `KILL` is the one word that would have named it in a second.
-  const died = proc.signalCode ? `, ${proc.signalCode} at ${bin.length} files` : "";
+  const died = signalCode ? `, ${signalCode} at ${bin.length} files` : "";
   console.log(
     `\n${mark} shard ${i + 1}/${bins.length} — ${bin.length} files, ${tally.tests} tests, ${tally.failures} failed, ${seconds}s${died}`,
   );
