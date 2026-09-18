@@ -491,6 +491,7 @@ The brief: `.claude/skills/new-boss` section 6.2.
 ## THE FLEET: the field says the word, and the briefing comes down
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-fleet-the-field-says-the-word-and-the-briefi
 - **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/the-fleet.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
 
 It says nothing on the field at all.
