@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 949d5705 — THE GAUGE's two thumbs: the dial as two controls, the look half
+
+The needle carries a ring on its tip while the valve is jammed, on the pilot's screen and nowhere else; the band carries one in its middle while it is wound, on the only screen the band is drawn on. Each is answered at the circle it is drawn from, and the needle's is turned rather than carried — a bearing about the dial's own middle, so it goes where the finger points.
+
 ## 2026-09-18 · df8da939 — Mark "THE MAZE's picture looks like something real" done
 
 ## 2026-09-18 · 0497aba0 — THE MAZE's drum as a made thing: bezel, bolts, gloss and the heart's socket
