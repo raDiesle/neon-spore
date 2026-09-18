@@ -42,10 +42,11 @@ export const SILENT_BOSS_B = [
   "wardenHold",
   "wardenThrow",
   "wardenSlam",
-  // THE FLEET's second and third states, silent until the look lane draws
-  // them: the plume, the thumb on it, the rake, the plug and the wreck are
-  // world state read off `phase`, `holeCol` and `rakeCol` every frame
-  // (`sim/fleet-state.ts`), and `docs/parked.md` carries the look half.
+  // THE FLEET's five throw no burst from this table: they are one family read
+  // above the loop, the way THE WARDEN's three are, and the particles the
+  // flood, the rake, the plug and the wreck throw — the thumb on the plume
+  // throws none, a thumb being no impact — go out of `fleet-grip-fx.ts` with
+  // the ring each of them is (`docs/spec/bosses.md` §11.6).
   "fleetFlood",
   "fleetBreach",
   "fleetRake",

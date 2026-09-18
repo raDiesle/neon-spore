@@ -9720,3 +9720,30 @@ ordered canvas log, and the first two candidates — the call count and the word
 — both passed with nothing drawn.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — task-queue-work-ym2eim — the wound's five moments, and a case that proved nothing
+
+The sparks half of THE FLEET's flood, rake and wreck: the five events taken off
+their silence and given a ring each off the holed square, with a direction that
+tells an opening from a closing without a word. The writing was short — one
+transient class on the model of the boss beside it, hung off `effects-boss.ts`
+and drawn between the wound and the salvoes. The cost was in the proving again,
+and in the same place: a `Path2D` from a string logs no coordinates, so the
+ring's size went into `fleetRingRadius` for a test to ask about, and the
+on-field case passed with the draw call commented out because the flood's own
+particles were what it was counting. It is asked with the thumb on the plume
+now — the one of the five that throws no particles — so the ring is the only
+thing that can put a call on that canvas.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the parked entry, `hive-fx.ts` and `maze-grip-fx.ts` as the model, the two silent lists and the antiphon/hive/warden precedent for what stays on them |
+| writing | 30 | `fleet-grip-fx.ts`, its eleven cases, the four edits to `effects-boss.ts` and `boss-draw.ts`, the two list comments and §11.6 |
+| looking | 0 | none: a cloud session, and no eye has seen the five rings go past |
+| friction | 20 | a circular import through `Burst`, a vacuous geometry assertion, and an on-field case that passed with the drawing taken out |
+| landing | 15 | `check:fast`, the commit, the land |
+
+**The bottleneck was the same one as the look half: proving the picture.** Both
+of the first assertions written for the ring — its radius off the canvas log,
+and the frame's call count — measured something else, and both were only caught
+by taking the draw call out and watching the case stay green.

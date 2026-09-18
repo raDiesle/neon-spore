@@ -1257,6 +1257,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/fleet-shell.ts` | A salvo in the air: the shell arcing out of the cannon, and its shadow walking the water underneath it |
 | `packages/render/src/fleet-water.ts` | The water THE FLEET's chart stands on, and what closes over a hull that has gone down in it |
 | `packages/render/src/fleet-grip-draw.ts` | **What the wound looks like while it is being worked** — the plume out of it, the state's own clock under it |
+| `packages/render/src/fleet-grip-fx.ts` | **The five moments of THE FLEET's wound** — the water coming in, the thumb that keeps it coming |
 | `packages/render/src/fleet-grip.ts` | **THE FLEET's three thumbs on the chart** — the plume, the rake and the wreck |
 | `packages/render/src/frame-field.ts` | The two passes that are about the field: the empty board, and the bodies on it |
 | `packages/render/src/frame-ship.ts` | The two passes that are about the ship: the hull with its controls, and the overlays |

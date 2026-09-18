@@ -4,6 +4,7 @@ import { AntiphonFx } from "./antiphon-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
 import { FilamentFx } from "./filament-fx.js";
 import { FleetFx } from "./fleet-fx.js";
+import { FleetGripFx } from "./fleet-grip-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
 import { HiveFx } from "./hive-fx.js";
 import { InstarFx } from "./instar-fx.js";
@@ -58,6 +59,10 @@ export class BossTransients {
    * mirror's reason, and asked questions as well as drawn: the marks and the
    * scars check with it before calling a square spent (`fleet-fx.ts`). */
   readonly fleet = new FleetFx();
+  /** THE FLEET's wound: the ring thrown off the holed square by each of the
+   * five moments the flood and the wreck are made of, drawn by the boss pass
+   * on the chart the wound stands on (`fleet-grip-fx.ts`, `boss-draw.ts`). */
+  readonly fleetGrip = new FleetGripFx();
   /**
    * THE REPRISE's swallow: the moment the count of owed bodies went down, which
    * is the only sign either seat gets that an unseen body has entered the field.
@@ -163,6 +168,7 @@ export class BossTransients {
     this.filament.ingest(events, l, cfg, burst);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
+    this.fleetGrip.ingest(events, l, burst);
   }
 
   /** `burst` is for the fleet alone: a salvo's particles are thrown on the
@@ -188,6 +194,7 @@ export class BossTransients {
     this.undertow.update(dt);
     this.filament.update(dt);
     this.fleet.update(dt, l, burst);
+    this.fleetGrip.update(dt);
   }
 
   /** The ten drawn under the hull with everything else. The mirror, the
@@ -212,6 +219,7 @@ export class BossTransients {
     this.mirror.clear();
     this.warden.reset();
     this.fleet.clear();
+    this.fleetGrip.clear();
     this.reprise.clear();
     this.afterImage.clear();
     this.gorge.clear();

@@ -191,6 +191,10 @@ export function drawBoss(
     // (`fleet-grip-draw.ts`).
     drawFleetGrip(ctx, l, world, boss, view.beatPhase, view.time, view.clearTop);
     const chart = chartOf(l, world, view.clearTop);
+    // The five moments of the wound, over the picture of it and under the
+    // salvoes: each is one seat doing something the other cannot see, so the
+    // ring stands on both screens (`fleet-grip-fx.ts`).
+    effects.boss.fleetGrip.draw(ctx, chart);
     fleet.drawFlight(ctx, l, chart, world.cannonCol);
     fleet.drawBursts(ctx, chart);
     return;

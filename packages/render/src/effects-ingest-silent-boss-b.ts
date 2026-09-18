@@ -98,10 +98,11 @@ export const INGEST_SILENT_BOSS_B = [
   "wardenHold",
   "wardenThrow",
   "wardenSlam",
-  // THE FLEET's second and third states, silent until the look lane draws
-  // them: the plume, the thumb on it, the rake, the plug and the wreck are
-  // world state read off `phase`, `holeCol` and `rakeCol` every frame
-  // (`sim/fleet-state.ts`), and `docs/parked.md` carries the look half.
+  // THE FLEET's five: the wound itself is world state, read off `phase`,
+  // `holeCol`, `rakeCol` and `wreckPullMilli` every frame by
+  // `fleet-grip-draw.ts`, and the ring each of the five moments throws off it
+  // is `fleet-grip-fx.ts`'s, read above the loop as one family the way THE
+  // WARDEN's three are (`docs/spec/bosses.md` §11.6).
   "fleetFlood",
   "fleetBreach",
   "fleetRake",

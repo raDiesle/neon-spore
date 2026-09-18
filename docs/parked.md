@@ -55,32 +55,3 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
-
-## THE FLEET's flood, rake and wreck: the sparks half
-
-- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
-- **Files:** `packages/render/src/effects-spark-silent-boss-b.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/src/effects-boss.ts`, `packages/render/src/fleet-grip.ts`, `packages/render/src/fleet-grip-draw.ts`, `docs/spec/bosses.md`
-
-**The look landed; the sparks did not.** The wound is drawn and answers all
-three thumbs — `packages/render/src/fleet-grip.ts` has the geometry and the
-hit tests, `fleet-grip-draw.ts` the plume, the state's own window and this
-seat's ring with its word on it, `fleetGripUnder` is last in `handleUnder`,
-the three on-field entries and the three `docs/spec/controls.md` rows are
-written, and §11.6 has *The look*. `packages/render/test/fleet-grip.test.ts`
-and two cases in `fleet-frame.test.ts` hold it. This entry is what the look
-half was split off from, not a thing nobody has started: the halves were
-named when the work began and the first landed on its own.
-
-**What is left is the five events.** They are still on both silent lists —
-`effects-spark-silent-boss-b.ts` and `effects-ingest-silent-boss-b.ts` — and
-nothing throws them: the plume up, the thumb on it, each square raked, the
-sea healing, the wreck going under. Take each off its list and throw it from
-a new packages/render/src/fleet-grip-fx.ts hung off `effects-boss.ts`, on
-the model of the boss beside it; read the moment off `phase`, `holeCol`,
-`rakeCol` and `wreckPullMilli` the way the drawing does, and keep nothing
-that outlives a frame outside `Effects` (`restart.test.ts` checks). §11.6's
-*What is not built* paragraph goes when they land.
-
-When it is green: `bun run check`, commit, land. Remove this entry from
-`docs/parked.md` in the same commit — `bun run queue done "THE FLEET's flood,
-rake and wreck: the sparks half"`.

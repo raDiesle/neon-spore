@@ -1214,12 +1214,31 @@ carry that has to start in one square is a carry that begins by missing — and
 his ring goes to the square he is striking, which is the one thing on his
 screen that says the rake is landing where he means it to.
 
-*What is not built:* the sound and the five sparks. The plume up, the thumb
-on it, each square raked, the sea healing and the wreck going under are world
-state read off `phase`, `holeCol` and `rakeCol`, still silent in both spark
-lists, and `docs/parked.md` carries that half. *Never watched at tempo*:
-whether ten beats is a flood a pair can rake a five-long hull in while
-talking.
+**The five moments of the wound** (18 September 2026, the sparks lane;
+`packages/render/src/fleet-grip-fx.ts`). The wound itself is world state and
+is read off `phase`, `holeCol`, `rakeCol` and `wreckPullMilli` every frame,
+but the *moments* — the plume going up, the thumb landing on it and leaving
+it, each square raked, the sea healing over and the hull going under — happen
+once each and leave nothing behind for the next frame to read, so each throws
+a ring off the holed square. **Which way the ring runs is what tells them
+apart on a screen with no word on it**: the three that open something run
+outward — the flood wide and slow in the shield's colour, the thumb a small
+white one, the rake a tight red one inside its own square — and the two that
+close something fall inward, the plug shutting back over the wound and the
+unbreach shrinking where the thumb was. The wreck is the widest of all, in
+ember. Four of the five throw particles with the ring, at the square the mark
+is drawn in, the wreck's twenty against the rake's five; the thumb on the
+plume throws none, a thumb being no impact. **Every one of them stands on
+both screens**, because each is one seat doing something the other cannot
+see, and it is drawn over the picture of the wound and under the salvoes. The
+rings outlive their frame, so they are `BossTransients.fleetGrip` and are
+cleared with everything else in `Effects.reset` (`restart.test.ts` checks);
+the five events stay on both silent lists, read above the loop as one family
+the way THE WARDEN's three are.
+
+*What is not built:* the sound. *Never watched at tempo*: whether ten beats
+is a flood a pair can rake a five-long hull in while talking, and what the
+five rings look like going past at that speed.
 
 **Where it lives.** `FleetState` in the `BossState` union, with the chart's
 arithmetic in `packages/sim/src/fleet-board.ts` and the choreography in
@@ -1230,7 +1249,8 @@ fight itself is split along: the lattice both seats read, the hulls only one of
 them does, and the record they share. The wound is two more beside them,
 `fleet-grip.ts` and `fleet-grip-draw.ts`: the three touches and the picture
 over them, kept apart because the picture is the longer half and a hit test is
-read on its own. Its wave is `THE FLEET` and its sentence
+read on its own — and `fleet-grip-fx.ts`, the one thing about the wound the
+picture has to remember for itself. Its wave is `THE FLEET` and its sentence
 is the epigraph.
 
 What has **not** been looked at by a human is the shape of player 2's half of
