@@ -88,6 +88,36 @@ export interface StareConfig {
    * last beat did would read as a cut rather than as a head turning.
    */
   stareTurnBackBeats: number;
+  /**
+   * How far down the lid has to be pulled before it is shut, in thousandths
+   * of a tile.
+   *
+   * 600 is a little over half a tile of thumb — enough that a hand brushing
+   * the eye on its way to the field is not a decision, short enough that the
+   * decision is one motion. The eye is `GAZE_TILES` across in the picture,
+   * so the lid crosses about a fifth of it before the simulation says shut.
+   */
+  stareLidPullMilli: number;
+  /**
+   * Beats a shut lid stays shut before the eye forces it up on its own.
+   *
+   * 4 is two and a half seconds: the freed seat's whole reprieve, and the
+   * length of one sentence — *I have it, play* — with a beat left to say *I
+   * am letting go*. Longer and the lid would be a way to skip a look, which
+   * would make the boss a boss two people learn to play around; shorter and
+   * there would be nothing to hand over.
+   */
+  stareLidHoldBeats: number;
+  /**
+   * Beats the lid takes to rise before the eye looks at whoever pulled it.
+   *
+   * 2, and deliberately shorter than `stareTellBeats`, because there is
+   * nothing to announce: the seat about to be watched is the one whose thumb
+   * was on the lid, and they have known that since they pulled it. What the
+   * two beats are for is the thumb — a hand still on the field when the lid
+   * comes up has one bar of its own counting to get off the glass.
+   */
+  stareReopenBeats: number;
 }
 
 /**
@@ -113,4 +143,7 @@ export const STARE_DEFAULTS: StareConfig = {
   stareLookGrowBeats: 3,
   stareLookMaxBeats: 12,
   stareTurnBackBeats: 2,
+  stareLidPullMilli: 600,
+  stareLidHoldBeats: 4,
+  stareReopenBeats: 2,
 };

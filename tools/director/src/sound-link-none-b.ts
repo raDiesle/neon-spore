@@ -88,4 +88,10 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.filamentDown": "the last filament out under THE SLOW. Same argument.",
   "boss.filamentOut":
     "the body gone. An absence like ui.waveClear rather than a thing standing anywhere.",
+  // THE STARE's lid, the two moments of it. The eye is a thing in the sky the
+  // sheet has no card for (`sound-link-none.ts`, boss.stareCaught).
+  "boss.stareShut":
+    "the lid pulled down to the bottom over the eye, by the seat it was not looking at. The eye's, and the sheet has no card for the eye (`sim/stare-hand.ts`).",
+  "boss.stareOpen":
+    "the lid starting back up — the thumb lifted, or the eye forced it — and the eye about to look at whoever pulled it. Same argument.",
 };

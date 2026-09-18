@@ -10,7 +10,9 @@ import type { World } from "./world.js";
  * THE STARE's clock, and the one press that costs the hull.
  *
  * The cycle is four phases and no state beyond the beat each began on: away,
- * turning, looking, back. It runs on the **beat** and from `stepBoss`, because
+ * turning, looking, back — and two more the lid adds off the side of
+ * `looking`, shut and opening, which go back into it (`stare-hand.ts` is the
+ * thumb that opens that door). It runs on the **beat** and from `stepBoss`, because
  * every number in it is a count of beats a pair says something in — there is
  * nothing here that a finer clock would make fairer, and a tell that landed
  * between two beats would be a tell nobody could count out loud.
@@ -33,6 +35,8 @@ export function installStare(world: World): StareState {
     looks: 0,
     caughtTick: -1,
     caughtPlayer: 0,
+    lidSeat: 0,
+    lidMilli: 0,
   };
 }
 
@@ -42,7 +46,7 @@ export function stareBoss(world: World): StareState | null {
   return boss !== null && boss.kind === "stare" ? boss : null;
 }
 
-function enter(stare: StareState, phase: StarePhase, beat: number): void {
+export function enterStare(stare: StareState, phase: StarePhase, beat: number): void {
   stare.phase = phase;
   stare.phaseBeat = beat;
 }
@@ -67,13 +71,13 @@ export function stepStare(world: World, stare: StareState): void {
     // that is *not* watched (`docs/spec/bosses.md`), so the roll is the reason
     // there is something to say.
     stare.watching = nextInt(world.rng, 2) === 0 ? 1 : 2;
-    enter(stare, "turning", world.beat);
+    enterStare(stare, "turning", world.beat);
     return;
   }
 
   if (stare.phase === "turning") {
     if (since < cfg.stareTellBeats) return;
-    enter(stare, "looking", world.beat);
+    enterStare(stare, "looking", world.beat);
     return;
   }
 
@@ -85,11 +89,50 @@ export function stepStare(world: World, stare: StareState): void {
     // of a wave worth as much as the first.
     stare.lookBeats = Math.min(cfg.stareLookMaxBeats, stare.lookBeats + cfg.stareLookGrowBeats);
     stare.watching = 0;
-    enter(stare, "back", world.beat);
+    // A look that ran its length is done with the lid too: a thumb still on
+    // it is a thumb on nothing until the next look.
+    stare.lidSeat = 0;
+    stare.lidMilli = 0;
+    enterStare(stare, "back", world.beat);
     return;
   }
 
-  if (since >= cfg.stareTurnBackBeats) enter(stare, "away", world.beat);
+  // The lid is down and the eye is straining against it. A thumb that lets
+  // go opens it sooner (`stare-hand.ts`); this is the eye winning.
+  if (stare.phase === "shut") {
+    if (since < cfg.stareLidHoldBeats) return;
+    openStare(world, stare, true);
+    return;
+  }
+
+  // The lid is up and the eye looks at the seat that pulled it, for a whole
+  // look — the same `lookBeats` the shut one would have run, not grown,
+  // because a look the lid ended never landed (`looks` did not count it).
+  if (stare.phase === "opening") {
+    if (since < cfg.stareReopenBeats) return;
+    stare.lidMilli = 0;
+    enterStare(stare, "looking", world.beat);
+    return;
+  }
+
+  if (since >= cfg.stareTurnBackBeats) enterStare(stare, "away", world.beat);
+}
+
+/**
+ * The lid starts back up, from `shut`, and the eye takes the puller.
+ *
+ * `watching` is set here rather than when the look lands, for the tell's
+ * reason: the picture shows the seat about to be frozen on the *other*
+ * screen from the moment the lid moves, so both seats know who for the whole
+ * of the rise. It is `lidSeat`, never a roll — the lid remembers who pulled
+ * it, and that is the whole cost.
+ */
+export function openStare(world: World, stare: StareState, forced: boolean): void {
+  const player = stare.lidSeat === 0 ? null : stare.lidSeat;
+  if (player === null) return;
+  stare.watching = player;
+  enterStare(stare, "opening", world.beat);
+  world.events.push({ type: "stareOpen", player, forced });
 }
 
 /**

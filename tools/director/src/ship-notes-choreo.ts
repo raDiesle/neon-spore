@@ -181,5 +181,9 @@ export const CHOREO_NOTES = {
     "the wave lost. Every look is stareLookGrowBeats longer than the last, to " +
     "stareLookMaxBeats. It is not the whole wave: the arrivals underneath are " +
     "the ones its author wrote, and the seat that is not watched plays on " +
-    "alone. Nothing about it is authored per wave.",
+    "alone. Since 18 September 2026 the eye has a lid, and the free seat may " +
+    "pull it down stareLidPullMilli to shut it, which frees the watched seat " +
+    "at once; the eye forces it up after stareLidHoldBeats or when the thumb " +
+    "lifts, rises for stareReopenBeats, and then looks at whoever pulled it " +
+    "for a whole look. Nothing about it is authored per wave.",
 } satisfies Partial<Record<GroupName, string>>;

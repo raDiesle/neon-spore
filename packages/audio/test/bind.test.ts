@@ -128,6 +128,8 @@ const SAMPLES: Record<string, SimEvent> = {
   plate: { type: "plate", col: 5, row: 2, left: 3, color: "red" },
   wardenDown: { type: "wardenDown", col: 5, row: 2 },
   stareCaught: { type: "stareCaught", player: 1, control: "fire" },
+  stareShut: { type: "stareShut", player: 2 },
+  stareOpen: { type: "stareOpen", player: 2, forced: true },
   batonLaunch: { type: "batonLaunch", col: 3, socket: 2 },
   batonStruck: { type: "batonStruck", col: 3, socket: 2 },
   batonLanded: { type: "batonLanded", col: 3, socket: 3 },

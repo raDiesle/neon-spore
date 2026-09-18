@@ -52,6 +52,9 @@ const ACCEPTED: Command[] = [
   // (`sim/filament-hand.ts`), so the tile is in the numbers and nothing else.
   { kind: "drag", target: "filament", on: true, fromMilli: -1000, fromYMilli: -2000 },
   { kind: "drag", target: "filament", on: false, fromMilli: 0 },
+  // THE STARE's lid: a depth on the y, the way THE SINEW's are (`sim/stare-hand.ts`).
+  { kind: "drag", target: "stareLid", on: true, fromMilli: 0, fromYMilli: 600 },
+  { kind: "drag", target: "stareLid", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -152,6 +155,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   antiphonOrgan: true,
   instarMark: true,
   filament: true,
+  stareLid: true,
   crank: true,
   orreryRing: true,
 };

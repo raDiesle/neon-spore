@@ -125,6 +125,12 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // draws (`render/filament-grip.ts`, `docs/spec/bosses.md` §11.33).
     case "filament":
       return target;
+    // `stareLid` is heard by `sim/stare-hand.ts` — a depth on the y from the
+    // seat the eye is not looking at — and, like the sinew's pair before it,
+    // is a target with nothing drawn to take hold of yet. Its row comes with
+    // the lid's look (`docs/spec/bosses.md` §11.16).
+    case "stareLid":
+      return target;
     default:
       return assertNever(target);
   }

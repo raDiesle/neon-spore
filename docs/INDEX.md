@@ -492,6 +492,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/curtain.ts` | THE CURTAIN: what it is standing in front of |
 | `packages/sim/src/step-round.ts` | The rounds' own tick, and the one thing all five of them have in common |
 | `packages/sim/src/stare-hash.ts` | What THE STARE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/stare-hand.ts` | **The one hand on THE STARE**: the lid, pulled down over the eye by the seat it is not looking at |
 | `packages/sim/src/stare-step.ts` | THE STARE's clock, and the one press that costs the hull |
 | `packages/sim/src/stare.ts` | THE STARE: a thing in the sky that looks at one of you, and whatever it catches the hull pays for |
 | `packages/sim/src/surge-hand.ts` | **The two thumbs on THE SURGE**, off the wire, on the tick |
@@ -1513,6 +1514,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-sinew.ts` | THE SINEW's thirteen, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-surge.ts` | THE SURGE's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-scuttle.ts` | THE SCUTTLE's ten, in a file of their own for `bind-gorge.ts`' reason |
+| `packages/audio/src/bind-stare.ts` | THE STARE's three, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-impact.ts` | **What a shot meeting a body sounds like** — the six the whole game is made of |
 | `packages/audio/src/bind-instar.ts` | THE INSTAR's eleven, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-warden.ts` | THE WARDEN's four, cut out of `bind.ts` when THE BATON took that file past its 250-line limit |

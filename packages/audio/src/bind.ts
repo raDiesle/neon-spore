@@ -32,6 +32,7 @@ import { mirrorCue } from "./bind-mirror.js";
 import { panForCol, pitchForRow } from "./bind-place.js";
 import { podCue } from "./bind-pod.js";
 import { spliceCue } from "./bind-splice.js";
+import { stareCue } from "./bind-stare.js";
 import { volleyCue } from "./bind-volley.js";
 import { wardenCue } from "./bind-warden.js";
 
@@ -128,11 +129,11 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
       // rim is one; so is a thread with nothing alive left on it, which is why
       // the two share a case rather than each naming the same sound.
       return { id: "ruin.collapse", pan: panForCol(e.col, cols) };
-    // THE STARE's catch. No pan and no pitch: the eye is in the sky rather
-    // than in a lane, and a sound placed in a column would be telling the pair
-    // to look somewhere — the one thing that is not what went wrong.
+    // THE STARE's catch and its lid, none of them panned (`bind-stare.ts`).
     case "stareCaught":
-      return { id: "boss.stareCaught" };
+    case "stareShut":
+    case "stareOpen":
+      return stareCue(e);
     case "queenDown":
       return { id: "boss.queenDown", pan: panForCol(e.col, cols) };
     // THE MIRROR's four and THE MAZE's four, in `bind-mirror.ts`: the two

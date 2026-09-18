@@ -35,7 +35,8 @@ export type DragTarget =
   | "surgeBulb"
   | "antiphonOrgan"
   | "instarMark"
-  | "filament";
+  | "filament"
+  | "stareLid";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -158,4 +159,15 @@ export type DragTarget =
  * one line lit at a time and both thumbs are on it; which seat is which is
  * the seat's. `TraceDrag` on the design page is this member and the head
  * and tail it is read against, hashed (`filament-hash.ts`).
+ */
+
+/**
+ * `stareLid` is the seventeenth, and the first that is **a handle on a
+ * boss that punishes handles**: THE STARE's lid, pulled down over the eye by
+ * the one seat the eye is not looking at, which frees the other and costs the
+ * puller the next look (`stare-hand.ts`). `fromYMilli` is the depth, read on
+ * the y the way THE SINEW's are, and it is the one `drag` a watched seat is
+ * *not* caught for (`stareForbids`) — because the eye reopens on the seat
+ * that shut it, and a thumb still on the lid at that moment is not a press.
+ * No `id`: one eye, one lid, and it is the boss.
  */

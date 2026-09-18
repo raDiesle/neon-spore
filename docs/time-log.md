@@ -11288,6 +11288,26 @@ who is the answer.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
+## 2026-09-18 — boss-implementation — THE STARE gets a lid, the simulation
+
+The queue's §6.2 item for THE STARE — *changes state more than once, and asks
+for more than one gesture* — as its first lane: a `stareLid` drag the
+unwatched seat pulls down over the looking eye, two phases after `back`,
+three config fields, two events, the hand that hears the drag, and the
+receipts in `sim`, `net`, `audio` and the director. The look is the next lane.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `stare.ts`, `stare-step.ts`, the sinew hand as the pattern for a drag heard in `step.ts`, `command-fields.ts`, the director's pose and field-row tables |
+| writing | 30 | the state, the step's two phases, `stare-hand.ts`, eight tests, the bind file and its two sounds, the poses, the field rows, the docs |
+| looking | 0 | nothing to see yet |
+| friction | 10 | `stareLidFree` had to travel three re-export files to reach the index and the first page had no room for it; the rename of `enter` needed three passes; the lane had to be rebased onto a main that moved mid-turn |
+| landing | 10 | the six doc and size failures of the first `check:fast`, the second, the squash of the WIP commit, the land |
+
+The bottleneck was the export chain: a name a screen will read has to be
+written in four files before `tsc` stops complaining, and the 250-line limit
+of the first surface page turned the fourth into a fifth.
+
 ## 2026-09-18 — tutorial-boss-onscreen-actions — THE MIRROR says REPEAT, and its rehearsal loses a page
 
 The first round to carry a cue: `PRESS` / `REPEAT` on the mirror's cannon for

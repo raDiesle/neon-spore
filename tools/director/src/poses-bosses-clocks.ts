@@ -1,6 +1,34 @@
-import { vanePhase, wardenPhase } from "@neon-spore/sim";
+import { stareBoss, stareLidFree, vanePhase, wardenPhase } from "@neon-spore/sim";
 import type { Pose } from "./pose-kit.js";
-import { bossPose } from "./poses-bosses-kit.js";
+import { bossPose, type Hand } from "./poses-bosses-kit.js";
+
+/**
+ * The free seat's thumb on THE STARE's lid: pulled to the bottom the tick
+ * the eye looks at the other seat, and lifted the tick after it is shut.
+ * The hand is read every tick, so it grabs whichever seat is free that
+ * look (`sim/stare-hand.ts`).
+ */
+const lidHand =
+  (lift: boolean): Hand =>
+  (w) => {
+    const s = stareBoss(w);
+    if (s === null) return [];
+    if (s.phase === "shut")
+      return lift
+        ? [
+            {
+              player: s.lidSeat as 1 | 2,
+              command: { kind: "drag", target: "stareLid", on: false, fromMilli: 0 },
+            },
+          ]
+        : [];
+    const player = stareLidFree(s, 1) ? 1 : stareLidFree(s, 2) ? 2 : null;
+    if (player === null) return [];
+    const fromYMilli = w.cfg.stareLidPullMilli;
+    return [
+      { player, command: { kind: "drag", target: "stareLid", on: true, fromMilli: 0, fromYMilli } },
+    ];
+  };
 
 /**
  * **The clock bosses' states** — a body or a fixture over the ordinary
@@ -54,6 +82,18 @@ export const CLOCK_BOSS_POSES: Pose[] = [
     "back",
     "The eye turning back away, the beats in which the looked-at seat learns it can move again.",
     { hold: 3 },
+  ),
+  bossPose(
+    "stare",
+    "shut",
+    "The lid pulled down over the eye by the seat it was not looking at. The watched seat is free; the eye strains under the thumb for stareLidHoldBeats, or until it lifts.",
+    { hand: lidHand(false), hold: 2 },
+  ),
+  bossPose(
+    "stare",
+    "opening",
+    "The thumb has lifted and the lid is rising. The eye will look at the seat that pulled it — no roll, no announcement — and that seat has stareReopenBeats to get off the glass.",
+    { hand: lidHand(true), hold: 1 },
   ),
   bossPose(
     "diastole",

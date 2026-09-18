@@ -1631,7 +1631,7 @@ wave sends without being the encounter, and this is the fourth of them
 plates and cannot be answered. The arrivals underneath are the ones the wave's
 author wrote, and the wave is won the ordinary way — by answering all of them.
 
-**The cycle is four phases and a number apiece** (`sim/config-stare.ts`):
+**The cycle is four phases and a number apiece, and two more for the lid** (`sim/config-stare.ts`):
 
 | phase | beats | what it is |
 |---|---|---|
@@ -1639,6 +1639,8 @@ author wrote, and the wave is won the ordinary way — by answering all of them.
 | turning | `stareTellBeats` (7) | the warning, and the whole fairness of the boss |
 | looking | `stareLookBeats` (6), plus `stareLookGrowBeats` (3) each time, to `stareLookMaxBeats` (12) — so a wave's three looks are 6, 9 and 12, and the third is the ceiling | one seat may press nothing at all |
 | back | `stareTurnBackBeats` (2) | the eye turning away again, which is the picture's and not the rule's |
+| shut | to `stareLidHoldBeats` (4) | the lid is down over the eye and both seats are free |
+| opening | `stareReopenBeats` (2) | the lid rising, and the eye about to look at whoever pulled it |
 
 **Seven beats of warning is one spoken sentence with room to finish it** —
 4.38 seconds at 96 bpm. It was four, which is 2.50s: inside
@@ -1683,6 +1685,35 @@ between this boss and a cutscene, and it is what the wave is authored around:
 a rock is answered by the dome, which is player 1's, and a colour by the
 trigger, which is player 2's, so the seven beats of warning are seven beats for
 *parking* both controls as well as for saying whose hands come off.
+
+**And there is a lid** (`sim/stare-hand.ts`, 18 September 2026), the one
+thing on this boss a hand may take hold of, and the second gesture the boss
+asks for after the thumb kept still: it was on `docs/queue.md` as *changes
+state more than once, and asks for more than one gesture*, and this is the
+answer. While the eye is looking, the seat that is *not* watched may drag
+the lid down over it — a `stareLid` drag, `fromYMilli` clamped to
+`stareLidPullMilli` (600, a little over half a tile of thumb) — and the
+moment it reaches the bottom the phase is `shut` and the watched seat is
+free: the look is over, and `stareShut` says who. The two phases after
+`back` are the cost, and it is exactly what it looks like. The eye strains
+against a held lid and forces it up after `stareLidHoldBeats` (4, two and a
+half seconds — one sentence, *I have it, play*), or the thumb lets go first;
+either way `stareOpen` names the seat and whether it was forced, the eye
+spends `stareReopenBeats` (2) opening — shorter than the tell, since there
+is nothing to announce: the seat about to be watched is the one whose thumb
+was on the lid — and then **it looks at whoever shut it**, for the whole of
+the look it was in. The interrupted look does not count and the next does
+not grow, so the lid is not a way out of the boss: it is a way of taking the
+other seat's look onto yourself. A half-pull released springs back and the
+watched seat's own thumb on the lid is nothing, not a catch and not a pull
+(`stareForbids`), so a seat that shut the lid cannot be caught by the eye
+opening under a thumb that had not yet let go. Eight tests hold every branch
+of it in `sim/test/stare.test.ts`.
+
+**What is not built**: the lid's look. It is not drawn, it has no hit test on
+the eye, and the unwatched seat gets no cue for it — the look lane draws the
+lid on the cowl, puts `CARRY` over it for the seat that may pull it, and
+takes `stareShut` and `stareOpen` out of the silent lists.
 
 **The look** (`render/stare-draw.ts`, `stare-shape.ts`, `stare-fx.ts`): a
 **cowled eye** — THE LID's almond eye set into a mound of rock the size of THE

@@ -8,12 +8,19 @@
  * one more line in `events.ts` because that file had come back to its 250-line
  * limit, which is where the last boss left it.
  *
- * **One event, and it is the failure.** Everything else about this boss is
- * already on both screens as world: where the eye is in its cycle, how much of
- * the turn is left and which seat it settled on are all read off `StareState`
- * every frame (`stare.ts`). What is *not* in the world a frame later is the
- * moment a watched thumb landed anyway — so that is the one thing worth an
- * event, and it is the one thing the pair will argue about afterwards.
+ * **One event was the failure**, and for a week it was the only one.
+ * Everything else about this boss is already on both screens as world: where
+ * the eye is in its cycle, how much of the turn is left and which seat it
+ * settled on are all read off `StareState` every frame (`stare.ts`). What is
+ * *not* in the world a frame later is the moment a watched thumb landed
+ * anyway — so that was the one thing worth an event, and it is the one thing
+ * the pair will argue about afterwards.
+ *
+ * **The lid added two** (18 September 2026): the instant it reaches the
+ * bottom, which is the instant the other seat is free, and the instant it
+ * starts back up, which is the instant the puller has two beats to get their
+ * hand off the field. Both are moments rather than states, and both are
+ * sounds — the state they leave behind is on both screens already.
  */
 
 /**
@@ -25,4 +32,14 @@
  * the same `cannonCol`, and the pair wants to be told *you moved*, not which
  * of the two doors it came through (`stare-step.ts`).
  */
-export type StareEvent = { type: "stareCaught"; player: 1 | 2; control: string };
+export type StareEvent =
+  | { type: "stareCaught"; player: 1 | 2; control: string }
+  /** The lid is down: `player` pulled it, and the seat it was looking at is free. */
+  | { type: "stareShut"; player: 1 | 2 }
+  /**
+   * The lid is on its way up and the eye will look at `player`, who pulled
+   * it. `forced` when the eye pushed it up itself after `stareLidHoldBeats`,
+   * rather than the thumb letting go — the picture strains one and not the
+   * other.
+   */
+  | { type: "stareOpen"; player: 1 | 2; forced: boolean };

@@ -34,6 +34,9 @@ export const CHOREO_FIELD_GROUP = {
   stareLookGrowBeats: "THE STARE — an eye that freezes whoever it looks at",
   stareLookMaxBeats: "THE STARE — an eye that freezes whoever it looks at",
   stareTurnBackBeats: "THE STARE — an eye that freezes whoever it looks at",
+  stareLidPullMilli: "THE STARE — an eye that freezes whoever it looks at",
+  stareLidHoldBeats: "THE STARE — an eye that freezes whoever it looks at",
+  stareReopenBeats: "THE STARE — an eye that freezes whoever it looks at",
   // DiastoleConfig — two cadences that do not divide each other, what a
   // chamber can take, and how long the bridge takes to split. Every one of
   // them is the pair's arithmetic rather than a difficulty knob: three against

@@ -26,6 +26,7 @@ import { orreryRingHeard } from "./orrery-hand.js";
 import { advancePods } from "./pods.js";
 import { stepReach } from "./reach.js";
 import { sinewHeard } from "./sinew-hand.js";
+import { stareLidHeard } from "./stare-hand.js";
 import { stepRound } from "./step-round.js";
 import { surgeHeard } from "./surge-hand.js";
 import type { TimedCommand } from "./types.js";
@@ -141,6 +142,9 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // of a thumb on another phone, and a depth that waited for the beat would
   // be a number said out loud a beat late (`sinew-hand.ts`).
   for (const c of commands) sinewHeard(world, c.player, c.command);
+  // THE STARE's lid, on the tick because the instant it shuts is the instant
+  // the watched seat is free, and *go* is said on a tick (`stare-hand.ts`).
+  for (const c of commands) stareLidHeard(world, c.player, c.command);
   // THE SURGE's one handle, on the tick because the fight is two lifts
   // inside one beat of each other, and the tick is what a lift is timed by
   // (`surge-hand.ts`).

@@ -26,5 +26,11 @@ export function stareHashParts(b: StareState): number[] {
     // device drawing a different boss.
     b.caughtTick,
     b.caughtPlayer,
+    // The lid: whose thumb, and how far. The seat is the one the eye reopens
+    // on, so two devices disagreeing about it is the desync above with a
+    // different door in; the depth is a thumb's position, which a device
+    // that dropped one drag message would already be wrong about.
+    b.lidSeat,
+    b.lidMilli,
   ];
 }

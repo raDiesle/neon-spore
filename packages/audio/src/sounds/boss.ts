@@ -133,6 +133,30 @@ export const BOSS_SOUNDS: SoundDef[] = [
     ],
   },
   {
+    id: "boss.stareShut",
+    family: "boss",
+    blurb:
+      "A lid coming down over something that was looking, and the room letting its breath out.",
+    status: "bound",
+    use: "THE STARE's lid pulled to the bottom by the free seat — the watched seat is free.",
+    level: 0.4,
+    // A soft close, not a slam: the point of the sound is relief, and it has
+    // to be quieter than the catch it is the alternative to.
+    layers: [thud(140, 60, 0.3, 0.45), after(0.05, soft(0.5, air(900, 300, 0.4, 0.14)))],
+  },
+  {
+    id: "boss.stareOpen",
+    family: "boss",
+    blurb: "The lid starting back up, and something under it stirring.",
+    status: "bound",
+    use: "THE STARE's lid rising — the eye is about to look at whoever pulled it.",
+    level: 0.42,
+    // A rise where the shut was a fall, and a spore under it, because what is
+    // under the lid is alive. Pitched down by the binding when the eye forced
+    // it, which makes the rise a strain.
+    layers: [air(300, 1100, 0.45, 0.14), soft(0.6, spore(72, 0.6, 0.3, 50))],
+  },
+  {
     id: "boss.queenDown",
     family: "boss",
     blurb: "The last petal, and everything under it letting go at once.",

@@ -41,6 +41,12 @@ export {
   antiphonTurnMilli,
   antiphonTwins,
   antiphonWindow,
+  // THE STARE's lid (18 September 2026): three questions the first page had
+  // no room for. The lid's own picture reads them the way the eye's reads
+  // `stareLooking`, and the director's STATES sheet reads them too.
+  stareLidFree,
+  stareOpening,
+  stareShut,
 } from "./bosses.js";
 export {
   // The script and where the scene is in it: every mark is drawn from the
