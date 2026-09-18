@@ -8833,3 +8833,25 @@ The bottleneck was the fake DOM: no `MutationObserver` and no frame, so both
 had to be given to it before the always-open list could be tested at all.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — brush-malfunction-wave-config — a malfunction is authored on its row
+
+The MALFUNCTION picker came off the WAVE column, which is now WAVE SETTINGS so
+that the section and the thing it edits have different names. A fault is
+authored in one place: the beat row it is painted on. The block under the map
+carries how many rows it holds, the runaway cannon's ammunition and THE FLIP's
+turned screen, and the beat column draws the window as a stripe, solid on the
+row it enters.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `fault-fields.ts`, `paint-fault.ts`, `cell-panel.ts`, `grid.ts`, `sim/fault-placed.ts` for what was already placed |
+| writing | 10 | the note table, the block, the row marks, the stripe, eight cases |
+| looking | 10 | the director in the pane, one shot of the map column and a close crop of the stripe |
+| friction | 5 | `--warm` is a name the director never defined, so the wave list's ⚠ had been grey; the pane's click sends no `pointerdown`, so the paint had to be raised by hand |
+| landing | 10 | `check:fast`, the commit, the land |
+
+The bottleneck was the picture: the number in the box is only half the feature,
+and the map had to be made to agree with it before anything could be checked.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

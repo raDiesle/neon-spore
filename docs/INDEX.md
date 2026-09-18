@@ -2053,7 +2053,6 @@ place — the generator keeps whatever is there.
 | `tools/tmp-litter.ts` | The directories a browser run leaves under `.claude/tmp`, and when one of them is spent |
 | `tools/perf/shape.ts` | PUTTING TWO RUNS ON THE SAME FOOTING, and one row from one of them into the other |
 | `tools/perf/sweep-timing.ts` | The numbers a paint is sampled with, and the statistics taken off the sample |
-| `tools/director/src/fault-fields.ts` | The MALFUNCTION section `rail.ts` shows under the control set |
 | `tools/director/src/serialize-boss.ts` | **A wave's boss, written back out**, and the nine shapes it can take |
 | `tools/director/src/serialize-entry.ts` | one arrival and one pod of a wave, written back out — every optional field only when it is there, so a saved wave never loses one |
 | `tools/director/src/field-control-def.ts` | **What one row of the ON THE FIELD tab is**, and nothing that fills one in |
@@ -2265,6 +2264,8 @@ place — the generator keeps whatever is there.
 | `tools/director/src/fillings/helix.ts` | HELIX — something coiled is growing inside the ball, and it is winding |
 | `tools/director/src/fillings/orbit.ts` | ORBIT — one band of light girdles the ball at a tilt, and the ball is in the way of half of it |
 | `tools/director/src/fillings/yolk.ts` | YOLK — nine granules suspended in a lit mass, carried round by the turn, and a pale nucleus that does not move |
+| `tools/director/src/fault-config.ts` | **The rows under the map that configure the faults on the selected row**: how many beats each one holds |
+| `tools/director/src/fault-notes.ts` | **What a fault is called, and the sentence an author needs while placing one.** Every word the malfunction… |
 | `tools/director/src/library-panel.ts` | The LIBRARY view on SHAPES: the game's own looks, each on a card, drawn by the game's own code |
 | `tools/director/src/library/types.ts` | What an asset in the LIBRARY is, and what it is told |
 | `tools/director/src/library/wisp-assets.ts` | THE WISP's four fringes — what hangs under the bell |

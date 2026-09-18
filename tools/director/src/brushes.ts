@@ -34,12 +34,13 @@ const LIVING_BRUSHES: {
 }));
 
 /**
- * The fault brushes as the palette shows them: a word, and the sentence the
- * picker under WAVE already says about each one.
+ * The fault brushes as the palette shows them: a word, and a line about what
+ * each one does to the pair.
  *
  * The note is short on purpose — every other brush's is, and this is a palette
- * button rather than a page. The whole sentence is `fault-fields.ts`'s `NOTE`,
- * which the picker prints under the row as soon as one is placed.
+ * button rather than a page. The whole sentence is `fault-notes.ts`'s
+ * `FAULT_NOTE`, which the panel under the map prints beside the placement as
+ * soon as one is on a row.
  */
 const FAULT_LOOK: { brush: Brush; label: string; note: string }[] = [
   {

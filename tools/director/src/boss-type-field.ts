@@ -11,12 +11,12 @@ import type { BossType, Wave } from "@neon-spore/content";
  * **It is drawn only on a wave that has a boss.** A wave with none carries no
  * `bossType` at all (`waves.test.ts` holds both directions), and a picker
  * greyed out on the eighty-nine waves that have no boss would read as a
- * question everybody had declined to answer — `fault-fields.ts` makes the same
+ * question everybody had declined to answer — `fault-config.ts` makes the same
  * argument about a colour row on a shield.
  *
  * Its own file rather than a slab in `rail.ts` for that file's reason: it is
  * at its line limit, and build-a-select-read-it-back is a whole small thing on
- * its own, which is the cut `guide-fields.ts` and `fault-fields.ts` made.
+ * its own, which is the cut `guide-fields.ts` and `fault-notes.ts` made.
  */
 
 export interface BossTypeField {

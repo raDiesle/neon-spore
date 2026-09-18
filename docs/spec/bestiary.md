@@ -692,8 +692,11 @@ who has played one has learnt nothing about the others:
   wave that names `every` is THE CODEX's argument applied here, where the pair
   never settles into either seat. A period shorter than the hold is read as one
   window, because the panels have to be home before they can be taken again. The
-  director's fault panel has the three boxes, and an empty one is the wave saying
-  nothing rather than a zero.
+  director authors both on the row the fault is painted on: the beat row *is*
+  `at`, and the block under the map carries one box for `beats`, empty meaning
+  the wave says nothing rather than a zero (`tools/director/src/fault-config.ts`,
+  18 September 2026). A wave that wants the panels traded three times places the
+  pencil three times, which is what `every` was for.
 
   **The wave's guide is a rehearsal, because the fault is a change of picture.**
   Three lines of prose can only assert that the band in front of you will become

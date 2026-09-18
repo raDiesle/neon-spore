@@ -214,8 +214,13 @@ section.collapsed .column-body {
 /* A wave that places a fault on its map. Amber, which is the colour a thing
    gone wrong wears everywhere else in the tool, and the one mark of the four
    that is a warning rather than a category. */
+/* `--gold`, which is what `--warm` was reaching for: the game's menu defines
+   that name (`apps/game/src/menu.css`) and this tool never did, so the ⚠ has
+   been inheriting the row's own colour since it was written — amber in the
+   comment above and grey on the screen. The map draws a fault's window in the
+   same gold (`director-map.css`). */
 #waveList .fault-mark {
-  color: var(--warm);
+  color: var(--gold);
 }
 
 /* **THE ROW OF SYMBOLS OVER THE FILTER** — the same four marks, pressable

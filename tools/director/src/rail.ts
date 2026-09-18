@@ -6,7 +6,6 @@ import {
 } from "@neon-spore/content";
 import { bindBossTypeField } from "./boss-type-field.js";
 import { renderControlSetNote } from "./control-set-note.js";
-import { bindFaultFields } from "./fault-fields.js";
 import { autoGrowTextarea, bindGuideFields, setGrownValue } from "./guide-fields.js";
 import { bindRailFilter } from "./rail-filter.js";
 import { renderRows } from "./rail-list.js";
@@ -68,9 +67,6 @@ export function bindRail(
   // Over the control set, for the reason it is over it in the markup: which
   // kind of boss this is, on the waves that have one (`boss-type-field.ts`).
   const bossTypeField = bindBossTypeField(document.getElementById("bossTypeField"));
-  // Under the control set, for the reason it is under it in the markup: the
-  // panel says what buttons the pair has and this says which of them answer.
-  const faultFields = bindFaultFields(document.getElementById("faultFields"));
 
   if (controlsField) {
     controlsField.replaceChildren();
@@ -107,7 +103,6 @@ export function bindRail(
 
     guideFields.render(wave);
     bossTypeField.render(wave);
-    faultFields.render(wave);
 
     // A boss wave cannot be copied or deleted (see the two guards in
     // `bindAction`, the actual enforcement). `setBossGuard`, below, is the
@@ -162,19 +157,6 @@ export function bindRail(
     wave.bossType = type;
     store.dirty = true;
     onEdit();
-  });
-
-  // Through `onSelect`, like the panel and for the same reason: a fault
-  // changes what the band draws and what the beat does, not what the wave says
-  // about itself, so the stage has to be rebuilt around it.
-  faultFields.onChange((fault) => {
-    const wave = currentWave(store);
-    if (!wave) return;
-    // One placement, which is what the panel edits. A wave with several is
-    // painted on the map (`docs/queue.md`); this row is the first of them.
-    wave.faults = fault ? [fault] : undefined;
-    store.dirty = true;
-    onSelect();
   });
 
   // Through `onEdit`, not `onSelect`: a guide is prose like `name` and

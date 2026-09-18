@@ -17,7 +17,11 @@ export { faultFiresThisBeat } from "./fault-clock.js";
 // no-end tell and the two questions a picture asks about one are all out
 // here: the director paints them and render/ draws what is in force
 // (`fault-placed.ts`).
+// `faultCovers` is out here for the director's map: the beat column draws the
+// rows a placement holds over, and whether a row is one of them is this rule
+// and not a comparison worth writing twice (`tools/director/src/paint-fault.ts`).
 export {
+  faultCovers,
   faultInWave,
   faultOn,
   faultsNow,

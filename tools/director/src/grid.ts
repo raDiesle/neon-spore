@@ -9,6 +9,7 @@ import { bindGridNote } from "./grid-note.js";
 import { bindRowActs } from "./grid-row-acts.js";
 import { beatLabel, bindRowVerbs } from "./grid-rows.js";
 import type { Held } from "./held.js";
+import { faultMarks } from "./paint-fault.js";
 import type { Cell, Selection } from "./selection.js";
 import {
   beatCount,
@@ -143,8 +144,11 @@ export function bindGrid(
     grid.appendChild(label("head", ""));
 
     const beats = beatCount(wave);
+    // The faults of the whole wave in one pass, so the beat column can show
+    // where each one enters and how far down it holds (`paint-fault.ts`).
+    const faults = faultMarks(wave, beats);
     for (let b = 0; b < beats; b++) {
-      grid.appendChild(beatLabel(b, onSeek));
+      grid.appendChild(beatLabel(b, onSeek, faults[b]));
       for (let c = 0; c < AUTHORED_COLS; c++) grid.appendChild(cell(wave, b, c));
       if (acts) grid.appendChild(acts.del(b));
     }

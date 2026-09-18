@@ -62,6 +62,28 @@
   color: var(--gold);
 }
 
+/* A MALFUNCTION'S WINDOW, DOWN THE BEAT COLUMN (`grid-rows.ts`).
+
+   A fault has no column of its own, so it cannot be drawn on the map the way
+   an arrival is; what it has is a first row and a number of rows. The stripe
+   is those rows — amber, the colour a wave's own ⚠ already carries in the list
+   (`director-columns.css`) — and the row it enters on is the one drawn solid.
+
+   **The stripe, and not the number.** Gold on the digit is the beat *playing*
+   two rules up, and a window painted the same way would be a second thing in
+   one column saying "here". A bar down the edge is the one mark left that a
+   playhead cannot be confused with, and it is the right picture anyway: how
+   long a malfunction lasts is a length, so it is drawn as one.
+
+   Two placements overlapping draw one stripe: which faults are in it is the
+   question the panel under the map answers, not the map. */
+#grid .beat.fault-in {
+  box-shadow: inset 3px 0 0 color-mix(in srgb, var(--gold) 40%, transparent);
+}
+#grid .beat.fault-at {
+  box-shadow: inset 3px 0 0 var(--gold);
+}
+
 /* THE ROW VERBS, ON THE ROW ITSELF (`grid-row-acts.ts`).
 
    A rail covers one row and carries the two insert lines. It takes no
@@ -345,6 +367,40 @@
   border-color: #2fe0f0;
   color: #bff6ff;
   background: #06232b;
+}
+/* A MALFUNCTION ON THE SELECTED ROW (`fault-config.ts`).
+
+   One block per placement, boxed and set off from the cell's own rows above
+   it: the two answer different questions — what is in this tile, and what is
+   wrong with this beat — and a run of undifferentiated rows would read as one
+   list of facts about the tile. The left edge is the map's own stripe, so the
+   block and the row it belongs to are visibly the same amber. */
+.fault-placed {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 8px 0 2px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 4px;
+}
+.fault-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  color: var(--gold);
+}
+/* Wide enough for three digits and no wider: a fault held for more beats than
+   a wave has rows is a number nobody needs room to type. */
+.fault-beats {
+  width: 56px;
+}
+.fault-placed .note {
+  margin: 2px 0 0;
 }
 .cell-actions {
   display: flex;

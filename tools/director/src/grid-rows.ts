@@ -1,3 +1,4 @@
+import type { FaultMark } from "./paint-fault.js";
 import type { Selection } from "./selection.js";
 import { currentWave, insertBeat, onBeat, removeBeat, type Store } from "./state.js";
 
@@ -60,10 +61,27 @@ export function bindRowVerbs(store: Store, selection: Selection, onEdit: () => v
 /** One beat's label: the number, which seeks. A `div` rather than a button
  * because the rail drawn over the row puts a button in it, and a button may
  * not hold buttons — `data-beat` stays here so `mark` lights the number with
- * its own row, and so the rail knows which row the pointer is on. */
-export function beatLabel(b: number, onSeek: (beat: number) => void): HTMLElement {
+ * its own row, and so the rail knows which row the pointer is on.
+ *
+ * **It also carries the row's malfunctions**, as two classes rather than as
+ * anything drawn: `fault-in` on every row a placement holds over, `fault-at`
+ * on the row it enters on. A fault is placed on a row and lasts a number of
+ * rows (`fault-config.ts`), and until the map said so the pencil was one an
+ * author could put down and then not find — the length they had just typed was
+ * a number in a box with nothing on the map agreeing with it. The stripe down
+ * the beat column *is* the window, and the title names what is in it. */
+export function beatLabel(
+  b: number,
+  onSeek: (beat: number) => void,
+  fault: FaultMark | undefined,
+): HTMLElement {
   const label = document.createElement("div");
   label.className = "beat";
+  if (fault?.holds) label.classList.add("fault-in");
+  if (fault?.enters.length) {
+    label.classList.add("fault-at");
+    label.title = `${fault.enters.join(", ")} — enters on beat ${b}`;
+  }
   label.dataset.beat = String(b);
   const seek = document.createElement("button");
   seek.type = "button";

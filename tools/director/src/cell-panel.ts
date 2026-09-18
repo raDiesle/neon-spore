@@ -4,6 +4,7 @@ import { brushArtImage } from "./brush-art.js";
 import { cellConfig } from "./cell-config.js";
 import { podConfig } from "./cell-config-pod.js";
 import { labelled } from "./cell-config-rows.js";
+import { faultConfig } from "./fault-config.js";
 import type { Selection } from "./selection.js";
 import { silhouette } from "./silhouette.js";
 import {
@@ -31,6 +32,13 @@ import {
  * one button and one number instead, and the fields are per-arrival rather
  * than per-brush. `cell-config.ts` draws them; the rows a given arrival has no
  * answer for are simply not there.
+ *
+ * **And it holds the row's own malfunctions.** A fault has no column — it is a
+ * beat it enters on and a number of beats it holds — so it is not a fact about
+ * a cell, but the row a cell is on is the only thing a click on the map points
+ * at it with. Since 18 September 2026 it is the only place a fault is authored
+ * at all: the picker in the WAVE SETTINGS column is gone, and `fault-config.ts`
+ * says why.
  *
  * **It also holds the removal.** A click on an occupied cell used to take its
  * contents away (`state.ts` says why that had to stop), so removal needed
@@ -110,6 +118,24 @@ export function bindCellPanel({ store, selection, cfg, onEdit }: CellPanelOption
         }),
       );
     }
+    // And what the *row* carries, which is the one thing under this panel that
+    // is not about a cell at all: a malfunction has no column, so it belongs to
+    // the beat the selection is on rather than to the tile (`fault-config.ts`).
+    // It is last because it is the widest in scope — the cell, then the pod in
+    // it, then the row all three are on.
+    const faults =
+      wave && at
+        ? faultConfig({
+            wave,
+            beat: at.beat,
+            onEdit: () => {
+              store.dirty = true;
+              onEdit();
+              render();
+            },
+          })
+        : null;
+    if (faults) root.appendChild(faults);
     root.appendChild(actions(wave, at));
   };
 

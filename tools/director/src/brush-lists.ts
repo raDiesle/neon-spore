@@ -57,7 +57,7 @@ export const FAULT_BRUSHES = [
   "fault:handover",
   // **THE FLIP**, the one fault whose brush carries a seat: whose screen is
   // turned is the author's decision, so the palette grows a picker for it
-  // beside the cannon's colour (`fault-fields.ts`).
+  // beside the cannon's colour, on the row it is placed on (`fault-config.ts`).
   "fault:flip",
   // **THE LEECH and THE LIMPET**, added on 15 September 2026 when the owner
   // settled what they are: *they should only exist as brush, but once they are
