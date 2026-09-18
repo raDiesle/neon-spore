@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 242164eb — A fault's label says which rows it is active for
+
+The name was at one edge of the map and the window was a stripe at the other, so reading "this wave hands the panels over at nine" told you nothing about when they come home without counting rows off a mark seven columns away. The label carries its own range in figures now — HANDOVER over 9–16, CODEX over 1–end for a fault with no end written — and the hover says the same in words.
+
 ## 2026-09-18 · 949d5705 — THE GAUGE's two thumbs: the dial as two controls, the look half
 
 The needle carries a ring on its tip while the valve is jammed, on the pilot's screen and nowhere else; the band carries one in its middle while it is wound, on the only screen the band is drawn on. Each is answered at the circle it is drawn from, and the needle's is turned rather than carried — a bearing about the dial's own middle, so it goes where the finger points.
