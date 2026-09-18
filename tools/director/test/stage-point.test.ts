@@ -150,6 +150,7 @@ describe("the stage's pointer conversion", () => {
         filament: null,
         stare: null,
         queen: null,
+        diastole: null,
         controls: controlSet(undefined),
         faults: [],
         well: false,

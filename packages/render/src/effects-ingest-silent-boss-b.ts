@@ -72,11 +72,12 @@ export const INGEST_SILENT_BOSS_B = [
   "filamentPulled",
   "filamentDown",
   "filamentOut",
-  // THE DIASTOLE's clamp and spasm — player 1's thumb on the alone right
-  // chamber, on its beat or off it (`diastole-hand.ts`). Silent until the
-  // look lane draws the ring, the held chamber and the spasm.
+  // THE DIASTOLE's clamp catching leaves nothing behind for the next frame:
+  // the held chamber is world state, squeezed shut off `clampBeat` on every
+  // frame the window holds (`diastole-draw.ts`), and the catch itself is one
+  // burst in `effects-spark-handed.ts`. The spasm is not here — it is a
+  // shudder of the hull as well (`effects-ingest.ts`).
   "diastoleClamp",
-  "diastoleSpasm",
   // THE MIRROR's pin: both thumbs landing on its lobes, or one leaving. The
   // sound is the audio's; the look lane draws the two thumbs and the count
   // off the boss every frame (`docs/spec/bosses.md` §11.3, *What is not built*).

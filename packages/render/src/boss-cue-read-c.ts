@@ -1,6 +1,7 @@
 import {
   type DiastoleState,
   diastoleBridgeCol,
+  diastoleChamberCol,
   gumIsFlung,
   type LeadState,
   type LedgerState,
@@ -190,11 +191,20 @@ export function scuttleCues(l: Layout, world: World, s: ScuttleState): readonly 
  * the bridge's column takes anything at all. The bridge is the one part of
  * this body both screens read the same, so the mark is on it, and the word is
  * hers because the lance is filled by holding a colour.
+ *
+ * Alone, the pilot gets a second one, on the grey chamber: CLAMP, since the
+ * beat now has to be held under a thumb as well as found (`diastole-clamp.ts`).
+ * It says *where* and *what* and never *when* — the when is still the
+ * navigator's to say. A spasm cues nothing: there is nothing to hold for
+ * eight beats, and the chamber's shudder is the whole of the announcement.
  */
 export function diastoleCues(l: Layout, world: World, b: DiastoleState): readonly BossCue[] {
   if (b.phase !== "two" && b.phase !== "alone") return [];
-  const x = tileCX(l, diastoleBridgeCol(world.cfg));
-  return [markAt(2, "HOLD", "BURN", x, diastoleY(l), l, 57)];
+  const y = diastoleY(l);
+  const burn = markAt(2, "HOLD", "BURN", tileCX(l, diastoleBridgeCol(world.cfg)), y, l, 57);
+  if (b.phase !== "alone") return [burn];
+  const clamp = markAt(1, "HOLD", "CLAMP", tileCX(l, diastoleChamberCol(world.cfg, 1)), y, l, 73);
+  return [clamp, burn];
 }
 
 /**

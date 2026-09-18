@@ -2,6 +2,7 @@ import type { ControlSet } from "@neon-spore/content";
 import type {
   AntiphonState,
   Creature,
+  DiastoleState,
   FilamentState,
   InstarState,
   MazeState,
@@ -153,6 +154,14 @@ export interface Field {
    * it and SCREAM's with nothing that holds it (`queen-grip.ts`).
    */
   queen: QueenState | null;
+  /**
+   * THE DIASTOLE, if it is the boss running, `null` otherwise. Required and
+   * stated, for the reason the ten above are: the alone chamber's beat is
+   * held by the pilot's thumb on it and nowhere on the panel, so a caller
+   * that quietly meant `null` would leave the last chamber open on no beat
+   * at all (`diastole-clamp.ts`, `sim/diastole-open.ts`).
+   */
+  diastole: DiastoleState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

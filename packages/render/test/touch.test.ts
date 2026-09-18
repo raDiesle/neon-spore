@@ -60,6 +60,7 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
     filament: null,
     stare: null,
     queen: null,
+    diastole: null,
     controls,
     faults: [],
     well: false,

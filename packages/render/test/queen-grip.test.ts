@@ -98,6 +98,7 @@ function fieldWith(seat: 1 | 2, boss: QueenState | null, queen = queenAt()): Fie
     filament: null,
     stare: null,
     queen: boss,
+    diastole: null,
     controls: controlSet("default"),
     faults: [],
     well: false,

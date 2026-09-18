@@ -2040,13 +2040,26 @@ than an omission: it would be the easiest glow in the game to write and it
 would hand the pair the one number they are supposed to arrive at by talking.
 The only thing that moves it is the burst.
 
-**What is not built**: the clamp's look. There is no ring on the grey chamber
-for player 1's thumb, no held-contracted picture while a clamp holds, and no
-spasm to see; `diastoleClamp` and `diastoleSpasm` are on the two silent lists
-until the look lane draws them, and the director's pose for `spasm` stands on
-the simulation alone. The hand is heard on the field only once
-`render/handles.ts` answers the chamber's circle, which is that lane's first
-line.
+**The clamp's look is the ring, the held chamber and the shudder**
+(`render/src/diastole-clamp.ts`, `diastole-draw.ts`, 18 September 2026). The
+ring is a handle's — `handleRadius`, the rock grey with a white rim — on the
+right chamber, on player 1's screen alone, from the beat the left collapses:
+the pilot is the seat shown that chamber grey, so the ring is on the one screen
+that cannot see the beat, and it breathes off the wall clock, which is nobody's
+count. It says *this, and your thumb*, and the word over it is CLAMP
+(`boss-cue-read-c.ts`); the when is still the navigator's to say. Under the
+thumb it fills and a dial runs the two-beat window out. The chamber under it is
+**squeezed shut on every screen** while the clamp holds — the contraction,
+kept — with the handle's white as its inner rim on the screen that sees it grey
+and the cyan on the screens that own it, because a clamp is a fact both seats
+can see and no count is in it. The spasm has no ring and no word: the chamber
+shudders off the wall clock for its eight beats, dark, and the hull shudders
+once as it starts. The catch is six white sparks off the chamber, the miss ten
+grey ones (`effects-spark-handed.ts`). Every one of these is read off the boss
+each frame, so nothing outlives a frame and there is no `Effects` field to
+clear. A frame test sets each state on all three screens and proves the ring
+reaches only the pilot's and the squeeze reaches every one
+(`render/test/diastole-clamp.test.ts`).
 
 **What it still does not draw**: the hull's own pulse. A light that beat in each
 seat's colour from inside the ship would be a change to something the game
@@ -2062,7 +2075,8 @@ beating, and that the beam in the bridge takes both at once
 (`sim/test/diastole.test.ts`); and the clamp's rules one by one, through the
 beam's own beat, with a clamp sent the beat before
 (`sim/test/diastole-clamp.test.ts`). Whether *now* fits in two beats is the
-same kind of thing.
+same kind of thing, and so is whether a ring that breathes on no count reads
+as a place to wait rather than a beat to follow.
 
 ## 11.18 THE BATON — a bead passed down an arm, one seat a beat
 

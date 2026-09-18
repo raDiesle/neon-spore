@@ -25,7 +25,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE DIASTOLE through all four of its phases, on both screens.
+ * THE DIASTOLE through all five of its phases, on both screens.
  *
  * The phases are **set rather than played into**, which is what this file is
  * able to prove and what it is not. Reaching `alone` honestly takes five hits,
@@ -96,7 +96,7 @@ const rims = (phase: DiastolePhase, role: ViewRole) =>
 const hues = (phase: DiastolePhase, role: ViewRole) =>
   colours(phase, role, (c) => (c === "red" ? PALETTE.red : PALETTE.cyan));
 
-const PHASES: DiastolePhase[] = ["one", "two", "alone", "burst"];
+const PHASES: DiastolePhase[] = ["one", "two", "alone", "spasm", "burst"];
 
 describe("the diastole", () => {
   for (const role of ROLES) {
@@ -106,7 +106,7 @@ describe("the diastole", () => {
           b.phase = phase;
           // `alone` and `burst` are states with a chamber gone, so the husk is
           // drawn in two of the four and the full body in the other two.
-          if (phase === "alone" || phase === "burst") b.leftHits = 0;
+          if (phase === "alone" || phase === "spasm" || phase === "burst") b.leftHits = 0;
           if (phase === "burst") b.rightHits = 0;
         });
         expect(ctx.calls).toBeGreaterThan(500);

@@ -1,6 +1,7 @@
 import type { FieldControlDef } from "./field-control-def.js";
 import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
+import { DIASTOLE_CONTROLS } from "./field-controls-diastole.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
@@ -215,23 +216,21 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   // after the four handles that are the pilot's, before the guide's hold.
   ...BALLOON_CONTROLS,
   ...GUM_CONTROLS,
-  // THE ORRERY's ring, next door for the same reason, and last of the field's
-  // controls because it is the newest and the largest: a whole orbit rather
-  // than a circle on a body (`field-controls-orrery.ts`).
+  // THE ORRERY's ring, next door for the same reason, and the largest: a
+  // whole orbit rather than a circle on a body (`field-controls-orrery.ts`).
   ...ORRERY_CONTROLS,
   // THE SINEW's two, the pair that adds into one sum rather than holding a
   // side each (`field-controls-sinew.ts`).
   ...SINEW_CONTROLS,
-  // THE SURGE's one, the first taken by both seats (`field-controls-surge.ts`).
-  ...SURGE_CONTROLS,
-  // THE ANTIPHON's one, the first on one screen only (`field-controls-antiphon.ts`).
-  ...ANTIPHON_CONTROLS,
+  ...SURGE_CONTROLS, // THE SURGE's one, the first taken by both seats.
+  ...ANTIPHON_CONTROLS, // THE ANTIPHON's one, the first on one screen only.
   // THE INSTAR's marks, one target that is six gestures (`field-controls-instar.ts`).
   ...INSTAR_CONTROLS,
   // THE FILAMENT's line, the first that is a trace; THE BULB QUEEN's marks, whose seat is not told.
   ...FILAMENT_CONTROLS,
   ...STARE_CONTROLS, // THE STARE's lid, the first on a boss that is not its body.
   ...QUEEN_CONTROLS,
+  ...DIASTOLE_CONTROLS, // THE DIASTOLE's clamp, the second whose seat is not told.
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

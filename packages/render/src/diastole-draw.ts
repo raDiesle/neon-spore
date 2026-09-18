@@ -5,6 +5,7 @@ import {
   type DiastoleState,
   diastoleBeating,
   diastoleChamberCol,
+  diastoleClampHolds,
   diastoleColor,
   diastoleHits,
   diastoleSeat,
@@ -37,6 +38,13 @@ import { showsDiastoleBeat } from "./view-role-clocks.js";
  *
  * **The bridge between them is the one part both screens read the same**, and
  * it never says when the coincidence is (`diastole-bridge.ts`).
+ *
+ * **The clamp and the spasm are on both screens too** (18 September 2026,
+ * `sim/diastole-open.ts`): a chamber held shut under the pilot's thumb is
+ * squeezed on every screen, and one thrown into a spasm shudders on every
+ * screen, because neither is a count — a clamp lands where the navigator
+ * said *now*, and a spasm is the receipt that the *now* was wrong. The ring
+ * the thumb goes on is the pilot's alone (`diastole-clamp.ts`).
  *
  * Nothing here is held between frames. Every number comes off the boss and the
  * beat, so there is no `Effects` field to clear and a restart cannot show this
@@ -137,7 +145,14 @@ function drawChamber(
   // and `showsDiastoleBeat` is this file's.
   const mine = showsDiastoleBeat(l.role, diastoleSeat(side));
   const beats = diastoleBeating(b, side) && mine;
-  const s = beats ? squeeze(b, beat, beatPhase, side) : 0;
+  // Held under the clamp: the contraction and kept there, on every screen.
+  const held = side === 1 && diastoleClampHolds(b, beat);
+  const s = held ? 1 : beats ? squeeze(b, beat, beatPhase, side) : 0;
+  // In a spasm: shuddering off the wall clock, which is nobody's count, and
+  // dark — a chamber nothing lands in for eight beats, and seen not to beat.
+  const spasm = side === 1 && b.phase === "spasm";
+  const jx = spasm ? Math.sin(time * 37) * l.tile * 0.05 : 0;
+  const jy = spasm ? Math.cos(time * 29) * l.tile * 0.04 : 0;
 
   const hex = diastoleColor(side) === "red" ? PALETTE.red : PALETTE.cyan;
   const rim = diastoleColor(side) === "red" ? PALETTE.redRim : PALETTE.cyanRim;
@@ -147,8 +162,8 @@ function drawChamber(
   const r = l.tile * (0.62 - 0.08 * s);
   const body = splinePath(
     blobPoints(
-      x,
-      y,
+      x + jx,
+      y + jy,
       r,
       r * 0.86,
       Math.max(2, hits + 1),
@@ -180,8 +195,12 @@ function drawChamber(
   // and unmoving until it beats; the one a seat does not own is grey, which is
   // the honest colour for a mass that is there and is not saying anything.
   const hue = beats ? hex : mine ? hex : PALETTE.rock;
-  strokeGlow(ctx, body, hue, STROKE.outline, beats ? 0.5 + 0.5 * s : mine ? 0.22 : 0.4);
-  if (beats && s > 0) strokeGlow(ctx, body, rim, STROKE.inner, s);
+  const glow = spasm ? 0.2 : beats ? 0.5 + 0.5 * s : held ? 0.9 : mine ? 0.22 : 0.4;
+  strokeGlow(ctx, body, hue, STROKE.outline, glow);
+  // The held chamber's inner rim on the screen that sees it grey is the
+  // handle's white, since that screen has no colour for it and the ring on
+  // it is white too; on the screen that owns it, its own.
+  if ((beats || held) && s > 0) strokeGlow(ctx, body, beats ? rim : PALETTE.text, STROKE.inner, s);
 
   drawStruck(ctx, b, side, x, y, r, beat, beatPhase, rim);
 }

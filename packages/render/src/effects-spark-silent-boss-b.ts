@@ -29,11 +29,6 @@ export const SILENT_BOSS_B = [
   "filamentPulled",
   "filamentDown",
   "filamentOut",
-  // THE DIASTOLE's clamp and spasm — player 1's thumb on the alone right
-  // chamber, on its beat or off it (`diastole-hand.ts`). Silent until the
-  // look lane draws the ring, the held chamber and the spasm.
-  "diastoleClamp",
-  "diastoleSpasm",
   // THE MIRROR's pin throws no burst until the look lane draws the pin itself.
   "mirrorGrip",
 ] as const satisfies readonly SimEvent["type"][];

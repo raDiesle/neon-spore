@@ -54,6 +54,7 @@ function field(seat: 1 | 2, controls: ControlSet): Field {
     filament: null,
     stare: null,
     queen: null,
+    diastole: null,
     controls,
     faults: [],
     well: false,

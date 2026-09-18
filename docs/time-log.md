@@ -8855,3 +8855,24 @@ The bottleneck was the picture: the number in the box is only half the feature,
 and the map had to be made to agree with it before anything could be checked.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE DIASTOLE's clamp gets its picture: the look
+
+The second half of the queue's §6.2 item for THE DIASTOLE: the ring on the
+grey chamber for player 1's thumb, the chamber held shut on every screen, the
+spasm's shudder, the word, the director's row, and the hand answered on the
+field at last.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `stare-lid.ts` and `queen-grip.ts` for the model, `diastole-draw.ts` for where the squeeze is, the spark and ingest tables and their silent lists, `field-controls-queen.ts` |
+| writing | 50 | `diastole-clamp.ts`, the `Field` slot through the app and the director and fourteen test fixtures, the held and spasm branches of the chamber, the two bursts and the shudder, the cue, the director's row, the spec's row, the frame test and the document |
+| looking | 10 | one frame of the clamp held on the pilot's screen, cropped |
+| friction | 10 | three files at their limit — `input.ts`, `field-controls-page.ts`, `effects-ingest.ts` — each a comment condensed; the pose's name carries the wave's title |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the `Field`: a required slot on the hit test is fourteen
+test fixtures and two stage builders before the first line of the look, and
+that is the price the file's own header says it charges on purpose.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

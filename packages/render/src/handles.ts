@@ -2,6 +2,7 @@ import { NO_TETHER } from "@neon-spore/sim";
 import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
+import { diastoleClampUnder } from "./diastole-clamp.js";
 import { filamentGrabUnder } from "./filament-grip.js";
 import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
@@ -75,7 +76,9 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     filamentGrabUnder(l, x, y, field) ??
     stareLidUnder(l, x, y, field) ??
     // THE BULB QUEEN's two marks, under BROOD and SCREAM (`queen-grip.ts`).
-    queenMarkUnder(l, x, y, field)
+    queenMarkUnder(l, x, y, field) ??
+    // THE DIASTOLE's clamp on the alone chamber (`diastole-clamp.ts`).
+    diastoleClampUnder(l, x, y, field)
   );
 }
 

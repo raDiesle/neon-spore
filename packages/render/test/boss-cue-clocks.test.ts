@@ -188,6 +188,21 @@ describe("THE DIASTOLE", () => {
     expect(word(world, "p2")).toBe("BURN");
     // And it still says nothing about the coincidence, which is the fight.
     expect(cue(world, "p2")?.kind).toBe("HOLD");
+    expect(word(world, "p1")).toBeNull();
+  });
+
+  it("asks the pilot for the clamp once the chamber beats alone, and never for the beat", () => {
+    const world = opened("diastole");
+    const b = installed<DiastoleState>(world, "diastole");
+    b.phase = "alone";
+    b.leftHits = 0;
+    expect(word(world, "p1")).toBe("CLAMP");
+    expect(cue(world, "p1")?.kind).toBe("HOLD");
+    expect(word(world, "p2")).toBe("BURN");
+    // A spasm has nothing to hold for eight beats, and the chamber says so itself.
+    b.phase = "spasm";
+    expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p2")).toBeNull();
   });
 });
 

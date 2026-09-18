@@ -3,6 +3,7 @@ import type { Layout } from "@neon-spore/render";
 import type {
   AntiphonState,
   Creature,
+  DiastoleState,
   FilamentState,
   InstarState,
   MazeState,
@@ -106,6 +107,9 @@ export interface Bindings {
   /** THE BULB QUEEN, when she is the boss up: her two marks, under BROOD and
    * SCREAM (`render/queen-grip.ts`). */
   queen: () => QueenState | null;
+  /** THE DIASTOLE, when it is the boss up: the clamp's ring on the grey right
+   * chamber, for the pilot, while it beats alone (`render/diastole-clamp.ts`). */
+  diastole: () => DiastoleState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

@@ -1390,6 +1390,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/dart-shock.ts` | SHOCK — the flame has **structure inside it**: three bright knots strung down its axis |
 | `packages/render/src/diastole-draw.ts` | you are drawing THE DIASTOLE — the two chambers above row 0, which seat is shown which one beating, and the bridge parting |
 | `packages/render/src/diastole-bridge.ts` | the bundle between THE DIASTOLE's two chambers, and why it never lights on the coincidence |
+| `packages/render/src/diastole-clamp.ts` | **THE DIASTOLE's clamp**: the one thing on the twin lobe a hand takes hold of |
 | `packages/render/src/magnet-coil.ts` | WHAT THE MAGNET IS DRAWN AS: a solid horseshoe, poles lit from their tips |
 | `packages/render/src/magnet-lanes.ts` | Where an intake lane starts and ends, in body radii from the centre |
 | `packages/render/src/magnet-look.ts` | THE ONE RECORD A CANDIDATE MAGNET LOOK PATCHES |
@@ -2162,6 +2163,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-instar.ts` | THE INSTAR's marks, in a file of their own |
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |
 | `tools/director/src/field-controls-queen.ts` | THE BULB QUEEN's marks, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-diastole.ts` | THE DIASTOLE's clamp, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |

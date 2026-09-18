@@ -59,6 +59,7 @@ export function bindControls({
   filament,
   stare,
   queen,
+  diastole,
   creatures,
   cannonCol,
   shieldCol,
@@ -103,6 +104,7 @@ export function bindControls({
     filament: filament(),
     stare: stare(),
     queen: queen(),
+    diastole: diastole(),
     controls: controls(),
     // The faults in force this beat; the well's clock is one seat's (`render/well.ts`).
     faults: faults(),
@@ -127,14 +129,12 @@ export function bindControls({
 
   /**
    * Every hold this device is carrying, let go at once. A finger that leaves
-   * the glass always fires `pointerup` — the OS delivers it to the page that
-   * owns the touch. A mouse dragged off the *window* is not the same: once the
-   * cursor is over another application (or another monitor with no browser
-   * under it), this page stops receiving pointer events altogether, capture or
-   * not, and a held cannon or a held lance would stay held forever. This is
-   * the phone's `up`, called for every id still down, from whichever of the
-   * two ways a PC actually loses a pointer this way (`window.blur` and the
-   * pointer crossing the edge of the document) fires first.
+   * the glass always fires `pointerup`; a mouse dragged off the *window* is
+   * not the same — over another application, this page stops receiving
+   * pointer events altogether, capture or not, and a held cannon or a held
+   * lance would stay held forever. This is the phone's `up`, called for every
+   * id still down, from whichever of the two ways a PC loses a pointer this
+   * way (`window.blur` and the pointer leaving the document) fires first.
    */
   const releaseAll = (): void => {
     for (const [id, hold] of holding) {

@@ -1,4 +1,5 @@
 import type { SimEvent } from "@neon-spore/sim";
+import { diastoleY } from "./diastole-draw.js";
 import type { Burst } from "./effects-spark.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -27,7 +28,9 @@ export function handedBurst(
         | "weightCrushed"
         | "cairnPulled"
         | "cairnShed"
-        | "queenFlinch";
+        | "queenFlinch"
+        | "diastoleClamp"
+        | "diastoleSpasm";
     }
   >,
   l: Layout,
@@ -90,6 +93,21 @@ export function handedBurst(
         n: 8,
         hex: PALETTE.rock,
       };
+    // THE DIASTOLE's clamp catching: player 1's thumb on the alone chamber on
+    // its contraction, or the beat before (`sim/diastole-open.ts`). White and
+    // few — the handle's own colour on the screen that sees the chamber grey,
+    // and nothing has been hurt: a thumb landed where the navigator said
+    // *now*. The held chamber itself is world state, redrawn off `clampBeat`
+    // every frame (`diastole-draw.ts`); this is only the catch.
+    case "diastoleClamp":
+      return { x: tileCX(l, e.col), y: diastoleY(l), n: 6, hex: PALETTE.rock };
+    // The clamp missing: the chamber thrown into a spasm for eight beats,
+    // rock grey and a few more, since what happened is that the thing under
+    // the thumb seized rather than that anything came off it. The shudder
+    // over the eight beats is the chamber's own (`diastole-draw.ts`); this is
+    // the jolt that starts it.
+    case "diastoleSpasm":
+      return { x: tileCX(l, e.col), y: diastoleY(l), n: 10, hex: PALETTE.rock };
   }
 }
 

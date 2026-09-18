@@ -2,6 +2,7 @@ import type { World } from "@neon-spore/sim";
 import { drawBaton } from "./baton-draw.js";
 import { drawFxBoss, FX_KINDS, isFxBoss } from "./boss-draw-clocks-b.js";
 import { drawCurtain } from "./curtain-draw.js";
+import { drawDiastoleClamp } from "./diastole-clamp.js";
 import { drawDiastole } from "./diastole-draw.js";
 import type { Effects } from "./effects.js";
 import { drawGorge } from "./gorge-draw.js";
@@ -79,8 +80,12 @@ export function drawClockBoss(
   // hangs off the top edge, so there is no body of it among the creatures. The
   // seat is read off the layout inside, because the split here is symmetric —
   // each screen is shown one chamber beating and one still (`diastole-draw.ts`).
+  // The clamp's ring is drawn after the chambers and from here rather than
+  // from inside, since it reads the shelf the chambers hang on
+  // (`diastole-clamp.ts`, `diastoleY`).
   if (boss.kind === "diastole") {
     drawDiastole(ctx, l, world.cfg, boss, world.beat, view.beatPhase, view.time);
+    drawDiastoleClamp(ctx, l, world.cfg, boss, l.role, world.beat, view.beatPhase, view.time);
     return;
   }
 
