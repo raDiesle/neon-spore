@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 2cbc0606 — Open the stage on a rehearsal page from its caption in the GUIDE panel
+
+A boss wave with a rehearsal lists its pages in the director's GUIDE panel; each caption is now a button that opens the stage on that page — briefings on, a fresh world, both seats' cursors on it, the film playing that page on the step's seat's screen. The owner asked for it on THE LEDGER: click a step, see that state on the game screen.
+
 ## 2026-09-18 · 0fa6cb89 — The BOSSES category poses the states a shot or a beat earns, with a hand on the controls
 
 Twenty-two more cards on the STATES sheet: THE WARDEN narrow and glare, THE VANE veer and seize, THE ORRERY spitting, naked and out, THE CANDLE eating, last and out, THE DIASTOLE two, alone and burst, THE BATON crossing, falling and down, THE THROAT slide, quick, open and everts. Each is the boss's own wave run with a `Hand` — a function of the world called every tick, its presses sent on that tick — until the state comes, because what these states need is a fact read off the field: the column the pupil drifted to, the colour the core shows, the beat two counts next meet on. The hands are `boss-hands-shots.ts` and `boss-hands-beats.ts`; the poses `poses-bosses-hands-*.ts`; `OWED` in the test shrinks by the same twenty-two.

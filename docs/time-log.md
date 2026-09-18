@@ -10743,3 +10743,5 @@ stage verb did it.
 
 The bottleneck was the button's display: an `all: unset` button is an
 inline-block, which a wrapped caption's list number lines up under.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
