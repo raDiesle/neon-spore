@@ -318,22 +318,6 @@ these headers were written the way they are to avoid.
 The first is the only one that gives act seven somewhere to grow. It wants
 deciding before the next boss lands rather than during it.
 
-## `hash-fixture.ts` is three times its limit and every boss adds a branch to it
-
-- **Found:** 2026-09-17, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-18, claude/queue-hash-fixture-ts-is-three-times-its-limit-and-eve
-- **Files:** `packages/sim/test/hash-fixture.ts`, `packages/sim/test/hash-coverage.test.ts`
-
-The fixture stands at 738 lines: one `BOSS_ENTRIES` entry and one `patchBoss`
-branch per boss, thirty-four of each, and THE INSTAR's put a fifth screen of
-them in. Every field of every branch is there so `hash-coverage` can prove a
-`null` the fixture never changed, so nothing in it can go — but nothing
-requires it to be one file. Split it the way `bosses-clocks.ts` was split:
-`hash-fixture-bosses-a.ts` / `-b.ts` holding the entries and the patches for
-their half of `BOSS_KINDS`, `hash-fixture.ts` composing the two and keeping
-the world. A test: `hash-coverage.test.ts` unchanged and green, and no file
-of the three over 250.
-
 ## THE CANDLE's flash beat is played at tempo, and the design asks for a third
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff

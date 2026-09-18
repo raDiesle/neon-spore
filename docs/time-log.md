@@ -11175,3 +11175,23 @@ The bottleneck was the check: three reruns of `check:fast` for timeouts the
 tree had nothing to do with, queued as its own item.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — `hash-fixture.ts` cut into pages
+
+The 766-line fixture is five files: the world's own lists in
+`hash-fixture-fields.ts`, the bosses on three pages by their stretch of
+`BOSS_KINDS`, `hash-fixture.ts` composing them. `hash-coverage.test.ts`
+untouched and green.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the fixture end to end, `BOSS_KINDS`' order, the `bosses-clocks.ts` precedent, who imports it |
+| writing | 15 | the four new files cut by line range, the composing file, the skill's row |
+| looking | 0 | nothing drawn |
+| friction | 5 | two pages would not fit under 250, so three; the composed file still would not, so the `Required` fixtures got a file of their own; macOS `sed` without `\|` |
+| landing | 5 | `check:fast`, `queue done`, the commit, `bun run land --keep` |
+
+The bottleneck was the arithmetic: the queue item's two-page plan did not fit
+the 500 lines of entries and patches, and the cut was redrawn twice.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

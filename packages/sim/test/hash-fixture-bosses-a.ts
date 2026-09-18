@@ -1,0 +1,244 @@
+import type { BossEntry } from "../src/boss-entries.js";
+import type { BossState } from "../src/boss-union.js";
+import { mazeWheel } from "../src/maze-solve.js";
+import type { MazeWheel } from "../src/maze-wheel.js";
+import type { Scar } from "../src/types.js";
+
+/**
+ * **The first ten bosses' page of `hash-fixture.ts`**: what each is authored
+ * with, and how each is moved off the state `startWave` installs it in. Cut
+ * out on 18 September 2026 when the fixture stood at three times its limit,
+ * along the seam `BOSS_KINDS` already has: this page is the ten that were on
+ * the list before its "appended, never inserted" comment; `-b.ts` takes THE
+ * CAIRN to THE SINEW and `-c.ts` THE LEDGER on, where a new boss goes.
+ * `hash-fixture.ts` composes the three, keeps the world, and says once why
+ * the values are what they are.
+ */
+
+/**
+ * A wheel of the shape `installMaze` copies: two rings, two gaps in the rim,
+ * a radial wall between them and one of them walled off from the middle —
+ * what `mazeFault` asks of an authored one, so the fixture is a wheel the game
+ * would actually deal rather than a shape that happens to walk. The routes are
+ * solved from the walls, the same way content's are.
+ */
+const WHEEL: MazeWheel = mazeWheel(
+  {
+    rings: 2,
+    coreMilli: 300,
+    openMilli: 60,
+    walls: [[], [0, 180_000], [0, 180_000]],
+    openings: [[90_000], [45_000, 225_000], [45_000, 225_000]],
+  },
+  0,
+);
+
+/** What each is authored with; the keys are the page's share of `BOSS_KINDS`. */
+export const BOSS_ENTRIES_A = {
+  queen: { kind: "queen", col: 3, petals: 6 },
+  mirror: { kind: "mirror", rounds: [["fireRed", "guard"], ["cannonLeft"]] },
+  warden: { kind: "warden", plates: 4 },
+  vane: { kind: "vane", pins: 3 },
+  maze: { kind: "maze", rounds: [WHEEL] },
+  gauge: { kind: "gauge" },
+  // Two ships, one lying each way, neither touching the other and both well
+  // inside a chart eleven columns by ten. `fleetFault` is what says that is a
+  // fleet at all, and `fleet.test.ts` asks it of this one.
+  fleet: {
+    kind: "fleet",
+    ships: [
+      { col: 1, row: 2, len: 4, dir: "h" },
+      { col: 7, row: 5, len: 3, dir: "v" },
+    ],
+  },
+  // Two bars of a chart, one veiled each way, so both halves of the seat
+  // split have something in them the fingerprint has to notice.
+  pulse: {
+    kind: "pulse",
+    stages: [
+      {
+        name: "FIXTURE",
+        steps: 24,
+        notes: [
+          { step: 0, lane: "slick" },
+          { step: 3, lane: "bulb", veil: 1 },
+          { step: 6, lane: "meteor", veil: 2 },
+          { step: 9, lane: "pod" },
+        ],
+      },
+    ],
+  },
+  pinball: {
+    kind: "pinball",
+    rounds: [
+      {
+        beats: 30,
+        pieces: [
+          { kind: "peg", xMilli: 3500, yMilli: 5500, wMilli: 200, hMilli: 200, target: true },
+          { kind: "block", xMilli: 7500, yMilli: 8500, wMilli: 440, hMilli: 150, target: false },
+        ],
+      },
+    ],
+  },
+  snake: {
+    kind: "snake",
+    rounds: [
+      {
+        beats: 30,
+        stepTicks: 80,
+        enemies: [{ col: 2, row: 2 }],
+        points: [{ col: 6, row: 8 }],
+        rocks: [{ col: 3, row: 5 }],
+      },
+    ],
+  },
+} satisfies Partial<Record<BossEntry["kind"], BossEntry>>;
+
+/** The first ten bosses' share of `patchBoss`; `scar` is the world's fixture. */
+export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
+  if (boss.kind === "queen") {
+    boss.phase = 2;
+    boss.phaseBeat = 4;
+    boss.tellCol = 3;
+    boss.tellColor = "red";
+    boss.weakSide = -1;
+    boss.pickBeat = 3;
+    boss.spentSide = 1;
+    boss.openBeat = 8;
+    boss.closeBeat = 12;
+    boss.dropSide = -1;
+    boss.releaseBeat = 5;
+    boss.releaseSide = 1;
+    boss.scratch = [1, 2];
+  }
+  if (boss.kind === "warden") {
+    boss.tetherId = 17;
+    boss.pupilCol = 4;
+    boss.pupilDir = -1;
+    boss.eyeSpent = true;
+    boss.pulling = true;
+    boss.pullOriginMilli = 400;
+    boss.pullMilli = -250;
+  }
+  if (boss.kind === "vane") {
+    boss.spentOpening = 2;
+    boss.throwBeat = 5;
+    boss.throwCol = 4;
+  }
+  if (boss.kind === "maze") {
+    boss.phase = "read";
+    boss.phaseBeat = 4;
+    boss.angleMilli = 45_000;
+    boss.turn = 1;
+    boss.armed = false;
+    boss.dragging = true;
+    boss.dragFromMilli = 300;
+    boss.lockedCol = 3;
+    boss.lockedWay = 1;
+    boss.way = 0;
+    boss.step = 2;
+    boss.tried = [1];
+    boss.hullMilli = 62_000;
+    boss.scars = [scar()];
+    boss.verdict = -1;
+    boss.verdictCol = 3;
+    boss.lost = "mouth";
+  }
+  if (boss.kind === "gauge") {
+    boss.phase = "play";
+    boss.phaseBeat = 4;
+    boss.openBeat = 3;
+    boss.passed = true;
+    boss.needleMilli = 3_400;
+    boss.valve = 1;
+    boss.markMilli = 5_000;
+    boss.driftDir = -1;
+    boss.marks = 2;
+    boss.misses = 1;
+    boss.calledBeat = 6;
+    boss.calledMilli = 3_100;
+    boss.calledGood = true;
+  }
+  if (boss.kind === "pinball") {
+    boss.phase = "play";
+    boss.phaseBeat = 4;
+    boss.openBeat = 3;
+    boss.passed = true;
+    boss.roundBeat = 5;
+    boss.shot = "flight";
+    boss.angleMilli = 21_000;
+    boss.angleDir = -1;
+    boss.powerMilli = 640;
+    boss.powerDir = -1;
+    boss.ball = { xMilli: 5100, yMilli: 9200, vxMilli: -70, vyMilli: 130 };
+    boss.flightBeat = 6;
+    boss.drops = 1;
+    boss.dropBeat = 5;
+    boss.dropXMilli = 4300;
+    boss.catchBeat = 4;
+    boss.hitTick = 320;
+    boss.hitXMilli = 5500;
+    boss.hitYMilli = 3500;
+    boss.hitRun = 2;
+    boss.alive = boss.pieces.map((_, i) => i !== 0);
+    boss.lit = [1];
+  }
+  if (boss.kind === "snake") {
+    boss.phase = "play";
+    boss.phaseBeat = 4;
+    boss.openBeat = 3;
+    boss.passed = true;
+    boss.roundBeat = 5;
+    boss.dirCol = 1;
+    boss.dirRow = 0;
+    boss.turn = -1;
+    boss.stepTick = 33;
+    boss.grow = 1;
+    boss.mawTick = 29;
+    boss.shotBeat = 6;
+    boss.shotCol = 5;
+    boss.shotRow = 2;
+    boss.shotHit = true;
+    boss.crashTick = 41;
+    boss.bumpCol = 2;
+    boss.bumpRow = 7;
+    // One of each spent, so both lists can prove their own length is hashed.
+    boss.struck = [0];
+    boss.taken = [0];
+  }
+  if (boss.kind === "pulse") {
+    boss.phase = "play";
+    boss.phaseBeat = 4;
+    boss.openBeat = 3;
+    boss.passed = true;
+    boss.startTick = 900;
+    // Both seats, and deliberately not the same: a fingerprint that folded
+    // them together would say nothing when the two devices disagreed about
+    // which of the pair had just missed.
+    boss.judged1 = boss.notes.map((_, i) => (i === 0 ? 1 : 0));
+    boss.judged2 = boss.notes.map((_, i) => (i === 1 ? 3 : 0));
+    boss.from1 = 1;
+    boss.from2 = 2;
+    boss.meter = 640;
+    boss.combo1 = 3;
+    boss.combo2 = 0;
+    boss.last1 = 1;
+    boss.last2 = 3;
+    boss.lastTick1 = 910;
+    boss.lastTick2 = 935;
+    boss.lastLane1 = 0;
+    boss.lastLane2 = 1;
+  }
+  if (boss.kind === "mirror") {
+    boss.round = 1;
+    boss.phase = "listen";
+    boss.phaseBeat = 4;
+    boss.matched = 1;
+    boss.shown = 2;
+    boss.cannonCol = 4;
+    boss.hullMilli = 71_000;
+    boss.scars = [scar()];
+    boss.verdict = 1;
+    boss.verdictCol = 2;
+  }
+}
