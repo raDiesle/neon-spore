@@ -10827,3 +10827,5 @@ The bottleneck was the picture: the film's one claim is that nothing is
 drawn, and the first frame showed a body, because the rehearsal's screen is
 the renderer's four passes without the one line before them that takes the
 unseen out.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · f6e02ba2 — THE REPRISE has its rehearsal: one stretch seen, its echo answered blind, the unsaid third on the hull — and a film no longer draws a body the phone hides
+
+Three bodies fall seen and are taken; the field goes dark on the twelfth beat with the tear counting them; two of the three come back and are taken from what was said and what was counted, the kill drawn whole over nothing; the third, which nobody said, lands with the tear already shut, on the last page. `content/test/scene-reprise.test.ts` is the receipt that the two kills after the dark are of bodies nothing drew.
+
 ## 2026-09-18 · 2f61593b — Write every boss guide as the steps each player takes
 
 The thirty-three boss guides in the director said what the pair would see and how the boss worked; the owner asked for what each player does and nothing else, in plain words, as steps. `both` is now one line saying the goal, and `p1` and `p2` are numbered steps, one per line, with the partner called "your partner". Each half stays under the 220 characters the briefing test allows, and the words stay on the waves that play a film, as the director's own reference.
