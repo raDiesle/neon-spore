@@ -7,8 +7,26 @@ import { wranglerCli, wranglerDevCommand } from "../dev.js";
 // What this file is allowed to take, scaled to how busy the machine is
 // (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
 // these cases are not. A wrangler started and stopped, which is the slowest child
-// anything in the repository starts. 1.1 s alone.
-setDefaultTimeout(loadedTimeout(1200));
+// anything in the repository starts: 3.0 s alone on the cloud image on 18 September
+// 2026, of which 2.3 s is the relay coming up and 6 ms is it going quiet again.
+const CASE_MS = loadedTimeout(3000);
+setDefaultTimeout(CASE_MS);
+
+/**
+ * And how long the relay itself gets, **inside** that budget rather than beside it.
+ *
+ * The two waits below were 60 s and 10 s flat under a case that was 90 s flat, and
+ * three flat numbers agree with one another only until one of them is scaled. As
+ * shares of the case's own budget they cannot outlast it however loaded the machine
+ * is, which is what keeps the failure readable: `until` coming back false says the
+ * relay never came up, and a timeout says only that something was slow.
+ *
+ * Sixteen twentieths and three, because that is the shape of the case — almost all
+ * of it is the wait for the first answer — and the twentieth left over is the
+ * spawn, the kill and the assertions around them.
+ */
+const UP_MS = Math.floor(CASE_MS * 0.8);
+const DOWN_MS = Math.floor(CASE_MS * 0.15);
 
 const DEV = Bun.fileURLToPath(new URL("../dev.ts", import.meta.url));
 
@@ -68,9 +86,9 @@ test("stopping dev.ts stops the wrangler under it", async () => {
     stderr: "ignore",
   });
   try {
-    expect(await until(() => up(port), 60_000)).toBe(true);
+    expect(await until(() => up(port), UP_MS)).toBe(true);
   } finally {
     stop(proc.pid, proc);
   }
-  expect(await until(async () => !(await up(port)), 10_000)).toBe(true);
-}, 90_000);
+  expect(await until(async () => !(await up(port)), DOWN_MS)).toBe(true);
+});

@@ -5,7 +5,10 @@ import { loadedTimeout } from "../../test/repo-time.js";
 // What this file is allowed to take, scaled to how busy the machine is
 // (`tools/test/repo-time.ts`), because bun's five-second default is a flat number and
 // these cases are not. A supervisor and its child, both `bun`, and the case waits for
-// both of them to be gone. 270 ms alone.
+// both of them to be gone: 18 ms alone on the cloud image on 18 September 2026, and
+// 270 ms alone on the slower of the two machines this runs on. The slower one is what
+// is written down — the claim has to hold wherever the file runs, and being generous
+// with a ceiling on patience costs nothing.
 setDefaultTimeout(loadedTimeout(300));
 
 /**
@@ -82,5 +85,7 @@ describe("supervise.ts", () => {
     // the whole of what this is testing.
     expect(alive(child)).toBe(false);
     expect(alive(supervisor.pid)).toBe(false);
-  }, 30_000);
+    // No number of its own: the file's `setDefaultTimeout` above is the measured
+    // one, and this is the case it was measured from.
+  });
 });

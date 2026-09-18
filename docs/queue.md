@@ -1423,23 +1423,6 @@ and null for a part this screen does not draw. The rounds (PINBALL, THE
 GAUGE, THE MAZE, THE REPRISE) are their own picture and may want their own
 anchor rather than a boss part.
 
-## Four flat test timeouts are left, on the fork-and-disk unit
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/sim/test/limits.test.ts`, `packages/sim/test/copies.test.ts`, `tools/dev/test/supervise-stop.test.ts`, `apps/server/test/dev-stop.test.ts`
-- **Where:** cloud
-
-The lane that put every compute-bound test on `tools/test/cpu-time.ts`
-deliberately left these four, because they are not compute: `limits.test.ts`
-and `copies.test.ts` read fifteen hundred files off disk, and the two stop
-tests spawn a server and wait for it to die. That is `tools/test/repo-time.ts`'s
-unit — `loadedTimeout` for the readers, `repoTimeout` for the spawners — and
-each wants its idle cost measured before a number is written, the way
-`cpu-time.ts`'s callers do. Today they carry `30_000`, `30_000`, `30_000` and
-`90_000`, flat, which is right for one machine under one load and for no other.
-None of them has failed a landing yet; they are the same shape as the four that
-did.
-
 ## `bun run frames` cannot reach BULB QUEEN's BROOD, and `--hold` lacks her marks
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80

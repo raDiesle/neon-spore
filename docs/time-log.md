@@ -22,6 +22,31 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — queue-four-flat-test-timeouts — measured, not guessed
+
+The four cases `tools/test/cpu-time.ts`'s lane left behind, because they are
+disk and fork rather than compute. Each one's idle cost was timed on the cloud
+image first and the number written from it: 145 ms and 253 ms for the two tree
+walks in `limits.test.ts`, 205 ms for the first rule in `copies.test.ts`, 18 ms
+for the supervisor, 3.0 s for the wrangler. The wrangler case needed more than
+a substitution — its 90 s cap sat over two flat waits of 60 s and 10 s, and
+three flat numbers agree only until one of them is scaled, so the waits became
+shares of the case's own budget and can no longer outlast it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `repo-time.ts` and `cpu-time.ts` end to end, the four test files, `doc-drift.test.ts` and `line-endings.test.ts` as the shape a `loadedTimeout` caller takes |
+| writing | 15 | four files: two per-case budgets, one, one file default freed of its override, and the wrangler case's three numbers folded into one |
+| looking | 0 | none: nothing here is drawn |
+| friction | 5 | a fresh clone with no `node_modules`; no `/usr/bin/time` on the image, so the per-case figures came from `bun test --reporter=junit` instead; Biome reflowed two `it` calls the edit had left on one line |
+| landing | 20 | `format`, `check:fast` — which is the whole 64-shard run here, 161 s — the commit and `bun run land` |
+
+**The bottleneck was measuring, and it was the right place for the time to
+go.** Four numbers took six timed runs and a scratch script that starts and
+kills a wrangler three times, against about fifteen minutes of editing — but a
+figure read off this machine is the whole of what the entry asked for, and the
+alternative is another flat number that is right here and nowhere else.
+
 ## 2026-09-18 — queue-the-baton — the arm's two thumbs
 
 The §6.2 lane for THE BATON, and the one boss on the list where the brief's

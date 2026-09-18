@@ -3,6 +3,7 @@ import { dirname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Glob } from "bun";
 import { counted, KNOWN_LONG, LIMIT, lineCount } from "../../../tools/hooks/file-size.ts";
+import { loadedTimeout } from "../../../tools/test/repo-time.js";
 
 /**
  * A session reads less when files are small. The 250-line limit keeps source
@@ -47,17 +48,24 @@ async function linesIn(file: string): Promise<number> {
 describe("file size limits", () => {
   const files = sourceFiles();
 
-  it("keeps source files under the limit", async () => {
-    for (const file of files) {
-      const rel = relative(ROOT, file).replaceAll("\\", "/");
-      if (rel in KNOWN_LONG) continue;
-      const lines = await linesIn(file);
-      expect(lines, `${rel} has ${lines} lines, limit is ${LIMIT}`).toBeLessThanOrEqual(LIMIT);
-    }
-    // Fifteen hundred files read in one case: under `bun run check`'s eight
-    // shards on a busy machine that passed five seconds on 12 September 2026.
-    // Nothing here measures speed, so the budget is a guard, not a claim.
-  }, 30_000);
+  it(
+    "keeps source files under the limit",
+    async () => {
+      for (const file of files) {
+        const rel = relative(ROOT, file).replaceAll("\\", "/");
+        if (rel in KNOWN_LONG) continue;
+        const lines = await linesIn(file);
+        expect(lines, `${rel} has ${lines} lines, limit is ${LIMIT}`).toBeLessThanOrEqual(LIMIT);
+      }
+      // Fifteen hundred files read in one case, and what that costs is the
+      // machine rather than the work: 145 ms alone on the cloud image on 18
+      // September 2026, and past five seconds under `bun run check`'s eight
+      // shards on 12 September 2026. So the budget scales with the load
+      // (`tools/test/repo-time.ts`) instead of being a flat number that is right
+      // for one machine under one load and for no other.
+    },
+    loadedTimeout(150),
+  );
 
   it("does not let a known long file grow", async () => {
     for (const file of files) {
@@ -92,12 +100,19 @@ describe("file size limits", () => {
 describe("source files are text", () => {
   const files = [...sourceFiles(), ...docFiles()];
 
-  it("has no control byte but tab, LF and CR in any of them", async () => {
-    for (const file of files) {
-      const bytes = new Uint8Array(await Bun.file(file).arrayBuffer());
-      const at = bytes.findIndex((b) => b < 0x20 && b !== 0x09 && b !== 0x0a && b !== 0x0d);
-      const rel = relative(ROOT, file).replaceAll(sep, "/");
-      expect(at, `${rel} has byte 0x${bytes[at]?.toString(16)} at offset ${at}`).toBe(-1);
-    }
-  }, 30_000);
+  it(
+    "has no control byte but tab, LF and CR in any of them",
+    async () => {
+      for (const file of files) {
+        const bytes = new Uint8Array(await Bun.file(file).arrayBuffer());
+        const at = bytes.findIndex((b) => b < 0x20 && b !== 0x09 && b !== 0x0a && b !== 0x0d);
+        const rel = relative(ROOT, file).replaceAll(sep, "/");
+        expect(at, `${rel} has byte 0x${bytes[at]?.toString(16)} at offset ${at}`).toBe(-1);
+      }
+      // The same fifteen hundred files, read as bytes rather than as text: 253 ms
+      // alone on the cloud image, 18 September 2026, and on the same load curve
+      // as everything else that walks the tree (`tools/test/repo-time.ts`).
+    },
+    loadedTimeout(260),
+  );
 });
