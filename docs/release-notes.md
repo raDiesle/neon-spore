@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 3142b10c — Five things the owner asked for, with the line that causes each
+
+Four findings queued at the head of the list and one already there raised to the top. Each entry names the cause in the tree rather than repeating what was seen: there is no `popstate` listener anywhere in `apps/game/src`, so the phone's back gesture leaves; `briefing.ts` asks `lostAsks` before `guideHolds`, so a rehearsal that takes a hit paints RETRY WAVE inside the tutorial plate; `view.ts` sets the class `game.css` hides `#viewSwitch` under, so choosing P1 hides the switch itself; and the falling entrance the owner wants on every guide page already ships in `text-drop.ts` and is drawn on the ready page alone, so that item is reuse and a rest with nothing over it, not a new animation. Each `Asks:` names the options its answer picks between.
+
 ## 2026-09-18 · 22f9a7a5 — THE UNDERTOW's two hands on the hull
 
 The fight shipped answered entirely from the panel — the maw, the beam, the shield's column and the slide off are four presses and a carriage, and none of them is a hand on the boss itself. The boss itself is the hull, so both new gestures are the navigator's and both are on it: `undertowPin`, her thumb on a standing lobe, which stops that breach widening exactly as her plate does and for the same reason keeps the maw out of that column, so the pair has to say *let go* before he can take it; and `undertowFree`, her thumb held on the column the floor has the cannon stuck in, which after `undertowFreeBeats` hauls the plate off an unseated pilot and gives him his seat back — the one hand in this game that does.
