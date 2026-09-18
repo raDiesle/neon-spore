@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 121cc246 — BULB QUEEN pries and holds: three phases, three gestures, the simulation half
+
+CROWN is shot on the panel as before. BROOD's mark no longer opens by itself: player 1's thumb pries the real one open on her picture (`queenMark`, id 0 left, 1 right), and a press on the other mark is a flinch that shuts her a beat early with nothing fired. SCREAM opens by herself for one beat, and stands open up to `queenHoldBeats` while his thumb holds the real mark. The pilot's screen says PRESS · OPEN and HOLD · OPEN on her own column, never on a mark. A look the owner asked for by name (`.claude/skills/new-boss` §6.2); the look half — hit-testing the marks, the pried and held poses, the flinch drawn — is parked, so the queue item stays taken.
+
 ## 2026-09-18 · fbfddb1d — THE STARE gets a lid: the simulation
 
 While the eye is looking, the seat it is not looking at may drag a lid down over it (`stareLid`, `sim/stare-hand.ts`), and the moment it is shut the watched seat is free. The eye forces the lid up after four beats or the thumb lets go, and either way it opens on whoever shut it, for the look it was in — so the lid moves the other seat's look onto yourself rather than skipping it. Two phases after `back` (`shut`, `opening`), three config fields, two events with a sound each, the director's poses and field rows, eight tests. The lid is not drawn yet; that is the look lane.
