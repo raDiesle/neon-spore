@@ -59,6 +59,7 @@ on.
 ## The BOSSES category owes the rounds' played states
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-18, claude/queue-the-bosses-category-owes-the-rounds-played-state
 - **Files:** `tools/director/src/poses-bosses-rounds.ts`, `tools/director/test/boss-states.test.ts`
 
 The other half of the same allowance, the rounds: THE MAZE's `travel` (the
