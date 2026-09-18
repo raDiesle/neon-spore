@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 1b52d7f4 — THE SCOUT has its rehearsal: the first arena flown whole and the second's first trip, with every leg searched for rather than authored
+
+A rehearsal's acts are ticks and controls, and where the little ship is at a tick is the sum of every burn before it, so the film could not be written the way a shot on a column is. A generator re-ran the film after every leg — a wait, a turn, a burn of so many ticks — and kept the first that reached its mote and did not drift into the hazard within seventy ticks after. Four motes in a loop and home with the maw tapped on the tick the hull is touched; then the second arena opens and three of its column come back. The pilot's pages are the nose and the burn, the navigator's the hull and the maw, and no caption says where a mote is.
+
 ## 2026-09-18 · 4143f4c4 — A task per boss wave, three times over, and the three briefs written once
 
 The owner's answer of 18 September 2026: THE INSTAR, THE STARE and THE REPRISE are all **normal**. That settles what the tag is about — the shape of play and not the panel, since THE INSTAR has a control set of its own and is still an ordinary boss — so `special` is reserved for a round with rules of its own, and the table is ten special and twenty-three normal.
