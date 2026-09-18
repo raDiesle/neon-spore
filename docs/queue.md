@@ -447,9 +447,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/fleet-clock.ts`, `packages/render/src/fleet-fx.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 8 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -457,10 +461,16 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/vane-arm.ts`, `packages/sim/src/vane-cycle.ts`, `packages/sim/src/vane.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 3 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -468,9 +478,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/vane-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 1 file draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -478,10 +492,16 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-snake.ts`, `packages/sim/src/snake-arena.ts`, `packages/sim/src/snake-controls.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on its own panel (`snake`), over 8 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -489,9 +509,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/snake-body.ts`, `packages/render/src/snake-crash.ts`, `packages/render/src/snake-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 13 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -499,10 +523,16 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-pinball.ts`, `packages/sim/src/pinball-board.ts`, `packages/sim/src/pinball-contact.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on its own panel (`pinball`), over 8 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -510,9 +540,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/pinball-aim.ts`, `packages/render/src/pinball-blast.ts`, `packages/render/src/pinball-button.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -520,10 +554,16 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-scout.ts`, `packages/sim/src/scout-arena.ts`, `packages/sim/src/scout-fly.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on its own panel (`scout`), over 6 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -531,9 +571,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/scout-button.ts`, `packages/render/src/scout-draw.ts`, `packages/render/src/scout-round.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -541,10 +585,16 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-pulse.ts`, `packages/sim/src/pulse-chart.ts`, `packages/sim/src/pulse-controls.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on its own panel (`pulse`), over 7 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -552,9 +602,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/pulse-body.ts`, `packages/render/src/pulse-button.ts`, `packages/render/src/pulse-drop.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 9 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -562,9 +616,13 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/diastole-bridge.ts`, `packages/render/src/diastole-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -572,10 +630,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes/the-baton.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `LAUNCH` on the bead in its socket and `FIRE` on it in the air, which is
 what one lane could reach and not the whole fight.
 Its briefing is a 7-page rehearsal (`packages/content/src/scenes/the-baton.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -584,10 +647,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/baton-bead.ts`, `packages/sim/src/baton-cross.ts`, `packages/sim/src/baton-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 9 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -595,9 +664,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/baton-bead-draw.ts`, `packages/render/src/baton-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -605,10 +678,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `MOVE` on the cannon and on the plate, `OPEN` and `BURN` on a standing lobe, which is
 what one lane could reach and not the whole fight.
 Its briefing is a 12-page rehearsal (`packages/content/src/scenes/the-undertow.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -617,10 +695,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/events-undertow.ts`, `packages/sim/src/undertow-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 6 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -628,9 +712,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/undertow-draw.ts`, `packages/render/src/undertow-fx.ts`, `packages/render/src/undertow-lobe.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -638,10 +726,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `FLING` on a gum, which is
 what one lane could reach and not the whole fight.
 Its briefing is a 8-page rehearsal (`packages/content/src/scenes/the-throat.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -650,10 +743,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-throat.ts`, `packages/sim/src/throat-hash.ts`, `packages/sim/src/throat-pull.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 5 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -661,9 +760,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/throat-draw.ts`, `packages/render/src/throat-evert.ts`, `packages/render/src/throat-lock.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -671,10 +774,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `BURN` on the naked core, which is
 what one lane could reach and not the whole fight.
 It has no rehearsal, only the three prose lines.
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -683,10 +791,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-orrery.ts`, `packages/sim/src/orrery-gap.ts`, `packages/sim/src/orrery-hand.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 7 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -694,9 +808,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/orrery-draw.ts`, `packages/render/src/orrery-grab.ts`, `packages/render/src/orrery-shaft.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -704,10 +822,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `MOVE` on the cannon and `FIRE` on the glow, which is
 what one lane could reach and not the whole fight.
 Its briefing is a 12-page rehearsal (`packages/content/src/scenes/the-candle.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -716,10 +839,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/candle-hash.ts`, `packages/sim/src/candle-step.ts`, `packages/sim/src/candle.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 5 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -727,9 +856,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/candle-dark.ts`, `packages/render/src/candle-glow.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -737,10 +870,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-gorge.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `BURN` over the gorged mouth and `PIERCE` over a full intake, which is
 what one lane could reach and not the whole fight.
 Its briefing is a 13-page rehearsal (`packages/content/src/scenes/the-gorge.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -749,9 +887,13 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/gorge-draw.ts`, `packages/render/src/gorge-fx.ts`, `packages/render/src/gorge-lobe.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -759,10 +901,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-curtain.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `SHOVE` on the membrane and `FIRE` on the bared core, which is
 what one lane could reach and not the whole fight.
 Its briefing is a 10-page rehearsal (`packages/content/src/scenes/the-curtain.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -771,10 +918,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-curtain.ts`, `packages/sim/src/curtain-hash.ts`, `packages/sim/src/curtain-shot.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 6 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -782,9 +935,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/curtain-draw.ts`, `packages/render/src/curtain-fx.ts`, `packages/render/src/curtain-sheet.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -792,10 +949,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `BURN` on a closed fan and `SHEAR` on a standing blade, which is
 what one lane could reach and not the whole fight.
 Its briefing is a 10-page rehearsal (`packages/content/src/scenes/the-taster.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -804,10 +966,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-taster.ts`, `packages/sim/src/events-taster.ts`, `packages/sim/src/taster-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 6 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -815,9 +983,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/taster-blade.ts`, `packages/render/src/taster-crest.ts`, `packages/render/src/taster-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -825,9 +997,14 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says nothing on the field at all.
 Its briefing is a 10-page rehearsal (`packages/content/src/scenes/the-sinew.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -836,10 +1013,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-sinew.ts`, `packages/sim/src/events-sinew.ts`, `packages/sim/src/sinew-hand.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 6 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -847,9 +1030,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/sinew-band.ts`, `packages/render/src/sinew-draw.ts`, `packages/render/src/sinew-fibres.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -857,10 +1044,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `MOVE` on the walked socket and `GUARD` on the bead riding down, which is
 what one lane could reach and not the whole fight.
 Its briefing is a 9-page rehearsal (`packages/content/src/scenes/the-ledger.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -869,10 +1061,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-ledger.ts`, `packages/sim/src/events-ledger.ts`, `packages/sim/src/ledger-bead.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 7 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -880,9 +1078,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-draw.ts`, `packages/render/src/ledger-fx.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -890,9 +1092,14 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-surge.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says nothing on the field at all.
 Its briefing is a 11-page rehearsal (`packages/content/src/scenes/the-surge.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -901,10 +1108,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-surge.ts`, `packages/sim/src/events-surge.ts`, `packages/sim/src/surge-hand.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 7 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -912,9 +1125,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/surge-draw.ts`, `packages/render/src/surge-fx.ts`, `packages/render/src/surge-gauge.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -922,10 +1139,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7e.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `BURN` on the pass, which is
 what one lane could reach and not the whole fight.
 Its briefing is a 8-page rehearsal (`packages/content/src/scenes/the-lead.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -934,10 +1156,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-lead.ts`, `packages/sim/src/events-lead.ts`, `packages/sim/src/lead-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 6 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -945,9 +1173,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/lead-draw.ts`, `packages/render/src/lead-fx.ts`, `packages/render/src/lead-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -955,10 +1187,15 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7e.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says `BURN` while it winds up and `FIRE` on the hanging part, which is
 what one lane could reach and not the whole fight.
 Its briefing is a 13-page rehearsal (`packages/content/src/scenes/the-scuttle.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -967,10 +1204,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-scuttle.ts`, `packages/sim/src/events-scuttle.ts`, `packages/sim/src/scuttle-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 6 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -978,9 +1221,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/scuttle-draw.ts`, `packages/render/src/scuttle-fx.ts`, `packages/render/src/scuttle-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -988,9 +1235,14 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7e.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says nothing on the field at all.
 Its briefing is a 20-page rehearsal (`packages/content/src/scenes/the-antiphon.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -999,10 +1251,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/antiphon-hand.ts`, `packages/sim/src/antiphon-hash.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 8 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -1010,9 +1268,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-fx.ts`, `packages/render/src/antiphon-grip.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -1020,9 +1282,14 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7e.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says nothing on the field at all.
 It has no rehearsal, only the three prose lines.
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -1031,10 +1298,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/config-hive.ts`, `packages/sim/src/events-hive.ts`, `packages/sim/src/hive-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 6 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -1042,9 +1315,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/hive-draw.ts`, `packages/render/src/hive-fx.ts`, `packages/render/src/hive-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -1052,11 +1329,16 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-7e.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 Its marks already carry a word in a scanner box
 (`packages/render/src/instar-word.ts`), written before the cue was
 generalised — so this lane's work is making the two one thing.
 It has no rehearsal, only the three prose lines.
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -1065,9 +1347,14 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/scenes/the-cairn.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says nothing on the field at all.
 Its briefing is a 5-page rehearsal (`packages/content/src/scenes/the-cairn.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -1076,10 +1363,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/cairn.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 1 file of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -1087,9 +1380,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/cairn-hand.ts`, `packages/render/src/cairn-look.ts`, `packages/render/src/cairn-pile.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -1097,9 +1394,14 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/scenes/the-well.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says nothing on the field at all.
 Its briefing is a 4-page rehearsal (`packages/content/src/scenes/the-well.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -1108,10 +1410,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/well.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 1 file of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -1119,9 +1427,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/well-arrivals.ts`, `packages/render/src/well-body.ts`, `packages/render/src/well-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -1129,9 +1441,14 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-9.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says nothing on the field at all.
 Its briefing is a 4-page rehearsal (`packages/content/src/scenes/the-splice.ts`).
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -1140,10 +1457,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/events-splice.ts`, `packages/sim/src/splice-hash.ts`, `packages/sim/src/splice-round.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on its own panel (`splice`), over 5 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -1151,9 +1474,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/splice-draw.ts`, `packages/render/src/splice-straws.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
@@ -1161,9 +1488,14 @@ The brief: `.claude/skills/new-boss` section 6.3.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/src/waves/act-10.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+- **Where:** cloud
 
 It says nothing on the field at all.
 It has no rehearsal, only the three prose lines.
+
+The owner, 18 September 2026: a boss's words are cloud work — the cue table and
+the prose tests prove them, and no frame has to be watched. The PNG is the one
+unverified part; queue it with `bun run land --unverified`.
 
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
@@ -1172,10 +1504,16 @@ section 6.1.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/sim/src/reprise-state.ts`, `packages/sim/src/reprise.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+- **Where:** cloud
 
 It is answered today on the ordinary panel, over 2 files of simulation. Give it
 several states, a different gesture in each, and at least one of them reached on
 the picture rather than on the panel.
+
+The owner, 18 September 2026: a boss's words and its states are cloud work —
+`bun test` and the typecheck prove them, and the handle's ring is the one every
+shipped boss draws. The PNG is the one unverified part; queue it with `bun run
+land --unverified`.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
@@ -1183,9 +1521,13 @@ The brief: `.claude/skills/new-boss` section 6.2.
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/render/src/reprise-draw.ts`, `packages/render/src/reprise-fx.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+- **Where:** local
 
 2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
 not a picture per state.
+
+The owner, 18 September 2026: a picture is judged by an eye on a real frame,
+which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 

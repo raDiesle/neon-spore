@@ -9322,3 +9322,23 @@ instrument and wrong for the one thing on her screen that has to carry a call,
 and only a rendered frame said so.
 
 *Measured: the rows above are the session's own estimate, read off the previous landing's timestamp.*
+
+## 2026-09-18 — boss-implementation — The boss queue is dealt between the cloud and this machine
+
+The owner is away from his machine for two days and works the queue from a
+cloud session in between, so he asked which of this session's upcoming work
+a cloud session can take. Every unclaimed per-boss item got a `Where:` line:
+the words (§6.1) and the states (§6.2) to the cloud, where the tests prove
+them and only the PNG is unverified; the pictures (§6.3) to this machine,
+where there is an eye. Three items already taken were left alone.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the queue's `Where:` preamble, `where.ts`, the three briefs, `docs/cloud-session.md` on what holds unaided |
+| writing | 10 | 69 `Where:` lines and their reason, by script |
+| looking | 0 | nothing drawn |
+| friction | 5 | the script put the line above the blank line twice before it counted the title's own blank |
+| landing | 5 | the queue's tests, the commit, the land |
+
+The bottleneck was the entry's shape: a title, a blank, the bullets, a blank —
+and a script that counted from the wrong line.
