@@ -83,6 +83,15 @@ export interface GorgeState {
   mouth: number;
   /** `world.beat` the beam ended it on; `-1` while it stands. */
   outBeat: number;
+  /**
+   * The intake under player 1's thumb, held from venting; `-1` while none is.
+   * The pinch and the pry below, and why they are one seat's each: `gorge-hand.ts`.
+   */
+  pinch: number;
+  /** The mouth under player 2's thumb, held open for the beam; `-1` while it is not. */
+  pry: number;
+  /** `world.beat` the pry was taken on, and the clench counts from; `-1` while it is not. */
+  pryBeat: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than five. */
@@ -103,6 +112,16 @@ export function gorgePhase(g: GorgeState, cfg: SimConfig): GorgePhase {
 export function gorgeIntakeAt(g: GorgeState, col: number): number {
   const i = col - g.col;
   return i >= 0 && i < g.intakes.length ? i : -1;
+}
+
+/** Whether intake `i` is held from venting under player 1's thumb. */
+export function gorgePinched(g: GorgeState, i: number): boolean {
+  return g.pinch === i;
+}
+
+/** Whether the mouth is held open under player 2's thumb: the one state the beam ends. */
+export function gorgePried(g: GorgeState): boolean {
+  return g.mouth >= 0 && g.pry === g.mouth;
 }
 
 /** Whether an intake is full: transparent, pierceable, and about to vent. */

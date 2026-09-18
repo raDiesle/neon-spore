@@ -14,6 +14,9 @@ import type { GorgeState } from "./gorge.js";
  */
 export function gorgeHashParts(g: GorgeState): number[] {
   const out = [g.col, g.intakes.length, g.ruptures, g.swallowed, g.spitBeat, g.mouth, g.outBeat];
+  // The two thumbs: a pinch one phone has and the other has not would vent
+  // the intake on one screen only, and a pry the same would end the fight on one.
+  out.push(g.pinch, g.pry, g.pryBeat);
   for (const k of g.intakes) {
     out.push(
       k.beads,

@@ -132,6 +132,7 @@ export const CHOREO_FIELD_GROUP = {
   gorgeMouthRuptures: "THE GORGE — the boss you hurt by not shooting",
   gorgeSinkPer: "THE GORGE — the boss you hurt by not shooting",
   gorgeOutBeats: "THE GORGE — the boss you hurt by not shooting",
+  gorgePryBeats: "THE GORGE — the boss you hurt by not shooting",
   // CurtainConfig — where the sheet hangs, how much of it must stay on the
   // field, how often the hem softens and how many lobes at a time, when it
   // is light, how often the core fires covered and naked, how soon it

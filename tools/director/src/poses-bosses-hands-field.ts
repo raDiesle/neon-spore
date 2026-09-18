@@ -65,13 +65,13 @@ export const FIELD_HAND_POSES: Pose[] = [
   bossPose(
     "gorge",
     "gorged",
-    "Enough intakes ruptured that the mouth is open: only the beam takes it, in the mouth's own colour, and the navigator's thumb goes down over the mouth's column.",
+    "Enough intakes ruptured that the mouth is open: only the beam takes it, in the mouth's own colour, under the navigator's pry on the mouth — his other thumb over the colour.",
     { hand: gorgeHand, want: gorgeIs("gorged"), hold: 6, budgetBeats: 80 },
   ),
   bossPose(
     "gorge",
     "out",
-    "The beam through the open mouth in its colour, and the gorge out: every intake spent, the field under it the wave's own again.",
+    "The beam through the pried mouth in its colour, and the gorge out: every intake spent, the field under it the wave's own again.",
     { hand: gorgeHand, want: gorgeIs("out"), hold: 6, budgetBeats: 80 },
   ),
   bossPose(

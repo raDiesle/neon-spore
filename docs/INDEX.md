@@ -350,7 +350,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/grip-push.ts` | THE PUSH: the hand on a rock, carried sideways — one column, then a beat of quiet |
 | `packages/sim/src/grip-push-dir.ts` | **Which way a carried body has been earned a column** |
 | `packages/sim/src/gorge-hash.ts` | What THE GORGE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/gorge-hand.ts` | **The two hands on THE GORGE**: player 1's pinch on a full intake and player 2's pry on the mouth |
 | `packages/sim/src/gorge-step.ts` | THE GORGE's clock — the vent, the spit, the mouth feeding itself and the beats after the beam |
+| `packages/sim/src/gorge-pry.ts` | **The pry's own clock, and the bead a spit is**: what `gorge-step.ts` runs on the beat for player 2's thumb |
 | `packages/sim/src/gorge.ts` | THE GORGE: what not to do |
 | `packages/sim/src/hash-creature-held.ts` | **The fields a hand writes**, folded into the fingerprint |
 | `packages/sim/src/config-claw.ts` | THE CLAW's numbers — the rail, the clock, and what a bad grab costs |

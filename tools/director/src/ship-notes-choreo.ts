@@ -140,8 +140,13 @@ export const CHOREO_NOTES = {
     "back as a body every gorgeSpitBeats; at gorgeMouthRuptures the last " +
     "whole intake becomes the mouth, fills itself, and only the beam in its " +
     "colour while it is full ends it, holding the wave gorgeOutBeats more. " +
-    "gorgeSinkPer is the look's: a bead of sag per that many held. Nothing " +
-    "about it is authored per wave. See sim/gorge.ts, sim/config-gorge.ts.",
+    "Two thumbs on it since 18 September 2026 (sim/gorge-hand.ts): player 1's " +
+    "pinch on a full intake holds its vent off while it stays, the count " +
+    "restarting from the lift; player 2's pry on the mouth is a window of " +
+    "gorgePryBeats the beam ends it in — unpried it clenches on the beam, " +
+    "and held past the window it clenches on the thumb, throwing the pry off " +
+    "with a bead spat. gorgeSinkPer is the look's: a bead of sag per that many held. " +
+    "Nothing about it is authored per wave. See sim/gorge.ts, sim/config-gorge.ts.",
   "THE CURTAIN — the boss that is in the way":
     "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §6: " +
     "the boss that is not the threat but the thing hiding it. A sheet seven " +

@@ -106,6 +106,12 @@ export function patchBossB(boss: BossState): void {
       first.fullBeat = 2;
     }
     boss.swallowed = 1;
+    // A thumb on each: the pinch on the intake above and the pry on a mouth
+    // the fixture also names, so neither is the -1 the walk cannot flip.
+    boss.pinch = 0;
+    boss.mouth = 3;
+    boss.pry = 3;
+    boss.pryBeat = 2;
   }
   if (boss.kind === "curtain") {
     // One lobe off, one hit in, and both clocks that only a tear or an end

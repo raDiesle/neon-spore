@@ -31,4 +31,9 @@ export const SILENT_BOSS_B = [
   "filamentOut",
   // THE MIRROR's pin throws a ring off both lobes, not a burst: `mirror-grip-fx.ts`.
   "mirrorGrip",
+  // THE GORGE's two thumbs and the clench throw none until the look lane
+  // draws the rings they are taken on (`sim/gorge-hand.ts`).
+  "gorgePinch",
+  "gorgePry",
+  "gorgeClench",
 ] as const satisfies readonly SimEvent["type"][];

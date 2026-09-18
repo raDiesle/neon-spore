@@ -7,8 +7,10 @@ import {
   gorgeBoss,
   gorgeFull,
   gorgeIntakeAt,
+  gorgePinched,
+  gorgePried,
 } from "./gorge.js";
-import { livingKindForColor } from "./kinds.js";
+import { spitFrom, stepGorgePry } from "./gorge-pry.js";
 import { nextInt } from "./rng.js";
 import { spawnOne } from "./spawn.js";
 import type { Bullet, Color } from "./types.js";
@@ -17,12 +19,10 @@ import type { World } from "./world.js";
 /**
  * THE GORGE's clock — the vent, the spit, the mouth feeding itself and the
  * beats after the beam — and the one moment a shot meets it: swallowed at
- * the top of the field.
- *
- * Everything on the **beat** runs from `stepBoss`; the one thing on the
- * **tick** is a shot leaving the top of the field (`gorgeStruck`, from
- * `bullets.ts` and `lance-burn.ts`), because a bead that waited for the next
- * beat to go in would be a shot the pair watched vanish into nothing.
+ * the top of the field. Everything on the **beat** runs from `stepBoss`; the
+ * one thing on the **tick** is a shot leaving the top (`gorgeStruck`),
+ * because a bead that waited for the next beat to go in would be a shot the
+ * pair watched vanish into nothing. The thumbs are `gorge-hand.ts`.
  */
 
 /** Install it from the wave's own `boss:` entry. There is nothing to author. */
@@ -43,6 +43,9 @@ export function installGorge(world: World): GorgeState {
     spitBeat: world.beat,
     mouth: -1,
     outBeat: -1,
+    pinch: -1,
+    pry: -1,
+    pryBeat: -1,
   };
 }
 
@@ -78,8 +81,7 @@ function empty(world: World, g: GorgeState, i: number, k: GorgeIntake): void {
 
 /**
  * The unruptured intake nearest the centre becomes the mouth, in the colour
- * it holds — or one off the rng when it is empty, which is the sack's own
- * choice of what to feed itself.
+ * it holds — or one off the rng when it is empty: the sack's own choice.
  */
 function openMouth(world: World, g: GorgeState): void {
   const centre = (g.intakes.length - 1) / 2;
@@ -99,17 +101,17 @@ function openMouth(world: World, g: GorgeState): void {
 
 /**
  * **A shot that nothing on the field stopped, leaving through the top** of
- * a column the sack hangs over. Called by `bullets.ts` and `lance-burn.ts`
- * beside `candleStruck`, and a no-op unless THE GORGE is the boss and the
- * column is one of its own.
+ * a column the sack hangs over: from `bullets.ts` and `lance-burn.ts` beside
+ * `candleStruck`, a no-op unless THE GORGE is the boss and the column its own.
  *
  * A ruptured intake hangs open and the shot goes through. A full one is
  * pierced by any colour, bolt or beam. Otherwise the shot is a bead: the
  * intake's colour, or its first, fills it a step and counts as a colour met;
- * the other colour takes a bead back out and counts as one missed — so the
- * balance reads a wrong bead as the wrong shot it was. The mouth takes beads
- * the same way but is never pierced: the beam in its colour, standing in its
- * column while it is full, is the one thing that ends the fight.
+ * the other colour takes a bead back out and counts as one missed. The mouth
+ * takes beads the same way but is never pierced: the beam in its colour,
+ * standing in its column while it is full **and pried open under player 2's
+ * thumb**, ends the fight; on a mouth nobody holds it clenches, and the beam
+ * goes in as nothing (`gorge-hand.ts`).
  */
 export function gorgeStruck(world: World, bullet: Bullet): void {
   const g = gorgeBoss(world);
@@ -125,12 +127,17 @@ export function gorgeStruck(world: World, bullet: Bullet): void {
       empty(world, g, i, k);
       return;
     }
-    metColor(world);
     if (bullet.lance && gorgeFull(k, cfg)) {
+      if (!gorgePried(g)) {
+        world.events.push({ type: "gorgeClench", col });
+        return;
+      }
+      metColor(world);
       g.outBeat = world.beat;
       world.events.push({ type: "gorgeOut", col, beads: g.swallowed });
       return;
     }
+    metColor(world);
     swallow(world, g, i, k, bullet.color);
     return;
   }
@@ -141,6 +148,7 @@ export function gorgeStruck(world: World, bullet: Bullet): void {
     k.color = null;
     k.fullBeat = -1;
     g.ruptures += 1;
+    if (g.pinch === i) g.pinch = -1;
     world.events.push({ type: "gorgeRupture", col, left: standing(g) });
     if (g.mouth < 0 && (g.ruptures >= cfg.gorgeMouthRuptures || standing(g) <= 1)) {
       openMouth(world, g);
@@ -156,12 +164,20 @@ export function gorgeStruck(world: World, bullet: Bullet): void {
   empty(world, g, i, k);
 }
 
-/** Every full intake past its patience lets go: a torch down the column, and empty. */
+/**
+ * Every full intake past its patience lets go: a torch down the column, and
+ * empty. One under the pilot's pinch waits, its count moved along with it,
+ * so the patience runs from the lift and not the fill (`gorge-hand.ts`).
+ */
 function vent(world: World, g: GorgeState): void {
   const cfg = world.cfg;
   for (let i = 0; i < g.intakes.length; i++) {
     const k = g.intakes[i];
     if (k === undefined || i === g.mouth || !gorgeFull(k, cfg)) continue;
+    if (gorgePinched(g, i)) {
+      k.fullBeat = world.beat;
+      continue;
+    }
     if (world.beat - k.fullBeat < cfg.gorgeVentBeats) continue;
     const col = g.col + i;
     k.beads = 0;
@@ -175,8 +191,7 @@ function vent(world: World, g: GorgeState): void {
 /**
  * One bead back down its own column as a body of its colour, from the
  * emptiest intake that holds one: what comes back is what the pair threw
- * away. A full intake is left alone — it is waiting to be pierced, and a
- * spit out of it would close the window the fill just opened.
+ * away. A full intake is left alone — it is waiting to be pierced.
  */
 function spit(world: World, g: GorgeState): void {
   const cfg = world.cfg;
@@ -187,14 +202,7 @@ function spit(world: World, g: GorgeState): void {
     if (gorgeFull(k, cfg)) continue;
     if (pick < 0 || k.beads < (g.intakes[pick]?.beads ?? 0)) pick = i;
   }
-  const k = g.intakes[pick];
-  if (k === undefined || k.color === null) return;
-  const col = g.col + pick;
-  const color = k.color;
-  k.beads -= 1;
-  if (k.beads === 0) k.color = null;
-  world.events.push({ type: "gorgeSpit", col, color });
-  spawnOne(world, { beat: world.beat, col, kind: livingKindForColor(color), color });
+  spitFrom(world, g, pick);
 }
 
 /**
@@ -202,7 +210,8 @@ function spit(world: World, g: GorgeState): void {
  *
  * Full intakes vent on their count. Then, on the spit count, the sack either
  * feeds its mouth a bead of the mouth's colour — never past full, never
- * venting — or, once it is spitting, returns one bead to the field. After the
+ * venting — or, once it is spitting, returns one bead to the field. A pry
+ * held past its window is thrown off first (`gorge-hand.ts`). After the
  * beam it stands `gorgeOutBeats` and goes.
  */
 export function stepGorge(world: World, g: GorgeState): void {
@@ -214,6 +223,7 @@ export function stepGorge(world: World, g: GorgeState): void {
     return;
   }
   vent(world, g);
+  stepGorgePry(world, g);
   if (world.beat - g.spitBeat < cfg.gorgeSpitBeats) return;
   const mouth = g.intakes[g.mouth];
   if (mouth !== undefined) {

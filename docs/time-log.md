@@ -9035,3 +9035,27 @@ The bottleneck was reading: five passes each read a different set of layout
 fields, and the flipped layout had to satisfy every one of them.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE GORGE asks for a pinch and a pry: the simulation
+
+The fourth shipped boss given a hand for the queue's §6.2, and the first where
+one `DragTarget` is two gestures by seat: the pilot's pinch on a full intake
+holds its vent off, the navigator's pry on the mouth is the one state the
+beam ends the fight in. Most of the design went into what each thumb *costs*,
+because a hold that only helps is a button — the pinch restarts the count from
+the lift, the pry is a four-beat window past which the mouth clenches on the
+thumb and spits a bead.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `gorge.ts`, `gorge-step.ts`, the tests, `diastole-hand.ts` as the model, the director's hand |
+| writing | 45 | `gorge-hand.ts`, `gorge-pry.ts`, the vent, the clench, three sounds, the receipts, §11.23 |
+| looking | 0 | nothing drawn in this lane |
+| friction | 25 | the first pry rule — a pried mouth spits instead of feeding — deadlocked the director's OUT pose: the spit came due on the beat the fill finished, every cycle, found with a probe; redesigned as a window, and `gorge-step.ts` at 256 lost its spit to `gorge-pry.ts` |
+| landing | 15 | `check:fast`, the index, the commit, the land |
+
+The bottleneck was the pose that would not come: a rule that read well in
+prose and could never be performed at tempo, which the director's hand found
+before any player could have.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

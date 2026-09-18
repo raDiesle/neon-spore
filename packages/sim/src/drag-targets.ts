@@ -39,7 +39,8 @@ export type DragTarget =
   | "stareLid"
   | "queenMark"
   | "diastoleChamber"
-  | "mirrorLobe";
+  | "mirrorLobe"
+  | "gorgeLobe";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -206,4 +207,17 @@ export type DragTarget =
  * player 2 swipes the muzzle for a colour. Under the last round those are
  * the six steps, given back on the boss (`mirror-hand.ts`); under `hold`
  * they are where the thumbs are, and the pin is both seats at once.
+ */
+
+/**
+ * `gorgeLobe` is the twenty-first, and THE GORGE's — the fourth shipped boss
+ * given a handle after shipping for the same ask, and the first with **a
+ * gesture per seat on one name**: `id` is the intake, and which thumb it is
+ * says what it does (`gorge-hand.ts`). Player 1's on a full intake is a
+ * **pinch** — the vent held off for as long as the thumb stays, since the
+ * pilot is the seat watching the column and the navigator the seat still
+ * loading the shot that pierces it. Player 2's on the mouth is a **pry** —
+ * a window of `gorgePryBeats` in which the beam ends the fight, and past
+ * which the mouth clenches on the thumb and spits a bead. Neither seat's
+ * press on the other's intake does anything, dropped without a sound.
  */

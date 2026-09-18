@@ -100,4 +100,12 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "player 1's thumb catching the alone chamber on its contraction, and holding it open for the beam. The lobe's, and the sheet has no card for the lobe.",
   "boss.diastoleSpasm":
     "the chamber refusing a clamp on the wrong beat, or one held too long: eight beats in which nothing lands. Same argument.",
+  // THE GORGE's two thumbs and the clench. The sack is the fixture the first
+  // page has no card for (`sound-link-none.ts`, boss.gorgeSettle).
+  "boss.gorgePinch":
+    "player 1's thumb closing on a full intake, its vent held off while the thumb stays. The sack's, and the sheet has no card for the sack (`sim/gorge-hand.ts`).",
+  "boss.gorgePry":
+    "player 2's thumb prying the mouth open — a window of gorgePryBeats the beam ends the fight in. Same argument.",
+  "boss.gorgeClench":
+    "the mouth clenching on a beam nobody pried it open for, or on a thumb held past its window, thrown off with a bead. Same argument.",
 };

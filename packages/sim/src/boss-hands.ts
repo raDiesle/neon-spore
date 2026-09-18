@@ -1,6 +1,7 @@
 import { antiphonHeard, stepAntiphonTurn } from "./antiphon-hand.js";
 import { diastoleHeard } from "./diastole-hand.js";
 import { filamentHeard } from "./filament-hand.js";
+import { gorgeHeard } from "./gorge-hand.js";
 import { instarHeard } from "./instar-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
@@ -54,4 +55,8 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // back on its ship lands when the thumb lifts, and the pin is where both
   // thumbs are now (`mirror-hand.ts`).
   for (const c of commands) mirrorLobeHeard(world, c.player, c.command);
+  // THE GORGE's pinch and pry, on the tick because a vent is on the beat and
+  // a pinch that waited for it would land on a column already torched
+  // (`gorge-hand.ts`).
+  for (const c of commands) gorgeHeard(world, c.player, c.command);
 }

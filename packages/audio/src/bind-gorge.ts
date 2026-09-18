@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE GORGE's nine, in a file of their own for `bind-candle.ts`' reason.
+ * THE GORGE's twelve, in a file of their own for `bind-candle.ts`' reason.
  *
  * Every one of them is panned, because every one of them names a column:
  * the sack is seven intakes wide and which one just swallowed, filled,
@@ -23,7 +23,10 @@ export function gorgeCue(
         | "gorgeVent"
         | "gorgeSpit"
         | "gorgeMouth"
-        | "gorgeOut";
+        | "gorgeOut"
+        | "gorgePinch"
+        | "gorgePry"
+        | "gorgeClench";
     }
   >,
   cols: number,
@@ -50,5 +53,11 @@ export function gorgeCue(
       return { id: "boss.gorgeMouth", pan };
     case "gorgeOut":
       return { id: "boss.gorgeOut", pan };
+    case "gorgePinch":
+      return { id: "boss.gorgePinch", pan };
+    case "gorgePry":
+      return { id: "boss.gorgePry", pan };
+    case "gorgeClench":
+      return { id: "boss.gorgeClench", pan };
   }
 }

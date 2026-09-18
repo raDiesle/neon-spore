@@ -63,6 +63,10 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "diastoleChamber", on: true, fromMilli: 0 },
   { kind: "drag", target: "diastoleChamber", on: false, fromMilli: 0 },
   { kind: "drag", target: "mirrorLobe", on: false, fromMilli: -600, fromYMilli: 0, id: 0 },
+  // THE GORGE's intakes: `id` is the intake, and whose thumb it is says
+  // whether it is the pinch or the pry (`sim/gorge-hand.ts`).
+  { kind: "drag", target: "gorgeLobe", on: true, fromMilli: 0, fromYMilli: 0, id: 3 },
+  { kind: "drag", target: "gorgeLobe", on: false, fromMilli: 0, fromYMilli: 0, id: 3 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -167,6 +171,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   queenMark: true,
   diastoleChamber: true,
   mirrorLobe: true,
+  gorgeLobe: true,
   crank: true,
   orreryRing: true,
 };

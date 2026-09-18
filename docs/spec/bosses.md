@@ -3287,6 +3287,52 @@ right one with the wave held two beats after, and the same run fingerprints
 the same way twice (`sim/test/gorge.test.ts`). The skin has been seen in one
 frame and never breathing.
 
+**The pinch and the pry — two thumbs, one name** (18 September 2026,
+`sim/gorge-hand.ts`, the queue's §6.2: a boss that changes state more than
+once should ask a different gesture in each). THE GORGE already changed state
+three times and asked for one gesture — a shot — in every one of them. It
+now asks for a thumb in two, and the thumb is a different seat's each time,
+on one `DragTarget`, `gorgeLobe`, whose `id` is the intake. **Player 1's
+thumb on a full intake is a pinch**: the intake does not vent while the thumb
+stays, and when it lifts the vent counts `gorgeVentBeats` again *from the
+lift* — a pause and not a pardon. The pilot's, because he is the seat holding
+the cannon on the column and watching the fill go transparent while the
+navigator is still loading the fifth shot; before the pinch the four-beat
+window was a race between a word and a reload, and the pinch is the pilot
+saying *I have it* with his other thumb. The pierce takes the pinch with it.
+**Player 2's thumb on the mouth is a pry**: a window of `gorgePryBeats`
+(four) from the beat the thumb comes down, and the beam in the mouth's colour
+ends the fight *only inside it* — on an unpried mouth it **clenches**, and
+the beam goes in as nothing, neither a hit nor a miss on the balance. Held
+past the window the mouth clenches on the thumb instead: the pry is thrown
+off, one bead is spat down the mouth's column as a body, the mouth's own
+count restarts, and the thumb has to lift and come down again for another
+window. A pry taken early costs a bead and a lift, so it is a thing to take
+late, with the beam already filling in the other hand — the fill is three
+beats and the window four. The design first had the pried mouth spit on
+every count instead of feeding, and the director's hand could not reach OUT
+under it: the spit came due on the beat the fill finished, every cycle, so
+the window is the rule the pose proved. The navigator's, because the mouth is the one
+intake he is shown the colour of and the pilot is not, and the pry is the
+seat that knows the colour committing to it under his thumb while the pilot
+fires. Every other press on the name is dropped without a sound, THE BULB
+QUEEN's way. Three events with three sounds (`boss.gorgePinch`, `gorgePry`,
+`gorgeClench`); both thumbs in `hashWorld`. Receipts in
+`sim/test/gorge-hand.test.ts`: the pinch holds the vent off and restarts the
+count from the lift, is dropped on a part-full intake, on the mouth and from
+the navigator, and goes with the rupture; the pry gates the beam with the
+clench on the wrong side of it, is thrown off past `gorgePryBeats` with a
+clench and one bead and owes a lift before a new window, costs nothing
+lifted inside it while the mouth feeds on, is dropped before there is a
+mouth, on any other intake and from the pilot; and the fingerprint carries
+both thumbs.
+
+**What is not built**: the look of both thumbs — the ring on the full intake
+for player 1 and on the mouth for player 2, the clench's burst, the cue
+words — which is the second lane of the same item. Until it lands the two
+gestures answer from the director's hand alone (`boss-hands-field.ts`) and
+no ring is drawn, so the silent lists carry the three events.
+
 ## 11.24 THE CURTAIN — the boss that is in the way
 
 > The one that is not the threat; it is the thing hiding the threat, and the

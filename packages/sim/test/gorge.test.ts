@@ -208,11 +208,13 @@ describe("the mouth", () => {
     expect(g.outBeat).toBe(-1);
   });
 
-  it("ends on the beam in its colour while full, and holds the wave before the boss goes", () => {
+  it("ends on the beam in its colour while full and pried, and holds the wave before the boss goes", () => {
     const world = gorged();
     const g = sack(world);
     beats(world, CFG.gorgeSpitBeats * CFG.gorgeFullBeads + 1);
     const color = g.intakes[3]?.color ?? "red";
+    // The pry is the navigator's thumb on the mouth (`gorge-hand.test.ts`).
+    g.pry = 3;
     gorgeStruck(world, shot(world, g.col + 3, color, true));
     expect(gorgePhase(g, CFG)).toBe("out");
     expect(world.events.some((e) => e.type === "gorgeOut")).toBe(true);

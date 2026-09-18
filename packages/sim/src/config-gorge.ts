@@ -32,6 +32,8 @@ export interface GorgeConfig {
   gorgeSinkPer: number;
   /** Beats the sack stands after the beam ends it, before the wave may end. */
   gorgeOutBeats: number;
+  /** Beats the mouth stays pried before it clenches on the thumb and spits a bead (`gorge-hand.ts`). */
+  gorgePryBeats: number;
 }
 
 /**
@@ -40,7 +42,8 @@ export interface GorgeConfig {
  * Read as one fight: seven intakes, four beads each, four beats to pierce a
  * full one; it spits after the second rupture, every three beats, and is
  * gorged after the fourth, when the mouth fills itself over twelve beats.
- * Twenty shots of restraint, and the beam.
+ * Twenty shots of restraint, and the beam — under a pry that holds four
+ * beats, a beat more than the fill.
  */
 export const GORGE_DEFAULTS: GorgeConfig = {
   gorgeIntakes: 7,
@@ -51,4 +54,5 @@ export const GORGE_DEFAULTS: GorgeConfig = {
   gorgeMouthRuptures: 4,
   gorgeSinkPer: 4,
   gorgeOutBeats: 2,
+  gorgePryBeats: 4,
 };

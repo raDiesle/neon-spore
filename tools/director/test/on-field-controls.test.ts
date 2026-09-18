@@ -146,6 +146,11 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // round reflected on it, then pinned (`sim/mirror-hand.ts`,
     // `field-controls-mirror.ts`).
     case "mirrorLobe":
+    // `gorgeLobe` is THE GORGE's intakes under one thumb each — player 1's
+    // pinch on a full one, player 2's pry on the mouth (`sim/gorge-hand.ts`).
+    // The simulation half landed first; the on-field entry and the row in
+    // `docs/spec/controls.md` are the look lane's.
+    case "gorgeLobe":
       return target;
     default:
       return assertNever(target);

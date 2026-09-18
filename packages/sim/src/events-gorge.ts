@@ -39,4 +39,13 @@ export type GorgeEvent =
   /** The intake over `col` is the mouth, filling itself in `color`: the beam ends it. */
   | ({ type: "gorgeMouth"; color: Color } & GorgeColEvent)
   /** The beam stood in the mouth's column: `beads` leave at once, and the fight is over. */
-  | ({ type: "gorgeOut"; beads: number } & GorgeColEvent);
+  | ({ type: "gorgeOut"; beads: number } & GorgeColEvent)
+  /** Player 1's thumb closed on a full intake: its vent held off while the thumb stays. */
+  | ({ type: "gorgePinch" } & GorgeColEvent)
+  /** Player 2's thumb pried the mouth open: for `gorgePryBeats`, the beam can end it. */
+  | ({ type: "gorgePry" } & GorgeColEvent)
+  /**
+   * The mouth clenched: on a beam with no thumb prying it, which went in as
+   * nothing, or on a thumb held past its window, thrown off with a bead spat.
+   */
+  | ({ type: "gorgeClench" } & GorgeColEvent);

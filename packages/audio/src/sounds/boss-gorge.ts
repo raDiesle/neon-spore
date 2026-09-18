@@ -1,5 +1,5 @@
 /**
- * THE GORGE's nine, in a file of their own for `boss-candle.ts`' reason.
+ * THE GORGE's twelve, in a file of their own for `boss-candle.ts`' reason.
  *
  * The boss is a **sack full of fluid**, and everything here is wet: a bead
  * going in is a swallow, a bead coming out is a gulp in reverse, a full
@@ -119,6 +119,45 @@ export const BOSS_GORGE_SOUNDS: SoundDef[] = [
       after(0.06, sub(55, 0.5, 0.4)),
       after(0.1, burst(glint(3600, 0.16, 0.1), 12, 0.045, 0.85, 40)),
       after(0.2, air(4200, 9000, 0.9, 0.16, 1.5)),
+    ],
+  },
+  // The two thumbs, and the beam refused (`sim/gorge-hand.ts`, 18 September
+  // 2026). Wet like the rest: a pinch is a skin squeezed and holding, a pry
+  // is a lip levered open, a clench is the lip snapping shut on nothing.
+  {
+    id: "boss.gorgePinch",
+    family: "boss",
+    blurb: "A full intake pinched shut under a thumb: a short squeeze, and the skin holding.",
+    status: "bound",
+    use: "THE GORGE — player 1's thumb closing on a full intake; the vent waits while it stays.",
+    level: 0.34,
+    layers: [
+      noise(0.1, { type: "lowpass", freq: 1200, toFreq: 300, q: 1.4 }, 0.006, 0.03, 0.45),
+      after(0.05, soft(0.5, sub(80, 0.3, 0.35))),
+    ],
+  },
+  {
+    id: "boss.gorgePry",
+    family: "boss",
+    blurb: "The mouth levered open: a slow wet parting and a thin tone held above it.",
+    status: "bound",
+    use: "THE GORGE — player 2's thumb prying the mouth open, the window the beam ends it in.",
+    level: 0.38,
+    layers: [
+      noise(0.28, { type: "bandpass", freq: 600, toFreq: 3400, q: 1.6 }, 0.02, 0.08, 0.4),
+      after(0.15, spore(2200, 0.8, 0.1, 8)),
+    ],
+  },
+  {
+    id: "boss.gorgeClench",
+    family: "boss",
+    blurb: "The mouth snapping shut on the beam: a hard wet clap, and nothing going in.",
+    status: "bound",
+    use: "THE GORGE — the beam on an unpried mouth, refused; or a pry held past its window, thrown off.",
+    level: 0.4,
+    layers: [
+      noise(0.06, { type: "bandpass", freq: 3200, toFreq: 5200, q: 2 }, 0.002, 0.01, 0.5),
+      after(0.02, thud(180, 60, 0.18, 0.4)),
     ],
   },
 ];
