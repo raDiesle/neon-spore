@@ -9285,3 +9285,21 @@ The bottleneck was noticing that the answer to the question was *no*: the
 window was on the map twice already and neither mark was next to the word.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+## 2026-09-18 — boss-implementation — THE WARDEN's thumb and swipe: the look
+
+The second lane of the §6.2 item: the eye as a handle with a ring on the
+seat whose gesture it is, the lids drawn off their own number, the window's
+dial on both screens, the three events each a ring off the eye, the two
+cue words, the director's two rows and `--hold` for a frame.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `maze-grip.ts` and `mirror-grip-fx.ts` as the models, `boss-draw.ts`, `warden.ts`, `touch.ts`, the cue page, the director's rows |
+| writing | 45 | `warden-grip.ts`, `warden-grip-fx.ts`, the lids in `warden.ts`, the lift, the cues, `field-controls-warden.ts`, the test, §11.4, the controls table |
+| looking | 5 | one frame of NARROW with both hands on, cropped to the eye |
+| friction | 5 | `--hold` knew the rope and not the eye; the dial read a beat the door did not, until both read `world.beat` |
+| landing | 10 | `check:fast`, the index, the commit, the land |
+
+The bottleneck was the frame: the tool had no name for the navigator's
+thumb on the eye, so photographing the state meant teaching it one first.
+

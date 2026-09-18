@@ -24,6 +24,8 @@ import type { HoldSpec } from "./spec.js";
  *   --hold antiphonOrgan=0          THE ANTIPHON: the pilot's thumb on the organ
  *   --hold instarMark=0,y=750,id=0  THE INSTAR: the pilot's thumb on mark 0, half a jaw down
  *   --hold instarMark2=0,y=-750,id=1  and the navigator's on mark 1, pulled up
+ *   --hold wardenEye=0              THE WARDEN under NARROW: the navigator's thumb on the eye
+ *   --hold wardenHatch=0            and under GLARE: the pilot's thumb on the hatch, not yet swiped
  *
  * THE CHOIR's two are the only handles here whose **sign** is the whole of the
  * gesture rather than a direction the picture happens to take: the left arrow
@@ -110,6 +112,8 @@ export function parseHold(value: string): HoldSpec[] {
     surgeBulb2: 2,
     instarMark2: 2,
     mirrorLobe2: 2,
+    // THE WARDEN's eye is player 2's alone (`sim/warden-hand.ts`).
+    wardenEye: 2,
   };
   // THE MIRROR's lobes are one target both seats send as well, `id` 0 its
   // cannon and 1 its shield (`sim/mirror-hand.ts`).
@@ -139,6 +143,8 @@ export function parseHold(value: string): HoldSpec[] {
     "instarMark2",
     "mirrorLobe",
     "mirrorLobe2",
+    "wardenEye",
+    "wardenHatch",
   ];
   if (!DRAGS.includes(name0)) {
     throw new Error(`--hold ${value}: unknown control. One of prime=red|cyan, ${DRAGS.join(", ")}`);

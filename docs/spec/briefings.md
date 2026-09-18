@@ -594,6 +594,7 @@ hand still draws.
 | THE GAUGE | `PLAYER 2 CALLS IT` | `EACH GOOD CALL MOVES THEM` | `PRESS` / `CALL` on the end of the needle, hers alone, while it is seated and the call is armed |
 | THE WARDEN | `PULL IT AND KEEP PULLING` | — the page is gone | `CARRY` / `PULL` on the handle once his hand is on it, then `HOLD` when the line goes taut, his alone |
 | THE WARDEN | `ONLY WHILE IT IS OPEN` | `THE SHOT IS THE RIM'S COLOUR` | `PRESS` / `FIRE` on the pupil, hers alone, for exactly the beats the eye stands open |
+| THE WARDEN | — the guide teaches WATCH only | — | `HOLD` / `HOLD` on the shut eye, hers, under NARROW while a line hangs and her thumb is not down; `CARRY` / `SWIPE` on the hatch, his, under GLARE until it is thrown — one word for each of the two later hands, said by the cue and never by the ring (`warden-grip.ts`) |
 | THE FLEET | `PLAYER 1 FIRES THE SALVO` | `THE SHELL IS THE RELOAD` | `PRESS` / `FIRE` on the sights, his alone, while they stand on a hull nobody has fired at |
 | THE VANE | `PLAYER 2 FIRES RED` | `THE COLUMN MUST BE CLEAR` | `PRESS` / `FIRE` on the mouth of the split, hers, and `CARRY` / `MOVE` on his cannon |
 | SNAKE | `AND THE NEXT ONE` | `A METEOR STOPS THE SHOT` | `PRESS` / `FIRE` on a reachable enemy and `PRESS` / `OPEN` on the next point, his alone |

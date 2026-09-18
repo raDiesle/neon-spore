@@ -632,15 +632,34 @@ loud. The three events — `wardenHold`, `wardenThrow`, `wardenSlam` — are
 `events-warden.ts`, cued by `bind-warden-hand.ts` and voiced by
 `sounds/boss-warden.ts`; the rope's four stay where they were.
 
-**What is not built** (sim lane, 18 September 2026): the picture. The lids
-still follow the hatch on every screen, no ring answers `wardenEye` or
-`wardenHatch`, the three events are on the silent lists, and the cue speaks
-only the rope's words. The look lane draws the lids off `wardenLidsMilli`,
-the hatch off `wardenHatchMilli`, the thumb's ring on the eye for player 2
-under NARROW, the swipe's ring across the hatch for player 1 under GLARE, and
-the slam. *Never watched at tempo*: whether three beats is a window a pair
-can hit across a voice delay, and whether a thumb on the eye and a thumb on
-the colour are comfortable on one phone.
+**The look** (18 September 2026, a look with no shipped alternative). The
+hatch is drawn off `wardenHatchMilli` and the lids off `wardenLidsMilli`,
+two numbers where there was one: the lens shows through the smaller of them
+(`warden.ts`), so under NARROW the pilot sees the door he has opened and the
+lids behind it still shut — that is what her thumb *does*, and it is the only
+way he is shown it — and under GLARE the door is thrown or it is not. The
+eye is a handle in `warden-grip.ts`, one circle where the pupil stands, shut,
+and the phase and the seat say which hand a press is: a breathing ring on
+the navigator's screen under NARROW that fills while the sim has her thumb
+(`eyeHeld`), a breathing ring on the pilot's under GLARE until his swipe
+throws it, and then the window's dial round the eye on **both** screens,
+because three beats is *our* count and the shot has to go inside it. The
+swipe is the lift, carrying its travel the way THE MIRROR's does
+(`touch.ts`). Nothing on the eye says a word; the cue does
+(`boss-cue-read-f.ts`): `HOLD` to her on the shut eye while a line hangs and
+her thumb is off, `SWIPE` to him on the hatch until it is thrown, `FIRE` to
+her while it is. The three events each throw a ring off the eye
+(`warden-grip-fx.ts`, kept in `WardenFx` and reset with it): a small white
+one for the thumb landing, a wide one for the throw, a dark one falling
+inward for the slam — on every screen, since each is the one moment the
+other seat's hand is shown at all. `field-controls-warden.ts` is the
+director's two rows.
+
+**What is not built**: nothing of the design. *Never watched at tempo*:
+whether three beats is a window a pair can hit across a voice delay, whether
+a thumb on the eye and a thumb on the colour are comfortable on one phone,
+and whether the dial on the pilot's screen tempts him to count aloud what
+she can already see.
 
 **Nothing about it is random.** Like THE MIRROR it never draws from the rng —
 colour and phase both follow from counters both devices already agree about.

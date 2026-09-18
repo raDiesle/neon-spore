@@ -3,13 +3,17 @@ import {
   type World,
   wardenEyeOpen,
   wardenHandleMilli,
-  wardenPullMilli,
+  wardenHatchMilli,
+  wardenPhase,
+  wardenTether,
+  wardenThrown,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { fieldPoint } from "./handle-draw.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import { wardenEyeCircle } from "./warden.js";
+import { wardenGripCircle } from "./warden-grip.js";
 
 /**
  * **What the bosses with a handle on the field are asking for** — page six of
@@ -89,6 +93,14 @@ function markAt(
  * And nothing on either seat once `eyeSpent`: the opening has taken its hit,
  * holding it costs him a hand for nothing, and a second shot into it is a
  * bolt she needed for the next line.
+ *
+ * **The other two phases, one word each** (`warden-grip.ts`). Under NARROW
+ * the lids are hers: `HOLD` on the shut eye while a line hangs and her thumb
+ * is not down, on top of whatever his rope is asking — two seats, two marks,
+ * the one time this page says two things at once, because the eye needs both
+ * hands before it shows. Under GLARE there is no rope and the hatch is his
+ * swipe: `SWIPE` on it until it is thrown, then hers is `FIRE` for three
+ * beats and nothing is his, because the window is theirs to count.
  */
 export function wardenCues(
   l: Layout,
@@ -99,12 +111,19 @@ export function wardenCues(
   if (b.eyeSpent) return [];
   const out: BossCue[] = [];
   const open = wardenEyeOpen(world, b);
+  const body = world.creatures.find((c) => c.id === b.creatureId);
+  const asks = wardenPhase(b.plates).asks;
 
-  if (open) {
-    const body = world.creatures.find((c) => c.id === b.creatureId);
-    if (body !== undefined) {
-      const eye = wardenEyeCircle(l, body, b, wardenPullMilli(world, b) / 1000);
-      out.push(markAt(2, "PRESS", "FIRE", eye.x, eye.y, l, 69));
+  if (open && body !== undefined) {
+    const eye = wardenEyeCircle(l, body, b, wardenHatchMilli(world, b) / 1000);
+    out.push(markAt(2, "PRESS", "FIRE", eye.x, eye.y, l, 69));
+  } else if (body !== undefined) {
+    const eye = wardenGripCircle(l, body, b);
+    if (asks === "hold" && !b.eyeHeld && wardenTether(world) !== null) {
+      out.push(markAt(2, "HOLD", "HOLD", eye.x, eye.y, l, 82));
+    }
+    if (asks === "throw" && !wardenThrown(world, b)) {
+      out.push(markAt(1, "CARRY", "SWIPE", eye.x, eye.y, l, 83));
     }
   }
 

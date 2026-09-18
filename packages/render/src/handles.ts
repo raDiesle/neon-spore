@@ -20,6 +20,7 @@ import { surgeBulbUnder } from "./surge-grip.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
 import { bossOf } from "./touch-field.js";
+import { wardenGripUnder } from "./warden-grip.js";
 
 /**
  * The handles: the things drawn **on the field** that a hand takes hold of and
@@ -69,6 +70,7 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
   return (
     mazeStringUnder(l, x, y, field) ??
     wardenRopeUnder(l, x, y, field) ??
+    wardenGripUnder(l, x, y, field) ?? // THE WARDEN's eye under NARROW and GLARE (`warden-grip.ts`).
     lidCordUnder(l, x, y, field) ??
     balloonHandleUnder(l, x, y, field) ??
     choirArrowUnder(l, x, y, field) ??

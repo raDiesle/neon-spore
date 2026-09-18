@@ -207,8 +207,10 @@ export function touchUp(l: Layout, hold: Hold, field: Field, at?: Point): Touch 
     // THE MIRROR's lobes are the one drag whose *lift* is the gesture — a
     // carry past the threshold or a tap short of it, the muzzle's and the
     // maw's rule on the boss's own ship (`sim/mirror-hand.ts`) — so the lift
-    // says where the hand ended. Every other drag's lift only lets go.
-    const carried = hold.target === "mirrorLobe" && at !== undefined;
+    // says where the hand ended; THE WARDEN's hatch is the second, a swipe
+    // (`sim/warden-hand.ts`). Every other drag's lift only lets go.
+    const swiped = hold.target === "mirrorLobe" || hold.target === "wardenHatch";
+    const carried = swiped && at !== undefined;
     const dx = carried ? Math.round(((at.x - hold.originX) * 1000) / l.tile) : 0;
     const dy = carried ? Math.round(((at.y - hold.originY) * 1000) / l.tile) : 0;
     return { player: hold.player, command: dragging(hold, dx, dy, false), hold: null };

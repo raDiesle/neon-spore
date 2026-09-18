@@ -15,6 +15,7 @@ import { SINEW_CONTROLS } from "./field-controls-sinew.js";
 import { STARE_CONTROLS } from "./field-controls-stare.js";
 import { SURGE_CONTROLS } from "./field-controls-surge.js";
 import { tetherExamples } from "./field-controls-tether.js";
+import { WARDEN_CONTROLS } from "./field-controls-warden.js";
 
 /**
  * The other half of the CONTROLS tab (`controlsets-page.ts`) — split out on
@@ -225,6 +226,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...GORGE_CONTROLS, // THE GORGE's pinch and pry, one target whose seat says the gesture.
   ...MAZE_CONTROLS, // THE MAZE's string and its heart, the brace and the tear (`field-controls-maze.ts`).
   ...GAUGE_CONTROLS, // THE GAUGE's needle under a jam and its band under a bind (`field-controls-gauge.ts`).
+  ...WARDEN_CONTROLS, // THE WARDEN's thumb and swipe, its second and third hands (`field-controls-warden.ts`).
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

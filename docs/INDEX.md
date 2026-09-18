@@ -1148,6 +1148,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/warden-roll-tube.ts` | THE WARDEN's material as a **tube**: the ring read as a torus seen face-on |
 | `packages/render/src/warden-roll.ts` | ROLL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
 | `packages/render/src/warden-whorl.ts` | WHORL — a kept look for THE WARDEN, drawn only on the SHAPES page's LIBRARY |
+| `packages/render/src/warden-grip-fx.ts` | THE WARDEN's thumb landing, hatch thrown and hatch slamming, each a ring off the eye |
+| `packages/render/src/warden-grip.ts` | THE WARDEN's eye as a control: player 2's thumb under NARROW, player 1's swipe under GLARE |
 | `packages/render/src/weight.ts` | **THE WEIGHT under a thumb, and the one thing on this field a player is shown that their partner is not.**… |
 | `packages/render/src/well-draw.ts` | THE WELL's board and the bodies on it, in place of the flat field's two field passes |
 | `packages/render/src/well-face.ts` | THE WELL's clock face: the bowl, the lanes, the rings and the seam — the empty board, in the round |
@@ -2189,6 +2191,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-mirror.ts` | THE MIRROR's lobes, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-maze.ts` | THE MAZE's two handles, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-diastole.ts` | THE DIASTOLE's clamp, in a file of its own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-warden.ts` | THE WARDEN's thumb and swipe, the director's two rows |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |
 | `tools/director/src/ship-fields-choreo-b.ts` | **The choreographed bosses' dials, the second page** — THE LEDGER and every boss built after it |

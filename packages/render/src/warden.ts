@@ -138,6 +138,8 @@ export function drawWarden(
   beatPhase: number,
   time: number,
   openness: number,
+  /** How far the lids behind the hatch are parted, 0..1; the hatch's own under WATCH. */
+  lids: number = openness,
 ): void {
   const cx = tileCX(l, body.col + (WARDEN_COLS - 1) / 2);
   const cy = tileCY(l, body.row);
@@ -198,6 +200,8 @@ export function drawWarden(
   // and the fringe are drawn whether or not the hatch is open, because they are
   // what makes the hole read as an eye at all rather than as a porthole that
   // sometimes lights up; only the lens is gated, and it gates itself on
-  // `openness` (`warden-eye.ts`).
-  drawEye(ctx, cx + dx, cy, pupilR * HATCH, hex, rim, openness, beat + beatPhase, time);
+  // what shows through *both* the hatch and the lids (`warden-eye.ts`) — one
+  // number under WATCH, two under NARROW, where the lids are a thumb's.
+  const lens = Math.min(openness, lids);
+  drawEye(ctx, cx + dx, cy, pupilR * HATCH, hex, rim, lens, beat + beatPhase, time);
 }

@@ -87,6 +87,18 @@ describe("parseHold", () => {
     expect(() => parseHold("balloonLeft=-1600")).toThrow(/id=N/);
   });
 
+  it("takes THE WARDEN's eye in the navigator's hand and its hatch in the pilot's", () => {
+    // Two targets on one circle, and the seat is part of each (`sim/warden-hand.ts`).
+    expect(parseHold("wardenEye=0").map((h) => h.player)).toEqual([2, 2]);
+    expect(parseHold("wardenHatch=0").map((h) => h.player)).toEqual([1, 1]);
+    expect(parseHold("wardenEye=0")[1]?.command).toEqual({
+      kind: "drag",
+      target: "wardenEye",
+      on: true,
+      fromMilli: 0,
+    });
+  });
+
   it("takes THE INSTAR's marks by id, the navigator's under its own name on the one target", () => {
     // Both seats send `instarMark`, and which mark of the step is `id`
     // (`sim/instar-hand.ts`); a mark wants one seat, so a name per thumb.

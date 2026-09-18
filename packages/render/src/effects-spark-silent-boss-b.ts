@@ -38,7 +38,7 @@ export const SILENT_BOSS_B = [
   "gorgeClench",
   // THE MAZE's thumb on its heart throws a ring, not a burst: `maze-grip-fx.ts`.
   "mazeGrip",
-  // THE WARDEN's second and third hands, no burst until the look lane draws them.
+  // THE WARDEN's thumb, throw and slam throw a ring off the eye, not a burst: `warden-grip-fx.ts`.
   "wardenHold",
   "wardenThrow",
   "wardenSlam",

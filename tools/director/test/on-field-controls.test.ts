@@ -163,9 +163,8 @@ function documentedDragTarget(target: DragTarget): DragTarget {
       return target;
     // `wardenEye` and `wardenHatch` are THE WARDEN's second and third hands —
     // player 2's thumb resting on the eye under NARROW, player 1's swipe
-    // across the hatch under GLARE (`sim/warden-hand.ts`). Sim lane only so
-    // far: no ring answers them yet, so they are not in the list below until
-    // the look lane lands `field-controls-warden.ts` rows for them.
+    // across the hatch under GLARE (`sim/warden-hand.ts`,
+    // `field-controls-warden.ts`).
     case "wardenEye":
     case "wardenHatch":
       return target;
@@ -209,6 +208,8 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
         "mazeHeart",
         "gaugeNeedle",
         "gaugeBand",
+        "wardenEye",
+        "wardenHatch",
       ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {
