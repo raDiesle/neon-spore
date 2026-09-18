@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 4c3da15c — THE MIRROR says REPEAT, and its rehearsal comes down to two pages
+
+The first round to carry the cue of `docs/decisions.md` #34: `PRESS` / `REPEAT` on the mirror's own cannon for the whole of `listen`, on both screens, and nothing while it performs — the band is drawn dead there — or during the verdict. The word is read off the phase and never off the step the mirror is waiting for, because which move comes next, whose thumb it is on and whether it is a press or a slide are the answer, and the memory game exists to make the pair say it. The film loses `NOTHING COUNTS YET`, which the dead band and the WATCH count already say, and `NOW GIVE IT BACK IN ORDER` loses its verb to the cue and keeps the order: `THE ORDER IS THE TEST`. Its first page says the split instead of the picture: `CALL EACH MOVE AS IT COMES`.
+
 ## 2026-09-18 · 4cd94190 — THE STARE says STILL on the watched seat, and its briefing comes down
 
 The field now writes the one word this boss asks for: STILL, on the watched seat alone, at the foot of the gaze, from the beat the look lands until it lifts — and nothing during the tell, on any screen, because who the eye chose is the answer and the other seat's to say. It is the fifth kind of cue and the only one that is not a gesture: the simulation refuses and charges the press that ignores it, so a thumb kept off the glass is something the fight can tell was done. Two rehearsal pages that were the cue's word alone came out, one in the tell was rewritten to what a cue may never say, and the guide halves lost "hands off" for what a touch costs and which screen is warned. A look the owner asked for by name (decision #34).
