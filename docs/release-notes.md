@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · d7736c61 — A machine-wide width for `bun test` shards, and smaller bins
+
+`pool` bounds the shards of one check. The owner does not run one check: eight lanes out of nine worktrees each started a pool eight wide, every one of them inside its own budget, and the machine went to 22.7 GB of swap. Two shards of forty render tests stood at 10.7 GB and 11.5 GB resident; four held about 26 GB between them. Nothing was over a limit, because the limit was per run and the quantity that mattered was per machine.
+
 ## 2026-09-18 · 83d69621 — BULB QUEEN says four words, and a page of her rehearsal comes down
 
 The oldest boss in the game said nothing on the field at all. She says four things now, and the hard part was which seat hears each: her whole difficulty is a column the navigator can see and the pilot cannot, so a frame — which is a place, and a place is the answer — had to be kept off his screen entirely.

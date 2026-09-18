@@ -11263,3 +11263,5 @@ each process hands its heap back sooner.
 The bottleneck was measuring it: the mechanism was right an hour before it
 could be shown to be right, and a sampler slower than the thing it samples
 reports numbers that look exactly like a bug.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
