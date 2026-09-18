@@ -95,6 +95,28 @@ describe("THE MAZE", () => {
     }
   });
 
+  it("under the grip: HOLD on the string for him until he has it, PULL on the heart for her", () => {
+    const { world, m } = opened();
+    m.phase = "grip";
+    m.dragging = false;
+    const his = cue(world, "p1");
+    expect(his?.word).toBe("HOLD");
+    expect(his?.kind).toBe("CARRY");
+    expect(his?.seat).toBe(1);
+    expect(his?.y).toBe(mazeStringCircle(LAYOUT.p1, CFG).y);
+    const hers = cue(world, "p2");
+    expect(hers?.word).toBe("PULL");
+    expect(hers?.seat).toBe(2);
+    const d = mazeDrum(LAYOUT.p2, CFG);
+    expect(hers?.x).toBe(d.cx);
+    expect(hers?.y).toBe(d.cy);
+    // His hand on it: the field has nothing more to say to him, and still
+    // asks her — whether he is braced is the one thing she cannot see.
+    m.dragging = true;
+    expect(cue(world, "p1")).toBeNull();
+    expect(cue(world, "p2")?.word).toBe("PULL");
+  });
+
   it("asks the pilot to TURN, on the handle, while nothing has clicked", () => {
     const { world, m } = opened();
     m.phase = "read";

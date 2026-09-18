@@ -24,7 +24,8 @@ export function mirrorCue(
         | "mazeCommit"
         | "mazeProbe"
         | "mazeVerdict"
-        | "mazeDown";
+        | "mazeDown"
+        | "mazeGrip";
     }
   >,
   cols: number,
@@ -73,5 +74,11 @@ export function mirrorCue(
       };
     case "mazeDown":
       return { id: "mirror.down", pan: panForCol(e.col, cols) };
+    case "mazeGrip":
+      // The navigator's thumb on the held heart: the same pin THE MIRROR's
+      // two thumbs make, a step higher than any probe reached, and the same
+      // late echo when it lets go — the heart springing back is a hand off.
+      if (e.on) return { id: "mirror.echo", pitch: 1.3, pan: panForCol(e.col, cols) };
+      return { id: "mirror.echoLate", pan: panForCol(e.col, cols) };
   }
 }

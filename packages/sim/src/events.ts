@@ -220,6 +220,8 @@ export type SimEvent =
   /** A round is settled — right or wrong, why, and the mouth it landed in. */
   | { type: "mazeVerdict"; right: boolean; col: number; reason: MazeVerdictReason }
   | { type: "mazeDown"; col: number }
+  // The navigator's thumb landing on the heart (`on`) or leaving it (`maze-hand.ts`).
+  | { type: "mazeGrip"; col: number; on: boolean }
   | CreatureEvent
   /**
    * A salvo into open water on THE FLEET's chart, in the field's coordinates.

@@ -83,6 +83,16 @@ export interface MazeState {
   lost: MazeVerdictReason | null;
   /** The column that verdict landed in — the one the shot went up. */
   verdictCol: number;
+  /**
+   * The navigator's thumb on the heart under `grip`, and how far down it has
+   * carried it, in thousandths of a tile, 0..`mazeHeartPullMilli`. Two fields
+   * rather than one because the picture needs both: a thumb resting on the
+   * heart is a heart under a hand on **both** screens, which is how the pilot
+   * sees the pull coming, and the distance is how far the heart is stretched
+   * (`maze-hand.ts`). Wiped on `lead` and on entering `grip`.
+   */
+  gripThumb: boolean;
+  gripPullMilli: number;
 }
 
 /** The wheel of the round being played, or nothing past the last one. */
@@ -93,6 +103,11 @@ export function mazeCurrent(m: MazeState): MazeWheel | null {
 export function enterMazePhase(m: MazeState, phase: MazePhase, beat: number): void {
   m.phase = phase;
   m.phaseBeat = beat;
+  // The heart's hold begins with no thumb on it, and a wheel wiped has none.
+  if (phase === "grip" || phase === "lead") {
+    m.gripThumb = false;
+    m.gripPullMilli = 0;
+  }
   if (phase !== "lead") return;
   m.angleMilli = mazeWrap(mazeCurrent(m)?.startMilli ?? 0);
   m.turn = 0;
@@ -132,5 +147,7 @@ export function installMaze(world: World, rounds: MazeWheel[]): MazeState {
     verdict: 0,
     verdictCol: -1,
     lost: null,
+    gripThumb: false,
+    gripPullMilli: 0,
   };
 }

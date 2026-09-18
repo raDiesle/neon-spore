@@ -3,6 +3,7 @@ import { diastoleHeard } from "./diastole-hand.js";
 import { filamentHeard } from "./filament-hand.js";
 import { gorgeHeard } from "./gorge-hand.js";
 import { instarHeard } from "./instar-hand.js";
+import { mazeHeartHeard } from "./maze-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
 import { stareLidHeard } from "./stare-hand.js";
@@ -59,4 +60,9 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // a pinch that waited for it would land on a column already torched
   // (`gorge-hand.ts`).
   for (const c of commands) gorgeHeard(world, c.player, c.command);
+  // THE MAZE's heart under the navigator's thumb, on the tick because the
+  // tear is where the thumb is now, judged against where the pilot's hand
+  // is now (`maze-hand.ts`). The string itself stays in `step.ts` with the
+  // field's other handles; this is the round's second gesture, not its first.
+  for (const c of commands) mazeHeartHeard(world, c.player, c.command);
 }

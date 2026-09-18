@@ -151,6 +151,12 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // `field-controls-gorge.ts`).
     case "gorgeLobe":
       return target;
+    // `mazeHeart` is THE MAZE's heart under the navigator's thumb, torn out
+    // while the pilot braces the string (`sim/maze-hand.ts`). Its simulation
+    // half landed first; the on-field entry and the row in
+    // `docs/spec/controls.md` are the look lane's.
+    case "mazeHeart":
+      return target;
     default:
       return assertNever(target);
   }

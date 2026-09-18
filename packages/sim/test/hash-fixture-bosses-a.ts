@@ -145,6 +145,8 @@ export function patchBossA(boss: BossState, scar: () => Required<Scar>): void {
     boss.verdict = -1;
     boss.verdictCol = 3;
     boss.lost = "mouth";
+    boss.gripThumb = true;
+    boss.gripPullMilli = 120;
   }
   if (boss.kind === "gauge") {
     boss.phase = "play";

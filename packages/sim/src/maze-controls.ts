@@ -73,6 +73,13 @@ function valveHeard(m: MazeState, on: boolean, dir: -1 | 1): void {
  * The lift is answered whatever phase the round is in. A hand that let go
  * while the shot was travelling is a hand that let go, and one left standing
  * would measure the next round's first pull against a wheel two phases old.
+ *
+ * **Under `grip` the hand is a brace and turns nothing.** The heart holds the
+ * shot until the navigator tears it out, and the tear only counts while the
+ * pilot's hand is on the string (`maze-hand.ts`): a hand kept on it since
+ * the read is already there, and one put back on it is heard here — but a
+ * wheel that turned under a held shot would be a wheel the pair had not
+ * agreed on, so the pull past the press is dropped.
  */
 function dragHeard(world: World, m: MazeState, on: boolean, fromMilli: number): void {
   if (!on) {
@@ -80,7 +87,7 @@ function dragHeard(world: World, m: MazeState, on: boolean, fromMilli: number): 
     m.dragFromMilli = 0;
     return;
   }
-  if (m.phase !== "read") return;
+  if (m.phase !== "read" && m.phase !== "grip") return;
   const wheel = mazeCurrent(m);
   if (wheel === null) return;
   if (!m.dragging) {
@@ -91,6 +98,7 @@ function dragHeard(world: World, m: MazeState, on: boolean, fromMilli: number): 
     m.turn = 0;
     return;
   }
+  if (m.phase === "grip") return;
   const moved = fromMilli - m.dragFromMilli;
   // In a click, the hand has to carry on past it before anything moves — and
   // `dragFromMilli` is deliberately left where the click caught it, so the

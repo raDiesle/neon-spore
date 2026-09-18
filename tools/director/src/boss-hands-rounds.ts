@@ -38,7 +38,25 @@ const valve = (dir: -1 | 1): Press => ({ player: 1, command: { kind: "valve", on
  */
 export const mazeHand: Hand = (w) => {
   const m = mazeRound(w);
-  if (m === null || m.phase !== "read") return [];
+  if (m === null) return [];
+  // The heart holding the shot: his hand on the string, her thumb carried
+  // down the whole pull, on one tick (`sim/maze-hand.ts`).
+  if (m.phase === "grip") {
+    return [
+      { player: 1, command: { kind: "drag", target: "mazeString", on: true, fromMilli: 0 } },
+      {
+        player: 2,
+        command: {
+          kind: "drag",
+          target: "mazeHeart",
+          on: true,
+          fromMilli: 0,
+          fromYMilli: w.cfg.mazeHeartPullMilli,
+        },
+      },
+    ];
+  }
+  if (m.phase !== "read") return [];
   const wheel = mazeCurrent(m);
   if (wheel === null) return [];
   if (m.lockedWay === mazeCoreEntrance(wheel)) {

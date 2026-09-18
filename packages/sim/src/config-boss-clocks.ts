@@ -9,6 +9,7 @@ import { HIVE_DEFAULTS, type HiveConfig } from "./config-hive.js";
 import { INSTAR_DEFAULTS, type InstarConfig } from "./config-instar.js";
 import { LEAD_DEFAULTS, type LeadConfig } from "./config-lead.js";
 import { LEDGER_DEFAULTS, type LedgerConfig } from "./config-ledger.js";
+import { MAZE_GRIP_DEFAULTS, type MazeGripConfig } from "./config-maze-grip.js";
 import { MIRROR_DEFAULTS, type MirrorConfig } from "./config-mirror.js";
 import { ORRERY_DEFAULTS, type OrreryConfig } from "./config-orrery.js";
 import { SCUTTLE_DEFAULTS, type ScuttleConfig } from "./config-scuttle.js";
@@ -69,7 +70,8 @@ export interface BossClockConfig
     HiveConfig,
     InstarConfig,
     FilamentConfig,
-    MirrorConfig {}
+    MirrorConfig,
+    MazeGripConfig {}
 
 export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...STARE_DEFAULTS,
@@ -92,4 +94,5 @@ export const BOSS_CLOCK_DEFAULTS: BossClockConfig = {
   ...INSTAR_DEFAULTS,
   ...FILAMENT_DEFAULTS,
   ...MIRROR_DEFAULTS,
+  ...MAZE_GRIP_DEFAULTS,
 };

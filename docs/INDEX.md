@@ -256,6 +256,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/maze-solve.ts` | The way through THE MAZE's drum, worked out from the walls rather than typed beside them |
 | `packages/sim/src/maze-state.ts` | what THE MAZE remembers between ticks — `MazeState`, a paragraph per field — and the two ways it is set: fresh for a wave, wiped for a phase |
 | `packages/sim/src/maze-hash.ts` | What THE MAZE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/maze-hand.ts` | **A thumb on THE MAZE's heart**, off the wire, on the tick |
 | `packages/sim/src/maze-verdict.ts` | How an attempt on THE MAZE ends, and what it costs |
 | `packages/sim/src/hull-guard.ts` | **The shield's own arithmetic**: where it stands, how long its window is open |
 | `packages/sim/src/config-veer.ts` | THE VEER's two numbers: how far apart the rows it changes lane on are, and the widest a single change can reach |
@@ -338,6 +339,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-filament.ts` | What THE FILAMENT says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/fence.ts` | THE FENCE: a live line the width of the field, with gaps burnt through it |
 | `packages/sim/src/config-malfunction.ts` | THE MALFUNCTION's four numbers: how often a broken control acts by itself |
+| `packages/sim/src/config-maze-grip.ts` | THE MAZE's grip: the heart holding the right shot until it is torn out by hand (`maze-hand.ts` |
 | `packages/sim/src/config-mirror.ts` | THE MIRROR's tuning: how far a carry goes before it is one, how long the pin is held |
 | `packages/sim/src/config-view.ts` | **The numbers only the picture reads.** Every field here is taken off `SimConfig` by `packages/render` |
 | `packages/sim/src/fault-surface.ts` | Every name THE MALFUNCTION puts on `@neon-spore/sim`'s surface, written out |

@@ -138,3 +138,26 @@ export function drag(world: World, ...fromMilli: number[]): void {
     send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: f });
   }
 }
+
+/**
+ * Tear the held shot out of the heart: the pilot's hand on the string, the
+ * navigator's thumb on the heart, carried down the whole pull. The round has
+ * to be in `grip` already; what comes back is everything the two gestures
+ * raised, so a test can find the verdict in it.
+ */
+export function tear(world: World): SimEvent[] {
+  const seen = send(world, 1, { kind: "drag", target: "mazeString", on: true, fromMilli: 0 });
+  seen.push(
+    ...send(world, 2, { kind: "drag", target: "mazeHeart", on: true, fromMilli: 0, fromYMilli: 0 }),
+  );
+  seen.push(
+    ...send(world, 2, {
+      kind: "drag",
+      target: "mazeHeart",
+      on: true,
+      fromMilli: 0,
+      fromYMilli: CFG.mazeHeartPullMilli,
+    }),
+  );
+  return seen;
+}

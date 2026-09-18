@@ -13,6 +13,7 @@ import { gaugeDial } from "./gauge-round.js";
 import { type Layout, tileCX } from "./layout.js";
 import { mazeDoorMouth } from "./maze-door.js";
 import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
+import { mazeDrum } from "./maze-walls.js";
 import { mirrorHullY } from "./mirror.js";
 
 /**
@@ -130,8 +131,17 @@ export function mirrorCues(l: Layout, world: World, m: MirrorState): readonly Bo
  * (`mazeHeartColor`), and which one that is is the pair's read off a thing
  * beating in front of them both — the film says so in its one remaining page
  * about her half, and the field never will.
+ *
+ * **Under `grip`, the heart holding the shot** (`sim/maze-hand.ts`):
+ * - `CARRY` / `HOLD` on the string handle, the pilot's, until his hand is on
+ *   it. His half of the tear is a brace and not a pull, and the word says so;
+ *   once the hand is there the field has nothing to add.
+ * - `CARRY` / `PULL` on the heart, the navigator's, for as long as the heart
+ *   holds. Not *once he is braced*: the string is his and whether his hand is
+ *   on it is the one thing she has to be told.
  */
 export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCue[] {
+  if (m.phase === "grip") return mazeGripCues(l, world, m);
   if (m.phase !== "read") return [];
   const wheel = mazeCurrent(m);
   if (wheel === null) return [];
@@ -148,6 +158,17 @@ export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCu
   }
   const mouth = mazeDoorMouth(l, world.cfg, m, wheel, m.lockedWay);
   out.push(markAt(2, "PRESS", "FIRE", mouth.x, mouth.y, l, 67));
+  return out;
+}
+
+function mazeGripCues(l: Layout, world: World, m: MazeState): readonly BossCue[] {
+  const out: BossCue[] = [];
+  if (!m.dragging) {
+    const handle = mazeStringHandle(l, world.cfg, m);
+    out.push(markAt(1, "CARRY", "HOLD", handle.x, mazeStringCircle(l, world.cfg).y, l, 75));
+  }
+  const d = mazeDrum(l, world.cfg);
+  out.push(markAt(2, "CARRY", "PULL", d.cx, d.cy, l, 76));
   return out;
 }
 

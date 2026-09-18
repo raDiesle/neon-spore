@@ -6,7 +6,7 @@ import {
   mazeReadBeats,
 } from "./maze-clock.js";
 import { enterMazePhase, type MazeState, mazeCurrent } from "./maze-state.js";
-import { mazeRight, mazeSettle, mazeWrong } from "./maze-verdict.js";
+import { mazeSettle, mazeWrong } from "./maze-verdict.js";
 import { type MazeWheel, mazeReachesCore } from "./maze-wheel.js";
 import type { Color } from "./types.js";
 import type { World } from "./world.js";
@@ -16,8 +16,8 @@ import type { World } from "./world.js";
  *
  * `maze.ts` next door is the wheel as arithmetic and knows nothing about a
  * world, and `maze-state.ts` is what the boss remembers between ticks and how
- * a phase wipes it; everything here is the fight — the four phases, the shot
- * walking the corridor, and the two ways an attempt can end.
+ * a phase wipes it; everything here is the fight — the five phases, the shot
+ * walking the corridor, the heart holding it, and the ways an attempt can end.
  *
  * **Nothing in this round travels.** The wheel turns in place and the cannon
  * slides on the hull as it always did, so `CLAUDE.md`'s field rule is not in
@@ -35,6 +35,15 @@ import type { World } from "./world.js";
  * ordinary crater-and-crack every missed rock already is, which is how THE
  * MIRROR answers a wrong step — and a hit is the wave lost (`wave-fail.ts`),
  * so the field holds where it was struck and the whole wave is played again.
+ *
+ * **The heart holds the right shot, and it is torn out by hand.** A shot of
+ * the heart's colour arriving in the middle does not finish the wheel on its
+ * own: the round moves to `grip`, where the navigator pulls the heart down on
+ * the picture while the pilot keeps his hand on the string (`maze-hand.ts`,
+ * `.claude/skills/new-boss` §6.2) — two seats, two gestures, one beat. A
+ * heart nobody tears out lets go when `mazeGripBeats` are up, and the shot
+ * it was holding comes back down the column as the heart's own blood
+ * (`mazeWrong`, `slip`).
  *
  * **A dead end brings the drum down.** Exactly one gap in each rim reaches
  * the middle (`content/maze-drawn.ts`); the rest open onto regions walled off
@@ -71,7 +80,9 @@ export function mazeHeartShot(round: number): number {
 /** One beat of the boss. A phase that ends on this beat hands it straight to
  * the next rather than to the next beat, so the beat a shot sets off on is the
  * beat it takes its first cell — the same off-by-one `stepMirror` avoids, and
- * the same at-most-one-transition-per-hop loop that makes it safe. */
+ * the same at-most-one-transition-per-hop loop that makes it safe. The
+ * middle reached is `grip`, never the verdict: the wheel is finished by a
+ * hand (`mazeRight`, called from `maze-hand.ts`), not by the walk. */
 export function stepMaze(world: World, m: MazeState): void {
   const wheel = mazeCurrent(m);
   if (wheel === null) return;
@@ -102,11 +113,18 @@ export function stepMaze(world: World, m: MazeState): void {
         // takes its own. Both cost the hull; only the right colour in the
         // middle takes a share of the boss.
         const home = mazeReachesCore(wheel.entrances[m.way]!);
-        if (home && m.shotColor === mazeHeartShot(m.round)) mazeRight(world, m);
+        if (home && m.shotColor === mazeHeartShot(m.round)) enterMazePhase(m, "grip", world.beat);
         else mazeWrong(world, m, home ? "color" : "mouth");
         continue;
       }
       if (inside % MAZE_TRAVEL_BEATS === 0) advance(world, m, wheel, step);
+      return;
+    }
+    if (m.phase === "grip") {
+      // The heart holds on for so long. The tear itself is the navigator's
+      // thumb, heard on the tick (`maze-hand.ts`); the beat only says when
+      // the heart gives up waiting for it.
+      if (since >= world.cfg.mazeGripBeats) mazeWrong(world, m, "slip");
       return;
     }
     if (since < MAZE_VERDICT_BEATS) return;

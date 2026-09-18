@@ -87,4 +87,7 @@ export const INGEST_SILENT_BOSS_B = [
   "gorgePinch",
   "gorgePry",
   "gorgeClench",
+  // THE MAZE's heart under the navigator's thumb, landing or leaving. Silent
+  // until the look lane draws the grip (`sim/maze-hand.ts`).
+  "mazeGrip",
 ] as const satisfies readonly SimEvent["type"][];

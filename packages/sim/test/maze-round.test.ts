@@ -18,6 +18,7 @@ import {
   past,
   send,
   TPB,
+  tear,
   untilReading,
   WHEELS,
 } from "./maze-fixture.js";
@@ -62,6 +63,11 @@ test("the way in that reaches the middle takes a share of the boss", () => {
   expect(mazeOf(world).phase).toBe("travel");
 
   seen.push(...past(world, "travel", TPB * 200));
+  // The middle reached is the heart holding the shot, not the verdict: the
+  // wheel is finished by two hands (`maze-gestures.test.ts`).
+  expect(mazeOf(world).phase).toBe("grip");
+  expect(seen.filter((e) => e.type === "mazeVerdict")).toHaveLength(0);
+  seen.push(...tear(world));
   const verdict = seen.filter((e) => e.type === "mazeVerdict");
   expect(verdict).toHaveLength(1);
   expect(verdict[0]).toMatchObject({ right: true });
@@ -208,6 +214,7 @@ test("three wheels finished bring it down", () => {
     expect(mazeOf(world).round).toBe(round);
     fireInto(world, mazeCoreEntrance(WHEELS[round]!));
     past(world, "travel", TPB * 200);
+    tear(world);
     past(world, "verdict", TPB * 8);
   }
   expect(world.boss).toBeNull();

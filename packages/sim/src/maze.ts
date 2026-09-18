@@ -189,7 +189,8 @@ export function mazeClickAngle(
  * Which part of a round the maze is in, in a fixed order so a fingerprint can
  * push one as a number. `lead` is the quiet before a fresh wheel, `read` is
  * the pair's turn to turn and aim, `travel` is the shot walking the corridor
- * where both of them watch it, `verdict` is what it found.
+ * where both of them watch it, `grip` is the heart holding that shot until it
+ * is torn out by hand (`maze-hand.ts`), `verdict` is what it found.
  */
-export const MAZE_PHASES = ["lead", "read", "travel", "verdict"] as const;
+export const MAZE_PHASES = ["lead", "read", "travel", "grip", "verdict"] as const;
 export type MazePhase = (typeof MAZE_PHASES)[number];

@@ -73,6 +73,11 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "P1: pull the string until the way in clicks onto a column. P2: fire up that column in the heart's colour. The shot walks the route.",
     { ...FULL, hand: mazeHand, hold: TPB * 2 },
   ),
+  bossPose("maze", "grip", "P1: hand on the string. P2: pull the heart down.", {
+    ...FULL,
+    hand: mazeHand,
+    hold: TPB,
+  }),
   bossPose(
     "maze",
     "verdict",

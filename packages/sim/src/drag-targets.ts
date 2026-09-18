@@ -40,7 +40,8 @@ export type DragTarget =
   | "queenMark"
   | "diastoleChamber"
   | "mirrorLobe"
-  | "gorgeLobe";
+  | "gorgeLobe"
+  | "mazeHeart";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -220,4 +221,14 @@ export type DragTarget =
  * a window of `gorgePryBeats` in which the beam ends the fight, and past
  * which the mouth clenches on the thumb and spits a bead. Neither seat's
  * press on the other's intake does anything, dropped without a sound.
+ */
+
+/**
+ * `mazeHeart` is the twenty-second, and THE MAZE's second — the first round
+ * to be given a second handle on its picture, for the §6.2 ask. The string
+ * is the pilot's and turns the wheel; the heart is the navigator's and
+ * finishes it: under `grip` her thumb carries it *down* (`fromYMilli`, as
+ * THE SINEW's is read) and the shot the heart is holding tears out when
+ * the pull reaches `mazeHeartPullMilli` while his hand is on the string
+ * (`maze-hand.ts`). No `id`, for `mazeString`'s reason: there is one heart.
  */

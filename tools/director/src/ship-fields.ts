@@ -183,6 +183,8 @@ export const FIELD_GROUP: Record<keyof SimConfig, GroupName> = {
   mazeDragMilliPerTile: "MAZE",
   mazeDragBreakMilli: "MAZE",
   mazeSnapMilli: "MAZE",
+  mazeHeartPullMilli: "MAZE",
+  mazeGripBeats: "MAZE",
   vanePins: "VANE",
   spliceEntranceRows: "THE SPLICE — straws fed in the order the numbers say",
   spliceTopRow: "THE SPLICE — straws fed in the order the numbers say",

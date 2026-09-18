@@ -138,8 +138,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "queenDown":
     case "queenFlinch":
       return wardenCue(e, cols, rows);
-    // THE MIRROR's four and THE MAZE's four, in `bind-mirror.ts`: the two
-    // rounds that are a call and an answer rather than a body meeting a shot.
+    // THE MIRROR's five and THE MAZE's five, in `bind-mirror.ts`: the two rounds that are a call and an answer rather than a body meeting a shot.
     case "mirrorShow":
     case "mirrorEcho":
     case "mirrorVerdict":
@@ -149,6 +148,7 @@ export function cueFor(e: SimEvent, cols: number, rows: number): Cue | null {
     case "mazeProbe":
     case "mazeVerdict":
     case "mazeDown":
+    case "mazeGrip":
       return mirrorCue(e, cols);
     // THE FLEET's five, in `bind-fleet.ts`: they carry more of the fight than
     // any other row in the catalogue, and four of the five are held back by

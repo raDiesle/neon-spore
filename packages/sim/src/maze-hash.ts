@@ -49,6 +49,11 @@ export function mazeHashParts(m: MazeState): number[] {
     // start, so two devices that disagreed about this would disagree about
     // the beat the wave was lost on. `-1` is "not lost".
     m.lost === null ? -1 : MAZE_REASONS.indexOf(m.lost),
+    // The thumb on the heart and how far it has pulled. The tear is judged
+    // off the pull against the pilot's brace, so two devices that disagreed
+    // about either would disagree about the beat the wheel was finished on.
+    m.gripThumb ? 1 : 0,
+    m.gripPullMilli,
   ];
   // Every wheel, not only the one in front of the pair. `m.round` above says
   // which is current; what these cover is the assumption that both devices

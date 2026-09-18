@@ -1426,6 +1426,36 @@ Nothing says the colour; the heart takes its own and only its own, which is
 what the rehearsal's one remaining page about her half is now for
 (`docs/spec/briefings.md`).
 
+**The heart holds the right shot, and it is torn out by hand** (18 September
+2026, `.claude/skills/new-boss` §6.2, `sim/src/maze-hand.ts`). The round used
+to be answered on the ordinary panel and over: the string, the cannon and the
+trigger, then a walk both watched. It has a third state now. A shot of the
+heart's colour that reaches the middle is *held* there — `grip`, between
+`travel` and `verdict` — and the wheel is finished by two hands on the picture
+at once: the navigator's thumb on the heart, carried down `mazeHeartPullMilli`
+(600 thousandths of a tile), **while the pilot's hand is on the string**. His
+hand is a brace and turns nothing under `grip`; a hand kept on the string since
+the read is already there. Her pull without his brace stretches the heart and
+tears nothing; his brace without her pull holds a wheel going nowhere; and a
+heart held past `mazeGripBeats` (eight) lets go — `slip`, the fourth reason —
+and the shot comes back down the column as the heart's blood, the same breach
+the wrong colour throws, and the wave lost with it. The seat check is the
+simulation's: the pilot's thumb on the heart is dropped, because a pilot who
+could tear would be playing both halves of the one beat that needs two. The
+gesture is `drag` at `mazeHeart`, `fromYMilli` down, a twenty-first
+`DragTarget`; the thumb landing and leaving is `mazeGrip`. States and
+gestures, in order: `read` — his string on the picture or the valve, his
+cannon and her colour on the panel; `travel` — watched; `grip` — his brace on
+the picture, her pull on the picture; `verdict`. The two dials are in
+`config-maze-grip.ts`, merged into the clock table.
+
+*What is not built* (the look lane, `docs/parked.md`): the heart as a handle
+under her thumb, the shot held in it, the heart stretched by the pull, the
+`mazeGrip` ring, the director's on-field entry and the row in
+`docs/spec/controls.md`. The cue already has its arm: `CARRY` / `HOLD` on the
+string for him until his hand is on it, `CARRY` / `PULL` on the heart for her
+for as long as it holds.
+
 ## 11.11 THE CAIRN — the boss you take apart with your hands
 
 **Nothing either control does reaches it.** The pile is seven of the field's own

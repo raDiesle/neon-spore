@@ -36,4 +36,6 @@ export const SILENT_BOSS_B = [
   "gorgePinch",
   "gorgePry",
   "gorgeClench",
+  // THE MAZE's thumb on its heart: no burst until the look lane draws the grip.
+  "mazeGrip",
 ] as const satisfies readonly SimEvent["type"][];

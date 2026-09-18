@@ -15,16 +15,17 @@ import { MILLI, type World } from "./world.js";
  */
 
 /**
- * Why an attempt was lost: a dead end, the wrong colour at the heart, or
- * nothing fired at all. All three cost the hull the same; what they are for is
- * the picture — a dead end shakes the drum apart, a silence brings it down,
- * the wrong colour is a gout of the heart's blood — and the sentence the pair
- * says before the wave is played again, which is different in each case.
+ * Why an attempt was lost: a dead end, the wrong colour at the heart, nothing
+ * fired at all, or the heart let go of a shot nobody tore out of it. All four
+ * cost the hull the same; what they are for is the picture — a dead end
+ * shakes the drum apart, a silence brings it down, the wrong colour and a
+ * slip are a gout of the heart's blood — and the sentence the pair says
+ * before the wave is played again, which is different in each case.
  *
  * The list is ordered rather than a bare union because `mazeHashParts` sends
  * the *index* over the wire, the way `MAZE_PHASES` is sent.
  */
-export const MAZE_REASONS = ["mouth", "color", "silence"] as const;
+export const MAZE_REASONS = ["mouth", "color", "silence", "slip"] as const;
 export type MazeVerdictReason = (typeof MAZE_REASONS)[number];
 
 /**
@@ -57,6 +58,12 @@ const MAZE_WRECK: CreatureKind = "gyre";
  * across the maze and down the ship (`render/maze-spill.ts`) — the owner asked
  * for exactly that in place of the rock that used to fall here.
  *
+ * **A slip is the heart's blood as well.** The right shot reached it and
+ * was held there (`grip`), and nobody tore it out before the heart let go:
+ * what comes back down the column is the shot it was holding, in its own
+ * colour, so the breach is the one the wrong colour makes and the picture
+ * is the same gout (`maze-hand.ts`).
+ *
  * **The clock running out is not paid for here at all**: the drum comes down
  * on the ship for that one, and a fall is paid for when it lands rather than
  * when it lets go (`mazeSettle` below, and *a body is resolved when it is seen
@@ -74,7 +81,7 @@ export function mazeWrong(world: World, m: MazeState, reason: MazeVerdictReason)
   if (reason === "mouth") {
     breachHull(world, col, "meteorFastest", world.cfg.mazeRow, "heavy");
   }
-  if (reason === "color") {
+  if (reason === "color" || reason === "slip") {
     const blood = mazeHeartColor(m.round);
     const kind = livingKindForColor(blood);
     breachHull(world, col, kind, world.cfg.mazeRow, "heavy", blood);

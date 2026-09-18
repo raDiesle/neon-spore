@@ -9129,5 +9129,20 @@ the bindings, a line in the stage, and a `null` in fifteen fixtures.
 
 The bottleneck was the `Field` fan-out: a boss the hit test reads costs a
 line in every touch fixture in the suite before its own file is written.
+## 2026-09-18 — tutorial-boss-onscreen-actions — THE MAZE holds the shot: the grip phase, the simulation half
+
+The round has a third state, and the wheel is finished by two hands on the picture.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the nine maze files, THE MIRROR's sim half as the model, the cue and the director's hand |
+| writing | 35 | `maze-hand.ts`, `config-maze-grip.ts`, the round's branch, the brace, the receipts in five packages, eleven tests |
+| looking | 0 | none, and none was owed: nothing visible moved |
+| friction | 10 | a script that stopped at its first assertion and wrote nothing, found by a test expecting `grip` and getting `verdict` |
+| landing | 10 | `check:fast`, the spec, the parked half, the commit, the land |
+
+The bottleneck was the receipts: a new `DragTarget` and a new event touch
+the wire, the audio, two silent lists, the cue, the director and four tests
+before the simulation itself is reached.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
