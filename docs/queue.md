@@ -192,25 +192,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## §11.32 THE INSTAR still says its look is not built, under the look itself
-
-- **Found:** 2026-09-18, claude/boss-implementation-e3cfff
-- **Taken:** 2026-09-18, claude/queue-11-32-the-instar-still-says-its-look-is-not-buil
-- **Files:** `docs/spec/bosses.md`
-
-`b4fda399` (THE INSTAR's look) pasted 419 lines into §11.32 that were *The
-look* followed by a second copy of THE SCUTTLE's closing paragraph, all of
-§11.31 and §11.32's own head, so the page carried two ANTIPHONs and two
-INSTARs; the copy came out on 18 September 2026 with THE SCUTTLE's
-rehearsal. What is left is the section's own tail, written for the first
-lane: *What is not built. The look, whole — this is the first of the two
-lanes*, the deferred `instarMark` hit test, the `FIELD_CONTROLS` row and the
-events in the silent lists — every one of which the look landed. Rewrite
-that paragraph to what is *still* not built after `b4fda399` (if anything),
-and take the section out of *Still in hand* at the top of the page if it is
-whole; `.claude/skills/new-boss` §5 says the section "gets *The look* and
-loses *What is not built*".
-
 ## A caption has no anchor for a boss's own gauge, so it points at the hull
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
@@ -494,27 +475,6 @@ supposed to be written unbacktickedly. One extra line under the drift list,
 naming the convention, is the whole fix.
 
 The row itself was repaired in this lane's commit to get the trunk green again.
-
-## The bosses page says nothing is in hand while THE INSTAR's look is
-
-- **Found:** 2026-09-17, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-bosses-page-says-nothing-is-in-hand-while-th
-- **Files:** `docs/spec/bosses.md`, `tools/director/src/backlog-bosses.ts`
-
-`bosses.md`'s `## Still in hand` reads *Nothing, as of 17 September 2026*, and
-the choreographed ledger's §16 row says THE INSTAR's simulation landed that day
-and **the look is the next lane**. Both were written the same day by different
-lanes and only one of them is right.
-
-The cost is not the sentence, it is the director: STILL IN HAND is the first
-column of the NOT BUILT YET sheet's one remaining page, and it is built by
-reading the bosses under that heading (`backlog-bosses.ts`). An empty heading
-renders an empty column, so the sheet currently tells a session that every look
-has landed. `backlog.test.ts` exempts that group from its populated check on
-purpose — an empty column is a legitimate outcome — so nothing is red.
-
-Move THE INSTAR under `## Still in hand` with the one line the ledger already
-has for it, and take it back out when its look lands.
 
 ## The boss cue's kind line has no clearance and a rehearsal draws it
 

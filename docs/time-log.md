@@ -22,6 +22,29 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — THE INSTAR's page catches up with THE INSTAR
+
+Two queue entries, one page. `docs/spec/bosses.md` said nothing of the boss was
+built and listed THE INSTAR as in hand *and* as built at once, because the first
+lane wrote both and the second landed hours later without taking either down.
+Every claim was checked against the tree — the hit test, the director's row and
+pose, the controls row, the eleven events — and every one had landed; the one
+still-true clause, that the guide's rehearsal is three strings and not a film,
+is all the paragraph now says.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | §11.32's look section and its tail, `render/handles.ts`, the director's two INSTAR files, `docs/spec/controls.md`, both silent lists, to prove each claim landed |
+| writing | 15 | the contents' *Still in hand* block, the rewritten tail, the sounds sentence split back out of it |
+| looking | 0 | nothing visible moved |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, two `queue done`, the commit, `bun run land --keep` |
+
+The bottleneck was that a *What is not built* paragraph is written by the lane
+that cannot yet see the next one land, so it is stale within hours and nothing
+in the check notices: the only way through it was to read every claim against
+the tree one at a time.
+
 ## 2026-09-18 — boss-hints — a task per boss, three times over
 
 The owner answered the three asks — THE INSTAR, THE STARE and THE REPRISE are

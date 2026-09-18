@@ -58,11 +58,7 @@ should be asked the same question before it is started.
 [the three filters](#the-three-filters-a-boss-has-to-pass) — what every
 section below had to pass before it was written.
 
-**Still in hand**
-
-- **[THE INSTAR](#1132-the-instar--the-boss-with-no-panel-marked-where-it-will-hurt-you)** · 11.32 — the boss with no panel, marked where it will hurt you. Built whole 17 September 2026, both lanes
-
-Everything else on this page is in the game or was taken out of it again. What is left undone there is **inside** the built sections, each under its own *What is not built* paragraph, and the director's `◇ NOT BUILT YET` sheet is where those are read together.
+**Still in hand: nothing.** THE INSTAR stood here from the morning of 17 September 2026, when its simulation landed and its look was the next lane; the look landed the same day and the row was never taken down, so the page listed it as in hand and as built at once. Everything on this page is in the game or was taken out of it again. What is left undone is **inside** the built sections, each under its own *What is not built* paragraph, and the director's `◇ NOT BUILT YET` sheet is where those are read together.
 
 **Built — and what is still left on each is inside its own section**
 
@@ -4529,20 +4525,19 @@ briefing*. Both are in the picture.
   what to do and where, in red, one step at a time, before the ring closes
   — and whose mark is bright, and leaves every gesture to the word over it.
 
-**What is not built.** The look, whole — this is the first of the two
-lanes. The owner's brief for the second, in his words: *detailed and nice
-graphics like the bulb queen or the warden, and the enemy transforms and
-moves and changes perspective and appearance during the animations.*
-With it goes everything a thumb needs to find a mark: the `instarMark`
-hit test and its bearing in `render/touch.ts`, the `FIELD_CONTROLS` row
-and its pose and the [controls](controls.md) row — deferred on purpose,
-because a row needs a picture of the answered state and a hit test, and
-neither exists before the look — and the eleven events out of the two
-silent lists (`render/effects-ingest-silent-boss-b.ts`,
-`effects-spark-silent-boss.ts`). The sounds are bound
-(`audio/bind-instar.ts`): a cue per event, panned to the mark's column,
-the landing pitched a shade higher each step. The guide's rehearsal is the three
-strings and not a film.
+**The sounds are bound** (`audio/bind-instar.ts`): a cue per event, panned to
+the mark's column, the landing pitched a shade higher each step.
+
+**What is not built** is one line of it: the guide's rehearsal is the three
+strings and not a film (`content/test/scenes-prose.test.ts`, `STILL_PROSE`).
+Everything else this paragraph listed while the look was the next lane — the
+look whole, the `instarMark` hit test and its bearing, the `FIELD_CONTROLS` row
+with its pose and the [controls](controls.md) row, the eleven events out of the
+two silent lists — landed with the look the same day, 17 September 2026, and is
+written up above. The eleven events are still *on* the two silent lists, for the
+other reason: they are one family read above the loop by `render/instar-fx.ts`,
+the way THE HIVE's are, which is where a family belongs rather than as rows in a
+spark table at its limit.
 
 **Never watched at tempo.** What the tests say is the mechanism: it comes
 in over the middle morphing into its first pose with the marks hidden, and
