@@ -9,6 +9,18 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 1ceb748c — THE UNDERTOW says a word in each of its five phases
+
+The fight's reading moves to its own page, `boss-cue-read-j.ts`, and covers all five phases instead of four moments. `MOVE` was drawn only while the pilot was unseated, which is the four beats the simulation swallows every command of his that reaches the ship; it now comes a phase earlier, at `seat`, while the floor is still bowing under him. `OPEN` and `BURN` were drawn on any standing lobe, but the maw and the beam both fire up the cannon's own column, so each is now the verb when he is under the lobe and `MOVE` when he is not. Phase `last` says `MOVE` on the rise and `OPEN` on the lobe, and says nothing to the navigator, because `undertowTake` refuses there and her plate changes no rule.
+
+## 2026-09-18 · 4488ba76 — The tree-walk test's timeout is measured rather than bun's default
+
+`tools/test/tree-walk.test.ts` opens every source file in the repository to check that anything recursing into directories names `.claude`, and it did so under bun's flat five-second default. That took a landing red once inside `bun run check`, where eight to thirteen shards read the one disk at the same time, and was green on the re-run with nothing changed — the worst shape a red check has, because it teaches the next session to re-run rather than to read.
+
+## 2026-09-18 · 6f265c1c — The last four flat test timeouts are measured off the machine
+
+The lane that moved every compute-bound test onto `tools/test/cpu-time.ts` left four behind, because they are not compute: the two tree walks in `limits.test.ts` and the first rule in `copies.test.ts` read fifteen hundred files off disk, and `supervise-stop.test.ts` and `dev-stop.test.ts` spawn a process and wait for it to die. All four carried a flat number, which is right for one machine under one load and for no other. Each one's idle cost was timed on the cloud image and the budget written from it through `loadedTimeout`: 145 ms and 253 ms for the tree walks, 205 ms for the first rule, 18 ms for the supervisor — where the file's own measured default already covered the case its override was hiding — and 3.0 s for the wrangler.
+
 ## 2026-09-18 · 338374d2 — The compaction window has a check that answers in one line
 
 `claude -p "/autocompact"` prints the window and where it came from, and it is the only thing that distinguishes a pin that holds from one that was thrown away: the string form answers `1m tokens (default for this model)`, the integer answers `200k tokens (from settings)`. Both were run. `docs/token-budget.md` carries the command and says that a default for every other checkout on a machine is a separate thing in the user settings file, which this repository's own settings outrank.

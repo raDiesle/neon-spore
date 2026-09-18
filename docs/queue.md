@@ -1719,3 +1719,17 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 1ceb748c: THE UNDERTOW's five cues seen in a frame: no PNG was ta…
+
+- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
+- **Files:** `apps/server/test/dev-stop.test.ts`, `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-undertow.ts`
+
+3 commits landed, ending in *THE UNDERTOW says a word in each of its five phases*, from a session that could not look at it. The commit touched 9 more files. What went unchecked:
+
+- THE UNDERTOW's five cues seen in a frame: no PNG was taken of `OPEN`, `BURN` and the two `MOVE`s standing where the reading puts them, so the marks' lift over the lobe and their clearance of the status bar are unchecked
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
