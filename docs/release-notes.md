@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 62ae2cfc — THE HIVE's and THE INSTAR's reasons for having no film are not their looks
+
+`STILL_PROSE` says why each guided wave still opens on the three strings, and two of the reasons were written before the looks landed: THE HIVE's said the mass, the nine sites and the swell read by seat were not drawn, THE INSTAR's said five poses and their marks were not. THE HIVE is drawn in `render/hive-draw.ts`, `hive-shape.ts` and `hive-fx.ts`; THE INSTAR is drawn in nine files and is the picture every other boss's is now measured against.
+
 ## 2026-09-18 · 2a1ea1c5 — THE STARE has its look: a cowled eye whose turn is the warning, the watched seat's name on the other screen and its gaze on the watched one, and a catch that washes the caught panel red
 
 The second of THE STARE's two lanes, a look with no shipped alternative — nothing drew the boss before this. THE LID's almond eye set into a mound of rock at the top of the field ("the cowled eye", a combination by the rule): edge-on and grey while the boss is away, swinging round to face the pair over the seven-beat tell with the lids opening and the ink warming to red, seven pips under the cowl counting the tell on both screens. The split drawn both ways: the seat that is not watched sees the watched seat's name in THE INSTAR's scanner frame beside the eye; the watched seat sees a red gaze widening down its field and never a name. A catch flares the eye white, bursts red out of it on both screens and washes the caught seat's panel red over everything, from `canvas2d.ts`.
