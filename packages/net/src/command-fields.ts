@@ -18,6 +18,7 @@ export const DRAG_TARGETS: readonly DragTarget[] = [
   "mazeString", "wardenTether", "lidString", "gripBody", "choirLeft", "choirRight",
   "balloonLeft", "balloonRight", "crank", "orreryRing", "sinewLeft", "sinewRight",
   "surgeBulb", "antiphonOrgan", "instarMark", "filament", "stareLid", "queenMark",
+  "diastoleChamber",
 ];
 
 export const isColor = (x: unknown): x is Color =>

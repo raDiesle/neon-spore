@@ -1,9 +1,9 @@
-import { antiphonHeard, stepAntiphonTurn } from "./antiphon-hand.js";
 import { balloonHeard } from "./balloon-pull.js";
 import { rubBalloons } from "./balloon-rub.js";
 import { onBeat } from "./beat.js";
 import { isBeatTick } from "./beat-clock.js";
 import { settleSpentBeatboxes } from "./beatbox-round.js";
+import { bossHandsHeard } from "./boss-hands.js";
 import { briefHeard, briefingHolds, guideStepHeard, stepReady } from "./briefing.js";
 import { advanceBullets, releaseShot } from "./bullets.js";
 import { stepChoirFuse } from "./choir.js";
@@ -11,12 +11,10 @@ import { choirArrowHeard, stepChoirWindow } from "./choir-gesture.js";
 import { wardCoils } from "./coil.js";
 import { applyCommand } from "./commands.js";
 import { crankHeard } from "./crank.js";
-import { filamentHeard } from "./filament-hand.js";
 import { fleetHeard } from "./fleet.js";
 import { dropLostGrips } from "./grip.js";
 import { gripPushHeard } from "./grip-push.js";
 import { stepHarpoons } from "./harpoon.js";
-import { instarHeard } from "./instar-hand.js";
 import { stepBeam } from "./lance.js";
 import { releaseLance } from "./lance-burn.js";
 import { lidHeard, stepLidPulls } from "./lid.js";
@@ -24,12 +22,9 @@ import { stepMalfunction } from "./malfunction.js";
 import { mazeStringHeard, stepMazeTurn } from "./maze-controls.js";
 import { orreryRingHeard } from "./orrery-hand.js";
 import { advancePods } from "./pods.js";
-import { queenHeard } from "./queen-hand.js";
 import { stepReach } from "./reach.js";
 import { sinewHeard } from "./sinew-hand.js";
-import { stareLidHeard } from "./stare-hand.js";
 import { stepRound } from "./step-round.js";
-import { surgeHeard } from "./surge-hand.js";
 import type { TimedCommand } from "./types.js";
 import { stepWardenTether, wardenTetherHeard } from "./warden-rope.js";
 import { progressWave } from "./wave-end.js";
@@ -143,26 +138,11 @@ export function step(world: World, commands: readonly TimedCommand[]): void {
   // of a thumb on another phone, and a depth that waited for the beat would
   // be a number said out loud a beat late (`sinew-hand.ts`).
   for (const c of commands) sinewHeard(world, c.player, c.command);
-  // THE STARE's lid, on the tick because the instant it shuts is the instant
-  // the watched seat is free, and *go* is said on a tick (`stare-hand.ts`).
-  for (const c of commands) stareLidHeard(world, c.player, c.command);
-  // THE SURGE's one handle, on the tick because the fight is two lifts
-  // inside one beat of each other, and the tick is what a lift is timed by
-  // (`surge-hand.ts`).
-  for (const c of commands) surgeHeard(world, c.player, c.command);
-  // THE ANTIPHON's thumb on the organ, on the tick because what it does is
-  // turn a shape a finger is watching (`antiphon-hand.ts`).
-  for (const c of commands) antiphonHeard(world, c.player, c.command);
-  stepAntiphonTurn(world);
-  // THE INSTAR's marks, on the tick because a tap is a tap when it lands and
-  // a pull is where the thumb is now (`instar-hand.ts`).
-  for (const c of commands) instarHeard(world, c.player, c.command);
-  // THE FILAMENT's two thumbs, on the tick: a tile is lit when the thumb
-  // reaches it, and the beat only says whether that was too soon (`filament-hand.ts`).
-  for (const c of commands) filamentHeard(world, c.player, c.command);
-  // THE BULB QUEEN's marks under player 1's thumb, on the tick because a pry
-  // is a press when it lands and a hold is where the thumb is now (`queen-hand.ts`).
-  for (const c of commands) queenHeard(world, c.player, c.command);
+  // The choreographed bosses' hands — THE STARE's lid, THE SURGE's lift,
+  // THE ANTIPHON's organ, THE INSTAR's marks, THE FILAMENT's thumbs, THE
+  // BULB QUEEN's marks, THE DIASTOLE's clamp — read on the tick with the
+  // rest, each for its own reason, on a page of their own (`boss-hands.ts`).
+  bossHandsHeard(world, commands);
   // And the two hands on THE WEIGHT, which is not a command at all: the press
   // is the ordinary `grip` and `applyCommand` has already recorded it, so what
   // runs here is the clock over it. On the tick with the balloon's rub above

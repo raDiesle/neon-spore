@@ -72,4 +72,9 @@ export const INGEST_SILENT_BOSS_B = [
   "filamentPulled",
   "filamentDown",
   "filamentOut",
+  // THE DIASTOLE's clamp and spasm — player 1's thumb on the alone right
+  // chamber, on its beat or off it (`diastole-hand.ts`). Silent until the
+  // look lane draws the ring, the held chamber and the spasm.
+  "diastoleClamp",
+  "diastoleSpasm",
 ] as const satisfies readonly SimEvent["type"][];

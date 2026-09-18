@@ -1,11 +1,7 @@
 import { describe, expect, it } from "bun:test";
 import { DEFAULT_CONFIG, midCol, type SimConfig, ticksPerBeat } from "../src/config.js";
-import {
-  type DiastoleState,
-  diastoleChamberCol,
-  diastoleCoincides,
-  diastoleContracts,
-} from "../src/diastole.js";
+import { type DiastoleState, diastoleChamberCol, diastoleContracts } from "../src/diastole.js";
+import { diastoleCoincides } from "../src/diastole-open.js";
 import { diastoleBoss, diastoleStruck } from "../src/diastole-step.js";
 import { hashWorld } from "../src/hash.js";
 import { NO_SLOW, slowing, slowRateMilli } from "../src/slow.js";
@@ -27,6 +23,11 @@ import { createWorld, MILLI, type World } from "../src/world.js";
  * the game to open: that a window is exactly as long as it was asked for, that
  * its boundaries are in the fingerprint, and that nothing else about the
  * simulation can tell one is open (`docs/decisions.md` #33).
+ *
+ * The alone chamber's beat has to be *held* as well as counted, by player
+ * 1's thumb (`diastole-hand.ts`); the clamp's own receipts are in
+ * `diastole-clamp.test.ts`, and here it is only what the tests below need to
+ * reach the last chamber at all.
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -83,6 +84,25 @@ function shot(world: World, col: number, color: Color, lance = false): Bullet {
  */
 function strike(world: World, bullet: Bullet): void {
   diastoleStruck(world, bullet, world.beat);
+}
+
+/** Player 1's thumb on the alone chamber, down or lifted, on this tick. */
+function clamp(world: World, on: boolean): void {
+  const press: TimedCommand = {
+    tick: world.tick,
+    player: 1,
+    command: { kind: "drag", target: "diastoleChamber", on, fromMilli: 0 },
+  };
+  step(world, [press]);
+}
+
+/**
+ * The alone chamber's next contraction, with the thumb clamped on it: the
+ * beat the beam can land on once the left is a hollow (`diastole-open.ts`).
+ */
+function toClampedBeat(world: World): void {
+  while (!diastoleContracts(lobe(world), world.beat, 1)) beats(world, 1);
+  clamp(world, true);
 }
 
 /** Take the left chamber the ordinary way, as often as phase `one` allows. */
@@ -255,9 +275,10 @@ describe("the bridge", () => {
     strike(world, shot(world, BRIDGE, "red", true));
     beats(world, 1);
     for (let i = 0; i < CFG.diastoleChamberHits - 1; i++) {
-      toCoincidence(world);
-      expect(diastoleContracts(lobe(world), world.beat, 1)).toBe(true);
+      toClampedBeat(world);
+      expect(diastoleCoincides(lobe(world), world.beat)).toBe(true);
       strike(world, shot(world, BRIDGE, "red", true));
+      clamp(world, false);
       beats(world, 1);
     }
     expect(lobe(world).rightHits).toBe(0);
@@ -271,8 +292,9 @@ describe("the bridge", () => {
     strike(world, shot(world, BRIDGE, "red", true));
     beats(world, 1);
     for (let i = 0; i < CFG.diastoleChamberHits - 1; i++) {
-      toCoincidence(world);
+      toClampedBeat(world);
       strike(world, shot(world, BRIDGE, "red", true));
+      clamp(world, false);
       beats(world, 1);
     }
     expect(world.boss).not.toBeNull();
@@ -322,8 +344,9 @@ describe("THE SLOW, which this boss is the first thing to open", () => {
     strike(world, shot(world, BRIDGE, "red", true));
     beats(world, 1);
     for (let i = 0; i < CFG.diastoleChamberHits - 1; i++) {
-      toCoincidence(world);
+      toClampedBeat(world);
       strike(world, shot(world, BRIDGE, "red", true));
+      clamp(world, false);
       beats(world, 1);
     }
     expect(lobe(world).phase).toBe("burst");

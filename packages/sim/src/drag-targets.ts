@@ -37,7 +37,8 @@ export type DragTarget =
   | "instarMark"
   | "filament"
   | "stareLid"
-  | "queenMark";
+  | "queenMark"
+  | "diastoleChamber";
 
 /**
  * `choirLeft` and `choirRight` are the fifth and sixth, and the first pair
@@ -183,4 +184,17 @@ export type DragTarget =
  * held there keeps it open (`queen-hand.ts`). Player 1's alone, because he
  * is the seat not shown which mark is real; the other seat's press is
  * dropped without a sound, since his screen never draws the handle.
+ */
+
+/**
+ * `diastoleChamber` is the nineteenth, and THE DIASTOLE's — the second §11
+ * boss given a handle after shipping for the same ask (`docs/queue.md`
+ * §6.2). The right chamber, while it beats alone, under player 1's thumb:
+ * a press on its contraction clamps it, and holds the beat open for
+ * `diastoleClampBeats` so the beam can land on a beat one seat cannot see
+ * and the other cannot hold (`diastole-hand.ts`). Player 1's, though the
+ * chamber is player 2's, because the seat who sees the beat has to *say*
+ * it: the other seat's press is dropped without a sound, since his screen
+ * is the one that draws the chamber beating and never draws the ring. No
+ * `id`: one chamber is left by then, and it is the boss.
  */

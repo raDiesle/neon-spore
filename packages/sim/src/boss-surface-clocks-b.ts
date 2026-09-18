@@ -53,6 +53,13 @@ export {
   // step under the cursor, by the seat it belongs to, and the content that
   // authors a script needs the step's shape and the closed lists it is written in.
   type BossSequenceStep,
+  diastoleClamped,
+  // THE DIASTOLE's clamp: the window the picture holds the chamber open
+  // for, whose thumb it is, and the coincidence the director primes on.
+  diastoleClampHolds,
+  diastoleClampSeat,
+  diastoleCoincides,
+  diastoleOpen,
   FILAMENT_PHASES,
   type FilamentEntry,
   type FilamentPath,

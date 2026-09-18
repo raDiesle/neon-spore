@@ -68,13 +68,35 @@ export interface DiastoleConfig {
    * happened to them.
    */
   diastoleBurstBeats: number;
+  /**
+   * Beats a clamp holds the right chamber contracted, once the left has
+   * collapsed and the chamber beats alone (`diastole-hand.ts`).
+   *
+   * 2: a beat and the next, which is the width of a spoken *now* — the seat
+   * that sees the chamber says it, the other seat presses, and a contraction
+   * that was a single beat would be gone before the thumb came down. Three
+   * would let a clamp held from any beat reach the next contraction, and the
+   * clamp is meant to *lengthen* a beat the pair found, not to replace the
+   * finding.
+   */
+  diastoleClampBeats: number;
+  /**
+   * Beats the right chamber spends in spasm after a clamp on the wrong beat,
+   * or one held past its window — not beating, not hurt by anything.
+   *
+   * 8: the alone cadence and a beat over, so a wrong clamp always costs more
+   * than waiting for the next contraction would have. Less and pressing at
+   * random would be a way to play it.
+   */
+  diastoleSpasmBeats: number;
 }
 
 /**
  * The defaults, spread into `DEFAULT_CONFIG`.
  *
  * Read as one fight: three beats against five for fifteen, two chambers of
- * three hits each, and then seven against nothing.
+ * three hits each, then seven against nothing — held open two at a time by
+ * a thumb, and eight lost for a thumb on the wrong beat.
  */
 export const DIASTOLE_DEFAULTS: DiastoleConfig = {
   diastoleLeftBeats: 3,
@@ -82,4 +104,6 @@ export const DIASTOLE_DEFAULTS: DiastoleConfig = {
   diastoleRightAloneBeats: 7,
   diastoleChamberHits: 3,
   diastoleBurstBeats: 4,
+  diastoleClampBeats: 2,
+  diastoleSpasmBeats: 8,
 };

@@ -19,6 +19,11 @@ import { DIASTOLE_PHASES, type DiastoleState } from "./diastole.js";
  * `struckBeat` and `struckSide` are render's and go in anyway, because rule 4
  * has no clause for a field only the drawing wants: a device that disagrees
  * about which chamber collapsed is a device drawing a different boss.
+ *
+ * `clampBeat` and `clampUntil` are the clamp (`diastole-hand.ts`), and they
+ * are the one thing in this boss a thumb writes: a device that disagreed
+ * about whether the chamber was held would disagree about whether the beam
+ * landed, which is the same worst desync by another road.
  */
 export function diastoleHashParts(b: DiastoleState): number[] {
   return [
@@ -30,5 +35,7 @@ export function diastoleHashParts(b: DiastoleState): number[] {
     b.rightEvery,
     b.struckBeat,
     b.struckSide,
+    b.clampBeat,
+    b.clampUntil,
   ];
 }

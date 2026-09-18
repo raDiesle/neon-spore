@@ -1,4 +1,4 @@
-import { batonHand, diastoleHand, throatHand } from "./boss-hands-beats.js";
+import { batonHand, diastoleHand, diastoleSpasmHand, throatHand } from "./boss-hands-beats.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
@@ -26,8 +26,14 @@ export const BEAT_HAND_POSES: Pose[] = [
   bossPose(
     "diastole",
     "alone",
-    "One chamber taken and the other beating alone on the faster count. The bridge still wants the beam, and the coincidence to count is now with a chamber that is not there.",
+    "One chamber taken and the other beating alone on a count of seven. The bridge still wants the beam, and the beat has to be held: the seat who sees it says now, the other clamps the chamber, and the beam lands under the clamp.",
     { hand: diastoleHand, hold: 12 },
+  ),
+  bossPose(
+    "diastole",
+    "spasm",
+    "The alone chamber clamped on the wrong beat, or held past its window: it stops beating for eight beats and nothing lands, then beats again from where it stopped.",
+    { hand: diastoleSpasmHand, hold: 12 },
   ),
   bossPose(
     "diastole",

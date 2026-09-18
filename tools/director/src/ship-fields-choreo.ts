@@ -47,6 +47,10 @@ export const CHOREO_FIELD_GROUP = {
   diastoleRightAloneBeats: "THE DIASTOLE — two hearts on two cadences, one each",
   diastoleChamberHits: "THE DIASTOLE — two hearts on two cadences, one each",
   diastoleBurstBeats: "THE DIASTOLE — two hearts on two cadences, one each",
+  // And the clamp's two: how long a thumb holds the alone chamber open, and
+  // what a thumb on the wrong beat costs (`diastole-hand.ts`).
+  diastoleClampBeats: "THE DIASTOLE — two hearts on two cadences, one each",
+  diastoleSpasmBeats: "THE DIASTOLE — two hearts on two cadences, one each",
   // BatonConfig — the arm's length and every beat a handover takes. All of
   // them are the pair's cadence: a flight is a word and a press, a turn is a
   // look and a word, and a lock is *not you, not this beat* (`config-baton.ts`).

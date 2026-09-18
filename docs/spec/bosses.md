@@ -1917,7 +1917,8 @@ a beat every standing chamber is contracting on lands**. That covers both the
 two-chamber coincidence and the one-chamber endgame, which is why it is one
 sentence rather than two.
 
-**Four phases, and each one re-anchors both counts** to the beat it began on —
+**Four phases in order and a fifth off to the side, and each one re-anchors
+both counts** to the beat it began on —
 that is the point of a phase here rather than a side effect of one, because
 each seat watches its own chamber contract and so watches its count move.
 `one`: the left beats every `diastoleLeftBeats` (3) and the right is still, so
@@ -1929,7 +1930,33 @@ learning is not the count that finishes it. `burst`: both are down,
 `diastoleBurstBeats` (4) of the bridge distending and splitting, and the boss
 is nulled at the end of it rather than at the last hit, so the picture gets the
 whole burst before the wave is allowed to close under it. Each chamber takes
-`diastoleChamberHits` (3).
+`diastoleChamberHits` (3). `spasm` is the fifth, entered only from `alone` and
+only by a wrong clamp, below; it appends to the phase list rather than sitting
+between `alone` and `burst` because the index is the wire value.
+
+**Alone, the beat has to be held, not only counted** (18 September 2026,
+`sim/diastole-hand.ts`, `sim/diastole-open.ts`). This is the one departure from
+the design page and it is argued by name. As designed, the endgame was the
+right chamber's own beat on a count of seven, and only the navigator could see
+it: the beat was found by one seat and hit by the other, blind, a single beat
+wide. That is a coincidence with nothing to coincide — the boss's own sentence
+run out of chambers — and at 96 BPM it is a coin toss with a conversation on
+top. So the pair holds it. The navigator sees the beat and says *now*; the
+pilot's thumb comes down on the grey chamber (`diastoleChamber`, the nineteenth
+`DragTarget`); a thumb that lands on the contraction or on the beat before it
+*catches* it and the chamber stays open for `diastoleClampBeats` (2 — a beat
+and the next, the width of a spoken *now*; three would reach the next
+contraction) from the beat caught. Under a clamp the beam in the bridge lands;
+with no clamp on it the alone chamber is open on no beat at all, however well
+the count was kept. A thumb on any other beat, or one held past its window, is
+a **spasm**: the chamber stops beating for `diastoleSpasmBeats` (8 — the alone
+cadence and a beat over, so a wrong clamp always costs more than waiting) and
+nothing lands in it, then it beats again from where it stopped. Lifting the
+thumb costs nothing; the beam that lands under a clamp lets it go. The thumb
+is player 1's because player 2 is the one who can see the beat and must say
+it — the split stays the encounter. Nothing here charges the hull, for the
+reason a slack chamber charges nothing: the cost of a wrong clamp is eight
+beats of a chamber that cannot be hurt, and that is cost enough.
 
 **A shot into a slack chamber costs nothing**, which is THE VANE's shut housing
 exactly: the window is visibly not open on the screen of the seat that owns it,
@@ -1972,6 +1999,14 @@ than an omission: it would be the easiest glow in the game to write and it
 would hand the pair the one number they are supposed to arrive at by talking.
 The only thing that moves it is the burst.
 
+**What is not built**: the clamp's look. There is no ring on the grey chamber
+for player 1's thumb, no held-contracted picture while a clamp holds, and no
+spasm to see; `diastoleClamp` and `diastoleSpasm` are on the two silent lists
+until the look lane draws them, and the director's pose for `spasm` stands on
+the simulation alone. The hand is heard on the field only once
+`render/handles.ts` answers the chamber's circle, which is that lane's first
+line.
+
 **What it still does not draw**: the hull's own pulse. A light that beat in each
 seat's colour from inside the ship would be a change to something the game
 already draws every frame, so it is a VERSUS candidate rather than a lane
@@ -1983,7 +2018,10 @@ the typecheck can say it. What the tests do say is the arithmetic: that three
 and five meet every fifteen beats and on no beat between, that a chamber can
 only be hurt while contracting, that nothing single lands once both are
 beating, and that the beam in the bridge takes both at once
-(`sim/test/diastole.test.ts`).
+(`sim/test/diastole.test.ts`); and the clamp's rules one by one, through the
+beam's own beat, with a clamp sent the beat before
+(`sim/test/diastole-clamp.test.ts`). Whether *now* fits in two beats is the
+same kind of thing.
 
 ## 11.18 THE BATON — a bead passed down an arm, one seat a beat
 

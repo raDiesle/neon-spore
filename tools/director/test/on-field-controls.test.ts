@@ -136,6 +136,12 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // `field-controls-queen.ts`).
     case "queenMark":
       return target;
+    // `diastoleChamber` is THE DIASTOLE's alone right chamber under player
+    // 1's thumb — a clamp on its contraction (`sim/diastole-hand.ts`). The
+    // simulation half landed first; the on-field entry and the row in
+    // `docs/spec/controls.md` are the look lane's.
+    case "diastoleChamber":
+      return target;
     default:
       return assertNever(target);
   }

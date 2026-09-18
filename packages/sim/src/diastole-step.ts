@@ -6,10 +6,12 @@ import {
   diastoleBeating,
   diastoleBridgeCol,
   diastoleChamberCol,
-  diastoleCoincides,
   diastoleColor,
   diastoleContracts,
+  enterDiastole,
 } from "./diastole.js";
+import { stepDiastoleClamp } from "./diastole-hand.js";
+import { clearDiastoleClamp, diastoleCoincides } from "./diastole-open.js";
 import { openSlow } from "./slow.js";
 import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
@@ -17,9 +19,10 @@ import type { World } from "./world.js";
 /**
  * THE DIASTOLE's clock, and the one shot that takes a chamber.
  *
- * The clock is four phases and nothing else stored: which beat each phase
- * began on is the origin of both counts, and whether a chamber is contracting
- * on any given beat is arithmetic against that origin (`diastole.ts`). It runs
+ * The clock is four phases in order and a fifth off to the side, and nothing
+ * else stored but the clamp: which beat each phase began on is the origin of
+ * both counts, and whether a chamber is contracting on any given beat is
+ * arithmetic against that origin (`diastole.ts`). It runs
  * on the **beat** and from `stepBoss`, because every number in this boss is a
  * count a pair says out loud — there is nothing here a finer clock would make
  * fairer, and a contraction that landed between two beats would be a
@@ -49,6 +52,8 @@ export function installDiastole(world: World): DiastoleState {
     rightEvery: cfg.diastoleRightBeats,
     struckBeat: -1,
     struckSide: 0,
+    clampBeat: -1,
+    clampUntil: -1,
   };
 }
 
@@ -98,12 +103,16 @@ export function stepDiastole(world: World, b: DiastoleState): void {
     // that finishes it: seven against nothing, with no second rhythm left to
     // hold it against (`config-diastole.ts`).
     b.rightEvery = cfg.diastoleRightAloneBeats;
+    return;
   }
+  // Alone, the clamp has a clock of its own — a hold that outlives its
+  // window, and a spasm that runs out — and it is the thumb's file that
+  // keeps it (`diastole-hand.ts`).
+  stepDiastoleClamp(world, b);
 }
 
 function enter(world: World, b: DiastoleState, phase: DiastoleState["phase"]): void {
-  b.phase = phase;
-  b.phaseBeat = world.beat;
+  enterDiastole(b, phase, world.beat);
 }
 
 /**
@@ -186,6 +195,9 @@ function bridgeStruck(world: World, b: DiastoleState, bullet: Bullet, beat: numb
     beat,
     DIASTOLE_SIDES.filter((side) => diastoleBeating(b, side)),
   );
+  // A clamp the beam landed under has done its work: it is let go here, so
+  // the thumb still on the chamber is not a hold outliving its window.
+  clearDiastoleClamp(b);
   // **The window opens here and on the burst, and nowhere else.** This is the
   // beat the two rhythms that have been fighting each other all fight stop at
   // the same instant, and stillness is what the pair earned by counting. The

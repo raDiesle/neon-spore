@@ -36,8 +36,13 @@ export const CHOREO_NOTES = {
     "bridge column on a beat every standing chamber is contracting on. " +
     "diastoleChamberHits is each chamber's health and the fight's shape. The " +
     "coincidence and the burst both open one of THE SLOW's windows, whose own " +
-    "two dials are under THE BEAT. Nothing about it is authored per wave. " +
-    "See sim/diastole.ts, sim/config-diastole.ts, docs/decisions.md #33.",
+    "two dials are under THE BEAT. Alone, the right chamber's beat has to be " +
+    "held as well: player 2 sees it and says now, player 1 clamps the chamber " +
+    "on it — a thumb held on it, diastoleChamber — and the beam lands under " +
+    "the clamp for diastoleClampBeats. A clamp on the wrong beat, or one held " +
+    "past its window, is a spasm: diastoleSpasmBeats in which nothing lands. " +
+    "Nothing about it is authored per wave. " +
+    "See sim/diastole.ts, sim/diastole-hand.ts, sim/config-diastole.ts, docs/decisions.md #33.",
   "THE BATON — a bead passed down an arm, one seat a beat":
     "Designed on 16 September 2026 in docs/spec/bosses-choreographed.md §10: " +
     "an arm of batonSockets sockets hangs from the top of the middle column " +

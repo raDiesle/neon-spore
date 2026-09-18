@@ -312,6 +312,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/boss-union.ts` | The boss a wave installed, whichever one it is |
 | `packages/sim/src/boss-answer.ts` | **The column the boss is answered from, this beat** — or none |
 | `packages/sim/src/boss-phases.ts` | **Every boss's phases, in one table**, for the director's STATES sheet |
+| `packages/sim/src/boss-hands.ts` | **The choreographed bosses' hands, read on the tick** |
 | `packages/sim/src/config-crawler.ts` | THE CRAWLER's five numbers: how long a worm is when the wave does not say, how fast it walks |
 | `packages/sim/src/crawler-beat.ts` | **A beat of every worm on the field**: the step it takes, the shield it may walk into |
 | `packages/sim/src/crawler-round.ts` |  |
@@ -456,7 +457,9 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/drag-targets.ts` | **Every thing on this field a hand may take hold of**, as a closed list of names |
 | `packages/sim/src/difficulty.ts` | **EASY, MEDIUM and HARD**, and the one number they move: the tempo, which on this field is the falling speed of everything |
 | `packages/sim/src/diastole-hash.ts` | what THE DIASTOLE puts into the world fingerprint, and nothing else |
+| `packages/sim/src/diastole-hand.ts` | **The one hand on THE DIASTOLE**: the clamp, player 1's thumb on the right chamber while it beats alone |
 | `packages/sim/src/diastole-step.ts` | THE DIASTOLE's four phases, and the one shot that takes a chamber |
+| `packages/sim/src/diastole-open.ts` | **When THE DIASTOLE can be hurt** — the one question the beam asks |
 | `packages/sim/src/diastole.ts` | THE DIASTOLE's shape and its questions — which column, which colour, which seat, and whether a chamber is contracting on a given beat |
 | `packages/sim/src/events-balloon.ts` | **THE BALLOON's three**: one given, one popped, one gone off at the top |
 | `packages/sim/src/events-baton.ts` | **Everything THE BATON does that neither screen already says**, as events |
@@ -469,6 +472,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/events-hive.ts` | **Everything THE HIVE does that neither screen already says**, as events |
 | `packages/sim/src/events-instar.ts` | What THE INSTAR says as it happens, one line per thing the picture and the sound answer |
 | `packages/sim/src/events-queen.ts` | **What THE BULB QUEEN reports**, off the beat and the thumb |
+| `packages/sim/src/events-diastole.ts` | **What THE DIASTOLE's clamp does that neither screen already says**, as two events (`diastole-hand.ts`) |
 | `packages/sim/src/crank.ts` | THE CLAW's crank: the arm is **wound** home by a finger going round, and a bearing becomes rope |
 | `packages/sim/src/crystal.ts` | THE CRYSTAL: two bodies in one shell, three tiles wide |
 | `packages/sim/src/bosses-round.ts` | The rounds, as their half of the boss barrel |
@@ -1527,6 +1531,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-undertow.ts` | THE UNDERTOW's nine, in a file of their own for `bind-baton.ts`' reason — and along the seam the fight has |
 | `packages/audio/src/bind-taster.ts` | THE TASTER's twelve, in a file of their own for `bind-gorge.ts`' reason |
 | `packages/audio/src/bind-antiphon.ts` | THE ANTIPHON's ten, in a file of their own for `bind-scuttle.ts`' reason |
+| `packages/audio/src/bind-diastole.ts` | THE DIASTOLE's two, in a file of their own for `bind-gorge.ts`' reason |
 
 ### apps/game
 

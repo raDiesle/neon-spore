@@ -67,7 +67,6 @@ export {
   diastoleBeating,
   diastoleBridgeCol,
   diastoleChamberCol,
-  diastoleCoincides,
   diastoleColor,
   diastoleContracts,
   diastoleEvery,

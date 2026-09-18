@@ -179,8 +179,8 @@ export const WAVES_ACT_7C: Wave[] = [
       "The one where you are each counting a different number and neither of you can see the other's.",
     guide: {
       both: "Two chambers beat on different counts. Hit each while it contracts. Once both beat, lance the middle lane on the beat they share.",
-      p1: "1. Count the left chamber out loud, in threes.\n2. Say which beat both chambers meet on.\n3. Put the cannon in the middle lane and hold it still three beats for the lance. Fire a beat early.",
-      p2: "1. Count the right chamber out loud, in fives. Later it goes to sevens.\n2. Take your partner's threes off it: the shared beat comes once in fifteen.\n3. Hold a colour to fill the lance, and do not lift your thumb.",
+      p1: "1. Count the left chamber out loud, in threes.\n2. Say which beat both chambers meet on.\n3. Cannon in the middle lane, held still for the lance.\n4. Once your chamber is gone, clamp the grey one when your partner says now.",
+      p2: "1. Count the right chamber out loud in fives. Later it goes to sevens.\n2. Take your partner's threes off it: they meet once in fifteen.\n3. Hold a colour to fill the lance three beats early.\n4. Alone, say now on its beat.",
       scene: "theDiastole",
     },
     entries: [

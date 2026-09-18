@@ -58,6 +58,10 @@ const ACCEPTED: Command[] = [
   // THE BULB QUEEN's marks: `id` 0 is the left, 1 the right, and what the
   // press is worth is her phase's (`sim/queen-hand.ts`).
   { kind: "drag", target: "queenMark", on: true, fromMilli: 250, fromYMilli: 400, id: 1 },
+  // THE DIASTOLE's clamp: a press and a lift, no depth read, no id — one
+  // chamber is left by then (`sim/diastole-hand.ts`).
+  { kind: "drag", target: "diastoleChamber", on: true, fromMilli: 0 },
+  { kind: "drag", target: "diastoleChamber", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -160,6 +164,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   filament: true,
   stareLid: true,
   queenMark: true,
+  diastoleChamber: true,
   crank: true,
   orreryRing: true,
 };

@@ -8741,3 +8741,26 @@ The bottleneck was none of the code: it was deciding that the fold — the whole
 of the fight — is exactly the thing the field may never write down.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE DIASTOLE asks for a clamp: the simulation
+
+The first half of the queue's §6.2 item for THE DIASTOLE: a fifth phase and a
+second gesture. The alone chamber's beat has to be held as well as counted —
+player 1's thumb on the grey chamber, on the beat or the beat before, holds it
+open two beats for the beam; a thumb on any other beat is an eight-beat spasm.
+The look is the second half.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `diastole.ts` and its step, `stare-hand.ts` and `queen-hand.ts` for the hand's shape, `lance-burn.ts` for which beat the beam is judged on |
+| writing | 45 | `diastole-open.ts`, `diastole-hand.ts`, `boss-hands.ts` cut out of `step.ts`, two config fields, the event, the wire, two sounds, the director's hand and pose, the guide, eleven receipts and the two documents |
+| looking | 0 | nothing to see yet; the look is the next lane |
+| friction | 15 | an import cycle between the hand and the step, resolved by moving `enterDiastole` up; a guide half at 233; the audio counts; `step.ts` at its limit |
+| landing | 10 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the beat the beam is judged on: the fill resolves before
+`onBeat` on a boundary tick, so the pilot's clamp has to be caught from the
+beat before, and that rule was found by the end-to-end test rather than the
+design.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

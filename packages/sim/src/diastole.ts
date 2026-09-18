@@ -37,7 +37,18 @@ import type { Color } from "./types.js";
  * the coincidence every fifteen beats, and with one up it means that one's own
  * beat, and a pair who learned the first has already learned the second.
  *
- * The clock and the strike are `diastole-step.ts`, the fingerprint is
+ * **Alone, the beat has to be held** (18 September 2026, `diastole-hand.ts`):
+ * the right chamber's contraction is a single beat on a count of seven, and
+ * the seat with the lance cannot see it. So the seat that can says *now*,
+ * and the other clamps the chamber — a thumb on it, `diastoleChamber` — which
+ * holds the contraction open for `diastoleClampBeats`; the beam lands under
+ * the clamp and on no other beat. A clamp on any other beat, or one held past
+ * its window, throws the chamber into `spasm`, in which nothing lands at all.
+ * That is the second gesture the queue asked for, and the second state that
+ * is not just a phase gone by (`docs/queue.md` §6.2).
+ *
+ * The clock and the strike are `diastole-step.ts`, the hurt window is
+ * `diastole-open.ts`, the clamp is `diastole-hand.ts`, the fingerprint is
  * `diastole-hash.ts`, the numbers are `config-diastole.ts`, and
  * `docs/spec/bosses-choreographed.md` §7 is the design. This file is the
  * shape, the geometry and the questions asked of both.
@@ -56,8 +67,12 @@ import type { Color } from "./types.js";
  * - `alone` — the left is a collapsed hollow and the right's cadence has moved
  *   to a number the pair never counted.
  * - `burst` — beaten. The bridge fills from both ends and splits.
+ * - `spasm` — the right chamber, alone, clamped on the wrong beat: it stops
+ *   beating for `diastoleSpasmBeats` and nothing lands, then it is `alone`
+ *   again with its count re-anchored. Appended after `burst` because the
+ *   index is the wire value: the fight never passes through it in order.
  */
-export const DIASTOLE_PHASES = ["one", "two", "alone", "burst"] as const;
+export const DIASTOLE_PHASES = ["one", "two", "alone", "burst", "spasm"] as const;
 
 /** Where the fight is. */
 export type DiastolePhase = (typeof DIASTOLE_PHASES)[number];
@@ -71,6 +86,16 @@ export type DiastolePhase = (typeof DIASTOLE_PHASES)[number];
  * no table in between.
  */
 export type DiastoleSide = -1 | 1;
+
+/**
+ * Into a phase, and both counts start again from this beat. Here rather
+ * than in `diastole-step.ts` because the thumb's file enters `spasm` and
+ * leaves it (`diastole-hand.ts`), and the step imports the thumb.
+ */
+export function enterDiastole(b: DiastoleState, phase: DiastolePhase, beat: number): void {
+  b.phase = phase;
+  b.phaseBeat = beat;
+}
 
 /** Both of them, in the order every loop over them wants. */
 export const DIASTOLE_SIDES: readonly DiastoleSide[] = [-1, 1];
@@ -103,6 +128,18 @@ export interface DiastoleState {
   struckBeat: number;
   /** Which side that was: -1 left, 1 right, 0 both on one beat, and 0 before any. */
   struckSide: -1 | 0 | 1;
+  /**
+   * The contraction a clamp is holding open — the beat it fell on — and -1
+   * while no thumb is on the chamber. Only ever set in `alone`, on the right
+   * (`diastole-hand.ts`).
+   */
+  clampBeat: number;
+  /**
+   * The first beat that clamp no longer holds: `clampBeat + diastoleClampBeats`.
+   * A clamp still on the chamber when this beat comes is one held too long,
+   * and the chamber spasms. -1 with `clampBeat`.
+   */
+  clampUntil: number;
 }
 
 /**
@@ -163,9 +200,12 @@ export function diastoleEvery(b: DiastoleState, side: DiastoleSide): number {
  * not *beat* until the left is nearly gone, which is not a detail: the whole
  * of phase `one` is one count, so that the pair arrives at two counts having
  * already learned that a count is a thing you say out loud.
+ *
+ * In `spasm` the right is standing and not beating, which is the cost of a
+ * wrong clamp: no contraction to find, no beat to lance, for eight beats.
  */
 export function diastoleBeating(b: DiastoleState, side: DiastoleSide): boolean {
-  if (b.phase === "burst" || !diastoleStanding(b, side)) return false;
+  if (b.phase === "burst" || b.phase === "spasm" || !diastoleStanding(b, side)) return false;
   return b.phase !== "one" || side === -1;
 }
 
@@ -190,8 +230,10 @@ export function diastoleSince(b: DiastoleState, beat: number, side: DiastoleSide
 }
 
 /**
- * Whether that chamber is contracting on this beat — which is the only beat it
- * can be hurt on.
+ * Whether that chamber is contracting on this beat — the beat the picture
+ * squeezes it on, and everywhere but the alone right chamber the only beat
+ * it can be hurt on (`diastole-open.ts` has the exception, and the beam asks
+ * that file, never this one).
  *
  * Counted from `phaseBeat` rather than from the wave's start, so a cadence
  * that moves starts its new count where the phase did. A pair who had to
@@ -201,23 +243,4 @@ export function diastoleSince(b: DiastoleState, beat: number, side: DiastoleSide
 export function diastoleContracts(b: DiastoleState, beat: number, side: DiastoleSide): boolean {
   if (!diastoleBeating(b, side)) return false;
   return (beat - b.phaseBeat) % diastoleEvery(b, side) === 0;
-}
-
-/**
- * **The coincidence**: every chamber still beating contracts on this beat.
- *
- * With two up it falls every fifteen beats and on no beat between, because
- * three and five do not divide each other (`config-diastole.ts` says why that
- * is a comment and not a coincidence). With one up it is that one's own beat.
- * With none it is never, which is what keeps a beam fired into a dead boss
- * from finding anything.
- */
-export function diastoleCoincides(b: DiastoleState, beat: number): boolean {
-  let beating = 0;
-  for (const side of DIASTOLE_SIDES) {
-    if (!diastoleBeating(b, side)) continue;
-    beating += 1;
-    if (!diastoleContracts(b, beat, side)) return false;
-  }
-  return beating > 0;
 }
