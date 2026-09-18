@@ -59,6 +59,7 @@ on.
 ## THE FLEET's flood, rake and wreck: the look half
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-18, claude/queue-the-fleets-flood-rake-and-wreck-the-look-half
 - **Files:** `packages/render/src/fleet-marks.ts`, `packages/render/src/fleet-fx.ts`, `packages/render/src/fleet-hulls.ts`, `packages/render/src/touch-field.ts`, `packages/render/src/touch-hold.ts`, `packages/render/src/effects-spark-silent-boss-b.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`, `packages/render/test/fleet-frame.test.ts`, `tools/director/src/field-controls-page.ts`, `tools/director/test/on-field-controls.test.ts`, `docs/spec/controls.md`, `docs/spec/bosses.md`
 
 The simulation half of the queue item "THE FLEET changes state more than
