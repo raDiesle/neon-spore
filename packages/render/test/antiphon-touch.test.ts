@@ -68,6 +68,7 @@ function field(world: World, seat: 1 | 2, antiphon: AntiphonState | null = organ
     surge: null,
     antiphon,
     instar: null,
+    filament: null,
     controls: STANDARD,
     faults: [],
     well: false,

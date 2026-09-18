@@ -11195,3 +11195,23 @@ The bottleneck was the arithmetic: the queue item's two-page plan did not fit
 the 500 lines of entries and patches, and the cut was redrawn twice.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE FILAMENT has its look
+
+Lane two of §17: the bundle over the field, one strand in it per filament
+left, the armed line hung down the field and the split — the path ahead and
+the DRAW ring on the pilot's screen, the lit part and the FOLLOW ring on the
+navigator's, the gap on neither — with the grab under `handles.ts`, the
+director's row, and a frame test of every state on all three screens.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `instar-draw.ts` and `hive-draw.ts` for the shape of a draw file, `view-role-clocks-b.ts`, the `Field` plumbing through `input.ts` |
+| writing | 15 | four render files, the fx class in `effects-boss.ts`, the grab, the eleven `filament: null` rows, the director row, the frame test |
+| looking | 5 | the trace at head 3 on the pilot's seat through `--boss-json`, the one frame no wave reaches in sixty ticks |
+| friction | 5 | the canvas stub logs no text, so the words are counted as `fillText` calls per seat, ratios not absolutes |
+| landing | 10 | `check:fast`, the docs, the commit, the land |
+
+The bottleneck was the plumbing: a boss the thumb can touch is a field on
+`Field`, and that is eleven test fixtures and three app files before the
+first line is drawn.

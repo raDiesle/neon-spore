@@ -2,6 +2,7 @@ import { NO_TETHER } from "@neon-spore/sim";
 import { antiphonOrganUnder } from "./antiphon-grip.js";
 import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
+import { filamentGrabUnder } from "./filament-grip.js";
 import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
@@ -68,7 +69,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     surgeBulbUnder(l, x, y, field) ??
     antiphonOrganUnder(l, x, y, field) ??
     orreryRingUnder(l, x, y, field) ??
-    instarMarkUnder(l, x, y, field)
+    instarMarkUnder(l, x, y, field) ??
+    filamentGrabUnder(l, x, y, field)
   );
 }
 

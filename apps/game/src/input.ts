@@ -57,6 +57,7 @@ export function bindControls({
   surge,
   antiphon,
   instar,
+  filament,
   creatures,
   cannonCol,
   shieldCol,
@@ -98,13 +99,13 @@ export function bindControls({
     surge: surge(),
     antiphon: antiphon(),
     instar: instar(),
+    filament: filament(),
     controls: controls(),
     // The faults in force this beat, so a button one has taken over is refused
-    // where it is drawn dead — the same argument `controls` makes one line up
-    // (`content/src/control-fault.ts`, `sim/fault-placed.ts`).
+    // where it is drawn dead (`content/src/control-fault.ts`, `sim/fault-placed.ts`).
     faults: faults(),
-    // The well is the one of these that depends on the seat as well as on the
-    // world: the clock is drawn on one screen of the two (`render/well.ts`).
+    // The well depends on the seat as well as the world: the clock is drawn
+    // on one screen of the two (`render/well.ts`).
     well: well(),
   });
 
@@ -119,9 +120,8 @@ export function bindControls({
       holding.set(id, t.hold);
       if (!opening()) hand.down(layout(), t.hold, x, y);
     }
-    // Null for the one press that takes hold of something and says nothing
-    // yet: player 2's thumb landing on the muzzle, which is decided on the
-    // lift (`render/touch-ship.ts`).
+    // Null for the one press that takes hold and says nothing yet: player
+    // 2's thumb landing on the muzzle, decided on the lift (`render/touch-ship.ts`).
     if (t.command) buffer.push(from(t), t.command);
   };
 

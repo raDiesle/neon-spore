@@ -2,6 +2,7 @@ import type { ControlSet } from "@neon-spore/content";
 import type {
   AntiphonState,
   Creature,
+  FilamentState,
   InstarState,
   MazeState,
   OrreryState,
@@ -127,6 +128,13 @@ export interface Field {
    * (`instar-marks.ts`).
    */
   instar: InstarState | null;
+  /**
+   * THE FILAMENT, if it is the boss running, `null` otherwise. Required and
+   * stated, for THE INSTAR's reason: the two rings on the line are the only
+   * control this wave has, and a caller that meant `null` would hang a line
+   * nobody can draw (`filament-grip.ts`).
+   */
+  filament: FilamentState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).

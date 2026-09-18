@@ -1,6 +1,7 @@
 import type { World } from "@neon-spore/sim";
 import { drawAntiphon } from "./antiphon-draw.js";
 import type { Effects } from "./effects.js";
+import { drawFilament } from "./filament-draw.js";
 import { drawHive } from "./hive-draw.js";
 import { drawInstar } from "./instar-draw.js";
 import type { Layout } from "./layout.js";
@@ -44,6 +45,7 @@ export const FX_KINDS = [
   "hive",
   "instar",
   "stare",
+  "filament",
 ] as const;
 
 export type FxBoss = Extract<Installed, { kind: (typeof FX_KINDS)[number] }>;
@@ -160,5 +162,16 @@ export function drawFxBoss(
   // field once the look lands (`view-role-clocks-b.ts`). What outlives a
   // frame — the flash of a press it caught — is `effects.boss.stare`
   // (`stare-draw.ts`, `stare-fx.ts`).
-  drawStare(ctx, l, world, boss, beat, beatPhase, time, effects.boss.stare);
+  if (boss.kind === "stare") {
+    drawStare(ctx, l, world, boss, beat, beatPhase, time, effects.boss.stare);
+    return;
+  }
+
+  // THE FILAMENT: a bundle over the top of the field, one filament of it
+  // hanging down the field as a line of tiles lit from the free end as far
+  // as the pilot's thumb has drawn it. The path ahead is on his screen, the
+  // lit run behind on hers, and the gap on neither (`view-role-clocks-b.ts`).
+  // What outlives a frame — the whip of a snap, the dark of a gap, the jolt
+  // of a pull — is `effects.boss.filament` (`filament-draw.ts`, `filament-fx.ts`).
+  drawFilament(ctx, l, world, boss, beat, beatPhase, time, effects.boss.filament);
 }

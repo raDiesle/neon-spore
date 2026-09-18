@@ -57,10 +57,11 @@ export const INGEST_SILENT_BOSS_B = [
   "instarStrike",
   "instarDown",
   "instarOut",
-  // THE FILAMENT's ten are silent **until the look lane draws them**: the
-  // lit tiles, the two thumbs and the gap are read off the boss every frame,
-  // and the snap, the recoil and the dark will be a family of their own
-  // read above the loop (`docs/spec/bosses.md` §11.33).
+  // THE FILAMENT's ten are one family read above the loop, the way THE
+  // INSTAR's are: the whip of a snap or a recoil, the dark of a gap, the jolt
+  // of a pull, and every burst, are `effects.boss.filament`'s
+  // (`filament-fx.ts`); the lit tiles, the two thumbs and the gap are read
+  // off the boss every frame (`filament-draw.ts`, `docs/spec/bosses.md` §11.33).
   "filamentEnter",
   "filamentArm",
   "filamentDrawn",

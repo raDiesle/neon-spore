@@ -2,6 +2,7 @@ import type { SimConfig, SimEvent } from "@neon-spore/sim";
 import { AfterImage } from "./after-image.js";
 import { AntiphonFx } from "./antiphon-fx.js";
 import { CurtainFx } from "./curtain-fx.js";
+import { FilamentFx } from "./filament-fx.js";
 import { FleetFx } from "./fleet-fx.js";
 import { GorgeFx } from "./gorge-fx.js";
 import { HiveFx } from "./hive-fx.js";
@@ -123,6 +124,10 @@ export class BossTransients {
    * in time, drawn on the finished ship where the bow itself is
    * (`undertow-fx.ts`, `frame-on-ship.ts`). */
   readonly undertow = new UndertowFx();
+  /** THE FILAMENT's whip, dark and jolt, and its receipts' bursts — told the
+   * head and the free end by the drawer every frame, so a snap bursts where
+   * the line was (`filament-fx.ts`, `filament-draw.ts`). */
+  readonly filament = new FilamentFx();
 
   /** `role` is the layout's: a flash lights only the screen whose control
    * made it (`after-image.ts`). */
@@ -150,6 +155,7 @@ export class BossTransients {
     this.instar.ingest(events, l, burst);
     this.stare.ingest(events, l, cfg, burst);
     this.undertow.ingest(events, l, cfg, beatSeconds, role);
+    this.filament.ingest(events, l, cfg, burst);
     this.afterImage.ingest(events, role, time, beatSeconds);
     this.fleet.ingest(events, beatSeconds);
   }
@@ -174,6 +180,7 @@ export class BossTransients {
     this.instar.update(dt);
     this.stare.update(dt);
     this.undertow.update(dt);
+    this.filament.update(dt);
     this.fleet.update(dt, l, burst);
   }
 
@@ -214,6 +221,7 @@ export class BossTransients {
     this.instar.clear();
     this.stare.clear();
     this.undertow.clear();
+    this.filament.clear();
   }
 }
 

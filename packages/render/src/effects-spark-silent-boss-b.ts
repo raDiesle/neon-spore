@@ -15,10 +15,10 @@ import type { SimEvent } from "@neon-spore/sim";
  * the reasons stay with the rows.
  */
 export const SILENT_BOSS_B = [
-  // THE FILAMENT's ten are silent **until the look lane draws them**: the
-  // lit tiles, the two thumbs and the gap are read off the boss every frame,
-  // and the snap, the recoil and the dark are to be one family read above
-  // the loop, the way THE INSTAR's are (`docs/spec/bosses.md` §11.33).
+  // THE FILAMENT's ten throw no burst from this table: they are one family
+  // read above the loop, the way THE INSTAR's are, and every burst of theirs
+  // — on the tile drawn, on the head that snapped, on the body a filament
+  // came out of — is thrown by `filament-fx.ts` (`docs/spec/bosses.md` §11.33).
   "filamentEnter",
   "filamentArm",
   "filamentDrawn",

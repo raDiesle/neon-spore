@@ -4722,22 +4722,48 @@ together* said as a rule, and it gives the pull a beat both hands are on.
 is (`decisions.md` #33): a filament coming out of the body is the beat the
 pair earned.
 
-**What is not built** is the look and the cue: the body of loose
-filaments, the lit part and the dark, the grab a thumb finds
-(`render/handles.ts`, a `filament` row in `FIELD_CONTROLS`), the *DRAW*
-and *FOLLOW* words of `decisions.md` #34 over the lit end on his screen
-and the last lit tile on hers, and the film — the ten events are on both
-silent lists until the look lane draws them (`effects-ingest-silent-boss-b.ts`,
-`effects-spark-silent-boss-b.ts`), the guide is prose
-(`content/test/scenes-prose.test.ts`, `STILL_PROSE`), and the director has
-the group, its fields, its note, the sounds and all four states posed,
-three of them by a hand that plays the trace right (`boss-hands-handles.ts`). **One figure is the owner's**: nothing
-here strikes the hull. The design has no strike in it — what a fault costs
-is the filament, back to its free end, and the wave is the time it takes —
-and every other boss on this page can lose the pair the wave. Whether a
-boss that can only be slowed and never lost is a boss of this game, or
-wants a strike after some count of snaps, is his call, and it is a
-`filamentStrikes` field and one branch in `filament-hand.ts` either way.
+**The look** (`render/filament-draw.ts`, `filament-shape.ts`, `filament-fx.ts`,
+`filament-grip.ts`): a bundle hung over the top of the field — a domed body
+with breathing flanks and one sag in its underside per filament still in it
+(`filamentBodyPath`), a `wisp` strand drawn inside for each, the last one at
+the fraction of a pull it has left, so the body reads a strand narrower every
+pull and the count is the silhouette. The armed filament hangs from the
+body's underside down the field as a spline through its tiles' centres
+(`filamentRunPath`, `filamentLeadPath`), the free end pulsing in `wispRim` on
+every screen while it is armed. **The split is what of the line each screen
+draws** (`view-role-clocks-b.ts`): the pilot's screen has the whole path
+ahead as a dashed `dim` line — dimmed further while the filament is dark —
+the lit run from the free end to his tile, and a red breathing ring on his
+tile with *DRAW* beside it, the ring going `redRim` while his thumb holds
+(`drawInstarWord`, `decisions.md` #34); the navigator's has no path ahead at
+all — the lit run from the free end to one tile past hers, so the tile she
+may take next is the last thing lit, and a ring on her tile with *FOLLOW*;
+the test seat draws both. The gap is on neither, which is the encounter.
+**The pull**: the whole run lit and sliding up into the body as it fades
+(`filamentPullRise`), the body a strand narrower under it. **Down**: the body
+fades out over `filamentOutBeats`. What outlives a frame is
+`effects.boss.filament` (`filament-fx.ts`): the whip of a snap or a recoil
+throws the line a quarter tile sideways and back, the dark of a gap dims the
+path ahead, a pull and the down jolt the body up. The grab is a circle on the
+head for player 1 and on the tail for player 2 (`filamentGrabCircle`,
+`filamentGrabUnder` in `render/handles.ts`); the director's sheet has the row
+(`field-controls-filament.ts`, `docs/spec/controls.md`). Proved by
+`render/test/filament-frame.test.ts`, fifteen: the arm pulses without a
+ring, the words are on both seats and twice on the test seat, the dashed
+path is the pilot's alone, the rings are the test seat's both, the pilot's
+frame does not move with her tail and hers does not move with his head, the
+held ring is redder, the pull has no ring and a narrower body, the down fades
+and the out has no body, and the transients reset.
+
+**What is not built** is the film: the ten events are drawn by the picture
+and no longer silent by omission, but the guide is still prose
+(`content/test/scenes-prose.test.ts`, `STILL_PROSE`). **One figure is the
+owner's**: nothing here strikes the hull. The design has no strike in it —
+what a fault costs is the filament, back to its free end, and the wave is
+the time it takes — and every other boss on this page can lose the pair the
+wave. Whether a boss that can only be slowed and never lost is a boss of
+this game, or wants a strike after some count of snaps, is his call, and it
+is a `filamentStrikes` field and one branch in `filament-hand.ts` either way.
 
 **The sounds are bound** (`audio/bind-filament.ts`): a cue per event, panned
 to the tile's column, a tile drawn or followed pitched higher the further

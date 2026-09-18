@@ -3,6 +3,7 @@ import type { Layout } from "@neon-spore/render";
 import type {
   AntiphonState,
   Creature,
+  FilamentState,
   InstarState,
   MazeState,
   OrreryState,
@@ -94,6 +95,9 @@ export interface Bindings {
   /** THE INSTAR, when it is the boss up: its marks, while they are up
    * (`render/instar-marks.ts`). */
   instar: () => InstarState | null;
+  /** THE FILAMENT, when it is the boss up: the two rings on its line, while
+   * a filament is being traced (`render/filament-grip.ts`). */
+  filament: () => FilamentState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

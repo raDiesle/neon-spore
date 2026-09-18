@@ -54,10 +54,12 @@ const STILL_PROSE = [
   // back to. So this one may stay prose — the lane to open is not a film but
   // the question of whether a boss that says its own verbs wants one.
   "THE INSTAR",
-  // And THE FILAMENT, whose simulation landed 18 September 2026 with its look
-  // still the next lane (`bosses.md` §11.33): a film of it would be two thumbs
-  // on a line nobody has drawn yet. The film is owed by the lane that draws
-  // it, the way THE HIVE's and THE INSTAR's are.
+  // And THE FILAMENT, drawn 18 September 2026 (`render/filament-draw.ts` and
+  // the three files beside it, `bosses.md` §11.33) with its film still owed:
+  // its guide already says the one rule each seat has — draw a tile a beat,
+  // follow the lit part — and its words are on the field beside the rings, so
+  // whether a boss that says its own verbs wants a film is THE INSTAR's
+  // question again, and it waits on the owner's eye on both.
   "THE FILAMENT",
 ];
 

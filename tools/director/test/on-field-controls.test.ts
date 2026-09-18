@@ -120,9 +120,9 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // `filament` is the first target that is a **trace**: no `id`, both
     // seats, and the grab is at a tile the simulation already holds — the
     // head for player 1, the tail for player 2 — so the displacement
-    // resolves to a tile (`sim/filament-hand.ts`). Heard with nothing drawn
-    // to take hold of; its row comes with the look (`docs/spec/bosses.md`
-    // §11.33).
+    // resolves to a tile (`sim/filament-hand.ts`), answered by
+    // `filamentGrabUnder` under `handleUnder()` at the ring each screen
+    // draws (`render/filament-grip.ts`, `docs/spec/bosses.md` §11.33).
     case "filament":
       return target;
     default:
@@ -230,6 +230,7 @@ const FIELD: Field = {
   surge: null,
   antiphon: null,
   instar: null,
+  filament: null,
   controls: controlSetForWave(0),
   faults: [],
   well: false,

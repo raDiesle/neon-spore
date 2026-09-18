@@ -104,3 +104,20 @@ export const showsStareTarget = (role: ViewRole, watching: 1 | 2): boolean =>
   role === "test" || role !== `p${watching}`;
 export const showsStareWatched = (role: ViewRole, watching: 1 | 2): boolean =>
   role === "test" || role === `p${watching}`;
+
+/**
+ * THE FILAMENT's two, and the split is the eyes, each way, on **one line**:
+ * the pilot is shown **the distance ahead** — the whole armed filament,
+ * faint, from its free end up to the root and the lead into the body, the
+ * part he has drawn lit behind his thumb — and nothing of the navigator's
+ * thumb: where she is on the lit part is hers to say. The navigator is
+ * shown **the distance behind** — the lit tiles from the free end up to her
+ * thumb and the one lit tile past it, the next she may take — and nothing of
+ * the unlit path, the head, or the lead: how far ahead he is, and which way
+ * the line turns next, are his to say. The gap between the two thumbs is
+ * the number neither screen has whole, and it is the sentence this boss
+ * exists to make them say (`sim/filament.ts`, `filament-draw.ts`,
+ * `docs/spec/bosses.md` §11.33). `test` is both.
+ */
+export const showsFilamentAhead = (role: ViewRole): boolean => role !== "p2";
+export const showsFilamentBehind = (role: ViewRole): boolean => role !== "p1";

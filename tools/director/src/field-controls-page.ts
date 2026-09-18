@@ -1,6 +1,7 @@
 import type { FieldControlDef } from "./field-control-def.js";
 import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
+import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
@@ -227,6 +228,8 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...ANTIPHON_CONTROLS,
   // THE INSTAR's marks, one target that is six gestures (`field-controls-instar.ts`).
   ...INSTAR_CONTROLS,
+  // THE FILAMENT's line, the first that is a trace (`field-controls-filament.ts`).
+  ...FILAMENT_CONTROLS,
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",
