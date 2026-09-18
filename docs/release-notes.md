@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 43233317 — Queue: the phone's GAME view opens on the strip, and the list has no way there
+
+The owner asked for a wave in the list to open the field in one press, and for ↺ WAVE and BRIEFINGS to be in reach while it is up. `rail-open.ts`'s two ways out of a row are `wave` and `map`; the field is in neither, and arriving from the menu does not show it either — GAME is two sections, RUN is the earlier of them in the markup, and the phone block stacks them in document order, so the view opens on ten rows of transport with the picture a scroll below.
+
 ## 2026-09-18 · 38d20f0d — THE PULSE's bar is a state, and holding it is one of you carrying the other
 
 The round splits nothing in its verbs — both panels carry the same four arrows and a press is judged the same way whichever thumb it came from — so the state it gained is not a seat's. It is the meter's: the one number that was already the whole of whether a stage is lost, and the one object in this game the pair owns together.
