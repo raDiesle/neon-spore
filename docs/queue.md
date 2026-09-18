@@ -584,6 +584,7 @@ wave, and the film — a `the-hive` scene under `packages/content/src/scenes/`
 ## Every boss wave says whether its boss is special or normal
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-every-boss-wave-says-whether-its-boss-is-special
 - **Files:** `packages/content/src/wave-types.ts`, `packages/content/src/waves.ts`,
   `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`,
   `tools/director/src/rail.ts`, `tools/director/src/serialize.ts`,
