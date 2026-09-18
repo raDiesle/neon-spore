@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 815404ac — PINBALL's spring and its table: a hand on each of the shots that had none
+
+The round already changed state three times a shot — `aim`, `power`, `flight`, each waiting on a different thumb. What it had no hand on was the table: every verb was on the panel or the strip, and through a flight the navigator had nothing at all.
+
 ## 2026-09-18 · da389f10 — SNAKE's body is a state of its own, and the last two tiles ask for a hand
 
 The body's length was already the difficulty and the health bar at once — a tile per point, and the body is the obstacle. It is the state as well now (`SNAKE_GRIPS`, `snakeGrip`), so the round escalates on the way to being won rather than on the way to running out of beats.

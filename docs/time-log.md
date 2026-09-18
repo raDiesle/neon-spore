@@ -9491,3 +9491,5 @@ The bottleneck was the file ceilings again, and it is the third lane in a row
 to say so: every §6.2 lane adds two `DragTarget`s, three events, a config file
 and a state field, and the files those are names in were sized for the boss
 before this brief existed.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
