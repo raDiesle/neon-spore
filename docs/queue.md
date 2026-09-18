@@ -140,8 +140,7 @@ landed, which is the one case where deleting it is the release.
 **The format**, one `##` per item, and both fields are required because the
 session that picks it up has read nothing else:
 
-```
-## One line saying what to change
+```## One line saying what to change
 
 - **Found:** 2026-09-03, claude/some-lane
 - **Files:** `packages/sim/src/step.ts`, `packages/sim/test/step.test.ts`
@@ -577,7 +576,6 @@ wave, and the film — a `the-hive` scene under `packages/content/src/scenes/`
   `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`,
   `tools/director/src/rail.ts`, `tools/director/src/serialize.ts`,
   `packages/content/test/waves.test.ts`, `docs/spec/bosses.md`
-- **Asks:** THE INSTAR, THE STARE and THE REPRISE — special or normal?
 
 The owner, 18 September 2026: *I would like to see the type of boss for every
 boss wave in the wave description details … only distinguish between "special"
@@ -602,17 +600,17 @@ Thirty-three boss waves. The rule decides thirty of them:
   CURTAIN, THE TASTER, THE SINEW, THE LEDGER, THE SURGE, THE LEAD, THE SCUTTLE,
   THE ANTIPHON, THE HIVE.
 
-The three the rule pulls both ways, which is the ask:
+**The three the rule pulled both ways are all normal** — the owner, 18
+September 2026, asked directly. THE INSTAR has a panel of its own and is still
+normal, which settles what the tag is about: **the shape of play, not the
+panel.** A predefined sequence of actions is the ordinary kind of boss in this
+game however it is controlled. THE STARE is normal although one seat may not
+act, and THE REPRISE is normal although the field is hidden — so *special* is
+reserved for a round with rules of its own, THE MAZE and THE MIRROR being the
+two the owner named.
 
-- **THE INSTAR** has a control set of its own (`scene`) — special by the first
-  half of the rule — and *is* a predefined sequence of actions, which the second
-  half excludes. It is the archetype of the category the owner is naming, so the
-  answer decides whether the tag is about the panel or about the shape of play.
-- **THE STARE** is the ordinary panel and the ordinary field, and its style is
-  unique in the one way that matters: one seat may not touch anything at all.
-- **THE REPRISE** is the ordinary panel over a stretch of field the pair can no
-  longer see. Special if hiding the field is a unique style; normal if a boss
-  that changes what you can *see* rather than what you can *press* is ordinary.
+So the table is complete: ten special, twenty-three normal, and the three above
+go in the second list.
 
 ## The handle bosses' own words and the boss cue become one thing
 
@@ -634,144 +632,1054 @@ most urgent first. The test is the interesting part: the handle's word is drawn
 while the handle is *unheld*, and a cue is silent where nothing is owed, so the
 two rules have to be reconciled rather than one of them deleted.
 
-## The rounds get a cue, one arm each
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-read.ts`,
-  `packages/render/test/boss-cue.test.ts`, `docs/spec/interludes.md`
-
-The owner wants the one-or-two-word prompt on every boss, not only the recent
-ones: *add the explanations in game screen of 1-2 words, so we can get rid of
-tutorial/guides.* The ten bosses with a panel of their own have none — THE GAUGE,
-SNAKE, PINBALL, THE PULSE, THE WELL, THE MAZE, THE SCOUT, THE SPLICE, THE FLEET,
-THE REPRISE — and they are the ones a pair meets with the least warning, because
-the panel under their thumbs is new as well.
-
-One arm on `cuesOf` each, in a fourth read file so nothing goes past 250 lines,
-and the same three rules: the mark stands on something that seat is already
-shown, the cue is drawn on the seat that can act, and it says the verb and never
-the answer. THE MAZE's wheel and THE SPLICE's straws are the two where the verb
-is easy and the *silence* is the work — both are fights whose difficulty is a
-number one seat reads out.
-
-## The act-two field bosses get a cue
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/render/src/boss-cue.ts`, `packages/render/src/boss-cue-read.ts`,
-  `packages/render/test/boss-cue.test.ts`, `docs/spec/bosses.md`
-
-The other half of the same gap: BULB QUEEN, THE WARDEN, THE VANE, THE CAIRN, THE
-MIRROR and THE STARE are played on the ordinary panel and say nothing on the
-field. THE WARDEN's tether and THE CAIRN's grips are the obvious arms; THE STARE
-is the one worth thinking about, because the thing it wants from a seat is *not
-to act*, and a cue that says `WAIT` over a seat's own controls is either the best
-prompt in the game or a contradiction of "a cue is drawn on the seat that can
-act". Decide it in the lane and write down which.
-
-## A boss's states change several times, and each state asks a different gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/sim/src/instar.ts`, `packages/sim/src/gorge.ts`,
-  `packages/sim/src/gorge-step.ts`, `packages/sim/src/config-gorge.ts`,
-  `docs/spec/bosses-choreographed.md`, `.claude/skills/new-boss/SKILL.md`
-
-The owner, 18 September 2026: *bosses' states should change several times between
-the different gestures, and have tasks to do some additional gestures on the game
-screen.* The recently added field bosses mostly ask for **one** gesture, repeated
-until a count is reached — THE GORGE is four beads and a pierce, THE TASTER is
-shear and shear, THE DIASTOLE is a beam held twice. THE INSTAR is the shape the
-owner is asking for and it is the only one that has it: five poses, a different
-gesture set in each, and the body changing between them.
-
-This lane decides the pattern and spends it on one boss. The question it answers:
-can a field boss take `BossSequenceStep` — a pose, its marks, its three clocks —
-without becoming THE INSTAR, i.e. while the field still falls and the panel is
-still the panel? THE GORGE is the one to try it on: it already has three phases
-and a gorged state nobody does anything with, so a second gesture there costs no
-new mechanic. The two options the lane picks between are naming the states in the
-boss's own state (a `phase` per gesture, the way `undertow` does) and lifting
-`BossSequenceStep` out of `instar.ts` so any boss can carry a beat list.
-
-## The recent bosses gain a gesture that is not on the panel
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/sim/src/drag-targets.ts`, `packages/render/src/touch-hold.ts`,
-  `packages/net/src/command-fields.ts`, `packages/content/src/control-sets.ts`,
-  `docs/spec/bosses-choreographed.md`
-
-The second half of the same ask: *additional gestures on the game screen.* Of the
-twelve bosses that landed in the last three days, nine are answered entirely with
-the cannon, the plate and the two triggers — THE CANDLE, THE GORGE, THE TASTER,
-THE BATON, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE, THE ORRERY. The three
-that reach for the field (THE CURTAIN's shove, THE THROAT's fling, THE UNDERTOW's
-maw) are the ones the cue had most to say about, which is not a coincidence.
-
-Give each of the nine one gesture on the picture itself. Every one has to be a
-member of `DragTarget` or `Hold["kind"]` or it does not exist (filter 9), and the
-wire **drops a target it does not list, silently**, so `command-fields.ts` and the
-codec test are part of the lane rather than a follow-up. Do two bosses, not nine,
-and leave the rest as a row each here.
-
-## The twelve recent bosses, looked at against THE INSTAR
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `.claude/skills/new-boss/SKILL.md`, `docs/spec/bosses.md`,
-  `packages/render/src/instar-draw.ts`, `packages/render/src/instar-poses.ts`
-
-The owner asked for a graphics task per recent boss, with THE INSTAR as the
-reference: *tasks for every new boss to improve the graphics, which fit what was
-built.* The standard is now written down in five points in
-`.claude/skills/new-boss` §5 — a body rather than a fixture, a pose per state and
-a blend between them, a change of perspective, a picture deformed by how far the
-answer is along, and the mark saying its own gesture.
-
-**This lane is the survey, not the drawing.** Take one PNG of each of the twelve —
-THE CANDLE, THE GORGE, THE CURTAIN, THE TASTER, THE UNDERTOW, THE BATON, THE
-THROAT, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE, THE ORRERY — in the
-state that matters rather than the first one (`bun run frames . --wave "X"
---boss …`), read each against the five points, and leave **one entry here per
-boss** naming what its picture is missing and which file draws it. Twelve look
-lanes cannot be written honestly without twelve pictures, and taking twelve
-pictures is a sitting of its own. A look lane that follows one of those entries
-lands under *a look the owner asked for by name* and says so in the commit.
-
-## One boss loses its rehearsal, and the fight is asked to teach it
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes.ts`,
-  `packages/content/src/scenes/the-baton.ts`, `packages/content/test/scenes-prose.test.ts`,
-  `docs/spec/briefings.md`
-
-*Add the explanations in game screen of 1-2 words, so we can get rid of
-tutorial/guides.* That is a direction and not yet a change, and the honest first
-step is one boss, measured. THE BATON is the one to try: its rehearsal is seven
-pages, four of them about the colour and the lockout, and its two cues (`LAUNCH`
-on the bead in its socket, `FIRE` on the bead in the air) cover the whole loop.
-
-Take its `scene` off the guide, put THE BATON on `STILL_PROSE`, and play it. What
-the lane has to come back with is which of the seven pages the fight could not
-replace — the colour that flips on every landing and the beat the acting seat is
-greyed out are the two candidates — because those are the ones that say what a
-guide is still for. **The prose halves stay either way**: the owner decided on 17
-September 2026 that a filmed wave keeps its three lines as the director's own
-reference (`wave-types.ts`), so this is about the film and the ready gate.
-
-## Four bosses are listed as having no look, and they have one
+## Three bosses are listed as having no look, and they have one
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
 - **Files:** `packages/content/test/scenes-prose.test.ts`,
-  `packages/render/src/lead-draw.ts`, `packages/render/src/scuttle-draw.ts`,
-  `packages/render/src/orrery-draw.ts`, `packages/render/src/surge-draw.ts`
+  `packages/render/src/orrery-draw.ts`, `packages/render/src/hive-draw.ts`,
+  `packages/render/src/instar-draw.ts`
 
-`STILL_PROSE` carries a reason per wave, and four of them say the look has not
-landed: THE LEAD *owed by the lane that draws the body*, THE SCUTTLE *owed by the
-lane that draws the frame*, THE ORRERY *until the rings are drawn there is nothing
-to shoot it against*, THE SURGE *none of which is drawn yet*. All four have draw
-files and all four are drawn. The test passes because it only asserts that those
-waves carry no film — the reasons are prose, and prose no test reads goes stale
-in three days.
+`STILL_PROSE` carries a reason per wave, and three of them say the look has not
+landed: THE ORRERY *until the rings are drawn there is nothing to shoot it
+against*, THE HIVE *none of which is drawn yet*, THE INSTAR *five poses and the
+marks on them, none of which is drawn yet*. All three are drawn — THE INSTAR's
+look landed the same day as its simulation and is the reference every other
+boss's picture is now measured against.
 
-Rewrite the four reasons to say what is actually left, which on each of them is a
-film nobody has written rather than a body nobody has drawn — and read that
-against the entry above it, because a boss whose fight now says its own verbs may
-be a boss that should never get a film at all.
+The test passes because it only asserts those waves carry no film; the reasons
+are prose and no test reads them, which is how four of them went stale in three
+days and were rewritten by the lanes that filmed THE LEAD, THE SCUTTLE and THE
+SURGE. Rewrite the three that are left to say what is actually outstanding —
+and read them against the per-boss *field says the word* entries below, because
+a boss whose fight now says its own verbs may be a boss that should never get a
+film at all.
+
+## BULB QUEEN: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/bulb-queen.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 3-page rehearsal (`packages/content/src/scenes/bulb-queen.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## BULB QUEEN changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/queen-mark.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 1 file of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE MIRROR: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/the-mirror.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 3-page rehearsal (`packages/content/src/scenes/the-mirror.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE MIRROR changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/mirror-round.ts`, `packages/sim/src/mirror.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 2 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE MIRROR's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/mirror.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+1 file draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE MAZE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/the-maze.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 3-page rehearsal (`packages/content/src/scenes/the-maze.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE MAZE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/maze-clock.ts`, `packages/sim/src/maze-controls.ts`, `packages/sim/src/maze-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 9 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE MAZE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/maze-blood.ts`, `packages/render/src/maze-door.ts`, `packages/render/src/maze-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+15 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE GAUGE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/the-gauge.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 4-page rehearsal (`packages/content/src/scenes/the-gauge.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE GAUGE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-gauge.ts`, `packages/sim/src/gauge-round.ts`, `packages/sim/src/gauge.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on its own panel (`gauge`), over 3 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE GAUGE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/gauge-round.ts`, `packages/render/src/gauge-title.ts`, `packages/render/src/gauge.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE WARDEN: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/the-warden.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 3-page rehearsal (`packages/content/src/scenes/the-warden.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE WARDEN changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/warden-cycle.ts`, `packages/sim/src/warden-rope.ts`, `packages/sim/src/warden-start.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 4 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE FLEET: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/the-fleet.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 4-page rehearsal (`packages/content/src/scenes/the-fleet.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE FLEET changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-fleet.ts`, `packages/sim/src/events-fleet.ts`, `packages/sim/src/fleet-board.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on its own panel (`fleet`), over 4 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE FLEET's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/fleet-chart.ts`, `packages/render/src/fleet-clock.ts`, `packages/render/src/fleet-fx.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+8 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE VANE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-3b.ts`, `packages/content/src/scenes/the-vane.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 3-page rehearsal (`packages/content/src/scenes/the-vane.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE VANE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/vane-arm.ts`, `packages/sim/src/vane-cycle.ts`, `packages/sim/src/vane.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 3 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE VANE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/vane-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+1 file draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## SNAKE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-4.ts`, `packages/content/src/scenes/snake.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 4-page rehearsal (`packages/content/src/scenes/snake.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## SNAKE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-snake.ts`, `packages/sim/src/snake-arena.ts`, `packages/sim/src/snake-controls.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on its own panel (`snake`), over 8 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## SNAKE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/snake-body.ts`, `packages/render/src/snake-crash.ts`, `packages/render/src/snake-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+13 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## PINBALL: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-4.ts`, `packages/content/src/scenes/pinball.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 5-page rehearsal (`packages/content/src/scenes/pinball.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## PINBALL changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-pinball.ts`, `packages/sim/src/pinball-board.ts`, `packages/sim/src/pinball-contact.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on its own panel (`pinball`), over 8 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## PINBALL's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/pinball-aim.ts`, `packages/render/src/pinball-blast.ts`, `packages/render/src/pinball-button.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE SCOUT: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+It has no rehearsal, only the three prose lines.
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE SCOUT changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-scout.ts`, `packages/sim/src/scout-arena.ts`, `packages/sim/src/scout-fly.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on its own panel (`scout`), over 6 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE SCOUT's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/scout-button.ts`, `packages/render/src/scout-draw.ts`, `packages/render/src/scout-round.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE STARE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+It has no rehearsal, only the three prose lines.
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE STARE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-stare.ts`, `packages/sim/src/events-stare.ts`, `packages/sim/src/stare-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 5 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE STARE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+**Nothing draws it today**, so this is a look with no shipped alternative —
+say which exemption the commit is using. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE PULSE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes/the-pulse.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 4-page rehearsal (`packages/content/src/scenes/the-pulse.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE PULSE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-pulse.ts`, `packages/sim/src/pulse-chart.ts`, `packages/sim/src/pulse-controls.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on its own panel (`pulse`), over 7 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE PULSE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/pulse-body.ts`, `packages/render/src/pulse-button.ts`, `packages/render/src/pulse-drop.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+9 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE DIASTOLE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes/the-diastole.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `BURN` on the bridge, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 6-page rehearsal (`packages/content/src/scenes/the-diastole.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE DIASTOLE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-diastole.ts`, `packages/sim/src/diastole-hash.ts`, `packages/sim/src/diastole-step.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 4 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE DIASTOLE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/diastole-bridge.ts`, `packages/render/src/diastole-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE BATON: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes/the-baton.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `LAUNCH` on the bead in its socket and `FIRE` on it in the air, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 7-page rehearsal (`packages/content/src/scenes/the-baton.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE BATON changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/baton-bead.ts`, `packages/sim/src/baton-cross.ts`, `packages/sim/src/baton-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 9 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE BATON's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/baton-bead-draw.ts`, `packages/render/src/baton-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE UNDERTOW: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7c.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `MOVE` on the cannon and on the plate, `OPEN` and `BURN` on a standing lobe, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 12-page rehearsal (`packages/content/src/scenes/the-undertow.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE UNDERTOW changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-undertow.ts`, `packages/sim/src/events-undertow.ts`, `packages/sim/src/undertow-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 6 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE UNDERTOW's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/undertow-draw.ts`, `packages/render/src/undertow-fx.ts`, `packages/render/src/undertow-lobe.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE THROAT: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `FLING` on a gum, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 8-page rehearsal (`packages/content/src/scenes/the-throat.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE THROAT changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-throat.ts`, `packages/sim/src/throat-hash.ts`, `packages/sim/src/throat-pull.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 5 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE THROAT's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/throat-draw.ts`, `packages/render/src/throat-evert.ts`, `packages/render/src/throat-lock.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE ORRERY: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `BURN` on the naked core, which is
+what one lane could reach and not the whole fight.
+It has no rehearsal, only the three prose lines.
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE ORRERY changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-orrery.ts`, `packages/sim/src/orrery-gap.ts`, `packages/sim/src/orrery-hand.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 7 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE ORRERY's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/orrery-draw.ts`, `packages/render/src/orrery-grab.ts`, `packages/render/src/orrery-shaft.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE CANDLE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `MOVE` on the cannon and `FIRE` on the glow, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 12-page rehearsal (`packages/content/src/scenes/the-candle.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE CANDLE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/candle-hash.ts`, `packages/sim/src/candle-step.ts`, `packages/sim/src/candle.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 5 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE CANDLE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/candle-dark.ts`, `packages/render/src/candle-glow.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE GORGE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-gorge.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `BURN` over the gorged mouth and `PIERCE` over a full intake, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 13-page rehearsal (`packages/content/src/scenes/the-gorge.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE GORGE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-gorge.ts`, `packages/sim/src/events-gorge.ts`, `packages/sim/src/gorge-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 5 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE GORGE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/gorge-draw.ts`, `packages/render/src/gorge-fx.ts`, `packages/render/src/gorge-lobe.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE CURTAIN: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-curtain.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `SHOVE` on the membrane and `FIRE` on the bared core, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 10-page rehearsal (`packages/content/src/scenes/the-curtain.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE CURTAIN changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-curtain.ts`, `packages/sim/src/curtain-hash.ts`, `packages/sim/src/curtain-shot.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 6 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE CURTAIN's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/curtain-draw.ts`, `packages/render/src/curtain-fx.ts`, `packages/render/src/curtain-sheet.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE TASTER: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `BURN` on a closed fan and `SHEAR` on a standing blade, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 10-page rehearsal (`packages/content/src/scenes/the-taster.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE TASTER changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-taster.ts`, `packages/sim/src/events-taster.ts`, `packages/sim/src/taster-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 6 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE TASTER's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/taster-blade.ts`, `packages/render/src/taster-crest.ts`, `packages/render/src/taster-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE SINEW: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 10-page rehearsal (`packages/content/src/scenes/the-sinew.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE SINEW changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-sinew.ts`, `packages/sim/src/events-sinew.ts`, `packages/sim/src/sinew-hand.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 6 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE SINEW's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/sinew-band.ts`, `packages/render/src/sinew-draw.ts`, `packages/render/src/sinew-fibres.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE LEDGER: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `MOVE` on the walked socket and `GUARD` on the bead riding down, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 9-page rehearsal (`packages/content/src/scenes/the-ledger.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE LEDGER changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-ledger.ts`, `packages/sim/src/events-ledger.ts`, `packages/sim/src/ledger-bead.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 7 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE LEDGER's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/ledger-cord.ts`, `packages/render/src/ledger-draw.ts`, `packages/render/src/ledger-fx.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE SURGE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-surge.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 11-page rehearsal (`packages/content/src/scenes/the-surge.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE SURGE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-surge.ts`, `packages/sim/src/events-surge.ts`, `packages/sim/src/surge-hand.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 7 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE SURGE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/surge-draw.ts`, `packages/render/src/surge-fx.ts`, `packages/render/src/surge-gauge.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+5 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE LEAD: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `BURN` on the pass, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 8-page rehearsal (`packages/content/src/scenes/the-lead.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE LEAD changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-lead.ts`, `packages/sim/src/events-lead.ts`, `packages/sim/src/lead-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 6 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE LEAD's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/lead-draw.ts`, `packages/render/src/lead-fx.ts`, `packages/render/src/lead-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE SCUTTLE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says `BURN` while it winds up and `FIRE` on the hanging part, which is
+what one lane could reach and not the whole fight.
+Its briefing is a 13-page rehearsal (`packages/content/src/scenes/the-scuttle.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE SCUTTLE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-scuttle.ts`, `packages/sim/src/events-scuttle.ts`, `packages/sim/src/scuttle-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 6 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE SCUTTLE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/scuttle-draw.ts`, `packages/render/src/scuttle-fx.ts`, `packages/render/src/scuttle-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE ANTIPHON: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 20-page rehearsal (`packages/content/src/scenes/the-antiphon.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE ANTIPHON changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/antiphon-hand.ts`, `packages/sim/src/antiphon-hash.ts`, `packages/sim/src/antiphon-rail.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 8 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE ANTIPHON's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/antiphon-draw.ts`, `packages/render/src/antiphon-fx.ts`, `packages/render/src/antiphon-grip.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+4 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE HIVE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+It has no rehearsal, only the three prose lines.
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE HIVE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/config-hive.ts`, `packages/sim/src/events-hive.ts`, `packages/sim/src/hive-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 6 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE HIVE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/hive-draw.ts`, `packages/render/src/hive-fx.ts`, `packages/render/src/hive-shape.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+3 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE INSTAR: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+Its marks already carry a word in a scanner box
+(`packages/render/src/instar-word.ts`), written before the cue was
+generalised — so this lane's work is making the two one thing.
+It has no rehearsal, only the three prose lines.
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE CAIRN: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/scenes/the-cairn.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 5-page rehearsal (`packages/content/src/scenes/the-cairn.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE CAIRN changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/cairn.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 1 file of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE CAIRN's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/cairn-hand.ts`, `packages/render/src/cairn-look.ts`, `packages/render/src/cairn-pile.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE WELL: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-8.ts`, `packages/content/src/scenes/the-well.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 4-page rehearsal (`packages/content/src/scenes/the-well.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE WELL changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/well.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 1 file of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE WELL's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/well-arrivals.ts`, `packages/render/src/well-body.ts`, `packages/render/src/well-draw.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+6 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE SPLICE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-9.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+Its briefing is a 4-page rehearsal (`packages/content/src/scenes/the-splice.ts`).
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE SPLICE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/events-splice.ts`, `packages/sim/src/splice-hash.ts`, `packages/sim/src/splice-round.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on its own panel (`splice`), over 5 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE SPLICE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/splice-draw.ts`, `packages/render/src/splice-straws.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.
+
+## THE REPRISE: the field says the word, and the briefing comes down
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/content/src/waves/act-10.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
+
+It says nothing on the field at all.
+It has no rehearsal, only the three prose lines.
+
+The brief, written once so it can be corrected once: `.claude/skills/new-boss`
+section 6.1.
+
+## THE REPRISE changes state more than once, and asks for more than one gesture
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/src/reprise-state.ts`, `packages/sim/src/reprise.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
+
+It is answered today on the ordinary panel, over 2 files of simulation. Give it
+several states, a different gesture in each, and at least one of them reached on
+the picture rather than on the panel.
+
+The brief: `.claude/skills/new-boss` section 6.2.
+
+## THE REPRISE's picture looks like something real
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/render/src/reprise-draw.ts`, `packages/render/src/reprise-fx.ts`, `docs/spec/bosses.md`, `packages/content/src/silhouettes.ts`
+
+2 files draw it today, named for it under packages/render/src. The state it has today is the state to draw — detail,
+not a picture per state.
+
+The brief: `.claude/skills/new-boss` section 6.3.

@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — a task per boss, three times over
+
+The owner answered the three asks — THE INSTAR, THE STARE and THE REPRISE are
+all normal, which settles that the tag is about the shape of play and not the
+panel — and asked for the three enhancement themes as a task per boss wave.
+Ninety-five entries generated from the tree itself, six umbrella entries taken
+out from under them, and the three briefs written once in the skill so they can
+be corrected once.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the boss roster again off the tree, because three films had landed from other lanes since the morning and the stale-reason entry was about four waves and is now about three |
+| writing | 35 | `.claude/skills/new-boss` section 6 with the three briefs, the generator, the ninety-five entries, the tag entry's answer, the rewritten stale-reason entry |
+| looking | 0 | nothing visible moved |
+| friction | 10 | the first generator repeated three paragraphs thirty-three times; a second pass moved the prose into the skill and left the entries as facts and a pointer |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was deciding what an entry is for when there are ninety-five of
+them: a per-boss entry that restates the brief is thirty-three copies of a
+paragraph that will be corrected in one of them and stale in the other
+thirty-two, so what each one carries is its own boss's facts and a pointer.
+
 ## 2026-09-18 — boss-hints — nine lanes queued off one message, and the look standard
 
 The owner's four asks for the recent bosses turned into queue entries: the
