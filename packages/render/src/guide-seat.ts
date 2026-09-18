@@ -12,7 +12,7 @@ import { drawBodies, drawFieldBack, drawOverlays, drawShip } from "./frame-passe
 import { frame, skinSampler, surfaceSampler } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewState } from "./renderer.js";
-import { ROUND_DRAWS } from "./round-draw.js";
+import { drawRound } from "./round-draw.js";
 import { seenView } from "./unseen.js";
 
 /**
@@ -59,11 +59,7 @@ export class SeatView {
     // the same reason `canvas2d.ts` does: the cheapest way to be sure the
     // field is gone is for none of the passes below to run. Without this,
     // SNAKE's film was an empty field with a caption over it.
-    const round = ROUND_DRAWS[world.boss?.kind ?? ""];
-    if (round !== undefined) {
-      round(ctx, l, view);
-      return;
-    }
+    if (drawRound(ctx, l, view)) return;
 
     const isArmed = guardArmed(world);
     const isOpen = mawOpen(world);

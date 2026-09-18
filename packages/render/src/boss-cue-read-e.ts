@@ -1,5 +1,14 @@
-import { type MazeState, type MirrorState, mazeCurrent, type World } from "@neon-spore/sim";
+import {
+  type GaugeState,
+  gaugeSeated,
+  type MazeState,
+  type MirrorState,
+  mazeCurrent,
+  type World,
+} from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
+import { gaugeNeedleTip } from "./gauge.js";
+import { gaugeDial } from "./gauge-round.js";
 import { type Layout, tileCX } from "./layout.js";
 import { mazeDoorMouth } from "./maze-door.js";
 import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
@@ -7,7 +16,7 @@ import { mirrorHullY } from "./mirror.js";
 
 /**
  * **What the rounds are asking for** — page five of the readings: THE MIRROR,
- * then THE MAZE. A round is a minigame with rules of its own
+ * THE MAZE, THE GAUGE. A round is a minigame with rules of its own
  * (`docs/spec/interludes.md`), so what it wants is rarely one of the field's
  * six verbs, and the words on this page are the round's own.
  *
@@ -124,4 +133,44 @@ export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCu
   const mouth = mazeDoorMouth(l, world.cfg, m, wheel, m.lockedWay);
   out.push(markAt(2, "PRESS", "FIRE", mouth.x, mouth.y, l, 67));
   return out;
+}
+
+/**
+ * THE GAUGE. One word, hers, and the pilot gets none — which is the finding
+ * of this reading rather than a gap left in it.
+ *
+ * **He cannot be told anything true.** The valve is his and the two marks are
+ * not on his screen at all (`showsGaugeMarks`), so the only word the field
+ * could write over his thumb is `TURN`, and the moment it wanted would be
+ * *which way* and *how far* — the answer, and hers to say. Nor is there a beat
+ * when a turn is owed: the needle is parked on purpose while the band walks
+ * toward it, so a word that came out whenever he was still would be telling
+ * him to undo a thing the pair had just agreed. He keeps the film's one page
+ * about his half, and the field says nothing to him for the whole round.
+ *
+ * **She is told her own verb, at the moment it will land.** `PRESS` / `CALL`
+ * on the end of the needle while it stands between the marks — both of which
+ * are drawn on her screen, so the mark stands on something she is already
+ * shown, and the word says what her thumb does rather than where the needle
+ * has to go. It is not the round's difficulty: seeing that the needle is
+ * inside the band is the easy half of her job, and the hard half — talking him
+ * there before it arrives — happens in the beats when there is no cue at all.
+ *
+ * **And it goes out while the call is resting.** Two calls inside
+ * `gaugeCallRestBeats` cost the rest between them whether the first landed or
+ * not (`gaugeHeard`), so a word over a button that is refusing would be an
+ * invitation to press nothing — THE MAZE's argument about a handle the ship
+ * has taken away, on a button instead.
+ */
+export function gaugeCues(
+  l: Layout,
+  world: World,
+  g: GaugeState,
+  clearTop: number | undefined,
+): readonly BossCue[] {
+  if (g.phase !== "play") return [];
+  if (world.beat - g.calledBeat < world.cfg.gaugeCallRestBeats) return [];
+  if (!gaugeSeated(world, g)) return [];
+  const tip = gaugeNeedleTip(gaugeDial(l, clearTop), g);
+  return [markAt(2, "PRESS", "CALL", tip.x, tip.y, l, 68)];
 }

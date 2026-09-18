@@ -590,6 +590,8 @@ hand still draws.
 | THE MIRROR | `NOW GIVE IT BACK IN ORDER` | `THE ORDER IS THE TEST` | `PRESS` / `REPEAT` on the mirror's cannon for the whole of `listen`, on both screens |
 | THE MAZE | `PLAYER 1 TURNS THE WHEEL` | — the page is gone | `CARRY` / `TURN` on the string's handle, his alone, while nothing has clicked |
 | THE MAZE | `PLAYER 2 FIRES UP THE COLUMN` | `THE HEART TAKES ONE COLOUR` | `PRESS` / `FIRE` on the lit doorway, hers alone, for as long as one stands |
+| THE GAUGE | `PLAYER 1 TURNS THE VALVE` | — merged into the page above it | none: the field can tell the pilot nothing true, and says so |
+| THE GAUGE | `PLAYER 2 CALLS IT` | `EACH GOOD CALL MOVES THEM` | `PRESS` / `CALL` on the end of the needle, hers alone, while it is seated and the call is armed |
 
 **Four other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
@@ -633,6 +635,15 @@ his screen so that each of them still has a page — and, in place of her verb,
 the one fact no picture on either screen announces: the heart in the middle
 takes its own colour and only its own, so a shot of the other one arriving is a
 wrong answer that looks like a right one.
+
+THE GAUGE's two rows are the same day and go the other way about it. Its film
+came down from four pages to three, and the page that went was the *pilot's*
+verb rather than a page the cue replaced: `PLAYER 1 CANNOT SEE THEM` moved off
+the hull and onto the valve, which is where his thumb goes, so one page now says
+both the split and the slab. He gets no cue at all — the field cannot name a
+direction without saying the thing she is there to say — so his page is the only
+thing that tells him anything, and it tells him the half that matters. Hers lost
+its verb to the cue and gained what a call costs: `EACH GOOD CALL MOVES THEM`.
 
 #### The ghost thumb is derived, never authored
 

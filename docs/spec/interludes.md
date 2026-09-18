@@ -174,6 +174,22 @@ whole of the pressure. `gaugeTurnMilli` is how far the pilot's valve moves the
 needle each tick. `gaugeCallRestBeats` is the beats between two calls, landed or
 not, so a held thumb is slower than talking.
 
+**What the field says** (`render/src/boss-cue-read-e.ts`, 18 September 2026,
+`docs/decisions.md` #34). One word, and only hers: `PRESS` / `CALL` on the end
+of the needle while it stands between the marks and the call is not resting.
+Both marks are drawn on her screen, so the mark stands on something she is
+already shown, and the word says what her thumb does rather than where the
+needle has to go — the hard half of her job is talking him there before it
+arrives, and that happens in the beats when there is no cue at all.
+
+**The pilot is told nothing, on any beat, and that is the finding rather than a
+gap.** The two marks are not on his screen (`showsGaugeMarks`), so the only word
+the field could write over his valve is a direction, which is the answer and
+hers to say; and there is no beat when a turn is owed, because the needle is
+parked on purpose while the band walks toward it. He keeps the rehearsal's one
+page about his half, and it is the split rather than the verb
+(`docs/spec/briefings.md`).
+
 What a round **may** do is give — a pod or two for the act about to start
 ([systems](systems.md#57-power-ups--the-pod-built)). That is not built. Pods are
 wave content and `startWave` replaces `podQueue` wholesale, so the giving needs

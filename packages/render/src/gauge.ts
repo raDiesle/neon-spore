@@ -196,8 +196,22 @@ function drawCall(
 }
 
 /** The needle itself, and the pin it turns on. */
+/**
+ * The end of the needle. Exported because the cue frames it at the moment it
+ * is seated (`boss-cue-read-e.ts`): the needle is the only thing on this
+ * screen that moves, so the word goes on it and not on the button, and a
+ * second opinion about where its end is would be a frame beside its own
+ * needle.
+ */
+export function gaugeNeedleTip(dial: Dial, gauge: GaugeState): { x: number; y: number } {
+  return pointOn(dial, gauge.needleMilli, dial.r * NEEDLE_REACH);
+}
+
+/** How far up the radius the needle reaches. */
+const NEEDLE_REACH = 0.94;
+
 function drawNeedle(ctx: CanvasRenderingContext2D, dial: Dial, gauge: GaugeState): void {
-  const tip = pointOn(dial, gauge.needleMilli, dial.r * 0.94);
+  const tip = gaugeNeedleTip(dial, gauge);
   const tail = pointOn(dial, gauge.needleMilli, -dial.r * 0.12);
 
   ctx.strokeStyle = PALETTE.hullRim;

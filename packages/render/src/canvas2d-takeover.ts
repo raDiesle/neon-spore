@@ -3,7 +3,7 @@ import type { Layout, Stage } from "./layout.js";
 import { openingKey } from "./opening-fx.js";
 import type { RenderState } from "./render-state.js";
 import type { ViewState } from "./renderer.js";
-import { ROUND_DRAWS } from "./round-draw.js";
+import { drawRound } from "./round-draw.js";
 
 /**
  * **The two frames that are not the field**, and the clocks that run whether or
@@ -62,9 +62,7 @@ export function drawTakeover(
   // `ROUND_DRAWS` is the list and says why it is a list. Each draws the
   // wave's opening itself, last — without it the pair get a picture standing
   // still with nothing saying why.
-  const round = ROUND_DRAWS[world.boss?.kind ?? ""];
-  if (round !== undefined) {
-    round(ctx, l, view);
+  if (drawRound(ctx, l, view)) {
     drawWaveOpening(ctx, l, world, {
       role: view.role,
       time: view.time,

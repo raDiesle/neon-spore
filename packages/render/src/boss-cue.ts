@@ -10,7 +10,7 @@ import {
   throatCues,
 } from "./boss-cue-read-c.js";
 import { stareCues } from "./boss-cue-read-d.js";
-import { mazeCues, mirrorCues } from "./boss-cue-read-e.js";
+import { gaugeCues, mazeCues, mirrorCues } from "./boss-cue-read-e.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";
@@ -114,7 +114,13 @@ const NONE: readonly BossCue[] = [];
  * twelve imported guards whose whole body is `boss.kind === "x"` would be the
  * same list written twice.
  */
-function cuesOf(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): readonly BossCue[] {
+function cuesOf(
+  l: Layout,
+  world: World,
+  beatPhase: number,
+  skinY: SurfaceY,
+  clearTop: number | undefined,
+): readonly BossCue[] {
   const boss = world.boss;
   if (boss === null) return NONE;
   switch (boss.kind) {
@@ -150,6 +156,8 @@ function cuesOf(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): re
       return mirrorCues(l, world, boss);
     case "maze":
       return mazeCues(l, world, boss);
+    case "gauge":
+      return gaugeCues(l, world, boss, clearTop);
     default:
       return NONE;
   }
@@ -161,8 +169,12 @@ export function bossCue(
   world: World,
   beatPhase: number,
   skinY: SurfaceY,
+  /** Where the picture starts, when a rehearsal's band stands over it
+   * (`ViewState.clearTop`). One round's geometry moves with it: THE GAUGE's
+   * dial gives up radius rather than its top edge (`gauge-round.ts`). */
+  clearTop?: number,
 ): BossCue | null {
-  for (const cue of cuesOf(l, world, beatPhase, skinY)) {
+  for (const cue of cuesOf(l, world, beatPhase, skinY, clearTop)) {
     if (cueSeen(cue, l.role)) return cue;
   }
   return null;

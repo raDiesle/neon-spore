@@ -8,9 +8,11 @@ import type { GuideScene } from "../scene-types.js";
  * go, player 2 can see exactly where and cannot turn anything. Five calls
  * landed between the marks and the field comes back.
  *
- * The first two pages are the same dial on the two phones, which is the whole
- * of it — the marks are on hers and not on his — and then the two halves of one
- * call: he turns it where she says and stops, she waits and calls it.
+ * Three pages since the field learned to say her verb. The first two are the
+ * same dial on the two phones, which is the whole of it — the marks are on hers
+ * and not on his — and the last is what a call costs. He keeps a page of his
+ * own because the field can tell him nothing true: the only word it could put
+ * over his valve is a direction, and the direction is hers to say.
  *
  * **The needle is parked and the marks come to it**, which is the round's own
  * behaviour and the reason the last page is a wait rather than a press. The
@@ -34,17 +36,27 @@ export const THE_GAUGE: GuideScene = {
   ],
   steps: [
     { tick: 0, seat: 2, text: "ONE NEEDLE, TWO MARKS", anchor: { at: "hull" } },
-    { tick: 180, seat: 1, text: "PLAYER 1 CANNOT SEE THEM", anchor: { at: "hull" } },
+    // Two pages until 18 September 2026: this one on the hull and PLAYER 1
+    // TURNS THE VALVE on the valve itself. They are one page now, said on the
+    // thumb that does it — the split is what he needs and the verb is what the
+    // slab under the words already is.
     {
-      tick: 360,
+      tick: 180,
       seat: 1,
-      text: "PLAYER 1 TURNS THE VALVE",
+      text: "PLAYER 1 CANNOT SEE THEM",
       anchor: { at: "control", control: "gaugeRight" },
     },
+    // PLAYER 2 CALLS IT stood here, and the field writes `PRESS` / `CALL` on
+    // the end of the needle the moment it stands between the marks, on her
+    // screen and not on his (`decisions.md` #34,
+    // `render/boss-cue-read-e.ts`). What no cue may say is what a call *does*:
+    // a mark spends the band it was made on, the next one is somewhere else,
+    // and the pair has to find it again from words alone. That is the round,
+    // and this is now the page that says it.
     {
       tick: 590,
       seat: 2,
-      text: "PLAYER 2 CALLS IT",
+      text: "EACH GOOD CALL MOVES THEM",
       anchor: { at: "control", control: "gaugeCall" },
     },
   ],

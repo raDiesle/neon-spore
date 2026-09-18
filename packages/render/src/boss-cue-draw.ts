@@ -32,7 +32,7 @@ export function drawBossCue(
    * band (`ViewState.clearTop`). Absent on the game itself. */
   clearTop?: number,
 ): void {
-  const cue = bossCue(l, world, beatPhase, skinY);
+  const cue = bossCue(l, world, beatPhase, skinY, clearTop);
   if (cue === null) return;
   // Only where nothing already marks the place: `BossCue.framed`.
   if (cue.framed !== false) {

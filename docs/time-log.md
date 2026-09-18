@@ -11395,3 +11395,26 @@ The bottleneck was the wiring: one target and one event touch fourteen files
 across four packages before a test can run.
 
 *Measured: 0 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-hints-mechanics — THE GAUGE says one word, and it is hers
+
+The queue's cue lane for THE GAUGE, and the first where the answer to half of
+the brief is *no word at all*: `PRESS` / `CALL` on the end of the needle while
+it is seated and the call is armed, on the navigator's screen, and nothing for
+the pilot on any beat of any phase. The rehearsal comes down to three pages, and
+the one that went was his verb rather than hers.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `gauge.ts` and its round, the two role predicates, the film, `round-draw.ts` |
+| writing | 20 | `gaugeCues` and the argument for the silence, `gaugeDial` and `gaugeNeedleTip` out of the drawing, `drawRound`, the film, six cases, two documents |
+| looking | 10 | four frames before one had a cue in it at all |
+| friction | 15 | a round replaces the whole picture, so `drawBossCue` was never reached — the first three frames were right and empty |
+| landing | 10 | `check:fast`, `imports:sort`, `queue done`, the commit, the land |
+
+The bottleneck was that the cue had never been drawn over a round that takes
+the stage: THE MIRROR and THE MAZE both hang over the ordinary field, so the
+field's own pass carried them, and the gap only shows as a frame with nothing
+in it.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
