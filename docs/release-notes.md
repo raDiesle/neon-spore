@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · cacc4985 — `versus drop` reads the slot off its directories and imports no candidate
+
+`drop` loaded the registry — and so every candidate module in the tree — before it removed any of them, which made it unrunnable at the one moment the tool itself prescribes it: the by-hand sequence `adopt` prints when it refuses a function moves the paint into the package and deletes what nothing reads, and that tree cannot be imported. `lost:screen` / `shut` was closed on 17 September with the shipped file restored for the length of the command.
+
 ## 2026-09-18 · 1d4ee041 — THE FILAMENT has its simulation: the boss whose line one of you draws while the other follows it
 
 §17 of the choreographed page, the one boss that is a trace, and the trace is not fixed. Seven filaments hang over a still field; the pilot's thumb draws the armed one a tile a beat from its free end, the navigator's follows on the lit part behind his, never more than three tiles back and never on his tile until the root, where her arriving is the filament pulled out under THE SLOW. Two tiles in a beat or a tile skipped snaps it, her thumb reaching his recoils it, a gap past the window is the filament dark — each back to its free end. Both thumbs are one drag at the new `filament` target, the fourth gesture primitive: a grab at a tile the simulation knows, so every move resolves to a tile of the field. Nothing strikes the hull, which is written up as the owner's figure (`bosses.md` §11.33). Wave 97, THE FILAMENT, went in unweighed; the look is the next lane.
