@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 270cb138 — Deal the rest of the queue, and close a fence that hid three entries
+
+The per-boss families were dealt an hour ago (ce61029a); the sixteen entries that are not about one boss were left unmarked. Eleven of them are dealt here on the same test — can a session with no screen prove it with bun test and the typecheck? The refactors, the two file-ceiling splits, the test timeouts and THE GAUGE's missing events go to a cloud session; a catch that washes a panel, sixteen films that put a page on the hull, a frame tool that cannot reach BULB QUEEN's BROOD and a pose missing from the gallery stay local. The five left unmarked are the ones that ASKS THE OWNER: no machine is what they wait on.
+
 ## 2026-09-18 · 9b95cd9f — Mark "THE FLEET changes state more than once, and asks for more than one gesture" done
 
 ## 2026-09-18 · d6a12f02 — THE FLEET holes, floods and wrecks: three states, a gesture on the picture in each
