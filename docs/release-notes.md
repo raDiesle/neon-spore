@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · c773f700 — THE SCOUT says OPEN on the mouth, and it is the navigator who is told
+
+The field now carries THE SCOUT's cue (`docs/decisions.md` #34), and it is the first for the seat that cannot move anything. The rule is the same one as everywhere else — a mark stands only on something this seat is shown — and here it points the other way. The pilot has two turns and a burn and is shown the little ship, its nose and what rides its rim and not one mote or hazard, so every word the field could write over his crank is a direction; the direction is the answer and hers to say, an o'clock at a time. He gets nothing. It is THE GAUGE's finding with the seats swapped.
+
 ## 2026-09-18 · 5b88742c — `bun run frames --hold` reaches THE MIRROR's lobes
 
 `mirrorLobe=N,id=0|1` is player 1's thumb and `mirrorLobe2=N,id=…` player 2's, the way THE INSTAR's second thumb is named, so the pin is a frame the tool can take: `--boss-json '{"round":2,"phase":"hold","phaseBeat":"now"}' --hold mirrorLobe=0,id=0 --hold mirrorLobe2=0,id=1`.
