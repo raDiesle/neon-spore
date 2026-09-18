@@ -399,6 +399,7 @@ line in the step, a receipt, and `bun run check`.
 ## A ledger claim naming the file it will write turns the trunk red
 
 - **Found:** 2026-09-17, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-a-ledger-claim-naming-the-file-it-will-write-tur
 - **Files:** `tools/test/doc-drift.test.ts`, `docs/spec/bosses-choreographed.md`
 
 `e2c4b2c7` — a *take* commit, adding one clause to THE TASTER's ledger row —
