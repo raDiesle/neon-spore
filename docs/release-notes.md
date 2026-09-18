@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 78d2291f — THE MIRROR reflects and holds: three gestures, the simulation half
+
+THE MIRROR now changes state more than once and asks for more than one gesture (`.claude/skills/new-boss` §6.2): every round but the last is answered on the pair's own panel as before; the last round is given back on the mirror's own ship — its cannon carried, its shield pressed, its maw tapped, its muzzle swiped, through a new `mirrorLobe` drag target — and a step made on the panel under it is the wrong answer, with its own verdict word; then it stands at no hull in a new `hold` phase until player 1's thumb on its cannon and player 2's on its shield, held together for four beats, bring it down. The target is on the wire, both new fields are hashed, the cue has an arm per gesture, the grip has a sound, and the director owes the `hold` pose. A look the owner asked for by name; its picture is the look half, parked in `docs/parked.md`, so the queue item stays taken.
+
 ## 2026-09-18 · bbbcf095 — THE DIASTOLE asks for a clamp: the simulation
 
 The alone chamber's beat has to be held as well as counted. Player 1's thumb on the grey right chamber (`diastoleChamber`, a new `DragTarget`) on its contraction or the beat before catches it and holds it open for `diastoleClampBeats` (2), and only under a clamp does the beam in the bridge land; with no clamp the alone chamber is open on no beat at all. A thumb on any other beat, or held past its window, is a fifth phase, `spasm`, for `diastoleSpasmBeats` (8) in which nothing lands; then the chamber beats again from where it stopped. The seat that sees the beat says now; the other holds it. The first half of the queue's §6.2 item; the look is the second.
