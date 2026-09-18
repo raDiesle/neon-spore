@@ -80,8 +80,8 @@ export const THE_LEAD: GuideScene = {
     { tick: 1230, control: "guard" },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "IT PACES · SAY THE COLUMN", anchor: { at: "hull" } },
-    { tick: 180, seat: 1, text: "WHERE IT IS · A MISS · TURN", anchor: { at: "hull" } },
+    { tick: 0, seat: 2, text: "IT PACES · SAY THE COLUMN", anchor: { at: "boss" } },
+    { tick: 180, seat: 1, text: "WHERE IT IS · A MISS · TURN", anchor: { at: "boss" } },
     {
       tick: 360,
       seat: 2,
@@ -100,7 +100,7 @@ export const THE_LEAD: GuideScene = {
       text: "GUARD ITS TORCH · TWO MORE",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 900, seat: 2, text: "ONE LEFT · IT STOPS DEAD", anchor: { at: "hull" } },
+    { tick: 900, seat: 2, text: "ONE LEFT · IT STOPS DEAD", anchor: { at: "boss" } },
     {
       tick: 1080,
       seat: 2,

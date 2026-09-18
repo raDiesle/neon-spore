@@ -1,6 +1,7 @@
 import type { BossPart } from "@neon-spore/content";
 import { sinewBoss, tasterBoss, type World } from "@neon-spore/sim";
 import type { AnchorPoint } from "./caption-anchor.js";
+import { bossAnchorB } from "./caption-anchor-boss-b.js";
 import type { Layout } from "./layout.js";
 import { sinewCollarBox } from "./sinew-band.js";
 import { tasterFanBox, tasterRidge } from "./taster-draw.js";
@@ -17,7 +18,8 @@ import { showsTasterTally } from "./view-role-clocks.js";
  * a ring at the nearer handle stood its box over the collar and nothing else
  * was nameable (`docs/queue.md`, 17 September 2026). So `{ at: "boss" }` —
  * with a `part` where a boss draws more than one thing worth a page — and one
- * line per kind here, each asking the boss's own draw file for the place the
+ * line per kind here (and in `caption-anchor-boss-b.ts`), each asking the
+ * boss's own draw file for the place the
  * way `handle` asks each handle's: the ring cannot land where the fixture is
  * not, and a part a screen does not draw is no ring at all, which is the
  * choir's rule (`choir-anchor.test.ts`).
@@ -54,5 +56,6 @@ export function bossAnchor(
     // The fan itself, every blade and its edge, on both screens.
     return box(tasterFanBox(l, taster));
   }
-  return null;
+  // The five other bosses with a film: split off on line count.
+  return bossAnchorB(l, world, part, beatPhase);
 }

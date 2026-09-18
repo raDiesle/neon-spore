@@ -27,7 +27,19 @@ import type { ControlId } from "./controls.js";
  */
 export type BossPart =
   /** THE TASTER's two counts on the ridge, the navigator's readout. */
-  "tally";
+  | "tally"
+  /** THE SCUTTLE's live part hanging under its socket, in its colour — the navigator's. */
+  | "live"
+  /** THE ANTIPHON's grown organ under the middle of the body — the pilot's. */
+  | "organ"
+  /** THE ANTIPHON's rail of candidates along the underside — the navigator's. */
+  | "rail"
+  /** THE ORRERY's ring this seat alone sees true: the middle on the pilot's, the inner on the navigator's. */
+  | "ring"
+  /** THE ORRERY's core in the middle of the orbits. */
+  | "core"
+  /** THE SCOUT's burning rocks crossing the arena — the navigator's. */
+  | "hazard";
 
 export type SceneAnchor =
   | { at: "body" }

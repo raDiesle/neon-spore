@@ -91,15 +91,25 @@ export const THE_ANTIPHON: GuideScene = {
     { tick: 3260, control: "fireRed" },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "IT GROWS ONE · SAY ITS SHAPE", anchor: { at: "hull" } },
-    { tick: 240, seat: 2, text: "THREE ON THE RAIL · WHICH", anchor: { at: "hull" } },
+    {
+      tick: 0,
+      seat: 1,
+      text: "IT GROWS ONE · SAY ITS SHAPE",
+      anchor: { at: "boss", part: "organ" },
+    },
+    { tick: 240, seat: 2, text: "THREE ON THE RAIL · WHICH", anchor: { at: "boss", part: "rail" } },
     {
       tick: 420,
       seat: 2,
       text: "THE WRONG ONE · RAIL WIDER",
       anchor: { at: "control", control: "fireRed" },
     },
-    { tick: 600, seat: 1, text: "SAY IT AGAIN · SHE NAMES IT", anchor: { at: "hull" } },
+    {
+      tick: 600,
+      seat: 1,
+      text: "SAY IT AGAIN · SHE NAMES IT",
+      anchor: { at: "boss", part: "organ" },
+    },
     {
       tick: 780,
       seat: 2,
@@ -118,8 +128,13 @@ export const THE_ANTIPHON: GuideScene = {
       text: "FIRE ITS COLOUR · A PIT",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 1320, seat: 1, text: "TWO PITS · NOW EIGHT BEATS", anchor: { at: "hull" } },
-    { tick: 1500, seat: 2, text: "THE RAIL IS ONE FAMILY NOW", anchor: { at: "hull" } },
+    { tick: 1320, seat: 1, text: "TWO PITS · NOW EIGHT BEATS", anchor: { at: "boss" } },
+    {
+      tick: 1500,
+      seat: 2,
+      text: "THE RAIL IS ONE FAMILY NOW",
+      anchor: { at: "boss", part: "rail" },
+    },
     {
       tick: 1680,
       seat: 2,
@@ -138,7 +153,12 @@ export const THE_ANTIPHON: GuideScene = {
       text: "FIRE · FOUR · MORE FALL",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 2220, seat: 1, text: "TWO GROW AT ONCE · SAY BOTH", anchor: { at: "hull" } },
+    {
+      tick: 2220,
+      seat: 1,
+      text: "TWO GROW AT ONCE · SAY BOTH",
+      anchor: { at: "boss", part: "organ" },
+    },
     {
       tick: 2400,
       seat: 2,
@@ -151,8 +171,13 @@ export const THE_ANTIPHON: GuideScene = {
       text: "SHOOT THE FOUR THAT FALL",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 2760, seat: 1, text: "SIX PITS · IT GOES STILL", anchor: { at: "hull" } },
-    { tick: 2940, seat: 2, text: "LAST · SHIPS · WHICH IS OURS", anchor: { at: "hull" } },
+    { tick: 2760, seat: 1, text: "SIX PITS · IT GOES STILL", anchor: { at: "boss" } },
+    {
+      tick: 2940,
+      seat: 2,
+      text: "LAST · SHIPS · WHICH IS OURS",
+      anchor: { at: "boss", part: "rail" },
+    },
     {
       tick: 3120,
       seat: 1,
@@ -165,6 +190,6 @@ export const THE_ANTIPHON: GuideScene = {
       text: "RIGHT · EVERY PIT ERUPTS",
       anchor: { at: "control", control: "fireRed" },
     },
-    { tick: 3480, seat: 1, text: "OUT · IT HAD NO NAME", anchor: { at: "hull" } },
+    { tick: 3480, seat: 1, text: "OUT · IT HAD NO NAME", anchor: { at: "boss" } },
   ],
 };

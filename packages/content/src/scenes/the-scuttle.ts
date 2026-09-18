@@ -112,9 +112,14 @@ export const THE_SCUTTLE: GuideScene = {
     { tick: 2300, control: "fireCyan", until: 2540 },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "TWENTY-ONE PARTS · COUNT", anchor: { at: "hull" } },
-    { tick: 240, seat: 2, text: "ONE HANGS · SAY ITS COLUMN", anchor: { at: "hull" } },
-    { tick: 420, seat: 1, text: "TOO LATE · THROWN · A ROCK", anchor: { at: "hull" } },
+    { tick: 0, seat: 1, text: "TWENTY-ONE PARTS · COUNT", anchor: { at: "boss" } },
+    {
+      tick: 240,
+      seat: 2,
+      text: "ONE HANGS · SAY ITS COLUMN",
+      anchor: { at: "boss", part: "live" },
+    },
+    { tick: 420, seat: 1, text: "TOO LATE · THROWN · A ROCK", anchor: { at: "boss" } },
     {
       tick: 600,
       seat: 2,
@@ -133,8 +138,13 @@ export const THE_SCUTTLE: GuideScene = {
       text: "THE ROCK IT THREW · GUARD",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 1440, seat: 2, text: "TWO HANG · ONLY ONE IS LIVE", anchor: { at: "hull" } },
-    { tick: 1620, seat: 1, text: "TEN · THE TWIN IS THROWN", anchor: { at: "hull" } },
+    {
+      tick: 1440,
+      seat: 2,
+      text: "TWO HANG · ONLY ONE IS LIVE",
+      anchor: { at: "boss", part: "live" },
+    },
+    { tick: 1620, seat: 1, text: "TEN · THE TWIN IS THROWN", anchor: { at: "boss" } },
     {
       tick: 1860,
       seat: 2,
@@ -153,7 +163,7 @@ export const THE_SCUTTLE: GuideScene = {
       text: "ONE LEFT · HOLD CYAN ON IT",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 2520, seat: 1, text: "DOWN · IT LETS GO IN THREE", anchor: { at: "hull" } },
-    { tick: 2700, seat: 1, text: "OUT · NONE LEFT TO COUNT", anchor: { at: "hull" } },
+    { tick: 2520, seat: 1, text: "DOWN · IT LETS GO IN THREE", anchor: { at: "boss" } },
+    { tick: 2700, seat: 1, text: "OUT · NONE LEFT TO COUNT", anchor: { at: "boss" } },
   ],
 };

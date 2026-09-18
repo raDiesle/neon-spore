@@ -1053,6 +1053,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/radar-blip.ts` | Which arrivals this screen's warning strip is carrying, and where each one sits on it |
 | `packages/render/src/caption-anchor.ts` | Where a caption's subject is on the screen |
 | `packages/render/src/caption-anchor-boss.ts` | **Where a boss's own fixture is** — the one anchor `caption-anchor.ts` answers per boss rather than per kind… |
+| `packages/render/src/caption-anchor-boss-b.ts` | **Where the fixtures of THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY and THE SCOUT are** |
 | `packages/render/src/guide-hand.ts` | The hands that are **not** on the panel: one held on something falling |
 | `packages/render/src/guide-film.ts` | Where a rehearsal's film stands on its stage — phone-shaped and centred, less the nav bar — and the hands drawn on it |
 | `packages/render/src/guide-welcome.ts` | The page before a device's first tutorial: what the stepper is |

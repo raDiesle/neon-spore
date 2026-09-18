@@ -55,7 +55,7 @@ export const THE_SCOUT: GuideScene = {
     { tick: 1494, control: "scoutMaw" },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "THE SHIP OPENS. ONE GOES OUT", anchor: { at: "hull" } },
+    { tick: 0, seat: 2, text: "THE SHIP OPENS. ONE GOES OUT", anchor: { at: "boss" } },
     {
       tick: 240,
       seat: 1,
@@ -68,14 +68,24 @@ export const THE_SCOUT: GuideScene = {
       text: "BURN, LET GO. IT KEEPS GOING",
       anchor: { at: "control", control: "scoutBurn" },
     },
-    { tick: 760, seat: 2, text: "PLAYER 2 SEES WHAT CROSSES", anchor: { at: "hull" } },
+    {
+      tick: 760,
+      seat: 2,
+      text: "PLAYER 2 SEES WHAT CROSSES",
+      anchor: { at: "boss", part: "hazard" },
+    },
     {
       tick: 960,
       seat: 2,
       text: "AT HOME, PLAYER 2 OPENS MAW",
       anchor: { at: "control", control: "scoutMaw" },
     },
-    { tick: 1140, seat: 2, text: "A SECOND ARENA. TWO CROSS", anchor: { at: "hull" } },
+    {
+      tick: 1140,
+      seat: 2,
+      text: "A SECOND ARENA. TWO CROSS",
+      anchor: { at: "boss", part: "hazard" },
+    },
     {
       tick: 1340,
       seat: 1,

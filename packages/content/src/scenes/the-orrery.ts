@@ -90,8 +90,13 @@ export const THE_ORRERY: GuideScene = {
     { tick: 2652, control: "guard" },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "THREE RINGS · ONE GAP EACH", anchor: { at: "hull" } },
-    { tick: 240, seat: 2, text: "THE INNER ONE IS YOURS ALONE", anchor: { at: "hull" } },
+    { tick: 0, seat: 1, text: "THREE RINGS · ONE GAP EACH", anchor: { at: "boss" } },
+    {
+      tick: 240,
+      seat: 2,
+      text: "THE INNER ONE IS YOURS ALONE",
+      anchor: { at: "boss", part: "ring" },
+    },
     {
       tick: 420,
       seat: 1,
@@ -104,7 +109,7 @@ export const THE_ORRERY: GuideScene = {
       text: "TWELVE · ITS COLOUR · CYAN",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 840, seat: 1, text: "A RING OFF · IT SHEDS THREE", anchor: { at: "hull" } },
+    { tick: 840, seat: 1, text: "A RING OFF · IT SHEDS THREE", anchor: { at: "boss" } },
     {
       tick: 1260,
       seat: 2,
@@ -135,13 +140,18 @@ export const THE_ORRERY: GuideScene = {
       text: "HOLD THE MIDDLE · IT STANDS",
       anchor: { at: "control", control: "cannon" },
     },
-    { tick: 2160, seat: 1, text: "OUT · THE BEAM IN THE SHAFT", anchor: { at: "hull" } },
+    {
+      tick: 2160,
+      seat: 1,
+      text: "OUT · THE BEAM IN THE SHAFT",
+      anchor: { at: "boss", part: "core" },
+    },
     {
       tick: 2400,
       seat: 1,
       text: "WHAT IT SHED STILL FALLS",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 2700, seat: 2, text: "NOTHING LEFT IN ORBIT", anchor: { at: "hull" } },
+    { tick: 2700, seat: 2, text: "NOTHING LEFT IN ORBIT", anchor: { at: "boss" } },
   ],
 };

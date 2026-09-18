@@ -220,37 +220,6 @@ still what nearly every entry is.
 session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 `tools/queue/test/where.test.ts` holds the reservation.
 
-## A caption has no anchor for a boss's own gauge, so it points at the hull
-
-- **Found:** 2026-09-17, claude/boss-implementation-e3cfff
-- **Taken:** 2026-09-18, claude/queue-a-caption-has-no-anchor-for-a-bosss-own-gauge-so
-- **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/src/scenes/the-scout.ts`
-
-`SceneAnchor` names a body, a control, a handle, the hull, the radar, the
-ship and the retries — nothing that is a boss's fixture. THE SINEW's film has
-three pages about a number drawn on the collar round the tendon
-(`render/sinew-band.ts`), and a caption anchored at the nearer handle stands
-its box exactly over that collar, so the pages point at the hull instead,
-which THE TASTER's two counting pages already do for the same reason: the
-box lands clear, and the leader line says nothing. Add an anchor for a boss's
-own point of interest — `{ at: "boss", part?: string }` answered by a
-per-kind line in `caption-anchor.ts` off the boss's draw file, the way
-`handle` is answered off each handle's — and move those five pages onto it.
-`render/test/choir-anchor.test.ts` is the pattern for proving the anchor
-lands where the fixture is drawn. THE LEAD's film (17 September 2026) is
-the same shape again: eight pages about a body pacing the ridge, three of
-them on the hull because nothing names the body, when the stalk
-(`render/lead-draw.ts`) is what every one of them is about.
-THE SCUTTLE's (18 September 2026) puts seven of thirteen on the hull for
-the frame and its count (`render/scuttle-draw.ts`), and THE ANTIPHON's
-(the same day) nine of twenty for the organ, the rail, the pits and the
-still (`render/antiphon-draw.ts`), and THE ORRERY's (the same day) five
-of thirteen for the rings and the core (`render/orrery-draw.ts`). THE
-SCOUT's (the same day) puts three of seven on the hull for the arena, the
-hazard crossing and the second arena opening (`render/scout-draw.ts`) —
-and its pilot's pages have nowhere to point either, because the little
-ship on the pilot's screen is a boss part too.
-
 ## THE SCOUT's second arena leaves the scout nowhere to stop
 
 - **Found:** 2026-09-17, claude/queue-unverified-at-ce8a2324-the-scouts-arenas-were-ne
@@ -1505,3 +1474,41 @@ it alone — the design's *flash on the button somebody pressed anyway* — or
 put the control's name on the event in `sim/stare-step.ts` where the command
 is read. Then the wash is the fallback for a press with no lobe (a hand on the
 field, a `DragTarget`), and the test's wash count becomes a circle count.
+
+## Sixteen other films still put pages about their boss on the hull
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `packages/render/src/caption-anchor-boss.ts`, `packages/render/src/caption-anchor-boss-b.ts`, `packages/content/src/scene-step-types.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/scenes/the-baton.ts`, `packages/content/src/scenes/the-claw.ts`, `packages/content/src/scenes/the-diastole.ts`, `packages/content/src/scenes/the-gorge.ts`, `packages/content/src/scenes/the-fleet.ts`, `packages/content/src/scenes/the-mirror.ts`, `packages/content/src/scenes/the-stare.ts`, `packages/content/src/scenes/the-ledger.ts`, `packages/content/src/scenes/the-splice.ts`, `packages/content/src/scenes/the-undertow.ts`, `packages/content/src/scenes/the-throat.ts`
+
+`{ at: "boss", part? }` is answered for seven bosses — THE SINEW, THE TASTER,
+THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY, THE SCOUT — the ones the
+finding named. `grep 'at: "hull"' packages/content/src/scenes/` still lists
+forty-six pages in sixteen films, and most of them are about the boss, not
+the hull: THE CANDLE's wick, THE BATON's beads, THE DIASTOLE's chambers, THE
+GORGE's intakes, THE THROAT's mouth, THE MIRROR's twin. For each: read the
+film's hull pages, decide which are truly about the hull (a breach, a scar —
+those stay), add a line per kind to `caption-anchor-boss-b.ts` (or a third
+file: `-b` is at 226 lines) off the boss's shape file, a `BossPart` where a
+boss draws more than one thing worth a page, and a test in the pattern of
+`render/test/boss-anchor-b.test.ts` — the ring where the fixture is drawn,
+and null for a part this screen does not draw. The rounds (PINBALL, THE
+GAUGE, THE MAZE, THE REPRISE) are their own picture and may want their own
+anchor rather than a boss part.
+
+## `check:fast` reports a shard red on a test timeout when the machine is busy
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `tools/check/shard.ts`, `tools/check/fast.ts`, `packages/render/test/canvas-stub.ts`, `tools/director/test/poses.test.ts`
+
+Three runs of `bun run check:fast` in one sitting came back red on "test
+timed out" — `packages/render/test/briefing.test.ts` twice, then
+`tools/director/test/poses.test.ts` — each of which passes alone in under a
+second, and each of which passed on the next run of the same command with no
+change to the tree; the load average was 9–12 with other sessions' checks
+running. `FRAME_TIMEOUT_MS` is `cpuTimeout(3_000)` and scales by CPU count,
+not by load. Either the sharder retries a shard whose only failures are
+timeouts, once, before calling it red, or the timeout reads the one-minute
+load average (`os.loadavg()`) and stretches with it, or the check says
+"timed out under load — rerun" in place of a red that is not one. A test
+that could fail red on a busy machine with no change is a check nobody
+trusts, and a lane that reruns three times before landing is a slow lane.

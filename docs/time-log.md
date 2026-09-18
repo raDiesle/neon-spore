@@ -11114,3 +11114,23 @@ edits across five packages and the director for one new kind, each a line
 or a row, before a single receipt could run.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — a caption on a boss's own gauge, half 2 of 2
+
+The five other films: THE LEAD's stalk, THE SCUTTLE's frame and live part,
+THE ANTIPHON's body, organ and rail, THE ORRERY's orbits, ring and core, THE
+SCOUT's ship and hazards — six new `BossPart` names, a second resolver file
+(`caption-anchor-boss-b.ts`), twenty-seven pages off the hull, ten tests.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | five draw and shape files for where each fixture stands, and which seat draws it |
+| writing | 15 | the resolver's second file, the parts, the pages, the tests |
+| looking | 5 | THE ANTIPHON's rail page on the navigator's screen through `bun run frames` |
+| friction | 10 | `check:fast` red three times on a test timing out under load, green on the rerun each time; `BossSpec`/`orreryBoss` guessed and not there |
+| landing | 5 | `check:fast`, the index, `queue done`, the commit, `bun run land --keep` |
+
+The bottleneck was the check: three reruns of `check:fast` for timeouts the
+tree had nothing to do with, queued as its own item.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
