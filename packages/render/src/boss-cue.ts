@@ -10,7 +10,7 @@ import {
   throatCues,
 } from "./boss-cue-read-c.js";
 import { stareCues } from "./boss-cue-read-d.js";
-import { mirrorCues } from "./boss-cue-read-e.js";
+import { mazeCues, mirrorCues } from "./boss-cue-read-e.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";
@@ -148,6 +148,8 @@ function cuesOf(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): re
       return stareCues(l, world, boss);
     case "mirror":
       return mirrorCues(l, world, boss);
+    case "maze":
+      return mazeCues(l, world, boss);
     default:
       return NONE;
   }

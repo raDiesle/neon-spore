@@ -3,6 +3,7 @@ import {
   type MazeWheel,
   mazeEntranceAngle,
   mazeEntranceCol,
+  type SimConfig,
 } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
 import { mazeCanvasAngle, mazeDrum, mazeRimHalfGapMilli } from "./maze-walls.js";
@@ -50,6 +51,49 @@ function halfGap(wheel: MazeWheel, drumR: number): number {
   return mazeRimHalfGapMilli(wheel, drumR);
 }
 
+/** The two cut ends of one way in, on the rim, in canvas pixels. */
+function doorEdges(
+  l: Layout,
+  cfg: SimConfig,
+  m: MazeState,
+  wheel: MazeWheel,
+  way: number,
+): { a: Point; b: Point } {
+  const d = mazeDrum(l, cfg);
+  const half = halfGap(wheel, d.r);
+  const at = mazeEntranceAngle(wheel, m.angleMilli, way);
+  const edge = (side: 1 | -1): Point => {
+    const p = mazeCanvasAngle(at + side * half);
+    return { x: d.cx + d.r * Math.cos(p), y: d.cy + d.r * Math.sin(p) };
+  };
+  return { a: edge(1), b: edge(-1) };
+}
+
+/**
+ * The middle of a way in, where the light leans out of it.
+ *
+ * Exported because the cue's frame stands on exactly this place
+ * (`boss-cue-read-e.ts`): the door open on a lit room is the invitation to
+ * fire, so the word goes on the door and not beside it, and a second opinion
+ * about where the door is would be a frame drawn next to its own hole — the
+ * mistake this file's header already records being made once with the pips.
+ */
+export function mazeDoorMouth(
+  l: Layout,
+  cfg: SimConfig,
+  m: MazeState,
+  wheel: MazeWheel,
+  way: number,
+): Point {
+  const { a, b } = doorEdges(l, cfg, m, wheel, way);
+  return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+}
+
+interface Point {
+  x: number;
+  y: number;
+}
+
 /**
  * Every way in on the rim, and the one that has clicked onto the ship's column
  * lit up. `beat` and `beatPhase` breathe it rather than a stored clock, so
@@ -58,7 +102,7 @@ function halfGap(wheel: MazeWheel, drumR: number): number {
 export function drawMazeDoors(
   ctx: CanvasRenderingContext2D,
   l: Layout,
-  cfg: Parameters<typeof mazeEntranceCol>[0],
+  cfg: SimConfig,
   m: MazeState,
   wheel: MazeWheel,
   beat: number,
@@ -68,18 +112,11 @@ export function drawMazeDoors(
   // A drum coming apart has no doors to stand open (`maze-fall.ts`).
   if (fall > 0) return;
   const d = mazeDrum(l, cfg);
-  const half = halfGap(wheel, d.r);
   const pulse = 0.6 + 0.4 * Math.sin((beat + beatPhase) * Math.PI);
 
   for (const [way] of wheel.entrances.entries()) {
-    const at = mazeEntranceAngle(wheel, m.angleMilli, way);
     const lit = m.lockedWay === way && mazeEntranceCol(cfg, wheel, m.angleMilli, way) >= 0;
-    const edge = (side: 1 | -1) => {
-      const p = mazeCanvasAngle(at + side * half);
-      return { x: d.cx + d.r * Math.cos(p), y: d.cy + d.r * Math.sin(p) };
-    };
-    const a = edge(1);
-    const b = edge(-1);
+    const { a, b } = doorEdges(l, cfg, m, wheel, way);
 
     if (!lit) {
       // The cut ends of the rim, and nothing else. Enough to see a gap coming
@@ -97,7 +134,7 @@ export function drawMazeDoors(
 
     // The doorway itself: the two cut ends burning, so the opening reads as an
     // edge that has been *opened* rather than as a smudge on the rim.
-    const mouth = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+    const mouth = mazeDoorMouth(l, cfg, m, wheel, way);
     const foot = mouth.y + (l.hullY - mouth.y) * REACH;
     const wide = (Math.hypot(a.x - b.x, a.y - b.y) / 2) * SPREAD;
 

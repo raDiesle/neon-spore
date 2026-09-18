@@ -1,11 +1,13 @@
-import type { MirrorState, World } from "@neon-spore/sim";
+import { type MazeState, type MirrorState, mazeCurrent, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { type Layout, tileCX } from "./layout.js";
+import { mazeDoorMouth } from "./maze-door.js";
+import { mazeStringCircle, mazeStringHandle } from "./maze-string.js";
 import { mirrorHullY } from "./mirror.js";
 
 /**
- * **What the rounds are asking for** — page five of the readings, starting
- * with THE MIRROR. A round is a minigame with rules of its own
+ * **What the rounds are asking for** — page five of the readings: THE MIRROR,
+ * then THE MAZE. A round is a minigame with rules of its own
  * (`docs/spec/interludes.md`), so what it wants is rarely one of the field's
  * six verbs, and the words on this page are the round's own.
  *
@@ -20,6 +22,20 @@ import { mirrorHullY } from "./mirror.js";
 /** THE CHOIR's frame, in tiles: the one shipped frame of this shape. */
 const HALF_W = 0.72;
 const HALF_H = 0.66;
+
+/** The same builder the four pages before this one carry, for the same
+ * reason: a frame's size is a fact about the mark and not about the boss. */
+function markAt(
+  seat: BossCue["seat"],
+  kind: BossCue["kind"],
+  word: string,
+  x: number,
+  y: number,
+  l: Layout,
+  seed: number,
+): BossCue {
+  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
+}
 
 /**
  * THE MIRROR. It performs a sequence of the pair's own moves and wants the
@@ -43,15 +59,69 @@ const HALF_H = 0.66;
 export function mirrorCues(l: Layout, world: World, m: MirrorState): readonly BossCue[] {
   if (m.phase !== "listen") return [];
   return [
-    {
-      seat: null,
-      kind: "PRESS",
-      word: "REPEAT",
-      x: tileCX(l, m.cannonCol),
-      y: mirrorHullY(l, world.cfg),
-      halfW: l.tile * HALF_W,
-      halfH: l.tile * HALF_H,
-      seed: 62,
-    },
+    markAt(null, "PRESS", "REPEAT", tileCX(l, m.cannonCol), mirrorHullY(l, world.cfg), l, 62),
   ];
+}
+
+/**
+ * THE MAZE. Two verbs, one per seat, and the round is nothing but which of
+ * them is wanted now — so the cue is read off the lock and never off the
+ * corridor behind it.
+ *
+ * **Only in `read`.** `lead` is the quiet before a fresh wheel, `travel` is
+ * the pair watching a shot crawl, and `verdict` is what it found; in all
+ * three the string is not even drawn (`maze-string.ts`), and a word over a
+ * handle the ship has taken away is an invitation to press nothing.
+ *
+ * **Nothing here is an answer, because this round has no secret.** The owner
+ * was asked three times whether the wheel should keep a knowledge split and
+ * said no three times (`sim/maze.ts`): the lit door is on both screens, the
+ * shot's walk is on both screens, and the heart's colour beats in the middle
+ * of the drum where both of them can see it. What divides the pair is the
+ * *verbs* — one turns and cannot fire, the other fires and cannot turn — so a
+ * word naming a seat's own verb takes nothing away from the sentence they
+ * have to say, which is *now*.
+ *
+ * **Three marks, in the order they expire.**
+ *
+ * - `CARRY` / `TURN` on the string's handle, the pilot's, while nothing has
+ *   clicked. The handle is drawn on both screens so the navigator can watch
+ *   the pull, but only player 1 may turn it (`mazeStringHeard`), so the cue is
+ *   seat 1's and the navigator's screen keeps the word `maze-string.ts`
+ *   already gives it.
+ * - `CARRY` / `MOVE` on the cannon where it stands, the pilot's, once a way in
+ *   has clicked and the cannon is not under it. On the cannon and never on the
+ *   lit column: the mark is on the thing that moves, which is also the only
+ *   place the pilot can act, and the column is lit for both of them anyway.
+ *   It goes out when the cannon arrives, which answers nothing — the door said
+ *   where to go before the cue did.
+ * - `PRESS` / `FIRE` on the lit doorway, the navigator's, for as long as one
+ *   stands. Not `once the cannon is under it`: the cannon is drawn on the
+ *   pilot's screen and not on hers (`showsCannon`), so a word that came out at
+ *   the moment he arrived would hand her the one thing he has to say. It says
+ *   her verb and leaves the timing where the round put it.
+ *
+ * Nothing says the colour. The heart takes its own and only its own
+ * (`mazeHeartColor`), and which one that is is the pair's read off a thing
+ * beating in front of them both — the film says so in its one remaining page
+ * about her half, and the field never will.
+ */
+export function mazeCues(l: Layout, world: World, m: MazeState): readonly BossCue[] {
+  if (m.phase !== "read") return [];
+  const wheel = mazeCurrent(m);
+  if (wheel === null) return [];
+  const out: BossCue[] = [];
+
+  if (m.lockedCol === -1) {
+    const handle = mazeStringHandle(l, world.cfg, m);
+    out.push(markAt(1, "CARRY", "TURN", handle.x, mazeStringCircle(l, world.cfg).y, l, 65));
+    return out;
+  }
+
+  if (world.cannonCol !== m.lockedCol) {
+    out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 66));
+  }
+  const mouth = mazeDoorMouth(l, world.cfg, m, wheel, m.lockedWay);
+  out.push(markAt(2, "PRESS", "FIRE", mouth.x, mouth.y, l, 67));
+  return out;
 }

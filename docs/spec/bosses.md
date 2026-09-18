@@ -1198,6 +1198,21 @@ as standing on the column. `mazeDragBreakMilli` is how far the hand has to carry
 on past a click before it breaks: the detent's hysteresis, so a thumb jittering
 on the handle does not undo a click the pair had just agreed on.
 
+**What the field says** (`render/src/boss-cue-read-e.ts`, 18 September 2026,
+`docs/decisions.md` #34). Three words, all of them a seat's own verb, and only
+during `read`: `CARRY` / `TURN` on the string's handle while nothing has
+clicked, the pilot's; `CARRY` / `MOVE` on the cannon where it stands once a way
+in has, also his, out again the moment it arrives; and `PRESS` / `FIRE` on the
+lit doorway for as long as one stands, the navigator's. The round has no secret
+to protect — the lit door, the shot's walk and the heart's colour are on both
+screens — so a word naming a seat's own verb takes nothing from the sentence
+the pair has to say, which is *now*. Her `FIRE` deliberately does not wait for
+his cannon to arrive: the cannon is not drawn on her screen, so a word that
+came out on that beat would say for him the one thing he has to say himself.
+Nothing says the colour; the heart takes its own and only its own, which is
+what the rehearsal's one remaining page about her half is now for
+(`docs/spec/briefings.md`).
+
 ## 11.11 THE CAIRN — the boss you take apart with your hands
 
 **Nothing either control does reaches it.** The pile is seven of the field's own

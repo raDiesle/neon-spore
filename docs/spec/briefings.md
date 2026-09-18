@@ -588,6 +588,8 @@ hand still draws.
 | THE STARE | `A BODY · STILL NOTHING` | — the page is gone | the same |
 | THE MIRROR | `NOTHING COUNTS YET` | — the page is gone | none: the band is drawn dead while it holds the controls, and the cue is silent there on purpose |
 | THE MIRROR | `NOW GIVE IT BACK IN ORDER` | `THE ORDER IS THE TEST` | `PRESS` / `REPEAT` on the mirror's cannon for the whole of `listen`, on both screens |
+| THE MAZE | `PLAYER 1 TURNS THE WHEEL` | — the page is gone | `CARRY` / `TURN` on the string's handle, his alone, while nothing has clicked |
+| THE MAZE | `PLAYER 2 FIRES UP THE COLUMN` | `THE HEART TAKES ONE COLOUR` | `PRESS` / `FIRE` on the lit doorway, hers alone, for as long as one stands |
 
 **Four other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
@@ -622,6 +624,15 @@ the step the mirror is waiting for, because *which move comes next* is the
 memory game. Its first page changed too, from the picture (`IT PERFORMS YOUR
 MOVES`) to the split (`CALL EACH MOVE AS IT COMES`), which is the sentence
 neither the mirror nor a cue can say.
+
+THE MAZE's two rows are the same day and the same shape, and its film went from
+three pages to two as well. Both of the pages that named a verb are gone into
+the cue, which says each seat's own on the thing it acts with. What is left is
+the rule that outlives the first drum — `ONE WAY THROUGH THE MAZE`, moved onto
+his screen so that each of them still has a page — and, in place of her verb,
+the one fact no picture on either screen announces: the heart in the middle
+takes its own colour and only its own, so a shot of the other one arriving is a
+wrong answer that looks like a right one.
 
 #### The ghost thumb is derived, never authored
 

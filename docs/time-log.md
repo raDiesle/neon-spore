@@ -11331,3 +11331,26 @@ before it existed, and the moment that costs a landing is the one moment the
 load average calls the machine quiet.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-hints-mechanics — THE MAZE says the two verbs it is made of
+
+The queue's cue lane for THE MAZE, the second round to carry one: `TURN` on the
+string's handle and `MOVE` on the cannon for the pilot, `FIRE` on the lit
+doorway for the navigator, all three only during `read`. The rehearsal comes
+down to two pages, and the page that replaced her verb says the one thing no
+picture on either screen announces — that the heart takes a colour.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `maze.ts`'s header and its state, `maze-round.ts`, `maze-door.ts`, `maze-string.ts`, and the two readings that landed this morning |
+| writing | 20 | `mazeCues`, `mazeDoorMouth` out of the door's own loop, `markAt` on page five, the film, six cases, three documents |
+| looking | 5 | two frames, one per seat — the handle framed and the doorway framed |
+| friction | 5 | `mazeClickAngle` is not on the package's surface, so the test finds the click by turning the wheel a fifth of a degree at a time |
+| landing | 10 | `check:fast`, `queue done`, the commit, the land |
+
+The bottleneck was reading the round rather than writing it: what the cue may
+say is decided entirely by what each seat is already shown, and THE MAZE's
+answer — that it shows both seats everything and splits the verbs instead —
+is three paragraphs of one header and nothing in any type.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

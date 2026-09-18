@@ -14,6 +14,11 @@ import type { GuideScene } from "../scene-types.js";
  * down to the ship, one lock and one shot, and then the shot crawling the
  * corridors it was let into, a crossing at a time, on the beat.
  *
+ * **Two pages, since the field learned to say the verbs.** Both of the pages
+ * that named one are gone into the cue; what is left is the rule above and the
+ * one fact nothing on the screen announces, which is that the heart takes a
+ * colour.
+ *
  * **The hand stops on the click and does not carry past it.** The gap catches
  * a column and the wheel locks there — and the very next thing a hand does,
  * anywhere, unlocks it: `breakDetent` is what "pull again" means, and it fires
@@ -41,17 +46,26 @@ export const THE_MAZE: GuideScene = {
     { tick: 700, control: "fireRed" },
   ],
   steps: [
-    { tick: 0, seat: 2, text: "ONE WAY THROUGH THE MAZE", anchor: { at: "hull" } },
-    {
-      tick: 240,
-      seat: 1,
-      text: "PLAYER 1 TURNS THE WHEEL",
-      anchor: { at: "handle", target: "mazeString" },
-    },
+    // The rule that outlives this first drum, and his page now: he is the one
+    // hunting the way in. It stood on her screen until 18 September 2026 and
+    // moved when the middle page came out, so that each of them still has one.
+    { tick: 0, seat: 1, text: "ONE WAY THROUGH THE MAZE", anchor: { at: "hull" } },
+    // PLAYER 1 TURNS THE WHEEL stood at 240 on the handle and came out whole:
+    // the field writes `CARRY` / `TURN` on that exact handle for as long as
+    // nothing has clicked, on his screen and not on hers (`decisions.md` #34,
+    // `render/boss-cue-read-e.ts`), which is the page said in two words by the
+    // thing it was pointing at.
+    //
+    // Hers said PLAYER 2 FIRES UP THE COLUMN, and the cue says `FIRE` on the
+    // lit doorway. What the cue may never say is the colour: the heart in the
+    // middle of the drum takes its own and only its own (`mazeHeartColor`),
+    // and a shot of the other one arriving is a wrong answer that looks like a
+    // right one. That is the half of her job no picture announces, so it is
+    // what the page is for.
     {
       tick: 600,
       seat: 2,
-      text: "PLAYER 2 FIRES UP THE COLUMN",
+      text: "THE HEART TAKES ONE COLOUR",
       anchor: { at: "control", control: "fireRed" },
     },
   ],
