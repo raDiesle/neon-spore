@@ -799,18 +799,6 @@ Its briefing is a 13-page rehearsal (`packages/content/src/scenes/the-gorge.ts`)
 The brief, written once so it can be corrected once: `.claude/skills/new-boss`
 section 6.1.
 
-## THE GORGE changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-gorge-changes-state-more-than-once-and-asks
-- **Files:** `packages/sim/src/config-gorge.ts`, `packages/sim/src/events-gorge.ts`, `packages/sim/src/gorge-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-
-It is answered today on the ordinary panel, over 5 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE GORGE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
