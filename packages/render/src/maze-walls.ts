@@ -7,7 +7,13 @@ import {
   type SimConfig,
 } from "@neon-spore/sim";
 import type { Layout } from "./layout.js";
-import { MAZE_WHOLE, type MazeBreakup, mazeCrashed, mazeFallen } from "./maze-fall.js";
+import {
+  MAZE_WHOLE,
+  type MazeBreakup,
+  type MazeFallen,
+  mazeCrashed,
+  mazeFallen,
+} from "./maze-fall.js";
 import { PALETTE } from "./palette.js";
 
 /**
@@ -109,18 +115,7 @@ export function drawMazeWalls(
 ): void {
   const { cx, cy, r } = drum;
   const openPx = (r * wheel.openMilli) / 1000;
-  // How far this ring has to sink for its own lowest point to come to rest on
-  // the hull. Worked out here because this is the one place that knows both
-  // where the ship is and how big the ring is, and it is only ever asked for a
-  // drum on its way down (`mazeCrashed`).
-  const restSag = (k: number) =>
-    Math.max(0, (breakup.hullY - cy) / r - mazeCircleMilli(wheel, k) / 1000);
-  // Every circle takes its own drift, its own turn and its own fade while the
-  // drum is breaking up (`maze-fall.ts`), and all three are zero while it is
-  // whole — so the drum standing still is this same code with nothing added.
-  // A drum that is coming down on the ship falls instead of drifting off.
-  const gone = (k: number) =>
-    breakup.crash > 0 ? mazeCrashed(k, breakup.crash, restSag(k)) : mazeFallen(k, breakup.fall);
+  const gone = (k: number) => mazeRingGone(drum, wheel, k, breakup);
   const radiusOf = (k: number) => ((r * mazeCircleMilli(wheel, k)) / 1000) * (1 + gone(k).spread);
   const centreOf = (k: number) => ({ cx, cy: cy + r * gone(k).sag });
   const turnOf = (k: number) => angleMilli + gone(k).spinMilli;
@@ -160,6 +155,32 @@ export function drawMazeWalls(
     }
   }
   ctx.globalAlpha = 1;
+}
+
+/**
+ * How far ring `k` has gone — its drift, its turn, its sag and its fade —
+ * while the drum is breaking up (`maze-fall.ts`), and all four zero while it
+ * is whole: the drum standing still is the same code with nothing added. A
+ * drum coming down on the ship falls instead of drifting off, and how far it
+ * has to sink for its own lowest point to rest on the hull is worked out
+ * here because this is the one place that knows both where the ship is and
+ * how big the ring is. Exported so the plate (`maze-plate.ts`) goes with the
+ * ring it is bolted to.
+ */
+export function mazeRingGone(
+  drum: { cx: number; cy: number; r: number },
+  wheel: MazeWheel,
+  k: number,
+  breakup: MazeBreakup,
+): MazeFallen {
+  if (breakup.crash > 0) {
+    const restSag = Math.max(
+      0,
+      (breakup.hullY - drum.cy) / drum.r - mazeCircleMilli(wheel, k) / 1000,
+    );
+    return mazeCrashed(k, breakup.crash, restSag);
+  }
+  return mazeFallen(k, breakup.fall);
 }
 
 /** One circle, with a gap left at each of its openings and wall everywhere else. */

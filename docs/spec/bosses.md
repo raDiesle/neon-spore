@@ -1551,6 +1551,25 @@ string still the pilot's as the brace, the ring on her screen and the count
 on both, and all three screens drawn with a braced string and a pulled
 heart. A look with no shipped alternative. *Never watched at tempo.*
 
+**The look of the drum** (18 September 2026, `render/maze-plate.ts`). The
+owner's brief for a boss that *looks like something real*
+(`.claude/skills/new-boss` §6.3) meets the round's material rule — slabs and
+glyphs, never blobs (`interludes.md`) — and the answer is a drum that was
+*made*: a lathed bezel outside the rim, lit on the key's shoulder and dark on
+the other, sixteen bolt heads round it with the key's highlight on each, a
+film of gloss across the plate where the light falls, and a bowl in the
+middle — dark under the near lip, lit on the far wall — that the one grown
+body in the round, the heart, sits in. One light for all of it, `KEY`
+(`content/light.ts`), which is what makes six marks read as one object. The
+bezel is cut where the rim is cut, at the rim's own widened width, and no
+bolt stands in a cut: a solid ring outside a way in would say the way was
+shut. Every mark goes with the ring it is on when the drum comes apart
+(`mazeRingGone`, `maze-walls.ts`): the bezel and the bolts with the rim, the
+socket with the middle. Nothing of the sheet moves and nothing here is a
+new shape. `render/test/maze-plate.test.ts` proves the cut, the bolts kept
+out of it and the bezel gone with the rim. A look the owner asked for by
+name. *Never watched at tempo.*
+
 ## 11.11 THE CAIRN — the boss you take apart with your hands
 
 **Nothing either control does reaches it.** The pile is seven of the field's own

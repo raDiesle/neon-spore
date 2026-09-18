@@ -9227,3 +9227,20 @@ The bottleneck was the whole-fight test's clock: a boss whose rope comes
 down on a cycle and whose colour changes with it is traced, not counted.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — THE MAZE's picture looks like something real
+
+The drum as a made thing: bezel, bolts, gloss and the heart's socket, under one light.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the §6.3 brief, the rounds' material rule, `maze-walls.ts`, `maze-relief.ts`, `maze-fall.ts`, the light key |
+| writing | 30 | `mazeRingGone` out of `drawMazeWalls`, `maze-plate.ts`, the wiring in `maze-look.ts`, three tests, the spec |
+| looking | 5 | one frame, one crop — which found the hairline running across the cut |
+| friction | 0 | none |
+| landing | 10 | format, lint, index, `check:fast`, the commit, the land |
+
+The bottleneck was deciding the material before a line was drawn: the brief
+says grown and the round's rule says made, and the interlude's rule won.
+
+*Measured: the rows above are the session's own estimate, read off the previous landing's timestamp; the compaction in the middle of the lane is not in them.*

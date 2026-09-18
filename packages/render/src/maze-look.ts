@@ -1,5 +1,6 @@
 import type { MazeWheel, SimConfig } from "@neon-spore/sim";
 import type { MazeBreakup } from "./maze-fall.js";
+import { drawMazeBed, drawMazeBezel } from "./maze-plate.js";
 import { drawMazeFloors, drawMazePosts } from "./maze-relief.js";
 import { drawMazeWalls } from "./maze-walls.js";
 
@@ -54,9 +55,17 @@ export const MAZE_LOOK: MazeLook = {
   // the field. `maze-relief.ts` has the argument and both halves of it; what
   // matters here is that `drawMazeWalls` still draws every circle, every gap
   // and every radial wall, in the middle, untouched.
+  //
+  // **Two more since, and they bracket the three.** The plate's bed — the
+  // gloss on the floors and the heart's socket — goes down before the lines
+  // so no stroke of the sheet is washed by it, and the bezel with its bolts
+  // goes on after the posts, outside the rim, cut where the rim is cut
+  // (`maze-plate.ts`). The three in the middle are untouched.
   walls: (ctx, drum, wheel, angleMilli, breakup) => {
     drawMazeFloors(ctx, drum, wheel);
+    drawMazeBed(ctx, drum, wheel, breakup);
     drawMazeWalls(ctx, drum, wheel, angleMilli, breakup);
     drawMazePosts(ctx, drum, wheel, angleMilli);
+    drawMazeBezel(ctx, drum, wheel, angleMilli, breakup);
   },
 };
