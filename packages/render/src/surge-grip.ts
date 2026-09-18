@@ -7,6 +7,7 @@ import { hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import { type Point, surgeBulbCircle } from "./surge-shape.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 
 /**
  * **THE SURGE's one handle, taken by both seats**: the bulb itself.
@@ -45,12 +46,12 @@ export function surgeGripSeat(side: -1 | 1): 1 | 2 {
 }
 
 /**
- * The press: anywhere on the bulb, from either seat. `field.surge` is `null`
+ * The press: anywhere on the bulb, from either seat. `bossOf(field, "surge")` is `null`
  * on every wave without the boss, and a press then falls through to
  * whatever is behind it exactly as if no bulb were there.
  */
 export function surgeBulbUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const s = field.surge;
+  const s = bossOf(field, "surge");
   if (s === null) return null;
   if (!hitCircle(surgeBulbCircle(l, field.cfg, s), x, y)) return null;
   const target = "surgeBulb";

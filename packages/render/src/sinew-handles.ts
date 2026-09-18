@@ -8,6 +8,7 @@ import { PALETTE } from "./palette.js";
 import { type Point, sinewMassCentre, sinewMassRx } from "./sinew-shape.js";
 import { sinew } from "./tether-sinew.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 
 /**
  * **THE SINEW's two handles**, one either side of the mass and one per seat:
@@ -84,12 +85,12 @@ export function sinewHandleAt(
 }
 
 /**
- * The press, answered for this seat's side only. `field.sinew` is `null` on
+ * The press, answered for this seat's side only. `bossOf(field, "sinew")` is `null` on
  * every wave without the boss, and a press then falls through to whatever
  * is behind it exactly as if no ring were there.
  */
 export function sinewHandleUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const s = field.sinew;
+  const s = bossOf(field, "sinew");
   if (s === null) return null;
   const side = field.seat === 1 ? -1 : 1;
   if (sinewHandleSeat(side) !== field.seat) return null;

@@ -2,6 +2,7 @@ import { filamentTileAt, filamentTracing } from "@neon-spore/sim";
 import { filamentGrabCircle, filamentPoint } from "./filament-shape.js";
 import { hitCircle, type Layout } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 
 /**
  * **A thumb on THE FILAMENT's line**: the pilot's on the head, the
@@ -18,7 +19,7 @@ import type { Field, Touch } from "./touch.js";
  * and the hit test belongs beside the shape it answers.
  */
 export function filamentGrabUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const s = field.filament;
+  const s = bossOf(field, "filament");
   if (s === null || !filamentTracing(s)) return null;
   const c = filamentGrabCircle(l, s, field.seat);
   const tile = filamentTileAt(s, field.seat === 1 ? s.head : s.tail);

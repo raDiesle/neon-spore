@@ -17,6 +17,7 @@ import { drawInstarWord } from "./instar-word.js";
 import { hitCircle, type Layout, type ViewRole } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 import { instarMarkIsMine } from "./view-role-clocks-b.js";
 
 /**
@@ -189,7 +190,7 @@ function drawDone(
  * (`touch-drag.ts` `turnAbout`) — THE CLAW's crank, on the field.
  */
 export function instarMarkUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const s = field.instar;
+  const s = bossOf(field, "instar");
   if (s === null || !instarActing(s)) return null;
   const step = instarStep(s);
   if (step === null) return null;

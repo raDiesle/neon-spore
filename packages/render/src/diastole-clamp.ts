@@ -11,6 +11,7 @@ import { drawHandleRest, drawHandleRing, handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 import type { ViewRole } from "./view-role.js";
 import { showsDiastoleClamp } from "./view-role-clocks-b.js";
 
@@ -50,13 +51,13 @@ export function diastoleAsksClamp(b: DiastoleState): boolean {
 
 /**
  * The press, answered for the clamp's seat while the chamber beats alone.
- * `field.diastole` is `null` on every wave without the twin lobe, and a press
+ * `bossOf(field, "diastole")` is `null` on every wave without the twin lobe, and a press
  * then falls through to whatever is behind it as if no ring were there. The
  * thumb is a hold and not a pull: the simulation reads only that it is down
  * and on which beat (`sim/diastole-hand.ts`).
  */
 export function diastoleClampUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const b = field.diastole;
+  const b = bossOf(field, "diastole");
   if (b === null || !diastoleAsksClamp(b) || field.seat !== diastoleClampSeat) return null;
   if (!hitCircle(diastoleClampRest(l, field.cfg), x, y)) return null;
   const target = "diastoleChamber";

@@ -1,7 +1,7 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { Field } from "@neon-spore/render";
 import { pointerSeat, showsWell, type ViewRole } from "@neon-spore/render";
-import { faultsNow, framePhase, mazeRound, type World } from "@neon-spore/sim";
+import { faultsNow, framePhase, type World } from "@neon-spore/sim";
 
 /**
  * **What the stage hands a hit test**, and nothing else.
@@ -36,19 +36,7 @@ export function stageField(
     // Whose hand the mouse is: the role's, or under TEST the held seat key's.
     seat: pointerSeat(role, seatKey),
     cfg,
-    maze: mazeRound(world),
-    warden: world.boss?.kind === "warden" ? world.boss : null,
-    orrery: world.boss?.kind === "orrery" ? world.boss : null,
-    sinew: world.boss?.kind === "sinew" ? world.boss : null,
-    surge: world.boss?.kind === "surge" ? world.boss : null,
-    antiphon: world.boss?.kind === "antiphon" ? world.boss : null,
-    instar: world.boss?.kind === "instar" ? world.boss : null,
-    filament: world.boss?.kind === "filament" ? world.boss : null,
-    stare: world.boss?.kind === "stare" ? world.boss : null,
-    queen: world.boss?.kind === "queen" ? world.boss : null,
-    diastole: world.boss?.kind === "diastole" ? world.boss : null,
-    mirror: world.boss?.kind === "mirror" ? world.boss : null,
-    gorge: world.boss?.kind === "gorge" ? world.boss : null,
+    boss: world.boss,
     controls,
     faults: faultsNow(world),
     well: world.boss?.kind === "well" && showsWell(role),

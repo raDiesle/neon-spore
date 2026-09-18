@@ -9109,6 +9109,31 @@ own line.
 The bottleneck was the hull's opacity: the body was drawn twice in the wrong
 place before the clip above the membrane made the throat read as a hole.
 
+## 2026-09-18 — boss-hints — one boss on the hit test, not twelve
+
+Claimed to unblock the next one: THE GAUGE is owed a gesture on its picture
+(`.claude/skills/new-boss` §6.2) and every boss with one is a nullable field on
+`Field`, named again four times in `input.ts` — which stood at exactly 250
+lines, so the thirteenth could not be added at all. The twelve are one field
+now, `boss`, narrowed where the handle is drawn by a `bossOf` that is one line
+with a row in the copies table. Nothing changed about what answers a thumb: 443
+lines came out and 115 went in, and the eleven paragraphs arguing *required and
+stated rather than defaulted*, one per boss, became one that keeps the argument
+and lists the four sharpest cases.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `touch-field.ts`, `input-bindings.ts`, `field-input.ts`, the twelve hit tests |
+| writing | 20 | the field, `bossOf`, the copies row, thirty-two files of mechanical change |
+| looking | 0 | none, and none was owed: nothing visible moved |
+| friction | 10 | the copies test wants the owner to contain its own pattern, so `bossOf` had to be written in the shape it forbids elsewhere |
+| landing | 10 | `check:fast` twice, the commit, the land |
+
+The bottleneck was the one test literal that was not mechanical: `touch.test.ts`
+builds a maze field as `Field & { maze: MazeState }` and reaches back through
+the intersection to move the phase, so the rename had to follow it into the
+body of a test three hundred lines further down.
+
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
 
 ## 2026-09-18 — boss-implementation — THE GORGE's two thumbs: the look

@@ -50,19 +50,7 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
     beat: 0,
     seat,
     cfg: CFG,
-    maze: null,
-    warden: null,
-    orrery: null,
-    sinew: null,
-    surge: null,
-    antiphon: null,
-    instar: null,
-    filament: null,
-    stare: null,
-    queen: null,
-    diastole: null,
-    mirror: null,
-    gorge: null,
+    boss: null,
     controls,
     faults: [],
     well: false,
@@ -73,11 +61,11 @@ function field(seat: 1 | 2 = 1, controls: ControlSet = STANDARD): Field {
  * The same field with THE MAZE up and its wheel turnable. `installMaze` rather
  * than a literal, so the state under test is the one the round actually builds.
  */
-function mazeField(seat: 1 | 2 = 1): Field & { maze: MazeState } {
+function mazeField(seat: 1 | 2 = 1): Field & { boss: MazeState } {
   const world = createWorld(CFG, 2, []);
   const maze = installMaze(world, [...MAZE_ROUNDS]);
   maze.phase = "read";
-  return { ...field(seat), maze };
+  return { ...field(seat), boss: maze };
 }
 
 /** Whether a role's screen carries a seat's half at all. */
@@ -424,7 +412,7 @@ describe("a hand on THE MAZE's string", () => {
   it("answers nothing on a wave with no wheel, and none while a shot walks", () => {
     expect(grab(field(1))?.command?.kind).not.toBe("drag");
     const travelling = mazeField(1);
-    travelling.maze.phase = "travel";
+    travelling.boss.phase = "travel";
     expect(grab(travelling)?.command?.kind).not.toBe("drag");
   });
 

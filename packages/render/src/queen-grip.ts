@@ -10,6 +10,7 @@ import { handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout, showsQueenShape } from "./layout.js";
 import { queenMarkCenter } from "./queen-figure.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 
 /**
  * **THE BULB QUEEN's marks as a control**, for the two phases that ask a
@@ -49,7 +50,7 @@ export function queenAsks(boss: QueenState, queen: Creature): QueenGesture | nul
 
 /** The queen's body on the field, if she is the boss up. */
 function queenOf(field: Field): Creature | null {
-  const boss = field.queen;
+  const boss = bossOf(field, "queen");
   if (boss === null) return null;
   return field.creatures.find((c) => c.id === boss.creatureId) ?? null;
 }
@@ -62,7 +63,7 @@ function queenOf(field: Field): Creature | null {
  * thumb.
  */
 export function queenMarkUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const boss = field.queen;
+  const boss = bossOf(field, "queen");
   const queen = queenOf(field);
   if (boss === null || queen === null || field.seat !== 1) return null;
   if (queenAsks(boss, queen) === null) return null;

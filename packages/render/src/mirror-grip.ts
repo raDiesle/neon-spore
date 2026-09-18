@@ -9,6 +9,7 @@ import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import { mirrorHullY } from "./mirror.js";
 import type { PlaceHand } from "./ship-hand.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 import { CANNON_R, CANNON_UP, SHIELD_R, SHIELD_UP } from "./touch-ship.js";
 import type { ViewRole } from "./view-role.js";
 
@@ -79,7 +80,7 @@ function lobeCol(m: MirrorState, shieldCol: number, id: 0 | 1): number {
  * will need — the carry threshold under `reflect`, the pin under `hold`.
  */
 export function mirrorLobeUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const m = field.mirror;
+  const m = bossOf(field, "mirror");
   if (m === null) return null;
   const gesture = mirrorGesture(m);
   let best: { id: 0 | 1; d: number } | null = null;

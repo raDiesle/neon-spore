@@ -14,14 +14,7 @@ import {
   wellCannonGrab,
   wellShieldGrab,
 } from "@neon-spore/render";
-import {
-  briefingHolds,
-  faultsNow,
-  guideHolds,
-  handedOver,
-  mazeRound,
-  type World,
-} from "@neon-spore/sim";
+import { briefingHolds, faultsNow, guideHolds, handedOver, type World } from "@neon-spore/sim";
 import { type BriefingBinding, bindBriefing } from "./briefing.js";
 import { bindControls, type Controls, type InputBuffer } from "./input.js";
 import { bindLost } from "./lost.js";
@@ -120,27 +113,15 @@ export function bindFieldInput(o: FieldInputOptions): FieldInput {
     player: () => pointerSeat(o.role(), desk.seat()),
     handed: () => handedOver(world),
     cfg: world.cfg,
-    // THE MAZE's string is answered on the field like any other handle, so the
-    // hit test has to know whether a wheel is up (`render/touch.ts`).
-    maze: () => mazeRound(world),
-    // And THE WARDEN's rope, for the same reason: its handle is a control drawn
-    // on the field, and a hit test that did not know the boss was up would leave
-    // the pilot pressing something that answers nothing.
-    warden: () => (world.boss?.kind === "warden" ? world.boss : null),
-    // And THE ORRERY's rings, which the pilot turns by hand: the outermost one
-    // still standing is a control on the field, and the hit test cannot find
-    // it without the boss (`render/orrery-grab.ts`).
-    orrery: () => (world.boss?.kind === "orrery" ? world.boss : null),
-    sinew: () => (world.boss?.kind === "sinew" ? world.boss : null),
-    surge: () => (world.boss?.kind === "surge" ? world.boss : null),
-    antiphon: () => (world.boss?.kind === "antiphon" ? world.boss : null),
-    instar: () => (world.boss?.kind === "instar" ? world.boss : null),
-    filament: () => (world.boss?.kind === "filament" ? world.boss : null),
-    stare: () => (world.boss?.kind === "stare" ? world.boss : null),
-    queen: () => (world.boss?.kind === "queen" ? world.boss : null),
-    diastole: () => (world.boss?.kind === "diastole" ? world.boss : null),
-    mirror: () => (world.boss?.kind === "mirror" ? world.boss : null),
-    gorge: () => (world.boss?.kind === "gorge" ? world.boss : null),
+    // **The boss, whatever it is.** Thirteen of them hang a handle on the field —
+    // THE MAZE's string, THE WARDEN's rope, THE ORRERY's rings, THE SINEW's two,
+    // THE SURGE's bulb, THE ANTIPHON's organ, THE INSTAR's marks, THE
+    // FILAMENT's, THE STARE's lid, THE BULB QUEEN's, THE DIASTOLE's clamp, THE
+    // MIRROR's lobes, THE GORGE's intakes — and each used to be named here, and three more times in
+    // `input.ts`, as `world.boss?.kind === k ? world.boss : null`. The hit test
+    // narrows it itself now, where it draws the handle (`render/touch-field.ts`
+    // `bossOf`), so a fourteenth costs this file nothing.
+    boss: () => world.boss,
     // Which panel is up follows from the wave (`content/control-sets.ts`).
     controls: () => controlSetForWave(world.wave),
     faults: () => faultsNow(world),

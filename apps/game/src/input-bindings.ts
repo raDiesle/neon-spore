@@ -1,23 +1,6 @@
 import type { ControlSet } from "@neon-spore/content";
 import type { Layout } from "@neon-spore/render";
-import type {
-  AntiphonState,
-  Creature,
-  DiastoleState,
-  FilamentState,
-  GorgeState,
-  InstarState,
-  MazeState,
-  MirrorState,
-  OrreryState,
-  PlacedFault,
-  QueenState,
-  SimConfig,
-  SinewState,
-  StareState,
-  SurgeState,
-  WardenState,
-} from "@neon-spore/sim";
+import type { BossState, Creature, PlacedFault, SimConfig } from "@neon-spore/sim";
 import type { InputBuffer } from "./input-buffer.js";
 
 /**
@@ -67,57 +50,19 @@ export interface Bindings {
   handed: () => boolean;
   /** The numbers the hit test needs: a tether's row, a drum's width. */
   cfg: SimConfig;
-  /**
-   * THE MAZE, if it is the boss running. Read fresh and stated rather than
-   * defaulted, for the reason `Field` gives: without it the handle on the
-   * wheel's string is drawn and answers nothing.
-   */
-  maze: () => MazeState | null;
   /** Whether this screen is drawn as THE WELL (`render/src/well.ts`). */
   well: () => boolean;
   /**
-   * THE WARDEN, if it is the boss running. Read fresh and stated rather than
-   * defaulted, for the same reason `maze` is: without it the handle on its rope
-   * is drawn and answers nothing.
+   * **The boss running**, read fresh on every event and stated rather than
+   * defaulted, for the reason `Field` gives at length: a handle that is drawn
+   * and answers nothing is the one failure the hit test exists to prevent.
+   *
+   * It was thirteen getters — one per boss a thumb can reach — and each of them
+   * was `world.boss?.kind === k ? world.boss : null`, which is this field with
+   * the narrowing done early. Done late instead, in `bossOf` beside the hit
+   * test that wants it, a fourteenth boss costs nothing here at all.
    */
-  warden: () => WardenState | null;
-  /**
-   * THE ORRERY, if it is the boss running. Read fresh for the same reason, and
-   * the miss it prevents is the largest one on this list: the ring a thumb
-   * takes hold of is an ellipse the width of the field
-   * (`render/orrery-grab.ts`).
-   */
-  orrery: () => OrreryState | null;
-  /** THE SINEW, when it is the boss up: a handle per seat beside the mass
-   * (`render/sinew-handles.ts`). */
-  sinew: () => SinewState | null;
-  /** THE SURGE, when it is the boss up: one bulb both seats take
-   * (`render/surge-grip.ts`). */
-  surge: () => SurgeState | null;
-  /** THE ANTIPHON, when it is the boss up: the organ, on the screen shown it
-   * (`render/antiphon-grip.ts`). */
-  antiphon: () => AntiphonState | null;
-  /** THE INSTAR, when it is the boss up: its marks, while they are up
-   * (`render/instar-marks.ts`). */
-  instar: () => InstarState | null;
-  /** THE FILAMENT, when it is the boss up: the two rings on its line, while
-   * a filament is being traced (`render/filament-grip.ts`). */
-  filament: () => FilamentState | null;
-  /** THE STARE, when it is the boss up: the lid's ring on the eye's brow, for
-   * the seat it is not looking at (`render/stare-lid.ts`). */
-  stare: () => StareState | null;
-  /** THE BULB QUEEN, when she is the boss up: her two marks, under BROOD and
-   * SCREAM (`render/queen-grip.ts`). */
-  queen: () => QueenState | null;
-  /** THE DIASTOLE, when it is the boss up: the clamp's ring on the grey right
-   * chamber, for the pilot, while it beats alone (`render/diastole-clamp.ts`). */
-  diastole: () => DiastoleState | null;
-  /** THE MIRROR, when it is the boss up: its two lobes, under the last round
-   * and the pin (`render/mirror-grip.ts`). */
-  mirror: () => MirrorState | null;
-  /** THE GORGE, when it is the boss up: the pinch's ring on a full intake
-   * and the pry's on the mouth, one seat each (`render/gorge-grip.ts`). */
-  gorge: () => GorgeState | null;
+  boss: () => BossState | null;
   /**
    * The panel this wave is played on, read fresh: a control the wave's set does
    * not name has no button and must not answer a thumb (`render/touch.ts`).

@@ -692,4 +692,16 @@ export const COPIES: Copy[] = [
     owner: "packages/sim/src/ledger.ts",
     pattern: /socket\s*[+-][^;\n]*ledgerSocketStep|ledgerSocketStep[^;\n]*walk/,
   },
+  {
+    // **Which boss a hit test is looking at.** `Field` used to carry one
+    // nullable field per boss, and each of the thirteen was narrowed at its
+    // source — `world.boss?.kind === k ? world.boss : null` — written out four
+    // more times in `apps/game/src/input.ts`, which is what took that file to
+    // its length limit. It carries the boss whole now and the narrowing is one
+    // call, beside the handle it is for. A fourteenth written out by hand is
+    // how a hit test comes to answer for a boss the picture is not drawing.
+    call: "bossOf",
+    owner: "packages/render/src/touch-field.ts",
+    pattern: /field\.boss\??\.kind\s*===/,
+  },
 ];

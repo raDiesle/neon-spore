@@ -7,6 +7,7 @@ import { drawHandleRing, handleRadius } from "./handle-draw.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 import { showsAntiphonOrgan } from "./view-role-clocks-b.js";
 
 /**
@@ -39,11 +40,11 @@ const GRIP_DOWN = 0.45;
 const GRIP_R = 0.6;
 /**
  * The press: anywhere on a standing organ, on a screen that shows one.
- * `field.antiphon` is `null` on every wave without the boss, and a press
+ * `bossOf(field, "antiphon")` is `null` on every wave without the boss, and a press
  * then falls through to whatever is behind it.
  */
 export function antiphonOrganUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const s = field.antiphon;
+  const s = bossOf(field, "antiphon");
   if (s === null || !showsAntiphonOrgan(l.role)) return null;
   const n = s.organs.length;
   let on = false;

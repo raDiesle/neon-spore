@@ -17,6 +17,9 @@
 export * from "./boss-surface-clocks.js";
 export {
   BOSS_KINDS,
+  // The union itself: `render/touch-field.ts` carries one boss rather than one
+  // nullable field per boss, and narrows it where a handle is hit-tested.
+  type BossState,
   bossFillsWave,
   type CairnState,
   cairnState,

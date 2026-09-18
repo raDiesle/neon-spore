@@ -10,6 +10,7 @@ import { drawGripDial, drawGripRing } from "./grip-rings.js";
 import { handleRadius } from "./handle-draw.js";
 import { type Circle, hitCircle, type Layout, tileCX } from "./layout.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 import type { ViewRole } from "./view-role.js";
 import { showsGorgePinch, showsGorgePry } from "./view-role-clocks-b.js";
 
@@ -61,13 +62,13 @@ export function gorgeGripsOf(g: GorgeState, cfg: SimConfig, seat: 1 | 2): number
 
 /**
  * The press, answered for whichever seat's ring it landed in, nearest first
- * when two overlap (`mirrorLobeUnder`'s rule). `field.gorge` is `null` on
+ * when two overlap (`mirrorLobeUnder`'s rule). `bossOf(field, "gorge")` is `null` on
  * every wave without the sack, and a press then falls through to whatever
  * is behind it. The thumb is a hold and not a pull: the simulation reads
  * only that it is down, on which intake, and on which beat.
  */
 export function gorgeGripUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const g = field.gorge;
+  const g = bossOf(field, "gorge");
   if (g === null) return null;
   let best: { id: number; d: number } | null = null;
   for (const id of gorgeGripsOf(g, field.cfg, field.seat)) {

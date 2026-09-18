@@ -17,6 +17,7 @@ import { stareLidUnder } from "./stare-lid.js";
 import { surgeBulbUnder } from "./surge-grip.js";
 import { tetherGrabCircle } from "./tether.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 
 /**
  * The handles: the things drawn **on the field** that a hand takes hold of and
@@ -164,7 +165,8 @@ function choirArrowUnder(l: Layout, x: number, y: number, field: Field): Touch |
  * (`Command` in `packages/sim/src/types.ts` has why).
  */
 function mazeStringUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  if (field.maze === null || field.maze.phase !== "read" || field.seat !== 1) return null;
+  const maze = bossOf(field, "maze");
+  if (maze === null || maze.phase !== "read" || field.seat !== 1) return null;
   if (!hitCircle(mazeStringCircle(l, field.cfg), x, y)) return null;
   return {
     player: 1,
@@ -180,7 +182,7 @@ function mazeStringUnder(l: Layout, x: number, y: number, field: Field): Touch |
  * neither can reach the other's half.
  */
 function wardenRopeUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const b = field.warden;
+  const b = bossOf(field, "warden");
   if (b === null || b.tetherId === NO_TETHER || field.seat !== 1) return null;
   if (field.creatures.every((c) => c.id !== b.tetherId)) return null;
   // The **pupil's** column, not the tether creature's: the line is authored in

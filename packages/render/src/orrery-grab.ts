@@ -13,6 +13,7 @@ import type { Layout } from "./layout.js";
 import { ORRERY_FLATTEN, orreryCorePoint, orreryOrganR, orreryPoint } from "./orrery-shape.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { Field, Hold, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 import { showsOrreryGrip } from "./view-role-clocks.js";
 
 /**
@@ -143,7 +144,7 @@ export function orreryRingCircle(
  * however far round the finger happened to land (`sim/orrery-hand.ts`).
  */
 export function orreryRingUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const b = field.orrery;
+  const b = bossOf(field, "orrery");
   if (b === null || field.seat !== 1) return null;
   const ring = orreryHandRing(b);
   if (ring === NO_RING) return null;

@@ -1,22 +1,5 @@
 import type { ControlSet } from "@neon-spore/content";
-import type {
-  AntiphonState,
-  Creature,
-  DiastoleState,
-  FilamentState,
-  GorgeState,
-  InstarState,
-  MazeState,
-  MirrorState,
-  OrreryState,
-  PlacedFault,
-  QueenState,
-  SimConfig,
-  SinewState,
-  StareState,
-  SurgeState,
-  WardenState,
-} from "@neon-spore/sim";
+import type { BossState, Creature, PlacedFault, SimConfig } from "@neon-spore/sim";
 
 /**
  * **What a hit test is handed**: the field as the control scheme needs to see
@@ -72,114 +55,31 @@ export interface Field {
    */
   cfg: SimConfig;
   /**
-   * THE MAZE, if it is the boss running, `null` otherwise. **Required, and
-   * stated rather than defaulted**, for the reason the comment under
-   * `controls` gives: a caller that quietly meant `null` would leave the pilot
-   * pressing a handle that is drawn and answers nothing.
+   * **The boss running, whatever it is**, `null` between them.
+   *
+   * This was thirteen fields — `maze`, `warden`, `orrery`, `sinew`, `surge`,
+   * `antiphon`, `instar`, `filament`, `stare`, `queen`, `diastole`, `mirror`,
+   * `gorge` — one per boss a thumb can reach, each written down four more
+   * times in `apps/game/src/input.ts` and once in every `Field` literal in the
+   * tests. Thirteen names for one fact is thirteen places a fourteenth boss
+   * has to be added, and `input.ts` folded two comments to fit the thirteenth.
+   *
+   * **Required, and stated rather than defaulted**, which is the whole of what
+   * the thirteen paragraphs this replaces were saying, each in its own boss's
+   * words: a caller that quietly meant `null` would leave a handle that is
+   * *drawn* answering nothing — the pilot's hand falling through THE ORRERY's
+   * ring onto the rocks behind it, THE SURGE's one bulb with neither thumb on
+   * it, THE INSTAR's marks dead on a wave that has no panel at all, THE
+   * DIASTOLE's last chamber open on no beat. A control answered where it is
+   * not drawn, and a control drawn where it is not answered, are the two
+   * things this file exists to prevent, and a required field makes the
+   * compiler ask about both.
+   *
+   * **Read it with `bossOf`, never with a `kind` check written out again.**
+   * The narrowing is one line and there are thirteen callers; the row is in
+   * `sim/test/copies-table.ts`.
    */
-  maze: MazeState | null;
-  /**
-   * THE WARDEN, if it is the boss running, `null` otherwise. **Required, and
-   * stated rather than defaulted**, for the same reason `maze` is: a caller
-   * that quietly meant `null` would leave the pilot pressing a handle that is
-   * drawn and answers nothing, which is the one failure this whole file exists
-   * to prevent.
-   */
-  warden: WardenState | null;
-  /**
-   * THE ORRERY, if it is the boss running, `null` otherwise. **Required, and
-   * stated rather than defaulted**, for the reason `maze` and `warden` are,
-   * and with the widest version of it: the ring a thumb takes hold of is an
-   * ellipse the width of the field (`orrery-grab.ts`), so a caller that
-   * quietly meant `null` would leave the pilot's hand falling through the
-   * biggest control in the game onto the rocks behind it.
-   */
-  orrery: OrreryState | null;
-  /**
-   * THE SINEW, if it is the boss running, `null` otherwise. **Required, and
-   * stated rather than defaulted**, for the reason the three above are, and
-   * for THE BALLOON's: it is a handle per seat, and a caller that quietly
-   * meant `null` would leave one seat pressing a ring that is drawn and
-   * answers nothing while the other seat's pull counts (`sinew-handles.ts`).
-   */
-  sinew: SinewState | null;
-  /**
-   * THE SURGE, if it is the boss running, `null` otherwise. **Required, and
-   * stated rather than defaulted**, for the reason the four above are, and
-   * with the one twist this boss has: the bulb is one handle both seats
-   * take, so a caller that quietly meant `null` would leave *both* thumbs
-   * falling through the boss onto the rocks behind it — and a wave whose
-   * whole verb is two thumbs coming off together would have none on
-   * (`surge-grip.ts`).
-   */
-  surge: SurgeState | null;
-  /**
-   * THE ANTIPHON, if it is the boss running, `null` otherwise. **Required,
-   * and stated rather than defaulted**, for the reason the five above are,
-   * with this boss's own twist: the organ is on one screen only, so the hit
-   * test already answers nothing on the navigator's, and a caller that
-   * quietly meant `null` would make the pilot's the same — a thumb resting
-   * on the organ to turn it landing on the rocks behind it instead
-   * (`antiphon-grip.ts`).
-   */
-  antiphon: AntiphonState | null;
-  /**
-   * THE INSTAR, if it is the boss running, `null` otherwise. **Required,
-   * and stated rather than defaulted**, for the reason the six above are,
-   * with the sharpest version of it yet: this boss has no panel at all, so
-   * its marks are the *only* control on the screen — a caller that quietly
-   * meant `null` would leave a wave with nothing on it that answers a thumb,
-   * and a window that closes on the hull whatever the pair did
-   * (`instar-marks.ts`).
-   */
-  instar: InstarState | null;
-  /**
-   * THE FILAMENT, if it is the boss running, `null` otherwise. Required and
-   * stated, for THE INSTAR's reason: the two rings on the line are the only
-   * control this wave has, and a caller that meant `null` would hang a line
-   * nobody can draw (`filament-grip.ts`).
-   */
-  filament: FilamentState | null;
-  /**
-   * THE STARE, if it is the boss running, `null` otherwise. Required and
-   * stated, for the reason every boss above is, with this one's own twist:
-   * the lid's ring is drawn for the seat the eye is not looking at, and a
-   * caller that meant `null` would leave that seat's thumb on a ring that
-   * answers nothing while the other sits frozen (`stare-lid.ts`).
-   */
-  stare: StareState | null;
-  /**
-   * THE BULB QUEEN, if she is the boss running, `null` otherwise. Required
-   * and stated, for the reason the nine above are: two of her three phases
-   * are answered on her marks and nowhere on the panel, so a caller that
-   * quietly meant `null` would leave BROOD's window with nothing that pries
-   * it and SCREAM's with nothing that holds it (`queen-grip.ts`).
-   */
-  queen: QueenState | null;
-  /**
-   * THE DIASTOLE, if it is the boss running, `null` otherwise. Required and
-   * stated, for the reason the ten above are: the alone chamber's beat is
-   * held by the pilot's thumb on it and nowhere on the panel, so a caller
-   * that quietly meant `null` would leave the last chamber open on no beat
-   * at all (`diastole-clamp.ts`, `sim/diastole-open.ts`).
-   */
-  diastole: DiastoleState | null;
-  /**
-   * THE MIRROR, if it is the boss running, `null` otherwise. Required and
-   * stated, for the reason the eleven above are: its last round is answered on
-   * its own two lobes and nowhere on the panel, and its end is both thumbs
-   * pinning them, so a caller that quietly meant `null` would leave the last
-   * round with no right answer at all (`mirror-grip.ts`).
-   */
-  mirror: MirrorState | null;
-  /**
-   * THE GORGE, if it is the boss running, `null` otherwise. Required and
-   * stated, for the reason the twelve above are: the pinch that holds a vent
-   * off and the pry the beam needs are on the intakes and nowhere on the
-   * panel, so a caller that quietly meant `null` would leave the mouth with
-   * nothing that opens it (`gorge-grip.ts`, `sim/gorge-hand.ts`).
-   */
-  gorge: GorgeState | null;
+  boss: BossState | null;
   /**
    * The whole panel this wave is played on — both seats at once, never a
    * combination (`packages/content/src/control-sets.ts`).
@@ -221,4 +121,22 @@ export interface Field {
    * one thing `touch.ts` exists to prevent.
    */
   well: boolean;
+}
+
+/**
+ * The boss on this field, if it is the kind asked for.
+ *
+ * One line, and it is here rather than written out at each of the thirteen hit
+ * tests for the reason `sim/test/copies-table.ts` exists: `field.boss?.kind ===
+ * k ? field.boss : null` is a rule, and a rule copied thirteen times is a rule
+ * that will be copied a fourteenth time slightly differently. It is also the
+ * one place the narrowing is explained — a hit test asks for the boss it draws
+ * a handle for and is handed `null` on every wave that is not it, which is
+ * exactly what each of the thirteen fields it replaces did.
+ */
+export function bossOf<K extends BossState["kind"]>(
+  field: Field,
+  kind: K,
+): Extract<BossState, { kind: K }> | null {
+  return field.boss?.kind === kind ? (field.boss as Extract<BossState, { kind: K }>) : null;
 }

@@ -6,6 +6,7 @@ import { type Circle, hitCircle, type Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import { type StareEye, stareEye, stareLidDrop } from "./stare-shape.js";
 import type { Field, Touch } from "./touch.js";
+import { bossOf } from "./touch-field.js";
 import type { ViewRole } from "./view-role.js";
 import { showsStareLid } from "./view-role-clocks-b.js";
 
@@ -79,13 +80,13 @@ function coverPath(e: StareEye): Path2D {
 
 /**
  * The press, answered for the seat the eye is not looking at, while it is
- * looking. `field.stare` is `null` on every wave without the eye, and a press
+ * looking. `bossOf(field, "stare")` is `null` on every wave without the eye, and a press
  * then falls through to whatever is behind it as if no ring were there. The
  * hold's origin is the finger: how far *down* it has come from where it
  * landed is the pull (`sim/stare-hand.ts`).
  */
 export function stareLidUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const s = field.stare;
+  const s = bossOf(field, "stare");
   if (s === null || !stareLidFree(s, field.seat)) return null;
   if (!hitCircle(stareLidRest(l, field.cfg), x, y)) return null;
   return {
