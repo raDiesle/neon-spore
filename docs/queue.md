@@ -409,6 +409,7 @@ the one allowance left in `tools/director/test/boss-states.test.ts`'s
 ## BULB QUEEN: the field says the word, and the briefing comes down
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-bulb-queen-the-field-says-the-word-and-the-brief
 - **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/bulb-queen.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
 
 It says nothing on the field at all.
