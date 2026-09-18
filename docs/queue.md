@@ -207,6 +207,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A caption has no anchor for a boss's own gauge, so it points at the hull
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
+- **Taken:** 2026-09-18, claude/queue-a-caption-has-no-anchor-for-a-bosss-own-gauge-so
 - **Files:** `packages/content/src/scene-step-types.ts`, `packages/render/src/caption-anchor.ts`, `packages/content/src/scenes/the-sinew.ts`, `packages/content/src/scenes/the-taster.ts`, `packages/content/src/scenes/the-lead.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/src/scenes/the-scout.ts`
 
 `SceneAnchor` names a body, a control, a handle, the hull, the radar, the
