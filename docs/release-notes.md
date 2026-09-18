@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · f91d7660 — The STATES sheet gets a BOSSES category: every boss, every state it can be in, held to the simulation by a test
+
+The owner asked (18 September 2026) that every boss's states be documented on the director's DOCUMENTATION → STATES sheet, in a category of their own, and that the documentation be forced to change whenever a boss does. The sheet now has two categories — THE GAME, as it was, and BOSSES: one group per boss in the simulation's order, thirty-three of them, with a card per state and a note naming the states still owed.
+
 ## 2026-09-18 · dfbbf1eb — Nine lanes for the bosses, and the look standard THE INSTAR set
 
 The owner's four asks of 18 September 2026, sized and queued rather than started: a special/normal tag on every boss wave, the one-or-two-word prompt extended until the guides can go, boss states that change several times with a different gesture in each, gestures that are not on the panel, and a graphics task per recent boss with THE INSTAR as the reference.

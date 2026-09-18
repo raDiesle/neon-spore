@@ -10561,3 +10561,5 @@ The bottleneck was that no two bosses call their state the same thing — a
 `phase`, a `stage`, a derived function, a handful of predicates — so the
 table of states had to be assembled by hand from twenty files before a line
 of the category could be drawn.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
