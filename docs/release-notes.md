@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 735a7f28 — Set THE GAUGE's dial into a real instrument
+
+The round shipped with the dial drawn straight onto its plate. It is now an instrument: a milled face plate with a cover glass sunk into it, a lathed bezel bolted over that, and the needle turning on a boss with a chamfer on it. A round's material is slabs and glyphs, never blobs, so the owner's "looks like something real" is answered as a machine and not as a body — THE MAZE's drum took the same brief the same way.
+
 ## 2026-09-18 · d3bd9d6e — Mark "THE WARDEN changes state more than once, and asks for more than one gesture" done
 
 ## 2026-09-18 · 0556a851 — THE WARDEN's thumb and swipe: the look
