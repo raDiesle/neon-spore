@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · d333aa57 — THE ANTIPHON's rehearsal: the wrong candidate first, six organs taken where they stand by `atBoss`, what the rail rejected shot as it falls, their own ship found among ships
+
+Twenty pages over 3,720 ticks, seed 1. The film takes the mistake first: a decoy's colour in the decoy's column, the body hardened and the rail four wide for the rest of the fight. Every organ after is a cannon strip by `atBoss` — `boss-answer.ts` now answers THE ANTIPHON with the first organ's column from the beat it grows, nothing between cycles or once it bursts — fired in the organ's colour the beat it has pushed all the way out. From the third pit the candidates the rail rejected fall as bodies and each is taken by `atBody` two beats apart before the next organ's shot; the twins are taken one and then the other; the ship is found among ships and every pit erupts. Nine pages on the hull, eleven on a control; the film takes no hit.
+
 ## 2026-09-18 · 1be073ce — THE SCUTTLE's rehearsal: one part let go, nineteen struck where they hang by `atBoss`, the twins shot at the top, the last held under the beam
 
 Thirteen pages over 2,900 ticks, seed 17. The film takes the cost first: the first part is let go and its rock warded on beat 20, so the pilot's count is seen to matter before a strike lands. Every strike after that is a cannon strip by `atBoss` — `boss-answer.ts` now answers THE SCUTTLE with `scuttleNextCol`, the live socket's column through the wind-up and nothing while it looks or once it is down — with the third strike fired in the wrong colour for the rebuff. From twelve left the twins are thrown regardless and shot at the top in the gap after each strike; the two pods are struck where they hang, the last part held cyan under the beam, and the frame lets go three beats later. Seven pages on the hull, six on a control.
