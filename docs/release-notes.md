@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 0ea4b0c8 — The director's contents menu stands open, with no button to press first
+
+The owner asked on 18 September 2026 for the contents menu on the long director pages — WORDINGS, STATES, STYLE, NOT BUILT YET — to be the list itself, visible at once and clicked straight, rather than a CONTENTS button that opens one. The opener is gone: a label stands over the list, a jump leaves the list where it was, and a `MutationObserver` on the page refills it every time the page draws or redraws, so a room drawn on first sight of its tab gets its menu the same frame. The menu hides itself over a page with nothing on it yet. The test's fake DOM gains a `MutationObserver` the test fires by hand and a frame that runs at once. A look the owner asked for by name.
+
 ## 2026-09-18 · cfc3bc40 — SNAKE says OPEN and FIRE to the pilot, and nothing at all to the driver
 
 The round's field now carries the cue (`docs/decisions.md` #34) and its film gives up the page that named a verb. The split decides both halves: the driver is shown the body and the meteors and not the enemies or the points (`showsSnakeFood`), so the only word the field could put on her wheel is `TURN` — and which way is his answer, out loud, which is the whole round. She is told nothing. He is told `PRESS` / `OPEN` on a point standing in the tile the head is one step from, and `PRESS` / `FIRE` on the enemy a shot taken this instant would actually reach; the point comes first because it expires first.
