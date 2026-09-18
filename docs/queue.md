@@ -335,6 +335,7 @@ deciding before the next boss lands rather than during it.
 ## `names.test.ts` times out under the full check's fifteen shards
 
 - **Found:** 2026-09-17, claude/versus-page-pod-husk-tell-1f227a
+- **Taken:** 2026-09-18, claude/queue-names-test-ts-times-out-under-the-full-checks-fi
 - **Files:** `apps/server/test/names.test.ts`, `apps/server/test/relay.ts`, `tools/check/shard.ts`
 
 `bun run land` went red on shard 8 of 15: every one of the fourteen tests in
