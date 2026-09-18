@@ -31,7 +31,13 @@ export interface RailPanel {
   render(): void;
 }
 
-export function bindRail(store: Store, onSelect: () => void, onEdit: () => void): RailPanel {
+export function bindRail(
+  store: Store,
+  onSelect: () => void,
+  onEdit: () => void,
+  /** A page of the rehearsal, asked for by its caption (`guide-scene-note.ts`). */
+  onPage?: (page: number) => void,
+): RailPanel {
   const list = document.getElementById("waveList");
   const name = document.getElementById("fName") as HTMLInputElement | null;
   const sentence = document.getElementById("fSentence") as HTMLTextAreaElement | null;
@@ -57,7 +63,7 @@ export function bindRail(store: Store, onSelect: () => void, onEdit: () => void)
   // prose is its name, why it exists, and what the pair has to be told before
   // it starts. See `guide-fields.ts` for why the three fields are built rather
   // than declared in `index.html`.
-  const guideFields = bindGuideFields(document.getElementById("guideFields"));
+  const guideFields = bindGuideFields(document.getElementById("guideFields"), onPage);
   // Under the control set, for the reason it is under it in the markup: the
   // panel says what buttons the pair has and this says which of them answer.
   const faultFields = bindFaultFields(document.getElementById("faultFields"));

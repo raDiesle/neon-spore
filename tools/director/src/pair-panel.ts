@@ -45,13 +45,29 @@ import type { SimConfig } from "@neon-spore/sim";
  * through the one that is up right now and puts it away. Merging them would
  * mean turning briefings on had no way to get the first card off the stage.
  */
-export function bindPairPanel(cfg: SimConfig, onChange: () => void): void {
+export interface PairPanel {
+  /**
+   * Briefings on, if they were off — what a click on a rehearsal's page asks
+   * for first, since a stage with them off has no guide to open a page of
+   * (`guide-scene-note.ts`, `stage-panel.ts` `openPage`). The button follows,
+   * the same as a press on it would.
+   */
+  briefingsOn(): void;
+}
+
+export function bindPairPanel(cfg: SimConfig, onChange: () => void): PairPanel {
   const briefButton = document.getElementById("briefToggle");
 
-  briefButton?.classList.toggle("on", cfg.briefings);
-  briefButton?.addEventListener("click", () => {
-    cfg.briefings = !cfg.briefings;
-    briefButton.classList.toggle("on", cfg.briefings);
+  const set = (on: boolean): void => {
+    cfg.briefings = on;
+    briefButton?.classList.toggle("on", on);
     onChange();
-  });
+  };
+  briefButton?.classList.toggle("on", cfg.briefings);
+  briefButton?.addEventListener("click", () => set(!cfg.briefings));
+  return {
+    briefingsOn(): void {
+      if (!cfg.briefings) set(true);
+    },
+  };
 }

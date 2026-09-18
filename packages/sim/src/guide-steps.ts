@@ -77,8 +77,19 @@ export function guideStepHeard(world: World, player: 1 | 2, back: boolean): void
 
 /** This seat straight to the gate — what a caller with no thumbs asks for. */
 export function toReadyPage(world: World, player: 1 | 2): void {
+  toGuidePage(world, player, world.brief.steps);
+}
+
+/**
+ * This seat straight to any page, clamped to the gate — the director's, when
+ * a click on a page's caption asks the stage for that page rather than for
+ * the presses that would reach it (`tools/director/src/guide-scene-note.ts`).
+ * No thumb has this route: a thumb turns one page at a time, and the wire
+ * carries only `guideStep`.
+ */
+export function toGuidePage(world: World, player: 1 | 2, page: number): void {
   if (!guideStepped(world)) return;
-  setPage(world, player, world.brief.steps);
+  setPage(world, player, Math.max(0, Math.min(world.brief.steps, page)));
 }
 
 function setPage(world: World, player: 1 | 2, page: number): void {

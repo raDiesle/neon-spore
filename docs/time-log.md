@@ -10724,3 +10724,22 @@ a trace that looked at locks and act counts before it looked at what else was
 in the column.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — director-boss-wave-nav — a rehearsal's page, opened by its caption
+
+The owner asked for a boss wave's sequence steps in the director to be
+clickable, each opening the stage on that state. The steps are the
+rehearsal's pages (`guide-scene-note.ts`), the page is world state
+(`sim/guide-steps.ts`), so one sim function, one button per caption and one
+stage verb did it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the scene note, the page cursors, how the renderer picks the page off the world and the seat off the step |
+| writing | 5 | `toGuidePage`, the buttons, `openPage`, `briefingsOn`, the wiring, two tests |
+| looking | 5 | the director on this tree: the page opened; the list number sat on the caption's second line, because a button cannot be `inline` |
+| friction | 0 | — |
+| landing | 5 | `check:fast`, the commit, `bun run land --keep` |
+
+The bottleneck was the button's display: an `all: unset` button is an
+inline-block, which a wrapped caption's list number lines up under.

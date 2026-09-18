@@ -15,6 +15,7 @@ import {
   seatReady,
   startWave,
   step,
+  toGuidePage,
   type World,
 } from "../src/index.js";
 
@@ -159,6 +160,25 @@ describe("a guide with pages", () => {
     ackBriefing(world, 1);
     expect(guidePage(world, 1)).toBe(4);
     expect(seatReady(world, 1)).toBe(true);
+  });
+
+  it("puts a caller with no thumbs on any page, and no further than the gate", () => {
+    // The director's route, when a click on a caption asks for that page: the
+    // cursor lands there, the circle it may have been filling empties, and a
+    // page past the gate is the gate.
+    const world = open(4);
+    toGuidePage(world, 2, 2);
+    expect(guidePage(world, 2)).toBe(2);
+    toGate(world, 2);
+    hold(world, 2, 5);
+    expect(readyFill(world, 2)).toBeGreaterThan(0);
+    toGuidePage(world, 2, 1);
+    expect(guidePage(world, 2)).toBe(1);
+    expect(readyFill(world, 2)).toBe(0);
+    toGuidePage(world, 2, 9);
+    expect(guidePage(world, 2)).toBe(4);
+    toGuidePage(world, 2, -3);
+    expect(guidePage(world, 2)).toBe(0);
   });
 
   it("puts both cursors back when the next wave opens", () => {

@@ -111,19 +111,24 @@ const boss: BossPanel = bindBossPanel(
   (round) => stage.openRound(round),
   () => stage.round(),
 );
-const rail = bindRail(store, refreshAll, onProse);
-// The slider and the picker, bound in terms of each other (`main-tempo.ts`).
-bindTempoControls(cfg, () => {
-  grid.render();
-  renderShip(cfg, currentWave(store));
-  renderShipSheet(cfg);
-  stage.rebuild();
-});
 // The pair's own switches plus the cannon's wind-up — see `pair-panel.ts`. Its
 // `render` was for DEMOS, which flipped `cfg` from outside this file; nothing
 // does that now that the room is gone, so the panel paints itself and nobody
 // has to ask it to.
-bindPairPanel(cfg, () => {
+const pair = bindPairPanel(cfg, () => {
+  renderShip(cfg, currentWave(store));
+  renderShipSheet(cfg);
+  stage.rebuild();
+});
+// A page of the rehearsal, clicked in the GUIDE panel: briefings on if they
+// were off, then the stage fresh on that page (`guide-scene-note.ts`).
+const rail = bindRail(store, refreshAll, onProse, (page) => {
+  pair.briefingsOn();
+  stage.openPage(page);
+});
+// The slider and the picker, bound in terms of each other (`main-tempo.ts`).
+bindTempoControls(cfg, () => {
+  grid.render();
   renderShip(cfg, currentWave(store));
   renderShipSheet(cfg);
   stage.rebuild();

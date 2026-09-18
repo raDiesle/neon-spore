@@ -74,7 +74,10 @@ export function setGrownValue(el: HTMLTextAreaElement, value: string): void {
  * in `index.html`: three labels and three textareas that always move together
  * are one thing, and the markup only has to say where it goes.
  */
-export function bindGuideFields(mount: HTMLElement | null): GuideFields {
+export function bindGuideFields(
+  mount: HTMLElement | null,
+  onPage?: (page: number) => void,
+): GuideFields {
   const fields = new Map<keyof WaveGuide, HTMLTextAreaElement>();
   const listeners: ((guide: WaveGuide | undefined) => void)[] = [];
   let addBtn: HTMLButtonElement | null = null;
@@ -127,7 +130,8 @@ export function bindGuideFields(mount: HTMLElement | null): GuideFields {
     // Above the fields and under the heading: what the pair meets comes before
     // what the act file stores, because on a wave with a rehearsal only the
     // first of those is true (`guide-scene-note.ts`).
-    sceneNote = bindSceneNote(mount);
+    // And each of its pages a button that opens the stage there.
+    sceneNote = bindSceneNote(mount, onPage);
 
     fieldsWrap = document.createElement("div");
     mount.appendChild(fieldsWrap);

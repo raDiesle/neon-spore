@@ -11,10 +11,17 @@ import { guideScene, type SceneId } from "@neon-spore/content";
  * case — three paragraphs written, and what opens is four pages of film.
  *
  * So this says it: the rehearsal's name, how many pages it is, and each page's
- * caption with the seat it is written to. Read-only on purpose. A picker over
- * the catalogue is the larger version of this and wants the owner's word on
- * whether a scene should be choosable at all; what a reader needs first is to
- * stop being told the wrong thing.
+ * caption with the seat it is written to. A picker over the catalogue is the
+ * larger version of this and wants the owner's word on whether a scene should
+ * be choosable at all; what a reader needs first is to stop being told the
+ * wrong thing.
+ *
+ * **Every page is a button, and pressing it opens the stage on that page.** The
+ * owner's ask of 18 September 2026: a boss's rehearsal is eight or nine pages,
+ * and reading the seventh used to mean `↺ WAVE`, briefings on, and six presses
+ * of NEXT on the field. `onPage` is handed the page's index and the stage does
+ * the rest (`stage.ts` `openPage`); without it the list is the read-only note
+ * it was.
  *
  * **The words are dimmed and not disabled.** They are unread by the game and
  * still required by `packages/content/test/waves.test.ts`, which holds that a
@@ -28,7 +35,10 @@ export interface SceneNote {
   render(scene: SceneId | undefined): void;
 }
 
-export function bindSceneNote(mount: HTMLElement | null): SceneNote {
+export function bindSceneNote(
+  mount: HTMLElement | null,
+  onPage?: (page: number) => void,
+): SceneNote {
   if (!mount) return { render: () => {} };
 
   const box = document.createElement("div");
@@ -66,9 +76,15 @@ export function bindSceneNote(mount: HTMLElement | null): SceneNote {
       const count = found.length;
       head.textContent = `REHEARSAL ${scene} — ${count} ${count === 1 ? "page" : "pages"} of film, played instead of the words below`;
       pages.replaceChildren(
-        ...found.map((step) => {
+        ...found.map((step, i) => {
           const li = document.createElement("li");
-          li.textContent = `P${step.seat} · ${step.text}`;
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "guide-page";
+          button.title = `Open the stage on page ${i + 1}`;
+          button.textContent = `P${step.seat} · ${step.text}`;
+          button.addEventListener("click", () => onPage?.(i));
+          li.appendChild(button);
           return li;
         }),
       );

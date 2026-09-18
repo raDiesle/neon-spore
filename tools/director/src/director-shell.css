@@ -267,6 +267,21 @@ label.field {
   color: var(--dim);
   line-height: 1.6;
 }
+/* Each page is a button that opens the stage on it: drawn as the line it was,
+   lit on hover so it reads as one. `block`, because a button cannot be
+   `inline` — the browser makes it an inline-block, and the list's number then
+   sits on the *last* line of a caption that wraps. */
+.guide-page {
+  all: unset;
+  display: block;
+  cursor: pointer;
+  color: inherit;
+}
+.guide-page:hover,
+.guide-page:focus-visible {
+  color: var(--ink);
+  text-decoration: underline;
+}
 .guide-unread {
   opacity: 0.45;
 }

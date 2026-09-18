@@ -16,6 +16,7 @@ export {
   guideStepHeard,
   guideStepped,
   onReadyPage,
+  toGuidePage,
   toReadyPage,
 } from "./guide-steps.js";
 export {

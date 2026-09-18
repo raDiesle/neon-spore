@@ -71,6 +71,18 @@ describe("the rehearsal note over the GUIDE fields", () => {
     expect(lines(mount).slice(1)).toEqual(steps.map((s) => `P${s.seat} · ${s.text}`));
   });
 
+  test("opens the stage on a page when its caption is pressed", () => {
+    const mount = mounted();
+    const asked: number[] = [];
+    const note = bindSceneNote(mount as unknown as HTMLElement, (page) => asked.push(page));
+    note.render(SCENED?.guide?.scene);
+    const buttons = mount.descendants().filter((el) => el.tagName === "BUTTON");
+    expect(buttons.length).toBe(guideScene(SCENED?.guide?.scene as never).steps.length);
+    buttons[2]?.click();
+    buttons[0]?.click();
+    expect(asked).toEqual([2, 0]);
+  });
+
   test("shows nothing at all for a wave that rehearses nothing", () => {
     const mount = mounted();
     const note = bindSceneNote(mount as unknown as HTMLElement);

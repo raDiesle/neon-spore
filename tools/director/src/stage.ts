@@ -6,6 +6,7 @@ import {
   type SimEvent,
   step,
   ticksPerBeat,
+  toGuidePage,
   type World,
 } from "@neon-spore/sim";
 import { bindKeyHelp } from "./key-help.js";
@@ -204,6 +205,14 @@ export function bindStage(
     wantedRound = 0;
   };
 
+  // A fresh run held on one page of its guide, both seats on it (`stage-panel.ts`).
+  const openPage = (page: number): void => {
+    rebuild();
+    toGuidePage(world, 1, page);
+    toGuidePage(world, 2, page);
+    play();
+  };
+
   const seek = (beat: number): void => {
     rebuild();
     const ticks = beat * ticksPerBeat(cfg);
@@ -229,6 +238,7 @@ export function bindStage(
     play,
     openRound,
     closeRound,
+    openPage,
     round: () => wantedRound,
     beat: () => lastBeat,
     world: () => world,
