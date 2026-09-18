@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · fb3c2384 — BULB QUEEN's pry and hold get their picture: the look half of §6.2
+
+Player 1's thumb on her marks is now something to see and something to touch. Under BROOD and SCREAM both marks wear a faint breathing ring on his screen — never on player 2's, who is shown the real one bare and has no thumb to answer with. A pried mark throws its ring off in her rock colour, on every screen; a held mark fills its ring and wears a dial that empties over queenHoldBeats; a flinch is a burst at the wrong mark and a shudder of the hull. The hit test sends queenMark with the mark's id from handleUnder(), player 1's seat only, so the drag target the simulation half landed is now reachable from the field. A look with no shipped alternative.
+
 ## 2026-09-18 · 56729f18 — THE STARE's lid covers the eye it says it covers
 
 The first frame showed the flap clipped to the socket's inner rim and its brow a quarter of a socket above the middle — inside the film and under the lashes, so a half-pulled lid was a grey patch behind the pupil and the ring sat on the iris. The brow is now above the lashes' tips, the flap is clipped to the film's own almond, and the edge travels the eye's whole height on the thumb's share of the pull rather than the thumb's own pixels, so a lid the simulation calls shut looks shut. A fix to something wrong rather than unlovely, in the look that landed an hour ago.
