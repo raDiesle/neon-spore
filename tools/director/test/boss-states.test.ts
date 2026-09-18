@@ -27,9 +27,6 @@ import { BOSS_GROUPS, BOSS_POSES, statesOwed } from "../src/poses-bosses.js";
  */
 
 const OWED: Partial<Record<BossKind, readonly string[]>> = {
-  // The rounds' played states: a verdict needs the pair to answer.
-  maze: ["travel"],
-  gauge: ["verdict", "spent"],
   // THE HIVE's down: a breach that has spilled once cannot be sealed, so
   // the hand cannot bring it on (`docs/queue.md`, the HIVE item).
   hive: ["down"],

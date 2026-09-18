@@ -10986,3 +10986,24 @@ a line was written; the writing itself was one pass and every pose built
 first time.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — the rounds' played states
+
+The parked half of the BOSSES category: THE MAZE's `travel` and THE GAUGE's
+`verdict` and `spent`, three cards with a hand on the round's own controls
+(`boss-hands-rounds.ts` — the string pulled until a way in clicks, the valve
+turned toward the mark and the call), and `OWED` down to THE HIVE's `down`.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the two rounds' test rigs (`maze-fixture.ts`'s `clickOnto`, `gauge.test.ts`'s `talking`) and the string's detent (`maze-controls.ts`) |
+| writing | 5 | two hands, three poses, `OWED` shrunk |
+| looking | 5 | THE GAUGE's group through `bun run shot`, the three built through a scratch probe first |
+| friction | 0 | every pose built first time |
+| landing | 5 | `check:fast`, the index, the commit, `bun run land --keep` |
+
+The bottleneck was the string: a thumb pressed every tick breaks the click
+it just made (`breakDetent`), so the hand had to be read as press once per
+click and wait, which is how the fixture plays it too.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

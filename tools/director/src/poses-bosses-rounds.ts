@@ -1,4 +1,6 @@
-import type { Pose } from "./pose-kit.js";
+import { gaugeRound } from "@neon-spore/sim";
+import { gaugeHand, mazeHand } from "./boss-hands-rounds.js";
+import { type Pose, POSE_TPB as TPB } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
 /**
@@ -10,10 +12,10 @@ import { bossPose } from "./poses-bosses-kit.js";
  * stopped being the field can be read, the play, a verdict, and `spent`, the
  * picture held until the next wave. Most of those arrive with nobody
  * pressing anything — a round nobody plays is lost, and a lost round still
- * shows its verdict — so the poses here send no commands and the frame is
+ * shows its verdict — so most poses here send no commands and the frame is
  * what the pair sees when they freeze. The states a round only reaches when
- * it is *played* — THE MAZE's `travel`, THE GAUGE's `verdict` — are owed and
- * named in each group's note until a pose sends the presses that earn them.
+ * it is *played* — THE MAZE's `travel`, THE GAUGE's `verdict` and `spent` —
+ * are posed with a hand on the round's controls (`boss-hands-rounds.ts`).
  */
 
 const FULL = { crop: "full" as const };
@@ -60,6 +62,12 @@ export const ROUND_BOSS_POSES: Pose[] = [
   ),
   bossPose(
     "maze",
+    "travel",
+    "P1: pull the string until the way in clicks onto a column. P2: fire up that column in the heart's colour. The shot walks the route.",
+    { ...FULL, hand: mazeHand, hold: TPB * 2 },
+  ),
+  bossPose(
+    "maze",
     "verdict",
     "The verdict stands. No shot went down here, so it is the wheel timed out — the round lost with nothing travelled, which the ship pays for when it settles.",
     { ...FULL, hold: 6 },
@@ -75,6 +83,23 @@ export const ROUND_BOSS_POSES: Pose[] = [
     "play",
     "The needle drifting and the valve open to be worked: one seat reads the mark the needle must be held to, the other holds it there, and the call is what passes between them.",
     { ...FULL, hold: 24 },
+  ),
+  bossPose(
+    "gauge",
+    "verdict",
+    "P1: turn the valve toward the mark P2 calls out. P2: call when the needle sits between the marks. Five calls landed: passed.",
+    {
+      ...FULL,
+      hand: gaugeHand,
+      want: (w) => gaugeRound(w)?.phase === "verdict" && gaugeRound(w)?.passed === true,
+      hold: 6,
+    },
+  ),
+  bossPose(
+    "gauge",
+    "spent",
+    "Nothing to do. The passed round holds its picture until the next wave.",
+    { ...FULL, hand: gaugeHand, hold: 6 },
   ),
   bossPose(
     "snake",

@@ -56,15 +56,3 @@ count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
 
-## The BOSSES category owes the rounds' played states
-
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-18, claude/queue-the-bosses-category-owes-the-rounds-played-state
-- **Files:** `tools/director/src/poses-bosses-rounds.ts`, `tools/director/test/boss-states.test.ts`
-
-The other half of the same allowance, the rounds: THE MAZE's `travel` (the
-route drawn and the pair moving along it) and THE GAUGE's `verdict` and
-`spent` (a needle answered), which never arrive unattended — the round waits
-for the pair. Same shape as the entry above: one `bossPose` each with the
-round's commands (`sim/test/maze-round.test.ts` and `gauge.test.ts` send them), struck
-from `OWED` in the same commit.
