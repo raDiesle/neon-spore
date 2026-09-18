@@ -441,6 +441,19 @@ pose is played by a hand that answers every round and then pins
 (`tools/director/src/boss-hands-rounds.ts`), and the row is in
 `docs/spec/controls.md`.
 
+**The look of the copy itself** (`render/src/mirror-chamber.ts`, 18
+September 2026, the §6.3 brief). It was a hull and an empty sky, and the
+pair's own ship is never that: under its membrane is the chamber the band
+draws — tissue, the light falling through into it, the ribs running on
+down, the fluid and the slime hanging off it. The copy has the same now,
+the band's own passes with the controls left out, in blood matched to
+player one's violet by value the way player two's amber is
+(`MIRROR_SEAT`), under the same flip as the hull. It runs to the top edge
+of the screen the way the pair's runs off the bottom. The slime hangs
+*up*, because a reflection of a thing that drips is a thing that drips the
+other way, and that is the claim this boss makes; nothing in it is a new
+shape.
+
 *Never watched at tempo*: the two gestures on a phone, on either seat.
 
 **Where it lives.** The rounds are authored in the director and carried by the

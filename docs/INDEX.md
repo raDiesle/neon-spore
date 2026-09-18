@@ -744,6 +744,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/mirror.ts` | the same ship, flipped and in the wrong colours — THE MIRROR |
 | `packages/render/src/mirror-grip-fx.ts` | The pin landing and the pin lost: a ring thrown off both of THE MIRROR's lobes, cleared with `MirrorFx` |
 | `packages/render/src/mirror-grip.ts` | THE MIRROR's two lobes as a control: the pair's grab circles upside down, rings per seat, the pin and its count |
+| `packages/render/src/mirror-chamber.ts` | THE MIRROR'S INSIDES — the chamber under its hull, the way the pair's own ship has one under theirs |
 | `packages/render/src/mine-tap.ts` | **A finger on a bare square of the field**, from the seat that cannot see what is standing on it |
 | `packages/render/src/mine.ts` | THE MINE, drawn: the body on one seat, the **count** on both |
 | `packages/render/src/simon-fx.ts` | the count-in, the handover, and what the row is showing |

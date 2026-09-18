@@ -9018,3 +9018,18 @@ most of the lane was spent looking for a state in the round where a word would
 not be either the lane or the moment, and there is not one.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — THE MIRROR's picture looks like something real
+
+The copy was a hull over an empty sky; it has the ship's chamber under it now.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `band.ts`'s chamber order, `seam-line.ts`, what each pass reads off a layout |
+| writing | 15 | `mirror-chamber.ts`, the blood seat skin, the chamber's depth in `mirror.ts` |
+| looking | 5 | one frame of the pin on player 1's screen |
+| friction | 5 | a typed index into a readonly tuple in the test |
+| landing | 10 | `check:fast`, the spec paragraph, the commit, the land |
+
+The bottleneck was reading: five passes each read a different set of layout
+fields, and the flipped layout had to satisfy every one of them.

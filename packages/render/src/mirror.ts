@@ -1,6 +1,7 @@
 import type { MirrorState, SimConfig } from "@neon-spore/sim";
 import { drawHull, type HullMood, type LobePositions, MIRROR_SKIN } from "./hull.js";
 import type { Layout } from "./layout.js";
+import { drawMirrorChamber } from "./mirror-chamber.js";
 import type { ShieldSegment } from "./shield.js";
 
 /**
@@ -10,8 +11,9 @@ import type { ShieldSegment } from "./shield.js";
  * It is drawn by `drawHull` — the same function, the same contour, the same
  * lobes, the same craters and cracks — under a vertical flip, because "an
  * exact copy of your ship" is a claim a second drawing of a similar shape
- * cannot make and a mirrored transform cannot fail to make. All this file
- * decides is where the flip goes and which skin the copy wears.
+ * cannot make and a mirrored transform cannot fail to make. Its chamber is the
+ * band's, under the same flip (`mirror-chamber.ts`). All this file decides is
+ * where the flip goes and which skin the copy wears.
  */
 
 /**
@@ -36,16 +38,31 @@ export function mirrorHullY(l: Layout, cfg: SimConfig): number {
  * own band sits one tile below its hull. Everything horizontal — the columns,
  * the tile, where the field starts — is shared, so a lobe over column 4 is
  * over column 4 on both ships.
+ *
+ * The band is as deep as the screen has room for above the mirror: its
+ * bottom, flipped, is the top edge of the screen, so the chamber runs off the
+ * frame the way the pair's own runs off the bottom of theirs, and no sky
+ * shows between the copy's insides and the edge (`mirror-chamber.ts`). The
+ * membrane's swing is a share of this depth (`seam-line.ts`), so the copy's
+ * belly is as deep as the depth allows, not the ship's to the pixel.
  */
-function mirrorLayout(l: Layout): Layout {
+function mirrorLayout(l: Layout, cfg: SimConfig): Layout {
+  const hullY = l.tile * LOCAL_HULL_TILES;
+  const bandTop = l.tile * (LOCAL_HULL_TILES + 1);
   return {
     ...l,
     gridTop: 0,
-    hullY: l.tile * LOCAL_HULL_TILES,
-    bandTop: l.tile * (LOCAL_HULL_TILES + 1),
-    playHeight: l.tile * (LOCAL_HULL_TILES + 1),
+    hullY,
+    bandTop,
+    bandHeight: mirrorChamberDepth(l, cfg),
+    playHeight: bandTop,
     height: l.tile * LOCAL_FRAME_TILES,
   };
+}
+
+/** How deep the mirror's chamber is: from a tile under its hull to the top of the screen. */
+export function mirrorChamberDepth(l: Layout, cfg: SimConfig): number {
+  return Math.max(l.tile, mirrorHullY(l, cfg) - l.tile);
 }
 
 /**
@@ -78,7 +95,7 @@ export function drawMirror(
   time: number,
   mood: HullMood,
 ): void {
-  const lm = mirrorLayout(l);
+  const lm = mirrorLayout(l, cfg);
   const at: LobePositions = { cannon: m.cannonCol, shield: stillShield(shieldCol) };
 
   // Flip about the line that sends the local hull surface to the screen row
@@ -100,5 +117,7 @@ export function drawMirror(
     // ship's; the boss still has points (`hash-boss.ts`), the ship has none.
     { ...MIRROR_SKIN, rimAlpha: Math.max(0.25, m.hullMilli / 100_000) },
   );
+  // Over the hull's belly and inside the same flip: the inside of the copy.
+  drawMirrorChamber(ctx, lm, time);
   ctx.restore();
 }

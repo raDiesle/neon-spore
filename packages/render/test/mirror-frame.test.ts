@@ -1,13 +1,17 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import { createWorld, startWave, step, ticksPerBeat } from "@neon-spore/sim";
-import type { ViewRole } from "../src/layout.js";
+import { computeLayout, type ViewRole } from "../src/layout.js";
+import { mirrorChamberDepth, mirrorHullY } from "../src/mirror.js";
+import { drawMirrorChamber, MIRROR_SEAT } from "../src/mirror-chamber.js";
+import { P1_SKIN } from "../src/seat-skin.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
   runFrames,
+  stubCanvas,
   thirdOf,
   waveWith,
 } from "./frame-harness.js";
@@ -66,4 +70,36 @@ describe("the mirror", () => {
       expect(boss?.kind === "mirror" && boss.verdict !== 0).toBe(true);
     });
   }
+});
+
+describe("the mirror's chamber", () => {
+  // The pair's own ship is a hull with tissue under it; the copy has the same
+  // (`mirror-chamber.ts`), and it runs to the top edge of the screen the way
+  // the pair's runs off the bottom.
+  const l = computeLayout({ width: 390, height: 844, dpr: 2 }, CFG, "p1");
+
+  it("is drawn, and its ground is a baked sheet like the band's", () => {
+    const { ctx } = stubCanvas();
+    drawMirrorChamber(ctx as unknown as CanvasRenderingContext2D, l, 1.5);
+    expect(ctx.calls).toBeGreaterThan(20);
+    expect(ctx.tally.get("drawImage") ?? 0).toBeGreaterThan(0);
+  });
+
+  it("reaches the top edge of the screen under the flip", () => {
+    // Local `bandTop` is one tile under the hull; flipped, a tile above it on
+    // screen; the chamber's depth is what is left up to y = 0.
+    const flippedBottom = mirrorHullY(l, CFG) - l.tile - mirrorChamberDepth(l, CFG);
+    expect(flippedBottom).toBeCloseTo(0, 6);
+  });
+
+  it("is the ship's chamber in blood: every stop matched to player one's by value", () => {
+    const lum = (hex: string) => {
+      const n = Number.parseInt(hex.slice(1), 16);
+      return 0.2126 * (n >> 16) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255);
+    };
+    for (const [i, own] of P1_SKIN.flesh.entries()) {
+      expect(Math.abs(lum(MIRROR_SEAT.flesh[i] ?? "#000000") - lum(own))).toBeLessThan(6);
+    }
+    expect(MIRROR_SEAT.ground[0]).toBe(MIRROR_SEAT.hull.body[3]);
+  });
 });
