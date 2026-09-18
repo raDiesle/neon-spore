@@ -56,41 +56,6 @@ count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
 
-## The BOSSES category owes the field and clock states a hand brings on
-
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-18, claude/queue-the-bosses-category-owes-the-field-and-clock-sta
-- **Files:** `tools/director/src/poses-bosses-kit.ts`, `tools/director/src/boss-hands-field.ts`, `tools/director/src/boss-hands-clocks.ts`, `tools/director/test/boss-states.test.ts`
-
-The STATES sheet's BOSSES category (the owner, 18 September 2026: every
-boss's states, documented, kept in step with the bosses) landed with every
-state that arrives on its own, then the states a shot or a beat earns on THE
-WARDEN, THE VANE, THE ORRERY, THE CANDLE, THE DIASTOLE, THE BATON and THE
-THROAT, then — this entry's second part — the field and clock bosses' with a
-cannon, a thumb and one grip: THE FLEET, THE GORGE, THE CURTAIN, THE
-SCUTTLE, THE HIVE's spill, THE TASTER, THE LEDGER and THE LEAD, each a
-`Hand` — a function of the world called every tick, its presses sent on that
-tick (`poses-bosses-kit.ts` `runHand`) — in `boss-hands-field.ts` and
-`boss-hands-clocks.ts`, posed in `poses-bosses-hands-field.ts` and
-`poses-bosses-hands-clocks.ts`. What is left, and `OWED` in
-`test/boss-states.test.ts` is the exact list: the drag and hold bosses —
-cairn leaving and settled, splice passed and verdict, reprise echoing and
-held, undertow taken, sinew held/swinging/falling/out, surge
-band/sealing/everting/out, antiphon still and down, instar land and down —
-and THE HIVE's `down`, which no hand can bring on until the queue's HIVE
-item is answered (a breach that has spilled once cannot be sealed). Each of
-the rest is one `bossPose(kind, state, note, { hand, want, budgetBeats })` in
-a new `poses-bosses-hands-*.ts`, its hand in a new `boss-hands-*.ts` — the
-drags and holds the boss's own `sim/test/<boss>.test.ts` sends are the
-script to read — and the state struck from `OWED` in the same commit; the
-test refuses an allowance a pose already spends. What the hands so far
-learned: a hand is called with the world *before* the step, so a press
-answering a beat's move goes the tick after the beat, once the cannon has
-stepped (`leadHand`); a step of the cannon spills a fill, so the cannon goes
-to its column before the thumb goes down; a state the straight fight ends
-before it shows is posed by a hand that plays it late or leaves something
-alone (`leadHandLate`, `curtainHandWith(false)`).
-
 ## The BOSSES category owes the rounds' played states
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80

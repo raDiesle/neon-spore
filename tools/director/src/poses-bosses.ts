@@ -7,7 +7,9 @@ import { FIRST_BOSS_POSES } from "./poses-bosses-first.js";
 import { BEAT_HAND_POSES } from "./poses-bosses-hands-beats.js";
 import { CLOCK_HAND_POSES } from "./poses-bosses-hands-clocks.js";
 import { FIELD_HAND_POSES } from "./poses-bosses-hands-field.js";
+import { HANDLE_HAND_POSES } from "./poses-bosses-hands-handles.js";
 import { SHOT_HAND_POSES } from "./poses-bosses-hands-shots.js";
+import { TAKE_HAND_POSES } from "./poses-bosses-hands-takes.js";
 import { QUEEN_POSES } from "./poses-bosses-queen.js";
 import { ROUND_BOSS_POSES } from "./poses-bosses-rounds.js";
 
@@ -22,10 +24,11 @@ import { ROUND_BOSS_POSES } from "./poses-bosses-rounds.js";
  * rounds' (a whole screen the field has stopped being), the clock bosses'
  * (a body over the field with a beat count), and the states a hand on the
  * controls earns — by shot, by beat, on the field's bosses and on the
- * clocks' (`poses-bosses-hands-*.ts`). A boss is a group here whether or not a pose has been written for it yet: a group with no cards and a
- * note saying which states are owed is the honest picture of where the
- * documentation stands, and `test/boss-states.test.ts` is what shrinks the
- * list of owed states to nothing.
+ * clocks', by a taking and by a handle (`poses-bosses-hands-*.ts`). A boss
+ * is a group here whether or not a pose has been written for it yet: a group
+ * with no cards and a note saying which states are owed is the honest
+ * picture of where the documentation stands, and `test/boss-states.test.ts`
+ * is what shrinks the list of owed states to nothing.
  *
  * The group's note is the boss's one-sentence mechanic, the same sentence
  * the bestiary and the wave editor give it (`content/mechanics-table.ts`).
@@ -39,6 +42,8 @@ export const BOSS_POSES: Pose[] = [
   ...BEAT_HAND_POSES,
   ...FIELD_HAND_POSES,
   ...CLOCK_HAND_POSES,
+  ...TAKE_HAND_POSES,
+  ...HANDLE_HAND_POSES,
 ];
 
 /** The states of this boss no pose carries yet — what the category still owes. */

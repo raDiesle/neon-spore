@@ -10917,3 +10917,29 @@ from the shot, and the first draft lost the real pod to a maw that shut too
 soon.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — the BOSSES category's taken and handled states
+
+**B2b**, the second landing the last entry named: the drag and hold bosses'
+states — THE CAIRN, THE SPLICE, THE REPRISE, THE UNDERTOW, THE ANTIPHON,
+THE SINEW, THE SURGE, THE INSTAR — nineteen cards, and `OWED` down to THE
+HIVE's `down`. Seven hands in two files by what the hand takes hold of:
+a thing taken off the boss (`boss-hands-takes.ts`) and a handle held
+(`boss-hands-handles.ts`).
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | eight bosses' state, step and hand files for the press each judges: the carry, the intake, the hold under the last lobe, the organ's colour, the two pulls' sum, the mutual lift, five gestures on a mark |
+| writing | 15 | the seven hands, the nineteen poses, the OWED strike, the parked entry's removal |
+| looking | 5 | THE SINEW's group through `bun run shot`, all nineteen built through a scratch probe first |
+| friction | 5 | THE SINEW's slack pushing the pulls past the hands' reach on the decayed fibres, answered by both hands off and on again; `TURN` reached as `BEARING_TURN` |
+| landing | 5 | `check:fast`, the index, the commit, `bun run land --keep` |
+
+The bottleneck was the reading: seven bosses' hands are seven different
+verbs, and each hand's tick-by-tick shape — a tap that must lift between
+presses, a lift both thumbs make on one tick, a hold pressed every tick to
+keep the maw open — had to be read out of the boss's own `*-hand.ts` before
+a line was written; the writing itself was one pass and every pose built
+first time.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
