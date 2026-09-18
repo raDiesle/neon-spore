@@ -651,6 +651,7 @@ two rules have to be reconciled rather than one of them deleted.
 ## Three bosses are listed as having no look, and they have one
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-three-bosses-are-listed-as-having-no-look-and-th
 - **Files:** `packages/content/test/scenes-prose.test.ts`,
   `packages/render/src/orrery-draw.ts`, `packages/render/src/hive-draw.ts`,
   `packages/render/src/instar-draw.ts`
