@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 8893e4b3 — THE LEAD's, THE SCUTTLE's, THE ANTIPHON's, THE ORRERY's and THE SCOUT's pages point at the boss, not the hull
+
+Half 2 of 2 of the queue's "A caption has no anchor for a boss's own gauge": twenty-seven pages in five films that stood on the hull because nothing named the boss now stand on what they are about. `BossPart` grows `live` (THE SCUTTLE's hanging part), `organ` and `rail` (THE ANTIPHON's), `ring` and `core` (THE ORRERY's) and `hazard` (THE SCOUT's), each answered in `render/caption-anchor-boss-b.ts` off the boss's own shape file — the stalk from its foot on this screen, the frame of sockets, the body, the orbits round the core, the little ship or the mouth that still holds it — and null for a part this screen does not draw: the live part on the pilot's, the organ on the navigator's, the rail on the pilot's, the hazards on the pilot's. `test/boss-anchor-b.test.ts` proves each.
+
 ## 2026-09-18 · cacc4985 — `versus drop` reads the slot off its directories and imports no candidate
 
 `drop` loaded the registry — and so every candidate module in the tree — before it removed any of them, which made it unrunnable at the one moment the tool itself prescribes it: the by-hand sequence `adopt` prints when it refuses a function moves the paint into the package and deletes what nothing reads, and that tree cannot be imported. `lost:screen` / `shut` was closed on 17 September with the shipped file restored for the length of the command.
