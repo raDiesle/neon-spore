@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 8236dda2 — THE GAUGE jams and binds: two more states, the simulation half
+
+A miss sticks the valve and the needle becomes the pilot's own hand on it, read as a bearing round the dial; every other mark winds the band tight and the navigator's thumb holds it open, at the price of the call she cannot make while it is down. Both states are entered by the pair's own last answer, so the round is never in one the two of them did not just put it in.
+
 ## 2026-09-18 · 2c3b9ca4 — Mark "THE MAZE changes state more than once, and asks for more than one gesture" done
 
 ## 2026-09-18 · 27ce0e4d — THE MAZE's heart under the navigator's thumb: the look half
