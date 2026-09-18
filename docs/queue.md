@@ -433,6 +433,7 @@ the one allowance left in `tools/director/test/boss-states.test.ts`'s
 ## THE MAZE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-maze-changes-state-more-than-once-and-asks-f
 - **Files:** `packages/sim/src/maze-clock.ts`, `packages/sim/src/maze-controls.ts`, `packages/sim/src/maze-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 
 It is answered today on the ordinary panel, over 9 files of simulation. Give it
