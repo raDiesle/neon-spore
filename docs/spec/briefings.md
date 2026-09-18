@@ -583,6 +583,9 @@ hand still draws.
 | THE UNDERTOW | `PLAYER 2 MOVES THE PLATE OFF` | `THE COLUMN IS HIS TO REACH` | `CARRY` / `MOVE` on the plate standing where the maw is coming |
 | THE BATON | `PLAYER 1 PULLS THE TRIGGER` | `PLAYER 1 GREYS FOR A BEAT` | `PRESS` / `LAUNCH` on the bead in its socket |
 | THE LEDGER | `GUARD AS IT LANDS` | — the page is gone | `PRESS` / `GUARD` on the bead riding down the cord |
+| THE STARE | `WATCHED · TOUCH NOTHING` | — the page is gone | `STILL` at the foot of the gaze, on the watched seat, once the look lands |
+| THE STARE | `WATCHED NEXT · HANDS OFF` | `NO WARNING HERE · ONLY THERE` | the same, two beats on — the tell has no cue, by design |
+| THE STARE | `A BODY · STILL NOTHING` | — the page is gone | the same |
 
 **Four other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
@@ -599,6 +602,15 @@ and its film (18 September 2026) is the same — `NAKED · HOLD RED · THE BEAM`
 names the colour. THE LEAD's, THE SCUTTLE's and THE ANTIPHON's films came on
 17 and 18 September 2026 with no page that is the cue's verb alone: their
 holds name the column or the colour.
+
+THE STARE's cue came on 18 September 2026 and is the one the four kinds did
+not cover: `STILL`, the non-gesture the fight charges for (`decisions.md`
+#34, *a fifth kind*). Three of its twelve pages were the verb alone. Two came
+out whole — each next to a page of its own seat, so the hand still draws — and
+the one in the second tell, between two of the pilot's, was rewritten to the
+fact the cue is forbidden from saying: that the warning is on the other
+screen alone. The guide halves lost *hands off* the same day, for *a touch
+breaks the hull* and *your screen is not told*.
 
 #### The ghost thumb is derived, never authored
 

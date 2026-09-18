@@ -11265,3 +11265,23 @@ could be shown to be right, and a sampler slower than the thing it samples
 reports numbers that look exactly like a bug.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-implementation — THE STARE says STILL, and the briefing comes down
+
+The queue item from the owner's recommendations: the fifth kind of cue —
+`STILL`, the non-gesture the eye charges for — on the watched seat at the
+foot of the gaze once the look lands and nowhere during the tell; two verb
+pages out of the film, one rewritten, the guide halves trimmed to what the
+field cannot say.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `boss-cue.ts` and its three reading pages, decision #34, the tutorial skill's rule, `stare-draw.ts` for the gaze's foot |
+| writing | 10 | `boss-cue-read-d.ts`, the gaze foot exported from `stare-shape.ts`, the cue test, the film and guide edits |
+| looking | 5 | the pilot's frame with the eye on him through `--boss-json` |
+| friction | 5 | the guard refusing a heredoc with an escaped newline in it — a script file instead |
+| landing | 10 | the four docs, `check:fast`, the commit, the land |
+
+The bottleneck was deciding what the fifth word is not: not `HOLD`, because a
+player told to hold holds the trigger, and not said during the tell, because
+who is the answer.

@@ -9,6 +9,7 @@ import {
   scuttleCues,
   throatCues,
 } from "./boss-cue-read-c.js";
+import { stareCues } from "./boss-cue-read-d.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";
@@ -55,12 +56,19 @@ import { showsCannon, showsShield } from "./view-role.js";
  * What kind of action it is, over the frame: #34's own list, and the only
  * words that may stand on that line.
  *
- * Four, because four is what the gestures this game has reduce to — a press of
- * a button on the band, a hold of one, a thumb carried across the field, a
- * turn of the crank — and a fifth would be a gesture nothing in
- * `DragTarget` or `Hold["kind"]` answers, which is a wish (`.claude/skills/new-boss`).
+ * Four are what the gestures this game has reduce to — a press of a button on
+ * the band, a hold of one, a thumb carried across the field, a turn of the
+ * crank — and a fifth would be a gesture nothing in `DragTarget` or
+ * `Hold["kind"]` answers, which is a wish (`.claude/skills/new-boss`). The
+ * fifth here is the one the simulation *does* answer without a member: **no
+ * gesture at all**. THE STARE refuses and charges for a watched press
+ * (`sim/stare-step.ts`), which makes a thumb kept off the glass a thing the
+ * fight asks for and a thing it can tell was done — the `RestraintGate` of
+ * `bosses-choreographed.md`'s library, shipped as a boss. It is its own word
+ * rather than `HOLD` over `STILL` because a player told to hold would hold
+ * the trigger, which is the one press the eye is waiting for.
  */
-export type CueKind = "PRESS" | "HOLD" | "CARRY" | "TURN";
+export type CueKind = "PRESS" | "HOLD" | "CARRY" | "TURN" | "STILL";
 
 /** One thing to do, where it is wanted. */
 export interface BossCue {
@@ -135,6 +143,8 @@ function cuesOf(l: Layout, world: World, beatPhase: number, skinY: SurfaceY): re
       return orreryCues(l, world, boss);
     case "queen":
       return queenCues(l, world, boss, beatPhase);
+    case "stare":
+      return stareCues(l, world, boss);
     default:
       return NONE;
   }

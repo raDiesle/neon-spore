@@ -1135,6 +1135,14 @@ the verb. What stays in a briefing is what the fight cannot say: which half of
 the picture is on which phone, what a mistake costs, and the sentence the pair
 has to say to each other.
 
+**A fifth kind, 18 September 2026.** THE STARE's ask is that the watched seat
+touch nothing, and the simulation refuses and charges the press that ignores
+it (`sim/stare-step.ts`) — so *no gesture* is a thing the fight can tell was
+done, and `STILL` joined the four (`render/src/boss-cue.ts`, `CueKind`). It
+is its own word rather than `HOLD`, because a player told to hold would hold
+the trigger. It is said only once the look has landed, never during the tell:
+*who* the eye chose is the answer, and the field never says one.
+
 **Reconsider if:** a cue starts carrying a column, a colour or a count. That is
 the pair's own sentence, and a field that says it has taken the game's subject
 away.

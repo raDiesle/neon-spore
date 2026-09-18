@@ -747,6 +747,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-draw.ts` | **The cue this screen is owed, drawn**: the frame on the mark, and the two lines beside it |
 | `packages/render/src/boss-cue-read-b.ts` | **What THE TASTER, THE UNDERTOW and THE BATON are asking for** — page two of the readings |
 | `packages/render/src/boss-cue-read-c.ts` | **What THE THROAT, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE and THE ORRERY are asking for** |
+| `packages/render/src/boss-cue-read-d.ts` | **What THE STARE is asking for** — page four of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE CANDLE, THE GORGE and THE CURTAIN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |

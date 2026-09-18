@@ -54,6 +54,18 @@ export interface StareEye {
   ry: number;
 }
 
+/** How far the gaze reaches down the field from the eye, in tiles. */
+export const GAZE_TILES = 3.2;
+
+/**
+ * Where the gaze runs out, in canvas pixels: the lowest row its red still
+ * touches. The cue stands here, because it is the one place on the watched
+ * seat's screen the eye has already marked as *yours* (`boss-cue-read-d.ts`).
+ */
+export function stareGazeFootY(l: Layout): number {
+  return l.gridTop + l.tile * GAZE_TILES;
+}
+
 export function stareEye(l: Layout, cfg: SimConfig): StareEye {
   return {
     cx: tileCX(l, midCol(cfg)),

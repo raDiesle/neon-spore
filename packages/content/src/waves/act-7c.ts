@@ -74,9 +74,9 @@ export const WAVES_ACT_7C: Wave[] = [
     sentence:
       "The one where something is watching, and the one it is watching has to sit on their hands.",
     guide: {
-      both: "An eye watches one of you at a time. The one it watches presses nothing until it looks away. The other keeps playing.",
-      p1: "1. Every time it turns, listen for YOU or THEM.\n2. YOU: hands off everything until it looks away. Say what is falling.\n3. THEM: slide the cannon and trigger the plate. Nothing fires until it looks away.",
-      p2: "1. Say who it picks, every time it turns: YOU or THEM.\n2. YOU: hands off until it looks away. Your partner holds the plate.\n3. THEM: fire up the column they parked the cannon in.",
+      both: "An eye watches one of you at a time, and only the other screen is told who, seven beats early. The other keeps playing.",
+      p1: "1. Every time it turns, listen for YOU or THEM. Your screen is not told.\n2. YOU: a touch breaks the hull. Say what is falling.\n3. THEM: slide the cannon and trigger the plate. Nothing fires until it looks away.",
+      p2: "1. Say who it picks, every time it turns: YOU or THEM. They are not told.\n2. YOU: a touch breaks the hull. Your partner holds the plate.\n3. THEM: fire up the column they parked the cannon in.",
       scene: "theStare",
     },
     entries: [

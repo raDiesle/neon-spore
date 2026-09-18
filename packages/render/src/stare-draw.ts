@@ -6,7 +6,14 @@ import { drawInstarWord } from "./instar-word.js";
 import type { Layout } from "./layout.js";
 import { PALETTE, STROKE } from "./palette.js";
 import type { StareFx } from "./stare-fx.js";
-import { cowlPath, type StareEye, stareEye, stareFace, stareHeat } from "./stare-shape.js";
+import {
+  cowlPath,
+  type StareEye,
+  stareEye,
+  stareFace,
+  stareGazeFootY,
+  stareHeat,
+} from "./stare-shape.js";
 import { showsStareTarget, showsStareWatched } from "./view-role-clocks-b.js";
 
 /**
@@ -38,8 +45,6 @@ import { showsStareTarget, showsStareWatched } from "./view-role-clocks-b.js";
  * nobody reads a number off a lash (`content/own-motion.ts`).
  */
 
-/** How far the gaze reaches down the field from the eye, in tiles. */
-const GAZE_TILES = 3.2;
 /** The pip row: how far under the eye's middle, and how far apart, in socket heights. */
 const PIP_DROP = 1.55;
 const PIP_GAP = 0.42;
@@ -129,7 +134,7 @@ function drawEye(
  */
 function drawGaze(ctx: CanvasRenderingContext2D, l: Layout, e: StareEye, beatPhase: number): void {
   const top = e.cy + e.ry * 0.4;
-  const bottom = l.gridTop + l.tile * GAZE_TILES;
+  const bottom = stareGazeFootY(l);
   const g = ctx.createLinearGradient(0, top, 0, bottom);
   g.addColorStop(0, rgba(PALETTE.red, 0.3 + 0.12 * (1 - beatPhase)));
   g.addColorStop(1, rgba(PALETTE.red, 0));

@@ -306,8 +306,10 @@ describe("what a cue may say", () => {
     }
   });
 
-  it("names one of the four kinds of action and nothing else", () => {
-    for (const c of every()) expect(["PRESS", "HOLD", "CARRY", "TURN"]).toContain(c.kind);
+  it("names one of the five kinds of action and nothing else", () => {
+    // Four gestures and the one non-gesture THE STARE charges for
+    // (`boss-cue-read-d.ts`).
+    for (const c of every()) expect(["PRESS", "HOLD", "CARRY", "TURN", "STILL"]).toContain(c.kind);
   });
 
   it("stands inside the frame it is drawn on", () => {

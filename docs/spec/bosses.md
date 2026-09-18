@@ -1684,6 +1684,18 @@ band's plan (`docs/queue.md`). Every angle on all three screens, the seat
 word and the gaze proved both ways, and the flash proved a transient the
 next run does not inherit: `render/test/stare-frame.test.ts`.
 
+**The cue** (`render/boss-cue-read-d.ts`, 18 September 2026) is `STILL`, on
+the watched seat alone, at the foot of the gaze, from the beat the look lands
+until it lifts — and nothing during the tell, on any screen. The tell is the
+fight: who the eye chose is the answer, the other seat's to say, and a cue
+on the watched seat while the eye turned would say it for them
+([decisions](../decisions.md) #34). It is the fifth kind of cue and the only
+one that is not a gesture, because the simulation refuses and charges the
+press that ignores it, which makes a thumb kept off the glass something the
+fight can tell was done. It is its own word rather than `HOLD`: a player told
+to hold would hold the trigger. Proved on all three screens, and the silences
+with it: `render/test/boss-cue-stare.test.ts`.
+
 **The rehearsal** (`content/src/scenes/the-stare.ts`) is shaped around the
 seat that is *not* watched, because the film's machinery is a thumb landing
 on a named control and this boss's whole lesson is a thumb that must not
@@ -1695,6 +1707,10 @@ row — because a caught press stops the world and a page after it would hold
 on nothing. The seed decides who is watched, so the film's seed is held by
 `content/test/scene-stare.test.ts`, which runs it and expects the two looks,
 the deflect and the catch on their beats ([briefings](briefings.md) §3.2).
+Two pages that were the cue's word alone came out when the cue arrived, and
+the guide halves lost *hands off* for what the field cannot say — that the
+watched screen gets no warning, and what a touch costs (briefings, *A page
+the fight now speaks for loses its verb*).
 
 ## 11.17 THE DIASTOLE — two hearts on two cadences, one each
 

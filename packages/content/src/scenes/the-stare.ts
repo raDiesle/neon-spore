@@ -29,6 +29,15 @@ import type { GuideScene } from "../scene-types.js";
  * stops the world: with the eye still on the navigator, a body comes down
  * and the trigger is pressed anyway. The flash on that seat's panel and the
  * retries going up are the page. One page, as the rule allows.
+ *
+ * **Two pages came out on 18 September 2026**, when the fight learned to say
+ * `STILL` on the watched seat's field the moment the look lands
+ * (`render/boss-cue-read-d.ts`): `WATCHED · TOUCH NOTHING` at the first look
+ * and `A BODY · STILL NOTHING` inside the second were the cue's own word and
+ * nothing else, and each stood next to a page of its own seat, so the film
+ * spares them. The page in the second tell was rewritten instead of cut — its
+ * neighbours are the pilot's — to the one thing the cue may never say: that
+ * the warning is on the other screen alone (`docs/spec/briefings.md`).
  */
 export const THE_STARE: GuideScene = {
   ticks: 3360,
@@ -84,7 +93,6 @@ export const THE_STARE: GuideScene = {
       text: "SEVEN BEATS · PARK UNDER 3",
       anchor: { at: "control", control: "cannon" },
     },
-    { tick: 1140, seat: 1, text: "WATCHED · TOUCH NOTHING", anchor: { at: "hull" } },
     {
       tick: 1320,
       seat: 2,
@@ -96,7 +104,7 @@ export const THE_STARE: GuideScene = {
     {
       tick: 2580,
       seat: 2,
-      text: "WATCHED NEXT · HANDS OFF",
+      text: "NO WARNING HERE · ONLY THERE",
       anchor: { at: "control", control: "fireCyan" },
     },
     {
@@ -105,7 +113,6 @@ export const THE_STARE: GuideScene = {
       text: "THEY FREEZE · YOU GUARD",
       anchor: { at: "control", control: "guard" },
     },
-    { tick: 2940, seat: 2, text: "A BODY · STILL NOTHING", anchor: { at: "body" } },
     { tick: 3120, seat: 2, text: "TOUCHED · THE HULL PAYS", anchor: { at: "retries" } },
   ],
 };
