@@ -672,6 +672,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE STARE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-stare-changes-state-more-than-once-and-asks
 - **Files:** `packages/sim/src/config-stare.ts`, `packages/sim/src/events-stare.ts`, `packages/sim/src/stare-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 
 It is answered today on the ordinary panel, over 5 files of simulation. Give it
