@@ -59,6 +59,7 @@ on.
 ## THE GAUGE's two thumbs: the look half
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-gauges-two-thumbs-the-look-half
 - **Files:** `packages/render/src/gauge.ts`, `packages/render/src/gauge-round.ts`, `packages/render/src/touch.ts`, `packages/render/src/touch-hold.ts`, `packages/render/test/gauge-frame.test.ts`, `tools/director/src/`, `tools/director/test/on-field-controls.test.ts`, `docs/spec/controls.md`
 
 The simulation half of the queue item "THE GAUGE changes state more than once,
