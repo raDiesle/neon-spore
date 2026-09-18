@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 2f8c412e — A silent list that is full says which page the next boss's rows go on
+
+The second page the queue asked for was already cut, by THE FILAMENT's lane and as friction on its way to a boss: `effects-spark-silent-boss-b.ts` carries that boss's ten, the way `effects-ingest-silent-boss-b.ts` has carried THE ANTIPHON's since a boss earlier.
+
 ## 2026-09-18 · bb743e41 — A document that names a file before writing it is told so where it is written
 
 The take commit `e2c4b2c7` left `main` red on `doc-drift.test.ts`: one clause of a boss-ledger row named, in backticks, the scene file the claiming lane had not written yet. `docs/queue.md`'s preamble already carries the rule, and says it only about queue entries — the ledger is the other place a session routinely writes down work it is about to do, and nothing told it.
