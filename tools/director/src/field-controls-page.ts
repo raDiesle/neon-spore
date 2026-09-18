@@ -3,6 +3,7 @@ import { ANTIPHON_CONTROLS } from "./field-controls-antiphon.js";
 import { BALLOON_CONTROLS } from "./field-controls-balloon.js";
 import { DIASTOLE_CONTROLS } from "./field-controls-diastole.js";
 import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
+import { GAUGE_CONTROLS } from "./field-controls-gauge.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
@@ -223,6 +224,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...MIRROR_CONTROLS, // THE MIRROR's lobes, two gestures on one target (`field-controls-mirror.ts`).
   ...GORGE_CONTROLS, // THE GORGE's pinch and pry, one target whose seat says the gesture.
   ...MAZE_CONTROLS, // THE MAZE's string and its heart, the brace and the tear (`field-controls-maze.ts`).
+  ...GAUGE_CONTROLS, // THE GAUGE's needle under a jam and its band under a bind (`field-controls-gauge.ts`).
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

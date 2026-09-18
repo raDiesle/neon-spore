@@ -55,32 +55,3 @@ keeps it either way. Nothing here is ticked, and nothing here is counted — a
 count is a way of saying something is owed, and nothing here is.
 `tools/queue/test/queue.test.ts` fails on an entry a cold session could not act
 on.
-
-## THE GAUGE's two thumbs: the look half
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-gauges-two-thumbs-the-look-half
-- **Files:** `packages/render/src/gauge.ts`, `packages/render/src/gauge-round.ts`, `packages/render/src/touch.ts`, `packages/render/src/touch-hold.ts`, `packages/render/test/gauge-frame.test.ts`, `tools/director/src/`, `tools/director/test/on-field-controls.test.ts`, `docs/spec/controls.md`
-
-The simulation half of the queue item "THE GAUGE changes state more than once,
-and asks for more than one gesture" landed: the jam (`jamBeat`, the pilot's
-`drag` at `gaugeNeedle` read as a bearing, `gaugeSettleBeats` of settle) and
-the bind (`boundBeat`, the navigator's `drag` at `gaugeBand` holding the wound
-band open and stopping its walk), in `sim/src/gauge-hand.ts` and
-`gauge-band.ts`, with `sim/test/gauge-hand.test.ts` and the two cue arms
-(`render/src/boss-cue-read-e.ts`). The band already draws at `gaugeSpanNow`,
-so the narrowing is visible; nothing else on the picture hands the sim either
-thumb.
-
-The look half, on the model of THE MIRROR's (`render/src/mirror-grip.ts`,
-`9820b180`) and THE MAZE's parked entry above, in a render/src/gauge-grip.ts
-and its test plus a tools/director/src/field-controls-gauge.ts:
-`gaugeNeedleUnder` on the needle's own stem (`gaugeNeedleTip`, `gaugeDial`) for
-seat 1 while `gaugeJammed` only, a `drag` hold at `gaugeNeedle` whose moves
-report a bearing about the dial's centre; `gaugeBandUnder` on the band's arc
-(`gaugeBandMid`) for seat 2 while `gaugeBound` only, a plain on/off `drag` at
-`gaugeBand`; the dead valve shown as a dead valve on his slab and the wound
-band shown as wound on her dial; the director's two on-field entries and the
-two `docs/spec/controls.md` rows that `documentedDragTarget`'s `gaugeNeedle`
-and `gaugeBand` cases are waiting on; then `bun run queue done` on the item.
-A look with no shipped alternative.

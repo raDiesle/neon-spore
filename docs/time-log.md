@@ -9205,7 +9205,7 @@ The bottleneck was the width of a look: one gesture touched ten render
 files and the director before a ring was on the screen, and `handles.ts`
 took two tries to hold under 250 lines.
 
-*Measured: the rows above are the session's own estimate, read off the previous landing's timestamp; the compaction in the middle of the lane is not in them.*
+*Measured: the r
 
 ## 2026-09-18 — boss-implementation — THE WARDEN changes state more than once: the simulation
 
@@ -9244,3 +9244,22 @@ The bottleneck was deciding the material before a line was drawn: the brief
 says grown and the round's rule says made, and the interlude's rule won.
 
 *Measured: the rows above are the session's own estimate, read off the previous landing's timestamp; the compaction in the middle of the lane is not in them.*
+
+## 2026-09-18 — boss-hints-mechanics — THE GAUGE's two thumbs: the look half
+
+The needle and the band are taken hold of where they are drawn, and a slab goes out where the round would refuse it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `gorge-grip.ts` and `maze-grip.ts` as the model, `handles.ts`, `touch-drag.ts`'s bearing, the director's pose contract |
+| writing | 35 | `gauge-grip.ts`, the two circles, `gaugeSlabArmed`, `field-controls-gauge.ts`, two rows in the controls spec, twelve render cases |
+| looking | 5 | one frame of the jammed dial with both thumbs on it |
+| friction | 10 | `handles.ts` was at 249 lines and the dispatch needed one more, so two leading comments were folded to trailing ones |
+| landing | 10 | `check:fast`, the index, the queue, the commit, the land |
+
+The bottleneck was the pose: the gallery names a pose after a boss *phase*,
+and neither the jam nor the bind is one — so both rows point at `PLAY` and the
+question of what a state is there went to the queue rather than being decided
+in a look lane.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

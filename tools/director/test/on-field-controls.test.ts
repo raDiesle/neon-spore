@@ -156,9 +156,8 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "mazeHeart":
     // `gaugeNeedle` and `gaugeBand` are THE GAUGE's dial under one thumb each
     // — his hand swinging the needle while the valve is jammed, her thumb
-    // holding the wound band open (`sim/gauge-hand.ts`). The simulation half
-    // landed first; the rings, the on-field entries and the rows in
-    // `docs/spec/controls.md` are the look lane's.
+    // holding the wound band open (`sim/gauge-hand.ts`, `render/gauge-grip.ts`,
+    // `field-controls-gauge.ts`).
     case "gaugeNeedle":
     case "gaugeBand":
       return target;
@@ -208,6 +207,8 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
         "mirrorLobe",
         "gorgeLobe",
         "mazeHeart",
+        "gaugeNeedle",
+        "gaugeBand",
       ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {

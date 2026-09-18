@@ -240,11 +240,29 @@ quiet the moment his hand is down, because a word over a needle he is already
 swinging is the field narrating him. He still keeps the rehearsal's one page
 about his half (`docs/spec/briefings.md`).
 
-**What is not built.** The grip rings and the hit tests for the two thumbs are
-the look lane's, and so are the rows in [controls](controls.md) — the
-simulation hears both drags and the wire carries them today. The round has no
-events and no audio binding at all, which the two new states make worth
-fixing; both are in [the queue](../queue.md).
+**The look.** Each state puts a ring on the half of the picture its own seat
+is shown, and the ring is the game's own — breathing until a thumb lands,
+filled once one has (`render/gauge-grip.ts`, `grip-rings.ts`). His stands on
+the end of the needle while the valve is jammed and nowhere at all while it
+answers; hers stands in the middle of the band while it is wound, on the only
+screen the band is drawn on. The circle a thumb is answered at is the circle
+the ring is drawn from, which is the one thing a control on a picture has to
+get right.
+
+**And a slab goes out where the round would refuse it**, asked the way the
+simulation asks it and never guessed at (`gaugeSlabArmed`): the two valve
+buttons under a jam, the call under her own thumb or over a settling needle.
+The rest between two calls is not in it — two beats, and a slab that blinked
+every time she pressed would read as a fault rather than a rhythm. The rows
+are in [controls](controls.md); the director's are in
+`tools/director/src/field-controls-gauge.ts`.
+
+**What is not built.** Neither state has a pose of its own in the director's
+gallery — both rows name `THE GAUGE · PLAY`, which is the phase they live
+inside rather than a picture of either. And the round has no events and no
+audio binding at all, which the two new states make worth fixing: a jam is the
+one thing in the round the pilot cannot see coming, and an ear would tell him
+instantly. Both are in [the queue](../queue.md).
 
 What a round **may** do is give — a pod or two for the act about to start
 ([systems](systems.md#57-power-ups--the-pod-built)). That is not built. Pods are

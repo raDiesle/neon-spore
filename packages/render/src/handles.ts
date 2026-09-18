@@ -4,6 +4,7 @@ import { balloonHandleCircle, balloonHandleSeat } from "./balloon-handles.js";
 import { choirArrowCircle, showsChoirArrows } from "./choir-arrows.js";
 import { diastoleClampUnder } from "./diastole-clamp.js";
 import { filamentGrabUnder } from "./filament-grip.js";
+import { gaugeGripUnder } from "./gauge-grip.js";
 import { gorgeGripUnder } from "./gorge-grip.js";
 import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
@@ -37,20 +38,19 @@ import { bossOf } from "./touch-field.js";
  * THE SINEW's pair is the seventh and lives with its drawing in
  * `sinew-handles.ts` for THE ORRERY's reason: the rest a thumb is answered at
  * is the rest the ring is drawn from, and one file keeps them one fact.
- * THE SURGE's bulb is the eighth and the first taken by both seats at
- * once, in `surge-grip.ts` for the same reason. THE ANTIPHON's organ is the
- * ninth, on the one screen that shows it, in `antiphon-grip.ts`.
+ * THE SURGE's bulb is the eighth and the first taken by both seats at once, in
+ * `surge-grip.ts` for the same reason. THE ANTIPHON's organ is the ninth, on
+ * the one screen that shows it, in `antiphon-grip.ts`.
  *
  * There are five of them here — THE MAZE's string, THE WARDEN's rope, THE LID's
  * cord, THE CHOIR's two arrows and THE BALLOON's two handles — and that is why
  * they are here rather than in `touch.ts` next door. The last pair is the one
- * that is not the pilot's: a balloon has a handle for each seat, and which
- * side belongs to whom is `balloonHandleSeat`'s
- * (`balloon-handles.ts`). Both answer
- * the same shape of question (is this seat allowed, is this round running, is
- * the press inside the resting circle) and neither is a creature, so the file
- * that owns the decision table for the whole control scheme was carrying two
- * copies of one idea and had reached its length limit doing it.
+ * that is not the pilot's: a balloon has a handle for each seat, and which side
+ * belongs to whom is `balloonHandleSeat`'s (`balloon-handles.ts`). Both answer
+ * the same shape of question (is this seat allowed, is this round running, is the
+ * press inside the resting circle) and neither is a creature, so the file that
+ * owns the decision table for the whole control scheme was carrying two copies
+ * of one idea and had reached its length limit doing it.
  *
  * **Asked before anything else on the field**, because a handle hangs over the
  * field the creatures fall through and a hand on it is not a hand on whatever
@@ -79,13 +79,12 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     instarMarkUnder(l, x, y, field) ??
     filamentGrabUnder(l, x, y, field) ??
     stareLidUnder(l, x, y, field) ??
-    // THE BULB QUEEN's two marks, under BROOD and SCREAM (`queen-grip.ts`).
-    queenMarkUnder(l, x, y, field) ??
-    // THE DIASTOLE's clamp on the alone chamber (`diastole-clamp.ts`).
-    diastoleClampUnder(l, x, y, field) ??
+    queenMarkUnder(l, x, y, field) ?? // THE BULB QUEEN's marks, under BROOD and SCREAM (`queen-grip.ts`).
+    diastoleClampUnder(l, x, y, field) ?? // THE DIASTOLE's clamp on the alone chamber (`diastole-clamp.ts`).
     mirrorLobeUnder(l, x, y, field) ?? // THE MIRROR's two lobes, its last round and its pin (`mirror-grip.ts`).
     gorgeGripUnder(l, x, y, field) ?? // THE GORGE's pinch and pry, the full intakes and the mouth (`gorge-grip.ts`).
-    mazeHeartUnder(l, x, y, field) // THE MAZE's heart under `grip`, the navigator's tear (`maze-grip.ts`).
+    mazeHeartUnder(l, x, y, field) ?? // THE MAZE's heart under `grip`, the navigator's tear (`maze-grip.ts`).
+    gaugeGripUnder(l, x, y, field) // THE GAUGE's jammed needle and wound band (`gauge-grip.ts`).
   );
 }
 

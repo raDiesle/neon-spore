@@ -1355,3 +1355,19 @@ THE GAUGE in it, the `markAt` builder shared rather than copied a sixth time
 (it is identical in all five pages — a row in `copies-table.ts` would be
 better than a comment saying so), and the dispatch in `boss-cue.ts` pointed at
 the new page.
+
+## THE GAUGE's two new states have no pose in the director's gallery
+
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `tools/director/src/poses-bosses-rounds.ts`, `tools/director/src/field-controls-gauge.ts`, `tools/director/src/boss-states.ts`
+
+Both ON THE FIELD rows for THE GAUGE name `THE GAUGE · PLAY`, which is the
+phase the jam and the bind live inside rather than a picture of either — so
+the director's page shows a dial with neither a dead valve nor a wound band on
+it beside two rows that are entirely about them.
+
+`bossPose` names a pose after a boss **state**, and `BOSS_STATES` is what the
+coverage test reads, so a `jam` and a `bind` pose need the ledger to say
+whether a state there is a phase or any named condition of the boss. Decide
+that first — it is the same question THE GORGE's pinch and pry will ask — then
+add the two poses and point the two rows at them.

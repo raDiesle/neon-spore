@@ -1,6 +1,13 @@
 import { controlSetForWave } from "@neon-spore/content";
-import { GAUGE_LEAD_BEATS, type GaugeState, gaugeBeatsLeft } from "@neon-spore/sim";
+import {
+  GAUGE_LEAD_BEATS,
+  type GaugeState,
+  gaugeBeatsLeft,
+  gaugeJammed,
+  gaugeSettling,
+} from "@neon-spore/sim";
 import { type Dial, drawGauge, PLATE_PAD, showsGaugeMarks } from "./gauge.js";
+import { drawGaugeGrip } from "./gauge-grip.js";
 import { drawGaugeTitle, GAUGE_TITLE_DEPTH } from "./gauge-title.js";
 import type { Layout } from "./layout.js";
 import { PALETTE } from "./palette.js";
@@ -69,6 +76,12 @@ export function drawGaugeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
     beat: view.world.beat,
     beatPhase: view.beatPhase,
   });
+  // The two thumbs the round can be taken hold of by, after the dial they
+  // stand on (`gauge-grip.ts`). That file asks this one for `gaugeDial` and
+  // this one asks it back for the rings: the pair is `handles.ts` and
+  // `touch.ts`'s, one direction at runtime, and the circle a thumb is
+  // answered at is the circle the ring is drawn from.
+  drawGaugeGrip(ctx, l, view.world.cfg, dial, boss, view.role, view.time);
   drawTally(ctx, l, view, boss);
   drawControls(ctx, l, view, boss);
   if (boss.phase === "lead") drawLead(ctx, l, view, boss);
@@ -144,19 +157,37 @@ function drawControls(
   // reserved for a re-derivation `purity.test.ts` watches for.
   const set = view.controls === undefined ? controlSetForWave(view.world.wave) : view.controls;
   for (const slab of slabPanel(l, set, view.role)) {
+    const armed = live && gaugeSlabArmed(view, round, slab.control.id);
     const on =
-      live &&
+      armed &&
       ((slab.control.id === "gaugeLeft" && round.valve < 0) ||
         (slab.control.id === "gaugeRight" && round.valve > 0));
     ctx.fillStyle = on ? "rgba(192,92,255,.28)" : "rgba(16,11,34,.9)";
     ctx.fillRect(slab.x, slab.y, slab.w, slab.h);
-    ctx.strokeStyle = live ? PALETTE.hull : PALETTE.grid;
+    ctx.strokeStyle = armed ? PALETTE.hull : PALETTE.grid;
     ctx.lineWidth = 1.6;
     ctx.strokeRect(slab.x + 0.5, slab.y + 0.5, Math.max(1, slab.w - 1), Math.max(1, slab.h - 1));
-    ctx.fillStyle = live ? PALETTE.hullRim : PALETTE.dim;
+    ctx.fillStyle = armed ? PALETTE.hullRim : PALETTE.dim;
     ctx.font = '600 13px "Courier New",monospace';
     ctx.fillText(slab.control.label, slab.x + slab.w / 2, slab.y + slab.h / 2 + 5);
   }
+}
+
+/**
+ * Whether a slab would answer if it were pressed right now, asked the way the
+ * simulation asks it (`sim/gauge.ts`, `gauge-hand.ts`) rather than guessed at.
+ *
+ * The two states the round gained are both a control going quiet, and a button
+ * drawn as live while the round refuses it is the one thing this picture must
+ * not do: the valve is dead under a jam, and the call is refused while her own
+ * thumb is holding the band open or while his needle is still settling. The
+ * rest between two calls is not in here — it is two beats and a slab that
+ * blinked every time she pressed would read as a fault rather than a rhythm.
+ */
+export function gaugeSlabArmed(view: ViewState, round: GaugeState, id: string): boolean {
+  if (id === "gaugeLeft" || id === "gaugeRight") return !gaugeJammed(round);
+  if (id !== "gaugeCall") return true;
+  return !round.openThumb && !gaugeSettling(view.world.cfg, round, view.world.beat);
 }
 
 /** The count-in, so the round does not begin on a beat nobody was watching. */

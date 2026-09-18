@@ -850,6 +850,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/frame-passes.ts` | The four passes `Canvas2DRenderer.draw` assembles a frame from, in the order a reader looks for them: the |
 | `packages/render/src/gauge-round.ts` | THE GAUGE over the whole stage |
 | `packages/render/src/gauge-title.ts` | THE GAUGE's header: the name and the one sentence that teaches this seat its half |
+| `packages/render/src/gauge-grip.ts` | **THE GAUGE's two thumbs on the dial itself**: the pilot's on the needle while the valve is dead |
 | `packages/render/src/gauge.ts` | THE GAUGE's picture: a half-round dial, a needle, and two marks that only one of the two screens carries |
 | `packages/render/src/glide.ts` | A spring that chases a value |
 | `packages/render/src/gland-cord.ts` | THE STRINGS RUNNING UP FROM THE BUTTONS — PLASM's, kept |
@@ -2174,6 +2175,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-balloon.ts` | THE BALLOON's two handles, in a file of their own |
 | `tools/director/src/field-controls-gum.ts` | THE GUM's one gesture, in a file of its own on `field-controls-balloon.ts`'s pattern |
 | `tools/director/src/field-controls-gorge.ts` | THE GORGE's two thumbs, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-gauge.ts` | THE GAUGE's two thumbs on the dial, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-rows.ts` | How one row of the ON THE FIELD tab is drawn |
 | `tools/director/src/field-controls-tether.ts` | THE WARDEN'S rope in each of the four looks the game keeps, drawn under its row on the ON THE FIELD tab |
 | `tools/director/src/field-controls-orrery.ts` | THE ORRERY's ring, as a row of the ON THE FIELD tab — its own file for `field-controls-balloon.ts`'s reason |
