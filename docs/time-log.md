@@ -10894,3 +10894,5 @@ The bottleneck was THE LEAD: a fire pressed on the beat tick goes before the
 cannon has stepped, and the fight played straight puts the beam on the first
 pass beat and downs it in the same beat, so the pass is never seen — the
 hand has to stand the beam a pass late to pose it.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

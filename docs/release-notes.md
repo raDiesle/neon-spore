@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 04dbc4a7 — The BOSSES category poses the field's and the clocks' states a hand brings on
+
+THE FLEET, THE GORGE, THE CURTAIN, THE SCUTTLE, THE HIVE's spill, THE TASTER, THE LEDGER and THE LEAD: twenty-three more cards on the STATES sheet, each the boss's own wave run with a `Hand` on the controls — the sights walked a square a tick, the thumb held for the beam, the fabric carried a column, the sum done for the column the body will be in. THE HIVE's `down` stays owed: its own rock stops the bolt that seals a breach (the queue's HIVE item).
+
 ## 2026-09-18 · 7d1343e9 — THE FLIP has its rehearsal: a screen that turns, shown by turning and then by being believed — and a film now folds the seat the fault turned
 
 The wave's film, `packages/content/src/scenes/the-flip.ts`: a cyan body comes down the pilot's second column and on the seventh beat is against the far wall instead, same row, still falling; the navigator's page says the true column; the pilot carries the cannon to that number and not to the one their eyes give, and the bolt lands; the middle is shot to say the fold has a centre; and last, on the pilot's own page, a body drawn in the second column is fired at in the second column and lands in the sixth. `scene-flip.test.ts` is the receipt: the turn on beat seven, the called and the middle bolts landing, the seen one fired at nothing, the breach by the body in the sixth column.
