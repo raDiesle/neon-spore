@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 15ec7612 — A caption can point at the boss itself: THE SINEW's and THE TASTER's pages leave the hull
+
+`SceneAnchor` gains `{ at: "boss", part? }`, answered per boss kind in `render/caption-anchor-boss.ts`: THE SINEW's collar, THE TASTER's fan, and the tally on the ridge for the navigator's page (`part: "tally"`, null on the pilot's screen, where the tally is not drawn). THE SINEW's three pages that said "you see the zone" and THE TASTER's three that said "the edge sets red" pointed at the hull, because the resolver had no word for the boss; now they point at what they name. Half 1 of 2 of the queue's "A caption has no anchor for a boss's own gauge": half 2 moves THE LEAD, THE SCUTTLE, THE ANTIPHON, THE ORRERY and THE SCOUT.
+
 ## 2026-09-18 · 460249a3 — The three handle bosses speak in the cue's voice, and a kind line never says the verb twice
 
 THE SINEW, THE SURGE and THE ANTIPHON were the three bosses left out of the cue when it landed: `handle-draw.ts` already wrote `PULL`, `HOLD` and `TURN` beside each handle while it was unheld, and those words are the verb and the kind at once. It was the right call for one lane and the wrong shape to leave in the game — the pair met two prompt systems in one fight, with different type, different breathing and different rules about when a word appears.
