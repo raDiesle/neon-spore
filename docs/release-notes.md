@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 83d69621 — BULB QUEEN says four words, and a page of her rehearsal comes down
+
+The oldest boss in the game said nothing on the field at all. She says four things now, and the hard part was which seat hears each: her whole difficulty is a column the navigator can see and the pilot cannot, so a frame — which is a place, and a place is the answer — had to be kept off his screen entirely.
+
 ## 2026-09-18 · f5ea37af — THE FILAMENT has its look: the bundle over the field, and each screen drawing its own end of the line
 
 A look with no shipped alternative — lane two of §17. A domed bundle hangs over the top of the field with one strand inside it per filament left, a strand narrower every pull. The armed filament hangs from its underside down the field through its tiles, the free end pulsing until a thumb takes it. The split is what of the line each screen draws: the pilot's has the whole path ahead dashed, the lit run to his tile and a red DRAW ring on it; the navigator's has no path ahead — the lit run to one tile past hers and a FOLLOW ring — and the gap between them is on neither screen. A snap or a recoil whips the line sideways, a gap dims the path, a pull slides the whole run up into the body under THE SLOW, and the down fades the body out. The grab is under `handles.ts`, the director has the row, and a frame test proves every state on all three seats and the split both ways. Not built: the film — the guide stays prose. The owner's open figure stands: nothing here strikes the hull.
