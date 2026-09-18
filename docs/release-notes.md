@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 2a510c36 — THE SCOUT's load is a state, and hoarding is what it costs
+
+The round asked the same four things of the pair from the first mote to the last, and the seat that could see the arena had one press in it. It has a second state now and it is the **load** — how many motes are aboard, which is the number the pair is already deciding about every time they pass one, because a mote is not had until it is banked.
+
 ## 2026-09-18 · 815404ac — PINBALL's spring and its table: a hand on each of the shots that had none
 
 The round already changed state three times a shot — `aim`, `power`, `flight`, each waiting on a different thumb. What it had no hand on was the table: every verb was on the panel or the strip, and through a flight the navigator had nothing at all.
