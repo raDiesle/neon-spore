@@ -517,6 +517,7 @@ has for it, and take it back out when its look lands.
 ## The boss cue's kind line has no clearance and a rehearsal draws it
 
 - **Found:** 2026-09-17, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-boss-cues-kind-line-has-no-clearance-and-a-r
 - **Files:** `packages/render/src/boss-cue-draw.ts`,
   `packages/render/test/guide-plate-room.test.ts`, `packages/render/src/round-header.ts`
 
