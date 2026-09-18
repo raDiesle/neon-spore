@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 5b88742c — `bun run frames --hold` reaches THE MIRROR's lobes
+
+`mirrorLobe=N,id=0|1` is player 1's thumb and `mirrorLobe2=N,id=…` player 2's, the way THE INSTAR's second thumb is named, so the pin is a frame the tool can take: `--boss-json '{"round":2,"phase":"hold","phaseBeat":"now"}' --hold mirrorLobe=0,id=0 --hold mirrorLobe2=0,id=1`.
+
 ## 2026-09-18 · 906fba94 — Mark "THE MIRROR changes state more than once, and asks for more than one gesture" done
 
 ## 2026-09-18 · 9820b180 — THE MIRROR's lobes are a control: the look half of §6.2

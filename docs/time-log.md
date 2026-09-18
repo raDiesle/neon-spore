@@ -8962,3 +8962,5 @@ INSTAR's second thumb is named.
 
 The bottleneck was the flag: a state two thumbs deep has no picture until the
 tool can name both thumbs.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
