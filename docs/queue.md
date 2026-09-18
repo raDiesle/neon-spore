@@ -1418,6 +1418,7 @@ anchor rather than a boss part.
 ## `check:fast` reports a shard red on a test timeout when the machine is busy
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-18, claude/queue-check-fast-reports-a-shard-red-on-a-test-timeout
 - **Files:** `tools/check/shard.ts`, `tools/check/fast.ts`, `packages/render/test/canvas-stub.ts`, `tools/director/test/poses.test.ts`
 
 Three runs of `bun run check:fast` in one sitting came back red on "test
