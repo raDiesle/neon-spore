@@ -1485,6 +1485,7 @@ check` proves it; no test names the file.
 ## `tools/test/tree-walk.test.ts` reads every source file under the default timeout
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Taken:** 2026-09-18, claude/queue-tools-test-tree-walk-test-ts-reads-every-source
 - **Files:** `tools/test/tree-walk.test.ts`, `tools/test/repo-time.ts`
 - **Where:** cloud
 
