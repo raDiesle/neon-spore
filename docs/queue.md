@@ -177,24 +177,6 @@ fields, and a title that shouts one carries it twice — into the string `take`,
 question so it can be answered in a sentence, and let the body carry the
 options it picks between:
 
-## `tools/director/test/loop-once.test.ts` times out under a loaded shard
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-tools-director-test-loop-once-test-ts-times-out
-- **Files:** `tools/director/test/loop-once.test.ts`, `tools/check/shard.ts`
-- **Where:** cloud
-
-`bun run land` went red on it once with `test timed out`, on the shard that
-also carries nine other files; the same file run on its own is green in 441ms
-and the landing passed on the retry. So the work-around was *run land again*,
-which is the tax this list exists to stop: every session that meets it pays a
-full `bun run check` — minutes — to find out the trunk was never broken.
-
-Either the file's own clock is too tight for a shard running eleven test files
-against one CPU, or it is doing real work in a `setDefaultTimeout` it never
-set. Read what the two cases actually wait on, and give the file the timeout
-the frame tests give themselves rather than raising the global one.
-
 ## `tools/frames/run.ts` is at the ceiling, and every flag adds a paragraph
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

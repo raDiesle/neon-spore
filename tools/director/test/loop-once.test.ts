@@ -1,7 +1,8 @@
-import { expect, test } from "bun:test";
+import { expect, setDefaultTimeout, test } from "bun:test";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { Glob } from "bun";
+import { loadedTimeout } from "../../test/repo-time.js";
 
 /**
  * The director's fixed-timestep loop exists once, in `stage-loop.ts`.
@@ -17,6 +18,30 @@ import { Glob } from "bun";
  * being held is that the code is in one place — which no amount of running it
  * can show. `carry +=` is the accumulator every copy had to have.
  */
+
+/**
+ * The cap this file runs under, and it is not a formality: the first case
+ * reads **every `.ts` under `tools/director` that is not a test** — 392 of
+ * them on 18 September 2026 — off disk, one await at a time, and regexes each
+ * one. That is a third of a second on a cold cache with nothing else running
+ * and it was on bun's five-second default, which is the whole of the failure
+ * (`docs/queue.md`, 18 September 2026): `bun run land` went red here once with
+ * *test timed out*, on the shard that also carries nine other files, and the
+ * same file run alone was green in 441 ms. A landing red for a reason the diff
+ * cannot cause teaches the next session to run `land` again, which is the
+ * habit that lets a real failure through.
+ *
+ * `loadedTimeout` and not `cpuTimeout`: what these two cases wait on is a
+ * machine reading four hundred files, which is the same road
+ * `tools/test/doc-drift.test.ts` takes and not the arithmetic the frame tests
+ * take (`tools/test/repo-time.ts` has both, and why one baseline answers
+ * both). The number is the heavier case's cold cost rounded up — being
+ * generous costs nothing, because it is a ceiling on patience rather than a
+ * budget anybody spends. Asked for here rather than raised globally: bun
+ * applies `setDefaultTimeout` to the file the call is in, and a global default
+ * would hand the same slack to every test that has made no claim at all.
+ */
+setDefaultTimeout(loadedTimeout(450));
 
 const SRC = join(dirname(fileURLToPath(import.meta.url)), "..");
 const HOME = "src/stage-loop.ts";

@@ -9380,3 +9380,23 @@ hour, and the second one's work was thrown away rather than merged — which was
 cheaper, but only because the first had landed before the rebase.
 
 *Measured: the rows above are the session's own estimate, read off the previous landing's timestamp.*
+
+## 2026-09-18 — queue-task-processing-cloud — the loop-once test gets its own clock
+
+A test that reads four hundred files off disk was on bun's five-second
+default. It now asks for `loadedTimeout`, the same road `doc-drift.test.ts`
+takes, and the header says which of the two baselines it is on and why.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | the queue's preamble and `docs/cloud-session.md`, the entry, the test's two cases, `canvas-stub.ts`'s `FRAME_TIMEOUT_MS` paragraph, `cpu-time.ts` and `repo-time.ts` end to end to pick between them, `tools/check/shard.ts` for a global cap it turned out not to have |
+| writing | 10 | the import, the call, and the paragraph saying what the cases wait on |
+| looking | 0 | none — nothing visible moved |
+| friction | 15 | the clone was shallow, so `main` was a graft behind `origin/main` and every queue entry listed as stale; `git fetch --unshallow` and `git branch -f main origin/main` fixed both. `bun run queue done 2` was refused because the item was the one this session had just taken — a position is not a name once you hold it |
+| landing | 10 | `check:fast`, the commit, the land |
+
+The bottleneck was reading: choosing between `cpuTimeout` and `loadedTimeout`
+is the whole decision in the lane, and both files argue their case at length
+because getting it wrong once already cost a landing.
+
+*Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
