@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 5778056d — Mark "THE STARE changes state more than once, and asks for more than one gesture" done
+
 ## 2026-09-18 · 24d59a44 — THE STARE gets a lid: the look
 
 The second lane of the queue's §6.2 item for THE STARE. The lid is a flap of the cowl's own rock coming down over the socket, its edge lit in the eye's ink, on every screen — a watched seat has to see it come down to know the look is over. The handle ring, in the shipped handle look, rests at the brow and rides the edge down under a thumb, drawn only on the screen of the seat the eye is *not* looking at, which is the one seat the simulation hears; that seat's cue is SHUT on the ring until a thumb takes it, and the watched seat is never told there is a lid. The lid landing is a puff of rock and the eye forcing it up a lesser flash with no panel under it. The director gets THE STARE'S LID as a field-control row, and the guide's third step says what the lid is for. A look with no shipped alternative.
