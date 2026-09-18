@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 7379d7f9 — One boss on the hit test, and not thirteen fields
+
+`Field` carried one nullable state per boss a thumb can reach — `maze`, `warden`, `orrery`, `sinew`, `surge`, `antiphon`, `instar`, `filament`, `stare`, `queen`, `diastole`, `mirror`, `gorge` — and every one of them was written down four more times in `apps/game`: the `Bindings` getter, the destructure in `bindControls`, the `field()` builder, and the narrowing in `field-input.ts`. `input.ts` reached its 250-line limit on the twelfth and folded two comments to fit the thirteenth, so the fourteenth boss with a handle could not be added at all — which is what this lane was claimed to unblock.
+
 ## 2026-09-18 · a5a1f7be — THE MAZE holds the shot: the grip phase, the simulation half
 
 A shot of the heart's colour that reaches the middle no longer finishes the wheel by itself. The round has a third state, `grip`, between `travel` and `verdict`: the heart holds the shot, and it is torn out by two hands on the picture at once — the navigator's thumb on the heart carried down `mazeHeartPullMilli` while the pilot's hand is on the string. His hand is a brace there and turns nothing. A heart held past `mazeGripBeats` lets go, and the shot comes back down the column as its blood (`slip`), the wave lost. The first half of the queue item "THE MAZE changes state more than once, and asks for more than one gesture"; the look half is parked.
