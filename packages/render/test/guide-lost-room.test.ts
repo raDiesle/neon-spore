@@ -7,6 +7,7 @@ import {
   guideStepHeard,
   startWave,
 } from "@neon-spore/sim";
+import { HANG_MS } from "../../../tools/test/cpu-time.js";
 import { drawWaveOpening } from "../src/briefing.js";
 import { GUIDE_LOOK } from "../src/guide-look.js";
 import { GuideStage } from "../src/guide-scene.js";
@@ -17,6 +18,18 @@ import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from
 // The cap, applied per file because bun applies it to the file it is in
 // (`canvas-stub.ts`).
 setDefaultTimeout(FRAME_TIMEOUT_MS);
+
+/**
+ * **What one walk through every rehearsal is allowed to take** — the hang
+ * ceiling in `tools/test/cpu-time.ts`, flat, for the same reason
+ * `briefing.test.ts` takes it: a flat `60_000` stood here and *overrode* this
+ * file's own machine-scaled default with a smaller number, and the scaled
+ * default cannot help either, because `CORE_LOAD` is read before the shards
+ * that cause the load have raised the one-minute average. Nothing here
+ * measures speed, so the budget is a guard against a hang and is only ever
+ * spent when something is genuinely stuck.
+ */
+const WALK_MS = HANG_MS;
 
 /**
  * A rehearsal whose picture is the lost screen keeps it under the plate.
@@ -63,41 +76,45 @@ describe("a rehearsal whose picture is the lost screen", () => {
   const films = WAVES.map((w, i) => (w.guide?.scene ? i : -1)).filter((i) => i >= 0);
 
   for (const role of ROLES) {
-    it(`draws it clear of the tutorial plate, for ${role}`, () => {
-      expect(films.length, "no wave carries a film").toBeGreaterThan(0);
-      const { ctx } = stubCanvas();
-      const l = computeLayout(PHONE, CFG, role);
-      let seen = 0;
-      for (const i of films) {
-        const world = createWorld(CFG, 3);
-        startWave(world, i, [], [], null, true, waveGuideSteps(i));
-        const stage = new GuideStage();
-        for (let page = 0; page < guidePages(world); page++) {
-          // Past the switch, so the page is where it will stand, and far
-          // enough in that a scene which loses its wave has lost it.
-          for (let f = 0; f < 90; f++) stage.update(world, 1 / 60, role);
-          ctx.texts = [];
-          drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, {
-            role,
-            scene: stage,
-            time: 1.5,
-            fx: new OpeningFx(),
-          });
-          if (ctx.texts.some((t) => BUTTONS.test(t.text))) {
-            seen++;
-            expect(
-              ctx.texts
-                .filter((t) => !CHROME.test(t.text) && inPlateBand(t))
-                .map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
-              `${WAVES[i]?.name} page ${page + 1}: the lost screen under the plate`,
-            ).toEqual([]);
+    it(
+      `draws it clear of the tutorial plate, for ${role}`,
+      () => {
+        expect(films.length, "no wave carries a film").toBeGreaterThan(0);
+        const { ctx } = stubCanvas();
+        const l = computeLayout(PHONE, CFG, role);
+        let seen = 0;
+        for (const i of films) {
+          const world = createWorld(CFG, 3);
+          startWave(world, i, [], [], null, true, waveGuideSteps(i));
+          const stage = new GuideStage();
+          for (let page = 0; page < guidePages(world); page++) {
+            // Past the switch, so the page is where it will stand, and far
+            // enough in that a scene which loses its wave has lost it.
+            for (let f = 0; f < 90; f++) stage.update(world, 1 / 60, role);
+            ctx.texts = [];
+            drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, {
+              role,
+              scene: stage,
+              time: 1.5,
+              fx: new OpeningFx(),
+            });
+            if (ctx.texts.some((t) => BUTTONS.test(t.text))) {
+              seen++;
+              expect(
+                ctx.texts
+                  .filter((t) => !CHROME.test(t.text) && inPlateBand(t))
+                  .map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
+                `${WAVES[i]?.name} page ${page + 1}: the lost screen under the plate`,
+              ).toEqual([]);
+            }
+            ctx.texts = undefined;
+            guideStepHeard(world, 1, false);
+            guideStepHeard(world, 2, false);
           }
-          ctx.texts = undefined;
-          guideStepHeard(world, 1, false);
-          guideStepHeard(world, 2, false);
         }
-      }
-      expect(seen, "no rehearsal drew the lost screen at all").toBeGreaterThan(0);
-    }, 60_000);
+        expect(seen, "no rehearsal drew the lost screen at all").toBeGreaterThan(0);
+      },
+      WALK_MS,
+    );
   }
 });

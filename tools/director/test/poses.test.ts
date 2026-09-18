@@ -1,5 +1,6 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, setDefaultTimeout, test } from "bun:test";
 import { hashWorld } from "@neon-spore/sim";
+import { cpuTimeout } from "../../test/cpu-time.js";
 import { POSE_GROUPS } from "../src/poses.js";
 import { BOSS_GROUPS } from "../src/poses-bosses.js";
 
@@ -16,6 +17,13 @@ import { BOSS_GROUPS } from "../src/poses-bosses.js";
  * and belongs to a browser, but everything that decides *what* is drawn is
  * simulation, and simulation is testable.
  */
+
+// Half a second for all two hundred and ten, and a cap that rises with the
+// machine (`tools/test/cpu-time.ts`): a pose is the simulation stepped until a
+// named state arrives, which is arithmetic and nothing else, so under a full
+// check it is slow for the machine's reasons and not its own. It was on bun's
+// flat five seconds and went red on one of three runs of the same green tree.
+setDefaultTimeout(cpuTimeout(1_000));
 
 const ALL = POSE_GROUPS.flatMap((g) => g.poses.map((p) => [g.title, p] as const));
 

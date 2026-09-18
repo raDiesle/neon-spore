@@ -51,12 +51,22 @@ export const CORE_LOAD: number = Math.max(1, (loadavg()[0] ?? 0) / Math.max(1, c
 const FLOOR_MS = 5_000;
 
 /**
- * And never longer than this, however bad the load looks. A test that would
- * take three minutes is not a slow test, it is a hung one, and the point of
- * the ceiling is that the shard reports it in a readable time rather than
- * holding the landing open.
+ * **And never longer than this, however bad the load looks** — which is also
+ * what a test with no speed claim at all should ask for by name.
+ *
+ * A test that would take three minutes is not a slow test, it is a hung one,
+ * and the point of the ceiling is that the shard reports it in a readable time
+ * rather than holding the landing open.
+ *
+ * It is exported because `CORE_LOAD` has one blind spot and this is the way
+ * round it. The load average is read at import, and a shard runner starts
+ * every worker at once: the first thing a set of fresh processes sees is the
+ * minute *before* they existed, so a scaled budget reads the busiest moment of
+ * a run as an idle machine. A test whose budget is a guard against a hang
+ * rather than a claim about cost takes this number flat and is right under
+ * every load, which is what `packages/render/test/briefing.test.ts` does.
  */
-const CEILING_MS = 180_000;
+export const HANG_MS = 180_000;
 
 /**
  * How much of its own measured cost a test is allowed on top of counting it —
@@ -87,5 +97,5 @@ const SLACK = 8;
  * number is a ceiling on patience, not a budget anybody spends.
  */
 export function cpuTimeout(idleMs: number): number {
-  return Math.min(CEILING_MS, Math.max(FLOOR_MS, Math.ceil(idleMs * CORE_LOAD * SLACK)));
+  return Math.min(HANG_MS, Math.max(FLOOR_MS, Math.ceil(idleMs * CORE_LOAD * SLACK)));
 }

@@ -8,6 +8,7 @@ import {
   startWave,
   type World,
 } from "@neon-spore/sim";
+import { HANG_MS } from "../../../tools/test/cpu-time.js";
 import { drawWaveOpening } from "../src/briefing.js";
 import { filmLayout } from "../src/guide-film.js";
 import { GUIDE_LOOK } from "../src/guide-look.js";
@@ -20,6 +21,18 @@ import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from
 // The cap, applied per file because bun applies it to the file it is in
 // (`canvas-stub.ts`).
 setDefaultTimeout(FRAME_TIMEOUT_MS);
+
+/**
+ * **What one walk through every rehearsal is allowed to take** — the hang
+ * ceiling in `tools/test/cpu-time.ts`, flat, for the same reason
+ * `briefing.test.ts` takes it: a flat `60_000` stood here and *overrode* this
+ * file's own machine-scaled default with a smaller number, and the scaled
+ * default cannot help either, because `CORE_LOAD` is read before the shards
+ * that cause the load have raised the one-minute average. Nothing here
+ * measures speed, so the budget is a guard against a hang and is only ever
+ * spent when something is genuinely stuck.
+ */
+const WALK_MS = HANG_MS;
 
 /**
  * A round's header makes room for the tutorial plate.
@@ -156,46 +169,50 @@ function inPlateBand(t: TextBox): boolean {
 
 describe("the tutorial plate and a round's header", () => {
   for (const role of ROLES) {
-    it(`share no band on any page of any boss rehearsal, for ${role}`, () => {
-      expect(ROUND_FILMS.length, "no boss wave carries a film").toBeGreaterThan(0);
-      const { ctx } = stubCanvas();
-      const l = computeLayout(PHONE, CFG, role);
-      for (const i of ROUND_FILMS) {
-        const world = guided(i);
-        const stage = new GuideStage();
-        for (let page = 0; page < guidePages(world); page++) {
-          // Past the switch, so the page is where it will stand: a page that
-          // slid in is at rest after a beat and holds there.
-          for (let f = 0; f < 90; f++) stage.update(world, 1 / 60, role);
-          ctx.texts = [];
-          drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, {
-            role,
-            scene: stage,
-            time: 1.5,
-            fx: new OpeningFx(),
-          });
-          const plate = ctx.texts.filter((t) => /^TUTORIAL$/.test(t.text));
-          if (plate.length > 0) {
-            const name = WAVES[i]?.name ?? "";
-            const under = ctx.texts.filter(
-              (t) =>
-                (t.text === name ||
-                  RUN_LINE.test(t.text) ||
-                  CUE_WORD.test(t.text) ||
-                  ALSO[name]?.test(t.text) === true) &&
-                inPlateBand(t),
-            );
-            expect(
-              under.map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
-              `${WAVES[i]?.name} page ${page + 1}: words under the plate`,
-            ).toEqual([]);
+    it(
+      `share no band on any page of any boss rehearsal, for ${role}`,
+      () => {
+        expect(ROUND_FILMS.length, "no boss wave carries a film").toBeGreaterThan(0);
+        const { ctx } = stubCanvas();
+        const l = computeLayout(PHONE, CFG, role);
+        for (const i of ROUND_FILMS) {
+          const world = guided(i);
+          const stage = new GuideStage();
+          for (let page = 0; page < guidePages(world); page++) {
+            // Past the switch, so the page is where it will stand: a page that
+            // slid in is at rest after a beat and holds there.
+            for (let f = 0; f < 90; f++) stage.update(world, 1 / 60, role);
+            ctx.texts = [];
+            drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, {
+              role,
+              scene: stage,
+              time: 1.5,
+              fx: new OpeningFx(),
+            });
+            const plate = ctx.texts.filter((t) => /^TUTORIAL$/.test(t.text));
+            if (plate.length > 0) {
+              const name = WAVES[i]?.name ?? "";
+              const under = ctx.texts.filter(
+                (t) =>
+                  (t.text === name ||
+                    RUN_LINE.test(t.text) ||
+                    CUE_WORD.test(t.text) ||
+                    ALSO[name]?.test(t.text) === true) &&
+                  inPlateBand(t),
+              );
+              expect(
+                under.map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
+                `${WAVES[i]?.name} page ${page + 1}: words under the plate`,
+              ).toEqual([]);
+            }
+            ctx.texts = undefined;
+            guideStepHeard(world, 1, false);
+            guideStepHeard(world, 2, false);
           }
-          ctx.texts = undefined;
-          guideStepHeard(world, 1, false);
-          guideStepHeard(world, 2, false);
         }
-      }
-    }, 60_000);
+      },
+      WALK_MS,
+    );
   }
 });
 
@@ -259,49 +276,53 @@ describe("THE HANDOVER's plate and a rehearsal's caption", () => {
   const wave = WAVES.findIndex((w) => w.name === "THE HANDOVER");
 
   for (const role of ROLES) {
-    it(`share no room on any page of the rehearsal, for ${role}`, () => {
-      expect(wave, "no wave named THE HANDOVER").toBeGreaterThanOrEqual(0);
-      const { ctx } = stubCanvas();
-      const stage = computeLayout(PHONE, CFG, role);
-      // The film's own rectangle, which is what the plate is centred in — the
-      // page is drawn phone-shaped inside the stage (`guide-film.ts`). Either
-      // seat answers: the two differ in role alone, and the plate is the same
-      // width and on the same lip on both.
-      const { l } = filmLayout(stage, CFG, 1);
-      const world = guided(wave);
-      const play = new GuideStage();
-      let seen = 0;
-      for (let page = 0; page < guidePages(world); page++) {
-        for (let f = 0; f < 90; f++) play.update(world, 1 / 60, role);
-        ctx.texts = [];
-        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, stage, world, {
-          role,
-          scene: play,
-          time: 1.5,
-          fx: new OpeningFx(),
-        });
-        const said = ctx.texts.find((t) => PLATE_SAYS.test(t.text));
-        if (said) {
-          seen++;
-          const box = plateBoxAround(ctx as unknown as CanvasRenderingContext2D, l, said.text);
-          const over = ctx.texts.filter(
-            (t) =>
-              !PLATE_SAYS.test(t.text) &&
-              t.x < box.x + box.w &&
-              t.x + t.w > box.x &&
-              t.y < box.y + box.h &&
-              t.y + t.h > box.y,
-          );
-          expect(
-            over.map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
-            `page ${page + 1}: words over the countdown plate`,
-          ).toEqual([]);
+    it(
+      `share no room on any page of the rehearsal, for ${role}`,
+      () => {
+        expect(wave, "no wave named THE HANDOVER").toBeGreaterThanOrEqual(0);
+        const { ctx } = stubCanvas();
+        const stage = computeLayout(PHONE, CFG, role);
+        // The film's own rectangle, which is what the plate is centred in — the
+        // page is drawn phone-shaped inside the stage (`guide-film.ts`). Either
+        // seat answers: the two differ in role alone, and the plate is the same
+        // width and on the same lip on both.
+        const { l } = filmLayout(stage, CFG, 1);
+        const world = guided(wave);
+        const play = new GuideStage();
+        let seen = 0;
+        for (let page = 0; page < guidePages(world); page++) {
+          for (let f = 0; f < 90; f++) play.update(world, 1 / 60, role);
+          ctx.texts = [];
+          drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, stage, world, {
+            role,
+            scene: play,
+            time: 1.5,
+            fx: new OpeningFx(),
+          });
+          const said = ctx.texts.find((t) => PLATE_SAYS.test(t.text));
+          if (said) {
+            seen++;
+            const box = plateBoxAround(ctx as unknown as CanvasRenderingContext2D, l, said.text);
+            const over = ctx.texts.filter(
+              (t) =>
+                !PLATE_SAYS.test(t.text) &&
+                t.x < box.x + box.w &&
+                t.x + t.w > box.x &&
+                t.y < box.y + box.h &&
+                t.y + t.h > box.y,
+            );
+            expect(
+              over.map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
+              `page ${page + 1}: words over the countdown plate`,
+            ).toEqual([]);
+          }
+          ctx.texts = undefined;
+          guideStepHeard(world, 1, false);
+          guideStepHeard(world, 2, false);
         }
-        ctx.texts = undefined;
-        guideStepHeard(world, 1, false);
-        guideStepHeard(world, 2, false);
-      }
-      expect(seen, "no page of the rehearsal drew the plate at all").toBeGreaterThan(0);
-    }, 60_000);
+        expect(seen, "no page of the rehearsal drew the plate at all").toBeGreaterThan(0);
+      },
+      WALK_MS,
+    );
   }
 });

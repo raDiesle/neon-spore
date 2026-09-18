@@ -7,6 +7,7 @@ import {
   guideStepHeard,
   startWave,
 } from "@neon-spore/sim";
+import { HANG_MS } from "../../../tools/test/cpu-time.js";
 import { drawWaveOpening } from "../src/briefing.js";
 import { GUIDE_LOOK } from "../src/guide-look.js";
 import { GuideStage } from "../src/guide-scene.js";
@@ -17,6 +18,18 @@ import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas, type TextBox } from
 // The cap, applied per file because bun applies it to the file it is in
 // (`canvas-stub.ts`).
 setDefaultTimeout(FRAME_TIMEOUT_MS);
+
+/**
+ * **What one walk through every rehearsal is allowed to take** — the hang
+ * ceiling in `tools/test/cpu-time.ts`, flat, for the same reason
+ * `briefing.test.ts` takes it: a flat `60_000` stood here and *overrode* this
+ * file's own machine-scaled default with a smaller number, and the scaled
+ * default cannot help either, because `CORE_LOAD` is read before the shards
+ * that cause the load have raised the one-minute average. Nothing here
+ * measures speed, so the budget is a guard against a hang and is only ever
+ * spent when something is genuinely stuck.
+ */
+const WALK_MS = HANG_MS;
 
 /**
  * THE WISP's lattice keeps its axes out from under the tutorial plate.
@@ -55,39 +68,43 @@ describe("THE WISP's named grid and the tutorial plate", () => {
   const wave = WAVES.findIndex((w) => w.name === "THE WISP");
 
   for (const role of ROLES) {
-    it(`share no band on any page of the rehearsal, for ${role}`, () => {
-      expect(wave, "no wave named THE WISP").toBeGreaterThanOrEqual(0);
-      const { ctx } = stubCanvas();
-      const l = computeLayout(PHONE, CFG, role);
-      const world = createWorld(CFG, 3);
-      startWave(world, wave, [], [], null, true, waveGuideSteps(wave));
-      const stage = new GuideStage();
-      let seen = 0;
-      for (let page = 0; page < guidePages(world); page++) {
-        // Past the switch, so the page is where it will stand, and far enough
-        // in that the lattice has finished fading up: it is 0 until something
-        // on the field has to be named by tile (`CoordGrid.shown`).
-        for (let f = 0; f < 180; f++) stage.update(world, 1 / 60, role);
-        ctx.texts = [];
-        drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, {
-          role,
-          scene: stage,
-          time: 1.5,
-          fx: new OpeningFx(),
-        });
-        const axis = ctx.texts.filter((t) => AXIS.test(t.text));
-        seen += axis.length;
-        expect(
-          axis
-            .filter(inPlateBand)
-            .map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
-          `page ${page + 1}: axis labels under the plate`,
-        ).toEqual([]);
-        ctx.texts = undefined;
-        guideStepHeard(world, 1, false);
-        guideStepHeard(world, 2, false);
-      }
-      expect(seen, "no page of the rehearsal drew the axis at all").toBeGreaterThan(0);
-    }, 60_000);
+    it(
+      `share no band on any page of the rehearsal, for ${role}`,
+      () => {
+        expect(wave, "no wave named THE WISP").toBeGreaterThanOrEqual(0);
+        const { ctx } = stubCanvas();
+        const l = computeLayout(PHONE, CFG, role);
+        const world = createWorld(CFG, 3);
+        startWave(world, wave, [], [], null, true, waveGuideSteps(wave));
+        const stage = new GuideStage();
+        let seen = 0;
+        for (let page = 0; page < guidePages(world); page++) {
+          // Past the switch, so the page is where it will stand, and far enough
+          // in that the lattice has finished fading up: it is 0 until something
+          // on the field has to be named by tile (`CoordGrid.shown`).
+          for (let f = 0; f < 180; f++) stage.update(world, 1 / 60, role);
+          ctx.texts = [];
+          drawWaveOpening(ctx as unknown as CanvasRenderingContext2D, l, world, {
+            role,
+            scene: stage,
+            time: 1.5,
+            fx: new OpeningFx(),
+          });
+          const axis = ctx.texts.filter((t) => AXIS.test(t.text));
+          seen += axis.length;
+          expect(
+            axis
+              .filter(inPlateBand)
+              .map((t) => `"${t.text}" at ${Math.round(t.x)},${Math.round(t.y)}`),
+            `page ${page + 1}: axis labels under the plate`,
+          ).toEqual([]);
+          ctx.texts = undefined;
+          guideStepHeard(world, 1, false);
+          guideStepHeard(world, 2, false);
+        }
+        expect(seen, "no page of the rehearsal drew the axis at all").toBeGreaterThan(0);
+      },
+      WALK_MS,
+    );
   }
 });

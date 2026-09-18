@@ -13,6 +13,7 @@ import {
   ticksPerBeat,
   type World,
 } from "@neon-spore/sim";
+import { HANG_MS } from "../../../tools/test/cpu-time.js";
 import { drawWaveOpening } from "../src/briefing.js";
 import { GuideStage } from "../src/guide-scene.js";
 import { computeLayout, type ViewRole } from "../src/layout.js";
@@ -23,6 +24,30 @@ import { FRAME_TIMEOUT_MS, installCanvasGlobals, stubCanvas } from "./canvas-stu
 // The cap, applied per file because bun applies it to the file it is in
 // (`canvas-stub.ts`).
 setDefaultTimeout(FRAME_TIMEOUT_MS);
+
+/**
+ * **What one walk through every rehearsal is allowed to take** — the ceiling in
+ * `tools/test/cpu-time.ts`, flat, and deliberately not a number scaled off the
+ * load.
+ *
+ * It was `60_000` written beside each of the four cases, which *overrode* this
+ * file's own machine-scaled default (`canvas-stub.ts`) with a smaller number —
+ * and on 18 September 2026 two landings of one green tree went red here, the
+ * second at 134 s under sixteen shards. `tools/check/slots.ts` has since put a
+ * ceiling on how many shards a machine runs at once, which is the cure for the
+ * load itself; this is the part that was wrong in the test. The scaled default
+ * would not have saved those two landings either: `CORE_LOAD` is read when the
+ * process starts, and shards launched together see the minute before they
+ * existed, so the moment that costs a landing is the one moment the load
+ * average calls quiet.
+ *
+ * So this walk asks for the hang ceiling instead. Nothing here measures speed —
+ * it draws every page of every film to catch a value that is a perfectly good
+ * number and not a colour — so the budget is only ever spent when something is
+ * genuinely stuck, and three minutes is how long a stuck shard should take to
+ * say so.
+ */
+const WALK_MS = HANG_MS;
 
 /**
  * Every wave's opening, in both states and every role, through the strict
@@ -218,45 +243,53 @@ describe("a wave's opening on the stage", () => {
    * The role is the axis to split on rather than the axis to shorten: the
    * three walks share nothing — a fresh `GuideStage`, a fresh layout, a fresh
    * `Effects` per page — so three cases draw exactly what one did and each
-   * gets its own sixty seconds. What was failing is a *timeout* and never an
+   * gets its own `WALK_MS`. What was failing is a *timeout* and never an
    * assertion: on a busy machine the whole run overshot, and a test that only
    * passes on an idle box is a test somebody re-runs on its own and stops
    * reading. Nothing here is measuring speed, so the budget is a guard rather
    * than a claim.
    */
   for (const [phase, role] of ROLES.entries()) {
-    it(`draws a rehearsal, through every page of it, for ${role}`, () => {
-      // Every page and not a frame of one: a scene is a world being stepped,
-      // so the values reaching the canvas change tick by tick — the muzzle
-      // flash, the spark burst, the rebuild under two sets of `Effects` every
-      // time a page repeats. One frame would prove almost nothing.
-      const { ctx } = stubCanvas();
-      const l = computeLayout({ width: 420, height: 860, dpr: 2 }, CFG, role);
-      for (const i of SCENED) {
-        const { guide } = opening(i);
-        const stage = new GuideStage();
-        walkPages(ctx, l, guide, role, stage, phase);
-        // The last page is the gate, which is not a rehearsal at all.
-        expect(stage.active, `${WAVES[i]?.name} left its scene up on the gate`).toBe(false);
-      }
-    }, 60_000);
+    it(
+      `draws a rehearsal, through every page of it, for ${role}`,
+      () => {
+        // Every page and not a frame of one: a scene is a world being stepped,
+        // so the values reaching the canvas change tick by tick — the muzzle
+        // flash, the spark burst, the rebuild under two sets of `Effects` every
+        // time a page repeats. One frame would prove almost nothing.
+        const { ctx } = stubCanvas();
+        const l = computeLayout({ width: 420, height: 860, dpr: 2 }, CFG, role);
+        for (const i of SCENED) {
+          const { guide } = opening(i);
+          const stage = new GuideStage();
+          walkPages(ctx, l, guide, role, stage, phase);
+          // The last page is the gate, which is not a rehearsal at all.
+          expect(stage.active, `${WAVES[i]?.name} left its scene up on the gate`).toBe(false);
+        }
+      },
+      WALK_MS,
+    );
   }
 
-  it("draws a rehearsal on a screen narrow enough that a word does not fit", () => {
-    // A rehearsal is the whole stage, so there is no room left to run out of
-    // — what a tiny screen tests instead is that every tile, lobe, caption and
-    // button still comes out as a number a canvas accepts.
-    const { ctx } = stubCanvas();
-    const l = computeLayout({ width: 240, height: 480, dpr: 1 }, CFG, "p1");
-    // The fourth tick of every four: the three walks above take the other
-    // three, so this is the one that completes the film's clock.
-    for (const i of SCENED) {
-      const { guide } = opening(i);
-      walkPages(ctx, l, guide, "p1", new GuideStage(), ROLES.length);
-    }
-    // One screen, so it costs what one of the three walks above costs — and
-    // it gets the same budget, for the same reason.
-  }, 60_000);
+  it(
+    "draws a rehearsal on a screen narrow enough that a word does not fit",
+    () => {
+      // A rehearsal is the whole stage, so there is no room left to run out of
+      // — what a tiny screen tests instead is that every tile, lobe, caption and
+      // button still comes out as a number a canvas accepts.
+      const { ctx } = stubCanvas();
+      const l = computeLayout({ width: 240, height: 480, dpr: 1 }, CFG, "p1");
+      // The fourth tick of every four: the three walks above take the other
+      // three, so this is the one that completes the film's clock.
+      for (const i of SCENED) {
+        const { guide } = opening(i);
+        walkPages(ctx, l, guide, "p1", new GuideStage(), ROLES.length);
+      }
+      // One screen, so it costs what one of the three walks above costs — and
+      // it gets the same budget, for the same reason.
+    },
+    WALK_MS,
+  );
 
   it("puts a rehearsal away the moment the reader reaches the gate", () => {
     const stage = new GuideStage();

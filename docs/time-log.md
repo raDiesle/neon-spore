@@ -11307,3 +11307,27 @@ The bottleneck was `check:fast` itself: four minutes the first time, with two
 shards red on timeouts that a rerun cleared.
 
 *Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — boss-hints-mechanics — Six test timeouts that a machine can read
+
+The queue's timeout item, the half the shard-width landing left: four flat
+numbers written beside `it` that *overrode* their file's own machine-scaled
+default with something smaller, and two files on bun's flat five seconds. The
+walks through every rehearsal take the hang ceiling by name; the two short
+files take `cpuTimeout`; `HANG_MS` is exported from `cpu-time.ts` with the
+reason a walk cannot use a scaled number.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | `cpu-time.ts` end to end, the four `60_000` sites, `slots.ts` as it landed mid-lane |
+| writing | 15 | the export, six files' caps, the prose arguing each, the residual queue item |
+| looking | 0 | nothing drawn |
+| friction | 20 | three landings lost to this before it was fixed; biome reflows `it(name, fn, ms)` across four lines, so a one-word change is a ninety-line diff |
+| landing | 10 | `check:fast` twice, once before the trunk moved under it, `queue done`, the commit, the land |
+
+The bottleneck was that `CORE_LOAD` is read at import: a shard runner starts
+every worker at once, so the first thing a fresh process sees is the minute
+before it existed, and the moment that costs a landing is the one moment the
+load average calls the machine quiet.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

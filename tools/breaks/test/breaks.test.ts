@@ -1,8 +1,17 @@
-import { describe, expect, it } from "bun:test";
+import { describe, expect, it, setDefaultTimeout } from "bun:test";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { cpuTimeout } from "../../test/cpu-time.js";
 import { sheet } from "../src/sheet.js";
 import { piecesOf, SUBJECTS } from "../src/subjects.js";
+
+// A quarter of a second for all four, and a cap that rises with the machine
+// (`tools/test/cpu-time.ts`): cutting every subject is arithmetic and nothing
+// else, so under a full check it is slow for the machine's reasons and not its
+// own. It was on bun's flat five seconds and died at 5875 ms in one. The number
+// below buys eight seconds even when the load average has not caught up with
+// the shards yet, and more when it has.
+setDefaultTimeout(cpuTimeout(1_000));
 
 const OUT = resolve(import.meta.dir, "../../../docs/reference/breaks.svg");
 

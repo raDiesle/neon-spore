@@ -1415,21 +1415,18 @@ and null for a part this screen does not draw. The rounds (PINBALL, THE
 GAUGE, THE MAZE, THE REPRISE) are their own picture and may want their own
 anchor rather than a boss part.
 
-## `check:fast` reports a shard red on a test timeout when the machine is busy
+## Four flat test timeouts are left, on the fork-and-disk unit
 
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-18, claude/queue-check-fast-reports-a-shard-red-on-a-test-timeout
-- **Files:** `tools/check/shard.ts`, `tools/check/fast.ts`, `packages/render/test/canvas-stub.ts`, `tools/director/test/poses.test.ts`
+- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Files:** `packages/sim/test/limits.test.ts`, `packages/sim/test/copies.test.ts`, `tools/dev/test/supervise-stop.test.ts`, `apps/server/test/dev-stop.test.ts`
 
-Three runs of `bun run check:fast` in one sitting came back red on "test
-timed out" — `packages/render/test/briefing.test.ts` twice, then
-`tools/director/test/poses.test.ts` — each of which passes alone in under a
-second, and each of which passed on the next run of the same command with no
-change to the tree; the load average was 9–12 with other sessions' checks
-running. `FRAME_TIMEOUT_MS` is `cpuTimeout(3_000)` and scales by CPU count,
-not by load. Either the sharder retries a shard whose only failures are
-timeouts, once, before calling it red, or the timeout reads the one-minute
-load average (`os.loadavg()`) and stretches with it, or the check says
-"timed out under load — rerun" in place of a red that is not one. A test
-that could fail red on a busy machine with no change is a check nobody
-trusts, and a lane that reruns three times before landing is a slow lane.
+The lane that put every compute-bound test on `tools/test/cpu-time.ts`
+deliberately left these four, because they are not compute: `limits.test.ts`
+and `copies.test.ts` read fifteen hundred files off disk, and the two stop
+tests spawn a server and wait for it to die. That is `tools/test/repo-time.ts`'s
+unit — `loadedTimeout` for the readers, `repoTimeout` for the spawners — and
+each wants its idle cost measured before a number is written, the way
+`cpu-time.ts`'s callers do. Today they carry `30_000`, `30_000`, `30_000` and
+`90_000`, flat, which is right for one machine under one load and for no other.
+None of them has failed a landing yet; they are the same shape as the four that
+did.
