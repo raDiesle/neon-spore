@@ -146,7 +146,10 @@ export function drawBoss(
   }
 
   if (boss.kind === "maze") {
-    drawMaze(ctx, l, world.cfg, boss, view.role, world.beat, view.beatPhase);
+    drawMaze(ctx, l, world.cfg, boss, view.role, world.beat, view.beatPhase, view.time);
+    // The navigator's thumb landing on the heart or leaving it, thrown off
+    // it over everything the drum drew (`maze-grip-fx.ts`).
+    effects.boss.maze.draw(ctx, l, world.cfg, boss);
     return;
   }
 

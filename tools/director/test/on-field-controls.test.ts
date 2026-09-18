@@ -150,11 +150,9 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // pinch on a full one, player 2's pry on the mouth (`sim/gorge-hand.ts`,
     // `field-controls-gorge.ts`).
     case "gorgeLobe":
-      return target;
     // `mazeHeart` is THE MAZE's heart under the navigator's thumb, torn out
-    // while the pilot braces the string (`sim/maze-hand.ts`). Its simulation
-    // half landed first; the on-field entry and the row in
-    // `docs/spec/controls.md` are the look lane's.
+    // while the pilot braces the string (`sim/maze-hand.ts`,
+    // `field-controls-maze.ts`).
     case "mazeHeart":
       return target;
     default:
@@ -194,6 +192,7 @@ describe("FIELD_CONTROLS against touch.ts's own types", () => {
         "queenMark",
         "mirrorLobe",
         "gorgeLobe",
+        "mazeHeart",
       ] as const
     ).map(documentedDragTarget);
     for (const target of targets) {

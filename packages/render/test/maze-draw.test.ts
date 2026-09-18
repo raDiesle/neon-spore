@@ -141,7 +141,7 @@ function watch(role: ViewRole, m: MazeState, beat: number, beatPhase = 0) {
       return Reflect.set(target, prop, value);
     },
   }) as unknown as CanvasRenderingContext2D;
-  drawMaze(spy, l, CFG, m, role, beat, beatPhase);
+  drawMaze(spy, l, CFG, m, role, beat, beatPhase, 0);
   return { lines, arcs, segments, colours, points, l };
 }
 
@@ -275,7 +275,7 @@ describe("THE MAZE's wheel", () => {
         const { ctx } = stubCanvas();
         const m = bossState({ phase, tried: [0, 1], way: 0, step: 1, verdict: -1 });
         const c = ctx as unknown as CanvasRenderingContext2D;
-        expect(() => drawMaze(c, l, cfg, m, "p1", 3, 0)).not.toThrow();
+        expect(() => drawMaze(c, l, cfg, m, "p1", 3, 0, 0)).not.toThrow();
       }
     }
   });

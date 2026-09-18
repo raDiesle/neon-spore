@@ -1449,12 +1449,34 @@ cannon and her colour on the panel; `travel` — watched; `grip` — his brace o
 the picture, her pull on the picture; `verdict`. The two dials are in
 `config-maze-grip.ts`, merged into the clock table.
 
-*What is not built* (the look lane, `docs/parked.md`): the heart as a handle
-under her thumb, the shot held in it, the heart stretched by the pull, the
-`mazeGrip` ring, the director's on-field entry and the row in
-`docs/spec/controls.md`. The cue already has its arm: `CARRY` / `HOLD` on the
-string for him until his hand is on it, `CARRY` / `PULL` on the heart for her
-for as long as it holds.
+**The look of the tear** (18 September 2026, `render/maze-grip.ts`,
+`maze-grip-fx.ts`). Under `grip` the heart's *room* — the drum's innermost
+ring, the circle the muscle already beats in — is her handle: a ring stands
+on it on the navigator's screen alone (and `test`), THE GORGE's and THE
+MIRROR's ring (`grip-rings.ts`), breathing until her thumb lands and filled
+once it has, with `PULL` over it until then and `NAVIGATOR'S` on his side of
+the words. Round it, on both screens, the dial of `mazeGripBeats` running
+out from the beat the shot arrived — the one readout of the window, on the
+screen that has to pull inside it and the screen that has to hold. The
+shot is held in the middle (`maze-shot.ts`) and the muscle is carried down
+under it by `gripPullMilli` (`maze-heart.ts`, its `pull`), the veins rooted
+in the body and tipped at the wall so a pull reads as the heart coming away
+from the room rather than the room sliding; the blood stays on the floor.
+His string keeps its handle under `grip` with `HOLD` over it in place of
+`CARRY` (`maze-string.ts`), lit while his hand is on it, because the brace
+is a press on a thing already drawn and not a second control. The press on
+the heart is answered at the room's circle, resting, by `mazeHeartUnder`
+under `handleUnder`, with `fromYMilli` how far down the thumb has come; the
+pilot's thumb there falls through. `mazeGrip` throws a ring off the heart in
+its blood's rim on the landing and in the dim on the leaving
+(`effects.boss.maze`, `BossTransients`' four verbs). Two rows on the
+director's CONTROLS tab, the string's moved out beside the heart's
+(`field-controls-maze.ts`, `docs/spec/controls.md`).
+`render/test/maze-grip.test.ts` proves the thumb answered and refused by
+seat and phase, the move reporting its drop and the lift letting go, the
+string still the pilot's as the brace, the ring on her screen and the count
+on both, and all three screens drawn with a braced string and a pulled
+heart. A look with no shipped alternative. *Never watched at tempo.*
 
 ## 11.11 THE CAIRN — the boss you take apart with your hands
 

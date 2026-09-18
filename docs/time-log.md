@@ -9171,3 +9171,21 @@ the wire, the audio, two silent lists, the cue, the director and four tests
 before the simulation itself is reached.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — THE MAZE's heart under the navigator's thumb: the look half
+
+The picture hands the simulation the thumb the sim half was waiting for.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | THE MIRROR's and THE GORGE's grip files as the model, the heart, the shot, the string, the harness |
+| writing | 25 | `maze-grip.ts`, `maze-grip-fx.ts`, the pull through the heart and the shot, the brace's word, twelve tests, the director's file, the spec |
+| looking | 5 | one frame, one crop |
+| friction | 5 | two assertions written against a count that happened to be equal both ways, and `bun run crop`'s argument order |
+| landing | 10 | format, lint, index, `check:fast`, the commit, the land |
+
+The bottleneck was the width of a look: one gesture touched ten render
+files and the director before a ring was on the screen, and `handles.ts`
+took two tries to hold under 250 lines.
+
+*Measured: the rows above are the session's own estimate, read off the previous landing's timestamp; the compaction in the middle of the lane is not in them.*

@@ -84,6 +84,10 @@ function shotXY(
  * **Nothing is drawn ahead of it, and nothing behind it.** A trail down the
  * corridors it had already walked read as the route being shown, which gives
  * away the one thing the shot is there to find out.
+ *
+ * **Under `grip` it is held in the heart**, in the middle, and carried down
+ * with the muscle as the navigator pulls (`maze-grip.ts`): the shot is what
+ * she is tearing out, so it goes where the heart goes.
  */
 export function drawMazeShot(
   ctx: CanvasRenderingContext2D,
@@ -94,7 +98,7 @@ export function drawMazeShot(
   beat: number,
   beatPhase: number,
 ): void {
-  if (m.way < 0 || (m.phase !== "travel" && m.phase !== "verdict")) return;
+  if (m.way < 0 || (m.phase !== "travel" && m.phase !== "verdict" && m.phase !== "grip")) return;
   const route = wheel.entrances[m.way]?.route ?? [];
   const first = route[0];
   if (first === undefined) return;
@@ -122,6 +126,9 @@ export function drawMazeShot(
     ctx.lineTo(at.x, at.y);
     ctx.stroke();
     ctx.globalAlpha = 1;
+  } else if (m.phase === "grip") {
+    const d = mazeDrum(l, cfg);
+    at = { x: d.cx, y: d.cy + (m.gripPullMilli * l.tile) / 1000 };
   } else {
     const inside = Math.max(0, since - MAZE_APPROACH_BEATS);
     if (route[m.step] === undefined) return;

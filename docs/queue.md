@@ -1317,6 +1317,10 @@ the three newest handles can be held for a frame. Add the three rows with
 their seats, and the proof is `bun run frames . --wave "BULB QUEEN" --seat
 p1 --creature petals=6 --ticks 200 --boss openBeat=now,closeBeat=99` showing
 the ring on both marks.
+`mazeHeart` is a fourth row for the same list (2026-09-18, the look lane):
+THE MAZE's tear was photographed with `--boss-json` writing `gripThumb` and
+`gripPullMilli` straight into the boss, which shows the picture and proves
+nothing about the hand.
 
 ## `boss-cue-read-c.ts` is at 245 lines, and the sixth boss on it grew
 
@@ -1333,3 +1337,21 @@ DIASTOLE, THE ORRERY, THE LEAD) from the three that are about a thing on the
 field (THE THROAT, THE LEDGER, THE SCUTTLE), as `boss-cue-read-c.ts` and a new
 `-i.ts`, with `cuesOf`'s switch in `boss-cue.ts` pointed at both. `bun run
 check` proves it; no test names the file.
+
+## `tools/test/tree-walk.test.ts` reads every source file under the default timeout
+
+- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
+- **Files:** `tools/test/tree-walk.test.ts`, `tools/test/repo-time.ts`
+
+`bun run check` inside `bun run land` once failed on "skips `.claude`,
+wherever it recurses into directories" with *test timed out*, at line 89,
+under the eight-shard load; run alone the file passes in well under a
+second and the landing was retried and went through. The test reads every
+`.ts` file under `packages`, `apps` and `tools` — the same disk-bound walk as
+`limits.test.ts` — and carries **no** timeout of its own, so it runs on
+Bun's five-second default, which the fifteen-hundred-file read blows
+through when the other seven shards are on the same disk. Give it
+`loadedTimeout` from `tools/test/repo-time.ts`, the unit the readers in the
+item above are meant to move to, and `setDefaultTimeout` it the way the
+frame tests do. `bun run check` proves it; the failure is a load flake and
+will not reproduce on demand.

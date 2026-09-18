@@ -10,6 +10,7 @@ import { InstarFx } from "./instar-fx.js";
 import type { Layout, ViewRole } from "./layout.js";
 import { LeadFx } from "./lead-fx.js";
 import { LedgerFx } from "./ledger-fx.js";
+import { MazeGripFx } from "./maze-grip-fx.js";
 import { RepriseFx } from "./reprise-fx.js";
 import { ScuttleFx } from "./scuttle-fx.js";
 import { MirrorFx } from "./simon-fx.js";
@@ -74,6 +75,9 @@ export class BossTransients {
    * on the way there — read above the loop, the way the mirror's are
    * (`gorge-fx.ts`). */
   readonly gorge = new GorgeFx();
+  /** THE MAZE's thumb landing on its heart or leaving it, thrown off the
+   * heart by the boss pass (`maze-grip-fx.ts`, `maze-draw.ts`). */
+  readonly maze = new MazeGripFx();
   /** THE CURTAIN's sheet coming down once torn, and its receipts' bursts
    * (`curtain-fx.ts`). */
   readonly curtain = new CurtainFx();
@@ -143,6 +147,7 @@ export class BossTransients {
     this.mirror.ingest(events);
     this.warden.ingest(events);
     this.gorge.ingest(events, l, burst);
+    this.maze.ingest(events);
     this.curtain.ingest(events, l, cfg, beatSeconds, burst);
     this.taster.ingest(events, l, beatSeconds, burst);
     this.sinew.ingest(events, l, cfg, beatSeconds, burst);
@@ -168,6 +173,7 @@ export class BossTransients {
     this.warden.update(dt);
     this.reprise.update(dt);
     this.gorge.update(dt);
+    this.maze.update(dt);
     this.curtain.update(dt);
     this.taster.update(dt);
     this.sinew.update(dt);
@@ -185,7 +191,7 @@ export class BossTransients {
   }
 
   /** The ten drawn under the hull with everything else. The mirror, the
-   * warden, the fleet and the reprise are drawn by the boss pass, the
+   * maze, the warden, the fleet and the reprise are drawn by the boss pass, the
    * after-image by the renderer between the bodies and the ship, the
    * sinew's shock on the finished ship (`frame-on-ship.ts`) and the stare's
    * flash over the band, last of the frame (`canvas2d.ts`). */
@@ -209,6 +215,7 @@ export class BossTransients {
     this.reprise.clear();
     this.afterImage.clear();
     this.gorge.clear();
+    this.maze.clear();
     this.curtain.clear();
     this.taster.clear();
     this.sinew.clear();

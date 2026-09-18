@@ -6,6 +6,7 @@ import { FILAMENT_CONTROLS } from "./field-controls-filament.js";
 import { GORGE_CONTROLS } from "./field-controls-gorge.js";
 import { GUM_CONTROLS } from "./field-controls-gum.js";
 import { INSTAR_CONTROLS } from "./field-controls-instar.js";
+import { MAZE_CONTROLS } from "./field-controls-maze.js";
 import { MIRROR_CONTROLS } from "./field-controls-mirror.js";
 import { ORRERY_CONTROLS } from "./field-controls-orrery.js";
 import { QUEEN_CONTROLS } from "./field-controls-queen.js";
@@ -137,18 +138,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
     sends: ["fire"],
     pose: "SHOT · BEING LAID",
   },
-  {
-    name: "THE MAZE'S STRING",
-    where: "on the drum's resting circle, only while the wheel is being read",
-    seat: "player 1 — the pilot's half of the round; player 2's press falls through",
-    gesture: "grab and drag",
-    does: "Turns the wheel by how far the hand has come from where it grabbed.",
-    source: "touch.ts — mazeStringUnder() under handleUnder()",
-    holdKind: "drag",
-    dragTarget: "mazeString",
-    sends: ["drag"],
-    pose: "MAZE · THE WHEEL TO READ",
-  },
+  // THE MAZE's string moved out with its heart: `field-controls-maze.ts`.
   {
     name: "THE WARDEN'S TETHER",
     where: "on the tether's resting circle, while one hangs from the rim",
@@ -232,6 +222,7 @@ export const FIELD_CONTROLS: readonly FieldControlDef[] = [
   ...DIASTOLE_CONTROLS, // THE DIASTOLE's clamp, the second whose seat is not told.
   ...MIRROR_CONTROLS, // THE MIRROR's lobes, two gestures on one target (`field-controls-mirror.ts`).
   ...GORGE_CONTROLS, // THE GORGE's pinch and pry, one target whose seat says the gesture.
+  ...MAZE_CONTROLS, // THE MAZE's string and its heart, the brace and the tear (`field-controls-maze.ts`).
   {
     name: "THE GUIDE'S HOLD",
     where: "anywhere on the screen, while a guide or the ready gate is up",

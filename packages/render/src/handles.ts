@@ -8,6 +8,7 @@ import { gorgeGripUnder } from "./gorge-grip.js";
 import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
 import { lidCordCircle } from "./lid-string.js";
+import { mazeHeartUnder } from "./maze-grip.js";
 import { mazeStringCircle } from "./maze-string.js";
 import { mirrorLobeUnder } from "./mirror-grip.js";
 import { orreryRingUnder } from "./orrery-grab.js";
@@ -82,10 +83,9 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     queenMarkUnder(l, x, y, field) ??
     // THE DIASTOLE's clamp on the alone chamber (`diastole-clamp.ts`).
     diastoleClampUnder(l, x, y, field) ??
-    // THE MIRROR's two lobes, under its last round and its pin (`mirror-grip.ts`).
-    mirrorLobeUnder(l, x, y, field) ??
-    // THE GORGE's pinch and pry, in the full intakes and the mouth (`gorge-grip.ts`).
-    gorgeGripUnder(l, x, y, field)
+    mirrorLobeUnder(l, x, y, field) ?? // THE MIRROR's two lobes, its last round and its pin (`mirror-grip.ts`).
+    gorgeGripUnder(l, x, y, field) ?? // THE GORGE's pinch and pry, the full intakes and the mouth (`gorge-grip.ts`).
+    mazeHeartUnder(l, x, y, field) // THE MAZE's heart under `grip`, the navigator's tear (`maze-grip.ts`).
   );
 }
 
@@ -165,8 +165,8 @@ function choirArrowUnder(l: Layout, x: number, y: number, field: Field): Touch |
  * (`Command` in `packages/sim/src/types.ts` has why).
  */
 function mazeStringUnder(l: Layout, x: number, y: number, field: Field): Touch | null {
-  const maze = bossOf(field, "maze");
-  if (maze === null || maze.phase !== "read" || field.seat !== 1) return null;
+  const phase = bossOf(field, "maze")?.phase; // under `grip` the hand is the brace (`maze-grip.ts`)
+  if ((phase !== "read" && phase !== "grip") || field.seat !== 1) return null;
   if (!hitCircle(mazeStringCircle(l, field.cfg), x, y)) return null;
   return {
     player: 1,

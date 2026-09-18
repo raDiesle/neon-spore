@@ -1,7 +1,7 @@
 import { circleSubpath, type Point } from "@neon-spore/content";
 import type { MazeState, SimConfig } from "@neon-spore/sim";
 import { strokeGlow } from "./glow.js";
-import { drawHandleHint, HINT_LOUD, handleRadius } from "./handle-draw.js";
+import { drawHandleHint, type HandleWords, HINT_LOUD, handleRadius } from "./handle-draw.js";
 import type { Circle, Layout, ViewRole } from "./layout.js";
 import { mazeDrum } from "./maze-walls.js";
 import { PALETTE, STROKE } from "./palette.js";
@@ -105,9 +105,12 @@ export function mazeStringCircle(l: Layout, cfg: SimConfig): Circle {
  * may ever turn it (`mazeStringHeard`), so player 1 reads PULL and player 2 is
  * told whose hand it is rather than waiting for a turn that never comes.
  *
- * Drawn only while the wheel can actually be turned. A handle standing under a
- * drum that is watching a shot walk is an invitation to press something that
- * does nothing.
+ * Drawn only while the wheel can actually be turned, and again under `grip`,
+ * when the hand on it is the pilot's brace (`sim/maze-hand.ts`): the tear only
+ * counts while his hand is on the string, so the handle stays, lit while it is
+ * held, and its word is HOLD rather than PULL — nothing turns now. A handle
+ * standing under a drum that is watching a shot walk is an invitation to press
+ * something that does nothing.
  */
 export function drawMazeString(
   ctx: CanvasRenderingContext2D,
@@ -116,7 +119,7 @@ export function drawMazeString(
   m: MazeState,
   role: ViewRole,
 ): void {
-  if (m.phase !== "read") return;
+  if (m.phase !== "read" && m.phase !== "grip") return;
   const rest = mazeStringCircle(l, cfg);
   const { x, off } = mazeStringHandle(l, cfg, m);
   const live = m.dragging ? PALETTE.pod : PALETTE.hullRim;
@@ -148,5 +151,9 @@ export function drawMazeString(
   // The word goes as soon as a hand lands, the way the tether's does: from
   // then on the handle's own position says it.
   if (m.dragging) return;
-  drawHandleHint(ctx, l, role, x, rest.y + l.tile * 0.65, HINT_LOUD);
+  const words = m.phase === "grip" ? BRACE_WORDS : undefined;
+  drawHandleHint(ctx, l, role, x, rest.y + l.tile * 0.65, HINT_LOUD, words);
 }
+
+/** The pilot's, still — but under `grip` the hand holds rather than pulls. */
+const BRACE_WORDS: HandleWords = { seat: 1, mine: "HOLD", theirs: "PILOT'S" };

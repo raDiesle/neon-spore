@@ -2,6 +2,7 @@ import { type MazeState, mazeCircleMilli, mazeCurrent, type SimConfig } from "@n
 import type { Layout, ViewRole } from "./layout.js";
 import { drawMazeDoors } from "./maze-door.js";
 import { mazeCrash, mazeFall } from "./maze-fall.js";
+import { drawMazeGrip, mazeHeartPull } from "./maze-grip.js";
 import { drawMazeHeart } from "./maze-heart.js";
 import { MAZE_LOOK } from "./maze-look.js";
 import { mazeHeartBlood } from "./maze-pulse.js";
@@ -49,6 +50,13 @@ import { mazeDrum } from "./maze-walls.js";
  * it is broken (`sim/maze-verdict.ts`). The heart stays where it is either
  * way: the maze is what fell, and the boss is not the maze.
  *
+ * **The right shot is held, and the heart is torn out by hand.** Under `grip`
+ * the shot stops in the middle and the muscle is pulled down by however far
+ * the navigator's thumb has come (`gripPullMilli`), its veins stretching to
+ * the wall of the room; the ring she pulls, the count, and the string's
+ * handle kept lit as the pilot's brace are `maze-grip.ts` and
+ * `maze-string.ts`. `role` decides a second word here — whose the heart is.
+ *
  * Where the wheel stands, which column the gap has taken, how wide the drum is
  * and which way the shot turns are all read out of `sim` rather than worked
  * out again — a picture that lit a column the shot does not go up would be the
@@ -64,6 +72,7 @@ export function drawMaze(
   role: ViewRole,
   beat: number,
   beatPhase: number,
+  time: number,
 ): void {
   const wheel = mazeCurrent(m);
   if (wheel === null) return;
@@ -81,10 +90,12 @@ export function drawMaze(
     m,
     beat,
     beatPhase,
+    mazeHeartPull(l, m),
   );
   drawMazeString(ctx, l, cfg, m, role);
   drawMazeDoors(ctx, l, cfg, m, wheel, beat, beatPhase, fall);
   drawMazeShot(ctx, l, cfg, m, wheel, beat, beatPhase);
+  drawMazeGrip(ctx, l, cfg, m, role, beat, beatPhase, time);
   // A shot the heart refused for its colour, thrown back out across the whole
   // drum. Over the walls and the corridors rather than under them, because it
   // went *through* them (`maze-spill.ts`); the rest of it lands on the ship

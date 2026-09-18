@@ -1321,6 +1321,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/maze-look.ts` | the one record a candidate MAZE patches — the drum standing still |
 | `packages/render/src/maze-relief.ts` | THE MAZE's drum given depth: a floor under every corridor, and a wall that stands on it |
 | `packages/render/src/maze-pulse.ts` | the numbers THE MAZE's heart runs on — which blood the round is on, the double thump, the tempo from whole to hurt, how long a wound lasts — beside `maze-heart.ts` |
+| `packages/render/src/maze-grip-fx.ts` | **The thumb landing on the heart, and the thumb leaving it** |
+| `packages/render/src/maze-grip.ts` | **THE MAZE's heart as a control**, for the one gesture that asks a thumb for it: the tear (`grip` |
 | `packages/render/src/pulse-fall.ts` | The arrows themselves: what is falling, what is standing on the line |
 | `packages/render/src/pulse-lane.ts` | Where THE PULSE's four lanes are, and where the line across them is |
 | `packages/render/src/pulse-meter.ts` | The one meter, the tally under it, and the verdict |
@@ -2175,6 +2177,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/field-controls-filament.ts` | THE FILAMENT's line, in a file of its own |
 | `tools/director/src/field-controls-queen.ts` | THE BULB QUEEN's marks, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-mirror.ts` | THE MIRROR's lobes, in a file of their own — `field-controls-page.ts` is at its limit |
+| `tools/director/src/field-controls-maze.ts` | THE MAZE's two handles, in a file of their own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/field-controls-diastole.ts` | THE DIASTOLE's clamp, in a file of its own — `field-controls-page.ts` is at its limit |
 | `tools/director/src/ship-fields-balloon.ts` | THE BALLOON's eight numbers, sorted into their card |
 | `tools/director/src/ship-fields-choreo.ts` | **The choreographed bosses' dials**, sorted into their cards |

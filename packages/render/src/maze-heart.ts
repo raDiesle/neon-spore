@@ -86,6 +86,11 @@ function skinOf(body: number, t: number): MazeSkin {
  * It reads the whole round rather than a colour and a beat: how much of the
  * boss's hull is gone is how fast it beats and how much blood is round it, and
  * a verdict just landed is a hit it has to show.
+ *
+ * `pull` is how far down the muscle has been dragged, in pixels — the
+ * navigator's tear (`maze-grip.ts`). The blood and the veins' far ends stay
+ * where the room is; only the body and its roots move, so a pull reads as
+ * the heart coming away from the wall rather than the whole room sliding.
  */
 export function drawMazeHeart(
   ctx: CanvasRenderingContext2D,
@@ -95,10 +100,12 @@ export function drawMazeHeart(
   m: MazeState,
   beat: number,
   beatPhase: number,
+  pull = 0,
 ): void {
   const { tint, rim } = mazeHeartBlood(m.round);
   const { time, struck, squeeze } = heartPulse(m, beat, beatPhase);
   const body = r * REST * (1 + SWELL * squeeze) * (1 + 0.28 * struck);
+  const my = cy + pull;
 
   drawMazeBlood(ctx, cx, cy, r, m, (round) => mazeHeartBlood(round).tint, beat, beatPhase);
 
@@ -117,16 +124,13 @@ export function drawMazeHeart(
     const oy = Math.sin(a);
     const reach = (r - body) * (1.04 + 0.16 * squeeze);
     const rootX = cx + ox * body * 0.96;
-    const rootY = cy + oy * body * 0.96;
-    const tipX = rootX + ox * reach;
-    const tipY = rootY + oy * reach;
+    const rootY = my + oy * body * 0.96;
+    const tipX = cx + ox * (body * 0.96 + reach);
+    const tipY = cy + oy * (body * 0.96 + reach);
+    const dx = tipX - rootX;
+    const dy = tipY - rootY;
     veins.moveTo(rootX, rootY);
-    veins.quadraticCurveTo(
-      rootX + ox * reach * 0.5 - oy * reach * 0.34,
-      rootY + oy * reach * 0.5 + ox * reach * 0.34,
-      tipX,
-      tipY,
-    );
+    veins.quadraticCurveTo(rootX + dx * 0.5 - dy * 0.34, rootY + dy * 0.5 + dx * 0.34, tipX, tipY);
     for (const fork of [-0.62, 0.58]) {
       const fx = Math.cos(a + fork);
       const fy = Math.sin(a + fork);
@@ -139,12 +143,12 @@ export function drawMazeHeart(
   // The aura, which is what makes the middle read as lit from inside rather
   // than as a disc laid on the drum. It swells with the squeeze and with
   // nothing else.
-  halo(ctx, cx, cy, body * (1.7 + squeeze * 1.3), tint, 0.1 + 0.3 * squeeze);
+  halo(ctx, cx, my, body * (1.7 + squeeze * 1.3), tint, 0.1 + 0.3 * squeeze);
 
   // The muscle. Its lobes lie on their side — one turn, applied to the whole
   // contour, so there is no second copy of the angle anywhere below.
   ctx.save();
-  ctx.translate(cx, cy);
+  ctx.translate(cx, my);
   ctx.rotate(Math.PI / 2);
   const s = skinOf(body, time);
   const ring = blobPoints(0, 0, s.rx, s.ry, s.lobes, s.depth, s.wobble, s.t, s.seed, SKIN_POINTS);
@@ -189,9 +193,9 @@ export function drawMazeHeart(
     ctx.strokeStyle = rim;
     ctx.lineWidth = 2 + 6 * struck;
     ctx.beginPath();
-    ctx.arc(cx, cy, r * (0.5 + 1.5 * (1 - struck)), 0, Math.PI * 2);
+    ctx.arc(cx, my, r * (0.5 + 1.5 * (1 - struck)), 0, Math.PI * 2);
     ctx.stroke();
-    halo(ctx, cx, cy, r * (1.2 + 1.4 * struck), rim, struck * 0.5);
+    halo(ctx, cx, my, r * (1.2 + 1.4 * struck), rim, struck * 0.5);
     ctx.globalAlpha = 1;
   }
   ctx.restore();
