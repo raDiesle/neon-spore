@@ -470,6 +470,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE SCOUT changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-scout-changes-state-more-than-once-and-asks
 - **Files:** `packages/sim/src/config-scout.ts`, `packages/sim/src/scout-arena.ts`, `packages/sim/src/scout-fly.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
