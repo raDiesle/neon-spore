@@ -180,6 +180,7 @@ options it picks between:
 ## `tools/frames/run.ts` is at the ceiling, and every flag adds a paragraph
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-tools-frames-run-ts-is-at-the-ceiling-and-every
 - **Files:** `tools/frames/run.ts`, `tools/frames/flags.ts`, `docs/commands.md`
 - **Where:** cloud
 
