@@ -498,6 +498,7 @@ The row itself was repaired in this lane's commit to get the trunk green again.
 ## The bosses page says nothing is in hand while THE INSTAR's look is
 
 - **Found:** 2026-09-17, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-bosses-page-says-nothing-is-in-hand-while-th
 - **Files:** `docs/spec/bosses.md`, `tools/director/src/backlog-bosses.ts`
 
 `bosses.md`'s `## Still in hand` reads *Nothing, as of 17 September 2026*, and
