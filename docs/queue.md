@@ -180,6 +180,7 @@ options it picks between:
 ## `tools/director/test/loop-once.test.ts` times out under a loaded shard
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-tools-director-test-loop-once-test-ts-times-out
 - **Files:** `tools/director/test/loop-once.test.ts`, `tools/check/shard.ts`
 - **Where:** cloud
 
