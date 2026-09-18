@@ -456,6 +456,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE GAUGE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-18, claude/queue-the-gauge-changes-state-more-than-once-and-asks
 - **Files:** `packages/sim/src/config-gauge.ts`, `packages/sim/src/gauge-round.ts`, `packages/sim/src/gauge.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 
 It is answered today on its own panel (`gauge`), over 3 files of simulation. Give it
