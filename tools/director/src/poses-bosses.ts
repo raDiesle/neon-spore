@@ -4,6 +4,8 @@ import { BOSS_STATES, type BossKind, bossTitle } from "./boss-states.js";
 import type { Pose, PoseGroup } from "./pose-kit.js";
 import { CLOCK_BOSS_POSES } from "./poses-bosses-clocks.js";
 import { FIRST_BOSS_POSES } from "./poses-bosses-first.js";
+import { BEAT_HAND_POSES } from "./poses-bosses-hands-beats.js";
+import { SHOT_HAND_POSES } from "./poses-bosses-hands-shots.js";
 import { QUEEN_POSES } from "./poses-bosses-queen.js";
 import { ROUND_BOSS_POSES } from "./poses-bosses-rounds.js";
 
@@ -14,9 +16,10 @@ import { ROUND_BOSS_POSES } from "./poses-bosses-rounds.js";
  *
  * The owner asked for it on 18 September 2026 — every boss's states,
  * documented, in a category of their own, and kept in step with the bosses.
- * The poses live in three files by how a state is reached: the queen's, the
- * rounds' (a whole screen the field has stopped being) and the clock bosses'
- * (a body over the field with a beat count). A boss is a group here whether
+ * The poses live in files by how a state is reached: the queen's, the
+ * rounds' (a whole screen the field has stopped being), the clock bosses'
+ * (a body over the field with a beat count), and the states a hand on the
+ * controls earns, by shot and by beat (`poses-bosses-hands-*.ts`). A boss is a group here whether
  * or not a pose has been written for it yet: a group with no cards and a
  * note saying which states are owed is the honest picture of where the
  * documentation stands, and `test/boss-states.test.ts` is what shrinks the
@@ -30,6 +33,8 @@ export const BOSS_POSES: Pose[] = [
   ...ROUND_BOSS_POSES,
   ...CLOCK_BOSS_POSES,
   ...FIRST_BOSS_POSES,
+  ...SHOT_HAND_POSES,
+  ...BEAT_HAND_POSES,
 ];
 
 /** The states of this boss no pose carries yet — what the category still owes. */

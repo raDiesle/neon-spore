@@ -60,28 +60,30 @@ on.
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
 - **Taken:** 2026-09-18, claude/queue-the-bosses-category-owes-the-field-and-clock-sta
-- **Files:** `tools/director/src/poses-bosses-clocks.ts`, `tools/director/src/poses-bosses-first.ts`, `tools/director/test/boss-states.test.ts`
+- **Files:** `tools/director/src/poses-bosses-kit.ts`, `tools/director/src/boss-hands-shots.ts`, `tools/director/src/boss-hands-beats.ts`, `tools/director/test/boss-states.test.ts`
 
 The STATES sheet's BOSSES category (the owner, 18 September 2026: every
 boss's states, documented, kept in step with the bosses) landed with every
-state that arrives on its own — the rounds' phases, the clocks' first beats,
-each field boss stood up. What is left is every state a hand has to bring on,
-and `OWED` in `test/boss-states.test.ts` is the exact list: warden narrow and
-glare, vane veer and seize, fleet struck and sunk, cairn leaving and settled,
-splice passed and verdict, reprise echoing and held, diastole two/alone/burst,
-baton crossing/falling/down, throat slide/quick/open/everts, undertow taken,
-orrery spitting/naked/out, candle eating/last/out, gorge spitting/gorged/out,
-curtain soft/bare/torn/out, taster fanning/hurrying/closed/out, sinew
+state that arrives on its own, and the first half of the rest landed with
+this entry's first part: the states a shot or a beat earns on THE WARDEN, THE
+VANE, THE ORRERY, THE CANDLE, THE DIASTOLE, THE BATON and THE THROAT, each a
+`Hand` — a function of the world called every tick, its presses sent on that
+tick (`poses-bosses-kit.ts` `runHand`), because what those states need is a
+fact read off the field and no fixed `cmds` list can know it. What is left,
+and `OWED` in `test/boss-states.test.ts` is the exact list: fleet struck and
+sunk, cairn leaving and settled, splice passed and verdict, reprise echoing
+and held, undertow taken, gorge spitting/gorged/out, curtain
+soft/bare/torn/out, taster fanning/hurrying/closed/out, sinew
 held/swinging/falling/out, ledger paying/whipping/taut/out, surge
 band/sealing/everting/out, lead running/still/passing/down, scuttle winding
 and down, antiphon still and down, hive spilling and down, instar land and
-down. Each is one `bossPose(kind, state, note, { cmds, want, budgetBeats })`
-in `poses-bosses-clocks.ts` (split a `poses-bosses-hands.ts` off before 250
-lines) with the pair's commands as `TimedCommand`s — the drags and holds the
-boss's own `sim/test/<boss>.test.ts` already sends are the script to copy —
-and the state struck from `OWED` in the same commit; the test refuses an
-allowance a pose already spends. `bossWorld` gives the boss its own wave;
-the hull is invulnerable, so a state past a hit still holds the frame.
+down. Each is one `bossPose(kind, state, note, { hand, want, budgetBeats })`
+in a new `poses-bosses-hands-*.ts` (the two that exist are near their limit),
+its hand in a new `boss-hands-*.ts` — the drags and holds the boss's own
+`sim/test/<boss>.test.ts` sends are the script to read — and the state struck
+from `OWED` in the same commit; the test refuses an allowance a pose already
+spends. `bossWorld` gives the boss its own wave; the hull is invulnerable, so
+a state past a hit still holds the frame.
 
 ## The BOSSES category owes the rounds' played states
 

@@ -10701,3 +10701,24 @@ the one the frames tool cannot reach, so it is proved by a test and never seen
 queued, because the event names a kind and the band names a control.
 
 *Measured: 2 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — the BOSSES category's shot and beat states
+
+The first half of the states a hand has to bring on: THE WARDEN's NARROW and
+GLARE, THE VANE's VEER and SEIZE, THE ORRERY's, THE CANDLE's, THE DIASTOLE's,
+THE BATON's and THE THROAT's earned states, twenty-two cards. Each is the
+boss's own wave run with a `Hand` on the controls — a function of the world
+called every tick — because a fixed list of timed commands cannot know the
+column a pupil drifted to or the beat two counts next meet on.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 45 | seven bosses' step files and tests for the press that takes a plate, a pin, a ring, a chamber, a bead, a gum; `pose-kit.ts`'s `runUntil` |
+| writing | 60 | `Hand` and `runHand`, the seven hands in two files, the twenty-two poses in two more, the notes, the OWED strikes |
+| looking | 10 | the BOSSES block of the sheet through `bun run shot` |
+| friction | 40 | six probe scripts before every hand reached its state: THE WARDEN's rope wants a grab before the pull, THE BATON's crossing is missed the first time because the wave drops a rock down the bead's column and her bolt dies on it — the trace that found it counted beats and acts for a while before it looked at the creatures |
+| landing | 10 | `check:fast`, the index, the parked entry rewritten, the commit, `bun run land --keep` |
+
+The bottleneck was THE BATON's miss: a crossing a fixed hand cannot save and
+a trace that looked at locks and act counts before it looked at what else was
+in the column.

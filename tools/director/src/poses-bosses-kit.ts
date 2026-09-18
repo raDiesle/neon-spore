@@ -1,5 +1,5 @@
 import { buildBoss, buildPods, buildQueue, placedFaults, WAVES } from "@neon-spore/content";
-import type { TimedCommand, World } from "@neon-spore/sim";
+import { step, type TimedCommand, type World } from "@neon-spore/sim";
 import { type BossKind, bossTitle } from "./boss-states.js";
 import { fresh, POSE_CONFIG, type Pose, run, runUntil, POSE_TPB as TPB } from "./pose-kit.js";
 
@@ -53,12 +53,49 @@ export interface BossPoseExtra {
   span?: number;
   /** Commands to send on the way — the pair's own answer, where a state needs one. */
   cmds?: TimedCommand[];
+  /** A hand reading the world as it goes, for an answer no fixed list can give (`Hand`). */
+  hand?: Hand;
   /** The state's own arrival, where it is not the stored phase by that name. */
   want?: (world: World) => boolean;
   /** Ticks to run on after arriving, for a frame past the first flash of it. */
   hold?: number;
   /** The run's budget in beats, for a state further off than sixty. */
   budgetBeats?: number;
+}
+
+/**
+ * **A hand on the controls, reading the field as it goes**: what the pair
+ * presses this tick, given the world as it stands.
+ *
+ * A fixed list of timed commands (`cmds`) is enough for a state the clock
+ * brings on by itself, and for a handle in a known place. It is not enough
+ * for the states a hand has to *earn* — the column THE WARDEN's pupil has
+ * drifted to, the colour THE ORRERY's core is showing, the beat THE
+ * DIASTOLE's two counts next meet on — because each of those is a fact the
+ * pair reads off the field and answers, and no list written beforehand can
+ * know it. So a hand is a function of the world, called every tick, and its
+ * commands are sent on that tick — which is exactly what a device does. The
+ * hands themselves are `boss-hands-*.ts`.
+ */
+export type Hand = (world: World) => Omit<TimedCommand, "tick">[];
+
+/** Run with a hand on the controls until the state arrives; throws on the budget, for `runUntil`'s reason. */
+export function runHand(
+  world: World,
+  what: string,
+  hand: Hand,
+  want: (world: World) => boolean,
+  budget: number,
+): void {
+  const stop = world.tick + budget;
+  while (world.tick < stop) {
+    step(
+      world,
+      hand(world).map((c) => ({ ...c, tick: world.tick })),
+    );
+    if (want(world)) return;
+  }
+  throw new Error(`the world never reached ${what}`);
 }
 
 /**
@@ -79,7 +116,10 @@ export function bossPose(kind: BossKind, state: string, note: string, x: BossPos
     boss: { kind, state },
     build: () => {
       const w = bossWorld(kind);
-      runUntil(w, `${bossTitle(kind)} ${state}`, x.cmds ?? [], want, (x.budgetBeats ?? 60) * TPB);
+      const what = `${bossTitle(kind)} ${state}`;
+      const budget = (x.budgetBeats ?? 60) * TPB;
+      if (x.hand) runHand(w, what, x.hand, want, budget);
+      else runUntil(w, what, x.cmds ?? [], want, budget);
       if (x.hold) run(w, x.hold);
       return w;
     },
