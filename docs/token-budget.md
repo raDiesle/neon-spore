@@ -29,7 +29,14 @@ and only two levers:
   the model's own window. The one place that outranks the file is
   `CLAUDE_CODE_AUTO_COMPACT_WINDOW` in the environment, which takes a plain
   count and no suffix; a cloud session that does not read this checkout is
-  pinned there instead.
+  pinned there instead. What is actually in force is not a guess:
+  `claude -p "/autocompact"` prints the window and where it came from, and
+  `200k tokens (from settings)` is the answer this repository should give —
+  `tokens (default for this model)` means the value was thrown away again.
+  A machine-wide default for every *other* checkout is a separate thing, in the
+  user settings file under the home directory; `/autocompact 200k` writes it
+  there and parses the suffix into the integer itself. Settings in this repository outrank it, so
+  the figure here holds wherever the repository is opened.
   It was 300k until 11 September 2026; the owner drains the queue in long
   sittings of independent items, and an item hardly ever needs more than
   ~100k of its own context, so the long tail past 200k was being re-read on

@@ -9595,15 +9595,18 @@ validated as a whole number between 100000 and 1000000 and a value that fails
 is dropped with `.catch(undefined)` — no warning, no log line, nothing in
 `/status` — so `"200k"` left every session on the model's own ~967k. The proof
 was not in the documentation, which only says the *command* takes `500k` and
-`1M`; it was in the shipped binary, one grep for the schema.
+`1M`; it was in the shipped binary, one grep for the schema — and then in
+`claude -p "/autocompact"`, which answers `1m tokens (default for this model)`
+for the string and `200k tokens (from settings)` for the integer. That command
+is the check, and it should have been run in September.
 
 | activity | minutes | what it was |
 |---|---|---|
-| reading | 20 | the settings docs, `model-config`'s precedence section, the three repo files that name the figure, and the validator itself out of `/opt/claude-code/bin/claude` |
-| writing | 10 | the integer in `.claude/settings.json`, the test's expectation and the reason above it, the paragraph in `docs/token-budget.md` |
+| reading | 30 | the settings docs, `model-config`'s precedence section, the three repo files that name the figure, the validator and the `/autocompact` save path out of `/opt/claude-code/bin/claude`, and the command run against both forms |
+| writing | 15 | the integer in `.claude/settings.json`, the test's expectation and the reason above it, two paragraphs in `docs/token-budget.md` |
 | looking | 0 | none — nothing is drawn |
 | friction | 0 | none |
-| landing | 10 | `check:fast`, the commit, the land |
+| landing | 15 | `check:fast`, two commits, two lands |
 
 The bottleneck was trusting the documentation: it describes the suffix forms
 the command and the flag accept and says nothing about the setting's own type,
