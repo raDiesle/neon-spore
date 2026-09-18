@@ -12,6 +12,7 @@ import {
 import { stareCues } from "./boss-cue-read-d.js";
 import { gaugeCues, mazeCues, mirrorCues } from "./boss-cue-read-e.js";
 import { wardenCues } from "./boss-cue-read-f.js";
+import { fleetCues } from "./boss-cue-read-g.js";
 import type { SurfaceY } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
 import type { ViewRole } from "./view-role.js";
@@ -161,6 +162,8 @@ function cuesOf(
       return gaugeCues(l, world, boss, clearTop);
     case "warden":
       return wardenCues(l, world, boss, skinY);
+    case "fleet":
+      return fleetCues(l, world, boss, clearTop);
     default:
       return NONE;
   }

@@ -21,6 +21,16 @@ import type { GuideScene } from "../scene-types.js";
  * of *say the square, out loud, and keep saying it until it is under them*.
  * Two presses to the left is still the same ship, so what the film shows is a
  * pair arriving somewhere together rather than a lucky first shot.
+ *
+ * **Four pages still, and the last one changed on 18 September 2026.** The
+ * field writes `PRESS` / `FIRE` on the sights the moment they stand on a hull
+ * nobody has fired at, on the pilot's screen and nowhere else
+ * (`decisions.md` #34, `render/boss-cue-read-g.ts`) — so the page that named
+ * his verb has nothing left to say and carries the rule no picture states
+ * instead. It could not simply come out: his salvo is the last act of the
+ * film, and a page is what puts his screen in front of the reader, so taking
+ * it away would delete the gesture rather than hand it to the fight
+ * (`docs/spec/briefings.md`).
  */
 export const THE_FLEET: GuideScene = {
   ticks: 1080,
@@ -51,10 +61,15 @@ export const THE_FLEET: GuideScene = {
       text: "PLAYER 2 WALKS THE SIGHTS",
       anchor: { at: "control", control: "aimLeft" },
     },
+    // PLAYER 1 FIRES THE SALVO stood here and is the cue's now. What is left
+    // is the one rule of his half nothing on either screen announces: the
+    // trigger comes back when the shell lands, so the rest between two salvoes
+    // is something the pair watches rather than a press that quietly did
+    // nothing (`sim/config-fleet.ts`, `fleetSalvoRestBeats`).
     {
       tick: 720,
       seat: 1,
-      text: "PLAYER 1 FIRES THE SALVO",
+      text: "THE SHELL IS THE RELOAD",
       anchor: { at: "control", control: "salvo" },
     },
   ],

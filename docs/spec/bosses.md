@@ -894,6 +894,26 @@ hulls in one square, a length outside two to five, more than five ships — and
 the panel says so under the map rather than letting something that is not a
 fleet be saved quietly.
 
+**What the field says** (`render/src/boss-cue-read-g.ts`, 18 September 2026,
+`docs/decisions.md` #34). One word, the pilot's, and the navigator gets none —
+the same finding THE GAUGE's reading came to, arrived at from the other side of
+the split. `PRESS` / `FIRE` stands on the sights while they are in a square
+that carries a hull and has not been fired at, and it draws no frame of its own
+because the sights are four corner brackets already. Both of those facts are on
+his screen and neither is on hers (`showsFleetHulls`), so the mark says what
+his thumb does rather than which square it is standing in. It goes out while
+the salvo rests, which is the shell's own flight: a word over a trigger that is
+refusing is an invitation to press nothing.
+
+**She is told nothing at all, for the whole round, and that is the finding
+rather than a gap in it.** Her screen is water and the sights, so the only word
+the field could put on her arrows is `MOVE` — said always it is a fixture
+rather than a cue, and said at the moment the sights are *not* on a hull it is
+the map, which is the one thing this fight exists to make him get out of his
+mouth one square at a time. There is no third moment, so the field keeps quiet
+and her page in the film is the only thing that tells her anything
+(`docs/spec/briefings.md`).
+
 **Where it lives.** `FleetState` in the `BossState` union, with the chart's
 arithmetic in `packages/sim/src/fleet-board.ts` and the choreography in
 `packages/sim/src/fleet.ts`; its numbers are `packages/sim/src/config-fleet.ts`

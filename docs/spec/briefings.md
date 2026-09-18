@@ -594,6 +594,7 @@ hand still draws.
 | THE GAUGE | `PLAYER 2 CALLS IT` | `EACH GOOD CALL MOVES THEM` | `PRESS` / `CALL` on the end of the needle, hers alone, while it is seated and the call is armed |
 | THE WARDEN | `PULL IT AND KEEP PULLING` | — the page is gone | `CARRY` / `PULL` on the handle once his hand is on it, then `HOLD` when the line goes taut, his alone |
 | THE WARDEN | `ONLY WHILE IT IS OPEN` | `THE SHOT IS THE RIM'S COLOUR` | `PRESS` / `FIRE` on the pupil, hers alone, for exactly the beats the eye stands open |
+| THE FLEET | `PLAYER 1 FIRES THE SALVO` | `THE SHELL IS THE RELOAD` | `PRESS` / `FIRE` on the sights, his alone, while they stand on a hull nobody has fired at |
 
 **Four other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
@@ -659,6 +660,16 @@ and going out; what the page carries instead is the one thing a cue may never
 say, that the bolt has to be the rim's own colour. Its first page changed seat
 rather than words — `A RING WITH A HOLE IN IT` moved onto his screen, because
 after the cut he had no page at all.
+
+THE FLEET's one row is the same day and is the first where a page **could not
+come out**, which is the rule of this section arriving as a real constraint
+rather than a caveat. His salvo is the last act of the film; a page is what
+puts his screen in front of the reader and what draws the ghost hand, so
+deleting the page that names his verb would have deleted the gesture instead of
+handing it to the fight. It was rewritten to the one rule of his half no
+picture states — the trigger comes back when the shell lands — and the film
+stayed at four pages. The navigator's two pages were never candidates: the
+field says nothing to her at all in this round, on purpose.
 
 #### The ghost thumb is derived, never authored
 
