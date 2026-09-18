@@ -11287,3 +11287,23 @@ player told to hold holds the trigger, and not said during the tell, because
 who is the answer.
 
 *Measured: 4 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — tutorial-boss-onscreen-actions — THE MIRROR says REPEAT, and its rehearsal loses a page
+
+The first round to carry a cue: `PRESS` / `REPEAT` on the mirror's cannon for
+the whole of `listen`, on both screens, read off the phase and never off the
+next wanted step (`render/src/boss-cue-read-e.ts`). The film is two pages,
+down from three.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | #34, the three reading pages, the mirror's sim and draw, the film, the trim precedent `0b982b8c`, the cue harness |
+| writing | 20 | the reading, the dispatch case, the five-case test, the film's two pages and comments, the table rows, §11.3, the plate sweep's word list |
+| looking | 5 | one PNG of seat 2 in `listen`, to see the frame sit on the flipped hull |
+| friction | 10 | `check:fast` red once on test timeouts under load, rerun green; a caption one character over 28; no event marks `listen`, so the tick was found with a probe |
+| landing | 5 | `check:fast`, `queue done`, the commit, `bun run land --keep` |
+
+The bottleneck was `check:fast` itself: four minutes the first time, with two
+shards red on timeouts that a rerun cleared.
+
+*Measured: 1 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

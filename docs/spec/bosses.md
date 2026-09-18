@@ -333,6 +333,15 @@ sequence did not ask for is a wrong step. Nothing implements that — it falls
 out of the alphabet, which is the argument for the alphabet being the controls
 rather than a vocabulary of its own.
 
+**What the field says.** One word, `REPEAT`, over the mirror's cannon for the
+whole of `listen`, on both screens (`render/src/boss-cue-read-e.ts`,
+`docs/decisions.md` #34) — and nothing while it performs, when the band is
+drawn dead, or during the verdict. The cue is read off the phase and never off
+the step the mirror is waiting for: which move comes next, whose thumb it is
+on and whether it is a press or a slide are the answer, and the memory game is
+built to make the pair say it. The rehearsal came down to two pages the same
+day (`docs/spec/briefings.md`).
+
 **Where it lives.** The rounds are authored in the director and carried by the
 wave `THE MIRROR`; the choreography is `packages/sim/src/mirror.ts` and the
 vocabulary `packages/sim/src/simon.ts`. Nothing about it is random — the fight
@@ -1684,7 +1693,7 @@ band's plan (`docs/queue.md`). Every angle on all three screens, the seat
 word and the gaze proved both ways, and the flash proved a transient the
 next run does not inherit: `render/test/stare-frame.test.ts`.
 
-**The cue** (`render/boss-cue-read-d.ts`, 18 September 2026) is `STILL`, on
+**The cue** (`render/boss-cue-read-e.ts`, 18 September 2026) is `STILL`, on
 the watched seat alone, at the foot of the gaze, from the beat the look lands
 until it lifts — and nothing during the tell, on any screen. The tell is the
 fight: who the eye chose is the answer, the other seat's to say, and a cue

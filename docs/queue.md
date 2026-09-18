@@ -401,18 +401,6 @@ the picture rather than on the panel.
 
 The brief: `.claude/skills/new-boss` section 6.2.
 
-## THE MIRROR: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-18, claude/queue-the-mirror-the-field-says-the-word-and-the-brief
-- **Files:** `packages/content/src/waves/act-2.ts`, `packages/content/src/scenes/the-mirror.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-
-It says nothing on the field at all.
-Its briefing is a 3-page rehearsal (`packages/content/src/scenes/the-mirror.ts`).
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE MIRROR changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

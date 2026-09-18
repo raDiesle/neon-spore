@@ -112,7 +112,7 @@ const RUN_LINE = /^\d+:\d{2}( ·|$)/;
  * something.
  */
 const CUE_WORD =
-  /^(PRESS|HOLD|CARRY|TURN|BURN|FIRE|FLING|GUARD|LAUNCH|MOVE|OPEN|PIERCE|SHEAR|SHOVE)$/;
+  /^(PRESS|HOLD|CARRY|TURN|BURN|FIRE|FLING|GUARD|LAUNCH|MOVE|OPEN|PIERCE|REPEAT|SHEAR|SHOVE)$/;
 
 /**
  * **There is no longer an exemption in this list.** Two of those words used to
