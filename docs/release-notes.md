@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · 75f9479e — THE HIVE cannot be won: its own rock stops the bolt that seals a breach, and the rehearsal waits on which of three fixes the owner wants
+
+Found authoring the wave's film. A bolt stops at the first body in its column and a rock takes a crater from it, a plain rock is thirteen beats from the top to the shield's row, and an open breach spills one every three — so from its first spill a breach's column is never empty and it can never be sealed; the cadence is one clock for every breach and an opening runs before the spill on its beat, so the second site and the fifth spill on the beat they open and no seed can win; and two open breaches spill on one beat into a shield one column wide. The finding is a queue item that asks the owner to choose — the design's insect shot on its way down, a fast rock on a per-breach cadence, or a bolt of the breach's colour passing its own spill — and §11.14 says so under its tests.
+
 ## 2026-09-18 · d333aa57 — THE ANTIPHON's rehearsal: the wrong candidate first, six organs taken where they stand by `atBoss`, what the rail rejected shot as it falls, their own ship found among ships
 
 Twenty pages over 3,720 ticks, seed 1. The film takes the mistake first: a decoy's colour in the decoy's column, the body hardened and the rail four wide for the rest of the fight. Every organ after is a cannon strip by `atBoss` — `boss-answer.ts` now answers THE ANTIPHON with the first organ's column from the beat it grows, nothing between cycles or once it bursts — fired in the organ's colour the beat it has pushed all the way out. From the third pit the candidates the rail rejected fall as bodies and each is taken by `atBody` two beats apart before the next organ's shot; the twins are taken one and then the other; the ship is found among ships and every pit erupts. Nine pages on the hull, eleven on a control; the film takes no hit.
