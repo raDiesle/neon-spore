@@ -1,7 +1,6 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
-  type BatonState,
   batonBoss,
   type CandleState,
   type CurtainState,
@@ -39,6 +38,11 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
 /**
  * **The one word the field says**, on six bosses and on the seat that can
  * answer it (`render/src/boss-cue.ts`, `docs/decisions.md` #34).
+ *
+ * THE BATON's own cases went to `boss-cue-baton.test.ts` on 18 September 2026,
+ * with the reading they are about (`boss-cue-read-i.ts`); it is still in the
+ * sweep at the foot of this file, which is about what a cue may *contain* and
+ * wants every boss in it.
  *
  * The readings are asked **directly** rather than through a frame, for
  * `undertow-frame.test.ts`' reason turned around: what a pixel proves is that
@@ -231,36 +235,6 @@ describe("THE UNDERTOW", () => {
     expect(word(world, "p2")).toBe("MOVE");
     // The pilot still has his own half of the same beat.
     expect(word(world, "p1")).toBe("OPEN");
-  });
-});
-
-describe("THE BATON", () => {
-  it("gives the launch to the pilot and the shot to the navigator", () => {
-    const world = opened("baton", 3);
-    const b: BatonState = boss(batonBoss(world), "baton");
-    b.stage = "passing";
-    const bead = b.beads[0];
-    if (bead === undefined) throw new Error("no bead");
-    bead.flying = false;
-    b.lockUntil = [-1, -1];
-    expect(word(world, "p1")).toBe("LAUNCH");
-    expect(word(world, "p2")).toBeNull();
-
-    bead.flying = true;
-    bead.struck = false;
-    bead.flightTick = world.tick;
-    expect(word(world, "p2")).toBe("FIRE");
-  });
-
-  it("says nothing to a seat the fight has locked out", () => {
-    const world = opened("baton", 3);
-    const b: BatonState = boss(batonBoss(world), "baton");
-    b.stage = "passing";
-    const bead = b.beads[0];
-    if (bead === undefined) throw new Error("no bead");
-    bead.flying = false;
-    b.lockUntil = [world.beat + 1, -1];
-    expect(word(world, "p1")).toBeNull();
   });
 });
 

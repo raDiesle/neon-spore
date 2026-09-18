@@ -9535,3 +9535,30 @@ drain the round does not have, and reading `expire` rather than assuming it is
 what turned the brace into *one of you stops playing to carry the other*.
 
 *Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*
+
+## 2026-09-18 — queue-cloud — THE BATON says its own verbs
+
+The arm's two words were a third of the fight. What the field never said was
+the cannon: her bolt goes up the column the cannon stands in, so a flight the
+pilot is not under is a flight she cannot meet, and once the arm swings the
+landing moves a column off the one it left — his guide's fourth line, nowhere
+on the field. Two more stages had nothing at all: the crossing's act a beat,
+which is a turn and nothing else to read, and the drop, where the bead is a
+pod and the last two hands are his. The reading outgrew its share of page two
+and went to a page of its own.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the entry and §6.1, `baton.ts`, `baton-press.ts`, `baton-cross.ts`, `baton-bead-draw.ts`, the four cue rules in `boss-cue.ts`, THE VANE's reading for the rule about her screen, `pod-intake.ts` and the control table for whose thumb the maw is |
+| writing | 40 | `boss-cue-read-i.ts` with its argument, nine cases in a new test file, page two's header and imports, `batonActor` out through the surface, the film down from seven pages to four, the spec paragraph |
+| looking | 0 | none — a cue is read, not watched, and the picture is the look lane's |
+| friction | 0 | none |
+| landing | 15 | `format`, `check:fast`, the commit, the land |
+
+The bottleneck was deciding what may *not* be said: `FIRE` that waited for the
+cannon to arrive would have handed the navigator the one fact the pilot has to
+say out loud, and a `MOVE` on the crossing would have put two words on the one
+beat that has an act due in it. Both are one line of code and an hour of
+reading the rule they are against.
+
+*Measured: the rows above are the session's own estimate, read off the session's own tool timestamps.*

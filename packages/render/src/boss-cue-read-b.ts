@@ -1,7 +1,4 @@
 import {
-  type BatonState,
-  batonLaunchable,
-  batonLocked,
   type TasterState,
   tasterPhase,
   tasterStanding,
@@ -11,7 +8,6 @@ import {
   vaneSplitCol,
   type World,
 } from "@neon-spore/sim";
-import { beadPoint } from "./baton-bead-draw.js";
 import type { BossCue } from "./boss-cue.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
@@ -19,10 +15,10 @@ import { tasterCrestY } from "./taster-draw.js";
 import { vaneBearingY } from "./vane-draw.js";
 
 /**
- * **What THE TASTER, THE UNDERTOW, THE BATON and THE VANE are asking for** —
- * page two of the readings, on the seam `boss-draw-clocks-b.ts` draws for the same
- * reason: this is the half of the list that grows, and the file next door was
- * written to be read in one sitting.
+ * **What THE TASTER, THE UNDERTOW and THE VANE are asking for** — page two of
+ * the readings, on the seam `boss-draw-clocks-b.ts` draws for the same reason:
+ * this is the half of the list that grows, and the file next door was written
+ * to be read in one sitting.
  *
  * Every rule is `boss-cue.ts`'s. The one that does the most work in this
  * file is *a cue is drawn on the seat that can act*: all three of these
@@ -30,10 +26,14 @@ import { vaneBearingY } from "./vane-draw.js";
  * phone is not merely noise — it is the fight telling the pilot to do the
  * navigator's job on the one beat she is waiting to be told to do it.
  *
- * **THE VANE is the fourth and came later** (18 September 2026), on this page
+ * **THE VANE is the third and came later** (18 September 2026), on this page
  * because it is where the room was and because its window alternates the same
  * way: the bearing is shut for the whole of a sweep and open for the whole of
  * a hold, and both seats act inside the hold or neither does.
+ *
+ * **THE BATON was the fourth and has gone** to page nine
+ * (`boss-cue-read-i.ts`): it says a word in three of its four stages now, and
+ * the reading of it outgrew a share of a page.
  */
 
 /** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
@@ -125,43 +125,6 @@ export function undertowCues(
         ? markAt(2, "HOLD", "BURN", x, y, l, 44 + b.col)
         : markAt(1, "HOLD", "OPEN", x, y, l, 44 + b.col),
     );
-  }
-  return out;
-}
-
-/**
- * THE BATON. The fight is a bead passed down an arm by two thumbs taking
- * turns, and the cue is the turn itself: `LAUNCH` on the bead that is sitting
- * and `FIRE` on the one in the air.
- *
- * `FIRE` comes first because a flight is a window and a sitting bead is not:
- * the bead lands whether or not anybody shot it, and the navigator's beat is
- * the shorter of the two.
- *
- * Neither word says a colour, and that is the whole of this encounter — the
- * bead wears the colour it is taken by and the pilot is the seat that can see
- * which (`baton-bead-draw.ts`). A cue reading `FIRE RED` would be the game
- * saying the sentence the pair is supposed to say.
- *
- * A seat locked out of this beat is given nothing (`batonLocked`): an
- * instruction on a phone whose thumb the simulation will refuse is worse than
- * no instruction at all.
- */
-export function batonCues(l: Layout, world: World, b: BatonState): readonly BossCue[] {
-  if (b.stage === "down" || b.stage === "unfolding") return [];
-  const cfg = world.cfg;
-  const out: BossCue[] = [];
-  for (const bead of b.beads) {
-    if (!bead.flying || bead.struck) continue;
-    if (batonLocked(b, 2, world.beat)) break;
-    const { x, y } = beadPoint(l, cfg, b, bead, world.tick);
-    out.push(markAt(2, "PRESS", "FIRE", x, y, l, 45 + bead.socket));
-    break;
-  }
-  const sitting = batonLaunchable(cfg, b);
-  if (sitting !== null && !batonLocked(b, 1, world.beat)) {
-    const { x, y } = beadPoint(l, cfg, b, sitting, world.tick);
-    out.push(markAt(1, "PRESS", "LAUNCH", x, y, l, 48 + sitting.socket));
   }
   return out;
 }

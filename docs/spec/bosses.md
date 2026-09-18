@@ -2596,6 +2596,32 @@ the bead simply sits in the top socket again — the acts of the crossing
 beyond the bead's colour flipping, the miss beyond the bead sitting at the
 top again and the arm relit, and anything from the list above.
 
+**What the field says** (`render/src/boss-cue-read-i.ts`, 18 September 2026,
+`docs/decisions.md` #34). Five words across three of the four stages, and the
+reading is a switch on the stage because every stage of this fight is a
+different pair of thumbs. While the arm is **passing**: `PRESS` / `LAUNCH` on a
+bead sitting in its socket and `CARRY` / `MOVE` on the cannon, both the
+pilot's, and `PRESS` / `FIRE` on the lowest bead in the air unstruck, the
+navigator's. `MOVE` is the half that was never on the field — her bolt goes up
+the column the cannon stands in, so a flight he is not under is a flight she
+cannot meet, and once four sockets are dark the arm swings the landing a column
+off the one it left. It stands on the cannon where it is and says `MOVE`, never
+where to. Hers does not wait for him to arrive, for THE VANE's reason: the
+cannon is not drawn on her screen. On the **crossing** there is one word and it
+is on the seat whose act is due (`batonActor`) — his is `SEND`, the same thumb
+on the same trigger with nothing left to launch out of a socket; no `MOVE`
+stands there, because a seat is locked through the beat after its own act and
+the only beat he could move in is the beat his act is due in. **Falling**, the
+bead is a loose pod and the last two hands are his: `MOVE` until he is under
+it, then `PRESS` / `OPEN` on the pod for as long as he is — never at the moment
+it arrives, because that moment is the one clock this game leaves in a thumb.
+
+No word says a colour, and the shed shell is never marked: a dark socket falls
+down the arm's column as an ordinary rock, warded by the two hands every wave
+before this one taught. The film came down to four pages with the same lane
+(`content/src/scenes/the-baton.ts`) — the alternation, and what each seat's own
+turn costs it, which is what no mark on the field may say.
+
 **Never watched at tempo.** Whether *going — got it* fits inside three beats
 at 96 BPM with a word between is a thing a person finds out with another
 person. What the tests say is the mechanism: the unfold is a socket a beat, a

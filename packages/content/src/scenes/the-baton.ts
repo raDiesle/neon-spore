@@ -41,38 +41,38 @@ export const THE_BATON: GuideScene = {
     { tick: 1640, control: "fireRed" },
   ],
   steps: [
-    { tick: 0, seat: 1, text: "AN ARM UNFOLDS · ONE A BEAT", anchor: { at: "hull" } },
-    { tick: 360, seat: 2, text: "THE BEAD IS SAFE IN A SOCKET", anchor: { at: "hull" } },
-    // This page said PLAYER 1 PULLS THE TRIGGER until 17 September 2026: the
-    // fight writes PRESS over the bead in its socket and LAUNCH under it
-    // whenever one is his to send (`decisions.md` #34). The launch at 750 is
-    // his and both neighbours are hers, so the page keeps his screen and says
-    // the rule the cue cannot — that acting costs him the next beat, which is
-    // the whole of why this boss has to be passed back and forth.
+    // **What is left after the field learned to say its own verbs.**
+    //
+    // Seven pages stood here until 18 September 2026, and three of them are
+    // now written on the field itself: `LAUNCH` over a bead in its socket,
+    // `FIRE` over one in the air, and `MOVE` on the cannon a flight has to be
+    // met in (`render/boss-cue-read-i.ts`). A page that only names a verb
+    // loses the verb rather than the page (`.claude/skills/new-tutorial`), and
+    // what these four name is the half of this fight no mark on the field may:
+    // the alternation, and what each seat's own turn costs it.
+    //
+    // The colour went with them, and deliberately: *CYAN NOW* was the film
+    // saying the one sentence the pair exists to say to each other, and the
+    // landing that flips the bead is drawn (`baton-bead-draw.ts`).
+    { tick: 0, seat: 1, text: "ONE SENDS · THE OTHER SHOOTS", anchor: { at: "hull" } },
+    // The rule the cue cannot carry: acting costs him the next beat, which is
+    // the whole of why this boss has to be passed back and forth. The launch
+    // at 750 is his and both neighbours are hers, so the page keeps his screen.
     {
       tick: 660,
       seat: 1,
       text: "PLAYER 1 GREYS FOR A BEAT",
       anchor: { at: "control", control: "guard" },
     },
+    // What a missed flight costs, on the launch nobody answers on purpose.
     {
       tick: 840,
       seat: 2,
       text: "NOBODY SHOT · IT LANDS BACK",
       anchor: { at: "control", control: "fireRed" },
     },
-    {
-      tick: 1140,
-      seat: 2,
-      text: "PLAYER 2 FIRES RED · IN AIR",
-      anchor: { at: "control", control: "fireRed" },
-    },
-    {
-      tick: 1320,
-      seat: 1,
-      text: "CYAN NOW · PLAYER 1 TRIGGERS",
-      anchor: { at: "control", control: "guard" },
-    },
+    // And the same rule on her side, which is a different page because it is a
+    // different phone: neither seat is shown the other's panel going grey.
     {
       tick: 1500,
       seat: 2,

@@ -22,6 +22,7 @@ export {
   type BatonEntry,
   type BatonStage,
   type BatonState,
+  batonActor,
   batonBaseCol,
   batonBeadCol,
   batonBeadRowMilli,

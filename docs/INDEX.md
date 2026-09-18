@@ -797,6 +797,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-f.ts` | **What the bosses with a handle on the field are asking for** — page six of the readings |
 | `packages/render/src/boss-cue-read-g.ts` | **What the rounds drawn as a chart are asking for** — page seven of the readings, opened for THE FLEET |
 | `packages/render/src/boss-cue-read-h.ts` | **What the round that kept the ship is asking for** — page eight of the readings, opened for PINBALL |
+| `packages/render/src/boss-cue-read-i.ts` | **What THE BATON is asking for** — page nine of the readings |
 | `packages/render/src/boss-cue-read.ts` | **What THE CANDLE, THE GORGE and THE CURTAIN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |

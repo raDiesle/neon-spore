@@ -1,0 +1,192 @@
+import {
+  type BatonBead,
+  type BatonState,
+  batonActor,
+  batonBeadCol,
+  batonBeadRowMilli,
+  batonLaunchable,
+  batonLead,
+  batonLocked,
+  type World,
+} from "@neon-spore/sim";
+import { beadPoint } from "./baton-bead-draw.js";
+import type { BossCue } from "./boss-cue.js";
+import { type Layout, tileCX } from "./layout.js";
+import { podCenter } from "./pods.js";
+
+/**
+ * **What THE BATON is asking for** — page nine of the readings, and the first
+ * one opened for a boss that was already read.
+ *
+ * It lived on page two with THE TASTER, THE UNDERTOW and THE VANE and said
+ * two words: `LAUNCH` on a bead in its socket and `FIRE` on one in the air.
+ * Those two are the arm's own beat and they are a third of the fight. The
+ * rest of it — the cannon the flight has to be met in, the crossing's act a
+ * beat, and the pod at the end — was answered on a field that said nothing,
+ * which is what the standing brief is about (`.claude/skills/new-boss` §6.1).
+ * Four stages' worth of reading is a page, not a paragraph, so it is here and
+ * page two is back to the three it was written for.
+ *
+ * **Every stage of this fight is a different pair of thumbs**, which is the
+ * whole of why the reading is a switch:
+ *
+ * - `unfolding` — eleven beats of arm and nothing to press. No word.
+ * - `passing` — the arm's own alternation: his trigger, her shot, and the
+ *   cannon he has to have under the flight for her shot to meet it.
+ * - `crossing` — one act a beat, in turn, and the turn is `batonActor`.
+ * - `falling` — the bead is a pod, the catch is his, and both locks are open
+ *   (`sim/baton-cross.ts`, `drop`).
+ *
+ * **What is deliberately never marked** is the shed shell (`batonShed`): a
+ * dark socket falls off the arm and down its column as a rock, and a rock is
+ * warded by the ship's ordinary two hands, taught eleven waves before this
+ * one. A frame around it would be the field marking the field.
+ */
+
+/** THE CHOIR's frame, in tiles — the same as the eight pages before. */
+const HALF_W = 0.72;
+const HALF_H = 0.66;
+
+function markAt(
+  seat: BossCue["seat"],
+  kind: BossCue["kind"],
+  word: string,
+  x: number,
+  y: number,
+  l: Layout,
+  seed: number,
+): BossCue {
+  return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
+}
+
+/**
+ * The bead a shot is about: the lowest one in the air that has not been
+ * struck this flight. The lowest, because that is the one a bolt reaches
+ * first and so the one the simulation will spend her shot on
+ * (`sim/baton-press.ts`, `beadAlong`).
+ */
+function shotAt(world: World, b: BatonState): BatonBead | null {
+  let pick: BatonBead | null = null;
+  let low = -1;
+  for (const bead of b.beads) {
+    if (!bead.flying || bead.struck) continue;
+    const milli = batonBeadRowMilli(world.cfg, bead, world.tick);
+    if (milli <= low) continue;
+    pick = bead;
+    low = milli;
+  }
+  return pick;
+}
+
+/**
+ * The arm's own beat.
+ *
+ * Three words, and the order they are in is what each costs to miss. The
+ * flight is a window three beats wide and a bead nobody met lands back where
+ * it left; the bead sitting in its socket is on a clock twice as long
+ * (`batonTurnBeats`). So the flight outranks the socket on the pilot's screen
+ * as well as the navigator's.
+ *
+ * **`MOVE` is his and it is the half of this fight the field never said.**
+ * Her bolt goes up the column the cannon is standing in (`sim/bullets.ts`),
+ * so a flight he is not under is a flight she cannot meet — and once four
+ * sockets are dark the arm swings and the bead lands a column off the one it
+ * left, which is his own guide's fourth line and was nowhere on the field.
+ * The mark stands on the cannon where it is and says `MOVE`, never where to:
+ * which column is the sentence they have to say.
+ *
+ * **`FIRE` does not wait for him.** It stands on the bead for as long as one
+ * is in the air unstruck, whether or not the cannon is under it — THE VANE's
+ * rule, for THE VANE's reason: the cannon is not drawn on her screen
+ * (`showsCannon`), so a word that waited for it would hand her the one thing
+ * he has to say out loud.
+ *
+ * Neither word says a colour. The bead wears the colour that takes it and
+ * both screens are shown it (`baton-bead-draw.ts`); what the cue may not do
+ * is name it, because `FIRE RED` is the pair's own sentence said for them.
+ */
+function passing(l: Layout, world: World, b: BatonState): readonly BossCue[] {
+  const cfg = world.cfg;
+  const out: BossCue[] = [];
+  const flying = shotAt(world, b);
+  if (flying !== null) {
+    if (!batonLocked(b, 2, world.beat)) {
+      const { x, y } = beadPoint(l, cfg, b, flying, world.tick);
+      out.push(markAt(2, "PRESS", "FIRE", x, y, l, 45 + flying.socket));
+    }
+    const met = b.beads.some(
+      (bead) =>
+        bead.flying && !bead.struck && batonBeadCol(cfg, b, bead, world.tick) === world.cannonCol,
+    );
+    if (!met && !batonLocked(b, 1, world.beat)) {
+      out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 84));
+    }
+  }
+  const sitting = batonLaunchable(cfg, b);
+  if (sitting !== null && !batonLocked(b, 1, world.beat)) {
+    const { x, y } = beadPoint(l, cfg, b, sitting, world.tick);
+    out.push(markAt(1, "PRESS", "LAUNCH", x, y, l, 48 + sitting.socket));
+  }
+  return out;
+}
+
+/**
+ * The crossing: one word, on the seat whose act is due.
+ *
+ * `batonActor` is the turn and there is nothing else to read — act `n` is
+ * his on the even counts and hers on the odd, and a beat that ends one act
+ * short puts the bead back at the top of a whole arm (`sim/baton-cross.ts`).
+ * His is `SEND` and not `LAUNCH`: the same thumb on the same trigger, but
+ * nothing is being launched out of a socket any more, and the eleven beats
+ * are one long shove down the column.
+ *
+ * **No `MOVE` stands here**, and that is a choice rather than an oversight.
+ * The drop is straight down the column the last socket hangs in, so the
+ * cannon is where the fight has already put it; and a seat is locked through
+ * the beat after its own act (`batonLockBeats`), so the only beat he could
+ * move in is the beat his act is due in. A screen carrying two words on the
+ * one beat that has an act in it is a beat spent reading.
+ */
+function crossing(l: Layout, world: World, b: BatonState): readonly BossCue[] {
+  const bead = batonLead(b);
+  if (bead === null) return [];
+  const seat = batonActor(b);
+  if (batonLocked(b, seat, world.beat)) return [];
+  const { x, y } = beadPoint(l, world.cfg, b, bead, world.tick);
+  return [markAt(seat, "PRESS", seat === 1 ? "SEND" : "FIRE", x, y, l, 84 + seat)];
+}
+
+/**
+ * The drop, which is the fight: the bead is a loose pod and the whole of
+ * what is left is the pilot's two hands on it — under it, and the maw open
+ * when it arrives (`sim/pod-intake.ts`). Both locks opened at the drop, so
+ * nothing here asks whether he may act.
+ *
+ * `OPEN` stands for as long as the cannon is under the pod rather than at the
+ * moment it arrives. **The moment is his**: a word that appeared on the beat
+ * to press would be the catch made for him, and the maw's window is the one
+ * clock this game has always left in a thumb (`docs/decisions.md` #34).
+ */
+function falling(l: Layout, world: World, b: BatonState): readonly BossCue[] {
+  const pod = world.pods.find((p) => p.id === b.podId);
+  if (pod === undefined) return [];
+  if (world.cannonCol !== Math.round(pod.colMilli / 1000)) {
+    return [markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 87)];
+  }
+  const at = podCenter(l, pod);
+  return [markAt(1, "PRESS", "OPEN", at.x, at.y, l, 88)];
+}
+
+/** Every word THE BATON says, most urgent first, by the stage it is in. */
+export function batonCues(l: Layout, world: World, b: BatonState): readonly BossCue[] {
+  switch (b.stage) {
+    case "passing":
+      return passing(l, world, b);
+    case "crossing":
+      return crossing(l, world, b);
+    case "falling":
+      return falling(l, world, b);
+    default:
+      return [];
+  }
+}

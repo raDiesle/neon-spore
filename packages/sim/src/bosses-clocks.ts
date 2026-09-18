@@ -34,6 +34,7 @@ export {
   batonWaiting,
 } from "./baton.js";
 export { batonBeadCol, batonBeadRowMilli, batonLandTick, batonSocketCol } from "./baton-bead.js";
+export { batonActor } from "./baton-cross.js";
 export { batonBoss } from "./baton-step.js";
 // From THE SCUTTLE on, the second page (`bosses-clocks-b.ts`).
 export * from "./bosses-clocks-b.js";
