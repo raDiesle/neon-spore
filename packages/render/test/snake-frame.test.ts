@@ -1,13 +1,15 @@
 import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss } from "@neon-spore/content";
 import { createWorld, snakeCrashed, startWave, ticksPerBeat } from "@neon-spore/sim";
-import type { ViewRole } from "../src/layout.js";
+import { computeLayout, type ViewRole } from "../src/layout.js";
+import { snakeArena } from "../src/snake-draw.js";
 import {
   CFG,
   FRAME_TIMEOUT_MS,
   installCanvasGlobals,
   ROLES,
   runFrames,
+  VIEWPORT,
   waveWith,
 } from "./frame-harness.js";
 
@@ -46,6 +48,17 @@ describe("SNAKE draws on all three screens", () => {
   }
 
   for (const role of ROLES) {
+    // The emergence on its own: the body still inside the ship, the hull's
+    // throat open, the slime over its lip — every line of it drawn after the
+    // hull inside the clip (`snake-emerge.ts`), and none of it reached by the
+    // run below once the body is out.
+    it(`draws the body coming out of the ship on ${role}`, () => {
+      const { world, ctx } = snakeFrames(role, Math.floor(ticksPerBeat(CFG) * 2.5));
+      expect(ctx.calls).toBeGreaterThan(500);
+      const boss = world.boss;
+      expect(boss?.kind === "snake" && boss.phase === "morph").toBe(true);
+    });
+
     it(`draws the morph, the arena and the body on ${role}`, () => {
       const { world, ctx } = snakeFrames(role, ticksPerBeat(CFG) * 30);
       // The stub throws on a value a real canvas would refuse, so reaching
@@ -61,4 +74,21 @@ describe("SNAKE draws on all three screens", () => {
       expect(boss?.kind === "snake" && snakeCrashed(boss)).toBe(true);
     });
   }
+
+  // The arena is every pixel the round has: the field's own width, or the
+  // whole of the air down to the hull — one of the two, on any screen, or the
+  // box the owner asked to have removed has come back as a margin.
+  it("fills the field's width or reaches the hull", () => {
+    for (const role of ROLES) {
+      const l = computeLayout(VIEWPORT, CFG, role);
+      const a = snakeArena(l, CFG);
+      const w = a.tile * a.cols;
+      const h = a.tile * a.rows;
+      expect(a.y + h).toBeCloseTo(l.hullY, 3);
+      expect(a.x + w / 2).toBeCloseTo(l.gridLeft + l.gridWidth / 2, 3);
+      const wide = Math.abs(w - l.gridWidth) < 1;
+      const tall = a.y <= l.playHeight * 0.2;
+      expect(wide || tall).toBe(true);
+    }
+  });
 });

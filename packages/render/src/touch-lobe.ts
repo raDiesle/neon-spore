@@ -98,6 +98,14 @@ export function lobeMeans(
     // stands open for `scoutMawTicks` from the press and shuts on its own
     // (`sim/scout-round.ts`).
     case "scoutMaw":
+    // SNAKE's four, on the band since the owner asked for its buttons to look
+    // like the others. None is held: a turn is queued and stands until the
+    // body takes it, the shot is one press and the mouth is a window that
+    // shuts on its own (`sim/snake-controls.ts`).
+    case "snakeLeft":
+    case "snakeRight":
+    case "snakeFire":
+    case "snakeMaw":
       return { command: controlPress(id).down, hold: null };
     // THE SCOUT's three that fly, and **all three are held**: the nose keeps
     // swinging and the burn keeps pushing until the thumb comes off, which is
@@ -115,10 +123,6 @@ export function lobeMeans(
     case "gaugeLeft":
     case "gaugeRight":
     case "gaugeCall":
-    case "snakeLeft":
-    case "snakeRight":
-    case "snakeFire":
-    case "snakeMaw":
       return null;
     default:
       return assertNever(id);

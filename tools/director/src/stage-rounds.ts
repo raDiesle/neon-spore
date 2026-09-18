@@ -1,5 +1,4 @@
 import { bindStageGauge, type StageGauge } from "./stage-gauge.js";
-import { bindStageSnake, type StageSnake } from "./stage-snake.js";
 
 /**
  * Every round that draws **slabs**, bound to the director's canvas at once.
@@ -27,9 +26,11 @@ import { bindStageSnake, type StageSnake } from "./stage-snake.js";
  * PINBALL is no longer among them: its panel is the band now, so its listener
  * was deleted rather than kept, and the guard simply finds no slab to ask
  * about. THE SCOUT left the same way when its look landed — its four stand in
- * THE CLAW's sockets, and `stage-scout.ts` went with the slabs.
+ * THE CLAW's sockets, and `stage-scout.ts` went with the slabs. SNAKE was
+ * the third to leave, when the owner asked for its buttons to look like the
+ * others — `stage-snake.ts` went with its four slabs, and THE GAUGE is the
+ * one round still drawn this way.
  */
-export function bindStageRounds(handle: StageGauge & StageSnake): void {
+export function bindStageRounds(handle: StageGauge): void {
   bindStageGauge(handle);
-  bindStageSnake(handle);
 }

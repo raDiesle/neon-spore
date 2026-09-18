@@ -1,6 +1,8 @@
 import type { SimConfig, SnakeState } from "@neon-spore/sim";
 import type { Layout, ViewRole } from "./layout.js";
 import { PALETTE } from "./palette.js";
+import type { ViewState } from "./renderer.js";
+import { headerTop } from "./round-header.js";
 import { drawSnakeEnemy, drawSnakePoint } from "./snake-items.js";
 
 /**
@@ -11,16 +13,17 @@ import { drawSnakeEnemy, drawSnakePoint } from "./snake-items.js";
  * apple — and it is wrong here for two reasons. Green is spoken for: nothing in
  * this game is ever green except a Simon round answered in full (`palette.ts`),
  * and a body that is green for ninety seconds would spend that colour. And the
- * body *is the ship*: it folds out of the hull at the top of the round, so it
- * keeps the hull's violet at the head and the shield's cyan down the length,
- * which are the two colours the pair already owns. What is collected is amber,
+ * body *is the ship's*: it comes out of the hull's own mouth at the top of the
+ * round, so it keeps the hull's violet at the head and the shield's cyan down
+ * the length, which are the two colours the pair already owns. What is
+ * collected is amber,
  * because amber is what this game has always meant by "take that in".
  *
  * **Two screens, two pictures.** Player 1 is shown the food and both ends of
  * the body; player 2 is shown the whole body and no food. So neither seat can
  * play a corner alone even in the frame, and the two verbs follow the two
- * halves — the flip is player 1's because the tail is theirs to see, the brake
- * is player 2's because the body about to be hit is.
+ * halves — the shot and the mouth are player 1's because the food is theirs
+ * to see, the steering is player 2's because the body about to be hit is.
  *
  * Stateless, like every other draw here: everything is read off the world, so
  * nothing outlives a frame and `Effects.reset` has nothing of it to clear.
@@ -41,29 +44,47 @@ export const showsSnakeFood = (role: ViewRole): boolean => role !== "p2";
 export const showsSnakeBody = (role: ViewRole): boolean => role !== "p1";
 
 /**
- * The arena, centred in the play half. Square tiles and a whole number of
- * them: a grid whose tiles were half a pixel out is a grid a pair cannot count
- * along, and counting along it is how a tile gets said out loud.
+ * Where SNAKE's name sits when nothing is over it, in play heights — THE
+ * PULSE's own height, so the two rounds open the same way. The job line and
+ * the tally hang under it, and the arena's top under those.
+ */
+export const SNAKE_NAME_Y = 0.07;
+
+/** From the name's baseline to the arena's top: the job line, the round's
+ * clock and a breath of air, in pixels. */
+export const SNAKE_HEADER = 46;
+
+/**
+ * The arena: the widest square-tile grid that fits between the header and the
+ * hull, centred on the ship.
+ *
+ * **The ship is on the screen**, so the arena is the air above it — from the
+ * foot of the header down to the hull's real surface (`hullY`), and as wide as
+ * the field's columns — which is every pixel the round has once the hull and
+ * the band have theirs. The owner asked for the arena to be widened to the
+ * whole of the screen (18 September 2026); this is where it stopped growing.
+ * It is centred on the field, so its middle column stands over the cannon's
+ * socket when the cannon is over the middle of the hull, which is where the
+ * body comes out (`snake-emerge.ts`).
+ *
+ * Square tiles and a whole number of them: a grid whose tiles were half a
+ * pixel out is a grid a pair cannot count along, and counting along it is how
+ * a tile gets said out loud. Under a rehearsal's plate the header drops and
+ * the arena's top follows; its floor is the hull and stays (`round-header.ts`).
  */
 export function snakeArena(
   l: Layout,
   cfg: SimConfig,
-  /** How far the header above has dropped under a rehearsal's plate: the
-   * arena's top comes down with it and its floor stays, so it shrinks to fit
-   * rather than taking the header's rows (`round-header.ts`). */
-  lift = 0,
+  view: Pick<ViewState, "clearTop"> = {},
 ): Arena {
-  const top = l.playHeight * 0.23 + lift;
-  const bottom = l.playHeight * 0.89;
-  const tile = Math.max(
-    1,
-    Math.min((l.width * 0.92) / cfg.snakeCols, (bottom - top) / cfg.snakeRows),
-  );
+  const top = headerTop(view, l.playHeight * SNAKE_NAME_Y) + SNAKE_HEADER;
+  const bottom = l.hullY;
+  const tile = Math.max(1, Math.min(l.gridWidth / cfg.snakeCols, (bottom - top) / cfg.snakeRows));
   const w = tile * cfg.snakeCols;
   const h = tile * cfg.snakeRows;
   return {
-    x: (l.width - w) / 2,
-    y: top + (bottom - top - h) / 2,
+    x: l.gridLeft + (l.gridWidth - w) / 2,
+    y: bottom - h,
     tile,
     cols: cfg.snakeCols,
     rows: cfg.snakeRows,
@@ -79,18 +100,22 @@ export function arenaY(arena: Arena, row: number): number {
 }
 
 /**
- * The floor and the wall around it. The wall is drawn as a wall rather than as
- * an absence, because it is the one thing in here that costs the hull and
- * neither seat is ever told which way the body is about to leave.
+ * The grid the body walks, and the three walls that cost the hull.
+ *
+ * No floor and no box: the floor is the hull, drawn after everything in here,
+ * and the walls are THE SCOUT's faintest line — both seats want to know where
+ * they stand before the first crash, and neither is ever told which way the
+ * body is about to leave. The dark plate and the ember frame the arena used
+ * to stand in went with the owner's request that the round be played over
+ * the ship, in the open, on the field's own background.
  */
 export function drawArena(ctx: CanvasRenderingContext2D, arena: Arena): void {
   const w = arena.tile * arena.cols;
   const h = arena.tile * arena.rows;
-  ctx.fillStyle = "#0B0820";
-  ctx.fillRect(arena.x, arena.y, w, h);
-
+  ctx.save();
   ctx.strokeStyle = PALETTE.grid;
   ctx.lineWidth = 1;
+  ctx.globalAlpha = 0.45;
   ctx.beginPath();
   for (let c = 1; c < arena.cols; c++) {
     ctx.moveTo(Math.round(arenaX(arena, c)) + 0.5, arena.y);
@@ -102,9 +127,15 @@ export function drawArena(ctx: CanvasRenderingContext2D, arena: Arena): void {
   }
   ctx.stroke();
 
-  ctx.strokeStyle = PALETTE.ember;
-  ctx.lineWidth = 2;
-  ctx.strokeRect(arena.x - 1, arena.y - 1, w + 2, h + 2);
+  ctx.globalAlpha = 0.75;
+  ctx.lineWidth = Math.max(1, arena.tile * 0.04);
+  ctx.beginPath();
+  ctx.moveTo(arena.x + 0.5, arena.y + h);
+  ctx.lineTo(arena.x + 0.5, arena.y + 0.5);
+  ctx.lineTo(arena.x + w - 0.5, arena.y + 0.5);
+  ctx.lineTo(arena.x + w - 0.5, arena.y + h);
+  ctx.stroke();
+  ctx.restore();
 }
 
 /**

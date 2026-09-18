@@ -12,7 +12,6 @@ import {
 import type { BossCue } from "./boss-cue.js";
 import { chartOf, chartX, chartY } from "./fleet-chart.js";
 import type { Layout } from "./layout.js";
-import { headerLift } from "./round-header.js";
 import { type Arena, arenaX, arenaY, snakeArena } from "./snake-draw.js";
 
 /**
@@ -39,11 +38,6 @@ const SIGHTS_HALF = 0.46;
 /** SNAKE's mark, in arena tiles: a shade inside the tile it stands on, so the
  * frame reads as being *on* that square and not between two of them. */
 const TILE_HALF = 0.44;
-
-/** The header SNAKE's own round draws above the arena, in play heights — the
- * number `snake-round.ts` passes `headerLift`, and it must be the same one or
- * the mark stands a header off the tile it means. */
-const ARENA_OWN = 0.09;
 
 /**
  * THE FLEET. One word, the pilot's, and the navigator gets none — the same
@@ -152,7 +146,7 @@ export function snakeCues(
   if (s.phase !== "play" || snakeCrashed(s)) return [];
   const head = s.body[0];
   if (head === undefined) return [];
-  const a = snakeArena(l, world.cfg, headerLift({ clearTop }, l.playHeight * ARENA_OWN));
+  const a = snakeArena(l, world.cfg, { clearTop });
   if (a.tile <= 0) return [];
   const half = a.tile * TILE_HALF;
   const out: BossCue[] = [];

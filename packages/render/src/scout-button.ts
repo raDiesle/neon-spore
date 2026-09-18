@@ -76,26 +76,29 @@ export function drawScoutLobe(
 
   const ink = on ? "#1B0630" : hex;
   const heading = round?.headingMilli ?? 0;
-  drawNose(ctx, x, y, r, ink, heading);
-  if (which === "burn") drawWake(ctx, x, y, r, ink, heading);
+  const sin = mazeSinMilli(heading) / 1000;
+  const cos = mazeCosMilli(heading) / 1000;
+  drawNose(ctx, x, y, r, ink, sin, cos);
+  if (which === "burn") drawWake(ctx, x, y, r, ink, sin, cos);
   else drawSwing(ctx, x, y, r, ink, which === "left" ? -1 : 1);
 }
 
 /**
  * The little ship's nose, at the heading the ship is actually at: a line from
- * the button's middle with a short head on it. Straight up is zero and
- * clockwise is positive, which is the flight's own convention.
+ * the button's middle with a short head on it. The heading comes in as its
+ * sine and cosine — straight up is zero and clockwise is positive, which is
+ * the flight's own convention — so SNAKE's wheel, whose heading is a unit
+ * step on a grid, draws the same nose from the same call (`snake-button.ts`).
  */
-function drawNose(
+export function drawNose(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
   r: number,
   ink: string,
-  headingMilli: number,
+  sin: number,
+  cos: number,
 ): void {
-  const sin = mazeSinMilli(headingMilli) / 1000;
-  const cos = mazeCosMilli(headingMilli) / 1000;
   const tipX = x + sin * r * NOSE;
   const tipY = y - cos * r * NOSE;
   ctx.save();
@@ -126,7 +129,7 @@ function drawNose(
  * The arc a turn swings the nose through, round the outside of the face,
  * with a head on the end it goes towards. Anticlockwise on ◀, clockwise on ▶.
  */
-function drawSwing(
+export function drawSwing(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
@@ -172,10 +175,9 @@ function drawWake(
   y: number,
   r: number,
   ink: string,
-  headingMilli: number,
+  sin: number,
+  cos: number,
 ): void {
-  const sin = mazeSinMilli(headingMilli) / 1000;
-  const cos = mazeCosMilli(headingMilli) / 1000;
   ctx.save();
   ctx.strokeStyle = ink;
   ctx.lineCap = "round";

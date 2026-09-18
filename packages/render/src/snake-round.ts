@@ -1,57 +1,121 @@
-import { SNAKE_MORPH_BEATS, type SnakeState } from "@neon-spore/sim";
+import type { SnakeState, World } from "@neon-spore/sim";
+import { drawBand } from "./band.js";
+import { drawBackground } from "./field.js";
+import { drawHud } from "./hud.js";
+import { drawHull } from "./hull.js";
+import { frame } from "./hull-frame.js";
 import type { Layout } from "./layout.js";
-import { PALETTE } from "./palette.js";
 import type { ViewState } from "./renderer.js";
-import { headerLift } from "./round-header.js";
+import { headerTop } from "./round-header.js";
+import { seatSkin } from "./seat-skin.js";
+import { drawShipAir } from "./ship-air.js";
 import { drawSnakeBody, snakeSlide } from "./snake-body.js";
+import { emerge01, flick, gape } from "./snake-clock.js";
 import { crash01, drawSnakeCrash } from "./snake-crash.js";
 import {
   type Arena,
   drawArena,
   drawSnakeItems,
   drawSnakeRocks,
+  SNAKE_HEADER,
+  SNAKE_NAME_Y,
   showsSnakeBody,
   showsSnakeFood,
   snakeArena,
 } from "./snake-draw.js";
-import { drawSnakeMorph, morphBodyGrowth } from "./snake-morph.js";
-import { drawControls, drawTally, drawTitle, drawVerdict } from "./snake-panel.js";
+import { clipAboveHull, drawEmergeSlime, emergeIntake, emergeOffset } from "./snake-emerge.js";
+import { drawTally, drawTitle, drawVerdict } from "./snake-panel.js";
 import { drawSnakeShot } from "./snake-shot.js";
 
 /**
  * SNAKE over the whole stage.
  *
- * `canvas2d.ts` hands the frame over and draws nothing else — no grid, no
- * hull, no band. That is the round's first condition, and it is the same one
- * THE GAUGE established: the field is *gone*, not dimmed and not re-skinned.
+ * **The ship is on the screen and the panel is the band**, the way PINBALL,
+ * THE PULSE and THE SCOUT were rebuilt to be and for the reasons
+ * `pinball-round.ts` writes out: what a round takes away is the *field*, and
+ * the hull and the band are not the field. The owner asked for this round to
+ * follow (18 September 2026) — the hull shown, the four presses as lobes like
+ * every other button, the box round the arena gone and the arena grown to
+ * the whole of what is left. So the arena is the air above the hull, as wide
+ * as the field's columns (`snake-draw.ts`); the four presses are lobes on the
+ * band (`snake-button.ts`); and the body comes out of the hull's own mouth
+ * rather than the hull folding into it (`snake-emerge.ts`).
  *
- * This file is the arena: what is standing in it, the body in it, and the fold
- * that puts the body there. Everything *around* it — the two lines under the
- * name, the clock, the buttons and the verdict — is `snake-panel.ts`, which is
- * the half that says which screen this is.
+ * **The order is the picture.** Background, ship air, the header, the
+ * arena's lines and what stands in them, then the hull — and *then* the body,
+ * clipped to the sky above the ship's skin (`clipAboveHull`), so a body still
+ * inside the ship is under its skin and shows only where it has climbed out
+ * of the throat. The band and the HUD go over everything, and the verdict
+ * over them.
+ *
+ * This file is the arena: what is standing in it and the body in it.
+ * Everything *around* it — the name, the line under it, the clock and the
+ * verdict — is `snake-panel.ts`, which is the half that says which screen
+ * this is.
  */
+
+/**
+ * The ship stands still with its cannon over the middle column, which is the
+ * column the body starts in; the shield stays where the wave left it. The
+ * intake is the mouth the body comes out of, open for the emergence and shut
+ * once the tail is clear.
+ */
+function stillPose(world: World, round: SnakeState, beatPhase: number) {
+  const open = round.phase === "morph" ? emergeIntake(emerge01(world, beatPhase, round)) : 0;
+  return {
+    at: {
+      cannon: (world.cfg.cols - 1) / 2,
+      shield: [{ col: world.shieldCol, weight: 1, halfMul: 1 }],
+    },
+    mood: { armed: 0, intake: open, chew: 0, charge: 0 },
+  };
+}
 
 export function drawSnakeRound(ctx: CanvasRenderingContext2D, l: Layout, view: ViewState): void {
   const boss = view.world.boss;
   if (boss === null || boss.kind !== "snake") return;
+  const world = view.world;
+  const skin = seatSkin(view.role);
+  const { at, mood } = stillPose(world, boss, view.beatPhase);
+  const f = frame(l, view.time, mood, at);
 
-  ctx.fillStyle = PALETTE.background;
-  ctx.fillRect(0, 0, l.width, l.height);
-  ctx.strokeStyle = PALETTE.grid;
-  ctx.lineWidth = 1.4;
-  ctx.strokeRect(6.5, 6.5, Math.max(1, l.width - 13), Math.max(1, l.height - 13));
+  drawBackground(ctx, l, world.wave, view.time);
+  drawShipAir(ctx, l, view.time, skin);
 
   ctx.textAlign = "center";
-  // The header and the arena under it move together: under a rehearsal's
-  // plate the name drops, its two rows with it, and the arena's top follows
-  // (`round-header.ts`).
-  const lift = headerLift(view, l.playHeight * 0.09);
-  drawTitle(ctx, l, view.role, boss, l.playHeight * 0.09 + lift);
-  const arena = snakeArena(l, view.world.cfg, lift);
+  // The header hugs the arena. On a screen where the width is what limits the
+  // tiles, the arena is shorter than the air it was given and stands on the
+  // hull, so the name comes down to meet it rather than leaving the gap at
+  // the top; under a rehearsal's plate the name drops and the arena's top
+  // follows (`round-header.ts`, `snakeArena`).
+  const arena = snakeArena(l, world.cfg, view);
+  const top = Math.max(headerTop(view, l.playHeight * SNAKE_NAME_Y), arena.y - SNAKE_HEADER);
+  drawTitle(ctx, l, view.role, boss, top);
+  drawTally(ctx, l, view, boss, top + 30);
   drawArena(ctx, arena);
-  drawBodies(ctx, l, arena, view, boss);
-  drawTally(ctx, l, view, boss);
-  drawControls(ctx, l, view, boss);
+  drawStanding(ctx, arena, view, boss);
+
+  drawHull(
+    ctx,
+    l,
+    world.scars,
+    view.time,
+    mood,
+    at,
+    () => true,
+    () => true,
+    skin.hull,
+    { x: 0, y: 0 },
+    f,
+  );
+  ctx.save();
+  clipAboveHull(ctx, l, f, mood.intake);
+  const emerging = drawBody(ctx, l, arena, view, boss);
+  ctx.restore();
+  if (emerging !== null) drawEmergeSlime(ctx, l, arena, boss, emerging);
+  drawBand(ctx, l, world, false, false, view.time, view.controls);
+  drawHud(ctx, l, view);
+  ctx.textAlign = "center";
   // The verdict stands through `spent` too: the round is over and holding
   // its own picture until the next wave arrives (`sim/wave-end.ts`).
   if (boss.phase === "verdict" || boss.phase === "spent") drawVerdict(ctx, l, boss);
@@ -59,106 +123,66 @@ export function drawSnakeRound(ctx: CanvasRenderingContext2D, l: Layout, view: V
 }
 
 /**
- * The fold, as a number: 0 the moment the ship starts becoming the snake and 1
- * the moment the body sets off. Derived from the round's own phase beat and
- * nothing else, so a restart cannot carry half a fold into the next run.
+ * What is standing in the arena before the body arrives: the meteors both
+ * screens carry, and the arena's own things on the one screen that gets them.
+ * Under the hull, because nothing of it is ever inside the ship.
  */
-function morph01(view: ViewState, round: SnakeState): number {
-  if (round.phase !== "morph") return 1;
-  const beats = view.world.beat - round.phaseBeat + view.beatPhase;
-  return Math.max(0, Math.min(1, beats / SNAKE_MORPH_BEATS));
+function drawStanding(
+  ctx: CanvasRenderingContext2D,
+  arena: Arena,
+  view: ViewState,
+  round: SnakeState,
+): void {
+  const pulse = Math.abs(0.5 - view.beatPhase) * 2;
+  drawSnakeRocks(ctx, arena, round);
+  if (showsSnakeFood(view.role)) drawSnakeItems(ctx, arena, round, pulse);
 }
 
 /**
- * Everything inside the wall: the meteors both screens carry, the arena's own
- * things on the one screen that gets them, the body, and the shot that has
- * just been taken.
+ * The body, and the shot that has just been taken. Over the hull, inside
+ * `clipAboveHull`.
  *
- * During the fold the ship is drawn over the top of all of it, and the body
- * grows out from under it (`snake-morph.ts`).
+ * While the body is emerging it is drawn on its resting tiles and translated
+ * down into the ship by however much of it is still inside; the clip keeps
+ * that part under the skin. What comes back is that offset, for the slime to
+ * be drawn over the hull's lip, or null once the body is out.
  */
-function drawBodies(
+function drawBody(
   ctx: CanvasRenderingContext2D,
   l: Layout,
   arena: Arena,
   view: ViewState,
   round: SnakeState,
-): void {
-  const fold = morph01(view, round);
-  const pulse = Math.abs(0.5 - view.beatPhase) * 2;
+): { dx: number; dy: number; rise: number } | null {
+  const t = emerge01(view.world, view.beatPhase, round);
   const shows = showsSnakeBody(view.role);
-  drawSnakeRocks(ctx, arena, round);
-  if (showsSnakeFood(view.role)) drawSnakeItems(ctx, arena, round, pulse);
   // The bump after a crash. While it runs the body is drawn folding up
   // against what stopped it, in place of itself; once it is spent the body
   // is drawn as ever, standing where it stopped, for as long as the field
   // holds (`snake-crash.ts`).
   const crash = crash01(round, view.world.tick);
-  if (crash !== null) drawSnakeCrash(ctx, arena, round, shows, crash);
-  const grown = crash === null ? morphBodyGrowth(fold) : 0;
-  if (grown > 0) {
-    ctx.save();
-    // The body is extruded, not faded: while the fold runs, only the part of
-    // it that has come out of the ship is drawn at all.
-    ctx.globalAlpha = Math.min(1, grown * 1.6);
-    drawSnakeBody(
-      ctx,
-      arena,
-      round,
-      shows,
-      snakeSlide(round, view.world.tick),
-      gape(view, round),
-      flick(view.world.tick),
-    );
-    ctx.restore();
+  if (crash !== null) {
+    drawSnakeCrash(ctx, arena, round, shows, crash);
+    return null;
   }
+  const at = t < 1 ? emergeOffset(l, arena, round, t) : null;
+  ctx.save();
+  if (at !== null) ctx.translate(at.dx, at.dy);
+  drawSnakeBody(
+    ctx,
+    arena,
+    round,
+    shows,
+    snakeSlide(round, view.world.tick),
+    gape(view.world, round),
+    flick(view.world.tick),
+  );
+  ctx.restore();
   // One beat of afterglow, and no state kept for it: the world says which beat
   // the shot left on, so the fade is that number against this one.
   const since = view.world.beat - round.shotBeat + view.beatPhase;
   if (since < 1.2) {
     drawSnakeShot(ctx, arena, round, 1 - since / 1.2, snakeSlide(round, view.world.tick));
   }
-  if (fold < 1) drawSnakeMorph(ctx, l, arena, view, round, fold);
-}
-
-/**
- * How far through one flick of the tongue this tick is, 0 to 1.
- *
- * A whole cycle in `FLICK_TICKS` — the dart out, the pause and the wait — read
- * straight off the tick counter and nothing else. It belongs here beside
- * `gape` for the same reason `gape` is here: both are the world reduced to one
- * number for the drawing, so `snake-head.ts` is handed a phase rather than
- * left to invent one out of a clock it must not have.
- */
-export function flick(tick: number): number {
-  return (((tick % FLICK_TICKS) + FLICK_TICKS) % FLICK_TICKS) / FLICK_TICKS;
-}
-
-/** Ticks in one flick of the tongue: a little under a second at sixty. */
-const FLICK_TICKS = 52;
-
-/**
- * How wide the mouth is standing open, 0 to 1.
- *
- * Read off the world's own window and eased at both ends, so the jaws *swing*:
- * a mouth that snapped to full gape and back would be a light going on and off
- * where what the pair has to read is a movement. The window itself is the
- * simulation's (`snakeMawTicks`), so what is drawn open is exactly what would
- * swallow a point.
- */
-export function gape(view: ViewState, round: SnakeState): number {
-  const span = view.world.cfg.snakeMawTicks;
-  const age = view.world.tick - round.mawTick;
-  if (age < 0 || age >= span) return 0;
-  const t = age / span;
-  // Snaps open over the first eighth, **stands open for three quarters of the
-  // window**, and swings shut over what is left. The owner asked for a mouth
-  // that stays open longer, and there were two ways to give it: the window
-  // itself is longer now (`snakeMawTicks`), and the share of it spent wide
-  // open went from under half to three quarters. The jaws used to start
-  // closing about as soon as they had finished opening, which read as a
-  // twitch rather than as a mouth held open for something to be driven into.
-  if (t < 0.12) return t / 0.12;
-  if (t < 0.86) return 1;
-  return 1 - (t - 0.86) / 0.14;
+  return at;
 }

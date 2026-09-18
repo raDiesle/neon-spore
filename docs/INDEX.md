@@ -946,11 +946,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/view-role-clocks.ts` | **The clock bosses' halves** — what each seat is shown of THE DIASTOLE onward |
 | `packages/render/src/view-role-clocks-b.ts` | **The clock bosses' halves, page two** |
 | `packages/render/src/snake-body.ts` | The body: where it is between two tiles, and what it looks like |
+| `packages/render/src/snake-button.ts` | SNAKE's four presses, as faces on the band's own lobes |
 | `packages/render/src/snake-draw.ts` | SNAKE's arena, and everything standing on a tile of it |
 | `packages/render/src/snake-round.ts` | SNAKE over the whole stage |
 | `packages/render/src/living-draw.ts` | one lobed body, filled and lit — the draw path every blob creature takes, and the Throb's two sizes |
 | `packages/render/src/living-skin.ts` | What a living body is *made of*, as a record rather than as three lines in the middle of `drawLiving` |
-| `packages/render/src/snake-morph.ts` | The ship becoming the snake, and it is the real ship |
 | `packages/render/src/echo.ts` | the seam and the strain — what tells the pair a body is about to come apart, and which way |
 | `packages/render/src/echo-look.ts` | The one record a candidate ECHO patches — the furrow, so a second answer to the mark can sit beside the shipped one |
 | `packages/render/src/echo-buds.ts` | BUDS — two lit nuclei under one skin, pulling apart along the axis, with the seam as the dark between them |
@@ -1012,9 +1012,11 @@ place — the generator keeps whatever is there.
 | `packages/render/src/rind-flakes.ts` | FLAKES — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/rind-pod.ts` | POD — a kept look for THE RIND's shed, drawn only on the GRAPHICS page's LIBRARY |
 | `packages/render/src/snake-crash.ts` | The pause between two attempts, as a picture |
+| `packages/render/src/snake-clock.ts` | SNAKE's world, reduced to the three numbers its drawing runs on |
 | `packages/render/src/snake-items.ts` | What is standing in SNAKE's arena to be spent: the things to shoot and the things to swallow |
 | `packages/render/src/snake-ribbon.ts` | What a body looks like once somebody has said where its joints are |
 | `packages/render/src/snake-venom.ts` | What the acid does when it stops moving |
+| `packages/render/src/snake-emerge.ts` | The body coming out of the ship |
 | `packages/render/src/ship-hand.ts` | the ring round the swelling a finger has hold of, and which colour a lift would fire |
 | `packages/render/src/touch-hold.ts` | what a hit test hands back: what a drag and a lift go on meaning after the press |
 | `packages/render/src/touch-ship.ts` | the ship as a control: both lobes answered where they are drawn on the hull |
@@ -1571,7 +1573,6 @@ place — the generator keeps whatever is there.
 | `apps/game/src/key-hint.ts` | a keyboard hint for the player who sits at a PC with no panel to read the keys off |
 | `apps/game/src/raster.ts` | the baked burst, in the real game, behind a flag |
 | `apps/game/src/view.ts` | the view switch, always on screen |
-| `apps/game/src/snake.ts` | The host's half of SNAKE: the four thumbs that play it |
 | `apps/game/src/install.ts` | The home-screen shortcut, and the service worker that makes one possible |
 | `apps/game/src/link-run.ts` | Beats between fingerprint exchanges |
 | `apps/game/src/link-socket.ts` | Milliseconds before a socket that went away is reached for again |
@@ -1871,7 +1872,6 @@ place — the generator keeps whatever is there.
 | `tools/director/src/stage-loop.ts` | The stage's clock: a fixed-timestep loop of its own rather than the game's |
 | `tools/director/src/stage-rounds.ts` | Every round that is not the field, bound to the director's canvas at once |
 | `tools/director/src/stage-repeat.ts` | A cleared wave stops and asks, rather than starting itself again |
-| `tools/director/src/stage-snake.ts` | SNAKE'S SLABS, ANSWERED BY THE DIRECTOR'S MOUSE |
 | `tools/director/src/stage-transport.ts` | The buttons under the field: `⏸`/`▶`, `↺ WAVE` and the three role switches |
 | `tools/director/src/state.ts` | The edits and the questions moved out when this file went over the line limit |
 | `tools/director/src/states-page.ts` | DOCUMENTATION: the four reference rooms in one full-screen sheet, and the sheet's own wiring |

@@ -15,6 +15,7 @@ import { drawPinLobe, pinLobeOf } from "./pinball-button.js";
 import { drawPulseLobe, pulseLobeOf } from "./pulse-button.js";
 import { drawScoutLobe, scoutLobeOf } from "./scout-button.js";
 import { type SeatSkin, seatSkin } from "./seat-skin.js";
+import { drawSnakeLobe, snakeLobeOf } from "./snake-button.js";
 
 /**
  * One control of the band, drawn — a lobe or a strip, whichever the set says.
@@ -145,6 +146,14 @@ function drawFace(
   const scout = scoutLobeOf(c.id);
   if (scout !== null) {
     drawScoutLobe(ctx, circle, scout, world, skin);
+    return;
+  }
+  // SNAKE's four, on the band since the owner asked for its buttons to look
+  // like the others: the heading under the driver's thumb, the head under
+  // the shooter's (`snake-button.ts`).
+  const snake = snakeLobeOf(c.id);
+  if (snake !== null) {
+    drawSnakeLobe(ctx, circle, snake, world, skin);
     return;
   }
   // THE FLEET's five. The arrows are one picture with a direction, so they

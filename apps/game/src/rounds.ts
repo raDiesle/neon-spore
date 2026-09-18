@@ -2,7 +2,6 @@ import type { Layout, ViewRole } from "@neon-spore/render";
 import type { World } from "@neon-spore/sim";
 import { bindGauge } from "./gauge.js";
 import type { InputBuffer } from "./input.js";
-import { bindSnake } from "./snake.js";
 
 /**
  * Every round that draws **slabs**, bound to the canvas at once.
@@ -20,7 +19,9 @@ import { bindSnake } from "./snake.js";
  * lobes now and the thing that used to be slid by two more is the ship's own
  * cannon strip, so the listener it had was deleted rather than kept. THE
  * SCOUT was the third, by the same door: its four are lobes in THE CLAW's
- * sockets since its look landed, and `scout.ts` went with the slabs.
+ * sockets since its look landed, and `scout.ts` went with the slabs. SNAKE
+ * was the fourth, when the owner asked for its buttons to look like the
+ * others: its four are lobes now and `snake.ts` was deleted with them.
  *
  * It is `tools/director/src/stage-rounds.ts` on this side of the fence, and it
  * arrived for the same reason: the fourth round was the one that made four
@@ -40,5 +41,4 @@ export interface RoundBindings {
 
 export function bindRounds(handle: RoundBindings): void {
   bindGauge(handle);
-  bindSnake(handle);
 }

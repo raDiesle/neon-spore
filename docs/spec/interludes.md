@@ -258,6 +258,39 @@ come out is either the half she is not shown or the one thing she is: *which
 way* is the answer, and it is his to say. A cue that turned her would be a
 second driver.
 
+**The look, rebuilt 18 September 2026.** SNAKE was the last round but THE
+GAUGE still drawn as a slab panel over a dark plate with an ember box round
+the arena, and the owner asked for it to follow the others: the ship shown,
+the buttons like every other button, the box gone and the arena grown to the
+whole of what is left. So the ship stands on the screen with its real scars,
+the band holds the panel, and the arena is the air above the hull — as wide as
+the field's columns, or as tall as the header leaves, whichever the tiles run
+out of first — with the three walls as THE SCOUT's hairline and no floor,
+because the floor is the hull (`render/snake-draw.ts`, `snakeArena`). The
+four presses are lobes on the band (`snake-button.ts`): player 2's two carry
+the nose the body is pointed at and the arc of the turn, THE SCOUT's own
+glyphs, and light while a turn is queued; player 1's two carry the head
+itself — a venom-green one with the chevrons of the shot fading in as the rest
+runs out, and an amber-pod one whose jaws open with the mouth's own window.
+`touch-lobe.ts` answers all four as one press each, so the round needs no
+listener of its own in the app or the director.
+
+**The fold is gone, and the body comes out of the ship instead**
+(`render/snake-emerge.ts`). The round used to open with the hull scaled down
+into the body's first tile; the owner asked for the ship to stay and for the
+body to come *out of it*, out of the cannon's slot, like a worm pushing out of
+a cocoon. Over the same six beats (`SNAKE_MORPH_BEATS`) the cannon lobe opens
+into the throat a pod is swallowed through — `mood.intake` on the hull's own
+frame, the same opening THE SCOUT's ship flies home into — the body rises out
+of it in three pushes with a sway, and two threads of slime hold the flanks
+until it is clear; then the mouth shuts behind the tail. The body is drawn
+*after* the hull and clipped to the sky above its membrane and to the mouth's
+own line (`clipAboveHull`), which is what puts the part still inside under the
+skin without a second picture of the ship. Nothing in the simulation moved:
+the phase, its beats and the body's resting tiles are what they were, and
+`render/test/snake-frame.test.ts` draws the emergence on its own and holds the
+arena to the field's width or the hull.
+
 **The rest of its numbers are in `packages/sim/src/config-snake.ts`.**
 `snakeCols` and `snakeRows` are the arena in tiles, and have nothing to do with
 the field's `cols`, because the field is gone. `snakeStartTiles` is how long the

@@ -9059,3 +9059,28 @@ prose and could never be performed at tempo, which the director's hand found
 before any player could have.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — snake-boss-graphics — SNAKE gets the ship, the band and a body out of the mouth
+
+The last round but THE GAUGE still drawn as a slab panel over a dark plate,
+brought onto the ship: the four presses are lobes on the band, the ember box
+and the plate are gone, the arena is the air above the hull as wide as the
+field, and the fold that used to shrink the hull into the body is replaced by
+the body pushing out of the cannon's own throat, slime and all. The one thing
+that cost thought was the ship's paint: the hull is an opaque skirt, so a body
+drawn before it vanished and one drawn after it stood on the ship — the answer
+is drawing it after, clipped to the sky above the membrane and to the mouth's
+own line.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | the slab panel, `scout-round.ts` as the pattern, `hull.ts` and `muzzle.ts` for the throat |
+| writing | 10 | three new files, the panel cut down, the arena regrown, three files deleted, two tests |
+| looking | 5 | six frames and three crops of the mouth to find the body under the paint |
+| friction | 0 | — |
+| landing | 5 | the spec, the index, `check:fast`, the commit, the land |
+
+The bottleneck was the hull's opacity: the body was drawn twice in the wrong
+place before the clip above the membrane made the throat read as a hole.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

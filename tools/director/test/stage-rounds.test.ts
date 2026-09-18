@@ -53,7 +53,8 @@ describe("the director answers every round's slabs", () => {
   it("finds at least one slab panel to check", () => {
     // A guard on the guard: a change that stopped `panelForm` reporting slabs
     // would make every assertion below vacuous and say nothing about it.
-    expect(slabIds().length).toBeGreaterThan(3);
+    // THE GAUGE's three are the floor: every other round is on the band now.
+    expect(slabIds().length).toBeGreaterThanOrEqual(3);
   });
 
   it.each(slabIds())("$set · $id is named by a stage listener", ({ set, id }) => {
