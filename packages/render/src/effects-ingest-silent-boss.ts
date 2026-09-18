@@ -15,6 +15,9 @@ import type { SimEvent } from "@neon-spore/sim";
  * nothing behind for the next frame* — and the reasons are kept with the rows
  * they are about. `INGEST_SILENT` spreads this in place, so the guard and the
  * type it narrows by are unchanged and nothing outside had to move.
+ *
+ * **This page is full.** From THE ANTIPHON on the rows are on the second,
+ * `effects-ingest-silent-boss-b.ts`, and that is where the next boss's go.
  */
 export const INGEST_SILENT_BOSS = [
   // THE MIRROR's four, read above the loop by an `ingest` of their own before

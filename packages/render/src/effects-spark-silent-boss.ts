@@ -14,8 +14,10 @@ import type { SimEvent } from "@neon-spore/sim";
  * THE CURTAIN's and THE TASTER's had each added a dozen, and the older
  * bosses followed on 17 September 2026 so the seam is the one
  * `effects-ingest-silent-boss.ts` cut: every boss here, every creature
- * there, and the next boss lands without touching anybody's comment. The
- * property that had to survive the split is the same one that file explains
+ * there, and the next boss lands without touching anybody's comment. **This
+ * page is full.** From THE FILAMENT on the rows are on the second,
+ * `effects-spark-silent-boss-b.ts`, and that is where the next boss's go.
+ * The property that had to survive the split is the same one that file explains
  * — `SILENT` keeps its literal member types through the spread, so `isSilent`
  * still narrows and `burstFor`'s `assertNever` still catches an event named
  * in neither.

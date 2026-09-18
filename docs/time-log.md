@@ -22,6 +22,27 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — the full page says which page is not full
+
+The cut this entry asked for had already been made, inside THE FILAMENT's lane
+and as friction rather than as the queued work: `effects-spark-silent-boss-b.ts`
+exists and carries THE FILAMENT's ten. What was missing was the sign — both
+first pages are full, neither said so, and the boss skill still sent a lane to
+them by name. Each first page now names its second, and the skill's row names
+the `-b` files.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, both spark pages, both ingest pages, `effects-spark-silent.ts`'s spread, the release note that did the cut |
+| writing | 5 | two header paragraphs and the skill's row |
+| looking | 0 | nothing the game draws moved |
+| friction | 0 | none |
+| landing | 10 | `check:fast` — the full run, 71 seconds — the commit, `bun run land --keep` |
+
+**The bottleneck was reading**, and it was the whole lane: the work was done,
+by a lane that did it as friction on the way to something else, and finding
+that out cost more than the sign that was actually missing.
+
 ## 2026-09-18 — boss-hints — a claim written ahead of the work says so
 
 A take commit turned `main` red by backticking a scene file its own lane had

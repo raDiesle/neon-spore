@@ -334,18 +334,6 @@ their half of `BOSS_KINDS`, `hash-fixture.ts` composing the two and keeping
 the world. A test: `hash-coverage.test.ts` unchanged and green, and no file
 of the three over 250.
 
-## `effects-spark-silent-boss.ts` has no room for the next boss's events
-
-- **Found:** 2026-09-17, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-18, claude/queue-effects-spark-silent-boss-ts-has-no-room-for-the
-- **Files:** `packages/render/src/effects-spark-silent-boss.ts`, `packages/render/src/effects-ingest-silent-boss-b.ts`
-
-The spark's silent list is at 242 lines after THE INSTAR's eleven events;
-the ingest list already has its `-b` page. Cut the spark list the same way
-before the next boss — `effects-spark-silent-boss-b.ts` from THE HIVE on,
-the first page re-exporting it — so the next lane adds a row rather than a
-split. A test: the silent-list coverage test unchanged and green.
-
 ## THE CANDLE's flash beat is played at tempo, and the design asks for a third
 
 - **Found:** 2026-09-17, claude/boss-implementation-e3cfff
