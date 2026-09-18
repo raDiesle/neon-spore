@@ -9263,3 +9263,25 @@ question of what a state is there went to the queue rather than being decided
 in a look lane.
 
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-18 — brush-malfunction-wave-config — the label says its own rows
+
+The owner asked whether the text says which rows a fault is active for. It did
+not: the name was at one edge of the map and the window was a stripe at the
+other, and joining them was the eye's job across seven columns. The range is in
+figures under the name now — `9–16`, `1–end` — and the bracket is drawn down
+the side the name is on as well as the side the numbers are on, capped on the
+row a placement enters and on the row it leaves.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `faultMarks`, `grid-row-acts.ts`, what `faultCovers` already settles |
+| writing | 15 | the span, the walk that finds its last row, the two-line tag, the bracket, six cases |
+| looking | 5 | two shots of THE HANDOVER — the label, and the row it closes on |
+| friction | 0 | none |
+| landing | 5 | `check:fast`, the commit, the land |
+
+The bottleneck was noticing that the answer to the question was *no*: the
+window was on the map twice already and neither mark was next to the word.
+
+*Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

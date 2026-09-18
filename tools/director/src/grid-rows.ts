@@ -78,9 +78,10 @@ export function beatLabel(
   const label = document.createElement("div");
   label.className = "beat";
   if (fault?.holds) label.classList.add("fault-in");
+  if (fault?.ends) label.classList.add("fault-end");
   if (fault?.enters.length) {
     label.classList.add("fault-at");
-    label.title = `${fault.enters.join(", ")} — enters on beat ${b}`;
+    label.title = fault.enters.map((f) => `${f.name} — enters on beat ${b}`).join("; ");
   }
   label.dataset.beat = String(b);
   const seek = document.createElement("button");

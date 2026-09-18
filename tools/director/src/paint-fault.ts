@@ -1,5 +1,11 @@
 import { placedFaults, type Wave, type WaveFault } from "@neon-spore/content";
-import { DEFAULT_CONFIG, faultCovers, type MalfunctionKind } from "@neon-spore/sim";
+import {
+  DEFAULT_CONFIG,
+  faultCovers,
+  type MalfunctionKind,
+  type PlacedFault,
+  TO_THE_END,
+} from "@neon-spore/sim";
 import { faultTitle } from "./fault-notes.js";
 
 /**
@@ -57,13 +63,44 @@ export function faultsAt(wave: Wave, beat: number): WaveFault[] {
   return (wave.faults ?? []).filter((f) => (f.at ?? 0) === beat);
 }
 
+/** One placement, as the map labels it: its name and the rows it covers. */
+export interface FaultSpan {
+  /** The fault's name, the way the palette names it. */
+  name: string;
+  /** The first beat row it holds. */
+  from: number;
+  /** The last beat row it holds, or null for one with no end written. */
+  to: number | null;
+}
+
 /** What one beat row of the map has to say about the faults on it. */
 export interface FaultMark {
-  /** The faults **entering** here, named the way the palette names them. */
-  enters: string[];
+  /** The faults **entering** here — the row owns them, and labels them. */
+  enters: FaultSpan[];
   /** Whether any placement is **in force** over this row, entered here or
    * earlier — which is how long a malfunction lasts, drawn. */
   holds: boolean;
+  /** Whether a placement's **last** row is this one, so the bracket down the
+   * map can be closed rather than left running off the bottom. */
+  ends: boolean;
+}
+
+/**
+ * The last row a placement holds, or null for one that runs to the end of the
+ * wave.
+ *
+ * Walked with `faultCovers` rather than worked out as `at + beats - 1`. The
+ * arithmetic is one subtraction and it would still be a second copy of where a
+ * window stops, which is exactly the kind of rule `purity.test.ts` keeps a
+ * table against — and this is a label an author reads a length off, so the two
+ * disagreeing would be a map that lies quietly. A wave is tens of rows long
+ * and the walk is over in a few steps.
+ */
+function lastHeld(fault: PlacedFault): number | null {
+  if (fault.beats === TO_THE_END) return null;
+  let last = fault.at;
+  while (faultCovers(fault, last + 1)) last++;
+  return last;
 }
 
 /**
@@ -79,11 +116,17 @@ export interface FaultMark {
  */
 export function faultMarks(wave: Wave, beats: number): FaultMark[] {
   const placed = placedFaults(wave.faults);
+  const spans: FaultSpan[] = placed.map((f) => ({
+    name: faultTitle(f.kind),
+    from: f.at,
+    to: lastHeld(f),
+  }));
   const marks: FaultMark[] = [];
   for (let beat = 0; beat < beats; beat++) {
     marks.push({
-      enters: faultsAt(wave, beat).map((f) => faultTitle(f.kind)),
+      enters: spans.filter((s) => s.from === beat),
       holds: placed.some((f) => faultCovers(f, beat)),
+      ends: spans.some((s) => s.to === beat),
     });
   }
   return marks;

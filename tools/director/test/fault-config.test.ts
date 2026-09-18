@@ -3,6 +3,7 @@ import type { Wave } from "@neon-spore/content";
 import { DEFAULT_CONFIG } from "@neon-spore/sim";
 import { faultConfig } from "../src/fault-config.js";
 import { bindRowActs, type RowActs } from "../src/grid-row-acts.js";
+import type { FaultMark, FaultSpan } from "../src/paint-fault.js";
 import { faultMarks, paintFault } from "../src/paint-fault.js";
 import type { Selection } from "../src/selection.js";
 import { FakeEl, installDom } from "./fake-dom.js";
@@ -141,25 +142,43 @@ describe("the malfunction block under the map", () => {
  * the top of it.
  */
 describe("what the map marks", () => {
-  test("names the row a fault enters on and every row it holds", () => {
+  test("names the row a fault enters on, every row it holds, and the row it leaves", () => {
     const w: Wave = { ...wave(), faults: [{ kind: "steer", at: 2, beats: 3 }] };
     const marks = faultMarks(w, 6);
     expect(marks.map((m) => m.holds)).toEqual([false, false, true, true, true, false]);
-    expect(marks.map((m) => m.enters.length)).toEqual([0, 0, 1, 0, 0, 0]);
-    expect(marks[2]?.enters).toEqual(["STEER"]);
+    expect(marks.map((m) => m.ends)).toEqual([false, false, false, false, true, false]);
+    expect(marks[2]?.enters).toEqual([{ name: "STEER", from: 2, to: 4 }]);
   });
 
-  test("holds to the last row when no length was written", () => {
+  /**
+   * The written range and the rows actually held are the same window said
+   * twice, so they are pinned to each other here: the last row `holds` is true
+   * for is the `to` the label prints. `lastHeld` walks `faultCovers` for that
+   * reason, and this is what would fail if anyone replaced the walk with the
+   * arithmetic and got the fencepost wrong.
+   */
+  test("labels exactly the rows it is in force over", () => {
+    const w: Wave = { ...wave(), faults: [{ kind: "cannon", at: 3, beats: 5 }] };
+    const marks = faultMarks(w, 12);
+    const held = marks.flatMap((m, beat) => (m.holds ? [beat] : []));
+    expect(marks[3]?.enters[0]?.from).toBe(held[0]);
+    expect(marks[3]?.enters[0]?.to).toBe(held[held.length - 1]);
+  });
+
+  test("holds to the last row when no length was written, and never closes", () => {
     const w = wave();
     paintFault(w, 1, "codex");
-    expect(faultMarks(w, 4).map((m) => m.holds)).toEqual([false, true, true, true]);
+    const marks = faultMarks(w, 4);
+    expect(marks.map((m) => m.holds)).toEqual([false, true, true, true]);
+    expect(marks.map((m) => m.ends)).toEqual([false, false, false, false]);
+    expect(marks[1]?.enters[0]?.to).toBeNull();
   });
 
   test("names every kind entering on one row", () => {
     const w = wave();
     paintFault(w, 3, "steer");
     paintFault(w, 3, "codex");
-    expect(faultMarks(w, 4)[3]?.enters).toEqual(["STEER", "CODEX"]);
+    expect(faultMarks(w, 4)[3]?.enters.map((f) => f.name)).toEqual(["STEER", "CODEX"]);
   });
 });
 
@@ -168,7 +187,8 @@ describe("what the map marks", () => {
  * owner asked for it on 18 September 2026 — the stripe said *a fault holds
  * here* and nothing said *which* — and it goes beside the trash rather than
  * over the map: a label laid across the cells would hide the arrival the
- * author is looking at.
+ * author is looking at. He then asked whether the text says which rows it is
+ * active for, and it did not, so the range is written under the name.
  */
 describe("the end of a row", () => {
   const acts = (): RowActs => {
@@ -181,16 +201,45 @@ describe("the end of a row", () => {
     );
   };
 
-  test("writes the fault's kind beside the trash", () => {
-    const strip = acts().end(4, ["HANDOVER"]) as unknown as FakeEl;
-    const tag = strip.children.find((c) => c.classes.has("rowtag"));
-    expect(tag?.textContent).toBe("HANDOVER");
-    expect(tag?.title).toBe("HANDOVER — enters on beat 4");
+  const mark = (enters: FaultSpan[], holds = true, ends = false): FaultMark => ({
+    enters,
+    holds,
+    ends,
+  });
+  const lines = (strip: FakeEl): string[] => {
+    const tags = strip.children.find((c) => c.classes.has("rowtags"));
+    return (tags?.children ?? []).flatMap((t) => t.children.map((c) => c.textContent));
+  };
+
+  test("writes the kind and the rows it is active for, beside the trash", () => {
+    const strip = acts().end(9, mark([{ name: "HANDOVER", from: 9, to: 16 }])) as unknown as FakeEl;
+    expect(lines(strip)).toEqual(["HANDOVER", "9–16"]);
+    expect(strip.children.find((c) => c.classes.has("rowtags"))?.title).toBe(
+      "HANDOVER — beats 9 to 16",
+    );
     expect(strip.children.some((c) => c.classes.has("rowdel"))).toBe(true);
   });
 
-  test("writes nothing at all on a row no fault enters on", () => {
-    const strip = acts().end(4, []) as unknown as FakeEl;
+  test("says so in words when a fault has no end written", () => {
+    const strip = acts().end(1, mark([{ name: "CODEX", from: 1, to: null }])) as unknown as FakeEl;
+    expect(lines(strip)).toEqual(["CODEX", "1–end"]);
+    expect(strip.children.find((c) => c.classes.has("rowtags"))?.title).toBe(
+      "CODEX — beat 1 to the end of the wave",
+    );
+  });
+
+  test("brackets the rows it holds, capped where it enters and where it leaves", () => {
+    const enter = acts().end(2, mark([{ name: "STEER", from: 2, to: 4 }])) as unknown as FakeEl;
+    expect([...enter.classes]).toContain("fault-at");
+    const middle = acts().end(3, mark([])) as unknown as FakeEl;
+    expect([...middle.classes]).toEqual(["rowend", "fault-in"]);
+    const last = acts().end(4, mark([], true, true)) as unknown as FakeEl;
+    expect([...last.classes]).toContain("fault-end");
+  });
+
+  test("writes nothing at all on a row no fault reaches", () => {
+    const strip = acts().end(4, undefined) as unknown as FakeEl;
     expect(strip.children.map((c) => c.className)).toEqual(["rowdel"]);
+    expect([...strip.classes]).toEqual(["rowend"]);
   });
 });

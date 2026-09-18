@@ -165,18 +165,61 @@
   gap: 3px;
   min-width: 0;
 }
-#grid .rowend .rowtag {
+#grid .rowtags {
   flex: 1 1 auto;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+/* Two lines inside one 32px row: the kind, and the rows it is active for in
+   figures. The second line is why it is two — a name on its own says a fault
+   starts here and leaves *how far* to be counted off a stripe at the other
+   edge of the map. */
+#grid .rowtag {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 100%;
+}
+#grid .rowtag .who,
+#grid .rowtag .span {
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.6rem;
+  line-height: 1.05;
   letter-spacing: 0.5px;
-  line-height: 1;
   color: var(--gold);
-  opacity: 0.85;
-  pointer-events: none;
+}
+#grid .rowtag .who {
+  font-size: 0.6rem;
+  opacity: 0.9;
+}
+#grid .rowtag .span {
+  font-size: 0.55rem;
+  opacity: 0.6;
+}
+/* THE BRACKET, DOWN THE SIDE THE NAME IS ON.
+
+   The same window the beat column stripes, drawn again against the last cells
+   of each row: the label and the rows it is about are then one shape rather
+   than two marks at opposite edges of the map. Capped at both ends — solid on
+   the row it enters and on the row it leaves — so a window that closes looks
+   different from one that runs to the end of the wave, which simply runs off
+   the bottom with no cap at all. */
+#grid .rowend.fault-in {
+  box-shadow: inset 3px 0 0 color-mix(in srgb, var(--gold) 40%, transparent);
+}
+#grid .rowend.fault-at,
+#grid .rowend.fault-end {
+  box-shadow: inset 3px 0 0 var(--gold);
+}
+#grid .beat.fault-end {
+  box-shadow: inset 3px 0 0 var(--gold);
 }
 /* And the trash, at the other end of the same row, on the same hover. */
 #grid .rowdel {

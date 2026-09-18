@@ -1,4 +1,5 @@
 import type { RowVerbs } from "./grid-rows.js";
+import type { FaultMark, FaultSpan } from "./paint-fault.js";
 import type { Selection } from "./selection.js";
 
 /**
@@ -41,7 +42,7 @@ export interface RowActs {
    * a fault is what the author is looking for when they scan the map
    * (`grid-metrics.ts` for why the strip is as wide as it is).
    */
-  end(beat: number, faults: readonly string[]): HTMLElement;
+  end(beat: number, fault: FaultMark | undefined): HTMLElement;
   /** This beat's two insert lines, one above the row and one below it. */
   rail(beat: number): HTMLElement;
 }
@@ -74,21 +75,18 @@ export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selec
   selection.watch(settle);
 
   return {
-    end(beat, faults) {
+    end(beat, fault) {
       const strip = document.createElement("div");
       strip.className = "rowend";
       strip.dataset.beat = String(beat);
-      if (faults.length > 0) {
-        const tag = document.createElement("span");
-        tag.className = "rowtag";
-        // Joined rather than stacked: two faults entering on one row is rare
-        // and the block under the map is what names them properly. What this
-        // has to do is say *a fault starts here, and it is this one* without
-        // making the row taller than every other row.
-        tag.textContent = faults.join("·");
-        tag.title = `${faults.join(", ")} — enters on beat ${beat}`;
-        strip.appendChild(tag);
-      }
+      // The bracket: the rows this placement holds, marked down the strip the
+      // name is written in rather than only down the far side of the map. A
+      // label at one edge and its extent at the other is two facts the eye has
+      // to carry across seven columns of cells to join.
+      if (fault?.holds) strip.classList.add("fault-in");
+      if (fault?.enters.length) strip.classList.add("fault-at");
+      if (fault?.ends) strip.classList.add("fault-end");
+      if (fault?.enters.length) strip.appendChild(tags(fault.enters));
       const button = document.createElement("button");
       button.type = "button";
       button.className = "rowdel";
@@ -127,6 +125,47 @@ export function bindRowActs(grid: HTMLElement, verbs: RowVerbs, selection: Selec
       return rail;
     },
   };
+}
+
+/**
+ * The faults entering on a row, each **named and given its rows in figures**.
+ *
+ * The owner asked on 18 September 2026 whether the text says which rows a
+ * fault is active for, and it did not: the name was at one edge of the map and
+ * the window was a stripe at the other. Two lines per placement fit inside a
+ * 32px row, so the range is written out rather than left to be counted —
+ * `9–16`, or `9–end` for a fault with no end on it.
+ *
+ * The block under the map is still what a placement is *edited* in; this is
+ * what it is *found* by.
+ */
+function tags(faults: readonly FaultSpan[]): HTMLElement {
+  const host = document.createElement("div");
+  host.className = "rowtags";
+  host.title = faults.map((f) => `${f.name} — ${rows(f)}`).join("; ");
+  for (const fault of faults) {
+    const tag = document.createElement("span");
+    tag.className = "rowtag";
+    const who = document.createElement("span");
+    who.className = "who";
+    who.textContent = fault.name;
+    const span = document.createElement("span");
+    span.className = "span";
+    span.textContent = fault.to === null ? `${fault.from}–end` : `${fault.from}–${fault.to}`;
+    tag.append(who, span);
+    host.appendChild(tag);
+  }
+  return host;
+}
+
+/** The same window in words, for the hover — the figures alone read as a range
+ * only once you know they are beats. */
+function rows(fault: FaultSpan): string {
+  return fault.to === null
+    ? `beat ${fault.from} to the end of the wave`
+    : fault.from === fault.to
+      ? `beat ${fault.from} alone`
+      : `beats ${fault.from} to ${fault.to}`;
 }
 
 /** One insert line: the badge that is pressed, and the line that says where. */
