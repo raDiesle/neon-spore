@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-18 · fbfddb1d — THE STARE gets a lid: the simulation
+
+While the eye is looking, the seat it is not looking at may drag a lid down over it (`stareLid`, `sim/stare-hand.ts`), and the moment it is shut the watched seat is free. The eye forces the lid up after four beats or the thumb lets go, and either way it opens on whoever shut it, for the look it was in — so the lid moves the other seat's look onto yourself rather than skipping it. Two phases after `back` (`shut`, `opening`), three config fields, two events with a sound each, the director's poses and field rows, eight tests. The lid is not drawn yet; that is the look lane.
+
 ## 2026-09-18 · 949b370c — THE MAZE says TURN, MOVE and FIRE, and its rehearsal comes down to two pages
 
 The second round to carry the cue of `docs/decisions.md` #34, and the first to say more than one word. During `read` and nowhere else: `CARRY` / `TURN` on the string's handle while nothing has clicked, `CARRY` / `MOVE` on the cannon where it stands once a way in has, and `PRESS` / `FIRE` on the lit doorway for as long as one stands. In `lead`, `travel` and `verdict` the string is not even drawn, and nothing is said.
