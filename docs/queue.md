@@ -1733,3 +1733,59 @@ helper rather than a `Hand`, so it cannot be spread into the gallery as it
 stands — the work is lifting it beside `gaugeHand` and `mazeHand` and giving it
 the world's own tick instead of its own loop. Whoever does takes both names off
 `OWED`, and SNAKE's sibling entry above is the same job on a different round.
+
+## The phone's GAME view opens on the strip, and no row in the wave list goes there
+
+- **Found:** 2026-09-18, claude/queue-task-processing-cloud-6q90zn
+- **Files:** `tools/director/src/rail-open.ts`, `tools/director/src/director-phone.css`, `tools/director/index.html`, `tools/director/test/rail-open.test.ts`, `tools/director/test/phone-map.test.ts`, `tools/director/src/director-field.css`
+
+The owner, 18 September 2026: *"on mobile, navigate from list of waves
+directly to game, should open the game screen. Right now it's impossible to
+see it. Navigating from menu to game, opens the wave details. Make it somehow
+possible for mobile, that I can easily switch to the buttons esp. retry wave
+and show briefing during game screen."*
+
+It is the same ask as the one `rail-open.ts` already answers, one view further
+on: that file's `WAYS` is `wave` and `map`, and the field is not in it, so the
+only way to the picture is `#menuToggle` and the GAME item.
+
+**And arriving there does not show it.** GAME is two sections, not one — RUN
+and the stage — and the phone block gives both `display: block` in document
+order (`director-phone.css`). RUN is the earlier of the two in `index.html`, so
+the view opens on ten full-width rows of transport — ⏸, ↺ WAVE, ▣ SHEET,
+DIFFICULTY and its picker and its note, BRIEFINGS, three role buttons, ⌨ KEYS —
+and the field is a scroll below them. Nothing is hidden; the picture is simply
+never the thing on screen, which is the "impossible to see it".
+
+**The two halves land together**, because the first without the second is a row
+that opens on the strip:
+
+1. **A third way out of a row.** One entry in `WAYS` — `game`, the word GAME,
+   `#stageWrap` for the desktop's `scrollIntoView`. The 44px target and both
+   halves of its display are already written for two buttons and take a third
+   without a line (`#waveList .row-open`). What it costs is
+   `rail-open.test.ts`, whose first case asserts `["wave", "map"]` and is
+   titled *and nothing else*: the assertion moves and so does that framing.
+
+2. **Where the buttons are while the field is up.** Three arrangements, and
+   they differ in how much of the 15 September strip they disturb:
+   - **The field first.** One `order` rule in the phone block on the two
+     `data-view="game"` sections. Cheapest by a wide margin, tested the way
+     `phone-map.test.ts` tests its own two rules — and it answers only half the
+     ask: the buttons are still a scroll away, and *"during game screen"* is
+     the half it does not reach.
+   - **The whole strip pinned.** `.transport` sticky at the bottom of the GAME
+     view, which needs it to be a wrapping row again at phone width. That is
+     what it was until 15 September and it was moved out of that on purpose —
+     it cost the field two lines and read as part of the picture. The reason is
+     weaker here, where nothing else is on the screen.
+   - **The two he named.** ↺ WAVE and BRIEFINGS over the field as a two-button
+     bar, the rest of the strip left below it. Answers the ask literally,
+     leaves the 15 September arrangement alone, and is the only one of the
+     three that adds markup rather than moving it.
+
+The last is the recommendation, with the first underneath it: the field above,
+the two buttons in reach of a thumb, and the strip where it is. Whoever takes
+it should look at the result on a 375px viewport rather than trusting the
+sheets — `phone-map.test.ts`'s own header is about a phone layout that read
+correctly out of the CSS and was wrong in a browser.
