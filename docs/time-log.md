@@ -22,6 +22,28 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-18 — boss-hints — a boss's list can be photographed
+
+`--boss` writes scalars and refuses arrays by design, so the states that most
+need a picture — THE BATON's thread, THE UNDERTOW's breaches, THE TASTER's
+blades, THE GORGE's intakes — could not be reached by the tool that exists to
+take pictures. `--boss-json '{…}'` writes a list or a shape whole, the two
+flags compose into one spec, a field written by both is refused, and the page
+holds a list to its own length rather than drawing a boss with fewer sockets
+than the simulation has.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, `boss.ts`'s header and its page-side checks, `flags.ts`, the existing flag test |
+| writing | 30 | the parser, the merge, the three new branches in the page's check, eleven tests, the headers |
+| looking | 5 | THE BATON with ten sockets dark — a state a wave never reaches in 120 ticks, rendered in one command |
+| friction | 5 | `run.ts` hit the 250-line ceiling on a three-line doc paragraph; folded into the paragraph above it and queued the file |
+| landing | 10 | `format`, `check:fast` twice, the commit, `bun run land --keep` |
+
+**The bottleneck was writing.** The parser was ten minutes; the page's type
+check was the rest, because a list that is written short is a picture of a
+boss the simulation cannot have, and that had to be refused by name.
+
 ## 2026-09-18 — boss-hints — the three handle bosses speak in the cue's voice
 
 THE SINEW, THE SURGE and THE ANTIPHON wrote their own word beside each handle,

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { parseBoss } from "../boss.js";
+import { bossSpec, parseBoss, parseBossJson } from "../boss.js";
 import { parseFrameSpec } from "../flags.js";
 
 /**
@@ -83,6 +83,89 @@ describe("--boss on the command line", () => {
   it("is absent from every capture that does not ask", () => {
     // Which is every capture this tool has ever taken: a picture without the
     // flag is byte for byte the boss the wave installed.
+    expect(parseFrameSpec([".", "--wave", "2"], waves).spec.boss).toBeUndefined();
+  });
+});
+
+/**
+ * `--boss-json`, which is the flag that lets a list be photographed at all.
+ *
+ * `--boss` is scalars by design, and the states that most need a picture are
+ * lists — THE BATON's thread, THE UNDERTOW's breaches, THE TASTER's blades, THE
+ * GORGE's intakes. The page still owns every question about the boss: whether
+ * the field exists, whether it is a list, and whether the list is the right
+ * length are all checked against the state that is actually installed
+ * (`installBoss`), so what is asked here is the same thing as above — that the
+ * text becomes the right names and the right kinds of value.
+ */
+describe("parseBossJson", () => {
+  it("is nothing when nobody asked", () => {
+    expect(parseBossJson(undefined)).toBeUndefined();
+  });
+
+  it("carries a list across whole, in the order the object was written", () => {
+    expect(parseBossJson('{"sockets":[1,1,0],"merged":2}')).toEqual([
+      { key: "sockets", value: [1, 1, 0] },
+      { key: "merged", value: 2 },
+    ]);
+  });
+
+  it("reads `now` at the top level, the way --boss does", () => {
+    expect(parseBossJson('{"phaseBeat":"now"}')).toEqual([{ key: "phaseBeat", value: null }]);
+  });
+
+  it("leaves a `now` inside a list alone, because nothing substitutes in there", () => {
+    expect(parseBossJson('{"beats":["now"]}')).toEqual([{ key: "beats", value: ["now"] }]);
+  });
+
+  it("refuses what is not an object of fields", () => {
+    expect(() => parseBossJson("{sockets:1}")).toThrow(/not JSON/);
+    expect(() => parseBossJson("[1,2]")).toThrow(/an object of the boss's own fields/);
+    expect(() => parseBossJson("7")).toThrow(/an object of the boss's own fields/);
+    expect(() => parseBossJson("null")).toThrow(/an object of the boss's own fields/);
+    expect(() => parseBossJson("{}")).toThrow(/a field or two/);
+  });
+});
+
+describe("the two boss flags as one list", () => {
+  it("is nothing when neither was written", () => {
+    expect(bossSpec(undefined, undefined)).toBeUndefined();
+  });
+
+  it("writes the scalars first and the whole fields after", () => {
+    expect(bossSpec(parseBoss("phase=shed"), parseBossJson('{"sockets":[1,0]}'))).toEqual([
+      { key: "phase", value: "shed" },
+      { key: "sockets", value: [1, 0] },
+    ]);
+  });
+
+  it("refuses a field written by both, rather than quietly taking one", () => {
+    expect(() => bossSpec(parseBoss("sockets=1"), parseBossJson('{"sockets":[1,0]}'))).toThrow(
+      /--boss and --boss-json both/,
+    );
+  });
+});
+
+describe("--boss-json on the command line", () => {
+  const waves = [{ name: "THE DRIFT" }, { name: "THE BATON" }];
+
+  it("reaches the spec beside --boss", () => {
+    const { spec } = parseFrameSpec(
+      [".", "--wave", "2", "--boss", "merged=2", "--boss-json", '{"sockets":[1,1,0]}'],
+      waves,
+    );
+    expect(spec.boss).toEqual([
+      { key: "merged", value: 2 },
+      { key: "sockets", value: [1, 1, 0] },
+    ]);
+  });
+
+  it("is not read as --boss, which is a different flag", () => {
+    const { spec } = parseFrameSpec([".", "--wave", "2", "--boss-json", '{"a":1}'], waves);
+    expect(spec.boss).toEqual([{ key: "a", value: 1 }]);
+  });
+
+  it("is absent from every capture that does not ask", () => {
     expect(parseFrameSpec([".", "--wave", "2"], waves).spec.boss).toBeUndefined();
   });
 });

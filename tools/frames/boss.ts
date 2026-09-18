@@ -1,6 +1,6 @@
 /**
- * `--boss <key>=<value>[,<key>=<value>…]` — the installed boss's own fields,
- * written on the world from outside it.
+ * `--boss <key>=<value>[,…]` and `--boss-json '{…}'` — the installed boss's own
+ * fields, written on the world from outside it.
  *
  * **A boss's later phases are a run of correct presses deep**, and that is what
  * made most of them unphotographable. THE THROAT's eversion needs five gums
@@ -27,13 +27,26 @@
  *
  * **The type of the value already there is the rule.** A field holding a number
  * takes a number, one holding a string takes a string, one holding a boolean
- * takes `true` or `false`. Arrays and objects are refused: a flag that wrote
- * THE BATON's socket array or THE MAZE's wheel would be a flag nobody could
- * read at a glance, and those are authored on the wave, which is where a
- * picture of them belongs.
+ * takes `true` or `false`, and a field holding a list takes a list of the same
+ * length — a shorter one would draw a boss with fewer sockets than the
+ * simulation has and look like a picture of a state.
+ *
+ * **A list is written by `--boss-json` and never by `--boss`**, which is the one
+ * thing that changed on 18 September 2026. `--boss` was scalars-only by design:
+ * a flag that wrote THE BATON's socket array as text would be a flag nobody
+ * could read at a glance. But the states that most need photographing *are*
+ * lists — THE BATON's thread, THE UNDERTOW's breaches, THE TASTER's blades, THE
+ * GORGE's intakes — and refusing them meant a look lane fell back to the
+ * preview page, a world built by hand in a console and a canvas pulled out as
+ * base64, which is a picture nobody can take again. So the second flag takes a
+ * JSON object and assigns its fields whole. The two compose; a key written in
+ * both is refused rather than silently taking one.
  *
  * `now` is the one word with a meaning of its own, for any numeric field: it is
- * `world.beat`. A phase written with `phaseBeat=0` at tick 900 is a phase that
+ * `world.beat` — and a `"now"` at the top level of `--boss-json` is the same
+ * word, so the two flags read alike. Inside a list it is left as it is: a list
+ * of beats written by hand is not a state anybody has wanted a picture of, and
+ * a substitution that reached into one would be a rule nobody could see. A phase written with `phaseBeat=0` at tick 900 is a phase that
  * began seven beats ago, and for every boss in the game that is a phase already
  * over — which is a picture of nothing, convincingly.
  */
@@ -43,8 +56,11 @@ import type { Page } from "playwright-core";
 /** One field of the installed boss, as it crosses into the page. */
 export interface BossField {
   key: string;
-  /** `null` is the literal `now` — `world.beat`, resolved in the page. */
-  value: number | string | boolean | null;
+  /**
+   * `null` is the literal `now` — `world.beat`, resolved in the page. A list or
+   * a plain object arrives only from `--boss-json`; `--boss` makes scalars.
+   */
+  value: unknown;
 }
 
 export type BossSpec = BossField[];
@@ -76,6 +92,49 @@ export function parseBoss(value: string | undefined): BossSpec | undefined {
     if (text === "") throw new Error(`--boss ${key}=: a value, and not an empty one`);
     return { key, value: read(key, text) };
   });
+}
+
+/**
+ * `--boss-json '{"sockets": [1,1,0], "phaseBeat": "now"}'` off the command line.
+ *
+ * Nothing about the boss is known here either, for `parseBoss`'s reason: this
+ * turns the text into names and values, refuses what is not an object of
+ * fields, and leaves every question about the boss to the page.
+ */
+export function parseBossJson(value: string | undefined): BossSpec | undefined {
+  if (value === undefined) return undefined;
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(value);
+  } catch (e) {
+    throw new Error(`--boss-json: not JSON — ${(e as Error).message}`);
+  }
+  if (parsed === null || typeof parsed !== "object" || Array.isArray(parsed)) {
+    throw new Error(`--boss-json '{"key": value, …}': an object of the boss's own fields`);
+  }
+  const fields = Object.entries(parsed as Record<string, unknown>);
+  if (fields.length === 0) throw new Error("--boss-json '{}': a field or two, and not nothing");
+  return fields.map(([key, v]) => ({ key, value: v === "now" ? null : v }));
+}
+
+/**
+ * The two flags as one list, in the order they are written on the world.
+ *
+ * A key in both is **refused**: the scalar and the whole are two people's
+ * intentions about one field, and a capture that quietly took the second would
+ * be a picture of a state nobody asked for.
+ */
+export function bossSpec(scalars?: BossSpec, whole?: BossSpec): BossSpec | undefined {
+  if (scalars === undefined && whole === undefined) return undefined;
+  const all = [...(scalars ?? []), ...(whole ?? [])];
+  const seen = new Set<string>();
+  for (const one of all) {
+    if (seen.has(one.key)) {
+      throw new Error(`--boss ${one.key}: written by --boss and --boss-json both, so which?`);
+    }
+    seen.add(one.key);
+  }
+  return all;
 }
 
 /** A value's own kind, off how it is written. Everything else is a string. */
@@ -123,6 +182,28 @@ export async function installBoss(page: Page, fields: BossSpec): Promise<void> {
         return "--boss kind: which boss a wave installs is the wave's, not a flag's";
       }
       const was = boss[one.key];
+      const want = one.value;
+      // A list takes a list of its own length, and a shape takes a shape: both
+      // arrive only from `--boss-json`, and both are the states that could not
+      // be photographed at all until it existed.
+      if (Array.isArray(was)) {
+        if (!Array.isArray(want)) {
+          return `--boss ${one.key}: that field is a list — write it whole, with --boss-json`;
+        }
+        if (want.length !== was.length) {
+          return `--boss-json ${one.key}: that field holds ${was.length}, and ${want.length} came`;
+        }
+        continue;
+      }
+      if (was !== null && typeof was === "object") {
+        if (want === null || typeof want !== "object" || Array.isArray(want)) {
+          return `--boss ${one.key}: that field is a shape — write it whole, with --boss-json`;
+        }
+        continue;
+      }
+      if (Array.isArray(want) || (want !== null && typeof want === "object")) {
+        return `--boss-json ${one.key}: that field holds ${typeof was}, not a list or a shape`;
+      }
       const wantNumber = one.value === null || typeof one.value === "number";
       if (typeof was === "number" && !wantNumber) {
         return `--boss ${one.key}=${String(one.value)}: that field holds a number`;
@@ -132,9 +213,6 @@ export async function installBoss(page: Page, fields: BossSpec): Promise<void> {
       }
       if (typeof was === "boolean" && typeof one.value !== "boolean") {
         return `--boss ${one.key}=${String(one.value)}: that field holds true or false`;
-      }
-      if (was !== null && (typeof was === "object" || Array.isArray(was))) {
-        return `--boss ${one.key}: that field is a list or a shape, which a wave authors`;
       }
       if (one.value === null && typeof beat !== "number") {
         return "--boss ...=now: this build has no world.beat to read";

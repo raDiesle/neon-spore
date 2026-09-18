@@ -1,4 +1,4 @@
-import { parseBoss } from "./boss.js";
+import { bossSpec, parseBoss, parseBossJson } from "./boss.js";
 import { parseAt } from "./crop.js";
 import { parseFault } from "./fault.js";
 import { parseHand } from "./hand.js";
@@ -195,8 +195,9 @@ export function parseFrameSpec(
     fault: parseFault(after("fault")),
     // And the boss's own fields, for the same reason one flag up: a state a
     // run of correct presses deep is a state nobody could photograph twice
-    // (`boss.ts`).
-    boss: parseBoss(after("boss")),
+    // (`boss.ts`). Two flags, one list: `--boss` writes scalars and
+    // `--boss-json` writes a list or a shape whole.
+    boss: bossSpec(parseBoss(after("boss")), parseBossJson(after("boss-json"))),
     // Undefined rather than 0, so `--opening guide` on a film of one page is
     // not refused for a flag nobody wrote.
     ...(argv.includes("--guide-page") ? { guidePage: flag("guide-page", 0) } : {}),

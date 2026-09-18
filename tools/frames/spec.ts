@@ -229,7 +229,8 @@ export interface FrameSpec {
    * mouth, a chamber spent on a coincidence beat — so a look lane could land
    * the picture of a first phase and nothing else. The names are checked in the
    * page against the boss that is actually installed, never against a list in
-   * this tree (`boss.ts`, and `page.ts` for the install).
+   * this tree (`boss.ts`, and `page.ts` for the install). `--boss` and
+   * `--boss-json` both land here, in that order.
    */
   boss?: BossSpec;
 }

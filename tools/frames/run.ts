@@ -45,6 +45,7 @@ import { dirname, join } from "node:path";
  *   bun run frames . --wave "THE HANDOVER" --fault handover:4,3,6   a fault no wave names
  *   bun run frames . --wave 3 --fault cannon:alternating,2   a runaway cannon, twice as slow
  *   bun run frames . --wave "THE THROAT" --boss slack=5,phase=everts,phaseBeat=now   a boss's last phase
+ *   bun run frames . --wave "THE BATON" --boss-json '{"sockets":[1,1,0]}'   a list the wave never reaches
  *   bun run frames <sha> --wave 2 --opening guide|intro --frames 8 --stride 6   its opening
  *   bun run frames <sha> --wave 7 --opening guide --guide-page 3   a later page of a rehearsal
  *   bun run frames <sha> --wave 21 --out docs/frames/<sha>
@@ -81,8 +82,10 @@ import { dirname, join } from "node:path";
  * The names are checked **in the page**, against the boss that is actually
  * installed, so there is no second copy of fourteen states here to go stale;
  * a name the boss does not have is refused along with the names it does have.
- * The value's kind follows the field's, `now` means `world.beat`, and a list or
- * a shape is refused because a wave authors those (`boss.ts`).
+ * The value's kind follows the field's and `now` means `world.beat`.
+ * `--boss-json '{…}'` is the same flag for a field that is a **list or a
+ * shape** — THE BATON's sockets, THE UNDERTOW's breaches — written whole, and
+ * the two compose (`boss.ts`).
  *
  * `--until <event>` drives the wave until the simulation reports a `SimEvent`
  * of that type and photographs from that tick, with `--frames` and `--stride`
@@ -142,7 +145,7 @@ async function main(): Promise<void> {
       'usage: bun run frames <sha>|. --wave N|"NAME" [--ticks N] [--seat p1|p2|test] ' +
         "[--hold prime|mazeString=N|wardenTether=N[,y=N]|lidString=N,id=N][@TICK] (repeatable) " +
         "[--hold-ticks N] [--hand cannon|shield|muzzle[=red|cyan]] [--hand-over] " +
-        "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] [--raster] " +
+        "[--settle N] [--at x,y,w,h] [--zoom N] [--boss-round N] [--boss-json '{…}'] [--raster] " +
         "[--until EVENT] [--until-ticks N] [--events] " +
         "[--press TICK:SEAT:control=value,…] [--opening intro|guide] [--out DIR]",
     );
