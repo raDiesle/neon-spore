@@ -757,6 +757,22 @@ pair either have a vocabulary by then or they never will.
 from the rng: the sweep, the openings, the colours and the fold all follow from
 the wave's beat and the pins. `vane.test.ts` holds the seed to that.
 
+**What the field says** (`render/src/boss-cue-read-b.ts`, 18 September 2026,
+`docs/decisions.md` #34). Two words, one per seat, and **nothing whatever about
+the fold**. `CARRY` / `MOVE` on the cannon where it stands, the pilot's, while
+the housing is split and he is not under it, out again the moment he arrives;
+`PRESS` / `FIRE` on the mouth of the split, the navigator's, for as long as the
+opening stands unspent. Hers does not wait for his cannon to get there — the
+cannon is not drawn on her screen — so the timing stays where the fight put it,
+in his mouth.
+
+The fold gets no word at all, and that is the whole of the reading rather than
+a gap in it. A mark on a folded body, or on the column one came out in, would
+be the arithmetic this boss exists to make the pair do in words; the throw's
+streak already draws where a body went, which is a picture and not a sentence.
+Nothing says the colour either, because the housing has worn it since the arm
+stopped, on both screens.
+
 **Where it lives.** `VaneState` in the `BossState` union — four integers, two of
 them only so render/ can draw the last throw — with the arithmetic in
 `packages/sim/src/vane-cycle.ts` and the choreography in

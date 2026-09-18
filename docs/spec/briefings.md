@@ -595,6 +595,7 @@ hand still draws.
 | THE WARDEN | `PULL IT AND KEEP PULLING` | — the page is gone | `CARRY` / `PULL` on the handle once his hand is on it, then `HOLD` when the line goes taut, his alone |
 | THE WARDEN | `ONLY WHILE IT IS OPEN` | `THE SHOT IS THE RIM'S COLOUR` | `PRESS` / `FIRE` on the pupil, hers alone, for exactly the beats the eye stands open |
 | THE FLEET | `PLAYER 1 FIRES THE SALVO` | `THE SHELL IS THE RELOAD` | `PRESS` / `FIRE` on the sights, his alone, while they stand on a hull nobody has fired at |
+| THE VANE | `PLAYER 2 FIRES RED` | `THE COLUMN MUST BE CLEAR` | `PRESS` / `FIRE` on the mouth of the split, hers, and `CARRY` / `MOVE` on his cannon |
 
 **Four other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
@@ -670,6 +671,15 @@ handing it to the fight. It was rewritten to the one rule of his half no
 picture states — the trigger comes back when the shell lands — and the film
 stayed at four pages. The navigator's two pages were never candidates: the
 field says nothing to her at all in this round, on purpose.
+
+THE VANE's one row is the same day and the same shape as THE FLEET's: the page
+could not come out, because her trigger is the last act of the film. What it
+said was her verb *and* her colour, and the mouth of the split wears both —
+the cue writes `FIRE` on it and it has been that colour since the arm stopped.
+So the page carries the half of the shot nothing draws: the bearing hangs above
+the field, the bolt has to leave through the split to reach it, and a shot
+stops at the first body in its way. Its other two pages are about the fold,
+which is the one thing the field will never say a word about.
 
 #### The ghost thumb is derived, never authored
 

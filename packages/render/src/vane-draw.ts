@@ -42,6 +42,18 @@ const THROW_FADE = 1.4;
 /** How far the tip dips below the bearing at mid-swing, in tiles. */
 const DROOP = 0.85;
 
+/**
+ * The row the bearing hangs on, above the field's first row — where the casing,
+ * its pins and the mouth of the split all stand.
+ *
+ * Exported because the cue's mark stands on the mouth and may not work this out
+ * a second time (`boss-cue-read-g.ts`): a word standing where the split is not
+ * would be worse than no word at all.
+ */
+export function vaneBearingY(l: Layout): number {
+  return tileCY(l, 0) - l.tile * 0.2;
+}
+
 /** Points along the arm, from the hub's rim out to the tip. */
 function armPoints(px: number, py: number, tx: number, ty: number, whip: number): Point[] {
   const pts: Point[] = [];
@@ -69,7 +81,7 @@ export function drawVane(
 ): void {
   const pivotCol = vanePivotCol(cfg);
   const px = tileCX(l, pivotCol);
-  const py = tileCY(l, 0) - l.tile * 0.2;
+  const py = vaneBearingY(l);
   const hub = l.tile * 0.34;
 
   // Where the arm stands between two beats. The tip is interpolated in columns

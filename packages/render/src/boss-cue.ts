@@ -1,6 +1,6 @@
 import type { World } from "@neon-spore/sim";
 import { candleCues, curtainCues, gorgeCues, queenCues } from "./boss-cue-read.js";
-import { batonCues, tasterCues, undertowCues } from "./boss-cue-read-b.js";
+import { batonCues, tasterCues, undertowCues, vaneCues } from "./boss-cue-read-b.js";
 import {
   diastoleCues,
   leadCues,
@@ -164,6 +164,8 @@ function cuesOf(
       return wardenCues(l, world, boss, skinY);
     case "fleet":
       return fleetCues(l, world, boss, clearTop);
+    case "vane":
+      return vaneCues(l, world);
     default:
       return NONE;
   }

@@ -7,6 +7,8 @@ import {
   tasterStanding,
   type UndertowState,
   undertowUnseated,
+  vaneOpen,
+  vaneWeakCol,
   type World,
 } from "@neon-spore/sim";
 import { beadPoint } from "./baton-bead-draw.js";
@@ -14,10 +16,11 @@ import type { BossCue } from "./boss-cue.js";
 import type { SurfaceY } from "./hull-frame.js";
 import { type Layout, tileCX } from "./layout.js";
 import { tasterCrestY } from "./taster-draw.js";
+import { vaneBearingY } from "./vane-draw.js";
 
 /**
- * **What THE TASTER, THE UNDERTOW and THE BATON are asking for** — page two
- * of the readings, on the seam `boss-draw-clocks-b.ts` draws for the same
+ * **What THE TASTER, THE UNDERTOW, THE BATON and THE VANE are asking for** —
+ * page two of the readings, on the seam `boss-draw-clocks-b.ts` draws for the same
  * reason: this is the half of the list that grows, and the file next door was
  * written to be read in one sitting.
  *
@@ -26,6 +29,11 @@ import { tasterCrestY } from "./taster-draw.js";
  * fights alternate between the two seats beat by beat, so a cue on the wrong
  * phone is not merely noise — it is the fight telling the pilot to do the
  * navigator's job on the one beat she is waiting to be told to do it.
+ *
+ * **THE VANE is the fourth and came later** (18 September 2026), on this page
+ * because it is where the room was and because its window alternates the same
+ * way: the bearing is shut for the whole of a sweep and open for the whole of
+ * a hold, and both seats act inside the hold or neither does.
  */
 
 /** THE CHOIR's frame, in tiles: the size of this mark wherever it stands. */
@@ -155,5 +163,53 @@ export function batonCues(l: Layout, world: World, b: BatonState): readonly Boss
     const { x, y } = beadPoint(l, cfg, b, sitting, world.tick);
     out.push(markAt(1, "PRESS", "LAUNCH", x, y, l, 48 + sitting.socket));
   }
+  return out;
+}
+
+/**
+ * THE VANE. Two words in the window at each end of the sweep, one per seat,
+ * and **nothing whatever about the fold**.
+ *
+ * The fold is the fight: an arrival crossing the arm comes out as far the
+ * other side of it as it went in, so the column the radar announces is not the
+ * column it lands in, and the pair has to say one named against the arm rather
+ * than against the grid. A cue that marked a folded body, or the column it
+ * came out in, would do that arithmetic for them — it is the answer in the
+ * purest form this game has, and #34's second rule is the whole of why there
+ * is no third word here. The throw's own streak already draws where a body
+ * went (`vane-draw.ts`), which is the picture, not the sentence.
+ *
+ * **What is left is the shot at the bearing**, which is an ordinary two-seat
+ * gesture with a narrow window:
+ *
+ * - `CARRY` / `MOVE` on the cannon where it stands, the pilot's, while the
+ *   housing is split and he is not under it. On the cannon and never on the
+ *   mouth: the mark is on the thing that moves, and the mouth is drawn on both
+ *   screens in the colour it will take anyway. It goes out when he arrives.
+ * - `PRESS` / `FIRE` on the mouth of the split, the navigator's, for as long
+ *   as the opening stands unspent. Not *once the cannon is under it*: the
+ *   cannon is not drawn on her screen (`showsCannon`), so a word that waited
+ *   for it would hand her the one thing he has to say out loud.
+ *
+ * Nothing says the colour — the housing has worn it since the arm stopped, on
+ * both screens — and nothing says the column is blocked. A shot stops at the
+ * first body in its way, which is the boss defending itself with what it
+ * threw, and it is the film's remaining page about her half that says so.
+ *
+ * **It takes no `VaneState`**, alone among the readings. Whether the housing is
+ * open is `vaneOpen`'s answer and it reads the boss off the world itself, and
+ * the rule — a stage of the cycle, less the opening already spent — is one that
+ * must be called rather than written out a second time here
+ * (`sim/test/purity.test.ts`).
+ */
+export function vaneCues(l: Layout, world: World): readonly BossCue[] {
+  if (!vaneOpen(world)) return [];
+  const weak = vaneWeakCol(world.cfg, world.waveBeat);
+  if (weak === -1) return [];
+  const out: BossCue[] = [];
+  if (world.cannonCol !== weak) {
+    out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 73));
+  }
+  out.push(markAt(2, "PRESS", "FIRE", tileCX(l, weak), vaneBearingY(l), l, 74));
   return out;
 }

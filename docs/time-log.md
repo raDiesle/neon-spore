@@ -8718,4 +8718,26 @@ and a page is what draws the hand — so it carries the rule no picture states.
 The bottleneck was deciding what the navigator may be told, which took longer
 than writing everything she is not told.
 
+## 2026-09-18 — boss-hints — THE VANE says two words, and nothing about the fold
+
+The boss that bends the field, so the reading is mostly a list of what may not
+be marked: a folded body, the column one came out in, the colour the housing
+already wears. What is left is the shot at the bearing — `CARRY` / `MOVE` on
+the cannon while the housing is split and he is not under it, `PRESS` / `FIRE`
+on the mouth for as long as the opening stands — and hers does not wait for his
+cannon, because the cannon is not on her screen. The film's last page could not
+come out, so it carries the rule nothing draws: a shot stops at the first body
+in its way.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 10 | the entry, `vane.ts`, `vane-cycle.ts`, `vane-draw.ts` for where the mouth stands |
+| writing | 20 | the reading on page two, five cases, the film's last page, two spec passages |
+| looking | 5 | one frame of the split open on her screen |
+| friction | 5 | `vaneOpen` reads the boss off the world, so the reading's `VaneState` was an unused parameter and lint said so |
+| landing | 10 | `check:fast` twice, the commit, the land |
+
+The bottleneck was none of the code: it was deciding that the fold — the whole
+of the fight — is exactly the thing the field may never write down.
+
 *Measured: the rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

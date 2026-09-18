@@ -20,6 +20,15 @@ import type { GuideScene } from "../scene-types.js";
  * and played on eleven, so most of the field cannot be named by an author, and
  * a fold that landed on one of those would be a film that could not finish its
  * own sentence.
+ *
+ * **Three pages still, and the last one changed on 18 September 2026.** The
+ * field writes `CARRY` / `MOVE` on the cannon and `PRESS` / `FIRE` on the mouth
+ * of the split for the beats the housing is open, one word to each seat
+ * (`decisions.md` #34, `render/boss-cue-read-b.ts`), so the page that named her
+ * verb and her colour — both of which the housing itself wears, on both
+ * screens — carries the one rule of the shot nothing draws instead. It could
+ * not simply come out: her trigger is the last act of the film and a page is
+ * what puts her screen in front of the reader (`docs/spec/briefings.md`).
  */
 export const THE_VANE: GuideScene = {
   ticks: 1020,
@@ -43,10 +52,16 @@ export const THE_VANE: GuideScene = {
       text: "COUNT FROM THE ARM",
       anchor: { at: "control", control: "cannon" },
     },
+    // PLAYER 2 FIRES RED stood here. The cue says her verb on the mouth, and
+    // the mouth has worn the colour since the arm stopped — so what is left is
+    // the half of the shot no picture states: the bearing hangs above row 0,
+    // the bolt has to leave the field to reach it, and a shot stops at the
+    // first body in its way. The boss defends itself with what it threw
+    // (`sim/vane.ts`).
     {
       tick: 680,
       seat: 2,
-      text: "PLAYER 2 FIRES RED",
+      text: "THE COLUMN MUST BE CLEAR",
       anchor: { at: "control", control: "fireRed" },
     },
   ],
