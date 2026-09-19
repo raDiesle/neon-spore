@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 9bc133bc — Split guide-scene.ts's slide off before it hit the line ceiling
+
+guide-scene.ts was 227 lines, 23 under the limit, and the entry that found it had already weighed the two ways to cut it: pulling the GUIDE_LOOK calls out instead would have left one file of plumbing and one of one-liners, and split a single ctx.save()/restore() pair across a module boundary. The better seam was the slide.
+
 ## 2026-09-19 · 71ef6c66 — Pull main.ts and join.ts back off the 250-line ceiling
 
 Both files had been stepped around once already — a body-class binding landed in shell.ts instead of either, a third file reading the same status — and the queue entry named exactly what to pull and which existing extraction to pull it the way of.
