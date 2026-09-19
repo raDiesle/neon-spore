@@ -32,11 +32,13 @@ import type { GuideScene } from "../scene-types.js";
  * beats before the ship, hers because the press is hers
  * (`render/boss-cue-read-p.ts`), so the page that announced the still says the
  * length instead — a number no word may carry. The organ has said `TURN` since
- * the handle shipped (`render/antiphon-grip.ts`), and no page here has ever
- * turned it or said what turning buys: the guide says it now, and the film owes
- * a turn (`docs/queue.md`). What stays written is every number and every
- * column, and there is a great deal of it, because this boss's split is the
- * whole encounter: the field says no shape, no colour and no column in either
+ * the handle shipped (`render/antiphon-grip.ts`); the film turns it once now,
+ * a thumb held on it through the gap between the wrong shot and the first
+ * pit, and the page that used to repeat what the navigator's own pages
+ * already ask says what the turn buys instead — a second look at the shape
+ * (`docs/queue.md`). What stays written is every number and every column, and
+ * there is a great deal of it, because this boss's split is the whole
+ * encounter: the field says no shape, no colour and no column in either
  * direction.
  *
  * **What was turned down is the field.** From the third pit every decoy on
@@ -60,6 +62,10 @@ export const THE_ANTIPHON: GuideScene = {
     // The wrong one: a decoy at column 8 in red, while the organ is at 9.
     { tick: 365, control: "cannon", col: 5 },
     { tick: 380, control: "fireRed" },
+    // The pilot's thumb has nothing else to do until the first strip at 785,
+    // and this is the turn: a hold on the organ itself, long enough to see it
+    // come round (`antiphonTurnBeats`, `render/antiphon-grip.ts`).
+    { tick: 600, drag: "antiphonOrgan", hand: 1, until: 780 },
     // The organ, grown, in its colour: the first pit.
     { tick: 785, control: "cannon", col: 0, atBoss: true },
     { tick: 800, control: "fireCyan" },
@@ -118,7 +124,7 @@ export const THE_ANTIPHON: GuideScene = {
     {
       tick: 600,
       seat: 1,
-      text: "SAY IT AGAIN · SHE NAMES IT",
+      text: "TURN IT · A SECOND ANGLE",
       anchor: { at: "boss", part: "organ" },
     },
     {

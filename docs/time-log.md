@@ -11422,3 +11422,35 @@ around designing a second `GUARDED`-style file before `copies-table.ts` was
 read closely enough to see it already scans past `GUARDED` entirely.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-antiphons-film-never-turns-the-organ-and-the — the organ's own film never turned it
+
+The organ's grip mark has said `TURN` since it shipped (`render/antiphon-grip.ts`),
+but THE ANTIPHON's twenty-page rehearsal never authored the one `drag` act that
+would perform it, so the film taught describing, sliding and firing and never
+the one gesture the boss's own handle offers. Added one act,
+`{ tick: 600, drag: "antiphonOrgan", hand: 1, until: 780 }`, in the gap between
+the wrong shot and the first pit — the only stretch where the pilot's thumb has
+nothing else to do — and rewrote the tick-600 page from the duplicate *say it
+again, she names it* to `TURN IT · A SECOND ANGLE`, since the navigator's own
+pages already carry the asking. Checked, not assumed: `antiphonHeard` (sim)
+reads only the command's `on` flag for this target, so the distance
+`scene-drag.ts`'s `tautMilli` falls back to for an uncased target is inert; and
+neither `guide-thumb.ts` nor `guide-hand.ts` draws a ghost hand for this
+handle at all — the boss's own grip mark is the only picture of a held thumb,
+exactly as THE SURGE's bulb is. `scene-films.test.ts`'s event sequence is
+unchanged, since nothing about a turn is logged there.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | the film, `scene-types.ts`, `scene-act-types.ts`, THE SURGE's film, `scene-drag.ts`, `scene-turn.ts`, `antiphon-grip.ts`, `antiphon-hand.ts`, `drag-targets.ts` |
+| writing | 10 | the act, the comment beside it, the rewritten caption, the doc comment |
+| looking | 20 | `guide-thumb.ts` and `guide-hand.ts`, to check no ghost hand needed wiring for `antiphonOrgan`, and that `pullsDown`'s fallback distance for it reaches nothing that reads it |
+| friction | 0 | none |
+| landing | 20 | `format`, `lint`, `tsc --noEmit`, the relevant scene tests, then the full `check` (18,458 tests) |
+
+**The bottleneck was proving the negative** — that no renderer needed a hand
+drawn for this handle and no test needed a new value tracked — which took
+longer than writing the one line that does the turn.
+
+*Measured: the rows above are the session's own estimate.*

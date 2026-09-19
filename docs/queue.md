@@ -1989,35 +1989,6 @@ entries' `section 6.1` references left alone, because they still resolve. Then
 decide whether `limits.test.ts` should count a skill at all — a file loaded
 into a session's context has the same reason to be short as one a person reads.
 
-## THE ANTIPHON's film never turns the organ, and the field asks for it
-
-- **Found:** 2026-09-19, claude/queue-the-antiphon-says-the-word
-- **Taken:** 2026-09-19, claude/queue-a-comment-may-name-a-source-file-that-does-not-e (claim: claude/queue-the-antiphons-film-never-turns-the-organ-and-the)
-- **Files:** `packages/content/src/scenes/the-antiphon.ts`, `packages/content/src/scene-types.ts`, `packages/content/test/scene-films.test.ts`, `packages/render/src/antiphon-grip.ts`
-- **Where:** cloud
-
-The organ has said `TURN` on its grip mark since the handle shipped, and the
-twenty-page rehearsal neither performs a turn nor mentions one. So the one
-handle the pilot has on this boss is a word on the field with nothing behind it:
-a pair that reads the film learns to describe, to slide and to fire, and never
-learns that the organ moves under a thumb, turns a whole turn in
-`antiphonTurnBeats` and may show lobes the rail's decoys hide. The guide's
-pilot half says it as of 19 September 2026, which is why this is a film gap and
-not a silent one.
-
-What to do: one `drag` act on `antiphonOrgan` with `hand: 1`, in the first
-cycle, held long enough that the turn is visible — THE SURGE's film is the shape
-(`{ tick, drag: "surgeBulb", hand: 1, by, until }`, `scene-drag.ts`) — and the
-page at tick 600 rewritten from *say it again, she names it* to what the turn
-buys, since her half of the guide now carries the asking. The turn changes
-`s.turnTicks` and nothing else, so no strip, fire or ward in the film moves and
-the wave is still won; `scene-films.test.ts` holds the sequence and will need
-the new act counted. Check the caption stays inside the 28 characters
-`scene-pages.test.ts` allows.
-
-The other twenty-odd films are not in this: the turn is the only handle in the
-game whose film shows no hand on it (`docs/spec/briefings.md`).
-
 ## Unverified at e71733bc: THE SPLICE's WAIT seen at tempo over the tangle
 
 - **Found:** 2026-09-19, claude/queue-the-splice-says-the-word
