@@ -2094,6 +2094,7 @@ what the rest of this file holds.
 ## A new boss state is twelve registrations, and nothing names the twelve
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-a-new-boss-state-is-twelve-registrations-and-not
 - **Files:** `docs/spec/bosses.md`, `packages/audio/test/bind.test.ts`, `packages/net/test/command-codec.test.ts`, `packages/render/src/effects-ingest-silent-boss.ts`, `packages/sim/test/purity.test.ts`, `tools/director/src/boss-hands-shots.ts`, `tools/director/src/sound-link-none.ts`
 - **Where:** cloud
 
