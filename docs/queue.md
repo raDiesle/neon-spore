@@ -238,6 +238,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## A comment can describe the fix rather than the bug, and nothing catches it
 
 - **Found:** 2026-09-19, claude/queue-the-instar-says-the-word
+- **Taken:** 2026-09-19, claude/task-queue-work-ym2eim (claim: claude/queue-a-comment-can-describe-the-fix-rather-than-the-b)
 - **Files:** `packages/content/test/scenes-prose.test.ts`
 
 `scenes-prose.test.ts`'s own comment on THE INSTAR claimed, before this lane,
