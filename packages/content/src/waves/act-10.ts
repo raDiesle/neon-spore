@@ -22,10 +22,20 @@ import type { Wave } from "../wave-types.js";
  *
  * **The split is the wave.** Both screens go blank together, so neither seat
  * can read the answer off the other's — which leaves the record itself to be
- * divided, and the guide divides it: player 2 keeps the columns and player 1
- * keeps the order. Half the sentence each, and neither half is a wave on its
- * own: a column with no beat on it is a dome held in the wrong second, and a
- * count with no column is a cannon fired at nothing.
+ * divided, and the guide divides it the way the *panel* already divides the
+ * answer: only `cannon` picks a column and it is player 1's strip, only the two
+ * colour lobes fire and they are player 2's, so player 2 keeps the columns and
+ * player 1 keeps the colours, and each of them holds the half the other has to
+ * be told (`content/src/controls.ts`). Half the sentence each, and neither half
+ * is a wave on its own: a column with nothing said to fire into it is a cannon
+ * parked in the dark, and a colour with no column is a bolt up an empty lane.
+ *
+ * **Nothing in this wave can be warded**, and the guide said the opposite until
+ * 19 September 2026. Every entry below carries a colour, so every body is a
+ * `slick` or a `bulb`, and `isWardable` is the meteor kinds and `volley` —
+ * `sim/hull.ts` says it in as many words: *the shield has nothing to say to a
+ * slick*. The plate cannot touch this fight and the shot is its only ward. Why
+ * the two halves read as they do now: `docs/spec/briefings.md`.
  *
  * The figures are chosen to be sayable. The first stretch is one at each wall
  * and one in the middle — the shape `THE WELL`'s wave is built on, and the
@@ -78,9 +88,9 @@ export const WAVES_ACT_10: Wave[] = [
     name: "THE REPRISE",
     sentence: "The one where the wave you have just beaten comes back with nothing to see.",
     guide: {
-      both: "Everything you clear comes again, unseen. Ward and shoot it from memory, in the same order and columns.",
-      p1: "1. Count the things as they come the first time.\n2. Say the gaps out loud: two beats, then three.\n3. When the field goes dark, trigger the plate on your count. The tear at the top counts them down.",
-      p2: "1. Say each column while it is still lit, in order.\n2. Say them again the moment the field empties.\n3. Move the plate and fire on those columns, in that order, on your partner's count.",
+      both: "Everything you clear comes down again unseen — the same columns, the same colours, the same spacing — and the wave's own arrivals wait while it plays. Nothing in it can be warded: a body is shot or it reaches the hull, and one that reaches it fails the wave.",
+      p1: "1. Only your strip picks a column: slide it where they say it was.\n2. Say the colours back, in order — the two buttons are theirs.\n3. Nothing in this wave can be warded. One body on the hull loses it.",
+      p2: "1. Say every column while it is still lit, and again as the field goes dark.\n2. Press the colour they call, up the column they are standing in.\n3. Your plate answers nothing here — the shot is the only ward.",
       scene: "theReprise",
     },
     entries: [

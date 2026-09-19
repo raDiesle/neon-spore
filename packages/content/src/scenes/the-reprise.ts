@@ -26,6 +26,22 @@ import type { GuideScene } from "../scene-types.js";
  * echo replays them exactly, which is the boss. `test/scene-reprise.test.ts`
  * is the receipt that the two kills after the dark are of bodies nothing
  * drew, and that the one that lands is too.
+ *
+ * **And the pages the field took over.** From the beat the tear opens the
+ * field says two words and they stand for exactly as long as it is open:
+ * `CARRY` / `MOVE` on the pilot's cannon and `PRESS` / `FIRE` on the tear, hers
+ * (`render/boss-cue-read-s.ts`). So the two pages inside the dark stopped
+ * naming the gestures and took the halves a cue may never carry — his the
+ * colours, in order, and hers which colour it was and whose mouth it came out
+ * of. Her page had also been telling her to **slide**, which is the cannon and
+ * is player 1's strip: the guide's own defect, in a caption.
+ *
+ * **The three pages after the dark are untouched on purpose.** The field goes
+ * silent the beat the echo's last body is *sent* rather than the beat it lands
+ * (`closeEcho`), so `UNSEEN · STILL FALLING` and the two round it are said over
+ * a field no word is speaking to — which is the point: a cue that stayed up
+ * would announce, by standing there, the body nobody said. The film's last page
+ * is that body reaching the hull.
  */
 export const THE_REPRISE: GuideScene = {
   ticks: 2160,
@@ -63,11 +79,20 @@ export const THE_REPRISE: GuideScene = {
       text: "COUNT THE GAPS BETWEEN THEM",
       anchor: { at: "control", control: "cannon" },
     },
-    { tick: 720, seat: 1, text: "DARK · THE TEAR COUNTS THEM", anchor: { at: "hull" } },
+    // `CARRY` / `MOVE` stands on his cannon from this exact beat, and the tear
+    // draws its own count on both screens — so the old page was the field's
+    // word and the field's picture in one caption. What is left is his half of
+    // the record, which no cue may ever carry (`boss-cue-read-s.ts`).
+    { tick: 720, seat: 1, text: "DARK · SAY THE COLOURS NOW", anchor: { at: "hull" } },
     {
+      // `PRESS` / `FIRE` stands on the tear on her screen for the whole of the
+      // echo, and `SLIDE` was never hers to do — the cannon is player 1's strip
+      // (`controls.ts`), which is this film's half of the guide's own defect.
+      // The page carries the thing neither word may say: which colour, and
+      // whose mouth it came out of.
       tick: 900,
       seat: 2,
-      text: "SAID · SLIDE AND FIRE BLIND",
+      text: "RED BECAUSE THEY SAID SO",
       anchor: { at: "control", control: "fireRed" },
     },
     {
