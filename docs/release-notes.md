@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 28122551 — THE TASTER says a word per column, and the guide had the crest backwards
+
+Every shot into this fan is read off the column it leaves in, and the crest has three of them: a standing blade, struck off by the colour it did not grow toward; the soft crest where one used to be, which takes either colour; and a blade still growing, where the shot is simply spent. The field said SHEAR and BURN and nothing about the lane either is spent in — THE GORGE's and THE CURTAIN's finding of this morning, a third time. The soft crest had no word at all, and four shots into it are the only thing that stops the fan re-edging, which is the answer to the third movement. It is CUT now, the simulation's own word, and MOVE is on the pilot's cannon while the column he is in has nothing that can be answered.
+
 ## 2026-09-19 · 516ba5f9 — THE CANDLE: the last step is two gestures, one of them on the picture
 
 THE CANDLE answered every beat of its fight on the ordinary panel, and the last step answered it with the trigger that had stopped counting. It has six phases now where it had five, and three gestures where it had one.
