@@ -228,6 +228,7 @@ session could not act on; `tools/queue/test/taken.test.ts` holds the claim;
 ## THE THROAT's own clock is silent: no inhale, no choke, no swallow, no eversion
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-the-throats-own-clock-is-silent-no-inhale-no-cho
 - **Files:** `packages/sim/src/events-throat.ts`, `packages/sim/src/throat-step.ts`, `packages/sim/src/throat-feed.ts`, `packages/audio/src/bind-throat.ts`, `packages/audio/src/sounds/boss-throat.ts`, `packages/audio/src/catalogue.ts`, `docs/spec/bosses.md`
 - **Where:** cloud
 
