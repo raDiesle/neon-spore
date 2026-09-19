@@ -22,6 +22,30 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-curtain — two words, neither with a lane
+
+The same finding as the lane before it, on the boss next door: `SHOVE` on the
+sheet and `FIRE` on the bared core name a gesture each and neither names the
+column it is spent in, though `curtainStruck` refuses a shot out of the core's
+own column and `curtainHemStruck` takes a lobe off only in the column the
+fabric is struck in. `MOVE` is on the pilot's cannon now — the core's column
+while it is bare, a soft lobe's while it is covered — and the hem is still not
+drawn on her screen, which is the sentence the fight is made of.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 5 | `curtain.ts` and the four files under it; the lane before had already read the cue rules and both `showsX` splits |
+| writing | 10 | the reading, six cases, two film pages, both prose halves and the two spec sections |
+| looking | 0 | none: no pixel moved that `curtain-frame.test.ts` does not already take |
+| friction | 5 | `bun run format` does not sort, so a fresh test file's import block went red on `lint` after `check:fast` had already passed it — `imports:sort` is the second command and is not in `check:fast` |
+| landing | 10 | `lint`, `imports:sort`, `check:fast` — 5,349 tests across 39 shards, 141 s wall — the commit and `land`'s own full check |
+
+**The bottleneck was nothing this time, and that is the result.** The first of
+these lanes spent its time deciding where a field may name a column at all; this
+one inherited that judgement and spent its minutes typing. The next boss of the
+same family should be quicker still, which is an argument for draining them in
+one sitting rather than one a session.
+
 ## 2026-09-19 — queue-the-gorge — the column nobody was telling the pilot
 
 The field said every gesture THE GORGE has and never named the column any of

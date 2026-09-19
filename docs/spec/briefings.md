@@ -617,6 +617,8 @@ hand still draws.
 | THE CANDLE | `PLAYER 2 FIRES WHERE HE SAYS` | `FIVE HITS PUT IT OUT` | both of the above at once — her verb stands on the glow and goes quiet the moment his cannon leaves its column |
 | THE CANDLE | `PLAYER 2 FIRES · CLEAR` | `OFF ITS FACE · IT DIMS` | the same `PRESS` / `FIRE`; the clearing is the half it cannot say, because only he is drawn the cone |
 | THE GORGE | `ONE MORE · IT BURSTS` | `FOUR BEATS OR IT TORCHES` | `PRESS` / `PIERCE` on the intake, hers alone, while the cannon is under it — beside `HOLD` / `PINCH` on his |
+| THE CURTAIN | `HOLD IT · CARRY IT FOUR OVER` | `FOUR OVER AND IT IS CLEAR` | `CARRY` / `SHOVE` on the sheet — `CARRY` is the kind line, so the page was saying the field's word to get to its count |
+| THE CURTAIN | `FIRE ITS COLOUR AS IT BARES` | `ITS COLOUR OR IT FIRES BACK` | `PRESS` / `FIRE` on the core, hers alone, once the cannon is in its column |
 
 **Two other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE TASTER and THE DIASTOLE spend their pages on a
@@ -681,6 +683,18 @@ carry — `gorgeVentBeats` is four, and it is the only warning the pair gets.
 Both prose halves changed with it: the pilot's *hold the cannon there* is the
 field's now, and neither half had caught up with the pinch and the pry the
 fight grew the day before.
+
+THE CURTAIN's two later rows are the same morning and the same finding a third
+time: two words that named a gesture each and no lane for either. `MOVE` is on
+his cannon now — the core's column while it is bare, a soft lobe's while it is
+covered (`boss-cue-read.ts`) — and the hem is still not on her screen, which is
+BULB QUEEN's arrangement and the sentence this fight is made of. Its film had
+kept ten of ten pages through the first pass and gave up two here, one to the
+kind line rather than the verb: `CARRY` over `SHOVE` was what
+`HOLD IT · CARRY IT FOUR OVER` was repeating, and the count was all the page was
+ever for. His third prose step was the field's word outright — *when they say
+BARE, put the cannon in the core's column* — and takes the roll-back clock in
+its place; hers takes the column she has to name and the lobe each hit drops.
 
 THE UNDERTOW's three later rows are 18 September 2026, when its reading grew
 from four moments to all five of the fight's phases (`boss-cue-read-j.ts`) and

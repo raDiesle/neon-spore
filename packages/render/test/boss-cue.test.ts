@@ -2,10 +2,8 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   batonBoss,
-  type CurtainState,
   candleBoss,
   createWorld,
-  curtainBoss,
   type GorgeState,
   gorgeBoss,
   startWave,
@@ -45,7 +43,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * CANDLE's went to `boss-cue-candle.test.ts` on 19 September 2026, with
  * `boss-cue-read-m.ts` and the column that reading found, and THE GORGE's to
  * `boss-cue-gorge.test.ts` the same day with `boss-cue-read-n.ts`, for the same
- * reason twice over — the column was missing there too.
+ * reason twice over — the column was missing there too. THE CURTAIN's went to
+ * `boss-cue-curtain.test.ts` an hour later, for the third time: its reading
+ * stayed in `boss-cue-read.ts`, which has the room, and its cases did not.
  *
  * The readings are asked **directly** rather than through a frame, for
  * `undertow-frame.test.ts`' reason turned around: what a pixel proves is that
@@ -94,25 +94,6 @@ function boss<T>(found: T | null, what: string): T {
   if (found === null) throw new Error(`the ${what} wave installed no boss`);
   return found;
 }
-
-describe("THE CURTAIN", () => {
-  it("asks either seat for the shove while the core is covered", () => {
-    const world = opened("curtain");
-    boss(curtainBoss(world), "curtain");
-    expect(word(world, "p1")).toBe("SHOVE");
-    expect(word(world, "p2")).toBe("SHOVE");
-    expect(cue(world, "p1")?.kind).toBe("CARRY");
-  });
-
-  it("asks the navigator alone for the shot once the core is bare", () => {
-    const world = opened("curtain");
-    const c: CurtainState = boss(curtainBoss(world), "curtain");
-    c.tornBeat = world.beat;
-    expect(word(world, "p2")).toBe("FIRE");
-    // The pilot is not drawn the shadow, so he is not drawn a mark on it.
-    expect(word(world, "p1")).toBeNull();
-  });
-});
 
 describe("THE TASTER", () => {
   it("asks the navigator to shear while the fan stands, and to burn once it closes", () => {

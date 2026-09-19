@@ -62,29 +62,74 @@ function markAt(
 }
 
 /**
- * THE CURTAIN. Two words, and the whole encounter is which of them is true.
+ * THE CURTAIN. Three words, and the third is the column the other two are
+ * spent in.
+ *
+ * It shipped with `SHOVE` and `FIRE` and no column at all, which is THE
+ * GORGE's defect of the same morning (`boss-cue-read-n.ts`): `curtainStruck`
+ * is a no-op unless the shot leaves the top of the **core's own column**, and
+ * a bolt only takes a lobe off in the column the fabric is struck in
+ * (`curtainHemStruck`), so both of the shipped words named a gesture and
+ * neither named the lane it lands in. The pilot's whole job is that lane and
+ * his band said nothing about it — it is the guide's third step for him, in
+ * as many words: *put the cannon in the core's column*.
+ *
+ * `MOVE` stands on the cannon and is his, and which column it is for depends
+ * on what the fight is asking:
+ *
+ * - **While the core is bare**, its own column, because that is the only lane
+ *   a hit comes off it in and the fabric rolls back over it
+ *   `curtainRerollBeats` after the last hand leaves. Her `FIRE` waits behind
+ *   it, THE CANDLE's pairing: off the column she is told nothing rather than
+ *   told to fire up a lane the core cannot be reached in.
+ * - **While it is covered**, a **soft** lobe's column. The hem is the health
+ *   and a bolt into a soft lobe is what takes it (`curtainHemStruck`), and
+ *   *which* lobes are soft is the pilot's picture alone (`showsCurtainSoft`)
+ *   — so the word may stand on his own ship, where he is already reading
+ *   them, and on her screen there is no mark and no word for the hem at all.
+ *   That is BULB QUEEN's arrangement: the seat that cannot see the difference
+ *   is told nothing and has to be told, which is the sentence the fight is
+ *   made of.
  *
  * `SHOVE` is **either seat's**, because the carry is (`grip-push.ts`): a
  * thumb on the fabric moves it whoever it belongs to, and the frame stands on
  * the sheet, which both screens are drawn. It is silent while the body is in
  * the beat of quiet a carry costs (`carryIsReady`), so the word appears only
- * on a beat a hand can actually spend.
+ * on a beat a hand can actually spend. It stands **behind** his column, since
+ * the cannon and the fabric are different thumbs: while he is lining up the
+ * hem she is told to shove, and the pair spends both hands on the same beat.
  *
  * `FIRE` is the navigator's, and it stands on the core — which is *her*
  * picture and not his (`showsCurtainShadow`). On the pilot's screen, where
  * the core is only a suspicion, there is no mark and no word.
+ *
+ * **Three silences.** The core's **colour**, which is hers alone and the one
+ * thing she has to say out loud — the wrong colour is answered with a rock
+ * down the column at once (`curtainStruck`), and a field that named it would
+ * be the whole conversation answered. The **hem** on her screen, above. And
+ * nothing in `out`, where the core is going and the wave is held two beats so
+ * it cannot end on the same one.
  */
 export function curtainCues(l: Layout, world: World, c: CurtainState): readonly BossCue[] {
   if (c.outBeat >= 0) return [];
   const y = tileCY(l, world.cfg.curtainRow);
+  const at = (col: number) => markAt(1, "CARRY", "MOVE", tileCX(l, col), l.hullY, l, 43);
   if (curtainCoreBare(world, c)) {
+    if (world.cannonCol !== c.coreCol) return [at(world.cannonCol)];
     return [markAt(2, "PRESS", "FIRE", tileCX(l, c.coreCol), y, l, 35)];
   }
   const body = curtainBody(world, c);
-  if (body === undefined || !carryIsReady(world, body)) return [];
-  return [
-    markAt(null, "CARRY", "SHOVE", tileCX(l, body.col + (CURTAIN_COLS - 1) / 2), y, l, 36, 2),
-  ];
+  if (body === undefined) return [];
+  const out: BossCue[] = [];
+  if (c.soft.length > 0 && !c.soft.some((i) => body.col + i === world.cannonCol)) {
+    out.push(at(world.cannonCol));
+  }
+  if (carryIsReady(world, body)) {
+    out.push(
+      markAt(null, "CARRY", "SHOVE", tileCX(l, body.col + (CURTAIN_COLS - 1) / 2), y, l, 36, 2),
+    );
+  }
+  return out;
 }
 
 /**

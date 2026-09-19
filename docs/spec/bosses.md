@@ -4292,6 +4292,36 @@ the transient's reset. THE SLOW on the shove (`decisions.md` #33) is not
 wired: the shove is a glide over one beat and nothing in it has a beat worth
 slowing yet; the owner's eye decides.
 
+**What the field says** (`render/src/boss-cue-read.ts`, 19 September 2026,
+[decisions](../decisions.md) #34). It shipped with `CARRY` / `SHOVE` on the
+membrane and `PRESS` / `FIRE` on the bared core, two words that name a gesture
+each and **neither of which names the lane it is spent in** — THE GORGE's
+defect of the same morning. `curtainStruck` is a no-op unless the shot leaves
+the top of the core's own column, and `curtainHemStruck` takes a lobe off only
+in the column the fabric is struck in, so the pilot's whole job was unsaid on
+his own band; it is the guide's third step for him in as many words, *put the
+cannon in the core's column*.
+
+`CARRY` / `MOVE` stands on his cannon now, and which column it is for is the
+fight's own answer. **While the core is bare**, its own column: the only lane
+a hit comes off it in, and the fabric rolls back over it `curtainRerollBeats`
+after the last hand leaves. **While it is covered**, a soft lobe's column: the
+hem is the health, a bolt into a soft lobe is what takes it, and which lobes
+are soft is his picture alone (`showsCurtainSoft`) — so the word may stand on
+his own ship, where he is already reading them, and there is no mark and no
+word for the hem on her screen at all. That last is BULB QUEEN's arrangement:
+the seat that cannot see the difference is told nothing and has to be told,
+which is the sentence this fight is made of.
+
+`SHOVE` stands **behind** his column, because the cannon and the fabric are
+different thumbs: while he is lining up the hem she is told to shove, and the
+pair spends both hands on the same beat. `FIRE` waits behind it instead, THE
+CANDLE's pairing — off the core's column she is told nothing rather than told
+to fire up a lane `curtainStruck` refuses. Three silences: the core's
+**colour**, hers alone and the one thing she has to say out loud, with a rock
+down the column the cost of the other one; the **hem** on her screen; and
+nothing in `out`. `render/test/boss-cue-curtain.test.ts` proves the six cases.
+
 **The rehearsal** (`content/src/scenes/the-curtain.ts`, 17 September 2026,
 ten pages over 2400 ticks): the core hiding, its shadow on player 2's
 screen, a bolt into cloth bouncing off, the soft lobes on player 1's, a soft
@@ -4306,7 +4336,13 @@ torch and the tear are the guide's prose, because a bolt sent up the core's
 column while the torch comes down it would meet the torch. No page is
 anchored at `retries`. Proved in `content/test/scene-films.test.ts` as the
 bounce, the lobe off, the shoves beat by beat, the reroll, the hit, the second
-lobe and the shadow, with nothing fired, torn or out.
+lobe and the shadow, with nothing fired, torn or out. Two of its pages were
+rewritten on 19 September 2026, when the field learnt to say the column:
+`HOLD IT · CARRY IT FOUR OVER` became `FOUR OVER AND IT IS CLEAR`, because
+`CARRY` is the kind line the cue draws over `SHOVE` and the count was all the
+page was ever for; and `FIRE ITS COLOUR AS IT BARES` became `ITS COLOUR OR IT
+FIRES BACK`, the colour being hers alone and the rock a wrong one buys being
+what no word on the glass may carry ([briefings](briefings.md) §7).
 
 **Never watched at tempo.** What the tests say is the mechanism: it unrolls
 seven wide and centred with the core under it and two soft lobes drawn; the

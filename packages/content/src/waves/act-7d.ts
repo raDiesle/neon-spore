@@ -182,9 +182,9 @@ export const WAVES_ACT_7D: Wave[] = [
     name: "THE CURTAIN",
     sentence: "The one that is in the way, and the two of you shove it aside a column at a time.",
     guide: {
-      both: "Shove the curtain aside, bare the core, shoot it in its colour. Three times.",
-      p1: "1. Say which side of the hem is soft, so a shot can take it off.\n2. Shove the curtain the way your partner says.\n3. When they say BARE, put the cannon in the core's column.",
-      p2: "1. Say which way to shove and how far.\n2. Load the core's colour.\n3. Say BARE the beat the core shows, and fire. The wrong colour makes it fire back.",
+      both: "Shove the curtain aside, bare the core, shoot it in its colour. Three times. A hem with no lobes left tears off the rail instead.",
+      p1: "1. Say which side of the hem is soft, so a shot can take it off.\n2. Shove the curtain the way your partner says.\n3. Keep a hand on it: four beats with none and it rolls back.",
+      p2: "1. Say which way to shove and how far.\n2. Load the core's colour and say its column.\n3. The wrong colour makes it fire back, and each hit drops a lobe.",
       scene: "theCurtain",
     },
     entries: [],

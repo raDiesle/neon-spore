@@ -87,12 +87,20 @@ export const THE_CURTAIN: GuideScene = {
     // Five beats: the hand is off at beat nineteen and the sheet rolls back
     // at twenty-three.
     { tick: 1140, seat: 1, text: "LET GO · IT ROLLS BACK", anchor: { at: "body" } },
-    // Eight beats: the four shoves, two beats apart.
-    { tick: 1440, seat: 1, text: "HOLD IT · CARRY IT FOUR OVER", anchor: { at: "held" } },
+    // Eight beats: the four shoves, two beats apart. It said HOLD IT · CARRY
+    // IT FOUR OVER until 19 September 2026, and CARRY is the kind line the
+    // cue draws over SHOVE — the page was repeating the field's own word to
+    // get to its count. The count is all it was ever for.
+    { tick: 1440, seat: 1, text: "FOUR OVER AND IT IS CLEAR", anchor: { at: "held" } },
+    // FIRE ITS COLOUR AS IT BARES stood here. The field writes her verb on the
+    // core the beat the cannon is under it (`boss-cue-read.ts`), so what is
+    // left is the half no cue may carry: the colour, which is hers alone
+    // (`showsCurtainShadow`), and what the other one costs — a rock down the
+    // column at once, on the beat (`curtainStruck`).
     {
       tick: 1920,
       seat: 2,
-      text: "FIRE ITS COLOUR AS IT BARES",
+      text: "ITS COLOUR OR IT FIRES BACK",
       anchor: { at: "control", control: "fireCyan" },
     },
     { tick: 2140, seat: 2, text: "IT DRIFTS AND HIDES AGAIN", anchor: { at: "body" } },
