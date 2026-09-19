@@ -24,19 +24,19 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "pinball",
     "morph",
-    "The table arriving over the field: bumpers, flippers and the cannon becoming the plunger, in the beats the pair has to read a screen that has stopped being the field.",
+    "The table arrives: bumpers, flippers, the cannon a plunger. P1 finds the needle; P2 finds the bar.",
     FULL,
   ),
   bossPose(
     "pinball",
     "play",
-    "The table live, the same on both screens by the owner's word: one seat sets the angle, the other the power, and the shot is what the two agree on. Nothing is set here, so the ball never leaves.",
+    "The table is live and the same on both screens. P1 sets the angle; P2 sets the power.",
     { ...FULL, hold: 24 },
   ),
   bossPose(
     "pinball",
     "aim",
-    "The needle sweeping the arc and nobody having latched it yet. It is player 1's thumb the round is waiting on, and the six and a half seconds of the sweep are what the pair has to talk over.",
+    "The needle sweeps the arc. P1 latches it where P2 calls; P2 watches the board and calls.",
     {
       ...FULL,
       hand: pinballHand,
@@ -47,7 +47,7 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "pinball",
     "power",
-    "The needle latched and the bar running: player 2's moment and strength against player 1's place and direction. A hard launch leaves the spring slack and the bar will not run until he winds it.",
+    "The needle is latched and the bar runs. P2 launches on the bar; P1 winds the spring if it is slack.",
     {
       ...FULL,
       hand: pinballHand,
@@ -58,7 +58,7 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "pinball",
     "flight",
-    "The ball out of their hands: nothing either of them presses reaches it, and the only things left are the cannon getting under it and the one nudge player 2 may shove the table with.",
+    "The ball is out of their hands. P1 slides the cannon under it; P2 may shove the table once.",
     {
       ...FULL,
       hand: pinballHand,
@@ -70,43 +70,43 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "pinball",
     "verdict",
-    "The round called: every ball dropped or the clock run out, and the table holding the score while the verdict beats show it.",
+    "Every ball dropped or the clock run out. P1 waits; P2 waits out the verdict beats.",
     { ...FULL, hold: 6 },
   ),
   bossPose(
     "pinball",
     "spent",
-    "The table over, only being looked at, held until the next wave replaces it.",
+    "The table is over and only looked at. P1 waits; P2 waits for the next wave.",
     { ...FULL, hold: 12 },
   ),
   bossPose(
     "pulse",
     "count",
-    "The beats before the first step: the lanes drawn, the meter at nothing, and the count the pair gets to look at a screen that has just stopped being the field.",
+    "The lanes are drawn and the meter at nothing. P1 reads his lane; P2 reads hers — no step yet.",
     FULL,
   ),
   bossPose(
     "pulse",
     "play",
-    "Steps coming down both seats' lanes on the beat, one meter for the two of them, and every step missed falling into the ship like a rock does.",
+    "Steps come down both lanes on the beat, one meter for the two. P1 steps his; P2 steps hers.",
     { ...FULL, hold: 24 },
   ),
   bossPose(
     "pulse",
     "verdict",
-    "The stage called: the meter where the two of them left it, held for the verdict beats. Nobody stepped here, so the meter never rose.",
+    "The stage is called and nobody stepped, so the meter never rose. P1 waits; P2 waits.",
     { ...FULL, hold: 6 },
   ),
   bossPose(
     "pulse",
     "spent",
-    "The stage over and only being looked at, held until the next wave replaces it.",
+    "The stage is over and only looked at. P1 waits; P2 waits for the next wave.",
     { ...FULL, hold: 12 },
   ),
   bossPose(
     "pulse",
     "steady",
-    "The bar full and the song running: the four arrows on both panels, and the only thing either seat cannot read is the arrow the other one has to name.",
+    "The bar is full and the song runs. P1 names the arrow P2 cannot see; P2 names his.",
     {
       ...FULL,
       want: (w) =>
@@ -119,7 +119,7 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "pulse",
     "flutter",
-    "The bar under pulseFlutterMilli and a thumb offered on it: a seat that takes it is out of the song, its own arrows passed over, and what the other one's misses cost drops to pulseBracePermille.",
+    "The bar is low and a thumb is offered. P1 takes it and stops stepping, or P2 does — not both.",
     {
       ...FULL,
       want: (w) =>
@@ -132,7 +132,7 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "pulse",
     "arrest",
-    "The bar under pulseArrestMilli, where one thumb buys nothing. Both of them on it put pulseArrestGainMilli a beat back, and neither is hitting an arrow while they do — which is the bar the pair has to agree to spend.",
+    "The bar is at its lowest and one thumb buys nothing. P1 and P2 both hold it, and neither steps.",
     {
       ...FULL,
       want: (w) =>
@@ -145,19 +145,19 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "scout",
     "lead",
-    "The arena arriving: the beats in which the two screens can be read — one sees the scout, the other the burning it is steered away from.",
+    "The arena arrives. P1 will fly the scout; P2 sees what it flies into — nothing is steered yet.",
     FULL,
   ),
   bossPose(
     "scout",
     "play",
-    "The scout under way in the arena, steered by one seat on what the other seat can see. Nobody steers here, so it flies straight.",
+    "The scout is under way. P1 steers and burns on what P2 says; P2 watches the arena.",
     { ...FULL, hold: 12 },
   ),
   bossPose(
     "scout",
     "light",
-    "The little ship carrying nothing, which is how every arena opens and how a pair that banks each mote as it takes it flies the whole round. The three verbs and the mouth, and no hand on the picture at all.",
+    "The scout carries nothing, as every arena opens. P1 flies it onto a mote; P2 opens the mouth.",
     {
       ...FULL,
       want: (w) =>
@@ -168,13 +168,13 @@ export const ROUND_BOSS_POSES_B: Pose[] = [
   bossPose(
     "scout",
     "verdict",
-    "Caught, or through: the arena holding the moment the run ended for the verdict beats.",
+    "Caught, or through: the arena holds the moment the run ended. P1 waits; P2 waits.",
     { ...FULL, hold: 6 },
   ),
   bossPose(
     "scout",
     "spent",
-    "The arena over and only being looked at, held until the next wave replaces it.",
+    "The arena is over and only looked at. P1 waits; P2 waits for the next wave.",
     { ...FULL, hold: 12 },
   ),
 ];

@@ -10109,3 +10109,23 @@ caught two cards whose prose implied the wrong player. A card that names the
 wrong seat is worse than a card that names none.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — states-cards-p1-p2-b — the other eighty-two cards, and a seat corrected
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | the rounds', clocks' and queen's hands for the seats — `boss-hands-clocks.ts` first, which is where `ward` turned out to be `player: 2` and the shield trigger `player: 1`, against `docs/spec/controls.md` |
+| writing | 50 | seventy-seven notes rewritten across the five files, the two LEDGER cards corrected in the first lane's own file, and the test widened from `IN_FORM` to the whole of `BOSS_POSES` with the allowance and its seven imports struck |
+| looking | 0 | strings and a test; nothing on the field changed |
+| friction | 10 | the import list went red on order after the allowance's imports came out, and `bun run imports:sort` fixed it — `format` never sorts |
+| landing | 15 | `format`, `check:fast`, the commit, `bun run land --keep` |
+
+**The bottleneck was the seats again, and this time it found a defect in work
+that had already landed.** Reading `boss-hands-clocks.ts` rather than the prose
+showed `ward` — the shield plate — is player 2's press and the shield trigger
+player 1's, so the two LEDGER cards written in the first lane named the wrong
+seat. They are fixed here. Deriving a card from the hand that poses it is the
+only way to be sure, and it is worth the half hour every time: the alternative
+is a card that confidently tells the pair the wrong thing.
+
+*Measured: the rows above are the session's own estimate.*

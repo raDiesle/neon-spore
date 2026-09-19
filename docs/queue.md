@@ -1556,33 +1556,6 @@ whether a state there is a phase or any named condition of the boss. Decide
 that first — it is the same question THE GORGE's pinch and pry will ask — then
 add the two poses and point the two rows at them.
 
-## Every card on the STATES sheet says what P1 and P2 do, in short words
-
-- **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80
-- **Taken:** 2026-09-19, claude/queue-every-card-on-the-states-sheet-says-what-p1-and
-- **Files:** `tools/director/src/poses-bosses-first.ts`, `tools/director/src/poses-bosses-hands-field.ts`, `tools/director/src/poses-bosses-hands-shots.ts`, `tools/director/src/poses-bosses-clocks.ts`, `tools/director/src/poses-bosses-kit.ts`, `tools/director/src/states-page.ts`, `tools/director/test/boss-states.test.ts`
-
-The owner's rule for every documentation page (18 September 2026): *reduce
-text descriptions to a minimum; only say what player 1 and player 2 have to
-do, in short words.* The form is one short sentence of state, then
-`P1 <verb> …; P2 <verb> …`, under 120 characters; a card whose state asks
-nothing of a seat says so in two words ("P2 waits"). Two players who may not
-share a language read these.
-
-**The first half landed on 19 September 2026**: the sixty-six cards a hand
-earns, in the six `poses-bosses-hands-*.ts` files, plus the test that holds
-them — `IN_FORM` in `boss-states.test.ts`, an allowance that can only shrink,
-the same idiom as `OWED` beside it. THE FLEET's three cards were already in
-the form and are the model.
-
-**What is left** is the other eighty-two: `poses-bosses-queen.ts`,
-`-rounds.ts`, `-rounds-b.ts`, `-clocks.ts` and `-first.ts`. Rewrite them the
-same way, then widen the test from `IN_FORM` to `BOSS_POSES` and strike the
-constant and its six imports. The creatures' and the controls' categories are
-the same rule and the same pass, if the note there is prose. No browser
-needed: the notes are strings and the test is the proof. A cloud session can
-take this.
-
 ## DOCUMENTATION's STATES room draws every card before the first is seen
 
 - **Found:** 2026-09-18, claude/tutorial-boss-onscreen-actions-07cc80

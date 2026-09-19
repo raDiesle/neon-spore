@@ -30,7 +30,7 @@ export const QUEEN_POSES: Pose[] = [
   bossPose(
     "queen",
     "shut",
-    "Armoured, holding her row, both marks blank. Nothing that reaches her while she is like this takes a petal.",
+    "Armoured, both marks blank. Nothing that reaches her takes a petal. P1 aims; P2 holds her fire.",
     {
       lookAt:
         "the armour across her back, between the two marks under her and the two rocks on her wings — whether it has a near side, and whether anything on it moves",
@@ -44,7 +44,7 @@ export const QUEEN_POSES: Pose[] = [
   bossPose(
     "queen",
     "open",
-    "A bloom. One of the two marks under her is real and the other is a lie that looks identical — one player is told which side, the other which colour, and neither can fire on their half alone.",
+    "A bloom: one mark is real, one a lie. P2 is told which side; P1 is told the colour. Neither fires alone.",
     { crop: "tile", span: 8, at: queenAt, want: (w) => Boolean(queen(w)?.color), hold: 6 },
   ),
   // BROOD: P1 presses the real mark to open it. P2 says which.
@@ -83,7 +83,7 @@ export const QUEEN_POSES: Pose[] = [
   bossPose(
     "queen",
     "torch",
-    "Every eight beats a torch falls straight out of its socket on one wing, and a new one grows in behind it. The fight is a boss and a rock at the same time.",
+    "Every eight beats a torch drops out of a wing socket. P1 slides the cannon off its column; P2 fires at it.",
     {
       crop: "tile",
       span: 9,

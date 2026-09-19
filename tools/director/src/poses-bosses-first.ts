@@ -52,31 +52,31 @@ export const FIRST_BOSS_POSES: Pose[] = [
   bossPose(
     "cairn",
     "stacked",
-    "Seven of the field's own rocks piled five columns wide, standing still, with nothing fired able to reach them. A thumb on the pile carried sideways is the only thing that takes one off.",
+    "Seven rocks piled five columns wide, and nothing fired reaches them. P1 carries a thumb across it; P2 waits.",
     { want: stood("cairn"), hold: TPB * 2 },
   ),
   bossPose(
     "well",
     "projected",
-    "The field drawn inside out on the pilot's screen: the ship at the centre, the far row a rim, the eleven columns spread round it as the hours of a clock. The navigator's screen is the field as it always is.",
+    "The field is drawn inside out round P1's ship, a clock of columns. P2 sees it as it is and says where.",
     { crop: F, role: "p1", want: stood("well"), hold: TPB * 2 },
   ),
   bossPose(
     "splice",
     "feeding",
-    "The row of mouths over the plating and a straw out of each, tangled through the others to a number at its far end. The first round is open and nothing has been fed yet.",
+    "A mouth over each column, a tangled straw out of each. P2 reads the numbers; P1 opens the maw under one.",
     { crop: F, want: stood("splice"), hold: TPB * 2 },
   ),
   bossPose(
     "reprise",
     "running",
-    "The wave's first stretch falling in plain sight, before any of it is sent down again. Nothing about the field says it is being remembered.",
+    "The wave's first stretch falls in plain sight, before any of it comes down again. P1 aims; P2 fires.",
     { want: (w) => w.boss?.kind === "reprise" && !repriseEchoing(w) && w.beat >= 4 },
   ),
   bossPose(
     "gorge",
     "feeding",
-    "The sack across the top of the field with an intake under each of its seven columns, every one of them empty. Whatever reaches the top of the field is swallowed and hangs inside as a bead.",
+    "Seven empty intakes across the top; what reaches them is swallowed. P1 pinches one full; P2 fires into it.",
     {
       want: (w) =>
         w.boss?.kind === "gorge" && gorgePhase(w.boss, w.cfg) === "feeding" && w.beat >= 2,
@@ -85,13 +85,13 @@ export const FIRST_BOSS_POSES: Pose[] = [
   bossPose(
     "curtain",
     "covered",
-    "The membrane a row below the top of the field with every lobe on its hem, and the core hidden behind it in a column only the navigator is told. No shot reaches the core through the fabric.",
+    "The fabric hides the core in a column only P2 is told. P1 shoves the fabric off it; P2 fires when it is bare.",
     { want: (w) => w.boss?.kind === "curtain" && !curtainCoreBare(w, w.boss) && w.beat >= 2 },
   ),
   bossPose(
     "taster",
     "opening",
-    "The crest across the top of the field growing its first blades out of the middle. Each blade takes its edge from whichever colour the pair has fired more of, and nothing has been fired yet.",
+    "The crest grows its first blades. P1 aims at a standing blade; P2 fires the colour they have spent least.",
     {
       want: (w) =>
         w.boss?.kind === "taster" && tasterPhase(w.boss, w.cfg) === "opening" && w.beat >= 4,
@@ -100,7 +100,7 @@ export const FIRST_BOSS_POSES: Pose[] = [
   bossPose(
     "sinew",
     "hanging",
-    "The mass over the middle column on its rope of six fibres, a handle either side, neither one held. The band is the pilot's to see and the sum the navigator's, and the sum is nothing.",
+    "The mass hangs on six fibres, a handle either side, neither held. P1 takes the left; P2 takes the right.",
     {
       want: (w) =>
         w.boss?.kind === "sinew" &&
@@ -113,7 +113,7 @@ export const FIRST_BOSS_POSES: Pose[] = [
   bossPose(
     "ledger",
     "rooting",
-    "The body three columns wide over the middle of the field on its violet cord, the cord just rooted in a socket in the pair's own hull, the seam down its middle whole.",
+    "The cord is just rooted in the pair's own hull, the seam whole. P1 aims at the seam; P2 wards the socket.",
     {
       want: (w) =>
         w.boss?.kind === "ledger" &&
@@ -124,7 +124,7 @@ export const FIRST_BOSS_POSES: Pose[] = [
   bossPose(
     "surge",
     "shut",
-    "The bulb over the middle column with its seam shut and no thumb on it. Five notches down the seam are its health, and the first opens only when both thumbs come off inside the band.",
+    "The seam is shut and no thumb is on the bulb. P1 puts one on; P2 puts one on — both come off in the band.",
     {
       want: (w) =>
         w.boss?.kind === "surge" &&
@@ -136,7 +136,7 @@ export const FIRST_BOSS_POSES: Pose[] = [
   bossPose(
     "lead",
     "pacing",
-    "The body pacing along the top of the field on its stalk of five segments, a column a beat, turning at the walls. A bolt is judged a beat after it leaves, against the column the body is in then.",
+    "The body paces a column a beat along the top. P1 aims where it will be; P2 fires on that beat.",
     {
       want: (w) =>
         w.boss?.kind === "lead" &&
@@ -148,7 +148,7 @@ export const FIRST_BOSS_POSES: Pose[] = [
   bossPose(
     "scuttle",
     "attached",
-    "The frame of twenty-one parts over the middle of the field, every part still in its socket. Every three beats one comes loose and is thrown down its own column as what it is.",
+    "Every part still in its socket, one thrown down a column every three beats. P1 aims at a part; P2 fires.",
     {
       want: (w) =>
         w.boss?.kind === "scuttle" &&
@@ -159,19 +159,19 @@ export const FIRST_BOSS_POSES: Pose[] = [
   bossPose(
     "antiphon",
     "cycling",
-    "The smooth body over the top of the field growing its first organ, which only the pilot sees, and the rail of three candidates under it, which only the navigator sees.",
+    "The first organ grows, which only P1 sees, over a rail of three only P2 sees. P1 turns it; P2 names it.",
     { crop: F, want: (w) => w.boss?.kind === "antiphon" && !antiphonDown(w.boss) && w.beat >= 4 },
   ),
   bossPose(
     "hive",
     "sealed",
-    "The mass over the field with nine sites sown across its underside and none of them open: the four beats the pair has to look before the first breach.",
+    "Nine sites sown and none open: four beats to look. P1 reads the underside; P2 reads it with him.",
     { want: (w) => w.boss?.kind === "hive" && hiveOpenCount(w.boss) === 0 && w.beat >= 2 },
   ),
   bossPose(
     "hive",
     "open",
-    "The first breach open on the clock, spilling a rock down its own column every three beats. Only the pilot sees its colour, and only a bolt of that colour up that column seals it.",
+    "The first breach spills a rock every three beats. P1 sees its colour and says it; P2 fires that colour up it.",
     { want: (w) => w.boss?.kind === "hive" && hiveOpenCount(w.boss) > 0, hold: TPB * 2 },
   ),
 ];

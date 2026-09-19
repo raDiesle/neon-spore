@@ -24,13 +24,13 @@ export const ROUND_BOSS_POSES: Pose[] = [
   bossPose(
     "mirror",
     "lead",
-    "The beat or two of quiet before a sequence: the ship gone upside down and into the wrong colours, the band locked, nothing shown yet. The pair learns the boss is their own ship.",
+    "The ship is upside down and in the wrong colours, the band locked. P1 watches; P2 watches — nothing else.",
     FULL,
   ),
   bossPose(
     "mirror",
     "show",
-    "The ship performs a sequence of the pair's own moves with the band locked. Watching is the only thing either player can do, which is the fight.",
+    "The ship plays back the pair's own moves. P1 counts the steps; P2 counts them with him.",
     {
       ...FULL,
       want: (w) => w.boss?.kind === "mirror" && w.boss.phase === "show" && w.boss.shown > 0,
@@ -39,13 +39,13 @@ export const ROUND_BOSS_POSES: Pose[] = [
   bossPose(
     "mirror",
     "listen",
-    "The band is back and the row above it says how much of the sequence has been answered. The steps are controls, drawn as the same buttons the band draws.",
+    "The band is back and the steps must come in order. P1 makes his — cannon, maw, shield; P2 fires hers.",
     { ...FULL, hold: 10 },
   ),
   bossPose(
     "mirror",
     "verdict",
-    "The pause that shows how the round went. Nobody answered here, so it is the lost verdict, with the reason — the pair can fail three ways and only one is the wrong button.",
+    "The round is called and nobody answered. P1 waits; P2 waits for the next sequence.",
     { ...FULL, hold: 6 },
   ),
   bossPose("mirror", "hold", "P1: thumb on its cannon. P2: thumb on its shield. Both, and hold.", {
@@ -58,19 +58,19 @@ export const ROUND_BOSS_POSES: Pose[] = [
   bossPose(
     "maze",
     "lead",
-    "The field gone and the wheel arriving: the beats in which two screens that have just stopped being the field can be read before anything is asked.",
+    "The field is gone and the wheel arriving. P1 finds the string; P2 reads the route in — no shot yet.",
     FULL,
   ),
   bossPose(
     "maze",
     "read",
-    "The wheel to read. One seat sees the lattice and the other the way in; a shot cannot be sent until the two have agreed on which arm it goes down.",
+    "The wheel is to be read. P1 turns the string until a way in clicks; P2 says whether it is the right one.",
     { ...FULL, hold: 12 },
   ),
   bossPose(
     "maze",
     "travel",
-    "P1: pull the string until the way in clicks onto a column. P2: fire up that column in the heart's colour. The shot walks the route.",
+    "P1 pulls the string until a way in clicks onto a column. P2 fires up it in the heart's colour.",
     { ...FULL, hand: mazeHand, hold: TPB * 2 },
   ),
   bossPose("maze", "grip", "P1: hand on the string. P2: pull the heart down.", {
@@ -81,25 +81,25 @@ export const ROUND_BOSS_POSES: Pose[] = [
   bossPose(
     "maze",
     "verdict",
-    "The verdict stands. No shot went down here, so it is the wheel timed out — the round lost with nothing travelled, which the ship pays for when it settles.",
+    "The wheel timed out and nothing travelled. P1 lets the string go; P2 holds her fire.",
     { ...FULL, hold: 6 },
   ),
   bossPose(
     "gauge",
     "lead",
-    "The dial arriving over where the field was: the lead-in, so a needle and a valve on two different screens can be read before either is worked.",
+    "The dial arrives where the field was. P1 finds the valve; P2 finds her marks — nothing is turned yet.",
     FULL,
   ),
   bossPose(
     "gauge",
     "play",
-    "The needle drifting and the valve open to be worked: one seat reads the mark the needle must be held to, the other holds it there, and the call is what passes between them.",
+    "The needle drifts and the valve is open. P2 calls the mark only she can see; P1 turns the valve to it.",
     { ...FULL, hold: 24 },
   ),
   bossPose(
     "gauge",
     "verdict",
-    "P1: turn the valve toward the mark P2 calls out. P2: call when the needle sits between the marks. Five calls landed: passed.",
+    "Five calls landed: the round is passed. P1 lets the valve go; P2 stops calling.",
     {
       ...FULL,
       hand: gaugeHand,
@@ -110,25 +110,25 @@ export const ROUND_BOSS_POSES: Pose[] = [
   bossPose(
     "gauge",
     "spent",
-    "Nothing to do. The passed round holds its picture until the next wave.",
+    "Nothing to do. The passed round holds its picture. P1 waits; P2 waits for the next wave.",
     { ...FULL, hand: gaugeHand, hold: 6 },
   ),
   bossPose(
     "snake",
     "morph",
-    "The table arriving over the field — a picture rather than a rule, and a phase because the pair needs beats to read a screen that has stopped being the field.",
+    "The board arrives over the field. P1 finds the maw; P2 finds the wheel — the snake has not moved.",
     FULL,
   ),
   bossPose(
     "snake",
     "play",
-    "The snake running on the board, turned by one seat and fed by the other's shot. Nobody turns it here, so it runs straight at the wall.",
+    "The snake runs on the board. P2 turns it at the wall; P1 feeds it with the maw.",
     { ...FULL, hold: 12 },
   ),
   bossPose(
     "snake",
     "crawl",
-    "The body as a round opens it: three tiles, and the four verbs answering as they were built. The jaws still open on a press, and the tail is short enough to be nobody's problem.",
+    "Three tiles of body and the verbs answer as built. P1 prises the jaws; P2 turns the wheel.",
     {
       ...FULL,
       want: (w) =>
@@ -139,13 +139,13 @@ export const ROUND_BOSS_POSES: Pose[] = [
   bossPose(
     "snake",
     "verdict",
-    "The crash: the snake into a wall and the board holding the moment. The verdict beats show what happened before the round is put away.",
+    "The snake is into a wall and the board holds the moment. P1 waits; P2 waits.",
     { ...FULL, hold: 6 },
   ),
   bossPose(
     "snake",
     "spent",
-    "The round is over and only being looked at. It stays installed so the picture holds until the next wave replaces it, rather than dropping back to an empty field.",
+    "The round is over and only looked at. P1 waits; P2 waits for the next wave.",
     { ...FULL, hold: 12 },
   ),
 ];

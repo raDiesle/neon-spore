@@ -51,7 +51,7 @@ export const CLOCK_HAND_POSES: Pose[] = [
   bossPose(
     "ledger",
     "paying",
-    "The cord is rooted and the seam paying out. P1 stands the plate on the socket; P2 fires the colour it wants.",
+    "The cord is rooted and the seam paying out. P1 aims at the seam; P2 stands the plate on the socket and fires.",
     { hand: ledgerHand, want: ledgerIs("paying"), hold: 6 },
   ),
   bossPose(
@@ -63,7 +63,7 @@ export const CLOCK_HAND_POSES: Pose[] = [
   bossPose(
     "ledger",
     "taut",
-    "The seam is open the whole way and the cord taut. P1 steps the plate off the socket; P2 lets the last one through.",
+    "The seam is open the whole way and the cord taut. P2 steps the plate two columns off; P1 keeps off the trigger.",
     { hand: ledgerHand, want: ledgerIs("taut"), hold: 6 },
   ),
   bossPose(
