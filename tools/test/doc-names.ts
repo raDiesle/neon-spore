@@ -33,6 +33,24 @@ import { ROOT } from "./doc-paths.js";
  * comments about a file's own subject is worth having anyway — those are the
  * ones a reader trusts most.
  *
+ * **A later pass tried widening it instead of living with the miss.**
+ * TypeScript's own `lib.es5.d.ts` through `lib.es2022.d.ts`,
+ * `lib.dom.d.ts`/`lib.dom.iterable.d.ts` and `@cloudflare/workers-types`'
+ * `index.d.ts` declare every global this repository can legitimately name,
+ * harvested the same way `declaredNames` harvests the tree — 8,980 names.
+ * Checked against every claim instead of only a file's own subject, the
+ * tree's 5,611 unrestricted claims name nothing 108 times; adding the
+ * harvested set as a second source of truth brings that to 89 — nowhere near
+ * the dozen that would have paid for dropping the restriction. Most of what
+ * was left was not a platform name at all — a `damage*` family, eight names
+ * (`damageCreature`, `damageFleet`, `damageMeteor` among them) a comment
+ * still names for the reason `hullPercent` is remembered below: the owner's
+ * 12 September 2026 rule that every hit costs the same took the figures out
+ * and left only the argument against them. Widening that far would mean
+ * remembering most of a hundred names instead of ten. The restriction stays,
+ * and the harvested lib list is not wired in — it would not change what this
+ * check catches today.
+ *
  * **A string literal declares a name.** Three of the original eighteen —
  * `ledgerTear`, `ledgerWard`, `ledgerRefused` — are event types, which exist
  * only as the members of a string union and the arms of a switch. A harvester

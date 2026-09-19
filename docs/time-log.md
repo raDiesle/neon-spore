@@ -12415,3 +12415,40 @@ change was small and already proven by `push.ts`'s own use of it; getting the
 one CLAUDE.md paragraph back under budget took three rewrites.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-lib-list-would-unlock-the-other-4-929-identifi — a measurement that answered its own question
+
+The entry proposed harvesting TypeScript's `lib.*.d.ts` and
+`@cloudflare/workers-types` the way `declaredNames` harvests the tree, adding
+them as a second set, dropping the head-word restriction, and dropping it for
+good if the false-positive count fell under a dozen. It did not: harvesting
+8,980 names from `lib.es5.d.ts` through `lib.es2022.d.ts`, `lib.dom.d.ts`,
+`lib.dom.iterable.d.ts` and workers-types' `index.d.ts` and checking every one
+of the tree's 5,611 unrestricted claims against them brought the count that
+name nothing from 108 to 89 — not the dozen the entry set as the bar. Most of
+what was left was not a platform global either: a `damage*` family of eight
+names a comment still uses for the same reason `hullPercent` is already
+remembered in `doc-names.ts` — the owner's 12 September 2026 rule that every
+hit costs the same took the figures out and left only the argument against
+them. Widening the check that far would mean remembering most of a hundred
+names instead of ten, for no gain the restricted check does not already have:
+it is green today with no lib names at all. The restriction stays, and rather
+than land a harvester nothing calls, the measurement itself — the 8,980, the
+108, the 89, and why — is written into `doc-names.ts`'s own reasoning, so the
+next session that has the same idea reads the answer instead of re-running the
+experiment.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `doc-names.ts`, `doc-drift-names.test.ts`, the repo's tsconfig files to find which lib files are actually in play |
+| writing | 30 | two scratch harvesters (lib names, unrestricted claim scan), locating the real `.d.ts` files under `node_modules/.bun`, and the paragraph recording the finding |
+| looking | 0 | none |
+| friction | 10 | the entry's own 205/dozen figures were from an earlier tree; re-measured on the current one (108, not 205) rather than quoting a stale number |
+| landing | 15 | `bunx tsc --noEmit`, the doc-drift/doc-names/limits tests, a full `bun run check` (18,576 tests), `format`, `bun run queue done`, the commit |
+
+**The bottleneck was resisting the entry's own conclusion** — the natural
+next step after harvesting a lib list is to wire it in and drop the
+restriction, and the numbers said not to; writing that down took longer than
+running the harvester did.
+
+*Measured: the rows above are the session's own estimate.*
