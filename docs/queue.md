@@ -1554,27 +1554,6 @@ no room — and nothing else in the file touches it. It comes away the way
 `menu-seats.ts` came out of `menu-view.ts`: about fifteen lines, and it is also
 the natural home for the body class `shell.ts` is carrying.
 
-## `act-7d.ts` is eight under the ceiling, and a guide edit already paid for it
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-the-line-ceiling-now-hears-bash-and-is-still-dea (claim: claude/queue-act-7d-ts-is-eight-under-the-ceiling-and-a-guide)
-- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves.ts`
-
-242 lines, so `tools/hooks/after-edit-size.ts` fires on every touch — it fired
-twice in the lane that corrected THE THROAT's two guide lines, which added no
-line at all. A guide line is the one thing in a wave file that gets longer when
-it gets truer, and eight of them share this page: THE UNDERTOW, THE THROAT, THE
-ORRERY, THE CANDLE, THE GORGE, THE CURTAIN, THE TASTER and THE SINEW. The §6.1
-and §6.2 lanes still queued for six of those are all guide-line work, so the
-next one of them pays for the seam whether or not it wants to.
-
-The cut is the one `act-7e.ts` already made and documented: the last waves come
-off the end, keeping the order of the game, into a sixth page of act seven.
-THE TASTER and THE SINEW are about fifty lines together, which leaves both
-pages a lane's worth of room. `waves.ts` gains one import and one spread; the
-new page's header says what `act-7e.ts`'s says about why it is a page of seven
-and not an act of its own.
-
 ## Unverified at 2154cbd2: THE THROAT's four cues on a real frame — the PNG of the…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -2148,3 +2127,29 @@ Two answers, and they are different work: add `.md` files under
 the way the rest of `docs/` already is — by a lane noticing and filing an entry
 like this one, the way this file's own preamble already asks of everything
 else. Not sized until the owner picks one.
+
+## `docs/spec/bosses.md` names a wave's act file by an old one
+
+- **Found:** 2026-09-19, claude/queue-act-7d-ts-is-eight-under-the-ceiling-and-a-guide
+- **Files:** `docs/spec/bosses.md`
+- **Where:** cloud
+
+Moving THE TASTER and THE SINEW off `act-7d.ts` needed ten citations in this
+file corrected — the two of their own plus eight more that shared a page with
+them and moved letters (this lane's own work, `docs/queue.md`'s *`act-7d.ts`
+is eight under the ceiling* entry). Fixing those found a stale one this lane's
+diff does not touch and did not cause: THE UNDERTOW (§ around line 3334) is
+cited as `act-7c.ts`'s own arrivals, but `act-7d.ts`'s own header says THE
+UNDERTOW came over from `act-7c.ts` on 18 September 2026 and opens *that*
+page instead. `tools/test/doc-drift.test.ts` only proves a cited file still
+exists, not that the boss named beside it is still in it, so this class of
+drift is invisible to `bun run check` — which is exactly how ten citations
+went unnoticed through today's own rename until this lane went looking.
+
+To do: grep this file for every `act-7[a-z]\.ts` (and, in case the same thing
+happened to earlier acts, every `act-\d+[a-z]?\.ts`) citation, and for each
+one open the named file and confirm the boss named beside it is actually
+there — `grep -rn "id: \"theX\"" packages/content/src/waves/` finds where a
+wave actually lives. THE UNDERTOW is one instance found so far; there may be
+others this lane's own search (limited to the pages it was already touching)
+did not cover.

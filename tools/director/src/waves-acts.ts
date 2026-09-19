@@ -134,6 +134,11 @@ export const ACT_FILES: readonly ActFile[] = [
     exportName: "WAVES_ACT_7E",
   },
   {
+    file: new URL("../../../packages/content/src/waves/act-7f.ts", import.meta.url),
+    rel: "packages/content/src/waves/act-7f.ts",
+    exportName: "WAVES_ACT_7F",
+  },
+  {
     file: new URL("../../../packages/content/src/waves/act-8.ts", import.meta.url),
     rel: "packages/content/src/waves/act-8.ts",
     exportName: "WAVES_ACT_8",

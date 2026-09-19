@@ -11559,3 +11559,38 @@ instead of reading it would have meant editing a file with nothing wrong with
 it.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-act-7d-ts-is-eight-under-the-ceiling-and-a-guide — a letter is a position, not just a name
+
+Cutting THE TASTER and THE SINEW off `act-7d.ts`'s own end into a new page,
+the way the entry described and `act-7e.ts` had done before, was wrong the
+way that page's own precedent did not warn about: `act-7e.ts` already existed
+and already held waves — THE LEDGER onward — that come *after* THE TASTER and
+THE SINEW in the shipped order of the game. Appending a new page past it
+would have played two waves seven waves later than the game has always
+played them, which `tools/frames/test/wave.test.ts` caught immediately by
+diffing today's `WAVES` order against HEAD's. Fixed by giving the new page
+the letter `e` and shifting the old `act-7e.ts` to `act-7f.ts` — the "shift
+the letters" option `docs/queue.md`'s own *Act seven has no room* entry names
+for exactly this shape of overflow — which meant ten citations in
+`docs/spec/bosses.md` needed correcting to the file each boss actually lives
+in now, not two. Fixing those surfaced an unrelated, pre-existing stale one
+(THE UNDERTOW, dated to an earlier lane's 18 September split) that this
+lane's diff does not touch; filed as its own queue entry rather than fixed
+on the spot, since nothing bounds how many more of those this file might
+still carry.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | the entry, `act-7d.ts`, `act-7e.ts` (the precedent it named), `waves.ts`, `tools/director/src/waves-acts.ts` |
+| writing | 25 | the new page, the trimmed `act-7d.ts`, the header rewrites, the `waves.ts`/`waves-acts.ts` wiring, the new queue entry |
+| looking | 0 | none — no picture involved |
+| friction | 25 | the full `check` caught the reordering on the first pass — `tools/frames/test/wave.test.ts` diffing `WAVES` against HEAD — but working out *why* the entry's own plan broke it, and that the fix was a letter shift rather than a data change, took reading `act-7e.ts`'s own history against the actual concatenation order in `waves.ts` |
+| landing | 20 | `format`, `lint`, `tsc --noEmit`, the touched test files, then the full `check` (18,489 tests) |
+
+**The bottleneck was the entry's own plan not accounting for a page that had
+already grown past the point where appending past it stays order-preserving**
+— the fix cost more than the line-count problem did, because the letter is a
+position in the game's order and not just a filename.
+
+*Measured: the rows above are the session's own estimate.*

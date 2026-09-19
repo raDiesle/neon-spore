@@ -5,12 +5,18 @@ import type { Wave } from "../wave-types.js";
  * BATON landed on it within an hour of each other and took it seventeen lines
  * over the 250-line ceiling.
  *
- * **It opens on THE UNDERTOW and ends on THE SINEW since 18 September 2026**,
- * when one line per boss wave — which kind of boss it is (`Wave.bossType`) —
- * took this page and the two either side of it over the ceiling at once. THE
- * UNDERTOW came over from `act-7c.ts`, THE LEDGER and THE SURGE went on to
- * `act-7e.ts`, and the order of the waves is untouched: a page hands its last
- * wave to the page after it, which is the next wave in the game.
+ * **It opens on THE UNDERTOW and ends on THE CURTAIN since 19 September 2026**,
+ * when the page sat eight lines under the ceiling with six §6.1/§6.2
+ * guide-line lanes still queued against it — a guide line is the one thing in
+ * a wave file that gets longer when it gets truer, so the next of those lanes
+ * would have paid for the seam rather than wanted it (`docs/queue.md`). THE
+ * UNDERTOW came over from `act-7c.ts` on 18 September 2026; THE LEDGER and THE
+ * SURGE went on to what was `act-7e.ts` the same day; THE TASTER and THE SINEW
+ * went on to a new `act-7e.ts` the next, which took the letter the LEDGER page
+ * had been using and pushed that page to `act-7f.ts` — a page in front of it
+ * cannot take the letter after it without playing THE TASTER and THE SINEW
+ * later than the game has always played them, since they were this page's own
+ * last two waves.
  *
  * **`7d` and not `9`, for the reason `act-7c.ts` gives about `7c`**: an act
  * file is a page and not a chapter, and the order of the waves is the order of
@@ -52,16 +58,6 @@ import type { Wave } from "../wave-types.js";
  *
  * **THE CURTAIN's wave is empty**, THE ORRERY's case one wave up: what falls is
  * the core's own fire, from where and when the pair left it bare (`sim/curtain-step.ts`).
- *
- * **THE TASTER's arrivals are the colours it is counting.** The fan reads what
- * the pair has fired over the last thirty beats, so every body under it costs
- * a shot in a colour the boss will then grow armour in — which makes this the
- * one wave where a body answered *without* firing is worth something. Rocks
- * for the shield, and three slicks and three bulbs, evenly split and
- * alternating, so the lean is a decision the pair makes rather than one the
- * wave makes for them. Nothing is placed against the fan's own count, for THE
- * DIASTOLE's reason above: which beat a blade sets its edge on depends on when
- * the pair sheared the last one.
  */
 export const WAVES_ACT_7D: Wave[] = [
   {
@@ -189,54 +185,6 @@ export const WAVES_ACT_7D: Wave[] = [
     },
     entries: [],
     boss: { kind: "curtain" },
-    bossType: "normal",
-  },
-  {
-    id: "theTaster",
-    name: "THE TASTER",
-    sentence: "The one where the colour you keep firing is the colour that stops working.",
-    guide: {
-      both: "Strike each blade off with the colour it is not. Cut the gaps to stop the fan re-edging. The last two lock over the body: pull them apart, then the beam.",
-      p1: "1. Say the colour on the next blade.\n2. Hold the cannon on that blade's column.\n3. Once three grow at once, hold one so it cannot decide.\n4. On the last two, drag the locked blades apart for the beam.",
-      p2: "1. Fire the colour the blade is not.\n2. Keep the colours level: the next blade takes the one you use most.\n3. Drag across a gap: it cuts and costs no colour.\n4. Beam the colour you fired least, once they are apart.",
-      scene: "theTaster",
-    },
-    entries: [
-      { beat: 16, col: 1, kind: "meteor", color: null },
-      { beat: 24, col: 5, kind: "meteor", color: null },
-      { beat: 30, col: 3, color: "red" },
-      { beat: 36, col: 0, color: "cyan" },
-      { beat: 44, col: 6, kind: "meteor", color: null },
-      { beat: 50, col: 2, color: "red" },
-      { beat: 56, col: 4, color: "cyan" },
-      { beat: 64, col: 3, kind: "meteor", color: null },
-      { beat: 72, col: 1, color: "cyan" },
-      { beat: 80, col: 5, color: "red" },
-    ],
-    boss: { kind: "taster" },
-    bossType: "normal",
-  },
-  {
-    id: "theSinew",
-    name: "THE SINEW",
-    sentence: "The one that asks how hard, not when, and only the two of you together can say.",
-    guide: {
-      both: "Pull both handles and hold the sum inside the band, four beats a fibre. Six fibres. From the fourth the tendon creeps slack under any hand, and only both of you letting go resets it.",
-      p1: "1. Only you can see the band. Call the number to aim at.\n2. HOLD means the sum is in: stop moving, four beats.\n3. LIFT means no pull can reach it. Both thumbs off, together.\n4. On the fall, say which way is clear.",
-      p2: "1. Only you can see the sum. Read it out every beat.\n2. Pull to the number called, never past it: over the top it snaps.\n3. Your sum sliding with your hand still is the slack. Say so.\n4. On the fall, sway the way called.",
-      scene: "theSinew",
-    },
-    entries: [
-      { beat: 16, col: 1, color: "red" },
-      { beat: 24, col: 5, color: "cyan" },
-      { beat: 34, col: 2, kind: "meteor", color: null },
-      { beat: 42, col: 4, color: "red" },
-      { beat: 52, col: 0, color: "cyan" },
-      { beat: 60, col: 6, kind: "meteor", color: null },
-      { beat: 70, col: 1, color: "cyan" },
-      { beat: 80, col: 5, color: "red" },
-    ],
-    boss: { kind: "sinew" },
     bossType: "normal",
   },
 ];

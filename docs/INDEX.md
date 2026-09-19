@@ -719,7 +719,8 @@ place — the generator keeps whatever is there.
 | `packages/content/src/waves/act-7a.ts` | Three waves between the two halves of act seven: THE CHOKE (the steer fault), THE LIMPET and THE LEECH |
 | `packages/content/src/waves/act-7c.ts` | The third page of act seven, cut off `act-7b.ts` when THE STARE took that file twenty-one lines over the… |
 | `packages/content/src/waves/act-7d.ts` | The fourth page of act seven, cut off `act-7c.ts` when THE THROAT and THE BATON landed on it within an hour… |
-| `packages/content/src/waves/act-7e.ts` | The fifth page of act seven, cut off `act-7d.ts` when THE LEAD would have taken it over the 250-line ceiling |
+| `packages/content/src/waves/act-7e.ts` | The fifth page of act seven, cut off `act-7d.ts` on 19 September 2026 when THE TASTER and THE SINEW needed a page between it and the old `act-7e.ts` |
+| `packages/content/src/waves/act-7f.ts` | The sixth page of act seven, cut off `act-7d.ts` when THE LEAD would have taken it over the 250-line ceiling — `act-7e.ts` until 19 September 2026 |
 | `packages/content/src/scenes/the-coil.ts` | THE COIL's rehearsal: the shield is stuck open, and the plate is what opens the dome |
 | `packages/content/src/keys-desk.ts` | **The desk keyboard is a panel too**, and this is where a key finds out what it means |
 | `packages/content/src/control-aim.ts` | Which way a control points, and which rig of keys answers it |
