@@ -206,7 +206,7 @@ export function wordPlate(
 /**
  * A grown arrow: blunt head, concave back, no straight edge.
  *
- * It came across from the slot's shared `word-button.ts` when TIDE was taken,
+ * It came across from the slot's shared word-button.ts when TIDE was taken,
  * because it is the only thing TIDE ever used from that file and the file went
  * with the four candidates that lost. The shape is the bar's own from before
  * the vote — the owner's one firm ask of this bar was that NEXT *say "Next" in

@@ -205,8 +205,8 @@ export const TALKER = {
   // THE GUM: both screens draw the whole of it and either hand answers it,
   // the same way — nothing is withheld, and nothing has to be said.
   gum: null,
-  // The seat without the control is the one shown the fuse, and *move* is
-  // the whole of what it has to say (`cling-fuse.ts`).
+  // The seat without the control is the one who reads the timer counting the
+  // body down, and *move* is the whole of what it has to say.
   limpet: "p1",
   leech: "p2",
   // THE WEIGHT: `"both"`, and it is the row this value was waiting for. The

@@ -73,8 +73,12 @@ const EXTENSIONS = new Set(
   TREE.map((path) => /\.([A-Za-z0-9]+)$/.exec(path)?.[1] ?? "").filter(Boolean),
 );
 
-/** Tracked paths by file name — the cheap half of resolving a shorthand. */
-const BY_NAME = new Map<string, string[]>();
+/**
+ * Tracked paths by file name — the cheap half of resolving a shorthand, and
+ * `doc-drift.test.ts`'s own check of a source comment's bare mentions, which
+ * asks only whether a basename exists anywhere and not where.
+ */
+export const BY_NAME = new Map<string, string[]>();
 for (const path of TREE) {
   const name = path.split("/").pop() ?? "";
   BY_NAME.set(name, [...(BY_NAME.get(name) ?? []), path]);

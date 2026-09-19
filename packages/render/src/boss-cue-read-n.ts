@@ -19,7 +19,7 @@ import { type Layout, tileCX } from "./layout.js";
  * It said `PIERCE` and `PINCH` over a full intake and `BURN` or `PRY` over the
  * mouth, which is every gesture the fight has and **not one word about the
  * column any of them has to be taken in**. A bolt and the beam both leave the
- * cannon's own column (`fire.ts`), and `gorgeStruck` is a no-op outside it: a
+ * cannon's own column (`bullets.ts`), and `gorgeStruck` is a no-op outside it: a
  * pierce fired from anywhere else does not land, and the beam that ends the
  * fight only ends it *standing in the mouth's column*. So the pilot held a
  * whole fight with one word on his screen — `PINCH`, which stops a clock — and

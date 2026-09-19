@@ -4,7 +4,7 @@ import { PALETTE } from "./palette.js";
  * The box a guide writes in: a solid ground, a two-pixel edge in the pod's
  * colour, sixteen-point Courier, centred.
  *
- * It is a caption's box (`guide-caption.ts`), and it was only a caption's
+ * It is a caption's box (`guide-tide-caption.ts`), and it was only a caption's
  * until the welcome page needed labels beside the bar's three buttons
  * (`guide-welcome.ts`). One recipe rather than two that drift: the owner
  * asked for a caption to be *louder* once already — bigger type, a solid

@@ -49,7 +49,7 @@ const HEIGHT = 20;
  * covered all of THEIR PANEL — BACK IN 3 but its first two letters. Two texts
  * in one place is the defect `guide-plate-room.test.ts` already guards for
  * between the round header and the corner plate, and the answer is the same:
- * whoever arrives second asks where the first one is (`guide-caption.ts`).
+ * whoever arrives second asks where the first one is (`guide-tide-caption.ts`).
  *
  * It takes the context because the plate is as wide as its own words, and the
  * font is this file's. `drawHandoverNotice` fills exactly this rectangle, so

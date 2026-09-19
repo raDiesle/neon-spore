@@ -3,7 +3,7 @@ import type { ControlDef } from "./controls.js";
 /**
  * The buttons that belong to a round rather than to the ship.
  *
- * Split out of `controls.ts` on line count, along the seam `keys-round.ts`
+ * Split out of `controls.ts` on line count, along the seam `keys-slide.ts`
  * already cut for the same growth: next door is the **ship**, which is the
  * same on every wave, and this is whichever boss has taken the panel away.
  * Most of these are a `slab` — a round replaces the band rather than adding to

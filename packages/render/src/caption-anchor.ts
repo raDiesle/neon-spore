@@ -18,7 +18,7 @@ import { shipCircle } from "./touch-ship.js";
  * Where a caption's subject is on the screen — the half of a page's words that
  * is about *finding the thing* rather than about drawing a box.
  *
- * Its own file beside `guide-caption.ts`, split when that one reached the
+ * Its own file beside `guide-tide-caption.ts`, split when that one reached the
  * length ceiling, and the seam was already drawn: next door decides how a
  * caption looks and where it sits relative to its subject, and this decides
  * what the subject *is*. It is also the half that grows — every anchor added

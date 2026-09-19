@@ -32,7 +32,7 @@ import {
  * `boss-cue-read.ts`, `boss-cue-read-b.ts`).
  *
  * **The seam is one column of eleven, and the plating refuses the rest.** A
- * bolt leaves the cannon's own column (`fire.ts`), only `ledgerSeamCol` hurts
+ * bolt leaves the cannon's own column (`bullets.ts`), only `ledgerSeamCol` hurts
  * the body, and the two columns either side of it are the body's own plating —
  * `ledgerCovers` turns a bolt away there with no colour cost and no bill, so a
  * pair aiming at the silhouette rather than at its middle gets a refusal that

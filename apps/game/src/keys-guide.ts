@@ -3,7 +3,7 @@ import type { Command } from "@neon-spore/sim";
 /**
  * What a key means while a wave's guide is up, at a desk.
  *
- * A sibling of `keys-round.ts` and the same argument: a state that takes the
+ * A sibling of `keys-slide.ts` and the same argument: a state that takes the
  * screen away has its own verbs, and a table next door is better than a dozen
  * more branches in `keys.ts` — which was at its length limit before this
  * existed. Nothing else reaches the ship while a guide is up (`sim/step.ts`),

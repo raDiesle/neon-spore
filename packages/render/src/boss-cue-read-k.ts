@@ -93,7 +93,7 @@ function braking(kind: Creature["kind"]): boolean {
  * it this beat.**
  *
  * `FIRE` is hers and the column is his: a bolt leaves the cannon's own column
- * (`fire.ts`), so a trigger pulled while the carriage is somewhere else is a
+ * (`bullets.ts`), so a trigger pulled while the carriage is somewhere else is a
  * shot up an empty lane. `occupiesCol` rather than two columns compared,
  * because a body wider than a tile is one the shot reaches from either of them
  * and that is the simulation's own test for it (`span.ts`).

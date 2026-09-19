@@ -99,7 +99,7 @@ export class HarpoonLineFx {
   draw(ctx: CanvasRenderingContext2D, l: Layout, held: HeldHarpoons, time: number): void {
     // Nothing out and nothing held costs nothing at all — not even the
     // `save`/`restore` pair, which is a real op on every frame of every wave
-    // that has no such fault and which `wave-budget.ts` counts.
+    // that has no such fault and which `wave-budget.test.ts` counts.
     if (this.throws.length === 0 && held.size === 0) return;
     const v = vesicleAt(l);
     ctx.save();

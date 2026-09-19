@@ -12,7 +12,7 @@ import type { CreatureDef } from "./creatures.js";
  * are the six a reader looking for a *creature* scrolls past. Everything left
  * next door is a body that lives, and no two of those are alike.
  *
- * **It was `creatures-rocks.ts` until THE FENCE**, and `creatures-guarded.ts`
+ * **It was creatures-rocks.ts until THE FENCE**, and creatures-guarded.ts
  * for one commit after that. Neither name survived the creature: a fence is
  * not stone, and it is not the shield's alone either — the cannon can cut a
  * way through one (`fenceBurn`), which makes it `mixed` in the bestiary's own

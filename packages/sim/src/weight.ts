@@ -109,7 +109,7 @@ export function stepWeights(world: World): void {
     // Its own event rather than the plain `destroy`: what comes apart is not a
     // body of a colour, so there is no colour to shower, and `destroy` requires
     // one. What the pair should see is pressure — the contour giving between
-    // two hands rather than bursting outwards (`render/weight-crush.ts`).
+    // two hands rather than bursting outwards (`effects-spark-handed.ts`).
     world.events.push({ type: "weightCrushed", col: c.col, row: c.row });
   }
 }

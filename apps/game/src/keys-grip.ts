@@ -5,7 +5,7 @@ import { NO_GRIP, nearestHull } from "@neon-spore/sim";
  * **What the desk rig's grip key takes hold of, and what it does with it.**
  *
  * Cut out of `keys.ts` when a key too many took that file over its 250-line
- * limit, along the seam `keys-round.ts` and `keys-guide.ts` already cut: next
+ * limit, along the seam `keys-slide.ts` and `keys-guide.ts` already cut: next
  * door is the *rig* — which key sends which command, and the repeat clock the
  * held ones run on — and this is the one question any of those keys has to
  * answer about the world in front of it. A phone never asks it: there, the

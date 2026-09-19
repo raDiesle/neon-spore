@@ -29,7 +29,7 @@ import { PALETTE } from "./palette.js";
  * a speech bubble belongs to a character; this page has no character in it.
  *
  * **And the page may have a second subject with nothing written on it**
- * (`companion.ts`), which is the rest of the owner's ask. Two things follow
+ * (`guide-tide-companion.ts`), which is the rest of the owner's ask. Two things follow
  * from that and both are here: the silent one is ringed differently — a whole
  * thin circle that breathes, against the caption's turning dashes — so a pair
  * can tell at a glance which of the two the words are about; and the pool has

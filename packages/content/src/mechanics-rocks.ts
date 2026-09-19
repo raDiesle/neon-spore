@@ -1,6 +1,6 @@
 /**
  * The rocks' rows, lifted out of `mechanics-table.ts` when THE VOLLEY took
- * that file past its 250-line limit — the same seam `creatures-rocks.ts`
+ * that file past its 250-line limit — the same seam `creatures-hazards.ts`
  * already cuts in the bestiary next door, and for the same reason: five speed
  * tiers and a torch are one fact said six times, and they are the longest run
  * of rows in that table that nobody reads one at a time.

@@ -208,7 +208,7 @@ export interface OrganLife {
 }
 
 /** The living half: the breath in every swelling, the droplets leaving it,
- * and the beaded cords running up (`cord.ts`). */
+ * and the beaded cords running up (`gland-cord.ts`). */
 export function organLife(d: NerveDraw, o: OrganLife): void {
   const { ctx, time, skin } = d;
   for (const [i, lobe] of d.lobes.entries()) {

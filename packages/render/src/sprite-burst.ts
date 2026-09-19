@@ -30,7 +30,7 @@ export interface SpriteSheet {
 /**
  * The burst in `assets/raster/`. Kept beside the code that draws it and
  * checked against the generator's own manifest by
- * `tools/raster/test/manifest.test.ts`, so the two cannot drift.
+ * `tools/raster/test/assets.test.ts`, so the two cannot drift.
  */
 export const BURST_SHEET: SpriteSheet = { frames: 16, frameSize: 96, frameMs: 40 };
 

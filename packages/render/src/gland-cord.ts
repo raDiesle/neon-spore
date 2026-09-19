@@ -14,7 +14,7 @@ import { splineInto } from "./spline.js";
  * survives is one cord per control — from a button up to the knob on its
  * rail, and from the knob on up to the organ on the hull it moves — a dark
  * cord with a lit thread on it and bright bodies walking it, more of them
- * and quicker while the organ's window is open. `organ.ts` calls it last, so
+ * and quicker while the organ's window is open. `gland-organ.ts` calls it last, so
  * a cord lies over the flesh and under the button.
  */
 

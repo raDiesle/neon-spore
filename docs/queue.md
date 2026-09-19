@@ -2040,42 +2040,6 @@ the new act counted. Check the caption stays inside the 28 characters
 The other twenty-odd films are not in this: the turn is the only handle in the
 game whose film shows no hand on it (`docs/spec/briefings.md`).
 
-## A comment may name a source file that does not exist, and thirty-two do
-
-- **Found:** 2026-09-19, claude/queue-the-splice-says-the-word
-- **Taken:** 2026-09-19, main (claim: claude/queue-a-comment-may-name-a-source-file-that-does-not-e)
-- **Files:** `packages/sim/src/splice.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/src/gland-join.ts`, `packages/content/src/creatures-hazards.ts`, `tools/test/doc-drift.test.ts`
-- **Where:** cloud
-
-Every file in this repository is explained by pointing at its neighbours, and
-`splice.ts` ended its header with *the numbers the fight is tuned by are
-`config-splice.ts`* — a file that has never existed; they are in `config-boss.ts`
-with every other boss's. Fixed in the lane that tripped over it, and then
-counted: **32 distinct basenames are named in backticks by `packages/*/src` or
-`apps/*/src` comments and exist nowhere in the tree**, across about 50 sites.
-Most are renames that left a reference behind — `guide-caption.ts` is named from
-four files, `fire.ts` from five, `keys-round.ts` from four — and each one sends a
-reader looking for a file nobody will ever open.
-
-To do, and it is one sitting:
-
-1. A test in `tools/test/doc-drift.test.ts`'s own shape, pointed at source
-   instead of at documents: collect every backticked `x.ts` in the comments of
-   `packages/*/src` and `apps/*/src`, and fail on one whose basename is in no
-   file in the tree. That check's `isPathClaim` deliberately wants a slash,
-   which is why it sees none of these — a comment writes the bare name of a
-   neighbour. Skip a path with a `*` in it (`render/splice-*.ts`
-   is a legitimate plural) and skip nothing else — a `.test.ts` named from `src`
-   is as much a dangling pointer as any other.
-2. Repair the 32. Most are one word: the file was renamed or split and the
-   reference wants the new name. A handful will turn out to name a file that was
-   deleted outright, and those sentences want rewriting rather than repointing.
-
-The listing is the whole of the work: the scan is fifteen lines of `bun` and a
-fresh session can prove the repair with `bun run check`. Not a look, not an idea
-— it is the documentation drift `docs/INDEX.md`'s own check does not see, which
-counts files rather than reading what they say about one another.
-
 ## Unverified at e71733bc: THE SPLICE's WAIT seen at tempo over the tangle
 
 - **Found:** 2026-09-19, claude/queue-the-splice-says-the-word

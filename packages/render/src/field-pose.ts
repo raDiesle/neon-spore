@@ -17,7 +17,7 @@ import { ShieldBody } from "./shield.js";
  *
  * Its own class because there are two things drawing a field now. The renderer
  * has one of these, and so does each of the two mini-screens a guide's
- * rehearsal is drawn into (`guide-mini.ts`) — and the alternative was the same
+ * rehearsal is drawn into (`guide-seat.ts`) — and the alternative was the same
  * six lines of easing written out twice, which is precisely the drift
  * `packages/sim/test/purity.test.ts` keeps a table against next door.
  */

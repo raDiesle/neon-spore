@@ -19,7 +19,7 @@ import { seatSkin } from "./seat-skin.js";
  * - CONSOLE's *positions and the additional dotted yellow line* are kept
  *   whole: NEXT the width of the phone at the foot, BACK and REPLAY up in the
  *   top bezel out of the thumb's way, and the dashed amber ring turning on the
- *   subject (`caption.ts`). What is fixed is the one thing he named as wrong
+ *   subject (`guide-tide-caption.ts`). What is fixed is the one thing he named as wrong
  *   with it — *can we make the remaining steps more visible, because black on
  *   black is not so visible*. CONSOLE drew the pages it had not reached in
  *   `#332B57` on a near-black bezel, which is a mark nobody can count.
@@ -28,7 +28,7 @@ import { seatSkin } from "./seat-skin.js";
  *   like*: the diagonal tape is gone and `membrane.ts` is in its place.
  * - RIBBON's box of words is the shape of every button here, because he asked
  *   for exactly that — *the rounded buttons i like to replace with this
- *   shape*. `plate.ts` is the shape; nothing on this page is a blob.
+ *   shape*. `guide-tide-plate.ts` is the shape; nothing on this page is a blob.
  *
  * **How it can lose.** It is the busiest chrome of the six: a surface moving
  * at the top of every page of a tutorial is a second thing to look at while

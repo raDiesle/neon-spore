@@ -12,10 +12,11 @@ import type { NerveDraw } from "./ship-nerves.js";
  * laid over it.
  *
  * The buttons stay out at the thumbs and the rail stays a spine through the
- * middle (`fluid.ts`); the skin is `wet.ts`'s — clear, reflecting, no grain —
- * with seven ribs leaving the very top of the hull and hanging on through the
- * chamber as MEDUSA's ribbons; each button is an organ with seven veins and a
- * slow breath (`organ.ts`); and the floor of the panel is PLASM's big bubbles.
+ * middle (`gland-fluid.ts`); the skin is `gland-wet.ts`'s — clear, reflecting, no
+ * grain — with seven ribs leaving the very top of the hull and hanging on
+ * through the chamber as MEDUSA's ribbons; each button is an organ with seven
+ * veins and a slow breath (`gland-organ.ts`); and the floor of the panel is
+ * PLASM's big bubbles.
  */
 
 // The arrangement — buttons out at the thumbs, the rail a little lower than

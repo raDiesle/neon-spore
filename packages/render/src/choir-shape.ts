@@ -80,10 +80,11 @@ export function choirVoiceAt(
   // close briefly, so the drift is a thing that happens rather than a wobble.
   const phase = (1 - Math.cos((time / DRIFT) * Math.PI * 2)) / 2;
   // `close` is the gesture landing: 0 while the pair is a pair and 1 once they
-  // are one, which is `ChoirMergeFx` driving the orbit to nought over a third
-  // of a second (`choir-merge.ts`). It multiplies the separation rather than
-  // replacing it, so the drift the two were in the middle of goes on happening
-  // while they close and the picture never jumps.
+  // are one, driven straight off `choirFusePhase` (`sim/choir.ts`) rather than
+  // a transient of its own, closing the orbit to nought over a third of a
+  // second. It multiplies the separation rather than replacing it, so the
+  // drift the two were in the middle of goes on happening while they close
+  // and the picture never jumps.
   const apart = l.tile * ORBIT * (FLOOR + (1 - FLOOR) * phase) * (1 - close);
   // On a circle rather than in a row, and the circle turns: SYMBIOSIS places
   // its bodies at `i / bodies` of a turn plus a slow drift, so a pair leans
@@ -119,10 +120,10 @@ export function choirVoiceAt(
  * is resampled and splined afterwards, so the corners a coarse grid leaves
  * never reach the screen.
  *
- * **It takes a place rather than a `Body`**, which is what lets the merge
- * transient draw the same skin closing over a body whose kind has already
- * changed (`choir-merge.ts`). One copy of what this membrane is, two things
- * that draw it.
+ * **It takes a place rather than a `Body`**, which is what lets a test or a
+ * draft draw the same skin with no live body behind it at all — a hand-picked
+ * `close` and nothing else that only a `Body` could give. One copy of what
+ * this membrane is, two things that draw it.
  */
 export function choirLoops(l: Layout, x: number, y: number, time: number, close = 0): Point[][] {
   const centres: { x: number; y: number; r: number }[] = [];

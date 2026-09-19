@@ -34,10 +34,11 @@ import {
  * panel borrows the keys that are already there (`keys-desk.ts`).
  *
  * **One file for both, because they are one trick.** It was the crank's alone
- * (`keys-crank.ts`) and the ring arrived with nothing to copy but the whole of
- * it: a grab that carries no bearing, a bearing a tick from nought, a release,
- * and a rate read off the rules. Two files would have been that paragraph
- * twice, and the second copy is the one that stops being true.
+ * — this file, before the ring existed — and the ring arrived with nothing to
+ * copy but the whole of it: a grab that carries no bearing, a bearing a tick
+ * from nought, a release, and a rate read off the rules. Two files would have
+ * been that paragraph twice, and the second copy is the one that stops being
+ * true.
  *
  * Beside `keys-slide.ts` for that file's reason: next door is the pair of keys
  * that carry something sideways and repeat on the tick, and these are the keys

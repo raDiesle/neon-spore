@@ -19,7 +19,7 @@
  * **Two variables on the Worker.** `FIREBASE_PROJECT` is the project id;
  * without it nothing is verified and every claim is an anonymous one, which
  * is how a checkout without a Firebase project behaves. `SIGN_IN_KEYS` is a
- * JWK set to trust *instead of* Google's — set by `test/sign-in.test.ts`,
+ * JWK set to trust *instead of* Google's — set by `test/signed.ts`,
  * which signs tokens with a key pair it made, and by nothing else.
  */
 

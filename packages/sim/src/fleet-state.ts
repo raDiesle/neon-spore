@@ -5,8 +5,9 @@ import type { World } from "./world.js";
  * **THE FLEET's three states, and what the pair does in each.**
  *
  * Moved out of `boss-state.ts` with the second and third states, for the
- * reason `maze-state.ts` and `gauge-state.ts` left it: a boss with more than
- * one state is a subject of its own, and that file was at its limit.
+ * reason `maze-state.ts` left it and `GaugeState` stayed put in `gauge.ts`
+ * only for want of a second state to share the file with: a boss with more
+ * than one state is a subject of its own, and that file was at its limit.
  *
  * - **`hunt`** — the fight as it shipped: the navigator steps the sights a
  *   square a press, the pilot fires when she has arrived (`fleet.ts`).

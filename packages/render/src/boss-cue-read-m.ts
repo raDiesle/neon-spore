@@ -14,7 +14,7 @@ import { type Layout, tileCX } from "./layout.js";
  * may state outright.
  *
  * **The column was missing, and it is the whole of the pilot's job.** A bolt
- * and the beam both leave the cannon's own column (`fire.ts`), and a shot
+ * and the beam both leave the cannon's own column (`bullets.ts`), and a shot
  * only takes a step off the glow if it leaves the top of the column the glow
  * hangs over (`candleStruck`). That column *drifts*, one tile every
  * `candleMoveBeats` — THE ORRERY's core stands in one place for a whole

@@ -36,10 +36,12 @@ import { PALETTE, STROKE } from "./palette.js";
  *    drawn arriving along the plating from the lane it fell in;
  * 2. how loose it is: the body lifts and the hooks open as the moves against
  *    it mount, on both screens, so the seat that is moving sees the moving
- *    work;
- * 3. how long is left — **on the seat without the control only**
- *    (`cling-fuse.ts`): the beats of the fuse as a row of lights over the
- *    body, going out one a beat, and the last of them the loud one.
+ *    work.
+ *
+ * **How long is left is not this file's to say.** A row of lights over the
+ * body once said it too — cut when it turned out to say nothing the timer
+ * above the body did not already say better, and nothing has needed to say
+ * it twice since.
  */
 
 /** The malfunction's material, over the body's own dim grey. */

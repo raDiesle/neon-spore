@@ -138,8 +138,8 @@ import type { Wave } from "../wave-types.js";
  *
  * Every arrival's landing form is composed rather than hoped for: the turn is
  * `waveBeat` against `moultBeats` and nothing else (`sim/moult.ts`), so an
- * entry beat *is* an answer, and `content/test/moult-wave.test.ts` holds the
- * four to the forms this paragraph claims for them.
+ * entry beat *is* an answer, and `sim/test/moult.test.ts` holds the four to
+ * the forms this paragraph claims for them.
  *
  * It carries **no rehearsal**. Every act in a guide's film is a thumb on a
  * named control (`scene-script.ts`, `controlPress`), and this creature's whole

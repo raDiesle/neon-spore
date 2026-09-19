@@ -170,7 +170,7 @@ export function skin(f: HullFrame, x: number): Point {
  * outside `hull.ts` that has to sit exactly on the skin rather than on
  * `Layout.hullY`'s flat approximation of it. `RockImpactFx`
  * (`rock-impact.ts`) is the one caller today: a rock that is supposed to be
- * stuck to the hull has to move with it, the same as `torch-crater.ts`'s dent
+ * stuck to the hull has to move with it, the same as `craters.ts`'s dent
  * already does through `skinAt`.
  */
 export function hullSkinY(

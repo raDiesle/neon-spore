@@ -10,7 +10,7 @@ import type { World } from "./world.js";
 /**
  * THE GAUGE's clock: the three phases, the way in and the way out.
  *
- * It used to be a *shell* — `interlude.ts`, a category eleven more rounds
+ * It used to be a *shell* — interlude.ts, a category eleven more rounds
  * would enter through, reached by asking whether the gap in front of the next
  * wave carried one. The category is gone. A round that is not the field is a
  * **boss wave** now, and the eleven behind this one are eleven bosses: a wave

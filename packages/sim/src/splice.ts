@@ -43,7 +43,7 @@ import { hullRow, type SimConfig } from "./config.js";
  * costs are `splice-round.ts`; the tangle is `splice-tangle.ts`; the three
  * numbers the fight is tuned by are in `config-boss.ts` beside every other
  * boss's (`spliceEntranceRows`, `spliceTopRow`, `spliceFeedBeats`) — this line
- * named a `config-splice.ts` that has never existed.
+ * named a config-splice.ts that has never existed.
  */
 
 /**

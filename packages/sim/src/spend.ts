@@ -149,8 +149,8 @@ export function spendLean(world: World, beats: number): Color | null {
  * All three numbers of each, because a stale slot is only stale by the beat it
  * carries — two devices that disagreed about one of those would disagree about
  * which beats are inside the window and so about the colour the fan is about
- * to grow in. Here rather than in a `hash-spend.ts` of its own because this is
- * one loop and `hash.ts` is the file at its limit (`hash.ts`).
+ * to grow in. Here rather than in a hash-spend.ts of its own because this is
+ * one loop and `hash.ts` is the file at its limit.
  */
 export function spendHashParts(ledger: SpendLedger): number[] {
   const out: number[] = [ledger.length];

@@ -5,6 +5,7 @@ import { DEFAULT_CONFIG } from "../../packages/sim/src/config.js";
 import { parseItems } from "../queue/queue.js";
 import { existsIn } from "../queue/stale.js";
 import {
+  BY_NAME,
   docFiles,
   ignoredByGit,
   namesAFile,
@@ -26,8 +27,8 @@ import { loadedTimeout } from "./repo-time.js";
  * nothing in the repository would have failed if they had not been. The spec is a
  * hundred times the prose and had no such check at all.
  *
- * Three things here, and each is the same shape: a claim a document makes that
- * the tree can settle without reading a word of the argument.
+ * Four things here, each the same shape: a claim a document — or, for the
+ * fourth, a source comment — makes that the tree settles without reading it.
  *
  * **A path is either there or it is not** — 2,211 backticked paths under `docs/`
  * on the day this was written, of which seven named nothing, across five
@@ -48,6 +49,13 @@ import { loadedTimeout } from "./repo-time.js";
  * the cold session it was written for. `bun run queue` says so when somebody runs
  * it, against the trunk, as a mark rather than a failure (`tools/queue/stale.ts`);
  * nothing tested it. This does, against this tree.
+ *
+ * **A comment naming a neighbour by its bare file name** is not a path claim
+ * at all, by `isPathClaim`'s own slash rule above — a comment writes
+ * `config-boss.ts`, not `packages/content/src/config-boss.ts`. So a source
+ * file was renamed or split 32 times and the sentence pointing at it never
+ * moved, across about 50 sites, and nothing here saw any of them. This
+ * checks every `src` comment the same way, against `BY_NAME`.
  */
 
 /**
@@ -172,4 +180,71 @@ describe("a queue entry", () => {
       expect(gone).toEqual([]);
     });
   }
+});
+
+/** Every `.ts` under `packages/*` / `apps/*`'s own `src`, repository-relative. */
+function sourceFiles(): string[] {
+  const glob = new Bun.Glob("{packages,apps}/*/src/**/*.ts");
+  return [...glob.scanSync({ cwd: ROOT })].sort();
+}
+
+/**
+ * The comment text of a source file — `//` to end of line and `/* … *\/` —
+ * with string and template literals skipped, so a `//` inside a quoted route
+ * is not read as one. The same token shape `commentSpans` in
+ * `tools/director/src/serialize.ts` matches, kept here rather than imported:
+ * that one compares a wave file's comments before and after a save, this one
+ * reads what a comment says, and the two agree on nothing but the tokens.
+ */
+function commentSpans(source: string): string[] {
+  const tokens =
+    /`(?:[^`\\]|\\.)*`|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|\/\*[\s\S]*?\*\/|(?:^|[^:])\/\/[^\n]*/gm;
+  const found: string[] = [];
+  for (const [text] of source.matchAll(tokens)) {
+    if (text.startsWith("/*")) {
+      found.push(text);
+      continue;
+    }
+    const slash = text.indexOf("//");
+    if (slash !== -1) found.push(text.slice(slash));
+  }
+  return found;
+}
+
+/**
+ * Whether a backticked span is a claim about a `.ts`/`.tsx` neighbour worth
+ * checking. Two things are named on purpose to cover a family and neither is
+ * a claim: a glob (`splice-*.ts`), and a template whose placeholder stands
+ * for many bosses' own file (`effects-spark-silent-boss.ts`'s `<boss>-fx.ts`),
+ * the shorthand `isPathClaim` above excludes for `<round>.ts`.
+ */
+function namesATsFile(mention: string): boolean {
+  return !/[*<]/.test(mention) && /\.tsx?$/.test(mention);
+}
+
+describe("a comment under packages/*/src or apps/*/src", () => {
+  it(
+    "names a source file this tree still has",
+    () => {
+      const found: { file: string; mention: string }[] = [];
+      let claims = 0;
+      for (const file of sourceFiles()) {
+        const source = readFileSync(join(ROOT, file), "utf8");
+        for (const span of commentSpans(source)) {
+          for (const match of span.matchAll(/`([^`\n]+)`/g)) {
+            const mention = (match[1] ?? "").trim();
+            if (!namesATsFile(mention)) continue;
+            claims++;
+            const basename = mention.split("/").pop() ?? mention;
+            if (!BY_NAME.has(basename)) found.push({ file, mention });
+          }
+        }
+      }
+      const missing = [...new Set(found.map((f) => `${f.file} → ${f.mention}`))].sort();
+      // A run that checked nothing would pass.
+      expect(claims).toBeGreaterThan(200);
+      expect(missing).toEqual([]);
+    },
+    loadedTimeout(120),
+  );
 });

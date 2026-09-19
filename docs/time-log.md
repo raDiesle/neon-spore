@@ -11361,3 +11361,33 @@ preferring the bare branch over the mark whenever the ref existed, which is
 every claim for as long as the work is actually happening.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-comment-may-name-a-source-file-that-does-not-e — a source comment is checked against the tree the same way a document is
+
+`doc-drift.test.ts`'s own path check wants a slash, so a comment beside the
+code it is about — which writes `config-boss.ts`, never
+`packages/content/src/config-boss.ts` — was never read by it at all. A new
+`describe` scans every backticked `.ts`/`.tsx` mention in a `packages/*/src`
+or `apps/*/src` comment against `BY_NAME`, a glob and a `<boss>`-style
+template the two exemptions. It found 32 distinct basenames across 49 sites,
+most of them one-word renames (`keys-round.ts` → `keys-slide.ts`,
+`creatures-rocks.ts` → `creatures-hazards.ts`, `fire.ts` → `bullets.ts`, the
+whole `gland-` family losing a bare prefix); a handful named a file deleted
+outright (`cling-fuse.ts`, `config-creature-scores.ts`, the point-score
+feature it priced) and got their sentences rewritten instead of repointed.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `doc-drift.test.ts` and `doc-paths.ts` to find the existing shape and `BY_NAME`, then the queue entry's own worked example in `splice.ts` |
+| writing | 20 | `sourceFiles`, `commentSpans`, `namesATsFile` and the new `describe` block, exporting `BY_NAME` |
+| looking | 70 | each of the 32 basenames: `git log`/`git show` to find the rename or deletion behind it, reading the file it now names to confirm the pointer is honest rather than just spelled right |
+| friction | 15 | a `*/` inside a doc comment's own prose (`packages/*/src`) closed the block comment early and broke the whole file's parse; the file also grew 8 lines past the 250-line ceiling and needed its own prose tightened to fit |
+| landing | 20 | `format`, `lint`, `tsc --noEmit`, and the full `check` (18,456 tests) |
+
+**The bottleneck was the 32 individual lookups, not the check that found
+them.** Writing the scanner and running it once took under an hour; every
+fix after that needed its own small investigation — `git log -S`, reading
+the file it now points to — because a wrong repoint would be a second,
+quieter version of the same defect this item exists to remove.
+
+*Measured: the rows above are the session's own estimate.*

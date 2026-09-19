@@ -3,7 +3,7 @@ import { SNAKE_PHASES, type SnakeState } from "./snake.js";
 /**
  * What SNAKE puts into `hashWorld`, and nothing else.
  *
- * Its own file for the reason `maze-hash.ts` and `claw-hash.ts` are ones:
+ * Its own file for the reason `maze-hash.ts` and `fleet-hash.ts` are ones:
  * `hash-boss.ts` grows by a whole boss at a time, this was the longest block
  * left in it, and every rule in here is about what two devices could come to
  * disagree about rather than about a snake. Moving it is also what makes the

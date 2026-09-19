@@ -12,7 +12,7 @@ import { ROUND_CONTROLS } from "./controls-round.js";
  * contains.
  *
  * **A round's own buttons are next door**, in `controls-round.ts`, spread into
- * `CONTROLS` below — the same split `keys-round.ts` made and for the same
+ * `CONTROLS` below — the same split `keys-slide.ts` made and for the same
  * reason. `ControlId` stays whole here, because the vocabulary is one list
  * however many files the rows live in.
  */

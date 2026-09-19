@@ -14,7 +14,7 @@ import { WHOLE, type Window } from "./rock-window.js";
  * fire is, what the stone is made of, what comes off it — while every one of
  * them needs a tongue of flame, a puff of smoke, a chip of rock and a stream of
  * pieces rising up the wake. The smoke, the chips and the stream are here,
- * once; the fire is next door in `wake-fire.ts`, for the file limit.
+ * once; the fire is next door in `rock-wake-fire.ts`, for the file limit.
  *
  * **Everything is in the screen's frame and drawn from `time`.** `MeteorLook.body`
  * is called inside the rock's own rotation, so a candidate turns the context

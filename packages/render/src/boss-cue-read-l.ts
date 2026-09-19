@@ -27,7 +27,7 @@ import { orreryCorePoint } from "./orrery-shape.js";
  * twice over, a count and a colour.
  *
  * **What was missing is the column**, and it is not the beat at all. A bolt
- * leaves the cannon's own column (`fire.ts`) and so does the beam, and the
+ * leaves the cannon's own column (`bullets.ts`) and so does the beam, and the
  * core hangs over exactly one — `orreryCoreCol`, the middle, for the whole
  * fight. So the pilot's entire job on the panel is *be there and stay there*,
  * through a phase that spends itself throwing rocks down every column but his

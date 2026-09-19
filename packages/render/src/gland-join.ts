@@ -12,13 +12,13 @@ import { dither } from "./sheen.js";
  * HOW A SHIP MEETS ITS PANEL WITHOUT A LINE — the baseline every whole-ship
  * card is built on.
  *
- * These were `candidates/panel-join/fused/tissue.ts`, the shared half of four
+ * These were candidates/panel-join/fused/tissue.ts, the shared half of four
  * answers to `panel:ship-join`. On 10 September 2026 the owner closed that
  * slot with nothing adopted and had its findings folded into `ship:body`
  * instead: a ship that is fluent from crest to buttons has to own its join,
  * and a join judged apart from the ship it is on is a vote on half a body. So
- * the three things those cards proved live here, beside `tube.ts`, where no
- * slot's closing can remove them:
+ * the three things those cards proved live here, beside `gland-tube.ts`, where
+ * no slot's closing can remove them:
  *
  * - `sky` — a grown thing starts above the membrane and the chamber's clip
  *   welds it to the contour, so nothing can come away from the roof.
@@ -113,7 +113,7 @@ export function sameLight(d: BandAttach, grain = true): void {
   // finds a boundary between a grained surface and a smooth one as surely as
   // between two colours. Same pattern, same alpha, same call — and the same
   // rule the other way round: a ship whose skin is drawn without the grain
-  // (`wet.ts`, the owner's *no sand*) asks for the chamber without it too.
+  // (`gland-wet.ts`, the owner's *no sand*) asks for the chamber without it too.
   if (grain) dither(ctx, region);
 }
 

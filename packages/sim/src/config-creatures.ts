@@ -5,11 +5,6 @@
  * the echo's fall and its divisions, the rind's layers, and how far a hand has
  * to carry THE LID's cord.
  *
- * **What each of them is worth lives next door**, in `config-creature-scores.ts`.
- * The prices left the day this file sat exactly on its limit: a price is argued
- * against the other prices and a clock is argued against the beat, so the two
- * halves were being read at different times and neither could gain a line.
- *
  * **THE GHOST's six live next door too**, in `config-ghost.ts`, for the reason
  * `config-gyre.ts` gives about the seven it took with it: a creature with two
  * numbers is a row in this shared list, and a creature with six is a section —

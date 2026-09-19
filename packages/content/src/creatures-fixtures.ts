@@ -5,7 +5,7 @@ import type { CreatureDef } from "./creatures.js";
  * describes fixtures rather than arrivals.
  *
  * Cut out of `creatures-table.ts` when THE CRAWLER took that file past its
- * 250-line limit, and it is the fourth such cut: `creatures-rocks.ts`,
+ * 250-line limit, and it is the fourth such cut: `creatures-hazards.ts`,
  * `creatures-worn.ts` and `creatures-bare.ts` are the other three. The seam is
  * a real one rather than a convenient slice. Everything left next door is a
  * body the queue hands the field — it enters at a column, it can be authored,

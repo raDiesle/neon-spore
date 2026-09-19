@@ -22,7 +22,7 @@
  * **Twelve, and the labels are what decide it.** A name is drawn in three
  * places the pair reads mid-wave — the siren's seat chip, a hand's label over a
  * body, and a rehearsal's caption — and all three now *measure* what they are
- * given and grow (`siren-seats.ts`, `grip.ts`, `guide-caption.ts`). What twelve
+ * given and grow (`siren-seats.ts`, `grip.ts`, `guide-tide-caption.ts`). What twelve
  * buys is that the widest of them, the chip, still leaves the field's top row
  * visible on a narrow phone: at nine pixels of Courier that is about eighty
  * pixels of pill, and two of them with the dial between comes to a little over
