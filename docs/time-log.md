@@ -11955,3 +11955,39 @@ authors had already caught and guarded against this exact class of mistake
 everywhere it was checkable from the text.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-reprises-tear-draws-the-pilots-half-of-the-r — already landed, verified and closed
+
+Building the owner's answer (keep what is already landed, correct §11.15 and
+`act-10.ts`'s header to match): both were already correct. A grep for the
+stale phrase *"the order and the gaps"* the entry's own Answered line named
+found nothing in either file, and both now read the corrected split — the
+navigator keeps the columns, the pilot keeps the colours — so a concurrent
+lane had already done this entry's sized work. Confirmed the four render
+files the entry also named (`reprise-fx.ts`, `reprise-draw.ts`,
+`boss-draw.ts`, `view-role.ts`) carry no `showsRepriseCount` or similar split
+predicate, matching "nothing in render/ moves."
+
+While checking, found that `scenes/the-reprise.ts` — the rehearsal, not
+named in this entry's own Files — still describes the split the old way,
+*"the navigator's half is the column and the pilot's is the gap,"* with a
+step reading `COUNT THE GAPS BETWEEN THEM`. Filed it as its own entry rather
+than fixing it here: whether it is actually stale, or a deliberate two-stage
+teaching order the rehearsal's own acts already carry, needs reading against
+`boss-cue-read-s.ts`'s own words for the pilot's blind page, which is more
+than this entry's own scope asked for.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `bosses.md` §11.15, `act-10.ts`'s header, the four render files, and — while checking around the edges of the fix — `scenes/the-reprise.ts`'s own header and acts |
+| writing | 10 | the follow-on queue entry describing what was found in the rehearsal, and this note |
+| looking | 0 | none — no picture involved |
+| friction | 0 | none |
+| landing | 5 | `doc-drift.test.ts`, no source changed |
+
+**No bottleneck** — the entry's own sized work turned out to already be done;
+the time went to confirming that thoroughly enough to close it honestly,
+plus writing down the adjacent thing found along the way rather than
+guessing at a fix for it.
+
+*Measured: the rows above are the session's own estimate.*

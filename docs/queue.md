@@ -1959,51 +1959,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## THE REPRISE's tear draws the pilot's half of the record on both screens
-
-- **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
-- **Taken:** 2026-09-19, claude/queue-a-films-authored-column-may-have-rounded-somewhe (claim: claude/queue-the-reprises-tear-draws-the-pilots-half-of-the-r)
-- **Files:** `packages/render/src/reprise-fx.ts`, `packages/render/src/reprise-draw.ts`, `packages/render/src/boss-draw.ts`, `packages/render/src/view-role.ts`, `packages/content/src/waves/act-10.ts`
-- **Asks:** Should the tear's two signals be split by seat — the count to one phone and the swallow to the other — or does the pair keep both and the record split stay where this lane put it?
-- **Answered:** 19 September 2026 — keep what is already landed. Both seats see the count and the swallow; the record split is columns against colours, as the lane's own workaround already reads. Sized work: correct `bosses.md` §11.15 and `act-10.ts`'s header, which still say *the order and the gaps*, to match what ships.
-
-THE REPRISE is designed around a record the pair divides and says out loud:
-*the navigator keeps the columns and the pilot keeps the order and the gaps*
-(`bosses.md` §11.15, and the act's own header). Half of that is already drawn.
-
-`drawReprise` is called from `boss-draw.ts` with no role gate at all, and
-nothing in `reprise-draw.ts` or `reprise-fx.ts` takes a `ViewRole` — this is the
-only boss in the game with a split in its briefing and no `showsX` predicate
-anywhere near its picture. So **both** seats are drawn the tooth row shortening
-and the swallow clenching on every echoed arrival, which is the gap between two
-arrivals, drawn, on the glass of the seat who was supposed to be told it. The
-pilot's authored half is the one thing the picture already gives away.
-
-It is not a leak in the licence-test sense — it is symmetrical, so no word built
-on it hands either seat the other's half, which is what let this lane put two
-words on the field at all (`boss-cue-read-s.ts`). It is a **design** hole: a
-split briefing whose two halves are not both secret is a split that stops making
-the pair talk, and the lane worked around it by moving the pilot's half from the
-gaps to the colours, which are not drawn once the field is dark.
-
-The options the answer picks between:
-
-1. **Leave it.** Both seats see the count and the swallow; the record split is
-   columns against colours, as the guide now reads, and §11.15's *the order and
-   the gaps* is corrected to match. Nothing in `render/` moves. This is what
-   ships today.
-2. **Split the picture.** A `showsRepriseCount` beside the others in
-   `view-role.ts`: the teeth on one seat and the swallow on the other, so each
-   phone holds half of *how many* and *one has just gone* and the pair has to
-   put them together out loud. That is the fight this boss was described as
-   having, and it is four lines of predicate plus two branches in `drawOwed`.
-   It also changes what a word may stand on — `boss-cue-read-s.ts`'s whole
-   licence is that the tear is on both screens — so the cue and its test move
-   with it, and that is why this is an ask rather than a lane.
-
-Either way `bosses.md` §11.15 and `act-10.ts`'s header need the sentence they
-have now to be true.
-
 ## Unverified at 628baa61: the tear's own frame against its teeth, and both cues o…
 
 - **Found:** 2026-09-19, claude/queue-the-reprise-says-the-word
@@ -2195,3 +2150,26 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE REPRISE's own rehearsal may still teach the split by gap rather than colour
+
+- **Found:** 2026-09-19, claude/queue-the-reprises-tear-draws-the-pilots-half-of-the-r
+- **Files:** `packages/content/src/scenes/the-reprise.ts`
+- **Where:** cloud
+
+Landing *THE REPRISE's tear draws the pilot's half of the record on both
+screens* found that `docs/spec/bosses.md` §11.15 and `waves/act-10.ts`'s own
+header already read the corrected split — the navigator keeps the columns,
+the pilot keeps the colours — but `scenes/the-reprise.ts`'s header still
+says, of the same fight, *"the navigator's half is the column and the
+pilot's is the gap"* and has the pilot's blind page read `COUNT THE GAPS
+BETWEEN THEM` rather than a colour.
+
+Whether this is actually stale is not settled here. The rehearsal's `acts`
+do carry both a cannon slide (a column) and a fire (a colour) after the dark,
+so the scene may be deliberately teaching the *timing* half of the record as
+a separate, easier first pass before the guide's colour-reading wording
+existed — in which case the fix is only in the words, not the acts — or it
+may simply not have been touched when the colour framing landed. Reading it
+against the corrected design, and against whatever `boss-cue-read-s.ts` and
+its own words expect the pilot's blind page to be about, decides which.
