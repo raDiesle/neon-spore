@@ -2220,6 +2220,7 @@ what the rest of this file holds.
 ## `new-boss-state`'s twelve registrations are fourteen
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-new-boss-state-s-twelve-registrations-are-fourte
 - **Files:** `.claude/skills/new-boss-state/SKILL.md`
 - **Where:** cloud
 
