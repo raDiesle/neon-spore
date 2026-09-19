@@ -12627,3 +12627,5 @@ drawn to him.
 pages, so a missing row is `TS2741` at `ship-fields.ts` line 32 — the
 declaration, not a file the row may be written into. Twice: once for
 `scuttleSwingMilli`, once for its note. It is queued.
+
+*Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

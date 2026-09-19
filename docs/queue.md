@@ -1980,3 +1980,17 @@ a round's to `ship-fields-round.ts`, the ship's own here — so the error names
 the object and the object names the page. The same paragraph is worth a line
 in `.claude/skills/new-boss-state`, whose counts section says *one row per new
 `SimConfig` field* without saying which of the four files it goes in.
+
+## Unverified at 3248b068: the picture of a carried part and its ring, watched at…
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses-choreographed.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-c.ts`, `packages/audio/src/bind-choreographed.ts`
+
+*THE SCUTTLE: the pilot carries a hanging part a column along the frame* landed from a session that could not look at it. The commit touched 35 more files. What went unchecked:
+
+- the picture of a carried part and its ring, watched at tempo
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
