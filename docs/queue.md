@@ -750,6 +750,7 @@ The brief: `.claude/skills/new-boss` section 6.3.
 ## THE TASTER changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/queue-the-taster-changes-state-more-than-once-and-asks
 - **Files:** `packages/sim/src/config-taster.ts`, `packages/sim/src/events-taster.ts`, `packages/sim/src/taster-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
 - **Where:** cloud
 
