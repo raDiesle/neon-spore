@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · be45f90f — A cancelled pointer carries no point, so it cannot fire a shot or a tap
+
 ## 2026-09-19 · 7242eec6 — Split boss-cue-read-c.ts into one page per boss (THE LEAD, SCUTTLE, DIASTOLE)
 
 Page three of the readings held three bosses at 229 lines, and 19 September 2026's own update to the queue finding said the split to make now was one page a boss, matching THE THROAT, THE ORRERY and THE LEDGER's earlier moves to pages eleven, twelve and fifteen. THE LEAD stays in boss-cue-read-c.ts, trimmed to just leadCues; THE SCUTTLE moves to a new boss-cue-read-t.ts and THE DIASTOLE to a new boss-cue-read-u.ts, letters rather than page numbers for boss-cue-read-s.ts's own reason — a sibling lane is writing page v the same day, and a number here would describe whichever lands first.
