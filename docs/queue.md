@@ -1949,40 +1949,6 @@ may simply not have been touched when the colour framing landed. Reading it
 against the corrected design, and against whatever `boss-cue-read-s.ts` and
 its own words expect the pilot's blind page to be about, decides which.
 
-## `.claude/skills/new-boss` has no §6, and thirty-six files cite §6.2
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, main (claim: claude/queue-claude-skills-new-boss-has-no-6-and-thirty-six-f)
-- **Files:** `.claude/skills/new-boss/SKILL.md`, `packages/sim/src/drag-targets.ts`, `packages/audio/src/bind-choreographed-b.ts`, `docs/spec/bosses.md`, `docs/spec/interludes.md`, `docs/queue.md`
-- **Where:** cloud
-
-The skill's headings run `## 1.` to `## 5.` and then `## 7.` — there is no
-section six, and no numbered sub-section anywhere in the file, so `§6.2` and
-`§6.3` name nothing at all. Thirty-six TypeScript files cite one of them, and
-so do ten paragraphs of `docs/spec/bosses.md`, four of
-`docs/spec/interludes.md`, and most of the boss entries in this file, which
-spell it `section 6.2` and `section 6.3` in a closing line each. Every one of
-them means the owner's standing brief — *give a shipped boss several states and
-a different gesture in each*, and *reach one of them on the picture rather than
-on the panel* — which is the prose under `## 5. Lane two: the look` and the
-list under `## 7.`, not a §6.
-
-Two numbers went missing rather than one: the citations were written against a
-version of the skill that had a sixth section, and the renumbering that removed
-it left every reference behind. A lane meeting `§6.2` in a comment today opens
-the skill, finds five sections and a seven, and re-derives the brief from the
-queue entry it is working — which is exactly the tax this file exists to stop.
-
-Decide it one way and do it once: either restore a `## 6.` to the skill whose
-sub-sections are the two asks, so the citations become true again, or give the
-brief a name the code can cite that does not move — a heading the skill promises
-not to renumber, referenced as `new-boss` *the standing brief* rather than by
-number — and sweep the thirty-six source files, the three documents and this
-file's own closing lines onto it. `docs/time-log.md` and `docs/release-notes.md`
-are records of what was written on the day and are not swept. `bun run check`
-proves the sweep: `tools/test/doc-drift.test.ts` holds the documents, and the
-comments are a typecheck away from nothing.
-
 ## Unverified at 4674a3bb: the PNG of the held stalk, with its ring and its d…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

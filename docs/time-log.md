@@ -12519,3 +12519,39 @@ tail that earns a companion file is one wave, not the half `act-3` needed
 when it was actually full.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-claude-skills-new-boss-has-no-6-and-thirty-six-f — a citation to a file that already moved
+
+The entry read `.claude/skills/new-boss/SKILL.md`'s own headings — `## 1.`
+through `## 5.`, then `## 7.` — and concluded `§6.2`/`§6.3`, cited by 36
+files across `packages/`, `docs/spec/bosses.md` and `docs/spec/interludes.md`,
+named nothing. They do: commit `9bc28eda`, two hours before this entry was
+filed, moved section 6 wholesale into its own file,
+`.claude/skills/new-boss-more/SKILL.md` — deliberately, its own message says,
+keeping "§6.1/§6.2/§6.3 exactly as written since those citations name them
+and are left untouched" — and left a one-line pointer at the foot of
+`new-boss` for a reader who lands there first. `new-boss-more`'s own
+frontmatter says so even more plainly: *"Use when a queue entry points at
+`.claude/skills/new-boss` section 6.1, 6.2 or 6.3."* It is written to be
+found exactly this way.
+
+So the sweep the entry asked for — renumbering `new-boss` or rewriting 36
+citations to a name instead of a number — would have undone a deliberate
+decision made the same day for the same reason, replacing a link that already
+works (skill → pointer → skill) with either a wider file or a rename nothing
+needed. Nothing was swept; the entry is retired on the finding that what it
+called broken already points somewhere real.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `new-boss/SKILL.md` in full (including its own foot-of-file pointer), `new-boss-more/SKILL.md`, `9bc28eda`'s commit message and timestamp against the entry's own |
+| writing | 10 | this entry |
+| looking | 0 | none |
+| friction | 0 | none |
+| landing | 5 | `bun run queue done`, the commit |
+
+**The bottleneck was reading the whole skill file before trusting the
+heading gap** — `## 5.` to `## 7.` looks like drift from a `grep '^## '`,
+and the file's own last three lines say otherwise.
+
+*Measured: the rows above are the session's own estimate.*
