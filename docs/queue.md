@@ -1978,6 +1978,7 @@ these, at tempo, on a phone-shaped screen.
 ## The field canvas states no `touch-action` and the page no `overscroll-behavior`
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-the-field-canvas-states-no-touch-action-and-the
 - **Files:** `apps/game/src/game.css`, `apps/game/test/`
 - **Where:** cloud
 
