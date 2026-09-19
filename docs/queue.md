@@ -1143,6 +1143,7 @@ walking mouth, which is the other half of this entry.
 ## boss-cue-read-e.ts is at 248 lines with three readings in it
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
+- **Taken:** 2026-09-19, claude/queue-boss-cue-read-e-split (claim: claude/queue-boss-cue-read-e-ts-is-at-248-lines-with-three-re)
 - **Files:** `packages/render/src/boss-cue-read-e.ts`, `packages/render/src/boss-cue.ts`
 - **Where:** cloud
 
