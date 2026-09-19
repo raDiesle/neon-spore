@@ -2154,6 +2154,7 @@ what the rest of this file holds.
 ## THE REPRISE's own rehearsal may still teach the split by gap rather than colour
 
 - **Found:** 2026-09-19, claude/queue-the-reprises-tear-draws-the-pilots-half-of-the-r
+- **Taken:** 2026-09-19, main (claim: claude/queue-the-reprises-own-rehearsal-may-still-teach-the-s)
 - **Files:** `packages/content/src/scenes/the-reprise.ts`
 - **Where:** cloud
 
