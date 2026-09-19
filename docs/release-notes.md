@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 979bf6cc — `queue done` takes the title: a removal is never taken off a position
+
+`done` had one guard against a stale number — refuse it for an item somebody else holds — and the hole was the case nobody had asked about. A number that has drifted onto a *free* entry passed it, deleted the entry, named it and exited zero. That happened this morning, and what made the number stale was the queue's own first rule: the lane had written its finding into `docs/queue.md` above the item it was closing, as the preamble requires, so the listing it had read a few minutes earlier was one row out.
+
 ## 2026-09-19 · 4515fcc9 — THE THROAT's two hands are heard: the cinch, the slip and the haul
 
 The gullet's own gestures had no sound. A thumb landing on a slack ring froze the tube in silence, the ring tearing out of it was silent too, and the pilot's carry dragged the mouth a column with nothing said about it — three controls the boss hands out as it loses, none of which either screen announces. They are now three events in `events-throat.ts`, panned to the column the mouth stands in, because the tube is a fixture and its column is the one thing in this fight the pair says out loud.
