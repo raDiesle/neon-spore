@@ -1400,6 +1400,7 @@ it comes back.
 ## `guide-scene.ts` is three pieces at 227 lines, and the seam is the slide
 
 - **Found:** 2026-09-19, claude/queue-a-rehearsal-that-takes-a-hit-draws-the-lost-scre
+- **Taken:** 2026-09-19, main (claim: claude/queue-guide-scene-ts-is-three-pieces-at-227-lines-and)
 - **Files:** `packages/render/src/guide-scene.ts`, `packages/render/src/guide-film.ts`, `packages/render/src/guide-switch.ts`, `packages/render/src/guide-play.ts`
 - **Where:** cloud
 
