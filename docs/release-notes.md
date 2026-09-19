@@ -9,6 +9,14 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 6d333dfb — Queue THE INSTAR's slow window as a look with four candidates
+
+The owner asked for versus alternatives for boss waves that slow down while a gesture is wanted, so the window reads as pressure to defend the next attack, and asked for it on THE INSTAR.
+
+## 2026-09-19 · 519fd6e9 — The gullet hands out a control as it loses one
+
+THE THROAT had five states and one sentence: fling a gum, shoot what is standing in the mouth, brake what is climbing, in every phase and all of it on the ordinary panel. It has two gestures of its own now, both on the boss's own picture, and where they come from is the point — there is nothing to pinch until the pair has choked a ring and nothing to haul until four are slack, so the handles are the damage.
+
 ## 2026-09-19 · 2154cbd2 — THE THROAT says the word on the beat it is worth something
 
 The field's whole reading of THE THROAT was `FLING`, on any gum, anywhere, in every phase. A gum flies level along the row it was on when the thumb lifted (`gumSwiped`) and `throatChoked` refuses one arriving on any row but the mouth's, so a word that stood for a twenty-beat fall asked for a gesture worth something on one beat of it. The reading is `boss-cue-read-k.ts` now, a page of its own: `FLING` on a gum standing on the mouth's row and never before it; `FIRE` to the navigator, or `MOVE` to the pilot when the carriage is elsewhere, on a living body held in the mouth with one inhale to live; `BRAKE` on both screens for a rock climbing the gullet with no hand on it; and nothing at all while the tube everts. Three things stay deliberately silent — a rock already standing in the mouth, which no bolt answers (`isWardable`); a body a hand is already braking (`gripBrakes`); and the column and the count, which are the pair's own sentence.

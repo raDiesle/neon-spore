@@ -2032,3 +2032,17 @@ nothing left on screen (`render/test/restart.test.ts`).
 
 It is local because choosing between four of these is looking at four of these,
 at tempo, which is the whole reason `tools/versus` exists.
+
+## Unverified at 6d333dfb: CINCH and HAUL on a real frame — the PNG of the two new…
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/net/src/command-fields.ts`, `packages/net/test/command-codec.test.ts`, `packages/render/src/boss-cue-read-k.ts`, `packages/render/test/boss-cue-throat.test.ts`
+
+2 commits landed, ending in *Queue THE INSTAR's slow window as a look with four candidates*, from a session that could not look at it. The commit touched 17 more files. What went unchecked:
+
+- CINCH and HAUL on a real frame — the PNG of the two new words standing on the lowest ring and on the mouth was never taken
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
