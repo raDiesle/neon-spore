@@ -250,6 +250,7 @@ the entire fight (`docs/spec/audio.md` §1).
 ## `bun run queue done <n>` removes the wrong entry when the lane wrote a finding
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-bun-run-queue-done-n-removes-the-wrong-entry-whe
 - **Files:** `tools/queue/run.ts`, `tools/queue/queue.ts`, `docs/queue.md`
 - **Where:** cloud
 
