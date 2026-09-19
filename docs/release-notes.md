@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 1172a97b — THE CANDLE says the word on the field, and the briefing comes down
+
+The field now writes MOVE on the cannon the whole time it is out from under the glow, and FIRE on the glow once it is under it. The shipped reading put MOVE on the cannon only while the boss was eating and the pilot stood in the column it faces, which is the one moment he must stand his ground: where the flame is turned at the glow's own column, a bolt is eaten but the beam is not, so the word walked him off the only column a shot lands from. The column the glow hangs over drifts every few beats and is the whole of the pilot's job; nothing on his band said so, and it was the guide's first line.
+
 ## 2026-09-19 · 5241be2d — Every card on the STATES sheet says what P1 and P2 do
 
 The other eighty-two cards — queen, rounds, rounds-b, clocks, first — are rewritten to the owner's form: one short sentence of state, then what each seat does, named as P1 and P2. Two players who may not share a language read these, so a card is short words and no prose, and a state that asks nothing of a seat still says so in two. The `IN_FORM` allowance the first lane landed is spent, so the test is now the whole of `BOSS_POSES`: a card that comes in long, or that names only one seat, is a red test.

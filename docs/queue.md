@@ -2176,3 +2176,17 @@ To do: step seed 8 to tick 1230 headless and read `faceCol`. Correct whichever
 of the two is wrong, and leave a test behind: `scene-pages.test.ts` can assert
 that the authored column at 1185 is the column the boss faces when the shot at
 1230 leaves, so the film's one mistake stays a mistake.
+
+## Unverified at 1172a97b: the PNG of THE CANDLE's words on a real frame
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-candle.ts`, `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue-read-m.ts`
+
+*THE CANDLE says the word on the field, and the briefing comes down* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
+
+- the PNG of THE CANDLE's words on a real frame
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
