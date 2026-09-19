@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 8ddc2c93 — THE CAIRN says the one word it can, and the dome goes to the rock they pulled
+
+THE CAIRN is the eighth of this family and the first whose boss had no word for the gesture it is named after. Nothing on either band reaches the pile — a bolt fired up one of its columns goes past it to whatever is above, and the shield has nothing to turn on a thing that is not falling — so the only answer to it is a grip held on the stack and carried sideways, and the reading fell through cuesOf's default and said nothing about that at all. CARRY over PULL stands on the stack now, seat null because the carry is either seat's, going quiet only for the beat of quiet a carry costs.
+
 ## 2026-09-19 · e71733bc — THE SPLICE says the one word it can, and never on a mouth
 
 THE SPLICE is the eighth of this family and the first whose difficulty is where a word may stand rather than what it may say. Its two gestures are on two phones — he slides the cannon under a mouth, she holds the only maw — and which mouth is the whole of the answer, so the field may name neither: a mark on the mouth the cannon is under would hand the pilot's half of the sentence to the seat who is shown no cannon at all. What is left is the maw standing busy. WAIT, in THE STARE's STILL, on the number coming down its straw for the beats it is in the air, where spliceHeard drops a suck because a maw with something already coming down it is busy — the one moment a control in this fight has quietly stopped working, and the failure the film was built around.

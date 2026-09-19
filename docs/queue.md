@@ -2249,3 +2249,17 @@ The stronger version, if the owner wants it: `serialize.ts` refuses to write whe
 the file it is replacing holds a comment inside the array, and names it. A rule
 that is a red check on the lane that broke it is worth more than a line in a
 skill nobody re-reads.
+
+## Unverified at 8ddc2c93: THE CAIRN's PULL seen on a real frame over a seven-ston…
+
+- **Found:** 2026-09-19, claude/queue-the-cairn-says-the-word
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-cairn.ts`, `packages/content/src/waves/act-8.ts`, `packages/render/src/boss-cue-read-q.ts`
+
+*THE CAIRN says the one word it can, and the dome goes to the rock they pulled* landed from a session that could not look at it. The commit touched 3 more files. What went unchecked:
+
+- THE CAIRN's PULL seen on a real frame over a seven-stone pile
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
