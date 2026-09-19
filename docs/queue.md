@@ -2177,6 +2177,7 @@ what the rest of this file holds.
 ## THE ORRERY's hand can wind the rings into a parity with no alignment in it
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-the-orrerys-hand-can-wind-the-rings-into-a-parit
 - **Files:** `packages/sim/src/orrery-hand.ts`, `packages/sim/src/orrery.ts`, `packages/sim/test/orrery-hand.test.ts`
 - **Where:** cloud
 
