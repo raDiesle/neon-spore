@@ -1749,6 +1749,7 @@ that goes quiet.
 ## SCATTER is THE WISP's strike and its page describes a bulb
 
 - **Found:** 2026-09-19, claude/queue-the-indexs-drift-check-reads-a-count-but-not-a-l
+- **Taken:** 2026-09-19, main (claim: claude/queue-scatter-is-the-wisps-strike-and-its-page-describ)
 - **Files:** `packages/render/src/body-hit-scatter.ts`, `packages/render/src/body-hit.ts`, `packages/render/src/body-spores.ts`
 - **Where:** cloud
 
