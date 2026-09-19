@@ -808,7 +808,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/boss-cue-read-j.ts` | **What THE UNDERTOW is asking for** — page ten of the readings |
 | `packages/render/src/boss-cue-read-k.ts` | **What THE THROAT is asking for** — page eleven of the readings |
 | `packages/render/src/boss-cue-read-l.ts` | **What THE ORRERY is asking for** — page twelve of the readings |
-| `packages/render/src/boss-cue-read.ts` | **What THE CANDLE, THE GORGE and THE CURTAIN are asking for** |
+| `packages/render/src/boss-cue-read-m.ts` | **What THE CANDLE is asking for** — page thirteen of the readings, and its own page for page twelve's reason |
+| `packages/render/src/boss-cue-read.ts` | **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for** |
 | `packages/render/src/boss-cue-text.ts` | **A cue's two lines, drawn**: the verb under the mark, the kind of action over it |
 | `packages/render/src/boss-cue.ts` | **THE CUE**: the one word the field says at the moment it wants something |
 | `packages/render/src/swallow.ts` | taking a pod in, as a two-part clock |

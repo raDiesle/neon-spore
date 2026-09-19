@@ -704,24 +704,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE CANDLE: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-candle-the-field-says-the-word-and-the-brief
-- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-candle.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It says `MOVE` on the cannon and `FIRE` on the glow, which is
-what one lane could reach and not the whole fight.
-Its briefing is a 12-page rehearsal (`packages/content/src/scenes/the-candle.ts`).
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE CANDLE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2174,3 +2156,23 @@ needs the same. A case that flicks a crank past half a turn in one frame and
 comes out wound forward is the proof. It costs nothing on the cannon and the
 shield, which report a column and are idempotent — the gain is entirely on the
 three gestures that read a bearing.
+
+## THE CANDLE's film says column 3 and its acts say column 2
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/content/src/scenes/the-candle.ts`, `packages/content/test/scene-pages.test.ts`
+- **Where:** cloud
+
+The film's own doc block says the seed is 8 because the boss *faces column 3
+for eight beats running from the moment it starts eating*, and it calls the
+one slide that is not `atBoss` "the cannon put on the faced column on purpose"
+— the mistake the fight is built around. The act is
+`{ tick: 1185, control: "cannon", col: 2 }`. Either the seed does not face
+column 3 at tick 1230 and the doc is wrong, or the act is off by one and the
+film shows a shot that is never eaten, with the page at 1140 (`SHOT FROM ITS
+FACE · EATEN`) standing over nothing.
+
+To do: step seed 8 to tick 1230 headless and read `faceCol`. Correct whichever
+of the two is wrong, and leave a test behind: `scene-pages.test.ts` can assert
+that the authored column at 1185 is the column the boss faces when the shot at
+1230 leaves, so the film's one mistake stays a mistake.

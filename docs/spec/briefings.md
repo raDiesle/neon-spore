@@ -578,7 +578,7 @@ hand still draws.
 
 | Film | What it said | What it says now | The cue that took the verb |
 |---|---|---|---|
-| THE CANDLE | `PLAYER 1 SLIDES CLEAR OF IT` | `PLAYER 1 CALLS ITS COLUMN` | `CARRY` / `MOVE` on the cannon while it is eating his column |
+| THE CANDLE | `PLAYER 1 SLIDES CLEAR OF IT` | `PLAYER 1 CALLS ITS COLUMN` | `CARRY` / `MOVE` on the cannon, his alone — while it was eating his column until 19 September 2026, and whenever it is off the glow's column since |
 | THE CURTAIN | `PLAYER 1 SHOVES IT ONE OVER` | `A SHOVE IS ONE COLUMN` | `CARRY` / `SHOVE` on the membrane |
 | THE UNDERTOW | `PLAYER 2 MOVES THE PLATE OFF` | `THE COLUMN IS HIS TO REACH` | `CARRY` / `MOVE` on the plate standing where the maw is coming |
 | THE BATON | `PLAYER 1 PULLS THE TRIGGER` | `PLAYER 1 GREYS FOR A BEAT` | `PRESS` / `LAUNCH` on the bead in its socket |
@@ -607,6 +607,10 @@ hand still draws.
 | THE THROAT | `SWIPED LEVEL INTO THE MOUTH` | `IT FLIES THE WAY YOU SWIPE` | `CARRY` / `FLING` on a gum, his alone, on the one beat it is on the mouth's row |
 | THE ORRERY | `NAKED · HOLD RED · THE BEAM` | `NAKED · A BOLT IS SPENT` | `HOLD` / `BURN` on the core, hers alone, once every ring is off and no lobe is already filling |
 | THE ORRERY | `HOLD THE MIDDLE · IT STANDS` | `THE BEAM USES YOUR COLUMN` | `CARRY` / `MOVE` on the cannon, his alone, whenever it is off the core's column — in every phase the fight has one |
+| THE CANDLE | `PLAYER 2 FIRES · IT DIMS` | `EITHER COLOUR DIMS IT` | `PRESS` / `FIRE` on the glow, hers alone, while the cannon is under it |
+| THE CANDLE | `IT DRIFTS · PLAYER 1 FOLLOWS` | `IT DRIFTS EVERY FEW BEATS` | `CARRY` / `MOVE` on the cannon, his alone, whenever it is off the glow's column |
+| THE CANDLE | `PLAYER 2 FIRES WHERE HE SAYS` | `FIVE HITS PUT IT OUT` | both of the above at once — her verb stands on the glow and goes quiet the moment his cannon leaves its column |
+| THE CANDLE | `PLAYER 2 FIRES · CLEAR` | `OFF ITS FACE · IT DIMS` | the same `PRESS` / `FIRE`; the clearing is the half it cannot say, because only he is drawn the cone |
 
 **Three other films of the twelve had nothing to take, and that is the useful
 half of the result.** THE GORGE, THE TASTER and THE DIASTOLE spend their pages
@@ -636,6 +640,22 @@ currently has**, which is the lesson of this row and of THE THROAT's.
 THE LEAD's, THE SCUTTLE's and THE ANTIPHON's films came on 17 and 18 September
 2026 with no page that is the cue's verb alone: their holds name the column or
 the colour.
+
+THE CANDLE's four later rows are 19 September 2026, and they are the second
+case of the lesson above. Its first reading said `FIRE` on the glow and `MOVE`
+on the cannon while the flame was turned at the pilot's own column, which is
+the fight's one mistake said out loud — and it left the *drift* silent, though
+the drift is the pilot's whole job and the guide's first line. Worse than
+silent: where the flame is turned at the glow's own column the old word walked
+him off the only column a shot lands from. `MOVE` is the glow's column now and
+nothing else (`boss-cue-read-m.ts`), which covers every beat the old word was
+right in, and the faced column stays the one sentence the pair must say — the
+cone is on his screen alone, and a word that went quiet on her trigger there
+would be that cone read out for her. Three of the four pages kept their tick,
+their seat and their anchor and took the half a cue may never carry: the colour
+rule, the drift, the count. Both prose halves changed with them, because the
+pilot's second step — *keep the cannon off that column while it eats* — was
+the field's old defect written down.
 
 THE UNDERTOW's three later rows are 18 September 2026, when its reading grew
 from four moments to all five of the fight's phases (`boss-cue-read-j.ts`) and

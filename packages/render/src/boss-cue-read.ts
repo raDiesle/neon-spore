@@ -1,8 +1,6 @@
 import {
-  type CandleState,
   CURTAIN_COLS,
   type CurtainState,
-  candleEating,
   carryIsReady,
   curtainBody,
   curtainCoreBare,
@@ -17,14 +15,13 @@ import {
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
-import { candleGlowY } from "./candle-glow.js";
 import { creatureCenter } from "./creature-place.js";
 import { gorgeIntakeY } from "./gorge-draw.js";
 import { type Layout, tileCX, tileCY } from "./layout.js";
 import { queenMarkCenter } from "./queen-figure.js";
 
 /**
- * **What THE CANDLE, THE GORGE, THE CURTAIN and BULB QUEEN are asking for**,
+ * **What THE GORGE, THE CURTAIN and BULB QUEEN are asking for**,
  * read off their own state and turned into at most one word each.
  *
  * The rules every reading here obeys are `boss-cue.ts`'s, and the one worth
@@ -64,31 +61,6 @@ function markAt(
     halfH: l.tile * HALF_H,
     seed,
   };
-}
-
-/**
- * THE CANDLE. Two things are ever wanted of this fight, and they are the two
- * halves of it: somebody has to fire up the column the light is in, and the
- * pilot has to be somewhere else when it is eating.
- *
- * `FIRE` hangs on the glow, which is **both** seats' picture — the halo is
- * drawn on every screen (`candle-glow.ts`), and it is the only light there
- * is. `MOVE` hangs on the cannon and is the pilot's alone, for the reason the
- * cone is (`showsCandleFace`): he is the seat shown the column the flame is
- * turned to, so a cue about standing in it says nothing his own screen has
- * not already told him. It says `MOVE` and not which way, which is the
- * sentence the fight exists to cause.
- */
-export function candleCues(l: Layout, world: World, c: CandleState): readonly BossCue[] {
-  if (c.phase === "dark" || c.phase === "out") return [];
-  const out: BossCue[] = [];
-  // Most urgent: a flash the boss is about to swallow, and the pilot is the
-  // only one who can see it coming.
-  if (candleEating(c) && world.cannonCol === c.faceCol) {
-    out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 31));
-  }
-  out.push(markAt(2, "PRESS", "FIRE", tileCX(l, c.col), candleGlowY(l), l, 32));
-  return out;
 }
 
 /**

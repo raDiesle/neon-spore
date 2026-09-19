@@ -138,8 +138,8 @@ export const WAVES_ACT_7D: Wave[] = [
       "The one you fight in the dark, where the only light is what your own shots throw and the boss eats the ones it is facing.",
     guide: {
       both: "The field is dark. Any colour dims the glow, five times. Never shoot into the column it faces.",
-      p1: "1. Say the column the glow faces, every time it turns.\n2. Keep the cannon off that column while it eats.\n3. Slide to the column your partner names and say CLEAR.",
-      p2: "1. Say the column the glow stands in, every time it drifts.\n2. Fire when your partner says CLEAR.\n3. Hold a colour on its column for the beam when the cannon cannot get there.",
+      p1: "1. Say the column the glow faces, every time it turns.\n2. Keep the cannon under the glow and slide with it.\n3. If it faces its own column, say BEAM: a bolt is eaten there, the beam is not.",
+      p2: "1. Fire at the glow once the cannon is under it.\n2. Hold your thumb when your partner names the glow's own column: that shot is eaten.\n3. Hold a colour for the beam when your partner says BEAM.",
       scene: "theCandle",
     },
     entries: [

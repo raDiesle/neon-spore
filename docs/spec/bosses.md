@@ -3813,12 +3813,48 @@ fires and it dims; it drifts and player 1 follows — every slide under it an
 it drifts is the rng's and not an author's — two more fires and it starts
 eating; *only player 1 sees its face*, held on the hull; then the one
 authored slide in the film, to the column it faces, and the shot from there
-is eaten on player 2's screen; player 1 slides clear, two clean fires stop
-it, and the beam's one step puts it out, with the two black beats after. A
+is eaten on player 2's screen; player 1 slides back under the glow, two clean
+fires stop it, and the beam's one step puts it out, with the two black beats after. A
 film takes a hit only from a page anchored at `retries`, and none is: the
 eaten shot costs nothing, which is the lesson. Proved in
 `content/test/scene-films.test.ts` as the sequence of dims, the one `candleFed`
-and the `candleOut`, all inside the loop.
+and the `candleOut`, all inside the loop. Four of its pages were rewritten on
+19 September 2026, when the field learnt to say the drift: `PLAYER 2 FIRES ·
+IT DIMS` became `EITHER COLOUR DIMS IT`, `IT DRIFTS · PLAYER 1 FOLLOWS` became
+`IT DRIFTS EVERY FEW BEATS`, `PLAYER 2 FIRES WHERE HE SAYS` became `FIVE HITS
+PUT IT OUT` and `PLAYER 2 FIRES · CLEAR` became `OFF ITS FACE · IT DIMS` —
+the colour rule, the drift, the count and the cone, which are the four halves
+a word on the glass may never carry ([briefings](briefings.md) §7).
+
+**What the field says** (`render/src/boss-cue-read-m.ts`, 19 September 2026,
+[decisions](../decisions.md) #34). It shipped with `PRESS` / `FIRE` on the
+glow and `CARRY` / `MOVE` on the cannon whenever the pilot stood in the column
+the flame was turned to, which was honest about the fight's one mistake and
+**silent about the drift** — the pilot's whole job and the guide's first line.
+A bolt and the beam both leave the cannon's own column (`fire.ts`) and
+`candleStruck` takes a step off the glow only for a shot out of the column the
+glow hangs over, and that column moves every `candleMoveBeats`. So `MOVE`
+stands on his cannon whenever it is off the **glow's** column and nothing
+else, which covers every beat the old word was right in — and where the flame
+is turned at the glow's own column the old word was worse than silent, because
+it walked him off the only column a shot lands from. The beam is not eaten
+(`lance-burn.ts` goes straight to `candleStruck`), so that beat wants him
+standing his ground and saying *beam*.
+
+**The trigger is behind the column**, which is THE THROAT's, THE UNDERTOW's
+and THE ORRERY's pairing again: while his cannon is off the glow's column she
+is told nothing rather than told to `FIRE` up a lane no step comes off — and
+quiet while `priming`, for `gripBrakes`' reason. Nothing at all in `dark`,
+where the light is still going out, or in `out`.
+
+**And the faced column is the silence that makes the fight.** `showsCandleFace`
+draws the cone on player 1's screen alone, and `view-role-clocks.ts` says why
+in as many words: *the seat that fires cannot see which column not to fire
+from, and has to be told*. So `FIRE` goes on standing over the glow while the
+flame is turned at it, and his voice is the only thing that stops her. A word
+that went quiet there would be that cone read out on her screen — the one
+sentence this fight is made of, answered by the field. Proved on both screens,
+with the silences: `render/test/boss-cue-candle.test.ts`.
 
 **What is not built**: THE SLOW over the flash beat — the design's *the beat
 a flash lands is played at a third rate*. Whether a shot's light should hang

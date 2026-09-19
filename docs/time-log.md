@@ -10129,3 +10129,23 @@ only way to be sure, and it is worth the half hour every time: the alternative
 is a card that confidently tells the pair the wrong thing.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-candle-the-field-says-the-word — the drift, and a word that walked him off the fight
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | `candle.ts`, `candle-step.ts` and `candle-glow.ts` before the prose, which is where `installCandle` turned out to start `faceCol` equal to `col` — the arrangement the shipped `MOVE` fired in |
+| writing | 55 | the reading on its own page with its three silences argued out, eight cases in a new test file, four briefing pages down to what the field cannot say, both prose halves, and the two spec sections |
+| looking | 0 | a cue table and a prose test; the PNG of the words on a real frame is queued unverified |
+| friction | 15 | `bun test packages/render/` runs past two minutes here, so the whole suite was waited on twice in the background before `check:fast` |
+| landing | 15 | `index`, `format`, `check:fast`, the commit, `bun run land --keep` |
+
+**The bottleneck was deriving the fight from the simulation rather than from
+its own briefing, and it paid for itself twice.** The prose said *keep the
+cannon off the column it faces while it eats* and the field said the same
+thing in one word — and `installCandle` starts the boss facing its own
+column, where obeying either one walks the pilot off the only column a shot
+lands from. A word is only as good as the reading behind it, and the reading
+has to come from the step function. Half an hour of `sim/` first, every time.
+
+*Measured: the rows above are the session's own estimate.*

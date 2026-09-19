@@ -2,7 +2,6 @@ import { beforeAll, describe, expect, it, setDefaultTimeout } from "bun:test";
 import { buildBoss, buildQueue } from "@neon-spore/content";
 import {
   batonBoss,
-  type CandleState,
   type CurtainState,
   candleBoss,
   createWorld,
@@ -42,7 +41,9 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * with the reading they are about (`boss-cue-read-i.ts`), and THE UNDERTOW's
  * went to `boss-cue-undertow.test.ts` the same day with
  * `boss-cue-read-j.ts`; both are still in the sweep at the foot of this file,
- * which is about what a cue may *contain* and wants every boss in it.
+ * which is about what a cue may *contain* and wants every boss in it. THE
+ * CANDLE's went to `boss-cue-candle.test.ts` on 19 September 2026, with
+ * `boss-cue-read-m.ts` and the column that reading found.
  *
  * The readings are asked **directly** rather than through a frame, for
  * `undertow-frame.test.ts`' reason turned around: what a pixel proves is that
@@ -91,37 +92,6 @@ function boss<T>(found: T | null, what: string): T {
   if (found === null) throw new Error(`the ${what} wave installed no boss`);
   return found;
 }
-
-describe("THE CANDLE", () => {
-  it("tells the navigator to fire at the light, and says nothing about the column", () => {
-    const world = opened("candle");
-    const c: CandleState = boss(candleBoss(world), "candle");
-    c.phase = "full";
-    expect(word(world, "p2")).toBe("FIRE");
-    expect(cue(world, "p2")?.kind).toBe("PRESS");
-  });
-
-  it("tells the pilot to move when he is sitting in the column the flame is eating", () => {
-    const world = opened("candle");
-    const c: CandleState = boss(candleBoss(world), "candle");
-    c.phase = "eating";
-    c.faceCol = world.cannonCol;
-    expect(word(world, "p1")).toBe("MOVE");
-    // And the navigator, who cannot see the face, is told her own job instead.
-    expect(word(world, "p2")).toBe("FIRE");
-    // Off that column he is told nothing at all: the shot is not his, and a
-    // pilot with no job this beat is a pilot listening to the other seat.
-    c.faceCol = world.cannonCol === 0 ? 1 : 0;
-    expect(word(world, "p1")).toBeNull();
-  });
-
-  it("says nothing while the light is going out", () => {
-    const world = opened("candle");
-    boss(candleBoss(world), "candle").phase = "out";
-    expect(word(world, "p1")).toBeNull();
-    expect(word(world, "p2")).toBeNull();
-  });
-});
 
 describe("THE GORGE", () => {
   it("is silent while it is being fed — the fight is not shooting", () => {
@@ -199,13 +169,16 @@ describe("THE TASTER", () => {
 });
 
 describe("what a cue may say", () => {
-  /** Every cue the six arrangements above produce, on every seat. */
+  /** Every cue six arrangements produce, on every seat. */
   function every(): BossCue[] {
     const out: BossCue[] = [];
     const worlds: World[] = [];
     const candle = opened("candle");
-    boss(candleBoss(candle), "candle").phase = "eating";
-    boss(candleBoss(candle), "candle").faceCol = candle.cannonCol;
+    // Under the light, so the sweep sees the flash rather than the `MOVE` a
+    // cannon off the glow's column would give it (`boss-cue-read-m.ts`).
+    const c = boss(candleBoss(candle), "candle");
+    c.phase = "eating";
+    candle.cannonCol = c.col;
     worlds.push(candle);
     const gorge = opened("gorge");
     const g = boss(gorgeBoss(gorge), "gorge");

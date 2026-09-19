@@ -13,8 +13,8 @@ import type { GuideScene } from "../scene-types.js";
  * onto the column it faces drawn on player 1's screen alone
  * (`showsCandleFace`); a shot fired from that column, swallowed at the
  * muzzle and put back on the glow (`candleFed`), which is the one mistake
- * the fight has and the page that says what it costs; the cannon slid clear
- * of the faced column and two clean dims, the last of which stops it; and
+ * the fight has and the page that says what it costs; the cannon slid back
+ * under the glow and two clean dims, the last of which stops it; and
  * the beam held on its column, the one light it cannot eat, putting it out
  * — two black beats, then the field lit again.
  *
@@ -60,22 +60,34 @@ export const THE_CANDLE: GuideScene = {
   ],
   steps: [
     { tick: 0, seat: 2, text: "THE FIELD GOES BLACK", anchor: { at: "hull" } },
+    // PLAYER 2 FIRES · IT DIMS stood here. The field says her verb on the
+    // glow, so what is left is the half a cue may never carry: red and cyan
+    // both take a step off it, and the beam does too (`candleStruck`). The
+    // dark is difficulty enough without a colour rule on top of it.
     {
       tick: 240,
       seat: 2,
-      text: "PLAYER 2 FIRES · IT DIMS",
+      text: "EITHER COLOUR DIMS IT",
       anchor: { at: "control", control: "fireRed" },
     },
+    // PLAYER 1 FOLLOWS came off this page on 19 September 2026: the field
+    // writes MOVE on the cannon the whole time it is out from under the glow
+    // (`boss-cue-read-m.ts`), which is the following. What no cue states is
+    // why it keeps happening — the light does not stay still.
     {
       tick: 420,
       seat: 1,
-      text: "IT DRIFTS · PLAYER 1 FOLLOWS",
+      text: "IT DRIFTS EVERY FEW BEATS",
       anchor: { at: "control", control: "cannon" },
     },
+    // PLAYER 2 FIRES WHERE HE SAYS stood here, and both halves are now the
+    // field's: her verb stands on the glow, and it goes quiet while the
+    // cannon is anywhere else. So the page takes the count instead, which a
+    // cue may never carry — five steps, and the halo is the whole of them.
     {
       tick: 600,
       seat: 2,
-      text: "PLAYER 2 FIRES WHERE HE SAYS",
+      text: "FIVE HITS PUT IT OUT",
       anchor: { at: "control", control: "fireCyan" },
     },
     {
@@ -92,11 +104,11 @@ export const THE_CANDLE: GuideScene = {
       anchor: { at: "control", control: "fireRed" },
     },
     // This page said PLAYER 1 SLIDES CLEAR OF IT until 17 September 2026. The
-    // fight writes CARRY over the cannon and MOVE under it the moment he is
-    // standing in the column it is eating (`decisions.md` #34), so the verb
-    // came out — but the page did not, because the slide at 1410 is his and
-    // the pages either side are hers: take the page away and his screen is
-    // never shown on the beat he acts. What is left is the half a cue may
+    // field writes CARRY over the cannon and MOVE under it whenever it is out
+    // from under the glow (`decisions.md` #34, `boss-cue-read-m.ts`), so the
+    // verb came out — but the page did not, because the slide at 1410 is his
+    // and the pages either side are hers: take the page away and his screen
+    // is never shown on the beat he acts. What is left is the half a cue may
     // never carry, which is the column and who says it.
     {
       tick: 1320,
@@ -104,10 +116,13 @@ export const THE_CANDLE: GuideScene = {
       text: "PLAYER 1 CALLS ITS COLUMN",
       anchor: { at: "control", control: "cannon" },
     },
+    // PLAYER 2 FIRES · CLEAR stood here. The verb is the field's, and what
+    // it cannot say is the clearing: the flame is turned somewhere else this
+    // beat, and only the seat that sees the cone knows it.
     {
       tick: 1500,
       seat: 2,
-      text: "PLAYER 2 FIRES · CLEAR",
+      text: "OFF ITS FACE · IT DIMS",
       anchor: { at: "control", control: "fireCyan" },
     },
     {
