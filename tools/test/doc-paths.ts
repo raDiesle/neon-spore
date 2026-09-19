@@ -27,6 +27,20 @@ export const ROOT = join(import.meta.dirname, "..", "..");
  * documents as this one's. Nothing under `docs/` reaches it today, and the rule is
  * held over the shape rather than over today's starting directory.
  */
+/**
+ * The documents outside `docs/` that are read the same way and drift the same
+ * way: the skills, which name files by the dozen and were checked by nothing.
+ *
+ * `.claude/skills/new-boss-state` is twelve rows of *file, what it wants, the
+ * test that goes red* — a table whose whole value is that the paths in it are
+ * the paths the tree has. Unchecked, it would be wrong within a month and
+ * would read as coverage while being wrong, which is the failure `docs/` is
+ * already held against.
+ */
+export function skillFiles(): string[] {
+  return docFiles(join(ROOT, ".claude", "skills"), []);
+}
+
 export function docFiles(dir = join(ROOT, "docs"), out: string[] = []): string[] {
   for (const entry of readdirSync(dir, { withFileTypes: true })) {
     if (entry.name === ".claude" || entry.name === "node_modules") continue;

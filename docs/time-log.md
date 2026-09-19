@@ -10480,3 +10480,31 @@ cheaper than stopping. A cost paid in two-minute instalments is the kind that
 never gets a lane of its own until somebody writes it down.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-new-boss-state-is-twelve-registrations-and-not — the twelve, written down together
+
+THE CANDLE's two phases cost five files of simulation and twelve registrations
+in eleven more, every one met by a red test rather than by reading anything —
+and they are only discoverable from one another, so the lane paid four full
+checks to learn four facts. `.claude/skills/new-boss-state` is the twelve in
+one table: the file, what it wants, the test that goes red without it, in the
+order a lane can actually do them. `CLAUDE.md`'s conventions list and the head
+of `new-boss` point at it, and `doc-drift.test.ts` now reads the skills the
+way it reads `docs/`, so the paths in that table cannot quietly stop being
+true.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `516ba5f9` whole, then each of the eleven registration files and the test that holds it, plus `copies-table.ts` and `doc-paths.ts` |
+| writing | 20 | the skill, the two pointers, `skillFiles` and the drift check's widening |
+| looking | 5 | a path in the new table renamed by hand, the check red and naming it, and green again |
+| friction | 5 | the entry asked for a row in the COPIES table and there is no such row to write; establishing that took reading `copies.test.ts` rather than assuming it |
+| landing | 10 | `format`, `lint`, `index`, the full `check` at 150s and the landing |
+
+**The bottleneck was that the list did not exist anywhere, not that it is
+long.** Twelve registrations is an afternoon if they are known and a day if
+they are met one at a time, and every lane before this one met them one at a
+time. The check that it worked is not in this lane: it is the next lane that
+adds a phase going green in one `bun run check`.
+
+*Measured: the rows above are the session's own estimate.*

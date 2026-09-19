@@ -4,7 +4,15 @@ import { join } from "node:path";
 import { DEFAULT_CONFIG } from "../../packages/sim/src/config.js";
 import { parseItems } from "../queue/queue.js";
 import { existsIn } from "../queue/stale.js";
-import { docFiles, ignoredByGit, namesAFile, pathClaimsIn, ROOT, TREE } from "./doc-paths.js";
+import {
+  docFiles,
+  ignoredByGit,
+  namesAFile,
+  pathClaimsIn,
+  ROOT,
+  skillFiles,
+  TREE,
+} from "./doc-paths.js";
 import { loadedTimeout } from "./repo-time.js";
 
 /**
@@ -73,6 +81,14 @@ const KNOWN_GONE = new Set(["packages/render/test/tell-frame.test.ts"]);
  * that writes down work — a queue entry, a row of the boss ledger — names the
  * files the work will create, and backticks around one of those are a claim
  * this tree already has it.
+ *
+ * **The skills are read the same way.** They were outside this check until
+ * 19 September 2026, and `.claude/skills/new-boss-state` is the entry that
+ * made the gap matter: twelve rows of *file, what it wants, the test that
+ * goes red*, whose whole value is that the paths in it are the paths the
+ * tree has. One claim across the twelve skills had to move for this — a
+ * scratch file `delegate` proposes to create, now named without backticks,
+ * which is the convention below.
  */
 const UNWRITTEN =
   "a file a document proposes to create is named without backticks until it exists — " +
@@ -84,7 +100,7 @@ describe("a path a document names", () => {
     () => {
       const found: { doc: string; mention: string }[] = [];
       let claims = 0;
-      for (const doc of docFiles()) {
+      for (const doc of [...docFiles(), ...skillFiles()]) {
         if (RECORDS.has(doc)) continue;
         for (const mention of pathClaimsIn(doc)) {
           claims++;

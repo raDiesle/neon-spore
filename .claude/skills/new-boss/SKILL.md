@@ -5,6 +5,9 @@ description: Build a boss for Neon Spore — which of the three kinds it is, the
 
 # Building a boss
 
+Adding a phase or a gesture to a boss that **already ships**:
+`.claude/skills/new-boss-state`.
+
 A boss is the one thing in a run the pair remembers, and it is built in two
 lanes that land separately: **the simulation, then the look** (`CLAUDE.md`,
 `docs/lane-speed.md`). Work through this in order. Stop at step 1 if the boss

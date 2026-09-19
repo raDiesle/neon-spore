@@ -114,7 +114,8 @@ not one delegation and one thing you typed yourself.
 
 ## 1. Write the spec
 
-`.claude/tmp/spec.md`. Keep it short — it is read by a model with less patience
+Write it to .claude/tmp/spec.md — a scratch file this lane creates, which is
+why it is named here without backticks. Keep it short — it is read by a model with less patience
 than you have.
 
 ```markdown

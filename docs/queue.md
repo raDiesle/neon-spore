@@ -2091,54 +2091,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A new boss state is twelve registrations, and nothing names the twelve
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-a-new-boss-state-is-twelve-registrations-and-not
-- **Files:** `docs/spec/bosses.md`, `packages/audio/test/bind.test.ts`, `packages/net/test/command-codec.test.ts`, `packages/render/src/effects-ingest-silent-boss.ts`, `packages/sim/test/purity.test.ts`, `tools/director/src/boss-hands-shots.ts`, `tools/director/src/sound-link-none.ts`
-- **Where:** cloud
-
-THE CANDLE gained two phases and one drag target. The simulation for that is
-five files and an afternoon. Getting `bun run check` green afterwards was
-**twelve further registrations in eleven files**, every one of them found by a
-red test rather than by reading anything:
-
-- the two silent-effect pages, `effects-ingest-silent-boss.ts` and its `-b`
-- `command-codec.test.ts`'s two separate lists — `EVERY_TARGET` and `ACCEPTED`
-- `bind.test.ts`'s `SAMPLES`, one row per new event
-- `sound-link-none.ts`'s `NO_SUBJECT`, one reason per new sound
-- a pose card in `poses-bosses-hands-shots.ts`
-- the hand in `boss-hands-shots.ts`, which must be able to *drive* the world
-  into the new state or `poses.test.ts` throws `the world never reached …`
-- `docs/INDEX.md`, `docs/spec/bosses.md`, and `docs/spec/audio.md`'s two counts
-- `tools/director/test/on-field-controls.test.ts`
-
-Each red test names its own fix, so none of this is hard; what it costs is
-that the twelve are only discoverable **from one another**, one `bun run
-check` at a time, which is minutes a round. The list above is the first time
-they have been written down together, and it is written down in the wrong
-place — a queue entry is read once and then taken out.
-
-To do: put the twelve where a lane starting a boss state will meet them, as
-`.claude/skills/new-boss-state` (or a section of `.claude/skills/new-boss`,
-which today covers a whole new boss and not a phase added to a shipped one).
-One row each: the file, what it wants, and the test that goes red without it.
-Then make `purity.test.ts`'s called-not-re-derived table carry a row pointing
-at it, which is the mechanism that file exists for. The check that it worked:
-a lane can add a phase and go green in one `bun run check`, not four.
-
-**A second lane confirmed it and added three the list above does not have.**
-THE CURTAIN gained four phases and one drag target (19 September 2026,
-`claude/task-queue-work-ym2eim`): on top of the twelve,
-`content/src/scene-drag.ts`'s `tautMilli` and `pullsDown` want an arm per new
-handle or a film carries the wrong distance **silently**;
-`tools/director/src/boss-states.ts` wants the state named in `BOSS_PHASES` or
-`BY_HAND`, and the choice between the two is a judgement no red test makes for
-you; and a *field* boss's pose goes in `poses-bosses-hands-field.ts` with its
-hand in `boss-hands-field.ts`, which is the shot bosses' pair under different
-names. So the count is fifteen, and two of the three are files a lane reading
-the twelve above would still not open.
-
 ## Unverified at a5f99af6: THE CANDLE's wick and ember watched at tempo — the stem…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
@@ -2181,3 +2133,28 @@ of their own beside `operands`. The rule stays the one this hook is built on:
 silence when it can parse nothing, never a guess, never a block. The check that
 it worked is the one the Bash half took — a line appended to a file near the
 ceiling is heard about, and a `Get-Content` of the same file says nothing.
+
+## The COPIES table cannot carry a row that points at a document
+
+- **Found:** 2026-09-19, claude/queue-a-new-boss-state-is-twelve-registrations-and-not
+- **Files:** `packages/sim/test/copies-table.ts`, `packages/sim/test/copies.test.ts`
+- **Where:** cloud
+
+The entry that produced `.claude/skills/new-boss-state` asked for a row in the
+called-not-re-derived table pointing at it, and there is no such row to write.
+A `Copy` is `{ call, owner, pattern }`: a regex the owner file must contain and
+no other file may. Twelve registrations spread over eleven files re-derive no
+arithmetic, so any pattern written for them would either match nothing — and
+`copies.test.ts` fails a row whose owner does not contain its own pattern — or
+match the registrations themselves, which are the point rather than the defect.
+
+The pointer went to `CLAUDE.md`'s conventions list and the head of
+`.claude/skills/new-boss`, which is where a lane starting the work actually
+looks, and the skill's own paths are now held by `doc-drift.test.ts`.
+
+What is worth deciding is whether the table should be able to carry a rule
+whose enforcement is a document rather than a regex — a row with a `see` and
+no `pattern`, failing only if the document is gone. That is a real second kind
+of row and it would want the owner's word: it makes the table two things, and
+the reason it is one thing today is that a rule nothing can test is a rule
+that goes quiet.
