@@ -1978,6 +1978,7 @@ rule and are worth naming in the same row.
 ## THE ANTIPHON's frame test is 366 lines and its touch test is 242
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-snakes-gorge-and-shed-have-no-card-because-no-ha (claim: claude/queue-the-antiphons-frame-test-is-366-lines-and-its-to)
 - **Files:** `packages/render/test/antiphon-frame.test.ts`, `packages/render/test/antiphon-touch.test.ts`
 
 Both are at or over the ~250-line ceiling: the frame test at 366 and the touch
