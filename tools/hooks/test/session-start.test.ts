@@ -1,5 +1,5 @@
 import { describe, expect, it } from "bun:test";
-import { belowPin, needsUpgrade, PIN_DIR, WANTED } from "../bun-pin.ts";
+import { belowPin, needsUpgrade, PIN_DIR, pinRefusal, WANTED } from "../bun-pin.ts";
 
 /**
  * The one decision the session-start hook makes that is not a side effect: is
@@ -54,5 +54,33 @@ describe("belowPin", () => {
     expect(text).toContain(".bun-version");
     expect(text).toContain(`npm install bun@1.4.2 --prefix ${PIN_DIR}`);
     expect(text).toContain(`PATH=${PIN_DIR}/node_modules/.bin:$PATH bun run land`);
+  });
+});
+
+/**
+ * What `bun run check` and `bun run land` each say on top of `belowPin`'s own
+ * lines — a first line that names which of theirs did not happen, so a shell
+ * on the wrong bun cannot read either as having quietly passed.
+ */
+describe("pinRefusal", () => {
+  it("says nothing when the running bun is the pin or newer", () => {
+    expect(pinRefusal(WANTED, WANTED, "checked")).toBeNull();
+    expect(pinRefusal("9.0.0", WANTED, "moved")).toBeNull();
+  });
+
+  it("leads with the verb that stopped, over belowPin's own lines", () => {
+    const said = pinRefusal("1.3.11", "1.4.2", "checked")!;
+    expect(said).not.toBeNull();
+    expect(said[0]).toBe(
+      "✗ bun 1.3.11 is below the 1.4.2 this repository is pinned to (.bun-version); nothing was checked",
+    );
+    expect(said.slice(1)).toEqual(belowPin("1.3.11", "1.4.2")!.slice(1));
+  });
+
+  it("says a different verb for a different caller, off the one comparison", () => {
+    const checked = pinRefusal("1.3.11", "1.4.2", "checked")![0];
+    const moved = pinRefusal("1.3.11", "1.4.2", "moved")![0];
+    expect(checked).toContain("nothing was checked");
+    expect(moved).toContain("nothing was moved");
   });
 });

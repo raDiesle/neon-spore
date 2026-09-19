@@ -2199,42 +2199,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A cloud shell's own `bun` is not the pinned one, silently
-
-- **Found:** 2026-09-19, claude/queue-cloud-shell-bun-not-pinned
-- **Taken:** 2026-09-19, claude/queue-a-cloud-shells-own-bun-is-not-the-pinned-one-sil
-- **Files:** `tools/hooks/session-start.ts`
-- **Where:** cloud
-
-`session-start.ts` fetches a pinned bun into `/root/.cache/neon-spore-bun` and
-puts it first on `PATH` for the rest of the session through `$CLAUDE_ENV_FILE`.
-In a session continued after its context was summarized, `$CLAUDE_ENV_FILE`
-read empty and the pinned directory was never on `PATH`: plain `bun` resolved
-to `/root/.bun/bin/bun`, the image's 1.3.11, with nothing on the command line
-or in its output saying so. `bun run check` ran to completion under it rather
-than refusing, and reported 35 failures in `apps/server/test/*` — every one of
-them a real symptom of the exact `ws` gap this file's own doc comment names,
-misread as a regression in an unrelated docs-only change until `bun --version`
-was checked by hand. The pinned binary itself was fine
-(`/root/.cache/neon-spore-bun/bun --version` → `1.4.2`); only the `PATH` that
-was supposed to put it first had silently not been set.
-
-`bun run land` is said to refuse on the same version comparison this file
-opens with, which is the half that would have caught this before a landing —
-but the comparison is against whatever `bun` the shell resolves, and a shell
-that resolves the wrong one earns a false pass here too, not just in `check`.
-
-To do: a comparison to fail loudly on, run at the top of `bun run check` and
-`bun run land` themselves (not only at session start, which a continued
-session may never re-run) — `bun --version` against `WANTED` from
-`bun-pin.ts`, refusing with the fix (`PATH="/root/.cache/neon-spore-bun:$PATH"
-bun run …`) named in the failure, rather than a silent pass under the wrong
-binary. **Asks:** should the refusal live in `tools/check/run.ts` and
-`tools/land/run.ts` directly, or in a shared guard both call — the second
-reads like the shape `bun-pin.ts` already has, but only if a session picking
-this up reads `tools/check` and `tools/land` closely enough to say which of
-the two callers each already goes through.
-
 ## THE WELL's warning ring is empty on the one screen it is drawn on
 
 - **Found:** 2026-09-19, claude/queue-the-well-says-the-word

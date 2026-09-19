@@ -11275,3 +11275,29 @@ plate is on her screen and not his" meant finding every place the dome is
 drawn and showing none of them checks a role.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-cloud-shells-own-bun-is-not-the-pinned-one-sil — the missing half of a refusal that already existed
+
+`bun run land` already refused on a bun below the pin (`toolchain.ts`'s
+`oldBunRefusal`); `bun run check` asked nothing about its own version at all,
+which is exactly the gap the earlier finding fell into. Split the comparison
+out of `oldBunRefusal` into `bun-pin.ts`'s own `pinRefusal(running, wanted,
+verb)` — the file that already owned `belowPin` and `WANTED` — and gave
+`tools/check/run.ts` the same call, first thing, before the workspace-link
+scan it already ran first.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `toolchain.ts`, `bun-pin.ts` and where each is already called, to place the new guard beside a home that already existed rather than a third one |
+| writing | 20 | `pinRefusal`, the two callers, and the tests for both — `session-start.test.ts` for the shared function, a new `toolchain.test.ts` for the sweep bypass `pinRefusal` itself doesn't carry |
+| looking | 0 | none needed |
+| friction | 5 | biome's import sort reordered one line after the edit; read before committing, as usual |
+| landing | 20 | a direct smoke test running `tools/check/run.ts` under the image's own 1.3.11 by its full path, confirming a real refusal and exit 1 rather than trusting the unit tests alone, then `format`, `lint`, the drift tests and the full `check` |
+
+**The bottleneck was proving the fix rather than writing it.** The two
+functions were a small, obvious split once `oldBunRefusal` was read closely;
+what took the time was not trusting that a unit test calling `pinRefusal`
+directly was the same claim as `bun run check` actually refusing, and running
+the real binary to settle it.
+
+*Measured: the rows above are the session's own estimate.*

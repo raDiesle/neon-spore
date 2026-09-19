@@ -105,3 +105,25 @@ export function belowPin(running: string, wanted: string): string[] | null {
     `                    ${land}`,
   ];
 }
+
+/**
+ * What `bun run check` and `bun run land` each print and stop on when the
+ * bun running *them* is below the pin, or `null` when it is fine.
+ *
+ * **The comparison this repeats is `belowPin`'s; what is new is `verb`.** A
+ * shell whose plain `bun` resolves to the image's own, not the one
+ * `session-start.ts` pinned into `PATH`, was the trap on 19 September 2026: a
+ * continued session with `$CLAUDE_ENV_FILE` unread ran `bun run check` under
+ * 1.3.11 and it reported 35 real failures with nothing saying which bun
+ * produced them, because `tools/check/run.ts` asked nothing about its own
+ * version — only `bun run land` did (`toolchain.ts`'s `oldBunRefusal`, which
+ * now calls this). `verb` is what stops — "checked", "moved" — so the two
+ * callers can each say what nothing of theirs happened, off the one
+ * comparison, rather than the check silently passing under the wrong binary.
+ */
+export function pinRefusal(running: string, wanted: string, verb: string): string[] | null {
+  const said = belowPin(running, wanted);
+  if (said === null) return null;
+  const [first, ...rest] = said;
+  return [`✗ ${first}; nothing was ${verb}`, ...rest];
+}

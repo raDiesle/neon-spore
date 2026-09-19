@@ -10,20 +10,18 @@
  * rebase, as *Unknown lockfile version* with no name on it (`bun-pin.ts`).
  */
 
-import { belowPin, WANTED } from "../hooks/bun-pin.js";
+import { pinRefusal, WANTED } from "../hooks/bun-pin.js";
 
 /**
  * The lines a landing prints and stops on when the running bun is below the
  * pin, or `null` when it is fine. A `--sweep` installs nothing and passes:
  * its work reached the trunk under an earlier landing that had already been
- * through this.
+ * through this. `bun run check` asks the same question of itself, off the
+ * same comparison (`pinRefusal`, `tools/check/run.ts`).
  */
 export function oldBunRefusal(running: string, sweepOnly: boolean): string[] | null {
   if (sweepOnly) return null;
-  const said = belowPin(running, WANTED);
-  if (said === null) return null;
-  const [first, ...rest] = said;
-  return [`✗ ${first}; nothing was moved`, ...rest];
+  return pinRefusal(running, WANTED, "moved");
 }
 
 /**

@@ -3,20 +3,34 @@
 /**
  * The preflight `bun run check` runs before the typecheck
  *
- * It reads the workspace globs out of the root `package.json`, finds every
- * member that declares a name, and asks whether `node_modules` has a link for
- * it. One line per missing package and a non-zero exit, which is what stops the
- * typecheck from answering the question wrongly (`installed.ts` says why).
+ * First, which bun is running this: a shell whose plain `bun` resolves below
+ * `.bun-version` reports real test failures with nothing saying they came
+ * from the wrong binary — `bun run land` already refused on this comparison
+ * (`toolchain.ts`), and this is the other caller `pinRefusal` was split out
+ * for (`bun-pin.ts`).
  *
- * It is silent when the install is good, because it runs before every check and
- * a line nobody reads is a line that trains people not to read the next one.
+ * Then it reads the workspace globs out of the root `package.json`, finds
+ * every member that declares a name, and asks whether `node_modules` has a
+ * link for it. One line per missing package and a non-zero exit, which is
+ * what stops the typecheck from answering the question wrongly (`installed.ts`
+ * says why).
+ *
+ * It is silent when both pass, because it runs before every check and a line
+ * nobody reads is a line that trains people not to read the next one.
  */
 
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { pinRefusal, WANTED } from "../hooks/bun-pin.js";
 import { type Member, refusal, unlinked } from "./installed.js";
 
 const ROOT = join(import.meta.dirname, "..", "..");
+
+const oldBun = pinRefusal(Bun.version, WANTED, "checked");
+if (oldBun !== null) {
+  for (const line of oldBun) console.error(line);
+  process.exit(1);
+}
 
 /**
  * A `packages/*` glob, expanded — one level, which is every glob this repo uses.
