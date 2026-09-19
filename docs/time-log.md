@@ -12083,3 +12083,34 @@ for whoever does put it over is written on the page already.
 see there was nothing sized left to do.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-scatter-is-the-wisps-strike-and-its-page-describ — the code was right, the prose wasn't
+
+`body-hit.ts`'s pairing already said so in its own words — "THE WISP's: a
+light rather than a body, so it scatters as lit motes that rise and blink
+out" — and `interiorFor` in `body-interior.ts` confirms a wisp draws as two
+dots alive, never as spores, ruling out the reading where the wisp secretly
+carries them. What SCATTER's own header still called "the bulb" four times
+was a leftover from testing: `creature:break`'s six strike candidates were
+offered "on the slick's and the bulb's hit," the bulb kept `pop` instead, and
+scatter went to the wisp for how it read there — but its prose was never
+carried across with it. Rewrote the header to describe a wisp (a light, not
+a body) and to say plainly that the eleven points it flies motes from are
+borrowed from `body-spores.ts`'s bulb packing for the geometry alone —
+nothing sat at them a beat ago, since a wisp keeps no spores to have sat
+there. The pairing in `body-hit.ts` needed no change; `docs/INDEX.md`'s own
+row already named the wisp correctly.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | the entry, `body-hit-scatter.ts`, `body-spores.ts`, `body-interior.ts`'s `interiorFor`, `body-hit.ts`'s pairing and its own design-history comment, `creatures-split.ts`'s wisp entry |
+| writing | 15 | the header rewrite |
+| looking | 0 | a prose fix with a code-backed answer, not a picture one |
+| friction | 0 | none |
+| landing | 10 | `bunx tsc --noEmit`, `frame.test.ts`/`doc-drift.test.ts`/`index.test.ts`, `format`, `lint`, `bun run queue done`, the commit |
+
+**The bottleneck was tracing the pairing's own history** rather than fixing
+the prose: `body-hit.ts`'s comment on the six candidates was what turned "is
+the code wrong or the prose" into a settled answer instead of a guess.
+
+*Measured: the rows above are the session's own estimate.*

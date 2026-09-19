@@ -1746,31 +1746,6 @@ of row and it would want the owner's word: it makes the table two things, and
 the reason it is one thing today is that a rule nothing can test is a rule
 that goes quiet.
 
-## SCATTER is THE WISP's strike and its page describes a bulb
-
-- **Found:** 2026-09-19, claude/queue-the-indexs-drift-check-reads-a-count-but-not-a-l
-- **Taken:** 2026-09-19, main (claim: claude/queue-scatter-is-the-wisps-strike-and-its-page-describ)
-- **Files:** `packages/render/src/body-hit-scatter.ts`, `packages/render/src/body-hit.ts`, `packages/render/src/body-spores.ts`
-- **Where:** cloud
-
-Turned up by the index's new proper-name check, which wanted to know why the
-row for `body-hit-scatter.ts` named THE WISP when the file never said so. The
-code is unambiguous — `body-hit.ts:120` is `WISP_HIT … strike: scatter` — so
-the row was right and the title line has been given the boss. What is left is
-the header's body, which calls the thing being killed **the bulb** four times
-over: *the bulb is a spore case*, *eleven spheres packed three deep inside
-it*, *well above where the bulb was*. `BULB_HIT` is a different strike
-(`pop`), so both cannot be true.
-
-Either the page describes a kill that moved from the bulb to the wisp and the
-prose was never brought over, or the pairing in `body-hit.ts` is the thing
-that is wrong and the drawing is a bulb's. This lane could not tell which from
-the code, and the picture is the evidence.
-
-To do: settle which body SCATTER belongs to, then make the page and the
-pairing agree. `body-spores.ts`'s eleven pins are the third voice — whichever
-body owns those owns this kill.
-
 ## Unverified at 0c7934d1: THE CURTAIN's jammed rail and lifted hem seen by an eye…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
