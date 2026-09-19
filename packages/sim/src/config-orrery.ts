@@ -117,6 +117,24 @@ export interface OrreryConfig {
    * which is what a thousandth of a turn means everywhere in this game.
    */
   orreryHandMilliPerOrgan: number;
+  /**
+   * **Organs the gap is knocked short of the bottom by when a ring cracks**,
+   * and so the number of detents the pilot's thumb owes before it comes off
+   * (`orrery.ts`'s `seized`).
+   *
+   * Two, which is three turns of the thumb at `orreryHandMilliPerOrgan` — a
+   * couple of seconds of hand while the core is throwing rocks down a column
+   * beside him, and short enough that the pair can say the whole of it in two
+   * words. One would be a tap and the gesture would not read as a gesture;
+   * four is twelve seconds of winding with nothing to decide in it, which is
+   * a chore rather than a fight.
+   *
+   * It is counted **backwards** along the slots, so the thumb's one fixed
+   * sense — clockwise always adds to the slot number (`orrery-hand.ts`) —
+   * carries the gap forward to the bottom on every ring, whichever way that
+   * ring drifts. One direction to say out loud, three times over.
+   */
+  orreryCrackOrgans: number;
 }
 
 /**
@@ -137,4 +155,5 @@ export const ORRERY_DEFAULTS: OrreryConfig = {
   orrerySlowBeats: 2,
   orreryOutBeats: 5,
   orreryHandMilliPerOrgan: 1500,
+  orreryCrackOrgans: 2,
 };

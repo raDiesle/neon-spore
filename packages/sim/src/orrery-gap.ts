@@ -1,17 +1,12 @@
 import { midCol, type SimConfig } from "./config.js";
-import {
-  ORRERY_RINGS,
-  type OrreryState,
-  orreryCoreCol,
-  orreryGapSlot,
-  orreryOrbit,
-} from "./orrery.js";
+import { ORRERY_RINGS, type OrreryState, orreryCoreCol, orreryOrbit } from "./orrery.js";
+import { orreryGapSlot } from "./orrery-beat.js";
 
 /**
  * **Where a gap is on the field**, as opposed to where it is in the beat.
  *
- * Next door is time — which slot of its orbit a gap is in, and whether that
- * slot is the bottom one a shot can pass through. This is the other question
+ * Next door is time (`orrery-beat.ts`) — which slot of its orbit a gap is in,
+ * and whether that slot is the bottom one a shot can pass through. This is the other question
  * the same gap answers: which column of the field it is standing over, which
  * is what the pair *says* to each other and what the core throws a rock down
  * (`orrery-step.ts`).

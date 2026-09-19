@@ -59,6 +59,15 @@ export const SHOT_HAND_POSES: Pose[] = [
   ),
   bossPose(
     "orrery",
+    "seized",
+    "A ring is cracked and stuck. P1 turns the ring until its gap is at the bottom; P2 waits.",
+    // Held with nobody on the controls, which is the point of the state: a
+    // jammed ring does not drift, so the picture stands still until a thumb
+    // goes back on it (`sim/orrery-beat.ts`).
+    { hand: orreryHand, hold: 6 },
+  ),
+  bossPose(
+    "orrery",
     "spitting",
     "A ring gone and the core spitting down its column. P1 holds the cannon on it; P2 fires on the open beat.",
     { hand: orreryHand, hold: 12 },

@@ -1,12 +1,6 @@
 import { NO_BEARING } from "./bearing.js";
-import {
-  ORRERY_RINGS,
-  type OrreryState,
-  orreryAnchors,
-  orreryCoreCol,
-  orreryOrbit,
-  orreryShaftOpen,
-} from "./orrery.js";
+import { ORRERY_RINGS, type OrreryState, orreryCoreCol, orreryOrbit } from "./orrery.js";
+import { orreryAnchors, orreryShaftOpen } from "./orrery-beat.js";
 import { orreryGapCol } from "./orrery-gap.js";
 import { nextInt } from "./rng.js";
 import { NO_SHELL } from "./shell.js";
@@ -20,7 +14,7 @@ import type { World } from "./world.js";
  * It runs on the **beat** and from `stepBoss`, because every number in this
  * fight is one somebody says out loud — which beat the gaps meet on, how many
  * beats until they do. Nothing here decides where a gap is; that is
- * arithmetic over the anchors and it is `orrery.ts`.
+ * arithmetic over the anchors and it is `orrery-beat.ts`.
  *
  * **What it puts on the field, it puts there as ordinary rocks.** A ring that
  * comes off sheds organs and the core spits its own, and both are meteors —
@@ -101,7 +95,12 @@ export function stepOrrery(world: World, b: OrreryState): void {
  */
 function spit(world: World, b: OrreryState): void {
   const cfg = world.cfg;
-  if (b.phase === "rings") return;
+  // **Nothing until a ring is actually off**, which keeps the first crack
+  // quiet: the pair meets the winding gesture on an empty field and learns it
+  // there, and every crack after the first is wound with rocks coming down.
+  // Read off `broken` rather than the phase so that `seized` is silent the
+  // first time and loud the next two without a case for each.
+  if (b.broken === 0) return;
   if (shedding(world, b)) return;
   if (b.spatBeat >= 0 && world.beat - b.spatBeat < cfg.orrerySpitBeats) return;
   if (b.broken < ORRERY_RINGS && orreryShaftOpen(cfg, b, world.beat)) return;
@@ -113,10 +112,52 @@ function spit(world: World, b: OrreryState): void {
 }
 
 /**
+ * **A ring cracks**: the outermost one still standing takes the hit, its gap
+ * is knocked `orreryCrackOrgans` short of the bottom, and it jams there.
+ *
+ * Called from `orrery-shot.ts`, which is the only thing that can do it. The
+ * ring does not come off here — `orreryBreak` does that, and the only thing
+ * that can reach it is the pilot's thumb winding the gap home
+ * (`orrery-hand.ts`). So a landed shot buys the *right* to a gesture rather
+ * than a third of the boss's health, which is what gives this fight a second
+ * verb.
+ *
+ * **The anchor is written, not a position**, exactly as the hand writes one:
+ * while the ring is seized its gap is its anchor and nothing else
+ * (`orreryGapSlot`), so setting `from[ring]` to `orbit - orreryCrackOrgans`
+ * puts the gap that many detents of clockwise thumb short of slot 0. The bank
+ * goes to nought with it — travel earned against the drifting ring is not
+ * change the jammed one owes.
+ *
+ * Nothing about the colour changes yet. The core shows the other colour when
+ * the ring actually comes away, so what the pair reads off it is *rings left*
+ * and not *hits landed*, which is the reading they have had all fight.
+ */
+export function orreryCrack(world: World, b: OrreryState): void {
+  const ring = b.broken;
+  const orbit = orreryOrbit(world.cfg, ring);
+  if (orbit <= 0) {
+    orreryBreak(world, b);
+    return;
+  }
+  const short = Math.max(1, Math.min(orbit - 1, world.cfg.orreryCrackOrgans));
+  b.from[ring] = orbit - short;
+  b.phase = "seized";
+  b.phaseBeat = world.beat;
+  b.windMilli = 0;
+  // The core's cadence restarts on the crack, for `orreryBreak`'s reason: a
+  // rock already half a cadence old would land on top of the first beat of a
+  // gesture the pilot has only just been given.
+  b.spatBeat = world.beat;
+}
+
+/**
  * A ring comes off: the outermost one still standing, its organs loose and
  * falling, and the core showing the other colour from here on.
  *
- * Called from `orrery-shot.ts`, which is the only thing that can do it.
+ * Called from `orrery-hand.ts`, when the thumb has wound a cracked ring's gap
+ * back to the bottom — the shot cracked it (`orreryCrack`) and the hand is
+ * what finishes it.
  */
 export function orreryBreak(world: World, b: OrreryState): void {
   const ring = b.broken;

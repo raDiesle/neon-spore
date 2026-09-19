@@ -6,13 +6,16 @@ import {
   type OrreryState,
   orreryBoss,
   orreryCoreCol,
+  orreryOrbit,
+} from "../src/orrery.js";
+import {
   orreryGapSlot,
   orreryNextOpen,
-  orreryOrbit,
   orreryRingOpen,
   orreryShaftOpen,
-} from "../src/orrery.js";
+} from "../src/orrery-beat.js";
 import { orreryGapCol } from "../src/orrery-gap.js";
+import { orreryRingHeard } from "../src/orrery-hand.js";
 import { orreryStruck } from "../src/orrery-shot.js";
 import { slowing } from "../src/slow.js";
 import { step } from "../src/step.js";
@@ -30,10 +33,14 @@ import { createWorld, type World } from "../src/world.js";
  * boss: that each ring comes round on its own count, that the anchors put the
  * first alignment where the configuration says — a boss that could install
  * itself unbeatable is not a boss — that the shaft is open only when every
- * unbroken ring is, that a shot on such a beat takes the outermost ring and
- * changes the colour the next one needs, that one off the beat costs nothing
- * at all, that the core spits but never down the column the pair has to fire
- * up, and that the naked core refuses a bolt and takes the beam.
+ * unbroken ring is, that a shot on such a beat **cracks** the outermost ring
+ * and the pilot's thumb is what takes it off, that one off the beat costs
+ * nothing at all, that the core spits but never down the column the pair has
+ * to fire up, and that the naked core refuses a bolt and takes the beam.
+ *
+ * The crack and the winding are their own file (`orrery-seize.test.ts`); what
+ * is here is every rule that was already here, read through the second
+ * gesture now standing between a landed shot and a ring coming off (`take`).
  */
 
 const CFG: SimConfig = DEFAULT_CONFIG;
@@ -52,6 +59,32 @@ function rings(world: World): OrreryState {
   const boss = orreryBoss(world);
   if (boss === null) throw new Error("no orrery installed");
   return boss;
+}
+
+/**
+ * **A ring taken, both halves of it**: the shot that cracks it on the beat and
+ * the thumb that winds it home (`orrery-hand.ts`).
+ *
+ * Every rule in this file that was written when a shot alone took a ring is
+ * read through this, so what those cases check has not moved — the ring still
+ * comes off on the beat the shot landed, because the winding is ticks and not
+ * beats.
+ */
+function take(world: World, b: OrreryState, beat: number): void {
+  orreryStruck(world, shot(world, CORE, b.color), beat);
+  wind(world, b);
+}
+
+/** The thumb going round the ring until whatever it is on has come away. */
+function wind(world: World, b: OrreryState): void {
+  const on = (fromMilli: number): void =>
+    orreryRingHeard(world, 1, { kind: "drag", target: "orreryRing", on: true, fromMilli });
+  on(0);
+  let at = 0;
+  for (let i = 0; i < 64 && b.phase === "seized"; i++) {
+    at = (at + 400) % 1000;
+    on(at);
+  }
 }
 
 /** Beats, in ticks, with nobody pressing anything. */
@@ -156,7 +189,7 @@ describe("the shot that takes a ring", () => {
     const b = rings(world);
     const beat = b.anchorBeat + CFG.orreryFirstBeats;
     const was = b.color;
-    orreryStruck(world, shot(world, CORE, was), beat);
+    take(world, b, beat);
     expect(b.broken).toBe(1);
     expect(b.color).not.toBe(was);
     expect(b.brokeBeat).toBe(world.beat);
@@ -197,7 +230,7 @@ describe("the shot that takes a ring", () => {
   it("sheds organs as ordinary rocks when a ring comes off, one a beat", () => {
     const world = open();
     const b = rings(world);
-    orreryStruck(world, shot(world, CORE, b.color), b.anchorBeat + CFG.orreryFirstBeats);
+    take(world, b, b.anchorBeat + CFG.orreryFirstBeats);
     // The first on the break itself, the rest on the beats after it. Three let
     // go on one beat land on one beat in three columns, which is one more
     // than the shield has (the rehearsal lane, 18 September 2026).
@@ -218,7 +251,7 @@ describe("the shot that takes a ring", () => {
   it("holds the core's own fire until the ring has finished coming off", () => {
     const world = open();
     const b = rings(world);
-    orreryStruck(world, shot(world, CORE, b.color), b.anchorBeat + CFG.orreryFirstBeats);
+    take(world, b, b.anchorBeat + CFG.orreryFirstBeats);
     // A spit on the beat after a break landed in the same beats as the organs.
     expect(b.spatBeat).toBe(world.beat);
     beats(world, CFG.orreryDebris - 1);
@@ -266,7 +299,7 @@ describe("the core's own fire", () => {
   it("spits once a ring is off, and never down the column the pair fires up", () => {
     const world = open();
     const b = rings(world);
-    orreryStruck(world, shot(world, CORE, b.color), b.anchorBeat + CFG.orreryFirstBeats);
+    take(world, b, b.anchorBeat + CFG.orreryFirstBeats);
     const shed = world.creatures.length;
     beats(world, CFG.orrerySpitBeats * 4);
     const spat = world.creatures.filter((c) => c.kind === "meteor").length;

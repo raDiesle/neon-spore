@@ -36,7 +36,14 @@ setDefaultTimeout(FRAME_TIMEOUT_MS);
  * leave the cannon's own column (`fire.ts`), the core hangs over exactly one
  * for the whole fight (`orreryCoreCol`), and `spitting` spends itself trying
  * to drive the pilot off it (`orrery-step.ts`) — and nothing on his band said
- * so. That is `MOVE`, and it is the rest of this file.
+ * so. That is `MOVE`, and it is most of the rest of this file.
+ *
+ * **And then the fight grew a second verb.** A shot no longer takes a ring
+ * off — it cracks it, and the pilot's thumb has to wind the gap home before
+ * the shaft opens again (`sim/orrery-step.ts`). That is a moment with one
+ * thing to do in it and no beat to keep, which is the third condition
+ * `boss-cue-read-l.ts` said it did not have: `OPEN`, on the grip, on his seat
+ * and ahead of the column.
  *
  * The states are set rather than played into, as in `boss-cue-throat.test.ts`:
  * the clock under the rings is proved in `sim/test/orrery*.test.ts`, and a
@@ -104,6 +111,44 @@ describe("THE ORRERY", () => {
     b.phase = "naked";
     expect(word(world, "p2")).toBe("BURN");
     expect(word(world, "p1")).toBeNull();
+  });
+
+  it("names the cracked ring, and on the pilot's seat alone", () => {
+    const world = opened();
+    const b = installed(world);
+    b.phase = "seized";
+    const mark = cue(world, "p1");
+    expect(mark?.word).toBe("OPEN");
+    // The kind is the glyph over it, and it is the gesture the thumb makes on
+    // the ring rather than a second reading of the word.
+    expect(mark?.kind).toBe("TURN");
+    // Nothing on hers: the ring is his hand every beat of the fight
+    // (`sim/orrery-hand.ts`), and a word on a seat that cannot answer it is
+    // #34's first rule broken.
+    expect(word(world, "p2")).toBeNull();
+  });
+
+  it("puts the cracked ring ahead of the column", () => {
+    const world = opened();
+    const b = installed(world);
+    b.phase = "seized";
+    world.cannonCol = orreryCoreCol(CFG) + 1;
+    // Nothing a shot does counts while the shaft is jammed, so the carriage
+    // can wait the detents out — and one word at a time is the whole reason
+    // this state was worth adding (`boss-cue-read-l.ts`).
+    expect(word(world, "p1")).toBe("OPEN");
+  });
+
+  it("stands the mark on the ring and not on the hull line", () => {
+    const world = opened();
+    const b = installed(world);
+    b.phase = "seized";
+    const mark = cue(world, "p1");
+    // The grip, which is drawn on his screen on every ring including the one
+    // he cannot read (`showsOrreryGrip`). Where the thumb goes is where the
+    // word stands — #34's second rule.
+    expect(mark?.y).not.toBe(LAYOUT.p1.hullY);
+    expect(mark?.y).toBeLessThan(LAYOUT.p1.hullY);
   });
 
   it("asks the pilot back onto the core's column, and only him", () => {

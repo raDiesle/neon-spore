@@ -27,7 +27,8 @@ import type { World } from "./world.js";
  * once a beat — THE THROAT's rule, which this boss needs for the reason that
  * rule was written down: `orreryNextOpen` answers a question about a beat
  * that has not happened, and a stepper cannot. Each ring carries where its
- * gap stood at `anchorBeat` and the arithmetic does the rest.
+ * gap stood at `anchorBeat` and the arithmetic does the rest, next door
+ * (`orrery-beat.ts`).
  *
  * **Health is the rings, and they go outermost first.** Every landed shot
  * takes the outermost one still standing, so the arithmetic gets *easier* as
@@ -36,29 +37,49 @@ import type { World } from "./world.js";
  * at all, and he fires on her word alone. The core underneath takes nothing
  * but the lance (`orrery-shot.ts`).
  *
- * The clock, the core's own fire and the organs that come off a broken ring
- * are `orrery-step.ts`; what a shot does is `orrery-shot.ts`; the pilot's
- * hand on a ring is `orrery-hand.ts`; the fingerprint is `orrery-hash.ts`;
- * the numbers are `config-orrery.ts`. This file is the shape and the
- * arithmetic every one of them calls.
+ * **A shot does not take a ring off. It cracks it, and the crack is a second
+ * gesture.** The hit jams the ring with its gap short of the bottom, and the
+ * pilot has to wind it home with his thumb before it comes away — so the
+ * fight is two things said in order, *shoot it* and *turn it home*, and it
+ * says them three times with the pilot seeing less of the ring each round.
+ * That is the `seized` phase below, and it is the only one that recurs.
+ *
+ * The arithmetic over the beat — where a gap stands on a beat that has not
+ * happened, and which of those beats a shot gets through — is
+ * `orrery-beat.ts`; where a gap is on the *field* is `orrery-gap.ts`; the
+ * clock, the core's own fire and the organs that come off a broken ring are
+ * `orrery-step.ts`; what a shot does is `orrery-shot.ts`; the pilot's hand on
+ * a ring is `orrery-hand.ts`; the fingerprint is `orrery-hash.ts`; the
+ * numbers are `config-orrery.ts`. This file is the shape every one of them
+ * is written against.
  */
 
 /** Rings, outermost first. Three, and the index is a wire value (`orrery-hash.ts`). */
 export const ORRERY_RINGS = 3;
 
 /**
- * The phases, in the order `orrery-hash.ts` numbers them by, and they only
- * ever advance.
+ * The phases, in the order `orrery-hash.ts` numbers them by.
+ *
+ * **`seized` is the one that comes round again**, three times over, and the
+ * rest still only ever advance. A shot does not take a ring off: it cracks
+ * it, and the ring has to be turned home by hand before it comes off
+ * (`orrery-shot.ts`, `orrery-hand.ts`). So the fight reads *shoot it, then
+ * turn it home*, three times, and the seat that turns it is blinder each
+ * time.
  *
  * - `rings` — three orbits turning and nothing coming down. The pair is
  *   learning what each of them can see.
+ * - `seized` — the outermost ring still standing has been hit. Its gap is
+ *   knocked `orreryCrackOrgans` short of the bottom and it **stops drifting**,
+ *   so the shaft is shut and no shot counts until the pilot's thumb has wound
+ *   it back to the bottom. The gesture, not the beat.
  * - `spitting` — a ring is off, and the core fires a rock down its own column
  *   every `orrerySpitBeats`. The column it fires down is the one the cannon
  *   has to stand in.
  * - `naked` — every ring broken. Only the lance reaches the core.
  * - `out` — the lance stood in it. The boss is beaten and going out.
  */
-export const ORRERY_PHASES = ["rings", "spitting", "naked", "out"] as const;
+export const ORRERY_PHASES = ["rings", "seized", "spitting", "naked", "out"] as const;
 
 export type OrreryPhase = (typeof ORRERY_PHASES)[number];
 
@@ -156,83 +177,15 @@ export function orreryRingBroken(b: OrreryState, ring: number): boolean {
 }
 
 /**
- * Where a ring's gap stands on a beat, as a slot of its orbit: 0 is the
- * bottom of the ring, which is the only slot a shot can pass through.
+ * **Whether that ring is the cracked one**, which is the outermost still
+ * standing and only while the boss is in `seized`.
  *
- * The slots above the bottom are the organs to one side and then the other —
- * a gap at slot `orbit / 2` is at the top of the ring, where a shot from the
- * hull can never reach it, and the picture's job is to make that obvious.
+ * One ring at a time and never two: a shot only ever reaches the outermost
+ * one standing, and while it is cracked the shaft is shut, so nothing can
+ * crack a second. The pair therefore never has two things to turn home, which
+ * is the whole of why this phase is worth having — one hit, one gesture, in
+ * that order.
  */
-export function orreryGapSlot(cfg: SimConfig, b: OrreryState, ring: number, beat: number): number {
-  const orbit = orreryOrbit(cfg, ring);
-  if (orbit <= 0) return 0;
-  const step = b.from[ring] ?? 0;
-  const at = (step + orreryDir(ring) * (beat - b.anchorBeat)) % orbit;
-  return at < 0 ? at + orbit : at;
-}
-
-/** Whether that ring's gap is at the bottom of its orbit on that beat. */
-export function orreryRingOpen(
-  cfg: SimConfig,
-  b: OrreryState,
-  ring: number,
-  beat: number,
-): boolean {
-  return orreryGapSlot(cfg, b, ring, beat) === 0;
-}
-
-/**
- * **The shaft**: whether a shot leaving the top of the core's column on this
- * beat reaches the core.
- *
- * True once every ring is broken, which is not a special case but the same
- * sentence — there is nothing left in the way. What stops a shot then is the
- * core's own armour, and that is `orrery-shot.ts`'s to say.
- */
-export function orreryShaftOpen(cfg: SimConfig, b: OrreryState, beat: number): boolean {
-  for (let ring = b.broken; ring < ORRERY_RINGS; ring++) {
-    if (!orreryRingOpen(cfg, b, ring, beat)) return false;
-  }
-  return true;
-}
-
-/**
- * Beats from `beat` to the next one the shaft is open on, `0` if it is open
- * now, and `-1` if it is not inside `cap`.
- *
- * **Searched rather than solved**, and deliberately: the closed form is the
- * Chinese remainder theorem over three moduli that need not be coprime, which
- * is a page of arithmetic with a case in it for every pair of rings that
- * share a factor — and the first hand laid on a ring would invalidate the
- * lot. A loop over at most `cap` beats asking the question this file already
- * answers cannot be wrong in a way the rest of the fight is not also wrong.
- *
- * This is the one thing player 2's readout is made of, and it is why a gap is
- * a function of the beat rather than a slot stepped once a beat: nothing can
- * be stepped forward twenty-four beats to see where it gets to and then
- * stepped back.
- */
-export function orreryNextOpen(cfg: SimConfig, b: OrreryState, beat: number, cap: number): number {
-  for (let ahead = 0; ahead <= cap; ahead++) {
-    if (orreryShaftOpen(cfg, b, beat + ahead)) return ahead;
-  }
-  return -1;
-}
-
-/**
- * The anchors a ring gets so that every ring's gap is at the bottom of its
- * orbit on `first`, counted from the beat the boss was installed.
- *
- * The only way the fight is guaranteed to have a first window at all: three
- * residues picked apart need not ever come together, and with orbits that
- * share factors they usually do not.
- */
-export function orreryAnchors(cfg: SimConfig, first: number): number[] {
-  const out: number[] = [];
-  for (let ring = 0; ring < ORRERY_RINGS; ring++) {
-    const orbit = orreryOrbit(cfg, ring);
-    const at = (-orreryDir(ring) * first) % orbit;
-    out.push(at < 0 ? at + orbit : at);
-  }
-  return out;
+export function orrerySeized(b: OrreryState, ring: number): boolean {
+  return b.phase === "seized" && ring === b.broken;
 }

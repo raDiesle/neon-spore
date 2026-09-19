@@ -1,8 +1,9 @@
 import type { GuideScene } from "../scene-types.js";
 
 /**
- * THE ORRERY's rehearsal: three shots on three counted beats, every rock the
- * rings shed guarded one a beat, and the beam standing in the naked core.
+ * THE ORRERY's rehearsal: three rings cracked on three counted beats and each
+ * one wound off by hand, every rock the rings shed guarded one a beat, and the
+ * beam standing in the naked core.
  *
  * A core in the middle column with three rings of organs turning around it,
  * one gap each: eight organs on the outer ring, six on the middle turning
@@ -12,8 +13,15 @@ import type { GuideScene } from "../scene-types.js";
  * changes every time a ring comes off. The outer ring is true on both
  * screens, the middle on the pilot's alone, the inner and the core's colour
  * on the navigator's alone (`render/view-role-clocks.ts`): no seat can count
- * the beat by itself, which is the fight. A ring off sheds three of its
- * organs as rocks and the core spits one of its own every four beats down
+ * the beat by itself, which is the fight.
+ *
+ * **A landed shot does not take a ring off; it cracks it.** The gap is
+ * knocked `orreryCrackOrgans` short of the bottom and the ring jams there,
+ * and the shaft stays shut until the pilot's thumb winds the gap home — one
+ * organ a beat, and the detent that lands it at the bottom is what takes the
+ * ring away (`sim/orrery-hand.ts`). So every ring costs two gestures off two
+ * seats: her count and his trigger, then his thumb. A ring off sheds three of
+ * its organs as rocks and the core spits one of its own every four beats down
  * the gap of the innermost ring standing, never down its own column
  * (`sim/orrery-step.ts`). With every ring gone only the beam takes it.
  *
@@ -21,32 +29,42 @@ import type { GuideScene } from "../scene-types.js";
  * beat 12 (`orreryFirstBeats`), so the first shot leaves on beat 11 to be
  * judged on beat 12 — the bolt's sixty-five ticks to the top fall in the
  * next beat (`sim/orrery-shot.ts` reads `world.beat` when it leaves the
- * field). With the outer ring off, six and four meet every twelve beats:
- * beat 24, in the colour the core turned to. With the middle off the inner
- * alone opens every four: beat 28. Naked from there, red is held from beat
- * 29 and the beam stands by beat 32 (`lancePrimeBeats`); it goes out over
- * the five beats after, slowed, and is gone on beat 36. THE SLOW opens on
- * the beat before every alignment, so the three windows are each three
+ * field). The crack lands there and the outer ring is off on beat 14, two
+ * organs of thumb later. **A crack writes only the cracked ring's anchor**, so
+ * the rings still turning keep the arithmetic they had: with the outer ring
+ * off, six and four meet every twelve beats — beat 24, in the colour the core
+ * turned to, and off on beat 26. With the middle off the inner alone opens
+ * every four: beat 28, off on beat 30. Naked from there, red is held from
+ * beat 29 and the beam stands by beat 32 (`lancePrimeBeats`); it goes out
+ * over the five beats after, slowed, and is gone on beat 36. THE SLOW opens
+ * on the beat before every alignment, so the three windows are each three
  * seconds of real time (`docs/decisions.md` #33).
  *
- * **Every rock is warded where it lands**, and there are eleven: nine shed
- * — one a beat from each break — and two spat, on beats 16 and 20; the
- * core is silent on an open beat and while a ring is still coming off. Each
- * ward is a shield strip marked `atBody` five ticks into the beat before the
- * rock reaches the plating, when that rock is the lowest thing on the field
- * (`sim/scene-aim.ts`, `arrivingFirst`), with a guard seven ticks after it.
- * The columns are the seed's and none is authored: the outer ring's organs
- * come down in 6, 2 and 8, the middle's in 6, 3 and 7, the inner's in 6, 7
- * and 3, and the two spat rocks in 7 and 3. The field is clear on beat 45.
+ * **Every rock is warded where it lands**, and there are ten: eight shed —
+ * one a beat from each break, the last ring's third never let go because the
+ * beam had taken the core by then — and two spat, on beats 19 and 23. The
+ * core is silent until a ring is actually off, on an open beat, and while a
+ * ring is still coming off. Each ward is a shield strip marked `atBody` five
+ * ticks into the beat before the rock reaches the plating, when that rock is
+ * the lowest thing on the field (`sim/scene-aim.ts`, `arrivingFirst`), with a
+ * guard seven ticks after it. The columns are the seed's and none is
+ * authored: the outer ring's organs come down in 6, 8 and 2, the middle's in
+ * 6, 3 and 7, the inner's in 6 and 7, and the two spat rocks in 3 and 7. The
+ * field is clear on beat 45.
  *
- * **What the film does not show.** The pilot's hand on a ring
- * (`sim/orrery-hand.ts`) — the pair here take the alignments as the anchors
- * give them, which is the fight as the guide tells it; a film that turned a
- * ring would be a second film. And the picture found the sim wrong before a
- * frame of it was written: the three organs off a ring were let go on one
- * beat and landed on one beat in three columns, one more than the shield
- * has, and the wave failed on the first ring. They come off one a beat now
- * and the core's spit clock restarts at a break (`sim/orrery-step.ts`).
+ * **The hand, and where the film lets go of it.** All three rings are wound
+ * here, and the third is wound in two pieces (`acts`): a rock comes down in
+ * the middle of it, and the hand that winds is the hand that wards. So the
+ * thumb comes off the ring, marks the strip and goes back — and what it had
+ * already turned is banked across the lift (`windMilli`), which is the only
+ * reason the split costs nothing. A clean wind would be the easier picture
+ * and the dishonest one: a pair playing this is interrupted every time.
+ *
+ * **And the picture found the sim wrong before a frame of it was written**:
+ * the three organs off a ring were let go on one beat and landed on one beat
+ * in three columns, one more than the shield has, and the wave failed on the
+ * first ring. They come off one a beat now and the core's spit clock restarts
+ * at a break (`sim/orrery-step.ts`).
  */
 export const THE_ORRERY: GuideScene = {
   ticks: 3000,
@@ -57,11 +75,18 @@ export const THE_ORRERY: GuideScene = {
   acts: [
     // The middle column, and nothing else all fight.
     { tick: 540, control: "cannon", col: 3 },
-    // Beat 12, cyan: the outer ring.
+    // Beat 12, cyan: the outer ring **cracks**, and the shot is only half of
+    // it (`sim/orrery-step.ts`).
     { tick: 660, control: "fireCyan" },
-    // Beat 24, red: the middle ring. The outer ring's first organ lands on
-    // beat 27, the others on 28 and 29.
+    // The other half: the thumb on the ring, two organs at one a beat, and
+    // the detent that brings the gap to the bottom takes the ring off
+    // (`sim/orrery-hand.ts`). The hand comes off on the beat it breaks.
+    { tick: 740, drag: "orreryRing", until: 860 },
+    // Beat 24, red: the middle ring cracks, and it is wound the same way —
+    // this one drawn true on his screen alone.
     { tick: 1380, control: "fireRed" },
+    { tick: 1460, drag: "orreryRing", until: 1580 },
+    // The outer ring's organs land on beats 27, 28 and 29.
     { tick: 1565, control: "shield", col: 0, atBody: true },
     { tick: 1572, control: "guard" },
     // Beat 28, cyan: the inner ring, on her word alone.
@@ -70,14 +95,20 @@ export const THE_ORRERY: GuideScene = {
     { tick: 1632, control: "guard" },
     { tick: 1685, control: "shield", col: 0, atBody: true },
     { tick: 1692, control: "guard" },
+    // And the last winding, on the ring he cannot see at all — **let go of
+    // halfway through**, because a rock is coming down and the hand that
+    // winds is the hand that wards. The bank is kept across the lift
+    // (`orreryWoundMilli`), so the second half pays the organ the first half
+    // did not.
+    { tick: 1700, drag: "orreryRing", until: 1796 },
     // Naked: red held from beat 29, standing by beat 32.
     { tick: 1740, control: "fireRed", until: 2100 },
-    // The rock spat on beat 16 lands on beat 31, the one from beat 20 on 35.
     { tick: 1805, control: "shield", col: 0, atBody: true },
     { tick: 1812, control: "guard" },
+    { tick: 1820, drag: "orreryRing", until: 1850 },
     { tick: 2045, control: "shield", col: 0, atBody: true },
     { tick: 2052, control: "guard" },
-    // The middle ring's organs, beats 39 to 41, and the inner's, 43 to 45.
+    // The middle ring's organs and the inner's, still falling after it is out.
     { tick: 2285, control: "shield", col: 0, atBody: true },
     { tick: 2292, control: "guard" },
     { tick: 2345, control: "shield", col: 0, atBody: true },
@@ -109,7 +140,13 @@ export const THE_ORRERY: GuideScene = {
       text: "TWELVE · ITS COLOUR · CYAN",
       anchor: { at: "control", control: "fireCyan" },
     },
-    { tick: 840, seat: 1, text: "A RING OFF · IT SHEDS THREE", anchor: { at: "boss" } },
+    {
+      tick: 780,
+      seat: 1,
+      text: "IT CRACKS · TURN IT OPEN",
+      anchor: { at: "boss", part: "ring" },
+    },
+    { tick: 960, seat: 1, text: "A RING OFF · IT SHEDS THREE", anchor: { at: "boss" } },
     {
       tick: 1260,
       seat: 2,

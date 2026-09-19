@@ -673,24 +673,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE ORRERY changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-orrery-changes-state-more-than-once-and-asks
-- **Files:** `packages/sim/src/config-orrery.ts`, `packages/sim/src/orrery-gap.ts`, `packages/sim/src/orrery-hand.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-
-It is answered today on the ordinary panel, over 7 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE ORRERY's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -2191,3 +2173,29 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## THE ORRERY's hand can wind the rings into a parity with no alignment in it
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/sim/src/orrery-hand.ts`, `packages/sim/src/orrery.ts`, `packages/sim/test/orrery-hand.test.ts`
+- **Where:** cloud
+
+The three orbits are 8, 6 and 4, which share factors on purpose
+(`docs/spec/bosses.md` §11.21). An alignment exists only when the three
+anchors agree modulo those common factors, and **the pilot's thumb writes an
+anchor** — so a wind of one stray organ can put the next open beat out of
+reach for up to three more organs, and `orreryNextOpen` returns `-1` in the
+meantime. Nothing names this: the navigator's readout goes blank with no
+reason given, and the only way out is to keep turning.
+
+Nothing here is broken — a shot on a shut shaft costs nothing and the ring
+keeps drifting — but a pair whose readout has gone blank cannot tell a
+temporary parity from a bug, and `orreryNextOpen` is the one number that seat
+ever wants. Decide what the readout says when there is no open beat ahead
+(*turn* is the honest answer, and it is also the answer to what the pilot
+should do), and test the parity directly: write an anchor set with no
+alignment and assert the readout says so rather than showing nothing.
+
+`orreryRingHeard` already guards the one case that would have been a real
+defect — `if (b.brokeBeat === world.beat) return;`, a ring wound off and the
+next one wound on in the same beat.

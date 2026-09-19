@@ -974,7 +974,7 @@ describe("the rehearsal for THE ANTIPHON", () => {
 });
 
 describe("the rehearsal for THE ORRERY", () => {
-  it("takes the three rings on three counted beats, wards every rock the rings shed, and takes the naked core with the beam", () => {
+  it("cracks the three rings on three counted beats and winds each one off, wards every rock they shed, and takes the naked core with the beam", () => {
     const wave = WAVES.findIndex((w) => w.guide?.scene === "theOrrery");
     const run = new SceneRun(sceneScript("theOrrery", wave, DEFAULT_CONFIG));
     const seen: string[] = [];
@@ -996,27 +996,28 @@ describe("the rehearsal for THE ORRERY", () => {
           seen.push(e.type);
       }
     }
-    // Three shots judged on beats 12, 24 and 28 — the phase read on the beat
-    // the shot leaves is the phase the previous one produced — and the beam
-    // standing on beat 32 takes the naked core in the tick it stands, so it is
-    // read already out. Eleven rocks turned, none through the hull, and not
+    // Three shots judged on beats 12, 24 and 28, and each of them only a
+    // crack: the phase read on the beat a shot leaves is the phase the
+    // pilot's thumb left behind after winding the last one off, which is why
+    // the second and third read `spitting` and not `seized`. The beam
+    // standing on beat 32 takes the naked core in the tick it stands, so it
+    // is read already out. Ten rocks turned, none through the hull, and not
     // one shot into armour or the wrong colour.
     expect(seen).toEqual([
       "fire 5 cyan @11 rings",
       "fire 5 red @23 spitting",
       "deflect 6 @27",
       "fire 5 cyan @27 spitting",
-      "deflect 2 @28",
-      "deflect 8 @29",
-      "deflect 7 @31",
+      "deflect 8 @28",
+      "deflect 2 @29",
       "fire 5 red lance @32 out",
-      "deflect 3 @35",
+      "deflect 3 @32",
+      "deflect 7 @36",
       "deflect 6 @39",
       "deflect 3 @40",
       "deflect 7 @41",
-      "deflect 7 @42",
       "deflect 6 @43",
-      "deflect 3 @45",
+      "deflect 7 @45",
     ]);
     expect(run.world.boss).toBeNull();
     expect(run.world.creatures).toHaveLength(0);

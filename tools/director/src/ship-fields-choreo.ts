@@ -117,6 +117,7 @@ export const CHOREO_FIELD_GROUP = {
   orrerySlowBeats: "THE ORRERY — three orbits, and neither of you can see all three",
   orreryOutBeats: "THE ORRERY — three orbits, and neither of you can see all three",
   orreryHandMilliPerOrgan: "THE ORRERY — three orbits, and neither of you can see all three",
+  orreryCrackOrgans: "THE ORRERY — three orbits, and neither of you can see all three",
   // CandleConfig — how many steps the glow has, how long the dark takes to
   // fall, and the counts it drifts, turns, eats and goes out on. Every one a
   // count the pair says aloud in the dark (`config-candle.ts`).

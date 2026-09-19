@@ -2,14 +2,8 @@ import { describe, expect, it } from "bun:test";
 import { NO_BEARING, TURN } from "../src/bearing.js";
 import { DEFAULT_CONFIG, type SimConfig } from "../src/config.js";
 import { hashWorld } from "../src/hash.js";
-import {
-  ORRERY_RINGS,
-  type OrreryState,
-  orreryBoss,
-  orreryGapSlot,
-  orreryNextOpen,
-  orreryOrbit,
-} from "../src/orrery.js";
+import { ORRERY_RINGS, type OrreryState, orreryBoss, orreryOrbit } from "../src/orrery.js";
+import { orreryGapSlot, orreryNextOpen } from "../src/orrery-beat.js";
 import {
   NO_RING,
   orreryHandHolds,

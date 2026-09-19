@@ -364,16 +364,21 @@ then six organs taken where they stand, every column an `atBoss` strip
 fire the colour only the navigator is shown; from the third pit what the
 rail rejected falls as bodies and each is taken by `atBody` two beats apart,
 the twins one and then the other, and their own ship last among ships.
-THE ORRERY's (18 September 2026) is the arithmetic and nothing else: the
+THE ORRERY's (18 September 2026) is the arithmetic and the hand: the
 cannon in the middle column all fight, three shots on beats 11, 23 and 27
 to be judged on the alignments the anchors give — 12, 24 and 28 — each in
 the colour the core turned to, the beam held from beat 29 and standing by
-32; and eleven rocks, nine shed one a beat from the broken rings and two
+32; and ten rocks, eight shed one a beat from the broken rings and two
 spat, every one warded by an `atBody` shield the beat before it lands with
 a guard after it, because the seed puts them in columns no authored strip
 reaches. Writing it found the boss unwinnable as built — three organs let
 go on one beat land on one beat in three columns — and the shed is one a
-beat since (`sim/orrery-step.ts`). The pilot's hand on a ring is not in it.
+beat since (`sim/orrery-step.ts`). Since the crack (19 September 2026) each
+of those shots only jams a ring, so each is followed by a wind of two organs
+and the ring comes off on 14, 26 and 30; the last wind is **let go of
+halfway through** to ward a rock and finished after, which is the one thing
+this film shows that no other does — a gesture a pair will be interrupted in
+every time.
 THE SCOUT's, the same day, is the first film of a round flown rather than
 shot, and the first whose acts were searched for rather than authored: a
 burn is a push that keeps going and a turn does nothing to the drift, so

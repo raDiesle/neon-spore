@@ -120,13 +120,17 @@ export {
   orreryBoss,
   orreryCoreCol,
   orreryDir,
-  orreryGapSlot,
-  orreryNextOpen,
   orreryOrbit,
   orreryRingBroken,
+} from "./orrery.js";
+// The same rings asked about a beat that has not happened yet, which is the
+// whole of what the navigator's readout is made of (`orrery-beat.ts`).
+export {
+  orreryGapSlot,
+  orreryNextOpen,
   orreryRingOpen,
   orreryShaftOpen,
-} from "./orrery.js";
+} from "./orrery-beat.js";
 export { orreryGapCol, orreryReach } from "./orrery-gap.js";
 // The pilot's hand on a ring, and the two things the picture asks about it:
 // which ring answers a thumb, and how far it is wound against its next

@@ -1,7 +1,8 @@
 import { MAX_BEARING_STEP, NO_BEARING, TURN } from "./bearing.js";
 import type { SimConfig } from "./config.js";
 import { ticksPerBeat } from "./config-derived.js";
-import { ORRERY_RINGS, type OrreryState, orreryBoss, orreryOrbit } from "./orrery.js";
+import { ORRERY_RINGS, type OrreryState, orreryBoss, orreryOrbit, orrerySeized } from "./orrery.js";
+import { orreryBreak } from "./orrery-step.js";
 import type { Command } from "./types.js";
 import type { World } from "./world.js";
 
@@ -18,7 +19,7 @@ import type { World } from "./world.js";
  *
  * **It writes an anchor, not a position.** `from[ring]` is where that ring's
  * gap stood on `anchorBeat`, and a gap's place on any beat is arithmetic over
- * it (`orrery.ts`). So a hand adds organs to the anchor and the ring goes on
+ * it (`orrery-beat.ts`). So a hand adds organs to the anchor and the ring goes on
  * turning at its own cadence around the new one — which is what keeps the
  * boss's central rule intact while a thumb is on it. A hand that stepped a
  * stored slot would have made `orreryNextOpen` a lie the moment it was asked,
@@ -39,6 +40,21 @@ import type { World } from "./world.js";
  * a third of an organ past its socket is a ring lying about where its gap is,
  * and the shot resolves on the slot. **The look may draw the strain; it must
  * not draw the rotation** (`orreryWoundMilli`).
+ *
+ * **A cracked ring is the same control doing a different job.** A shot jams
+ * the outermost standing ring two organs short of the bottom and stops its
+ * drift (`orrery.ts`'s `seized`), and the thumb winds it home — the detent
+ * that lands the gap on slot 0 is the one that takes the ring off the boss.
+ * So the pilot has one gesture in this fight and it means two things in turn:
+ * *bring the alignment forward* while the rings are turning, and *turn it
+ * home* the moment one cracks. Two words rather than two controls, which is
+ * the whole of what the pair has to learn.
+ *
+ * **Overshoot is impossible and the arithmetic says so.** A bearing step is
+ * capped at half a turn (`MAX_BEARING_STEP`) and a detent costs one and a
+ * half, so one sample can never pay out more than one organ — the gap cannot
+ * be wound past the bottom on the beat it arrives there, and a thumb that
+ * keeps going is winding a ring that has already come off.
  *
  * **And it has no flywheel**, against the design's own animation note. A ring
  * that kept a little of the thumb's motion after the lift would be a gap
@@ -144,6 +160,16 @@ export function orreryRingHeard(world: World, player: 1 | 2, command: Command): 
   if (ring === NO_RING) return;
   const step = (at - was + TURN) % TURN;
   if (step === 0) return;
+  // **The follow-through of the gesture that just took a ring is not a turn
+  // of the next one.** Winding a cracked ring home is a required gesture now
+  // (`orrery.ts`'s `seized`) and a thumb that is still going when the ring
+  // comes away would pour its surplus into the fresh one — which is not free:
+  // the rings align only when their anchors agree modulo the factors their
+  // orbits share, and one stray organ can put the next window out of reach
+  // for three more. So the beat a ring broke on is dead to the hand. The
+  // bearing above is still tracked, so the thumb picks up from where it
+  // actually is rather than jumping when the beat turns over.
+  if (b.brokeBeat === world.beat) return;
   wind(world, b, ring, step <= MAX_BEARING_STEP ? step : step - TURN);
 }
 
@@ -172,4 +198,11 @@ function wind(world: World, b: OrreryState, ring: number, turnMilli: number): vo
   if (orbit <= 0) return;
   const at = ((b.from[ring] ?? 0) + organs) % orbit;
   b.from[ring] = at < 0 ? at + orbit : at;
+  // **And on a cracked ring, the same detent that brings the gap to the bottom
+  // takes the ring off.** A shot jammed it two organs short (`orreryCrack`)
+  // and this is the thumb finishing the job — one gesture, ended by the pilot
+  // rather than by a clock, which is the whole of why the crack is worth
+  // having. Nothing here checks the beat: a seized ring does not drift, so
+  // slot 0 means the same thing on every beat it is looked at.
+  if (orrerySeized(b, ring) && b.from[ring] === 0) orreryBreak(world, b);
 }

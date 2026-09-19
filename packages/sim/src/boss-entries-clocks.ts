@@ -109,7 +109,7 @@ export interface UndertowEntry {
  * can ever reach it up is the middle one, and a wave that moved it would move
  * the cannon's home rather than the boss. No health: it is three rings and a
  * core, and which beat each of them can be taken on is arithmetic over three
- * orbits (`orrery.ts`). The three orbits and the beat they first meet on are
+ * orbits (`orrery-beat.ts`). The three orbits and the beat they first meet on are
  * tuning (`config-orrery.ts`), for THE DIASTOLE's reason said about three
  * cadences instead of two: the pair's job is to *count* them, and a boss whose
  * arithmetic changed per wave is a boss nobody could ever have learned.

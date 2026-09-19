@@ -1,8 +1,12 @@
 import {
+  BEARING_TURN,
   type Color,
   candleBoss,
   candleEating,
+  NO_BEARING,
+  type OrreryState,
   orreryCoreCol,
+  orreryTurnPerTickMilli,
   queenGesture,
   queenMarkCol,
   type TimedCommand,
@@ -124,15 +128,50 @@ export const vaneHand: Hand = (w) => {
 };
 
 /**
+ * **The pilot's thumb on a cracked ring**, one sample a tick.
+ *
+ * The fourth rig with no finger on it, after the desk keyboard, `bun run
+ * frames`'s press line and a rehearsal's ghost thumb — and it turns at the
+ * rate all three of those ask for rather than one of its own:
+ * `orreryTurnPerTickMilli`, one organ a beat, the ring's own drift
+ * (`sim/orrery-hand.ts`; `packages/sim/test/copies-table.ts` carries the
+ * row). A gallery pose that wound faster than a hand can would stand a boss
+ * in a state at a tempo the game never reaches.
+ *
+ * The first sample is the grab: a hand going on has no reference yet, so it
+ * buys nothing and the one after it is the first organ's worth
+ * (`orreryRingHeard`). Between rings the bearing is simply left where it
+ * was, because that is where a thumb that never lifted actually is.
+ */
+function windRing(w: World, b: OrreryState): Omit<TimedCommand, "tick"> {
+  const at =
+    b.handAtMilli === NO_BEARING
+      ? 0
+      : (b.handAtMilli + orreryTurnPerTickMilli(w.cfg)) % BEARING_TURN;
+  return { player: 1, command: { kind: "drag", target: "orreryRing", on: true, fromMilli: at } };
+}
+
+/**
  * THE ORRERY: the core's own colour up the core's own column, as often as
  * the cannon allows — only a shot leaving on a beat every standing ring is
  * open on takes a ring, and one off the beat costs nothing. Naked, the
  * core takes nothing but the lance: the navigator holds the colour down and
  * the cannon still until the lobe is full (`orreryStruck`).
+ *
+ * **And a cracked ring before any of it**, which is the one place this hand
+ * touches a ring at all. While the rings are turning a thumb is offered and
+ * never asked for — bringing an alignment forward is a judgement about where
+ * three gaps are, and a rig that made it would pose a state a pair never
+ * reaches by playing. Once a ring is `seized` there is no judgement left in
+ * it: the shaft is shut, a shot is spent on armour, and winding the gap home
+ * is the only thing on the field that counts (`sim/orrery-shot.ts`). So the
+ * hand winds, and the detent that lands the gap at the bottom is what takes
+ * the ring off and lets the rest of this function run again.
  */
 export const orreryHand: Hand = (w) => {
   const b = w.boss;
   if (b === null || b.kind !== "orrery" || b.phase === "out") return [];
+  if (b.phase === "seized") return [windRing(w, b)];
   const col = orreryCoreCol(w.cfg);
   if (w.cannonCol !== col) return [aim(col)];
   if (b.phase === "naked") {

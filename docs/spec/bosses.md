@@ -3300,7 +3300,8 @@ pair's own sentence, which is what the last part of this fight is made of.
 ## 11.21 THE ORRERY — three orbits, and neither of you can see all three
 
 *Built 17 September 2026 in five lanes — the rings, the hand, the picture, the
-handle and the three rigs that turn it with no finger. The design is [bosses-choreographed](bosses-choreographed.md) §2,
+handle and the three rigs that turn it with no finger, then a sixth on 19
+September that gave it a second verb. The design is [bosses-choreographed](bosses-choreographed.md) §2,
 and this section is the record of what shipped, including five places where it
 shipped differently from the design, each said here by name. **Never watched at
 tempo**, which is the last paragraph.*
@@ -3369,8 +3370,8 @@ outer ring is true on both screens on purpose — a pair with nothing in common
 have nothing to calibrate against, and the ring they can both count is what
 makes the other two worth saying out loud.
 
-**Health is the rings, outermost first.** A landed shot takes the outermost
-ring still standing (`orreryBreak`), so the arithmetic gets *easier* as the
+**Health is the rings, outermost first.** A landed shot reaches the outermost
+ring still standing, so the arithmetic gets *easier* as the
 fight goes on — three gaps, then two, then one — while the blindness gets
 worse: the last gap left is the inner one, which player 1 cannot see at all,
 and he fires on her word alone. Three things have to be true for a shot to
@@ -3381,6 +3382,43 @@ a pair who learned it once has to read it again. A shot on a closed shaft
 costs nothing and is not even a reject — it is armour both screens were
 drawing. A shot in the wrong colour is a colour miss and nothing else
 (`sim/orrery-shot.ts`).
+
+**A shot cracks a ring; the thumb takes it off** (`orreryCrack`,
+`orrery-hand.ts`, 19 September 2026). As first shipped, a landed shot *was* a
+ring — the pair agreed on a beat, he fired, and a third of the boss fell off
+with nothing further asked of either of them. What that left was a fight whose
+whole second control was optional: the hand could bring an alignment forward
+and a pair who never touched it lost nothing but time, which is why
+`boss-cue-read-l.ts` could find no honest moment to ask for it. So a shot now
+knocks the ring's gap `orreryCrackOrgans` 2 short of the bottom and **jams it
+there** — the ring stops drifting, the shaft is shut, and the only thing that
+opens it is the pilot winding the gap home one organ at a time. The detent
+that lands it on slot 0 is `orreryBreak`, and the ring comes away there.
+
+**Two organs, and the number is the whole of the decision.** One would be a
+formality and four is a minute of thumb at a turn and a half each; two is two
+beats of a hand that is also holding a cannon in a column rocks are coming
+down, which is the cost this fight already charges for everything else. And
+the gesture arrives on an empty field the first time: the core is silent until
+a ring is actually *off* (`spit` reads `broken`, not the phase), so the pair
+meets the winding on the first crack with nothing falling, and winds the other
+two with rocks in the air.
+
+**`seized` is a phase rather than a flag**, fourth of five
+(`ORRERY_PHASES`) and carrying no new field of its own — the jam is
+`from[ring]` and `phase`, both already in the fingerprint, so `hashWorld` and
+the wire are untouched and `orreryRing` was already a `DragTarget`. While a
+ring is seized its gap *is* its anchor: `orreryGapSlot` returns the anchor
+unstepped, which is how a ring that is still described by arithmetic over a
+beat can also be standing still.
+
+**And it is the one moment this boss can ask for a word.** THE CUE could say
+nothing here while the rings turned, because when a turn is worth making is a
+function of where the gaps are and a `TURN` lit then would be the alignment
+said out loud (#34's third rule). A cracked ring is the opposite: one thing to
+do, no beat to keep, and the answer is not in the word. `OPEN` stands on the
+grip, on the pilot's seat alone, ahead of the column
+(`render/boss-cue-read-l.ts`).
 
 **It fills its own wave, which is the third departure — and the page asks for
 this one to be said out loud with its reason.** THE DIASTOLE's lane wrote down
@@ -3431,7 +3469,9 @@ thousandths of a turn — exactly as THE CLAW's crank does, and this is the one
 thing in the fight that can move a gap off a beat the pair has already agreed
 on. It is the design's step 10, and the page is right about what it is for:
 the alignment can be *brought forward* rather than waited for, so an
-arithmetic problem becomes a physical one.
+arithmetic problem becomes a physical one. On a ring that is turning it stays
+exactly that — offered, never asked for — and on a cracked one it is the only
+way forward.
 
 **It writes the anchor, not a position**, which is the only way it could exist
 at all on this boss. The hand adds whole organs to `from[ring]` and the ring
@@ -3638,7 +3678,13 @@ is, a shot on the beat takes the outermost ring and changes the colour, one
 off the beat costs nothing, the wrong colour is a colour miss, the organs come
 off, the core spits and never down its own column, the naked core refuses a
 bolt and takes the beam, and the same run fingerprints the same way twice
-(`sim/test/orrery.test.ts`) — and, for the hand, that the first sample after a
+(`sim/test/orrery.test.ts`) — and, for the crack, that a shot on the beat
+jams the ring instead of taking it, that a jammed gap does not drift with the
+beat, that the shaft is shut and a second shot up it costs nothing, that the
+colour does not turn until the ring actually comes away, that two organs of
+thumb take it and one does not, that the core stays quiet through the first
+crack and spits through the next two, and that the hand cannot wind a ring off
+twice on one beat (`sim/test/orrery-seize.test.ts`) — and, for the hand, that the first sample after a
 grab is a reference and turns nothing, that a thumb past the top is read the
 short way round, that a turn shorter than a detent is banked and finished
 later, that the bank survives a lift and moves nothing on its own, that
@@ -3654,7 +3700,15 @@ past the one it is arriving at (`render/test/orrery-shape.test.ts`), and that
 every phase draws on every screen, the flare and the shaft each cost something
 on the beat they are open and nothing on the beat after, and **a state with
 only the inner ring standing puts violet on the navigator's screen and none
-anywhere on the pilot's** (`render/test/orrery-frame.test.ts`). **No eye has
+anywhere on the pilot's** (`render/test/orrery-frame.test.ts`) — and that
+`OPEN` names the cracked ring on the pilot's seat alone, stands on the ring
+rather than the hull line, and comes ahead of the column
+(`render/test/boss-cue-orrery.test.ts`). The STATES sheet carries a card for
+it like any other phase — *a ring is cracked and stuck*, the pilot turns and
+the navigator waits — and the gallery's own hand had to learn the second
+gesture to draw the three cards behind it at all: a rig that could fire but
+not wind left the boss standing in `seized` until its budget ran out
+(`tools/director/src/boss-hands-shots.ts`). **No eye has
 seen it and no pair has fought it**: whether three flattened arcs of organs
 read as three cadences at 26 pixels, and whether a turn and a half an organ is
 heavy enough to be a decision and light enough to be worth making with a rock
@@ -3684,13 +3738,22 @@ bearing round, moves inward with the breaks and is gone with the last of them
 column on beat 9 and never moved; cyan fired on beat 11 to be judged on the
 first alignment, 12; red on 23 for 24, the beat six and four next meet with
 the outer ring gone; cyan on 27 for 28, the inner ring alone; red held from
-29 and the beam standing on 32, out over the five after. Every one of the
-eleven rocks — nine shed, two spat on beats 16 and 20 — is warded by an
+29 and the beam standing on 32, out over the five after. Every one of the ten
+rocks — eight shed, two spat on beats 19 and 23 — is warded by an
 `atBody` shield the beat before it lands with a guard after it, because the
-seed decides their columns and none is one an authored strip reaches. Thirteen
-pages, six the navigator's; none on the hand, which the film does not use. Two
-of them were rewritten on 19 September 2026, when the field learnt to say the
-column: `NAKED · HOLD RED · THE BEAM` lost the verb and became `NAKED · A BOLT
+seed decides their columns and none is one an authored strip reaches.
+
+The crack (19 September 2026) made it a film about a hand as well. Each of
+those three shots now only jams a ring, so each is followed by a wind — two
+organs of thumb, and the ring comes off two beats after the shot rather than
+on it: beats 14, 26 and 30. **The last of the three is wound in two pieces**,
+because a rock lands in the middle of it and the hand that winds is the hand
+that wards; the bank survives the lift (`windMilli`), so the second piece pays
+for the organ the first did not, and a pair watching it is shown the
+interruption rather than a clean turn they will never get. Fourteen pages,
+six the navigator's, and one of them — `IT CRACKS · TURN IT OPEN`, on the
+ring — is the second verb taught where it happens. Two others were rewritten
+on 19 September 2026, when the field learnt to say the column: `NAKED · HOLD RED · THE BEAM` lost the verb and became `NAKED · A BOLT
 IS SPENT`, and `HOLD THE MIDDLE · IT STANDS` became `THE BEAM USES YOUR
 COLUMN` — the reason each seat must stand where it does, which is the thing a
 word on the glass cannot say ([briefings](briefings.md) §7).

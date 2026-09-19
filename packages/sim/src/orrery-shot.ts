@@ -1,6 +1,7 @@
 import { metColor, missedColor } from "./balance.js";
-import { type OrreryState, orreryBoss, orreryCoreCol, orreryShaftOpen } from "./orrery.js";
-import { orreryBreak } from "./orrery-step.js";
+import { type OrreryState, orreryBoss, orreryCoreCol } from "./orrery.js";
+import { orreryShaftOpen } from "./orrery-beat.js";
+import { orreryCrack } from "./orrery-step.js";
 import { openSlow } from "./slow.js";
 import type { Bullet } from "./types.js";
 import type { World } from "./world.js";
@@ -40,7 +41,7 @@ export function orreryStruck(world: World, bullet: Bullet, beat: number): void {
     return;
   }
   metColor(world);
-  orreryBreak(world, b);
+  orreryCrack(world, b);
 }
 
 /**

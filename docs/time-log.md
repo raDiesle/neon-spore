@@ -10149,3 +10149,30 @@ lands from. A word is only as good as the reading behind it, and the reading
 has to come from the step function. Half an hour of `sim/` first, every time.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-orrery-changes-state-more-than-once — one verb short of a fight
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `orrery.ts`, `orrery-step.ts`, `orrery-hand.ts` and `boss-cue-read-l.ts`, whose own prose named the missing condition — *a moment with one thing to do in it and no beat to keep* — and so wrote most of the brief |
+| writing | 75 | the `seized` phase, `orreryCrack`, the wind's detent into `orreryBreak`, the `OPEN` reading, eleven cases in a new test file, three more in the cue's, four spec sections, the gallery's winding hand and its card |
+| looking | 20 | two throwaway probes against a live world, printing every phase transition, every rock's column and every deflect — the only way to see whether the rehearsal was still winnable |
+| friction | 45 | the rehearsal film was left unwinnable and then re-broken twice: acts out of tick order, and a retimed lance that failed the wave with six rocks standing. Then the gallery: the hand could fire but not wind, so three poses timed out on their budget |
+| landing | 25 | splitting `orrery.ts` past its line limit into `orrery-beat.ts`, `index`, `imports:sort`, `check:fast`, the commit, `bun run land --keep` |
+
+**The bottleneck was the rehearsal, and a sim change is not done until its
+film is re-run.** Adding a gesture to a boss silently made its own tutorial
+unfinishable — the pair in the film fired three times and never touched a
+ring, so the first crack jammed the shaft and the wave sat there. Nothing in
+`bun test` said so until the film's exact trace was compared, and the repair
+was three authored winds, one of them split around a rock because the hand
+that winds is the hand that wards. A boss lane that changes what a shot does
+should re-run its film before it writes a line of prose.
+
+The gallery was the same lesson a second time and cheaper: a phase the boss
+now stops in is a phase every rig that drives it has to be able to leave, and
+`orreryHand` could fire but not turn, so the three poses behind the crack sat
+at `seized` until their budget ran out. A state added to a boss is a state
+owed a card and a hand.
+
+*Measured: the rows above are the session's own estimate.*

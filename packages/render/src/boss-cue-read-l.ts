@@ -1,6 +1,7 @@
 import { type OrreryState, orreryCoreCol, priming, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
 import { type Layout, tileCX } from "./layout.js";
+import { orreryRingCircle } from "./orrery-grab.js";
 import { orreryCorePoint } from "./orrery-shape.js";
 
 /**
@@ -51,15 +52,18 @@ import { orreryCorePoint } from "./orrery-shape.js";
  *   the core's column (`spit`, `organCol`), so what a rock asks of the pilot
  *   is *stay where you are while something falls beside you*, and a word
  *   pointing at it would be the field arguing against its own `MOVE`.
- * - **The hand on the ring.** The pilot can turn the outermost standing ring
- *   and bring an alignment forward (`orrery-hand.ts`), and it is the one
- *   control in this fight that is **offered rather than asked for**. When it
- *   is worth a turn is a function of where the gaps are, so a `TURN` that lit
- *   then would be the alignment said out loud; a `TURN` that stood whenever a
- *   ring was turnable would stand for the whole fight, which is the word the
- *   pair learns to stop reading. There is no third condition, and the arm this
- *   control is owed belongs to the lane that gives this boss its states
- *   (`.claude/skills/new-boss` §6.2).
+ * - **The hand on the ring, while the rings are turning.** The pilot can turn
+ *   the outermost standing ring and bring an alignment forward
+ *   (`orrery-hand.ts`), and there it is **offered rather than asked for**.
+ *   When it is worth a turn is a function of where the gaps are, so a `TURN`
+ *   that lit then would be the alignment said out loud; a `TURN` that stood
+ *   whenever a ring was turnable would stand for the whole fight, which is
+ *   the word the pair learns to stop reading. **`seized` is the third
+ *   condition this file said it did not have**, and it is the state the
+ *   §6.2 lane gave the boss for exactly that: a cracked ring is jammed, the
+ *   shaft is shut until it is wound home, and there is then one thing to do
+ *   and no beat to keep. So the word stands only there, and it names the
+ *   gesture and nothing about where the gap is.
  * - **While the lance is filling.** `BURN` goes quiet the moment a colour is
  *   held, for `gripBrakes`' reason: a word over something already being
  *   answered teaches the pair to stop reading the words. What is left on her
@@ -84,7 +88,7 @@ function markAt(
 }
 
 /**
- * THE ORRERY. Two moments, and the second is behind the first.
+ * THE ORRERY. Three moments, and each is one word on one seat.
  *
  * **Nothing at all once it is out.** The lance has stood in the core, THE SLOW
  * is open for the whole of it and the boss is already beaten
@@ -105,6 +109,22 @@ function markAt(
 export function orreryCues(l: Layout, world: World, b: OrreryState): readonly BossCue[] {
   if (b.phase === "out") return [];
   const cfg = world.cfg;
+  // **A cracked ring first, ahead of the column.** Nothing a shot does counts
+  // while the shaft is jammed (`orrery-shot.ts`), so the cannon's column can
+  // wait the two detents out — and one word at a time is the whole reason
+  // this state was worth adding. The mark stands on the grip, which is drawn
+  // on his screen on every ring including the one he cannot read
+  // (`showsOrreryGrip`), so #34's second rule holds on the ring the fight
+  // ends on as well as the one it starts on.
+  //
+  // `OPEN` rather than a second `TURN` under the kind's own glyph, and it is
+  // the word eight other readings already use: turning is what the thumb
+  // does and opening is what it is for, and the gap coming to the bottom is
+  // the shaft opening. It names no column, no colour and no count.
+  if (b.phase === "seized") {
+    const on = orreryRingCircle(l, cfg, b);
+    return on === null ? [] : [markAt(1, "TURN", "OPEN", on.x, on.y, l, 57)];
+  }
   if (world.cannonCol !== orreryCoreCol(cfg)) {
     return [markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 59)];
   }

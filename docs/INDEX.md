@@ -390,6 +390,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/orrery-hand.ts` | **The pilot's hand on a ring**: the one thing in this fight that can move a gap off a beat the pair has… |
 | `packages/sim/src/orrery-shot.ts` | What a shot that left the top of a column does when THE ORRERY is up |
 | `packages/sim/src/orrery-step.ts` | THE ORRERY's clock: the core's own fire, the organs that come off a broken ring, and the going out |
+| `packages/sim/src/orrery-beat.ts` | **THE ORRERY in the beat**: where each gap stands on a beat that has not happened |
 | `packages/sim/src/orrery.ts` | THE ORRERY: whether you can agree on **when** |
 | `packages/sim/src/creature-state-gyre.ts` | **THE GYRE's four**: the two the hub carries and the two a body on its rim does |
 | `packages/sim/src/index-bodies.ts` | **The four bodies that wear something**, narrowed to what render/ and the tools actually ask of each |
@@ -733,7 +734,7 @@ place — the generator keeps whatever is there.
 | `packages/content/src/scenes/the-beatbox.ts` | THE BEATBOX's rehearsal: the tap you do not make is the one that counts |
 | `packages/content/src/scenes/the-undertow.ts` | THE UNDERTOW's rehearsal: the floor bows, and the pair answers it downward |
 | `packages/content/src/scenes/the-antiphon.ts` | THE ANTIPHON's rehearsal: a wrong candidate first, then six organs described across the two seats |
-| `packages/content/src/scenes/the-orrery.ts` | THE ORRERY's rehearsal: three shots on three counted beats, every rock the rings shed guarded one a beat |
+| `packages/content/src/scenes/the-orrery.ts` | THE ORRERY's rehearsal: three rings cracked on counted beats and wound off by hand, every rock they shed guarded |
 | `packages/content/src/scenes-choreographed.ts` | The rehearsals of the bosses designed on `docs/spec/bosses-choreographed.md` |
 | `packages/content/src/scenes-faults.ts` | The rehearsals of the malfunctions — the waves whose lesson is a fault placed on the beat map rather than a… |
 | `packages/content/src/scenes-owed.ts` | The rehearsals that were owed: the films `docs/spec/briefings.md` §3.2 listed as *a film nobody has written* |

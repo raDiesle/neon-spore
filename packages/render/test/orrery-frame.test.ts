@@ -27,7 +27,7 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * THE ORRERY drawn, through all four of its phases and on all three screens.
+ * THE ORRERY drawn, through all five of its phases and on all three screens.
  *
  * The states are **set rather than played into**, for `diastole-frame.test.ts`'s
  * reason with more of it: reaching `naked` honestly is three shots that each
