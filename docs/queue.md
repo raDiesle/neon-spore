@@ -258,52 +258,6 @@ screen the game already has under another name. Either way `sign-in.ts`'s
 `replaceState` stays a replace: pushing there would put a sign-in nobody can
 return to in the stack.
 
-## Choosing P1 in the game's view switch hides the switch itself
-
-- **Found:** 2026-09-18, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, claude/queue-choosing-p1-in-the-games-view-switch-hides-the-s
-- **Files:** `apps/game/src/view.ts`, `apps/game/src/game.css`, `apps/game/src/menu-seats.ts`, `apps/game/src/testing.ts`, `apps/game/src/at-a-desk.ts`, `tools/director/src/stage-transport.ts`
-
-The owner, 18 September 2026: *"When I switch in game test view to p1, I cannot
-switch back to test again. Also make sure in director and for game, when I am in
-solo test mode, I can also test for both players on mobile device."*
-
-**The first half is exact and the cause is two lines.** `view.ts`'s repaint ends
-
-```
-document.body.classList.toggle("player-view", role !== "test");
-```
-
-and `game.css` hides `#viewSwitch` under that class along with `#pauseBtn`,
-`#gear` and `#waveSkip`. So the control that put the page into P1 is the fourth
-thing P1 takes away, and the only way out is `localStorage`. The comment above
-the toggle says the rig belongs to nobody's device, which is right about the
-rig and was never argued about the switch.
-
-Three ways out, cheapest first:
-
-- **Take `#viewSwitch` off the hide list.** One selector. It costs a strip of a
-  player's screen, which is the whole thing `player-view` exists to measure —
-  but a switch small enough to judge the layout around is the ordinary bargain
-  every debug overlay makes.
-- **The menu is the way back.** `menu-seats.ts` already has the card — `test`,
-  BOTH, ONE SCREEN — and `#gear` is hidden by the same rule, so this is only an
-  answer if the back gesture opens the menu (the entry above).
-- **A door on the field**, the way the rig's own is: a press count on something
-  already drawn. Most to write and the least discoverable.
-
-**The second half is a different job**: the seat card's own words are *"for one
-person at a desk"*, and the rig is laid out for one. `at-a-desk.ts` is the
-question the app already asks about the device, asked in one place on purpose,
-and nothing in TEST consults it. What a phone in TEST needs is both bands
-readable at portrait width and the rig reachable without covering the field —
-which is a layout decision, not a flag. The director's side of the same ask is
-smaller: `stage-transport.ts` binds TEST, P1 and P2 and TEST works; what a phone
-cannot do is *reach* that strip, which is the entry at the top of this file.
-
-Split it: the switch that hides itself is one sitting, the phone's TEST layout
-is another.
-
 ## No guide page says which wave it is, and the gap before it is empty
 
 - **Found:** 2026-09-18, claude/task-queue-work-ym2eim
@@ -1946,3 +1900,50 @@ The other candidate is worse and should be said so it is not tried: moving the
 `GUIDE_LOOK` calls out leaves a file that is all plumbing and a file that is all
 one-liners, and splits the two halves of a single `ctx.save()`/`restore()` pair
 across a module boundary.
+
+## A phone in TEST mode has nowhere to put two bands and the rig
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/at-a-desk.ts`, `apps/game/src/testing.ts`, `apps/game/src/game.css`, `apps/game/src/viewport.ts`, `tools/director/src/stage-transport.ts`
+- **Where:** local
+
+The second half of "Choosing P1 in the game's view switch hides the switch
+itself", split off where that entry said to split it. The first half landed on
+19 September 2026: the switch is taken away by the room now rather than by the
+view, so a seat can be left again.
+
+The owner, 18 September 2026: *"Also make sure in director and for game, when I
+am in solo test mode, I can also test for both players on mobile device."*
+
+The seat card's own words are *"Both bands and the test rig, for one person at a
+desk"*, and the rig is laid out for one. `at-a-desk.ts` is the question the app
+already asks about the device, asked in one place on purpose, and nothing in
+TEST consults it. What a phone in TEST needs is both bands readable at portrait
+width and the rig reachable without covering the field — which is a layout
+decision and wants an eye on a phone, not a flag. The director's side of the
+same ask is smaller: `stage-transport.ts` binds TEST, P1 and P2 and TEST works;
+what a phone cannot do is *reach* that strip.
+
+## `apps/game` has two files at the ceiling, and both were stepped around
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `apps/game/src/main.ts`, `apps/game/src/join.ts`, `apps/game/src/shell.ts`, `apps/game/src/shell-menu.ts`, `apps/game/src/menu-seats.ts`
+
+`main.ts` is 248 lines and `join.ts` 243, so `tools/hooks/after-edit-size.ts`
+fires on any edit to either. That is not theory: the lane that took the view
+switch off the room's hands wanted the body class in one of them — `main.ts`
+holds the one line that binds the seat, `join.ts` the one that paints the chip
+the class is about — and put it in `shell.ts` instead, which is a third file
+reading the same status. The seam should be cut while a diff is about it.
+
+**`main.ts`**: the object handed to `bindShell` is about thirty lines of
+wiring — the seat, the tempo, the two ways a wave starts — and the same move has
+already been made once for the menu's half (`shell-menu.ts`, *wiring, not
+order*). A second file beside it, built from the pieces `main.ts` already holds
+and handed straight to `bindShell`, leaves `main.ts` a list of bindings.
+
+**`join.ts`**: the corner chip is a whole control with one job — its text, its
+three classes, its click, and the paragraph saying why it is gone while there is
+no room — and nothing else in the file touches it. It comes away the way
+`menu-seats.ts` came out of `menu-view.ts`: about fifteen lines, and it is also
+the natural home for the body class `shell.ts` is carrying.

@@ -58,6 +58,8 @@ export function bindViewSwitch(onChange: (role: ViewRole) => void): ViewSwitch {
   const paint = (): void => {
     for (const b of buttons) b.el.classList.toggle("on", b.role === role);
     // The test rig belongs to nobody's device, so it goes away with the mode.
+    // **The switch itself is not rig** and does not go with it: it is the way
+    // back off a seat, and it took itself away for a fortnight (`game.css`).
     document.body.classList.toggle("player-view", role !== "test");
   };
 
@@ -74,4 +76,18 @@ function restore(): ViewRole {
     // Ignored, same reason as above.
   }
   return "test";
+}
+
+/**
+ * Whether the room holds the seat — the one thing that takes the switch off
+ * the screen (`game.css`).
+ *
+ * A phone in a room was dealt its seat on arrival, so the switch there is a
+ * second picker whose other two buttons send that device's touches nowhere.
+ * Solo at a desk nobody dealt anything, and the switch is how a person leaves
+ * P1 again; the way out of a *room* is LEAVE ROOM, a row on the front page of
+ * the menu. Called off every status the room sends (`shell.ts`).
+ */
+export function roomHasTheSeat(on: boolean): void {
+  document.body.classList.toggle("in-room", on);
 }

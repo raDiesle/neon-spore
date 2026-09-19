@@ -9863,3 +9863,31 @@ before, so the mode it was standing in for was gone and the collision it was
 sized for could not happen.
 
 *Measured: 3 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*
+
+## 2026-09-19 — queue-choosing-p1-in-the-games-view-switch — the room, not the view
+
+P1 was a door that locked behind whoever walked through it: the view switch went
+away with the test rig, and the seat cards left as the way back live on the
+menu's rig page, three undocumented presses of the spore away. The switch is not
+rig — it is the way back off a seat — so what takes it away is the room, which
+dealt the seat in the first place. `body.in-room` replaces `body.player-view` on
+that one selector, `roomHasTheSeat` puts the class on and takes it off again as the
+room's status says, and LEAVE
+ROOM on the menu's front page stays the way out of a room.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | the entry, `game.css`, `view.ts`, `menu.ts`, `menu-view.ts`, `menu-seats.ts`, `menu-link.ts`, `join.ts` and the 3 September commit that hid the switch |
+| writing | 20 | one selector split in two, `roomHasTheSeat`, one line of `shell.ts`, and `view-switch.test.ts` rewritten the other way round |
+| looking | 0 | none: the rule is a stylesheet and a body class, and the tests read both |
+| friction | 10 | `main.ts` at 248 and `join.ts` at 243 both refuse an edit, so the body class went to `shell.ts` and the seam was queued |
+| landing | 15 | the inverse run that proves the test catches it, `check:fast`, the two findings and the commit |
+
+**The bottleneck was reading `menu-view.ts` far enough to find that the seat
+cards are behind three presses of the spore.** The entry's own cheapest option
+was to drop the switch from the hide list, and that would have re-made the trap
+the 3 September commit was written to prevent; what ruled it out — and reframed
+the entry — was seeing that the "way back" it assumed existed is on a page the
+game never mentions.
+
+*Measured: the rows above are the session's own estimate.*

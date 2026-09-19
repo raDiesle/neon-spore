@@ -16,6 +16,7 @@ import type { CommandSource } from "./relay.js";
 import type { RunState } from "./run-state.js";
 import { hasMotionChoice, readSettings } from "./settings.js";
 import { menuWiring } from "./shell-menu.js";
+import { roomHasTheSeat } from "./view.js";
 
 /**
  * Everything around the field: the menu, the room screen, the bad-line card
@@ -113,6 +114,8 @@ export function bindShell(p: ShellParts): Link {
       if (status.state !== "solo" && status.room !== "") {
         rememberRoom(status.room, Date.now());
       }
+      // A room deals the seat, so the switch that leaves one goes (`view.ts`).
+      roomHasTheSeat(status.state !== "solo");
       joinScreen?.update(status);
       menu?.update(status);
       hold.update(status);

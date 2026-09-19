@@ -504,16 +504,31 @@ body:is([data-intro="on"], [data-hello="on"]) .key-hint {
   color: #9c8fd6;
 }
 
-/* A player's device carries no test rig. The view switch is part of it: the
-   menu's seat cards are how a seat is chosen now, and on a phone the room has
-   already handed one out — so tapping the seat this device was not given only
-   sends its touches nowhere, silently, because the mode decides what answers a
-   touch (`view.ts`). The way to the desk view is still the menu's third seat
-   card, ONE SCREEN, so nothing is stranded by hiding this. */
+/* A player's device carries no test rig. */
 body.player-view #pauseBtn,
 body.player-view #gear,
-body.player-view #viewSwitch,
 body.player-view #waveSkip {
+  display: none;
+}
+
+/* The view switch is not rig: it is the way back off a seat. So what takes it
+   away is the room, not the view.
+
+   It went with the rig on 3 September 2026, on the reading that the menu's seat
+   cards choose the seat now and a room has already dealt one, so a switch is a
+   second picker whose other two buttons only send this device's touches
+   nowhere, silently, because the mode decides what answers a touch (`view.ts`).
+   The second half is true and the first was not: solo at a desk nobody dealt
+   anything, and P1 was a door that locked behind whoever walked through it —
+   the switch was the fourth thing P1 took away, and the seat cards it left as
+   the way back are on the rig page, which opens on three presses of the spore
+   with nothing on the screen saying so (`menu-view.ts`). The owner, 18
+   September 2026: *when I switch in game test view to p1, I cannot switch back
+   to test again.*
+
+   In a room it still goes, for the reason it always did — and there the way
+   out is LEAVE ROOM, a row on the front page of the menu the ☰ opens. */
+body.in-room #viewSwitch {
   display: none;
 }
 
