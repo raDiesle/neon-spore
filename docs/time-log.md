@@ -11247,3 +11247,31 @@ took running the file alone and watching it fail completely, not flakily, to
 ask which `bun` was answering.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-drawn-dome-is-on-both-screens-and-a-reading — a licence built on the wrong gate
+
+THE CAIRN's reading cited `showsShield` to explain why a `GUARD` word would
+have hidden a column from the pilot. It gates the shield strip alone;
+`drawHull` draws the dome to both screens with no role test, and THE WELL's
+ring does the same. Corrected the bullet, marked both `showsShield` and
+`showsCannon` in `view-role.ts` as gating a strip rather than a picture, and
+found that the two open entries asking for a row in `purity.test.ts` for
+exactly this kind of rule can't have one: that file's `GUARDED` list is
+`sim/src` and `content/src` only, and the rule lives entirely in `render`.
+Filed as its own entry rather than guessed at.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 35 | `boss-cue-read-q.ts`'s five silences, then every `showsShield` call site, `hull.ts`, `shield.ts`, `field-pose.ts` and `well-ship.ts` to confirm the dome is drawn with no role test anywhere it is drawn |
+| writing | 20 | the corrected bullet, the two doc comments in `view-role.ts`, and the queue entry for the `purity.test.ts` gap |
+| looking | 0 | none needed: a comment correction, not a picture |
+| friction | 15 | `purity.test.ts`'s `GUARDED` array reads like sim's own concern until you check what it actually scans — the instruction to add a row there was two entries deep before either one would have failed loudly |
+| landing | 15 | `format`, `lint`, the drift tests, and the full `check` |
+
+**The bottleneck was that the wrong reading looked exactly like a right one.**
+`showsShield` really does split the two screens, just not the way the sentence
+used it — the fix took longer to trust than to write, because disproving "the
+plate is on her screen and not his" meant finding every place the dome is
+drawn and showing none of them checks a role.
+
+*Measured: the rows above are the session's own estimate.*

@@ -2272,37 +2272,6 @@ Three answers, and they are different work:
    wardable (`isWardable` is false for a slick and a bulb), so the dome and its
    trigger are dead for the whole wave.
 
-## The drawn dome is on both screens, and a reading page argues that it is not
-
-- **Found:** 2026-09-19, claude/queue-the-well-says-the-word
-- **Taken:** 2026-09-19, claude/queue-the-drawn-dome-is-on-both-screens-and-a-reading
-- **Files:** `packages/render/src/boss-cue-read-q.ts`, `packages/render/src/shield.ts`, `packages/render/src/hull.ts`, `packages/render/src/view-role.ts`
-
-THE CAIRN's reading licenses one of its five silences like this: *the plate is on
-her screen and not his (`showsShield`), so a `GUARD` that went out when the dome
-was under a rock would hand him the column he is never shown.*
-
-`showsShield` does not say that. It gates the **band** — player 2's half of the
-panel, its strip and its lobes (`band.ts`, `band-lobes.ts`, `slabs.ts`,
-`touch-band.ts`) — and nothing else. The dome itself is a swelling of the hull
-membrane: `drawHull` calls `drawShieldRim` unconditionally, `rimSpan` has no role
-test, `LobePositions` is built once per frame from the pose with no role in it,
-and THE WELL's own ring does the same (`drawWellShield`). **Both seats are drawn
-where the plate is standing, on every wave in the game.**
-
-The silence THE CAIRN reaches is probably still right, but the reason under it is
-not the one written down, and a reading page is exactly the kind of file a later
-lane copies an argument out of. Two things to do:
-
-1. Correct the sentence in `boss-cue-read-q.ts`, and say what the real licence
-   is — the plate's *column* is drawn to both, what is player 2's alone is the
-   strip that moves it and therefore the intention.
-2. Put the distinction somewhere it can be found: `view-role.ts`'s header lists
-   its predicates as *what that seat is allowed to be shown*, and the two
-   `shows` that gate a panel rather than a picture are not marked as such. One
-   line each, and a row in `purity.test.ts`'s table of rules that must be called
-   rather than re-derived.
-
 ## Unverified at 05c48636: the ring's picture at BEND=1.7, and whether the pilot's…
 
 - **Found:** 2026-09-19, claude/queue-the-well-says-the-word
@@ -2423,3 +2392,26 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `purity.test.ts`'s table cannot carry a render-only rule
+
+- **Found:** 2026-09-19, claude/queue-the-drawn-dome-is-on-both-screens-and-a-reading
+- **Files:** `packages/sim/test/purity.test.ts`
+
+Two open entries in this file each say to add a row to `packages/sim/test/purity.test.ts`'s
+table for a rule about `packages/render` — *the plate's column is drawn to both
+screens, `showsShield` only gates the strip that moves it* (this entry's own
+fix, landed beside it) and *`role === "p2" ? 2 : 1` must be called as
+`seatOf`, not re-derived*. Neither row can go there: `GUARDED` in that file is
+`["packages/sim/src", "packages/content/src"]`, and every predicate and every
+call site named by both entries lives in `packages/render` or `apps/game`,
+outside it. A row added anyway would match nothing and pass silently, which
+is worse than no row.
+
+This entry's own fix went into `view-role.ts`'s doc comments instead, which is
+the whole of what a cloud session can verify from source. The `seatOf` entry
+is still open with the same gap: either wants a second, `packages/render`-scoped
+table with its own `GUARDED`, in a new render-side test file, or `purity.test.ts`
+is the wrong name for what CLAUDE.md calls "the table of rules that must be
+called, not re-derived" and the phrase should point at whichever file ends up
+holding it.

@@ -78,11 +78,13 @@ const HALF_H = 0.66;
  *   seven rocks able to be in the air at once, a frame on one of them would say
  *   that one is the dangerous one when what is dangerous is that there are
  *   several. The dome and the trigger are the guide's, and they stay written.
- * - **The trigger's own beat.** The plate is on her screen and not his
- *   (`showsShield`), so a `GUARD` that went out when the dome was under a rock
- *   would hand him the column he is never shown. BULB QUEEN's `GUARD` says
- *   nothing about *when* for this reason (`boss-cue-read.ts`); here there is no
- *   word at all, because the body under it is an ordinary rock.
+ * - **The trigger's own beat.** The dome is drawn to both screens alike —
+ *   `drawHull` calls `drawShieldRim` with no role test, and THE WELL's own
+ *   ring does the same. What `showsShield` gates is her strip, not the
+ *   picture: the plate's column is not a fact hidden from him. So a `GUARD`
+ *   here would not be handing him anything he cannot already see, and the
+ *   silence is not a second reason but **The ward**'s, said again: no boss's
+ *   reading cues an ordinary body, and the body under this dome is one.
  */
 export function cairnCues(l: Layout, world: World, s: CairnState): readonly BossCue[] {
   if (s.units <= 0) return [];

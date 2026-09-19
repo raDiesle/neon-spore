@@ -29,6 +29,11 @@
  */
 export type ViewRole = "p1" | "p2" | "test";
 
+/**
+ * Whose **strip** the cannon's lane is on — the band a thumb can reach, not
+ * the muzzle itself: `drawHull` draws the swelling on both screens alike, so
+ * this gates a control, not a picture (`band.ts`, `touch-band.ts`).
+ */
 export const showsCannon = (role: ViewRole): boolean => role !== "p2";
 /**
  * *Whether the key is turned over* — THE CODEX's shimmer across the field and
@@ -43,6 +48,14 @@ export const showsCannon = (role: ViewRole): boolean => role !== "p2";
  * (`sim/codex.ts`).
  */
 export const showsCodex = (role: ViewRole): boolean => role !== "p2";
+/**
+ * Whose **strip** raises the shield — not the dome: `drawHull` calls
+ * `drawShieldRim` with no role test, and THE WELL's ring does the same, so
+ * both screens draw the plate wherever it stands. This gates the band's
+ * shield strip alone (`band.ts`, `touch-band.ts`), which is why a reading
+ * cannot cite it to say a seat cannot see the plate — only that the other
+ * seat cannot move it.
+ */
 export const showsShield = (role: ViewRole): boolean => role !== "p1";
 /**
  * *Where* — which side the queen's next rock drops from, and which of her two
