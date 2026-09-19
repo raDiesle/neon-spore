@@ -2113,3 +2113,35 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## `supervise-stop.test.ts` goes red under a full sharded run and green on its own
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `tools/dev/test/supervise-stop.test.ts`, `tools/dev/supervise.ts`
+- **Where:** cloud
+
+`bun run check` failed one shard on *"is gone, and so is its child, once it has
+been asked to stop"* — `expect(alive(child)).toBe(false)` received `true` —
+during a 67-shard run on a lane whose diff deleted eighteen lines of
+`docs/queue.md` and touched nothing else. The same file run alone passes in
+50ms. So the test is red as a function of machine load, not of the tree.
+
+The test's own comment says why it believes it needs no polling: *"The
+supervisor waits for the child before leaving, so by the time its own exit has
+been observed the child is already gone."* That is the claim to check, and
+there are only two ways it goes wrong. Either `supervise.ts` does not in fact
+await the child on every path out — in which case the test has found a real
+bug and the fix is in the supervisor, and the test is right to be strict — or
+it does, and what is racing is `alive()`: a pid whose process has exited is
+still signalable until it is reaped, so `kill(pid, 0)` can answer for a zombie
+whose parent has not yet been scheduled to wait on it. Under sixty-seven
+concurrent shards that scheduling delay is exactly what grows.
+
+To do: read `supervise.ts`'s exit paths first and settle which of the two it
+is, because the fixes are opposite. If the supervisor has a path that leaves
+without awaiting, fix the supervisor. If it does not, the test is asserting
+something `kill(pid, 0)` cannot tell it, and the honest assertion is that the
+child is gone **within** a bound — a short poll with a named deadline, and a
+comment saying it is waiting for the reap and not for the exit. Do not simply
+widen the timeout: the file's `setDefaultTimeout` is already measured from
+this case, and a longer one would hide whichever of the two this is.
