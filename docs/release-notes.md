@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 71ef6c66 — Pull main.ts and join.ts back off the 250-line ceiling
+
+Both files had been stepped around once already — a body-class binding landed in shell.ts instead of either, a third file reading the same status — and the queue entry named exactly what to pull and which existing extraction to pull it the way of.
+
 ## 2026-09-19 · 2f5f0a8b — Split THE GAUGE's reading off boss-cue-read-e.ts onto its own page
 
 boss-cue-read-e.ts had grown to three readings — THE MIRROR, THE MAZE and THE GAUGE — after THE GAUGE's own reading grew from one arm to three when the round gained its jam and its bind. It is now boss-cue-read-w.ts, the next unclaimed page letter (the finding's own -f.ts had since been spent on THE WARDEN), with the convention the recent sibling splits established: its own file-level doc comment addressed to its own fight, its own copy of the markAt builder, and boss-cue.ts's import and switch repointed at it. THE MIRROR and THE MAZE stay on page e.
