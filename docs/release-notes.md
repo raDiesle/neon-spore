@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 6db42a92 — Give --unverified a second door after a landing forgets it
+
 ## 2026-09-19 · 271d8096 — Measure whether a lib list clears the drift check's restriction
 
 ## 2026-09-19 · 0c445730 — Give reconciling the trunk its own command
