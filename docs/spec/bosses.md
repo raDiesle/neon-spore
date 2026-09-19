@@ -5711,6 +5711,40 @@ the gone, and the jolt's reset (fifteen). Nothing is timed on a call
 (`CLAUDE.md` rule 5): steps 1, 3 and 13 give 900 ms for a number or a
 column to be said, and the frame counts whether or not anything is.
 
+**The words** (`render/src/boss-cue-read-c.ts`, 19 September 2026, beside THE
+LEAD's and THE DIASTOLE's). Three, and they are about the **window** and never
+about which socket. `PRESS` / `FIRE` on the lock her screen already draws over
+the column the next throw lands in, which is the live part's own column: a mark
+there says *now* and nothing she was not shown. `HOLD` / `BURN` in its place for
+the last part, which is not thrown at all — the frame winds up and only the beam
+standing in that column ends the fight — and the verb changing is the whole of
+what the cue is for. Both shipped with the reading.
+
+**What it shipped without is the movement under them.** Every bolt and every
+beam leaves the column the cannon is standing in, and the cannon is the pilot's
+(`content/src/controls.ts`); `scuttleStruck` is a no-op in any other column, said
+for the wrong colour and *unsaid* for the wrong column. So this fight is two
+presses of hers over one slide of his, and the field had never named the slide.
+In a cycle it still may not: the live socket is hers alone and the part hanging
+beside it is one the design says cannot be taken, so a `MOVE` on his hull would
+be her lock read out on his screen, and its silence the same leak by
+subtraction — THE LEAD's finding, one section up. What changes there is **hers**:
+`FIRE` now waits until the cannon is under the live part, because the lock and
+the cannon are both already on her screen and a bolt spent up another column is
+the press this family exists to stop offering. The lock stays drawn throughout,
+so the window she is racing is never taken away with the verb.
+
+**On the wind-up it must name it, and that is the one word here that decides the
+fight.** One part is left, which is what the wind-up *is*; the slab he is shown
+carries that one plate and the hanging part on its thread (`showsScuttleCount`),
+so there is nothing to subtract by naming its column; and the window is
+`lancePrimeBeats` and a beat of slack, every beat of which her fill is spending.
+So `CARRY` / `MOVE` on the cannon, his, until he is under it. Nothing is said for
+a thrown part in either direction: a rock wants her plate and his guard and a pod
+his maw, and all three are the wave's ordinary answers to an ordinary arrival.
+Proved in `render/test/boss-cue-clocks.test.ts`, his silence through a cycle with
+it.
+
 **The rehearsal** (`content/src/scenes/the-scuttle.ts`, 18 September
 2026, thirteen pages over 2,900 ticks): the first part is let hang and
 thrown — a rock over column 5, warded thirteen beats later — and every
@@ -5727,7 +5761,10 @@ Seed 17 is the one thing chosen: a seed that throws a pod, or lets a twin
 fall through a live column, is a film that fails the wave. The guide's two
 halves were swapped to the split the frame draws — the count is the
 pilot's, the live part the navigator's — and the twins begin *from*
-twelve, not under it.
+twelve, not under it. Its *hold cyan on it* page came out when the beam's
+colour turned out never to be read, and says that rule instead; the slide
+under the last part is the field's word now, so the strip at 2285 is what the
+word asks for rather than a page.
 
 **Never watched at tempo.** What the tests say is the mechanism: it comes
 in full with its pods sown and nothing on the field; it holds its wave and

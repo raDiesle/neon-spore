@@ -5,6 +5,7 @@ import {
   type DiastoleState,
   type LeadState,
   type ScuttleState,
+  scuttleSocketCol,
   startWave,
   step,
   ticksPerBeat,
@@ -140,19 +141,66 @@ describe("THE LEAD", () => {
 });
 
 describe("THE SCUTTLE", () => {
-  it("marks the live part while one hangs, and the beam when it winds up", () => {
+  /** Socket 1 hanging and live, with the cannon wherever the case wants it. */
+  function hanging(at?: number): { world: World; s: ScuttleState; col: number } {
     const world = opened("scuttle", 3);
     const s = installed<ScuttleState>(world, "scuttle");
     s.live = 1;
     s.loose = [1];
     s.windBeat = -1;
     s.downBeat = -1;
+    const col = scuttleSocketCol(CFG, 1);
+    world.cannonCol = at ?? col;
+    return { world, s, col };
+  }
+
+  it("marks the live part while one hangs, and the beam when it winds up", () => {
+    const { world, s } = hanging();
     expect(word(world, "p2")).toBe("FIRE");
 
     s.windBeat = world.beat;
     expect(word(world, "p2")).toBe("BURN");
   });
+
+  it("offers her no bolt she cannot spend, and tells him nothing either way", () => {
+    const { world, col } = hanging(0);
+    // A bolt leaves the cannon's column, and `scuttleStruck` is unsaid in any
+    // other one, so the verb waits. The lock is still drawn, so the window she
+    // is racing is not taken away with it (`scuttle-draw.ts`).
+    expect(word(world, "p2")).toBeNull();
+    // And the live socket is hers alone (`showsScuttleLive`): a `MOVE` here
+    // would be her lock on his screen, and its silence the same leak by
+    // subtraction, so he is told nothing at either position.
+    expect(word(world, "p1")).toBeNull();
+    world.cannonCol = col;
+    expect(word(world, "p2")).toBe("FIRE");
+    expect(word(world, "p1")).toBeNull();
+  });
+
+  it("sends him to the last part's column, the only column his slab has left", () => {
+    const { world, s, col } = hanging(col0(scuttleSocketCol(CFG, 1)));
+    s.windBeat = world.beat;
+    // One part left is what the wind-up *is*, so the slab he is shown has one
+    // plate on it and nothing is subtracted by naming its column
+    // (`showsScuttleCount`). The window is the fill and a beat of slack, all of
+    // which her beam is spending.
+    const his = cue(world, "p1");
+    expect(his?.word).toBe("MOVE");
+    expect(his?.kind).toBe("CARRY");
+    expect(his?.x).toBe(tileCX(LAYOUT.p1, world.cannonCol));
+    expect(word(world, "p2")).toBe("BURN");
+    // Standing there already, there is nothing to say to him and her fill is
+    // still the whole of what is left.
+    world.cannonCol = col;
+    expect(word(world, "p1")).toBeNull();
+    expect(word(world, "p2")).toBe("BURN");
+  });
 });
+
+/** Any column but this one, for a case about the cannon being in the wrong place. */
+function col0(col: number): number {
+  return col === 0 ? 1 : 0;
+}
 
 describe("THE DIASTOLE", () => {
   it("says nothing at all while the pair is holding two counts", () => {

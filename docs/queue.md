@@ -886,24 +886,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE SCUTTLE: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-scuttle-the-field-says-the-word-and-the-brie
-- **Files:** `packages/content/src/waves/act-7e.ts`, `packages/content/src/scenes/the-scuttle.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It says `BURN` while it winds up and `FIRE` on the hanging part, which is
-what one lane could reach and not the whole fight.
-Its briefing is a 13-page rehearsal (`packages/content/src/scenes/the-scuttle.ts`).
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE SCUTTLE changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1323,6 +1305,15 @@ DIASTOLE, THE ORRERY, THE LEAD) from the three that are about a thing on the
 field (THE THROAT, THE LEDGER, THE SCUTTLE), as `boss-cue-read-c.ts` and a new
 `-i.ts`, with `cuesOf`'s switch in `boss-cue.ts` pointed at both. `bun run
 check` proves it; no test names the file.
+
+**19 September 2026, `claude/queue-the-scuttle-says-the-word`:** THE THROAT and
+THE ORRERY had already gone to pages eleven and twelve, and THE LEDGER went to
+page fifteen that morning, so three are left and the file is at 229 lines rather
+than 245. The seam the entry names is gone with them: the three that are left —
+THE LEAD, THE SCUTTLE, THE DIASTOLE — are all about a count nobody may be given.
+What is still true is the ceiling: twenty-one lines for three arguments, and the
+last two lanes spent thirty each. The split to make now is one page a boss, as
+pages eleven, twelve and fifteen already are.
 
 ## THE GAUGE is the only boss with no events and no sound
 

@@ -41,6 +41,16 @@ import type { GuideScene } from "../scene-types.js";
  * a column an author can put the cannon under; the film keeps its pods on
  * the frame and its guide says what a thrown one is.
  *
+ * **And the pages the field took over.** `BURN` was already on the last part
+ * when this film was written, so its *hold cyan on it* page was the word twice
+ * and says the rule instead: any colour fills the beam, because the beam's
+ * colour is never read. What the field says beside it now is **his** slide
+ * (`render/boss-cue-read-c.ts`): on the wind-up one part is left, the slab he
+ * is shown has one plate on it, and the column is already his — so the strip at
+ * 2285 is what the word asks for rather than a page. In a cycle it still says
+ * nothing to him, which is why *slide under the one she says* stays written: the
+ * live socket is hers alone, and her `FIRE` now waits until he is under it.
+ *
  * **The wind-up and the beam.** With one part left it winds up for four
  * beats over column 4 (THE SLOW): the cannon is put under it and cyan held
  * from the wind-up's own beat, so the beam is standing three beats on and
@@ -160,7 +170,12 @@ export const THE_SCUTTLE: GuideScene = {
     {
       tick: 2340,
       seat: 2,
-      text: "ONE LEFT · HOLD CYAN ON IT",
+      // `BURN` has stood on the last part since the cue shipped, so this page
+      // was already the word written twice — and wrong besides: the beam's
+      // colour is never read (`sim/scuttle-shot.ts`, the `b.lance` branch), so
+      // a beat spent choosing one is a beat out of a window that is the fill
+      // and one beat of slack.
+      text: "ANY COLOUR FILLS THE BEAM",
       anchor: { at: "control", control: "fireCyan" },
     },
     { tick: 2520, seat: 1, text: "DOWN · IT LETS GO IN THREE", anchor: { at: "boss" } },

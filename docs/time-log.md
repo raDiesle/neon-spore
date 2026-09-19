@@ -22,6 +22,47 @@ same every time so they can be compared:
 
 End each entry with the one bottleneck, in a sentence.
 
+## 2026-09-19 — queue-the-scuttle — two presses of hers over one slide of his
+
+The eighth of this family, and the first whose entry was right: THE SCUTTLE said
+`BURN` and `FIRE` and that was one lane's reach, not the fight. Four defects came
+out of reading it whole.
+
+The field had never named the **slide**. Every bolt and every beam leaves the
+column the cannon is standing in and the cannon is the pilot's, so this fight is
+two presses of hers over one movement of his, and `scuttleStruck` is a no-op in
+any other column — said for the wrong colour and unsaid for the wrong column. In
+a cycle it still may not name it, for THE LEAD's reason: the live socket is hers
+alone, so a `MOVE` would be her lock on his screen and its silence the same leak
+by subtraction. What changes there is hers, and it is the second defect: `FIRE`
+stood over the lock whatever column the cannon was in, offering a bolt that goes
+nowhere, which is the press this whole family exists to stop offering. On the
+wind-up the word is his and must be: one part left is what the wind-up *is*, his
+slab carries that one plate, and the window is the fill and a beat of slack with
+every beat of it spent on her beam.
+
+The guide was wrong at both ends. Its first step for him was *say the count down
+to the throw*, and the hanging parts slide down their threads on both screens, so
+the countdown was never his — the count of plates is, because her slab is blind,
+and with it when the twins start and when the cadence tightens. Her last step
+told her to hold the live part's colour for the beam, and `scuttleStruck`'s
+`b.lance` branch never reads the colour at all: a beat spent choosing one is a
+beat out of a four-beat window.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 20 | `scuttle.ts`, `scuttle-step.ts` and `scuttle-shot.ts` for what a strike and a beam actually require, `scuttle-draw.ts` for which of it each screen is drawn, and `controls.ts` for whose thumb each press is |
+| writing | 25 | the reading with the argument for the one `MOVE` and the one suppression, three cases in `boss-cue-clocks.test.ts`, both guide halves, a film page and its doc paragraph, and three spec pages |
+| looking | 0 | nothing new is drawn: the words and their placement shipped with the family |
+| friction | 5 | a test helper called a destructured binding before it existed, which `bun test` catches and reading did not |
+| landing | 20 | `check:fast`, `index`, `lint`, the commit and the land |
+
+**The bottleneck was the drawing rather than the simulation.** What a cue may say
+is decided by which screen draws which fact, and three of the four defects were
+only visible by reading `scuttle-draw.ts`'s loop and noticing which branches are
+*not* gated by the role: the threads and the hanging plates are drawn to both, so
+the clock is shared and the count is not. No test states that, and none can.
+
 ## 2026-09-19 — queue-the-lead — the word that cannot exist, and the beat the stalk already added
 
 The seventh of this family and the first whose finding is an **absence**. THE

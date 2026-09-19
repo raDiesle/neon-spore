@@ -124,9 +124,9 @@ export const WAVES_ACT_7E: Wave[] = [
     name: "THE SCUTTLE",
     sentence: "The one that throws itself at you, a part at a time, and each part is a window.",
     guide: {
-      both: "Shoot each part off the frame while it hangs, in its colour and column, before it is thrown. Hold the beam under the last.",
-      p1: "1. Say the count down to the throw.\n2. Slide the cannon under the column your partner says.\n3. Trigger the plate under thrown rocks. Take a pod that drops.\n4. On the last part, keep the cannon under it.",
-      p2: "1. As a part comes loose, say which one is live, its colour and its column.\n2. Load that colour and fire once the cannon is under it.\n3. Move the plate under thrown rocks.\n4. On the last part, hold its colour: the beam.",
+      both: "Shoot each part off the frame while it hangs, in its colour and column. A part you do not take is thrown at you, and when the frame runs out the wave is lost. The last one it does not throw: it winds up, and only the beam standing under it ends the fight.",
+      p1: "1. Say how many plates are left: she cannot see them.\n2. At twelve, two hang and one counts. At seven, faster.\n3. Cannon under the column she calls. Guard her plate.\n4. Suck a pod: every throw after is a beat slower.",
+      p2: "1. Say which part is live, its colour and its column.\n2. Load that colour. A bolt leaves his column, not yours.\n3. Plate under thrown rocks; he triggers it.\n4. On the last, hold any colour: the beam ignores it.",
       scene: "theScuttle",
     },
     entries: [],

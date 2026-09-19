@@ -378,7 +378,14 @@ an `atBoss` strip answered by the sum itself (`leadLead`, two beats on);
 the run's litter is laid around, since a rock stands in its column for the
 fourteen beats of its fall, and the beam is held three beats early so it is
 standing when the pass comes through.
-THE SCUTTLE's, the next day, lets its first part go and is the cost of that
+THE SCUTTLE's guide was rewritten 19 September 2026, when the field learnt to
+send the pilot to the last part's column: its first step for him had been *say
+the count down to the throw*, and the hanging parts slide down their threads on
+both screens, so the countdown was never his to say — the count of plates left
+is, because her slab is blind, and with it when the twins begin and when the
+cadence tightens. Her last step told her to hold the live part's colour for the
+beam, and the beam's colour is never read at all. Its film, the next day, lets
+its first part go and is the cost of that
 — a rock thrown, warded thirteen beats on — then strikes nineteen where
 they hang, every column an `atBoss` strip (`scuttleNextCol`) because the
 seed hangs them over columns no authored column reaches; the twins are
