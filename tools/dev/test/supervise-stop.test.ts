@@ -25,6 +25,15 @@ setDefaultTimeout(loadedTimeout(300));
  * for it: both start a director, kill one process and wait for it, which is
  * all a caller outside the tree can do. A person's Ctrl-C never showed it,
  * because a terminal signals the whole foreground group.
+ *
+ * **It found the same bug a second time, from the other end.** This case went
+ * red on one shard of a 67-shard run and passed in 50 ms on its own, which
+ * reads like a flaky test and was not: the handler used to be registered
+ * twenty lines and a `watch()` below `spawn()`, so a stop arriving in that
+ * window met the default disposition and left the child behind. Load widens
+ * the window; nothing else about the run had anything to do with it. The
+ * assertion below is strict on purpose and stays strict — the supervisor
+ * awaits its child on every path out, so there is nothing here to poll for.
  */
 
 // `fileURLToPath`, not `.pathname`: on Windows the latter is `/C:/…`, which is

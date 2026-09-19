@@ -10987,3 +10987,29 @@ assignment to `UndertowEvent`. Neither is hard once seen and neither is
 findable by reading. Both are queued.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-supervise-stop-test-ts-goes-red-under-a-full-sha — not a flaky test
+
+The entry offered two readings and said to settle which before touching
+anything, because the fixes are opposite: either the supervisor has an exit
+path that does not await its child, or `kill(pid, 0)` was being asked a
+question it cannot answer. It is the first, and in a place neither reading
+named — the signal handler was registered twenty lines and a `watch()` below
+`spawn()`, so a stop that arrived in that window met the default disposition
+and left the child behind. The handlers go in first now.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `supervise.ts`'s four exit paths, then the test, then `repo-time.ts` for how the file's patience is set |
+| writing | 15 | the handlers moved above the first spawn, a child that may not exist yet, and the paragraphs in both files |
+| looking | 40 | five probes: one that hung and was abandoned, one that proved a Bun signal handler runs at all, one that traced the handler through `child.kill`, and the two that count orphans with the window widened to 300 ms — ten out of ten before, none out of ten after |
+| friction | 15 | the first probe ran eight supervisors at once and never finished; a `pkill -f` whose pattern matched its own command line killed the second; the third measured the wrong thing, because `exit=143` is the child's own code passed through by the loop and not the signal that killed the supervisor |
+| landing | 10 | `format`, `lint`, `index`, the full `check` at 153s and the landing |
+
+**The bottleneck was that a red test under load reads as a slow test.** The
+entry was right to refuse the timeout, and the only thing that separated the
+two readings was making the window bigger by hand and counting. Forty minutes
+on the measurement against fifteen on the fix, and either reading would have
+been landed with confidence on the reasoning alone.
+
+*Measured: the rows above are the session's own estimate.*

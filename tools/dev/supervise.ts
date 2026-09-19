@@ -106,40 +106,11 @@ async function reinstall(): Promise<void> {
   installed = lockStamp(root);
 }
 
-let child = spawn();
 /** Set only when the watcher is the reason the child is going away. */
 let restarting = false;
-
-const gitDir = process.env.NO_DEV_RESTART ? undefined : gitDirOf(root);
-if (gitDir === undefined) {
-  if (!process.env.NO_DEV_RESTART) console.log("no git directory found — restarts are off");
-} else {
-  let moved = 0;
-  /** One timer for a whole operation, however many files it writes. */
-  let waiting = false;
-
-  const settle = (): void => {
-    // Still arriving, or git still holds the index: this is the middle of the
-    // operation rather than the end of it. Ask again rather than restarting
-    // into a tree that is about to change once more.
-    if (Date.now() - moved < QUIET_MS || locked(gitDir)) {
-      setTimeout(settle, QUIET_MS);
-      return;
-    }
-    waiting = false;
-    console.log("the tree moved — restarting, so the bundle is not half of each revision");
-    restarting = true;
-    child.kill();
-  };
-
-  watch(gitDir, (_event, name) => {
-    if (name === null || !isTreeMove(String(name))) return;
-    moved = Date.now();
-    if (waiting) return;
-    waiting = true;
-    setTimeout(settle, QUIET_MS);
-  });
-}
+/** The supervised process, absent only between the handlers above and the
+ * first spawn below. */
+let child: Bun.Subprocess | undefined;
 
 /**
  * **A signal has to take the child with it, and it did not.**
@@ -161,6 +132,16 @@ if (gitDir === undefined) {
  * that will not go is taken after `GOODBYE_MS` rather than waited on forever,
  * because a supervisor that outlives its own stop is the same fault the other
  * way round.
+ *
+ * **And it is installed before the first child is spawned**, which is the
+ * second half of the same bug and cost a day to find. It used to be registered
+ * below the watcher, twenty lines and a `watch()` after `spawn()`, so a signal
+ * arriving in between met the default disposition: the supervisor died on the
+ * spot, its child was orphaned, and nothing caught it. The window is a few
+ * milliseconds on an idle machine and as long as the scheduler likes under
+ * load, which is why `supervise-stop.test.ts` went red under a 67-shard run
+ * and green on its own. Widened to 300 ms by hand it orphans the child ten
+ * times out of ten; with the handler first, never.
  */
 const GOODBYE_MS = 2000;
 
@@ -175,16 +156,53 @@ for (const signal of ["SIGINT", "SIGTERM"] as const) {
     // Not a restart: if the loop below wins the race to the child's exit, it
     // should let this process end rather than spawn a replacement.
     restarting = false;
-    child.kill();
-    const taken = setTimeout(() => child.kill("SIGKILL"), GOODBYE_MS);
-    void child.exited.then(() => {
+    // Nothing spawned yet: the signal arrived inside the window this ordering
+    // exists to close, and there is no child to take.
+    const going = child;
+    if (going === undefined) process.exit(0);
+    going.kill();
+    const taken = setTimeout(() => going.kill("SIGKILL"), GOODBYE_MS);
+    void going.exited.then(() => {
       clearTimeout(taken);
       process.exit(0);
     });
   });
 }
 
-while (true) {
+child = spawn();
+
+const gitDir = process.env.NO_DEV_RESTART ? undefined : gitDirOf(root);
+if (gitDir === undefined) {
+  if (!process.env.NO_DEV_RESTART) console.log("no git directory found — restarts are off");
+} else {
+  let moved = 0;
+  /** One timer for a whole operation, however many files it writes. */
+  let waiting = false;
+
+  const settle = (): void => {
+    // Still arriving, or git still holds the index: this is the middle of the
+    // operation rather than the end of it. Ask again rather than restarting
+    // into a tree that is about to change once more.
+    if (Date.now() - moved < QUIET_MS || locked(gitDir)) {
+      setTimeout(settle, QUIET_MS);
+      return;
+    }
+    waiting = false;
+    console.log("the tree moved — restarting, so the bundle is not half of each revision");
+    restarting = true;
+    child?.kill();
+  };
+
+  watch(gitDir, (_event, name) => {
+    if (name === null || !isTreeMove(String(name))) return;
+    moved = Date.now();
+    if (waiting) return;
+    waiting = true;
+    setTimeout(settle, QUIET_MS);
+  });
+}
+
+while (child !== undefined) {
   const code = await child.exited;
   // The child stopped for its own reasons — an idle exit, a crash, or the
   // human's Ctrl-C reaching it first. The supervisor has nothing to add.
