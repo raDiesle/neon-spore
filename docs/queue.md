@@ -2069,6 +2069,7 @@ restriction can go entirely and the check triples its reach in the same run.
 ## Nothing but `bun run push` can reconcile the trunk, so it is done by hand
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, claude/queue-viewstate-cleartop-has-no-caller-left-that-sets (claim: claude/queue-nothing-but-bun-run-push-can-reconcile-the-trunk)
 - **Files:** `tools/land/reconcile.ts`, `tools/land/push.ts`, `tools/land/run.ts`, `tools/land/replay.ts`, `tools/land/queue-merge.ts`, `CLAUDE.md`
 - **Where:** cloud
 
