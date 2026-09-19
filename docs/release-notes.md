@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · df800ad1 — THE SINEW says two more words, and withholds every number
+
+THE SINEW's handles said PULL on a free ring and SWAY once the mass was falling, and said both of them only while the ring was free — so the one hand the fall is asking anything of, the one already on, was the hand told nothing. The reading is its own page now (`render/sinew-word.ts`) and it says HOLD while the sum is inside the zone, which is the verb a pair pulling toward a target gets wrong, and LIFT in THE STARE's STILL once the band's whole top less the slack is under the zone's foot — the beat pulling harder stops being possible and only both thumbs coming off resets it, which is the one mechanic in this fight nobody can diagnose from a screen. LIFT takes a free ring's PULL away with it rather than arguing with itself.
+
 ## 2026-09-19 · a5f99af6 — THE CANDLE: the flame gets a wick to be pulled off
 
 Half two of the lane, the look. Half one gave the last step two gestures and nothing on the screen to take hold of; this draws them. A stem hangs candlePinchMilli down the column the glow is over, so the flame travels the thumb's own distance and no further, and a ring closes round it as it comes down. At smoking the flame is gone and an ember is left at the stem's bottom tip with six plume segments fading above it: the ember is the clock, cooling through four fixed reaches and flickering 3 Hz to 11 Hz as candleSmokeBeats runs out, so player 2 can see how long she has without a number.
