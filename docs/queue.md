@@ -2289,6 +2289,7 @@ Three answers, and they are different work:
 ## The drawn dome is on both screens, and a reading page argues that it is not
 
 - **Found:** 2026-09-19, claude/queue-the-well-says-the-word
+- **Taken:** 2026-09-19, claude/queue-the-drawn-dome-is-on-both-screens-and-a-reading
 - **Files:** `packages/render/src/boss-cue-read-q.ts`, `packages/render/src/shield.ts`, `packages/render/src/hull.ts`, `packages/render/src/view-role.ts`
 
 THE CAIRN's reading licenses one of its five silences like this: *the plate is on
