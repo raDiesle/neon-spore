@@ -1956,26 +1956,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## A new boss event needs a row in bind-choreographed.ts that the skill omits
-
-- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
-- **Taken:** 2026-09-19, main (claim: claude/queue-a-new-boss-event-needs-a-row-in-bind-choreograph)
-- **Files:** `.claude/skills/new-boss-state/SKILL.md`, `packages/audio/src/bind-choreographed.ts`
-
-`.claude/skills/new-boss-state` lists twelve registrations a new boss state
-needs, worked top to bottom before the first check. There is a thirteenth it
-does not name: the choreographed binder's own switch. A new boss event falls
-through to `default: return lateCue(e, cols)` and the typecheck refuses it as
-not assignable to `LateEvent` — an error in a file the brief never mentions,
-four pages away from the event's declaration, and the only clue is the event's
-own name in the message. THE ANTIPHON's `antiphonPull` paid for it this lane.
-
-What to do: a thirteenth row in the table — file `packages/audio/src/bind-choreographed.ts`,
-wants the new event in the boss's own `case` group, goes red in the typecheck
-— placed after the `SAMPLES` row, since the sample is what makes the event
-reach the binder at all. The `-b` and `-c` pages of that binder take the same
-rule and are worth naming in the same row.
-
 ## Unverified at 17ed660e: the picture of a candidate coming off the rail — its ri…
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim

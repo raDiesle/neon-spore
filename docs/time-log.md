@@ -12743,3 +12743,33 @@ still over the ceiling, because the shared setup both files need was being
 counted twice; the fix was to stop counting it twice.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-a-new-boss-event-needs-a-row-in-bind-choreograph — the row already existed, three pages away from complete
+
+The row `.claude/skills/new-boss-state/SKILL.md` was queued to add —
+`bind-choreographed.ts` wants a `case` per new event — had already landed,
+in `2c0cc8c5` from earlier in this same session, which found the same gap and
+closed most of it. What that commit's row did not carry over was the one
+detail the queue entry itself named: `bind-choreographed.ts` gives its last
+bosses' cases away to `bind-choreographed-b.ts` and `-c.ts` once it hits the
+250-line ceiling, so a boss's own event can need its `case` in either of
+those two files rather than in the one the row names — the same typecheck
+failure, naming a different page depending on when the boss last moved.
+
+What to do was one clause, not a new row: the existing row 4 now says the
+other two pages carry the same switch for a boss whose cases already live
+there, and that the row is whichever of the three already holds it.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 15 | `bind-choreographed.ts`, `-b.ts`, `-c.ts`, `2c0cc8c5`'s own diff to confirm what it had already closed |
+| writing | 5 | one clause added to row 4 |
+| looking | 0 | none |
+| friction | 10 | the queue item read as unstarted work; confirming it was three-quarters done by an earlier commit in this same session took a `git log` on the file before any edit could be trusted |
+| landing | 5 | `bunx tsc --noEmit`, `bun run lint`, `tools/test/doc-drift.test.ts`, `bun run queue done`, the commit |
+
+**The bottleneck was trusting the queue entry's own description over what
+the tree already held** — the title still read as a missing row, and only
+reading the file's own git history showed most of it had already landed.
+
+*Measured: the rows above are the session's own estimate.*
