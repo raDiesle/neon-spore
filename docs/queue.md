@@ -2042,6 +2042,7 @@ session's rule gains a sentence saying the flag has an afterwards.
 ## A lib list would unlock the other 4,929 identifier claims in comments
 
 - **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, main (claim: claude/queue-a-lib-list-would-unlock-the-other-4-929-identifi)
 - **Files:** `tools/test/doc-names.ts`, `tools/test/doc-drift-names.test.ts`
 - **Where:** cloud
 
