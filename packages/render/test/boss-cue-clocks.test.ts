@@ -5,7 +5,6 @@ import {
   type DiastoleState,
   type LeadState,
   type LedgerState,
-  NO_SHELL,
   type OrreryState,
   type ScuttleState,
   startWave,
@@ -26,8 +25,9 @@ import {
 setDefaultTimeout(FRAME_TIMEOUT_MS);
 
 /**
- * **The six older choreographed bosses, and what the field is allowed to say
- * about them** (`render/src/boss-cue-read-c.ts`).
+ * **The five older choreographed bosses, and what the field is allowed to say
+ * about them** (`render/src/boss-cue-read-c.ts`). THE THROAT was a sixth until
+ * its fight was read whole; its cases are in `boss-cue-throat.test.ts`.
  *
  * Half of this file is about **silence**, which is the unusual thing to test
  * and the reason it is worth a file. Each of these fights is a number the pair
@@ -81,29 +81,6 @@ function installed<T>(world: World, kind: string): T {
   if (b === null || b.kind !== kind) throw new Error(`the ${kind} wave installed no ${kind}`);
   return b as unknown as T;
 }
-
-describe("THE THROAT", () => {
-  it("tells the pilot to fling a gum, and says nothing about when", () => {
-    const world = opened("throat");
-    expect(word(world, "p1")).toBeNull();
-    world.creatures.push({
-      id: world.nextId++,
-      kind: "gum",
-      col: 2,
-      row: 3,
-      fromRow: 3,
-      color: null,
-      holes: 0,
-      petals: 0,
-      dragMilli: 0,
-      shell: NO_SHELL,
-    });
-    expect(word(world, "p1")).toBe("FLING");
-    expect(cue(world, "p1")?.kind).toBe("CARRY");
-    // The navigator does not fling, so she is told nothing.
-    expect(word(world, "p2")).toBeNull();
-  });
-});
 
 describe("THE LEDGER", () => {
   const paying = (): { world: World; t: LedgerState } => {

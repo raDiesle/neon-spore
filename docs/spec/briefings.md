@@ -603,13 +603,18 @@ hand still draws.
 | THE UNDERTOW | `PLAYER 1 SLIDES UNDER IT` | `THE MAW REACHES ONE COLUMN` | `CARRY` / `MOVE` on the cannon, his alone, while a lobe stands in a column he is not in |
 | THE UNDERTOW | `THE MAW TAKES IT AGAIN` | `PLAYER 1 IS SHOWN NO PLATE` | `HOLD` / `OPEN` on the lobe standing over his own column |
 | THE UNDERTOW | `THE MAW TAKES THE NEAR ONE` | `PLAYER 1 CANNOT REACH BOTH` | the same, on the one of the pair he is under — and nothing on the other |
+| THE THROAT | `PLAYER 2 CLEARS IT WITH RED` | `A SHOT STILL KILLS IT THERE` | `PRESS` / `FIRE` on a living body standing in the mouth, hers, while his carriage is in the mouth's column |
+| THE THROAT | `SWIPED LEVEL INTO THE MOUTH` | `IT FLIES THE WAY YOU SWIPE` | `CARRY` / `FLING` on a gum, his alone, on the one beat it is on the mouth's row |
 
-**Four other films of the twelve had nothing to take, and that is the useful
-half of the result.** THE GORGE, THE TASTER, THE THROAT and THE DIASTOLE spend
-their pages on a colour, a count or which screen holds which half — `FOUR CYAN ·
-IT GOES CLEAR`, `THE OTHER COLOUR · ALWAYS`, `ONLY PLAYER 2 SEES THE COUNT`,
-`PLAYER 2 HOLDS RED · ON 15` — and a cue may never say any of those (#34's
-*reconsider if*). A film that reads as unprunable against this rule is a film
+**Three other films of the twelve had nothing to take, and that is the useful
+half of the result.** THE GORGE, THE TASTER and THE DIASTOLE spend their pages
+on a colour, a count or which screen holds which half — `FOUR CYAN · IT GOES
+CLEAR`, `THE OTHER COLOUR · ALWAYS`, `PLAYER 2 HOLDS RED · ON 15` — and a cue
+may never say any of those (#34's *reconsider if*). THE THROAT was a fourth
+here until 19 September 2026: its film was unprunable against a reading that
+said one word, and two of its pages became verbs the moment the fight learnt
+the other two (its rows above; `ONLY PLAYER 2 SEES THE COUNT` is still one of
+the six that stayed). A film that reads as unprunable against this rule is a film
 already teaching the split rather than the verb, which is what the checklist's
 first question has been asking for all along.
 
@@ -629,6 +634,16 @@ left the ghost hand to be drawn on the other screen. What the three say instead
 is the fight's own split said three ways — the column the maw reaches, the plate
 he is not drawn (`showsShield`), and the second lobe one carriage cannot be at.
 The row above them, 17 September 2026, is the same page on her side.
+
+THE THROAT's two rows are 19 September 2026, when its reading grew from the
+fling alone to the three moments the fight has (`boss-cue-read-k.ts`) and
+learnt the row that makes a fling worth anything. Both pages kept their tick,
+their seat and their anchor for THE UNDERTOW's reason — each is the only page
+of its seat over an act of its seat — and both say a rule the cue is forbidden
+from carrying: that the mouth is not a ward, so an ordinary kill still works in
+it, and that the swipe is a *direction* and the row it leaves on is the line it
+flies along. The fight's own two numbers, the mouth's column and the beats to
+the inhale, stay on the four pages that were already about them.
 
 THE STARE's cue came on 18 September 2026 and is the one the four kinds did
 not cover: `STILL`, the non-gesture the fight charges for (`decisions.md`

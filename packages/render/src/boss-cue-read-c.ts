@@ -4,7 +4,6 @@ import {
   diastoleChamberCol,
   diastoleClamped,
   diastoleClampHolds,
-  gumIsFlung,
   type LeadState,
   type LedgerState,
   leadPassing,
@@ -15,11 +14,9 @@ import {
   scuttleShootable,
   scuttleSocketCol,
   scuttleWinding,
-  type ThroatState,
   type World,
 } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
-import { creatureCenter } from "./creature-place.js";
 import { diastoleY } from "./diastole-draw.js";
 import { type Layout, tileCX } from "./layout.js";
 import { leadRidgeY } from "./lead-shape.js";
@@ -35,11 +32,12 @@ import { scuttleLockBox } from "./scuttle-draw.js";
 import { scuttleRowY } from "./scuttle-shape.js";
 
 /**
- * **What THE THROAT, THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE and THE
- * ORRERY are asking for** — page three of the readings, on the seam the two
- * before it draw.
+ * **What THE LEDGER, THE LEAD, THE SCUTTLE, THE DIASTOLE and THE ORRERY are
+ * asking for** — page three of the readings, on the seam the two before it
+ * draw. THE THROAT was a sixth here until its fight was read whole and outgrew
+ * a paragraph; it has page eleven to itself (`boss-cue-read-k.ts`).
  *
- * These six are the older half of the choreographed page and the half whose
+ * These five are the older half of the choreographed page and the half whose
  * whole difficulty is a **number the pair says out loud**: which beat the gaps
  * line up, where the cord will root next, where the body will be when the shot
  * gets there. So the rule that decides almost every line below is #34's third:
@@ -70,32 +68,6 @@ function markAt(
   wide = 1,
 ): BossCue {
   return { seat, kind, word, x, y, halfW: l.tile * HALF_W * wide, halfH: l.tile * HALF_H, seed };
-}
-
-/**
- * THE THROAT. One word, and it is the one verb in this game that exists
- * nowhere else: the gum is **thrown into the mouth**, and a pair meeting this
- * boss with the habit of eleven acts behind them will shoot it instead.
- *
- * The pilot's, because the fling is his — the row the gum is on when his thumb
- * lifts is the line it flies along (`gum.ts`) — and the mark is on the gum,
- * which is an ordinary body on the field and drawn to both screens. It says
- * nothing about *when*, which is the arithmetic sentence this fight is: a gum
- * falls a row a beat, the mouth steps a column a beat, and which beat to let
- * go is theirs.
- */
-export function throatCues(
-  l: Layout,
-  world: World,
-  _b: ThroatState,
-  beatPhase: number,
-): readonly BossCue[] {
-  for (const c of world.creatures) {
-    if (c.kind !== "gum" || gumIsFlung(c)) continue;
-    const at = creatureCenter(l, world, c, beatPhase);
-    return [markAt(1, "CARRY", "FLING", at.x, at.y, l, 51)];
-  }
-  return [];
 }
 
 /**

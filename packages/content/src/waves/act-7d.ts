@@ -92,8 +92,8 @@ export const WAVES_ACT_7D: Wave[] = [
     sentence: "The one where the only thing that hurts it is something you give it.",
     guide: {
       both: "Throw a gum level along the mouth's row, into the mouth. Nothing else hurts it. Clear its column before every inhale.",
-      p1: "1. Bring a gum down to the mouth's row.\n2. Carry your thumb sideways to fling it level along that row.\n3. Trigger the plate to clear the mouth's column before the count runs out.",
-      p2: "1. Say the mouth's column every time it moves.\n2. Say the beats until the next inhale.\n3. Fire to clear that column before the inhale. Your partner triggers the plate.",
+      p1: "1. Bring a gum down to the mouth's row.\n2. Carry your thumb sideways to fling it level along that row.\n3. Carry the cannon into the mouth's column before the count runs out. Brake a rock climbing it.",
+      p2: "1. Say the mouth's column every time it moves.\n2. Say the beats until the next inhale.\n3. Fire to clear that column before the inhale. The bolt leaves your partner's cannon, so say when he is under it.",
       scene: "theThroat",
     },
     entries: [

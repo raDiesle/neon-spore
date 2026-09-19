@@ -150,6 +150,12 @@ export {
   scuttleWindBeats,
   scuttleWinding,
 } from "./scuttle.js";
+// THE THROAT's hold, out of order for THE BATON's reason above: it arrived on
+// 19 September 2026 with the §6.1 lane and page one was two lines under its
+// limit. Whether the gullet has a body — which is the same question as whether
+// the next inhale will swallow it, since the swallow and the fall's refusal are
+// one rule (`throat-pull.ts`). Read by the cue, never written out again.
+export { throatHolds } from "./throat-pull.js";
 // THE VANE's two hands (18 September 2026): where the arm is standing once a
 // thumb has pinned it, and whether the bearing is open under each of its three
 // phases. A clock on this page's terms — the pin runs for `vanePinBeats` and

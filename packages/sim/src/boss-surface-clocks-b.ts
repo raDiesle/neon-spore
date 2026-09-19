@@ -60,6 +60,11 @@ export {
   stareLidFree,
   stareOpening,
   stareShut,
+  // THE THROAT's hold (19 September 2026): whether the gullet has this body,
+  // which is the same question as whether the next inhale will swallow it —
+  // the swallow and the fall's refusal are one rule (`throat-pull.ts`). On
+  // this page because page one is exactly at its limit.
+  throatHolds,
 } from "./bosses.js";
 export {
   // The script and where the scene is in it: every mark is drawn from the

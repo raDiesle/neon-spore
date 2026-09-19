@@ -9891,3 +9891,33 @@ the entry — was seeing that the "way back" it assumed existed is on a page the
 game never mentions.
 
 *Measured: the rows above are the session's own estimate.*
+
+## 2026-09-19 — queue-the-throat-the-field-says-the-word — the word was true on one beat in twenty
+
+The shipped reading said `FLING` on any gum from the moment it entered the
+field, in every phase. A gum flies level along the row it was on when the thumb
+lifted, and `throatChoked` refuses one arriving on any row but the mouth's — so
+a word that stood for a twenty-beat fall asked for a gesture worth something on
+one beat of it. The reading is a page of its own now: `FLING` on the mouth's row
+alone, `FIRE` or `MOVE` on a living body standing in the mouth with an inhale to
+live, `BRAKE` on a rock climbing the gullet with no hand on it, and nothing at
+all while the tube everts. Two rehearsal pages that were verbs the field now
+writes say the reason underneath instead, and THE THROAT's two guide lines said
+a plate it does not have.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 45 | the entry, `throat-pull.ts`, `throat-step.ts`, `gum.ts`, `grip.ts`, the undertow reading and its test as the model, and §11.19 |
+| writing | 55 | `boss-cue-read-k.ts`, thirteen cases, the old reading out of `-c.ts`, two scene pages, two guide lines, §11.19 and the briefings table |
+| looking | 0 | none available: the cues on a real frame are a PNG this session cannot take, and it lands unverified |
+| friction | 20 | `throatHolds` had to reach render through two barrels whose page one was full, and the sorter swallowed the comment that said why |
+| landing | 20 | `check:fast` twice around a format-and-sort round, the size finding, and the commit |
+
+**The bottleneck was the two barrels: exporting one predicate cost four edits
+and a re-sort, because `bosses-clocks.ts` and `boss-surface-clocks.ts` are both
+at their ceiling and the import sorter merges a standalone re-export into the
+block above it, orphaning the comment that explains the page it is on.** The
+fix was to put the comment inline above the specifier, which the file already
+does once for `stareLidFree` — a convention that is nowhere written down.
+
+*Measured: the rows above are the session's own estimate.*

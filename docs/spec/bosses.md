@@ -2949,6 +2949,38 @@ the mouth's snap are proved as arithmetic in
 `render/test/throat-shape.test.ts` — which is the right proof of the geometry
 and no proof at all of how it reads.
 
+**What the field says** (`render/src/boss-cue-read-k.ts`, 19 September 2026,
+`docs/decisions.md` #34). Four words across three moments, and the one that
+decides the reading is a row. `CARRY` / `FLING` stands on a gum **only while it
+is on the mouth's row** — a gum flies level along the row it was on when the
+thumb lifted (`gumSwiped`) and `throatChoked` refuses one arriving on any other
+(`throat-step.ts`) — so the word that used to stand for the whole of a fall now
+stands for the one beat it is worth anything. It says nothing about which side
+to start from or how far to carry, which is the arithmetic sentence this fight
+is made of: a gum crosses `gumFlingCols` a beat and the mouth steps its own
+stride.
+
+The other two moments were silent, and they are the fight. A living body
+standing **in** the mouth has one inhale to live — the swallow takes what is
+there and the lift hauls the next body up afterwards (`throat-step.ts`), so
+arriving in the mouth buys a whole beat — and that beat is `PRESS` / `FIRE` on
+her screen when his carriage is in the mouth's column and `CARRY` / `MOVE` on
+his cannon when it is not, THE UNDERTOW's pairing exactly: the colour buttons
+are hers and they fire straight up *his* column. A rock the throat has hold of
+**below** the mouth is `HOLD` / `BRAKE`, on `seat: null` because `handMeans`
+gives the brake to either thumb, and it goes quiet the beat `gripBrakes` counts
+a hand on it. Nothing at all is said while it everts: `throatChoked` refuses,
+the hold is let go of, and every gesture those words ask for is worth nothing.
+
+**And two things the field is deliberately not given.** A **rock standing in
+the mouth** carries no word, which is the honest answer rather than an
+omission: `isWardable` says a bolt leaves a crater and not a kill, and a hand
+on it drags at a fall that has already stopped. What the pair is owed about
+that rock is the `BRAKE` one row lower and one inhale earlier. Nor is any word
+given for the mouth's own column or the beats to the next inhale — the two
+numbers on the navigator's bar, which is the whole of what this pair has to say
+out loud.
+
 **Never watched at tempo.** Whether a pair can hold a column and a count at 96
 BPM while one of them is timing a thumb is a thing a person finds out with
 another person. The tests say the arithmetic: that the mouth's travel is a pure

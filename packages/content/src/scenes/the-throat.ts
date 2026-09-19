@@ -46,15 +46,32 @@ export const THE_THROAT: GuideScene = {
   steps: [
     { tick: 0, seat: 2, text: "ONLY PLAYER 2 SEES THE COUNT", anchor: { at: "hull" } },
     { tick: 300, seat: 1, text: "A BODY STOPS IN THE MOUTH", anchor: { at: "hull" } },
+    // Two pages here said a verb the fight now writes itself, 19 September
+    // 2026 (`boss-cue-read-k.ts`): the shot into the mouth, and the fling.
+    // Both keep their tick, their seat and their anchor, because each is the
+    // only page of its seat over an act of its seat and a deleted one would
+    // hand the ghost hand to the other screen (`new-tutorial`, *take the verb
+    // out, not always the page*).
+    //
+    // This one says why her trigger is worth anything at all in there, which
+    // is the thing the word `FIRE` cannot: the mouth is not a ward, so a
+    // living body standing in it is still an ordinary kill. The rock at beat
+    // 16 is the other half of that sentence and the film shows it rather than
+    // saying it (`isWardable`).
     {
       tick: 540,
       seat: 2,
-      text: "PLAYER 2 CLEARS IT WITH RED",
+      text: "A SHOT STILL KILLS IT THERE",
       anchor: { at: "control", control: "fireRed" },
     },
     { tick: 900, seat: 1, text: "LEFT ALONE · IT IS SWALLOWED", anchor: { at: "hull" } },
     { tick: 1200, seat: 1, text: "ONLY A GUM HURTS IT", anchor: { at: "hull" } },
-    { tick: 1380, seat: 1, text: "SWIPED LEVEL INTO THE MOUTH", anchor: { at: "held" } },
+    // The field says `FLING` on the beat the gum crosses the mouth's row and
+    // never a word about which side of it to start from or how far to carry —
+    // that is the pair's own arithmetic. So the page says the rule underneath
+    // it instead: the swipe is a direction, and the row it leaves on is the
+    // line it flies along (`gumSwiped`).
+    { tick: 1380, seat: 1, text: "IT FLIES THE WAY YOU SWIPE", anchor: { at: "held" } },
     { tick: 1680, seat: 2, text: "ONE RING SLACK · IT SLIDES", anchor: { at: "hull" } },
     { tick: 1860, seat: 2, text: "PLAYER 2 SAYS THE COLUMN", anchor: { at: "hull" } },
   ],

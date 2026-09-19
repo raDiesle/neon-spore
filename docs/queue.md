@@ -649,24 +649,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE THROAT: the field says the word, and the briefing comes down
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-the-throat-the-field-says-the-word-and-the-brief
-- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/scenes/the-throat.ts`, `packages/render/src/boss-cue.ts`, `packages/content/test/scenes-prose.test.ts`
-- **Where:** cloud
-
-It says `FLING` on a gum, which is
-what one lane could reach and not the whole fight.
-Its briefing is a 8-page rehearsal (`packages/content/src/scenes/the-throat.ts`).
-
-The owner, 18 September 2026: a boss's words are cloud work — the cue table and
-the prose tests prove them, and no frame has to be watched. The PNG is the one
-unverified part; queue it with `bun run land --unverified`.
-
-The brief, written once so it can be corrected once: `.claude/skills/new-boss`
-section 6.1.
-
 ## THE THROAT changes state more than once, and asks for more than one gesture
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1948,3 +1930,23 @@ three classes, its click, and the paragraph saying why it is gone while there is
 no room — and nothing else in the file touches it. It comes away the way
 `menu-seats.ts` came out of `menu-view.ts`: about fifteen lines, and it is also
 the natural home for the body class `shell.ts` is carrying.
+
+## `act-7d.ts` is eight under the ceiling, and a guide edit already paid for it
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `packages/content/src/waves/act-7d.ts`, `packages/content/src/waves/act-7e.ts`, `packages/content/src/waves.ts`
+
+242 lines, so `tools/hooks/after-edit-size.ts` fires on every touch — it fired
+twice in the lane that corrected THE THROAT's two guide lines, which added no
+line at all. A guide line is the one thing in a wave file that gets longer when
+it gets truer, and eight of them share this page: THE UNDERTOW, THE THROAT, THE
+ORRERY, THE CANDLE, THE GORGE, THE CURTAIN, THE TASTER and THE SINEW. The §6.1
+and §6.2 lanes still queued for six of those are all guide-line work, so the
+next one of them pays for the seam whether or not it wants to.
+
+The cut is the one `act-7e.ts` already made and documented: the last waves come
+off the end, keeping the order of the game, into a sixth page of act seven.
+THE TASTER and THE SINEW are about fifty lines together, which leaves both
+pages a lane's worth of room. `waves.ts` gains one import and one spread; the
+new page's header says what `act-7e.ts`'s says about why it is a page of seven
+and not an act of its own.
