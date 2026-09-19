@@ -1160,33 +1160,6 @@ are both on the boss's own picture, and neither could be photographed —
 reaching the phase that offers either needs four gums flung sideways into a
 walking mouth, which is the other half of this entry.
 
-## `boss-cue-read-c.ts` is at 245 lines, and the sixth boss on it grew
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/queue-boss-cue-read-c-ts-is-at-245-lines-and-the-sixth
-- **Files:** `packages/render/src/boss-cue-read-c.ts`, `packages/render/src/boss-cue.ts`
-- **Where:** cloud
-
-Page three of the readings carries six bosses — THE THROAT, THE LEDGER, THE
-LEAD, THE SCUTTLE, THE DIASTOLE, THE ORRERY — and THE DIASTOLE's widening on
-18 September 2026 took it to 245 of the 250 `packages/sim/test/limits.test.ts`
-allows. The next lane to widen any of the six has nowhere to put the argument,
-and the argument is the point of these files. Split along the seam the header
-already names: the three that are about a *count* nobody may be given (THE
-DIASTOLE, THE ORRERY, THE LEAD) from the three that are about a thing on the
-field (THE THROAT, THE LEDGER, THE SCUTTLE), as `boss-cue-read-c.ts` and a new
-`-i.ts`, with `cuesOf`'s switch in `boss-cue.ts` pointed at both. `bun run
-check` proves it; no test names the file.
-
-**19 September 2026, `claude/queue-the-scuttle-says-the-word`:** THE THROAT and
-THE ORRERY had already gone to pages eleven and twelve, and THE LEDGER went to
-page fifteen that morning, so three are left and the file is at 229 lines rather
-than 245. The seam the entry names is gone with them: the three that are left —
-THE LEAD, THE SCUTTLE, THE DIASTOLE — are all about a count nobody may be given.
-What is still true is the ceiling: twenty-one lines for three arguments, and the
-last two lanes spent thirty each. The split to make now is one page a boss, as
-pages eleven, twelve and fifteen already are.
-
 ## THE GAUGE is the only boss with no events and no sound
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f

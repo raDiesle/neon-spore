@@ -45,7 +45,7 @@ import type { GuideScene } from "../scene-types.js";
  * when this film was written, so its *hold cyan on it* page was the word twice
  * and says the rule instead: any colour fills the beam, because the beam's
  * colour is never read. What the field says beside it now is **his** slide
- * (`render/boss-cue-read-c.ts`): on the wind-up one part is left, the slab he
+ * (`render/boss-cue-read-t.ts`): on the wind-up one part is left, the slab he
  * is shown has one plate on it, and the column is already his — so the strip at
  * 2285 is what the word asks for rather than a page. In a cycle it still says
  * nothing to him, which is why *slide under the one she says* stays written: the

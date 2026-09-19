@@ -1,49 +1,26 @@
-import {
-  type DiastoleState,
-  diastoleBridgeCol,
-  diastoleChamberCol,
-  diastoleClamped,
-  diastoleClampHolds,
-  type LeadState,
-  leadPassing,
-  leadStill,
-  type ScuttleState,
-  scuttleShootable,
-  scuttleSocketCol,
-  scuttleWinding,
-  type World,
-} from "@neon-spore/sim";
+import { type LeadState, leadPassing, leadStill, type World } from "@neon-spore/sim";
 import type { BossCue } from "./boss-cue.js";
-import { diastoleY } from "./diastole-draw.js";
 import { type Layout, tileCX } from "./layout.js";
 import { leadRidgeY } from "./lead-shape.js";
-import { scuttleLockBox } from "./scuttle-draw.js";
-import { scuttleRowY } from "./scuttle-shape.js";
 
 /**
- * **What THE LEAD, THE SCUTTLE and THE DIASTOLE are asking for**
- * — page three of the readings, on the seam the two before it draw. THE THROAT
- * was a fifth here until its fight was read whole and outgrew a paragraph, and
- * THE ORRERY a sixth for the same reason a day later; they have pages eleven
- * and twelve to themselves (`boss-cue-read-k.ts`, `boss-cue-read-l.ts`).
+ * **What THE LEAD is asking for** — page three of the readings, its page
+ * alone since 19 September 2026. THE THROAT and THE ORRERY left it for pages
+ * eleven and twelve, THE LEDGER for page fifteen, and the finding that
+ * reserved this page (`docs/queue.md`) said the seam it had drawn — the
+ * older half of the choreographed page against the newer — was gone with
+ * them: the three left, THE LEAD, THE SCUTTLE and THE DIASTOLE, were all
+ * about **a count nobody may be given**, so the split left to make was one
+ * page a boss, as the other four already are. THE SCUTTLE went to the
+ * readings' page `t`, THE DIASTOLE to page `u` — a letter rather than a
+ * number, page `s`'s own reason: a sibling lane is writing another page the
+ * same day, and a number here would describe whichever of the three lands
+ * first rather than this page.
  *
- * **THE LEDGER was the first here and has gone** to page fifteen
- * (`boss-cue-read-o.ts`), on the day its reading grew the movement before the
- * shot: the column the seam runs down, which nothing on the field had ever
- * named. Three are left.
- *
- * These three are the older half of the choreographed page and the half whose
- * whole difficulty is a **number the pair says out loud**: which beat the gaps
- * line up, where the cord will root next, where the body will be when the shot
- * gets there. So the rule that decides almost every line below is #34's third:
- * **it says the verb and never the answer.**
- *
- * That is why two of them are quieter than their fights are busy. THE DIASTOLE
- * says nothing about either count. THE LEAD says nothing about where the body
- * will be. What each of them is given instead is
- * the moment its **verb changes** and nothing on the panel says so: the
- * trigger stops working and only the beam lands. A pair that has learned the
- * fight needs that sentence once and never needs to be told the number.
+ * The rule that decided almost every line here decides it alone now: #34's
+ * third, **it says the verb and never the answer.** THE LEAD is the
+ * quietest boss in the game for it, silent for the whole of the fight it is
+ * named for — `leadCues`' own doc comment has the rest.
  */
 
 /** THE CHOIR's frame, in tiles, and the lift a mark takes over a hull line. */
@@ -111,119 +88,4 @@ export function leadCues(l: Layout, _world: World, s: LeadState): readonly BossC
   }
   if (!leadStill(s)) return [];
   return [markAt(2, "STILL", "STILL", tileCX(l, s.col), leadRidgeY(l).mid, l, 95)];
-}
-
-/**
- * THE SCUTTLE. A boss racing the pair to its own death, so its words are about
- * **the window**, never about which socket: the live part is the navigator's
- * own picture (`showsScuttleLive`) and it is the only thing a bolt can strike,
- * so a mark on it says *now* and nothing she was not already shown.
- *
- * `BURN` replaces `FIRE` for the last part, which is not thrown at all — the
- * frame winds up, and only the beam standing in that column before the throw
- * ends the fight. The verb changing is the whole of what the cue is for.
- *
- * **And the movement under both of them, which this reading shipped without.**
- * Every bolt and every beam leaves the column the cannon is standing in, and
- * the cannon is his (`content/src/controls.ts`); `scuttleStruck` is a no-op in
- * any other column, said for the wrong colour and *unsaid* for the wrong
- * column. So the fight is two presses of hers over one slide of his, and the
- * field had never named the slide.
- *
- * - **In a cycle it still may not name it.** The live socket is hers alone, and
- *   the part hanging beside it is one the design says cannot be taken
- *   (`bosses-choreographed.md` §15, step 6), so a `MOVE` on his hull would be
- *   her lock read out on his screen — THE LEAD's objection, and its silence
- *   would be the same leak by subtraction. What changes instead is **hers**:
- *   `FIRE` waits until the cannon is under the live part, because the lock and
- *   the cannon are both already on her screen and a bolt spent up another
- *   column is the press this whole family exists to stop offering
- *   (`boss-cue.ts`'s first rule). The lock stays drawn throughout, so the
- *   window she is racing is never taken away — only the verb she cannot spend.
- * - **On the wind-up it must.** One part is left, and on his screen the slab is
- *   the count: every socket plated or open, the one hanging part on its thread
- *   (`scuttle-draw.ts`, `showsScuttleCount`). There is nothing to subtract — the
- *   last column is the only column, already drawn to him — and the window is
- *   `lancePrimeBeats` and a beat of slack, all of which her fill is spending.
- *   So `CARRY` / `MOVE` on the cannon, and it is the only word on this boss
- *   that decides the fight rather than a cycle of it.
- *
- * `s.live` rather than the first part still in a socket: they are the same
- * index while it winds up, because the wind-up is what one part left *is*
- * (`scuttle-step.ts`), and `scuttleStruck` judges the beam against `s.live`.
- * A reading that agrees with the rule by arithmetic is a reading that stops
- * agreeing when the rule moves.
- *
- * **Nothing for a thrown part.** A rock wants her plate and his guard, a pod
- * his maw, and all three are the wave's ordinary answers to an ordinary
- * arrival: a word on one would be the field narrating the wave rather than the
- * boss, which is the objection THE SURGE's gums carry.
- */
-export function scuttleCues(l: Layout, world: World, s: ScuttleState): readonly BossCue[] {
-  if (s.downBeat >= 0) return [];
-  const cfg = world.cfg;
-  if (scuttleWinding(s)) {
-    if (s.live < 0) return [];
-    const col = scuttleSocketCol(cfg, s.live);
-    const out: BossCue[] = [
-      markAt(2, "HOLD", "BURN", tileCX(l, col), scuttleRowY(l, cfg, s.live), l, 55),
-    ];
-    if (world.cannonCol !== col) {
-      out.push(markAt(1, "CARRY", "MOVE", tileCX(l, world.cannonCol), l.hullY, l, 96));
-    }
-    return out;
-  }
-  if (!scuttleShootable(s)) return [];
-  if (world.cannonCol !== scuttleSocketCol(cfg, s.live)) return [];
-  // **No frame of its own.** Her screen already locks the column the next
-  // throw lands in (`scuttle-draw.ts`), which is the live part's own column,
-  // so the cue borrows that box and adds the one thing it does not say.
-  const box = scuttleLockBox(l, cfg, s);
-  if (box === null) return [];
-  return [{ seat: 2, kind: "PRESS", word: "FIRE", ...box, seed: 56, framed: false }];
-}
-
-/**
- * THE DIASTOLE. Two counts, one each, and neither is ever cued — that is the
- * boss, and `diastole-bridge.ts` already refuses to say when the coincidence
- * is for the same reason.
- *
- * What is cued is the sentence the fight turns on: from the beat the right
- * chamber wakes, **a single-chamber hit stops landing** and only the beam in
- * the bridge's column takes anything at all. The bridge is the one part of
- * this body both screens read the same, so the mark is on it, and the word is
- * hers because the lance is filled by holding a colour.
- *
- * **Alone, the two words follow the thumb**, which is the half this reading
- * was missing until 18 September 2026: it wrote both of them for the whole of
- * the phase, and for most of the phase neither was true.
- *
- * - No thumb on the chamber: `HOLD` / `CLAMP` on the ring, his — the beat now
- *   has to be held as well as found (`diastole-clamp.ts`) — and **nothing at
- *   all to her**. The beam lands only under the clamp (`diastoleOpen`), so a
- *   word over the bridge before there is one is a word over a lance that is
- *   refusing, which is the objection THE MAZE's reading makes about a handle
- *   the ship has taken away.
- * - The clamp on and its window open: `HOLD` / `BURN` on the bridge, hers, and
- *   **nothing to him**. What the fight wants of his thumb then is *let go
- *   before the dial closes* — a clamp held past its window spasms the chamber
- *   — so `HOLD` would be the field asking for the failure, and the ring's own
- *   dial is the whole of what is left to say (`handle-draw.ts`).
- * - The window lapsed with the thumb still down: nothing on either screen. He
- *   is late, the dial has closed, and the next thing the round does is the
- *   spasm.
- *
- * It says *where* and *what* and never *when* — the when is the navigator's to
- * say, in both phases. A spasm cues nothing: there is nothing to hold for
- * eight beats, and the chamber's shudder is the whole of the announcement.
- */
-export function diastoleCues(l: Layout, world: World, b: DiastoleState): readonly BossCue[] {
-  if (b.phase !== "two" && b.phase !== "alone") return [];
-  const y = diastoleY(l);
-  const burn = markAt(2, "HOLD", "BURN", tileCX(l, diastoleBridgeCol(world.cfg)), y, l, 57);
-  if (b.phase !== "alone") return [burn];
-  if (!diastoleClamped(b)) {
-    return [markAt(1, "HOLD", "CLAMP", tileCX(l, diastoleChamberCol(world.cfg, 1)), y, l, 79)];
-  }
-  return diastoleClampHolds(b, world.beat) ? [burn] : [];
 }
