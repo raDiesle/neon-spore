@@ -9,6 +9,8 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · fba51f32 — The line ceiling is heard by a lane that writes through Bash
+
 ## 2026-09-19 · 58a70de2 — The cloud-session ceiling of two is lifted
 
 Both `CLAUDE.md` and `docs/cloud-session.md` said two cloud sessions at once was the ceiling. The owner lifted it, 19 September 2026: "So parallelize. If it's my rule of max 2 cloud sessions, change it. I allow you to parallelize as many are reasonable on cloud or local."
