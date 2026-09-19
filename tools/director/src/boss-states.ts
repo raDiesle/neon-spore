@@ -53,9 +53,10 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // again after a burst, everting, out (`surgeInBand`, `surgeWarding`,
   // `surgeSealing`, `surgeEverting`).
   surge: ["shut", "band", "warding", "sealing", "everting", "out"],
-  // Pacing a column a beat, running two, still, passing the ship, down
-  // (`leadRunning`, `leadStill`, `leadPassing`, `leadDown`).
-  lead: ["pacing", "running", "still", "passing", "down"],
+  // Pacing a column a beat, running two, still, that still held open under a
+  // thumb, passing the ship, down (`leadRunning`, `leadStill`, `leadHolding`,
+  // `leadPassing`, `leadDown`).
+  lead: ["pacing", "running", "still", "held", "passing", "down"],
   // A part attached, winding one back, down (`scuttleAttached`,
   // `scuttleWinding`, `scuttleDown`).
   scuttle: ["attached", "winding", "down"],

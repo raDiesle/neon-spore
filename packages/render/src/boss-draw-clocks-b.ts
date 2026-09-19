@@ -6,6 +6,7 @@ import { drawHive } from "./hive-draw.js";
 import { drawInstar } from "./instar-draw.js";
 import type { Layout } from "./layout.js";
 import { drawLead } from "./lead-draw.js";
+import { drawLeadGrip } from "./lead-grip.js";
 import { drawLedger } from "./ledger-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawScuttle } from "./scuttle-draw.js";
@@ -109,6 +110,10 @@ export function drawFxBoss(
   // `effects.boss.lead` (`lead-draw.ts`, `lead-fx.ts`).
   if (boss.kind === "lead") {
     drawLead(ctx, l, world, boss, beat, beatPhase, time, effects.boss.lead);
+    // The ring on the stalk's organ, over the body rather than inside it: the
+    // one movement of this fight a thumb may reach into, and the navigator's
+    // alone (`lead-grip.ts`). It draws nothing outside the still.
+    drawLeadGrip(ctx, l, world.cfg, boss, beat, beatPhase, time);
     return;
   }
 

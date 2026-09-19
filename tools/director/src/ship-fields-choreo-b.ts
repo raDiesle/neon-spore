@@ -94,6 +94,7 @@ export const CHOREO_FIELD_GROUP_B = {
   leadFastSegments: "THE LEAD — the boss you shoot where it will be",
   leadForecastSegments: "THE LEAD — the boss you shoot where it will be",
   leadStillBeats: "THE LEAD — the boss you shoot where it will be",
+  leadHoldBeats: "THE LEAD — the boss you shoot where it will be",
   leadTorchEveryBeats: "THE LEAD — the boss you shoot where it will be",
   leadRockEveryBeats: "THE LEAD — the boss you shoot where it will be",
   leadSlowBeats: "THE LEAD — the boss you shoot where it will be",

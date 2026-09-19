@@ -1,4 +1,5 @@
 import {
+  leadHolding,
   leadPassing,
   leadRunning,
   leadStill,
@@ -6,7 +7,13 @@ import {
   tasterPhase,
   type World,
 } from "@neon-spore/sim";
-import { leadHand, leadHandLate, ledgerHand, tasterHand } from "./boss-hands-clocks.js";
+import {
+  leadHand,
+  leadHandLate,
+  leadHoldHand,
+  ledgerHand,
+  tasterHand,
+} from "./boss-hands-clocks.js";
 import type { Pose } from "./pose-kit.js";
 import { bossPose } from "./poses-bosses-kit.js";
 
@@ -83,6 +90,12 @@ export const CLOCK_HAND_POSES: Pose[] = [
     "still",
     "One segment left and the body stopped dead. P1 aims at the column its pass starts from; P2 primes.",
     { hand: leadHand, want: (w) => w.boss?.kind === "lead" && leadStill(w.boss), hold: 6 },
+  ),
+  bossPose(
+    "lead",
+    "held",
+    "P2's thumb is on the stalk and the still is not running out. P1 puts the cannon where the pass starts.",
+    { hand: leadHoldHand, want: (w) => w.boss?.kind === "lead" && leadHolding(w.boss), hold: 6 },
   ),
   bossPose(
     "lead",

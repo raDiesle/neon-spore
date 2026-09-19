@@ -261,6 +261,13 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     case "ledgerSocket":
     case "ledgerBead":
     case "ledgerCord":
+    // THE LEAD's stalk, and the first handle given to a boss that shipped as
+    // a fixture: the navigator takes the stalk while the body stands dead
+    // still, and it keeps standing while her thumb is on it — the still's
+    // fuse does not burn — so the beat she lets go is the beat it passes and
+    // the beam has as long as she gives it, up to `leadHoldBeats`
+    // (`sim/lead-hand.ts`). Sim lane only so far, as the twenty-six above.
+    case "leadStalk":
       return target;
     default:
       return assertNever(target);

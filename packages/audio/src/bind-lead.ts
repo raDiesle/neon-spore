@@ -2,7 +2,7 @@ import type { SimEvent } from "@neon-spore/sim";
 import { type Cue, panForCol } from "./bind.js";
 
 /**
- * THE LEAD's fourteen, in a file of their own for `bind-gorge.ts`' reason.
+ * THE LEAD's seventeen, in a file of their own for `bind-gorge.ts`' reason.
  *
  * Every one of them is panned, and here the pan is the fight: the body is
  * never where the pair last heard it, so a footfall a column to the right
@@ -26,6 +26,9 @@ export function leadCue(
         | "leadTorch"
         | "leadRock"
         | "leadStill"
+        | "leadGrip"
+        | "leadRelease"
+        | "leadTear"
         | "leadPass"
         | "leadWall"
         | "leadDown"
@@ -57,6 +60,12 @@ export function leadCue(
       return { id: "boss.leadRock", pan };
     case "leadStill":
       return { id: "boss.leadStill", pan };
+    case "leadGrip":
+      return { id: "boss.leadGrip", pan };
+    case "leadRelease":
+      return { id: "boss.leadRelease", pan };
+    case "leadTear":
+      return { id: "boss.leadTear", pan };
     case "leadPass":
       return { id: "boss.leadPass", pan };
     case "leadWall":

@@ -17,7 +17,8 @@ export type DragTargetC =
   | "ledgerFoot"
   | "ledgerSocket"
   | "ledgerBead"
-  | "ledgerCord";
+  | "ledgerCord"
+  | "leadStalk";
 
 /**
  * `tasterBlade`, `tasterGap` and `tasterLock` are the forty-sixth, -seventh and
@@ -79,4 +80,31 @@ export type DragTargetC =
  * this union the simulation refuses **for something the holder cannot see**:
  * it will not come while the plate is still in the socket's column, which is
  * the last return being let through, said with two hands (`ledger-hand.ts`).
+ */
+
+/**
+ * `leadStalk` is the fifty-third, and the only one on this page taken by a
+ * boss that **already shipped without a handle**. THE LEAD is a fixture:
+ * `grippable.ts` refuses a hand on a boss body, and that refusal is not
+ * incidental to this fight, it is the reason the fight exists — a thumb on
+ * the body would steer every shot into it, and steering a shot to where a
+ * body *will be* is the whole question the boss asks.
+ *
+ * The still is the hole in that argument, and the only one. With one segment
+ * left the body stops dead and `leadShootable` goes false, so `lead-shot.ts`
+ * registers no flight at all: a thumb there can steer nothing, because there
+ * is nothing in the air to steer. What it has instead is **time**. While it
+ * is held the still does not run out, and the beat she lets go is the beat it
+ * passes — her hand on the clock the beam has to fill inside (`lead-hand.ts`).
+ *
+ * **The navigator's alone**, and decided the way THE LEDGER's four were, by
+ * what each seat is drawn: `leadFootCol` puts the stalk over the body's own
+ * column on her screen and in the middle of the field on his, so his stalk is
+ * a readout and not a body, and a handle a seat cannot see is not a handle.
+ * The pilot's press is dropped without a sound, as `queenMark`'s is.
+ *
+ * No `id` and no carry: there is one stalk, it is the boss, and the gesture
+ * is down or up. `on: false` is the command this boss was given a handle for
+ * — the same shape as `surgeBulb`, and the same argument, one seat instead of
+ * two.
  */

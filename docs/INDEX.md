@@ -462,6 +462,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/ledger-step.ts` | THE LEDGER's clock — the returns coming down the cord, the root walking along the hull, and the tear |
 | `packages/sim/src/ledger.ts` | THE LEDGER: whose body takes it |
 | `packages/sim/src/lead-hash.ts` | What THE LEAD puts into `hashWorld`, and nothing else |
+| `packages/sim/src/lead-hand.ts` | **The navigator's thumb on THE LEAD's stalk**, off the wire, on the tick |
 | `packages/sim/src/lead-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE LEAD |
 | `packages/sim/src/lead-step.ts` | THE LEAD's clock — the pace, the judgment, the run's litter, the still and the pass |
 | `packages/sim/src/lead.ts` | THE LEAD: where it will be |
@@ -1415,6 +1416,8 @@ place — the generator keeps whatever is there.
 | `packages/render/src/lead-draw.ts` | THE LEAD drawn: the ridge, the stalk of beads, the mound or the sill, the lock and the flights, split by seat |
 | `packages/render/src/lead-fx.ts` | What THE LEAD leaves behind a frame: the spring the lean rides, the whip, the tumbling bead, the bursts |
 | `packages/render/src/lead-shape.ts` | Where THE LEAD is in field pixels: the ridge, the foot, the stalk's length and the angle each seat is asked for |
+| `packages/render/src/lead-grip.ts` | **THE LEAD's stalk as a control**, for the one movement that asks a thumb for it: the still |
+| `packages/render/src/lead-word.ts` | **What THE LEAD is asking of the navigator's thumb while it stands still** |
 | `packages/render/src/body-mark.ts` | One living body, at a size, with no world around it |
 | `packages/render/src/body-interior.ts` | **What a living body has inside it**: one record per kind, so the slick's two dots can be argued with |
 | `packages/render/src/body-inset.ts` | what is inside a living body is clipped to the body drawn a sixth smaller, so an interior borrowed from one contour never crosses another's rim |

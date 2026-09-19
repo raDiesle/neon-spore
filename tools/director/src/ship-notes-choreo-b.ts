@@ -89,7 +89,12 @@ export const CHOREO_NOTES_B = {
     "every leadTorchEveryBeats and a rock ahead every leadRockEveryBeats; " +
     "from leadForecastSegments the lean says the beat after next. The last " +
     "segment stops it leadStillBeats, unhittable, the lean giving the pass " +
-    "away on the last of them; then it crosses to the farther wall " +
+    "away on the last of them. That still is the one thing here a hand can " +
+    "reach: the navigator's thumb on the stalk holds it standing for up to " +
+    "leadHoldBeats, the fuse not burning while she is on it, and it leans " +
+    "from the beat she takes it; it passes the beat she lets go, tears free " +
+    "if she holds past leadHoldBeats, and cannot be taken twice in one " +
+    "still. Then it crosses to the farther wall " +
     "leadPassCols a beat, and a wall is another still. Only the beam " +
     "standing in a column the pass goes through takes it, and the wave " +
     "holds leadOutBeats more. Nothing about it is authored per wave. See " +

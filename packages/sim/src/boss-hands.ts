@@ -7,6 +7,7 @@ import { filamentHeard } from "./filament-hand.js";
 import { fleetHandsHeard } from "./fleet-hand.js";
 import { gorgeHeard } from "./gorge-hand.js";
 import { instarHeard } from "./instar-hand.js";
+import { leadHeard } from "./lead-hand.js";
 import { ledgerHandsHeard } from "./ledger-hand.js";
 import { mazeHeartHeard } from "./maze-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
@@ -43,6 +44,11 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // inside one beat of each other, and the tick is what a lift is timed by
   // (`surge-hand.ts`).
   for (const c of commands) surgeHeard(world, c.player, c.command);
+  // THE LEAD's stalk under the navigator's thumb, on the tick because *up* is
+  // said on a tick, and a release answered on the next beat would be a beat of
+  // pass nobody asked for (`lead-hand.ts`). What the hold is worth is counted
+  // on the beat, in `lead-step.ts`, with the still it stops running out.
+  for (const c of commands) leadHeard(world, c.player, c.command);
   // THE ANTIPHON's thumb on the organ, on the tick because what it does is
   // turn a shape a finger is watching (`antiphon-hand.ts`).
   for (const c of commands) antiphonHeard(world, c.player, c.command);

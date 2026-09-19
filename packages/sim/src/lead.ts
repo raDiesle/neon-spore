@@ -31,6 +31,16 @@ import type { World } from "./world.js";
  * a pass that reaches the wall is another still and a pass back. THE SLOW
  * opens on every beat a shot is judged.
  *
+ * **The still is the one state a hand may reach into** (`lead-hand.ts`).
+ * While it stands there, the navigator's thumb on the stalk keeps it
+ * standing — the fuse does not burn — and it passes the beat she lets go.
+ * Every other state refuses a hand for the reason the design gives:
+ * `grippable.ts` refuses a hand on a boss body because a hand on a body
+ * would steer every shot into it, and steering is what this boss is. The
+ * still is the hole in that argument — `leadShootable` is false there and
+ * `lead-shot.ts` registers no flight at all — so a thumb on the stalk can
+ * steer nothing, and the only thing it has to give is **time**.
+ *
  * **It is a fixture and not a body** (`bossFillsWave`): nothing of it is
  * among the creatures, no hand takes hold of it, and the arrivals under it
  * are the wave's own until it runs.
@@ -67,6 +77,10 @@ export interface LeadState {
   passBeat: number;
   /** `world.beat` the beam took the last segment on; `-1` while it stands. */
   downBeat: number;
+  /** `world.beat` the navigator's thumb went on the stalk; `-1` while nothing holds it. */
+  heldBeat: number;
+  /** `world.beat` the stalk was let go of or tore free on; `-1` until one of those happens in this still. */
+  freeBeat: number;
 }
 
 /** The boss, if it is the one installed. Narrowing in one place rather than five. */
@@ -78,6 +92,21 @@ export function leadBoss(world: World): LeadState | null {
 /** Whether it is stopped dead: one segment left and no pass under way. */
 export function leadStill(s: LeadState): boolean {
   return s.stillBeat >= 0 && s.passBeat < 0 && s.downBeat < 0;
+}
+
+/** Whether a thumb is on the stalk, holding it where it stands. */
+export function leadHolding(s: LeadState): boolean {
+  return s.heldBeat >= 0;
+}
+
+/** Whether the stalk is there to be taken: it stands still, and no thumb has been on it this still. A hand is refused once it has been let go of, so letting go is the decision it is meant to be. */
+export function leadGrippable(s: LeadState): boolean {
+  return leadStill(s) && !leadHolding(s) && s.freeBeat < 0;
+}
+
+/** Whether a thumb has held past `leadHoldBeats` and the stalk tears out from under it. */
+export function leadTorn(s: LeadState, beat: number, cfg: SimConfig): boolean {
+  return leadHolding(s) && beat - s.heldBeat >= cfg.leadHoldBeats;
 }
 
 /** Whether it is on its last pass, the one the beam ends. */

@@ -12024,6 +12024,42 @@ the time went to confirming that thoroughly enough to close it honestly,
 plus writing down the adjacent thing found along the way rather than
 guessing at a fix for it.
 
+## 2026-09-19 — task-queue-work-ym2eim — THE LEAD's still becomes a handle
+
+The brief wanted several states and a gesture in each, and this fight already
+had four states and no gesture at all: pacing, running, forecasting, still, and
+every one of them answered on the panel. The seam was the still. `grippable.ts`
+refuses a hand on a boss body for a good reason — a thumb on the body would
+steer every shot into it, and steering a shot to where a body *will be* is the
+whole question this boss asks — but during the still `leadShootable` is false
+and `lead-shot.ts` registers no flight at all, so a thumb there can steer
+nothing. What it can give is **time**: `leadHoldBeats` is eight, twice the
+four-beat still, and the beam costs `lancePrimeBeats` of three. One more run at
+it, and no third.
+
+So the still is one gesture in three events — taken, let go of, torn out —
+rather than three states with a press each, which is what the brief's letter
+would have bought and what its point would not have. The other half is that the
+lean the design has always promised the pilot was written by `settleLean` and
+pinned upright by `leadAskedAngle`, so the one beat of warning this fight owes
+him had never been drawn. That is a fix to something wrong rather than
+unlovely, and it lands with the gesture because the gesture is what makes the
+still worth looking at.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 30 | `lead*.ts`, the design's §11, `grippable.ts`'s refusal and whether the still is a hole in it |
+| writing | 95 | the simulation, the ring, the word, two test files, the fourteen registrations and the prose |
+| looking | 0 | none — the picture is a second lane and a cloud session cannot judge it |
+| friction | 35 | `bind-choreographed.ts` over its limit, a tautological assertion, a `HOLD` counted from the wrong line of `boss-cue-text.ts`, and a trunk that split `boss-cue-read-c.ts` under the lane |
+| landing | 45 | `check:fast`, `format`, the clocks test's old `STILL`, four rebase conflicts, then the full `check` |
+
+**The bottleneck was that two of the fourteen registrations announce
+themselves as errors in the wrong file** — the line-limit failure named
+`bind-choreographed.ts` and the fix was a seam in its `-b` sibling, and the
+cue's second `HOLD` read as a bug in the new word until the coordinates showed
+it was the kind line a different file draws.
+
 *Measured: the rows above are the session's own estimate.*
 
 ## 2026-09-19 — queue-the-reprises-own-rehearsal-may-still-teach-the-s — the gap that was never a page

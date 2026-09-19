@@ -1,5 +1,5 @@
 /**
- * THE LEAD's fourteen, in a file of their own for `boss-gorge.ts`' reason.
+ * THE LEAD's seventeen, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is a **walker on a stalk**, and everything here is dry and
  * jointed where THE SURGE's was wet: a pace is a footfall with a click in
@@ -9,8 +9,11 @@
  * are its two endings, a crack or a hollow whistle down. The still is the
  * long sound on the page, a hum settling to nothing over the column it
  * stopped in; the pass is a rush; the down is the stalk going with the
- * whole body on it. Low and soft under the band, or short and high above
- * it, as ever (docs/spec/audio.md §1).
+ * whole body on it. The three the hand makes are the quietest on the page
+ * and belong together: a dry catch as the stalk is taken, the same catch
+ * letting go and sliding into the rush, and — held too long — a brittle rip
+ * with the rush behind it anyway. Low and soft under the band, or short and
+ * high above it, as ever (docs/spec/audio.md §1).
  */
 
 import { after, air, burst, glint, noise, soft, spore, sub, swell, thud, tick } from "../grain.js";
@@ -120,6 +123,37 @@ export const BOSS_LEAD_SOUNDS: SoundDef[] = [
     use: "THE LEAD down to its last segment, standing still and out of reach.",
     level: 0.36,
     layers: [swell(95, 0.9, 0.12), after(0.5, soft(0.6, sub(60, 0.5, 0.3)))],
+  },
+  {
+    id: "boss.leadGrip",
+    family: "boss",
+    blurb: "A hand closing on the stalk: a dry catch, and the hum under it holding its note.",
+    status: "bound",
+    use: "THE LEAD's stalk taken by the navigator while the body stands still.",
+    level: 0.3,
+    layers: [tick(0.1, 0, 2600), after(0.03, soft(0.7, swell(110, 0.5, 0.08)))],
+  },
+  {
+    id: "boss.leadRelease",
+    family: "boss",
+    blurb: "The hand off the stalk: the catch letting go and the hum sliding down into the rush.",
+    status: "bound",
+    use: "THE LEAD let go of — it passes on the next beat.",
+    level: 0.32,
+    layers: [tick(0.12, 0, 2200), after(0.04, air(2000, 900, 0.26, 0.12, 1.4))],
+  },
+  {
+    id: "boss.leadTear",
+    family: "boss",
+    blurb:
+      "The stalk torn out of a hand that would not let go: a brittle rip, then the rush anyway.",
+    status: "bound",
+    use: "THE LEAD held past leadHoldBeats — it passes whether she is ready or not.",
+    level: 0.4,
+    layers: [
+      noise(0.12, { type: "bandpass", freq: 1800, toFreq: 700, q: 1.6 }, 0.002, 0.05, 0.5),
+      after(0.05, thud(150, 80, 0.2, 0.35)),
+    ],
   },
   {
     id: "boss.leadPass",

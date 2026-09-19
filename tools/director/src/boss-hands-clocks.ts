@@ -2,6 +2,8 @@ import {
   type Color,
   type LeadState,
   leadBoss,
+  leadGrippable,
+  leadHolding,
   leadLead,
   leadPassDir,
   leadStill,
@@ -57,6 +59,12 @@ const pry = (cfg: SimConfig): Press => ({
     fromMilli: 0,
     fromYMilli: cfg.tasterPryMilli,
   },
+});
+
+/** THE LEAD's stalk, taken by the navigator while the body stands still (`sim/lead-hand.ts`). */
+const stalk = (on: boolean): Press => ({
+  player: 2,
+  command: { kind: "drag", target: "leadStalk", on, fromMilli: 0, fromYMilli: 0 },
 });
 
 /** The cannon is free: nothing of the pair's is on its way up. */
@@ -189,3 +197,28 @@ function leadPassCol(s: LeadState, cfg: SimConfig, late: number): number {
 }
 
 export const leadHand: Hand = leadHandLate(0);
+
+/**
+ * THE LEAD with the still held open: the same fight with the navigator's
+ * thumb on the stalk, which is the one state of this boss a hand may reach
+ * into at all (`sim/lead-hand.ts`).
+ *
+ * One press and no second: `leadHeard` writes `heldBeat` the tick the thumb
+ * lands, and a hand that pressed again every tick would be writing a fresh
+ * beat over it and holding a fuse that never burns down. So the stalk is
+ * taken while it is on offer and nothing is said after — the thumb is down
+ * until she lifts it or `leadHoldBeats` tears it out of her.
+ *
+ * The cannon goes where the pass will start from meanwhile, which is the
+ * whole point of the beats she is buying, and the fill is left to the pose
+ * that is about the fill (`leadHandLate`): a prime started here would end the
+ * fight before the hold had shown.
+ */
+export const leadHoldHand: Hand = (w) => {
+  const s = leadBoss(w);
+  if (s === null || s.downBeat >= 0) return [];
+  if (leadGrippable(s)) return [stalk(true)];
+  if (!leadHolding(s)) return leadHand(w);
+  const col = leadPassCol(s, w.cfg, 0);
+  return w.cannonCol === col ? [] : [aim(col)];
+};

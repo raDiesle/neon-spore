@@ -4,12 +4,14 @@ import {
   leadAim,
   leadForecasts,
   leadHeading,
+  leadHolding,
   leadLast,
   leadPace,
   leadPassDir,
   leadRunning,
   leadShootable,
   leadStill,
+  leadTorn,
   leadWalk,
 } from "./lead.js";
 import { openSlow } from "./slow.js";
@@ -19,7 +21,8 @@ import type { World } from "./world.js";
 /**
  * THE LEAD's clock — the pace, the judgment, the run's litter, the still and
  * the pass. What puts a shot into the air above the field is `lead-shot.ts`,
- * on the tick.
+ * on the tick, and what a thumb on the stalk does is `lead-hand.ts`; the
+ * still is counted here, which is where her hand is felt.
  *
  * Everything here runs on the **beat** from `stepBoss`, and in one order:
  * the body **moves**, then every shot due this beat is **judged** against
@@ -43,16 +46,30 @@ export function installLead(world: World): LeadState {
     stillBeat: -1,
     passBeat: -1,
     downBeat: -1,
+    heldBeat: -1,
+    freeBeat: -1,
   };
   world.events.push({ type: "leadEnter", col: s.col, dir: s.dir });
   return s;
 }
 
-/** The stalk, read off where the body will go: nothing while it stands, the pass's way on the still's last beat, otherwise the heading one or two beats out. */
+/**
+ * The stalk, read off where the body will go: nothing while it stands, the
+ * pass's way on the still's last beat, otherwise the heading one or two beats
+ * out.
+ *
+ * **A held stalk leans from the beat it is taken**, which is the hold's whole
+ * bargain with the other seat. Left alone the still gives the pass away on
+ * its last beat and no sooner; a hold that never reaches a last beat would
+ * tell the pilot — the only seat shown the lean — nothing at all, and he is
+ * the one who has to have the cannon standing where the pass comes through.
+ * So her hand buys the beam its time and spends the surprise to do it.
+ */
 function settleLean(world: World, s: LeadState): void {
   const cfg = world.cfg;
   if (leadStill(s)) {
-    s.lean = world.beat - s.stillBeat === cfg.leadStillBeats ? leadPassDir(s.col, cfg) : 0;
+    const says = leadHolding(s) || world.beat - s.stillBeat === cfg.leadStillBeats;
+    s.lean = says ? leadPassDir(s.col, cfg) : 0;
     return;
   }
   if (s.downBeat >= 0) {
@@ -129,7 +146,16 @@ function litter(world: World, s: LeadState, from: number): void {
 function last(world: World, s: LeadState): void {
   const cfg = world.cfg;
   if (leadStill(s)) {
-    if (world.beat - s.stillBeat <= cfg.leadStillBeats) {
+    if (leadHolding(s)) {
+      if (!leadTorn(s, world.beat, cfg)) {
+        // Her thumb is the fuse: it does not burn while she is on it.
+        settleLean(world, s);
+        return;
+      }
+      s.heldBeat = -1;
+      s.freeBeat = world.beat;
+      world.events.push({ type: "leadTear", col: s.col });
+    } else if (s.freeBeat < 0 && world.beat - s.stillBeat <= cfg.leadStillBeats) {
       settleLean(world, s);
       return;
     }
@@ -151,6 +177,9 @@ function last(world: World, s: LeadState): void {
   if (s.col === 0 || s.col === cfg.cols - 1) {
     s.stillBeat = world.beat;
     s.passBeat = -1;
+    // A wall is a whole new still, and the stalk is there to be taken again.
+    s.heldBeat = -1;
+    s.freeBeat = -1;
     settleLean(world, s);
     world.events.push({ type: "leadWall", col: s.col });
   }
@@ -169,6 +198,8 @@ export function leadDown(world: World, s: LeadState): void {
   s.downBeat = world.beat;
   s.passBeat = -1;
   s.stillBeat = -1;
+  s.heldBeat = -1;
+  s.freeBeat = -1;
   s.lean = 0;
   world.events.push({ type: "leadDown", col: s.col });
 }

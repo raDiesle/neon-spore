@@ -5688,7 +5688,8 @@ the only reason THE LOCK does not solve it outright.
 state (`sim/lead.ts`, hashed in `sim/lead-hash.ts`) is the column it stands
 over, the way it faces, the **lean** its stalk shows, the `segments` left on
 the stalk (`leadSegments`, 5), the shots in the air above the field with the beat each comes
-due, and three beat stamps — stopped dead, the pass began, down. It paces
+due, and five beat stamps — stopped dead, the pass began, down, the thumb
+went on the stalk, the stalk came free. It paces
 along the top of the field, above row 0, at `leadPaceCols` (1) a beat and
 turns at the walls (`leadWalk`: stop at the wall, face away from it), and
 enters at `midCol` facing right. It does not fill its wave
@@ -5716,8 +5717,21 @@ the *beat after next* rather than next — the wall turn a beat early
 (`leadHeading`). On the fourth hit it **stops dead** (`leadStill`), stalk
 upright, for `leadStillBeats` (4): nothing touches it, the shots still in
 the air are nothing, and a bolt out of the top is not even put into the
-air. On the still's last beat the stalk gives the pass away, and it goes
-toward the farther wall (`leadPass`, `leadPassDir`: the middle goes right)
+air. **The still is the one state of this fight a hand can reach into**
+(`sim/lead-hand.ts`, `sim/drag-targets-c.ts`): while it stands there the
+navigator's thumb on the stalk (`leadStalk`, `leadGrip`) keeps it standing —
+the fuse does not burn while she is on it — and it passes the beat she lets
+go (`leadRelease`). A thumb held past `leadHoldBeats` (8) has the stalk
+**torn** out of it (`leadTear`) and it passes anyway; a still already let go
+of or torn free cannot be taken again (`leadGrippable`, `freeBeat`), so
+letting go is the decision it is meant to be. The design's refusal is not
+broken by this: `grippable.ts` refuses a hand on a boss body because a hand
+on a body would steer every shot into it, and through the whole still
+`leadShootable` is false and `sim/lead-shot.ts` puts no bolt into the air at
+all — a thumb there can steer nothing, and the only thing it has to give is
+**time**, which is exactly what `lancePrimeBeats` (3) costs inside a still of
+4. On the still's last beat, or from the beat her thumb goes on, the stalk
+gives the pass away, and it goes toward the farther wall (`leadPass`, `leadPassDir`: the middle goes right)
 at `leadPassCols` (3) a beat, ending only where **the beam is standing the
 whole way up a column it goes through** on that beat (`beamAcross`,
 `world.beam.topMilli === 0`), or where a beam is fired up its own column
@@ -5794,12 +5808,20 @@ column nothing; the test screen has both. A **flight** is a white bolt
 over its column on every screen, climbing from the ridge's underside to a
 tile above its top across the beats of the flight, because the shot is the
 pilot's own and the column it went up is no secret. **Still**, the stalk
-is grey and dead upright on every screen, the mound grey with it and the
-lock at half strength; on the **pass** the stalk lies over 1.2 rad the
+is grey on every screen, the mound grey with it and the lock at half
+strength — and it **leans** on the screens shown the lean, because
+`settleLean` has always written the pass's way into `lean` on the still's
+last beat and from the beat a thumb takes it, and the angle was pinned
+upright until 19 September 2026, so the one beat of warning the fight
+promises the pilot was never drawn (`leadAskedAngle`). On the navigator's
+screen alone a **ring** stands on the organ at the tip while the stalk may
+be taken, and fills with a dial of the hold left under her thumb
+(`lead-grip.ts`, `grip-rings.ts`); it is hers because the stalk is only a
+body on her screen, and it is gone for the rest of a still once spent. on the **pass** the stalk lies over 1.2 rad the
 way it lunges on every screen, since the pass is given away on the still's
 last beat and a lean here hides nothing; **down**, the stalk is gone and
 the ridge, the mound and the sill fade over `leadOutBeats` — in the colour,
-since `strokeGlow` owns the alpha. The fourteen events are one family read
+since `strokeGlow` owns the alpha. The seventeen events are one family read
 above `Effects`' loop (`lead-fx.ts`): the lean rides a **spring** (stiffness
 90, damping 11, capped at 1.35 rad) so a new lean is an overshoot and a
 settle rather than a snap, and a doubling back **whips** it — but only on
@@ -5832,28 +5854,32 @@ boss in the family: the word four of the other readings give the pilot goes out 
 arrives, and on this boss its *absence* would tell him the column he is not
 shown. A word whose silence reads is as bad as one that says too much, and every
 other reading's `MOVE` stands on a column the game is already drawing him. What
-is left is the two moments the trigger **stops working**, and both are hers
-because the presses are hers (`content/src/controls.ts`). `STILL` on the body
-while it stands dead: at one segment it stops where it was hit for
-`leadStillBeats`, the shots in the air are thrown away, and from then until the
-pass nothing touches it at all — `leadStruck` refuses a bolt and a beam up any
-column is the plating's answer (`sim/lead-shot.ts`). Four beats of a trigger
-that has quietly stopped working, which is the sentence this whole family exists
-for and was true of this boss; the word is the kind, THE STARE's arrangement, so
-the screen says one thing (`boss-cue-text.ts`). And `BURN` on the pass, which
-**only the beam standing in its column** ends — a pass that reaches the wall is
-another still and a pass back. The mark stands on the body at
-`tileCX(l, s.col)`, and only she is shown the body: the stalk's foot is drawn at
-`s.col` on her screen and at the middle of the field on his (`lead-shape.ts`),
-so the word names the thing she is already looking at and `cueSeen` keeps it off
-his glass. **And `STILL` hands her nothing she has not got.** Standing dead is
-drawn to both seats — the stalk goes upright, the mound changes and the lock
-dims to half (`lead-draw.ts`, and the angle is nought whatever the role) — so
-the word adds the verb and no reading. What it does not say is that the pilot has
-four beats of work in there: on the last of them the stalk leans the way the pass
-will go (`settleLean`, `leadPassDir`), which is his picture, his to say, and the
-guide's to explain. Proved in `render/test/boss-cue-clocks.test.ts`, the pilot's
-whole silence with it.
+is left is the last movement, and all of it is hers because the presses are hers
+(`content/src/controls.ts`). `BURN` on the pass, which **only the beam standing
+in its column** ends — a pass that reaches the wall is another still and a pass
+back. The mark stands on the body at `tileCX(l, s.col)`, and only she is shown
+the body: the stalk's foot is drawn at `s.col` on her screen and at the middle
+of the field on his (`lead-shape.ts`), so the word names the thing she is
+already looking at and `cueSeen` keeps it off his glass.
+
+**And the still is a gesture now rather than a state** (19 September 2026,
+`render/src/lead-word.ts`). It said `STILL` through all four beats, which added
+the verb and no reading: standing dead is drawn to both seats already. The stalk
+is a handle there now, so the word is `HOLD` while it may be taken — the
+gesture's own name, and the first word this fight has ever put on a thumb —
+`BURN` while she has it, and **nothing** once the still is spent, because a
+still let go of or torn free passes on the next beat whatever anyone does and a
+verb the game is about to refuse is worse than no verb. `BURN` under her thumb
+is deliberately the pass's own word: her hand is not touching the body, it is
+buying the beam the beats it needs to fill, and the beam is his — *burn*, then
+*up*, and the fight ends in the column she is the only one who can see. No word
+carries a number in either direction: how long she has left is the ring's dial
+and hers, how full the beam is, is his gauge and his. What the pilot has in
+there is still his: the stalk leans the way the pass will go, from the beat she
+takes it and on the last beat of a still nobody took (`settleLean`,
+`leadPassDir`), which is his picture, his to say, and the guide's to explain.
+Proved in `render/test/boss-cue-lead.test.ts` and
+`render/test/boss-cue-clocks.test.ts`, the pilot's whole silence with it.
 
 **The rehearsal** (`content/src/scenes/the-lead.ts`, 17 September 2026,
 eight pages over 1500 ticks): the mistake first — a shot at column 7, where

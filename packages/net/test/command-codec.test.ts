@@ -158,6 +158,13 @@ const ACCEPTED: Command[] = [
   { kind: "drag", target: "ledgerBead", on: false, fromMilli: 0 },
   { kind: "drag", target: "ledgerCord", on: true, fromMilli: 0, fromYMilli: 1900 },
   { kind: "drag", target: "ledgerCord", on: false, fromMilli: 0, fromYMilli: 0 },
+  // THE LEAD's stalk, the one handle on a body the field otherwise refuses a
+  // hand on: down and up and nothing else, because all it carries is *time*
+  // (`sim/lead-hand.ts`). The lift is the message — it passes the beat she
+  // lets go — so a codec that dropped `on: false` would leave the pair
+  // holding a boss that never moves.
+  { kind: "drag", target: "leadStalk", on: true, fromMilli: 0 },
+  { kind: "drag", target: "leadStalk", on: false, fromMilli: 0 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -294,6 +301,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   ledgerSocket: true,
   ledgerBead: true,
   ledgerCord: true,
+  leadStalk: true,
   crank: true,
   orreryRing: true,
 };

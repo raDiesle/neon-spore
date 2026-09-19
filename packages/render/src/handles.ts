@@ -11,6 +11,7 @@ import { gorgeGripUnder } from "./gorge-grip.js";
 import { balloonHandleUnder, choirArrowUnder } from "./handles-pairs.js";
 import { instarMarkUnder } from "./instar-marks.js";
 import { hitCircle, type Layout } from "./layout.js";
+import { leadStalkUnder } from "./lead-grip.js";
 import { lidCordCircle } from "./lid-string.js";
 import { mazeHeartUnder } from "./maze-grip.js";
 import { mazeStringCircle } from "./maze-string.js";
@@ -94,7 +95,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     batonSocketUnder(l, x, y, field) ?? // THE BATON's swelling socket and its two beads (`baton-grip.ts`).
     fleetGripUnder(l, x, y, field) ?? // THE FLEET's wound, under `flood` and `wreck` (`fleet-grip.ts`).
     candleWickUnder(l, x, y, field) ?? // THE CANDLE's flame, at the last step, in the dark (`candle-grip.ts`).
-    curtainHemUnder(l, x, y, field) // THE CURTAIN's hem, while a hit has jammed the rail (`curtain-grip.ts`).
+    curtainHemUnder(l, x, y, field) ?? // THE CURTAIN's hem, while a hit has jammed the rail (`curtain-grip.ts`).
+    leadStalkUnder(l, x, y, field) // THE LEAD's stalk, while the body stands still (`lead-grip.ts`).
   );
 }
 

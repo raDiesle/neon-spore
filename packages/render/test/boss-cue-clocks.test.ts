@@ -104,21 +104,24 @@ describe("THE LEAD", () => {
     expect(word(world, "p1")).toBeNull();
   });
 
-  it("asks her to hold off while it stands dead, where nothing touches it", () => {
+  it("offers her the stalk while it stands dead, where nothing else touches it", () => {
     const world = opened("lead");
     const s = installed<LeadState>(world, "lead");
     s.segments = 1;
     s.stillBeat = world.beat;
     // Four beats of a refused bolt and a beam the plating answers
-    // (`sim/lead-shot.ts`), and the word is the kind so the screen says one
-    // thing. It stands on the body, which is drawn at `s.col` on her screen
-    // alone (`lead-shape.ts`).
+    // (`sim/lead-shot.ts`) — and since 19 September 2026 the one state of this
+    // fight a thumb may reach into, so the word is the gesture's own name
+    // rather than `STILL`, which named a state the picture already drew
+    // (`lead-word.ts`). It stands on the body, which is drawn at `s.col` on
+    // her screen alone (`lead-shape.ts`).
     const hers = cue(world, "p2");
-    expect(hers?.word).toBe("STILL");
-    expect(hers?.kind).toBe("STILL");
+    expect(hers?.word).toBe("HOLD");
+    expect(hers?.kind).toBe("HOLD");
     expect(hers?.x).toBe(tileCX(LAYOUT.p2, s.col));
-    // His four beats are the stalk's: on the last of them it leans the way the
-    // pass will go, which is his picture and his to say (`settleLean`).
+    // His four beats are the stalk's: from the beat she takes it, and on the
+    // last of a still nobody took, it leans the way the pass will go, which is
+    // his picture and his to say (`settleLean`).
     expect(word(world, "p1")).toBeNull();
   });
 

@@ -217,7 +217,7 @@ export const INGEST_SILENT_BOSS = [
   "surgeClose",
   "surgeEvert",
   "surgeOut",
-  // THE LEAD's fourteen are read as one family above the loop by
+  // THE LEAD's seventeen are read as one family above the loop by
   // `lead-fx.ts` (`Effects.lead`), the way THE SURGE's are: a burst per
   // event at the foot or the column, the whip on a doubling back, the bead
   // that tumbles off on a hit (`docs/spec/bosses.md` §11.29).
@@ -231,6 +231,9 @@ export const INGEST_SILENT_BOSS = [
   "leadTorch",
   "leadRock",
   "leadStill",
+  "leadGrip",
+  "leadRelease",
+  "leadTear",
   "leadPass",
   "leadWall",
   "leadDown",

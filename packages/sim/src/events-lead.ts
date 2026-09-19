@@ -9,8 +9,9 @@
  * `LeadState` every frame (`lead.ts`). What is *not* in the world a frame
  * later is the pace it just took, the wall it turned at, the shot that left
  * the top under it, the judgment — a segment gone or a miss that turned it —
- * and the moments of the last movement. Every one names a column, because
- * the ear pans on one: the body's own, or the column a thing was dropped in.
+ * and the moments of the last movement — the thumb on the stalk among them.
+ * Every one names a column, because the ear pans on one: the body's own, or
+ * the column a thing was dropped in.
  */
 
 /** A column's worth of THE LEAD, for the ear to pan on. */
@@ -40,6 +41,12 @@ export type LeadEvent =
   | ({ type: "leadRock" } & LeadColEvent)
   /** One segment left: it stopped dead at `col`, stalk upright, and nothing can touch it. */
   | ({ type: "leadStill" } & LeadColEvent)
+  /** A thumb took the stalk at `col`: the still stops running out while it is on. */
+  | ({ type: "leadGrip" } & LeadColEvent)
+  /** The thumb came off the stalk at `col`: it passes on the next beat. */
+  | ({ type: "leadRelease" } & LeadColEvent)
+  /** The thumb held past `leadHoldBeats` and the stalk tore out of it at `col`: it passes anyway. */
+  | ({ type: "leadTear" } & LeadColEvent)
   /** The still is over: the last pass began from `col` toward `dir`. */
   | ({ type: "leadPass"; dir: -1 | 1 } & LeadColEvent)
   /** The pass reached the wall at `col` with the beam nowhere in its way: it stands still again. */

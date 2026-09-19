@@ -1,4 +1,4 @@
-import { type LeadState, leadPassing, leadStill, midCol, type SimConfig } from "@neon-spore/sim";
+import { type LeadState, leadPassing, midCol, type SimConfig } from "@neon-spore/sim";
 import { type Layout, tileCX } from "./layout.js";
 import { showsLeadCol, showsLeadLean } from "./view-role-clocks.js";
 
@@ -65,14 +65,23 @@ export function leadStalkLength(l: Layout, s: LeadState): number {
 /**
  * The angle the stalk is asked to stand at on this screen, in radians off
  * upright, positive to the right. The lean only where the lean is shown;
- * upright while it stands dead still; lying over the way it goes on the last
- * pass on every screen — the pass is three columns a beat and the column is
- * on the navigator's screen already, so a stalk lying flat tells her nothing
- * her own readout does not. The spring that gets it there is `lead-fx.ts`'s.
+ * lying over the way it goes on the last pass on every screen — the pass is
+ * three columns a beat and the column is on the navigator's screen already,
+ * so a stalk lying flat tells her nothing her own readout does not. The
+ * spring that gets it there is `lead-fx.ts`'s.
+ *
+ * **The still leans too, and only because the simulation says it does.**
+ * `settleLean` has always put the pass's way into `s.lean` on the last beat
+ * of the still, and §11.29 has always said the lean gives that pass away;
+ * the angle was pinned upright through every still, so the one beat of
+ * warning the fight promises the pilot was never drawn. It is the same field
+ * and the same lean, read where it is written. A held stalk leans from the
+ * beat the navigator takes it (`sim/lead-step.ts`), which is what her hand
+ * gives him in exchange for the time it buys her.
  */
 export function leadAskedAngle(s: LeadState, role: Layout["role"]): number {
   if (leadPassing(s)) return s.dir * PASS_ANGLE;
-  if (leadStill(s) || !showsLeadLean(role)) return 0;
+  if (!showsLeadLean(role)) return 0;
   return s.lean * LEAN_ANGLE;
 }
 

@@ -21,6 +21,8 @@ export function leadHashParts(s: LeadState): number[] {
     s.stillBeat,
     s.passBeat,
     s.downBeat,
+    s.heldBeat,
+    s.freeBeat,
     s.flights.length,
   ];
   for (const f of s.flights) out.push(f.col, f.dueBeat);

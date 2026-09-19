@@ -1,6 +1,7 @@
 import type { SimEvent } from "@neon-spore/sim";
 import type { Cue } from "./bind-cue.js";
 import { gaugeCue } from "./bind-gauge.js";
+import { leadCue } from "./bind-lead.js";
 import { ledgerCue } from "./bind-ledger.js";
 import { pinballHandCue } from "./bind-pinball-hand.js";
 import { pulseHandCue } from "./bind-pulse-hand.js";
@@ -75,6 +76,14 @@ export type AddedEvent = Extract<
       | "ledgerRoll"
       | "ledgerPull"
       | "ledgerHaul"
+      // And THE LEAD's three, which are one hand held down: taken, let go of,
+      // and torn out of the thumb that was holding it (`sim/lead-hand.ts`).
+      // The first boss to arrive here with a gesture that is a *length of
+      // time* rather than a moment, which is why all three are needed to say
+      // what one thumb did.
+      | "leadGrip"
+      | "leadRelease"
+      | "leadTear"
       // And THE GAUGE's four, the first sounds this round has had at all: a
       // call's two answers, and what each can cost the seat not making it
       // (`sim/events-gauge.ts`).
@@ -122,6 +131,9 @@ const ADDED_EVENTS = new Set<string>([
   "ledgerRoll",
   "ledgerPull",
   "ledgerHaul",
+  "leadGrip",
+  "leadRelease",
+  "leadTear",
   "gaugeMark",
   "gaugeMiss",
   "gaugeJam",
@@ -152,6 +164,14 @@ export function addedCue(e: AddedEvent, cols: number): Cue {
     case "ledgerPull":
     case "ledgerHaul":
       return ledgerCue(e, cols);
+    // And THE LEAD's three, for the reason said twice above: the fourteen next
+    // door are panned to the column the body was in when it happened, and this
+    // is the one fight where a second file answering *where* would be an ear
+    // disagreeing with the bet the pair just made (`bind-lead.ts`).
+    case "leadGrip":
+    case "leadRelease":
+    case "leadTear":
+      return leadCue(e, cols);
     case "gaugeMark":
     case "gaugeMiss":
     case "gaugeJam":

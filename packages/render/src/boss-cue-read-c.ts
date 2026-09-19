@@ -2,6 +2,7 @@ import { type LeadState, leadPassing, leadStill, type World } from "@neon-spore/
 import type { BossCue } from "./boss-cue.js";
 import { type Layout, tileCX } from "./layout.js";
 import { leadRidgeY } from "./lead-shape.js";
+import { leadWord } from "./lead-word.js";
 
 /**
  * **What THE LEAD is asking for** — page three of the readings, its page
@@ -54,38 +55,39 @@ function markAt(
  * is not shown. Every other reading's `MOVE` stands on a column the game is
  * already drawing him.
  *
- * What is left is the two moments the trigger **stops working**, and both are
- * hers, because the presses are hers (`content/src/controls.ts`).
+ * What is left is the last movement, where the trigger **stops working**, and
+ * every word of it is hers, because the presses are hers
+ * (`content/src/controls.ts`).
  *
- * - **`STILL`, while it stands dead.** At one segment the body stops where it
- *   was hit for `leadStillBeats`, the shots in the air are thrown away, and
- *   from then until the pass *nothing touches it at all*: `leadStruck` refuses
- *   a bolt and a beam up any column is the plating's answer
- *   (`sim/lead-shot.ts`). Four beats of a trigger that has quietly stopped
- *   working, which is this boss's own sentence and was true of this boss.
- *   `STILL` is the kind and the word, THE STARE's arrangement, so the screen
- *   says one thing.
+ * - **The still, which is a gesture rather than a state.** At one segment the
+ *   body stops where it was hit for `leadStillBeats`, the shots in the air are
+ *   thrown away, and from then until the pass *nothing touches it at all*:
+ *   `leadStruck` refuses a bolt and a beam up any column is the plating's
+ *   answer (`sim/lead-shot.ts`). `STILL` stood through all four of those beats
+ *   until 19 September 2026 and said only the verb the picture already drew;
+ *   the stalk is a handle there now, so the word is `HOLD` while it may be
+ *   taken, `BURN` while she has it, and **nothing** once the still is spent.
+ *   The whole argument, and the silence, is `lead-word.ts`.
  * - **`BURN`, on the pass.** It runs for the farther wall at `leadPassCols` a
  *   beat and **only the beam standing in its column** ends it; a pass that
- *   reaches the wall is another still and a pass back.
+ *   reaches the wall is another still and a pass back. The same word the hold
+ *   carries, and deliberately: what her hand buys in the still is this beam.
  *
  * **The mark stands on the body, and only she is shown the body.** The stalk's
  * foot is drawn at `s.col` on her screen and at the middle of the field on his
  * (`lead-shape.ts`), so a seat-2 cue at `tileCX(l, s.col)` names the thing she
  * is already looking at and `cueSeen` keeps it off his glass.
  *
- * **And `STILL` hands her nothing she has not got.** Standing dead is drawn to
- * both seats — the stalk goes upright, the mound changes and the lock dims to
- * half (`lead-draw.ts`, and the angle is nought whatever the role) — so the
- * word adds the verb and no reading. What it does *not* say is that the pilot
- * has four beats of work in there: on the last of them the stalk leans the way
- * the pass will go (`settleLean`, `leadPassDir`), which is his picture, his to
- * say, and the guide's to explain.
+ * **What the pilot is shown in there is still his**: the stalk leans the way
+ * the pass will go, from the beat she takes it and on the last beat of a still
+ * nobody took (`settleLean`, `leadPassDir`, `lead-shape.ts`).
  */
 export function leadCues(l: Layout, _world: World, s: LeadState): readonly BossCue[] {
   if (leadPassing(s)) {
     return [markAt(2, "HOLD", "BURN", tileCX(l, s.col), leadRidgeY(l).mid, l, 54)];
   }
   if (!leadStill(s)) return [];
-  return [markAt(2, "STILL", "STILL", tileCX(l, s.col), leadRidgeY(l).mid, l, 95)];
+  const say = leadWord(s);
+  if (say === null) return [];
+  return [markAt(2, say.kind, say.word, tileCX(l, s.col), leadRidgeY(l).mid, l, 95)];
 }

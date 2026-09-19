@@ -822,24 +822,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE LEAD changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/task-queue-work-ym2eim (claim: claude/queue-the-lead-changes-state-more-than-once-and-asks-f)
-- **Files:** `packages/sim/src/config-lead.ts`, `packages/sim/src/events-lead.ts`, `packages/sim/src/lead-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-
-It is answered today on the ordinary panel, over 6 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE LEAD's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1984,3 +1966,94 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## Unverified at 5619d0ed: the reach and the shot on a real frame — a cloud sessio…
+
+- **Found:** 2026-09-19, hive-relanding
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/release-notes.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/waves/act-7f.ts`, `packages/render/src/boss-cue-read-v.ts`
+
+2 commits landed, ending in *Release notes for one landing*, from a session that could not look at it. The commit touched 2 more files. What went unchecked:
+
+- the reach and the shot on a real frame — a cloud session has no screen
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
+
+## `sound-link-none-b.ts` is at 245 lines, and THE GAUGE's four just filled it
+
+- **Found:** 2026-09-19, claude/queue-the-gauge-sound
+- **Files:** `tools/director/src/sound-link-none-b.ts`, `tools/director/src/sound-link-none.ts`
+
+Giving THE GAUGE its first four events (`docs/queue.md`'s own *THE GAUGE is
+the only boss with no events and no sound*, this commit) cost this page its
+last comfortable margin: THE THROAT's six were already on it, and THE GAUGE's
+four brought it to 245 of 250. The next round or boss whose added events have
+nothing to draw — and every one so far has needed a written reason here,
+never a picture — has nowhere left on this page, and `sound-link-none.ts`
+itself says its own page is full and hands its *last* boss across rather than
+splitting mid-page.
+
+Cut it the way that page's own comment says the seam moves: the next lane
+whose rows would put this file over 250 hands its own last boss's rows to a
+new `sound-link-none-c.ts`, spread into `NO_SUBJECT` next to `NO_SUBJECT_B`
+the way that one is spread into `NO_SUBJECT` today — never the rows the lane
+itself is adding, and never a fight to squeeze a paragraph shorter instead.
+
+## THE REPRISE's own rehearsal may still teach the split by gap rather than colour
+
+- **Found:** 2026-09-19, claude/queue-the-reprises-tear-draws-the-pilots-half-of-the-r
+- **Taken:** 2026-09-19, main (claim: claude/queue-the-reprises-own-rehearsal-may-still-teach-the-s)
+- **Files:** `packages/content/src/scenes/the-reprise.ts`
+- **Where:** cloud
+
+Landing *THE REPRISE's tear draws the pilot's half of the record on both
+screens* found that `docs/spec/bosses.md` §11.15 and `waves/act-10.ts`'s own
+header already read the corrected split — the navigator keeps the columns,
+the pilot keeps the colours — but `scenes/the-reprise.ts`'s header still
+says, of the same fight, *"the navigator's half is the column and the
+pilot's is the gap"* and has the pilot's blind page read `COUNT THE GAPS
+BETWEEN THEM` rather than a colour.
+
+Whether this is actually stale is not settled here. The rehearsal's `acts`
+do carry both a cannon slide (a column) and a fire (a colour) after the dark,
+so the scene may be deliberately teaching the *timing* half of the record as
+a separate, easier first pass before the guide's colour-reading wording
+existed — in which case the fix is only in the words, not the acts — or it
+may simply not have been touched when the colour framing landed. Reading it
+against the corrected design, and against whatever `boss-cue-read-s.ts` and
+its own words expect the pilot's blind page to be about, decides which.
+
+## `.claude/skills/new-boss` has no §6, and thirty-six files cite §6.2
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `.claude/skills/new-boss/SKILL.md`, `packages/sim/src/drag-targets.ts`, `packages/audio/src/bind-choreographed-b.ts`, `docs/spec/bosses.md`, `docs/spec/interludes.md`, `docs/queue.md`
+- **Where:** cloud
+
+The skill's headings run `## 1.` to `## 5.` and then `## 7.` — there is no
+section six, and no numbered sub-section anywhere in the file, so `§6.2` and
+`§6.3` name nothing at all. Thirty-six TypeScript files cite one of them, and
+so do ten paragraphs of `docs/spec/bosses.md`, four of
+`docs/spec/interludes.md`, and most of the boss entries in this file, which
+spell it `section 6.2` and `section 6.3` in a closing line each. Every one of
+them means the owner's standing brief — *give a shipped boss several states and
+a different gesture in each*, and *reach one of them on the picture rather than
+on the panel* — which is the prose under `## 5. Lane two: the look` and the
+list under `## 7.`, not a §6.
+
+Two numbers went missing rather than one: the citations were written against a
+version of the skill that had a sixth section, and the renumbering that removed
+it left every reference behind. A lane meeting `§6.2` in a comment today opens
+the skill, finds five sections and a seven, and re-derives the brief from the
+queue entry it is working — which is exactly the tax this file exists to stop.
+
+Decide it one way and do it once: either restore a `## 6.` to the skill whose
+sub-sections are the two asks, so the citations become true again, or give the
+brief a name the code can cite that does not move — a heading the skill promises
+not to renumber, referenced as `new-boss` *the standing brief* rather than by
+number — and sweep the thirty-six source files, the three documents and this
+file's own closing lines onto it. `docs/time-log.md` and `docs/release-notes.md`
+are records of what was written on the day and are not swept. `bun run check`
+proves the sweep: `tools/test/doc-drift.test.ts` holds the documents, and the
+comments are a typecheck away from nothing.

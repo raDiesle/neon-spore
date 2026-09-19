@@ -31,6 +31,8 @@ export interface LeadConfig {
   leadForecastSegments: number;
   /** Beats it stands dead still, stalk upright and unhittable, before a pass. */
   leadStillBeats: number;
+  /** Beats a thumb may keep the stalk standing before it tears out from under her and passes anyway. */
+  leadHoldBeats: number;
   /** Every this many beats, running, a torch is dropped in the column it just left. `0` drops none. */
   leadTorchEveryBeats: number;
   /** Every this many beats, running, a rock is dropped in the column a shot would have to be put in. `0` drops none. */
@@ -48,6 +50,13 @@ export interface LeadConfig {
  * beat. The still is four beats, the design's; the torch and the rock are on
  * a cadence rather than one each pace, so the field under a run is a hazard
  * and not a wall.
+ *
+ * The hold is **twice the still**, and that is the whole of its arithmetic:
+ * her beam needs `lancePrimeBeats` to fill and the still is four beats, so a
+ * pair who spent the first of them saying the column have no room left to
+ * fill in. Eight gives them exactly one more run at it and no third — long
+ * enough to be a second chance, short enough that holding on is never the
+ * answer.
  */
 export const LEAD_DEFAULTS: LeadConfig = {
   leadSegments: 5,
@@ -58,6 +67,7 @@ export const LEAD_DEFAULTS: LeadConfig = {
   leadFastSegments: 4,
   leadForecastSegments: 2,
   leadStillBeats: 4,
+  leadHoldBeats: 8,
   leadTorchEveryBeats: 3,
   leadRockEveryBeats: 4,
   leadSlowBeats: 1,

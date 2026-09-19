@@ -211,7 +211,7 @@ export const SILENT_BOSS = [
   "surgeClose",
   "surgeEvert",
   "surgeOut",
-  // THE LEAD's fourteen are one family read above the loop by
+  // THE LEAD's seventeen are one family read above the loop by
   // `lead-fx.ts`, never rows here (`docs/spec/bosses.md` §11.29).
   "leadEnter",
   "leadPace",
@@ -223,6 +223,9 @@ export const SILENT_BOSS = [
   "leadTorch",
   "leadRock",
   "leadStill",
+  "leadGrip",
+  "leadRelease",
+  "leadTear",
   "leadPass",
   "leadWall",
   "leadDown",
