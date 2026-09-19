@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · bcbb3c25 — Sort boss-hands-snake.ts's imports
+
+## 2026-09-19 · de84d334 — Give SNAKE's gorge and shed a hand that plans, not points
+
 ## 2026-09-19 · 17ed660e — THE ANTIPHON: the navigator pulls a candidate off her rail
 
 The boss answered everything on the ordinary panel. It now has a second gesture, and it is on the picture: the navigator carries a candidate down off her rail and it is crossed off. Its column leaves the cycle, a bolt into it is nothing, and it cannot spill on them when a pit ends the cycle. Pull off the one he is describing and the cycle hardens exactly as firing at a decoy does, so getting it wrong costs what getting it wrong already cost. The rule is one short sentence — pull off the ones you know are wrong — and every refusal in it follows from that sentence rather than from a rule of its own: a carry shorter than antiphonPullMilli, a rail pulled at before the organ stands, a second pull on one already crossed, and the pilot's thumb, which is dropped without a sound because the rail is hers.
