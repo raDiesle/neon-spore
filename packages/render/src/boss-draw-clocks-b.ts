@@ -10,6 +10,7 @@ import { drawLeadGrip } from "./lead-grip.js";
 import { drawLedger } from "./ledger-draw.js";
 import type { ViewState } from "./renderer.js";
 import { drawScuttle } from "./scuttle-draw.js";
+import { drawScuttleGrip } from "./scuttle-grip.js";
 import { drawSinew } from "./sinew-draw.js";
 import { drawStare } from "./stare-draw.js";
 import { drawSurge } from "./surge-draw.js";
@@ -126,6 +127,10 @@ export function drawFxBoss(
   // strike — is `effects.boss.scuttle` (`scuttle-draw.ts`, `scuttle-fx.ts`).
   if (boss.kind === "scuttle") {
     drawScuttle(ctx, l, world, boss, beat, beatPhase, time, effects.boss.scuttle);
+    // The rings on the hanging parts, the pilot's alone: he is the seat shown
+    // every one of them uncoloured, so a ring on each says which may still be
+    // carried and nothing about which is live (`scuttle-grip.ts`).
+    drawScuttleGrip(ctx, l, world.cfg, boss, beat, beatPhase, time);
     return;
   }
 

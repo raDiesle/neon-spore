@@ -18,7 +18,8 @@ export type DragTargetC =
   | "ledgerSocket"
   | "ledgerBead"
   | "ledgerCord"
-  | "leadStalk";
+  | "leadStalk"
+  | "scuttlePart";
 
 /**
  * `tasterBlade`, `tasterGap` and `tasterLock` are the forty-sixth, -seventh and
@@ -107,4 +108,41 @@ export type DragTargetC =
  * is down or up. `on: false` is the command this boss was given a handle for
  * — the same shape as `surgeBulb`, and the same argument, one seat instead of
  * two.
+ */
+
+/**
+ * `scuttlePart` is the fifty-fourth, and the second on this page taken by a
+ * boss that **already shipped without a handle**. THE SCUTTLE is a fixture
+ * too, and more thoroughly than THE LEAD: nothing of it is among the
+ * creatures, no shot touches its slab, and `grippable.ts` refuses a hand on a
+ * boss body outright. The hole is the same shape as the still — the one
+ * moment a piece of this boss is **not** the boss. A part that has come loose
+ * has left its socket and has not landed, and for the length of one cadence
+ * it is a thing hanging on a thread.
+ *
+ * What it buys is a **place**, and it is the only handle in this union that
+ * buys one. Every other thumb in this game buys time — a beat of still, a
+ * window, a count held open — because time is what a fixed hull with a
+ * sliding cannon is short of. This boss is short of something else: it
+ * throws a part down a column every cadence and the pair own two columns at
+ * once, the cannon's and the shield's. Carrying a hanging part one column
+ * along the frame moves where the throw lands, so a rock due over the shield
+ * walks off it and a body due away from the cannon walks onto it
+ * (`scuttlePartCol` is what every reader of a hanging part's column asks).
+ *
+ * **The pilot's alone**, and decided by what each seat is drawn, as THE
+ * LEDGER's four were: `showsScuttleCount` gives him every socket and every
+ * hanging part uncoloured and unlocked, so his thumb on one teaches him
+ * nothing about which is live and the gesture leaks no part of her half.
+ * `showsScuttleLive` is hers, and a hand of hers on the frame would be her
+ * steering the column her own readout names.
+ *
+ * `id` is the socket, for `undertowPin`'s reason: two parts hang at once once
+ * the frame is thin, and which one he took is most of what the hand says.
+ * `fromMilli` is the carry against `scuttleSwingMilli`, and unlike
+ * `tasterGap`'s its **sign is the whole point** — it is the direction the
+ * part goes. One a cycle, and never while the frame winds up: the last part
+ * is burned where it stands, and a column the pilot could move under her beam
+ * would make the one moment this fight ends on a moving target
+ * (`scuttle-hand.ts`).
  */

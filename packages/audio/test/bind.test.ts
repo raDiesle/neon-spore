@@ -297,6 +297,7 @@ const SAMPLES: Record<string, SimEvent> = {
   scuttleLoose: { type: "scuttleLoose", col: 4, socket: 8, live: true, throwBeat: 12 },
   scuttleThrow: { type: "scuttleThrow", col: 4, socket: 8, left: 19 },
   scuttleStruck: { type: "scuttleStruck", col: 4, socket: 8, left: 18 },
+  scuttleSwing: { type: "scuttleSwing", col: 5, socket: 8, from: 4 },
   scuttleRebuff: { type: "scuttleRebuff", col: 4 },
   scuttleSlack: { type: "scuttleSlack", col: 6, slack: 1 },
   scuttleWind: { type: "scuttleWind", col: 7, socket: 3, throwBeat: 40 },

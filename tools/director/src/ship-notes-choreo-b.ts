@@ -113,7 +113,11 @@ export const CHOREO_NOTES_B = {
     "scuttleFastBeats and from the far side. The last part winds up for the " +
     "beam's priming plus scuttleWindSlackBeats under THE SLOW " +
     "scuttleSlowBeats; only the beam in its column takes it, and thrown it " +
-    "breaches the hull. The frame comes down over scuttleOutBeats. Nothing " +
+    "breaches the hull. The frame comes down over scuttleOutBeats. The one " +
+    "hand on it is the pilot's: he may carry one hanging part " +
+    "scuttleSwingMilli along the frame, once a cycle and never on the " +
+    "wind-up, and it is then thrown down the column he put it in rather " +
+    "than its socket's. Nothing " +
     "about it is authored per wave. See sim/scuttle.ts, sim/config-scuttle.ts.",
   "THE ANTIPHON — the boss that grows a thing nobody has a word for":
     "Designed on 17 September 2026 in docs/spec/bosses-choreographed.md §12: " +

@@ -1,7 +1,8 @@
 import {
   type ScuttleState,
+  scuttlePartCol,
   scuttleShootable,
-  scuttleSocketCol,
+  scuttleSwingable,
   scuttleWinding,
   type World,
 } from "@neon-spore/sim";
@@ -41,6 +42,43 @@ function markAt(
   seed: number,
 ): BossCue {
   return { seat, kind, word, x, y, halfW: l.tile * HALF_W, halfH: l.tile * HALF_H, seed };
+}
+
+/**
+ * **The one word of this boss that is his to spend**, and the reason it does
+ * not fall foul of the objection the reading below spends a paragraph making.
+ *
+ * He may carry one hanging part a column along the frame, once a cycle
+ * (`scuttleSwingable`), and it is then thrown — and struck — down the column
+ * he put it in. So a part standing one column off the cannon is a bolt he can
+ * buy without sliding the cannon at all, which is the trade this gesture
+ * exists to offer: his thumb, or her window.
+ *
+ * **It marks every hanging part that is one column off, never the live one.**
+ * Both facts the mark is read from are already drawn on his own screen — his
+ * cannon, and every hanging part in grey (`showsScuttleCount`) — so a seat
+ * that counts the marks learns what it was already shown and nothing about
+ * which part her bolt can strike. That is the whole difference from the
+ * `MOVE` on his hull the reading below refuses in a cycle: that one would have
+ * been drawn from her lock.
+ *
+ * **And it goes away the moment a part is over the cannon**, because then
+ * there is nothing to buy — the column is already his — and a word that stood
+ * there every cycle would be the field asking for a gesture rather than
+ * offering one.
+ */
+function carryCues(l: Layout, world: World, s: ScuttleState): BossCue[] {
+  if (!scuttleSwingable(s)) return [];
+  const cfg = world.cfg;
+  const cols = s.loose.map((i) => scuttlePartCol(s, cfg, i));
+  if (cols.includes(world.cannonCol)) return [];
+  const out: BossCue[] = [];
+  for (const i of s.loose) {
+    if (Math.abs(scuttlePartCol(s, cfg, i) - world.cannonCol) !== 1) continue;
+    const x = tileCX(l, scuttlePartCol(s, cfg, i));
+    out.push(markAt(1, "CARRY", "MOVE", x, scuttleRowY(l, cfg, i), l, 97 + i));
+  }
+  return out;
 }
 
 /**
@@ -94,7 +132,7 @@ export function scuttleCues(l: Layout, world: World, s: ScuttleState): readonly 
   const cfg = world.cfg;
   if (scuttleWinding(s)) {
     if (s.live < 0) return [];
-    const col = scuttleSocketCol(cfg, s.live);
+    const col = scuttlePartCol(s, cfg, s.live);
     const out: BossCue[] = [
       markAt(2, "HOLD", "BURN", tileCX(l, col), scuttleRowY(l, cfg, s.live), l, 55),
     ];
@@ -103,12 +141,13 @@ export function scuttleCues(l: Layout, world: World, s: ScuttleState): readonly 
     }
     return out;
   }
-  if (!scuttleShootable(s)) return [];
-  if (world.cannonCol !== scuttleSocketCol(cfg, s.live)) return [];
+  const carry = carryCues(l, world, s);
+  if (!scuttleShootable(s)) return carry;
+  if (world.cannonCol !== scuttlePartCol(s, cfg, s.live)) return carry;
   // **No frame of its own.** Her screen already locks the column the next
   // throw lands in (`scuttle-draw.ts`), which is the live part's own column,
   // so the cue borrows that box and adds the one thing it does not say.
   const box = scuttleLockBox(l, cfg, s);
-  if (box === null) return [];
-  return [{ seat: 2, kind: "PRESS", word: "FIRE", ...box, seed: 56, framed: false }];
+  if (box === null) return carry;
+  return [{ seat: 2, kind: "PRESS", word: "FIRE", ...box, seed: 56, framed: false }, ...carry];
 }

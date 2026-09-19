@@ -236,6 +236,7 @@ export const SILENT_BOSS = [
   "scuttleLoose",
   "scuttleThrow",
   "scuttleStruck",
+  "scuttleSwing",
   "scuttleRebuff",
   "scuttleSlack",
   "scuttleWind",

@@ -18,6 +18,7 @@ import { mazeStringCircle } from "./maze-string.js";
 import { mirrorLobeUnder } from "./mirror-grip.js";
 import { orreryRingUnder } from "./orrery-grab.js";
 import { queenMarkUnder } from "./queen-grip.js";
+import { scuttlePartUnder } from "./scuttle-grip.js";
 import { sinewHandleUnder } from "./sinew-handles.js";
 import { stareLidUnder } from "./stare-lid.js";
 import { surgeBulbUnder } from "./surge-grip.js";
@@ -96,7 +97,8 @@ export function handleUnder(l: Layout, x: number, y: number, field: Field): Touc
     fleetGripUnder(l, x, y, field) ?? // THE FLEET's wound, under `flood` and `wreck` (`fleet-grip.ts`).
     candleWickUnder(l, x, y, field) ?? // THE CANDLE's flame, at the last step, in the dark (`candle-grip.ts`).
     curtainHemUnder(l, x, y, field) ?? // THE CURTAIN's hem, while a hit has jammed the rail (`curtain-grip.ts`).
-    leadStalkUnder(l, x, y, field) // THE LEAD's stalk, while the body stands still (`lead-grip.ts`).
+    leadStalkUnder(l, x, y, field) ?? // THE LEAD's stalk, while the body stands still (`lead-grip.ts`).
+    scuttlePartUnder(l, x, y, field) // THE SCUTTLE's hanging parts, while one may still be carried (`scuttle-grip.ts`).
   );
 }
 

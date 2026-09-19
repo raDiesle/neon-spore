@@ -268,6 +268,13 @@ function documentedDragTarget(target: DragTarget): DragTarget {
     // the beam has as long as she gives it, up to `leadHoldBeats`
     // (`sim/lead-hand.ts`). Sim lane only so far, as the twenty-six above.
     case "leadStalk":
+    // THE SCUTTLE's hanging part, and the one handle in this union that buys
+    // a **place** rather than time: the pilot carries a part that has come
+    // loose one column along the frame, once a cycle and never on the
+    // wind-up, and it is thrown down the column he put it in rather than its
+    // socket's (`sim/scuttle-hand.ts`). Sim lane only so far, as the
+    // twenty-seven above.
+    case "scuttlePart":
       return target;
     default:
       return assertNever(target);

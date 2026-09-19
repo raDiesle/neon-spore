@@ -6,7 +6,9 @@ import {
   type ScuttleState,
   scuttleAttached,
   scuttleBoss,
+  scuttleClearSwing,
   scuttleLeft,
+  scuttlePartCol,
   scuttleSocketCol,
   scuttleThrowBeat,
   scuttleTwins,
@@ -67,6 +69,9 @@ export function installScuttle(world: World): ScuttleState {
     slack: 0,
     windBeat: -1,
     downBeat: -1,
+    held: -1,
+    swung: -1,
+    swungCol: -1,
   };
   world.events.push({ type: "scuttleEnter", col: scuttleSocketCol(cfg, 0), parts: count });
   return s;
@@ -102,6 +107,7 @@ function detach(world: World, s: ScuttleState): void {
   s.live = live;
   s.lastLive = live;
   s.cycleBeat = world.beat;
+  scuttleClearSwing(s);
   if (scuttleTwins(s, cfg) && attached.length > 2) {
     const rest = attached.filter((i) => i !== live);
     s.loose.push(rest[nextInt(world.rng, rest.length)] ?? live);
@@ -145,7 +151,7 @@ function throwLoose(world: World, s: ScuttleState): void {
   for (const i of s.loose) {
     const p = s.parts[i];
     if (p === null || p === undefined) continue;
-    const col = scuttleSocketCol(cfg, i);
+    const col = scuttlePartCol(s, cfg, i);
     throwPart(world, col, p);
     s.parts[i] = null;
     world.events.push({ type: "scuttleThrow", col, socket: i, left: scuttleLeft(s) });
@@ -164,6 +170,7 @@ function wind(world: World, s: ScuttleState): void {
   s.lastLive = last;
   s.windBeat = world.beat;
   s.cycleBeat = world.beat;
+  scuttleClearSwing(s);
   openSlow(world, cfg.scuttleSlowBeats);
   world.events.push({
     type: "scuttleWind",

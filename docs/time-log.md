@@ -12596,3 +12596,34 @@ the eleven the pose remaps to is a different flight the ship's fixed speed
 does not keep pace with.
 
 *Measured: the rows above are the session's own estimate.*
+## 2026-09-19 — task-queue-work-ym2eim — THE SCUTTLE's one hand, and the twelve places it has to be registered
+
+The frame shipped with no handle at all, and the hole in that was the same
+one THE LEAD's still is: a hanging part has left its socket and has not
+landed, and for the length of a cadence it is a thing on a thread. So the
+pilot carries one a column along the frame, once a cycle, and it is thrown
+down the column he put it in rather than its socket's — a *place* where every
+other handle in this game buys *time*, and one sentence in any language.
+
+The gesture was chosen by elimination and the elimination is the reading in
+`sim/scuttle-hand.ts`: a hold that buys time repeats THE LEAD, tearing a part
+off early speeds the boss up, and a gesture allowed only on the part that is
+not live leaks the navigator's lock by subtraction. The same objection decides
+the word on the field: `MOVE` stands on **every** hanging part one column off
+the cannon and vanishes the moment one is over it, so what a seat learns by
+counting the marks is his own cannon and his own grey parts, both already
+drawn to him.
+
+| activity | minutes | what it was |
+|---|---|---|
+| reading | 25 | `scuttle*.ts` end to end, `lead-hand.ts` and `taster-hand.ts` for a hand on a boss, `.claude/skills/new-boss-state`, and the four pages the twelve registrations are spread over |
+| writing | 60 | `scuttle-hand.ts`, the three swing readers in `scuttle.ts`, `scuttle-grip.ts`, the `MOVE` reading, two test files, and §11.30 |
+| looking | 0 | the picture is a second lane and a cloud session cannot judge it |
+| friction | 15 | two registrations announced themselves as type errors in `ship-fields.ts`, a file that is not the one to edit; `bind-choreographed.ts` went a line over its limit and had to give its tail back |
+| landing | 20 | `check:fast`, the sort, two stale counts in `docs/spec/audio.md`, `queue done` twice, the commit and the push |
+
+**The bottleneck was a registration announcing itself in the wrong file.**
+`FIELD_GROUP` is a `Record<keyof SimConfig, GroupName>` assembled from spread
+pages, so a missing row is `TS2741` at `ship-fields.ts` line 32 — the
+declaration, not a file the row may be written into. Twice: once for
+`scuttleSwingMilli`, once for its note. It is queued.

@@ -199,6 +199,28 @@ describe("THE SCUTTLE", () => {
     expect(word(world, "p1")).toBeNull();
     expect(word(world, "p2")).toBe("BURN");
   });
+  it("offers him a carry on a part one column off, and nothing once he stands under one", () => {
+    const { world, s, col } = hanging();
+    // A part one column off is a bolt he can buy without sliding the cannon at
+    // all, and both facts the mark is read from — his cannon, and every
+    // hanging part in grey (`showsScuttleCount`) — are already on his screen.
+    world.cannonCol = col + 1;
+    const his = cue(world, "p1");
+    expect(his?.word).toBe("MOVE");
+    expect(his?.kind).toBe("CARRY");
+    expect(his?.x).toBe(tileCX(LAYOUT.p1, col));
+    // Two columns off no carry reaches, and over the part itself there is
+    // nothing left to buy — the column is already his.
+    world.cannonCol = col + 2;
+    expect(word(world, "p1")).toBeNull();
+    world.cannonCol = col;
+    expect(word(world, "p1")).toBeNull();
+    // And it is spent once a cycle, so a part already carried is not offered.
+    world.cannonCol = col + 1;
+    s.swung = 1;
+    s.swungCol = col;
+    expect(word(world, "p1")).toBeNull();
+  });
 });
 
 /** Any column but this one, for a case about the cannon being in the wrong place. */

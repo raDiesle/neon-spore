@@ -3,20 +3,17 @@ import { antiphonCue } from "./bind-antiphon.js";
 import { batonCue } from "./bind-baton.js";
 import { candleCue } from "./bind-candle.js";
 import { type AddedEvent, addedCue, isAddedEvent } from "./bind-choreographed-b.js";
+import { lateCue } from "./bind-choreographed-c.js";
 import type { Cue } from "./bind-cue.js";
 import { curtainCue } from "./bind-curtain.js";
-import { diastoleCue } from "./bind-diastole.js";
-import { filamentCue } from "./bind-filament.js";
 import { gorgeCue } from "./bind-gorge.js";
 import { hiveCue } from "./bind-hive.js";
-import { instarCue } from "./bind-instar.js";
 import { leadCue } from "./bind-lead.js";
 import { ledgerCue } from "./bind-ledger.js";
 import { scuttleCue } from "./bind-scuttle.js";
 import { sinewCue } from "./bind-sinew.js";
 import { surgeCue } from "./bind-surge.js";
 import { tasterCue } from "./bind-taster.js";
-import { undertowCue } from "./bind-undertow.js";
 
 /**
  * The choreographed bosses' events (`docs/spec/bosses-choreographed.md`),
@@ -29,6 +26,12 @@ import { undertowCue } from "./bind-undertow.js";
  * lands in its `default` and is not a `ChoreographedEvent`, and one missed
  * *here* leaves a switch without an ending return. Either is a type
  * error, and `test/bind.test.ts` plays one of each as well.
+ *
+ * **And it gives a boss back rather than grow.** At the limit the page hands
+ * its *last* bosses on to `bind-choreographed-c.ts`, never the boss being
+ * worked on, whose cases stay with the comment that explains them; the
+ * `default` goes with them, because the arm that catches what nobody named is
+ * what has to stand at the foot of the chain.
  */
 type ChoreographedEvent =
   | Extract<
@@ -190,6 +193,7 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "scuttleLoose":
     case "scuttleThrow":
     case "scuttleStruck":
+    case "scuttleSwing":
     case "scuttleRebuff":
     case "scuttleSlack":
     case "scuttleWind":
@@ -218,33 +222,9 @@ export function choreographedCue(e: ChoreographedEvent, cols: number): Cue {
     case "hiveDown":
     case "hiveOut":
       return hiveCue(e, cols);
-    case "instarEnter":
-    case "instarMorph":
-    case "instarShow":
-    case "instarRefuse":
-    case "instarAnswer":
-    case "instarDone":
-    case "instarSlip":
-    case "instarLand":
-    case "instarStrike":
-    case "instarDown":
-    case "instarOut":
-      return instarCue(e, cols);
-    case "filamentEnter":
-    case "filamentArm":
-    case "filamentDrawn":
-    case "filamentFollowed":
-    case "filamentSnap":
-    case "filamentRecoil":
-    case "filamentDark":
-    case "filamentPulled":
-    case "filamentDown":
-    case "filamentOut":
-      return filamentCue(e, cols);
-    case "diastoleClamp":
-    case "diastoleSpasm":
-      return diastoleCue(e, cols);
+    // THE INSTAR, THE FILAMENT, THE DIASTOLE and the undertow's own default,
+    // which is what a page at its limit gives back (`bind-choreographed-c.ts`).
     default:
-      return undertowCue(e, cols);
+      return lateCue(e, cols);
   }
 }

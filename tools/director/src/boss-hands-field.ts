@@ -13,9 +13,12 @@ import {
   hiveOpen,
   isMeteorKind,
   occupiesCol,
+  type ScuttleState,
   scuttleBoss,
+  scuttlePartCol,
   scuttleShootable,
-  scuttleSocketCol,
+  scuttleSwingable,
+  scuttleSwingCol,
   scuttleWinding,
   type TimedCommand,
   type World,
@@ -167,23 +170,46 @@ function shoveDir(w: World, c: CurtainState, body: Creature): 1 | -1 {
   return c.coreCol - body.col < c.lobes.length / 2 ? 1 : -1;
 }
 
+/** The pilot's thumb on hanging part `id`, carried `milli` along the frame. */
+const hangingPart = (id: number, milli: number): Press => ({
+  player: 1,
+  command: { kind: "drag", target: "scuttlePart", on: true, fromMilli: milli, id },
+});
+
 /**
- * THE SCUTTLE: the live socket's colour up the live socket's column while
- * a part is there to shoot (`scuttleStruck`); winding the last one back,
- * only the lance lands, so the thumb goes down over the socket and lifts
- * once spent.
+ * The pilot takes hold of the oldest hanging part and carries it a column,
+ * once a cycle (`sim/scuttle-hand.ts`). Two ticks on purpose: the grab is a
+ * state of its own before any carry is worth anything, and a hand that sent
+ * both at once would never put the world in it. The direction is whichever
+ * one is not off the end of the frame, since a carry that cannot move is not
+ * spent and would be sent again for ever.
+ */
+function swingPart(w: World, s: ScuttleState): Press[] {
+  const id = s.loose[0];
+  if (id === undefined || !scuttleSwingable(s)) return [];
+  if (s.held !== id) return [hangingPart(id, 0)];
+  const dir = scuttleSwingCol(s, w.cfg, id, 1) === scuttlePartCol(s, w.cfg, id) ? -1 : 1;
+  return [hangingPart(id, dir * w.cfg.scuttleSwingMilli)];
+}
+
+/**
+ * THE SCUTTLE: the live part's colour up the column it hangs over while it
+ * is there to shoot (`scuttleStruck`) — the column it was carried to, if the
+ * pilot carried it (`scuttlePartCol`); winding the last one back, only the
+ * lance lands, so the thumb goes down over the socket and lifts once spent.
  */
 export const scuttleHand: Hand = (w) => {
   const s = scuttleBoss(w);
   if (s === null || s.downBeat >= 0 || s.live < 0) return [];
-  const col = scuttleSocketCol(w.cfg, s.live);
-  if (w.cannonCol !== col) return [aim(col)];
+  const out: Press[] = swingPart(w, s);
+  const col = scuttlePartCol(s, w.cfg, s.live);
+  if (w.cannonCol !== col) return [...out, aim(col)];
   if (scuttleWinding(s)) {
-    if (w.prime?.spent) return [thumb(false, w.prime.color)];
-    return w.prime === null ? [thumb(true, s.parts[s.live]?.color ?? "red")] : [];
+    if (w.prime?.spent) return [...out, thumb(false, w.prime.color)];
+    return w.prime === null ? [...out, thumb(true, s.parts[s.live]?.color ?? "red")] : out;
   }
-  if (!scuttleShootable(s)) return [];
-  return free(w) ? [fire(s.parts[s.live]?.color ?? "red")] : [];
+  if (!scuttleShootable(s)) return out;
+  return free(w) ? [...out, fire(s.parts[s.live]?.color ?? "red")] : out;
 };
 
 /**

@@ -814,24 +814,6 @@ which a cloud session does not have — his own machine takes it.
 
 The brief: `.claude/skills/new-boss` section 6.3.
 
-## THE SCUTTLE changes state more than once, and asks for more than one gesture
-
-- **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
-- **Taken:** 2026-09-19, claude/task-queue-work-ym2eim (claim: claude/queue-the-scuttle-changes-state-more-than-once-and-ask)
-- **Files:** `packages/sim/src/config-scuttle.ts`, `packages/sim/src/events-scuttle.ts`, `packages/sim/src/scuttle-hash.ts`, `packages/sim/src/instar.ts`, `packages/net/src/command-fields.ts`
-- **Where:** cloud
-
-It is answered today on the ordinary panel, over 6 files of simulation. Give it
-several states, a different gesture in each, and at least one of them reached on
-the picture rather than on the panel.
-
-The owner, 18 September 2026: a boss's words and its states are cloud work —
-`bun test` and the typecheck prove them, and the handle's ring is the one every
-shipped boss draws. The PNG is the one unverified part; queue it with `bun run
-land --unverified`.
-
-The brief: `.claude/skills/new-boss` section 6.2.
-
 ## THE SCUTTLE's picture looks like something real
 
 - **Found:** 2026-09-18, claude/boss-hints-mechanics-5b5a9f
@@ -1882,27 +1864,6 @@ with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
 
-## `sound-link-none-b.ts` is at 245 lines, and THE GAUGE's four just filled it
-
-- **Found:** 2026-09-19, claude/queue-the-gauge-sound
-- **Taken:** 2026-09-19, claude/task-queue-work-ym2eim (claim: claude/queue-sound-link-none-b-ts-is-at-245-lines-and-the-gau)
-- **Files:** `tools/director/src/sound-link-none-b.ts`, `tools/director/src/sound-link-none.ts`
-
-Giving THE GAUGE its first four events (`docs/queue.md`'s own *THE GAUGE is
-the only boss with no events and no sound*, this commit) cost this page its
-last comfortable margin: THE THROAT's six were already on it, and THE GAUGE's
-four brought it to 245 of 250. The next round or boss whose added events have
-nothing to draw — and every one so far has needed a written reason here,
-never a picture — has nowhere left on this page, and `sound-link-none.ts`
-itself says its own page is full and hands its *last* boss across rather than
-splitting mid-page.
-
-Cut it the way that page's own comment says the seam moves: the next lane
-whose rows would put this file over 250 hands its own last boss's rows to a
-new `sound-link-none-c.ts`, spread into `NO_SUBJECT` next to `NO_SUBJECT_B`
-the way that one is spread into `NO_SUBJECT` today — never the rows the lane
-itself is adding, and never a fight to squeeze a paragraph shorter instead.
-
 ## THE REPRISE's own rehearsal may still teach the split by gap rather than colour
 
 - **Found:** 2026-09-19, claude/queue-the-reprises-tear-draws-the-pilots-half-of-the-r
@@ -1942,3 +1903,80 @@ Open each one on a machine that can, and then either take this entry out
 with `bun run queue done` or write what you found as an entry of its own.
 Nothing here is owed to anybody: it is work nobody has started, which is
 what the rest of this file holds.
+
+## A landing that forgot `--unverified` has no way to write the entry afterwards
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, main (claim: claude/queue-a-landing-that-forgot-unverified-has-no-way-to-w)
+- **Files:** `tools/land/unverified.ts`, `tools/land/note-commit.ts`, `docs/cloud-session.md`, `docs/queue.md`
+- **Where:** cloud
+
+`--unverified` is parsed off the landing's own argv (`parseUnverified`) and the
+entry is written by the commit that moves the trunk (`note-commit.ts`). There is
+no second door. A lane that lands and *then* realises it never looked at the
+picture cannot run the flag again: from `main` the landing refuses because a
+trunk is landed on rather than landing, and from the spent branch it refuses
+because the branch carries nothing `main` has not got. This lane hit both
+refusals in one turn and wrote the entry by hand in `renderUnverified`'s shape
+instead — a paragraph of formatting duplicated in a document, which is exactly
+the drift `filesLine`'s path-only rule was hardened against after a trailing
+", and N more" broke `splitFiles` and marked every truncated entry stale.
+
+Give it the second door: a script that takes an already-landed sha and the same
+repeatable `--unverified` strings, reads the commit's files and subjects out of
+git the way `note-commit.ts` does, and calls `renderUnverified` and
+`appendEntry` — so the entry that gets written is the tool's, not a lane's
+recollection of its shape. A line in the commands document, and the cloud
+session's rule gains a sentence saying the flag has an afterwards.
+
+## A lib list would unlock the other 4,929 identifier claims in comments
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Taken:** 2026-09-19, main (claim: claude/queue-a-lib-list-would-unlock-the-other-4-929-identifi)
+- **Files:** `tools/test/doc-names.ts`, `tools/test/doc-drift-names.test.ts`
+- **Where:** cloud
+
+`ownSubjectClaims` restricts the new check to identifiers whose head word is a
+word of the comment's own file name — 1,523 of the 6,452 backticked camelCase
+identifiers a source comment names. The restriction was measured, not guessed:
+unrestricted, 205 claims name nothing, and nearly all 205 are platform globals
+(`AudioContext`, `Path2D`, `blockConcurrencyWhile`,
+`accelerationIncludingGravity`) that a comment is entitled to name. A
+hand-kept allowlist of those would rot, which is what this test exists to stop.
+
+So the 4,929 claims outside a file's own subject go unasked, and drift hides
+there: `readyButtonBox` in `apps/game/src/briefing.ts` named nothing for days
+and was found by hand rather than by the check, because its head word is
+`ready` and its file is `briefing.ts`.
+
+The list that is not hand-kept already exists — TypeScript ships it.
+`lib.dom.d.ts`, `lib.es*.d.ts` and `@cloudflare/workers-types` declare every
+global this repository can legitimately name, and harvesting them the way
+`declaredNames` harvests the tree turns the allowlist into a derived file
+nothing has to remember. Add them as a second set, drop the head-word
+restriction, and see what the 205 falls to; if it falls under a dozen the
+restriction can go entirely and the check triples its reach in the same run.
+
+## A missing `SimConfig` row is a type error in `ship-fields.ts`, not its page
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `tools/director/src/ship-fields.ts`, `tools/director/src/ship-fields-choreo-b.ts`, `tools/director/src/ship-notes-choreo-b.ts`
+
+`FIELD_GROUP` is a `Record<keyof SimConfig, GroupName>` and that is the whole
+point of it — a field added to the interface and left out of the object is a
+compile error rather than a dial nobody can find. But the object is assembled
+from spread pages, and the error TypeScript raises is `TS2741: Property
+'scuttleSwingMilli' is missing` at `ship-fields.ts` line 32, which is the
+declaration of `FIELD_GROUP` and not a file the row may be written into: the
+boss rows live on the `-choreo` pages, and a session that has never added one
+reads the error, opens the file it names, finds a thousand-line record it is
+not supposed to touch, and goes looking. This lane paid that twice, once for
+`scuttleSwingMilli` and once for its note.
+
+What to do: a comment above `FIELD_GROUP` naming the pages it is spread from
+and the rule for which page a new field goes on — a boss's field to
+`ship-fields-choreo*.ts` with a sentence in `ship-notes-choreo*.ts` beside it,
+a round's to `ship-fields-round.ts`, the ship's own here — so the error names
+the object and the object names the page. The same paragraph is worth a line
+in `.claude/skills/new-boss-state`, whose counts section says *one row per new
+`SimConfig` field* without saying which of the four files it goes in.

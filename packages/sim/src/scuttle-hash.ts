@@ -13,6 +13,11 @@ import type { ScuttlePartKind, ScuttleState } from "./scuttle.js";
  * rather than a skipped entry, so two frames that differ only in which
  * socket is empty cannot fold into the same number; the loose list goes in
  * with its length ahead of it for the same reason.
+ *
+ * **The swing is three numbers and all three go in.** `held` is only a ring
+ * on one screen, but the seat the pilot's thumb is on is a fact one device
+ * would otherwise hold alone, and `swung` with `swungCol` decides which
+ * column a part is thrown down — the one field of this boss a hand moves.
  */
 export function scuttleHashParts(s: ScuttleState): number[] {
   const out = [
@@ -23,6 +28,9 @@ export function scuttleHashParts(s: ScuttleState): number[] {
     s.slack,
     s.windBeat,
     s.downBeat,
+    s.held,
+    s.swung,
+    s.swungCol,
     s.loose.length,
   ];
   for (const p of s.parts)

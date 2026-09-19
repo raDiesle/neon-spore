@@ -20,8 +20,8 @@ import { bossPose } from "./poses-bosses-kit.js";
 
 /**
  * **The states the pair's hands bring on the bosses of the field** — THE
- * FLEET's chart, THE GORGE's mouth, THE CURTAIN's fabric, THE SCUTTLE's last
- * part, THE HIVE's spill — posed the way `poses-bosses-hands-shots.ts` poses
+ * FLEET's chart, THE GORGE's mouth, THE CURTAIN's fabric, THE SCUTTLE's
+ * hanging parts and its last one, THE HIVE's spill — posed the way `poses-bosses-hands-shots.ts` poses
  * the shot bosses': the boss's wave, a hand on the controls
  * (`boss-hands-field.ts`), the run held until the state is there.
  *
@@ -117,6 +117,26 @@ export const FIELD_HAND_POSES: Pose[] = [
       hand: curtainHand,
       want: (w) => w.boss?.kind === "curtain" && w.boss.phase === "out",
       hold: 6,
+    },
+  ),
+  bossPose(
+    "scuttle",
+    "held",
+    "A hanging part under a thumb and not yet carried. P1 keeps the thumb on it; P2 fires the live part's colour.",
+    {
+      hand: scuttleHand,
+      want: (w) => w.boss?.kind === "scuttle" && w.boss.held >= 0 && w.boss.swung < 0,
+      budgetBeats: 80,
+    },
+  ),
+  bossPose(
+    "scuttle",
+    "swung",
+    "A part carried a column: the throw comes down where it hangs now, not its socket. P1 aims there; P2 fires its colour.",
+    {
+      hand: scuttleHand,
+      want: (w) => w.boss?.kind === "scuttle" && w.boss.swung >= 0,
+      budgetBeats: 80,
     },
   ),
   bossPose(

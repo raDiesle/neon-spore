@@ -207,6 +207,7 @@ export const INGEST_SILENT_BOSS_B = [
   "scuttleLoose",
   "scuttleThrow",
   "scuttleStruck",
+  "scuttleSwing",
   "scuttleRebuff",
   "scuttleSlack",
   "scuttleWind",

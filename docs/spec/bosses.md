@@ -5953,8 +5953,10 @@ the two colours, or a pod — sown by the wave's seed at install
 (`installScuttle`), with `scuttlePods` (2) of them pods and never the last
 socket the seed would leave; the sockets whose parts hang **loose**, the
 one of them that is **live**, the live socket of the cycle before, the beat
-the cycle began, the **slack** the taken pods have added, and two beat
-stamps — the wind-up began, the beam took it. Unlike every clock boss
+the cycle began, the **slack** the taken pods have added, two beat
+stamps — the wind-up began, the beam took it — and the three fields the
+pilot's one gesture writes: the hanging socket his thumb is on, the socket he
+has carried this cycle, and the column he carried it to. Unlike every clock boss
 before it except THE ORRERY it **fills its wave** (`bossFillsWave`, not on
 the exclusion list): `act-7f.ts`'s "THE SCUTTLE" has no entries at all,
 because every arrival in the fight is a part the frame threw, and an author
@@ -5997,6 +5999,26 @@ on it: `live` is a field on the state the navigator's drawer reads, and the
 parts are the pilot's. The sentence between them is *nine left — four,
 red, now*.
 
+**The one thing on it a hand takes hold of is a part already hanging.** The
+pilot may **carry** one hanging part `scuttleSwingMilli` (400) along the frame,
+which is one column, **once a cycle** and never on the wind-up
+(`scuttleSwingable`, `sim/scuttle-hand.ts`, `DragTarget` member
+`scuttlePart`) — and it is then thrown, and struck, down the column he put it
+in rather than its socket's. Everything that reads a hanging part's column
+reads `scuttlePartCol`: the throw, the bolt that strikes it off and the lock on
+the navigator's screen, because a swing that moved one of the three without the
+others would be two pictures disagreeing about where a part is. It is a
+**place** he is buying, where every other handle in this game buys time, and it
+is honest about the seat: he is the screen shown every socket and every hanging
+part uncoloured (`showsScuttleCount`), so a thumb on one tells him nothing
+about which is live. What it costs him is the thumb, which is off the cannon
+and the shield while it is on the frame. One a cycle because the gesture is a
+decision and not a steering wheel — a thumb that could keep pushing would walk
+a part the width of the frame and the cadence would stop being the clock — and
+never on the wind-up because the last part is burned where it stands, and a
+column he could move under her beam would make the one moment this fight ends
+on a moving target.
+
 **Where this departs from the design, and why.** Nine places, each argued
 by name. *The loss is one breach, not "the field closing over the hull"*:
 step 13's missed column has the run end to the volume of debris nobody had
@@ -6032,7 +6054,15 @@ whose pods were always in the same sockets would be a frame the pair
 learns rather than counts. *The frame is a fixture with no `creature-body.ts`
 sockets*: the design's cost note has the thinning body as socket work at
 boss scale, and that is the look's — the simulation's frame is a list of
-what is in it, and the picture decides what a socket is.
+what is in it, and the picture decides what a socket is. *The pilot has a
+hand on the boss, which the design gives him nowhere*: the beat list has him
+sliding and firing and counting and nothing else, and a boss whose every
+state change was hers and whose every gesture was a press was the finding that
+reopened this section (`docs/queue.md`, 19 September 2026); a hold that bought
+time would have been THE LEAD again, and tearing a part off early would have
+sped the boss up, so what is left is the one currency this game had never
+sold — a **place**, bought with the thumb that would otherwise be on the
+cannon.
 
 **The look** (`render/scuttle-draw.ts`, `scuttle-shape.ts`, `scuttle-fx.ts`).
 A grey **slab** hangs above row 0 the whole width of the frame's columns —
@@ -6066,18 +6096,26 @@ navigator's screen had it hanging, turning as it falls a tile and a half
 over a beat and a tenth; and every burst is placed by what the screen is
 allowed to know — the loose part's in the shield's rim on the screens shown
 the live part and dim on the pilot's, the throw's in rock at the top of its
-column, the slack's in the pod's rim at `scuttlePodRow`. Nothing of it is a
+column, the slack's in the pod's rim at `scuttlePodRow`. **The grip rings are the pilot's alone** (`render/scuttle-grip.ts`): one on
+**every** hanging part while one may still be carried, so the live one cannot
+be worked out by subtraction, breathing until his thumb lands and filled once
+it has, and following the part's slide down its thread rather than the column
+he carried it to — `handles.ts`' rule that every circle a hand is offered is
+the **resting** one. A part carried hangs over the column he put it in and the
+thread leans across to it, on every screen, since a seat drawn a part in a
+place the throw will not come from is a seat lied to. Nothing of it is a
 sprite. `render/test/scuttle-frame.test.ts` proves the slab on all three
 screens, the count drawn on the pilot's and not the navigator's, the live
 part drawn on the navigator's and not the pilot's — both ways, by swapping
 which part is live — a part hanging by its thread, the wind-up, the fade,
-the gone, and the jolt's reset (fifteen). Nothing is timed on a call
+the gone, the rings on his screen and not hers, a carried part over its new
+column, and the jolt's reset (seventeen). Nothing is timed on a call
 (`CLAUDE.md` rule 5): steps 1, 3 and 13 give 900 ms for a number or a
 column to be said, and the frame counts whether or not anything is.
 
 **The words** (`render/src/boss-cue-read-t.ts`, 19 September 2026, split off
 `boss-cue-read-c.ts` the same day as THE DIASTOLE's, THE LEAD's own page).
-Three, and they are about the **window** and never
+Four, and they are about the **window** and never
 about which socket. `PRESS` / `FIRE` on the lock her screen already draws over
 the column the next throw lands in, which is the live part's own column: a mark
 there says *now* and nothing she was not shown. `HOLD` / `BURN` in its place for
@@ -6090,14 +6128,26 @@ beam leaves the column the cannon is standing in, and the cannon is the pilot's
 (`content/src/controls.ts`); `scuttleStruck` is a no-op in any other column, said
 for the wrong colour and *unsaid* for the wrong column. So this fight is two
 presses of hers over one slide of his, and the field had never named the slide.
-In a cycle it still may not: the live socket is hers alone and the part hanging
-beside it is one the design says cannot be taken, so a `MOVE` on his hull would
-be her lock read out on his screen, and its silence the same leak by
-subtraction — THE LEAD's finding, one section up. What changes there is **hers**:
-`FIRE` now waits until the cannon is under the live part, because the lock and
-the cannon are both already on her screen and a bolt spent up another column is
-the press this family exists to stop offering. The lock stays drawn throughout,
-so the window she is racing is never taken away with the verb.
+In a cycle it still may not name it **on his hull**: the live socket is hers
+alone, so a `MOVE` on the cannon would be her lock read out on his screen, and
+its silence the same leak by subtraction — THE LEAD's finding, one section up.
+What changes there is **hers**: `FIRE` now waits until the cannon is under the
+live part, because the lock and the cannon are both already on her screen and a
+bolt spent up another column is the press this family exists to stop offering.
+The lock stays drawn throughout, so the window she is racing is never taken
+away with the verb.
+
+**And a fourth word, his, that the subtraction objection does not reach.**
+`CARRY` / `MOVE` stands on **every** hanging part that is one column off the
+cannon while one may still be carried, and on none at all once a part is
+already over it. Both facts it is read from are drawn on his own screen — his
+cannon, and every hanging part in grey — so a seat that counts the marks learns
+what it was already shown and nothing about which part her bolt can strike.
+That is the whole difference from the `MOVE` on his hull refused above: that
+one would have been drawn from her lock. It goes away the moment a part is over
+the cannon, because then there is nothing left to buy, and a word that stood
+there every cycle would be the field asking for a gesture rather than offering
+one.
 
 **On the wind-up it must name it, and that is the one word here that decides the
 fight.** One part is left, which is what the wind-up *is*; the slab he is shown

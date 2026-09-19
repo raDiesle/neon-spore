@@ -1,13 +1,15 @@
 /**
- * THE SCUTTLE's ten, in a file of their own for `boss-gorge.ts`' reason.
+ * THE SCUTTLE's eleven, in a file of their own for `boss-gorge.ts`' reason.
  *
  * The boss is a **frame of parts over the field**, and everything here is
  * the sound of a thing coming apart on purpose: a part coming loose is a
  * creak with a click at the end of it, hanging; the throw is a whip and a
  * weight leaving; a strike is the same part cracking off clean, pitched up
  * as the frame empties; a rebuff is the bolt going dull against the wrong
- * colour. The slack is the one soft sound on the page, a settle — the pair
- * bought a beat. The wind is the long one, a rising strain over the last
+ * colour. The swing is the one sound here a *hand* makes: a part dragged a
+ * column along the rail, a scrape with the thread singing under it and a
+ * knock as it settles over somewhere else. The slack is the one soft sound
+ * on the page, a settle — the pair bought a beat. The wind is the long one, a rising strain over the last
  * socket; the last is the frame's own weight hitting the hull; the down is
  * the beam cutting the strain short, and the out is the frame coming down
  * on nothing. Low and soft under the band, or short and high above it, as
@@ -61,6 +63,20 @@ export const BOSS_SCUTTLE_SOUNDS: SoundDef[] = [
       noise(0.05, { type: "highpass", freq: 2600, toFreq: 4200, q: 0.9 }, 0.001, 0.02, 0.5),
       after(0.02, glint(2900, 0.28, 0.16)),
       after(0.1, thud(140, 70, 0.2, 0.3)),
+    ],
+  },
+  {
+    id: "boss.scuttleSwing",
+    family: "boss",
+    blurb:
+      "A hanging part dragged a column along the rail: a scrape, the thread singing, a knock as it settles.",
+    status: "bound",
+    use: "The pilot carrying one of THE SCUTTLE's hanging parts a column — it is thrown down the column he put it in.",
+    level: 0.32,
+    layers: [
+      noise(0.22, { type: "bandpass", freq: 900, toFreq: 1500, q: 3.2 }, 0.02, 0.1, 0.45),
+      after(0.06, soft(0.5, spore(680, 0.22, 0.1, 30))),
+      after(0.18, thud(240, 150, 0.1, 0.28)),
     ],
   },
   {

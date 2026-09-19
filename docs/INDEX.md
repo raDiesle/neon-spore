@@ -288,6 +288,7 @@ place — the generator keeps whatever is there.
 | `packages/sim/src/scout-open.ts` | **Standing THE SCOUT up**: where home is, and one arena set out as authored |
 | `packages/sim/src/scout.ts` | THE SCOUT: the ship puts something small out into the dark, and only one of you is holding it |
 | `packages/sim/src/scuttle-hash.ts` | What THE SCUTTLE puts into `hashWorld`, and nothing else |
+| `packages/sim/src/scuttle-hand.ts` | **The pilot's thumb on a part THE SCUTTLE already let go of**, off the wire, on the tick |
 | `packages/sim/src/scuttle-shot.ts` | **A shot that nothing on the field stopped, leaving through the top** under THE SCUTTLE |
 | `packages/sim/src/scuttle-step.ts` | THE SCUTTLE's clock — the count, the detachment, the throw, the wind-up and the collapse |
 | `packages/sim/src/scuttle.ts` | THE SCUTTLE: a boss racing you to its own death |
@@ -947,6 +948,7 @@ place — the generator keeps whatever is there.
 | `packages/render/src/scuttle-draw.ts` | **THE SCUTTLE**: a dark slab of a frame hung over the top of the field above row 0, plated with its parts |
 | `packages/render/src/scuttle-fx.ts` | What THE SCUTTLE leaves behind a frame: the **jolt** a throw puts through the frame |
 | `packages/render/src/scuttle-shape.ts` | **Where THE SCUTTLE is**, in field pixels: the frame of sockets hung over the top of the field above row 0 |
+| `packages/render/src/scuttle-grip.ts` | **THE SCUTTLE's hanging parts as controls**: a ring on each one a thumb may still carry |
 | `packages/render/src/scout-button.ts` | THE SCOUT's four presses, as faces on the band's own lobes |
 | `packages/render/src/scout-draw.ts` | THE SCOUT's arena, drawn: the little ship, what it is there to collect, what would end it |
 | `packages/render/src/scout-round.ts` | THE SCOUT over the whole stage |
@@ -1611,6 +1613,7 @@ place — the generator keeps whatever is there.
 | `packages/audio/src/bind-choir.ts` | THE CHOIR's three, in a file of its own |
 | `packages/audio/src/bind-choreographed.ts` | The choreographed bosses' events (`docs/spec/bosses-choreographed.md`) |
 | `packages/audio/src/bind-choreographed-b.ts` | **The hands the §6.2 lanes added to bosses that had already shipped** |
+| `packages/audio/src/bind-choreographed-c.ts` | **The tail of `bind-choreographed.ts`** |
 | `packages/audio/src/bind-cling.ts` | THE LIMPET's and THE LEECH's four, in a file of their own on `bind-gum.ts`'s pattern |
 | `packages/audio/src/mixer-pulse.ts` | THE PULSE's song, played off the simulation's own clock |
 | `packages/audio/src/mixer-handover.ts` | THE HANDOVER, heard: the beat the panels change screens, and the beat they come back |
@@ -2250,6 +2253,7 @@ place — the generator keeps whatever is there.
 | `tools/director/src/sound-link-pulse.ts` | Why none of THE PULSE's twelve sounds has a picture |
 | `tools/director/src/sound-link-none.ts` | The sounds that are wired up and have nothing to draw, with the reason |
 | `tools/director/src/sound-link-none-b.ts` | The sounds wired up with nothing to draw, the second page — from THE SCUTTLE on |
+| `tools/director/src/sound-link-none-c.ts` | The sounds wired up with nothing to draw, the third page — from THE GAUGE on |
 | `tools/director/src/sound-row.ts` | **One sound, as a row of the catalogue sheet.** Its own file beside `sound-page.ts` |
 | `tools/director/src/pose-type.ts` | What a pose *is* — the shape of one, and the two things a caller can ask of one without building it |
 | `tools/director/src/pose-commands.ts` | the commands a pose presses, spelled short — `aim`, `ward`, `guard`, `suck`, `prime`, `shoot`, `pullCord`, `hold` — one builder per verb, re-exported by the kit |

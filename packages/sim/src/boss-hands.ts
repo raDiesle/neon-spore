@@ -12,6 +12,7 @@ import { ledgerHandsHeard } from "./ledger-hand.js";
 import { mazeHeartHeard } from "./maze-hand.js";
 import { mirrorLobeHeard } from "./mirror-hand.js";
 import { queenHeard } from "./queen-hand.js";
+import { scuttleHeard } from "./scuttle-hand.js";
 import { stareLidHeard } from "./stare-hand.js";
 import { surgeHeard } from "./surge-hand.js";
 import { tasterHandsHeard } from "./taster-hand.js";
@@ -119,4 +120,10 @@ export function bossHandsHeard(world: World, commands: readonly TimedCommand[]):
   // (`ledger-hand.ts`). What a plug came to over the beat is counted in
   // `ledger-step.ts`, with the cord's own clock.
   for (const c of commands) ledgerHandsHeard(world, c.player, c.command);
+  // THE SCUTTLE's one thumb on a part already hanging, on the tick because
+  // the carry is where the thumb is now and a swing answered on the next
+  // beat could arrive after the throw it was meant to move (`scuttle-hand.ts`).
+  // What the swing is worth is spent on the beat, in `scuttle-step.ts`, where
+  // the part goes down the column it was put in.
+  for (const c of commands) scuttleHeard(world, c.player, c.command);
 }

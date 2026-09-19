@@ -57,9 +57,10 @@ const BY_HAND: Partial<Record<BossKind, readonly string[]>> = {
   // thumb, passing the ship, down (`leadRunning`, `leadStill`, `leadHolding`,
   // `leadPassing`, `leadDown`).
   lead: ["pacing", "running", "still", "held", "passing", "down"],
-  // A part attached, winding one back, down (`scuttleAttached`,
-  // `scuttleWinding`, `scuttleDown`).
-  scuttle: ["attached", "winding", "down"],
+  // A part attached, one hanging part under the pilot's thumb, one carried a
+  // column along the frame, winding the last one back, down (`scuttleAttached`,
+  // `ScuttleState.held`, `scuttleSwingable`, `scuttleWinding`, `scuttleDown`).
+  scuttle: ["attached", "held", "swung", "winding", "down"],
   // The organs cycling, the rail still for a pick, down (`antiphonStruck`,
   // `AntiphonState.stillBeat`, `antiphonDown`).
   antiphon: ["cycling", "still", "down"],

@@ -1,6 +1,7 @@
 import {
   scuttleBoss,
   scuttleLeft,
+  scuttlePartCol,
   scuttleShootable,
   scuttleSocketCol,
   scuttleWinding,
@@ -29,6 +30,12 @@ import type { World } from "./world.js";
  * beam is the answer to the wind-up and a beam that took a part earlier
  * would make the wind-up one more cycle. The hanging parts are for bolts,
  * which is the pair's cadence against the frame's.
+ *
+ * **A bolt reads the part's column, not the socket's** (`scuttlePartCol`): a
+ * part the pilot swung a column along the frame is shot where it now hangs,
+ * and shooting a swung part where its socket is would be the picture and the
+ * simulation disagreeing. The beam is read off the socket instead, and may
+ * be: nothing is ever swung while the frame winds up (`scuttleSwingable`).
  */
 export function scuttleStruck(world: World, b: Bullet): void {
   const s = scuttleBoss(world);
@@ -40,7 +47,7 @@ export function scuttleStruck(world: World, b: Bullet): void {
   }
   if (!scuttleShootable(s)) return;
   const socket = s.live;
-  const col = scuttleSocketCol(cfg, socket);
+  const col = scuttlePartCol(s, cfg, socket);
   const p = s.parts[socket];
   if (b.col !== col || p === null || p === undefined) return;
   if (b.color !== p.color) {
@@ -50,5 +57,8 @@ export function scuttleStruck(world: World, b: Bullet): void {
   s.parts[socket] = null;
   s.loose = s.loose.filter((i) => i !== socket);
   s.live = -1;
+  // The thumb loses what it was on, and nothing else: the swing itself stands
+  // until the next detachment, so a strike is not a second swing in a cycle.
+  if (s.held === socket) s.held = -1;
   world.events.push({ type: "scuttleStruck", col, socket, left: scuttleLeft(s) });
 }

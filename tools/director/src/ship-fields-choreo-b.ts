@@ -102,7 +102,9 @@ export const CHOREO_FIELD_GROUP_B = {
   // ScuttleConfig — the frame's size and how many of its parts are pods, the
   // look before the first throw, the two cadences and the counts they switch
   // on, what a pod taken and the beam's priming buy, where a pod hangs, THE
-  // SLOW on the wind-up and how long the wave holds after (`config-scuttle.ts`).
+  // SLOW on the wind-up and how long the wave holds after, and how far the
+  // pilot must carry a hanging part before it swings a column
+  // (`config-scuttle.ts`).
   scuttleRows: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
   scuttleCols: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
   scuttlePods: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
@@ -116,6 +118,7 @@ export const CHOREO_FIELD_GROUP_B = {
   scuttlePodRow: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
   scuttleSlowBeats: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
   scuttleOutBeats: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
+  scuttleSwingMilli: "THE SCUTTLE — the boss that throws itself at you, a part at a time",
   // AntiphonConfig — the table of contours and the families it is cut into,
   // how many pits end it, the growth and the two windows, the rail and its
   // widest, the pit counts every escalation switches on, the rest, the still,

@@ -4,6 +4,7 @@ import {
   createWorld,
   type ScuttleState,
   scuttleBoss,
+  scuttleSocketCol,
   startWave,
   step,
   ticksPerBeat,
@@ -211,6 +212,35 @@ describe("THE SCUTTLE's frame", () => {
       down(w).downBeat = w.beat - CFG.scuttleOutBeats - 1;
     });
     expect(count(gone.text, slab)).toBe(0);
+  });
+
+  it("rings the hanging parts on the pilot's screen and not the navigator's", () => {
+    // The ring is offered while a part may still be carried and gone once
+    // one has been, so a part swung to the column it was already over is the
+    // same picture with the ring taken away — on the screen that has one.
+    const ringed = (role: ViewRole) => frame(role, (w) => loose(w)).text;
+    const spent = (role: ViewRole) =>
+      frame(role, (w) => {
+        const s = loose(w);
+        s.swung = 9;
+        s.swungCol = scuttleSocketCol(CFG, 9);
+      }).text;
+    expect(ringed("p1")).not.toBe(spent("p1"));
+    expect(ringed("p2")).toBe(spent("p2"));
+  });
+
+  it("hangs a carried part over the column it was put in, on every screen", () => {
+    // One column along is one tile along, and the thread leans after it, so
+    // no seat is drawn a part in a place the throw will not come from.
+    const put = (role: ViewRole, col: number) =>
+      frame(role, (w) => {
+        const s = loose(w);
+        s.swung = 9;
+        s.swungCol = col;
+      }).text;
+    for (const role of ROLES) {
+      expect(put(role, scuttleSocketCol(CFG, 9) + 1)).not.toBe(put(role, scuttleSocketCol(CFG, 9)));
+    }
   });
 
   it("keeps the jolt as a transient the next run does not inherit", () => {

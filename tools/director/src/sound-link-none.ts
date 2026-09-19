@@ -14,11 +14,14 @@
  * **This page is full, and gives a boss back rather than grow.** THE LEAD's
  * fourteen filled it once and went next door on 19 September 2026, when THE
  * CANDLE's two new rows put it over its limit again, so the second page now
- * runs from THE LEAD on. The seam is build order: it is the *last* boss here
- * that goes across, never the one being worked on — THE CANDLE's rows stay
- * where the comment above them explains them.
+ * runs from THE SURGE on, and a third page from THE GAUGE on was cut off
+ * *that* one the same day by the same rule. The seam is build order: it is
+ * the *last* boss on a full page that goes across, never the one being
+ * worked on — THE CANDLE's rows stay where the comment above them explains
+ * them.
  */
 import { NO_SUBJECT_B } from "./sound-link-none-b.js";
+import { NO_SUBJECT_C } from "./sound-link-none-c.js";
 import { PULSE_NO_SUBJECT } from "./sound-link-pulse.js";
 
 export const NO_SUBJECT: Record<string, string> = {
@@ -236,6 +239,9 @@ export const NO_SUBJECT: Record<string, string> = {
   // THE PULSE's twelve, which are next door: a song has no bodies in it at all
   // (`sound-link-pulse.ts`).
   ...PULSE_NO_SUBJECT,
-  // From THE SCUTTLE on, the second page (`sound-link-none-b.ts`).
+  // From THE SURGE on, the second page (`sound-link-none-b.ts`), and from THE
+  // GAUGE on the third (`sound-link-none-c.ts`) — each cut off the one before
+  // it by the same rule, and spread here so the test reads one table.
   ...NO_SUBJECT_B,
+  ...NO_SUBJECT_C,
 };

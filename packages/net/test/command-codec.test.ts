@@ -165,6 +165,14 @@ const ACCEPTED: Command[] = [
   // holding a boss that never moves.
   { kind: "drag", target: "leadStalk", on: true, fromMilli: 0 },
   { kind: "drag", target: "leadStalk", on: false, fromMilli: 0 },
+  // THE SCUTTLE's hanging part, the one handle on this wire that buys a
+  // **place** rather than time: the sign of `fromMilli` is the direction the
+  // part is carried, and `id` is which of the two hanging parts his thumb
+  // landed on (`sim/scuttle-hand.ts`). Both signs, because a codec that kept
+  // only one would walk every part the same way down the frame.
+  { kind: "drag", target: "scuttlePart", on: true, fromMilli: 600, id: 4 },
+  { kind: "drag", target: "scuttlePart", on: true, fromMilli: -600, id: 4 },
+  { kind: "drag", target: "scuttlePart", on: false, fromMilli: 0, id: 4 },
   { kind: "drag", target: "crank", on: true, fromMilli: 750 },
   { kind: "drag", target: "crank", on: true, fromMilli: -1 },
   // THE ORRERY's outermost unbroken ring: the same bearing, on the field
@@ -302,6 +310,7 @@ const EVERY_TARGET: Record<DragTarget, true> = {
   ledgerBead: true,
   ledgerCord: true,
   leadStalk: true,
+  scuttlePart: true,
   crank: true,
   orreryRing: true,
 };

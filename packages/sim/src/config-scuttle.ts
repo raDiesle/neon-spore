@@ -42,6 +42,8 @@ export interface ScuttleConfig {
   scuttleSlowBeats: number;
   /** Beats the frame stands empty after the beam before the wave may end. */
   scuttleOutBeats: number;
+  /** How far the pilot must carry a hanging part, in thousandths of a tile, before it swings a column (`scuttle-hand.ts`). */
+  scuttleSwingMilli: number;
 }
 
 /**
@@ -51,6 +53,11 @@ export interface ScuttleConfig {
  * twelve left and the fast cadence from seven, the design's own thirds; a
  * pod worth one beat of every cadence after it, which over the back half of
  * the fight is what the design calls *time given back*.
+ *
+ * The swing is two fifths of a tile: shorter than the half-tile a thumb
+ * covers, so the part goes the moment the carry is plainly sideways rather
+ * than a press that wandered, and far enough that a finger resting on a part
+ * it only meant to hold does not throw it into the next column.
  */
 export const SCUTTLE_DEFAULTS: ScuttleConfig = {
   scuttleRows: 3,
@@ -66,4 +73,5 @@ export const SCUTTLE_DEFAULTS: ScuttleConfig = {
   scuttlePodRow: 4,
   scuttleSlowBeats: 4,
   scuttleOutBeats: 3,
+  scuttleSwingMilli: 400,
 };

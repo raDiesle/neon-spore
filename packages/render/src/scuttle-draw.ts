@@ -3,7 +3,9 @@ import {
   type ScuttleState,
   type SimConfig,
   scuttleNextCol,
+  scuttlePartCol,
   scuttleShootable,
+  scuttleSocketCol,
   scuttleWinding,
   type World,
 } from "@neon-spore/sim";
@@ -83,7 +85,12 @@ export function drawScuttle(
     }
     if (loose && part !== null) {
       const live = lively && i === s.live;
-      const at = { x: c.x, y: c.y + hang };
+      // A part the pilot carried hangs over the column he put it in rather
+      // than its socket's, and the thread leans across to it. Added to the
+      // socket's own x rather than taken from the column, so the wind-up's
+      // shiver above still moves it (`scuttlePartCol`).
+      const shift = l.tile * (scuttlePartCol(s, cfg, i) - scuttleSocketCol(cfg, i));
+      const at = { x: c.x + shift, y: c.y + hang };
       drawThread(ctx, l, c, at, fade);
       if (live) {
         fx.note(at.x, at.y);

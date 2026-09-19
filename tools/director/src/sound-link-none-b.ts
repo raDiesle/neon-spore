@@ -23,6 +23,13 @@
  * field with breaches in its underside, and what a breach spills is a
  * meteor, which has its card already; the spill is the breach's moment,
  * not the rock's (`sim/hive.ts`).
+ *
+ * **This page is full too, and gives a boss back rather than grow**, by the
+ * rule page one wrote and along the same seam. THE GAUGE's four went across
+ * to `sound-link-none-c.ts` on 19 September 2026, when THE SCUTTLE's swing
+ * would have put this file over its limit: the last boss here moves, never
+ * the one being worked on, so the swing's row stands with the nine it
+ * belongs to and under the comment that explains them.
  */
 export const NO_SUBJECT_B: Record<string, string> = {
   // THE SURGE's twelve came over on 19 September 2026, by the same rule and
@@ -68,6 +75,8 @@ export const NO_SUBJECT_B: Record<string, string> = {
   "boss.scuttleThrow":
     "a part thrown down its column. What falls is a meteor, a slick, a bulb or a pod, and each of those has its own card; the throw is the frame's.",
   "boss.scuttleStruck": "a hanging part cracked off the frame by a bolt. Same argument.",
+  "boss.scuttleSwing":
+    "the pilot carrying a hanging part a column along the frame, so it is thrown down the column he put it in. Same argument — what moves is a part of the rack, and what lands is the body it becomes.",
   "boss.scuttleRebuff": "a bolt of the wrong colour going dull against a part. Same argument.",
   "boss.scuttleSlack": "the frame's next window a beat longer for a pod taken. Same argument.",
   "boss.scuttleWind": "the last part winding up over its socket. Same argument.",
@@ -234,15 +243,4 @@ export const NO_SUBJECT_B: Record<string, string> = {
     "the mouth taking what stood in it, and a slack ring drawing tight again. Same argument — the body that was eaten is gone by the time it is heard.",
   "boss.throatEvert":
     "the last ring gone slack and the tube turning through its own mouth. Same argument, and there is no contour for it: the eversion is the fixture unmaking itself.",
-  // THE GAUGE's four, the round's first sounds at all. The subject is a dial
-  // and a band on a plate, and the round has thrown the field away like the
-  // others (`sim/events-gauge.ts`, `docs/spec/interludes.md`).
-  "boss.gaugeMark":
-    "a call landing between the two marks. The needle's, and the sheet has no card for a dial.",
-  "boss.gaugeMiss":
-    "a call that missed — free the first time, and the valve sticks beside it. Same argument.",
-  "boss.gaugeJam":
-    "the miss beside this one sticking the valve: the needle answers his hand until the next call lands. Same argument.",
-  "boss.gaugeBind":
-    "the mark beside this one winding the band tight: she cannot call while her thumb is not holding it open. Same argument.",
 };
