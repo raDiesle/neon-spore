@@ -2105,6 +2105,7 @@ what the rest of this file holds.
 ## `sound-link-none-b.ts` is at 245 lines, and THE GAUGE's four just filled it
 
 - **Found:** 2026-09-19, claude/queue-the-gauge-sound
+- **Taken:** 2026-09-19, main (claim: claude/queue-sound-link-none-b-ts-is-at-245-lines-and-the-gau)
 - **Files:** `tools/director/src/sound-link-none-b.ts`, `tools/director/src/sound-link-none.ts`
 
 Giving THE GAUGE its first four events (`docs/queue.md`'s own *THE GAUGE is
