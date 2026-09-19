@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · 501beac7 — THE ORRERY says the column, and the briefing comes down
+
+The fight said BURN on the naked core and nothing anywhere else, which was honest about the beat — three rings, one gap each, split across two phones — and silent about the column. A bolt and the beam both leave the cannon's own column, the core hangs over exactly one for the whole fight, and the spitting phase spends itself throwing rocks down every column but that one to drive the pilot off it. Nothing on his band said so, and it was the guide's first line.
+
 ## 2026-09-19 · 979bf6cc — `queue done` takes the title: a removal is never taken off a position
 
 `done` had one guard against a stale number — refuse it for an item somebody else holds — and the hole was the case nobody had asked about. A number that has drifted onto a *free* entry passed it, deleted the entry, named it and exited zero. That happened this morning, and what made the number stale was the queue's own first rule: the lane had written its finding into `docs/queue.md` above the item it was closing, as the preamble requires, so the listing it had read a few minutes earlier was one row out.

@@ -2089,3 +2089,17 @@ To do: in `drift.ts`, for every run of two or more capitals in a row's text
 from the file's own header comment. Case-sensitive and whole-run, so ordinary
 prose cannot trip it. Two cases: a row naming a boss its file no longer
 mentions is caught; a row naming one it still does is not.
+
+## Unverified at 501beac7: the PNG of MOVE and BURN standing on a real frame was n…
+
+- **Found:** 2026-09-19, claude/task-queue-work-ym2eim
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/bosses.md`, `docs/spec/briefings.md`, `docs/time-log.md`, `packages/content/src/scenes/the-orrery.ts`, `packages/content/src/waves/act-7d.ts`, `packages/render/src/boss-cue-read-c.ts`
+
+*THE ORRERY says the column, and the briefing comes down* landed from a session that could not look at it. The commit touched 4 more files. What went unchecked:
+
+- the PNG of MOVE and BURN standing on a real frame was never taken
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
