@@ -10798,3 +10798,5 @@ and handed THE FLEET across — and the two audio counts in the spec. A boss tha
 gains one handle pays most of that; a boss that gains three pays it once. The
 next §6.2 lane should add its hands together for that reason rather than one
 per landing.
+
+*Measured: 14 min from this lane's first commit to the trunk moving, by `bun run land`. The rows above are the session's own estimate; this holds nothing before the first commit and every minute the lane spent waiting.*

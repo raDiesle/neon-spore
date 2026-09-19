@@ -9,6 +9,10 @@ is waiting on anybody — it is a record of what happened, not a list of what is
 owed. Entries are never edited by hand either: an entry that reads wrong is a
 commit message that read wrong, and the history is where that lives.
 
+## 2026-09-19 · fbdcfa17 — THE TASTER: three thumbs on the fan, one per movement
+
+THE TASTER answered every beat of its fight from the panel: a bolt of the colour a blade is not, a bolt into the gap where one used to be, and a beam at the end. One gesture played eleven times, with the colour the only thing that ever changed. It has three hands on its own picture now, and every movement asks something the one before it did not.
+
 ## 2026-09-19 · f9efa526 — THE SCUTTLE names the slide its two presses have always needed
 
 THE SCUTTLE said BURN and FIRE, and that was one lane's reach rather than the fight. Every bolt and every beam leaves the column the cannon is standing in and the cannon is the pilot's, so this fight is two presses of hers over one movement of his, and scuttleStruck is a no-op in any other column: said for the wrong colour and unsaid for the wrong column. The field had never named that movement.

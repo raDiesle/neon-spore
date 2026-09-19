@@ -2120,3 +2120,17 @@ child is gone **within** a bound — a short poll with a named deadline, and a
 comment saying it is waiting for the reap and not for the exit. Do not simply
 widen the timeout: the file's `setDefaultTimeout` is already measured from
 this case, and a longer one would hide whichever of the two this is.
+
+## Unverified at fbdcfa17: THE TASTER's three new words on a real frame: PIN, WIPE…
+
+- **Found:** 2026-09-19, claude/queue-the-taster-changes-state-more-than-once-and-asks
+- **Files:** `docs/INDEX.md`, `docs/queue.md`, `docs/spec/audio.md`, `docs/spec/bosses.md`, `docs/time-log.md`, `packages/audio/src/bind-choreographed-b.ts`, `packages/audio/src/bind-taster.ts`, `packages/audio/src/sounds/boss-taster.ts`
+
+*THE TASTER: three thumbs on the fan, one per movement* landed from a session that could not look at it. The commit touched 29 more files. What went unchecked:
+
+- THE TASTER's three new words on a real frame: PIN, WIPE and PRY were never seen on a phone, and no PNG was taken
+
+Open each one on a machine that can, and then either take this entry out
+with `bun run queue done` or write what you found as an entry of its own.
+Nothing here is owed to anybody: it is work nobody has started, which is
+what the rest of this file holds.
